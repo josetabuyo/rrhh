@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <Via_Altapasaje>
+    <Id>1</Id>
+    <IdComision>14</IdComision>
+    <FechaDesde>2012-07-04T10:30:00</FechaDesde>
+    <FechaHasta>2012-07-04T10:31:00</FechaHasta>
+    <Provincia>10</Provincia>
+    <Eventual>100.2500</Eventual>
+    <AdicPorPasaje>100.5000</AdicPorPasaje>
+    <CalculadoPorCategoria>0</CalculadoPorCategoria>
+    <Motivo>Renovación de Contrato</Motivo>
+    <Baja>false</Baja>
+    <Usuario>1</Usuario>
+  </Via_Altapasaje>
+</ViaticosDataSet>

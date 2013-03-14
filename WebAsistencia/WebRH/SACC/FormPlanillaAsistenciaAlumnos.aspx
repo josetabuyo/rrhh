@@ -1,0 +1,157 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormPlanillaAsistenciaAlumnos.aspx.cs" Inherits="SACC_FormPlanillaAsistenciaAlumnos" %>
+<%@ Register Src="~/SACC/ControlPlanillaAsistenciasAlumnos.ascx" TagName="planilla" TagPrefix="uc1" %>
+<%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
+<%@ Register Src="BarraDeNavegacion.ascx" TagName="BarraNavegacion" TagPrefix="uc3" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
+        runat="server" />
+    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
+        type="text/css" runat="server" />
+    <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
+    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
+    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/BotonAsistencia.js"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
+    <div id="DivContenedor" runat="server" style="margin:10px;">
+    
+
+    <label>Curso:&nbsp;</label>
+    <select id="CmbCurso" onchange="javascript:CargarPlanilla();" runat="server">
+    <option value="0">Seleccione</option>
+    </select>
+
+    <br />
+    <label>Mes:&nbsp;&nbsp;&nbsp;</label>
+    <select id="CmbMes" onchange="javascript:CargarPlanilla();" runat="server">
+    <option value="0">Seleccione</option>
+    <option value="1">Enero</option>
+    <option value="2">Febrero</option>
+    <option value="3">Marzo</option>
+    <option value="4">Abril</option>
+    <option value="5">Mayo</option>
+    <option value="6">Junio</option>
+    <option value="7">Julio</option>
+    <option value="8">Agosto</option>
+    <option value="9">Septiembre</option>
+    <option value="10">Octubre</option>
+    <option value="11">Noviembre</option>
+    <option value="12">Diciembre</option>
+    </select>
+
+    <br />
+
+
+    <uc1:planilla ID="PlanillaAsistencia" runat="server" />
+    </div>
+    <input class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla()" value="Imprimir" />
+    <input class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
+    <asp:Button style="display:none;" ID="btn_CargarAsistencias" OnClick="CargarAsistencias" runat="server" />
+    </form>
+</body>
+<script type="text/javascript">
+
+    var AdministradorPlanillaMensual = function () {
+        if ($('#PlanillaAsistencia_planillaJSON').val() != "") {
+            var Planilla = JSON.parse($('#PlanillaAsistencia_planillaJSON').val());
+
+            var DiasCursados = Planilla['diascursados'];
+            var AlumnosInasistencias = Planilla['asistenciasalumnos'];
+            var contenedorPlanilla = $('#PlanillaAsistencia_ContenedorPlanilla');
+            var columnas = [];
+
+            columnas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
+            columnas.push(new Columna("Pertenece a", { generar: function (inasistenciaalumno) { return inasistenciaalumno.pertenece_a } }));
+
+            for (var i = 0; i < DiasCursados.length; i++) {
+                columnas.push(new Columna(DiasCursados[i].nombre_dia + "<br/>" + DiasCursados[i].dia,
+                                        new GeneradorCeldaDiaCursado(DiasCursados[i])
+            ));
+            }
+            columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
+            columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
+            columnas.push(new Columna("Justificadas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.justificadas } }));
+
+
+
+            var PlanillaMensual = new Grilla(columnas);
+
+
+            PlanillaMensual.CargarObjetos(AlumnosInasistencias);
+            PlanillaMensual.DibujarEn(contenedorPlanilla);
+            PlanillaMensual.SetOnRowClickEventHandler(function () {
+                return true;
+            });
+        }
+    };
+
+    var GeneradorCeldaDiaCursado = function (diaCursado) {
+        var self = this;
+        self.diaCursado = diaCursado;
+        self.generar = function (inasistenciaalumno) {
+            var contenedorAcciones = $('<div>');
+            //dps se tiene que eliminar el random y cambiar por "0"
+            //alert(JSON.stringify(inasistenciaalumno));
+            var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
+                .Where(function (x) { return x.fecha == diaCursado.fecha });
+
+            var botonAsistencia;
+            if (queryResult.Count() > 0) {
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor);
+            }
+            else {
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0);
+            }
+            contenedorAcciones.append(botonAsistencia);
+
+            return contenedorAcciones;
+        };
+    }
+
+    $(document).ready(function () {
+        AdministradorPlanillaMensual();
+    });
+
+    function GuardarDetalleAsistencias() {
+        var botones_asistencias = $("table input");
+        var detalle_asistencias = [];
+        
+        for (var i = 0; i < botones_asistencias.length; i++) {
+            var asistencia_btn = $(botones_asistencias[i]);
+            var asistencia = {
+                id_alumno: asistencia_btn.attr("id_alumno"),
+                fecha: asistencia_btn.attr("dia_cursado"),
+                valor: asistencia_btn.attr("estado")
+            };
+            detalle_asistencias.push(asistencia);
+        }
+        $("#PlanillaAsistencia_DetalleAsistencias").val(JSON.stringify(detalle_asistencias));
+        return true;
+    }
+
+    function ImprimirPlanilla() {
+        if ($("#CmbCurso").val() != 0 && $("#CmbMes").val() != 0) {
+            window.open('PrintPlanillaAsistenciaAlumnos.aspx?' + 'idCurso=' + $("#CmbCurso").val() + '&mes=' + $("#CmbMes").val()); ;
+        }
+    }
+
+    function CargarPlanilla() {
+        if ($("#CmbCurso").val() != 0 && $("#CmbMes").val() != 0) {
+            $("#PlanillaAsistencia_CursoId").val($("#CmbCurso").val());
+            $("#PlanillaAsistencia_Mes").val($("#CmbMes").val());
+            $("#btn_CargarAsistencias").click();
+        }
+    }
+</script>
+</html>

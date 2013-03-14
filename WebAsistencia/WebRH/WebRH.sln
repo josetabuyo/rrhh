@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebRH", ".", "{EBCECF43-7917-45B8-84DC-23CB17837B61}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = ""
+		SccAuxPath = ""
+		SccLocalPath = ""
+		SccProvider = ""
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
+		Debug.AspNetCompiler.VirtualPath = "/WebRH"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\Repositorios\licencias-viaticos-web\WebAsistencia\WebRH\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WebRH\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/WebRH"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\Repositorios\licencias-viaticos-web\WebAsistencia\WebRH\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\WebRH\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "58225"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBCECF43-7917-45B8-84DC-23CB17837B61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBCECF43-7917-45B8-84DC-23CB17837B61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <VIA_MediosDeTransporte>
+    <Id>1</Id>
+    <Nombre>Micro</Nombre>
+  </VIA_MediosDeTransporte>
+  <VIA_MediosDeTransporte>
+    <Id>2</Id>
+    <Nombre>Avión</Nombre>
+  </VIA_MediosDeTransporte>
+</ViaticosDataSet>

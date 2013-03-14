@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <Tabla_Areas>
+    <id>0</id>
+    <descripcion>Ministerio de Desarrollo Social</descripcion>
+    <Baja>0</Baja>
+    <Presenta_DDJJ>1</Presenta_DDJJ>
+    <Usuario>1</Usuario>
+  </Tabla_Areas>
+  <Tabla_Areas>
+    <id>1</id>
+    <descripcion>Unidad Ministro</descripcion>
+    <Baja>0</Baja>
+    <Presenta_DDJJ>1</Presenta_DDJJ>
+    <Usuario>68</Usuario>
+  </Tabla_Areas>
+</ViaticosDataSet>

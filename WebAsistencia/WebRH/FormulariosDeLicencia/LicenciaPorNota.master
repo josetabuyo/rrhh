@@ -1,0 +1,74 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="LicenciaPorNota.master.cs" Inherits="FormulariosDeLicencia_LicenciaPorNota" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Página sin título</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        &nbsp;<table style="border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px;
+            width: 100%; text-align: center; border-right-width: 0px">
+            <tr>
+                <td>
+                    <table border="1" style="width: 642px; text-align: center">
+                        <tr>
+                            <td style="width: 100%; height: 425px; text-align: center">
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td style="width: 603px">
+                                                <asp:Label ID="LTitulo" runat="server" Font-Bold="True" Font-Names="Tahoma" Font-Size="Small"
+                                                    Font-Underline="True" ForeColor="DimGray" Text="Titulo"></asp:Label><br />
+                                                <asp:Label ID="LTituloSecundario" runat="server" Font-Bold="True" Font-Names="Tahoma"
+                                                    Font-Size="10pt" Text="TituloSecundario"></asp:Label><br />
+                                                <br />
+                                            </td>
+                                        </tr>
+                                        <tr style="font-weight: bold; font-size: 12pt; font-family: Times New Roman">
+                                            <td style="height: 21px; text-align: left; width: 603px;">
+                                                <asp:Label ID="LProcedimiento" runat="server" Font-Bold="True" Font-Names="Tahoma"
+                                                    Font-Size="Small" Font-Underline="True" Text="Procedimiento para su solicitud:"></asp:Label><br />
+                                                <br />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height: 46px; text-align: left; width: 603px;">
+                                                <asp:Label ID="Label1" runat="server" Text="1) Para estos casos, se debe remitir a la Dirección de Administración de Personal – Piso 21 – Avda Nueve de Julio 1925 – CABA, una nota firmada por el superior con rango no inferior a Director en la que se explicitan los motivos y alcances de la solicitud."
+                                                    Width="588px"></asp:Label><br />
+                                                <asp:Label ID="Label2" runat="server" Text="2) Dicha nota se acompañará en los casos que resulte pertinente de la documentación respaldatoria."
+                                                    Width="588px"></asp:Label><br />
+                                                <asp:Label ID="Label5" runat="server" Text="3) La Dirección de Administración de Personal evaluará el pedido e indicará los pasos a seguir para cada caso particular. "
+                                                    Width="589px"></asp:Label></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left; width: 603px;">
+                                                <hr />
+                                                <asp:Label ID="LNormativa" runat="server" Font-Bold="True" Font-Names="Tahoma" Font-Size="Small"
+                                                    Font-Underline="True" Text="Normativa"></asp:Label>&nbsp;<br />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" style="text-align: left; height: 253px; width: 603px;">
+                                                &nbsp;<asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                                                </asp:ContentPlaceHolder>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" style="height: 15px; width: 603px;">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Principal.aspx">Volver</asp:HyperLink></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <Tabla_Niveles>
+    <Id>1</Id>
+    <Nivel>0</Nivel>
+    <Baja>1</Baja>
+  </Tabla_Niveles>
+  <Tabla_Niveles>
+    <Id>4</Id>
+    <Nivel>A</Nivel>
+    <Baja>0</Baja>
+  </Tabla_Niveles>
+  <Tabla_Niveles>
+    <Id>5</Id>
+    <Nivel>B</Nivel>
+    <Baja>0</Baja>
+  </Tabla_Niveles>
+  <Tabla_Niveles>
+    <Id>6</Id>
+    <Nivel>C</Nivel>
+    <Baja>0</Baja>
+  </Tabla_Niveles>
+  <Tabla_Niveles>
+    <Id>44</Id>
+    <Nivel>W</Nivel>
+    <Baja>0</Baja>
+  </Tabla_Niveles>
+</ViaticosDataSet>

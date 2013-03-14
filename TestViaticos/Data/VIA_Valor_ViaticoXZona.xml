@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <VIA_Valor_ViaticoXZona>
+    <Id>1</Id>
+    <IdTipoViatico>1</IdTipoViatico>
+    <IdZona>1</IdZona>
+    <Valor>407.00</Valor>
+    <Desde>2011-12-01T00:00:00</Desde>
+    <IdActo>2</IdActo>
+  </VIA_Valor_ViaticoXZona>
+</ViaticosDataSet>

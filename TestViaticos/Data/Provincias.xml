@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <Provincias>
+    <idProvincia>2</idProvincia>
+    <nombreProvincia>C.A.B.A</nombreProvincia>
+    <codAFIP>0</codAFIP>
+    <Cod_Bco>1</Cod_Bco>
+    <Cod_Bco_Nacion>CF</Cod_Bco_Nacion>
+  </Provincias>
+  <Provincias>
+    <idProvincia>6</idProvincia>
+    <nombreProvincia>BUENOS AIRES</nombreProvincia>
+    <codAFIP>1</codAFIP>
+    <Cod_Bco>2</Cod_Bco>
+    <Cod_Bco_Nacion>BA</Cod_Bco_Nacion>
+  </Provincias>
+  <Provincias>
+    <idProvincia>10</idProvincia>
+    <nombreProvincia>CATAMARCA</nombreProvincia>
+    <codAFIP>2</codAFIP>
+    <Cod_Bco>3</Cod_Bco>
+    <Cod_Bco_Nacion>CT</Cod_Bco_Nacion>
+  </Provincias>
+</ViaticosDataSet>

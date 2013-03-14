@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <Datos_Personales>
+    <Id_Interna>201530</Id_Interna>
+    <Apellido>CALCAGNO</Apellido>
+    <Nombre>Agustín Emanuel</Nombre>
+    <Tipo_Planta>22</Tipo_Planta>
+    <Sexo>1</Sexo>
+    <Fecha_Nacimiento>1982-09-15T00:00:00</Fecha_Nacimiento>
+    <Lugar_Nacimiento>Capital Federal</Lugar_Nacimiento>
+    <Nacionalidad>1</Nacionalidad>
+    <Carta_Ciudadania>null</Carta_Ciudadania>
+    <Juzgado>null</Juzgado>
+    <Secretario>null</Secretario>
+    <Cuil_Nro>20297539141</Cuil_Nro>
+    <Tipo_Documento>1</Tipo_Documento>
+    <Nro_Documento>29753914</Nro_Documento>
+    <Distrito_Militar>17</Distrito_Militar>
+    <Clase>1982</Clase>
+    <Cedula_Identidad>null</Cedula_Identidad>
+    <Expedida_por>null</Expedida_por>
+    <Regimen_Jubilatorio>1</Regimen_Jubilatorio>
+    <Denominacion>0</Denominacion>
+    <Estado_Civil>1</Estado_Civil>
+    <Grupo_Sanguineo>4</Grupo_Sanguineo>
+    <Factor_Sanguineo>2</Factor_Sanguineo>
+    <Credencial>null</Credencial>
+    <Obra_Social>805</Obra_Social>
+    <Nro_Afiliado>671663</Nro_Afiliado>
+    <Usuario>36</Usuario>
+    <VisibleLegajos>1</VisibleLegajos>
+    <VisibleContratos>1</VisibleContratos>
+    <BajaLegajos>0</BajaLegajos>
+    <BajaContratos>0</BajaContratos>
+  </Datos_Personales>
+  
+  <Datos_Personales>
+    <Id_Interna>200247</Id_Interna>
+    <Apellido>KIRCHNER</Apellido>
+    <Nombre>Alicia Margarita Antonia</Nombre>
+    <Tipo_Planta>20</Tipo_Planta>
+    <Sexo>2</Sexo>
+    <Fecha_Nacimiento>1982-09-15T00:00:00</Fecha_Nacimiento>
+    <Lugar_Nacimiento>Capital Federal</Lugar_Nacimiento>
+    <Nacionalidad>1</Nacionalidad>
+    <Carta_Ciudadania>null</Carta_Ciudadania>
+    <Juzgado>null</Juzgado>
+    <Secretario>null</Secretario>
+    <Cuil_Nro>20297539141</Cuil_Nro>
+    <Tipo_Documento>1</Tipo_Documento>
+    <Nro_Documento>5438876</Nro_Documento>
+    <Distrito_Militar>17</Distrito_Militar>
+    <Clase>1982</Clase>
+    <Cedula_Identidad>null</Cedula_Identidad>
+    <Expedida_por>null</Expedida_por>
+    <Regimen_Jubilatorio>1</Regimen_Jubilatorio>
+    <Denominacion>0</Denominacion>
+    <Estado_Civil>1</Estado_Civil>
+    <Grupo_Sanguineo>4</Grupo_Sanguineo>
+    <Factor_Sanguineo>2</Factor_Sanguineo>
+    <Credencial>null</Credencial>
+    <Obra_Social>805</Obra_Social>
+    <Nro_Afiliado>671663</Nro_Afiliado>
+    <Usuario>36</Usuario>
+    <VisibleLegajos>1</VisibleLegajos>
+    <VisibleContratos>1</VisibleContratos>
+    <BajaLegajos>0</BajaLegajos>
+    <BajaContratos>0</BajaContratos>
+  </Datos_Personales>
+
+  <Datos_Personales>
+    <Id_Interna>202287</Id_Interna>
+    <Apellido>CARAZO</Apellido>
+    <Nombre>Alfredo Jorge</Nombre>
+    <Tipo_Planta>22</Tipo_Planta>
+    <Sexo>1</Sexo>    
+    <Fecha_Nacimiento>1982-09-15T00:00:00</Fecha_Nacimiento>
+    <Lugar_Nacimiento>Capital Federal</Lugar_Nacimiento>
+    <Nacionalidad>1</Nacionalidad>
+    <Carta_Ciudadania>null</Carta_Ciudadania>
+    <Juzgado>null</Juzgado>
+    <Secretario>null</Secretario>
+    <Cuil_Nro>20297539141</Cuil_Nro>
+    <Tipo_Documento>1</Tipo_Documento>
+    <Nro_Documento>4284003</Nro_Documento>
+    <Distrito_Militar>17</Distrito_Militar>
+    <Clase>1982</Clase>
+    <Cedula_Identidad>null</Cedula_Identidad>
+    <Expedida_por>null</Expedida_por>
+    <Regimen_Jubilatorio>1</Regimen_Jubilatorio>
+    <Denominacion>0</Denominacion>
+    <Estado_Civil>1</Estado_Civil>
+    <Grupo_Sanguineo>4</Grupo_Sanguineo>
+    <Factor_Sanguineo>2</Factor_Sanguineo>
+    <Credencial>null</Credencial>
+    <Obra_Social>805</Obra_Social>
+    <Nro_Afiliado>671663</Nro_Afiliado>
+    <Usuario>36</Usuario>
+    <VisibleLegajos>1</VisibleLegajos>
+    <VisibleContratos>1</VisibleContratos>
+    <BajaLegajos>0</BajaLegajos>
+    <BajaContratos>0</BajaContratos>
+  </Datos_Personales>
+
+  <Datos_Personales>
+    <Id_Interna>203332</Id_Interna>
+    <Apellido>MARTINELLI</Apellido>
+    <Nombre>Luis Maria</Nombre>
+    <Tipo_Planta>0</Tipo_Planta>
+    <Sexo>1</Sexo>
+    <Fecha_Nacimiento>1982-09-15T00:00:00</Fecha_Nacimiento>
+    <Lugar_Nacimiento>Capital Federal</Lugar_Nacimiento>
+    <Nacionalidad>1</Nacionalidad>
+    <Carta_Ciudadania>null</Carta_Ciudadania>
+    <Juzgado>null</Juzgado>
+    <Secretario>null</Secretario>
+    <Cuil_Nro>20297539141</Cuil_Nro>
+    <Tipo_Documento>1</Tipo_Documento>
+    <Nro_Documento>11489469</Nro_Documento>
+    <Distrito_Militar>17</Distrito_Militar>
+    <Clase>1982</Clase>
+    <Cedula_Identidad>null</Cedula_Identidad>
+    <Expedida_por>null</Expedida_por>
+    <Regimen_Jubilatorio>1</Regimen_Jubilatorio>
+    <Denominacion>0</Denominacion>
+    <Estado_Civil>1</Estado_Civil>
+    <Grupo_Sanguineo>4</Grupo_Sanguineo>
+    <Factor_Sanguineo>2</Factor_Sanguineo>
+    <Credencial>null</Credencial>
+    <Obra_Social>805</Obra_Social>
+    <Nro_Afiliado>671663</Nro_Afiliado>
+    <Usuario>36</Usuario>
+    <VisibleLegajos>1</VisibleLegajos>
+    <VisibleContratos>1</VisibleContratos>
+    <BajaLegajos>0</BajaLegajos>
+    <BajaContratos>0</BajaContratos>
+  </Datos_Personales>
+
+
+</ViaticosDataSet>
+
+
+
+
+  

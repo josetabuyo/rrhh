@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <RH_Usuarios>
+    <Id>1</Id>
+    <Nombre>Admin</Nombre>
+    <Password>l3WIqH4QWCAycWcSzPXYXRil/M8=</Password>
+    <Vence_Passw>2020-12-31T23:59:59</Vence_Passw>
+    <Baja>0</Baja>
+    <Actualizar_Passw>0</Actualizar_Passw>
+    <Administrador>0</Administrador>
+  </RH_Usuarios>
+</ViaticosDataSet>

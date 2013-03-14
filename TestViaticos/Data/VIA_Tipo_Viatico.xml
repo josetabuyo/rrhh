@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <VIA_Tipo_Viatico>
+    <Id>1</Id>
+    <TipoViatico>CCT Dcto 214/06</TipoViatico>
+    <Desde>2006-02-27T00:00:00</Desde>
+  </VIA_Tipo_Viatico>
+  <VIA_Tipo_Viatico>
+    <Id>2</Id>
+    <TipoViatico>Funciones Ejecutivas</TipoViatico>
+    <Desde>2006-02-27T00:00:00</Desde>
+  </VIA_Tipo_Viatico>
+  <VIA_Tipo_Viatico>
+    <Id>3</Id>
+    <TipoViatico>Ministro</TipoViatico>
+    <Desde>2006-12-19T00:00:00</Desde>
+  </VIA_Tipo_Viatico>
+  <VIA_Tipo_Viatico>
+    <Id>4</Id>
+    <TipoViatico>Secretario</TipoViatico>
+    <Desde>2006-12-19T00:00:00</Desde>
+  </VIA_Tipo_Viatico>
+  <VIA_Tipo_Viatico>
+    <Id>5</Id>
+    <TipoViatico>Subsecretario</TipoViatico>
+    <Desde>2006-12-19T00:00:00</Desde>
+  </VIA_Tipo_Viatico>
+</ViaticosDataSet>

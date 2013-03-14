@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <LEG_Desglose_Planta>
+    <Id>4814</Id>
+    <Id_interna>201530</Id_interna>
+    <Documento>29753914</Documento>
+    <Id_Planta>22</Id_Planta>
+    <Desig_Planta>2</Desig_Planta>
+    <Desde>2007-08-07T00:00:00</Desde>
+    <Jurisdiccion>null</Jurisdiccion>
+    <Organismo>null</Organismo>
+    <Folio>null</Folio>
+    <Acto_Tipo>0</Acto_Tipo>
+    <Acto_Nro>0</Acto_Nro>
+    <Acto_Fecha>2000-01-01T00:00:00</Acto_Fecha>
+    <Usuario>36</Usuario>
+  </LEG_Desglose_Planta>
+
+  <LEG_Desglose_Planta>
+    <Id>5884</Id>
+    <Id_interna>200247</Id_interna>
+    <Documento>5438876</Documento>
+    <Id_Planta>3</Id_Planta>
+    <Desig_Planta>2</Desig_Planta>
+    <Desde>2007-08-07T00:00:00</Desde>
+    <Jurisdiccion>null</Jurisdiccion>
+    <Organismo>null</Organismo>
+    <Folio>null</Folio>
+    <Acto_Tipo>0</Acto_Tipo>
+    <Acto_Nro>0</Acto_Nro>
+    <Acto_Fecha>2000-01-01T00:00:00</Acto_Fecha>
+    <Usuario>36</Usuario>
+  </LEG_Desglose_Planta>
+
+  <LEG_Desglose_Planta>
+    <Id>6493</Id>
+    <Id_interna>202287</Id_interna>
+    <Documento>4284003</Documento>
+    <Id_Planta>3</Id_Planta>
+    <Desig_Planta>2</Desig_Planta>
+    <Desde>2007-08-07T00:00:00</Desde>
+    <Jurisdiccion>null</Jurisdiccion>
+    <Organismo>null</Organismo>
+    <Folio>null</Folio>
+    <Acto_Tipo>0</Acto_Tipo>
+    <Acto_Nro>0</Acto_Nro>
+    <Acto_Fecha>2000-01-01T00:00:00</Acto_Fecha>
+    <Usuario>36</Usuario>
+  </LEG_Desglose_Planta>
+
+  <LEG_Desglose_Planta>
+    <Id>7517</Id>
+    <Id_interna>203332</Id_interna>
+    <Documento>11489469</Documento>
+    <Id_Planta>3</Id_Planta>
+    <Desig_Planta>2</Desig_Planta>
+    <Desde>2007-08-07T00:00:00</Desde>
+    <Jurisdiccion>null</Jurisdiccion>
+    <Organismo>null</Organismo>
+    <Folio>null</Folio>
+    <Acto_Tipo>0</Acto_Tipo>
+    <Acto_Nro>0</Acto_Nro>
+    <Acto_Fecha>2000-01-01T00:00:00</Acto_Fecha>
+    <Usuario>36</Usuario>
+  </LEG_Desglose_Planta>
+  
+</ViaticosDataSet>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <LEG_Desglose_NivelGrado>
+    <Id>34160</Id>
+    <Id_interna>201530</Id_interna>
+    <Documento>29753914</Documento>
+    <Id_nivel>6</Id_nivel>
+    <Id_grado>5</Id_grado>
+    <Desde>2012-01-01T00:00:00</Desde>
+    <Jurisdiccion>Ministerio de Desarrollo</Jurisdiccion>
+    <Organismo>Ministerio de Desarrollo</Organismo>
+    <Folio>00-000/000</Folio>
+    <Acto_Tipo>1</Acto_Tipo>
+    <Acto_Nro>26</Acto_Nro>
+    <Acto_Fecha>2011-12-16T00:00:00</Acto_Fecha>
+    <Usuario>8</Usuario>
+  </LEG_Desglose_NivelGrado>
+
+  <LEG_Desglose_NivelGrado>
+    <Id>25869</Id>
+    <Id_interna>203332</Id_interna>
+    <Documento>11489469</Documento>
+    <Id_nivel>44</Id_nivel>
+    <Id_grado>4</Id_grado>
+    <Desde>2012-01-01T00:00:00</Desde>
+    <Jurisdiccion>Ministerio de Desarrollo</Jurisdiccion>
+    <Organismo>Ministerio de Desarrollo</Organismo>
+    <Folio>00-000/000</Folio>
+    <Acto_Tipo>1</Acto_Tipo>
+    <Acto_Nro>26</Acto_Nro>
+    <Acto_Fecha>2011-12-16T00:00:00</Acto_Fecha>
+    <Usuario>8</Usuario>
+  </LEG_Desglose_NivelGrado>
+
+  <LEG_Desglose_NivelGrado>
+    <Id>15341</Id>
+    <Id_interna>202287</Id_interna>
+    <Documento>4284003</Documento>
+    <Id_nivel>44</Id_nivel>
+    <Id_grado>3</Id_grado>
+    <Desde>2012-01-01T00:00:00</Desde>
+    <Jurisdiccion>Ministerio de Desarrollo</Jurisdiccion>
+    <Organismo>Ministerio de Desarrollo</Organismo>
+    <Folio>00-000/000</Folio>
+    <Acto_Tipo>1</Acto_Tipo>
+    <Acto_Nro>26</Acto_Nro>
+    <Acto_Fecha>2011-12-16T00:00:00</Acto_Fecha>
+    <Usuario>8</Usuario>
+  </LEG_Desglose_NivelGrado>
+
+  <LEG_Desglose_NivelGrado>
+    <Id>15285</Id>
+    <Id_interna>200247</Id_interna>
+    <Documento>5438876</Documento>
+    <Id_nivel>44</Id_nivel>
+    <Id_grado>2</Id_grado>
+    <Desde>2012-01-01T00:00:00</Desde>
+    <Jurisdiccion>Ministerio de Desarrollo</Jurisdiccion>
+    <Organismo>Ministerio de Desarrollo</Organismo>
+    <Folio>00-000/000</Folio>
+    <Acto_Tipo>1</Acto_Tipo>
+    <Acto_Nro>26</Acto_Nro>
+    <Acto_Fecha>2011-12-16T00:00:00</Acto_Fecha>
+    <Usuario>8</Usuario>
+  </LEG_Desglose_NivelGrado>
+  
+  
+  
+</ViaticosDataSet>

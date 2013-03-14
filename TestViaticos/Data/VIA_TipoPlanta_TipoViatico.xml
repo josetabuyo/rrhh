@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <VIA_TipoPlanta_TipoViatico>
+    <Id>8</Id>
+    <IdTipoPlanta>22</IdTipoPlanta>
+    <IdTipoViatico>1</IdTipoViatico>
+    <IdNivel>todos</IdNivel>
+    <IdGrado>todos</IdGrado>
+    <Desde>2006-02-27T00:00:00</Desde>
+  </VIA_TipoPlanta_TipoViatico>
+
+  <VIA_TipoPlanta_TipoViatico>
+    <Id>2</Id>
+    <IdTipoPlanta>3</IdTipoPlanta>
+    <IdTipoViatico>3</IdTipoViatico>
+    <IdNivel>44</IdNivel>
+    <IdGrado>2</IdGrado>
+    <Desde>2006-02-27T00:00:00</Desde>
+  </VIA_TipoPlanta_TipoViatico>
+
+  <VIA_TipoPlanta_TipoViatico>
+    <Id>3</Id>
+    <IdTipoPlanta>3</IdTipoPlanta>
+    <IdTipoViatico>4</IdTipoViatico>
+    <IdNivel>44</IdNivel>
+    <IdGrado>3</IdGrado>
+    <Desde>2006-02-27T00:00:00</Desde>
+  </VIA_TipoPlanta_TipoViatico>
+
+  <VIA_TipoPlanta_TipoViatico>
+    <Id>4</Id>
+    <IdTipoPlanta>3</IdTipoPlanta>
+    <IdTipoViatico>5</IdTipoViatico>
+    <IdNivel>resto</IdNivel>
+    <IdGrado>resto</IdGrado>
+    <Desde>2006-02-27T00:00:00</Desde>
+  </VIA_TipoPlanta_TipoViatico>
+  
+  
+</ViaticosDataSet>

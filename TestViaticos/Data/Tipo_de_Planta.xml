@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <Tipo_de_Planta>
+    <Id>22</Id>
+    <Descripcion>Contratada</Descripcion>
+    <baja>0</baja>
+    <Tipo>C</Tipo>
+  </Tipo_de_Planta>
+
+  <Tipo_de_Planta>
+    <Id>3</Id>
+    <Descripcion>Gab Nivel Político</Descripcion>
+    <baja>0</baja>
+    <Tipo>G</Tipo>
+  </Tipo_de_Planta>
+  
+</ViaticosDataSet>

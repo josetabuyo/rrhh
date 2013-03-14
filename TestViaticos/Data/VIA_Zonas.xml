@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <VIA_Zonas>
+    <Id>1</Id>
+    <NombreZona>N.O.A</NombreZona>
+  </VIA_Zonas>
+  <VIA_Zonas>
+    <Id>2</Id>
+    <NombreZona>N.E.A</NombreZona>
+  </VIA_Zonas>
+  <VIA_Zonas>
+    <Id>3</Id>
+    <NombreZona>CUYO</NombreZona>
+  </VIA_Zonas>
+  <VIA_Zonas>
+    <Id>4</Id>
+    <NombreZona>CENTRO</NombreZona>
+  </VIA_Zonas>
+  <VIA_Zonas>
+    <Id>5</Id>
+    <NombreZona>SUR</NombreZona>
+  </VIA_Zonas>
+  <VIA_Zonas>
+    <Id>6</Id>
+    <NombreZona>METRO</NombreZona>
+  </VIA_Zonas>
+</ViaticosDataSet>

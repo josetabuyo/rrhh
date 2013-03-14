@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <Tabla_Conceptos_Licencias>
+    <Nro_Articulo>09</Nro_Articulo>
+    <Concepto>a</Concepto>
+    <Descripcion>Anual Ordinaria</Descripcion>
+    <Dias_Autorizados>35</Dias_Autorizados>
+    <id_Concepto>1</id_Concepto>
+    <Acumulativa>1</Acumulativa>
+    <Goce_Haberes>1</Goce_Haberes>
+    <Es_Ordinaria>1</Es_Ordinaria>
+    <Anual>1</Anual>
+    <Dias_Habiles>0</Dias_Habiles>
+    <Send_Legajos>1</Send_Legajos>
+    <Licencia_Medica>0</Licencia_Medica>
+    <Regresa_Medica>0</Regresa_Medica>
+    <GeneraDerechoOrdinaria>1</GeneraDerechoOrdinaria>
+    <Baja>0</Baja>
+    <DiasMensuales>0</DiasMensuales>
+    <DiasConsecutivos>0</DiasConsecutivos>
+    <Usuario>1</Usuario>
+    <PathFormularioWeb>~\FormulariosDeLicencia\F09A_AnualOrdinaria.aspx</PathFormularioWeb>
+  </Tabla_Conceptos_Licencias>
+</ViaticosDataSet>

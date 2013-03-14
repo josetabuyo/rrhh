@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViaticosDataSet xmlns="http://tempuri.org/ViaticosDataSet.xsd">
+  <VIA_Rel_Zona_Prov>
+    <Id>1</Id>
+    <Cod_AFIP_Prov>0</Cod_AFIP_Prov>
+    <IdZona>6</IdZona>
+    <Desde>2011-12-01T00:00:00</Desde>
+  </VIA_Rel_Zona_Prov>
+  <VIA_Rel_Zona_Prov>
+    <Id>2</Id>
+    <Cod_AFIP_Prov>1</Cod_AFIP_Prov>
+    <IdZona>6</IdZona>
+    <Desde>2011-12-01T00:00:00</Desde>
+  </VIA_Rel_Zona_Prov>
+  <VIA_Rel_Zona_Prov>
+    <Id>3</Id>
+    <Cod_AFIP_Prov>2</Cod_AFIP_Prov>
+    <IdZona>1</IdZona>
+    <Desde>2011-12-01T00:00:00</Desde>
+  </VIA_Rel_Zona_Prov>
+  <VIA_Rel_Zona_Prov>
+    <Id>4</Id>
+    <Cod_AFIP_Prov>3</Cod_AFIP_Prov>
+    <IdZona>4</IdZona>
+    <Desde>2011-12-01T00:00:00</Desde>
+  </VIA_Rel_Zona_Prov>
+  <VIA_Rel_Zona_Prov>
+    <Id>5</Id>
+    <Cod_AFIP_Prov>4</Cod_AFIP_Prov>
+    <IdZona>4</IdZona>
+    <Desde>2011-12-01T00:00:00</Desde>
+  </VIA_Rel_Zona_Prov>
+</ViaticosDataSet>

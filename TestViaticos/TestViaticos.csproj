@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C284778C-6A84-4887-AFC3-04700EEFAAB8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestViaticos</RootNamespace>
+    <AssemblyName>TestViaticos</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="NDbUnit.Core">
+      <HintPath>..\SharedLibs\NDbUnit.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NDbUnit.SqlClient">
+      <HintPath>..\SharedLibs\NDbUnit.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\SharedLibs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NMock2">
+      <HintPath>..\SharedLibs\NMock2.dll</HintPath>
+    </Reference>
+    <Reference Include="NMock2.Test">
+      <HintPath>..\SharedLibs\NMock2.Test.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppConexionTest.cs" />
+    <Compile Include="CodigoTareaTest.cs" />
+    <Compile Include="ControladorDeWebControlsTest.cs" />
+    <Compile Include="TestSACC\TestAlumnos.cs" />
+    <Compile Include="TestValidador.cs" />
+    <Compile Include="TestSACC\TestCalendarioDeCurso.cs" />
+    <Compile Include="TestSACC\TestPlanillaMensual.cs" />
+    <Compile Include="TestSACC\TestRepositorioCursos.cs" />
+    <Compile Include="TestFiltroSiCoI.cs" />
+    <Compile Include="TestAltaDocumentoSICOI.cs" />
+    <Compile Include="TestMensajeria.cs" />
+    <Compile Include="TestRepositorioAreas.cs" />
+    <Compile Include="TestRepositorioDocumentos.cs" />
+    <Compile Include="TestProtocolo.cs" />
+    <Compile Include="TestRepositorioUsuarios.cs" />
+    <Compile Include="TestDocumentos.cs" />
+    <Compile Include="TestUsuarios.cs" />
+    <Compile Include="TestConsultas.cs" />
+    <Compile Include="TestRepositorioDeViaticos.cs" />
+    <Compile Include="FakeArea.cs" />
+    <Compile Include="TestCircuitoDeViatico.cs" />
+    <Compile Include="TestRenderizadorDeTablas.cs" />
+    <Compile Include="TestRepositorioOrganigramas.cs" />
+    <Compile Include="CreadorDeDatosFicticios.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="TestLicencias.cs" />
+    <Compile Include="TestObjects.cs" />
+    <Compile Include="TestOrganigrama.cs" />
+    <Compile Include="TestRepositorioZonas.cs" />
+    <Compile Include="TestTablasFake.cs" />
+    <Compile Include="TestViaticos.cs" />
+    <Compile Include="ViaticosDataSet.cs">
+      <DependentUpon>ViaticosDataSet.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProyectoNet\General\General.csproj">
+      <Project>{D6802AD2-A6E1-4612-8F01-811E926A1D2E}</Project>
+      <Name>General</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebAsistencia\WebRhUI\WebRhUI.csproj">
+      <Project>{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}</Project>
+      <Name>WebRhUI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ViaticosDataSet.xsc">
+      <DependentUpon>ViaticosDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ViaticosDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ViaticosDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ViaticosDataSet.xss">
+      <DependentUpon>ViaticosDataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\ASIS_Solicitudes_Licencia_Web.xml" />
+    <Content Include="Data\Datos_Personales.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Data\LEG_Desglose_NivelGrado.xml" />
+    <Content Include="Data\LEG_Desglose_Planta.xml" />
+    <Content Include="Data\Provincias.xml" />
+    <Content Include="Data\RH_Usuarios.xml" />
+    <Content Include="Data\Tabla_Areas.xml" />
+    <Content Include="Data\Tabla_Conceptos_Licencias.xml" />
+    <Content Include="Data\Tabla_grados.xml" />
+    <Content Include="Data\Tabla_niveles.xml" />
+    <Content Include="Data\Tipo_de_Planta.xml" />
+    <Content Include="Data\VIA_Altapasaje.xml" />
+    <Content Include="Data\VIA_Estadias.xml" />
+    <Content Include="Data\VIA_MediosDePago.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Data\VIA_MediosDeTransporte.xml" />
+    <Content Include="Data\VIA_Rel_Zona_Prov.xml" />
+    <Content Include="Data\VIA_TipoPlanta_TipoViatico.xml" />
+    <Content Include="Data\VIA_Tipo_Viatico.xml" />
+    <Content Include="Data\VIA_Valor_ViaticoXZona.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Data\VIA_Zonas.xml">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
