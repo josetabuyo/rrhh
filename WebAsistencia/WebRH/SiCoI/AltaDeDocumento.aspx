@@ -53,7 +53,8 @@
             </div>
             <div class="titulo_filtro">
                 Número:</div>
-            <input type="text" id="FiltroNumero" runat="server" enableviewstate="true"  />
+            <input type="text" id="FiltroNumero" runat="server" enableviewstate="true" 
+                maxlength="30"  />
             <div class="titulo_filtro_tipo">
                 Tipo:</div>
             <asp:DropDownList ID="cmbFiltroPorTipoDeDocumento" runat="server" EnableViewState="true" type = "text" >
