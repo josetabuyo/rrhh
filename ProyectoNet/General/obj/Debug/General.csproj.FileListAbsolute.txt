@@ -12,3 +12,6 @@ C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\ProyectoNet\General\bin\Deb
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\ProyectoNet\General\obj\Debug\ResolveAssemblyReference.cache
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\ProyectoNet\General\obj\Debug\General.dll
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\ProyectoNet\General\obj\Debug\General.pdb
+C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\obj\Debug\ResolveAssemblyReference.cache
+C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\obj\Debug\General.dll
+C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\obj\Debug\General.pdb

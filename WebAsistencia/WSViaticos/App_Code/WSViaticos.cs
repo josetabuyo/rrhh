@@ -1301,7 +1301,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
-
+    [WebMethod]
+    public Edificio[] Edificios()
+    {
+        return RepoEspaciosFisicos().GetEdificios().ToArray();
+    }
 
     private RepositorioDeAlumnos RepoAlumnos()
     {
@@ -1332,4 +1336,10 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new RepositorioDeAsistencias(Conexion());
     }
+
+    private RepositorioDeEspaciosFisicos RepoEspaciosFisicos()
+    {
+        return new RepositorioDeEspaciosFisicos(Conexion());
+    }
+
 }

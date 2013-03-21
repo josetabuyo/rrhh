@@ -23,6 +23,7 @@
                           <li><a href="FormABMMaterias.aspx">Materias</a></li>
                           <li><a href="FormABMDocentes.aspx">Docentes</a></li>
                           <li><a href="FormABMCursos.aspx">Cursos</a></li>
+                          <li><a href="FormABMEspaciosFisicos.aspx">Espacios Físicos</a></li>
                         </ul>
                       </li>
                       <li class="divider-vertical"></li>                 
