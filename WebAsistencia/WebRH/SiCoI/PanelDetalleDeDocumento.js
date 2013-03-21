@@ -54,7 +54,6 @@ PanelDetalleDeDocumento.prototype = {
 
         this.cfg.divPanelDetalle.fadeIn("fast");
         this._panel_documentos.contraer();
-        this.cfg.panelDocumentos.css('height', '50%');
     },
     crearHistorialDeTransiciones: function (documento) {
         var contenedor = this.cfg.contenedor_historial_transiciones;
