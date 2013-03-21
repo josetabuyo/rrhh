@@ -1,0 +1,329 @@
+﻿.separador {
+	position: absolute;
+	left: 50%;
+	width: 840px;
+	margin-left: -420px;
+	margin-top: 0px;
+	background-color: #FFF;
+	clear: both;
+	float: none;
+	height: 256px;
+}
+.gestionar {
+	clear: both;
+	float: none;
+	padding-top: 80px;
+	margin-top: -30px;
+	background-color: #FFF
+}
+.foto {
+	clear: both;
+	float: right;
+	margin-top: -80px;
+	margin-right: 10px;
+}
+
+.datosfotos {
+	position: absolute;
+	left: -257px;
+	width: 840px;
+	margin-left: -420px;
+	margin-top: -90px;
+	padding-left: 560px;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+	font-weight: bold;
+	top: 129px;
+	text-align: right;
+	color: #000;
+}
+
+.imprimir {
+	position: absolute;
+	left: 50%;
+	width: 840px;
+	margin-left: -420px;
+	margin-top: 653px;
+	padding-left: 753px;
+	
+	
+}
+.accion {
+	position: absolute;
+	left: 50%;
+	width: 330px;
+	margin-left: -420px;
+	margin-top: 770px;
+	padding-left: 30px;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #FFF;
+	color: #000;
+	height: 41px;
+}
+.destino {
+	position: absolute;
+	left: 50%;
+	width: 400px;
+	margin-left: -420px;
+	margin-top: 760px;
+	padding-left: 440px;
+	height: 47px;
+}
+.detalle_pasajes {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 331px;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+	padding-left: 30px;
+	background-color: #fff;
+	color: #000;
+	height: 23px;
+}
+.sub_negro02 {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 505px;
+	padding-left: 30px;
+}
+.tabla_pasajes {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 353px;
+	padding-left: 30px;
+	background-color: #fff;
+	height: 161px;
+}
+.detalle_estadias {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 226px;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+	padding-left: 30px;
+	background-color: #FFF;
+	color: #000;
+}
+.tabla_estadias {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 249px;
+	padding-left: 30px;
+	height: 89px;
+	background-color: #FFF 
+}
+.detalle_firmantes {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 490px;
+	padding-left: 30px;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+	color: #000;
+	background-color: #FFF;
+	height: 26px;
+}
+.sub_negro03 {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 723px;
+	padding-left: 30px;
+}
+.encabezado {
+	font-family: "Humnst777 BT";
+	font-size: 10px;
+	color: #FFF;
+}
+.tabla_firmantes {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 515px;
+	padding-left: 30px;
+	background-color: #fff;
+	color: #000;
+	height: 195px;
+}
+
+.botones {
+	position: absolute;
+	left: 50%;
+	width: 840px;
+	margin-left: -408px;
+	margin-top: 18px;
+	background-color: #FFF;
+}
+
+.modificar {
+	position: absolute;
+	left: 50%;
+	width: 840px;
+	margin-left: -420px;
+	margin-top: 425px;
+	padding-left: 753px;
+}
+
+.parrafito {
+	display: inline;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+}
+.acceso_directo {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 735px;
+	padding-left: 30px;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+	color: #03F;
+	font-weight: bold;
+	background-color: #fff;
+	height: 35px;
+}
+.observaciones {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 795px;
+	padding-left: 30px;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+	font-weight: bold;
+	color: #000;
+	background-color: #FFF;
+	height: 103px;
+}
+.contenido_observaciones {
+	position: absolute;
+	left: 50%;
+	width: 840px;
+	margin-left: -420px;
+	margin-top: 810px;
+	padding-left: 30px;
+}
+
+
+	
+.contenido_tabla {
+	font-family: "Humnst777 BT";
+	font-size: 10px;
+	color: #000;
+}
+.enviar {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 875px;
+	padding-left: 770px;
+}
+.sub_negro {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 240px;
+	padding-left: 30px;
+}
+.comision_servicios {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 709px;
+	padding-left: 30px;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+	background-color: #fff;
+	color: #000;
+	height: 26px;
+}
+.area_destino {
+	position: absolute;
+	left: 932px;
+	width: 502px;
+	margin-left: -420px;
+	margin-top: 770px;
+	padding-left: 80px;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #FFF;
+	color: #000;
+	height: 41px;
+}
+.area_destinotabla {
+	position: absolute;
+	left: 932px;
+	width: -188px;
+	margin-left: -420px;
+	margin-top: 767px;
+	padding-left: 160px;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+	font-weight: bold;
+	color: #000;
+	height: 41px;
+}
+.boton {
+	padding-left: 710px;
+	margin-top: -15px;
+	font-family: "Humnst777 BT";
+	font-size: 13px;
+	font-weight: bold;
+	color: #F00 
+	
+}
+.boton1 {
+	padding-left: 760px;
+	margin-top: -15px;
+	font-family: "Humnst777 BT";
+	font-size: 13px;
+	font-weight: bold;
+	color: #36F
+}
+.sub_negro01 {
+	position: absolute;
+	left: 50%;
+	width: 810px;
+	margin-left: -420px;
+	margin-top: 345px;
+	padding-left: 30px;
+}
+.solicitud_asterisco {
+	margin-top: 5px;
+	margin-left: 550px; 
+	font-family: "Humnst777 BT";
+	font-size: 10px;
+	font-weight: bold;
+    color: #36F
+}
+.rendicionesp {
+	margin-top: 10px; 
+	margin-left: 615px; 
+	font-family: "Humnst777 BT";
+	font-size: 10px;
+	font-weight: bold;
+    color: #F00 
+}
+

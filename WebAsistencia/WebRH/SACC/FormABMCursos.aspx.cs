@@ -43,13 +43,13 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
     {
         var servicio = new WSViaticos.WSViaticosSoapClient();
         var materias = JsonConvert.DeserializeObject<JArray>(servicio.GetMaterias());
-
-        this.cmbMateria.DataValueField = "Id";
-        this.cmbMateria.DataTextField = "Nombre";
+        this.materiasJSON.Value = materias.ToString();
+        //this.cmbMateria.DataValueField = "Id";
+        //this.cmbMateria.DataTextField = "Nombre";
         this.cmbMateria.Items.Add(new ListItem("Materia", ""));
         foreach (var item in materias)
         {
-            this.cmbMateria.Items.Add(new ListItem(item["nombre"].ToString(), item["id"].ToString()));
+            this.cmbMateria.Items.Add(new ListItem(item["nombre"].ToString() + " (" + item["ciclo"]["Nombre"] + ")", item["id"].ToString()));
         }
     }
     private void CargarComboDocentes()
@@ -89,17 +89,23 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
     {
         var servicio = Servicio();
 
-        var horarios_dto = JsonConvert.DeserializeObject<JArray>(this.txtHorarios.Value);
+        var curso = new CursoDto();
+        var horarios = JsonConvert.DeserializeObject<JArray>(this.txtHorarios.Value);
 
-        var curso_dto = new
+        curso.Id = int.Parse("0" + this.txtIdCurso.Value);
+        curso.Materia = servicio.GetMateriaById(int.Parse("0" + this.txtIdMateria.Value));
+        curso.Docente = servicio.GetDocenteById(int.Parse("0" + this.txtIdDocente.Value));
+        curso.HorasCatedra = int.Parse("0" + this.horaCatedra.Value);
+        //curso.Horarios = horarios;
+        var horariosDto = new List<HorarioDto>();
+        foreach (var h in horarios)
         {
-            nombre = this.txtNombre.Text,
-            materia_id = int.Parse("0" + this.txtIdMateria.Value),
-            docente_id =  int.Parse("0" + this.txtIdDocente.Value),
-            horarios = horarios_dto
-        };
+            var horario = new HorarioDto() { NumeroDia = int.Parse(h["NumeroDia"].ToString()), Dia = h["Dia"].ToString(), HoraDeInicio = h["HoraDeInicio"].ToString(), HoraDeFin = h["HoraDeFin"].ToString() };
+            horariosDto.Add(horario);
+        }
+        curso.Horarios = horariosDto.ToArray();
     
-        servicio.AgregarCurso(JsonConvert.SerializeObject(curso_dto));
+        servicio.AgregarCurso(curso);
 
         LimpiarFormulario();
         this.CargarGrilla();
@@ -108,13 +114,21 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
     {
         var servicio = Servicio();
         
-        var curso = new Curso();
-        var horario = JsonConvert.DeserializeObject(this.txtHorarios.Value);
+        var curso = new CursoDto();
+        var horarios = JsonConvert.DeserializeObject<JArray>(this.txtHorarios.Value);
 
         curso.Id = int.Parse(this.txtIdCurso.Value);
         curso.Materia = servicio.GetMateriaById(int.Parse("0" + this.txtIdMateria.Value));
         curso.Docente = servicio.GetDocenteById(int.Parse("0" + this.txtIdDocente.Value));
-        
+        curso.HorasCatedra = int.Parse("0" + this.horaCatedra.Value);
+        //curso.Horarios = horarios;
+        var horariosDto = new List<HorarioDto>();
+        foreach (var h in horarios)
+        {
+            var horario = new HorarioDto() { NumeroDia = int.Parse(h["NumeroDia"].ToString()), Dia = h["Dia"].ToString(), HoraDeInicio = h["HoraDeInicio"].ToString(), HoraDeFin = h["HoraDeFin"].ToString() };
+            horariosDto.Add(horario);
+        }
+        curso.Horarios = horariosDto.ToArray();
         servicio.ModificarCurso(curso);
 
         LimpiarFormulario();
@@ -127,7 +141,7 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
 
         var id = this.txtIdCurso.Value;
 
-        servicio.QuitarCurso(int.Parse(id));
+        //servicio.QuitarCurso(int.Parse(id));
         this.LimpiarFormulario();
         this.CargarGrilla();
     }

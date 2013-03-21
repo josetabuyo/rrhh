@@ -1,0 +1,56 @@
+﻿<%@ master language="C#" autoeventwireup="true" inherits="FormulariosDeLicencia_MPSolicitudLicencia, App_Web_omefktye" %>
+<%@ Register Src="Partes/DatosDelAgente.ascx" TagName="DatosDelAgente" TagPrefix="uc2" %>
+<%@ Register Src="Partes/AceptarCancelar.ascx" TagName="AceptarCancelar" TagPrefix="uc1" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Principal</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <table style="width: 100%; text-align: center;">
+            <tr>
+                <td>
+                    <div>
+                        <asp:Label ID="LError" runat="server" EnableTheming="False" Font-Bold="True" Font-Size="20px"
+                            ForeColor="Red" Font-Names="Arial"></asp:Label>
+                        <table border="1" style="width: 600px; border-width: thin;">
+                            <tr>
+                                <td>
+                                    <asp:Label ID="LTitulo" runat="server" Text="Titulo" Font-Names="Tahoma" Font-Size="Small"
+                                        Font-Underline="True" Font-Bold="True"></asp:Label></td>
+                            </tr>
+                            <tr>
+                                <td style="height: 21px; text-align: left;">
+                                    <asp:Label ID="LResumenNormativa" runat="server" Text="Resumen De Normativa" Font-Names="Tahoma"
+                                        Font-Size="XX-Small" EnableTheming="False"></asp:Label></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <uc2:DatosDelAgente ID="DatosDelAgente1" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:ContentPlaceHolder ID="CPHDatos" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <asp:Label ID="LProcedimiento" runat="server" EnableTheming="False" Font-Names="Tahoma"
+                                        Font-Size="XX-Small" Text="Label"></asp:Label></td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <asp:Label ID="LAclaracion" runat="server" EnableTheming="False" Font-Names="Tahoma"
+                                        Font-Size="XX-Small" Text=""></asp:Label></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

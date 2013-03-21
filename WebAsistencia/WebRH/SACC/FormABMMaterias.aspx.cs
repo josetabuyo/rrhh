@@ -16,10 +16,25 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         if (!IsPostBack)
         {
             CompletarCombosDeModalidades();
+            CompletarCombosDeCiclos();
             this.materiasJSON.Value = servicio.GetMaterias();
         }
 
         MostrarMateriasEnLaGrilla(servicio);
+    }
+
+    private void CompletarCombosDeCiclos()
+    {
+        var servicio = new WSViaticos.WSViaticosSoapClient();
+        var ciclos = servicio.Ciclos().OrderBy(c => c.Id);
+
+        foreach (Ciclo c in ciclos)
+        {
+            ListItem unListItem = new ListItem();
+            unListItem.Value = c.Id.ToString();
+            unListItem.Text = c.Nombre;
+            this.cmbCiclo.Items.Add(unListItem);
+        }
     }
 
     private void MostrarMateriasEnLaGrilla(WSViaticosSoapClient servicio)
@@ -48,7 +63,8 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
     {
         if (!DatosEstanCompletos())
         {
-            this.lblMensaje.Text = "Materia no guardada. Escriba el nombre y elija la Modalidad";
+            this.alerta_mensaje.Value = "1";
+            //this.lblMensaje.Text =  "Materia no guardada. Escriba el nombre y elija la Modalidad";
             return;
         }
 
@@ -57,7 +73,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         materia = ws_viaticos.GuardarMateria(materia, (Usuario)Session["usuario"]);
 
         LimpiarPantalla();
-
+        
         this.MostrarMateriasEnLaGrilla(ws_viaticos);
     }
 
@@ -71,6 +87,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
         materia.Nombre = this.txtNombre.Text;
         materia.Modalidad = ModalidadDeMateriaFromForm();
+        materia.Ciclo = CicloDeMateriaFromForm();
 
         return materia;
 
@@ -82,22 +99,34 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         {
             return;
         }
-
+  
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
         var materia = MateriaDelForm();
 
         servicio.ModificarMateria(materia, (Usuario)Session["usuario"]);
         LimpiarPantalla();
+       
         this.MostrarMateriasEnLaGrilla(servicio);
     }
 
     protected void btnQuitarMateria_Click(object sender, EventArgs e)
     {
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
+        
         var materia = MateriaDelForm();
-        servicio.QuitarMateria(materia, (Usuario)Session["usuario"]);
-        LimpiarPantalla();
-        MostrarMateriasEnLaGrilla(servicio);  
+
+        if (servicio.QuitarMateria(materia, (Usuario)Session["usuario"]))
+        {
+            LimpiarPantalla();
+            MostrarMateriasEnLaGrilla(servicio);
+        }
+        else
+        {
+            //mensaje de error
+            this.alerta_mensaje.Value = "3";
+            return;
+        }
+
     }
 
     private Modalidad ModalidadDeMateriaFromForm()
@@ -108,15 +137,26 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         return modalidad;
     }
 
+    private Ciclo CicloDeMateriaFromForm()
+    {
+        var ciclo = new Ciclo();
+        ciclo.Id = int.Parse(this.cmbCiclo.SelectedItem.Value);
+        ciclo.Nombre = this.cmbCiclo.SelectedItem.Text;
+        return ciclo;
+    }
+
     private void LimpiarPantalla()
     {
         this.txtNombre.Text = "";
         this.idMateria.Value = "";
         this.cmbPlanDeEstudio.SelectedIndex = -1;
+        this.alerta_mensaje.Value = "2";
+        this.cmbCiclo.SelectedIndex = -1;
+        
     }
 
     private bool DatosEstanCompletos()
     {
-        return !((this.txtNombre.Text == "") || (this.cmbPlanDeEstudio.SelectedIndex == -1));
+        return !((this.txtNombre.Text == "") || (this.cmbPlanDeEstudio.SelectedIndex < 1) || (this.cmbCiclo.SelectedIndex < 1));
     }
 }

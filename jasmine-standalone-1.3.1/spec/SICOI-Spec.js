@@ -185,6 +185,20 @@ describe("El documento esta en el area del usuario", function () {
     });
 });
 
+describe("Tengo un textbox que solo admite numeros", function () {
+
+    beforeEach(function () {
+        input_solo_numeros = $('<input>');
+        input_solo_numeros.attr("type", "text");
+
+        var input_numerico = new InputSoloNumeros(input_solo_numeros);
+    });
+    it("Si el texbox permite solo números, no debe dejar escribir letras ", function () {
+        input_solo_numeros.val('1ab2 1  1&');
+        input_solo_numeros.keyup();
+        expect(input_solo_numeros.val()).toEqual("1211");
+    });
+});
 
 describe("Pruebas del panel de filtros", function () {
     describe("Tengo un filtro por numero y un input vacio asociado", function () {
@@ -196,7 +210,17 @@ describe("Pruebas del panel de filtros", function () {
         beforeEach(function () {
             input_numero = $('<input>');
             input_numero.attr('type', 'text');
-            filtro_numero = new FiltroPorNumero(input_numero, amarillo, blanco);
+            filtro_numero = new FiltroDeDocumentosPorNumero(input_numero);
+            filtro_numero.setObservador(
+                {
+                    filtroActivado: function (filtro) {
+                        input_numero.css('background-color', amarillo);
+                    },
+                    filtroDesactivado: function (filtro) {
+                        input_numero.css('background-color', blanco);
+                    }
+                }
+            );
         });
 
         it("El color de fondo del input deberia ser blanco", function () {
@@ -252,7 +276,17 @@ describe("Pruebas del panel de filtros", function () {
         beforeEach(function () {
             input_extracto = $('<input>');
             input_extracto.attr('type', 'text');
-            filtro_extracto = new FiltroPorExtracto(input_extracto, amarillo, blanco);
+            filtro_extracto = new FiltroDeDocumentosPorExtracto(input_extracto);
+            filtro_extracto.setObservador(
+                {
+                    filtroActivado: function (filtro) {
+                        input_extracto.css('background-color', amarillo);
+                    },
+                    filtroDesactivado: function (filtro) {
+                        input_extracto.css('background-color', blanco);
+                    }
+                }
+            );
         });
 
         it("El color de fondo del input deberia ser blanco", function () {
@@ -299,6 +333,73 @@ describe("Pruebas del panel de filtros", function () {
         });
     });
 
+    describe("Tengo un filtro de documentos solo en el area del usuario y un checkbox asociado", function () {
+        var filtro_docs_solo_en_area;
+        var checkbox;
+        var blanco = 'rgb(255, 255, 255)';
+        var amarillo = 'rgb(255, 255, 200)';
+
+        beforeEach(function () {
+            checkbox = $('<input>');
+            checkbox.attr('type', 'checkbox');
+            filtro_docs_solo_en_area = new FiltroDeDocumentosSoloEnAreaUsuario(checkbox, "15");
+            filtro_docs_solo_en_area.setObservador(
+                {
+                    filtroActivado: function (filtro) {
+                        checkbox.css('background-color', amarillo);
+                    },
+                    filtroDesactivado: function (filtro) {
+                        checkbox.css('background-color', blanco);
+                    }
+                }
+            );
+        });
+
+        it("El color de fondo del checkbox deberia ser blanco", function () {
+            expect(checkbox.css('background-color')).toEqual(blanco);
+        });
+        it("El filtro no deberia estar activo", function () {
+            expect(filtro_docs_solo_en_area.estaActivo()).toBeFalsy();
+        });
+        it("El filtro no deberia agregar ningun elemento a la coleccion de filtros que se le pasa", function () {
+            var lista_filtros = [];
+            filtro_docs_solo_en_area.agregarFiltroAListaParaAplicar(lista_filtros);
+            expect(lista_filtros.length).toEqual(0);
+        });
+
+        describe("Tildo el checkbox", function () {
+            beforeEach(function () {
+                checkbox.attr("checked", "checked");
+                checkbox.change();
+            });
+
+            it("El color de fondo del checkbox deberia ser amarillo", function () {
+                expect(checkbox.css('background-color')).toEqual(amarillo);
+            });
+            it("El filtro deberia estar activo", function () {
+                expect(filtro_docs_solo_en_area.estaActivo()).toBeTruthy();
+            });
+            it("El filtro deberia agregar 1 elemento a la coleccion de filtros que se le pasa", function () {
+                var lista_filtros = [];
+                filtro_docs_solo_en_area.agregarFiltroAListaParaAplicar(lista_filtros);
+                expect(lista_filtros.length).toEqual(1);
+                expect(lista_filtros[0].tipoDeFiltro).toEqual("FiltroDeDocumentosPorAreaActual");
+                expect(lista_filtros[0].idArea).toEqual("15");
+            });
+
+            describe("Destildo el checkbox", function () {
+                beforeEach(function () {
+                    checkbox.removeAttr('checked');
+                    checkbox.change();
+                });
+                it("El color de fondo del input deberia ser blanco", function () {
+                    expect(checkbox.css('background-color')).toEqual(blanco);
+                });
+            });
+        });
+    });
+
+
     describe("Tengo panel de filtros con un filtro por numero y uno por extracto", function () {
         var filtro_numero;
         var filtro_extracto;
@@ -319,11 +420,21 @@ describe("Pruebas del panel de filtros", function () {
             input_extracto.attr('type', 'text');
             boton_panel = $('<div>');
 
-            filtro_numero = new FiltroPorNumero(input_numero, amarillo, blanco, panel_filtros);
-            filtro_extracto = new FiltroPorExtracto(input_extracto, amarillo, blanco, panel_filtros);
-            panel_filtros = new PanelDeFiltros(boton_panel, [filtro_numero, filtro_extracto]);
-            //panel_filtros.setFiltros([filtro_numero, filtro_extracto]);
-                
+            filtro_numero = new FiltroDeDocumentosPorNumero(input_numero, amarillo, blanco);
+            filtro_extracto = new FiltroDeDocumentosPorExtracto(input_extracto, amarillo, blanco);
+
+            panel_filtros = new PanelDeFiltros([filtro_numero, filtro_extracto]);
+
+            panel_filtros.setObservador({
+                algunFiltroActivado: function () {
+                    boton_panel.addClass('boton_que_abre_panel_desplegable_activo_con_filtros');
+                },
+                ningunFiltroActivado: function () {
+                    boton_panel.removeClass('boton_que_abre_panel_desplegable_activo_con_filtros');
+                },
+                cambiaronLosFiltros: function () {
+                }
+            });
         });
 
         it("El panel de filtros deberia tener 0 filtros activos", function () {

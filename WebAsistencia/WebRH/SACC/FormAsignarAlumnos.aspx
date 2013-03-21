@@ -11,6 +11,7 @@
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     
 </head>
@@ -21,10 +22,17 @@
         
         <div style="margin:20px;">
         <fieldset>
-            <legend>Elija un curso:</legend>
-            <asp:DropDownList ID="cmbCursos" runat="server" EnableViewState="true">
-                <asp:ListItem Value="0" class="placeholder" Selected="true">Cursos</asp:ListItem>
-            </asp:DropDownList>        
+            <legend>Elija ciclo y curso:</legend>
+            <div>
+                <asp:DropDownList ID="cmbCiclo" runat="server"  EnableViewState="false">
+                    <asp:ListItem Value="-1" class="placeholder" Selected="true">Ciclo</asp:ListItem>
+                </asp:DropDownList>    
+            </div>
+            <div>
+                <asp:DropDownList ID="cmbCursos" runat="server" EnableViewState="false">
+                    <asp:ListItem Value="0" class="placeholder" Selected="true">Cursos</asp:ListItem>
+                </asp:DropDownList>        
+            </div>
         </fieldset>
         </div>
         <div class="btn_inscripcion_SACC">
@@ -80,13 +88,14 @@
         var columnas = [];
 
         var cmbCursos = $("#cmbCursos");
+        var cmbCiclo = $("#cmbCiclo");
         var cursosJSON = JSON.parse($('#cursosJSON').val());
         var idCursoSeleccionado = $("#idCursoSeleccionado");
 
-        columnas.push(new Columna("Documento", { generar: function (un_alumno) { return un_alumno.documento; } }));
-        columnas.push(new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.nombre; } }));
-        columnas.push(new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.apellido; } }));
-        columnas.push(new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.modalidad.descripcion; } }));
+        columnas.push(new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento; } }));
+        columnas.push(new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre; } }));
+        columnas.push(new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }));
+        columnas.push(new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } }));
         //columnas.push(new Columna("Pertenece A", { generar: function (un_alumno) { return un_alumno.area.descripcion; } }));
 
         planillaAlumnosDisponibles = new Grilla(columnas);
@@ -103,14 +112,61 @@
             alumnoGlobal = un_alumno;
         });
 
+        var completarCombosDeCiclo = function () {
+            //idCicloSeleccionado.val("");
+
+//            for (var i = 0; i < 4; i++) {
+//                //var curso = cursosJSON[i];
+//                var ciclo;
+//                var listItem = $('<option>');
+//                // alert(JSON.stringify(curso));
+//                listItem.val(i);
+//                listItem.text(i);
+//                cmbCiclo.append(listItem);
+//            }
+
+            cmbCiclo.change(function (e) {
+                var cicloSeleccionado = cmbCiclo.find('option:selected').val();
+                if (cicloSeleccionado == -1) {
+                    cmbCursos.empty();
+                    for (var i = 0; i < cursosJSON.length; i++) {
+                        var curso = cursosJSON[i];
+                        var listItem = $('<option>');
+                        // alert(JSON.stringify(curso));
+                        listItem.val(curso.Id);
+                        listItem.text(curso.Nombre);
+                        cmbCursos.append(listItem);
+                    }
+                    return;
+                }
+
+                var queryResult = Enumerable.From(cursosJSON)
+                .Where(function (x) { return x.Materia.Ciclo.Id == cicloSeleccionado }).ToArray();
+
+                cmbCursos.empty();
+
+                for (var i = 0; i < queryResult.length; i++) {
+                    var curso = queryResult[i];
+                    var listItem = $('<option>');
+                    // alert(JSON.stringify(curso));
+                    listItem.val(curso.Id);
+                    listItem.text(curso.Nombre);
+                    cmbCursos.append(listItem);
+                }
+
+                cmbCursos.change();
+            });
+        }
+
         var completarcombosDeCursos = function () {
             idCursoSeleccionado.val("");
 
             for (var i = 0; i < cursosJSON.length; i++) {
                 var curso = cursosJSON[i];
                 var listItem = $('<option>');
-                listItem.val(curso.id);
-                listItem.text(curso.nombre);
+                // alert(JSON.stringify(curso));
+                listItem.val(curso.Id);
+                listItem.text(curso.Nombre);
                 cmbCursos.append(listItem);
             }
 
@@ -121,38 +177,45 @@
                 var cursoSeleccionado;
                 for (var i = 0; i < cursosJSON.length; i++) {
                     var curso = cursosJSON[i];
-                    if (curso.id == idSeleccionado) cursoSeleccionado = curso;
+                    if (curso.Id == idSeleccionado) cursoSeleccionado = curso;
                 }
                 if (cursoSeleccionado !== undefined) {
+
+                    var queryResult = Enumerable.From(alumnos)
+                                      .Where(function (x) { return x.Modalidad.Id == cursoSeleccionado.Materia.Modalidad.Id }).ToArray();
+
                     planillaAlumnosAsignados.BorrarContenido();
-                    planillaAlumnosAsignados.CargarObjetos(cursoSeleccionado.alumnos);
+                    planillaAlumnosAsignados.CargarObjetos(cursoSeleccionado.Alumnos);
                     planillaAlumnosAsignados.DibujarEn(contenedorAlumnosAsignados);
                     $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos()));
                     //$("#descripcionCursoSeleccionado").text(cursoSeleccionado.nombre);
                     $("#mensaje").text("");
-                    $("#nombreDeCurso").text(cursoSeleccionado.nombre);
-                    MostrarAlumnosQueNoEstanEnElCursoSeleccionado(cursoSeleccionado);
-                    //planillaAlumnosDisponibles.DibujarEn(contenedorAlumnosDisponibles);
+                    $("#nombreDeCurso").text(cursoSeleccionado.Nombre);
+                    MostrarAlumnosQueNoEstanEnElCursoSeleccionado(cursoSeleccionado, queryResult);
+
                 }
                 else {
 
                 }
             });
         }
-        completarcombosDeCursos();
 
-        function MostrarAlumnosQueNoEstanEnElCursoSeleccionado(cursoSeleccionado) {
+        completarcombosDeCursos();
+        completarCombosDeCiclo();
+
+        function MostrarAlumnosQueNoEstanEnElCursoSeleccionado(cursoSeleccionado, query_alumnos_modalidad) {
             planillaAlumnosDisponibles.BorrarContenido();
-            planillaAlumnosDisponibles.CargarObjetos(alumnos);
-            var alumnos_filtrados = planillaAlumnosDisponibles.QuitarObjetosExistentes(cursoSeleccionado.alumnos);
+            planillaAlumnosDisponibles.CargarObjetos(query_alumnos_modalidad);
+            var alumnos_filtrados_curso = planillaAlumnosDisponibles.QuitarObjetosExistentes(cursoSeleccionado.Alumnos);
             planillaAlumnosDisponibles.BorrarContenido();
-            planillaAlumnosDisponibles.CargarObjetos(alumnos_filtrados);
+            planillaAlumnosDisponibles.CargarObjetos(alumnos_filtrados_curso);
         }
     };
 
     $(document).ready(function () {
         AdministradorPlanilla();
     });
+
 
     function AsignarAlumno() {
         if (!planillaAlumnosAsignados.ContieneElemento(alumnoGlobal)) {
@@ -181,5 +244,7 @@
             $("#mensaje").text("Existe en el Curso");
         }
     }
+
+
 </script>
 </html>

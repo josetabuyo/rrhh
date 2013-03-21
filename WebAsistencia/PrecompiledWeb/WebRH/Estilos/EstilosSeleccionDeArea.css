@@ -1,0 +1,102 @@
+﻿        body
+        {
+            margin-left: 0px;
+            margin-top: 0px;
+            margin-right: 0px;
+            background-color: #CCC;
+        }
+                
+        img 
+        {
+            border:none;    
+        }
+        
+        .botoncitos
+        {
+            position: absolute;
+            left: 50%;
+            width: 800px;
+            margin-left: -400px;
+            margin-top: 10px;
+            border:none;
+        }
+        
+        .botones
+        {
+            position: absolute;
+            left: 50%;
+            width: 840px;
+            margin-left: -420px;
+            margin-top: 0px;
+            background-color: #FFF;
+        }
+        
+        .areaadminis
+        {
+            clear: both;
+            float: none;
+            padding-top: 80px;
+            margin-top: -30px;
+        }
+        
+        .gestionar
+        {
+            clear: both;
+            margin-top: -16px;
+            margin-left: 500px;
+            top: 80px;
+            border-style: none;
+        }
+        
+        .edificio
+        {            
+	        clear: both;
+	        float: left;
+	        margin-top: 160px;
+	        margin-left: 160px	
+        }
+
+        .slicitar_modificacion
+        {
+            clear: both;
+            float: right;
+            margin-top: -23px;
+            border-style: none;
+        }   
+                 
+        .administrar
+        {
+            padding-left: 0px;
+            clear: both;
+            float: right;
+            margin-top: -24px;
+            margin-right: 180px;
+            border-style: none;
+        }
+        
+        .administrar2
+        {
+            clear: both;
+            float: right;
+            margin-top: -48px;
+            padding-right: 0px;
+            margin-right: 180px;
+            border-style: none;
+        }
+        
+        .modificar2
+        {
+            clear: both;
+            float: right;
+            margin-top: -46px;
+            border-style: none;
+        }
+        
+        .lalala
+        {
+            clear: both;
+            float: left;
+            margin-left: 690px;
+            margin-top: -15px;
+            border-style: none;
+        }

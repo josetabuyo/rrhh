@@ -5,20 +5,21 @@ namespace General
 {
     public class Curso
     {
-
+        
         private int _id;
         private string _nombre;
         private List<Alumno> _alumnos;
         private Docente _docente;
         private List<DayOfWeek> _diasDeCursada = new List<DayOfWeek>();
         private Materia _materia;
-        private Dictionary<DayOfWeek, HorarioDeCursada> _horario = new Dictionary<DayOfWeek,HorarioDeCursada>();
+        private List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
+        private int _horasCatedra;
 
         public int Id { get { return _id; } set { _id = value; } }
-        public string Nombre { get { return this.Materia.Nombre + "_" + this.Materia.Modalidad.Descripcion; } set { } }
+        public string Nombre { get { return this.Materia.Nombre + " (" + this.Materia.Modalidad.Descripcion + ")"; } set { } }
         public Docente Docente { get { return _docente; } set { _docente = value; } }
         public Materia Materia { get{ return _materia; } set{_materia = value;} }
-        //public List<Alumno> Alumnos { get { return _alumnos; } set { _alumnos = value; } }
+        public int HorasCatedra { get { return _horasCatedra; } set { _horasCatedra = value; } }
 
         public List<Alumno> Alumnos()
         {
@@ -52,12 +53,13 @@ namespace General
             this._diasDeCursada.Add(diaDeLaSemana);
         }
 
-        public void AgregarHorarioDeCursada(DayOfWeek dia, HorarioDeCursada horario)
+        public void AgregarHorarioDeCursada(HorarioDeCursada horario)
         {
-            this._horario.Add(dia, horario);
+            this.AgregarDiaDeCursada(horario.Dia);
+            this._horario.Add(horario);
         }
 
-        public Dictionary<DayOfWeek, HorarioDeCursada> GetHorariosDeCursada()
+        public List<HorarioDeCursada> GetHorariosDeCursada()
         {
             return this._horario;
         }
@@ -68,8 +70,10 @@ namespace General
 
         public void ActualizarAlumnosDelCurso(List<Alumno> lista_alumnos)
         {
+            //var lista_auxiliar = _alumnos;
             AgregarAlumnos(lista_alumnos);
-            QuitarAlumnos(lista_alumnos);
+            //quiar los alumnos que no agregué en el método anterior (lista_alumnos - alumnos original)
+            //QuitarAlumnos(lista_alumnos);
         }
 
         public void AgregarAlumnos(List<Alumno> lista_alumnos)
@@ -81,6 +85,7 @@ namespace General
         {
             if (!_alumnos.Contains(un_alumno))
                 _alumnos.Add(un_alumno);
+
         }
 
         public void QuitarAlumnos(List<Alumno> lista_alumnos)
@@ -95,5 +100,10 @@ namespace General
         }
 
 
+
+        internal int esMayorAlfabeticamenteQue(Curso otrocurso)
+        {
+            return this.Nombre.CompareTo(otrocurso.Nombre);
+        }
     }
 }

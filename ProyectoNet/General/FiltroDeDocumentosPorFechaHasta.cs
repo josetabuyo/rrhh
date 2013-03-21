@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Globalization;
 
     public class FiltroDeDocumentosPorFechaHasta : FiltroDeDocumentos
     {
@@ -12,7 +13,7 @@
 
         public FiltroDeDocumentosPorFechaHasta(Dictionary<String, String> filtroDto)
         {
-            fechaHasta = DateTime.Parse(filtroDto["fechaHasta"]);
+            fechaHasta = DateTime.ParseExact(filtroDto["fechaHasta"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
         }
 
         public FiltroDeDocumentosPorFechaHasta(DateTime fecha)

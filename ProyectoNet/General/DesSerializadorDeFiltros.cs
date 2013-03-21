@@ -22,9 +22,27 @@
             return filtros;
         }
 
+        public List<FiltroDeDocumentos> DesSerializarFiltros(string filtrosSerializados)
+        {
+            var filtrosDTO = JsonConvert.DeserializeObject<List<Dictionary<String, String>>>(filtrosSerializados);
+            return DesSerializarFiltros(filtrosDTO);
+        }
+
+        private List<FiltroDeDocumentos> DesSerializarFiltros(List<Dictionary<string, string>> filtrosDTO)
+        {
+            var filtros = new List<FiltroDeDocumentos>();
+            filtrosDTO.ForEach(f => filtros.Add(this.DesSerializarFiltro(f)));
+            return filtros;
+        }
+
         public FiltroDeDocumentos DesSerializarFiltro(String filtroSerializado)
         {
             var filtroDTO = JsonConvert.DeserializeObject<Dictionary<String, String>>(filtroSerializado);
+            return DesSerializarFiltro(filtroDTO);
+        }
+
+        private FiltroDeDocumentos DesSerializarFiltro(Dictionary<string, string> filtroDTO)
+        {
             var tipoFiltro = "General." + filtroDTO["tipoDeFiltro"];
             var assembly = typeof(FiltroDeDocumentos).Assembly;
 
@@ -39,6 +57,8 @@
 
             return filtro;
         }
+
+
 
 
     }

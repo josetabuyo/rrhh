@@ -49,21 +49,26 @@
     <option value="11">Noviembre</option>
     <option value="12">Diciembre</option>
     </select>
-
+    
     <br />
-
-
+    <label id="lblDocente">Docente:</label>
+    <label id="Docente" runat="server">&nbsp;</label>
+    <br />
+    <br />
     <uc1:planilla ID="PlanillaAsistencia" runat="server" />
     </div>
-    <input class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla()" value="Imprimir" />
-    <input class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
+    <div style="height:20px; width: 100%">
+    <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
+    <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla();" value="Imprimir" />
+    </div>
     <asp:Button style="display:none;" ID="btn_CargarAsistencias" OnClick="CargarAsistencias" runat="server" />
     </form>
 </body>
 <script type="text/javascript">
 
     var AdministradorPlanillaMensual = function () {
-        if ($('#PlanillaAsistencia_planillaJSON').val() != "") {
+        if ($('#PlanillaAsistencia_planillaJSON').val() != "{}" && $('#PlanillaAsistencia_planillaJSON').val() != "") {
+            
             var Planilla = JSON.parse($('#PlanillaAsistencia_planillaJSON').val());
 
             var DiasCursados = Planilla['diascursados'];
@@ -72,27 +77,30 @@
             var columnas = [];
 
             columnas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
-            columnas.push(new Columna("Pertenece a", { generar: function (inasistenciaalumno) { return inasistenciaalumno.pertenece_a } }));
-
-            for (var i = 0; i < DiasCursados.length; i++) {
-                columnas.push(new Columna(DiasCursados[i].nombre_dia + "<br/>" + DiasCursados[i].dia,
-                                        new GeneradorCeldaDiaCursado(DiasCursados[i])
-            ));
+            if (DiasCursados) {
+                for (var i = 0; i < DiasCursados.length; i++) {
+                    columnas.push(new Columna(DiasCursados[i].nombre_dia + "<br/>" + DiasCursados[i].dia,
+                                        new GeneradorCeldaDiaCursado(DiasCursados[i])));
+                }
             }
             columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
             columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
-            columnas.push(new Columna("Justificadas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.justificadas } }));
-
-
 
             var PlanillaMensual = new Grilla(columnas);
-
 
             PlanillaMensual.CargarObjetos(AlumnosInasistencias);
             PlanillaMensual.DibujarEn(contenedorPlanilla);
             PlanillaMensual.SetOnRowClickEventHandler(function () {
                 return true;
             });
+            var Docente = JSON.parse($("#PlanillaAsistencia_Curso").val()).Docente;
+
+            $("#Docente").text(Docente.Nombre + " " + Docente.Apellido);
+        }
+        else {
+            $("#lblDocente").css("visibility", "hidden");
+            $("#BtnGuardar").css("visibility", "hidden");
+            $("#BtnImprimir").css("visibility", "hidden");
         }
     };
 
@@ -101,23 +109,48 @@
         self.diaCursado = diaCursado;
         self.generar = function (inasistenciaalumno) {
             var contenedorAcciones = $('<div>');
-            //dps se tiene que eliminar el random y cambiar por "0"
-            //alert(JSON.stringify(inasistenciaalumno));
+
             var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
                 .Where(function (x) { return x.fecha == diaCursado.fecha });
 
             var botonAsistencia;
             if (queryResult.Count() > 0) {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor);
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor, inasistenciaalumno.max_horas_cursadas);
             }
             else {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0);
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, inasistenciaalumno.max_horas_cursadas);
             }
             contenedorAcciones.append(botonAsistencia);
 
             return contenedorAcciones;
         };
     }
+
+   /* var GeneradorAsistencia = function (asistencia, dias_cursados) {
+        var self = this;
+        self.asistencia = asistencia;
+        self.generar = function (inasistenciaalumno) {
+            var contenedorAcciones = $('<div>');
+            if (asistencia == "Asistencias") {
+                var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
+                .Where(function (x) { return x.valor == 1 });
+            } else {
+                var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
+                .Where(function (x) { return x.valor == 2 });
+            }
+
+            var etiqueta;
+            if (queryResult.Count() > 0) {
+                etiqueta = queryResult.Count();
+            }
+            else {
+                etiqueta = "";
+            }
+            contenedorAcciones.append(etiqueta);
+
+            return contenedorAcciones;
+        };
+    }*/
 
     $(document).ready(function () {
         AdministradorPlanillaMensual();
@@ -142,7 +175,7 @@
 
     function ImprimirPlanilla() {
         if ($("#CmbCurso").val() != 0 && $("#CmbMes").val() != 0) {
-            window.open('PrintPlanillaAsistenciaAlumnos.aspx?' + 'idCurso=' + $("#CmbCurso").val() + '&mes=' + $("#CmbMes").val()); ;
+            window.open('PrintPlanillaAsistenciaAlumnos.aspx?' + 'idCurso=' + $("#CmbCurso").val() + '&mes=' + $("#CmbMes").val() + '&nombre_mes=' + $("#CmbMes option:selected").text() + "&nombre_curso=" + $("#CmbCurso option:selected").text()); ;
         }
     }
 

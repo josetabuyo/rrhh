@@ -20,9 +20,9 @@
         }
 
         public override bool aplicaPara(Documento documento)
-        {
-            return documento.extracto.ToUpper().Trim().Contains(extracto.ToUpper().Trim());
-        }
+        { 
+           return extracto.Split(' ').All(p => documento.extracto.ToUpper().Trim().Contains(p.ToUpper().Trim()));
+        }            
     }
 }
 

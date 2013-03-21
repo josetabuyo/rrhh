@@ -7,6 +7,14 @@ namespace General
         private int _dni;
         private string _nombre;
         private string _apellido;
+        //por ahora agregue estos datos q no eran del docente para mostrarlo en la pantalla
+        private string _telefono;
+        private string _mail;
+        private string _direccion;
+
+        public virtual  string Telefono { get { return _telefono; } set { _telefono = value; } }
+        public virtual string Mail { get { return _mail; } set { _mail = value; } }
+        public virtual string Direccion { get { return _direccion; } set { _direccion = value; } }
 
         public Docente()
         {
@@ -20,29 +28,34 @@ namespace General
             this._apellido = apellido;
         }
 
-        public int Id
+        public virtual int Id
         {
             get { return _id; }
             set { _id = value; }
         }
 
-        public int Dni
+        public virtual int Dni
         {
             get { return _dni; }
             set { _dni = value; }
         }
 
-        public string Nombre
+        public virtual string Nombre
         {
             get { return _nombre; }
             set { _nombre = value; }
         }
 
-        public string Apellido
+        public virtual string Apellido
         {
             get { return _apellido; }
             set { _apellido = value; }
         }
-        
+
+
+        internal int esMayorAlfabeticamenteQue(Docente otrodocente)
+        {
+            return this.Apellido.CompareTo(otrodocente.Apellido);
+        }
     }
 }

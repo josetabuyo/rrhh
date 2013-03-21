@@ -40,6 +40,8 @@ namespace General.Repositorios
                 alumnos.Add(alumno);
             });
 
+            alumnos.Sort((alumno1, alumno2) => alumno1.esMayorAlfabeticamenteQue(alumno2));
+
             return alumnos;
         }
 
@@ -129,6 +131,12 @@ namespace General.Repositorios
             });
 
             return modalidades;
+        }
+
+        public bool AlumnoAsignadoACurso(Alumno un_alumno)
+        {
+            List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
+            return cursos.Exists(c => c.Alumnos().Contains(un_alumno));
         }
 
         private static Dictionary<string, object> Parametros(Alumno un_alumno, Usuario usuario, int id_baja)

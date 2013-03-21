@@ -14,6 +14,7 @@
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+     <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
 </head>
 <body>
@@ -28,17 +29,30 @@
                 <asp:TextBox ID="txtNombre" placeholder="Nombre" name="Nombre" runat="server" EnableViewState="false"></asp:TextBox>
             </div>
             <div>
+                <asp:Label ID="lblCiclo" CssClass="labels_sacc" runat="server" Text="Ciclo:"></asp:Label>
+                <asp:DropDownList ID="cmbCiclo" runat="server" enableviewstate="true">
+                    <asp:ListItem Value="-1" class="placeholder" Selected="true">Seleccione un ciclo</asp:ListItem>
+                </asp:DropDownList>
+            </div>
+            <div>
                 <asp:Label ID="lblModalidad" CssClass="labels_sacc" runat="server" Text="Modalidad:"></asp:Label>
                 <asp:DropDownList ID="cmbPlanDeEstudio" runat="server" enableviewstate="true">
-                    <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem>
+                    <asp:ListItem Value="-1" class="placeholder" Selected="true">Seleccione una modalidad</asp:ListItem>
                 </asp:DropDownList>
             </div>
             <div style=" margin-left:17%; margin-top:3%;">
+                   
                 <asp:Button ID="btnAgregarMateria" runat="server" Text="Agregar" class=" btn btn-primary boton_main_documentos" onclick="btnAgregarMateria_Click"  />
                 <asp:Button ID="btnModificarMateria" runat="server" Text="Modificar" class=" btn btn-primary boton_main_documentos" onclick="btnModificarMateria_Click"  />
                 <asp:Button ID="btnQuitarMateria" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarMateria_Click"  />
+                 <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" class=" btn btn-primary boton_main_documentos" onClientClick="javascript:LimpiarCampos();" />
             <br />
-            <asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>
+            <br />
+            <div class="alert alert-error" id="div_mensaje" style="width:42%;">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong id="texto_mensaje">Por favor complete todos los campos.</strong> 
+            </div>
+            <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
             </div>
     </fieldset>
     </div>
@@ -53,10 +67,32 @@
     <asp:HiddenField ID="materiasJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="txtIdMateria" runat="server" />
     <asp:HiddenField ID="idMateria" runat="server" />
+    <asp:HiddenField ID="alerta_mensaje" runat="server" />
 
     </form>
 </body>
 <script type="text/javascript">
+
+    if ($("#alerta_mensaje").val() == "1") {
+        $(".alert").alert();
+    } else if ($("#alerta_mensaje").val() == "2") {
+        this.div_mensaje.setAttribute("class", "alert alert-success");
+        this.texto_mensaje.innerHTML = "Operación exitosa.";
+    } else if ($("#alerta_mensaje").val() == "3") {
+        this.div_mensaje.setAttribute("class", "alert alert-error");
+        this.texto_mensaje.innerHTML = "No se puede eliminar la materia porque se encuentra asignado a un curso";
+    }else {
+        $(".alert").alert('close');
+    }
+
+    var HabilitarNuevo = function () {
+        $("#btnAgregarCurso").removeAttr('disabled', 'false');
+    }
+
+    var DeshabilitarNuevo = function () {
+        $("#btnAgregarMateria").attr('disabled', 'disabled');
+    }
+
     var PlanillaMaterias;
     var contenedorPlanilla;
 
@@ -66,7 +102,8 @@
         var columnas = [];
 
         columnas.push(new Columna("Nombre", { generar: function (una_materia) { return una_materia.nombre } }));
-        columnas.push(new Columna("Modalidad", { generar: function (una_materia) { return una_materia.modalidad.descripcion } }));
+        columnas.push(new Columna("Modalidad", { generar: function (una_materia) { return una_materia.modalidad.Descripcion } }));
+        columnas.push(new Columna("Ciclo", { generar: function (una_materia) { return una_materia.ciclo.Nombre } }));
 
         PlanillaMaterias = new Grilla(columnas);
 
@@ -80,16 +117,33 @@
 
         panelMateria.CompletarDatosMateria = function (una_materia) {
 
+            DeshabilitarNuevo();
             $("#idMateria").val(una_materia.id);
             $("#txtNombre").val(una_materia.nombre);
-            $("#cmbPlanDeEstudio").val(una_materia.modalidad.id);
+            $("#cmbPlanDeEstudio").val(una_materia.modalidad.Id);
+            $("#cmbCiclo").val(una_materia.ciclo.Id);
         };
 
 
     }
 
+    var LimpiarCampos = function () {
+
+        Limpiar($("#txtNombre"));
+        Limpiar($("#cmbCiclo"));
+        Limpiar($('#cmbPlanDeEstudio'));
+
+        HabilitarNuevo();
+    }
+
+    var Limpiar = function (control) {
+        control.val("");
+    };
+
     $(document).ready(function () {
         AdministradorMaterias();
+        HabilitarNuevo();
+
     });
 </script>
 </html>

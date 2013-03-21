@@ -576,8 +576,22 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetCategoriasDeDocumentos().ToArray();
     }
 
+    //[WebMethod]
+    //public string GetDocumentosFiltrados(List<String> filtros)
+    //{
+    //    var filtrosDesSerializados = desSerializadorDeFiltros().DesSerializarFiltros(filtros);
+    //    var documentos = RepositorioDocumentos().GetDocumentosFiltrados(filtrosDesSerializados);
+    //    var documentos_dto = new List<Object>();
+
+    //    documentos.ForEach(delegate(Documento doc)
+    //    {
+    //        documentos_dto.Add(DocumentoDtoPara(doc));
+    //    });
+    //    return JsonConvert.SerializeObject(documentos_dto);
+    //}
+
     [WebMethod]
-    public string GetDocumentosFiltrados(List<String> filtros)
+    public string GetDocumentosFiltrados(String filtros)
     {
         var filtrosDesSerializados = desSerializadorDeFiltros().DesSerializarFiltros(filtros);
         var documentos = RepositorioDocumentos().GetDocumentosFiltrados(filtrosDesSerializados);
@@ -809,8 +823,6 @@ public class WSViaticos : System.Web.Services.WebService
         if (planilla_mensual.Curso.Alumnos().Count > 0)
         {
             List<object> dias_con_formato = new List<object>();
-            
-            Random r = new Random();
 
             dias_de_cursada.ForEach(d => dias_con_formato.Add(new
             {
@@ -822,22 +834,52 @@ public class WSViaticos : System.Web.Services.WebService
             planilla_mensual.Curso.Alumnos().ForEach(delegate(Alumno alumno)
             {
                 var detalle_asistencias = RepoAsistencias().GetAsistenciasPorCursoYAlumno(planilla_mensual.Curso.Id ,alumno.Id);
+                detalle_asistencias = detalle_asistencias.FindAll(a => a.Fecha.Ticks >= fecha_desde.Ticks && a.Fecha.Ticks <= fecha_hasta.Ticks);
                 List<object> detalle_asistencia = new List<object>();
                 
-                detalle_asistencias.ForEach(d=>detalle_asistencia.Add(new{
-                    valor = d.Valor,
-                    fecha = d.Fecha.ToShortDateString()
-                }));
+                detalle_asistencias.ForEach(d=>{
+                    if(d.Fecha >= fecha_desde && d.Fecha <= fecha_hasta)
+                        detalle_asistencia.Add(new{
+                            valor = d.Valor,
+                            fecha = d.Fecha.ToShortDateString()
+                        });
+                });
 
+                int cant_asistencias_aux = 0;
+                int cant_inasistencias_aux = 0;
+                string cant_asistencias = string.Empty;
+                string cant_inasistencias = string.Empty;
+                detalle_asistencias.ForEach(a =>
+                {
+                    if (a.Valor < 4)
+                        cant_asistencias_aux += a.Valor;
+                }); 
+                detalle_asistencias.ForEach(a =>
+                {
+                    if (a.Valor > 0 && a.Valor < 4)
+                        cant_inasistencias_aux += planilla_mensual.Curso.HorasCatedra - a.Valor;
+                });
+
+                if (cant_asistencias_aux == 0 && cant_inasistencias_aux == 0)
+                {
+                    cant_asistencias = string.Empty;
+                    cant_inasistencias = string.Empty;
+                }
+                else
+                {
+                    cant_asistencias = cant_asistencias_aux.ToString();
+                    cant_inasistencias = cant_inasistencias_aux.ToString();
+                }
                 planilla_mensual_alumnos_dto.Add(new
                 {
                     id = alumno.Id,
-                    nombrealumno = alumno.Nombre,
+                    nombrealumno = alumno.Nombre + " " + alumno.Apellido,
                     pertenece_a = "MDS",
                     detalle_asistencia = detalle_asistencia.ToArray(),
-                    asistencias = "",
-                    inasistencias = "",
-                    justificadas = ""
+                    asistencias = cant_asistencias,
+                    inasistencias = cant_inasistencias,
+                    justificadas = "",
+                    max_horas_cursadas = planilla_mensual.Curso.HorasCatedra
                 });
             });
 
@@ -868,10 +910,16 @@ public class WSViaticos : System.Web.Services.WebService
                     asistencia = new AsistenciaIndeterminada(item.Fecha, item.IdCurso, item.IdAlumno);
                     break;
                 case 1:
-                    asistencia = new AsistenciaNormal(item.Fecha,item.IdCurso, item.IdAlumno);
+                    asistencia = new AsistenciaHoraUno(item.Fecha,item.IdCurso, item.IdAlumno);
                     break;
                 case 2:
-                    asistencia = new InasistenciaNormal(item.Fecha, item.IdCurso, item.IdAlumno);
+                    asistencia = new AsistenciaHoraDos(item.Fecha, item.IdCurso, item.IdAlumno);
+                    break;
+                case 3:
+                    asistencia = new AsistenciaHoraTres(item.Fecha, item.IdCurso, item.IdAlumno);
+                    break;
+                case 4:
+                    asistencia = new AsistenciaClaseSuspendida(item.Fecha, item.IdCurso, item.IdAlumno);
                     break;
                 default:
                     break;
@@ -923,15 +971,15 @@ public class WSViaticos : System.Web.Services.WebService
             {
                 alumnos_dto.Add(new
                 {
-                    id = alumno.Id,
-                    nombre = alumno.Nombre,
-                    apellido = alumno.Apellido,
-                    documento = alumno.Documento,
-                    telefono = alumno.Telefono,
-                    mail = alumno.Mail,
-                    direccion = alumno.Direccion,
-                 //   area = AreaDtoPara(alumno.Area),
-                    modalidad = ModalidadPara(alumno.Modalidad),
+                    Id = alumno.Id,
+                    Nombre = alumno.Nombre,
+                    Apellido = alumno.Apellido,
+                    Documento = alumno.Documento,
+                    Telefono = alumno.Telefono,
+                    Mail = alumno.Mail,
+                    Direccion = alumno.Direccion,
+                 //   Area = AreaDtoPara(alumno.Area),
+                    Modalidad = ModalidadPara(alumno.Modalidad),
                 });
             });
         }
@@ -955,8 +1003,8 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new
         {
-            id = modalidad.Id,
-            descripcion = modalidad.Descripcion
+            Id = modalidad.Id,
+            Descripcion = modalidad.Descripcion
         };
     }
 
@@ -988,9 +1036,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void QuitarMateria(Materia materia, Usuario usuario)
+    public bool QuitarMateria(Materia materia, Usuario usuario)
     {
+        if (RepositorioDeMaterias().MateriaAsignadaACurso(materia))
+        {
+            return false;
+        }
         RepositorioDeMaterias().QuitarMateria(materia, usuario);
+        return true;
     }
 
     [WebMethod]
@@ -1010,9 +1063,14 @@ public class WSViaticos : System.Web.Services.WebService
     //}
 
     [WebMethod]
-    public void QuitarDocente(Docente docente, Usuario usuario)
+    public bool QuitarDocente(Docente docente, Usuario usuario)
     {
-        RepositorioDeDocentes().QuitarDocente(docente, usuario);
+        if(RepositorioDeDocentes().DocenteAsignadoACurso(docente))
+        { 
+            return false;
+        }
+           RepositorioDeDocentes().QuitarDocente(docente, usuario);
+            return true;
     }
 
     [WebMethod]
@@ -1025,21 +1083,27 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool InscribirAlumnosACurso(List<Alumno> alumnos, int idCurso,  Usuario usuario)
+    public void InscribirAlumnosACurso(List<Alumno> alumnos, int idCurso,  Usuario usuario)
     {
         var conexion = Conexion();
         Curso curso = RepositorioDeCursos().GetCursoById(idCurso);
 
-        curso.ActualizarAlumnosDelCurso(alumnos);
+        //curso.ActualizarAlumnosDelCurso(alumnos);
 
-        return RepositorioDeCursos().ModificarCurso(curso);
+        RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos, curso, usuario);
 
     }
 
     [WebMethod]
-    public void QuitarAlumno(Alumno alumno, Usuario usuario)
+    public bool QuitarAlumno(Alumno alumno, Usuario usuario)
     {
+        if (RepoAlumnos().AlumnoAsignadoACurso(alumno))
+        {
+            return false;
+        }
         RepoAlumnos().QuitarAlumno(alumno, usuario);
+        return true;
+
     }
 
     [WebMethod]
@@ -1050,6 +1114,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    [System.Xml.Serialization.XmlInclude(typeof(DocenteNull))]
     public List<CursoDto> GetCursosDto()
     {
         var cursos = new RepositorioDeCursos(Conexion()).GetCursos();
@@ -1065,10 +1130,11 @@ public class WSViaticos : System.Web.Services.WebService
                 un_curso.Materia = curso.Materia;
                 un_curso.Docente = curso.Docente;
                 un_curso.Alumnos = curso.Alumnos();
+                un_curso.HorasCatedra = curso.HorasCatedra;
                 var horarios = new List<HorarioDto>();
                 foreach (var h in curso.GetHorariosDeCursada())
                 {
-                    horarios.Add(new HorarioDto() { NumeroDia = (int)h.Key, Dia = DateTimeFormatInfo.CurrentInfo.GetDayName(h.Key), HoraDeInicio = h.Value.HoraDeInicio.ToString().Substring(0, 5), HoraDeFin = h.Value.HoraDeFin.ToString().Substring(0, 5) });
+                    horarios.Add(new HorarioDto() { NumeroDia = (int)h.Dia, Dia = DateTimeFormatInfo.CurrentInfo.GetDayName(h.Dia), HoraDeInicio = h.HoraDeInicio.ToString().Substring(0, 5), HoraDeFin = h.HoraDeFin.ToString().Substring(0, 5) });
                 }
                 un_curso.Horarios = horarios;
                 cursos_dto.Add(un_curso);
@@ -1078,6 +1144,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    [System.Xml.Serialization.XmlInclude(typeof(DocenteNull))]
     public List<Curso> GetCursos()
     {
         return new RepositorioDeCursos(Conexion()).GetCursos();
@@ -1099,6 +1166,7 @@ public class WSViaticos : System.Web.Services.WebService
                     id = materia.Id,
                     nombre = materia.Nombre,
                     modalidad = ModalidadPara(materia.Modalidad),
+                    ciclo = materia.Ciclo,
                 });
             });
         };
@@ -1127,7 +1195,10 @@ public class WSViaticos : System.Web.Services.WebService
                     id = docente.Id,
                     dni = docente.Dni,
                     nombre = docente.Nombre,
-                    apellido = docente.Apellido
+                    apellido = docente.Apellido,
+                    telefono = docente.Telefono,
+                    mail = docente.Mail,
+                    domicilio = docente.Direccion
                 });
             });
         };
@@ -1141,46 +1212,54 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Ciclo[] Ciclos()
+    {
+        return RepositorioDeMaterias().GetCiclos().ToArray();
+    }
+
+    [WebMethod]
     public Materia GetMateriaById(int id)
     {
         return RepositorioDeMaterias().GetMateriaById(id);
         
     }
 
-
     [WebMethod]
-    public bool AgregarCurso(string un_curso)
+    public bool QuitarCurso(CursoDto curso, Usuario usuario)
     {
-        var curso = new Curso();
-
-        var curso_dto = JsonConvert.DeserializeObject<JObject>(un_curso);
-        var horarios = new Dictionary<DayOfWeek, HorarioDeCursada>();
-        var horarios_dto = JsonConvert.DeserializeObject<JObject>(un_curso)["horarios"];
-        var docente = RepositorioDeDocentes().GetDocenteById(int.Parse(curso_dto["docente_id"].ToString()));
-        var materia = RepositorioDeMaterias().GetMateriaById(int.Parse(curso_dto["materia_id"].ToString()));
-
-        foreach (var h in horarios_dto)
+        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, Id = curso.Id };
+        var horarios = curso.Horarios;
+        horarios.ForEach(h =>
         {
-            curso.AgregarHorarioDeCursada((DayOfWeek)int.Parse(h["numero_dia"].ToString()), new HorarioDeCursada(h["hora_inicio"].ToString(), h["hora_fin"].ToString()));
-        }
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
+        });
 
-        curso.Docente = docente;
-        curso.Materia = materia;
-        
-        
-        return RepositorioDeCursos().AgregarCurso(curso);
+        return RepositorioDeCursos().QuitarCurso(un_curso, usuario);
     }
 
     [WebMethod]
-    public bool QuitarCurso(int id)
+    public bool AgregarCurso(CursoDto curso)
     {
-        return RepositorioDeCursos().QuitarCurso(id);
+        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra };
+        var horarios = curso.Horarios;
+        horarios.ForEach(h =>
+        {
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
+        });
+
+        return RepositorioDeCursos().AgregarCurso(un_curso);
     }
 
     [WebMethod]
-    public bool ModificarCurso(Curso curso)
+    public bool ModificarCurso(CursoDto curso)
     {
-        return RepositorioDeCursos().ModificarCurso(curso);
+        var un_curso = new Curso() { Id = curso.Id, Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra };
+        var horarios = curso.Horarios;
+        horarios.ForEach(h =>{
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
+        });
+        
+        return RepositorioDeCursos().ModificarCurso(un_curso);
     }
 
     [WebMethod]

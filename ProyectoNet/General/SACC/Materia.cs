@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace General
 {
     public class Materia
@@ -6,6 +8,7 @@ namespace General
         private int _id;
         private string _nombre;
         private Modalidad _modalidad;
+        private Ciclo _ciclo;
 
         public Materia()
         {
@@ -36,8 +39,19 @@ namespace General
             set { _modalidad = value; }
         }
 
+        public Ciclo Ciclo
+        {
+            get { return _ciclo; }
+            set { _ciclo = value; }
+        }
 
-        
-        
+
+
+
+
+        internal int esMayorAlfabeticamenteQue(Materia otramateria)
+        {
+            return this.Nombre.CompareTo(otramateria.Nombre);
+        }
     }
 }

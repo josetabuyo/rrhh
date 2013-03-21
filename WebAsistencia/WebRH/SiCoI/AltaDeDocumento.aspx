@@ -12,12 +12,12 @@
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
     <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
-    <script language="javascript" type="text/javascript">
-        function mostrarMensaje(mensaje) {
-            alert(mensaje);
-        }
-        
-    </script>
+
+     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+      <script type="text/javascript" src="utilesSICOI.js"></script>
+       <script type="text/javascript" src="../Scripts/InputSoloNumeros.js"></script>
+
+
 </head>
 <body class="body-detalle" onload="MM_preloadImages('Imagenes/Botones/gestiontramites_s2.png','Imagenes/Botones/administrar_s2.png','Imagenes/Botones/solicitar_modificacion_s2.png','Imagenes/Botones/Botones Nuevos/ayuda_s2.png','Imagenes/Botones/Botones Nuevos/inicio_s2.png','Imagenes/Botones/cerrarsesion_s2.png','Imagenes/Botones/consprotocolo_s2.png')">
     <form id="form1" runat="server">
@@ -84,7 +84,7 @@
             </div>
             <div class="titulo_filtro">
                 Detenido más de:</div>
-            <input type="text" id="txtFiltroPorTiempoEnAreaActual" runat="server" 
+            <input type="text" id="txtFiltroPorTiempoEnAreaActual" runat="server" soloNumero ="soloNumero"
                 enableviewstate="true" maxlength="4"  />
             <span>días</span>
            
@@ -97,21 +97,21 @@
             </div>
         </div>
         <div id="panel_alta_documento" class="panel_desplegable">
-            <asp:DropDownList ID="cmbTipoDeDocumento" nullValue="Tipo de documento" runat="server" EnableViewState="true" onBlur = "feedback_vacios()" >
+            <asp:DropDownList ID="cmbTipoDeDocumento" nullValue="Tipo de documento" runat="server" EnableViewState="true" >
                 <asp:ListItem Value="" Selected="true"></asp:ListItem>
             </asp:DropDownList>
             <div id="letrasDelTipoDeDocumento">
             </div>
             <asp:TextBox ID="txtNumero" nullValue="Número" runat="server" MaxLength="50"></asp:TextBox>
-            <asp:DropDownList ID="cmbCategoria" nullValue="Categoría de documento" runat="server" EnableViewState="true" onBlur = "feedback_vacios()">
+            <asp:DropDownList ID="cmbCategoria" nullValue="Categoría de documento" runat="server" EnableViewState="true">
                 <asp:ListItem Value="" Selected="true"></asp:ListItem>
             </asp:DropDownList>
-            <input id="selectorDeAreaOrigen" nullValue="Área de Origen" type="text" data-provide="typeahead" onBlur = "feedback_vacios()" data-items="9" runat="server" />
-            <asp:TextBox ID="txtExtracto" nullValue="Ingrese el extracto del documento" TextMode="MultiLine" type = "text" onkeyup = "valida_envia()" Height="112px" runat="server"></asp:TextBox>
+            <input id="selectorDeAreaOrigen" nullValue="Área de Origen" type="text" data-provide="typeahead" data-items="9" runat="server" />
+            <asp:TextBox ID="txtExtracto" nullValue="Ingrese el extracto del documento" TextMode="MultiLine" type = "text" Height="112px" runat="server"></asp:TextBox>
             <input id="selectorDeAreaDestino" nullValue="Área de Destino (opcional)" type="text" data-provide="typeahead" data-items="9" runat="server" />
             <asp:TextBox ID="txtComentarios" nullValue="Ingrese sus comentarios (opcional)" runat="server" TextMode="MultiLine" Height="32px" class="detalle_alta_documento" ></asp:TextBox>
             <div class="botones_alta_documento">
-                <asp:Button ID="btnCrearDocumento" Text="Agregar Documento" runat="server" type = "submit" OnClick="btnCrearDocumento_Click" onMouseEnter = "feedback_vacios()"
+                <asp:Button ID="btnCrearDocumento" Text="Agregar Documento" runat="server" type = "submit" OnClick="btnCrearDocumento_Click"
                     class=" btn btn-primary" />
                 <asp:Button ID="btnCancelar" Text="Cancelar" runat="server" OnClick="btnCancelar_Click"
                     class=" btn btn-primary" />
@@ -179,6 +179,7 @@
     <asp:HiddenField ID="AreaSeleccionadaOrigenEnFiltro" runat="server" />
     <asp:HiddenField ID="AreaSeleccionadaActualEnFiltro" runat="server" />
     <asp:HiddenField ID="AreaSeleccionadaDestino" runat="server" />
+    <asp:HiddenField ID="divFiltrosActivos" runat="server" />
     <asp:HiddenField ID="AreaSeleccionadaDestinoEnDetalle" runat="server" />
     <asp:HiddenField ID="ListaDocumentos" runat="server" />
     <asp:HiddenField ID="TiposDeDocumento" runat="server" />
@@ -189,7 +190,7 @@
     <asp:Button ID="btnEnviarDocumentoConAreaIntermedia" Text="" runat="server" OnClick="btnEnviarDocumentoConAreaintermedia_Click"
         Style="display: none" />
     <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+   
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
@@ -200,221 +201,112 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
-    <script type="text/javascript" src="AdministradorDeDocumentos.js"></script>
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../Scripts/InputAutocompletable.js"></script>
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+    <script type="text/javascript" src="AdministradorDeDocumentos.js"></script>
+    <script type="text/javascript" src="PanelDeFiltrosDeDocumentos.js"></script>
+    <script type="text/javascript" src="GrillaDeDocumentos.js"></script>
+    <script type="text/javascript" src="InputAutocompletableDeAreas.js"></script>
+    <script type="text/javascript" src="PanelDetalleDeDocumento.js"></script>
+    <script type="text/javascript" src="PanelDeDocumentos.js"></script>
+    <script type="text/javascript" src="PanelAltaDeDocumento.js"></script>
+  
+       <script type="text/javascript" src="../Scripts/InputSoloNumeros.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
-            var selectorDeAreaOrigenEnAlta = $('#selectorDeAreaOrigen');
-            var selectorDeAreaDestinoEnAlta = $('#selectorDeAreaDestino');
-            var selectorDeAreaDestinoEnDetalle = $('#selectorAreaDestinoEnDetalle');
-            var selectorDeAreaActualEnfiltro = $('#selectorAreaActualEnfiltro');
-            var selectorDeAreaOrigenEnfiltro = $('#selectorAreaOrigenEnfiltro');
-
-            var areaOrigenSeleccionadaEnAlta = $('#AreaSeleccionadaOrigen');
-            var areaDestinoSeleccionadaEnAlta = $('#AreaSeleccionadaDestino');
-            var areaDestinoSeleccionadaEnDetalle = $('#AreaSeleccionadaDestinoEnDetalle');
-            var areaActualSeleccionadaEnFiltro = $('#AreaSeleccionadaActualEnFiltro');
-            var areaOrigenSeleccionadaEnFiltro = $('#AreaSeleccionadaOrigenEnFiltro');
-
-            var listaAreas = $('#ListaAreas');
+            var listaAreas = JSON.parse($('#ListaAreas').val());
             var listaDocumentos = JSON.parse($('#ListaDocumentos').val());
-            var botonCerrarDetalle = $('#cerrarDetalle');
-            var botonDesplegarPanelAlta = $("#boton_desplegar_panel_alta_documento");
-            var botonDesplegarPanelFiltros = $("#boton_desplegar_panel_filtros");
-            var panelFiltros = $("#panel_filtros");
-            var panelAlta = $("#panel_alta_documento");
-            var panelDocumentos = $("#panel_documentos");
-            var panelDetalle = $("#detalle_documento");
-            var filtroFechaDesde = $("#filtroFechaDesde");
-            var filtroFechaHasta = $("#filtroFechaHasta");
-            var botonAplicarFiltros = $("#btn_aplicar_filtros");
-            var divDocumentoAEnviar = $("#divDocumentoAEnviar");
-            var btnEnviarDocumento = $("#btnEnviarDocumento");
-            var btnEnviarDocumentoConAreaIntermedia = $("#btnEnviarDocumentoConAreaIntermedia");
-            var idDocumentoEnDetalle = $("#idDocumentoEnDetalle");
-            var ExtractoDocumentoDetalle = $("#ExtractoDocumentoDetalle");
-            var TipoDocumentoDetalle = $("#TipoDocumentoDetalle");
-            var NumeroDocumentoDetalle = $("#NumeroDocumentoDetalle");
-            var FechaDocumentoDetalle = $("#FechaDocumentoDetalle");
-            var txtComentariosEnDetalle = $("#txtComentariosEnDetalle");
-            var AreaOrigenDocumentoDetalle = $("#AreaOrigenDocumentoDetalle");
             var tiposDeDocumento = JSON.parse($('#TiposDeDocumento').val());
-            var cmbTipoDeDocumento = $('#cmbTipoDeDocumento');
-            var cmbFiltroPorTipoDeDocumento = $('#cmbFiltroPorTipoDeDocumento');
-            var idTipoDeDocumentoSeleccionadoEnAlta = $('#idTipoDeDocumentoSeleccionadoEnAlta');
-            var lblLetrasDelTipoDeDocumento = $("#letrasDelTipoDeDocumento");
-            var txtNumero = $('#txtNumero');
             var areaDelUsuario = JSON.parse($('#divAreaDelUsuario').val());
-            var chkFiltroSoloDocsEnMiArea = $('#chkFiltroSoloDocsEnMiArea');
-            var titulo_filtro_area_actual = $('#titulo_filtro_area_actual');
 
-
-            var cfg_grilla = {
+            var cfg_panel_documentos = {
+                divPanelDocumentos: $("#panel_documentos"),
+                divDocumentoAEnviar: $("#divDocumentoAEnviar"),
+                btnEnviarDocumento: $("#btnEnviarDocumento"),
+                btnEnviarDocumentoConAreaIntermedia: $("#btnEnviarDocumentoConAreaIntermedia"),
                 areaDelUsuario: areaDelUsuario,
-                divDocumentoAEnviar: divDocumentoAEnviar,
-                btnEnviarDocumento: btnEnviarDocumento,
-                btnEnviarDocumentoConAreaIntermedia: btnEnviarDocumentoConAreaIntermedia,
-                panelDetalle: panelDetalle,
-                listaDocumentos: listaDocumentos//,
-                //panelDocumentos: panelDocumentos
+                listaDocumentos: listaDocumentos
             }
+            var panel_documentos = new PanelDeDocumentos(cfg_panel_documentos);
 
-            var grillaDocumentos = new GrillaDeDocumentos(cfg_grilla);
+            var cfg_panel_detalle = {
+                divPanelDetalle: $("#detalle_documento"),
+                idDocumentoEnDetalle: $("#idDocumentoEnDetalle"),
+                ExtractoDocumentoDetalle: $("#ExtractoDocumentoDetalle"),
+                TipoDocumentoDetalle: $("#TipoDocumentoDetalle"),
+                NumeroDocumentoDetalle: $("#NumeroDocumentoDetalle"),
+                FechaDocumentoDetalle: $("#FechaDocumentoDetalle"),
+                txtComentariosEnDetalle: $("#txtComentariosEnDetalle"),
+                AreaOrigenDocumentoDetalle: $("#AreaOrigenDocumentoDetalle"),
+                selectorDeAreaDestinoEnDetalle: $('#selectorAreaDestinoEnDetalle'),
+                areaDestinoSeleccionadaEnDetalle: $('#AreaSeleccionadaDestinoEnDetalle'),
+                contenedor_historial_transiciones: $("#contenedor_historial_documento_detalle"),
+                plantilla_transicion_documento: $('#proto_transicion_de_documento_historial'),
+                botonCerrarDetalle: $('#cerrarDetalle'),
+                listaAreas: listaAreas
+            };
+            var panel_detalle = new PanelDetalleDeDocumento(cfg_panel_detalle);
 
-            var cfg_administrador_docs = {
-                titulo_filtro_area_actual: titulo_filtro_area_actual,
-                chkFiltroSoloDocsEnMiArea: chkFiltroSoloDocsEnMiArea,
-                areaDelUsuario: areaDelUsuario,
-                grillaDocumentos: grillaDocumentos,
-                selectorDeAreaOrigenEnAlta: selectorDeAreaOrigenEnAlta,
-                selectorDeAreaDestinoEnAlta: selectorDeAreaDestinoEnAlta,
-                selectorDeAreaDestinoEnDetalle: selectorDeAreaDestinoEnDetalle,
-                selectorDeAreaActualEnfiltro: selectorDeAreaActualEnfiltro,
-                selectorDeAreaOrigenEnfiltro: selectorDeAreaOrigenEnfiltro,
-
-                areaOrigenSeleccionadaEnAlta: areaOrigenSeleccionadaEnAlta,
-                areaDestinoSeleccionadaEnAlta: areaDestinoSeleccionadaEnAlta,
-                areaDestinoSeleccionadaEnDetalle: areaDestinoSeleccionadaEnDetalle,
-                areaActualSeleccionadaEnFiltro: areaActualSeleccionadaEnFiltro,
-                areaOrigenSeleccionadaEnFiltro: areaOrigenSeleccionadaEnFiltro,
-
+            var cfg_panel_alta = {
+                selectorDeAreaOrigenEnAlta: $('#selectorDeAreaOrigen'),
+                selectorDeAreaDestinoEnAlta: $('#selectorDeAreaDestino'),
+                areaOrigenSeleccionadaEnAlta: $('#AreaSeleccionadaOrigen'),
+                areaDestinoSeleccionadaEnAlta: $('#AreaSeleccionadaDestino'),
+                cmbTipoDeDocumento: $('#cmbTipoDeDocumento'),
+                idTipoDeDocumentoSeleccionadoEnAlta: $('#idTipoDeDocumentoSeleccionadoEnAlta'),
+                lblLetrasDelTipoDeDocumento: $("#letrasDelTipoDeDocumento"),
+                txtNumero: $('#txtNumero'),
+                txtExtracto: $('#txtExtracto'),
+                btnCrearDocumento: $('#btnCrearDocumento'),
+                cmbCategoriaDocumento: $('#cmbCategoria'),
+                botonDesplegarPanelAlta: $("#boton_desplegar_panel_alta_documento"),
+                divPanelAlta: $("#panel_alta_documento"),
                 listaAreas: listaAreas,
-                listaDocumentos: listaDocumentos,
-                botonCerrarDetalle: botonCerrarDetalle,
-                botonDesplegarPanelAlta: botonDesplegarPanelAlta,
-                botonDesplegarPanelFiltros: botonDesplegarPanelFiltros,
-                panelFiltros: panelFiltros,
-                panelAlta: panelAlta,
-                panelDocumentos: panelDocumentos,
-                panelDetalle: panelDetalle,
-                filtroFechaDesde: filtroFechaDesde,
-                filtroFechaHasta: filtroFechaHasta,
-                botonAplicarFiltros: botonAplicarFiltros,
-                idDocumentoEnDetalle: idDocumentoEnDetalle,
-                ExtractoDocumentoDetalle: ExtractoDocumentoDetalle,
-                TipoDocumentoDetalle: TipoDocumentoDetalle,
-                NumeroDocumentoDetalle: NumeroDocumentoDetalle,
-                FechaDocumentoDetalle: FechaDocumentoDetalle,
-                txtComentariosEnDetalle: txtComentariosEnDetalle,
-                AreaOrigenDocumentoDetalle: AreaOrigenDocumentoDetalle,
-                tiposDeDocumento: tiposDeDocumento,
-                cmbTipoDeDocumento: cmbTipoDeDocumento,
-                cmbFiltroPorTipoDeDocumento: cmbFiltroPorTipoDeDocumento,
-                idTipoDeDocumentoSeleccionadoEnAlta: idTipoDeDocumentoSeleccionadoEnAlta,
-                lblLetrasDelTipoDeDocumento: lblLetrasDelTipoDeDocumento,
-                txtNumero: txtNumero
-            };
+                tiposDeDocumento: tiposDeDocumento
+            }
+            var panel_alta = new PanelAltaDeDocumento(cfg_panel_alta);
 
-            var colaboradores_del_panel_detalle = {
-                grillaDocumentos: grillaDocumentos,
-                panelDetalle: panelDetalle,
-                panelDocumentos: panelDocumentos,
+            var cfg_panel_filtros = { 
+                inputFiltroExtractoDocumento: $('#FiltroExtracto'),
+                inputFiltroNumeroDocumento: $('#FiltroNumero'),
+                inputFiltroFechaDesde: $('#filtroFechaDesde'),
+                inputFiltroFechaHasta: $('#filtroFechaHasta'),
+                inputFiltroAreaActual: $('#selectorAreaActualEnfiltro'),
+                areaActualSeleccionadaEnFiltro: $('#AreaSeleccionadaActualEnFiltro'),
+                inputFiltroAreaOrigen: $('#selectorAreaOrigenEnfiltro'),
+                areaOrigenSeleccionadaEnFiltro: $('#AreaSeleccionadaOrigenEnFiltro'),
+                inputFiltroDetenidoMasDeTantosDias: $('#txtFiltroPorTiempoEnAreaActual'),
+                inputFiltroTipoDeDocumento: $('#cmbFiltroPorTipoDeDocumento'),
+                inputFiltroCategoriaDocumentoFiltro: $('#cmbFiltroPorCategoria'),
+                inputFiltroCheckDocumentosEnMiArea: $('#chkFiltroSoloDocsEnMiArea'),
+                tituloFiltroCheckDocumentosEnMiArea: $('#titulo_filtro_solo_docs_en_mi_area'),
+                divFiltrosActivos: $('#divFiltrosActivos'),
+                botonDesplegarPanelFiltros: $("#boton_desplegar_panel_filtros"),
+                tituloFiltroAreaActual: $('#titulo_filtro_area_actual'),
+                divPanelFiltros: $("#panel_filtros"),
+                areaDelUsuario: areaDelUsuario,
+                listaAreas: listaAreas,
+                tiposDeDocumento: tiposDeDocumento
+            }
+            var panel_filtros = new PanelDeFiltrosDeDocumentos(cfg_panel_filtros);
 
-                panelFiltros: panelFiltros,
-                panelAlta: panelAlta,
-                botonDesplegarPanelAlta: botonDesplegarPanelAlta,
-                botonDesplegarPanelFiltros: botonDesplegarPanelFiltros,
-                idDocumentoEnDetalle: idDocumentoEnDetalle,
-                ExtractoDocumentoDetalle: ExtractoDocumentoDetalle,
-                TipoDocumentoDetalle: TipoDocumentoDetalle,
-                NumeroDocumentoDetalle: NumeroDocumentoDetalle,
-                FechaDocumentoDetalle: FechaDocumentoDetalle,
-                txtComentariosEnDetalle: txtComentariosEnDetalle,
-                AreaOrigenDocumentoDetalle: AreaOrigenDocumentoDetalle,
-                selectorDeAreaDestinoEnDetalle: selectorDeAreaDestinoEnDetalle,
-                areaDestinoSeleccionadaEnDetalle: areaDestinoSeleccionadaEnDetalle
-            };
-            var panel_detalle = new PanelDetalle(colaboradores_del_panel_detalle);
+            panel_documentos.setPanelDetalle(panel_detalle);
 
-            var inputFiltroExtractoDocumento = $('#FiltroExtracto');
-            var inputFiltroNumeroDocumento = $('#FiltroNumero');
-//            var inputFiltroFechaDesde = $('#filtroFechaDesde');
-//            var inputFiltroFechaHasta = $('#filtroFechaHasta');
-//            var inputFiltroAreaActual = $('#selectorAreaActualEnfiltro');
-//            var inputFiltroAreaOrigen = $('#selectorAreaOrigenEnfiltro');
-//            var inputFiltroDetenidoMasDe = $('#txtFiltroPorTiempoEnAreaActual');
-//            var inputFiltroTipoDeDocumentoFiltro = $('#cmbFiltroPorTipoDeDocumento');
-//            var inputFiltroCategoriaDocumentoFiltro = $('#cmbFiltroPorCategoria');
-//            var inputFiltroCheckDocumentosEnMiArea = $('#chkFiltroSoloDocsEnMiArea');
+            panel_detalle.setPanelAlta(panel_alta);
+            panel_detalle.setPanelFiltros(panel_filtros);
+            panel_detalle.setPanelDocumentos(panel_documentos);
 
-            var blanco = 'rgb(255, 255, 255)';
-            var amarillo = 'rgb(255, 255, 200)';
+            panel_alta.setPanelFiltros(panel_filtros);
+            panel_alta.setPanelDetalle(panel_detalle);
 
-            var panel_filtros = new PanelDeFiltros(botonDesplegarPanelFiltros, 
-                [new FiltroPorNumero(inputFiltroNumeroDocumento, amarillo, blanco),
-                 new FiltroPorExtracto(inputFiltroExtractoDocumento, amarillo, blanco)]);
-
-            var admin = new AdministradorDeDocumentos(cfg_administrador_docs);
-
+            panel_filtros.setPanelAlta(panel_alta);
+            panel_filtros.setPanelDetalle(panel_detalle);
         });
     </script>   
 
-    <script type="text/javascript">
-        function feedback_vacios() {
-            valida_envia();
-        }
-    </script>
-
-
-    <script type="text/javascript">
- //       function feedback_filtros_vacios() {
-
-//            var ExtractoDocumento = $('#FiltroExtracto');
-//            var NumeroDocumento = $('#FiltroNumero');
-//            var FechaDesde = $('#filtroFechaDesde');
-//            var FechaHasta = $('#filtroFechaHasta');
-//            var AreaActual = $('#selectorAreaActualEnfiltro');
-//            var AreaOrigen = $('#selectorAreaOrigenEnfiltro');
-//            var DetenidoMasDe = $('#txtFiltroPorTiempoEnAreaActual');
-//            var TipoDeDocumentoFiltro = $('#cmbFiltroPorTipoDeDocumento');
-//            var CategoriaDocumentoFiltro = $('#cmbFiltroPorCategoria');
-//            var checkDocumentosEnMiArea = $('#chkFiltroSoloDocsEnMiArea');
-//            var validadorFiltros = new ValidadorDeFiltrosDeDocumento([ExtractoDocumento, NumeroDocumento, FechaDesde, FechaHasta, AreaActual, AreaOrigen, DetenidoMasDe, TipoDeDocumentoFiltro, CategoriaDocumentoFiltro, checkDocumentosEnMiArea]);
-
-//        }
-    </script>
-
-       <script type="text/javascript">
-
-           function valida_envia() {
-
-               var ExtractoDocumento = $('#txtExtracto');
-               var BtnAgregarDocumento = $('#btnCrearDocumento');
-               var TipoDocumento = $('#cmbTipoDeDocumento');
-               var Categoria = $('#cmbCategoria');
-               var AreaOrigen = $('#selectorDeAreaOrigen');
-
-               var validador = new ValidadorDeAltaDeDocumento([ExtractoDocumento, BtnAgregarDocumento, TipoDocumento, Categoria, AreaOrigen]);
-           }
-      
-    </script>
-
-     <script type="text/javascript">        //localizar timers
-        var iddleTimeoutWarning = null;    
-        var iddleTimeout = null;     //esta funcion automaticamente sera llamada por ASP.NET AJAX cuando la pagina cargue y un postback parcial complete   
-        feedback_vacios();
-
-        //feedback_filtros_vacios() ;
-
-        this.form1.elements['btnCrearDocumento'].disabled = true;      
-        function pageLoad() {          //borrar antiguos timers de postbacks anteriores       
-            if (iddleTimeoutWarning != null)     
-        
-            clearTimeout(iddleTimeoutWarning);       
-            if (iddleTimeout != null)           
-            clearTimeout(iddleTimeout);        //leer tiempos desde web.config        
-            var millisecTimeOutWarning = <%= int.Parse(System.Configuration.ConfigurationManager.AppSettings["SessionTimeoutWarning"]) * 60 * 1000 %>; 
-            var millisecTimeOut = <%= int.Parse(System.Configuration.ConfigurationManager.AppSettings["SessionTimeout"]) * 60 * 1000 %>;          //establece tiempo para mostrar advertencia si el usuario ha estado inactivo  
-       
-            iddleTimeout = setTimeout("TimeoutPage()", millisecTimeOut);    
-        }            
-        function TimeoutPage() {        //actualizar pagina para este ejemplo, podriamos redirigir a otra pagina con codigo para eliminar variables de sesion       
-            location.href="../login.aspx"; 
-        } 
-    </script>
-
+   
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
     </form>

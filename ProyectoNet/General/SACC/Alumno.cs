@@ -56,5 +56,10 @@ namespace General
         {
             return this.Nombre;
         }
+
+        internal int esMayorAlfabeticamenteQue(Alumno otroalumno)
+        {
+            return this.Apellido.CompareTo(otroalumno.Apellido); ;
+        }
     }
 }

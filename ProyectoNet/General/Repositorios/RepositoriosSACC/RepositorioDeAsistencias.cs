@@ -34,9 +34,9 @@ namespace General.Repositorios
             parametros.Add("id_curso", asistencia.IdCurso);
             parametros.Add("fecha_asistencia", asistencia.Fecha);
             parametros.Add("descripcion", asistencia.Descripcion);
+            parametros.Add("valor", asistencia.Valor);
             parametros.Add("id_usuario", usuario.Id);
             parametros.Add("fecha", DateTime.Now);
-            //parametros.Add("baja", 0);
 
             conexion_bd.EjecutarSinResultado("dbo.SACC_Ins_Asistencia", parametros);
 
@@ -50,54 +50,53 @@ namespace General.Repositorios
             {
                 tablaAsistencias.Rows.ForEach(row =>
                 {
-                    if (row.GetString("Descripcion").Trim().Equals("Asistencia Normal"))
+                    Asistencia asistencia;
+                    switch (row.GetSmallintAsInt("Valor"))
                     {
-                        var asistencia_normal = new AsistenciaNormal(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                        asistencias.Add(asistencia_normal);
+                        case 1:
+                            asistencia = new AsistenciaHoraUno(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
+                            break;
+                        case 2:
+                            asistencia = new AsistenciaHoraDos(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
+                            break;
+                        case 3:
+                            asistencia = new AsistenciaHoraTres(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
+                            break;
+                        case 4:
+                            asistencia = new AsistenciaClaseSuspendida(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
+                            break;
+                        default:
+                            asistencia = new AsistenciaIndeterminada(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
+                            break;
                     }
-                    else if (row.GetString("Descripcion").Trim().Equals("Inasistencia Normal"))
-                    {
-                        var inasistencia_normal = new InasistenciaNormal(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                        asistencias.Add(inasistencia_normal);
-                    }
+                    asistencias.Add(asistencia);
+                   
 
                 });
             }
-
             return asistencias;
         }
-
-
 
         public void GuardarAsistencias(List<Asistencia> asistencias_a_guardar, Usuario usuario)
         {
             foreach (var a in asistencias_a_guardar)
             {
-                if (!(this.GetAsistencias().FindAll(_a => _a.Fecha == a.Fecha && _a.IdAlumno == a.IdAlumno & _a.IdCurso == a.IdCurso).Count > 0))
-                {
-                    if(a.Valor != 0)
-                        GuardarAsistencia(a, usuario);
-                }
-                else if (this.GetAsistencias().FindAll(_a => _a.Fecha == a.Fecha && _a.IdAlumno == a.IdAlumno & _a.IdCurso == a.IdCurso).Count > 0)
-                {
-                    ModificarAsistencia(a, usuario);
-                }
-
+                BorrarAsistencias(a);
+            }
+            foreach (var a in asistencias_a_guardar)
+            {
+                if (a.Valor != 0)
+                    GuardarAsistencia(a, usuario);
             }
         }
 
-        private void ModificarAsistencia(Asistencia asistencia, Usuario usuario)
+        private void BorrarAsistencias(Asistencia a)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("id_alumno", asistencia.IdAlumno);
-            parametros.Add("id_curso", asistencia.IdCurso);
-            parametros.Add("fecha_asistencia", asistencia.Fecha);
-            parametros.Add("descripcion", asistencia.Descripcion);
-            parametros.Add("id_usuario", usuario.Id);
-            parametros.Add("fecha", DateTime.Now);
-            parametros.Add("baja", 0);
-
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Asistencia", parametros);
+            parametros.Add("id_alumno", a.IdAlumno);
+            parametros.Add("id_curso", a.IdCurso);
+            parametros.Add("fecha_asistencia", a.Fecha);
+            conexion_bd.EjecutarSinResultado("dbo.SACC_Del_Asistencias", parametros);
 
         }
     }

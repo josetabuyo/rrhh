@@ -13,6 +13,7 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         var servicio = new WSViaticos.WSViaticosSoapClient();
+        SetearLosTextBox();
 
         if (!IsPostBack)
         {   
@@ -30,12 +31,31 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
 
     protected void btnBuscarPersona_Click(object sender, EventArgs e)
     {
+        int dni;
 
-        int dni = int.Parse(this.input_dni.Text);
+        try
+        {
+            dni = int.Parse(this.input_dni.Text);
+        }
+        catch (Exception)
+        {
+            this.alerta_mensaje.Value = "1";
+            return;
+        }
 
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
 
-        var persona = JsonConvert.DeserializeObject<JObject>(servicio.GetPersonaByDNI(dni));
+        var persona = new JObject();
+
+        try
+        {
+            persona = JsonConvert.DeserializeObject<JObject>(servicio.GetPersonaByDNI(dni));
+        }
+        catch (Exception)
+        {
+            this.alerta_mensaje.Value = "4";
+            return;
+        }
 
         this.idDocente.Value = ((int)persona["id"]).ToString();       
         this.lblDatoNombre.Text = (string)persona["nombre"];
@@ -53,7 +73,8 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
     {
         if (!DatosEstanCompletos())
         {
-            this.lblMensaje.Text = "Docente no guardado. Complete todos los campos";
+            //this.lblMensaje.Text = "Docente no guardado. Complete todos los campos";
+            this.alerta_mensaje.Value = "1";
             return;
         }
 
@@ -103,9 +124,18 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
         docente.Nombre = this.lblDatoNombre.Text;
         docente.Apellido = this.lblDatoApellido.Text;
 
-        servicio.QuitarDocente(docente, (Usuario)Session["usuario"]);
-        LimpiarPantalla();
-        MostrarDocentesEnLaGrilla(servicio); 
+        if(servicio.QuitarDocente(docente, (Usuario)Session["usuario"]))
+        {
+            LimpiarPantalla();
+            MostrarDocentesEnLaGrilla(servicio); 
+        }else
+        {
+            //mensaje de error
+            this.alerta_mensaje.Value = "3";
+            return;
+
+        }
+        
     }
 
     private void LimpiarPantalla()
@@ -116,11 +146,23 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
         this.lblDatoDocumento.Text = "";
         this.lblDatoTelefono.Text = "";
         this.lblDatoMail.Text = "";
-        this.lblDatoDireccion.Text = "";    
+        this.lblDatoDireccion.Text = "";
+        this.alerta_mensaje.Value = "2";
     }
 
     private bool DatosEstanCompletos()
     {
         return !((this.lblDatoNombre.Text == "") || (this.lblDatoApellido.Text == "") || (this.lblDatoDocumento.Text == ""));
+    }
+
+    private void SetearLosTextBox()
+    {
+        this.lblDatoApellido.Attributes.Add("readonly", "true");
+        this.lblDatoDocumento.Attributes.Add("readonly", "true");
+        this.lblDatoNombre.Attributes.Add("readonly", "true");
+        this.lblDatoTelefono.Attributes.Add("readonly", "true");
+        this.lblDatoMail.Attributes.Add("readonly", "true");
+        this.lblDatoDireccion.Attributes.Add("readonly", "true");
+        //this.lblMensaje.Text = "";
     }
 }

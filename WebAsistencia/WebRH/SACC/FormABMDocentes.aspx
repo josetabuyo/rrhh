@@ -14,6 +14,7 @@
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
 </head>
 <body>
@@ -29,15 +30,15 @@
         </div>
                  <p>   
             <asp:Label ID="lblDNI" CssClass="labels_sacc" runat="server" Text="Documento:"></asp:Label>
-            <asp:TextBox ID="lblDatoDocumento" name="D.N.I" runat="server" EnableViewState="false"></asp:TextBox>
+            <asp:TextBox ID="lblDatoDocumento" name="D.N.I" runat="server" CssClass="label_alumno" EnableViewState="false"></asp:TextBox>
         </p>
         <p>
             <asp:Label ID="Label1" CssClass="labels_sacc" runat="server" Text="Apellido:"></asp:Label>
-            <asp:TextBox ID="lblDatoApellido" name="apellido" runat="server" EnableViewState="false"></asp:TextBox>     
+            <asp:TextBox ID="lblDatoApellido" name="apellido" runat="server" CssClass="label_alumno" EnableViewState="false"></asp:TextBox>     
         </p>
         <p> 
             <asp:Label ID="Label2" CssClass="labels_sacc" runat="server" Text="Nombre:"></asp:Label>
-            <asp:TextBox ID="lblDatoNombre" name="Nombre" runat="server" EnableViewState="false"></asp:TextBox>
+            <asp:TextBox ID="lblDatoNombre" name="Nombre" runat="server" CssClass="label_alumno" EnableViewState="false"></asp:TextBox>
         </p>
 
         <p>   
@@ -59,24 +60,17 @@
             <asp:TextBox ID="lblDatoDireccion" ReadOnly="false" CssClass="label_alumno" runat="server" ></asp:TextBox>
         </p>
 
-<%--       <p>
-            <asp:Label ID="lblDNI" CssClass="labels_sacc" runat="server" Text="D.N.I:"></asp:Label>
-            <asp:TextBox ID="txtDNI" name="D.N.I" runat="server" EnableViewState="false"></asp:TextBox>
-        </p>
-        <p>
-            <asp:Label ID="lblNombre" CssClass="labels_sacc" runat="server" Text="Nombre:"></asp:Label>
-            <asp:TextBox ID="txtNombre" name="Nombre" runat="server" EnableViewState="false"></asp:TextBox>
-        </p>
-        <p>
-            <asp:Label ID="lblApellido" CssClass="labels_sacc" runat="server" Text="Apellido:"></asp:Label>
-            <asp:TextBox ID="txtApellido" name="apellido" runat="server" EnableViewState="false"></asp:TextBox>
-        </p>--%>
         <div style=" margin-left:17%; margin-top:3%;">
             <asp:Button ID="btnAgregarDocente" runat="server" Text="Agregar" class=" btn btn-primary boton_main_documentos" onclick="btnAgregarDocente_Click" />
             <%--<asp:Button ID="btnModificarDocente" runat="server" Text="Modificar" class=" btn btn-primary boton_main_documentos" onclick="btnModificarDocente_Click" />--%>
             <asp:Button ID="btnQuitarDocente" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarDocente_Click" />
-            <br/>
-            <asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>
+            <br />
+            <br />
+            <div class="alert alert-error" id="div_mensaje" style="width:42%;">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong id="texto_mensaje">Por favor complete todos los campos.</strong> 
+            </div>
+            <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
         </div>
     </fieldset>
     </div>
@@ -91,9 +85,26 @@
     <asp:HiddenField ID="docentesJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="txtIdDocente" runat="server" />
     <asp:HiddenField ID="idDocente" runat="server" />
+    <asp:HiddenField ID="alerta_mensaje" runat="server" />
     </form>
 </body>
 <script type="text/javascript">
+
+    if ($("#alerta_mensaje").val() == "1") {
+        $(".alert").alert();
+    } else if ($("#alerta_mensaje").val() == "2") {
+        this.div_mensaje.setAttribute("class", "alert alert-success");
+        this.texto_mensaje.innerHTML = "Operación exitosa.";
+    } else if ($("#alerta_mensaje").val() == "3") {
+        this.div_mensaje.setAttribute("class", "alert alert-error");
+        this.texto_mensaje.innerHTML = "No se puede eliminar el docente porque se encuentra asignado a un curso";
+    } else if ($("#alerta_mensaje").val() == "4") {
+        this.div_mensaje.setAttribute("class", "alert alert-error");
+        this.texto_mensaje.innerHTML = "No se encontro una persona con ese documento";
+    } else {
+        $(".alert").alert('close');
+    }
+
     var PlanillaDocentes;
     var contenedorPlanilla;
 
@@ -119,9 +130,13 @@
         panelDocente.CompletarDatosDocente = function (un_docente) {
 
             $("#idDocente").val(un_docente.id);
-            $("#txtDNI").val(un_docente.dni);
-            $("#txtNombre").val(un_docente.nombre);
-            $("#txtApellido").val(un_docente.apellido);
+            $("#lblDatoDocumento").val(un_docente.dni);
+            $("#lblDatoNombre").val(un_docente.nombre);
+            $("#lblDatoApellido").val(un_docente.apellido);
+
+            $("#lblDatoTelefono").val(un_docente.telefono);
+            $("#lblDatoMail").val(un_docente.mail);
+            $("#lblDatoDireccion").val(un_docente.domicilio);
         };
 
 

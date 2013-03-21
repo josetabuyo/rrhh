@@ -32,18 +32,21 @@ namespace General.Repositorios
 
             tablaDatos.Rows.ForEach(row =>
             {
-
+                Ciclo ciclo = new Ciclo(row.GetSmallintAsInt("idCiclo"), row.GetString("NombreCiclo"));                
                 Modalidad modeliadad_aux = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
+                
                 Materia materia = new Materia
                 {
                     Id = row.GetSmallintAsInt("Id"),
                     Nombre = row.GetString("Nombre"),
-                    Modalidad = modeliadad_aux
+                    Modalidad = modeliadad_aux,
+                    Ciclo = ciclo
                 };
 
                 materias.Add(materia);
             });
 
+            materias.Sort((materia1, materia2) => materia1.esMayorAlfabeticamenteQue(materia2));
             return materias;
         }
 
@@ -87,6 +90,13 @@ namespace General.Repositorios
             return id;
         }
 
+
+        public bool MateriaAsignadaACurso(Materia una_materia)
+        {
+            List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
+            return cursos.Exists(c => c.Materia.Id == una_materia.Id);
+        }
+
         private static Dictionary<string, object> Parametros(Materia materia, Usuario usuario,int id_baja)
         {
             var parametros = new Dictionary<string, object>();
@@ -95,6 +105,7 @@ namespace General.Repositorios
             
             parametros.Add("@Nombre", materia.Nombre);
             parametros.Add("@IdModalidad", materia.Modalidad.Id);
+            parametros.Add("@Ciclo", materia.Ciclo.Id);
             parametros.Add("@IdUsuario", usuario.Id);
             parametros.Add("@Fecha", "");
             if (id_baja != 0)            
@@ -102,5 +113,21 @@ namespace General.Repositorios
             
             return parametros;
         }
+
+        public List<Ciclo> GetCiclos()
+        {
+            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Ciclos");
+            List<Ciclo> ciclos = new List<Ciclo>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Ciclo ciclo = new Ciclo(row.GetSmallintAsInt("idCiclo"), row.GetString("NombreCiclo"));
+
+                ciclos.Add(ciclo);
+            });
+
+            return ciclos;
+        }
+        
     }
 }

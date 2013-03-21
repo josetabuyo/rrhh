@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormABMCursos.aspx.cs" Inherits="SACC_FormABMCursos" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableEventValidation="false" CodeFile="FormABMCursos.aspx.cs" Inherits="SACC_FormABMCursos" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="BarraDeNavegacion.ascx" TagName="BarraNavegacion" TagPrefix="uc3" %>
 
@@ -12,6 +12,7 @@
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
+    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
@@ -23,7 +24,7 @@
         <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelCurso" class="div_izquierdo">
            <legend>Panel De Cursos</legend>
-        <p>
+        <p style="display:none">
             <asp:Label ID="lblNombre" CssClass="labels_sacc" runat="server" Text="Nombre:"></asp:Label>
             <asp:TextBox ID="txtNombre" ReadOnly="true" name="Nombre" runat="server" EnableViewState="false"></asp:TextBox>
         </p>
@@ -31,13 +32,18 @@
             <asp:Label ID="lblMateria" CssClass="labels_sacc" runat="server" Text="Materia:"></asp:Label>
             <asp:DropDownList ID="cmbMateria" name="Materia" runat="server" EnableViewState="false"></asp:DropDownList >
         </p>
-        <p> 
+        <%--<p> 
             <asp:Label ID="lblCiclo" CssClass="labels_sacc" runat="server" Text="Ciclo:"></asp:Label>
             <asp:DropdownList ID="cmbCiclo" name="Ciclo" runat="server" EnableViewState="false"></asp:DropdownList >
-        </p>
+        </p>--%>
         <p> 
             <asp:Label ID="lblDocente" CssClass="labels_sacc" runat="server" Text="Docente:"></asp:Label>
             <asp:DropdownList ID="cmbDocente" name="Docente" runat="server" EnableViewState="false"></asp:DropdownList >
+        </p>
+         <p>
+            <asp:Label ID="lblHorasCatedra" CssClass="labels_sacc" runat="server" Text="Horas Catedra:"></asp:Label>
+            <select runat="server" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false"></select>
+           <%-- <asp:DropDownList ID="cmbHorasCatedra" name="HorasCatedra" runat="server" EnableViewState="false"></asp:DropDownList >--%>
         </p>
         <p>   
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
@@ -75,7 +81,9 @@
         <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
     </div>
     <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
+    <asp:HiddenField ID="materiasJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idCursoAVer" runat="server" />
+    <asp:HiddenField ID="horaCatedra" runat="server" />
      <asp:Button ID="btnVerFichaCurso" Text="" runat="server" OnClick="btnVerCurso_Click" style="display:none"/>
     </form>
 </body>

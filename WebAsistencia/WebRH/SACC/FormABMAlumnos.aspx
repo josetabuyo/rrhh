@@ -64,11 +64,16 @@
             </asp:DropDownList>
         </p>
         <div style=" margin-left:17%; margin-top:3%;">
-            <asp:Button ID="btnAgregarAlumno" runat="server" Text="Inscribir"  OnClick="btnAgregarAlumno_Click" class=" btn btn-primary boton_main_documentos"  />
+            <asp:Button ID="btnAgregarAlumno" runat="server" Text="Agregar"  OnClick="btnAgregarAlumno_Click" class=" btn btn-primary boton_main_documentos"  />
             <asp:Button ID="btnModificarAlumno" runat="server" Text="Cambiar Modalidad" class=" btn btn-primary boton_main_documentos" onclick="btnModificarAlumno_Click" />
-            <asp:Button ID="btnQuitarAlumno" runat="server" Text="Desinscribir" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarAlumno_Click" />
+            <asp:Button ID="btnQuitarAlumno" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarAlumno_Click" />
         <br/>
-            <asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>
+        <br />
+            <div class="alert alert-error" id="div_mensaje" style="width:42%;">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong id="texto_mensaje">Por favor complete todos los campos.</strong> 
+            </div>
+           <%-- <asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
         </div>
     </fieldset>
     </div>
@@ -79,6 +84,7 @@
        <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
        </fieldset>
     </div>
+    <asp:HiddenField ID="alerta_mensaje" runat="server" />
     <asp:HiddenField ID="personasJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idAlumnoAVer" runat="server" />
@@ -100,6 +106,21 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
 <script type="text/javascript">
+    if ($("#alerta_mensaje").val() == "1") {
+        $(".alert").alert();
+    } else if ($("#alerta_mensaje").val() == "2") {
+        this.div_mensaje.setAttribute("class", "alert alert-success");
+        this.texto_mensaje.innerHTML = "Operación exitosa.";
+    } else if ($("#alerta_mensaje").val() == "3") {
+        this.div_mensaje.setAttribute("class", "alert alert-error");
+        this.texto_mensaje.innerHTML = "No se puede eliminar el alumno porque se encuentra inscripto a un curso";
+    } else if ($("#alerta_mensaje").val() == "4") {
+        this.div_mensaje.setAttribute("class", "alert alert-error");
+        this.texto_mensaje.innerHTML = "No se encontro una persona con ese documento";
+    } else {
+        $(".alert").alert('close');
+    }
+
     var PlanillaAlumnos;
     var contenedorPlanilla;
 
@@ -118,12 +139,12 @@
         contenedorPlanilla = $('#ContenedorPlanilla');
         var columnas = [];
 
-        columnas.push(new Columna("Documento", { generar: function (un_alumno) { return un_alumno.documento } }));
-        columnas.push(new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.nombre } }));
-        columnas.push(new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.apellido } }));
+        columnas.push(new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento } }));
+        columnas.push(new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre } }));
+        columnas.push(new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido } }));
 //        columnas.push(new Columna("Pertenece A", { generar: function (un_alumno) { return un_alumno.area.descripcion } }));
-        columnas.push(new Columna("Teléfono", { generar: function (un_alumno) { return un_alumno.telefono } }));
-        columnas.push(new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.modalidad.descripcion } }));
+        columnas.push(new Columna("Teléfono", { generar: function (un_alumno) { return un_alumno.Telefono } }));
+        columnas.push(new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion } }));
         columnas.push(new Columna('Detalle', { generar: function (un_alumno) {
             var contenedorBtnFichaAlumno = $('<div>');
             var botonVerAlumno = $('<input>');
@@ -132,7 +153,7 @@
             botonVerAlumno.addClass('btn-primary');
             botonVerAlumno.val('Ver Ficha');
             botonVerAlumno.click(function () {
-                $("#idAlumnoAVer").val(un_alumno.id);
+                $("#idAlumnoAVer").val(un_alumno.Dd);
                 $("#btnVerFichaAlumno").click();
             });
             contenedorBtnFichaAlumno.append(botonVerAlumno);
@@ -154,14 +175,14 @@
         panelAlumno.CompletarDatosAlumno = function (un_alumno) {
 
             $("#input_dni").val("");
-            $("#idAlumnoAVer").val(un_alumno.id);
-            $("#lblDatoApellido").val(un_alumno.apellido);
-            $("#lblDatoNombre").val(un_alumno.nombre);
-            $("#lblDatoDocumento").val(un_alumno.documento);
-            $("#lblDatoTelefono").val(un_alumno.telefono);
-            $("#lblDatoMail").val(un_alumno.mail);
-            $("#lblDatoDireccion").val(un_alumno.direccion);
-            $("#cmbPlanDeEstudio").val(un_alumno.modalidad.id);
+            $("#idAlumnoAVer").val(un_alumno.Id);
+            $("#lblDatoApellido").val(un_alumno.Apellido);
+            $("#lblDatoNombre").val(un_alumno.Nombre);
+            $("#lblDatoDocumento").val(un_alumno.Documento);
+            $("#lblDatoTelefono").val(un_alumno.Telefono);
+            $("#lblDatoMail").val(un_alumno.Mail);
+            $("#lblDatoDireccion").val(un_alumno.Direccion);
+            $("#cmbPlanDeEstudio").val(un_alumno.Modalidad.Id);
 
         };
 

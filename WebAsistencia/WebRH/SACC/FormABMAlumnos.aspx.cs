@@ -32,12 +32,32 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
     protected void btnBuscarPersona_Click(object sender, EventArgs e)
     {
+        int dni;
 
-        int dni = int.Parse(this.input_dni.Text);
+        try
+        {
+            dni = int.Parse(this.input_dni.Text);
+        }
+        catch (Exception)
+        {
+            this.alerta_mensaje.Value = "1";
+            return;
+        }
+        
 
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
+        var persona = new JObject();
 
-            var persona = JsonConvert.DeserializeObject<JObject>(servicio.GetPersonaByDNI(dni));
+        try
+        {
+           persona = JsonConvert.DeserializeObject<JObject>(servicio.GetPersonaByDNI(dni));
+        }
+        catch (Exception)
+        {
+            this.alerta_mensaje.Value = "4";
+            return;
+        }
+        
 
         this.idAlumnoAVer.Value = ((int)persona["id"]).ToString();
         this.lblDatoNombre.Text = (string)persona["nombre"];
@@ -55,7 +75,8 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
     {
         if (!DatosEstanCompletos())
         {
-            this.lblMensaje.Text = "Alumno no guardado. Seleccione el alumno y la Modalidad";
+            this.alerta_mensaje.Value = "1";
+            //this.lblMensaje.Text = "Alumno no guardado. Seleccione el alumno y la Modalidad";
             return;
         }
         
@@ -73,6 +94,7 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
     {
         if (!DatosEstanCompletos())
         {
+            this.alerta_mensaje.Value = "1";
             return;
         }
 
@@ -90,9 +112,20 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
     {
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
         var alumno = AlumnoDesdeElForm();
-        servicio.QuitarAlumno(alumno, (Usuario)Session["usuario"]);
-        LimpiarPantalla();
-        MostrarAlumnosEnLaGrilla(servicio);    
+
+        if (servicio.QuitarAlumno(alumno, (Usuario)Session["usuario"]))
+        {
+            LimpiarPantalla();
+            MostrarAlumnosEnLaGrilla(servicio);
+        }
+        else
+        {
+            //mensaje de error
+            this.alerta_mensaje.Value = "3";
+            return;
+        }
+
+
     }
 
     private Alumno AlumnoDesdeElForm()
@@ -160,6 +193,7 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         this.lblDatoTelefono.Text = "";
         this.lblDatoMail.Text = "";
         this.lblDatoDireccion.Text = "";
+        this.alerta_mensaje.Value = "2";
     }
 
     private void SetearLosTextBox()
@@ -170,7 +204,7 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         this.lblDatoTelefono.Attributes.Add("readonly", "true");
         this.lblDatoMail.Attributes.Add("readonly", "true");
         this.lblDatoDireccion.Attributes.Add("readonly", "true");
-        this.lblMensaje.Text = "";
+        //this.lblMensaje.Text = "";
     }
 
 }

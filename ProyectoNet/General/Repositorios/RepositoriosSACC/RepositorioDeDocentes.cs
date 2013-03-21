@@ -54,12 +54,16 @@ namespace General.Repositorios
                     Id = row.GetSmallintAsInt("Id"),
                     Dni = row.GetInt("Documento"),
                     Apellido = row.GetString("Apellido"),
-                    Nombre = row.GetString("Nombre")
+                    Nombre = row.GetString("Nombre"),
+                    Telefono = row.GetString("Telefono"),
+                    Mail = row.GetString("Mail"),
+                    Direccion = row.GetString("Direccion")
                 };
 
                 docentes.Add(docente);
             });
 
+            docentes.Sort((docente1, docente2) => docente1.esMayorAlfabeticamenteQue(docente2));
             return docentes;
         }
 
@@ -68,18 +72,32 @@ namespace General.Repositorios
         {
             var parametros = Parametros(un_docente, usuario, 0);
 
-            conexion_bd.EjecutarSinResultado("SACC_Ins_Docente", parametros);
+            try
+            {
+                conexion_bd.EjecutarSinResultado("SACC_Ins_Docente", parametros);
+            }
+            catch (Exception)
+            {
+
+                conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Docente", parametros);
+            }        
             
             docentes.Add(un_docente);
         }
 
         public void QuitarDocente(Docente un_docente, Usuario usuario)
         {
-            var idBaja = CrearBaja(usuario);
+                var idBaja = CrearBaja(usuario);
 
-            var parametros = Parametros(un_docente, usuario, idBaja);
+                var parametros = Parametros(un_docente, usuario, idBaja);
 
-            conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Docente", parametros);
+                conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Docente", parametros);        
+        }
+
+        public bool DocenteAsignadoACurso(Docente un_docente)
+        {
+            List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
+            return cursos.Exists(c => c.Docente.Id == un_docente.Id);
         }
 
         private int CrearBaja(Usuario usuario)
@@ -100,9 +118,10 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdDocente", un_docente.Id);
-            //parametros.Add("@NroDocumento", un_docente.Dni);
+            //parametros.Add("@Documento", un_docente.Dni);
             //parametros.Add("@Apellido", un_docente.Apellido);
             //parametros.Add("@Nombre", un_docente.Nombre);
+            //parametros.Add("@Baja", "baja");
             parametros.Add("@IdUsuario", usuario.Id);
             parametros.Add("@Fecha", "");
             if (id_baja != 0)

@@ -1,0 +1,1081 @@
+﻿/*ESTILO GENERAL*/
+
+.body-detalle {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	background-color: #CCC
+	
+}
+
+.contenedor_principal
+{
+    position: absolute;
+	left: 50%;
+	min-height: 100%;
+	width: 1024px;
+	margin-left: -512px;	
+	background-color: #FFF;
+}
+/*FIN ESTILO GENERAL*/
+
+
+/*ESTILO BARRA MENU*/
+
+.barra_menu_fondo {
+    background-color: #003;
+	height: 120px;
+}
+
+.barra_menu_fondo a {
+    text-decoration: none;
+}
+
+.barra_menu_contenedor {
+    position: absolute;
+	left: 50%;
+	width: 1024px;
+	margin-left: -512px;
+	margin-top: 10px;
+}
+
+.barra_menu_logo_sistema {
+	float: left;
+	margin-left: 15px;	
+}
+
+.barra_menu_contenedor_logos_derecha
+{
+    float:right;
+    margin-right: 15px;  
+} 
+
+.barra_menu_logo_ministerio {
+    margin-left: 25px;
+}
+
+.barra_menu_bloque_inferior
+{
+    margin-top: 85px;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 15px;	
+}
+.barra_menu_label_bienvenido {
+	
+	color: #FFF;
+	clear: both;
+	display:inline;
+}
+.barra_menu_label_usuario {
+	color: #09F;
+	display:inline;
+}
+
+.barra_menu_botones_menu_usuario
+{
+    float:right;
+    margin-right: 15px;
+}
+
+.barra_menu_boton_menu_usuario {
+	margin-left:5px;
+}
+
+/*FIN ESTILO BARRA MENU*/
+
+
+
+/*ESTILO DETALLE VIATICO*/
+.detalle_viatico_label_usuario {
+    padding-top: 50px;
+}
+
+.detalle_viatico_separador
+{
+    
+    }
+    
+.detalle_viatico_contenedor_datos_viajante
+{
+    float:right;
+    margin-right:10px;
+    margin-bottom:50px;
+}
+    
+.detalle_viatico_datos_viajante
+{
+    display:inline-block;    
+    margin-right:10px;
+}
+    
+.detalle_viatico_dato_viajante
+{
+    font-family: "Humnst777 BT";
+	font-size: 12px;
+	font-weight: bold;
+	text-align: right;
+	color: #000;
+}
+    
+.detalle_viatico_foto_viajante
+{
+    display:inline-block;   
+    vertical-align:top; 
+}
+
+.detalle_viatico_contenedor_detalle
+{
+    clear:both;
+    margin-left:34px;
+    margin-right:10px;
+    margin-top:40px;
+}
+
+.detalle_viatico_contenedor_detalle
+{
+    clear:both;
+    margin-left:34px;
+    margin-right:10px;
+    margin-top:40px;
+}
+
+.detalle_viatico_titulo_detalle 
+{
+	font-family: "Humnst777 BT";
+	font-size: 13px;
+	font-weight: bold;
+	background-color: #FFF
+}
+
+.detalle_viatico_cuerpo_detalle 
+{
+    margin-top:10px; 
+}
+
+.detalle_viatico_titulo_tabla_detalle 
+{
+	font-family: "Humnst777 BT" !important;	
+	font-size: 11px !important;	
+	background-color: #003 !important;	
+	color:#FFF !important;	
+	text-align:center !important;
+}
+
+.detalle_viatico_celda_tabla_detalle 
+{
+	font-family: "Humnst777 BT" !important;	
+	font-size: 11px !important;	
+	background-color: #CCC !important;	
+	color:#000 !important;
+	vertical-align:middle !important;
+	text-align:center !important;
+}
+
+.detalle_viatico_tabla_firmantes
+{
+    width:100%;
+}
+
+.tablas_alumnos
+{
+    width:80%;
+}
+
+.detalle_viatico_contenedor_datos_firmante
+{
+    border:1px solid;
+    margin-bottom:4px;
+}
+
+.detalle_viatico_dato_firmante {
+	display: inline;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+}
+
+.detalle_viatico_alerta_rendiciones_pendientes {
+	padding-left: 900px;
+	margin-top: -15px;
+	font-family: "Humnst777 BT";
+	font-size: 13px;
+	font-weight: bold; 
+	color: #F00 
+	
+}
+.detalle_viatico_alerta_viatico_menos_72 {
+	padding-left: 940px;
+	margin-top: -18px;
+	font-family: "Humnst777 BT";
+	font-size: 13px;
+	font-weight: bold;
+	color: #36F
+}
+.detalle_viatico_contenedor_referencias
+{
+     float:right;
+     text-align:right;
+     font-family: "Humnst777 BT";
+     font-size: 10px;
+     font-weight: bold;
+     margin-top:10px;
+    }
+    
+.detalle_viatico_referencia_rendiciones_pendientes 
+{	
+    color: #F00
+}
+
+.detalle_viatico_referencia_viatico_menos_72 
+{
+    color: #36F 
+}
+
+.detalle_viatico_boton_imprimir
+{
+    margin-top:10px;
+    display:inline-block;
+}
+
+.detalle_viatico_boton_modificar_solicitud
+{
+    margin-top:10px;
+    display:inline-block;
+}	
+
+.detalle_viatico_contenedor_transicion_combo_boton
+{	   	
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.detalle_viatico_transicion_combo
+{	   	
+    width:100%;
+    max-width:805px;
+    display:inline-block;
+}
+
+.detalle_viatico_transicion_boton
+{	   
+    margin-left:10px;	
+    width:148px !important;
+    margin-top: -9px;
+    display:inline-block;
+}
+
+.detalle_viatico_contenedor_transicion_comentarios
+{
+    margin-bottom:50px;
+}
+
+.detalle_viatico_transicion_leyenda_comentarios
+{
+    display:inline-block;    
+    width:140px;
+    vertical-align:top;
+}
+
+.detalle_viatico_transicion_comentarios
+{
+    width:825px;
+    resize:none;
+}
+
+/*FIN ESTILO DETALLE VIATICO*/
+
+
+
+/* ESTILO LISTADO VIATICO */
+
+.listado_viaticos_contenedor_separador{
+	background-color: #FFF;
+	height: 155px;
+}
+
+.listado_viaticos_imagen_separador{
+	padding-top: 50px;
+}
+
+.listado_viaticos_contenedor_viaticos_espera_gestion{
+	background-color: #FFF;
+	margin-top: 20px;
+}
+
+.listado_viaticos_contenedor_tablas
+{
+    margin-left: 34px;
+    margin-right:10px;
+}
+.listado_viaticos_viaticos_espera_gestion{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000;
+}
+
+.listado_viaticos_tabla_viaticos_espera_gestion{
+	margin-top: 7px;
+}
+
+.listado_viaticos_encabezado {
+	font-family: "Humnst777 BT";
+	font-size: 11px;
+	color: #FFF;
+}
+.listado_viaticos_contenido_tabla {
+	font-family: "Humnst777 BT";
+	font-size: 11px;
+	color: #000;
+}
+.listado_viaticos_contenido_tablaVP {
+	font-family: "Humnst777 BT";
+	font-size: 11px;
+	color: #FFF;
+	
+}
+
+.listado_viaticos_imprimir_seleccion{
+	margin-top: 20px;
+}
+
+.listado_viaticos_contenedor_viaticos_seguimiento{
+	margin-top: 50px;
+}
+
+.listado_viaticos_tabla_viaticos_seguimiento{
+	margin-top: 7px;
+	background-color: #FFF;
+}
+
+.listado_viaticos_contenedor_asterisco{
+	margin-top: 35px;
+}
+
+.listado_viaticos_txt_asterisco{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000;
+}
+
+/* FIN ESTILO LISTADO VIATICO */
+.AzulTHBIG {
+	font-family: Tahoma;
+	font-size: 18px;
+	color: #5A6573;
+	text-decoration: none;
+}
+
+
+
+/* COMIENZO ESTILO REPORTES VIATICO  */
+
+.contenedor_boton_buscar{
+	margin-left: 250px;
+	margin-top: 30px;
+}
+
+#btn_buscar 
+{   
+    border:0;
+    
+    background-image: url(../Imagenes/Botones/buscar.png);
+}
+
+#btn_buscar:hover
+{
+    border:0;
+    background-image: url(../Imagenes/Botones/buscar_s2.png);
+}
+
+
+
+.btn_blanco_clicked 
+{ 
+    font-size:large; 
+    border:solid 1px white; 
+    border-radius:5px;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 4px;
+    zoom: 1;
+    background-position: 0 -15px;
+    -webkit-transition: background-position 0.1s linear;
+    width: 30px;
+    min-width: 30px;
+    cursor: pointer;
+    -webkit-appearance: button;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-right: 0 none #e6e6e6;
+    border-top: 0 none #e6e6e6;
+    border-bottom: 0 none #b3b3b3;
+    
+    
+}
+
+.btn_verde_clicked
+{
+     font-size:large; 
+     background-color:#00B712;
+     display: inline;
+     text-align: center;
+     vertical-align: middle;
+     border-radius: 4px;
+     zoom: 1; 
+     background-position: 0 -15px;
+    -webkit-transition: background-position 0.1s linear;
+    width: 30px;
+    min-width: 30px;
+    cursor: pointer;
+    -webkit-appearance: button;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-right: 0 none #e6e6e6;
+    border-top: 0 none #e6e6e6;
+    border-bottom: 0 none #b3b3b3;
+}
+
+.btn_amarillo_clicked 
+{
+     font-size:large; 
+     background-color:#FFD800;
+     display: inline;
+     text-align: center;
+     vertical-align: middle;
+     border-radius: 4px;
+     zoom: 1;
+     background-position: 0 -15px;
+    -webkit-transition: background-position 0.1s linear;
+    width: 30px;
+    min-width: 30px;
+    cursor: pointer;
+    -webkit-appearance: button;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-right: 0 none #e6e6e6;
+    border-top: 0 none #e6e6e6;
+    border-bottom: 0 none #b3b3b3;
+}
+
+
+
+
+
+
+.reporte_por_provincia_titulo, .reporte_por_agente_titulo, .protocolo_tabla_titulo
+{  
+	font-family: "Humnst777 BT" !important;	
+	font-size: 10px !important;	
+	background-color: #000033 !important;	
+	color:#FFF !important;	
+	text-align:center !important;
+	height:25px;
+}
+
+
+.reporte_por_provincia_celda_detalle, .reporte_por_agente_celda_detalle, .protocolo_tabla_detalle
+{
+	font-family: "Humnst777 BT" !important;	
+	font-size: 11px !important;	
+	background-color: #CCC !important;	
+	color:#000 !important;
+	vertical-align:middle !important;
+	text-align:center !important;
+	height:20px;
+}
+
+.protocolo_tabla{
+        width: 1000px; 
+        border: 0px; 
+        align: center;
+}
+/* FIN ESTILO REPORTES VIATICOS */
+
+/* ESTILO MAIN SICOI */       
+.botones_main_sicoi
+{
+    margin-top:50px;
+	margin-left: 50%;
+    text-align: center;
+}
+
+
+/*FIN ESTILO MAIN SICOI */
+
+/* ESTILO SICOI */
+
+.contenedor_principal_sicoi
+{
+    position: absolute;
+	left: 50%;
+	width: 1024px;
+	margin-left: -512px;	
+	background-color: #FFF;
+	height:81%;
+	overflow:hidden;
+}
+
+#contenedor_maestro_detalle
+{
+    height:100%;
+}
+
+#botonera_paneles_desplegables
+{
+    text-align:right;
+    margin-left:5%;
+    margin-right:5%;
+    margin-top:10px;
+}
+
+#boton_alertas
+{
+    float:left;    
+    margin-top: 5px;
+}
+
+.boton_que_abre_panel_desplegable
+{
+    height:18px;    
+    display:inline-block;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    border-top: 2px black solid;
+    border-left: 2px black solid;
+    border-right: 2px black solid;
+    border-bottom: 2px black solid;
+    padding: 6px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor:pointer;
+}
+
+.boton_que_abre_panel_desplegable_activo
+{
+    height:20px;
+    margin-bottom:-2px;
+    
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+    border-top: 2px black solid;
+    border-left: 2px black solid;
+    border-right: 2px black solid;
+    border-bottom: 2px white solid;
+    
+    background: #b7b7b7; /* Old browsers */
+    background: -moz-linear-gradient(top,  #b7b7b7 0%, #ffffff 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b7b7b7), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #b7b7b7 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #b7b7b7 0%,#ffffff 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #b7b7b7 0%,#ffffff 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #b7b7b7 0%,#ffffff 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7b7b7', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+    
+}
+
+.boton_que_abre_panel_desplegable_activo_con_filtros
+{
+  
+    background: #FFDE00 !important; /* Old browsers */ 
+    background: -moz-linear-gradient(top,  #FFDE00 0%, #ffffff 100%) !important; /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b7b7b7), color-stop(100%,#ffffff)) !important; /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #b7b7b7 0%,#ffffff 100%) !important; /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #b7b7b7 0%,#ffffff 100%) !important; /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #FFDE00 0%,#ffffff 100%) !important; /* IE10+ */
+    background: linear-gradient(to bottom,  #b7b7b7 0%,#ffffff 100%) !important; /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFDE00', endColorstr='#ffffff',GradientType=0 ) !important; /* IE6-9 */
+    
+}
+
+
+.boton_que_abre_panel_desplegable:hover
+{
+    background-color:#C1C1C1;
+}
+
+.celda_seleccionada
+{
+    background-color:gray !important;
+    user-select: none;
+    cursor:pointer;
+}
+
+.celda_on_hover
+{
+    background-color:Silver !important;
+    user-select: none;
+    cursor:pointer;
+}
+
+#panel_documentos
+{
+    margin-left:5%;
+    margin-right:5%;
+    overflow-y:scroll;
+    height:90%;
+    
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+        transition: all .5s ease;
+    }
+
+.panel_desplegable
+{
+    margin-left:5%;
+    margin-right:5%;
+    margin-bottom:10px;
+    overflow:hidden;
+    display:none;
+    
+    border:2px solid black;
+    padding:10px;
+}
+
+/* FIN ESTILO SICOI */
+
+
+/* ESTILO PANEL FILTROS */
+
+#panel_filtros
+{
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.titulo_filtro
+{
+    display:inline-block;
+    vertical-align: top;
+    margin-top: 5px;
+    width:120px;
+    text-align:right;
+}
+
+.titulo_filtro_tipo
+{
+    display:inline-block;
+}
+
+.titulo_filtro_categoria
+{
+    display:inline-block;
+}
+
+.agrupador_de_filtros_por_fecha
+{
+    display:inline-block;
+}
+
+.titulo_filtro_solo_docs_en_mi_area
+{
+    display:inline-block;
+    vertical-align: top;
+    margin-left:100px;
+}
+
+#FiltroExtracto
+{
+    width:84%;
+}
+
+#filtroTicket
+{
+    width:27%;
+}
+
+#titulo_filtro_ticket
+{
+    width:5%;
+}
+
+#selectorAreaActualEnfiltro 
+{
+    display:inline-block;
+    width:84%;
+}
+
+#selectorAreaOrigenEnfiltro 
+{
+    display:inline-block;
+    width:84%;
+}
+
+/* FIN ESTILO PANEL FILTROS */
+
+
+/* ESTILO ALTA DOCUMENTO */
+#panel_alta_documento
+{
+    -webkit-border-radius: 5px 0px 5px 5px;
+    border-radius: 5px 0px 5px 5px;
+}
+
+.placeholder
+{
+    color: #B1B1B1;
+}
+
+.elemento_lista
+{
+    color: black;
+}
+
+.botones_alta_documento
+{
+    float:right;
+    display:inline-block;
+}
+
+#txtExtracto, #txtComentarios
+{
+    width:880px;
+    resize:none;
+}
+
+#cmbTipoDeDocumento
+{
+    width:300px;
+}
+
+#letrasDelTipoDeDocumento
+{
+    display:inline-block;
+    vertical-align: top;
+    padding-top: 5px;
+}
+
+#cmbCategoria
+{
+    width:300px;
+    margin-left:8px;
+}
+
+#txtNumero
+{
+    width: 250px;
+}
+
+#selectorDeAreaOrigen, #selectorDeAreaDestino
+{
+    display:inline-block;
+    width:880px;
+}
+
+/*FIN ESTILO ALTA DOCUMENTO */
+
+
+/* ESTILO DETALLE DOCUMENTO */
+#detalle_documento
+{
+    margin-top:10px; 
+    margin-left:5%;
+    margin-right:5%;
+    display:none;
+    overflow-y:scroll;
+    height:35%;
+    
+    border:2px solid black;
+    padding:5px;
+    
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#cerrarDetalle
+{
+    float:right;
+    cursor:pointer;
+    height:20px;
+    width:20px;
+    text-align:right;
+    padding:2px;
+}
+
+#cerrarDetalle:hover
+{
+}
+
+#TipoDocumentoDetalle,
+#NumeroDocumentoDetalle,
+#FechaDocumentoDetalle,
+#AreaOrigenDocumentoDetalle,
+#ExtractoDocumentoDetalle,
+#selectorAreaDestinoEnDetalle,
+#txtComentariosEnDetalle
+{
+    font-weight:bold;    
+    display:inline-block;
+}
+
+#TipoDocumentoDetalle
+{
+    width:20%;
+}
+
+#NumeroDocumentoDetalle
+{
+    width:20%;
+}
+
+#FechaDocumentoDetalle
+{
+    width:20%;
+}
+
+#AreaOrigenDocumentoDetalle
+{
+    width:80%;
+}
+
+#ExtractoDocumentoDetalle
+{
+    width:80%;
+}
+
+#txtComentariosEnDetalle
+{
+    width:80%;   
+}
+
+#selectorAreaDestinoEnDetalle
+{
+    margin-top:5px;
+    width:80%;   
+}
+
+#titulo_tipo_documento_detalle, 
+#titulo_numero_documento_detalle,
+#titulo_fecha_documento_detalle,
+#titulo_area_origen_documento_detalle,
+#titulo_extracto_documento_detalle,
+#titulo_area_destino_detalle,
+#titulo_comentarios_detalle
+{
+    text-align:right;
+    display:inline-block;
+    vertical-align: top;
+}
+
+#titulo_tipo_documento_detalle
+{
+    width:15%;
+}
+
+#titulo_numero_documento_detalle
+{
+    width:10%;
+}
+
+#titulo_fecha_documento_detalle
+{
+    width:10%;
+}
+
+#titulo_area_origen_documento_detalle
+{
+    width:15%;
+}
+
+#titulo_extracto_documento_detalle
+{
+    width:15%;
+}
+
+#titulo_area_destino_detalle
+{
+    margin-left:10px;
+    vertical-align:middle; 
+    margin-bottom:5px;
+}
+
+#titulo_comentarios_detalle
+{
+    width:15%;
+}
+
+#btnGuardarCambiosDetalle
+{
+    float:right;
+    margin-right:30px;
+}
+
+#proto_transicion_de_documento_historial
+{
+    visibility:hidden;
+}
+#titulo_historial_transiciones
+{
+    margin-left:10px; 
+    margin-top:5px;   
+    margin-bottom:5px;
+}
+
+#contenedor_historial_documento_detalle
+{
+    padding:5px;
+    
+}
+
+.transicion_de_documento_historial
+{    
+   
+}
+
+.fecha_transicion
+{
+    font-weight:bold;   
+    display:inline-block;
+    margin-left:10px;
+}
+
+.titulo_area_origen_transicion
+{
+    display:inline-block;
+    margin-left:5px;
+    vertical-align:top;
+}
+.area_origen_transicion
+{
+    display:inline-block;    
+    font-weight:bold;    
+    width:30%;
+    vertical-align:top;
+}
+.titulo_area_destino_transicion
+{
+    margin-left:10px;
+    display:inline-block;    
+    width:80px;
+    vertical-align:top;
+}
+.area_destino_transicion
+{
+    display:inline-block;
+    font-weight:bold;   
+    width:30%; 
+    vertical-align:top;
+}
+
+/*FIN ESTILO DETALLE DOCUMENTO */
+
+
+/*COMIENZO ESTILO SACC - ALUMNOS */
+
+.labels_sacc 
+    {
+        width:15%; 
+        text-align:right; 
+        padding-right:2%; 
+        float:left;
+        margin-top: 8px;
+    }
+
+.div_derecho {
+	/*right: 5%;*/
+	width: 45%;
+	margin-right: 10px;
+    display: inline;
+    float: left;
+	margin-top: 10px;
+	overflow: auto;
+    height: 100%;
+	
+}
+
+.div_izquierdo {
+    display: inline;
+    float: left;
+	left: 5%;
+	width: 45%;
+	margin-left: 10px;
+	margin-top: 10px;
+    overflow: auto;
+    height: 100%;
+}
+
+.div_derecho_inscripcion {
+	/*right: 5%;*/
+	width: 46%;
+	/*margin-right: 10px;*/
+    display: inline;
+    float: left;
+	margin-top: 10px;
+	overflow: auto;
+    height: 100%;
+	
+}
+
+.div_izquierdo_inscripcion {
+    display: inline;
+    float: left;
+	margin-right:-70px;
+	width: 46%;
+	/*margin-left: 10px;*/
+	margin-top: 10px;
+    overflow: auto;
+    height: 100%;
+}
+
+.label_alumno
+{
+    vertical-align: middle;
+    margin-top: 5px;
+    width:200px;
+    text-align:right;
+    border:none;
+}
+
+.btn_inscripcion_SACC 
+{
+margin-right: 12%;
+text-align: right;
+}
+
+
+/*Seteo personalizado de la barra de navegacion SACC*/
+
+	.navbar 
+	{
+	 /* Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar*/
+       position: relative;
+       z-index: 99999999;
+	 }
+
+.navbar-inner {
+  background-color: #fcfcfc; /* background color will be black for all browsers */
+  color:#000;
+  background-image: none;
+  background-repeat: no-repeat;
+  filter: none;
+}
+
+.navbar .nav > li > a:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #0074cc;
+}
+
+.navbar .nav .active > a,
+.navbar .nav .active > a:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #0074cc;
+}
+
+.navbar .nav li.dropdown.open > .dropdown-toggle,
+.navbar .nav li.dropdown.active > .dropdown-toggle,
+.navbar .nav li.dropdown.open.active > .dropdown-toggle {
+  background-color: #0074cc;
+  color: #fff;
+}
+
+.navbar .nav li.dropdown.active > .dropdown-toggle:hover {
+  color: #0074cc;
+}
+
+
+

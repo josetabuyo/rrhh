@@ -37,6 +37,16 @@
 <body onload="javascript:window.print();window.close();">
     <form id="form1" runat="server">
         <div id="DivContenedor" runat="server" style="margin:10px;">
+            <label>Curso:&nbsp;</label>
+            <label id="Curso" runat="server">&nbsp;</label>
+            <br />
+            <label>Mes:&nbsp;&nbsp;&nbsp;</label>
+            <label id="Mes" runat="server">&nbsp;</label>
+            <br />
+            <label>Docente:</label>
+            <label id="Docente" runat="server">&nbsp;</label>
+            <br />
+            <br />
             <uc1:planilla ID="PlanillaAsistencia" runat="server" />
         </div>
     </form>
@@ -52,7 +62,7 @@
         var columnas = [];
 
         columnas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
-        columnas.push(new Columna("Pertenece a", { generar: function (inasistenciaalumno) { return inasistenciaalumno.pertenece_a } }));
+        //columnas.push(new Columna("Pertenece a", { generar: function (inasistenciaalumno) { return inasistenciaalumno.pertenece_a } }));
 
         for (var i = 0; i < DiasCursados.length; i++) {
             columnas.push(new Columna(DiasCursados[i].nombre_dia + "<br/>" + DiasCursados[i].dia,
@@ -61,7 +71,6 @@
         }
         columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
         columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
-        columnas.push(new Columna("Justificadas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.justificadas } }));
 
 
 
@@ -73,6 +82,9 @@
         PlanillaMensual.SetOnRowClickEventHandler(function () {
             return true;
         });
+
+        var Docente = JSON.parse($("#PlanillaAsistencia_Curso").val()).Docente;
+        $("#Docente").text(Docente.Nombre + " " + Docente.Apellido);
     };
 
     var GeneradorCeldaDiaCursado = function (diaCursado) {
@@ -87,10 +99,10 @@
 
             var botonAsistencia;
             if (queryResult.Count() > 0) {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor);
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor, inasistenciaalumno.max_horas_cursadas);
             }
             else {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0);
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, inasistenciaalumno.max_horas_cursadas);
             }
             contenedorAcciones.append(botonAsistencia);
 

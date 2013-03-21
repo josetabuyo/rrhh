@@ -28,11 +28,12 @@ public partial class AltaDeDocumento : System.Web.UI.Page
             this.TiposDeDocumento.Value = JsonConvert.SerializeObject(servicio.TiposDeDocumentosSICOI().OrderBy(td => td.descripcion));
             CompletarCombosDeTipoDeDocumentos();
             CompletarCombosDeCategoria();
+            divFiltrosActivos.Value = "[]";
             this.RefrescarListaDeDocumentos();
             var areaDelUsuarioDTO = new {   id = usuarioLogueado.Areas[0].Id, 
                                             descripcion =  usuarioLogueado.Areas[0].Nombre};
             divAreaDelUsuario.Value = JsonConvert.SerializeObject(areaDelUsuarioDTO);
-            //CompletarCombosDeTipoDeDocumentos();
+            
         }
     }
 
@@ -74,123 +75,15 @@ public partial class AltaDeDocumento : System.Web.UI.Page
         }
     }
 
-    //private void MostrarGrillaDeDocumentos()
-    //{
-    //    var lista_de_documentos = DocumentosFromWS();
-    //    string[] columnasTablaDocumentos = new string[] { "Tipo", "Nro", "Ticket", "Extracto", "Fecha", "Area origen", "Estado", "Area Actual", "Area Destino", "Obs", "Acciones" };
-    //    this.ListaDocumentos.Value = JsonConvert.SerializeObject(lista_de_documentos);
-    //    MostrarTablaDeDocumentos(lista_de_documentos, this.grillaDocumentos, new DocumentoSICOIToRowSerializer(), columnasTablaDocumentos);
-    //}
-
     private string DocumentosFromWS()
     {
-        WSViaticosSoapClient ws_viaticos = new WSViaticosSoapClient();
-        Usuario usuario = (Usuario)Session["usuario"];
-              
-        var filtros = new List<String>();
 
-        if (chkFiltroSoloDocsEnMiArea.Checked){
-            var filtroPorArea = JsonConvert.SerializeObject(new
-            {
-                tipoDeFiltro = "FiltroDeDocumentosPorAreaActual",
-                idArea = usuarioLogueado.Areas[0].Id.ToString()
-            }); 
-            filtros.Add(filtroPorArea);
-        }
-        if(filtroFechaDesde.Value != ""){
-            var filtroPorFechaDesde = JsonConvert.SerializeObject(new
-            {
-                tipoDeFiltro = "FiltroDeDocumentosPorFechaDesde",
-                fechaDesde = filtroFechaDesde.Value
-            }); 
-            filtros.Add(filtroPorFechaDesde);
-        }
-        if (filtroFechaHasta.Value != ""){
-            var filtroPorFechaHasta = JsonConvert.SerializeObject(new
-            {
-                tipoDeFiltro = "FiltroDeDocumentosPorFechaHasta",
-                fechaHasta = filtroFechaHasta.Value
-            }); 
-            filtros.Add(filtroPorFechaHasta);
-        }
-        if (FiltroExtracto.Value != ""){
-            var filtroPorExtracto = JsonConvert.SerializeObject(new
-            {
-                tipoDeFiltro = "FiltroDeDocumentosPorExtracto",
-                extracto = FiltroExtracto.Value
-            });            
-            filtros.Add(filtroPorExtracto);
-        }
-        if (FiltroNumero.Value != ""){
-            var filtroPorNumero = JsonConvert.SerializeObject(new
-            {
-                tipoDeFiltro = "FiltroDeDocumentosPorNumero",
-                numero = FiltroNumero.Value
-            });             
-            filtros.Add(filtroPorNumero);
-        }
-
-        if (txtFiltroPorTiempoEnAreaActual.Value != "")
-        {
-            var filtroPorTiempoEnAreaActualDto = JsonConvert.SerializeObject(new
-            {
-                tipoDeFiltro = "FiltroDeDocumentosPorTiempoEnUltimaAreaMayorOIgualA",
-                dias = txtFiltroPorTiempoEnAreaActual.Value
-            });
-            filtros.Add(filtroPorTiempoEnAreaActualDto);
-        }
-        
-        var tipoDeDocumento = TipoDeDocumentoAFiltrarFromForm();
-        if (tipoDeDocumento.Id >= 0){
-            var filtroPorTipo = JsonConvert.SerializeObject(new
-            {
-                tipoDeFiltro = "FiltroDeDocumentosPorTipoDocumento",
-                idTipo = tipoDeDocumento.Id.ToString()
-            });              
-            filtros.Add(filtroPorTipo);
-        }
-        var categoriaDeDocumento = CategoriaDeDocumentoAFiltrarFromForm();
-        if (categoriaDeDocumento.Id >= 0){
-            var filtroPorCategoria = JsonConvert.SerializeObject(new
-            {
-                tipoDeFiltro = "FiltroDeDocumentosPorCategoria",
-                idCategoria = categoriaDeDocumento.Id.ToString()
-            });    
-            filtros.Add(filtroPorCategoria);
-        }
-        if (!chkFiltroSoloDocsEnMiArea.Checked)
-        {
-            int idAreaActualAFiltrar;
-            if (int.TryParse(AreaSeleccionadaActualEnFiltro.Value, out idAreaActualAFiltrar))
-            {
-                if (idAreaActualAFiltrar >= 0)
-                {
-                    var filtroPorAreaActual = JsonConvert.SerializeObject(new
-                    {
-                        tipoDeFiltro = "FiltroDeDocumentosPorAreaActual",
-                        idArea = idAreaActualAFiltrar.ToString()
-                    });
-                    filtros.Add(filtroPorAreaActual);
-                }
-            }
-        }
-        int idAreaOrigenAFiltrar;
-        if (int.TryParse(AreaSeleccionadaOrigenEnFiltro.Value, out idAreaOrigenAFiltrar)){
-            if (idAreaOrigenAFiltrar >= 0){
-                var filtroPorTransicion = JsonConvert.SerializeObject(new
-                {
-                    tipoDeFiltro = "FiltroDeDocumentosPorTransicion",
-                    idAreaOrigen = idAreaOrigenAFiltrar.ToString(),
-                    idAreaDestino = usuarioLogueado.Areas.First().Id.ToString()
-                });                  
-                filtros.Add(filtroPorTransicion);
-            }
-        }
-        var documentos = ws_viaticos.GetDocumentosFiltrados(filtros.ToArray());
+        WSViaticosSoapClient ws_viaticos = new WSViaticosSoapClient();       
+        var documentos = ws_viaticos.GetDocumentosFiltrados(divFiltrosActivos.Value);
 
         return documentos;
     }
-
+    
     private TipoDeDocumentoSICOI TipoDeDocumentoFromForm()
     {
         var tipoDeDocumento = new TipoDeDocumentoSICOI();

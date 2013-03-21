@@ -1,0 +1,55 @@
+﻿.barra_menu_fondo {
+    background-color: #003;
+	height: 120px;
+}
+
+.barra_menu_fondo a {
+    text-decoration: none;
+}
+
+.barra_menu_contenedor {
+    position: absolute;
+	left: 50%;
+	width: 1024px;
+	margin-left: -512px;
+	margin-top: 10px;
+}
+
+.logo_sistema {
+	float: left;
+}
+
+.contenedor_logos_derecha
+{
+    float:right;  
+} 
+
+.logo_ministerio {
+    margin-left: 25px;
+}
+
+.bloque_inferior
+{
+    margin-top: 85px;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;	
+}
+.label_bienvenido {
+	
+	color: #FFF;
+	clear: both;
+	display:inline;
+}
+.label_usuario {
+	color: #09F;
+	display:inline;
+}
+
+.botones_menu_usuario
+{
+    float:right;
+}
+
+.boton_menu_usuario {
+	margin-left:5px;
+}

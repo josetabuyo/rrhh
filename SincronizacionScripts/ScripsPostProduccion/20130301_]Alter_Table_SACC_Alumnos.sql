@@ -1,3 +1,0 @@
---GO
---ALTER TABLE [dbo].[SAC_Alumnos] ADD ModificadoPor varchar(30)
---ALTER TABLE [dbo].[SAC_Alumnos] ADD FechaModificacion datetime
