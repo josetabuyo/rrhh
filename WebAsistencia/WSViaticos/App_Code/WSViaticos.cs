@@ -1307,6 +1307,54 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoEspaciosFisicos().GetEdificios().ToArray();
     }
 
+    [WebMethod]
+    public void EspacioFisico(EspacioFisico espacio_fisico)
+    {
+
+    }
+
+    [WebMethod]
+    public bool QuitarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+    {
+        return true;
+    }
+
+    [WebMethod]
+    public void ModificarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+    {
+
+    }
+
+    [WebMethod]
+    public void GuardarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+    {
+
+    }
+
+     [WebMethod]
+    public string GetEspaciosFisicos()
+     {
+
+         var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion()).GetEspaciosFisicos();
+         var espacios_fisicos_dto = new List<object>();
+
+         if (espacios_fisicos.Count > 0)
+         {
+             espacios_fisicos.ForEach(delegate(EspacioFisico espacio_fisico)
+             {
+                 espacios_fisicos_dto.Add(new
+                 {
+                     //id = espacios_fisicos.Id,
+                     //nombre = espacios_fisicos.Nombre,
+                     //modalidad = ModalidadPara(espacio_fisico.Modalidad),
+                     //ciclo = materia.Ciclo,
+                 });
+             });
+         };
+         return JsonConvert.SerializeObject(espacios_fisicos_dto);
+
+     }
+
     private RepositorioDeAlumnos RepoAlumnos()
     {
         return new RepositorioDeAlumnos(Conexion());

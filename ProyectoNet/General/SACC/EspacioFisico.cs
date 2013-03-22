@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace General
 {
     public class EspacioFisico
@@ -12,5 +14,9 @@ namespace General
 
         }
 
+        internal int esMayorAlfabeticamenteQue(EspacioFisico otroespaciofisico)
+        {
+            return this.Aula.CompareTo(otroespaciofisico.Aula);
+        }
     }
 }

@@ -15,32 +15,32 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-            CompletarCombosDeModalidades();
-            CompletarCombosDeCiclos();
+            CompletarCombosDeEdificios();
+           // CompletarCombosDeCiclos();
             this.materiasJSON.Value = servicio.GetMaterias();
         }
 
-        MostrarMateriasEnLaGrilla(servicio);
+        MostrarEspacioFisicoEnLaGrilla(servicio);
     }
 
-    private void CompletarCombosDeCiclos()
-    {
-        var servicio = new WSViaticos.WSViaticosSoapClient();
-        var ciclos = servicio.Ciclos().OrderBy(c => c.Id);
+    //private void CompletarCombosDeCiclos()
+    //{
+    //    var servicio = new WSViaticos.WSViaticosSoapClient();
+    //    var ciclos = servicio.Ciclos().OrderBy(c => c.Id);
 
-        foreach (Ciclo c in ciclos)
-        {
-            ListItem unListItem = new ListItem();
-            unListItem.Value = c.Id.ToString();
-            unListItem.Text = c.Nombre;
-            this.cmbCiclo.Items.Add(unListItem);
-        }
-    }
+    //    foreach (Ciclo c in ciclos)
+    //    {
+    //        ListItem unListItem = new ListItem();
+    //        unListItem.Value = c.Id.ToString();
+    //        unListItem.Text = c.Nombre;
+    //        this.cmbCiclo.Items.Add(unListItem);
+    //    }
+    //}
 
-    private void MostrarMateriasEnLaGrilla(WSViaticosSoapClient servicio)
+    private void MostrarEspacioFisicoEnLaGrilla(WSViaticosSoapClient servicio)
     {
-        var materias = JsonConvert.DeserializeObject(servicio.GetMaterias());
-        this.materiasJSON.Value = materias.ToString();
+        var espacio_fisico = JsonConvert.DeserializeObject(servicio.GetEspaciosFisicos());
+        this.materiasJSON.Value = espacio_fisico.ToString();
     }
 
     private void CompletarCombosDeEdificios()
@@ -48,18 +48,18 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         var servicio = new WSViaticos.WSViaticosSoapClient();
         var edificios = servicio.Edificios().OrderBy(e => e.Descripcion);
 
-        foreach (edificio in edificios)
+        foreach (Edificio edificio in edificios)
         {
             ListItem unListItem = new ListItem();
-            unListItem.Value = m.Id.ToString();
-            unListItem.Text = m.Descripcion;
+            unListItem.Value = edificio.Id.ToString();
+            unListItem.Text = edificio.Descripcion;
             this.cmbEdificio.Items.Add(unListItem);
         }
     }
 
 
 
-    protected void btnAgregarMateria_Click(object sender, EventArgs e)
+    protected void btnAgregarEspacioFisico_Click(object sender, EventArgs e)
     {
         if (!DatosEstanCompletos())
         {
@@ -69,12 +69,12 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         }
 
         WSViaticosSoapClient ws_viaticos = new WSViaticosSoapClient();
-        var materia = MateriaDelForm(); 
-        materia = ws_viaticos.GuardarMateria(materia, (Usuario)Session["usuario"]);
+        var espacio_fisico = EspacioFisicoDelForm();
+        ws_viaticos.GuardarEspacioFisico(espacio_fisico, (Usuario)Session["usuario"]);
 
         LimpiarPantalla();
         
-        this.MostrarMateriasEnLaGrilla(ws_viaticos);
+        this.MostrarEspacioFisicoEnLaGrilla(ws_viaticos);
     }
 
     protected EspacioFisico EspacioFisicoDelForm()
@@ -82,17 +82,17 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         var espacio_fisico = new EspacioFisico();
         if (this.idMateria.Value != "")
         {
-            espacio_fisico.Id = int.Parse(this.idMateria.Value);
+            //espacio_fisico.Id = int.Parse(this.idMateria.Value);
         }
 
         espacio_fisico.Aula = this.txtAula.Text;
-        espacio_fisico.Edificio = CicloDeMateriaFromForm();
+       // espacio_fisico.Edificio = EdificioDeEspacioFisicoFromForm();
 
         return espacio_fisico;
 
     }
 
-    protected void btnModificarMateria_Click(object sender, EventArgs e)
+    protected void btnModificarEspacioFisico_Click(object sender, EventArgs e)
     {
         if (!DatosEstanCompletos())
         {
@@ -100,24 +100,24 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         }
   
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
-        var materia = MateriaDelForm();
+        var espacio_fisico = EspacioFisicoDelForm();
 
-        servicio.ModificarMateria(materia, (Usuario)Session["usuario"]);
+        servicio.ModificarEspacioFisico(espacio_fisico, (Usuario)Session["usuario"]);
         LimpiarPantalla();
        
-        this.MostrarMateriasEnLaGrilla(servicio);
+        this.MostrarEspacioFisicoEnLaGrilla(servicio);
     }
 
-    protected void btnQuitarMateria_Click(object sender, EventArgs e)
+    protected void btnQuitarEspacioFisico_Click(object sender, EventArgs e)
     {
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
         
-        var materia = MateriaDelForm();
+        var espacio_fisico = EspacioFisicoDelForm();
 
-        if (servicio.QuitarMateria(materia, (Usuario)Session["usuario"]))
+        if (servicio.QuitarEspacioFisico(espacio_fisico, (Usuario)Session["usuario"]))
         {
             LimpiarPantalla();
-            MostrarMateriasEnLaGrilla(servicio);
+            MostrarEspacioFisicoEnLaGrilla(servicio);
         }
         else
         {
@@ -128,21 +128,21 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
     }
 
-    private Edificio EdificioFromForm()
+    private Edificio EdificioDeEspacioFisicoFromForm()
     {
-        var modalidad = new Modalidad();
-        modalidad.Id = int.Parse(this.cmbPlanDeEstudio.SelectedItem.Value);
-        modalidad.Descripcion = this.cmbPlanDeEstudio.SelectedItem.Text;
-        return modalidad;
+        var edificio = new Edificio();
+        edificio.Id = int.Parse(this.cmbEdificio.SelectedItem.Value);
+        edificio.Descripcion = this.cmbEdificio.SelectedItem.Text;
+        return edificio;
     }
 
-    private Ciclo CicloDeMateriaFromForm()
-    {
-        var ciclo = new Ciclo();
-        ciclo.Id = int.Parse(this.cmbCiclo.SelectedItem.Value);
-        ciclo.Nombre = this.cmbCiclo.SelectedItem.Text;
-        return ciclo;
-    }
+    //private Ciclo CicloDeMateriaFromForm()
+    //{
+    //    var ciclo = new Ciclo();
+    //    ciclo.Id = int.Parse(this.cmbCiclo.SelectedItem.Value);
+    //    ciclo.Nombre = this.cmbCiclo.SelectedItem.Text;
+    //    return ciclo;
+    //}
 
     private void LimpiarPantalla()
     {

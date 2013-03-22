@@ -134,5 +134,33 @@ namespace General.Repositorios
         {
            return new List<Edificio>();
         }
+
+        public List<EspacioFisico> GetEspaciosFisicos()
+        {       
+            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Espacios_Fisicos");
+            espacios_fisicos = new List<EspacioFisico>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+            //    Ciclo ciclo = new Ciclo(row.GetSmallintAsInt("idCiclo"), row.GetString("NombreCiclo"));                
+            //    Modalidad modeliadad_aux = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
+                
+            //    Materia materia = new Materia
+            //    {
+            //        Id = row.GetSmallintAsInt("Id"),
+            //        Nombre = row.GetString("Nombre"),
+            //        Modalidad = modeliadad_aux,
+            //        Ciclo = ciclo
+            //    };
+
+            //    materias.Add(materia);
+            });
+            
+
+
+            espacios_fisicos.Sort((espacio_fisico1, espacio_fisico2) => espacio_fisico1.esMayorAlfabeticamenteQue(espacio_fisico2));
+            return espacios_fisicos;
+        
+        }
     }
 }
