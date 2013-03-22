@@ -40,11 +40,7 @@
             <asp:Label ID="lblDocente" CssClass="labels_sacc" runat="server" Text="Docente:"></asp:Label>
             <asp:DropdownList ID="cmbDocente" name="Docente" runat="server" EnableViewState="false"></asp:DropdownList >
         </p>
-         <p>
-            <asp:Label ID="lblHorasCatedra" CssClass="labels_sacc" runat="server" Text="Horas Catedra:"></asp:Label>
-            <select runat="server" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false"></select>
-           <%-- <asp:DropDownList ID="cmbHorasCatedra" name="HorasCatedra" runat="server" EnableViewState="false"></asp:DropDownList >--%>
-        </p>
+         
         <p>   
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
             <asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" ></asp:DropdownList>
@@ -83,7 +79,6 @@
     <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="materiasJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idCursoAVer" runat="server" />
-    <asp:HiddenField ID="horaCatedra" runat="server" />
      <asp:Button ID="btnVerFichaCurso" Text="" runat="server" OnClick="btnVerCurso_Click" style="display:none"/>
     </form>
 </body>

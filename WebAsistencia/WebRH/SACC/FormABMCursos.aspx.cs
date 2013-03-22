@@ -95,8 +95,7 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         curso.Id = int.Parse("0" + this.txtIdCurso.Value);
         curso.Materia = servicio.GetMateriaById(int.Parse("0" + this.txtIdMateria.Value));
         curso.Docente = servicio.GetDocenteById(int.Parse("0" + this.txtIdDocente.Value));
-        curso.HorasCatedra = int.Parse("0" + this.horaCatedra.Value);
-        //curso.Horarios = horarios;
+       
         var horariosDto = new List<HorarioDto>();
         foreach (var h in horarios)
         {
@@ -120,8 +119,7 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         curso.Id = int.Parse(this.txtIdCurso.Value);
         curso.Materia = servicio.GetMateriaById(int.Parse("0" + this.txtIdMateria.Value));
         curso.Docente = servicio.GetDocenteById(int.Parse("0" + this.txtIdDocente.Value));
-        curso.HorasCatedra = int.Parse("0" + this.horaCatedra.Value);
-        //curso.Horarios = horarios;
+
         var horariosDto = new List<HorarioDto>();
         foreach (var h in horarios)
         {
@@ -141,7 +139,6 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
 
         var id = this.txtIdCurso.Value;
 
-        //servicio.QuitarCurso(int.Parse(id));
         this.LimpiarFormulario();
         this.CargarGrilla();
     }
