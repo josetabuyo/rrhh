@@ -112,8 +112,9 @@
             <input id="selectorDeAreaDestino" nullValue="Área de Destino (opcional)" type="text" data-provide="typeahead" data-items="9" runat="server" />
             <asp:TextBox ID="txtComentarios" nullValue="Ingrese sus comentarios (opcional)" runat="server" TextMode="MultiLine" Height="32px" class="detalle_alta_documento" ></asp:TextBox>
             <div class="botones_alta_documento">
-                <asp:Button ID="btnCrearDocumento" Text="Agregar Documento" runat="server" type = "submit" OnClick="btnCrearDocumento_Click"
-                    class=" btn btn-primary" />
+                <input type="button" id="btnCrearDocumento" class=" btn btn-primary" value="Agregar Documento"/>
+<%--                <asp:Button ID="btnCrearDocumento" Text="Agregar Documento" runat="server" type = "submit" OnClick="btnCrearDocumento_Click"
+                    class=" btn btn-primary" />--%>
                 <asp:Button ID="btnCancelar" Text="Cancelar" runat="server" OnClick="btnCancelar_Click"
                     class=" btn btn-primary" />
             </div>
@@ -205,7 +206,6 @@
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../Scripts/InputAutocompletable.js"></script>
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
-    <script type="text/javascript" src="AdministradorDeDocumentos.js"></script>
     <script type="text/javascript" src="PanelDeFiltrosDeDocumentos.js"></script>
     <script type="text/javascript" src="GrillaDeDocumentos.js"></script>
     <script type="text/javascript" src="InputAutocompletableDeAreas.js"></script>

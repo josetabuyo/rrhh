@@ -46,6 +46,31 @@ var PanelAltaDeDocumento = function (cfg) {
         self.alternarDespliegue();
         self._panel_detalle.cerrar();
     });
+
+    cfg.btnCrearDocumento.click(function () {
+        //        $.ajax({
+        //            url: "http://localhost:14853/WSViaticos/WSViaticos.asmx/CrearDocumentoAjax",
+        //            type: "post",
+        //            data: "pepe",
+        //            success: function (respuesta) {
+        //                alert(respuesta.mensaje);
+        //            }
+        //        });
+        $.ajax({
+            url: "Areas/Areas.asmx/CrearDocumentoAjax",
+            type: "POST",
+            data: "{'documento_dto' : '" + cfg.txtExtracto.val() + "'}",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (respuestaJson) {
+                var respuesta = JSON.parse(respuestaJson.d);
+                alert(respuesta.mensaje);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(textStatus);
+            }
+        });
+    });
 }
 
 PanelAltaDeDocumento.prototype = {
