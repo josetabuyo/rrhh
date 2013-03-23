@@ -13,7 +13,7 @@ using Newtonsoft.Json.Linq;
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-// [System.Web.Script.Services.ScriptService]
+[System.Web.Script.Services.ScriptService]
 public class WSViaticos : System.Web.Services.WebService
 {
     public WSViaticos()
@@ -602,6 +602,12 @@ public class WSViaticos : System.Web.Services.WebService
             documentos_dto.Add(DocumentoDtoPara(doc));
         });
         return JsonConvert.SerializeObject(documentos_dto);
+    }
+
+    [WebMethod]
+    public string CrearDocumentoAjax(String documento_dto)
+    {
+        return JsonConvert.SerializeObject(new { mensaje="todo bien " + documento_dto});
     }
 
     [WebMethod]
