@@ -132,7 +132,26 @@ namespace General.Repositorios
 
         public List<Edificio> GetEdificios()
         {
-           return new List<Edificio>();
+            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Edificios");
+            List<Edificio> edificios = new List<Edificio>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+
+                Edificio edificio = new Edificio
+                {
+
+                    Id = row.GetSmallintAsInt("id"),
+                    Nombre = row.GetString("Nombre"),
+                    Direccion = row.GetString("Calle")
+                };
+
+                edificios.Add(edificio);
+            });
+
+            edificios.Sort((edificio1, edificio2) => edificio1.esMayorAlfabeticamenteQue(edificio2));
+
+            return edificios;
         }
 
         public List<EspacioFisico> GetEspaciosFisicos()
@@ -142,22 +161,18 @@ namespace General.Repositorios
 
             tablaDatos.Rows.ForEach(row =>
             {
-            //    Ciclo ciclo = new Ciclo(row.GetSmallintAsInt("idCiclo"), row.GetString("NombreCiclo"));                
-            //    Modalidad modeliadad_aux = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
-                
-            //    Materia materia = new Materia
-            //    {
-            //        Id = row.GetSmallintAsInt("Id"),
-            //        Nombre = row.GetString("Nombre"),
-            //        Modalidad = modeliadad_aux,
-            //        Ciclo = ciclo
-            //    };
+                Edificio edificio_aux = new Edificio(row.GetSmallintAsInt("idEdificio"), row.GetString("NombreEdificio"), row.GetString("DireccionEdificio"));
+                EspacioFisico espacio_fisico = new EspacioFisico
+                {
+                    Id = row.GetSmallintAsInt("id"),
+                    Aula = row.GetString("Aula"),
+                    Edificio = edificio_aux,
+                    Capacidad = row.GetSmallintAsInt("Capacidad")
+                };
 
-            //    materias.Add(materia);
+                espacios_fisicos.Add(espacio_fisico);
             });
             
-
-
             espacios_fisicos.Sort((espacio_fisico1, espacio_fisico2) => espacio_fisico1.esMayorAlfabeticamenteQue(espacio_fisico2));
             return espacios_fisicos;
         

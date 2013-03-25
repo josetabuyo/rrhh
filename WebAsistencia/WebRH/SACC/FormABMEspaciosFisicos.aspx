@@ -21,7 +21,7 @@
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
-    <div id="panelMateria" class="div_izquierdo">
+    <div id="panelEspacioFisico" class="div_izquierdo">
     <fieldset>
         <legend>Panel De Espacios Físicos</legend>
             <div>
@@ -30,14 +30,14 @@
             </div>
             <div>
                 <asp:Label ID="lblEdificio" CssClass="labels_sacc" runat="server" Text="Edificio:"></asp:Label>
-                <asp:DropDownList ID="cmbEdificio" runat="server" enableviewstate="true">
+                <asp:DropDownList ID="cmbEdificio" runat="server" enableviewstate="true"> <%--OnSelectedIndexChanged="cbMostarDireccion_Click"--%>
                     <asp:ListItem Value="-1" class="placeholder" Selected="true">Seleccione un Edificio</asp:ListItem>
                 </asp:DropDownList>
             </div>
             
             <div>
                 <asp:Label ID="lblDireccion" CssClass="labels_sacc" runat="server" Text="Dirección:"></asp:Label>
-                <asp:TextBox ID="txtDireccion" placeholder="Direccion" name="Direccion" runat="server" EnableViewState="false"></asp:TextBox>
+                <asp:TextBox ID="txtDireccion" placeholder="Direccion" name="Direccion" runat="server" EnableViewState="false" ReadOnly="true"></asp:TextBox>
             </div>
 
             <div>
@@ -47,9 +47,9 @@
 
             <div style=" margin-left:17%; margin-top:3%;">
                    
-                <asp:Button ID="btnAgregarMateria" runat="server" Text="Agregar" class=" btn btn-primary boton_main_documentos" onclick="btnAgregarEspacioFisico_Click"  />
-                <asp:Button ID="btnModificarMateria" runat="server" Text="Modificar" class=" btn btn-primary boton_main_documentos" onclick="btnModificarEspacioFisico_Click"  />
-                <asp:Button ID="btnQuitarMateria" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarEspacioFisico_Click"  />
+                <asp:Button ID="btnAgregarEspacioFisico" runat="server" Text="Agregar" class=" btn btn-primary boton_main_documentos" onclick="btnAgregarEspacioFisico_Click"  />
+                <asp:Button ID="btnModificarEspacioFisico" runat="server" Text="Modificar" class=" btn btn-primary boton_main_documentos" onclick="btnModificarEspacioFisico_Click"  />
+                <asp:Button ID="btnQuitarEspacioFisico" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarEspacioFisico_Click"  />
                  <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" class=" btn btn-primary boton_main_documentos" onClientClick="javascript:LimpiarCampos();" />
             <br />
             <br />
@@ -69,9 +69,9 @@
         </fieldset>
     </div>
 
-    <asp:HiddenField ID="materiasJSON" runat="server" EnableViewState="true"/>
-    <asp:HiddenField ID="txtIdMateria" runat="server" />
-    <asp:HiddenField ID="idMateria" runat="server" />
+    <asp:HiddenField ID="espacios_fisicosJSON" runat="server" EnableViewState="true"/>
+    <asp:HiddenField ID="txtIdEspacioFisico" runat="server" />
+    <asp:HiddenField ID="idEspacioFisico" runat="server" />
     <asp:HiddenField ID="alerta_mensaje" runat="server" />
 
     </form>
@@ -85,48 +85,47 @@
         this.texto_mensaje.innerHTML = "Operación exitosa.";
     } else if ($("#alerta_mensaje").val() == "3") {
         this.div_mensaje.setAttribute("class", "alert alert-error");
-        this.texto_mensaje.innerHTML = "No se puede eliminar la materia porque se encuentra asignado a un curso";
+        this.texto_mensaje.innerHTML = "No se puede eliminar el espacio físico porque se encuentra asignado a un curso";
     }else {
         $(".alert").alert('close');
     }
 
     var HabilitarNuevo = function () {
-        $("#btnAgregarCurso").removeAttr('disabled', 'false');
+        $("#btnAgregarEspacioFisico").removeAttr('disabled', 'false');
     }
 
     var DeshabilitarNuevo = function () {
-        $("#btnAgregarMateria").attr('disabled', 'disabled');
+        $("#btnAgregarEspacioFisico").attr('disabled', 'disabled');
     }
 
     var PlanillaMaterias;
     var contenedorPlanilla;
 
-    var AdministradorMaterias = function () {
-        var materias = JSON.parse($('#materiasJSON').val());
+    var AdministradorEspaciosFisicos = function () {
+        var espacios_fisicos = JSON.parse($('#espacios_fisicosJSON').val());
         contenedorPlanilla = $('#ContenedorPlanilla');
         var columnas = [];
 
-        columnas.push(new Columna("Nombre", { generar: function (una_materia) { return una_materia.nombre } }));
-        columnas.push(new Columna("Modalidad", { generar: function (una_materia) { return una_materia.modalidad.Descripcion } }));
-        columnas.push(new Columna("Ciclo", { generar: function (una_materia) { return una_materia.ciclo.Nombre } }));
+        columnas.push(new Columna("Aula", { generar: function (un_espacio_fisico) { return un_espacio_fisico.aula } }));
+        columnas.push(new Columna("Edificio", { generar: function (un_espacio_fisico) { return un_espacio_fisico.edificio.nombre } }));
+        columnas.push(new Columna("Capacidad", { generar: function (un_espacio_fisico) { return un_espacio_fisico.capacidad } }));
 
-        PlanillaMaterias = new Grilla(columnas);
+        PlanillaEspaciosFisicos = new Grilla(columnas);
 
-        PlanillaMaterias.SetOnRowClickEventHandler(function (una_materia) {
-            panelMateria.CompletarDatosMateria(una_materia);
+        PlanillaEspaciosFisicos.SetOnRowClickEventHandler(function (un_espacio_fisico) {
+            panelEspacioFisico.CompletarDatosEspacioFisico(un_espacio_fisico);
         });
 
-        PlanillaMaterias.CargarObjetos(materias);
-        PlanillaMaterias.DibujarEn(contenedorPlanilla);
+        PlanillaEspaciosFisicos.CargarObjetos(espacios_fisicos);
+        PlanillaEspaciosFisicos.DibujarEn(contenedorPlanilla);
 
 
-        panelMateria.CompletarDatosMateria = function (una_materia) {
+        panelEspacioFisico.CompletarDatosEspacioFisico = function (un_espacio_fisico) {
 
             DeshabilitarNuevo();
-            $("#idMateria").val(una_materia.id);
-            $("#txtNombre").val(una_materia.nombre);
-            $("#cmbPlanDeEstudio").val(una_materia.modalidad.Id);
-            $("#cmbCiclo").val(una_materia.ciclo.Id);
+            $("#idEspacioFisico").val(un_espacio_fisico.id); //quizás van en minuscula
+            $("#txtAula").val(un_espacio_fisico.aula);
+            $("#cmbEdificios").val(un_espacio_fisico.edificio.nombre);
         };
 
 
@@ -134,9 +133,9 @@
 
     var LimpiarCampos = function () {
 
-        Limpiar($("#txtNombre"));
-        Limpiar($("#cmbCiclo"));
-        Limpiar($('#cmbPlanDeEstudio'));
+        Limpiar($("#txtAula"));
+        Limpiar($("#cmbEdificios"));
+        Limpiar($('#txtDireccion'));
 
         HabilitarNuevo();
     }
@@ -146,7 +145,7 @@
     };
 
     $(document).ready(function () {
-        AdministradorMaterias();
+        AdministradorEspaciosFisicos();
         HabilitarNuevo();
 
     });

@@ -17,7 +17,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         {
             CompletarCombosDeEdificios();
            // CompletarCombosDeCiclos();
-            this.materiasJSON.Value = servicio.GetMaterias();
+            this.espacios_fisicosJSON.Value = servicio.GetEspaciosFisicos();
         }
 
         MostrarEspacioFisicoEnLaGrilla(servicio);
@@ -40,24 +40,28 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
     private void MostrarEspacioFisicoEnLaGrilla(WSViaticosSoapClient servicio)
     {
         var espacio_fisico = JsonConvert.DeserializeObject(servicio.GetEspaciosFisicos());
-        this.materiasJSON.Value = espacio_fisico.ToString();
+        this.espacios_fisicosJSON.Value = espacio_fisico.ToString();
     }
 
     private void CompletarCombosDeEdificios()
     {
         var servicio = new WSViaticos.WSViaticosSoapClient();
-        var edificios = servicio.Edificios().OrderBy(e => e.Descripcion);
+        var edificios = servicio.Edificios().OrderBy(e => e.Nombre);
 
         foreach (Edificio edificio in edificios)
         {
             ListItem unListItem = new ListItem();
             unListItem.Value = edificio.Id.ToString();
-            unListItem.Text = edificio.Descripcion;
+            unListItem.Text = edificio.Nombre;
             this.cmbEdificio.Items.Add(unListItem);
         }
     }
 
 
+     //protected void cbMostarDireccion_Click(object sender, EventArgs e)
+     //{
+     //    this.txtDireccion.Text = "aaa";
+     //}
 
     protected void btnAgregarEspacioFisico_Click(object sender, EventArgs e)
     {
@@ -80,7 +84,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
     protected EspacioFisico EspacioFisicoDelForm()
     {
         var espacio_fisico = new EspacioFisico();
-        if (this.idMateria.Value != "")
+        if (this.idEspacioFisico.Value != "")
         {
             //espacio_fisico.Id = int.Parse(this.idMateria.Value);
         }
@@ -132,7 +136,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
     {
         var edificio = new Edificio();
         edificio.Id = int.Parse(this.cmbEdificio.SelectedItem.Value);
-        edificio.Descripcion = this.cmbEdificio.SelectedItem.Text;
+        edificio.Nombre = this.cmbEdificio.SelectedItem.Text;
         return edificio;
     }
 

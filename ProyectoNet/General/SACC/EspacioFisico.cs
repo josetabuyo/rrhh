@@ -5,9 +5,19 @@ namespace General
 {
     public class EspacioFisico
     {
-        public string Aula { get; set; }
+        
 
-        public string Edificio { get; set; }
+        private int _id;
+        private string _aula;
+        private int _capacidad;
+        private Edificio _edificio;
+
+        public int Id { get { return _id; } set { _id = value; } }
+        public string Aula { get { return _aula; } set { _aula = value; } }
+        public int Capacidad { get { return _capacidad; } set { _capacidad = value; } }
+        public Edificio Edificio { get { return _edificio; } set { _edificio = value; } }
+
+
 
         public EspacioFisico()
         {

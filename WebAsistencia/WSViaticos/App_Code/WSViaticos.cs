@@ -997,7 +997,14 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-
+    private object EdificioPara(Edificio edificio)
+    {
+        return new
+        {
+            id = edificio.Id,
+            nombre = edificio.Nombre
+        };
+    }
 
     private object ModalidadPara(Modalidad modalidad)
     {
@@ -1344,10 +1351,10 @@ public class WSViaticos : System.Web.Services.WebService
              {
                  espacios_fisicos_dto.Add(new
                  {
-                     //id = espacios_fisicos.Id,
-                     //nombre = espacios_fisicos.Nombre,
-                     //modalidad = ModalidadPara(espacio_fisico.Modalidad),
-                     //ciclo = materia.Ciclo,
+                     id = espacio_fisico.Id,
+                     aula = espacio_fisico.Aula,
+                     edificio = EdificioPara(espacio_fisico.Edificio),
+                     capacidad = espacio_fisico.Capacidad
                  });
              });
          };
