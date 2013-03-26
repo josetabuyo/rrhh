@@ -1323,13 +1323,19 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool QuitarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
     {
+        if (RepoEspaciosFisicos().EspacioFisicoAsignadoACurso(espacio_fisico))
+        {
+            return false;
+        }
+        RepoEspaciosFisicos().QuitarEspacioFisico(espacio_fisico, usuario);
         return true;
     }
 
     [WebMethod]
     public void ModificarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
     {
-
+        var conexion = Conexion();
+        RepoEspaciosFisicos().ModificarEspacioFisico(espacio_fisico, usuario);
     }
 
     [WebMethod]

@@ -123,19 +123,20 @@
         panelEspacioFisico.CompletarDatosEspacioFisico = function (un_espacio_fisico) {
 
             DeshabilitarNuevo();
-            $("#idEspacioFisico").val(un_espacio_fisico.id); //quizás van en minuscula
+            $("#idEspacioFisico").val(un_espacio_fisico.id);
             $("#txtAula").val(un_espacio_fisico.aula);
-            $("#cmbEdificios").val(un_espacio_fisico.edificio.nombre);
+            $("#cmbEdificio").val(un_espacio_fisico.edificio.id);
+            //$("#txtDireccion").val(un_espacio_fisico.edificio.direccion);
+            $("#txtCapacidad").val(un_espacio_fisico.capacidad);
         };
-
-
     }
 
     var LimpiarCampos = function () {
 
         Limpiar($("#txtAula"));
-        Limpiar($("#cmbEdificios"));
+        Limpiar($("#cmbEdificio"));
         Limpiar($('#txtDireccion'));
+        Limpiar($('#txtCapacidad'));
 
         HabilitarNuevo();
     }

@@ -2,6 +2,20 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="GetCursoById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCursoByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCursoByIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetCursosDto">
         <s:complexType />
       </s:element>
@@ -121,8 +135,17 @@
       </s:complexType>
       <s:complexType name="EspacioFisico">
         <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Aula" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Edificio" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Capacidad" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Edificio" type="tns:Edificio" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Edificio">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetMaterias">
@@ -416,13 +439,6 @@
       <s:complexType name="ArrayOfEdificio">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="Edificio" nillable="true" type="tns:Edificio" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Edificio">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="EspacioFisico">
@@ -1652,22 +1668,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetCursoById">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetCursoByIdResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCursoByIdResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetCursoByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCursoById" />
+  </wsdl:message>
+  <wsdl:message name="GetCursoByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCursoByIdResponse" />
+  </wsdl:message>
   <wsdl:message name="GetCursosDtoSoapIn">
     <wsdl:part name="parameters" element="tns:GetCursosDto" />
   </wsdl:message>
@@ -2184,13 +2192,11 @@
   <wsdl:message name="QuitarAlumnoSoapOut">
     <wsdl:part name="parameters" element="tns:QuitarAlumnoResponse" />
   </wsdl:message>
-  <wsdl:message name="GetCursoByIdSoapIn">
-    <wsdl:part name="parameters" element="tns:GetCursoById" />
-  </wsdl:message>
-  <wsdl:message name="GetCursoByIdSoapOut">
-    <wsdl:part name="parameters" element="tns:GetCursoByIdResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetCursoById">
+      <wsdl:input message="tns:GetCursoByIdSoapIn" />
+      <wsdl:output message="tns:GetCursoByIdSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetCursosDto">
       <wsdl:input message="tns:GetCursosDtoSoapIn" />
       <wsdl:output message="tns:GetCursosDtoSoapOut" />
@@ -2535,13 +2541,18 @@
       <wsdl:input message="tns:QuitarAlumnoSoapIn" />
       <wsdl:output message="tns:QuitarAlumnoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetCursoById">
-      <wsdl:input message="tns:GetCursoByIdSoapIn" />
-      <wsdl:output message="tns:GetCursoByIdSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCursoById">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCursoById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCursosDto">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetCursosDto" style="document" />
       <wsdl:input>
@@ -3316,18 +3327,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCursoById">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCursoById" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCursoById">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCursoById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCursosDto">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCursosDto" style="document" />
       <wsdl:input>
@@ -4095,15 +4106,6 @@
     </wsdl:operation>
     <wsdl:operation name="QuitarAlumno">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/QuitarAlumno" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCursoById">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCursoById" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

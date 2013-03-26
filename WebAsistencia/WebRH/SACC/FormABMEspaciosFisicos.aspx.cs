@@ -86,20 +86,22 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         var espacio_fisico = new EspacioFisico();
         if (this.idEspacioFisico.Value != "")
         {
-            //espacio_fisico.Id = int.Parse(this.idMateria.Value);
+            espacio_fisico.Id = int.Parse(this.idEspacioFisico.Value);
         }
 
+        espacio_fisico.Id = int.Parse(this.idEspacioFisico.Value);
         espacio_fisico.Aula = this.txtAula.Text;
-       // espacio_fisico.Edificio = EdificioDeEspacioFisicoFromForm();
+        espacio_fisico.Capacidad = int.Parse(this.txtCapacidad.Text);
+        espacio_fisico.Edificio = EdificioDeEspacioFisicoFromForm();
 
         return espacio_fisico;
-
     }
 
     protected void btnModificarEspacioFisico_Click(object sender, EventArgs e)
     {
         if (!DatosEstanCompletos())
         {
+            this.alerta_mensaje.Value = "1";
             return;
         }
   
@@ -137,16 +139,10 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         var edificio = new Edificio();
         edificio.Id = int.Parse(this.cmbEdificio.SelectedItem.Value);
         edificio.Nombre = this.cmbEdificio.SelectedItem.Text;
+        edificio.Direccion = this.txtDireccion.Text;
         return edificio;
     }
 
-    //private Ciclo CicloDeMateriaFromForm()
-    //{
-    //    var ciclo = new Ciclo();
-    //    ciclo.Id = int.Parse(this.cmbCiclo.SelectedItem.Value);
-    //    ciclo.Nombre = this.cmbCiclo.SelectedItem.Text;
-    //    return ciclo;
-    //}
 
     private void LimpiarPantalla()
     {
@@ -160,6 +156,6 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
     private bool DatosEstanCompletos()
     {
-        return !((this.txtAula.Text == "") || (this.cmbEdificio.SelectedIndex < 1));
+        return !((this.txtAula.Text == "") || (this.cmbEdificio.SelectedIndex < 1) || (this.txtCapacidad.Text == " "));
     }
 }

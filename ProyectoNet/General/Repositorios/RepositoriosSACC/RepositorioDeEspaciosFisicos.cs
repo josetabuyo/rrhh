@@ -177,5 +177,65 @@ namespace General.Repositorios
             return espacios_fisicos;
         
         }
+
+        public EspacioFisico ModificarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+        {
+            var parametros = Parametros(espacio_fisico, usuario, 0);
+
+            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_EspacioFisico", parametros);
+
+            return espacio_fisico;
+        }
+
+        public void QuitarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+        {
+            var idBaja = CrearBaja(usuario);
+
+            var parametros = Parametros(espacio_fisico, usuario, idBaja);
+
+            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_EspacioFisico", parametros);
+        }
+
+        private int CrearBaja(Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@Motivo", "");
+            parametros.Add("@IdUsuario", usuario.Id);
+            parametros.Add("@Fecha", "");
+
+            int id = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
+
+            return id;
+        }
+
+
+        public bool EspacioFisicoAsignadoACurso(EspacioFisico un_espacio_fisico)
+        {
+            List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
+            return cursos.Exists(c => c.EspacioFisico.Id == un_espacio_fisico.Id);
+        }
+
+        private static Dictionary<string, object> Parametros(EspacioFisico espacio_fisico, Usuario usuario, int id_baja)
+        {
+            var parametros = new Dictionary<string, object>();
+            if (espacio_fisico.Id != 0)
+                parametros.Add("@IdEspacioFisico", espacio_fisico.Id);
+
+            parametros.Add("@Aula", espacio_fisico.Aula);
+            parametros.Add("@IdEdificio", espacio_fisico.Edificio.Id);
+            parametros.Add("@Capacidad", espacio_fisico.Capacidad);
+            parametros.Add("@IdUsuario", usuario.Id);
+            parametros.Add("@Fecha", "");
+            if (id_baja != 0)
+                parametros.Add("@IdBaja", id_baja);
+
+            return parametros;
+        }
+
+        internal EspacioFisico GetEspacioFisicoById(int id)
+        {
+            return GetEspaciosFisicos().Find(e => e.Id.Equals(id));
+        }
     }
 }
