@@ -8,6 +8,7 @@ using General.Calendario;
 using General;
 using NDbUnit.Core;
 using NDbUnit.Core.SqlClient;
+using Newtonsoft.Json;
 
 namespace TestViaticos
 {
@@ -46,6 +47,26 @@ namespace TestViaticos
                 Assert.AreEqual("para el tipo de un documento 0 no es valido como id", e.Message);
             }
         }
+
+        /**/
+
+        [TestMethod]
+        public void debo_poder_convertir_de_un_documento_en_json_a_un_objeto_DocumentoDTO()
+        {
+
+            var documento_dto_alta = JsonConvert.DeserializeObject<Documento_DTO_Alta>(documento_DTO);
+        
+            Assert.AreEqual("Hola", documento_dto_alta.extracto);
+
+            
+
+        }
+        /**/
+
+
+
+
+
 
     }
 }

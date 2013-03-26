@@ -1363,4 +1363,44 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new RepositorioDeAsistencias(Conexion());
     }
+
+
+
+    /**/
+
+    [WebMethod]
+    public string GuardarDocumento_Ajax(string documento_JSON, Usuario usuario)
+    {
+
+        var documento_dto_alta = JsonConvert.DeserializeObject<Documento_DTO_Alta>(documento_DTO);
+        var movimiento = documento_dto_alta.toMovimiento();
+
+        this.GuardarDocumento(documento,
+
+            int.Parse(propiedades_doc["id_area_origen"].ToString()),
+            int.Parse(propiedades_doc["id_area_actual"].ToString()),
+            usuario);
+
+        try
+        {
+
+            var id_area_destino = int.Parse(propiedades_doc["id_area_destino"].ToString());
+            if (id_area_destino >= 0) this.CrearTransicionFuturaParaDocumento(documento.Id, id_area_destino, usuario);
+
+        }
+
+        catch (Exception e) { }
+        return JsonConvert.SerializeObject(new { ticket = documento.ticket });
+
+    }
+
+
+    /**/
+
+
+
+
+
+
+
 }
