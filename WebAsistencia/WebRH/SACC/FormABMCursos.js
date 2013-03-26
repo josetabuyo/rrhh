@@ -59,9 +59,11 @@ var AdministradorPlanillaCursos = function () {
         OcultarBotonCambiarHorario();
         MostrarBotonAgregarHorario();
         HabilitarModificacion();
+        HabilitarEliminacion();
         DeshabilitarNuevo();
     };
     DesHabilitarModificacion();
+    DesHabilitarEliminacion();
     HabilitarNuevo();
     $("#txtHoraInicio").mask("99:99");
     $("#txtHoraFin").mask("99:99");
@@ -76,7 +78,7 @@ $('#cmbDocente').change(function () {
 });
 
 $('#cmbHorasCatedra').change(function () {
-    $('#horaCatedra').val($('#cmbHorasCatedra').val());
+    $('#txtHorasCatedra').val($('#cmbHorasCatedra').val());
 });
 
 var HabilitarNuevo = function () {
@@ -90,6 +92,12 @@ var HabilitarModificacion = function () {
 }
 var DesHabilitarModificacion = function () {
     $("#btnModificarCurso").attr('disabled', 'disabled');
+}
+var HabilitarEliminacion = function () {
+    $("#btnQuitarCurso").removeAttr('disabled', 'false');
+}
+var DesHabilitarEliminacion = function () {
+    $("#btnQuitarCurso").attr('disabled', 'disabled');
 }
 
 var CompletarNombreCurso = function () {
@@ -107,8 +115,9 @@ var DibujarGrillaHorarios = function () {
                     new Columna("Dia", { generar: function (horario) { return horario.Dia; } }),
                     new Columna("Hora Inicio", { generar: function (horario) { return horario.HoraDeInicio; } }),
                     new Columna("Hora Fin", { generar: function (horario) { return horario.HoraDeFin; } }),
+                    new Columna("Horas C&aacute;tedra", { generar: function (horario) { return horario.HorasCatedra; } }),
                     new Columna('Quitar', { generar: function (horario) {
-
+                        
                         var contenedorAcciones = $('<div>');
                         var botonQuitar = $('<input>');
                         botonQuitar.attr('id', 'btnQuitarHorario');
@@ -120,7 +129,7 @@ var DibujarGrillaHorarios = function () {
                         });
                         contenedorAcciones.append(botonQuitar);
                         return contenedorAcciones;
-                    } 
+                    }
                     })
                     ];
     GrillaHorarios = new Grilla(columnas);
@@ -139,10 +148,8 @@ var CompletarDatosHorario = function (horario) {
     dia.val(horario.NumeroDia);
     horaI.val(horario.HoraDeInicio);
     horaF.val(horario.HoraDeFin);
+    horasCatedra.val(horario.HorasCatedra);
     horario_seleccionado = horario;
-
-    MostrarBotonCambiarHorario();
-    OcultarBotonAgregarHorario();
 };
 
 var MostrarBotonCambiarHorario = function () {
@@ -189,45 +196,31 @@ var AgregarHorario = function () {
 };
 
 var QuitarHorario = function (horario) {
-        var indice = ObtenerIndice(horarios, horario);
-        horarios.splice(indice, 1); 
-        $("#txtHorarios").val(JSON.stringify(horarios));
-        DibujarGrillaHorarios();
-        
+    var indice = ObtenerIndice(horarios, horario);
+    horarios.splice(indice, 1);
+    $("#txtHorarios").val(JSON.stringify(horarios));
+    DibujarGrillaHorarios();
+
 }
 
-var CambiarHorario = function () {
-
-    if (ValidarHorario()) {
-        horarios = horarios.map(function (item) {
-            return item == horario_seleccionado ? NuevoHorario() : item;
-        });
-
-        $("#txtHorarios").val(JSON.stringify(horarios));
-        DibujarGrillaHorarios();
-        LimpiarHorario();
-    }
-};
-
-
-
 var completarCombosDeHorasCatedra = function () {
-                for (var i = 1; i < 4; i++) {
-                    var ciclo;
-                    var listItem = $('<option>');
-                    listItem.val(i);
-                    listItem.text(i);
-                    horasCatedra.append(listItem);
-                }
+    for (var i = 1; i < 4; i++) {
+        var ciclo;
+        var listItem = $('<option>');
+        listItem.val(i);
+        listItem.text(i);
+        horasCatedra.append(listItem);
+    }
+    horasCatedra.change();
 }
 
 var NuevoHorario = function () {
-
     return {
         NumeroDia: dia.find('option:selected').val(),
         Dia: dia.find('option:selected').text(),
         HoraDeInicio: horaI.val(),
-        HoraDeFin: horaF.val()
+        HoraDeFin: horaF.val(),
+        HorasCatedra: horasCatedra.val()
     };
 }
 var ValidarHorario = function () {
@@ -308,7 +301,9 @@ var LimpiarCampos = function () {
     Limpiar($('#txtIdDocente'));
     Limpiar($('#txtIdMateria'));
     DesHabilitarModificacion();
-    HabilitarNuevo(); 
+    DesHabilitarEliminacion();
+    HabilitarNuevo();
+    $('#contenedor_grilla_horario').text("");
 }
 
 $(document).ready(function () {
@@ -323,6 +318,7 @@ var ObtenerIndice = function (arreglo, obj) {
     else {
         for (var i = 0; i < this.length; i++) {
             if (this[i] == obj) {
+                alert(i);
                 return i;
             }
         }
