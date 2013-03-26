@@ -113,6 +113,7 @@
     <Compile Include="Repositorios\IRepositorioDeDocumentos.cs" />
     <Compile Include="Repositorios\IRepositorioDeOrganigrama.cs" />
     <Compile Include="Repositorios\RepositorioDeAlertas.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEspaciosFisicos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAlumnos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeCursos.cs" />
@@ -198,6 +199,8 @@
     <Compile Include="SACC\AsistenciaHoraTres.cs" />
     <Compile Include="SACC\AsistenciaHoraUno.cs" />
     <Compile Include="SACC\AsistenciaClaseSuspendida.cs" />
+    <Compile Include="SACC\EspacioFisico.cs" />
+    <Compile Include="SACC\Edificio.cs" />
     <Compile Include="SACC\DocenteNull.cs" />
     <Compile Include="SACC\Curso.cs" />
     <Compile Include="SACC\CursoDto.cs" />

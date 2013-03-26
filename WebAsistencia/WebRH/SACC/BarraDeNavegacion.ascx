@@ -20,9 +20,11 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Parametria <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                           <li><a href="FormABMAlumnos.aspx">Alumnos</a></li>
+                          <li><a href="FormABMEspaciosFisicos.aspx">Espacios Físicos</a></li>
                           <li><a href="FormABMMaterias.aspx">Materias</a></li>
                           <li><a href="FormABMDocentes.aspx">Docentes</a></li>
                           <li><a href="FormABMCursos.aspx">Cursos</a></li>
+                          
                         </ul>
                       </li>
                       <li class="divider-vertical"></li>                 
