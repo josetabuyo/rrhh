@@ -1339,9 +1339,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void GuardarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+    public void GuardarEspacioFisico(EspacioFisico un_espacio_fisico, Usuario usuario)
     {
-
+         var conexion = Conexion();
+        RepoEspaciosFisicos().ActualizarEspacioFisico(un_espacio_fisico, usuario);
     }
 
      [WebMethod]

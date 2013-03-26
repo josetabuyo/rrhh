@@ -32,6 +32,12 @@ namespace General.Repositorios
             {
                 var docente = GetDocenteByIdCurso(row.GetSmallintAsInt("IdDocente"));
                 var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico");
+
+
+                EspacioFisico essss =
+                    new RepositorioDeEspaciosFisicos(conexion_bd).GetEspacioFisicoById(espacio_fisico_id);
+                    
+
                 Curso curso = new Curso
                 {
                     Id = row.GetSmallintAsInt("Id"),

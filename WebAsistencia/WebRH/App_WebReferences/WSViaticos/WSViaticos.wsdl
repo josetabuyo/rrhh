@@ -480,13 +480,17 @@
       <s:element name="GuardarEspacioFisico">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="espacio_fisico" type="tns:EspacioFisico" />
+            <s:element minOccurs="0" maxOccurs="1" name="un_espacio_fisico" type="tns:EspacioFisico" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="GuardarEspacioFisicoResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GuardarEspacioFisicoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="GetEspaciosFisicos">
         <s:complexType />

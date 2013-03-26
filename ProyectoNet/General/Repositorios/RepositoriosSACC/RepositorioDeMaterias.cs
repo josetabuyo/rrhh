@@ -17,7 +17,8 @@ namespace General.Repositorios
 
         public Materia GetMateriaById(int id)
         {
-            return GetMaterias().Find(m => m.Id.Equals(id));
+            var materias = GetMaterias().Find(m => m.Id.Equals(id));
+            return materias;
         }
 
         public Materia GetMateriaByNombre(string nombre)

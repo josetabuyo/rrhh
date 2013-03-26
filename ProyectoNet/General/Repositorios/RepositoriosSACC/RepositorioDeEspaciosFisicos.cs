@@ -130,6 +130,27 @@ namespace General.Repositorios
         //}
 
 
+        public EspacioFisico GuardarEspaciosFisicos(EspacioFisico espacio_fisico, Usuario usuario)
+        {
+            var parametros = Parametros(espacio_fisico, usuario, 0);
+
+            conexion_bd.EjecutarSinResultado("SACC_Ins_EspacioFisico", parametros);
+
+            return espacio_fisico;
+        }
+
+        public void ActualizarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+        {
+            if(GetEspaciosFisicos().Exists(e => e.Aula == espacio_fisico.Aula && e.Edificio.Id == espacio_fisico.Edificio.Id))
+            {
+                this.ModificarEspacioFisico(espacio_fisico, usuario);
+            }else
+            {
+                this.GuardarEspaciosFisicos(espacio_fisico, usuario);
+            }
+        }
+
+
         public List<Edificio> GetEdificios()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Edificios");
@@ -213,7 +234,9 @@ namespace General.Repositorios
         public bool EspacioFisicoAsignadoACurso(EspacioFisico un_espacio_fisico)
         {
             List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
+            // aca pincha porque el espacio físico es null
             return cursos.Exists(c => c.EspacioFisico.Id == un_espacio_fisico.Id);
+            
         }
 
         private static Dictionary<string, object> Parametros(EspacioFisico espacio_fisico, Usuario usuario, int id_baja)
@@ -235,7 +258,10 @@ namespace General.Repositorios
 
         internal EspacioFisico GetEspacioFisicoById(int id)
         {
-            return GetEspaciosFisicos().Find(e => e.Id.Equals(id));
+            EspacioFisico espacio_fisico = new EspacioFisico();
+            
+            espacio_fisico = GetEspaciosFisicos().Find(e => e.Id.Equals(id));
+            return espacio_fisico;
         }
     }
 }

@@ -68,17 +68,18 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         if (!DatosEstanCompletos())
         {
             this.alerta_mensaje.Value = "1";
-            //this.lblMensaje.Text =  "Materia no guardada. Escriba el nombre y elija la Modalidad";
             return;
         }
 
         WSViaticosSoapClient ws_viaticos = new WSViaticosSoapClient();
         var espacio_fisico = EspacioFisicoDelForm();
-        ws_viaticos.GuardarEspacioFisico(espacio_fisico, (Usuario)Session["usuario"]);
+
+        ws_viaticos.GuardarEspacioFisico(espacio_fisico, (Usuario) Session["usuario"]);
 
         LimpiarPantalla();
         
         this.MostrarEspacioFisicoEnLaGrilla(ws_viaticos);
+
     }
 
     protected EspacioFisico EspacioFisicoDelForm()
@@ -89,7 +90,6 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
             espacio_fisico.Id = int.Parse(this.idEspacioFisico.Value);
         }
 
-        espacio_fisico.Id = int.Parse(this.idEspacioFisico.Value);
         espacio_fisico.Aula = this.txtAula.Text;
         espacio_fisico.Capacidad = int.Parse(this.txtCapacidad.Text);
         espacio_fisico.Edificio = EdificioDeEspacioFisicoFromForm();
@@ -147,6 +147,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
     private void LimpiarPantalla()
     {
         this.txtAula.Text = "";
+        this.idEspacioFisico.Value = "";
         //this.id.Value = "";
         this.cmbEdificio.SelectedIndex = -1;
         this.alerta_mensaje.Value = "2";
