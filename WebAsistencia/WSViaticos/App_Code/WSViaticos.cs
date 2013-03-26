@@ -418,6 +418,31 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GuardarDocumento_Ajax(string documento_DTO, Usuario usuario)
+    {
+        var propiedades_doc = JsonConvert.DeserializeObject<Dictionary<String, Object>>(documento_DTO);
+        var documento = new Documento();
+        documento.extracto = (string)propiedades_doc["extracto"];
+        documento.tipoDeDocumento = new TipoDeDocumentoSICOI(int.Parse(propiedades_doc["tipo"].ToString()), "");
+        documento.categoriaDeDocumento = new CategoriaDeDocumentoSICOI(int.Parse(propiedades_doc["categoria"].ToString()), "");
+        documento.numero = (string)propiedades_doc["numero"];
+        documento.comentarios = (string)propiedades_doc["comentarios"];
+
+        this.GuardarDocumento(documento, 
+            int.Parse(propiedades_doc["id_area_origen"].ToString()), 
+            int.Parse(propiedades_doc["id_area_actual"].ToString()),
+            usuario);
+        try
+        {
+            var id_area_destino = int.Parse(propiedades_doc["id_area_destino"].ToString());
+            if (id_area_destino >= 0) this.CrearTransicionFuturaParaDocumento(documento.Id, id_area_destino, usuario);
+        }
+        catch (Exception e) { }
+        return JsonConvert.SerializeObject(new {ticket = documento.ticket});
+    }
+
+
+    [WebMethod]
     public Documento GuardarDocumento(Documento un_documento, int id_area_creadora, int id_area_actual, Usuario usuario)
     {
         var conexion = Conexion();

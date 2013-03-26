@@ -75,6 +75,9 @@
             return this._id;
         }
 
-
+        public static Documento fromDTO(string documento_DTO)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

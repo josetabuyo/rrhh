@@ -2,86 +2,14 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetCursosDto">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetCursosDtoResponse">
+      <s:element name="QuitarAlumno">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCursosDtoResult" type="tns:ArrayOfCursoDto" />
+            <s:element minOccurs="0" maxOccurs="1" name="alumno" type="tns:Alumno" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfCursoDto">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CursoDto" nillable="true" type="tns:CursoDto" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CursoDto">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Docente" type="tns:Docente" />
-          <s:element minOccurs="0" maxOccurs="1" name="Materia" type="tns:Materia" />
-          <s:element minOccurs="0" maxOccurs="1" name="Horarios" type="tns:ArrayOfHorarioDto" />
-          <s:element minOccurs="0" maxOccurs="1" name="Alumnos" type="tns:ArrayOfAlumno" />
-          <s:element minOccurs="1" maxOccurs="1" name="HorasCatedra" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Docente">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Telefono" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Mail" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Dni" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="DocenteNull">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:Docente" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="Materia">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Modalidad" type="tns:Modalidad" />
-          <s:element minOccurs="0" maxOccurs="1" name="Ciclo" type="tns:Ciclo" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Modalidad">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Ciclo">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfHorarioDto">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="HorarioDto" nillable="true" type="tns:HorarioDto" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="HorarioDto">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="NumeroDia" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Dia" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="HoraDeInicio" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="HoraDeFin" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfAlumno">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Alumno" nillable="true" type="tns:Alumno" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="Alumno">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -94,116 +22,12 @@
           <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="GetCursos">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetCursosResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCursosResult" type="tns:ArrayOfCurso" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfCurso">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Curso" nillable="true" type="tns:Curso" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Curso">
+      <s:complexType name="Modalidad">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Docente" type="tns:Docente" />
-          <s:element minOccurs="0" maxOccurs="1" name="Materia" type="tns:Materia" />
-          <s:element minOccurs="1" maxOccurs="1" name="HorasCatedra" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="GetMaterias">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetMateriasResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetMateriasResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetDocenteById">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetDocenteByIdResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetDocenteByIdResult" type="tns:Docente" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetDocentes">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetDocentesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetDocentesResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="Modalidades">
-        <s:complexType />
-      </s:element>
-      <s:element name="ModalidadesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ModalidadesResult" type="tns:ArrayOfModalidad" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfModalidad">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Modalidad" nillable="true" type="tns:Modalidad" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="Ciclos">
-        <s:complexType />
-      </s:element>
-      <s:element name="CiclosResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="CiclosResult" type="tns:ArrayOfCiclo" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfCiclo">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Ciclo" nillable="true" type="tns:Ciclo" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GetMateriaById">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetMateriaByIdResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetMateriaByIdResult" type="tns:Materia" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="QuitarCurso">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="curso" type="tns:CursoDto" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:complexType name="Usuario">
         <s:complexContent mixed="false">
           <s:extension base="tns:Persona">
@@ -347,6 +171,211 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="QuitarAlumnoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="QuitarAlumnoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCursoById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCursoByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCursoByIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCursosDto">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCursosDtoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCursosDtoResult" type="tns:ArrayOfCursoDto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCursoDto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CursoDto" nillable="true" type="tns:CursoDto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CursoDto">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Docente" type="tns:Docente" />
+          <s:element minOccurs="0" maxOccurs="1" name="Materia" type="tns:Materia" />
+          <s:element minOccurs="0" maxOccurs="1" name="Horarios" type="tns:ArrayOfHorarioDto" />
+          <s:element minOccurs="0" maxOccurs="1" name="Alumnos" type="tns:ArrayOfAlumno" />
+          <s:element minOccurs="1" maxOccurs="1" name="HorasCatedra" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Docente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Telefono" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dni" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocenteNull">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Docente" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Materia">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Modalidad" type="tns:Modalidad" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ciclo" type="tns:Ciclo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Ciclo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfHorarioDto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HorarioDto" nillable="true" type="tns:HorarioDto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="HorarioDto">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroDia" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HoraDeInicio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HoraDeFin" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAlumno">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Alumno" nillable="true" type="tns:Alumno" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCursos">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCursosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCursosResult" type="tns:ArrayOfCurso" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCurso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Curso" nillable="true" type="tns:Curso" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Curso">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Docente" type="tns:Docente" />
+          <s:element minOccurs="0" maxOccurs="1" name="Materia" type="tns:Materia" />
+          <s:element minOccurs="1" maxOccurs="1" name="HorasCatedra" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMaterias">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetMateriasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMateriasResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocenteById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocenteByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocenteByIdResult" type="tns:Docente" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocentes">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetDocentesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocentesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Modalidades">
+        <s:complexType />
+      </s:element>
+      <s:element name="ModalidadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModalidadesResult" type="tns:ArrayOfModalidad" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfModalidad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Modalidad" nillable="true" type="tns:Modalidad" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Ciclos">
+        <s:complexType />
+      </s:element>
+      <s:element name="CiclosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CiclosResult" type="tns:ArrayOfCiclo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCiclo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Ciclo" nillable="true" type="tns:Ciclo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMateriaById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMateriaByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMateriaByIdResult" type="tns:Materia" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuitarCurso">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="curso" type="tns:CursoDto" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="QuitarCursoResponse">
         <s:complexType>
           <s:sequence>
@@ -1016,6 +1045,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GuardarDocumento_Ajax">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="documento_DTO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDocumento_AjaxResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarDocumento_AjaxResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarDocumento">
         <s:complexType>
           <s:sequence>
@@ -1244,6 +1288,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetDocumentosFiltradosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CrearDocumentoAjax">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="documento_dto" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CrearDocumentoAjaxResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CrearDocumentoAjaxResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1551,37 +1609,20 @@
       <s:element name="InscribirAlumnosACursoResponse">
         <s:complexType />
       </s:element>
-      <s:element name="QuitarAlumno">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="alumno" type="tns:Alumno" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="QuitarAlumnoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="QuitarAlumnoResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetCursoById">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetCursoByIdResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCursoByIdResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="QuitarAlumnoSoapIn">
+    <wsdl:part name="parameters" element="tns:QuitarAlumno" />
+  </wsdl:message>
+  <wsdl:message name="QuitarAlumnoSoapOut">
+    <wsdl:part name="parameters" element="tns:QuitarAlumnoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCursoByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCursoById" />
+  </wsdl:message>
+  <wsdl:message name="GetCursoByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCursoByIdResponse" />
+  </wsdl:message>
   <wsdl:message name="GetCursosDtoSoapIn">
     <wsdl:part name="parameters" element="tns:GetCursosDto" />
   </wsdl:message>
@@ -1846,6 +1887,12 @@
   <wsdl:message name="PuedeGuardarseComisionSoapOut">
     <wsdl:part name="parameters" element="tns:PuedeGuardarseComisionResponse" />
   </wsdl:message>
+  <wsdl:message name="GuardarDocumento_AjaxSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarDocumento_Ajax" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDocumento_AjaxSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarDocumento_AjaxResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarDocumentoSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarDocumento" />
   </wsdl:message>
@@ -1923,6 +1970,12 @@
   </wsdl:message>
   <wsdl:message name="GetDocumentosFiltradosSoapOut">
     <wsdl:part name="parameters" element="tns:GetDocumentosFiltradosResponse" />
+  </wsdl:message>
+  <wsdl:message name="CrearDocumentoAjaxSoapIn">
+    <wsdl:part name="parameters" element="tns:CrearDocumentoAjax" />
+  </wsdl:message>
+  <wsdl:message name="CrearDocumentoAjaxSoapOut">
+    <wsdl:part name="parameters" element="tns:CrearDocumentoAjaxResponse" />
   </wsdl:message>
   <wsdl:message name="GetDocumentosEnAlertaSoapIn">
     <wsdl:part name="parameters" element="tns:GetDocumentosEnAlerta" />
@@ -2056,19 +2109,15 @@
   <wsdl:message name="InscribirAlumnosACursoSoapOut">
     <wsdl:part name="parameters" element="tns:InscribirAlumnosACursoResponse" />
   </wsdl:message>
-  <wsdl:message name="QuitarAlumnoSoapIn">
-    <wsdl:part name="parameters" element="tns:QuitarAlumno" />
-  </wsdl:message>
-  <wsdl:message name="QuitarAlumnoSoapOut">
-    <wsdl:part name="parameters" element="tns:QuitarAlumnoResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetCursoByIdSoapIn">
-    <wsdl:part name="parameters" element="tns:GetCursoById" />
-  </wsdl:message>
-  <wsdl:message name="GetCursoByIdSoapOut">
-    <wsdl:part name="parameters" element="tns:GetCursoByIdResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="QuitarAlumno">
+      <wsdl:input message="tns:QuitarAlumnoSoapIn" />
+      <wsdl:output message="tns:QuitarAlumnoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCursoById">
+      <wsdl:input message="tns:GetCursoByIdSoapIn" />
+      <wsdl:output message="tns:GetCursoByIdSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetCursosDto">
       <wsdl:input message="tns:GetCursosDtoSoapIn" />
       <wsdl:output message="tns:GetCursosDtoSoapOut" />
@@ -2245,6 +2294,10 @@
       <wsdl:input message="tns:PuedeGuardarseComisionSoapIn" />
       <wsdl:output message="tns:PuedeGuardarseComisionSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GuardarDocumento_Ajax">
+      <wsdl:input message="tns:GuardarDocumento_AjaxSoapIn" />
+      <wsdl:output message="tns:GuardarDocumento_AjaxSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarDocumento">
       <wsdl:input message="tns:GuardarDocumentoSoapIn" />
       <wsdl:output message="tns:GuardarDocumentoSoapOut" />
@@ -2296,6 +2349,10 @@
     <wsdl:operation name="GetDocumentosFiltrados">
       <wsdl:input message="tns:GetDocumentosFiltradosSoapIn" />
       <wsdl:output message="tns:GetDocumentosFiltradosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CrearDocumentoAjax">
+      <wsdl:input message="tns:CrearDocumentoAjaxSoapIn" />
+      <wsdl:output message="tns:CrearDocumentoAjaxSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetDocumentosEnAlerta">
       <wsdl:input message="tns:GetDocumentosEnAlertaSoapIn" />
@@ -2385,17 +2442,27 @@
       <wsdl:input message="tns:InscribirAlumnosACursoSoapIn" />
       <wsdl:output message="tns:InscribirAlumnosACursoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="QuitarAlumno">
-      <wsdl:input message="tns:QuitarAlumnoSoapIn" />
-      <wsdl:output message="tns:QuitarAlumnoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCursoById">
-      <wsdl:input message="tns:GetCursoByIdSoapIn" />
-      <wsdl:output message="tns:GetCursoByIdSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="QuitarAlumno">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/QuitarAlumno" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCursoById">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCursoById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCursosDto">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetCursosDto" style="document" />
       <wsdl:input>
@@ -2792,6 +2859,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GuardarDocumento_Ajax">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDocumento_Ajax" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarDocumento">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDocumento" style="document" />
       <wsdl:input>
@@ -2902,6 +2978,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetDocumentosFiltrados">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosFiltrados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CrearDocumentoAjax">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CrearDocumentoAjax" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3107,27 +3192,27 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="QuitarAlumno">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/QuitarAlumno" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCursoById">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCursoById" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="QuitarAlumno">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/QuitarAlumno" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCursoById">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCursoById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCursosDto">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCursosDto" style="document" />
       <wsdl:input>
@@ -3524,6 +3609,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GuardarDocumento_Ajax">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDocumento_Ajax" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarDocumento">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDocumento" style="document" />
       <wsdl:input>
@@ -3634,6 +3728,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetDocumentosFiltrados">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosFiltrados" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CrearDocumentoAjax">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CrearDocumentoAjax" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -3832,24 +3935,6 @@
     </wsdl:operation>
     <wsdl:operation name="InscribirAlumnosACurso">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/InscribirAlumnosACurso" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="QuitarAlumno">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/QuitarAlumno" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCursoById">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCursoById" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
