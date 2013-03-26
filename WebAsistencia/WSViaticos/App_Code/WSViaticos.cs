@@ -1130,11 +1130,10 @@ public class WSViaticos : System.Web.Services.WebService
                 un_curso.Materia = curso.Materia;
                 un_curso.Docente = curso.Docente;
                 un_curso.Alumnos = curso.Alumnos();
-                un_curso.HorasCatedra = curso.HorasCatedra;
                 var horarios = new List<HorarioDto>();
                 foreach (var h in curso.GetHorariosDeCursada())
                 {
-                    horarios.Add(new HorarioDto() { NumeroDia = (int)h.Dia, Dia = DateTimeFormatInfo.CurrentInfo.GetDayName(h.Dia), HoraDeInicio = h.HoraDeInicio.ToString().Substring(0, 5), HoraDeFin = h.HoraDeFin.ToString().Substring(0, 5) });
+                    horarios.Add(new HorarioDto() { NumeroDia = (int)h.Dia, Dia = DateTimeFormatInfo.CurrentInfo.GetDayName(h.Dia), HoraDeInicio = h.HoraDeInicio.ToString().Substring(0, 5), HoraDeFin = h.HoraDeFin.ToString().Substring(0, 5), HorasCatedra = h.HorasCatedra });
                 }
                 un_curso.Horarios = horarios;
                 cursos_dto.Add(un_curso);
@@ -1224,40 +1223,40 @@ public class WSViaticos : System.Web.Services.WebService
         
     }
 
+
+    private static void GetHorariosParaCurso(CursoDto curso, Curso un_curso)
+    {
+        var horarios = curso.Horarios;
+        horarios.ForEach(h =>
+        {
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
+        });
+    }
+
     [WebMethod]
     public bool QuitarCurso(CursoDto curso, Usuario usuario)
     {
         var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, Id = curso.Id };
-        var horarios = curso.Horarios;
-        horarios.ForEach(h =>
-        {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
-        });
+        GetHorariosParaCurso(curso, un_curso);
 
         return RepositorioDeCursos().QuitarCurso(un_curso, usuario);
     }
 
     [WebMethod]
-    public bool AgregarCurso(CursoDto curso)
+    public bool GuardarCurso(CursoDto curso)
     {
         var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra };
-        var horarios = curso.Horarios;
-        horarios.ForEach(h =>
-        {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
-        });
+        GetHorariosParaCurso(curso, un_curso);
 
-        return RepositorioDeCursos().AgregarCurso(un_curso);
+        return RepositorioDeCursos().GuardarCurso(un_curso);
     }
+
 
     [WebMethod]
     public bool ModificarCurso(CursoDto curso)
     {
         var un_curso = new Curso() { Id = curso.Id, Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra };
-        var horarios = curso.Horarios;
-        horarios.ForEach(h =>{
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
-        });
+        GetHorariosParaCurso(curso, un_curso);
         
         return RepositorioDeCursos().ModificarCurso(un_curso);
     }
