@@ -359,7 +359,7 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
 
     self.cfg.divFiltrosActivos.val('[]');
 
-    var panel_filtros = new PanelDeFiltros([filtroPorExtracto,
+    this.panel_filtros = new PanelDeFiltros([filtroPorExtracto,
                         filtroPorNumero,
                         filtroPorFechaDesde,
                         filtroPorFechaHasta,
@@ -370,7 +370,7 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
                         filtroPorCategoriaDeDocumento,
                         filtroPorSoloEnAreaUsuario]);
 
-    panel_filtros.setObservador({
+    this.panel_filtros.setObservador({
         algunFiltroActivado: function () {
             self.cfg.botonDesplegarPanelFiltros.addClass('boton_que_abre_panel_desplegable_activo_con_filtros');
         },
@@ -378,7 +378,7 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
             self.cfg.botonDesplegarPanelFiltros.removeClass('boton_que_abre_panel_desplegable_activo_con_filtros');
         },
         cambiaronLosFiltros: function () {
-            self.cfg.divFiltrosActivos.val(JSON.stringify(panel_filtros.filtrosActivos()));
+            self.cfg.divFiltrosActivos.val(JSON.stringify(self.panel_filtros.filtrosActivos()));
         }
     });
 
@@ -402,6 +402,9 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
 }
 
 PanelDeFiltrosDeDocumentos.prototype = {
+    getFiltrosActivos: function () {
+        return this.panel_filtros.filtrosActivos();
+    },
     setPanelAlta: function (panel) {
         this._panel_alta = panel;
     },
@@ -412,7 +415,7 @@ PanelDeFiltrosDeDocumentos.prototype = {
         this.cfg.divPanelFiltros.slideToggle("fast");
         this.cfg.botonDesplegarPanelFiltros.toggleClass("boton_que_abre_panel_desplegable_activo");
     },
-    desplegar: function(){
+    desplegar: function () {
         this.cfg.divPanelFiltros.slideDown("fast");
         this.cfg.botonDesplegarPanelFiltros.addClass("boton_que_abre_panel_desplegable_activo");
     },

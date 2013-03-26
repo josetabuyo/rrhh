@@ -48,23 +48,28 @@ var PanelAltaDeDocumento = function (cfg) {
     });
 
     cfg.btnCrearDocumento.click(function () {
-        //        $.ajax({
-        //            url: "http://localhost:14853/WSViaticos/WSViaticos.asmx/CrearDocumentoAjax",
-        //            type: "post",
-        //            data: "pepe",
-        //            success: function (respuesta) {
-        //                alert(respuesta.mensaje);
-        //            }
-        //        });
+        var documento_dto = {
+            extracto: cfg.txtExtracto.val(),
+            tipo: cfg.idTipoDeDocumentoSeleccionadoEnAlta.val(),
+            categoria: cfg.cmbCategoriaDocumento.val(),
+            id_area_origen: cfg.areaOrigenSeleccionadaEnAlta.val(),
+            id_area_destino: cfg.areaDestinoSeleccionadaEnAlta.val(),
+            id_area_actual: cfg.areaDelUsuario.id,
+            numero: cfg.txtNumero.val(),
+            comentarios: cfg.txtComentarios.val()
+        };
         $.ajax({
-            url: "Areas/Areas.asmx/CrearDocumentoAjax",
+            url: "../AjaxWS.asmx/CrearDocumento",
             type: "POST",
-            data: "{'documento_dto' : '" + cfg.txtExtracto.val() + "'}",
+            data: "{'documento_dto' : '" + JSON.stringify(documento_dto) + "'}",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (respuestaJson) {
-                var respuesta = JSON.parse(respuestaJson.d);
-                alert(respuesta.mensaje);
+                var ticket = JSON.parse(respuestaJson.d).ticket;
+                alert("Se creó un documento con el número de ticket: " + ticket);
+                self.contraer();
+                self.limpiarCampos();
+                self._panel_documentos.refrescarGrilla();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert(textStatus);
@@ -80,11 +85,23 @@ PanelAltaDeDocumento.prototype = {
     setPanelFiltros: function (panel) {
         this._panel_filtros = panel;
     },
+    setPanelDocumentos: function (panel) {
+        this._panel_documentos = panel;
+    },
+    limpiarCampos: function () {
+        this.cfg.txtExtracto.val("");
+        this.cfg.idTipoDeDocumentoSeleccionadoEnAlta.val(-1);
+        this.cfg.cmbCategoriaDocumento.val(-1);
+        this.cfg.areaOrigenSeleccionadaEnAlta.val("");
+        this.cfg.areaDestinoSeleccionadaEnAlta.val("");
+        this.cfg.txtNumero.val("");
+        this.cfg.txtComentarios.val("");
+    },
     alternarDespliegue: function () {
         this.cfg.divPanelAlta.slideToggle("fast");
         this.cfg.botonDesplegarPanelAlta.toggleClass("boton_que_abre_panel_desplegable_activo");
     },
-    desplegar: function(){
+    desplegar: function () {
         this.cfg.divPanelAlta.slideDown("fast");
         this.cfg.botonDesplegarPanelAlta.addClass("boton_que_abre_panel_desplegable_activo");
     },
@@ -121,9 +138,9 @@ PanelAltaDeDocumento.prototype = {
             this.cfg.cmbTipoDeDocumento.val() == '' ||
             this.cfg.cmbCategoriaDocumento.val() == '' ||
             this.cfg.txtExtracto.val() == '') {
-                this.cfg.btnCrearDocumento.prop('disabled', true);
+            this.cfg.btnCrearDocumento.prop('disabled', true);
         } else {
-                this.cfg.btnCrearDocumento.prop('disabled', false);
+            this.cfg.btnCrearDocumento.prop('disabled', false);
         }
     }
 }

@@ -52,8 +52,28 @@ var PanelDeDocumentos = function (cfg) {
 }
 
 PanelDeDocumentos.prototype = {
+    refrescarGrilla: function () {
+        var self = this;
+        this._grilla_de_documentos.BorrarContenido();
+        $.ajax({
+            url: "../AjaxWS.asmx/GetDocumentosFiltrados",
+            type: "POST",
+            data: "{'filtros' : '" + JSON.stringify(this._panel_filtros.getFiltrosActivos()) + "'}",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (respuestaJson) {
+                self._grilla_de_documentos.CargarObjetos(JSON.parse(respuestaJson.d));
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(textStatus);
+            }
+        });
+    },
     setPanelDetalle: function (panel) {
         this._panel_detalle = panel;
+    },
+    setPanelFiltros: function (panel) {
+        this._panel_filtros = panel;
     },
     desSeleccionarTodo: function () {
         this._grilla_de_documentos.desSeleccionarTodo();

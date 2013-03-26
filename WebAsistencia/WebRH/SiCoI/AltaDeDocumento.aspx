@@ -260,12 +260,14 @@
                 lblLetrasDelTipoDeDocumento: $("#letrasDelTipoDeDocumento"),
                 txtNumero: $('#txtNumero'),
                 txtExtracto: $('#txtExtracto'),
+                txtComentarios: $('#txtComentarios'), 
                 btnCrearDocumento: $('#btnCrearDocumento'),
                 cmbCategoriaDocumento: $('#cmbCategoria'),
                 botonDesplegarPanelAlta: $("#boton_desplegar_panel_alta_documento"),
                 divPanelAlta: $("#panel_alta_documento"),
                 listaAreas: listaAreas,
-                tiposDeDocumento: tiposDeDocumento
+                tiposDeDocumento: tiposDeDocumento,
+                areaDelUsuario: areaDelUsuario
             }
             var panel_alta = new PanelAltaDeDocumento(cfg_panel_alta);
 
@@ -294,12 +296,14 @@
             var panel_filtros = new PanelDeFiltrosDeDocumentos(cfg_panel_filtros);
 
             panel_documentos.setPanelDetalle(panel_detalle);
+            panel_documentos.setPanelFiltros(panel_filtros);
 
             panel_detalle.setPanelAlta(panel_alta);
             panel_detalle.setPanelFiltros(panel_filtros);
             panel_detalle.setPanelDocumentos(panel_documentos);
 
             panel_alta.setPanelFiltros(panel_filtros);
+            panel_alta.setPanelDocumentos(panel_documentos);
             panel_alta.setPanelDetalle(panel_detalle);
 
             panel_filtros.setPanelAlta(panel_alta);

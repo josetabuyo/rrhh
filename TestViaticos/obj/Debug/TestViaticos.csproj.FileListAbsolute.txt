@@ -28,3 +28,18 @@ C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\TestViaticos\bin\Debug\WebR
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\TestViaticos\obj\Debug\ResolveAssemblyReference.cache
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\TestViaticos\obj\Debug\TestViaticos.dll
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\TestViaticos\obj\Debug\TestViaticos.pdb
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\bin\Debug\TestViaticos.dll.config
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\bin\Debug\TestViaticos.dll
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\bin\Debug\TestViaticos.pdb
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\bin\Debug\General.dll
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\bin\Debug\NDbUnit.Core.dll
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\bin\Debug\NDbUnit.SqlClient.dll
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\bin\Debug\Newtonsoft.Json.dll
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\bin\Debug\NMock2.dll
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\bin\Debug\NMock2.Test.dll
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\bin\Debug\WebRhUI.dll
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\bin\Debug\General.pdb
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\bin\Debug\WebRhUI.pdb
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\obj\Debug\ResolveAssemblyReference.cache
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\obj\Debug\TestViaticos.dll
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\TestViaticos\obj\Debug\TestViaticos.pdb
