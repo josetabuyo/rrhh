@@ -11,10 +11,12 @@ namespace General
         private string _telefono;
         private string _mail;
         private string _direccion;
+        private int _baja;
 
         public virtual  string Telefono { get { return _telefono; } set { _telefono = value; } }
         public virtual string Mail { get { return _mail; } set { _mail = value; } }
         public virtual string Direccion { get { return _direccion; } set { _direccion = value; } }
+        public int Baja { get { return _baja; } set { _baja = value; } }
 
         public Docente()
         {
