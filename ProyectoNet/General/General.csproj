@@ -199,6 +199,7 @@
     <Compile Include="SACC\AsistenciaHoraTres.cs" />
     <Compile Include="SACC\AsistenciaHoraUno.cs" />
     <Compile Include="SACC\AsistenciaClaseSuspendida.cs" />
+    <Compile Include="SACC\EspacioFisicoNull.cs" />
     <Compile Include="SACC\EspacioFisico.cs" />
     <Compile Include="SACC\Edificio.cs" />
     <Compile Include="SACC\DocenteNull.cs" />

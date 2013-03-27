@@ -12,10 +12,10 @@ namespace General
         private int _capacidad;
         private Edificio _edificio;
 
-        public int Id { get { return _id; } set { _id = value; } }
-        public string Aula { get { return _aula; } set { _aula = value; } }
-        public int Capacidad { get { return _capacidad; } set { _capacidad = value; } }
-        public Edificio Edificio { get { return _edificio; } set { _edificio = value; } }
+        public virtual int Id { get { return _id; } set { _id = value; } }
+        public virtual string Aula { get { return _aula; } set { _aula = value; } }
+        public virtual int Capacidad { get { return _capacidad; } set { _capacidad = value; } }
+        public virtual Edificio Edificio { get { return _edificio; } set { _edificio = value; } }
 
 
 

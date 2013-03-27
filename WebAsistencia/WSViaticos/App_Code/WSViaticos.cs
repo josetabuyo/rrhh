@@ -980,7 +980,7 @@ public class WSViaticos : System.Web.Services.WebService
                     Direccion = alumno.Direccion,
                  //   Area = AreaDtoPara(alumno.Area),
                     Modalidad = ModalidadPara(alumno.Modalidad),
-                    Baja = alumno.Baja,
+                    //Baja = alumno.Baja,
                 });
             });
         }
@@ -1232,7 +1232,7 @@ public class WSViaticos : System.Web.Services.WebService
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
         });
 
         return RepositorioDeCursos().QuitarCurso(un_curso, usuario);
@@ -1245,7 +1245,7 @@ public class WSViaticos : System.Web.Services.WebService
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
         });
 
         return RepositorioDeCursos().AgregarCurso(un_curso);
@@ -1257,7 +1257,7 @@ public class WSViaticos : System.Web.Services.WebService
         var un_curso = new Curso() { Id = curso.Id, Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra };
         var horarios = curso.Horarios;
         horarios.ForEach(h =>{
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
         });
         
         return RepositorioDeCursos().ModificarCurso(un_curso);
@@ -1304,6 +1304,59 @@ public class WSViaticos : System.Web.Services.WebService
 
 
 
+<<<<<<< HEAD
+=======
+    }
+
+    [WebMethod]
+    public bool QuitarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+    {
+        if (RepoEspaciosFisicos().EspacioFisicoAsignadoACurso(espacio_fisico))
+        {
+            return false;
+        }
+        RepoEspaciosFisicos().QuitarEspacioFisico(espacio_fisico, usuario);
+        return true;
+    }
+
+    [WebMethod]
+    public void ModificarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+    {
+        var conexion = Conexion();
+        RepoEspaciosFisicos().ModificarEspacioFisico(espacio_fisico, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarEspacioFisico(EspacioFisico un_espacio_fisico, Usuario usuario)
+    {
+         var conexion = Conexion();
+        RepoEspaciosFisicos().ActualizarEspacioFisico(un_espacio_fisico, usuario);
+    }
+
+     [WebMethod]
+    public string GetEspaciosFisicos()
+     {
+
+         var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion()).GetEspaciosFisicos();
+         var espacios_fisicos_dto = new List<object>();
+
+         if (espacios_fisicos.Count > 0)
+         {
+             espacios_fisicos.ForEach(delegate(EspacioFisico espacio_fisico)
+             {
+                 espacios_fisicos_dto.Add(new
+                 {
+                     id = espacio_fisico.Id,
+                     aula = espacio_fisico.Aula,
+                     edificio = EdificioPara(espacio_fisico.Edificio),
+                     capacidad = espacio_fisico.Capacidad
+                 });
+             });
+         };
+         return JsonConvert.SerializeObject(espacios_fisicos_dto);
+
+     }
+>>>>>>> origin/sacc
 
     private RepositorioDeAlumnos RepoAlumnos()
     {

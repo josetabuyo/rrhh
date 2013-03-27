@@ -134,6 +134,8 @@
     var LimpiarCampos = function () {
 
         Limpiar($("#txtAula"));
+        Limpiar($("#idEspacioFisico"));
+        Limpiar($("#txtIdEspacioFisico"));
         Limpiar($("#cmbEdificio"));
         Limpiar($('#txtDireccion'));
         Limpiar($('#txtCapacidad'));
