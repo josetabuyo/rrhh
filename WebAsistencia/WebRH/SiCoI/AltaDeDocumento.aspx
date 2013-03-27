@@ -7,17 +7,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>SICOI</title>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
-        type="text/css" runat="server" />
-    <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
-
-     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-      <script type="text/javascript" src="utilesSICOI.js"></script>
-       <script type="text/javascript" src="../Scripts/InputSoloNumeros.js"></script>
-
-
+    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
+    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
+    <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
+    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
 </head>
 <body class="body-detalle" onload="MM_preloadImages('Imagenes/Botones/gestiontramites_s2.png','Imagenes/Botones/administrar_s2.png','Imagenes/Botones/solicitar_modificacion_s2.png','Imagenes/Botones/Botones Nuevos/ayuda_s2.png','Imagenes/Botones/Botones Nuevos/inicio_s2.png','Imagenes/Botones/cerrarsesion_s2.png','Imagenes/Botones/consprotocolo_s2.png')">
     <form id="form1" runat="server">
@@ -91,8 +84,9 @@
            
 
             <div class="botones_alta_documento">
-                <asp:Button ID="btn_aplicar_filtros" Text="Aplicar filtro" runat="server" OnClick="btnAplicarFiltros_Click"
-                    class=" btn btn-primary" />
+                <input type="button" id="btn_aplicar_filtros" class=" btn btn-primary" value="Aplicar filtro"/>
+<%--                <asp:Button ID="btn_aplicar_filtros" Text="Aplicar filtro" runat="server" OnClick="btnAplicarFiltros_Click"
+                    class=" btn btn-primary" />--%>
                 <asp:Button ID="btn_cancelar_filtro" Text="Quitar filtros" runat="server" OnClick="btnCancelar_Click"
                     class=" btn btn-primary" />
             </div>
@@ -191,9 +185,9 @@
         Style="display: none" />
     <asp:Button ID="btnEnviarDocumentoConAreaIntermedia" Text="" runat="server" OnClick="btnEnviarDocumentoConAreaintermedia_Click"
         Style="display: none" />
-    <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
-   
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>   
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"></script>
@@ -206,19 +200,18 @@
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../Scripts/InputAutocompletable.js"></script>
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+    <script type="text/javascript" src="../Scripts/InputSoloNumeros.js"></script>
     <script type="text/javascript" src="PanelDeFiltrosDeDocumentos.js"></script>
     <script type="text/javascript" src="GrillaDeDocumentos.js"></script>
     <script type="text/javascript" src="InputAutocompletableDeAreas.js"></script>
     <script type="text/javascript" src="PanelDetalleDeDocumento.js"></script>
     <script type="text/javascript" src="PanelDeDocumentos.js"></script>
     <script type="text/javascript" src="PanelAltaDeDocumento.js"></script>
-  
-       <script type="text/javascript" src="../Scripts/InputSoloNumeros.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
             var listaAreas = JSON.parse($('#ListaAreas').val());
-            var listaDocumentos = JSON.parse($('#ListaDocumentos').val());
+            //var listaDocumentos = JSON.parse($('#ListaDocumentos').val());
             var tiposDeDocumento = JSON.parse($('#TiposDeDocumento').val());
             var areaDelUsuario = JSON.parse($('#divAreaDelUsuario').val());
 
@@ -227,8 +220,8 @@
                 divDocumentoAEnviar: $("#divDocumentoAEnviar"),
                 btnEnviarDocumento: $("#btnEnviarDocumento"),
                 btnEnviarDocumentoConAreaIntermedia: $("#btnEnviarDocumentoConAreaIntermedia"),
-                areaDelUsuario: areaDelUsuario,
-                listaDocumentos: listaDocumentos
+                areaDelUsuario: areaDelUsuario//,
+                //listaDocumentos: listaDocumentos
             }
             var panel_documentos = new PanelDeDocumentos(cfg_panel_documentos);
 
@@ -289,6 +282,7 @@
                 botonDesplegarPanelFiltros: $("#boton_desplegar_panel_filtros"),
                 tituloFiltroAreaActual: $('#titulo_filtro_area_actual'),
                 divPanelFiltros: $("#panel_filtros"),
+                btnAplicarFiltros: $('#btn_aplicar_filtros'),
                 areaDelUsuario: areaDelUsuario,
                 listaAreas: listaAreas,
                 tiposDeDocumento: tiposDeDocumento
@@ -308,6 +302,7 @@
 
             panel_filtros.setPanelAlta(panel_alta);
             panel_filtros.setPanelDetalle(panel_detalle);
+            panel_filtros.setPanelDocumentos(panel_documentos);
         });
     </script>   
 

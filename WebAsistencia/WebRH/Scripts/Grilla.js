@@ -5,6 +5,23 @@
     var onRowClickEventHandler;
     var Objetos = new Array();
 
+    this._progress_bar = $('<div>');
+    var progress_label = $("<div>");
+    progress_label.css("float", "left");
+    progress_label.css("margin-left", "40%");
+    progress_label.css("margin-top", "5px");
+    progress_label.css("font-weight", "bold");
+
+    progress_label.text("Cargando documentos...");
+
+    this._progress_bar.append(progress_label);
+
+    this._progress_bar.progressbar({
+        value: false
+    });
+    this._progress_bar.progressbar("option", "value", false);
+    this._mostrando_progress_bar = false;
+
     //ESTO DEBERIA SER USADO PARA TODO, YA QUE EL INDEXOF EN IE NO FUNCIONA
     if (!Array.indexOf) {
         Array.prototype.indexOf = function (obj) {
@@ -19,15 +36,6 @@
 
     //métodos públicos
     this.DibujarEn = function (panel) {
-        //        if (tabla.find("tr").length < 2) {
-        //            var tr = $('<tr>');
-        //            var td = $('<td>');
-        //            td.attr("colspan", columnas.length);
-        //            td.html("No hay datos para mostrar");
-        //            tr.append(td);
-        //            tabla.append(tr);
-        //        }
-
         panel.append(tabla);
     }
 
@@ -35,7 +43,33 @@
         onRowClickEventHandler = metodo;
     }
 
+    this.setProveedorDeDatos = function (proveedor) {
+        this._proveedor_de_datos = proveedor;
+    }
+
+    this.refrescar = function () {
+        this.BorrarContenido();
+        this.mostrarProgressBar();
+        this._proveedor_de_datos.pedirDatos(this.CargarObjetos.bind(this));
+    }
+
+    this.mostrarProgressBar = function () {
+        tabla.after(this._progress_bar);
+        this._progress_bar.show();
+        this._mostrando_progress_bar = true;
+    }
+
+    this.ocultarProgressBar = function () {
+        this._progress_bar.hide();
+        this._mostrando_progress_bar = false;
+    }
+
+    this.mostrandoProgressBar = function () {
+        return this._mostrando_progress_bar;
+    }
+
     this.CargarObjetos = function (objetos) {
+        this.ocultarProgressBar();
         for (var i = 0; i < objetos.length; i++) {
             var obj = objetos[i];
             this.CargarObjeto(obj);

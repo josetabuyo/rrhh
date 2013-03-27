@@ -39,7 +39,7 @@ public partial class AltaDeDocumento : System.Web.UI.Page
 
     private void RefrescarListaDeDocumentos()
     {
-        this.ListaDocumentos.Value = DocumentosFromWS();
+        //this.ListaDocumentos.Value = DocumentosFromWS();
 
         var servicio = new WSViaticos.WSViaticosSoapClient();
         this.boton_alertas.Visible = servicio.HayDocumentosEnAlerta();
