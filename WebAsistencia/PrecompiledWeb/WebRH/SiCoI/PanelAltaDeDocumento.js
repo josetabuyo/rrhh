@@ -1,3 +1,0 @@
-﻿var PanelAltaDeDocumento = function (cfg) {
-    
-}
