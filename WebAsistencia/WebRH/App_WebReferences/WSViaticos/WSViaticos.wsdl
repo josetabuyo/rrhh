@@ -2,6 +2,20 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="GetCursoById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCursoByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCursoByIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetCursosDto">
         <s:complexType />
       </s:element>
@@ -116,6 +130,22 @@
           <s:element minOccurs="0" maxOccurs="1" name="Docente" type="tns:Docente" />
           <s:element minOccurs="0" maxOccurs="1" name="Materia" type="tns:Materia" />
           <s:element minOccurs="1" maxOccurs="1" name="HorasCatedra" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EspacioFisico" type="tns:EspacioFisico" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EspacioFisico">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aula" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Capacidad" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Edificio" type="tns:Edificio" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Edificio">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetMaterias">
@@ -393,6 +423,78 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetPersonaByDNIResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Edificios">
+        <s:complexType />
+      </s:element>
+      <s:element name="EdificiosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EdificiosResult" type="tns:ArrayOfEdificio" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEdificio">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Edificio" nillable="true" type="tns:Edificio" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="EspacioFisico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="espacio_fisico" type="tns:EspacioFisico" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EspacioFisicoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="QuitarEspacioFisico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="espacio_fisico" type="tns:EspacioFisico" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuitarEspacioFisicoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="QuitarEspacioFisicoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModificarEspacioFisico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="espacio_fisico" type="tns:EspacioFisico" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModificarEspacioFisicoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GuardarEspacioFisico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="un_espacio_fisico" type="tns:EspacioFisico" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarEspacioFisicoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetEspaciosFisicos">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetEspaciosFisicosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEspaciosFisicosResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1566,22 +1668,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetCursoById">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetCursoByIdResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCursoByIdResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetCursoByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCursoById" />
+  </wsdl:message>
+  <wsdl:message name="GetCursoByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCursoByIdResponse" />
+  </wsdl:message>
   <wsdl:message name="GetCursosDtoSoapIn">
     <wsdl:part name="parameters" element="tns:GetCursosDto" />
   </wsdl:message>
@@ -1653,6 +1747,42 @@
   </wsdl:message>
   <wsdl:message name="GetPersonaByDNISoapOut">
     <wsdl:part name="parameters" element="tns:GetPersonaByDNIResponse" />
+  </wsdl:message>
+  <wsdl:message name="EdificiosSoapIn">
+    <wsdl:part name="parameters" element="tns:Edificios" />
+  </wsdl:message>
+  <wsdl:message name="EdificiosSoapOut">
+    <wsdl:part name="parameters" element="tns:EdificiosResponse" />
+  </wsdl:message>
+  <wsdl:message name="EspacioFisicoSoapIn">
+    <wsdl:part name="parameters" element="tns:EspacioFisico" />
+  </wsdl:message>
+  <wsdl:message name="EspacioFisicoSoapOut">
+    <wsdl:part name="parameters" element="tns:EspacioFisicoResponse" />
+  </wsdl:message>
+  <wsdl:message name="QuitarEspacioFisicoSoapIn">
+    <wsdl:part name="parameters" element="tns:QuitarEspacioFisico" />
+  </wsdl:message>
+  <wsdl:message name="QuitarEspacioFisicoSoapOut">
+    <wsdl:part name="parameters" element="tns:QuitarEspacioFisicoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModificarEspacioFisicoSoapIn">
+    <wsdl:part name="parameters" element="tns:ModificarEspacioFisico" />
+  </wsdl:message>
+  <wsdl:message name="ModificarEspacioFisicoSoapOut">
+    <wsdl:part name="parameters" element="tns:ModificarEspacioFisicoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarEspacioFisicoSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarEspacioFisico" />
+  </wsdl:message>
+  <wsdl:message name="GuardarEspacioFisicoSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarEspacioFisicoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEspaciosFisicosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEspaciosFisicos" />
+  </wsdl:message>
+  <wsdl:message name="GetEspaciosFisicosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEspaciosFisicosResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
@@ -2062,13 +2192,11 @@
   <wsdl:message name="QuitarAlumnoSoapOut">
     <wsdl:part name="parameters" element="tns:QuitarAlumnoResponse" />
   </wsdl:message>
-  <wsdl:message name="GetCursoByIdSoapIn">
-    <wsdl:part name="parameters" element="tns:GetCursoById" />
-  </wsdl:message>
-  <wsdl:message name="GetCursoByIdSoapOut">
-    <wsdl:part name="parameters" element="tns:GetCursoByIdResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetCursoById">
+      <wsdl:input message="tns:GetCursoByIdSoapIn" />
+      <wsdl:output message="tns:GetCursoByIdSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetCursosDto">
       <wsdl:input message="tns:GetCursosDtoSoapIn" />
       <wsdl:output message="tns:GetCursosDtoSoapOut" />
@@ -2116,6 +2244,30 @@
     <wsdl:operation name="GetPersonaByDNI">
       <wsdl:input message="tns:GetPersonaByDNISoapIn" />
       <wsdl:output message="tns:GetPersonaByDNISoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Edificios">
+      <wsdl:input message="tns:EdificiosSoapIn" />
+      <wsdl:output message="tns:EdificiosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EspacioFisico">
+      <wsdl:input message="tns:EspacioFisicoSoapIn" />
+      <wsdl:output message="tns:EspacioFisicoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuitarEspacioFisico">
+      <wsdl:input message="tns:QuitarEspacioFisicoSoapIn" />
+      <wsdl:output message="tns:QuitarEspacioFisicoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificarEspacioFisico">
+      <wsdl:input message="tns:ModificarEspacioFisicoSoapIn" />
+      <wsdl:output message="tns:ModificarEspacioFisicoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarEspacioFisico">
+      <wsdl:input message="tns:GuardarEspacioFisicoSoapIn" />
+      <wsdl:output message="tns:GuardarEspacioFisicoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEspaciosFisicos">
+      <wsdl:input message="tns:GetEspaciosFisicosSoapIn" />
+      <wsdl:output message="tns:GetEspaciosFisicosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
@@ -2389,13 +2541,18 @@
       <wsdl:input message="tns:QuitarAlumnoSoapIn" />
       <wsdl:output message="tns:QuitarAlumnoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetCursoById">
-      <wsdl:input message="tns:GetCursoByIdSoapIn" />
-      <wsdl:output message="tns:GetCursoByIdSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCursoById">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCursoById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCursosDto">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetCursosDto" style="document" />
       <wsdl:input>
@@ -2497,6 +2654,60 @@
     </wsdl:operation>
     <wsdl:operation name="GetPersonaByDNI">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetPersonaByDNI" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Edificios">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Edificios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EspacioFisico">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EspacioFisico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuitarEspacioFisico">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/QuitarEspacioFisico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificarEspacioFisico">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ModificarEspacioFisico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarEspacioFisico">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarEspacioFisico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEspaciosFisicos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetEspaciosFisicos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3116,18 +3327,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCursoById">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCursoById" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCursoById">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCursoById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCursosDto">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCursosDto" style="document" />
       <wsdl:input>
@@ -3229,6 +3440,60 @@
     </wsdl:operation>
     <wsdl:operation name="GetPersonaByDNI">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPersonaByDNI" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Edificios">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Edificios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EspacioFisico">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EspacioFisico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuitarEspacioFisico">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/QuitarEspacioFisico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificarEspacioFisico">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ModificarEspacioFisico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarEspacioFisico">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarEspacioFisico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEspaciosFisicos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetEspaciosFisicos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -3841,15 +4106,6 @@
     </wsdl:operation>
     <wsdl:operation name="QuitarAlumno">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/QuitarAlumno" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCursoById">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCursoById" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

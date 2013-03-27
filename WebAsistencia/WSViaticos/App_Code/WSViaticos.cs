@@ -997,7 +997,14 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-
+    private object EdificioPara(Edificio edificio)
+    {
+        return new
+        {
+            id = edificio.Id,
+            nombre = edificio.Nombre
+        };
+    }
 
     private object ModalidadPara(Modalidad modalidad)
     {
@@ -1301,7 +1308,66 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+    [WebMethod]
+    public Edificio[] Edificios()
+    {
+        return RepoEspaciosFisicos().GetEdificios().ToArray();
+    }
 
+    [WebMethod]
+    public void EspacioFisico(EspacioFisico espacio_fisico)
+    {
+
+    }
+
+    [WebMethod]
+    public bool QuitarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+    {
+        if (RepoEspaciosFisicos().EspacioFisicoAsignadoACurso(espacio_fisico))
+        {
+            return false;
+        }
+        RepoEspaciosFisicos().QuitarEspacioFisico(espacio_fisico, usuario);
+        return true;
+    }
+
+    [WebMethod]
+    public void ModificarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+    {
+        var conexion = Conexion();
+        RepoEspaciosFisicos().ModificarEspacioFisico(espacio_fisico, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarEspacioFisico(EspacioFisico un_espacio_fisico, Usuario usuario)
+    {
+         var conexion = Conexion();
+        RepoEspaciosFisicos().ActualizarEspacioFisico(un_espacio_fisico, usuario);
+    }
+
+     [WebMethod]
+    public string GetEspaciosFisicos()
+     {
+
+         var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion()).GetEspaciosFisicos();
+         var espacios_fisicos_dto = new List<object>();
+
+         if (espacios_fisicos.Count > 0)
+         {
+             espacios_fisicos.ForEach(delegate(EspacioFisico espacio_fisico)
+             {
+                 espacios_fisicos_dto.Add(new
+                 {
+                     id = espacio_fisico.Id,
+                     aula = espacio_fisico.Aula,
+                     edificio = EdificioPara(espacio_fisico.Edificio),
+                     capacidad = espacio_fisico.Capacidad
+                 });
+             });
+         };
+         return JsonConvert.SerializeObject(espacios_fisicos_dto);
+
+     }
 
     private RepositorioDeAlumnos RepoAlumnos()
     {
@@ -1332,4 +1398,10 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new RepositorioDeAsistencias(Conexion());
     }
+
+    private RepositorioDeEspaciosFisicos RepoEspaciosFisicos()
+    {
+        return new RepositorioDeEspaciosFisicos(Conexion());
+    }
+
 }
