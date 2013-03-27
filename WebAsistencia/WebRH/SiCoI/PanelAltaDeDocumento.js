@@ -65,11 +65,11 @@ var PanelAltaDeDocumento = function (cfg) {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (respuestaJson) {
-                var ticket = JSON.parse(respuestaJson.d).ticket;
-                alert("Se creó un documento con el número de ticket: " + ticket);
+                var ticket = JSON.parse(respuestaJson.d).ticket;                
                 self.contraer();
                 self.limpiarCampos();
                 self._panel_documentos.refrescarGrilla();
+                alert("Se creó un documento con el número de ticket: " + ticket);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert(textStatus);

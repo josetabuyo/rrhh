@@ -47,33 +47,40 @@ var PanelDeDocumentos = function (cfg) {
     this._grilla_de_documentos.SetOnRowClickEventHandler(function (doc) {
         self._panel_detalle.mostrarDocumento(doc);
     });
-    this._grilla_de_documentos.CargarObjetos(cfg.listaDocumentos);
+
+    var proveedor = {
+        pedirDatos: function (callback) {
+            $.ajax({
+                url: "../AjaxWS.asmx/GetDocumentosFiltrados",
+                type: "POST",
+                data: "{'filtros' : '" + JSON.stringify(self._panel_filtros.getFiltrosActivos()) + "'}",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (respuestaJson) {
+                    callback(JSON.parse(respuestaJson.d));
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+        }
+    };
+    this._grilla_de_documentos.setProveedorDeDatos(proveedor);
+
+    //CargarObjetos(cfg.listaDocumentos);
     this._grilla_de_documentos.DibujarEn(cfg.divPanelDocumentos);
 }
 
 PanelDeDocumentos.prototype = {
     refrescarGrilla: function () {
-        var self = this;
-        this._grilla_de_documentos.BorrarContenido();
-        $.ajax({
-            url: "../AjaxWS.asmx/GetDocumentosFiltrados",
-            type: "POST",
-            data: "{'filtros' : '" + JSON.stringify(this._panel_filtros.getFiltrosActivos()) + "'}",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (respuestaJson) {
-                self._grilla_de_documentos.CargarObjetos(JSON.parse(respuestaJson.d));
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(textStatus);
-            }
-        });
+        this._grilla_de_documentos.refrescar();
     },
     setPanelDetalle: function (panel) {
         this._panel_detalle = panel;
     },
     setPanelFiltros: function (panel) {
         this._panel_filtros = panel;
+        this._grilla_de_documentos.refrescar();
     },
     desSeleccionarTodo: function () {
         this._grilla_de_documentos.desSeleccionarTodo();

@@ -399,6 +399,11 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
         self.alternarDespliegue();
         self._panel_detalle.cerrar();
     });
+
+    cfg.btnAplicarFiltros.click(function () {
+        self.contraer();
+        self._panel_documentos.refrescarGrilla();
+    });
 }
 
 PanelDeFiltrosDeDocumentos.prototype = {
@@ -407,6 +412,9 @@ PanelDeFiltrosDeDocumentos.prototype = {
     },
     setPanelAlta: function (panel) {
         this._panel_alta = panel;
+    },
+    setPanelDocumentos: function (panel) {
+        this._panel_documentos = panel;
     },
     setPanelDetalle: function (panel) {
         this._panel_detalle = panel;
