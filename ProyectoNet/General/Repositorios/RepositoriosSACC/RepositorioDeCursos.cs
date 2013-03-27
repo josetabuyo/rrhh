@@ -27,23 +27,28 @@ namespace General.Repositorios
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Cursos");
             cursos = new List<Curso>();
+            EspacioFisico espacio_fisico;
 
             tablaDatos.Rows.ForEach(row =>
             {
                 var docente = GetDocenteByIdCurso(row.GetSmallintAsInt("IdDocente"));
                 var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico");
 
-
-                EspacioFisico essss =
-                    new RepositorioDeEspaciosFisicos(conexion_bd).GetEspacioFisicoById(espacio_fisico_id);
-                    
+                if (espacio_fisico_id == 0)
+                {
+                    espacio_fisico = new EspacioFisicoNull();
+                }else
+                {
+                    espacio_fisico =
+                        new RepositorioDeEspaciosFisicos(conexion_bd).GetEspacioFisicoById(espacio_fisico_id);
+                }
 
                 Curso curso = new Curso
                 {
                     Id = row.GetSmallintAsInt("Id"),
                     Docente = docente,
                     Materia = new RepositorioDeMaterias(conexion_bd).GetMateriaById(row.GetSmallintAsInt("IdMateria")),
-                    EspacioFisico = new RepositorioDeEspaciosFisicos(conexion_bd).GetEspacioFisicoById(espacio_fisico_id),
+                    EspacioFisico = espacio_fisico,
                     //HorasCatedra = row.GetSmallintAsInt("HoraCatedra")
                 };
                 var horarios = GetHorariosByIdCurso(row.GetSmallintAsInt("Id"));

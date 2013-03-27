@@ -141,15 +141,16 @@ namespace General.Repositorios
 
         public void ActualizarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
         {
-            if(GetEspaciosFisicos().Exists(e => e.Aula == espacio_fisico.Aula && e.Edificio.Id == espacio_fisico.Edificio.Id))
+            var espacios_fisicos = GetEspaciosFisicos();
+            if (espacios_fisicos.Exists(e => e.Aula == espacio_fisico.Aula && e.Edificio.Id == espacio_fisico.Edificio.Id))
             {
+                espacio_fisico.Id = espacios_fisicos.Find(e => e.Aula == espacio_fisico.Aula && e.Edificio.Id == espacio_fisico.Edificio.Id).Id;
                 this.ModificarEspacioFisico(espacio_fisico, usuario);
             }else
             {
                 this.GuardarEspaciosFisicos(espacio_fisico, usuario);
             }
         }
-
 
         public List<Edificio> GetEdificios()
         {
@@ -258,10 +259,13 @@ namespace General.Repositorios
 
         internal EspacioFisico GetEspacioFisicoById(int id)
         {
-            EspacioFisico espacio_fisico = new EspacioFisico();
-            
-            espacio_fisico = GetEspaciosFisicos().Find(e => e.Id.Equals(id));
-            return espacio_fisico;
+           //if(id == 0)
+           //{
+           //    return new EspacioFisicoNull();
+           //}else
+           //{
+               return GetEspaciosFisicos().Find(e => e.Id.Equals(id));
+           //}
         }
     }
 }

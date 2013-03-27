@@ -486,11 +486,7 @@
         </s:complexType>
       </s:element>
       <s:element name="GuardarEspacioFisicoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GuardarEspacioFisicoResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
+        <s:complexType />
       </s:element>
       <s:element name="GetEspaciosFisicos">
         <s:complexType />
