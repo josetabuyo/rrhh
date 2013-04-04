@@ -9,5 +9,13 @@
                                                         inputAreaSeleccionada.change();
                                                     }
                                                  );
+    selectorDeArea.limpiar = function () {
+        selectorDeArea.val('');
+        inputAreaSeleccionada.val('');
+        inputAreaSeleccionada.change();
+    };
+    inputAreaSeleccionada.change(function () {
+        if (inputAreaSeleccionada.val() == '' && selectorDeArea.val() != '') selectorDeArea.val('');
+    });
     $.extend(true, this, selectorDeArea);
 }

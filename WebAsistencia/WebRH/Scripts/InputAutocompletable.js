@@ -24,8 +24,6 @@
 
     input.attr('data-source', JSON.stringify(dataSource));
     input.attr("autocomplete", "off");
-//    input.attr("data-provide", "typeahead");
-//    input.attr("data-items", "9");
     input.blur(function () {
         var elementoSeleccionado = input.elementoSeleccionado();
         if (elementoSeleccionado === undefined) {
