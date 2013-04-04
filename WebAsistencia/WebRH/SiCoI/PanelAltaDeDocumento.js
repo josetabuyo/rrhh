@@ -1,8 +1,8 @@
 ﻿
 var PanelAltaDeDocumento = function (cfg) {
     this.cfg = cfg;
-    var selectorDeAreaOrigenEnAlta = new InputAutocompletableDeAreas(cfg.selectorDeAreaOrigenEnAlta, cfg.listaAreas, cfg.areaOrigenSeleccionadaEnAlta);
-    var selectorDeAreaDestinoEnAlta = new InputAutocompletableDeAreas(cfg.selectorDeAreaDestinoEnAlta, cfg.listaAreas, cfg.areaDestinoSeleccionadaEnAlta);
+    this.selectorDeAreaOrigenEnAlta = new InputAutocompletableDeAreas(cfg.selectorDeAreaOrigenEnAlta, cfg.listaAreas, cfg.areaOrigenSeleccionadaEnAlta);
+    this.selectorDeAreaDestinoEnAlta = new InputAutocompletableDeAreas(cfg.selectorDeAreaDestinoEnAlta, cfg.listaAreas, cfg.areaDestinoSeleccionadaEnAlta);
 
     cfg.cmbTipoDeDocumento.change(function (e) {
         var idSeleccionado = cfg.cmbTipoDeDocumento.find('option:selected').val();
@@ -65,16 +65,27 @@ var PanelAltaDeDocumento = function (cfg) {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (respuestaJson) {
-                var ticket = JSON.parse(respuestaJson.d).ticket;                
-                self.contraer();
-                self.limpiarCampos();
-                self._panel_documentos.refrescarGrilla();
-                alert("Se creó un documento con el número de ticket: " + ticket);
+                var respuesta = JSON.parse(respuestaJson.d);
+                if (respuesta.tipoDeRespuesta == "altaDeDocumento.ok") {
+                    var ticket = JSON.parse(respuestaJson.d).ticket;
+                    self.contraer();
+                    self.limpiarCampos();
+                    self._panel_documentos.refrescarGrilla();
+                    alert("Se creó un documento con el número de ticket: " + ticket);
+                }
+                if (respuesta.tipoDeRespuesta == "altaDeDocumento.error") {
+                    alert("Error al dar de alta el documento: " + respuesta.error);
+                }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(textStatus);
+                alert(errorThrown);
             }
         });
+    });
+
+    cfg.btnCancelar.click(function () {
+        self.contraer();
+        self.limpiarCampos();
     });
 }
 
@@ -90,12 +101,21 @@ PanelAltaDeDocumento.prototype = {
     },
     limpiarCampos: function () {
         this.cfg.txtExtracto.val("");
+        this.cfg.txtExtracto.blur();
         this.cfg.idTipoDeDocumentoSeleccionadoEnAlta.val(-1);
+        this.cfg.idTipoDeDocumentoSeleccionadoEnAlta.blur();
+        this.cfg.cmbTipoDeDocumento.val(-1);
+        this.cfg.cmbTipoDeDocumento.blur();
         this.cfg.cmbCategoriaDocumento.val(-1);
-        this.cfg.areaOrigenSeleccionadaEnAlta.val("");
-        this.cfg.areaDestinoSeleccionadaEnAlta.val("");
+        this.cfg.cmbCategoriaDocumento.blur();
+        this.selectorDeAreaOrigenEnAlta.limpiar();
+        this.selectorDeAreaOrigenEnAlta.blur();
+        this.selectorDeAreaDestinoEnAlta.limpiar();
+        this.selectorDeAreaDestinoEnAlta.blur();
         this.cfg.txtNumero.val("");
+        this.cfg.txtNumero.blur();
         this.cfg.txtComentarios.val("");
+        this.cfg.txtComentarios.blur();
     },
     alternarDespliegue: function () {
         this.cfg.divPanelAlta.slideToggle("fast");
