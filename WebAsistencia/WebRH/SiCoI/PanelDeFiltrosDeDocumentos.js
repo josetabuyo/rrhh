@@ -43,6 +43,11 @@ PanelDeFiltros.prototype = {
         if (this.cantidadDeFiltrosActivos() > 0) { obs.algunFiltroActivado(); }
         if (this.cantidadDeFiltrosActivos() == 0) { obs.ningunFiltroActivado(); }
         this.cambiaronLosFiltros();
+    },
+    limpiarFiltros: function(){
+        for (var i = 0; i < this._filtros.length; i++) {
+            this._filtros[i].limpiar();
+        }
     }
 }
 
@@ -66,10 +71,10 @@ FiltroDeDocumentos.prototype = {
     estaActivo: function () {
         return this._activo;
     },
-    
-//    && (this._activo || this._activo === undefined)
-//    && (!this._activo || this._activo === undefined)
-    
+
+    //    && (this._activo || this._activo === undefined)
+    //    && (!this._activo || this._activo === undefined)
+
     definirEstado: function () {
         if ((this._input.val() == "")) this.desactivarFiltro();
         if ((this._input.val() != "")) this.activarFiltro();
@@ -77,7 +82,7 @@ FiltroDeDocumentos.prototype = {
     activarFiltro: function () {
         this._activo = true;
         this.agregarFiltroAListaParaAplicar = function (lista) {
-            if(this._habilitado) lista.push(this.generarResumenFiltro());
+            if (this._habilitado) lista.push(this.generarResumenFiltro());
         };
         for (var i = 0; i < this._observadores_activacion.length; i++) {
             this._observadores_activacion[i].filtroActivado(this);
@@ -102,6 +107,10 @@ FiltroDeDocumentos.prototype = {
     desHabilitarFiltro: function () {
         this._habilitado = false;
         this.desactivarFiltro();
+    },
+    limpiar: function () {
+        this._input.val("");
+        this._input.change();
     }
 };
 
@@ -170,7 +179,10 @@ FiltroDeDocumentosSoloEnAreaUsuario.prototype.definirEstado = function () {
     if ((!this._input.is(":checked")) && (this._activo || this._activo === undefined)) this.desactivarFiltro();
     if ((this._input.is(":checked")) && (!this._activo || this._activo === undefined)) this.activarFiltro();
 };
-
+FiltroDeDocumentosSoloEnAreaUsuario.prototype.limpiar = function () {
+    this._input.attr("checked", false);
+    this._input.change();
+};
 ///////////
 
 var FiltroDeDocumentosPorTransicion = function (input, idAreaUsuario) {
@@ -392,7 +404,7 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
         }
     }
     setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario();
-    self.cfg.inputFiltroCheckDocumentosEnMiArea.click(setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario);
+    self.cfg.inputFiltroCheckDocumentosEnMiArea.change(setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario);
 
     this.cfg.botonDesplegarPanelFiltros.click(function () {
         self._panel_alta.contraer();
@@ -402,6 +414,12 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
 
     cfg.btnAplicarFiltros.click(function () {
         self.contraer();
+        self._panel_documentos.refrescarGrilla();
+    });
+
+    cfg.btnQuitarFiltros.click(function () {
+        self.contraer();
+        self.panel_filtros.limpiarFiltros();
         self._panel_documentos.refrescarGrilla();
     });
 }
