@@ -34,6 +34,44 @@ public class AjaxWS : System.Web.Services.WebService {
     public string GetDocumentosFiltrados(String filtros)
     {
         return backEndService.GetDocumentosFiltrados(filtros);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetDocumentosEnAlerta()
+    {
+        var docs = backEndService.GetDocumentosEnAlerta();
+        return docs;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public bool HayDocumentosEnAlerta()
+    {
+        return backEndService.HayDocumentosEnAlerta();
+    }
+    
+    
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string TransicionarDocumento(int id_documento, int id_area_origen, int id_area_destino)
+    {
+        return backEndService.TransicionarDocumento(id_documento, id_area_origen, id_area_destino);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string TransicionarDocumentoConAreaIntermedia(int id_documento, int id_area_origen, int id_area_intermedia, int id_area_destino)
+    {
+        return backEndService.TransicionarDocumentoConAreaIntermedia(id_documento, id_area_origen, id_area_intermedia, id_area_destino);
     }   
+    
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GuardarCambiosEnDocumento(int id_documento, int id_area_destino, string comentario)
+    {
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        return backEndService.GuardarCambiosEnDocumento(id_documento, id_area_destino, comentario, usuarioLogueado);
+    }       
 }
 
