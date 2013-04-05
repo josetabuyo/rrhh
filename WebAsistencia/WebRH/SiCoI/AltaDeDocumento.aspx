@@ -320,7 +320,6 @@
                         else boton_alertas.hide();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(errorThrown);
                     }
                 });
             },
