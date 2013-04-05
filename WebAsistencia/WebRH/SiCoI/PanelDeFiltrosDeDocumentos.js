@@ -161,6 +161,20 @@ FiltroDeDocumentosPorExtracto.prototype.generarResumenFiltro = function () {
     };
 }
 
+///////////////
+
+var FiltroDeDocumentosGoogleano = function (input, color_activo, color_inactivo) {
+    FiltroDeDocumentosQuePintaInput.call(this, input, color_activo, color_inactivo);
+};
+
+FiltroDeDocumentosGoogleano.prototype = $.extend(true, {}, FiltroDeDocumentosQuePintaInput.prototype);
+FiltroDeDocumentosGoogleano.prototype.constructor = FiltroDeDocumentosPorExtracto;
+FiltroDeDocumentosGoogleano.prototype.generarResumenFiltro = function () {
+    return { tipoDeFiltro: "FiltroDeDocumentosGoogleano",
+        criterio: this._input.val()
+    };
+}
+
 ///////////
 
 var FiltroDeDocumentosSoloEnAreaUsuario = function (checkbox, idAreaUsuario) {
@@ -325,6 +339,7 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
     });
 
     var filtroPorExtracto = new FiltroDeDocumentosPorExtracto(self.cfg.inputFiltroExtractoDocumento, amarillo, blanco);
+    var filtroGoogleano = new FiltroDeDocumentosGoogleano(self.cfg.inputFiltroGoogleano, amarillo, blanco);
     var filtroPorNumero = new FiltroDeDocumentosPorNumero(self.cfg.inputFiltroNumeroDocumento, amarillo, blanco);
     var filtroPorFechaDesde = new FiltroDeDocumentosPorFechaDesde(self.cfg.inputFiltroFechaDesde, amarillo, blanco);
     var filtroPorFechaHasta = new FiltroDeDocumentosPorFechaHasta(self.cfg.inputFiltroFechaHasta, amarillo, blanco);

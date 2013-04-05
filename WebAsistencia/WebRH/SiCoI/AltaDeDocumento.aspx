@@ -28,25 +28,27 @@
             </div>
         </div>
         <div id="panel_filtros" class="panel_desplegable">
+            <div class="titulo_filtro"> Buscar documentos:</div>
+            <input type="text" id="inputFiltroGoogleano" runat="server"/>
+            <div>
+            </div>
             <div class="titulo_filtro">
                 Creado entre:</div>
-            <input type="text" id="filtroFechaDesde" runat="server" enableviewstate="true"  />
+            <input type="text" id="filtroFechaDesde" runat="server"/>
             <div class="agrupador_de_filtros_por_fecha">
                 y
             </div>
-            <input type="text" id="filtroFechaHasta" runat="server" enableviewstate="true"  />
+            <input type="text" id="filtroFechaHasta" runat="server"/>
             <div>
             </div>
-            <input type="text" id="filtroTicket" runat="server" enableviewstate="true" visible = "false"  />
-            <div class="titulo_filtro">
-                Extracto:</div>
-            <input type="text" id="FiltroExtracto" runat="server" enableviewstate="true"/>
+            <input type="text" id="filtroTicket" runat="server" visible = "false"  />
+            <div class="titulo_filtro"> Extracto:</div>
+            <input type="text" id="FiltroExtracto" runat="server"/>
             <div>
             </div>
             <div class="titulo_filtro">
                 Número:</div>
-            <input type="text" id="FiltroNumero" runat="server" enableviewstate="true" 
-                maxlength="30"  />
+            <input type="text" id="FiltroNumero" runat="server" maxlength="30"  />
             <div class="titulo_filtro_tipo">
                 Tipo:</div>
             <asp:DropDownList ID="cmbFiltroPorTipoDeDocumento" runat="server" EnableViewState="true" type = "text" >
@@ -61,26 +63,21 @@
             </div>
             <div class="titulo_filtro_solo_docs_en_mi_area" id = "titulo_filtro_solo_docs_en_mi_area">
                 Solo documentos en mi área:</div>
-            <input type="checkbox" id="chkFiltroSoloDocsEnMiArea" runat="server" enableviewstate="true"   />
+            <input type="checkbox" id="chkFiltroSoloDocsEnMiArea" runat="server" />
             <div>
             </div>
             <div id="titulo_filtro_area_actual" class="titulo_filtro">
                 Área Actual:</div>
-            <input id="selectorAreaActualEnfiltro" type="text" data-provide="typeahead" enableviewstate="true" 
-                data-items="9" runat="server" />
-
+            <input id="selectorAreaActualEnfiltro" type="text" data-provide="typeahead" data-items="9" runat="server" />
             <div id="titulo_filtro_area_origen" class="titulo_filtro">
                 Área Origen:</div>
-            <input id="selectorAreaOrigenEnfiltro" type="text" data-provide="typeahead" 
-                data-items="9" runat="server" />
+            <input id="selectorAreaOrigenEnfiltro" type="text" data-provide="typeahead" data-items="9" runat="server" />
             <div>
             </div>
             <div class="titulo_filtro">
                 Detenido más de:</div>
-            <input type="text" id="txtFiltroPorTiempoEnAreaActual" runat="server" soloNumero ="soloNumero"
-                enableviewstate="true" maxlength="4"  />
-            <span>días</span>
-           
+            <input type="text" id="txtFiltroPorTiempoEnAreaActual" runat="server" soloNumero ="soloNumero" maxlength="4"/>
+            <span>días</span>        
 
             <div class="botones_alta_documento">
                 <input type="button" id="btn_aplicar_filtros" class=" btn btn-primary" value="Aplicar filtros"/>
@@ -250,6 +247,7 @@
 
             var cfg_panel_filtros = {
                 inputFiltroExtractoDocumento: $('#FiltroExtracto'),
+                inputFiltroGoogleano: $('#inputFiltroGoogleano'),
                 inputFiltroNumeroDocumento: $('#FiltroNumero'),
                 inputFiltroFechaDesde: $('#filtroFechaDesde'),
                 inputFiltroFechaHasta: $('#filtroFechaHasta'),
