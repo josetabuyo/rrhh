@@ -12,5 +12,6 @@ namespace General
         public List<HorarioDto> Horarios { get; set; }
         public List<Alumno> Alumnos { get; set; }
         public int HorasCatedra { get; set; }
+        public EspacioFisico EspacioFisico { get; set; }
     }
 }

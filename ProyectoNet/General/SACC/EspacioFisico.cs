@@ -26,7 +26,7 @@ namespace General
 
         internal int esMayorAlfabeticamenteQue(EspacioFisico otroespaciofisico)
         {
-            return this.Aula.CompareTo(otroespaciofisico.Aula);
+             return this.Edificio.Nombre.CompareTo(otroespaciofisico.Edificio.Nombre);
         }
     }
 }

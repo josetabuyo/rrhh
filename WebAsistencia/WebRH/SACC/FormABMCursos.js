@@ -23,6 +23,7 @@ var AdministradorPlanillaCursos = function () {
     columnas.push(new Columna("Nombre", { generar: function (un_curso) { return un_curso.Nombre; } }));
     columnas.push(new Columna("Materia", { generar: function (un_curso) { return un_curso.Materia.Nombre; } }));
     columnas.push(new Columna("Docente", { generar: function (un_curso) { return un_curso.Docente.Nombre + " " + un_curso.Docente.Apellido; }}));
+    columnas.push(new Columna("Espacio Fisico", { generar: function (un_curso) { return un_curso.EspacioFisico.Edificio.Nombre + ", Aula: " + un_curso.EspacioFisico.Aula; } }));
     columnas.push(new Columna("Horario", { generar: function (un_curso) {
         var horario = $.map(un_curso.Horarios, function (val, index) {
             return val.Dia.substring(0, 3) + " " + val.HoraDeInicio + " - " + val.HoraDeFin;
@@ -49,11 +50,13 @@ var AdministradorPlanillaCursos = function () {
 
         panelCurso.find("#cmbMateria").val(un_curso.Materia.Id);
         panelCurso.find("#cmbDocente").val(un_curso.Docente.Id);
+        panelCurso.find("#cmbEspacioFisico").val(un_curso.EspacioFisico.Id);
         panelCurso.find("#txtHorarios").val(JSON.stringify(un_curso.Horarios));
         panelCurso.find("#cmbHorasCatedra").val(un_curso.HorasCatedra);
         horarios = un_curso.Horarios;
         DibujarGrillaHorarios();
         $('#txtIdDocente').val(un_curso.Docente.Id);
+        $('#txtIdEspacioFisico').val(un_curso.EspacioFisico.Id);
         $('#txtIdMateria').val(un_curso.Materia.Id);
         $('#horaCatedra').val($(un_curso.HoraCatedra));
         OcultarBotonCambiarHorario();
@@ -73,6 +76,10 @@ $('#cmbMateria').change(function () {
 
 $('#cmbDocente').change(function () {
     $('#txtIdDocente').val($('#cmbDocente').val());
+});
+
+$('#cmbEspacioFisico').change(function () {
+    $('#txtIdEspacioFisico').val($('#cmbEspacioFisico').val());
 });
 
 $('#cmbHorasCatedra').change(function () {
@@ -303,9 +310,11 @@ var LimpiarCampos = function () {
 
     Limpiar($("#cmbMateria"));
     Limpiar($("#cmbDocente"));
+    Limpiar($("#cmbEspacioFisico"));
     Limpiar($("#txtHorario"));
 
     Limpiar($('#txtIdDocente'));
+    Limpiar($('#txtIdEspacioFisico'));
     Limpiar($('#txtIdMateria'));
     DesHabilitarModificacion();
     HabilitarNuevo(); 

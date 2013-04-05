@@ -40,6 +40,10 @@
             <asp:Label ID="lblDocente" CssClass="labels_sacc" runat="server" Text="Docente:"></asp:Label>
             <asp:DropdownList ID="cmbDocente" name="Docente" runat="server" EnableViewState="false"></asp:DropdownList >
         </p>
+        <p> 
+            <asp:Label ID="lblEspacioFisico" CssClass="labels_sacc" runat="server" Text="Espacio Físico:"></asp:Label>
+            <asp:DropdownList ID="cmbEspacioFisico" name="Docente" runat="server" EnableViewState="false"></asp:DropdownList >
+        </p>
          <p>
             <asp:Label ID="lblHorasCatedra" CssClass="labels_sacc" runat="server" Text="Horas Catedra:"></asp:Label>
             <select runat="server" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false"></select>
@@ -60,6 +64,7 @@
         <asp:HiddenField ID="txtIdCurso" runat="server" />
         <asp:HiddenField ID="txtIdMateria" runat="server" />
         <asp:HiddenField ID="txtIdDocente" runat="server" />
+        <asp:HiddenField ID="txtIdEspacioFisico" runat="server" />
         <asp:HiddenField ID="txtHorarios" runat="server" />
         <div style=" margin-left:17%; margin-top:3%;">
             <asp:Button ID="btnAgregarCurso" runat="server" Text="Agregar Curso" 
@@ -82,6 +87,7 @@
     </div>
     <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="materiasJSON" runat="server" EnableViewState="true"/>
+    <asp:HiddenField ID="espacios_fisicosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idCursoAVer" runat="server" />
     <asp:HiddenField ID="horaCatedra" runat="server" />
      <asp:Button ID="btnVerFichaCurso" Text="" runat="server" OnClick="btnVerCurso_Click" style="display:none"/>
