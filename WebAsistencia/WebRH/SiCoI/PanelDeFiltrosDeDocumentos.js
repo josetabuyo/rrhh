@@ -386,7 +386,8 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
 
     self.cfg.divFiltrosActivos.val('[]');
 
-    this.panel_filtros = new PanelDeFiltros([filtroPorExtracto,
+    this.panel_filtros = new PanelDeFiltros([filtroGoogleano,
+                        filtroPorExtracto,
                         filtroPorNumero,
                         filtroPorFechaDesde,
                         filtroPorFechaHasta,
