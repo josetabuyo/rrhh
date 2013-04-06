@@ -30,8 +30,11 @@
             </div>
             <div>
                 <asp:Label ID="lblEdificio" CssClass="labels_sacc" runat="server" Text="Edificio:"></asp:Label>
-                <asp:DropDownList ID="cmbEdificio" runat="server" enableviewstate="true"> <%--OnSelectedIndexChanged="cbMostarDireccion_Click"--%>
+                <asp:DropDownList ID="cmbEdificio" runat="server" enableviewstate="true" OnTextChanged="cbMostarDireccion_Click" AutoPostBack="True"> <%--OnSelectedIndexChanged="cbMostarDireccion_Click"--%>
                     <asp:ListItem Value="-1" class="placeholder" Selected="true">Seleccione un Edificio</asp:ListItem>
+                </asp:DropDownList>
+                <asp:DropDownList ID="cmbDireccion" runat="server" Visible="False" >
+                <asp:ListItem Value="-1" class="placeholder" Selected="true">Seleccione un Edificio</asp:ListItem>
                 </asp:DropDownList>
             </div>
             
@@ -86,7 +89,7 @@
     } else if ($("#alerta_mensaje").val() == "3") {
         this.div_mensaje.setAttribute("class", "alert alert-error");
         this.texto_mensaje.innerHTML = "No se puede eliminar el espacio físico porque se encuentra asignado a un curso";
-    }else {
+    } else {
         $(".alert").alert('close');
     }
 
@@ -126,7 +129,7 @@
             $("#idEspacioFisico").val(un_espacio_fisico.id);
             $("#txtAula").val(un_espacio_fisico.aula);
             $("#cmbEdificio").val(un_espacio_fisico.edificio.id);
-            //$("#txtDireccion").val(un_espacio_fisico.edificio.direccion);
+            $("#txtDireccion").val(un_espacio_fisico.edificio.direccion);
             $("#txtCapacidad").val(un_espacio_fisico.capacidad);
         };
     }

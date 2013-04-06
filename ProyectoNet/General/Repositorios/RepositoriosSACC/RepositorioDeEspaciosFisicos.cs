@@ -9,7 +9,7 @@ namespace General.Repositorios
     {
         private IConexionBD conexion_bd { get; set; }
         public static List<EspacioFisico> espacios_fisicos { get; set; }
-        
+
         public RepositorioDeEspaciosFisicos(IConexionBD conexion)
         {
             this.conexion_bd = conexion;
@@ -32,11 +32,16 @@ namespace General.Repositorios
         public void ActualizarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
         {
             var espacios_fisicos = GetEspaciosFisicos();
-            if (espacios_fisicos.Exists(e => e.Aula == espacio_fisico.Aula && e.Edificio.Id == espacio_fisico.Edificio.Id))
+            if (
+                espacios_fisicos.Exists(
+                    e => e.Aula == espacio_fisico.Aula && e.Edificio.Id == espacio_fisico.Edificio.Id))
             {
-                espacio_fisico.Id = espacios_fisicos.Find(e => e.Aula == espacio_fisico.Aula && e.Edificio.Id == espacio_fisico.Edificio.Id).Id;
+                espacio_fisico.Id =
+                    espacios_fisicos.Find(
+                        e => e.Aula == espacio_fisico.Aula && e.Edificio.Id == espacio_fisico.Edificio.Id).Id;
                 this.ModificarEspacioFisico(espacio_fisico, usuario);
-            }else
+            }
+            else
             {
                 this.GuardarEspaciosFisicos(espacio_fisico, usuario);
             }
@@ -46,20 +51,33 @@ namespace General.Repositorios
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Edificios");
             List<Edificio> edificios = new List<Edificio>();
+            string numero = "";
+            string dto = "";
 
             tablaDatos.Rows.ForEach(row =>
-            {
+                                        {
+                                            if (!row.GetString("Departamento").Equals(""))
+                                            {
+                                                numero = "Dto: " + row.GetString("Departamento");
+                                            }
+                                            if (!row.GetString("Piso").Equals(""))
+                                            {
+                                                dto = "Piso: " + row.GetString("Piso");
+                                            }
 
-                Edificio edificio = new Edificio
-                {
+                                            Edificio edificio = new Edificio
+                                                                    {
 
-                    Id = row.GetSmallintAsInt("id"),
-                    Nombre = row.GetString("Nombre"),
-                    Direccion = row.GetString("Calle")
-                };
+                                                                        Id = row.GetSmallintAsInt("id"),
+                                                                        Nombre = row.GetString("Nombre"),
+                                                                        Direccion =
+                                                                            row.GetString("Calle") + " " +
+                                                                            row.GetSmallintAsInt("Numero") + " " + dto +
+                                                                            " " + numero
+                                                                    };
 
-                edificios.Add(edificio);
-            });
+                                            edificios.Add(edificio);
+                                        });
 
             edificios.Sort((edificio1, edificio2) => edificio1.esMayorAlfabeticamenteQue(edificio2));
 
@@ -67,27 +85,32 @@ namespace General.Repositorios
         }
 
         public List<EspacioFisico> GetEspaciosFisicos()
-        {       
+        {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Espacios_Fisicos");
             espacios_fisicos = new List<EspacioFisico>();
 
             tablaDatos.Rows.ForEach(row =>
-            {
-                Edificio edificio_aux = new Edificio(row.GetSmallintAsInt("idEdificio"), row.GetString("NombreEdificio"), row.GetString("DireccionEdificio"));
-                EspacioFisico espacio_fisico = new EspacioFisico
-                {
-                    Id = row.GetSmallintAsInt("id"),
-                    Aula = row.GetString("Aula"),
-                    Edificio = edificio_aux,
-                    Capacidad = row.GetSmallintAsInt("Capacidad")
-                };
+                                        {
+                                            string direccion = row.GetString("DireccionEdificio") + " " + row.GetSmallintAsInt("NumeroEdificio");
+                                            Edificio edificio_aux = new Edificio(row.GetSmallintAsInt("idEdificio"),
+                                                                                 row.GetString("NombreEdificio"),
+                                                                                 direccion);
+                                            EspacioFisico espacio_fisico = new EspacioFisico
+                                                                               {
+                                                                                   Id = row.GetSmallintAsInt("id"),
+                                                                                   Aula = row.GetString("Aula"),
+                                                                                   Edificio = edificio_aux,
+                                                                                   Capacidad =
+                                                                                       row.GetSmallintAsInt("Capacidad")
+                                                                               };
 
-                espacios_fisicos.Add(espacio_fisico);
-            });
-            
-            espacios_fisicos.Sort((espacio_fisico1, espacio_fisico2) => espacio_fisico1.esMayorAlfabeticamenteQue(espacio_fisico2));
+                                            espacios_fisicos.Add(espacio_fisico);
+                                        });
+
+            espacios_fisicos.Sort(
+                (espacio_fisico1, espacio_fisico2) => espacio_fisico1.esMayorAlfabeticamenteQue(espacio_fisico2));
             return espacios_fisicos;
-        
+
         }
 
         public EspacioFisico ModificarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
@@ -127,7 +150,7 @@ namespace General.Repositorios
             List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
             // aca pincha porque el espacio físico es null
             return cursos.Exists(c => c.EspacioFisico.Id == un_espacio_fisico.Id);
-            
+
         }
 
         private static Dictionary<string, object> Parametros(EspacioFisico espacio_fisico, Usuario usuario, int id_baja)
