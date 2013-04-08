@@ -32,7 +32,7 @@ namespace General.Repositorios
             tablaDatos.Rows.ForEach(row =>
             {
                 var docente = GetDocenteByIdCurso(row.GetSmallintAsInt("IdDocente"));
-                var espacio_fisico_id = row.GetSmallintAsInt("IdAula"); //IdEspacioFisico
+                var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico");
 
                 if (espacio_fisico_id == 0)
                 {
@@ -136,7 +136,7 @@ namespace General.Repositorios
             var horarios_nuevos = curso.GetHorariosDeCursada();
 
 
-            parametros.Add("id_aula", curso.EspacioFisico.Id);
+            parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
             parametros.Add("horaCatedra", curso.HorasCatedra);
@@ -155,7 +155,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
 
             parametros.Add("id_curso", curso.Id);
-            parametros.Add("id_aula", curso.EspacioFisico.Id);
+            parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
             parametros.Add("fecha", DateTime.Now);
