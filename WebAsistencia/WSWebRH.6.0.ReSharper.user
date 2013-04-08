@@ -21,14 +21,14 @@
       <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:SACC/f:Curso.cs" caret="237" fromTop="11" />
       <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:Repositorios/d:RepositoriosSACC/f:RepositorioDeDocentes.cs" caret="2252" fromTop="41" />
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormABMAlumnos.aspx.cs" caret="4437" fromTop="44" />
-      <File id="D1CFEFAB-1202-4294-A2C0-D8D7C6D91094/d:App_Code/f:WSViaticos.cs" caret="41212" fromTop="23" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormABMEspaciosFisicos.aspx" caret="7853" fromTop="158" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormABMCursos.aspx" caret="6424" fromTop="50" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormABMCursos.js" caret="11226" fromTop="27" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormABMEspaciosFisicos.aspx.cs" caret="231" fromTop="9" />
       <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:Repositorios/d:RepositoriosSACC/f:RepositorioDeCursos.cs" caret="1302" fromTop="40" />
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormABMCursos.aspx.cs" caret="8035" fromTop="52" />
-      <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:Repositorios/d:RepositoriosSACC/f:RepositorioDeEspaciosFisicos.cs" caret="4624" fromTop="39" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormABMCursos.aspx" caret="6424" fromTop="50" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormABMEspaciosFisicos.aspx" caret="7853" fromTop="158" />
+      <File id="D1CFEFAB-1202-4294-A2C0-D8D7C6D91094/d:App_Code/f:WSViaticos.cs" caret="41212" fromTop="23" />
+      <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:Repositorios/d:RepositoriosSACC/f:RepositorioDeEspaciosFisicos.cs" caret="4624" fromTop="45" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormABMEspaciosFisicos.aspx.cs" caret="3045" fromTop="75" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormABMCursos.js" caret="11226" fromTop="27" />
     </RecentFiles>
     <RecentEdits>
       <File id="D1CFEFAB-1202-4294-A2C0-D8D7C6D91094/d:App_Code/f:WSViaticos.cs" caret="44606" fromTop="19" />
