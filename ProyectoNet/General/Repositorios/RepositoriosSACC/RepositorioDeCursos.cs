@@ -32,12 +32,13 @@ namespace General.Repositorios
             tablaDatos.Rows.ForEach(row =>
             {
                 var docente = GetDocenteByIdCurso(row.GetSmallintAsInt("IdDocente"));
-                var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico");
+                var espacio_fisico_id = row.GetSmallintAsInt("IdAula"); //IdEspacioFisico
 
                 if (espacio_fisico_id == 0)
                 {
                     espacio_fisico = new EspacioFisicoNull();
-                }else
+                }
+                else
                 {
                     espacio_fisico =
                         new RepositorioDeEspaciosFisicos(conexion_bd).GetEspacioFisicoById(espacio_fisico_id);
@@ -90,7 +91,7 @@ namespace General.Repositorios
                 var hora_hasta = FormatHora(row.GetString("Hasta"));
                 var nro_dia = (DayOfWeek)row.GetSmallintAsInt("NroDiaSemana");
                 HorarioDeCursada horario = new HorarioDeCursada(nro_dia, hora_desde, hora_hasta);
-                if(row.GetSmallintAsInt("idCurso") == id_curso)
+                if (row.GetSmallintAsInt("idCurso") == id_curso)
                     horarios.Add(horario);
             });
             return horarios;
@@ -98,8 +99,9 @@ namespace General.Repositorios
 
         private string FormatHora(string hora)
         {
-            if (hora.Length == 4){
-                    return hora.Substring(0, 2) + ":" + hora.Substring(2, 2);
+            if (hora.Length == 4)
+            {
+                return hora.Substring(0, 2) + ":" + hora.Substring(2, 2);
             }
             else if (hora.Length > 4)
             {
@@ -109,7 +111,7 @@ namespace General.Repositorios
             {
                 return string.Empty;
             }
-            
+
         }
 
         private List<int> GetInscripcionesByIdCurso(int id_curso)
@@ -134,7 +136,7 @@ namespace General.Repositorios
             var horarios_nuevos = curso.GetHorariosDeCursada();
 
 
-            parametros.Add("id_aula", 1);
+            parametros.Add("id_aula", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
             parametros.Add("horaCatedra", curso.HorasCatedra);
@@ -151,15 +153,14 @@ namespace General.Repositorios
         {
             var idBaja = CrearBaja(usuario);
             var parametros = new Dictionary<string, object>();
-            parametros.Add("idBaja", idBaja);
+
             parametros.Add("id_curso", curso.Id);
-            parametros.Add("id_aula", 1);
+            parametros.Add("id_aula", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
-            parametros.Add("horaCatedra", curso.HorasCatedra);
             parametros.Add("fecha", DateTime.Now);
-
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Materia", parametros);
+            parametros.Add("Baja", idBaja);
+            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
             return true;
         }
 
@@ -187,10 +188,10 @@ namespace General.Repositorios
                 InsertarHorarios(curso.Id, horarios_nuevos);
 
                 parametros.Add("id_curso", curso.Id);
-                parametros.Add("id_aula", 1);
+                parametros.Add("id_aula", curso.EspacioFisico.Id);
                 parametros.Add("id_materia", curso.Materia.Id);
                 parametros.Add("id_docente", curso.Docente.Id);
-                parametros.Add("horaCatedra", curso.HorasCatedra);
+                // parametros.Add("horaCatedra", curso.HorasCatedra);
                 parametros.Add("fecha", DateTime.Now);
 
                 conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
@@ -211,6 +212,7 @@ namespace General.Repositorios
                 parametros.Add("nro_dia_semana", (int)h.Dia);
                 parametros.Add("desde", FormatHora(h.HoraDeInicio.ToString()));
                 parametros.Add("hasta", FormatHora(h.HoraDeFin.ToString()));
+                parametros.Add("horas_catedra", 1); //lo tuve que agregar sino me pincha
                 conexion_bd.EjecutarSinResultado("dbo.SACC_Ins_Horario", parametros);
             }
         }

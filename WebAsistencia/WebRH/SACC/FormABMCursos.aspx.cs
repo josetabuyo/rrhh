@@ -14,6 +14,7 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         this.CargarGrilla();
         this.CargarComboMaterias();
         this.CargarComboDocentes();
+        this.CargarComboEspaciosFisicos();
         this.CargarComboDias();
     }
 
@@ -62,7 +63,22 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         this.cmbDocente.Items.Add(new ListItem("Docente", ""));
         foreach (var item in docentes)
         {
-            this.cmbDocente.Items.Add(new ListItem(item["nombre"].ToString() + " " + item["apellido"].ToString(),item["id"].ToString()));
+            this.cmbDocente.Items.Add(new ListItem(item["nombre"].ToString() + " " + item["apellido"].ToString(), item["id"].ToString()));
+        }
+    }
+
+    private void CargarComboEspaciosFisicos()
+    {
+        var servicio = Servicio();
+        var espacios_fisicos = JsonConvert.DeserializeObject<JArray>(servicio.GetEspaciosFisicos());
+        this.espacios_fisicosJSON.Value = espacios_fisicos.ToString();
+        //this.cmbEspacioFisico.DataValueField = "Id";
+        //this.cmbEspacioFisico.DataTextField = "Edificio";
+
+        this.cmbEspacioFisico.Items.Add(new ListItem("Espacio Físico", ""));
+        foreach (var item in espacios_fisicos)
+        {
+            this.cmbEspacioFisico.Items.Add(new ListItem(item["edificio"].ToString().Substring(27).Replace('"', ' ').Trim().Replace("}", "") + ", " + "Aula: " + item["aula"].ToString(), item["id"].ToString()));
         }
     }
 
@@ -95,8 +111,9 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         curso.Id = int.Parse("0" + this.txtIdCurso.Value);
         curso.Materia = servicio.GetMateriaById(int.Parse("0" + this.txtIdMateria.Value));
         curso.Docente = servicio.GetDocenteById(int.Parse("0" + this.txtIdDocente.Value));
-        curso.HorasCatedra = int.Parse("0" + this.horaCatedra.Value);
-        //curso.Horarios = horarios;
+        curso.EspacioFisico = servicio.GetEspacioFisicoById(int.Parse("0" + this.txtIdEspacioFisico.Value));
+        curso.HorasCatedra = 1; // int.Parse("0" + this.horaCatedra.Value); me pincha
+        //curso.Horarios = horarios; me pincha
         var horariosDto = new List<HorarioDto>();
         foreach (var h in horarios)
         {
@@ -104,7 +121,7 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
             horariosDto.Add(horario);
         }
         curso.Horarios = horariosDto.ToArray();
-    
+
         servicio.AgregarCurso(curso);
 
         LimpiarFormulario();
@@ -113,15 +130,16 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
     protected void btnModificarCurso_Click(object sender, EventArgs e)
     {
         var servicio = Servicio();
-        
+
         var curso = new CursoDto();
         var horarios = JsonConvert.DeserializeObject<JArray>(this.txtHorarios.Value);
 
         curso.Id = int.Parse(this.txtIdCurso.Value);
         curso.Materia = servicio.GetMateriaById(int.Parse("0" + this.txtIdMateria.Value));
         curso.Docente = servicio.GetDocenteById(int.Parse("0" + this.txtIdDocente.Value));
-        curso.HorasCatedra = int.Parse("0" + this.horaCatedra.Value);
-        //curso.Horarios = horarios;
+        curso.EspacioFisico = servicio.GetEspacioFisicoById(int.Parse("0" + this.txtIdEspacioFisico.Value));
+        curso.HorasCatedra = 1;// int.Parse("0" + this.horaCatedra.Value); me pincha
+        //curso.Horarios = horarios; me pincha
         var horariosDto = new List<HorarioDto>();
         foreach (var h in horarios)
         {
@@ -133,15 +151,33 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
 
         LimpiarFormulario();
         this.CargarGrilla();
-        
+
     }
     protected void btnQuitarCurso_Click(object sender, EventArgs e)
     {
         var servicio = Servicio();
 
-        var id = this.txtIdCurso.Value;
+        var curso = new CursoDto();
+        var horarios = JsonConvert.DeserializeObject<JArray>(this.txtHorarios.Value);
 
-        //servicio.QuitarCurso(int.Parse(id));
+        curso.Id = int.Parse(this.txtIdCurso.Value);
+        curso.Materia = servicio.GetMateriaById(int.Parse("0" + this.txtIdMateria.Value));
+        curso.Docente = servicio.GetDocenteById(int.Parse("0" + this.txtIdDocente.Value));
+        curso.EspacioFisico = servicio.GetEspacioFisicoById(int.Parse("0" + this.txtIdEspacioFisico.Value));
+        curso.HorasCatedra = 1;// int.Parse("0" + this.horaCatedra.Value); me pincha
+        //curso.Horarios = horarios; me pincha
+        var horariosDto = new List<HorarioDto>();
+        foreach (var h in horarios)
+        {
+            var horario = new HorarioDto() { NumeroDia = int.Parse(h["NumeroDia"].ToString()), Dia = h["Dia"].ToString(), HoraDeInicio = h["HoraDeInicio"].ToString(), HoraDeFin = h["HoraDeFin"].ToString() };
+            horariosDto.Add(horario);
+        }
+        curso.Horarios = horariosDto.ToArray();
+
+
+        //var id = this.txtIdCurso.Value;
+
+        servicio.QuitarCurso(curso, (Usuario)Session["usuario"]);
         this.LimpiarFormulario();
         this.CargarGrilla();
     }
@@ -151,8 +187,10 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         this.txtNombre.Text = string.Empty;
         this.txtIdCurso.Value = string.Empty;
         this.txtIdDocente.Value = string.Empty;
+        this.txtIdEspacioFisico.Value = string.Empty;
         this.txtIdMateria.Value = string.Empty;
         this.cmbDocente.SelectedValue = "";
         this.cmbMateria.SelectedValue = "";
+        this.cmbEspacioFisico.SelectedValue = "";
     }
 }

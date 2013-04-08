@@ -1002,7 +1002,8 @@ public class WSViaticos : System.Web.Services.WebService
         return new
         {
             id = edificio.Id,
-            nombre = edificio.Nombre
+            nombre = edificio.Nombre,
+            direccion = edificio.Direccion
         };
     }
 
@@ -1121,6 +1122,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public EspacioFisico GetEspacioFisicoById(int id)
+    {
+        //var espacio_fisico = 
+        return RepoEspaciosFisicos().GetEspacioFisicoById(id); //JsonConvert.SerializeObject(espacio_fisico);
+    }
+
+    [WebMethod]
     [System.Xml.Serialization.XmlInclude(typeof(DocenteNull))]
     public List<CursoDto> GetCursosDto()
     {
@@ -1138,6 +1146,7 @@ public class WSViaticos : System.Web.Services.WebService
                 un_curso.Docente = curso.Docente;
                 un_curso.Alumnos = curso.Alumnos();
                 un_curso.HorasCatedra = curso.HorasCatedra;
+                un_curso.EspacioFisico = curso.EspacioFisico;
                 var horarios = new List<HorarioDto>();
                 foreach (var h in curso.GetHorariosDeCursada())
                 {
@@ -1234,7 +1243,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool QuitarCurso(CursoDto curso, Usuario usuario)
     {
-        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, Id = curso.Id };
+        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, Id = curso.Id, EspacioFisico = curso.EspacioFisico};
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
@@ -1247,7 +1256,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool AgregarCurso(CursoDto curso)
     {
-        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra };
+        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra, EspacioFisico = curso.EspacioFisico};
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
@@ -1260,7 +1269,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool ModificarCurso(CursoDto curso)
     {
-        var un_curso = new Curso() { Id = curso.Id, Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra };
+        var un_curso = new Curso() { Id = curso.Id, Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra, EspacioFisico = curso.EspacioFisico};
         var horarios = curso.Horarios;
         horarios.ForEach(h =>{
             un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
@@ -1314,11 +1323,11 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoEspaciosFisicos().GetEdificios().ToArray();
     }
 
-    [WebMethod]
-    public void EspacioFisico(EspacioFisico espacio_fisico)
-    {
+    //[WebMethod]
+    //public void EspacioFisico(EspacioFisico espacio_fisico)
+    //{
 
-    }
+    //}
 
     [WebMethod]
     public bool QuitarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
