@@ -97,7 +97,7 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         }
         curso.Horarios = horariosDto.ToArray();
 
-        servicio.GuardarCurso(curso);
+        servicio.AgregarCurso(curso);
 
         LimpiarFormulario();
         this.CargarGrilla();

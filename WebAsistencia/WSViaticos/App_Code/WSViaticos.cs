@@ -980,7 +980,7 @@ public class WSViaticos : System.Web.Services.WebService
                     Direccion = alumno.Direccion,
                  //   Area = AreaDtoPara(alumno.Area),
                     Modalidad = ModalidadPara(alumno.Modalidad),
-                    //Baja = alumno.Baja,
+                    Baja = alumno.Baja,
                 });
             });
         }
@@ -996,6 +996,17 @@ public class WSViaticos : System.Web.Services.WebService
         var alumnos = RepoAlumnos().GetAlumnos();
         return alumnos;
 
+    }
+
+    private object EdificioPara(Edificio edificio)
+    {
+
+        return new
+        {
+            id = edificio.Id,
+            nombre = edificio.Nombre,
+            direccion = edificio.Direccion
+        };
     }
 
 
@@ -1302,11 +1313,12 @@ public class WSViaticos : System.Web.Services.WebService
         return JsonConvert.SerializeObject(persona_dto);
     }
 
-
-
-<<<<<<< HEAD
-=======
+    [WebMethod]
+    public Edificio[] Edificios()
+    {
+        return RepoEspaciosFisicos().GetEdificios().ToArray();
     }
+
 
     [WebMethod]
     public bool QuitarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
@@ -1356,7 +1368,7 @@ public class WSViaticos : System.Web.Services.WebService
          return JsonConvert.SerializeObject(espacios_fisicos_dto);
 
      }
->>>>>>> origin/sacc
+
 
     private RepositorioDeAlumnos RepoAlumnos()
     {
@@ -1387,4 +1399,11 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new RepositorioDeAsistencias(Conexion());
     }
+
+    private RepositorioDeEspaciosFisicos RepoEspaciosFisicos()
+    {
+        return new RepositorioDeEspaciosFisicos(Conexion());
+    }
+
+
 }

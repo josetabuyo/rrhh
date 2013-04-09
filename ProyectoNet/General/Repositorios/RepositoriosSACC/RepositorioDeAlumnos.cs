@@ -60,7 +60,7 @@ namespace General.Repositorios
             }
             catch (Exception)
             {
-
+                BorrarBaja(un_alumno);
                 conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Alumno", parametros);
             }
             
@@ -84,8 +84,11 @@ namespace General.Repositorios
                 if (!(row.GetObject("IdModalidad") is DBNull))
                     modaldidad = new Modalidad(row.GetInt("IdModalidad"), "");
 
-                if (!(row.GetObject("idBaja") is DBNull))
-                    baja = row.GetInt("idBaja"); 
+                if (!(row.GetObject("BajaAlumno") is DBNull))
+                    baja = row.GetInt("BajaAlumno");
+
+                if (!(row.GetObject("BajaDocente") is DBNull))
+                    baja = row.GetInt("BajaDocente"); 
 
                 //var modalidad = new Modalidad(row.GetInt("IdModalidad"), "");
                 //var baja = row.GetInt("idBaja");
@@ -113,10 +116,20 @@ namespace General.Repositorios
             var parametros = Parametros(alumno, usuario, 0);
 
             //deberia borrar la baja asociada
+            BorrarBaja(alumno);
 
             conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Alumno", parametros);
 
             return alumno;
+        }
+
+        private void BorrarBaja(Alumno alumno)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@IdBaja", alumno.Baja);
+
+            conexion_bd.EjecutarSinResultado("SACC_Del_Baja", parametros);
         }
 
         public void QuitarAlumno(Alumno un_alumno, Usuario usuario)

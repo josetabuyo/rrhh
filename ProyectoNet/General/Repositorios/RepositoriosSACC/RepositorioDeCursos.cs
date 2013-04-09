@@ -32,8 +32,7 @@ namespace General.Repositorios
             tablaDatos.Rows.ForEach(row =>
             {
                 var docente = GetDocenteByIdCurso(row.GetSmallintAsInt("IdDocente"));
-<<<<<<< HEAD
-=======
+
                 var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico");
 
                 if (espacio_fisico_id == 0)
@@ -45,24 +44,17 @@ namespace General.Repositorios
                         new RepositorioDeEspaciosFisicos(conexion_bd).GetEspacioFisicoById(espacio_fisico_id);
                 }
 
-<<<<<<< HEAD
->>>>>>> origin/sacc
-=======
->>>>>>> origin/sacc
                 Curso curso = new Curso
                 {
                     Id = row.GetSmallintAsInt("Id"),
                     Docente = docente,
                     Materia = new RepositorioDeMaterias(conexion_bd).GetMateriaById(row.GetSmallintAsInt("IdMateria")),
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    HorasCatedra = row.GetSmallintAsInt("HoraCatedra")
-=======
-=======
->>>>>>> origin/sacc
+
+                    HorasCatedra = row.GetSmallintAsInt("HoraCatedra"),
+
                     EspacioFisico = espacio_fisico,
                     //HorasCatedra = row.GetSmallintAsInt("HoraCatedra")
->>>>>>> origin/sacc
+
                 };
                 var horarios = GetHorariosByIdCurso(row.GetSmallintAsInt("Id"));
                 foreach (var h in horarios)
