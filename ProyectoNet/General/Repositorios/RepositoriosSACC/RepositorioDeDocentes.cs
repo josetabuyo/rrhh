@@ -80,9 +80,19 @@ namespace General.Repositorios
             {
 
                 conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Docente", parametros);
+                BorrarBaja(un_docente);
             }        
             
             docentes.Add(un_docente);
+        }
+
+        private void BorrarBaja(Docente docente)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@IdBaja", docente.Baja);
+
+            conexion_bd.EjecutarSinResultado("SACC_Del_Baja", parametros);
         }
 
         public void QuitarDocente(Docente un_docente, Usuario usuario)

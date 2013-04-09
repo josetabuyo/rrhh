@@ -83,6 +83,7 @@
     </div>
 
     <asp:HiddenField ID="docentesJSON" runat="server" EnableViewState="true"/>
+    <asp:HiddenField ID="idBaja" runat="server" />
     <asp:HiddenField ID="txtIdDocente" runat="server" />
     <asp:HiddenField ID="idDocente" runat="server" />
     <asp:HiddenField ID="alerta_mensaje" runat="server" />
@@ -137,6 +138,7 @@
             $("#lblDatoTelefono").val(un_docente.telefono);
             $("#lblDatoMail").val(un_docente.mail);
             $("#lblDatoDireccion").val(un_docente.domicilio);
+            $("#idBaja").val(un_docente.baja);
         };
 
 

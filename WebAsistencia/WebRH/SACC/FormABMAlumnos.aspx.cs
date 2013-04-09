@@ -67,6 +67,7 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         this.lblDatoMail.Text = (string)persona["mail"];
         this.lblDatoDireccion.Text = (string)persona["direccion"];
         this.cmbPlanDeEstudio.SelectedIndex = (int)persona["modalidad"];
+        this.idBaja.Value = ((int)persona["baja"]).ToString();
 
         //this.alumnosJSON.Value = alumnos.ToString();
     }
@@ -142,8 +143,9 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         alumno.Telefono = this.lblDatoTelefono.Text;
         alumno.Mail = this.lblDatoMail.Text;
         alumno.Direccion = this.lblDatoDireccion.Text;
-       // alumno.Area = area;
+        //alumno.Area = area;
         alumno.Modalidad = ModalidadDeAlumnoFromForm();
+        alumno.Baja = int.Parse(this.idBaja.Value);
 
         return alumno;
     }

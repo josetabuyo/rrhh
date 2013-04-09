@@ -32,7 +32,8 @@ namespace General.Repositorios
             tablaDatos.Rows.ForEach(row =>
             {
                 var docente = GetDocenteByIdCurso(row.GetSmallintAsInt("IdDocente"));
-                var espacio_fisico_id = row.GetSmallintAsInt("IdAula"); //IdEspacioFisico
+
+                var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico");
 
                 if (espacio_fisico_id == 0)
                 {
@@ -49,8 +50,12 @@ namespace General.Repositorios
                     Id = row.GetSmallintAsInt("Id"),
                     Docente = docente,
                     Materia = new RepositorioDeMaterias(conexion_bd).GetMateriaById(row.GetSmallintAsInt("IdMateria")),
+
+                    HorasCatedra = row.GetSmallintAsInt("HoraCatedra"),
+
                     EspacioFisico = espacio_fisico,
                     //HorasCatedra = row.GetSmallintAsInt("HoraCatedra")
+
                 };
                 var horarios = GetHorariosByIdCurso(row.GetSmallintAsInt("Id"));
                 foreach (var h in horarios)
@@ -89,8 +94,9 @@ namespace General.Repositorios
             {
                 var hora_desde = FormatHora(row.GetString("Desde"));
                 var hora_hasta = FormatHora(row.GetString("Hasta"));
+                var horas_catedra = row.GetSmallintAsInt("HorasCatedra");
                 var nro_dia = (DayOfWeek)row.GetSmallintAsInt("NroDiaSemana");
-                HorarioDeCursada horario = new HorarioDeCursada(nro_dia, hora_desde, hora_hasta);
+                HorarioDeCursada horario = new HorarioDeCursada(nro_dia, hora_desde, hora_hasta, horas_catedra);
                 if (row.GetSmallintAsInt("idCurso") == id_curso)
                     horarios.Add(horario);
             });
