@@ -65,9 +65,8 @@
         //columnas.push(new Columna("Pertenece a", { generar: function (inasistenciaalumno) { return inasistenciaalumno.pertenece_a } }));
 
         for (var i = 0; i < DiasCursados.length; i++) {
-            columnas.push(new Columna(DiasCursados[i].nombre_dia + "<br/>" + DiasCursados[i].dia,
-                                        new GeneradorCeldaDiaCursado(DiasCursados[i])
-            ));
+            columnas.push(new Columna(DiasCursados[i].nombre_dia + "/" + DiasCursados[i].dia + "<br/>" + DiasCursados[i].horas + " hs",
+                                        new GeneradorCeldaDiaCursado(DiasCursados[i])));
         }
         columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
         columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));

@@ -79,7 +79,7 @@
             columnas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
             if (DiasCursados) {
                 for (var i = 0; i < DiasCursados.length; i++) {
-                    columnas.push(new Columna(DiasCursados[i].nombre_dia + "<br/>" + DiasCursados[i].dia,
+                    columnas.push(new Columna(DiasCursados[i].nombre_dia + "/" + DiasCursados[i].dia + "<br/>" + DiasCursados[i].horas + " hs",
                                         new GeneradorCeldaDiaCursado(DiasCursados[i])));
                 }
             }
@@ -165,7 +165,7 @@
             var asistencia = {
                 id_alumno: asistencia_btn.attr("id_alumno"),
                 fecha: asistencia_btn.attr("dia_cursado"),
-                valor: asistencia_btn.attr("estado")
+                valor: asistencia_btn.attr("valor")
             };
             detalle_asistencias.push(asistencia);
         }

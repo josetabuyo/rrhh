@@ -828,7 +828,8 @@ public class WSViaticos : System.Web.Services.WebService
             {
                 dia = d.ToString("dd"),
                 nombre_dia = d.ToString("ddd"),
-                fecha = d.ToShortDateString()
+                fecha = d.ToShortDateString(),
+                horas = planilla_mensual.Curso.HorasCatedra
             }));
             
             planilla_mensual.Curso.Alumnos().ForEach(delegate(Alumno alumno)
@@ -858,6 +859,8 @@ public class WSViaticos : System.Web.Services.WebService
                 {
                     if (a.Valor > 0 && a.Valor < 4)
                         cant_inasistencias_aux += planilla_mensual.Curso.HorasCatedra - a.Valor;
+                    if (a.Valor == 4)
+                        cant_inasistencias_aux += planilla_mensual.Curso.HorasCatedra;
                 });
 
                 if (cant_asistencias_aux == 0 && cant_inasistencias_aux == 0)
@@ -919,6 +922,9 @@ public class WSViaticos : System.Web.Services.WebService
                     asistencia = new AsistenciaHoraTres(item.Fecha, item.IdCurso, item.IdAlumno);
                     break;
                 case 4:
+                    asistencia = new InasistenciaNormal(item.Fecha, item.IdCurso, item.IdAlumno);
+                    break;
+                case 5:
                     asistencia = new AsistenciaClaseSuspendida(item.Fecha, item.IdCurso, item.IdAlumno);
                     break;
                 default:
