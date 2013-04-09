@@ -34,8 +34,6 @@ namespace General.Repositorios
                 var docente = GetDocenteByIdCurso(row.GetSmallintAsInt("IdDocente"));
                 var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico"); //IdEspacioFisico
 
-                var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico");
-
                 if (espacio_fisico_id == 0)
                 {
                     espacio_fisico = new EspacioFisicoNull();
@@ -55,7 +53,6 @@ namespace General.Repositorios
                     HorasCatedra = row.GetSmallintAsInt("HoraCatedra"),
 
                     EspacioFisico = espacio_fisico,
-                    HorasCatedra = row.GetSmallintAsInt("HoraCatedra")
 
                 };
                 var horarios = GetHorariosByIdCurso(row.GetSmallintAsInt("Id"));
