@@ -170,15 +170,5 @@ namespace General.Repositorios
             return parametros;
         }
 
-        //internal EspacioFisico GetEspacioFisicoById(int id)
-        //{
-        //   //if(id == 0)
-        //   //{
-        //   //    return new EspacioFisicoNull();
-        //   //}else
-        //   //{
-        //       return GetEspaciosFisicos().Find(e => e.Id.Equals(id));
-        //   //}
-        //}
     }
 }

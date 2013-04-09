@@ -2,4 +2,9 @@
   <Module PersistentId="D1CFEFAB-1202-4294-A2C0-D8D7C6D91094" ModuleId="WSViaticos" />
   <Module PersistentId="D6802AD2-A6E1-4612-8F01-811E926A1D2E" ModuleId="General" />
   <Module PersistentId="A75712E4-258D-405D-A2F3-082E5C1C0E7F" ModuleId="WebRH" />
+<<<<<<< HEAD
+=======
+  <Module PersistentId="F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643" ModuleId="WebRhUI" />
+  <Module PersistentId="C284778C-6A84-4887-AFC3-04700EEFAAB8" ModuleId="TestViaticos" />
+>>>>>>> remotes/origin/154_espacios_fisicos
 </Modules>
