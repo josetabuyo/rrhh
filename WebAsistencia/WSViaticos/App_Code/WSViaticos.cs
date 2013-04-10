@@ -986,6 +986,7 @@ public class WSViaticos : System.Web.Services.WebService
                     Direccion = alumno.Direccion,
                  //   Area = AreaDtoPara(alumno.Area),
                     Modalidad = ModalidadPara(alumno.Modalidad),
+                    Baja = alumno.Baja,
                 });
             });
         }
@@ -1317,6 +1318,7 @@ public class WSViaticos : System.Web.Services.WebService
                            mail = persona.Mail,
                     //       area = persona.Area,
                            modalidad = 1,
+                           baja = persona.Baja,
                        };
         }
         return JsonConvert.SerializeObject(persona_dto);
