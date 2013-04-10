@@ -28,58 +28,60 @@
             </div>
         </div>
         <div id="panel_filtros" class="panel_desplegable">
-            <div class="titulo_filtro"> Buscar documentos:</div>
-            <input type="text" id="inputFiltroGoogleano" runat="server"/>
-            <div>
+            <div id="panelBusquedaBasica">
+                <div class="titulo_filtro"> Buscar documentos:</div>
+                <input type="text" id="inputFiltroGoogleano" runat="server"/>
             </div>
-            <div class="titulo_filtro">
-                Creado entre:</div>
-            <input type="text" id="filtroFechaDesde" runat="server"/>
-            <div class="agrupador_de_filtros_por_fecha">
-                y
+            <div id="panelBusquedaAvanzada">
+                <div class="titulo_filtro">
+                    Creado entre:</div>
+                <input type="text" id="filtroFechaDesde" runat="server"/>
+                <div class="agrupador_de_filtros_por_fecha">
+                    y
+                </div>
+                <input type="text" id="filtroFechaHasta" runat="server"/>
+                <div>
+                </div>
+                <input type="text" id="filtroTicket" runat="server" visible = "false"  />
+                <div class="titulo_filtro"> Extracto:</div>
+                <input type="text" id="FiltroExtracto" runat="server"/>
+                <div>
+                </div>
+                <div class="titulo_filtro">
+                    Número:</div>
+                <input type="text" id="FiltroNumero" runat="server" maxlength="30"  />
+                <div class="titulo_filtro_tipo">
+                    Tipo:</div>
+                <asp:DropDownList ID="cmbFiltroPorTipoDeDocumento" runat="server" EnableViewState="true" type = "text" >
+                    <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem>
+                </asp:DropDownList>
+                <div class="titulo_filtro_categoria">
+                    Categoría:</div>
+                <asp:DropDownList ID="cmbFiltroPorCategoria" runat="server" EnableViewState="true" type = "text" >
+                    <asp:ListItem Value="-1" class="placeholder" Selected="true">Todas</asp:ListItem>
+                </asp:DropDownList>
+                <div>
+                </div>
+                <div class="titulo_filtro_solo_docs_en_mi_area" id = "titulo_filtro_solo_docs_en_mi_area">
+                    Solo documentos en mi área:</div>
+                <input type="checkbox" id="chkFiltroSoloDocsEnMiArea" runat="server" />
+                <div>
+                </div>
+                <div id="titulo_filtro_area_actual" class="titulo_filtro">
+                    Área Actual:</div>
+                <input id="selectorAreaActualEnfiltro" type="text" data-provide="typeahead" data-items="9" runat="server" />
+                <div id="titulo_filtro_area_origen" class="titulo_filtro">
+                    Área Origen:</div>
+                <input id="selectorAreaOrigenEnfiltro" type="text" data-provide="typeahead" data-items="9" runat="server" />
+                <div>
+                </div>
+                <div class="titulo_filtro">
+                    Detenido más de:</div>
+                <input type="text" id="txtFiltroPorTiempoEnAreaActual" runat="server" soloNumero ="soloNumero" maxlength="4"/>
+                <span>días</span>        
             </div>
-            <input type="text" id="filtroFechaHasta" runat="server"/>
-            <div>
-            </div>
-            <input type="text" id="filtroTicket" runat="server" visible = "false"  />
-            <div class="titulo_filtro"> Extracto:</div>
-            <input type="text" id="FiltroExtracto" runat="server"/>
-            <div>
-            </div>
-            <div class="titulo_filtro">
-                Número:</div>
-            <input type="text" id="FiltroNumero" runat="server" maxlength="30"  />
-            <div class="titulo_filtro_tipo">
-                Tipo:</div>
-            <asp:DropDownList ID="cmbFiltroPorTipoDeDocumento" runat="server" EnableViewState="true" type = "text" >
-                <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem>
-            </asp:DropDownList>
-            <div class="titulo_filtro_categoria">
-                Categoría:</div>
-            <asp:DropDownList ID="cmbFiltroPorCategoria" runat="server" EnableViewState="true" type = "text" >
-                <asp:ListItem Value="-1" class="placeholder" Selected="true">Todas</asp:ListItem>
-            </asp:DropDownList>
-            <div>
-            </div>
-            <div class="titulo_filtro_solo_docs_en_mi_area" id = "titulo_filtro_solo_docs_en_mi_area">
-                Solo documentos en mi área:</div>
-            <input type="checkbox" id="chkFiltroSoloDocsEnMiArea" runat="server" />
-            <div>
-            </div>
-            <div id="titulo_filtro_area_actual" class="titulo_filtro">
-                Área Actual:</div>
-            <input id="selectorAreaActualEnfiltro" type="text" data-provide="typeahead" data-items="9" runat="server" />
-            <div id="titulo_filtro_area_origen" class="titulo_filtro">
-                Área Origen:</div>
-            <input id="selectorAreaOrigenEnfiltro" type="text" data-provide="typeahead" data-items="9" runat="server" />
-            <div>
-            </div>
-            <div class="titulo_filtro">
-                Detenido más de:</div>
-            <input type="text" id="txtFiltroPorTiempoEnAreaActual" runat="server" soloNumero ="soloNumero" maxlength="4"/>
-            <span>días</span>        
-
             <div class="botones_alta_documento">
+                <input type="button" id="btnToggleBusquedaAvanzada" class=" btn btn-primary" value="+"/>
                 <input type="button" id="btn_aplicar_filtros" class=" btn btn-primary" value="Aplicar filtros"/>
                 <input type="button" id="btn_cancelar_filtro" class=" btn btn-primary" value="Quitar filtros"/>
             </div>
@@ -104,8 +106,6 @@
             </div>
         </div>
         <div id="panel_documentos">
-            <asp:Table ID="grillaDocumentos" runat="server">
-            </asp:Table>
         </div>
         <div id="detalle_documento">
             <img id="cerrarDetalle" src="../Imagenes/Botones/Botones Sicoi/cerrar_s1.png" width="20" height="20" alt='X' />
@@ -152,22 +152,17 @@
             <div id='titulo_area_destino_detalle'>
                 Próximo área destino:</div>
             <input id="selectorAreaDestinoEnDetalle"  type="text" data-provide="typeahead" data-items="9" runat="server" />
-            <input type="button" id="btnGuardarCambiosDetalle" class=" btn btn-primary" value="Guardar Cambios"/>
+            <input id="btnGuardarCambiosDetalle" type="button" class=" btn btn-primary" value="Guardar Cambios"/>
         </div>
     </div>
 
-    <asp:HiddenField ID="divAreaDelUsuario" runat="server" />
-    <asp:HiddenField ID="AreaSeleccionadaOrigen" runat="server" />
+    <asp:HiddenField ID="AreaDelUsuario" runat="server" />
     <asp:HiddenField ID="ListaAreas" runat="server" />
+    <asp:HiddenField ID="CategoriasDeDocumento" runat="server" />
+    <asp:HiddenField ID="TiposDeDocumento" runat="server" />
+
     <asp:HiddenField ID="AreaSeleccionadaOrigenEnFiltro" runat="server" />
     <asp:HiddenField ID="AreaSeleccionadaActualEnFiltro" runat="server" />
-    <asp:HiddenField ID="AreaSeleccionadaDestino" runat="server" />
-    <asp:HiddenField ID="divFiltrosActivos" runat="server" />
-    <asp:HiddenField ID="AreaSeleccionadaDestinoEnDetalle" runat="server" />
-    <asp:HiddenField ID="ListaDocumentos" runat="server" />
-    <asp:HiddenField ID="TiposDeDocumento" runat="server" />
-    <asp:HiddenField ID="idTipoDeDocumentoSeleccionadoEnAlta" runat="server" />
-    <asp:HiddenField ID="divDocumentoAEnviar" runat="server" />
 
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>   
@@ -191,13 +186,15 @@
     <script type="text/javascript" src="PanelDetalleDeDocumento.js"></script>
     <script type="text/javascript" src="PanelDeDocumentos.js"></script>
     <script type="text/javascript" src="PanelAltaDeDocumento.js"></script>
+    <script type="text/javascript" src="WebService.js"></script>
+    <script type="text/javascript" src="BotonAlertas.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
             var listaAreas = JSON.parse($('#ListaAreas').val());
-            //var listaDocumentos = JSON.parse($('#ListaDocumentos').val());
             var tiposDeDocumento = JSON.parse($('#TiposDeDocumento').val());
-            var areaDelUsuario = JSON.parse($('#divAreaDelUsuario').val());
+            var categoriasDeDocumento = JSON.parse($('#CategoriasDeDocumento').val());
+            var areaDelUsuario = JSON.parse($('#AreaDelUsuario').val());
 
             var cfg_panel_documentos = {
                 divPanelDocumentos: $("#panel_documentos"),
@@ -214,7 +211,6 @@
                 txtComentariosEnDetalle: $("#txtComentariosEnDetalle"),
                 AreaOrigenDocumentoDetalle: $("#AreaOrigenDocumentoDetalle"),
                 selectorDeAreaDestinoEnDetalle: $('#selectorAreaDestinoEnDetalle'),
-                areaDestinoSeleccionadaEnDetalle: $('#AreaSeleccionadaDestinoEnDetalle'),
                 contenedor_historial_transiciones: $("#contenedor_historial_documento_detalle"),
                 plantilla_transicion_documento: $('#proto_transicion_de_documento_historial'),
                 botonCerrarDetalle: $('#cerrarDetalle'),
@@ -226,21 +222,19 @@
             var cfg_panel_alta = {
                 selectorDeAreaOrigenEnAlta: $('#selectorDeAreaOrigen'),
                 selectorDeAreaDestinoEnAlta: $('#selectorDeAreaDestino'),
-                areaOrigenSeleccionadaEnAlta: $('#AreaSeleccionadaOrigen'),
-                areaDestinoSeleccionadaEnAlta: $('#AreaSeleccionadaDestino'),
                 cmbTipoDeDocumento: $('#cmbTipoDeDocumento'),
-                idTipoDeDocumentoSeleccionadoEnAlta: $('#idTipoDeDocumentoSeleccionadoEnAlta'),
+                cmbCategoriaDocumento: $('#cmbCategoria'),
                 lblLetrasDelTipoDeDocumento: $("#letrasDelTipoDeDocumento"),
                 txtNumero: $('#txtNumero'),
                 txtExtracto: $('#txtExtracto'),
                 txtComentarios: $('#txtComentarios'),
                 btnCrearDocumento: $('#btnCrearDocumento'),
                 btnCancelar: $('#btnCancelar'),
-                cmbCategoriaDocumento: $('#cmbCategoria'),
                 botonDesplegarPanelAlta: $("#boton_desplegar_panel_alta_documento"),
                 divPanelAlta: $("#panel_alta_documento"),
                 listaAreas: listaAreas,
                 tiposDeDocumento: tiposDeDocumento,
+                categoriasDeDocumento: categoriasDeDocumento,
                 areaDelUsuario: areaDelUsuario
             }
             var panel_alta = new PanelAltaDeDocumento(cfg_panel_alta);
@@ -260,15 +254,18 @@
                 inputFiltroCategoriaDocumentoFiltro: $('#cmbFiltroPorCategoria'),
                 inputFiltroCheckDocumentosEnMiArea: $('#chkFiltroSoloDocsEnMiArea'),
                 tituloFiltroCheckDocumentosEnMiArea: $('#titulo_filtro_solo_docs_en_mi_area'),
-                divFiltrosActivos: $('#divFiltrosActivos'),
                 botonDesplegarPanelFiltros: $("#boton_desplegar_panel_filtros"),
                 tituloFiltroAreaActual: $('#titulo_filtro_area_actual'),
                 divPanelFiltros: $("#panel_filtros"),
                 btnAplicarFiltros: $('#btn_aplicar_filtros'),
                 btnQuitarFiltros: $('#btn_cancelar_filtro'),
+                panelBusquedaBasica: $('#panelBusquedaBasica'),
+                panelBusquedaAvanzada: $('#panelBusquedaAvanzada'),
+                btnToggleBusquedaAvanzada: $('#btnToggleBusquedaAvanzada'),
                 areaDelUsuario: areaDelUsuario,
                 listaAreas: listaAreas,
-                tiposDeDocumento: tiposDeDocumento
+                tiposDeDocumento: tiposDeDocumento,
+                categoriasDeDocumento: categoriasDeDocumento
             }
             var panel_filtros = new PanelDeFiltrosDeDocumentos(cfg_panel_filtros);
 
@@ -287,41 +284,11 @@
             panel_filtros.setPanelDetalle(panel_detalle);
             panel_filtros.setPanelDocumentos(panel_documentos);
 
-            var boton_alertas = $("#boton_alertas");
-            boton_alertas.click(function () {
-                $.ajax({
-                    url: "../AjaxWS.asmx/GetDocumentosEnAlerta",
-                    type: "POST",
-                    data: JSON.stringify({}),
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (respuestaJson) {
-                        var documentos = JSON.parse(respuestaJson.d);
-                        panel_documentos._grilla_de_documentos.BorrarContenido();
-                        panel_documentos._grilla_de_documentos.CargarObjetos(documentos);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(errorThrown);
-                    }
-                });
+            var botonAlertas = new BotonAlertas({   
+                boton_alertas : $("#boton_alertas"),
+                panel_documentos: panel_documentos
             });
-
-            setInterval(function () {
-                $.ajax({
-                    url: "../AjaxWS.asmx/HayDocumentosEnAlerta",
-                    type: "POST",
-                    data: JSON.stringify({}),
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (respuestaJson) {
-                        if (JSON.parse(respuestaJson.d)) boton_alertas.show();
-                        else boton_alertas.hide();
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    }
-                });
-            },
-            10000);  //cada 10 segundos pregunta si hay
+            
 
         });
     </script>   

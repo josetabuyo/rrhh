@@ -1,12 +1,11 @@
 ﻿
 var PanelAltaDeDocumento = function (cfg) {
     this.cfg = cfg;
-    this.selectorDeAreaOrigenEnAlta = new InputAutocompletableDeAreas(cfg.selectorDeAreaOrigenEnAlta, cfg.listaAreas, cfg.areaOrigenSeleccionadaEnAlta);
-    this.selectorDeAreaDestinoEnAlta = new InputAutocompletableDeAreas(cfg.selectorDeAreaDestinoEnAlta, cfg.listaAreas, cfg.areaDestinoSeleccionadaEnAlta);
+    this.selectorDeAreaOrigenEnAlta = new InputAutocompletableDeAreas(cfg.selectorDeAreaOrigenEnAlta, cfg.listaAreas);
+    this.selectorDeAreaDestinoEnAlta = new InputAutocompletableDeAreas(cfg.selectorDeAreaDestinoEnAlta, cfg.listaAreas);
 
     cfg.cmbTipoDeDocumento.change(function (e) {
         var idSeleccionado = cfg.cmbTipoDeDocumento.find('option:selected').val();
-        cfg.idTipoDeDocumentoSeleccionadoEnAlta.val(idSeleccionado);
 
         var tipoSeleccionado;
         for (var i = 0; i < cfg.tiposDeDocumento.length; i++) {
@@ -23,8 +22,6 @@ var PanelAltaDeDocumento = function (cfg) {
         }
     });
 
-    cfg.idTipoDeDocumentoSeleccionadoEnAlta.val("");
-
     for (var i = 0; i < cfg.tiposDeDocumento.length; i++) {
         var tipo = cfg.tiposDeDocumento[i];
         var listItem = $('<option>');
@@ -33,8 +30,16 @@ var PanelAltaDeDocumento = function (cfg) {
         cfg.cmbTipoDeDocumento.append(listItem);
     }
 
+    for (var i = 0; i < cfg.categoriasDeDocumento.length; i++) {
+        var categoria = cfg.categoriasDeDocumento[i];
+        var listItem = $('<option>');
+        listItem.val(categoria.Id);
+        listItem.text(categoria.descripcion);
+        cfg.cmbCategoriaDocumento.append(listItem);
+    }
+
     var self = this;
-    cfg.areaOrigenSeleccionadaEnAlta.change(function () { self.validarAltaDeDocumento(); });
+    this.selectorDeAreaOrigenEnAlta.change(function () { self.validarAltaDeDocumento(); });
     cfg.cmbTipoDeDocumento.change(function () { self.validarAltaDeDocumento(); });
     cfg.cmbCategoriaDocumento.change(function () { self.validarAltaDeDocumento(); });
     cfg.txtExtracto.keyup(function () { self.validarAltaDeDocumento(); });
@@ -50,10 +55,10 @@ var PanelAltaDeDocumento = function (cfg) {
     cfg.btnCrearDocumento.click(function () {
         var documento_dto = {
             extracto: cfg.txtExtracto.val(),
-            tipo: cfg.idTipoDeDocumentoSeleccionadoEnAlta.val(),
+            tipo: cfg.cmbTipoDeDocumento.val(),
             categoria: cfg.cmbCategoriaDocumento.val(),
-            id_area_origen: cfg.areaOrigenSeleccionadaEnAlta.val(),
-            id_area_destino: cfg.areaDestinoSeleccionadaEnAlta.val(),
+            id_area_origen: self.selectorDeAreaOrigenEnAlta.areaSeleccionada().id,
+            id_area_destino: self.selectorDeAreaDestinoEnAlta.areaSeleccionada().id,
             id_area_actual: cfg.areaDelUsuario.id,
             numero: cfg.txtNumero.val(),
             comentarios: cfg.txtComentarios.val()
@@ -102,8 +107,6 @@ PanelAltaDeDocumento.prototype = {
     limpiarCampos: function () {
         this.cfg.txtExtracto.val("");
         this.cfg.txtExtracto.blur();
-        this.cfg.idTipoDeDocumentoSeleccionadoEnAlta.val(-1);
-        this.cfg.idTipoDeDocumentoSeleccionadoEnAlta.blur();
         this.cfg.cmbTipoDeDocumento.val(-1);
         this.cfg.cmbTipoDeDocumento.blur();
         this.cfg.cmbCategoriaDocumento.val(-1);
@@ -130,7 +133,7 @@ PanelAltaDeDocumento.prototype = {
         this.cfg.botonDesplegarPanelAlta.removeClass("boton_que_abre_panel_desplegable_activo");
     },
     validarAltaDeDocumento: function () {
-        if (this.cfg.areaOrigenSeleccionadaEnAlta.val() == '') {
+        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '') {
             this.cfg.selectorDeAreaOrigenEnAlta.css("background-color", 'rgb(255, 255, 235)');
         } else {
             this.cfg.selectorDeAreaOrigenEnAlta.css("background-color", 'rgb(255, 255, 255)');
@@ -154,7 +157,7 @@ PanelAltaDeDocumento.prototype = {
             this.cfg.txtExtracto.css("background-color", 'rgb(255, 255, 255)');
         }
 
-        if (this.cfg.areaOrigenSeleccionadaEnAlta.val() == '' ||
+        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '' ||
             this.cfg.cmbTipoDeDocumento.val() == '' ||
             this.cfg.cmbCategoriaDocumento.val() == '' ||
             this.cfg.txtExtracto.val() == '') {

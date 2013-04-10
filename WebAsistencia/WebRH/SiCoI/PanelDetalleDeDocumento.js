@@ -16,7 +16,7 @@ var PanelDetalleDeDocumento = function (cfg) {
         var post_url = "../AjaxWS.asmx/GuardarCambiosEnDocumento";
         var post_data =  JSON.stringify({
             id_documento: self.documentoEnDetalle.id,
-            id_area_destino: cfg.areaDestinoSeleccionadaEnDetalle.val(),
+            id_area_destino: self.selectorDeAreaDestinoEnDetalle.areaSeleccionada().id,
             comentario: cfg.txtComentariosEnDetalle.val()
         });       
         $.ajax({
@@ -70,14 +70,10 @@ PanelDetalleDeDocumento.prototype = {
 
         this.crearHistorialDeTransiciones(documento);
 
-        var selectorDeAreaDestinoEnDetalle = new InputAutocompletableDeAreas(this.cfg.selectorDeAreaDestinoEnDetalle, this.cfg.listaAreas, this.cfg.areaDestinoSeleccionadaEnDetalle);
+        this.selectorDeAreaDestinoEnDetalle = new InputAutocompletableDeAreas(this.cfg.selectorDeAreaDestinoEnDetalle, this.cfg.listaAreas);
 
-        this.cfg.selectorDeAreaDestinoEnDetalle.val('');
-        this.cfg.areaDestinoSeleccionadaEnDetalle.val('');
-        if (documento.areaDestino != null) {
-            this.cfg.selectorDeAreaDestinoEnDetalle.val(documento.areaDestino.descripcion);
-            this.cfg.areaDestinoSeleccionadaEnDetalle.val(documento.areaDestino.id);
-        }
+        if (documento.areaDestino == null) this.selectorDeAreaDestinoEnDetalle.limpiar();
+        else this.selectorDeAreaDestinoEnDetalle.setAreaSeleccionada(documento.areaDestino);
 
         this.cfg.divPanelDetalle.fadeIn("fast");
         this._panel_documentos.contraer();

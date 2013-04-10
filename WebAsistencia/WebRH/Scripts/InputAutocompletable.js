@@ -21,7 +21,6 @@
         }
         return undefined;
     }
-
     input.attr('data-source', JSON.stringify(dataSource));
     input.attr("autocomplete", "off");
     input.blur(function () {

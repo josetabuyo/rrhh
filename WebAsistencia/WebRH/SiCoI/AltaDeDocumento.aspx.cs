@@ -23,46 +23,16 @@ public partial class AltaDeDocumento : System.Web.UI.Page
         }
             
         var servicio = new WSViaticos.WSViaticosSoapClient();
-        
-        string areas_origen_destino;
 
-        areas_origen_destino = servicio.AreasFormalesConInformales_JSON();
-
-        this.ListaAreas.Value = areas_origen_destino;
+        this.ListaAreas.Value = servicio.AreasFormalesConInformales_JSON();
         this.TiposDeDocumento.Value = JsonConvert.SerializeObject(servicio.TiposDeDocumentosSICOI().OrderBy(td => td.descripcion));
-        CompletarCombosDeTipoDeDocumentos();
-        CompletarCombosDeCategoria();
-        var areaDelUsuarioDTO = new {   id = usuarioLogueado.Areas[0].Id, 
-                                        descripcion =  usuarioLogueado.Areas[0].Nombre};
-        divAreaDelUsuario.Value = JsonConvert.SerializeObject(areaDelUsuarioDTO);
-    }
+        this.CategoriasDeDocumento.Value = JsonConvert.SerializeObject(servicio.CategoriasDocumentosSICOI().OrderBy(cd => cd.descripcion));
 
-    private void CompletarCombosDeTipoDeDocumentos()
-    {
-        var servicio = new WSViaticos.WSViaticosSoapClient();
-        var tiposDeDocumento = servicio.TiposDeDocumentosSICOI().OrderBy(td => td.descripcion);
-
-        foreach (TipoDeDocumentoSICOI td in tiposDeDocumento)
+        var areaDelUsuarioDTO = new
         {
-            ListItem unListItem = new ListItem();
-            unListItem.Value = td.Id.ToString();
-            unListItem.Text = td.descripcion;
-            this.cmbFiltroPorTipoDeDocumento.Items.Add(unListItem);
-        }
-    }
-
-    private void CompletarCombosDeCategoria()
-    {
-        var servicio = new WSViaticos.WSViaticosSoapClient();
-        var categoriasDeDocumento = servicio.CategoriasDocumentosSICOI().OrderBy(cd => cd.descripcion);
-
-        foreach (CategoriaDeDocumentoSICOI cd in categoriasDeDocumento)
-        {
-            ListItem unListItem = new ListItem();
-            unListItem.Value = cd.Id.ToString();
-            unListItem.Text = cd.descripcion;
-            this.cmbCategoria.Items.Add(unListItem);
-            this.cmbFiltroPorCategoria.Items.Add(unListItem);
-        }
-    }
+            id = usuarioLogueado.Areas[0].Id,
+            descripcion = usuarioLogueado.Areas[0].Nombre
+        };
+        AreaDelUsuario.Value = JsonConvert.SerializeObject(areaDelUsuarioDTO);
+    }    
 }

@@ -331,6 +331,15 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
         self.cfg.inputFiltroTipoDeDocumento.append(listItem.clone());
     }
 
+    for (var i = 0; i < cfg.categoriasDeDocumento.length; i++) {
+        var categoria = cfg.categoriasDeDocumento[i];
+        var listItem = $('<option>');
+        listItem.val(categoria.Id);
+        listItem.text(categoria.descripcion);
+        cfg.inputFiltroCategoriaDocumentoFiltro.append(listItem);
+    }
+
+
     self.cfg.inputFiltroFechaDesde.datepicker({ dateFormat: "dd/mm/yy",
         onSelect: function (date) { self.cfg.inputFiltroFechaDesde.change(); }
     });
@@ -384,8 +393,6 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
                 }
             );
 
-    self.cfg.divFiltrosActivos.val('[]');
-
     this.panel_filtros = new PanelDeFiltros([filtroGoogleano,
                         filtroPorExtracto,
                         filtroPorNumero,
@@ -406,23 +413,13 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
             self.cfg.botonDesplegarPanelFiltros.removeClass('boton_que_abre_panel_desplegable_activo_con_filtros');
         },
         cambiaronLosFiltros: function () {
-            self.cfg.divFiltrosActivos.val(JSON.stringify(self.panel_filtros.filtrosActivos()));
         }
     });
 
-    var setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario = function () {
-        if (self.cfg.inputFiltroCheckDocumentosEnMiArea.is(':checked')) {
-            self.cfg.inputFiltroAreaActual.hide();
-            self.cfg.tituloFiltroAreaActual.hide();
-        } else {
-            self.cfg.inputFiltroAreaActual.show();
-            self.cfg.tituloFiltroAreaActual.show();
-        }
-    }
-    setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario();
-    self.cfg.inputFiltroCheckDocumentosEnMiArea.change(setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario);
+    this.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario();
+    cfg.inputFiltroCheckDocumentosEnMiArea.change(this.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario.bind(this));
 
-    this.cfg.botonDesplegarPanelFiltros.click(function () {
+    cfg.botonDesplegarPanelFiltros.click(function () {
         self._panel_alta.contraer();
         self.alternarDespliegue();
         self._panel_detalle.cerrar();
@@ -437,6 +434,17 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
         self.contraer();
         self.panel_filtros.limpiarFiltros();
         self._panel_documentos.refrescarGrilla();
+    });
+
+    cfg.panelBusquedaBasica.show();
+    cfg.panelBusquedaAvanzada.hide();
+
+    cfg.btnToggleBusquedaAvanzada.click(function () {
+        cfg.panelBusquedaBasica.toggle();
+        cfg.panelBusquedaAvanzada.toggle();
+        self.panel_filtros.limpiarFiltros();
+        if (cfg.panelBusquedaBasica.css('display') == 'block')  cfg.btnToggleBusquedaAvanzada.val("+");
+        else  cfg.btnToggleBusquedaAvanzada.val("-");
     });
 }
 
@@ -464,5 +472,14 @@ PanelDeFiltrosDeDocumentos.prototype = {
     contraer: function () {
         this.cfg.divPanelFiltros.slideUp("fast");
         this.cfg.botonDesplegarPanelFiltros.removeClass("boton_que_abre_panel_desplegable_activo");
+    },
+    setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario : function () {
+        if (this.cfg.inputFiltroCheckDocumentosEnMiArea.is(':checked')) {
+            this.cfg.inputFiltroAreaActual.hide();
+            this.cfg.tituloFiltroAreaActual.hide();
+        } else {
+            this.cfg.inputFiltroAreaActual.show();
+            this.cfg.tituloFiltroAreaActual.show();
+        }
     }
 }

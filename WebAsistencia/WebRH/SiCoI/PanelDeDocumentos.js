@@ -34,18 +34,18 @@ var PanelDeDocumentos = function (cfg) {
                             botonEnviar.click(function () {
                                 var post_url;
                                 var post_data;
-                                if (cfg.areaDelUsuario.id == doc.areaActual.id){
+                                if (cfg.areaDelUsuario.id == doc.areaActual.id) {
                                     post_url = "../AjaxWS.asmx/TransicionarDocumento";
                                     post_data = JSON.stringify({
-                                        id_documento: doc.id, 
-                                        id_area_origen: doc.areaActual.id, 
+                                        id_documento: doc.id,
+                                        id_area_origen: doc.areaActual.id,
                                         id_area_destino: doc.areaDestino.id
                                     });
-                                }else{
+                                } else {
                                     post_url = "../AjaxWS.asmx/TransicionarDocumentoConAreaIntermedia";
                                     post_data = JSON.stringify({
                                         id_documento: doc.id,
-                                        id_area_origen: doc.areaActual.id, 
+                                        id_area_origen: doc.areaActual.id,
                                         id_area_intermedia: cfg.areaDelUsuario.id,
                                         id_area_destino: doc.areaDestino.id
                                     });
@@ -59,7 +59,7 @@ var PanelDeDocumentos = function (cfg) {
                                     contentType: "application/json; charset=utf-8",
                                     success: function (respuestaJson) {
                                         var respuesta = JSON.parse(respuestaJson.d);
-                                        if (respuesta.tipoDeRespuesta == "envioDeDocumento.ok") {                                            
+                                        if (respuesta.tipoDeRespuesta == "envioDeDocumento.ok") {
                                             self.refrescarGrilla();
                                         }
                                         if (respuesta.tipoDeRespuesta == "envioDeDocumento.error") {
@@ -69,7 +69,7 @@ var PanelDeDocumentos = function (cfg) {
                                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                                         alert(errorThrown);
                                     }
-                                });                                
+                                });
                             });
                             contenedorAcciones.append(botonEnviar);
                         }
@@ -84,19 +84,7 @@ var PanelDeDocumentos = function (cfg) {
 
     var proveedor = {
         pedirDatos: function (callback) {
-            $.ajax({
-                url: "../AjaxWS.asmx/GetDocumentosFiltrados",
-                type: "POST",
-                data: "{'filtros' : '" + JSON.stringify(self._panel_filtros.getFiltrosActivos()) + "'}",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (respuestaJson) {
-                    callback(JSON.parse(respuestaJson.d));
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert(textStatus);
-                }
-            });
+            WebService.getDocumentosFiltrados(self._panel_filtros.getFiltrosActivos(), callback);
         }
     };
     this._grilla_de_documentos.setProveedorDeDatos(proveedor);
@@ -108,6 +96,10 @@ var PanelDeDocumentos = function (cfg) {
 PanelDeDocumentos.prototype = {
     refrescarGrilla: function () {
         this._grilla_de_documentos.refrescar();
+    },
+    mostrarDocumentos: function (docs) {
+        this._grilla_de_documentos.BorrarContenido();
+        this._grilla_de_documentos.CargarObjetos(docs);
     },
     setPanelDetalle: function (panel) {
         this._panel_detalle = panel;
