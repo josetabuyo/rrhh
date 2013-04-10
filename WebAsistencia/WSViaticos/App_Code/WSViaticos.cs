@@ -980,6 +980,7 @@ public class WSViaticos : System.Web.Services.WebService
                     Direccion = alumno.Direccion,
                  //   Area = AreaDtoPara(alumno.Area),
                     Modalidad = ModalidadPara(alumno.Modalidad),
+                    Baja = alumno.Baja,
                 });
             });
         }
@@ -1247,7 +1248,7 @@ public class WSViaticos : System.Web.Services.WebService
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
         });
 
         return RepositorioDeCursos().QuitarCurso(un_curso, usuario);
@@ -1260,7 +1261,7 @@ public class WSViaticos : System.Web.Services.WebService
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
         });
 
         return RepositorioDeCursos().AgregarCurso(un_curso);
@@ -1272,7 +1273,7 @@ public class WSViaticos : System.Web.Services.WebService
         var un_curso = new Curso() { Id = curso.Id, Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra, EspacioFisico = curso.EspacioFisico};
         var horarios = curso.Horarios;
         horarios.ForEach(h =>{
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
         });
         
         return RepositorioDeCursos().ModificarCurso(un_curso);
@@ -1311,6 +1312,7 @@ public class WSViaticos : System.Web.Services.WebService
                            mail = persona.Mail,
                     //       area = persona.Area,
                            modalidad = 1,
+                           baja = persona.Baja,
                        };
         }
         return JsonConvert.SerializeObject(persona_dto);
