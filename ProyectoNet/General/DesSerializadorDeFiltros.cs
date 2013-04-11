@@ -49,7 +49,8 @@
             FiltroDeDocumentos filtro;
             if (filtroDTO["tipoDeFiltro"] == "FiltroDeDocumentosPorAreaActual" ||
                 filtroDTO["tipoDeFiltro"] == "FiltroDeDocumentosPorTransicion" ||
-                filtroDTO["tipoDeFiltro"] == "FiltroDeDocumentosPorTiempoEnUltimaAreaMayorOIgualA"
+                filtroDTO["tipoDeFiltro"] == "FiltroDeDocumentosPorTiempoEnUltimaAreaMayorOIgualA"||
+                filtroDTO["tipoDeFiltro"] == "FiltroDeDocumentosGoogleano"
                 )
                 filtro = (FiltroDeDocumentos)Activator.CreateInstance(assembly.GetType(tipoFiltro), new Object[] { filtroDTO, mensajeria });
             else
