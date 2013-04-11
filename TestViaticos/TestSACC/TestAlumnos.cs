@@ -20,26 +20,29 @@ namespace TestViaticos
         [TestMethod]
         public void deberia_poder_agregar_alumnos()
         {
+            //SE HACE EN CURSOS
 
-            IConexionBD conexion = TestObjects.ConexionMockeada();
+            //IConexionBD conexion = TestObjects.ConexionMockeada();
 
-            RepositorioDeAlumnos repo = new RepositorioDeAlumnos(conexion);
+            //RepositorioDeAlumnos repo = new RepositorioDeAlumnos(conexion);
 
-            repo.GuardarAlumno(TestObjects.UnAlumnoFer(), new Usuario());
+            //repo.GuardarAlumno(TestObjects.UnAlumnoFer(), new Usuario());
 
-            Assert.AreEqual(4, repo.GetAlumnos().Count());
+            //Assert.AreEqual(4, repo.GetAlumnos().Count());
         }
 
         [TestMethod]
         public void deberia_poder_quitar_alumnos()
         {
-            IConexionBD conexion = TestObjects.ConexionMockeada();
+           //SE HACE EN CURSOS
+            
+            //IConexionBD conexion = TestObjects.ConexionMockeada();
 
-            RepositorioDeAlumnos repo = new RepositorioDeAlumnos(conexion);
+            //RepositorioDeAlumnos repo = new RepositorioDeAlumnos(conexion);
 
-            repo.QuitarAlumno(new Alumno(), new Usuario());
+            //repo.QuitarAlumno(new Alumno(), new Usuario());
 
-            Assert.AreEqual(2, repo.GetAlumnos().Count());
+            //Assert.AreEqual(2, repo.GetAlumnos().Count());
         }
 
 
