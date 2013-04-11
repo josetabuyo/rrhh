@@ -29,7 +29,7 @@ public class AjaxWS : System.Web.Services.WebService {
         return backEndService.GuardarDocumento_Ajax(documento_dto, usuarioLogueado);
     }
 
-    [WebMethod(EnableSession = true)]
+    [WebMethod(EnableSession = false)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)] 
     public string GetDocumentosFiltrados(String filtros)
     {

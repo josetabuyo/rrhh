@@ -502,11 +502,16 @@ public class WSViaticos : System.Web.Services.WebService
             if (id_area_destino != -1)
             {
                 area_destino = repo_organigrama.GetAreaById(id_area_destino);
-
                 mensajeria.SeEnviaAFuturo(un_documento, usuario.Areas[0], area_destino);
-
-                repo_transiciones.GuardarTransicionesDe(mensajeria);
             }
+            else
+            {
+                mensajeria.YaNoSeEnviaAFuturo(un_documento);
+                repo_transiciones.BorrarTransicionFuturaPara(un_documento);
+            }
+
+            repo_transiciones.GuardarTransicionesDe(mensajeria);
+
 
             return JsonConvert.SerializeObject(new { tipoDeRespuesta = "guardarDocumento.ok" });
         }

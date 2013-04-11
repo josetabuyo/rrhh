@@ -1,6 +1,6 @@
 ﻿var InputAutocompletableDeAreas = function (input, listaAreas, inputAreaSeleccionada) {
     inputAreaSeleccionada = inputAreaSeleccionada || $("<input>");
-    var areaSeleccionada = { id: "", descripcion: "" };
+    var areaSeleccionada = { id: "-1", descripcion: "" };
 
     var selectorDeArea = new InputAutocompletable(input,
                                                     listaAreas,
@@ -13,7 +13,7 @@
                                                         }
                                                         else {
                                                             inputAreaSeleccionada.val('');
-                                                            areaSeleccionada = { id: "", descripcion: "" };
+                                                            areaSeleccionada = { id: "-1", descripcion: "" };
                                                         }
                                                         inputAreaSeleccionada.change();
                                                     }
@@ -22,7 +22,7 @@
         selectorDeArea.val('');
         inputAreaSeleccionada.val('');
         inputAreaSeleccionada.change();
-        areaSeleccionada = { id: "", descripcion: "" };
+        areaSeleccionada = { id: "-1", descripcion: "" };
     };
     selectorDeArea.areaSeleccionada = function () {
         return areaSeleccionada;

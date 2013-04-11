@@ -131,8 +131,7 @@
             </div>
             <div id='titulo_comentarios_detalle'>
                 Comentarios:</div>
-            <asp:TextBox ID="txtComentariosEnDetalle" placeholder="Ingrese sus comentarios (opcional)"
-                runat="server" TextMode="MultiLine" Height="32px"></asp:TextBox>
+            <asp:TextBox ID="txtComentariosEnDetalle" runat="server" TextMode="MultiLine" Height="32px"></asp:TextBox>
             <div id='titulo_historial_transiciones'>
                 Transiciones:</div>
             <div id="contenedor_historial_documento_detalle">

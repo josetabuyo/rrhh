@@ -42,10 +42,6 @@ namespace General
             repositorioMensajeria.GuardarTransiciones(this.transiciones);
         }
 
-        public void SeEnviaAFuturo(Documento documento, Area area_origen, Area area_destino )
-        {
-            transiciones.Add(new TransicionDeDocumento(area_origen, area_destino, DateTime.MinValue, documento, TransicionDeDocumento.FUTURA));
-        }
 
         public TransicionDeDocumento TransicionAFuturoPara(Documento documento)
         {
@@ -108,6 +104,16 @@ namespace General
          {
              this.SeEnvioDirectamente(un_documento, area_origen, area_intermedia, fecha);
              this.SeEnvioDirectamente(un_documento, area_intermedia, area_destino, fecha.AddSeconds(1));
+         }
+        
+         public void SeEnviaAFuturo(Documento documento, Area area_origen, Area area_destino)
+         {
+             transiciones.Add(new TransicionDeDocumento(area_origen, area_destino, DateTime.MinValue, documento, TransicionDeDocumento.FUTURA));
+         }
+
+         public void YaNoSeEnviaAFuturo(Documento un_documento)
+         {
+             transiciones.RemoveAll(t => t.Documento == un_documento && t.Tipo == TransicionDeDocumento.FUTURA);
          }
     }
 }
