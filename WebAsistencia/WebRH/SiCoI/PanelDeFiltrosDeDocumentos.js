@@ -417,7 +417,8 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
     });
 
     this.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario();
-    cfg.inputFiltroCheckDocumentosEnMiArea.change(this.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario.bind(this));
+
+    cfg.inputFiltroCheckDocumentosEnMiArea.change(function(){self.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario()});
 
     cfg.botonDesplegarPanelFiltros.click(function () {
         self._panel_alta.contraer();

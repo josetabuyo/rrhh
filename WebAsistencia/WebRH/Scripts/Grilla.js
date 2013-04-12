@@ -72,7 +72,8 @@ Grilla.prototype = {
     refrescar: function () {
         this.BorrarContenido();
         this.mostrarProgressBar();
-        this.proveedor_de_datos.pedirDatos(this.CargarObjetos.bind(this));
+        var self = this;
+        this.proveedor_de_datos.pedirDatos(function (obj) { self.CargarObjetos(obj); });
     },
     mostrarProgressBar: function () {
         this.tabla.after(this.progress_bar);
