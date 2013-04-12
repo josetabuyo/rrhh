@@ -829,7 +829,7 @@ public class WSViaticos : System.Web.Services.WebService
                 dia = d.ToString("dd"),
                 nombre_dia = d.ToString("ddd"),
                 fecha = d.ToShortDateString(),
-                horas = planilla_mensual.Curso.HorasCatedra
+                horas = planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == d.DayOfWeek).HorasCatedra
             }));
             
             planilla_mensual.Curso.Alumnos().ForEach(delegate(Alumno alumno)
@@ -858,9 +858,9 @@ public class WSViaticos : System.Web.Services.WebService
                 detalle_asistencias.ForEach(a =>
                 {
                     if (a.Valor > 0 && a.Valor < 4)
-                        cant_inasistencias_aux += planilla_mensual.Curso.HorasCatedra - a.Valor;
+                        cant_inasistencias_aux += planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra - a.Valor;
                     if (a.Valor == 4)
-                        cant_inasistencias_aux += planilla_mensual.Curso.HorasCatedra;
+                        cant_inasistencias_aux += planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra;
                 });
 
                 if (cant_asistencias_aux == 0 && cant_inasistencias_aux == 0)
@@ -1157,7 +1157,7 @@ public class WSViaticos : System.Web.Services.WebService
                 var horarios = new List<HorarioDto>();
                 foreach (var h in curso.GetHorariosDeCursada())
                 {
-                    horarios.Add(new HorarioDto() { NumeroDia = (int)h.Dia, Dia = DateTimeFormatInfo.CurrentInfo.GetDayName(h.Dia), HoraDeInicio = h.HoraDeInicio.ToString().Substring(0, 5), HoraDeFin = h.HoraDeFin.ToString().Substring(0, 5) });
+                    horarios.Add(new HorarioDto() { NumeroDia = (int)h.Dia, Dia = DateTimeFormatInfo.CurrentInfo.GetDayName(h.Dia), HoraDeInicio = h.HoraDeInicio.ToString().Substring(0, 5), HoraDeFin = h.HoraDeFin.ToString().Substring(0, 5), HorasCatedra = h.HorasCatedra });
                 }
                 un_curso.Horarios = horarios;
                 cursos_dto.Add(un_curso);

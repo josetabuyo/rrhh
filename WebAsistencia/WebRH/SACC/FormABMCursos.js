@@ -114,6 +114,7 @@ var DibujarGrillaHorarios = function () {
                     new Columna("Dia", { generar: function (horario) { return horario.Dia; } }),
                     new Columna("Hora Inicio", { generar: function (horario) { return horario.HoraDeInicio; } }),
                     new Columna("Hora Fin", { generar: function (horario) { return horario.HoraDeFin; } }),
+                    new Columna("Horas", { generar: function (horario) { return horario.HorasCatedra; } }),
                     new Columna('Quitar', { generar: function (horario) {
 
                         var contenedorAcciones = $('<div>');
@@ -146,6 +147,7 @@ var CompletarDatosHorario = function (horario) {
     dia.val(horario.NumeroDia);
     horaI.val(horario.HoraDeInicio);
     horaF.val(horario.HoraDeFin);
+    horasCatedra.val(horario.HorasCatedra);
     horario_seleccionado = horario;
 
     MostrarBotonCambiarHorario();
@@ -234,7 +236,8 @@ var NuevoHorario = function () {
         NumeroDia: dia.find('option:selected').val(),
         Dia: dia.find('option:selected').text(),
         HoraDeInicio: horaI.val(),
-        HoraDeFin: horaF.val()
+        HoraDeFin: horaF.val(),
+        HorasCatedra: horasCatedra.find('option:selected').text()
     };
 }
 var ValidarHorario = function () {

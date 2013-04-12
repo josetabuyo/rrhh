@@ -138,12 +138,11 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         curso.Materia = servicio.GetMateriaById(int.Parse("0" + this.txtIdMateria.Value));
         curso.Docente = servicio.GetDocenteById(int.Parse("0" + this.txtIdDocente.Value));
         curso.EspacioFisico = servicio.GetEspacioFisicoById(int.Parse("0" + this.txtIdEspacioFisico.Value));
-        curso.HorasCatedra = 1;// int.Parse("0" + this.horaCatedra.Value); me pincha
-        //curso.Horarios = horarios; me pincha
+       
         var horariosDto = new List<HorarioDto>();
         foreach (var h in horarios)
         {
-            var horario = new HorarioDto() { NumeroDia = int.Parse(h["NumeroDia"].ToString()), Dia = h["Dia"].ToString(), HoraDeInicio = h["HoraDeInicio"].ToString(), HoraDeFin = h["HoraDeFin"].ToString() };
+            var horario = new HorarioDto() { NumeroDia = int.Parse(h["NumeroDia"].ToString()), Dia = h["Dia"].ToString(), HoraDeInicio = h["HoraDeInicio"].ToString(), HoraDeFin = h["HoraDeFin"].ToString(), HorasCatedra = int.Parse(h["HorasCatedra"].ToString()) };
             horariosDto.Add(horario);
         }
         curso.Horarios = horariosDto.ToArray();
