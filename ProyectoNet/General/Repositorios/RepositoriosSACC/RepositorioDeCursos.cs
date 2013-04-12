@@ -50,8 +50,6 @@ namespace General.Repositorios
                     Docente = docente,
                     Materia = new RepositorioDeMaterias(conexion_bd).GetMateriaById(row.GetSmallintAsInt("IdMateria")),
 
-                    HorasCatedra = row.GetSmallintAsInt("HoraCatedra"),
-
                     EspacioFisico = espacio_fisico,
 
                 };
@@ -143,7 +141,6 @@ namespace General.Repositorios
             parametros.Add("id_aula", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
-            parametros.Add("horaCatedra", curso.HorasCatedra);
             parametros.Add("fecha", DateTime.Now);
 
             int id_curso = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Curso", parametros).ToString());

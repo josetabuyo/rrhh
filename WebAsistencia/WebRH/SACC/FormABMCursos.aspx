@@ -44,18 +44,14 @@
             <asp:Label ID="lblEspacioFisico" CssClass="labels_sacc" runat="server" Text="Espacio Físico:"></asp:Label>
             <asp:DropdownList ID="cmbEspacioFisico" name="Docente" runat="server" EnableViewState="false"></asp:DropdownList >
         </p>
-         <p>
-            <asp:Label ID="lblHorasCatedra" CssClass="labels_sacc" runat="server" Text="Horas Catedra:"></asp:Label>
-            <select runat="server" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false"></select>
-           <%-- <asp:DropDownList ID="cmbHorasCatedra" name="HorasCatedra" runat="server" EnableViewState="false"></asp:DropDownList >--%>
-        </p>
         <p>   
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
             <asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" ></asp:DropdownList>
             <asp:TextBox ID="txtHoraInicio" title="Hora de inicio" CssClass="input-small" placeholder="Hora Inicio" runat="server" MaxLength="5"></asp:TextBox>
             <asp:TextBox ID="txtHoraFin" title="Hora de fin" CssClass="input-small" placeholder="Hora Fin" runat="server" MaxLength="5"></asp:TextBox>
-            
-            <input id="agregarHorario" type="button" value="Agregar Horario" 
+            <select runat="server" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false" class="input-small"></select>
+           
+            <input id="agregarHorario" type="button" value="Agregar" 
                 onclick="javascript:AgregarHorario();" 
                 class=" btn btn-primary boton_main_documentos" />
             <input id="cambiarHorario" type="button" value="Cambiar" onclick="javascript:CambiarHorario();" style="display:none; visibility:hidden" class=" btn btn-primary boton_main_documentos" />

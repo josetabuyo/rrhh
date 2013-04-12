@@ -41,6 +41,7 @@ namespace General
                 this._dia = dia;
                 this.HoraDeInicio = TimeSpan.Parse(hora_inicio);
                 this.HoraDeFin = TimeSpan.Parse(hora_fin);
+                this.HorasCatedra = horas_catedra;
 
                 this.HorasCatedra = horas_catedra;
             }
