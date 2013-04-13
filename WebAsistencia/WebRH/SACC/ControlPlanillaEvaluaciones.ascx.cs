@@ -17,7 +17,7 @@ public partial class SACC_ControlPlanillaEvaluaciones : System.Web.UI.UserContro
     }
 
 
-    public void CargarAsistencias()
+    public void CargarEvaluaciones()
     {
         var id_curso = int.Parse(this.CursoId.Value);
         //var mes = int.Parse(this.Mes.Value);
@@ -42,6 +42,6 @@ public partial class SACC_ControlPlanillaEvaluaciones : System.Web.UI.UserContro
     }
     protected void CmbCurso_SelectedIndexChanged(object sender, EventArgs e)
     {
-        CargarAsistencias();
+        CargarEvaluaciones();
     }
 }

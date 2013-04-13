@@ -810,7 +810,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var un_curso = RepositorioDeCursos().GetCursoById(id_curso);
 
-        List<InstanciasDeEvaluacion> instancias = un_curso.Instancias();
+        //List<InstanciasDeEvaluacion> instancias = un_curso.Instancias();
 
         var planilla_evaluacion_dto = new object();
         var planilla_evaluacion_alumnos_dto = new List<Object>();
@@ -846,13 +846,13 @@ public class WSViaticos : System.Web.Services.WebService
                 });
         });
 
-        planilla_evaluacion_dto = new
-        {
-            instancias = instancias,
-            evaluacionesalumnos = planilla_evaluacion_alumnos_dto
-        };
-        
-        return JsonConvert.SerializeObject(planilla_evaluacion_dto);
+        //planilla_evaluacion_dto = new
+        //{
+        //    instancias = instancias,
+        //    evaluacionesalumnos = planilla_evaluacion_alumnos_dto
+        //};
+
+        return JsonConvert.SerializeObject(planilla_evaluacion_alumnos_dto);
 
         //return string;
 
