@@ -15,6 +15,7 @@ namespace General
         private List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
         private int _horasCatedra;
         private EspacioFisico _espacioFisico;
+        private List<InstanciasDeEvaluacion> _instancias;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Nombre { get { return this.Materia.Nombre + " (" + this.Materia.Modalidad.Descripcion + ")"; } set { } }
@@ -22,14 +23,22 @@ namespace General
         public Materia Materia { get{ return _materia; } set{_materia = value;} }
         public int HorasCatedra { get { return _horasCatedra; } set { _horasCatedra = value; } }
         public EspacioFisico EspacioFisico { get { return _espacioFisico; } set { _espacioFisico = value; } }
+        //public InstanciasDeEvaluacion Instancias { get { return _instancias; } set { _instancias = value; } }
 
         public List<Alumno> Alumnos()
         {
             return _alumnos;
         }
+
+        public List<InstanciasDeEvaluacion> Instancias()
+        {
+            return _instancias;
+        }
+
         public Curso()
         {
             _alumnos = new List<Alumno>();
+            _instancias = new List<InstanciasDeEvaluacion>();
         }
   
         public Curso(int id, string nombre) 
@@ -38,6 +47,7 @@ namespace General
             this._nombre = nombre;
 
             _alumnos = new List<Alumno>();
+            _instancias = new List<InstanciasDeEvaluacion>();
 
         }
 
@@ -48,6 +58,7 @@ namespace General
             this._materia = materia;
             this._docente = docente;
             _alumnos = new List<Alumno>();
+            _instancias = new List<InstanciasDeEvaluacion>();
         }
 
         public void AgregarDiaDeCursada(DayOfWeek diaDeLaSemana)

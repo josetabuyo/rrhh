@@ -781,6 +781,7 @@ public class WSViaticos : System.Web.Services.WebService
         return manager_de_calendarios.CalendarioPara(un_curso);
 
     }
+
     [WebMethod]
     public PlanillaMensualDto GetPlanillaMensualDto(Curso un_curso, DateTime fecha_desde, DateTime fecha_hasta, CalendarioDeCurso calendario)
     {
@@ -794,7 +795,6 @@ public class WSViaticos : System.Web.Services.WebService
         return new GeneradorDePlanillas().GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, calendario);
     }
 
-
     [WebMethod]
     public List<AsistenciaDto> GetAsistenciasPorCursoYAlumno(int id_curso, int id_alumno)
     {
@@ -804,6 +804,60 @@ public class WSViaticos : System.Web.Services.WebService
 
         return asistencias_dto;
     }
+
+    [WebMethod]
+    public string GetPlanillaEvaluacionesPorCurso(int id_curso)
+    {
+        var un_curso = RepositorioDeCursos().GetCursoById(id_curso);
+
+        List<InstanciasDeEvaluacion> instancias = un_curso.Instancias();
+
+        var planilla_evaluacion_dto = new object();
+        var planilla_evaluacion_alumnos_dto = new List<Object>();
+
+        un_curso.Alumnos().ForEach(delegate(Alumno alumno)
+        {
+            var detalle_evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCursoYAlumno(un_curso.Id,alumno.Id);//deberia devolver nota e instancias
+            List<object> detalle_evaluacion = new List<object>();
+
+            foreach (var d in detalle_evaluaciones)
+	        {
+		        detalle_evaluacion.Add(new{
+                            valor = d.Value,
+                            instancia = d.Key
+                        });
+	        }
+
+            //detalle_evaluaciones.ForEach(d=>{
+                    
+            //            detalle_evaluacion.Add(new{
+            //                valor = d.Valor,
+            //                instancia = d.Instancia
+            //            });
+            //    });
+
+             planilla_evaluacion_alumnos_dto.Add(new
+                {
+                    id = alumno.Id,
+                    nombrealumno = alumno.Nombre + " " + alumno.Apellido,
+                    //pertenece_a = "MDS",
+                    detalle_evaluacion = detalle_evaluacion.ToArray()
+                    
+                });
+        });
+
+        planilla_evaluacion_dto = new
+        {
+            instancias = instancias,
+            evaluacionesalumnos = planilla_evaluacion_alumnos_dto
+        };
+        
+        return JsonConvert.SerializeObject(planilla_evaluacion_dto);
+
+        //return string;
+
+    }
+
 
 
     [WebMethod]
@@ -1419,6 +1473,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeEspaciosFisicos RepoEspaciosFisicos()
     {
         return new RepositorioDeEspaciosFisicos(Conexion());
+    }
+
+    private RepositorioDeEvaluaciones RepoEvaluaciones()
+    {
+        return new RepositorioDeEvaluaciones(Conexion());
     }
 
 }

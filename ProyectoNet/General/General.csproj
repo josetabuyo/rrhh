@@ -121,6 +121,7 @@
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeDocentes.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEspaciosFisicos.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEvaluaciones.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeMaterias.cs" />
     <Compile Include="Responsable.cs" />
     <Compile Include="Estadia.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="SACC\HorarioDeCursada.cs" />
     <Compile Include="SACC\HorarioDto.cs" />
     <Compile Include="SACC\InasistenciaNormal.cs" />
+    <Compile Include="SACC\InstanciasDeEvaluacion.cs" />
     <Compile Include="SACC\ManagerDeCalendarios.cs" />
     <Compile Include="SACC\Materia.cs" />
     <Compile Include="SACC\Modalidad.cs" />
