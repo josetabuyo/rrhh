@@ -138,7 +138,7 @@ namespace General.Repositorios
             var horarios_nuevos = curso.GetHorariosDeCursada();
 
 
-            parametros.Add("id_espacio_fisico", curso.EspacioFisico.Id);
+            parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
             parametros.Add("fecha", DateTime.Now);
@@ -156,7 +156,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
 
             parametros.Add("id_curso", curso.Id);
-            parametros.Add("id_espacio_fisico", curso.EspacioFisico.Id);
+            parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
             parametros.Add("fecha", DateTime.Now);
@@ -185,18 +185,23 @@ namespace General.Repositorios
             {
                 var parametros = new Dictionary<string, object>();
                 var horarios_nuevos = curso.GetHorariosDeCursada();
-                BorrarHorarios(curso.Id);
-                InsertarHorarios(curso.Id, horarios_nuevos);
+                if (!this.TieneAsistenciasEnHorarios(curso_a_modificar, curso_a_modificar.GetHorariosDeCursada(), horarios_nuevos) &&
+                    !this.TieneAsignadoAlumnos(curso_a_modificar) &&
+                    !this.TieneAsignadoDocente(curso_a_modificar))
+                {
+                    BorrarHorarios(curso.Id);
+                    InsertarHorarios(curso.Id, horarios_nuevos);
 
-                parametros.Add("id_curso", curso.Id);
-                parametros.Add("id_espacio_fisico", curso.EspacioFisico.Id);
-                parametros.Add("id_materia", curso.Materia.Id);
-                parametros.Add("id_docente", curso.Docente.Id);
-                // parametros.Add("horaCatedra", curso.HorasCatedra);
-                parametros.Add("fecha", DateTime.Now);
+                    parametros.Add("id_curso", curso.Id);
+                    parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
+                    parametros.Add("id_materia", curso.Materia.Id);
+                    parametros.Add("id_docente", curso.Docente.Id);
+                    parametros.Add("fecha", DateTime.Now);
 
-                conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
-                return true;
+                    conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
+                    return true;
+                }
+                return false;
             }
             else
             {
@@ -213,7 +218,7 @@ namespace General.Repositorios
                 parametros.Add("nro_dia_semana", (int)h.Dia);
                 parametros.Add("desde", FormatHora(h.HoraDeInicio.ToString()));
                 parametros.Add("hasta", FormatHora(h.HoraDeFin.ToString()));
-                parametros.Add("horas_catedra", 1); //lo tuve que agregar sino me pincha
+                parametros.Add("horas_catedra", h.HorasCatedra);
                 conexion_bd.EjecutarSinResultado("dbo.SACC_Ins_Horario", parametros);
             }
         }
@@ -286,6 +291,28 @@ namespace General.Repositorios
 
         }
 
+        private bool TieneAsistenciasEnHorarios(Curso un_curso, List<HorarioDeCursada> horarios_originales, List<HorarioDeCursada> horarios_nuevos)
+        {
+            if(horarios_originales.Count > horarios_nuevos.Count){
 
+            }
+            var asistencias = new RepositorioDeAsistencias(this.conexion_bd).GetAsistencias();
+            var horarios_cambiados = horarios_originales.FindAll(h => !horarios_nuevos.Contains(h));
+            var asistencias_afectadas = asistencias.FindAll(a => a.IdCurso == un_curso.Id && horarios_cambiados.Exists(h => h.Dia == a.Fecha.DayOfWeek));
+            if (asistencias_afectadas.Count > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public bool TieneAsignadoAlumnos(Curso un_curso)
+        {
+            return un_curso.Alumnos().Count > 0;
+        }
+
+        public bool TieneAsignadoDocente(Curso un_curso)
+        {
+            return un_curso.Docente != null;
+        }
     }
 }

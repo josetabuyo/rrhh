@@ -119,7 +119,7 @@ var DibujarGrillaHorarios = function () {
 
                         var contenedorAcciones = $('<div>');
                         var botonQuitar = $('<input>');
-                        botonQuitar.attr('id', 'btnQuitarHorario');
+                        botonQuitar.attr('name', 'btnQuitarHorario');
                         botonQuitar.attr('type', 'button');
                         botonQuitar.addClass('btn');
                         botonQuitar.val('Quitar');
@@ -140,8 +140,6 @@ var DibujarGrillaHorarios = function () {
     GrillaHorarios.CargarObjetos(horarios);
     GrillaHorarios.DibujarEn(contenedorGrillaHorario);
 };
-
-
 
 var CompletarDatosHorario = function (horario) {
     dia.val(horario.NumeroDia);
@@ -188,7 +186,7 @@ var ValidarCampoObligatorio = function (control) {
 };
 var AgregarHorario = function () {
 
-    if (ValidarHorario()) {
+    if (ValidarHorario(false)) {
         $.extend(horarios.push(NuevoHorario()));
 
         $("#txtHorarios").val(JSON.stringify(horarios));
@@ -207,7 +205,7 @@ var QuitarHorario = function (horario) {
 
 var CambiarHorario = function () {
 
-    if (ValidarHorario()) {
+    if (ValidarHorario(true)) {
         horarios = horarios.map(function (item) {
             return item == horario_seleccionado ? NuevoHorario() : item;
         });
@@ -240,11 +238,11 @@ var NuevoHorario = function () {
         HorasCatedra: horasCatedra.find('option:selected').text()
     };
 }
-var ValidarHorario = function () {
+var ValidarHorario = function (para_modificar) {
     return ValidarCampoObligatorio(dia) &&
            ValidarHora(horaI) &&
            ValidarHora(horaF) &&
-           ValidarSuperposicion() &&
+           (para_modificar || ValidarSuperposicion()) &&
            ValidarRangoDeHoras(horaI.val(), horaF.val());
 }
 

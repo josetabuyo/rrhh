@@ -1070,13 +1070,6 @@ public class WSViaticos : System.Web.Services.WebService
         return un_docente;
     }
 
-    //[WebMethod]
-    //public void ModificarDocente(Docente un_docente, Usuario usuario)
-    //{
-    //    var conexion = Conexion();
-    //    RepositorioDeDocentes().ModificarDocente(un_docente, usuario);
-    //}
-
     [WebMethod]
     public bool QuitarDocente(Docente docente, Usuario usuario)
     {
@@ -1084,8 +1077,8 @@ public class WSViaticos : System.Web.Services.WebService
         { 
             return false;
         }
-           RepositorioDeDocentes().QuitarDocente(docente, usuario);
-            return true;
+        RepositorioDeDocentes().QuitarDocente(docente, usuario);
+        return true;
     }
 
     [WebMethod]
@@ -1102,8 +1095,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var conexion = Conexion();
         Curso curso = RepositorioDeCursos().GetCursoById(idCurso);
-
-        //curso.ActualizarAlumnosDelCurso(alumnos);
 
         RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos, curso, usuario);
 
@@ -1131,7 +1122,6 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public EspacioFisico GetEspacioFisicoById(int id)
     {
-        //var espacio_fisico = 
         return RepoEspaciosFisicos().GetEspacioFisicoById(id); //JsonConvert.SerializeObject(espacio_fisico);
     }
 
@@ -1250,7 +1240,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool QuitarCurso(CursoDto curso, Usuario usuario)
     {
-        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, Id = curso.Id, EspacioFisico = curso.EspacioFisico};
+        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, Id = curso.Id, EspacioFisico = curso.EspacioFisico };
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {

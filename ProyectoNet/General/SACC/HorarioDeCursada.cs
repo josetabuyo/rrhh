@@ -55,6 +55,15 @@ namespace General
             }
             
         }
+
+        public override bool Equals(object obj)
+        {
+            HorarioDeCursada horario = (HorarioDeCursada)obj;
+            return this.Dia.Equals(horario.Dia) &&
+                this.HoraDeInicio.Equals(horario.HoraDeInicio) &&
+                this.HoraDeFin.Equals(horario.HoraDeFin) &&
+                this.HorasCatedra.Equals(horario.HorasCatedra);
+        }
         
     }
 }
