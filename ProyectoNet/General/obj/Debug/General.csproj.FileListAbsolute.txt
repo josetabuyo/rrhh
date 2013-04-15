@@ -5,13 +5,6 @@ C:\Repositorios\FernandoAssembla\SistemaWeb\ProyectoNet\General\bin\Debug\Newton
 C:\Repositorios\FernandoAssembla\SistemaWeb\ProyectoNet\General\obj\Debug\ResolveAssemblyReference.cache
 C:\Repositorios\FernandoAssembla\SistemaWeb\ProyectoNet\General\obj\Debug\General.dll
 C:\Repositorios\FernandoAssembla\SistemaWeb\ProyectoNet\General\obj\Debug\General.pdb
-C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\bin\Debug\General.dll.config
-C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\bin\Debug\General.dll
-C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\bin\Debug\General.pdb
-C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\bin\Debug\Newtonsoft.Json.dll
-C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\obj\Debug\ResolveAssemblyReference.cache
-C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\obj\Debug\General.dll
-C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\obj\Debug\General.pdb
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\ProyectoNet\General\bin\Debug\General.dll.config
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\ProyectoNet\General\bin\Debug\General.dll
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\ProyectoNet\General\bin\Debug\General.pdb
@@ -19,3 +12,10 @@ C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\ProyectoNet\General\bin\Deb
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\ProyectoNet\General\obj\Debug\ResolveAssemblyReference.cache
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\ProyectoNet\General\obj\Debug\General.dll
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\ProyectoNet\General\obj\Debug\General.pdb
+C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\bin\Debug\General.dll.config
+C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\bin\Debug\General.dll
+C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\bin\Debug\General.pdb
+C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\bin\Debug\Newtonsoft.Json.dll
+C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\obj\Debug\ResolveAssemblyReference.cache
+C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\obj\Debug\General.dll
+C:\Repositorios\Belen\GitHub\RRHH\rrhh\ProyectoNet\General\obj\Debug\General.pdb

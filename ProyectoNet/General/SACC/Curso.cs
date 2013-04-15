@@ -15,6 +15,7 @@ namespace General
         private List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
         private int _horasCatedra;
         private EspacioFisico _espacioFisico;
+        private List<InstanciaEvaluacion> _instanciasEvaluaciones = new List<InstanciaEvaluacion>();
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Nombre { get { return this.Materia.Nombre + " (" + this.Materia.Modalidad.Descripcion + ")"; } set { } }
@@ -114,6 +115,36 @@ namespace General
         internal int esMayorAlfabeticamenteQue(Curso otrocurso)
         {
             return this.Nombre.CompareTo(otrocurso.Nombre);
+        }
+
+        public void AgregarInstanciasEvaluaciones(List<InstanciaEvaluacion> instanciasEvaluaciones)
+        {
+            instanciasEvaluaciones.ForEach(i => this.AgregarInstanciaEvaluacion(i));
+        }
+
+        public void AgregarInstanciaEvaluacion(InstanciaEvaluacion instanciaEvaluacion)
+        {
+            this._instanciasEvaluaciones.Add(instanciaEvaluacion);
+        }
+
+        public List<InstanciaEvaluacion> GetInstanciasEvaluaciones()
+        {
+            return this._instanciasEvaluaciones;
+        }
+
+        public InstanciaEvaluacion ObtenerNotas(InstanciaEvaluacion instancia_evaluacion)
+        {
+            return  _instanciasEvaluaciones.Find(i => i.Equals(instancia_evaluacion));
+        }
+
+        public string ObtenerNotaDelAlumno(Alumno alumno, InstanciaEvaluacion instancia_evaluacion)
+        {
+            return _instanciasEvaluaciones.Find(i => i.Alumno == alumno && i == instancia_evaluacion).Nota;
+        }
+
+        public string ObtenerNotaDelAlumnoEnLaFecha(Alumno alumno, DateTime fecha)
+        {
+            return _instanciasEvaluaciones.Find(i => i.Alumno == alumno && i.Fecha == fecha).Nota;
         }
     }
 }
