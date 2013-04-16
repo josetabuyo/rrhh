@@ -5,6 +5,10 @@ using System.Text;
 
 public class TiempoEnAreaDTO
 {
+    public TiempoEnAreaDTO()
+    {
+
+    }
     public TiempoEnAreaDTO(TimeSpan tiempo)
     {
         dias = tiempo.Days;

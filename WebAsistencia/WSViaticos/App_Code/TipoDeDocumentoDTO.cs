@@ -6,6 +6,10 @@ using General;
 
 public class TipoDeDocumentoDTO
 {
+    public TipoDeDocumentoDTO()
+    {
+
+    }
     public TipoDeDocumentoDTO(TipoDeDocumentoSICOI tipoDoc)
     {
         id = tipoDoc.Id;
