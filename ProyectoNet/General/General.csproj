@@ -113,6 +113,7 @@
     <Compile Include="Repositorios\IRepositorioDeDocumentos.cs" />
     <Compile Include="Repositorios\IRepositorioDeOrganigrama.cs" />
     <Compile Include="Repositorios\RepositorioDeAlertas.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEvaluacion.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAlumnos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeCursos.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeDocentes.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEspaciosFisicos.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEvaluaciones.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeMaterias.cs" />
     <Compile Include="Responsable.cs" />
     <Compile Include="Estadia.cs" />
@@ -199,7 +201,8 @@
     <Compile Include="SACC\AsistenciaHoraTres.cs" />
     <Compile Include="SACC\AsistenciaHoraUno.cs" />
     <Compile Include="SACC\AsistenciaClaseSuspendida.cs" />
-    <Compile Include="SACC\InstanciaEvaluacion.cs" />
+    <Compile Include="SACC\EstructuraDeEvaluacion.cs" />
+    <Compile Include="SACC\Evaluacion.cs" />
     <Compile Include="SACC\DocenteNull.cs" />
     <Compile Include="SACC\Curso.cs" />
     <Compile Include="SACC\CursoDto.cs" />
@@ -212,6 +215,7 @@
     <Compile Include="SACC\HorarioDeCursada.cs" />
     <Compile Include="SACC\HorarioDto.cs" />
     <Compile Include="SACC\InasistenciaNormal.cs" />
+    <Compile Include="SACC\InstanciasDeEvaluacion.cs" />
     <Compile Include="SACC\ManagerDeCalendarios.cs" />
     <Compile Include="SACC\Materia.cs" />
     <Compile Include="SACC\Modalidad.cs" />

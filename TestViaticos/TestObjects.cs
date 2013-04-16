@@ -972,36 +972,33 @@ namespace General
             return lista;
         }
 
-        public static InstanciaEvaluacion PrimerParcialDeFerEnHistoria()
+        public static InstanciasDeEvaluacion PrimerParcial()
         {
-                
-            return new InstanciaEvaluacion(1, FechaPrimerParcial(),  UnAlumnoDelCurso().Id, UnCursoConAlumnos().Id, Calificacion10());
+            return new InstanciasDeEvaluacion(1, "Primer Parcial");
         }
 
-       
+        //internal static DateTime FechaPrimerParcial()
+        //{
+        //    return new DateTime(2013, 04, 11);
+        //}
 
-        internal static DateTime FechaPrimerParcial()
-        {
-            return new DateTime(2013, 04, 11);
-        }
+        //internal static DateTime FechaSegundoParcial()
+        //{
+        //    return new DateTime(2013, 05, 21);
+        //}
 
-        internal static DateTime FechaSegundoParcial()
-        {
-            return new DateTime(2013, 05, 21);
-        }
+        //internal static string Calificacion10()
+        //{
+        //    return "10";
+        //}
+        //internal static string Calificacion09()
+        //{
+        //    return "9";
+        //}
 
-        internal static string Calificacion10()
+        internal static InstanciasDeEvaluacion SegundoParcial()
         {
-            return "10";
-        }
-        internal static string Calificacion09()
-        {
-            return "9";
-        }
-
-        internal static InstanciaEvaluacion SegundoParcialDeFerEnHistoria()
-        {
-            return new InstanciaEvaluacion(1, FechaSegundoParcial(), UnAlumnoDelCurso().Id, UnCursoConAlumnos().Id, Calificacion09());
+            return new InstanciasDeEvaluacion(2, "Segundo Parcial");
         }
     }
 }

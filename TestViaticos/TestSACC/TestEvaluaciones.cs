@@ -4,6 +4,7 @@ using General;
 using General.Repositorios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using NMock2;
 
 namespace TestViaticos
 {
@@ -19,8 +20,8 @@ namespace TestViaticos
          EspacioFisico espacio_fisico;
          DayOfWeek dia_de_la_semana;
          HorarioDeCursada horario_de_cursada;
-         InstanciaEvaluacion primer_parcial_de_fer_en_historia;
-         InstanciaEvaluacion segundo_parcial_de_fer_en_historia;
+         InstanciasDeEvaluacion primer_parcial;
+         InstanciasDeEvaluacion segundo_parcial;
         
 
         [TestInitialize]
@@ -33,36 +34,75 @@ namespace TestViaticos
             espacio_fisico = new EspacioFisico();
             dia_de_la_semana = new DayOfWeek();
             horario_de_cursada = new HorarioDeCursada(dia_de_la_semana, "12:00", "13:00", 2);
-            primer_parcial_de_fer_en_historia = TestObjects.PrimerParcialDeFerEnHistoria();
-            segundo_parcial_de_fer_en_historia = TestObjects.SegundoParcialDeFerEnHistoria();
+            primer_parcial = TestObjects.PrimerParcial();
+            segundo_parcial = TestObjects.SegundoParcial();
         }
 
           [TestMethod]
           public void dado_un_curso__deberia_poder_cargar_todas_las_instancias_de_evaluacion_que_habra_en_el_mismo()
-          { 
-              
-              
+          {
 
-              un_curso.AgregarInstanciasEvaluaciones(instancias_evaluaciones);
+//              string source = @"    |Id     |Aula   |idEdificio     |NombreEdificio     |DireccionEdificio      |NumeroEdificio     |Capacidad  |idusuario     |Fecha                      |idBaja
+//                                    |01     |03     |01             |Evita              |9 de Julio             |1020               |30         |1111          |2012-10-13 21:36:35.077    |0
+//                                    |02     |Magna  |10             |San Martín         |Santa Fe 504           |504                |100        |1111          |2012-10-13 21:36:35.077    |0
+//                                    |03     |315    |03             |Perón              |Santa Fe 504           |504                |25         |1111          |2012-10-13 21:36:35.077    |0";
 
-              Assert.AreEqual(2, un_curso.GetInstanciasEvaluaciones().Count);
+//              IConexionBD conexion = TestObjects.ConexionMockeada();
+//              var resultado_sp = TablaDeDatos.From(source);
+
+//              Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+//              RepositorioDeEvaluacion repo = new RepositorioDeEvaluacion(conexion);
+
+
+//              repo.AgregarInstanciasEvaluaciones(instancias_evaluaciones);
+
+//              Assert.AreEqual(2, un_curso.GetInstanciasEvaluaciones().Count);
+
+              un_curso.AgregarInstanciaEvaluacion(primer_parcial);
+
+              Assert.AreEqual(1, un_curso.InstanciasDeEvaluacion().Count);
+
+
           }
           
           [TestMethod]
           public void dado_un_alumno_en_un_curso_y_una_instancia_de_evaluacion_deberia_poder_saber_que_nota_se_saco()
           {
-              DateTime fecha = new DateTime(2013, 04, 11);
-              InstanciaEvaluacion instancia_evaluacion1 = new InstanciaEvaluacion(1, fecha, un_alumno_del_curso, "10");
-              List<InstanciaEvaluacion> instancias_evaluaciones = new List<InstanciaEvaluacion>();
-              instancias_evaluaciones.Add(instancia_evaluacion1);
-              un_curso.AgregarInstanciasEvaluaciones(instancias_evaluaciones);
+
+//              string source = @"  |Id     |idAlumno   |idCurso     |Calificacion     |fechaEvaluacion           |idUsuario     |fecha                      |idBaja 
+//                                  |01     |03         |01          |10               |2013-05-13 00:00:00.000   |1111          |2012-10-13 21:36:35.077    |0
+//                                  |02     |15         |10          |03               |2013-06-10 00:00:00.000   |1111          |2012-10-13 21:36:35.077    |0
+//                                  |03     |315        |03          |08               |2013-05-13 00:00:00.000   |1111          |2012-10-13 21:36:35.077    |0";
+
+//              IConexionBD conexion = TestObjects.ConexionMockeada();
+//              var resultado_sp = TablaDeDatos.From(source);
+
+//              Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+//              RepositorioDeEvaluacion repo = new RepositorioDeEvaluacion(conexion);
+//              DateTime fecha = new DateTime(2013, 05, 13);
+
+//              List<InstanciaEvaluacion> evaluaciones =repo.GetEvaluacionesPorCursoYAlumno(1, 3);
+//              Evaluacion eval = evaluaciones.Find(e => e.Fecha.Equals(fecha));
+
+//              Assert.AreEqual(10, eval.Calificacion);//repo.GetEvaluacionesPorCursoYAlumno(01, 03).Find(e => e.Fecha.Equals(fecha)).Calificacion);
+              
+              
+              
+              
+              //DateTime fecha = new DateTime(2013, 04, 11);
+              //InstanciaEvaluacion instancia_evaluacion1 = new InstanciaEvaluacion(1, fecha, un_alumno_del_curso, "10");
+              //List<InstanciaEvaluacion> instancias_evaluaciones = new List<InstanciaEvaluacion>();
+              //instancias_evaluaciones.Add(instancia_evaluacion1);
+              //un_curso.AgregarInstanciasEvaluaciones(instancias_evaluaciones);
 
              
-              string nota_del_alumno = un_curso.ObtenerNotaDelAlumnoEnLaFecha(un_alumno_del_curso, fecha);
+              //string nota_del_alumno = un_curso.ObtenerNotaDelAlumnoEnLaFecha(un_alumno_del_curso, fecha);
 
 
 
-              Assert.AreEqual("10", nota_del_alumno);
+              //Assert.AreEqual("10", nota_del_alumno);
           }
 
           [TestMethod]
@@ -85,6 +125,14 @@ namespace TestViaticos
 
           [TestMethod]
           public void dado_un_alumno_un_curso_y_una_nota_deberia_poder_cambiarla()
+          {
+              un_curso.AgregarAlumnos(lista_alumnos_nuevos);
+
+              Assert.AreEqual(8, un_curso.Alumnos().Count());
+          }
+
+          [TestMethod]
+          public void no_deberia_poder_evaluar_un_alumno_que_no_pertenece_al_curso()
           {
               un_curso.AgregarAlumnos(lista_alumnos_nuevos);
 
