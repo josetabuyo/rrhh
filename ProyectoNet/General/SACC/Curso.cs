@@ -15,7 +15,7 @@ namespace General
         private List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
         private int _horasCatedra;
         private EspacioFisico _espacioFisico;
-        private List<InstanciaEvaluacion> _instanciasEvaluaciones = new List<InstanciaEvaluacion>();
+        private List<InstanciasDeEvaluacion> _instanciasDeEvaluacion;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Nombre { get { return this.Materia.Nombre + " (" + this.Materia.Modalidad.Descripcion + ")"; } set { } }
@@ -24,13 +24,21 @@ namespace General
         public int HorasCatedra { get { return _horasCatedra; } set { _horasCatedra = value; } }
         public EspacioFisico EspacioFisico { get { return _espacioFisico; } set { _espacioFisico = value; } }
 
+
         public List<Alumno> Alumnos()
         {
             return _alumnos;
         }
+
+        public List<InstanciasDeEvaluacion> InstanciasDeEvaluacion()
+        {
+            return _instanciasDeEvaluacion;
+        }
+
         public Curso()
         {
             _alumnos = new List<Alumno>();
+            _instanciasDeEvaluacion = new List<InstanciasDeEvaluacion>();
         }
   
         public Curso(int id, string nombre) 
@@ -39,6 +47,7 @@ namespace General
             this._nombre = nombre;
 
             _alumnos = new List<Alumno>();
+            _instanciasDeEvaluacion = new List<InstanciasDeEvaluacion>();
 
         }
 
@@ -49,6 +58,7 @@ namespace General
             this._materia = materia;
             this._docente = docente;
             _alumnos = new List<Alumno>();
+            _instanciasDeEvaluacion = new List<InstanciasDeEvaluacion>();
         }
 
         public void AgregarDiaDeCursada(DayOfWeek diaDeLaSemana)
@@ -117,34 +127,34 @@ namespace General
             return this.Nombre.CompareTo(otrocurso.Nombre);
         }
 
-        public void AgregarInstanciasEvaluaciones(List<InstanciaEvaluacion> instanciasEvaluaciones)
+        public void AgregarInstanciasEvaluaciones(List<InstanciasDeEvaluacion> instanciasEvaluaciones)
         {
             instanciasEvaluaciones.ForEach(i => this.AgregarInstanciaEvaluacion(i));
         }
 
-        public void AgregarInstanciaEvaluacion(InstanciaEvaluacion instanciaEvaluacion)
+        public void AgregarInstanciaEvaluacion(InstanciasDeEvaluacion instanciaEvaluacion)
         {
-            this._instanciasEvaluaciones.Add(instanciaEvaluacion);
+            this._instanciasDeEvaluacion.Add(instanciaEvaluacion);
         }
 
-        public List<InstanciaEvaluacion> GetInstanciasEvaluaciones()
-        {
-            return this._instanciasEvaluaciones;
-        }
+        //public List<Evaluacion> GetInstanciasEvaluaciones()
+        //{
+        //    return this._instanciasEvaluaciones;
+        //}
 
-        public InstanciaEvaluacion ObtenerNotas(InstanciaEvaluacion instancia_evaluacion)
-        {
-            return  _instanciasEvaluaciones.Find(i => i.Equals(instancia_evaluacion));
-        }
+        //public Evaluacion ObtenerNotas(Evaluacion instancia_evaluacion)
+        //{
+        //    return  _instanciasEvaluaciones.Find(i => i.Equals(instancia_evaluacion));
+        //}
 
-        public string ObtenerNotaDelAlumno(Alumno alumno, InstanciaEvaluacion instancia_evaluacion)
-        {
-            return _instanciasEvaluaciones.Find(i => i.Alumno == alumno && i == instancia_evaluacion).Nota;
-        }
+        //public string ObtenerNotaDelAlumno(Alumno alumno, Evaluacion instancia_evaluacion)
+        //{
+        //    return _instanciasEvaluaciones.Find(i => i.IdAlumno == alumno.Id && i == instancia_evaluacion).Calificacion;
+        //}
 
-        public string ObtenerNotaDelAlumnoEnLaFecha(Alumno alumno, DateTime fecha)
-        {
-            return _instanciasEvaluaciones.Find(i => i.Alumno == alumno && i.Fecha == fecha).Nota;
-        }
+        //public string ObtenerNotaDelAlumnoEnLaFecha(Alumno alumno, DateTime fecha)
+        //{
+        //    return _instanciasEvaluaciones.Find(i => i.IdAlumno == alumno.Id && i.Fecha == fecha).Calificacion;
+        //}
     }
 }
