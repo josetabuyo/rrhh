@@ -242,7 +242,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\WebAsistencia\WebRhUI\WebRhUI.csproj">
+      <Project>{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}</Project>
+      <Name>WebRhUI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>

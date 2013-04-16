@@ -30,11 +30,35 @@ public partial class SACC_ControlPlanillaEvaluaciones : System.Web.UI.UserContro
 
             var planilla = Servicio().GetPlanillaEvaluacionesPorCurso(id_curso);
             var curso = JsonConvert.DeserializeObject<JObject>(Servicio().GetCursoById(id_curso));
-        //    this.Curso.Value = curso.ToString();
+            this.Curso.Value = curso.ToString();
 
-        //    //this.planillaJSON.Value = planilla.ToString();
+            this.planillaJSON.Value = planilla.ToString();
         }
     }
+
+    //private void GuardarDetalleEvaluaciones()
+    //{
+    //    var detalle_asistencias_JSON = JsonConvert.DeserializeObject<JArray>(this.DetalleAsistencias.Value);
+    //    if (detalle_asistencias_JSON != null)
+    //    {
+    //        var servicio = Servicio();
+
+    //        var detalle_asistencias_dto = new List<AsistenciaDto>();
+    //        foreach (var item in detalle_asistencias_JSON)
+    //        {
+    //            var id_alumno = int.Parse(item["id_alumno"].ToString());
+    //            var fecha = DateTime.Parse(item["fecha"].ToString());
+    //            var valor = int.Parse(item["valor"].ToString());
+    //            var asistencia_dto = new AsistenciaDto();
+    //            asistencia_dto.IdAlumno = id_alumno;
+    //            asistencia_dto.IdCurso = int.Parse(this.CursoId.Value);
+    //            asistencia_dto.Fecha = fecha;
+    //            asistencia_dto.Valor = valor;
+    //            detalle_asistencias_dto.Add(asistencia_dto);
+    //        }
+    //        servicio.GuardarDetalleAsistencias(detalle_asistencias_dto.ToArray(), (Usuario)Session["usuario"]);
+    //    }
+    //}
 
     private WSViaticosSoapClient Servicio()
     {

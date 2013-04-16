@@ -39,20 +39,19 @@
 <script type="text/javascript">
 
     var AdministradorPlanillaEvaluaciones = function () {
-        if ($('#PlanillaAsistencia_planillaJSON').val() != "{}" && $('#PlanillaAsistencia_planillaJSON').val() != "") {
+        if ($('#PlanillaEvaluaciones_planillaJSON').val() != "{}" && $('#PlanillaEvaluaciones_planillaJSON').val() != "") {
 
-            var Planilla = JSON.parse($('#PlanillaAsistencia_planillaJSON').val());
+            var Planilla = JSON.parse($('#PlanillaEvaluaciones_planillaJSON').val());
 
-            var DiasCursados = Planilla['diascursados'];
-            var AlumnosInasistencias = Planilla['asistenciasalumnos'];
-            var contenedorPlanilla = $('#PlanillaAsistencia_ContenedorPlanilla');
+            var detalleEvaluaciones = Planilla['detalle_evaluacion'];
+            var AlumnosEvaluaciones = Planilla['nombrealumno'];
+            var contenedorPlanilla = $('#PlanillaEvaluaciones_ContenedorPlanilla');
             var columnas = [];
 
-            columnas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
-            if (DiasCursados) {
-                for (var i = 0; i < DiasCursados.length; i++) {
-                    columnas.push(new Columna(DiasCursados[i].nombre_dia + "/" + DiasCursados[i].dia + "<br/>" + DiasCursados[i].horas + " hs",
-                                        new GeneradorCeldaDiaCursado(DiasCursados[i])));
+            columnas.push(new Columna("Apellido y Nombre", { generar: function (evaluacionAlumno) { return evaluacionAlumno.nombrealumno } }));
+            if (detalleEvaluaciones) {
+                for (var i = 0; i < detalleEvaluaciones.length; i++) {
+                    columnas.push(new Columna(detalleEvaluaciones[i].instancia, new GeneradorCeldaDiaCursado(detalleEvaluaciones[i])));
                 }
             }
             columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
@@ -60,12 +59,12 @@
 
             var PlanillaMensual = new Grilla(columnas);
 
-            PlanillaMensual.CargarObjetos(AlumnosInasistencias);
+            PlanillaMensual.CargarObjetos(AlumnosEvaluaciones);
             PlanillaMensual.DibujarEn(contenedorPlanilla);
             PlanillaMensual.SetOnRowClickEventHandler(function () {
                 return true;
             });
-            var Docente = JSON.parse($("#PlanillaAsistencia_Curso").val()).Docente;
+            var Docente = JSON.parse($("#PlanillaEvaluaciones_Curso").val()).Docente;
 
             $("#Docente").text(Docente.Nombre + " " + Docente.Apellido);
         }
@@ -76,11 +75,33 @@
         }
     };
 
+    var GeneradorCeldaDiaCursado = function (diaCursado) {
+        var self = this;
+        self.diaCursado = diaCursado;
+        self.generar = function (inasistenciaalumno) {
+            var contenedorAcciones = $('<div>');
+
+            var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
+                .Where(function (x) { return x.fecha == diaCursado.fecha });
+
+            var botonAsistencia;
+            if (queryResult.Count() > 0) {
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor, inasistenciaalumno.max_horas_cursadas);
+            }
+            else {
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, inasistenciaalumno.max_horas_cursadas);
+            }
+            contenedorAcciones.append(botonAsistencia);
+
+            return contenedorAcciones;
+        };
+    }
+
     function CargarPlanilla() {
         if ($("#CmbCurso").val() != 0 && $("#CmbMes").val() != 0) {
-            $("#PlanillaAsistencia_CursoId").val($("#CmbCurso").val());
-            $("#PlanillaAsistencia_Mes").val($("#CmbMes").val());
-            $("#btn_CargarAsistencias").click();
+            $("#PlanillaEvaluaciones_CursoId").val($("#CmbCurso").val());
+            //$("#PlanillaEvaluaciones_Mes").val($("#CmbMes").val());
+            $("#btn_CargarEvaluaciones").click();
         }
     }
 
