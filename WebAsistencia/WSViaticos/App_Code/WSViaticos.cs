@@ -603,7 +603,7 @@ public class WSViaticos : System.Web.Services.WebService
         var areasFormales_dto = new List<Object>();
         areasFormales.ForEach(delegate(Area a)
         {            
-            areasFormales_dto.Add(AreaDtoPara(a));
+            areasFormales_dto.Add(new AreaDTO(a));
         });
         return JsonConvert.SerializeObject(areasFormales_dto);
     }
@@ -637,38 +637,18 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetCategoriasDeDocumentos().ToArray();
     }
 
-    //[WebMethod]
-    //public string GetDocumentosFiltrados(List<String> filtros)
-    //{
-    //    var filtrosDesSerializados = desSerializadorDeFiltros().DesSerializarFiltros(filtros);
-    //    var documentos = RepositorioDocumentos().GetDocumentosFiltrados(filtrosDesSerializados);
-    //    var documentos_dto = new List<Object>();
-
-    //    documentos.ForEach(delegate(Documento doc)
-    //    {
-    //        documentos_dto.Add(DocumentoDtoPara(doc));
-    //    });
-    //    return JsonConvert.SerializeObject(documentos_dto);
-    //}
-
     [WebMethod]
     public string GetDocumentosFiltrados(String filtros)
     {
         var filtrosDesSerializados = desSerializadorDeFiltros().DesSerializarFiltros(filtros);
         var documentos = RepositorioDocumentos().GetDocumentosFiltrados(filtrosDesSerializados);
         var documentos_dto = new List<Object>();
-
+        var mensajeria = Mensajeria();
         documentos.ForEach(delegate(Documento doc)
         {
-            documentos_dto.Add(DocumentoDtoPara(doc));
+            documentos_dto.Add(new DocumentoDTO(doc, mensajeria));
         });
         return JsonConvert.SerializeObject(documentos_dto);
-    }
-
-    [WebMethod]
-    public string CrearDocumentoAjax(String documento_dto)
-    {
-        return JsonConvert.SerializeObject(new { mensaje="todo bien " + documento_dto});
     }
 
     [WebMethod]
@@ -676,17 +656,17 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var documentos = DocumentosEnAlerta();
         var documentos_dto = new List<Object>();
+        var mensajeria = Mensajeria();
 
         documentos.ForEach(delegate(Documento doc)
         {
-            documentos_dto.Add(DocumentoDtoPara(doc));
+            documentos_dto.Add(new DocumentoDTO(doc, mensajeria));
         });
         return JsonConvert.SerializeObject(documentos_dto);
     }
 
     private List<Documento> DocumentosEnAlerta()
     {
-        // var filtrosDesSerializados = desSerializadorDeFiltros().DesSerializarFiltros(filtros);
         var alertas = new RepositorioDeAlertas(Mensajeria()).GetAlertas();
         var documentos = new List<Documento>();
 
@@ -702,87 +682,11 @@ public class WSViaticos : System.Web.Services.WebService
         return DocumentosEnAlerta().Any();
     }
 
-
     private DesSerializadorDeFiltros desSerializadorDeFiltros()
     {
         return new DesSerializadorDeFiltros(Mensajeria());
     }
-
-    private Object DocumentoDtoPara(Documento doc){
-        return new
-                {
-                    id = doc.Id,
-                    numero = doc.numero,
-                    tipo = TipoDocumentoDtoPara(doc.tipoDeDocumento),
-                    ticket = doc.ticket,
-                    extracto = doc.extracto,
-                    fechaDeAlta = doc.fecha.ToString("dd/MM/yyyy"),
-                    areaCreadora = AreaDtoPara(Mensajeria().SeOriginoEnArea(doc)),
-                    areaActual = AreaDtoPara(Mensajeria().EstaEnElArea(doc)),
-                    areaDestino = AreaDtoPara(Mensajeria().AreaDestinoPara(doc)),
-                    enAreaActualHace = TiempoEnElAreaActualDTOPara(doc),
-                    estado = EstadoDtoPara(doc),
-                    historial = HistorialDeTransicionesDtoPara(doc),
-                    comentarios = doc.comentarios,
-                    categoria = CategoriaDtoPara(doc.categoriaDeDocumento)
-                };
-    }
-
-    private object TiempoEnElAreaActualDTOPara(Documento doc)
-    {
-        var tiempo = Mensajeria().TiempoEnElAreaActualPara(doc);
-        return new {    dias = tiempo.Days,
-                        horas = tiempo.Hours,
-                        minutos = tiempo.Minutes};
-    }
-
-
-    private Object CategoriaDtoPara(CategoriaDeDocumentoSICOI cat)
-    {
-        return new
-        {
-            id = cat.Id,
-            descripcion = cat.descripcion
-        };
-
-    }
-    private Object TipoDocumentoDtoPara(TipoDeDocumentoSICOI tipoDoc)
-    {
-        return new
-                {
-                    id = tipoDoc.Id,
-                    descripcion = tipoDoc.descripcion
-                };
-    }
-
-    private Object AreaDtoPara(Area area){
-        return new
-                {
-                    id = area.Id,
-                    descripcion = area.Alias
-                };
-    }
-
-    private String EstadoDtoPara(Documento doc)
-    {
-        var areaDestino = Mensajeria().AreaDestinoPara(doc);
-        string estado;
-        estado = "Recibido";
-        if (areaDestino.Id > -1) estado = "A remitir";
-        return estado;
-    }
-
-    private Array HistorialDeTransicionesDtoPara(Documento doc)
-    {
-        var historial = new List<Object>(); 
-        Mensajeria().HistorialDetransicionesPara(doc).ForEach(t => historial.Add(new {  areaOrigen = t.AreaOrigen.NombreConAlias(),
-                                                                                areaDestino = t.AreaDestino.NombreConAlias(),
-                                                                                fecha = t.Fecha.ToString("dd/MM/yyyy")
-                                                                                }));
-        return historial.ToArray();
-    }
-
-
+ 
     public RepositorioDeDocumentos RepositorioDocumentos()
     {
         return new RepositorioDeDocumentos(Conexion());
@@ -800,7 +704,6 @@ public class WSViaticos : System.Web.Services.WebService
         var repo_organigrama = RepositorioDeOrganigrama.NuevoRepositorioOrganigrama(conexion);//new RepositorioDeOrganigrama(conexion);
         return new RepositorioMensajeria(conexion, repo_documentos, repo_organigrama);
     }
-
 
     public Mensajeria Mensajeria()
     {
@@ -1037,8 +940,7 @@ public class WSViaticos : System.Web.Services.WebService
                     nombre = persona.Apellido + ", " + persona.Nombre,
                     apellido = persona.Apellido,
                     documento = persona.Documento,
-                    area = AreaDtoPara(persona.Area), 
-                    
+                    area = new AreaDTO(persona.Area)                    
                 });
             });
         }
