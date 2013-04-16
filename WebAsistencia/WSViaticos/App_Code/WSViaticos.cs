@@ -805,7 +805,6 @@ public class WSViaticos : System.Web.Services.WebService
         return asistencias_dto;
     }
 
-
     [WebMethod]
     public string GetPlanillaInasistenciaAlumnoPorMes(int id_curso, DateTime fecha_desde, DateTime fecha_hasta)
     {

@@ -32,7 +32,7 @@ namespace General.Repositorios
             tablaDatos.Rows.ForEach(row =>
             {
                 var docente = GetDocenteByIdCurso(row.GetSmallintAsInt("IdDocente"));
-                var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico"); //IdEspacioFisico
+                var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico"); 
 
                 if (espacio_fisico_id == 0)
                 {
@@ -185,7 +185,7 @@ namespace General.Repositorios
             {
                 var parametros = new Dictionary<string, object>();
                 var horarios_nuevos = curso.GetHorariosDeCursada();
-                if (!this.TieneAsistenciasEnHorarios(curso_a_modificar, curso_a_modificar.GetHorariosDeCursada(), horarios_nuevos) &&
+                if (!this.TieneAsistenciasEnHorarios(curso_a_modificar, horarios_nuevos) &&
                     !this.TieneAsignadoAlumnos(curso_a_modificar) &&
                     !this.TieneAsignadoDocente(curso_a_modificar))
                 {
@@ -280,6 +280,7 @@ namespace General.Repositorios
 
         private void EliminarAlumnoDelCurso(Alumno alumno, Curso curso, Usuario usuario)
         {
+            //Verificar que no se elimine el alumno si tiene asistencias
             var idBaja = CrearBaja(usuario);
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idCurso", curso.Id);
@@ -291,15 +292,13 @@ namespace General.Repositorios
 
         }
 
-        private bool TieneAsistenciasEnHorarios(Curso un_curso, List<HorarioDeCursada> horarios_originales, List<HorarioDeCursada> horarios_nuevos)
+        private bool TieneAsistenciasEnHorarios(Curso un_curso, List<HorarioDeCursada> horarios_nuevos)
         {
-            if(horarios_originales.Count > horarios_nuevos.Count){
-
-            }
+            var horarios_originales = un_curso.GetHorariosDeCursada();
             var asistencias = new RepositorioDeAsistencias(this.conexion_bd).GetAsistencias();
-            var horarios_cambiados = horarios_originales.FindAll(h => !horarios_nuevos.Contains(h));
-            var asistencias_afectadas = asistencias.FindAll(a => a.IdCurso == un_curso.Id && horarios_cambiados.Exists(h => h.Dia == a.Fecha.DayOfWeek));
-            if (asistencias_afectadas.Count > 0)
+
+            var horarios_inamovibles = horarios_originales.FindAll(h => asistencias.Exists(a => a.Fecha.DayOfWeek == h.Dia));
+            if (horarios_nuevos.FindAll(h => horarios_inamovibles.Contains(h)).Count > 0)
                 return true;
             else
                 return false;
