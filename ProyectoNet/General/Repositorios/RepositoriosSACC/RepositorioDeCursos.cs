@@ -298,7 +298,8 @@ namespace General.Repositorios
             var asistencias = new RepositorioDeAsistencias(this.conexion_bd).GetAsistencias();
 
             var horarios_inamovibles = horarios_originales.FindAll(h => asistencias.Exists(a => a.Fecha.DayOfWeek == h.Dia));
-            if (horarios_nuevos.FindAll(h => horarios_inamovibles.Contains(h)).Count > 0)
+            var horarios_con_horas_catedra_cambiadas = horarios_originales.FindAll(h => horarios_nuevos.Exists(hn => h.Dia == hn.Dia && h.HorasCatedra != hn.HorasCatedra));
+            if (horarios_nuevos.FindAll(h => horarios_inamovibles.Contains(h)).Count > 0 && horarios_con_horas_catedra_cambiadas.Count > 0)
                 return true;
             else
                 return false;
