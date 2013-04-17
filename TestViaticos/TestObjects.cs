@@ -971,5 +971,34 @@ namespace General
                                                     };
             return lista;
         }
+
+        public static InstanciasDeEvaluacion PrimerParcial()
+        {
+            return new InstanciasDeEvaluacion(1, "Primer Parcial");
+        }
+
+        //internal static DateTime FechaPrimerParcial()
+        //{
+        //    return new DateTime(2013, 04, 11);
+        //}
+
+        //internal static DateTime FechaSegundoParcial()
+        //{
+        //    return new DateTime(2013, 05, 21);
+        //}
+
+        //internal static string Calificacion10()
+        //{
+        //    return "10";
+        //}
+        //internal static string Calificacion09()
+        //{
+        //    return "9";
+        //}
+
+        internal static InstanciasDeEvaluacion SegundoParcial()
+        {
+            return new InstanciasDeEvaluacion(2, "Segundo Parcial");
+        }
     }
 }

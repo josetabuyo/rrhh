@@ -43,8 +43,8 @@
 
             var Planilla = JSON.parse($('#PlanillaEvaluaciones_planillaJSON').val());
 
-            var detalleEvaluaciones = Planilla['detalle_evaluacion'];
-            var AlumnosEvaluaciones = Planilla['nombrealumno'];
+            var detalleEvaluaciones = Planilla['detalle_evaluacion_dto'];
+            var AlumnosEvaluaciones = Planilla['idAlumno'];
             var contenedorPlanilla = $('#PlanillaEvaluaciones_ContenedorPlanilla');
             var columnas = [];
 
@@ -54,8 +54,8 @@
                     columnas.push(new Columna(detalleEvaluaciones[i].instancia, new GeneradorCeldaDiaCursado(detalleEvaluaciones[i])));
                 }
             }
-            columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
-            columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
+            //columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
+            //columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
 
             var PlanillaMensual = new Grilla(columnas);
 

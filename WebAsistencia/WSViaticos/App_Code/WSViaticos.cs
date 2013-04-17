@@ -814,36 +814,40 @@ public class WSViaticos : System.Web.Services.WebService
 
         var planilla_evaluacion_dto = new object();
         var planilla_evaluacion_alumnos_dto = new List<Object>();
+        List<object> detalle_evaluacion_dto = new List<object>();
 
         un_curso.Alumnos().ForEach(delegate(Alumno alumno)
         {
             var detalle_evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCursoYAlumno(un_curso.Id,alumno.Id);//deberia devolver nota e instancias
-            List<object> detalle_evaluacion = new List<object>();
+            //List<object> detalle_evaluacion_dto = new List<object>();
 
-            foreach (var d in detalle_evaluaciones)
-	        {
-		        detalle_evaluacion.Add(new{
-                            valor = d.Value,
-                            instancia = d.Key
-                        });
-	        }
-
-            //detalle_evaluaciones.ForEach(d=>{
-                    
-            //            detalle_evaluacion.Add(new{
-            //                valor = d.Valor,
-            //                instancia = d.Instancia
+            //foreach (var d in detalle_evaluaciones)
+            //{
+            //    detalle_evaluacion.Add(new{
+            //                valor = d.Calificacion,
+            //                instancia = d.InstanciaEvaluacion.Descripcion
             //            });
-            //    });
+            //}
 
-             planilla_evaluacion_alumnos_dto.Add(new
+            detalle_evaluaciones.ForEach(d =>
+            {
+
+                detalle_evaluacion_dto.Add(new
                 {
-                    id = alumno.Id,
-                    nombrealumno = alumno.Nombre + " " + alumno.Apellido,
-                    //pertenece_a = "MDS",
-                    detalle_evaluacion = detalle_evaluacion.ToArray()
-                    
+                    valor = d.Calificacion,
+                    instancia = d.InstanciaEvaluacion.Descripcion,
+                    idAlumno = d.IdAlumno
                 });
+            });
+
+             //planilla_evaluacion_alumnos_dto.Add(new
+             //   {
+             //       id = alumno.Id,
+             //       nombrealumno = alumno.Nombre + " " + alumno.Apellido,
+             //       //pertenece_a = "MDS",
+             //       detalle_evaluacion = detalle_evaluacion.ToArray()
+                    
+             //   });
         });
 
         //planilla_evaluacion_dto = new
@@ -852,7 +856,7 @@ public class WSViaticos : System.Web.Services.WebService
         //    evaluacionesalumnos = planilla_evaluacion_alumnos_dto
         //};
 
-        return JsonConvert.SerializeObject(planilla_evaluacion_alumnos_dto);
+        return JsonConvert.SerializeObject(detalle_evaluacion_dto);
 
         //return string;
 
@@ -1475,9 +1479,9 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDeEspaciosFisicos(Conexion());
     }
 
-    private RepositorioDeEvaluaciones RepoEvaluaciones()
+    private RepositorioDeEvaluacion RepoEvaluaciones()
     {
-        return new RepositorioDeEvaluaciones(Conexion());
+        return new RepositorioDeEvaluacion(Conexion());
     }
 
 }

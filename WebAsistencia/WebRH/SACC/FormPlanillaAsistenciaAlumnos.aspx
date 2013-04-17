@@ -6,7 +6,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Planilla De Asistencia</title>
+    <title></title>
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
         runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
