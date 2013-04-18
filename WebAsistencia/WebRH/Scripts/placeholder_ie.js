@@ -45,7 +45,7 @@
 
         if (!(input.val() === "")) label.hide();
 
-        input.click(function () {
+        input.focus(function () {
             label.hide();
         });
 
