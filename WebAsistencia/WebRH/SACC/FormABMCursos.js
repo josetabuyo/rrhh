@@ -114,11 +114,12 @@ var DibujarGrillaHorarios = function () {
                     new Columna("Dia", { generar: function (horario) { return horario.Dia; } }),
                     new Columna("Hora Inicio", { generar: function (horario) { return horario.HoraDeInicio; } }),
                     new Columna("Hora Fin", { generar: function (horario) { return horario.HoraDeFin; } }),
+                    new Columna("Horas", { generar: function (horario) { return horario.HorasCatedra; } }),
                     new Columna('Quitar', { generar: function (horario) {
 
                         var contenedorAcciones = $('<div>');
                         var botonQuitar = $('<input>');
-                        botonQuitar.attr('id', 'btnQuitarHorario');
+                        botonQuitar.attr('name', 'btnQuitarHorario');
                         botonQuitar.attr('type', 'button');
                         botonQuitar.addClass('btn');
                         botonQuitar.val('Quitar');
@@ -140,12 +141,11 @@ var DibujarGrillaHorarios = function () {
     GrillaHorarios.DibujarEn(contenedorGrillaHorario);
 };
 
-
-
 var CompletarDatosHorario = function (horario) {
     dia.val(horario.NumeroDia);
     horaI.val(horario.HoraDeInicio);
     horaF.val(horario.HoraDeFin);
+    horasCatedra.val(horario.HorasCatedra);
     horario_seleccionado = horario;
 
     MostrarBotonCambiarHorario();
@@ -186,7 +186,7 @@ var ValidarCampoObligatorio = function (control) {
 };
 var AgregarHorario = function () {
 
-    if (ValidarHorario()) {
+    if (ValidarHorario(false)) {
         $.extend(horarios.push(NuevoHorario()));
 
         $("#txtHorarios").val(JSON.stringify(horarios));
@@ -205,7 +205,7 @@ var QuitarHorario = function (horario) {
 
 var CambiarHorario = function () {
 
-    if (ValidarHorario()) {
+    if (ValidarHorario(true)) {
         horarios = horarios.map(function (item) {
             return item == horario_seleccionado ? NuevoHorario() : item;
         });
@@ -234,14 +234,15 @@ var NuevoHorario = function () {
         NumeroDia: dia.find('option:selected').val(),
         Dia: dia.find('option:selected').text(),
         HoraDeInicio: horaI.val(),
-        HoraDeFin: horaF.val()
+        HoraDeFin: horaF.val(),
+        HorasCatedra: horasCatedra.find('option:selected').text()
     };
 }
-var ValidarHorario = function () {
+var ValidarHorario = function (para_modificar) {
     return ValidarCampoObligatorio(dia) &&
            ValidarHora(horaI) &&
            ValidarHora(horaF) &&
-           ValidarSuperposicion() &&
+           (para_modificar || ValidarSuperposicion()) &&
            ValidarRangoDeHoras(horaI.val(), horaF.val());
 }
 

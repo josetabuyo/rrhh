@@ -41,6 +41,7 @@ namespace General
                 this._dia = dia;
                 this.HoraDeInicio = TimeSpan.Parse(hora_inicio);
                 this.HoraDeFin = TimeSpan.Parse(hora_fin);
+                this.HorasCatedra = horas_catedra;
 
                 this.HorasCatedra = horas_catedra;
             }
@@ -53,6 +54,15 @@ namespace General
                 throw o;
             }
             
+        }
+
+        public override bool Equals(object obj)
+        {
+            HorarioDeCursada horario = (HorarioDeCursada)obj;
+            return this.Dia.Equals(horario.Dia) &&
+                this.HoraDeInicio.Equals(horario.HoraDeInicio) &&
+                this.HoraDeFin.Equals(horario.HoraDeFin) &&
+                this.HorasCatedra.Equals(horario.HorasCatedra);
         }
         
     }

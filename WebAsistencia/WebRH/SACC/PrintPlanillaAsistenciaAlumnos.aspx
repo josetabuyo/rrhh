@@ -91,17 +91,15 @@
         self.diaCursado = diaCursado;
         self.generar = function (inasistenciaalumno) {
             var contenedorAcciones = $('<div>');
-            //dps se tiene que eliminar el random y cambiar por "0"
-            //alert(JSON.stringify(inasistenciaalumno));
             var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
                 .Where(function (x) { return x.fecha == diaCursado.fecha });
 
             var botonAsistencia;
             if (queryResult.Count() > 0) {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor, inasistenciaalumno.max_horas_cursadas);
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor, diaCursado.horas);
             }
             else {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, inasistenciaalumno.max_horas_cursadas);
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, diaCursado.horas);
             }
             contenedorAcciones.append(botonAsistencia);
 

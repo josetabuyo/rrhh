@@ -32,7 +32,7 @@ namespace General.Repositorios
             tablaDatos.Rows.ForEach(row =>
             {
                 var docente = GetDocenteByIdCurso(row.GetSmallintAsInt("IdDocente"));
-                var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico"); //IdEspacioFisico
+                var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico"); 
 
                 if (espacio_fisico_id == 0)
                 {
@@ -49,8 +49,6 @@ namespace General.Repositorios
                     Id = row.GetSmallintAsInt("Id"),
                     Docente = docente,
                     Materia = new RepositorioDeMaterias(conexion_bd).GetMateriaById(row.GetSmallintAsInt("IdMateria")),
-
-                    HorasCatedra = row.GetSmallintAsInt("HoraCatedra"),
 
                     EspacioFisico = espacio_fisico,
 
@@ -140,10 +138,9 @@ namespace General.Repositorios
             var horarios_nuevos = curso.GetHorariosDeCursada();
 
 
-            parametros.Add("id_aula", curso.EspacioFisico.Id);
+            parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
-            parametros.Add("horaCatedra", curso.HorasCatedra);
             parametros.Add("fecha", DateTime.Now);
 
             int id_curso = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Curso", parametros).ToString());
@@ -159,7 +156,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
 
             parametros.Add("id_curso", curso.Id);
-            parametros.Add("id_aula", curso.EspacioFisico.Id);
+            parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
             parametros.Add("fecha", DateTime.Now);
@@ -188,18 +185,23 @@ namespace General.Repositorios
             {
                 var parametros = new Dictionary<string, object>();
                 var horarios_nuevos = curso.GetHorariosDeCursada();
-                BorrarHorarios(curso.Id);
-                InsertarHorarios(curso.Id, horarios_nuevos);
+                if (!this.TieneAsistenciasEnHorarios(curso_a_modificar, horarios_nuevos) &&
+                    !this.TieneAsignadoAlumnos(curso_a_modificar) &&
+                    !this.TieneAsignadoDocente(curso_a_modificar))
+                {
+                    BorrarHorarios(curso.Id);
+                    InsertarHorarios(curso.Id, horarios_nuevos);
 
-                parametros.Add("id_curso", curso.Id);
-                parametros.Add("id_aula", curso.EspacioFisico.Id);
-                parametros.Add("id_materia", curso.Materia.Id);
-                parametros.Add("id_docente", curso.Docente.Id);
-                // parametros.Add("horaCatedra", curso.HorasCatedra);
-                parametros.Add("fecha", DateTime.Now);
+                    parametros.Add("id_curso", curso.Id);
+                    parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
+                    parametros.Add("id_materia", curso.Materia.Id);
+                    parametros.Add("id_docente", curso.Docente.Id);
+                    parametros.Add("fecha", DateTime.Now);
 
-                conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
-                return true;
+                    conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
+                    return true;
+                }
+                return false;
             }
             else
             {
@@ -216,7 +218,7 @@ namespace General.Repositorios
                 parametros.Add("nro_dia_semana", (int)h.Dia);
                 parametros.Add("desde", FormatHora(h.HoraDeInicio.ToString()));
                 parametros.Add("hasta", FormatHora(h.HoraDeFin.ToString()));
-                parametros.Add("horas_catedra", 1); //lo tuve que agregar sino me pincha
+                parametros.Add("horas_catedra", h.HorasCatedra);
                 conexion_bd.EjecutarSinResultado("dbo.SACC_Ins_Horario", parametros);
             }
         }
@@ -278,6 +280,7 @@ namespace General.Repositorios
 
         private void EliminarAlumnoDelCurso(Alumno alumno, Curso curso, Usuario usuario)
         {
+            //Verificar que no se elimine el alumno si tiene asistencias
             var idBaja = CrearBaja(usuario);
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idCurso", curso.Id);
@@ -289,6 +292,27 @@ namespace General.Repositorios
 
         }
 
+        private bool TieneAsistenciasEnHorarios(Curso un_curso, List<HorarioDeCursada> horarios_nuevos)
+        {
+            var horarios_originales = un_curso.GetHorariosDeCursada();
+            var asistencias = new RepositorioDeAsistencias(this.conexion_bd).GetAsistencias();
 
+            var horarios_inamovibles = horarios_originales.FindAll(h => asistencias.Exists(a => a.Fecha.DayOfWeek == h.Dia));
+            var horarios_con_horas_catedra_cambiadas = horarios_originales.FindAll(h => horarios_nuevos.Exists(hn => h.Dia == hn.Dia && h.HorasCatedra != hn.HorasCatedra));
+            if (horarios_nuevos.FindAll(h => horarios_inamovibles.Contains(h)).Count > 0 && horarios_con_horas_catedra_cambiadas.Count > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public bool TieneAsignadoAlumnos(Curso un_curso)
+        {
+            return un_curso.Alumnos().Count > 0;
+        }
+
+        public bool TieneAsignadoDocente(Curso un_curso)
+        {
+            return un_curso.Docente != null;
+        }
     }
 }
