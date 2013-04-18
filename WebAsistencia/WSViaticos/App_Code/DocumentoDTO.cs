@@ -27,7 +27,7 @@ public class DocumentoDTO
         estado = "Recibido";
         if (areaDestino.id > -1) estado = "A remitir";
 
-        var historial = new List<TransicionDeDocumentoDTO>();
+        historial = new List<TransicionDeDocumentoDTO>();
         mensajeria.HistorialDetransicionesPara(doc).ForEach(t => historial.Add(new TransicionDeDocumentoDTO(t)));
 	}
 
