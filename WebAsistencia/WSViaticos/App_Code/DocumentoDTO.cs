@@ -6,6 +6,9 @@ using General;
 
 public class DocumentoDTO
 {
+    public DocumentoDTO()
+    {
+    }
     public DocumentoDTO (Documento doc, Mensajeria mensajeria)
 	{
         id = doc.Id;
@@ -24,9 +27,8 @@ public class DocumentoDTO
         estado = "Recibido";
         if (areaDestino.id > -1) estado = "A remitir";
 
-        var lstHistorial = new List<TransicionDeDocumentoDTO>();
-        mensajeria.HistorialDetransicionesPara(doc).ForEach(t => lstHistorial.Add(new TransicionDeDocumentoDTO(t)));
-        historial = lstHistorial.ToArray();
+        historial = new List<TransicionDeDocumentoDTO>();
+        mensajeria.HistorialDetransicionesPara(doc).ForEach(t => historial.Add(new TransicionDeDocumentoDTO(t)));
 	}
 
     public int id { get; set; }
@@ -40,7 +42,7 @@ public class DocumentoDTO
     public AreaDTO areaActual { get; set; }
     public AreaDTO areaDestino { get; set; }
     public TiempoEnAreaDTO enAreaActualHace { get; set; }
-    public Array historial { get; set; }
+    public List<TransicionDeDocumentoDTO> historial { get; set; }
     public string estado { get; set; }
     public CategoriaDTO categoria { get; set; }
 }

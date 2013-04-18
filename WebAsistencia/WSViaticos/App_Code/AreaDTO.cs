@@ -6,6 +6,10 @@ using General;
 
 public class AreaDTO
 {
+    public AreaDTO()
+    {
+
+    }
     public AreaDTO(Area area)
     {
         id = area.Id;

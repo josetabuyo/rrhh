@@ -6,6 +6,10 @@ using General;
 
 public class CategoriaDTO
 {
+    public CategoriaDTO()
+    {
+
+    }
     public CategoriaDTO(CategoriaDeDocumentoSICOI categoria)
     {
         id = categoria.Id;

@@ -6,6 +6,10 @@ using General;
 
 public class TransicionDeDocumentoDTO
 {
+    public TransicionDeDocumentoDTO()
+    {
+
+    }
     public TransicionDeDocumentoDTO(TransicionDeDocumento t)
     {
         areaOrigen = t.AreaOrigen.NombreConAlias();

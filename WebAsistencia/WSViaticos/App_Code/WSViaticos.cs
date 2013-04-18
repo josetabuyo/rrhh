@@ -638,17 +638,17 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetDocumentosFiltrados(String filtros)
+    public List<DocumentoDTO> GetDocumentosFiltrados(String filtros)
     {
         var filtrosDesSerializados = desSerializadorDeFiltros().DesSerializarFiltros(filtros);
         var documentos = RepositorioDocumentos().GetDocumentosFiltrados(filtrosDesSerializados);
-        var documentos_dto = new List<Object>();
+        var documentos_dto = new List<DocumentoDTO>();
         var mensajeria = Mensajeria();
         documentos.ForEach(delegate(Documento doc)
         {
             documentos_dto.Add(new DocumentoDTO(doc, mensajeria));
         });
-        return JsonConvert.SerializeObject(documentos_dto);
+        return documentos_dto;
     }
 
     [WebMethod]
