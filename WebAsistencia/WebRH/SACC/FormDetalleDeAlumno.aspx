@@ -14,11 +14,14 @@
 <body>
     <form id="form1" runat="server">
      <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-
+     <br />
+     <br />
+     <h1>Página en Construcción</h1>
     <div class="botones_main_sicoi">
+    
             <asp:Button ID="btnABMCursos" Text="Asignar Cursos" runat="server" 
                 onclick="btnAsignarCursos_Click" class=" btn btn-primary boton_main_documentos" 
-                Visible="True"/>
+                Visible="false"/>
     
     </div>
     </form>
