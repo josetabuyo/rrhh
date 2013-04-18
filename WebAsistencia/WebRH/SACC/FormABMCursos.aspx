@@ -49,7 +49,7 @@
             <asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" ></asp:DropdownList>
             <asp:TextBox ID="txtHoraInicio" title="Hora de inicio" CssClass="input-small" placeholder="Hora Inicio" runat="server" MaxLength="5"></asp:TextBox>
             <asp:TextBox ID="txtHoraFin" title="Hora de fin" CssClass="input-small" placeholder="Hora Fin" runat="server" MaxLength="5"></asp:TextBox>
-            <select runat="server" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false" class="input-small"></select>
+            <select runat="server" title="Horas Catedra" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false" class="input-small"></select>
            
             <input id="agregarHorario" type="button" value="Agregar" 
                 onclick="javascript:AgregarHorario();" 
