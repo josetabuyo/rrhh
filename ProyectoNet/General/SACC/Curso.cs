@@ -15,6 +15,7 @@ namespace General
         private List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
         private int _horasCatedra;
         private EspacioFisico _espacioFisico;
+        private List<InstanciaDeEvaluacion> _instanciasDeEvaluacion;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Nombre { get { return this.Materia.Nombre + " (" + this.Materia.Modalidad.Descripcion + ")"; } set { } }
@@ -27,9 +28,16 @@ namespace General
         {
             return _alumnos;
         }
+
+        public List<InstanciaDeEvaluacion> InstanciasDeEvaluacion()
+        {
+            return _instanciasDeEvaluacion;
+        }
+
         public Curso()
         {
             _alumnos = new List<Alumno>();
+            _instanciasDeEvaluacion = new List<InstanciaDeEvaluacion>();
         }
   
         public Curso(int id, string nombre) 
@@ -38,6 +46,7 @@ namespace General
             this._nombre = nombre;
 
             _alumnos = new List<Alumno>();
+            _instanciasDeEvaluacion = new List<InstanciaDeEvaluacion>();
 
         }
 
@@ -48,6 +57,7 @@ namespace General
             this._materia = materia;
             this._docente = docente;
             _alumnos = new List<Alumno>();
+            _instanciasDeEvaluacion = new List<InstanciaDeEvaluacion>();
         }
 
         public void AgregarDiaDeCursada(DayOfWeek diaDeLaSemana)
@@ -114,6 +124,41 @@ namespace General
         internal int esMayorAlfabeticamenteQue(Curso otrocurso)
         {
             return this.Nombre.CompareTo(otrocurso.Nombre);
+        }
+
+        public void AgregarInstanciasEvaluaciones(List<InstanciaDeEvaluacion> instanciasEvaluaciones)
+        {
+            instanciasEvaluaciones.ForEach(i => this.AgregarInstanciaEvaluacion(i));
+        }
+
+        public void AgregarInstanciaEvaluacion(InstanciaDeEvaluacion instanciaEvaluacion)
+        {
+            this._instanciasDeEvaluacion.Add(instanciaEvaluacion);
+        }
+
+        //public List<Evaluacion> GetInstanciasEvaluaciones()
+        //{
+        //    return this._instanciasEvaluaciones;
+        //}
+
+        //public Evaluacion ObtenerNotas(Evaluacion instancia_evaluacion)
+        //{
+        //    return  _instanciasEvaluaciones.Find(i => i.Equals(instancia_evaluacion));
+        //}
+
+        //public string ObtenerNotaDelAlumno(Alumno alumno, Evaluacion instancia_evaluacion)
+        //{
+        //    return _instanciasEvaluaciones.Find(i => i.IdAlumno == alumno.Id && i == instancia_evaluacion).Calificacion;
+        //}
+
+        //public string ObtenerNotaDelAlumnoEnLaFecha(Alumno alumno, DateTime fecha)
+        //{
+        //    return _instanciasEvaluaciones.Find(i => i.IdAlumno == alumno.Id && i.Fecha == fecha).Calificacion;
+        //}
+
+        public void AgregarEvaluacion(Evaluacion evaluacion_historia_primer_parcial_bel)
+        {
+
         }
     }
 }

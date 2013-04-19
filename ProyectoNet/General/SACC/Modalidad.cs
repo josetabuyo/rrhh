@@ -5,9 +5,11 @@ namespace General
     {
         private int _id;
         private string _descripcion;
+        private EstructuraDeEvaluacion _estructuraDeEvaluacion;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Descripcion { get { return _descripcion; } set { _descripcion = value; } }
+        public EstructuraDeEvaluacion EstructuraDeEvaluacion { get { return _estructuraDeEvaluacion; } set { _estructuraDeEvaluacion = value; } }
 
         public Modalidad() 
         {
