@@ -176,7 +176,6 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
 
     private void LimpiarFormulario()
     {
-        this.txtNombre.Text = string.Empty;
         this.txtIdCurso.Value = string.Empty;
         this.txtIdDocente.Value = string.Empty;
         this.txtIdEspacioFisico.Value = string.Empty;
