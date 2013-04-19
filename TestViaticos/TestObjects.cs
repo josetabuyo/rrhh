@@ -971,5 +971,16 @@ namespace General
                                                     };
             return lista;
         }
+
+        public static InstanciaDeEvaluacion PrimerParcial()
+        {
+            return new InstanciaDeEvaluacion(1, "Primer Parcial");
+        }
+
+
+        internal static InstanciaDeEvaluacion SegundoParcial()
+        {
+            return new InstanciaDeEvaluacion(2, "Segundo Parcial");
+        }
     }
 }
