@@ -1,53 +1,32 @@
 ﻿using System;
+using General.SACC;
 
 namespace General
 {
     public class Evaluacion
     {
-        private  InstanciasDeEvaluacion _idInstanciaEvaluacion;
-        private int _idAlumno;
-        private int _idCurso;
-        private string _calificacion;
+        private  InstanciaDeEvaluacion _instanciaEvaluacion;
+        private Alumno _alumno;
+        private Curso _curso;
+        private Calificacion _calificacion;
         private DateTime _fecha;
 
 
-        public InstanciasDeEvaluacion InstanciaEvaluacion { get { return _idInstanciaEvaluacion; } set { _idInstanciaEvaluacion = value; } }
-        public string Calificacion { get { return _calificacion; } set { _calificacion = value; } }
-        public int IdAlumno { get { return _idAlumno; } set { _idAlumno = value; } }
-        public int IdCurso { get { return _idCurso; } set { _idCurso = value; } }
+        public InstanciaDeEvaluacion InstanciaEvaluacion { get { return _instanciaEvaluacion; } set { _instanciaEvaluacion = value; } }
+        public Calificacion Calificacion { get { return _calificacion; } set { _calificacion = value; } }
+        public Alumno Alumno { get { return _alumno; } set { _alumno = value; } }
+        public Curso Curso { get { return _curso; } set { _curso = value; } }
         public DateTime Fecha { get { return _fecha; } set { _fecha = value; } }
 
         public Evaluacion() { }
 
-         public Evaluacion(InstanciasDeEvaluacion instancia_evaluacion, int alumno, int curso, string calificacion, DateTime fecha)
+         public Evaluacion(InstanciaDeEvaluacion instancia_evaluacion, Alumno alumno, Curso curso, Calificacion calificacion, DateTime fecha)
         {
-            this._idInstanciaEvaluacion = instancia_evaluacion;
+            this._instanciaEvaluacion = instancia_evaluacion;
             this._calificacion = calificacion;
-            this._idAlumno = alumno;
-            this._idCurso = curso;
+            this._alumno = alumno;
+            this._curso = curso;
             this._fecha = fecha;
         }
-
-         //public override bool Equals(object obj)
-         //{
-         //    if (base.Equals(obj)) { return true; }
-         //    if (((Alumno)obj).Id == this.Id) { return true; }
-         //    return false;
-         //}
-
-        //public override int GetHashCode()
-        //{
-        //    return this._id.GetHashCode();
-        //}
-
-        //public override string ToString()
-        //{
-        //    return this.Nombre; 
-        //}
-
-        //internal int esMayorAlfabeticamenteQue(InstanciaEvaluacion otranota)
-        //{
-        //    return this.Nota.CompareTo(otranota.Nota); ;
-        //}
     }
 }

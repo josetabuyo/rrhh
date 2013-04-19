@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace General
 {
-    public class EstructuraDeEvaluacion
+    public class InstanciaDeEvaluacion
     {
         
         private  int _id;
         private string _descripcion;
-        private List<InstanciaDeEvaluacion> _instanciasDeEvaluaciones;
-            
+
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Descripcion { get { return _descripcion; } set { _descripcion = value; } }
        
-       
         
-        public EstructuraDeEvaluacion()
+        public InstanciaDeEvaluacion()
         { }
 
-        public EstructuraDeEvaluacion(int id, string descripcion)
+        public InstanciaDeEvaluacion(int id, string descripcion)
         {
             this._id = id;
             this._descripcion = descripcion;
-        }       
+        }
+
     }
 }

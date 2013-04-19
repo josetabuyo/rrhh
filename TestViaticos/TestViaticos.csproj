@@ -92,6 +92,7 @@
     <Compile Include="ControladorDeWebControlsTest.cs" />
     <Compile Include="TestSACC\TestEvaluaciones.cs" />
     <Compile Include="TestSACC\TestCursos.cs" />
+    <Compile Include="TestSACC\TestEvaluaciones.cs" />
     <Compile Include="TestSACC\TestRepositorioEspaciosFisicos.cs" />
     <Compile Include="TestSACC\TestEspaciosFisico.cs" />
     <Compile Include="TestSACC\TestAlumnos.cs" />

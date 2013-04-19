@@ -113,7 +113,6 @@
     <Compile Include="Repositorios\IRepositorioDeDocumentos.cs" />
     <Compile Include="Repositorios\IRepositorioDeOrganigrama.cs" />
     <Compile Include="Repositorios\RepositorioDeAlertas.cs" />
-    <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEvaluacion.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAlumnos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeCursos.cs" />
@@ -122,6 +121,7 @@
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeDocentes.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEspaciosFisicos.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEvaluaciones.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeMaterias.cs" />
     <Compile Include="Responsable.cs" />
     <Compile Include="Estadia.cs" />
@@ -195,13 +195,15 @@
     <Compile Include="SACC\CalendarioDeCurso.cs" />
     <Compile Include="SACC\CalendarioDeFeriados.cs" />
     <Compile Include="SACC\AsistenciaIndeterminada.cs" />
+    <Compile Include="SACC\Calificacion.cs" />
+    <Compile Include="SACC\CalificacionAusente.cs" />
+    <Compile Include="SACC\CalificacionNull.cs" />
+    <Compile Include="SACC\CalificacionNumerica.cs" />
     <Compile Include="SACC\Ciclo.cs" />
     <Compile Include="SACC\AsistenciaHoraDos.cs" />
     <Compile Include="SACC\AsistenciaHoraTres.cs" />
     <Compile Include="SACC\AsistenciaHoraUno.cs" />
     <Compile Include="SACC\AsistenciaClaseSuspendida.cs" />
-    <Compile Include="SACC\EstructuraDeEvaluacion.cs" />
-    <Compile Include="SACC\Evaluacion.cs" />
     <Compile Include="SACC\DocenteNull.cs" />
     <Compile Include="SACC\Curso.cs" />
     <Compile Include="SACC\CursoDto.cs" />
@@ -210,15 +212,18 @@
     <Compile Include="SACC\Edificio.cs" />
     <Compile Include="SACC\EspacioFisico.cs" />
     <Compile Include="SACC\EspacioFisicoNull.cs" />
+    <Compile Include="SACC\EstructuraDeEvaluacion.cs" />
+    <Compile Include="SACC\Evaluacion.cs" />
     <Compile Include="SACC\GeneradorDePlanillas.cs" />
     <Compile Include="SACC\HorarioDeCursada.cs" />
     <Compile Include="SACC\HorarioDto.cs" />
     <Compile Include="SACC\InasistenciaNormal.cs" />
-    <Compile Include="SACC\InstanciasDeEvaluacion.cs" />
+    <Compile Include="SACC\InstanciaDeEvaluacion.cs" />
     <Compile Include="SACC\ManagerDeCalendarios.cs" />
     <Compile Include="SACC\Materia.cs" />
     <Compile Include="SACC\Modalidad.cs" />
     <Compile Include="SACC\ModalidadDeAlumno.cs" />
+    <Compile Include="SACC\PlanillaDeEvaluaciones.cs" />
     <Compile Include="SACC\PlanillaMensual.cs" />
     <Compile Include="SACC\PlanillaMensualDto.cs" />
     <Compile Include="SaldoLicencia.cs" />
@@ -244,12 +249,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\WebAsistencia\WebRhUI\WebRhUI.csproj">
-      <Project>{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}</Project>
-      <Name>WebRhUI</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>

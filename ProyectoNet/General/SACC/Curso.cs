@@ -15,7 +15,7 @@ namespace General
         private List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
         private int _horasCatedra;
         private EspacioFisico _espacioFisico;
-        private List<InstanciasDeEvaluacion> _instanciasDeEvaluacion;
+        private List<InstanciaDeEvaluacion> _instanciasDeEvaluacion;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Nombre { get { return this.Materia.Nombre + " (" + this.Materia.Modalidad.Descripcion + ")"; } set { } }
@@ -24,13 +24,12 @@ namespace General
         public int HorasCatedra { get { return _horasCatedra; } set { _horasCatedra = value; } }
         public EspacioFisico EspacioFisico { get { return _espacioFisico; } set { _espacioFisico = value; } }
 
-
         public List<Alumno> Alumnos()
         {
             return _alumnos;
         }
 
-        public List<InstanciasDeEvaluacion> InstanciasDeEvaluacion()
+        public List<InstanciaDeEvaluacion> InstanciasDeEvaluacion()
         {
             return _instanciasDeEvaluacion;
         }
@@ -38,7 +37,7 @@ namespace General
         public Curso()
         {
             _alumnos = new List<Alumno>();
-            _instanciasDeEvaluacion = new List<InstanciasDeEvaluacion>();
+            _instanciasDeEvaluacion = new List<InstanciaDeEvaluacion>();
         }
   
         public Curso(int id, string nombre) 
@@ -47,7 +46,7 @@ namespace General
             this._nombre = nombre;
 
             _alumnos = new List<Alumno>();
-            _instanciasDeEvaluacion = new List<InstanciasDeEvaluacion>();
+            _instanciasDeEvaluacion = new List<InstanciaDeEvaluacion>();
 
         }
 
@@ -58,7 +57,7 @@ namespace General
             this._materia = materia;
             this._docente = docente;
             _alumnos = new List<Alumno>();
-            _instanciasDeEvaluacion = new List<InstanciasDeEvaluacion>();
+            _instanciasDeEvaluacion = new List<InstanciaDeEvaluacion>();
         }
 
         public void AgregarDiaDeCursada(DayOfWeek diaDeLaSemana)
@@ -127,12 +126,12 @@ namespace General
             return this.Nombre.CompareTo(otrocurso.Nombre);
         }
 
-        public void AgregarInstanciasEvaluaciones(List<InstanciasDeEvaluacion> instanciasEvaluaciones)
+        public void AgregarInstanciasEvaluaciones(List<InstanciaDeEvaluacion> instanciasEvaluaciones)
         {
             instanciasEvaluaciones.ForEach(i => this.AgregarInstanciaEvaluacion(i));
         }
 
-        public void AgregarInstanciaEvaluacion(InstanciasDeEvaluacion instanciaEvaluacion)
+        public void AgregarInstanciaEvaluacion(InstanciaDeEvaluacion instanciaEvaluacion)
         {
             this._instanciasDeEvaluacion.Add(instanciaEvaluacion);
         }
@@ -156,5 +155,10 @@ namespace General
         //{
         //    return _instanciasEvaluaciones.Find(i => i.IdAlumno == alumno.Id && i.Fecha == fecha).Calificacion;
         //}
+
+        public void AgregarEvaluacion(Evaluacion evaluacion_historia_primer_parcial_bel)
+        {
+
+        }
     }
 }
