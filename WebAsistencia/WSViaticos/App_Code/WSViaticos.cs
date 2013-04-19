@@ -836,7 +836,7 @@ public class WSViaticos : System.Web.Services.WebService
                 {
                     valor = d.Calificacion,
                     instancia = d.InstanciaEvaluacion.Descripcion,
-                    idAlumno = d.IdAlumno
+                    alumno = d.Alumno
                 });
             });
 
