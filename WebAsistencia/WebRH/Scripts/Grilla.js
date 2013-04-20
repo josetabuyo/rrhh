@@ -10,7 +10,9 @@ Grilla.prototype = {
         this.tabla.addClass("table-striped");
         this.tabla.addClass("table-bordered");
         this.tabla.addClass("table-condensed");
+        this.tabla.addClass("table-hover");
 
+        
         this.Objetos = [];
 
         this.crearEncabezado();
@@ -172,7 +174,7 @@ Grilla.prototype = {
 };
 
 
-var Columna = function (titulo, generadorDeContenido) {
+var Columna = function (titulo, generadorDeContenido, resumida) {
     this.titulo = titulo;
     this.generadorDeContenido = generadorDeContenido;
 }
