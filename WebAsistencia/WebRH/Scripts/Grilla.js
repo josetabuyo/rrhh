@@ -11,8 +11,8 @@ Grilla.prototype = {
         this.tabla.addClass("table-bordered");
         this.tabla.addClass("table-condensed");
         this.tabla.addClass("table-hover");
+        this.tabla.css("cursor", "pointer");
 
-        
         this.Objetos = [];
 
         this.crearEncabezado();

@@ -6,9 +6,9 @@ var PanelDeDocumentos = function (cfg) {
     this._grilla_de_documentos = new Grilla(
                 [
                     new Columna('Ticket', { generar: function (doc) { return doc.ticket } }),
-                    new Columna('Número', { generar: function (doc) { return doc.tipo.descripcion + ":" + doc.numero } }),
-                    new Columna('Categoría', { generar: function (doc) { return doc.categoria.descripcion } }),
-                    new Columna('Extracto', { generar: function (doc) { return doc.extracto } }),
+                    new Columna('Número', { generar: function (doc) { return  self.getTextoresumido(doc.tipo.descripcion + ":" + doc.numero) } }),
+                    new Columna('Categoría', { generar: function (doc) { return  self.getTextoresumido(doc.categoria.descripcion) } }),
+                    new Columna('Extracto', { generar: function (doc) { return self.getTextoresumido(doc.extracto) } }),
                     new Columna('Fecha Alta', { generar: function (doc) { return doc.fechaDeAlta } }),
                     new Columna('Área Creadora', { generar: function (doc) { return self.getAreaResumida(doc.areaCreadora.descripcion) } }),
                     new Columna('Área Actual', { generar: function (doc) { return self.getAreaResumida(doc.areaActual.descripcion) } }),
@@ -118,10 +118,17 @@ PanelDeDocumentos.prototype = {
         this.cfg.divPanelDocumentos.css('height', '50%');
     },
     getAreaResumida: function (descripcion) {
-        if (descripcion.length < 20) return descripcion;
-        var areaResumida = $("<div>");
-        areaResumida.text(descripcion.substring(0, 20) + "...");
-        areaResumida.attr("title", descripcion);
-        return areaResumida;
-    }
+        descripcion = descripcion.replace("Direccion", "Dir.");
+        descripcion = descripcion.replace("Dirección", "Dir.");
+        descripcion = descripcion.replace("dirección", "Dir.");
+        descripcion = descripcion.replace("direccion", "Dir.");
+        return this.getTextoresumido(descripcion);
+    },
+    getTextoresumido: function (texto) {
+        if (texto.length < 20) return texto;
+        var textoResumido = $("<div>");
+        textoResumido.text(texto.substring(0, 20) + "...");
+        textoResumido.attr("title", texto);
+        return textoResumido;
+    },
 }
