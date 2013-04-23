@@ -21,7 +21,83 @@
 
 
 /*ESTILO BARRA MENU*/
+#barra_menu_contenedor
+{
+    height: 105px;
+}
+#barra_menu
+{
+	position: absolute;
+    left: 50%;
+	min-height: 30px;
+	width: 800px;
+	margin-left: -400px;	
+	background-color: #EEE;
+}
 
+#barra_menu_nombre_sistema
+{
+    position: absolute;
+    top: 16px;
+    left: 202px;
+    width: 65px;
+    text-align: center;
+    font-weight: bold;
+    font-family: Arial;
+    color:White;
+}
+
+#barra_menu_inferior
+{
+    background-color:rgb(25, 75, 180);
+    border-top: 3px solid white;    
+    
+}
+
+#barra_menu_inferior_usuario
+{
+    display:inline-block;
+    width:75%;
+    color:White;
+    padding-left:20px;
+    vertical-align:middle;
+}
+
+#barra_menu_label_usuario
+{
+    display:inline-block;
+}
+
+#LabelUsuario
+{
+    display:inline-block;
+}
+
+#barra_menu_inferior_botones
+{
+    display:inline-block;    
+    width:19%;    
+    border-left: 4px solid white;   
+    padding-left:20px;    
+    
+}
+
+.barra_menu_botones
+{
+    border : solid 0px #ffffff;
+	font-size : 13px;
+	color : White;
+	padding : 4px 9px;
+	background-color : #194ab4;
+	
+}
+
+.barra_menu_botones:hover
+{
+    color : rgb(110, 208, 226);
+}
+
+/*
 .barra_menu_fondo {
     background-color: #003;
 	height: 120px;
@@ -82,6 +158,7 @@
 	margin-left:5px;
 }
 
+*/
 /*FIN ESTILO BARRA MENU*/
 
 
