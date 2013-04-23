@@ -50,26 +50,26 @@ namespace TestViaticos
 
         /**/
 
-        [TestMethod]
-        public void debo_poder_convertir_de_un_objeto_DocumentoDTO_a_un_objeto_Documento()
-        {
-            Documento_DTO_Alta doc = new Documento_DTO_Alta();
+        //[TestMethod]
+        //public void debo_poder_convertir_de_un_objeto_DocumentoDTO_a_un_objeto_Documento()
+        //{
+        //    Documento_DTO_Alta doc = new Documento_DTO_Alta();
 
-            doc.categoria = "1";
-            doc.comentarios = "Prueba rápida";
-            doc.extracto = "Prueba rápida";
-            doc.id_area_actual = "3";
-            doc.id_area_destino = "5";
-            doc.numero = "45234";
-            doc.tipo = "4";
+        //    doc.categoria = "1";
+        //    doc.comentarios = "Prueba rápida";
+        //    doc.extracto = "Prueba rápida";
+        //    doc.id_area_actual = "3";
+        //    doc.id_area_destino = "5";
+        //    doc.numero = "45234";
+        //    doc.tipo = "4";
             
 
-            Documento doc_convertido =doc.toDocumento();
-            Assert.AreEqual("45234", doc_convertido.numero);
+        //    Documento doc_convertido =doc.toDocumento();
+        //    Assert.AreEqual("45234", doc_convertido.numero);
 
             
 
-        }
+        //}
 
 
 

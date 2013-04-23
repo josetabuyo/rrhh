@@ -81,7 +81,6 @@
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="CategoriaDeDocumentoSICOI.cs" />
     <Compile Include="CircuitoDeAprobacionDeViatico.cs" />
-    <Compile Include="Documento_DTO_Alta.cs" />
     <Compile Include="FiltroDeDocumentosGoogleano.cs" />
     <Compile Include="FiltroDeDocumentosPorTiempoEnUltimaAreaMayorOIgualA.cs" />
     <Compile Include="DesSerializadorDeFiltros.cs" />
@@ -122,6 +121,7 @@
     <Compile Include="Repositorios\RepositorioMensajeria.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeDocentes.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEspaciosFisicos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeMaterias.cs" />
     <Compile Include="Responsable.cs" />
     <Compile Include="Estadia.cs" />
@@ -205,6 +205,9 @@
     <Compile Include="SACC\CursoDto.cs" />
     <Compile Include="SACC\DiaDeCursada.cs" />
     <Compile Include="SACC\Docente.cs" />
+    <Compile Include="SACC\Edificio.cs" />
+    <Compile Include="SACC\EspacioFisico.cs" />
+    <Compile Include="SACC\EspacioFisicoNull.cs" />
     <Compile Include="SACC\GeneradorDePlanillas.cs" />
     <Compile Include="SACC\HorarioDeCursada.cs" />
     <Compile Include="SACC\HorarioDto.cs" />
