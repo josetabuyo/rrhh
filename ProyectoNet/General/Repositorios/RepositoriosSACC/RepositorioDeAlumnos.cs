@@ -8,7 +8,7 @@ namespace General.Repositorios
     public class RepositorioDeAlumnos
     {
 
-         public IConexionBD conexion_bd { get; set; }
+        public IConexionBD conexion_bd { get; set; }
         public static List<Alumno> alumnos { get; set; }
 
         public RepositorioDeAlumnos(IConexionBD conexion)
@@ -24,6 +24,10 @@ namespace General.Repositorios
             tablaDatos.Rows.ForEach(row =>
             {               
                 Modalidad modeliadad_aux = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
+                var baja = 0;
+                if (!(row.GetObject("IdBaja") is DBNull))
+                    baja = (int)row.GetObject("IdBaja"); 
+
                 Alumno alumno =  new Alumno
                 {
                     Id = row.GetInt("Id"),
@@ -34,7 +38,8 @@ namespace General.Repositorios
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
                 //    Area = new Area(1, row.GetString("Area")),
-                    Modalidad = modeliadad_aux
+                    Modalidad = modeliadad_aux,                  
+                    Baja = baja
                 };
 
                 alumnos.Add(alumno);
@@ -55,7 +60,7 @@ namespace General.Repositorios
             }
             catch (Exception)
             {
-
+                BorrarBaja(un_alumno);
                 conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Alumno", parametros);
             }
             
@@ -69,9 +74,25 @@ namespace General.Repositorios
             parametros.Add("@DocumentoPersona", dni);
 
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_DatosPersonales", parametros);
+
+           
         
             tablaDatos.Rows.ForEach(row =>
             {
+                var modaldidad = new Modalidad();
+                var baja = 0;
+                if (!(row.GetObject("IdModalidad") is DBNull))
+                    modaldidad = new Modalidad(row.GetInt("IdModalidad"), "");
+
+                if (!(row.GetObject("BajaAlumno") is DBNull))
+                    baja = row.GetInt("BajaAlumno");
+
+                if (!(row.GetObject("BajaDocente") is DBNull))
+                    baja = row.GetInt("BajaDocente"); 
+
+                //var modalidad = new Modalidad(row.GetInt("IdModalidad"), "");
+                //var baja = row.GetInt("idBaja");
+
                 alumnos_dni.Add(new Alumno
                 {
                      Id = row.GetInt("Id"),
@@ -81,8 +102,11 @@ namespace General.Repositorios
                      Telefono = row.GetString("Telefono"),
                      Mail = row.GetString("Email_Personal"),
                      Direccion = row.GetString("Direccion"),
+
                    //  Area = new Area(1),
-                     Modalidad = new Modalidad(1, "FINES Puro") });
+                     Modalidad = modaldidad,
+                     Baja = baja
+                });
             });
             return alumnos_dni.First();
         }
@@ -91,9 +115,21 @@ namespace General.Repositorios
         {
             var parametros = Parametros(alumno, usuario, 0);
 
+            //deberia borrar la baja asociada
+            BorrarBaja(alumno);
+
             conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Alumno", parametros);
 
             return alumno;
+        }
+
+        private void BorrarBaja(Alumno alumno)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@IdBaja", alumno.Baja);
+
+            conexion_bd.EjecutarSinResultado("SACC_Del_Baja", parametros);
         }
 
         public void QuitarAlumno(Alumno un_alumno, Usuario usuario)

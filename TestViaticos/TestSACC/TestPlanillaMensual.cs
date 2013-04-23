@@ -30,7 +30,7 @@ namespace TestViaticos
             fecha_hasta = new DateTime(2012, 08, 31);
             managerDeCalendarios = new ManagerDeCalendarios(unCalendarioGlobal);
             fecha_cursable = new DateTime(2012, 08, 14);
-            un_alumno = TestObjects.UnAlumnoFer();
+            un_alumno = TestObjects.UnAlumnoDelCurso();
         }
 
 
@@ -39,7 +39,7 @@ namespace TestViaticos
           {
              
 
-              Curso un_curso = TestObjects.UnCursoConAlumno();
+              Curso un_curso = TestObjects.UnCursoConAlumnos();
 
               GeneradorDePlanillas generador = new GeneradorDePlanillas();
 
@@ -49,7 +49,7 @@ namespace TestViaticos
           [TestMethod]
           public void deberia_agregar_una_inasistencia_a_un_alumno_para_una_planilla_que_esta_en_un_curso()
           {
-              Curso un_curso = TestObjects.UnCursoConAlumno();
+              Curso un_curso = TestObjects.UnCursoConAlumnos();
               managerDeCalendarios.AgregarCalendarioPara(un_curso);
 
               GeneradorDePlanillas generador = new GeneradorDePlanillas();
@@ -66,7 +66,7 @@ namespace TestViaticos
           [TestMethod]
           public void no_deberia_cargar_una_inasistencia_a_un_alumno_que_no_esta_en_un_curso()
           {
-              Curso un_curso = TestObjects.UnCursoConAlumno();
+              Curso un_curso = TestObjects.UnCursoConAlumnos();
               managerDeCalendarios.AgregarCalendarioPara(un_curso);
 
               GeneradorDePlanillas generador = new GeneradorDePlanillas();
@@ -90,7 +90,7 @@ namespace TestViaticos
           [TestMethod]
           public void deberia_traer_inasistencias_de_un_alumno_para_un_mes()
           {
-              Curso un_curso = TestObjects.UnCursoConAlumno();
+              Curso un_curso = TestObjects.UnCursoConAlumnos();
               managerDeCalendarios.AgregarCalendarioPara(un_curso);
 
               GeneradorDePlanillas generador = new GeneradorDePlanillas();
@@ -109,7 +109,7 @@ namespace TestViaticos
           [TestMethod]
           public void no_deberia_traer_inasistencias_de_un_alumno_que_no_falto()
           {
-              Curso un_curso = TestObjects.UnCursoConAlumno();
+              Curso un_curso = TestObjects.UnCursoConAlumnos();
 
               GeneradorDePlanillas generador = new GeneradorDePlanillas();
              
@@ -121,7 +121,7 @@ namespace TestViaticos
           [TestMethod]
           public void deberia_agregar_una_asistencia_a_un_alumno_para_una_planilla_que_esta_en_un_curso()
           {
-              Curso un_curso = TestObjects.UnCursoConAlumno();
+              Curso un_curso = TestObjects.UnCursoConAlumnos();
               managerDeCalendarios.AgregarCalendarioPara(un_curso);
 
               CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
@@ -140,7 +140,7 @@ namespace TestViaticos
           [TestMethod]
           public void deberia_poder_conocer_los_dias_de_cursada_de_un_curso_para_un_mes()
           {
-              Curso un_curso = TestObjects.UnCursoConAlumno();
+              Curso un_curso = TestObjects.UnCursoConAlumnos();
               managerDeCalendarios.AgregarCalendarioPara(un_curso);
               GeneradorDePlanillas generador = new GeneradorDePlanillas();
 
@@ -153,7 +153,7 @@ namespace TestViaticos
           [TestMethod]
           public void no_deberia_poder_cargar_una_inasistencia_si_el_dia_no_era_cursable()
           {
-              Curso un_curso = TestObjects.UnCursoConAlumno();
+              Curso un_curso = TestObjects.UnCursoConAlumnos();
               managerDeCalendarios.AgregarCalendarioPara(un_curso);
 
               GeneradorDePlanillas generador = new GeneradorDePlanillas();

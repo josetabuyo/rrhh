@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <title>ABM Cursos</title>
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
         runat="server" />
@@ -40,18 +40,18 @@
             <asp:Label ID="lblDocente" CssClass="labels_sacc" runat="server" Text="Docente:"></asp:Label>
             <asp:DropdownList ID="cmbDocente" name="Docente" runat="server" EnableViewState="false"></asp:DropdownList >
         </p>
-         <p>
-            <asp:Label ID="lblHorasCatedra" CssClass="labels_sacc" runat="server" Text="Horas Catedra:"></asp:Label>
-            <select runat="server" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false"></select>
-           <%-- <asp:DropDownList ID="cmbHorasCatedra" name="HorasCatedra" runat="server" EnableViewState="false"></asp:DropDownList >--%>
+        <p> 
+            <asp:Label ID="lblEspacioFisico" CssClass="labels_sacc" runat="server" Text="Espacio Físico:"></asp:Label>
+            <asp:DropdownList ID="cmbEspacioFisico" name="Docente" runat="server" EnableViewState="false"></asp:DropdownList >
         </p>
         <p>   
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
             <asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" ></asp:DropdownList>
             <asp:TextBox ID="txtHoraInicio" title="Hora de inicio" CssClass="input-small" placeholder="Hora Inicio" runat="server" MaxLength="5"></asp:TextBox>
             <asp:TextBox ID="txtHoraFin" title="Hora de fin" CssClass="input-small" placeholder="Hora Fin" runat="server" MaxLength="5"></asp:TextBox>
-            
-            <input id="agregarHorario" type="button" value="Agregar Horario" 
+            <select runat="server" title="Horas Catedra" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false" class="input-small"></select>
+           
+            <input id="agregarHorario" type="button" value="Agregar" 
                 onclick="javascript:AgregarHorario();" 
                 class=" btn btn-primary boton_main_documentos" />
             <input id="cambiarHorario" type="button" value="Cambiar" onclick="javascript:CambiarHorario();" style="display:none; visibility:hidden" class=" btn btn-primary boton_main_documentos" />
@@ -60,6 +60,7 @@
         <asp:HiddenField ID="txtIdCurso" runat="server" />
         <asp:HiddenField ID="txtIdMateria" runat="server" />
         <asp:HiddenField ID="txtIdDocente" runat="server" />
+        <asp:HiddenField ID="txtIdEspacioFisico" runat="server" />
         <asp:HiddenField ID="txtHorarios" runat="server" />
         <div style=" margin-left:17%; margin-top:3%;">
             <asp:Button ID="btnAgregarCurso" runat="server" Text="Agregar Curso" 
@@ -82,6 +83,7 @@
     </div>
     <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="materiasJSON" runat="server" EnableViewState="true"/>
+    <asp:HiddenField ID="espacios_fisicosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idCursoAVer" runat="server" />
     <asp:HiddenField ID="horaCatedra" runat="server" />
      <asp:Button ID="btnVerFichaCurso" Text="" runat="server" OnClick="btnVerCurso_Click" style="display:none"/>

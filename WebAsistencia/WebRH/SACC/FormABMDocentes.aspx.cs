@@ -63,7 +63,8 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
         this.lblDatoDocumento.Text = ((int)persona["documento"]).ToString();
         this.lblDatoTelefono.Text = (string)persona["telefono"];
         this.lblDatoMail.Text = (string)persona["mail"];
-        this.lblDatoDireccion.Text = (string)persona["direccion"];    
+        this.lblDatoDireccion.Text = (string)persona["direccion"];
+        this.idBaja.Value = ((int)persona["baja"]).ToString();    
 
         //this.alumnosJSON.Value = alumnos.ToString();
     }
@@ -89,6 +90,7 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
         docente.Dni = int.Parse(this.lblDatoDocumento.Text);
         docente.Nombre = this.lblDatoNombre.Text;
         docente.Apellido = this.lblDatoApellido.Text;
+        docente.Baja = int.Parse(this.idBaja.Value);
 
         docente = ws_viaticos.GuardarDocente(docente, (Usuario)Session["usuario"]);
 

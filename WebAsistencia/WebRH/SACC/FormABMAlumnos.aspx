@@ -88,6 +88,7 @@
     <asp:HiddenField ID="personasJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idAlumnoAVer" runat="server" />
+    <asp:HiddenField ID="idBaja" runat="server" />
     <asp:HiddenField ID="datosPersona" runat="server" />
     <asp:HiddenField ID="personaSeleccionada" runat="server" />
      <asp:Button ID="btnVerFichaAlumno" Text="" runat="server" OnClick="btnVerAlumno_Click" style="display:none"/>
@@ -183,6 +184,7 @@
             $("#lblDatoMail").val(un_alumno.Mail);
             $("#lblDatoDireccion").val(un_alumno.Direccion);
             $("#cmbPlanDeEstudio").val(un_alumno.Modalidad.Id);
+            $("#idBaja").val(un_alumno.Baja);
 
         };
 

@@ -12,6 +12,7 @@ namespace General
         private string _telefono;
         private string _mail;
         private string _direccion;
+        private int _baja;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Nombre { get { return _nombre; } set { _nombre = value; } }
@@ -22,6 +23,7 @@ namespace General
         public string Telefono { get { return _telefono; } set { _telefono = value; } }
         public string Mail { get { return _mail; } set { _mail = value; } }
         public string Direccion { get { return _direccion; } set { _direccion = value; } }
+        public int Baja { get { return _baja; } set { _baja = value; } }
 
         public Alumno() { }
 

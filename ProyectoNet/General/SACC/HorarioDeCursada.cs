@@ -22,6 +22,8 @@ namespace General
             get { return _hora_fin; }
             set { _hora_fin = value; }
         }
+
+        public int HorasCatedra { get; set; }
         public HorarioDeCursada()
         {
 
@@ -32,13 +34,16 @@ namespace General
         /// </summary>
         /// <param name="hora_inicio"></param>
         /// <param name="hora_fin"></param>
-        public HorarioDeCursada(DayOfWeek dia, string hora_inicio, string hora_fin)
+        public HorarioDeCursada(DayOfWeek dia, string hora_inicio, string hora_fin, int horas_catedra)
         {
             try
             {
                 this._dia = dia;
                 this.HoraDeInicio = TimeSpan.Parse(hora_inicio);
                 this.HoraDeFin = TimeSpan.Parse(hora_fin);
+                this.HorasCatedra = horas_catedra;
+
+                this.HorasCatedra = horas_catedra;
             }
             catch (FormatException f)
             {
@@ -49,6 +54,15 @@ namespace General
                 throw o;
             }
             
+        }
+
+        public override bool Equals(object obj)
+        {
+            HorarioDeCursada horario = (HorarioDeCursada)obj;
+            return this.Dia.Equals(horario.Dia) &&
+                this.HoraDeInicio.Equals(horario.HoraDeInicio) &&
+                this.HoraDeFin.Equals(horario.HoraDeFin) &&
+                this.HorasCatedra.Equals(horario.HorasCatedra);
         }
         
     }

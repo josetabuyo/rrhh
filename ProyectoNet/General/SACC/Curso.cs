@@ -14,12 +14,14 @@ namespace General
         private Materia _materia;
         private List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
         private int _horasCatedra;
+        private EspacioFisico _espacioFisico;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Nombre { get { return this.Materia.Nombre + " (" + this.Materia.Modalidad.Descripcion + ")"; } set { } }
         public Docente Docente { get { return _docente; } set { _docente = value; } }
         public Materia Materia { get{ return _materia; } set{_materia = value;} }
         public int HorasCatedra { get { return _horasCatedra; } set { _horasCatedra = value; } }
+        public EspacioFisico EspacioFisico { get { return _espacioFisico; } set { _espacioFisico = value; } }
 
         public List<Alumno> Alumnos()
         {
@@ -99,7 +101,15 @@ namespace General
                 _alumnos.Remove(un_alumno);
         }
 
+        public EspacioFisico GetEspacioFisico()
+        {
+            return this._espacioFisico;
+        }
 
+        public void AgregarEspacioFisico(EspacioFisico espacioFisico)
+        {
+            this._espacioFisico = espacioFisico;
+        }
 
         internal int esMayorAlfabeticamenteQue(Curso otrocurso)
         {

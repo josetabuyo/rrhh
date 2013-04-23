@@ -79,7 +79,7 @@
             columnas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
             if (DiasCursados) {
                 for (var i = 0; i < DiasCursados.length; i++) {
-                    columnas.push(new Columna(DiasCursados[i].nombre_dia + "<br/>" + DiasCursados[i].dia,
+                    columnas.push(new Columna(DiasCursados[i].nombre_dia + "/" + DiasCursados[i].dia + "<br/>" + DiasCursados[i].horas + " hs",
                                         new GeneradorCeldaDiaCursado(DiasCursados[i])));
                 }
             }
@@ -115,10 +115,10 @@
 
             var botonAsistencia;
             if (queryResult.Count() > 0) {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor, inasistenciaalumno.max_horas_cursadas);
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor, diaCursado.horas);
             }
             else {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, inasistenciaalumno.max_horas_cursadas);
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, diaCursado.horas);
             }
             contenedorAcciones.append(botonAsistencia);
 
@@ -165,7 +165,7 @@
             var asistencia = {
                 id_alumno: asistencia_btn.attr("id_alumno"),
                 fecha: asistencia_btn.attr("dia_cursado"),
-                valor: asistencia_btn.attr("estado")
+                valor: asistencia_btn.attr("valor")
             };
             detalle_asistencias.push(asistencia);
         }

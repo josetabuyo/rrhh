@@ -53,6 +53,9 @@ namespace General.Repositorios
                     Asistencia asistencia;
                     switch (row.GetSmallintAsInt("Valor"))
                     {
+                        case 0:
+                            asistencia = new AsistenciaIndeterminada(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
+                            break;
                         case 1:
                             asistencia = new AsistenciaHoraUno(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
                             break;
@@ -63,6 +66,9 @@ namespace General.Repositorios
                             asistencia = new AsistenciaHoraTres(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
                             break;
                         case 4:
+                            asistencia = new InasistenciaNormal(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
+                            break;
+                        case 5:
                             asistencia = new AsistenciaClaseSuspendida(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
                             break;
                         default:

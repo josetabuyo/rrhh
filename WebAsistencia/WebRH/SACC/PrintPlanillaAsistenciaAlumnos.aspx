@@ -65,9 +65,8 @@
         //columnas.push(new Columna("Pertenece a", { generar: function (inasistenciaalumno) { return inasistenciaalumno.pertenece_a } }));
 
         for (var i = 0; i < DiasCursados.length; i++) {
-            columnas.push(new Columna(DiasCursados[i].nombre_dia + "<br/>" + DiasCursados[i].dia,
-                                        new GeneradorCeldaDiaCursado(DiasCursados[i])
-            ));
+            columnas.push(new Columna(DiasCursados[i].nombre_dia + "/" + DiasCursados[i].dia + "<br/>" + DiasCursados[i].horas + " hs",
+                                        new GeneradorCeldaDiaCursado(DiasCursados[i])));
         }
         columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
         columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
@@ -92,17 +91,15 @@
         self.diaCursado = diaCursado;
         self.generar = function (inasistenciaalumno) {
             var contenedorAcciones = $('<div>');
-            //dps se tiene que eliminar el random y cambiar por "0"
-            //alert(JSON.stringify(inasistenciaalumno));
             var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
                 .Where(function (x) { return x.fecha == diaCursado.fecha });
 
             var botonAsistencia;
             if (queryResult.Count() > 0) {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor, inasistenciaalumno.max_horas_cursadas);
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor, diaCursado.horas);
             }
             else {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, inasistenciaalumno.max_horas_cursadas);
+                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, diaCursado.horas);
             }
             contenedorAcciones.append(botonAsistencia);
 

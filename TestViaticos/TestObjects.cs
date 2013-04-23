@@ -936,7 +936,7 @@ namespace General
             return new Organigrama(AreasDeFabiYMarta(), DependenciasEntreFabyYMarta());
         }
 
-        public static Curso UnCursoConAlumno()
+        public static Curso UnCursoConAlumnos()
         {
             Curso un_curso = new Curso(1, "Historia");
             un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro")));
@@ -952,17 +952,22 @@ namespace General
             return un_curso;
         }
 
-        public static Alumno UnAlumnoFer()
+        public static Alumno UnAlumnoDelCurso()
         {
             return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro"));    
         }
 
-        public static List<Alumno> Alumnos()
+        public static Alumno UnAlumnoNuevo()
+        {
+            return new Alumno(100, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", TestObjects.AreaDeFabi(), new Modalidad(1, "Fines Puro"));
+        }
+
+        public static List<Alumno> AlumnosNuevos()
         {
             List<Alumno> lista = new List<Alumno>() {
-                                                    new Alumno(9, "Fer", "Caino", 28753951, "", "", "",new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro")),
-                                                    new Alumno(8, "Ger", "Caino", 33753951, "", "", "",new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro")),
-                                                    new Alumno(7, "Er", "CASLA", 11753951, "", "", "",new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro"))
+                                                    new Alumno(9, "Ana", "Ran", 28000951, "", "", "",new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro")),
+                                                    new Alumno(8, "Carla", "Ren", 33700051, "", "", "",new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro")),
+                                                    new Alumno(7, "Nadia", "Rey", 11700051, "", "", "",new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro"))
                                                     };
             return lista;
         }

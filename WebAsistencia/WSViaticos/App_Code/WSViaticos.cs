@@ -797,7 +797,6 @@ public class WSViaticos : System.Web.Services.WebService
         return asistencias_dto;
     }
 
-
     [WebMethod]
     public string GetPlanillaInasistenciaAlumnoPorMes(int id_curso, DateTime fecha_desde, DateTime fecha_hasta)
     {
@@ -820,7 +819,8 @@ public class WSViaticos : System.Web.Services.WebService
             {
                 dia = d.ToString("dd"),
                 nombre_dia = d.ToString("ddd"),
-                fecha = d.ToShortDateString()
+                fecha = d.ToShortDateString(),
+                horas = planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == d.DayOfWeek).HorasCatedra
             }));
             
             planilla_mensual.Curso.Alumnos().ForEach(delegate(Alumno alumno)
@@ -849,7 +849,9 @@ public class WSViaticos : System.Web.Services.WebService
                 detalle_asistencias.ForEach(a =>
                 {
                     if (a.Valor > 0 && a.Valor < 4)
-                        cant_inasistencias_aux += planilla_mensual.Curso.HorasCatedra - a.Valor;
+                        cant_inasistencias_aux += planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra - a.Valor;
+                    if (a.Valor == 4)
+                        cant_inasistencias_aux += planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra;
                 });
 
                 if (cant_asistencias_aux == 0 && cant_inasistencias_aux == 0)
@@ -911,6 +913,9 @@ public class WSViaticos : System.Web.Services.WebService
                     asistencia = new AsistenciaHoraTres(item.Fecha, item.IdCurso, item.IdAlumno);
                     break;
                 case 4:
+                    asistencia = new InasistenciaNormal(item.Fecha, item.IdCurso, item.IdAlumno);
+                    break;
+                case 5:
                     asistencia = new AsistenciaClaseSuspendida(item.Fecha, item.IdCurso, item.IdAlumno);
                     break;
                 default:
@@ -971,6 +976,7 @@ public class WSViaticos : System.Web.Services.WebService
                     Direccion = alumno.Direccion,
                  //   Area = AreaDtoPara(alumno.Area),
                     Modalidad = ModalidadPara(alumno.Modalidad),
+                    Baja = alumno.Baja,
                 });
             });
         }
@@ -988,7 +994,15 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-
+    private object EdificioPara(Edificio edificio)
+    {
+        return new
+        {
+            id = edificio.Id,
+            nombre = edificio.Nombre,
+            direccion = edificio.Direccion
+        };
+    }
 
     private object ModalidadPara(Modalidad modalidad)
     {
@@ -1046,13 +1060,6 @@ public class WSViaticos : System.Web.Services.WebService
         return un_docente;
     }
 
-    //[WebMethod]
-    //public void ModificarDocente(Docente un_docente, Usuario usuario)
-    //{
-    //    var conexion = Conexion();
-    //    RepositorioDeDocentes().ModificarDocente(un_docente, usuario);
-    //}
-
     [WebMethod]
     public bool QuitarDocente(Docente docente, Usuario usuario)
     {
@@ -1060,8 +1067,8 @@ public class WSViaticos : System.Web.Services.WebService
         { 
             return false;
         }
-           RepositorioDeDocentes().QuitarDocente(docente, usuario);
-            return true;
+        RepositorioDeDocentes().QuitarDocente(docente, usuario);
+        return true;
     }
 
     [WebMethod]
@@ -1078,8 +1085,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var conexion = Conexion();
         Curso curso = RepositorioDeCursos().GetCursoById(idCurso);
-
-        //curso.ActualizarAlumnosDelCurso(alumnos);
 
         RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos, curso, usuario);
 
@@ -1105,6 +1110,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public EspacioFisico GetEspacioFisicoById(int id)
+    {
+        return RepoEspaciosFisicos().GetEspacioFisicoById(id); //JsonConvert.SerializeObject(espacio_fisico);
+    }
+
+    [WebMethod]
     [System.Xml.Serialization.XmlInclude(typeof(DocenteNull))]
     public List<CursoDto> GetCursosDto()
     {
@@ -1122,10 +1133,11 @@ public class WSViaticos : System.Web.Services.WebService
                 un_curso.Docente = curso.Docente;
                 un_curso.Alumnos = curso.Alumnos();
                 un_curso.HorasCatedra = curso.HorasCatedra;
+                un_curso.EspacioFisico = curso.EspacioFisico;
                 var horarios = new List<HorarioDto>();
                 foreach (var h in curso.GetHorariosDeCursada())
                 {
-                    horarios.Add(new HorarioDto() { NumeroDia = (int)h.Dia, Dia = DateTimeFormatInfo.CurrentInfo.GetDayName(h.Dia), HoraDeInicio = h.HoraDeInicio.ToString().Substring(0, 5), HoraDeFin = h.HoraDeFin.ToString().Substring(0, 5) });
+                    horarios.Add(new HorarioDto() { NumeroDia = (int)h.Dia, Dia = DateTimeFormatInfo.CurrentInfo.GetDayName(h.Dia), HoraDeInicio = h.HoraDeInicio.ToString().Substring(0, 5), HoraDeFin = h.HoraDeFin.ToString().Substring(0, 5), HorasCatedra = h.HorasCatedra });
                 }
                 un_curso.Horarios = horarios;
                 cursos_dto.Add(un_curso);
@@ -1218,11 +1230,11 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool QuitarCurso(CursoDto curso, Usuario usuario)
     {
-        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, Id = curso.Id };
+        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, Id = curso.Id, EspacioFisico = curso.EspacioFisico };
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
         });
 
         return RepositorioDeCursos().QuitarCurso(un_curso, usuario);
@@ -1231,11 +1243,11 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool AgregarCurso(CursoDto curso)
     {
-        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra };
+        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra, EspacioFisico = curso.EspacioFisico};
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
         });
 
         return RepositorioDeCursos().AgregarCurso(un_curso);
@@ -1244,10 +1256,10 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool ModificarCurso(CursoDto curso)
     {
-        var un_curso = new Curso() { Id = curso.Id, Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra };
+        var un_curso = new Curso() { Id = curso.Id, Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra, EspacioFisico = curso.EspacioFisico};
         var horarios = curso.Horarios;
         horarios.ForEach(h =>{
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin));
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
         });
         
         return RepositorioDeCursos().ModificarCurso(un_curso);
@@ -1286,13 +1298,73 @@ public class WSViaticos : System.Web.Services.WebService
                            mail = persona.Mail,
                     //       area = persona.Area,
                            modalidad = 1,
+                           baja = persona.Baja,
                        };
         }
         return JsonConvert.SerializeObject(persona_dto);
     }
 
 
+    [WebMethod]
+    public Edificio[] Edificios()
+    {
+        return RepoEspaciosFisicos().GetEdificios().ToArray();
+    }
 
+    //[WebMethod]
+    //public void EspacioFisico(EspacioFisico espacio_fisico)
+    //{
+
+    //}
+
+    [WebMethod]
+    public bool QuitarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+    {
+        if (RepoEspaciosFisicos().EspacioFisicoAsignadoACurso(espacio_fisico))
+        {
+            return false;
+        }
+        RepoEspaciosFisicos().QuitarEspacioFisico(espacio_fisico, usuario);
+        return true;
+    }
+
+    [WebMethod]
+    public void ModificarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
+    {
+        var conexion = Conexion();
+        RepoEspaciosFisicos().ModificarEspacioFisico(espacio_fisico, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarEspacioFisico(EspacioFisico un_espacio_fisico, Usuario usuario)
+    {
+         var conexion = Conexion();
+        RepoEspaciosFisicos().ActualizarEspacioFisico(un_espacio_fisico, usuario);
+    }
+
+     [WebMethod]
+    public string GetEspaciosFisicos()
+     {
+
+         var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion()).GetEspaciosFisicos();
+         var espacios_fisicos_dto = new List<object>();
+
+         if (espacios_fisicos.Count > 0)
+         {
+             espacios_fisicos.ForEach(delegate(EspacioFisico espacio_fisico)
+             {
+                 espacios_fisicos_dto.Add(new
+                 {
+                     id = espacio_fisico.Id,
+                     aula = espacio_fisico.Aula,
+                     edificio = EdificioPara(espacio_fisico.Edificio),
+                     capacidad = espacio_fisico.Capacidad
+                 });
+             });
+         };
+         return JsonConvert.SerializeObject(espacios_fisicos_dto);
+
+     }
 
     private RepositorioDeAlumnos RepoAlumnos()
     {
@@ -1323,4 +1395,10 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new RepositorioDeAsistencias(Conexion());
     }
+
+    private RepositorioDeEspaciosFisicos RepoEspaciosFisicos()
+    {
+        return new RepositorioDeEspaciosFisicos(Conexion());
+    }
+
 }
