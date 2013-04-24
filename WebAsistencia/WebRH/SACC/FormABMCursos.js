@@ -62,9 +62,11 @@ var AdministradorPlanillaCursos = function () {
         OcultarBoton($("#cambiarHorario"));
         MostrarBoton($("#agregarHorario"));
         HabilitarControl($("#btnModificarCurso"));
+        HabilitarControl($("#btnQuitarCurso"));
         DeshabilitarControl($("#btnAgregarCurso"));
     };
     DeshabilitarControl($("#btnModificarCurso"));
+    DeshabilitarControl($("#btnQuitarCurso"));
     HabilitarControl($("#btnAgregarCurso"));
     $("#txtHoraInicio").mask("99:99");
     $("#txtHoraFin").mask("99:99");
@@ -270,7 +272,9 @@ var ValidarHora = function (hora) {
 var LimpiarHorario = function () {
     Limpiar(horaI);
     Limpiar(horaF);
-    Limpiar(dia);
+    Limpiar(dia); 
+    var contenedorGrillaHorario = $('#contenedor_grilla_horario');
+    contenedorGrillaHorario.html("");
 }
 
 var Limpiar = function (control) {
@@ -289,7 +293,8 @@ var LimpiarCampos = function () {
     Limpiar($('#txtIdDocente'));
     Limpiar($('#txtIdEspacioFisico'));
     Limpiar($('#txtIdMateria'));
-    DesHabilitarControl($("#btnModificarCurso"));
+    DeshabilitarControl($("#btnModificarCurso"));
+    DeshabilitarControl($("#btnQuitarCurso"));
     HabilitarControl($("btnAgregarCurso"));
 }
 
