@@ -71,19 +71,19 @@ var AdministradorPlanillaCursos = function () {
 
 };
 $('#cmbMateria').change(function () {
-    CompletarNombreCurso();
+    $('#txtIdMateria').val($('#cmbMateria').find('option:selected').val());
 });
 
 $('#cmbDocente').change(function () {
-    $('#txtIdDocente').val($('#cmbDocente').val());
+    $('#txtIdDocente').val($('#cmbDocente').find('option:selected').val());
 });
 
 $('#cmbEspacioFisico').change(function () {
-    $('#txtIdEspacioFisico').val($('#cmbEspacioFisico').val());
+    $('#txtIdEspacioFisico').val($('#cmbEspacioFisico').find('option:selected').val());
 });
 
 $('#cmbHorasCatedra').change(function () {
-    $('#horaCatedra').val($('#cmbHorasCatedra').val());
+    $('#horaCatedra').val($('#cmbHorasCatedra').find('option:selected').text());
 });
 
 var HabilitarNuevo = function () {
@@ -97,13 +97,6 @@ var HabilitarModificacion = function () {
 }
 var DesHabilitarModificacion = function () {
     $("#btnModificarCurso").attr('disabled', 'disabled');
-}
-
-var CompletarNombreCurso = function () {
-    var materia = Enumerable.From(JSON.parse($('#materiasJSON').val()))
-                .Where(function (x) { return x.id == $('#cmbMateria').val() }).First();
-    $('#txtIdMateria').val(materia.id);
-    $('#txtNombre').val(materia.nombre + ' (' + materia.modalidad.Descripcion + ')');
 }
 
 var DibujarGrillaHorarios = function () {
