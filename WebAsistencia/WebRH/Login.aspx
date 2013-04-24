@@ -18,8 +18,8 @@
     <form id="formLogin" runat="server">
         <div id="contenidosLogin">        
             <div id="loginControles">
-                <input type="text" id="usuario" class="span3" placeholder="usuario" runat="server"/><br />
-                <input type="password" id="password" class="span3" placeholder="contraseña" runat="server"/><br />
+                <input type="text" id="usuario" class="span3" nullValue="usuario" runat="server"/><br />
+                <input type="password" id="password" class="span3" nullValue="contraseña" runat="server"/><br />
                 <div id="loginBoton">
                     <button id="fat-btn" data-loading-text="Iniciando..." class=" btn btn-primary"> 
                         Iniciar Sesión
@@ -37,5 +37,6 @@
     <script type="text/javascript" src="bootstrap/js/bootstrap-alert.js"></script>
     <script type="text/javascript" src="bootstrap/js/jquery.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap-button.js"></script>
+    <script type="text/javascript" src="Scripts/placeholder_ie.js"></script>
 </body>
 </html>

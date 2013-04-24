@@ -1,116 +1,152 @@
 ﻿var Grilla = function (columnas) {
-    //miembros privados
-    var tabla;
-    var encabezado;
-    var onRowClickEventHandler;
-    var Objetos = new Array();
+    this.columnas = columnas;
+    this.start();
+};
 
-    //ESTO DEBERIA SER USADO PARA TODO, YA QUE EL INDEXOF EN IE NO FUNCIONA
-    if (!Array.indexOf) {
-        Array.prototype.indexOf = function (obj) {
-            for (var i = 0; i < this.length; i++) {
-                if (this[i] == obj) {
-                    return i;
-                }
-            }
-            return -1;
+Grilla.prototype = {
+    start: function () {
+        this.tabla = $('<table>');
+        this.tabla.addClass("table");
+        this.tabla.addClass("table-striped");
+        this.tabla.addClass("table-bordered");
+        this.tabla.addClass("table-condensed");
+        this.tabla.addClass("table-hover");
+        this.tabla.css("cursor", "pointer");
+
+        this.Objetos = [];
+
+        this.crearEncabezado();
+        this.crearProgressBar();
+        this.registrarIndexOfEnArrays();
+    },
+    crearEncabezado: function () {
+        var tHead = $('<thead>');
+        tHead.addClass("detalle_viatico_titulo_tabla_detalle");
+
+        var encabezado = $('<tr>');
+        tHead.append(encabezado);
+        this.tabla.append(tHead);
+
+        for (var i = 0; i < this.columnas.length; i++) {
+            var col = this.columnas[i];
+            encabezado.append('<th>' + col.titulo + '</th>');
         }
-    }
+    },
+    crearProgressBar: function () {
+        this.progress_bar = $('<div>');
+        var progress_label = $("<div>");
+        progress_label.css("float", "left");
+        progress_label.css("margin-left", "40%");
+        progress_label.css("margin-top", "5px");
+        progress_label.css("font-weight", "bold");
 
-    //métodos públicos
-    this.DibujarEn = function (panel) {
-        //        if (tabla.find("tr").length < 2) {
-        //            var tr = $('<tr>');
-        //            var td = $('<td>');
-        //            td.attr("colspan", columnas.length);
-        //            td.html("No hay datos para mostrar");
-        //            tr.append(td);
-        //            tabla.append(tr);
-        //        }
+        progress_label.text("Cargando documentos...");
 
-        panel.append(tabla);
-    }
+        this.progress_bar.append(progress_label);
 
-    this.SetOnRowClickEventHandler = function (metodo) {
-        onRowClickEventHandler = metodo;
-    }
-
-    this.CargarObjetos = function (objetos) {
+        this.progress_bar.progressbar({
+            value: false
+        });
+        this.progress_bar.progressbar("option", "value", false);
+        this.mostrando_progress_bar = false;
+    },
+    registrarIndexOfEnArrays: function () {
+        if (!Array.indexOf) {
+            Array.prototype.indexOf = function (obj) {
+                for (var i = 0; i < this.length; i++) {
+                    if (this[i] == obj) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+        }
+    },
+    DibujarEn: function (panel) {
+        panel.append(this.tabla);
+    },
+    SetOnRowClickEventHandler: function (metodo) {
+        this.onRowClickEventHandler = metodo;
+    },
+    setProveedorDeDatos: function (proveedor) {
+        this.proveedor_de_datos = proveedor;
+    },
+    refrescar: function () {
+        this.BorrarContenido();
+        this.mostrarProgressBar();
+        var self = this;
+        this.proveedor_de_datos.pedirDatos(function (obj) { self.CargarObjetos(obj); });
+    },
+    mostrarProgressBar: function () {
+        this.tabla.after(this.progress_bar);
+        this.progress_bar.show();
+        this.mostrando_progress_bar = true;
+    },
+    ocultarProgressBar: function () {
+        this.progress_bar.hide();
+        this.mostrando_progress_bar = false;
+    },
+    mostrandoProgressBar: function () {
+        return this.mostrando_progress_bar;
+    },
+    CargarObjetos: function (objetos) {
+        this.ocultarProgressBar();
         for (var i = 0; i < objetos.length; i++) {
             var obj = objetos[i];
             this.CargarObjeto(obj);
         }
-    }
-
-    this.CargarObjeto = function (obj) {
+    },
+    CargarObjeto: function (obj) {
         var tr = $('<tr>');
-        for (var i = 0; i < columnas.length; i++) {
-            var col = columnas[i];
+        for (var i = 0; i < this.columnas.length; i++) {
+            var col = this.columnas[i];
             var td = $('<td>');
             td.append(col.generadorDeContenido.generar(obj));
             tr.append(td);
         }
         //seteo el evento click para la fila
+        var self = this;
         tr.click(function () {
-            desSeleccionarTodo();
+            self.desSeleccionarTodo();
             $(this).find("td").addClass('celda_seleccionada');
-            onRowClickEventHandler(obj);
+            self.onRowClickEventHandler(obj);
         });
 
-        tabla.append(tr);
-        Objetos.push(obj);
-    }
-
-    this.QuitarObjetosExistentes = function (objetos) {
+        this.tabla.append(tr);
+        this.Objetos.push(obj);
+    },
+    QuitarObjetosExistentes: function (objetos) {
         for (var i = 0; i < objetos.length; i++) {
             var obj = objetos[i];
             if (this.ContieneElemento(obj)) {
                 var indice = obtenerIndice(Objetos, obj);
-                Objetos.splice(indice, 1);
+                this.Objetos.splice(indice, 1);
             }
 
         }
-        return Objetos;
-    }
-
-    this.QuitarObjeto = function (tabla, obj) {
-        tabla.find(".celda_seleccionada").remove();
-        var indice = Objetos.indexOf(obj);
-        Objetos.splice(indice, 1);
-    }
-
-
-
-    //    this.QuitarObjetoSeleccionada = function (obj) {
-    //        //tabla.find(".celda_seleccionada").remove();
-    //        var indice = Objetos.indexOf(obj);
-    //        Objetos.splice(indice, 1);
-    //    }
-
-    this.ContieneElemento = function (obj) {
-        return contains(Objetos, obj);
-    }
-
-    this.Objetos = function () {
-        return Objetos;
-    }
-
-    this.desSeleccionarTodo = function () {
-        desSeleccionarTodo();
-    }
-
-    this.BorrarContenido = function () {
-        var rowCount = tabla[0].rows.length;
+        return this.Objetos;
+    },
+    QuitarObjeto: function (tabla, obj) {
+        this.tabla.find(".celda_seleccionada").remove();
+        var indice = this.Objetos.indexOf(obj);
+        this.Objetos.splice(indice, 1);
+    },
+    ContieneElemento: function (obj) {
+        return contains(this.Objetos, obj);
+    },
+    Objetos: function () {
+        return this.Objetos;
+    },
+    BorrarContenido: function () {
+        var rowCount = this.tabla[0].rows.length;
         for (var i = 1; i < rowCount; i++) {
-            tabla[0].deleteRow(i);
+            this.tabla[0].deleteRow(i);
             rowCount--;
             i--;
         }
-        Objetos = new Array();
-    }
-
-    //métodos privados
-    function contains(a, obj) {
+        this.Objetos = new Array();
+    },
+    contains: function (a, obj) {
         var i = a.length;
         while (i--) {
             if (a[i] === obj) {
@@ -120,9 +156,8 @@
             }
         }
         return false;
-    }
-
-    function obtenerIndice(a, obj) {
+    },
+    obtenerIndice: function (a, obj) {
         var i = a.length;
         while (i--) {
             if (a[i].Id === obj.Id) {
@@ -130,38 +165,16 @@
             }
         }
         return -1;
-    }
-
-    var desSeleccionarTodo = function () {
-        var celdas = tabla.find("td");
+    },
+    desSeleccionarTodo: function () {
+        var celdas = this.tabla.find("td");
         celdas.removeClass('celda_seleccionada');
         celdas.removeClass('celda_on_hover');
     }
+};
 
-    var inicializar = function () {
-        tabla = $('<table>');
-        tabla.addClass("table");
-        tabla.addClass("table-striped");
-        tabla.addClass("table-bordered");
-        tabla.addClass("table-condensed");
 
-        var tHead = $('<thead>');
-        tHead.addClass("detalle_viatico_titulo_tabla_detalle");
-
-        encabezado = $('<tr>');
-        tHead.append(encabezado);
-        tabla.append(tHead);
-
-        for (var i = 0; i < columnas.length; i++) {
-            var col = columnas[i];
-            encabezado.append('<th>' + col.titulo + '</th>');
-        }
-    }
-    //inicializo
-    inicializar();
-}
-
-var Columna = function (titulo, generadorDeContenido) {
+var Columna = function (titulo, generadorDeContenido, resumida) {
     this.titulo = titulo;
     this.generadorDeContenido = generadorDeContenido;
 }

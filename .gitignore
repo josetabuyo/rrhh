@@ -162,3 +162,9 @@ _UpgradeReport_Files
 TestResults
 /WebAsistencia/TestResults
 _ReSharper.WSWebRH
+/WebAsistencia/TestResults
+/WebAsistencia/WebRH/App_WebReferences/WSViaticos/configuration91.svcinfo
+/WebAsistencia/WebRH/App_WebReferences/WSViaticos/Reference.svcmap
+/WebAsistencia/WebRH/App_WebReferences/WSViaticos/WSViaticos.disco
+/WebAsistencia/WebRH/App_WebReferences/WSViaticos/WSViaticos.wsdl
+/WebAsistencia/WebRH/App_WebReferences/WSViaticos/configuration.svcinfo

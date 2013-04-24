@@ -27,7 +27,6 @@
         label.css('pointer-events', 'none');
         label.css('width', '0px');
 
-        label.addClass('placeholder');
         var marginStrPx = input.css('margin-left');
         var marginStr = marginStrPx.replace('px', '');
         marginInt = parseInt(marginStr, 10);
@@ -46,7 +45,7 @@
 
         if (!(input.val() === "")) label.hide();
 
-        input.click(function () {
+        input.focus(function () {
             label.hide();
         });
 
