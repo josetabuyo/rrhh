@@ -13,7 +13,7 @@ using Newtonsoft.Json.Linq;
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-// [System.Web.Script.Services.ScriptService]
+[System.Web.Script.Services.ScriptService]
 public class WSViaticos : System.Web.Services.WebService
 {
     public WSViaticos()
@@ -417,6 +417,53 @@ public class WSViaticos : System.Web.Services.WebService
         return comision.PuedeGuardarse();
     }
 
+    //[WebMethod]
+    //public string GuardarDocumento_Ajax(string documento_DTO, Usuario usuario)
+    //{
+    //    var propiedades_doc = JsonConvert.DeserializeObject<Dictionary<String, Object>>(documento_DTO);
+    //    var documento = new Documento();
+    //    documento.extracto = (string)propiedades_doc["extracto"];
+    //    documento.tipoDeDocumento = new TipoDeDocumentoSICOI(int.Parse(propiedades_doc["tipo"].ToString()), "");
+    //    documento.categoriaDeDocumento = new CategoriaDeDocumentoSICOI(int.Parse(propiedades_doc["categoria"].ToString()), "");
+    //    documento.numero = (string)propiedades_doc["numero"];
+    //    documento.comentarios = (string)propiedades_doc["comentarios"];
+
+    //    this.GuardarDocumento(documento, 
+    //        int.Parse(propiedades_doc["id_area_origen"].ToString()), 
+    //        int.Parse(propiedades_doc["id_area_actual"].ToString()),
+    //        usuario);
+    //    try
+    //    {
+    //        var id_area_destino = int.Parse(propiedades_doc["id_area_destino"].ToString());
+    //        if (id_area_destino >= 0) this.CrearTransicionFuturaParaDocumento(documento.Id, id_area_destino, usuario);
+    //    }
+    //    catch (Exception e) { }
+    //    return JsonConvert.SerializeObject(new {ticket = documento.ticket});
+    //}
+
+    [WebMethod]
+    public string GuardarDocumento_Ajax(string documento_JSON, Usuario usuario)
+    {
+        try
+        {
+            var documento_dto_alta = JsonConvert.DeserializeObject<Documento_DTO_Alta>(documento_JSON);
+            var documento = documento_dto_alta.toDocumento();
+
+            this.GuardarDocumento(documento, int.Parse(documento_dto_alta.id_area_origen), int.Parse(documento_dto_alta.id_area_actual), usuario);
+            if (documento_dto_alta.id_area_destino != "") this.CrearTransicionFuturaParaDocumento(documento.Id, int.Parse(documento_dto_alta.id_area_destino), usuario);
+
+            return JsonConvert.SerializeObject(new {  
+                tipoDeRespuesta = "altaDeDocumento.ok",
+                ticket = documento.ticket });
+        }
+        catch (Exception e)
+        {
+            return JsonConvert.SerializeObject(new {
+                tipoDeRespuesta = "altaDeDocumento.error",
+                error = e.Message });
+        }
+    }
+
     [WebMethod]
     public Documento GuardarDocumento(Documento un_documento, int id_area_creadora, int id_area_actual, Usuario usuario)
     {
@@ -436,30 +483,44 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Documento GuardarCambiosEnDocumento(int id_documento, int id_area_destino, string comentario, Usuario usuario)
+    public string GuardarCambiosEnDocumento(int id_documento, int id_area_destino, string comentario, Usuario usuario)
     {
-        var conexion = Conexion();
-        var repo_documentos = new RepositorioDeDocumentos(conexion);
-        var repo_organigrama = new RepositorioDeOrganigrama(conexion);
-        var repo_transiciones = new RepositorioMensajeria(conexion, repo_documentos, repo_organigrama);
-        var mensajeria = repo_transiciones.GetMensajeria();
-
-        var un_documento = repo_documentos.GetDocumentoPorId(id_documento);
-        un_documento.comentarios = comentario;
-        repo_documentos.UpdateDocumento(un_documento, usuario);
-
-        var area_destino = new Area();
-
-        if (id_area_destino != -1)
+        try
         {
-            area_destino = repo_organigrama.GetAreaById(id_area_destino);
+            var conexion = Conexion();
+            var repo_documentos = new RepositorioDeDocumentos(conexion);
+            var repo_organigrama = new RepositorioDeOrganigrama(conexion);
+            var repo_transiciones = new RepositorioMensajeria(conexion, repo_documentos, repo_organigrama);
+            var mensajeria = repo_transiciones.GetMensajeria();
 
-            mensajeria.SeEnviaAFuturo(un_documento, usuario.Areas[0], area_destino);
+            var un_documento = repo_documentos.GetDocumentoPorId(id_documento);
+            un_documento.comentarios = comentario;
+            repo_documentos.UpdateDocumento(un_documento, usuario);
+
+            var area_destino = new Area();
+
+            if (id_area_destino != -1)
+            {
+                area_destino = repo_organigrama.GetAreaById(id_area_destino);
+                mensajeria.SeEnviaAFuturo(un_documento, usuario.Areas[0], area_destino);
+            }
+            else
+            {
+                mensajeria.YaNoSeEnviaAFuturo(un_documento);
+                repo_transiciones.BorrarTransicionFuturaPara(un_documento);
+            }
 
             repo_transiciones.GuardarTransicionesDe(mensajeria);
+
+
+            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "guardarDocumento.ok" });
         }
-        
-        return un_documento;
+        catch (Exception e)
+        {
+            return JsonConvert.SerializeObject(new {
+                tipoDeRespuesta = "guardarDocumento.error",
+                error = e.Message });
+        }
     }
 
     [WebMethod]
@@ -542,7 +603,7 @@ public class WSViaticos : System.Web.Services.WebService
         var areasFormales_dto = new List<Object>();
         areasFormales.ForEach(delegate(Area a)
         {            
-            areasFormales_dto.Add(AreaDtoPara(a));
+            areasFormales_dto.Add(new AreaDTO(a));
         });
         return JsonConvert.SerializeObject(areasFormales_dto);
     }
@@ -576,32 +637,18 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetCategoriasDeDocumentos().ToArray();
     }
 
-    //[WebMethod]
-    //public string GetDocumentosFiltrados(List<String> filtros)
-    //{
-    //    var filtrosDesSerializados = desSerializadorDeFiltros().DesSerializarFiltros(filtros);
-    //    var documentos = RepositorioDocumentos().GetDocumentosFiltrados(filtrosDesSerializados);
-    //    var documentos_dto = new List<Object>();
-
-    //    documentos.ForEach(delegate(Documento doc)
-    //    {
-    //        documentos_dto.Add(DocumentoDtoPara(doc));
-    //    });
-    //    return JsonConvert.SerializeObject(documentos_dto);
-    //}
-
     [WebMethod]
-    public string GetDocumentosFiltrados(String filtros)
+    public List<DocumentoDTO> GetDocumentosFiltrados(String filtros)
     {
         var filtrosDesSerializados = desSerializadorDeFiltros().DesSerializarFiltros(filtros);
         var documentos = RepositorioDocumentos().GetDocumentosFiltrados(filtrosDesSerializados);
-        var documentos_dto = new List<Object>();
-
+        var documentos_dto = new List<DocumentoDTO>();
+        var mensajeria = Mensajeria();
         documentos.ForEach(delegate(Documento doc)
         {
-            documentos_dto.Add(DocumentoDtoPara(doc));
+            documentos_dto.Add(new DocumentoDTO(doc, mensajeria));
         });
-        return JsonConvert.SerializeObject(documentos_dto);
+        return documentos_dto;
     }
 
     [WebMethod]
@@ -609,17 +656,17 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var documentos = DocumentosEnAlerta();
         var documentos_dto = new List<Object>();
+        var mensajeria = Mensajeria();
 
         documentos.ForEach(delegate(Documento doc)
         {
-            documentos_dto.Add(DocumentoDtoPara(doc));
+            documentos_dto.Add(new DocumentoDTO(doc, mensajeria));
         });
         return JsonConvert.SerializeObject(documentos_dto);
     }
 
     private List<Documento> DocumentosEnAlerta()
     {
-        // var filtrosDesSerializados = desSerializadorDeFiltros().DesSerializarFiltros(filtros);
         var alertas = new RepositorioDeAlertas(Mensajeria()).GetAlertas();
         var documentos = new List<Documento>();
 
@@ -635,87 +682,11 @@ public class WSViaticos : System.Web.Services.WebService
         return DocumentosEnAlerta().Any();
     }
 
-
     private DesSerializadorDeFiltros desSerializadorDeFiltros()
     {
         return new DesSerializadorDeFiltros(Mensajeria());
     }
-
-    private Object DocumentoDtoPara(Documento doc){
-        return new
-                {
-                    id = doc.Id,
-                    numero = doc.numero,
-                    tipo = TipoDocumentoDtoPara(doc.tipoDeDocumento),
-                    ticket = doc.ticket,
-                    extracto = doc.extracto,
-                    fechaDeAlta = doc.fecha.ToString("dd/MM/yyyy"),
-                    areaCreadora = AreaDtoPara(Mensajeria().SeOriginoEnArea(doc)),
-                    areaActual = AreaDtoPara(Mensajeria().EstaEnElArea(doc)),
-                    areaDestino = AreaDtoPara(Mensajeria().AreaDestinoPara(doc)),
-                    enAreaActualHace = TiempoEnElAreaActualDTOPara(doc),
-                    estado = EstadoDtoPara(doc),
-                    historial = HistorialDeTransicionesDtoPara(doc),
-                    comentarios = doc.comentarios,
-                    categoria = CategoriaDtoPara(doc.categoriaDeDocumento)
-                };
-    }
-
-    private object TiempoEnElAreaActualDTOPara(Documento doc)
-    {
-        var tiempo = Mensajeria().TiempoEnElAreaActualPara(doc);
-        return new {    dias = tiempo.Days,
-                        horas = tiempo.Hours,
-                        minutos = tiempo.Minutes};
-    }
-
-
-    private Object CategoriaDtoPara(CategoriaDeDocumentoSICOI cat)
-    {
-        return new
-        {
-            id = cat.Id,
-            descripcion = cat.descripcion
-        };
-
-    }
-    private Object TipoDocumentoDtoPara(TipoDeDocumentoSICOI tipoDoc)
-    {
-        return new
-                {
-                    id = tipoDoc.Id,
-                    descripcion = tipoDoc.descripcion
-                };
-    }
-
-    private Object AreaDtoPara(Area area){
-        return new
-                {
-                    id = area.Id,
-                    descripcion = area.Alias
-                };
-    }
-
-    private String EstadoDtoPara(Documento doc)
-    {
-        var areaDestino = Mensajeria().AreaDestinoPara(doc);
-        string estado;
-        estado = "Recibido";
-        if (areaDestino.Id > -1) estado = "A remitir";
-        return estado;
-    }
-
-    private Array HistorialDeTransicionesDtoPara(Documento doc)
-    {
-        var historial = new List<Object>(); 
-        Mensajeria().HistorialDetransicionesPara(doc).ForEach(t => historial.Add(new {  areaOrigen = t.AreaOrigen.NombreConAlias(),
-                                                                                areaDestino = t.AreaDestino.NombreConAlias(),
-                                                                                fecha = t.Fecha.ToString("dd/MM/yyyy")
-                                                                                }));
-        return historial.ToArray();
-    }
-
-
+ 
     public RepositorioDeDocumentos RepositorioDocumentos()
     {
         return new RepositorioDeDocumentos(Conexion());
@@ -734,7 +705,6 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioMensajeria(conexion, repo_documentos, repo_organigrama);
     }
 
-
     public Mensajeria Mensajeria()
     {
         var repo_transiciones = RepoMensajeria();
@@ -742,26 +712,48 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void TransicionarDocumento(int id_documento, int id_area_origen, int id_area_destino)
+    public string TransicionarDocumento(int id_documento, int id_area_origen, int id_area_destino)
     {
-        var documento = RepositorioDocumentos().GetTodosLosDocumentos().Find(d => d.Id == id_documento);
-        var area_origen = new RepositorioDeOrganigrama(Conexion()).GetAreaById(id_area_origen);
-        var area_destino = new RepositorioDeOrganigrama(Conexion()).GetAreaById(id_area_destino);
-        var mensajeria = Mensajeria();
-        mensajeria.SeEnvioDirectamente(documento, area_origen, area_destino, DateTime.Now);
-        RepoMensajeria().GuardarTransicionesDe(mensajeria);
+        try
+        {
+            var documento = RepositorioDocumentos().GetTodosLosDocumentos().Find(d => d.Id == id_documento);
+            var area_origen = new RepositorioDeOrganigrama(Conexion()).GetAreaById(id_area_origen);
+            var area_destino = new RepositorioDeOrganigrama(Conexion()).GetAreaById(id_area_destino);
+            var mensajeria = Mensajeria();
+            mensajeria.SeEnvioDirectamente(documento, area_origen, area_destino, DateTime.Now);
+            RepoMensajeria().GuardarTransicionesDe(mensajeria);
+            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "envioDeDocumento.ok"});
+        }
+        catch (Exception e)
+        {
+            return JsonConvert.SerializeObject(new {
+                tipoDeRespuesta = "envioDeDocumento.error",
+                error = e.Message });
+        }
     }
 
     [WebMethod]
-    public void TransicionarDocumentoConAreaIntermedia(int id_documento, int id_area_origen, int id_area_intermedia, int id_area_destino)
+    public string TransicionarDocumentoConAreaIntermedia(int id_documento, int id_area_origen, int id_area_intermedia, int id_area_destino)
     {
-        var documento = RepositorioDocumentos().GetTodosLosDocumentos().Find(d => d.Id == id_documento);
-        var area_origen = new RepositorioDeOrganigrama(Conexion()).GetAreaById(id_area_origen);
-        var area_intermedia = new RepositorioDeOrganigrama(Conexion()).GetAreaById(id_area_intermedia);
-        var area_destino = new RepositorioDeOrganigrama(Conexion()).GetAreaById(id_area_destino);
-        var mensajeria = Mensajeria();
-        mensajeria.TransicionarConAreaIntermedia(documento, area_origen, area_intermedia, area_destino, DateTime.Now);
-        RepoMensajeria().GuardarTransicionesDe(mensajeria);
+        try
+        {
+            var documento = RepositorioDocumentos().GetTodosLosDocumentos().Find(d => d.Id == id_documento);
+            var area_origen = new RepositorioDeOrganigrama(Conexion()).GetAreaById(id_area_origen);
+            var area_intermedia = new RepositorioDeOrganigrama(Conexion()).GetAreaById(id_area_intermedia);
+            var area_destino = new RepositorioDeOrganigrama(Conexion()).GetAreaById(id_area_destino);
+            var mensajeria = Mensajeria();
+            mensajeria.TransicionarConAreaIntermedia(documento, area_origen, area_intermedia, area_destino, DateTime.Now);
+            RepoMensajeria().GuardarTransicionesDe(mensajeria);
+            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "envioDeDocumento.ok"});
+        }
+        catch (Exception e)
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "envioDeDocumento.error",
+                error = e.Message
+            });
+        }
     }
 
     [WebMethod]
@@ -953,8 +945,7 @@ public class WSViaticos : System.Web.Services.WebService
                     nombre = persona.Apellido + ", " + persona.Nombre,
                     apellido = persona.Apellido,
                     documento = persona.Documento,
-                    area = AreaDtoPara(persona.Area), 
-                    
+                    area = new AreaDTO(persona.Area)                    
                 });
             });
         }

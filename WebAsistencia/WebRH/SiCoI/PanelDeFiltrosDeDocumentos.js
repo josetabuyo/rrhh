@@ -43,6 +43,11 @@ PanelDeFiltros.prototype = {
         if (this.cantidadDeFiltrosActivos() > 0) { obs.algunFiltroActivado(); }
         if (this.cantidadDeFiltrosActivos() == 0) { obs.ningunFiltroActivado(); }
         this.cambiaronLosFiltros();
+    },
+    limpiarFiltros: function(){
+        for (var i = 0; i < this._filtros.length; i++) {
+            this._filtros[i].limpiar();
+        }
     }
 }
 
@@ -66,10 +71,10 @@ FiltroDeDocumentos.prototype = {
     estaActivo: function () {
         return this._activo;
     },
-    
-//    && (this._activo || this._activo === undefined)
-//    && (!this._activo || this._activo === undefined)
-    
+
+    //    && (this._activo || this._activo === undefined)
+    //    && (!this._activo || this._activo === undefined)
+
     definirEstado: function () {
         if ((this._input.val() == "")) this.desactivarFiltro();
         if ((this._input.val() != "")) this.activarFiltro();
@@ -77,7 +82,7 @@ FiltroDeDocumentos.prototype = {
     activarFiltro: function () {
         this._activo = true;
         this.agregarFiltroAListaParaAplicar = function (lista) {
-            if(this._habilitado) lista.push(this.generarResumenFiltro());
+            if (this._habilitado) lista.push(this.generarResumenFiltro());
         };
         for (var i = 0; i < this._observadores_activacion.length; i++) {
             this._observadores_activacion[i].filtroActivado(this);
@@ -102,6 +107,10 @@ FiltroDeDocumentos.prototype = {
     desHabilitarFiltro: function () {
         this._habilitado = false;
         this.desactivarFiltro();
+    },
+    limpiar: function () {
+        this._input.val("");
+        this._input.change();
     }
 };
 
@@ -152,6 +161,20 @@ FiltroDeDocumentosPorExtracto.prototype.generarResumenFiltro = function () {
     };
 }
 
+///////////////
+
+var FiltroDeDocumentosGoogleano = function (input, color_activo, color_inactivo) {
+    FiltroDeDocumentosQuePintaInput.call(this, input, color_activo, color_inactivo);
+};
+
+FiltroDeDocumentosGoogleano.prototype = $.extend(true, {}, FiltroDeDocumentosQuePintaInput.prototype);
+FiltroDeDocumentosGoogleano.prototype.constructor = FiltroDeDocumentosPorExtracto;
+FiltroDeDocumentosGoogleano.prototype.generarResumenFiltro = function () {
+    return { tipoDeFiltro: "FiltroDeDocumentosGoogleano",
+        criterio: this._input.val()
+    };
+}
+
 ///////////
 
 var FiltroDeDocumentosSoloEnAreaUsuario = function (checkbox, idAreaUsuario) {
@@ -170,7 +193,10 @@ FiltroDeDocumentosSoloEnAreaUsuario.prototype.definirEstado = function () {
     if ((!this._input.is(":checked")) && (this._activo || this._activo === undefined)) this.desactivarFiltro();
     if ((this._input.is(":checked")) && (!this._activo || this._activo === undefined)) this.activarFiltro();
 };
-
+FiltroDeDocumentosSoloEnAreaUsuario.prototype.limpiar = function () {
+    this._input.attr("checked", false);
+    this._input.change();
+};
 ///////////
 
 var FiltroDeDocumentosPorTransicion = function (input, idAreaUsuario) {
@@ -305,6 +331,15 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
         self.cfg.inputFiltroTipoDeDocumento.append(listItem.clone());
     }
 
+    for (var i = 0; i < cfg.categoriasDeDocumento.length; i++) {
+        var categoria = cfg.categoriasDeDocumento[i];
+        var listItem = $('<option>');
+        listItem.val(categoria.Id);
+        listItem.text(categoria.descripcion);
+        cfg.inputFiltroCategoriaDocumentoFiltro.append(listItem);
+    }
+
+
     self.cfg.inputFiltroFechaDesde.datepicker({ dateFormat: "dd/mm/yy",
         onSelect: function (date) { self.cfg.inputFiltroFechaDesde.change(); }
     });
@@ -313,6 +348,7 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
     });
 
     var filtroPorExtracto = new FiltroDeDocumentosPorExtracto(self.cfg.inputFiltroExtractoDocumento, amarillo, blanco);
+    var filtroGoogleano = new FiltroDeDocumentosGoogleano(self.cfg.inputFiltroGoogleano, amarillo, blanco);
     var filtroPorNumero = new FiltroDeDocumentosPorNumero(self.cfg.inputFiltroNumeroDocumento, amarillo, blanco);
     var filtroPorFechaDesde = new FiltroDeDocumentosPorFechaDesde(self.cfg.inputFiltroFechaDesde, amarillo, blanco);
     var filtroPorFechaHasta = new FiltroDeDocumentosPorFechaHasta(self.cfg.inputFiltroFechaHasta, amarillo, blanco);
@@ -357,9 +393,8 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
                 }
             );
 
-    self.cfg.divFiltrosActivos.val('[]');
-
-    var panel_filtros = new PanelDeFiltros([filtroPorExtracto,
+    this.panel_filtros = new PanelDeFiltros([filtroGoogleano,
+                        filtroPorExtracto,
                         filtroPorNumero,
                         filtroPorFechaDesde,
                         filtroPorFechaHasta,
@@ -370,7 +405,7 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
                         filtroPorCategoriaDeDocumento,
                         filtroPorSoloEnAreaUsuario]);
 
-    panel_filtros.setObservador({
+    this.panel_filtros.setObservador({
         algunFiltroActivado: function () {
             self.cfg.botonDesplegarPanelFiltros.addClass('boton_que_abre_panel_desplegable_activo_con_filtros');
         },
@@ -378,32 +413,51 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
             self.cfg.botonDesplegarPanelFiltros.removeClass('boton_que_abre_panel_desplegable_activo_con_filtros');
         },
         cambiaronLosFiltros: function () {
-            self.cfg.divFiltrosActivos.val(JSON.stringify(panel_filtros.filtrosActivos()));
         }
     });
 
-    var setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario = function () {
-        if (self.cfg.inputFiltroCheckDocumentosEnMiArea.is(':checked')) {
-            self.cfg.inputFiltroAreaActual.hide();
-            self.cfg.tituloFiltroAreaActual.hide();
-        } else {
-            self.cfg.inputFiltroAreaActual.show();
-            self.cfg.tituloFiltroAreaActual.show();
-        }
-    }
-    setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario();
-    self.cfg.inputFiltroCheckDocumentosEnMiArea.click(setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario);
+    this.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario();
 
-    this.cfg.botonDesplegarPanelFiltros.click(function () {
+    cfg.inputFiltroCheckDocumentosEnMiArea.change(function(){self.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario()});
+
+    cfg.botonDesplegarPanelFiltros.click(function () {
         self._panel_alta.contraer();
         self.alternarDespliegue();
         self._panel_detalle.cerrar();
     });
+
+    cfg.btnAplicarFiltros.click(function () {
+        self.contraer();
+        self._panel_documentos.refrescarGrilla();
+    });
+
+    cfg.btnQuitarFiltros.click(function () {
+        self.contraer();
+        self.panel_filtros.limpiarFiltros();
+        self._panel_documentos.refrescarGrilla();
+    });
+
+    cfg.panelBusquedaBasica.show();
+    cfg.panelBusquedaAvanzada.hide();
+
+    cfg.btnToggleBusquedaAvanzada.click(function () {
+        cfg.panelBusquedaBasica.toggle();
+        cfg.panelBusquedaAvanzada.toggle();
+        self.panel_filtros.limpiarFiltros();
+        if (cfg.panelBusquedaBasica.css('display') == 'block')  cfg.btnToggleBusquedaAvanzada.val("+");
+        else  cfg.btnToggleBusquedaAvanzada.val("-");
+    });
 }
 
 PanelDeFiltrosDeDocumentos.prototype = {
+    getFiltrosActivos: function () {
+        return this.panel_filtros.filtrosActivos();
+    },
     setPanelAlta: function (panel) {
         this._panel_alta = panel;
+    },
+    setPanelDocumentos: function (panel) {
+        this._panel_documentos = panel;
     },
     setPanelDetalle: function (panel) {
         this._panel_detalle = panel;
@@ -412,12 +466,21 @@ PanelDeFiltrosDeDocumentos.prototype = {
         this.cfg.divPanelFiltros.slideToggle("fast");
         this.cfg.botonDesplegarPanelFiltros.toggleClass("boton_que_abre_panel_desplegable_activo");
     },
-    desplegar: function(){
+    desplegar: function () {
         this.cfg.divPanelFiltros.slideDown("fast");
         this.cfg.botonDesplegarPanelFiltros.addClass("boton_que_abre_panel_desplegable_activo");
     },
     contraer: function () {
         this.cfg.divPanelFiltros.slideUp("fast");
         this.cfg.botonDesplegarPanelFiltros.removeClass("boton_que_abre_panel_desplegable_activo");
+    },
+    setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario : function () {
+        if (this.cfg.inputFiltroCheckDocumentosEnMiArea.is(':checked')) {
+            this.cfg.inputFiltroAreaActual.hide();
+            this.cfg.tituloFiltroAreaActual.hide();
+        } else {
+            this.cfg.inputFiltroAreaActual.show();
+            this.cfg.tituloFiltroAreaActual.show();
+        }
     }
 }
