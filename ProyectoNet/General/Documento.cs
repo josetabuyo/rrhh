@@ -53,7 +53,7 @@
             return new Validador();
         }
 
-        public Documento(TipoDeDocumentoSICOI tipoDeDocumento, string numero, CategoriaDeDocumentoSICOI categoria, Area areaOrigen, string extracto, Area areaDestino, string comentarios)
+        public Documento(TipoDeDocumentoSICOI tipoDeDocumento, string numero, CategoriaDeDocumentoSICOI categoria, Area areaOrigen, string extracto, string comentarios)
             : this(tipoDeDocumento, numero, categoria, areaOrigen, extracto)
         {
             this._comentarios = comentarios;
@@ -75,6 +75,9 @@
             return this._id;
         }
 
-
+        public static Documento fromDTO(string documento_DTO)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

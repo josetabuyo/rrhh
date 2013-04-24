@@ -81,6 +81,7 @@
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="CategoriaDeDocumentoSICOI.cs" />
     <Compile Include="CircuitoDeAprobacionDeViatico.cs" />
+    <Compile Include="FiltroDeDocumentosGoogleano.cs" />
     <Compile Include="FiltroDeDocumentosPorTiempoEnUltimaAreaMayorOIgualA.cs" />
     <Compile Include="DesSerializadorDeFiltros.cs" />
     <Compile Include="CodigoDeTareaAgotadoException.cs" />
