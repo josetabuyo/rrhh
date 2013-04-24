@@ -23,7 +23,7 @@ public partial class SACC_FormPlanillaDeEvaluaciones : System.Web.UI.Page
 
     private void CargarComboCursos()
     {
-        var cursos = Servicio().GetCursos();
+        var cursos = Servicio().GetCursosDto();
         foreach (var c in cursos)
         {
             this.CmbCurso.Items.Add(new System.Web.UI.WebControls.ListItem(c.Nombre, c.Id.ToString()));
