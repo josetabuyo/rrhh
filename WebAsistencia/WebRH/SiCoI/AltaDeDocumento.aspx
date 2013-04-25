@@ -7,6 +7,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>SICOI</title>
+    <link id="link3" rel="stylesheet" href="../Estilos/EstilosSICOI.css" type="text/css" runat="server" />
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
@@ -153,6 +154,21 @@
             <input id="selectorAreaDestinoEnDetalle"  type="text" data-provide="typeahead" data-items="9" runat="server" />
             <input id="btnGuardarCambiosDetalle" type="button" class=" btn btn-primary" value="Guardar Cambios"/>
         </div>
+    </div>
+
+    <div id="plantillas">
+        <div id="plantilla_ficha_chica_de_documento" class="ficha_chica_de_documento">
+            <div id="ficha_chica_titulo_ticket"></div>
+            <div id="ficha_chica_contenido_ticket"></div>
+            <div id="ficha_chica_titulo_tipo"></div>
+            <div id="ficha_chica_contenido_tipo"></div>
+            <div id="ficha_chica_titulo_categoria"></div>
+            <div id="ficha_chica_contenido_categoria"></div>
+            <div id="ficha_chica_titulo_extracto"></div>
+            <div id="ficha_chica_contenido_extracto"></div>
+            <div id="ficha_chica_titulo_area_actual"></div>
+            <div id="ficha_chica_contenido_area_actual"></div>
+        </div>    
     </div>
 
     <asp:HiddenField ID="AreaDelUsuario" runat="server" />
