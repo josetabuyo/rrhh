@@ -196,7 +196,6 @@
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
     <script type="text/javascript" src="../Scripts/InputSoloNumeros.js"></script>
     <script type="text/javascript" src="PanelDeFiltrosDeDocumentos.js"></script>
-    <script type="text/javascript" src="GrillaDeDocumentos.js"></script>
     <script type="text/javascript" src="InputAutocompletableDeAreas.js"></script>
     <script type="text/javascript" src="PanelDetalleDeDocumento.js"></script>
     <script type="text/javascript" src="PanelDeDocumentos.js"></script>
