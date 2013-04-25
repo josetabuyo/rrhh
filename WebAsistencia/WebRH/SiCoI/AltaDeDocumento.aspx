@@ -9,13 +9,15 @@
     <title>SICOI</title>
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
+    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
+    <link id="link3" rel="stylesheet" href="../Estilos/EstilosSICOI.css" type="text/css" runat="server" />
     <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
 </head>
-<body class="body-detalle" onload="MM_preloadImages('Imagenes/Botones/gestiontramites_s2.png','Imagenes/Botones/administrar_s2.png','Imagenes/Botones/solicitar_modificacion_s2.png','Imagenes/Botones/Botones Nuevos/ayuda_s2.png','Imagenes/Botones/Botones Nuevos/inicio_s2.png','Imagenes/Botones/cerrarsesion_s2.png','Imagenes/Botones/consprotocolo_s2.png')">
+<body class="body-detalle">
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <div class="contenedor_principal_sicoi">
+    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="MESA DE ENTRADAS" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <div id="contenedor_principal_sicoi">
         <div id="botonera_paneles_desplegables">
             <input type="button" id="boton_alertas" class=" btn btn-danger" value="!"/>
             <div id="boton_desplegar_panel_filtros" class="boton_que_abre_panel_desplegable"

@@ -16,7 +16,7 @@
 <body>
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True"></asp:ScriptManager>
-        <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="SICOI" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     </form>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
