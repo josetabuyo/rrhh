@@ -187,7 +187,7 @@
                     planillaAlumnosAsignados.BorrarContenido();
                     planillaAlumnosAsignados.CargarObjetos(cursoSeleccionado.Alumnos);
                     planillaAlumnosAsignados.DibujarEn(contenedorAlumnosAsignados);
-                    $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos()));
+                    $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos));
                     //$("#descripcionCursoSeleccionado").text(cursoSeleccionado.nombre);
                     $("#mensaje").text("");
                     $("#nombreDeCurso").text(cursoSeleccionado.Nombre);
@@ -223,7 +223,7 @@
             planillaAlumnosAsignados.CargarObjeto(alumnoGlobal);
             planillaAlumnosAsignados.DibujarEn(contenedorAlumnosAsignados);
             alumnoGlobal = null;
-            $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos()));
+            $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos));
             $("#mensaje").text("Agregado al Curso");
         }
         else {
@@ -237,7 +237,7 @@
             planillaAlumnosDisponibles.CargarObjeto(alumnoGlobal);
             planillaAlumnosDisponibles.DibujarEn(contenedorAlumnosDisponibles);
             alumnoGlobal = null;
-            $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos()));
+            $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos));
             $("#mensaje").text("Quitado del Curso");
         }
         else {
