@@ -59,51 +59,40 @@ var AdministradorPlanillaCursos = function () {
         $('#txtIdEspacioFisico').val(un_curso.EspacioFisico.Id);
         $('#txtIdMateria').val(un_curso.Materia.Id);
         $('#horaCatedra').val($(un_curso.HoraCatedra));
-        OcultarBotonCambiarHorario();
-        MostrarBotonAgregarHorario();
-        HabilitarModificacion();
-        DeshabilitarNuevo();
+        OcultarBoton($("#cambiarHorario"));
+        MostrarBoton($("#agregarHorario"));
+        HabilitarControl($("#btnModificarCurso"));
+        HabilitarControl($("#btnQuitarCurso"));
+        DeshabilitarControl($("#btnAgregarCurso"));
     };
-    DesHabilitarModificacion();
-    HabilitarNuevo();
+    DeshabilitarControl($("#btnModificarCurso"));
+    DeshabilitarControl($("#btnQuitarCurso"));
+    HabilitarControl($("#btnAgregarCurso"));
     $("#txtHoraInicio").mask("99:99");
     $("#txtHoraFin").mask("99:99");
 
 };
 $('#cmbMateria').change(function () {
-    CompletarNombreCurso();
+    $('#txtIdMateria').val($('#cmbMateria').find('option:selected').val());
 });
 
 $('#cmbDocente').change(function () {
-    $('#txtIdDocente').val($('#cmbDocente').val());
+    $('#txtIdDocente').val($('#cmbDocente').find('option:selected').val());
 });
 
 $('#cmbEspacioFisico').change(function () {
-    $('#txtIdEspacioFisico').val($('#cmbEspacioFisico').val());
+    $('#txtIdEspacioFisico').val($('#cmbEspacioFisico').find('option:selected').val());
 });
 
 $('#cmbHorasCatedra').change(function () {
-    $('#horaCatedra').val($('#cmbHorasCatedra').val());
+    $('#horaCatedra').val($('#cmbHorasCatedra').find('option:selected').text());
 });
-
-var HabilitarNuevo = function () {
-    $("#btnAgregarCurso").removeAttr('disabled', 'false');
-}
-var DeshabilitarNuevo = function () {
-    $("#btnAgregarCurso").attr('disabled', 'disabled');
-}
-var HabilitarModificacion = function () {
-    $("#btnModificarCurso").removeAttr('disabled', 'false');
-}
-var DesHabilitarModificacion = function () {
-    $("#btnModificarCurso").attr('disabled', 'disabled');
+var HabilitarControl = function (control) {
+    control.removeAttr('disabled', 'false');
 }
 
-var CompletarNombreCurso = function () {
-    var materia = Enumerable.From(JSON.parse($('#materiasJSON').val()))
-                .Where(function (x) { return x.id == $('#cmbMateria').val() }).First();
-    $('#txtIdMateria').val(materia.id);
-    $('#txtNombre').val(materia.nombre + ' (' + materia.modalidad.Descripcion + ')');
+var DeshabilitarControl = function (control) {
+    control.attr('disabled', 'disabled');
 }
 
 var DibujarGrillaHorarios = function () {
@@ -148,24 +137,10 @@ var CompletarDatosHorario = function (horario) {
     horasCatedra.val(horario.HorasCatedra);
     horario_seleccionado = horario;
 
-    MostrarBotonCambiarHorario();
-    OcultarBotonAgregarHorario();
+    MostrarBoton($("#cambiarHorario"));
+    OcultarBoton($("#agregarHorario"));
 };
 
-var MostrarBotonCambiarHorario = function () {
-    MostrarBoton($("#cambiarHorario"));
-}
-
-var MostrarBotonAgregarHorario = function () {
-    MostrarBoton($("#agregarHorario"));
-}
-
-var OcultarBotonCambiarHorario = function () {
-    OcultarBoton($("#cambiarHorario"));
-}
-var OcultarBotonAgregarHorario = function () {
-    OcultarBoton($("#agregarHorario"));
-}
 var OcultarBoton = function (control) {
     control.css("display", "none");
     control.css("visibility", "hidden");
@@ -178,7 +153,7 @@ var MostrarBoton = function (control) {
 var ValidarCampoObligatorio = function (control) {
 
     if (control.val() == "") {
-        alert("Valor obligatorio");
+        alert(control.attr("data-name") + " es obligatorio");
         control.focus();
         return false;
     }
@@ -297,7 +272,9 @@ var ValidarHora = function (hora) {
 var LimpiarHorario = function () {
     Limpiar(horaI);
     Limpiar(horaF);
-    Limpiar(dia);
+    Limpiar(dia); 
+    var contenedorGrillaHorario = $('#contenedor_grilla_horario');
+    contenedorGrillaHorario.html("");
 }
 
 var Limpiar = function (control) {
@@ -306,19 +283,19 @@ var Limpiar = function (control) {
 
 var LimpiarCampos = function () {
     LimpiarHorario();
-    Limpiar($("#txtIdCurso"));
     Limpiar($("#txtNombre"));
 
     Limpiar($("#cmbMateria"));
     Limpiar($("#cmbDocente"));
     Limpiar($("#cmbEspacioFisico"));
-    Limpiar($("#txtHorario"));
 
+    Limpiar($("#txtIdCurso"));
     Limpiar($('#txtIdDocente'));
     Limpiar($('#txtIdEspacioFisico'));
     Limpiar($('#txtIdMateria'));
-    DesHabilitarModificacion();
-    HabilitarNuevo();
+    DeshabilitarControl($("#btnModificarCurso"));
+    DeshabilitarControl($("#btnQuitarCurso"));
+    HabilitarControl($("btnAgregarCurso"));
 }
 
 $(document).ready(function () {
@@ -338,4 +315,22 @@ var ObtenerIndice = function (arreglo, obj) {
         }
         return -1;
     };
+};
+
+var ValidarCamposObligatorios = function (controles) {
+    if (controles.length > 0) {
+        for (var i = 0; i < controles.length; i++) {
+            if (!ValidarCampoObligatorio(controles[i]))
+                return false;
+        }
+        return true;
+    }
+    return false;
+}
+var ValidarCurso = function () {
+    if (ValidarCamposObligatorios([$("#cmbMateria"), $("#cmbDocente"), $("#cmbEspacioFisico")]) && horarios.length > 0)
+        form1.submit();
+    else
+        return false;
+
 };

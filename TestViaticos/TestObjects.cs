@@ -885,15 +885,15 @@ namespace General
             CategoriaDeDocumentoSICOI categoria_renuncia = new CategoriaDeDocumentoSICOI(2, "Renuncia");
             CategoriaDeDocumentoSICOI categoria_nombramiento = new CategoriaDeDocumentoSICOI(1, "Nombramiento");
             CategoriaDeDocumentoSICOI categoria_documento = new CategoriaDeDocumentoSICOI(02, "Baja");
-            Documento documento1 = new Documento(tipo_documento, "01", categoria_documento, AreaDeFabi(), "Extracto", AreaDeMarta(), "Comentario Urgente");
+            Documento documento1 = new Documento(tipo_documento, "01", categoria_documento, AreaDeFabi(), "Extracto", "Comentario Urgente");
             List<Documento> documentos = new List<Documento>();
             documento1.fecha = DateTime.Parse("12/12/12");
             documento1.ticket = "AAA021";
 
-            Documento documento_uno = new Documento(tipo_documento_exp, "1-12", categoria_nombramiento, new Area(1, "RRHH"), "Primer Documento creado a los fines de probar el filtro", AreaDeMarta(), "Urgente");
-            Documento documento_dos = new Documento(tipo_documento_exp, "2-12", categoria_renuncia, new Area(2, "Secretaría de Deportes"), "Segundo Documento creado a los fines de probar el filtro", AreaDeMarta(), "Rápido");
-            Documento documento_tres = new Documento(tipo_documento_memo, "1-12", categoria_licencia, new Area(3, "Subsecretaría de abordaje territorial"), "Tercer Documento creado a los fines de probar el filtro", AreaDeMarta(), "Muy Urgente");
-            Documento documento_cuatro = new Documento(tipo_documento_memo, "3-11", categoria_licencia, new Area(1, "RRHH"), "Cuarto Documento creado a los fines de probar el filtro", AreaDeMarta(), "Normal");
+            Documento documento_uno = new Documento(tipo_documento_exp, "1-12", categoria_nombramiento, new Area(1, "RRHH"), "Primer Documento creado a los fines de probar el filtro", "Urgente");
+            Documento documento_dos = new Documento(tipo_documento_exp, "2-12", categoria_renuncia, new Area(2, "Secretaría de Deportes"), "Segundo Documento creado a los fines de probar el filtro", "Rápido");
+            Documento documento_tres = new Documento(tipo_documento_memo, "1-12", categoria_licencia, new Area(3, "Subsecretaría de abordaje territorial"), "Tercer Documento creado a los fines de probar el filtro",  "Muy Urgente");
+            Documento documento_cuatro = new Documento(tipo_documento_memo, "3-11", categoria_licencia, new Area(1, "RRHH"), "Cuarto Documento creado a los fines de probar el filtro", "Normal");
             documento_uno.fecha = DateTime.Parse("12/01/13");
             documento_dos.fecha = DateTime.Parse("12/01/12");
             documento_tres.fecha = DateTime.Parse("15/01/13");
@@ -970,6 +970,17 @@ namespace General
                                                     new Alumno(7, "Nadia", "Rey", 11700051, "", "", "",new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro"))
                                                     };
             return lista;
+        }
+
+        public static InstanciaDeEvaluacion PrimerParcial()
+        {
+            return new InstanciaDeEvaluacion(1, "Primer Parcial");
+        }
+
+
+        internal static InstanciaDeEvaluacion SegundoParcial()
+        {
+            return new InstanciaDeEvaluacion(2, "Segundo Parcial");
         }
     }
 }

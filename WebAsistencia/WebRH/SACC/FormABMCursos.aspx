@@ -19,37 +19,29 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" onsubmit="return false;">
         <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelCurso" class="div_izquierdo">
            <legend>Panel De Cursos</legend>
-        <p style="display:none">
-            <asp:Label ID="lblNombre" CssClass="labels_sacc" runat="server" Text="Nombre:"></asp:Label>
-            <asp:TextBox ID="txtNombre" ReadOnly="true" name="Nombre" runat="server" EnableViewState="false"></asp:TextBox>
-        </p>
         <p>
             <asp:Label ID="lblMateria" CssClass="labels_sacc" runat="server" Text="Materia:"></asp:Label>
-            <asp:DropDownList ID="cmbMateria" name="Materia" runat="server" EnableViewState="false"></asp:DropDownList >
+            <asp:DropDownList ID="cmbMateria" name="Materia" runat="server" EnableViewState="false" data-name="Materia"></asp:DropDownList >
         </p>
-        <%--<p> 
-            <asp:Label ID="lblCiclo" CssClass="labels_sacc" runat="server" Text="Ciclo:"></asp:Label>
-            <asp:DropdownList ID="cmbCiclo" name="Ciclo" runat="server" EnableViewState="false"></asp:DropdownList >
-        </p>--%>
         <p> 
             <asp:Label ID="lblDocente" CssClass="labels_sacc" runat="server" Text="Docente:"></asp:Label>
-            <asp:DropdownList ID="cmbDocente" name="Docente" runat="server" EnableViewState="false"></asp:DropdownList >
+            <asp:DropdownList ID="cmbDocente" name="Docente" runat="server" EnableViewState="false" data-name="Docente"></asp:DropdownList >
         </p>
         <p> 
             <asp:Label ID="lblEspacioFisico" CssClass="labels_sacc" runat="server" Text="Espacio Físico:"></asp:Label>
-            <asp:DropdownList ID="cmbEspacioFisico" name="Docente" runat="server" EnableViewState="false"></asp:DropdownList >
+            <asp:DropdownList ID="cmbEspacioFisico" name="Docente" runat="server" EnableViewState="false" data-name="Espacio F&iacute;sico"></asp:DropdownList >
         </p>
         <p>   
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
-            <asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" ></asp:DropdownList>
-            <asp:TextBox ID="txtHoraInicio" title="Hora de inicio" CssClass="input-small" placeholder="Hora Inicio" runat="server" MaxLength="5"></asp:TextBox>
-            <asp:TextBox ID="txtHoraFin" title="Hora de fin" CssClass="input-small" placeholder="Hora Fin" runat="server" MaxLength="5"></asp:TextBox>
-            <select runat="server" title="Horas Catedra" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false" class="input-small"></select>
+            <asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" data-name="Dia" ></asp:DropdownList>
+            <asp:TextBox ID="txtHoraInicio" title="Hora de inicio" CssClass="input-small" placeholder="Hora Inicio" runat="server" MaxLength="5"  data-name="Hora de Inicio"></asp:TextBox>
+            <asp:TextBox ID="txtHoraFin" title="Hora de fin" CssClass="input-small" placeholder="Hora Fin" runat="server" MaxLength="5" data-name="Hora de Fin"></asp:TextBox>
+            <select runat="server" title="Horas C&aacute;tedra" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false" class="input-small" data-name="Cantidad de Horas C&aacute;tedra"></select>
            
             <input id="agregarHorario" type="button" value="Agregar" 
                 onclick="javascript:AgregarHorario();" 
@@ -62,13 +54,14 @@
         <asp:HiddenField ID="txtIdDocente" runat="server" />
         <asp:HiddenField ID="txtIdEspacioFisico" runat="server" />
         <asp:HiddenField ID="txtHorarios" runat="server" />
+
         <div style=" margin-left:17%; margin-top:3%;">
             <asp:Button ID="btnAgregarCurso" runat="server" Text="Agregar Curso" 
                 onclick="btnAgregarCurso_Click" 
-                class=" btn btn-primary boton_main_documentos"  />
+                class=" btn btn-primary boton_main_documentos" OnClientClick="javascript:ValidarCurso();"  />
             <asp:Button ID="btnModificarCurso" runat="server" Text="Modificar Curso" 
-                class=" btn btn-primary boton_main_documentos" 
-                onclick="btnModificarCurso_Click" />
+                class=" btn btn-primary boton_main_documentos"
+                onclick="btnModificarCurso_Click" OnClientClick="javascript:ValidarCurso();" />
             <asp:Button ID="btnQuitarCurso" runat="server" Text="Eliminar Curso" 
                 class=" btn btn-primary boton_main_documentos" onclick="btnQuitarCurso_Click" />
             <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" 

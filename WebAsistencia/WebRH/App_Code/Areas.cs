@@ -5,11 +5,12 @@ using System.Web;
 using System.Web.Services;
 using System.Web.UI.MobileControls;
 using WSViaticos;
+using Newtonsoft.Json;
 
 /// <summary>
 /// Descripción breve de Areas
 /// </summary>
-[WebService(Namespace = "http://tempuri.org/")]
+[WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // Para permitir que se llame a este servicio Web desde un script, usando ASP.NET AJAX, quite la marca de comentario de la línea siguiente. 
 [System.Web.Script.Services.ScriptService]
@@ -62,5 +63,10 @@ public class Areas : System.Web.Services.WebService {
         //return resultado;
         return AreasFicticias().Take(12).ToList();
     }
-    
+
+    [WebMethod]
+    public String CrearDocumentoAjax(String documento_dto)
+    {
+        return JsonConvert.SerializeObject(new { mensaje = "Se dio de alta el documento " + documento_dto });
+    }
 }

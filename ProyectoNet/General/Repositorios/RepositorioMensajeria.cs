@@ -96,7 +96,7 @@ namespace General.Repositorios
             });
         }
 
-        private void BorrarTransicionFuturaPara(Documento documento)
+        public  void BorrarTransicionFuturaPara(Documento documento)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdDocumento", documento.Id);

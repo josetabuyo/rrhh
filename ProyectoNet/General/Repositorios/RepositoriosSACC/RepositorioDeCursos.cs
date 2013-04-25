@@ -191,16 +191,16 @@ namespace General.Repositorios
                 {
                     BorrarHorarios(curso.Id);
                     InsertarHorarios(curso.Id, horarios_nuevos);
-
-                    parametros.Add("id_curso", curso.Id);
-                    parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
-                    parametros.Add("id_materia", curso.Materia.Id);
-                    parametros.Add("id_docente", curso.Docente.Id);
-                    parametros.Add("fecha", DateTime.Now);
-
-                    conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
-                    return true;
                 }
+                parametros.Add("id_curso", curso.Id);
+                parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
+                parametros.Add("id_materia", curso.Materia.Id);
+                parametros.Add("id_docente", curso.Docente.Id);
+                parametros.Add("fecha", DateTime.Now);
+
+                conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
+                return true;
+                
                 return false;
             }
             else
