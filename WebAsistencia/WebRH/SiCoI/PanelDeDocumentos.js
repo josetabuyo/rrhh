@@ -2,9 +2,44 @@
 var PanelDeDocumentos = function (cfg) {
     this.cfg = cfg;
     var self = this;
+    this.lista_de_fichas = new ListaDeFichas(new FabricaDeFichasDeDocumento(cfg.plantillaFicha), cfg.uiListaDeDocs);
+    var proveedor = {
+        pedirDatos: function (callback) {
+            WebService.getDocumentosFiltrados(self._panel_filtros.getFiltrosActivos(), callback);
+        }
+    };
+    this.lista_de_fichas.setProveedorDeDatos(proveedor);
+    this.lista_de_fichas.dibujarEn(cfg.divPanelDocumentos);
+}
+
+PanelDeDocumentos.prototype = {
+    refrescarDocumentos: function () {
+        this._grilla_de_documentos.refrescar();
+    },
+    mostrarDocumentos: function (docs) {
+        this.lista_de_fichas.BorrarContenido();
+        this.lista_de_fichas.CargarObjetos(docs);
+    },
+    setPanelDetalle: function (panel) {
+        this._panel_detalle = panel;
+    },
+    setPanelFiltros: function (panel) {
+        this._panel_filtros = panel;
+        this.lista_de_fichas.refrescar();
+    },
+    desSeleccionarTodo: function () {
+        this.lista_de_fichas.desSeleccionarTodo();
+    },
+    desplegar: function () {
+        this.cfg.divPanelDocumentos.css('height', '90%');
+    },
+    contraer: function () {
+        this.cfg.divPanelDocumentos.css('height', '50%');
+    }
+}
 
 
-    
+
 //    this._grilla_de_documentos = new Grilla(
 //                [
 //                    new Columna('Ticket', { generar: function (doc) { return doc.ticket } }),
@@ -80,62 +115,16 @@ var PanelDeDocumentos = function (cfg) {
 //                    })
 //                ]);
 
-    this._grilla_de_documentos.SetOnRowClickEventHandler(function (doc) {
-        self._panel_detalle.mostrarDocumento(doc);
-    });
+//    this._grilla_de_documentos.SetOnRowClickEventHandler(function (doc) {
+//        self._panel_detalle.mostrarDocumento(doc);
+//    });
 
-    var proveedor = {
-        pedirDatos: function (callback) {
-            WebService.getDocumentosFiltrados(self._panel_filtros.getFiltrosActivos(), callback);
-        }
-    };
-    this._grilla_de_documentos.setProveedorDeDatos(proveedor);
+//    var proveedor = {
+//        pedirDatos: function (callback) {
+//            WebService.getDocumentosFiltrados(self._panel_filtros.getFiltrosActivos(), callback);
+//        }
+//    };
+//    this._grilla_de_documentos.setProveedorDeDatos(proveedor);
 
-    //CargarObjetos(cfg.listaDocumentos);
-    this._grilla_de_documentos.DibujarEn(cfg.divPanelDocumentos);
-}
-
-PanelDeDocumentos.prototype = {
-    refrescarDocumentos: function () {
-        var self = this;
-        WebService.getDocumentosFiltrados(self._panel_filtros.getFiltrosActivos(),
-            function (docs) { 
-                
-            });
-        this._grilla_de_documentos.refrescar();
-    },
-    mostrarDocumentos: function (docs) {
-        this._grilla_de_documentos.BorrarContenido();
-        this._grilla_de_documentos.CargarObjetos(docs);
-    },
-    setPanelDetalle: function (panel) {
-        this._panel_detalle = panel;
-    },
-    setPanelFiltros: function (panel) {
-        this._panel_filtros = panel;
-        this._grilla_de_documentos.refrescar();
-    },
-    desSeleccionarTodo: function () {
-        this._grilla_de_documentos.desSeleccionarTodo();
-    },
-    desplegar: function () {
-        this.cfg.divPanelDocumentos.css('height', '90%');
-    },
-    contraer: function () {
-        this.cfg.divPanelDocumentos.css('height', '50%');
-    },
-    getAreaResumida: function (descripcion) {
-        descripcion = descripcion.replace("Direccion", "Dir.");
-        descripcion = descripcion.replace("Dirección", "Dir.");
-        descripcion = descripcion.replace("dirección", "Dir.");
-        descripcion = descripcion.replace("direccion", "Dir.");
-        return this.getTextoresumido(descripcion);
-    },
-    getTextoresumido: function (texto) {
-        if (texto.length < 20) return texto;
-        var textoResumido = $("<div>");
-        textoResumido.text(texto.substring(0, 20) + "...");
-        textoResumido.attr("title", texto);
-        return textoResumido;
-    }
-}
+//    //CargarObjetos(cfg.listaDocumentos);
+//    this._grilla_de_documentos.DibujarEn(cfg.divPanelDocumentos);

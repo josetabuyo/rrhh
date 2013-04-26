@@ -488,14 +488,87 @@
 {
     display:none;
 }
-#plantilla_ficha_chica_de_documento.ficha_chica_de_documento {  }
-#ficha_chica_titulo_ticket {  }
-#ficha_chica_contenido_ticket {  }
-#ficha_chica_titulo_tipo {  }
-#ficha_chica_contenido_tipo {  }
-#ficha_chica_titulo_categoria {  }
-#ficha_chica_contenido_categoria {  }
-#ficha_chica_titulo_extracto {  }
-#ficha_chica_contenido_extracto {  }
-#ficha_chica_titulo_area_actual {  }
-#ficha_chica_contenido_area_actual {  }
+
+/* ESTILO FICHA CHICA DE DOCUMENTO */
+
+.ficha_chica_de_documento {
+	width: 750px;
+	height: 63px;
+}
+.ficha_chica_de_documento_par {
+	background-color: #CCC;
+}
+.ficha_chica_de_documento_impar {
+	background-color: #CCC;
+}
+#ficha_chica_titulo_ticket {
+	padding-left: 15px;
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size: 11px;
+	display: inline-block;
+	  }
+#ficha_chica_contenido_ticket { 
+	display: inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+ }
+#ficha_chica_titulo_tipo {
+	padding-left: 100px;
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size: 11px;
+	display: inline-block;
+	  }
+#ficha_chica_contenido_tipo {
+	display: inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;  
+	}
+#ficha_chica_titulo_categoria {
+	padding-left: 120px;
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size: 11px;
+	display: inline-block; 
+	 }
+#ficha_chica_contenido_categoria {
+	display: inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px  
+	}
+
+#ficha_chica_titulo_area_actual {
+	padding-left: 15px;
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size: 11px;
+	display: inline-block;
+	  }
+#ficha_chica_contenido_area_actual {
+	display: inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	  }
+#ficha_chica_titulo_extracto {
+	padding-left: 15px;
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size: 11px;
+	display: inline-block;  }
+#ficha_chica_contenido_extracto {
+	display: inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;  }
+	
+#ficha_chica_boton_desplegar{
+	height: 16px;
+	width: 16px;
+	display: inline-block;
+	margin-left: 725px;
+	margin-top: -20px;
+	}
+	
+#link_enviar_documento{
+	display: inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin-left: 145px;
+	}
+	
+/* FIN ESTILO FICHA CHICA DE DOCUMENTO */

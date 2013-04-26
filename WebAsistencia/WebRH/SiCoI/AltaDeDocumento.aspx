@@ -157,17 +157,21 @@
     </div>
 
     <div id="plantillas">
-        <div id="plantilla_ficha_chica_de_documento" class="ficha_chica_de_documento">
-            <div id="ficha_chica_titulo_ticket"></div>
-            <div id="ficha_chica_contenido_ticket"></div>
-            <div id="ficha_chica_titulo_tipo"></div>
-            <div id="ficha_chica_contenido_tipo"></div>
-            <div id="ficha_chica_titulo_categoria"></div>
-            <div id="ficha_chica_contenido_categoria"></div>
-            <div id="ficha_chica_titulo_extracto"></div>
-            <div id="ficha_chica_contenido_extracto"></div>
-            <div id="ficha_chica_titulo_area_actual"></div>
-            <div id="ficha_chica_contenido_area_actual"></div>
+        <div id="lista_de_documentos">
+        </div>
+        <div id="plantilla_ficha_chica_de_documento" class="ficha_chica_de_documento ficha_chica_de_documento_par">
+            <div id="ficha_chica_titulo_ticket">Ticket:</div>
+            <div id="ficha_chica_contenido_ticket">AAA036</div>
+            <div id="ficha_chica_titulo_tipo">Tipo:</div>
+            <div id="ficha_chica_contenido_tipo">Expediente N° 97</div>
+            <div id="ficha_chica_titulo_categoria">Categoría:</div>
+            <div id="ficha_chica_contenido_categoria">Renuncia</div>
+            <div id="link_enviar_documento"> <a href="Enviar">Enviar</a> </div><br />
+            <div id="ficha_chica_titulo_area_actual">Área Actual:</div>
+            <div id="ficha_chica_contenido_area_actual">Dirección General de Recursos Humanos y Organización</div><br />
+            <div id="ficha_chica_titulo_extracto">Extracto:</div>
+            <div id="ficha_chica_contenido_extracto">ddaaddaa</div>
+            <div id="ficha_chica_boton_desplegar" class="icon-chevron-down"></div>
         </div>    
     </div>
 
@@ -200,6 +204,8 @@
     <script type="text/javascript" src="PanelDetalleDeDocumento.js"></script>
     <script type="text/javascript" src="PanelDeDocumentos.js"></script>
     <script type="text/javascript" src="PanelAltaDeDocumento.js"></script>
+    <script type="text/javascript" src="ListaDeFichas.js"></script>
+    <script type="text/javascript" src="FichaDeDocumento.js"></script>
     <script type="text/javascript" src="WebService.js"></script>
     <script type="text/javascript" src="BotonAlertas.js"></script>
 
@@ -212,6 +218,8 @@
 
             var cfg_panel_documentos = {
                 divPanelDocumentos: $("#panel_documentos"),
+                plantillaFicha: $("#plantilla_ficha_chica_de_documento"),
+                uiListaDeDocs: $("#lista_de_documentos"),
                 areaDelUsuario: areaDelUsuario
             }
             var panel_documentos = new PanelDeDocumentos(cfg_panel_documentos);
