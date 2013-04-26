@@ -23,7 +23,7 @@ ListaDeFichas.prototype = {
         }
     },
     cargarObjeto: function (obj) {
-        var ficha = this.fabrica_de_fichas.crearFicha(obj);
+        var ficha = this.fabrica_de_fichas.crearFichaChica(obj);
         ficha.dibujarEn(this.ui);
         this.objetos.push(obj);
     },

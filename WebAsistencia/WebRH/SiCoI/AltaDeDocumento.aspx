@@ -107,53 +107,7 @@
             </div>
         </div>
         <div id="panel_documentos">
-        </div>
-        <div id="detalle_documento">
-            <img id="cerrarDetalle" src="../Imagenes/Botones/Botones Sicoi/cerrar_s1.png" width="20" height="20" alt='X' />
-            <div id='titulo_tipo_documento_detalle'>
-                Tipo de Documento:</div>
-            <div id="TipoDocumentoDetalle">
-            </div>
-            <div id='titulo_numero_documento_detalle'>
-                N&uacute;mero:</div>
-            <div id="NumeroDocumentoDetalle">
-            </div>
-            <div id='titulo_fecha_documento_detalle'>
-                Creado el:</div>
-            <div id="FechaDocumentoDetalle">
-            </div>
-            <div id='titulo_area_origen_documento_detalle'>
-                Área origen:</div>
-            <div id="AreaOrigenDocumentoDetalle">
-            </div>
-            <div id='titulo_extracto_documento_detalle'>
-                Extracto:</div>
-            <div id="ExtractoDocumentoDetalle">
-            </div>
-            <div id='titulo_comentarios_detalle'>
-                Comentarios:</div>
-            <asp:TextBox ID="txtComentariosEnDetalle" runat="server" TextMode="MultiLine" Height="32px"></asp:TextBox>
-            <div id='titulo_historial_transiciones'>
-                Transiciones:</div>
-            <div id="contenedor_historial_documento_detalle">
-            </div>
-            <div id="proto_transicion_de_documento_historial" class="transicion_de_documento_historial">
-                <div class="fecha_transicion">
-                </div>
-                <div class="titulo_area_origen_transicion">
-                    Área Origen:</div>
-                <div class="area_origen_transicion">
-                </div>
-                <div class="titulo_area_destino_transicion">
-                    Área Destino:</div>
-                <div class="area_destino_transicion">
-                </div>
-            </div>
-            <div id='titulo_area_destino_detalle'>
-                Próximo área destino:</div>
-            <input id="selectorAreaDestinoEnDetalle"  type="text" data-provide="typeahead" data-items="9" runat="server" />
-            <input id="btnGuardarCambiosDetalle" type="button" class=" btn btn-primary" value="Guardar Cambios"/>
-        </div>
+        </div>       
     </div>
 
     <div id="plantillas">
@@ -173,6 +127,18 @@
             <div id="ficha_chica_contenido_extracto">ddaaddaa</div>
             <div id="ficha_chica_boton_desplegar" class="icon-chevron-down"></div>
         </div>    
+
+         <div id="plantilla_ficha_grande_de_documento">
+            <img id="cerrarDetalle" src="../Imagenes/Botones/Botones Sicoi/cerrar_s1.png" width="20" height="20" alt='X' />
+            <div id='ficha_grande_titulo_tipo_documento'>
+                Tipo de Documento:</div>
+            <div id="ficha_grande_contenido_tipo_de_documento">
+            </div>
+            <div id='ficha_grande_titulo_numero_documento'>
+                N&uacute;mero:</div>
+            <div id="ficha_grande_contenido_numero_de_documento">
+            </div>
+        </div>
     </div>
 
     <asp:HiddenField ID="AreaDelUsuario" runat="server" />
@@ -201,11 +167,11 @@
     <script type="text/javascript" src="../Scripts/InputSoloNumeros.js"></script>
     <script type="text/javascript" src="PanelDeFiltrosDeDocumentos.js"></script>
     <script type="text/javascript" src="InputAutocompletableDeAreas.js"></script>
-    <script type="text/javascript" src="PanelDetalleDeDocumento.js"></script>
     <script type="text/javascript" src="PanelDeDocumentos.js"></script>
     <script type="text/javascript" src="PanelAltaDeDocumento.js"></script>
     <script type="text/javascript" src="ListaDeFichas.js"></script>
-    <script type="text/javascript" src="FichaDeDocumento.js"></script>
+    <script type="text/javascript" src="FichaChicaDeDocumento.js"></script>
+    <script type="text/javascript" src="FichaGrandeDeDocumento.js"></script>
     <script type="text/javascript" src="WebService.js"></script>
     <script type="text/javascript" src="BotonAlertas.js"></script>
 
@@ -218,13 +184,32 @@
 
             var cfg_panel_documentos = {
                 divPanelDocumentos: $("#panel_documentos"),
+                plantillaFichaChica: $("#plantilla_ficha_chica_de_documento"),
                 plantillaFicha: $("#plantilla_ficha_chica_de_documento"),
                 uiListaDeDocs: $("#lista_de_documentos"),
+
                 areaDelUsuario: areaDelUsuario
             }
             var panel_documentos = new PanelDeDocumentos(cfg_panel_documentos);
 
-            var cfg_panel_detalle = {
+//            var cfg_panel_detalle = {
+//                divPanelDetalle: $("#detalle_documento"),
+//                ExtractoDocumentoDetalle: $("#ExtractoDocumentoDetalle"),
+//                TipoDocumentoDetalle: $("#TipoDocumentoDetalle"),
+//                NumeroDocumentoDetalle: $("#NumeroDocumentoDetalle"),
+//                FechaDocumentoDetalle: $("#FechaDocumentoDetalle"),
+//                txtComentariosEnDetalle: $("#txtComentariosEnDetalle"),
+//                AreaOrigenDocumentoDetalle: $("#AreaOrigenDocumentoDetalle"),
+//                selectorDeAreaDestinoEnDetalle: $('#selectorAreaDestinoEnDetalle'),
+//                contenedor_historial_transiciones: $("#contenedor_historial_documento_detalle"),
+//                plantilla_transicion_documento: $('#proto_transicion_de_documento_historial'),
+//                botonCerrarDetalle: $('#cerrarDetalle'),
+//                btnGuardarCambios: $('#btnGuardarCambiosDetalle'),
+//                listaAreas: listaAreas
+//            };
+//            var panel_detalle = new PanelDetalleDeDocumento(cfg_panel_detalle);
+
+            var cfg_ficha_grande = {
                 divPanelDetalle: $("#detalle_documento"),
                 ExtractoDocumentoDetalle: $("#ExtractoDocumentoDetalle"),
                 TipoDocumentoDetalle: $("#TipoDocumentoDetalle"),
@@ -239,7 +224,7 @@
                 btnGuardarCambios: $('#btnGuardarCambiosDetalle'),
                 listaAreas: listaAreas
             };
-            var panel_detalle = new PanelDetalleDeDocumento(cfg_panel_detalle);
+            var ficha_grande = new PanelDetalleDeDocumento(cfg_panel_detalle);
 
             var cfg_panel_alta = {
                 selectorDeAreaOrigenEnAlta: $('#selectorDeAreaOrigen'),
@@ -291,7 +276,6 @@
             }
             var panel_filtros = new PanelDeFiltrosDeDocumentos(cfg_panel_filtros);
 
-            panel_documentos.setPanelDetalle(panel_detalle);
             panel_documentos.setPanelFiltros(panel_filtros);
 
             panel_detalle.setPanelAlta(panel_alta);
@@ -300,10 +284,8 @@
 
             panel_alta.setPanelFiltros(panel_filtros);
             panel_alta.setPanelDocumentos(panel_documentos);
-            panel_alta.setPanelDetalle(panel_detalle);
 
             panel_filtros.setPanelAlta(panel_alta);
-            panel_filtros.setPanelDetalle(panel_detalle);
             panel_filtros.setPanelDocumentos(panel_documentos);
 
             var botonAlertas = new BotonAlertas({   

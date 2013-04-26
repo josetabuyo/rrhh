@@ -1,10 +1,11 @@
-﻿var FichaDeDocumento = function (documento, ui) {
+﻿var FichaChicaDeDocumento = function (documento, ui, fabrica_de_fichas) {
     this.ui = ui;
     this.ticket = ui.find("#ficha_chica_contenido_ticket");
     this.tipo = ui.find("#ficha_chica_contenido_tipo");
     this.categoria = ui.find("#ficha_chica_contenido_categoria");
     this.extracto = ui.find("#ficha_chica_contenido_extracto");
     this.area_actual = ui.find("#ficha_chica_contenido_area_actual");
+    this.boton_desplegar = ui.find("#ficha_chica_boton_desplegar");
 
     this.ticket.text(documento.ticket);
     this.tipo.text(documento.tipo.descripcion);
@@ -12,7 +13,7 @@
     this.extracto.text(documento.extracto);
     this.area_actual.text(documento.areaActual.descripcion);
 }
-FichaDeDocumento.prototype = {
+FichaChicaDeDocumento.prototype = {
     dibujarEn: function (panel) {
         panel.append(this.ui);
     },
@@ -31,12 +32,3 @@ FichaDeDocumento.prototype = {
         return textoResumido;
     }
 }
-
-var FabricaDeFichasDeDocumento = function (plantilla_ficha) {
-    this.plantilla_ficha = plantilla_ficha;
-};
-FabricaDeFichasDeDocumento.prototype = {
-    crearFicha: function (doc) {
-        return new FichaDeDocumento(doc, this.plantilla_ficha.clone());
-    }
-};
