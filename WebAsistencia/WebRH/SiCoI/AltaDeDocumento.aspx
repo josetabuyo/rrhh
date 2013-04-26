@@ -171,7 +171,7 @@
             <div id="ficha_chica_contenido_area_actual">Dirección General de Recursos Humanos y Organización</div><br />
             <div id="ficha_chica_titulo_extracto">Extracto:</div>
             <div id="ficha_chica_contenido_extracto">ddaaddaa</div>
-            <div id="ficha_chica_boton_desplegar" class="icon-chevron-down"></div>
+            <div id="ficha_chica_boton_desplegar" class="icon-plus-sign"></div>
         </div>    
     </div>
 
