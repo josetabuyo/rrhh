@@ -120,7 +120,7 @@
             <div id="ficha_chica_contenido_tipo">Expediente N° 97</div>
             <div id="ficha_chica_titulo_categoria">Categoría:</div>
             <div id="ficha_chica_contenido_categoria">Renuncia</div>
-            <div id="link_enviar_documento"> <a href="Enviar">Enviar</a> </div><br />
+            <input type="button" id="link_enviar_documento" value="Enviar" class="btn"/><br />
             <div id="ficha_chica_titulo_area_actual">Área Actual:</div>
             <div id="ficha_chica_contenido_area_actual">Dirección General de Recursos Humanos y Organización</div><br />
             <div id="ficha_chica_titulo_extracto">Extracto:</div>
@@ -129,15 +129,16 @@
         </div>    
 
          <div id="plantilla_ficha_grande_de_documento">
-            <img id="cerrarDetalle" src="../Imagenes/Botones/Botones Sicoi/cerrar_s1.png" width="20" height="20" alt='X' />
-            <div id='ficha_grande_titulo_tipo_documento'>
-                Tipo de Documento:</div>
-            <div id="ficha_grande_contenido_tipo_de_documento">
-            </div>
-            <div id='ficha_grande_titulo_numero_documento'>
-                N&uacute;mero:</div>
-            <div id="ficha_grande_contenido_numero_de_documento">
-            </div>
+            <div id='ficha_grande_titulo_area_creadora'> Area Creadora:</div>
+            <div id="ficha_grande_contenido_area_creadora"> </div>
+            <div id='ficha_grande_titulo_tiempo_en_area_actual'> En Area Actual Desde:</div>
+            <div id="ficha_grande_contenido_tiempo_en_area_actual">  </div>
+            <div id='ficha_grande_titulo_comentarios'> Comentarios:</div>
+            <textarea id="ficha_grande_contenido_comentarios"></textarea>
+            <div id='ficha_grande_titulo_transiciones'> Transiciones</div>
+            <div id='ficha_grande_titulo_fecha_de_ingreso'> Fecha de ingreso</div>
+            <div id='ficha_grande_titulo_area_destino'> Próximo area destino:</div>
+            <input type="text" id='ficha_grande_contenido_area_destino'>
         </div>
     </div>
 
@@ -172,6 +173,7 @@
     <script type="text/javascript" src="ListaDeFichas.js"></script>
     <script type="text/javascript" src="FichaChicaDeDocumento.js"></script>
     <script type="text/javascript" src="FichaGrandeDeDocumento.js"></script>
+    <script type="text/javascript" src="FabricaDeFichasDeDocumento.js"></script>
     <script type="text/javascript" src="WebService.js"></script>
     <script type="text/javascript" src="BotonAlertas.js"></script>
 
@@ -185,9 +187,8 @@
             var cfg_panel_documentos = {
                 divPanelDocumentos: $("#panel_documentos"),
                 plantillaFichaChica: $("#plantilla_ficha_chica_de_documento"),
-                plantillaFicha: $("#plantilla_ficha_chica_de_documento"),
+                plantillaFichaGrande: $("#plantilla_ficha_grande_de_documento"),
                 uiListaDeDocs: $("#lista_de_documentos"),
-
                 areaDelUsuario: areaDelUsuario
             }
             var panel_documentos = new PanelDeDocumentos(cfg_panel_documentos);
@@ -209,22 +210,22 @@
 //            };
 //            var panel_detalle = new PanelDetalleDeDocumento(cfg_panel_detalle);
 
-            var cfg_ficha_grande = {
-                divPanelDetalle: $("#detalle_documento"),
-                ExtractoDocumentoDetalle: $("#ExtractoDocumentoDetalle"),
-                TipoDocumentoDetalle: $("#TipoDocumentoDetalle"),
-                NumeroDocumentoDetalle: $("#NumeroDocumentoDetalle"),
-                FechaDocumentoDetalle: $("#FechaDocumentoDetalle"),
-                txtComentariosEnDetalle: $("#txtComentariosEnDetalle"),
-                AreaOrigenDocumentoDetalle: $("#AreaOrigenDocumentoDetalle"),
-                selectorDeAreaDestinoEnDetalle: $('#selectorAreaDestinoEnDetalle'),
-                contenedor_historial_transiciones: $("#contenedor_historial_documento_detalle"),
-                plantilla_transicion_documento: $('#proto_transicion_de_documento_historial'),
-                botonCerrarDetalle: $('#cerrarDetalle'),
-                btnGuardarCambios: $('#btnGuardarCambiosDetalle'),
-                listaAreas: listaAreas
-            };
-            var ficha_grande = new PanelDetalleDeDocumento(cfg_panel_detalle);
+//            var cfg_ficha_grande = {
+//                divPanelDetalle: $("#detalle_documento"),
+//                ExtractoDocumentoDetalle: $("#ExtractoDocumentoDetalle"),
+//                TipoDocumentoDetalle: $("#TipoDocumentoDetalle"),
+//                NumeroDocumentoDetalle: $("#NumeroDocumentoDetalle"),
+//                FechaDocumentoDetalle: $("#FechaDocumentoDetalle"),
+//                txtComentariosEnDetalle: $("#txtComentariosEnDetalle"),
+//                AreaOrigenDocumentoDetalle: $("#AreaOrigenDocumentoDetalle"),
+//                selectorDeAreaDestinoEnDetalle: $('#selectorAreaDestinoEnDetalle'),
+//                contenedor_historial_transiciones: $("#contenedor_historial_documento_detalle"),
+//                plantilla_transicion_documento: $('#proto_transicion_de_documento_historial'),
+//                botonCerrarDetalle: $('#cerrarDetalle'),
+//                btnGuardarCambios: $('#btnGuardarCambiosDetalle'),
+//                listaAreas: listaAreas
+//            };
+//            var ficha_grande = new PanelDetalleDeDocumento(cfg_panel_detalle);
 
             var cfg_panel_alta = {
                 selectorDeAreaOrigenEnAlta: $('#selectorDeAreaOrigen'),
@@ -278,9 +279,9 @@
 
             panel_documentos.setPanelFiltros(panel_filtros);
 
-            panel_detalle.setPanelAlta(panel_alta);
-            panel_detalle.setPanelFiltros(panel_filtros);
-            panel_detalle.setPanelDocumentos(panel_documentos);
+//            panel_detalle.setPanelAlta(panel_alta);
+//            panel_detalle.setPanelFiltros(panel_filtros);
+//            panel_detalle.setPanelDocumentos(panel_documentos);
 
             panel_alta.setPanelFiltros(panel_filtros);
             panel_alta.setPanelDocumentos(panel_documentos);
