@@ -1,25 +1,56 @@
-﻿
-var FichaGrandeDeDocumento = function (documento, ui, lista_areas) {
+﻿var FichaGrandeDeDocumento = function (documento, ui, lista_areas, ficha_chica) {
     this.ui = ui;
     this.documento = documento;
     this.lista_areas = lista_areas;
+    this.ficha_chica = ficha_chica;
     this.start();
 };
 FichaGrandeDeDocumento.prototype = {
     start: function () {
+        var self = this;
         this.area_creadora = this.ui.find("#ficha_grande_contenido_area_creadora");
         this.tiempo_en_area_actual = this.ui.find("#ficha_grande_contenido_tiempo_en_area_actual");
         this.comentarios = this.ui.find("#ficha_grande_contenido_comentarios");
         this.div_area_destino = this.ui.find("#ficha_grande_contenido_area_destino");
+        this.boton_guardar_cambios = this.ui.find("#ficha_grande_boton_guardar_cambios");
 
-        this.mostrarDocumento();
+        this.boton_guardar_cambios.click(function () {
+            var post_url = "../AjaxWS.asmx/GuardarCambiosEnDocumento";
+            var post_data = JSON.stringify({
+                id_documento: self.documento.id,
+                id_area_destino: self.selector_de_area_destino.areaSeleccionada().id,
+                comentario: self.comentarios.val()
+            });
+            $.ajax({
+                url: post_url,
+                type: "POST",
+                data: post_data,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (respuestaJson) {
+                    var respuesta = JSON.parse(respuestaJson.d);
+                    if (respuesta.tipoDeRespuesta == "guardarDocumento.ok") {
+                        self.ficha_chica.mostrarDocumento(respuesta.documento);
+                        self.mostrarDocumento(respuesta.documento);
+                    }
+                    if (respuesta.tipoDeRespuesta == "guardarDocumento.error") {
+                        alert("Error al guardar cambios en documento: " + respuesta.error);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        });
+
+        this.selector_de_area_destino = new InputAutocompletableDeAreas(this.div_area_destino, this.lista_areas);
+        this.mostrarDocumento(this.documento);
     },
-    mostrarDocumento: function () {
+    mostrarDocumento: function (documento) {
+        this.documento = documento;
         this.area_creadora.text(this.documento.areaCreadora.descripcion);
         this.tiempo_en_area_actual.text(this.documento.enAreaActualHace.dias + " dias");
         this.comentarios.val(this.documento.comentarios);
-
-        this.selector_de_area_destino = new InputAutocompletableDeAreas(this.div_area_destino, this.lista_areas);
 
         if (this.documento.areaDestino == null) this.selector_de_area_destino.limpiar();
         else this.selector_de_area_destino.setAreaSeleccionada(this.documento.areaDestino);

@@ -18,6 +18,7 @@ namespace General
         public void SeEnvioDirectamente(Documento documento, Area origen, Area destino, DateTime fecha_transicion)
         {
             transiciones.Add(new TransicionDeDocumento(origen, destino, fecha_transicion, documento, TransicionDeDocumento.ATOMICA));
+            YaNoSeEnviaAFuturo(documento);
         }
 
         public List<Documento> DocumentosEn(Area area)

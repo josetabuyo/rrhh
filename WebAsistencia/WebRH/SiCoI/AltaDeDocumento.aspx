@@ -120,7 +120,7 @@
             <div id="ficha_chica_contenido_tipo">Expediente N° 97</div>
             <div id="ficha_chica_titulo_categoria">Categoría:</div>
             <div id="ficha_chica_contenido_categoria">Renuncia</div>
-            <input type="button" id="link_enviar_documento" value="Enviar" class="btn"/><br />
+            <input type="button" id="ficha_chica_boton_enviar_documento" value="Enviar" class="btn"/><br />
             <div id="ficha_chica_titulo_area_actual">Área Actual:</div>
             <div id="ficha_chica_contenido_area_actual">Dirección General de Recursos Humanos y Organización</div><br />
             <div id="ficha_chica_titulo_extracto">Extracto:</div>
@@ -139,6 +139,7 @@
             <div id='ficha_grande_titulo_fecha_de_ingreso'> Fecha de ingreso</div>
             <div id='ficha_grande_titulo_area_destino'> Próximo area destino:</div>
             <input type="text" id='ficha_grande_contenido_area_destino' data-provide="typeahead" data-items="9"/>
+            <input type="button" id="ficha_grande_boton_guardar_cambios" value="Guardar Cambios" class="btn"/>
         </div>
     </div>
 

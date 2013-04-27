@@ -1,14 +1,15 @@
 ﻿
-var FabricaDeFichasDeDocumento = function (plantilla_ficha_chica, plantilla_ficha_grande, lista_areas) {
+var FabricaDeFichasDeDocumento = function (plantilla_ficha_chica, plantilla_ficha_grande, lista_areas, area_del_usuario) {
     this.plantilla_ficha_chica = plantilla_ficha_chica;
     this.plantilla_ficha_grande = plantilla_ficha_grande;
+    this.area_del_usuario = area_del_usuario;
     this.lista_areas = lista_areas;
 };
 FabricaDeFichasDeDocumento.prototype = {
     crearFichaChica: function (doc) {
-        return new FichaChicaDeDocumento(doc, this.plantilla_ficha_chica.clone(), this);
+        return new FichaChicaDeDocumento(doc, this.plantilla_ficha_chica.clone(), this, this.area_del_usuario);
     },
-    crearFichaGrande: function (doc) {
-        return new FichaGrandeDeDocumento(doc, this.plantilla_ficha_grande.clone(), this.lista_areas);
+    crearFichaGrande: function (doc, ficha_chica) {
+        return new FichaGrandeDeDocumento(doc, this.plantilla_ficha_grande.clone(), this.lista_areas, ficha_chica);
     }
 };

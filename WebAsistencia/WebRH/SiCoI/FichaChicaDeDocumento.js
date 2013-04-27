@@ -1,7 +1,8 @@
-﻿var FichaChicaDeDocumento = function (documento, ui, fabrica_de_fichas) {
+﻿var FichaChicaDeDocumento = function (documento, ui, fabrica_de_fichas, areaDelUsuario) {
     this.ui = ui;
     this.fabrica_de_fichas = fabrica_de_fichas;
     this.documento = documento;
+    this.area_del_usuario = areaDelUsuario;
     this.start();
 }
 FichaChicaDeDocumento.prototype = {
@@ -12,17 +13,65 @@ FichaChicaDeDocumento.prototype = {
         this.extracto = this.ui.find("#ficha_chica_contenido_extracto");
         this.area_actual = this.ui.find("#ficha_chica_contenido_area_actual");
         this.boton_desplegar = this.ui.find("#ficha_chica_boton_desplegar");
+        this.boton_enviar = this.ui.find("#ficha_chica_boton_enviar_documento");
+
         var self = this;
+        this.boton_enviar.click(function () {
+            var post_url;
+            var post_data;
+            if (self.area_del_usuario.id == self.documento.areaActual.id) {
+                post_url = "../AjaxWS.asmx/TransicionarDocumento";
+                post_data = JSON.stringify({
+                    id_documento: self.documento.id,
+                    id_area_origen: self.documento.areaActual.id,
+                    id_area_destino: self.documento.areaDestino.id
+                });
+            } else {
+                post_url = "../AjaxWS.asmx/TransicionarDocumentoConAreaIntermedia";
+                post_data = JSON.stringify({
+                    id_documento: self.documento.id,
+                    id_area_origen: self.documento.areaActual.id,
+                    id_area_intermedia: self.area_del_usuario.id,
+                    id_area_destino: self.documento.areaDestino.id
+                });
+            }
+
+            $.ajax({
+                url: post_url,
+                type: "POST",
+                data: post_data,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (respuestaJson) {
+                    var respuesta = JSON.parse(respuestaJson.d);
+                    if (respuesta.tipoDeRespuesta == "envioDeDocumento.ok") {
+                        self.mostrarDocumento(respuesta.documento);
+                        self.actualizarFichaGrande();
+                    }
+                    if (respuesta.tipoDeRespuesta == "envioDeDocumento.error") {
+                        alert("Error al enviar el documento: " + respuesta.error);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        });
+
         this.boton_desplegar.click(function () {
             self.toggleFichaGrande();
             self.boton_desplegar.toggleClass("icon-plus-sign");
             self.boton_desplegar.toggleClass("icon-minus-sign");
         });
-        this.mostrarDocumento();
+        this.mostrarDocumento(this.documento);
+    },
+    actualizarFichaGrande: function () {
+        if (this.ficha_grande === undefined) return;
+        this.ficha_grande.mostrarDocumento(this.documento);
     },
     toggleFichaGrande: function () {
         if (this.ficha_grande === undefined) {
-            this.ficha_grande = this.fabrica_de_fichas.crearFichaGrande(this.documento);
+            this.ficha_grande = this.fabrica_de_fichas.crearFichaGrande(this.documento, this);
             this.ficha_grande.dibujarEn(this.ui);
             return;
         }
@@ -30,11 +79,13 @@ FichaChicaDeDocumento.prototype = {
         this.ficha_grande = undefined;
     },
     mostrarDocumento: function (documento) {
+        this.documento = documento;
         this.ticket.text(this.documento.ticket);
         this.tipo.text(this.documento.tipo.descripcion);
         this.categoria.text(this.documento.categoria.descripcion);
         this.extracto.text(this.documento.extracto);
         this.area_actual.text(this.documento.areaActual.descripcion);
+        this.boton_enviar.toggle(this.documento.areaDestino.id >= 0);
     },
     dibujarEn: function (panel) {
         panel.append(this.ui);
