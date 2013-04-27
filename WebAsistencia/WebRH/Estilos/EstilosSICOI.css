@@ -498,57 +498,57 @@
 #ficha_chica_titulo_ticket {
 	padding-left: 15px;
 	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 12px;
+	font-size: 11px;
 	display: inline-block;
 	  }
 #ficha_chica_contenido_ticket { 
 	display: inline-block;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
+	font-size: 11px;
  }
 #ficha_chica_titulo_tipo {
 	padding-left: 100px;
 	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 12px;
+	font-size: 11px;
 	display: inline-block;
 	  }
 #ficha_chica_contenido_tipo {
 	display: inline-block;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;  
+	font-size: 11px;  
 	}
 #ficha_chica_titulo_categoria {
 	padding-left: 120px;
 	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 12px;
+	font-size: 11px;
 	display: inline-block; 
 	 }
 #ficha_chica_contenido_categoria {
 	display: inline-block;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px  
+	font-size: 11px  
 	}
 
 #ficha_chica_titulo_area_actual {
 	padding-left: 15px;
 	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 12px;
+	font-size: 11px;
 	display: inline-block;
 	  }
 #ficha_chica_contenido_area_actual {
 	display: inline-block;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
+	font-size: 11px;
 	  }
 #ficha_chica_titulo_extracto {
 	padding-left: 15px;
 	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 12px;
+	font-size: 11px;
 	display: inline-block;  }
 #ficha_chica_contenido_extracto {
 	display: inline-block;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;  }
+	font-size: 11px;  }
 	
 #ficha_chica_boton_desplegar{
 	height: 16px;
@@ -570,3 +570,42 @@
 	}
 	
 /* FIN ESTILO FICHA CHICA DE DOCUMENTO */
+
+/* ESTILO FICHA GRANDE DE DOCUMENTO */
+#ficha_grande_titulo_area_creadora
+{   padding-left: 15px;
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size: 11px;
+	display: inline-block;
+    }
+    
+#ficha_grande_contenido_area_creadora
+{  	display: inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+    }
+
+#ficha_grande_titulo_tiempo_en_area_actual
+{   padding-left: 15px;
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size: 11px;
+	display: inline-block;
+    }
+
+#ficha_grande_contenido_tiempo_en_area_actual
+{   
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	display: inline-block;
+    
+    }
+    
+#ficha_grande_titulo_comentarios
+{   margin-top: 20px;
+    padding-left: 15px;
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size: 11px;
+	display: inline-block;
+    
+    }
+/* FIN ESTILO FICHA GRANDE DE DOCUMENTO */

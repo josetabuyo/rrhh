@@ -130,9 +130,9 @@
 
          <div id="plantilla_ficha_grande_de_documento">
             <div id='ficha_grande_titulo_area_creadora'> Area Creadora:</div>
-            <div id="ficha_grande_contenido_area_creadora"> </div>
+            <div id="ficha_grande_contenido_area_creadora"> Mesa de Entradas </div><br />
             <div id='ficha_grande_titulo_tiempo_en_area_actual'> En Area Actual Desde:</div>
-            <div id="ficha_grande_contenido_tiempo_en_area_actual">  </div>
+            <div id="ficha_grande_contenido_tiempo_en_area_actual"> 2 dias </div><br />
             <div id='ficha_grande_titulo_comentarios'> Comentarios:</div>
             <textarea id="ficha_grande_contenido_comentarios"></textarea>
             <div id='ficha_grande_titulo_transiciones'> Transiciones</div>
