@@ -138,7 +138,7 @@
             <div id='ficha_grande_titulo_transiciones'> Transiciones</div>
             <div id='ficha_grande_titulo_fecha_de_ingreso'> Fecha de ingreso</div>
             <div id='ficha_grande_titulo_area_destino'> Próximo area destino:</div>
-            <input type="text" id='ficha_grande_contenido_area_destino'>
+            <input type="text" id='ficha_grande_contenido_area_destino' data-provide="typeahead" data-items="9"/>
         </div>
     </div>
 
@@ -189,6 +189,7 @@
                 plantillaFichaChica: $("#plantilla_ficha_chica_de_documento"),
                 plantillaFichaGrande: $("#plantilla_ficha_grande_de_documento"),
                 uiListaDeDocs: $("#lista_de_documentos"),
+                listaAreas:listaAreas,
                 areaDelUsuario: areaDelUsuario
             }
             var panel_documentos = new PanelDeDocumentos(cfg_panel_documentos);

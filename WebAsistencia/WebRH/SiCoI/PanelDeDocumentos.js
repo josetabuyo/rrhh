@@ -2,7 +2,7 @@
 var PanelDeDocumentos = function (cfg) {
     this.cfg = cfg;
     var self = this;
-    this.lista_de_fichas = new ListaDeFichas(new FabricaDeFichasDeDocumento(cfg.plantillaFichaChica, cfg.plantillaFichaGrande), cfg.uiListaDeDocs);
+    this.lista_de_fichas = new ListaDeFichas(new FabricaDeFichasDeDocumento(cfg.plantillaFichaChica, cfg.plantillaFichaGrande, cfg.listaAreas), cfg.uiListaDeDocs);
     var proveedor = {
         pedirDatos: function (callback) {
             WebService.getDocumentosFiltrados(self._panel_filtros.getFiltrosActivos(), callback);
