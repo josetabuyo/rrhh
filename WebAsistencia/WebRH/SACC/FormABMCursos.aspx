@@ -23,6 +23,7 @@
         <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelCurso" class="div_izquierdo">
+        <fieldset>
            <legend>Panel De Cursos</legend>
         <p>
             <asp:Label ID="lblMateria" CssClass="labels_sacc" runat="server" Text="Materia:"></asp:Label>
@@ -69,10 +70,13 @@
             onClientClick="javascript:LimpiarCampos();" />
     </div>
         </div>
+        </fieldset>
     <div class="div_derecho">
+        <fieldset>
         <legend>Listado de Cursos</legend>
         <div id="ContenedorPlanilla" runat="server"></div>
         <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
+        </fieldset>
     </div>
     <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="materiasJSON" runat="server" EnableViewState="true"/>
