@@ -135,9 +135,10 @@
             <div id="ficha_grande_contenido_tiempo_en_area_actual"> 2 dias </div><br />
             <div id='ficha_grande_titulo_comentarios'> Comentarios:</div>
             <textarea id="ficha_grande_contenido_comentarios"></textarea>
-            <div id='ficha_grande_titulo_transiciones'> Transiciones</div>
-            <div id='ficha_grande_titulo_fecha_de_ingreso'> Fecha de ingreso</div>
+            <div id='ficha_grande_titulo_transiciones'> Trancisiones </div>
+            <div id='ficha_grande_titulo_fecha_de_ingreso'> Fecha de Ingreso</div>
             <div id='ficha_grande_titulo_area_destino'> Próximo area destino:</div>
+            <input type="button" id="guardar_cambios_documento" value="Guardar Cambios" <button class="btn btn-mini btn-primary" type="button"></button>
             <input type="text" id='ficha_grande_contenido_area_destino' data-provide="typeahead" data-items="9"/>
             <input type="button" id="ficha_grande_boton_guardar_cambios" value="Guardar Cambios" class="btn"/>
         </div>
