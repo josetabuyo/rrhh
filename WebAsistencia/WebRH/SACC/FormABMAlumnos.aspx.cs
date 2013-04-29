@@ -20,7 +20,9 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
             CompletarCombosDeModalidades();
             this.personasJSON.Value = servicio.GetAlumnos();
         }
-        
+
+        this.btnModificarAlumno.Enabled = false;
+        this.btnQuitarAlumno.Enabled = false;
         MostrarAlumnosEnLaGrilla(servicio);    
     }
 

@@ -131,6 +131,11 @@
             $("#cmbEdificio").val(un_espacio_fisico.edificio.id);
             $("#txtDireccion").val(un_espacio_fisico.edificio.direccion);
             $("#txtCapacidad").val(un_espacio_fisico.capacidad);
+
+            $("#btnAgregarEspacioFisico").attr("disabled", true);
+            $("#btnModificarEspacioFisico").attr("disabled", false);
+            $("#btnQuitarEspacioFisico").attr("disabled", false);
+
         };
     }
 
