@@ -27,15 +27,17 @@
            <legend>Panel De Cursos</legend>
         <p>
             <asp:Label ID="lblMateria" CssClass="labels_sacc" runat="server" Text="Materia:"></asp:Label>
-            <asp:DropDownList ID="cmbMateria" name="Materia" runat="server" EnableViewState="false" data-name="Materia"></asp:DropDownList >
+            <asp:DropDownList ID="cmbMateria" name="Materia" runat="server" 
+                EnableViewState="false" data-name="Materia" Width="250px"></asp:DropDownList >
         </p>
         <p> 
             <asp:Label ID="lblDocente" CssClass="labels_sacc" runat="server" Text="Docente:"></asp:Label>
-            <asp:DropdownList ID="cmbDocente" name="Docente" runat="server" EnableViewState="false" data-name="Docente"></asp:DropdownList >
+            <asp:DropdownList ID="cmbDocente" name="Docente" runat="server" 
+                EnableViewState="false" data-name="Docente" Width="250px"></asp:DropdownList >
         </p>
         <p> 
             <asp:Label ID="lblEspacioFisico" CssClass="labels_sacc" runat="server" Text="Espacio Físico:"></asp:Label>
-            <asp:DropdownList ID="cmbEspacioFisico" name="Docente" runat="server" EnableViewState="false" data-name="Espacio F&iacute;sico"></asp:DropdownList >
+            <asp:DropdownList ID="cmbEspacioFisico" name="Docente" runat="server" EnableViewState="false" Width="250px" data-name="Espacio F&iacute;sico"></asp:DropdownList >
         </p>
         <p>   
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>

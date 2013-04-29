@@ -21,19 +21,25 @@
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
         
         <div style="margin:20px;">
+        
         <fieldset>
             <legend>Elija ciclo y curso:</legend>
-            <div>
-                <asp:DropDownList ID="cmbCiclo" runat="server"  EnableViewState="false">
+            <p>
+            <asp:Label ID="lblCiclo"  runat="server" style="padding-right:5px;"  Text="Ciclo:"></asp:Label>
+                <asp:DropDownList ID="cmbCiclo" runat="server"  EnableViewState="false" 
+                    Width="250px">
                     <asp:ListItem Value="-1" class="placeholder" Selected="true">Ciclo</asp:ListItem>
                 </asp:DropDownList>    
-            </div>
-            <div>
-                <asp:DropDownList ID="cmbCursos" runat="server" EnableViewState="false">
+            </p>
+            <p>
+            <asp:Label ID="lblCursos"  runat="server"  Text="Curso:"></asp:Label>
+                <asp:DropDownList ID="cmbCursos" runat="server" EnableViewState="false" 
+                    Width="250px">
                     <asp:ListItem Value="0" class="placeholder" Selected="true">Cursos</asp:ListItem>
                 </asp:DropDownList>        
-            </div>
+            </p>
         </fieldset>
+        
         </div>
         <div class="btn_inscripcion_SACC">
             <label id="descripcionCursoSeleccionado"></label> 
