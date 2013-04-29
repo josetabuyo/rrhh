@@ -120,7 +120,7 @@
             <div id="ficha_chica_contenido_tipo">Expediente N° 97</div>
             <div id="ficha_chica_titulo_categoria">Categoría:</div>
             <div id="ficha_chica_contenido_categoria">Renuncia</div>
-            <input type="button" id="ficha_chica_boton_enviar_documento" value="Enviar" class="btn"/><br />
+            <input type="button" id="ficha_chica_boton_enviar_documento" value="Enviar" class="btn btn-mini btn-primary"/><br />
             <div id="ficha_chica_titulo_area_actual">Área Actual:</div>
             <div id="ficha_chica_contenido_area_actual">Dirección General de Recursos Humanos y Organización</div><br />
             <div id="ficha_chica_titulo_extracto">Extracto:</div>
@@ -135,12 +135,11 @@
             <div id="ficha_grande_contenido_tiempo_en_area_actual"> 2 dias </div><br />
             <div id='ficha_grande_titulo_comentarios'> Comentarios:</div>
             <textarea id="ficha_grande_contenido_comentarios"></textarea>
-            <div id='ficha_grande_titulo_transiciones'> Trancisiones </div>
+            <div id='ficha_grande_titulo_transiciones'> Transiciones </div>
             <div id='ficha_grande_titulo_fecha_de_ingreso'> Fecha de Ingreso</div>
             <div id='ficha_grande_titulo_area_destino'> Próximo area destino:</div>
-            <input type="button" id="guardar_cambios_documento" value="Guardar Cambios" <button class="btn btn-mini btn-primary" type="button"></button>
             <input type="text" id='ficha_grande_contenido_area_destino' data-provide="typeahead" data-items="9"/>
-            <input type="button" id="ficha_grande_boton_guardar_cambios" value="Guardar Cambios" class="btn"/>
+            <input type="button" id="ficha_grande_boton_guardar_cambios" value="Guardar Cambios" class="btn btn-mini btn-primary"/>
         </div>
     </div>
 
