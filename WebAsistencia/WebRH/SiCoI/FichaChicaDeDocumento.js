@@ -72,10 +72,12 @@ FichaChicaDeDocumento.prototype = {
     toggleFichaGrande: function () {
         if (this.ficha_grande === undefined) {
             this.ficha_grande = this.fabrica_de_fichas.crearFichaGrande(this.documento, this);
+            this.ui.addClass("ficha_chica_de_documento_expandida");
             this.ficha_grande.dibujarEn(this.ui);
             return;
         }
         this.ficha_grande.borrar();
+        this.ui.removeClass("ficha_chica_de_documento_expandida");
         this.ficha_grande = undefined;
     },
     mostrarDocumento: function (documento) {

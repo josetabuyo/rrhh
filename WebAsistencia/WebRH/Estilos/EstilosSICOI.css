@@ -488,7 +488,22 @@
 
 .ficha_chica_de_documento {
 	/*height: 66px;*/
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
+    overflow-y:hidden;
+    height: 60px;
 }
+
+.ficha_chica_de_documento_expandida
+{
+    height: 250px;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
+    
+}
+
 .ficha_chica_de_documento:nth-child(odd) {
 	background-color: #CCC;
 }
