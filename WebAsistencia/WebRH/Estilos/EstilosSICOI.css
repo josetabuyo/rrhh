@@ -467,7 +467,7 @@
     margin-left:5%;
     margin-right:5%;
     overflow-y:scroll;
-    height:90%;
+    height:87%;
     margin-top: 17px;
     
     -webkit-transition: all .5s ease;
@@ -586,6 +586,7 @@
 	
 /* FIN ESTILO FICHA CHICA DE DOCUMENTO */
 
+
 /* ESTILO FICHA GRANDE DE DOCUMENTO */
 #ficha_grande_titulo_area_creadora
 {   padding-left: 15px;
@@ -616,11 +617,52 @@
     }
     
 #ficha_grande_titulo_comentarios
-{   margin-top: 20px;
+{   margin-top: 10px;
     padding-left: 15px;
 	font-family:"Arial Black", Gadget, sans-serif;
 	font-size: 11px;
 	display: inline-block;
     
     }
+    
+#ficha_grande_contenido_comentarios
+{   margin-top:10px;
+    height: 50px;
+    width: 790px;
+    }
+    
+#ficha_grande_titulo_transiciones
+{   padding-left: 15px;
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size: 11px;
+	
+    
+    }
+#ficha_grande_titulo_fecha_de_ingreso{
+    font-family:"Arial Black", Gadget, sans-serif;
+	font-size: 11px;
+	padding-left: 15px;
+}
+
+#ficha_grande_titulo_area_destino{
+    font-family:"Arial Black", Gadget, sans-serif;
+	font-size: 11px;
+	padding-left: 15px;
+}
+#ficha_grande_contenido_area_destino{
+    margin-top: -20px;
+    height:15px;
+    width: 610px;
+    margin-left:150px;
+}
+
+#guardar_cambios_documento{
+	display: inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	float: right;
+	margin-right: 10px; 
+	margin-top: -17px;
+
+	}
 /* FIN ESTILO FICHA GRANDE DE DOCUMENTO */

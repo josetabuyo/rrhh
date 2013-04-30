@@ -14,11 +14,11 @@ var PanelDeDocumentos = function (cfg) {
 
 PanelDeDocumentos.prototype = {
     refrescarDocumentos: function () {
-        this._grilla_de_documentos.refrescar();
+        this.lista_de_fichas.refrescar();
     },
     mostrarDocumentos: function (docs) {
-        this.lista_de_fichas.BorrarContenido();
-        this.lista_de_fichas.CargarObjetos(docs);
+        this.lista_de_fichas.borrarContenido();
+        this.lista_de_fichas.cargarObjetos(docs);
     },
     setPanelDetalle: function (panel) {
         this._panel_detalle = panel;
