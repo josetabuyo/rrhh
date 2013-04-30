@@ -16,7 +16,7 @@
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="MESA DE ENTRADAS" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div id="contenedor_principal_sicoi">
         <div id="botonera_paneles_desplegables">
             <input type="button" id="boton_alertas" class=" btn btn-danger" value="!"/>

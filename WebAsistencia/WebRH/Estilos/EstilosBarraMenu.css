@@ -1,27 +1,86 @@
 ﻿#barra_menu_contenedor
 {
+
     height: 95px;
 }
+#barra_menu_contenedor_imagen 
+{
+    background-color:#00001c;  
+    position: absolute;
+    left: 50%;
+	min-height: 30px;
+	width: 1024px;
+	margin-left: -512px;	  
+
+}
+
+#img_logo_sistema
+{
+    position: absolute;
+    top: 14px;
+    left:15px;
+    /*float:left;*/
+    
+}
+
+ #img_logo_minis 
+ {
+    position: absolute;
+    top: 17px; 
+    right:70px;
+    float:right;
+}
+
+#img_logo_direccion 
+{
+    /*z-index: 2000;*/
+    position: absolute;
+    top: 19px; 
+    right:230px;
+    float:right;
+ }
+ 
+
+     
+
+
+
 #barra_menu
 {
 	position: absolute;
     left: 50%;
 	min-height: 30px;
-	width: 800px;
-	margin-left: -400px;	
+	width: 1024px;
+	margin-left: -512px;	
 	background-color: #EEE;
+}
+
+#contenedor_imagen 
+{
+    width: 100%;
+    background-color:#00001c;  
+    height: 65px;
+}
+    
+#contenedor_barraInferior 
+{
+    width: 100%;
+    background-color:rgb(25, 75, 180);
+     height: 30px;
+     border-top: 3px solid white; 
+      
 }
 
 #barra_menu_nombre_sistema
 {
     position: absolute;
-    top: 16px;
-    left: 202px;
-    width: 65px;
+    top: 5px;
+    left: 187px;
+    width: 265px;
     text-align: center;
-    font-weight: bold;
     font-family: Arial;
     color:White;
+    font-size:10px;
 }
 
 #barra_menu_inferior
@@ -29,6 +88,13 @@
     background-color:rgb(25, 75, 180);
     border-top: 3px solid white;  
     height: 25px; 
+    margin-top: -3px;
+    
+    position: absolute;
+    left: 50%;
+	min-height: 30px;
+	width: 1024px;
+	margin-left: -512px;	
 }
 
 #barra_menu_inferior_usuario
