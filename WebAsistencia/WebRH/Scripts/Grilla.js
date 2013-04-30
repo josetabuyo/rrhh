@@ -119,7 +119,7 @@ Grilla.prototype = {
         for (var i = 0; i < objetos.length; i++) {
             var obj = objetos[i];
             if (this.ContieneElemento(obj)) {
-                var indice = obtenerIndice(Objetos, obj);
+                var indice = this.obtenerIndice(this.Objetos, obj);
                 this.Objetos.splice(indice, 1);
             }
 
@@ -132,11 +132,9 @@ Grilla.prototype = {
         this.Objetos.splice(indice, 1);
     },
     ContieneElemento: function (obj) {
-        return contains(this.Objetos, obj);
+        return this.contains(this.Objetos, obj);
     },
-    Objetos: function () {
-        return this.Objetos;
-    },
+
     BorrarContenido: function () {
         var rowCount = this.tabla[0].rows.length;
         for (var i = 1; i < rowCount; i++) {

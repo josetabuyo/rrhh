@@ -19,6 +19,8 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
             // CompletarCombosDeCiclos();
         }
 
+        this.btnModificarEspacioFisico.Enabled = false;
+        this.btnQuitarEspacioFisico.Enabled = false;
         MostrarEspacioFisicoEnLaGrilla(servicio);
     }
 
@@ -160,6 +162,6 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
     private bool DatosEstanCompletos()
     {
-        return !((this.txtAula.Text == "") || (this.cmbEdificio.SelectedIndex < 1) || (this.txtCapacidad.Text == ""));
+        return !((this.txtAula.Text == "") || (this.cmbEdificio.SelectedIndex < 1) || (this.txtCapacidad.Text ==  ""));
     }
 }

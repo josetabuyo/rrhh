@@ -1,5 +1,0 @@
-C:\Repositorios\FernandoAssembla\SistemaWeb\WebAsistencia\WebRhUI\bin\Release\WebRhUI.dll
-C:\Repositorios\FernandoAssembla\SistemaWeb\WebAsistencia\WebRhUI\bin\Release\WebRhUI.pdb
-C:\Repositorios\FernandoAssembla\SistemaWeb\WebAsistencia\WebRhUI\obj\Release\ResolveAssemblyReference.cache
-C:\Repositorios\FernandoAssembla\SistemaWeb\WebAsistencia\WebRhUI\obj\Release\WebRhUI.dll
-C:\Repositorios\FernandoAssembla\SistemaWeb\WebAsistencia\WebRhUI\obj\Release\WebRhUI.pdb
