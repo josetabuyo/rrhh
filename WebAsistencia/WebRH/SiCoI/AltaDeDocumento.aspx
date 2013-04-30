@@ -195,40 +195,6 @@
             }
             var panel_documentos = new PanelDeDocumentos(cfg_panel_documentos);
 
-//            var cfg_panel_detalle = {
-//                divPanelDetalle: $("#detalle_documento"),
-//                ExtractoDocumentoDetalle: $("#ExtractoDocumentoDetalle"),
-//                TipoDocumentoDetalle: $("#TipoDocumentoDetalle"),
-//                NumeroDocumentoDetalle: $("#NumeroDocumentoDetalle"),
-//                FechaDocumentoDetalle: $("#FechaDocumentoDetalle"),
-//                txtComentariosEnDetalle: $("#txtComentariosEnDetalle"),
-//                AreaOrigenDocumentoDetalle: $("#AreaOrigenDocumentoDetalle"),
-//                selectorDeAreaDestinoEnDetalle: $('#selectorAreaDestinoEnDetalle'),
-//                contenedor_historial_transiciones: $("#contenedor_historial_documento_detalle"),
-//                plantilla_transicion_documento: $('#proto_transicion_de_documento_historial'),
-//                botonCerrarDetalle: $('#cerrarDetalle'),
-//                btnGuardarCambios: $('#btnGuardarCambiosDetalle'),
-//                listaAreas: listaAreas
-//            };
-//            var panel_detalle = new PanelDetalleDeDocumento(cfg_panel_detalle);
-
-//            var cfg_ficha_grande = {
-//                divPanelDetalle: $("#detalle_documento"),
-//                ExtractoDocumentoDetalle: $("#ExtractoDocumentoDetalle"),
-//                TipoDocumentoDetalle: $("#TipoDocumentoDetalle"),
-//                NumeroDocumentoDetalle: $("#NumeroDocumentoDetalle"),
-//                FechaDocumentoDetalle: $("#FechaDocumentoDetalle"),
-//                txtComentariosEnDetalle: $("#txtComentariosEnDetalle"),
-//                AreaOrigenDocumentoDetalle: $("#AreaOrigenDocumentoDetalle"),
-//                selectorDeAreaDestinoEnDetalle: $('#selectorAreaDestinoEnDetalle'),
-//                contenedor_historial_transiciones: $("#contenedor_historial_documento_detalle"),
-//                plantilla_transicion_documento: $('#proto_transicion_de_documento_historial'),
-//                botonCerrarDetalle: $('#cerrarDetalle'),
-//                btnGuardarCambios: $('#btnGuardarCambiosDetalle'),
-//                listaAreas: listaAreas
-//            };
-//            var ficha_grande = new PanelDetalleDeDocumento(cfg_panel_detalle);
-
             var cfg_panel_alta = {
                 selectorDeAreaOrigenEnAlta: $('#selectorDeAreaOrigen'),
                 selectorDeAreaDestinoEnAlta: $('#selectorDeAreaDestino'),
@@ -280,10 +246,6 @@
             var panel_filtros = new PanelDeFiltrosDeDocumentos(cfg_panel_filtros);
 
             panel_documentos.setPanelFiltros(panel_filtros);
-
-//            panel_detalle.setPanelAlta(panel_alta);
-//            panel_detalle.setPanelFiltros(panel_filtros);
-//            panel_detalle.setPanelDocumentos(panel_documentos);
 
             panel_alta.setPanelFiltros(panel_filtros);
             panel_alta.setPanelDocumentos(panel_documentos);
