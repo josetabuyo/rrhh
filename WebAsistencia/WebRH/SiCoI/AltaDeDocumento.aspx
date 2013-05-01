@@ -137,9 +137,15 @@
             <textarea id="ficha_grande_contenido_comentarios"></textarea>
             <div id='ficha_grande_titulo_transiciones'> Transiciones </div>
             <div id='ficha_grande_titulo_fecha_de_ingreso'> Fecha de Ingreso</div>
+            <div id='ficha_grande_transiciones'></div>
             <div id='ficha_grande_titulo_area_destino'> Próximo area destino:</div>
             <input type="text" id='ficha_grande_contenido_area_destino' data-provide="typeahead" data-items="9"/>
             <input type="button" id="ficha_grande_boton_guardar_cambios" value="Guardar Cambios" class="btn btn-mini btn-primary"/>
+        </div>
+
+        <div id="plantilla_transicion_documento" class="transicion_documento">
+            <div id='transicion_documento_fecha_de_ingreso'> </div>            
+            <div id='transicion_documento_area_destino'> </div>            
         </div>
     </div>
 
@@ -174,6 +180,7 @@
     <script type="text/javascript" src="ListaDeFichas.js"></script>
     <script type="text/javascript" src="FichaChicaDeDocumento.js"></script>
     <script type="text/javascript" src="FichaGrandeDeDocumento.js"></script>
+    <script type="text/javascript" src="TransicionDeDocumento.js"></script>
     <script type="text/javascript" src="FabricaDeFichasDeDocumento.js"></script>
     <script type="text/javascript" src="WebService.js"></script>
     <script type="text/javascript" src="BotonAlertas.js"></script>
@@ -189,6 +196,7 @@
                 divPanelDocumentos: $("#panel_documentos"),
                 plantillaFichaChica: $("#plantilla_ficha_chica_de_documento"),
                 plantillaFichaGrande: $("#plantilla_ficha_grande_de_documento"),
+                plantillaTransicion: $("#plantilla_transicion_documento"),
                 uiListaDeDocs: $("#lista_de_documentos"),
                 listaAreas:listaAreas,
                 areaDelUsuario: areaDelUsuario
