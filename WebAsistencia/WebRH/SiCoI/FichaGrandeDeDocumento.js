@@ -1,8 +1,9 @@
-﻿var FichaGrandeDeDocumento = function (documento, ui, lista_areas, ficha_chica) {
+﻿var FichaGrandeDeDocumento = function (documento, ui, plantilla_transicion, lista_areas, ficha_chica) {
     this.ui = ui;
     this.documento = documento;
     this.lista_areas = lista_areas;
     this.ficha_chica = ficha_chica;
+    this.plantilla_transicion = plantilla_transicion;
     this.start();
 };
 FichaGrandeDeDocumento.prototype = {
@@ -13,6 +14,8 @@ FichaGrandeDeDocumento.prototype = {
         this.comentarios = this.ui.find("#ficha_grande_contenido_comentarios");
         this.div_area_destino = this.ui.find("#ficha_grande_contenido_area_destino");
         this.boton_guardar_cambios = this.ui.find("#ficha_grande_boton_guardar_cambios");
+        this.boton_guardar_cambios = this.ui.find("#ficha_grande_boton_guardar_cambios");
+        this.panel_transiciones = this.ui.find("#ficha_grande_transiciones");
 
         this.boton_guardar_cambios.click(function () {
             var post_url = "../AjaxWS.asmx/GuardarCambiosEnDocumento";
@@ -54,6 +57,12 @@ FichaGrandeDeDocumento.prototype = {
 
         if (this.documento.areaDestino == null) this.selector_de_area_destino.limpiar();
         else this.selector_de_area_destino.setAreaSeleccionada(this.documento.areaDestino);
+
+        this.panel_transiciones.empty();
+        for (var i = 0; i < documento.historial.length; i++) {
+            var trans = new TransicionDeDocumento(this.plantilla_transicion.clone(), documento.historial[i]);
+            trans.dibujarEn(this.panel_transiciones);
+        }
     },
     dibujarEn: function (panel) {
         panel.append(this.ui);
