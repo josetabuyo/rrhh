@@ -8,6 +8,7 @@
     <title></title>
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
+    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
@@ -17,7 +18,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
         
         <div style="margin:20px;">
