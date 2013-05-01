@@ -491,7 +491,7 @@
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     transition: all .5s ease;
-    overflow-y:hidden;
+    overflow-y:auto;
     height: 60px;
 }
 
@@ -628,15 +628,31 @@
 #ficha_grande_contenido_comentarios
 {   margin-top:10px;
     height: 50px;
-    width: 790px;
+    width: 750px;
+    RESIZE: none;
     }
     
 #ficha_grande_titulo_transiciones
 {   padding-left: 15px;
 	font-family:"Arial Black", Gadget, sans-serif;
 	font-size: 11px;
-	
+	 }
     
+#transicion_documento_fecha_de_ingreso
+{
+    display:inline-block;
+    font-family: Arial Black;
+    font-size: 11px;
+    margin-left: 25px;
+   
+    
+    }
+    
+#transicion_documento_area_destino
+{
+    display:inline-block;
+    font-family: Arial;
+    font-size: 11px;
     }
 #ficha_grande_titulo_fecha_de_ingreso{
     font-family:"Arial Black", Gadget, sans-serif;
@@ -648,11 +664,12 @@
     font-family:"Arial Black", Gadget, sans-serif;
 	font-size: 11px;
 	padding-left: 15px;
+	margin-top: 10px;
 }
 #ficha_grande_contenido_area_destino{
-    margin-top: -20px;
+  
     height:15px;
-    width: 625px;
+    width: 600px;
     margin-left:150px;
     display: inline-block;
 }
@@ -670,8 +687,9 @@
 	#ficha_grande_boton_guardar_cambios
 	{
 	    display:inline-block;
-	    margin-top: -30px;
-	    margin-left: 10px;
+	    margin-top: -10px;
+	    margin-left: 5px;
+	
 	    }
 
 /* FIN ESTILO FICHA GRANDE DE DOCUMENTO */

@@ -135,7 +135,7 @@
             <div id="ficha_grande_contenido_tiempo_en_area_actual"> 2 dias </div><br />
             <div id='ficha_grande_titulo_comentarios'> Comentarios:</div>
             <textarea id="ficha_grande_contenido_comentarios"></textarea>
-            <div id='ficha_grande_titulo_transiciones'> Transiciones </div>
+            <div id='ficha_grande_titulo_transiciones'> TRANSICIONES </div>
             <div id='ficha_grande_titulo_fecha_de_ingreso'> Fecha de Ingreso</div>
             <div id='ficha_grande_transiciones'></div>
             <div id='ficha_grande_titulo_area_destino'> Próximo area destino:</div>
@@ -144,8 +144,8 @@
         </div>
 
         <div id="plantilla_transicion_documento" class="transicion_documento">
-            <div id='transicion_documento_fecha_de_ingreso'> </div>            
-            <div id='transicion_documento_area_destino'> </div>            
+            <div id='transicion_documento_fecha_de_ingreso'></div>            
+            <div id='transicion_documento_area_destino'></div>            
         </div>
     </div>
 
