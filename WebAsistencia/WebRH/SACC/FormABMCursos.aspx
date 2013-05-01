@@ -11,10 +11,14 @@
         runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
+    <link id="link3" rel="stylesheet" href="../Estilos/jquery-ui.css" />
+        type="text/css" runat="server" />
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/jquery.ui.datepicker.min.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
 </head>
@@ -27,21 +31,27 @@
            <legend>Panel De Cursos</legend>
         <p>
             <asp:Label ID="lblMateria" CssClass="labels_sacc" runat="server" Text="Materia:"></asp:Label>
-            <asp:DropDownList ID="cmbMateria" name="Materia" runat="server" 
-                EnableViewState="false" data-name="Materia" Width="250px"></asp:DropDownList >
+            <asp:DropDownList ID="cmbMateria" name="Materia" runat="server" EnableViewState="false" data-name="Materia"></asp:DropDownList >
         </p>
         <p> 
             <asp:Label ID="lblDocente" CssClass="labels_sacc" runat="server" Text="Docente:"></asp:Label>
-            <asp:DropdownList ID="cmbDocente" name="Docente" runat="server" 
-                EnableViewState="false" data-name="Docente" Width="250px"></asp:DropdownList >
+            <asp:DropdownList ID="cmbDocente" name="Docente" runat="server" EnableViewState="false" data-name="Docente"></asp:DropdownList >
         </p>
         <p> 
             <asp:Label ID="lblEspacioFisico" CssClass="labels_sacc" runat="server" Text="Espacio Físico:"></asp:Label>
-            <asp:DropdownList ID="cmbEspacioFisico" name="Docente" runat="server" EnableViewState="false" Width="250px" data-name="Espacio F&iacute;sico"></asp:DropdownList >
+            <asp:DropdownList ID="cmbEspacioFisico" name="Docente" runat="server" EnableViewState="false" data-name="Espacio F&iacute;sico"></asp:DropdownList >
+        </p>
+        <p>
+            <asp:Label ID="lblFechaInicio" CssClass="labels_sacc" runat="server" Text="Fecha Inicio"></asp:Label>
+            <asp:TextBox ID="txtFechaInicio" CssClass="input-small" placeholder="Fecha Inicio" runat="server" MaxLength="8" data-name="Fecha de Inicio del Curso" title="Fecha de Inicio del Curso"></asp:TextBox>
+            <br />
+            <asp:Label ID="lblFechaFin" CssClass="labels_sacc" runat="server" Text="Fecha Fin"></asp:Label>
+            <asp:TextBox ID="txtFechaFin" CssClass="input-small" placeholder="Fecha Inicio" runat="server" MaxLength="8" data-name="Fecha de Fin del Curso" title="Fecha de Fin del Curso"></asp:TextBox>
         </p>
         <p>   
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
-            <asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" data-name="Dia" ></asp:DropdownList>
+            <%--<asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" data-name="Dia" ></asp:DropdownList>--%>
+            <select id="cmbDia" class="input-small"  runat="server" data-name="Dia" style="text-transform:capitalize" ></select>
             <asp:TextBox ID="txtHoraInicio" title="Hora de inicio" CssClass="input-small" placeholder="Hora Inicio" runat="server" MaxLength="5"  data-name="Hora de Inicio"></asp:TextBox>
             <asp:TextBox ID="txtHoraFin" title="Hora de fin" CssClass="input-small" placeholder="Hora Fin" runat="server" MaxLength="5" data-name="Hora de Fin"></asp:TextBox>
             <select runat="server" title="Horas C&aacute;tedra" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false" class="input-small" data-name="Cantidad de Horas C&aacute;tedra"></select>

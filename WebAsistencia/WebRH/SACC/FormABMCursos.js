@@ -53,6 +53,8 @@ var AdministradorPlanillaCursos = function () {
         panelCurso.find("#cmbEspacioFisico").val(un_curso.EspacioFisico.Id);
         panelCurso.find("#txtHorarios").val(JSON.stringify(un_curso.Horarios));
         panelCurso.find("#cmbHorasCatedra").val(un_curso.HorasCatedra);
+        panelCurso.find("#txtFechaInicio").val(un_curso.FechaFin);
+        panelCurso.find("#txtFechaFin").val(un_curso.FechaInicio);
         horarios = un_curso.Horarios;
         DibujarGrillaHorarios();
         $('#txtIdDocente').val(un_curso.Docente.Id);
@@ -70,8 +72,21 @@ var AdministradorPlanillaCursos = function () {
     HabilitarControl($("#btnAgregarCurso"));
     $("#txtHoraInicio").mask("99:99");
     $("#txtHoraFin").mask("99:99");
+    $("#txtFechaInicio").datepicker($.datepicker.regional["es"]);
+    $("#txtFechaFin").datepicker($.datepicker.regional["es"]);
 
 };
+
+$('#cmbCurso').change(function () {
+        var mes_inicio = un_curso.FechaInicio == null ? 1 : un_curso.FechaInicio.Month;
+        var mes_fin = un_curso.FechaFin == null ? 12 : un_curso.FechaFin.Month;
+        for (var mes = mes_inicio; mes <= mes_fin; mes++){
+            this.CmbCurso.Items.Add(new System.Web.UI.WebControls.ListItem(DateTimeFormatInfo.CurrentInfo.GetMonthName(mes), mes.ToString()));
+        }
+
+
+});
+
 $('#cmbMateria').change(function () {
     $('#txtIdMateria').val($('#cmbMateria').find('option:selected').val());
 });
@@ -163,7 +178,7 @@ var AgregarHorario = function () {
 
     if (ValidarHorario(false)) {
         $.extend(horarios.push(NuevoHorario()));
-
+        
         $("#txtHorarios").val(JSON.stringify(horarios));
         DibujarGrillaHorarios();
         LimpiarHorario();
@@ -273,8 +288,7 @@ var LimpiarHorario = function () {
     Limpiar(horaI);
     Limpiar(horaF);
     Limpiar(dia); 
-    var contenedorGrillaHorario = $('#contenedor_grilla_horario');
-    contenedorGrillaHorario.html("");
+    
 }
 
 var Limpiar = function (control) {
@@ -283,6 +297,8 @@ var Limpiar = function (control) {
 
 var LimpiarCampos = function () {
     LimpiarHorario();
+    $('#contenedor_grilla_horario').html("");
+    
     Limpiar($("#txtNombre"));
 
     Limpiar($("#cmbMateria"));

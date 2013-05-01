@@ -931,8 +931,7 @@ public class WSViaticos : System.Web.Services.WebService
                     detalle_asistencia = detalle_asistencia.ToArray(),
                     asistencias = cant_asistencias,
                     inasistencias = cant_inasistencias,
-                    justificadas = "",
-                    max_horas_cursadas = planilla_mensual.Curso.HorasCatedra
+                    justificadas = ""
                 });
             });
 
@@ -1191,8 +1190,9 @@ public class WSViaticos : System.Web.Services.WebService
                 un_curso.Materia = curso.Materia;
                 un_curso.Docente = curso.Docente;
                 un_curso.Alumnos = curso.Alumnos();
-                un_curso.HorasCatedra = curso.HorasCatedra;
                 un_curso.EspacioFisico = curso.EspacioFisico;
+                un_curso.FechaInicio = curso.FechaInicio;
+                un_curso.FechaFin = curso.FechaFin;
                 var horarios = new List<HorarioDto>();
                 foreach (var h in curso.GetHorariosDeCursada())
                 {
@@ -1302,7 +1302,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool AgregarCurso(CursoDto curso)
     {
-        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra, EspacioFisico = curso.EspacioFisico};
+        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, EspacioFisico = curso.EspacioFisico};
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
@@ -1315,7 +1315,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool ModificarCurso(CursoDto curso)
     {
-        var un_curso = new Curso() { Id = curso.Id, Docente = curso.Docente, Materia = curso.Materia, HorasCatedra = curso.HorasCatedra, EspacioFisico = curso.EspacioFisico};
+        var un_curso = new Curso() { Id = curso.Id, Docente = curso.Docente, Materia = curso.Materia, EspacioFisico = curso.EspacioFisico};
         var horarios = curso.Horarios;
         horarios.ForEach(h =>{
             un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));

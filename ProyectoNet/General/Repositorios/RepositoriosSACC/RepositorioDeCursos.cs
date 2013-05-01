@@ -49,9 +49,9 @@ namespace General.Repositorios
                     Id = row.GetSmallintAsInt("Id"),
                     Docente = docente,
                     Materia = new RepositorioDeMaterias(conexion_bd).GetMateriaById(row.GetSmallintAsInt("IdMateria")),
-
                     EspacioFisico = espacio_fisico,
-
+                    FechaInicio = row.GetObject("FechaInicio") is DBNull ? new DateTime(DateTime.Now.Year, 1,1) : row.GetDateTime("FechaInicio"),
+                    FechaFin = row.GetObject("FechaFin") is DBNull ? new DateTime(DateTime.Now.Year, 12, 1) : row.GetDateTime("FechaFin")
                 };
                 var horarios = GetHorariosByIdCurso(row.GetSmallintAsInt("Id"));
                 foreach (var h in horarios)
@@ -200,8 +200,6 @@ namespace General.Repositorios
 
                 conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
                 return true;
-                
-                return false;
             }
             else
             {

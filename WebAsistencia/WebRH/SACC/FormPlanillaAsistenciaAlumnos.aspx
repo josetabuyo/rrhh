@@ -28,28 +28,16 @@
     
 
     <label>Curso:&nbsp;</label>
-    <select id="CmbCurso" style="width:250px;" onchange="javascript:CargarPlanilla();" runat="server">
+    <select id="CmbCurso" runat="server">
     <option value="0">Seleccione</option>
     </select>
 
     <br />
     <label>Mes:&nbsp;&nbsp;&nbsp;</label>
-    <select id="CmbMes" style="width:250px;" onchange="javascript:CargarPlanilla();" runat="server">
-    <option value="0">Seleccione</option>
-    <option value="1">Enero</option>
-    <option value="2">Febrero</option>
-    <option value="3">Marzo</option>
-    <option value="4">Abril</option>
-    <option value="5">Mayo</option>
-    <option value="6">Junio</option>
-    <option value="7">Julio</option>
-    <option value="8">Agosto</option>
-    <option value="9">Septiembre</option>
-    <option value="10">Octubre</option>
-    <option value="11">Noviembre</option>
-    <option value="12">Diciembre</option>
+    <select id="CmbMes" onchange="javascript:CargarPlanilla();" runat="server" enableviewstate="true" style="text-transform:capitalize">
+
     </select>
-    
+    <input type="hidden" runat="server" id="MesesCurso" />
     <br />
     <label id="lblDocente">Docente:</label>
     <label id="Docente" runat="server">&nbsp;</label>
@@ -68,7 +56,7 @@
 
     var AdministradorPlanillaMensual = function () {
         if ($('#PlanillaAsistencia_planillaJSON').val() != "{}" && $('#PlanillaAsistencia_planillaJSON').val() != "") {
-            
+
             var Planilla = JSON.parse($('#PlanillaAsistencia_planillaJSON').val());
 
             var DiasCursados = Planilla['diascursados'];
@@ -96,6 +84,7 @@
             var Docente = JSON.parse($("#PlanillaAsistencia_Curso").val()).Docente;
 
             $("#Docente").text(Docente.Nombre + " " + Docente.Apellido);
+            
         }
         else {
             $("#lblDocente").css("visibility", "hidden");
@@ -126,34 +115,34 @@
         };
     }
 
-   /* var GeneradorAsistencia = function (asistencia, dias_cursados) {
-        var self = this;
-        self.asistencia = asistencia;
-        self.generar = function (inasistenciaalumno) {
-            var contenedorAcciones = $('<div>');
-            if (asistencia == "Asistencias") {
-                var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
-                .Where(function (x) { return x.valor == 1 });
-            } else {
-                var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
-                .Where(function (x) { return x.valor == 2 });
+    var CargarComboMeses = function () {
+        $('#CmbMes')[0].options.length = 0;
+        var meses = JSON.parse($("#MesesCurso").val());
+        var mes_seleccionado = $("#PlanillaAsistencia_Mes").val();
+        var o = new Option("Seleccione", "0");
+        $(o).html("Seleccione");
+        $("#CmbMes").append(o);
+        
+        for (var i = 0; i < meses.length; i++) {
+            if ($("#CmbCurso").find('option:selected').val() == meses[i].IdCurso) {
+                o = new Option(meses[i].Mes, meses[i].NroMes);
+                if (meses[i].NroMes == mes_seleccionado)
+                    $(o).attr("selected", "selected");
+                $(o).html(meses[i].Mes);
+                $("#CmbMes").append(o);
             }
+        }
+        
+    }
 
-            var etiqueta;
-            if (queryResult.Count() > 0) {
-                etiqueta = queryResult.Count();
-            }
-            else {
-                etiqueta = "";
-            }
-            contenedorAcciones.append(etiqueta);
-
-            return contenedorAcciones;
-        };
-    }*/
+    $("#CmbCurso").change(function () {
+        CargarComboMeses();
+        $('#CmbMes').change();
+    });
 
     $(document).ready(function () {
         AdministradorPlanillaMensual();
+        CargarComboMeses();
     });
 
     function GuardarDetalleAsistencias() {
@@ -180,11 +169,11 @@
     }
 
     function CargarPlanilla() {
-        if ($("#CmbCurso").val() != 0 && $("#CmbMes").val() != 0) {
-            $("#PlanillaAsistencia_CursoId").val($("#CmbCurso").val());
-            $("#PlanillaAsistencia_Mes").val($("#CmbMes").val());
+        /*if ($("#CmbCurso").val() != 0 && $("#CmbMes").find('option:selected').val() != 0) {*/
+        $("#PlanillaAsistencia_CursoId").val($("#CmbCurso").find('option:selected').val());
+        $("#PlanillaAsistencia_Mes").val($("#CmbMes").find('option:selected').val());
             $("#btn_CargarAsistencias").click();
-        }
+        /*}*/
     }
 </script>
 </html>
