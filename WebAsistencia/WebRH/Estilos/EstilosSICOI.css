@@ -520,9 +520,10 @@
 	display: inline-block;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
+	width: 60px;
  }
 #ficha_chica_titulo_tipo {
-	padding-left: 100px;
+	padding-left: 70px;
 	font-family:"Arial Black", Gadget, sans-serif;
 	font-size: 11px;
 	display: inline-block;
@@ -531,9 +532,10 @@
 	display: inline-block;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;  
+	width: 260px;
 	}
 #ficha_chica_titulo_categoria {
-	padding-left: 120px;
+	padding-left: 10px;
 	font-family:"Arial Black", Gadget, sans-serif;
 	font-size: 11px;
 	display: inline-block; 
@@ -575,10 +577,8 @@
 	
 	}
 	
-#link_enviar_documento{
+#ficha_chica_boton_enviar_documento{
 	display: inline-block;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
 	float: right;
 	margin-right: 10px; 
 	margin-top: 5px;
@@ -652,8 +652,9 @@
 #ficha_grande_contenido_area_destino{
     margin-top: -20px;
     height:15px;
-    width: 610px;
+    width: 625px;
     margin-left:150px;
+    display: inline-block;
 }
 
 #guardar_cambios_documento{
@@ -665,4 +666,12 @@
 	margin-top: -17px;
 
 	}
+	
+	#ficha_grande_boton_guardar_cambios
+	{
+	    display:inline-block;
+	    margin-top: -30px;
+	    margin-left: 10px;
+	    }
+
 /* FIN ESTILO FICHA GRANDE DE DOCUMENTO */
