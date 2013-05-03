@@ -140,6 +140,10 @@
             $("#lblDatoMail").val(un_docente.mail);
             $("#lblDatoDireccion").val(un_docente.domicilio);
             $("#idBaja").val(un_docente.baja);
+
+            $("#btnAgregarDocente").attr("disabled", true);
+
+            $("#btnQuitarDocente").attr("disabled", false);
         };
 
 

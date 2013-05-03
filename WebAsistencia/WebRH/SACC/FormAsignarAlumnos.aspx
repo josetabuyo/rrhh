@@ -8,6 +8,7 @@
     <title></title>
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
+    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
@@ -17,23 +18,29 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
         
         <div style="margin:20px;">
+        
         <fieldset>
             <legend>Elija ciclo y curso:</legend>
-            <div>
-                <asp:DropDownList ID="cmbCiclo" runat="server"  EnableViewState="false">
+            <p>
+            <asp:Label ID="lblCiclo"  runat="server" style="padding-right:5px;"  Text="Ciclo:"></asp:Label>
+                <asp:DropDownList ID="cmbCiclo" runat="server"  EnableViewState="false" 
+                    Width="250px">
                     <asp:ListItem Value="-1" class="placeholder" Selected="true">Ciclo</asp:ListItem>
                 </asp:DropDownList>    
-            </div>
-            <div>
-                <asp:DropDownList ID="cmbCursos" runat="server" EnableViewState="false">
+            </p>
+            <p>
+            <asp:Label ID="lblCursos"  runat="server"  Text="Curso:"></asp:Label>
+                <asp:DropDownList ID="cmbCursos" runat="server" EnableViewState="false" 
+                    Width="250px">
                     <asp:ListItem Value="0" class="placeholder" Selected="true">Cursos</asp:ListItem>
                 </asp:DropDownList>        
-            </div>
+            </p>
         </fieldset>
+        
         </div>
         <div class="btn_inscripcion_SACC">
             <label id="descripcionCursoSeleccionado"></label> 
@@ -187,7 +194,7 @@
                     planillaAlumnosAsignados.BorrarContenido();
                     planillaAlumnosAsignados.CargarObjetos(cursoSeleccionado.Alumnos);
                     planillaAlumnosAsignados.DibujarEn(contenedorAlumnosAsignados);
-                    $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos()));
+                    $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos));
                     //$("#descripcionCursoSeleccionado").text(cursoSeleccionado.nombre);
                     $("#mensaje").text("");
                     $("#nombreDeCurso").text(cursoSeleccionado.Nombre);
@@ -223,7 +230,7 @@
             planillaAlumnosAsignados.CargarObjeto(alumnoGlobal);
             planillaAlumnosAsignados.DibujarEn(contenedorAlumnosAsignados);
             alumnoGlobal = null;
-            $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos()));
+            $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos));
             $("#mensaje").text("Agregado al Curso");
         }
         else {
@@ -237,7 +244,7 @@
             planillaAlumnosDisponibles.CargarObjeto(alumnoGlobal);
             planillaAlumnosDisponibles.DibujarEn(contenedorAlumnosDisponibles);
             alumnoGlobal = null;
-            $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos()));
+            $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos));
             $("#mensaje").text("Quitado del Curso");
         }
         else {

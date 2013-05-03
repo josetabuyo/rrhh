@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using WSViaticos;
 
-public partial class SACC_FormPlanillaAsistenciaAlumnos : System.Web.UI.Page
+public partial class SACC_FormPlanillaDeEvaluaciones : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -11,9 +16,9 @@ public partial class SACC_FormPlanillaAsistenciaAlumnos : System.Web.UI.Page
         }
     }
 
-    protected void CargarAsistencias(object sender, EventArgs e)
+    protected void CargarEvaluaciones(object sender, EventArgs e)
     {
-        this.PlanillaAsistencia.CargarAsistencias();
+        this.PlanillaEvaluaciones.CargarEvaluaciones();
     }
 
     private void CargarComboCursos()
@@ -29,5 +34,4 @@ public partial class SACC_FormPlanillaAsistenciaAlumnos : System.Web.UI.Page
     {
         return new WSViaticosSoapClient();
     }
-
 }

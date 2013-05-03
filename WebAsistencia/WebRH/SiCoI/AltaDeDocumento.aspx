@@ -11,154 +11,157 @@
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
-    <link id="link5" rel="stylesheet" href="../Estilos/EstilosSICOI.css" type="text/css" runat="server" />
     <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <div id="contenedor_principal_sicoi">
-        <div id="botonera_paneles_desplegables">
-            <input type="button" id="boton_alertas" class=" btn btn-danger" value="!"/>
-            <div id="boton_desplegar_panel_filtros" class="boton_que_abre_panel_desplegable"
-                title="Filtros">
-                Filtros
-            </div>
-            <div id="boton_desplegar_panel_alta_documento" class="boton_que_abre_panel_desplegable"
-                title="Agregar documento">
-                Alta de documento
-            </div>
-        </div>
-        <div id="panel_filtros" class="panel_desplegable">
-            <div id="panelBusquedaBasica">
-                <div class="titulo_filtro"> Buscar documentos:</div>
-                <input type="text" id="inputFiltroGoogleano" runat="server"/>
-            </div>
-            <div id="panelBusquedaAvanzada">
-                <div class="titulo_filtro">
-                    Creado entre:</div>
-                <input type="text" id="filtroFechaDesde" runat="server"/>
-                <div class="agrupador_de_filtros_por_fecha">
-                    y
+        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+        <div id="contenedor_principal_sicoi">
+            <div id="botonera_paneles_desplegables">
+                <input type="button" id="boton_alertas" class=" btn btn-danger" value="!"/>
+                <div id="boton_desplegar_panel_filtros" class="boton_que_abre_panel_desplegable"
+                    title="Filtros">
+                    Filtros
                 </div>
-                <input type="text" id="filtroFechaHasta" runat="server"/>
-                <div>
+                <div id="boton_desplegar_panel_alta_documento" class="boton_que_abre_panel_desplegable"
+                    title="Agregar documento">
+                    Alta de documento
                 </div>
-                <input type="text" id="filtroTicket" runat="server" visible = "false"  />
-                <div class="titulo_filtro"> Extracto:</div>
-                <input type="text" id="FiltroExtracto" runat="server"/>
-                <div>
+            </div>
+            <div id="panel_filtros" class="panel_desplegable">
+                <div id="panelBusquedaBasica">
+                    <div class="titulo_filtro"> Buscar documentos:</div>
+                    <input type="text" id="inputFiltroGoogleano" runat="server"/>
                 </div>
-                <div class="titulo_filtro">
-                    Número:</div>
-                <input type="text" id="FiltroNumero" runat="server" maxlength="30"  />
-                <div class="titulo_filtro_tipo">
-                    Tipo:</div>
-                <asp:DropDownList ID="cmbFiltroPorTipoDeDocumento" runat="server" EnableViewState="true" type = "text" >
-                    <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem>
+                <div id="panelBusquedaAvanzada">
+                    <div class="titulo_filtro">
+                        Creado entre:</div>
+                    <input type="text" id="filtroFechaDesde" runat="server"/>
+                    <div class="agrupador_de_filtros_por_fecha">
+                        y
+                    </div>
+                    <input type="text" id="filtroFechaHasta" runat="server"/>
+                    <div>
+                    </div>
+                    <input type="text" id="filtroTicket" runat="server" visible = "false"  />
+                    <div class="titulo_filtro"> Extracto:</div>
+                    <input type="text" id="FiltroExtracto" runat="server"/>
+                    <div>
+                    </div>
+                    <div class="titulo_filtro">
+                        Número:</div>
+                    <input type="text" id="FiltroNumero" runat="server" maxlength="30"  />
+                    <div class="titulo_filtro_tipo">
+                        Tipo:</div>
+                    <asp:DropDownList ID="cmbFiltroPorTipoDeDocumento" runat="server" EnableViewState="true" type = "text" >
+                        <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem>
+                    </asp:DropDownList>
+                    <div class="titulo_filtro_categoria">
+                        Categoría:</div>
+                    <asp:DropDownList ID="cmbFiltroPorCategoria" runat="server" EnableViewState="true" type = "text" >
+                        <asp:ListItem Value="-1" class="placeholder" Selected="true">Todas</asp:ListItem>
+                    </asp:DropDownList>
+                    <div>
+                    </div>
+                    <div class="titulo_filtro_solo_docs_en_mi_area" id = "titulo_filtro_solo_docs_en_mi_area">
+                        Solo documentos en mi área:</div>
+                    <input type="checkbox" id="chkFiltroSoloDocsEnMiArea" runat="server" />
+                    <div>
+                    </div>
+                    <div id="titulo_filtro_area_actual" class="titulo_filtro">
+                        Área Actual:</div>
+                    <input id="selectorAreaActualEnfiltro" type="text" data-provide="typeahead" data-items="9" runat="server" />
+                    <div id="titulo_filtro_area_origen" class="titulo_filtro">
+                        Área Origen:</div>
+                    <input id="selectorAreaOrigenEnfiltro" type="text" data-provide="typeahead" data-items="9" runat="server" />
+                    <div>
+                    </div>
+                    <div class="titulo_filtro">
+                        Detenido más de:</div>
+                    <input type="text" id="txtFiltroPorTiempoEnAreaActual" runat="server" soloNumero ="soloNumero" maxlength="4"/>
+                    <span>días</span>        
+                </div>
+                <div class="botones_alta_documento">
+                    <input type="button" id="btnToggleBusquedaAvanzada" class=" btn btn-primary" value="+"/>
+                    <input type="button" id="btn_aplicar_filtros" class=" btn btn-primary" value="Aplicar filtros"/>
+                    <input type="button" id="btn_cancelar_filtro" class=" btn btn-primary" value="Quitar filtros"/>
+                </div>
+            </div>
+            <div id="panel_alta_documento" class="panel_desplegable">
+                <asp:DropDownList ID="cmbTipoDeDocumento" nullValue="Tipo de documento" runat="server" EnableViewState="true" >
+                    <asp:ListItem Value="" Selected="true"></asp:ListItem>
                 </asp:DropDownList>
-                <div class="titulo_filtro_categoria">
-                    Categoría:</div>
-                <asp:DropDownList ID="cmbFiltroPorCategoria" runat="server" EnableViewState="true" type = "text" >
-                    <asp:ListItem Value="-1" class="placeholder" Selected="true">Todas</asp:ListItem>
+                <div id="letrasDelTipoDeDocumento">
+                </div>
+                <asp:TextBox ID="txtNumero" nullValue="Número" runat="server" MaxLength="50"></asp:TextBox>
+                <asp:DropDownList ID="cmbCategoria" nullValue="Categoría de documento" runat="server" EnableViewState="true">
+                    <asp:ListItem Value="" Selected="true"></asp:ListItem>
                 </asp:DropDownList>
-                <div>
+                <input id="selectorDeAreaOrigen" nullValue="Área de Origen" type="text" data-provide="typeahead" data-items="9" runat="server" />
+                <asp:TextBox ID="txtExtracto" nullValue="Ingrese el extracto del documento" TextMode="MultiLine" type = "text" Height="112px" runat="server"></asp:TextBox>
+                <input id="selectorDeAreaDestino" nullValue="Área de Destino (opcional)" type="text" data-provide="typeahead" data-items="9" runat="server" />
+                <asp:TextBox ID="txtComentarios" nullValue="Ingrese sus comentarios (opcional)" runat="server" TextMode="MultiLine" Height="32px" class="detalle_alta_documento" ></asp:TextBox>
+                <div class="botones_alta_documento">
+                    <input type="button" id="btnCrearDocumento" class=" btn btn-primary" value="Agregar Documento"/>
+                    <input type="button" id="btnCancelar" class=" btn btn-primary" value="Cancelar"/>
                 </div>
-                <div class="titulo_filtro_solo_docs_en_mi_area" id = "titulo_filtro_solo_docs_en_mi_area">
-                    Solo documentos en mi área:</div>
-                <input type="checkbox" id="chkFiltroSoloDocsEnMiArea" runat="server" />
-                <div>
-                </div>
-                <div id="titulo_filtro_area_actual" class="titulo_filtro">
-                    Área Actual:</div>
-                <input id="selectorAreaActualEnfiltro" type="text" data-provide="typeahead" data-items="9" runat="server" />
-                <div id="titulo_filtro_area_origen" class="titulo_filtro">
-                    Área Origen:</div>
-                <input id="selectorAreaOrigenEnfiltro" type="text" data-provide="typeahead" data-items="9" runat="server" />
-                <div>
-                </div>
-                <div class="titulo_filtro">
-                    Detenido más de:</div>
-                <input type="text" id="txtFiltroPorTiempoEnAreaActual" runat="server" soloNumero ="soloNumero" maxlength="4"/>
-                <span>días</span>        
             </div>
-            <div class="botones_alta_documento">
-                <input type="button" id="btnToggleBusquedaAvanzada" class=" btn btn-primary" value="+"/>
-                <input type="button" id="btn_aplicar_filtros" class=" btn btn-primary" value="Aplicar filtros"/>
-                <input type="button" id="btn_cancelar_filtro" class=" btn btn-primary" value="Quitar filtros"/>
+            <div id="panel_documentos">
+            </div>       
+        </div>
+
+        <div id="plantillas">
+            <div id="lista_de_documentos">
+            </div>
+            <div id="plantilla_ficha_chica_de_documento" class="ficha_chica_de_documento ficha_chica_de_documento_par">
+                <div id="ficha_chica_titulo_ticket">Ticket:</div>
+                <div id="ficha_chica_contenido_ticket">AAA036</div>
+                <div id="ficha_chica_titulo_tipo">Tipo:</div>
+                <div id="ficha_chica_contenido_tipo">Expediente N° 97</div>
+                <div id="ficha_chica_titulo_categoria">Categoría:</div>
+                <div id="ficha_chica_contenido_categoria">Renuncia</div>
+                <input type="button" id="ficha_chica_boton_enviar_documento" value="Enviar" class="btn btn-mini btn-primary"/><br />
+                <div id="ficha_chica_titulo_area_actual">Área Actual:</div>
+                <div id="ficha_chica_contenido_area_actual">Dirección General de Recursos Humanos y Organización</div><br />
+                <div id="ficha_chica_titulo_extracto">Extracto:</div>
+                <div id="ficha_chica_contenido_extracto">ddaaddaa</div>
+                <div id="ficha_chica_boton_desplegar" class="icon-plus-sign"></div>
+            </div>    
+
+             <div id="plantilla_ficha_grande_de_documento" class="ficha_grande_de_documento">
+                <div id='ficha_grande_titulo_area_creadora'> Área Creadora:</div>
+                <div id="ficha_grande_contenido_area_creadora"> Mesa de Entradas </div><br />
+                <div id='ficha_grande_titulo_tiempo_en_area_actual'> En Área Actual Desde:</div>
+                <div id="ficha_grande_contenido_tiempo_en_area_actual"> 2 días </div><br />
+                <div id='ficha_grande_titulo_comentarios'> Comentarios:</div>
+                <textarea id="ficha_grande_contenido_comentarios"></textarea>
+                <div id='ficha_grande_titulo_transiciones'> TRANSICIONES </div>
+                <div id='ficha_grande_titulo_fecha_de_ingreso'> Fecha de Ingreso</div>
+                <div id='ficha_grande_transiciones'></div>
+                <div id='ficha_grande_titulo_area_destino'> Próximo Área Destino:</div>
+                <input type="text" id='ficha_grande_contenido_area_destino' data-provide="typeahead" data-items="9"/>
+                <input type="button" id="ficha_grande_boton_guardar_cambios" value="Guardar Cambios" class="btn btn-mini btn-primary"/>
+            </div>
+
+            <div id="plantilla_transicion_documento" class="transicion_documento">
+                <div id='transicion_documento_fecha_de_ingreso'></div>            
+                <div id='transicion_documento_area_destino'></div>            
             </div>
         </div>
-        <div id="panel_alta_documento" class="panel_desplegable">
-            <asp:DropDownList ID="cmbTipoDeDocumento" nullValue="Tipo de documento" runat="server" EnableViewState="true" >
-                <asp:ListItem Value="" Selected="true"></asp:ListItem>
-            </asp:DropDownList>
-            <div id="letrasDelTipoDeDocumento">
-            </div>
-            <asp:TextBox ID="txtNumero" nullValue="Número" runat="server" MaxLength="50"></asp:TextBox>
-            <asp:DropDownList ID="cmbCategoria" nullValue="Categoría de documento" runat="server" EnableViewState="true">
-                <asp:ListItem Value="" Selected="true"></asp:ListItem>
-            </asp:DropDownList>
-            <input id="selectorDeAreaOrigen" nullValue="Área de Origen" type="text" data-provide="typeahead" data-items="9" runat="server" />
-            <asp:TextBox ID="txtExtracto" nullValue="Ingrese el extracto del documento" TextMode="MultiLine" type = "text" Height="112px" runat="server"></asp:TextBox>
-            <input id="selectorDeAreaDestino" nullValue="Área de Destino (opcional)" type="text" data-provide="typeahead" data-items="9" runat="server" />
-            <asp:TextBox ID="txtComentarios" nullValue="Ingrese sus comentarios (opcional)" runat="server" TextMode="MultiLine" Height="32px" class="detalle_alta_documento" ></asp:TextBox>
-            <div class="botones_alta_documento">
-                <input type="button" id="btnCrearDocumento" class=" btn btn-primary" value="Agregar Documento"/>
-                <input type="button" id="btnCancelar" class=" btn btn-primary" value="Cancelar"/>
-            </div>
-        </div>
-        <div id="panel_documentos">
-        </div>       
-    </div>
 
-    <div id="plantillas">
-        <div id="lista_de_documentos">
-        </div>
-        <div id="plantilla_ficha_chica_de_documento" class="ficha_chica_de_documento ficha_chica_de_documento_par">
-            <div id="ficha_chica_titulo_ticket">Ticket:</div>
-            <div id="ficha_chica_contenido_ticket">AAA036</div>
-            <div id="ficha_chica_titulo_tipo">Tipo:</div>
-            <div id="ficha_chica_contenido_tipo">Expediente N° 97</div>
-            <div id="ficha_chica_titulo_categoria">Categoría:</div>
-            <div id="ficha_chica_contenido_categoria">Renuncia</div>
-            <input type="button" id="ficha_chica_boton_enviar_documento" value="Enviar" class="btn btn-mini btn-primary"/><br />
-            <div id="ficha_chica_titulo_area_actual">Área Actual:</div>
-            <div id="ficha_chica_contenido_area_actual">Dirección General de Recursos Humanos y Organización</div><br />
-            <div id="ficha_chica_titulo_extracto">Extracto:</div>
-            <div id="ficha_chica_contenido_extracto">ddaaddaa</div>
-            <div id="ficha_chica_boton_desplegar" class="icon-plus-sign"></div>
-        </div>    
+        <asp:HiddenField ID="AreaDelUsuario" runat="server" />
+        <asp:HiddenField ID="ListaAreas" runat="server" />
+        <asp:HiddenField ID="CategoriasDeDocumento" runat="server" />
+        <asp:HiddenField ID="TiposDeDocumento" runat="server" />
 
-         <div id="plantilla_ficha_grande_de_documento">
-            <div id='ficha_grande_titulo_area_creadora'> Area Creadora:</div>
-            <div id="ficha_grande_contenido_area_creadora"> Mesa de Entradas </div><br />
-            <div id='ficha_grande_titulo_tiempo_en_area_actual'> En Area Actual Desde:</div>
-            <div id="ficha_grande_contenido_tiempo_en_area_actual"> 2 dias </div><br />
-            <div id='ficha_grande_titulo_comentarios'> Comentarios:</div>
-            <textarea id="ficha_grande_contenido_comentarios"></textarea>
-            <div id='ficha_grande_titulo_transiciones'> TRANSICIONES </div>
-            <div id='ficha_grande_titulo_fecha_de_ingreso'> Fecha de Ingreso</div>
-            <div id='ficha_grande_transiciones'></div>
-            <div id='ficha_grande_titulo_area_destino'> Próximo area destino:</div>
-            <input type="text" id='ficha_grande_contenido_area_destino' data-provide="typeahead" data-items="9"/>
-            <input type="button" id="ficha_grande_boton_guardar_cambios" value="Guardar Cambios" class="btn btn-mini btn-primary"/>
-        </div>
-
-        <div id="plantilla_transicion_documento" class="transicion_documento">
-            <div id='transicion_documento_fecha_de_ingreso'></div>            
-            <div id='transicion_documento_area_destino'></div>            
-        </div>
-    </div>
-
-    <asp:HiddenField ID="AreaDelUsuario" runat="server" />
-    <asp:HiddenField ID="ListaAreas" runat="server" />
-    <asp:HiddenField ID="CategoriasDeDocumento" runat="server" />
-    <asp:HiddenField ID="TiposDeDocumento" runat="server" />
-
-    <asp:HiddenField ID="AreaSeleccionadaOrigenEnFiltro" runat="server" />
-    <asp:HiddenField ID="AreaSeleccionadaActualEnFiltro" runat="server" />
-
+        <asp:HiddenField ID="AreaSeleccionadaOrigenEnFiltro" runat="server" />
+        <asp:HiddenField ID="AreaSeleccionadaActualEnFiltro" runat="server" />
+           
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
+    </form>
+</body>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>   
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
@@ -271,10 +274,4 @@
 
         });
     </script>   
-
-   
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
-    </form>
-</body>
 </html>

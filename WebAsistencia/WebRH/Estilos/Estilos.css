@@ -576,35 +576,44 @@ text-align: right;
 	 }
 
 .navbar-inner {
-  background-color: #fcfcfc; /* background color will be black for all browsers */
-  color:#000;
+  background-color: #00001c; /* background color will be black for all browsers */
+  color:#fff;
   background-image: none;
   background-repeat: no-repeat;
   filter: none;
 }
 
+.navbar .nav > li > a {
+  color: rgb(189, 189, 189) !important;
+}
+
+.navbar .nav > li > a:hover 
+{
+    color: #fff !important;
+    }
+
 .navbar .nav > li > a:hover {
   color: #fff;
   text-decoration: none;
-  background-color: #0074cc;
+  /*background-color: #0074cc;*/
 }
 
 .navbar .nav .active > a,
 .navbar .nav .active > a:hover {
-  color: #fff;
+  color: #999;
   text-decoration: none;
-  background-color: #0074cc;
+  /*background-color: #0074cc;*/
 }
 
 .navbar .nav li.dropdown.open > .dropdown-toggle,
 .navbar .nav li.dropdown.active > .dropdown-toggle,
 .navbar .nav li.dropdown.open.active > .dropdown-toggle {
-  background-color: #0074cc;
-  color: #fff;
+  /*background-color: #0074cc;*/
+  color: #999;
 }
 
 .navbar .nav li.dropdown.active > .dropdown-toggle:hover {
-  color: #0074cc;
+  color: #999;
 }
 
 

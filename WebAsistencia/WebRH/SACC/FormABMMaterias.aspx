@@ -123,6 +123,10 @@
             $("#txtNombre").val(una_materia.nombre);
             $("#cmbPlanDeEstudio").val(una_materia.modalidad.Id);
             $("#cmbCiclo").val(una_materia.ciclo.Id);
+
+            $("#btnAgregarMateria").attr("disabled", true);
+            $("#btnModificarMateria").attr("disabled", false);
+            $("#btnQuitarMateria").attr("disabled", false);
         };
 
 

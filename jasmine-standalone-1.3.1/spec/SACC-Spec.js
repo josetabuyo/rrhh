@@ -48,5 +48,19 @@ describe("El botón de Asistencia está Cuadrado Verde y se clickea", function () 
         expect(botonAsistencia.val()).toEqual("A");
 
     });
+	
+describe("El combo de Cursos se selecciona un curso", function () {
+    it("Se actualiza la grilla de evaluaciones", function () {
+
+       /* var botonAsistencia = new CrearBotonAsistencia("Agus10022013", "0");
+        //Clickea 2 veces
+        botonAsistencia.click();
+        botonAsistencia.click();
+
+        expect(botonAsistencia).toBeDefined();
+        expect(botonAsistencia.attr('class')).toEqual("btn_amarillo_clicked");
+        expect(botonAsistencia.val()).toEqual("A");*/
+
+    });
 
 });
