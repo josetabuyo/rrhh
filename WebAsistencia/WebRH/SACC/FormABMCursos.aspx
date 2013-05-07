@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
 </head>
 <body>
-    <form id="form1" runat="server" onsubmit="return false;">
+    <form id="form1" runat="server" onsubmit="return submit_value;">
         <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelCurso" class="div_izquierdo">
@@ -70,13 +70,14 @@
 
         <div style=" margin-left:17%; margin-top:3%;">
             <asp:Button ID="btnAgregarCurso" runat="server" Text="Agregar Curso" 
-                onclick="btnAgregarCurso_Click" 
-                class=" btn btn-primary boton_main_documentos" OnClientClick="javascript:ValidarCurso();"  />
+                OnClick="btnAgregarCurso_Click" 
+                class=" btn btn-primary boton_main_documentos" 
+                OnClientClick="ValidarCurso();" UseSubmitBehavior="False"  />
             <asp:Button ID="btnModificarCurso" runat="server" Text="Modificar Curso" 
                 class=" btn btn-primary boton_main_documentos"
-                onclick="btnModificarCurso_Click" OnClientClick="javascript:ValidarCurso();" />
-            <asp:Button ID="btnQuitarCurso" runat="server" Text="Eliminar Curso" 
-                class=" btn btn-primary boton_main_documentos" onclick="btnQuitarCurso_Click" />
+                OnClick="btnModificarCurso_Click" OnClientClick="ValidarCurso();" />
+            <asp:Button  ID="btnQuitarCurso" runat="server" Text="Eliminar Curso" 
+                class=" btn btn-primary boton_main_documentos" OnClick="btnQuitarCurso_Click" />
             <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" 
             class=" btn btn-primary boton_main_documentos"
             onClientClick="javascript:LimpiarCampos();" />

@@ -141,6 +141,8 @@ namespace General.Repositorios
             parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
+            parametros.Add("fecha_inicio", curso.FechaInicio);
+            parametros.Add("fecha_fin", curso.FechaFin);
             parametros.Add("fecha", DateTime.Now);
 
             int id_curso = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Curso", parametros).ToString());
@@ -159,6 +161,8 @@ namespace General.Repositorios
             parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
+            parametros.Add("fecha_inicio", curso.FechaInicio);
+            parametros.Add("fecha_fin", curso.FechaFin);
             parametros.Add("fecha", DateTime.Now);
             parametros.Add("Baja", idBaja);
             conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
@@ -196,6 +200,8 @@ namespace General.Repositorios
                 parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
                 parametros.Add("id_materia", curso.Materia.Id);
                 parametros.Add("id_docente", curso.Docente.Id);
+                parametros.Add("fecha_inicio", curso.FechaInicio);
+                parametros.Add("fecha_fin", curso.FechaFin);
                 parametros.Add("fecha", DateTime.Now);
 
                 conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);

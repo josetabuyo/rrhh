@@ -12,6 +12,7 @@ public partial class SACC_FormPlanillaAsistenciaAlumnos : System.Web.UI.Page
         {
             CargarComboCursos();
         }
+
     }
 
     protected void CargarAsistencias(object sender, EventArgs e)
@@ -28,7 +29,7 @@ public partial class SACC_FormPlanillaAsistenciaAlumnos : System.Web.UI.Page
         {
             this.CmbCurso.Items.Add(new System.Web.UI.WebControls.ListItem(c.Nombre, c.Id.ToString()));
             
-            for (var mes = c.FechaInicio.Month; mes <= c.FechaFin.Month; mes++)
+            for (var mes = DateTime.Parse(c.FechaInicio).Month; mes <= DateTime.Parse(c.FechaFin).Month; mes++)
             {
                 mesesJson.Add(new{IdCurso = c.Id, Mes = DateTimeFormatInfo.CurrentInfo.GetMonthName(mes),  NroMes= mes.ToString() });
             }

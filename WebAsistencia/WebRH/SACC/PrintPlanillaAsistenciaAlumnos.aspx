@@ -68,9 +68,11 @@
             columnas.push(new Columna(DiasCursados[i].nombre_dia + "/" + DiasCursados[i].dia + "<br/>" + DiasCursados[i].horas + " hs",
                                         new GeneradorCeldaDiaCursado(DiasCursados[i])));
         }
-        columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
-        columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
+        columnas.push(new Columna("Asistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
+        columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
 
+        columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias_acumuladas } }));
+        columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias_acumuladas } }));
 
 
         var PlanillaMensual = new Grilla(columnas);
