@@ -22,6 +22,24 @@ ListaDeFichas.prototype = {
             this.cargarObjeto(obj);
         }
     },
+    ordenarPor: function (criterioOrdenamiento) {
+        var objetosOrdenados = Enumerable.From(this.objetos)
+                        .OrderBy(function (o) {
+                            return criterioOrdenamiento(o) 
+                        })
+                        .ToArray();
+        this.borrarContenido();
+        this.cargarObjetos(objetosOrdenados);
+    },
+    ordenarDescendentementePor: function (criterioOrdenamiento) {
+        var objetosOrdenados = Enumerable.From(this.objetos)
+                        .OrderByDescending(function (o) {
+                            return criterioOrdenamiento(o)
+                        })
+                        .ToArray();
+        this.borrarContenido();
+        this.cargarObjetos(objetosOrdenados);
+    },
     cargarObjeto: function (obj) {
         var ficha = this.fabrica_de_fichas.crearFichaChica(obj);
         ficha.dibujarEn(this.ui);
@@ -31,7 +49,7 @@ ListaDeFichas.prototype = {
         this.ui.empty();
         this.objetos = new Array();
     },
-    desSeleccionarTodo: function(){
+    desSeleccionarTodo: function () {
 
     },
     dibujarEn: function (panel) {

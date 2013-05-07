@@ -12,14 +12,16 @@
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
     <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
         <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <div id="contenedor_principal_sicoi">
             <div id="botonera_paneles_desplegables">
-                <input type="button" id="boton_alertas" class=" btn btn-danger" value="!"/>
+                <input type="button" id="boton_alertas" style="display:none;" class=" btn btn-danger" value="!"/>
+                <div id="titulo_ordenar_por">Ordenar por:</div>
+                <a id="boton_ordenar_por_area_actual" class="boton_de_ordenamiento btn btn-inverse btn-mini">Área Actual <i class="icon-white"></i></a>
+                <a id="boton_ordenar_por_tipo" class="boton_de_ordenamiento btn btn-inverse btn-mini">Tipo <i class="icon-white"></i></a>
                 <div id="boton_desplegar_panel_filtros" class="boton_que_abre_panel_desplegable"
                     title="Filtros">
                     Filtros
@@ -178,6 +180,8 @@
     <script type="text/javascript" src="../Scripts/InputAutocompletable.js"></script>
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
     <script type="text/javascript" src="../Scripts/InputSoloNumeros.js"></script>
+    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
+    <script type="text/javascript" src="../Scripts/select2.min.js"></script>
     <script type="text/javascript" src="PanelDeFiltrosDeDocumentos.js"></script>
     <script type="text/javascript" src="InputAutocompletableDeAreas.js"></script>
     <script type="text/javascript" src="PanelDeDocumentos.js"></script>
@@ -203,6 +207,8 @@
                 plantillaFichaGrande: $("#plantilla_ficha_grande_de_documento"),
                 plantillaTransicion: $("#plantilla_transicion_documento"),
                 uiListaDeDocs: $("#lista_de_documentos"),
+                btnOrdenarPorAreaActual: $("#boton_ordenar_por_area_actual"),
+                btnOrdenarPorTipo: $("#boton_ordenar_por_tipo"),
                 listaAreas:listaAreas,
                 areaDelUsuario: areaDelUsuario
             }
