@@ -129,7 +129,7 @@ PanelAltaDeDocumento.prototype = {
         this.cfg.botonDesplegarPanelAlta.removeClass("boton_que_abre_panel_desplegable_activo");
     },
     validarAltaDeDocumento: function () {
-        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '') {
+        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == ''  || this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '-1') {
             this.cfg.selectorDeAreaOrigenEnAlta.css("background-color", 'rgb(255, 255, 235)');
         } else {
             this.cfg.selectorDeAreaOrigenEnAlta.css("background-color", 'rgb(255, 255, 255)');
@@ -153,7 +153,7 @@ PanelAltaDeDocumento.prototype = {
             this.cfg.txtExtracto.css("background-color", 'rgb(255, 255, 255)');
         }
 
-        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '' ||
+        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '' || this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '-1' ||
             this.cfg.cmbTipoDeDocumento.val() == '' ||
             this.cfg.cmbCategoriaDocumento.val() == '' ||
             this.cfg.txtExtracto.val() == '') {
