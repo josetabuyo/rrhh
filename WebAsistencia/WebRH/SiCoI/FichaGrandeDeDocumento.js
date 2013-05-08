@@ -18,32 +18,14 @@ FichaGrandeDeDocumento.prototype = {
         this.panel_transiciones = this.ui.find("#ficha_grande_transiciones");
 
         this.boton_guardar_cambios.click(function () {
-            var post_url = "../AjaxWS.asmx/GuardarCambiosEnDocumento";
-            var post_data = JSON.stringify({
-                id_documento: self.documento.id,
-                id_area_destino: self.selector_de_area_destino.areaSeleccionada().id,
-                comentario: self.comentarios.val()
-            });
-            $.ajax({
-                url: post_url,
-                type: "POST",
-                data: post_data,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (respuestaJson) {
-                    var respuesta = JSON.parse(respuestaJson.d);
-                    if (respuesta.tipoDeRespuesta == "guardarDocumento.ok") {
-                        self.ficha_chica.mostrarDocumento(respuesta.documento);
-                        self.mostrarDocumento(respuesta.documento);
-                    }
-                    if (respuesta.tipoDeRespuesta == "guardarDocumento.error") {
-                        alert("Error al guardar cambios en documento: " + respuesta.error);
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });
+            WebService.guardarCambiosEnDocumento(self.documento.id,
+                                                self.selector_de_area_destino.areaSeleccionada().id,
+                                                self.comentarios.val(),
+                                                function (doc) {
+                                                    self.ficha_chica.mostrarDocumento(doc);
+                                                    self.mostrarDocumento(doc);
+                                                }
+                                            );
         });
 
         this.selector_de_area_destino = new InputAutocompletableDeAreas(this.div_area_destino, this.lista_areas);

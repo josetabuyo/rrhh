@@ -196,6 +196,12 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $(window).keydown(function (event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
             var listaAreas = JSON.parse($('#ListaAreas').val());
             var tiposDeDocumento = JSON.parse($('#TiposDeDocumento').val());
             var categoriasDeDocumento = JSON.parse($('#CategoriasDeDocumento').val());

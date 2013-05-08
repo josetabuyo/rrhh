@@ -20,42 +20,19 @@ FichaChicaDeDocumento.prototype = {
             var post_url;
             var post_data;
             if (self.area_del_usuario.id == self.documento.areaActual.id) {
-                post_url = "../AjaxWS.asmx/TransicionarDocumento";
-                post_data = JSON.stringify({
-                    id_documento: self.documento.id,
-                    id_area_origen: self.documento.areaActual.id,
-                    id_area_destino: self.documento.areaDestino.id
-                });
+                WebService.transicionarDocumento(self.documento,
+                                                    function (doc) {
+                                                        self.mostrarDocumento(doc);
+                                                        self.actualizarFichaGrande();
+                                                    });
             } else {
-                post_url = "../AjaxWS.asmx/TransicionarDocumentoConAreaIntermedia";
-                post_data = JSON.stringify({
-                    id_documento: self.documento.id,
-                    id_area_origen: self.documento.areaActual.id,
-                    id_area_intermedia: self.area_del_usuario.id,
-                    id_area_destino: self.documento.areaDestino.id
-                });
+                WebService.transicionarDocumentoConAreaIntermedia(self.documento,
+                                                    self.area_del_usuario.id,
+                                                    function (doc) {
+                                                        self.mostrarDocumento(doc);
+                                                        self.actualizarFichaGrande();
+                                                    });
             }
-
-            $.ajax({
-                url: post_url,
-                type: "POST",
-                data: post_data,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (respuestaJson) {
-                    var respuesta = JSON.parse(respuestaJson.d);
-                    if (respuesta.tipoDeRespuesta == "envioDeDocumento.ok") {
-                        self.mostrarDocumento(respuesta.documento);
-                        self.actualizarFichaGrande();
-                    }
-                    if (respuesta.tipoDeRespuesta == "envioDeDocumento.error") {
-                        alert("Error al enviar el documento: " + respuesta.error);
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });
         });
 
         this.boton_desplegar.click(function () {
@@ -107,12 +84,5 @@ FichaChicaDeDocumento.prototype = {
         descripcion = descripcion.replace("dirección", "Dir.");
         descripcion = descripcion.replace("direccion", "Dir.");
         return this.getTextoresumido(descripcion);
-    },
-    getTextoresumido: function (texto) {
-        if (texto.length < 20) return texto;
-        var textoResumido = $("<div>");
-        textoResumido.text(texto.substring(0, 20) + "...");
-        textoResumido.attr("title", texto);
-        return textoResumido;
     }
 }

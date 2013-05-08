@@ -418,7 +418,7 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
 
     this.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario();
 
-    cfg.inputFiltroCheckDocumentosEnMiArea.change(function(){self.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario()});
+    cfg.inputFiltroCheckDocumentosEnMiArea.change(function () { self.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario() });
 
     cfg.botonDesplegarPanelFiltros.click(function () {
         self._panel_alta.contraer();
@@ -443,8 +443,14 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
         cfg.panelBusquedaBasica.toggle();
         cfg.panelBusquedaAvanzada.toggle();
         self.panel_filtros.limpiarFiltros();
-        if (cfg.panelBusquedaBasica.css('display') == 'block')  cfg.btnToggleBusquedaAvanzada.val("+");
-        else  cfg.btnToggleBusquedaAvanzada.val("-");
+        if (cfg.panelBusquedaBasica.css('display') == 'block') cfg.btnToggleBusquedaAvanzada.val("+");
+        else cfg.btnToggleBusquedaAvanzada.val("-");
+    });
+
+    cfg.inputFiltroGoogleano.keydown(function (e) {
+        if (e.keyCode == 13) {
+            self.cfg.btnAplicarFiltros.click();
+        }
     });
 }
 
