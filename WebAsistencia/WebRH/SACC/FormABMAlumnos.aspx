@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormABMAlumnos.aspx.cs" Inherits="SACC_FormABMAlumnos" %>
+﻿ <%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormABMAlumnos.aspx.cs" Inherits="SACC_FormABMAlumnos" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="BarraDeNavegacion.ascx" TagName="BarraNavegacion" TagPrefix="uc3" %>
 
@@ -70,10 +70,12 @@
             <asp:Button ID="btnQuitarAlumno" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarAlumno_Click" />
         <br/>
         <br />
+        <div runat="server" id="DivMensaje" Visible="true">
             <div class="alert alert-error" id="div_mensaje" style="width:42%;">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
               <strong id="texto_mensaje">Por favor complete todos los campos.</strong> 
             </div>
+        </div>
            <%-- <asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
         </div>
     </fieldset>

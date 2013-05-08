@@ -57,9 +57,11 @@
                  <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" class=" btn btn-primary boton_main_documentos" onClientClick="javascript:LimpiarCampos();" />
             <br />
             <br />
-            <div class="alert alert-error" id="div_mensaje" style="width:42%;">
+            <div runat="server" id="DivMensaje" Visible="true">
+            <div class="alert alert-error" id="div_mensaje" style="width:42%;"  Visible="false">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
               <strong id="texto_mensaje">Por favor complete todos los campos.</strong> 
+            </div>
             </div>
             <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
             </div>
@@ -83,14 +85,18 @@
 <script type="text/javascript">
 
     if ($("#alerta_mensaje").val() == "1") {
+        this.div_mensaje.setAttribute("Visible", "true");
         $(".alert").alert();
     } else if ($("#alerta_mensaje").val() == "2") {
+        this.div_mensaje.setAttribute("Visible", "true");
         this.div_mensaje.setAttribute("class", "alert alert-success");
         this.texto_mensaje.innerHTML = "Operación exitosa.";
     } else if ($("#alerta_mensaje").val() == "3") {
+        this.div_mensaje.setAttribute("Visible", "true");
         this.div_mensaje.setAttribute("class", "alert alert-error");
         this.texto_mensaje.innerHTML = "No se puede eliminar el espacio físico porque se encuentra asignado a un curso";
     } else {
+        this.div_mensaje.setAttribute("Visible", "false");
         $(".alert").alert('close');
     }
 

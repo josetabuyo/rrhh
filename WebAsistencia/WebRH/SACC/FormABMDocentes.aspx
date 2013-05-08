@@ -67,9 +67,11 @@
             <asp:Button ID="btnQuitarDocente" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarDocente_Click" />
             <br />
             <br />
+            <div runat="server" id="DivMensaje" Visible="true">
             <div class="alert alert-error" id="div_mensaje" style="width:42%;">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
               <strong id="texto_mensaje">Por favor complete todos los campos.</strong> 
+            </div>
             </div>
             <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
         </div>
@@ -91,6 +93,10 @@
     </form>
 </body>
 <script type="text/javascript">
+
+    function mostrarMensaje(mensaje) {
+        alert(mensaje);
+    }
 
     if ($("#alerta_mensaje").val() == "1") {
         $(".alert").alert();
