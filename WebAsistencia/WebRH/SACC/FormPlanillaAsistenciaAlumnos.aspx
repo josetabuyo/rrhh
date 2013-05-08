@@ -59,10 +59,12 @@
     <uc1:planilla ID="PlanillaAsistencia" runat="server" />
     </div>
     <div style="height:20px; width: 100%">
+    
     <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
     <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla();" value="Imprimir" />
     </div>
     <asp:Button style="display:none;" ID="btn_CargarAsistencias" OnClick="CargarAsistencias" runat="server" />
+    <asp:Button style="display:none;" ID="BtnSave" runat="server" Onclick="BtnSave_Click" />
     </form>
 </body>
 <script type="text/javascript">
@@ -171,7 +173,8 @@
             detalle_asistencias.push(asistencia);
         }
         $("#PlanillaAsistencia_DetalleAsistencias").val(JSON.stringify(detalle_asistencias));
-        return true;
+        $("#BtnSave").click();
+//        return true;
     }
 
     function ImprimirPlanilla() {
