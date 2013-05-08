@@ -20,6 +20,8 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
             this.materiasJSON.Value = servicio.GetMaterias();
         }
 
+        this.btnModificarMateria.Enabled = false;
+        this.btnQuitarMateria.Enabled = false;
         MostrarMateriasEnLaGrilla(servicio);
     }
 
@@ -123,8 +125,10 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         else
         {
             //mensaje de error
-            this.alerta_mensaje.Value = "3";
-            return;
+            string mensaje = "No se puede eliminar la Materia " + this.txtNombre.Text + " porque se encuentra asignado a un curso";
+            ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:alert('" + mensaje + "');</script>");
+            //this.alerta_mensaje.Value = "3";
+            //return;
         }
 
     }

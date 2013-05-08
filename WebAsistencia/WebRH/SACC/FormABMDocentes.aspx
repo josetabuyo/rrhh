@@ -11,6 +11,7 @@
         runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
+    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
@@ -19,7 +20,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelDocente" class="div_izquierdo">
     <fieldset>
@@ -66,9 +67,11 @@
             <asp:Button ID="btnQuitarDocente" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarDocente_Click" />
             <br />
             <br />
+            <div runat="server" id="DivMensaje" Visible="true">
             <div class="alert alert-error" id="div_mensaje" style="width:42%;">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
               <strong id="texto_mensaje">Por favor complete todos los campos.</strong> 
+            </div>
             </div>
             <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
         </div>
@@ -90,6 +93,10 @@
     </form>
 </body>
 <script type="text/javascript">
+
+    function mostrarMensaje(mensaje) {
+        alert(mensaje);
+    }
 
     if ($("#alerta_mensaje").val() == "1") {
         $(".alert").alert();
@@ -139,6 +146,10 @@
             $("#lblDatoMail").val(un_docente.mail);
             $("#lblDatoDireccion").val(un_docente.domicilio);
             $("#idBaja").val(un_docente.baja);
+
+            $("#btnAgregarDocente").attr("disabled", true);
+
+            $("#btnQuitarDocente").attr("disabled", false);
         };
 
 

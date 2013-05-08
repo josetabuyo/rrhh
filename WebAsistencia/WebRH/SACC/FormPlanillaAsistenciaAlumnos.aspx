@@ -28,13 +28,13 @@
     
 
     <label>Curso:&nbsp;</label>
-    <select id="CmbCurso" onchange="javascript:CargarPlanilla();" runat="server">
+    <select id="CmbCurso" style="width:250px;" onchange="javascript:CargarPlanilla();" runat="server">
     <option value="0">Seleccione</option>
     </select>
 
     <br />
     <label>Mes:&nbsp;&nbsp;&nbsp;</label>
-    <select id="CmbMes" onchange="javascript:CargarPlanilla();" runat="server">
+    <select id="CmbMes" style="width:250px;" onchange="javascript:CargarPlanilla();" runat="server">
     <option value="0">Seleccione</option>
     <option value="1">Enero</option>
     <option value="2">Febrero</option>

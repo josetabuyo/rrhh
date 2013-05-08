@@ -12,6 +12,7 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        this.DivMensaje.Visible = true;
         var servicio = new WSViaticos.WSViaticosSoapClient();
         SetearLosTextBox();
 
@@ -20,17 +21,20 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
             this.docentesJSON.Value = servicio.GetDocentes();
         }
 
+        this.btnQuitarDocente.Enabled = false;
         MostrarDocentesEnLaGrilla(servicio);
     }
 
     private void MostrarDocentesEnLaGrilla(WSViaticosSoapClient servicio)
     {
+        this.DivMensaje.Visible = true;
         var docentes = JsonConvert.DeserializeObject(servicio.GetDocentes());
         this.docentesJSON.Value = docentes.ToString();
     }
 
     protected void btnBuscarPersona_Click(object sender, EventArgs e)
     {
+        this.DivMensaje.Visible = true;
         int dni;
 
         try
@@ -72,6 +76,7 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
 
     protected void btnAgregarDocente_Click(object sender, EventArgs e)
     {
+        this.DivMensaje.Visible = true;
         if (!DatosEstanCompletos())
         {
             //this.lblMensaje.Text = "Docente no guardado. Complete todos los campos";
@@ -119,6 +124,7 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
 
     protected void btnQuitarDocente_Click(object sender, EventArgs e)
     {
+        this.DivMensaje.Visible = true;
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
         var docente = new Docente();
         docente.Id = int.Parse(this.idDocente.Value);
@@ -132,10 +138,13 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
             MostrarDocentesEnLaGrilla(servicio); 
         }else
         {
-            //mensaje de error
-            this.alerta_mensaje.Value = "3";
-            return;
+            this.DivMensaje.Visible = false;
+            string mensaje = "No se puede eliminar el docente " + this.lblDatoNombre.Text + this.lblDatoApellido.Text + " porque se encuentra asignado a un curso";
+                ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:alert('" + mensaje + "');</script>");
 
+            //mensaje de error
+            //this.alerta_mensaje.Value = "3";
+            //return;
         }
         
     }

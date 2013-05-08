@@ -11,6 +11,7 @@
         runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
+    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
@@ -19,7 +20,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelEspacioFisico" class="div_izquierdo">
     <fieldset>
@@ -56,9 +57,11 @@
                  <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" class=" btn btn-primary boton_main_documentos" onClientClick="javascript:LimpiarCampos();" />
             <br />
             <br />
-            <div class="alert alert-error" id="div_mensaje" style="width:42%;">
+            <div runat="server" id="DivMensaje" Visible="true">
+            <div class="alert alert-error" id="div_mensaje" style="width:42%;"  Visible="false">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
               <strong id="texto_mensaje">Por favor complete todos los campos.</strong> 
+            </div>
             </div>
             <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
             </div>
@@ -82,14 +85,18 @@
 <script type="text/javascript">
 
     if ($("#alerta_mensaje").val() == "1") {
+        this.div_mensaje.setAttribute("Visible", "true");
         $(".alert").alert();
     } else if ($("#alerta_mensaje").val() == "2") {
+        this.div_mensaje.setAttribute("Visible", "true");
         this.div_mensaje.setAttribute("class", "alert alert-success");
         this.texto_mensaje.innerHTML = "Operación exitosa.";
     } else if ($("#alerta_mensaje").val() == "3") {
+        this.div_mensaje.setAttribute("Visible", "true");
         this.div_mensaje.setAttribute("class", "alert alert-error");
         this.texto_mensaje.innerHTML = "No se puede eliminar el espacio físico porque se encuentra asignado a un curso";
     } else {
+        this.div_mensaje.setAttribute("Visible", "false");
         $(".alert").alert('close');
     }
 
@@ -131,6 +138,11 @@
             $("#cmbEdificio").val(un_espacio_fisico.edificio.id);
             $("#txtDireccion").val(un_espacio_fisico.edificio.direccion);
             $("#txtCapacidad").val(un_espacio_fisico.capacidad);
+
+            $("#btnAgregarEspacioFisico").attr("disabled", true);
+            $("#btnModificarEspacioFisico").attr("disabled", false);
+            $("#btnQuitarEspacioFisico").attr("disabled", false);
+
         };
     }
 

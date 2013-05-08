@@ -11,6 +11,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        this.DivMensaje.Visible = true;
         var servicio = new WSViaticos.WSViaticosSoapClient();
 
         if (!IsPostBack)
@@ -19,6 +20,8 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
             // CompletarCombosDeCiclos();
         }
 
+        this.btnModificarEspacioFisico.Enabled = false;
+        this.btnQuitarEspacioFisico.Enabled = false;
         MostrarEspacioFisicoEnLaGrilla(servicio);
     }
 
@@ -68,6 +71,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
     protected void btnAgregarEspacioFisico_Click(object sender, EventArgs e)
     {
+        this.DivMensaje.Visible = true;
         if (!DatosEstanCompletos())
         {
             this.alerta_mensaje.Value = "1";
@@ -102,6 +106,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
     protected void btnModificarEspacioFisico_Click(object sender, EventArgs e)
     {
+        this.DivMensaje.Visible = true;
         if (!DatosEstanCompletos())
         {
             this.alerta_mensaje.Value = "1";
@@ -119,6 +124,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
     protected void btnQuitarEspacioFisico_Click(object sender, EventArgs e)
     {
+        this.DivMensaje.Visible = true;
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
 
         var espacio_fisico = EspacioFisicoDelForm();
@@ -131,8 +137,11 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         else
         {
             //mensaje de error
-            this.alerta_mensaje.Value = "3";
-            return;
+            this.DivMensaje.Visible =false;
+            string mensaje = "No se puede eliminar el Espacio Físico " + this.cmbEdificio.SelectedItem.Text + " porque se encuentra asignado a un curso";
+            ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:alert('" + mensaje + "');</script>");
+            //this.alerta_mensaje.Value = "3";
+            //return;
         }
 
     }
