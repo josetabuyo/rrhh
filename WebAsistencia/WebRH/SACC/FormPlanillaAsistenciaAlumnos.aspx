@@ -11,6 +11,7 @@
         runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
+        <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
@@ -22,19 +23,19 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="DivContenedor" runat="server" style="margin:10px;">
     
 
     <label>Curso:&nbsp;</label>
-    <select id="CmbCurso" onchange="javascript:CargarPlanilla();" runat="server">
+    <select id="CmbCurso" style="width:250px;" onchange="javascript:CargarPlanilla();" runat="server">
     <option value="0">Seleccione</option>
     </select>
 
     <br />
     <label>Mes:&nbsp;&nbsp;&nbsp;</label>
-    <select id="CmbMes" onchange="javascript:CargarPlanilla();" runat="server">
+    <select id="CmbMes" style="width:250px;" onchange="javascript:CargarPlanilla();" runat="server">
     <option value="0">Seleccione</option>
     <option value="1">Enero</option>
     <option value="2">Febrero</option>
@@ -58,10 +59,12 @@
     <uc1:planilla ID="PlanillaAsistencia" runat="server" />
     </div>
     <div style="height:20px; width: 100%">
+    
     <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
     <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla();" value="Imprimir" />
     </div>
     <asp:Button style="display:none;" ID="btn_CargarAsistencias" OnClick="CargarAsistencias" runat="server" />
+    <asp:Button style="display:none;" ID="BtnSave" runat="server" Onclick="BtnSave_Click" />
     </form>
 </body>
 <script type="text/javascript">
@@ -170,7 +173,8 @@
             detalle_asistencias.push(asistencia);
         }
         $("#PlanillaAsistencia_DetalleAsistencias").val(JSON.stringify(detalle_asistencias));
-        return true;
+        $("#BtnSave").click();
+//        return true;
     }
 
     function ImprimirPlanilla() {
@@ -180,11 +184,9 @@
     }
 
     function CargarPlanilla() {
-        if ($("#CmbCurso").val() != 0 && $("#CmbMes").val() != 0) {
-            $("#PlanillaAsistencia_CursoId").val($("#CmbCurso").val());
-            $("#PlanillaAsistencia_Mes").val($("#CmbMes").val());
-            $("#btn_CargarAsistencias").click();
-        }
+        $("#PlanillaAsistencia_CursoId").val($("#CmbCurso").find('option:selected').val());
+        $("#PlanillaAsistencia_Mes").val($("#CmbMes").find('option:selected').val());
+        $("#btn_CargarAsistencias").click();
     }
 </script>
 </html>
