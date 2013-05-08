@@ -74,23 +74,32 @@ FichaChicaDeDocumento.prototype = {
             this.ficha_grande = this.fabrica_de_fichas.crearFichaGrande(this.documento, this);
             this.ui.addClass("ficha_chica_de_documento_expandida");
             this.ficha_grande.dibujarEn(this.ui);
+            this.extracto.text(this.documento.extracto);
             return;
         }
         this.ficha_grande.borrar();
         this.ui.removeClass("ficha_chica_de_documento_expandida");
         this.ficha_grande = undefined;
+        this.mostrarDocumento(this.documento);
     },
     mostrarDocumento: function (documento) {
         this.documento = documento;
         this.ticket.text(this.documento.ticket);
         this.tipo.text(this.documento.tipo.descripcion);
         this.categoria.text(this.documento.categoria.descripcion);
-        this.extracto.text(this.documento.extracto);
+        this.extracto.text(this.extractoResumido());
         this.area_actual.text(this.documento.areaActual.descripcion);
         this.boton_enviar.toggle(this.documento.areaDestino.id >= 0);
     },
     dibujarEn: function (panel) {
         panel.append(this.ui);
+    },
+    extractoResumido: function () {
+        var lineas = this.documento.extracto.split(/\r\n|\r|\n/g);
+        if (lineas.length == 1) return this.documento.extracto;
+        var primera_linea = lineas[0];
+        if (primera_linea.length < 120) return primera_linea + "...";
+        return primera_linea.substr(0, 120) + "...";
     },
     getAreaResumida: function (descripcion) {
         descripcion = descripcion.replace("Direccion", "Dir.");
