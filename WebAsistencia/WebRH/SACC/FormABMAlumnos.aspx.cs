@@ -135,6 +135,7 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
             this.DivMensaje.Visible = false;
             string mensaje = "No se puede eliminar el Alumno " + this.lblDatoNombre.Text +" " + this.lblDatoApellido.Text + " porque se encuentra asignado a un curso";
             ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:alert('" + mensaje + "');</script>");
+            this.DivMensaje.Visible = true;
             return;
         }
 
