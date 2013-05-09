@@ -21,7 +21,7 @@ public partial class SACC_FormPlanillaAsistenciaAlumnos : System.Web.UI.Page
         var cursos = Servicio().GetCursosDto();
         foreach (var c in cursos)
         {
-            this.CmbCurso.Items.Add(new System.Web.UI.WebControls.ListItem(c.Nombre, c.Id.ToString()));
+            this.CmbCurso.Items.Add(new System.Web.UI.WebControls.ListItem(c.Nombre + " " + c.Materia.Ciclo.Nombre.ToUpper(), c.Id.ToString()));
         }
     }
 
