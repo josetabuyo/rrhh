@@ -6,7 +6,6 @@ var GrillaHorarios;
 var contenedorPlanilla;
 var horarios = [];
 var horario_seleccionado;
-
 var dia = $("#cmbDia");
 var horaI = $("#txtHoraInicio");
 var horaF = $("#txtHoraFin");
