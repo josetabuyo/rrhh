@@ -117,10 +117,10 @@
             <div id="lista_de_documentos">
             </div>
             <div id="plantilla_ficha_chica_de_documento" class="ficha_chica_de_documento ficha_chica_de_documento_par">
-                <div id="ficha_chica_titulo_ticket">Ticket:</div>
-                <div id="ficha_chica_contenido_ticket">AAA036</div>
-                <div id="ficha_chica_titulo_tipo">Tipo:</div>
+                <%--<div id="ficha_chica_titulo_tipo">Tipo:</div>--%>
                 <div id="ficha_chica_contenido_tipo">Expediente N° 97</div>
+                <div id="ficha_chica_titulo_ticket">Ticket:</div>
+                <div id="ficha_chica_contenido_ticket">AAA036</div>                
                 <div id="ficha_chica_titulo_categoria">Categoría:</div>
                 <div id="ficha_chica_contenido_categoria">Renuncia</div>
                 <input type="button" id="ficha_chica_boton_enviar_documento" value="Enviar" class="btn btn-mini btn-primary"/><br />

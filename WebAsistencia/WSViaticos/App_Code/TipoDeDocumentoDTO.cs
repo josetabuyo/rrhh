@@ -14,8 +14,10 @@ public class TipoDeDocumentoDTO
     {
         id = tipoDoc.Id;
         descripcion = tipoDoc.descripcion;
+        sigla = tipoDoc.sigla;
     }
 
     public int id { get; set; }
     public string descripcion { get; set; }
+    public string sigla { get; set; }
 }

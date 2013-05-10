@@ -62,7 +62,7 @@ FichaChicaDeDocumento.prototype = {
     mostrarDocumento: function (documento) {
         this.documento = documento;
         this.ticket.text(this.documento.ticket);
-        this.tipo.text(this.documento.tipo.descripcion);
+        this.tipo.text(this.documento.tipo.descripcion + " " + this.documento.tipo.sigla + " " + this.documento.numero);
         this.categoria.text(this.documento.categoria.descripcion);
         this.extracto.text(this.extractoResumido());
         this.area_actual.text(this.documento.areaActual.descripcion);

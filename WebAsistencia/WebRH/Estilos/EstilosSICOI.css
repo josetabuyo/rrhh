@@ -532,6 +532,7 @@
 .ficha_chica_de_documento:nth-child(even) {
     background-color: White
 }
+
 #ficha_chica_titulo_ticket {
 	font-family:"Arial Black", Gadget, sans-serif;
 	font-size: 11px;
@@ -551,8 +552,10 @@
 }
 #ficha_chica_contenido_tipo {
 	display: inline-block;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;  
+	font-family:"Arial Black", Gadget, sans-serif;
+	/*color:rgb(25, 75, 180);*/
+	font-size: 12px; 
+	font-style:italic; 
 	width: 260px;
 }
 #ficha_chica_titulo_categoria {
