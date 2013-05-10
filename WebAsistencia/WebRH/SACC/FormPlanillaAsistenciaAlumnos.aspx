@@ -92,7 +92,8 @@
             columnas_acumuladas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
             columnas_acumuladas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias_acumuladas } }));
             columnas_acumuladas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias_acumuladas } }));
-
+            columnas_acumuladas.push(new Columna("Horas <br>totales", { generar: function (inasistenciaalumno) { return inasistenciaalumno.total_horas } }));
+            
 
             var PlanillaMensual = new Grilla(columnas);
             var PlanillaAcumulada = new Grilla(columnas_acumuladas);
@@ -195,11 +196,9 @@
     }
 
     function CargarPlanilla() {
-        /*if ($("#CmbCurso").val() != 0 && $("#CmbMes").find('option:selected').val() != 0) {*/
         $("#PlanillaAsistencia_CursoId").val($("#CmbCurso").find('option:selected').val());
         $("#PlanillaAsistencia_Mes").val($("#CmbMes").find('option:selected').val());
             $("#btn_CargarAsistencias").click();
-        /*}*/
     }
 </script>
 </html>

@@ -71,10 +71,7 @@
         columnas.push(new Columna("Asistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
         columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
 
-        columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias_acumuladas } }));
-        columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias_acumuladas } }));
-
-
+     
         var PlanillaMensual = new Grilla(columnas);
 
 
