@@ -83,16 +83,12 @@
             columnas.push(new Columna("Asistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
             columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
 
-            //columnas.push(new Columna(" ", { generar: function (inasistenciaalumno) { return "" } }));
-
-            //columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias_acumuladas } }));
-            //columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias_acumuladas } }));
-
 
             columnas_acumuladas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
             columnas_acumuladas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias_acumuladas } }));
             columnas_acumuladas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias_acumuladas } }));
-
+            columnas_acumuladas.push(new Columna("% Inasist.", { generar: function (inasistenciaalumno) { return inasistenciaalumno.total_horas } }));
+            
 
             var PlanillaMensual = new Grilla(columnas);
             var PlanillaAcumulada = new Grilla(columnas_acumuladas);
@@ -195,11 +191,9 @@
     }
 
     function CargarPlanilla() {
-        /*if ($("#CmbCurso").val() != 0 && $("#CmbMes").find('option:selected').val() != 0) {*/
         $("#PlanillaAsistencia_CursoId").val($("#CmbCurso").find('option:selected').val());
         $("#PlanillaAsistencia_Mes").val($("#CmbMes").find('option:selected').val());
             $("#btn_CargarAsistencias").click();
-        /*}*/
     }
 </script>
 </html>

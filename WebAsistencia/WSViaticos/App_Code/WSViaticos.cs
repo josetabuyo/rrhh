@@ -865,7 +865,12 @@ public class WSViaticos : System.Web.Services.WebService
         var calendario = GetCalendarioDeCurso(un_curso);
         var planilla_mensual = GetPlanillaMensual(un_curso, fecha_desde, fecha_hasta, calendario);
         var dias_de_cursada = planilla_mensual.GetDiasDeCursadaEntre(fecha_desde, fecha_hasta);
-
+        var dias_del_curso = planilla_mensual.GetDiasDeCursadaEntre(un_curso.FechaInicio, un_curso.FechaFin);
+        var horas_totales = 0;
+        dias_del_curso.ForEach(d =>
+        {
+            horas_totales += planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == d.DayOfWeek).HorasCatedra;
+        });
         var planilla_mensual_dto = new object();
         var planilla_mensual_alumnos_dto = new List<Object>();
         
@@ -886,9 +891,8 @@ public class WSViaticos : System.Web.Services.WebService
             {
                 var cant_asistencias = string.Empty;
                 var cant_inasistencias = string.Empty;
-                var cant_asistencias_acumuladas = string.Empty;
-                var cant_inasistencias_acumuladas = string.Empty;
-                var cant_horas_catedra = string.Empty;
+                var cant_asistencias_acumuladas = 0;
+                var cant_inasistencias_acumuladas = 0;
 
                 var detalle_asistencias = RepoAsistencias().GetAsistenciasPorCursoYAlumno(planilla_mensual.Curso.Id ,alumno.Id);
 
@@ -910,7 +914,7 @@ public class WSViaticos : System.Web.Services.WebService
                 });
 
                 CalcularCantidadDeAsistenciasMensual(planilla_mensual, detalle_asistencias_mensual, out cant_asistencias, out cant_inasistencias);
-                CalcularCantidadDeAsistenciasAcumuladas(planilla_mensual, detalle_asistencias_acumuladas, out cant_asistencias_acumuladas, out cant_inasistencias_acumuladas, out cant_horas_catedra);
+                CalcularCantidadDeAsistenciasAcumuladas(planilla_mensual, detalle_asistencias_acumuladas, out cant_asistencias_acumuladas, out cant_inasistencias_acumuladas);
                 
                 planilla_mensual_alumnos_dto.Add(new
                 {
@@ -922,8 +926,7 @@ public class WSViaticos : System.Web.Services.WebService
                     inasistencias = cant_inasistencias,
                     asistencias_acumuladas = cant_asistencias_acumuladas,
                     inasistencias_acumuladas = cant_inasistencias_acumuladas,
-                    total_horas = cant_horas_catedra,
-                    justificadas = ""
+                    total_horas = ((double)cant_inasistencias_acumuladas / (double)horas_totales).ToString("P")
                 });
             });
 
@@ -935,6 +938,8 @@ public class WSViaticos : System.Web.Services.WebService
         }
         return JsonConvert.SerializeObject(planilla_mensual_dto);
     }
+
+   
 
     private static void CalcularCantidadDeAsistenciasMensual(PlanillaMensual planilla_mensual, List<Asistencia> detalle_asistencias_mensual, out string cant_asistencias, out string cant_inasistencias)
     {
@@ -966,12 +971,11 @@ public class WSViaticos : System.Web.Services.WebService
             cant_inasistencias = cant_inasistencias_aux.ToString();
         }
     }
-    private static void CalcularCantidadDeAsistenciasAcumuladas(PlanillaMensual planilla_mensual, List<Asistencia> cant_asistencias_acumuladas, out string cant_asistencias, out string cant_inasistencias, out string cant_horas)
+    private static void CalcularCantidadDeAsistenciasAcumuladas(PlanillaMensual planilla_mensual, List<Asistencia> cant_asistencias_acumuladas, out int cant_asistencias, out int cant_inasistencias)
     {
 
         var cant_asistencias_aux = 0;
         var cant_inasistencias_aux = 0;
-        var cant_horas_aux = 0;
 
         cant_asistencias_acumuladas.ForEach(a =>
         {
@@ -980,23 +984,20 @@ public class WSViaticos : System.Web.Services.WebService
         });
         cant_asistencias_acumuladas.ForEach(a =>
         {
+            var horas = planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra;
             if (a.Valor > 0 && a.Valor < 4)
-                cant_inasistencias_aux += planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra - a.Valor;
+            {
+                cant_inasistencias_aux += horas - a.Valor;
+            }
             if (a.Valor == 4)
-                cant_inasistencias_aux += planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra;
+            {
+                cant_inasistencias_aux += horas;
+            }
         });
 
-        if (cant_asistencias_aux == 0 && cant_inasistencias_aux == 0)
-        {
-            cant_asistencias = string.Empty;
-            cant_inasistencias = string.Empty;
-        }
-        else
-        {
-            cant_asistencias = cant_asistencias_aux.ToString();
-            cant_inasistencias = cant_inasistencias_aux.ToString();
-        }
-        cant_horas = string.Empty;
+
+        cant_asistencias = cant_asistencias_aux;
+        cant_inasistencias = cant_inasistencias_aux;
     }
 
     [WebMethod]
