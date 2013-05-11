@@ -30,4 +30,9 @@ public partial class SACC_FormPlanillaAsistenciaAlumnos : System.Web.UI.Page
         return new WSViaticosSoapClient();
     }
 
+    protected void BtnSave_Click(object sender, EventArgs e)
+    {
+        this.PlanillaAsistencia.GuardarDetalleAsistencias();
+        this.PlanillaAsistencia.CargarAsistencias();
+    }
 }
