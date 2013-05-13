@@ -10,7 +10,7 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
     protected void Page_Load(object sender, EventArgs e)
     {
         if (IsPostBack)
-            GuardarDetalleAsistencias();
+            //GuardarDetalleAsistencias();
         if (Request.QueryString.Count > 0)
         {
             this.CursoId.Value = Request["idCurso"];
@@ -44,7 +44,7 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
 
 
 
-    private void GuardarDetalleAsistencias()
+    public void GuardarDetalleAsistencias()
     {
         var detalle_asistencias_JSON = JsonConvert.DeserializeObject<JArray>(this.DetalleAsistencias.Value);
         if (detalle_asistencias_JSON != null)
