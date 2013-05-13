@@ -19,6 +19,8 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
             // CompletarCombosDeCiclos();
         }
 
+        this.btnModificarEspacioFisico.Enabled = false;
+        this.btnQuitarEspacioFisico.Enabled = false;
         MostrarEspacioFisicoEnLaGrilla(servicio);
     }
 

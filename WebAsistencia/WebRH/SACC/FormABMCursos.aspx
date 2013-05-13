@@ -11,6 +11,7 @@
         runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
+    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
@@ -20,21 +21,24 @@
 </head>
 <body>
     <form id="form1" runat="server" onsubmit="return false;">
-        <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelCurso" class="div_izquierdo">
+        <fieldset>
            <legend>Panel De Cursos</legend>
         <p>
             <asp:Label ID="lblMateria" CssClass="labels_sacc" runat="server" Text="Materia:"></asp:Label>
-            <asp:DropDownList ID="cmbMateria" name="Materia" runat="server" EnableViewState="false" data-name="Materia"></asp:DropDownList >
+            <asp:DropDownList ID="cmbMateria" name="Materia" runat="server" 
+                EnableViewState="false" data-name="Materia" Width="250px"></asp:DropDownList >
         </p>
         <p> 
             <asp:Label ID="lblDocente" CssClass="labels_sacc" runat="server" Text="Docente:"></asp:Label>
-            <asp:DropdownList ID="cmbDocente" name="Docente" runat="server" EnableViewState="false" data-name="Docente"></asp:DropdownList >
+            <asp:DropdownList ID="cmbDocente" name="Docente" runat="server" 
+                EnableViewState="false" data-name="Docente" Width="250px"></asp:DropdownList >
         </p>
         <p> 
             <asp:Label ID="lblEspacioFisico" CssClass="labels_sacc" runat="server" Text="Espacio Físico:"></asp:Label>
-            <asp:DropdownList ID="cmbEspacioFisico" name="Docente" runat="server" EnableViewState="false" data-name="Espacio F&iacute;sico"></asp:DropdownList >
+            <asp:DropdownList ID="cmbEspacioFisico" name="Docente" runat="server" EnableViewState="false" Width="250px" data-name="Espacio F&iacute;sico"></asp:DropdownList >
         </p>
         <p>   
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
@@ -69,10 +73,13 @@
             onClientClick="javascript:LimpiarCampos();" />
     </div>
         </div>
+        </fieldset>
     <div class="div_derecho">
+        <fieldset>
         <legend>Listado de Cursos</legend>
         <div id="ContenedorPlanilla" runat="server"></div>
         <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
+        </fieldset>
     </div>
     <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="materiasJSON" runat="server" EnableViewState="true"/>

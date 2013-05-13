@@ -11,11 +11,12 @@
         runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
+    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
 
 </head>
 <body>
     <form id="form1" runat="server">
-     <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelAlumno" class="div_izquierdo">
         <fieldset>
@@ -143,7 +144,7 @@
         columnas.push(new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento } }));
         columnas.push(new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre } }));
         columnas.push(new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido } }));
-//        columnas.push(new Columna("Pertenece A", { generar: function (un_alumno) { return un_alumno.area.descripcion } }));
+        //        columnas.push(new Columna("Pertenece A", { generar: function (un_alumno) { return un_alumno.area.descripcion } }));
         columnas.push(new Columna("Teléfono", { generar: function (un_alumno) { return un_alumno.Telefono } }));
         columnas.push(new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion } }));
         columnas.push(new Columna('Detalle', { generar: function (un_alumno) {
@@ -160,7 +161,7 @@
             contenedorBtnFichaAlumno.append(botonVerAlumno);
 
             return contenedorBtnFichaAlumno;
-        } 
+        }
         }));
 
         PlanillaAlumnos = new Grilla(columnas);
@@ -185,6 +186,9 @@
             $("#lblDatoDireccion").val(un_alumno.Direccion);
             $("#cmbPlanDeEstudio").val(un_alumno.Modalidad.Id);
             $("#idBaja").val(un_alumno.Baja);
+            $("#btnAgregarAlumno").attr("disabled", true);
+            $("#btnModificarAlumno").attr("disabled", false);
+            $("#btnQuitarAlumno").attr("disabled", false);
 
         };
 

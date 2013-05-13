@@ -450,7 +450,8 @@ public class WSViaticos : System.Web.Services.WebService
             var documento = documento_dto_alta.toDocumento();
 
             this.GuardarDocumento(documento, int.Parse(documento_dto_alta.id_area_origen), int.Parse(documento_dto_alta.id_area_actual), usuario);
-            if (documento_dto_alta.id_area_destino != "") this.CrearTransicionFuturaParaDocumento(documento.Id, int.Parse(documento_dto_alta.id_area_destino), usuario);
+            var id_area_destino = int.Parse(documento_dto_alta.id_area_destino);
+            if (id_area_destino >= 0) this.CrearTransicionFuturaParaDocumento(documento.Id, id_area_destino, usuario);
 
             return JsonConvert.SerializeObject(new {  
                 tipoDeRespuesta = "altaDeDocumento.ok",
@@ -513,7 +514,12 @@ public class WSViaticos : System.Web.Services.WebService
             repo_transiciones.GuardarTransicionesDe(mensajeria);
 
 
-            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "guardarDocumento.ok" });
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "guardarDocumento.ok",
+                documento = new DocumentoDTO(un_documento, mensajeria)
+            });
+
         }
         catch (Exception e)
         {
@@ -722,7 +728,8 @@ public class WSViaticos : System.Web.Services.WebService
             var mensajeria = Mensajeria();
             mensajeria.SeEnvioDirectamente(documento, area_origen, area_destino, DateTime.Now);
             RepoMensajeria().GuardarTransicionesDe(mensajeria);
-            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "envioDeDocumento.ok"});
+            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "envioDeDocumento.ok",
+                                                     documento = new DocumentoDTO(documento, mensajeria)});
         }
         catch (Exception e)
         {
@@ -744,7 +751,11 @@ public class WSViaticos : System.Web.Services.WebService
             var mensajeria = Mensajeria();
             mensajeria.TransicionarConAreaIntermedia(documento, area_origen, area_intermedia, area_destino, DateTime.Now);
             RepoMensajeria().GuardarTransicionesDe(mensajeria);
-            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "envioDeDocumento.ok"});
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "envioDeDocumento.ok",
+                documento = new DocumentoDTO(documento, mensajeria)
+            });
         }
         catch (Exception e)
         {
