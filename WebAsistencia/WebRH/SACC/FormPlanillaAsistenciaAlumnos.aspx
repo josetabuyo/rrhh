@@ -19,6 +19,12 @@
     <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../Scripts/BotonAsistencia.js"></script>
+    <style type="text/css">
+    .acumuladas
+    {
+        font-weight:bold;
+    }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -41,6 +47,10 @@
     <br />
     <label id="lblDocente">Docente:</label>
     <label id="Docente" runat="server">&nbsp;</label>
+    <br />
+    <br />
+    <label id="lblHorasCurso">Horas C&aacute;tedra:</label>
+    <label id="HorasCatedraCurso" runat="server">&nbsp;</label>
     <br />
     <br />
     <uc1:planilla ID="PlanillaAsistencia" runat="server" />
@@ -67,8 +77,7 @@
             var DiasCursados = Planilla['diascursados'];
             var AlumnosInasistencias = Planilla['asistenciasalumnos'];
             var contenedorPlanilla = $('#PlanillaAsistencia_ContenedorPlanilla');
-
-            var contenedorPlanillaAcumulados = $("#ContenedorPlanillaAcumulados");
+            var HorasCatedraCurso = Planilla['horas_catedra'];
 
             var columnas = [];
             var columnas_acumuladas = [];
@@ -83,25 +92,13 @@
             columnas.push(new Columna("Asistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
             columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
 
-            columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias_acumuladas } }));
-            columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias_acumuladas } }));
-            
-
-            columnas_acumuladas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
-            columnas_acumuladas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias_acumuladas } }));
-            columnas_acumuladas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias_acumuladas } }));
-            columnas_acumuladas.push(new Columna("% Inasist.", { generar: function (inasistenciaalumno) { return inasistenciaalumno.total_horas } }));
-
+            columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return '<label class="acumuladas">' + inasistenciaalumno.asistencias_acumuladas + " (" + inasistenciaalumno.por_asistencias_acumuladas + ")</label>" } }));
+            columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return '<label class="acumuladas">' + inasistenciaalumno.inasistencias_acumuladas + " (" + inasistenciaalumno.por_inasistencias_acumuladas + ")</label>" } }));
 
             var PlanillaMensual = new Grilla(columnas);
-            var PlanillaAcumulada = new Grilla(columnas_acumuladas);
 
             PlanillaMensual.CargarObjetos(AlumnosInasistencias);
             PlanillaMensual.DibujarEn(contenedorPlanilla);
-
-
-            PlanillaAcumulada.CargarObjetos(AlumnosInasistencias);
-            PlanillaAcumulada.DibujarEn(contenedorPlanillaAcumulados);
 
             PlanillaMensual.SetOnRowClickEventHandler(function () {
                 return true;
@@ -109,10 +106,12 @@
             var Docente = JSON.parse($("#PlanillaAsistencia_Curso").val()).Docente;
 
             $("#Docente").text(Docente.Nombre + " " + Docente.Apellido);
+            $("#HorasCatedraCurso").text(HorasCatedraCurso);
 
         }
         else {
             $("#lblDocente").css("visibility", "hidden");
+            $("#lblHorasCurso").css("visibility", "hidden");
             $("#BtnGuardar").css("visibility", "hidden");
             $("#BtnImprimir").css("visibility", "hidden");
         }
