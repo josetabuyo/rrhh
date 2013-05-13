@@ -428,6 +428,29 @@
 
 /*COMIENZO ESTILO SACC - ALUMNOS */
 
+.table-striped tbody tr:nth-child(odd) td {
+    background-color: lavender;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #f5f5f5;
+}
+
+.celda_seleccionada
+{
+    background-color:gray !important;
+    user-select: none;
+    cursor:pointer;
+}
+
+.celda_on_hover
+{
+    background-color:Silver !important;
+    user-select: none;
+    cursor:pointer;
+}
+
+
 .labels_sacc 
     {
         width:15%; 
