@@ -41,7 +41,7 @@
 
     <br />
     <label>Mes:&nbsp;&nbsp;&nbsp;</label>
-    <select id="CmbMes" style="width:300px;" onchange="javascript:CargarPlanilla();" runat="server" enableviewstate="true" style="text-transform:capitalize">
+    <select id="CmbMes" style="width:300px;text-transform:capitalize" onchange="javascript:CargarPlanilla();" runat="server" enableviewstate="true">
 
     </select>
     <input type="hidden" runat="server" id="MesesCurso" />
