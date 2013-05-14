@@ -20,6 +20,72 @@
 /*FIN ESTILO GENERAL*/
 
 
+/*ESTILO BARRA MENU*/
+
+.barra_menu_fondo {
+    background-color: #003;
+	height: 120px;
+}
+
+.barra_menu_fondo a {
+    text-decoration: none;
+}
+
+.barra_menu_contenedor {
+    position: absolute;
+	left: 50%;
+	width: 1024px;
+	margin-left: -512px;
+	margin-top: 10px;
+}
+
+.barra_menu_logo_sistema {
+	float: left;
+	margin-left: 15px;	
+}
+
+.barra_menu_contenedor_logos_derecha
+{
+    float:right;
+    margin-right: 15px;  
+} 
+
+.barra_menu_logo_ministerio {
+    margin-left: 25px;
+}
+
+.barra_menu_bloque_inferior
+{
+    margin-top: 85px;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 15px;	
+}
+.barra_menu_label_bienvenido {
+	
+	color: #FFF;
+	clear: both;
+	display:inline;
+}
+.barra_menu_label_usuario {
+	color: #09F;
+	display:inline;
+}
+
+.barra_menu_botones_menu_usuario
+{
+    float:right;
+    margin-right: 15px;
+}
+
+.barra_menu_boton_menu_usuario {
+	margin-left:5px;
+}
+
+/*FIN ESTILO BARRA MENU*/
+
+
+
 /*ESTILO DETALLE VIATICO*/
 .detalle_viatico_label_usuario {
     padding-top: 50px;
@@ -424,6 +490,7 @@
         align: center;
 }
 /* FIN ESTILO REPORTES VIATICOS */
+
 
 
 /*COMIENZO ESTILO SACC - ALUMNOS */

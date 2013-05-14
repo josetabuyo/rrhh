@@ -1,4 +1,5 @@
 ﻿var BotonAlertas = function (cfg) {
+    cfg.boton_alertas.hide();
     cfg.boton_alertas.click(function () {
         $.ajax({
             url: "../AjaxWS.asmx/GetDocumentosEnAlerta",
@@ -15,7 +16,6 @@
             }
         });
     });
-    cfg.boton_alertas.hide();
     setInterval(function () {
         $.ajax({
             url: "../AjaxWS.asmx/HayDocumentosEnAlerta",

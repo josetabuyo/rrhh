@@ -418,23 +418,22 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
 
     this.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario();
 
-    cfg.inputFiltroCheckDocumentosEnMiArea.change(function(){self.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario()});
+    cfg.inputFiltroCheckDocumentosEnMiArea.change(function () { self.setearVisibilidadFiltroAreaActualSegunChkEnAreaDelUsuario() });
 
     cfg.botonDesplegarPanelFiltros.click(function () {
         self._panel_alta.contraer();
         self.alternarDespliegue();
-        self._panel_detalle.cerrar();
     });
 
     cfg.btnAplicarFiltros.click(function () {
         self.contraer();
-        self._panel_documentos.refrescarGrilla();
+        self._panel_documentos.refrescarDocumentos();
     });
 
     cfg.btnQuitarFiltros.click(function () {
         self.contraer();
         self.panel_filtros.limpiarFiltros();
-        self._panel_documentos.refrescarGrilla();
+        self._panel_documentos.refrescarDocumentos();
     });
 
     cfg.panelBusquedaBasica.show();
@@ -444,8 +443,14 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
         cfg.panelBusquedaBasica.toggle();
         cfg.panelBusquedaAvanzada.toggle();
         self.panel_filtros.limpiarFiltros();
-        if (cfg.panelBusquedaBasica.css('display') == 'block')  cfg.btnToggleBusquedaAvanzada.val("+");
-        else  cfg.btnToggleBusquedaAvanzada.val("-");
+        if (cfg.panelBusquedaBasica.css('display') == 'block') cfg.btnToggleBusquedaAvanzada.val("+");
+        else cfg.btnToggleBusquedaAvanzada.val("-");
+    });
+
+    cfg.inputFiltroGoogleano.keydown(function (e) {
+        if (e.keyCode == 13) {
+            self.cfg.btnAplicarFiltros.click();
+        }
     });
 }
 
@@ -458,9 +463,6 @@ PanelDeFiltrosDeDocumentos.prototype = {
     },
     setPanelDocumentos: function (panel) {
         this._panel_documentos = panel;
-    },
-    setPanelDetalle: function (panel) {
-        this._panel_detalle = panel;
     },
     alternarDespliegue: function () {
         this.cfg.divPanelFiltros.slideToggle("fast");
