@@ -23,10 +23,11 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
     public void CargarAsistencias()
     {
         var id_curso = int.Parse(this.CursoId.Value);
-        var mes = int.Parse(this.Mes.Value);
-        
+        var mes = int.Parse("0" + this.Mes.Value);
+
         if (id_curso != 0 && mes != 0)
         {
+
             var dias = DateTime.DaysInMonth(anio, mes);
             var fecha_desde = new DateTime(2013, mes, 01);
             var fecha_hasta = new DateTime(2013, mes, dias);
@@ -37,6 +38,8 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
 
             this.planillaJSON.Value = planilla.ToString();
         }
+        else
+            this.planillaJSON.Value = "";
     }
 
 
