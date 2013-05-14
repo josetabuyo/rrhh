@@ -20,6 +20,7 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
             this.docentesJSON.Value = servicio.GetDocentes();
         }
 
+        this.btnQuitarDocente.Enabled = false;
         MostrarDocentesEnLaGrilla(servicio);
     }
 

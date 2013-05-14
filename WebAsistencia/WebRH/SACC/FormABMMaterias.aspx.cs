@@ -20,6 +20,8 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
             this.materiasJSON.Value = servicio.GetMaterias();
         }
 
+        this.btnModificarMateria.Enabled = false;
+        this.btnQuitarMateria.Enabled = false;
         MostrarMateriasEnLaGrilla(servicio);
     }
 

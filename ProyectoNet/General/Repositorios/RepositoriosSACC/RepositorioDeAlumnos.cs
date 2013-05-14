@@ -45,7 +45,10 @@ namespace General.Repositorios
                 alumnos.Add(alumno);
             });
 
+            //ordeno por modalidad, apellido, nombre
             alumnos.Sort((alumno1, alumno2) => alumno1.esMayorAlfabeticamenteQue(alumno2));
+           
+            
 
             return alumnos;
         }
