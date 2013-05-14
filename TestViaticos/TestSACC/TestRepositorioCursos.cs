@@ -3,9 +3,7 @@ using General;
 using General.Repositorios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using General.Repositorios;
 using General.Calendario;
-using General;
 using NDbUnit.Core;
 using NDbUnit.Core.SqlClient;
 using NMock2;
@@ -51,7 +49,6 @@ namespace TestViaticos
                 Assert.AreEqual(curso_bd.Id, curso.Id);
                 Assert.IsNotNull(curso_bd.Materia);
                 Assert.IsNotNull(curso_bd.Docente);
-                Assert.IsNotNull(curso_bd.HorasCatedra);
                 Assert.IsNotNull(curso_bd.EspacioFisico);
                 Assert.IsTrue(curso_bd.Alumnos().Count() > 0);
             }

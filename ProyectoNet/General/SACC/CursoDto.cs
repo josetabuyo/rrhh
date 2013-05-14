@@ -11,7 +11,8 @@ namespace General
         public Materia Materia { get; set; }
         public List<HorarioDto> Horarios { get; set; }
         public List<Alumno> Alumnos { get; set; }
-        public int HorasCatedra { get; set; }
         public EspacioFisico EspacioFisico { get; set; }
+        public string FechaInicio { get; set; }
+        public string FechaFin { get; set; }
     }
 }

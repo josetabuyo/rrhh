@@ -19,10 +19,3 @@ C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\ProyectoNet\General\bin\Debug\
 C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\ProyectoNet\General\obj\Debug\ResolveAssemblyReference.cache
 C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\ProyectoNet\General\obj\Debug\General.dll
 C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\ProyectoNet\General\obj\Debug\General.pdb
-C:\Repositorio\Javier\Git\rrhh\ProyectoNet\General\bin\Debug\General.dll.config
-C:\Repositorio\Javier\Git\rrhh\ProyectoNet\General\bin\Debug\General.dll
-C:\Repositorio\Javier\Git\rrhh\ProyectoNet\General\bin\Debug\General.pdb
-C:\Repositorio\Javier\Git\rrhh\ProyectoNet\General\bin\Debug\Newtonsoft.Json.dll
-C:\Repositorio\Javier\Git\rrhh\ProyectoNet\General\obj\Debug\ResolveAssemblyReference.cache
-C:\Repositorio\Javier\Git\rrhh\ProyectoNet\General\obj\Debug\General.dll
-C:\Repositorio\Javier\Git\rrhh\ProyectoNet\General\obj\Debug\General.pdb
