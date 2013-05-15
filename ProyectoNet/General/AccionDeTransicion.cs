@@ -7,7 +7,7 @@
 
     public class AccionDeTransicion
     {
-        public 2 int Id { get; set; }
+        public int Id { get; set; }
         public String Descripcion { get; set; }
         public string DescripcionPasado { get; set; }
         public string DescripcionEstadoInbox { get; set; }
