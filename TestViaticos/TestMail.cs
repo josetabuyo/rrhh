@@ -26,15 +26,15 @@ namespace TestViaticos
         [TestMethod]
         public void deberia_poder_mandar_un_mail()
         {
-            var cred = new NetworkCredential("fabian@desarrollosocial.gov.ar", "bla");
+            var cred = new NetworkCredential("prueba@desarrollosocial.gov.ar", "bla");
             var envio_ok = false;
             Action on_success = () => envio_ok = true;
             Action on_error = () => envio_ok = false;
             var enviador = new EnviadorDeMails();
             enviador.EnviarMail(cred,
-                                "ayanveronica@gmail.com", 
-                                "Despido", 
-                                "Estas despedida!",
+                                "jlurgo@gmail.com", 
+                                "Prueba", 
+                                "Esto es un test",
                                 on_success,
                                 on_error);
             Assert.IsTrue(envio_ok);
