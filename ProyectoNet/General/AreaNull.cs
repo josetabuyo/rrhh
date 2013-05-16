@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
 
-    public class AreaNull : Area
+    public class AreaNull : Areas
     {
         public AreaNull()
         {
