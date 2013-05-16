@@ -650,10 +650,12 @@ public class WSViaticos : System.Web.Services.WebService
         var documentos = RepositorioDocumentos().GetDocumentosFiltrados(filtrosDesSerializados);
         var documentos_dto = new List<DocumentoDTO>();
         var mensajeria = Mensajeria();
+        if (documentos.Count > 50) documentos.RemoveRange(51, documentos.Count - 51);
         documentos.ForEach(delegate(Documento doc)
         {
             documentos_dto.Add(new DocumentoDTO(doc, mensajeria));
         });
+
         return documentos_dto;
     }
 

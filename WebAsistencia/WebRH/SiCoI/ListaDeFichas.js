@@ -1,4 +1,4 @@
-﻿var ListaDeFichas = function (fabrica_de_fichas, ui) {
+﻿var ListaDeFichas = function (fabrica_de_fichas, ui, max_items, mensaje_de_cantidad_excedente) {
     this.ui = ui;
     this.fabrica_de_fichas = fabrica_de_fichas;
     this.start();
