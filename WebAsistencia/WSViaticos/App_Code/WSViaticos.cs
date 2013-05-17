@@ -9,6 +9,8 @@ using General.Calendario;
 using General.Repositorios;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net;
+using System.Net.Mail;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -456,6 +458,7 @@ public class WSViaticos : System.Web.Services.WebService
             return JsonConvert.SerializeObject(new {  
                 tipoDeRespuesta = "altaDeDocumento.ok",
                 ticket = documento.ticket });
+
         }
         catch (Exception e)
         {
