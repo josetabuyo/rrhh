@@ -115,6 +115,9 @@
 
         <div id="plantillas">
             <div id="lista_de_documentos">
+                <div id="mensaje_maxima_cantidad_de_items_superada"></div>
+                <div id="panel_fichas">
+                </div>
             </div>
             <div id="plantilla_ficha_chica_de_documento" class="ficha_chica_de_documento ficha_chica_de_documento_par">
                 <%--<div id="ficha_chica_titulo_tipo">Tipo:</div>--%>
