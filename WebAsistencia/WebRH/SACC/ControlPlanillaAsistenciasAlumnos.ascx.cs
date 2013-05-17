@@ -9,7 +9,7 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
     int anio = 2013;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (IsPostBack)
+        //if (IsPostBack) { }
             //GuardarDetalleAsistencias();
         if (Request.QueryString.Count > 0)
         {
