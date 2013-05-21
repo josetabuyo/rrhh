@@ -1,7 +1,7 @@
 console.log('Loading a web page');
 var page = new WebPage();
 //This was tricky, this is the way to open LOCAL files 
-var url = "file://localhost/Users/acalcagno/tests/SpecRunner.html";
+var url = "file://localhost/rrhh/jasmine-standalone-1.3.1/SpecRunner.html";
 phantom.viewportSize = {
     width: 800,
     height: 600
