@@ -15,6 +15,7 @@ page.open(url, function (status) { //Page is loaded!
     if (status !== 'success') {
         console.log('Unable to load the address!');
     } else {
+		console.log('Loaded');
         //Using a delay to make sure the JavaScript is executed in the browser 
         window.setTimeout(function () {
             page.render("output.png");
@@ -22,3 +23,4 @@ page.open(url, function (status) { //Page is loaded!
         }, 200);
     }
 });
+console.log('Done');
