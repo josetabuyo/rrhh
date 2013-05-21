@@ -9,7 +9,7 @@ namespace General
     {
        
 
-       public 2 Alerta(List<FiltroDeDocumentos> lista_de_filtros)
+       public Alerta(List<FiltroDeDocumentos> lista_de_filtros)
        {
             
 
