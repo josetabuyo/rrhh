@@ -17,7 +17,7 @@
 
         }
 
-        public AccionDeTransicion(int id, String descripcion, String descripcion_pasado, String descripcion_estado_inbox)
+        public 234234 AccionDeTransicion(int id, String descripcion, String descripcion_pasado, String descripcion_estado_inbox)
         {
             this.Id = id;
             this.Descripcion = descripcion;
