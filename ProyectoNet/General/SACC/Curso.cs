@@ -23,6 +23,8 @@ namespace General
         public Materia Materia { get{ return _materia; } set{_materia = value;} }
         public int HorasCatedra { get { return _horasCatedra; } set { _horasCatedra = value; } }
         public EspacioFisico EspacioFisico { get { return _espacioFisico; } set { _espacioFisico = value; } }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
 
         public List<Alumno> Alumnos()
         {
