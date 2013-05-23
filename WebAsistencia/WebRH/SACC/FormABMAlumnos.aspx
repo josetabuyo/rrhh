@@ -42,10 +42,6 @@
             <asp:Label ID="lblTelefono" CssClass="labels_sacc" runat="server" Text="Teléfono:"></asp:Label>
             <asp:TextBox ID="lblDatoTelefono" ReadOnly="false" CssClass="label_alumno" runat="server" ></asp:TextBox>
         </p>
-        <%--<p>
-        <asp:Label ID="texto" CssClass="popover-title" runat="server" Text="Otros datos de contacto"></asp:Label>
-        <br/>
-        </p>--%>
 
         <p>   
             <asp:Label ID="lblMail" CssClass="labels_sacc" runat="server" Text="Mail:"></asp:Label>
@@ -70,13 +66,9 @@
             <asp:Button ID="btnQuitarAlumno" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarAlumno_Click" />
         <br/>
         <br />
-        <div runat="server" id="DivMensaje" Visible="true">
-            <div class="alert alert-error" id="div_mensaje" style="width:42%;">
-              <button type="button" class="close" data-dismiss="alert">&times;</button>
-              <strong id="texto_mensaje">Por favor complete todos los campos.</strong> 
-            </div>
+        <div runat="server" id="DivMensajeExito" Visible="false" class="alert alert-success">
         </div>
-           <%-- <asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
+          
         </div>
     </fieldset>
     </div>
@@ -84,9 +76,10 @@
         <fieldset>
         <legend>Listado de Alumnos</legend>
         <div id="ContenedorPlanilla" runat="server"></div>
-       <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
        </fieldset>
     </div>
+    <asp:HiddenField ID="texto_mensaje_exito" runat="server" />
+    <asp:HiddenField ID="texto_mensaje_error" runat="server" />
     <asp:HiddenField ID="alerta_mensaje" runat="server" />
     <asp:HiddenField ID="personasJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
@@ -94,7 +87,7 @@
     <asp:HiddenField ID="idBaja" runat="server" />
     <asp:HiddenField ID="datosPersona" runat="server" />
     <asp:HiddenField ID="personaSeleccionada" runat="server" />
-     <asp:Button ID="btnVerFichaAlumno" Text="" runat="server" OnClick="btnVerAlumno_Click" style="display:none"/>
+    <asp:Button ID="btnVerFichaAlumno" Text="" runat="server" OnClick="btnVerAlumno_Click" style="display:none"/>
     </form>
 </body>
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
@@ -109,35 +102,54 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
+    <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
+
 <script type="text/javascript">
-    if ($("#alerta_mensaje").val() == "1") {
-        $(".alert").alert();
-    } else if ($("#alerta_mensaje").val() == "2") {
-        this.div_mensaje.setAttribute("class", "alert alert-success");
-        this.texto_mensaje.innerHTML = "Operación exitosa.";
-    } else if ($("#alerta_mensaje").val() == "3") {
-        this.div_mensaje.setAttribute("class", "alert alert-error");
-        this.texto_mensaje.innerHTML = "No se puede eliminar el alumno porque se encuentra inscripto a un curso";
-    } else if ($("#alerta_mensaje").val() == "4") {
-        this.div_mensaje.setAttribute("class", "alert alert-error");
-        this.texto_mensaje.innerHTML = "No se encontro una persona con ese documento";
-    } else {
-        $(".alert").alert('close');
+
+//Al presionarse Enter luego de Ingresar el DNI, se fuerza a realizar la búsqueda de dicho DNI para no tener que hacer necesariamente un click en el botón Buscar
+    function CapturarTeclaEnter(evt) {
+        var evt = (evt) ? evt : ((event) ? event : null);
+        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        if ((evt.keyCode == 13) && (node.type == "text")) { $("#btn_buscar_personas").click(); }
     }
+    document.onkeypress = CapturarTeclaEnter;
+
+
+//Muestra los Mensajes de Error mediante PopUp y los de Éxito por mensaje
+    var mostrador_de_mensajes = {
+        mostrar: function (mensaje) {
+            alert(mensaje);
+        }
+    };
+    var administradorDeErrores = new AdministradorDeMensajes(
+        { 
+            mostrar: function (mensaje) {
+                        alert(mensaje);
+                    } 
+        },
+        $("#texto_mensaje_error").val());
+
+    var administradorDeExitos = new AdministradorDeMensajes(
+        {
+            mostrar: function (mensaje) {
+                $("#DivMensajeExito").show();
+                $("#DivMensajeExito").Visible = "true";
+            }
+        },
+        $("#texto_mensaje_exito").val());
+    
+
 
     var PlanillaAlumnos;
     var contenedorPlanilla;
 
     var AdministradorPlanillaMensual = function () {
         var Alumnos = JSON.parse($('#alumnosJSON').val());
-        //var nombreAlumno = Alumnos['nombre'];
         var panelAlumno = $("#panelAlumno");
 
         var listaPersonas = $('#personasJSON');
         var selectorDePersonas = $('#input_dni');
         var personaSeleccionada = $('#personaSeleccionada');
-
-        //crearInputAutocompletable(selectorDePersonas, listaPersonas, personaSeleccionada);
 
         var EncabezadoPlanilla;
         contenedorPlanilla = $('#ContenedorPlanilla');
@@ -146,7 +158,6 @@
         columnas.push(new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento } }));
         columnas.push(new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre } }));
         columnas.push(new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido } }));
-        //        columnas.push(new Columna("Pertenece A", { generar: function (un_alumno) { return un_alumno.area.descripcion } }));
         columnas.push(new Columna("Teléfono", { generar: function (un_alumno) { return un_alumno.Telefono } }));
         columnas.push(new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion } }));
         columnas.push(new Columna('Detalle', { generar: function (un_alumno) {
@@ -191,10 +202,7 @@
             $("#btnAgregarAlumno").attr("disabled", true);
             $("#btnModificarAlumno").attr("disabled", false);
             $("#btnQuitarAlumno").attr("disabled", false);
-
         };
-
-
     }
 
     function crearInputAutocompletable(input, lista, elementoSeleccionado) {
@@ -218,7 +226,6 @@
         });
     }
 
-   
     $(document).ready(function () {
         AdministradorPlanillaMensual();
     });

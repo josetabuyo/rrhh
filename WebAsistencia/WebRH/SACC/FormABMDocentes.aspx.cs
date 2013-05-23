@@ -12,7 +12,7 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        this.DivMensaje.Visible = true;
+       // this.DivMensaje.Visible = true;
         var servicio = new WSViaticos.WSViaticosSoapClient();
         SetearLosTextBox();
 
@@ -27,14 +27,15 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
 
     private void MostrarDocentesEnLaGrilla(WSViaticosSoapClient servicio)
     {
-        this.DivMensaje.Visible = true;
+        //this.DivMensaje.Visible = true;
         var docentes = JsonConvert.DeserializeObject(servicio.GetDocentes());
         this.docentesJSON.Value = docentes.ToString();
     }
 
     protected void btnBuscarPersona_Click(object sender, EventArgs e)
     {
-        this.DivMensaje.Visible = true;
+        //this.DivMensaje.Visible = true;
+        LimpiarPantalla();
         int dni;
 
         try
@@ -43,7 +44,8 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
         }
         catch (Exception)
         {
-            this.alerta_mensaje.Value = "1";
+            this.texto_mensaje_error.Value = "El Docente no ha sido guardado. No ha seleccionado ningún Docente";
+            //this.alerta_mensaje.Value = "1";
             return;
         }
 
@@ -57,7 +59,8 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
         }
         catch (Exception)
         {
-            this.alerta_mensaje.Value = "4";
+            this.texto_mensaje_error.Value = "No se encontro una persona con el D.N.I: " + dni;
+            //this.alerta_mensaje.Value = "4";
             return;
         }
 
@@ -76,11 +79,12 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
 
     protected void btnAgregarDocente_Click(object sender, EventArgs e)
     {
-        this.DivMensaje.Visible = true;
+       // this.DivMensaje.Visible = true;
         if (!DatosEstanCompletos())
         {
+            this.texto_mensaje_error.Value = "El Docente no ha sido guardado. No ha seleccionado ningún Docente";
             //this.lblMensaje.Text = "Docente no guardado. Complete todos los campos";
-            this.alerta_mensaje.Value = "1";
+            //this.alerta_mensaje.Value = "1";
             return;
         }
 
@@ -124,7 +128,7 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
 
     protected void btnQuitarDocente_Click(object sender, EventArgs e)
     {
-        this.DivMensaje.Visible = true;
+        //this.DivMensaje.Visible = true;
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
         var docente = new Docente();
         docente.Id = int.Parse(this.idDocente.Value);
@@ -135,12 +139,13 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
         if(servicio.QuitarDocente(docente, (Usuario)Session["usuario"]))
         {
             LimpiarPantalla();
-            MostrarDocentesEnLaGrilla(servicio); 
+            MostrarDocentesEnLaGrilla(servicio);
+            this.texto_mensaje_exito.Value = "Todo bién";
         }else
         {
-            this.DivMensaje.Visible = false;
-            string mensaje = "No se puede eliminar el docente " + this.lblDatoNombre.Text + this.lblDatoApellido.Text + " porque se encuentra asignado a un curso";
-                ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:alert('" + mensaje + "');</script>");
+           // this.DivMensaje.Visible = false;
+            this.texto_mensaje_error.Value = "No se puede eliminar el docente " + this.lblDatoNombre.Text + " " + this.lblDatoApellido.Text + " porque se encuentra asignado a un curso";
+             //   ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:alert('" + mensaje + "');</script>");
 
             //mensaje de error
             //this.alerta_mensaje.Value = "3";
@@ -158,7 +163,9 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
         this.lblDatoTelefono.Text = "";
         this.lblDatoMail.Text = "";
         this.lblDatoDireccion.Text = "";
-        this.alerta_mensaje.Value = "2";
+        this.texto_mensaje_error.Value = "";
+        this.texto_mensaje_exito.Value = "";
+        //this.alerta_mensaje.Value = "2";
     }
 
     private bool DatosEstanCompletos()

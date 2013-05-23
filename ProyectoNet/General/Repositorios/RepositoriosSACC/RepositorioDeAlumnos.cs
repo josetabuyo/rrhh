@@ -45,7 +45,10 @@ namespace General.Repositorios
                 alumnos.Add(alumno);
             });
 
+            //ordeno por modalidad, apellido, nombre
             alumnos.Sort((alumno1, alumno2) => alumno1.esMayorAlfabeticamenteQue(alumno2));
+           
+            
 
             return alumnos;
         }
@@ -84,8 +87,10 @@ namespace General.Repositorios
                 if (!(row.GetObject("IdModalidad") is DBNull))
                     modaldidad = new Modalidad(row.GetInt("IdModalidad"), "");
 
-                if (!(row.GetObject("BajaAlumno") is DBNull))
+                if (!(row.GetObject("BajaAlumno") is DBNull)){
                     baja = row.GetInt("BajaAlumno");
+                    modaldidad = new Modalidad(0, "");
+                }
 
                 if (!(row.GetObject("BajaDocente") is DBNull))
                     baja = row.GetInt("BajaDocente"); 

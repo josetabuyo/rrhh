@@ -65,13 +65,15 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
     {
         if (!DatosEstanCompletos())
         {
-            this.alerta_mensaje.Value = "1";
+            this.texto_mensaje_error.Value = "Materia no guardada. Complete todos los campos.";
+            //this.alerta_mensaje.Value = "1";
             //this.lblMensaje.Text =  "Materia no guardada. Escriba el nombre y elija la Modalidad";
             return;
         }
 
         WSViaticosSoapClient ws_viaticos = new WSViaticosSoapClient();
-        var materia = MateriaDelForm(); 
+        var materia = MateriaDelForm();
+        materia.Id = 0;
         materia = ws_viaticos.GuardarMateria(materia, (Usuario)Session["usuario"]);
 
         LimpiarPantalla();
@@ -99,6 +101,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
     {
         if (!DatosEstanCompletos())
         {
+            this.texto_mensaje_error.Value = "Materia no guardada. Complete todos los campos.";
             return;
         }
   
@@ -121,12 +124,13 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         {
             LimpiarPantalla();
             MostrarMateriasEnLaGrilla(servicio);
+            this.texto_mensaje_exito.Value = "Todo bién";
         }
         else
         {
             //mensaje de error
-            string mensaje = "No se puede eliminar la Materia " + this.txtNombre.Text + " porque se encuentra asignado a un curso";
-            ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:alert('" + mensaje + "');</script>");
+            this.texto_mensaje_error.Value = "No se puede eliminar la Materia " + this.txtNombre.Text + " porque se encuentra asignado a un curso";
+            //ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:alert('" + mensaje + "');</script>");
             //this.alerta_mensaje.Value = "3";
             //return;
         }
@@ -154,7 +158,9 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         this.txtNombre.Text = "";
         this.idMateria.Value = "";
         this.cmbPlanDeEstudio.SelectedIndex = -1;
-        this.alerta_mensaje.Value = "2";
+        this.texto_mensaje_error.Value = "";
+        this.texto_mensaje_exito.Value = "";
+       // this.alerta_mensaje.Value = "2";
         this.cmbCiclo.SelectedIndex = -1;
         
     }

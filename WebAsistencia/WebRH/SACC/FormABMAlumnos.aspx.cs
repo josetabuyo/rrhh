@@ -12,7 +12,7 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        this.DivMensaje.Visible = true;
+      
         var servicio = new WSViaticos.WSViaticosSoapClient();
         SetearLosTextBox();
 
@@ -30,14 +30,14 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
     private void MostrarAlumnosEnLaGrilla(WSViaticosSoapClient servicio)
     {
-        this.DivMensaje.Visible = true;
+        
         var alumnos = JsonConvert.DeserializeObject(servicio.GetAlumnos());
         this.alumnosJSON.Value = alumnos.ToString();
     }
 
     protected void btnBuscarPersona_Click(object sender, EventArgs e)
     {
-        this.DivMensaje.Visible = true;
+        LimpiarPantalla();
         int dni;
 
         try
@@ -46,7 +46,7 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         }
         catch (Exception)
         {
-            this.alerta_mensaje.Value = "1";
+            this.texto_mensaje_error.Value = "Ingrese un D.N.I válido";
             return;
         }
         
@@ -60,8 +60,7 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         }
         catch (Exception)
         {
-            this.DivMensaje.Visible = true;
-            this.alerta_mensaje.Value = "4";
+            this.texto_mensaje_error.Value = "No se encontro una persona con el D.N.I: " + dni;
             return;
         }
         
@@ -75,17 +74,14 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         this.lblDatoDireccion.Text = (string)persona["direccion"];
         this.cmbPlanDeEstudio.SelectedIndex = (int)persona["modalidad"];
         this.idBaja.Value = ((int)persona["baja"]).ToString();
-
-        //this.alumnosJSON.Value = alumnos.ToString();
     }
 
     protected void btnAgregarAlumno_Click(object sender, EventArgs e)
     {
-        this.DivMensaje.Visible = true;
+       
         if (!DatosEstanCompletos())
         {
-            this.alerta_mensaje.Value = "1";
-            //this.lblMensaje.Text = "Alumno no guardado. Seleccione el alumno y la Modalidad";
+            this.texto_mensaje_error.Value = "El Alumno no ha sido guardado. Seleccione el Alumno y la Modalidad";
             return;
         }
         
@@ -101,10 +97,10 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
     protected void btnModificarAlumno_Click(object sender, EventArgs e)
     {
-        this.DivMensaje.Visible = true;
+      
         if (!DatosEstanCompletos())
         {
-            this.alerta_mensaje.Value = "1";
+            this.texto_mensaje_error.Value = "El Alumno no ha sido guardado. Seleccione el Alumno y la Modalidad";
             return;
         }
 
@@ -120,7 +116,6 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
     protected void btnQuitarAlumno_Click(object sender, EventArgs e)
     {
-        this.DivMensaje.Visible = true;
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
         var alumno = AlumnoDesdeElForm();
 
@@ -128,23 +123,17 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         {
             LimpiarPantalla();
             MostrarAlumnosEnLaGrilla(servicio);
+
+            this.texto_mensaje_exito.Value = "Todo bién";
         }
         else
         {
-            //mensaje de error
-            this.DivMensaje.Visible = false;
-            string mensaje = "No se puede eliminar el Alumno " + this.lblDatoNombre.Text +" " + this.lblDatoApellido.Text + " porque se encuentra asignado a un curso";
-            ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:alert('" + mensaje + "');</script>");
-            this.DivMensaje.Visible = true;
-            return;
+            this.texto_mensaje_error.Value = "No se puede eliminar el Alumno " + this.lblDatoNombre.Text + " " + this.lblDatoApellido.Text + " porque se encuentra asignado a un curso";
         }
-
-        LimpiarPantalla();
     }
 
     private Alumno AlumnoDesdeElForm()
     {
-        this.DivMensaje.Visible = true;
         var area = new Area();
         area.Id = 1;
         area.Nombre = "Area De Faby";
@@ -166,7 +155,6 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
     private Modalidad ModalidadDeAlumnoFromForm()
     {
-        this.DivMensaje.Visible = true;
         var modalidad = new Modalidad();
         modalidad.Id = int.Parse(this.cmbPlanDeEstudio.SelectedItem.Value);
         modalidad.Descripcion = this.cmbPlanDeEstudio.SelectedItem.Text;
@@ -175,7 +163,6 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
     private void CompletarCombosDeModalidades()
     {
-        this.DivMensaje.Visible = true;
         var servicio = new WSViaticos.WSViaticosSoapClient();
         var modalidades = servicio.Modalidades().OrderBy(m => m.Descripcion);
 
@@ -200,26 +187,24 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
     private void LimpiarPantalla()
     {
-        this.DivMensaje.Visible = true;
         this.lblDatoNombre.Text = "";
         this.lblDatoApellido.Text = "";
         this.lblDatoDocumento.Text = "";
         this.lblDatoTelefono.Text = "";
         this.lblDatoMail.Text = "";
         this.lblDatoDireccion.Text = "";
-        this.alerta_mensaje.Value = "2";
+        this.texto_mensaje_error.Value = "";
+        this.texto_mensaje_exito.Value = "";
     }
 
     private void SetearLosTextBox()
     {
-        this.DivMensaje.Visible = true;
         this.lblDatoApellido.Attributes.Add("readonly", "true");
         this.lblDatoDocumento.Attributes.Add("readonly", "true");
         this.lblDatoNombre.Attributes.Add("readonly", "true");
         this.lblDatoTelefono.Attributes.Add("readonly", "true");
         this.lblDatoMail.Attributes.Add("readonly", "true");
         this.lblDatoDireccion.Attributes.Add("readonly", "true");
-        //this.lblMensaje.Text = "";
     }
 
 }
