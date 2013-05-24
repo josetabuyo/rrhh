@@ -18,7 +18,6 @@ namespace General
         public void SeEnvioDirectamente(Documento documento, Area origen, Area destino, DateTime fecha_transicion)
         {
             transiciones.Add(new TransicionDeDocumento(origen, destino, fecha_transicion, documento, TransicionDeDocumento.ATOMICA));
-            YaNoSeEnviaAFuturo(documento);
         }
 
         public List<Documento> DocumentosEn(Area area)
@@ -105,7 +104,6 @@ namespace General
          {
              this.SeEnvioDirectamente(un_documento, area_origen, area_intermedia, fecha);
              this.SeEnvioDirectamente(un_documento, area_intermedia, area_destino, fecha.AddSeconds(1));
-             this.YaNoSeEnviaAFuturo(un_documento);
          }
         
          public void SeEnviaAFuturo(Documento documento, Area area_origen, Area area_destino)
@@ -115,7 +113,7 @@ namespace General
 
          public void YaNoSeEnviaAFuturo(Documento un_documento)
          {
-             transiciones.RemoveAll(t => t.Documento.Equals(un_documento) && t.Tipo == TransicionDeDocumento.FUTURA);
+             transiciones.RemoveAll(t => t.Documento == un_documento && t.Tipo == TransicionDeDocumento.FUTURA);
          }
     }
 }

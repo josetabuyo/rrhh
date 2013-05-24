@@ -11,6 +11,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //this.DivMensaje.Visible = true;
         var servicio = new WSViaticos.WSViaticosSoapClient();
 
         if (!IsPostBack)
@@ -70,9 +71,11 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
     protected void btnAgregarEspacioFisico_Click(object sender, EventArgs e)
     {
+        //this.DivMensaje.Visible = true;
         if (!DatosEstanCompletos())
         {
-            this.alerta_mensaje.Value = "1";
+            this.texto_mensaje_error.Value = "El Espacio Físico no ha sido guardado. Complete todos los campos";
+            //this.alerta_mensaje.Value = "1";
             return;
         }
 
@@ -104,9 +107,11 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
     protected void btnModificarEspacioFisico_Click(object sender, EventArgs e)
     {
+        //this.DivMensaje.Visible = true;
         if (!DatosEstanCompletos())
         {
-            this.alerta_mensaje.Value = "1";
+            this.texto_mensaje_error.Value = "El Espacio Físico no ha sido guardado. Complete todos los campos";
+            //this.alerta_mensaje.Value = "1";
             return;
         }
 
@@ -121,6 +126,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
     protected void btnQuitarEspacioFisico_Click(object sender, EventArgs e)
     {
+        //this.DivMensaje.Visible = true;
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
 
         var espacio_fisico = EspacioFisicoDelForm();
@@ -129,12 +135,16 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         {
             LimpiarPantalla();
             MostrarEspacioFisicoEnLaGrilla(servicio);
+            this.texto_mensaje_exito.Value = "Todo bién";
         }
         else
         {
             //mensaje de error
-            this.alerta_mensaje.Value = "3";
-            return;
+            //this.DivMensaje.Visible =false;
+            this.texto_mensaje_error.Value = "No se puede eliminar el Espacio Físico " + this.cmbEdificio.SelectedItem.Text + " porque se encuentra asignado a un curso";
+            //ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:alert('" + mensaje + "');</script>");
+            //this.alerta_mensaje.Value = "3";
+            //return;
         }
 
     }
@@ -155,7 +165,9 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
         this.idEspacioFisico.Value = "";
         //this.id.Value = "";
         this.cmbEdificio.SelectedIndex = -1;
-        this.alerta_mensaje.Value = "2";
+        this.texto_mensaje_error.Value = "";
+        this.texto_mensaje_exito.Value = "";
+        //this.alerta_mensaje.Value = "2";
         //this.cmbCiclo.SelectedIndex = -1;
 
     }

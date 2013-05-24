@@ -49,6 +49,7 @@ var PanelAltaDeDocumento = function (cfg) {
     this.cfg.botonDesplegarPanelAlta.click(function (e) {
         self._panel_filtros.contraer();
         self.alternarDespliegue();
+        self._panel_detalle.cerrar();
     });
 
     cfg.btnCrearDocumento.click(function () {
@@ -74,7 +75,7 @@ var PanelAltaDeDocumento = function (cfg) {
                     var ticket = JSON.parse(respuestaJson.d).ticket;
                     self.contraer();
                     self.limpiarCampos();
-                    self._panel_documentos.refrescarDocumentos();
+                    self._panel_documentos.refrescarGrilla();
                     alert("Se creó un documento con el número de ticket: " + ticket);
                 }
                 if (respuesta.tipoDeRespuesta == "altaDeDocumento.error") {
@@ -94,6 +95,9 @@ var PanelAltaDeDocumento = function (cfg) {
 }
 
 PanelAltaDeDocumento.prototype = {
+    setPanelDetalle: function (panel) {
+        this._panel_detalle = panel;
+    },
     setPanelFiltros: function (panel) {
         this._panel_filtros = panel;
     },
@@ -129,7 +133,7 @@ PanelAltaDeDocumento.prototype = {
         this.cfg.botonDesplegarPanelAlta.removeClass("boton_que_abre_panel_desplegable_activo");
     },
     validarAltaDeDocumento: function () {
-        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == ''  || this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '-1') {
+        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '') {
             this.cfg.selectorDeAreaOrigenEnAlta.css("background-color", 'rgb(255, 255, 235)');
         } else {
             this.cfg.selectorDeAreaOrigenEnAlta.css("background-color", 'rgb(255, 255, 255)');
@@ -153,7 +157,7 @@ PanelAltaDeDocumento.prototype = {
             this.cfg.txtExtracto.css("background-color", 'rgb(255, 255, 255)');
         }
 
-        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '' || this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '-1' ||
+        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '' ||
             this.cfg.cmbTipoDeDocumento.val() == '' ||
             this.cfg.cmbCategoriaDocumento.val() == '' ||
             this.cfg.txtExtracto.val() == '') {

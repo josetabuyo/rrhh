@@ -13,6 +13,7 @@ namespace General
         private List<DayOfWeek> _diasDeCursada = new List<DayOfWeek>();
         private Materia _materia;
         private List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
+        private int _horasCatedra;
         private EspacioFisico _espacioFisico;
         private List<InstanciaDeEvaluacion> _instanciasDeEvaluacion;
 
@@ -20,9 +21,11 @@ namespace General
         public string Nombre { get { return this.Materia.Nombre + " (" + this.Materia.Modalidad.Descripcion + ")"; } set { } }
         public Docente Docente { get { return _docente; } set { _docente = value; } }
         public Materia Materia { get{ return _materia; } set{_materia = value;} }
+        public int HorasCatedra { get { return _horasCatedra; } set { _horasCatedra = value; } }
         public EspacioFisico EspacioFisico { get { return _espacioFisico; } set { _espacioFisico = value; } }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
+
         public List<Alumno> Alumnos()
         {
             return _alumnos;

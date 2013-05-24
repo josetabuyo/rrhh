@@ -1399,7 +1399,7 @@ public class WSViaticos : System.Web.Services.WebService
                            direccion = persona.Direccion,
                            mail = persona.Mail,
                     //       area = persona.Area,
-                           modalidad = 1,
+                           modalidad = persona.Modalidad.Id,
                            baja = persona.Baja,
                        };
         }
