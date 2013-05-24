@@ -95,7 +95,7 @@ namespace General
         public List<Asistencia> GetInasistenciaPorAlumno(Alumno un_alumno)
         {
             if (this._asistencias_e_inasistencias.ContainsKey(un_alumno))
-                return this._asistencias_e_inasistencias[un_alumno].FindAll(a => a.Descripcion == "InasistenciaNormal");
+                return this._asistencias_e_inasistencias[un_alumno].FindAll(a => a.Descripcion == "Inasistencia Normal");
             return new List<Asistencia>();
             //.FindAll(i => i.Alumno == un_alumno);
         }
@@ -103,7 +103,7 @@ namespace General
         public List<Asistencia> GetAsistenciasPorAlumno(Alumno un_alumno)
         {
             if (this._asistencias_e_inasistencias.ContainsKey(un_alumno))
-                return this._asistencias_e_inasistencias[un_alumno].FindAll(a => a.Descripcion == "AsistenciaNormal");
+                return this._asistencias_e_inasistencias[un_alumno].FindAll(a => a.Descripcion == "Asistencia Indeterminada");
             return new List<Asistencia>();
         }
 
