@@ -42,7 +42,7 @@
                 <asp:Button ID="btnAgregarMateria" runat="server" Text="Agregar" class=" btn btn-primary boton_main_documentos" onclick="btnAgregarMateria_Click"  />
                 <asp:Button ID="btnModificarMateria" runat="server" Text="Modificar" class=" btn btn-primary boton_main_documentos" onclick="btnModificarMateria_Click"  />
                 <asp:Button ID="btnQuitarMateria" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarMateria_Click"  />
-                 <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" class=" btn btn-primary boton_main_documentos" onClientClick="javascript:LimpiarCampos();" />
+                 <input type="button" id="btnLimpiar"  value="Limpiar" class=" btn btn-primary boton_main_documentos" onclick="javascript:LimpiarCampos();" />
             <br />
             <br />
             <%--<div class="alert alert-error" id="div_mensaje" style="width:42%;">

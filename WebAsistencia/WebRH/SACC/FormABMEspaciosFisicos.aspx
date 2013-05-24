@@ -50,7 +50,7 @@
                 <asp:Button ID="btnAgregarEspacioFisico" runat="server" Text="Agregar" class=" btn btn-primary boton_main_documentos" onclick="btnAgregarEspacioFisico_Click"  />
                 <asp:Button ID="btnModificarEspacioFisico" runat="server" Text="Modificar" class=" btn btn-primary boton_main_documentos" onclick="btnModificarEspacioFisico_Click"  />
                 <asp:Button ID="btnQuitarEspacioFisico" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarEspacioFisico_Click"  />
-                 <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" class=" btn btn-primary boton_main_documentos" onClientClick="javascript:LimpiarCampos();" />
+                <input type="button" id="btnLimpiar"  value="Limpiar" class=" btn btn-primary boton_main_documentos" onclick="javascript:LimpiarCampos();" />
             <br />
             <br />
             <%--<div runat="server" id="DivMensaje" Visible="true">
@@ -131,7 +131,8 @@
 //    } else {
 //        this.div_mensaje.setAttribute("Visible", "false");
 //        $(".alert").alert('close');
-//    }
+        //    }
+
 
     var HabilitarNuevo = function () {
         $("#btnAgregarEspacioFisico").removeAttr('disabled', 'false');
