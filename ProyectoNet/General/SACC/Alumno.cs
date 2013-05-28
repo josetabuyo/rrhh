@@ -61,7 +61,22 @@ namespace General
 
         internal int esMayorAlfabeticamenteQue(Alumno otroalumno)
         {
-            return this.Apellido.CompareTo(otroalumno.Apellido); ;
+            {
+                //return this.Apellido.CompareTo(otroalumno.Apellido);
+                if (this.Modalidad.Descripcion.CompareTo(otroalumno.Modalidad.Descripcion) == -1) return -1;
+
+                else if (this.Modalidad.Descripcion.CompareTo(otroalumno.Modalidad.Descripcion) == +1) return +1;
+
+                else if (this.Apellido.CompareTo(otroalumno.Apellido) == -1) return -1;
+
+                else if (this.Apellido.CompareTo(otroalumno.Apellido) == +1) return +1;
+
+                else if (this.Nombre.CompareTo(otroalumno.Nombre) == -1) return -1;
+
+                else if (this.Nombre.CompareTo(otroalumno.Nombre) == +1) return +1;
+
+                else return 0;
+            }
         }
     }
 }

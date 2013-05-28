@@ -42,6 +42,10 @@
             <asp:Label ID="lblTelefono" CssClass="labels_sacc" runat="server" Text="Teléfono:"></asp:Label>
             <asp:TextBox ID="lblDatoTelefono" ReadOnly="false" CssClass="label_alumno" runat="server" ></asp:TextBox>
         </p>
+        <%--<p>
+-        <asp:Label ID="texto" CssClass="popover-title" runat="server" Text="Otros datos de contacto"></asp:Label>
+-        <br/>
+-        </p>--%>
 
         <p>   
             <asp:Label ID="lblMail" CssClass="labels_sacc" runat="server" Text="Mail:"></asp:Label>
@@ -76,6 +80,7 @@
         <fieldset>
         <legend>Listado de Alumnos</legend>
         <div id="ContenedorPlanilla" runat="server"></div>
+        <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
        </fieldset>
     </div>
     <asp:HiddenField ID="texto_mensaje_exito" runat="server" />
@@ -145,11 +150,14 @@
 
     var AdministradorPlanillaMensual = function () {
         var Alumnos = JSON.parse($('#alumnosJSON').val());
+        //var nombreAlumno = Alumnos['nombre'];
         var panelAlumno = $("#panelAlumno");
 
         var listaPersonas = $('#personasJSON');
         var selectorDePersonas = $('#input_dni');
         var personaSeleccionada = $('#personaSeleccionada');
+
+        //crearInputAutocompletable(selectorDePersonas, listaPersonas, personaSeleccionada);
 
         var EncabezadoPlanilla;
         contenedorPlanilla = $('#ContenedorPlanilla');
@@ -158,6 +166,7 @@
         columnas.push(new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento } }));
         columnas.push(new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre } }));
         columnas.push(new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido } }));
+        //        columnas.push(new Columna("Pertenece A", { generar: function (un_alumno) { return un_alumno.area.descripcion } }));
         columnas.push(new Columna("Teléfono", { generar: function (un_alumno) { return un_alumno.Telefono } }));
         columnas.push(new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion } }));
         columnas.push(new Columna('Detalle', { generar: function (un_alumno) {

@@ -9,8 +9,8 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
     int anio = 2013;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (IsPostBack)
-            GuardarDetalleAsistencias();
+        //if (IsPostBack)
+            //GuardarDetalleAsistencias();
         if (Request.QueryString.Count > 0)
         {
             this.CursoId.Value = Request["idCurso"];
@@ -23,7 +23,7 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
     public void CargarAsistencias()
     {
         var id_curso = int.Parse(this.CursoId.Value);
-        var mes = int.Parse(this.Mes.Value);
+        var mes = int.Parse("0" + this.Mes.Value);
         
         if (id_curso != 0 && mes != 0)
         {
@@ -37,11 +37,13 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
 
             this.planillaJSON.Value = planilla.ToString();
         }
+        else
+            this.planillaJSON.Value = "";
     }
 
 
 
-    private void GuardarDetalleAsistencias()
+    public void GuardarDetalleAsistencias()
     {
         var detalle_asistencias_JSON = JsonConvert.DeserializeObject<JArray>(this.DetalleAsistencias.Value);
         if (detalle_asistencias_JSON != null)

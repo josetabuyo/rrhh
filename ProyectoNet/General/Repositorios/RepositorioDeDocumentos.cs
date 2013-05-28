@@ -34,7 +34,18 @@ namespace General.Repositorios
                     {
                         un_documento = new Documento();
                         un_documento.Id = row.GetInt("IdDocumento");
-                        un_documento.tipoDeDocumento = new TipoDeDocumentoSICOI(row.GetInt("IdTipoDeDocumento"), row.GetString("DescripcionTipoDocumento"));
+                        string sigla;
+                        if (row.GetObject("SiglaTipoDocumento") is DBNull)
+                        {
+                            sigla = "";
+                        }
+                        else
+                        {
+                            sigla = row.GetString("SiglaTipoDocumento");
+                        }
+                        un_documento.tipoDeDocumento = new TipoDeDocumentoSICOI(row.GetInt("IdTipoDeDocumento"), row.GetString("DescripcionTipoDocumento"), sigla);
+
+                        
                         un_documento.numero = row.GetString("Numero");
                         un_documento.extracto = row.GetString("Extracto");
                         un_documento.fecha = row.GetDateTime("FechaCargaDocumento");

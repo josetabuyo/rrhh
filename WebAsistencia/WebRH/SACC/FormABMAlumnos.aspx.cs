@@ -74,6 +74,8 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         this.lblDatoDireccion.Text = (string)persona["direccion"];
         this.cmbPlanDeEstudio.SelectedIndex = (int)persona["modalidad"];
         this.idBaja.Value = ((int)persona["baja"]).ToString();
+
+        //this.alumnosJSON.Value = alumnos.ToString();
     }
 
     protected void btnAgregarAlumno_Click(object sender, EventArgs e)

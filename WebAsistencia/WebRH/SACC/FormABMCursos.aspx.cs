@@ -111,6 +111,9 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         var horariosDto = new List<HorarioDto>();
         GetHorariosDto(horariosDto);
         curso.Horarios = horariosDto.ToArray();
+        curso.FechaInicio = txtFechaInicio.Text;
+        curso.FechaFin = txtFechaFin.Text;
+      
 
         servicio.AgregarCurso(curso);
 
@@ -131,6 +134,8 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         var horariosDto = new List<HorarioDto>();
         GetHorariosDto(horariosDto);
         curso.Horarios = horariosDto.ToArray();
+        curso.FechaInicio = txtFechaInicio.Text;
+        curso.FechaFin = txtFechaFin.Text;
         servicio.ModificarCurso(curso);
 
         LimpiarFormulario();
