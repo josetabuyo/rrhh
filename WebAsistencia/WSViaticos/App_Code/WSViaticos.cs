@@ -1167,12 +1167,31 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void InscribirAlumnosACurso(List<Alumno> alumnos, int idCurso,  Usuario usuario)
+    public string InscribirAlumnosACurso(List<Alumno> alumnos_a_inscribir, int idCurso, Usuario usuario)
     {
         var conexion = Conexion();
-        Curso curso = RepositorioDeCursos().GetCursoById(idCurso);
+        //var lista_alumnos_para_inscribir = JsonConvert.DeserializeObject<List<Alumno>>(alumnos);
 
-        RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos, curso, usuario);
+        try
+        {
+            Curso curso = RepositorioDeCursos().GetCursoById(idCurso);
+
+            RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos_a_inscribir, curso, usuario);
+
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "inscripcionAlumno.ok",
+                //ticket = documento.ticket
+            });
+        }
+        catch (Exception e)
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "inscripcionAlumno.error",
+                error = e.Message
+            });
+        }
 
     }
 

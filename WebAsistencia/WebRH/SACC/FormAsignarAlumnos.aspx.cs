@@ -21,29 +21,29 @@ public partial class SACC_FormAsignarAlumnos : System.Web.UI.Page
         this.alumnosJSON.Value = alumnos.ToString();
     }
 
-    protected void btnGrabarAsignacion_Click(object sender, EventArgs e)
-    {
+    //protected void btnGrabarAsignacion_Click(object sender, EventArgs e)
+    //{
 
-        var id = this.idCursoSeleccionado.Value;
+    //    var id = this.idCursoSeleccionado.Value;
 
-        if (id == "")
-        {
-            return; //poner un mensaje de error de curso no seleccionado
-        }
+    //    if (id == "")
+    //    {
+    //        return; //poner un mensaje de error de curso no seleccionado
+    //    }
 
-        var servicio = new WSViaticosSoapClient();
-        var alumnos_para_inscribir = alumnosAEnviar();
-        var curso = new Curso();
-        var idcurso = int.Parse(id);
-        var lista_alumno = alumnos_para_inscribir.ToObject<List<Alumno>>();
+    //    var servicio = new WSViaticosSoapClient();
+    //    var alumnos_para_inscribir = alumnosAEnviar();
+    //    var curso = new Curso();
+    //    var idcurso = int.Parse(id);
+    //    var lista_alumno = alumnos_para_inscribir.ToObject<List<Alumno>>();
 
-        servicio.InscribirAlumnosACurso(lista_alumno.ToArray(), idcurso, (Usuario)Session["usuario"]);
+    //    //servicio.InscribirAlumnosACurso(lista_alumno.ToArray(), idcurso, (Usuario)Session["usuario"]);
 
-        CompletarCombosDeCursos();
-        var alumnos = JsonConvert.DeserializeObject(servicio.GetAlumnos());
-        this.alumnosJSON.Value = alumnos.ToString();
+    //    CompletarCombosDeCursos();
+    //    var alumnos = JsonConvert.DeserializeObject(servicio.GetAlumnos());
+    //    this.alumnosJSON.Value = alumnos.ToString();
 
-    }
+    //}
 
     private JArray alumnosAEnviar()
     {

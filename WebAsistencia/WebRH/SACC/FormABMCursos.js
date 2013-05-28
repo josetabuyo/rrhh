@@ -135,7 +135,7 @@ var DibujarGrillaHorarios = function () {
     contenedorGrillaHorario.html("");
 
     var columnas = [
-                    -    new Columna("Dia", {
+    new Columna("Dia", {
         generar: function (horario) {
             return horario.Dia;
         }
