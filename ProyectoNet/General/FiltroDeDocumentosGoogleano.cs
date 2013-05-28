@@ -28,7 +28,8 @@ namespace General
             var area_creadora = mensajeria.SeOriginoEnArea(documento);
             var area_destino = mensajeria.AreaDestinoPara(documento);
             return palabras_busqueda.All(p => documento.extracto.ToUpper().Trim().Contains(p) || 
-                                                documento.numero.ToUpper().Contains(p) || 
+                                                documento.numero.ToUpper().Contains(p) ||
+                                                documento.comentarios.ToUpper().Contains(p) || 
                                                 documento.ticket.ToUpper().Contains(p) || 
                                                 documento.tipoDeDocumento.descripcion.ToUpper().Contains(p) || 
                                                 documento.categoriaDeDocumento.descripcion.ToUpper().Contains(p) ||

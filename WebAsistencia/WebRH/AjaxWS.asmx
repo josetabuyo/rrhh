@@ -33,7 +33,10 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)] 
     public string GetDocumentosFiltrados(String filtros)
     {
-        return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetDocumentosFiltrados(filtros));
+        var docs = backEndService.GetDocumentosFiltrados(filtros);
+        var docs_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(docs);
+        return docs_serializados;
+        
     }
 
     [WebMethod(EnableSession = true)]
