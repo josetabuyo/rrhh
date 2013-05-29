@@ -55,7 +55,12 @@
         });
 
         input.blur(function () {
-            if (input.val() === "") label.show();
+            if (input.val() === "")
+                label.show();
+            else
+                label.hide();
+
+
         });
     }
 });

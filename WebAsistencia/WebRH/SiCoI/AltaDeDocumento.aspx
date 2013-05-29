@@ -96,11 +96,16 @@
                 </asp:DropDownList>
                 <div id="letrasDelTipoDeDocumento">
                 </div>
-                <asp:TextBox ID="txtNumero" nullValue="Número" runat="server" MaxLength="50"></asp:TextBox>
+                <asp:TextBox ID="txtNumero" nullValue="Número (opcional)" runat="server" MaxLength="50"></asp:TextBox>
                 <asp:DropDownList ID="cmbCategoria" nullValue="Categoría de documento" runat="server" EnableViewState="true">
                     <asp:ListItem Value="" Selected="true"></asp:ListItem>
                 </asp:DropDownList>
                 <input id="selectorDeAreaOrigen" nullValue="Área de Origen" type="text" data-provide="typeahead" data-items="9" runat="server" />
+               
+
+                  <input type="text" id="inputFechaDoc" nullValue="Fecha de documento (opcional)" runat="server"/>
+
+
                 <asp:TextBox ID="txtExtracto" nullValue="Ingrese el extracto del documento" TextMode="MultiLine" type = "text" Height="112px" runat="server"></asp:TextBox>
                 <input id="selectorDeAreaDestino" nullValue="Área de Destino (opcional)" type="text" data-provide="typeahead" data-items="9" runat="server" />
                 <asp:TextBox ID="txtComentarios" nullValue="Ingrese sus comentarios (opcional)" runat="server" TextMode="MultiLine" Height="32px" class="detalle_alta_documento" ></asp:TextBox>
@@ -118,9 +123,21 @@
             </div>
             <div id="plantilla_ficha_chica_de_documento" class="ficha_chica_de_documento ficha_chica_de_documento_par">
                 <%--<div id="ficha_chica_titulo_tipo">Tipo:</div>--%>
+
+
+
+
                 <div id="ficha_chica_contenido_tipo">Expediente N° 97</div>
+
+                                
+              <div id="ficha_chica_titulo_fecha_documento">Fecha:</div>    
+              <div id="ficha_chica_contenido_fecha_documento"></div>    
+
                 <div id="ficha_chica_titulo_ticket">Ticket:</div>
-                <div id="ficha_chica_contenido_ticket">AAA036</div>                
+                <div id="ficha_chica_contenido_ticket">AAA036</div>    
+             
+            
+                            
                 <div id="ficha_chica_titulo_categoria">Categoría:</div>
                 <div id="ficha_chica_contenido_categoria">Renuncia</div>
                 <input type="button" id="ficha_chica_boton_enviar_documento" value="Enviar" class="btn btn-mini btn-primary"/><br />
@@ -131,7 +148,7 @@
                 <div id="ficha_chica_boton_desplegar" class="icon-plus-sign"></div>
             </div>    
 
-             <div id="plantilla_ficha_grande_de_documento" class="ficha_grande_de_documento">
+            <div id="plantilla_ficha_grande_de_documento" class="ficha_grande_de_documento">
                 <div id='ficha_grande_titulo_area_creadora'> Área Creadora:</div>
                 <div id="ficha_grande_contenido_area_creadora"> Mesa de Entradas </div><br />
                 <div id='ficha_grande_titulo_tiempo_en_area_actual'> En Área Actual Desde:</div>
@@ -236,7 +253,8 @@
                 listaAreas: listaAreas,
                 tiposDeDocumento: tiposDeDocumento,
                 categoriasDeDocumento: categoriasDeDocumento,
-                areaDelUsuario: areaDelUsuario
+                areaDelUsuario: areaDelUsuario,
+                inputFechaDoc: $('#inputFechaDoc')
             }
             var panel_alta = new PanelAltaDeDocumento(cfg_panel_alta);
 
@@ -267,6 +285,7 @@
                 listaAreas: listaAreas,
                 tiposDeDocumento: tiposDeDocumento,
                 categoriasDeDocumento: categoriasDeDocumento
+                 
             }
             var panel_filtros = new PanelDeFiltrosDeDocumentos(cfg_panel_filtros);
 
