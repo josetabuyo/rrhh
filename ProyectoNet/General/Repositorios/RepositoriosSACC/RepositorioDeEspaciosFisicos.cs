@@ -60,11 +60,19 @@ namespace General.Repositorios
                                             {
                                                 numero = "Dto: " + row.GetString("Departamento");
                                             }
+                                            else 
+                                            {
+                                                numero = "";
+                                            }
                                             if (!row.GetString("Piso").Equals(""))
                                             {
                                                 dto = "Piso: " + row.GetString("Piso");
                                             }
-
+                                            else
+                                            {
+                                                dto = "";
+                                            }
+                                            Area Area = new Area(row.GetSmallintAsInt("IdArea"), row.GetString("NombreArea"));
                                             Edificio edificio = new Edificio
                                                                     {
 
@@ -73,9 +81,10 @@ namespace General.Repositorios
                                                                         Direccion =
                                                                             row.GetString("Calle") + " " +
                                                                             row.GetSmallintAsInt("Numero") + " " + dto +
-                                                                            " " + numero
+                                                                            " " + numero,
+                                                                        Area = Area
                                                                     };
-
+                                            
                                             edificios.Add(edificio);
                                         });
 
@@ -92,9 +101,11 @@ namespace General.Repositorios
             tablaDatos.Rows.ForEach(row =>
                                         {
                                             string direccion = row.GetString("DireccionEdificio") + " " + row.GetSmallintAsInt("NumeroEdificio");
+                                            Area Area = new Area(row.GetSmallintAsInt("IdArea"), row.GetString("NombreArea"));
                                             Edificio edificio_aux = new Edificio(row.GetSmallintAsInt("idEdificio"),
                                                                                  row.GetString("NombreEdificio"),
-                                                                                 direccion);
+                                                                                 direccion,
+                                                                                 Area);
                                             EspacioFisico espacio_fisico = new EspacioFisico
                                                                                {
                                                                                    Id = row.GetSmallintAsInt("id"),
