@@ -53,5 +53,42 @@ namespace TestViaticos
                 Assert.IsTrue(curso_bd.Alumnos().Count() > 0);
             }
 
+
+          [TestMethod]
+          public void deberia_poder_traer_los_cursos_segun_el_area_responsable_del_usuario_logeado()
+          {
+              string source_cursos = @"      |id    |IdMateria     |IdDocente          |Fecha                       |FechaInicio                 |FechaFin                   |idBaja     |IdEspacioFisico
+                                             |01    |01            |01                 |2012-10-13 21:36:35.077     |2012-10-13 21:36:35.077     |2012-10-13 21:36:35.077    |0          |1                                  
+                                             |02    |02            |02                 |2012-10-13 21:36:35.077     |2012-10-13 21:36:35.077     |2012-10-13 21:36:35.077    |0          |2                                  
+                                             |03    |03            |03                 |2012-10-13 21:36:35.077     |2012-10-13 21:36:35.077     |2012-10-13 21:36:35.077    |0          |3               ";
+
+
+              string source_edificios = @"   |id    |Aula     |idEdificio         |NombreEdificio        |DireccionEdificio      |NumeroEdificio     |Capacidad     |IdArea    |NombreArea
+                                             |01    |01       |01                 |Moreno                |Moreno                 |123                |0              |1021     |1021                 
+                                             |02    |02       |02                 |9 de Julio            |9 de Julio             |456                |0              |1021     |1021                 
+                                             |03    |03       |03                 |Cenard                |Libertador             |789                |0              |621      |621              ";         
+
+              //Curso curso = new Curso((01, "Historia");
+
+              Usuario usu_cenard = TestObjects.UsuarioCENARD();
+              IConexionBD conexion = TestObjects.ConexionMockeada();
+              RepositorioDeCursos repo = new RepositorioDeCursos(conexion);
+
+             
+              var resultado_sp = TablaDeDatos.From(source_cursos);
+
+              Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+              List<Curso> cursos = repo.GetCursos();
+
+              resultado_sp = TablaDeDatos.From(source_edificios);
+              Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+              List<Curso> curso_filtrado = repo.FiltrarCursosPorUsuario(cursos, usu_cenard);
+
+              //Assert.AreEqual(1,  
+
+             // List<Curso> cursos_cenard = repo.FiltrarCursosPorUsuario(cursos, usu_cenard);
+
+          }
+
     }
 }

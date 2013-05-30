@@ -323,6 +323,17 @@ namespace TestViaticos
             Assert.AreEqual(1, organigrama_fabi_marta_castagneto_um_fabyB.GetAreasInferioresDelArea(area_de_marta).Count);
             Assert.IsTrue(organigrama_fabi_marta_castagneto_um_fabyB.GetAreasInferioresDelArea(area_de_marta).Contains(area_de_faby));
         }
+
+        [TestMethod]
+        public void al_solicitarle_las_areas_inferiores_a_un_listado_de_areas_debe_traer_todas_sus_inferiores()
+        {
+            List<Area> areas = new List<Area>();
+            areas.Add(area_de_marta);
+            areas.Add(area_de_castagneto);
+
+            Assert.AreEqual(2, organigrama_fabi_marta_castagneto_um_fabyB.GetAreasInferioresDeLasAreas(areas).Count);
+            
+        }
         
     }
 }
