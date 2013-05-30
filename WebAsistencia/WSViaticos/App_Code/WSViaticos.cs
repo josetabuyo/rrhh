@@ -693,6 +693,23 @@ public class WSViaticos : System.Web.Services.WebService
         return DocumentosEnAlerta().Any();
     }
 
+    [WebMethod]
+    public void IniciarServicioDeAlertas()
+    {
+        var filtros = new List<FiltroDeDocumentos>();
+        filtros.Add(new FiltroDeDocumentosPorAreaActual(Mensajeria(), 1));
+        var enviador = new EnviadorDeMails();
+        var repo = new ReportadorDeDocumentosEnAlerta(filtros, "jlurgo@gmail.com", enviador, RepositorioDocumentos());
+        repo.start();
+    }
+
+    [WebMethod]
+    public void DetenerServicioDeAlertas()
+    {
+
+    }
+
+
     private DesSerializadorDeFiltros desSerializadorDeFiltros()
     {
         return new DesSerializadorDeFiltros(Mensajeria());

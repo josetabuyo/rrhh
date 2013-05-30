@@ -74,6 +74,20 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
         return backEndService.GuardarCambiosEnDocumento(id_documento, id_area_destino, comentario, usuarioLogueado);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void IniciarServicioDeAlertas()
+    {
+        backEndService.IniciarServicioDeAlertas();
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void DetenerServicioDeAlertas()
+    {
+        backEndService.DetenerServicioDeAlertas();
     }       
 }
 
