@@ -19,6 +19,7 @@ namespace General
         static public TipoDeDocumentoSICOI NOTA = new TipoDeDocumentoSICOI(1, "Nota");
         static public TipoDeDocumentoSICOI EXPEDIENTE = new TipoDeDocumentoSICOI(2, "Expediente");
         static public TipoDeDocumentoSICOI MEMO = new TipoDeDocumentoSICOI(3, "Memo");
+        static public List<Area> areas = new List<Area>();
 
         public static Area AreaDeMarta()
         {
@@ -939,11 +940,11 @@ namespace General
         public static Curso UnCursoConAlumnos()
         {
             Curso un_curso = new Curso(1, "Historia");
-            un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "", new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "", new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro")));
+            un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
+            un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "",  areas, new Modalidad(1, "Fines Puro")));
+            un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "",  areas, new Modalidad(1, "Fines Puro")));
+            un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
+            un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
 
 
             un_curso.AgregarDiaDeCursada(DayOfWeek.Tuesday);
@@ -954,20 +955,20 @@ namespace General
 
         public static Alumno UnAlumnoDelCurso()
         {
-            return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro"));    
+            return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro"));    
         }
 
         public static Alumno UnAlumnoNuevo()
         {
-            return new Alumno(100, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", TestObjects.AreaDeFabi(), new Modalidad(1, "Fines Puro"));
+            return new Alumno(100, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, new Modalidad(1, "Fines Puro"));
         }
 
         public static List<Alumno> AlumnosNuevos()
         {
             List<Alumno> lista = new List<Alumno>() {
-                                                    new Alumno(9, "Ana", "Ran", 28000951, "", "", "",new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro")),
-                                                    new Alumno(8, "Carla", "Ren", 33700051, "", "", "",new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro")),
-                                                    new Alumno(7, "Nadia", "Rey", 11700051, "", "", "",new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro"))
+                                                    new Alumno(9, "Ana", "Ran", 28000951, "", "", "", areas, new Modalidad(1, "Fines Puro")),
+                                                    new Alumno(8, "Carla", "Ren", 33700051, "", "", "", areas, new Modalidad(1, "Fines Puro")),
+                                                    new Alumno(7, "Nadia", "Rey", 11700051, "", "", "", areas, new Modalidad(1, "Fines Puro"))
                                                     };
             return lista;
         }

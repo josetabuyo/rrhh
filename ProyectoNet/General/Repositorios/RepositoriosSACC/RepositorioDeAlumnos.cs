@@ -26,8 +26,10 @@ namespace General.Repositorios
                 Modalidad modeliadad_aux = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
                 var baja = 0;
                 if (!(row.GetObject("IdBaja") is DBNull))
-                    baja = (int)row.GetObject("IdBaja"); 
-
+                    baja = (int)row.GetObject("IdBaja");
+                Area area = new Area(row.GetInt("IdArea"), row.GetString("NombreArea"));
+                List<Area> areas_alumno = new List<Area>();
+                areas_alumno.Add(area);
                 Alumno alumno =  new Alumno
                 {
                     Id = row.GetInt("Id"),
@@ -37,12 +39,18 @@ namespace General.Repositorios
                     Telefono = row.GetString("Telefono"),
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
-                //    Area = new Area(1, row.GetString("Area")),
+                    Areas = areas_alumno,
                     Modalidad = modeliadad_aux,                  
                     Baja = baja
                 };
 
-                alumnos.Add(alumno);
+                if (alumnos.Exists(a => a.Documento == alumno.Documento)) 
+                { 
+                    alumnos.Find(a => a.Documento == alumno.Documento).Areas.AddRange(alumno.Areas);
+                }else
+                {
+                    alumnos.Add(alumno);
+                }
             });
 
             //ordeno por modalidad, apellido, nombre
