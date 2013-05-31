@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Collections;
 
 namespace General.Repositorios
 {
@@ -40,10 +41,12 @@ namespace General.Repositorios
 
                 tablaDatos.Rows.ForEach(row =>
                 {
+
                     if (row.GetSmallintAsInt("Id_Funcionalidad") == 1) unUsuario.TienePermisosParaViaticos = true;
                     if (row.GetSmallintAsInt("Id_Funcionalidad") == 2) unUsuario.TienePermisosParaSiCoI = true;
                     if (row.GetSmallintAsInt("Id_Funcionalidad") == 3) unUsuario.TienePermisosParaSACC = true;
 
+                    unUsuario.Features.Add((Features)row.GetSmallintAsInt("Id_Funcionalidad"));
                     var Asistentes = new List<Asistente>();
                     if (unUsuario.Areas.FindAll(a => a.Id == row.GetSmallintAsInt("Id_Area")).Count == 0) //refactorizar, poner un contains
                     {
@@ -75,30 +78,32 @@ namespace General.Repositorios
                             Mail = row.GetString("Mail_Area"),
                             datos_del_responsable = datos_responsable,
                             Asistentes = Asistentes,
-                            
+
                         });
                     }
-                    else { 
+                    else
+                    {
 
                         var area_existente = unUsuario.Areas.Find(a => a.Id == row.GetSmallintAsInt("Id_Area"));
-                        if (!area_existente.Asistentes.Any(a => a.Apellido == row.GetString("Apellido_Asistente") && a.Descripcion_Cargo == row.GetString("Cargo"))) {
+                        if (!area_existente.Asistentes.Any(a => a.Apellido == row.GetString("Apellido_Asistente") && a.Descripcion_Cargo == row.GetString("Cargo")))
+                        {
 
-                         Asistente asistente = new Asistente(row.GetString("Nombre_Asistente"),
-                                                            row.GetString("Apellido_Asistente"),
-                                                            row.GetString("Cargo"),
-                                                            row.GetSmallintAsInt("Prioridad_Asistente"),
-                                                            row.GetString("Telefono_Asistente"),
-                                                            row.GetString("Telefono_Asistente"),//Falta cambiar por Fax!!!
-                                                            row.GetString("Mail_Asistente"));
+                            Asistente asistente = new Asistente(row.GetString("Nombre_Asistente"),
+                                                               row.GetString("Apellido_Asistente"),
+                                                               row.GetString("Cargo"),
+                                                               row.GetSmallintAsInt("Prioridad_Asistente"),
+                                                               row.GetString("Telefono_Asistente"),
+                                                               row.GetString("Telefono_Asistente"),//Falta cambiar por Fax!!!
+                                                               row.GetString("Mail_Asistente"));
 
 
                             area_existente.Asistentes.Add(asistente);
                         }
- 
-                    
+
+
                     }
 
-                });              
+                });
 
                 return true;
             }
@@ -110,15 +115,6 @@ namespace General.Repositorios
             }
         }
 
-        //public List<ContactoArea> GetContactoArea()
-        //{
-
-        //    List<ContactoArea> contactos_de_area = new List<ContactoArea>();
-        //    contactos_de_area.Add(
-
-        //    return contactos_de_area;
-        //}
-
         private static string encriptarSHA1(string CadenaOriginal)
         {
             System.Security.Cryptography.HashAlgorithm hashValue = new System.Security.Cryptography.SHA1CryptoServiceProvider();
@@ -128,74 +124,30 @@ namespace General.Repositorios
         }
         #endregion
 
+        protected MenuDelSistema MenuFrom(string nombre, List<RowDeDatos> rows)
+        {
+            var items = new Dictionary<string, string>();
+            rows.ForEach(row =>
+            {
+                items.Add(row.GetString("nombre_item"), row.GetString("url"));
+            });
+            return new MenuDelSistema(nombre, items);
+        }
 
+        public Autorizador AutorizadorPara(Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Accesos_Sistema", parametros);
+            var menues = new List<MenuDelSistema>();
+
+            var nombres_menu = tablaDatos.Rows.Select(row => row.GetString("menu")).Distinct().ToList();
+            nombres_menu.ForEach(nombre =>
+                            {
+                                var rows_menu = tablaDatos.Rows.FindAll(row => row.GetString("menu") == nombre).ToList();
+                                menues.Add(this.MenuFrom(nombre, rows_menu));
+                            }
+                );
+            return new Autorizador(menues);
+        }
     }
 }
-
-
-
-//using System;
-//using System.Collections.Generic;
-
-//using System.Text;
-//using System.Data.SqlClient;
-
-//namespace General.Repositorios
-//{
-//    public class RepositorioUsuarios
-//    {
-//        #region IRepositorioUsuarios Members
-
-//        public List<Usuario> GetTodosLosUsuarios()
-//        {
-//            return new List<Usuario>();
-//        }
-
-//        public bool LoginUsuario(Usuario unUsuario, string Password)
-//        {
-//            SqlDataReader dr;
-//            ConexionDB cn = new ConexionDB("dbo.Web_Login");
-//            var pass = encriptarSHA1(Password);
-
-//            cn.AsignarParametro("@usuario", unUsuario.NombreDeUsuario);
-//            cn.AsignarParametro("@password", pass);
-
-//            dr = cn.EjecutarConsulta();
-
-//            if (dr.Read())
-//            {
-//                unUsuario.Id = dr.GetInt16(dr.GetOrdinal("Id_Usuario"));
-//                unUsuario.EsFirmante = dr.GetInt32(dr.GetOrdinal("es_firmante")) != 0;
-//                unUsuario.Areas.Add(new Area { Id = dr.GetInt32(dr.GetOrdinal("Id_Area")), Nombre = dr.GetString(dr.GetOrdinal("nombre_area")) });
-
-//                while (dr.Read())
-//                {
-//                    var contactos = new List<ContactoArea>();
-//                    var contacto = new ContactoArea();
-//                    // contacto.Id =  
-
-//                    unUsuario.Areas.Add(new Area { Id = dr.GetInt32(dr.GetOrdinal("Id_Area")), Nombre = dr.GetString(dr.GetOrdinal("nombre_area")) });
-
-
-
-//                }
-//                cn.Desconestar();
-//                return true;
-//            }
-//            else
-//            {
-//                cn.Desconestar();
-//                return false;
-//            }
-//        }
-
-//        private static string encriptarSHA1(string CadenaOriginal)
-//        {
-//            System.Security.Cryptography.HashAlgorithm hashValue = new System.Security.Cryptography.SHA1CryptoServiceProvider();
-//            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(CadenaOriginal); byte[] byteHash = hashValue.ComputeHash(bytes);
-//            hashValue.Clear();
-//            return (Convert.ToBase64String(byteHash));
-//        }
-//        #endregion
-//    }
-//}
