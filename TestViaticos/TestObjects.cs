@@ -147,6 +147,22 @@ namespace General
             return usumesa;
         }
 
+        public static Usuario UsuarioCENARD()
+        {
+            Usuario usucenard = new Usuario();
+            usucenard.NombreDeUsuario = "usucenard";
+            usucenard.Area = new Area(621, "Secretaria de Deporte");
+            return usucenard;
+        }
+
+        public static Usuario UsuarioSACC()
+        {
+            Usuario ususacc = new Usuario();
+            ususacc.NombreDeUsuario = "ususacc";
+            ususacc.Area = new Area(1024, "Secretaria de Coordinacion y Monitoreo");
+            return ususacc;
+        }
+
         public static ComisionDeServicio ComisionDeAgus1Dia(Persona agus, List<Estadia> estadia_agus, List<Pasaje> pasaje_de_agus, EstadosDeComision estadosDeComision)
         {
             return new ComisionDeServicio(agus, estadia_agus, pasaje_de_agus, estadosDeComision);

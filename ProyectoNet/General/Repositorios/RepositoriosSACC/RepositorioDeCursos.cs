@@ -71,6 +71,9 @@ namespace General.Repositorios
                 cursos.Add(curso);
             });
             cursos.Sort((curso1, curso2) => curso1.esMayorAlfabeticamenteQue(curso2));
+
+            //FiltrarCursosPorUsuario(user); 
+
             return cursos;
         }
 
@@ -317,6 +320,17 @@ namespace General.Repositorios
         public bool TieneAsignadoDocente(Curso un_curso)
         {
             return un_curso.Docente != null;
+        }
+
+        public List<Curso> FiltrarCursosPorUsuario(List<Curso> cursos, Usuario user) {
+
+            Organigrama organigrama = new RepositorioDeOrganigrama(conexion_bd).GetOrganigrama();
+
+            List<Area> areas_usuario = organigrama.GetAreasInferioresDeLasAreas(user.Areas);
+
+            List<Curso> curso_filtrado_por_usuario = cursos.FindAll(c => areas_usuario.Contains(c.EspacioFisico.Edificio.Area));
+
+            return curso_filtrado_por_usuario;
         }
     }
 }
