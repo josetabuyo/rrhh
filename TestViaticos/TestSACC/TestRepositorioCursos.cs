@@ -36,7 +36,8 @@ namespace TestViaticos
                                     |03    |03            |03                 |2012-10-13 21:36:35.077     |4                |0          |03                |31987654   |González   |Carlos     |4504-3565  |carlos.gonzalez@gmail.com  |Av. Nazca 5002     |2013-02-13 21:36:35.077     |2013-10-13 21:36:35.077   |Florida            |252                |03         |Evita          |PB         |40         |03         |Termero        |03             |Fines                  |15:40      |17:20      |3              |03         |03         |621    |Secretaría de Deportes";              
 
                 Curso curso = new Curso(01, "Historia");
-                
+                Usuario usuario = TestObjects.UsuarioSACC();  
+
                 IConexionBD conexion = TestObjects.ConexionMockeada();
                 var resultado_sp = TablaDeDatos.From(source);
 
@@ -52,6 +53,25 @@ namespace TestViaticos
                 Assert.IsNotNull(curso_bd.EspacioFisico);
                 Assert.IsTrue(curso_bd.Alumnos().Count() > 0);
             }
+
+
+          [TestMethod]
+          public void deberia_poder_traer_los_cursos_segun_el_area_responsable_del_usuario_logeado()
+          {
+              Usuario usu_cenard = TestObjects.UsuarioCENARD();
+              Usuario usu_sacc = TestObjects.UsuarioSACC();
+              Organigrama organigrama = TestObjects.OrganigramaConDosRamas();
+
+              IConexionBD conexion = TestObjects.ConexionMockeada();
+
+              Autorizador autorizador = new Autorizador();
+
+              List<Curso> cursos = TestObjects.UnListadoDeCursoConEdificios();
+
+              Assert.AreEqual(1, autorizador.FiltrarCursosPorUsuario(cursos, organigrama, usu_cenard).Count());
+              Assert.AreEqual(3, autorizador.FiltrarCursosPorUsuario(cursos, organigrama, usu_sacc).Count());
+
+          }
 
     }
 }

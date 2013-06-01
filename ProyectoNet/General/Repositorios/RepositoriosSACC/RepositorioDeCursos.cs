@@ -71,6 +71,7 @@ namespace General.Repositorios
                 cursos.Add(curso);
             });
             cursos.Sort((curso1, curso2) => curso1.esMayorAlfabeticamenteQue(curso2));
+
             return cursos;
         }
 
@@ -318,5 +319,6 @@ namespace General.Repositorios
         {
             return un_curso.Docente != null;
         }
+
     }
 }

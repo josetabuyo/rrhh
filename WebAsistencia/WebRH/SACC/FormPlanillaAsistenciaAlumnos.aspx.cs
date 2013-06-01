@@ -22,7 +22,7 @@ public partial class SACC_FormPlanillaAsistenciaAlumnos : System.Web.UI.Page
 
     private void CargarComboCursos()
     {
-        var cursos = Servicio().GetCursosDto();
+        var cursos = Servicio().GetCursosDto((Usuario)Session[ConstantesDeSesion.USUARIO]);
         var mesesJson = new List<Object>();
 
         foreach (var c in cursos)

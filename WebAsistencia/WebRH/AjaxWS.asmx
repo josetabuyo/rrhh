@@ -89,7 +89,7 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetCursosDTO()
     {
-        var curso = Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetCursosDto());
+        var curso = Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetCursosDto((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]));
         return curso.ToString();
     } 
 }

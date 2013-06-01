@@ -53,7 +53,7 @@ public partial class SACC_FormAsignarAlumnos : System.Web.UI.Page
     private void CompletarCombosDeCursos()
     {
         var servicio = new WSViaticosSoapClient();
-        var cursos = JsonConvert.SerializeObject(servicio.GetCursosDto());
+        var cursos = JsonConvert.SerializeObject(servicio.GetCursosDto((Usuario)Session[ConstantesDeSesion.USUARIO]));
         this.cursosJSON.Value = cursos.ToString();
     }
 
