@@ -1222,9 +1222,15 @@ public class WSViaticos : System.Web.Services.WebService
 
     [WebMethod]
     [System.Xml.Serialization.XmlInclude(typeof(DocenteNull))]
-    public List<CursoDto> GetCursosDto()
+    public List<CursoDto> GetCursosDto(Usuario usuario)
     {
         var cursos = new RepositorioDeCursos(Conexion()).GetCursos();
+        var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+        var autorizador = new Autorizador();
+
+        cursos = autorizador.FiltrarCursosPorUsuario(cursos, organigrama, usuario);
+
+
         var cursos_dto = new List<CursoDto>();
 
         if (cursos.Count() > 0)
@@ -1252,13 +1258,6 @@ public class WSViaticos : System.Web.Services.WebService
         return cursos_dto;
     }
 
-    [WebMethod]
-    [System.Xml.Serialization.XmlInclude(typeof(DocenteNull))]
-    public List<Curso> GetCursos()
-    {
-        return new RepositorioDeCursos(Conexion()).GetCursos();
-        
-    }
 
     [WebMethod]
     public string GetMaterias()

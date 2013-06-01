@@ -31,7 +31,7 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
     private void CargarGrilla()
     {
         var servicio = Servicio();
-        var cursos = servicio.GetCursosDto();
+        var cursos = servicio.GetCursosDto((Usuario)Session[ConstantesDeSesion.USUARIO]);
         this.cursosJSON.Value = ConvertirAJSON(cursos);
     }
 

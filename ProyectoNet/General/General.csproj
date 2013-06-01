@@ -76,6 +76,7 @@
     <Compile Include="Area.cs" />
     <Compile Include="Asistentes.cs" />
     <Compile Include="Auditoria.cs" />
+    <Compile Include="Autorizador.cs" />
     <Compile Include="BuscadorDeAreas.cs" />
     <Compile Include="CalculadorDeViaticos.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="FiltroDeDocumentos.cs" />
     <Compile Include="FiltroDeAreas.cs" />
     <Compile Include="Mensajeria.cs" />
+    <Compile Include="MenuDelSistema.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
