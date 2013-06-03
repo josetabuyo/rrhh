@@ -16,8 +16,15 @@ namespace General
         public string numero { get; set; }
         public string comentarios { get; set; }
 
+
+       /**/
+        public string fecha_documento { get; set; }   
+
+       /**/
+
         public Documento_DTO_Alta()
         {
+
         }           
 
         public Documento toDocumento()
@@ -28,10 +35,24 @@ namespace General
             Area area_origen = new Area(int.Parse(this.id_area_origen));
             string extracto_documento = this.extracto;
             string comentarios = this.comentarios;
+            DateTime? fecha_de_Documento;
 
-            Documento documento = new Documento(tipoDocumento, numero, categoria_documento, area_origen, extracto_documento, comentarios);
+            if ( this.fecha_documento.ToString()!="")
+            {
+                fecha_de_Documento = DateTime.Parse(fecha_documento);
+                Documento documento = new Documento(tipoDocumento, numero, categoria_documento, area_origen, extracto_documento, comentarios, fecha_de_Documento);
+                return documento;
+            }
+            else
+            {
+                Documento documento = new Documento(tipoDocumento, numero, categoria_documento, area_origen, extracto_documento, comentarios);
 
-            return documento;
+                return documento;
+            }
+
+
+           // Documento documento = new Documento(tipoDocumento, numero, categoria_documento, area_origen, extracto_documento, comentarios);
+          
         }
     }
 }

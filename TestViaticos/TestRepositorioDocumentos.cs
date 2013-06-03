@@ -74,11 +74,11 @@ namespace TestViaticos
         [TestMethod]
         public void deberia_poder_obtener_todos_los_documentos()
         {
-            string source = @"  |IdDocumento	|IdTipoDeDocumento      |DescripcionTipoDocumento   |Numero         |IdCategoriaDeDocumento |DescripcionCategoria       |IdAreaOrigen       |NombreAreaOrigen       |Extracto      |IdAreaDestino   |NombreAreaDestino   |Ticket    |Comentarios    |FechaCargaDocumento
-                                |1	            |1                      |expediente                 |e-123          |1                      |renuncia                   |54                 |INAI                   |Bla bla       |54              |Contratos           |AAA-001   |Bla bla        |2012-12-12 21:36:35.077
-                                |2	            |2                      |memo                       |m-456          |2                      |pase                       |54                 |SCYMI                  |Bla bla       |54              |Legajos             |AAA-002   |Bla bla        |2012-12-12 21:36:35.077 
-                                |3	            |1                      |expediente                 |e-456          |3                      |contrato                   |54                 |CNPA                   |Bla bla       |54              |Asistencia          |AAA-003   |Bla bla        |2012-12-12 21:36:35.077
-                                |4	            |2                      |memo                       |e-789          |1                      |renuncia                   |54                 |DGAJ                   |Bla bla       |54              |Legajos             |AAA-004   |Bla bla        |2012-12-12 21:36:35.077 ";
+            string source = @"  |IdDocumento	|IdTipoDeDocumento      |DescripcionTipoDocumento   |Numero         |IdCategoriaDeDocumento |DescripcionCategoria       |IdAreaOrigen       |NombreAreaOrigen       |Extracto      |IdAreaDestino   |NombreAreaDestino   |Ticket    |Comentarios    |FechaCargaDocumento     |SiglaTipoDocumento |FechaDocumento
+                                |1	            |1                      |expediente                 |e-123          |1                      |renuncia                   |54                 |INAI                   |Bla bla       |54              |Contratos           |AAA-001   |Bla bla        |2012-12-12 21:36:35.077 |E                  |2012-12-12 21:36:35.077
+                                |2	            |2                      |memo                       |m-456          |2                      |pase                       |54                 |SCYMI                  |Bla bla       |54              |Legajos             |AAA-002   |Bla bla        |2012-12-12 21:36:35.077 |M                  |2012-12-12 21:36:35.077
+                                |3	            |1                      |expediente                 |e-456          |3                      |contrato                   |54                 |CNPA                   |Bla bla       |54              |Asistencia          |AAA-003   |Bla bla        |2012-12-12 21:36:35.077 |E                  |2012-12-12 21:36:35.077
+                                |4	            |2                      |memo                       |e-789          |1                      |renuncia                   |54                 |DGAJ                   |Bla bla       |54              |Legajos             |AAA-004   |Bla bla        |2012-12-12 21:36:35.077 |E                  |2012-12-12 21:36:35.077";      
 
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
@@ -96,8 +96,8 @@ namespace TestViaticos
         [TestMethod]
         public void deberia_poder_actuailzar_un_documento()
         {
-            string source = @"  |IdDocumento	|IdTipoDeDocumento      |DescripcionTipoDocumento   |Numero         |IdCategoriaDeDocumento |DescripcionCategoria       |IdAreaOrigen       |NombreAreaOrigen       |Extracto      |IdAreaDestino   |NombreAreaDestino   |Ticket    |Comentarios    |FechaCargaDocumento
-                                |1	            |1                      |expediente                 |e-123          |1                      |renuncia                   |54                 |INAI                   |Bla bla       |54              |Contratos           |AAA-001   |Bla bla        |2012-12-12 21:36:35.077";
+            string source = @"  |IdDocumento	|IdTipoDeDocumento      |DescripcionTipoDocumento   |Numero         |IdCategoriaDeDocumento |DescripcionCategoria       |IdAreaOrigen       |NombreAreaOrigen       |Extracto      |IdAreaDestino   |NombreAreaDestino   |Ticket    |Comentarios    |FechaCargaDocumento      |SiglaTipoDocumento |FechaDocumento
+                                |1	            |1                      |expediente                 |e-123          |1                      |renuncia                   |54                 |INAI                   |Bla bla       |54              |Contratos           |AAA-001   |Bla bla        |2012-12-12 21:36:35.077  |E           |2012-12-12 21:36:35.077                                      ";
 
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
