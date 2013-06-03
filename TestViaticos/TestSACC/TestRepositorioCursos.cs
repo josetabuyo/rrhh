@@ -41,7 +41,7 @@ namespace TestViaticos
                 var resultado_sp = TablaDeDatos.From(source);
 
                 Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
-
+                
                 RepositorioDeCursos repo = new RepositorioDeCursos(conexion);
                 Curso curso_bd = repo.GetCursoById(1);
 
@@ -78,7 +78,6 @@ namespace TestViaticos
               IConexionBD conexion = TestObjects.ConexionMockeada();
               RepositorioDeCursos repo = new RepositorioDeCursos(conexion);
               RepositorioDeOrganigrama repo_organigrama = new RepositorioDeOrganigrama(conexion);
-
              
               var resultado_sp = TablaDeDatos.From(source_cursos);
 

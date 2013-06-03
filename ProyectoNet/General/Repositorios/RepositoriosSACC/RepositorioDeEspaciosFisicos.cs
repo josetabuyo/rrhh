@@ -156,7 +156,7 @@ namespace General.Repositorios
         }
 
 
-        public bool EspacioFisicoAsignadoACurso(EspacioFisico un_espacio_fisico)
+        public bool EspacioFisicoAsignadoACurso(EspacioFisico un_espacio_fisico, Usuario usuario)
         {
             List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
             // aca pincha porque el espacio físico es null
