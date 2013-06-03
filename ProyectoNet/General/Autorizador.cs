@@ -34,5 +34,14 @@ namespace General
 
             return curso_filtrado_por_usuario;
         }
+
+        public List<EspacioFisico> FiltrarEspaciosFisicosPorUsuario(List<EspacioFisico> espacios_fisicos, Organigrama organigrama, Usuario usuario)
+        {
+            List<Area> areas_usuario = organigrama.GetAreasInferioresDeLasAreas(usuario.Areas);
+
+            List<EspacioFisico> espacios_filtrado_por_usuario = espacios_fisicos.FindAll(e => areas_usuario.Contains(e.Edificio.Area));
+
+            return espacios_filtrado_por_usuario;
+        }
     }
 }

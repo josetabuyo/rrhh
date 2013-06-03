@@ -41,7 +41,7 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
     private void MostrarEspacioFisicoEnLaGrilla(WSViaticosSoapClient servicio)
     {
-        var espacio_fisico = JsonConvert.DeserializeObject(servicio.GetEspaciosFisicos());
+        var espacio_fisico = JsonConvert.DeserializeObject(servicio.GetEspaciosFisicos((Usuario)Session[ConstantesDeSesion.USUARIO]));
         this.espacios_fisicosJSON.Value = espacio_fisico.ToString();
     }
 

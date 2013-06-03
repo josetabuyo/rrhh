@@ -1016,6 +1016,29 @@ namespace General
             return cursos;
         }
 
+        public static List<EspacioFisico> EspaciosFisicos()
+        {
+            List<EspacioFisico> listado_espacios = new List<EspacioFisico>();
+            
+            EspacioFisico espacio_fisico1 = new EspacioFisico();
+            EspacioFisico espacio_fisico2 = new EspacioFisico();
+            EspacioFisico espacio_fisico3 = new EspacioFisico();
+
+            Edificio julio_de_9 = new Edificio(1, "9 de Julio", "9 de julio", new Area(54, "Area de Marta"));
+            Edificio moreno = new Edificio(2, "Moreno", "moreno", new Area(939, "Secretaria de Coordinacion y Monitoreo"));
+            Edificio cenard = new Edificio(3, "Cenard", "Libertador", new Area(621, "Secretaria de Deporte"));
+
+            espacio_fisico1.Edificio = julio_de_9;
+            espacio_fisico2.Edificio = moreno;
+            espacio_fisico3.Edificio = cenard;
+            
+            listado_espacios.Add(espacio_fisico1);
+            listado_espacios.Add(espacio_fisico2);
+            listado_espacios.Add(espacio_fisico3);
+
+            return listado_espacios;
+        }
+
         public static Alumno UnAlumnoDelCurso()
         {
             return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro"));    

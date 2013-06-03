@@ -68,7 +68,7 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
     private void CargarComboEspaciosFisicos()
     {
         var servicio = Servicio();
-        var espacios_fisicos = JsonConvert.DeserializeObject<JArray>(servicio.GetEspaciosFisicos());
+        var espacios_fisicos = JsonConvert.DeserializeObject<JArray>(servicio.GetEspaciosFisicos((Usuario)Session[ConstantesDeSesion.USUARIO]));
         this.espacios_fisicosJSON.Value = espacios_fisicos.ToString();
 
         this.cmbEspacioFisico.Items.Add(new ListItem("Espacio Físico", ""));

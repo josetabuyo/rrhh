@@ -1463,10 +1463,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
      [WebMethod]
-    public string GetEspaciosFisicos()
+    public string GetEspaciosFisicos(Usuario usuario)
      {
 
          var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion()).GetEspaciosFisicos();
+         var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+         var autorizador = new Autorizador();
+
+         espacios_fisicos = autorizador.FiltrarEspaciosFisicosPorUsuario(espacios_fisicos,organigrama, usuario);
+
          var espacios_fisicos_dto = new List<object>();
 
          if (espacios_fisicos.Count > 0)
