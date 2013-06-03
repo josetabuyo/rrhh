@@ -14,23 +14,46 @@ PanelDeControlDeAlertas.prototype.start = function () {
     this.btnStop.click(function () {
         _this.detenerProceso();
     });
+
+    this.lblEstado = this.o.ui.find("#lblEstado");
+    this.refrescarEstado();
 };
 
 PanelDeControlDeAlertas.prototype.iniciarProceso = function () {
+    var _this = this;
     $.ajax({
         url: "../AjaxWS.asmx/IniciarServicioDeAlertas",
         type: "POST",
         dataType: "json",
-        contentType: "application/json; charset=utf-8"
+        contentType: "application/json; charset=utf-8",
+        success: function () {
+            _this.refrescarEstado();
+        }
     });
 };
 
 PanelDeControlDeAlertas.prototype.detenerProceso = function () {
+    var _this = this;
     $.ajax({
         url: "../AjaxWS.asmx/DetenerServicioDeAlertas",
         type: "POST",
         dataType: "json",
-        contentType: "application/json; charset=utf-8"
+        contentType: "application/json; charset=utf-8",
+        success: function () {
+            _this.refrescarEstado();
+        }
     });
 };
 
+PanelDeControlDeAlertas.prototype.refrescarEstado = function () {
+    var _this = this;
+    $.ajax({
+        url: "../AjaxWS.asmx/EstadoServicioDeAlertas",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            _this.lblEstado.text(data.d);
+        }
+    });
+};

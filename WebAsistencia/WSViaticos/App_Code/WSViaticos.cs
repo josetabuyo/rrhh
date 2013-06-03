@@ -696,19 +696,32 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void IniciarServicioDeAlertas()
     {
-        var filtros = new List<FiltroDeDocumentos>();
-        filtros.Add(new FiltroDeDocumentosPorAreaActual(Mensajeria(), 1));
-        var enviador = new EnviadorDeMails();
-        var repo = new ReportadorDeDocumentosEnAlerta(filtros, "jlurgo@gmail.com", enviador, RepositorioDocumentos());
-        repo.start();
+        reportadorDeDocumentosEnAlerta().start();
     }
 
     [WebMethod]
     public void DetenerServicioDeAlertas()
     {
-
+        reportadorDeDocumentosEnAlerta().stop();
     }
 
+    [WebMethod]
+    public string EstadoServicioDeAlertas()
+    {
+        return reportadorDeDocumentosEnAlerta().estado;
+    }
+
+    private ReportadorDeDocumentosEnAlerta reportadorDeDocumentosEnAlerta()
+    {
+        if (Application["reportadorDeDocumentosEnAlerta"] == null)
+        {
+            var filtros = new List<FiltroDeDocumentos>();
+            filtros.Add(new FiltroDeDocumentosPorAreaActual(Mensajeria(), 1));
+            var enviador = new EnviadorDeMails();
+            Application["reportadorDeDocumentosEnAlerta"] = new ReportadorDeDocumentosEnAlerta(filtros, "jlurgo@gmail.com", enviador, RepositorioDocumentos());
+        }
+        return (ReportadorDeDocumentosEnAlerta)Application["reportadorDeDocumentosEnAlerta"];
+    }
 
     private DesSerializadorDeFiltros desSerializadorDeFiltros()
     {

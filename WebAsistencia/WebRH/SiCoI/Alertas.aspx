@@ -17,6 +17,7 @@
     <form id="form1" runat="server">
         <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <div id="uiPanelDecontrol">
+            <div id="lblEstado" class="label label-important"></div>
             <input type="button" id="btnIniciarServicioDeAlertas" class="btn" value="Iniciar" />
             <input type="button" id="btnDetenerServicioDeAlertas" class="btn" value="Detener" />
         </div>   

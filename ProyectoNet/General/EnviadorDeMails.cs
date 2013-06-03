@@ -9,8 +9,6 @@ namespace General
 {
     public class EnviadorDeMails
     {
-
-
         public void EnviarMail(NetworkCredential cred, string to, string asunto, string cuerpo, Action on_success, Action on_error)
         {
             try{

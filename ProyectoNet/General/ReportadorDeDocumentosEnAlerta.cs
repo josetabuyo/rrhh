@@ -27,7 +27,7 @@ namespace General
             this.estado = "Idle";
         }
 
-        public object estado { get; set; }
+        public string estado { get; set; }
 
         public void start()
         {
@@ -38,6 +38,7 @@ namespace General
         public void stop()
         {
             this.estado = "Idle";
+            timer.Dispose();
         }
 
         public void verificarAlertas()

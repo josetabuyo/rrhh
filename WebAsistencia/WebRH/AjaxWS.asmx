@@ -88,6 +88,13 @@ public class AjaxWS : System.Web.Services.WebService {
     public void DetenerServicioDeAlertas()
     {
         backEndService.DetenerServicioDeAlertas();
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string EstadoServicioDeAlertas()
+    {
+        return backEndService.EstadoServicioDeAlertas();
     }       
 }
 
