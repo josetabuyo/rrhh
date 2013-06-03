@@ -33,5 +33,23 @@ namespace TestViaticos
 
         }
 
+        [TestMethod]
+        public void deberia_poder_traer_espacios_segun_el_area_responsable_del_usuario_logeado()
+        {
+            Usuario usu_cenard = TestObjects.UsuarioCENARD();
+            Usuario usu_sacc = TestObjects.UsuarioSACC();
+            Organigrama organigrama = TestObjects.OrganigramaConDosRamas();
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+
+            Autorizador autorizador = new Autorizador();
+
+            List<EspacioFisico> espacios_fisicos = TestObjects.EspaciosFisicos();
+
+            Assert.AreEqual(1, autorizador.FiltrarEspaciosFisicosPorUsuario(espacios_fisicos, organigrama, usu_cenard).Count());
+            Assert.AreEqual(3, autorizador.FiltrarEspaciosFisicosPorUsuario(espacios_fisicos, organigrama, usu_sacc).Count());
+
+        }
+
     }
 }
