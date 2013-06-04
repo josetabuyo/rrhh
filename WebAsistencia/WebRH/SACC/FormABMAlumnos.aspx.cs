@@ -19,7 +19,7 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         if (!IsPostBack)
         {
             CompletarCombosDeModalidades();
-            this.personasJSON.Value = servicio.GetAlumnos();
+            this.personasJSON.Value = servicio.GetAlumnos((Usuario)Session[ConstantesDeSesion.USUARIO]);
         }
 
         
@@ -30,8 +30,8 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
     private void MostrarAlumnosEnLaGrilla(WSViaticosSoapClient servicio)
     {
-        
-        var alumnos = JsonConvert.DeserializeObject(servicio.GetAlumnos());
+
+        var alumnos = JsonConvert.DeserializeObject(servicio.GetAlumnos((Usuario)Session[ConstantesDeSesion.USUARIO]));
         this.alumnosJSON.Value = alumnos.ToString();
     }
 
@@ -56,7 +56,7 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
         try
         {
-           persona = JsonConvert.DeserializeObject<JObject>(servicio.GetPersonaByDNI(dni));
+           persona = JsonConvert.DeserializeObject<JObject>(servicio.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
         }
         catch (Exception)
         {

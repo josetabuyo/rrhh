@@ -43,5 +43,49 @@ namespace General
 
             return espacios_filtrado_por_usuario;
         }
+
+        public bool AlumnoVisibleParaUsuario(Alumno alumno, Organigrama organigrama, Usuario usuario)
+        {
+            return AlumnoPerteneceAListaDeAreas(organigrama.GetAreasInferioresDeLasAreas(usuario.Areas), alumno);
+        }
+        
+
+        public List<Alumno> FiltrarAlumnosPorUsuario(List<Alumno> alumnos, Organigrama organigrama, Usuario usuario)
+        {
+            
+            List<Area> areas_del_usuario_logueado = organigrama.GetAreasInferioresDeLasAreas(usuario.Areas);
+
+            return FiltrarAlumnosPorAreas(areas_del_usuario_logueado, alumnos);     
+        }
+
+
+    private List<Alumno> FiltrarAlumnosPorAreas(List<Area> areas_subordinadas_del_usuario_logueado, List<Alumno> alumnos)
+        {
+            List<Alumno> alumnos_filtrados = new List<Alumno>();
+
+            foreach (Alumno alumno in alumnos)
+            {
+                if (AlumnoPerteneceAListaDeAreas(areas_subordinadas_del_usuario_logueado, alumno))
+                {
+                    alumnos_filtrados.Add(alumno);
+                }
+            }
+
+            return alumnos_filtrados;
+        }
+
+
+        private bool AlumnoPerteneceAListaDeAreas(List<Area> areas_subordinadas_del_usuario_logueado, Alumno alumno) 
+        {
+            foreach (Area area in alumno.Areas)
+	        {
+                if (areas_subordinadas_del_usuario_logueado.Contains(area)) 
+                {
+                    return true;
+                }
+	        }
+            return false;
+        }
+  
     }
 }

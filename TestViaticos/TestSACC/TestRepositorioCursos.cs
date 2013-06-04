@@ -36,13 +36,14 @@ namespace TestViaticos
                                     |03    |03            |03                 |2012-10-13 21:36:35.077     |4                |0          |03                |31987654   |González   |Carlos     |4504-3565  |carlos.gonzalez@gmail.com  |Av. Nazca 5002     |2013-02-13 21:36:35.077     |2013-10-13 21:36:35.077   |Florida            |252                |03         |Evita          |PB         |40         |03         |Termero        |03             |Fines                  |15:40      |17:20      |3              |03         |03         |621    |Secretaría de Deportes";              
 
                 Curso curso = new Curso(01, "Historia");
+                
                 Usuario usuario = TestObjects.UsuarioSACC();  
 
                 IConexionBD conexion = TestObjects.ConexionMockeada();
                 var resultado_sp = TablaDeDatos.From(source);
 
                 Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
-
+                
                 RepositorioDeCursos repo = new RepositorioDeCursos(conexion);
                 Curso curso_bd = repo.GetCursoById(1);
 
@@ -63,7 +64,6 @@ namespace TestViaticos
               Organigrama organigrama = TestObjects.OrganigramaConDosRamas();
 
               IConexionBD conexion = TestObjects.ConexionMockeada();
-
               Autorizador autorizador = new Autorizador();
 
               List<Curso> cursos = TestObjects.UnListadoDeCursoConEdificios();
