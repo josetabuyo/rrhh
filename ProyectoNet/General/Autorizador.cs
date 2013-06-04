@@ -13,7 +13,7 @@ namespace General
             this.menues_del_sistema = menues_del_sistema;
         }
 
-        public Dictionary<string, string> ItemsPermitidos(string nombre_menu)
+        public List<ItemDeMenu> ItemsPermitidos(string nombre_menu)
         {
             var menu = menues_del_sistema.Find(m => m.SeLlama(nombre_menu));
             if (menu == null) menu = MenuDelSistema.MenuNulo();

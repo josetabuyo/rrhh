@@ -168,32 +168,38 @@ namespace General
         [TestMethod]
         public void un_usuario_no_CENARD_debe_acceder_a_Materias()
         {
-            var menu_esperado_sacc_no_cenard = new List<MenuDelSistema>() { new MenuDelSistema("MenuSaccNoCenard", new Dictionary<string, string>() { { "Materias", "Materias.aspx" } }) };
+            var items_de_menu = new List<ItemDeMenu>();
+            items_de_menu.Add(new ItemDeMenu(){ NombreItem = "Materias", Url ="Materias.aspx"});
+            var menu_esperado_sacc_no_cenard = new List<MenuDelSistema>() { new MenuDelSistema("MenuSaccNoCenard", items_de_menu) };
 
             var autorizador = new Autorizador(menu_esperado_sacc_no_cenard);
             Assert.AreEqual(autorizador.ItemsPermitidos("MenuSaccNoCenard").Count, 1);
-            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSaccNoCenard")["Materias"]);
+            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSaccNoCenard").Find(i => i.NombreItem == "Materias").Url);
         }
 
         [TestMethod]
         public void un_usuario_CENARD_no_debe_acceder_a_Materias()
         {
-            var menu_esperado_sacc_cenard = new List<MenuDelSistema>() { new MenuDelSistema("MenuSaccCenard", new Dictionary<string, string>() { { "Cursos", "ABMCursos.aspx" } }) };
+            var items_de_menu = new List<ItemDeMenu>();
+            items_de_menu.Add(new ItemDeMenu() { NombreItem = "Cursos", Url = "ABMCursos.aspx" });
+            var menu_esperado_sacc_cenard = new List<MenuDelSistema>() { new MenuDelSistema("MenuSaccCenard", items_de_menu) };
             var autorizador = new Autorizador(menu_esperado_sacc_cenard);
 
             Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSaccCenard").Count);
-            Assert.IsFalse(autorizador.ItemsPermitidos("MenuSaccCenard").ContainsKey("Materias"));
+            Assert.IsFalse(autorizador.ItemsPermitidos("MenuSaccCenard").Exists(i => i.NombreItem == "Materias"));
         }
 
         [TestMethod]
         public void un_usuario_SACC_no_debe_acceder_al_menu_Sicoi()
         {
-            var menu_esperado_sacc = new List<MenuDelSistema>() { new MenuDelSistema("MenuSACC", new Dictionary<string, string>() { { "Materias", "Materias.aspx" } }) };
+            var items_de_menu = new List<ItemDeMenu>();
+            items_de_menu.Add(new ItemDeMenu() { NombreItem = "Materias", Url = "Materias.aspx" });
+            var menu_esperado_sacc = new List<MenuDelSistema>() { new MenuDelSistema("MenuSACC", items_de_menu) };
             var autorizador = new Autorizador(menu_esperado_sacc);
 
             Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
-            Assert.IsTrue(autorizador.ItemsPermitidos("MenuSACC").ContainsKey("Materias"));
-            Assert.IsFalse(autorizador.ItemsPermitidos("MenuSACC").ContainsKey("AltaDocumentos"));
+            Assert.IsTrue(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "Materias"));
+            Assert.IsFalse(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "AltaDocumentos"));
 
             Assert.AreEqual(0, autorizador.ItemsPermitidos("MenuSicoi").Count);
         }
@@ -201,27 +207,32 @@ namespace General
         [TestMethod]
         public void un_usuario_SACC_puede_acceder_a_dos_menues_sacc()
         {
-            var menu_esperado_sacc = new MenuDelSistema("MenuSACC", new Dictionary<string, string>() { { "Materias", "Materias.aspx" } });
-            var otro_menu_esperado = new MenuDelSistema("OtroMenu", new Dictionary<string, string>() { { "OtraOpcion", "OtraOpcion.aspx" } });
+            var items_de_menu = new List<ItemDeMenu>();
+            var otros_items = new List<ItemDeMenu>();
+
+            items_de_menu.Add(new ItemDeMenu() { NombreItem = "Materias", Url = "Materias.aspx" });
+            otros_items.Add(new ItemDeMenu() { NombreItem = "OtraOpcion", Url = "OtraOpcion.aspx" });
+            var menu_esperado_sacc = new MenuDelSistema("MenuSACC", items_de_menu);
+            var otro_menu_esperado = new MenuDelSistema("OtroMenu", otros_items);
 
             var menues = new List<MenuDelSistema>() { menu_esperado_sacc, otro_menu_esperado };
 
             var autorizador = new Autorizador(menues);
 
             Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
-            Assert.IsTrue(autorizador.ItemsPermitidos("MenuSACC").ContainsKey("Materias"));
-            Assert.IsFalse(autorizador.ItemsPermitidos("MenuSACC").ContainsKey("OtraOpcion"));
+            Assert.IsTrue(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "Materias"));
+            Assert.IsFalse(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "OtraOpcion"));
 
             Assert.AreEqual(1, autorizador.ItemsPermitidos("OtroMenu").Count);
-            Assert.IsTrue(autorizador.ItemsPermitidos("OtroMenu").ContainsKey("OtraOpcion"));
-            Assert.IsFalse(autorizador.ItemsPermitidos("OtroMenu").ContainsKey("Materias"));
+            Assert.IsTrue(autorizador.ItemsPermitidos("OtroMenu").Exists(i => i.NombreItem == "OtraOpcion"));
+            Assert.IsFalse(autorizador.ItemsPermitidos("OtroMenu").Exists(i => i.NombreItem == "Materias"));
         }
 
         [TestMethod]
         public void el_repo_de_usuarios_construye_un_autorizador_con_un_acceso()
         {
-            string source = @"  | menu      | nombre_item |  url            |
-                                | MenuSACC	| Materias    |  Materias.aspx  |";
+            string source = @"  id| menu        | nombre      |  url                    | orden | nivel | padre
+                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 2     | 0";
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
@@ -233,16 +244,16 @@ namespace General
             var autorizador = repo.AutorizadorPara(usuario);
 
             Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
-            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSACC")["Materias"]);
+            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSACC").Find(i => i.NombreItem == "Materias").Url);
         }
-
 
         [TestMethod]
         public void el_repo_de_usuarios_construye_un_autorizador_con_dos_accesos_para_un_menu()
         {
-            string source = @"  | menu      | nombre_item |  url            |
-                                | MenuSACC	| Materias    |  Materias.aspx  |
-                                | MenuSACC	| Curso       |  Cursos.aspx    |";
+
+            string source = @"  id| menu        | nombre      |  url                    | orden | nivel | padre
+                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 2     | 0
+                                2 | MenuSACC	| Curso       |  Cursos.aspx            | 2     | 2     | 0";
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
@@ -254,16 +265,16 @@ namespace General
             var autorizador = repo.AutorizadorPara(usuario);
 
             Assert.AreEqual(2, autorizador.ItemsPermitidos("MenuSACC").Count);
-            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSACC")["Materias"]);
-            Assert.AreEqual("Cursos.aspx", autorizador.ItemsPermitidos("MenuSACC")["Curso"]);
+            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSACC").Find(i => i.NombreItem == "Materias").Url);
+            Assert.AreEqual("Cursos.aspx", autorizador.ItemsPermitidos("MenuSACC").Find(i => i.NombreItem == "Curso").Url);
         }
 
         [TestMethod]
         public void el_repo_de_usuarios_construye_un_autorizador_con_accesos_para_dos_menues()
         {
-            string source = @"  | menu      | nombre_item |  url                    |
-                                | MenuSACC	| Materias    |  Materias.aspx          |
-                                | MenuSicoi	| Documentos  |  AltaDocumento.aspx     |";
+            string source = @"  id| menu        | nombre      |  url                    | orden | nivel | padre
+                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 2     | 0
+                                2 | MenuSicoi	| Documentos  |  AltaDocumento.aspx     | 2     | 2     | 0";
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
@@ -276,8 +287,8 @@ namespace General
 
             Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
             Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSicoi").Count);
-            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSACC")["Materias"]);
-            Assert.AreEqual("AltaDocumento.aspx", autorizador.ItemsPermitidos("MenuSicoi")["Documentos"]);
+            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSACC").Find(i => i.NombreItem == "Materias").Url);
+            Assert.AreEqual("AltaDocumento.aspx", autorizador.ItemsPermitidos("MenuSicoi").Find(i => i.NombreItem == "Documentos").Url);
         }
     }
 }

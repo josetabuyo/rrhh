@@ -11,19 +11,23 @@ namespace General
         {
 
         }
-        public ItemDeMenu(int id, int orden, string nombre_item, string url, int nivel)
+        public ItemDeMenu(int id, string menu, int orden, string nombre_item, string url, int nivel, int padre)
         {
             this.Id = id;
+            this.Menu = menu;
             this.Orden = orden;
             this.NombreItem = nombre_item;
             this.Url = url;
             this.Nivel = nivel;
+            this.Padre = padre;
         }
 
+        public string Menu { get; set; }
         public int Id { get; set; }
         public int Orden { get; set; }
         public string NombreItem { get; set; }
         public string Url { get; set; }
         public int Nivel { get; set; }
+        public int Padre { get; set; }
     }
 }

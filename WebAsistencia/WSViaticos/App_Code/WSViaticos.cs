@@ -1474,7 +1474,7 @@ public class WSViaticos : System.Web.Services.WebService
          List<ItemDeMenu> items_permitidos_dto = new List<ItemDeMenu>();
          var repo_usuarios = new RepositorioUsuarios(Conexion());
          var items_permitidos = repo_usuarios.AutorizadorPara(usuario).ItemsPermitidos(menu);
-         var aux = items_permitidos.Select(i => i.Key.Equals(menu));
+         var aux = items_permitidos.Select(i => i.Menu.Equals(menu));
          items_permitidos_dto.Add(new ItemDeMenu() { NombreItem = "Un item", Url = "../SeleccionDeArea.aspx" });
          foreach (var item in aux)
          {

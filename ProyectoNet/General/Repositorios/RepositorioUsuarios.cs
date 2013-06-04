@@ -126,10 +126,18 @@ namespace General.Repositorios
 
         protected MenuDelSistema MenuFrom(string nombre, List<RowDeDatos> rows)
         {
-            var items = new Dictionary<string, string>();
+            var items = new List<ItemDeMenu>();
             rows.ForEach(row =>
             {
-                items.Add(row.GetString("nombre_item"), row.GetString("url"));
+                items.Add(new ItemDeMenu(
+                    row.GetSmallintAsInt("id"),
+                    row.GetString("menu"),
+                    row.GetSmallintAsInt("orden"),
+                    row.GetString("nombre"),
+                    row.GetString("url"),
+                    row.GetSmallintAsInt("nivel"),
+                    row.GetSmallintAsInt("padre")
+                ));
             });
             return new MenuDelSistema(nombre, items);
         }

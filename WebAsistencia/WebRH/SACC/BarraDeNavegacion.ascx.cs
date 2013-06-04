@@ -29,8 +29,5 @@ public partial class SACC_BarraDeNavegacion : System.Web.UI.UserControl
     protected void Page_Load(object sender, EventArgs e)
     {
         items_accesibles();
-        
-
-        
     }
 }
