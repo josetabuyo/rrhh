@@ -27,7 +27,12 @@ namespace General.Repositorios
                 var baja = 0;
                 if (!(row.GetObject("IdBaja") is DBNull))
                     baja = (int)row.GetObject("IdBaja");
-                Area area = new Area(row.GetInt("IdArea"), row.GetString("NombreArea"));
+                Area area = new Area(0, "Ministerio de Desarrollo Social - Externo"); //Se moquean los que no son del Ministerio
+                if (!(row.GetObject("IdArea") is DBNull))
+                {
+                    area = new Area(row.GetSmallintAsInt("IdArea"), row.GetString("NombreArea"));
+                }
+                
                 List<Area> areas_alumno = new List<Area>();
                 areas_alumno.Add(area);
                 Alumno alumno =  new Alumno

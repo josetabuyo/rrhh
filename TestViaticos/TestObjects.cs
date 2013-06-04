@@ -15,11 +15,21 @@ namespace General
         static protected string AREA_DE_MARTA = "Area de Marta";
         static protected string AREA_DE_FABI = "Area de Fabian";
         static protected string AREA_DE_CASTAGNETO = "Area de Castagneto";
+        static protected string AREA_DE_CENARD = "Area de CENARD";
+        static protected string AREA_UNIDAD_MINISTRO = "Area Unidad Ministro";
+        static protected string AREA_DE_FABIB = "Area de Fabian B";
         static public int LICENCIAS = 3;//"Licencias";
         static public TipoDeDocumentoSICOI NOTA = new TipoDeDocumentoSICOI(1, "Nota");
         static public TipoDeDocumentoSICOI EXPEDIENTE = new TipoDeDocumentoSICOI(2, "Expediente");
         static public TipoDeDocumentoSICOI MEMO = new TipoDeDocumentoSICOI(3, "Memo");
         static public List<Area> areas = new List<Area>();
+
+        
+
+        public static Area AreaDeCastagneto()
+        {
+            return new Area(16, AREA_DE_CASTAGNETO, "010100100000000000000000", true);
+        }
 
         public static Area AreaDeMarta()
         {
@@ -30,6 +40,13 @@ namespace General
         {
             var area = new Area(939, AREA_DE_FABI, "010100100000400200000000", true);
             area.SetAlias(new Alias(1, 939, "fabiiiii"));
+            return area;
+        }
+
+        public static Area AreaCenard()
+        {
+            var area = new Area(621, AREA_DE_CENARD, "010100100000400400000000", true);
+            area.SetAlias(new Alias(2, 621, "cenard"));
             return area;
         }
 
@@ -151,7 +168,7 @@ namespace General
         {
             Usuario usucenard = new Usuario();
             usucenard.NombreDeUsuario = "usucenard";
-            usucenard.Area = new Area(621, "Secretaria de Deporte");
+            usucenard.Areas.Add(new Area(621, "Secretaria de Deporte"));
             return usucenard;
         }
 
@@ -159,7 +176,7 @@ namespace General
         {
             Usuario ususacc = new Usuario();
             ususacc.NombreDeUsuario = "ususacc";
-            ususacc.Area = new Area(1024, "Secretaria de Coordinacion y Monitoreo");
+            ususacc.Areas.Add(new Area(1, "Unidad Ministro"));
             return ususacc;
         }
 
@@ -284,6 +301,11 @@ namespace General
             return new List<Area>() { AreaDeFabi(), AreaDeMarta() };
         }
 
+        public static List<Area> AreasDeFabiYMartaYCenard()
+        {
+            return new List<Area>() { AreaDeFabi(), AreaDeMarta(), AreaCenard() };
+        }
+
         public static List<Area> DependenciaEntreFabyYMarta()
         {
             return new List<Area>() { AreaDeFabi(), AreaDeMarta() };
@@ -304,14 +326,19 @@ namespace General
             return new List<Area>() { AreaDeMarta(), AreaDeCastagneto() };
         }
 
-        public static Area AreaDeCastagneto()
-        {
-            return new Area(16, AREA_DE_CASTAGNETO, "010100100000000000000000", true);
-        }
-
         public static List<Area> AreasDeFabiMartaYCarlos()
         {
             return new List<Area>() { AreaDeFabi(), AreaDeMarta(), AreaDeCastagneto() };
+        }
+
+        public static Organigrama OrganigramaFabyMarta()
+        {
+            return new Organigrama(AreasDeFabiYMarta(), DependenciasEntreFabyYMarta());
+        }
+
+        public static Organigrama OrganigramaFabyMartayCenard()
+        {
+            return new Organigrama(AreasDeFabiYMartaYCenard(), DependenciasEntreFabyYMarta());
         }
 
         public static IConexionBD ConexionMockeada()
@@ -947,12 +974,6 @@ namespace General
             return new Documento(4, new TipoDeDocumentoSICOI(1, "nota"), "001", new CategoriaDeDocumentoSICOI(1, "contratacion"), AreaDeFabi(), "extracto bleh");
         }
 
-
-        public static Organigrama OrganigramaFabyMarta()
-        {
-            return new Organigrama(AreasDeFabiYMarta(), DependenciasEntreFabyYMarta());
-        }
-
         public static Curso UnCursoConAlumnos()
         {
             Curso un_curso = new Curso(1, "Historia");
@@ -967,6 +988,56 @@ namespace General
             un_curso.AgregarDiaDeCursada(DayOfWeek.Wednesday);
 
             return un_curso;
+        }
+
+        public static List<Curso> UnListadoDeCursoConEdificios()
+        {
+            List<Curso> cursos = new List<Curso>();
+            EspacioFisico espacio_fisico1 = new EspacioFisico();
+            EspacioFisico espacio_fisico2 = new EspacioFisico();
+            EspacioFisico espacio_fisico3 = new EspacioFisico();
+            
+            Edificio julio_de_9 = new Edificio(1,"9 de Julio","9 de julio",new Area(54,"Area de Marta"));
+            Edificio moreno = new Edificio(2,"Moreno","moreno",new Area(939,"Secretaria de Coordinacion y Monitoreo"));
+            Edificio cenard = new Edificio(3,"Cenard","Libertador",new Area(621,"Secretaria de Deporte"));
+            
+            Curso curso_uno = new Curso(1, "Historia");
+            curso_uno.EspacioFisico = espacio_fisico1;
+            curso_uno.EspacioFisico.Edificio = julio_de_9;
+            cursos.Add(curso_uno);
+            Curso curso_dos = new Curso(2, "Quimica");
+            curso_dos.EspacioFisico = espacio_fisico2;
+            curso_dos.EspacioFisico.Edificio = moreno;
+            cursos.Add(curso_dos);
+            Curso curso_tres = new Curso(3, "Filosofia");
+            curso_tres.EspacioFisico = espacio_fisico3;
+            curso_tres.EspacioFisico.Edificio = cenard;
+            cursos.Add(curso_tres);
+
+            return cursos;
+        }
+
+        public static List<EspacioFisico> EspaciosFisicos()
+        {
+            List<EspacioFisico> listado_espacios = new List<EspacioFisico>();
+            
+            EspacioFisico espacio_fisico1 = new EspacioFisico();
+            EspacioFisico espacio_fisico2 = new EspacioFisico();
+            EspacioFisico espacio_fisico3 = new EspacioFisico();
+
+            Edificio julio_de_9 = new Edificio(1, "9 de Julio", "9 de julio", new Area(54, "Area de Marta"));
+            Edificio moreno = new Edificio(2, "Moreno", "moreno", new Area(939, "Secretaria de Coordinacion y Monitoreo"));
+            Edificio cenard = new Edificio(3, "Cenard", "Libertador", new Area(621, "Secretaria de Deporte"));
+
+            espacio_fisico1.Edificio = julio_de_9;
+            espacio_fisico2.Edificio = moreno;
+            espacio_fisico3.Edificio = cenard;
+            
+            listado_espacios.Add(espacio_fisico1);
+            listado_espacios.Add(espacio_fisico2);
+            listado_espacios.Add(espacio_fisico3);
+
+            return listado_espacios;
         }
 
         public static Alumno UnAlumnoDelCurso()
@@ -998,6 +1069,38 @@ namespace General
         internal static InstanciaDeEvaluacion SegundoParcial()
         {
             return new InstanciaDeEvaluacion(2, "Segundo Parcial");
+        }
+
+        public static Organigrama OrganigramaConDosRamas()
+        {
+            Area area_de_faby;
+            Area area_de_marta;
+            Area area_de_castagneto;
+            Area unidad_ministro;
+            Area area_de_fabyB;
+            List<Area> dependencia_faby_marta;
+            List<Area> dependencia_carlos_unidad_ministro;
+            List<Area> dependencia_marta_unidad_ministro;
+            List<Area> dependencia_FabyB_Carlos;
+            List<Area> areas_de_faby_y_marta_y_carlos_unidad_ministro_y_fabyB;
+            List<List<Area>> lista_de_dependencias_faby_marta_carlos_y_um_fabyb;
+            Organigrama organigrama_fabi_marta_castagneto_um_fabyB;
+
+            area_de_marta = AreaDeMarta();//id 54
+            area_de_faby = AreaDeFabi();//id 939
+            area_de_castagneto = AreaDeCastagneto(); //id 16
+            unidad_ministro = new Area(1, AREA_UNIDAD_MINISTRO, "1", true);
+            area_de_fabyB = new Area(621, AREA_DE_CENARD, "939B", true);
+
+            dependencia_faby_marta =DependenciaEntreFabyYMarta();
+            dependencia_carlos_unidad_ministro = new List<Area>() { area_de_castagneto, unidad_ministro };
+            dependencia_FabyB_Carlos = new List<Area>() { area_de_fabyB, area_de_castagneto };
+            dependencia_marta_unidad_ministro = new List<Area>() { area_de_marta, unidad_ministro };
+
+            areas_de_faby_y_marta_y_carlos_unidad_ministro_y_fabyB = new List<Area>() { area_de_faby, area_de_marta, area_de_castagneto, unidad_ministro, area_de_fabyB };
+            lista_de_dependencias_faby_marta_carlos_y_um_fabyb = new List<List<Area>>() { dependencia_faby_marta, dependencia_carlos_unidad_ministro, dependencia_FabyB_Carlos, dependencia_marta_unidad_ministro };
+
+            return new Organigrama(areas_de_faby_y_marta_y_carlos_unidad_ministro_y_fabyB, lista_de_dependencias_faby_marta_carlos_y_um_fabyb);
         }
     }
 }

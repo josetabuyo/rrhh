@@ -138,6 +138,7 @@ namespace General
 
              foreach (var area in areas)
              {
+                 areas_inferiores.Add(area);
                  areas_inferiores.AddRange(this.GetAreasInferioresDelArea(area));
              }
 

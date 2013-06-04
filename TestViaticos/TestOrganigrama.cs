@@ -325,13 +325,13 @@ namespace TestViaticos
         }
 
         [TestMethod]
-        public void al_solicitarle_las_areas_inferiores_a_un_listado_de_areas_debe_traer_todas_sus_inferiores()
+        public void al_solicitarle_las_areas_inferiores_a_un_listado_de_areas_debe_traer_todas_sus_inferiores_y_a_si_misma()
         {
             List<Area> areas = new List<Area>();
             areas.Add(area_de_marta);
             areas.Add(area_de_castagneto);
 
-            Assert.AreEqual(2, organigrama_fabi_marta_castagneto_um_fabyB.GetAreasInferioresDeLasAreas(areas).Count);
+            Assert.AreEqual(4, organigrama_fabi_marta_castagneto_um_fabyB.GetAreasInferioresDeLasAreas(areas).Count);
             
         }
         
