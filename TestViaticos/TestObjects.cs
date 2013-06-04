@@ -1053,12 +1053,18 @@ namespace General
         public static List<Alumno> AlumnosNuevos()
         {
             List<Alumno> lista = new List<Alumno>() {
-                                                    new Alumno(9, "Ana", "Ran", 28000951, "", "", "", areas, new Modalidad(1, "Fines Puro")),
-                                                    new Alumno(8, "Carla", "Ren", 33700051, "", "", "", areas, new Modalidad(1, "Fines Puro")),
-                                                    new Alumno(7, "Nadia", "Rey", 11700051, "", "", "", areas, new Modalidad(1, "Fines Puro"))
+                                                    new Alumno(9, "Ana", "Ran", 28000951, "", "", "", new List<Area>(){new Area(1, AREA_UNIDAD_MINISTRO), new Area(621, AREA_DE_CENARD)}, new Modalidad(1, "Fines Puro")),
+                                                    new Alumno(8, "Carla", "Ren", 33700051, "", "", "", new List<Area>(){new Area(939, AREA_DE_FABI)}, new Modalidad(1, "Fines Puro")),
+                                                    new Alumno(7, "Nadia", "Rey", 11700051, "", "", "", new List<Area>(){new Area(621, AREA_DE_CENARD)}, new Modalidad(1, "Fines Puro"))
                                                     };
             return lista;
         }
+
+        public static Alumno AlumnoMinisterio()
+        {
+            return new Alumno(9, "Ana", "Ran", 28000951, "", "", "", new List<Area>() { new Area(1, "Ministerio") }, new Modalidad(1, "Fines Puro"));
+        }
+
 
         public static InstanciaDeEvaluacion PrimerParcial()
         {

@@ -17,7 +17,7 @@ public partial class SACC_FormAsignarAlumnos : System.Web.UI.Page
 
         CompletarCombosDeCursos();
         CompletarCombosDeCiclos();
-        var alumnos = JsonConvert.DeserializeObject(servicio.GetAlumnos());
+        var alumnos = JsonConvert.DeserializeObject(servicio.GetAlumnos((Usuario)Session[ConstantesDeSesion.USUARIO]));
         this.alumnosJSON.Value = alumnos.ToString();
     }
 

@@ -27,11 +27,7 @@ namespace General.Repositorios
                 var baja = 0;
                 if (!(row.GetObject("IdBaja") is DBNull))
                     baja = (int)row.GetObject("IdBaja");
-                Area area = new Area(0, "Ministerio de Desarrollo Social - Externo"); //Se moquean los que no son del Ministerio
-                if (!(row.GetObject("IdArea") is DBNull))
-                {
-                    area = new Area(row.GetSmallintAsInt("IdArea"), row.GetString("NombreArea"));
-                }
+                Area area = ConstruirAreaDeAlumno(row);
                 
                 List<Area> areas_alumno = new List<Area>();
                 areas_alumno.Add(area);
@@ -49,13 +45,7 @@ namespace General.Repositorios
                     Baja = baja
                 };
 
-                if (alumnos.Exists(a => a.Documento == alumno.Documento)) 
-                { 
-                    alumnos.Find(a => a.Documento == alumno.Documento).Areas.AddRange(alumno.Areas);
-                }else
-                {
-                    alumnos.Add(alumno);
-                }
+                alumnos = CorteDeControlAreasDeAlumno(alumnos, alumno);
             });
 
             //ordeno por modalidad, apellido, nombre
@@ -64,6 +54,31 @@ namespace General.Repositorios
             
 
             return alumnos;
+        }
+
+        private static List<Alumno> CorteDeControlAreasDeAlumno(List<Alumno> alumnos, Alumno alumno)
+        {
+            if (alumnos.Exists(a => a.Documento == alumno.Documento))
+            {
+                alumnos.Find(a => a.Documento == alumno.Documento).Areas.AddRange(alumno.Areas);
+
+            }
+            else
+            {
+                alumnos.Add(alumno);
+            }
+
+            return alumnos;
+        }
+
+        private static Area ConstruirAreaDeAlumno(RowDeDatos row)
+        {
+            Area area = new Area(0, "Ministerio de Desarrollo Social - Externo"); //Se moquean los que no son del Ministerio
+            if (!(row.GetObject("IdArea") is DBNull))
+            {
+                area = new Area(row.GetSmallintAsInt("IdArea"), row.GetString("NombreArea"));
+            }
+            return area;
         }
 
         public void GuardarAlumno(Alumno un_alumno, Usuario usuario)
@@ -106,12 +121,13 @@ namespace General.Repositorios
                 }
 
                 if (!(row.GetObject("BajaDocente") is DBNull))
-                    baja = row.GetInt("BajaDocente"); 
+                    baja = row.GetInt("BajaDocente");
 
-                //var modalidad = new Modalidad(row.GetInt("IdModalidad"), "");
-                //var baja = row.GetInt("idBaja");
+                Area area = ConstruirAreaDeAlumno(row);
+                List<Area> areas_alumno = new List<Area>();
+                areas_alumno.Add(area);
 
-                alumnos_dni.Add(new Alumno
+                Alumno alumno =  new Alumno
                 {
                      Id = row.GetInt("Id"),
                      Nombre = row.GetString("Nombre"),
@@ -120,13 +136,15 @@ namespace General.Repositorios
                      Telefono = row.GetString("Telefono"),
                      Mail = row.GetString("Email_Personal"),
                      Direccion = row.GetString("Direccion"),
-
-                   //  Area = new Area(1),
+                     Areas = areas_alumno,
                      Modalidad = modaldidad,
                      Baja = baja
-                });
+                };
+
+                alumnos_dni = CorteDeControlAreasDeAlumno(alumnos_dni, alumno);
+
             });
-            return alumnos_dni.First();
+            return alumnos_dni.First();      
         }
 
         public Alumno ActualizarAlumno(Alumno alumno, Usuario usuario)

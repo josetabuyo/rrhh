@@ -55,7 +55,7 @@ public partial class SACC_FormABMDocentes : System.Web.UI.Page
 
         try
         {
-            persona = JsonConvert.DeserializeObject<JObject>(servicio.GetPersonaByDNI(dni));
+            persona = JsonConvert.DeserializeObject<JObject>(servicio.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
         }
         catch (Exception)
         {

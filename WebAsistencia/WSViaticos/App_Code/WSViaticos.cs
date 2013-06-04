@@ -1041,9 +1041,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetAlumnos()
+    public string GetAlumnos(Usuario usuario)
     {
         var alumnos = RepoAlumnos().GetAlumnos();
+        Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+        Autorizador autorizador = new Autorizador();
+        alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
+
 
         var alumnos_dto = new List<Object>();
 
@@ -1072,13 +1076,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
-    [WebMethod]
-    public List<Alumno> GetTodosLosAlumnos()
-    {
-        var alumnos = RepoAlumnos().GetAlumnos();
-        return alumnos;
+    //[WebMethod]
+    //public List<Alumno> GetTodosLosAlumnos()
+    //{
+    //    var alumnos = RepoAlumnos().GetAlumnos();
+    //    return alumnos;
 
-    }
+    //}
 
     private object EdificioPara(Edificio edificio)
     {
@@ -1386,41 +1390,38 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetPersonaByDNI(int dni)
+    public string GetPersonaByDNI(int dni, Usuario usuario)
     {
         RepositorioDeAlumnos repo = new RepositorioDeAlumnos(Conexion());
         Alumno persona = repo.GetAlumnoByDNI(dni);
+
+        Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+        Autorizador autorizador = new Autorizador();
         var persona_dto = new Object();
 
-        if (persona == null)
+        if (!autorizador.AlumnoVisibleParaUsuario(persona, organigrama, usuario))
         {
-            persona_dto =
-                       new
-                       {
-                           id = 0,
-                           nombre = "No existe",
-                           apellido = "No existe",
-                           documento = "No existe",
-                           modalidad = "-1",
-                       };
+           
+            throw new Exception();
         }
         else
         {
-            persona_dto =
-                       new
-                       {
-                           id = persona.Id,
-                           nombre = persona.Nombre,
-                           apellido = persona.Apellido,
-                           documento = persona.Documento,
-                           telefono = persona.Telefono,
-                           direccion = persona.Direccion,
-                           mail = persona.Mail,
-                    //       area = persona.Area,
-                           modalidad = persona.Modalidad.Id,
-                           baja = persona.Baja,
-                       };
+                persona_dto =
+                           new
+                           {
+                               id = persona.Id,
+                               nombre = persona.Nombre,
+                               apellido = persona.Apellido,
+                               documento = persona.Documento,
+                               telefono = persona.Telefono,
+                               direccion = persona.Direccion,
+                               mail = persona.Mail,
+                               //area = persona.Areas,
+                               modalidad = persona.Modalidad.Id,
+                               baja = persona.Baja,
+                           };
         }
+        
         return JsonConvert.SerializeObject(persona_dto);
     }
 
