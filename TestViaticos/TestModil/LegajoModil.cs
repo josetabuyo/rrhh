@@ -7,12 +7,33 @@ namespace TestViaticos.TestModil
 {
     public class LegajoModil
     {
-        public int numero { get; set; }
+        private List<DocumentoModil> _documentos = new List<DocumentoModil>();
+        public int idInterna { get; set; }
+        public int numeroDeDocumento { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
 
-        public LegajoModil(int numero)
+        public LegajoModil(int un_id, int documento, string un_nombre, string un_apellido)
         {
-            this.numero = numero;
+            this.idInterna = un_id;
+            this.numeroDeDocumento = documento;
+            this.nombre = un_nombre;
+            this.apellido = un_apellido;
         }
 
+        public int cantidadDeDocumentos()
+        {
+            return _documentos.Count;
+        }
+
+        public List<DocumentoModil> documentos()
+        {
+            return _documentos;            
+        }
+
+        internal void agregarDocumentos(List<DocumentoModil> documentos)
+        {
+            this._documentos.AddRange(documentos);
+        }
     }
 }

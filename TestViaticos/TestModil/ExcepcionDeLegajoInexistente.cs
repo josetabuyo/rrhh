@@ -5,7 +5,11 @@ using System.Text;
 
 namespace TestViaticos.TestModil
 {
-    class ExcepcionDeLegajoInexistente : Exception
+    public class ExcepcionDeLegajoInexistente : Exception
     {
+        public ExcepcionDeLegajoInexistente(): base("El legajo no existe")
+        {
+           
+        }
     }
 }
