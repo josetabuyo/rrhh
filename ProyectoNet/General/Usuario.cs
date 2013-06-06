@@ -25,6 +25,7 @@ namespace General
             this.TienePermisosParaSiCoI = false;
             this.TienePermisosParaSACC = false;
             this.Features = new List<Features>();
+            this.FeaturesDescripcion = new List<string>();
         }
 
         public bool EsFirmante { get; set; }
@@ -35,6 +36,7 @@ namespace General
         public bool TienePermisosParaSiCoI { get; set; }
         public bool TienePermisosParaViaticos { get; set; }
 
+        public List<string> FeaturesDescripcion { get; set; }
         public List<Features> Features { get; set; }
 
         public bool TienePermisosPara(Features feature)

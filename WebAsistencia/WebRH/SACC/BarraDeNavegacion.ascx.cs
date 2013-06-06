@@ -15,8 +15,9 @@ public partial class SACC_BarraDeNavegacion : System.Web.UI.UserControl
     }
     protected void items_accesibles()
     {
+        var usuario = (Usuario)Session["usuario"];
         
-        var items = Servicio().ItemsDelMenu("MenuSACC", (Usuario)Session["usuario"]);
+        var items = Servicio().ItemsDelMenu(usuario, usuario.FeaturesDescripcion.First());
 
         items.ToList().ForEach(item =>
         {
