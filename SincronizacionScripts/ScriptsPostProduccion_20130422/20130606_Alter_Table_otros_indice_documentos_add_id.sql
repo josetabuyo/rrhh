@@ -1,0 +1,1 @@
+ALTER TABLE dbo.Otros_Indice_Documentos ADD id_otros_indice int not null identity(1,1)
