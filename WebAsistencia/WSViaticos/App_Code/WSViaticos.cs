@@ -224,8 +224,7 @@ public class WSViaticos : System.Web.Services.WebService
         {
             return usuario;
         }
-            return null;
-        
+        return null;        
     }
 
     [WebMethod]

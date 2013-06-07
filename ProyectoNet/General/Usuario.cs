@@ -24,6 +24,7 @@ namespace General
             this.TienePermisosParaViaticos = false;
             this.TienePermisosParaSiCoI = false;
             this.TienePermisosParaSACC = false;
+            this.TienePermisosParaModil = false;
         }
 
         public bool EsFirmante { get; set; }
@@ -32,6 +33,7 @@ namespace General
 
         public bool TienePermisosParaSACC { get; set; }
         public bool TienePermisosParaSiCoI { get; set; }
+        public bool TienePermisosParaModil { get; set; }
         public bool TienePermisosParaViaticos { get; set; }
 
     }

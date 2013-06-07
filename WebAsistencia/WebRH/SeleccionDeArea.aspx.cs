@@ -39,7 +39,13 @@ public partial class SeleccionDeArea : System.Web.UI.Page
             Response.Redirect("~/SACC/Inicio.aspx");
         }
 
+        if (usuario.TienePermisosParaModil)//Sistema de Apoyo de Creación de Capacidades
+        {
 
+            MostrarControlesDeSACC();
+
+            Response.Redirect("~/Modi/Modi.aspx");
+        }
         //esto se usa para encriptar las fotos, NO DESCOMENTAR NI BORRAR
         //GetFotosDelDirectorio();
      
