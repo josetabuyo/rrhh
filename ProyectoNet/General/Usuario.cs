@@ -24,7 +24,6 @@ namespace General
             this.TienePermisosParaViaticos = false;
             this.TienePermisosParaSiCoI = false;
             this.TienePermisosParaSACC = false;
-            this.Features = new List<Features>();
             this.FeaturesDescripcion = new List<string>();
         }
 
@@ -37,11 +36,6 @@ namespace General
         public bool TienePermisosParaViaticos { get; set; }
 
         public List<string> FeaturesDescripcion { get; set; }
-        public List<Features> Features { get; set; }
 
-        public bool TienePermisosPara(Features feature)
-        {
-            return this.Features.Contains(feature);
-        }
     }
 }

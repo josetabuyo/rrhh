@@ -22,8 +22,8 @@
                           <li><a href="FormABMEspaciosFisicos.aspx">Espacios Físicos</a></li>
                           <li id="el_menu_materias" runat="server"><a href="FormABMMaterias.aspx">Materias</a></li>
                           <li><a href="FormABMDocentes.aspx">Docentes</a></li>
-                          <li><a href="FormABMCursos.aspx">Cursos</a></li>-->
-                          <asp:Table ID="ItemsDelMenu" runat="server" />
+                          <li><a href="FormABMCursos.aspx">Cursos</a></li>
+                          <asp:Table ID="ItemsDelMenu" runat="server" />-->
                         </ul>
                       </li>
                       <li class="divider-vertical"></li>                 
