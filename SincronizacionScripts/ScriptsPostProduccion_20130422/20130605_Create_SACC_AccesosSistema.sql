@@ -3,7 +3,6 @@ CREATE TABLE [dbo].[SAC_Accesos_Sistema](
 	[menu] [varchar](64) NULL,
 	[url] [varchar](128) NULL,
 	[nombre_item] [varchar](128) NULL,
-	[nivel] [smallint] NULL,
 	[idbaja] [int] NULL,
 	[fecha] [datetime] NULL,
 	[orden] [smallint] NULL,
@@ -12,8 +11,3 @@ CREATE TABLE [dbo].[SAC_Accesos_Sistema](
 (
 	[id] ASC
 )
-
-GO
-
-
-

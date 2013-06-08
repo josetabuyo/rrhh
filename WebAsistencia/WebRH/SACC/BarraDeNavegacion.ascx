@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </a>
-                  <a class="brand" href="#">SACC</a>
+                  <a class="brand" href="#">MACC</a>
                   <div class="nav-collapse navbar-responsive-collapse">
                     <ul class="nav">
                       <li><a href="FormAsignarAlumnos.aspx">Inscripcion</a></li>

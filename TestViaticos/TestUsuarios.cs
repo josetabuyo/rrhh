@@ -86,8 +86,8 @@ namespace General
         [TestMethod]
         public void deberia_traer_una_unica_area_con_los_datos_de_contacto_de_la_misma()
         {
-            string source = @"  |id_usuario	|nombre	        |password	                    |id_area	|nombre_area	    |Presenta_DDJJ	|Apellido_Responsable	|Nombre_Responsable     |direccion	                        |Apellido_Asistente	    |Nombre_Asistente	|Telefono_Asistente	|Fax_Asistente	|Mail_Asistente	                    |es_firmante	|Cargo	      |Prioridad_Asistente	|Telefono_Area	|Mail_Area                |Id_Funcionalidad |
-                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |. 0  Piso  Dto 	                |PIRES	                |Sabrina Vanesa	    |1111-0333	        |44444444	    |area333@ministerio.gov.ar	    |0	            |Secretaria	  |1	                |1111-0333	    |area333@ministerio.gov.ar| 1|";
+            string source = @"  |id_usuario	|nombre	        |password	                    |id_area	|nombre_area	    |Presenta_DDJJ	|Apellido_Responsable	|Nombre_Responsable     |direccion	                        |Apellido_Asistente	    |Nombre_Asistente	|Telefono_Asistente	|Fax_Asistente	|Mail_Asistente	                    |es_firmante	|Cargo	      |Prioridad_Asistente	|Telefono_Area	|Mail_Area                |Id_Funcionalidad | Nombre_Funcionalidad
+                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |. 0  Piso  Dto 	                |PIRES	                |Sabrina Vanesa	    |1111-0333	        |44444444	    |area333@ministerio.gov.ar	    |0	            |Secretaria	  |1	                |1111-0333	    |area333@ministerio.gov.ar| 1| -";
 
 
             ConexionMockeada(source, usuario);
@@ -110,9 +110,9 @@ namespace General
         [TestMethod]
         public void deberia_mostrarme_una_unica_vez_la_secretaria_que_posee_el_area_cuando_los_datos_estan_repetidos()
         {
-            string source = @"  |id_usuario	|nombre	        |password	                    |id_area	|nombre_area	    |Presenta_DDJJ	|Apellido_Responsable	|Nombre_Responsable     |direccion	                   |Apellido_Asistente	    |Nombre_Asistente	|Telefono_Asistente	|Fax_Asistente	|Mail_Asistente	                |es_firmante	|Cargo	      |Prioridad_Asistente	|Telefono_Area	|Mail_Area                | Id_Funcionalidad |
-                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |Peron 525	. 6  Piso  Dto B   |PIRES	                |Sabrina Vanesa	    |1111-0333	        |44444444	    |area333@ministerio.gov.ar	    |0	            |Secretaria	  |1	                |1111-0333	    |area333@ministerio.gov.ar|1                 |
-                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |Peron 525	. 6  Piso  Dto B   |PIRES	                |Sabrina Vanesa	    |1111-0333	        |44444444	    |area333@ministerio.gov.ar	    |0	            |Secretaria	  |1	                |1111-0333	    |area333@ministerio.gov.ar|1                 |";
+            string source = @"  |id_usuario	|nombre	        |password	                    |id_area	|nombre_area	    |Presenta_DDJJ	|Apellido_Responsable	|Nombre_Responsable     |direccion	                   |Apellido_Asistente	    |Nombre_Asistente	|Telefono_Asistente	|Fax_Asistente	|Mail_Asistente	                |es_firmante	|Cargo	      |Prioridad_Asistente	|Telefono_Area	|Mail_Area                | Id_Funcionalidad | Nombre_Funcionalidad
+                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |Peron 525	. 6  Piso  Dto B   |PIRES	                |Sabrina Vanesa	    |1111-0333	        |44444444	    |area333@ministerio.gov.ar	    |0	            |Secretaria	  |1	                |1111-0333	    |area333@ministerio.gov.ar|1                 | -
+                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |Peron 525	. 6  Piso  Dto B   |PIRES	                |Sabrina Vanesa	    |1111-0333	        |44444444	    |area333@ministerio.gov.ar	    |0	            |Secretaria	  |1	                |1111-0333	    |area333@ministerio.gov.ar|1                 | -";
 
 
             ConexionMockeada(source, usuario);
@@ -124,10 +124,10 @@ namespace General
         [TestMethod]
         public void dada_un_area__con_3_asistentes_deberia_obtener_en_una_unica_area_unico_registro_y_los_3_asistentes_incluido_en_el_area()
         {
-            string source = @"  |id_usuario	|nombre	        |password	                    |id_area	|nombre_area	    |Presenta_DDJJ	|Apellido_Responsable	|Nombre_Responsable     |direccion	                        |Apellido_Asistente	    |Nombre_Asistente	|Telefono_Asistente	|Fax_Asistente	|Mail_Asistente	                        |es_firmante	|Cargo	      |Prioridad_Asistente	|Telefono_Area	|Mail_Area                | Id_Funcionalidad |
-                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |Peron 525	. 6  Piso  Dto B 	    |PIRES	                |Sabrina Vanesa	    |1111-1111	        |44444444	    |sabrina@secretaria-area333.gov.ar	    |0	            |Secretaria	  |1	                |0000-0333	    |area333@ministerio.gov.ar|1                 |
-                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |Peron 525	. 6  Piso  Dto B 	    |PEREZ	                |Gabriela Ana	    |2222-2222	        |44444444	    |gabriela@asistente-area333.gov.ar	    |0	            |Asistente	  |2	                |0000-0333	    |area333@ministerio.gov.ar|1                 |
-                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |Peron 525	. 6  Piso  Dto B 	    |SANCHEZ	            |Cristian Ariel	    |3333-3333	        |44444444	    |cristian@contador-area333.gov.ar	    |0	            |Contador	  |3	                |0000-0333	    |area333@ministerio.gov.ar|1                 |";
+            string source = @"  |id_usuario	|nombre	        |password	                    |id_area	|nombre_area	    |Presenta_DDJJ	|Apellido_Responsable	|Nombre_Responsable     |direccion	                        |Apellido_Asistente	    |Nombre_Asistente	|Telefono_Asistente	|Fax_Asistente	|Mail_Asistente	                        |es_firmante	|Cargo	      |Prioridad_Asistente	|Telefono_Area	|Mail_Area                | Id_Funcionalidad | Nombre_Funcionalidad
+                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |Peron 525	. 6  Piso  Dto B 	    |PIRES	                |Sabrina Vanesa	    |1111-1111	        |44444444	    |sabrina@secretaria-area333.gov.ar	    |0	            |Secretaria	  |1	                |0000-0333	    |area333@ministerio.gov.ar|1                 | -
+                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |Peron 525	. 6  Piso  Dto B 	    |PEREZ	                |Gabriela Ana	    |2222-2222	        |44444444	    |gabriela@asistente-area333.gov.ar	    |0	            |Asistente	  |2	                |0000-0333	    |area333@ministerio.gov.ar|1                 | -
+                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |Peron 525	. 6  Piso  Dto B 	    |SANCHEZ	            |Cristian Ariel	    |3333-3333	        |44444444	    |cristian@contador-area333.gov.ar	    |0	            |Contador	  |3	                |0000-0333	    |area333@ministerio.gov.ar|1                 | -";
 
             ConexionMockeada(source, usuario);
 
@@ -140,13 +140,13 @@ namespace General
         [TestMethod]
         public void deberia_traer_4_areas_con_los_datos_de_contacto_de_la_mismas()
         {
-            string source = @"  |id_usuario	|nombre	        |password	                    |id_area	|nombre_area	    |Presenta_DDJJ	|Apellido_Responsable	|Nombre_Responsable     |direccion	                        |Apellido_Asistente	    |Nombre_Asistente	|Telefono_Asistente	|Fax_Asistente	|Mail_Asistente	                    |es_firmante	|Cargo	      |Prioridad_Asistente	|Telefono_Area	|Mail_Area                | Id_Funcionalidad |
-                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |. 0  Piso  Dto 	                |PIRES	                |Sabrina Vanesa	    |1111-0333	        |44444444	    |area333-1@ministerio.gov.ar	    |0	            |Secretaria	  |1	                |1111-0333	    |area333@ministerio.gov.ar|1                 |
-                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |. 0  Piso  Dto 	                |PEREZ	                |Gabriela Ana	    |1111-0334	        |44444444	    |area333-2@ministerio.gov.ar	    |0	            |Asistente	  |2	                |1111-0333	    |area333@ministerio.gov.ar|1                 |
-                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |. 0  Piso  Dto 	                |SANCHEZ	            |Cristian Ariel	    |1111-0335	        |44444444	    |area333-3@ministerio.gov.ar	    |0	            |Contador	  |3	                |1111-0333	    |area333@ministerio.gov.ar|1                 |
-                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|254	    |Viáticos   	    |0	            |Santolin               |Claudia Silvia	        |9 de Julio 3424. 7  Piso  Dto A 	|PIRES	                |Juan Ariel 	    |1111-1111	        |44444444	    |juan@ministerio.gov.ar	            |0	            |Secretario	  |1	                |1111-0000	    |areaC@ministerio.gov.ar  |1                 |
-                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|461	    |Liquidaciones	    |0	            |Santolin               |Claudia Silvia	        |Rivadavia 7645	. 10  Piso  Dto 23  |PEREZ	                |Micaela    	    |1111-0334	        |44444444	    |micaela@ministerio.gov.ar	        |0	            |Asistente	  |1	                |1111-0111	    |areaB@ministerio.gov.ar  |1                 |
-                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|054	    |Recursos Humanos	|0	            |Santolin               |Claudia Silvia	        |Peron 525	. 6  Piso  Dto B 	    |SANCHEZ	            |Belen Soledad	    |1111-0335	        |44444444	    |belen@ministerio.gov.ar	        |0	            |Contadora	  |1	                |1111-0222	    |areaA@ministerio.gov.ar  |1                 |";
+            string source = @"  |id_usuario	|nombre	        |password	                    |id_area	|nombre_area	    |Presenta_DDJJ	|Apellido_Responsable	|Nombre_Responsable     |direccion	                        |Apellido_Asistente	    |Nombre_Asistente	|Telefono_Asistente	|Fax_Asistente	|Mail_Asistente	                    |es_firmante	|Cargo	      |Prioridad_Asistente	|Telefono_Area	|Mail_Area                | Id_Funcionalidad | Nombre_Funcionalidad
+                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |. 0  Piso  Dto 	                |PIRES	                |Sabrina Vanesa	    |1111-0333	        |44444444	    |area333-1@ministerio.gov.ar	    |0	            |Secretaria	  |1	                |1111-0333	    |area333@ministerio.gov.ar|1                 | -
+                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |. 0  Piso  Dto 	                |PEREZ	                |Gabriela Ana	    |1111-0334	        |44444444	    |area333-2@ministerio.gov.ar	    |0	            |Asistente	  |2	                |1111-0333	    |area333@ministerio.gov.ar|1                 | -
+                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|333	    |CAL Quilmes	    |0	            |Santolin               |Claudia Silvia	        |. 0  Piso  Dto 	                |SANCHEZ	            |Cristian Ariel	    |1111-0335	        |44444444	    |area333-3@ministerio.gov.ar	    |0	            |Contador	  |3	                |1111-0333	    |area333@ministerio.gov.ar|1                 | -
+                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|254	    |Viáticos   	    |0	            |Santolin               |Claudia Silvia	        |9 de Julio 3424. 7  Piso  Dto A 	|PIRES	                |Juan Ariel 	    |1111-1111	        |44444444	    |juan@ministerio.gov.ar	            |0	            |Secretario	  |1	                |1111-0000	    |areaC@ministerio.gov.ar  |1                 | -
+                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|461	    |Liquidaciones	    |0	            |Santolin               |Claudia Silvia	        |Rivadavia 7645	. 10  Piso  Dto 23  |PEREZ	                |Micaela    	    |1111-0334	        |44444444	    |micaela@ministerio.gov.ar	        |0	            |Asistente	  |1	                |1111-0111	    |areaB@ministerio.gov.ar  |1                 | -
+                                |291	    |UsuDirGral     |l3WIqH4QWCAycWcSzPXYXRil/M8=	|054	    |Recursos Humanos	|0	            |Santolin               |Claudia Silvia	        |Peron 525	. 6  Piso  Dto B 	    |SANCHEZ	            |Belen Soledad	    |1111-0335	        |44444444	    |belen@ministerio.gov.ar	        |0	            |Contadora	  |1	                |1111-0222	    |areaA@ministerio.gov.ar  |1                 | -";
 
 
             ConexionMockeada(source, usuario);
@@ -251,9 +251,9 @@ namespace General
         public void el_repo_de_usuarios_construye_un_autorizador_con_dos_accesos_para_un_menu()
         {
 
-            string source = @"  id| menu        | nombre      |  url                    | orden | nivel | padre
-                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 2     | 0
-                                2 | MenuSACC	| Curso       |  Cursos.aspx            | 2     | 2     | 0";
+            string source = @"  id| menu        | nombre      |  url                    | orden | padre
+                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 0
+                                2 | MenuSACC	| Curso       |  Cursos.aspx            | 2     | 0";
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
@@ -272,9 +272,9 @@ namespace General
         [TestMethod]
         public void el_repo_de_usuarios_construye_un_autorizador_con_accesos_para_dos_menues()
         {
-            string source = @"  id| menu        | nombre      |  url                    | orden | nivel | padre
-                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 2     | 0
-                                2 | MenuSicoi	| Documentos  |  AltaDocumento.aspx     | 2     | 2     | 0";
+            string source = @"  id| menu        | nombre      |  url                    | orden | padre
+                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 0
+                                2 | MenuSicoi	| Documentos  |  AltaDocumento.aspx     | 2     | 0";
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
