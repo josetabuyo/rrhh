@@ -164,7 +164,7 @@ var DibujarGrillaHorarios = function () {
             botonQuitar.attr('type', 'button');
             botonQuitar.addClass('btn');
             botonQuitar.val('Quitar');
-            botonQuitar.click(function (horario) {
+            botonQuitar.click(function () {
                 QuitarHorario(horario);
             });
             contenedorAcciones.append(botonQuitar);
