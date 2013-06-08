@@ -1492,6 +1492,23 @@ public class WSViaticos : System.Web.Services.WebService
 
      }
 
+     [WebMethod]
+     public ItemDeMenu[] ItemsDelMenu(Usuario usuario, string menu)
+     {
+         List<ItemDeMenu> items_permitidos_dto = new List<ItemDeMenu>();
+         var repo_usuarios = new RepositorioUsuarios(Conexion());
+         var items_permitidos = from i in repo_usuarios.AutorizadorPara(usuario).ItemsPermitidos(menu)
+                                    orderby i.Orden
+                                    select i;
+
+         foreach (var item in items_permitidos)
+         {
+             items_permitidos_dto.Add(new ItemDeMenu() { NombreItem = item.NombreItem, Url = item.Url });
+         }
+
+         return items_permitidos_dto.ToArray();
+     }
+
     private RepositorioDeAlumnos RepoAlumnos()
     {
         return new RepositorioDeAlumnos(Conexion());

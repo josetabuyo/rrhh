@@ -12,20 +12,18 @@
                   <div class="nav-collapse navbar-responsive-collapse">
                     <ul class="nav">
                       <li><a href="FormAsignarAlumnos.aspx">Inscripcion</a></li>
-                      <%--<li><a href="#">Cargar Planilla</a></li>--%>
                       <li><a href="FormPlanillaAsistenciaAlumnos.aspx">Planilla de Asistencia</a></li>
-                      <%--<li><a href="FormPlanillaDeEvaluaciones.aspx">Evaluaciones</a></li>--%>
                     </ul>
                     <ul class="nav pull-right">
-                       <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Parametria <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="FormABMAlumnos.aspx">Alumnos</a></li>
+                       <li class="dropdown" id="menu_parametria" runat="server">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Parametr&iacute;a <b class="caret"></b></a>
+                        <ul id="sub_menu_parametria" class="dropdown-menu" runat="server">
+                          <!--<li><a href="FormABMAlumnos.aspx">Alumnos</a></li>
                           <li><a href="FormABMEspaciosFisicos.aspx">Espacios Físicos</a></li>
-                          <li><a href="FormABMMaterias.aspx">Materias</a></li>
+                          <li id="el_menu_materias" runat="server"><a href="FormABMMaterias.aspx">Materias</a></li>
                           <li><a href="FormABMDocentes.aspx">Docentes</a></li>
                           <li><a href="FormABMCursos.aspx">Cursos</a></li>
-                          
+                          <asp:Table ID="ItemsDelMenu" runat="server" />-->
                         </ul>
                       </li>
                       <li class="divider-vertical"></li>                 
