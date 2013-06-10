@@ -90,12 +90,6 @@
     <Compile Include="AppConexionTest.cs" />
     <Compile Include="CodigoTareaTest.cs" />
     <Compile Include="ControladorDeWebControlsTest.cs" />
-    <Compile Include="TestModil\DocumentoModil.cs" />
-    <Compile Include="TestModil\ExcepcionDeLegajoInexistente.cs" />
-    <Compile Include="TestModil\ImagenModil.cs" />
-    <Compile Include="TestModil\Legajo.cs" />
-    <Compile Include="TestModil\LegajoModil.cs" />
-    <Compile Include="TestModil\RepositorioDeLegajos.cs" />
     <Compile Include="TestModil\TestRepositorioDeLegajos.cs" />
     <Compile Include="TestSACC\TestAlumnos.cs" />
     <Compile Include="TestValidador.cs" />

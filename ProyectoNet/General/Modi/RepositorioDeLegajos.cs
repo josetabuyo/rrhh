@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using General.Repositorios;
 
-namespace TestViaticos.TestModil
+namespace General.Modi
 {
     public class RepositorioDeLegajos
     {
@@ -26,13 +26,13 @@ namespace TestViaticos.TestModil
 
         private List<DocumentoModil> documentosPara(LegajoModil legajo)
         {
-            var tablaDocumentos = _conexion.Ejecutar("dbo.MODI_GetDocumentosParaUnLegajo");
+            var tablaDocumentos = _conexion.Ejecutar("dbo.LEG_GET_Indice_Documentos");
             return GetDocumentosFromTabla(tablaDocumentos);
         }
 
         private LegajoModil legajoPara(int numero_de_documento)
         {
-            var tablaLegajo = _conexion.Ejecutar("dbo.MODI_GetDatosParaUnLegajo");
+            var tablaLegajo = _conexion.Ejecutar("dbo.LEG_GET_Datos_Personales");
             return GetLegajoFromTabla(tablaLegajo);
         }
 
@@ -40,9 +40,9 @@ namespace TestViaticos.TestModil
         {
             var row = tablaLegajo.Rows.First();
             return new LegajoModil(row.GetInt("id_interna"),
-                                    row.GetInt("documento"),
-                                    row.GetString("nombre"),
-                                    row.GetString("apellido"));
+                                    row.GetInt("Nro_Documento"),
+                                    row.GetString("Nombre"),
+                                    row.GetString("Apellido"));
         }
 
         private List<DocumentoModil> GetDocumentosFromTabla(TablaDeDatos tablaDocumentos)
@@ -55,11 +55,11 @@ namespace TestViaticos.TestModil
                 {
                     var nuevoDocumento = new DocumentoModil(row.GetString("tabla"), 
                                                             row.GetInt("id"),
-                                                            row.GetString("descripcion"), 
-                                                            row.GetString("jurisdiccion"),
-                                                            row.GetString("organismo"),
-                                                            row.GetString("folio"),
-                                                            row.GetDateTime("fecha_desde"));
+                                                            row.GetString("TIPO"),
+                                                            row.GetString("JUR"),
+                                                            row.GetString("ORG"),
+                                                            row.GetString("FOLIO"),
+                                                            row.GetDateTime("fecha_comunicacion"));
                     documentos.Add(nuevoDocumento);
                 });
             }

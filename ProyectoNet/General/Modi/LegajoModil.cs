@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TestViaticos.TestModil
+namespace General.Modi
 {
     public class LegajoModil
     {
@@ -12,6 +12,11 @@ namespace TestViaticos.TestModil
         public int numeroDeDocumento { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
+
+        public LegajoModil()
+        {
+
+        }
 
         public LegajoModil(int un_id, int documento, string un_nombre, string un_apellido)
         {

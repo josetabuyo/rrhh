@@ -103,6 +103,11 @@
     <Compile Include="FiltroDeDocumentos.cs" />
     <Compile Include="FiltroDeAreas.cs" />
     <Compile Include="Mensajeria.cs" />
+    <Compile Include="Modi\DocumentoModil.cs" />
+    <Compile Include="Modi\ExcepcionDeLegajoInexistente.cs" />
+    <Compile Include="Modi\ImagenModil.cs" />
+    <Compile Include="Modi\LegajoModil.cs" />
+    <Compile Include="Modi\RepositorioDeLegajos.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

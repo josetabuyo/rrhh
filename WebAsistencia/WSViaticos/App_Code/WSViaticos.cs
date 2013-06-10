@@ -9,6 +9,7 @@ using General.Calendario;
 using General.Repositorios;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using General.Modi;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -1467,6 +1468,16 @@ public class WSViaticos : System.Web.Services.WebService
 
      }
 
+    //////////////////////////MODI
+
+    [WebMethod]
+    public LegajoModil GetLegajoParaDigitalizacion(int numero_documento)
+    {
+        var repositorio_legajos = new RepositorioDeLegajos(Conexion());
+        return repositorio_legajos.getLegajoPorDocumento(numero_documento);
+    }
+
+
     private RepositorioDeAlumnos RepoAlumnos()
     {
         return new RepositorioDeAlumnos(Conexion());
@@ -1506,5 +1517,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new RepositorioDeEvaluacion(Conexion());
     }
+
+
 
 }

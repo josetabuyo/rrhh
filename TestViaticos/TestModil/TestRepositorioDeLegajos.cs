@@ -9,7 +9,7 @@ using General;
 using NDbUnit.Core;
 using NDbUnit.Core.SqlClient;
 using NMock2;
-using TestViaticos.TestModil;
+using General.Modi;
 
 namespace TestViaticos
 {
@@ -19,25 +19,24 @@ namespace TestViaticos
     {
         private RepositorioDeLegajos repositorioDeLegajos;
 
-
         [TestInitialize]
         public void Setup()
         {
-            string sourceDocumentos = @"    tabla       |id     |jurisdiccion	                    |organismo                      |descripcion        |folio	    |fecha_desde    	        |fecha_hasta
+            string sourceDocumentos = @"    tabla       |id     |JUR	                            |ORG                            |TIPO               |FOLIO	    |fecha_comunicacion    	    |Fecha_Hasta
                                             curriculums |221    |Ministerio de desarrollo social	|Direccion de recursos humanos	|curriculum         |00-000/000	|2012-05-21 00:00:00.000	|1900-01-01 00:00:00.000
                                             domicilios  |444    |Ministerio de desarrollo social	|Secretaria de coordinacion     |domicilio          |00-000/001	|2012-05-21 00:00:00.000	|1900-01-01 00:00:00.000
                                             titulos     |333    |Ministerio de desarrollo social    |DGRHyORG	                    |titulo sec         |00-000/002	|2012-05-21 00:00:00.000	|1900-01-01 00:00:00.000";
             var resultado_sp_documentos = TablaDeDatos.From(sourceDocumentos);
 
-            string sourceLegajo = @"    documento   |id_interna |nombre	    |apellido
+            string sourceLegajo = @"    Nro_Documento   |id_interna |Nombre	    |Apellido
                                         29193500    |205171     |Jorge      |Silva	";
             var resultado_sp_legajo = TablaDeDatos.From(sourceLegajo);
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
 
 
-            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new string[] { "dbo.MODI_GetDatosParaUnLegajo" }).Will(Return.Value(resultado_sp_legajo));
-            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new string[] { "dbo.MODI_GetDocumentosParaUnLegajo" }).Will(Return.Value(resultado_sp_documentos));
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new string[] { "dbo.LEG_GET_Datos_Personales" }).Will(Return.Value(resultado_sp_legajo));
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new string[] { "dbo.LEG_GET_Indice_Documentos" }).Will(Return.Value(resultado_sp_documentos));
 
             repositorioDeLegajos = new RepositorioDeLegajos(conexion);
 

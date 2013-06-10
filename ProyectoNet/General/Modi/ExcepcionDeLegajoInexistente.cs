@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TestViaticos.TestModil
+namespace General.Modi
 {
     public class ExcepcionDeLegajoInexistente : Exception
     {
