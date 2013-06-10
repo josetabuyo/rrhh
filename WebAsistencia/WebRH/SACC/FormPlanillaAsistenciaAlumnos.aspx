@@ -62,9 +62,15 @@
     <div style="height:20px; width: 100%">
     <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
     <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla();" value="Imprimir" />
+    <br />
+    <br />
+    <textarea id="TxtObservaciones" style="margin-left: 5px;" class="label_observaciones" placeholder="Observaciones" ></textarea>
     </div>
     <asp:Button style="display:none;" ID="btn_CargarAsistencias" OnClick="CargarAsistencias" runat="server" />
     <asp:Button style="display:none;" ID="BtnSave" runat="server" Onclick="BtnSave_Click" />
+
+    <asp:HiddenField ID="curso_con_observaciones" runat="server" />
+
     </form>
 </body>
 <script type="text/javascript">
@@ -108,12 +114,18 @@
 
             $("#Docente").text(Docente.Nombre + " " + Docente.Apellido);
             $("#HorasCatedraCurso").text(HorasCatedraCurso);
+
+            var Observaciones = JSON.parse($("#PlanillaAsistencia_Curso").val()).Observaciones;
+
+            $("#TxtObservaciones").val(Observaciones);
+
         }
         else {
             $("#lblDocente").css("visibility", "hidden");
             $("#lblHorasCurso").css("visibility", "hidden");
             $("#BtnGuardar").css("visibility", "hidden");
             $("#BtnImprimir").css("visibility", "hidden");
+            $("#TxtObservaciones").css("visibility", "hidden");
         }
     };
 
@@ -182,6 +194,15 @@ $("#CmbCurso").change(function () {
             };
             detalle_asistencias.push(asistencia);
         }
+
+        Obs = $("#TxtObservaciones").val();
+        var curso = JSON.parse($("#PlanillaAsistencia_Curso").val());
+        curso.Observaciones = Obs;
+
+        $("#curso_con_observaciones").val((JSON.stringify(curso)));
+
+      //  $("#PlanillaAsistencia_Curso").val((JSON.stringify(curso)));
+
         $("#PlanillaAsistencia_DetalleAsistencias").val(JSON.stringify(detalle_asistencias));
         $("#BtnSave").click();
 //        return true;

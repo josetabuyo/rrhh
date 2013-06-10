@@ -1359,6 +1359,7 @@ public class WSViaticos : System.Web.Services.WebService
                          EspacioFisico = curso.EspacioFisico, 
                          FechaInicio = DateTime.Parse(curso.FechaInicio), 
                          FechaFin = DateTime.Parse(curso.FechaFin)
+                         
             };
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
@@ -1379,7 +1380,8 @@ public class WSViaticos : System.Web.Services.WebService
                          Materia = curso.Materia, 
                          EspacioFisico = curso.EspacioFisico, 
                          FechaInicio = DateTime.Parse(curso.FechaInicio), 
-                         FechaFin = DateTime.Parse(curso.FechaFin) 
+                         FechaFin = DateTime.Parse(curso.FechaFin), 
+                         Observaciones = curso.Observaciones
             };
         var horarios = curso.Horarios;
         horarios.ForEach(h =>{

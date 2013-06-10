@@ -3,6 +3,9 @@ using WSViaticos;
 using System.Globalization;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+
 
 public partial class SACC_FormPlanillaAsistenciaAlumnos : System.Web.UI.Page
 {
@@ -44,6 +47,9 @@ public partial class SACC_FormPlanillaAsistenciaAlumnos : System.Web.UI.Page
 
     protected void BtnSave_Click(object sender, EventArgs e)
     {
+        Curso curso = JsonConvert.DeserializeObject<Curso>(this.curso_con_observaciones.Value);
+        this.PlanillaAsistencia.ActualizarCurso(curso);
+       // var observaciones = this.curso_con_observaciones;
         this.PlanillaAsistencia.GuardarDetalleAsistencias();
         this.PlanillaAsistencia.CargarAsistencias();
     }

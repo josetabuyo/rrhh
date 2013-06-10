@@ -14,5 +14,6 @@ public partial class SACC_PrintPlanillaAsistenciaAlumnos : System.Web.UI.Page
         this.Mes.InnerText = Request.QueryString["nombre_mes"];
         this.Docente.InnerText = Request.QueryString["docente"];
         this.Curso.InnerText = Request.QueryString["nombre_curso"];
+
     }
 }
