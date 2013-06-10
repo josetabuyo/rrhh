@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,17 +13,16 @@ namespace General
             this.menues_del_sistema = menues_del_sistema;
         }
 
-
-        public Autorizador()
-        {
-            
-        }
-
-        public Dictionary<string, string> ItemsPermitidos(string nombre_menu)
+        public List<ItemDeMenu> ItemsPermitidos(string nombre_menu)
         {
             var menu = menues_del_sistema.Find(m => m.SeLlama(nombre_menu));
             if (menu == null) menu = MenuDelSistema.MenuNulo();
             return menu.Items();
+        }
+
+        public Autorizador()
+        {
+
         }
 
         public List<Curso> FiltrarCursosPorUsuario(List<Curso> cursos, Organigrama organigrama, Usuario usuario)
@@ -89,3 +88,5 @@ namespace General
   
     }
 }
+
+

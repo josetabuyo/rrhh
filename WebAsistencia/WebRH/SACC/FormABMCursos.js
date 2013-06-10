@@ -164,7 +164,7 @@ var DibujarGrillaHorarios = function () {
             botonQuitar.attr('type', 'button');
             botonQuitar.addClass('btn');
             botonQuitar.val('Quitar');
-            botonQuitar.click(function (horario) {
+            botonQuitar.click(function () {
                 QuitarHorario(horario);
             });
             contenedorAcciones.append(botonQuitar);
@@ -322,7 +322,8 @@ var ValidarHora = function (hora) {
 var LimpiarHorario = function () {
     Limpiar(horaI);
     Limpiar(horaF);
-    Limpiar(dia); 
+    Limpiar(dia);
+    
 }
 
 var Limpiar = function (control) {
@@ -331,7 +332,7 @@ var Limpiar = function (control) {
 
 var LimpiarCampos = function () {
     LimpiarHorario();
-    var horarios = [];
+    horarios = [];
     $('#contenedor_grilla_horario').html("");
 
     Limpiar($("#txtNombre"));
@@ -341,6 +342,7 @@ var LimpiarCampos = function () {
     Limpiar($("#cmbEspacioFisico"));
     Limpiar($("#txtFechaInicio"));
     Limpiar($("#txtFechaFin"));
+    Limpiar($("#txtHorarios"));    
 
     Limpiar($("#txtIdCurso"));
     Limpiar($('#txtIdDocente'));

@@ -82,6 +82,7 @@
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="CategoriaDeDocumentoSICOI.cs" />
     <Compile Include="CircuitoDeAprobacionDeViatico.cs" />
+    <Compile Include="Features.cs" />
     <Compile Include="FiltroDeDocumentosGoogleano.cs" />
     <Compile Include="FiltroDeDocumentosPorTiempoEnUltimaAreaMayorOIgualA.cs" />
     <Compile Include="DesSerializadorDeFiltros.cs" />
@@ -103,8 +104,10 @@
     <Compile Include="FiltroDeDocumentosPorAreaActual.cs" />
     <Compile Include="FiltroDeDocumentos.cs" />
     <Compile Include="FiltroDeAreas.cs" />
+    <Compile Include="ItemDeMenu.cs" />
     <Compile Include="Mensajeria.cs" />
     <Compile Include="MenuDelSistema.cs" />
+    <Compile Include="Permiso.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

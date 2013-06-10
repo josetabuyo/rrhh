@@ -100,9 +100,6 @@
             columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return '<label class="acumuladas">' + inasistenciaalumno.asistencias_acumuladas + " (" + inasistenciaalumno.por_asistencias_acumuladas + ")</label>" } }));
             columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return '<label class="acumuladas">' + inasistenciaalumno.inasistencias_acumuladas + " (" + inasistenciaalumno.por_inasistencias_acumuladas + ")</label>" } }));
             
-            columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
-            columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
-
             var PlanillaMensual = new Grilla(columnas);
 
             PlanillaMensual.CargarObjetos(AlumnosInasistencias);
