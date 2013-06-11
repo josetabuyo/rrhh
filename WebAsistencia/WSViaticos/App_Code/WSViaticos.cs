@@ -1219,6 +1219,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public CursoDto GetCursoDtoById(int id, Usuario usuario)
+    {
+        var curso = this.GetCursosDto(usuario).Find(c => c.Id == id);
+        return curso;
+    }
+
+    [WebMethod]
     public EspacioFisico GetEspacioFisicoById(int id)
     {
         return RepoEspaciosFisicos().GetEspacioFisicoById(id); //JsonConvert.SerializeObject(espacio_fisico);

@@ -84,9 +84,10 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
             curso.Docente = detalle_curso_JSON.Docente;
             curso.EspacioFisico = detalle_curso_JSON.EspacioFisico;
 
-            var horariosDto = new List<HorarioDto>();
-            //GetHorariosDto(horariosDto);
-            //curso.Horarios = horariosDto.ToArray();
+            //var horariosDto = new List<HorarioDto>();
+            //servicio.GetHorariosDeCursoById()
+            //servicio.GetCursoById(curso.Id)//GetHorariosDto(horariosDto); 
+            curso.Horarios = servicio.GetCursoDtoById(curso.Id, (Usuario)Session["usuario"]).Horarios;
             curso.FechaInicio = detalle_curso_JSON.FechaInicio.ToString();
             curso.FechaFin = detalle_curso_JSON.FechaFin.ToString();
             curso.Observaciones = detalle_curso_JSON.Observaciones;
