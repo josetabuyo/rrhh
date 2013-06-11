@@ -23,6 +23,18 @@ namespace General
         {
             this._id = id;
             this._descripcion = descripcion;
-        }       
+        }
+
+        public EstructuraDeEvaluacion(int id, string descripcion, List<InstanciaDeEvaluacion> instancias)
+        {
+            this._id = id;
+            this._descripcion = descripcion;
+            this._instanciasDeEvaluaciones = instancias;
+        }
+
+        public List<InstanciaDeEvaluacion> Instancias()
+        {
+            return this._instanciasDeEvaluaciones;
+        }
     }
 }

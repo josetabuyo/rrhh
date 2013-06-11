@@ -982,13 +982,51 @@ namespace General
             un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "",  areas, new Modalidad(1, "Fines Puro")));
             un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
             un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
-
+            Materia una_materia = MateriaCens();
 
             un_curso.AgregarDiaDeCursada(DayOfWeek.Tuesday);
             un_curso.AgregarDiaDeCursada(DayOfWeek.Wednesday);
+            un_curso.Materia = una_materia;
 
             return un_curso;
         }
+
+        public static Curso UnCursoConAlumnosYMateriaPura()
+        {
+            Curso un_curso = new Curso(1, "Historia");
+            un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
+            un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
+            un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
+            un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
+            un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
+            Materia una_materia = MateriaPuro();
+
+            un_curso.AgregarDiaDeCursada(DayOfWeek.Tuesday);
+            un_curso.AgregarDiaDeCursada(DayOfWeek.Wednesday);
+            un_curso.Materia = una_materia;
+
+            return un_curso;
+        }
+
+        public static Materia MateriaCens()
+        { 
+            List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() {PrimerParcial(), SegundoParcial() };
+            EstructuraDeEvaluacion estructura_evaluacion = new EstructuraDeEvaluacion(1,"Instancias CENS",instancias);
+            Modalidad modalidad_cens = new Modalidad(1, "Cens",estructura_evaluacion);
+
+            return new Materia(1, "Historia CENS", modalidad_cens);
+        }
+
+        public static Materia MateriaPuro()
+        {
+            List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() { CalificacionFinal() };
+            EstructuraDeEvaluacion estructura_evaluacion = new EstructuraDeEvaluacion(1, "Instancias Puro", instancias);
+            Modalidad modalidad_cens = new Modalidad(1, "Puro", estructura_evaluacion);
+
+            return new Materia(1, "Geografia Puro", modalidad_cens);
+        }
+
+
 
         public static List<Curso> UnListadoDeCursoConEdificios()
         {
@@ -1075,6 +1113,11 @@ namespace General
         internal static InstanciaDeEvaluacion SegundoParcial()
         {
             return new InstanciaDeEvaluacion(2, "Segundo Parcial");
+        }
+
+        internal static InstanciaDeEvaluacion CalificacionFinal()
+        {
+            return new InstanciaDeEvaluacion(3, "Calificacion Final");
         }
 
         public static Organigrama OrganigramaConDosRamas()

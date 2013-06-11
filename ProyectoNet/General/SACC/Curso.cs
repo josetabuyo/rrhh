@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using General;
 
 namespace General
 {
@@ -15,7 +18,8 @@ namespace General
         private List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
        
         private EspacioFisico _espacioFisico;
-        private List<InstanciaDeEvaluacion> _instanciasDeEvaluacion;
+        private Dictionary<InstanciaDeEvaluacion, List<Evaluacion>> _evaluaciones_por_instancias; 
+        //private List<InstanciaDeEvaluacion> _instanciasDeEvaluacion;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Nombre { get { return this.Materia.Nombre + " (" + this.Materia.Modalidad.Descripcion + ")"; } set { } }
@@ -31,15 +35,15 @@ namespace General
             return _alumnos;
         }
 
-        public List<InstanciaDeEvaluacion> InstanciasDeEvaluacion()
+        public Dictionary<InstanciaDeEvaluacion, List<Evaluacion>> EvaluacionesPorInstancias()
         {
-            return _instanciasDeEvaluacion;
+            return _evaluaciones_por_instancias;
         }
 
         public Curso()
         {
             _alumnos = new List<Alumno>();
-            _instanciasDeEvaluacion = new List<InstanciaDeEvaluacion>();
+            _evaluaciones_por_instancias = new Dictionary<InstanciaDeEvaluacion, List<Evaluacion>>();
         }
   
         public Curso(int id, string nombre) 
@@ -48,7 +52,7 @@ namespace General
             this._nombre = nombre;
 
             _alumnos = new List<Alumno>();
-            _instanciasDeEvaluacion = new List<InstanciaDeEvaluacion>();
+            _evaluaciones_por_instancias = new Dictionary<InstanciaDeEvaluacion, List<Evaluacion>>();
 
         }
 
@@ -59,7 +63,7 @@ namespace General
             this._materia = materia;
             this._docente = docente;
             _alumnos = new List<Alumno>();
-            _instanciasDeEvaluacion = new List<InstanciaDeEvaluacion>();
+            _evaluaciones_por_instancias = new Dictionary<InstanciaDeEvaluacion, List<Evaluacion>>();
         }
 
         public void AgregarDiaDeCursada(DayOfWeek diaDeLaSemana)
@@ -128,15 +132,15 @@ namespace General
             return this.Nombre.CompareTo(otrocurso.Nombre);
         }
 
-        public void AgregarInstanciasEvaluaciones(List<InstanciaDeEvaluacion> instanciasEvaluaciones)
-        {
-            instanciasEvaluaciones.ForEach(i => this.AgregarInstanciaEvaluacion(i));
-        }
+        //public void AgregarInstanciasEvaluaciones(List<InstanciaDeEvaluacion> instanciasEvaluaciones)
+        //{
+        //    instanciasEvaluaciones.ForEach(i => this.AgregarInstanciaEvaluacion(i));
+        //}
 
-        public void AgregarInstanciaEvaluacion(InstanciaDeEvaluacion instanciaEvaluacion)
-        {
-            this._instanciasDeEvaluacion.Add(instanciaEvaluacion);
-        }
+        //public void AgregarInstanciaEvaluacion(InstanciaDeEvaluacion instanciaEvaluacion)
+        //{
+        //    this._instanciasDeEvaluacion.Add(instanciaEvaluacion);
+        //}
 
         //public List<Evaluacion> GetInstanciasEvaluaciones()
         //{
@@ -158,9 +162,49 @@ namespace General
         //    return _instanciasEvaluaciones.Find(i => i.IdAlumno == alumno.Id && i.Fecha == fecha).Calificacion;
         //}
 
-        public void AgregarEvaluacion(Evaluacion evaluacion_historia_primer_parcial_bel)
+        public void AgregarEvaluacion(Evaluacion evaluacion)
         {
+            if (!this._evaluaciones_por_instancias.ContainsKey(evaluacion.InstanciaEvaluacion))
+            {
+                this._evaluaciones_por_instancias.Add(evaluacion.InstanciaEvaluacion, new List<Evaluacion>());
+            }
+            this._evaluaciones_por_instancias[evaluacion.InstanciaEvaluacion].Add(evaluacion);
+        }
 
+        public List<InstanciaDeEvaluacion> Instancias()
+        {
+            return this._materia.Modalidad.EstructuraDeEvaluacion.Instancias();
+        }
+
+        public void AgregarEvaluaciones(List<Evaluacion> lista_eavluaciones)
+        {
+            foreach (var evaluacion in lista_eavluaciones)
+            {
+                this.AgregarEvaluacion(evaluacion);
+            }
+        }
+
+        public List<Evaluacion> EvaluacionesDe(Alumno un_alumno)
+        {
+            var todasLasEvaluaciones = new List<Evaluacion>();
+            this._evaluaciones_por_instancias.Values.ToList().ForEach(evaluaciones => todasLasEvaluaciones.AddRange(evaluaciones));
+            return todasLasEvaluaciones.FindAll(unaEvaluacion => unaEvaluacion.Alumno == un_alumno);
+        }
+
+        public List<Evaluacion> EvaluacionesDe(InstanciaDeEvaluacion instancia)
+        {
+            if (!this._evaluaciones_por_instancias.ContainsKey(instancia))
+                return new List<Evaluacion>();
+           
+            return this._evaluaciones_por_instancias[instancia];
+        }
+
+        public Evaluacion EvaluacionDeAlumnoEnUnaInstancia(Alumno un_alumno, InstanciaDeEvaluacion instancia)
+        {
+            if (!this._evaluaciones_por_instancias.ContainsKey(instancia))
+                return new EvaluacionNull();
+
+            return this._evaluaciones_por_instancias[instancia].Find(e => e.Alumno.Equals(un_alumno));
         }
     }
 }

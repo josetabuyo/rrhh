@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace General.SACC
+namespace General
 {
     public class CalificacionNull:Calificacion
     {
+
+        public override int Nota { get; set; }
     }
 }

@@ -220,6 +220,7 @@
     <Compile Include="SACC\EspacioFisicoNull.cs" />
     <Compile Include="SACC\EstructuraDeEvaluacion.cs" />
     <Compile Include="SACC\Evaluacion.cs" />
+    <Compile Include="SACC\EvaluacionNull.cs" />
     <Compile Include="SACC\GeneradorDePlanillas.cs" />
     <Compile Include="SACC\HorarioDeCursada.cs" />
     <Compile Include="SACC\HorarioDto.cs" />
