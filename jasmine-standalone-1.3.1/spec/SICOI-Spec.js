@@ -482,6 +482,47 @@ describe("Pruebas del panel de filtros", function () {
                     expect(boton_panel.hasClass('boton_que_abre_panel_desplegable_activo_con_filtros')).toBeFalsy();
                 });
             });
+
+
+            /**/
+
+            describe("Se inicia la pantalla de control de alertas", function () {
+                beforeEach(function () {
+
+                    var div = $("<input>");
+
+
+                    var uiPanelDecontrol = $('<div>');
+                    input_inicio = $('<input id="btnIniciarServicioDeAlertas" type="button"  class="btn" value="Iniciar">');
+                    input_detener = $('<input id="btnDetenerServicioDeAlertas" type="button" class="btn" value="Detener">>');
+                    /* boton_buscar = $('<input id="boton_buscar" type="button">');*/
+
+
+                    uiPanelDecontrol.append(input_inicio);
+                    uiPanelDecontrol.append(input_detener);
+
+                    panel_control_alertas = new PanelDeControlDeAlertas(uiPanelDecontrol);
+                    panel_control_alertas.HabilitarBotones();
+
+                });
+                it("Si el servicio de enviar mails está activo, el botón de iniciar debe quedar deshabilitado", function () {
+                    expect(panel_control_alertas.btnDetenerServicioDeAlertas.prop('disabled')).toBeFalsy();
+                });
+                //                it("El boton del panel no deberia tener la clase boton_que_abre_panel_desplegable_activo_con_filtros", function () {
+                //                    expect(boton_panel.hasClass('boton_que_abre_panel_desplegable_activo_con_filtros')).toBeFalsy();
+                //                });
+            });
+
+
+
+
+            /**/
+
+
+
+
+
+
         });
     });
 });

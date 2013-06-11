@@ -45,6 +45,25 @@ PanelDeControlDeAlertas.prototype.detenerProceso = function () {
     });
 };
 
+
+PanelDeControlDeAlertas.prototype.HabilitarBotones = function (estado) {
+
+    var _this = this;
+  
+  if (estado == "idle") {
+      _this.btnIniciarServicioDeAlertas.prop('disabled', true);
+  _this.btnDetenerServicioDeAlertas.prop('disabled', false);
+}
+else {
+       _this.btnIniciarServicioDeAlertas.prop('disabled', false);
+       _this.btnDetenerServicioDeAlertas.prop('disabled', true);
+}
+ 
+
+};
+
+
+
 PanelDeControlDeAlertas.prototype.refrescarEstado = function () {
     var _this = this;
     $.ajax({
@@ -54,6 +73,7 @@ PanelDeControlDeAlertas.prototype.refrescarEstado = function () {
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             _this.lblEstado.text(data.d);
+            _this.HabilitarBotones(data.d);
         }
     });
 };
