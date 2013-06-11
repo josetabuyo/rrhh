@@ -136,6 +136,7 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         curso.Horarios = horariosDto.ToArray();
         curso.FechaInicio = txtFechaInicio.Text;
         curso.FechaFin = txtFechaFin.Text;
+        curso.Observaciones = JsonConvert.DeserializeObject<Curso>(servicio.GetCursoById(curso.Id)).Observaciones;
         servicio.ModificarCurso(curso);
 
         LimpiarFormulario();

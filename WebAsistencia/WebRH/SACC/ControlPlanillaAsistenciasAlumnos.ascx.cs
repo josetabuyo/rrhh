@@ -64,6 +64,37 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
                 detalle_asistencias_dto.Add(asistencia_dto);
             }
             servicio.GuardarDetalleAsistencias(detalle_asistencias_dto.ToArray(), (Usuario)Session["usuario"]);
+
+            var curso = this.Curso.Value;
+        }
+    }
+
+
+    public void ActualizarCurso(Curso detalle_curso_JSON)
+    {
+        //Curso detalle_curso_JSON = JsonConvert.DeserializeObject<Curso>(this.curso_con_observaciones.Value);
+        if (detalle_curso_JSON != null)
+        {
+            var servicio = Servicio();
+
+            var curso = new CursoDto();
+
+            curso.Id = detalle_curso_JSON.Id;
+            curso.Materia = detalle_curso_JSON.Materia;
+            curso.Docente = detalle_curso_JSON.Docente;
+            curso.EspacioFisico = detalle_curso_JSON.EspacioFisico;
+
+            //var horariosDto = new List<HorarioDto>();
+            //servicio.GetHorariosDeCursoById()
+            //servicio.GetCursoById(curso.Id)//GetHorariosDto(horariosDto); 
+            curso.Horarios = servicio.GetCursoDtoById(curso.Id, (Usuario)Session["usuario"]).Horarios;
+            curso.FechaInicio = detalle_curso_JSON.FechaInicio.ToString();
+            curso.FechaFin = detalle_curso_JSON.FechaFin.ToString();
+            curso.Observaciones = detalle_curso_JSON.Observaciones;
+
+            servicio.ModificarCurso(curso); //, (Usuario)Session["usuario"]); Ver si hay que agregar usuario o no
+
+            //var curso = this.Curso.Value;
         }
     }
 

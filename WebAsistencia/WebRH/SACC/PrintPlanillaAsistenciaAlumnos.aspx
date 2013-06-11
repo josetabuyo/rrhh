@@ -57,6 +57,9 @@
             <br />
             <br />
             <uc1:planilla ID="PlanillaAsistencia" runat="server" />
+            <br />
+            <label>Observaciones:</label>
+            <label id="Observaciones" runat="server">&nbsp;</label>
         </div>
     </form>
 </body>
@@ -97,6 +100,9 @@
         var Docente = JSON.parse($("#PlanillaAsistencia_Curso").val()).Docente;
         $("#Docente").text(Docente.Nombre + " " + Docente.Apellido);
         $("#HorasCatedraCurso").text(HorasCatedraCurso);
+
+        var Observaciones = JSON.parse($("#PlanillaAsistencia_Curso").val()).Observaciones;
+        $("#Observaciones").text(Observaciones);
     };
 
     var GeneradorCeldaDiaCursado = function (diaCursado) {

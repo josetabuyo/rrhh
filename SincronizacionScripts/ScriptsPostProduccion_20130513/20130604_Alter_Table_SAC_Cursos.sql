@@ -1,0 +1,1 @@
+ALTER TABLE [dbo].[SAC_Cursos] ADD Observaciones nvarchar(500) 

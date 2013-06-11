@@ -1219,6 +1219,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public CursoDto GetCursoDtoById(int id, Usuario usuario)
+    {
+        var curso = this.GetCursosDto(usuario).Find(c => c.Id == id);
+        return curso;
+    }
+
+    [WebMethod]
     public EspacioFisico GetEspacioFisicoById(int id)
     {
         return RepoEspaciosFisicos().GetEspacioFisicoById(id); //JsonConvert.SerializeObject(espacio_fisico);
@@ -1359,6 +1366,7 @@ public class WSViaticos : System.Web.Services.WebService
                          EspacioFisico = curso.EspacioFisico, 
                          FechaInicio = DateTime.Parse(curso.FechaInicio), 
                          FechaFin = DateTime.Parse(curso.FechaFin)
+                         
             };
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
@@ -1379,7 +1387,8 @@ public class WSViaticos : System.Web.Services.WebService
                          Materia = curso.Materia, 
                          EspacioFisico = curso.EspacioFisico, 
                          FechaInicio = DateTime.Parse(curso.FechaInicio), 
-                         FechaFin = DateTime.Parse(curso.FechaFin) 
+                         FechaFin = DateTime.Parse(curso.FechaFin), 
+                         Observaciones = curso.Observaciones
             };
         var horarios = curso.Horarios;
         horarios.ForEach(h =>{
