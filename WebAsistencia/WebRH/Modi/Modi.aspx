@@ -16,12 +16,37 @@
 <body class="body-detalle">
     <form id="form1" runat="server">
         <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="MODI" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-        <div id="contenedor_principal_sicoi">
-           
+        <div id="contenedor_principal_modi">
+           <div id="ui_buscador_de_legajos">
+                <input id="input_numero" type="text" class="span2"/>
+                <button id="boton_buscar" type="button" class="btn btn-primary">Buscar</button>
+                <div id="aviso_legajo_no_encontrado" class="alert alert-danger">
+                </div>
+           </div>
+           <div id="ui_vista_de_resultados_de_legajos">
+                <label id="lbl_nombre"></label>
+                <label id="lbl_apellido"></label>
+                <div id="panel_documentos"> </div>
+           </div>
         </div>
 
         <div id="plantillas">
-            
+            <div id="plantilla_ui_documento" class="documento">
+                <label class="titulo">Descripción:</label>
+                <label id="lbl_descripcion_en_RRHH"></label>
+                <label class="titulo">Jurisdicción:</label>
+                <label id="lbl_jurisdiccion"></label>
+                <label class="titulo">Organismo:</label>
+                <label id="lbl_organismo"></label>
+                <label class="titulo">Folio:</label>
+                <label id="lbl_folio"></label>
+                <label class="titulo">Fecha Desde:</label>
+                <label id="lbl_fechaDesde"></label>
+                <label class="titulo">Tabla:</label>
+                <label id="lbl_tabla"></label>
+                <label class="titulo">Id:</label>
+                <label id="lbl_id"></label>
+            </div>
         </div>       
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
@@ -29,10 +54,21 @@
 </body>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="BuscadorDeLegajos.js"></script>
+    <script type="text/javascript" src="VistaDeResultadosDeLegajos.js"></script>
+    <script type="text/javascript" src="ServicioDeLegajos.js"></script>
+    <script type="text/javascript" src="VistaDocumentoModi.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {         
-            
+        $(document).ready(function () {
+            var vista_del_legajo = new VistaDeResultadosDeLegajos({
+                ui: $('#ui_vista_de_resultados_de_legajos'),
+                plantilla_vista_documento: $('#plantilla_ui_documento')
+            });
+            var buscador = new BuscadorDeLegajos({
+                ui: $('#ui_buscador_de_legajos'),
+                servicioDeLegajos: ServicioDeLegajos,
+                vistaDeResultados: vista_del_legajo
+            });
         });
     </script>   
 </html>

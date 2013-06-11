@@ -1471,10 +1471,10 @@ public class WSViaticos : System.Web.Services.WebService
     //////////////////////////MODI
 
     [WebMethod]
-    public LegajoModil GetLegajoParaDigitalizacion(int numero_documento)
+    public LegajoModi GetLegajoParaDigitalizacion(int numero_documento)
     {
         var repositorio_legajos = new RepositorioDeLegajos(Conexion());
-        return repositorio_legajos.getLegajoPorDocumento(numero_documento);
+        return repositorio_legajos.getLegajoPorDocumento(numero_documento);     
     }
 
 

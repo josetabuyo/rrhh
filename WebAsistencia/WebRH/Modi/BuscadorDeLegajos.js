@@ -15,6 +15,7 @@ BuscadorDeLegajos.prototype.buscar = function () {
     var _this = this;
     this.o.servicioDeLegajos.getLegajo(parseInt(this.input_numero.val()), //numero_legajo
                                        function (legajo) {
+                                           _this.aviso_legajo_no_encontrado.hide();
                                            _this.o.vistaDeResultados.mostrarLegajo(legajo);
                                        },
                                        function (mensaje_error) {

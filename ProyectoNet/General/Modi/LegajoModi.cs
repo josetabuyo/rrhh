@@ -5,20 +5,20 @@ using System.Text;
 
 namespace General.Modi
 {
-    public class LegajoModil
+    public class LegajoModi
     {
-        private List<DocumentoModil> _documentos = new List<DocumentoModil>();
+        public List<DocumentoModi> documentos = new List<DocumentoModi>();
         public int idInterna { get; set; }
         public int numeroDeDocumento { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
 
-        public LegajoModil()
+        public LegajoModi()
         {
 
         }
 
-        public LegajoModil(int un_id, int documento, string un_nombre, string un_apellido)
+        public LegajoModi(int un_id, int documento, string un_nombre, string un_apellido)
         {
             this.idInterna = un_id;
             this.numeroDeDocumento = documento;
@@ -28,17 +28,12 @@ namespace General.Modi
 
         public int cantidadDeDocumentos()
         {
-            return _documentos.Count;
+            return documentos.Count;
         }
 
-        public List<DocumentoModil> documentos()
+        internal void agregarDocumentos(List<DocumentoModi> documentos)
         {
-            return _documentos;            
-        }
-
-        internal void agregarDocumentos(List<DocumentoModil> documentos)
-        {
-            this._documentos.AddRange(documentos);
+            this.documentos.AddRange(documentos);
         }
     }
 }

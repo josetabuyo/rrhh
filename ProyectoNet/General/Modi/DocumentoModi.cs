@@ -5,9 +5,9 @@ using System.Text;
 
 namespace General.Modi
 {
-    public class DocumentoModil
+    public class DocumentoModi
     {
-        private List<ImagenModil> imagenes;
+        private List<ImagenModi> imagenes;
         public string descripcionEnRRHH { get; set; }
         public string jurisdiccion { get; set; }
         public string organismo { get; set; }
@@ -16,7 +16,11 @@ namespace General.Modi
         public string tabla { get; set; }
         public int id { get; set; }
 
-        public DocumentoModil(  string una_tabla,
+        public DocumentoModi()
+        {
+
+        }
+        public DocumentoModi(  string una_tabla,
                                 int un_id,
                                 string unaDescripcion, 
                                 string una_jurisdiccion, 
@@ -33,7 +37,7 @@ namespace General.Modi
             this.id = un_id;
         }
 
-        public List<ImagenModil> getImagenes()
+        public List<ImagenModi> getImagenes()
         {
             return imagenes;
         }

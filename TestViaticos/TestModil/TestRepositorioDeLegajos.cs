@@ -45,7 +45,7 @@ namespace TestViaticos
         [TestMethod]
         public void deberia_poder_obtener_un_legajo_completo_pasando_el_numero_de_documento()
         {
-            LegajoModil un_legajo = repositorioDeLegajos.getLegajoPorDocumento(29193500);
+            LegajoModi un_legajo = repositorioDeLegajos.getLegajoPorDocumento(29193500);
             Assert.AreEqual(29193500, un_legajo.numeroDeDocumento);
             Assert.AreEqual(205171, un_legajo.idInterna);
             Assert.AreEqual("Jorge", un_legajo.nombre);
@@ -62,50 +62,50 @@ namespace TestViaticos
         [TestMethod]
         public void el_legajo_de_jorge_deberia_tener_3_documentos_en_el_sistema_de_recursos_humanos()
         {
-            LegajoModil legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
+            LegajoModi legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
             Assert.AreEqual(3, legajo_de_jorge.cantidadDeDocumentos());
         }
 
         [TestMethod]
         public void uno_de_los_documentos_del_legajo_de_jorge_deberia_ser_un_curriculum()
         {
-            LegajoModil legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
-            Assert.IsTrue(legajo_de_jorge.documentos().Any(un_documento => un_documento.descripcionEnRRHH == "curriculum"));
+            LegajoModi legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
+            Assert.IsTrue(legajo_de_jorge.documentos.Any(un_documento => un_documento.descripcionEnRRHH == "curriculum"));
         }
 
         [TestMethod]
         public void los_tres_documentos_del_legajo_de_jorge_deberian_estar_en_la_jurisdiccion_del_Ministerio_de_desarrollo_social()
         {
-            LegajoModil legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
-            Assert.IsTrue(legajo_de_jorge.documentos().All(un_documento => un_documento.jurisdiccion == "Ministerio de desarrollo social"));
+            LegajoModi legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
+            Assert.IsTrue(legajo_de_jorge.documentos.All(un_documento => un_documento.jurisdiccion == "Ministerio de desarrollo social"));
         }
 
         [TestMethod]
         public void un_documento_del_legajo_de_jorge_deberian_pertenecer_al_organismo_secretaria_de_coordinacion()
         {
-            LegajoModil legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
-            Assert.IsTrue(legajo_de_jorge.documentos().Any(un_documento => un_documento.organismo == "Secretaria de coordinacion"));
+            LegajoModi legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
+            Assert.IsTrue(legajo_de_jorge.documentos.Any(un_documento => un_documento.organismo == "Secretaria de coordinacion"));
         }
 
         [TestMethod]
         public void un_documento_del_legajo_de_jorge_deberian_tener_un_folio_igual_a_cero()
         {
-            LegajoModil legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
-            Assert.IsTrue(legajo_de_jorge.documentos().Any(un_documento => un_documento.folio == "00-000/000"));
+            LegajoModi legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
+            Assert.IsTrue(legajo_de_jorge.documentos.Any(un_documento => un_documento.folio == "00-000/000"));
         }
 
         [TestMethod]
         public void todos_los_documentos_del_legajo_de_jorge_deberian_tener_como_fecha_desde_el_21_de_mayo_del_2012()
         {
-            LegajoModil legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
-            Assert.IsTrue(legajo_de_jorge.documentos().Any(un_documento => un_documento.fechaDesde == DateTime.Parse("2012-05-21 00:00:00.000")));
+            LegajoModi legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
+            Assert.IsTrue(legajo_de_jorge.documentos.Any(un_documento => un_documento.fechaDesde == DateTime.Parse("2012-05-21 00:00:00.000")));
         }
 
         [TestMethod]
         public void un_documento_del_legajo_de_jorge_deberia_se_de_la_tabla_curriculums_y_tener_como_id_221()
         {
-            LegajoModil legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
-            Assert.IsTrue(legajo_de_jorge.documentos().Any(un_documento => un_documento.tabla == "curriculums" && un_documento.id == 221));
+            LegajoModi legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
+            Assert.IsTrue(legajo_de_jorge.documentos.Any(un_documento => un_documento.tabla == "curriculums" && un_documento.id == 221));
         }
 
         //[TestMethod]

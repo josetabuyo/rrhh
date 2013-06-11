@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General.Modi
 {
-    public class ImagenModil
+    public class ImagenModi
     {
     }
 }

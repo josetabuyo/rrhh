@@ -1,1 +1,26 @@
-﻿
+﻿#plantillas
+{
+    display:none;
+}
+
+#ui_buscador_de_legajos
+{
+    padding:5px;
+}
+
+#ui_buscador_de_legajos #input_numero
+{
+    margin-top:9px;
+}
+
+
+
+.documento
+{
+    border: 1px solid black;
+}
+
+.documento:hover
+{
+    border: 1px solid red;
+}
