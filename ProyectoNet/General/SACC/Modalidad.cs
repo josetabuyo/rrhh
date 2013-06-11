@@ -11,7 +11,7 @@ namespace General
         public string Descripcion { get { return _descripcion; } set { _descripcion = value; } }
         public EstructuraDeEvaluacion EstructuraDeEvaluacion { get { return _estructuraDeEvaluacion; } set { _estructuraDeEvaluacion = value; } }
 
-        public Modalidad() 
+        public Modalidad()
         {
         }
 
@@ -19,6 +19,13 @@ namespace General
         {
             this._id = id;
             this._descripcion = descripcion;
+        }
+
+        public Modalidad(int id, string descripcion, EstructuraDeEvaluacion estructura)
+        {
+            this._id = id;
+            this._descripcion = descripcion;
+            this._estructuraDeEvaluacion = estructura;
         }
     }
 }
