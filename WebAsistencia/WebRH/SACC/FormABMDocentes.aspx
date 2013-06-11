@@ -12,11 +12,7 @@
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    
 </head>
 <body>
     <form id="form1" runat="server">
@@ -67,10 +63,13 @@
             <asp:Button ID="btnQuitarDocente" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarDocente_Click" />
             <br />
             <br />
-            <div class="alert alert-error" id="div_mensaje" style="width:42%;">
+            <div runat="server" id="DivMensaje" Visible="true">
+            <%--<div class="alert alert-error" id="div_mensaje" style="width:42%;">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
               <strong id="texto_mensaje">Por favor complete todos los campos.</strong> 
+            </div>--%>
             </div>
+            <div runat="server" id="DivMensajeExito" Visible="false" class="alert alert-success">
             <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
         </div>
     </fieldset>
@@ -82,7 +81,9 @@
         <div id="ContenedorPlanilla" runat="server"></div>
         </fieldset>
     </div>
-
+    
+    <asp:HiddenField ID="texto_mensaje_exito" runat="server" />
+    <asp:HiddenField ID="texto_mensaje_error" runat="server" />
     <asp:HiddenField ID="docentesJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idBaja" runat="server" />
     <asp:HiddenField ID="txtIdDocente" runat="server" />
@@ -90,22 +91,69 @@
     <asp:HiddenField ID="alerta_mensaje" runat="server" />
     </form>
 </body>
+
+    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
+
+
 <script type="text/javascript">
 
-    if ($("#alerta_mensaje").val() == "1") {
-        $(".alert").alert();
-    } else if ($("#alerta_mensaje").val() == "2") {
-        this.div_mensaje.setAttribute("class", "alert alert-success");
-        this.texto_mensaje.innerHTML = "Operación exitosa.";
-    } else if ($("#alerta_mensaje").val() == "3") {
-        this.div_mensaje.setAttribute("class", "alert alert-error");
-        this.texto_mensaje.innerHTML = "No se puede eliminar el docente porque se encuentra asignado a un curso";
-    } else if ($("#alerta_mensaje").val() == "4") {
-        this.div_mensaje.setAttribute("class", "alert alert-error");
-        this.texto_mensaje.innerHTML = "No se encontro una persona con ese documento";
-    } else {
-        $(".alert").alert('close');
+    //Al presionarse Enter luego de Ingresar el DNI, se fuerza a realizar la búsqueda de dicho DNI para no tener que hacer necesariamente un click en el botón Buscar
+    function CapturarTeclaEnter(evt) {
+        var evt = (evt) ? evt : ((event) ? event : null);
+        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        if ((evt.keyCode == 13) && (node.type == "text")) { $("#btn_buscar_personas").click(); }
     }
+    document.onkeypress = CapturarTeclaEnter;
+
+
+    //Muestra los Mensajes de Error mediante PopUp y los de Éxito por mensaje
+    var mostrador_de_mensajes = {
+        mostrar: function (mensaje) {
+            alert(mensaje);
+        }
+    };
+    var administradorDeErrores = new AdministradorDeMensajes(
+        {
+            mostrar: function (mensaje) {
+                alert(mensaje);
+            }
+        },
+        $("#texto_mensaje_error").val());
+
+    var administradorDeExitos = new AdministradorDeMensajes(
+        {
+            mostrar: function (mensaje) {
+                $("#DivMensajeExito").show();
+                $("#DivMensajeExito").Visible = "true";
+            }
+        },
+        $("#texto_mensaje_exito").val());
+    
+
+
+//    function mostrarMensaje(mensaje) {
+//        alert(mensaje);
+//    }
+
+//    if ($("#alerta_mensaje").val() == "1") {
+//        $(".alert").alert();
+//    } else if ($("#alerta_mensaje").val() == "2") {
+//        this.div_mensaje.setAttribute("class", "alert alert-success");
+//        this.texto_mensaje.innerHTML = "Operación exitosa.";
+//    } else if ($("#alerta_mensaje").val() == "3") {
+//        this.div_mensaje.setAttribute("class", "alert alert-error");
+//        this.texto_mensaje.innerHTML = "No se puede eliminar el docente porque se encuentra asignado a un curso";
+//    } else if ($("#alerta_mensaje").val() == "4") {
+//        this.div_mensaje.setAttribute("class", "alert alert-error");
+//        this.texto_mensaje.innerHTML = "No se encontro una persona con ese documento";
+//    } else {
+//        $(".alert").alert('close');
+//    }
 
     var PlanillaDocentes;
     var contenedorPlanilla;

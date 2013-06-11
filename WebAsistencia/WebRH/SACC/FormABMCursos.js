@@ -6,10 +6,13 @@ var GrillaHorarios;
 var contenedorPlanilla;
 var horarios = [];
 var horario_seleccionado;
+
 var dia = $("#cmbDia");
 var horaI = $("#txtHoraInicio");
 var horaF = $("#txtHoraFin");
 var horasCatedra = $("#cmbHorasCatedra");
+
+
 
 var AdministradorPlanillaCursos = function () {
     Cursos = JSON.parse($('#cursosJSON').val());
@@ -18,7 +21,7 @@ var AdministradorPlanillaCursos = function () {
     contenedorPlanilla = $('#ContenedorPlanilla');
     var columnas = [];
 
-    columnas.push(new Columna("Nombre", {
+ columnas.push(new Columna("Nombre", {
         generar: function (un_curso) {
             return un_curso.Nombre;
         }
@@ -45,7 +48,7 @@ var AdministradorPlanillaCursos = function () {
             }).join("<br>");
             return horario;
         }
-    }));
+   }));
 
 
     PlanillaCursos = new Grilla(columnas);
@@ -102,6 +105,7 @@ $('#cmbCurso').change(function () {
 
 
 });
+
 
 $('#cmbMateria').change(function () {
     $('#txtIdMateria').val($('#cmbMateria').find('option:selected').val());
@@ -160,13 +164,15 @@ var DibujarGrillaHorarios = function () {
             botonQuitar.attr('type', 'button');
             botonQuitar.addClass('btn');
             botonQuitar.val('Quitar');
-            botonQuitar.click(function (horario) {
+            botonQuitar.click(function () {
                 QuitarHorario(horario);
             });
             contenedorAcciones.append(botonQuitar);
             return contenedorAcciones;
         }
     })];
+
+
     GrillaHorarios = new Grilla(columnas);
     GrillaHorarios.SetOnRowClickEventHandler(function (horario) {
         CompletarDatosHorario(horario);
@@ -261,7 +267,11 @@ var NuevoHorario = function () {
     };
 }
 var ValidarHorario = function (para_modificar) {
-    return ValidarCampoObligatorio(dia) && ValidarHora(horaI) && ValidarHora(horaF) && (para_modificar || ValidarSuperposicion()) && ValidarRangoDeHoras(horaI.val(), horaF.val());
+    return ValidarCampoObligatorio(dia) &&
+    ValidarHora(horaI) &&
+    ValidarHora(horaF) &&
+    (para_modificar || ValidarSuperposicion()) &&
+    ValidarRangoDeHoras(horaI.val(), horaF.val());
 }
 
 var ValidarSuperposicion = function () {
@@ -276,14 +286,14 @@ var ValidarSuperposicion = function () {
                 res = false;
             }
             if (parseInt(horario_a_validar.HoraDeFin.replace(regExp, "$1$2"), 10) > parseInt(horario.HoraDeInicio.replace(regExp, "$1$2"), 10) && parseInt(horario_a_validar.HoraDeFin.replace(regExp, "$1$2"), 10) <= parseInt(horario.HoraDeFin.replace(regExp, "$1$2"), 10)) {
-                res = false;
+            res = false;
             }
             if (parseInt(horario_a_validar.HoraDeInicio.replace(regExp, "$1$2"), 10) <= parseInt(horario.HoraDeInicio.replace(regExp, "$1$2"), 10) && parseInt(horario_a_validar.HoraDeFin.replace(regExp, "$1$2"), 10) >= parseInt(horario.HoraDeFin.replace(regExp, "$1$2"), 10)) {
-                res = false;
+            res = false;
             }
         }
-    });
-    if (!res) alert("El horario que intenta agregar se superpone con otros horarios de la lista");
+});
+if (!res) alert("El horario que intenta agregar se superpone con otros horarios de la lista");
     return res;
 }
 
@@ -297,10 +307,12 @@ var ValidarRangoDeHoras = function (hora_inicio, hora_fin) {
 }
 
 var ValidarHora = function (hora) {
-    if (!ValidarCampoObligatorio(hora)) return false;
+    if (!ValidarCampoObligatorio(hora))
+        return false;
     else if (/^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(hora.val())) {
         return true;
-    } else {
+    }
+    else {
         alert("Valor de hora incorrecto");
     }
     hora.focus();
@@ -311,7 +323,7 @@ var LimpiarHorario = function () {
     Limpiar(horaI);
     Limpiar(horaF);
     Limpiar(dia);
-
+    
 }
 
 var Limpiar = function (control) {
@@ -320,7 +332,7 @@ var Limpiar = function (control) {
 
 var LimpiarCampos = function () {
     LimpiarHorario();
-    var horarios = [];
+    horarios = [];
     $('#contenedor_grilla_horario').html("");
 
     Limpiar($("#txtNombre"));
@@ -330,6 +342,8 @@ var LimpiarCampos = function () {
     Limpiar($("#cmbEspacioFisico"));
     Limpiar($("#txtFechaInicio"));
     Limpiar($("#txtFechaFin"));
+    Limpiar($("#txtHorarios"));    
+
     Limpiar($("#txtIdCurso"));
     Limpiar($('#txtIdDocente'));
     Limpiar($('#txtIdEspacioFisico'));
@@ -347,7 +361,8 @@ $(document).ready(function () {
 var ObtenerIndice = function (arreglo, obj) {
     if (arreglo.indexOf) {
         return arreglo.indexOf(obj);
-    } else {
+    }
+    else {
         for (var i = 0; i < this.length; i++) {
             if (this[i] == obj) {
                 return i;
@@ -360,7 +375,8 @@ var ObtenerIndice = function (arreglo, obj) {
 var ValidarCamposObligatorios = function (controles) {
     if (controles.length > 0) {
         for (var i = 0; i < controles.length; i++) {
-            if (!ValidarCampoObligatorio(controles[i])) return false;
+            if (!ValidarCampoObligatorio(controles[i]))
+                return false;
         }
         return true;
     }
@@ -372,4 +388,5 @@ var ValidarCurso = function () {
     }
     else
         submit_value = false;
+
 };

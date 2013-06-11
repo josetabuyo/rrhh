@@ -1,4 +1,5 @@
-﻿/* ESTILO MAIN SICOI */       
+﻿
+/* ESTILO MAIN SICOI */       
 .botones_main_sicoi
 {
     margin-top:50px;
@@ -40,6 +41,7 @@
     float:left;    
     margin-top: 5px;
 }
+
 #titulo_ordenar_por
 {
     display: inline-block;
@@ -130,7 +132,6 @@
     user-select: none;
     cursor:pointer;
 }
-
 
 
 .panel_desplegable
@@ -471,6 +472,8 @@
     vertical-align:top;
 }
 
+
+
 /*FIN ESTILO DETALLE DOCUMENTO */
 
 /* ESTILO PANEL DOCUMENTOS */
@@ -481,7 +484,7 @@
     margin-right:5%;
     overflow-y:scroll;
     height:87%;
-    margin-top: 17px;
+   margin-top: 17px;
     
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
@@ -497,10 +500,12 @@
     display:none;
 }
 
+
+
 /* ESTILO FICHA CHICA DE DOCUMENTO */
 
 .ficha_chica_de_documento {
-	/*height: 66px;*/
+  /*height: 66px;*/
     -webkit-transition: height .5s ease;
     -moz-transition: height .5s ease;
     transition: height .5s ease;
@@ -526,76 +531,76 @@
     transition: all .5s ease;
     
 }
-.ficha_chica_de_documento:nth-child(odd) {
-	background-color: #CCC;
+ficha_chica_de_documento:nth-child(odd) {
+  background-color: #CCC;
 }
 .ficha_chica_de_documento:nth-child(even) {
     background-color: White
 }
 
 #ficha_chica_titulo_ticket {
-	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 11px;
-	display: inline-block;
+  font-family:"Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  display: inline-block;
 }
 #ficha_chica_contenido_ticket { 
-	display: inline-block;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	width: 60px;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  width: 60px;
  }
 #ficha_chica_titulo_tipo {
-	padding-left: 70px;
-	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 11px;
-	display: inline-block;
+  padding-left: 70px;
+  font-family:"Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  display: inline-block;
 }
 #ficha_chica_contenido_tipo {
-	display: inline-block;
-	font-family:"Arial Black", Gadget, sans-serif;
-	/*color:rgb(25, 75, 180);*/
-	font-size: 12px; 
-	font-style:italic; 
-	width: 260px;
+  display: inline-block;
+  font-family:"Arial Black", Gadget, sans-serif;
+  /*color:rgb(25, 75, 180);*/
+  font-size: 12px; 
+  font-style:italic; 
+  width: 260px;
 }
 #ficha_chica_titulo_categoria {
-	padding-left: 10px;
-	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 11px;
-	display: inline-block; 
+  padding-left: 10px;
+ font-family:"Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  display: inline-block; 
 }
 #ficha_chica_contenido_categoria {
-	display: inline-block;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px  
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px  
 }
 #ficha_chica_titulo_area_actual {
-	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 11px;
-	display: inline-block;
+  font-family:"Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  display: inline-block;
 }
 #ficha_chica_contenido_area_actual {
-	display: inline-block;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+ font-size: 11px;
 }
 #ficha_chica_titulo_extracto {
-	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 11px;
-	display: inline;  
+  font-family:"Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  display: inline;  
 }
 #ficha_chica_contenido_extracto {
-	display: inline;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;  
+  display: inline;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;  
 }
-	
+  
 #ficha_chica_boton_desplegar{
-	position: absolute;
+  position: absolute;
     top: 40px;
     right: 7px;
 }
-	
+  
 #ficha_chica_boton_desplegar:hover 
 {
     -moz-transform:scale(1.3); 
@@ -604,11 +609,11 @@
 }
 
 #ficha_chica_boton_enviar_documento{
-	display: inline-block;
-	float: right;
-	margin-right: 10px; 
-	margin-top: 5px;
-	}
+  display: inline-block;
+  float: right;
+  margin-right: 10px; 
+  margin-top: 5px;
+  }
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -622,39 +627,39 @@
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
-	
+  
 /* FIN ESTILO FICHA CHICA DE DOCUMENTO */
 
 
 /* ESTILO FICHA GRANDE DE DOCUMENTO */
 #ficha_grande_titulo_area_creadora
 {   
-   	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 11px;
-	display: inline-block;
+     font-family:"Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  display: inline-block;
 }    
 #ficha_grande_contenido_area_creadora
-{  	display: inline-block;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
+{    display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
 }
 #ficha_grande_titulo_tiempo_en_area_actual
 {   
-	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 11px;
-	display: inline-block;
+ font-family:"Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  display: inline-block;
 }
 #ficha_grande_contenido_tiempo_en_area_actual
 {   
-	font-family:Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	display: inline-block;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  display: inline-block;
 }    
 #ficha_grande_titulo_comentarios
 {   margin-top: 10px;
-	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 11px;
-	display: inline-block;
+  font-family:"Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  display: inline-block;
 }    
 #ficha_grande_contenido_comentarios
 {   margin-top:10px;
@@ -664,9 +669,9 @@
 }    
 #ficha_grande_titulo_transiciones
 {   
-	font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 11px;
-}    
+  font-family:"Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+}
 #transicion_documento_fecha_de_ingreso
 {
     display:inline-block;
@@ -681,32 +686,32 @@
     font-size: 11px;
 }
 #ficha_grande_titulo_fecha_de_ingreso{
-    font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 11px;
+   font-family:"Arial Black", Gadget, sans-serif;
+  font-size: 11px;
 }
 #ficha_grande_titulo_area_destino{
     font-family:"Arial Black", Gadget, sans-serif;
-	font-size: 11px;
-	display: inline-block;
-	vertical-align: super;
+  font-size: 11px;
+  display: inline-block;
+  vertical-align: super;
 }
 #ficha_grande_contenido_area_destino{
-    width: 600px;
+   width: 600px;
     display: inline-block;
 }
 #guardar_cambios_documento{
-	display: inline-block;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
-	float: right;
-	margin-right: 10px; 
-	margin-top: -17px;
-}	
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+ font-size: 13px;
+  float: right;
+ margin-right: 10px; 
+  margin-top: -17px;
+}
 #ficha_grande_boton_guardar_cambios
 {
-	display:inline-block;
-	margin-top: -10px;
-	margin-left: 5px;
+  display:inline-block;
+  margin-top: -10px;
+  margin-left: 5px;
 }
 
 /* FIN ESTILO FICHA GRANDE DE DOCUMENTO */

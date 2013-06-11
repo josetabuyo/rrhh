@@ -121,8 +121,9 @@
     display:inline-block;    
     width:19%;    
     border-left: 4px solid white;   
-    padding-left:20px;    
-    height: 30px;
+    padding-left:20px;  
+    height: 30px;  
+    
 }
 
 .barra_menu_botones

@@ -42,8 +42,8 @@ namespace TestViaticos
         public void deberia_traer_viaticos_de_la_provincia_SALTA_y_CORDOBA_en_el_periodo_011012_261012()
         {
             var reporte = GeneradorDeReportes().ViaticosPorProvincia(Filtros(SaltaYCordoba(), UnoOctubre(), VeintiseisOctubre()), Comisiones(), SaltaYCordoba()); //Comisiones(), SaltaYCordoba(), UnoOctubre(), VeintiseisOctubre());
-            Assert.AreEqual("2", reporte[0][1]);
-            Assert.AreEqual("2", reporte[1][1]);
+            Assert.AreEqual("1", reporte[0][1]);
+            Assert.AreEqual("1", reporte[1][1]);
         }
 
 

@@ -131,6 +131,20 @@ namespace General
             return areas;
         }
 
+
+         public List<Area> GetAreasInferioresDeLasAreas(List<Area> areas)
+         {
+             List<Area> areas_inferiores = new List<Area>();
+
+             foreach (var area in areas)
+             {
+                 areas_inferiores.Add(area);
+                 areas_inferiores.AddRange(this.GetAreasInferioresDelArea(area));
+             }
+
+             return areas_inferiores;
+         }
+
         public List<Area> AreasInferioresInmediatasDe(Area area)
         {
             List<Area> areas = new List<Area>();

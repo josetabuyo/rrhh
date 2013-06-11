@@ -169,3 +169,12 @@ _ReSharper.WSWebRH
 /WebAsistencia/WebRH/App_WebReferences/WSViaticos/WSViaticos.wsdl
 /WebAsistencia/WebRH/App_WebReferences/WSViaticos/configuration.svcinfo
 /WebAsistencia/WSWebRH.suo
+
+/ProyectoNet/General/obj/Debug/General.csproj.FileListAbsolute.txt
+
+/ProyectoNet/General/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+
+/ProyectoNet/General/obj/Release/General.csproj.FileListAbsolute.txt
+/ProyectoNet/General/obj/Release/General.dll
+
+/TestViaticos/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache

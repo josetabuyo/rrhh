@@ -5,7 +5,7 @@
 	margin-top: 0px;
 	margin-right: 0px;
 	background-color: #CCC
-	
+
 }
 
 .contenedor_principal
@@ -62,7 +62,7 @@
     margin-left: 15px;	
 }
 .barra_menu_label_bienvenido {
-	
+
 	color: #FFF;
 	clear: both;
 	display:inline;
@@ -201,7 +201,7 @@
 	font-size: 13px;
 	font-weight: bold; 
 	color: #F00 
-	
+
 }
 .detalle_viatico_alerta_viatico_menos_72 {
 	padding-left: 940px;
@@ -332,7 +332,7 @@
 	font-family: "Humnst777 BT";
 	font-size: 11px;
 	color: #FFF;
-	
+
 }
 
 .listado_viaticos_imprimir_seleccion{
@@ -536,7 +536,7 @@
 	margin-top: 10px;
 	overflow: auto;
     height: 100%;
-	
+
 }
 
 .div_izquierdo {
@@ -559,7 +559,7 @@
 	margin-top: 10px;
 	overflow: auto;
     height: 100%;
-	
+
 }
 
 .div_izquierdo_inscripcion {
@@ -581,6 +581,15 @@
     text-align:right;
     border:none;
 }
+
+.label_observaciones
+{
+    vertical-align: middle;
+    width:98%;
+    text-align:left;
+    border:1px solid;
+}
+
 
 .btn_inscripcion_SACC 
 {
@@ -638,6 +647,3 @@ text-align: right;
 .navbar .nav li.dropdown.active > .dropdown-toggle:hover {
   color: #999;
 }
-
-
-
