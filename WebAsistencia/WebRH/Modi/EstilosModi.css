@@ -24,3 +24,8 @@
 {
     border: 1px solid red;
 }
+
+.documento .titulo
+{
+    font-weight:bold;
+}
