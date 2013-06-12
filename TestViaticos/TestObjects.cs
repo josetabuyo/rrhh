@@ -1120,6 +1120,11 @@ namespace General
             return new InstanciaDeEvaluacion(3, "Calificacion Final");
         }
 
+        internal static InstanciaDeEvaluacion FinalNulo()
+        {
+            return new InstanciaDeEvaluacion(1, "Final");
+        }
+
         public static Organigrama OrganigramaConDosRamas()
         {
             Area area_de_faby;
