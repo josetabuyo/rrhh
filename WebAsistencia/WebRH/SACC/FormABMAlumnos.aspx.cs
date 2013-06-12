@@ -12,15 +12,17 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+      
         var servicio = new WSViaticos.WSViaticosSoapClient();
         SetearLosTextBox();
 
         if (!IsPostBack)
         {
             CompletarCombosDeModalidades();
-            this.personasJSON.Value = servicio.GetAlumnos();
+            this.personasJSON.Value = servicio.GetAlumnos((Usuario)Session[ConstantesDeSesion.USUARIO]);
         }
 
+        
         this.btnModificarAlumno.Enabled = false;
         this.btnQuitarAlumno.Enabled = false;
         MostrarAlumnosEnLaGrilla(servicio);    
@@ -28,12 +30,14 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
     private void MostrarAlumnosEnLaGrilla(WSViaticosSoapClient servicio)
     {
-        var alumnos = JsonConvert.DeserializeObject(servicio.GetAlumnos());
+
+        var alumnos = JsonConvert.DeserializeObject(servicio.GetAlumnos((Usuario)Session[ConstantesDeSesion.USUARIO]));
         this.alumnosJSON.Value = alumnos.ToString();
     }
 
     protected void btnBuscarPersona_Click(object sender, EventArgs e)
     {
+        LimpiarPantalla();
         int dni;
 
         try
@@ -42,7 +46,7 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         }
         catch (Exception)
         {
-            this.alerta_mensaje.Value = "1";
+            this.texto_mensaje_error.Value = "Ingrese un D.N.I válido";
             return;
         }
         
@@ -52,11 +56,11 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
         try
         {
-           persona = JsonConvert.DeserializeObject<JObject>(servicio.GetPersonaByDNI(dni));
+           persona = JsonConvert.DeserializeObject<JObject>(servicio.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
         }
         catch (Exception)
         {
-            this.alerta_mensaje.Value = "4";
+            this.texto_mensaje_error.Value = "No se encontro una persona con el D.N.I: " + dni;
             return;
         }
         
@@ -76,10 +80,10 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
     protected void btnAgregarAlumno_Click(object sender, EventArgs e)
     {
+       
         if (!DatosEstanCompletos())
         {
-            this.alerta_mensaje.Value = "1";
-            //this.lblMensaje.Text = "Alumno no guardado. Seleccione el alumno y la Modalidad";
+            this.texto_mensaje_error.Value = "El Alumno no ha sido guardado. Seleccione el Alumno y la Modalidad";
             return;
         }
         
@@ -95,9 +99,10 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
     protected void btnModificarAlumno_Click(object sender, EventArgs e)
     {
+      
         if (!DatosEstanCompletos())
         {
-            this.alerta_mensaje.Value = "1";
+            this.texto_mensaje_error.Value = "El Alumno no ha sido guardado. Seleccione el Alumno y la Modalidad";
             return;
         }
 
@@ -120,15 +125,13 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         {
             LimpiarPantalla();
             MostrarAlumnosEnLaGrilla(servicio);
+
+            this.texto_mensaje_exito.Value = "Todo bién";
         }
         else
         {
-            //mensaje de error
-            this.alerta_mensaje.Value = "3";
-            return;
+            this.texto_mensaje_error.Value = "No se puede eliminar el Alumno " + this.lblDatoNombre.Text + " " + this.lblDatoApellido.Text + " porque se encuentra asignado a un curso";
         }
-
-
     }
 
     private Alumno AlumnoDesdeElForm()
@@ -174,11 +177,6 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         }
     }
 
-    //private void RefrescarListaDeDocumentos()
-    //{
-
-    //}
-
     protected void btnVerAlumno_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/SACC/FormDetalleDeAlumno.aspx"); 
@@ -197,7 +195,8 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         this.lblDatoTelefono.Text = "";
         this.lblDatoMail.Text = "";
         this.lblDatoDireccion.Text = "";
-        this.alerta_mensaje.Value = "2";
+        this.texto_mensaje_error.Value = "";
+        this.texto_mensaje_exito.Value = "";
     }
 
     private void SetearLosTextBox()
@@ -208,7 +207,6 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
         this.lblDatoTelefono.Attributes.Add("readonly", "true");
         this.lblDatoMail.Attributes.Add("readonly", "true");
         this.lblDatoDireccion.Attributes.Add("readonly", "true");
-        //this.lblMensaje.Text = "";
     }
 
 }

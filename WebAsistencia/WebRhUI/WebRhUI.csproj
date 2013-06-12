@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="ControladorDeWebControls.cs" />
     <Compile Include="EntityToRowConverter.cs" />
+    <Compile Include="GeneraStringDePermisos.cs" />
     <Compile Include="RenderizadorDeTablas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

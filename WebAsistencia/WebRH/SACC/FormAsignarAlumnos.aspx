@@ -14,6 +14,7 @@
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="InscripcionAlumnos.js"></script>
     
 </head>
 <body>
@@ -55,11 +56,12 @@
     </div>
     <div style="margin-top:200px;float: left; padding-right:50px; width: 7%;">
 
-        <p><img alt="" src="../Imagenes/Botones/Botones SACC/flecha_der.png" onclick="AsignarAlumno()"  height="40"  id="Img1" /></p>
-        <p><img alt="" src="../Imagenes/Botones/Botones SACC/flecha_izq.png" onclick="DesasignarAlumno()"  height="40"  id="Img2" /></p>             
+        <p><img alt="" src="../Imagenes/Botones/Botones SACC/flecha_der.png"   height="40"  id="Img1" /></p>
+        <p><img alt="" src="../Imagenes/Botones/Botones SACC/flecha_izq.png"  height="40"  id="Img2" /></p>             
         <p><label id="mensaje" ></label></p>
         
-        <asp:Button ID="btnGrabar" Text="Guardar Inscriptos" runat="server" OnClick="btnGrabarAsignacion_Click" class=" btn btn-primary boton_main_documentos" Visible="true"/> 
+        <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="button" value="Inscribir" runat="server" />
+        <%--<asp:Button ID="btnGrabar" Text="Guardar Inscriptos" runat="server" OnClick="btnGrabarAsignacion_Click" class=" btn btn-primary boton_main_documentos" Visible="true"/> --%>
     </div>
 
 
@@ -80,178 +82,36 @@
 </body>
 
 <script type="text/javascript">
-    var planillaAlumnosDisponibles;
-    var planillaAlumnosAsignados;
-    var contenedorAlumnosDisponibles;
-    var contenedorAlumnosAsignados;
-    var alumnoGlobal;
 
     var AdministradorPlanilla = function () {
-        var alumnos = JSON.parse($('#alumnosJSON').val());
-        var panelAlumnoDisponibles = $("#panelAlumnoDisponibles");
-        var panelAlumnoAsignados = $("#panelAlumnosAsignados");
-        contenedorAlumnosDisponibles = $('#grillaAlumnosDisponibles');
-        contenedorAlumnosAsignados = $('#grillaAlumnosAsignados');
-        var columnas = [];
 
-        var cmbCursos = $("#cmbCursos");
-        var cmbCiclo = $("#cmbCiclo");
-        var cursosJSON = JSON.parse($('#cursosJSON').val());
-        var idCursoSeleccionado = $("#idCursoSeleccionado");
-
-        columnas.push(new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento; } }));
-        columnas.push(new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre; } }));
-        columnas.push(new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }));
-        columnas.push(new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } }));
-        //columnas.push(new Columna("Pertenece A", { generar: function (un_alumno) { return un_alumno.area.descripcion; } }));
-
-        planillaAlumnosDisponibles = new Grilla(columnas);
-        planillaAlumnosAsignados = new Grilla(columnas);
-
-        planillaAlumnosDisponibles.CargarObjetos(alumnos);
-        planillaAlumnosDisponibles.DibujarEn(contenedorAlumnosDisponibles);
-
-        planillaAlumnosDisponibles.SetOnRowClickEventHandler(function (un_alumno) {
-            alumnoGlobal = un_alumno;
-        });
-
-        planillaAlumnosAsignados.SetOnRowClickEventHandler(function (un_alumno) {
-            alumnoGlobal = un_alumno;
-        });
-
-        var completarCombosDeCiclo = function () {
-            //idCicloSeleccionado.val("");
-
-//            for (var i = 0; i < 4; i++) {
-//                //var curso = cursosJSON[i];
-//                var ciclo;
-//                var listItem = $('<option>');
-//                // alert(JSON.stringify(curso));
-//                listItem.val(i);
-//                listItem.text(i);
-//                cmbCiclo.append(listItem);
-//            }
-
-            cmbCiclo.change(function (e) {
-                var cicloSeleccionado = cmbCiclo.find('option:selected').val();
-                if (cicloSeleccionado == -1) {
-                    cmbCursos.empty();
-                    for (var i = 0; i < cursosJSON.length; i++) {
-                        var curso = cursosJSON[i];
-                        var listItem = $('<option>');
-                        // alert(JSON.stringify(curso));
-                        listItem.val(curso.Id);
-                        listItem.text(curso.Nombre);
-                        cmbCursos.append(listItem);
-                    }
-                    return;
-                }
-
-                var queryResult = Enumerable.From(cursosJSON)
-                .Where(function (x) { return x.Materia.Ciclo.Id == cicloSeleccionado }).ToArray();
-
-                cmbCursos.empty();
-
-                for (var i = 0; i < queryResult.length; i++) {
-                    var curso = queryResult[i];
-                    var listItem = $('<option>');
-                    // alert(JSON.stringify(curso));
-                    listItem.val(curso.Id);
-                    listItem.text(curso.Nombre);
-                    cmbCursos.append(listItem);
-                }
-
-                cmbCursos.change();
-            });
+        var items_pantalla = {
+            alumnos: JSON.parse($('#alumnosJSON').val()),
+            alumnoGlobal: $("<div>"),
+            planillaAlumnosDisponibles: $("<div>"),
+            planillaAlumnosAsignados: $("<div>"),
+            panelAlumnoDisponibles: $("#panelAlumnoDisponibles"),
+            panelAlumnoAsignados: $("#panelAlumnosAsignados"),
+            contenedorAlumnosDisponibles: $('#grillaAlumnosDisponibles'),
+            contenedorAlumnosAsignados: $('#grillaAlumnosAsignados'),
+            cmbCursos: $("#cmbCursos"),
+            cmbCiclo: $("#cmbCiclo"),
+            cursosJSON: JSON.parse($('#cursosJSON').val()),
+            idCursoSeleccionado: $("#idCursoSeleccionado"),
+            alumnosEnGrillaParaInscribir: $("#alumnosEnGrillaParaGuardar"),
+            mensaje: $("#mensaje"),
+            botonAsignarAlumno: $("#Img1"),
+            botonDesAsignarAlumno: $("#Img2"),
+            botonGuardarInscriptos: $("#BtnGuardar")
         }
 
-        var completarcombosDeCursos = function () {
-            idCursoSeleccionado.val("");
+        var modulo_inscripcion = new PaginaInscripcionAlumnos(items_pantalla);
 
-            for (var i = 0; i < cursosJSON.length; i++) {
-                var curso = cursosJSON[i];
-                var listItem = $('<option>');
-                // alert(JSON.stringify(curso));
-                listItem.val(curso.Id);
-                listItem.text(curso.Nombre);
-                cmbCursos.append(listItem);
-            }
-
-            cmbCursos.change(function (e) {
-                var idSeleccionado = cmbCursos.find('option:selected').val();
-                idCursoSeleccionado.val(idSeleccionado);
-
-                var cursoSeleccionado;
-                for (var i = 0; i < cursosJSON.length; i++) {
-                    var curso = cursosJSON[i];
-                    if (curso.Id == idSeleccionado) cursoSeleccionado = curso;
-                }
-                if (cursoSeleccionado !== undefined) {
-
-                    var queryResult = Enumerable.From(alumnos)
-                                      .Where(function (x) { return x.Modalidad.Id == cursoSeleccionado.Materia.Modalidad.Id }).ToArray();
-
-                    planillaAlumnosAsignados.BorrarContenido();
-                    planillaAlumnosAsignados.CargarObjetos(cursoSeleccionado.Alumnos);
-                    planillaAlumnosAsignados.DibujarEn(contenedorAlumnosAsignados);
-                    $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos));
-                    //$("#descripcionCursoSeleccionado").text(cursoSeleccionado.nombre);
-                    $("#mensaje").text("");
-                    $("#nombreDeCurso").text(cursoSeleccionado.Nombre);
-                    MostrarAlumnosQueNoEstanEnElCursoSeleccionado(cursoSeleccionado, queryResult);
-
-                }
-                else {
-
-                }
-            });
-        }
-
-        completarcombosDeCursos();
-        completarCombosDeCiclo();
-
-        function MostrarAlumnosQueNoEstanEnElCursoSeleccionado(cursoSeleccionado, query_alumnos_modalidad) {
-            planillaAlumnosDisponibles.BorrarContenido();
-            planillaAlumnosDisponibles.CargarObjetos(query_alumnos_modalidad);
-            var alumnos_filtrados_curso = planillaAlumnosDisponibles.QuitarObjetosExistentes(cursoSeleccionado.Alumnos);
-            planillaAlumnosDisponibles.BorrarContenido();
-            planillaAlumnosDisponibles.CargarObjetos(alumnos_filtrados_curso);
-        }
     };
 
     $(document).ready(function () {
         AdministradorPlanilla();
     });
-
-
-    function AsignarAlumno() {
-        if (!planillaAlumnosAsignados.ContieneElemento(alumnoGlobal)) {
-            planillaAlumnosDisponibles.QuitarObjeto(contenedorAlumnosDisponibles, alumnoGlobal);
-            planillaAlumnosAsignados.CargarObjeto(alumnoGlobal);
-            planillaAlumnosAsignados.DibujarEn(contenedorAlumnosAsignados);
-            alumnoGlobal = null;
-            $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos));
-            $("#mensaje").text("Agregado al Curso");
-        }
-        else {
-            $("#mensaje").text("Existe en el Curso");
-        }
-    }
-
-    function DesasignarAlumno() {
-        if (!planillaAlumnosDisponibles.ContieneElemento(alumnoGlobal)) {
-            planillaAlumnosAsignados.QuitarObjeto(contenedorAlumnosAsignados, alumnoGlobal);
-            planillaAlumnosDisponibles.CargarObjeto(alumnoGlobal);
-            planillaAlumnosDisponibles.DibujarEn(contenedorAlumnosDisponibles);
-            alumnoGlobal = null;
-            $("#alumnosEnGrillaParaGuardar").val(JSON.stringify(planillaAlumnosAsignados.Objetos));
-            $("#mensaje").text("Quitado del Curso");
-        }
-        else {
-            $("#mensaje").text("Existe en el Curso");
-        }
-    }
-
 
 </script>
 </html>

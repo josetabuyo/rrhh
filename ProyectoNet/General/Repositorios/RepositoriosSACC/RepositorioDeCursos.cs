@@ -49,9 +49,10 @@ namespace General.Repositorios
                     Id = row.GetSmallintAsInt("Id"),
                     Docente = docente,
                     Materia = new RepositorioDeMaterias(conexion_bd).GetMateriaById(row.GetSmallintAsInt("IdMateria")),
-
                     EspacioFisico = espacio_fisico,
-
+                    FechaInicio = row.GetObject("FechaInicio") is DBNull ? new DateTime(DateTime.Now.Year, 1,1) : row.GetDateTime("FechaInicio"),
+                    FechaFin = row.GetObject("FechaFin") is DBNull ? new DateTime(DateTime.Now.Year, 12, 1) : row.GetDateTime("FechaFin"),
+                    Observaciones = row.GetString("Observaciones")
                 };
                 var horarios = GetHorariosByIdCurso(row.GetSmallintAsInt("Id"));
                 foreach (var h in horarios)
@@ -71,6 +72,7 @@ namespace General.Repositorios
                 cursos.Add(curso);
             });
             cursos.Sort((curso1, curso2) => curso1.esMayorAlfabeticamenteQue(curso2));
+
             return cursos;
         }
 
@@ -141,7 +143,10 @@ namespace General.Repositorios
             parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
+            parametros.Add("fecha_inicio", curso.FechaInicio);
+            parametros.Add("fecha_fin", curso.FechaFin);
             parametros.Add("fecha", DateTime.Now);
+            parametros.Add("Observaciones", curso.Observaciones);
 
             int id_curso = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Curso", parametros).ToString());
 
@@ -159,8 +164,11 @@ namespace General.Repositorios
             parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
             parametros.Add("id_materia", curso.Materia.Id);
             parametros.Add("id_docente", curso.Docente.Id);
+            parametros.Add("fecha_inicio", curso.FechaInicio);
+            parametros.Add("fecha_fin", curso.FechaFin);
             parametros.Add("fecha", DateTime.Now);
             parametros.Add("Baja", idBaja);
+            parametros.Add("Observaciones", curso.Observaciones);
             conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
             return true;
         }
@@ -196,12 +204,13 @@ namespace General.Repositorios
                 parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
                 parametros.Add("id_materia", curso.Materia.Id);
                 parametros.Add("id_docente", curso.Docente.Id);
+                parametros.Add("fecha_inicio", curso.FechaInicio);
+                parametros.Add("fecha_fin", curso.FechaFin);
                 parametros.Add("fecha", DateTime.Now);
+                parametros.Add("Observaciones", curso.Observaciones);
 
                 conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
                 return true;
-                
-                return false;
             }
             else
             {
@@ -314,5 +323,6 @@ namespace General.Repositorios
         {
             return un_curso.Docente != null;
         }
+
     }
 }

@@ -11,7 +11,7 @@
         runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
-        <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
+    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
@@ -20,51 +20,57 @@
     <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../Scripts/BotonAsistencia.js"></script>
+    <style type="text/css">
+    .acumuladas
+    {
+        font-weight:bold;
+    }
+    </style>
+
 </head>
 <body>
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
+     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="DivContenedor" runat="server" style="margin:10px;">
     
 
     <label>Curso:&nbsp;</label>
-    <select id="CmbCurso" style="width:250px;" onchange="javascript:CargarPlanilla();" runat="server">
+   <select id="CmbCurso" style="width:300px;" onchange="javascript:CargarPlanilla();" runat="server">
     <option value="0">Seleccione</option>
     </select>
 
     <br />
     <label>Mes:&nbsp;&nbsp;&nbsp;</label>
-    <select id="CmbMes" style="width:250px;" onchange="javascript:CargarPlanilla();" runat="server">
-    <option value="0">Seleccione</option>
-    <option value="1">Enero</option>
-    <option value="2">Febrero</option>
-    <option value="3">Marzo</option>
-    <option value="4">Abril</option>
-    <option value="5">Mayo</option>
-    <option value="6">Junio</option>
-    <option value="7">Julio</option>
-    <option value="8">Agosto</option>
-    <option value="9">Septiembre</option>
-    <option value="10">Octubre</option>
-    <option value="11">Noviembre</option>
-    <option value="12">Diciembre</option>
-    </select>
-    
+    <select id="CmbMes" style="width:300px;text-transform:capitalize" onchange="javascript:CargarPlanilla();" runat="server" enableviewstate="true"></select>
+    <input type="hidden" runat="server" id="MesesCurso" />
     <br />
     <label id="lblDocente">Docente:</label>
     <label id="Docente" runat="server">&nbsp;</label>
     <br />
     <br />
+    <label id="lblHorasCurso">Horas C&aacute;tedra:</label>
+    <label id="HorasCatedraCurso" runat="server">&nbsp;</label>
+    <br />
+    <br />
     <uc1:planilla ID="PlanillaAsistencia" runat="server" />
+
+    </div>
+    <div id="ContenedorPlanillaAcumulados" runat="server" style="width:40%;">
+
     </div>
     <div style="height:20px; width: 100%">
-    
     <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
     <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla();" value="Imprimir" />
+    <br />
+    <br />
+    <textarea id="TxtObservaciones" style="margin-left: 5px;" class="label_observaciones" placeholder="Observaciones" ></textarea>
     </div>
     <asp:Button style="display:none;" ID="btn_CargarAsistencias" OnClick="CargarAsistencias" runat="server" />
     <asp:Button style="display:none;" ID="BtnSave" runat="server" Onclick="BtnSave_Click" />
+
+    <asp:HiddenField ID="curso_con_observaciones" runat="server" />
+
     </form>
 </body>
 <script type="text/javascript">
@@ -77,7 +83,9 @@
             var DiasCursados = Planilla['diascursados'];
             var AlumnosInasistencias = Planilla['asistenciasalumnos'];
             var contenedorPlanilla = $('#PlanillaAsistencia_ContenedorPlanilla');
+            var HorasCatedraCurso = Planilla['horas_catedra'];
             var columnas = [];
+            var columnas_acumuladas = [];
 
             columnas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
             if (DiasCursados) {
@@ -86,9 +94,12 @@
                                         new GeneradorCeldaDiaCursado(DiasCursados[i])));
                 }
             }
-            columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
-            columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
+            columnas.push(new Columna("Asistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
+            columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
 
+            columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return '<label class="acumuladas">' + inasistenciaalumno.asistencias_acumuladas + " (" + inasistenciaalumno.por_asistencias_acumuladas + ")</label>" } }));
+            columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return '<label class="acumuladas">' + inasistenciaalumno.inasistencias_acumuladas + " (" + inasistenciaalumno.por_inasistencias_acumuladas + ")</label>" } }));
+            
             var PlanillaMensual = new Grilla(columnas);
 
             PlanillaMensual.CargarObjetos(AlumnosInasistencias);
@@ -99,11 +110,19 @@
             var Docente = JSON.parse($("#PlanillaAsistencia_Curso").val()).Docente;
 
             $("#Docente").text(Docente.Nombre + " " + Docente.Apellido);
+            $("#HorasCatedraCurso").text(HorasCatedraCurso);
+
+            var Observaciones = JSON.parse($("#PlanillaAsistencia_Curso").val()).Observaciones;
+
+            $("#TxtObservaciones").val(Observaciones);
+
         }
         else {
             $("#lblDocente").css("visibility", "hidden");
+            $("#lblHorasCurso").css("visibility", "hidden");
             $("#BtnGuardar").css("visibility", "hidden");
             $("#BtnImprimir").css("visibility", "hidden");
+            $("#TxtObservaciones").css("visibility", "hidden");
         }
     };
 
@@ -129,34 +148,34 @@
         };
     }
 
-   /* var GeneradorAsistencia = function (asistencia, dias_cursados) {
-        var self = this;
-        self.asistencia = asistencia;
-        self.generar = function (inasistenciaalumno) {
-            var contenedorAcciones = $('<div>');
-            if (asistencia == "Asistencias") {
-                var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
-                .Where(function (x) { return x.valor == 1 });
-            } else {
-                var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
-                .Where(function (x) { return x.valor == 2 });
-            }
+    var CargarComboMeses = function () {
+        $('#CmbMes')[0].options.length = 0;
+        var meses = JSON.parse($("#MesesCurso").val());
+        var mes_seleccionado = $("#PlanillaAsistencia_Mes").val();
+        var o = new Option("Seleccione", "0");
+        $(o).html("Seleccione");
+        $("#CmbMes").append(o);
 
-            var etiqueta;
-            if (queryResult.Count() > 0) {
-                etiqueta = queryResult.Count();
-            }
-            else {
-                etiqueta = "";
-            }
-            contenedorAcciones.append(etiqueta);
+        for (var i = 0; i < meses.length; i++) {
+            if ($("#CmbCurso").find('option:selected').val() == meses[i].IdCurso) {
+                o = new Option(meses[i].Mes, meses[i].NroMes);
+                if (meses[i].NroMes == mes_seleccionado)
+                    $(o).attr("selected", "selected");
+                $(o).html(meses[i].Mes);
+                $("#CmbMes").append(o);
 
-            return contenedorAcciones;
-        };
-    }*/
+            }
+        }
+    }
+
+$("#CmbCurso").change(function () {
+        CargarComboMeses();
+        $('#CmbMes').change();
+    });
 
     $(document).ready(function () {
         AdministradorPlanillaMensual();
+        CargarComboMeses();
     });
 
     function GuardarDetalleAsistencias() {
@@ -172,6 +191,15 @@
             };
             detalle_asistencias.push(asistencia);
         }
+
+        Obs = $("#TxtObservaciones").val();
+        var curso = JSON.parse($("#PlanillaAsistencia_Curso").val());
+        curso.Observaciones = Obs;
+
+        $("#curso_con_observaciones").val((JSON.stringify(curso)));
+
+      //  $("#PlanillaAsistencia_Curso").val((JSON.stringify(curso)));
+
         $("#PlanillaAsistencia_DetalleAsistencias").val(JSON.stringify(detalle_asistencias));
         $("#BtnSave").click();
 //        return true;
@@ -187,6 +215,7 @@
         $("#PlanillaAsistencia_CursoId").val($("#CmbCurso").find('option:selected').val());
         $("#PlanillaAsistencia_Mes").val($("#CmbMes").find('option:selected').val());
         $("#btn_CargarAsistencias").click();
+        
     }
 </script>
 </html>

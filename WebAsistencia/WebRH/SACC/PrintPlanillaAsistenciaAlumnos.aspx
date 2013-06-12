@@ -31,8 +31,15 @@
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
-    <script type="text/javascript" src="../Scripts/BotonAsistencia.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>  
+    <script type="text/javascript" src="../Scripts/BotonAsistencia.js"></script>    
+    <style type="text/css">
+    .acumuladas
+    {
+        font-weight:bold;
+    }
+    </style>
+
 </head>
 <body onload="javascript:window.print();window.close();">
     <form id="form1" runat="server">
@@ -45,9 +52,14 @@
             <br />
             <label>Docente:</label>
             <label id="Docente" runat="server">&nbsp;</label>
+            <label id="lblHorasCurso">Horas C&aacute;tedra:</label>
+            <label id="HorasCatedraCurso" runat="server">&nbsp;</label>
             <br />
             <br />
             <uc1:planilla ID="PlanillaAsistencia" runat="server" />
+            <br />
+            <label>Observaciones:</label>
+            <label id="Observaciones" runat="server">&nbsp;</label>
         </div>
     </form>
 </body>
@@ -59,6 +71,7 @@
         var DiasCursados = Planilla['diascursados'];
         var AlumnosInasistencias = Planilla['asistenciasalumnos'];
         var contenedorPlanilla = $('#PlanillaAsistencia_ContenedorPlanilla');
+        var HorasCatedraCurso = Planilla['horas_catedra'];
         var columnas = [];
 
         columnas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
@@ -68,9 +81,11 @@
             columnas.push(new Columna(DiasCursados[i].nombre_dia + "/" + DiasCursados[i].dia + "<br/>" + DiasCursados[i].horas + " hs",
                                         new GeneradorCeldaDiaCursado(DiasCursados[i])));
         }
-        columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
-        columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
-
+        columnas.push(new Columna("Asistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
+        columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
+        columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return '<label class="acumuladas">' + inasistenciaalumno.asistencias_acumuladas + " (" + inasistenciaalumno.por_asistencias_acumuladas + ")</label>" } }));
+        columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return '<label class="acumuladas">' + inasistenciaalumno.inasistencias_acumuladas + " (" + inasistenciaalumno.por_inasistencias_acumuladas + ")</label>" } }));
+         
 
 
         var PlanillaMensual = new Grilla(columnas);
@@ -84,6 +99,10 @@
 
         var Docente = JSON.parse($("#PlanillaAsistencia_Curso").val()).Docente;
         $("#Docente").text(Docente.Nombre + " " + Docente.Apellido);
+        $("#HorasCatedraCurso").text(HorasCatedraCurso);
+
+        var Observaciones = JSON.parse($("#PlanillaAsistencia_Curso").val()).Observaciones;
+        $("#Observaciones").text(Observaciones);
     };
 
     var GeneradorCeldaDiaCursado = function (diaCursado) {
