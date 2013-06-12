@@ -23,7 +23,16 @@ public class DocumentoDTO
         areaDestino = new AreaDTO(mensajeria.AreaDestinoPara(doc));
         enAreaActualHace = new TiempoEnAreaDTO(mensajeria.TiempoEnElAreaActualPara(doc));
         comentarios = doc.comentarios;
-               
+
+
+        if (doc.fecha_documento.ToString()!="")
+        {
+            FechaDocumento = doc.fecha_documento.ToString(); 
+        }
+
+      
+       
+       
         estado = "Recibido";
         if (areaDestino.id > -1) estado = "A remitir";
 
@@ -37,6 +46,9 @@ public class DocumentoDTO
     public string extracto { get; set; }
     public string fechaDeAlta { get; set; }
     public string comentarios { get; set; }
+
+    public string FechaDocumento { get; set; }
+
     public TipoDeDocumentoDTO tipo { get; set; }
     public AreaDTO areaCreadora { get; set; }
     public AreaDTO areaActual { get; set; }

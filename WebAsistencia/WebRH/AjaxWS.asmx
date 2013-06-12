@@ -92,5 +92,25 @@ public class AjaxWS : System.Web.Services.WebService {
         var curso = Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetCursosDto((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]));
         return curso.ToString();
     } 
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void IniciarServicioDeAlertas()
+    {
+        backEndService.IniciarServicioDeAlertas();
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void DetenerServicioDeAlertas()
+    {
+        backEndService.DetenerServicioDeAlertas();
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string EstadoServicioDeAlertas()
+    {
+        return backEndService.EstadoServicioDeAlertas();
+    }       
 }
 
