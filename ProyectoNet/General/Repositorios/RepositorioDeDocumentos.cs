@@ -50,6 +50,18 @@ namespace General.Repositorios
                         un_documento.extracto = row.GetString("Extracto");
                         un_documento.fecha = row.GetDateTime("FechaCargaDocumento");
                         un_documento.comentarios = row.GetString("Comentarios");
+
+                       if (row.GetObject("FechaDocumento") is DBNull)
+	                   {
+                           un_documento.fecha_documento = null;
+	                   }
+                       else
+                       {
+                           un_documento.fecha_documento = row.GetDateTime("FechaDocumento");
+                       }
+                    
+                        
+                        
                         if (un_documento.comentarios == null)
                         {
                             un_documento.comentarios = "";
@@ -75,7 +87,7 @@ namespace General.Repositorios
 
             RepositorioDeTickets repoTicket = new RepositorioDeTickets(conexion_bd);
 
-            Validador().EsValidoComoId(un_documento.categoriaDeDocumento.Id, "para la categoria de un documento");
+            Validador().EsValidoComoId(un_documento.categoriaDeDocumento.Id, "para la categoría de un documento");
             Validador().EsValidoComoId(un_documento.tipoDeDocumento.Id, "para el tipo de un documento");
             
             un_documento.ticket = repoTicket.GenerarTicket();
@@ -87,7 +99,9 @@ namespace General.Repositorios
             parametros.Add("@ticket", un_documento.ticket);
             parametros.Add("@comentarios", un_documento.comentarios); // decidir si dejamos que tenga comentarios el documento
             parametros.Add("@idUsuario", usuario.Id);
-
+            /**/
+            parametros.Add("@fecha_documento", un_documento.fecha_documento);
+            /**/
             var id = conexion_bd.EjecutarEscalar("dbo.SIC_GuardarDocumento", parametros);
 
             un_documento.Id = int.Parse(id.ToString());           

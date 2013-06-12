@@ -4,6 +4,16 @@ var PanelAltaDeDocumento = function (cfg) {
     this.selectorDeAreaOrigenEnAlta = new InputAutocompletableDeAreas(cfg.selectorDeAreaOrigenEnAlta, cfg.listaAreas);
     this.selectorDeAreaDestinoEnAlta = new InputAutocompletableDeAreas(cfg.selectorDeAreaDestinoEnAlta, cfg.listaAreas);
 
+    
+    cfg.inputFechaDoc.datepicker({ dateFormat: "dd/mm/yy",
+        onSelect: function (date) {
+            self.cfg.inputFechaDoc.change();
+            self.cfg.inputFechaDoc.blur(); 
+            
+            }
+    });
+
+
     cfg.cmbTipoDeDocumento.change(function (e) {
         var idSeleccionado = cfg.cmbTipoDeDocumento.find('option:selected').val();
 
@@ -38,7 +48,8 @@ var PanelAltaDeDocumento = function (cfg) {
         cfg.cmbCategoriaDocumento.append(listItem);
     }
 
-    var self = this;
+
+        var self = this;
     this.selectorDeAreaOrigenEnAlta.change(function () { self.validarAltaDeDocumento(); });
     cfg.cmbTipoDeDocumento.change(function () { self.validarAltaDeDocumento(); });
     cfg.cmbCategoriaDocumento.change(function () { self.validarAltaDeDocumento(); });
@@ -60,7 +71,16 @@ var PanelAltaDeDocumento = function (cfg) {
             id_area_destino: self.selectorDeAreaDestinoEnAlta.areaSeleccionada().id,
             id_area_actual: cfg.areaDelUsuario.id,
             numero: cfg.txtNumero.val(),
-            comentarios: cfg.txtComentarios.val()
+            comentarios: cfg.txtComentarios.val(),
+
+            /**/
+
+            fecha_documento: cfg.inputFechaDoc.val()
+
+            /**/
+
+
+
         };
         $.ajax({
             url: "../AjaxWS.asmx/CrearDocumento",
@@ -74,7 +94,11 @@ var PanelAltaDeDocumento = function (cfg) {
                     var ticket = JSON.parse(respuestaJson.d).ticket;
                     self.contraer();
                     self.limpiarCampos();
+
+                    self.validarAltaDeDocumento();
+                    self.validarAltaDeDocumento();
                     self._panel_documentos.refrescarDocumentos();
+                 
                     alert("Se creó un documento con el número de ticket: " + ticket);
                 }
                 if (respuesta.tipoDeRespuesta == "altaDeDocumento.error") {
@@ -103,9 +127,10 @@ PanelAltaDeDocumento.prototype = {
     limpiarCampos: function () {
         this.cfg.txtExtracto.val("");
         this.cfg.txtExtracto.blur();
-        this.cfg.cmbTipoDeDocumento.val(-1);
+        this.cfg.cmbTipoDeDocumento.val("");
+
         this.cfg.cmbTipoDeDocumento.blur();
-        this.cfg.cmbCategoriaDocumento.val(-1);
+        this.cfg.cmbCategoriaDocumento.val("");
         this.cfg.cmbCategoriaDocumento.blur();
         this.selectorDeAreaOrigenEnAlta.limpiar();
         this.selectorDeAreaOrigenEnAlta.blur();
@@ -115,6 +140,9 @@ PanelAltaDeDocumento.prototype = {
         this.cfg.txtNumero.blur();
         this.cfg.txtComentarios.val("");
         this.cfg.txtComentarios.blur();
+        this.cfg.inputFechaDoc.val("");
+        this.cfg.inputFechaDoc.blur();
+
     },
     alternarDespliegue: function () {
         this.cfg.divPanelAlta.slideToggle("fast");
@@ -129,19 +157,25 @@ PanelAltaDeDocumento.prototype = {
         this.cfg.botonDesplegarPanelAlta.removeClass("boton_que_abre_panel_desplegable_activo");
     },
     validarAltaDeDocumento: function () {
-        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == ''  || this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '-1') {
+        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '' || this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '-1') {
             this.cfg.selectorDeAreaOrigenEnAlta.css("background-color", 'rgb(255, 255, 235)');
+
         } else {
             this.cfg.selectorDeAreaOrigenEnAlta.css("background-color", 'rgb(255, 255, 255)');
         }
 
-        if (this.cfg.cmbTipoDeDocumento.val() == '') {
+        if (this.cfg.cmbTipoDeDocumento.val() == '' || this.cfg.cmbTipoDeDocumento.val() == null) {
+
             this.cfg.cmbTipoDeDocumento.css("background-color", 'rgb(255, 255, 235)');
+          
+
+
         } else {
+
             this.cfg.cmbTipoDeDocumento.css("background-color", 'rgb(255, 255, 255)');
         }
 
-        if (this.cfg.cmbCategoriaDocumento.val() == '') {
+        if (this.cfg.cmbCategoriaDocumento.val() == '' || this.cfg.cmbCategoriaDocumento.val() == null) {
             this.cfg.cmbCategoriaDocumento.css("background-color", 'rgb(255, 255, 235)');
         } else {
             this.cfg.cmbCategoriaDocumento.css("background-color", 'rgb(255, 255, 255)');

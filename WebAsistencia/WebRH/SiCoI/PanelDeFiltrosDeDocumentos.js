@@ -76,7 +76,7 @@ FiltroDeDocumentos.prototype = {
     //    && (!this._activo || this._activo === undefined)
 
     definirEstado: function () {
-        if ((this._input.val() == "")) this.desactivarFiltro();
+        if ((this._input.val() == "" )) this.desactivarFiltro();
         if ((this._input.val() != "")) this.activarFiltro();
     },
     activarFiltro: function () {
@@ -88,12 +88,15 @@ FiltroDeDocumentos.prototype = {
             this._observadores_activacion[i].filtroActivado(this);
         }
     },
-    desactivarFiltro: function () {
+    desactivarFiltro: function () {        
+        
         this._activo = false;
         this.agregarFiltroAListaParaAplicar = function (lista) { };
         for (var i = 0; i < this._observadores_activacion.length; i++) {
             this._observadores_activacion[i].filtroDesactivado(this);
         }
+
+
     },
     setObservador: function (obs) {
         this._observadores_activacion.push(obs);
@@ -109,8 +112,15 @@ FiltroDeDocumentos.prototype = {
         this.desactivarFiltro();
     },
     limpiar: function () {
+
         this._input.val("");
         this._input.change();
+        if (this._input.attr('id') == 'cmbFiltroPorTipoDeDocumento' || this._input.attr('id') == 'cmbFiltroPorCategoria') {
+            this._input.val("-1");
+            this._input.change();
+        }
+
+       
     }
 };
 

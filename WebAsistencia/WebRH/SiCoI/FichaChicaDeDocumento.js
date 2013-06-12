@@ -9,11 +9,17 @@ FichaChicaDeDocumento.prototype = {
     start: function () {
         this.ticket = this.ui.find("#ficha_chica_contenido_ticket");
         this.tipo = this.ui.find("#ficha_chica_contenido_tipo");
+
+        this.titulo_fecha_documento = this.ui.find("#ficha_chica_titulo_fecha_documento");
+
+        this.fecha_documento = this.ui.find("#ficha_chica_contenido_fecha_documento");
+
         this.categoria = this.ui.find("#ficha_chica_contenido_categoria");
         this.extracto = this.ui.find("#ficha_chica_contenido_extracto");
         this.area_actual = this.ui.find("#ficha_chica_contenido_area_actual");
         this.boton_desplegar = this.ui.find("#ficha_chica_boton_desplegar");
         this.boton_enviar = this.ui.find("#ficha_chica_boton_enviar_documento");
+
 
         var self = this;
         this.boton_enviar.click(function () {
@@ -61,12 +67,23 @@ FichaChicaDeDocumento.prototype = {
     },
     mostrarDocumento: function (documento) {
         this.documento = documento;
+
+        this.titulo_fecha_documento.css("display", "none");
+           
+        if (this.documento.FechaDocumento != null) {
+            this.titulo_fecha_documento.css("display", "inline-block");
+            this.fecha_documento.text(this.documento.FechaDocumento.replace("0:00:00", ''));
+
+        }
+
         this.ticket.text(this.documento.ticket);
         this.tipo.text(this.documento.tipo.descripcion + " " + this.documento.tipo.sigla + " " + this.documento.numero);
         this.categoria.text(this.documento.categoria.descripcion);
         this.extracto.text(this.extractoResumido());
         this.area_actual.text(this.documento.areaActual.descripcion);
         this.boton_enviar.toggle(this.documento.areaDestino.id >= 0);
+
+
     },
     dibujarEn: function (panel) {
         panel.append(this.ui);
