@@ -206,5 +206,12 @@ namespace General
 
             return this._evaluaciones_por_instancias[instancia].Find(e => e.Alumno.Equals(un_alumno));
         }
+
+        public List<Evaluacion> GetEvaluaciones()
+        {
+            var todasLasEvaluaciones = new List<Evaluacion>();
+            this._evaluaciones_por_instancias.Values.ToList().ForEach(evaluaciones => todasLasEvaluaciones.AddRange(evaluaciones));
+            return todasLasEvaluaciones;
+        }
     }
 }

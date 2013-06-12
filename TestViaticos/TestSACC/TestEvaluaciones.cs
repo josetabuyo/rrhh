@@ -89,8 +89,7 @@ namespace TestViaticos
               un_curso_cens.AgregarEvaluaciones(lista_evaluaciones);
 
               Assert.AreEqual(2, un_curso_cens.EvaluacionesDe(un_alumno_del_curso).Count);
-              Assert.AreEqual(0, un_curso_cens.EvaluacionesDe(un_alumno_nuevo).Count);
-              
+              Assert.AreEqual(0, un_curso_cens.EvaluacionesDe(un_alumno_nuevo).Count);        
           }
 
           [TestMethod]
@@ -141,6 +140,17 @@ namespace TestViaticos
 
               primera_evaluacion.CambiarCalificacionPor(5);
               Assert.AreEqual(5, un_curso_cens.EvaluacionDeAlumnoEnUnaInstancia(un_alumno_del_curso, primer_parcial).Calificacion.Nota);
+          }
+
+
+          [TestMethod]
+          public void dado_un_curso_deberia_poder_saber_todas_las_evaluaciones_que_tiene()
+          {
+              List<Evaluacion> lista_evaluaciones = new List<Evaluacion>() { primera_evaluacion, segunda_evaluacion };
+
+              un_curso_cens.AgregarEvaluaciones(lista_evaluaciones);
+
+              Assert.AreEqual(2, un_curso_cens.GetEvaluaciones().Count);
           }
 
           //[TestMethod]
