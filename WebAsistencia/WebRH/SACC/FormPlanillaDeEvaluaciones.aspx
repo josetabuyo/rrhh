@@ -55,9 +55,7 @@
                     columnas.push(new Columna(detalleEvaluaciones[i].instancia, new GeneradorCeldaDiaCursado(detalleEvaluaciones[i])));
                 }
             }
-            //columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
-            //columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
-
+            
             var PlanillaMensual = new Grilla(columnas);
 
             PlanillaMensual.CargarObjetos(AlumnosEvaluaciones);
@@ -76,23 +74,11 @@
         }
     };
 
-    var GeneradorCeldaDiaCursado = function (diaCursado) {
+    var GeneradorCeldaCalificacion = function (instancia) {
         var self = this;
-        self.diaCursado = diaCursado;
-        self.generar = function (inasistenciaalumno) {
+        self.instancia = instancia;
+        self.generar = function (calificaciones) {
             var contenedorAcciones = $('<div>');
-
-            var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
-                .Where(function (x) { return x.fecha == diaCursado.fecha });
-
-            var botonAsistencia;
-            if (queryResult.Count() > 0) {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor, inasistenciaalumno.max_horas_cursadas);
-            }
-            else {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, inasistenciaalumno.max_horas_cursadas);
-            }
-            contenedorAcciones.append(botonAsistencia);
 
             return contenedorAcciones;
         };
@@ -101,7 +87,6 @@
     function CargarPlanilla() {
         if ($("#CmbCurso").val() != 0 && $("#CmbMes").val() != 0) {
             $("#PlanillaEvaluaciones_CursoId").val($("#CmbCurso").val());
-            //$("#PlanillaEvaluaciones_Mes").val($("#CmbMes").val());
             $("#btn_CargarEvaluaciones").click();
         }
     }
