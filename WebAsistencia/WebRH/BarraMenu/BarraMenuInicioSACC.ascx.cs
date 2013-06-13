@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using WSViaticos;
 using System.Configuration;
 
-public partial class FormularioDeViaticos_BarraMenu : System.Web.UI.UserControl
+public partial class BarraMenuInicioSACC : System.Web.UI.UserControl
 {
 
     public String UrlEstilos { get; set; }
