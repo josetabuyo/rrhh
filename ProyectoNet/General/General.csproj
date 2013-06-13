@@ -82,6 +82,7 @@
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="CategoriaDeDocumentoSICOI.cs" />
     <Compile Include="CircuitoDeAprobacionDeViatico.cs" />
+    <Compile Include="EnviadorDeMails.cs" />
     <Compile Include="Features.cs" />
     <Compile Include="FiltroDeDocumentosGoogleano.cs" />
     <Compile Include="FiltroDeDocumentosPorTiempoEnUltimaAreaMayorOIgualA.cs" />
@@ -113,6 +114,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ReportadorDeDocumentosEnAlerta.cs" />
     <Compile Include="Repositorios\AliasEquals.cs" />
     <Compile Include="AreaNull.cs" />
     <Compile Include="Repositorios\Etiquetador.cs" />

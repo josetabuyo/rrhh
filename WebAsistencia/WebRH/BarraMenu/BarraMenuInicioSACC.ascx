@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="BarraMenuInicioSACC.ascx.cs" Inherits="FormularioDeViaticos_BarraMenu" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="BarraMenuInicioSACC.ascx.cs" Inherits="BarraMenuInicioSACC" %>
 
 <head>
     <title></title>
