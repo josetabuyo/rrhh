@@ -582,6 +582,15 @@
     border:none;
 }
 
+.label_observaciones
+{
+    vertical-align: middle;
+    width:98%;
+    text-align:left;
+    border:1px solid;
+}
+
+
 .btn_inscripcion_SACC 
 {
 margin-right: 12%;

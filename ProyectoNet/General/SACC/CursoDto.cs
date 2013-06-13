@@ -14,5 +14,6 @@ namespace General
         public EspacioFisico EspacioFisico { get; set; }
         public string FechaInicio { get; set; }
         public string FechaFin { get; set; }
+        public string Observaciones { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace General
         private List<DayOfWeek> _diasDeCursada = new List<DayOfWeek>();
         private Materia _materia;
         private List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
+        private string _observaciones;
        
         private EspacioFisico _espacioFisico;
         private Dictionary<InstanciaDeEvaluacion, List<Evaluacion>> _evaluaciones_por_instancias; 
@@ -25,7 +26,7 @@ namespace General
         public string Nombre { get { return this.Materia.Nombre + " (" + this.Materia.Modalidad.Descripcion + ")"; } set { } }
         public Docente Docente { get { return _docente; } set { _docente = value; } }
         public Materia Materia { get{ return _materia; } set{_materia = value;} }
-       
+        public string Observaciones { get { return _observaciones; } set { _observaciones = value; } }
         public EspacioFisico EspacioFisico { get { return _espacioFisico; } set { _espacioFisico = value; } }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }

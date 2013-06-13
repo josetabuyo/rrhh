@@ -9,6 +9,8 @@ using General.Calendario;
 using General.Repositorios;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net;
+using System.Net.Mail;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -456,6 +458,7 @@ public class WSViaticos : System.Web.Services.WebService
             return JsonConvert.SerializeObject(new {  
                 tipoDeRespuesta = "altaDeDocumento.ok",
                 ticket = documento.ticket });
+
         }
         catch (Exception e)
         {
@@ -650,10 +653,12 @@ public class WSViaticos : System.Web.Services.WebService
         var documentos = RepositorioDocumentos().GetDocumentosFiltrados(filtrosDesSerializados);
         var documentos_dto = new List<DocumentoDTO>();
         var mensajeria = Mensajeria();
+        if (documentos.Count > 50) documentos.RemoveRange(51, documentos.Count - 51);
         documentos.ForEach(delegate(Documento doc)
         {
             documentos_dto.Add(new DocumentoDTO(doc, mensajeria));
         });
+
         return documentos_dto;
     }
 
@@ -686,6 +691,36 @@ public class WSViaticos : System.Web.Services.WebService
     public Boolean HayDocumentosEnAlerta()
     {
         return DocumentosEnAlerta().Any();
+    }
+
+    [WebMethod]
+    public void IniciarServicioDeAlertas()
+    {
+        reportadorDeDocumentosEnAlerta().start();
+    }
+
+    [WebMethod]
+    public void DetenerServicioDeAlertas()
+    {
+        reportadorDeDocumentosEnAlerta().stop();
+    }
+
+    [WebMethod]
+    public string EstadoServicioDeAlertas()
+    {
+        return reportadorDeDocumentosEnAlerta().estado;
+    }
+
+    private ReportadorDeDocumentosEnAlerta reportadorDeDocumentosEnAlerta()
+    {
+        if (Application["reportadorDeDocumentosEnAlerta"] == null)
+        {
+            var filtros = new List<FiltroDeDocumentos>();
+            filtros.Add(new FiltroDeDocumentosPorAreaActual(Mensajeria(), 1));
+            var enviador = new EnviadorDeMails();
+            Application["reportadorDeDocumentosEnAlerta"] = new ReportadorDeDocumentosEnAlerta(filtros, "jlurgo@gmail.com", enviador, RepositorioDocumentos());
+        }
+        return (ReportadorDeDocumentosEnAlerta)Application["reportadorDeDocumentosEnAlerta"];
     }
 
     private DesSerializadorDeFiltros desSerializadorDeFiltros()
@@ -1219,6 +1254,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public CursoDto GetCursoDtoById(int id, Usuario usuario)
+    {
+        var curso = this.GetCursosDto(usuario).Find(c => c.Id == id);
+        return curso;
+    }
+
+    [WebMethod]
     public EspacioFisico GetEspacioFisicoById(int id)
     {
         return RepoEspaciosFisicos().GetEspacioFisicoById(id); //JsonConvert.SerializeObject(espacio_fisico);
@@ -1359,6 +1401,7 @@ public class WSViaticos : System.Web.Services.WebService
                          EspacioFisico = curso.EspacioFisico, 
                          FechaInicio = DateTime.Parse(curso.FechaInicio), 
                          FechaFin = DateTime.Parse(curso.FechaFin)
+                         
             };
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
@@ -1379,7 +1422,8 @@ public class WSViaticos : System.Web.Services.WebService
                          Materia = curso.Materia, 
                          EspacioFisico = curso.EspacioFisico, 
                          FechaInicio = DateTime.Parse(curso.FechaInicio), 
-                         FechaFin = DateTime.Parse(curso.FechaFin) 
+                         FechaFin = DateTime.Parse(curso.FechaFin), 
+                         Observaciones = curso.Observaciones
             };
         var horarios = curso.Horarios;
         horarios.ForEach(h =>{
