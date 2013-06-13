@@ -14,10 +14,11 @@ namespace General.Modi
         public int numeroDeDocumento { get; protected set; }
         public string nombre { get; protected set; }
         public string apellido { get; protected set; }
+        public string codigoDeResultado { get; protected set; }
 
         public LegajoModi()
         {
-
+            this.codigoDeResultado = "LEGAJO_NO_ENCONTRADO";
         }
 
         public LegajoModi(int un_id, int documento, string un_nombre, string un_apellido)
@@ -26,6 +27,7 @@ namespace General.Modi
             this.numeroDeDocumento = documento;
             this.nombre = un_nombre;
             this.apellido = un_apellido;
+            this.codigoDeResultado = "OK";
         }
 
         public int cantidadDeDocumentos()
@@ -42,5 +44,6 @@ namespace General.Modi
         {
             this.imagenesSinAsignar.AddRange(imagenes);
         }
+
     }
 }

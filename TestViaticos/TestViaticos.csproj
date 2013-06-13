@@ -90,6 +90,7 @@
     <Compile Include="AppConexionTest.cs" />
     <Compile Include="CodigoTareaTest.cs" />
     <Compile Include="ControladorDeWebControlsTest.cs" />
+    <Compile Include="TestModi\LegajoModil.cs" />
     <Compile Include="TestModi\TestRepositorioDeImagenes.cs" />
     <Compile Include="TestModi\TestRepositorioDeLegajos.cs" />
     <Compile Include="TestSACC\TestAlumnos.cs" />

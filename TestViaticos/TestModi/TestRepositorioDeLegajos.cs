@@ -60,13 +60,6 @@ namespace TestViaticos
             Assert.AreEqual("Silva", un_legajo.apellido);
         }
 
-        //[TestMethod]
-        //[ExpectedException(typeof(ExcepcionDeLegajoInexistente), "El legajo no existe")]
-        //public void si_el_legajo_que_busco_no_existe_deberia_tirar_una_excepcion_acorde()
-        //{
-        //    LegajoModil un_legajo = repositorioDeLegajos.getLegajo(234);
-        //}
-
         [TestMethod]
         public void el_legajo_de_jorge_deberia_tener_3_documentos_en_el_sistema_de_recursos_humanos()
         {
@@ -121,23 +114,24 @@ namespace TestViaticos
         {
             LegajoModi legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
             Assert.IsTrue(legajo_de_jorge.documentos.Any(un_documento => un_documento.tabla == "curriculums" && un_documento.id == 221));
+            Assert.AreEqual("OK", legajo_de_jorge.codigoDeResultado);
         }
 
-        //[TestMethod]
-        //public void uno_de_los_documentos_del_legajo_de_jorge_deberia_ser_un_curriculum()
-        //{
-        //    LegajoModil legajo_de_jorge = repositorioDeLegajos.getLegajo(123);
-        //    Assert.IsTrue(legajo_de_jorge.documentos().Any(un_documento => un_documento.tieneImagenes()));
-        //}
+        [TestMethod]
+        public void deberia_devolverme_LEGAJO_NO_ENCONTRADO_si_no_existe_el_legajo()
+        {
+            var resultado_sp_legajo = new TablaDeDatos();
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new object[] { "dbo.LEG_GET_Datos_Personales", Is.Anything }).Will(Return.Value(resultado_sp_legajo));
 
-        //[TestMethod]
-        //public void uno_de_los_documentos_del_legajo_de_jorge_deberia_ser_un_curriculum_que_ya_tiene_una_imagen_scanneada_y_dos_pendientes()
-        //{
-        //    LegajoModil legajo_de_jorge = repositorioDeLegajos.getLegajo(123);
-        //    var documentos_con_imagenes = legajo_de_jorge.documentos().FindAll(un_documento => un_documento.tieneImagenes());
-        //    var documentos_sin_imagenes = legajo_de_jorge.documentos().FindAll(un_documento => !un_documento.tieneImagenes());
-        //    Assert.AreEqual(1, documentos_con_imagenes.Count);
-        //    Assert.AreEqual(2, documentos_sin_imagenes.Count);
-        //}
+            var mocks = new Mockery();
+            var mock_repo_imagenes = mocks.NewMock<IRepositorioDeLegajosEscaneados>();
+           
+            repositorioDeLegajos = new RepositorioDeLegajos(conexion, mock_repo_imagenes);
+
+            LegajoModi un_legajo = repositorioDeLegajos.getLegajoPorDocumento(234);
+
+            Assert.AreEqual("LEGAJO_NO_ENCONTRADO", un_legajo.codigoDeResultado);
+        }
     }
 }

@@ -19,20 +19,12 @@ namespace General.Modi
 
         public LegajoModi getLegajoPorDocumento(int numero_de_documento)
         {
-            try
-            {
-                var legajo = this.legajoPara(numero_de_documento);
-                var documentos = this.documentosPara(legajo);
-                legajo.agregarDocumentos(documentos);
-                var imagenes = this.imagenesPara(legajo);
-                legajo.agregarImagenesSinAsignar(imagenes);
+            
+                
+            return this.legajoPara(numero_de_documento, () => { return new LegajoModi(); });
 
-                return legajo;
-            }
-            catch (Exception e)
-            {
-                throw new ExcepcionDeLegajoInexistente();
-            }          
+            
+
         }
 
         private List<ImagenModi> imagenesPara(LegajoModi legajo)
@@ -50,22 +42,28 @@ namespace General.Modi
             return GetDocumentosFromTabla(tablaDocumentos);
         }
 
-        private LegajoModi legajoPara(int numero_de_documento)
+        private LegajoModi legajoPara(int numero_de_documento, Func<LegajoModi> on_legajo_no_encontrado)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@doc", numero_de_documento);
-            var tablaLegajo = conexion.Ejecutar("dbo.LEG_GET_Datos_Personales", parametros);
-            return GetLegajoFromTabla(tablaLegajo);
-        }
+            var tablaLegajo = conexion.Ejecutar("dbo.LEG_GET_Datos_Personales", parametros);  
+            
+            if (tablaLegajo.Rows.Count == 0) { return on_legajo_no_encontrado.Invoke(); }
 
-        private LegajoModi GetLegajoFromTabla(TablaDeDatos tablaLegajo)
-        {
             var row = tablaLegajo.Rows.First();
-            return new LegajoModi(row.GetInt("id_interna"),
+            var legajo= new LegajoModi(row.GetInt("id_interna"),
                                     row.GetInt("Nro_Documento"),
                                     row.GetString("Nombre"),
                                     row.GetString("Apellido"));
+
+            var documentos = this.documentosPara(legajo);
+            legajo.agregarDocumentos(documentos);
+            var imagenes = this.imagenesPara(legajo);
+            legajo.agregarImagenesSinAsignar(imagenes);
+
+            return legajo;
         }
+
 
         private List<DocumentoModi> GetDocumentosFromTabla(TablaDeDatos tablaDocumentos)
         {
@@ -75,7 +73,7 @@ namespace General.Modi
             {
                 tablaDocumentos.Rows.ForEach(row =>
                 {
-                    var nuevoDocumento = new DocumentoModi(row.GetString("tabla"), 
+                    var nuevoDocumento = new DocumentoModi(row.GetString("tabla"),
                                                             row.GetInt("id"),
                                                             row.GetString("TIPO"),
                                                             row.GetString("JUR"),
