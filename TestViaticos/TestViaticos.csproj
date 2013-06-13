@@ -90,7 +90,8 @@
     <Compile Include="AppConexionTest.cs" />
     <Compile Include="CodigoTareaTest.cs" />
     <Compile Include="ControladorDeWebControlsTest.cs" />
-    <Compile Include="TestModil\TestRepositorioDeLegajos.cs" />
+    <Compile Include="TestModi\TestRepositorioDeImagenes.cs" />
+    <Compile Include="TestModi\TestRepositorioDeLegajos.cs" />
     <Compile Include="TestSACC\TestAlumnos.cs" />
     <Compile Include="TestValidador.cs" />
     <Compile Include="TestSACC\TestCalendarioDeCurso.cs" />
@@ -210,7 +211,10 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="TestModi\ImagenesDePrueba\203404\" />
+    <Folder Include="TestModi\ImagenesDePrueba\205939\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -33,12 +33,20 @@ namespace TestViaticos
             var resultado_sp_legajo = TablaDeDatos.From(sourceLegajo);
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
+            
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new object[] { "dbo.LEG_GET_Datos_Personales", Is.Anything }).Will(Return.Value(resultado_sp_legajo));
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new object[] { "dbo.LEG_GET_Indice_Documentos", Is.Anything }).Will(Return.Value(resultado_sp_documentos));
 
+            var mocks = new Mockery();
+            var mock_repo_imagenes = mocks.NewMock<IRepositorioDeLegajosEscaneados>();
 
-            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new string[] { "dbo.LEG_GET_Datos_Personales" }).Will(Return.Value(resultado_sp_legajo));
-            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new string[] { "dbo.LEG_GET_Indice_Documentos" }).Will(Return.Value(resultado_sp_documentos));
+            var lista_imagenes = new List<ImagenModi>();
+            lista_imagenes.Add(new ImagenModi("imagen_1"));
+            lista_imagenes.Add(new ImagenModi("imagen_2"));
 
-            repositorioDeLegajos = new RepositorioDeLegajos(conexion);
+            Expect.AtLeastOnce.On(mock_repo_imagenes).Method("getImagenesParaUnLegajo").WithAnyArguments().Will(Return.Value(lista_imagenes));
+
+            repositorioDeLegajos = new RepositorioDeLegajos(conexion, mock_repo_imagenes);
 
         }
         
@@ -64,6 +72,13 @@ namespace TestViaticos
         {
             LegajoModi legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
             Assert.AreEqual(3, legajo_de_jorge.cantidadDeDocumentos());
+        }
+
+        [TestMethod]
+        public void el_legajo_de_jorge_deberia_tener_2_imagenes_sin_asignar()
+        {
+            LegajoModi legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
+            Assert.AreEqual(2, legajo_de_jorge.imagenesSinAsignar.Count);
         }
 
         [TestMethod]

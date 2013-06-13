@@ -1,9 +1,9 @@
-﻿var VistaDocumentoModi = function (opt) {
+﻿var VistaDeDocumentoModi = function (opt) {
     this.o = opt;
     this.start();
 };
 
-VistaDocumentoModi.prototype.start = function () {
+VistaDeDocumentoModi.prototype.start = function () {
     this.lbl_descripcion_en_RRHH = this.o.ui.find('#lbl_descripcion_en_RRHH');
     this.lbl_jurisdiccion = this.o.ui.find('#lbl_jurisdiccion');
     this.lbl_organismo = this.o.ui.find('#lbl_organismo');
@@ -21,7 +21,7 @@ VistaDocumentoModi.prototype.start = function () {
     this.lbl_id.text(this.o.documento.id)
 };
 
-VistaDocumentoModi.prototype.dibujarEn = function (panel) {
+VistaDeDocumentoModi.prototype.dibujarEn = function (panel) {
     panel.append(this.o.ui);
 };
                                    

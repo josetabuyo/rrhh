@@ -26,6 +26,7 @@
            <div id="ui_vista_de_resultados_de_legajos">
                 <label id="lbl_nombre"></label>
                 <label id="lbl_apellido"></label>
+                <div id="panel_imagenes_no_asignadas"> </div>
                 <div id="panel_documentos"> </div>
            </div>
         </div>
@@ -47,6 +48,10 @@
                 <label class="titulo">Id:</label>
                 <label id="lbl_id"></label>
             </div>
+            <div id="plantilla_ui_imagen" class="imagen">
+                <label class="titulo">Nombre:</label>
+                <label id="lbl_nombre"></label>                
+            </div>
         </div>       
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
@@ -56,13 +61,15 @@
     <script type="text/javascript" src="BuscadorDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeResultadosDeLegajos.js"></script>
     <script type="text/javascript" src="ServicioDeLegajos.js"></script>
-    <script type="text/javascript" src="VistaDocumentoModi.js"></script>
+    <script type="text/javascript" src="VistaDeDocumentoModi.js"></script>
+    <script type="text/javascript" src="VistaDeImagenModi.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
             var vista_del_legajo = new VistaDeResultadosDeLegajos({
                 ui: $('#ui_vista_de_resultados_de_legajos'),
-                plantilla_vista_documento: $('#plantilla_ui_documento')
+                plantilla_vista_documento: $('#plantilla_ui_documento'),
+                plantilla_vista_imagen: $('#plantilla_ui_imagen')
             });
             var buscador = new BuscadorDeLegajos({
                 ui: $('#ui_buscador_de_legajos'),

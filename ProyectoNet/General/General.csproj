@@ -105,8 +105,12 @@
     <Compile Include="Mensajeria.cs" />
     <Compile Include="Modi\DocumentoModi.cs" />
     <Compile Include="Modi\ExcepcionDeLegajoInexistente.cs" />
+    <Compile Include="Modi\FileSystem.cs" />
+    <Compile Include="Modi\IFileSystem.cs" />
     <Compile Include="Modi\ImagenModi.cs" />
+    <Compile Include="Modi\IRepositorioDeLegajosEscaneados.cs" />
     <Compile Include="Modi\LegajoModi.cs" />
+    <Compile Include="Modi\RepositorioDeLegajosEscaneados.cs" />
     <Compile Include="Modi\RepositorioDeLegajos.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

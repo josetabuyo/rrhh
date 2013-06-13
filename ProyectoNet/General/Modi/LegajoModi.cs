@@ -8,10 +8,12 @@ namespace General.Modi
     public class LegajoModi
     {
         public List<DocumentoModi> documentos = new List<DocumentoModi>();
-        public int idInterna { get; set; }
-        public int numeroDeDocumento { get; set; }
-        public string nombre { get; set; }
-        public string apellido { get; set; }
+        public List<ImagenModi> imagenesSinAsignar = new List<ImagenModi>();
+        
+        public int idInterna { get; protected set; }
+        public int numeroDeDocumento { get; protected set; }
+        public string nombre { get; protected set; }
+        public string apellido { get; protected set; }
 
         public LegajoModi()
         {
@@ -31,9 +33,14 @@ namespace General.Modi
             return documentos.Count;
         }
 
-        internal void agregarDocumentos(List<DocumentoModi> documentos)
+        public void agregarDocumentos(List<DocumentoModi> documentos)
         {
             this.documentos.AddRange(documentos);
+        }
+
+        public void agregarImagenesSinAsignar(List<ImagenModi> imagenes)
+        {
+            this.imagenesSinAsignar.AddRange(imagenes);
         }
     }
 }

@@ -1473,7 +1473,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public LegajoModi GetLegajoParaDigitalizacion(int numero_documento)
     {
-        var repositorio_legajos = new RepositorioDeLegajos(Conexion());
+        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), "C:/ImagenesLegajos");
+        var repositorio_legajos = new RepositorioDeLegajos(Conexion(), repo_imagenes);
         return repositorio_legajos.getLegajoPorDocumento(numero_documento);     
     }
 
