@@ -1,20 +1,21 @@
-﻿var ServicioDeLegajos = {
-    getLegajo: function (numero_documento, onSuccess, onError) {
-        $.ajax({
-            url: "../AjaxWS.asmx/GetLegajoParaDigitalizacion",
-            type: "POST",
-            data: JSON.stringify({
-                numero_documento: numero_documento
-            }),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (respuestaJson) {
-                var respuesta = JSON.parse(respuestaJson.d);
-                onSuccess(respuesta);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                onError(errorThrown);
-            }
-        });
-    }
+﻿var ServicioDeLegajos = function (un_proveedor_ajax) {
+    this.proveedor_ajax = un_proveedor_ajax;
+};
+
+
+
+ServicioDeLegajos.prototype.getLegajo = function (numero_documento, on_legajo_encontrado, on_legajo_no_encontrado, on_error_de_comunicaciones) {
+    var diccionario = {};
+    diccionario['OK'] = on_legajo_encontrado;
+    diccionario['LEGAJO_NO_ENCONTRADO'] = on_legajo_no_encontrado;
+
+    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetLegajoParaDigitalizacion",
+        data: { numero_documento: numero_documento },
+        success: function (respuestaAPedidoDeLegajo) {
+            diccionario[respuestaAPedidoDeLegajo.codigoDeResultado](respuestaAPedidoDeLegajo);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            on_error_de_comunicaciones();
+        }
+    });
 };

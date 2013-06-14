@@ -22,7 +22,6 @@ namespace General.Modi
         {
             var listaImagenes = new List<ImagenModi>();
             var paths_archivos = this.fileSystem.getFiles(this.pathImagenes + "/" + legajo);
-
             paths_archivos.ForEach(pathImagen =>
             {                
                 listaImagenes.Add(new ImagenModi(Path.GetFileNameWithoutExtension(pathImagen)));

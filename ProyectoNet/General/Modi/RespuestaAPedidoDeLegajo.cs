@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General.Modi
 {
-    public class LegajoModi
+    public class RespuestaAPedidoDeLegajo
     {
         public List<DocumentoModi> documentos = new List<DocumentoModi>();
         public List<ImagenModi> imagenesSinAsignar = new List<ImagenModi>();
@@ -16,12 +16,12 @@ namespace General.Modi
         public string apellido { get; protected set; }
         public string codigoDeResultado { get; protected set; }
 
-        public LegajoModi()
+        public RespuestaAPedidoDeLegajo()
         {
             this.codigoDeResultado = "LEGAJO_NO_ENCONTRADO";
         }
 
-        public LegajoModi(int un_id, int documento, string un_nombre, string un_apellido)
+        public RespuestaAPedidoDeLegajo(int un_id, int documento, string un_nombre, string un_apellido)
         {
             this.idInterna = un_id;
             this.numeroDeDocumento = documento;

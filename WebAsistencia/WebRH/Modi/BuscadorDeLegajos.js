@@ -14,12 +14,16 @@ BuscadorDeLegajos.prototype.start = function () {
 BuscadorDeLegajos.prototype.buscar = function () {
     var _this = this;
     this.o.servicioDeLegajos.getLegajo(parseInt(this.input_numero.val()), //numero_legajo
-                                       function (legajo) {
+                                       function (respuesta) {
                                            _this.aviso_legajo_no_encontrado.hide();
-                                           _this.o.vistaDeResultados.mostrarLegajo(legajo);
+                                           _this.o.vistaDeResultados.mostrarLegajo(respuesta);
                                        },
-                                       function (mensaje_error) {
-                                           _this.aviso_legajo_no_encontrado.text(mensaje_error);                                            
+                                       function () {
+                                           _this.aviso_legajo_no_encontrado.text("Legajo no encontrado");                                            
+                                           _this.aviso_legajo_no_encontrado.show();
+                                       },
+                                       function () {
+                                           _this.aviso_legajo_no_encontrado.text("Error de comunicaciones");
                                            _this.aviso_legajo_no_encontrado.show();
                                        });
 };

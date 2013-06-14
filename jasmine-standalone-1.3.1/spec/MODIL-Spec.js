@@ -189,3 +189,39 @@ describe("Tengo una vista de legajos", function () {
         expect(lbl_nombre.text()).toEqual("imagen_1");
     });
 });
+
+
+describe("Tengo un servicio de legajos", function () {
+    var srv_de_legajos;
+    beforeEach(function () {
+        var mock_proveedor_ajax = {
+            postearAUrl: function (datos_del_post) {
+                if (datos_del_post.data.numero_documento == 29193500) {
+                    datos_del_post.success({
+                        codigoDeResultado:'OK'
+                    });
+                }
+                else {
+                    datos_del_post.success({
+                        codigoDeResultado: 'LEGAJO_NO_ENCONTRADO'
+                    });
+                }
+            }
+        };
+        srv_de_legajos = new ServicioDeLegajos(mock_proveedor_ajax);
+    });
+    it("Si pido el legajo de documento 29193500 debería encontrarlo", function () {
+        var realizo_comportamiento_esperado = false;
+        srv_de_legajos.getLegajo(29193500,
+                                    function (respuesta) { realizo_comportamiento_esperado = true; },
+                                    function (respuesta) { realizo_comportamiento_esperado = false; })
+        expect(realizo_comportamiento_esperado).toBeTruthy();
+    });
+    it("Si pido el legajo de documento 88888888 no deberia encontrarlo", function () {
+        var realizo_comportamiento_esperado = false;
+        srv_de_legajos.getLegajo(88888888,
+                                    function (respuesta) { realizo_comportamiento_esperado = false; },
+                                    function (respuesta) { realizo_comportamiento_esperado = true; })
+        expect(realizo_comportamiento_esperado).toBeTruthy();
+    });
+});

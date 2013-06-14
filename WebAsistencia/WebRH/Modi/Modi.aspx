@@ -63,6 +63,7 @@
     <script type="text/javascript" src="ServicioDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeDocumentoModi.js"></script>
     <script type="text/javascript" src="VistaDeImagenModi.js"></script>
+    <script type="text/javascript" src="ProveedorAjax.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -71,9 +72,11 @@
                 plantilla_vista_documento: $('#plantilla_ui_documento'),
                 plantilla_vista_imagen: $('#plantilla_ui_imagen')
             });
+
+            var servicio_de_legajos = new ServicioDeLegajos(new ProveedorAjax());
             var buscador = new BuscadorDeLegajos({
                 ui: $('#ui_buscador_de_legajos'),
-                servicioDeLegajos: ServicioDeLegajos,
+                servicioDeLegajos: servicio_de_legajos,
                 vistaDeResultados: vista_del_legajo
             });
         });

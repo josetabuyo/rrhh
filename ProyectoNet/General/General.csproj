@@ -109,7 +109,7 @@
     <Compile Include="Modi\IFileSystem.cs" />
     <Compile Include="Modi\ImagenModi.cs" />
     <Compile Include="Modi\IRepositorioDeLegajosEscaneados.cs" />
-    <Compile Include="Modi\LegajoModi.cs" />
+    <Compile Include="Modi\RespuestaAPedidoDeLegajo.cs" />
     <Compile Include="Modi\RepositorioDeLegajosEscaneados.cs" />
     <Compile Include="Modi\RepositorioDeLegajos.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
