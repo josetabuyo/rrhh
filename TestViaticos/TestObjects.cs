@@ -1011,8 +1011,7 @@ namespace General
         public static Materia MateriaCens()
         { 
             List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() {PrimerParcial(), SegundoParcial() };
-            EstructuraDeEvaluacion estructura_evaluacion = new EstructuraDeEvaluacion(1,"Instancias CENS",instancias);
-            Modalidad modalidad_cens = new Modalidad(1, "Cens",estructura_evaluacion);
+            Modalidad modalidad_cens = new Modalidad(1, "Cens", instancias);
 
             return new Materia(1, "Historia CENS", modalidad_cens);
         }
@@ -1020,8 +1019,7 @@ namespace General
         public static Materia MateriaPuro()
         {
             List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() { CalificacionFinal() };
-            EstructuraDeEvaluacion estructura_evaluacion = new EstructuraDeEvaluacion(1, "Instancias Puro", instancias);
-            Modalidad modalidad_cens = new Modalidad(1, "Puro", estructura_evaluacion);
+            Modalidad modalidad_cens = new Modalidad(1, "Puro", instancias);
 
             return new Materia(1, "Geografia Puro", modalidad_cens);
         }

@@ -194,16 +194,39 @@ namespace General.Repositorios
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_GetModalidades");
             List<Modalidad> modalidades = new List<Modalidad>();
+            List<InstanciaDeEvaluacion> instancias_de_evaluacion = new List<InstanciaDeEvaluacion>();        
+            int id_modalidad = 0;
+            string descripcion_modalidad = "";
+            int modalidad_anterior = tablaDatos.Rows.First().GetInt("IdModalidad");
 
             tablaDatos.Rows.ForEach(row =>
             {
-                Modalidad modalidad = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
+                if (modalidad_anterior == row.GetInt("IdModalidad"))
+                {
+                    InstanciaDeEvaluacion instancia_de_evaluacion = new InstanciaDeEvaluacion(row.GetSmallintAsInt("idInstancia"), row.GetString("DescripcionInstancia"));
+                    instancias_de_evaluacion.Add(instancia_de_evaluacion);
+                }
+                else
+                { 
+                    Modalidad modalidad = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"), instancias_de_evaluacion);
+                    modalidades.Add(modalidad);
+                    modalidad_anterior = row.GetInt("IdModalidad");
+                }
+ 
+                 id_modalidad = row.GetInt("IdModalidad");
+                 descripcion_modalidad = row.GetString("ModalidadDescripcion");
+            });           
+            Modalidad modalidad2 = new Modalidad(id_modalidad, descripcion_modalidad, instancias_de_evaluacion);
+            modalidades.Add(modalidad2);
 
-                modalidades.Add(modalidad);
-            });
-
-            return modalidades;
+             return modalidades;
         }
+
+        public Modalidad GetModalidadById(int idModalidad)
+        {
+            return GetModalidades().Find(m => m.Id == idModalidad);
+        }
+
 
         public bool AlumnoAsignadoACurso(Alumno un_alumno)
         {

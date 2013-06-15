@@ -73,5 +73,46 @@ namespace TestViaticos
             Assert.AreEqual(3, belen.Areas.Count);
         }
 
+        [TestMethod]
+        public void deberia_poder_obtener_todas_las_modalidades()
+        {
+            string source = @"      |IdModalidad  |ModalidadDescripcion   |idEstructura  |DescripcionEstructura |idInstancia |DescripcionInstancia
+                                    |1	          |Fines Puro	          |1	         |Fines	                |6	         |Calificación Final
+                                    |2	          |Fines CENS	          |2	         |Cens	                |1	         |1° Evaluación";
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            RepositorioDeAlumnos repo = new RepositorioDeAlumnos(conexion);     
+            List<Modalidad> lista_de_modalidades = repo.GetModalidades();
+
+            Assert.AreEqual(2, lista_de_modalidades.Count());
+        }
+
+        [TestMethod]
+        public void deberia_poder_obtener_todas_las_instancias_de_evaluacion_de_una_modalidad()
+        {
+            string source = @"      |IdModalidad  |ModalidadDescripcion   |idEstructura  |DescripcionEstructura |idInstancia |DescripcionInstancia
+                                    |1	          |Fines Puro	          |1	         |Fines	                |6	         |Calificación Final
+                                    |2	          |Fines CENS	          |2	         |Cens	                |1	         |1° Evaluación
+                                    |2	          |Fines CENS	          |2	         |Cens	                |2	         |2° Evaluación
+                                    |2	          |Fines CENS	          |2	         |Cens	                |3	         |Paepa 1
+                                    |2	          |Fines CENS	          |2	         |Cens	                |4	         |Paepa 2
+                                    |2	          |Fines CENS	          |2	         |Cens	                |5	         |Mesa
+                                    |2	          |Fines CENS	          |2	         |Cens	                |6	         |Calificación Final";
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            RepositorioDeAlumnos repo = new RepositorioDeAlumnos(conexion);
+            Modalidad modalidad_cens = repo.GetModalidadById(2);
+
+            Assert.AreEqual(2, modalidad_cens.Id);
+            Assert.AreEqual(6, modalidad_cens.InstanciasDeEvaluacion.Count());
+        }
     }
 }
