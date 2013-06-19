@@ -40,6 +40,8 @@
 <script type="text/javascript">
 
     var AdministradorPlanillaEvaluaciones = function () {
+        
+        
         if ($('#PlanillaEvaluaciones_planillaJSON').val() != "{}" && $('#PlanillaEvaluaciones_planillaJSON').val() != "") {
 
             var Planilla = JSON.parse($('#PlanillaEvaluaciones_planillaJSON').val());
@@ -52,7 +54,7 @@
             columnas.push(new Columna("Apellido y Nombre", { generar: function (evaluacionAlumno) { return evaluacionAlumno.nombrealumno } }));
             if (detalleEvaluaciones) {
                 for (var i = 0; i < detalleEvaluaciones.length; i++) {
-                    columnas.push(new Columna(detalleEvaluaciones[i].instancia, new GeneradorCeldaDiaCursado(detalleEvaluaciones[i])));
+                    columnas.push(new Columna(detalleEvaluaciones[i].instancia, new GeneradorCeldaInstanciaEvaluacion(detalleEvaluaciones[i])));
                 }
             }
             
@@ -74,7 +76,7 @@
         }
     };
 
-    var GeneradorCeldaCalificacion = function (instancia) {
+    var GeneradorCeldaInstanciaEvaluacion = function (instancia) {
         var self = this;
         self.instancia = instancia;
         self.generar = function (calificaciones) {
