@@ -89,7 +89,6 @@
   <ItemGroup>
     <Compile Include="AppConexionTest.cs" />
     <Compile Include="CodigoTareaTest.cs" />
-    <Compile Include="ControladorDeWebControlsTest.cs" />
     <Compile Include="TestAlertas.cs" />
     <Compile Include="TestMail.cs" />
     <Compile Include="TestSACC\TestAlumnos.cs" />
@@ -110,7 +109,6 @@
     <Compile Include="TestRepositorioDeViaticos.cs" />
     <Compile Include="FakeArea.cs" />
     <Compile Include="TestCircuitoDeViatico.cs" />
-    <Compile Include="TestRenderizadorDeTablas.cs" />
     <Compile Include="TestRepositorioOrganigramas.cs" />
     <Compile Include="CreadorDeDatosFicticios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,10 +131,6 @@
     <ProjectReference Include="..\ProyectoNet\General\General.csproj">
       <Project>{D6802AD2-A6E1-4612-8F01-811E926A1D2E}</Project>
       <Name>General</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebAsistencia\WebRhUI\WebRhUI.csproj">
-      <Project>{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}</Project>
-      <Name>WebRhUI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

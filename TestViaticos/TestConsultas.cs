@@ -9,7 +9,6 @@ using General;
 using NDbUnit.Core;
 using NDbUnit.Core.SqlClient;
 using NMock2;
-using WebRhUI;
 using System.Web.UI.WebControls;
 using WebRhUITestNew;
 
