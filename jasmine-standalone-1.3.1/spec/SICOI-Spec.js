@@ -486,32 +486,6 @@ describe("Pruebas del panel de filtros", function () {
 
             /**/
 
-            describe("Se inicia la pantalla de control de alertas", function () {
-                beforeEach(function () {
-
-                    var div = $("<input>");
-
-
-                    var uiPanelDecontrol = $('<div>');
-                    input_inicio = $('<input id="btnIniciarServicioDeAlertas" type="button"  class="btn" value="Iniciar">');
-                    input_detener = $('<input id="btnDetenerServicioDeAlertas" type="button" class="btn" value="Detener">>');
-                    /* boton_buscar = $('<input id="boton_buscar" type="button">');*/
-
-
-                    uiPanelDecontrol.append(input_inicio);
-                    uiPanelDecontrol.append(input_detener);
-
-                    panel_control_alertas = new PanelDeControlDeAlertas(uiPanelDecontrol);
-                    panel_control_alertas.HabilitarBotones();
-
-                });
-                it("Si el servicio de enviar mails está activo, el botón de iniciar debe quedar deshabilitado", function () {
-                    expect(panel_control_alertas.btnDetenerServicioDeAlertas.prop('disabled')).toBeFalsy();
-                });
-                //                it("El boton del panel no deberia tener la clase boton_que_abre_panel_desplegable_activo_con_filtros", function () {
-                //                    expect(boton_panel.hasClass('boton_que_abre_panel_desplegable_activo_con_filtros')).toBeFalsy();
-                //                });
-            });
 
 
 
@@ -524,5 +498,41 @@ describe("Pruebas del panel de filtros", function () {
 
 
         });
+
+
     });
+    describe("Se inicia la pantalla de control de alertas", function () {
+
+        var panel_control_alertas;
+
+
+        var ui = $('<div id="uiPanelDecontrol">');
+        var input_inicio = $('<input id="btnIniciarServicioDeAlertas" type="button"  class="btn" value="Iniciar">');
+        var input_detener = $('<input id="btnDetenerServicioDeAlertas" type="button" class="btn" value="Detener">');
+        var lbl_estado = $('<div id="lblEstado" class="label label-important" >');
+
+        lbl_estado.text("Running");
+        ui.append(input_inicio);
+        ui.append(input_detener);
+        ui.append(lbl_estado);
+
+        panel_control_alertas = new PanelDeControlDeAlertas({ ui: ui });
+
+        spyOn(panel_control_alertas, 'HabilitarBotones').andCallThrough();
+        spyOn(panel_control_alertas, 'refrescarEstado').andCallThrough();
+
+
+        panel_control_alertas.HabilitarBotones(lbl_estado.text());
+
+
+        it("Si el servicio de enviar mails está activo, el botón de iniciar debe quedar deshabilitado", function () {
+            expect(panel_control_alertas.btnStart.attr("disabled")).toBeTruthy();
+
+            //expect(panel_control_alertas.input_inicio.prop('disabled',true)).toBeFalsy();
+        });
+        //                it("El boton del panel no deberia tener la clase boton_que_abre_panel_desplegable_activo_con_filtros", function () {
+        //                    expect(boton_panel.hasClass('boton_que_abre_panel_desplegable_activo_con_filtros')).toBeFalsy();
+        //                });
+    });
+
 });

@@ -2,7 +2,11 @@
 var PanelDeControlDeAlertas = function (options) {
     this.o = options;
     this.start();
+
+
+   
 }
+
 
 PanelDeControlDeAlertas.prototype.start = function () {
     var _this = this;
@@ -47,18 +51,20 @@ PanelDeControlDeAlertas.prototype.detenerProceso = function () {
 
 
 PanelDeControlDeAlertas.prototype.HabilitarBotones = function (estado) {
-
-    var _this = this;
-  
-  if (estado == "idle") {
-      _this.btnIniciarServicioDeAlertas.prop('disabled', true);
-  _this.btnDetenerServicioDeAlertas.prop('disabled', false);
-}
-else {
-       _this.btnIniciarServicioDeAlertas.prop('disabled', false);
-       _this.btnDetenerServicioDeAlertas.prop('disabled', true);
-}
  
+    var _this = this;
+
+    if (estado == "Idle") {
+        _this.btnStart.prop('disabled', false);
+        _this.btnStop.prop('disabled', true);
+
+
+    }
+    else {
+        _this.btnStart.prop('disabled', true);
+        _this.btnStop.prop('disabled', false);
+    }
+
 
 };
 
