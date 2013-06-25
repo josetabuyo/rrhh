@@ -1362,7 +1362,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Modalidad[] Modalidades()
     {
-        return RepoAlumnos().GetModalidades().ToArray();
+        return RepoModalidades().GetModalidades().ToArray();
     }
 
     [WebMethod]
@@ -1556,6 +1556,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeAlumnos RepoAlumnos()
     {
         return new RepositorioDeAlumnos(Conexion());
+    }
+
+    private RepositorioDeModalidades RepoModalidades()
+    {
+        return new RepositorioDeModalidades(Conexion());
     }
 
     private RepositorioPersonas RepoPersonas()
