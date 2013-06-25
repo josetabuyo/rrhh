@@ -718,7 +718,7 @@ public class WSViaticos : System.Web.Services.WebService
             var filtros = new List<FiltroDeDocumentos>();
             filtros.Add(new FiltroDeDocumentosPorAreaActual(Mensajeria(), 1));
             var enviador = new EnviadorDeMails();
-            Application["reportadorDeDocumentosEnAlerta"] = new ReportadorDeDocumentosEnAlerta(filtros, "jlurgo@gmail.com", enviador, RepositorioDocumentos());
+            Application["reportadorDeDocumentosEnAlerta"] = new ReportadorDeDocumentosEnAlerta(filtros, "arielzambrano@gmail.com", enviador, RepositorioDocumentos());
         }
         return (ReportadorDeDocumentosEnAlerta)Application["reportadorDeDocumentosEnAlerta"];
     }
