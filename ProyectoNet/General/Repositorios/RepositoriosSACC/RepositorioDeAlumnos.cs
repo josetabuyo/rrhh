@@ -18,12 +18,12 @@ namespace General.Repositorios
 
         public List<Alumno> GetAlumnos()
         {
+            RepositorioDeModalidades repoModalidades = new RepositorioDeModalidades(conexion_bd);
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
             alumnos = new List<Alumno>();
 
             tablaDatos.Rows.ForEach(row =>
             {               
-                Modalidad modeliadad_aux = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
                 var baja = 0;
                 if (!(row.GetObject("IdBaja") is DBNull))
                     baja = (int)row.GetObject("IdBaja");
@@ -41,7 +41,7 @@ namespace General.Repositorios
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
                     Areas = areas_alumno,
-                    Modalidad = modeliadad_aux,                  
+                    Modalidad = repoModalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
                     Baja = baja
                 };
 
