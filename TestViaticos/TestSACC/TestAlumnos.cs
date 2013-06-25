@@ -85,7 +85,7 @@ namespace TestViaticos
 
             Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            RepositorioDeAlumnos repo = new RepositorioDeAlumnos(conexion);     
+            RepositorioDeModalidades repo = new RepositorioDeModalidades(conexion);     
             List<Modalidad> lista_de_modalidades = repo.GetModalidades();
 
             Assert.AreEqual(2, lista_de_modalidades.Count());
@@ -108,11 +108,62 @@ namespace TestViaticos
 
             Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            RepositorioDeAlumnos repo = new RepositorioDeAlumnos(conexion);
+            RepositorioDeModalidades repo = new RepositorioDeModalidades(conexion);
             Modalidad modalidad_cens = repo.GetModalidadById(2);
 
             Assert.AreEqual(2, modalidad_cens.Id);
             Assert.AreEqual(6, modalidad_cens.InstanciasDeEvaluacion.Count());
+        }
+
+
+        [TestMethod]
+        public void deberia_poder_obtener_todas_las_modalidades_que_existen()
+        {
+            string source = @"      |IdModalidad  |ModalidadDescripcion   |idEstructura  |DescripcionEstructura |idInstancia |DescripcionInstancia
+                                    |1	          |Fines Puro	          |1	         |Fines	                |6	         |Calificación Final
+                                    |2	          |Fines CENS	          |2	         |Cens	                |1	         |1° Evaluación
+                                    |2	          |Fines CENS	          |2	         |Cens	                |2	         |2° Evaluación
+                                    |2	          |Fines CENS	          |2	         |Cens	                |3	         |Paepa 1
+                                    |2	          |Fines CENS	          |2	         |Cens	                |4	         |Paepa 2
+                                    |2	          |Fines CENS	          |2	         |Cens	                |5	         |Mesa
+                                    |2	          |Fines CENS	          |2	         |Cens	                |6	         |Calificación Final";
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            RepositorioDeModalidades repo = new RepositorioDeModalidades(conexion);
+            List<Modalidad> modalidades = repo.GetModalidades();
+
+            Assert.AreEqual(2, modalidades.Count);
+            Assert.IsTrue(modalidades.Exists(m => m.Id == 1));
+            Assert.IsTrue(modalidades.Exists(m => m.Id == 2));
+        }
+
+        [TestMethod]
+        public void deberia_poder_obtener_todas_las_modalidades_que_existen_2()
+        {
+            string source = @"      |IdModalidad  |ModalidadDescripcion   |idEstructura  |DescripcionEstructura |idInstancia |DescripcionInstancia
+                                    |1	          |Fines Puro	          |1	         |Fines	                |6	         |Calificación Final
+                                    |1	          |Fines Puro	          |2	         |Cens	                |1	         |1° Evaluación
+                                    |2	          |Fines CENS	          |2	         |Cens	                |2	         |2° Evaluación
+                                    |1	          |Fines Puro	          |2	         |Cens	                |3	         |Paepa 1
+                                    |2	          |Fines CENS	          |2	         |Cens	                |4	         |Paepa 2
+                                    |2	          |Fines CENS	          |2	         |Cens	                |5	         |Mesa
+                                    |1	          |Fines Puro	          |2	         |Cens	                |6	         |Calificación Final";
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            RepositorioDeModalidades repo = new RepositorioDeModalidades(conexion);
+            List<Modalidad> modalidades = repo.GetModalidades();
+
+            Assert.AreEqual(5, modalidades.Count);
+            Assert.IsTrue(modalidades.Exists(m => m.Id == 1));
+            Assert.IsTrue(modalidades.Exists(m => m.Id == 2));
         }
     }
 }
