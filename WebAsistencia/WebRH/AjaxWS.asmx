@@ -111,6 +111,14 @@ public class AjaxWS : System.Web.Services.WebService {
     public string EstadoServicioDeAlertas()
     {
         return backEndService.EstadoServicioDeAlertas();
+    }
+    
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetPlanillaEvaluaciones(int id_curso)
+    {
+        return "{\"error\":\"\",\"planilla\":\"planilla\"}";
+        //return backEndService.EstadoServicioDeAlertas();
     }       
 }
 
