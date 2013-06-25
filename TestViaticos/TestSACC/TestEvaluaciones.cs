@@ -104,8 +104,8 @@ namespace TestViaticos
 
               un_curso_cens.AgregarEvaluaciones(lista_evaluaciones);
 
-              Assert.AreEqual(1, un_curso_cens.EvaluacionDeAlumnoEnUnaInstancia(un_alumno_del_curso,primer_parcial).Calificacion);
-              Assert.AreEqual(0, un_curso_cens.EvaluacionDeAlumnoEnUnaInstancia(un_alumno_del_curso, segundo_parcial).Calificacion);
+              Assert.AreEqual(10, un_curso_cens.EvaluacionDeAlumnoEnUnaInstancia(un_alumno_del_curso, primer_parcial).Calificacion.Nota);
+              Assert.AreEqual(8, un_curso_cens.EvaluacionDeAlumnoEnUnaInstancia(un_alumno_del_curso, segundo_parcial).Calificacion.Nota);
           }
 
 
