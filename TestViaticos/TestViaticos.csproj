@@ -56,12 +56,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="NDbUnit.Core">
-      <HintPath>..\SharedLibs\NDbUnit.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NDbUnit.SqlClient">
-      <HintPath>..\SharedLibs\NDbUnit.SqlClient.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\SharedLibs\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -110,7 +104,6 @@
     <Compile Include="FakeArea.cs" />
     <Compile Include="TestCircuitoDeViatico.cs" />
     <Compile Include="TestRepositorioOrganigramas.cs" />
-    <Compile Include="CreadorDeDatosFicticios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
