@@ -21,11 +21,14 @@ namespace TestViaticos
             var area_fabi = TestObjects.AreaDeFabi();
             var area_marta = TestObjects.AreaDeMarta();
 
-            Assert.IsTrue(Mensajeria().DocumentosEn(area_fabi).Contains(nota_para_marta));
+            Assert.IsTrue(Mensajeria().DocumentosEn(area_fabi).Contains(nota_para_marta), "La nota de marta debería estar aún en el area de fabian");
 
             Mensajeria().SeEnvioDirectamente(nota_para_marta, area_fabi, area_marta, DateTime.Now);
-            
-            Assert.IsTrue(Mensajeria().DocumentosEn(area_marta).Contains(nota_para_marta));
+
+            Assert.IsTrue(Mensajeria().DocumentosEn(area_marta).Contains(nota_para_marta), "La nota deberia estar en el area de marta");
+
+            Console.WriteLine(Mensajeria().DocumentosEn(area_marta));
+
             Assert.IsFalse(Mensajeria().DocumentosEn(area_fabi).Contains(nota_para_marta));
         }
 
