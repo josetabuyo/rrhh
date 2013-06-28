@@ -4,8 +4,8 @@ using General.Repositorios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using General.Calendario;
-using NDbUnit.Core;
-using NDbUnit.Core.SqlClient;
+
+
 using NMock2;
 
 namespace TestViaticos
