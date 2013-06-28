@@ -12,7 +12,6 @@ namespace TestViaticos
     [Ignore]
     public class TestLicencias
     {
-        CreadorDeDatosFicticios creador_de_datos;
         private Persona unaPersona;
         private DateTime unaFecha;
         private ConceptoDeLicencia unConcepto;
@@ -28,12 +27,7 @@ namespace TestViaticos
         [TestInitialize]
         public void Setup()
         {
-            creador_de_datos = new CreadorDeDatosFicticios();
-            creador_de_datos.AddData("RH_Usuarios.xml");
-            creador_de_datos.AddData("ASIS_Solicitudes_Licencia_Web.xml");
-            creador_de_datos.AddData("Tabla_Areas.xml");
-            creador_de_datos.AddData("Datos_Personales.xml");
-            creador_de_datos.AddData("Tabla_Conceptos_Licencias.xml");
+
             
             repositorioLicencias = new RepositorioLicencias();
             repositorioPersonas = new RepositorioPersonas();
