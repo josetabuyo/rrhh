@@ -188,6 +188,28 @@ describe("Tengo una vista de legajos", function () {
         var lbl_nombre = div_primera_imagen.find("#lbl_nombre");
         expect(lbl_nombre.text()).toEqual("imagen_1");
     });
+
+    it("Al refrescar una vista de un legajo, debería recargar las imagenes, no sumar las nuevas", function () {
+        var un_legajo = {
+            nombre: "jorge",
+            apellido: "Silva",
+            documentos: [
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" }
+            ],
+            imagenesSinAsignar: [
+                { nombre: "imagen_1" },
+                { nombre: "imagen_2" },
+                { nombre: "imagen_3" }
+            ]
+        };
+        vista_legajos.mostrarLegajo(un_legajo);
+        expect(panel_imagenes_no_asignadas.children().length).toEqual(3);
+
+        vista_legajos.mostrarLegajo(un_legajo);
+        expect(panel_imagenes_no_asignadas.children().length).toEqual(3);       
+    });
 });
 
 

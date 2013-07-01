@@ -16,6 +16,7 @@ VistaDeResultadosDeLegajos.prototype.mostrarLegajo = function (legajo) {
     this.lbl_apellido.text(legajo.apellido);
     this.vistasDeDocumentos = [];
     this.panel_documentos.empty();
+    this.panel_imagenes_no_asignadas.empty();
 
     for (var i = 0; i < legajo.documentos.length; i++) {
         var vista_documento = new VistaDeDocumentoModi({
