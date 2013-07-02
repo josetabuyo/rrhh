@@ -60,11 +60,11 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (respuestaJson) {
                     var respuesta = JSON.parse(respuestaJson.d);
-                    if (respuesta.error === "") {
-                        _this.dibujarGrilla(respuesta.planilla);
+                    if (respuesta.MensajeError === null) {
+                        _this.dibujarGrilla(respuesta.Alumnos);
                     }
                     else {
-                        alert(respuesta.error);
+                        alert(respuesta.MensajeError);
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {

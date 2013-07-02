@@ -2,13 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using General;
 
-/// <summary>
-/// Descripción breve de PlanillaEvaluacionesDto
-/// </summary>
+public class EvaluacionDto
+{
+    public int Id { get; set; }
+    public Calificacion Calificacion { get; set; }
+    public int IdAlumno { get; set; }
+    public int IdCurso { get; set; }
+}
+
+public class InstanciaEvaluacionDto
+{
+    public int Id { get; set; }
+    public DateTime Fecha { get; set; }
+    public string Nombre { get; set; }
+
+    public int IdCurso { get; set; }
+
+}
+
 public class PlanillaEvaluacionesDto
 {
-	public PlanillaEvaluacionesDto()
-	{
-	}
+    public int CodigoError { get; set; }
+    public string MensajeError { get; set; }
+    public Alumno[] Alumnos { get; set; }
+    public EvaluacionDto[] Evaluaciones { get; set; }
+    public InstanciaEvaluacionDto[] Instancias { get; set; }
+    
 }

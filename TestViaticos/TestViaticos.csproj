@@ -93,6 +93,11 @@
     <Compile Include="TestAlertas.cs" />
     <Compile Include="TestMail.cs" />
     <Compile Include="TestSACC\TestAlumnos.cs" />
+    <Compile Include="TestSACC\TestCursos.cs" />
+    <Compile Include="TestSACC\TestEspaciosFisico.cs" />
+    <Compile Include="TestSACC\TestEvaluaciones.cs" />
+    <Compile Include="TestSACC\TestRepositorioEspaciosFisicos.cs" />
+    <Compile Include="TestSACC\TestRepositorioEvaluaciones.cs" />
     <Compile Include="TestValidador.cs" />
     <Compile Include="TestSACC\TestCalendarioDeCurso.cs" />
     <Compile Include="TestSACC\TestPlanillaMensual.cs" />
