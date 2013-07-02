@@ -1553,6 +1553,13 @@ public class WSViaticos : System.Web.Services.WebService
          return items_permitidos_dto.ToArray();
      }
 
+    [WebMethod]
+     public object GetPlanillaEvaluaciones(int id_curso)
+     {
+         return new{error="",planilla="planilla"};
+         //return backEndService.EstadoServicioDeAlertas();
+     }  
+
     private RepositorioDeAlumnos RepoAlumnos()
     {
         return new RepositorioDeAlumnos(Conexion());
