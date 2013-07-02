@@ -72,5 +72,15 @@ namespace TestViaticos
             
             Assert.IsTrue(imagenes.Any(imagen => imagen.nombre == "imagen1"));
         }
+
+        //[TestMethod]
+        //public void el_repositorio_deberia_devolver_una_lista_con_cero_imagenes_para_el_legajo_111111_que_no_tiene_carpeta()
+        //{
+        //    mock_filesystem_data = new Dictionary<string, List<string>>() { { "imagenes/203404", new List<string>() { "imagenes/205939/imagen1.jpg" } } };
+
+        //    var imagenes = repo_de_imagenes().getImagenesParaUnLegajo(111111);
+
+        //    Assert.AreEqual(0, imagenes.Count());
+        //}
     }
 }

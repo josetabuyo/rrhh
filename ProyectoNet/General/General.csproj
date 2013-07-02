@@ -104,6 +104,7 @@
     <Compile Include="FiltroDeAreas.cs" />
     <Compile Include="Mensajeria.cs" />
     <Compile Include="Modi\DocumentoModi.cs" />
+    <Compile Include="Modi\ExcepcionDeCarpetaDeLegajoNoEncontrada.cs" />
     <Compile Include="Modi\ExcepcionDeLegajoInexistente.cs" />
     <Compile Include="Modi\FileSystem.cs" />
     <Compile Include="Modi\IFileSystem.cs" />

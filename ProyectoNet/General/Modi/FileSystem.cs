@@ -10,7 +10,13 @@ namespace General.Modi
     {
         public List<string> getFiles(string path)
         {
-             return Directory.GetFiles(path).ToList();
+            try
+            {
+                return Directory.GetFiles(path).ToList();
+            }
+            catch(DirectoryNotFoundException e){
+                throw new ExcepcionDeCarpetaDeLegajoNoEncontrada();
+            }
         }
     }
 }
