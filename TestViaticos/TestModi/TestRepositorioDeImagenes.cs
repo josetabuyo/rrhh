@@ -47,7 +47,7 @@ namespace TestViaticos
                                                                 "imagenes/205939/imagen2.jpg", 
                                                                 "imagenes/205939/imagen3.jpg" }}};
 
-            var imagenes = repo_de_imagenes().getImagenesParaUnLegajo(205939);
+            var imagenes = repo_de_imagenes().getThumbnailsParaUnLegajo(205939);
 
             Assert.AreEqual(3, imagenes.Count());
         }
@@ -58,7 +58,7 @@ namespace TestViaticos
             mock_filesystem_data = new Dictionary<string, List<string>>() {{ "imagenes/203404", new List<string>() { "imagenes/205939/imagen1.jpg", 
                                                                 "imagenes/205939/imagen2.jpg" }}};
 
-            var imagenes = repo_de_imagenes().getImagenesParaUnLegajo(203404);
+            var imagenes = repo_de_imagenes().getThumbnailsParaUnLegajo(203404);
             
             Assert.AreEqual(2, imagenes.Count());
         }
@@ -68,7 +68,7 @@ namespace TestViaticos
         {
             mock_filesystem_data = new Dictionary<string, List<string>>() {{ "imagenes/203404", new List<string>() { "imagenes/205939/imagen1.jpg" }}};
 
-            var imagenes = repo_de_imagenes().getImagenesParaUnLegajo(203404);
+            var imagenes = repo_de_imagenes().getThumbnailsParaUnLegajo(203404);
             
             Assert.IsTrue(imagenes.Any(imagen => imagen.nombre == "imagen1"));
         }

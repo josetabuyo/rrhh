@@ -18,9 +18,9 @@ namespace General.Modi
             this.pathImagenes = pathImagenes;
         }
 
-        public List<ImagenModi> getImagenesParaUnLegajo(int legajo)
+        public List<ThumbnailImagenModi> getThumbnailsParaUnLegajo(int legajo)
         {
-            var listaImagenes = new List<ImagenModi>();
+            var listaImagenes = new List<ThumbnailImagenModi>();
             List<String> paths_archivos;
             try
             {
@@ -31,8 +31,8 @@ namespace General.Modi
                 paths_archivos = new List<string>();
             }
             paths_archivos.ForEach(pathImagen =>
-            {                
-                listaImagenes.Add(new ImagenModi(Path.GetFileNameWithoutExtension(pathImagen)));
+            {
+                listaImagenes.Add(new ThumbnailImagenModi(Path.GetFileNameWithoutExtension(pathImagen)));
             });
             return listaImagenes;
         }

@@ -113,6 +113,7 @@
     <Compile Include="Modi\RespuestaAPedidoDeLegajo.cs" />
     <Compile Include="Modi\RepositorioDeLegajosEscaneados.cs" />
     <Compile Include="Modi\RepositorioDeLegajos.cs" />
+    <Compile Include="Modi\ThumbnailImagenModi.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
