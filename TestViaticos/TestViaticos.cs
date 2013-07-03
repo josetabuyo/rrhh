@@ -6,19 +6,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using General.Repositorios;
 using General.Calendario;
 using General;
-using NDbUnit.Core;
-using NDbUnit.Core.SqlClient;
+
 
 namespace TestViaticos
 {
     [TestClass]
     public class TestViaticos
     {
-        CreadorDeDatosFicticios creador_de_datos;
+        //CreadorDeDatosFicticios creador_de_datos;
         [TestInitialize]
         public void SetUp()
         {
-            creador_de_datos = new CreadorDeDatosFicticios();
+            //creador_de_datos = new CreadorDeDatosFicticios();
         }
 
         #region TestObjectsMethods
@@ -138,14 +137,14 @@ namespace TestViaticos
         [Ignore]
         public void deberia_poder_conocer_el_tipo_de_viatico_correspondiente_de_una_persona()
         {
-            creador_de_datos.AddData("LEG_Desglose_NivelGrado.xml");
-            creador_de_datos.AddData("LEG_Desglose_Planta.xml");
-            creador_de_datos.AddData("VIA_Tipo_Viatico.xml");
-            creador_de_datos.AddData("VIA_TipoPlanta_TipoViatico.xml");
-            creador_de_datos.AddData("Tipo_de_Planta.xml");
-            creador_de_datos.AddData("Tabla_niveles.xml");
-            creador_de_datos.AddData("Tabla_grados.xml");
-            creador_de_datos.AddData("Datos_Personales.xml");
+            //creador_de_datos.AddData("LEG_Desglose_NivelGrado.xml");
+            //creador_de_datos.AddData("LEG_Desglose_Planta.xml");
+            //creador_de_datos.AddData("VIA_Tipo_Viatico.xml");
+            //creador_de_datos.AddData("VIA_TipoPlanta_TipoViatico.xml");
+            //creador_de_datos.AddData("Tipo_de_Planta.xml");
+            //creador_de_datos.AddData("Tabla_niveles.xml");
+            //creador_de_datos.AddData("Tabla_grados.xml");
+            //creador_de_datos.AddData("Datos_Personales.xml");
             
             Persona agustin = AgustinContratacionNormal();
 
@@ -161,14 +160,14 @@ namespace TestViaticos
         public void deberia_poder_conocer_el_tipo_de_viatico_correspondiente_de_una_persona_de_planta3_nivel44_grado2()
         {
 
-            creador_de_datos.AddData("LEG_Desglose_NivelGrado.xml");
-            creador_de_datos.AddData("LEG_Desglose_Planta.xml");
-            creador_de_datos.AddData("VIA_Tipo_Viatico.xml");
-            creador_de_datos.AddData("VIA_TipoPlanta_TipoViatico.xml");
-            creador_de_datos.AddData("Tipo_de_Planta.xml");
-            creador_de_datos.AddData("Tabla_niveles.xml");
-            creador_de_datos.AddData("Tabla_grados.xml");
-            creador_de_datos.AddData("Datos_Personales.xml");
+            //creador_de_datos.AddData("LEG_Desglose_NivelGrado.xml");
+            //creador_de_datos.AddData("LEG_Desglose_Planta.xml");
+            //creador_de_datos.AddData("VIA_Tipo_Viatico.xml");
+            //creador_de_datos.AddData("VIA_TipoPlanta_TipoViatico.xml");
+            //creador_de_datos.AddData("Tipo_de_Planta.xml");
+            //creador_de_datos.AddData("Tabla_niveles.xml");
+            //creador_de_datos.AddData("Tabla_grados.xml");
+            //creador_de_datos.AddData("Datos_Personales.xml");
 
             Persona alice = Alicia();
 
@@ -185,14 +184,14 @@ namespace TestViaticos
         public void deberia_poder_conocer_el_tipo_de_viatico_correspondiente_de_una_persona_de_planta3_nivel44_grado3()
         {
 
-            creador_de_datos.AddData("LEG_Desglose_NivelGrado.xml");
-            creador_de_datos.AddData("LEG_Desglose_Planta.xml");
-            creador_de_datos.AddData("VIA_Tipo_Viatico.xml");
-            creador_de_datos.AddData("VIA_TipoPlanta_TipoViatico.xml");
-            creador_de_datos.AddData("Tipo_de_Planta.xml");
-            creador_de_datos.AddData("Tabla_niveles.xml");
-            creador_de_datos.AddData("Tabla_grados.xml");
-            creador_de_datos.AddData("Datos_Personales.xml");
+            //creador_de_datos.AddData("LEG_Desglose_NivelGrado.xml");
+            //creador_de_datos.AddData("LEG_Desglose_Planta.xml");
+            //creador_de_datos.AddData("VIA_Tipo_Viatico.xml");
+            //creador_de_datos.AddData("VIA_TipoPlanta_TipoViatico.xml");
+            //creador_de_datos.AddData("Tipo_de_Planta.xml");
+            //creador_de_datos.AddData("Tabla_niveles.xml");
+            //creador_de_datos.AddData("Tabla_grados.xml");
+            //creador_de_datos.AddData("Datos_Personales.xml");
 
             Persona carazo = Carazo();
 
@@ -208,14 +207,14 @@ namespace TestViaticos
         [Ignore]
         public void deberia_poder_conocer_el_tipo_de_viatico_correspondiente_de_una_persona_de_planta3_nivelResto_gradoResto()
         {
-            creador_de_datos.AddData("LEG_Desglose_NivelGrado.xml");
-            creador_de_datos.AddData("LEG_Desglose_Planta.xml");
-            creador_de_datos.AddData("VIA_Tipo_Viatico.xml");
-            creador_de_datos.AddData("VIA_TipoPlanta_TipoViatico.xml");
-            creador_de_datos.AddData("Tipo_de_Planta.xml");
-            creador_de_datos.AddData("Tabla_niveles.xml");
-            creador_de_datos.AddData("Tabla_grados.xml");
-            creador_de_datos.AddData("Datos_Personales.xml");
+            //creador_de_datos.AddData("LEG_Desglose_NivelGrado.xml");
+            //creador_de_datos.AddData("LEG_Desglose_Planta.xml");
+            //creador_de_datos.AddData("VIA_Tipo_Viatico.xml");
+            //creador_de_datos.AddData("VIA_TipoPlanta_TipoViatico.xml");
+            //creador_de_datos.AddData("Tipo_de_Planta.xml");
+            //creador_de_datos.AddData("Tabla_niveles.xml");
+            //creador_de_datos.AddData("Tabla_grados.xml");
+            //creador_de_datos.AddData("Datos_Personales.xml");
 
             Persona martinelli = Martinelli();
 
@@ -231,9 +230,9 @@ namespace TestViaticos
         [Ignore]
         public void deberia_poder_conocer_la_region_de_una_provincia()
         {
-            creador_de_datos.AddData("VIA_Rel_Zona_Prov.xml");
-            creador_de_datos.AddData("VIA_Zonas.xml");
-            creador_de_datos.AddData("Provincias.xml");
+            //creador_de_datos.AddData("VIA_Rel_Zona_Prov.xml");
+            //creador_de_datos.AddData("VIA_Zonas.xml");
+            //creador_de_datos.AddData("Provincias.xml");
             
             Provincia provincia = new Provincia();
             provincia.Id = 2;
@@ -254,7 +253,7 @@ namespace TestViaticos
         [Ignore]
         public void deberia_poder_calcular_el_valor_del_viatico_segun_la_provincia_de_la_estadia_y_modalidad_de_contratacion()
         {
-            creador_de_datos.AddData("VIA_Valor_ViaticoXZona.xml");
+            //creador_de_datos.AddData("VIA_Valor_ViaticoXZona.xml");
             Persona agustin = AgustinContratacionNormal();
 
             List<Estadia> estadias = EstadiaDeAgusIniciaYTerminaElMismoDia();
@@ -329,14 +328,14 @@ namespace TestViaticos
         [Ignore]
         public void deberia_poder_completar_los_datos_de_contratacion_de_la_persona()
         {
-            creador_de_datos.AddData("LEG_Desglose_NivelGrado.xml");
-            creador_de_datos.AddData("LEG_Desglose_Planta.xml");
-            creador_de_datos.AddData("VIA_Tipo_Viatico.xml");
-            creador_de_datos.AddData("VIA_TipoPlanta_TipoViatico.xml");
-            creador_de_datos.AddData("Tipo_de_Planta.xml");
-            creador_de_datos.AddData("Tabla_niveles.xml");
-            creador_de_datos.AddData("Tabla_grados.xml");
-            creador_de_datos.AddData("Datos_Personales.xml");
+            //creador_de_datos.AddData("LEG_Desglose_NivelGrado.xml");
+            //creador_de_datos.AddData("LEG_Desglose_Planta.xml");
+            //creador_de_datos.AddData("VIA_Tipo_Viatico.xml");
+            //creador_de_datos.AddData("VIA_TipoPlanta_TipoViatico.xml");
+            //creador_de_datos.AddData("Tipo_de_Planta.xml");
+            //creador_de_datos.AddData("Tabla_niveles.xml");
+            //creador_de_datos.AddData("Tabla_grados.xml");
+            //creador_de_datos.AddData("Datos_Personales.xml");
             
             Persona persona = AgustinContratacionNormal();
 
@@ -597,7 +596,7 @@ namespace TestViaticos
         public void TestGetZonas()
         {
 
-            creador_de_datos.AddData("VIA_Zonas.xml");
+            //creador_de_datos.AddData("VIA_Zonas.xml");
             RepositorioZonas repositorio = new RepositorioZonas(ConexionBaseLocal());
             List<Zona> zonas = new List<Zona>();
             zonas = repositorio.GetTodasLasZonas();

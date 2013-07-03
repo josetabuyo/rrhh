@@ -98,7 +98,7 @@
 
         public override bool Equals(object obj)
         {
-            if (obj.GetType() != Type.GetType("General.Documento"))
+            if (obj.GetType() != this.GetType())
             {
                 return false;
             }

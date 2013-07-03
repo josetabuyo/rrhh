@@ -121,6 +121,7 @@
     <Compile Include="Repositorios\IRepositorioDeDocumentos.cs" />
     <Compile Include="Repositorios\IRepositorioDeOrganigrama.cs" />
     <Compile Include="Repositorios\RepositorioDeAlertas.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeModalidades.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAlumnos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeCursos.cs" />
@@ -221,7 +222,6 @@
     <Compile Include="SACC\Edificio.cs" />
     <Compile Include="SACC\EspacioFisico.cs" />
     <Compile Include="SACC\EspacioFisicoNull.cs" />
-    <Compile Include="SACC\EstructuraDeEvaluacion.cs" />
     <Compile Include="SACC\Evaluacion.cs" />
     <Compile Include="SACC\EvaluacionNull.cs" />
     <Compile Include="SACC\GeneradorDePlanillas.cs" />

@@ -172,11 +172,6 @@ namespace General
             this._evaluaciones_por_instancias[evaluacion.InstanciaEvaluacion].Add(evaluacion);
         }
 
-        public List<InstanciaDeEvaluacion> Instancias()
-        {
-            return this._materia.Modalidad.EstructuraDeEvaluacion.Instancias();
-        }
-
         public void AgregarEvaluaciones(List<Evaluacion> lista_eavluaciones)
         {
             foreach (var evaluacion in lista_eavluaciones)

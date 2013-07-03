@@ -56,20 +56,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="NDbUnit.Core">
-      <HintPath>..\SharedLibs\NDbUnit.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NDbUnit.SqlClient">
-      <HintPath>..\SharedLibs\NDbUnit.SqlClient.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\SharedLibs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NMock2">
       <HintPath>..\SharedLibs\NMock2.dll</HintPath>
-    </Reference>
-    <Reference Include="NMock2.Test">
-      <HintPath>..\SharedLibs\NMock2.Test.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -89,9 +80,9 @@
   <ItemGroup>
     <Compile Include="AppConexionTest.cs" />
     <Compile Include="CodigoTareaTest.cs" />
-    <Compile Include="ControladorDeWebControlsTest.cs" />
     <Compile Include="TestAlertas.cs" />
     <Compile Include="TestMail.cs" />
+    <Compile Include="TestSACC\TestRepositorioDeMaterias.cs" />
     <Compile Include="TestSACC\TestAlumnos.cs" />
     <Compile Include="TestSACC\TestCursos.cs" />
     <Compile Include="TestSACC\TestEspaciosFisico.cs" />
@@ -115,9 +106,7 @@
     <Compile Include="TestRepositorioDeViaticos.cs" />
     <Compile Include="FakeArea.cs" />
     <Compile Include="TestCircuitoDeViatico.cs" />
-    <Compile Include="TestRenderizadorDeTablas.cs" />
     <Compile Include="TestRepositorioOrganigramas.cs" />
-    <Compile Include="CreadorDeDatosFicticios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -138,10 +127,6 @@
     <ProjectReference Include="..\ProyectoNet\General\General.csproj">
       <Project>{D6802AD2-A6E1-4612-8F01-811E926A1D2E}</Project>
       <Name>General</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebAsistencia\WebRhUI\WebRhUI.csproj">
-      <Project>{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}</Project>
-      <Name>WebRhUI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
