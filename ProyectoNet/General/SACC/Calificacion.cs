@@ -8,6 +8,7 @@ namespace General
     public abstract class Calificacion
     {
         public abstract int Nota { get; set; }
+        public abstract string Apreciacion { get; set; }
 
     }
 }

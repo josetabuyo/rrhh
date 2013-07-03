@@ -16,8 +16,22 @@ namespace General.Repositorios
 
         public List<Evaluacion> GetEvaluaciones()
         {
-            var tablaEvaluaciones = conexion_bd.Ejecutar("dbo.SACC_Get_Evaluaciones");
-            this.evaluaciones = GetEvaluacionesFromTabla(tablaEvaluaciones);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Evaluaciones");
+            
+            tablaDatos.Rows.ForEach(row =>
+                {
+                    
+                    Evaluacion evaluacion = new Evaluacion{
+
+                        InstanciaEvaluacion = new InstanciaDeEvaluacion(row.GetSmallintAsInt("idInstanciaEvaluacion"), row.GetString("DescripcionInstanciaEvaluacion")),
+                        Alumno = new RepositorioDeAlumnos(conexion_bd).GetAlumnoByDNI(row.GetSmallintAsInt("idAlumno")),
+                        Curso = new RepositorioDeCursos(conexion_bd).GetCursoById(row.GetSmallintAsInt("idCurso")),
+                        Calificacion = new CalificacionNoNumerica(row.GetString("Calificacion")),
+                        Fecha = row.GetDateTime("FechaEvaluacion")
+                    };
+                    evaluaciones.Add(evaluacion);
+                 });  
+
             return evaluaciones;
         }
 
@@ -27,7 +41,7 @@ namespace General.Repositorios
             return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Id.Equals(id_curso) && evaluaciones.Alumno.Id.Equals(id_alumno));
         }
 
-        public void GuardarEvaluaciones(Evaluacion evaluacion, Usuario usuario)
+        public void GuardarEvaluacion(Evaluacion evaluacion, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("id_alumno", evaluacion.Alumno.Id);
@@ -41,70 +55,27 @@ namespace General.Repositorios
 
         }
 
-        public List<Evaluacion> GetEvaluacionesFromTabla(TablaDeDatos tablaEvaluaciones)
-        {
-            List<Evaluacion> evaluaciones = new List<Evaluacion>();
-
-            if (tablaEvaluaciones.Rows.Count > 0)
-            {
-                tablaEvaluaciones.Rows.ForEach(row =>
-                {
-                    
-                    
-                    
-                    //Asistencia asistencia;
-                    //switch (row.GetString("calificacion"))
-                    //{
-                    //    case 0:
-                    //        asistencia = new AsistenciaIndeterminada(row.GetDateTime("FechaEvaluacion"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                    //        break;
-                    //    case 1:
-                    //        asistencia = new AsistenciaHoraUno(row.GetDateTime("FechaEvaluacion"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                    //        break;
-                    //    case 2:
-                    //        asistencia = new AsistenciaHoraDos(row.GetDateTime("FechaEvaluacion"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                    //        break;
-                    //    case 3:
-                    //        asistencia = new AsistenciaHoraTres(row.GetDateTime("FechaEvaluacion"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                    //        break;
-                    //    case 4:
-                    //        asistencia = new InasistenciaNormal(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                    //        break;
-                    //    case 5:
-                    //        asistencia = new AsistenciaClaseSuspendida(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                    //        break;
-                    //    default:
-                    //        asistencia = new AsistenciaIndeterminada(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                    //        break;
-                    //}
-                    //evaluaciones.Add(asistencia);
-                   
-
-                });
-            }
-            return evaluaciones;
-        }
 
         public void GuardarEvaluaciones(List<Evaluacion> evaluaciones_a_guardar, Usuario usuario)
         {
             foreach (var e in evaluaciones_a_guardar)
             {
-                BorrarEvaluaciones(e);
+                BorrarEvaluacion(e);
             }
             foreach (var e in evaluaciones_a_guardar)
             {
                 //if (e.Calificacion != 0)
-                GuardarEvaluaciones(e, usuario);
+                GuardarEvaluacion(e, usuario);
             }
         }
 
-        private void BorrarEvaluaciones(Evaluacion evaluacion)
+        private void BorrarEvaluacion(Evaluacion evaluacion)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("id_alumno", evaluacion.Alumno.Id);
             parametros.Add("id_curso", evaluacion.Curso.Id);
             parametros.Add("fecha_evaluacion", evaluacion.Fecha);
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Del_Evaluaciones", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Evaluacion", parametros);
 
         }
     }
