@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace General.SACC
+namespace General
 {
     public class CalificacionNumerica:Calificacion
     {
-        private int nota;
+        public override int Nota { get; set; }
+        public override string Descripcion { get; set; }
 
         public CalificacionNumerica(int unNumero)
         {
@@ -15,7 +16,7 @@ namespace General.SACC
             {
                 throw new ExcepcionDeValidacion("La nota no puede ser menor que 1 o mayor que 10");
             }
-            this.nota = unNumero;
+            this.Nota = unNumero;
         }
     }
 }

@@ -64,7 +64,7 @@
     <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla();" value="Imprimir" />
     <br />
     <br />
-    <textarea id="TxtObservaciones" style="margin-left: 5px;" class="label_observaciones" placeholder="Observaciones" ></textarea>
+    <textarea id="TxtObservaciones" style="margin-left: 5px;" class="label_observaciones" rows="6" placeholder="Observaciones" ></textarea>
     </div>
     <asp:Button style="display:none;" ID="btn_CargarAsistencias" OnClick="CargarAsistencias" runat="server" />
     <asp:Button style="display:none;" ID="BtnSave" runat="server" Onclick="BtnSave_Click" />

@@ -117,8 +117,8 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetPlanillaEvaluaciones(int id_curso)
     {
-        return "{\"error\":\"\",\"planilla\":\"planilla\"}";
-        //return backEndService.EstadoServicioDeAlertas();
+        var Planilla = backEndService.GetPlanillaEvaluaciones(id_curso);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(Planilla);
     }       
 }
 

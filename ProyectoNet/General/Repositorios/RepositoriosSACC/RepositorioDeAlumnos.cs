@@ -18,12 +18,12 @@ namespace General.Repositorios
 
         public List<Alumno> GetAlumnos()
         {
+            RepositorioDeModalidades repoModalidades = new RepositorioDeModalidades(conexion_bd);
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
             alumnos = new List<Alumno>();
 
             tablaDatos.Rows.ForEach(row =>
             {               
-                Modalidad modeliadad_aux = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
                 var baja = 0;
                 if (!(row.GetObject("IdBaja") is DBNull))
                     baja = (int)row.GetObject("IdBaja");
@@ -41,7 +41,7 @@ namespace General.Repositorios
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
                     Areas = areas_alumno,
-                    Modalidad = modeliadad_aux,                  
+                    Modalidad = repoModalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
                     Baja = baja
                 };
 
@@ -188,21 +188,6 @@ namespace General.Repositorios
             int id = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
 
             return id;
-        }
-
-        public List<Modalidad> GetModalidades()
-        {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_GetModalidades");
-            List<Modalidad> modalidades = new List<Modalidad>();
-
-            tablaDatos.Rows.ForEach(row =>
-            {
-                Modalidad modalidad = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
-
-                modalidades.Add(modalidad);
-            });
-
-            return modalidades;
         }
 
         public bool AlumnoAsignadoACurso(Alumno un_alumno)

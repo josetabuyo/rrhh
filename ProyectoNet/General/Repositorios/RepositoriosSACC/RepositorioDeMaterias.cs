@@ -28,19 +28,19 @@ namespace General.Repositorios
 
         public List<Materia> GetMaterias()
         {
+            RepositorioDeModalidades repoModalidades = new RepositorioDeModalidades(conexion_bd);
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Materias");
             materias = new List<Materia>();
 
             tablaDatos.Rows.ForEach(row =>
             {
                 Ciclo ciclo = new Ciclo(row.GetSmallintAsInt("idCiclo"), row.GetString("NombreCiclo"));                
-                Modalidad modeliadad_aux = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
-                
+
                 Materia materia = new Materia
                 {
                     Id = row.GetSmallintAsInt("Id"),
                     Nombre = row.GetString("Nombre"),
-                    Modalidad = modeliadad_aux,
+                    Modalidad = repoModalidades.GetModalidadById(row.GetInt("IdModalidad")),
                     Ciclo = ciclo
                 };
 
@@ -129,6 +129,5 @@ namespace General.Repositorios
 
             return ciclos;
         }
-        
     }
 }

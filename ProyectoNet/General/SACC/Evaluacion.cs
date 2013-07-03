@@ -1,5 +1,5 @@
 ﻿using System;
-using General.SACC;
+using General;
 
 namespace General
 {
@@ -20,7 +20,7 @@ namespace General
 
         public Evaluacion() { }
 
-         public Evaluacion(InstanciaDeEvaluacion instancia_evaluacion, Alumno alumno, Curso curso, Calificacion calificacion, DateTime fecha)
+        public Evaluacion(InstanciaDeEvaluacion instancia_evaluacion, Alumno alumno, Curso curso, Calificacion calificacion, DateTime fecha)
         {
             this._instanciaEvaluacion = instancia_evaluacion;
             this._calificacion = calificacion;
@@ -28,5 +28,11 @@ namespace General
             this._curso = curso;
             this._fecha = fecha;
         }
+
+         public void CambiarCalificacionPor(int nota)
+         {
+             Calificacion calificacion_nueva = new CalificacionNumerica(nota);
+             this._calificacion = calificacion_nueva; 
+         }
     }
 }
