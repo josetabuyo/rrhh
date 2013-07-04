@@ -82,6 +82,43 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
         return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetLegajoParaDigitalizacion(numero_documento));
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string InscribirAlumnos(string alumnos, int id_curso)
+    {
+        var lista_alumnos_para_inscribir = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WSViaticos.Alumno>>(alumnos);
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        return backEndService.InscribirAlumnosACurso(lista_alumnos_para_inscribir.ToArray(), id_curso, usuarioLogueado);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetCursosDTO()
+    {
+        var curso = Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetCursosDto((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]));
+        return curso.ToString();
+    } 
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void IniciarServicioDeAlertas()
+    {
+        backEndService.IniciarServicioDeAlertas();
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void DetenerServicioDeAlertas()
+    {
+        backEndService.DetenerServicioDeAlertas();
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string EstadoServicioDeAlertas()
+    {
+        return backEndService.EstadoServicioDeAlertas();
     }       
 }
 

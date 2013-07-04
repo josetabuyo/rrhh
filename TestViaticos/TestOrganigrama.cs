@@ -6,8 +6,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using General.Repositorios;
 using General.Calendario;
 using General;
-using NDbUnit.Core;
-using NDbUnit.Core.SqlClient;
+
+
 
 namespace TestViaticos
 {
@@ -322,6 +322,17 @@ namespace TestViaticos
         {
             Assert.AreEqual(1, organigrama_fabi_marta_castagneto_um_fabyB.GetAreasInferioresDelArea(area_de_marta).Count);
             Assert.IsTrue(organigrama_fabi_marta_castagneto_um_fabyB.GetAreasInferioresDelArea(area_de_marta).Contains(area_de_faby));
+        }
+
+        [TestMethod]
+        public void al_solicitarle_las_areas_inferiores_a_un_listado_de_areas_debe_traer_todas_sus_inferiores_y_a_si_misma()
+        {
+            List<Area> areas = new List<Area>();
+            areas.Add(area_de_marta);
+            areas.Add(area_de_castagneto);
+
+            Assert.AreEqual(4, organigrama_fabi_marta_castagneto_um_fabyB.GetAreasInferioresDeLasAreas(areas).Count);
+            
         }
         
     }

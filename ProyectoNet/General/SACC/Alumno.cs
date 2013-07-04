@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace General
 {
     public class Alumno
@@ -7,7 +9,7 @@ namespace General
         private string _nombre;
         private string _apellido;
         private int _documento;
-      //  private Area _area;
+        private List<Area> _areas;
         private Modalidad _modalidad;
         private string _telefono;
         private string _mail;
@@ -18,7 +20,7 @@ namespace General
         public string Nombre { get { return _nombre; } set { _nombre = value; } }
         public string Apellido { get { return _apellido; } set { _apellido = value; } }
         public int Documento { get { return _documento; } set { _documento = value; } }
-     //   public Area Area { get { return _area; } set { _area = value; } }
+        public List<Area> Areas { get { return _areas; } set { _areas = value; } }
         public Modalidad Modalidad { get { return _modalidad; } set { _modalidad = value; } }
         public string Telefono { get { return _telefono; } set { _telefono = value; } }
         public string Mail { get { return _mail; } set { _mail = value; } }
@@ -27,7 +29,7 @@ namespace General
 
         public Alumno() { }
 
-        public Alumno(int id, string nombre, string apellido, int documento, string telefono, string mail, string direccion, Area area, Modalidad modalidad)
+        public Alumno(int id, string nombre, string apellido, int documento, string telefono, string mail, string direccion, List<Area> areas, Modalidad modalidad)
         {
             this._id = id;
             this._nombre = nombre;
@@ -36,7 +38,7 @@ namespace General
             this._telefono = telefono;
             this._mail = mail;
             this._direccion = direccion;
-      //      this._area = area;
+            this._areas = areas;
             this._modalidad = modalidad;
         }
 
@@ -60,22 +62,23 @@ namespace General
         }
 
         internal int esMayorAlfabeticamenteQue(Alumno otroalumno)
-        {           
-            //return this.Apellido.CompareTo(otroalumno.Apellido);
-            if (this.Modalidad.Descripcion.CompareTo(otroalumno.Modalidad.Descripcion) == -1) return -1;
+        {
+            {
+                //return this.Apellido.CompareTo(otroalumno.Apellido);
+                if (this.Modalidad.Descripcion.CompareTo(otroalumno.Modalidad.Descripcion) == -1) return -1;
 
-            else if (this.Modalidad.Descripcion.CompareTo(otroalumno.Modalidad.Descripcion) == +1) return +1;
+                else if (this.Modalidad.Descripcion.CompareTo(otroalumno.Modalidad.Descripcion) == +1) return +1;
 
-            else if (this.Apellido.CompareTo(otroalumno.Apellido) == -1) return -1;
+                else if (this.Apellido.CompareTo(otroalumno.Apellido) == -1) return -1;
 
-            else if (this.Apellido.CompareTo(otroalumno.Apellido) == +1) return +1;
+                else if (this.Apellido.CompareTo(otroalumno.Apellido) == +1) return +1;
 
-            else if (this.Nombre.CompareTo(otroalumno.Nombre) == -1) return -1;
+                else if (this.Nombre.CompareTo(otroalumno.Nombre) == -1) return -1;
 
-            else if (this.Nombre.CompareTo(otroalumno.Nombre) == +1) return +1;
+                else if (this.Nombre.CompareTo(otroalumno.Nombre) == +1) return +1;
 
-            else return 0;
+                else return 0;
+            }
         }
-        
     }
 }
