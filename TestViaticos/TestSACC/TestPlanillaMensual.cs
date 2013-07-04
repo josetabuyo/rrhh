@@ -6,8 +6,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using General.Repositorios;
 using General.Calendario;
 using General;
-using NDbUnit.Core;
-using NDbUnit.Core.SqlClient;
+
+
 using NMock2;
 
 namespace TestViaticos
@@ -22,6 +22,7 @@ namespace TestViaticos
         CalendarioDeFeriados unCalendarioGlobal = new CalendarioDeFeriados();
         private DateTime fecha_cursable;
         private Alumno un_alumno;
+        private List<Area> areas;
         
         [TestInitialize]
         public void Setup()
@@ -31,6 +32,7 @@ namespace TestViaticos
             managerDeCalendarios = new ManagerDeCalendarios(unCalendarioGlobal);
             fecha_cursable = new DateTime(2012, 08, 14);
             un_alumno = TestObjects.UnAlumnoDelCurso();
+            areas = TestObjects.AreasDeFabiYMarta();
         }
 
 
@@ -71,7 +73,7 @@ namespace TestViaticos
 
               GeneradorDePlanillas generador = new GeneradorDePlanillas();
               CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
-              Alumno un_alumno = new Alumno(8, "Dani", "Tatay", 28753951, "", "", "", new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro"));
+              Alumno un_alumno = new Alumno(8, "Dani", "Tatay", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro"));
 
               PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
 
@@ -127,7 +129,7 @@ namespace TestViaticos
               CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
               GeneradorDePlanillas generador = new GeneradorDePlanillas();
 
-              Alumno un_alumno_2 = new Alumno(8, "Dani", "Tatay", 28753951, "", "", "", new Area(1, "Area de Faby"), new Modalidad(1, "Fines Puro"));
+              Alumno un_alumno_2 = new Alumno(8, "Dani", "Tatay", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro"));
 
               PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
 

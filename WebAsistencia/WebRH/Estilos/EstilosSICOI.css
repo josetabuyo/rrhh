@@ -273,14 +273,14 @@
 #selectorDeAreaOrigen, #selectorDeAreaDestino
 {
     display:inline-block;
-    width:880px;
+    width:645px;/*  width:880px;*/
 }
 
 /*FIN ESTILO ALTA DOCUMENTO */
 
 
 /* ESTILO DETALLE DOCUMENTO */
-#detalle_documento
+/*#detalle_documento
 {
     margin-top:10px; 
     margin-left:5%;
@@ -470,7 +470,7 @@
     width:30%; 
     vertical-align:top;
 }
-
+*/
 /*FIN ESTILO DETALLE DOCUMENTO */
 
 /* ESTILO PANEL DOCUMENTOS */
@@ -498,6 +498,13 @@
 }
 
 /* ESTILO FICHA CHICA DE DOCUMENTO */
+
+#lista_de_documentos #mensaje_maxima_cantidad_de_items_superada
+{
+    text-align:center;
+    color:Red;
+    font-weight:bold;    
+}
 
 .ficha_chica_de_documento {
 	/*height: 66px;*/
@@ -569,6 +576,25 @@
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px  
 }
+
+
+#ficha_chica_titulo_fecha_documento {
+	padding-left: 0px;
+/*	padding-right:100px;*/
+	
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size: 11px;
+	display: inline-block; 
+}
+#ficha_chica_contenido_fecha_documento 
+{
+  /*  padding-left: 50px;*/
+    padding-right:50px;
+	display: inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px  
+}
+
 #ficha_chica_titulo_area_actual {
 	font-family:"Arial Black", Gadget, sans-serif;
 	font-size: 11px;

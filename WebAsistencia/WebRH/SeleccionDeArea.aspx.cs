@@ -5,13 +5,10 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using WSViaticos;
-using System.Data;
-using System.Configuration;
 using WebRhUI;
-using System.IO;
+using WSViaticos;
+using System.Collections;
+
 
 #endregion
 
@@ -22,6 +19,8 @@ public partial class SeleccionDeArea : System.Web.UI.Page
         Sesion.VerificarSesion(this);
         Usuario usuario = ((Usuario)Session["usuario"]);
         MostrarTablaDeAreasDelUsuario(usuario);
+
+
 
         if (usuario.TienePermisosParaSiCoI)//mesa de entrada
         {

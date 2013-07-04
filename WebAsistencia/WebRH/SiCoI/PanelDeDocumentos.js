@@ -1,7 +1,14 @@
 ﻿
 var PanelDeDocumentos = function (cfg) {
     var self = this;
-    this.lista_de_fichas = new ListaDeFichas(new FabricaDeFichasDeDocumento(cfg.plantillaFichaChica, cfg.plantillaFichaGrande, cfg.plantillaTransicion, cfg.listaAreas, cfg.areaDelUsuario), cfg.uiListaDeDocs);
+    this.lista_de_fichas = new ListaDeFichas(new FabricaDeFichasDeDocumento(cfg.plantillaFichaChica,
+                                                                            cfg.plantillaFichaGrande,
+                                                                            cfg.plantillaTransicion,
+                                                                            cfg.listaAreas, 
+                                                                            cfg.areaDelUsuario),
+                                                cfg.uiListaDeDocs,
+                                                50, 
+                                                "La búsqueda devolvió más de 50 documentos, por favor refine los filtros");
     var proveedor = {
         pedirDatos: function (callback) {
             WebService.getDocumentosFiltrados(self._panel_filtros.getFiltrosActivos(), callback);

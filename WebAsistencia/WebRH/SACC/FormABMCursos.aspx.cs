@@ -31,7 +31,7 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
     private void CargarGrilla()
     {
         var servicio = Servicio();
-        var cursos = servicio.GetCursosDto();
+        var cursos = servicio.GetCursosDto((Usuario)Session[ConstantesDeSesion.USUARIO]);
         this.cursosJSON.Value = ConvertirAJSON(cursos);
     }
 
@@ -68,7 +68,7 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
     private void CargarComboEspaciosFisicos()
     {
         var servicio = Servicio();
-        var espacios_fisicos = JsonConvert.DeserializeObject<JArray>(servicio.GetEspaciosFisicos());
+        var espacios_fisicos = JsonConvert.DeserializeObject<JArray>(servicio.GetEspaciosFisicos((Usuario)Session[ConstantesDeSesion.USUARIO]));
         this.espacios_fisicosJSON.Value = espacios_fisicos.ToString();
 
         this.cmbEspacioFisico.Items.Add(new ListItem("Espacio Físico", ""));
@@ -113,6 +113,8 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         curso.Horarios = horariosDto.ToArray();
         curso.FechaInicio = txtFechaInicio.Text;
         curso.FechaFin = txtFechaFin.Text;
+      
+
         servicio.AgregarCurso(curso);
 
         LimpiarFormulario();
@@ -134,6 +136,7 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         curso.Horarios = horariosDto.ToArray();
         curso.FechaInicio = txtFechaInicio.Text;
         curso.FechaFin = txtFechaFin.Text;
+        curso.Observaciones = JsonConvert.DeserializeObject<Curso>(servicio.GetCursoById(curso.Id)).Observaciones;
         servicio.ModificarCurso(curso);
 
         LimpiarFormulario();

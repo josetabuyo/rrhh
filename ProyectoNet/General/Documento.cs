@@ -16,6 +16,11 @@
         private string _ticket;
         private DateTime _fecha;
 
+        private DateTime? _fecha_documento;
+
+
+
+
         public int Id { get { return _id; } set { _id = value; } }
         public TipoDeDocumentoSICOI tipoDeDocumento { get { return _tipoDeDocumento; } set { _tipoDeDocumento = value; } }
         public string numero { get { return _numero; } set { _numero = value; } }
@@ -24,6 +29,9 @@
         public string comentarios { get { return _comentarios; } set { _comentarios = value; } }
         public string ticket { get { return _ticket; } set { _ticket = value; } }
         public DateTime fecha { get { return _fecha; } set { _fecha = value; } }
+
+
+        public DateTime? fecha_documento { get { return _fecha_documento; } set { _fecha_documento = value; } }
 
 
         public Documento()
@@ -48,6 +56,23 @@
             this._extracto = extracto;
         }
 
+
+        /**/
+        public Documento(TipoDeDocumentoSICOI tipoDeDocumento, string numero, CategoriaDeDocumentoSICOI categoria, Area areaOrigen, string extracto, DateTime? Fecha_de_documento)
+            : this()
+        {
+            Validador().EsValidoComoId(tipoDeDocumento.Id, "para el tipo de un documento");
+            this._tipoDeDocumento = tipoDeDocumento;
+            this._numero = numero;
+            Validador().EsValidoComoId(categoria.Id, "para la categoría de un documento");
+            this._categoriaDeDocumento = categoria;
+            this._extracto = extracto;
+            this.fecha_documento = Fecha_de_documento;
+        }
+
+        /**/
+
+
         private Validador Validador()
         {
             return new Validador();
@@ -59,9 +84,21 @@
             this._comentarios = comentarios;
         }
 
+
+        /**/
+        public Documento(TipoDeDocumentoSICOI tipoDeDocumento, string numero, CategoriaDeDocumentoSICOI categoria, Area areaOrigen, string extracto, string comentarios, DateTime? fecha_documento)
+            : this(tipoDeDocumento, numero, categoria, areaOrigen, extracto,fecha_documento)
+        {
+            this._comentarios = comentarios;
+
+        }
+        /**/
+
+
+
         public override bool Equals(object obj)
         {
-            if (obj.GetType() != Type.GetType("General.Documento"))
+            if (obj.GetType() != this.GetType())
             {
                 return false;
             }

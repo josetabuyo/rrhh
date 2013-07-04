@@ -76,11 +76,14 @@
     <Compile Include="Area.cs" />
     <Compile Include="Asistentes.cs" />
     <Compile Include="Auditoria.cs" />
+    <Compile Include="Autorizador.cs" />
     <Compile Include="BuscadorDeAreas.cs" />
     <Compile Include="CalculadorDeViaticos.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="CategoriaDeDocumentoSICOI.cs" />
     <Compile Include="CircuitoDeAprobacionDeViatico.cs" />
+    <Compile Include="EnviadorDeMails.cs" />
+    <Compile Include="Features.cs" />
     <Compile Include="FiltroDeDocumentosGoogleano.cs" />
     <Compile Include="FiltroDeDocumentosPorTiempoEnUltimaAreaMayorOIgualA.cs" />
     <Compile Include="DesSerializadorDeFiltros.cs" />
@@ -102,6 +105,7 @@
     <Compile Include="FiltroDeDocumentosPorAreaActual.cs" />
     <Compile Include="FiltroDeDocumentos.cs" />
     <Compile Include="FiltroDeAreas.cs" />
+    <Compile Include="ItemDeMenu.cs" />
     <Compile Include="Mensajeria.cs" />
     <Compile Include="Modi\DocumentoModi.cs" />
     <Compile Include="Modi\ExcepcionDeCarpetaDeLegajoNoEncontrada.cs" />
@@ -113,11 +117,14 @@
     <Compile Include="Modi\RespuestaAPedidoDeLegajo.cs" />
     <Compile Include="Modi\RepositorioDeLegajosEscaneados.cs" />
     <Compile Include="Modi\RepositorioDeLegajos.cs" />
+    <Compile Include="MenuDelSistema.cs" />
+    <Compile Include="Permiso.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ReportadorDeDocumentosEnAlerta.cs" />
     <Compile Include="Repositorios\AliasEquals.cs" />
     <Compile Include="AreaNull.cs" />
     <Compile Include="Repositorios\Etiquetador.cs" />

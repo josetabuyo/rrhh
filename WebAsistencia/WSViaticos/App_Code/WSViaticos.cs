@@ -10,6 +10,8 @@ using General.Repositorios;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using General.Modi;
+using System.Net;
+using System.Net.Mail;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -456,6 +458,7 @@ public class WSViaticos : System.Web.Services.WebService
             return JsonConvert.SerializeObject(new {  
                 tipoDeRespuesta = "altaDeDocumento.ok",
                 ticket = documento.ticket });
+
         }
         catch (Exception e)
         {
@@ -650,10 +653,12 @@ public class WSViaticos : System.Web.Services.WebService
         var documentos = RepositorioDocumentos().GetDocumentosFiltrados(filtrosDesSerializados);
         var documentos_dto = new List<DocumentoDTO>();
         var mensajeria = Mensajeria();
+        if (documentos.Count > 50) documentos.RemoveRange(51, documentos.Count - 51);
         documentos.ForEach(delegate(Documento doc)
         {
             documentos_dto.Add(new DocumentoDTO(doc, mensajeria));
         });
+
         return documentos_dto;
     }
 
@@ -686,6 +691,36 @@ public class WSViaticos : System.Web.Services.WebService
     public Boolean HayDocumentosEnAlerta()
     {
         return DocumentosEnAlerta().Any();
+    }
+
+    [WebMethod]
+    public void IniciarServicioDeAlertas()
+    {
+        reportadorDeDocumentosEnAlerta().start();
+    }
+
+    [WebMethod]
+    public void DetenerServicioDeAlertas()
+    {
+        reportadorDeDocumentosEnAlerta().stop();
+    }
+
+    [WebMethod]
+    public string EstadoServicioDeAlertas()
+    {
+        return reportadorDeDocumentosEnAlerta().estado;
+    }
+
+    private ReportadorDeDocumentosEnAlerta reportadorDeDocumentosEnAlerta()
+    {
+        if (Application["reportadorDeDocumentosEnAlerta"] == null)
+        {
+            var filtros = new List<FiltroDeDocumentos>();
+            filtros.Add(new FiltroDeDocumentosPorAreaActual(Mensajeria(), 1));
+            var enviador = new EnviadorDeMails();
+            Application["reportadorDeDocumentosEnAlerta"] = new ReportadorDeDocumentosEnAlerta(filtros, "jlurgo@gmail.com", enviador, RepositorioDocumentos());
+        }
+        return (ReportadorDeDocumentosEnAlerta)Application["reportadorDeDocumentosEnAlerta"];
     }
 
     private DesSerializadorDeFiltros desSerializadorDeFiltros()
@@ -1041,9 +1076,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetAlumnos()
+    public string GetAlumnos(Usuario usuario)
     {
         var alumnos = RepoAlumnos().GetAlumnos();
+        Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+        Autorizador autorizador = new Autorizador();
+        alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
+
 
         var alumnos_dto = new List<Object>();
 
@@ -1072,13 +1111,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
-    [WebMethod]
-    public List<Alumno> GetTodosLosAlumnos()
-    {
-        var alumnos = RepoAlumnos().GetAlumnos();
-        return alumnos;
+    //[WebMethod]
+    //public List<Alumno> GetTodosLosAlumnos()
+    //{
+    //    var alumnos = RepoAlumnos().GetAlumnos();
+    //    return alumnos;
 
-    }
+    //}
 
     private object EdificioPara(Edificio edificio)
     {
@@ -1167,12 +1206,31 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void InscribirAlumnosACurso(List<Alumno> alumnos, int idCurso,  Usuario usuario)
+    public string InscribirAlumnosACurso(List<Alumno> alumnos_a_inscribir, int idCurso, Usuario usuario)
     {
         var conexion = Conexion();
-        Curso curso = RepositorioDeCursos().GetCursoById(idCurso);
+        //var lista_alumnos_para_inscribir = JsonConvert.DeserializeObject<List<Alumno>>(alumnos);
 
-        RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos, curso, usuario);
+        try
+        {
+            Curso curso = RepositorioDeCursos().GetCursoById(idCurso);
+
+            RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos_a_inscribir, curso, usuario);
+
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "inscripcionAlumno.ok",
+                //ticket = documento.ticket
+            });
+        }
+        catch (Exception e)
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "inscripcionAlumno.error",
+                error = e.Message
+            });
+        }
 
     }
 
@@ -1196,6 +1254,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public CursoDto GetCursoDtoById(int id, Usuario usuario)
+    {
+        var curso = this.GetCursosDto(usuario).Find(c => c.Id == id);
+        return curso;
+    }
+
+    [WebMethod]
     public EspacioFisico GetEspacioFisicoById(int id)
     {
         return RepoEspaciosFisicos().GetEspacioFisicoById(id); //JsonConvert.SerializeObject(espacio_fisico);
@@ -1203,9 +1268,15 @@ public class WSViaticos : System.Web.Services.WebService
 
     [WebMethod]
     [System.Xml.Serialization.XmlInclude(typeof(DocenteNull))]
-    public List<CursoDto> GetCursosDto()
+    public List<CursoDto> GetCursosDto(Usuario usuario)
     {
         var cursos = new RepositorioDeCursos(Conexion()).GetCursos();
+        var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+        var autorizador = new Autorizador();
+
+        cursos = autorizador.FiltrarCursosPorUsuario(cursos, organigrama, usuario);
+
+
         var cursos_dto = new List<CursoDto>();
 
         if (cursos.Count() > 0)
@@ -1233,13 +1304,6 @@ public class WSViaticos : System.Web.Services.WebService
         return cursos_dto;
     }
 
-    [WebMethod]
-    [System.Xml.Serialization.XmlInclude(typeof(DocenteNull))]
-    public List<Curso> GetCursos()
-    {
-        return new RepositorioDeCursos(Conexion()).GetCursos();
-        
-    }
 
     [WebMethod]
     public string GetMaterias()
@@ -1337,6 +1401,7 @@ public class WSViaticos : System.Web.Services.WebService
                          EspacioFisico = curso.EspacioFisico, 
                          FechaInicio = DateTime.Parse(curso.FechaInicio), 
                          FechaFin = DateTime.Parse(curso.FechaFin)
+                         
             };
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
@@ -1357,7 +1422,8 @@ public class WSViaticos : System.Web.Services.WebService
                          Materia = curso.Materia, 
                          EspacioFisico = curso.EspacioFisico, 
                          FechaInicio = DateTime.Parse(curso.FechaInicio), 
-                         FechaFin = DateTime.Parse(curso.FechaFin) 
+                         FechaFin = DateTime.Parse(curso.FechaFin), 
+                         Observaciones = curso.Observaciones
             };
         var horarios = curso.Horarios;
         horarios.ForEach(h =>{
@@ -1368,41 +1434,38 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetPersonaByDNI(int dni)
+    public string GetPersonaByDNI(int dni, Usuario usuario)
     {
         RepositorioDeAlumnos repo = new RepositorioDeAlumnos(Conexion());
         Alumno persona = repo.GetAlumnoByDNI(dni);
+
+        Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+        Autorizador autorizador = new Autorizador();
         var persona_dto = new Object();
 
-        if (persona == null)
+        if (!autorizador.AlumnoVisibleParaUsuario(persona, organigrama, usuario))
         {
-            persona_dto =
-                       new
-                       {
-                           id = 0,
-                           nombre = "No existe",
-                           apellido = "No existe",
-                           documento = "No existe",
-                           modalidad = "-1",
-                       };
+           
+            throw new Exception();
         }
         else
         {
-            persona_dto =
-                       new
-                       {
-                           id = persona.Id,
-                           nombre = persona.Nombre,
-                           apellido = persona.Apellido,
-                           documento = persona.Documento,
-                           telefono = persona.Telefono,
-                           direccion = persona.Direccion,
-                           mail = persona.Mail,
-                    //       area = persona.Area,
-                           modalidad = 1,
-                           baja = persona.Baja,
-                       };
+                persona_dto =
+                           new
+                           {
+                               id = persona.Id,
+                               nombre = persona.Nombre,
+                               apellido = persona.Apellido,
+                               documento = persona.Documento,
+                               telefono = persona.Telefono,
+                               direccion = persona.Direccion,
+                               mail = persona.Mail,
+                               //area = persona.Areas,
+                               modalidad = persona.Modalidad.Id,
+                               baja = persona.Baja,
+                           };
         }
+        
         return JsonConvert.SerializeObject(persona_dto);
     }
 
@@ -1445,10 +1508,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
      [WebMethod]
-    public string GetEspaciosFisicos()
+    public string GetEspaciosFisicos(Usuario usuario)
      {
 
          var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion()).GetEspaciosFisicos();
+         var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+         var autorizador = new Autorizador();
+
+         espacios_fisicos = autorizador.FiltrarEspaciosFisicosPorUsuario(espacios_fisicos,organigrama, usuario);
+
          var espacios_fisicos_dto = new List<object>();
 
          if (espacios_fisicos.Count > 0)
@@ -1478,6 +1546,23 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio_legajos.getLegajoPorDocumento(numero_documento);     
     }
 
+
+     [WebMethod]
+     public ItemDeMenu[] ItemsDelMenu(Usuario usuario, string menu)
+     {
+         List<ItemDeMenu> items_permitidos_dto = new List<ItemDeMenu>();
+         var repo_usuarios = new RepositorioUsuarios(Conexion());
+         var items_permitidos = from i in repo_usuarios.AutorizadorPara(usuario).ItemsPermitidos(menu)
+                                    orderby i.Orden
+                                    select i;
+
+         foreach (var item in items_permitidos)
+         {
+             items_permitidos_dto.Add(new ItemDeMenu() { NombreItem = item.NombreItem, Url = item.Url });
+         }
+
+         return items_permitidos_dto.ToArray();
+     }
 
     private RepositorioDeAlumnos RepoAlumnos()
     {

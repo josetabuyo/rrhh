@@ -17,7 +17,7 @@
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
+     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/jquery.ui.datepicker.min.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
@@ -46,8 +46,7 @@
             <asp:TextBox ID="txtFechaInicio" CssClass="input-small" placeholder="Fecha Inicio" runat="server" MaxLength="8" data-name="Fecha de Inicio del Curso" title="Fecha de Inicio del Curso"></asp:TextBox>
             <br />
             <asp:Label ID="lblFechaFin" CssClass="labels_sacc" runat="server" Text="Fecha Fin"></asp:Label>
-            <asp:TextBox ID="txtFechaFin" CssClass="input-small" placeholder="Fecha Inicio" runat="server" MaxLength="8" data-name="Fecha de Fin del Curso" title="Fecha de Fin del Curso"></asp:TextBox>
-        </p>
+            <asp:TextBox ID="txtFechaFin" CssClass="input-small" placeholder="Fecha Inicio" runat="server" MaxLength="8" data-name="Fecha de Fin del Curso" title="Fecha de Fin del Curso"></asp:TextBox></p>
         <p>   
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
             <%--<asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" data-name="Dia" ></asp:DropdownList>--%>
@@ -70,12 +69,12 @@
 
         <div style=" margin-left:17%; margin-top:3%;">
             <asp:Button ID="btnAgregarCurso" runat="server" Text="Agregar Curso" 
-                OnClick="btnAgregarCurso_Click" 
+                 OnClick="btnAgregarCurso_Click" 
                 class=" btn btn-primary boton_main_documentos" 
                 OnClientClick="ValidarCurso();" UseSubmitBehavior="False"  />
             <asp:Button ID="btnModificarCurso" runat="server" Text="Modificar Curso" 
                 class=" btn btn-primary boton_main_documentos"
-                OnClick="btnModificarCurso_Click" OnClientClick="ValidarCurso();" />
+                 OnClick="btnModificarCurso_Click" OnClientClick="ValidarCurso();" />
             <asp:Button  ID="btnQuitarCurso" runat="server" Text="Eliminar Curso" 
                 class=" btn btn-primary boton_main_documentos" OnClick="btnQuitarCurso_Click" />
             <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" 
