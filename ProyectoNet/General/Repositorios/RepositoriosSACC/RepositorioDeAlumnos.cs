@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeAlumnos
+    public class RepositorioDeAlumnos : General.Repositorios.IRepositorioDeAlumnos
     {
 
         public IConexionBD conexion_bd { get; set; }

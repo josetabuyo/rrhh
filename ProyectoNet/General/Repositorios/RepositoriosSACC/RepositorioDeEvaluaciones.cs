@@ -8,10 +8,14 @@ namespace General.Repositorios
     {
         List<Evaluacion> evaluaciones = new List<Evaluacion>();
         public IConexionBD conexion_bd { get; set; }
+        IRepositorioDeAlumnos repoalumnos;
+        IRepositorioDeCursos repocursos;
 
-        public RepositorioDeEvaluacion(IConexionBD conexion)
+        public RepositorioDeEvaluacion(IConexionBD conexion, IRepositorioDeAlumnos repoalumnos, IRepositorioDeCursos repocursos)
         {
             this.conexion_bd = conexion;
+            this.repoalumnos = repoalumnos;
+            this.repocursos = repocursos;
         }
 
         public List<Evaluacion> GetEvaluaciones()
@@ -24,8 +28,8 @@ namespace General.Repositorios
                     Evaluacion evaluacion = new Evaluacion{
 
                         InstanciaEvaluacion = new InstanciaDeEvaluacion(row.GetSmallintAsInt("idInstanciaEvaluacion"), row.GetString("DescripcionInstanciaEvaluacion")),
-                        Alumno = new RepositorioDeAlumnos(conexion_bd).GetAlumnoByDNI(row.GetSmallintAsInt("idAlumno")),
-                        Curso = new RepositorioDeCursos(conexion_bd).GetCursoById(row.GetSmallintAsInt("idCurso")),
+                        Alumno = repoalumnos.GetAlumnoByDNI(row.GetSmallintAsInt("idAlumno")),
+                        Curso = repocursos.GetCursoById(row.GetSmallintAsInt("idCurso")),
                         Calificacion = new CalificacionNoNumerica(row.GetString("Calificacion")),
                         Fecha = row.GetDateTime("FechaEvaluacion")
                     };

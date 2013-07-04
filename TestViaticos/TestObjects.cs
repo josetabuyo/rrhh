@@ -348,6 +348,18 @@ namespace General
             return mock_conexion_bd;
         }
 
+        public static IRepositorioDeAlumnos RepoAlumnosMockeado()
+        {
+            var mocks = new Mockery();
+            return mocks.NewMock<IRepositorioDeAlumnos>();
+        }
+
+        public static IRepositorioDeCursos RepoCursosMockeado()
+        {
+            var mocks = new Mockery();
+            return mocks.NewMock<IRepositorioDeCursos>();
+        }
+
         private static RepositorioDeComisionesDeServicio UnRepositorioCon(IConexionBD mock_conexion_bd)
         {
             var un_repositorio = new RepositorioDeComisionesDeServicio(mock_conexion_bd);
@@ -1116,6 +1128,11 @@ namespace General
         internal static InstanciaDeEvaluacion CalificacionFinal()
         {
             return new InstanciaDeEvaluacion(3, "Calificacion Final");
+        }
+
+        internal static InstanciaDeEvaluacion FinalNulo()
+        {
+            return new InstanciaDeEvaluacion(1, "Final");
         }
 
         public static Organigrama OrganigramaConDosRamas()

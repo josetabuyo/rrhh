@@ -9,10 +9,13 @@ namespace General
     {
         public override string Apreciacion { get; set; }
         public override int Nota { get; set; }
+         public override string Descripcion  { get; set; }
 
         public CalificacionNoNumerica(string apreciacion)
         {
             this.Apreciacion = apreciacion;
         }
+
+        
     }
 }

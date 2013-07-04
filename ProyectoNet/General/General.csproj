@@ -121,6 +121,8 @@
     <Compile Include="Repositorios\IRepositorioDeDocumentos.cs" />
     <Compile Include="Repositorios\IRepositorioDeOrganigrama.cs" />
     <Compile Include="Repositorios\RepositorioDeAlertas.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAlumnos.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeCursos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeModalidades.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAlumnos.cs" />
@@ -214,6 +216,7 @@
     <Compile Include="SACC\AsistenciaHoraUno.cs" />
     <Compile Include="SACC\AsistenciaClaseSuspendida.cs" />
     <Compile Include="SACC\CalificacionNoNumerica.cs" />
+    <Compile Include="SACC\EvaluacionDto.cs" />
     <Compile Include="SACC\DocenteNull.cs" />
     <Compile Include="SACC\Curso.cs" />
     <Compile Include="SACC\CursoDto.cs" />
