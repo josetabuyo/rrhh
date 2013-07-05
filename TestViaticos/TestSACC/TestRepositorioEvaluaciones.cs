@@ -12,26 +12,21 @@ namespace TestViaticos
     [TestClass]
     public class TestRepositorioEvaluaciones
     {
-
         private IConexionBD conexionMock;
-        private IRepositorioDeAlumnos mock_repoalumnos;
-        private IRepositorioDeCursos mock_repocursos;
+
         [TestInitialize]
         public void SetUp()
         {
            conexionMock = TestObjects.ConexionMockeada();
-           mock_repoalumnos = TestObjects.RepoAlumnosMockeado();
-           mock_repocursos = TestObjects.RepoCursosMockeado();
         }
 
         [TestMethod]
         public void deberia_poder_obtener_todas_las_evaluaciones()
         {
-
             Alumno alumno = TestObjects.AlumnoMinisterio();
             Curso curso = TestObjects.UnCursoConAlumnos();
-            Expect.AtLeastOnce.On(mock_repoalumnos).Method("GetAlumnoByDNI").WithAnyArguments().Will(Return.Value(alumno));
-            Expect.AtLeastOnce.On(mock_repocursos).Method("GetCursoById").WithAnyArguments().Will(Return.Value(curso));
+            Expect.AtLeastOnce.On(TestObjects.RepoAlumnosMockeado()).Method("GetAlumnoByDNI").WithAnyArguments().Will(Return.Value(alumno));
+            Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursoById").WithAnyArguments().Will(Return.Value(curso));
         
 
 
@@ -47,7 +42,7 @@ namespace TestViaticos
 
             Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            RepositorioDeEvaluacion repo = new RepositorioDeEvaluacion(conexion, mock_repoalumnos, mock_repocursos);
+            RepositorioDeEvaluacion repo = new RepositorioDeEvaluacion(conexion, TestObjects.RepoCursosMockeado(),TestObjects.RepoAlumnosMockeado());
 
             Assert.AreEqual(5, repo.GetEvaluaciones().Count);
         }

@@ -24,6 +24,9 @@ namespace TestViaticos
           public void deberia_poder_obtener_todas_materias()
             {
 
+                Modalidad modalidad = TestObjects.unaModalidad();
+                Expect.AtLeastOnce.On(TestObjects.RepoModalidadesMockeado()).Method("GetModalidadById").WithAnyArguments().Will(Return.Value(modalidad));
+
                 string source = @"  |Id     |Nombre   |IdModalidad  |ModalidadDescripcion |idInstancia   |DescripcionInstancia     |idCiclo     |NombreCiclo
                                     |01     |Física   |1	        |Fines Puro	          |6	         |Calificación Final       |1           |Primer Ciclo
                                     |02     |Química  |2	        |Fines CENS	          |1	         |1° Evaluación            |1           |Primer Ciclo
@@ -35,7 +38,7 @@ namespace TestViaticos
 
                 Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-                RepositorioDeMaterias repo = new RepositorioDeMaterias(conexion);
+                RepositorioDeMaterias repo = new RepositorioDeMaterias(conexion, TestObjects.RepoCursosMockeado(), TestObjects.RepoModalidadesMockeado());
 
                 Assert.AreEqual(3, repo.GetMaterias().Count);
             }

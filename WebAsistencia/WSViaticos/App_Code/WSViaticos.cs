@@ -1360,7 +1360,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GetMaterias()
     {
-        var materias = new RepositorioDeMaterias(Conexion()).GetMaterias();
+        var materias = RepositorioDeMaterias().GetMaterias();
         var materias_dto = new List<object>();
 
         if (materias.Count > 0)
@@ -1491,7 +1491,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GetPersonaByDNI(int dni, Usuario usuario)
     {
-        RepositorioDeAlumnos repo = new RepositorioDeAlumnos(Conexion());
+        RepositorioDeAlumnos repo = new RepositorioDeAlumnos(Conexion(), RepositorioDeCursos(), RepoModalidades());
         Alumno persona = repo.GetAlumnoByDNI(dni);
 
         Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
@@ -1566,7 +1566,7 @@ public class WSViaticos : System.Web.Services.WebService
     public string GetEspaciosFisicos(Usuario usuario)
     {
 
-        var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion()).GetEspaciosFisicos();
+        var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion(), RepositorioDeCursos()).GetEspaciosFisicos();
         var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
         var autorizador = new Autorizador();
 
@@ -1612,7 +1612,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDeAlumnos RepoAlumnos()
     {
-        return new RepositorioDeAlumnos(Conexion());
+        return new RepositorioDeAlumnos(Conexion(), RepositorioDeCursos(), RepoModalidades());
     }
 
     private RepositorioDeModalidades RepoModalidades()
@@ -1627,7 +1627,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDeMaterias RepositorioDeMaterias()
     {
-        return new RepositorioDeMaterias(Conexion());
+        return new RepositorioDeMaterias(Conexion(), RepositorioDeCursos(), RepoModalidades());
     }
 
     private RepositorioDeCursos RepositorioDeCursos()
@@ -1637,7 +1637,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDeDocentes RepositorioDeDocentes()
     {
-        return new RepositorioDeDocentes(Conexion());
+        return new RepositorioDeDocentes(Conexion(), RepositorioDeCursos());
     }
 
     private RepositorioDeAsistencias RepoAsistencias()
@@ -1647,12 +1647,12 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDeEspaciosFisicos RepoEspaciosFisicos()
     {
-        return new RepositorioDeEspaciosFisicos(Conexion());
+        return new RepositorioDeEspaciosFisicos(Conexion(), RepositorioDeCursos());
     }
 
     private RepositorioDeEvaluacion RepoEvaluaciones()
     {
-        return new RepositorioDeEvaluacion(Conexion(), RepoAlumnos(), RepositorioDeCursos());
+        return new RepositorioDeEvaluacion(Conexion(), RepoAlumnos());
     }
 
 }

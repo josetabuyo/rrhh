@@ -5,14 +5,18 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeMaterias
+    public class RepositorioDeMaterias : General.Repositorios.IRepositorioDeMaterias
     {
-        private IConexionBD conexion_bd { get; set; }
-        public static List<Materia> materias { get; set; }
+        protected IConexionBD conexion_bd { get; set; }
+        protected static List<Materia> materias { get; set; }
+        protected IRepositorioDeModalidades repo_modalidades;
+        protected IRepositorioDeCursos repo_cursos;
         
-        public RepositorioDeMaterias(IConexionBD conexion)
+        public RepositorioDeMaterias(IConexionBD conexion, IRepositorioDeCursos repo_cursos,IRepositorioDeModalidades repo_modalidades)
         {
             this.conexion_bd = conexion;
+            this.repo_modalidades = repo_modalidades;
+            this.repo_cursos = repo_cursos;
         }
 
         public Materia GetMateriaById(int id)
@@ -28,7 +32,7 @@ namespace General.Repositorios
 
         public List<Materia> GetMaterias()
         {
-            RepositorioDeModalidades repoModalidades = new RepositorioDeModalidades(conexion_bd);
+            //RepositorioDeModalidades repoModalidades = new RepositorioDeModalidades(conexion_bd);
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Materias");
             materias = new List<Materia>();
 
@@ -40,7 +44,7 @@ namespace General.Repositorios
                 {
                     Id = row.GetSmallintAsInt("Id"),
                     Nombre = row.GetString("Nombre"),
-                    Modalidad = repoModalidades.GetModalidadById(row.GetInt("IdModalidad")),
+                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),
                     Ciclo = ciclo
                 };
 
@@ -94,7 +98,7 @@ namespace General.Repositorios
 
         public bool MateriaAsignadaACurso(Materia una_materia)
         {
-            List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
+            List<Curso> cursos = repo_cursos.GetCursos();
             return cursos.Exists(c => c.Materia.Id == una_materia.Id);
         }
 

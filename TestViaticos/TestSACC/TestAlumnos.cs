@@ -65,7 +65,7 @@ namespace TestViaticos
 
             Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            RepositorioDeAlumnos repo = new RepositorioDeAlumnos(conexion);
+            RepositorioDeAlumnos repo = new RepositorioDeAlumnos(conexion, TestObjects.RepoCursosMockeado(), TestObjects.RepoModalidadesMockeado());
             Alumno belen = new Alumno();
             List<Alumno> lista_de_alumnos = repo.GetAlumnos();
             belen = lista_de_alumnos.Find(a => a.Documento.Equals(31507315));

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeModalidades
+    public class RepositorioDeModalidades : General.Repositorios.IRepositorioDeModalidades
     {
 
         public IConexionBD conexion_bd { get; set; }

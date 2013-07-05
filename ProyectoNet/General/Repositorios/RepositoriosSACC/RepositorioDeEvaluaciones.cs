@@ -8,14 +8,15 @@ namespace General.Repositorios
     {
         List<Evaluacion> evaluaciones = new List<Evaluacion>();
         public IConexionBD conexion_bd { get; set; }
-        IRepositorioDeAlumnos repoalumnos;
-        IRepositorioDeCursos repocursos;
+        IRepositorioDeAlumnos repo_alumnos;
+        IRepositorioDeCursos repo_cursos;
 
-        public RepositorioDeEvaluacion(IConexionBD conexion, IRepositorioDeAlumnos repoalumnos, IRepositorioDeCursos repocursos)
+
+        public RepositorioDeEvaluacion(IConexionBD conexion, IRepositorioDeCursos repo_cursos, IRepositorioDeAlumnos repo_alumnos)
         {
             this.conexion_bd = conexion;
-            this.repoalumnos = repoalumnos;
-            this.repocursos = repocursos;
+            this.repo_alumnos = repo_alumnos;
+            this.repo_cursos = repo_cursos;
         }
 
         public List<Evaluacion> GetEvaluaciones()
@@ -28,8 +29,8 @@ namespace General.Repositorios
                     Evaluacion evaluacion = new Evaluacion{
 
                         InstanciaEvaluacion = new InstanciaDeEvaluacion(row.GetSmallintAsInt("idInstanciaEvaluacion"), row.GetString("DescripcionInstanciaEvaluacion")),
-                        Alumno = repoalumnos.GetAlumnoByDNI(row.GetSmallintAsInt("idAlumno")),
-                        Curso = repocursos.GetCursoById(row.GetSmallintAsInt("idCurso")),
+                        Alumno = repo_alumnos.GetAlumnoByDNI(row.GetSmallintAsInt("idAlumno")),
+                        Curso = repo_cursos.GetCursoById(row.GetSmallintAsInt("idCurso")),
                         Calificacion = new CalificacionNoNumerica(row.GetString("Calificacion")),
                         Fecha = row.GetDateTime("FechaEvaluacion")
                     };

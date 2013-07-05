@@ -348,16 +348,78 @@ namespace General
             return mock_conexion_bd;
         }
 
+        private static IRepositorioDeAlumnos repo_alumnos_mockeados;
+ 
         public static IRepositorioDeAlumnos RepoAlumnosMockeado()
         {
+            if (repo_alumnos_mockeados == null)
+            {
             var mocks = new Mockery();
-            return mocks.NewMock<IRepositorioDeAlumnos>();
+            repo_alumnos_mockeados =  mocks.NewMock<IRepositorioDeAlumnos>();
+            }
+            return repo_alumnos_mockeados;
         }
 
+        private static IRepositorioDeCursos repo_cursos_mockeados;
+       
         public static IRepositorioDeCursos RepoCursosMockeado()
         {
+            if (repo_cursos_mockeados == null)
+            {
             var mocks = new Mockery();
-            return mocks.NewMock<IRepositorioDeCursos>();
+            repo_cursos_mockeados = mocks.NewMock<IRepositorioDeCursos>();
+            }
+            return repo_cursos_mockeados;
+        }
+
+
+        private static IRepositorioDeEspaciosFisicos repo_espacios_fisicos_mockeados;
+
+        public static IRepositorioDeEspaciosFisicos RepoEspaciosFisicosMockeado()
+        {
+            if (repo_espacios_fisicos_mockeados == null)
+            {
+                var mocks = new Mockery();
+                repo_espacios_fisicos_mockeados = mocks.NewMock<IRepositorioDeEspaciosFisicos>();
+            }
+            return repo_espacios_fisicos_mockeados;
+        }
+
+
+        private static IRepositorioDeDocentes repo_docentes_mockeados;
+
+        public static IRepositorioDeDocentes RepoDocentesMockeado()
+        {
+            if (repo_docentes_mockeados == null)
+            {
+                var mocks = new Mockery();
+                repo_docentes_mockeados = mocks.NewMock<IRepositorioDeDocentes>();
+            }
+            return repo_docentes_mockeados;
+        }
+
+        private static IRepositorioDeMaterias repo_materias_mockeados;
+
+        public static IRepositorioDeMaterias RepoMateriasMockeado()
+        {
+            if (repo_materias_mockeados == null)
+            {
+                var mocks = new Mockery();
+                repo_materias_mockeados = mocks.NewMock<IRepositorioDeMaterias>();
+            }
+            return repo_materias_mockeados;
+        }
+
+        private static IRepositorioDeModalidades repo_modalidades_mockeados;
+
+        public static IRepositorioDeModalidades RepoModalidadesMockeado()
+        {
+            if (repo_modalidades_mockeados == null)
+            {
+                var mocks = new Mockery();
+                repo_modalidades_mockeados = mocks.NewMock<IRepositorioDeModalidades>();
+            }
+            return repo_modalidades_mockeados;
         }
 
         private static RepositorioDeComisionesDeServicio UnRepositorioCon(IConexionBD mock_conexion_bd)
@@ -1165,6 +1227,21 @@ namespace General
             lista_de_dependencias_faby_marta_carlos_y_um_fabyb = new List<List<Area>>() { dependencia_faby_marta, dependencia_carlos_unidad_ministro, dependencia_FabyB_Carlos, dependencia_marta_unidad_ministro };
 
             return new Organigrama(areas_de_faby_y_marta_y_carlos_unidad_ministro_y_fabyB, lista_de_dependencias_faby_marta_carlos_y_um_fabyb);
+        }
+
+        internal static Docente Docente()
+        {
+            return new Docente();
+        }
+
+        internal static Modalidad unaModalidad()
+        {
+            return new Modalidad(1, "Fines");
+        }
+
+        internal static General.Docente unDocente()
+        {
+            return new Docente(1, 31507315, "Belen", "Cevey");
         }
     }
 }

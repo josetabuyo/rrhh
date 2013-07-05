@@ -34,7 +34,7 @@ namespace TestViaticos
 
                 Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-                RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion);
+                RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion, TestObjects.RepoCursosMockeado());
 
                 Assert.AreEqual(3, repo.GetEspaciosFisicos().Count);
             }
@@ -54,7 +54,7 @@ namespace TestViaticos
 
               Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion);
+              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion, TestObjects.RepoCursosMockeado());
 
               Assert.AreEqual(3, repo.GetEdificios().Count);
               Assert.AreEqual(repo.GetEdificios().First().Direccion, "9 de Julio 1020 Piso: PB Dto: 0");
@@ -74,7 +74,7 @@ namespace TestViaticos
 
               Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion);
+              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion, TestObjects.RepoCursosMockeado());
 
               Assert.IsTrue(repo.GetEdificios().Exists(e => e.Area.Id.Equals(621)));
               Assert.IsTrue(repo.GetEdificios().Exists(e => e.Area.Nombre.Equals("Secretaría de Deportes")));
@@ -94,7 +94,7 @@ namespace TestViaticos
 
               Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion);
+              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion, TestObjects.RepoCursosMockeado());
 
               Assert.IsTrue(repo.GetEspaciosFisicos().Exists(e => e.Edificio.Area.Id.Equals(621)));
               Assert.IsTrue(repo.GetEspaciosFisicos().Exists(e => e.Edificio.Area.Nombre.Equals("Secretaría de Deportes")));
