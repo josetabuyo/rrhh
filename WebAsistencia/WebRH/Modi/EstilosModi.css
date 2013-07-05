@@ -29,3 +29,20 @@
 {
     font-weight:bold;
 }
+
+.imagen_miniatura
+{
+    display:inline-block;   
+    text-align:center; 
+    margin:5px;
+}
+
+.imagen_miniatura #img_thumbnail
+{
+    display:block;    
+}
+
+.imagen_miniatura #lbl_nombre
+{
+    display:block;
+}

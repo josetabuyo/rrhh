@@ -8,6 +8,7 @@ using General.Calendario;
 using General;
 using NMock2;
 using General.Modi;
+using System.Drawing;
 
 namespace TestViaticos
 {
@@ -32,7 +33,8 @@ namespace TestViaticos
             {
                 var mocks = new Mockery();
                 mock_del_file_system = mocks.NewMock<IFileSystem>();
-                Expect.AtLeastOnce.On(mock_del_file_system).Method("getFiles").With(new object[] { path_legajo }).Will(Return.Value(imagenes_legajo));
+                Expect.AtLeastOnce.On(mock_del_file_system).Method("getPathsArchivosEnCarpeta").With(new object[] { path_legajo }).Will(Return.Value(imagenes_legajo));
+                Expect.AtLeastOnce.On(mock_del_file_system).Method("getImagenFromPath").WithAnyArguments().Will(Return.Value(new Bitmap(1, 1)));
                 return mock_del_file_system;
             }
             return mock_del_file_system;

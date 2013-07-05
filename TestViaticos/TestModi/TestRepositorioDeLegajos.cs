@@ -38,11 +38,11 @@ namespace TestViaticos
             var mocks = new Mockery();
             var mock_repo_imagenes = mocks.NewMock<IRepositorioDeLegajosEscaneados>();
 
-            var lista_imagenes = new List<ImagenModi>();
-            lista_imagenes.Add(new ImagenModi("imagen_1"));
-            lista_imagenes.Add(new ImagenModi("imagen_2"));
+            var lista_imagenes = new List<ThumbnailImagenModi>();
+            lista_imagenes.Add(new ThumbnailImagenModi("imagen_1"));
+            lista_imagenes.Add(new ThumbnailImagenModi("imagen_2"));
 
-            Expect.AtLeastOnce.On(mock_repo_imagenes).Method("getImagenesParaUnLegajo").WithAnyArguments().Will(Return.Value(lista_imagenes));
+            Expect.AtLeastOnce.On(mock_repo_imagenes).Method("getThumbnailsParaUnLegajo").WithAnyArguments().Will(Return.Value(lista_imagenes));
 
             repositorioDeLegajos = new RepositorioDeLegajos(conexion, mock_repo_imagenes);
 

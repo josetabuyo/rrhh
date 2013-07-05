@@ -81,7 +81,9 @@ public class AjaxWS : System.Web.Services.WebService {
     public string GetLegajoParaDigitalizacion(int numero_documento)
     {
         var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetLegajoParaDigitalizacion(numero_documento));
+        var respuesta = backEndService.GetLegajoParaDigitalizacion(numero_documento);
+        var respuestaSerializada =  Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
     }
 
     [WebMethod(EnableSession = true)]

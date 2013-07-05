@@ -24,7 +24,7 @@ namespace General.Modi
             List<String> paths_archivos;
             try
             {
-                paths_archivos = this.fileSystem.getFiles(this.pathImagenes + "/" + legajo);
+                paths_archivos = this.fileSystem.getPathsArchivosEnCarpeta(this.pathImagenes + "/" + legajo);
             }
             catch (ExcepcionDeCarpetaDeLegajoNoEncontrada e)
             {
@@ -32,7 +32,7 @@ namespace General.Modi
             }
             paths_archivos.ForEach(pathImagen =>
             {
-                listaImagenes.Add(new ThumbnailImagenModi(Path.GetFileNameWithoutExtension(pathImagen)));
+                listaImagenes.Add(new ThumbnailImagenModi(Path.GetFileNameWithoutExtension(pathImagen), this.fileSystem.getImagenFromPath(pathImagen)));
             });
             return listaImagenes;
         }
