@@ -1652,7 +1652,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDeEvaluacion RepoEvaluaciones()
     {
-        return new RepositorioDeEvaluacion(Conexion(), RepoAlumnos());
+        return new RepositorioDeEvaluacion(Conexion(), RepositorioDeCursos(), RepoAlumnos());
     }
 
 }

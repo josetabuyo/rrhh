@@ -11,18 +11,12 @@ namespace General.Repositorios
 
         protected IConexionBD conexion_bd { get; set; }
         protected static List<Curso> cursos { get; set; }
-        //protected IRepositorioDeEspaciosFisicos repo_espacios_fisicos;
-        //protected IRepositorioDeDocentes repo_docentes;
-        //protected IRepositorioDeMaterias repo_materias;
-        //protected IRepositorioDeAlumnos repo_alumnos;
+
 
 
         public RepositorioDeCursos(IConexionBD conexion)
         {
             this.conexion_bd = conexion;
-            //this.repo_espacios_fisicos = repo_espacios_fisicos;
-            //this.repo_docentes = repo_docentes;
-            //this.repo_alumnos = repo_alumnos;
         }
 
 
@@ -50,7 +44,6 @@ namespace General.Repositorios
                 {
                     espacio_fisico =
                         new RepositorioDeEspaciosFisicos(conexion_bd, this).GetEspacioFisicoById(espacio_fisico_id);
-                        /////////////////////7new RepositorioDeEspaciosFisicos(conexion_bd).GetEspacioFisicoById(espacio_fisico_id);
                 }
 
                 Curso curso = new Curso

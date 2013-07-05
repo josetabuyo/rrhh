@@ -1061,8 +1061,13 @@ namespace General
             un_curso.AgregarDiaDeCursada(DayOfWeek.Tuesday);
             un_curso.AgregarDiaDeCursada(DayOfWeek.Wednesday);
             un_curso.Materia = una_materia;
-
+            un_curso.EspacioFisico = UnEspacioFisico(); 
             return un_curso;
+        }
+
+        public static EspacioFisico UnEspacioFisico()
+        {
+            return new EspacioFisico();
         }
 
         public static Curso UnCursoConAlumnosYMateriaPura()
