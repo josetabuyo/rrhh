@@ -18,21 +18,21 @@ namespace General.Modi
             this.pathImagenes = pathImagenes;
         }
 
-        public List<ImagenModi> getImagenesParaUnLegajo(int legajo)
+        public List<ThumbnailImagenModi> getThumbnailsParaUnLegajo(int legajo)
         {
-            var listaImagenes = new List<ImagenModi>();
+            var listaImagenes = new List<ThumbnailImagenModi>();
             List<String> paths_archivos;
             try
             {
-                paths_archivos = this.fileSystem.getFiles(this.pathImagenes + "/" + legajo);
+                paths_archivos = this.fileSystem.getPathsArchivosEnCarpeta(this.pathImagenes + "/" + legajo);
             }
             catch (ExcepcionDeCarpetaDeLegajoNoEncontrada e)
             {
                 paths_archivos = new List<string>();
             }
             paths_archivos.ForEach(pathImagen =>
-            {                
-                listaImagenes.Add(new ImagenModi(Path.GetFileNameWithoutExtension(pathImagen)));
+            {
+                listaImagenes.Add(new ThumbnailImagenModi(Path.GetFileNameWithoutExtension(pathImagen), this.fileSystem.getImagenFromPath(pathImagen)));
             });
             return listaImagenes;
         }

@@ -8,7 +8,7 @@ namespace General.Modi
     public class RespuestaAPedidoDeLegajo
     {
         public List<DocumentoModi> documentos = new List<DocumentoModi>();
-        public List<ImagenModi> imagenesSinAsignar = new List<ImagenModi>();
+        public List<ThumbnailImagenModi> imagenesSinAsignar = new List<ThumbnailImagenModi>();
         
         public int idInterna { get; protected set; }
         public int numeroDeDocumento { get; protected set; }
@@ -40,7 +40,7 @@ namespace General.Modi
             this.documentos.AddRange(documentos);
         }
 
-        public void agregarImagenesSinAsignar(List<ImagenModi> imagenes)
+        public void agregarThumbnailsDeImagenesSinAsignar(List<ThumbnailImagenModi> imagenes)
         {
             this.imagenesSinAsignar.AddRange(imagenes);
         }

@@ -8,6 +8,7 @@ using General.Calendario;
 using General;
 using NMock2;
 using General.Modi;
+using System.Drawing;
 
 namespace TestViaticos
 {
@@ -32,7 +33,8 @@ namespace TestViaticos
             {
                 var mocks = new Mockery();
                 mock_del_file_system = mocks.NewMock<IFileSystem>();
-                Expect.AtLeastOnce.On(mock_del_file_system).Method("getFiles").With(new object[] { path_legajo }).Will(Return.Value(imagenes_legajo));
+                Expect.AtLeastOnce.On(mock_del_file_system).Method("getPathsArchivosEnCarpeta").With(new object[] { path_legajo }).Will(Return.Value(imagenes_legajo));
+                Expect.AtLeastOnce.On(mock_del_file_system).Method("getImagenFromPath").WithAnyArguments().Will(Return.Value(new Bitmap(1, 1)));
                 return mock_del_file_system;
             }
             return mock_del_file_system;
@@ -45,7 +47,7 @@ namespace TestViaticos
                                                                 "imagenes/205939/imagen2.jpg", 
                                                                 "imagenes/205939/imagen3.jpg" }}};
 
-            var imagenes = repo_de_imagenes().getImagenesParaUnLegajo(205939);
+            var imagenes = repo_de_imagenes().getThumbnailsParaUnLegajo(205939);
 
             Assert.AreEqual(3, imagenes.Count());
         }
@@ -56,7 +58,7 @@ namespace TestViaticos
             mock_filesystem_data = new Dictionary<string, List<string>>() {{ "imagenes/203404", new List<string>() { "imagenes/205939/imagen1.jpg", 
                                                                 "imagenes/205939/imagen2.jpg" }}};
 
-            var imagenes = repo_de_imagenes().getImagenesParaUnLegajo(203404);
+            var imagenes = repo_de_imagenes().getThumbnailsParaUnLegajo(203404);
             
             Assert.AreEqual(2, imagenes.Count());
         }
@@ -66,7 +68,7 @@ namespace TestViaticos
         {
             mock_filesystem_data = new Dictionary<string, List<string>>() {{ "imagenes/203404", new List<string>() { "imagenes/205939/imagen1.jpg" }}};
 
-            var imagenes = repo_de_imagenes().getImagenesParaUnLegajo(203404);
+            var imagenes = repo_de_imagenes().getThumbnailsParaUnLegajo(203404);
             
             Assert.IsTrue(imagenes.Any(imagen => imagen.nombre == "imagen1"));
         }

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Drawing;
 
 namespace General.Modi
 {
     public class FileSystem:IFileSystem
     {
-        public List<string> getFiles(string path)
+        public List<string> getPathsArchivosEnCarpeta(string path)
         {
             try
             {
@@ -17,6 +18,12 @@ namespace General.Modi
             catch(DirectoryNotFoundException e){
                 throw new ExcepcionDeCarpetaDeLegajoNoEncontrada();
             }
+        }
+
+
+        public Image getImagenFromPath(string pathImagen)
+        {
+            return Image.FromFile(pathImagen);
         }
     }
 }

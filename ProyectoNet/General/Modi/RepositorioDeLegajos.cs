@@ -39,14 +39,14 @@ namespace General.Modi
             var documentos = this.documentosPara(legajo);
             legajo.agregarDocumentos(documentos);
             var imagenes = this.imagenesPara(legajo);
-            legajo.agregarImagenesSinAsignar(imagenes);
+            legajo.agregarThumbnailsDeImagenesSinAsignar(imagenes);
 
             return legajo;
         }
 
-        private List<ImagenModi> imagenesPara(RespuestaAPedidoDeLegajo legajo)
+        private List<ThumbnailImagenModi> imagenesPara(RespuestaAPedidoDeLegajo legajo)
         {
-            return this.repositorio_de_imagenes.getImagenesParaUnLegajo(legajo.idInterna);
+            return this.repositorio_de_imagenes.getThumbnailsParaUnLegajo(legajo.idInterna);
             //return new List<ImagenModi>();
         }
 

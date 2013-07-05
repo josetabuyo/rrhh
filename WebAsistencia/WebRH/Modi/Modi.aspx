@@ -48,9 +48,9 @@
                 <label class="titulo">Id:</label>
                 <label id="lbl_id"></label>
             </div>
-            <div id="plantilla_ui_imagen" class="imagen">
-                <label class="titulo">Nombre:</label>
-                <label id="lbl_nombre"></label>                
+            <div id="plantilla_ui_imagen" class="imagen_miniatura">
+                <img alt="" src="" id="img_thumbnail" />
+                <label id="lbl_nombre"></label>      
             </div>
         </div>       
         <asp:ScriptManager ID="ScriptManager1" runat="server">
