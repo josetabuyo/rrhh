@@ -35,18 +35,18 @@
             <div id="plantilla_ui_documento" class="documento">
                 <label class="titulo">Descripción:</label>
                 <label id="lbl_descripcion_en_RRHH"></label>
-                <label class="titulo">Jurisdicción:</label>
+                <%--<label class="titulo">Jurisdicción:</label>
                 <label id="lbl_jurisdiccion"></label>
                 <label class="titulo">Organismo:</label>
-                <label id="lbl_organismo"></label>
+                <label id="lbl_organismo"></label>--%>
                 <label class="titulo">Folio:</label>
                 <label id="lbl_folio"></label>
-                <label class="titulo">Fecha Desde:</label>
+                <%--<label class="titulo">Fecha Desde:</label>
                 <label id="lbl_fechaDesde"></label>
                 <label class="titulo">Tabla:</label>
                 <label id="lbl_tabla"></label>
                 <label class="titulo">Id:</label>
-                <label id="lbl_id"></label>
+                <label id="lbl_id"></label>--%>
             </div>
             <div id="plantilla_ui_imagen" class="imagen_miniatura">
                 <img alt="" src="" id="img_thumbnail" />
