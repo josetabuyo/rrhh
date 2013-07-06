@@ -1048,14 +1048,19 @@ namespace General
             return new Documento(4, new TipoDeDocumentoSICOI(1, "nota"), "001", new CategoriaDeDocumentoSICOI(1, "contratacion"), AreaDeFabi(), "extracto bleh");
         }
 
+        public static Modalidad ModalidadFinesPuro() 
+        {
+            return new Modalidad(1, "Fines Puro", InstanciasDeEvaluacion());
+        }
+
         public static Curso UnCursoConAlumnos()
         {
             Curso un_curso = new Curso(1, "Historia");
-            un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "",  areas, new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "",  areas, new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
+            un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, ModalidadFinesPuro()));
             Materia una_materia = MateriaCens();
 
             un_curso.AgregarDiaDeCursada(DayOfWeek.Tuesday);
@@ -1073,11 +1078,11 @@ namespace General
         public static Curso UnCursoConAlumnosYMateriaPura()
         {
             Curso un_curso = new Curso(1, "Historia");
-            un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
+            un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, ModalidadFinesPuro()));
             Materia una_materia = MateriaPuro();
 
             un_curso.AgregarDiaDeCursada(DayOfWeek.Tuesday);
@@ -1157,27 +1162,27 @@ namespace General
 
         public static Alumno UnAlumnoDelCurso()
         {
-            return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro"));    
+            return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro());    
         }
 
         public static Alumno UnAlumnoNuevo()
         {
-            return new Alumno(100, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, new Modalidad(1, "Fines Puro"));
+            return new Alumno(100, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, ModalidadFinesPuro());
         }
 
         public static List<Alumno> AlumnosNuevos()
         {
             List<Alumno> lista = new List<Alumno>() {
-                                                    new Alumno(9, "Ana", "Ran", 28000951, "", "", "", new List<Area>(){new Area(1, AREA_UNIDAD_MINISTRO), new Area(621, AREA_DE_CENARD)}, new Modalidad(1, "Fines Puro")),
-                                                    new Alumno(8, "Carla", "Ren", 33700051, "", "", "", new List<Area>(){new Area(939, AREA_DE_FABI)}, new Modalidad(1, "Fines Puro")),
-                                                    new Alumno(7, "Nadia", "Rey", 11700051, "", "", "", new List<Area>(){new Area(621, AREA_DE_CENARD)}, new Modalidad(1, "Fines Puro"))
+                                                    new Alumno(9, "Ana", "Ran", 28000951, "", "", "", new List<Area>(){new Area(1, AREA_UNIDAD_MINISTRO), new Area(621, AREA_DE_CENARD)}, ModalidadFinesPuro()),
+                                                    new Alumno(8, "Carla", "Ren", 33700051, "", "", "", new List<Area>(){new Area(939, AREA_DE_FABI)}, ModalidadFinesPuro()),
+                                                    new Alumno(7, "Nadia", "Rey", 11700051, "", "", "", new List<Area>(){new Area(621, AREA_DE_CENARD)}, ModalidadFinesPuro())
                                                     };
             return lista;
         }
 
         public static Alumno AlumnoMinisterio()
         {
-            return new Alumno(9, "Ana", "Ran", 28000951, "", "", "", new List<Area>() { new Area(1, "Ministerio") }, new Modalidad(1, "Fines Puro"));
+            return new Alumno(9, "Ana", "Ran", 28000951, "", "", "", new List<Area>() { new Area(1, "Ministerio") }, ModalidadFinesPuro());
         }
 
 
@@ -1200,6 +1205,15 @@ namespace General
         internal static InstanciaDeEvaluacion FinalNulo()
         {
             return new InstanciaDeEvaluacion(1, "Final");
+        }
+
+        public static List<InstanciaDeEvaluacion> InstanciasDeEvaluacion()
+        {
+            List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>();
+            instancias.Add(PrimerParcial());
+            instancias.Add(SegundoParcial());
+            instancias.Add(CalificacionFinal());
+            return instancias;
         }
 
         public static Organigrama OrganigramaConDosRamas()
@@ -1237,11 +1251,6 @@ namespace General
         internal static Docente Docente()
         {
             return new Docente();
-        }
-
-        internal static Modalidad unaModalidad()
-        {
-            return new Modalidad(1, "Fines");
         }
 
         internal static General.Docente unDocente()

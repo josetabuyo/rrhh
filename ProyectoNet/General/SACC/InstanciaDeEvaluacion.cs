@@ -7,23 +7,16 @@ namespace General
 {
     public class InstanciaDeEvaluacion
     {
-        
-        private  int _id;
-        private string _descripcion;
+        public int Id { get; set; }
+        public string Descripcion { get; set; }
 
-
-        public int Id { get { return _id; } set { _id = value; } }
-        public string Descripcion { get { return _descripcion; } set { _descripcion = value; } }
-       
-        
         public InstanciaDeEvaluacion()
         { }
 
         public InstanciaDeEvaluacion(int id, string descripcion)
         {
-            this._id = id;
-            this._descripcion = descripcion;
+            this.Id= id;
+            this.Descripcion = descripcion;
         }
-
     }
 }

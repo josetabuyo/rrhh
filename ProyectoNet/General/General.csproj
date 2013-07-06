@@ -220,6 +220,7 @@
     <Compile Include="SACC\AsistenciaHoraUno.cs" />
     <Compile Include="SACC\AsistenciaClaseSuspendida.cs" />
     <Compile Include="SACC\CalificacionNoNumerica.cs" />
+    <Compile Include="SACC\ModalidadNull.cs" />
     <Compile Include="SACC\EvaluacionDto.cs" />
     <Compile Include="SACC\DocenteNull.cs" />
     <Compile Include="SACC\Curso.cs" />

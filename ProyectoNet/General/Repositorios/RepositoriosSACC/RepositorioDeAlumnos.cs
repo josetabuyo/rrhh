@@ -22,7 +22,6 @@ namespace General.Repositorios
 
         public List<Alumno> GetAlumnos()
         {
-            //RepositorioDeModalidades repoModalidades = new RepositorioDeModalidades(conexion_bd);
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
             alumnos = new List<Alumno>();
 
@@ -117,11 +116,11 @@ namespace General.Repositorios
                 var modaldidad = new Modalidad();
                 var baja = 0;
                 if (!(row.GetObject("IdModalidad") is DBNull))
-                    modaldidad = new Modalidad(row.GetInt("IdModalidad"), "");
+                    modaldidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad"));
 
                 if (!(row.GetObject("BajaAlumno") is DBNull)){
                     baja = row.GetInt("BajaAlumno");
-                    modaldidad = new Modalidad(0, "");
+                    modaldidad = repo_modalidades.ModalidadNull();
                 }
 
                 if (!(row.GetObject("BajaDocente") is DBNull))

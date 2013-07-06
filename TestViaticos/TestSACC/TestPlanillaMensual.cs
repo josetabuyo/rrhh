@@ -23,6 +23,7 @@ namespace TestViaticos
         private DateTime fecha_cursable;
         private Alumno un_alumno;
         private List<Area> areas;
+        private List<InstanciaDeEvaluacion> instancias;
         
         [TestInitialize]
         public void Setup()
@@ -33,6 +34,7 @@ namespace TestViaticos
             fecha_cursable = new DateTime(2012, 08, 14);
             un_alumno = TestObjects.UnAlumnoDelCurso();
             areas = TestObjects.AreasDeFabiYMarta();
+            instancias = TestObjects.InstanciasDeEvaluacion();
         }
 
 
@@ -73,7 +75,7 @@ namespace TestViaticos
 
               GeneradorDePlanillas generador = new GeneradorDePlanillas();
               CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
-              Alumno un_alumno = new Alumno(8, "Dani", "Tatay", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro"));
+              Alumno un_alumno = new Alumno(8, "Dani", "Tatay", 28753951, "", "", "", areas, TestObjects.ModalidadFinesPuro());
 
               PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
 
@@ -129,7 +131,7 @@ namespace TestViaticos
               CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
               GeneradorDePlanillas generador = new GeneradorDePlanillas();
 
-              Alumno un_alumno_2 = new Alumno(8, "Dani", "Tatay", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro"));
+              Alumno un_alumno_2 = new Alumno(8, "Dani", "Tatay", 28753951, "", "", "", areas, TestObjects.ModalidadFinesPuro());
 
               PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
 
