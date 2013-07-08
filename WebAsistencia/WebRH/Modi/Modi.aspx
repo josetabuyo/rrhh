@@ -27,6 +27,15 @@
                 <label id="lbl_nombre"></label>
                 <label id="lbl_apellido"></label>
                 <div id="panel_imagenes_no_asignadas"> </div>
+                <div id="visualizador_de_imagenes" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="tituloImagen"></h3>
+                    </div>
+                    <div class="modal-body">
+                        <img alt="" src="" id="imagen" />
+                    </div>
+                </div>
                 <div id="panel_documentos"> </div>
            </div>
         </div>
@@ -58,19 +67,24 @@
     </form>
 </body>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"> </script>
     <script type="text/javascript" src="BuscadorDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeResultadosDeLegajos.js"></script>
     <script type="text/javascript" src="ServicioDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeDocumentoModi.js"></script>
     <script type="text/javascript" src="VistaDeImagenModi.js"></script>
+    <script type="text/javascript" src="ServicioDeImagenes.js"></script>
+    <script type="text/javascript" src="VisualizadorDeImagenes.js"></script>
     <script type="text/javascript" src="ProveedorAjax.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
+            var servicio_de_imagenes = new ServicioDeImagenes(new ProveedorAjax());
             var vista_del_legajo = new VistaDeResultadosDeLegajos({
                 ui: $('#ui_vista_de_resultados_de_legajos'),
                 plantilla_vista_documento: $('#plantilla_ui_documento'),
-                plantilla_vista_imagen: $('#plantilla_ui_imagen')
+                plantilla_vista_imagen: $('#plantilla_ui_imagen'),
+                servicioDeImagenes: servicio_de_imagenes
             });
 
             var servicio_de_legajos = new ServicioDeLegajos(new ProveedorAjax());

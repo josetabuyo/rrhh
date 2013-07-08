@@ -34,12 +34,26 @@
 {
     display:inline-block;   
     text-align:center; 
-    margin:5px;
+    margin:5px;    
 }
 
 .imagen_miniatura #img_thumbnail
 {
     display:block;    
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.imagen_miniatura #img_thumbnail:hover
+{
+    -webkit-box-shadow: 0 0 16px rgba(66, 140, 240, 1);
+    box-shadow: 0 0 16px rgba(66, 140, 240, 1);
 }
 
 .imagen_miniatura #lbl_nombre

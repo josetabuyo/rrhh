@@ -80,12 +80,20 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetLegajoParaDigitalizacion(int numero_documento)
     {
-        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
         var respuesta = backEndService.GetLegajoParaDigitalizacion(numero_documento);
         var respuestaSerializada =  Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
     }
 
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetImagenSinAsignar(int legajo, string nombre_imagen)
+    {
+        var respuesta = backEndService.GetImagenSinAsignar(legajo, nombre_imagen);
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
+    }
+    
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string InscribirAlumnos(string alumnos, int id_curso)

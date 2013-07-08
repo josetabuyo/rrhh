@@ -37,5 +37,10 @@ namespace General.Modi
             return listaImagenes;
         }
 
+
+        public ImagenModi getImagenSinAsignar(int legajo, string nombre_imagen)
+        {
+            return new ImagenModi(nombre_imagen, this.fileSystem.getImagenFromPath(this.pathImagenes + "/" + legajo + "/" + nombre_imagen + ".jpg"));
+        }
     }
 }

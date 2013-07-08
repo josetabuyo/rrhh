@@ -64,6 +64,7 @@ describe("Tengo una vista de legajos", function () {
     var lbl_apellido = {};
     var panel_documentos = {};
     var panel_imagenes_no_asignadas = {};
+    var mock_srv_imagenes = {};
 
     beforeEach(function () {
         var ui_vista_legajo = $('<div>');
@@ -71,11 +72,13 @@ describe("Tengo una vista de legajos", function () {
         lbl_apellido = $('<label id="lbl_apellido">');
         panel_documentos = $('<div id="panel_documentos">');
         panel_imagenes_no_asignadas = $('<div id="panel_imagenes_no_asignadas">');
+        ui_visualizador_de_imagenes = $('<div id="visualizador_de_imagenes">');
 
         ui_vista_legajo.append(lbl_nombre);
         ui_vista_legajo.append(lbl_apellido);
         ui_vista_legajo.append(panel_imagenes_no_asignadas);
         ui_vista_legajo.append(panel_documentos);
+        ui_vista_legajo.append(ui_visualizador_de_imagenes);
 
         var plantilla_vista_documento = $('<div class="documento">');
         plantilla_vista_documento.append($('<label id="lbl_descripcion_en_RRHH">'));
@@ -88,11 +91,21 @@ describe("Tengo una vista de legajos", function () {
 
         var plantilla_vista_imagen = $('<div class="imagen">');
         plantilla_vista_imagen.append($('<label id="lbl_nombre">'));
+        plantilla_vista_imagen.append($('<img id="img_thumbnail">'));
+
+        mock_srv_imagenes = {
+            getImagenSinAsignar: function (legajo, nombre_imagen, onSuccess, onError) {
+                onSuccess({ nombre: "Imagen_1", bytesImagen: "aaa111aaa" });
+            }
+        };
+        spyOn(mock_srv_imagenes, 'getImagenSinAsignar').andCallThrough();
+
 
         vista_legajos = new VistaDeResultadosDeLegajos({
             ui: ui_vista_legajo,
             plantilla_vista_documento: plantilla_vista_documento,
-            plantilla_vista_imagen: plantilla_vista_imagen
+            plantilla_vista_imagen: plantilla_vista_imagen,
+            servicioDeImagenes: mock_srv_imagenes
         });
     });
     it("Al mostrar un legajo con 3 documentos en la vista se debería popular con los datos del legajo", function () {
@@ -100,7 +113,7 @@ describe("Tengo una vista de legajos", function () {
             nombre: "jorge",
             apellido: "Silva",
             documentos: [
-                { descripcionEnRRHH: "cv", jurisdiccion:"RRHH", organismo: "MDS", folio:"0011-2", fechaDesde:"20/11/1981", tabla:"curriculums", id:"1" },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
                 { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
                 { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" }
             ],
@@ -111,7 +124,7 @@ describe("Tengo una vista de legajos", function () {
         expect(lbl_apellido.text()).toEqual('Silva');
         expect(panel_documentos.children().length).toEqual(3);
     });
-    it("Los documentos deberian visualizarse con todos sus datos", function () {
+    it("Los documentos deberian visualizarse con descripcion y folio", function () {
         var un_legajo = {
             nombre: "jorge",
             apellido: "Silva",
@@ -128,23 +141,8 @@ describe("Tengo una vista de legajos", function () {
         var lbl_descripcion_en_RRHH = div_primer_documento.find("#lbl_descripcion_en_RRHH");
         expect(lbl_descripcion_en_RRHH.text()).toEqual("cv");
 
-        var lbl_jurisdiccion = div_primer_documento.find("#lbl_jurisdiccion");
-        expect(lbl_jurisdiccion.text()).toEqual("RRHH");
-
-        var lbl_organismo = div_primer_documento.find("#lbl_organismo");
-        expect(lbl_organismo.text()).toEqual("MDS");
-
         var lbl_folio = div_primer_documento.find("#lbl_folio");
         expect(lbl_folio.text()).toEqual("0011-2");
-
-        var lbl_fechaDesde = div_primer_documento.find("#lbl_fechaDesde");
-        expect(lbl_fechaDesde.text()).toEqual("20/11/1981");
-
-        var lbl_tabla = div_primer_documento.find("#lbl_tabla");
-        expect(lbl_tabla.text()).toEqual("curriculums");
-
-        var lbl_id = div_primer_documento.find("#lbl_id");
-        expect(lbl_id.text()).toEqual("1");
     });
 
     it("Al refrescar una vista de un legajo, debería recargar los documentos, no sumar los nuevos", function () {
@@ -208,7 +206,50 @@ describe("Tengo una vista de legajos", function () {
         expect(panel_imagenes_no_asignadas.children().length).toEqual(3);
 
         vista_legajos.mostrarLegajo(un_legajo);
-        expect(panel_imagenes_no_asignadas.children().length).toEqual(3);       
+        expect(panel_imagenes_no_asignadas.children().length).toEqual(3);
+    });
+
+    it("Al hacer click en una imagen sin asignar en miniatura, el servicio de imagenes deberia recibir el mensaje getImagenSinAsignar con el numero de legajo y el nombre de la imagen como parametros", function () {
+        var un_legajo = {
+            nombre: "jorge",
+            apellido: "Silva",
+            idInterna: "111111",
+            documentos: [
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" }
+            ],
+            imagenesSinAsignar: [
+                { nombre: "imagen_1" }
+            ]
+        };
+        vista_legajos.mostrarLegajo(un_legajo);
+
+        var div_primera_imagen = $(panel_imagenes_no_asignadas.children()[0]);
+
+        var img_thumbnail = div_primera_imagen.find("#img_thumbnail");
+        img_thumbnail.click();
+        expect(mock_srv_imagenes.getImagenSinAsignar.mostRecentCall.args[0] == '111111').toBeTruthy();
+        expect(mock_srv_imagenes.getImagenSinAsignar.mostRecentCall.args[1] == 'imagen_1').toBeTruthy();
+    });
+
+    it("Al hacer click en una imagen sin asignar en miniatura, el visualizador de imagenes deberia recibir el mensaje mostrarImagen una imagen como parametro", function () {
+        var un_legajo = {
+            nombre: "jorge",
+            apellido: "Silva",
+            documentos: [
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" }
+            ],
+            imagenesSinAsignar: [
+                { nombre: "imagen_1" }
+            ]
+        };
+        vista_legajos.mostrarLegajo(un_legajo);
+
+        var div_primera_imagen = $(panel_imagenes_no_asignadas.children()[0]);
+
+        var img_thumbnail = div_primera_imagen.find("#img_thumbnail");
+        expect(vista_legajos.mostrandoVisualizadorDeImagenes()).toBeFalsy();
+        img_thumbnail.click();
+        expect(vista_legajos.mostrandoVisualizadorDeImagenes()).toBeTruthy();
     });
 });
 
@@ -244,6 +285,27 @@ describe("Tengo un servicio de legajos", function () {
         srv_de_legajos.getLegajo(88888888,
                                     function (respuesta) { realizo_comportamiento_esperado = false; },
                                     function (respuesta) { realizo_comportamiento_esperado = true; })
+        expect(realizo_comportamiento_esperado).toBeTruthy();
+    });
+});
+
+
+describe("Tengo un servicio de imagenes", function () {
+    var srv_de_imagenes;
+    beforeEach(function () {
+        var mock_proveedor_ajax = {
+            postearAUrl: function (datos_del_post) {
+                datos_del_post.success({ nombre: "imagen_1", bytesImagen: "aaa111aaa" });
+            }
+        };
+        srv_de_imagenes = new ServicioDeImagenes(mock_proveedor_ajax);
+    });
+    it("Deberia poder pedir la imagen sin asignar 'imagen_1' del legajo '111111'", function () {
+        var realizo_comportamiento_esperado = false;
+        srv_de_imagenes.getImagenSinAsignar('111111',
+                                            'imagen_1',
+                                            function (imagen) { realizo_comportamiento_esperado = true; },
+                                            function (respuesta) { realizo_comportamiento_esperado = false; })
         expect(realizo_comportamiento_esperado).toBeTruthy();
     });
 });

@@ -9,6 +9,13 @@ VistaDeImagenModi.prototype.start = function () {
 
     this.lbl_nombre.text(this.o.imagen.nombre)
     this.img_thumbnail.attr("src", "data:image/png;base64," + this.o.imagen.bytesImagen);
+
+    this.onclick = function () { };
+
+    var _this = this;
+    this.o.ui.click(function () {
+        _this.onClick(_this.o.imagen);
+    });
 };
 
 VistaDeImagenModi.prototype.dibujarEn = function (panel) {
