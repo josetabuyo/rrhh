@@ -46,11 +46,22 @@ namespace General.Repositorios
             return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Id.Equals(id_curso) && evaluaciones.Alumno.Id.Equals(id_alumno));
         }
 
-        public Evaluacion GetEvaluacionPorAlumnoEInstancia(Alumno un_alumno_del_curso, InstanciaDeEvaluacion una_instancia_del_curso)
+        public Evaluacion GetEvaluacionPorCursoAlumnoEInstancia(Curso un_curso, Alumno un_alumno_del_curso, InstanciaDeEvaluacion una_instancia_del_curso)
         {
             GetEvaluaciones();
-            return evaluaciones.Find(unaEvaluacion => unaEvaluacion.Alumno.Equals(un_alumno_del_curso) && unaEvaluacion.InstanciaEvaluacion.Equals(una_instancia_del_curso));
-                
+            return evaluaciones.Find(unaEvaluacion => unaEvaluacion.Curso.Equals(un_curso) && unaEvaluacion.Alumno.Equals(un_alumno_del_curso) && unaEvaluacion.InstanciaEvaluacion.Equals(una_instancia_del_curso));
+        }
+
+        public List<Evaluacion> GetEvaluacionesAlumno(int id_alumno)
+        {
+            GetEvaluaciones();
+            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Alumno.Id.Equals(id_alumno));
+        }
+
+        public List<Evaluacion> GetEvaluacionesPorInstancia(int id_instancia)
+        {
+            GetEvaluaciones();
+            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.InstanciaEvaluacion.Id.Equals(id_instancia));
         }
 
         public void GuardarEvaluacion(Evaluacion evaluacion, Usuario usuario)
@@ -64,7 +75,6 @@ namespace General.Repositorios
             parametros.Add("fecha", DateTime.Now);
 
             conexion_bd.EjecutarSinResultado("dbo.SACC_Ins_Evaluacion", parametros);
-
         }
 
 
@@ -88,58 +98,7 @@ namespace General.Repositorios
             parametros.Add("id_curso", evaluacion.Curso.Id);
             parametros.Add("fecha_evaluacion", evaluacion.Fecha);
             conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Evaluacion", parametros);
-
         }
-
-
-
-        //---------------Bel-------------
-
-        // public void AgregarEvaluacion(Evaluacion evaluacion)
-        //{
-        //    if (!this._evaluaciones_por_instancias.ContainsKey(evaluacion.InstanciaEvaluacion))
-        //    {
-        //        this._evaluaciones_por_instancias.Add(evaluacion.InstanciaEvaluacion, new List<Evaluacion>());
-        //    }
-        //    this._evaluaciones_por_instancias[evaluacion.InstanciaEvaluacion].Add(evaluacion);
-        //}
-
-        //public void AgregarEvaluaciones(List<Evaluacion> lista_eavluaciones)
-        //{
-        //    foreach (var evaluacion in lista_eavluaciones)
-        //    {
-        //        this.AgregarEvaluacion(evaluacion);
-        //    }
-        //}
-
-        //public List<Evaluacion> EvaluacionesDe(Alumno un_alumno)
-        //{
-        //    var todasLasEvaluaciones = new List<Evaluacion>();
-        //    this._evaluaciones_por_instancias.Values.ToList().ForEach(evaluaciones => todasLasEvaluaciones.AddRange(evaluaciones));
-        //    return todasLasEvaluaciones.FindAll(unaEvaluacion => unaEvaluacion.Alumno == un_alumno);
-        //}
-
-        //public List<Evaluacion> EvaluacionesDe(InstanciaDeEvaluacion instancia)
-        //{
-        //    if (!this._evaluaciones_por_instancias.ContainsKey(instancia))
-        //        return new List<Evaluacion>();
-           
-        //    return this._evaluaciones_por_instancias[instancia];
-        //}
-
-        //public Evaluacion EvaluacionDeAlumnoEnUnaInstancia(Alumno un_alumno, InstanciaDeEvaluacion instancia)
-        //{
-        //    if (!this._evaluaciones_por_instancias.ContainsKey(instancia))
-        //        return new EvaluacionNull();
-
-        //    return this._evaluaciones_por_instancias[instancia].Find(e => e.Alumno.Equals(un_alumno));
-        //}
-
-        //public List<Evaluacion> GetEvaluaciones()
-        //{
-        //    var todasLasEvaluaciones = new List<Evaluacion>();
-        //    this._evaluaciones_por_instancias.Values.ToList().ForEach(evaluaciones => todasLasEvaluaciones.AddRange(evaluaciones));
-        //    return todasLasEvaluaciones;
-        //}
+       
     }
 }
