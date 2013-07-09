@@ -46,7 +46,7 @@ namespace General.Repositorios
                         new RepositorioDeEspaciosFisicos(conexion_bd, this).GetEspacioFisicoById(espacio_fisico_id);
                 }
 
-                Curso curso = new Curso
+                Curso curso = new Curso(row.GetSmallintAsInt("Id"), new RepositorioDeMaterias(conexion_bd, this, new RepositorioDeModalidades(conexion_bd)).GetMateriaById(row.GetSmallintAsInt("IdMateria")), docente, espacio_fisico, row.GetObject("FechaInicio") is DBNull ? new DateTime(DateTime.Now.Year, 1, 1) : row.GetDateTime("FechaInicio"), row.GetObject("FechaFin") is DBNull ? new DateTime(DateTime.Now.Year, 12, 1) : row.GetDateTime("FechaFin"))
                 {
                     Id = row.GetSmallintAsInt("Id"),
                     Docente = docente,

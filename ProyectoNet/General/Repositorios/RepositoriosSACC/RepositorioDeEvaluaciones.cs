@@ -40,28 +40,41 @@ namespace General.Repositorios
             return evaluaciones;
         }
 
-        public List<Evaluacion> GetEvaluacionesPorCursoYAlumno(int id_curso, int id_alumno)
+        public List<Evaluacion> GetEvaluacionesPorCursoYAlumno(Curso curso, Alumno alumno)
         {
             GetEvaluaciones();
-            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Id.Equals(id_curso) && evaluaciones.Alumno.Id.Equals(id_alumno));
+            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Equals(curso) && evaluaciones.Alumno.Equals(alumno));
+        }
+
+        public List<Evaluacion> GetEvaluacionesPorCurso(Curso curso)
+        {
+            GetEvaluaciones();
+            return  this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Equals(curso));
+        }
+
+        public List<Evaluacion> GetEvaluacionesPorCursoEInstancia(Curso un_curso, InstanciaDeEvaluacion una_instancia_del_curso)
+        {
+            GetEvaluaciones();
+            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Equals(un_curso) && evaluaciones.InstanciaEvaluacion.Equals(una_instancia_del_curso));
         }
 
         public Evaluacion GetEvaluacionPorCursoAlumnoEInstancia(Curso un_curso, Alumno un_alumno_del_curso, InstanciaDeEvaluacion una_instancia_del_curso)
         {
             GetEvaluaciones();
-            return evaluaciones.Find(unaEvaluacion => unaEvaluacion.Curso.Equals(un_curso) && unaEvaluacion.Alumno.Equals(un_alumno_del_curso) && unaEvaluacion.InstanciaEvaluacion.Equals(una_instancia_del_curso));
+            var hola =  evaluaciones.Find(unaEvaluacion => unaEvaluacion.Curso.Equals(un_curso) && unaEvaluacion.Alumno.Equals(un_alumno_del_curso) && unaEvaluacion.InstanciaEvaluacion.Equals(una_instancia_del_curso));
+            return hola;
         }
 
-        public List<Evaluacion> GetEvaluacionesAlumno(int id_alumno)
+        public List<Evaluacion> GetEvaluacionesAlumno(Alumno alumno)
         {
             GetEvaluaciones();
-            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Alumno.Id.Equals(id_alumno));
+            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Alumno.Equals(alumno));
         }
 
-        public List<Evaluacion> GetEvaluacionesPorInstancia(int id_instancia)
+        public List<Evaluacion> GetEvaluacionesPorInstancia(InstanciaDeEvaluacion instancia)
         {
             GetEvaluaciones();
-            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.InstanciaEvaluacion.Id.Equals(id_instancia));
+            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.InstanciaEvaluacion.Equals(instancia));
         }
 
         public void GuardarEvaluacion(Evaluacion evaluacion, Usuario usuario)
@@ -99,6 +112,11 @@ namespace General.Repositorios
             parametros.Add("fecha_evaluacion", evaluacion.Fecha);
             conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Evaluacion", parametros);
         }
-       
+
+
+        public void GetInstanciasDeEvaluacionPorCurso()
+        {
+            
+        }
     }
 }

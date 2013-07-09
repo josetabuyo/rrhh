@@ -24,7 +24,7 @@ namespace General
         static public TipoDeDocumentoSICOI MEMO = new TipoDeDocumentoSICOI(3, "Memo");
         static public List<Area> areas = new List<Area>();
 
-        
+
 
         public static Area AreaDeCastagneto()
         {
@@ -50,7 +50,7 @@ namespace General
             return area;
         }
 
-       
+
         public static Estadia EstadiaDeAgusIniciaYTerminaElMismoDia()
         {
             Estadia estadia = new Estadia();
@@ -995,7 +995,7 @@ namespace General
 
         public static List<Documento> DocumentosCompletos()
         {
-            
+
             TipoDeDocumentoSICOI tipo_documento = NOTA;
             TipoDeDocumentoSICOI tipo_documento_exp = EXPEDIENTE;
             TipoDeDocumentoSICOI tipo_documento_memo = MEMO;
@@ -1010,7 +1010,7 @@ namespace General
 
             Documento documento_uno = new Documento(tipo_documento_exp, "1-12", categoria_nombramiento, new Area(1, "RRHH"), "Primer Documento creado a los fines de probar el filtro", "Urgente");
             Documento documento_dos = new Documento(tipo_documento_exp, "2-12", categoria_renuncia, new Area(2, "Secretaría de Deportes"), "Segundo Documento creado a los fines de probar el filtro", "Rápido");
-            Documento documento_tres = new Documento(tipo_documento_memo, "1-12", categoria_licencia, new Area(3, "Subsecretaría de abordaje territorial"), "Tercer Documento creado a los fines de probar el filtro",  "Muy Urgente");
+            Documento documento_tres = new Documento(tipo_documento_memo, "1-12", categoria_licencia, new Area(3, "Subsecretaría de abordaje territorial"), "Tercer Documento creado a los fines de probar el filtro", "Muy Urgente");
             Documento documento_cuatro = new Documento(tipo_documento_memo, "3-11", categoria_licencia, new Area(1, "RRHH"), "Cuarto Documento creado a los fines de probar el filtro", "Normal");
             documento_uno.fecha = DateTime.Parse("12/01/13");
             documento_dos.fecha = DateTime.Parse("12/01/12");
@@ -1022,9 +1022,9 @@ namespace General
             documento_dos.ticket = "CCB452";
             documento_tres.ticket = "CAB999";
             documento_cuatro.ticket = "AAB199";
-            
+
             return new List<Documento> { documento1, documento_uno, documento_dos, documento_tres, documento_cuatro };
-            
+
         }
 
         private static Mensajeria _mensajeria;
@@ -1055,17 +1055,15 @@ namespace General
 
         public static Curso UnCursoConAlumnos()
         {
-            Curso un_curso = new Curso(1, "Historia");
+            Curso un_curso = new Curso(14, MateriaCens(), Docente(), EspacioFisico(), DateTime.Today, DateTime.Today);
             un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
             un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro()));
             un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
             un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, ModalidadFinesPuro()));
             un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, ModalidadFinesPuro()));
-            Materia una_materia = MateriaCens();
-
+       
             un_curso.AgregarDiaDeCursada(DayOfWeek.Tuesday);
             un_curso.AgregarDiaDeCursada(DayOfWeek.Wednesday);
-            un_curso.Materia = una_materia;
             un_curso.EspacioFisico = UnEspacioFisico(); 
             return un_curso;
         }
@@ -1077,12 +1075,16 @@ namespace General
 
         public static Curso UnCursoConAlumnosYMateriaPura()
         {
-            Curso un_curso = new Curso(1, "Historia");
+
+            Curso un_curso = new Curso(MateriaPuro(), Docente(), EspacioFisico(), DateTime.Today, DateTime.Today);
+
+
             un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
             un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro()));
             un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
             un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, ModalidadFinesPuro()));
             un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+
             Materia una_materia = MateriaPuro();
 
             un_curso.AgregarDiaDeCursada(DayOfWeek.Tuesday);
@@ -1093,10 +1095,11 @@ namespace General
         }
 
         public static Materia MateriaCens()
+
         { 
             List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() {PrimerParcial(), SegundoParcial() };
             Modalidad modalidad_cens = new Modalidad(1, "Cens", instancias);
-
+            
             return new Materia(1, "Historia CENS", modalidad_cens);
         }
 
@@ -1108,7 +1111,10 @@ namespace General
             return new Materia(1, "Geografia Puro", modalidad_cens);
         }
 
-
+        public static Calificacion Calificacion10()
+        {
+            return new CalificacionNumerica(10);
+        }
 
         public static List<Curso> UnListadoDeCursoConEdificios()
         {
@@ -1116,20 +1122,20 @@ namespace General
             EspacioFisico espacio_fisico1 = new EspacioFisico();
             EspacioFisico espacio_fisico2 = new EspacioFisico();
             EspacioFisico espacio_fisico3 = new EspacioFisico();
-            
-            Edificio julio_de_9 = new Edificio(1,"9 de Julio","9 de julio",new Area(54,"Area de Marta"));
-            Edificio moreno = new Edificio(2,"Moreno","moreno",new Area(939,"Secretaria de Coordinacion y Monitoreo"));
-            Edificio cenard = new Edificio(3,"Cenard","Libertador",new Area(621,"Secretaria de Deporte"));
-            
-            Curso curso_uno = new Curso(1, "Historia");
+
+            Edificio julio_de_9 = new Edificio(1, "9 de Julio", "9 de julio", new Area(54, "Area de Marta"));
+            Edificio moreno = new Edificio(2, "Moreno", "moreno", new Area(939, "Secretaria de Coordinacion y Monitoreo"));
+            Edificio cenard = new Edificio(3, "Cenard", "Libertador", new Area(621, "Secretaria de Deporte"));
+
+            Curso curso_uno = new Curso(1, MateriaCens(), Docente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today);
             curso_uno.EspacioFisico = espacio_fisico1;
             curso_uno.EspacioFisico.Edificio = julio_de_9;
             cursos.Add(curso_uno);
-            Curso curso_dos = new Curso(2, "Quimica");
+            Curso curso_dos = new Curso(2, MateriaCens(), Docente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today);
             curso_dos.EspacioFisico = espacio_fisico2;
             curso_dos.EspacioFisico.Edificio = moreno;
             cursos.Add(curso_dos);
-            Curso curso_tres = new Curso(3, "Filosofia");
+            Curso curso_tres = new Curso(3, MateriaCens(), Docente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today);
             curso_tres.EspacioFisico = espacio_fisico3;
             curso_tres.EspacioFisico.Edificio = cenard;
             cursos.Add(curso_tres);
@@ -1140,7 +1146,7 @@ namespace General
         public static List<EspacioFisico> EspaciosFisicos()
         {
             List<EspacioFisico> listado_espacios = new List<EspacioFisico>();
-            
+
             EspacioFisico espacio_fisico1 = new EspacioFisico();
             EspacioFisico espacio_fisico2 = new EspacioFisico();
             EspacioFisico espacio_fisico3 = new EspacioFisico();
@@ -1152,7 +1158,7 @@ namespace General
             espacio_fisico1.Edificio = julio_de_9;
             espacio_fisico2.Edificio = moreno;
             espacio_fisico3.Edificio = cenard;
-            
+
             listado_espacios.Add(espacio_fisico1);
             listado_espacios.Add(espacio_fisico2);
             listado_espacios.Add(espacio_fisico3);
@@ -1237,7 +1243,7 @@ namespace General
             unidad_ministro = new Area(1, AREA_UNIDAD_MINISTRO, "1", true);
             area_de_fabyB = new Area(621, AREA_DE_CENARD, "939B", true);
 
-            dependencia_faby_marta =DependenciaEntreFabyYMarta();
+            dependencia_faby_marta = DependenciaEntreFabyYMarta();
             dependencia_carlos_unidad_ministro = new List<Area>() { area_de_castagneto, unidad_ministro };
             dependencia_FabyB_Carlos = new List<Area>() { area_de_fabyB, area_de_castagneto };
             dependencia_marta_unidad_ministro = new List<Area>() { area_de_marta, unidad_ministro };
@@ -1250,12 +1256,13 @@ namespace General
 
         internal static Docente Docente()
         {
-            return new Docente();
+           return new Docente(1, 31507315, "Belen", "Cevey");
         }
 
-        internal static General.Docente unDocente()
+
+        public static EspacioFisico EspacioFisico()
         {
-            return new Docente(1, 31507315, "Belen", "Cevey");
+            return EspaciosFisicos()[0];
         }
     }
 }

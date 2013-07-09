@@ -909,7 +909,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         un_curso.Alumnos().ForEach(delegate(Alumno alumno)
         {
-            var detalle_evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCursoYAlumno(un_curso.Id, alumno.Id);//deberia devolver nota e instancias
+            var detalle_evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCursoYAlumno(un_curso, alumno);//deberia devolver nota e instancias
             //List<object> detalle_evaluacion_dto = new List<object>();
 
             //foreach (var d in detalle_evaluaciones)
@@ -1433,7 +1433,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool QuitarCurso(CursoDto curso, Usuario usuario)
     {
-        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, Id = curso.Id, EspacioFisico = curso.EspacioFisico };
+        var un_curso = new Curso(curso.Id, curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin));
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
@@ -1447,15 +1447,7 @@ public class WSViaticos : System.Web.Services.WebService
     public bool AgregarCurso(CursoDto curso)
     {
         var un_curso =
-            new Curso()
-            {
-                Docente = curso.Docente,
-                Materia = curso.Materia,
-                EspacioFisico = curso.EspacioFisico,
-                FechaInicio = DateTime.Parse(curso.FechaInicio),
-                FechaFin = DateTime.Parse(curso.FechaFin)
-
-            };
+            new Curso(curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin));
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
@@ -1469,14 +1461,8 @@ public class WSViaticos : System.Web.Services.WebService
     public bool ModificarCurso(CursoDto curso)
     {
         var un_curso =
-            new Curso()
+            new Curso(curso.Id, curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin))
             {
-                Id = curso.Id,
-                Docente = curso.Docente,
-                Materia = curso.Materia,
-                EspacioFisico = curso.EspacioFisico,
-                FechaInicio = DateTime.Parse(curso.FechaInicio),
-                FechaFin = DateTime.Parse(curso.FechaFin),
                 Observaciones = curso.Observaciones
             };
         var horarios = curso.Horarios;

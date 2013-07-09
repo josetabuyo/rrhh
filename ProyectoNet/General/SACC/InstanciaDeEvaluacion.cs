@@ -18,5 +18,14 @@ namespace General
             this.Id= id;
             this.Descripcion = descripcion;
         }
+
+        //está bien esto?
+        public override bool Equals(object obj)
+        {
+            if (base.Equals(obj)) { return true; }
+            if (((InstanciaDeEvaluacion)obj).Id == this.Id) { return true; }
+            return false;
+        }
+
     }
 }

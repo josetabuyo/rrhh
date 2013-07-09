@@ -6,14 +6,13 @@ using System.Text;
 namespace General
 {
     public class CalificacionNoNumerica:Calificacion
-    {
-        public override string Apreciacion { get; set; }
+    {  
         public override int Nota { get; set; }
-         public override string Descripcion  { get; set; }
+        public override string Descripcion  { get; set; }
 
-        public CalificacionNoNumerica(string apreciacion)
+        public CalificacionNoNumerica(string Descripcion )
         {
-            this.Apreciacion = apreciacion;
+            this.Descripcion = Descripcion;
         }
 
         
