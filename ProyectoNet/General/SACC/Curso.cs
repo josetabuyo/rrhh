@@ -213,14 +213,5 @@ namespace General
         //    this._evaluaciones_por_instancias.Values.ToList().ForEach(evaluaciones => todasLasEvaluaciones.AddRange(evaluaciones));
         //    return todasLasEvaluaciones;
         //}
-
-
-        //está bien esto??
-        public override bool Equals(object obj)
-        {
-            if (base.Equals(obj)) { return true; }
-            if (((Curso)obj).Id == this.Id) { return true; }
-            return false;
-        }
     }
 }
