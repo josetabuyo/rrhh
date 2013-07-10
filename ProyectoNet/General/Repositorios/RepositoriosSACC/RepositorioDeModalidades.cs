@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeModalidades
+    public class RepositorioDeModalidades : General.Repositorios.IRepositorioDeModalidades
     {
 
         public IConexionBD conexion_bd { get; set; }
@@ -23,7 +23,7 @@ namespace General.Repositorios
             List<InstanciaDeEvaluacion> instancias_de_evaluacion = new List<InstanciaDeEvaluacion>();
             int id_modalidad = 0;
             string descripcion_modalidad = "";
-            Modalidad modalidad_anterior = new Modalidad(tablaDatos.Rows.First().GetInt("IdModalidad"), tablaDatos.Rows.First().GetString("ModalidadDescripcion"));
+            Modalidad modalidad_anterior = new Modalidad(tablaDatos.Rows.First().GetInt("IdModalidad"), tablaDatos.Rows.First().GetString("ModalidadDescripcion"), instancias_de_evaluacion);
 
             tablaDatos.Rows.ForEach(row =>
             {
@@ -46,7 +46,7 @@ namespace General.Repositorios
 
                 }
 
-                modalidad_anterior = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
+                modalidad_anterior = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"), instancias_de_evaluacion);
 
             });
             Modalidad modalidad2 = new Modalidad(modalidad_anterior.Id, modalidad_anterior.Descripcion, instancias_de_evaluacion);
@@ -58,6 +58,11 @@ namespace General.Repositorios
         public Modalidad GetModalidadById(int idModalidad)
         {
             return GetModalidades().Find(m => m.Id == idModalidad);
+        }
+
+        public ModalidadNull ModalidadNull() 
+        {
+            return new ModalidadNull();
         }
 
     }

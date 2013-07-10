@@ -5,14 +5,16 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeEspaciosFisicos
+    public class RepositorioDeEspaciosFisicos : General.Repositorios.IRepositorioDeEspaciosFisicos
     {
-        private IConexionBD conexion_bd { get; set; }
-        public static List<EspacioFisico> espacios_fisicos { get; set; }
+        protected IConexionBD conexion_bd { get; set; }
+        protected static List<EspacioFisico> espacios_fisicos { get; set; }
+        protected IRepositorioDeCursos repo_cursos;
 
-        public RepositorioDeEspaciosFisicos(IConexionBD conexion)
+        public RepositorioDeEspaciosFisicos(IConexionBD conexion, IRepositorioDeCursos repo_cursos)
         {
             this.conexion_bd = conexion;
+            this.repo_cursos = repo_cursos;
         }
 
         public EspacioFisico GetEspacioFisicoById(int id)
@@ -158,7 +160,7 @@ namespace General.Repositorios
 
         public bool EspacioFisicoAsignadoACurso(EspacioFisico un_espacio_fisico)
         {
-            List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
+            List<Curso> cursos = repo_cursos.GetCursos();
             // aca pincha porque el espacio físico es null
             return cursos.Exists(c => c.EspacioFisico.Id == un_espacio_fisico.Id);
 

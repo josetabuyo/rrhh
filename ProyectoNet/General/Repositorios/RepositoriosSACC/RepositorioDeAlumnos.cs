@@ -5,20 +5,23 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeAlumnos
+    public class RepositorioDeAlumnos : General.Repositorios.IRepositorioDeAlumnos
     {
 
-        public IConexionBD conexion_bd { get; set; }
-        public static List<Alumno> alumnos { get; set; }
+        protected IConexionBD conexion_bd { get; set; }
+        protected static List<Alumno> alumnos { get; set; }
+        protected IRepositorioDeModalidades repo_modalidades;
+        protected IRepositorioDeCursos repo_cursos;
 
-        public RepositorioDeAlumnos(IConexionBD conexion)
+        public RepositorioDeAlumnos(IConexionBD conexion, IRepositorioDeCursos repo_cursos, IRepositorioDeModalidades repo_modalidades)
         {
-            this.conexion_bd = conexion;    
+            this.conexion_bd = conexion;
+            this.repo_modalidades = repo_modalidades;
+            this.repo_cursos = repo_cursos;
         }
 
         public List<Alumno> GetAlumnos()
         {
-            RepositorioDeModalidades repoModalidades = new RepositorioDeModalidades(conexion_bd);
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
             alumnos = new List<Alumno>();
 
@@ -41,7 +44,7 @@ namespace General.Repositorios
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
                     Areas = areas_alumno,
-                    Modalidad = repoModalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
+                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
                     Baja = baja
                 };
 
@@ -113,11 +116,11 @@ namespace General.Repositorios
                 var modaldidad = new Modalidad();
                 var baja = 0;
                 if (!(row.GetObject("IdModalidad") is DBNull))
-                    modaldidad = new Modalidad(row.GetInt("IdModalidad"), "");
+                    modaldidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad"));
 
                 if (!(row.GetObject("BajaAlumno") is DBNull)){
                     baja = row.GetInt("BajaAlumno");
-                    modaldidad = new Modalidad(0, "");
+                    modaldidad = repo_modalidades.ModalidadNull();
                 }
 
                 if (!(row.GetObject("BajaDocente") is DBNull))
@@ -192,7 +195,7 @@ namespace General.Repositorios
 
         public bool AlumnoAsignadoACurso(Alumno un_alumno)
         {
-            List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
+            List<Curso> cursos = repo_cursos.GetCursos();
             return cursos.Exists(c => c.Alumnos().Contains(un_alumno));
         }
 

@@ -12,8 +12,8 @@ namespace TestViaticos
     [TestClass]
     public class TestCalendarioDeCurso
     {
-        Curso unCursoDeUnDiaPorSemana = new Curso();
-        Curso unCursoDeDosDiasPorSemana = new Curso();
+        Curso unCursoDeUnDiaPorSemana = new Curso(TestObjects.MateriaCens(), TestObjects.Docente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today);
+        Curso unCursoDeDosDiasPorSemana = new Curso(TestObjects.MateriaCens(), TestObjects.Docente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today);
         CalendarioDeFeriados unCalendarioGlobal = new CalendarioDeFeriados();
         ManagerDeCalendarios managerDeCalendarios;
         CalendarioDeCurso elCalendarioDeMatematicas513;

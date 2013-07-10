@@ -18,6 +18,6 @@ public class PlanillaEvaluacionesDto
     public string MensajeError { get; set; }
     public Alumno[] Alumnos { get; set; }
     public EvaluacionDto[] Evaluaciones { get; set; }
-    public InstanciaEvaluacionDto[] Instancias { get; set; }
+    public InstanciaDeEvaluacion[] Instancias { get; set; }
     
 }

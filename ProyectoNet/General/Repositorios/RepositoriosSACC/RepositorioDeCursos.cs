@@ -6,11 +6,13 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeCursos
+    public class RepositorioDeCursos : General.Repositorios.IRepositorioDeCursos
     {
 
-        public IConexionBD conexion_bd { get; set; }
-        public static List<Curso> cursos { get; set; }
+        protected IConexionBD conexion_bd { get; set; }
+        protected static List<Curso> cursos { get; set; }
+
+
 
         public RepositorioDeCursos(IConexionBD conexion)
         {
@@ -41,14 +43,14 @@ namespace General.Repositorios
                 else
                 {
                     espacio_fisico =
-                        new RepositorioDeEspaciosFisicos(conexion_bd).GetEspacioFisicoById(espacio_fisico_id);
+                        new RepositorioDeEspaciosFisicos(conexion_bd, this).GetEspacioFisicoById(espacio_fisico_id);
                 }
 
-                Curso curso = new Curso
+                Curso curso = new Curso(row.GetSmallintAsInt("Id"), new RepositorioDeMaterias(conexion_bd, this, new RepositorioDeModalidades(conexion_bd)).GetMateriaById(row.GetSmallintAsInt("IdMateria")), docente, espacio_fisico, row.GetObject("FechaInicio") is DBNull ? new DateTime(DateTime.Now.Year, 1, 1) : row.GetDateTime("FechaInicio"), row.GetObject("FechaFin") is DBNull ? new DateTime(DateTime.Now.Year, 12, 1) : row.GetDateTime("FechaFin"))
                 {
                     Id = row.GetSmallintAsInt("Id"),
                     Docente = docente,
-                    Materia = new RepositorioDeMaterias(conexion_bd).GetMateriaById(row.GetSmallintAsInt("IdMateria")),
+                    Materia = new RepositorioDeMaterias(conexion_bd, this, new RepositorioDeModalidades(conexion_bd)).GetMateriaById(row.GetSmallintAsInt("IdMateria")),
                     EspacioFisico = espacio_fisico,
                     FechaInicio = row.GetObject("FechaInicio") is DBNull ? new DateTime(DateTime.Now.Year, 1,1) : row.GetDateTime("FechaInicio"),
                     FechaFin = row.GetObject("FechaFin") is DBNull ? new DateTime(DateTime.Now.Year, 12, 1) : row.GetDateTime("FechaFin"),
@@ -60,7 +62,7 @@ namespace General.Repositorios
                     curso.AgregarHorarioDeCursada(h);
                 }
                 var inscripciones = GetInscripcionesByIdCurso(row.GetSmallintAsInt("Id"));
-                var alumnos = new RepositorioDeAlumnos(conexion_bd).GetAlumnos();
+                var alumnos = new RepositorioDeAlumnos(conexion_bd, this, new RepositorioDeModalidades(conexion_bd)).GetAlumnos();
 
                 var alumnos_inscriptos = alumnos.FindAll(a =>
                 {
@@ -78,7 +80,7 @@ namespace General.Repositorios
 
         private Docente GetDocenteByIdCurso(int idCurso)
         {
-            var docente = new RepositorioDeDocentes(conexion_bd).GetDocenteById(idCurso);
+            var docente = new RepositorioDeDocentes(conexion_bd, this).GetDocenteById(idCurso);
             if (docente == null)
                 docente = new DocenteNull();
             return docente;
@@ -264,7 +266,7 @@ namespace General.Repositorios
         private List<Alumno> ObtenerAlumnosDelCurso(Curso curso)
         {
             var id_alumnos_de_la_base = GetInscripcionesByIdCurso(curso.Id);
-            var alumnos = new RepositorioDeAlumnos(conexion_bd).GetAlumnos();
+            var alumnos = new RepositorioDeAlumnos(conexion_bd, this, new RepositorioDeModalidades(conexion_bd)).GetAlumnos();
             var alumnos_en_la_base = alumnos.FindAll(a => id_alumnos_de_la_base.Contains(a.Id));
             return alumnos_en_la_base;
         }

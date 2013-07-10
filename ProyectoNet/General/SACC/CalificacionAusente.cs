@@ -14,6 +14,5 @@ namespace General
         {
             this.Descripcion = nota;
         }
-
     }
 }

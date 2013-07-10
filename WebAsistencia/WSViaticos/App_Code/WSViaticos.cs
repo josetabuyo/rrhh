@@ -909,7 +909,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         un_curso.Alumnos().ForEach(delegate(Alumno alumno)
         {
-            var detalle_evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCursoYAlumno(un_curso.Id, alumno.Id);//deberia devolver nota e instancias
+            var detalle_evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCursoYAlumno(un_curso, alumno);//deberia devolver nota e instancias
             //List<object> detalle_evaluacion_dto = new List<object>();
 
             //foreach (var d in detalle_evaluaciones)
@@ -1360,7 +1360,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GetMaterias()
     {
-        var materias = new RepositorioDeMaterias(Conexion()).GetMaterias();
+        var materias = RepositorioDeMaterias().GetMaterias();
         var materias_dto = new List<object>();
 
         if (materias.Count > 0)
@@ -1433,7 +1433,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool QuitarCurso(CursoDto curso, Usuario usuario)
     {
-        var un_curso = new Curso() { Docente = curso.Docente, Materia = curso.Materia, Id = curso.Id, EspacioFisico = curso.EspacioFisico };
+        var un_curso = new Curso(curso.Id, curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin));
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
@@ -1447,15 +1447,7 @@ public class WSViaticos : System.Web.Services.WebService
     public bool AgregarCurso(CursoDto curso)
     {
         var un_curso =
-            new Curso()
-            {
-                Docente = curso.Docente,
-                Materia = curso.Materia,
-                EspacioFisico = curso.EspacioFisico,
-                FechaInicio = DateTime.Parse(curso.FechaInicio),
-                FechaFin = DateTime.Parse(curso.FechaFin)
-
-            };
+            new Curso(curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin));
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
@@ -1469,14 +1461,8 @@ public class WSViaticos : System.Web.Services.WebService
     public bool ModificarCurso(CursoDto curso)
     {
         var un_curso =
-            new Curso()
+            new Curso(curso.Id, curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin))
             {
-                Id = curso.Id,
-                Docente = curso.Docente,
-                Materia = curso.Materia,
-                EspacioFisico = curso.EspacioFisico,
-                FechaInicio = DateTime.Parse(curso.FechaInicio),
-                FechaFin = DateTime.Parse(curso.FechaFin),
                 Observaciones = curso.Observaciones
             };
         var horarios = curso.Horarios;
@@ -1491,7 +1477,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GetPersonaByDNI(int dni, Usuario usuario)
     {
-        RepositorioDeAlumnos repo = new RepositorioDeAlumnos(Conexion());
+        RepositorioDeAlumnos repo = new RepositorioDeAlumnos(Conexion(), RepositorioDeCursos(), RepoModalidades());
         Alumno persona = repo.GetAlumnoByDNI(dni);
 
         Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
@@ -1566,7 +1552,7 @@ public class WSViaticos : System.Web.Services.WebService
     public string GetEspaciosFisicos(Usuario usuario)
     {
 
-        var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion()).GetEspaciosFisicos();
+        var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion(), RepositorioDeCursos()).GetEspaciosFisicos();
         var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
         var autorizador = new Autorizador();
 
@@ -1615,6 +1601,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         List<Evaluacion> evaluaciones = new List<Evaluacion>();
         List<EvaluacionDto> EvaluacionesDto = new List<EvaluacionDto>();
+        List<InstanciaDeEvaluacion> InstanciasDto = new List<InstanciaDeEvaluacion>();
 
         var Alumnos = evaluaciones.Select(e => e.Alumno).Distinct().ToArray();
         var Instancias = evaluaciones.Select(e => e.InstanciaEvaluacion).ToList();
@@ -1625,9 +1612,9 @@ public class WSViaticos : System.Web.Services.WebService
             CodigoError = 0,
             MensajeError = "",
             Alumnos = Alumnos,
-            Evaluaciones = EvaluacionesDto
+            Evaluaciones = EvaluacionesDto.ToArray()
             ,
-            Instancias = InstanciasDto
+            Instancias = InstanciasDto.ToArray()
         };
 
         return Planilla;
@@ -1635,7 +1622,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDeAlumnos RepoAlumnos()
     {
-        return new RepositorioDeAlumnos(Conexion());
+        return new RepositorioDeAlumnos(Conexion(), RepositorioDeCursos(), RepoModalidades());
     }
 
     private RepositorioDeModalidades RepoModalidades()
@@ -1650,7 +1637,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDeMaterias RepositorioDeMaterias()
     {
-        return new RepositorioDeMaterias(Conexion());
+        return new RepositorioDeMaterias(Conexion(), RepositorioDeCursos(), RepoModalidades());
     }
 
     private RepositorioDeCursos RepositorioDeCursos()
@@ -1660,7 +1647,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDeDocentes RepositorioDeDocentes()
     {
-        return new RepositorioDeDocentes(Conexion());
+        return new RepositorioDeDocentes(Conexion(), RepositorioDeCursos());
     }
 
     private RepositorioDeAsistencias RepoAsistencias()
@@ -1670,12 +1657,12 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDeEspaciosFisicos RepoEspaciosFisicos()
     {
-        return new RepositorioDeEspaciosFisicos(Conexion());
+        return new RepositorioDeEspaciosFisicos(Conexion(), RepositorioDeCursos());
     }
 
     private RepositorioDeEvaluacion RepoEvaluaciones()
     {
-        return new RepositorioDeEvaluacion(Conexion());
+        return new RepositorioDeEvaluacion(Conexion(), RepositorioDeCursos(), RepoAlumnos());
     }
 
 }

@@ -7,7 +7,6 @@ namespace General
 {
     public class CalificacionNull:Calificacion
     {
-
         public override int Nota { get; set; }
         public override string Descripcion { get; set; }
 
@@ -15,5 +14,6 @@ namespace General
         {
             this.Descripcion = nota;
         }
+
     }
 }
