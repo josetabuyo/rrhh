@@ -1596,6 +1596,30 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
+    [WebMethod]
+    public PlanillaEvaluacionesDto GetPlanillaEvaluaciones(int id_curso)
+    {
+        List<Evaluacion> evaluaciones = new List<Evaluacion>();
+        List<EvaluacionDto> EvaluacionesDto = new List<EvaluacionDto>();
+        List<InstanciaDeEvaluacion> InstanciasDto = new List<InstanciaDeEvaluacion>();
+
+        var Alumnos = evaluaciones.Select(e => e.Alumno).Distinct().ToArray();
+        var Instancias = evaluaciones.Select(e => e.InstanciaEvaluacion).ToList();
+        var Calificaciones = evaluaciones.Select(e => e.Calificacion).ToList();
+        
+        var Planilla = new PlanillaEvaluacionesDto()
+        {
+            CodigoError = 0,
+            MensajeError = "",
+            Alumnos = Alumnos,
+            Evaluaciones = EvaluacionesDto.ToArray()
+            ,
+            Instancias = InstanciasDto.ToArray()
+        };
+
+        return Planilla;
+    }
+
     private RepositorioDeAlumnos RepoAlumnos()
     {
         return new RepositorioDeAlumnos(Conexion(), RepositorioDeCursos(), RepoModalidades());

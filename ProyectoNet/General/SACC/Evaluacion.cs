@@ -20,7 +20,7 @@ namespace General
 
         public Evaluacion() { }
 
-         public Evaluacion(InstanciaDeEvaluacion instancia_evaluacion, Alumno alumno, Curso curso, Calificacion calificacion, DateTime fecha)
+        public Evaluacion(InstanciaDeEvaluacion instancia_evaluacion, Alumno alumno, Curso curso, Calificacion calificacion, DateTime fecha)
         {
             this._instanciaEvaluacion = instancia_evaluacion;
             this._calificacion = calificacion;
