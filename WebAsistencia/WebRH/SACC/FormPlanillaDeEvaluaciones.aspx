@@ -60,8 +60,8 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (respuestaJson) {
                     var respuesta = JSON.parse(respuestaJson.d);
-                    if (respuesta.MensajeError === null) {
-                        _this.dibujarGrilla(respuesta.Alumnos);
+                    if (respuesta.MensajeError === "") {
+                        _this.dibujarGrilla(respuesta);
                     }
                     else {
                         alert(respuesta.MensajeError);
@@ -85,7 +85,7 @@
 
             var grilla = new Grilla(columnas);
             grilla.CargarObjetos(pla.grilla());
-            grilla.DibujarEn(planilla);
+            grilla.DibujarEn($("#PlanillaEvaluaciones_ContenedorPlanilla"));
 	
 	            $(".fecha_evaluacion").change(function(fecha){
 		            if(!$(this).val())

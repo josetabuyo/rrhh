@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Xml.Serialization;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -1599,12 +1600,17 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public PlanillaEvaluacionesDto GetPlanillaEvaluaciones(int id_curso)
     {
-        List<Evaluacion> evaluaciones = new List<Evaluacion>();
-        List<EvaluacionDto> EvaluacionesDto = new List<EvaluacionDto>();
+        List <Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCurso(RepositorioDeCursos().GetCursoById(id_curso));
+        //List<EvaluacionDto> EvaluacionesDto = new List<EvaluacionDto>();
+        List<string> EvaluacionesDto = new List<string>();
         List<InstanciaDeEvaluacion> InstanciasDto = new List<InstanciaDeEvaluacion>();
+            
+        evaluaciones.ForEach(e =>{
+            EvaluacionesDto.Add(e.Calificacion.Descripcion.ToString());
+        });
 
         var Alumnos = evaluaciones.Select(e => e.Alumno).Distinct().ToArray();
-        var Instancias = evaluaciones.Select(e => e.InstanciaEvaluacion).ToList();
+        var Instancias = evaluaciones.Select(e => e.InstanciaEvaluacion).ToArray();
         var Calificaciones = evaluaciones.Select(e => e.Calificacion).ToList();
         
         var Planilla = new PlanillaEvaluacionesDto()
@@ -1612,9 +1618,8 @@ public class WSViaticos : System.Web.Services.WebService
             CodigoError = 0,
             MensajeError = "",
             Alumnos = Alumnos,
-            Evaluaciones = EvaluacionesDto.ToArray()
-            ,
-            Instancias = InstanciasDto.ToArray()
+            Evaluaciones = EvaluacionesDto.ToArray(),
+            Instancias = Instancias
         };
 
         return Planilla;

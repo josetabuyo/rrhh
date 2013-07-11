@@ -15,6 +15,9 @@ namespace General
             this.Descripcion = Descripcion;
         }
 
-        
+        public CalificacionNoNumerica()
+        {
+            this.Descripcion = string.Empty;
+        }
     }
 }

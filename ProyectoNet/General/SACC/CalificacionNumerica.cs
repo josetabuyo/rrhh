@@ -18,5 +18,10 @@ namespace General
             }
             this.Nota = unNumero;
         }
+        public CalificacionNumerica()
+        {
+            this.Descripcion = string.Empty;
+            this.Nota = 0;
+        }
     }
 }

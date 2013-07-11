@@ -29,7 +29,7 @@ namespace General.Repositorios
                     Evaluacion evaluacion = new Evaluacion{
 
                         InstanciaEvaluacion = new InstanciaDeEvaluacion(row.GetSmallintAsInt("idInstanciaEvaluacion"), row.GetString("DescripcionInstanciaEvaluacion")),
-                        Alumno = repo_alumnos.GetAlumnoByDNI(row.GetSmallintAsInt("idAlumno")),
+                        Alumno = repo_alumnos.GetAlumnos().Find(a => a.Id == row.GetSmallintAsInt("idAlumno")),
                         Curso = repo_cursos.GetCursoById(row.GetSmallintAsInt("idCurso")),
                         Calificacion = new CalificacionNoNumerica(row.GetString("Calificacion")),
                         Fecha = row.GetDateTime("FechaEvaluacion")
@@ -49,7 +49,7 @@ namespace General.Repositorios
         public List<Evaluacion> GetEvaluacionesPorCurso(Curso curso)
         {
             GetEvaluaciones();
-            return  this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Equals(curso));
+            return  this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Id.Equals(curso.Id));
         }
 
         public List<Evaluacion> GetEvaluacionesPorCursoEInstancia(Curso un_curso, InstanciaDeEvaluacion una_instancia_del_curso)
