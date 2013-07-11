@@ -31,7 +31,7 @@ namespace TestViaticos
 
                 IConexionBD conexion = TestObjects.ConexionMockeada();
 
-                Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new object[] { "dbo.LEG_GET_Imagenes_Asignadas_A_Documento", Is.Anything }).Will(Return.Value(resultado_sp_imagenes));
+                Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new object[] { "dbo.MODI_Imagenes_Asignadas_A_Documento", Is.Anything }).Will(Return.Value(resultado_sp_imagenes));
 
                 return new RepositorioDeLegajosEscaneados(mockearFileSystem(mock_filesystem_data.Keys.First(), mock_filesystem_data.Values.First()), conexion, "imagenes");
             }
