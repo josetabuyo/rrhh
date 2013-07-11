@@ -1541,7 +1541,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public RespuestaAPedidoDeLegajo GetLegajoParaDigitalizacion(int numero_documento)
     {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), "C:/ImagenesLegajos");
+        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
         var repositorio_legajos = new RepositorioDeLegajos(Conexion(), repo_imagenes);
         return repositorio_legajos.getLegajoPorDocumento(numero_documento);     
     }
@@ -1549,8 +1549,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public ImagenModi GetImagenSinAsignar(int legajo, string nombre_imagen)
     {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), "C:/ImagenesLegajos");
-        return repo_imagenes.getImagenSinAsignar(legajo, nombre_imagen);
+        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
+        return repo_imagenes.getImagenSinAsignarParaUnLegajo(legajo, nombre_imagen);
     }
 
 

@@ -30,6 +30,22 @@
     font-weight:bold;
 }
 
+.documento #panel_datos_documento
+{
+    display:inline-block;
+    width:49%;    
+    vertical-align: top;
+}
+
+.documento #panel_imagenes
+{
+    display:inline-block;
+    width:50%;      
+    border-left: 1px solid black;
+    height: 96px;
+    margin-bottom: -4px;
+}
+
 .imagen_miniatura
 {
     display:inline-block;   

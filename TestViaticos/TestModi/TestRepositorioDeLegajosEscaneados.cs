@@ -20,10 +20,21 @@ namespace TestViaticos
         IRepositorioDeLegajosEscaneados repo_imagenes;
         Dictionary<string, List<string>> mock_filesystem_data;
 
-        private IRepositorioDeLegajosEscaneados repo_de_imagenes()
+        private IRepositorioDeLegajosEscaneados repo_de_legajos_escaneados()
         {
             if (repo_imagenes == null)
-                return new RepositorioDeLegajosEscaneados(mockearFileSystem(mock_filesystem_data.Keys.First(), mock_filesystem_data.Values.First()), "imagenes");
+            {
+                string sourceImagenes = @"      nombre_imagen       |bytes_imagen
+                                                imagen1             |R0lGODlhUAAPAKIAAAsLav///88PD9WqsYmApmZmZtZfYmdakyH5BAQUAP8ALAAAAABQAA8AAAPbWLrc/jDKSVe4OOvNu/9gqARDSRBHegyGMahqO4R0bQcjIQ8E4BMCQc930JluyGRmdAAcdiigMLVrApTYWy5FKM1IQe+Mp+L4rphz+qIOBAUYeCY4p2tGrJZeH9y79mZsawFoaIRxF3JyiYxuHiMGb5KTkpFvZj4ZbYeCiXaOiKBwnxh4fnt9e3ktgZyHhrChinONs3cFAShFF2JhvCZlG5uchYNun5eedRxMAF15XEFRXgZWWdciuM8GCmdSQ84lLQfY5R14wDB5Lyon4ubwS7jx9NcV9/j5+g4JADs=
+                                                imagen2             |R0lGODlhUAAPAKIAAAsLav///88PD9WqsYmApmZmZtZfYmdakyH5BAQUAP8ALAAAAABQAA8AAAPbWLrc/jDKSVe4OOvNu/9gqARDSRBHegyGMahqO4R0bQcjIQ8E4BMCQc930JluyGRmdAAcdiigMLVrApTYWy5FKM1IQe+Mp+L4rphz+qIOBAUYeCY4p2tGrJZeH9y79mZsawFoaIRxF3JyiYxuHiMGb5KTkpFvZj4ZbYeCiXaOiKBwnxh4fnt9e3ktgZyHhrChinONs3cFAShFF2JhvCZlG5uchYNun5eedRxMAF15XEFRXgZWWdciuM8GCmdSQ84lLQfY5R14wDB5Lyon4ubwS7jx9NcV9/j5+g4JADs=";
+                var resultado_sp_imagenes = TablaDeDatos.From(sourceImagenes);
+
+                IConexionBD conexion = TestObjects.ConexionMockeada();
+
+                Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new object[] { "dbo.LEG_GET_Imagenes_Asignadas_A_Documento", Is.Anything }).Will(Return.Value(resultado_sp_imagenes));
+
+                return new RepositorioDeLegajosEscaneados(mockearFileSystem(mock_filesystem_data.Keys.First(), mock_filesystem_data.Values.First()), conexion, "imagenes");
+            }
             return repo_imagenes;
         }
 
@@ -47,7 +58,7 @@ namespace TestViaticos
                                                                 "imagenes/205939/imagen2.jpg", 
                                                                 "imagenes/205939/imagen3.jpg" }}};
 
-            var imagenes = repo_de_imagenes().getThumbnailsParaUnLegajo(205939);
+            var imagenes = repo_de_legajos_escaneados().getThumbnailsDeImagenesSinAsignarParaUnLegajo(205939);
 
             Assert.AreEqual(3, imagenes.Count());
         }
@@ -58,8 +69,19 @@ namespace TestViaticos
             mock_filesystem_data = new Dictionary<string, List<string>>() {{ "imagenes/203404", new List<string>() { "imagenes/205939/imagen1.jpg", 
                                                                 "imagenes/205939/imagen2.jpg" }}};
 
-            var imagenes = repo_de_imagenes().getThumbnailsParaUnLegajo(203404);
+            var imagenes = repo_de_legajos_escaneados().getThumbnailsDeImagenesSinAsignarParaUnLegajo(203404);
             
+            Assert.AreEqual(2, imagenes.Count());
+        }
+
+        [TestMethod]
+        public void deberia_poder_obtener_una_lista_con_2_imagenes_del_repositorio_para_el_documento_1_de_la_tabla_curriculums()
+        {
+            mock_filesystem_data = new Dictionary<string, List<string>>() {{ "imagenes/203404", new List<string>() { "imagenes/205939/imagen1.jpg", 
+                                                                "imagenes/205939/imagen2.jpg" }}};
+
+            var imagenes = repo_de_legajos_escaneados().getThumbnailsDeImagenesAsignadasAlDocumento("curriculums", 1);
+
             Assert.AreEqual(2, imagenes.Count());
         }
 
@@ -68,7 +90,7 @@ namespace TestViaticos
         {
             mock_filesystem_data = new Dictionary<string, List<string>>() {{ "imagenes/203404", new List<string>() { "imagenes/205939/imagen1.jpg" }}};
 
-            var imagenes = repo_de_imagenes().getThumbnailsParaUnLegajo(203404);
+            var imagenes = repo_de_legajos_escaneados().getThumbnailsDeImagenesSinAsignarParaUnLegajo(203404);
             
             Assert.IsTrue(imagenes.Any(imagen => imagen.nombre == "imagen1"));
         }

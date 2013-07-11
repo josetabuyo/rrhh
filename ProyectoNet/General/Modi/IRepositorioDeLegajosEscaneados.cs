@@ -7,6 +7,7 @@ namespace General.Modi
 {
     public interface  IRepositorioDeLegajosEscaneados
     {
-        List<ThumbnailImagenModi> getThumbnailsParaUnLegajo(int legajo);
+        List<ThumbnailImagenModi> getThumbnailsDeImagenesSinAsignarParaUnLegajo(int legajo);
+        List<ThumbnailImagenModi> getThumbnailsDeImagenesAsignadasAlDocumento(string tabla, int id);
     }
 }

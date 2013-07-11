@@ -42,7 +42,8 @@ namespace TestViaticos
             lista_imagenes.Add(new ThumbnailImagenModi("imagen_1"));
             lista_imagenes.Add(new ThumbnailImagenModi("imagen_2"));
 
-            Expect.AtLeastOnce.On(mock_repo_imagenes).Method("getThumbnailsParaUnLegajo").WithAnyArguments().Will(Return.Value(lista_imagenes));
+            Expect.AtLeastOnce.On(mock_repo_imagenes).Method("getThumbnailsDeImagenesSinAsignarParaUnLegajo").WithAnyArguments().Will(Return.Value(lista_imagenes));
+            Expect.AtLeastOnce.On(mock_repo_imagenes).Method("getThumbnailsDeImagenesAsignadasAlDocumento").WithAnyArguments().Will(Return.Value(lista_imagenes));
 
             repositorioDeLegajos = new RepositorioDeLegajos(conexion, mock_repo_imagenes);
 
@@ -113,6 +114,13 @@ namespace TestViaticos
             RespuestaAPedidoDeLegajo legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
             Assert.IsTrue(legajo_de_jorge.documentos.Any(un_documento => un_documento.tabla == "curriculums" && un_documento.id == 221));
             Assert.AreEqual("OK", legajo_de_jorge.codigoDeResultado);
+        }
+
+        [TestMethod]
+        public void todos_los_documentos_del_legajo_de_jorge_deberian_tener_asignadas_2_imagenes()
+        {
+            RespuestaAPedidoDeLegajo legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
+            Assert.IsTrue(legajo_de_jorge.documentos.All(un_documento => un_documento.thumbnailsImagenesAsignadas.Count == 2));
         }
 
         [TestMethod]

@@ -26,7 +26,8 @@ VistaDeResultadosDeLegajos.prototype.mostrarLegajo = function (legajo) {
     for (var i = 0; i < legajo.documentos.length; i++) {
         var vista_documento = new VistaDeDocumentoModi({
             ui: this.o.plantilla_vista_documento.clone(),
-            documento: legajo.documentos[i]
+            documento: legajo.documentos[i],
+            plantilla_vista_imagen: this.o.plantilla_vista_imagen
         });
         this.vistasDeDocumentos.push(vista_documento);
         vista_documento.dibujarEn(this.panel_documentos);

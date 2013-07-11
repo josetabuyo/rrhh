@@ -46,7 +46,7 @@ namespace General.Modi
 
         private List<ThumbnailImagenModi> imagenesPara(RespuestaAPedidoDeLegajo legajo)
         {
-            return this.repositorio_de_imagenes.getThumbnailsParaUnLegajo(legajo.idInterna);
+            return this.repositorio_de_imagenes.getThumbnailsDeImagenesSinAsignarParaUnLegajo(legajo.idInterna);
             //return new List<ImagenModi>();
         }
 
@@ -56,10 +56,15 @@ namespace General.Modi
             parametros.Add("@id", legajo.idInterna);
             parametros.Add("@legajo", legajo.idInterna);
             var tablaDocumentos = conexion.Ejecutar("dbo.LEG_GET_Indice_Documentos", parametros);
-            return GetDocumentosFromTabla(tablaDocumentos);
+            var documentos =  GetDocumentosFromTabla(tablaDocumentos);
+
+            documentos.ForEach(doc =>
+            {
+                var thumbnails = this.repositorio_de_imagenes.getThumbnailsDeImagenesAsignadasAlDocumento(doc.tabla, doc.id);
+                doc.thumbnailsImagenesAsignadas.AddRange(thumbnails);
+            });
+            return documentos;
         }
-
-
 
 
         private List<DocumentoModi> GetDocumentosFromTabla(TablaDeDatos tablaDocumentos)

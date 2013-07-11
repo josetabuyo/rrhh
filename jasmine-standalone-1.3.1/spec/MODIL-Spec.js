@@ -88,6 +88,7 @@ describe("Tengo una vista de legajos", function () {
         plantilla_vista_documento.append($('<label id="lbl_fechaDesde">'));
         plantilla_vista_documento.append($('<label id="lbl_tabla">'));
         plantilla_vista_documento.append($('<label id="lbl_id">'));
+        plantilla_vista_documento.append($('<div id="panel_imagenes">'));
 
         var plantilla_vista_imagen = $('<div class="imagen">');
         plantilla_vista_imagen.append($('<label id="lbl_nombre">'));
@@ -113,9 +114,9 @@ describe("Tengo una vista de legajos", function () {
             nombre: "jorge",
             apellido: "Silva",
             documentos: [
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" }
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] }
             ],
             imagenesSinAsignar: []
         };
@@ -129,9 +130,9 @@ describe("Tengo una vista de legajos", function () {
             nombre: "jorge",
             apellido: "Silva",
             documentos: [
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" }
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] }
             ],
             imagenesSinAsignar: []
         };
@@ -145,14 +146,32 @@ describe("Tengo una vista de legajos", function () {
         expect(lbl_folio.text()).toEqual("0011-2");
     });
 
+    it("Los documentos deberian visualizarse con las miniaturas de sus imagenes asignadas", function () {
+        var un_legajo = {
+            nombre: "jorge",
+            apellido: "Silva",
+            documentos: [
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [{nombre:"Imagen_1", bytesImagen:"R0lGODlhUAAPAKIAAAsLav///88PD9WqsYmApmZmZtZfYmdakyH5BAQUAP8ALAAAAABQAA8AAAPbWLrc/jDKSVe4OOvNu/9gqARDSRBHegyGMahqO4R0bQcjIQ8E4BMCQc930JluyGRmdAAcdiigMLVrApTYWy5FKM1IQe+Mp+L4rphz+qIOBAUYeCY4p2tGrJZeH9y79mZsawFoaIRxF3JyiYxuHiMGb5KTkpFvZj4ZbYeCiXaOiKBwnxh4fnt9e3ktgZyHhrChinONs3cFAShFF2JhvCZlG5uchYNun5eedRxMAF15XEFRXgZWWdciuM8GCmdSQ84lLQfY5R14wDB5Lyon4ubwS7jx9NcV9/j5+g4JADs="}] },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] }
+            ],
+            imagenesSinAsignar: []
+        };
+        vista_legajos.mostrarLegajo(un_legajo);
+        var div_primer_documento = $(panel_documentos.children()[0]);
+
+        var panel_imagenes = div_primer_documento.find("#panel_imagenes");
+        expect(panel_imagenes.find(".imagen").length).toEqual(1);
+    });
+
     it("Al refrescar una vista de un legajo, debería recargar los documentos, no sumar los nuevos", function () {
         var un_legajo = {
             nombre: "jorge",
             apellido: "Silva",
             documentos: [
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" }
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] }
             ],
             imagenesSinAsignar: []
         };
@@ -168,9 +187,9 @@ describe("Tengo una vista de legajos", function () {
             nombre: "jorge",
             apellido: "Silva",
             documentos: [
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" }
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] }
             ],
             imagenesSinAsignar: [
                 { nombre: "imagen_1" },
@@ -192,9 +211,9 @@ describe("Tengo una vista de legajos", function () {
             nombre: "jorge",
             apellido: "Silva",
             documentos: [
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" },
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" }
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] }
             ],
             imagenesSinAsignar: [
                 { nombre: "imagen_1" },
@@ -215,7 +234,7 @@ describe("Tengo una vista de legajos", function () {
             apellido: "Silva",
             idInterna: "111111",
             documentos: [
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" }
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] }
             ],
             imagenesSinAsignar: [
                 { nombre: "imagen_1" }
@@ -236,7 +255,7 @@ describe("Tengo una vista de legajos", function () {
             nombre: "jorge",
             apellido: "Silva",
             documentos: [
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1" }
+                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] }
             ],
             imagenesSinAsignar: [
                 { nombre: "imagen_1" }
