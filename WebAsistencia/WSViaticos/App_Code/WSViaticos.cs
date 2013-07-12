@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Xml.Serialization;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -1599,22 +1600,33 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public PlanillaEvaluacionesDto GetPlanillaEvaluaciones(int id_curso)
     {
-        List<Evaluacion> evaluaciones = new List<Evaluacion>();
+        List <Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCurso(RepositorioDeCursos().GetCursoById(id_curso));
+        Curso curso = RepositorioDeCursos().GetCursoById(id_curso);
         List<EvaluacionDto> EvaluacionesDto = new List<EvaluacionDto>();
+        //List<string> EvaluacionesDto = new List<string>();
         List<InstanciaDeEvaluacion> InstanciasDto = new List<InstanciaDeEvaluacion>();
+            
+        evaluaciones.ForEach(e =>{
+            EvaluacionesDto.Add(new EvaluacionDto()
+            {
+                Id = e.InstanciaEvaluacion.Id,
+                IdAlumno = e.Alumno.Id,
+                IdCurso = e.Curso.Id,
+                Calificacion = e.Calificacion.Descripcion
+            }); //.Calificacion.Descripcion.ToString());
+        });
 
-        var Alumnos = evaluaciones.Select(e => e.Alumno).Distinct().ToArray();
-        var Instancias = evaluaciones.Select(e => e.InstanciaEvaluacion).ToList();
-        var Calificaciones = evaluaciones.Select(e => e.Calificacion).ToList();
+        var alumnos = curso.Alumnos().ToArray(); //evaluaciones.Select(e => e.Alumno).Distinct().ToArray();
+        var Instancias = evaluaciones.Select(e => e.InstanciaEvaluacion).ToArray();
+        var Calificaciones = evaluaciones.Select(e => e.Calificacion.Descripcion).ToList();
         
         var Planilla = new PlanillaEvaluacionesDto()
         {
             CodigoError = 0,
             MensajeError = "",
-            Alumnos = Alumnos,
-            Evaluaciones = EvaluacionesDto.ToArray()
-            ,
-            Instancias = InstanciasDto.ToArray()
+            Alumnos = alumnos,
+            Evaluaciones = EvaluacionesDto.ToArray(),
+            Instancias = Instancias
         };
 
         return Planilla;

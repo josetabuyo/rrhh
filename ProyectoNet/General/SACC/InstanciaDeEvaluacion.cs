@@ -19,7 +19,6 @@ namespace General
             this.Descripcion = descripcion;
         }
 
-        //está bien esto?
         public override bool Equals(object obj)
         {
             if (base.Equals(obj)) { return true; }

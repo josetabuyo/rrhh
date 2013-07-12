@@ -18,7 +18,7 @@
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../Scripts/ControlEvaluacion.js"></script>
+    <script type="text/javascript" src="planilla_ingreso.js"></script>
     <style>
     .date_picker {
         width: 80px;
@@ -32,7 +32,7 @@
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
-    <div id="DivContenedor" runat="server" style="margin:10px;">
+    <div id="DivContenedor" runat="server" class="div_izquierdo" style="margin:10px;">
         <label>Curso:&nbsp;</label>
         <select id="CmbCurso" onchange="javascript:admin_planilla.cargarPlanilla(this.value);" runat="server">
             <option value="0">Seleccione</option>
@@ -60,8 +60,8 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (respuestaJson) {
                     var respuesta = JSON.parse(respuestaJson.d);
-                    if (respuesta.MensajeError === null) {
-                        _this.dibujarGrilla(respuesta.Alumnos);
+                    if (respuesta.MensajeError === "") {
+                        _this.dibujarGrilla(respuesta);
                     }
                     else {
                         alert(respuesta.MensajeError);
@@ -76,15 +76,27 @@
             alert("Guardar Planilla");
         };
         _this.dibujarGrilla = function (planilla) {
+            
+            var pla = new Planilla(planilla);
+            var columnas = []
+            columnas.push(new Columna("Nombre", {generar: function(fila){ return fila.alumno;}}));
+            columnas.push(new Columna("Calificación", {generar: function(fila){ return fila.calificacion;}}));
+            columnas.push(new Columna(pla.instancia.html(), {generar: function(fila){return fila.fecha;}}));
 
-            var planilla = $("#PlanillaEvaluaciones_ContenedorPlanilla");
-            planilla.html("");
-            planilla.append(new InstanciaDeEvaluacion({ "id": 1, "nombre": "Primer Parcial", "fecha": "23/06/2013" }).html());
-            for (var i = 0; i < 10; i++) {
-                var evaluacion = { "id": i, "calificacion": Math.ceil(10 * Math.random()), "fecha": "23/06/2013" };
-                var ev = new Evaluacion(evaluacion);
-                planilla.append(ev.html());
-            }
+            var grilla = new Grilla(columnas);
+            grilla.CargarObjetos(pla.grilla());
+            grilla.DibujarEn($("#PlanillaEvaluaciones_ContenedorPlanilla"));
+	
+	            $(".fecha_evaluacion").change(function(fecha){
+		            if(!$(this).val())
+			            this.val(fecha);
+	            });	
+	
+            $("#btn").click(function(){
+	            $(".fecha_evaluacion").val($(".fecha_instancia").val());
+            });
+
+            
         }
     }
     $(document).ready(function () {

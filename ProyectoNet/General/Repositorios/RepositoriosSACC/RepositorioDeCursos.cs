@@ -30,41 +30,54 @@ namespace General.Repositorios
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Cursos");
             cursos = new List<Curso>();
             EspacioFisico espacio_fisico;
+            List<EspacioFisico> todos_los_espacios_fisicos = new RepositorioDeEspaciosFisicos(conexion_bd, this).GetEspaciosFisicos();
+            RepositorioDeModalidades repo_modalidades = new RepositorioDeModalidades(conexion_bd);
+            RepositorioDeMaterias repo_materias = new RepositorioDeMaterias(conexion_bd, this, repo_modalidades);
+            List<Materia> todas_las_materias = new RepositorioDeMaterias(conexion_bd, this, repo_modalidades).GetMaterias();
+            List<Alumno> todos_los_alumnos = new RepositorioDeAlumnos(conexion_bd, this, repo_modalidades).GetAlumnos();
+            List<Docente> todos_los_docentes = new RepositorioDeDocentes(conexion_bd, this).GetDocentes();
+            var tabla_con_todos_los_horarios = conexion_bd.Ejecutar("dbo.SACC_Get_Horarios");
+            var horarios = new List<HorarioDeCursada>();
 
             tablaDatos.Rows.ForEach(row =>
             {
-                var docente = GetDocenteByIdCurso(row.GetSmallintAsInt("IdDocente"));
+                //DOCENTE
+                var docente = todos_los_docentes.Find(d => d.Id == row.GetSmallintAsInt("IdDocente"));
+                if (docente == null)
+                    docente = new DocenteNull();                
+                
+                //ESPACIO FÍSICO
                 var espacio_fisico_id = row.GetSmallintAsInt("IdEspacioFisico"); 
-
                 if (espacio_fisico_id == 0)
-                {
-                    espacio_fisico = new EspacioFisicoNull();
-                }
+                {espacio_fisico = new EspacioFisicoNull();}
                 else
+                { espacio_fisico = todos_los_espacios_fisicos.Find(ef => ef.Id == espacio_fisico_id);}
+                
+                //CURSO
+                Curso curso = new Curso(row.GetSmallintAsInt("Id"), todas_las_materias.Find(m => m.Id == row.GetSmallintAsInt("IdMateria")), docente, espacio_fisico, row.GetObject("FechaInicio") is DBNull ? new DateTime(DateTime.Now.Year, 1, 1) : row.GetDateTime("FechaInicio"), row.GetObject("FechaFin") is DBNull ? new DateTime(DateTime.Now.Year, 12, 1) : row.GetDateTime("FechaFin"));
+                
+                //HORARIOS
+                tabla_con_todos_los_horarios.Rows.ForEach(row_horarios =>
                 {
-                    espacio_fisico =
-                        new RepositorioDeEspaciosFisicos(conexion_bd, this).GetEspacioFisicoById(espacio_fisico_id);
-                }
+                    var hora_desde = FormatHora(row_horarios.GetString("Desde"));
+                    var hora_hasta = FormatHora(row_horarios.GetString("Hasta"));
+                    var horas_catedra = row_horarios.GetSmallintAsInt("HorasCatedra");
+                    var nro_dia = (DayOfWeek)row_horarios.GetSmallintAsInt("NroDiaSemana");
+                    HorarioDeCursada horario = new HorarioDeCursada(nro_dia, hora_desde, hora_hasta, horas_catedra);
+                    if (row_horarios.GetSmallintAsInt("idCurso") == row.GetSmallintAsInt("Id"))
+                        horarios.Add(horario);
+                });
 
-                Curso curso = new Curso(row.GetSmallintAsInt("Id"), new RepositorioDeMaterias(conexion_bd, this, new RepositorioDeModalidades(conexion_bd)).GetMateriaById(row.GetSmallintAsInt("IdMateria")), docente, espacio_fisico, row.GetObject("FechaInicio") is DBNull ? new DateTime(DateTime.Now.Year, 1, 1) : row.GetDateTime("FechaInicio"), row.GetObject("FechaFin") is DBNull ? new DateTime(DateTime.Now.Year, 12, 1) : row.GetDateTime("FechaFin"))
-                {
-                    Id = row.GetSmallintAsInt("Id"),
-                    Docente = docente,
-                    Materia = new RepositorioDeMaterias(conexion_bd, this, new RepositorioDeModalidades(conexion_bd)).GetMateriaById(row.GetSmallintAsInt("IdMateria")),
-                    EspacioFisico = espacio_fisico,
-                    FechaInicio = row.GetObject("FechaInicio") is DBNull ? new DateTime(DateTime.Now.Year, 1,1) : row.GetDateTime("FechaInicio"),
-                    FechaFin = row.GetObject("FechaFin") is DBNull ? new DateTime(DateTime.Now.Year, 12, 1) : row.GetDateTime("FechaFin"),
-                    Observaciones = row.GetString("Observaciones")
-                };
-                var horarios = GetHorariosByIdCurso(row.GetSmallintAsInt("Id"));
                 foreach (var h in horarios)
                 {
                     curso.AgregarHorarioDeCursada(h);
                 }
-                var inscripciones = GetInscripcionesByIdCurso(row.GetSmallintAsInt("Id"));
-                var alumnos = new RepositorioDeAlumnos(conexion_bd, this, new RepositorioDeModalidades(conexion_bd)).GetAlumnos();
+                horarios.Clear();
 
-                var alumnos_inscriptos = alumnos.FindAll(a =>
+                //INSCRIPCIONES
+                var inscripciones = GetInscripcionesByIdCurso(row.GetSmallintAsInt("Id"));
+
+                var alumnos_inscriptos = todos_los_alumnos.FindAll(a =>
                 {
                     return inscripciones.Contains(a.Id);
                 });
@@ -78,30 +91,6 @@ namespace General.Repositorios
             return cursos;
         }
 
-        private Docente GetDocenteByIdCurso(int idCurso)
-        {
-            var docente = new RepositorioDeDocentes(conexion_bd, this).GetDocenteById(idCurso);
-            if (docente == null)
-                docente = new DocenteNull();
-            return docente;
-        }
-
-        private List<HorarioDeCursada> GetHorariosByIdCurso(int id_curso)
-        {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Horarios");
-            var horarios = new List<HorarioDeCursada>();
-            tablaDatos.Rows.ForEach(row =>
-            {
-                var hora_desde = FormatHora(row.GetString("Desde"));
-                var hora_hasta = FormatHora(row.GetString("Hasta"));
-                var horas_catedra = row.GetSmallintAsInt("HorasCatedra");
-                var nro_dia = (DayOfWeek)row.GetSmallintAsInt("NroDiaSemana");
-                HorarioDeCursada horario = new HorarioDeCursada(nro_dia, hora_desde, hora_hasta, horas_catedra);
-                if (row.GetSmallintAsInt("idCurso") == id_curso)
-                    horarios.Add(horario);
-            });
-            return horarios;
-        }
 
         private string FormatHora(string hora)
         {
