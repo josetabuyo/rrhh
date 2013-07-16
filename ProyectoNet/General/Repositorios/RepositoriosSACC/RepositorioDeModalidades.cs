@@ -9,6 +9,8 @@ namespace General.Repositorios
     {
 
         public IConexionBD conexion_bd { get; set; }
+        List<Modalidad> modalidades = new List<Modalidad>();
+
        
 
         public RepositorioDeModalidades(IConexionBD conexion)

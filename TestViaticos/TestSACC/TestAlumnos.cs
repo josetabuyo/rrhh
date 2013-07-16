@@ -54,6 +54,15 @@ namespace TestViaticos
         [TestMethod]
         public void cuando_un_alumno_pertenece_a_3_areas_deberia_pedirle_las_areas_y_devolverme_3()
         {
+
+            Modalidad modalidad = TestObjects.ModalidadFinesPuro();
+            
+            List<Modalidad> modalidades = new List<Modalidad>();
+            modalidades.Add(modalidad);
+            Expect.AtLeastOnce.On(TestObjects.RepoModalidadesMockeado()).Method("GetModalidades").WithAnyArguments().Will(Return.Value(modalidades));
+           
+            
+            
             string source = @"      |Id     |Documento   |Apellido     |Nombre     |Telefono      |Mail     |Direccion  |IdModalidad  |ModalidadDescripcion |idInstancia    |DescripcionInstancia   |IdArea |NombreArea                         |IdBaja
                                     |01     |31507315    |Cevey        |Belén      |A111          |belen@ar |Calle      |1            |fines                |1              |Primer Parcial         |0      |Ministerio de Desarrollo Social    |0
                                     |02     |31041236    |Caino        |Fernando   |A222          |fer@ar   |Av         |1            |fines                |1              |Primer Parcial         |1      |Unidad Ministrio                   |0

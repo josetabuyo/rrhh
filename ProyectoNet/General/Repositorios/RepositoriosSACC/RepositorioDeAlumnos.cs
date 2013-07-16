@@ -24,6 +24,7 @@ namespace General.Repositorios
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
             alumnos = new List<Alumno>();
+            var todas_las_modalidades = repo_modalidades.GetModalidades();
 
             tablaDatos.Rows.ForEach(row =>
             {               
@@ -44,7 +45,7 @@ namespace General.Repositorios
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
                     Areas = areas_alumno,
-                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
+                    Modalidad = todas_las_modalidades.Find(m => m.Id == row.GetInt("IdModalidad")),                  
                     Baja = baja
                 };
 
