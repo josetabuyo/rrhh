@@ -1434,7 +1434,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool QuitarCurso(CursoDto curso, Usuario usuario)
     {
-        var un_curso = new Curso(curso.Id, curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin));
+        var un_curso = new Curso(curso.Id, curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin), curso.Observaciones);
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
@@ -1448,7 +1448,7 @@ public class WSViaticos : System.Web.Services.WebService
     public bool AgregarCurso(CursoDto curso)
     {
         var un_curso =
-            new Curso(curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin));
+            new Curso(curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin), curso.Observaciones);
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
@@ -1462,7 +1462,7 @@ public class WSViaticos : System.Web.Services.WebService
     public bool ModificarCurso(CursoDto curso)
     {
         var un_curso =
-            new Curso(curso.Id, curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin))
+            new Curso(curso.Id, curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin), curso.Observaciones)
             {
                 Observaciones = curso.Observaciones
             };

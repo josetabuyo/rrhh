@@ -38,6 +38,8 @@ namespace General.Repositorios
             List<Docente> todos_los_docentes = new RepositorioDeDocentes(conexion_bd, this).GetDocentes();
             var tabla_con_todos_los_horarios = conexion_bd.Ejecutar("dbo.SACC_Get_Horarios");
             var horarios = new List<HorarioDeCursada>();
+            var tabla_con_todas_las_inscripciones = conexion_bd.Ejecutar("dbo.SACC_Get_Inscripciones");
+            var inscripciones = new List<int>();
 
             tablaDatos.Rows.ForEach(row =>
             {
@@ -54,7 +56,14 @@ namespace General.Repositorios
                 { espacio_fisico = todos_los_espacios_fisicos.Find(ef => ef.Id == espacio_fisico_id);}
                 
                 //CURSO
-                Curso curso = new Curso(row.GetSmallintAsInt("Id"), todas_las_materias.Find(m => m.Id == row.GetSmallintAsInt("IdMateria")), docente, espacio_fisico, row.GetObject("FechaInicio") is DBNull ? new DateTime(DateTime.Now.Year, 1, 1) : row.GetDateTime("FechaInicio"), row.GetObject("FechaFin") is DBNull ? new DateTime(DateTime.Now.Year, 12, 1) : row.GetDateTime("FechaFin"));
+                Curso curso = new Curso
+                    (row.GetSmallintAsInt("Id"), 
+                    todas_las_materias.Find(m => m.Id == row.GetSmallintAsInt("IdMateria")), 
+                    docente, 
+                    espacio_fisico, 
+                    row.GetObject("FechaInicio") is DBNull ? new DateTime(DateTime.Now.Year, 1, 1) : row.GetDateTime("FechaInicio"), 
+                    row.GetObject("FechaFin") is DBNull ? new DateTime(DateTime.Now.Year, 12, 1) : row.GetDateTime("FechaFin"),
+                    row.GetString("Observaciones"));
                 
                 //HORARIOS
                 tabla_con_todos_los_horarios.Rows.ForEach(row_horarios =>
@@ -75,12 +84,19 @@ namespace General.Repositorios
                 horarios.Clear();
 
                 //INSCRIPCIONES
-                var inscripciones = GetInscripcionesByIdCurso(row.GetSmallintAsInt("Id"));
+                tabla_con_todas_las_inscripciones.Rows.ForEach(row_inscripciones =>
+                {
+                    if (row_inscripciones.GetSmallintAsInt("IdCurso") == row.GetSmallintAsInt("Id"))
+                    {
+                        inscripciones.Add(row_inscripciones.GetInt("IdAlumno"));
+                    }
+                });
 
                 var alumnos_inscriptos = todos_los_alumnos.FindAll(a =>
                 {
                     return inscripciones.Contains(a.Id);
                 });
+                inscripciones.Clear();
 
                 curso.AgregarAlumnos(alumnos_inscriptos);
 

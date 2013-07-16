@@ -1055,7 +1055,7 @@ namespace General
 
         public static Curso UnCursoConAlumnos()
         {
-            Curso un_curso = new Curso(14, MateriaCens(), Docente(), EspacioFisico(), DateTime.Today, DateTime.Today);
+            Curso un_curso = new Curso(14, MateriaCens(), Docente(), EspacioFisico(), DateTime.Today, DateTime.Today, "");
             un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
             un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro()));
             un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
@@ -1076,7 +1076,7 @@ namespace General
         public static Curso UnCursoConAlumnosYMateriaPura()
         {
 
-            Curso un_curso = new Curso(MateriaPuro(), Docente(), EspacioFisico(), DateTime.Today, DateTime.Today);
+            Curso un_curso = new Curso(MateriaPuro(), Docente(), EspacioFisico(), DateTime.Today, DateTime.Today, "");
 
 
             un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
@@ -1127,15 +1127,15 @@ namespace General
             Edificio moreno = new Edificio(2, "Moreno", "moreno", new Area(939, "Secretaria de Coordinacion y Monitoreo"));
             Edificio cenard = new Edificio(3, "Cenard", "Libertador", new Area(621, "Secretaria de Deporte"));
 
-            Curso curso_uno = new Curso(1, MateriaCens(), Docente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today);
+            Curso curso_uno = new Curso(1, MateriaCens(), Docente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today, "");
             curso_uno.EspacioFisico = espacio_fisico1;
             curso_uno.EspacioFisico.Edificio = julio_de_9;
             cursos.Add(curso_uno);
-            Curso curso_dos = new Curso(2, MateriaCens(), Docente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today);
+            Curso curso_dos = new Curso(2, MateriaCens(), Docente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today, "");
             curso_dos.EspacioFisico = espacio_fisico2;
             curso_dos.EspacioFisico.Edificio = moreno;
             cursos.Add(curso_dos);
-            Curso curso_tres = new Curso(3, MateriaCens(), Docente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today);
+            Curso curso_tres = new Curso(3, MateriaCens(), Docente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today, "");
             curso_tres.EspacioFisico = espacio_fisico3;
             curso_tres.EspacioFisico.Edificio = cenard;
             cursos.Add(curso_tres);
@@ -1190,6 +1190,13 @@ namespace General
         {
             return new Alumno(9, "Ana", "Ran", 28000951, "", "", "", new List<Area>() { new Area(1, "Ministerio") }, ModalidadFinesPuro());
         }
+
+        public static Alumno AlumnoDelCurso()
+        {
+            return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro());
+        }
+        
+        
 
 
         public static InstanciaDeEvaluacion PrimerParcial()

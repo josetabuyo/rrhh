@@ -44,7 +44,7 @@ namespace General.Repositorios
         public List<Evaluacion> GetEvaluacionesPorCursoYAlumno(Curso curso, Alumno alumno)
         {
             GetEvaluaciones();
-            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Equals(curso) && evaluaciones.Alumno.Equals(alumno));
+            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Id.Equals(curso.Id) && evaluaciones.Alumno.Id.Equals(alumno.Id));
         }
 
         public List<Evaluacion> GetEvaluacionesPorCurso(Curso curso)
@@ -56,26 +56,26 @@ namespace General.Repositorios
         public List<Evaluacion> GetEvaluacionesPorCursoEInstancia(Curso un_curso, InstanciaDeEvaluacion una_instancia_del_curso)
         {
             GetEvaluaciones();
-            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Equals(un_curso) && evaluaciones.InstanciaEvaluacion.Equals(una_instancia_del_curso));
+            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Id.Equals(un_curso.Id) && evaluaciones.InstanciaEvaluacion.Id.Equals(una_instancia_del_curso.Id));
         }
 
         public Evaluacion GetEvaluacionPorCursoAlumnoEInstancia(Curso un_curso, Alumno un_alumno_del_curso, InstanciaDeEvaluacion una_instancia_del_curso)
         {
             GetEvaluaciones();
-            var hola =  evaluaciones.Find(unaEvaluacion => unaEvaluacion.Curso.Equals(un_curso) && unaEvaluacion.Alumno.Equals(un_alumno_del_curso) && unaEvaluacion.InstanciaEvaluacion.Equals(una_instancia_del_curso));
-            return hola;
+            return evaluaciones.Find(unaEvaluacion => unaEvaluacion.Curso.Id.Equals(un_curso.Id) && unaEvaluacion.Alumno.Id.Equals(un_alumno_del_curso.Id) && unaEvaluacion.InstanciaEvaluacion.Id.Equals(una_instancia_del_curso.Id));
+            
         }
 
         public List<Evaluacion> GetEvaluacionesAlumno(Alumno alumno)
         {
             GetEvaluaciones();
-            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Alumno.Equals(alumno));
+            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.Alumno.Id.Equals(alumno.Id));
         }
 
         public List<Evaluacion> GetEvaluacionesPorInstancia(InstanciaDeEvaluacion instancia)
         {
             GetEvaluaciones();
-            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.InstanciaEvaluacion.Equals(instancia));
+            return this.evaluaciones.FindAll(evaluaciones => evaluaciones.InstanciaEvaluacion.Id.Equals(instancia.Id));
         }
 
         public void GuardarEvaluacion(Evaluacion evaluacion, Usuario usuario)
