@@ -63,6 +63,7 @@
 </body>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"> </script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
     <script type="text/javascript" src="BuscadorDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeResultadosDeLegajos.js"></script>
     <script type="text/javascript" src="ServicioDeLegajos.js"></script>

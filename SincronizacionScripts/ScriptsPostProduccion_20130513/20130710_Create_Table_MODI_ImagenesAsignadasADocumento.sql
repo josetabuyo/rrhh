@@ -10,8 +10,8 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[MODI_ImagenesAsignadasADocumento](
-	[id] [smallint] IDENTITY(1,1) NOT NULL,
-	[idDocumento] [smallint] NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[idDocumento] [int] NOT NULL,
 	[tabla] [varchar](30) NOT NULL,
 	[nombre_imagen] [varchar](50) NOT NULL,
 	[bytes_imagen] [text] NOT NULL

@@ -32,6 +32,7 @@ namespace TestViaticos
                 IConexionBD conexion = TestObjects.ConexionMockeada();
 
                 Expect.AtLeastOnce.On(conexion).Method("Ejecutar").With(new object[] { "dbo.MODI_Imagenes_Asignadas_A_Documento", Is.Anything }).Will(Return.Value(resultado_sp_imagenes));
+                Expect.AtLeastOnce.On(conexion).Method("EjecutarSinResultado").With(new object[] { "dbo.MODI_Asignar_Imagen_A_Documento", Is.Anything });
 
                 return new RepositorioDeLegajosEscaneados(mockearFileSystem(mock_filesystem_data.Keys.First(), mock_filesystem_data.Values.First()), conexion, "imagenes");
             }
@@ -88,11 +89,22 @@ namespace TestViaticos
         [TestMethod]
         public void las_imagenes_para_el_legajo_203404_deberian_incluir_una_que_se_llame_Koala()
         {
-            mock_filesystem_data = new Dictionary<string, List<string>>() {{ "imagenes/203404", new List<string>() { "imagenes/205939/imagen1.jpg" }}};
+            mock_filesystem_data = new Dictionary<string, List<string>>() { { "imagenes/203404", new List<string>() { "imagenes/203404/imagen1.jpg" } } };
 
             var imagenes = repo_de_legajos_escaneados().getThumbnailsDeImagenesSinAsignarParaUnLegajo(203404);
             
             Assert.IsTrue(imagenes.Any(imagen => imagen.nombre == "imagen1"));
+        }
+
+        [TestMethod]
+        public void deberia_poder_asociar_una_imagen_con_un_documento()
+        {
+            mock_filesystem_data = new Dictionary<string, List<string>>() { { "imagenes/203404", new List<string>() { "imagenes/203404/imagen1.jpg" } } };
+            repo_de_legajos_escaneados().asignarImagenADocumento("imagen1", 203404, "curriculums", 1);
+
+            var imagenes = repo_de_legajos_escaneados().getThumbnailsDeImagenesAsignadasAlDocumento("curriculums", 1);
+
+            Assert.AreEqual(3, imagenes.Count());
         }
 
         //[TestMethod]

@@ -1553,6 +1553,12 @@ public class WSViaticos : System.Web.Services.WebService
         return repo_imagenes.getImagenSinAsignarParaUnLegajo(legajo, nombre_imagen);
     }
 
+    [WebMethod]
+    public void asignarImagenADocumento(string nombre_imagen, int legajo, string tabla, int id_documento)
+    {
+        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
+        repo_imagenes.asignarImagenADocumento(nombre_imagen, legajo, tabla, id_documento);
+    }
 
      [WebMethod]
      public ItemDeMenu[] ItemsDelMenu(Usuario usuario, string menu)

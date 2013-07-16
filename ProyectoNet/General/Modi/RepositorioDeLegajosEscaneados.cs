@@ -84,5 +84,18 @@ namespace General.Modi
 
             return imagenes;
         }
+
+
+        public void asignarImagenADocumento(string nombre_imagen, int legajo, string tabla, int id_documento)
+        {
+            var imagen = new ImagenModi(nombre_imagen, this.fileSystem.getImagenFromPath(this.pathImagenes + "/" + legajo + "/" + nombre_imagen + ".jpg"));
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@tabla", tabla);
+            parametros.Add("@id", id_documento);
+            parametros.Add("@nombre_imagen", imagen.nombre);
+            parametros.Add("@bytes_imagen", imagen.bytesImagen);
+
+            this.conexionDB.EjecutarSinResultado("dbo.MODI_Asignar_Imagen_A_Documento", parametros);
+        }
     }
 }
