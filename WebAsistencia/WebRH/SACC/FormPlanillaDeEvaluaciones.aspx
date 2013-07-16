@@ -76,27 +76,29 @@
             alert("Guardar Planilla");
         };
         _this.dibujarGrilla = function (planilla) {
-            
+
             var pla = new Planilla(planilla);
             var columnas = []
-            columnas.push(new Columna("Nombre", {generar: function(fila){ return fila.alumno;}}));
-            columnas.push(new Columna("Calificación", {generar: function(fila){ return fila.calificacion;}}));
-            columnas.push(new Columna(pla.instancia.html(), {generar: function(fila){return fila.fecha;}}));
+            var contenedor_grilla = $("#PlanillaEvaluaciones_ContenedorPlanilla");
+            columnas.push(new Columna("Nombre", { generar: function (fila) { return fila.alumno; } }));
+            columnas.push(new Columna("Calificación", { generar: function (fila) { return fila.calificacion; } }));
+            columnas.push(new Columna(pla.instancia.html(), { generar: function (fila) { return fila.fecha; } }));
 
             var grilla = new Grilla(columnas);
             grilla.CargarObjetos(pla.grilla());
-            grilla.DibujarEn($("#PlanillaEvaluaciones_ContenedorPlanilla"));
-	
-	            $(".fecha_evaluacion").change(function(fecha){
-		            if(!$(this).val())
-			            this.val(fecha);
-	            });	
-	
-            $("#btn").click(function(){
-	            $(".fecha_evaluacion").val($(".fecha_instancia").val());
+            contenedor_grilla.html("");
+            grilla.DibujarEn(contenedor_grilla);
+
+            $(".fecha_evaluacion").change(function (fecha) {
+                if (!$(this).val())
+                    this.val(fecha);
             });
 
-            
+            $("#btn").click(function () {
+                $(".fecha_evaluacion").val($(".fecha_instancia").val());
+            });
+
+
         }
     }
     $(document).ready(function () {
