@@ -1600,8 +1600,10 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
     {
-        var una_instancia = new List<InstanciaDeEvaluacion> {new InstanciaDeEvaluacion(){ Id = 1, Descripcion = "Prueba"}};
-        return una_instancia.ToArray();
+        return RepositorioDeCursos().GetInstanciasDeEvaluacion(id_curso).ToArray();
+        
+        //var una_instancia = new List<InstanciaDeEvaluacion> {new InstanciaDeEvaluacion(){ Id = 1, Descripcion = "Prueba"}};
+        //return una_instancia.ToArray();
     }
 
     [WebMethod]

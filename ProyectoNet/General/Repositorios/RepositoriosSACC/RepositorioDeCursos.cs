@@ -331,5 +331,10 @@ namespace General.Repositorios
             return un_curso.Docente != null;
         }
 
+        public List<InstanciaDeEvaluacion> GetInstanciasDeEvaluacion(int id_curso) 
+        {
+            return GetCursoById(id_curso).Materia.Modalidad.InstanciasDeEvaluacion; 
+        }
+
     }
 }
