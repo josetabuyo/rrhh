@@ -26,6 +26,7 @@ namespace General.Repositorios
             int id_modalidad = 0;
             string descripcion_modalidad = "";
             Modalidad modalidad_anterior = new Modalidad(tablaDatos.Rows.First().GetInt("IdModalidad"), tablaDatos.Rows.First().GetString("ModalidadDescripcion"), instancias_de_evaluacion);
+            
 
             tablaDatos.Rows.ForEach(row =>
             {
@@ -41,7 +42,7 @@ namespace General.Repositorios
                     descripcion_modalidad = modalidad_anterior.Descripcion;
                     Modalidad modalidad = new Modalidad(id_modalidad, descripcion_modalidad, instancias_de_evaluacion);
                     modalidades.Add(modalidad);
-                    instancias_de_evaluacion.Clear();
+                    instancias_de_evaluacion = new List<InstanciaDeEvaluacion>();
 
                     InstanciaDeEvaluacion instancia_de_evaluacion = new InstanciaDeEvaluacion(row.GetSmallintAsInt("idInstancia"), row.GetString("DescripcionInstancia"));
                     instancias_de_evaluacion.Add(instancia_de_evaluacion);

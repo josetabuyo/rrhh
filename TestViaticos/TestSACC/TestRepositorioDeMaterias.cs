@@ -25,7 +25,9 @@ namespace TestViaticos
             {
 
                 Modalidad modalidad = TestObjects.ModalidadFinesPuro();
-                Expect.AtLeastOnce.On(TestObjects.RepoModalidadesMockeado()).Method("GetModalidadById").WithAnyArguments().Will(Return.Value(modalidad));
+                List<Modalidad> modalidades = new List<Modalidad>();
+                modalidades.Add(modalidad);
+                Expect.AtLeastOnce.On(TestObjects.RepoModalidadesMockeado()).Method("GetModalidades").WithAnyArguments().Will(Return.Value(modalidades));
                 
 
                 string source = @"  |Id     |Nombre             |IdModalidad  |idInstancia   |DescripcionInstancia     |idCiclo     |NombreCiclo
