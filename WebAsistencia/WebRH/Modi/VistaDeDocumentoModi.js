@@ -15,15 +15,16 @@ VistaDeDocumentoModi.prototype.start = function () {
         accept: ".imagen_miniatura",
         hoverClass: "ui-state-active",
         drop: function (event, ui) {
-            console.log(imagenOnDrag);
+            //console.log(imagenOnDrag);
+            $(ui).remove();
             var vista_imagen = new VistaDeImagenModi({
                 ui: _this.o.plantilla_vista_imagen.clone(),
                 imagen: imagenOnDrag.imagen
             });
             vista_imagen.dibujarEn(_this.panel_imagenes);
             imagenOnDrag.borrar();
-            _this.o.servicioDeImagenes.asignarImagenADocumento( _this.o.numero_legajo, 
-                                                                imagenOnDrag.imagen.nombre, 
+            _this.o.servicioDeImagenes.asignarImagenADocumento(_this.o.numero_legajo,
+                                                                imagenOnDrag.imagen.nombre,
                                                                 _this.o.documento.tabla,
                                                                 _this.o.documento.id);
         }

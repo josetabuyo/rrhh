@@ -23,11 +23,11 @@
                 <div id="aviso_legajo_no_encontrado" class="alert alert-danger">
                 </div>
            </div>
-           <div id="ui_vista_de_resultados_de_legajos">
+           <div id="ui_vista_de_resultados_de_legajos" class="vista_de_legajo">
                 <label id="lbl_nombre"></label>
                 <label id="lbl_apellido"></label>
-                <div id="panel_imagenes_no_asignadas"> </div>
-                <div id="visualizador_de_imagenes" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div id="panel_imagenes_no_asignadas" class="panel_de_imagenes"> </div>
+                <div id="visualizador_de_imagenes" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="FILTER: chroma(color=#CCCCCC)" allowTransparency>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h3 id="tituloImagen"></h3>
@@ -48,7 +48,7 @@
                     <label class="titulo">Folio:</label>
                     <label id="lbl_folio"></label>      
                 </div>        
-                <div id="panel_imagenes">
+                <div id="panel_imagenes" class="panel_de_imagenes">
                     
                 </div>
             </div>
@@ -69,6 +69,7 @@
     <script type="text/javascript" src="ServicioDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeDocumentoModi.js"></script>
     <script type="text/javascript" src="VistaDeImagenModi.js"></script>
+    <script type="text/javascript" src="ServicioDeDragAndDrop.js"></script>
     <script type="text/javascript" src="ServicioDeImagenes.js"></script>
     <script type="text/javascript" src="VisualizadorDeImagenes.js"></script>
     <script type="text/javascript" src="ProveedorAjax.js"></script>

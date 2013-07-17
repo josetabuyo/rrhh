@@ -14,15 +14,37 @@
 }
 
 
+#panel_documentos
+{
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+.vista_de_legajo #lbl_nombre,
+.vista_de_legajo #lbl_apellido
+{
+    font-size:20px;
+    font-weight:bold;    
+}
 
 .documento
 {
     border: 1px solid black;
+    margin:2px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    transition: all .3s;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
 .documento:hover
 {
-    border: 1px solid red;
+    -webkit-box-shadow: 0 0 16px black;
+    box-shadow: 0 0 16px black;
 }
 
 .documento .titulo
@@ -35,6 +57,10 @@
     display:inline-block;
     width:49%;    
     vertical-align: top;
+    padding:5px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
 .documento #panel_imagenes
@@ -42,18 +68,30 @@
     display:inline-block;
     width:50%;      
     border-left: 1px solid black;
-    height: 96px;
     margin-bottom: -4px;
-    overflow-x: auto;
+}
+
+.panel_de_imagenes
+{      
+    height: 99px;
+    overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
+    transition: all .3s;
+}
+
+.panel_de_imagenes:hover  
+{
+    overflow-x:auto; 
 }
 
 .imagen_miniatura
 {
     display:inline-block;   
     text-align:center; 
-    margin:5px;    
+    margin:5px;  
+    draggable: true;
+	list-style:none; 
 }
 
 .imagen_miniatura #img_thumbnail
@@ -78,4 +116,36 @@
 .imagen_miniatura #lbl_nombre
 {
     display:block;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    overflow: visible;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .2);
+    min-height: 25px;
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1),inset 0 -1px 0 rgba(0, 0, 0, .07);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, .3);
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: #dddddd;
+    border: solid transparent;
+}
+::-webkit-scrollbar-track:hover {
+    background-color: #cccccc;
+}
+ 
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+::-webkit-scrollbar-button {
+    height: 0px;
+    width: 0px;
 }

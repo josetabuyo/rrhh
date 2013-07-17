@@ -15,7 +15,7 @@ VistaDeImagenModi.prototype.start = function () {
 
     var _this = this;
     this.o.ui.click(function () {
-        if(!imagenOnDrag) _this.onClick(_this.imagen);
+        if (imagenOnDrag === undefined) _this.onClick(_this.imagen);
     });
 
     this.o.ui.draggable({ revert: "invalid",
@@ -23,8 +23,9 @@ VistaDeImagenModi.prototype.start = function () {
             imagenOnDrag = _this;
         },
         stop: function (ui) {
-            setTimeout(function () { imagenOnDrag = undefined; }, 100);           
-        }
+            setTimeout(function () { imagenOnDrag = undefined; }, 300);
+        },
+        helper: "clone"
     });
 };
 
@@ -34,5 +35,7 @@ VistaDeImagenModi.prototype.dibujarEn = function (panel) {
 
 VistaDeImagenModi.prototype.borrar = function () {
     this.o.ui.remove();
-};                            
+};
 
+VistaDeImagenModi.prototype.onClick = function () {
+}; 

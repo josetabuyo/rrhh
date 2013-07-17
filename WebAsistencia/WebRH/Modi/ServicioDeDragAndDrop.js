@@ -1,0 +1,1 @@
+﻿var imagenOnDrag = undefined;
