@@ -1598,6 +1598,13 @@ public class WSViaticos : System.Web.Services.WebService
     #endregion
 
     [WebMethod]
+    public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
+    {
+        var una_instancia = new List<InstanciaDeEvaluacion> {new InstanciaDeEvaluacion(){ Id = 1, Descripcion = "Prueba"}};
+        return una_instancia.ToArray();
+    }
+
+    [WebMethod]
     public PlanillaEvaluacionesDto GetPlanillaEvaluaciones(int id_curso)
     {
         List <Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCurso(RepositorioDeCursos().GetCursoById(id_curso));
@@ -1612,12 +1619,13 @@ public class WSViaticos : System.Web.Services.WebService
                 Id = e.InstanciaEvaluacion.Id,
                 IdAlumno = e.Alumno.Id,
                 IdCurso = e.Curso.Id,
-                Calificacion = e.Calificacion.Descripcion
+                Calificacion = e.Calificacion.Descripcion,
+                Fecha = e.Fecha.ToShortDateString()
             }); //.Calificacion.Descripcion.ToString());
         });
 
         var alumnos = curso.Alumnos().ToArray(); //evaluaciones.Select(e => e.Alumno).Distinct().ToArray();
-        var Instancias = evaluaciones.Select(e => e.InstanciaEvaluacion).ToArray();
+        var Instancias = curso.Materia.Modalidad.InstanciasDeEvaluacion.ToArray();
         var Calificaciones = evaluaciones.Select(e => e.Calificacion.Descripcion).ToList();
         
         var Planilla = new PlanillaEvaluacionesDto()
