@@ -96,8 +96,33 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void IniciarServicioDeAlertas()
     {
-        backEndService.IniciarServicioDeAlertas();
+        backEndService.IniciarServicioDeAlertas(PlantillaHtmlHead(), PlantillaHtmlBody());
     }
+
+
+
+    private string PlantillaHtml()
+    {
+        string plantillaHtml = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtml"];
+
+        return plantillaHtml;
+    }
+
+
+    private string PlantillaHtmlHead()
+    {
+        string plantillaHtmlhead = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtmlHead"];
+
+        return plantillaHtmlhead;
+    }
+    
+    private string PlantillaHtmlBody()
+    {
+        string plantillaHtmlbody = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtmlBody"];
+
+        return plantillaHtmlbody;
+    }
+    
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

@@ -49,7 +49,7 @@ namespace General
             return transiciones.Find(t => t.Documento.Equals(documento) && t.Tipo.Equals(TransicionDeDocumento.FUTURA));
         }
 
-         public Area EstaEnElArea(Documento documento)
+        public Area EstaEnElArea(Documento documento)
         {
             var transiciones_realizadas = transiciones.FindAll(t => t.Tipo != TransicionDeDocumento.FUTURA);
 
