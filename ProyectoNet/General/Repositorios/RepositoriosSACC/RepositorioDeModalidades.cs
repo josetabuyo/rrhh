@@ -51,8 +51,8 @@ namespace General.Repositorios
                 modalidad_anterior = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"), instancias_de_evaluacion);
 
             });
-            Modalidad modalidad2 = new Modalidad(modalidad_anterior.Id, modalidad_anterior.Descripcion, instancias_de_evaluacion);
-            modalidades.Add(modalidad2);
+            Modalidad modadidad_siguiente = new Modalidad(modalidad_anterior.Id, modalidad_anterior.Descripcion, instancias_de_evaluacion);
+            modalidades.Add(modadidad_siguiente);
 
             return modalidades;
         }

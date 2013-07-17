@@ -32,9 +32,9 @@ namespace General.Repositorios
 
         public List<Materia> GetMaterias()
         {
-            //RepositorioDeModalidades repoModalidades = new RepositorioDeModalidades(conexion_bd);
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Materias");
             materias = new List<Materia>();
+            var todas_las_modalidades = repo_modalidades.GetModalidades();
 
             tablaDatos.Rows.ForEach(row =>
             {
@@ -44,7 +44,7 @@ namespace General.Repositorios
                 {
                     Id = row.GetSmallintAsInt("Id"),
                     Nombre = row.GetString("Nombre"),
-                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),
+                    Modalidad = todas_las_modalidades.Find(m => m.Id == row.GetInt("IdModalidad")), 
                     Ciclo = ciclo
                 };
 

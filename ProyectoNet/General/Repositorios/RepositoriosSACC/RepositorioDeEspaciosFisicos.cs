@@ -34,9 +34,7 @@ namespace General.Repositorios
         public void ActualizarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
         {
             var espacios_fisicos = GetEspaciosFisicos();
-            if (
-                espacios_fisicos.Exists(
-                    e => e.Aula == espacio_fisico.Aula && e.Edificio.Id == espacio_fisico.Edificio.Id))
+            if (espacios_fisicos.Exists(e => e.Aula == espacio_fisico.Aula && e.Edificio.Id == espacio_fisico.Edificio.Id))
             {
                 espacio_fisico.Id =
                     espacios_fisicos.Find(
@@ -114,14 +112,13 @@ namespace General.Repositorios
                                                                                    Aula = row.GetString("Aula"),
                                                                                    Edificio = edificio_aux,
                                                                                    Capacidad =
-                                                                                       row.GetSmallintAsInt("Capacidad")
+                                                                                   row.GetSmallintAsInt("Capacidad")
                                                                                };
 
                                             espacios_fisicos.Add(espacio_fisico);
                                         });
 
-            espacios_fisicos.Sort(
-                (espacio_fisico1, espacio_fisico2) => espacio_fisico1.esMayorAlfabeticamenteQue(espacio_fisico2));
+            espacios_fisicos.Sort((espacio_fisico1, espacio_fisico2) => espacio_fisico1.esMayorAlfabeticamenteQue(espacio_fisico2));
             return espacios_fisicos;
 
         }
