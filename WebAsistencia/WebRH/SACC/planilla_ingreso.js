@@ -1,26 +1,29 @@
 var Planilla = function (planilla) {
     var _this = this;
 
-    this.id = planilla.id;
+    //this.id = planilla.id;
     this.instancias = planilla.Instancias;
     this.alumnos = planilla.Alumnos;
     this.evaluaciones = planilla.Evaluaciones;
 
     this.instancias.html = function (indice) {
         var contenedor = $("<div>");
-        var label = $("<label>").text("Fecha").append("<br>");
+        if (_this.instancias.length > 0) {
+            var label = $("<label>").text("Fecha (Aplicar a todos)").append("<br>");
 
-        var textbox = $("<input>").attr("id", "fecha_instancia_" + this[indice].id);
-        textbox.datepicker({
-            onClose: function (val) {
-                $(".fecha_evaluacion").change(val);
-            }
-        });
+            var textbox = $("<input>").attr("id", "fecha_instancia_" + this[indice].id);
+            textbox.datepicker({
+                dateFormat: 'dd/mm/yy',
+                onClose: function (val) {
+                    $(".fecha_evaluacion").change(val);
+                }
+            });
 
-        textbox.attr("class", "fecha_instancia");
-        textbox.val(this[indice].fecha);
-        contenedor.append(label);
-        contenedor.append(textbox);
+            textbox.attr("class", "fecha_instancia");
+            textbox.val(this[indice].fecha);
+            contenedor.append(label);
+            contenedor.append(textbox);
+        }
         return contenedor;
     }
 
@@ -58,15 +61,16 @@ var Planilla = function (planilla) {
 
     function textCalificacion(calificacion) {
         var textbox = $("<input>");
-        textbox.val(calificacion.valor);
+        textbox.val(calificacion.Calificacion);
         return textbox;
     }
 
     function textFecha(calificacion) {
-        var textbox = $("<input>").datepicker();
-        textbox.attr("id", "fecha_calificacion_" + calificacion.id_instancia + "_" + calificacion.id_alumno);
-        textbox.val(calificacion.fecha);
+        var textbox = $("<input>");
+        textbox.attr("id", "fecha_calificacion_" + calificacion.Id + "_" + calificacion.IdAlumno + "_" + calificacion.IdCurso);
+        textbox.val(calificacion.Fecha);
         textbox.attr("class", "fecha_evaluacion");
+        textbox.datepicker({ dateFormat: 'dd/mm/yy' });
         return textbox;
     }
 

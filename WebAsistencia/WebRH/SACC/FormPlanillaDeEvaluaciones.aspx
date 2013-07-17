@@ -34,7 +34,11 @@
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="DivContenedor" runat="server" class="div_izquierdo" style="margin:10px;">
         <label>Curso:&nbsp;</label>
-        <select id="CmbCurso" onchange="javascript:admin_planilla.cargarPlanilla(this.value);" runat="server">
+        <select id="CmbCurso" onchange="javascript:cargar_instancias(this.value);" runat="server">
+            <option value="0">Seleccione</option>
+        </select><br />
+        <label>Instancia:&nbsp;</label>
+        <select id="CmbInstancia" onchange="javascript:admin_planilla.cargarPlanilla();" runat="server">
             <option value="0">Seleccione</option>
         </select>
     <div>
@@ -46,11 +50,38 @@
 </body>
 <script type="text/javascript">
     var admin_planilla;
+    function cargar_instancias(id_curso) {
+        var data_post = JSON.stringify({
+            'id_curso': id_curso
+        });
+        
+        $.ajax({
+            url: "../AjaxWS.asmx/GetInstanciasDeEvaluacion",
+            type: "POST",
+            data: data_post,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (respuestaJson) {
+                var respuesta = JSON.parse(respuestaJson.d);
+                var combo_instancias = $("#CmbInstancia");
+                combo_instancias.html("");
+                combo_instancias.append(new Option("Seleccione", 0));
+                for (var i = 0; i < respuesta.length; i++) {
+                    combo_instancias.append($(new Option(respuesta[i].Descripcion, respuesta[i].Id)).attr("id_curso", id_curso));
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    
+    }
+
     var AdministradorDeEvaluaciones = function () {
         var _this = this;
         _this.cargarPlanilla = function (id_curso) {
             var data_post = JSON.stringify({
-                'id_curso': id_curso
+                'id_curso': $("#CmbCurso").val()
             });
             $.ajax({
                 url: "../AjaxWS.asmx/GetPlanillaEvaluaciones",
@@ -82,7 +113,7 @@
             var contenedor_grilla = $("#PlanillaEvaluaciones_ContenedorPlanilla");
             columnas.push(new Columna("Nombre", { generar: function (fila) { return fila.alumno; } }));
             columnas.push(new Columna("Calificación", { generar: function (fila) { return fila.calificacion; } }));
-            columnas.push(new Columna(pla.instancia.html(), { generar: function (fila) { return fila.fecha; } }));
+            columnas.push(new Columna(pla.instancias.html(0), { generar: function (fila) { return fila.fecha; } }));
 
             var grilla = new Grilla(columnas);
             grilla.CargarObjetos(pla.grilla());

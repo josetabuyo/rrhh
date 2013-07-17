@@ -10,6 +10,7 @@ public class EvaluacionDto
     public string Calificacion { get; set; }
     public int IdAlumno { get; set; }
     public int IdCurso { get; set; }
+    public string Fecha { get; set; }
 }
 
 public class PlanillaEvaluacionesDto
