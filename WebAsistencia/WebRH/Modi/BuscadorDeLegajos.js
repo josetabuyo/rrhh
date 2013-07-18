@@ -4,12 +4,15 @@
 };
 
 BuscadorDeLegajos.prototype.start = function () {
+    var _this = this;
     this.input_numero = this.o.ui.find('#input_numero');
-    //this.boton_buscar = this.o.ui.find('#boton_buscar');
+    this.input_numero.keypress(function(event) {
+        if ( event.which == 13 ) {
+            _this.buscar();
+        }      
+    });
     this.aviso_legajo_no_encontrado = this.o.ui.find('#aviso_legajo_no_encontrado');
     this.aviso_legajo_no_encontrado.hide();
-    var _this = this;
-    //this.boton_buscar.click(function () { _this.buscar(); });
 };
 BuscadorDeLegajos.prototype.buscar = function () {
     var _this = this;

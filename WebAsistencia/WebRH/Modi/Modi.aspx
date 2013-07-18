@@ -38,7 +38,6 @@
         <div id="plantillas">
             <div id="ui_buscador_de_legajos">
                 <input id="input_numero" type="text" class="span2"/>
-                <%--<button id="boton_buscar" type="button" class="btn btn-primary">Buscar</button>--%>
                 <div id="aviso_legajo_no_encontrado" class="alert alert-danger">
                 </div>
            </div>
@@ -55,7 +54,6 @@
             </div>
             <div id="plantilla_ui_imagen" class="imagen_miniatura">
                 <img alt="" src="" id="img_thumbnail" />
-                <%--<label id="lbl_nombre"></label>      --%>
             </div>
         </div>       
         <asp:ScriptManager ID="ScriptManager1" runat="server">
