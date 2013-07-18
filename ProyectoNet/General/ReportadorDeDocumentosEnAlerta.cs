@@ -39,7 +39,7 @@ namespace General
         public void start(string plantillaHtmlHead, string PlantillaHtmlBody)
         {
             this.estado = "Running";
-            timer = new Timer( (object o) => { verificarAlertas(); }, null, 10000, 10000);
+            timer = new Timer((object o) => { verificarAlertas(); }, null, 10000, 43200000);
           //  this.plantilla_html = plantillaHtml;
             this.plantilla_html_head = plantillaHtmlHead;
             this.plantilla_html_body = PlantillaHtmlBody;
@@ -48,7 +48,7 @@ namespace General
         public void start()
         {
             this.estado = "Running";
-            timer = new Timer((object o) => { verificarAlertas(); }, null, 10000, 10000);
+            timer = new Timer((object o) => { verificarAlertas(); }, null, 10000, 43200000);
            
         }
 
