@@ -58,11 +58,11 @@ namespace General.Modi
             var tablaDocumentos = conexion.Ejecutar("dbo.LEG_GET_Indice_Documentos", parametros);
             var documentos =  GetDocumentosFromTabla(tablaDocumentos);
 
-            documentos.ForEach(doc =>
-            {
-                var thumbnails = this.repositorio_de_imagenes.getThumbnailsDeImagenesAsignadasAlDocumento(doc.tabla, doc.id);
-                doc.thumbnailsImagenesAsignadas.AddRange(thumbnails);
-            });
+            //documentos.ForEach(doc =>
+            //{
+            //    var thumbnails = this.repositorio_de_imagenes.getThumbnailsDeImagenesAsignadasAlDocumento(doc.tabla, doc.id);
+            //    doc.thumbnailsImagenesAsignadas.AddRange(thumbnails);
+            //});
             return documentos;
         }
 

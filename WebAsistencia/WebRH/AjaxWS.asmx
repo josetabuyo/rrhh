@@ -96,6 +96,16 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetThumbnailsDeImagenesAsignadasAlDocumento(string tabla, int id)
+    {
+        var respuesta = backEndService.getThumbnailsDeImagenesAsignadasAlDocumento(tabla, id);
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
+    }
+    
+    
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void AsignarImagenADocumento(string nombre_imagen, int legajo, string tabla, int id_documento)
     {
         backEndService.asignarImagenADocumento(nombre_imagen, legajo, tabla, id_documento);

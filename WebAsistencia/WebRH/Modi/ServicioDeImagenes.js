@@ -17,6 +17,20 @@ ServicioDeImagenes.prototype.getImagenSinAsignar = function (legajo, nombre_imag
     });
 };
 
+ServicioDeImagenes.prototype.getThumbnailsDeImagenesAsignadasAlDocumento = function (tabla, id, on_imagenes_encontradas) {
+    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetThumbnailsDeImagenesAsignadasAlDocumento",
+        data: {
+            tabla: tabla,
+            id: id
+        },
+        success: function (imagenes) {
+            on_imagenes_encontradas(imagenes);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+};
+
 ServicioDeImagenes.prototype.asignarImagenADocumento = function (legajo, nombre_imagen, tabla, id_documento) {
     this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/AsignarImagenADocumento",
         data: {

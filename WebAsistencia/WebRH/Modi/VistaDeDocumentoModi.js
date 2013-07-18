@@ -29,18 +29,46 @@ VistaDeDocumentoModi.prototype.start = function () {
                                                                 _this.o.documento.id);
         }
     });
-
-    for (var i = 0; i < this.o.documento.thumbnailsImagenesAsignadas.length; i++) {
-        var vista_imagen = new VistaDeImagenModi({
-            ui: this.o.plantilla_vista_imagen.clone(),
-            imagen: this.o.documento.thumbnailsImagenesAsignadas[i]
+    _this.mostrarRelojitoDeEspera();
+    _this.o.servicioDeImagenes.getThumbnailsDeImagenesAsignadasAlDocumento(
+        _this.o.documento.tabla,
+        _this.o.documento.id,
+        function (imagenes) {
+            _this.ocultarRelojitoDeEspera();
+            for (var i = 0; i < imagenes.length; i++) {
+                var vista_imagen = new VistaDeImagenModi({
+                    ui: _this.o.plantilla_vista_imagen.clone(),
+                    imagen: imagenes[i]
+                });
+                vista_imagen.dibujarEn(_this.panel_imagenes);
+            }
         });
-        vista_imagen.dibujarEn(this.panel_imagenes);
-    }
 };
 
 VistaDeDocumentoModi.prototype.dibujarEn = function (panel) {
     panel.append(this.o.ui);
 };
-                                   
 
+VistaDeDocumentoModi.prototype.mostrarRelojitoDeEspera = function () {
+    this.progress_bar = $('<div style="min-height: 100%;">');
+    var progress_label = $("<div>");
+    progress_label.css("float", "left");
+    progress_label.css("margin-left", "40%");
+    progress_label.css("margin-top", "37px");
+    progress_label.css("font-weight", "bold");
+
+    progress_label.text("Buscando imagenes...");
+
+    this.progress_bar.append(progress_label);
+
+    this.progress_bar.progressbar({
+        value: false
+    });
+    this.progress_bar.progressbar("option", "value", false);
+    this.progress_bar.show();
+    this.panel_imagenes.append(this.progress_bar);
+};
+
+VistaDeDocumentoModi.prototype.ocultarRelojitoDeEspera = function () {
+    this.progress_bar.remove();
+};  

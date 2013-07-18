@@ -1554,6 +1554,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public List<ThumbnailImagenModi> getThumbnailsDeImagenesAsignadasAlDocumento(string tabla, int id)
+    {
+        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
+        return repo_imagenes.getThumbnailsDeImagenesAsignadasAlDocumento(tabla, id);
+    }
+
+    [WebMethod]
     public void asignarImagenADocumento(string nombre_imagen, int legajo, string tabla, int id_documento)
     {
         var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
