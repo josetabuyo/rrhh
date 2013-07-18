@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 
 namespace General.Repositorios
 {
-    public class RepositorioDeCursos : General.Repositorios.IRepositorioDeCursos
+    public class RepositorioDeCursos: RepositorioLazy<List<Curso>>,  General.Repositorios.IRepositorioDeCursos
     {
 
         protected IConexionBD conexion_bd { get; set; }
-        protected static List<Curso> cursos { get; set; }
 
 
 
         public RepositorioDeCursos(IConexionBD conexion)
         {
             this.conexion_bd = conexion;
+            this.accion_de_conexion = new CacheNoCargada<List<Curso>>();
         }
-
 
         public Curso GetCursoById(int id)
         {
@@ -27,8 +24,13 @@ namespace General.Repositorios
 
         public List<Curso> GetCursos()
         {
+            return this.accion_de_conexion.Ejecutar(GetCursosDesdeDB, this);
+        }
+
+        public List<Curso> GetCursosDesdeDB()
+        {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Cursos");
-            cursos = new List<Curso>();
+            var cursos = new List<Curso>();
             EspacioFisico espacio_fisico;
             List<EspacioFisico> todos_los_espacios_fisicos = new RepositorioDeEspaciosFisicos(conexion_bd, this).GetEspaciosFisicos();
             RepositorioDeModalidades repo_modalidades = new RepositorioDeModalidades(conexion_bd);
@@ -195,7 +197,7 @@ namespace General.Repositorios
 
         public bool ModificarCurso(Curso curso)
         {
-            var curso_a_modificar = cursos.Find(c => c.Id == curso.Id);
+            var curso_a_modificar = this.GetCursoById(curso.Id);
             if (curso_a_modificar != null)
             {
                 var parametros = new Dictionary<string, object>();

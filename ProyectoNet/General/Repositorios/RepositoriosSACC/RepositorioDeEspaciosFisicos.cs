@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeEspaciosFisicos : General.Repositorios.IRepositorioDeEspaciosFisicos
+    public class RepositorioDeEspaciosFisicos: RepositorioLazy<List<EspacioFisico>>, General.Repositorios.IRepositorioDeEspaciosFisicos
     {
+       
+
         protected IConexionBD conexion_bd { get; set; }
         protected static List<EspacioFisico> espacios_fisicos { get; set; }
         protected IRepositorioDeCursos repo_cursos;
@@ -15,6 +14,12 @@ namespace General.Repositorios
         {
             this.conexion_bd = conexion;
             this.repo_cursos = repo_cursos;
+            this.accion_de_conexion = new CacheNoCargada<List<EspacioFisico>>();
+        }
+
+        public List<EspacioFisico> GetEspaciosFisicos() 
+        {
+            return this.accion_de_conexion.Ejecutar(GetEspaciosFisicosDesdeDB, this);
         }
 
         public EspacioFisico GetEspacioFisicoById(int id)
@@ -93,10 +98,10 @@ namespace General.Repositorios
             return edificios;
         }
 
-        public List<EspacioFisico> GetEspaciosFisicos()
+        public List<EspacioFisico> GetEspaciosFisicosDesdeDB()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Espacios_Fisicos");
-            espacios_fisicos = new List<EspacioFisico>();
+            var espacios_fisicos = new List<EspacioFisico>();
 
             tablaDatos.Rows.ForEach(row =>
                                         {
