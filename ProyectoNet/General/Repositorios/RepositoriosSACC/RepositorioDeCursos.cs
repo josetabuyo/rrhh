@@ -8,7 +8,6 @@ namespace General.Repositorios
     {
 
         public IConexionBD conexion_bd { get; set; }
-        public List<Curso> cursos { get; set; }
 
         public RepositorioDeCursos(IConexionBD conexion)
         {
@@ -29,7 +28,7 @@ namespace General.Repositorios
         public List<Curso> GetCursosDesdeDB()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Cursos");
-            cursos = new List<Curso>();
+            var cursos = new List<Curso>();
             EspacioFisico espacio_fisico;
 
             tablaDatos.Rows.ForEach(row =>
@@ -191,7 +190,7 @@ namespace General.Repositorios
 
         public bool ModificarCurso(Curso curso)
         {
-            var curso_a_modificar = cursos.Find(c => c.Id == curso.Id);
+            var curso_a_modificar = this.GetCursoById(curso.Id);
             if (curso_a_modificar != null)
             {
                 var parametros = new Dictionary<string, object>();

@@ -5,7 +5,6 @@ namespace General.Repositorios
     public class RepositorioDeEspaciosFisicos: RepositorioLazy<List<EspacioFisico>>
     {
         private IConexionBD conexion_bd { get; set; }
-        public static List<EspacioFisico> espacios_fisicos { get; set; }
 
         public RepositorioDeEspaciosFisicos(IConexionBD conexion)
         {
@@ -99,7 +98,7 @@ namespace General.Repositorios
         public List<EspacioFisico> GetEspaciosFisicosDesdeDB()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Espacios_Fisicos");
-            espacios_fisicos = new List<EspacioFisico>();
+            var espacios_fisicos = new List<EspacioFisico>();
 
             tablaDatos.Rows.ForEach(row =>
                                         {

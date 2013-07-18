@@ -7,12 +7,10 @@ namespace General.Repositorios
     public class RepositorioDeAlumnos: RepositorioLazy<List<Alumno>>
     {
         public IConexionBD conexion_bd { get; set; }
-        protected List<Alumno> alumnos { get; set; }
         
         public RepositorioDeAlumnos(IConexionBD conexion)
         {
             this.conexion_bd = conexion;
-            this.alumnos = new List<Alumno>();
             this.accion_de_conexion = new CacheNoCargada<List<Alumno>>();
         }
 
@@ -24,7 +22,7 @@ namespace General.Repositorios
         public List<Alumno> ObtenerAlumnosDesdeLaBase() {
 
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
-            alumnos = new List<Alumno>();
+            var alumnos = new List<Alumno>();
 
             tablaDatos.Rows.ForEach(row =>
             {               
