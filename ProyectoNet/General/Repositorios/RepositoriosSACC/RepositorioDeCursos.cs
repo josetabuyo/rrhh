@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 
 namespace General.Repositorios
 {
-    public class RepositorioDeCursos
+    public class RepositorioDeCursos: RepositorioLazy<List<Curso>>
     {
 
         public IConexionBD conexion_bd { get; set; }
-        public static List<Curso> cursos { get; set; }
+        public List<Curso> cursos { get; set; }
 
         public RepositorioDeCursos(IConexionBD conexion)
         {
             this.conexion_bd = conexion;
+            this.accion_de_conexion = new CacheNoCargada<List<Curso>>();
         }
-
 
         public Curso GetCursoById(int id)
         {
@@ -24,6 +22,11 @@ namespace General.Repositorios
         }
 
         public List<Curso> GetCursos()
+        {
+            return this.accion_de_conexion.Ejecutar(GetCursosDesdeDB, this);
+        }
+
+        public List<Curso> GetCursosDesdeDB()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Cursos");
             cursos = new List<Curso>();

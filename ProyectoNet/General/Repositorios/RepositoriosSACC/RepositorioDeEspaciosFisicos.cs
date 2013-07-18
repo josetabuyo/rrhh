@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeEspaciosFisicos
+    public class RepositorioDeEspaciosFisicos: RepositorioLazy<List<EspacioFisico>>
     {
         private IConexionBD conexion_bd { get; set; }
         public static List<EspacioFisico> espacios_fisicos { get; set; }
@@ -13,6 +10,12 @@ namespace General.Repositorios
         public RepositorioDeEspaciosFisicos(IConexionBD conexion)
         {
             this.conexion_bd = conexion;
+            this.accion_de_conexion = new CacheNoCargada<List<EspacioFisico>>();
+        }
+
+        public List<EspacioFisico> GetEspaciosFisicos() 
+        {
+            return this.accion_de_conexion.Ejecutar(GetEspaciosFisicosDesdeDB, this);
         }
 
         public EspacioFisico GetEspacioFisicoById(int id)
@@ -93,7 +96,7 @@ namespace General.Repositorios
             return edificios;
         }
 
-        public List<EspacioFisico> GetEspaciosFisicos()
+        public List<EspacioFisico> GetEspaciosFisicosDesdeDB()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Espacios_Fisicos");
             espacios_fisicos = new List<EspacioFisico>();

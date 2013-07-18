@@ -1,23 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeAlumnos
+    public class RepositorioDeAlumnos: RepositorioLazy<List<Alumno>>
     {
-
         public IConexionBD conexion_bd { get; set; }
-        public static List<Alumno> alumnos { get; set; }
-
+        protected List<Alumno> alumnos { get; set; }
+        
         public RepositorioDeAlumnos(IConexionBD conexion)
         {
-            this.conexion_bd = conexion;    
+            this.conexion_bd = conexion;
+            this.alumnos = new List<Alumno>();
+            this.accion_de_conexion = new CacheNoCargada<List<Alumno>>();
         }
 
         public List<Alumno> GetAlumnos()
         {
+            return accion_de_conexion.Ejecutar(ObtenerAlumnosDesdeLaBase, this);
+        }
+
+        public List<Alumno> ObtenerAlumnosDesdeLaBase() {
+
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
             alumnos = new List<Alumno>();
 
@@ -50,9 +55,6 @@ namespace General.Repositorios
 
             //ordeno por modalidad, apellido, nombre
             alumnos.Sort((alumno1, alumno2) => alumno1.esMayorAlfabeticamenteQue(alumno2));
-           
-            
-
             return alumnos;
         }
 
@@ -96,7 +98,6 @@ namespace General.Repositorios
             }
             
         }
-
 
         public Alumno GetAlumnoByDNI(int dni)
         {
@@ -223,6 +224,8 @@ namespace General.Repositorios
 
             return parametros;
         }
+
+
 
     }
 }
