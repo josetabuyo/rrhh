@@ -6,8 +6,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using General.Repositorios;
 using General.Calendario;
 using General;
-using NDbUnit.Core;
-using NDbUnit.Core.SqlClient;
+
+
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Mail;
