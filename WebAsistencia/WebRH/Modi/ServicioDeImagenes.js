@@ -26,10 +26,10 @@ ServicioDeImagenes.prototype.asignarImagenADocumento = function (legajo, nombre_
             id_documento: id_documento
         },
         success: function (imagen) {
-            console.log("imagen asignada con éxito");
+            //console.log("imagen asignada con éxito");
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Error al asignar imagen");
+            //console.log("Error al asignar imagen");
         }
     });
 };

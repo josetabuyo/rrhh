@@ -17,13 +17,8 @@
     <form id="form1" runat="server">
         <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="MODI" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <div id="contenedor_principal_modi">
-           <div id="ui_buscador_de_legajos">
-                <input id="input_numero" type="text" class="span2"/>
-                <button id="boton_buscar" type="button" class="btn btn-primary">Buscar</button>
-                <div id="aviso_legajo_no_encontrado" class="alert alert-danger">
-                </div>
-           </div>
            <div id="ui_vista_de_resultados_de_legajos" class="vista_de_legajo">
+                <input id="btn_nueva_busqueda" value="Nueva Búsqueda" type="button" class="btn btn-primary"/>
                 <label id="lbl_nombre"></label>
                 <label id="lbl_apellido"></label>
                 <div id="panel_imagenes_no_asignadas" class="panel_de_imagenes"> </div>
@@ -41,6 +36,12 @@
         </div>
 
         <div id="plantillas">
+            <div id="ui_buscador_de_legajos">
+                <input id="input_numero" type="text" class="span2"/>
+                <%--<button id="boton_buscar" type="button" class="btn btn-primary">Buscar</button>--%>
+                <div id="aviso_legajo_no_encontrado" class="alert alert-danger">
+                </div>
+           </div>
             <div id="plantilla_ui_documento" class="documento">
                 <div id="panel_datos_documento">
                     <label class="titulo">Descripción:</label>
@@ -90,6 +91,8 @@
                 servicioDeLegajos: servicio_de_legajos,
                 vistaDeResultados: vista_del_legajo
             });
+            vista_del_legajo.buscadorDeLegajos = buscador;
+            buscador.mostrarModal();
         });
     </script>   
 </html>

@@ -11,12 +11,18 @@
 #ui_buscador_de_legajos #input_numero
 {
     margin-top:9px;
+    width:265px;
 }
 
+#ui_vista_de_resultados_de_legajos
+{
+    margin:10px;   
+    transition: all .5s;
+}
 
 #panel_documentos
 {
-    max-height: 380px;
+    max-height: 420px;
     overflow-y: auto;
 }
 
@@ -67,7 +73,7 @@
 {
     display:inline-block;
     width:50%;      
-    border-left: 1px solid black;
+    border-left: 1px dashed black;
     margin-bottom: -4px;
 }
 
@@ -148,4 +154,8 @@
 ::-webkit-scrollbar-button {
     height: 0px;
     width: 0px;
+}
+
+.no-close .ui-dialog-titlebar-close {
+  display: none;
 }

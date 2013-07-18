@@ -182,30 +182,6 @@ describe("Tengo una vista de legajos", function () {
         expect(panel_documentos.children().length).toEqual(3);
     });
 
-    it("Al mostrar un legajo con 3 imagenes no asignadas a ningun documento debería popularse el panel de imagenes no asignadas con 3 elementos con el nombre de cada imagen", function () {
-        var un_legajo = {
-            nombre: "jorge",
-            apellido: "Silva",
-            documentos: [
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] },
-                { descripcionEnRRHH: "cv", jurisdiccion: "RRHH", organismo: "MDS", folio: "0011-2", fechaDesde: "20/11/1981", tabla: "curriculums", id: "1", thumbnailsImagenesAsignadas: [] }
-            ],
-            imagenesSinAsignar: [
-                { nombre: "imagen_1" },
-                { nombre: "imagen_2" },
-                { nombre: "imagen_3" }
-            ]
-        };
-        vista_legajos.mostrarLegajo(un_legajo);
-        expect(panel_imagenes_no_asignadas.children().length).toEqual(3);
-
-        var div_primera_imagen = $(panel_imagenes_no_asignadas.children()[0]);
-
-        var lbl_nombre = div_primera_imagen.find("#lbl_nombre");
-        expect(lbl_nombre.text()).toEqual("imagen_1");
-    });
-
     it("Al refrescar una vista de un legajo, debería recargar las imagenes, no sumar las nuevas", function () {
         var un_legajo = {
             nombre: "jorge",
