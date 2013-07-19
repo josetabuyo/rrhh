@@ -38,16 +38,9 @@ namespace General.Modi
 
             var documentos = this.documentosPara(legajo);
             legajo.agregarDocumentos(documentos);
-            var imagenes = this.imagenesPara(legajo);
-            legajo.agregarThumbnailsDeImagenesSinAsignar(imagenes);
+            legajo.agregarIdsDeImagenesSinAsignar(this.repositorio_de_imagenes.GetIdsDeImagenesSinAsignarParaElLegajo(legajo.idInterna));
 
             return legajo;
-        }
-
-        private List<ThumbnailImagenModi> imagenesPara(RespuestaAPedidoDeLegajo legajo)
-        {
-            return this.repositorio_de_imagenes.getThumbnailsDeImagenesSinAsignarParaUnLegajo(legajo.idInterna);
-            //return new List<ImagenModi>();
         }
 
         private List<DocumentoModi> documentosPara(RespuestaAPedidoDeLegajo legajo)
@@ -58,11 +51,11 @@ namespace General.Modi
             var tablaDocumentos = conexion.Ejecutar("dbo.LEG_GET_Indice_Documentos", parametros);
             var documentos =  GetDocumentosFromTabla(tablaDocumentos);
 
-            //documentos.ForEach(doc =>
-            //{
-            //    var thumbnails = this.repositorio_de_imagenes.getThumbnailsDeImagenesAsignadasAlDocumento(doc.tabla, doc.id);
-            //    doc.thumbnailsImagenesAsignadas.AddRange(thumbnails);
-            //});
+            documentos.ForEach(doc =>
+            {
+                var id_imagenes = this.repositorio_de_imagenes.GetIdsDeImagenesAsignadasAlDocumento(doc.tabla, doc.id);
+                doc.idImagenesAsignadas.AddRange(id_imagenes);
+            });
             return documentos;
         }
 

@@ -76,6 +76,8 @@ public class AjaxWS : System.Web.Services.WebService {
         return backEndService.GuardarCambiosEnDocumento(id_documento, id_area_destino, comentario, usuarioLogueado);
     }
 
+    ////////////////////////////////////////MODI
+
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetLegajoParaDigitalizacion(int numero_documento)
@@ -87,29 +89,30 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetImagenSinAsignar(int legajo, string nombre_imagen)
+    public string GetImagenPorId(int id_imagen)
     {
-        var respuesta = backEndService.GetImagenSinAsignar(legajo, nombre_imagen);
+        var respuesta = backEndService.GetImagenPorId(id_imagen);
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
     }
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetThumbnailsDeImagenesAsignadasAlDocumento(string tabla, int id)
+    public string GetThumbnailPorId(int id_imagen, int alto, int ancho)
     {
-        var respuesta = backEndService.getThumbnailsDeImagenesAsignadasAlDocumento(tabla, id);
+        var respuesta = backEndService.GetThumbnailPorId(id_imagen, alto, ancho);
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
     }
     
-    
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public void AsignarImagenADocumento(string nombre_imagen, int legajo, string tabla, int id_documento)
+    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento)
     {
-        backEndService.asignarImagenADocumento(nombre_imagen, legajo, tabla, id_documento);
+        backEndService.AsignarImagenADocumento(id_imagen, tabla, id_documento);
     }
+
+    ////////////////////////////////////////FIN MODI  
     
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

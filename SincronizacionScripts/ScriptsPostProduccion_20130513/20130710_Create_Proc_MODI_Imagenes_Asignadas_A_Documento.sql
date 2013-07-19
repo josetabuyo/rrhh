@@ -7,18 +7,16 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[MODI_Imagenes_Asignadas_A_Documento]
+CREATE PROCEDURE [dbo].[MODI_Id_Imagenes_Asignadas_A_Un_Documento]
 	@tabla varchar(50),
-	@id INT
+	@id_documento INT
 AS
 
 BEGIN
-	SELECT		I.nombre_imagen,
-				I.bytes_imagen
-		FROM	dbo.MODI_ImagenesAsignadasADocumento I
+	SELECT		I.id_imagen
+		FROM	dbo.MODI_Imagenes I
 		WHERE	I.tabla = @tabla AND
-				I.idDocumento = @id
-
+				I.id_documento = @id_documento
 END
 GO
 

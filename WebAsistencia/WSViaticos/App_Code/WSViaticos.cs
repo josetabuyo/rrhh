@@ -1503,7 +1503,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarEspacioFisico(EspacioFisico un_espacio_fisico, Usuario usuario)
     {
-         var conexion = Conexion();
+        var conexion = Conexion();
         RepoEspaciosFisicos().ActualizarEspacioFisico(un_espacio_fisico, usuario);
     }
 
@@ -1547,25 +1547,27 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public ImagenModi GetImagenSinAsignar(int legajo, string nombre_imagen)
+    public ImagenModi GetImagenPorId(int id_imagen)
     {
         var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        return repo_imagenes.getImagenSinAsignarParaUnLegajo(legajo, nombre_imagen);
+        return repo_imagenes.GetImagenPorId(id_imagen);
     }
 
     [WebMethod]
-    public List<ThumbnailImagenModi> getThumbnailsDeImagenesAsignadasAlDocumento(string tabla, int id)
+    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
     {
         var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        return repo_imagenes.getThumbnailsDeImagenesAsignadasAlDocumento(tabla, id);
+        return repo_imagenes.GetThumbnailPorId(id_imagen, alto, ancho);
     }
 
     [WebMethod]
-    public void asignarImagenADocumento(string nombre_imagen, int legajo, string tabla, int id_documento)
+    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento)
     {
         var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        repo_imagenes.asignarImagenADocumento(nombre_imagen, legajo, tabla, id_documento);
+        repo_imagenes.AsignarImagenADocumento(id_imagen, tabla, id_documento);
     }
+
+    //////////////////////////FIN MODI
 
      [WebMethod]
      public ItemDeMenu[] ItemsDelMenu(Usuario usuario, string menu)

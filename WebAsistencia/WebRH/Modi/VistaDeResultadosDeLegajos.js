@@ -36,6 +36,7 @@ VistaDeResultadosDeLegajos.prototype.mostrarLegajo = function (legajo) {
             documento: legajo.documentos[i],
             plantilla_vista_imagen: this.o.plantilla_vista_imagen,
             servicioDeImagenes: this.o.servicioDeImagenes,
+            visualizadorDeImagenes: this.visualizadorDeImagenes,
             numero_legajo: legajo.idInterna
         });
         this.vistasDeDocumentos.push(vista_documento);
@@ -43,21 +44,13 @@ VistaDeResultadosDeLegajos.prototype.mostrarLegajo = function (legajo) {
     }
 
     var _this = this;
-    for (var i = 0; i < legajo.imagenesSinAsignar.length; i++) {
+    for (var i = 0; i < legajo.idImagenesSinAsignar.length; i++) {
         var vista_imagen = new VistaDeImagenModi({
             ui: this.o.plantilla_vista_imagen.clone(),
-            imagen: legajo.imagenesSinAsignar[i]
+            id_imagen: legajo.idImagenesSinAsignar[i],
+            servicioDeImagenes: this.o.servicioDeImagenes,
+            visualizadorDeImagenes: this.visualizadorDeImagenes
         });
-        vista_imagen.onClick = function (imagen) {
-            _this.o.servicioDeImagenes.getImagenSinAsignar(
-                legajo.idInterna,
-                imagen.nombre,
-                function (imagen) {
-                    _this.visualizadorDeImagenes.mostrarImagen(imagen);
-                },
-                function () {
-                });
-        };
         vista_imagen.dibujarEn(this.panel_imagenes_no_asignadas);
     }
 

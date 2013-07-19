@@ -23,13 +23,31 @@ namespace General.Modi
             this.pathImagenes = pathImagenes;
         }
 
-        public List<ThumbnailImagenModi> getThumbnailsDeImagenesSinAsignarParaUnLegajo(int legajo)
+        public List<int> GetIdsDeImagenesSinAsignarParaElLegajo(int numero_legajo)
         {
-            var listaImagenes = new List<ThumbnailImagenModi>();
+            var listaIdsImagenes = new List<int>();
+            this.AgregarImagenesSinAsignarDeUnLegajoALaBase(numero_legajo);
+                        
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@legajo", numero_legajo);
+            var tablaIds = this.conexionDB.Ejecutar("dbo.MODI_Get_Ids_De_Imagenes_Sin_Asignar_Para_El_Legajo", parametros);
+
+            if (tablaIds.Rows.Count > 0)
+            {
+                tablaIds.Rows.ForEach(row =>
+                {
+                    listaIdsImagenes.Add(row.GetInt("id_imagen"));                 
+                });
+            }
+            return listaIdsImagenes;
+        }
+
+        private void AgregarImagenesSinAsignarDeUnLegajoALaBase(int numero_legajo)
+        {
             List<String> paths_archivos;
             try
             {
-                paths_archivos = this.fileSystem.getPathsArchivosEnCarpeta(this.pathImagenes + "/" + legajo);
+                paths_archivos = this.fileSystem.getPathsArchivosEnCarpeta(this.pathImagenes + "/" + numero_legajo);
             }
             catch (ExcepcionDeCarpetaDeLegajoNoEncontrada e)
             {
@@ -37,65 +55,63 @@ namespace General.Modi
             }
             paths_archivos.ForEach(pathImagen =>
             {
-                listaImagenes.Add(new ThumbnailImagenModi(Path.GetFileNameWithoutExtension(pathImagen), this.fileSystem.getImagenFromPath(pathImagen)));
+                var imagen = new ImagenModi(Path.GetFileNameWithoutExtension(pathImagen), this.fileSystem.getImagenFromPath(pathImagen));
+                this.AgregarImagenSinAsignarALaBase(numero_legajo, imagen);
+                this.fileSystem.moverArchivo(pathImagen, pathImagenes + "/" + numero_legajo + "/IncorporadasAlSistema");
             });
-            return listaImagenes;
         }
 
-
-        public ImagenModi getImagenSinAsignarParaUnLegajo(int legajo, string nombre_imagen)
-        {
-            return new ImagenModi(nombre_imagen, this.fileSystem.getImagenFromPath(this.pathImagenes + "/" + legajo + "/" + nombre_imagen + ".jpg"));
-        }
-
-
-        public List<ThumbnailImagenModi> getThumbnailsDeImagenesAsignadasAlDocumento(string tabla, int id)
+        private void AgregarImagenSinAsignarALaBase(int numero_legajo, ImagenModi imagen)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@tabla", tabla);
-            parametros.Add("@id", id);
-            var tablaImagenes = this.conexionDB.Ejecutar("dbo.MODI_Imagenes_Asignadas_A_Documento", parametros);
-            return GetImagenesFromTabla(tablaImagenes);
-        }
-
-
-        private List<ThumbnailImagenModi> GetImagenesFromTabla(TablaDeDatos tablaImagenes)
-        {
-            var imagenes = new List<ThumbnailImagenModi>();
-
-            if (tablaImagenes.Rows.Count > 0)
-            {
-                tablaImagenes.Rows.ForEach(row =>
-                {
-                    var strImagen = row.GetString("bytes_imagen");
-
-                    byte[] imageBytes = Convert.FromBase64String(strImagen);
-                    MemoryStream ms = new MemoryStream(imageBytes, 0,
-                      imageBytes.Length);
-
-                    ms.Write(imageBytes, 0, imageBytes.Length);
-                    Image image = Image.FromStream(ms, true);
-
-                    var nuevaImagen = new ThumbnailImagenModi(row.GetString("nombre_imagen"),
-                                                            image);
-                    imagenes.Add(nuevaImagen);
-                });
-            }
-
-            return imagenes;
-        }
-
-
-        public void asignarImagenADocumento(string nombre_imagen, int legajo, string tabla, int id_documento)
-        {
-            var imagen = new ImagenModi(nombre_imagen, this.fileSystem.getImagenFromPath(this.pathImagenes + "/" + legajo + "/" + nombre_imagen + ".jpg"));
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@tabla", tabla);
-            parametros.Add("@id", id_documento);
+            parametros.Add("@legajo", numero_legajo);
             parametros.Add("@nombre_imagen", imagen.nombre);
             parametros.Add("@bytes_imagen", imagen.bytesImagen);
 
-            this.conexionDB.EjecutarSinResultado("dbo.MODI_Asignar_Imagen_A_Documento", parametros);
+            this.conexionDB.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros);
+        }
+
+
+        public ImagenModi GetImagenPorId(int id_imagen)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_imagen", id_imagen);
+            var tabla_imagen = this.conexionDB.Ejecutar("dbo.MODI_Get_Imagen", parametros);  
+            var primera_fila = tabla_imagen.Rows.First();
+            return new ImagenModi(primera_fila.GetString("nombre_imagen"), primera_fila.GetString("bytes_imagen"));
+        }
+
+        public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
+        {
+            return this.GetImagenPorId(id_imagen).GetThumbnail(alto, ancho);
+        }
+
+        public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_imagen", id_imagen);
+            parametros.Add("@tabla", tabla);
+            parametros.Add("@id_documento", id_documento);
+
+            this.conexionDB.EjecutarSinResultado("dbo.MODI_Asignar_Imagen_A_Un_Documento", parametros);
+        }
+
+        public List<int> GetIdsDeImagenesAsignadasAlDocumento(string tabla, int id_documento)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@tabla", tabla);
+            parametros.Add("@id_documento", id_documento);
+            var tablaIds = this.conexionDB.Ejecutar("dbo.MODI_Id_Imagenes_Asignadas_A_Un_Documento", parametros);
+
+            var listaIdsImagenes = new List<int>();
+            if (tablaIds.Rows.Count > 0)
+            {
+                tablaIds.Rows.ForEach(row =>
+                {
+                    listaIdsImagenes.Add(row.GetInt("id_imagen"));
+                });
+            }
+            return listaIdsImagenes;
         }
     }
 }

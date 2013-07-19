@@ -70,7 +70,7 @@ namespace TestViaticos
         public void el_legajo_de_jorge_deberia_tener_2_imagenes_sin_asignar()
         {
             RespuestaAPedidoDeLegajo legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
-            Assert.AreEqual(2, legajo_de_jorge.imagenesSinAsignar.Count);
+            Assert.AreEqual(2, legajo_de_jorge.idImagenesSinAsignar.Count);
         }
 
         [TestMethod]
@@ -120,7 +120,7 @@ namespace TestViaticos
         public void todos_los_documentos_del_legajo_de_jorge_deberian_tener_asignadas_2_imagenes()
         {
             RespuestaAPedidoDeLegajo legajo_de_jorge = repositorioDeLegajos.getLegajoPorDocumento(29193500);
-            Assert.IsTrue(legajo_de_jorge.documentos.All(un_documento => un_documento.thumbnailsImagenesAsignadas.Count == 2));
+            Assert.IsTrue(legajo_de_jorge.documentos.All(un_documento => un_documento.idImagenesAsignadas.Count == 2));
         }
 
         [TestMethod]

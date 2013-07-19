@@ -9,6 +9,7 @@ namespace General.Modi
     public interface IFileSystem
     {
         List<string> getPathsArchivosEnCarpeta(string path);
-        Image getImagenFromPath(string pathImagen);
+        Image getImagenFromPath(string pathImagen); 
+        void moverArchivo(string pathArchivo, string pathCarpetaDestino);
     }
 }

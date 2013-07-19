@@ -98,6 +98,8 @@
     margin:5px;  
     draggable: true;
 	list-style:none; 
+	height: 90px;
+    width: 90px;
 }
 
 .imagen_miniatura #img_thumbnail

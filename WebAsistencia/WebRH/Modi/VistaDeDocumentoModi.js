@@ -15,60 +15,25 @@ VistaDeDocumentoModi.prototype.start = function () {
         accept: ".imagen_miniatura",
         hoverClass: "ui-state-active",
         drop: function (event, ui) {
-            //console.log(imagenOnDrag);
             $(ui).remove();
-            var vista_imagen = new VistaDeImagenModi({
-                ui: _this.o.plantilla_vista_imagen.clone(),
-                imagen: imagenOnDrag.imagen
-            });
-            vista_imagen.dibujarEn(_this.panel_imagenes);
-            imagenOnDrag.borrar();
-            _this.o.servicioDeImagenes.asignarImagenADocumento(_this.o.numero_legajo,
-                                                                imagenOnDrag.imagen.nombre,
+            imagenOnDrag.dibujarEn(_this.panel_imagenes);
+            _this.o.servicioDeImagenes.asignarImagenADocumento( imagenOnDrag.id,
                                                                 _this.o.documento.tabla,
                                                                 _this.o.documento.id);
         }
     });
-    _this.mostrarRelojitoDeEspera();
-    _this.o.servicioDeImagenes.getThumbnailsDeImagenesAsignadasAlDocumento(
-        _this.o.documento.tabla,
-        _this.o.documento.id,
-        function (imagenes) {
-            _this.ocultarRelojitoDeEspera();
-            for (var i = 0; i < imagenes.length; i++) {
-                var vista_imagen = new VistaDeImagenModi({
-                    ui: _this.o.plantilla_vista_imagen.clone(),
-                    imagen: imagenes[i]
-                });
-                vista_imagen.dibujarEn(_this.panel_imagenes);
-            }
+
+    for (var i = 0; i < this.o.documento.idImagenesAsignadas.length; i++) {
+        var vista_imagen = new VistaDeImagenModi({
+            ui: this.o.plantilla_vista_imagen.clone(),
+            id_imagen: this.o.documento.idImagenesAsignadas[i],
+            servicioDeImagenes: this.o.servicioDeImagenes,
+            visualizadorDeImagenes: this.o.visualizadorDeImagenes
         });
+        vista_imagen.dibujarEn(this.panel_imagenes);
+    }
 };
 
 VistaDeDocumentoModi.prototype.dibujarEn = function (panel) {
     panel.append(this.o.ui);
-};
-
-VistaDeDocumentoModi.prototype.mostrarRelojitoDeEspera = function () {
-    this.progress_bar = $('<div style="min-height: 100%;">');
-    var progress_label = $("<div>");
-    progress_label.css("float", "left");
-    progress_label.css("margin-left", "40%");
-    progress_label.css("margin-top", "37px");
-    progress_label.css("font-weight", "bold");
-
-    progress_label.text("Buscando imagenes...");
-
-    this.progress_bar.append(progress_label);
-
-    this.progress_bar.progressbar({
-        value: false
-    });
-    this.progress_bar.progressbar("option", "value", false);
-    this.progress_bar.show();
-    this.panel_imagenes.append(this.progress_bar);
-};
-
-VistaDeDocumentoModi.prototype.ocultarRelojitoDeEspera = function () {
-    this.progress_bar.remove();
-};  
+}; 

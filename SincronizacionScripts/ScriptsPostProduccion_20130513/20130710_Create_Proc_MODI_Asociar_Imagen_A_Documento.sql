@@ -7,23 +7,17 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[MODI_Asignar_Imagen_A_Documento]
+CREATE PROCEDURE [dbo].[MODI_Asignar_Imagen_A_Un_Documento]
+	@id_imagen int,
 	@tabla varchar(50),
-	@id BIGINT,
-	@nombre_imagen varchar(50),
-	@bytes_imagen text
+	@id_documento int
 AS
 
 BEGIN
-	INSERT INTO		dbo.MODI_ImagenesAsignadasADocumento 
-					(idDocumento, 
-					tabla, 
-					nombre_imagen, 
-					bytes_imagen)
-	VALUES			(@id, 
-					@tabla, 
-					@nombre_imagen, 
-					@bytes_imagen)	
+	UPDATE dbo.MODI_Imagenes 
+	SET id_documento=@id_documento,
+		tabla=@tabla
+	WHERE id_imagen=@id_imagen
 END
 GO
 

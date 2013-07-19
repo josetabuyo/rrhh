@@ -2,48 +2,44 @@
     this.proveedor_ajax = un_proveedor_ajax;
 };
 
-ServicioDeImagenes.prototype.getImagenSinAsignar = function (legajo, nombre_imagen, on_imagen_encontrada, on_imagen_no_encontrada, on_error_de_comunicaciones) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetImagenSinAsignar",
+ServicioDeImagenes.prototype.getThumbnailPorId = function (id_imagen, alto, ancho, on_imagen_encontrada) {
+    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetThumbnailPorId",
         data: {
-            legajo: legajo,
-            nombre_imagen: nombre_imagen
+            id_imagen: id_imagen,
+            alto: alto,
+            ancho: ancho
         },
         success: function (imagen) {
             on_imagen_encontrada(imagen);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            on_error_de_comunicaciones();
         }
     });
 };
 
-ServicioDeImagenes.prototype.getThumbnailsDeImagenesAsignadasAlDocumento = function (tabla, id, on_imagenes_encontradas) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetThumbnailsDeImagenesAsignadasAlDocumento",
+ServicioDeImagenes.prototype.getImagenPorId = function (id_imagen, on_imagen_encontrada) {
+    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetImagenPorId",
         data: {
-            tabla: tabla,
-            id: id
+            id_imagen: id_imagen
         },
-        success: function (imagenes) {
-            on_imagenes_encontradas(imagenes);
+        success: function (imagen) {
+            on_imagen_encontrada(imagen);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
     });
 };
 
-ServicioDeImagenes.prototype.asignarImagenADocumento = function (legajo, nombre_imagen, tabla, id_documento) {
+ServicioDeImagenes.prototype.asignarImagenADocumento = function (id_imagen, tabla, id_documento) {
     this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/AsignarImagenADocumento",
         data: {
-            legajo: legajo,
-            nombre_imagen: nombre_imagen,
+            id_imagen: id_imagen,
             tabla: tabla,
             id_documento: id_documento
         },
         success: function (imagen) {
-            //console.log("imagen asignada con éxito");
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            //console.log("Error al asignar imagen");
         }
     });
 };
