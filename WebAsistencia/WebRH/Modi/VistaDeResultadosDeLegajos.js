@@ -30,6 +30,18 @@ VistaDeResultadosDeLegajos.prototype.mostrarLegajo = function (legajo) {
     this.panel_documentos.empty();
     this.panel_imagenes_no_asignadas.empty();
 
+    var _this = this;
+    this.panel_imagenes_no_asignadas.droppable({
+        accept: ".imagen_miniatura",
+        hoverClass: "ui-state-active",
+        drop: function (event, ui) {
+            $(ui).remove();
+            imagenOnDrag.dibujarEn(_this.panel_imagenes_no_asignadas);
+            _this.o.servicioDeImagenes.desAsignarImagen(imagenOnDrag.id);
+            imagenOnDrag.yaDropeo = true;
+        }
+    });
+
     for (var i = 0; i < legajo.documentos.length; i++) {
         var vista_documento = new VistaDeDocumentoModi({
             ui: this.o.plantilla_vista_documento.clone(),

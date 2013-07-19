@@ -1567,6 +1567,12 @@ public class WSViaticos : System.Web.Services.WebService
         repo_imagenes.AsignarImagenADocumento(id_imagen, tabla, id_documento);
     }
 
+    [WebMethod]
+    public void DesAsignarImagen(int id_imagen)
+    {
+        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
+        repo_imagenes.DesAsignarImagen(id_imagen);
+    }
     //////////////////////////FIN MODI
 
      [WebMethod]

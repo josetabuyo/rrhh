@@ -43,3 +43,15 @@ ServicioDeImagenes.prototype.asignarImagenADocumento = function (id_imagen, tabl
         }
     });
 };
+
+ServicioDeImagenes.prototype.desAsignarImagen = function (id_imagen) {
+    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/DesAsignarImagen",
+        data: {
+            id_imagen: id_imagen
+        },
+        success: function (imagen) {
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+};

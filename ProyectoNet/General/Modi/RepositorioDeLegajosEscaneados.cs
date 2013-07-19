@@ -113,5 +113,13 @@ namespace General.Modi
             }
             return listaIdsImagenes;
         }
+
+        public void DesAsignarImagen(int id_imagen)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_imagen", id_imagen);
+
+            this.conexionDB.EjecutarSinResultado("dbo.MODI_Des_Asignar_Imagen", parametros);
+        }
     }
 }

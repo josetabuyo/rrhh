@@ -15,11 +15,14 @@ VistaDeDocumentoModi.prototype.start = function () {
         accept: ".imagen_miniatura",
         hoverClass: "ui-state-active",
         drop: function (event, ui) {
-            $(ui).remove();
-            imagenOnDrag.dibujarEn(_this.panel_imagenes);
-            _this.o.servicioDeImagenes.asignarImagenADocumento( imagenOnDrag.id,
+            if (!imagenOnDrag.yaDropeo) {
+                $(ui).remove();
+                imagenOnDrag.dibujarEn(_this.panel_imagenes);
+                _this.o.servicioDeImagenes.asignarImagenADocumento(imagenOnDrag.id,
                                                                 _this.o.documento.tabla,
                                                                 _this.o.documento.id);
+            }
+            imagenOnDrag.yaDropeo = false;
         }
     });
 

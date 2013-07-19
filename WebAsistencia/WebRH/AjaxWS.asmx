@@ -112,6 +112,12 @@ public class AjaxWS : System.Web.Services.WebService {
         backEndService.AsignarImagenADocumento(id_imagen, tabla, id_documento);
     }
 
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void DesAsignarImagen(int id_imagen)
+    {
+        backEndService.DesAsignarImagen(id_imagen);
+    }
     ////////////////////////////////////////FIN MODI  
     
     [WebMethod(EnableSession = true)]

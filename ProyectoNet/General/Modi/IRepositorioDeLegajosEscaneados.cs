@@ -12,5 +12,6 @@ namespace General.Modi
         void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento);
         List<int> GetIdsDeImagenesSinAsignarParaElLegajo(int numero_legajo);
         List<int> GetIdsDeImagenesAsignadasAlDocumento(string tabla, int id_documento);
+        void DesAsignarImagen(int id_imagen);
     }
 }
