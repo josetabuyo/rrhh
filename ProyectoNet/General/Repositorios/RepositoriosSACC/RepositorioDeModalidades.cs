@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeModalidades : General.Repositorios.IRepositorioDeModalidades
+    public class RepositorioDeModalidades : RepositorioLazy<List<Modalidad>>, General.Repositorios.IRepositorioDeModalidades
     {
 
         public IConexionBD conexion_bd { get; set; }
@@ -15,10 +15,16 @@ namespace General.Repositorios
 
         public RepositorioDeModalidades(IConexionBD conexion)
         {
-            this.conexion_bd = conexion;    
+            this.conexion_bd = conexion;
+            this.accion_de_conexion = new CacheNoCargada<List<Modalidad>>();
         }
 
         public List<Modalidad> GetModalidades()
+        {
+            return accion_de_conexion.Ejecutar(ObtenerModalidadesDesdeLaBase, this);
+        }
+
+        public List<Modalidad> ObtenerModalidadesDesdeLaBase()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_GetModalidades");
             List<Modalidad> modalidades = new List<Modalidad>();

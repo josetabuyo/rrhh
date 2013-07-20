@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeDocentes : General.Repositorios.IRepositorioDeDocentes
+    public class RepositorioDeDocentes : RepositorioLazy<List<Docente>>, General.Repositorios.IRepositorioDeDocentes
     {
         protected IConexionBD conexion_bd { get; set; }
         protected static List<Docente> docentes { get; set; }
@@ -16,6 +16,7 @@ namespace General.Repositorios
         {
             this.conexion_bd = conexion;
             this.repo_cursos = repo_cursos;
+            this.accion_de_conexion = new CacheNoCargada<List<Docente>>();
         }
 
         public Docente GetDocenteById(int id)
@@ -34,6 +35,11 @@ namespace General.Repositorios
         }
 
         public List<Docente> GetDocentes()
+        {
+            return accion_de_conexion.Ejecutar(ObtenerDocentesDesdeLaBase, this);
+        }
+
+        public List<Docente> ObtenerDocentesDesdeLaBase()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Docentes");
             docentes = new List<Docente>();

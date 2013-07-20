@@ -48,7 +48,7 @@ namespace TestViaticos
             evaluacion_final = new Evaluacion(final, un_alumno_del_curso, un_curso_puro, new CalificacionNull("No tiene calificación"), DateTime.Today);
             espacio_fisico = new EspacioFisico();
             dia_de_la_semana = new DayOfWeek();
-            horario_de_cursada = new HorarioDeCursada(dia_de_la_semana, "12:00", "13:00", 2);
+            horario_de_cursada = new HorarioDeCursada(dia_de_la_semana, "12:00", "13:00", 2, 1);
             
             planilla_evaluaciones = new PlanillaDeEvaluaciones(un_curso_cens, lista_de_instancias_de_evaluacion);
         }

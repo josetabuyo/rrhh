@@ -19,7 +19,7 @@ namespace General.Repositorios
 
         public List<EspacioFisico> GetEspaciosFisicos() 
         {
-            return this.accion_de_conexion.Ejecutar(GetEspaciosFisicosDesdeDB, this);
+            return this.accion_de_conexion.Ejecutar(ObtenerEspaciosFisicosDesdeLaBase, this);
         }
 
         public EspacioFisico GetEspacioFisicoById(int id)
@@ -98,7 +98,7 @@ namespace General.Repositorios
             return edificios;
         }
 
-        public List<EspacioFisico> GetEspaciosFisicosDesdeDB()
+        public List<EspacioFisico> ObtenerEspaciosFisicosDesdeLaBase()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Espacios_Fisicos");
             var espacios_fisicos = new List<EspacioFisico>();
