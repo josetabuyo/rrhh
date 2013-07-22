@@ -13,7 +13,7 @@
                     <ul class="nav">
                       <li><a href="FormAsignarAlumnos.aspx">Inscripcion</a></li>
                       <li><a href="FormPlanillaAsistenciaAlumnos.aspx">Planilla de Asistencia</a></li>
-                      <li><a href="FormPlanillaDeEvaluaciones.aspx">Evaluaciones</a></li>
+                      <%--<li><a href="FormPlanillaDeEvaluaciones.aspx">Evaluaciones</a></li>--%>
                     </ul>
                     <ul class="nav pull-right">
                        <li class="dropdown" id="menu_parametria" runat="server">
