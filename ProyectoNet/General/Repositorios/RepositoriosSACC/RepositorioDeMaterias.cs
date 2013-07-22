@@ -17,7 +17,7 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
             this.repo_modalidades = repo_modalidades;
             this.repo_cursos = repo_cursos;
-            this.accion_de_conexion = new CacheNoCargada<List<Materia>>();
+            this.cache = new CacheNoCargada<List<Materia>>();
         }
 
         public Materia GetMateriaById(int id)
@@ -33,14 +33,13 @@ namespace General.Repositorios
 
         public List<Materia> GetMaterias()
         {
-            return accion_de_conexion.Ejecutar(ObtenerMateriasDesdeLaBase, this);
+            return cache.Ejecutar(ObtenerMateriasDesdeLaBase, this);
         }
 
         public List<Materia> ObtenerMateriasDesdeLaBase()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Materias");
             materias = new List<Materia>();
-            var todas_las_modalidades = repo_modalidades.GetModalidades();
 
             tablaDatos.Rows.ForEach(row =>
             {
@@ -50,7 +49,7 @@ namespace General.Repositorios
                 {
                     Id = row.GetSmallintAsInt("Id"),
                     Nombre = row.GetString("Nombre"),
-                    Modalidad = todas_las_modalidades.Find(m => m.Id == row.GetInt("IdModalidad")), 
+                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")), 
                     Ciclo = ciclo
                 };
 

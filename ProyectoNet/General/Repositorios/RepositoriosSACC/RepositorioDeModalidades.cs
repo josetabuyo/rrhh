@@ -16,12 +16,12 @@ namespace General.Repositorios
         public RepositorioDeModalidades(IConexionBD conexion)
         {
             this.conexion_bd = conexion;
-            this.accion_de_conexion = new CacheNoCargada<List<Modalidad>>();
+            this.cache = new CacheNoCargada<List<Modalidad>>();
         }
 
         public List<Modalidad> GetModalidades()
         {
-            return accion_de_conexion.Ejecutar(ObtenerModalidadesDesdeLaBase, this);
+            return cache.Ejecutar(ObtenerModalidadesDesdeLaBase, this);
         }
 
         public List<Modalidad> ObtenerModalidadesDesdeLaBase()

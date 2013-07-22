@@ -16,7 +16,7 @@ namespace General.Repositorios
         {
             this.conexion_bd = conexion;
             this.repo_cursos = repo_cursos;
-            this.accion_de_conexion = new CacheNoCargada<List<Docente>>();
+            this.cache = new CacheNoCargada<List<Docente>>();
         }
 
         public Docente GetDocenteById(int id)
@@ -36,7 +36,7 @@ namespace General.Repositorios
 
         public List<Docente> GetDocentes()
         {
-            return accion_de_conexion.Ejecutar(ObtenerDocentesDesdeLaBase, this);
+            return cache.Ejecutar(ObtenerDocentesDesdeLaBase, this);
         }
 
         public List<Docente> ObtenerDocentesDesdeLaBase()

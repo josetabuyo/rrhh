@@ -17,13 +17,13 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
             this.repo_alumnos = repo_alumnos;
             this.repo_cursos = repo_cursos;
-            this.accion_de_conexion = new CacheNoCargada<List<Evaluacion>>();
+            this.cache = new CacheNoCargada<List<Evaluacion>>();
 
         }
 
         public List<Evaluacion> GetEvaluaciones()
         {
-            return accion_de_conexion.Ejecutar(ObtenerEvaluacionesDesdeLaBase, this);
+            return cache.Ejecutar(ObtenerEvaluacionesDesdeLaBase, this);
         }
 
         public List<Evaluacion> ObtenerEvaluacionesDesdeLaBase()

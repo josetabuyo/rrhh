@@ -7,10 +7,10 @@ namespace General.Repositorios
 {
     public class RepositorioLazy<T>
     {
-        protected Cache<T> accion_de_conexion;
+        protected Cache<T> cache;
         public void RealizasteConexion(T resultado)
         {
-            this.accion_de_conexion = new CacheCargada<T>(resultado);
+            this.cache = new CacheCargada<T>(resultado);
         }
     }
 }

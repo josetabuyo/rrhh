@@ -14,12 +14,12 @@ namespace General.Repositorios
         {
             this.conexion_bd = conexion;
             this.repo_cursos = repo_cursos;
-            this.accion_de_conexion = new CacheNoCargada<List<EspacioFisico>>();
+            this.cache = new CacheNoCargada<List<EspacioFisico>>();
         }
 
         public List<EspacioFisico> GetEspaciosFisicos() 
         {
-            return this.accion_de_conexion.Ejecutar(ObtenerEspaciosFisicosDesdeLaBase, this);
+            return this.cache.Ejecutar(ObtenerEspaciosFisicosDesdeLaBase, this);
         }
 
         public EspacioFisico GetEspacioFisicoById(int id)

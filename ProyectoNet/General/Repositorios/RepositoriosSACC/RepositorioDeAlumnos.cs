@@ -16,19 +16,18 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
             this.repo_modalidades = repo_modalidades;
             this.repo_cursos = repo_cursos;
-            this.accion_de_conexion = new CacheNoCargada<List<Alumno>>();
+            this.cache = new CacheNoCargada<List<Alumno>>();
         }
 
         public List<Alumno> GetAlumnos()
         {
-            return accion_de_conexion.Ejecutar(ObtenerAlumnosDesdeLaBase, this);
+            return cache.Ejecutar(ObtenerAlumnosDesdeLaBase, this);
         }
 
         public List<Alumno> ObtenerAlumnosDesdeLaBase() {
 
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
             var alumnos = new List<Alumno>();
-            var todas_las_modalidades = repo_modalidades.GetModalidades();
 
             tablaDatos.Rows.ForEach(row =>
             {               
@@ -49,7 +48,7 @@ namespace General.Repositorios
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
                     Areas = areas_alumno,
-                    Modalidad = todas_las_modalidades.Find(m => m.Id == row.GetInt("IdModalidad")),                  
+                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
                     Baja = baja
                 };
 
