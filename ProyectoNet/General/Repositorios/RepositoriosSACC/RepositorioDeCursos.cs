@@ -114,7 +114,9 @@ namespace General.Repositorios
                 var horas_catedra = row.GetSmallintAsInt("HorasCatedra");
                 var nro_dia = (DayOfWeek)row.GetSmallintAsInt("NroDiaSemana");
                 var curso_id = row.GetSmallintAsInt("idCurso");
-                HorarioDeCursada horario = new HorarioDeCursada(nro_dia, hora_desde, hora_hasta, horas_catedra, curso_id);
+                horarios.Add(new HorarioDeCursada(nro_dia, hora_desde, hora_hasta, horas_catedra, curso_id));
+
+                
             });
             cache_horarios = horarios;
             return horarios;
