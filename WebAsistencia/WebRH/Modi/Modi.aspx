@@ -18,9 +18,9 @@
         <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="MODI" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <div id="contenedor_principal_modi">
            <div id="ui_vista_de_resultados_de_legajos" class="vista_de_legajo">
-                <input id="btn_nueva_busqueda" value="Nueva Búsqueda" type="button" class="btn btn-primary"/>
-                <label id="lbl_nombre"></label>
-                <label id="lbl_apellido"></label>
+                <label id="lbl_resumen_datos_personales"></label>
+                <input id="btn_nueva_busqueda" type="button" value = "Buscar" class="btn btn-primary"/>
+                <div id="lbl_titulo_imagenes_no_asignadas"> Imágenes no asiginadas a ningún documento </div>
                 <div id="panel_imagenes_no_asignadas" class="panel_de_imagenes"> </div>
                 <div id="visualizador_de_imagenes" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="FILTER: chroma(color=#CCCCCC)" allowTransparency>
                     <div class="modal-header">
@@ -31,6 +31,8 @@
                         <img alt="" src="" id="imagen" />
                     </div>
                 </div>
+                <div id="lbl_titulo_panel_documentos"> Documentos </div>
+                <div id="lbl_titulo_imagenes_documentos"> Imagenes Asignadas </div>
                 <div id="panel_documentos"> </div>
            </div>
         </div>

@@ -20,17 +20,43 @@
     transition: all .5s;
 }
 
+#lbl_titulo_imagenes_no_asignadas
+{
+    font-weight: bold;
+}
+
+#lbl_titulo_panel_documentos
+{
+    display: inline-block;
+    font-weight: bold;
+    font-size:15px;
+    margin-left:5px;
+}
+
+#lbl_titulo_imagenes_documentos
+{
+    display: inline-block;
+    font-weight: bold;
+    font-size:15px;
+    margin-left:555px;
+}
+
 #panel_documentos
 {
     max-height: 420px;
     overflow-y: auto;
 }
 
-.vista_de_legajo #lbl_nombre,
-.vista_de_legajo #lbl_apellido
+.vista_de_legajo #lbl_resumen_datos_personales
 {
-    font-size:20px;
-    font-weight:bold;    
+    font-size:18px;
+    font-weight:bold;  
+    margin-bottom:15px;  
+}
+
+#btn_nueva_busqueda
+{
+    float: right;    
 }
 
 .documento

@@ -24,6 +24,7 @@ VistaDeImagenModi.prototype.start = function () {
     this.o.ui.draggable({ revert: "invalid",
         start: function (ui) {
             imagenOnDrag = _this;
+            imagenOnDrag.yaDropeo = false;
         },
         stop: function (ui) {
             setTimeout(function () { imagenOnDrag = undefined; }, 300);
