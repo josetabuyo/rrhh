@@ -97,6 +97,8 @@ namespace TestViaticos
             Assert.AreEqual(2, lista_de_modalidades.Count());
             Assert.AreEqual(1, lista_de_modalidades.First().Id);
             Assert.AreEqual(2, lista_de_modalidades.Last().Id);
+            Assert.AreEqual("Fines Puro", lista_de_modalidades.First().Descripcion);
+            Assert.AreEqual("Fines CENS", lista_de_modalidades.Last().Descripcion);
 
         }
 
@@ -122,11 +124,13 @@ namespace TestViaticos
 
             Assert.AreEqual(2, modalidad_cens.Id);
             Assert.AreEqual(6, modalidad_cens.InstanciasDeEvaluacion.Count());
+            Assert.AreEqual("1° Evaluación", modalidad_cens.InstanciasDeEvaluacion.Find(i => i.Id == 1).Descripcion);
 
             Modalidad modalidad_puro = repo.GetModalidadById(1);
 
             Assert.AreEqual(1, modalidad_puro.Id);
             Assert.AreEqual(1, modalidad_puro.InstanciasDeEvaluacion.Count());
+            Assert.AreEqual("Calificación Final", modalidad_puro.InstanciasDeEvaluacion.First().Descripcion);
         }
 
 

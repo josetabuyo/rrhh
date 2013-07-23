@@ -38,20 +38,22 @@ namespace General.Repositorios
         protected List<Modalidad> GetModalidadesFrom(List<RowDeDatos> tabla, List<string> columnas)
         {
             var ids_modalidad = (from RowDeDatos dRow in tabla select dRow.GetInt(columnas.First())).Distinct().ToList();
+            var PseudoModaliades = (from RowDeDatos dRow in tabla select new { Id = dRow.GetInt(columnas.First()), Descripcion = dRow.GetString("ModalidadDescripcion") }).ToList();
+            PseudoModaliades.Distinct(Id);
             var modalidades = new List<Modalidad>();
             var columnas_todas = new List<string>(columnas);
             columnas.RemoveAt(0);
-            ids_modalidad.ForEach(id_modalidad => modalidades.Add(new Modalidad(id_modalidad, "", InstanciasFrom(id_modalidad, tabla.FindAll(row => row.GetInt(columnas_todas.First()) == id_modalidad), columnas))));
+            ids_modalidad.ForEach(id_modalidad => modalidades.Add(new Modalidad(id_modalidad, PseudoModaliades.Find(d => d.Id == id_modalidad).Descripcion, InstanciasFrom(id_modalidad, tabla.FindAll(row => row.GetInt(columnas_todas.First()) == id_modalidad), columnas))));
             return modalidades;
         }
 
         protected List<InstanciaDeEvaluacion> InstanciasFrom(int id_modalidad, List<RowDeDatos> rows, List<string> columnas)
         {
             var ids_instancia = (from RowDeDatos dRow in rows select dRow.GetInt(columnas.First())).Distinct().ToList();
-
+            var PseudoInstancias = (from RowDeDatos dRow in rows select new { Id =  dRow.GetInt(columnas.First()), Descripcion = dRow.GetString("DescripcionInstancia") }).ToList();
             var instancias = new List<InstanciaDeEvaluacion>();
 
-            ids_instancia.ForEach(id_instancia => instancias.Add(new InstanciaDeEvaluacion(id_instancia, "")));
+            ids_instancia.ForEach(id_instancia => instancias.Add(new InstanciaDeEvaluacion(id_instancia, PseudoInstancias.Find(i => i.Id == id_instancia).Descripcion)));
 
             return instancias;
         }
