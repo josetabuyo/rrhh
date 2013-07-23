@@ -95,6 +95,9 @@ namespace TestViaticos
             List<Modalidad> lista_de_modalidades = repo.GetModalidades();
 
             Assert.AreEqual(2, lista_de_modalidades.Count());
+            Assert.AreEqual(1, lista_de_modalidades.First().Id);
+            Assert.AreEqual(2, lista_de_modalidades.Last().Id);
+
         }
 
         [TestMethod]
@@ -115,10 +118,10 @@ namespace TestViaticos
             Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
             RepositorioDeModalidades repo = new RepositorioDeModalidades(conexion);
-            //Modalidad modalidad_cens = repo.GetModalidadById(2);
+            Modalidad modalidad_cens = repo.GetModalidadById(2);
 
-            //Assert.AreEqual(2, modalidad_cens.Id);
-            //Assert.AreEqual(6, modalidad_cens.InstanciasDeEvaluacion.Count());
+            Assert.AreEqual(2, modalidad_cens.Id);
+            Assert.AreEqual(6, modalidad_cens.InstanciasDeEvaluacion.Count());
 
             Modalidad modalidad_puro = repo.GetModalidadById(1);
 

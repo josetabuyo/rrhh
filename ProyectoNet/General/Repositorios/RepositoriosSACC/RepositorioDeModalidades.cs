@@ -37,13 +37,11 @@ namespace General.Repositorios
 
         protected List<Modalidad> GetModalidadesFrom(List<RowDeDatos> tabla, List<string> columnas)
         {
-
             var ids_modalidad = (from RowDeDatos dRow in tabla select dRow.GetInt(columnas.First())).Distinct().ToList();
-
             var modalidades = new List<Modalidad>();
-
-            ids_modalidad.ForEach(id_modalidad => modalidades.Add(new Modalidad(id_modalidad, "", InstanciasFrom(id_modalidad, tabla.FindAll(row => row.GetInt(columnas.First()) == id_modalidad), columnas))));
-
+            var columnas_todas = new List<string>(columnas);
+            columnas.RemoveAt(0);
+            ids_modalidad.ForEach(id_modalidad => modalidades.Add(new Modalidad(id_modalidad, "", InstanciasFrom(id_modalidad, tabla.FindAll(row => row.GetInt(columnas_todas.First()) == id_modalidad), columnas))));
             return modalidades;
         }
 
