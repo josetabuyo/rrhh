@@ -172,7 +172,7 @@ namespace TestViaticos
             RepositorioDeModalidades repo = new RepositorioDeModalidades(conexion);
             List<Modalidad> modalidades = repo.GetModalidades();
 
-            Assert.AreEqual(5, modalidades.Count);
+            Assert.AreEqual(2, modalidades.Count);
             Assert.IsTrue(modalidades.Exists(m => m.Id == 1));
             Assert.IsTrue(modalidades.Exists(m => m.Id == 2));
         }

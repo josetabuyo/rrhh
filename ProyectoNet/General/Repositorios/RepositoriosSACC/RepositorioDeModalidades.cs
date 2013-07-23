@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 
 namespace General.Repositorios
 {
@@ -27,41 +28,34 @@ namespace General.Repositorios
         public List<Modalidad> ObtenerModalidadesDesdeLaBase()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_GetModalidades");
-            List<Modalidad> modalidades = new List<Modalidad>();
-            List<InstanciaDeEvaluacion> instancias_de_evaluacion = new List<InstanciaDeEvaluacion>();
-            int id_modalidad = 0;
-            string descripcion_modalidad = "";
-            Modalidad modalidad_anterior = new Modalidad(tablaDatos.Rows.First().GetInt("IdModalidad"), tablaDatos.Rows.First().GetString("ModalidadDescripcion"), instancias_de_evaluacion);
-            
 
-            tablaDatos.Rows.ForEach(row =>
-            {
-                if (modalidad_anterior.Id == row.GetInt("IdModalidad"))
-                {
 
-                    InstanciaDeEvaluacion instancia_de_evaluacion = new InstanciaDeEvaluacion(row.GetSmallintAsInt("idInstancia"), row.GetString("DescripcionInstancia"));
-                    instancias_de_evaluacion.Add(instancia_de_evaluacion);
-                }
-                else
-                {
-                    id_modalidad = modalidad_anterior.Id;
-                    descripcion_modalidad = modalidad_anterior.Descripcion;
-                    Modalidad modalidad = new Modalidad(id_modalidad, descripcion_modalidad, instancias_de_evaluacion);
-                    modalidades.Add(modalidad);
-                    instancias_de_evaluacion = new List<InstanciaDeEvaluacion>();
+            var campos_del_corte = new List<string>() { "IdModalidad", "IdInstancia" };
 
-                    InstanciaDeEvaluacion instancia_de_evaluacion = new InstanciaDeEvaluacion(row.GetSmallintAsInt("idInstancia"), row.GetString("DescripcionInstancia"));
-                    instancias_de_evaluacion.Add(instancia_de_evaluacion);
+            return GetModalidadesFrom(tablaDatos.Rows, campos_del_corte);
+        }
 
-                }
+        protected List<Modalidad> GetModalidadesFrom(List<RowDeDatos> tabla, List<string> columnas)
+        {
 
-                modalidad_anterior = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"), instancias_de_evaluacion);
+            var ids_modalidad = (from RowDeDatos dRow in tabla select dRow.GetInt(columnas.First())).Distinct().ToList();
 
-            });
-            Modalidad modadidad_siguiente = new Modalidad(modalidad_anterior.Id, modalidad_anterior.Descripcion, instancias_de_evaluacion);
-            modalidades.Add(modadidad_siguiente);
+            var modalidades = new List<Modalidad>();
+
+            ids_modalidad.ForEach(id_modalidad => modalidades.Add(new Modalidad(id_modalidad, "", InstanciasFrom(id_modalidad, tabla.FindAll(row => row.GetInt(columnas.First()) == id_modalidad), columnas))));
 
             return modalidades;
+        }
+
+        protected List<InstanciaDeEvaluacion> InstanciasFrom(int id_modalidad, List<RowDeDatos> rows, List<string> columnas)
+        {
+            var ids_instancia = (from RowDeDatos dRow in rows select dRow.GetInt(columnas.First())).Distinct().ToList();
+
+            var instancias = new List<InstanciaDeEvaluacion>();
+
+            ids_instancia.ForEach(id_instancia => instancias.Add(new InstanciaDeEvaluacion(id_instancia, "")));
+
+            return instancias;
         }
 
         public Modalidad GetModalidadById(int idModalidad)
