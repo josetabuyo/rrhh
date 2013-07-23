@@ -9,7 +9,9 @@ VistaDeResultadosDeLegajos.prototype.start = function () {
     this.panel_documentos = this.o.ui.find('#panel_documentos');
     this.panel_imagenes_no_asignadas = this.o.ui.find('#panel_imagenes_no_asignadas');
     this.vistasDeDocumentos = [];
-    this.visualizadorDeImagenes = new VisualizadorDeImagenes(this.o.ui.find('#visualizador_de_imagenes'));
+    this.visualizadorDeImagenes = new VisualizadorDeImagenes({ui:this.o.ui.find('#visualizador_de_imagenes'),
+        servicioDeImagenes: this.o.servicioDeImagenes
+    });
     this.btn_nueva_busqueda = this.o.ui.find('#btn_nueva_busqueda');
     var _this = this;
     this.btn_nueva_busqueda.click(function () {

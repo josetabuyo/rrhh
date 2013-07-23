@@ -22,12 +22,8 @@
                 <input id="btn_nueva_busqueda" type="button" value = "Buscar" class="btn btn-primary"/>
                 <div id="lbl_titulo_imagenes_no_asignadas"> Imágenes no asiginadas a ningún documento </div>
                 <div id="panel_imagenes_no_asignadas" class="panel_de_imagenes"> </div>
-                <div id="visualizador_de_imagenes" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="FILTER: chroma(color=#CCCCCC)" allowTransparency>
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3 id="tituloImagen"></h3>
-                    </div>
-                    <div class="modal-body">
+                <div id="visualizador_de_imagenes" >
+                    <div id="contenedor_imagen_zoom">                        
                         <img alt="" src="" id="imagen" />
                     </div>
                 </div>
@@ -65,6 +61,9 @@
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="http://cdn.jquerytools.org/1.2.5/all/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="../Scripts/jQuery-PanZoom-master/jquery-panzoom.js"></script>
     <script type="text/javascript" src="BuscadorDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeResultadosDeLegajos.js"></script>
     <script type="text/javascript" src="ServicioDeLegajos.js"></script>
@@ -74,6 +73,8 @@
     <script type="text/javascript" src="ServicioDeImagenes.js"></script>
     <script type="text/javascript" src="VisualizadorDeImagenes.js"></script>
     <script type="text/javascript" src="ProveedorAjax.js"></script>
+
+
 
     <script type="text/javascript">
         $(document).ready(function () {

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.IO;
+using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 
 namespace General.Modi
 {
@@ -46,10 +48,66 @@ namespace General.Modi
             ms.Write(imageBytes, 0, imageBytes.Length);
             Image image = Image.FromStream(ms, true);
 
-            var msThumb = new MemoryStream();
-            image.GetThumbnailImage(alto, ancho, new Image.GetThumbnailImageAbort(ThumbnailCallback), IntPtr.Zero).Save(msThumb, System.Drawing.Imaging.ImageFormat.Jpeg);
-            byte[] imageBytesThumb = msThumb.ToArray();
-            return new ImagenModi(this.nombre, Convert.ToBase64String(imageBytesThumb));
+
+            //var msThumb = new MemoryStream();
+            //image.GetThumbnailImage(alto, ancho, new Image.GetThumbnailImageAbort(ThumbnailCallback), IntPtr.Zero).Save(msThumb, System.Drawing.Imaging.ImageFormat.Jpeg);
+            //byte[] imageBytesThumb = msThumb.ToArray();
+            //return new ImagenModi(this.nombre, Convert.ToBase64String(imageBytesThumb));
+
+            return new ImagenModi(this.nombre, FixedSize(image, ancho, alto));
+        }
+
+        static Image FixedSize(Image imgPhoto, int Width, int Height)
+        {
+            int sourceWidth = imgPhoto.Width;
+            int sourceHeight = imgPhoto.Height;
+            int sourceX = 0;
+            int sourceY = 0;
+            int destX = 0;
+            int destY = 0;
+
+            float nPercent = 0;
+            float nPercentW = 0;
+            float nPercentH = 0;
+
+            if (Width == 0) Width = sourceWidth;
+            if (Height == 0) Height = sourceHeight;
+
+            nPercentW = ((float)Width / (float)sourceWidth);
+            nPercentH = ((float)Height / (float)sourceHeight);
+            if (nPercentH < nPercentW)
+            {
+                nPercent = nPercentH;
+                destX = System.Convert.ToInt16((Width -
+                              (sourceWidth * nPercent)) / 2);
+            }
+            else
+            {
+                nPercent = nPercentW;
+                destY = System.Convert.ToInt16((Height -
+                              (sourceHeight * nPercent)) / 2);
+            }
+
+            int destWidth = (int)(sourceWidth * nPercent);
+            int destHeight = (int)(sourceHeight * nPercent);
+
+            Bitmap bmPhoto = new Bitmap(Width, Height,
+                              PixelFormat.Format24bppRgb);
+            bmPhoto.SetResolution(imgPhoto.HorizontalResolution,
+                             imgPhoto.VerticalResolution);
+
+            Graphics grPhoto = Graphics.FromImage(bmPhoto);
+            grPhoto.Clear(Color.LightGray);
+            grPhoto.InterpolationMode =
+                    InterpolationMode.HighQualityBicubic;
+
+            grPhoto.DrawImage(imgPhoto,
+                new Rectangle(destX, destY, destWidth, destHeight),
+                new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
+                GraphicsUnit.Pixel);
+
+            grPhoto.Dispose();
+            return bmPhoto;
         }
 
         private bool ThumbnailCallback()

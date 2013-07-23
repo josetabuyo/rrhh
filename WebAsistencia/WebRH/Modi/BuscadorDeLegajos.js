@@ -60,7 +60,7 @@ BuscadorDeLegajos.prototype.mostrarModal = function () {
         show: {
             effect: "fade",
             duration: 500
-        },
+        }
     });
 };
 

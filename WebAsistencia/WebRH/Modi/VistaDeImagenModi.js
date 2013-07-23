@@ -11,17 +11,12 @@ VistaDeImagenModi.prototype.start = function () {
     var _this = this;
     this.o.ui.click(function () {
         if (imagenOnDrag === undefined) {
-            _this.o.servicioDeImagenes.getImagenPorId(
-                _this.id,
-                function (imagen) {
-                    _this.o.visualizadorDeImagenes.mostrarImagen(imagen);
-                },
-                function () {
-                });
+            _this.o.visualizadorDeImagenes.mostrarImagen(_this.id);
         }
     });
 
     this.o.ui.draggable({ revert: "invalid",
+        distance: 20,
         start: function (ui) {
             imagenOnDrag = _this;
             imagenOnDrag.yaDropeo = false;
