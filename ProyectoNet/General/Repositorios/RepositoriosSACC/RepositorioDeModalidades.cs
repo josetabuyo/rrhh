@@ -29,7 +29,7 @@ namespace General.Repositorios
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_GetModalidades");
 
-            var campos_del_corte = new List<string>() { "IdModalidad", "IdInstancia" };
+            var campos_del_corte = new List<string>() { "IdModalidad", "idInstancia" };
 
             return GetModalidadesFrom(tablaDatos.Rows, campos_del_corte);
         }
@@ -46,7 +46,7 @@ namespace General.Repositorios
 
         protected List<InstanciaDeEvaluacion> InstanciasFrom(int id_modalidad, List<RowDeDatos> rows, List<string> columnas)
         {
-            var instancias_anonimas = (from RowDeDatos dRow in rows select new { Id = dRow.GetInt(columnas.First()), Descripcion = dRow.GetString("DescripcionInstancia") }).Distinct().ToList();
+            var instancias_anonimas = (from RowDeDatos dRow in rows select new { Id = dRow.GetSmallintAsInt(columnas.First()), Descripcion = dRow.GetString("DescripcionInstancia") }).Distinct().ToList();
             var instancias = new List<InstanciaDeEvaluacion>();
 
             instancias_anonimas.ForEach(instancia => instancias.Add(new InstanciaDeEvaluacion(instancia.Id, instancia.Descripcion)));
