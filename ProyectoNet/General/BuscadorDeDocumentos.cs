@@ -17,7 +17,11 @@
 
         public List<Documento> Buscar(List<FiltroDeDocumentos> filtros)
         {
-            return documentos.FindAll(documento => filtros.TrueForAll(d => d.aplicaPara(documento)));
+
+            var lista_de_documentos = documentos.FindAll(documento => filtros.TrueForAll(d => d.aplicaPara(documento)));
+            return lista_de_documentos;
+
+
         }
     }
 }
