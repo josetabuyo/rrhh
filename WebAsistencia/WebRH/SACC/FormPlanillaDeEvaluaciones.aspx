@@ -3,9 +3,7 @@
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="BarraDeNavegacion.ascx" TagName="BarraNavegacion" TagPrefix="uc3" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head id="Head1" runat="server">
     <title>Planilla De Evaluaciones</title>
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
@@ -19,20 +17,31 @@
     <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="planilla_ingreso.js"></script>
-    <style>
+    <style type="text/css">
     .date_picker {
         width: 80px;
     }
     .cmb_calificacion
     {
         width: 50px;
+    }
+    .text_2caracteres
+    {
+        max-width: 20px;
+        margin-left: 3px;
+    }
+    .text_10caracteres
+    {
+        max-width: 100px;
+        margin-left: 17px;
+    }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
-    <div id="DivContenedor" runat="server" class="div_izquierdo" style="margin:10px;">
+    <div id="DivContenedor" runat="server" class="div_izquierdo2" style="margin:10px;">
         <label>Curso:&nbsp;</label>
         <select id="CmbCurso" onchange="javascript:cargar_instancias(this.value);" runat="server">
             <option value="0">Seleccione</option>
@@ -41,6 +50,7 @@
         <select id="CmbInstancia" onchange="javascript:admin_planilla.cargarPlanilla();" runat="server">
             <option value="0">Seleccione</option>
         </select>
+        <input type="checkbox" id="readonly" />
     <div>
     <uc1:planilla ID="PlanillaEvaluaciones" runat="server" />
     </div>
@@ -107,28 +117,21 @@
             alert("Guardar Planilla");
         };
         _this.dibujarGrilla = function (planilla) {
-
-            var pla = new Planilla(planilla);
+            var pla = new Planilla(planilla, $("#readonly").attr("checked"));
             var columnas = []
             var contenedor_grilla = $("#PlanillaEvaluaciones_ContenedorPlanilla");
             columnas.push(new Columna("Nombre", { generar: function (fila) { return fila.alumno; } }));
-            columnas.push(new Columna("Calificación", { generar: function (fila) { return fila.calificacion; } }));
-            columnas.push(new Columna(pla.instancias.html(0), { generar: function (fila) { return fila.fecha; } }));
+            for (var i = 0; i < pla.instancias.length; i++) {
+                columnas.push(new Columna(pla.instancias.html(i), new GeneradorCalificacionEvaluacion(pla.instancias[i])));
+            }
 
             var grilla = new Grilla(columnas);
+            grilla.SetOnRowClickEventHandler(function () {
+                return true;
+            });
             grilla.CargarObjetos(pla.grilla());
             contenedor_grilla.html("");
             grilla.DibujarEn(contenedor_grilla);
-
-            $(".fecha_evaluacion").change(function (fecha) {
-                if (!$(this).val())
-                    this.val(fecha);
-            });
-
-            $("#btn").click(function () {
-                $(".fecha_evaluacion").val($(".fecha_instancia").val());
-            });
-
 
         }
     }

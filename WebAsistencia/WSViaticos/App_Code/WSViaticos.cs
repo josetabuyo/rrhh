@@ -1610,9 +1610,7 @@ public class WSViaticos : System.Web.Services.WebService
         List <Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCurso(RepositorioDeCursos().GetCursoById(id_curso));
         Curso curso = RepositorioDeCursos().GetCursoById(id_curso);
         List<EvaluacionDto> EvaluacionesDto = new List<EvaluacionDto>();
-        //List<string> EvaluacionesDto = new List<string>();
-        List<InstanciaDeEvaluacion> InstanciasDto = new List<InstanciaDeEvaluacion>();
-            
+
         evaluaciones.ForEach(e =>{
             EvaluacionesDto.Add(new EvaluacionDto()
             {
@@ -1620,14 +1618,34 @@ public class WSViaticos : System.Web.Services.WebService
                 IdAlumno = e.Alumno.Id,
                 IdCurso = e.Curso.Id,
                 Calificacion = e.Calificacion.Descripcion,
-                Fecha = e.Fecha.ToShortDateString()
-            }); //.Calificacion.Descripcion.ToString());
+                Fecha = e.Fecha.ToShortDateString(),
+                IdInstancia = e.InstanciaEvaluacion.Id
+            }); 
         });
-
+        
         var alumnos = curso.Alumnos().ToArray(); //evaluaciones.Select(e => e.Alumno).Distinct().ToArray();
         var Instancias = curso.Materia.Modalidad.InstanciasDeEvaluacion.ToArray();
         var Calificaciones = evaluaciones.Select(e => e.Calificacion.Descripcion).ToList();
-        
+
+        foreach (var a in alumnos)
+        {
+            foreach (var i in Instancias)
+            {
+                if (EvaluacionesDto.FindAll(e => e.IdAlumno == a.Id && e.IdInstancia == i.Id).Count == 0)
+                {
+                    EvaluacionesDto.Add(new EvaluacionDto()
+                    {
+                        Id = 0,
+                        IdAlumno = a.Id,
+                        IdCurso = id_curso,
+                        Calificacion = null,
+                        Fecha = null,
+                        IdInstancia = i.Id
+                    });
+                }
+            }
+        }
+
         var Planilla = new PlanillaEvaluacionesDto()
         {
             CodigoError = 0,
