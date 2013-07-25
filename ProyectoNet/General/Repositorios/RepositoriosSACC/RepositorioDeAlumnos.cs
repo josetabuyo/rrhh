@@ -1,29 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeAlumnos
+    public class RepositorioDeAlumnos: RepositorioLazy<List<Alumno>>, General.Repositorios.IRepositorioDeAlumnos
     {
+        protected IConexionBD conexion_bd { get; set; }
+        
+        protected IRepositorioDeModalidades repo_modalidades;
+        protected IRepositorioDeCursos repo_cursos;
 
-        public IConexionBD conexion_bd { get; set; }
-        public static List<Alumno> alumnos { get; set; }
-
-        public RepositorioDeAlumnos(IConexionBD conexion)
+        public RepositorioDeAlumnos(IConexionBD conexion, IRepositorioDeCursos repo_cursos, IRepositorioDeModalidades repo_modalidades)
         {
-            this.conexion_bd = conexion;    
+            this.conexion_bd = conexion;
+            this.repo_modalidades = repo_modalidades;
+            this.repo_cursos = repo_cursos;
+            this.cache = new CacheNoCargada<List<Alumno>>();
         }
 
         public List<Alumno> GetAlumnos()
         {
+            return cache.Ejecutar(ObtenerAlumnosDesdeLaBase, this);
+        }
+
+        public List<Alumno> ObtenerAlumnosDesdeLaBase() {
+
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
-            alumnos = new List<Alumno>();
+            var alumnos = new List<Alumno>();
 
             tablaDatos.Rows.ForEach(row =>
             {               
-                Modalidad modeliadad_aux = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
                 var baja = 0;
                 if (!(row.GetObject("IdBaja") is DBNull))
                     baja = (int)row.GetObject("IdBaja");
@@ -41,7 +48,7 @@ namespace General.Repositorios
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
                     Areas = areas_alumno,
-                    Modalidad = modeliadad_aux,                  
+                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
                     Baja = baja
                 };
 
@@ -50,9 +57,6 @@ namespace General.Repositorios
 
             //ordeno por modalidad, apellido, nombre
             alumnos.Sort((alumno1, alumno2) => alumno1.esMayorAlfabeticamenteQue(alumno2));
-           
-            
-
             return alumnos;
         }
 
@@ -97,7 +101,6 @@ namespace General.Repositorios
             
         }
 
-
         public Alumno GetAlumnoByDNI(int dni)
         {
             var parametros = new Dictionary<string, object>();
@@ -113,11 +116,11 @@ namespace General.Repositorios
                 var modaldidad = new Modalidad();
                 var baja = 0;
                 if (!(row.GetObject("IdModalidad") is DBNull))
-                    modaldidad = new Modalidad(row.GetInt("IdModalidad"), "");
+                    modaldidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad"));
 
                 if (!(row.GetObject("BajaAlumno") is DBNull)){
                     baja = row.GetInt("BajaAlumno");
-                    modaldidad = new Modalidad(0, "");
+                    modaldidad = repo_modalidades.ModalidadNull();
                 }
 
                 if (!(row.GetObject("BajaDocente") is DBNull))
@@ -190,24 +193,9 @@ namespace General.Repositorios
             return id;
         }
 
-        public List<Modalidad> GetModalidades()
-        {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_GetModalidades");
-            List<Modalidad> modalidades = new List<Modalidad>();
-
-            tablaDatos.Rows.ForEach(row =>
-            {
-                Modalidad modalidad = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
-
-                modalidades.Add(modalidad);
-            });
-
-            return modalidades;
-        }
-
         public bool AlumnoAsignadoACurso(Alumno un_alumno)
         {
-            List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
+            List<Curso> cursos = repo_cursos.GetCursos();
             return cursos.Exists(c => c.Alumnos().Contains(un_alumno));
         }
 
@@ -223,6 +211,8 @@ namespace General.Repositorios
 
             return parametros;
         }
+
+
 
     }
 }

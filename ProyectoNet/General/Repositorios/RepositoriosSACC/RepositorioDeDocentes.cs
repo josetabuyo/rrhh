@@ -5,25 +5,18 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeDocentes
+    public class RepositorioDeDocentes : RepositorioLazy<List<Docente>>, General.Repositorios.IRepositorioDeDocentes
     {
-        private IConexionBD conexion_bd { get; set; }
-        public static List<Docente> docentes { get; set; }
+        protected IConexionBD conexion_bd { get; set; }
+        protected static List<Docente> docentes { get; set; }
+        protected IRepositorioDeCursos repo_cursos;
 
-        public RepositorioDeDocentes(IConexionBD conexion)
+
+        public RepositorioDeDocentes(IConexionBD conexion, IRepositorioDeCursos repo_cursos)
         {
             this.conexion_bd = conexion;
-            //if (docentes == null)
-            //{
-            //    docentes = new List<Docente>()
-            //    {
-            //        new Docente(0, 23425655, "Jose","Mujica"),
-            //        new Docente(1, 17546899, "Profe de Literatura",""),
-            //        new Docente(2, 17562845, "Newton",""),
-            //        new Docente(3, 13457774, "Pedro Picapiedras",""),
-            //        new Docente(4, 20454632, "Curie","")
-            //    };
-            //}
+            this.repo_cursos = repo_cursos;
+            this.cache = new CacheNoCargada<List<Docente>>();
         }
 
         public Docente GetDocenteById(int id)
@@ -42,6 +35,11 @@ namespace General.Repositorios
         }
 
         public List<Docente> GetDocentes()
+        {
+            return cache.Ejecutar(ObtenerDocentesDesdeLaBase, this);
+        }
+
+        public List<Docente> ObtenerDocentesDesdeLaBase()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Docentes");
             docentes = new List<Docente>();
@@ -106,7 +104,7 @@ namespace General.Repositorios
 
         public bool DocenteAsignadoACurso(Docente un_docente)
         {
-            List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
+            List<Curso> cursos = repo_cursos.GetCursos();
             return cursos.Exists(c => c.Docente.Id == un_docente.Id);
         }
 

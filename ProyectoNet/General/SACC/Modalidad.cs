@@ -1,24 +1,23 @@
-﻿
+﻿using System.Collections.Generic;
+
 namespace General
 {
     public class Modalidad
     {
-        private int _id;
-        private string _descripcion;
-        private EstructuraDeEvaluacion _estructuraDeEvaluacion;
+        public virtual int Id { get; set; }
+        public virtual string Descripcion { get; set; }
+        public virtual List<InstanciaDeEvaluacion> InstanciasDeEvaluacion { get; set; }
 
-        public int Id { get { return _id; } set { _id = value; } }
-        public string Descripcion { get { return _descripcion; } set { _descripcion = value; } }
-        public EstructuraDeEvaluacion EstructuraDeEvaluacion { get { return _estructuraDeEvaluacion; } set { _estructuraDeEvaluacion = value; } }
-
-        public Modalidad() 
+        public Modalidad()
         {
         }
 
-        public Modalidad(int id, string descripcion)
+        public Modalidad(int id, string descripcion, List<InstanciaDeEvaluacion> instanciasDeEvaluacion)
         {
-            this._id = id;
-            this._descripcion = descripcion;
+            this.Id = id;
+            this.Descripcion = descripcion;
+            this.InstanciasDeEvaluacion = instanciasDeEvaluacion;
         }
+
     }
 }

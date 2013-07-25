@@ -10,24 +10,12 @@ using Newtonsoft.Json;
 
 public partial class SACC_ControlPlanillaEvaluaciones : System.Web.UI.UserControl
 {
-    //int anio = 2013;
-    protected void Page_Load(object sender, EventArgs e)
-    {
-
-    }
-
-
     public void CargarEvaluaciones()
     {
         var id_curso = int.Parse(this.CursoId.Value);
-        //var mes = int.Parse(this.Mes.Value);
 
         if (id_curso != 0 )
         {
-        //    var dias = DateTime.DaysInMonth(anio, mes);
-        //    var fecha_desde = new DateTime(2013, mes, 01);
-        //    var fecha_hasta = new DateTime(2013, mes, dias);
-
             var planilla = Servicio().GetPlanillaEvaluacionesPorCurso(id_curso);
             var curso = JsonConvert.DeserializeObject<JObject>(Servicio().GetCursoById(id_curso));
             this.Curso.Value = curso.ToString();
@@ -36,29 +24,6 @@ public partial class SACC_ControlPlanillaEvaluaciones : System.Web.UI.UserContro
         }
     }
 
-    //private void GuardarDetalleEvaluaciones()
-    //{
-    //    var detalle_asistencias_JSON = JsonConvert.DeserializeObject<JArray>(this.DetalleAsistencias.Value);
-    //    if (detalle_asistencias_JSON != null)
-    //    {
-    //        var servicio = Servicio();
-
-    //        var detalle_asistencias_dto = new List<AsistenciaDto>();
-    //        foreach (var item in detalle_asistencias_JSON)
-    //        {
-    //            var id_alumno = int.Parse(item["id_alumno"].ToString());
-    //            var fecha = DateTime.Parse(item["fecha"].ToString());
-    //            var valor = int.Parse(item["valor"].ToString());
-    //            var asistencia_dto = new AsistenciaDto();
-    //            asistencia_dto.IdAlumno = id_alumno;
-    //            asistencia_dto.IdCurso = int.Parse(this.CursoId.Value);
-    //            asistencia_dto.Fecha = fecha;
-    //            asistencia_dto.Valor = valor;
-    //            detalle_asistencias_dto.Add(asistencia_dto);
-    //        }
-    //        servicio.GuardarDetalleAsistencias(detalle_asistencias_dto.ToArray(), (Usuario)Session["usuario"]);
-    //    }
-    //}
 
     private WSViaticosSoapClient Servicio()
     {

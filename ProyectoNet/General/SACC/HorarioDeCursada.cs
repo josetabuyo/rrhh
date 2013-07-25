@@ -23,6 +23,8 @@ namespace General
             set { _hora_fin = value; }
         }
 
+        public int IdCurso { get; set; }
+
         public int HorasCatedra { get; set; }
         public HorarioDeCursada()
         {
@@ -34,7 +36,7 @@ namespace General
         /// </summary>
         /// <param name="hora_inicio"></param>
         /// <param name="hora_fin"></param>
-        public HorarioDeCursada(DayOfWeek dia, string hora_inicio, string hora_fin, int horas_catedra)
+        public HorarioDeCursada(DayOfWeek dia, string hora_inicio, string hora_fin, int horas_catedra, int id_curso)
         {
             try
             {
@@ -42,7 +44,7 @@ namespace General
                 this.HoraDeInicio = TimeSpan.Parse(hora_inicio);
                 this.HoraDeFin = TimeSpan.Parse(hora_fin);
                 this.HorasCatedra = horas_catedra;
-
+                this.IdCurso = id_curso;
                 this.HorasCatedra = horas_catedra;
             }
             catch (FormatException f)

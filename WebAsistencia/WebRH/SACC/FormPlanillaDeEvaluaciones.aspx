@@ -8,10 +8,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>Planilla De Evaluaciones</title>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
-        type="text/css" runat="server" />
+    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
+    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
@@ -20,14 +18,27 @@
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="planilla_ingreso.js"></script>
+    <style>
+    .date_picker {
+        width: 80px;
+    }
+    .cmb_calificacion
+    {
+        width: 50px;
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
-    <div id="DivContenedor" runat="server" style="margin:10px;">
+    <div id="DivContenedor" runat="server" class="div_izquierdo" style="margin:10px;">
         <label>Curso:&nbsp;</label>
-        <select id="CmbCurso" onchange="javascript:CargarPlanilla();" runat="server">
+        <select id="CmbCurso" onchange="javascript:cargar_instancias(this.value);" runat="server">
+            <option value="0">Seleccione</option>
+        </select><br />
+        <label>Instancia:&nbsp;</label>
+        <select id="CmbInstancia" onchange="javascript:admin_planilla.cargarPlanilla();" runat="server">
             <option value="0">Seleccione</option>
         </select>
     <div>
@@ -38,77 +49,91 @@
     </form>
 </body>
 <script type="text/javascript">
-
-    var AdministradorPlanillaEvaluaciones = function () {
-        if ($('#PlanillaEvaluaciones_planillaJSON').val() != "{}" && $('#PlanillaEvaluaciones_planillaJSON').val() != "") {
-
-            var Planilla = JSON.parse($('#PlanillaEvaluaciones_planillaJSON').val());
-
-            var detalleEvaluaciones = Planilla['detalle_evaluacion_dto'];
-            var AlumnosEvaluaciones = Planilla['idAlumno'];
-            var contenedorPlanilla = $('#PlanillaEvaluaciones_ContenedorPlanilla');
-            var columnas = [];
-
-            columnas.push(new Columna("Apellido y Nombre", { generar: function (evaluacionAlumno) { return evaluacionAlumno.nombrealumno } }));
-            if (detalleEvaluaciones) {
-                for (var i = 0; i < detalleEvaluaciones.length; i++) {
-                    columnas.push(new Columna(detalleEvaluaciones[i].instancia, new GeneradorCeldaDiaCursado(detalleEvaluaciones[i])));
+    var admin_planilla;
+    function cargar_instancias(id_curso) {
+        var data_post = JSON.stringify({
+            'id_curso': id_curso
+        });
+        
+        $.ajax({
+            url: "../AjaxWS.asmx/GetInstanciasDeEvaluacion",
+            type: "POST",
+            data: data_post,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (respuestaJson) {
+                var respuesta = JSON.parse(respuestaJson.d);
+                var combo_instancias = $("#CmbInstancia");
+                combo_instancias.html("");
+                combo_instancias.append(new Option("Seleccione", 0));
+                for (var i = 0; i < respuesta.length; i++) {
+                    combo_instancias.append($(new Option(respuesta[i].Descripcion, respuesta[i].Id)).attr("id_curso", id_curso));
                 }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
             }
-            //columnas.push(new Columna("Asistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
-            //columnas.push(new Columna("Inasistencias", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
+        });
+    
+    }
 
-            var PlanillaMensual = new Grilla(columnas);
-
-            PlanillaMensual.CargarObjetos(AlumnosEvaluaciones);
-            PlanillaMensual.DibujarEn(contenedorPlanilla);
-            PlanillaMensual.SetOnRowClickEventHandler(function () {
-                return true;
+    var AdministradorDeEvaluaciones = function () {
+        var _this = this;
+        _this.cargarPlanilla = function (id_curso) {
+            var data_post = JSON.stringify({
+                'id_curso': $("#CmbCurso").val()
             });
-            var Docente = JSON.parse($("#PlanillaEvaluaciones_Curso").val()).Docente;
-
-            $("#Docente").text(Docente.Nombre + " " + Docente.Apellido);
-        }
-        else {
-            $("#lblDocente").css("visibility", "hidden");
-            $("#BtnGuardar").css("visibility", "hidden");
-            $("#BtnImprimir").css("visibility", "hidden");
-        }
-    };
-
-    var GeneradorCeldaDiaCursado = function (diaCursado) {
-        var self = this;
-        self.diaCursado = diaCursado;
-        self.generar = function (inasistenciaalumno) {
-            var contenedorAcciones = $('<div>');
-
-            var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
-                .Where(function (x) { return x.fecha == diaCursado.fecha });
-
-            var botonAsistencia;
-            if (queryResult.Count() > 0) {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor, inasistenciaalumno.max_horas_cursadas);
-            }
-            else {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, inasistenciaalumno.max_horas_cursadas);
-            }
-            contenedorAcciones.append(botonAsistencia);
-
-            return contenedorAcciones;
+            $.ajax({
+                url: "../AjaxWS.asmx/GetPlanillaEvaluaciones",
+                type: "POST",
+                data: data_post,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (respuestaJson) {
+                    var respuesta = JSON.parse(respuestaJson.d);
+                    if (respuesta.MensajeError === "") {
+                        _this.dibujarGrilla(respuesta);
+                    }
+                    else {
+                        alert(respuesta.MensajeError);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
         };
-    }
+        _this.guardarPlanilla = function (planilla) {
+            alert("Guardar Planilla");
+        };
+        _this.dibujarGrilla = function (planilla) {
 
-    function CargarPlanilla() {
-        if ($("#CmbCurso").val() != 0 && $("#CmbMes").val() != 0) {
-            $("#PlanillaEvaluaciones_CursoId").val($("#CmbCurso").val());
-            //$("#PlanillaEvaluaciones_Mes").val($("#CmbMes").val());
-            $("#btn_CargarEvaluaciones").click();
+            var pla = new Planilla(planilla);
+            var columnas = []
+            var contenedor_grilla = $("#PlanillaEvaluaciones_ContenedorPlanilla");
+            columnas.push(new Columna("Nombre", { generar: function (fila) { return fila.alumno; } }));
+            columnas.push(new Columna("Calificación", { generar: function (fila) { return fila.calificacion; } }));
+            columnas.push(new Columna(pla.instancias.html(0), { generar: function (fila) { return fila.fecha; } }));
+
+            var grilla = new Grilla(columnas);
+            grilla.CargarObjetos(pla.grilla());
+            contenedor_grilla.html("");
+            grilla.DibujarEn(contenedor_grilla);
+
+            $(".fecha_evaluacion").change(function (fecha) {
+                if (!$(this).val())
+                    this.val(fecha);
+            });
+
+            $("#btn").click(function () {
+                $(".fecha_evaluacion").val($(".fecha_instancia").val());
+            });
+
+
         }
     }
-
     $(document).ready(function () {
-        AdministradorPlanillaEvaluaciones();
+        admin_planilla = new AdministradorDeEvaluaciones();
     });
-
 </script>
 </html>

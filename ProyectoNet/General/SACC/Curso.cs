@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using General;
 
 namespace General
 {
     public class Curso
     {
-        
-        private int _id;
-        private string _nombre;
-        private List<Alumno> _alumnos;
-        private Docente _docente;
-        private List<DayOfWeek> _diasDeCursada = new List<DayOfWeek>();
-        private Materia _materia;
-        private List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
-        private string _observaciones;
-       
-        private EspacioFisico _espacioFisico;
-        private List<InstanciaDeEvaluacion> _instanciasDeEvaluacion;
+        protected int _id;
+        protected List<Alumno> _alumnos;
+        protected Docente _docente;
+        protected List<DayOfWeek> _diasDeCursada = new List<DayOfWeek>();
+        protected Materia _materia;
+        protected List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
+        protected string _observaciones;
+        protected EspacioFisico _espacioFisico;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Nombre { get { return this.Materia.Nombre + " (" + this.Materia.Modalidad.Descripcion + ")"; } set { } }
         public Docente Docente { get { return _docente; } set { _docente = value; } }
-        public Materia Materia { get{ return _materia; } set{_materia = value;} }
+        public Materia Materia { get { return _materia; } set { _materia = value; } }
         public string Observaciones { get { return _observaciones; } set { _observaciones = value; } }
         public EspacioFisico EspacioFisico { get { return _espacioFisico; } set { _espacioFisico = value; } }
         public DateTime FechaInicio { get; set; }
@@ -32,35 +31,30 @@ namespace General
             return _alumnos;
         }
 
-        public List<InstanciaDeEvaluacion> InstanciasDeEvaluacion()
-        {
-            return _instanciasDeEvaluacion;
-        }
-
         public Curso()
         {
-            _alumnos = new List<Alumno>();
-            _instanciasDeEvaluacion = new List<InstanciaDeEvaluacion>();
-        }
-  
-        public Curso(int id, string nombre) 
-        { 
-            this._id = id;
-            this._nombre = nombre;
-
-            _alumnos = new List<Alumno>();
-            _instanciasDeEvaluacion = new List<InstanciaDeEvaluacion>();
-
         }
 
-        public Curso(int id, string nombre, Materia materia, Docente docente)
+        protected void Asignar(Materia materia, Docente docente, EspacioFisico espacio, DateTime inicio, DateTime fin, string observaciones)
+        {
+            _materia = materia;
+            _docente = docente;
+            _espacioFisico = espacio;
+            FechaInicio = inicio;
+            FechaFin = fin;
+            _alumnos = new List<Alumno>();
+            _observaciones = observaciones;
+        }
+
+        public Curso(Materia materia, Docente docente, EspacioFisico espacio, DateTime inicio, DateTime fin, string observaciones)
+        {
+            Asignar(materia, docente, espacio, inicio, fin, observaciones);
+        }
+
+        public Curso(int id, Materia materia, Docente docente, EspacioFisico espacio, DateTime inicio, DateTime fin, string observaciones)
         {
             this._id = id;
-            this._nombre = nombre;
-            this._materia = materia;
-            this._docente = docente;
-            _alumnos = new List<Alumno>();
-            _instanciasDeEvaluacion = new List<InstanciaDeEvaluacion>();
+            Asignar(materia, docente, espacio, inicio, fin, observaciones);
         }
 
         public void AgregarDiaDeCursada(DayOfWeek diaDeLaSemana)
@@ -78,9 +72,10 @@ namespace General
         {
             return this._horario;
         }
-        
-        public List<DayOfWeek> diasDeCursada(){ 
-            return this._diasDeCursada; 
+
+        public List<DayOfWeek> diasDeCursada()
+        {
+            return this._diasDeCursada;
         }
 
         public void ActualizarAlumnosDelCurso(List<Alumno> lista_alumnos)
@@ -129,39 +124,10 @@ namespace General
             return this.Nombre.CompareTo(otrocurso.Nombre);
         }
 
-        public void AgregarInstanciasEvaluaciones(List<InstanciaDeEvaluacion> instanciasEvaluaciones)
+        public List<InstanciaDeEvaluacion> GetInstanciasDeEvaluacion()
         {
-            instanciasEvaluaciones.ForEach(i => this.AgregarInstanciaEvaluacion(i));
+            return this.Materia.Modalidad.InstanciasDeEvaluacion;
         }
 
-        public void AgregarInstanciaEvaluacion(InstanciaDeEvaluacion instanciaEvaluacion)
-        {
-            this._instanciasDeEvaluacion.Add(instanciaEvaluacion);
-        }
-
-        //public List<Evaluacion> GetInstanciasEvaluaciones()
-        //{
-        //    return this._instanciasEvaluaciones;
-        //}
-
-        //public Evaluacion ObtenerNotas(Evaluacion instancia_evaluacion)
-        //{
-        //    return  _instanciasEvaluaciones.Find(i => i.Equals(instancia_evaluacion));
-        //}
-
-        //public string ObtenerNotaDelAlumno(Alumno alumno, Evaluacion instancia_evaluacion)
-        //{
-        //    return _instanciasEvaluaciones.Find(i => i.IdAlumno == alumno.Id && i == instancia_evaluacion).Calificacion;
-        //}
-
-        //public string ObtenerNotaDelAlumnoEnLaFecha(Alumno alumno, DateTime fecha)
-        //{
-        //    return _instanciasEvaluaciones.Find(i => i.IdAlumno == alumno.Id && i.Fecha == fecha).Calificacion;
-        //}
-
-        public void AgregarEvaluacion(Evaluacion evaluacion_historia_primer_parcial_bel)
-        {
-
-        }
     }
 }

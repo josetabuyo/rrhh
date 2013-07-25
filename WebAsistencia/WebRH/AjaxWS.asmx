@@ -136,6 +136,22 @@ public class AjaxWS : System.Web.Services.WebService {
     public string EstadoServicioDeAlertas()
     {
         return backEndService.EstadoServicioDeAlertas();
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetPlanillaEvaluaciones(int id_curso)
+    {
+        var Planilla = backEndService.GetPlanillaEvaluaciones(id_curso);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(Planilla);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetInstanciasDeEvaluacion(int id_curso)
+    {
+        var instancias = backEndService.GetInstanciasDeEvaluacion(id_curso);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(instancias);
     }       
 }
 

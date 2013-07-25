@@ -4,8 +4,6 @@ using General.Repositorios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using General.Calendario;
-using NDbUnit.Core;
-using NDbUnit.Core.SqlClient;
 using NMock2;
 
 namespace TestViaticos
@@ -36,7 +34,7 @@ namespace TestViaticos
 
                 Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-                RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion);
+                RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion, TestObjects.RepoCursosMockeado());
 
                 Assert.AreEqual(3, repo.GetEspaciosFisicos().Count);
             }
@@ -56,7 +54,7 @@ namespace TestViaticos
 
               Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion);
+              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion, TestObjects.RepoCursosMockeado());
 
               Assert.AreEqual(3, repo.GetEdificios().Count);
               Assert.AreEqual(repo.GetEdificios().First().Direccion, "9 de Julio 1020 Piso: PB Dto: 0");
@@ -76,7 +74,7 @@ namespace TestViaticos
 
               Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion);
+              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion, TestObjects.RepoCursosMockeado());
 
               Assert.IsTrue(repo.GetEdificios().Exists(e => e.Area.Id.Equals(621)));
               Assert.IsTrue(repo.GetEdificios().Exists(e => e.Area.Nombre.Equals("Secretaría de Deportes")));
@@ -85,7 +83,7 @@ namespace TestViaticos
           [TestMethod]
           public void al_obtener_los_espacios_fisico_deberia_poder_saber_a_que_area_pertenece_el_edificio_de_dicho_espacio()
           {
-
+              
               string source =   @"  |Id     |Aula   |idEdificio     |NombreEdificio     |DireccionEdificio      |NumeroEdificio     |Capacidad  |idusuario     |Fecha                      |idBaja  |IdArea |NombreArea
                                     |01     |03     |01             |Evita              |9 de Julio             |1020               |30         |1111          |2012-10-13 21:36:35.077    |0       |0      |Ministerio de Desarrollo Social
                                     |02     |Magna  |10             |San Martín         |Santa Fe 504           |504                |100        |1111          |2012-10-13 21:36:35.077    |0       |1      |Unidad Ministrio
@@ -96,10 +94,25 @@ namespace TestViaticos
 
               Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion);
+              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion, TestObjects.RepoCursosMockeado());
 
               Assert.IsTrue(repo.GetEspaciosFisicos().Exists(e => e.Edificio.Area.Id.Equals(621)));
               Assert.IsTrue(repo.GetEspaciosFisicos().Exists(e => e.Edificio.Area.Nombre.Equals("Secretaría de Deportes")));
           }
+
+         [TestMethod]
+          public void al_obtener_el_espacios_fisico_asignado_a_un_curso()
+          {
+              List<Curso> cursos = new List<Curso>();
+              Curso curso = TestObjects.UnCursoConAlumnos();
+              cursos.Add(curso);
+              Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursos").WithAnyArguments().Will(Return.Value(cursos));
+              
+              IConexionBD conexion = TestObjects.ConexionMockeada();
+
+              RepositorioDeEspaciosFisicos repo = new RepositorioDeEspaciosFisicos(conexion, TestObjects.RepoCursosMockeado());
+
+              Assert.IsTrue(repo.EspacioFisicoAsignadoACurso(TestObjects.UnEspacioFisico()));
+           }
     }
 }
