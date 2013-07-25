@@ -4,7 +4,7 @@
 <asp:HiddenField ID="Curso" runat="server" EnableViewState="true"/>
 <asp:HiddenField ID="CursoId" Value="0" runat="server" EnableViewState="true" />
 
-<div id="ContenedorPlanilla" runat="server">
+<div id="ContenedorPlanilla" runat="server" style="display:inline-block">
 
 </div>
 <input type="hidden" id="DetalleEvaluaciones" runat="server" />

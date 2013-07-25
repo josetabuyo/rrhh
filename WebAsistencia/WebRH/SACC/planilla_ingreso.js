@@ -61,10 +61,14 @@ var Planilla = function (planilla, readonly) {
     function iniciar_instancias() {
         for (var i = 0; i < _this.instancias.length; i++) {
             var inst = _this.instancias[i];
-            inst.etiqueta = $("<label>").text(inst.Descripcion);
-            inst.input = new TextboxFecha("instancia_" + i);
-            inst.label_fecha = new LabelFecha("label_instancia_" + i);
-            $(inst.label_fecha.html).text("Fecha");
+            inst.etiqueta = $("<h4>").text(inst.Descripcion);
+            if (_this.readonly) {
+                inst.fecha = new LabelFecha("instancia_fecha_" + i);
+                $(inst.fecha.html).text("Fecha");
+            } else {
+                inst.fecha = new TextboxFecha("instancia_fecha_" + i);
+            }
+
         }
     }
     function iniciar_evaluaciones() {
@@ -89,7 +93,7 @@ var Planilla = function (planilla, readonly) {
                 for (var i = 0; i < _this.evaluaciones.length; i++) {
                     var ev = _this.evaluaciones[i];
                     if (ev.IdInstancia == inst.Id)
-                        inst.input.addObservador(ev.input_fecha);
+                        inst.fecha.addObservador(ev.fecha);
                 }
             }
         }
@@ -99,14 +103,10 @@ var Planilla = function (planilla, readonly) {
         var contenedor = $("<div>");
         var inst = _this.instancias[indice];
         if (_this.instancias.length > 0) {
-            var etiqueta_titulo = $("<div>").css("text-align", "center").text(inst.Descripcion);
-            var etiqueta_calificacion = $("<div>").css("display", "inline").css("margin-right", "4px").html("Calif.");
-            if (_this.readonly) {
-                var contenedor_fecha = $("<div>").css("display", "inline").append(inst.label_fecha.html);
-            }
-            else {
-                var contenedor_fecha = $("<div>").css("display", "inline").append(inst.input.html);
-            }
+            var etiqueta_titulo = $("<div>").css("text-align", "center").html(inst.etiqueta);
+            var etiqueta_calificacion = $("<div>").css("display", "inline-block").css("margin-right", "4px").html("Calif.");
+
+            var contenedor_fecha = $("<div>").css("display", "inline-block").css("z-index","1").append(inst.fecha.html);
 
             contenedor.append(etiqueta_titulo);
             contenedor.append(etiqueta_calificacion);

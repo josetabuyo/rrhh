@@ -30,7 +30,7 @@ Grilla.prototype = {
 
         for (var i = 0; i < this.columnas.length; i++) {
             var col = this.columnas[i];
-			var th = $("<th>").append(col.titulo);
+            var th = $("<th>").append(col.titulo);
             encabezado.append(th);
         }
     },
@@ -93,10 +93,21 @@ Grilla.prototype = {
     },
     CargarObjetos: function (objetos) {
         this.ocultarProgressBar();
-        for (var i = 0; i < objetos.length; i++) {
-            var obj = objetos[i];
-            this.CargarObjeto(obj);
+        if (objetos.length > 0) {
+            for (var i = 0; i < objetos.length; i++) {
+                var obj = objetos[i];
+                this.CargarObjeto(obj);
+            }
+        } else {
+            this.CargarFilaSinDatos();
         }
+    },
+    CargarFilaSinDatos: function () {
+        var tr = $('<tr>');
+        var td = $('<td>');
+        td.attr('colspan', this.columnas.length).text("No hay datos para mostrar");
+        tr.append(td);
+        this.tabla.append(tr);
     },
     CargarObjeto: function (obj) {
         var tr = $('<tr>');

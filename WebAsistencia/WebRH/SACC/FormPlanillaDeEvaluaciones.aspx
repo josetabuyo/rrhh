@@ -16,6 +16,7 @@
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
     <script type="text/javascript" src="planilla_ingreso.js"></script>
     <style type="text/css">
     .date_picker {
