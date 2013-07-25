@@ -21,11 +21,7 @@
                 <label id="lbl_resumen_datos_personales"></label>
                 <input id="btn_nueva_busqueda" type="button" value = "Buscar" class="btn btn-primary"/>
                 <div id="lbl_titulo_imagenes_no_asignadas"> Imágenes no asiginadas a ningún documento </div>
-                <div id="panel_imagenes_no_asignadas" class="panel_de_imagenes"> </div>
-                <div id="visualizador_de_imagenes" >
-                    <div id="contenedor_imagen_zoom">                        
-                        <img alt="" src="" id="imagen" />
-                    </div>
+                <div id="panel_imagenes_no_asignadas"> 
                 </div>
                 <div id="lbl_titulo_panel_documentos"> Documentos </div>
                 <div id="lbl_titulo_imagenes_documentos"> Imagenes Asignadas </div>
@@ -38,7 +34,8 @@
                 <input id="input_numero" type="text" class="span2"/>
                 <div id="aviso_legajo_no_encontrado" class="alert alert-danger">
                 </div>
-           </div>
+            </div>
+
             <div id="plantilla_ui_documento" class="documento">
                 <div id="panel_datos_documento">
                     <label class="titulo">Descripción:</label>
@@ -46,12 +43,26 @@
                     <label class="titulo">Folio:</label>
                     <label id="lbl_folio"></label>      
                 </div>        
-                <div id="panel_imagenes" class="panel_de_imagenes">
+                <div id="panel_imagenes">
                     
                 </div>
             </div>
+
             <div id="plantilla_ui_imagen" class="imagen_miniatura">
+                <div id="relojito_de_espera" style="min-height: 90px;"></div>
                 <img alt="" src="" id="img_thumbnail" />
+            </div>
+
+            <div id="plantilla_ui_visualizador_imagen" >
+                <div id="contenedor_imagen_zoom">                        
+                    <img alt="" src="" id="imagen" />
+                </div>
+            </div>
+
+            <div id="plantilla_ui_panel_imagenes" class="panel_de_imagenes">
+                <div id="aviso_no_hay_imagenes">
+                    
+                </div>
             </div>
         </div>       
         <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -68,10 +79,11 @@
     <script type="text/javascript" src="VistaDeResultadosDeLegajos.js"></script>
     <script type="text/javascript" src="ServicioDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeDocumentoModi.js"></script>
-    <script type="text/javascript" src="VistaDeImagenModi.js"></script>
+    <script type="text/javascript" src="VistaDeImagen.js"></script>
     <script type="text/javascript" src="ServicioDeDragAndDrop.js"></script>
     <script type="text/javascript" src="ServicioDeImagenes.js"></script>
     <script type="text/javascript" src="VisualizadorDeImagenes.js"></script>
+    <script type="text/javascript" src="PanelDeImagenes.js"></script>
     <script type="text/javascript" src="ProveedorAjax.js"></script>
 
 
@@ -82,7 +94,6 @@
             var vista_del_legajo = new VistaDeResultadosDeLegajos({
                 ui: $('#ui_vista_de_resultados_de_legajos'),
                 plantilla_vista_documento: $('#plantilla_ui_documento'),
-                plantilla_vista_imagen: $('#plantilla_ui_imagen'),
                 servicioDeImagenes: servicio_de_imagenes
             });
 
