@@ -9,5 +9,6 @@ namespace General
         public string HoraDeInicio { get; set; }
         public string HoraDeFin { get; set; }
         public int HorasCatedra { get; set; }
+        public int IdCurso { get; set; }
     }
 }

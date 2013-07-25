@@ -1438,7 +1438,7 @@ public class WSViaticos : System.Web.Services.WebService
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra, h.IdCurso));
         });
 
         return RepositorioDeCursos().QuitarCurso(un_curso, usuario);
@@ -1452,7 +1452,7 @@ public class WSViaticos : System.Web.Services.WebService
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra, h.IdCurso));
         });
 
         return RepositorioDeCursos().AgregarCurso(un_curso);
@@ -1469,7 +1469,7 @@ public class WSViaticos : System.Web.Services.WebService
         var horarios = curso.Horarios;
         horarios.ForEach(h =>
         {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra));
+            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra, h.IdCurso));
         });
 
         return RepositorioDeCursos().ModificarCurso(un_curso);
@@ -1600,8 +1600,10 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
     {
-        var una_instancia = new List<InstanciaDeEvaluacion> {new InstanciaDeEvaluacion(){ Id = 1, Descripcion = "Prueba"}};
-        return una_instancia.ToArray();
+        return RepositorioDeCursos().GetInstanciasDeEvaluacion(id_curso).ToArray();
+        
+        //var una_instancia = new List<InstanciaDeEvaluacion> {new InstanciaDeEvaluacion(){ Id = 1, Descripcion = "Prueba"}};
+        //return una_instancia.ToArray();
     }
 
     [WebMethod]

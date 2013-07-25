@@ -4,7 +4,7 @@ using System;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeEvaluacion
+    public class RepositorioDeEvaluacion : RepositorioLazy<List<Evaluacion>> 
     {
         List<Evaluacion> evaluaciones = new List<Evaluacion>();
         public IConexionBD conexion_bd { get; set; }
@@ -17,9 +17,16 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
             this.repo_alumnos = repo_alumnos;
             this.repo_cursos = repo_cursos;
+            this.cache = new CacheNoCargada<List<Evaluacion>>();
+
         }
 
         public List<Evaluacion> GetEvaluaciones()
+        {
+            return cache.Ejecutar(ObtenerEvaluacionesDesdeLaBase, this);
+        }
+
+        public List<Evaluacion> ObtenerEvaluacionesDesdeLaBase()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Evaluaciones");
             var alumnos = repo_alumnos.GetAlumnos();

@@ -56,10 +56,7 @@ namespace TestViaticos
         {
 
             Modalidad modalidad = TestObjects.ModalidadFinesPuro();
-            
-            List<Modalidad> modalidades = new List<Modalidad>();
-            modalidades.Add(modalidad);
-            Expect.AtLeastOnce.On(TestObjects.RepoModalidadesMockeado()).Method("GetModalidades").WithAnyArguments().Will(Return.Value(modalidades));
+            Expect.AtLeastOnce.On(TestObjects.RepoModalidadesMockeado()).Method("GetModalidadById").WithAnyArguments().Will(Return.Value(modalidad));
            
             
             
@@ -98,6 +95,11 @@ namespace TestViaticos
             List<Modalidad> lista_de_modalidades = repo.GetModalidades();
 
             Assert.AreEqual(2, lista_de_modalidades.Count());
+            Assert.AreEqual(1, lista_de_modalidades.First().Id);
+            Assert.AreEqual(2, lista_de_modalidades.Last().Id);
+            Assert.AreEqual("Fines Puro", lista_de_modalidades.First().Descripcion);
+            Assert.AreEqual("Fines CENS", lista_de_modalidades.Last().Descripcion);
+
         }
 
         [TestMethod]
@@ -122,6 +124,13 @@ namespace TestViaticos
 
             Assert.AreEqual(2, modalidad_cens.Id);
             Assert.AreEqual(6, modalidad_cens.InstanciasDeEvaluacion.Count());
+            Assert.AreEqual("1° Evaluación", modalidad_cens.InstanciasDeEvaluacion.Find(i => i.Id == 1).Descripcion);
+
+            Modalidad modalidad_puro = repo.GetModalidadById(1);
+
+            Assert.AreEqual(1, modalidad_puro.Id);
+            Assert.AreEqual(1, modalidad_puro.InstanciasDeEvaluacion.Count());
+            Assert.AreEqual("Calificación Final", modalidad_puro.InstanciasDeEvaluacion.First().Descripcion);
         }
 
 
@@ -170,7 +179,7 @@ namespace TestViaticos
             RepositorioDeModalidades repo = new RepositorioDeModalidades(conexion);
             List<Modalidad> modalidades = repo.GetModalidades();
 
-            Assert.AreEqual(5, modalidades.Count);
+            Assert.AreEqual(2, modalidades.Count);
             Assert.IsTrue(modalidades.Exists(m => m.Id == 1));
             Assert.IsTrue(modalidades.Exists(m => m.Id == 2));
         }

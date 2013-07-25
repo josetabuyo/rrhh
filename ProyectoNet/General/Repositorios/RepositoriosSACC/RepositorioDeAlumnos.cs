@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeAlumnos : General.Repositorios.IRepositorioDeAlumnos
+    public class RepositorioDeAlumnos: RepositorioLazy<List<Alumno>>, General.Repositorios.IRepositorioDeAlumnos
     {
-
         protected IConexionBD conexion_bd { get; set; }
-        protected static List<Alumno> alumnos { get; set; }
+        
         protected IRepositorioDeModalidades repo_modalidades;
         protected IRepositorioDeCursos repo_cursos;
 
@@ -18,13 +16,18 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
             this.repo_modalidades = repo_modalidades;
             this.repo_cursos = repo_cursos;
+            this.cache = new CacheNoCargada<List<Alumno>>();
         }
 
         public List<Alumno> GetAlumnos()
         {
+            return cache.Ejecutar(ObtenerAlumnosDesdeLaBase, this);
+        }
+
+        public List<Alumno> ObtenerAlumnosDesdeLaBase() {
+
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
-            alumnos = new List<Alumno>();
-            var todas_las_modalidades = repo_modalidades.GetModalidades();
+            var alumnos = new List<Alumno>();
 
             tablaDatos.Rows.ForEach(row =>
             {               
@@ -45,7 +48,7 @@ namespace General.Repositorios
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
                     Areas = areas_alumno,
-                    Modalidad = todas_las_modalidades.Find(m => m.Id == row.GetInt("IdModalidad")),                  
+                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
                     Baja = baja
                 };
 
@@ -54,9 +57,6 @@ namespace General.Repositorios
 
             //ordeno por modalidad, apellido, nombre
             alumnos.Sort((alumno1, alumno2) => alumno1.esMayorAlfabeticamenteQue(alumno2));
-           
-            
-
             return alumnos;
         }
 
@@ -100,7 +100,6 @@ namespace General.Repositorios
             }
             
         }
-
 
         public Alumno GetAlumnoByDNI(int dni)
         {
@@ -212,6 +211,8 @@ namespace General.Repositorios
 
             return parametros;
         }
+
+
 
     }
 }

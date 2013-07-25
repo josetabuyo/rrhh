@@ -23,7 +23,6 @@ namespace TestViaticos
           [TestMethod]
           public void deberia_poder_obtener_todas_materias()
             {
-
                 Modalidad modalidad = TestObjects.ModalidadFinesPuro();
                 Expect.AtLeastOnce.On(TestObjects.RepoModalidadesMockeado()).Method("GetModalidadById").WithAnyArguments().Will(Return.Value(modalidad));
                 

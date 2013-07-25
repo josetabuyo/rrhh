@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeEspaciosFisicos : General.Repositorios.IRepositorioDeEspaciosFisicos
+    public class RepositorioDeEspaciosFisicos: RepositorioLazy<List<EspacioFisico>>, General.Repositorios.IRepositorioDeEspaciosFisicos
     {
+       
+
         protected IConexionBD conexion_bd { get; set; }
         protected static List<EspacioFisico> espacios_fisicos { get; set; }
         protected IRepositorioDeCursos repo_cursos;
@@ -15,6 +14,12 @@ namespace General.Repositorios
         {
             this.conexion_bd = conexion;
             this.repo_cursos = repo_cursos;
+            this.cache = new CacheNoCargada<List<EspacioFisico>>();
+        }
+
+        public List<EspacioFisico> GetEspaciosFisicos() 
+        {
+            return this.cache.Ejecutar(ObtenerEspaciosFisicosDesdeLaBase, this);
         }
 
         public EspacioFisico GetEspacioFisicoById(int id)
@@ -34,9 +39,7 @@ namespace General.Repositorios
         public void ActualizarEspacioFisico(EspacioFisico espacio_fisico, Usuario usuario)
         {
             var espacios_fisicos = GetEspaciosFisicos();
-            if (
-                espacios_fisicos.Exists(
-                    e => e.Aula == espacio_fisico.Aula && e.Edificio.Id == espacio_fisico.Edificio.Id))
+            if (espacios_fisicos.Exists(e => e.Aula == espacio_fisico.Aula && e.Edificio.Id == espacio_fisico.Edificio.Id))
             {
                 espacio_fisico.Id =
                     espacios_fisicos.Find(
@@ -95,10 +98,10 @@ namespace General.Repositorios
             return edificios;
         }
 
-        public List<EspacioFisico> GetEspaciosFisicos()
+        public List<EspacioFisico> ObtenerEspaciosFisicosDesdeLaBase()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Espacios_Fisicos");
-            espacios_fisicos = new List<EspacioFisico>();
+            var espacios_fisicos = new List<EspacioFisico>();
 
             tablaDatos.Rows.ForEach(row =>
                                         {
@@ -114,14 +117,13 @@ namespace General.Repositorios
                                                                                    Aula = row.GetString("Aula"),
                                                                                    Edificio = edificio_aux,
                                                                                    Capacidad =
-                                                                                       row.GetSmallintAsInt("Capacidad")
+                                                                                   row.GetSmallintAsInt("Capacidad")
                                                                                };
 
                                             espacios_fisicos.Add(espacio_fisico);
                                         });
 
-            espacios_fisicos.Sort(
-                (espacio_fisico1, espacio_fisico2) => espacio_fisico1.esMayorAlfabeticamenteQue(espacio_fisico2));
+            espacios_fisicos.Sort((espacio_fisico1, espacio_fisico2) => espacio_fisico1.esMayorAlfabeticamenteQue(espacio_fisico2));
             return espacios_fisicos;
 
         }

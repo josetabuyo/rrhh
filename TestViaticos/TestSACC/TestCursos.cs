@@ -30,7 +30,7 @@ namespace TestViaticos
             un_alumno_nuevo = TestObjects.UnAlumnoNuevo();
             espacio_fisico = new EspacioFisico();
             dia_de_la_semana = new DayOfWeek();
-            horario_de_cursada = new HorarioDeCursada(dia_de_la_semana, "12:00", "13:00", 2);
+            horario_de_cursada = new HorarioDeCursada(dia_de_la_semana, "12:00", "13:00", 2,1 );
         }
 
 

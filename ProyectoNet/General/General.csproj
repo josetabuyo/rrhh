@@ -115,8 +115,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="ReportadorDeDocumentosEnAlerta.cs" />
+    <Compile Include="Repositorios\Cache.cs" />
     <Compile Include="Repositorios\AliasEquals.cs" />
     <Compile Include="AreaNull.cs" />
+    <Compile Include="Repositorios\CacheNoCargada.cs" />
+    <Compile Include="Repositorios\CacheCargada.cs" />
     <Compile Include="Repositorios\Etiquetador.cs" />
     <Compile Include="Repositorios\IRepositorioDeDocumentos.cs" />
     <Compile Include="Repositorios\IRepositorioDeOrganigrama.cs" />
@@ -138,6 +141,7 @@
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEspaciosFisicos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEvaluaciones.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeMaterias.cs" />
+    <Compile Include="Repositorios\RepositorioLazy.cs" />
     <Compile Include="Responsable.cs" />
     <Compile Include="Estadia.cs" />
     <Compile Include="EstrategiaDeCalculoDeViatico1184.cs" />

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeMaterias : General.Repositorios.IRepositorioDeMaterias
+    public class RepositorioDeMaterias : RepositorioLazy<List<Materia>> , General.Repositorios.IRepositorioDeMaterias
     {
         protected IConexionBD conexion_bd { get; set; }
         protected static List<Materia> materias { get; set; }
@@ -17,6 +17,7 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
             this.repo_modalidades = repo_modalidades;
             this.repo_cursos = repo_cursos;
+            this.cache = new CacheNoCargada<List<Materia>>();
         }
 
         public Materia GetMateriaById(int id)
@@ -32,7 +33,11 @@ namespace General.Repositorios
 
         public List<Materia> GetMaterias()
         {
-            //RepositorioDeModalidades repoModalidades = new RepositorioDeModalidades(conexion_bd);
+            return cache.Ejecutar(ObtenerMateriasDesdeLaBase, this);
+        }
+
+        public List<Materia> ObtenerMateriasDesdeLaBase()
+        {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Materias");
             materias = new List<Materia>();
 
@@ -44,7 +49,7 @@ namespace General.Repositorios
                 {
                     Id = row.GetSmallintAsInt("Id"),
                     Nombre = row.GetString("Nombre"),
-                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),
+                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")), 
                     Ciclo = ciclo
                 };
 
