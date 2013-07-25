@@ -1,4 +1,5 @@
-﻿var Grilla = function (columnas) {
+// JavaScript Document
+var Grilla = function (columnas) {
     this.columnas = columnas;
     this.start();
 };
@@ -29,7 +30,8 @@ Grilla.prototype = {
 
         for (var i = 0; i < this.columnas.length; i++) {
             var col = this.columnas[i];
-            encabezado.append('<th>' + col.titulo + '</th>');
+			var th = $("<th>").append(col.titulo);
+            encabezado.append(th);
         }
     },
     crearProgressBar: function () {
@@ -176,3 +178,4 @@ var Columna = function (titulo, generadorDeContenido, resumida) {
     this.titulo = titulo;
     this.generadorDeContenido = generadorDeContenido;
 }
+

@@ -5,14 +5,19 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeMaterias
+    public class RepositorioDeMaterias : RepositorioLazy<List<Materia>> , General.Repositorios.IRepositorioDeMaterias
     {
-        private IConexionBD conexion_bd { get; set; }
-        public static List<Materia> materias { get; set; }
+        protected IConexionBD conexion_bd { get; set; }
+        protected static List<Materia> materias { get; set; }
+        protected IRepositorioDeModalidades repo_modalidades;
+        protected IRepositorioDeCursos repo_cursos;
         
-        public RepositorioDeMaterias(IConexionBD conexion)
+        public RepositorioDeMaterias(IConexionBD conexion, IRepositorioDeCursos repo_cursos,IRepositorioDeModalidades repo_modalidades)
         {
             this.conexion_bd = conexion;
+            this.repo_modalidades = repo_modalidades;
+            this.repo_cursos = repo_cursos;
+            this.cache = new CacheNoCargada<List<Materia>>();
         }
 
         public Materia GetMateriaById(int id)
@@ -28,19 +33,23 @@ namespace General.Repositorios
 
         public List<Materia> GetMaterias()
         {
+            return cache.Ejecutar(ObtenerMateriasDesdeLaBase, this);
+        }
+
+        public List<Materia> ObtenerMateriasDesdeLaBase()
+        {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Materias");
             materias = new List<Materia>();
 
             tablaDatos.Rows.ForEach(row =>
             {
                 Ciclo ciclo = new Ciclo(row.GetSmallintAsInt("idCiclo"), row.GetString("NombreCiclo"));                
-                Modalidad modeliadad_aux = new Modalidad(row.GetInt("IdModalidad"), row.GetString("ModalidadDescripcion"));
-                
+
                 Materia materia = new Materia
                 {
                     Id = row.GetSmallintAsInt("Id"),
                     Nombre = row.GetString("Nombre"),
-                    Modalidad = modeliadad_aux,
+                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")), 
                     Ciclo = ciclo
                 };
 
@@ -94,7 +103,7 @@ namespace General.Repositorios
 
         public bool MateriaAsignadaACurso(Materia una_materia)
         {
-            List<Curso> cursos = new RepositorioDeCursos(conexion_bd).GetCursos();
+            List<Curso> cursos = repo_cursos.GetCursos();
             return cursos.Exists(c => c.Materia.Id == una_materia.Id);
         }
 
@@ -129,6 +138,5 @@ namespace General.Repositorios
 
             return ciclos;
         }
-        
     }
 }

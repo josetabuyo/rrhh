@@ -115,12 +115,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="ReportadorDeDocumentosEnAlerta.cs" />
+    <Compile Include="Repositorios\Cache.cs" />
     <Compile Include="Repositorios\AliasEquals.cs" />
     <Compile Include="AreaNull.cs" />
+    <Compile Include="Repositorios\CacheNoCargada.cs" />
+    <Compile Include="Repositorios\CacheCargada.cs" />
     <Compile Include="Repositorios\Etiquetador.cs" />
     <Compile Include="Repositorios\IRepositorioDeDocumentos.cs" />
     <Compile Include="Repositorios\IRepositorioDeOrganigrama.cs" />
     <Compile Include="Repositorios\RepositorioDeAlertas.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAlumnos.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeCursos.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeDocentes.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeEspaciosFisicos.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeMaterias.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeModalidades.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeModalidades.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAlumnos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeCursos.cs" />
@@ -131,6 +141,7 @@
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEspaciosFisicos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEvaluaciones.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeMaterias.cs" />
+    <Compile Include="Repositorios\RepositorioLazy.cs" />
     <Compile Include="Responsable.cs" />
     <Compile Include="Estadia.cs" />
     <Compile Include="EstrategiaDeCalculoDeViatico1184.cs" />
@@ -212,6 +223,9 @@
     <Compile Include="SACC\AsistenciaHoraTres.cs" />
     <Compile Include="SACC\AsistenciaHoraUno.cs" />
     <Compile Include="SACC\AsistenciaClaseSuspendida.cs" />
+    <Compile Include="SACC\CalificacionNoNumerica.cs" />
+    <Compile Include="SACC\ModalidadNull.cs" />
+    <Compile Include="SACC\EvaluacionDto.cs" />
     <Compile Include="SACC\DocenteNull.cs" />
     <Compile Include="SACC\Curso.cs" />
     <Compile Include="SACC\CursoDto.cs" />
@@ -220,8 +234,8 @@
     <Compile Include="SACC\Edificio.cs" />
     <Compile Include="SACC\EspacioFisico.cs" />
     <Compile Include="SACC\EspacioFisicoNull.cs" />
-    <Compile Include="SACC\EstructuraDeEvaluacion.cs" />
     <Compile Include="SACC\Evaluacion.cs" />
+    <Compile Include="SACC\EvaluacionNull.cs" />
     <Compile Include="SACC\GeneradorDePlanillas.cs" />
     <Compile Include="SACC\HorarioDeCursada.cs" />
     <Compile Include="SACC\HorarioDto.cs" />
