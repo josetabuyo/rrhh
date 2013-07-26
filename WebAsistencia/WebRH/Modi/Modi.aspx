@@ -39,7 +39,7 @@
                 <div id="panel_datos_documento">
                     <div id="cmb_categoria" class="styled-select">
                         <select>
-                            <option id="ninguna_seleccionada" selected > Seleccione una categoría</option>
+                            <option id="-1"> Seleccione una categoría</option>
                         </select>
                     </div>
                     <div class="panel_datos_sin_categoria">
@@ -100,14 +100,17 @@
             var proveedor_ajax = new ProveedorAjax();
             var servicio_de_imagenes = new ServicioDeImagenes(proveedor_ajax);
             var servicio_de_categorias = new ServicioDeCategoriasDeDocumentos(proveedor_ajax);
+            var servicio_de_legajos = new ServicioDeLegajos(proveedor_ajax);
+
             var vista_del_legajo = new VistaDeResultadosDeLegajos({
                 ui: $('#ui_vista_de_resultados_de_legajos'),
                 plantilla_vista_documento: $('#plantilla_ui_documento'),
                 servicioDeImagenes: servicio_de_imagenes,
-                servicioDeCategorias: servicio_de_categorias
+                servicioDeCategorias: servicio_de_categorias,
+                servicioDeLegajos: servicio_de_legajos
             });
 
-            var servicio_de_legajos = new ServicioDeLegajos(proveedor_ajax);
+            
             var buscador = new BuscadorDeLegajos({
                 ui: $('#ui_buscador_de_legajos'),
                 servicioDeLegajos: servicio_de_legajos,

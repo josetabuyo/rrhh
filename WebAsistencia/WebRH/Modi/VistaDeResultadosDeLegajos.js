@@ -47,7 +47,8 @@ VistaDeResultadosDeLegajos.prototype.mostrarLegajo = function (legajo) {
             servicioDeDragAndDrop: this.servicioDeDragAndDrop,
             visualizadorDeImagenes: this.visualizadorDeImagenes,
             numero_legajo: legajo.idInterna,
-            servicioDeCategorias: this.o.servicioDeCategorias
+            servicioDeCategorias: this.o.servicioDeCategorias,
+            servicioDeLegajos: this.o.servicioDeLegajos
         });
         this.vistasDeDocumentos.push(vista_documento);
         vista_documento.dibujarEn(this.panel_documentos);

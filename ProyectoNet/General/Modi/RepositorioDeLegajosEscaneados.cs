@@ -131,5 +131,21 @@ namespace General.Modi
 
             this.conexionDB.EjecutarSinResultado("dbo.MODI_Asignar_Categoria_A_Un_Documento", parametros);
         }
+
+        public int CategoriaDeUnDocumento(string tabla, int id_documento)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@tabla", tabla);
+            parametros.Add("@id_documento", id_documento);
+
+            var tabla_id = this.conexionDB.Ejecutar("dbo.MODI_Categoria_De_Un_Documento", parametros);
+
+            var id_categoria = -1;
+            if (tabla_id.Rows.Count > 0)
+            {
+                id_categoria = tabla_id.Rows[0].GetInt("id_categoria");
+            }
+            return id_categoria;
+        }
     }
 }

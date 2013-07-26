@@ -55,6 +55,9 @@ namespace General.Modi
             {
                 var id_imagenes = this.repositorio_de_imagenes.GetIdsDeImagenesAsignadasAlDocumento(doc.tabla, doc.id);
                 doc.idImagenesAsignadas.AddRange(id_imagenes);
+
+                var id_categoria = this.repositorio_de_imagenes.CategoriaDeUnDocumento(doc.tabla, doc.id);
+                doc.idCategoria = id_categoria;
             });
             return documentos;
         }
