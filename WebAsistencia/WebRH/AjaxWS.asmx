@@ -114,9 +114,25 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento)
+    {
+        backEndService.AsignarCategoriaADocumento(id_categoria, tabla, id_documento);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void DesAsignarImagen(int id_imagen)
     {
         backEndService.DesAsignarImagen(id_imagen);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string CategoriasDocumentosSICOI()
+    {
+        var respuesta = backEndService.CategoriasDocumentosSICOI();
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
     }
     ////////////////////////////////////////FIN MODI  
     

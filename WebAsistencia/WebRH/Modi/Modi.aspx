@@ -21,10 +21,9 @@
                 <label id="lbl_resumen_datos_personales"></label>
                 <input id="btn_nueva_busqueda" type="button" value = "Buscar" class="btn btn-primary"/>
                 <div id="lbl_titulo_imagenes_no_asignadas"> Imágenes no asiginadas a ningún documento </div>
-                <div id="panel_imagenes_no_asignadas"> 
-                </div>
+                <div id="panel_imagenes_no_asignadas"></div>
                 <div id="lbl_titulo_panel_documentos"> Documentos </div>
-                <div id="lbl_titulo_imagenes_documentos"> Imagenes Asignadas </div>
+                <div id="lbl_titulo_imagenes_documentos"> Imágenes Asignadas </div>
                 <div id="panel_documentos"> </div>
            </div>
         </div>
@@ -38,10 +37,17 @@
 
             <div id="plantilla_ui_documento" class="documento">
                 <div id="panel_datos_documento">
-                    <label class="titulo">Descripción:</label>
-                    <label id="lbl_descripcion_en_RRHH"></label>               
-                    <label class="titulo">Folio:</label>
-                    <label id="lbl_folio"></label>      
+                    <div id="cmb_categoria" class="styled-select">
+                        <select>
+                            <option id="ninguna_seleccionada" selected > Seleccione una categoría</option>
+                        </select>
+                    </div>
+                    <div class="panel_datos_sin_categoria">
+                        <label class="titulo">Descripción:</label>
+                        <label id="lbl_descripcion_en_RRHH"></label>               
+                        <label class="titulo">Folio:</label>
+                        <label id="lbl_folio"></label>    
+                    </div>  
                 </div>        
                 <div id="panel_imagenes">
                     
@@ -82,6 +88,7 @@
     <script type="text/javascript" src="VistaDeImagen.js"></script>
     <script type="text/javascript" src="ServicioDeDragAndDrop.js"></script>
     <script type="text/javascript" src="ServicioDeImagenes.js"></script>
+    <script type="text/javascript" src="ServicioDeCategoriasDeDocumentos.js"></script>
     <script type="text/javascript" src="VisualizadorDeImagenes.js"></script>
     <script type="text/javascript" src="PanelDeImagenes.js"></script>
     <script type="text/javascript" src="ProveedorAjax.js"></script>
@@ -90,14 +97,17 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var servicio_de_imagenes = new ServicioDeImagenes(new ProveedorAjax());
+            var proveedor_ajax = new ProveedorAjax();
+            var servicio_de_imagenes = new ServicioDeImagenes(proveedor_ajax);
+            var servicio_de_categorias = new ServicioDeCategoriasDeDocumentos(proveedor_ajax);
             var vista_del_legajo = new VistaDeResultadosDeLegajos({
                 ui: $('#ui_vista_de_resultados_de_legajos'),
                 plantilla_vista_documento: $('#plantilla_ui_documento'),
-                servicioDeImagenes: servicio_de_imagenes
+                servicioDeImagenes: servicio_de_imagenes,
+                servicioDeCategorias: servicio_de_categorias
             });
 
-            var servicio_de_legajos = new ServicioDeLegajos(new ProveedorAjax());
+            var servicio_de_legajos = new ServicioDeLegajos(proveedor_ajax);
             var buscador = new BuscadorDeLegajos({
                 ui: $('#ui_buscador_de_legajos'),
                 servicioDeLegajos: servicio_de_legajos,

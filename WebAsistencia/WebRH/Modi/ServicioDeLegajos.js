@@ -19,3 +19,17 @@ ServicioDeLegajos.prototype.getLegajo = function (numero_documento, on_legajo_en
         }
     });
 };
+
+ServicioDeLegajos.prototype.asignarCategoriaADocumento = function (id_categoria, tabla, id_documento) {
+    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/AsignarCategoriaADocumento",
+        data: {
+            id_categoria: id_categoria,
+            tabla: tabla,
+            id_documento: id_documento
+        },
+        success: function () {
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+};

@@ -23,6 +23,22 @@ VistaDeDocumentoModi.prototype.start = function () {
     });
     this.panel_imagenes.cargarImagenes(this.o.documento.idImagenesAsignadas);
     this.panel_imagenes.dibujarEn(this.div_imagenes);
+
+    this.cmb_categorias = this.o.ui.find('#cmb_categoria select');
+    this.o.servicioDeCategorias.categoriasDocumentosSICOI(function (categorias) {
+        for (var i = 0; i < categorias.length; i++) {
+            var o_categoria = $('<option id="' + categorias[i].Id + '">');
+            o_categoria.text(categorias[i].descripcion);
+            _this.cmb_categorias.append(o_categoria);
+        }
+    });
+
+    this.cmb_categorias.change(function () {
+        _this.o.servicioDeLegajos.asignarCategoriaADocumento(   _this.cmb_categorias.find(":selected").attr('id'),
+                                                                _this.o.documento.tabla,
+                                                                _this.o.documento.id);
+    });
+
 };
 
 VistaDeDocumentoModi.prototype.dibujarEn = function (panel) {

@@ -121,5 +121,15 @@ namespace General.Modi
 
             this.conexionDB.EjecutarSinResultado("dbo.MODI_Des_Asignar_Imagen", parametros);
         }
+
+        public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_categoria", id_categoria);
+            parametros.Add("@tabla", tabla);
+            parametros.Add("@id_documento", id_documento);
+
+            this.conexionDB.EjecutarSinResultado("dbo.MODI_Asignar_Categoria_A_Un_Documento", parametros);
+        }
     }
 }

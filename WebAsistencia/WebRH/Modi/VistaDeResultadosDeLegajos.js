@@ -30,7 +30,7 @@ VistaDeResultadosDeLegajos.prototype.start = function () {
 
 VistaDeResultadosDeLegajos.prototype.mostrandoVisualizadorDeImagenes = function () {
     return this.visualizadorDeImagenes.visible;
-}
+};
 
 VistaDeResultadosDeLegajos.prototype.mostrarLegajo = function (legajo) {
     this.lbl_resumen_datos_personales.text(legajo.apellido + ", " + legajo.nombre + " (" + legajo.numeroDeDocumento + ") Id Interna:" + legajo.idInterna);
@@ -46,7 +46,8 @@ VistaDeResultadosDeLegajos.prototype.mostrarLegajo = function (legajo) {
             servicioDeImagenes: this.o.servicioDeImagenes,
             servicioDeDragAndDrop: this.servicioDeDragAndDrop,
             visualizadorDeImagenes: this.visualizadorDeImagenes,
-            numero_legajo: legajo.idInterna
+            numero_legajo: legajo.idInterna,
+            servicioDeCategorias: this.o.servicioDeCategorias
         });
         this.vistasDeDocumentos.push(vista_documento);
         vista_documento.dibujarEn(this.panel_documentos);

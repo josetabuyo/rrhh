@@ -37,7 +37,7 @@ ServicioDeImagenes.prototype.asignarImagenADocumento = function (id_imagen, tabl
             tabla: tabla,
             id_documento: id_documento
         },
-        success: function (imagen) {
+        success: function () {
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
