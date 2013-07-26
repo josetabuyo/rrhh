@@ -69,7 +69,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -83,10 +82,14 @@
     <Compile Include="CodigoTareaTest.cs" />
     <Compile Include="TestAlertas.cs" />
     <Compile Include="TestMail.cs" />
-    <Compile Include="TestModi\TestRepositorioDeLegajosEscaneados2.cs" />
-    <Compile Include="TestModi\TestRepositorioDeLegajosEscaneados.cs" />
-    <Compile Include="TestModi\TestRepositorioDeLegajos.cs" />
+    <Compile Include="TestSACC\TestRepositorioDeMaterias.cs" />
+    <Compile Include="TestSACC\TestRepositorioDeAlumno.cs" />
     <Compile Include="TestSACC\TestAlumnos.cs" />
+    <Compile Include="TestSACC\TestCursos.cs" />
+    <Compile Include="TestSACC\TestEspaciosFisico.cs" />
+    <Compile Include="TestSACC\TestEvaluaciones.cs" />
+    <Compile Include="TestSACC\TestRepositorioEspaciosFisicos.cs" />
+    <Compile Include="TestSACC\TestRepositorioEvaluaciones.cs" />
     <Compile Include="TestValidador.cs" />
     <Compile Include="TestSACC\TestCalendarioDeCurso.cs" />
     <Compile Include="TestSACC\TestPlanillaMensual.cs" />
@@ -198,10 +201,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TestModi\ImagenesDePrueba\203404\" />
-    <Folder Include="TestModi\ImagenesDePrueba\205939\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

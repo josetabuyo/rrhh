@@ -24,7 +24,7 @@ namespace General
         static public TipoDeDocumentoSICOI MEMO = new TipoDeDocumentoSICOI(3, "Memo");
         static public List<Area> areas = new List<Area>();
 
-        
+
 
         public static Area AreaDeCastagneto()
         {
@@ -50,7 +50,7 @@ namespace General
             return area;
         }
 
-       
+
         public static Estadia EstadiaDeAgusIniciaYTerminaElMismoDia()
         {
             Estadia estadia = new Estadia();
@@ -346,6 +346,79 @@ namespace General
             var mocks = new Mockery();
             var mock_conexion_bd = mocks.NewMock<IConexionBD>();
             return mock_conexion_bd;
+        }
+
+        private static IRepositorioDeAlumnos repo_alumnos_mockeados;
+ 
+        public static IRepositorioDeAlumnos RepoAlumnosMockeado()
+        {
+            if (repo_alumnos_mockeados == null)
+            {
+            var mocks = new Mockery();
+            repo_alumnos_mockeados =  mocks.NewMock<IRepositorioDeAlumnos>();
+            }
+            return repo_alumnos_mockeados;
+        }
+
+        private static IRepositorioDeCursos repo_cursos_mockeados;
+       
+        public static IRepositorioDeCursos RepoCursosMockeado()
+        {
+            if (repo_cursos_mockeados == null)
+            {
+            var mocks = new Mockery();
+            repo_cursos_mockeados = mocks.NewMock<IRepositorioDeCursos>();
+            }
+            return repo_cursos_mockeados;
+        }
+
+
+        private static IRepositorioDeEspaciosFisicos repo_espacios_fisicos_mockeados;
+
+        public static IRepositorioDeEspaciosFisicos RepoEspaciosFisicosMockeado()
+        {
+            if (repo_espacios_fisicos_mockeados == null)
+            {
+                var mocks = new Mockery();
+                repo_espacios_fisicos_mockeados = mocks.NewMock<IRepositorioDeEspaciosFisicos>();
+            }
+            return repo_espacios_fisicos_mockeados;
+        }
+
+        private static IRepositorioDeDocentes repo_docentes_mockeados;
+
+        public static IRepositorioDeDocentes RepoDocentesMockeado()
+        {
+            if (repo_docentes_mockeados == null)
+            {
+                var mocks = new Mockery();
+                repo_docentes_mockeados = mocks.NewMock<IRepositorioDeDocentes>();
+            }
+            return repo_docentes_mockeados;
+        }
+
+        private static IRepositorioDeMaterias repo_materias_mockeados;
+
+        public static IRepositorioDeMaterias RepoMateriasMockeado()
+        {
+            if (repo_materias_mockeados == null)
+            {
+                var mocks = new Mockery();
+                repo_materias_mockeados = mocks.NewMock<IRepositorioDeMaterias>();
+            }
+            return repo_materias_mockeados;
+        }
+
+        private static IRepositorioDeModalidades repo_modalidades_mockeados;
+
+        public static IRepositorioDeModalidades RepoModalidadesMockeado()
+        {
+            if (repo_modalidades_mockeados == null)
+            {
+                var mocks = new Mockery();
+                repo_modalidades_mockeados = mocks.NewMock<IRepositorioDeModalidades>();
+            }
+            return repo_modalidades_mockeados;
         }
 
         private static RepositorioDeComisionesDeServicio UnRepositorioCon(IConexionBD mock_conexion_bd)
@@ -921,7 +994,7 @@ namespace General
 
         public static List<Documento> DocumentosCompletos()
         {
-            
+
             TipoDeDocumentoSICOI tipo_documento = NOTA;
             TipoDeDocumentoSICOI tipo_documento_exp = EXPEDIENTE;
             TipoDeDocumentoSICOI tipo_documento_memo = MEMO;
@@ -936,7 +1009,7 @@ namespace General
 
             Documento documento_uno = new Documento(tipo_documento_exp, "1-12", categoria_nombramiento, new Area(1, "RRHH"), "Primer Documento creado a los fines de probar el filtro", "Urgente");
             Documento documento_dos = new Documento(tipo_documento_exp, "2-12", categoria_renuncia, new Area(2, "Secretaría de Deportes"), "Segundo Documento creado a los fines de probar el filtro", "Rápido");
-            Documento documento_tres = new Documento(tipo_documento_memo, "1-12", categoria_licencia, new Area(3, "Subsecretaría de abordaje territorial"), "Tercer Documento creado a los fines de probar el filtro",  "Muy Urgente");
+            Documento documento_tres = new Documento(tipo_documento_memo, "1-12", categoria_licencia, new Area(3, "Subsecretaría de abordaje territorial"), "Tercer Documento creado a los fines de probar el filtro", "Muy Urgente");
             Documento documento_cuatro = new Documento(tipo_documento_memo, "3-11", categoria_licencia, new Area(1, "RRHH"), "Cuarto Documento creado a los fines de probar el filtro", "Normal");
             documento_uno.fecha = DateTime.Parse("12/01/13");
             documento_dos.fecha = DateTime.Parse("12/01/12");
@@ -948,9 +1021,9 @@ namespace General
             documento_dos.ticket = "CCB452";
             documento_tres.ticket = "CAB999";
             documento_cuatro.ticket = "AAB199";
-            
+
             return new List<Documento> { documento1, documento_uno, documento_dos, documento_tres, documento_cuatro };
-            
+
         }
 
         private static Mensajeria _mensajeria;
@@ -974,20 +1047,73 @@ namespace General
             return new Documento(4, new TipoDeDocumentoSICOI(1, "nota"), "001", new CategoriaDeDocumentoSICOI(1, "contratacion"), AreaDeFabi(), "extracto bleh");
         }
 
+        public static Modalidad ModalidadFinesPuro() 
+        {
+            return new Modalidad(1, "Fines Puro", InstanciasDeEvaluacion());
+        }
+
         public static Curso UnCursoConAlumnos()
         {
-            Curso un_curso = new Curso(1, "Historia");
-            un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "",  areas, new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "",  areas, new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
-            un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro")));
+            Curso un_curso = new Curso(14, MateriaCens(), unDocente(), EspacioFisico(), DateTime.Today, DateTime.Today, "");
+            un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+       
+            un_curso.AgregarDiaDeCursada(DayOfWeek.Tuesday);
+            un_curso.AgregarDiaDeCursada(DayOfWeek.Wednesday);
+            un_curso.EspacioFisico = UnEspacioFisico();
+            un_curso.Docente = unDocente();
+            return un_curso;
+        }
 
+        public static EspacioFisico UnEspacioFisico()
+        {
+            return new EspacioFisico();
+        }
+
+        public static Curso UnCursoConAlumnosYMateriaPura()
+        {
+
+            Curso un_curso = new Curso(MateriaPuro(), unDocente(), EspacioFisico(), DateTime.Today, DateTime.Today, "");
+
+
+            un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+
+            Materia una_materia = MateriaPuro();
 
             un_curso.AgregarDiaDeCursada(DayOfWeek.Tuesday);
             un_curso.AgregarDiaDeCursada(DayOfWeek.Wednesday);
+            un_curso.Materia = una_materia;
 
             return un_curso;
+        }
+
+        public static Materia MateriaCens()
+
+        { 
+            List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() {PrimerParcial(), SegundoParcial() };
+            Modalidad modalidad_cens = new Modalidad(1, "Cens", instancias);
+            
+            return new Materia(1, "Historia CENS", modalidad_cens);
+        }
+
+        public static Materia MateriaPuro()
+        {
+            List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() { CalificacionFinal() };
+            Modalidad modalidad_cens = new Modalidad(1, "Puro", instancias);
+
+            return new Materia(1, "Geografia Puro", modalidad_cens);
+        }
+
+        public static Calificacion Calificacion10()
+        {
+            return new CalificacionNumerica(10);
         }
 
         public static List<Curso> UnListadoDeCursoConEdificios()
@@ -996,20 +1122,20 @@ namespace General
             EspacioFisico espacio_fisico1 = new EspacioFisico();
             EspacioFisico espacio_fisico2 = new EspacioFisico();
             EspacioFisico espacio_fisico3 = new EspacioFisico();
-            
-            Edificio julio_de_9 = new Edificio(1,"9 de Julio","9 de julio",new Area(54,"Area de Marta"));
-            Edificio moreno = new Edificio(2,"Moreno","moreno",new Area(939,"Secretaria de Coordinacion y Monitoreo"));
-            Edificio cenard = new Edificio(3,"Cenard","Libertador",new Area(621,"Secretaria de Deporte"));
-            
-            Curso curso_uno = new Curso(1, "Historia");
+
+            Edificio julio_de_9 = new Edificio(1, "9 de Julio", "9 de julio", new Area(54, "Area de Marta"));
+            Edificio moreno = new Edificio(2, "Moreno", "moreno", new Area(939, "Secretaria de Coordinacion y Monitoreo"));
+            Edificio cenard = new Edificio(3, "Cenard", "Libertador", new Area(621, "Secretaria de Deporte"));
+
+            Curso curso_uno = new Curso(1, MateriaCens(), unDocente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today, "");
             curso_uno.EspacioFisico = espacio_fisico1;
             curso_uno.EspacioFisico.Edificio = julio_de_9;
             cursos.Add(curso_uno);
-            Curso curso_dos = new Curso(2, "Quimica");
+            Curso curso_dos = new Curso(2, MateriaCens(), unDocente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today, "");
             curso_dos.EspacioFisico = espacio_fisico2;
             curso_dos.EspacioFisico.Edificio = moreno;
             cursos.Add(curso_dos);
-            Curso curso_tres = new Curso(3, "Filosofia");
+            Curso curso_tres = new Curso(3, MateriaCens(), unDocente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today, "");
             curso_tres.EspacioFisico = espacio_fisico3;
             curso_tres.EspacioFisico.Edificio = cenard;
             cursos.Add(curso_tres);
@@ -1020,7 +1146,7 @@ namespace General
         public static List<EspacioFisico> EspaciosFisicos()
         {
             List<EspacioFisico> listado_espacios = new List<EspacioFisico>();
-            
+
             EspacioFisico espacio_fisico1 = new EspacioFisico();
             EspacioFisico espacio_fisico2 = new EspacioFisico();
             EspacioFisico espacio_fisico3 = new EspacioFisico();
@@ -1032,7 +1158,7 @@ namespace General
             espacio_fisico1.Edificio = julio_de_9;
             espacio_fisico2.Edificio = moreno;
             espacio_fisico3.Edificio = cenard;
-            
+
             listado_espacios.Add(espacio_fisico1);
             listado_espacios.Add(espacio_fisico2);
             listado_espacios.Add(espacio_fisico3);
@@ -1042,28 +1168,35 @@ namespace General
 
         public static Alumno UnAlumnoDelCurso()
         {
-            return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, new Modalidad(1, "Fines Puro"));    
+            return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro());    
         }
 
         public static Alumno UnAlumnoNuevo()
         {
-            return new Alumno(100, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, new Modalidad(1, "Fines Puro"));
+            return new Alumno(100, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, ModalidadFinesPuro());
         }
 
         public static List<Alumno> AlumnosNuevos()
         {
             List<Alumno> lista = new List<Alumno>() {
-                                                    new Alumno(9, "Ana", "Ran", 28000951, "", "", "", new List<Area>(){new Area(1, AREA_UNIDAD_MINISTRO), new Area(621, AREA_DE_CENARD)}, new Modalidad(1, "Fines Puro")),
-                                                    new Alumno(8, "Carla", "Ren", 33700051, "", "", "", new List<Area>(){new Area(939, AREA_DE_FABI)}, new Modalidad(1, "Fines Puro")),
-                                                    new Alumno(7, "Nadia", "Rey", 11700051, "", "", "", new List<Area>(){new Area(621, AREA_DE_CENARD)}, new Modalidad(1, "Fines Puro"))
+                                                    new Alumno(9, "Ana", "Ran", 28000951, "", "", "", new List<Area>(){new Area(1, AREA_UNIDAD_MINISTRO), new Area(621, AREA_DE_CENARD)}, ModalidadFinesPuro()),
+                                                    new Alumno(8, "Carla", "Ren", 33700051, "", "", "", new List<Area>(){new Area(939, AREA_DE_FABI)}, ModalidadFinesPuro()),
+                                                    new Alumno(7, "Nadia", "Rey", 11700051, "", "", "", new List<Area>(){new Area(621, AREA_DE_CENARD)}, ModalidadFinesPuro())
                                                     };
             return lista;
         }
 
         public static Alumno AlumnoMinisterio()
         {
-            return new Alumno(9, "Ana", "Ran", 28000951, "", "", "", new List<Area>() { new Area(1, "Ministerio") }, new Modalidad(1, "Fines Puro"));
+            return new Alumno(9, "Ana", "Ran", 28000951, "", "", "", new List<Area>() { new Area(1, "Ministerio") }, ModalidadFinesPuro());
         }
+
+        public static Alumno AlumnoDelCurso()
+        {
+            return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro());
+        }
+        
+        
 
 
         public static InstanciaDeEvaluacion PrimerParcial()
@@ -1075,6 +1208,25 @@ namespace General
         internal static InstanciaDeEvaluacion SegundoParcial()
         {
             return new InstanciaDeEvaluacion(2, "Segundo Parcial");
+        }
+
+        internal static InstanciaDeEvaluacion CalificacionFinal()
+        {
+            return new InstanciaDeEvaluacion(3, "Calificacion Final");
+        }
+
+        internal static InstanciaDeEvaluacion FinalNulo()
+        {
+            return new InstanciaDeEvaluacion(1, "Final");
+        }
+
+        public static List<InstanciaDeEvaluacion> InstanciasDeEvaluacion()
+        {
+            List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>();
+            instancias.Add(PrimerParcial());
+            instancias.Add(SegundoParcial());
+            instancias.Add(CalificacionFinal());
+            return instancias;
         }
 
         public static Organigrama OrganigramaConDosRamas()
@@ -1098,7 +1250,7 @@ namespace General
             unidad_ministro = new Area(1, AREA_UNIDAD_MINISTRO, "1", true);
             area_de_fabyB = new Area(621, AREA_DE_CENARD, "939B", true);
 
-            dependencia_faby_marta =DependenciaEntreFabyYMarta();
+            dependencia_faby_marta = DependenciaEntreFabyYMarta();
             dependencia_carlos_unidad_ministro = new List<Area>() { area_de_castagneto, unidad_ministro };
             dependencia_FabyB_Carlos = new List<Area>() { area_de_fabyB, area_de_castagneto };
             dependencia_marta_unidad_ministro = new List<Area>() { area_de_marta, unidad_ministro };
@@ -1107,6 +1259,17 @@ namespace General
             lista_de_dependencias_faby_marta_carlos_y_um_fabyb = new List<List<Area>>() { dependencia_faby_marta, dependencia_carlos_unidad_ministro, dependencia_FabyB_Carlos, dependencia_marta_unidad_ministro };
 
             return new Organigrama(areas_de_faby_y_marta_y_carlos_unidad_ministro_y_fabyB, lista_de_dependencias_faby_marta_carlos_y_um_fabyb);
+        }
+
+        internal static Docente unDocente()
+        {
+           return new Docente(1, 31507315, "Belen", "Cevey");
+        }
+
+
+        public static EspacioFisico EspacioFisico()
+        {
+            return EspaciosFisicos()[0];
         }
     }
 }

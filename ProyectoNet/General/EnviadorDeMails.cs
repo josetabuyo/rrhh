@@ -17,8 +17,9 @@ namespace General
                 msg.To.Add(to);
                 msg.From = new MailAddress(cred.UserName);
                 msg.Subject = asunto;
+                msg.IsBodyHtml = true;
                 msg.Body = cuerpo;
-
+               
                 SmtpClient client = new SmtpClient("mailserver.desarrollosocial.gov.ar", 25);
 
                 client.Credentials = cred; // Send our account login details to the client.

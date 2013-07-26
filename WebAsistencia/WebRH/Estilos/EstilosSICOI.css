@@ -736,3 +736,61 @@
 }
 
 /* FIN ESTILO FICHA GRANDE DE DOCUMENTO */
+
+
+
+/* ESTILO PAGINA DE ALERTAS */
+
+.alertas_boton_start
+{	
+	
+background-color:#77d42a;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+
+	border:1px solid #268a16;
+	display:inline-block;
+	color:#306108;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+
+	}
+	
+.alertas_boton_start:hover {
+	background-color:#5cb811;
+}.alertas_boton_start:active {
+	position:relative;
+	top:1px;
+}
+
+
+.alertas_boton_stop
+{
+	background-color:#fe1a00;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #d83526;
+	display:inline-block;
+	color:#ffffff;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+
+
+
+}.alertas_boton_stop:hover {
+	background-color:#ce0100;
+}.alertas_boton_stop:active {
+	position:relative;
+	top:1px;
+}
+
+
+/* FIN ESTILO PAGINA DE ALERTAS */

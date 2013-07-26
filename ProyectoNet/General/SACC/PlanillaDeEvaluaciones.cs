@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using General.SACC;
+using General;
 
 
 namespace General
@@ -33,27 +33,27 @@ namespace General
             instanciasDeEvaluaciones.ForEach( instancia => _evaluaciones_por_instancias.Add(instancia, new List<Evaluacion>()));
         }
 
-        public void AgregarEvaluacion(Evaluacion evaluacion)
-        {             
-            this._evaluaciones_por_instancias[evaluacion.InstanciaEvaluacion].Add(evaluacion);
-        }
+        //public void AgregarEvaluacion(Evaluacion evaluacion)
+        //{             
+        //    this._evaluaciones_por_instancias[evaluacion.InstanciaEvaluacion].Add(evaluacion);
+        //}
 
         private bool AlumnoPerteneceAlcurso(Alumno un_alumno)
         {
             return _un_curso.Alumnos().Contains(un_alumno);
         }
 
-        public List<Evaluacion> GetEvaluacionesPorAlumno(Alumno un_alumno)
-        {
-            var todasLasEvaluaciones = new List<Evaluacion>();
-            this._evaluaciones_por_instancias.Values.ToList().ForEach(evaluaciones => todasLasEvaluaciones.AddRange(evaluaciones));
-            return todasLasEvaluaciones.FindAll(unaEvaluacion => unaEvaluacion.Alumno == un_alumno);
-        }
+        //public List<Evaluacion> GetEvaluacionesPorAlumno(Alumno un_alumno)
+        //{
+        //    var todasLasEvaluaciones = new List<Evaluacion>();
+        //    this._evaluaciones_por_instancias.Values.ToList().ForEach(evaluaciones => todasLasEvaluaciones.AddRange(evaluaciones));
+        //    return todasLasEvaluaciones.FindAll(unaEvaluacion => unaEvaluacion.Alumno == un_alumno);
+        //}
 
-        public List<InstanciaDeEvaluacion> GetInstanciasDeEvaluacion()
-        {
-            return this._evaluaciones_por_instancias.Keys.ToList();
-        }
+        //public List<InstanciaDeEvaluacion> GetInstanciasDeEvaluacion()
+        //{
+        //    return this._evaluaciones_por_instancias.Keys.ToList();
+        //}
 
 
         public Evaluacion GetEvaluacionPorAlumnoEInstancia(Alumno un_alumno_del_curso, InstanciaDeEvaluacion primer_parcial)
