@@ -1271,5 +1271,30 @@ namespace General
         {
             return EspaciosFisicos()[0];
         }
+
+        public static List<Evaluacion> Evaluaciones()
+        {
+            var eval1 = new Evaluacion(new InstanciaDeEvaluacion(14,"Primer Parcial"), null,UnCursoConAlumnos(),new CalificacionNoNumerica("A1"),new DateTime(2012,10,13,21,36,35,077));  //21:36:35.077
+            var eval2 = new Evaluacion(new InstanciaDeEvaluacion(14, "Primer Parcial"), null, UnCursoConAlumnos(), new CalificacionNoNumerica("A2"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
+            var eval3 = new Evaluacion(new InstanciaDeEvaluacion(14, "Primer Parcial"), null, UnCursoConAlumnos(), new CalificacionNoNumerica("A3"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
+
+            return new List<Evaluacion>() {eval1, eval2, eval3};
+
+        }
+
+        public static Alumno AlumnoParaEvaluacion1()
+        {
+            return new Alumno(281941, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, ModalidadFinesPuro());
+        }
+
+        public static Alumno AlumnoParaEvaluacion2()
+        {
+            return new Alumno(284165, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, ModalidadFinesPuro());
+        }
+
+        public static Alumno AlumnoParaEvaluacion3()
+        {
+            return new Alumno(287872, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, ModalidadFinesPuro());
+        }
     }
 }

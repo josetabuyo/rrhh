@@ -29,10 +29,11 @@ namespace General
             this._fecha = fecha;
         }
 
-         public void CambiarCalificacionPor(int nota)
+         public void CambiarCalificacionPor(Calificacion nota, DateTime fecha_evaluacion)
          {
-             Calificacion calificacion_nueva = new CalificacionNumerica(nota);
-             this._calificacion = calificacion_nueva; 
+             Calificacion calificacion_nueva = nota;// CalificacionNumerica(nota);
+             this._calificacion = calificacion_nueva;
+             this._fecha = fecha_evaluacion;
          }
     }
 }
