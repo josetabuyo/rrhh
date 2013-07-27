@@ -1625,24 +1625,24 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento)
+    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento, Usuario usuario)
     {
         var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        repo_imagenes.AsignarImagenADocumento(id_imagen, tabla, id_documento);
+        repo_imagenes.AsignarImagenADocumento(id_imagen, tabla, id_documento, usuario);
     }
 
     [WebMethod]
-    public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento)
+    public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
     {
         var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        repo_imagenes.AsignarCategoriaADocumento(id_categoria, tabla, id_documento);
+        repo_imagenes.AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
     }
 
     [WebMethod]
-    public void DesAsignarImagen(int id_imagen)
+    public void DesAsignarImagen(int id_imagen, Usuario usuario)
     {
         var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        repo_imagenes.DesAsignarImagen(id_imagen);
+        repo_imagenes.DesAsignarImagen(id_imagen, usuario);
     }
 
     //////////////////////////FIN MODI

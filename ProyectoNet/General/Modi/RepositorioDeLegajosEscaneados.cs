@@ -86,12 +86,13 @@ namespace General.Modi
             return this.GetImagenPorId(id_imagen).GetThumbnail(alto, ancho);
         }
 
-        public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento)
+        public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_imagen", id_imagen);
             parametros.Add("@tabla", tabla);
             parametros.Add("@id_documento", id_documento);
+            parametros.Add("@id_usuario", usuario.Id);
 
             this.conexionDB.EjecutarSinResultado("dbo.MODI_Asignar_Imagen_A_Un_Documento", parametros);
         }
@@ -114,20 +115,22 @@ namespace General.Modi
             return listaIdsImagenes;
         }
 
-        public void DesAsignarImagen(int id_imagen)
+        public void DesAsignarImagen(int id_imagen, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_imagen", id_imagen);
+            parametros.Add("@id_usuario", usuario.Id);
 
             this.conexionDB.EjecutarSinResultado("dbo.MODI_Des_Asignar_Imagen", parametros);
         }
 
-        public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento)
+        public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_categoria", id_categoria);
             parametros.Add("@tabla", tabla);
             parametros.Add("@id_documento", id_documento);
+            parametros.Add("@id_usuario", usuario.Id);
 
             this.conexionDB.EjecutarSinResultado("dbo.MODI_Asignar_Categoria_A_Un_Documento", parametros);
         }

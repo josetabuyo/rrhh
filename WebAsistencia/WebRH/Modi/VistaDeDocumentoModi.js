@@ -32,7 +32,6 @@ VistaDeDocumentoModi.prototype.start = function () {
             _this.cmb_categorias.append(o_categoria);
         }
         _this.cmb_categorias.find('#' + _this.o.documento.idCategoria).attr('selected', 'selected');
-        console.log('categoria del documento:' + _this.o.documento.id + ' -> ' + _this.o.documento.idCategoria);
     });
 
     this.cmb_categorias.change(function () {

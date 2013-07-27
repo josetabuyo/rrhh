@@ -9,16 +9,18 @@ GO
 SET ANSI_PADDING ON
 GO
 
-CREATE TABLE [dbo].[MODI_CategoriasAsignadasADocumentos](
-	[id] [int] IDENTITY(1,1) NOT NULL,
-	[id_categoria] [int] NOT NULL,
+CREATE TABLE [dbo].[MODI_Imagenes](
+	[id_imagen] [int] IDENTITY(1,1) NOT NULL,
+	[legajo] [int] NOT NULL,
 	[id_documento] [int] NULL,
 	[tabla] [varchar](30) NULL,
+	[nombre_imagen] [varchar](50) NOT NULL,
+	[bytes_imagen] [text] NOT NULL,
 	[id_usuario_ultima_modificacion] [int] NULL,
 	[fecha_ultima_modificacion] [datetime] NULL
 PRIMARY KEY CLUSTERED 
 (
-	[id] ASC
+	[id_imagen] ASC
 ) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -26,4 +28,5 @@ GO
 
 SET ANSI_PADDING OFF
 GO
+
 
