@@ -19,13 +19,6 @@
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
     <script type="text/javascript" src="planilla_ingreso.js"></script>
     <style type="text/css">
-    .date_picker {
-        width: 80px;
-    }
-    .cmb_calificacion
-    {
-        width: 50px;
-    }
     .text_2caracteres
     {
         max-width: 20px;
@@ -49,7 +42,7 @@
         </select><br />
         <label>Instancia:&nbsp;</label>
         <select id="CmbInstancia" onchange="javascript:admin_planilla.cargarPlanilla();" runat="server">
-            <option value="0">Seleccione</option>
+            <option value="-1">Seleccione</option>
         </select>
         <input type="checkbox" id="readonly" />
     <div>
@@ -65,7 +58,7 @@
         var data_post = JSON.stringify({
             'id_curso': id_curso
         });
-        
+
         $.ajax({
             url: "../AjaxWS.asmx/GetInstanciasDeEvaluacion",
             type: "POST",
@@ -76,7 +69,10 @@
                 var respuesta = JSON.parse(respuestaJson.d);
                 var combo_instancias = $("#CmbInstancia");
                 combo_instancias.html("");
-                combo_instancias.append(new Option("Seleccione", 0));
+                combo_instancias.append(new Option("Seleccione", "-1"));
+                if (respuesta.length > 1) {
+                    combo_instancias.append($(new Option("Todos", "0")));
+                }
                 for (var i = 0; i < respuesta.length; i++) {
                     combo_instancias.append($(new Option(respuesta[i].Descripcion, respuesta[i].Id)).attr("id_curso", id_curso));
                 }
@@ -92,7 +88,8 @@
         var _this = this;
         _this.cargarPlanilla = function (id_curso) {
             var data_post = JSON.stringify({
-                'id_curso': $("#CmbCurso").val()
+                'id_curso': $("#CmbCurso").val(),
+                'id_instancia': $("#CmbInstancia").val()
             });
             $.ajax({
                 url: "../AjaxWS.asmx/GetPlanillaEvaluaciones",
@@ -118,22 +115,26 @@
             alert("Guardar Planilla");
         };
         _this.dibujarGrilla = function (planilla) {
+
+            var mostrar_grilla = false;
             var pla = new Planilla(planilla, $("#readonly").attr("checked"));
             var columnas = []
             var contenedor_grilla = $("#PlanillaEvaluaciones_ContenedorPlanilla");
-            columnas.push(new Columna("Nombre", { generar: function (fila) { return fila.alumno; } }));
-            for (var i = 0; i < pla.instancias.length; i++) {
-                columnas.push(new Columna(pla.instancias.html(i), new GeneradorCalificacionEvaluacion(pla.instancias[i])));
-            }
-
-            var grilla = new Grilla(columnas);
-            grilla.SetOnRowClickEventHandler(function () {
-                return true;
-            });
-            grilla.CargarObjetos(pla.grilla());
+            var instancia_seleccionada = $("#CmbInstancia");
             contenedor_grilla.html("");
-            grilla.DibujarEn(contenedor_grilla);
+            if (instancia_seleccionada.val() >= 0) {
+                columnas.push(new Columna("Nombre", { generar: function (fila) { return fila.alumno; } }));
+                for (var i = 0; i < pla.instancias.length; i++) {
+                    columnas.push(new Columna(pla.instancias.html(i), new GeneradorCalificacionEvaluacion(pla.instancias[i])));
+                }
 
+                var grilla = new Grilla(columnas);
+                grilla.SetOnRowClickEventHandler(function () {
+                    return true;
+                });
+                grilla.CargarObjetos(pla.grilla());
+                grilla.DibujarEn(contenedor_grilla);
+            }
         }
     }
     $(document).ready(function () {

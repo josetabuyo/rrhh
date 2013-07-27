@@ -1600,14 +1600,12 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
     {
-        return RepositorioDeCursos().GetInstanciasDeEvaluacion(id_curso).ToArray();
-        
-        //var una_instancia = new List<InstanciaDeEvaluacion> {new InstanciaDeEvaluacion(){ Id = 1, Descripcion = "Prueba"}};
-        //return una_instancia.ToArray();
+        var instancias = RepositorioDeCursos().GetInstanciasDeEvaluacion(id_curso).ToArray();
+        return instancias;
     }
 
     [WebMethod]
-    public PlanillaEvaluacionesDto GetPlanillaEvaluaciones(int id_curso)
+    public PlanillaEvaluacionesDto GetPlanillaEvaluaciones(int id_curso, int id_instancia)
     {
         List <Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCurso(RepositorioDeCursos().GetCursoById(id_curso));
         Curso curso = RepositorioDeCursos().GetCursoById(id_curso);
@@ -1626,7 +1624,11 @@ public class WSViaticos : System.Web.Services.WebService
         });
         
         var alumnos = curso.Alumnos().ToArray(); //evaluaciones.Select(e => e.Alumno).Distinct().ToArray();
-        var Instancias = curso.Materia.Modalidad.InstanciasDeEvaluacion.ToArray();
+        var Instancias = curso.Materia.Modalidad.InstanciasDeEvaluacion;
+        if (id_instancia == 0)
+        {
+            Instancias = Instancias.FindAll(i => i.Id.Equals(id_instancia));
+        }
         var Calificaciones = evaluaciones.Select(e => e.Calificacion.Descripcion).ToList();
 
         foreach (var a in alumnos)
@@ -1654,7 +1656,7 @@ public class WSViaticos : System.Web.Services.WebService
             MensajeError = "",
             Alumnos = alumnos,
             Evaluaciones = EvaluacionesDto.ToArray(),
-            Instancias = Instancias
+            Instancias = Instancias.ToArray()
         };
 
         return Planilla;
