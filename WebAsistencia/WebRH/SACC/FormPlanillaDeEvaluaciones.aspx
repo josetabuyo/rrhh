@@ -2,8 +2,9 @@
 <%@ Register Src="~/SACC/ControlPlanillaEvaluaciones.ascx" TagName="planilla" TagPrefix="uc1" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="BarraDeNavegacion.ascx" TagName="BarraNavegacion" TagPrefix="uc3" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>Planilla De Evaluaciones</title>
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
@@ -67,15 +68,18 @@
             contentType: "application/json; charset=utf-8",
             success: function (respuestaJson) {
                 var respuesta = JSON.parse(respuestaJson.d);
-                var combo_instancias = $("#CmbInstancia");
-                combo_instancias.html("");
-                combo_instancias.append(new Option("Seleccione", "-1"));
+                var combo_instancias = document.getElementById("CmbInstancia");
+
+                combo_instancias.options.length = 0;
+                combo_instancias.add(new Option("Seleccione", "-1"));
                 if (respuesta.length > 1) {
-                    combo_instancias.append($(new Option("Todos", "0")));
+                    combo_instancias.add(new Option("Todos", "0"));
                 }
+
                 for (var i = 0; i < respuesta.length; i++) {
-                    combo_instancias.append($(new Option(respuesta[i].Descripcion, respuesta[i].Id)).attr("id_curso", id_curso));
+                    combo_instancias.add(new Option(respuesta[i].Descripcion, respuesta[i].Id));
                 }
+                admin_planilla.cargarPlanilla();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert(errorThrown);
@@ -91,6 +95,7 @@
                 'id_curso': $("#CmbCurso").val(),
                 'id_instancia': $("#CmbInstancia").val()
             });
+            
             $.ajax({
                 url: "../AjaxWS.asmx/GetPlanillaEvaluaciones",
                 type: "POST",

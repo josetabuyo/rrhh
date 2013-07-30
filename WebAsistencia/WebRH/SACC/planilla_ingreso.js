@@ -6,6 +6,16 @@ var TextboxCalificacion = function (id) {
 var TextboxNota = function (id) {
     var _this = this;
     this.html = $("<input>").attr("id", id).attr("class", "text_2caracteres");
+    this.html.blur(function () {
+        var calificaciones_validas = ['0','1','2','3','4','5','6','7','8','9','10','A']
+        var calif_valida = false;
+        if ($.inArray(this.value, calificaciones_validas) < 0) {
+            alert("La calificación ingresada no es válida");
+            this.select();
+            this.focus();
+        }
+
+    });
 }
 
 var LabelNota = function (id) {
@@ -20,14 +30,26 @@ var LabelFecha = function (id) {
 
 var TextboxFecha = function (id) {
     var _this = this;
-    this.html = $("<input>").attr("id", id).attr("class","text_10caracteres");
+    this.html = $("<input>").attr("type","text").attr("id", id).attr("class", "text_10caracteres");
     this.observadores = [];
     this.html.datepicker({
         dateFormat: 'dd/mm/yy',
         onClose: function () {
             for (var i = 0; i < _this.observadores.length; i++) {
                 _this.observadores[i].update(this.value);
-            }
+            }/*
+            var obs_no_vacios = 0;
+            var conf = true;
+            if (_this.observadores.length > 0 && this.value != "") {
+                conf = confirm("¿Aplicar la fecha " + this.value + " a toda la columna?");
+                if (conf) {
+                    for (var i = 0; i < _this.observadores.length; i++) {
+                        _this.observadores[i].update(this.value);
+                    }
+                } else {
+                    this.value = "";
+                }
+            }*/
         }
     });
 };
@@ -67,6 +89,10 @@ var Planilla = function (planilla, readonly) {
                 $(inst.fecha.html).text("Fecha");
             } else {
                 inst.fecha = new TextboxFecha("instancia_fecha_" + i);
+                inst.btn = $("<input>").attr("type", "button");
+                inst.btn.click(function () {
+                    inst.fecha.html.datepicker("show");
+                });
             }
 
         }
@@ -106,11 +132,12 @@ var Planilla = function (planilla, readonly) {
             var etiqueta_titulo = $("<div>").css("text-align", "center").html(inst.etiqueta);
             var etiqueta_calificacion = $("<div>").css("display", "inline-block").css("margin-right", "4px").html("Calif.");
 
-            var contenedor_fecha = $("<div>").css("display", "inline-block").css("z-index","1").append(inst.fecha.html);
+            var contenedor_fecha = $("<div>").css("display", "inline-block").css("z-index", "1").append(inst.fecha.html);
 
             contenedor.append(etiqueta_titulo);
             contenedor.append(etiqueta_calificacion);
             contenedor.append(contenedor_fecha);
+            contenedor.append(inst.btn);
         }
         return contenedor;
     }

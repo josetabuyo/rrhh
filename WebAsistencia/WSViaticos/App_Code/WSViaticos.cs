@@ -1625,7 +1625,7 @@ public class WSViaticos : System.Web.Services.WebService
         
         var alumnos = curso.Alumnos().ToArray(); //evaluaciones.Select(e => e.Alumno).Distinct().ToArray();
         var Instancias = curso.Materia.Modalidad.InstanciasDeEvaluacion;
-        if (id_instancia == 0)
+        if (id_instancia > 0)
         {
             Instancias = Instancias.FindAll(i => i.Id.Equals(id_instancia));
         }
