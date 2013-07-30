@@ -68,9 +68,9 @@ namespace TestViaticos
  
 
             string source = @"  |idAlumno |IdCurso |idInstanciaEvaluacion |DescripcionInstanciaEvaluacion   |Calificacion |fechaEvaluacion         |idUsuario |fecha                      
-                                |1        |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |2        |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |3        |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                                |281941   |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                                |284165   |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                                |287872   |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
                                 |4        |14      |04                    |Recuperatorio Segundo Parcial    |A6           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
                                 |5        |14      |05                    |Examen Final                     |A8           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    ";
 
@@ -100,9 +100,9 @@ namespace TestViaticos
 
 
             string source = @"  |idAlumno |IdCurso |idInstanciaEvaluacion |DescripcionInstanciaEvaluacion   |Calificacion |fechaEvaluacion         |idUsuario |fecha                      
-                                |1        |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |2        |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |3        |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                                |281941   |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                                |284165   |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                                |287872   |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
                                 |4        |14      |04                    |Recuperatorio Segundo Parcial    |A6           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
                                 |5        |14      |05                    |Examen Final                     |A8           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    ";
 
@@ -273,24 +273,23 @@ namespace TestViaticos
 
             List<Evaluacion> evaluaciones_antiguas = repo.GetEvaluaciones();
 
+            //Hice una nueva lista de Evaluaciones xq si cambiaba de la lista original tb cambiaba a la lista nueva
             List<Evaluacion> evaluaciones_nuevas = TestObjects.Evaluaciones();
-
-            //evaluaciones_nuevas.Add(evaluaciones_antiguas.First());
-
-
-
-            //evaluaciones_antiguas.ForEach(e => evaluaciones_nuevas.Add(e));
 
             evaluaciones_nuevas.First().CambiarCalificacionPor(new CalificacionNoNumerica("A8"), new DateTime(2013, 07, 25));
 
-           
-            List<Evaluacion> diferencias = evaluaciones_antiguas.Except(evaluaciones_nuevas).ToList();
+            var eval_cambiadas = new ComparadorDeDiferencias().EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas);
 
-            //Evaluacion eval_modificada = new Evaluacion(new InstanciaDeEvaluacion(14, "Primer Parcial"), alumno, curso, new CalificacionNoNumerica("A8"), new DateTime(2013, 07, 25));
-            
-            //evaluaciones.First().CambiarCalificacionPor(5, new DateTime(2013,07,25));
+            //List<Evaluacion> diferencias = evaluaciones_antiguas.Except(evaluaciones_nuevas).ToList();
 
             Assert.AreEqual(3, repo.GetEvaluacionesPorCurso(curso).Count);
+            Assert.AreEqual(1, eval_cambiadas.Count);
+
+            evaluaciones_nuevas.Last().Fecha = new DateTime(2013, 08, 01);
+            eval_cambiadas = new ComparadorDeDiferencias().EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas);
+
+            Assert.AreEqual(2, eval_cambiadas.Count);
+
         }
 
     }
