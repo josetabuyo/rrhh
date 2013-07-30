@@ -19,9 +19,9 @@ BuscadorDeLegajos.prototype.buscar = function () {
     this.aviso_legajo_no_encontrado.hide();
     this.mostrarBarraDeEspera();
     this.input_numero.prop('disabled', true);
-    this.o.servicioDeLegajos.getLegajo(parseInt(this.input_numero.val()), //numero_legajo
+    this.o.servicioDeLegajos.buscarLegajosParaDigitalizacion(this.input_numero.val(), //numero_legajo
                                        function (respuesta) {
-                                           _this.o.vistaDeResultados.mostrarLegajo(respuesta);
+                                           _this.o.vistaDeResultados.mostrarLegajo(respuesta.legajos[0]);
                                            _this.ocultarBarraDeEspera();
                                            _this.o.ui.dialog("close");
                                        },
@@ -47,7 +47,7 @@ BuscadorDeLegajos.prototype.mostrarModal = function () {
     this.input_numero.prop('disabled', false);
     this.input_numero.val("");
     this.o.ui.dialog({
-        title: "Ingrese el DNI a buscar",
+        title: "Ingrese criterios de búsqueda",
         dialogClass: "no-close",
         modal: true,
         buttons: [

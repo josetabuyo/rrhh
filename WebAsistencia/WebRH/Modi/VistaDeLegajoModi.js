@@ -1,9 +1,9 @@
-﻿var VistaDeResultadosDeLegajos = function (opt) {
+﻿var VistaDeLegajoModi = function (opt) {
     this.o = opt;
     this.start();
 };
 
-VistaDeResultadosDeLegajos.prototype.start = function () {
+VistaDeLegajoModi.prototype.start = function () {
     this.o.ui.css('opacity', '0');
     this.lbl_resumen_datos_personales = this.o.ui.find('#lbl_resumen_datos_personales');
     this.panel_documentos = this.o.ui.find('#panel_documentos');
@@ -28,11 +28,11 @@ VistaDeResultadosDeLegajos.prototype.start = function () {
     });
 };
 
-VistaDeResultadosDeLegajos.prototype.mostrandoVisualizadorDeImagenes = function () {
+VistaDeLegajoModi.prototype.mostrandoVisualizadorDeImagenes = function () {
     return this.visualizadorDeImagenes.visible;
 };
 
-VistaDeResultadosDeLegajos.prototype.mostrarLegajo = function (legajo) {
+VistaDeLegajoModi.prototype.mostrarLegajo = function (legajo) {
     this.lbl_resumen_datos_personales.text(legajo.apellido + ", " + legajo.nombre + " (" + legajo.numeroDeDocumento + ") Id Interna:" + legajo.idInterna);
     this.vistasDeDocumentos = [];
     this.panel_documentos.empty();

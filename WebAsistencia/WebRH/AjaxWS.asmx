@@ -81,9 +81,9 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetLegajoParaDigitalizacion(int numero_documento)
+    public string BuscarLegajosParaDigitalizacion(string criterio)
     {
-        var respuesta = backEndService.GetLegajoParaDigitalizacion(numero_documento);
+        var respuesta = backEndService.BuscarLegajosParaDigitalizacion(criterio);
         var respuestaSerializada =  Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
     }

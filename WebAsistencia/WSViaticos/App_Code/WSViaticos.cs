@@ -1603,11 +1603,11 @@ public class WSViaticos : System.Web.Services.WebService
     //////////////////////////MODI
 
     [WebMethod]
-    public RespuestaAPedidoDeLegajo GetLegajoParaDigitalizacion(int numero_documento)
+    public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio)
     {
         var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
         var repositorio_legajos = new RepositorioDeLegajos(Conexion(), repo_imagenes);
-        return repositorio_legajos.getLegajoPorDocumento(numero_documento);
+        return repositorio_legajos.BuscarLegajos(criterio);
     }
 
     [WebMethod]

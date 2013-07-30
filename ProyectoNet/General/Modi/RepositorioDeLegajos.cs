@@ -17,21 +17,17 @@ namespace General.Modi
             repositorio_de_imagenes = repo_imagenes;
         }
 
-        public RespuestaAPedidoDeLegajo getLegajoPorDocumento(int numero_de_documento)
-        {         
-            return this.legajoPara(numero_de_documento, () => { return new RespuestaAPedidoDeLegajo(); });
-        }
-
-        private RespuestaAPedidoDeLegajo legajoPara(int numero_de_documento, Func<RespuestaAPedidoDeLegajo> on_legajo_no_encontrado)
+        public List<LegajoModi> getLegajoPorDocumento(int numero_de_documento)
         {
+            var legajos = new List<LegajoModi>();
             var parametros = new Dictionary<string, object>();
             parametros.Add("@doc", numero_de_documento);
             var tablaLegajo = conexion.Ejecutar("dbo.LEG_GET_Datos_Personales", parametros);
 
-            if (tablaLegajo.Rows.Count == 0) { return on_legajo_no_encontrado.Invoke(); }
+            if (tablaLegajo.Rows.Count == 0) { return legajos; }
 
             var row = tablaLegajo.Rows.First();
-            var legajo = new RespuestaAPedidoDeLegajo(row.GetInt("id_interna"),
+            var legajo = new LegajoModi(row.GetInt("id_interna"),
                                     row.GetInt("Nro_Documento"),
                                     row.GetString("Nombre"),
                                     row.GetString("Apellido"));
@@ -40,10 +36,64 @@ namespace General.Modi
             legajo.agregarDocumentos(documentos);
             legajo.agregarIdsDeImagenesSinAsignar(this.repositorio_de_imagenes.GetIdsDeImagenesSinAsignarParaElLegajo(legajo.idInterna));
 
-            return legajo;
+            legajos.Add(legajo);
+            return legajos;
         }
 
-        private List<DocumentoModi> documentosPara(RespuestaAPedidoDeLegajo legajo)
+        public List<LegajoModi> getLegajoPorIdInterna(int id_interna)
+        {
+            var legajos = new List<LegajoModi>();
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_interna", id_interna);
+            var tablaLegajo = conexion.Ejecutar("dbo.MODI_GET_Datos_Personales_Por_Id_interna", parametros);
+
+            if (tablaLegajo.Rows.Count == 0) { return legajos; }
+
+            var row = tablaLegajo.Rows.First();
+            var legajo = new LegajoModi(row.GetInt("id_interna"),
+                                    row.GetInt("Nro_Documento"),
+                                    row.GetString("Nombre"),
+                                    row.GetString("Apellido"));
+
+            var documentos = this.documentosPara(legajo);
+            legajo.agregarDocumentos(documentos);
+            legajo.agregarIdsDeImagenesSinAsignar(this.repositorio_de_imagenes.GetIdsDeImagenesSinAsignarParaElLegajo(legajo.idInterna));
+
+            legajos.Add(legajo);
+            return legajos;
+        }
+
+        private List<LegajoModi> getLegajosPorApellidoYNombre(string criterio)
+        {
+            var legajos = new List<LegajoModi>();
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@criterio", criterio);
+            var tablaLegajo = conexion.Ejecutar("dbo.MODI_GET_Datos_Personales_Por_Apellido_Y_Nombre", parametros);
+
+            if (tablaLegajo.Rows.Count == 0) { return legajos; }
+
+            var row = tablaLegajo.Rows.First();
+            var legajo = new LegajoModi(row.GetInt("id_interna"),
+                                    row.GetInt("Nro_Documento"),
+                                    row.GetString("Nombre"),
+                                    row.GetString("Apellido"));
+
+            var documentos = this.documentosPara(legajo);
+            legajo.agregarDocumentos(documentos);
+            legajo.agregarIdsDeImagenesSinAsignar(this.repositorio_de_imagenes.GetIdsDeImagenesSinAsignarParaElLegajo(legajo.idInterna));
+
+            legajos.Add(legajo);
+            return legajos;
+        }
+
+        //private RespuestaABusquedaDeLegajos legajoPara(int numero_de_documento, Func<RespuestaABusquedaDeLegajos> on_legajo_no_encontrado)
+        //{
+            
+        //}
+
+        private List<DocumentoModi> documentosPara(LegajoModi legajo)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id", legajo.idInterna);
@@ -83,6 +133,21 @@ namespace General.Modi
             }
 
             return documentos;
+        }
+
+        public RespuestaABusquedaDeLegajos BuscarLegajos(string criterio)
+        {
+            var legajos = new List<LegajoModi>();
+            int numero;
+            if(int.TryParse(criterio, out numero)){
+                legajos.AddRange(this.getLegajoPorDocumento(numero));
+                legajos.AddRange(this.getLegajoPorIdInterna(numero));
+            }
+            else
+            {
+                legajos.AddRange(this.getLegajosPorApellidoYNombre(criterio));
+            }
+            return new RespuestaABusquedaDeLegajos(legajos);
         }
     }
 }

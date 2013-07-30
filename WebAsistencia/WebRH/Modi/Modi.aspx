@@ -82,7 +82,7 @@
     <script type="text/javascript" src="../Scripts/jquery-mousewheel/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="../Scripts/jQuery-PanZoom-master/jquery-panzoom.js"></script>
     <script type="text/javascript" src="BuscadorDeLegajos.js"></script>
-    <script type="text/javascript" src="VistaDeResultadosDeLegajos.js"></script>
+    <script type="text/javascript" src="VistaDeLegajoModi.js"></script>
     <script type="text/javascript" src="ServicioDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeDocumentoModi.js"></script>
     <script type="text/javascript" src="VistaDeImagen.js"></script>
@@ -102,14 +102,13 @@
             var servicio_de_categorias = new ServicioDeCategoriasDeDocumentos(proveedor_ajax);
             var servicio_de_legajos = new ServicioDeLegajos(proveedor_ajax);
 
-            var vista_del_legajo = new VistaDeResultadosDeLegajos({
+            var vista_del_legajo = new VistaDeLegajoModi({
                 ui: $('#ui_vista_de_resultados_de_legajos'),
                 plantilla_vista_documento: $('#plantilla_ui_documento'),
                 servicioDeImagenes: servicio_de_imagenes,
                 servicioDeCategorias: servicio_de_categorias,
                 servicioDeLegajos: servicio_de_legajos
             });
-
             
             var buscador = new BuscadorDeLegajos({
                 ui: $('#ui_buscador_de_legajos'),
