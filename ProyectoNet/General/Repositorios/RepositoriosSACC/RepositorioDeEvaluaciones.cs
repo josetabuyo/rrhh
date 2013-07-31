@@ -112,12 +112,17 @@ namespace General.Repositorios
             }
         }
 
-        private void BorrarEvaluacion(Evaluacion evaluacion)
-        {
+        private void ActualizarEvaluacion(Evaluacion evaluacion, Usuario usuario)
+        {          
             var parametros = new Dictionary<string, object>();
-            parametros.Add("id_alumno", evaluacion.Alumno.Id);
-            parametros.Add("id_curso", evaluacion.Curso.Id);
-            parametros.Add("fecha_evaluacion", evaluacion.Fecha);
+            parametros.Add("@id_alumno", evaluacion.Alumno.Id);
+            parametros.Add("@id_curso", evaluacion.Curso.Id);
+            parametros.Add("@id_instancia_evaluacion", evaluacion.InstanciaEvaluacion.Id);
+            parametros.Add("@calificacion", evaluacion.Calificacion.Nota);
+            parametros.Add("@fecha_evaluacion", evaluacion.Fecha);
+            parametros.Add("@fecha", DateTime.Today);
+            parametros.Add("@id_usuario", usuario.Id);
+
             conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Evaluacion", parametros);
         }
 
@@ -126,5 +131,36 @@ namespace General.Repositorios
         {
             
         }
+
+        public void GuardarEvaluaciones(List<Evaluacion> evaluacion_a_insertar, List<Evaluacion> evaluaciones_a_updatear, List<Evaluacion> evaluaciones_para_historico, Usuario usuario)
+        {
+            foreach (var e in evaluacion_a_insertar)
+            {
+                GuardarEvaluacion(e, usuario);
+            }
+            foreach (var e in evaluaciones_a_updatear)
+            {
+                ActualizarEvaluacion(e, usuario);
+            }
+            foreach (var e in evaluaciones_para_historico)
+            {  
+                GuardarHistorico(e, usuario);
+            }
+        }
+
+        private void GuardarHistorico(Evaluacion evaluacion, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_alumno", evaluacion.Alumno.Id);
+            parametros.Add("@id_curso", evaluacion.Curso.Id);
+            parametros.Add("@id_instancia_evaluacion", evaluacion.InstanciaEvaluacion.Id);
+            parametros.Add("@calificacion", evaluacion.Calificacion.Nota);
+            parametros.Add("@fecha_evaluacion", evaluacion.Fecha);
+            parametros.Add("@fecha", DateTime.Today);
+            parametros.Add("@id_usuario", usuario.Id);
+
+            conexion_bd.EjecutarSinResultado("dbo.SACC_Ins_HistoricoEvaluaciones", parametros);
+        }
+
     }
 }
