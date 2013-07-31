@@ -34,7 +34,7 @@ namespace General
                 return res;
             });
 
-            return query1.ToList();// new List<Evaluacion>();  
+            return query1.ToList();
         }
 
         public List<Evaluacion> EvaluacionesParaGuardarEnHistorico(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas)
@@ -46,9 +46,13 @@ namespace General
             return eval_historicas;
         }
 
-        //public object GuardarEvaluacionesActualizadas(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas)
-        //{
-        //    var repo = new RepositorioDeEvaluacion(this.conexion_bd,new RepositorioDeCursos(this.conexion_bd),new RepositorioDeAlumnos
-        //}
+
+        public List<Evaluacion> EvaluacionesParaGuardar(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas)
+        {
+            var eval_para_guardar = evaluaciones_nuevas.FindAll(eval_nuevas => !evaluaciones_antiguas.Exists(eval_ant => eval_ant.Alumno.Id.Equals(eval_nuevas.Alumno.Id) && eval_ant.InstanciaEvaluacion.Id.Equals(eval_nuevas.InstanciaEvaluacion.Id) && eval_ant.Curso.Id.Equals(eval_nuevas.Curso.Id)));
+
+            return eval_para_guardar;
+        
+        }
     }
 }

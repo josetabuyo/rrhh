@@ -317,7 +317,7 @@ namespace TestViaticos
         }
 
         [TestMethod]
-        public void deberia_poder_actualizar_las_evaluaciones_modificadas_y_guardar_en_el_historico_las_anteriores()
+        public void deberia_poder_obtener_las_evaluaciones_que_se_van_a_guardar_por_primera_vez()
         {
             Alumno alumno = TestObjects.AlumnoDelCurso();
             Curso curso = TestObjects.UnCursoConAlumnos();
@@ -347,16 +347,56 @@ namespace TestViaticos
 
             evaluaciones_nuevas.First().CambiarCalificacionPor(new CalificacionNoNumerica("A8"), new DateTime(2013, 07, 25));
 
-            var eval_cambiadas = new ComparadorDeDiferencias().EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas);
-            var eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaGuardarEnHistorico(evaluaciones_antiguas, evaluaciones_nuevas);
+            evaluaciones_nuevas.Add(TestObjects.Evaluacion());
 
-            repo.GuardarEvaluaciones(evaluaciones_antiguas, eval_cambiadas, eval_para_historico, new Usuario());
+            var eval_nuevas = new ComparadorDeDiferencias().EvaluacionesParaGuardar(evaluaciones_antiguas, evaluaciones_nuevas);
+
+            Assert.AreEqual(1, eval_nuevas.Count);
+        }
+
+        [TestMethod]
+        public void deberia_poder_actualizar_las_evaluaciones_modificadas_y_guardar_en_el_historico_las_anteriores()
+        {
+            Alumno alumno = TestObjects.AlumnoDelCurso();
+            Curso curso = TestObjects.UnCursoConAlumnos();
+            List<Alumno> alumnos = curso.Alumnos();
+            List<Curso> cursos = new List<Curso>();
+            cursos.Add(curso);
+            Expect.AtLeastOnce.On(TestObjects.RepoAlumnosMockeado()).Method("GetAlumnos").WithAnyArguments().Will(Return.Value(alumnos));
+            Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursos").WithAnyArguments().Will(Return.Value(cursos));
+            Expect.AtLeastOnce.On(TestObjects.RepoAlumnosMockeado()).Method("GetAlumnoByDNI").WithAnyArguments().Will(Return.Value(alumno));
+            Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursoById").WithAnyArguments().Will(Return.Value(curso));
+
+            string source = @"  |id     |idInstanciaEvaluacion  |DescripcionInstanciaEvaluacion |idAlumno   |idCurso   |Calificacion    |idUsuario     |fechaEvaluacion                              
+                                |1      |14                     |Primer Parcial                 |281941     |14        |A1              |6	            |2012-10-13 21:36:35.077     
+                                |2      |14                     |Primer Parcial                 |284165     |14        |A2              |6	            |2012-10-13 21:36:35.077      
+                                |3      |14                     |Primer Parcial                 |287872     |14        |A3              |7	            |2012-10-13 21:36:35.077  ";
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            RepositorioDeEvaluacion repo = new RepositorioDeEvaluacion(conexion, TestObjects.RepoCursosMockeado(), TestObjects.RepoAlumnosMockeado());
+
+            List<Evaluacion> evaluaciones_antiguas = repo.GetEvaluaciones();
+
+            List<Evaluacion> evaluaciones_nuevas = TestObjects.Evaluaciones();
+
+            evaluaciones_nuevas.First().CambiarCalificacionPor(new CalificacionNoNumerica("A8"), new DateTime(2013, 07, 25));
+            evaluaciones_nuevas.Add(TestObjects.Evaluacion());
+
+            var eval_cambiadas = new ComparadorDeDiferencias().EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas);
+            var eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaGuardarEnHistorico(evaluaciones_antiguas, evaluaciones_nuevas);           
+            var eval_nuevas = new ComparadorDeDiferencias().EvaluacionesParaGuardar(evaluaciones_antiguas, evaluaciones_nuevas);
+
+            //repo.GuardarEvaluaciones(eval_nuevas, eval_cambiadas, eval_para_historico, new Usuario());
 
             //var eval_para_historico = new ComparadorDeDiferencias(conexionMock).GuardarEvaluacionesActualizadas(evaluaciones_antiguas, evaluaciones_nuevas);
             //Assert.AreEqual(1, eval_para_historico.Count);
 
-            evaluaciones_nuevas.Last().Fecha = new DateTime(2013, 08, 01);
-            eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaGuardarEnHistorico(evaluaciones_antiguas, evaluaciones_nuevas);
+            //evaluaciones_nuevas.Last().Fecha = new DateTime(2013, 08, 01);
+            //eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaGuardarEnHistorico(evaluaciones_antiguas, evaluaciones_nuevas);
             //Assert.AreEqual(2, eval_para_historico.Count);
         }
 

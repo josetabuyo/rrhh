@@ -99,18 +99,18 @@ namespace General.Repositorios
         }
 
 
-        public void GuardarEvaluaciones(List<Evaluacion> evaluaciones_a_guardar, Usuario usuario)
-        {
-            foreach (var e in evaluaciones_a_guardar)
-            {
-                BorrarEvaluacion(e);
-            }
-            foreach (var e in evaluaciones_a_guardar)
-            {
-                //if (e.Calificacion != 0)
-                GuardarEvaluacion(e, usuario);
-            }
-        }
+        //public void GuardarEvaluaciones(List<Evaluacion> evaluaciones_a_guardar, Usuario usuario)
+        //{
+        //    foreach (var e in evaluaciones_a_guardar)
+        //    {
+        //        BorrarEvaluacion(e);
+        //    }
+        //    foreach (var e in evaluaciones_a_guardar)
+        //    {
+        //        //if (e.Calificacion != 0)
+        //        GuardarEvaluacion(e, usuario);
+        //    }
+        //}
 
         private void ActualizarEvaluacion(Evaluacion evaluacion, Usuario usuario)
         {          

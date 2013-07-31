@@ -1296,5 +1296,10 @@ namespace General
         {
             return new Alumno(287872, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, ModalidadFinesPuro());
         }
+
+        public static Evaluacion Evaluacion()
+        {
+            return new Evaluacion(new InstanciaDeEvaluacion(14, "Primer Parcial"), new Alumno(4, "Ariel", "Zambri", 25046911, "", "", "", areas, ModalidadFinesPuro()), UnCursoConAlumnos(), new CalificacionNoNumerica("A1"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
+        }
     }
 }
