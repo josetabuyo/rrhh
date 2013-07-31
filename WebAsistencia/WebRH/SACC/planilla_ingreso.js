@@ -37,19 +37,7 @@ var TextboxFecha = function (id) {
         onClose: function () {
             for (var i = 0; i < _this.observadores.length; i++) {
                 _this.observadores[i].update(this.value);
-            }/*
-            var obs_no_vacios = 0;
-            var conf = true;
-            if (_this.observadores.length > 0 && this.value != "") {
-                conf = confirm("¿Aplicar la fecha " + this.value + " a toda la columna?");
-                if (conf) {
-                    for (var i = 0; i < _this.observadores.length; i++) {
-                        _this.observadores[i].update(this.value);
-                    }
-                } else {
-                    this.value = "";
-                }
-            }*/
+            }
         }
     });
 };
@@ -89,10 +77,6 @@ var Planilla = function (planilla, readonly) {
                 $(inst.fecha.html).text("Fecha");
             } else {
                 inst.fecha = new TextboxFecha("instancia_fecha_" + i);
-                inst.btn = $("<input>").attr("type", "button");
-                inst.btn.click(function () {
-                    inst.fecha.html.datepicker("show");
-                });
             }
 
         }
@@ -102,13 +86,13 @@ var Planilla = function (planilla, readonly) {
             var ev = _this.evaluaciones[i];
 
             if (_this.readonly) {
-                ev.nota = new LabelNota("nota_" + ev.IdAlumno + "_" + ev.IdInstancia + "_" + i);
-                ev.fecha = new LabelFecha("fecha_" + ev.IdAlumno + "_" + ev.IdInstancia + "_" + i);
+                ev.nota = new LabelNota("nota_" + ev.DNIAlumno + "_" + ev.IdInstancia + "_" + i);
+                ev.fecha = new LabelFecha("fecha_" + ev.DNIAlumno + "_" + ev.IdInstancia + "_" + i);
                 $(ev.nota.html).text(ev.Calificacion);
                 $(ev.fecha.html).text(ev.Fecha);
             } else {
-                ev.nota = new TextboxNota("nota_" + ev.IdAlumno + "_" + ev.IdInstancia + "_" + i);
-                ev.fecha = new TextboxFecha("fecha_" + ev.IdAlumno + "_" + ev.IdInstancia + "_" + i);
+                ev.nota = new TextboxNota("nota_" + ev.DNIAlumno + "_" + ev.IdInstancia + "_" + i);
+                ev.fecha = new TextboxFecha("fecha_" + ev.DNIAlumno + "_" + ev.IdInstancia + "_" + i);
                 ev.nota.html.val(ev.Calificacion);
                 ev.fecha.html.val(ev.Fecha);
             }
@@ -157,13 +141,13 @@ var Planilla = function (planilla, readonly) {
 
     function evaluaciones_para(alumno) {
         var res = Enumerable.From(_this.evaluaciones)
-		.Where(function (x) { return x.IdAlumno == alumno.Id })
+		.Where(function (x) { return x.DNIAlumno == alumno.Documento })
 		.ToArray();
         if (res.length > 0)
             return res;
         return {
             input: new TextboxFecha(""),
-            IdAlumno: alumno.Id,
+            DNIAlumno: alumno.Documento,
             IdInstancia: "",
             Calificacion: ""
         }

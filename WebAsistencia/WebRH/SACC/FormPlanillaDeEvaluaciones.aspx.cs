@@ -16,11 +16,6 @@ public partial class SACC_FormPlanillaDeEvaluaciones : System.Web.UI.Page
         }
     }
 
-    protected void CargarEvaluaciones(object sender, EventArgs e)
-    {
-        this.PlanillaEvaluaciones.CargarEvaluaciones();
-    }
-
     private void CargarComboCursos()
     {
         var cursos = Servicio().GetCursosDto((Usuario)Session[ConstantesDeSesion.USUARIO]);

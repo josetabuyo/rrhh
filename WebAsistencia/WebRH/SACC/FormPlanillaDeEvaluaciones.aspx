@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormPlanillaDeEvaluaciones.aspx.cs" Inherits="SACC_FormPlanillaDeEvaluaciones" %>
-<%@ Register Src="~/SACC/ControlPlanillaEvaluaciones.ascx" TagName="planilla" TagPrefix="uc1" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="BarraDeNavegacion.ascx" TagName="BarraNavegacion" TagPrefix="uc3" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -45,12 +44,14 @@
         <select id="CmbInstancia" onchange="javascript:admin_planilla.cargarPlanilla();" runat="server">
             <option value="-1">Seleccione</option>
         </select>
-        <input type="checkbox" id="readonly" />
     <div>
-    <uc1:planilla ID="PlanillaEvaluaciones" runat="server" />
+    <div id="ContenedorPlanilla" style="display:inline-block"></div>
+    <br />
+    <input type="button" id="BtnGuardarEvaluaciones" value="Guardar Cambios" style="display:none;" />
+    <input type="button" id="BtnImprimir" value="Imprimir" style="display:none;" />
     </div>
     </div>
-    <asp:Button style="display:none;" ID="btn_CargarEvaluaciones" OnClick="CargarEvaluaciones" runat="server" />
+    
     </form>
 </body>
 <script type="text/javascript">
@@ -95,7 +96,7 @@
                 'id_curso': $("#CmbCurso").val(),
                 'id_instancia': $("#CmbInstancia").val()
             });
-            
+
             $.ajax({
                 url: "../AjaxWS.asmx/GetPlanillaEvaluaciones",
                 type: "POST",
@@ -122,12 +123,17 @@
         _this.dibujarGrilla = function (planilla) {
 
             var mostrar_grilla = false;
-            var pla = new Planilla(planilla, $("#readonly").attr("checked"));
             var columnas = []
-            var contenedor_grilla = $("#PlanillaEvaluaciones_ContenedorPlanilla");
-            var instancia_seleccionada = $("#CmbInstancia");
+
+            var contenedor_grilla = $("#ContenedorPlanilla");
+            var cmb_instancia = $("#CmbInstancia");
+            var readonly = cmb_instancia.val() == 0;
+            var pla = new Planilla(planilla, readonly);
+            
             contenedor_grilla.html("");
-            if (instancia_seleccionada.val() >= 0) {
+            $("#BtnGuardarEvaluaciones").hide();
+
+            if (cmb_instancia.val() >= 0) {
                 columnas.push(new Columna("Nombre", { generar: function (fila) { return fila.alumno; } }));
                 for (var i = 0; i < pla.instancias.length; i++) {
                     columnas.push(new Columna(pla.instancias.html(i), new GeneradorCalificacionEvaluacion(pla.instancias[i])));
@@ -139,6 +145,17 @@
                 });
                 grilla.CargarObjetos(pla.grilla());
                 grilla.DibujarEn(contenedor_grilla);
+                if (readonly) {
+                    $("#BtnGuardarEvaluaciones").hide();
+                    //$("#BtnImprimir").show();
+                } else {
+                    $("#BtnGuardarEvaluaciones").show();
+                    /*if (cmb_instancia.length > 2) {
+                        $("#BtnImprimir").hide();
+                    } else {
+                        $("#BtnImprimir").show();
+                    }*/
+                }
             }
         }
     }

@@ -1605,6 +1605,27 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GuardarEvaluaciones(EvaluacionDto[] evaluaciones, Usuario usuario)
+    {
+        var evaluaciones_a_guardar = new List<Evaluacion>();
+        /*var cursos = RepositorioDeCursos().GetCursos();
+        var alumnos = RepoAlumnos().GetAlumnos();
+        */
+        foreach (var e in evaluaciones)
+        {
+            var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
+            var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
+            var un_alumno = RepoAlumnos().GetAlumnoByDNI(e.DNIAlumno);
+            var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
+            var una_fecha = DateTime.Parse(e.Fecha);
+            evaluaciones_a_guardar.Add(new Evaluacion(una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
+        }
+
+        RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_a_guardar, usuario);
+        return string.Empty;
+    }
+
+    [WebMethod]
     public PlanillaEvaluacionesDto GetPlanillaEvaluaciones(int id_curso, int id_instancia)
     {
         List <Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCurso(RepositorioDeCursos().GetCursoById(id_curso));
@@ -1615,7 +1636,7 @@ public class WSViaticos : System.Web.Services.WebService
             EvaluacionesDto.Add(new EvaluacionDto()
             {
                 Id = e.InstanciaEvaluacion.Id,
-                IdAlumno = e.Alumno.Id,
+                DNIAlumno = e.Alumno.Documento,
                 IdCurso = e.Curso.Id,
                 Calificacion = e.Calificacion.Descripcion,
                 Fecha = e.Fecha.ToShortDateString(),
@@ -1635,12 +1656,12 @@ public class WSViaticos : System.Web.Services.WebService
         {
             foreach (var i in Instancias)
             {
-                if (EvaluacionesDto.FindAll(e => e.IdAlumno == a.Id && e.IdInstancia == i.Id).Count == 0)
+                if (EvaluacionesDto.FindAll(e => e.DNIAlumno == a.Id && e.IdInstancia == i.Id).Count == 0)
                 {
                     EvaluacionesDto.Add(new EvaluacionDto()
                     {
                         Id = 0,
-                        IdAlumno = a.Id,
+                        DNIAlumno = a.Documento,
                         IdCurso = id_curso,
                         Calificacion = null,
                         Fecha = null,

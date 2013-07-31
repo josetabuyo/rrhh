@@ -127,6 +127,12 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         var instancias = backEndService.GetInstanciasDeEvaluacion(id_curso);
         return Newtonsoft.Json.JsonConvert.SerializeObject(instancias);
-    }       
+    }
+    [WebMethod(EnableSession = true)]
+    public string GuardarEvaluaciones(EvaluacionDto[] evaluaciones, Usuario usuario)
+    {
+        var instancias = backEndService.GuardarEvaluaciones(evaluaciones, usuario);
+        return string.Empty;
+    }
 }
 
