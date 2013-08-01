@@ -10,6 +10,7 @@ namespace General.Repositorios
         public IConexionBD conexion_bd { get; set; }
         IRepositorioDeAlumnos repo_alumnos;
         IRepositorioDeCursos repo_cursos;
+        ComparadorDeDiferencias comparador_de_evalauciones = new ComparadorDeDiferencias();
 
 
         public RepositorioDeEvaluacion(IConexionBD conexion, IRepositorioDeCursos repo_cursos, IRepositorioDeAlumnos repo_alumnos)
@@ -88,12 +89,13 @@ namespace General.Repositorios
         public void GuardarEvaluacion(Evaluacion evaluacion, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("id_alumno", evaluacion.Alumno.Id);
-            parametros.Add("id_curso", evaluacion.Curso.Id);
-            parametros.Add("fecha_evaluacion", evaluacion.Fecha);
-            parametros.Add("calificacion", evaluacion.Calificacion);
-            parametros.Add("id_usuario", usuario.Id);
-            parametros.Add("fecha", DateTime.Now);
+            parametros.Add("@id_alumno", evaluacion.Alumno.Id);
+            parametros.Add("@id_curso", evaluacion.Curso.Id);
+            parametros.Add("@id_instancia_evaluacion", evaluacion.InstanciaEvaluacion.Id);
+            parametros.Add("@calificacion", evaluacion.Calificacion.Nota);
+            parametros.Add("@fecha_evaluacion", evaluacion.Fecha);
+            parametros.Add("@fecha", DateTime.Today);
+            parametros.Add("@id_usuario", usuario.Id);
 
             conexion_bd.EjecutarSinResultado("dbo.SACC_Ins_Evaluacion", parametros);
         }
@@ -132,9 +134,14 @@ namespace General.Repositorios
             
         }
 
-        public void GuardarEvaluaciones(List<Evaluacion> evaluacion_a_insertar, List<Evaluacion> evaluaciones_a_updatear, List<Evaluacion> evaluaciones_para_historico, Usuario usuario)
+        public void GuardarEvaluaciones(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas, Usuario usuario)
         {
-            foreach (var e in evaluacion_a_insertar)
+            var evaluaciones_a_updatear = comparador_de_evalauciones.EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas);
+            var evaluaciones_para_historico = comparador_de_evalauciones.EvaluacionesParaGuardarEnHistorico(evaluaciones_antiguas, evaluaciones_nuevas);
+            var evaluaciones_a_insertar = comparador_de_evalauciones.EvaluacionesParaGuardar(evaluaciones_antiguas, evaluaciones_nuevas);
+            var evaluaciones_a_borrar = comparador_de_evalauciones.EvaluacionesParaBorrar(evaluaciones_antiguas, evaluaciones_nuevas);
+
+            foreach (var e in evaluaciones_a_insertar)
             {
                 GuardarEvaluacion(e, usuario);
             }
@@ -146,6 +153,21 @@ namespace General.Repositorios
             {  
                 GuardarHistorico(e, usuario);
             }
+            foreach (var e in evaluaciones_a_borrar)
+            {
+                GuardarHistorico(e, usuario);
+                BorrarEvaluacion(e, usuario);
+            }
+        }
+
+        private void BorrarEvaluacion(Evaluacion evaluacion, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_alumno", evaluacion.Alumno.Id);
+            parametros.Add("@id_curso", evaluacion.Curso.Id);
+            parametros.Add("@id_instancia_evaluacion", evaluacion.InstanciaEvaluacion.Id);
+
+            conexion_bd.EjecutarSinResultado("dbo.SACC_Del_Evaluaciones", parametros);
         }
 
         private void GuardarHistorico(Evaluacion evaluacion, Usuario usuario)
