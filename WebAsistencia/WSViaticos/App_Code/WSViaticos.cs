@@ -1616,9 +1616,19 @@ public class WSViaticos : System.Web.Services.WebService
             var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
             var una_fecha = DateTime.Parse(e.Fecha);
             evaluaciones_a_guardar.Add(new Evaluacion(una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
+        } 
+        var evaluaciones_antiguas = new List<Evaluacion>();
+        foreach (var e in evaluaciones_originales)
+        {
+            var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
+            var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
+            var un_alumno = RepoAlumnos().GetAlumnoByDNI(e.DNIAlumno);
+            var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
+            var una_fecha = DateTime.Parse(e.Fecha);
+            evaluaciones_a_guardar.Add(new Evaluacion(una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
         }
 
-        RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_a_guardar, usuario);
+        RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_antiguas, evaluaciones_a_guardar, usuario);
         return string.Empty;
     }
 

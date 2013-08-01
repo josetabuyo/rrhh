@@ -1055,11 +1055,11 @@ namespace General
         public static Curso UnCursoConAlumnos()
         {
             Curso un_curso = new Curso(14, MateriaCens(), unDocente(), EspacioFisico(), DateTime.Today, DateTime.Today, "");
-            un_curso.AgregarAlumno(new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
-            un_curso.AgregarAlumno(new Alumno(2, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro()));
-            un_curso.AgregarAlumno(new Alumno(3, "Ger", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro()));
-            un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, ModalidadFinesPuro()));
-            un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(281941, "Fer", "Caino", 31046911, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(284165, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(287872, "Ger", "Caino", 31507315, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(4, "Zambri", "Zambri", 29753914, "", "", "", areas, ModalidadFinesPuro()));
+            un_curso.AgregarAlumno(new Alumno(5, "Javi", "Lurgo", 21753951, "", "", "", areas, ModalidadFinesPuro()));
        
             un_curso.AgregarDiaDeCursada(DayOfWeek.Tuesday);
             un_curso.AgregarDiaDeCursada(DayOfWeek.Wednesday);
@@ -1168,7 +1168,7 @@ namespace General
 
         public static Alumno UnAlumnoDelCurso()
         {
-            return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro());    
+            return new Alumno(281941, "Fer", "Caino", 31046911, "", "", "", areas, ModalidadFinesPuro());    
         }
 
         public static Alumno UnAlumnoNuevo()
@@ -1193,7 +1193,7 @@ namespace General
 
         public static Alumno AlumnoDelCurso()
         {
-            return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro());
+            return new Alumno(281941, "Fer", "Caino", 31046911, "", "", "", areas, ModalidadFinesPuro());
         }
         
         
@@ -1270,6 +1270,36 @@ namespace General
         public static EspacioFisico EspacioFisico()
         {
             return EspaciosFisicos()[0];
+        }
+
+        public static List<Evaluacion> Evaluaciones()
+        {
+            var eval1 = new Evaluacion(new InstanciaDeEvaluacion(14,"Primer Parcial"), new Alumno(281941, "Fer", "Caino", 31046911, "", "", "", areas, ModalidadFinesPuro()),UnCursoConAlumnos(),new CalificacionNoNumerica("A1"),new DateTime(2012,10,13,21,36,35,077));  //21:36:35.077
+            var eval2 = new Evaluacion(new InstanciaDeEvaluacion(14, "Primer Parcial"), new Alumno(284165, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro()), UnCursoConAlumnos(), new CalificacionNoNumerica("A2"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
+            var eval3 = new Evaluacion(new InstanciaDeEvaluacion(14, "Primer Parcial"), new Alumno(287872, "Ger", "Caino", 31507315, "", "", "", areas, ModalidadFinesPuro()), UnCursoConAlumnos(), new CalificacionNoNumerica("A3"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
+
+            return new List<Evaluacion>() {eval1, eval2, eval3};
+
+        }
+
+        public static Alumno AlumnoParaEvaluacion1()
+        {
+            return new Alumno(281941, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, ModalidadFinesPuro());
+        }
+
+        public static Alumno AlumnoParaEvaluacion2()
+        {
+            return new Alumno(284165, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, ModalidadFinesPuro());
+        }
+
+        public static Alumno AlumnoParaEvaluacion3()
+        {
+            return new Alumno(287872, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, ModalidadFinesPuro());
+        }
+
+        public static Evaluacion Evaluacion()
+        {
+            return new Evaluacion(new InstanciaDeEvaluacion(14, "Primer Parcial"), new Alumno(4, "Ariel", "Zambri", 25046911, "", "", "", areas, ModalidadFinesPuro()), UnCursoConAlumnos(), new CalificacionNoNumerica("A1"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
         }
     }
 }
