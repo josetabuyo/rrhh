@@ -1600,43 +1600,97 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
     {
-        return RepositorioDeCursos().GetInstanciasDeEvaluacion(id_curso).ToArray();
-        
-        //var una_instancia = new List<InstanciaDeEvaluacion> {new InstanciaDeEvaluacion(){ Id = 1, Descripcion = "Prueba"}};
-        //return una_instancia.ToArray();
+        var instancias = RepositorioDeCursos().GetInstanciasDeEvaluacion(id_curso).ToArray();
+        return instancias;
     }
 
     [WebMethod]
-    public PlanillaEvaluacionesDto GetPlanillaEvaluaciones(int id_curso)
+    public string GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
+    {
+        var evaluaciones_a_guardar = new List<Evaluacion>();
+        foreach (var e in evaluaciones_nuevas_dto)
+        {
+            var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
+            var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
+            var un_alumno = RepoAlumnos().GetAlumnoByDNI(e.DNIAlumno);
+            var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
+            DateTime una_fecha;
+            DateTime.TryParse(e.Fecha, out una_fecha );
+            evaluaciones_a_guardar.Add(new Evaluacion(una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
+        }
+
+        var evaluaciones_originales = new List<Evaluacion>();
+        foreach (var e in evaluaciones_originales_dto)
+        {
+            var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
+            var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
+            var un_alumno = RepoAlumnos().GetAlumnoByDNI(e.DNIAlumno);
+            var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
+            DateTime una_fecha;
+            DateTime.TryParse(e.Fecha, out una_fecha);
+            evaluaciones_originales.Add(new Evaluacion(una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
+        }
+
+        var evaluaciones_originales_posta = evaluaciones_originales.FindAll(e => e.Calificacion == null && e.Fecha.Date == DateTime.MinValue);
+
+
+        RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_a_guardar, usuario);
+        return string.Empty;
+    }
+
+    [WebMethod]
+    public PlanillaEvaluacionesDto GetPlanillaEvaluaciones(int id_curso, int id_instancia)
     {
         List <Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCurso(RepositorioDeCursos().GetCursoById(id_curso));
         Curso curso = RepositorioDeCursos().GetCursoById(id_curso);
         List<EvaluacionDto> EvaluacionesDto = new List<EvaluacionDto>();
-        //List<string> EvaluacionesDto = new List<string>();
-        List<InstanciaDeEvaluacion> InstanciasDto = new List<InstanciaDeEvaluacion>();
-            
+
         evaluaciones.ForEach(e =>{
             EvaluacionesDto.Add(new EvaluacionDto()
             {
                 Id = e.InstanciaEvaluacion.Id,
-                IdAlumno = e.Alumno.Id,
+                DNIAlumno = e.Alumno.Documento,
                 IdCurso = e.Curso.Id,
                 Calificacion = e.Calificacion.Descripcion,
-                Fecha = e.Fecha.ToShortDateString()
-            }); //.Calificacion.Descripcion.ToString());
+                Fecha = e.Fecha.ToShortDateString(),
+                IdInstancia = e.InstanciaEvaluacion.Id
+            }); 
         });
-
-        var alumnos = curso.Alumnos().ToArray(); //evaluaciones.Select(e => e.Alumno).Distinct().ToArray();
-        var Instancias = curso.Materia.Modalidad.InstanciasDeEvaluacion.ToArray();
-        var Calificaciones = evaluaciones.Select(e => e.Calificacion.Descripcion).ToList();
         
+        var alumnos = curso.Alumnos().ToArray(); //evaluaciones.Select(e => e.Alumno).Distinct().ToArray();
+        var Instancias = curso.Materia.Modalidad.InstanciasDeEvaluacion;
+        if (id_instancia > 0)
+        {
+            Instancias = Instancias.FindAll(i => i.Id.Equals(id_instancia));
+        }
+        var Calificaciones = evaluaciones.Select(e => e.Calificacion.Descripcion).ToList();
+
+        foreach (var a in alumnos)
+        {
+            foreach (var i in Instancias)
+            {
+                if (EvaluacionesDto.FindAll(e => e.DNIAlumno == a.Id && e.IdInstancia == i.Id).Count == 0)
+                {
+                    EvaluacionesDto.Add(new EvaluacionDto()
+                    {
+                        Id = 0,
+                        DNIAlumno = a.Documento,
+                        IdCurso = id_curso,
+                        Calificacion = null,
+                        Fecha = null,
+                        IdInstancia = i.Id
+                    });
+                }
+            }
+        }
+
         var Planilla = new PlanillaEvaluacionesDto()
         {
             CodigoError = 0,
             MensajeError = "",
             Alumnos = alumnos,
             Evaluaciones = EvaluacionesDto.ToArray(),
-            Instancias = Instancias
+            Instancias = Instancias.ToArray()
         };
 
         return Planilla;

@@ -92,7 +92,7 @@ namespace General.Repositorios
             parametros.Add("@id_alumno", evaluacion.Alumno.Id);
             parametros.Add("@id_curso", evaluacion.Curso.Id);
             parametros.Add("@id_instancia_evaluacion", evaluacion.InstanciaEvaluacion.Id);
-            parametros.Add("@calificacion", evaluacion.Calificacion.Nota);
+            parametros.Add("@calificacion", evaluacion.Calificacion.Descripcion);
             parametros.Add("@fecha_evaluacion", evaluacion.Fecha);
             parametros.Add("@fecha", DateTime.Today);
             parametros.Add("@id_usuario", usuario.Id);
