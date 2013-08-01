@@ -47,7 +47,7 @@
     <div>
     <div id="ContenedorPlanilla" style="display:inline-block"></div>
     <br />
-    <input type="button" id="BtnGuardarEvaluaciones" value="Guardar Cambios" style="display:none;" />
+    <input type="button" id="BtnGuardarEvaluaciones" onclick="javascript:admin_planilla.guardarPlanilla();" value="Guardar Cambios" style="display:none;" />
     <input type="button" id="BtnImprimir" value="Imprimir" style="display:none;" />
     </div>
     </div>
@@ -91,6 +91,8 @@
 
     var AdministradorDeEvaluaciones = function () {
         var _this = this;
+        var pla;
+        var evaluaciones_originales;
         _this.cargarPlanilla = function (id_curso) {
             var data_post = JSON.stringify({
                 'id_curso': $("#CmbCurso").val(),
@@ -107,6 +109,7 @@
                     var respuesta = JSON.parse(respuestaJson.d);
                     if (respuesta.MensajeError === "") {
                         _this.dibujarGrilla(respuesta);
+                        evaluaciones_originales = JSON.parse(respuestaJson.d).Evaluaciones;
                     }
                     else {
                         alert(respuesta.MensajeError);
@@ -117,8 +120,49 @@
                 }
             });
         };
-        _this.guardarPlanilla = function (planilla) {
-            alert("Guardar Planilla");
+        _this.guardarPlanilla = function () {
+
+            var evaluaciones = [];
+            for (var i = 0; i < pla.evaluaciones.length; i++) {
+                var ev = pla.evaluaciones[i];
+                ev.Calificacion = ev.nota.html.val();
+                evaluaciones.push({Id : ev.Id,
+                                    Calificacion : ev.nota.html.val(),
+                                    DNIAlumno : ev.DNIAlumno,
+                                    IdCurso : ev.IdCurso,
+                                    Fecha : ev.fecha.html.val(),
+                                    IdInstancia : ev.IdInstancia
+                                    });
+            }
+            alert(JSON.stringify(evaluaciones));
+            alert(JSON.stringify(evaluaciones_originales));
+
+            var data_post = JSON.stringify({
+                "evaluaciones_nuevas": JSON.stringify(evaluaciones),
+                "evaluaciones_originales": JSON.stringify(evaluaciones_originales)
+            });
+            $.ajax({
+                url: "../AjaxWS.asmx/GuardarEvaluaciones",
+                type: "POST",
+                data: data_post,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (respuestaJson) {
+                    var respuesta = JSON.parse(respuestaJson.d);
+                    if (respuesta.MensajeError === "") {
+                        /*_this.dibujarGrilla(respuesta);
+                        evaluaciones_originales = JSON.parse(respuestaJson.d).Evaluaciones;*/
+                        alert(respuestaJson);
+                    }
+                    else {
+                        alert(respuesta.MensajeError);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+
         };
         _this.dibujarGrilla = function (planilla) {
 
@@ -128,8 +172,8 @@
             var contenedor_grilla = $("#ContenedorPlanilla");
             var cmb_instancia = $("#CmbInstancia");
             var readonly = cmb_instancia.val() == 0;
-            var pla = new Planilla(planilla, readonly);
-            
+            pla = new Planilla(planilla, readonly);
+
             contenedor_grilla.html("");
             $("#BtnGuardarEvaluaciones").hide();
 
@@ -147,14 +191,8 @@
                 grilla.DibujarEn(contenedor_grilla);
                 if (readonly) {
                     $("#BtnGuardarEvaluaciones").hide();
-                    //$("#BtnImprimir").show();
                 } else {
                     $("#BtnGuardarEvaluaciones").show();
-                    /*if (cmb_instancia.length > 2) {
-                        $("#BtnImprimir").hide();
-                    } else {
-                        $("#BtnImprimir").show();
-                    }*/
                 }
             }
         }

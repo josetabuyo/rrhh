@@ -1605,13 +1605,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GuardarEvaluaciones(EvaluacionDto[] evaluaciones, Usuario usuario)
+    public string GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas, EvaluacionDto[] evaluaciones_originales, Usuario usuario)
     {
         var evaluaciones_a_guardar = new List<Evaluacion>();
-        /*var cursos = RepositorioDeCursos().GetCursos();
-        var alumnos = RepoAlumnos().GetAlumnos();
-        */
-        foreach (var e in evaluaciones)
+        foreach (var e in evaluaciones_nuevas)
         {
             var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
             var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);

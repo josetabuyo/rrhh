@@ -129,10 +129,13 @@ public class AjaxWS : System.Web.Services.WebService {
         return Newtonsoft.Json.JsonConvert.SerializeObject(instancias);
     }
     [WebMethod(EnableSession = true)]
-    public string GuardarEvaluaciones(EvaluacionDto[] evaluaciones, Usuario usuario)
+    public string GuardarEvaluaciones(string evaluaciones_nuevas, string evaluaciones_originales)
     {
-        var instancias = backEndService.GuardarEvaluaciones(evaluaciones, usuario);
-        return string.Empty;
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        var evaluaciones_nuevas_dto = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.EvaluacionDto[]>(evaluaciones_nuevas);
+        var evaluaciones_originales_dto = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.EvaluacionDto[]>(evaluaciones_originales);
+        
+        return backEndService.GuardarEvaluaciones(evaluaciones_nuevas_dto, evaluaciones_originales_dto, usuarioLogueado);
     }
 }
 
