@@ -7,19 +7,14 @@ VistaDeImagen.prototype.start = function () {
     this.id = this.o.idImagen;
     this.ui = $("#plantilla_ui_imagen").clone();
     this.img_thumbnail = this.ui.find('#img_thumbnail');
-    this.relojito = this.ui.find('#relojito_de_espera');
 
-    this.relojito.progressbar({
-        value: false
-    });
-
-    this.relojito.show();
+    this.img_thumbnail.attr("src", "Imagenes/static.gif");
 
     var _this = this;
     this.ui.click(function () {
         if (!_this.onDrag) {
             new VisualizadorDeImagenes({
-                idImagen: _this.id ,
+                idImagen: _this.id,
                 servicioDeLegajos: _this.o.servicioDeLegajos
             });
         }
@@ -42,7 +37,6 @@ VistaDeImagen.prototype.start = function () {
         90,
         90,
         function (imagen) {
-            _this.relojito.hide();
             _this.img_thumbnail.attr("src", "data:image/png;base64," + imagen.bytesImagen)
         });
 };

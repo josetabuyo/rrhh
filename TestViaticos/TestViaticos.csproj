@@ -84,9 +84,6 @@
     <Compile Include="TestAlertas.cs" />
     <Compile Include="TestMail.cs" />
     <Compile Include="TestModi\TestServicioDeDigitalizacionDeLegajos.cs" />
-    <Compile Include="TestModi\TestRepositorioDeLegajos.cs" />
-    <Compile Include="TestModi\TestRepositorioDeLegajosEscaneados.cs" />
-    <Compile Include="TestModi\TestRepositorioDeLegajosEscaneados2.cs" />
     <Compile Include="TestSACC\TestRepositorioDeMaterias.cs" />
     <Compile Include="TestSACC\TestRepositorioDeAlumno.cs" />
     <Compile Include="TestSACC\TestAlumnos.cs" />

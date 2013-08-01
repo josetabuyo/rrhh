@@ -143,6 +143,8 @@
     -webkit-border-radius: 5px;
     -khtml-border-radius: 5px;
     border-radius: 5px;
+    width: 100%;
+    height: 100%;
 }
 
 .imagen_miniatura #img_thumbnail:hover
@@ -156,10 +158,23 @@
     display:block;
 }
 
-#visualizador_de_imagenes #contenedor_imagen_zoom
+#plantilla_ui_visualizador_imagen #contenedor_imagen_zoom
 {
-    height:500px;
-    width:980px;
+    height:510px;
+    width:980px;    
+    background-image:url('imagenes/static.gif');
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#plantilla_ui_visualizador_imagen #contenedor_imagen_zoom img
+{   
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
 }
 
 ::-webkit-scrollbar {
@@ -219,7 +234,13 @@
     border-radius: 5px 0px 0px 0px;
 }
 
+.styled-select:hover
+{
+    background-color: Highlight;
+}
+
 .styled-select option
 {
     color: black;
 }
+

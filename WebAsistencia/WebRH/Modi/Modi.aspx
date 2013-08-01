@@ -55,7 +55,7 @@
             </div>
 
             <div id="plantilla_ui_imagen" class="imagen_miniatura">
-                <div id="relojito_de_espera" style="min-height: 90px;"></div>
+                <%--<div id="relojito_de_espera" class="panel_con_estatica" style="min-height: 90px;"></div>--%>
                 <img alt="" src="" id="img_thumbnail" />
             </div>
 

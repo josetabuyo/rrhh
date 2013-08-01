@@ -18,13 +18,13 @@ VisualizadorDeImagenes.prototype.start = function () {
             duration: 500
         }
     });
-    this.mostrarRelojitoDeEspera();
+    //this.mostrarRelojitoDeEspera();
     this.o.servicioDeLegajos.getThumbnailPorId(
         this.o.idImagen,
         0,
         980,
         function (imagen) {
-            _this.ocultarRelojitoDeEspera();
+            //_this.ocultarRelojitoDeEspera();
             _this.ui.dialog("option", "title", imagen.nombre);
             _this.panelImagen.attr("src", "data:image/png;base64," + imagen.bytesImagen);
         });
