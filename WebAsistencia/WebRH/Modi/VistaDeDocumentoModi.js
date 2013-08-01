@@ -12,11 +12,11 @@ VistaDeDocumentoModi.prototype.start = function () {
 
     var _this = this;
     this.panel_imagenes = new PanelDeImagenes({
-        servicioDeImagenes: this.o.servicioDeImagenes,
+        servicioDeLegajos: this.o.servicioDeLegajos,
         servicioDeDragAndDrop: this.o.servicioDeDragAndDrop,
         mensajeParaCuandoEstaVacio: 'Este documento no tiene imágenes asignadas',
         onImagenDropeada: function (imagen) {
-            _this.o.servicioDeImagenes.asignarImagenADocumento(imagen.id,
+            _this.o.servicioDeLegajos.asignarImagenADocumento(imagen.id,
                                                                 _this.o.documento.tabla,
                                                                 _this.o.documento.id);
         }

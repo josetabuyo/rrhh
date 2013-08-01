@@ -33,7 +33,7 @@ PanelDeImagenes.prototype.cargarImagenes = function (id_imagenes) {
         var vista_imagen = new VistaDeImagen({
             idImagen: id_imagenes[i],
             servicioDeDragAndDrop: this.o.servicioDeDragAndDrop,
-            servicioDeImagenes: this.o.servicioDeImagenes
+            servicioDeLegajos: this.o.servicioDeLegajos
         });
         this.agregarVistaImagen(vista_imagen);
     }

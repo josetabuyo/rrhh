@@ -108,6 +108,7 @@
     <Compile Include="FiltroDeAreas.cs" />
     <Compile Include="ItemDeMenu.cs" />
     <Compile Include="Mensajeria.cs" />
+    <Compile Include="Modi\IServicioDeDigitalizacionDeLegajos.cs" />
     <Compile Include="Modi\LegajoModi.cs" />
     <Compile Include="Modi\DocumentoModi.cs" />
     <Compile Include="Modi\ExcepcionDeCarpetaDeLegajoNoEncontrada.cs" />
@@ -115,10 +116,8 @@
     <Compile Include="Modi\FileSystem.cs" />
     <Compile Include="Modi\IFileSystem.cs" />
     <Compile Include="Modi\ImagenModi.cs" />
-    <Compile Include="Modi\IRepositorioDeLegajosEscaneados.cs" />
     <Compile Include="Modi\RespuestaABusquedaDeLegajos.cs" />
-    <Compile Include="Modi\RepositorioDeLegajosEscaneados.cs" />
-    <Compile Include="Modi\RepositorioDeLegajos.cs" />
+    <Compile Include="Modi\ServicioDeDigitalizacionDeLegajos.cs" />
     <Compile Include="Modi\ThumbnailImagenModi.cs" />
     <Compile Include="MenuDelSistema.cs" />
     <Compile Include="Permiso.cs" />

@@ -78,16 +78,12 @@
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
-    <script type="text/javascript" src="http://cdn.jquerytools.org/1.2.5/all/jquery.tools.min.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-mousewheel/jquery.mousewheel.js"></script>
-    <script type="text/javascript" src="../Scripts/jQuery-PanZoom-master/jquery-panzoom.js"></script>
     <script type="text/javascript" src="BuscadorDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeLegajoModi.js"></script>
-    <script type="text/javascript" src="ServicioDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeDocumentoModi.js"></script>
     <script type="text/javascript" src="VistaDeImagen.js"></script>
     <script type="text/javascript" src="ServicioDeDragAndDrop.js"></script>
-    <script type="text/javascript" src="ServicioDeImagenes.js"></script>
+    <script type="text/javascript" src="ServicioDeDigitalizacionDeLegajos.js"></script>
     <script type="text/javascript" src="ServicioDeCategoriasDeDocumentos.js"></script>
     <script type="text/javascript" src="VisualizadorDeImagenes.js"></script>
     <script type="text/javascript" src="PanelDeImagenes.js"></script>
@@ -98,14 +94,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var proveedor_ajax = new ProveedorAjax();
-            var servicio_de_imagenes = new ServicioDeImagenes(proveedor_ajax);
+            var servicio_de_legajos = new ServicioDeDigitalizacionDeLegajos(proveedor_ajax);
             var servicio_de_categorias = new ServicioDeCategoriasDeDocumentos(proveedor_ajax);
-            var servicio_de_legajos = new ServicioDeLegajos(proveedor_ajax);
 
             var vista_del_legajo = new VistaDeLegajoModi({
                 ui: $('#ui_vista_de_resultados_de_legajos'),
                 plantilla_vista_documento: $('#plantilla_ui_documento'),
-                servicioDeImagenes: servicio_de_imagenes,
                 servicioDeCategorias: servicio_de_categorias,
                 servicioDeLegajos: servicio_de_legajos
             });

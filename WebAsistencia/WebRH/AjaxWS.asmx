@@ -76,7 +76,7 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         return backEndService.GuardarCambiosEnDocumento(id_documento, id_area_destino, comentario, usuarioLogueado);
     }
-
+    
     ////////////////////////////////////////MODI
 
     [WebMethod(EnableSession = true)]

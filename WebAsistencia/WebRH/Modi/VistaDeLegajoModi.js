@@ -12,11 +12,11 @@ VistaDeLegajoModi.prototype.start = function () {
     this.servicioDeDragAndDrop = new ServicioDeDragAndDrop();
     var _this = this;
     this.panel_imagenes_no_asignadas = new PanelDeImagenes({
-        servicioDeImagenes: this.o.servicioDeImagenes,
+        servicioDeLegajos: this.o.servicioDeLegajos,
         servicioDeDragAndDrop: this.servicioDeDragAndDrop,
         mensajeParaCuandoEstaVacio: 'Este legajo no tiene imágenes sin asignar',
         onImagenDropeada: function (imagen) {
-            _this.o.servicioDeImagenes.desAsignarImagen(imagen.id);
+            _this.o.servicioDeLegajos.desAsignarImagen(imagen.id);
         }
     });
     this.panel_imagenes_no_asignadas.dibujarEn(this.div_imagenes_no_asignadas);
@@ -43,12 +43,11 @@ VistaDeLegajoModi.prototype.mostrarLegajo = function (legajo) {
             ui: this.o.plantilla_vista_documento.clone(),
             documento: legajo.documentos[i],
             plantilla_vista_imagen: this.o.plantilla_vista_imagen,
-            servicioDeImagenes: this.o.servicioDeImagenes,
+            servicioDeLegajos: this.o.servicioDeLegajos,
             servicioDeDragAndDrop: this.servicioDeDragAndDrop,
             visualizadorDeImagenes: this.visualizadorDeImagenes,
             numero_legajo: legajo.idInterna,
-            servicioDeCategorias: this.o.servicioDeCategorias,
-            servicioDeLegajos: this.o.servicioDeLegajos
+            servicioDeCategorias: this.o.servicioDeCategorias
         });
         this.vistasDeDocumentos.push(vista_documento);
         vista_documento.dibujarEn(this.panel_documentos);

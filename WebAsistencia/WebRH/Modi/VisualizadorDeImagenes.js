@@ -19,7 +19,7 @@ VisualizadorDeImagenes.prototype.start = function () {
         }
     });
     this.mostrarRelojitoDeEspera();
-    this.o.servicioDeImagenes.getThumbnailPorId(
+    this.o.servicioDeLegajos.getThumbnailPorId(
         this.o.idImagen,
         0,
         980,

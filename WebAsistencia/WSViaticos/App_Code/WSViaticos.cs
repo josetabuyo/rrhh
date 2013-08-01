@@ -1600,53 +1600,47 @@ public class WSViaticos : System.Web.Services.WebService
     #endregion
 
     #region modi
-    //////////////////////////MODI
 
     [WebMethod]
     public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio)
     {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        var repositorio_legajos = new RepositorioDeLegajos(Conexion(), repo_imagenes);
-        return repositorio_legajos.BuscarLegajos(criterio);
+        return servicioDeDigitalizacionDeLegajos().BuscarLegajos(criterio);
     }
 
     [WebMethod]
     public ImagenModi GetImagenPorId(int id_imagen)
     {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        return repo_imagenes.GetImagenPorId(id_imagen);
+        return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
     }
 
     [WebMethod]
     public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
     {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        return repo_imagenes.GetThumbnailPorId(id_imagen, alto, ancho);
+        return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);
     }
 
     [WebMethod]
     public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento, Usuario usuario)
     {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        repo_imagenes.AsignarImagenADocumento(id_imagen, tabla, id_documento, usuario);
+        servicioDeDigitalizacionDeLegajos().AsignarImagenADocumento(id_imagen, tabla, id_documento, usuario);
     }
 
     [WebMethod]
     public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
     {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        repo_imagenes.AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
+        servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
     }
 
     [WebMethod]
     public void DesAsignarImagen(int id_imagen, Usuario usuario)
-    {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        repo_imagenes.DesAsignarImagen(id_imagen, usuario);
+    {        
+        servicioDeDigitalizacionDeLegajos().DesAsignarImagen(id_imagen, usuario);
     }
 
-    //////////////////////////FIN MODI
-
+    private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
+    {
+        return new ServicioDeDigitalizacionDeLegajos(Conexion(), new FileSystem(), "C:/ImagenesLegajos");
+    }
 
 #endregion
 

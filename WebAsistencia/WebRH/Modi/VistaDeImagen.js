@@ -20,7 +20,7 @@ VistaDeImagen.prototype.start = function () {
         if (!_this.onDrag) {
             new VisualizadorDeImagenes({
                 idImagen: _this.id ,
-                servicioDeImagenes: _this.o.servicioDeImagenes
+                servicioDeLegajos: _this.o.servicioDeLegajos
             });
         }
     });
@@ -37,7 +37,7 @@ VistaDeImagen.prototype.start = function () {
         helper: "clone"
     });
 
-    this.o.servicioDeImagenes.getThumbnailPorId(
+    this.o.servicioDeLegajos.getThumbnailPorId(
         this.id,
         90,
         90,
