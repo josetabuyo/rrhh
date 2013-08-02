@@ -6,8 +6,9 @@
 VisualizadorDeImagenes.prototype.start = function () {
     this.ui = $("#plantilla_ui_visualizador_imagen").clone();
     this.panelImagen = this.ui.find('#imagen');
+    this.panelContenedorImagen = this.ui.find('#contenedor_imagen');
     var _this = this;
-    
+
     this.ui.dialog({
         title: "Cargando Imagen",
         height: 580,
@@ -18,29 +19,14 @@ VisualizadorDeImagenes.prototype.start = function () {
             duration: 500
         }
     });
-    //this.mostrarRelojitoDeEspera();
+    this.panelContenedorImagen.addClass('panel_con_estatica');
     this.o.servicioDeLegajos.getThumbnailPorId(
         this.o.idImagen,
         0,
         980,
         function (imagen) {
-            //_this.ocultarRelojitoDeEspera();
+            _this.panelContenedorImagen.removeClass('panel_con_estatica');
             _this.ui.dialog("option", "title", imagen.nombre);
             _this.panelImagen.attr("src", "data:image/png;base64," + imagen.bytesImagen);
         });
 };
-
- VisualizadorDeImagenes.prototype.mostrarRelojitoDeEspera = function () {
-    this.ui.children().hide();
-    this.progress_bar = $('<div style="min-height: 500px;">');
-    this.progress_bar.progressbar({
-        value: false
-    });
-    this.progress_bar.show();
-    this.ui.append(this.progress_bar);
-};
-
-VisualizadorDeImagenes.prototype.ocultarRelojitoDeEspera = function () {
-    this.progress_bar.remove();
-    this.ui.children().show();
-}; 

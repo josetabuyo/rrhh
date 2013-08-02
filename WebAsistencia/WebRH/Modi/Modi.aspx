@@ -15,7 +15,8 @@
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
-        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="MODI" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+        <uc2:BarraMenu ID="BarraMenu" runat="server" 
+            Feature="<div style='margin-top: 6px;'> <span style='font-size:20px; font-weight: bold;'>MODI</span> <br/> <span style='font-size:12px;'> Módulo de Digitalización </span> </div>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <div id="contenedor_principal_modi">
            <div id="ui_vista_de_resultados_de_legajos" class="vista_de_legajo">
                 <label id="lbl_resumen_datos_personales"></label>
@@ -55,12 +56,12 @@
             </div>
 
             <div id="plantilla_ui_imagen" class="imagen_miniatura">
-                <%--<div id="relojito_de_espera" class="panel_con_estatica" style="min-height: 90px;"></div>--%>
+                <img alt="" src="Imagenes/static.gif" id="img_estatica" />
                 <img alt="" src="" id="img_thumbnail" />
             </div>
 
             <div id="plantilla_ui_visualizador_imagen" >
-                <div id="contenedor_imagen_zoom">                        
+                <div id="contenedor_imagen">                        
                     <img alt="" src="" id="imagen" />
                 </div>
             </div>
