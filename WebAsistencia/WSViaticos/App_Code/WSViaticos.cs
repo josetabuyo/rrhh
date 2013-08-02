@@ -1605,7 +1605,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
+    public PlanillaEvaluacionesDto GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
     {
         var evaluaciones_a_guardar = new List<Evaluacion>();
         foreach (var e in evaluaciones_nuevas_dto)
@@ -1631,11 +1631,20 @@ public class WSViaticos : System.Web.Services.WebService
             evaluaciones_originales.Add(new Evaluacion(una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
         }
 
-        var evaluaciones_originales_posta = evaluaciones_originales.FindAll(e => e.Calificacion == null && e.Fecha.Date == DateTime.MinValue);
+        var evaluaciones_nuevas_posta = evaluaciones_a_guardar.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
+        var evaluaciones_originales_posta = evaluaciones_originales.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
 
 
-        RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_a_guardar, usuario);
-        return string.Empty;
+        RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+
+        var Planilla = new PlanillaEvaluacionesDto()
+        {
+            CodigoError = 0,
+            MensajeError = ""
+           
+        };
+
+        return Planilla;
     }
 
     [WebMethod]
@@ -1669,7 +1678,7 @@ public class WSViaticos : System.Web.Services.WebService
         {
             foreach (var i in Instancias)
             {
-                if (EvaluacionesDto.FindAll(e => e.DNIAlumno == a.Id && e.IdInstancia == i.Id).Count == 0)
+                if (EvaluacionesDto.FindAll(e => e.DNIAlumno == a.Documento && e.IdInstancia == i.Id).Count == 0)
                 {
                     EvaluacionesDto.Add(new EvaluacionDto()
                     {
