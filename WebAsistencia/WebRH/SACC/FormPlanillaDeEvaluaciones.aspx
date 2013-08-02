@@ -149,14 +149,14 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (respuestaJson) {
                     var respuesta = JSON.parse(respuestaJson.d);
-                    if (respuesta.MensajeError === "") {
-                        /*_this.dibujarGrilla(respuesta);
-                        evaluaciones_originales = JSON.parse(respuestaJson.d).Evaluaciones;*/
-                        alert(respuestaJson);
-                    }
+                    /*if (respuesta.MensajeError === "") {*/
+                        _this.cargarPlanilla(respuesta);
+                        /*evaluaciones_originales = JSON.parse(respuestaJson.d).Evaluaciones;*/
+                        /*alert(respuestaJson);*/
+                    /*}
                     else {
                         alert(respuesta.MensajeError);
-                    }
+                    }*/
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert(errorThrown);
