@@ -57,68 +57,75 @@
 <script type="text/javascript">
     var admin_planilla;
     function cargar_instancias(id_curso) {
-        var data_post = JSON.stringify({
-            'id_curso': id_curso
-        });
-
-        $.ajax({
-            url: "../AjaxWS.asmx/GetInstanciasDeEvaluacion",
-            type: "POST",
-            data: data_post,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (respuestaJson) {
-                var respuesta = JSON.parse(respuestaJson.d);
-                var combo_instancias = document.getElementById("CmbInstancia");
-
-                combo_instancias.options.length = 0;
-                combo_instancias.add(new Option("Seleccione", "-1"));
-                if (respuesta.length > 1) {
-                    combo_instancias.add(new Option("Todos", "0"));
-                }
-
-                for (var i = 0; i < respuesta.length; i++) {
-                    combo_instancias.add(new Option(respuesta[i].Descripcion, respuesta[i].Id));
-                }
-                admin_planilla.cargarPlanilla();
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown);
-            }
-        });
-    
-    }
-
-    var AdministradorDeEvaluaciones = function () {
-        var _this = this;
-        var pla;
-        var evaluaciones_originales;
-        _this.cargarPlanilla = function (id_curso) {
+        var combo_instancias = document.getElementById("CmbInstancia");
+        combo_instancias.options.length = 0;
+        combo_instancias.add(new Option("Seleccione", "-1"));
+        if (id_curso > 0) {
             var data_post = JSON.stringify({
-                'id_curso': $("#CmbCurso").val(),
-                'id_instancia': $("#CmbInstancia").val()
+                'id_curso': id_curso
             });
 
             $.ajax({
-                url: "../AjaxWS.asmx/GetPlanillaEvaluaciones",
+                url: "../AjaxWS.asmx/GetInstanciasDeEvaluacion",
                 type: "POST",
                 data: data_post,
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (respuestaJson) {
                     var respuesta = JSON.parse(respuestaJson.d);
-                    if (respuesta.MensajeError === "") {
-                        _this.dibujarGrilla(respuesta);
-                        evaluaciones_originales = JSON.parse(respuestaJson.d).Evaluaciones;
+
+                    if (respuesta.length > 1) {
+                        combo_instancias.add(new Option("Todos", "0"));
                     }
-                    else {
-                        alert(respuesta.MensajeError);
+
+                    for (var i = 0; i < respuesta.length; i++) {
+                        combo_instancias.add(new Option(respuesta[i].Descripcion, respuesta[i].Id));
                     }
+                   
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert(errorThrown);
                 }
             });
+        }
+        admin_planilla.cargarPlanilla();    
+    }
+
+    var AdministradorDeEvaluaciones = function () {
+        var _this = this;
+        var pla;
+        var evaluaciones_originales;
+        var contenedor_grilla = $("#ContenedorPlanilla");
+        _this.cargarPlanilla = function () {
+            if ($("#CmbInstancia").val() != "-1") {
+                var data_post = JSON.stringify({
+                    'id_curso': $("#CmbCurso").val(),
+                    'id_instancia': $("#CmbInstancia").val()
+                });
+
+                $.ajax({
+                    url: "../AjaxWS.asmx/GetPlanillaEvaluaciones",
+                    type: "POST",
+                    data: data_post,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (respuestaJson) {
+                        var respuesta = JSON.parse(respuestaJson.d);
+                        if (respuesta.MensajeError === "") {
+                            _this.dibujarGrilla(respuesta);
+                            evaluaciones_originales = JSON.parse(respuestaJson.d).Evaluaciones;
+                        }
+                        else {
+                            alert(respuesta.MensajeError);
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            } else {
+                contenedor_grilla.html("");
+            }
         };
         _this.guardarPlanilla = function () {
 
@@ -126,13 +133,13 @@
             for (var i = 0; i < pla.evaluaciones.length; i++) {
                 var ev = pla.evaluaciones[i];
                 ev.Calificacion = ev.nota.html.val();
-                evaluaciones.push({Id : ev.Id,
-                                    Calificacion : ev.nota.html.val(),
-                                    DNIAlumno : ev.DNIAlumno,
-                                    IdCurso : ev.IdCurso,
-                                    Fecha : ev.fecha.html.val(),
-                                    IdInstancia : ev.IdInstancia
-                                    });
+                evaluaciones.push({ Id: ev.Id,
+                    Calificacion: ev.nota.html.val(),
+                    DNIAlumno: ev.DNIAlumno,
+                    IdCurso: ev.IdCurso,
+                    Fecha: ev.fecha.html.val(),
+                    IdInstancia: ev.IdInstancia
+                });
             }
 
             var data_post = JSON.stringify({
@@ -147,14 +154,7 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (respuestaJson) {
                     var respuesta = JSON.parse(respuestaJson.d);
-                    if (respuesta.MensajeError === "") {
-                        /*_this.dibujarGrilla(respuesta);
-                        evaluaciones_originales = JSON.parse(respuestaJson.d).Evaluaciones;*/
-                        alert(respuestaJson);
-                    }
-                    else {
-                        alert(respuesta.MensajeError);
-                    }
+                    _this.cargarPlanilla();
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert(errorThrown);
@@ -167,7 +167,6 @@
             var mostrar_grilla = false;
             var columnas = []
 
-            var contenedor_grilla = $("#ContenedorPlanilla");
             var cmb_instancia = $("#CmbInstancia");
             var readonly = cmb_instancia.val() == 0;
             pla = new Planilla(planilla, readonly);

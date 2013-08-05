@@ -391,7 +391,7 @@ namespace TestViaticos
             var eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaGuardarEnHistorico(evaluaciones_antiguas, evaluaciones_nuevas);
             
             Assert.AreEqual(1, eval_a_borrar.Count);
-            Assert.AreEqual(1, eval_para_historico.Count);
+            Assert.AreEqual(2, eval_para_historico.Count);
         }
 
         [TestMethod]

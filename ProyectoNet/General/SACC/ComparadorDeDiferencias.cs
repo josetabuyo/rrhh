@@ -39,9 +39,14 @@ namespace General
 
         public List<Evaluacion> EvaluacionesParaGuardarEnHistorico(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas)
         {
-            var eval_para_actualizar = this.EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas);
 
-            var eval_historicas = evaluaciones_antiguas.FindAll(eval_ant => eval_para_actualizar.Exists(eval_act => eval_act.Alumno.Documento.Equals(eval_ant.Alumno.Documento) && eval_act.Curso.Id.Equals(eval_ant.Curso.Id) && eval_act.InstanciaEvaluacion.Id.Equals(eval_ant.InstanciaEvaluacion.Id)));
+            List<Evaluacion> eval_a_guardar_en_historico = new List<Evaluacion>();
+            eval_a_guardar_en_historico.AddRange(this.EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas));
+            eval_a_guardar_en_historico.AddRange(this.EvaluacionesParaBorrar(evaluaciones_antiguas, evaluaciones_nuevas));
+            //var eval_para_actualizar = this.EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas);
+            //var eval_para_borrar = this.EvaluacionesParaBorrar(evaluaciones_antiguas, evaluaciones_nuevas);
+
+            var eval_historicas = evaluaciones_antiguas.FindAll(eval_ant => eval_a_guardar_en_historico.Exists(eval_act => eval_act.Alumno.Documento.Equals(eval_ant.Alumno.Documento) && eval_act.Curso.Id.Equals(eval_ant.Curso.Id) && eval_act.InstanciaEvaluacion.Id.Equals(eval_ant.InstanciaEvaluacion.Id)));
 
             return eval_historicas;
         }
@@ -49,7 +54,7 @@ namespace General
 
         public List<Evaluacion> EvaluacionesParaGuardar(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas)
         {
-            return evaluaciones_nuevas.FindAll(eval_nuevas => !evaluaciones_antiguas.Exists(eval_ant => eval_ant.Alumno.Id.Equals(eval_nuevas.Alumno.Id) && eval_ant.InstanciaEvaluacion.Id.Equals(eval_nuevas.InstanciaEvaluacion.Id) && eval_ant.Curso.Id.Equals(eval_nuevas.Curso.Id)));
+            return evaluaciones_nuevas.FindAll(eval_nuevas => !evaluaciones_antiguas.Exists(eval_ant => eval_ant.Alumno.Id.Equals(eval_nuevas.Alumno.Id) && eval_ant.InstanciaEvaluacion.Id.Equals(eval_nuevas.InstanciaEvaluacion.Id) && eval_ant.Curso.Id.Equals(eval_nuevas.Curso.Id)) && eval_nuevas.Fecha.Date != DateTime.MinValue);
         }
 
         public List<Evaluacion> EvaluacionesParaBorrar(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas)

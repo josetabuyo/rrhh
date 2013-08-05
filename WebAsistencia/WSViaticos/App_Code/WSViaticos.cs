@@ -897,62 +897,62 @@ public class WSViaticos : System.Web.Services.WebService
     //    return JsonConvert.SerializeObject(instancia_evaluaciones);
     //}
 
-    [WebMethod]
-    public string GetPlanillaEvaluacionesPorCurso(int id_curso)
-    {
-        var un_curso = RepositorioDeCursos().GetCursoById(id_curso);
+    //[WebMethod]
+    //public string GetPlanillaEvaluacionesPorCurso(int id_curso)
+    //{
+    //    var un_curso = RepositorioDeCursos().GetCursoById(id_curso);
 
-        //List<InstanciasDeEvaluacion> instancias = un_curso.Instancias();
+    //    //List<InstanciasDeEvaluacion> instancias = un_curso.Instancias();
 
-        var planilla_evaluacion_dto = new object();
-        var planilla_evaluacion_alumnos_dto = new List<Object>();
-        List<object> detalle_evaluacion_dto = new List<object>();
+    //    var planilla_evaluacion_dto = new object();
+    //    var planilla_evaluacion_alumnos_dto = new List<Object>();
+    //    List<object> detalle_evaluacion_dto = new List<object>();
 
-        un_curso.Alumnos().ForEach(delegate(Alumno alumno)
-        {
-            var detalle_evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCursoYAlumno(un_curso, alumno);//deberia devolver nota e instancias
-            //List<object> detalle_evaluacion_dto = new List<object>();
+    //    un_curso.Alumnos().ForEach(delegate(Alumno alumno)
+    //    {
+    //        var detalle_evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCursoYAlumno(un_curso, alumno);//deberia devolver nota e instancias
+    //        //List<object> detalle_evaluacion_dto = new List<object>();
 
-            //foreach (var d in detalle_evaluaciones)
-            //{
-            //    detalle_evaluacion.Add(new{
-            //                valor = d.Calificacion,
-            //                instancia = d.InstanciaEvaluacion.Descripcion
-            //            });
-            //}
+    //        //foreach (var d in detalle_evaluaciones)
+    //        //{
+    //        //    detalle_evaluacion.Add(new{
+    //        //                valor = d.Calificacion,
+    //        //                instancia = d.InstanciaEvaluacion.Descripcion
+    //        //            });
+    //        //}
 
-            detalle_evaluaciones.ForEach(d =>
-            {
+    //        detalle_evaluaciones.ForEach(d =>
+    //        {
 
-                detalle_evaluacion_dto.Add(new
-                {
-                    valor = d.Calificacion,
-                    instancia = d.InstanciaEvaluacion.Descripcion,
-                    alumno = d.Alumno
-                });
-            });
+    //            detalle_evaluacion_dto.Add(new
+    //            {
+    //                valor = d.Calificacion,
+    //                instancia = d.InstanciaEvaluacion.Descripcion,
+    //                alumno = d.Alumno
+    //            });
+    //        });
 
-            //planilla_evaluacion_alumnos_dto.Add(new
-            //   {
-            //       id = alumno.Id,
-            //       nombrealumno = alumno.Nombre + " " + alumno.Apellido,
-            //       //pertenece_a = "MDS",
-            //       detalle_evaluacion = detalle_evaluacion.ToArray()
+    //        //planilla_evaluacion_alumnos_dto.Add(new
+    //        //   {
+    //        //       id = alumno.Id,
+    //        //       nombrealumno = alumno.Nombre + " " + alumno.Apellido,
+    //        //       //pertenece_a = "MDS",
+    //        //       detalle_evaluacion = detalle_evaluacion.ToArray()
 
-            //   });
-        });
+    //        //   });
+    //    });
 
-        //planilla_evaluacion_dto = new
-        //{
-        //    instancias = instancias,
-        //    evaluacionesalumnos = planilla_evaluacion_alumnos_dto
-        //};
+    //    //planilla_evaluacion_dto = new
+    //    //{
+    //    //    instancias = instancias,
+    //    //    evaluacionesalumnos = planilla_evaluacion_alumnos_dto
+    //    //};
 
-        return JsonConvert.SerializeObject(detalle_evaluacion_dto);
+    //    return JsonConvert.SerializeObject(detalle_evaluacion_dto);
 
-        //return string;
+    //    //return string;
 
-    }
+    //}
 
 
 
@@ -1605,31 +1605,38 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas, EvaluacionDto[] evaluaciones_originales, Usuario usuario)
+    public int GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
     {
         var evaluaciones_a_guardar = new List<Evaluacion>();
-        foreach (var e in evaluaciones_nuevas)
+        foreach (var e in evaluaciones_nuevas_dto)
         {
             var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
             var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
             var un_alumno = RepoAlumnos().GetAlumnoByDNI(e.DNIAlumno);
             var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
-            var una_fecha = DateTime.Parse(e.Fecha);
+            DateTime una_fecha;
+            DateTime.TryParse(e.Fecha, out una_fecha );
             evaluaciones_a_guardar.Add(new Evaluacion(una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
         } 
-        var evaluaciones_antiguas = new List<Evaluacion>();
-        foreach (var e in evaluaciones_originales)
+
+        var evaluaciones_originales = new List<Evaluacion>();
+        foreach (var e in evaluaciones_originales_dto)
         {
             var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
             var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
             var un_alumno = RepoAlumnos().GetAlumnoByDNI(e.DNIAlumno);
             var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
-            var una_fecha = DateTime.Parse(e.Fecha);
-            evaluaciones_a_guardar.Add(new Evaluacion(una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
+            DateTime una_fecha;
+            DateTime.TryParse(e.Fecha, out una_fecha);
+            evaluaciones_originales.Add(new Evaluacion(una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
         }
 
-        RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_antiguas, evaluaciones_a_guardar, usuario);
-        return string.Empty;
+        var evaluaciones_nuevas_posta = evaluaciones_a_guardar.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
+        var evaluaciones_originales_posta = evaluaciones_originales.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
+
+
+        RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+        return evaluaciones_nuevas_posta.First().Curso.Id;
     }
 
     [WebMethod]
@@ -1663,7 +1670,7 @@ public class WSViaticos : System.Web.Services.WebService
         {
             foreach (var i in Instancias)
             {
-                if (EvaluacionesDto.FindAll(e => e.DNIAlumno == a.Id && e.IdInstancia == i.Id).Count == 0)
+                if (EvaluacionesDto.FindAll(e => e.DNIAlumno == a.Documento && e.IdInstancia == i.Id).Count == 0)
                 {
                     EvaluacionesDto.Add(new EvaluacionDto()
                     {
