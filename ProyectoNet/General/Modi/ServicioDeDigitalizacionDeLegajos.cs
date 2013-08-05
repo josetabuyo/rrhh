@@ -127,10 +127,11 @@ namespace General.Modi
             var legajo = new LegajoModi(row.GetInt("id_interna"),
                                     row.GetInt("Nro_Documento"),
                                     row.GetString("Nombre"),
-                                    row.GetString("Apellido"));
+                                    row.GetString("Apellido"),
+                                    row.GetString("Cuil_Nro"));
 
             legajo.agregarDocumentos(this.DocumentosPara(legajo));
-            legajo.agregarIdsDeImagenesSinAsignar(this.GetIdsDeImagenesSinAsignarParaElLegajo(legajo.idInterna));
+            legajo.agregarIdsDeImagenesSinAsignar(this.GetIdsDeImagenesSinAsignarParaElLegajo(legajo));
             return legajo;
         }
 
@@ -176,13 +177,13 @@ namespace General.Modi
             return documentos;
         }
 
-        private List<int> GetIdsDeImagenesSinAsignarParaElLegajo(int numero_legajo)
+        private List<int> GetIdsDeImagenesSinAsignarParaElLegajo(LegajoModi legajo)
         {
             var listaIdsImagenes = new List<int>();
-            this.AgregarImagenesSinAsignarDeUnLegajoALaBase(numero_legajo);
+            this.AgregarImagenesSinAsignarDeUnLegajoALaBase(legajo);
 
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@legajo", numero_legajo);
+            parametros.Add("@legajo", legajo.idInterna);
             var tablaIds = this.conexion_db.Ejecutar("dbo.MODI_Get_Ids_De_Imagenes_Sin_Asignar_Para_El_Legajo", parametros);
 
             if (tablaIds.Rows.Count > 0)
@@ -195,12 +196,12 @@ namespace General.Modi
             return listaIdsImagenes;
         }
 
-        private void AgregarImagenesSinAsignarDeUnLegajoALaBase(int numero_legajo)
+        private void AgregarImagenesSinAsignarDeUnLegajoALaBase(LegajoModi legajo)
         {
             List<String> paths_archivos;
             try
             {
-                paths_archivos = this.file_system.getPathsArchivosEnCarpeta(this.path_imagenes + "/" + numero_legajo);
+                paths_archivos = this.file_system.getPathsArchivosEnCarpeta(this.path_imagenes + "/" + legajo.cuil);
             }
             catch (ExcepcionDeCarpetaDeLegajoNoEncontrada e)
             {
@@ -209,15 +210,15 @@ namespace General.Modi
             paths_archivos.ForEach(pathImagen =>
             {
                 var imagen = new ImagenModi(Path.GetFileNameWithoutExtension(pathImagen), this.file_system.getImagenFromPath(pathImagen));
-                this.AgregarImagenSinAsignarALaBase(numero_legajo, imagen);
-                this.file_system.moverArchivo(pathImagen, path_imagenes + "/" + numero_legajo + "/IncorporadasAlSistema");
+                this.AgregarImagenSinAsignarALaBase(legajo, imagen);
+                this.file_system.moverArchivo(pathImagen, path_imagenes + "/" + legajo.cuil + "/IncorporadasAlSistema");
             });
         }
 
-        private void AgregarImagenSinAsignarALaBase(int numero_legajo, ImagenModi imagen)
+        private void AgregarImagenSinAsignarALaBase(LegajoModi legajo, ImagenModi imagen)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@legajo", numero_legajo);
+            parametros.Add("@legajo", legajo.idInterna);
             parametros.Add("@nombre_imagen", imagen.nombre);
             parametros.Add("@bytes_imagen", imagen.bytesImagen);
 

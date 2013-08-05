@@ -47,8 +47,8 @@ namespace TestViaticos
             pathsImagenes = new List<string>();
             tabla_vacia = new TablaDeDatos();
 
-            source_javier_lurgo = @"    Nro_Documento   |id_interna |Nombre	    |Apellido
-                                        29193500        |205171     |Javier     |Lurgo	";
+            source_javier_lurgo = @"    Nro_Documento   |id_interna |Nombre	    |Apellido   |Cuil_Nro  
+                                        29193500        |205171     |Javier     |Lurgo	    |20-29193500-2";
 
             source_imagenes_sin_asignar_de_javier_lurgo = @"    id_imagen
                                                                 1
