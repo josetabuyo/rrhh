@@ -47,6 +47,11 @@
     overflow-y: auto;
 }
 
+.vista_de_legajo
+{
+    opacity:0;
+}
+
 .vista_de_legajo #lbl_resumen_datos_personales
 {
     font-size:18px;

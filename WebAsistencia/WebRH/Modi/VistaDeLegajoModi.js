@@ -54,6 +54,5 @@ VistaDeLegajoModi.prototype.mostrarLegajo = function (legajo) {
     }
 
     this.panel_imagenes_no_asignadas.cargarImagenes(legajo.idImagenesSinAsignar);
-
     this.o.ui.css('opacity', '1');
 };
