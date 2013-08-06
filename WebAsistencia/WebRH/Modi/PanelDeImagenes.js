@@ -6,8 +6,8 @@
 PanelDeImagenes.prototype.start = function () {
     this.ui = $("#plantilla_ui_panel_imagenes").clone();
     this.aviso_no_hay_imagenes = this.ui.find('#aviso_no_hay_imagenes');
-    this.aviso_no_hay_imagenes.text(this.o.mensajeParaCuandoEstaVacio);    
-    this.vistasImagenes = [];
+    this.aviso_no_hay_imagenes.text(this.o.mensajeParaCuandoEstaVacio);
+    this.vistasImagenes = [];    
     var _this = this;
     this.ui.droppable({
         accept: ".imagen_miniatura",
@@ -29,6 +29,7 @@ PanelDeImagenes.prototype.cargarImagenes = function (id_imagenes) {
     this.ui.empty();
     this.vistasImagenes = [];
     this.ui.append(this.aviso_no_hay_imagenes);
+    this.aviso_no_hay_imagenes.show();   
     for (var i = 0; i < id_imagenes.length; i++) {
         var vista_imagen = new VistaDeImagen({
             idImagen: id_imagenes[i],
