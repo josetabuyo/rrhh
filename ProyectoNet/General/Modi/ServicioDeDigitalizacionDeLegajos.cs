@@ -115,12 +115,29 @@ namespace General.Modi
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@criterio", criterio);
-            var tablaLegajo = conexion_db.Ejecutar("dbo.MODI_GET_Datos_Personales_Por_Apellido_Y_Nombre", parametros);
+            var tablaLegajos = conexion_db.Ejecutar("dbo.MODI_GET_Datos_Personales_Por_Apellido_Y_Nombre", parametros);
 
-            if (tablaLegajo.Rows.Count > 0) legajos.Add(GetLegajoFromTabla(tablaLegajo));
+            if (tablaLegajos.Rows.Count > 0) legajos.AddRange(GetLegajosFromTabla(tablaLegajos));
             return legajos;
         }
 
+        private List<LegajoModi> GetLegajosFromTabla(TablaDeDatos tablaLegajos)
+        {
+            var legajos = new List<LegajoModi>();
+            tablaLegajos.Rows.ForEach(row =>
+            {
+                var legajo = new LegajoModi(row.GetInt("id_interna"),
+                                    row.GetInt("Nro_Documento"),
+                                    row.GetString("Nombre"),
+                                    row.GetString("Apellido"),
+                                    row.GetString("Cuil_Nro"));
+
+                legajo.agregarDocumentos(this.DocumentosPara(legajo));
+                legajo.agregarIdsDeImagenesSinAsignar(this.GetIdsDeImagenesSinAsignarParaElLegajo(legajo));
+                legajos.Add(legajo);
+            });
+            return legajos;
+        }
         private LegajoModi GetLegajoFromTabla(TablaDeDatos tablaLegajo)
         {
             var row = tablaLegajo.Rows.First();

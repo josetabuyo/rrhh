@@ -71,6 +71,19 @@
                     
                 </div>
             </div>
+
+            <div id="plantilla_ui_selector_legajos" class="selector_legajos">
+                <div id="panel_legajos">
+                    
+                </div>
+            </div>
+
+            <div id="plantilla_ui_vista_legajo_fila" class="vista_legajo_fila">
+                <label id="lbl_nombre"></label>
+                <label id="lbl_apellido"></label>
+                <label id="lbl_cuil"></label>
+                <label id="lbl_id_interna"></label>
+            </div>
         </div>       
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
@@ -88,6 +101,8 @@
     <script type="text/javascript" src="ServicioDeCategoriasDeDocumentos.js"></script>
     <script type="text/javascript" src="VisualizadorDeImagenes.js"></script>
     <script type="text/javascript" src="PanelDeImagenes.js"></script>
+    <script type="text/javascript" src="SelectorDeLegajos.js"></script>
+    <script type="text/javascript" src="VistaLegajoFila.js"></script>
     <script type="text/javascript" src="ProveedorAjax.js"></script>
 
 
@@ -104,11 +119,13 @@
                 servicioDeCategorias: servicio_de_categorias,
                 servicioDeLegajos: servicio_de_legajos
             });
-            
+
             var buscador = new BuscadorDeLegajos({
                 ui: $('#ui_buscador_de_legajos'),
                 servicioDeLegajos: servicio_de_legajos,
-                vistaDeResultados: vista_del_legajo
+                onLegajoEncontrado: function (legajo) {
+                    vista_del_legajo.mostrarLegajo(legajo);
+                }
             });
             vista_del_legajo.buscadorDeLegajos = buscador;
             buscador.mostrarModal();
