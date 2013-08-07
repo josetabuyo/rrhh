@@ -14,6 +14,7 @@ public partial class SACC_FormPlanillaDeEvaluaciones : System.Web.UI.Page
         {
             CargarComboCursos();
         }
+        this.accion.Value = Request.QueryString["accion"];
     }
 
     private void CargarComboCursos()

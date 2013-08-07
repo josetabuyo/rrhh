@@ -36,19 +36,20 @@
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="DivContenedor" runat="server" class="div_izquierdo2" style="margin:10px;">
-        <label>Curso:&nbsp;</label>
+        <label>Curso:&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <select id="CmbCurso" onchange="javascript:cargar_instancias(this.value);" runat="server">
             <option value="0">Seleccione</option>
-        </select><br />
-        <label>Instancia:&nbsp;</label>
-        <select id="CmbInstancia" onchange="javascript:admin_planilla.cargarPlanilla();" runat="server">
-            <option value="-1">Seleccione</option>
         </select>
+        <br />
+        <div id="ContenedorInstancia">
+        </div>
+        
     <div>
     <div id="ContenedorPlanilla" style="display:inline-block"></div>
     <br />
     <input type="button" id="BtnGuardarEvaluaciones" onclick="javascript:admin_planilla.guardarPlanilla();" value="Guardar Cambios" style="display:none;" />
-    <input type="button" id="BtnImprimir" value="Imprimir" style="display:none;" />
+    <input type="button" id="BtnImprimir" onclick="javascript:admin_planilla.imprimirPlanilla();" value="Imprimir" style="display:none;" />
+    <input type="hidden" id="accion" value="" runat="server" />
     </div>
     </div>
     
@@ -57,50 +58,82 @@
 <script type="text/javascript">
     var admin_planilla;
     function cargar_instancias(id_curso) {
-        var combo_instancias = document.getElementById("CmbInstancia");
-        combo_instancias.options.length = 0;
-        combo_instancias.add(new Option("Seleccione", "-1"));
+        var instancias;
+        var accion = $("#accion").val();
+        var contenedor = $("#ContenedorInstancia");
+        contenedor.html("");
         if (id_curso > 0) {
-            var data_post = JSON.stringify({
-                'id_curso': id_curso
-            });
+            if (accion == "c") {
+                var etiqueta = $("<label>").text("Instancias");
+                instancias = $("<select>").attr("id", "Instancias").change(function () {
+                    admin_planilla.cargarPlanilla();
+                }).get(0);
 
-            $.ajax({
-                url: "../AjaxWS.asmx/GetInstanciasDeEvaluacion",
-                type: "POST",
-                data: data_post,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (respuestaJson) {
-                    var respuesta = JSON.parse(respuestaJson.d);
+                instancias.options.length = 0;
+                instancias.add(new Option("Seleccione", "-1"));
+                contenedor.append(etiqueta).append($(instancias));
+            } else {
+                var instancias = $("<input>").attr("type", "hidden").attr("id", "Instancias");
+                contenedor.append(instancias);
+            }
+            if (id_curso > 0) {
+                var data_post = JSON.stringify({
+                    'id_curso': id_curso
+                });
 
-                    if (respuesta.length > 1) {
-                        combo_instancias.add(new Option("Todos", "0"));
+                $.ajax({
+                    url: "../AjaxWS.asmx/GetInstanciasDeEvaluacion",
+                    type: "POST",
+                    async: false,
+                    data: data_post,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (respuestaJson) {
+                        var respuesta = JSON.parse(respuestaJson.d);
+                        if (accion == "c") {
+                            if (respuesta.length > 1) {
+                                instancias.add(new Option("Todos", 0));
+                            }
+                            for (var i = 0; i < respuesta.length; i++) {
+                                instancias.add(new Option(respuesta[i].Descripcion, respuesta[i].Id));
+                            }
+                        } else {
+                            instancias.val("0");
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
                     }
-
-                    for (var i = 0; i < respuesta.length; i++) {
-                        combo_instancias.add(new Option(respuesta[i].Descripcion, respuesta[i].Id));
-                    }
-                   
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });
+                });
+            }
+            admin_planilla.cargarPlanilla();    
+        }else{
+            admin_planilla.limpiarGrilla();
         }
-        admin_planilla.cargarPlanilla();    
     }
 
     var AdministradorDeEvaluaciones = function () {
         var _this = this;
         var pla;
         var evaluaciones_originales;
+        var readonly = $("#accion").val() == "a";
         var contenedor_grilla = $("#ContenedorPlanilla");
+        var btn_guardar = $("#BtnGuardarEvaluaciones");
+        var btn_imprimir = $("#BtnImprimir");
+
+        _this.limpiarGrilla = function () {
+            contenedor_grilla.html("");
+            btn_guardar.hide();
+        }
+
         _this.cargarPlanilla = function () {
-            if ($("#CmbInstancia").val() != "-1") {
+            _this.limpiarGrilla();
+            var instancias = $("#Instancias").val();
+            var cursos = $("#CmbCurso").val();
+            if (instancias && instancias != "-1") {
                 var data_post = JSON.stringify({
-                    'id_curso': $("#CmbCurso").val(),
-                    'id_instancia': $("#CmbInstancia").val()
+                    'id_curso': cursos,
+                    'id_instancia': instancias
                 });
 
                 $.ajax({
@@ -165,18 +198,13 @@
 
         };
         _this.dibujarGrilla = function (planilla) {
-
-            var mostrar_grilla = false;
             var columnas = []
 
-            var cmb_instancia = $("#CmbInstancia");
-            var readonly = cmb_instancia.val() == 0;
+            var instancias = $("#Instancias");
+
             pla = new Planilla(planilla, readonly);
 
-            contenedor_grilla.html("");
-            $("#BtnGuardarEvaluaciones").hide();
-
-            if (cmb_instancia.val() >= 0) {
+            if (instancias.val() >= 0) {
                 columnas.push(new Columna("Nombre", { generar: function (fila) { return fila.alumno; } }));
                 for (var i = 0; i < pla.instancias.length; i++) {
                     columnas.push(new Columna(pla.instancias.html(i), new GeneradorCalificacionEvaluacion(pla.instancias[i])));
@@ -189,11 +217,23 @@
                 grilla.CargarObjetos(pla.grilla());
                 grilla.DibujarEn(contenedor_grilla);
                 if (readonly) {
-                    $("#BtnGuardarEvaluaciones").hide();
+                    btn_guardar.hide();
+                    btn_imprimir.show();
                 } else {
-                    $("#BtnGuardarEvaluaciones").show();
+                    btn_guardar.show();
+                    btn_imprimir.hide();
                 }
             }
+        }
+        _this.imprimirPlanilla = function () {
+            var w = window.open();
+
+            w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap.css' type='text/css' />");
+            w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap-responsive.css' type='text/css' />");
+            w.document.write("<link  rel='stylesheet' href='../Estilos/Estilos.css' type='text/css'  />");
+            w.document.write(contenedor_grilla.html());
+            w.print();
+            w.close();
         }
     }
     $(document).ready(function () {
