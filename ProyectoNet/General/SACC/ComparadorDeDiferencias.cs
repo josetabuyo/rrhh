@@ -37,12 +37,12 @@ namespace General
             return query1.ToList();
         }
 
-        public List<Evaluacion> EvaluacionesParaGuardarEnHistorico(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas)
+        public List<Evaluacion> EvaluacionesParaDarDeBaja(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas)
         {
 
             List<Evaluacion> eval_a_guardar_en_historico = new List<Evaluacion>();
             eval_a_guardar_en_historico.AddRange(this.EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas));
-            eval_a_guardar_en_historico.AddRange(this.EvaluacionesParaBorrar(evaluaciones_antiguas, evaluaciones_nuevas));
+            eval_a_guardar_en_historico.AddRange(this.EvaluacionesParaDarDeBajaSinInsertarOtra(evaluaciones_antiguas, evaluaciones_nuevas));
             //var eval_para_actualizar = this.EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas);
             //var eval_para_borrar = this.EvaluacionesParaBorrar(evaluaciones_antiguas, evaluaciones_nuevas);
 
@@ -58,7 +58,7 @@ namespace General
             //return evaluaciones_nuevas.FindAll(eval_nuevas => !evaluaciones_antiguas.Exists(eval_ant => eval_ant.Alumno.Id.Equals(eval_nuevas.Alumno.Id) && eval_ant.InstanciaEvaluacion.Id.Equals(eval_nuevas.InstanciaEvaluacion.Id) && eval_ant.Curso.Id.Equals(eval_nuevas.Curso.Id)) && eval_nuevas.Fecha.Date != DateTime.MinValue);
         }
 
-        public List<Evaluacion> EvaluacionesParaBorrar(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas)
+        public List<Evaluacion> EvaluacionesParaDarDeBajaSinInsertarOtra(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas)
         {
             return evaluaciones_antiguas.FindAll(eval_ant => !evaluaciones_nuevas.Exists(eval_nuevas => eval_nuevas.Id.Equals(eval_ant.Id)));
             //return evaluaciones_antiguas.FindAll(eval_ant => !evaluaciones_nuevas.Exists(eval_nuevas => eval_nuevas.Alumno.Id.Equals(eval_ant.Alumno.Id) && eval_nuevas.InstanciaEvaluacion.Id.Equals(eval_ant.InstanciaEvaluacion.Id) && eval_nuevas.Curso.Id.Equals(eval_ant.Curso.Id)));

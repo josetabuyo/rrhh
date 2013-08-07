@@ -308,11 +308,11 @@ namespace TestViaticos
 
             evaluaciones_nuevas.First().CambiarCalificacionPor(new CalificacionNoNumerica("A8"), new DateTime(2013, 07, 25));
 
-            var eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaGuardarEnHistorico(evaluaciones_antiguas, evaluaciones_nuevas);                  
+            var eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaDarDeBaja(evaluaciones_antiguas, evaluaciones_nuevas);                  
             Assert.AreEqual(1, eval_para_historico.Count);
 
             evaluaciones_nuevas.Last().Fecha = new DateTime(2013, 08, 01);
-            eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaGuardarEnHistorico(evaluaciones_antiguas, evaluaciones_nuevas);
+            eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaDarDeBaja(evaluaciones_antiguas, evaluaciones_nuevas);
             Assert.AreEqual(2, eval_para_historico.Count);
         }
 
@@ -387,8 +387,8 @@ namespace TestViaticos
 
             evaluaciones_nuevas.RemoveAt(0);
 
-            var eval_a_borrar = new ComparadorDeDiferencias().EvaluacionesParaBorrar(evaluaciones_antiguas, evaluaciones_nuevas);
-            var eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaGuardarEnHistorico(evaluaciones_antiguas, evaluaciones_nuevas);
+            var eval_a_borrar = new ComparadorDeDiferencias().EvaluacionesParaDarDeBajaSinInsertarOtra(evaluaciones_antiguas, evaluaciones_nuevas);
+            var eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaDarDeBaja(evaluaciones_antiguas, evaluaciones_nuevas);
             
             Assert.AreEqual(1, eval_a_borrar.Count);
             Assert.AreEqual(2, eval_para_historico.Count);
@@ -427,7 +427,7 @@ namespace TestViaticos
             evaluaciones_nuevas.Add(TestObjects.Evaluacion());
 
             var eval_cambiadas = new ComparadorDeDiferencias().EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas);
-            var eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaGuardarEnHistorico(evaluaciones_antiguas, evaluaciones_nuevas);           
+            var eval_para_historico = new ComparadorDeDiferencias().EvaluacionesParaDarDeBaja(evaluaciones_antiguas, evaluaciones_nuevas);           
             var eval_nuevas = new ComparadorDeDiferencias().EvaluacionesParaGuardar(evaluaciones_antiguas, evaluaciones_nuevas);
 
             //repo.GuardarEvaluaciones(evaluaciones_antiguas, evaluaciones_nuevas, new Usuario());

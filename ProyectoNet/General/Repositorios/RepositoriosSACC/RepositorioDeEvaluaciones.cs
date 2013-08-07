@@ -125,10 +125,10 @@ namespace General.Repositorios
             //FC: tengo que incluir para update a las que borre y ya estaban
             var evaluaciones_a_updatear = comparador_de_evalauciones.EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas);
             //FC: estas no tengo que insertarlas mas en el historico
-            var evaluaciones_para_historico = comparador_de_evalauciones.EvaluacionesParaGuardarEnHistorico(evaluaciones_antiguas, evaluaciones_nuevas);
+            var evaluaciones_para_dar_de_baja = comparador_de_evalauciones.EvaluacionesParaDarDeBaja(evaluaciones_antiguas, evaluaciones_nuevas);
             var evaluaciones_a_insertar = comparador_de_evalauciones.EvaluacionesParaGuardar(evaluaciones_antiguas, evaluaciones_nuevas);
             //FC:estas no tengo que borrarlas mas
-            var evaluaciones_a_borrar = comparador_de_evalauciones.EvaluacionesParaBorrar(evaluaciones_antiguas, evaluaciones_nuevas);
+            var evaluaciones_a_borrar = comparador_de_evalauciones.EvaluacionesParaDarDeBajaSinInsertarOtra(evaluaciones_antiguas, evaluaciones_nuevas);
 
             foreach (var e in evaluaciones_a_insertar)
             {
@@ -139,7 +139,7 @@ namespace General.Repositorios
                 
                 GuardarEvaluacion(e, usuario);
             }
-            foreach (var e in evaluaciones_para_historico)
+            foreach (var e in evaluaciones_para_dar_de_baja)
             {
                 var idBaja = CrearBaja(usuario);
                 ActualizarEvaluacion(e, usuario, idBaja);
