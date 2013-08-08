@@ -229,9 +229,11 @@
             w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap.css' type='text/css' />");
             w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap-responsive.css' type='text/css' />");
             w.document.write("<link  rel='stylesheet' href='../Estilos/Estilos.css' type='text/css'  />");
+            w.document.write("<style>div_print{margin:20px;}.text_2caracteres{max-width: 20px;margin-left: 3px;}.text_10caracteres{max-width: 100px;margin-left: 17px;}</style>");
+            w.document.write("<div class='div_print'><br>Curso: " + $("#CmbCurso option:selected").text() + "<br><br></div>");
             w.document.write(contenedor_grilla.html());
             w.print();
-            w.close();
+            //w.close();
         }
     }
     $(document).ready(function () {
