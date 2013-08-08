@@ -14,7 +14,7 @@ Inherits="FormularioDetalleDeViaticos_FDetalleDeViaticos" %>
     <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
     <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
 </head>
-<body>
+<body class="marca_de_agua">
     <form id="form1" runat="server">
          <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
 

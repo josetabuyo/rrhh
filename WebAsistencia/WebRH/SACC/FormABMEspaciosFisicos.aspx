@@ -14,7 +14,7 @@
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
 
 </head>
-<body>
+<body class="marca_de_agua">
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
@@ -155,6 +155,8 @@
         columnas.push(new Columna("Capacidad", { generar: function (un_espacio_fisico) { return un_espacio_fisico.capacidad } }));
 
         PlanillaEspaciosFisicos = new Grilla(columnas);
+
+        PlanillaEspaciosFisicos.AgregarEstilo("tabla_macc");
 
         PlanillaEspaciosFisicos.SetOnRowClickEventHandler(function (un_espacio_fisico) {
             panelEspacioFisico.CompletarDatosEspacioFisico(un_espacio_fisico);
