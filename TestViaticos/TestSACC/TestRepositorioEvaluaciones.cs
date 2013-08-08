@@ -33,15 +33,15 @@ namespace TestViaticos
             Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursos").WithAnyArguments().Will(Return.Value(cursos));
             //Expect.AtLeastOnce.On(TestObjects.RepoAlumnosMockeado()).Method("GetAlumnoByDNI").WithAnyArguments().Will(Return.Value(alumno));
             //Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursoById").WithAnyArguments().Will(Return.Value(curso));
-        
 
 
-            string source = @"  |idAlumno |IdCurso |idInstanciaEvaluacion |DescripcionInstanciaEvaluacion   |Calificacion |fechaEvaluacion         |idUsuario |fecha                      
-                                |287872   |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |287872   |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |284165   |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |284165   |14      |04                    |Recuperatorio Segundo Parcial    |A6           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |284165   |14      |05                    |Examen Final                     |A8           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    ";
+
+            string source = @" |id   |idAlumno |IdCurso |idInstanciaEvaluacion |DescripcionInstanciaEvaluacion   |Calificacion |fechaEvaluacion         |idUsuario |fecha                      
+                               |1    |287872   |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |2    |287872   |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |3    |284165   |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |4    |284165   |14      |04                    |Recuperatorio Segundo Parcial    |A6           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |5    |284165   |14      |05                    |Examen Final                     |A8           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    ";
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);
@@ -65,14 +65,14 @@ namespace TestViaticos
             Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursos").WithAnyArguments().Will(Return.Value(cursos));
             Expect.AtLeastOnce.On(TestObjects.RepoAlumnosMockeado()).Method("GetAlumnoByDNI").WithAnyArguments().Will(Return.Value(alumno));
             Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursoById").WithAnyArguments().Will(Return.Value(curso));
- 
 
-            string source = @"  |idAlumno |IdCurso |idInstanciaEvaluacion |DescripcionInstanciaEvaluacion   |Calificacion |fechaEvaluacion         |idUsuario |fecha                      
-                                |281941   |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |284165   |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |287872   |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |4        |14      |04                    |Recuperatorio Segundo Parcial    |A6           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |5        |14      |05                    |Examen Final                     |A8           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    ";
+
+            string source = @" |id  |idAlumno |IdCurso |idInstanciaEvaluacion |DescripcionInstanciaEvaluacion   |Calificacion |fechaEvaluacion         |idUsuario |fecha                      
+                               |1   |281941   |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |2   |284165   |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |3   |287872   |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |4   |4        |14      |04                    |Recuperatorio Segundo Parcial    |A6           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |5   |5        |14      |05                    |Examen Final                     |A8           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    ";
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);
@@ -99,12 +99,12 @@ namespace TestViaticos
             Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursoById").WithAnyArguments().Will(Return.Value(curso));
 
 
-            string source = @"  |idAlumno |IdCurso |idInstanciaEvaluacion |DescripcionInstanciaEvaluacion   |Calificacion |fechaEvaluacion         |idUsuario |fecha                      
-                                |281941   |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |284165   |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |287872   |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |4        |14      |04                    |Recuperatorio Segundo Parcial    |A6           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |5        |14      |05                    |Examen Final                     |A8           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    ";
+            string source = @" |id   |idAlumno |IdCurso |idInstanciaEvaluacion |DescripcionInstanciaEvaluacion   |Calificacion |fechaEvaluacion         |idUsuario |fecha                      
+                               |1    |281941   |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |2    |284165   |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |3    |287872   |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |4    |4        |14      |04                    |Recuperatorio Segundo Parcial    |A6           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |5    |5        |14      |05                    |Examen Final                     |A8           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    ";
 
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
@@ -140,12 +140,12 @@ namespace TestViaticos
 
 
 
-            string source = @"  |idAlumno |IdCurso |idInstanciaEvaluacion |DescripcionInstanciaEvaluacion   |Calificacion |fechaEvaluacion         |idUsuario |fecha                      
-                                |287872   |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |287872   |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |284165   |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |284165   |14      |04                    |Recuperatorio Segundo Parcial    |A6           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |284165   |14      |05                    |Examen Final                     |A8           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    ";
+            string source = @" |id   |idAlumno |IdCurso |idInstanciaEvaluacion |DescripcionInstanciaEvaluacion   |Calificacion |fechaEvaluacion         |idUsuario |fecha                      
+                               |1    |287872   |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |2    |287872   |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |3    |284165   |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |4    |284165   |14      |04                    |Recuperatorio Segundo Parcial    |A6           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |5    |284165   |14      |05                    |Examen Final                     |A8           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    ";
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);
@@ -173,12 +173,12 @@ namespace TestViaticos
 
 
 
-            string source = @"  |idAlumno |IdCurso |idInstanciaEvaluacion |DescripcionInstanciaEvaluacion   |Calificacion |fechaEvaluacion         |idUsuario |fecha                      
-                                |1        |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |2        |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |3        |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |4        |14      |04                    |Recuperatorio Segundo Parcial    |A6           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
-                                |5        |14      |05                    |Examen Final                     |A8           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    ";
+            string source = @" |id   |idAlumno |IdCurso |idInstanciaEvaluacion |DescripcionInstanciaEvaluacion   |Calificacion |fechaEvaluacion         |idUsuario |fecha                      
+                               |1    |1        |14      |01                    |Primer Parcial                   |A1           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |2    |2        |14      |02                    |Segundo Parcial                  |A2           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |3    |3        |14      |03                    |Recuperatorio Primer Parcial     |A5           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |4    |4        |14      |04                    |Recuperatorio Segundo Parcial    |A6           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    
+                               |5    |5        |14      |05                    |Examen Final                     |A8           |2012-10-13 21:36:35.077 |0         |2012-10-13 21:36:35.077    ";
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);
@@ -195,7 +195,7 @@ namespace TestViaticos
         {
             try
             {
-                Evaluacion evaluacion_del_alumno = new Evaluacion(TestObjects.PrimerParcial(), TestObjects.UnAlumnoDelCurso(), TestObjects.UnCursoConAlumnos(), new CalificacionNumerica(11), DateTime.Today);
+                Evaluacion evaluacion_del_alumno = new Evaluacion(1, TestObjects.PrimerParcial(), TestObjects.UnAlumnoDelCurso(), TestObjects.UnCursoConAlumnos(), new CalificacionNumerica(11), DateTime.Today);
                 Assert.Fail("Deberia fallar por que no se puede crear una nota mayor a 10 o menor a 1");
             }
             catch (ExcepcionDeValidacion excepcion)
@@ -204,31 +204,31 @@ namespace TestViaticos
             }
         }
 
-        [TestMethod]
-        public void dado_un_alumno_un_curso_y_una_nota_deberia_poder_cambiarla()
-        {
+        //[TestMethod]
+        //public void dado_un_alumno_un_curso_y_una_nota_deberia_poder_cambiarla()
+        //{
 
-            //Evaluacion primera_evaluacion = new Evaluacion(TestObjects.PrimerParcial(), TestObjects.UnAlumnoDelCurso(), TestObjects.UnCursoConAlumnos(), new CalificacionNumerica(10), DateTime.Today);
-            //Curso un_curso_cens = TestObjects.UnCursoConAlumnos();
-            //un_curso_cens.AgregarAlumnos(TestObjects.AlumnosNuevos());
-            //un_curso_cens.AgregarEvaluacion(primera_evaluacion);
+        //    //Evaluacion primera_evaluacion = new Evaluacion(TestObjects.PrimerParcial(), TestObjects.UnAlumnoDelCurso(), TestObjects.UnCursoConAlumnos(), new CalificacionNumerica(10), DateTime.Today);
+        //    //Curso un_curso_cens = TestObjects.UnCursoConAlumnos();
+        //    //un_curso_cens.AgregarAlumnos(TestObjects.AlumnosNuevos());
+        //    //un_curso_cens.AgregarEvaluacion(primera_evaluacion);
 
-            //Assert.AreEqual(10, un_curso_cens.EvaluacionDeAlumnoEnUnaInstancia(TestObjects.UnAlumnoDelCurso(), TestObjects.PrimerParcial()).Calificacion.Nota);
+        //    //Assert.AreEqual(10, un_curso_cens.EvaluacionDeAlumnoEnUnaInstancia(TestObjects.UnAlumnoDelCurso(), TestObjects.PrimerParcial()).Calificacion.Nota);
 
-            //primera_evaluacion.CambiarCalificacionPor(5);
-            //Assert.AreEqual(5, un_curso_cens.EvaluacionDeAlumnoEnUnaInstancia(TestObjects.UnAlumnoDelCurso(), TestObjects.PrimerParcial()).Calificacion.Nota);
-        }
+        //    //primera_evaluacion.CambiarCalificacionPor(5);
+        //    //Assert.AreEqual(5, un_curso_cens.EvaluacionDeAlumnoEnUnaInstancia(TestObjects.UnAlumnoDelCurso(), TestObjects.PrimerParcial()).Calificacion.Nota);
+        //}
 
 
-        [TestMethod]
-        public void no_deberia_poder_evaluar_un_alumno_que_no_pertenece_al_curso()
-        {
-            //Curso un_curso_cens = TestObjects.UnCursoConAlumnos();
+        //[TestMethod]
+        //public void no_deberia_poder_evaluar_un_alumno_que_no_pertenece_al_curso()
+        //{
+        //    //Curso un_curso_cens = TestObjects.UnCursoConAlumnos();
 
-            //un_curso_cens.AgregarAlumnos(TestObjects.AlumnosNuevos());
+        //    //un_curso_cens.AgregarAlumnos(TestObjects.AlumnosNuevos());
 
-            //Assert.AreEqual(8, un_curso_cens.Alumnos().Count());
-        }
+        //    //Assert.AreEqual(8, un_curso_cens.Alumnos().Count());
+        //}
 
         [TestMethod]
         public void deberia_poder_obtener_las_evaluaciones_a_actualizar()

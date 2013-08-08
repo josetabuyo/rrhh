@@ -54,12 +54,14 @@ namespace General
 
         public List<Evaluacion> EvaluacionesParaGuardar(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas)
         {
-            return evaluaciones_nuevas.FindAll(eval_nuevas => !evaluaciones_antiguas.Exists(eval_ant => eval_ant.Alumno.Id.Equals(eval_nuevas.Alumno.Id) && eval_ant.InstanciaEvaluacion.Id.Equals(eval_nuevas.InstanciaEvaluacion.Id) && eval_ant.Curso.Id.Equals(eval_nuevas.Curso.Id)) && eval_nuevas.Fecha.Date != DateTime.MinValue);
+            return evaluaciones_nuevas.FindAll(eval_nuevas => !evaluaciones_antiguas.Exists(eval_ant => eval_ant.Id.Equals(eval_nuevas.Id)));
+            //return evaluaciones_nuevas.FindAll(eval_nuevas => !evaluaciones_antiguas.Exists(eval_ant => eval_ant.Alumno.Id.Equals(eval_nuevas.Alumno.Id) && eval_ant.InstanciaEvaluacion.Id.Equals(eval_nuevas.InstanciaEvaluacion.Id) && eval_ant.Curso.Id.Equals(eval_nuevas.Curso.Id)) && eval_nuevas.Fecha.Date != DateTime.MinValue);
         }
 
         public List<Evaluacion> EvaluacionesParaBorrar(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas)
         {
-            return evaluaciones_antiguas.FindAll(eval_ant => !evaluaciones_nuevas.Exists(eval_nuevas => eval_nuevas.Alumno.Id.Equals(eval_ant.Alumno.Id) && eval_nuevas.InstanciaEvaluacion.Id.Equals(eval_ant.InstanciaEvaluacion.Id) && eval_nuevas.Curso.Id.Equals(eval_ant.Curso.Id)));
+            return evaluaciones_antiguas.FindAll(eval_ant => !evaluaciones_nuevas.Exists(eval_nuevas => eval_nuevas.Id.Equals(eval_ant.Id)));
+            //return evaluaciones_antiguas.FindAll(eval_ant => !evaluaciones_nuevas.Exists(eval_nuevas => eval_nuevas.Alumno.Id.Equals(eval_ant.Alumno.Id) && eval_nuevas.InstanciaEvaluacion.Id.Equals(eval_ant.InstanciaEvaluacion.Id) && eval_nuevas.Curso.Id.Equals(eval_ant.Curso.Id)));
         }
     }
 }

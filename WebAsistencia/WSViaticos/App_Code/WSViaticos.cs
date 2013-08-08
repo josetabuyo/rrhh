@@ -1616,8 +1616,8 @@ public class WSViaticos : System.Web.Services.WebService
             var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
             DateTime una_fecha;
             DateTime.TryParse(e.Fecha, out una_fecha );
-            evaluaciones_a_guardar.Add(new Evaluacion(una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
-        } 
+            evaluaciones_a_guardar.Add(new Evaluacion(e.Id, una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
+        }
 
         var evaluaciones_originales = new List<Evaluacion>();
         foreach (var e in evaluaciones_originales_dto)
@@ -1628,7 +1628,7 @@ public class WSViaticos : System.Web.Services.WebService
             var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
             DateTime una_fecha;
             DateTime.TryParse(e.Fecha, out una_fecha);
-            evaluaciones_originales.Add(new Evaluacion(una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
+            evaluaciones_originales.Add(new Evaluacion(e.Id, una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
         }
 
         var evaluaciones_nuevas_posta = evaluaciones_a_guardar.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
@@ -1636,7 +1636,17 @@ public class WSViaticos : System.Web.Services.WebService
 
 
         RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+
+        //return this.GetPlanillaEvaluaciones(evaluaciones_nuevas_posta.First().Curso.Id, evaluaciones_nuevas_posta.First().InstanciaEvaluacion.Id);
+
         return evaluaciones_nuevas_posta.First().Curso.Id;
+        //var Planilla = new PlanillaEvaluacionesDto()
+        //{
+        //    CodigoError = 0,
+        //    MensajeError = "",
+        //};
+
+        //return Planilla;
     }
 
     [WebMethod]
@@ -1649,7 +1659,7 @@ public class WSViaticos : System.Web.Services.WebService
         evaluaciones.ForEach(e =>{
             EvaluacionesDto.Add(new EvaluacionDto()
             {
-                Id = e.InstanciaEvaluacion.Id,
+                Id = e.Id,
                 DNIAlumno = e.Alumno.Documento,
                 IdCurso = e.Curso.Id,
                 Calificacion = e.Calificacion.Descripcion,

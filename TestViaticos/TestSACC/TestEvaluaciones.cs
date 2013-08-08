@@ -43,9 +43,9 @@ namespace TestViaticos
             primer_parcial = TestObjects.PrimerParcial();
             segundo_parcial = TestObjects.SegundoParcial();
             final = TestObjects.FinalNulo();
-            primera_evaluacion = new Evaluacion(primer_parcial, un_alumno_del_curso, un_curso_cens, new CalificacionNumerica(10), DateTime.Today);
-            segunda_evaluacion = new Evaluacion(segundo_parcial, un_alumno_del_curso, un_curso_cens, new CalificacionNumerica(8), DateTime.Today);
-            evaluacion_final = new Evaluacion(final, un_alumno_del_curso, un_curso_puro, new CalificacionNull("No tiene calificación"), DateTime.Today);
+            primera_evaluacion = new Evaluacion(1, primer_parcial, un_alumno_del_curso, un_curso_cens, new CalificacionNumerica(10), DateTime.Today);
+            segunda_evaluacion = new Evaluacion(2, segundo_parcial, un_alumno_del_curso, un_curso_cens, new CalificacionNumerica(8), DateTime.Today);
+            evaluacion_final = new Evaluacion(3, final, un_alumno_del_curso, un_curso_puro, new CalificacionNull("No tiene calificación"), DateTime.Today);
             espacio_fisico = new EspacioFisico();
             dia_de_la_semana = new DayOfWeek();
             horario_de_cursada = new HorarioDeCursada(dia_de_la_semana, "12:00", "13:00", 2, 1);

@@ -174,6 +174,8 @@
                     IdInstancia: ev.IdInstancia
                 });
             }
+            //alert(JSON.stringify(evaluaciones));
+            //alert(JSON.stringify(evaluaciones_originales));
 
             var data_post = JSON.stringify({
                 "evaluaciones_nuevas": JSON.stringify(evaluaciones),

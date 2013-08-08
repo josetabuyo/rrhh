@@ -1274,9 +1274,9 @@ namespace General
 
         public static List<Evaluacion> Evaluaciones()
         {
-            var eval1 = new Evaluacion(new InstanciaDeEvaluacion(14,"Primer Parcial"), new Alumno(281941, "Fer", "Caino", 31046911, "", "", "", areas, ModalidadFinesPuro()),UnCursoConAlumnos(),new CalificacionNoNumerica("A1"),new DateTime(2012,10,13,21,36,35,077));  //21:36:35.077
-            var eval2 = new Evaluacion(new InstanciaDeEvaluacion(14, "Primer Parcial"), new Alumno(284165, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro()), UnCursoConAlumnos(), new CalificacionNoNumerica("A2"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
-            var eval3 = new Evaluacion(new InstanciaDeEvaluacion(14, "Primer Parcial"), new Alumno(287872, "Ger", "Caino", 31507315, "", "", "", areas, ModalidadFinesPuro()), UnCursoConAlumnos(), new CalificacionNoNumerica("A3"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
+            var eval1 = new Evaluacion(1, new InstanciaDeEvaluacion(14,"Primer Parcial"), new Alumno(281941, "Fer", "Caino", 31046911, "", "", "", areas, ModalidadFinesPuro()),UnCursoConAlumnos(),new CalificacionNoNumerica("A1"),new DateTime(2012,10,13,21,36,35,077));  //21:36:35.077
+            var eval2 = new Evaluacion(2, new InstanciaDeEvaluacion(14, "Primer Parcial"), new Alumno(284165, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro()), UnCursoConAlumnos(), new CalificacionNoNumerica("A2"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
+            var eval3 = new Evaluacion(3, new InstanciaDeEvaluacion(14, "Primer Parcial"), new Alumno(287872, "Ger", "Caino", 31507315, "", "", "", areas, ModalidadFinesPuro()), UnCursoConAlumnos(), new CalificacionNoNumerica("A3"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
 
             return new List<Evaluacion>() {eval1, eval2, eval3};
 
@@ -1299,7 +1299,7 @@ namespace General
 
         public static Evaluacion Evaluacion()
         {
-            return new Evaluacion(new InstanciaDeEvaluacion(14, "Primer Parcial"), new Alumno(4, "Ariel", "Zambri", 25046911, "", "", "", areas, ModalidadFinesPuro()), UnCursoConAlumnos(), new CalificacionNoNumerica("A1"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
+            return new Evaluacion(9, new InstanciaDeEvaluacion(14, "Primer Parcial"), new Alumno(4, "Ariel", "Zambri", 25046911, "", "", "", areas, ModalidadFinesPuro()), UnCursoConAlumnos(), new CalificacionNoNumerica("A1"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
         }
     }
 }
