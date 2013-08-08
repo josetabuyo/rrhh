@@ -67,6 +67,11 @@ Grilla.prototype = {
     DibujarEn: function (panel) {
         panel.append(this.tabla);
     },
+
+    AgregarEstilo: function(clase) {
+        this.tabla.addClass(clase);
+    },
+
     SetOnRowClickEventHandler: function (metodo) {
         this.onRowClickEventHandler = metodo;
     },
