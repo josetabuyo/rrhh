@@ -1,0 +1,1 @@
+ALTER TABLE dbo.licencias ADD id_licencia int not null identity(1,1)

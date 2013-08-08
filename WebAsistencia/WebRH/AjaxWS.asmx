@@ -76,6 +76,50 @@ public class AjaxWS : System.Web.Services.WebService {
         return backEndService.GuardarCambiosEnDocumento(id_documento, id_area_destino, comentario, usuarioLogueado);
     }
 
+    ////////////////////////////////////////MODI
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetLegajoParaDigitalizacion(int numero_documento)
+    {
+        var respuesta = backEndService.GetLegajoParaDigitalizacion(numero_documento);
+        var respuestaSerializada =  Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetImagenPorId(int id_imagen)
+    {
+        var respuesta = backEndService.GetImagenPorId(id_imagen);
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetThumbnailPorId(int id_imagen, int alto, int ancho)
+    {
+        var respuesta = backEndService.GetThumbnailPorId(id_imagen, alto, ancho);
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
+    }
+    
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento)
+    {
+        backEndService.AsignarImagenADocumento(id_imagen, tabla, id_documento);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void DesAsignarImagen(int id_imagen)
+    {
+        backEndService.DesAsignarImagen(id_imagen);
+    }
+    ////////////////////////////////////////FIN MODI  
+    
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string InscribirAlumnos(string alumnos, int id_curso)
@@ -96,8 +140,39 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void IniciarServicioDeAlertas()
     {
-        backEndService.IniciarServicioDeAlertas();
+        backEndService.IniciarServicioDeAlertas(PlantillaHtmlHead(), PlantillaHtmlBody());
     }
+
+
+
+    private string PlantillaHtml()
+    {
+       // string plantillaHtml = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtml"];
+
+        string plantillaHtml = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "SiCOI\\EmailTemplate.htm"); 
+       
+        return plantillaHtml;
+    }
+
+
+    private string PlantillaHtmlHead()
+    {
+       // string plantillaHtmlhead1 = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtmlHead"];
+         
+        string plantillaHtmlhead = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "SiCOI\\EmailTemplateHead.htm"); 
+ 
+        return plantillaHtmlhead;
+    }
+    
+    private string PlantillaHtmlBody()
+    {
+        //string plantillaHtmlbody = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtmlBody"];
+
+        string plantillaHtmlbody = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "SiCOI\\EmailTemplateBody.htm"); 
+        
+        return plantillaHtmlbody;
+    }
+    
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

@@ -9,6 +9,7 @@ using General.Calendario;
 using General.Repositorios;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using General.Modi;
 using System.Net;
 using System.Net.Mail;
 using System.Xml.Serialization;
@@ -712,9 +713,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void IniciarServicioDeAlertas()
+    public void IniciarServicioDeAlertas(string HtmlHead,string HtmlBody)
     {
-        reportadorDeDocumentosEnAlerta().start();
+        reportadorDeDocumentosEnAlerta().start(HtmlHead, HtmlBody);
     }
 
     [WebMethod]
@@ -735,8 +736,9 @@ public class WSViaticos : System.Web.Services.WebService
         {
             var filtros = new List<FiltroDeDocumentos>();
             filtros.Add(new FiltroDeDocumentosPorAreaActual(Mensajeria(), 1));
+            filtros.Add(new FiltroDeDocumentosPorTipoDocumento(39));
             var enviador = new EnviadorDeMails();
-            Application["reportadorDeDocumentosEnAlerta"] = new ReportadorDeDocumentosEnAlerta(filtros, "jlurgo@gmail.com", enviador, RepositorioDocumentos());
+            Application["reportadorDeDocumentosEnAlerta"] = new ReportadorDeDocumentosEnAlerta(filtros, "arielzambrano@gmail.com", enviador, RepositorioDocumentos());
         }
         return (ReportadorDeDocumentosEnAlerta)Application["reportadorDeDocumentosEnAlerta"];
     }
@@ -1578,6 +1580,45 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    //////////////////////////MODI
+
+    [WebMethod]
+    public RespuestaAPedidoDeLegajo GetLegajoParaDigitalizacion(int numero_documento)
+    {
+        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
+        var repositorio_legajos = new RepositorioDeLegajos(Conexion(), repo_imagenes);
+        return repositorio_legajos.getLegajoPorDocumento(numero_documento);     
+    }
+
+    [WebMethod]
+    public ImagenModi GetImagenPorId(int id_imagen)
+    {
+        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
+        return repo_imagenes.GetImagenPorId(id_imagen);
+    }
+
+    [WebMethod]
+    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
+    {
+        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
+        return repo_imagenes.GetThumbnailPorId(id_imagen, alto, ancho);
+    }
+
+    [WebMethod]
+    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento)
+    {
+        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
+        repo_imagenes.AsignarImagenADocumento(id_imagen, tabla, id_documento);
+    }
+
+    [WebMethod]
+    public void DesAsignarImagen(int id_imagen)
+    {
+        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
+        repo_imagenes.DesAsignarImagen(id_imagen);
+    }
+    //////////////////////////FIN MODI
+
     [WebMethod]
     public ItemDeMenu[] ItemsDelMenu(Usuario usuario, string menu)
     {
@@ -1751,5 +1792,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new RepositorioDeEvaluacion(Conexion(), RepositorioDeCursos(), RepoAlumnos());
     }
+
+
 
 }

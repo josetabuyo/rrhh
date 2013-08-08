@@ -12,14 +12,20 @@
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
     <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
+    <style type="text/css">
+        #uiPanelDecontrol
+        {
+            text-align: center;
+        }
+    </style>
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
         <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <div id="uiPanelDecontrol">
             <div id="lblEstado" class="label label-important"></div>
-            <input type="button" id="btnIniciarServicioDeAlertas" class="btn" value="Iniciar" />
-            <input type="button" id="btnDetenerServicioDeAlertas" class="btn" value="Detener" />
+            <input type="button" id="btnIniciarServicioDeAlertas" class="alertas_boton_start" value="Iniciar" />
+            <input type="button" id="btnDetenerServicioDeAlertas" class="alertas_boton_stop" value="Detener" />
         </div>   
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>

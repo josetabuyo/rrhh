@@ -169,7 +169,8 @@ namespace General.Repositorios
         public List<Documento> GetDocumentosFiltrados(List<FiltroDeDocumentos> filtros)
         {
             BuscadorDeDocumentos buscador_de_documentos = new BuscadorDeDocumentos(GetTodosLosDocumentos());
-            return buscador_de_documentos.Buscar(filtros);
+           var lista_a_devolver = buscador_de_documentos.Buscar(filtros);
+           return lista_a_devolver;
         }
 
         public Documento GetDocumentoPorId(int id_documento)

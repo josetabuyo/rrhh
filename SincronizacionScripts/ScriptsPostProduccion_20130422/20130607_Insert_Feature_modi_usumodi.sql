@@ -1,0 +1,1 @@
+INSERT INTO VIA_Usuarios_Features (idUsuario, idFeature) VALUES (304, 5)

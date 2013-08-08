@@ -60,6 +60,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
@@ -107,6 +108,17 @@
     <Compile Include="FiltroDeAreas.cs" />
     <Compile Include="ItemDeMenu.cs" />
     <Compile Include="Mensajeria.cs" />
+    <Compile Include="Modi\DocumentoModi.cs" />
+    <Compile Include="Modi\ExcepcionDeCarpetaDeLegajoNoEncontrada.cs" />
+    <Compile Include="Modi\ExcepcionDeLegajoInexistente.cs" />
+    <Compile Include="Modi\FileSystem.cs" />
+    <Compile Include="Modi\IFileSystem.cs" />
+    <Compile Include="Modi\ImagenModi.cs" />
+    <Compile Include="Modi\IRepositorioDeLegajosEscaneados.cs" />
+    <Compile Include="Modi\RespuestaAPedidoDeLegajo.cs" />
+    <Compile Include="Modi\RepositorioDeLegajosEscaneados.cs" />
+    <Compile Include="Modi\RepositorioDeLegajos.cs" />
+    <Compile Include="Modi\ThumbnailImagenModi.cs" />
     <Compile Include="MenuDelSistema.cs" />
     <Compile Include="Permiso.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -266,7 +278,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
