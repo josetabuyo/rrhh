@@ -158,7 +158,7 @@ public class AjaxWS : System.Web.Services.WebService {
     private string PlantillaHtmlHead()
     {
        // string plantillaHtmlhead1 = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtmlHead"];
-
+         
         string plantillaHtmlhead = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "SiCOI\\EmailTemplateHead.htm"); 
  
         return plantillaHtmlhead;
