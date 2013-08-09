@@ -16,35 +16,12 @@
 
 .vista_legajo_fila
 {
-    transition: all .6s;
-    padding:5px 10px 5px 20px;
-    cursor:pointer;    
+    transition: all .3s;
 }
 
 .vista_legajo_fila:hover
 {
-    background-color:Highlight;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -khtml-border-radius: 15px;
-    border-radius: 15px;    
-}
-
-.vista_legajo_fila:active
-{
-    background-color:Lime;     
-}
-
-.vista_legajo_fila label
-{
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.selector_legajos
-{
-    padding: 0px  !important;
-    margin-top: 5px;
+    background-color:Blue;
 }
 
 #ui_vista_de_resultados_de_legajos

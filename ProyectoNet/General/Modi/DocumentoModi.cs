@@ -15,6 +15,7 @@ namespace General.Modi
         public DateTime fechaDesde { get; set; }
         public string tabla { get; set; }
         public int id { get; set; }
+        public int idCategoria { get; set; }
 
         public DocumentoModi()
         {
