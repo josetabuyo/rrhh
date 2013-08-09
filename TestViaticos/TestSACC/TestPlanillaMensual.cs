@@ -75,7 +75,7 @@ namespace TestViaticos
 
               GeneradorDePlanillas generador = new GeneradorDePlanillas();
               CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
-              Alumno un_alumno = new Alumno(8, "Dani", "Tatay", 28753951, "", "", "", areas, TestObjects.ModalidadFinesPuro());
+              Alumno un_alumno = TestObjects.UnAlumnoNuevo();
 
               PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
 
@@ -87,7 +87,7 @@ namespace TestViaticos
               catch (ExcepcionDeValidacion e)
               {
                   Assert.AreEqual(0, una_planilla.GetInasistenciaPorAlumno(un_alumno).Count());
-                  Assert.AreEqual("Dani, no pertenece a la coleccion de Alumnos", e.Message);
+                  Assert.AreEqual("Andrea, no pertenece a la coleccion de Alumnos", e.Message);
               }   
           }
 
@@ -131,7 +131,7 @@ namespace TestViaticos
               CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
               GeneradorDePlanillas generador = new GeneradorDePlanillas();
 
-              Alumno un_alumno_2 = new Alumno(8, "Dani", "Tatay", 28753951, "", "", "", areas, TestObjects.ModalidadFinesPuro());
+              Alumno un_alumno_2 = TestObjects.UnAlumnoNuevo();
 
               PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
 
