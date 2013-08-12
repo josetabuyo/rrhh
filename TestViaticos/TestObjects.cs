@@ -1065,15 +1065,15 @@ namespace General
 
         public static Alumno AlumnoFer() 
         {
-            return new Alumno(1, "Fer", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", "2° Año", DateTime.Today);
+            return new Alumno(281941, "Fer", "Caino", 31046911, "", "", "", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", "2° Año", DateTime.Today);
         }
         public static Alumno AlumnoJor() 
         {
-            return new Alumno(2, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", "2° Año", DateTime.Today);
+            return new Alumno(284165, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", "2° Año", DateTime.Today);
         }
         public static Alumno AlumnoGer() 
         {
-            return new Alumno(3, "Ger", "Caino", 28753951, "", "", "", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", "2° Año", DateTime.Today);
+            return new Alumno(287872, "Ger", "Caino", 31507315, "", "", "", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", "2° Año", DateTime.Today);
         }
         public static Alumno AlumnoZambri() 
         {
@@ -1320,6 +1320,35 @@ namespace General
         internal static Asistencia UnAsistenciaAusentePAraZambrienHistoria()
         {
             return new AsistenciaClaseSuspendida(DateTime.Today, 1, 4);
+        }
+	    public static List<Evaluacion> Evaluaciones()
+        {
+            var eval1 = new Evaluacion(1, new InstanciaDeEvaluacion(14, "Primer Parcial"), AlumnoFer(), UnCursoConAlumnos(), new CalificacionNoNumerica("A1"), new DateTime(2012, 10, 13, 21, 36, 35, 077));  //21:36:35.077
+            var eval2 = new Evaluacion(2, new InstanciaDeEvaluacion(14, "Primer Parcial"), AlumnoJor(), UnCursoConAlumnos(), new CalificacionNoNumerica("A2"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
+            var eval3 = new Evaluacion(3, new InstanciaDeEvaluacion(14, "Primer Parcial"), AlumnoGer(), UnCursoConAlumnos(), new CalificacionNoNumerica("A3"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
+
+            return new List<Evaluacion>() {eval1, eval2, eval3};
+
+        }
+
+        public static Alumno AlumnoParaEvaluacion1()
+        {
+            return new Alumno(281941, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", "2° Año", DateTime.Today);
+        }
+
+        public static Alumno AlumnoParaEvaluacion2()
+        {
+            return new Alumno(284165, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", "2° Año", DateTime.Today);
+        }
+
+        public static Alumno AlumnoParaEvaluacion3()
+        {
+            return new Alumno(287872, "Andrea", "Bruzos", 13500315, "3969-8706", "belen.cevey@gmail.com", "Peron 525", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", "2° Año", DateTime.Today);
+        }
+
+        public static Evaluacion Evaluacion()
+        {
+            return new Evaluacion(9, new InstanciaDeEvaluacion(14, "Primer Parcial"), AlumnoZambri(), UnCursoConAlumnos(), new CalificacionNoNumerica("A1"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
         }
     }
 }

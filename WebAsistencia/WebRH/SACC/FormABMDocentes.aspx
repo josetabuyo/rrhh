@@ -14,7 +14,7 @@
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     
 </head>
-<body>
+<body class="marca_de_agua">
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
@@ -168,6 +168,8 @@
         columnas.push(new Columna("Apellido", { generar: function (un_docente) { return un_docente.apellido } }));
 
         PlanillaDocentes = new Grilla(columnas);
+
+        PlanillaDocentes.AgregarEstilo("tabla_macc");
 
         PlanillaDocentes.SetOnRowClickEventHandler(function (un_docente) {
             panelDocente.CompletarDatosDocente(un_docente);
