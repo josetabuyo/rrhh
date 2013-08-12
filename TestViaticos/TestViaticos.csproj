@@ -69,6 +69,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -82,6 +83,7 @@
     <Compile Include="CodigoTareaTest.cs" />
     <Compile Include="TestAlertas.cs" />
     <Compile Include="TestMail.cs" />
+    <Compile Include="TestModi\TestServicioDeDigitalizacionDeLegajos.cs" />
     <Compile Include="TestSACC\TestRepositorioDeMaterias.cs" />
     <Compile Include="TestSACC\TestRepositorioDeAlumno.cs" />
     <Compile Include="TestSACC\TestAlumnos.cs" />
@@ -179,6 +181,11 @@
     <Content Include="Data\VIA_Zonas.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="TestModi\ImagenesDePrueba\203404\Koala.jpg" />
+    <Content Include="TestModi\ImagenesDePrueba\203404\Lighthouse.jpg" />
+    <Content Include="TestModi\ImagenesDePrueba\205939\Desert.jpg" />
+    <Content Include="TestModi\ImagenesDePrueba\205939\Hydrangeas.jpg" />
+    <Content Include="TestModi\ImagenesDePrueba\205939\Jellyfish.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

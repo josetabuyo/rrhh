@@ -19,40 +19,56 @@
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
     <script type="text/javascript" src="planilla_ingreso.js"></script>
     <style type="text/css">
+
     .text_2caracteres
     {
         max-width: 20px;
         margin-left: 3px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(67, 58, 116)!important;
     }
     .text_10caracteres
     {
         max-width: 100px;
         margin-left: 17px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: rgb(67, 58, 116)!important;
     }
+    
+    .text_2caracteres:hover, .text_10caracteres:hover 
+    {     
+        border-color: rgb(255, 187, 187)!important;
+    }
+        
+
+    
     </style>
 </head>
-<body>
+<body class="marca_de_agua">
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
-    <div id="DivContenedor" runat="server" class="div_izquierdo2" style="margin:10px;">
-        <label>Curso:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <select id="CmbCurso" onchange="javascript:cargar_instancias(this.value);" runat="server">
-            <option value="0">Seleccione</option>
-        </select>
-        <br />
-        <div id="ContenedorInstancia">
-        </div>
-        
-    <div>
-    <div id="ContenedorPlanilla" style="display:inline-block"></div>
-    <br />
-    <input type="button" id="BtnGuardarEvaluaciones" onclick="javascript:admin_planilla.guardarPlanilla();" value="Guardar Cambios" style="display:none;" />
-    <input type="button" id="BtnImprimir" onclick="javascript:admin_planilla.imprimirPlanilla();" value="Imprimir" style="display:none;" />
-    <input type="hidden" id="accion" value="" runat="server" />
-    </div>
-    </div>
-    
+        <fieldset>
+            <legend>Evaluaciones</legend>
+            <div id="DivContenedor" runat="server" class="div_izquierdo2" style="margin:10px; z-index:999;  ">
+                <label class="label_evaluaciones">Curso:</label>
+                <select id="CmbCurso" onchange="javascript:cargar_instancias(this.value);" runat="server">
+                    <option value="0">Seleccione</option>
+                </select>
+                <br />
+                <div id="ContenedorInstancia">
+                </div>                       
+            <div>
+            <div id="ContenedorPlanilla" style="display:inline-block"></div>
+            <br />
+            <input type="button" class="btn btn-primary " id="BtnGuardarEvaluaciones" onclick="javascript:admin_planilla.guardarPlanilla();" value="Guardar Cambios" style="display:none;" />
+            <input type="button" class="btn btn-primary " id="BtnImprimir" onclick="javascript:admin_planilla.imprimirPlanilla();" value="Imprimir" style="display:none;" />
+            <input type="hidden" class="btn btn-primary " id="accion" value="" runat="server" />
+            </div>
+            </div>
+        </fieldset>
     </form>
 </body>
 <script type="text/javascript">
@@ -65,6 +81,7 @@
         if (id_curso > 0) {
             if (accion == "c") {
                 var etiqueta = $("<label>").text("Instancias");
+                etiqueta.attr("class", "label_evaluaciones");
                 instancias = $("<select>").attr("id", "Instancias").change(function () {
                     admin_planilla.cargarPlanilla();
                 }).get(0);
@@ -210,6 +227,9 @@
                 }
 
                 var grilla = new Grilla(columnas);
+
+                grilla.AgregarEstilo("tabla_macc");
+
                 grilla.SetOnRowClickEventHandler(function () {
                     return true;
                 });

@@ -1,0 +1,1 @@
+ALTER TABLE dbo.estudios_especilidades ADD id int not null identity(1,1)

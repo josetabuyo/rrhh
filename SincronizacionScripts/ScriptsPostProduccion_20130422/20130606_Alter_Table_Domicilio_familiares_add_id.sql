@@ -1,0 +1,1 @@
+ALTER TABLE dbo.Domicilio_familiares ADD id int not null identity(1,1)

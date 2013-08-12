@@ -26,7 +26,7 @@ namespace TestViaticos
         [TestMethod]
         public void deberia_poder_mandar_un_mail()
         {
-            var cred = new NetworkCredential("prueba@desarrollosocial.gov.ar", "bla");
+            var cred = new NetworkCredential("calqui@gmail.com", "bla");
             var envio_ok = false;
             Action on_success = () => envio_ok = true;
             Action on_error = () => envio_ok = false;

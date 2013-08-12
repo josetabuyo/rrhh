@@ -53,6 +53,8 @@ var AdministradorPlanillaCursos = function () {
 
     PlanillaCursos = new Grilla(columnas);
 
+    PlanillaCursos.AgregarEstilo("tabla_macc");
+
     PlanillaCursos.SetOnRowClickEventHandler(function (un_curso) {
         panelCurso.CompletarDatosCurso(un_curso);
     });

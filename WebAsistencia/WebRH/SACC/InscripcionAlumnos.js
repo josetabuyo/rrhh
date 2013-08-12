@@ -18,29 +18,32 @@
 	});
 	
 	this.o.planillaAlumnosDisponibles = new Grilla(
-                [
-                    new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento; } }),
-					new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre; } }),
-					new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }),
-					new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } })
-				]);
+        [
+            new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento; } }),
+			new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre; } }),
+			new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }),
+			new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } })
+		]);
 				
-				this.o.planillaAlumnosDisponibles.SetOnRowClickEventHandler(function (un_alumno) {
-					_this.o.alumnoGlobal = un_alumno;
-				});
+		this.o.planillaAlumnosDisponibles.SetOnRowClickEventHandler(function (un_alumno) {
+			_this.o.alumnoGlobal = un_alumno;
+	});
 				
 	this.o.planillaAlumnosAsignados = new Grilla(
-                [
-                    new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento; } }),
-					new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre; } }),
-					new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }),
-					new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } })
-				]);
+        [
+            new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento; } }),
+			new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre; } }),
+			new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }),
+			new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } })
+		]);
 				
-				this.o.planillaAlumnosAsignados.SetOnRowClickEventHandler(function (un_alumno) {
-					_this.o.alumnoGlobal = un_alumno;
-				});
-				
+		this.o.planillaAlumnosAsignados.SetOnRowClickEventHandler(function (un_alumno) {
+			_this.o.alumnoGlobal = un_alumno;
+	});
+
+
+    this.o.planillaAlumnosAsignados.AgregarEstilo("tabla_macc");
+    this.o.planillaAlumnosDisponibles.AgregarEstilo("tabla_macc");
 	this.o.planillaAlumnosDisponibles.CargarObjetos(this.o.alumnos);
 	this.o.planillaAlumnosDisponibles.DibujarEn(this.o.contenedorAlumnosDisponibles);
 	

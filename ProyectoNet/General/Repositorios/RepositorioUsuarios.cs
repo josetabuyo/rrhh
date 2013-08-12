@@ -45,6 +45,7 @@ namespace General.Repositorios
                     if (row.GetSmallintAsInt("Id_Funcionalidad") == 1) unUsuario.TienePermisosParaViaticos = true;
                     if (row.GetSmallintAsInt("Id_Funcionalidad") == 2) unUsuario.TienePermisosParaSiCoI = true;
                     if (row.GetSmallintAsInt("Id_Funcionalidad") == 3 || row.GetSmallintAsInt("Id_Funcionalidad") == 4) unUsuario.TienePermisosParaSACC = true;
+                    if (row.GetSmallintAsInt("Id_Funcionalidad") == 5) unUsuario.TienePermisosParaModil = true;
                     unUsuario.FeaturesDescripcion.Add(row.GetString("Nombre_Funcionalidad"));
 
                     var Asistentes = new List<Asistente>();

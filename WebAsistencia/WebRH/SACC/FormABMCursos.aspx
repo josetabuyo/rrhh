@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
 </head>
-<body>
+<body class="marca_de_agua">
     <form id="form1" runat="server" onsubmit="return submit_value;">
         <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
