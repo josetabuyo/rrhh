@@ -70,7 +70,6 @@
                 }).get(0);
 
                 instancias.options.length = 0;
-                instancias.add(new Option("Seleccione", "-1"));
                 contenedor.append(etiqueta).append($(instancias));
             } else {
                 var instancias = $("<input>").attr("type", "hidden").attr("id", "Instancias");
@@ -92,6 +91,7 @@
                         var respuesta = JSON.parse(respuestaJson.d);
                         if (accion == "c") {
                             if (respuesta.length > 1) {
+                                instancias.add(new Option("Seleccione", "-1"));
                                 instancias.add(new Option("Todos", 0));
                             }
                             for (var i = 0; i < respuesta.length; i++) {
@@ -165,18 +165,17 @@
             var evaluaciones = [];
             for (var i = 0; i < pla.evaluaciones.length; i++) {
                 var ev = pla.evaluaciones[i];
-                ev.Calificacion = ev.nota.html.val();
-                evaluaciones.push({ Id: ev.Id,
-                    Calificacion: ev.nota.html.val(),
-                    DNIAlumno: ev.DNIAlumno,
-                    IdCurso: ev.IdCurso,
-                    Fecha: ev.fecha.html.val(),
-                    IdInstancia: ev.IdInstancia
-                });
+                if (ev.es_valida()) {
+                    ev.Calificacion = ev.nota.html.val();
+                    evaluaciones.push({ Id: ev.Id,
+                        Calificacion: ev.nota.html.val(),
+                        DNIAlumno: ev.DNIAlumno,
+                        IdCurso: ev.IdCurso,
+                        Fecha: ev.fecha.html.val(),
+                        IdInstancia: ev.IdInstancia
+                    });
+                }
             }
-            //alert(JSON.stringify(evaluaciones));
-            //alert(JSON.stringify(evaluaciones_originales));
-
             var data_post = JSON.stringify({
                 "evaluaciones_nuevas": JSON.stringify(evaluaciones),
                 "evaluaciones_originales": JSON.stringify(evaluaciones_originales)

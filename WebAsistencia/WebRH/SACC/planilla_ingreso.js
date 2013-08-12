@@ -95,6 +95,9 @@ var Planilla = function (planilla, readonly) {
                 ev.fecha = new TextboxFecha("fecha_" + ev.DNIAlumno + "_" + ev.IdInstancia + "_" + i);
                 ev.nota.html.val(ev.Calificacion);
                 ev.fecha.html.val(ev.Fecha);
+                ev.es_valida = function () {
+                    return this.ev.nota.html.val() != "" && this.ev.fecha.html.val() != "";
+                }
             }
         }
         if (!_this.readonly) {
