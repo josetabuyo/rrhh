@@ -407,11 +407,11 @@ namespace TestViaticos
             Expect.AtLeastOnce.On(TestObjects.RepoAlumnosMockeado()).Method("GetAlumnoByDNI").WithAnyArguments().Will(Return.Value(alumno));
             Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursoById").WithAnyArguments().Will(Return.Value(curso));
 
-            string source = @"  |id     |idInstanciaEvaluacion  |DescripcionInstanciaEvaluacion |idAlumno   |idCurso   |Calificacion    |idUsuario     |fechaEvaluacion                              
-                                |1      |14                     |Primer Parcial                 |281941     |14        |A1              |6	            |2012-10-13 21:36:35.077     
-                                |2      |14                     |Primer Parcial                 |284165     |14        |A2              |6	            |2012-10-13 21:36:35.077      
-                                |3      |14                     |Primer Parcial                 |287872     |14        |A3              |7	            |2012-10-13 21:36:35.077  ";
-
+            string source = @"  |id     |idInstanciaEvaluacion  |DescripcionInstanciaEvaluacion |idAlumno  |idCurso   |Calificacion    |idUsuario       |fechaEvaluacion                              
+                                |1      |14                     |Primer Parcial                 |281941    |14        |A1              |6	            |2012-10-13 21:36:35.077     
+                                |2      |14                     |Primer Parcial                 |284165    |14        |A2              |6	            |2012-10-13 21:36:35.077      
+                                |3      |14                     |Primer Parcial                 |287872    |14        |A3              |7	            |2012-10-13 21:36:35.077  ";
+                                                                                                            
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);
 

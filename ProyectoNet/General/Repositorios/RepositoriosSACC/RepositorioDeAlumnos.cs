@@ -47,6 +47,8 @@ namespace General.Repositorios
                     Telefono = row.GetString("Telefono"),
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
+                    LugarDeTrabajo = row.GetString("LugarTrabajo"),
+                    FechaDeNacimiento = ObtenerFechaDeNacimiento(row),
                     Areas = areas_alumno,
                     Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
                     Baja = baja
@@ -59,6 +61,16 @@ namespace General.Repositorios
             alumnos.Sort((alumno1, alumno2) => alumno1.esMayorAlfabeticamenteQue(alumno2));
             return alumnos;
         }
+
+        private DateTime ObtenerFechaDeNacimiento(RowDeDatos row)
+        {
+            if (row.GetObject("FechaNacimiento") is DBNull)
+            {
+                return DateTime.Today;
+            }
+                return row.GetDateTime("FechaNacimiento");
+        }
+
 
         private static List<Alumno> CorteDeControlAreasDeAlumno(List<Alumno> alumnos, Alumno alumno)
         {
