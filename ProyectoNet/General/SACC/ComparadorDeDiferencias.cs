@@ -27,7 +27,7 @@ namespace General
         {
             var query1 = lista_nueva.Where(e1 => {
                 var res = lista_original.Exists(e2 => {
-                    var res2 = (e2.Alumno.Documento == e1.Alumno.Documento && e2.Curso.Id == e1.Curso.Id && e2.InstanciaEvaluacion.Id == e1.InstanciaEvaluacion.Id) 
+                    var res2 = (e2.Id.Equals(e1.Id)) 
                         && ((e2.Calificacion.Descripcion != e1.Calificacion.Descripcion) || (e2.Fecha.Day != e1.Fecha.Day || e2.Fecha.Month != e1.Fecha.Month || e2.Fecha.Month != e1.Fecha.Month));
                     return res2;
                 });

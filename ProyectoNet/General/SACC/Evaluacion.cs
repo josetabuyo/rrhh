@@ -12,6 +12,7 @@ namespace General
         private Calificacion _calificacion;
         private DateTime _fecha;
 
+
         public int Id { get { return _id; } set { _id = value; } }
         public InstanciaDeEvaluacion InstanciaEvaluacion { get { return _instanciaEvaluacion; } set { _instanciaEvaluacion = value; } }
         public Calificacion Calificacion { get { return _calificacion; } set { _calificacion = value; } }
@@ -37,5 +38,15 @@ namespace General
              this._calificacion = calificacion_nueva;
              this._fecha = fecha_evaluacion;
          }
+
+         public virtual bool Aprobado()
+         {
+             if (this.Calificacion.Descripcion == "Aprobado" || this.Calificacion.Nota > 6)
+                 return true;
+             return false;
+         }
+
+
+
     }
 }
