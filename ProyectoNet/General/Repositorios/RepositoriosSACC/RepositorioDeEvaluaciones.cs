@@ -86,7 +86,7 @@ namespace General.Repositorios
             return this.evaluaciones.FindAll(evaluaciones => evaluaciones.InstanciaEvaluacion.Id.Equals(instancia.Id));
         }
 
-        public void GuardarEvaluacion(Evaluacion evaluacion, Usuario usuario)
+        public int GuardarEvaluacion(Evaluacion evaluacion, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_alumno", evaluacion.Alumno.Id);
@@ -98,7 +98,7 @@ namespace General.Repositorios
             parametros.Add("@id_usuario", usuario.Id);
            
 
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Ins_Evaluacion", parametros);
+            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Evaluacion", parametros);
         }
 
 
@@ -120,8 +120,9 @@ namespace General.Repositorios
             
         }
 
-        public void GuardarEvaluaciones(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas, Usuario usuario)
+        public List<Evaluacion> GuardarEvaluaciones(List<Evaluacion> evaluaciones_antiguas, List<Evaluacion> evaluaciones_nuevas, Usuario usuario)
         {
+            var registros_no_procesados = new List<Evaluacion>();
             //FC: tengo que incluir para update a las que borre y ya estaban
             var evaluaciones_a_updatear = comparador_de_evalauciones.EvaluacionesParaActualizar(evaluaciones_antiguas, evaluaciones_nuevas);
             //FC: estas no tengo que insertarlas mas en el historico
@@ -129,32 +130,32 @@ namespace General.Repositorios
             var evaluaciones_a_insertar = comparador_de_evalauciones.EvaluacionesParaGuardar(evaluaciones_antiguas, evaluaciones_nuevas);
             //FC:estas no tengo que borrarlas mas
             var evaluaciones_a_borrar = comparador_de_evalauciones.EvaluacionesParaDarDeBajaSinInsertarOtra(evaluaciones_antiguas, evaluaciones_nuevas);
-
+            
             foreach (var e in evaluaciones_a_insertar)
             {
-                GuardarEvaluacion(e, usuario);
+                if (GuardarEvaluacion(e, usuario).Equals(0))
+                    registros_no_procesados.Add(e);
             }
             foreach (var e in evaluaciones_a_updatear)
             {
-                
-                GuardarEvaluacion(e, usuario);
+                if (GuardarEvaluacion(e, usuario).Equals(0))
+                    registros_no_procesados.Add(e);
             }
             foreach (var e in evaluaciones_para_dar_de_baja)
             {
                 var idBaja = CrearBaja(usuario);
                 ActualizarEvaluacion(e, usuario, idBaja);
-                //GuardarHistorico(e, usuario);
             }
             foreach (var e in evaluaciones_a_borrar)
             {
-                //GuardarHistorico(e, usuario);
                 var idBaja = CrearBaja(usuario);
-                ActualizarEvaluacion(e, usuario, idBaja);
-                //BorrarEvaluacion(e, usuario);
+                if (ActualizarEvaluacion(e, usuario, idBaja).Equals(0))
+                    registros_no_procesados.Add(e);
             }
+            return registros_no_procesados;
         }
 
-        private void ActualizarEvaluacion(Evaluacion evaluacion, Usuario usuario, int idBaja)
+        private int ActualizarEvaluacion(Evaluacion evaluacion, Usuario usuario, int idBaja)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id", evaluacion.Id);
@@ -168,7 +169,7 @@ namespace General.Repositorios
             if (idBaja != 0)
                 parametros.Add("@id_baja", idBaja);
 
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Evaluacion", parametros);
+            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Upd_Del_Evaluacion", parametros);
         }
 
         //private void BorrarEvaluacion(Evaluacion evaluacion, Usuario usuario)

@@ -1654,8 +1654,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public int GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
+    public EvaluacionDto[] GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
     {
+        var evaluaciones_no_procesadas = new List<EvaluacionDto>();
         var evaluaciones_a_guardar = new List<Evaluacion>();
         foreach (var e in evaluaciones_nuevas_dto)
         {
@@ -1683,19 +1684,18 @@ public class WSViaticos : System.Web.Services.WebService
         var evaluaciones_nuevas_posta = evaluaciones_a_guardar.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
         var evaluaciones_originales_posta = evaluaciones_originales.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
 
-
-        RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
-
-        //return this.GetPlanillaEvaluaciones(evaluaciones_nuevas_posta.First().Curso.Id, evaluaciones_nuevas_posta.First().InstanciaEvaluacion.Id);
-
-        return evaluaciones_nuevas_posta.First().Curso.Id;
-        //var Planilla = new PlanillaEvaluacionesDto()
-        //{
-        //    CodigoError = 0,
-        //    MensajeError = "",
-        //};
-
-        //return Planilla;
+        var res= RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+        foreach (var e in res)
+        {
+            evaluaciones_no_procesadas.Add(new EvaluacionDto() { Id = e.Id, 
+                DNIAlumno = e.Alumno.Documento, 
+                IdCurso = e.Curso.Id, 
+                IdInstancia = e.InstanciaEvaluacion.Id, 
+                Calificacion = e.Calificacion.Descripcion,
+                Fecha = e.Fecha.ToShortDateString()
+            }); 
+        }
+        return evaluaciones_no_procesadas.ToArray();
     }
 
     [WebMethod]

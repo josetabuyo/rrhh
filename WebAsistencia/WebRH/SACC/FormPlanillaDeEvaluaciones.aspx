@@ -19,7 +19,10 @@
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
     <script type="text/javascript" src="planilla_ingreso.js"></script>
     <style type="text/css">
-
+    .nota_no_valida, .fecha_no_valida
+    {
+        background-color: #FF3300 !important;
+    }
     .text_2caracteres
     {
         max-width: 20px;
@@ -132,7 +135,7 @@
     var AdministradorDeEvaluaciones = function () {
         var _this = this;
         var pla;
-        var evaluaciones_originales;
+        var planilla_original;
         var readonly = $("#accion").val() == "a";
         var contenedor_grilla = $("#ContenedorPlanilla");
         var btn_guardar = $("#BtnGuardarEvaluaciones");
@@ -163,7 +166,7 @@
                         var respuesta = JSON.parse(respuestaJson.d);
                         if (respuesta.MensajeError === "") {
                             _this.dibujarGrilla(respuesta);
-                            evaluaciones_originales = JSON.parse(respuestaJson.d).Evaluaciones;
+                            planilla_original = JSON.parse(respuestaJson.d);
                         }
                         else {
                             alert(respuesta.MensajeError);
@@ -180,6 +183,7 @@
         _this.guardarPlanilla = function () {
 
             var evaluaciones = [];
+            var calificaciones_no_validas = 0;
             for (var i = 0; i < pla.evaluaciones.length; i++) {
                 var ev = pla.evaluaciones[i];
                 if (ev.es_valida()) {
@@ -191,26 +195,35 @@
                         Fecha: ev.fecha.html.val(),
                         IdInstancia: ev.IdInstancia
                     });
+                } else {
+                    calificaciones_no_validas++;
                 }
             }
-            var data_post = JSON.stringify({
-                "evaluaciones_nuevas": JSON.stringify(evaluaciones),
-                "evaluaciones_originales": JSON.stringify(evaluaciones_originales)
-            });
-            $.ajax({
-                url: "../AjaxWS.asmx/GuardarEvaluaciones",
-                type: "POST",
-                data: data_post,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (respuestaJson) {
-                    var respuesta = JSON.parse(respuestaJson.d);
-                    _this.cargarPlanilla();
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });
+            if (calificaciones_no_validas > 0) {
+                alert("Hay calificaciones mal cargadas, no se puede realizar el guardado");
+            } else {
+
+                var data_post = JSON.stringify({
+                    "evaluaciones_nuevas": JSON.stringify(evaluaciones),
+                    "evaluaciones_originales": JSON.stringify(planilla_original.Evaluaciones)
+                });
+                $.ajax({
+                    url: "../AjaxWS.asmx/GuardarEvaluaciones",
+                    type: "POST",
+                    data: data_post,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (respuestaJson) {
+                        var respuesta = JSON.parse(respuestaJson.d);
+                        if (respuesta.length > 0)
+                            _this.MostrarDetalleErrores(respuesta);
+                        _this.cargarPlanilla();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
 
         };
         _this.dibujarGrilla = function (planilla) {
@@ -244,6 +257,25 @@
                 }
             }
         }
+
+        _this.MostrarDetalleErrores = function (evaluaciones_con_errores) {
+            var mensaje = "Se produjo un error al guardar las siguientes evaluaciones:\n\n";
+            
+            var alumnos = planilla_original.Alumnos;
+            var instancias = planilla_original.Instancias;
+            for (var i = 0; i < evaluaciones_con_errores.length; i++) {
+                var alumno = Enumerable.From(alumnos)
+                                       .Where(function (x) { return x.Documento == evaluaciones_con_errores[i].DNIAlumno }).First();
+                var instancia = Enumerable.From(instancias)
+                                       .Where(function (x) { return x.Id == evaluaciones_con_errores[i].IdInstancia }).First();
+
+                mensaje += "Alumno: " + alumno.Nombre + " " + alumno.Apellido + " (" + instancia.Descripcion + ")\n";
+
+            }
+
+            alert(mensaje);
+        }
+
         _this.imprimirPlanilla = function () {
             var w = window.open();
 
@@ -256,9 +288,25 @@
             w.print();
             //w.close();
         }
+
     }
     $(document).ready(function () {
         admin_planilla = new AdministradorDeEvaluaciones();
     });
+
+    /**************************************************************************************************
+    Pad a string to pad_length fillig it with pad_char.
+    By default the function performs a left pad, unless pad_right is set to true.
+
+    If the value of pad_length is negative, less than, or equal to the length of the input string, no padding takes place.
+    **************************************************************************************************/
+    String.prototype.pad = function (pad_char, pad_length, pad_right) {
+        var result = this;
+        if ((typeof pad_char === 'string') && (pad_char.length === 1) && (pad_length > this.length)) {
+            var padding = new Array(pad_length - this.length + 1).join(pad_char); //thanks to http://stackoverflow.com/questions/202605/repeat-string-javascript/2433358#2433358
+            result = (pad_right ? result + padding : padding + result);
+        }
+        return result;
+    }
 </script>
 </html>

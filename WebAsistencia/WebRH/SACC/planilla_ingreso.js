@@ -36,7 +36,8 @@ var TextboxFecha = function (id) {
         dateFormat: 'dd/mm/yy',
         onClose: function () {
             for (var i = 0; i < _this.observadores.length; i++) {
-                _this.observadores[i].update(this.value);
+                if(this.value != "")
+                    _this.observadores[i].update(this.value);
             }
         }
     });
@@ -95,9 +96,32 @@ var Planilla = function (planilla, readonly) {
                 ev.fecha = new TextboxFecha("fecha_" + ev.DNIAlumno + "_" + ev.IdInstancia + "_" + i);
                 ev.nota.html.val(ev.Calificacion);
                 ev.fecha.html.val(ev.Fecha);
+                ev.nota.html.change(function () {
+                    if (this.value != "")
+                        $(this).removeClass("nota_no_valida");
+                });
+                ev.fecha.html.change(function () {
+                    if (this.value != "")
+                        $(this).removeClass("fecha_no_valida");
+                });
                 ev.es_valida = function () {
-                    return this.ev.nota.html.val() != "" && this.ev.fecha.html.val() != "";
+                    var fecha = this.fecha.html;
+                    var nota = this.nota.html;
+                    var fecha_no_valida = nota.val() != "" && fecha.val() == "";
+                    var nota_no_valida = nota.val() == "" && fecha.val() != "";
+                    if (fecha_no_valida) {
+                        fecha.addClass("fecha_no_valida");
+                    } else {
+                        fecha.removeClass("fecha_no_valida");
+                    }
+                    if (nota_no_valida) {
+                        nota.addClass("nota_no_valida");
+                    } else {
+                        nota.removeClass("nota_no_valida");
+                    }
+                    return !(fecha_no_valida || nota_no_valida);
                 }
+
             }
         }
         if (!_this.readonly) {
