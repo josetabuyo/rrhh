@@ -163,23 +163,29 @@ public class AjaxWS : System.Web.Services.WebService {
 
     private string PlantillaHtml()
     {
-        string plantillaHtml = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtml"];
+       // string plantillaHtml = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtml"];
 
+        string plantillaHtml = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "SiCOI\\EmailTemplate.htm"); 
+       
         return plantillaHtml;
     }
 
 
     private string PlantillaHtmlHead()
     {
-        string plantillaHtmlhead = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtmlHead"];
-
+       // string plantillaHtmlhead1 = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtmlHead"];
+         
+        string plantillaHtmlhead = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "SiCOI\\EmailTemplateHead.htm"); 
+ 
         return plantillaHtmlhead;
     }
     
     private string PlantillaHtmlBody()
     {
-        string plantillaHtmlbody = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtmlBody"];
+        //string plantillaHtmlbody = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtmlBody"];
 
+        string plantillaHtmlbody = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "SiCOI\\EmailTemplateBody.htm"); 
+        
         return plantillaHtmlbody;
     }
     
