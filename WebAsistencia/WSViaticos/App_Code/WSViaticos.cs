@@ -1620,9 +1620,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento, Usuario usuario)
+    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento, int orden, Usuario usuario)
     {
-        servicioDeDigitalizacionDeLegajos().AsignarImagenADocumento(id_imagen, tabla, id_documento, usuario);
+        servicioDeDigitalizacionDeLegajos().AsignarImagenADocumento(id_imagen, tabla, id_documento, orden, usuario);
     }
 
     [WebMethod]

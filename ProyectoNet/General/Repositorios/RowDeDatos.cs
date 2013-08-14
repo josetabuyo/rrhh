@@ -48,5 +48,11 @@ namespace General.Repositorios
         {
             return (bool)dataRow[campo];
         }
+
+        public float getFloat(string campo)
+        {
+            var valor_double = (double)dataRow[campo];
+            return (float)valor_double;
+        }
     }
 }
