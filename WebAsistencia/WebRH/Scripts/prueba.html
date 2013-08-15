@@ -1,0 +1,85 @@
+ <!doctype html>
+
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+
+    <script type="text/javascript" src="bootstrap/js/jquery.js"> </script>  
+    <script type="text/javascript" src="jquery-ui.js"></script>
+    <script type="text/javascript" src="list.js"></script>
+  
+</head>
+
+<body >
+ <div id="contacts">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="sort" data-sort="name">Name</th>
+                                <th class="sort" data-sort="age">Age</th>
+                                <th class="sort" data-sort="city">City</th>
+                                <th colspan="2">
+                                    <input type="text" class="search" placeholder="Search contact" />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            <tr>
+                                <td class="id" style="display:none;">1</td>
+                                <td class="name">Jonny</td>
+                                <td class="age">25</td>
+                                <td class="city">Stockholm</td>
+                                <td class="edit"><button class="edit-item-btn">Edit</button></td>
+                                <td class="remove"><button class="remove-item-btn">Remove</button></td>
+                            </tr>
+                            <tr>
+                                <td class="id" style="display:none;">2</td>
+                                <td class="name">Jonas</td>
+                                <td class="age">-132</td>
+                                <td class="city">Berlin</td>
+                                <td class="edit"><button class="edit-item-btn">Edit</button></td>
+                                <td class="remove"><button class="remove-item-btn">Remove</button></td>
+                            </tr>
+                            <tr>
+                                <td class="id" style="display:none;">3</td>
+                                <td class="name">Gustaf</td>
+                                <td class="age">-23</td>
+                                <td class="city">Sundsvall</td>
+                                <td class="edit"><button class="edit-item-btn">Edit</button></td>
+                                <td class="remove"><button class="remove-item-btn">Remove</button></td>
+                            </tr>
+                            <tr>
+                                <td class="id" style="display:none;">4</td>
+                                <td class="name">Fredrik</td>
+                                <td class="age">26</td>
+                                <td class="city">Goteborg</td>
+                                <td class="edit"><button class="edit-item-btn">Edit</button></td>
+                                <td class="remove"><button class="remove-item-btn">Remove</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+				
+				<script type="text/javascript">
+
+    /*
+    * CONTACT LIST
+    */
+
+    // Define value names
+    var options = {
+	    valueNames: [ 'id', 'name', 'age', 'city' ]
+    };
+
+    // Init list
+    var contactList = new List('contacts', options);
+
+
+</script>
+<!-- End of List.js stuff -->
+    </div>
+</body>
+</html>

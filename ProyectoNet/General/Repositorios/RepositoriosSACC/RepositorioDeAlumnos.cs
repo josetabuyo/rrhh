@@ -47,8 +47,8 @@ namespace General.Repositorios
                     Telefono = row.GetString("Telefono"),
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
-                    LugarDeTrabajo = row.GetString("LugarTrabajo"),
-                    FechaDeNacimiento = ObtenerFechaDeNacimiento(row),
+                    //LugarDeTrabajo = row.GetString("LugarTrabajo"),
+                    //FechaDeNacimiento = ObtenerFechaDeNacimiento(row),
                     Areas = areas_alumno,
                     Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
                     Baja = baja
