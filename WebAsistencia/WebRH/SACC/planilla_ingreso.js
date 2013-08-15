@@ -28,6 +28,36 @@ var LabelFecha = function (id) {
     this.html = $("<label>").attr("id", id).attr("class", "text_10caracteres");
 }
 
+var EncabezadoFecha = function (id) {
+    var _this = this;
+    this.html = $("<input>")
+                .attr("type", "text").attr("id", id)
+                .attr("class", "encabezado_fecha")
+                .attr("disabled", "disabled")
+                .attr("title","Aplicar fecha a todas las evaluaciones de la instancia")
+                .val("Fecha");
+    this.boton = $("<img>")
+                .attr("src", "../Imagenes/calendar-icon.gif")
+                .css("width", "20px")
+                .css("height", "16px")
+                .attr("title", "Aplicar fecha a todas las evaluaciones de la instancia")
+                .click(function () { $("#" + id).datepicker("show"); return false });
+    this.observadores = [];
+    this.html.click(function () {
+        return false;
+    });
+    this.html.datepicker({
+        dateFormat: 'dd/mm/yy',
+        onClose: function () {
+            for (var i = 0; i < _this.observadores.length; i++) {
+                if (this.value != "")
+                    _this.observadores[i].update(this.value);
+            }
+            this.value = "Fecha";
+        }
+    });
+};
+
 var TextboxFecha = function (id) {
     var _this = this;
     this.html = $("<input>").attr("type","text").attr("id", id).attr("class", "text_10caracteres");
@@ -43,7 +73,7 @@ var TextboxFecha = function (id) {
     });
 };
 
-TextboxFecha.prototype.addObservador = function (obs) {
+EncabezadoFecha.prototype.addObservador = function (obs) {
     this.observadores.push(obs);
 };
 
@@ -77,7 +107,7 @@ var Planilla = function (planilla, readonly) {
                 inst.fecha = new LabelFecha("instancia_fecha_" + i);
                 $(inst.fecha.html).text("Fecha");
             } else {
-                inst.fecha = new TextboxFecha("instancia_fecha_" + i);
+                inst.fecha = new EncabezadoFecha("instancia_fecha_" + i);
             }
 
         }
@@ -143,7 +173,11 @@ var Planilla = function (planilla, readonly) {
             var etiqueta_titulo = $("<div>").css("text-align", "center").html(inst.etiqueta);
             var etiqueta_calificacion = $("<div>").css("display", "inline-block").css("margin-right", "4px").html("Calif.");
 
-            var contenedor_fecha = $("<div>").css("display", "inline-block").css("z-index", "1").append(inst.fecha.html);
+            var contenedor_fecha = $("<div>")
+                                    .css("display", "inline-block")
+                                    .css("z-index", "1")
+                                    .append(inst.fecha.html)
+                                    .append(inst.fecha.boton);
 
             contenedor.append(etiqueta_titulo);
             contenedor.append(etiqueta_calificacion);

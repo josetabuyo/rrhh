@@ -19,6 +19,17 @@
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
     <script type="text/javascript" src="planilla_ingreso.js"></script>
     <style type="text/css">
+        
+    .encabezado_fecha
+    {
+        text-align:center;        
+        visibility:visible;
+        background-color: transparent !important;
+        color: White !important;
+        border: none !important;
+        cursor:default !important;
+        width: 80px;
+    }
     .nota_no_valida, .fecha_no_valida
     {
         background-color: #FF3300 !important;
@@ -250,10 +261,10 @@
                 grilla.DibujarEn(contenedor_grilla);
                 if (readonly) {
                     btn_guardar.hide();
-                    btn_imprimir.show();
+                    //btn_imprimir.show();
                 } else {
                     btn_guardar.show();
-                    btn_imprimir.hide();
+                    //btn_imprimir.hide();
                 }
             }
         }
