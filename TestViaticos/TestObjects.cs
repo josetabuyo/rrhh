@@ -1087,15 +1087,17 @@ namespace General
 
         public static Curso UnCursoConAlumnos()
         {
-            Curso un_curso = new Curso(14, MateriaCens(), unDocente(), EspacioFisico(), DateTime.Today, DateTime.Today, "");
+            Curso un_curso = new Curso(14, MateriaCens(), unDocente(), EspacioFisico(), new DateTime(2013, 01, 01), new DateTime(2013, 03, 10), "");
             un_curso.AgregarAlumno(AlumnoFer());
             un_curso.AgregarAlumno(AlumnoJor());
             un_curso.AgregarAlumno(AlumnoGer());
             un_curso.AgregarAlumno(AlumnoZambri());
             un_curso.AgregarAlumno(AlumnoJavi());
-       
-            un_curso.AgregarDiaDeCursada(DayOfWeek.Tuesday);
-            un_curso.AgregarDiaDeCursada(DayOfWeek.Wednesday);
+            //NO MODIFICAR que se arruinan el escenario para los Test de Regularidad del Articulador
+            HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 14);
+            HorarioDeCursada horario_de_cursada_miercoles = new HorarioDeCursada(DayOfWeek.Wednesday, "12:00", "14:00", 2, 14);
+            un_curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
+            un_curso.AgregarHorarioDeCursada(horario_de_cursada_miercoles);
             un_curso.EspacioFisico = UnEspacioFisico();
             un_curso.Docente = unDocente();
             return un_curso;
