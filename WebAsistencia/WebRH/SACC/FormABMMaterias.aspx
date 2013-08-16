@@ -61,7 +61,11 @@
     <div class="div_derecho">
         <fieldset>
         <legend>Listado de Materias</legend>
-        <div id="ContenedorPlanilla" runat="server"></div>
+        <div id="ContenedorPlanilla" runat="server">
+            <div class="input-append">   
+                <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Materias" />    
+            </div>
+        </div>
         </fieldset>
     </div>
 
@@ -82,6 +86,8 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="../Scripts/list.js"></script>
+    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
 
 
 <script type="text/javascript">
@@ -166,6 +172,11 @@
             $("#btnQuitarMateria").attr("disabled", false);
         };
 
+        var options = {
+            valueNames: ['Nombre', 'Modalidad', 'Ciclo']
+        };
+
+        var featureList = new List('ContenedorPlanilla', options);
 
     }
 

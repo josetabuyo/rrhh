@@ -84,10 +84,12 @@
     <div class="div_derecho">
         <fieldset>
         <legend>Listado de Alumnos</legend>
-        <div class="input-append">   
-            <input type="text" id="masc_buscador" onkeyup="Cargar_onclick()" style="float:right;" placeholder="Filtrar Alumnos" runat="server" />    
+       
+        <div id="ContenedorPlanilla" runat="server">
+             <div class="input-append">   
+                <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" />    
+            </div>
         </div>
-        <div id="ContenedorPlanilla" runat="server"></div>
         <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
        </fieldset>
     </div>
@@ -118,6 +120,7 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
 
     
 
@@ -139,18 +142,6 @@
             //alert(mensaje);
         }
     };
-
-    //FC:copia lo del textbox filtrado en el textbox oculto en la grilla para filtrar las filas
-    function Cargar_onclick() {
-        var texto = $('#masc_buscador').val();
-        $('.search').val(texto);
-        //$('.search').click();
-        var element = $(".search");
-        element.focus();
-       element.keyup();
-
-        //keyPres.call();
-    }
 
     var administradorDeErrores = new AdministradorDeMensajes(
         {
@@ -214,7 +205,7 @@
         PlanillaAlumnos = new Grilla(columnas);
 
         PlanillaAlumnos.AgregarEstilo("tabla_macc");
-        PlanillaAlumnos.agregarBuscador();
+        //PlanillaAlumnos.agregarBuscador();
 
         PlanillaAlumnos.SetOnRowClickEventHandler(function (un_alumno) {
             panelAlumno.CompletarDatosAlumno(un_alumno);
@@ -241,7 +232,6 @@
             $("#btnModificarAlumno").attr("disabled", false);
             $("#btnQuitarAlumno").attr("disabled", false);
         };
-
 
         var options = {
             valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad', 'Detalle']

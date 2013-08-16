@@ -82,7 +82,11 @@
     <div class="div_derecho">
         <fieldset>
         <legend>Listado de Cursos</legend>
-        <div id="ContenedorPlanilla" runat="server"></div>
+        <div id="ContenedorPlanilla" runat="server">
+            <div class="input-append">   
+                <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Cursos" />    
+            </div>
+        </div>
         <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
         </fieldset>
     </div>
@@ -98,11 +102,13 @@
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/jquery.ui.datepicker.min.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="../Scripts/list.js"></script>
+    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
 
 </body>
 <script src="FormABMCursos.js" type="text/javascript"></script>

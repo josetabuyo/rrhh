@@ -72,7 +72,11 @@
     <div class="div_derecho">
         <fieldset>
         <legend>Listado de Espacios Físicos</legend>
-        <div id="ContenedorPlanilla" runat="server"></div>
+        <div id="ContenedorPlanilla" runat="server">
+            <div class="input-append">   
+                <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Espacios" />    
+            </div>
+        </div>
         </fieldset>
     </div>
 
@@ -93,6 +97,8 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="../Scripts/list.js"></script>
+    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
 
 
 <script type="text/javascript">
@@ -182,8 +188,13 @@
             $("#btnAgregarEspacioFisico").attr("disabled", true);
             $("#btnModificarEspacioFisico").attr("disabled", false);
             $("#btnQuitarEspacioFisico").attr("disabled", false);
-
         };
+
+        var options = {
+            valueNames: ['Aula', 'Edificio', 'Capacidad']
+        };
+
+        var featureList = new List('ContenedorPlanilla', options);
     }
 
     var LimpiarCampos = function () {

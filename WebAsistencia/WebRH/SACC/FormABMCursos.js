@@ -96,6 +96,12 @@ var AdministradorPlanillaCursos = function () {
     $("#txtFechaInicio").datepicker($.datepicker.regional["es"]);
     $("#txtFechaFin").datepicker($.datepicker.regional["es"]);
 
+    var options = {
+        valueNames: ['Nombre', 'Materia', 'Docente', 'Espacio Fisico', 'Horario']
+    };
+
+    var featureList = new List('ContenedorPlanilla', options);
+
 };
 
 $('#cmbCurso').change(function () {
