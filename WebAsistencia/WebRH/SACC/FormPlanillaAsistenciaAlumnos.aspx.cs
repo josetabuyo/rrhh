@@ -47,7 +47,7 @@ public partial class SACC_FormPlanillaAsistenciaAlumnos : System.Web.UI.Page
 
     protected void BtnSave_Click(object sender, EventArgs e)
     {
-        Curso curso = JsonConvert.DeserializeObject<Curso>(this.curso_con_observaciones.Value);
+        CursoDto curso = JsonConvert.DeserializeObject<CursoDto>(this.curso_con_observaciones.Value);
         this.PlanillaAsistencia.ActualizarCurso(curso);
        // var observaciones = this.curso_con_observaciones;
         this.PlanillaAsistencia.GuardarDetalleAsistencias();
