@@ -1052,14 +1052,14 @@ public class WSViaticos : System.Web.Services.WebService
 
         detalle_asistencias.ForEach(a =>
         {
-            if (a.Valor < 4)
+            if (a.Valor < 5)
                 cant_asistencias_aux += a.Valor;
         });
         detalle_asistencias.ForEach(a =>
         {
-            if (a.Valor > 0 && a.Valor < 4)
+            if (a.Valor > 0 && a.Valor < 5)
                 cant_inasistencias_aux += planilla.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra - a.Valor;
-            if (a.Valor == 4)
+            if (a.Valor == 5)
                 cant_inasistencias_aux += planilla.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra;
         });
 
@@ -1089,9 +1089,12 @@ public class WSViaticos : System.Web.Services.WebService
                     asistencia = new AsistenciaHoraTres(item.Fecha, item.IdCurso, item.IdAlumno);
                     break;
                 case 4:
-                    asistencia = new InasistenciaNormal(item.Fecha, item.IdCurso, item.IdAlumno);
+                    asistencia = new AsistenciaHoraCuatro(item.Fecha, item.IdCurso, item.IdAlumno);
                     break;
                 case 5:
+                    asistencia = new InasistenciaNormal(item.Fecha, item.IdCurso, item.IdAlumno);
+                    break;
+                case 6:
                     asistencia = new AsistenciaClaseSuspendida(item.Fecha, item.IdCurso, item.IdAlumno);
                     break;
                 default:
