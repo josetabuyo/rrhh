@@ -1,0 +1,649 @@
+﻿/*ESTILO GENERAL*/
+
+.body-detalle {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	background-color: #CCC
+
+}
+
+.contenedor_principal
+{
+    position: absolute;
+	left: 50%;
+	min-height: 100%;
+	width: 1024px;
+	margin-left: -512px;	
+	background-color: #FFF;
+}
+/*FIN ESTILO GENERAL*/
+
+
+/*ESTILO BARRA MENU*/
+
+.barra_menu_fondo {
+    background-color: #003;
+	height: 120px;
+}
+
+.barra_menu_fondo a {
+    text-decoration: none;
+}
+
+.barra_menu_contenedor {
+    position: absolute;
+	left: 50%;
+	width: 1024px;
+	margin-left: -512px;
+	margin-top: 10px;
+}
+
+.barra_menu_logo_sistema {
+	float: left;
+	margin-left: 15px;	
+}
+
+.barra_menu_contenedor_logos_derecha
+{
+    float:right;
+    margin-right: 15px;  
+} 
+
+.barra_menu_logo_ministerio {
+    margin-left: 25px;
+}
+
+.barra_menu_bloque_inferior
+{
+    margin-top: 85px;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 15px;	
+}
+.barra_menu_label_bienvenido {
+
+	color: #FFF;
+	clear: both;
+	display:inline;
+}
+.barra_menu_label_usuario {
+	color: #09F;
+	display:inline;
+}
+
+.barra_menu_botones_menu_usuario
+{
+    float:right;
+    margin-right: 15px;
+}
+
+.barra_menu_boton_menu_usuario {
+	margin-left:5px;
+}
+
+/*FIN ESTILO BARRA MENU*/
+
+
+
+/*ESTILO DETALLE VIATICO*/
+.detalle_viatico_label_usuario {
+    padding-top: 50px;
+}
+
+.detalle_viatico_separador
+{
+    
+    }
+    
+.detalle_viatico_contenedor_datos_viajante
+{
+    float:right;
+    margin-right:10px;
+    margin-bottom:50px;
+}
+    
+.detalle_viatico_datos_viajante
+{
+    display:inline-block;    
+    margin-right:10px;
+}
+    
+.detalle_viatico_dato_viajante
+{
+    font-family: "Humnst777 BT";
+	font-size: 12px;
+	font-weight: bold;
+	text-align: right;
+	color: #000;
+}
+    
+.detalle_viatico_foto_viajante
+{
+    display:inline-block;   
+    vertical-align:top; 
+}
+
+.detalle_viatico_contenedor_detalle
+{
+    clear:both;
+    margin-left:34px;
+    margin-right:10px;
+    margin-top:40px;
+}
+
+.detalle_viatico_contenedor_detalle
+{
+    clear:both;
+    margin-left:34px;
+    margin-right:10px;
+    margin-top:40px;
+}
+
+.detalle_viatico_titulo_detalle 
+{
+	font-family: "Humnst777 BT";
+	font-size: 13px;
+	font-weight: bold;
+	background-color: #FFF
+}
+
+.detalle_viatico_cuerpo_detalle 
+{
+    margin-top:10px; 
+}
+
+.detalle_viatico_titulo_tabla_detalle 
+{
+	font-family: "Humnst777 BT" !important;	
+	font-size: 11px !important;	
+	background-color: #003 !important;	
+	color:#FFF !important;	
+	text-align:center !important;
+}
+
+.detalle_viatico_celda_tabla_detalle 
+{
+	font-family: "Humnst777 BT" !important;	
+	font-size: 11px !important;	
+	background-color: #CCC !important;	
+	color:#000 !important;
+	vertical-align:middle !important;
+	text-align:center !important;
+}
+
+.detalle_viatico_tabla_firmantes
+{
+    width:100%;
+}
+
+.tablas_alumnos
+{
+    width:80%;
+}
+
+.detalle_viatico_contenedor_datos_firmante
+{
+    border:1px solid;
+    margin-bottom:4px;
+}
+
+.detalle_viatico_dato_firmante {
+	display: inline;
+	font-family: "Humnst777 BT";
+	font-size: 12px;
+}
+
+.detalle_viatico_alerta_rendiciones_pendientes {
+	padding-left: 900px;
+	margin-top: -15px;
+	font-family: "Humnst777 BT";
+	font-size: 13px;
+	font-weight: bold; 
+	color: #F00 
+
+}
+.detalle_viatico_alerta_viatico_menos_72 {
+	padding-left: 940px;
+	margin-top: -18px;
+	font-family: "Humnst777 BT";
+	font-size: 13px;
+	font-weight: bold;
+	color: #36F
+}
+.detalle_viatico_contenedor_referencias
+{
+     float:right;
+     text-align:right;
+     font-family: "Humnst777 BT";
+     font-size: 10px;
+     font-weight: bold;
+     margin-top:10px;
+    }
+    
+.detalle_viatico_referencia_rendiciones_pendientes 
+{	
+    color: #F00
+}
+
+.detalle_viatico_referencia_viatico_menos_72 
+{
+    color: #36F 
+}
+
+.detalle_viatico_boton_imprimir
+{
+    margin-top:10px;
+    display:inline-block;
+}
+
+.detalle_viatico_boton_modificar_solicitud
+{
+    margin-top:10px;
+    display:inline-block;
+}	
+
+.detalle_viatico_contenedor_transicion_combo_boton
+{	   	
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.detalle_viatico_transicion_combo
+{	   	
+    width:100%;
+    max-width:805px;
+    display:inline-block;
+}
+
+.detalle_viatico_transicion_boton
+{	   
+    margin-left:10px;	
+    width:148px !important;
+    margin-top: -9px;
+    display:inline-block;
+}
+
+.detalle_viatico_contenedor_transicion_comentarios
+{
+    margin-bottom:50px;
+}
+
+.detalle_viatico_transicion_leyenda_comentarios
+{
+    display:inline-block;    
+    width:140px;
+    vertical-align:top;
+}
+
+.detalle_viatico_transicion_comentarios
+{
+    width:825px;
+    resize:none;
+}
+
+/*FIN ESTILO DETALLE VIATICO*/
+
+
+
+/* ESTILO LISTADO VIATICO */
+
+.listado_viaticos_contenedor_separador{
+	background-color: #FFF;
+	height: 155px;
+}
+
+.listado_viaticos_imagen_separador{
+	padding-top: 50px;
+}
+
+.listado_viaticos_contenedor_viaticos_espera_gestion{
+	background-color: #FFF;
+	margin-top: 20px;
+}
+
+.listado_viaticos_contenedor_tablas
+{
+    margin-left: 34px;
+    margin-right:10px;
+}
+.listado_viaticos_viaticos_espera_gestion{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000;
+}
+
+.listado_viaticos_tabla_viaticos_espera_gestion{
+	margin-top: 7px;
+}
+
+.listado_viaticos_encabezado {
+	font-family: "Humnst777 BT";
+	font-size: 11px;
+	color: #FFF;
+}
+.listado_viaticos_contenido_tabla {
+	font-family: "Humnst777 BT";
+	font-size: 11px;
+	color: #000;
+}
+.listado_viaticos_contenido_tablaVP {
+	font-family: "Humnst777 BT";
+	font-size: 11px;
+	color: #FFF;
+
+}
+
+.listado_viaticos_imprimir_seleccion{
+	margin-top: 20px;
+}
+
+.listado_viaticos_contenedor_viaticos_seguimiento{
+	margin-top: 50px;
+}
+
+.listado_viaticos_tabla_viaticos_seguimiento{
+	margin-top: 7px;
+	background-color: #FFF;
+}
+
+.listado_viaticos_contenedor_asterisco{
+	margin-top: 35px;
+}
+
+.listado_viaticos_txt_asterisco{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000;
+}
+
+/* FIN ESTILO LISTADO VIATICO */
+.AzulTHBIG {
+	font-family: Tahoma;
+	font-size: 18px;
+	color: #5A6573;
+	text-decoration: none;
+}
+
+
+
+/* COMIENZO ESTILO REPORTES VIATICO  */
+
+.contenedor_boton_buscar{
+	margin-left: 250px;
+	margin-top: 30px;
+}
+
+#btn_buscar 
+{   
+    border:0;
+    
+    background-image: url(../Imagenes/Botones/buscar.png);
+}
+
+#btn_buscar:hover
+{
+    border:0;
+    background-image: url(../Imagenes/Botones/buscar_s2.png);
+}
+
+
+
+.btn_blanco_clicked 
+{ 
+    font-size:large; 
+    border:solid 1px white; 
+    border-radius:5px;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 4px;
+    zoom: 1;
+    background-position: 0 -15px;
+    -webkit-transition: background-position 0.1s linear;
+    width: 30px;
+    min-width: 30px;
+    cursor: pointer;
+    -webkit-appearance: button;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-right: 0 none #e6e6e6;
+    border-top: 0 none #e6e6e6;
+    border-bottom: 0 none #b3b3b3;
+    
+    
+}
+
+.btn_verde_clicked
+{
+     font-size:large; 
+     background-color:#00B712;
+     display: inline;
+     text-align: center;
+     vertical-align: middle;
+     border-radius: 4px;
+     zoom: 1; 
+     background-position: 0 -15px;
+    -webkit-transition: background-position 0.1s linear;
+    width: 30px;
+    min-width: 30px;
+    cursor: pointer;
+    -webkit-appearance: button;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-right: 0 none #e6e6e6;
+    border-top: 0 none #e6e6e6;
+    border-bottom: 0 none #b3b3b3;
+}
+
+.btn_amarillo_clicked 
+{
+     font-size:large; 
+     background-color:#FFD800;
+     display: inline;
+     text-align: center;
+     vertical-align: middle;
+     border-radius: 4px;
+     zoom: 1;
+     background-position: 0 -15px;
+    -webkit-transition: background-position 0.1s linear;
+    width: 30px;
+    min-width: 30px;
+    cursor: pointer;
+    -webkit-appearance: button;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-right: 0 none #e6e6e6;
+    border-top: 0 none #e6e6e6;
+    border-bottom: 0 none #b3b3b3;
+}
+
+
+
+
+
+
+.reporte_por_provincia_titulo, .reporte_por_agente_titulo, .protocolo_tabla_titulo
+{  
+	font-family: "Humnst777 BT" !important;	
+	font-size: 10px !important;	
+	background-color: #000033 !important;	
+	color:#FFF !important;	
+	text-align:center !important;
+	height:25px;
+}
+
+
+.reporte_por_provincia_celda_detalle, .reporte_por_agente_celda_detalle, .protocolo_tabla_detalle
+{
+	font-family: "Humnst777 BT" !important;	
+	font-size: 11px !important;	
+	background-color: #CCC !important;	
+	color:#000 !important;
+	vertical-align:middle !important;
+	text-align:center !important;
+	height:20px;
+}
+
+.protocolo_tabla{
+        width: 1000px; 
+        border: 0px; 
+        align: center;
+}
+/* FIN ESTILO REPORTES VIATICOS */
+
+
+
+/*COMIENZO ESTILO SACC - ALUMNOS */
+
+.table-striped tbody tr:nth-child(odd) td {
+    background-color: lavender;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #f5f5f5;
+}
+
+.celda_seleccionada
+{
+    background-color:gray !important;
+    user-select: none;
+    cursor:pointer;
+}
+
+.celda_on_hover
+{
+    background-color:Silver !important;
+    user-select: none;
+    cursor:pointer;
+}
+
+
+.labels_sacc 
+    {
+        width:15%; 
+        text-align:right; 
+        padding-right:2%; 
+        float:left;
+        margin-top: 8px;
+    }
+
+.div_derecho {
+	/*right: 5%;*/
+	width: 45%;
+	margin-right: 10px;
+    display: inline;
+    float: left;
+	margin-top: 10px;
+	overflow: auto;
+    height: 100%;
+
+}
+
+.div_izquierdo {
+    display: inline;
+    float: left;
+	left: 5%;
+	width: 45%;
+	margin-left: 10px;
+	margin-top: 10px;
+    overflow: auto;
+    height: 100%;
+}
+
+.div_derecho_inscripcion {
+	/*right: 5%;*/
+	width: 46%;
+	/*margin-right: 10px;*/
+    display: inline;
+    float: left;
+	margin-top: 10px;
+	overflow: auto;
+    height: 100%;
+
+}
+
+.div_izquierdo_inscripcion {
+    display: inline;
+    float: left;
+	margin-right:-70px;
+	width: 46%;
+	/*margin-left: 10px;*/
+	margin-top: 10px;
+    overflow: auto;
+    height: 100%;
+}
+
+.label_alumno
+{
+    vertical-align: middle;
+    margin-top: 5px;
+    width:200px;
+    text-align:right;
+    border:none;
+}
+
+.label_observaciones
+{
+    vertical-align: middle;
+    width:98%;
+    text-align:left;
+    border:1px solid;
+}
+
+
+.btn_inscripcion_SACC 
+{
+margin-right: 12%;
+text-align: right;
+}
+
+
+/*Seteo personalizado de la barra de navegacion SACC*/
+
+	.navbar 
+	{
+	 /* Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar*/
+       position: relative;
+       z-index: 99999999;
+	 }
+
+.navbar-inner {
+  background-color: #00001c; /* background color will be black for all browsers */
+  color:#fff;
+  background-image: none;
+  background-repeat: no-repeat;
+  filter: none;
+}
+
+.navbar .nav > li > a {
+  color: rgb(189, 189, 189) !important;
+}
+
+.navbar .nav > li > a:hover 
+{
+    color: #fff !important;
+    }
+
+.navbar .nav > li > a:hover {
+  color: #fff;
+  text-decoration: none;
+  /*background-color: #0074cc;*/
+}
+
+.navbar .nav .active > a,
+.navbar .nav .active > a:hover {
+  color: #999;
+  text-decoration: none;
+  /*background-color: #0074cc;*/
+}
+
+.navbar .nav li.dropdown.open > .dropdown-toggle,
+.navbar .nav li.dropdown.active > .dropdown-toggle,
+.navbar .nav li.dropdown.open.active > .dropdown-toggle {
+  /*background-color: #0074cc;*/
+  color: #999;
+}
+
+.navbar .nav li.dropdown.active > .dropdown-toggle:hover {
+  color: #999;
+}

@@ -1580,45 +1580,6 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-    //////////////////////////MODI
-
-    [WebMethod]
-    public RespuestaAPedidoDeLegajo GetLegajoParaDigitalizacion(int numero_documento)
-    {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        var repositorio_legajos = new RepositorioDeLegajos(Conexion(), repo_imagenes);
-        return repositorio_legajos.getLegajoPorDocumento(numero_documento);     
-    }
-
-    [WebMethod]
-    public ImagenModi GetImagenPorId(int id_imagen)
-    {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        return repo_imagenes.GetImagenPorId(id_imagen);
-    }
-
-    [WebMethod]
-    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
-    {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        return repo_imagenes.GetThumbnailPorId(id_imagen, alto, ancho);
-    }
-
-    [WebMethod]
-    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento)
-    {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        repo_imagenes.AsignarImagenADocumento(id_imagen, tabla, id_documento);
-    }
-
-    [WebMethod]
-    public void DesAsignarImagen(int id_imagen)
-    {
-        var repo_imagenes = new RepositorioDeLegajosEscaneados(new FileSystem(), Conexion(), "C:/ImagenesLegajos");
-        repo_imagenes.DesAsignarImagen(id_imagen);
-    }
-    //////////////////////////FIN MODI
-
     [WebMethod]
     public ItemDeMenu[] ItemsDelMenu(Usuario usuario, string menu)
     {
@@ -1638,6 +1599,53 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
+    #region modi
+
+    [WebMethod]
+    public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio)
+    {
+        return servicioDeDigitalizacionDeLegajos().BuscarLegajos(criterio);
+    }
+
+    [WebMethod]
+    public ImagenModi GetImagenPorId(int id_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
+    }
+
+    [WebMethod]
+    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
+    {
+        return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);
+    }
+
+    [WebMethod]
+    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento, Usuario usuario)
+    {
+        servicioDeDigitalizacionDeLegajos().AsignarImagenADocumento(id_imagen, tabla, id_documento, usuario);
+    }
+
+    [WebMethod]
+    public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
+    {
+        servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
+    }
+
+    [WebMethod]
+    public void DesAsignarImagen(int id_imagen, Usuario usuario)
+    {        
+        servicioDeDigitalizacionDeLegajos().DesAsignarImagen(id_imagen, usuario);
+    }
+
+    private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
+    {
+        return new ServicioDeDigitalizacionDeLegajos(Conexion(), new FileSystem(), "C:/ImagenesLegajos");
+    }
+
+#endregion
+
+
+
     [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
     {
@@ -1646,8 +1654,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public int GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
+    public EvaluacionDto[] GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
     {
+        var evaluaciones_no_procesadas = new List<EvaluacionDto>();
         var evaluaciones_a_guardar = new List<Evaluacion>();
         foreach (var e in evaluaciones_nuevas_dto)
         {
@@ -1675,19 +1684,18 @@ public class WSViaticos : System.Web.Services.WebService
         var evaluaciones_nuevas_posta = evaluaciones_a_guardar.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
         var evaluaciones_originales_posta = evaluaciones_originales.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
 
-
-        RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
-
-        //return this.GetPlanillaEvaluaciones(evaluaciones_nuevas_posta.First().Curso.Id, evaluaciones_nuevas_posta.First().InstanciaEvaluacion.Id);
-
-        return evaluaciones_nuevas_posta.First().Curso.Id;
-        //var Planilla = new PlanillaEvaluacionesDto()
-        //{
-        //    CodigoError = 0,
-        //    MensajeError = "",
-        //};
-
-        //return Planilla;
+        var res= RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+        foreach (var e in res)
+        {
+            evaluaciones_no_procesadas.Add(new EvaluacionDto() { Id = e.Id, 
+                DNIAlumno = e.Alumno.Documento, 
+                IdCurso = e.Curso.Id, 
+                IdInstancia = e.InstanciaEvaluacion.Id, 
+                Calificacion = e.Calificacion.Descripcion,
+                Fecha = e.Fecha.ToShortDateString()
+            }); 
+        }
+        return evaluaciones_no_procesadas.ToArray();
     }
 
     [WebMethod]

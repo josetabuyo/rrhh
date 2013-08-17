@@ -10,7 +10,7 @@ var TextboxNota = function (id) {
         var calificaciones_validas = ['0','1','2','3','4','5','6','7','8','9','10','A','']
         var calif_valida = false;
         if ($.inArray(this.value, calificaciones_validas) < 0) {
-            alert("La calificación ingresada no es válida");
+            alertify.alert("La calificación ingresada no es válida");
             this.select();
             this.focus();
         }
@@ -20,13 +20,43 @@ var TextboxNota = function (id) {
 
 var LabelNota = function (id) {
     var _this = this;
-    this.html = $("<label>").attr("id", id).attr("class", "text_2caracteres");
+    this.html = $("<label>").attr("id", id).attr("style","padding: 10px; ");//.attr("", "");
 }
 
 var LabelFecha = function (id) {
     var _this = this;
-    this.html = $("<label>").attr("id", id).attr("class", "text_10caracteres");
+    this.html = $("<label>").attr("id", id).css("padding", "5px");
 }
+
+var EncabezadoFecha = function (id) {
+    var _this = this;
+    this.html = $("<input>")
+                .attr("type", "text").attr("id", id)
+                .attr("class", "encabezado_fecha")
+                .attr("disabled", "disabled")
+                .attr("title","Aplicar fecha a todas las evaluaciones de la instancia")
+                .val("Fecha");
+    this.boton = $("<img>")
+                .attr("src", "../Imagenes/calendar-icon.gif")
+                .css("width", "20px")
+                .css("height", "16px")
+                .attr("title", "Aplicar fecha a todas las evaluaciones de la instancia")
+                .click(function () { $("#" + id).datepicker("show"); return false });
+    this.observadores = [];
+    this.html.click(function () {
+        return false;
+    });
+    this.html.datepicker({
+        dateFormat: 'dd/mm/yy',
+        onClose: function () {
+            for (var i = 0; i < _this.observadores.length; i++) {
+                if (this.value != "")
+                    _this.observadores[i].update(this.value);
+            }
+            this.value = "Fecha";
+        }
+    });
+};
 
 var TextboxFecha = function (id) {
     var _this = this;
@@ -36,13 +66,14 @@ var TextboxFecha = function (id) {
         dateFormat: 'dd/mm/yy',
         onClose: function () {
             for (var i = 0; i < _this.observadores.length; i++) {
-                _this.observadores[i].update(this.value);
+                if(this.value != "")
+                    _this.observadores[i].update(this.value);
             }
         }
     });
 };
 
-TextboxFecha.prototype.addObservador = function (obs) {
+EncabezadoFecha.prototype.addObservador = function (obs) {
     this.observadores.push(obs);
 };
 
@@ -76,7 +107,7 @@ var Planilla = function (planilla, readonly) {
                 inst.fecha = new LabelFecha("instancia_fecha_" + i);
                 $(inst.fecha.html).text("Fecha");
             } else {
-                inst.fecha = new TextboxFecha("instancia_fecha_" + i);
+                inst.fecha = new EncabezadoFecha("instancia_fecha_" + i);
             }
 
         }
@@ -95,6 +126,32 @@ var Planilla = function (planilla, readonly) {
                 ev.fecha = new TextboxFecha("fecha_" + ev.DNIAlumno + "_" + ev.IdInstancia + "_" + i);
                 ev.nota.html.val(ev.Calificacion);
                 ev.fecha.html.val(ev.Fecha);
+                ev.nota.html.change(function () {
+                    if (this.value != "")
+                        $(this).removeClass("nota_no_valida");
+                });
+                ev.fecha.html.change(function () {
+                    if (this.value != "")
+                        $(this).removeClass("fecha_no_valida");
+                });
+                ev.es_valida = function () {
+                    var fecha = this.fecha.html;
+                    var nota = this.nota.html;
+                    var fecha_no_valida = nota.val() != "" && fecha.val() == "";
+                    var nota_no_valida = nota.val() == "" && fecha.val() != "";
+                    if (fecha_no_valida) {
+                        fecha.addClass("fecha_no_valida");
+                    } else {
+                        fecha.removeClass("fecha_no_valida");
+                    }
+                    if (nota_no_valida) {
+                        nota.addClass("nota_no_valida");
+                    } else {
+                        nota.removeClass("nota_no_valida");
+                    }
+                    return !(fecha_no_valida || nota_no_valida);
+                }
+
             }
         }
         if (!_this.readonly) {
@@ -116,7 +173,11 @@ var Planilla = function (planilla, readonly) {
             var etiqueta_titulo = $("<div>").css("text-align", "center").html(inst.etiqueta);
             var etiqueta_calificacion = $("<div>").css("display", "inline-block").css("margin-right", "4px").html("Calif.");
 
-            var contenedor_fecha = $("<div>").css("display", "inline-block").css("z-index", "1").append(inst.fecha.html);
+            var contenedor_fecha = $("<div>")
+                                    .css("display", "inline-block")
+                                    .css("z-index", "1")
+                                    .append(inst.fecha.html)
+                                    .append(inst.fecha.boton);
 
             contenedor.append(etiqueta_titulo);
             contenedor.append(etiqueta_calificacion);

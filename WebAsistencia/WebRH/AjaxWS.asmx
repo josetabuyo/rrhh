@@ -16,16 +16,18 @@ using System.Web.Script.Services;
 [System.Web.Script.Services.ScriptService]
 public class AjaxWS : System.Web.Services.WebService {
     private WSViaticos.WSViaticosSoapClient backEndService;
+    private WSViaticos.Usuario usuarioLogueado;
     public AjaxWS () {
         this.backEndService = new WSViaticos.WSViaticosSoapClient();
+        this.usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        
         //Eliminar la marca de comentario de la línea siguiente si utiliza los componentes diseñados 
         //InitializeComponent(); 
     }
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)] 
-    public string CrearDocumento(string documento_dto) {
-        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+    public string CrearDocumento(string documento_dto) {        
         return backEndService.GuardarDocumento_Ajax(documento_dto, usuarioLogueado);
     }
 
@@ -72,17 +74,16 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GuardarCambiosEnDocumento(int id_documento, int id_area_destino, string comentario)
     {
-        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
         return backEndService.GuardarCambiosEnDocumento(id_documento, id_area_destino, comentario, usuarioLogueado);
     }
-
+    
     ////////////////////////////////////////MODI
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetLegajoParaDigitalizacion(int numero_documento)
+    public string BuscarLegajosParaDigitalizacion(string criterio)
     {
-        var respuesta = backEndService.GetLegajoParaDigitalizacion(numero_documento);
+        var respuesta = backEndService.BuscarLegajosParaDigitalizacion(criterio);
         var respuestaSerializada =  Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
     }
@@ -108,15 +109,31 @@ public class AjaxWS : System.Web.Services.WebService {
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento)
+    {        
+        backEndService.AsignarImagenADocumento(id_imagen, tabla, id_documento, usuarioLogueado);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento)
     {
-        backEndService.AsignarImagenADocumento(id_imagen, tabla, id_documento);
+        backEndService.AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void DesAsignarImagen(int id_imagen)
     {
-        backEndService.DesAsignarImagen(id_imagen);
+        backEndService.DesAsignarImagen(id_imagen, usuarioLogueado);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string CategoriasDocumentosSICOI()
+    {
+        var respuesta = backEndService.CategoriasDocumentosSICOI();
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
     }
     ////////////////////////////////////////FIN MODI  
     
@@ -125,7 +142,6 @@ public class AjaxWS : System.Web.Services.WebService {
     public string InscribirAlumnos(string alumnos, int id_curso)
     {
         var lista_alumnos_para_inscribir = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WSViaticos.Alumno>>(alumnos);
-        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
         return backEndService.InscribirAlumnosACurso(lista_alumnos_para_inscribir.ToArray(), id_curso, usuarioLogueado);
     }
 
@@ -210,7 +226,8 @@ public class AjaxWS : System.Web.Services.WebService {
         var evaluaciones_nuevas_dto = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.EvaluacionDto[]>(evaluaciones_nuevas);
         var evaluaciones_originales_dto = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.EvaluacionDto[]>(evaluaciones_originales);
         
-        return backEndService.GuardarEvaluaciones(evaluaciones_nuevas_dto, evaluaciones_originales_dto, usuarioLogueado).ToString();
+        var res =backEndService.GuardarEvaluaciones(evaluaciones_nuevas_dto, evaluaciones_originales_dto, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(res);
     }
 }
 

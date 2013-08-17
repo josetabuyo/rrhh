@@ -16,8 +16,8 @@
                       <li class="dropdown" id="menu_evaluaciones" runat="server">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Evaluaciones</a>
                           <ul id="sub_menu_evaluaciones" class="dropdown-menu" runat="server">
-                            <li><a href="FormPlanillaDeEvaluaciones.aspx?accion=c">Carga</a></li>
-                            <li><a href="FormPlanillaDeEvaluaciones.aspx?accion=a">Acta</a></li>
+                            <li><a href="FormPlanillaDeEvaluaciones.aspx?accion=c">Carga de Notas</a></li>
+                            <li><a href="FormPlanillaDeEvaluaciones.aspx?accion=a">Bolet&iacute;n</a></li>
                           </ul>
                       </li>
                     </ul>
