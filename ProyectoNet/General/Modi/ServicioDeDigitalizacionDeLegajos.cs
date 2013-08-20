@@ -228,16 +228,16 @@ namespace General.Modi
 
         private void AgregarImagenesSinAsignarDeUnLegajoALaBase(LegajoModi legajo)
         {
-            List<String> paths_archivos;
+            List<String> paths_imagenes;
             try
             {
-                paths_archivos = this.file_system.getPathsArchivosEnCarpeta(this.path_imagenes + "/" + legajo.cuil);
+                paths_imagenes = this.file_system.getPathsArchivosEnCarpeta(this.path_imagenes + "/" + legajo.cuil).Where(s => s.EndsWith(".png") || s.EndsWith(".jpg")).ToList();
             }
             catch (ExcepcionDeCarpetaDeLegajoNoEncontrada e)
             {
-                paths_archivos = new List<string>();
+                paths_imagenes = new List<string>();
             }
-            paths_archivos.ForEach(pathImagen =>
+            paths_imagenes.ForEach(pathImagen =>
             {
                 var imagen = new ImagenModi(Path.GetFileNameWithoutExtension(pathImagen), this.file_system.getImagenFromPath(pathImagen));
                 this.AgregarImagenSinAsignarALaBase(legajo, imagen);
