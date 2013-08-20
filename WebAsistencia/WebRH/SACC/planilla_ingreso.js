@@ -32,10 +32,10 @@ var EncabezadoFecha = function (id) {
     var _this = this;
     this.html = $("<input>")
                 .attr("type", "text").attr("id", id)
-                .attr("class", "encabezado_fecha")
+                .attr("class", "encabezado_fecha")               
                 .attr("disabled", "disabled")
-                .attr("title","Aplicar fecha a todas las evaluaciones de la instancia")
-                .val("Fecha");
+                .attr("title", "Aplicar fecha a todas las evaluaciones de la instancia")
+                .val("Fecha:");
     this.boton = $("<img>")
                 .attr("src", "../Imagenes/calendar-icon.gif")
                 .css("width", "20px")
