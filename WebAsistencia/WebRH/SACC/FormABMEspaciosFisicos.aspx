@@ -13,6 +13,9 @@
         type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
 
+     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
@@ -69,7 +72,11 @@
     <div class="div_derecho">
         <fieldset>
         <legend>Listado de Espacios Físicos</legend>
-        <div id="ContenedorPlanilla" runat="server"></div>
+        <div id="ContenedorPlanilla" runat="server">
+            <div class="input-append">   
+                <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Espacios" />    
+            </div>
+        </div>
         </fieldset>
     </div>
 
@@ -89,6 +96,9 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="../Scripts/list.js"></script>
+    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
 
 
 <script type="text/javascript">
@@ -96,13 +106,13 @@
     //Muestra los Mensajes de Error mediante PopUp y los de Éxito por mensaje
     var mostrador_de_mensajes = {
         mostrar: function (mensaje) {
-            alert(mensaje);
+            alertify.alert(mensaje);
         }
     };
     var administradorDeErrores = new AdministradorDeMensajes(
         {
             mostrar: function (mensaje) {
-                alert(mensaje);
+                alertify.alert(mensaje);
             }
         },
         $("#texto_mensaje_error").val());
@@ -178,8 +188,13 @@
             $("#btnAgregarEspacioFisico").attr("disabled", true);
             $("#btnModificarEspacioFisico").attr("disabled", false);
             $("#btnQuitarEspacioFisico").attr("disabled", false);
-
         };
+
+        var options = {
+            valueNames: ['Aula', 'Edificio', 'Capacidad']
+        };
+
+        var featureList = new List('ContenedorPlanilla', options);
     }
 
     var LimpiarCampos = function () {

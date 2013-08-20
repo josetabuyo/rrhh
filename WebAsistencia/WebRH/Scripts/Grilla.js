@@ -17,6 +17,7 @@ Grilla.prototype = {
         this.Objetos = [];
 
         this.crearEncabezado();
+        this.crearCuerpo();
         this.crearProgressBar();
         this.registrarIndexOfEnArrays();
     },
@@ -31,8 +32,29 @@ Grilla.prototype = {
         for (var i = 0; i < this.columnas.length; i++) {
             var col = this.columnas[i];
             var th = $("<th>").append(col.titulo);
+            th.addClass("sort");
+            th.attr("data-sort", col.titulo);
             encabezado.append(th);
         }
+    },
+    agregarBuscador: function () {
+        var input = $('<input>');
+        input.attr('type', 'text');
+        input.attr('placeholder', 'Buscar');
+        input.addClass('search');
+        input.attr('style', 'width:80px !important;');
+       
+        var th = $("<th>").append(input);
+        th.attr('colspan', 2);
+        
+        var encabezado = this.tabla[0].getElementsByClassName('detalle_viatico_titulo_tabla_detalle'); //
+        var celdaBuscador = encabezado[0].firstChild.insertCell(-1); //.append(th);
+        celdaBuscador.innerHTML = input[0].outerHTML;
+    },
+    crearCuerpo: function () {
+        var tBody = $('<tbody>');
+        tBody.addClass("list");
+        this.tabla.append(tBody);
     },
     crearProgressBar: function () {
         this.progress_bar = $('<div>');
@@ -68,7 +90,7 @@ Grilla.prototype = {
         panel.append(this.tabla);
     },
 
-    AgregarEstilo: function(clase) {
+    AgregarEstilo: function (clase) {
         this.tabla.addClass(clase);
     },
 
@@ -120,6 +142,7 @@ Grilla.prototype = {
             var col = this.columnas[i];
             var td = $('<td>');
             td.append(col.generadorDeContenido.generar(obj));
+            td.addClass(col.titulo);
             tr.append(td);
         }
         //seteo el evento click para la fila

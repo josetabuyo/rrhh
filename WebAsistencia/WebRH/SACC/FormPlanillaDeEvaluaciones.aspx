@@ -10,16 +10,27 @@
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
-    <script type="text/javascript" src="planilla_ingreso.js"></script>
-    <style type="text/css">
 
+     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+
+    <style type="text/css">
+        
+    .encabezado_fecha
+    {
+        text-align:center;        
+        visibility:visible;
+        background-color: transparent !important;
+        color: White !important;
+        border: none !important;
+        cursor:default !important;
+        width: 80px;
+        margin-top:6px;
+    }
+    .nota_no_valida, .fecha_no_valida
+    {
+        background-color: #FF3300 !important;
+    }
     .text_2caracteres
     {
         max-width: 20px;
@@ -70,6 +81,17 @@
             </div>
         </fieldset>
     </form>
+
+    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
+    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
+    <script type="text/javascript" src="planilla_ingreso.js"></script>
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>
 </body>
 <script type="text/javascript">
     var admin_planilla;
@@ -87,7 +109,6 @@
                 }).get(0);
 
                 instancias.options.length = 0;
-                instancias.add(new Option("Seleccione", "-1"));
                 contenedor.append(etiqueta).append($(instancias));
             } else {
                 var instancias = $("<input>").attr("type", "hidden").attr("id", "Instancias");
@@ -109,6 +130,7 @@
                         var respuesta = JSON.parse(respuestaJson.d);
                         if (accion == "c") {
                             if (respuesta.length > 1) {
+                                instancias.add(new Option("Seleccione", "-1"));
                                 instancias.add(new Option("Todos", 0));
                             }
                             for (var i = 0; i < respuesta.length; i++) {
@@ -119,7 +141,7 @@
                         }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(errorThrown);
+                        alertify.alert(errorThrown);
                     }
                 });
             }
@@ -132,7 +154,7 @@
     var AdministradorDeEvaluaciones = function () {
         var _this = this;
         var pla;
-        var evaluaciones_originales;
+        var planilla_original;
         var readonly = $("#accion").val() == "a";
         var contenedor_grilla = $("#ContenedorPlanilla");
         var btn_guardar = $("#BtnGuardarEvaluaciones");
@@ -163,14 +185,14 @@
                         var respuesta = JSON.parse(respuestaJson.d);
                         if (respuesta.MensajeError === "") {
                             _this.dibujarGrilla(respuesta);
-                            evaluaciones_originales = JSON.parse(respuestaJson.d).Evaluaciones;
+                            planilla_original = JSON.parse(respuestaJson.d);
                         }
                         else {
-                            alert(respuesta.MensajeError);
+                            alertify.alert(respuesta.MensajeError);
                         }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(errorThrown);
+                        alertify.alert(errorThrown);
                     }
                 });
             } else {
@@ -180,38 +202,51 @@
         _this.guardarPlanilla = function () {
 
             var evaluaciones = [];
+            var calificaciones_no_validas = 0;
             for (var i = 0; i < pla.evaluaciones.length; i++) {
                 var ev = pla.evaluaciones[i];
-                ev.Calificacion = ev.nota.html.val();
-                evaluaciones.push({ Id: ev.Id,
-                    Calificacion: ev.nota.html.val(),
-                    DNIAlumno: ev.DNIAlumno,
-                    IdCurso: ev.IdCurso,
-                    Fecha: ev.fecha.html.val(),
-                    IdInstancia: ev.IdInstancia
+                if (ev.es_valida()) {
+                    ev.Calificacion = ev.nota.html.val();
+                    evaluaciones.push({ Id: ev.Id,
+                        Calificacion: ev.nota.html.val(),
+                        DNIAlumno: ev.DNIAlumno,
+                        IdCurso: ev.IdCurso,
+                        Fecha: ev.fecha.html.val(),
+                        IdInstancia: ev.IdInstancia
+                    });                  
+                } else {
+                    calificaciones_no_validas++;
+                }
+
+
+            }
+            if (calificaciones_no_validas > 0) {
+                alertify.alert("Hay calificaciones mal cargadas, no se puede realizar el guardado");
+            } else {
+
+                var data_post = JSON.stringify({
+                    "evaluaciones_nuevas": JSON.stringify(evaluaciones),
+                    "evaluaciones_originales": JSON.stringify(planilla_original.Evaluaciones)
+                });
+                $.ajax({
+                    url: "../AjaxWS.asmx/GuardarEvaluaciones",
+                    type: "POST",
+                    data: data_post,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (respuestaJson) {
+                        var respuesta = JSON.parse(respuestaJson.d);
+                        if (respuesta.length > 0)
+                            _this.MostrarDetalleErrores(respuesta);
+                        alertify.alert("Las calificaciones se guardaron correctamente");
+                        _this.cargarPlanilla();
+                        
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alertify.alert(errorThrown);
+                    }
                 });
             }
-            //alert(JSON.stringify(evaluaciones));
-            //alert(JSON.stringify(evaluaciones_originales));
-
-            var data_post = JSON.stringify({
-                "evaluaciones_nuevas": JSON.stringify(evaluaciones),
-                "evaluaciones_originales": JSON.stringify(evaluaciones_originales)
-            });
-            $.ajax({
-                url: "../AjaxWS.asmx/GuardarEvaluaciones",
-                type: "POST",
-                data: data_post,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (respuestaJson) {
-                    var respuesta = JSON.parse(respuestaJson.d);
-                    _this.cargarPlanilla();
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });
 
         };
         _this.dibujarGrilla = function (planilla) {
@@ -245,19 +280,56 @@
                 }
             }
         }
+
+        _this.MostrarDetalleErrores = function (evaluaciones_con_errores) {
+            var mensaje = "Se produjo un error al guardar las siguientes evaluaciones:\n\n";
+            
+            var alumnos = planilla_original.Alumnos;
+            var instancias = planilla_original.Instancias;
+            for (var i = 0; i < evaluaciones_con_errores.length; i++) {
+                var alumno = Enumerable.From(alumnos)
+                                       .Where(function (x) { return x.Documento == evaluaciones_con_errores[i].DNIAlumno }).First();
+                var instancia = Enumerable.From(instancias)
+                                       .Where(function (x) { return x.Id == evaluaciones_con_errores[i].IdInstancia }).First();
+
+                mensaje += "Alumno: " + alumno.Nombre + " " + alumno.Apellido + " (" + instancia.Descripcion + ")\n";
+
+            }
+
+            alertify.alert(mensaje);
+        }
+
         _this.imprimirPlanilla = function () {
             var w = window.open();
 
             w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap.css' type='text/css' />");
             w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap-responsive.css' type='text/css' />");
             w.document.write("<link  rel='stylesheet' href='../Estilos/Estilos.css' type='text/css'  />");
+            w.document.write("<style>div_print{margin:20px;}.text_2caracteres{max-width: 20px;margin-left: 3px;}.text_10caracteres{max-width: 100px;margin-left: 17px;}</style>");
+            w.document.write("<div class='div_print'><br>Curso: " + $("#CmbCurso option:selected").text() + "<br><br></div>");
             w.document.write(contenedor_grilla.html());
             w.print();
-            w.close();
+            //w.close();
         }
+
     }
     $(document).ready(function () {
         admin_planilla = new AdministradorDeEvaluaciones();
     });
+
+    /**************************************************************************************************
+    Pad a string to pad_length fillig it with pad_char.
+    By default the function performs a left pad, unless pad_right is set to true.
+
+    If the value of pad_length is negative, less than, or equal to the length of the input string, no padding takes place.
+    **************************************************************************************************/
+    String.prototype.pad = function (pad_char, pad_length, pad_right) {
+        var result = this;
+        if ((typeof pad_char === 'string') && (pad_char.length === 1) && (pad_length > this.length)) {
+            var padding = new Array(pad_length - this.length + 1).join(pad_char); //thanks to http://stackoverflow.com/questions/202605/repeat-string-javascript/2433358#2433358
+            result = (pad_right ? result + padding : padding + result);
+        }
+        return result;
+    }
 </script>
 </html>

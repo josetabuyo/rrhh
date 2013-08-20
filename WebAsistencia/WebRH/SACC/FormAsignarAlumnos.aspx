@@ -15,6 +15,8 @@
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="InscripcionAlumnos.js"></script>
+    <script type="text/javascript" src="../Scripts/list.js"></script>
+    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
     
 </head>
 <body >
@@ -50,7 +52,11 @@
     <div id="panelAlumnoDisponibles" style="margin-left:20px" class="div_izquierdo_inscripcion">
     <fieldset>
         <legend>Listado de Alumnos Para Inscribir</legend>
-        <div style="float:left" class="tablas_alumnos" id="grillaAlumnosDisponibles" runat="server"></div>
+        <div style="float:left" class="tablas_alumnos" id="grillaAlumnosDisponibles" runat="server">
+            <div class="input-append">   
+                <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Buscar Alumnos" />    
+            </div>
+        </div>
     </fieldset>
 
     </div>
@@ -77,6 +83,7 @@
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idAlumnoAVer" runat="server" />
     <asp:HiddenField ID="alumnosEnGrillaParaGuardar" runat="server" />
+
 
     </form>
 </body>
@@ -106,6 +113,12 @@
         }
 
         var modulo_inscripcion = new PaginaInscripcionAlumnos(items_pantalla);
+
+        var options = {
+            valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad']
+        };
+
+        var featureListAlumnosDisponibles = new List('grillaAlumnosDisponibles', options);
 
     };
 
