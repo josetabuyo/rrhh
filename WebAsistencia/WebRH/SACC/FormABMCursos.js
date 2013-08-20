@@ -96,6 +96,12 @@ var AdministradorPlanillaCursos = function () {
     $("#txtFechaInicio").datepicker($.datepicker.regional["es"]);
     $("#txtFechaFin").datepicker($.datepicker.regional["es"]);
 
+    var options = {
+        valueNames: ['Nombre', 'Materia', 'Docente', 'Espacio Fisico', 'Horario']
+    };
+
+    var featureList = new List('ContenedorPlanilla', options);
+
 };
 
 $('#cmbCurso').change(function () {
@@ -208,7 +214,7 @@ var MostrarBoton = function (control) {
 var ValidarCampoObligatorio = function (control) {
 
     if (control.val() == "") {
-        alert(control.attr("data-name") + " es obligatorio");
+        alertify.alert(control.attr("data-name") + " es obligatorio");
         control.focus();
         return false;
     }
@@ -295,7 +301,7 @@ var ValidarSuperposicion = function () {
             }
         }
 });
-if (!res) alert("El horario que intenta agregar se superpone con otros horarios de la lista");
+if (!res) alertify.alert("El horario que intenta agregar se superpone con otros horarios de la lista");
     return res;
 }
 
@@ -303,7 +309,7 @@ var ValidarRangoDeHoras = function (hora_inicio, hora_fin) {
     var regExp = /(\d{1,2})\:(\d{1,2})/;
     if (parseInt(hora_inicio.replace(regExp, "$1$2"), 10) < parseInt(hora_fin.replace(regExp, "$1$2"), 10)) return true;
     else {
-        alert("El horario de inicio no debe ser mayor o igual al horario de final");
+        alertify.alert("El horario de inicio no debe ser mayor o igual al horario de final");
         return false;
     }
 }
@@ -315,7 +321,7 @@ var ValidarHora = function (hora) {
         return true;
     }
     else {
-        alert("Valor de hora incorrecto");
+        alertify.alert("Valor de hora incorrecto");
     }
     hora.focus();
     return false;

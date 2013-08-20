@@ -185,16 +185,16 @@ PaginaInscripcionAlumnos.prototype.completarCombosDeCiclo = function () {
 
                     _this.GetCursosDTO();
 
-                    alert("Se inscribieron los alumnos correctamente");
+                    alertify.alert("Se inscribieron los alumnos correctamente");
                 }
                 if (respuesta.tipoDeRespuesta == "inscripcionAlumno.error") {
-                    alert("Error al inscribir alumnos: " + respuesta.error);
+                    alertify.alert("Error al inscribir alumnos: " + respuesta.error);
                 }
 
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown);
+                alertify.alert(errorThrown);
             }
         });
     };
@@ -215,7 +215,7 @@ PaginaInscripcionAlumnos.prototype.completarCombosDeCiclo = function () {
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown);
+                alertify.alert(errorThrown);
             }
         });
      };

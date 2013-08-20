@@ -13,14 +13,10 @@
         type="text/css" runat="server" />
     <link id="link3" rel="stylesheet" href="../Estilos/jquery-ui.css" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/jquery.ui.datepicker.min.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+
+     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server" onsubmit="return submit_value;">
@@ -86,7 +82,11 @@
     <div class="div_derecho">
         <fieldset>
         <legend>Listado de Cursos</legend>
-        <div id="ContenedorPlanilla" runat="server"></div>
+        <div id="ContenedorPlanilla" runat="server">
+            <div class="input-append">   
+                <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Cursos" />    
+            </div>
+        </div>
         <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
         </fieldset>
     </div>
@@ -97,6 +97,19 @@
     <asp:HiddenField ID="horaCatedra" runat="server" />
      <asp:Button ID="btnVerFichaCurso" Text="" runat="server" OnClick="btnVerCurso_Click" style="display:none"/>
     </form>
+    
+    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
+    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/jquery.ui.datepicker.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="../Scripts/list.js"></script>
+    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+
 </body>
 <script src="FormABMCursos.js" type="text/javascript"></script>
 <script src="../Scripts/placeholder_ie.js" type="text/javascript"></script>

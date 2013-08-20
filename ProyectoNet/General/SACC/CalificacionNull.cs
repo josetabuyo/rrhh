@@ -16,7 +16,8 @@ namespace General
         }
         public CalificacionNull()
         {
-            this.Descripcion = string.Empty;
+            this.Descripcion = "Sin Nota";
+            this.Nota = 0;
         }
     }
 }
