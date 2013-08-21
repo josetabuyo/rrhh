@@ -80,6 +80,19 @@
     overflow-y: auto;
 }
 
+.placeholder_sortable
+{
+    display:inline-block;       
+    margin:5px;  
+	height: 90px;
+    width: 90px;
+    background-color:Highlight;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+
 .vista_de_legajo
 {
     opacity:0;
@@ -151,7 +164,8 @@
     overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
-    transition: all .3s;
+    /*transition: all .3s;*/
+    list-style-type: none;
 }
 
 .panel_de_imagenes:hover  
@@ -163,9 +177,7 @@
 {
     display:inline-block;   
     text-align:center; 
-    margin:5px;  
-    draggable: true;
-	list-style:none; 
+    margin:5px;   
 	height: 90px;
     width: 90px;
 }

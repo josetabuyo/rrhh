@@ -50,15 +50,27 @@ namespace General.Modi
             return this.GetImagenPorId(id_imagen).GetThumbnail(alto, ancho);
         }
 
-        public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento, Usuario usuario)
+        public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento, int orden, Usuario usuario)
         {
+            var orden_flotante = getOrdenFlotanteParaImagen(tabla, id_documento, orden);
+            
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_imagen", id_imagen);
             parametros.Add("@tabla", tabla);
+            parametros.Add("@orden", orden_flotante);
             parametros.Add("@id_documento", id_documento);
             parametros.Add("@id_usuario", usuario.Id);
 
             this.conexion_db.EjecutarSinResultado("dbo.MODI_Asignar_Imagen_A_Un_Documento", parametros);
+        }
+
+        private float getOrdenFlotanteParaImagen(string tabla, int id_documento, int orden)
+        {
+            var imagenes_del_doc = this.GetDatosDeImagenesAsignadasAlDocumento(tabla, id_documento);
+            if(imagenes_del_doc.Count==0) return 1;
+            if(orden == 0) return imagenes_del_doc.First().orden/2;
+            if(orden >= imagenes_del_doc.Count) return imagenes_del_doc.Last().orden + 1;
+            return imagenes_del_doc[orden-1].orden + ((imagenes_del_doc[orden].orden - imagenes_del_doc[orden-1].orden)/2); 
         }
 
         public void DesAsignarImagen(int id_imagen, Usuario usuario)
@@ -133,7 +145,7 @@ namespace General.Modi
                                     row.GetString("Cuil_Nro"));
 
                 legajo.agregarDocumentos(this.DocumentosPara(legajo));
-                legajo.agregarIdsDeImagenesSinAsignar(this.GetIdsDeImagenesSinAsignarParaElLegajo(legajo));
+                legajo.agregarImagenesSinAsignar(this.GetDatosDeImagenesSinAsignarParaElLegajo(legajo));
                 legajos.Add(legajo);
             });
             return legajos;
@@ -148,7 +160,7 @@ namespace General.Modi
                                     row.GetString("Cuil_Nro"));
 
             legajo.agregarDocumentos(this.DocumentosPara(legajo));
-            legajo.agregarIdsDeImagenesSinAsignar(this.GetIdsDeImagenesSinAsignarParaElLegajo(legajo));
+            legajo.agregarImagenesSinAsignar(this.GetDatosDeImagenesSinAsignarParaElLegajo(legajo));
             return legajo;
         }
 
@@ -162,8 +174,8 @@ namespace General.Modi
 
             documentos.ForEach(doc =>
             {
-                var id_imagenes = this.GetIdsDeImagenesAsignadasAlDocumento(doc.tabla, doc.id);
-                doc.idImagenesAsignadas.AddRange(id_imagenes);
+                var imagenes = this.GetDatosDeImagenesAsignadasAlDocumento(doc.tabla, doc.id);
+                doc.imagenesAsignadas.AddRange(imagenes);
 
                 var id_categoria = this.CategoriaDeUnDocumento(doc.tabla, doc.id);
                 doc.idCategoria = id_categoria;
@@ -194,9 +206,9 @@ namespace General.Modi
             return documentos;
         }
 
-        private List<int> GetIdsDeImagenesSinAsignarParaElLegajo(LegajoModi legajo)
+        private List<ImagenModi> GetDatosDeImagenesSinAsignarParaElLegajo(LegajoModi legajo)
         {
-            var listaIdsImagenes = new List<int>();
+            var listaImagenes = new List<ImagenModi>();
             this.AgregarImagenesSinAsignarDeUnLegajoALaBase(legajo);
 
             var parametros = new Dictionary<string, object>();
@@ -207,10 +219,11 @@ namespace General.Modi
             {
                 tablaIds.Rows.ForEach(row =>
                 {
-                    listaIdsImagenes.Add(row.GetInt("id_imagen"));
+                    var imagen = new ImagenModi(row.GetInt("id_imagen"));
+                    listaImagenes.Add(imagen);
                 });
             }
-            return listaIdsImagenes;
+            return listaImagenes;
         }
 
         private void AgregarImagenesSinAsignarDeUnLegajoALaBase(LegajoModi legajo)
@@ -242,22 +255,20 @@ namespace General.Modi
             this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros);
         }
 
-        private List<int> GetIdsDeImagenesAsignadasAlDocumento(string tabla, int id_documento)
+        private List<ImagenModi> GetDatosDeImagenesAsignadasAlDocumento(string tabla, int id_documento)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@tabla", tabla);
             parametros.Add("@id_documento", id_documento);
-            var tablaIds = this.conexion_db.Ejecutar("dbo.MODI_Id_Imagenes_Asignadas_A_Un_Documento", parametros);
+            var tablaIds = this.conexion_db.Ejecutar("dbo.MODI_Imagenes_Asignadas_A_Un_Documento", parametros);
 
-            var listaIdsImagenes = new List<int>();
-            if (tablaIds.Rows.Count > 0)
+            var listaImagenes = new List<ImagenModi>();
+            tablaIds.Rows.ForEach(row =>
             {
-                tablaIds.Rows.ForEach(row =>
-                {
-                    listaIdsImagenes.Add(row.GetInt("id_imagen"));
-                });
-            }
-            return listaIdsImagenes;
+                var imagen = new ImagenModi(row.GetInt("id_imagen"), row.getFloat("orden"));
+                listaImagenes.Add(imagen);
+            });
+            return listaImagenes.OrderBy(i => i.orden).ToList();
         }
 
         private int CategoriaDeUnDocumento(string tabla, int id_documento)
