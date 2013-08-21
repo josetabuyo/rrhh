@@ -105,5 +105,11 @@ namespace TestViaticos
 
               Assert.IsTrue(un_curso.GetHorariosDeCursada().Contains(horario_de_cursada));
           }
+
+          [TestMethod]
+          public void deberia_poder_obtener_el_cuatrimestre_de_cursada_de_un_curso()
+          { 
+              Assert.AreEqual("1°C 2013", un_curso.Cuatrimestre());
+          }
     }
 }
