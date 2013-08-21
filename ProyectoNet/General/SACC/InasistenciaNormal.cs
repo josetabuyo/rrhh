@@ -9,7 +9,7 @@ namespace General
     {
         public override DateTime Fecha { get; set; }
         public override string Descripcion { get { return "Inasistencia Normal"; } }
-        public override int Valor { get { return 4; } }
+        public override int Valor { get { return 5; } }
         public override int IdCurso { get; set; }
         public override int IdAlumno { get; set; }
 
