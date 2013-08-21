@@ -36,12 +36,13 @@
     <fieldset>
         <legend>Asistencias</legend>
         <label>Curso:&nbsp;</label>
-        <select id="CmbCurso" style="width:300px;" onchange="javascript:CargarPlanilla();" runat="server">
+        <select id="CmbCurso" style="width:400px;" onchange="javascript:CargarPlanilla();" runat="server">
             <option value="0">Seleccione</option>
         </select>
         <br />
         <label>Mes:&nbsp;&nbsp;&nbsp;</label>
-        <select id="CmbMes" style="width:300px;text-transform:capitalize" onchange="javascript:CargarPlanilla();" runat="server" enableviewstate="true"></select>
+        <select id="CmbMes" style="width:400px; text-transform:capitalize" 
+            onchange="javascript:CargarPlanilla();" runat="server" enableviewstate="true"></select>
         <input type="hidden" runat="server" id="MesesCurso" />
         <br />
         <label id="lblDocente">Docente:</label>
