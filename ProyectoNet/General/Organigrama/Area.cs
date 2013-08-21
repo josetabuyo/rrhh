@@ -9,40 +9,32 @@
     public class Area
     {
         private int _Id;
-        public int Id
-        {
-            get { return _Id; }
-            set { _Id = value; }
-        }
-
-        public string Alias { get { return NombreConAlias(); } set { } }
         private string _Codigo;
-        public string Codigo
-        {
-            get { return _Codigo; }
-            set { _Codigo = value; }
-        }
-
         private string _Nombre;
-        public string Nombre
-        {
-            get { return _Nombre; }
-            set { _Nombre = value; }
-        }
-
-
         private bool presenta_ddjj;
-        public bool PresentaDDJJ
-        {
-            get { return presenta_ddjj; }
-            set { presenta_ddjj = value; }
-        }
+        private string _Direccion;
+        private List<ContactoArea> _Contacto = new List<ContactoArea>();
+        private Alias _alias;
 
-
-
+        public int Id { get { return _Id; } set { _Id = value; }}
+        public string Alias { get { return NombreConAlias(); } set { } }       
+        public string Codigo {get { return _Codigo; } set { _Codigo = value; }}
+        public string Nombre { get { return _Nombre; } set { _Nombre = value; }}
+        public bool PresentaDDJJ { get { return presenta_ddjj; } set { presenta_ddjj = value; } }
         public List<Persona> Personas { get; set; }
         public List<Asistente> Asistentes { get; set; }
         public List<Area> Dependencias { get; set; }
+        public string Direccion { get { return _Direccion; } set { _Direccion = value; }}
+        public List<Persona> Responsables { get; set; }
+        public Responsable datos_del_responsable;
+        public List<ContactoArea> Contacto { get { return _Contacto; } set { _Contacto = value; }}
+        public string Telefono { get; set; }
+        public string Fax { get; set; }
+        public string Mail { get; set; }
+
+
+
+
 
         public Area(int IdArea)
         {
@@ -86,24 +78,6 @@
             this.SetAlias(new AliasNull());
         }
 
-        private string _Direccion;
-        public string Direccion
-        {
-            get { return _Direccion; }
-            set { _Direccion = value; }
-        }
-
-        public List<Persona> Responsables { get; set; }
-
-        private List<ContactoArea> _Contacto = new List<ContactoArea>();
-        public Responsable datos_del_responsable;
-        public List<ContactoArea> Contacto
-        {
-            get { return _Contacto; }
-            set { _Contacto = value; }
-        }
-
-        private Alias _alias;
 
         public void SetAlias(Alias alias)
         {
@@ -130,12 +104,6 @@
         {
             return this.Nombre;
         }
-
-        public string Telefono { get; set; }
-
-        public string Fax { get; set; }
-
-        public string Mail { get; set; }
 
         public string NombreConAlias()
         {

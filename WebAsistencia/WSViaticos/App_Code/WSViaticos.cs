@@ -1184,6 +1184,22 @@ public class WSViaticos : System.Web.Services.WebService
         };
     }
 
+    private object ObtenerResponsables(List<Persona> responsables)
+    {
+        
+        string responsable_to_string = " yoo ";
+        if (!(responsables == null))
+        {
+            foreach (Persona responsable in responsables)
+            {
+                responsable_to_string = responsable_to_string + responsable.Apellido + responsable.Nombre + "blah";
+            }
+            return responsable_to_string;
+        }
+        return responsable_to_string;
+    }
+
+
     private object ModalidadPara(Modalidad modalidad)
     {
         return new
@@ -1579,6 +1595,46 @@ public class WSViaticos : System.Web.Services.WebService
         return JsonConvert.SerializeObject(espacios_fisicos_dto);
 
     }
+
+
+    [WebMethod]
+    public string GetAreasCompletas(Usuario usuario)
+    {
+
+        List<Area> areas = new RepositorioDeAreas(Conexion()).GetTodasLasAreasCompletas();
+        //var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+        //var autorizador = new Autorizador();
+
+        //areas = autorizador.FiltrarEspaciosFisicosPorUsuario(areas, organigrama, usuario);
+
+        var areas_dto = new List<object>();
+
+        if (areas.Count > 0)
+        {
+            areas.ForEach(delegate(Area area)
+            {
+                areas_dto.Add(new
+                {
+                    id = area.Id,
+                    nombre = area.Nombre,
+                    responsable = ObtenerResponsables(area.Responsables),
+                    asistentes = "él",
+                    telefono = area.Telefono,
+                    fax = area.Fax,
+                    mail = area.Mail,
+                    direccion = area.Direccion
+                    //ANALIZAR DESPUES
+                    //aula = area.Aula,
+                    //edificio = EdificioPara(area.Edificio),
+                    //capacidad = area.Capacidad
+                });
+            });
+        };
+        return JsonConvert.SerializeObject(areas_dto);
+
+    }
+
+
 
     [WebMethod]
     public ItemDeMenu[] ItemsDelMenu(Usuario usuario, string menu)
