@@ -206,9 +206,9 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetPlanillaEvaluaciones(int id_curso)
+    public string GetPlanillaEvaluaciones(int id_curso, int id_instancia)
     {
-        var Planilla = backEndService.GetPlanillaEvaluaciones(id_curso);
+        var Planilla = backEndService.GetPlanillaEvaluaciones(id_curso, id_instancia);
         return Newtonsoft.Json.JsonConvert.SerializeObject(Planilla);
     }
 
@@ -218,6 +218,16 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         var instancias = backEndService.GetInstanciasDeEvaluacion(id_curso);
         return Newtonsoft.Json.JsonConvert.SerializeObject(instancias);
-    }       
+    }
+    [WebMethod(EnableSession = true)]
+    public string GuardarEvaluaciones(string evaluaciones_nuevas, string evaluaciones_originales)
+    {
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        var evaluaciones_nuevas_dto = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.EvaluacionDto[]>(evaluaciones_nuevas);
+        var evaluaciones_originales_dto = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.EvaluacionDto[]>(evaluaciones_originales);
+        
+        var res =backEndService.GuardarEvaluaciones(evaluaciones_nuevas_dto, evaluaciones_originales_dto, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(res);
+    }
 }
 

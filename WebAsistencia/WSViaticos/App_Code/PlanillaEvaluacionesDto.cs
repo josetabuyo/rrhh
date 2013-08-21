@@ -8,9 +8,11 @@ public class EvaluacionDto
 {
     public int Id { get; set; }
     public string Calificacion { get; set; }
-    public int IdAlumno { get; set; }
+    public int DNIAlumno { get; set; }
+
     public int IdCurso { get; set; }
     public string Fecha { get; set; }
+    public int IdInstancia { get; set; }
 }
 
 public class PlanillaEvaluacionesDto

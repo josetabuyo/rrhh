@@ -28,49 +28,49 @@
     </style>
 
 </head>
-<body>
+<body class="marca_de_agua">
     <form id="form1" runat="server">
      <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
-    <div id="DivContenedor" runat="server" style="margin:10px;">
-    
+    <div id="DivContenedor" runat="server" style="margin:10px;">   
+    <fieldset>
+        <legend>Asistencias</legend>
+        <label>Curso:&nbsp;</label>
+        <select id="CmbCurso" style="width:400px;" onchange="javascript:CargarPlanilla();" runat="server">
+            <option value="0">Seleccione</option>
+        </select>
+        <br />
+        <label>Mes:&nbsp;&nbsp;&nbsp;</label>
+        <select id="CmbMes" style="width:400px; text-transform:capitalize" 
+            onchange="javascript:CargarPlanilla();" runat="server" enableviewstate="true"></select>
+        <input type="hidden" runat="server" id="MesesCurso" />
+        <br />
+        <label id="lblDocente">Docente:</label>
+        <label id="Docente" runat="server">&nbsp;</label>
+        <br />
+        <br />
+        <label id="lblHorasCurso">Horas C&aacute;tedra:</label>
+        <label id="HorasCatedraCurso" runat="server">&nbsp;</label>
+        <br />
+        <br />
+        <uc1:planilla ID="PlanillaAsistencia" runat="server" />
 
-    <label>Curso:&nbsp;</label>
-   <select id="CmbCurso" style="width:300px;" onchange="javascript:CargarPlanilla();" runat="server">
-    <option value="0">Seleccione</option>
-    </select>
+        </div>
+        <div id="ContenedorPlanillaAcumulados" runat="server" style="width:40%;">
 
-    <br />
-    <label>Mes:&nbsp;&nbsp;&nbsp;</label>
-    <select id="CmbMes" style="width:300px;text-transform:capitalize" onchange="javascript:CargarPlanilla();" runat="server" enableviewstate="true"></select>
-    <input type="hidden" runat="server" id="MesesCurso" />
-    <br />
-    <label id="lblDocente">Docente:</label>
-    <label id="Docente" runat="server">&nbsp;</label>
-    <br />
-    <br />
-    <label id="lblHorasCurso">Horas C&aacute;tedra:</label>
-    <label id="HorasCatedraCurso" runat="server">&nbsp;</label>
-    <br />
-    <br />
-    <uc1:planilla ID="PlanillaAsistencia" runat="server" />
+        </div>
+        <div style="height:20px; width: 100%">
+        <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
+        <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla();" value="Imprimir" />
+        <br />
+        <br />
+        <textarea id="TxtObservaciones" style="margin-left: 5px;" class="label_observaciones" rows="6" placeholder="Observaciones" ></textarea>
+        </div>
+        <asp:Button style="display:none;" ID="btn_CargarAsistencias" OnClick="CargarAsistencias" runat="server" />
+        <asp:Button style="display:none;" ID="BtnSave" runat="server" Onclick="BtnSave_Click" />
 
-    </div>
-    <div id="ContenedorPlanillaAcumulados" runat="server" style="width:40%;">
-
-    </div>
-    <div style="height:20px; width: 100%">
-    <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
-    <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla();" value="Imprimir" />
-    <br />
-    <br />
-    <textarea id="TxtObservaciones" style="margin-left: 5px;" class="label_observaciones" rows="6" placeholder="Observaciones" ></textarea>
-    </div>
-    <asp:Button style="display:none;" ID="btn_CargarAsistencias" OnClick="CargarAsistencias" runat="server" />
-    <asp:Button style="display:none;" ID="BtnSave" runat="server" Onclick="BtnSave_Click" />
-
-    <asp:HiddenField ID="curso_con_observaciones" runat="server" />
-
+        <asp:HiddenField ID="curso_con_observaciones" runat="server" />
+    </fieldset>
     </form>
 </body>
 <script type="text/javascript">
@@ -102,6 +102,7 @@
             
             var PlanillaMensual = new Grilla(columnas);
 
+            PlanillaMensual.AgregarEstilo("tabla_macc");
             PlanillaMensual.CargarObjetos(AlumnosInasistencias);
             PlanillaMensual.DibujarEn(contenedorPlanilla);
             PlanillaMensual.SetOnRowClickEventHandler(function () {
