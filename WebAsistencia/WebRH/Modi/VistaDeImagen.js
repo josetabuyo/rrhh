@@ -17,13 +17,19 @@ VistaDeImagen.prototype.start = function () {
                 imagen: _this,
                 servicioDeLegajos: _this.o.servicioDeLegajos,
                 onNumeroDeFolioIngresado: function (nro_folio) {
-                    _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
-                        _this.id,
-                        nro_folio,
-                        function () {
-                            _this.nro_folio = nro_folio;
-                            _this.dibujarEn($("#folio_" + nro_folio));
-                        });
+                    if (nro_folio == "") _this.o.servicioDeLegajos.desAsignarImagen(
+                            _this.id,
+                            function () {
+                                _this.nro_folio = nro_folio;
+                                _this.dibujarEn($("#panel_imagenes_no_asignadas .panel_de_imagenes"));
+                            });                     
+                    else _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
+                            _this.id,
+                            nro_folio,
+                            function () {
+                                _this.nro_folio = nro_folio;
+                                _this.dibujarEn($("#folio_" + nro_folio));
+                            });
                 }
             });
         }

@@ -74,12 +74,13 @@ ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajo = functi
     });
 };
 
-ServicioDeDigitalizacionDeLegajos.prototype.desAsignarImagen = function (id_imagen) {
+ServicioDeDigitalizacionDeLegajos.prototype.desAsignarImagen = function (id_imagen, onSuccess) {
     this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/DesAsignarImagen",
         data: {
             id_imagen: id_imagen
         },
         success: function (imagen) {
+            onSuccess();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
