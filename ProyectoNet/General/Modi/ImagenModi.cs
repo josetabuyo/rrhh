@@ -77,26 +77,30 @@ namespace General.Modi
             float nPercentW = 0;
             float nPercentH = 0;
 
-            if (Width == 0) Width = sourceWidth;
-            if (Height == 0) Height = sourceHeight;
-
             nPercentW = ((float)Width / (float)sourceWidth);
             nPercentH = ((float)Height / (float)sourceHeight);
+
+            if (Height == 0) nPercentH = 1;
+            if (Width == 0) nPercentW = 1;
+
             if (nPercentH < nPercentW)
             {
                 nPercent = nPercentH;
-                destX = System.Convert.ToInt16((Width -
-                              (sourceWidth * nPercent)) / 2);
+                if (Width == 0) destX = 0;
+                else  destX = System.Convert.ToInt16((Width - (sourceWidth * nPercent)) / 2);
             }
             else
             {
                 nPercent = nPercentW;
-                destY = System.Convert.ToInt16((Height -
-                              (sourceHeight * nPercent)) / 2);
+                if (Height == 0) destY = 0;
+                else destY = System.Convert.ToInt16((Height - (sourceHeight * nPercent)) / 2);
             }
 
             int destWidth = (int)(sourceWidth * nPercent);
             int destHeight = (int)(sourceHeight * nPercent);
+
+            if (Height == 0) Height = destHeight;
+            if (Width == 0) Width = destWidth;
 
             Bitmap bmPhoto = new Bitmap(Width, Height,
                               PixelFormat.Format24bppRgb);
@@ -115,11 +119,6 @@ namespace General.Modi
 
             grPhoto.Dispose();
             return bmPhoto;
-        }
-
-        private bool ThumbnailCallback()
-        {
-            return false;
         }
     }
 }
