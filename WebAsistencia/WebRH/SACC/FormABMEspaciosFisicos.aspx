@@ -24,6 +24,7 @@
     <div id="panelEspacioFisico" class="div_izquierdo">
     <fieldset>
         <legend>Panel De Espacios Físicos</legend>
+        <div class="estilo_formulario">
             <div>
                 <asp:Label ID="lblAula" CssClass="labels_sacc" runat="server" Text="Aula:"></asp:Label>
                 <asp:TextBox ID="txtAula" placeholder="Aula" name="Aula" runat="server" EnableViewState="false"></asp:TextBox>
@@ -64,6 +65,7 @@
             </div>--%>
              <div runat="server" id="DivMensajeExito" Visible="false" class="alert alert-success">
             <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
+            </div>
             </div>
             </div>
     </fieldset>

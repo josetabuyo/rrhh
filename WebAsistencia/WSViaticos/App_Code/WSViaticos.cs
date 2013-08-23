@@ -1147,7 +1147,6 @@ public class WSViaticos : System.Web.Services.WebService
         Autorizador autorizador = new Autorizador();
         alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
 
-
         var alumnos_dto = new List<Object>();
 
         if (alumnos.Count() > 0)
@@ -1172,6 +1171,34 @@ public class WSViaticos : System.Web.Services.WebService
 
         return JsonConvert.SerializeObject(alumnos_dto);
 
+    }
+
+    [WebMethod]
+    public string GetAlumnoByDNI(int dni)
+    {
+        var alumno = RepoAlumnos().GetAlumnoByDNI(dni);
+
+        var alumno_dto = new AlumnoDto
+        {
+            Id = alumno.Id,
+            Apellido = alumno.Apellido,
+            Nombre = alumno.Nombre,            
+            Documento = alumno.Documento,
+            //Areas = alumno.Areas AreaDtoPara(alumno.Area),
+            Modalidad = ModalidadPara(alumno.Modalidad),
+            Telefono = alumno.Telefono,
+            Mail = alumno.Mail,
+            Direccion = alumno.Direccion,
+            LugarDeTrabajo = alumno.LugarDeTrabajo,
+            FechaDeNacimiento = alumno.FechaDeNacimiento,
+            EstadoDeCursada = alumno.EstadoDeCursada,
+            CicloCursado = alumno.CicloCursado,
+            FechaDeIngreso = alumno.FechaDeIngreso,
+            Baja = alumno.Baja
+
+        };
+
+        return JsonConvert.SerializeObject(alumno_dto);
     }
 
 

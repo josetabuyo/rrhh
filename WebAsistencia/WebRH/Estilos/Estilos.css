@@ -670,3 +670,17 @@ text-align: right;
            background-color: #fff;
           
     }
+    
+     .estilo_formulario 
+    {
+         height:480px;
+        /*margin-left: 10px;*/
+        margin-bottom:10px; 
+        padding:10px 10px;   
+        -webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        }

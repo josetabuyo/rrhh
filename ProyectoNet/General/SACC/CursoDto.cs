@@ -15,5 +15,6 @@ namespace General
         public string FechaInicio { get; set; }
         public string FechaFin { get; set; }
         public string Observaciones { get; set; }
+        public bool EnCurso { get; set; }
     }
 }
