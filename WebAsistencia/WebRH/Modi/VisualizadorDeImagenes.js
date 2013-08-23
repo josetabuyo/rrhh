@@ -10,6 +10,7 @@ VisualizadorDeImagenes.prototype.start = function () {
     this.txtFolio = this.ui.find('#txt_folio');
     var _this = this;
 
+    this.txtFolio.val(this.o.imagen.nro_folio);
     this.txtFolio.keypress(function (event) {
         if (event.which == 13) {
             _this.ui.dialog("close");
@@ -29,7 +30,7 @@ VisualizadorDeImagenes.prototype.start = function () {
     });
     this.panelContenedorImagen.addClass('panel_con_estatica');
     this.o.servicioDeLegajos.getThumbnailPorId(
-        this.o.idImagen,
+        this.o.imagen.id,
         0,
         980,
         function (imagen) {

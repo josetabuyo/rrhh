@@ -8,17 +8,20 @@ VistaDeImagen.prototype.start = function () {
     this.ui = $("#plantilla_ui_imagen").clone();
     this.img_thumbnail = this.ui.find('#img_thumbnail');
     this.img_estatica = this.ui.find('#img_estatica');
+    this.nro_folio = this.o.numeroDeFolio || "";
+
     var _this = this;
     this.ui.click(function () {
         if (!_this.onDrag) {
             new VisualizadorDeImagenes({
-                idImagen: _this.id,
+                imagen: _this,
                 servicioDeLegajos: _this.o.servicioDeLegajos,
                 onNumeroDeFolioIngresado: function (nro_folio) {
                     _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
                         _this.id,
                         nro_folio,
                         function () {
+                            _this.nro_folio = nro_folio;
                             _this.dibujarEn($("#folio_" + nro_folio));
                         });
                 }

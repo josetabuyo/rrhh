@@ -14,7 +14,8 @@ VistaDeFolioModi.prototype.start = function () {
         var vista_imagen = new VistaDeImagen({
             idImagen: this.o.folio.imagen.id,
             servicioDeDragAndDrop: this.o.servicioDeDragAndDrop,
-            servicioDeLegajos: this.o.servicioDeLegajos
+            servicioDeLegajos: this.o.servicioDeLegajos,
+            numeroDeFolio: _this.o.folio.numero_folio
         });
         vista_imagen.dibujarEn(this.ui);
     }
@@ -26,6 +27,7 @@ VistaDeFolioModi.prototype.start = function () {
                 _this.o.servicioDeDragAndDrop.imagenOnDrag.id,
                 _this.o.folio.numero_folio,
                 function () {
+                    _this.o.servicioDeDragAndDrop.imagenOnDrag.nro_folio = _this.o.folio.numero_folio;
                     _this.o.servicioDeDragAndDrop.imagenOnDrag.dibujarEn(_this.ui);
                 });
             return true;
