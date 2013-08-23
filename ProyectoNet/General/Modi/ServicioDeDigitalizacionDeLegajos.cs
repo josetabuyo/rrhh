@@ -50,27 +50,14 @@ namespace General.Modi
             return this.GetImagenPorId(id_imagen).GetThumbnail(alto, ancho);
         }
 
-        public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento, int orden, Usuario usuario)
+        public void AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
         {
-            var orden_flotante = getOrdenFlotanteParaImagen(tabla, id_documento, orden);
-            
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_imagen", id_imagen);
-            parametros.Add("@tabla", tabla);
-            parametros.Add("@orden", orden_flotante);
-            parametros.Add("@id_documento", id_documento);
+            parametros.Add("@nro_folio", nro_folio);
             parametros.Add("@id_usuario", usuario.Id);
 
-            this.conexion_db.EjecutarSinResultado("dbo.MODI_Asignar_Imagen_A_Un_Documento", parametros);
-        }
-
-        private float getOrdenFlotanteParaImagen(string tabla, int id_documento, int orden)
-        {
-            var imagenes_del_doc = this.GetDatosDeImagenesAsignadasAlDocumento(tabla, id_documento);
-            if(imagenes_del_doc.Count==0) return 1;
-            if(orden == 0) return imagenes_del_doc.First().orden/2;
-            if(orden >= imagenes_del_doc.Count) return imagenes_del_doc.Last().orden + 1;
-            return imagenes_del_doc[orden-1].orden + ((imagenes_del_doc[orden].orden - imagenes_del_doc[orden-1].orden)/2); 
+            this.conexion_db.EjecutarSinResultado("dbo.MODI_Asignar_Imagen_A_Folio_De_Legajo", parametros);
         }
 
         public void DesAsignarImagen(int id_imagen, Usuario usuario)
@@ -103,9 +90,9 @@ namespace General.Modi
             var legajos = new List<LegajoModi>();
             var parametros = new Dictionary<string, object>();
             parametros.Add("@doc", numero_de_documento);
-            var tablaLegajo = conexion_db.Ejecutar("dbo.LEG_GET_Datos_Personales", parametros);
+            var tablaLegajos = conexion_db.Ejecutar("dbo.LEG_GET_Datos_Personales", parametros);
 
-            if (tablaLegajo.Rows.Count > 0) legajos.Add(GetLegajoFromTabla(tablaLegajo));
+            if (tablaLegajos.Rows.Count > 0) legajos.AddRange(GetLegajosFromTabla(tablaLegajos));
             return legajos;
         }
 
@@ -115,9 +102,9 @@ namespace General.Modi
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_interna", id_interna);
-            var tablaLegajo = conexion_db.Ejecutar("dbo.MODI_GET_Datos_Personales_Por_Id_interna", parametros);
+            var tablaLegajos = conexion_db.Ejecutar("dbo.MODI_GET_Datos_Personales_Por_Id_interna", parametros);
 
-            if (tablaLegajo.Rows.Count > 0) legajos.Add(GetLegajoFromTabla(tablaLegajo));
+            if (tablaLegajos.Rows.Count > 0) legajos.AddRange(GetLegajosFromTabla(tablaLegajos));
             return legajos;
         }
 
@@ -144,24 +131,12 @@ namespace General.Modi
                                     row.GetString("Apellido"),
                                     row.GetString("Cuil_Nro"));
 
+                this.AgregarImagenesSinAsignarDeUnLegajoALaBase(legajo);
                 legajo.agregarDocumentos(this.DocumentosPara(legajo));
-                legajo.agregarImagenesSinAsignar(this.GetDatosDeImagenesSinAsignarParaElLegajo(legajo));
+                this.SetearEsqueletoDeImagenesAUnLegajo(legajo);
                 legajos.Add(legajo);
             });
             return legajos;
-        }
-        private LegajoModi GetLegajoFromTabla(TablaDeDatos tablaLegajo)
-        {
-            var row = tablaLegajo.Rows.First();
-            var legajo = new LegajoModi(row.GetInt("id_interna"),
-                                    row.GetInt("Nro_Documento"),
-                                    row.GetString("Nombre"),
-                                    row.GetString("Apellido"),
-                                    row.GetString("Cuil_Nro"));
-
-            legajo.agregarDocumentos(this.DocumentosPara(legajo));
-            legajo.agregarImagenesSinAsignar(this.GetDatosDeImagenesSinAsignarParaElLegajo(legajo));
-            return legajo;
         }
 
         private List<DocumentoModi> DocumentosPara(LegajoModi legajo)
@@ -174,9 +149,6 @@ namespace General.Modi
 
             documentos.ForEach(doc =>
             {
-                var imagenes = this.GetDatosDeImagenesAsignadasAlDocumento(doc.tabla, doc.id);
-                doc.imagenesAsignadas.AddRange(imagenes);
-
                 var id_categoria = this.CategoriaDeUnDocumento(doc.tabla, doc.id);
                 doc.idCategoria = id_categoria;
             });
@@ -206,24 +178,28 @@ namespace General.Modi
             return documentos;
         }
 
-        private List<ImagenModi> GetDatosDeImagenesSinAsignarParaElLegajo(LegajoModi legajo)
+        private void SetearEsqueletoDeImagenesAUnLegajo(LegajoModi legajo)
         {
-            var listaImagenes = new List<ImagenModi>();
-            this.AgregarImagenesSinAsignarDeUnLegajoALaBase(legajo);
-
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@legajo", legajo.idInterna);
-            var tablaIds = this.conexion_db.Ejecutar("dbo.MODI_Get_Ids_De_Imagenes_Sin_Asignar_Para_El_Legajo", parametros);
+            parametros.Add("@id_interna", legajo.idInterna);
+            var tablaImagenes = this.conexion_db.Ejecutar("dbo.MODI_Imagenes_De_Un_Legajo", parametros);
 
-            if (tablaIds.Rows.Count > 0)
+            tablaImagenes.Rows.ForEach(row =>
             {
-                tablaIds.Rows.ForEach(row =>
+                var id_imagen = row.GetInt("id_imagen");
+  
+                var imagen = new ImagenModi(row.GetInt("id_imagen"));
+
+                if (!(row.GetObject("nro_folio") is DBNull))
                 {
-                    var imagen = new ImagenModi(row.GetInt("id_imagen"));
-                    listaImagenes.Add(imagen);
-                });
-            }
-            return listaImagenes;
+                    int nro_folio = row.GetInt("nro_folio");
+                    var folio = legajo.GetFolio(nro_folio);
+                    folio.imagen = imagen;
+                }
+                else {
+                    legajo.imagenesSinAsignar.Add(imagen);                
+                }
+            });
         }
 
         private void AgregarImagenesSinAsignarDeUnLegajoALaBase(LegajoModi legajo)
@@ -248,27 +224,11 @@ namespace General.Modi
         private void AgregarImagenSinAsignarALaBase(LegajoModi legajo, ImagenModi imagen)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@legajo", legajo.idInterna);
+            parametros.Add("@id_interna", legajo.idInterna);
             parametros.Add("@nombre_imagen", imagen.nombre);
             parametros.Add("@bytes_imagen", imagen.bytesImagen);
 
             this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros);
-        }
-
-        private List<ImagenModi> GetDatosDeImagenesAsignadasAlDocumento(string tabla, int id_documento)
-        {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@tabla", tabla);
-            parametros.Add("@id_documento", id_documento);
-            var tablaIds = this.conexion_db.Ejecutar("dbo.MODI_Imagenes_Asignadas_A_Un_Documento", parametros);
-
-            var listaImagenes = new List<ImagenModi>();
-            tablaIds.Rows.ForEach(row =>
-            {
-                var imagen = new ImagenModi(row.GetInt("id_imagen"), row.getFloat("orden"));
-                listaImagenes.Add(imagen);
-            });
-            return listaImagenes.OrderBy(i => i.orden).ToList();
         }
 
         private int CategoriaDeUnDocumento(string tabla, int id_documento)

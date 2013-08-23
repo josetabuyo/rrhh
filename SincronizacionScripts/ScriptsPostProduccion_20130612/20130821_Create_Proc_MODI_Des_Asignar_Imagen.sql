@@ -14,8 +14,7 @@ AS
 
 BEGIN
 	UPDATE dbo.MODI_Imagenes 
-	SET id_documento=NULL,
-		tabla=NULL,
+	SET nro_folio=NULL,		
 		id_usuario_ultima_modificacion=@id_usuario,
 		fecha_ultima_modificacion= GETDATE()
 	WHERE id_imagen=@id_imagen

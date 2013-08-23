@@ -7,15 +7,7 @@ VisualizadorDeImagenes.prototype.start = function () {
     this.ui = $("#plantilla_ui_visualizador_imagen").clone();
     this.panelImagen = this.ui.find('#imagen');
     this.panelContenedorImagen = this.ui.find('#contenedor_imagen');
-    this.txtFolio = this.ui.find('#txt_folio');
     var _this = this;
-
-    this.txtFolio.keypress(function (event) {
-        if (event.which == 13) {
-            _this.ui.dialog("close");
-            _this.o.onNumeroDeFolioIngresado(_this.txtFolio.val());
-        }
-    });
 
     this.ui.dialog({
         title: "Cargando Imagen",

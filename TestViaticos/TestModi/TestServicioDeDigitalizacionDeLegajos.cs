@@ -86,7 +86,7 @@ namespace TestViaticos
             Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_GET_Datos_Personales_Por_Apellido_Y_Nombre", Is.Anything }).Will(Return.Value(resultado_sp_legajo_por_apellido_y_nombre));
             Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.LEG_GET_Indice_Documentos", Is.Anything }).Will(Return.Value(resultado_sp_indice_documentos));
             Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_Get_Ids_De_Imagenes_Sin_Asignar_Para_El_Legajo", Is.Anything }).Will(Return.Value(resultado_sp_id_imagenes_sin_asignar));
-            Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_Id_Imagenes_Asignadas_A_Un_Documento", Is.Anything }).Will(Return.Value(resultado_sp_id_imagenes_del_documento));
+            Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_Imagenes_Asignadas_A_Un_Documento", Is.Anything }).Will(Return.Value(resultado_sp_id_imagenes_del_documento));
             Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_Categoria_De_Un_Documento", Is.Anything }).Will(Return.Value(resultado_sp_categoria_del_documento));
             Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_Get_Imagen", Is.Anything }).Will(Return.Value(resultado_sp_get_imagen));
             Expect.AtLeastOnce.On(conexion_mockeada).Method("EjecutarEscalar").With(new object[] { "dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", Is.Anything });
@@ -185,7 +185,6 @@ namespace TestViaticos
             Assert.AreEqual("Lurgo", respuesta.legajos[0].apellido);
             Assert.AreEqual(3, respuesta.legajos[0].imagenesSinAsignar.Count);
             Assert.AreEqual(1, respuesta.legajos[0].documentos.Count);
-            Assert.AreEqual(2, respuesta.legajos[0].documentos[0].imagenesAsignadas.Count);
             Assert.AreEqual(54, respuesta.legajos[0].documentos[0].idCategoria);
         }
     }

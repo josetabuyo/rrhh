@@ -14,33 +14,6 @@
     width:265px;
 }
 
-.folio
-{
-    display:inline-block;
-    position:relative;
-    height: 90px;
-    width: 90px;
-    border: 1px dashed black;
-    margin:5px;  
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -khtml-border-radius: 5px;
-    border-radius: 5px;    
-}
-
-.folio #lbl_folio
-{
-    position:absolute;
-    bottom:2px;
-    right:20px;
-    font-weight:bold;
-}
-
-.folio .imagen_miniatura
-{
-    display:block;
-}
-
 .vista_legajo_fila
 {
     transition: all .6s;
@@ -177,21 +150,12 @@
     padding:5px;
 }
 
-.documento #panel_folios
+.documento #panel_imagenes
 {
     display:inline-block;
     width:50%;      
     border-left: 1px dashed black;
     margin-bottom: -4px;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    white-space: nowrap;
-    list-style-type: none;
-}
-
-.documento #panel_folios:hover  
-{
-    overflow-x:auto; 
 }
 
 .panel_de_imagenes
@@ -209,15 +173,11 @@
     overflow-x:auto; 
 }
 
-.vista_de_legajo #panel_imagenes_no_asignadas .imagen_miniatura
-{
-    margin: 5px;
-}
-
 .imagen_miniatura
 {
     display:inline-block;   
     text-align:center; 
+    margin:5px;   
 	height: 90px;
     width: 90px;
 }
@@ -236,7 +196,6 @@
     border-radius: 5px;
     width: 100%;
     height: 100%;
-    cursor: pointer;
 }
 
 .imagen_miniatura #img_thumbnail:hover
@@ -270,26 +229,14 @@
     border-radius: 5px;
 }
 
-.visualizador_imagen #panel_folio
+.visualizador_imagen #contenedor_imagen #panel_folio
 {
     position: absolute;
     right: 5px;
     top: 5px;
-    background-color: white;
-    padding: 5px;
-    border-color: black;
-    border-radius: 5px;
-    border-style: solid;
-    border-width: 2px;
-    max-height: 28px;
 }
 
-.visualizador_imagen #panel_folio label
-{
-    vertical-align: super;
-}
-
-.visualizador_imagen #panel_folio #txt_folio
+.visualizador_imagen #contenedor_imagen #txt_folio
 {
     width:30px;
 }

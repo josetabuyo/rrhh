@@ -14,7 +14,6 @@ BuscadorDeLegajos.prototype.start = function () {
     this.aviso_legajo_no_encontrado = this.o.ui.find('#aviso_legajo_no_encontrado');
     this.aviso_legajo_no_encontrado.hide();
 };
-
 BuscadorDeLegajos.prototype.buscar = function () {
     var _this = this;
     this.aviso_legajo_no_encontrado.hide();
@@ -50,8 +49,7 @@ BuscadorDeLegajos.prototype.buscar = function () {
                                            _this.input_numero.prop('disabled', false);
                                            _this.aviso_legajo_no_encontrado.show();
                                        });
-                                   };
-
+};
 BuscadorDeLegajos.prototype.mostrandoAvisoDeLegajoNoEncontrado = function () {
     return this.aviso_legajo_no_encontrado.css('display') != 'none';
 };

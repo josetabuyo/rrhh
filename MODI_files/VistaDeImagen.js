@@ -13,15 +13,7 @@ VistaDeImagen.prototype.start = function () {
         if (!_this.onDrag) {
             new VisualizadorDeImagenes({
                 idImagen: _this.id,
-                servicioDeLegajos: _this.o.servicioDeLegajos,
-                onNumeroDeFolioIngresado: function (nro_folio) {
-                    _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
-                        _this.id,
-                        nro_folio,
-                        function () {
-                            _this.dibujarEn($("#folio_" + nro_folio));
-                        });
-                }
+                servicioDeLegajos: _this.o.servicioDeLegajos
             });
         }
     });
@@ -31,8 +23,10 @@ VistaDeImagen.prototype.start = function () {
         start: function (ui) {
             console.log("empezó a dragear: ", _this);
             _this.o.servicioDeDragAndDrop.imagenOnDrag = _this;
+            _this.ui.hide();
         },
-        helper: "clone"
+        helper: "clone",
+        connectToSortable: '.panel_de_imagenes'
     });
 
     this.img_thumbnail.hide();

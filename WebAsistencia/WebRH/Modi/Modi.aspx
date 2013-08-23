@@ -46,12 +46,16 @@
                     <div class="panel_datos_sin_categoria">
                         <label class="titulo">Descripción:</label>
                         <label id="lbl_descripcion_en_RRHH"></label>               
-                        <label class="titulo">Folio:</label>
-                        <label id="lbl_folio"></label>    
                     </div>  
                 </div>        
-                <div id="panel_imagenes">
+                <div id="panel_folios">
                     
+                </div>
+            </div>
+
+            <div id="plantilla_ui_folio" class="folio">
+                <div id="lbl_folio">
+                    Folio 1
                 </div>
             </div>
 
@@ -60,8 +64,12 @@
                 <img alt="" src="" id="img_thumbnail" />
             </div>
 
-            <div id="plantilla_ui_visualizador_imagen" >
-                <div id="contenedor_imagen">                        
+            <div id="plantilla_ui_visualizador_imagen" class="visualizador_imagen"> 
+                <div id="contenedor_imagen">     
+                    <div id="panel_folio">
+                        <label> Folio:</label>
+                        <input id="txt_folio" type="text" />
+                    </div>                  
                     <img alt="" src="" id="imagen" />
                 </div>
             </div>
@@ -95,6 +103,7 @@
     <script type="text/javascript" src="BuscadorDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeLegajoModi.js"></script>
     <script type="text/javascript" src="VistaDeDocumentoModi.js"></script>
+    <script type="text/javascript" src="VistaDeFolioModi.js"></script>
     <script type="text/javascript" src="VistaDeImagen.js"></script>
     <script type="text/javascript" src="ServicioDeDragAndDrop.js"></script>
     <script type="text/javascript" src="ServicioDeDigitalizacionDeLegajos.js"></script>

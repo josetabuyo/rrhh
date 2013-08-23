@@ -60,14 +60,15 @@ ServicioDeDigitalizacionDeLegajos.prototype.getImagenPorId = function (id_imagen
     });
 };
 
-ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajo = function (id_imagen, nro_folio, onSuccess) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/AsignarImagenAFolioDeLegajo",
+ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenADocumento = function (id_imagen, tabla, id_documento, orden) {
+    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/AsignarImagenADocumento",
         data: {
             id_imagen: id_imagen,
-            nro_folio: nro_folio
+            tabla: tabla,
+            id_documento: id_documento,
+            orden: orden
         },
         success: function () {
-            onSuccess();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
