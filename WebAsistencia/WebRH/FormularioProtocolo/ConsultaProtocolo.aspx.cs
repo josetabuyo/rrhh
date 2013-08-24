@@ -31,7 +31,7 @@ public partial class FormularioProtocolo_ConsultaProtocolo : System.Web.UI.Page
 
     private void MostrarAreaEnLaGrilla(WSViaticosSoapClient servicio)
     {
-        var area = JsonConvert.DeserializeObject(servicio.GetAreasCompletas((Usuario)Session[ConstantesDeSesion.USUARIO]));
+        var area = JsonConvert.DeserializeObject(servicio.GetAreasParaProtocolo((Usuario)Session[ConstantesDeSesion.USUARIO]));
         this.areasJSON.Value = area.ToString();
     }
 }

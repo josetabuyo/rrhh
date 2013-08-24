@@ -115,6 +115,54 @@ namespace General.Repositorios
 
         }
 
+         public List<Area> GetAreasParaProtocolo()
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@FechaVigencia", DateTime.Today);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_Get_AreasParaProtocolo", parametros);
+            List<Area> areas_completas = GetTodasLasAreasCompletas();
+            List<Area> areas = new List<Area>();
+            //Area area_completa = new Area();
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    var id_area = row.GetSmallintAsInt("Id_area");
+                    var area_completa = areas_completas.FindAll(ar => ar.Id == id_area);
+                    var area_direccion = " ";
+                    var area_telefono = " ";
+                    var area_mail = " ";
+                    if (area_completa.Count > 0) 
+                    {
+                        area_direccion = area_completa.First().Direccion;
+                        area_telefono = area_completa.First().Telefono;
+                        area_mail = area_completa.First().Mail;
+                    }
+
+                    Responsable datos_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", "");
+
+                    areas.Add(new Area
+                    {
+                        Id = id_area,
+                        Nombre = row.GetString("Descripcion"),
+                        Direccion = area_direccion,
+                        Telefono = area_telefono,
+                        Mail = area_mail,
+     
+                        datos_del_responsable = datos_responsable,
+                        Asistentes = new List<Asistente>(),
+                    });
+                });
+            }
+
+
+
+            return areas;
+         }
+
+
         public List<Area> GetTodasLasAreasCompletas()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetAreasCompletas");
@@ -161,7 +209,7 @@ namespace General.Repositorios
                             Nombre = row.GetString("descripcion"),
                             Direccion = row.GetString("direccion"),
                             Telefono = row.GetString("Telefono_Area"),
-                            Mail = row.GetString("Mail_Area"),
+                            //Mail = row.GetString("Mail_Area"), se saca porque se modificó la tabla tabla areas dato contacto
                             datos_del_responsable = datos_responsable,
                             Asistentes = Asistentes,
 

@@ -70,17 +70,21 @@
                
             </div>
 
-            <div class="tabla_protocolo">
+            <div >
             <%--Antigua grilla
             <uc1:GrillaProtocolo ID="GrillaProtocolo" runat="server" />--%>
 
 
         <fieldset>
-          <legend>Listado de Áreas del Ministerio de Desarrollo Social de Nación</legend>
-            <div id="ContenedorPlanilla" runat="server">
-                <div class="input-append">   
-                    <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Áreas" />    
-                </div>
+          
+                            
+            <%--<legend>Listado de Áreas del Ministerio de Desarrollo Social de Nación</legend>  --%>
+            <div id="ContenedorPlanilla" runat="server" class="tabla_protocolo">
+            <div class="input-append" style="clear:both;"> 
+                    <asp:Label CssClass="titulo_gradiente" runat="server"> Listado de Áreas del Ministerio de Desarrollo Social de Nación</asp:Label>
+                    <input type="text" id="search" class="search" style="float:right; margin:5px;" placeholder="Buscar"/>    
+            </div>  
+
             </div>
         </fieldset>
 
@@ -147,7 +151,7 @@
 
             columnas.push(new Columna("Área", { generar: function (un_area) { return un_area.nombre } }));
             columnas.push(new Columna("Responsable", { generar: function (un_area) { return un_area.responsable } }));
-            columnas.push(new Columna("Asistentes", { generar: function (un_area) { return un_area.asistentes } }));
+            //columnas.push(new Columna("Asistentes", { generar: function (un_area) { return un_area.asistentes } }));
             columnas.push(new Columna("Teléfonos", { generar: function (un_area) { return un_area.telefono } }));
             columnas.push(new Columna("Fax", { generar: function (un_area) { return un_area.fax } }));
             columnas.push(new Columna("Correo Electrónico", { generar: function (un_area) { return un_area.mail } }));
@@ -166,23 +170,9 @@
             PlanillaAreas.DibujarEn(contenedorPlanilla);
 
 
-//            panelArea.CompletarDatosArea = function (un_area) {
-
-//                DeshabilitarNuevo();
-//                $("#idArea").val(un_area.id);
-//                //ANALIZAR LUEGO
-////                $("#txtAula").val(un_area.aula);
-////                $("#cmbEdificio").val(un_area.edificio.id);
-////                $("#txtDireccion").val(un_area.edificio.direccion);
-////                $("#txtCapacidad").val(un_area.capacidad);
-
-//                $("#btnAgregarArea").attr("disabled", true);
-//                $("#btnModificarArea").attr("disabled", false);
-//                $("#btnQuitarArea").attr("disabled", false);
-//            };
 
             var options = {
-                valueNames: ['Área', 'Responsable', 'Asistentes', 'Teléfonos', 'Fax', 'Correo Electrónico', 'Dirección' ]
+                valueNames: ['Área', 'Responsable', 'Teléfonos', 'Fax', 'Correo Electrónico', 'Dirección' ]
             };
 
             var featureList = new List('ContenedorPlanilla', options);
@@ -192,12 +182,7 @@
 
 
             Limpiar($("#idArea"));
-            //ANALIZAR LUEGO
-//            Limpiar($("#txtAula"));
-//            Limpiar($("#txtIdArea"));
-//            Limpiar($("#cmbEdificio"));
-//            Limpiar($('#txtDireccion'));
-//            Limpiar($('#txtCapacidad'));
+
 
             HabilitarNuevo();
         }
@@ -212,5 +197,4 @@
 
         });
 </script>
-
 </html>

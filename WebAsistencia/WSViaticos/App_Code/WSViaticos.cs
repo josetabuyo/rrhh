@@ -1184,19 +1184,24 @@ public class WSViaticos : System.Web.Services.WebService
         };
     }
 
-    private object ObtenerResponsables(List<Persona> responsables)
+    //private object ObtenerAsistentes(List<Persona> responsables) HACER DPS BEL
+    //{
+
+    //    string responsable_to_string = " yoo ";
+    //    if (!(responsables == null))
+    //    {
+    //        foreach (Persona responsable in responsables)
+    //        {
+    //            responsable_to_string = responsable_to_string + responsable.Apellido + responsable.Nombre + "blah";
+    //        }
+    //        return responsable_to_string;
+    //    }
+    //    return responsable_to_string;
+    //}
+
+    private object ObtenerResponsable(Responsable responsable)
     {
-        
-        string responsable_to_string = " yoo ";
-        if (!(responsables == null))
-        {
-            foreach (Persona responsable in responsables)
-            {
-                responsable_to_string = responsable_to_string + responsable.Apellido + responsable.Nombre + "blah";
-            }
-            return responsable_to_string;
-        }
-        return responsable_to_string;
+        return (responsable.Apellido + ", " + responsable.Nombre);
     }
 
 
@@ -1598,10 +1603,10 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public string GetAreasCompletas(Usuario usuario)
+    public string GetAreasParaProtocolo(Usuario usuario)
     {
 
-        List<Area> areas = new RepositorioDeAreas(Conexion()).GetTodasLasAreasCompletas();
+        List<Area> areas = new RepositorioDeAreas(Conexion()).GetAreasParaProtocolo();
         //var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
         //var autorizador = new Autorizador();
 
@@ -1617,8 +1622,8 @@ public class WSViaticos : System.Web.Services.WebService
                 {
                     id = area.Id,
                     nombre = area.Nombre,
-                    responsable = ObtenerResponsables(area.Responsables),
-                    asistentes = "él",
+                    responsable = ObtenerResponsable(area.datos_del_responsable),
+                    //asistentes = ObtenerAsistentes(COMPLETAR DPS,
                     telefono = area.Telefono,
                     fax = area.Fax,
                     mail = area.Mail,

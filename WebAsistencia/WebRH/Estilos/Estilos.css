@@ -17,6 +17,27 @@
 	margin-left: -512px;	
 	background-color: #FFF;
 }
+
+.tabla_protocolo
+{
+    background-color: #111F2F;
+    padding: 2px ;
+    border-radius: 3px;
+	-webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+    -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+    box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+}
+
+.titulo_gradiente
+{
+    float:left;
+    margin:5px; 
+    color: #FFFFFF;
+    font-family: arial, helvetica, sans-serif;
+    font-size: 15px;
+}
+
+
 /*FIN ESTILO GENERAL*/
 
 

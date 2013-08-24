@@ -76,7 +76,7 @@ namespace General.Repositorios
                             Nombre = row.GetString("nombre_area"),
                             Direccion = row.GetString("direccion"),
                             Telefono = row.GetString("Telefono_Area"),
-                            Mail = row.GetString("Mail_Area"),
+                            // Mail = row.GetString("Mail_Area"), Se modifica porque se cambió la tabla "tabla areas dato contacto"
                             datos_del_responsable = datos_responsable,
                             Asistentes = Asistentes,
 
