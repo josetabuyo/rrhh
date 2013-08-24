@@ -273,6 +273,7 @@
     <Compile Include="TransicionesDeAreas.cs" />
     <Compile Include="Seguridad\Usuario.cs" />
     <Compile Include="Validador.cs" />
+    <Compile Include="Visitas\Class1.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

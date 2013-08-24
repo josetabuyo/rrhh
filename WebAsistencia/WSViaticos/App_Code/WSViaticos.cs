@@ -1653,7 +1653,9 @@ public class WSViaticos : System.Web.Services.WebService
 
 #endregion
 
+    #region visitas
 
+    #endregion
 
     [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
