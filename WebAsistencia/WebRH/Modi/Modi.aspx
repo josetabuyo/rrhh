@@ -24,7 +24,7 @@
                 <div id="lbl_titulo_imagenes_no_asignadas"> Imágenes no asiginadas a ningún documento </div>
                 <div id="panel_imagenes_no_asignadas"></div>
                 <div id="lbl_titulo_panel_documentos"> Documentos </div>
-                <div id="lbl_titulo_imagenes_documentos"> Imágenes Asignadas </div>
+                <div id="lbl_titulo_imagenes_documentos"> Folios </div>
                 <div id="panel_documentos"> </div>
            </div>
         </div>
@@ -55,6 +55,8 @@
 
             <div id="plantilla_ui_folio" class="folio">
                 <div class="contenedor_lbl_folio">
+                    <div id="overlay_lbl_folio">
+                    </div>
                     <div id="lbl_folio">
                         Folio 1
                     </div>
@@ -64,6 +66,10 @@
             <div id="plantilla_ui_imagen" class="imagen_miniatura">
                 <img alt="" src="Imagenes/static.gif" id="img_estatica" />
                 <img alt="" src="" id="img_thumbnail" />
+            </div>
+            
+            <div id="plantilla_alerta" class="alerta">
+                <div id="lbl_mensaje"></div>
             </div>
 
             <div id="plantilla_ui_visualizador_imagen" class="visualizador_imagen"> 
@@ -102,6 +108,7 @@
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="Alerta.js"></script>
     <script type="text/javascript" src="BuscadorDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeLegajoModi.js"></script>
     <script type="text/javascript" src="VistaDeDocumentoModi.js"></script>

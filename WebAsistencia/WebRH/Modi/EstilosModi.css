@@ -40,10 +40,23 @@
 .folio #lbl_folio
 {
     position:absolute;
-    top: 71px;
-    right:20px;
-    font-weight:bold;
+    top: 72px;
+    font-weight: bold;
+    width: 90px;
+    text-align: center;
 }
+
+.folio #overlay_lbl_folio
+{
+    position:absolute;
+    top: 72px;
+    background-color: gray;    
+    opacity: 0.5;
+    width: 90px;
+    height: 18px;
+    border-radius: 0px 0px 5px 5px;
+}
+
 
 .folio .imagen_miniatura
 {
@@ -112,7 +125,7 @@
     display: inline-block;
     font-weight: bold;
     font-size:15px;
-    margin-left:555px;
+    margin-left:294px;
 }
 
 #panel_documentos
@@ -179,7 +192,7 @@
 .documento #panel_datos_documento
 {
     display:inline-block;
-    width:49%;    
+    width:29%;    
     vertical-align: top;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
@@ -194,7 +207,7 @@
 .documento #panel_folios
 {
     display:inline-block;
-    width:50%;      
+    width:70%;      
     border-left: 1px dashed black;
     margin-bottom: -4px;
     overflow-x: hidden;

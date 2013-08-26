@@ -24,6 +24,10 @@ VistaDeFolioModi.prototype.start = function () {
         accept: ".imagen_miniatura",
         hoverClass: "folio_drop_hover",
         drop: function (event, ui) {
+            if (_this.ui.find(".imagen_miniatura").length != 0) {
+                new Alerta("Ya hay una imagen asignada al folio elegido");
+                return;
+            }
             _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
                 _this.o.servicioDeDragAndDrop.imagenOnDrag.id,
                 _this.o.folio.numero_folio,
