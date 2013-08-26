@@ -22,7 +22,6 @@
 .folio
 {
     display:inline-block;
-    position:relative;
     height: 90px;
     width: 90px;
     border: 1px dashed black;
@@ -33,10 +32,15 @@
     border-radius: 5px;    
 }
 
+.folio .contenedor_lbl_folio
+{
+    position:relative;
+}
+
 .folio #lbl_folio
 {
     position:absolute;
-    bottom:2px;
+    top: 71px;
     right:20px;
     font-weight:bold;
 }

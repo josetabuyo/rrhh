@@ -54,8 +54,10 @@
             </div>
 
             <div id="plantilla_ui_folio" class="folio">
-                <div id="lbl_folio">
-                    Folio 1
+                <div class="contenedor_lbl_folio">
+                    <div id="lbl_folio">
+                        Folio 1
+                    </div>
                 </div>
             </div>
 
