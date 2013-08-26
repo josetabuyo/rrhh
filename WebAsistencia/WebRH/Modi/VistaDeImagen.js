@@ -41,7 +41,8 @@ VistaDeImagen.prototype.start = function () {
             console.log("empezó a dragear: ", _this);
             _this.o.servicioDeDragAndDrop.imagenOnDrag = _this;
         },
-        helper: "clone"
+        helper: "clone",
+        scroll: false
     });
 
     this.img_thumbnail.hide();

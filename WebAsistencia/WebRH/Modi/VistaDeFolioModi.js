@@ -22,6 +22,7 @@ VistaDeFolioModi.prototype.start = function () {
 
     this.ui.droppable({
         accept: ".imagen_miniatura",
+        hoverClass: "folio_drop_hover",
         drop: function (event, ui) {
             _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
                 _this.o.servicioDeDragAndDrop.imagenOnDrag.id,

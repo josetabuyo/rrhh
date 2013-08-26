@@ -3,6 +3,11 @@
     display:none;
 }
 
+#contenedor_principal_modi
+{
+    height:500px;
+}
+
 #ui_buscador_de_legajos
 {
     padding:5px;
@@ -39,6 +44,11 @@
 .folio .imagen_miniatura
 {
     display:block;
+}
+
+.folio_drop_hover
+{
+    background-color:White;
 }
 
 .vista_legajo_fila
@@ -103,7 +113,7 @@
 
 #panel_documentos
 {
-    max-height: 420px;
+    max-height: 400px;
     overflow-y: auto;
 }
 
@@ -187,6 +197,7 @@
     overflow-y: hidden;
     white-space: nowrap;
     list-style-type: none;
+    height:99px;
 }
 
 .documento #panel_folios:hover  
@@ -220,6 +231,7 @@
     text-align:center; 
 	height: 90px;
     width: 90px;
+    z-index:1;
 }
 
 .imagen_miniatura #img_thumbnail,
