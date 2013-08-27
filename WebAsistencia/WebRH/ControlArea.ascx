@@ -9,6 +9,8 @@
         margin-top: -10px;
         width: 100%;
         font-weight: normal;
+        
+        background-color: #f3f3f3;
     }
     
     .area01datosresaltados
@@ -30,6 +32,24 @@
         margin-top: 50px; /*90px;*/
         background-color: #FFF;
         margin-right: 15px;
+       
+       -moz-box-shadow: 0 5px 10px #ccc;
+      -webkit-box-shadow: 0 5px 10px #ccc;
+      box-shadow: 0 5px 10px #ccc;
+      zoom: 1;
+      filter:
+          progid:DXImageTransform.Microsoft.Shadow(color=#dddddd,direction=0,strength=1),
+          progid:DXImageTransform.Microsoft.Shadow(color=#dddddd,direction=45,strength=1),
+          progid:DXImageTransform.Microsoft.Shadow(color=#dddddd,direction=90,strength=2),
+          progid:DXImageTransform.Microsoft.Shadow(color=#dddddd,direction=135,strength=3),
+          progid:DXImageTransform.Microsoft.Shadow(color=#cccccc,direction=180,strength=10),
+          progid:DXImageTransform.Microsoft.Shadow(color=#dddddd,direction=225,strength=3),
+          progid:DXImageTransform.Microsoft.Shadow(color=#dddddd,direction=270,strength=2),
+          progid:DXImageTransform.Microsoft.Shadow(color=#dddddd,direction=315,strength=1);
+
+             /*   -webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        box-shadow: 3px 3px 19px rgba(0,0,0,0.2);*/
     }
     
     .botones

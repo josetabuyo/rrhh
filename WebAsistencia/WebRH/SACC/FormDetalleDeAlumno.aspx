@@ -13,11 +13,7 @@
     <link id="link3" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
 
     <style>
-        
-        .subtitulos 
-        {
-            text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);
-        }
+
         ul.tabs 
         {
             margin: 0;  

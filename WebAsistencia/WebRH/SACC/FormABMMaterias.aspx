@@ -23,7 +23,7 @@
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelMateria" class="div_izquierdo">
     <fieldset>
-        <legend>Panel De Materias</legend>
+        <legend class="subtitulos">Panel De Materias</legend>
             <div>
                 <asp:Label ID="lblNombre" CssClass="labels_sacc" runat="server" Text="Nombre:"></asp:Label>
                 <asp:TextBox ID="txtNombre" placeholder="Nombre" name="Nombre" runat="server" EnableViewState="false"></asp:TextBox>
@@ -60,7 +60,7 @@
 
     <div class="div_derecho">
         <fieldset>
-        <legend>Listado de Materias</legend>
+        <legend class="subtitulos">Listado de Materias</legend>
         <div id="ContenedorPlanilla" runat="server">
             <div class="input-append">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Materias" />    
@@ -196,6 +196,10 @@
     $(document).ready(function () {
         AdministradorMaterias();
         HabilitarNuevo();
+
+        //Estilos para ver coloreada la grilla en Internet Explorer
+        $("tbody tr:even").css('background-color', '#E6E6FA');
+        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
 
     });
 </script>

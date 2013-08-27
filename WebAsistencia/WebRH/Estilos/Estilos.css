@@ -496,7 +496,7 @@
 /*COMIENZO ESTILO SACC - ALUMNOS */
 
 .table-striped tbody tr:nth-child(odd) td {
-    background-color: lavender;
+    background-color: #E6E6FA;
 }
 
 .table tbody tr:hover td, .table tbody tr:hover th {
@@ -661,6 +661,10 @@ text-align: right;
   background-color: #9CB3D6;
 }
 
+.tabla_macc tr:hover {
+    background-color: #6E89B1 !important;
+}
+
  .marca_de_agua
     {
            background-image: url(../Imagenes/pantalla_1.jpg);
@@ -671,16 +675,23 @@ text-align: right;
           
     }
     
+     .subtitulos 
+    {
+        text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);
+    }
+    
      .estilo_formulario 
     {
-         height:480px;
-        /*margin-left: 10px;*/
-        margin-bottom:10px; 
-        padding:10px 10px;   
-        -webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
-        -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
-        box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
-        }
+        height:480px;
+    /*margin-left: 10px;*/
+    margin-bottom:10px; 
+    padding:10px 10px;   
+    -webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+    -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+    box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    }
+        
+

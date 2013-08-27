@@ -24,7 +24,7 @@
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelAlumno" class="div_izquierdo">
         <fieldset>
-        <legend>Panel De Alumnos</legend>
+        <legend class="subtitulos">Panel De Alumnos</legend>
         <div class="estilo_formulario" style="width:60%; margin-left: 30%;">
         <div class="input-append">   
             <asp:TextBox id="input_dni" CssClass="label_alumno" placeholder="D.N.I" runat="server"></asp:TextBox>
@@ -83,7 +83,7 @@
     </div>
     <div class="div_derecho">
         <fieldset>
-        <legend>Listado de Alumnos</legend>
+        <legend class="subtitulos">Listado de Alumnos</legend>
         <div class="estilo_formulario" style="width:95%; overflow:auto; ">
         <div id="ContenedorPlanilla" runat="server">
              <div class="input-append">   
@@ -267,6 +267,14 @@
     $(document).ready(function () {
         AdministradorPlanillaMensual();
 
+        //Estilos para ver coloreada la grilla en Internet Explorer
+        $("tbody tr:even").css('background-color', '#E6E6FA');
+        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
+
     });
+
+
+
+
 </script>
 </html>

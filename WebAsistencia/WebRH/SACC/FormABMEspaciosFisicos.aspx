@@ -23,7 +23,7 @@
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelEspacioFisico" class="div_izquierdo">
     <fieldset>
-        <legend>Panel De Espacios Físicos</legend>
+        <legend class="subtitulos">Panel De Espacios Físicos</legend>
         <div class="estilo_formulario">
             <div>
                 <asp:Label ID="lblAula" CssClass="labels_sacc" runat="server" Text="Aula:"></asp:Label>
@@ -73,7 +73,7 @@
 
     <div class="div_derecho">
         <fieldset>
-        <legend>Listado de Espacios Físicos</legend>
+        <legend class="subtitulos">Listado de Espacios Físicos</legend>
         <div id="ContenedorPlanilla" runat="server">
             <div class="input-append">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Espacios" />    
@@ -218,6 +218,10 @@
     $(document).ready(function () {
         AdministradorEspaciosFisicos();
         HabilitarNuevo();
+
+        //Estilos para ver coloreada la grilla en Internet Explorer
+        $("tbody tr:even").css('background-color', '#E6E6FA');
+        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
 
     });
 </script>

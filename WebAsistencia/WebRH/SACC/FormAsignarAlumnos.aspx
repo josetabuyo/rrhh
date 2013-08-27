@@ -27,7 +27,7 @@
         <div style="margin:20px;">
         
         <fieldset>
-            <legend>Elija ciclo y curso:</legend>
+            <legend class="subtitulos">Elija ciclo y curso:</legend>
             <p>
             <asp:Label ID="lblCiclo"  runat="server" style="padding-right:5px;"  Text="Ciclo:"></asp:Label>
                 <asp:DropDownList ID="cmbCiclo" runat="server"  EnableViewState="false" 
@@ -124,6 +124,9 @@
 
     $(document).ready(function () {
         AdministradorPlanilla();
+        //Estilos para ver coloreada la grilla en Internet Explorer
+        $("tbody tr:even").css('background-color', '#E6E6FA');
+        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
     });
 
 </script>

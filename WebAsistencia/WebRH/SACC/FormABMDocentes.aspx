@@ -23,7 +23,7 @@
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelDocente" class="div_izquierdo">
     <fieldset>
-       <legend>Panel De Docentes</legend>
+       <legend class="subtitulos">Panel De Docentes</legend>
         <div class="input-append">   
             <asp:TextBox id="input_dni" CssClass="label_alumno" placeholder="D.N.I" runat="server"></asp:TextBox>
             <asp:Button ID="btn_buscar_personas" Text="Buscar" runat="server" OnClick="btnBuscarPersona_Click" class=" btn btn-primary" />
@@ -80,7 +80,7 @@
 
     <div class="div_derecho">
         <fieldset>
-        <legend>Listado de Docentes</legend>
+        <legend class="subtitulos">Listado de Docentes</legend>
         <div id="ContenedorPlanilla" runat="server">
             <div class="input-append">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Docentes" />    
@@ -217,6 +217,10 @@
 
     $(document).ready(function () {
         AdministradorDocentes();
+
+        //Estilos para ver coloreada la grilla en Internet Explorer
+        $("tbody tr:even").css('background-color', '#E6E6FA');
+        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
     });
 </script>
 </html>
