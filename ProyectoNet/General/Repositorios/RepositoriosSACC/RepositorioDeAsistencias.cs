@@ -33,7 +33,6 @@ namespace General.Repositorios
             parametros.Add("id_alumno", asistencia.IdAlumno);
             parametros.Add("id_curso", asistencia.IdCurso);
             parametros.Add("fecha_asistencia", asistencia.Fecha);
-            parametros.Add("descripcion", asistencia.Descripcion);
             parametros.Add("valor", asistencia.Valor);
             parametros.Add("id_usuario", usuario.Id);
             parametros.Add("fecha", DateTime.Now);
@@ -50,37 +49,14 @@ namespace General.Repositorios
             {
                 tablaAsistencias.Rows.ForEach(row =>
                 {
-                    Asistencia asistencia;
-                    switch (row.GetSmallintAsInt("Valor"))
-                    {
-                        case 0:
-                            asistencia = new AsistenciaIndeterminada(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                            break;
-                        case 1:
-                            asistencia = new AsistenciaHoraUno(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                            break;
-                        case 2:
-                            asistencia = new AsistenciaHoraDos(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                            break;
-                        case 3:
-                            asistencia = new AsistenciaHoraTres(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                            break;
-                        case 4:
-                            asistencia = new AsistenciaHoraCuatro(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                            break;
-                        case 5:
-                            asistencia = new InasistenciaNormal(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                            break;
-                        case 6:
-                            asistencia = new AsistenciaClaseSuspendida(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                            break;
-                        default:
-                            asistencia = new AsistenciaIndeterminada(row.GetDateTime("FechaAsistencia"), row.GetSmallintAsInt("IdCurso"), row.GetSmallintAsInt("IdAlumno"));
-                            break;
-                    }
+                    var asistencia = new Asistencia(
+                        row.GetDateTime("FechaAsistencia"),
+                        row.GetSmallintAsInt("Valor"), 
+                        row.GetString("Descripcion"),
+                        row.GetSmallintAsInt("IdCurso"),
+                        row.GetSmallintAsInt("IdAlumno")
+                        );
                     asistencias.Add(asistencia);
-                   
-
                 });
             }
             return asistencias;

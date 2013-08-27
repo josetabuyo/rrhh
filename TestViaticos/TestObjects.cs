@@ -1316,12 +1316,12 @@ namespace General
 
         internal static Asistencia UnAsistenciaPresenteParaZambriEnHistoria()
         {
-            return new AsistenciaHoraUno(DateTime.Today, 1,4);  
+            return new Asistencia(DateTime.Today, 1, "Asistencia Normal", 1, 4);
         }
 
         internal static Asistencia UnAsistenciaAusentePAraZambrienHistoria()
         {
-            return new AsistenciaClaseSuspendida(DateTime.Today, 1, 4);
+            return new Asistencia(DateTime.Today, 3, "Asistencia Normal", 1, 4);
         }
 	    public static List<Evaluacion> Evaluaciones()
         {

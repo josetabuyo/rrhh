@@ -52,18 +52,18 @@ namespace General
             Validador().EstaEnLaColeccion(diasCursable, fecha, "Dias de Cursada");
 
             AgregarAlAlumnoSiNoEsta(un_alumno);
-            AgregarInasistencia(un_alumno, fecha);        
+            //AgregarInasistencia(un_alumno, fecha);        
         }
 
-        private void AgregarInasistencia(Alumno un_alumno, DateTime fecha)
-        {
-            this._asistencias_e_inasistencias[un_alumno].Add(new InasistenciaNormal(fecha));
-        }
+        //private void AgregarInasistencia(Alumno un_alumno, DateTime fecha)
+        //{
+        //    this._asistencias_e_inasistencias[un_alumno].Add(new InasistenciaNormal(fecha));
+        //}
 
-        private void AgregarAsistencia(Alumno un_alumno, DateTime fecha)
-        {
-            this._asistencias_e_inasistencias[un_alumno].Add(new AsistenciaIndeterminada(fecha));
-        }
+        //private void AgregarAsistencia(Alumno un_alumno, DateTime fecha)
+        //{
+        //    this._asistencias_e_inasistencias[un_alumno].Add(new AsistenciaIndeterminada(fecha));
+        //}
 
         private void AgregarAlAlumnoSiNoEsta(Alumno un_alumno)
         {
@@ -84,7 +84,7 @@ namespace General
             Validador().EstaEnLaColeccion(diasCursable, fecha, "Dias de Cursada");
 
             AgregarAlAlumnoSiNoEsta(un_alumno);
-            AgregarAsistencia(un_alumno, fecha);        
+            //AgregarAsistencia(un_alumno, fecha);        
         }
 
         private bool AlumnoPerteneceAlcurso(Alumno un_alumno)

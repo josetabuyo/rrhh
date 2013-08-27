@@ -865,7 +865,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         List<AsistenciaDto> asistencias_dto = new List<AsistenciaDto>();
         var asistencias = RepoAsistencias().GetAsistenciasPorCursoYAlumno(id_curso, id_alumno);
-        asistencias.ForEach(a => asistencias_dto.Add(new AsistenciaDto(a.IdAlumno, a.IdCurso, a.Fecha, a.Valor)));
+        asistencias.ForEach(a => asistencias_dto.Add(new AsistenciaDto(a.IdAlumno, a.IdCurso, a.Fecha, a.Valor, a.Descripcion)));
 
         return asistencias_dto;
     }
@@ -1047,21 +1047,20 @@ public class WSViaticos : System.Web.Services.WebService
 
     private static void CalcularCantidadDeAsistencias(PlanillaMensual planilla, List<Asistencia> detalle_asistencias, out int cant_asistencias, out int cant_inasistencias)
     {
-
+        var horas_catedra = 0;
         var cant_asistencias_aux = 0;
         var cant_inasistencias_aux = 0;
 
         detalle_asistencias.ForEach(a =>
         {
-            if (a.Valor < 5)
+            horas_catedra = planilla.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra;
+            if (a.Valor > 0)
+            {
                 cant_asistencias_aux += a.Valor;
-        });
-        detalle_asistencias.ForEach(a =>
-        {
-            if (a.Valor > 0 && a.Valor < 5)
-                cant_inasistencias_aux += planilla.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra - a.Valor;
-            if (a.Valor == 5)
-                cant_inasistencias_aux += planilla.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra;
+                cant_inasistencias_aux += horas_catedra - a.Valor;
+            }
+            if (a.Valor == -1)
+                cant_inasistencias_aux += horas_catedra;
         });
 
         cant_asistencias = cant_asistencias_aux;
@@ -1071,40 +1070,15 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarDetalleAsistencias(List<AsistenciaDto> asistencias_dto, Usuario usuario)
     {
+        var repo_de_cursos = RepositorioDeCursos();
         List<Asistencia> asistencias = new List<Asistencia>();
-        Asistencia asistencia = null;
         foreach (var item in asistencias_dto)
         {
-            var agrego = item.Fecha <= RepositorioDeCursos().GetCursoById(item.IdCurso).FechaFin &&
-                         item.Fecha >= RepositorioDeCursos().GetCursoById(item.IdCurso).FechaInicio;
+            var agrego = item.Fecha <= repo_de_cursos.GetCursoById(item.IdCurso).FechaFin &&
+                         item.Fecha >= repo_de_cursos.GetCursoById(item.IdCurso).FechaInicio;
             if (agrego)
-            {
-                switch (item.Valor)
-                {
-                    case 0:
-                        asistencia = new AsistenciaIndeterminada(item.Fecha, item.IdCurso, item.IdAlumno);
-                        break;
-                    case 1:
-                        asistencia = new AsistenciaHoraUno(item.Fecha, item.IdCurso, item.IdAlumno);
-                        break;
-                    case 2:
-                        asistencia = new AsistenciaHoraDos(item.Fecha, item.IdCurso, item.IdAlumno);
-                        break;
-                    case 3:
-                        asistencia = new AsistenciaHoraTres(item.Fecha, item.IdCurso, item.IdAlumno);
-                        break;
-                    case 4:
-                        asistencia = new AsistenciaHoraCuatro(item.Fecha, item.IdCurso, item.IdAlumno);
-                        break;
-                    case 5:
-                        asistencia = new InasistenciaNormal(item.Fecha, item.IdCurso, item.IdAlumno);
-                        break;
-                    case 6:
-                        asistencia = new AsistenciaClaseSuspendida(item.Fecha, item.IdCurso, item.IdAlumno);
-                        break;
-                    default:
-                        break;
-                }
+            { 
+                var asistencia = new Asistencia(item.Fecha, item.Valor, item.Descripcion,  item.IdCurso, item.IdAlumno);
                 asistencias.Add(asistencia);
             }
 

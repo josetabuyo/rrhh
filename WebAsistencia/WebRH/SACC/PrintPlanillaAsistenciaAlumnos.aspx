@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>  
-    <script type="text/javascript" src="../Scripts/BotonAsistencia.js"></script>    
+    <script type="text/javascript" src="Scripts/BotonAsistencia.js"></script>    
     <style type="text/css">
     .acumuladas
     {

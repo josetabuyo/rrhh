@@ -119,7 +119,6 @@
     <Compile Include="Organigrama\Organigrama.cs" />
     <Compile Include="Organigrama\OrganigramaException.cs" />
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
-    <Compile Include="SACC\AsistenciaHoraCuatro.cs" />
     <Compile Include="SACC\Articulador.cs" />
     <Compile Include="Seguridad\Auditoria.cs" />
     <Compile Include="Seguridad\Autorizador.cs" />
@@ -223,19 +222,13 @@
     <Compile Include="SACC\Alumno.cs" />
     <Compile Include="SACC\Asistencia.cs" />
     <Compile Include="SACC\AsistenciaDto.cs" />
-    <Compile Include="SACC\AsistenciaNormal.cs" />
     <Compile Include="SACC\CalendarioDeCurso.cs" />
     <Compile Include="SACC\CalendarioDeFeriados.cs" />
-    <Compile Include="SACC\AsistenciaIndeterminada.cs" />
     <Compile Include="SACC\Calificacion.cs" />
     <Compile Include="SACC\CalificacionAusente.cs" />
     <Compile Include="SACC\CalificacionNull.cs" />
     <Compile Include="SACC\CalificacionNumerica.cs" />
     <Compile Include="SACC\Ciclo.cs" />
-    <Compile Include="SACC\AsistenciaHoraDos.cs" />
-    <Compile Include="SACC\AsistenciaHoraTres.cs" />
-    <Compile Include="SACC\AsistenciaHoraUno.cs" />
-    <Compile Include="SACC\AsistenciaClaseSuspendida.cs" />
     <Compile Include="SACC\CalificacionNoNumerica.cs" />
     <Compile Include="SACC\ComparadorDeDiferencias.cs" />
     <Compile Include="SACC\ModalidadNull.cs" />
@@ -253,7 +246,6 @@
     <Compile Include="SACC\GeneradorDePlanillas.cs" />
     <Compile Include="SACC\HorarioDeCursada.cs" />
     <Compile Include="SACC\HorarioDto.cs" />
-    <Compile Include="SACC\InasistenciaNormal.cs" />
     <Compile Include="SACC\InstanciaDeEvaluacion.cs" />
     <Compile Include="SACC\ManagerDeCalendarios.cs" />
     <Compile Include="SACC\Materia.cs" />
