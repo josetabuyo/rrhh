@@ -76,7 +76,7 @@ namespace TestViaticos
             resultado_sp_categoria_del_documento = tabla_vacia;
             resultado_sp_get_imagen = tabla_vacia;
 
-            servicioDeLegajos = new ServicioDeDigitalizacionDeLegajos(conexion_mockeada, file_system_mockeado, "imagenes");
+            servicioDeLegajos = new ServicioDeDigitalizacionDeLegajos(conexion_mockeada);
         }
 
         public void SetupExpectations()

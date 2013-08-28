@@ -108,6 +108,7 @@
     <Compile Include="FiltroDeAreas.cs" />
     <Compile Include="ItemDeMenu.cs" />
     <Compile Include="Mensajeria.cs" />
+    <Compile Include="Modi\ServicioDeCompresionYPersistenciaDeImagenes.cs" />
     <Compile Include="Modi\FolioModi.cs" />
     <Compile Include="Modi\IServicioDeDigitalizacionDeLegajos.cs" />
     <Compile Include="Modi\LegajoModi.cs" />

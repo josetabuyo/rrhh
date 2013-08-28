@@ -10,14 +10,10 @@ namespace General.Modi
     public class ServicioDeDigitalizacionDeLegajos: IServicioDeDigitalizacionDeLegajos
     {
         private IConexionBD conexion_db;
-        private IFileSystem file_system;
-        private string path_imagenes;
 
-        public ServicioDeDigitalizacionDeLegajos(IConexionBD una_conexion, IFileSystem un_file_system, string un_path)
+        public ServicioDeDigitalizacionDeLegajos(IConexionBD una_conexion)
         {
             this.conexion_db = una_conexion;
-            this.file_system = un_file_system;
-            this.path_imagenes = un_path;
         }
 
         public RespuestaABusquedaDeLegajos BuscarLegajos(string criterio)
@@ -131,7 +127,6 @@ namespace General.Modi
                                     row.GetString("Apellido"),
                                     row.GetString("Cuil_Nro"));
 
-                this.AgregarImagenesSinAsignarDeUnLegajoALaBase(legajo);
                 legajo.agregarDocumentos(this.DocumentosPara(legajo));
                 this.SetearEsqueletoDeImagenesAUnLegajo(legajo);
                 legajos.Add(legajo);
@@ -201,36 +196,7 @@ namespace General.Modi
                 }
             });
         }
-
-        private void AgregarImagenesSinAsignarDeUnLegajoALaBase(LegajoModi legajo)
-        {
-            List<String> paths_imagenes;
-            try
-            {
-                paths_imagenes = this.file_system.getPathsArchivosEnCarpeta(this.path_imagenes + "/" + legajo.cuil).Where(s => s.EndsWith(".png") || s.EndsWith(".jpg")).ToList();
-            }
-            catch (ExcepcionDeCarpetaDeLegajoNoEncontrada e)
-            {
-                paths_imagenes = new List<string>();
-            }
-            paths_imagenes.ForEach(pathImagen =>
-            {
-                var imagen = new ImagenModi(Path.GetFileNameWithoutExtension(pathImagen), this.file_system.getImagenFromPath(pathImagen));
-                this.AgregarImagenSinAsignarALaBase(legajo, imagen);
-                this.file_system.moverArchivo(pathImagen, path_imagenes + "/" + legajo.cuil + "/IncorporadasAlSistema");
-            });
-        }
-
-        private void AgregarImagenSinAsignarALaBase(LegajoModi legajo, ImagenModi imagen)
-        {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_interna", legajo.idInterna);
-            parametros.Add("@nombre_imagen", imagen.nombre);
-            parametros.Add("@bytes_imagen", imagen.bytesImagen);
-
-            this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros);
-        }
-
+       
         private int CategoriaDeUnDocumento(string tabla, int id_documento)
         {
             var parametros = new Dictionary<string, object>();

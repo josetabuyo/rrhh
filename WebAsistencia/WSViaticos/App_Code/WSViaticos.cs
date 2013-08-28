@@ -1639,7 +1639,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
     {
-        return new ServicioDeDigitalizacionDeLegajos(Conexion(), new FileSystem(), "\\\\ZEUS\\RRHHyORG\\Organización\\DigitalizacionLegajos");
+        return new ServicioDeDigitalizacionDeLegajos(Conexion());
     }
 
 #endregion
