@@ -183,9 +183,9 @@ namespace TestViaticos
             Assert.AreEqual(205171, respuesta.legajos[0].idInterna);
             Assert.AreEqual("Javier", respuesta.legajos[0].nombre);
             Assert.AreEqual("Lurgo", respuesta.legajos[0].apellido);
-            Assert.AreEqual(3, respuesta.legajos[0].idImagenesSinAsignar.Count);
+            Assert.AreEqual(3, respuesta.legajos[0].imagenesSinAsignar.Count);
             Assert.AreEqual(1, respuesta.legajos[0].documentos.Count);
-            Assert.AreEqual(2, respuesta.legajos[0].documentos[0].idImagenesAsignadas.Count);
+            Assert.AreEqual(2, respuesta.legajos[0].documentos[0].imagenesAsignadas.Count);
             Assert.AreEqual(54, respuesta.legajos[0].documentos[0].idCategoria);
         }
     }

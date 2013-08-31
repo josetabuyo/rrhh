@@ -31,14 +31,14 @@
             <p>
             <asp:Label ID="lblCiclo"  runat="server" style="padding-right:5px;"  Text="Ciclo:"></asp:Label>
                 <asp:DropDownList ID="cmbCiclo" runat="server"  EnableViewState="false" 
-                    Width="250px">
+                    Width="400px">
                     <asp:ListItem Value="-1" class="placeholder" Selected="true">Ciclo</asp:ListItem>
                 </asp:DropDownList>    
             </p>
             <p>
             <asp:Label ID="lblCursos"  runat="server"  Text="Curso:"></asp:Label>
                 <asp:DropDownList ID="cmbCursos" runat="server" EnableViewState="false" 
-                    Width="250px">
+                    Width="400px">
                     <asp:ListItem Value="0" class="placeholder" Selected="true">Cursos</asp:ListItem>
                 </asp:DropDownList>        
             </p>

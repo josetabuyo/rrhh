@@ -998,12 +998,13 @@ public class WSViaticos : System.Web.Services.WebService
 
                 var detalle_asistencias = RepoAsistencias().GetAsistenciasPorCursoYAlumno(planilla_mensual.Curso.Id, alumno.Id);
 
-                var detalle_asistencias_mensual = detalle_asistencias.FindAll(a => a.Fecha.Ticks >= fecha_desde.Ticks && a.Fecha.Ticks <= fecha_hasta.Ticks);
+                var fecha_inicio = fecha_desde.Ticks <= un_curso.FechaInicio.Ticks ? un_curso.FechaInicio : fecha_desde;//fecha_desde : un_curso.FechaInicio;
+                var fecha_fin = fecha_hasta.Ticks >= un_curso.FechaFin.Ticks ? un_curso.FechaFin : fecha_hasta;//fecha_hasta : un_curso.FechaFin;
+
+                var detalle_asistencias_mensual = detalle_asistencias.FindAll(a => a.Fecha.Ticks >= fecha_inicio.Ticks && a.Fecha.Ticks <= fecha_fin.Ticks);
                 var detalle_asistencias_acumuladas = detalle_asistencias.FindAll(a => a.Fecha.Ticks >= un_curso.FechaInicio.Ticks && a.Fecha.Ticks <= fecha_hasta.Ticks);
                 List<object> detalle_asistencia = new List<object>();
 
-                var fecha_inicio = fecha_desde.Ticks <= un_curso.FechaInicio.Ticks ? fecha_desde : un_curso.FechaInicio;
-                var fecha_fin = fecha_hasta.Ticks >= un_curso.FechaFin.Ticks ? fecha_hasta : un_curso.FechaFin;
 
                 detalle_asistencias_mensual.ForEach(d =>
                 {
@@ -1052,14 +1053,14 @@ public class WSViaticos : System.Web.Services.WebService
 
         detalle_asistencias.ForEach(a =>
         {
-            if (a.Valor < 4)
+            if (a.Valor < 5)
                 cant_asistencias_aux += a.Valor;
         });
         detalle_asistencias.ForEach(a =>
         {
-            if (a.Valor > 0 && a.Valor < 4)
+            if (a.Valor > 0 && a.Valor < 5)
                 cant_inasistencias_aux += planilla.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra - a.Valor;
-            if (a.Valor == 4)
+            if (a.Valor == 5)
                 cant_inasistencias_aux += planilla.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra;
         });
 
@@ -1074,30 +1075,38 @@ public class WSViaticos : System.Web.Services.WebService
         Asistencia asistencia = null;
         foreach (var item in asistencias_dto)
         {
-            switch (item.Valor)
+            var agrego = item.Fecha <= RepositorioDeCursos().GetCursoById(item.IdCurso).FechaFin &&
+                         item.Fecha >= RepositorioDeCursos().GetCursoById(item.IdCurso).FechaInicio;
+            if (agrego)
             {
-                case 0:
-                    asistencia = new AsistenciaIndeterminada(item.Fecha, item.IdCurso, item.IdAlumno);
-                    break;
-                case 1:
-                    asistencia = new AsistenciaHoraUno(item.Fecha, item.IdCurso, item.IdAlumno);
-                    break;
-                case 2:
-                    asistencia = new AsistenciaHoraDos(item.Fecha, item.IdCurso, item.IdAlumno);
-                    break;
-                case 3:
-                    asistencia = new AsistenciaHoraTres(item.Fecha, item.IdCurso, item.IdAlumno);
-                    break;
-                case 4:
-                    asistencia = new InasistenciaNormal(item.Fecha, item.IdCurso, item.IdAlumno);
-                    break;
-                case 5:
-                    asistencia = new AsistenciaClaseSuspendida(item.Fecha, item.IdCurso, item.IdAlumno);
-                    break;
-                default:
-                    break;
+                switch (item.Valor)
+                {
+                    case 0:
+                        asistencia = new AsistenciaIndeterminada(item.Fecha, item.IdCurso, item.IdAlumno);
+                        break;
+                    case 1:
+                        asistencia = new AsistenciaHoraUno(item.Fecha, item.IdCurso, item.IdAlumno);
+                        break;
+                    case 2:
+                        asistencia = new AsistenciaHoraDos(item.Fecha, item.IdCurso, item.IdAlumno);
+                        break;
+                    case 3:
+                        asistencia = new AsistenciaHoraTres(item.Fecha, item.IdCurso, item.IdAlumno);
+                        break;
+                    case 4:
+                        asistencia = new AsistenciaHoraCuatro(item.Fecha, item.IdCurso, item.IdAlumno);
+                        break;
+                    case 5:
+                        asistencia = new InasistenciaNormal(item.Fecha, item.IdCurso, item.IdAlumno);
+                        break;
+                    case 6:
+                        asistencia = new AsistenciaClaseSuspendida(item.Fecha, item.IdCurso, item.IdAlumno);
+                        break;
+                    default:
+                        break;
+                }
+                asistencias.Add(asistencia);
             }
-            asistencias.Add(asistencia);
 
         }
         RepoAsistencias().GuardarAsistencias(asistencias, usuario);
@@ -1706,9 +1715,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento, Usuario usuario)
+    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento, int orden, Usuario usuario)
     {
-        servicioDeDigitalizacionDeLegajos().AsignarImagenADocumento(id_imagen, tabla, id_documento, usuario);
+        servicioDeDigitalizacionDeLegajos().AsignarImagenADocumento(id_imagen, tabla, id_documento, orden, usuario);
     }
 
     [WebMethod]
@@ -1725,7 +1734,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
     {
-        return new ServicioDeDigitalizacionDeLegajos(Conexion(), new FileSystem(), "C:/ImagenesLegajos");
+        return new ServicioDeDigitalizacionDeLegajos(Conexion(), new FileSystem(), "\\\\ZEUS\\RRHHyORG\\Organización\\DigitalizacionLegajos");
     }
 
 #endregion

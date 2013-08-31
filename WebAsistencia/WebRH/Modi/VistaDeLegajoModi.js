@@ -53,6 +53,6 @@ VistaDeLegajoModi.prototype.mostrarLegajo = function (legajo) {
         vista_documento.dibujarEn(this.panel_documentos);
     }
 
-    this.panel_imagenes_no_asignadas.cargarImagenes(legajo.idImagenesSinAsignar);
+    this.panel_imagenes_no_asignadas.cargarImagenes(legajo.imagenesSinAsignar);
     this.o.ui.css('opacity', '1');
 };

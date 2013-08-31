@@ -67,9 +67,9 @@
             </div>
 
             <div id="plantilla_ui_panel_imagenes" class="panel_de_imagenes">
-                <div id="aviso_no_hay_imagenes">
+                <li id="aviso_no_hay_imagenes">
                     
-                </div>
+                </li>
             </div>
 
             <div id="plantilla_ui_selector_legajos" class="selector_legajos">

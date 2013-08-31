@@ -11,6 +11,8 @@ namespace General.Modi
 {
     public class ImagenModi
     {
+        public int id { get; set; }
+        public float orden { get; set; }
         public string bytesImagen { get; set; }
         public string nombre { get; set; }
 
@@ -39,6 +41,17 @@ namespace General.Modi
             this.bytesImagen = bytecode;
         }
 
+        public ImagenModi(int id, float orden)
+        {
+            this.id = id;
+            this.orden = orden;
+        }
+
+        public ImagenModi(int id)
+        {
+            this.id = id;
+        }
+
         public ImagenModi GetThumbnail(int alto, int ancho)
         {
             byte[] imageBytes = Convert.FromBase64String(this.bytesImagen);
@@ -47,12 +60,6 @@ namespace General.Modi
 
             ms.Write(imageBytes, 0, imageBytes.Length);
             Image image = Image.FromStream(ms, true);
-
-
-            //var msThumb = new MemoryStream();
-            //image.GetThumbnailImage(alto, ancho, new Image.GetThumbnailImageAbort(ThumbnailCallback), IntPtr.Zero).Save(msThumb, System.Drawing.Imaging.ImageFormat.Jpeg);
-            //byte[] imageBytesThumb = msThumb.ToArray();
-            //return new ImagenModi(this.nombre, Convert.ToBase64String(imageBytesThumb));
 
             return new ImagenModi(this.nombre, FixedSize(image, ancho, alto));
         }

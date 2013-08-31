@@ -122,6 +122,7 @@
     <Compile Include="Organigrama\Organigrama.cs" />
     <Compile Include="Organigrama\OrganigramaException.cs" />
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
+    <Compile Include="SACC\AsistenciaHoraCuatro.cs" />
     <Compile Include="SACC\Articulador.cs" />
     <Compile Include="Seguridad\Auditoria.cs" />
     <Compile Include="Seguridad\Autorizador.cs" />

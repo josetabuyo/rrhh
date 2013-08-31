@@ -7,7 +7,7 @@ namespace General.Modi
 {
     public class DocumentoModi
     {
-        public List<int> idImagenesAsignadas;
+        public List<ImagenModi> imagenesAsignadas;
         public string descripcionEnRRHH { get; set; }
         public string jurisdiccion { get; set; }
         public string organismo { get; set; }
@@ -19,7 +19,7 @@ namespace General.Modi
 
         public DocumentoModi()
         {
-            this.idImagenesAsignadas = new List<int>();
+            this.imagenesAsignadas = new List<ImagenModi>();
         }
         public DocumentoModi(  string una_tabla,
                                 int un_id,
@@ -36,12 +36,12 @@ namespace General.Modi
             this.fechaDesde = una_fecha_desde;
             this.tabla = una_tabla;
             this.id = un_id;
-            this.idImagenesAsignadas = new List<int>();
+            this.imagenesAsignadas = new List<ImagenModi>();
         }
 
         public bool tieneImagenes()
         {
-            return idImagenesAsignadas.Any();
+            return imagenesAsignadas.Any();
         }
 
     }
