@@ -28,12 +28,7 @@
         public List<Persona> Responsables { get; set; }
         public Responsable datos_del_responsable;
         public List<ContactoArea> Contacto { get { return _Contacto; } set { _Contacto = value; }}
-        public string Telefono { get; set; }
-        public string Fax { get; set; }
-        public string Mail { get; set; }
-
-
-
+        public List<DatoDeContacto> DatosDeContacto;
 
 
         public Area(int IdArea)

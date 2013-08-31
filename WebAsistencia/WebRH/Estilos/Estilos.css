@@ -25,7 +25,7 @@
     border-radius: 3px;
 	-webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
     -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
-    box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+    box-shadow: 3px 3px 19px rgba(0,0,0,0.2); 
 }
 
 .titulo_gradiente

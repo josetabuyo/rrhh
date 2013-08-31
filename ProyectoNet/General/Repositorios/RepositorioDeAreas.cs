@@ -132,13 +132,11 @@ namespace General.Repositorios
                     var id_area = row.GetSmallintAsInt("Id_area");
                     var area_completa = areas_completas.FindAll(ar => ar.Id == id_area);
                     var area_direccion = " ";
-                    var area_telefono = " ";
-                    var area_mail = " ";
+                    var area_datos = new List<DatoDeContacto>();
                     if (area_completa.Count > 0) 
                     {
                         area_direccion = area_completa.First().Direccion;
-                        area_telefono = area_completa.First().Telefono;
-                        area_mail = area_completa.First().Mail;
+                        area_datos = area_completa.First().DatosDeContacto;
                     }
 
                     Responsable datos_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", "");
@@ -148,16 +146,12 @@ namespace General.Repositorios
                         Id = id_area,
                         Nombre = row.GetString("Descripcion"),
                         Direccion = area_direccion,
-                        Telefono = area_telefono,
-                        Mail = area_mail,
-     
+                        DatosDeContacto = area_datos,     
                         datos_del_responsable = datos_responsable,
                         Asistentes = new List<Asistente>(),
                     });
                 });
             }
-
-
 
             return areas;
          }
@@ -165,7 +159,7 @@ namespace General.Repositorios
 
         public List<Area> GetTodasLasAreasCompletas()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetAreasCompletas");
+            var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetAreasCompletas_bel");
             List<Area> areas = new List<Area>();
             //tablaDatos.Rows.ForEach(row =>
             //{
@@ -178,12 +172,11 @@ namespace General.Repositorios
 
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    // if (row.GetSmallintAsInt("Id_Funcionalidad") == 1) unUsuario.TienePermisosParaViaticos = true;
-                    // if (row.GetSmallintAsInt("Id_Funcionalidad") == 2) unUsuario.TienePermisosParaSiCoI = true;
 
                     var Asistentes = new List<Asistente>();
                     if (areas.FindAll(a => a.Id == row.GetSmallintAsInt("Id_Area")).Count == 0) //refactorizar, poner un contains
                     {
+                         List<DatoDeContacto> DatosDeContacto = new List<DatoDeContacto>();
 
                         Asistente asistente = new Asistente(row.GetString("Nombre_Asistente"),
                                                             row.GetString("Apellido_Asistente"),
@@ -201,18 +194,17 @@ namespace General.Repositorios
                                                                         row.GetString("Nombre_Asistente"), //Falta cambiar!!!
                                                                         row.GetString("Nombre_Asistente")); //Falta cambiar!!!
 
-                        // unUsuario.Id = row.GetSmallintAsInt("Id_Usuario");
-                        // unUsuario.EsFirmante = row.GetSmallintAsInt("es_firmante") != 0;
+                        DatoDeContacto dato_de_contacto = new DatoDeContacto(row.GetSmallintAsInt("Id_Dato_Area"), row.GetString("Descripcion_Dato_Area"), row.GetString("Dato_Area"), row.GetSmallintAsInt("Orden"));
+                        DatosDeContacto.Add(dato_de_contacto);
+
                         areas.Add(new Area
                         {
                             Id = row.GetSmallintAsInt("Id_Area"),
                             Nombre = row.GetString("descripcion"),
                             Direccion = row.GetString("direccion"),
-                            Telefono = row.GetString("Telefono_Area"),
-                            //Mail = row.GetString("Mail_Area"), se saca porque se modificó la tabla tabla areas dato contacto
                             datos_del_responsable = datos_responsable,
                             Asistentes = Asistentes,
-
+                            DatosDeContacto = DatosDeContacto,
                         });
                     }
                     else
@@ -234,15 +226,25 @@ namespace General.Repositorios
                             area_existente.Asistentes.Add(asistente);
                         }
 
-
+                        if (!area_existente.DatosDeContacto.Any(d => d.Id == row.GetSmallintAsInt("Id_Dato_Area") && d.Orden == row.GetSmallintAsInt("Orden")))
+                        {
+                            DatoDeContacto nuevo_dato = new DatoDeContacto(row.GetSmallintAsInt("Id_Dato_Area"),
+                                                                               row.GetString("Descripcion_Dato_Area"),
+                                                                               row.GetString("Dato_Area"),
+                                                                               row.GetSmallintAsInt("Orden"));
+                            area_existente.DatosDeContacto.Add(nuevo_dato);
+                        }
                     }
 
                 });
 
             }
 
-           // BuscadorDeAreas buscador_de_areas = new BuscadorDeAreas(areas);
-           // return buscador_de_areas.Buscar(DeterminarFiltro(idCombo, dato_ingresado_en_filtro));
+            foreach (Area area in areas)
+            {
+                area.DatosDeContacto.Sort((dato1, dato2) => dato1.esMayorQue(dato2));
+            }
+
             return areas;
         }
 

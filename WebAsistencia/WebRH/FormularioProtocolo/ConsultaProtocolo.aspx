@@ -78,10 +78,10 @@
         <fieldset>
           
                             
-            <%--<legend>Listado de Áreas del Ministerio de Desarrollo Social de Nación</legend>  --%>
-            <div id="ContenedorPlanilla" runat="server" class="tabla_protocolo">
+            <legend>Listado de Áreas del Ministerio de Desarrollo Social de Nación</legend>  
+            <div id="ContenedorPlanilla" runat="server">
             <div class="input-append" style="clear:both;"> 
-                    <asp:Label CssClass="titulo_gradiente" runat="server"> Listado de Áreas del Ministerio de Desarrollo Social de Nación</asp:Label>
+                   <%-- <asp:Label CssClass="titulo_gradiente" runat="server"> Listado de Áreas del Ministerio de Desarrollo Social de Nación</asp:Label>--%>
                     <input type="text" id="search" class="search" style="float:right; margin:5px;" placeholder="Buscar"/>    
             </div>  
 
@@ -161,9 +161,10 @@
             PlanillaAreas = new Grilla(columnas);
 
             PlanillaAreas.AgregarEstilo("tabla_macc");
+            PlanillaAreas.AgregarEstilo("tabla_protocolo");
 
             PlanillaAreas.SetOnRowClickEventHandler(function (un_area) {
-               // panelArea.CompletarDatosArea(un_area);
+                // panelArea.CompletarDatosArea(un_area);
             });
 
             PlanillaAreas.CargarObjetos(areas);
@@ -172,7 +173,7 @@
 
 
             var options = {
-                valueNames: ['Área', 'Responsable', 'Teléfonos', 'Fax', 'Correo Electrónico', 'Dirección' ]
+                valueNames: ['Área', 'Responsable', 'Teléfonos', 'Fax', 'Correo Electrónico', 'Dirección']
             };
 
             var featureList = new List('ContenedorPlanilla', options);
@@ -194,6 +195,10 @@
         $(document).ready(function () {
             AdministradorAreas();
             HabilitarNuevo();
+
+            //Estilos para ver coloreada la grilla en Internet Explorer
+            $("tbody tr:even").css('background-color', '#E6E6FA');
+            $("tbody tr:odd").css('background-color', '#9CB3D6 ');
 
         });
 </script>
