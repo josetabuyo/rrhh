@@ -18,64 +18,6 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
         }
 
-        //public List<Area> GetTodasLasAreas()
-        //{
-        //    var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetOrganigrama");
-        //    List<Area> areas = new List<Area>();
-        //    tablaDatos.Rows.ForEach(row =>
-        //    {
-        //        areas.Add(new Area { Id = row.GetInt("id_area"), Nombre = row.GetString("descripcion"), Codigo = row.GetString("codigo"), PresentaDDJJ = row.GetBoolean("Presenta_DDJJ") });
-        //    });
-        //    areas = areas.Distinct().ToList();
-        //    //var aliases = ObtenerTodosLosAliasDeAreas();
-        //    //aliases.ForEach(alias => areas.Find(area => area.Id == alias.IdArea).SetAlias(alias));
-        //    return areas;
-        //}
-
-        //public Area GetAreaById(int id)
-        //{
-        //    var parametros = new Dictionary<string, object>();
-        //    parametros.Add("@Id_Area", id);
-        //    var tablaDatos = conexion_bd.Ejecutar("dbo.Web_GetAreaById", parametros);
-        //    List<Area> areas = new List<Area>();
-        //    tablaDatos.Rows.ForEach(row =>
-        //    {
-        //        areas.Add(new Area { Id = row.GetInt("id_area"), Nombre = row.GetString("descripcion"), Codigo = row.GetString("codigo") });
-        //    });
-        //    return areas.Distinct(new AreaEquals()).ToList()[0];
-        //}
-
-        //public List<Area> GetAreasAutorizadas(Area unArea)
-        //{
-        //    List<Area> areas = new List<Area>();            
-
-        //    areas.Add(GetAreaSuperiorA(unArea));
-
-        //    var parametros = new Dictionary<string, object>();
-        //    parametros.Add("@Id_Area", unArea.Id);
-        //    var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetSaltosPreferenciales");
-        //    tablaDatos.Rows.ForEach(row =>
-        //    {
-        //        areas.Add(new Area { Id = row.GetInt("id_area"), Nombre = row.GetString("descripcion"), Codigo = row.GetString("codigo") });
-        //    });
-
-        //    return areas;
-        //}
-
-        //public Area GetAreaSuperiorA(Area unArea)
-        //{
-        //    List<Area> areas = new List<Area>();
-
-        //    var parametros = new Dictionary<string, object>();
-        //    parametros.Add("@Id_Area", unArea.Id);
-        //    var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetAreaSuperiorA");
-        //    tablaDatos.Rows.ForEach(row =>
-        //    {
-        //        areas.Add(new Area { Id = row.GetInt("id_area"), Nombre = row.GetString("descripcion"), Codigo = row.GetString("codigo") });
-        //    });
-        //    return areas[0];
-        //}
-
         public void ReloadArea(Area unArea)
         {
             var parametros = new Dictionary<string, object>();
@@ -110,9 +52,6 @@ namespace General.Repositorios
             });
             return alias.Distinct(new AliasEquals()).Single();
 
-
-            //return null;
-
         }
 
          public List<Area> GetAreasParaProtocolo()
@@ -122,11 +61,9 @@ namespace General.Repositorios
             var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_Get_AreasParaProtocolo", parametros);
             List<Area> areas_completas = GetTodasLasAreasCompletas();
             List<Area> areas = new List<Area>();
-            //Area area_completa = new Area();
 
             if (tablaDatos.Rows.Count > 0)
             {
-
                 tablaDatos.Rows.ForEach(row =>
                 {
                     var id_area = row.GetSmallintAsInt("Id_area");
@@ -159,24 +96,17 @@ namespace General.Repositorios
 
         public List<Area> GetTodasLasAreasCompletas()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetAreasCompletas_bel");
+            var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetAreasCompletas");
             List<Area> areas = new List<Area>();
-            //tablaDatos.Rows.ForEach(row =>
-            //{
-            //    areas.Add(new Area { Id = row.GetInt("id_area"), Nombre = row.GetString("descripcion"), Codigo = row.GetString("codigo") });
-            //});
-            //return areas.Distinct(new AreaEquals()).ToList();
 
             if (tablaDatos.Rows.Count > 0)
             {
-
                 tablaDatos.Rows.ForEach(row =>
                 {
-
                     var Asistentes = new List<Asistente>();
                     if (areas.FindAll(a => a.Id == row.GetSmallintAsInt("Id_Area")).Count == 0) //refactorizar, poner un contains
                     {
-                         List<DatoDeContacto> DatosDeContacto = new List<DatoDeContacto>();
+                        List<DatoDeContacto> DatosDeContacto = new List<DatoDeContacto>();
 
                         Asistente asistente = new Asistente(row.GetString("Nombre_Asistente"),
                                                             row.GetString("Apellido_Asistente"),
@@ -185,7 +115,6 @@ namespace General.Repositorios
                                                             row.GetString("Telefono_Asistente"),
                                                             row.GetString("Telefono_Asistente"),//Falta cambiar por Fax!!!
                                                             row.GetString("Mail_Asistente"));
-
                         Asistentes.Add(asistente);
 
                         Responsable datos_responsable = new Responsable(row.GetString("Nombre_Responsable"),
@@ -209,11 +138,9 @@ namespace General.Repositorios
                     }
                     else
                     {
-
                         var area_existente = areas.Find(a => a.Id == row.GetSmallintAsInt("Id_Area"));
                         if (!area_existente.Asistentes.Any(a => a.Apellido == row.GetString("Apellido_Asistente") && a.Descripcion_Cargo == row.GetString("Cargo")))
                         {
-
                             Asistente asistente = new Asistente(row.GetString("Nombre_Asistente"),
                                                                row.GetString("Apellido_Asistente"),
                                                                row.GetString("Cargo"),
@@ -221,7 +148,6 @@ namespace General.Repositorios
                                                                row.GetString("Telefono_Asistente"),
                                                                row.GetString("Telefono_Asistente"),//Falta cambiar por Fax!!!
                                                                row.GetString("Mail_Asistente"));
-
 
                             area_existente.Asistentes.Add(asistente);
                         }
@@ -258,14 +184,5 @@ namespace General.Repositorios
                     return null;
             }
         }
-
-        //public List<Area> GetAreasFormales()
-        //{
-        //    var areas = GetTodasLasAreas();
-
-        //    var areas_formales = areas.FindAll(a => a.PresentaDDJJ);
-        //    return areas_formales;
-        //}
-
     }
 }

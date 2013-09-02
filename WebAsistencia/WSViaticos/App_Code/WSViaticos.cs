@@ -1072,11 +1072,12 @@ public class WSViaticos : System.Web.Services.WebService
     public void GuardarDetalleAsistencias(List<AsistenciaDto> asistencias_dto, Usuario usuario)
     {
         List<Asistencia> asistencias = new List<Asistencia>();
+        var repo_cursos = RepositorioDeCursos();
         Asistencia asistencia = null;
         foreach (var item in asistencias_dto)
         {
-            var agrego = item.Fecha <= RepositorioDeCursos().GetCursoById(item.IdCurso).FechaFin &&
-                         item.Fecha >= RepositorioDeCursos().GetCursoById(item.IdCurso).FechaInicio;
+            var agrego = item.Fecha <= repo_cursos.GetCursoById(item.IdCurso).FechaFin &&
+                         item.Fecha >= repo_cursos.GetCursoById(item.IdCurso).FechaInicio;
             if (agrego)
             {
                 switch (item.Valor)
