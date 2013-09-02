@@ -134,5 +134,51 @@ namespace General
 
             return eval.Aprobado();
         }
+
+        public EstadoDeAlumno EstadoDelAlumno(Alumno alumno, IRepositorioDeCursos repo_cursos, List<Curso> cursos)
+        {
+            var cursos_del_alumno = repo_cursos.GetCursosParaElAlumno(alumno, cursos);
+            var fecha_hoy = DateTime.Today;
+
+            var cursos_ordenados = OrdenarCursosPorFecha(cursos_del_alumno);
+
+           if (cursos_ordenados.First().FechaFin <= fecha_hoy)
+            {
+                return new EstadoAlumnoFinalizado();
+            }
+
+           return new EstadoAlumnoCursando();
+        }
+
+        public Ciclo CicloDelAlumno(Alumno alumno, IRepositorioDeCursos repo_cursos, List<Curso> cursos)
+        {
+            var cursos_del_alumno = repo_cursos.GetCursosParaElAlumno(alumno, cursos);
+
+            var cursos_ordenados = OrdenarCursosPorCiclo(cursos_del_alumno);
+
+            return cursos_ordenados.First().Materia.Ciclo;
+        }
+
+        private List<Curso> OrdenarCursosPorFecha(List<Curso> cursos_del_alumno)
+        {
+            IEnumerable<Curso> sortedCursos =
+                                             from curso in cursos_del_alumno
+                                             orderby curso.FechaFin descending
+                                             select curso;
+
+            var cursos_ordenados = sortedCursos.ToList();
+            return cursos_ordenados;
+        }
+
+        private List<Curso> OrdenarCursosPorCiclo(List<Curso> cursos_del_alumno)
+        {
+            IEnumerable<Curso> sortedCursos =
+                                             from curso in cursos_del_alumno
+                                             orderby curso.Materia.Ciclo.Id descending
+                                             select curso;
+
+            var cursos_ordenados = sortedCursos.ToList();
+            return cursos_ordenados;
+        }
     }
 }

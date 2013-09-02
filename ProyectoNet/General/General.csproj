@@ -122,6 +122,11 @@
     <Compile Include="SACC\AsistenciaHoraCuatro.cs" />
     <Compile Include="SACC\Articulador.cs" />
     <Compile Include="SACC\AlumnoDto.cs" />
+    <Compile Include="SACC\EstadoAlumnoFinalizado.cs" />
+    <Compile Include="SACC\EstadoAlumnoAbandonado.cs" />
+    <Compile Include="SACC\EstadoAlumnoLibre.cs" />
+    <Compile Include="SACC\EstadoAlumnoCursando.cs" />
+    <Compile Include="SACC\EstadoDeAlumno.cs" />
     <Compile Include="Seguridad\Auditoria.cs" />
     <Compile Include="Seguridad\Autorizador.cs" />
     <Compile Include="Seguridad\Features.cs" />
