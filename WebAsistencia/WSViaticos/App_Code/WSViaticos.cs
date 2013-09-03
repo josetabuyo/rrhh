@@ -1072,11 +1072,12 @@ public class WSViaticos : System.Web.Services.WebService
     public void GuardarDetalleAsistencias(List<AsistenciaDto> asistencias_dto, Usuario usuario)
     {
         List<Asistencia> asistencias = new List<Asistencia>();
+        var repo_cursos = RepositorioDeCursos();
         Asistencia asistencia = null;
         foreach (var item in asistencias_dto)
         {
-            var agrego = item.Fecha <= RepositorioDeCursos().GetCursoById(item.IdCurso).FechaFin &&
-                         item.Fecha >= RepositorioDeCursos().GetCursoById(item.IdCurso).FechaInicio;
+            var agrego = item.Fecha <= repo_cursos.GetCursoById(item.IdCurso).FechaFin &&
+                         item.Fecha >= repo_cursos.GetCursoById(item.IdCurso).FechaInicio;
             if (agrego)
             {
                 switch (item.Valor)
@@ -1192,6 +1193,27 @@ public class WSViaticos : System.Web.Services.WebService
             direccion = edificio.Direccion
         };
     }
+
+    //private object ObtenerAsistentes(List<Persona> responsables) HACER DPS BEL
+    //{
+
+    //    string responsable_to_string = " yoo ";
+    //    if (!(responsables == null))
+    //    {
+    //        foreach (Persona responsable in responsables)
+    //        {
+    //            responsable_to_string = responsable_to_string + responsable.Apellido + responsable.Nombre + "blah";
+    //        }
+    //        return responsable_to_string;
+    //    }
+    //    return responsable_to_string;
+    //}
+
+    private object ObtenerResponsable(Responsable responsable)
+    {
+        return (responsable.Apellido + ", " + responsable.Nombre);
+    }
+
 
     private object ModalidadPara(Modalidad modalidad)
     {
@@ -1588,6 +1610,71 @@ public class WSViaticos : System.Web.Services.WebService
         return JsonConvert.SerializeObject(espacios_fisicos_dto);
 
     }
+
+
+    [WebMethod]
+    public string GetAreasParaProtocolo(Usuario usuario)
+    {
+
+        List<Area> areas = new RepositorioDeAreas(Conexion()).GetAreasParaProtocolo();
+        //var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+        //var autorizador = new Autorizador();
+
+        //areas = autorizador.FiltrarEspaciosFisicosPorUsuario(areas, organigrama, usuario);
+
+        var areas_dto = new List<object>();
+
+        if (areas.Count > 0)
+        {
+            areas.ForEach(delegate(Area area)
+            {
+                areas_dto.Add(new
+                {
+                    id = area.Id,
+                    nombre = area.Nombre,
+                    responsable = ObtenerResponsable(area.datos_del_responsable),
+                    //asistentes = ObtenerAsistentes(COMPLETAR DPS, CAMBIARRRRRR
+                    telefono = ObtenerDato(area, ConstantesDeDatosDeContacto.TELEFONO),
+                    fax = ObtenerDato(area, ConstantesDeDatosDeContacto.FAX),
+                    mail = ObtenerDato(area, ConstantesDeDatosDeContacto.MAIL),
+                    direccion = area.Direccion
+                    //ANALIZAR DESPUES
+                    //aula = area.Aula,
+                    //edificio = EdificioPara(area.Edificio),
+                    //capacidad = area.Capacidad
+                });
+            });
+        };
+        return JsonConvert.SerializeObject(areas_dto);
+
+    }
+
+    private string ObtenerDato(Area UnArea, int id_dato)
+    {
+        string datos_listados = "";
+
+        if (UnArea.DatosDeContacto.Any(d => d.Id == id_dato))
+        {
+            List<DatoDeContacto> datos = UnArea.DatosDeContacto.ToList().FindAll(dc => dc.Id == id_dato);
+
+            foreach (DatoDeContacto dato in datos)
+            {
+                datos_listados += " " + dato.Dato + " / ";
+            }
+
+        }
+
+        if (datos_listados.Length > 2)
+        {
+            return datos_listados.Substring(0, (datos_listados.Length - 2));
+        }
+        else
+        {
+            return datos_listados;
+        }
+    }
+
+
 
     [WebMethod]
     public ItemDeMenu[] ItemsDelMenu(Usuario usuario, string menu)
