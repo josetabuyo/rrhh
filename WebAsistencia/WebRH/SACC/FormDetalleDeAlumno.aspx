@@ -22,7 +22,7 @@
             float: left;  
             list-style: none;  
             height: auto;  
-            width: 80%; 
+            width: 90%; 
             border-left:2px solid #777; 
             border-bottom:2px solid #777;
         }
@@ -96,7 +96,7 @@
             overflow: auto; 
             clear: both; 
             float: left; 
-            width: 80%; 
+            width: 90%; 
             height:500px;
             background: #eee;
             -webkit-border-bottom-right-radius: 8px;
@@ -121,6 +121,9 @@
         {
             float:left;
             margin:10px 10px;
+            border:2px solid #000;
+            padding:2px;
+            background-color:#f3f3f3;
            
             }
         
@@ -131,7 +134,7 @@
             
         .contenedor_ficha 
         {
-            width:80%;
+            width:100%;
             /*border:1px solid #000;   */
             font-size:11px;
             margin-bottom:10px;
@@ -175,7 +178,14 @@
         .oficina 
         {
             font-size:1.2em;
-            }
+        }
+            
+        #contenedor_global 
+        {
+            width:80%;
+            text-align:center;
+            margin:0 auto;    
+        }
     
     </style>
 
@@ -187,10 +197,10 @@
      <fieldset>
         <legend class="subtitulos">Ficha del Alumno</legend>
      </fieldset>
-
+     <div id="contenedor_global">
      <div id="datos_personales" class="contenedor_ficha">
-        <p id="nombre" class="nombre"></p>
-        <p class="oficina">Oficina:<span id="oficina" class=""></span></p>
+        <p class="nombre">Nombre: <span id="nombre" class=""></span></p>
+        <p class="nombre">Oficina: <span id="oficina" class=""></span></p>
         <img id="ficha_alumno" src="../Imagenes/31475729.jpg" alt="foto" width="95" height="95"  class="imagen" />
               
         <div id="contenedor_tabla">
@@ -261,7 +271,7 @@
         <li><a href="#tab1">Cursadas</a></li>
         <li><a href="#tab2">Asistencias</a></li>
         <li><a href="#tab3">Evaluaciones</a></li>
-        <li><a href="#tab3">M&aacute;s informaci&oacute;n</a></li>
+        <li><a href="#tab4">M&aacute;s informaci&oacute;n</a></li>
     </ul>
     <div class="Contenedor">
         <div id="tab1" class="Contenido">
@@ -272,15 +282,17 @@
             <h2>Listado de Asistencia por Curso</h2>
             <h2>Detalle de Asistencia por Curso</h2>
         </div>
-        <div id="tab3" Class="Contenido">
-            <h2>Calificaciones por Curso</h2>
-            <div id="ContenedorPlanillaEvaluaciones" runat="server"></div>
+        <div id="tab3" class="Contenido">
+            <h2 id="sub_eval_1">Calificaciones por Curso</h2>
+            <div id="ContenedorPlanillaEvaluaciones" style="width:50%;" runat="server"></div>
+            <h2 id="sub_eval_2"></h2>
+            <div id="ContenedorPlanillaEvaluacionesDetalle" style="width:50%;" runat="server"></div>
         </div>
-        <div id="tab4" Class="Contenido">
+        <div id="tab4" class="Contenido">
             <h2>Mas informacion</h2>
         </div>
     </div>
-
+    </div>
 
      <asp:HiddenField ID="alumnoJSON" runat="server" EnableViewState="true"/>
      <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
@@ -289,6 +301,7 @@
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/FichaAlumno.js"></script>
 
     <script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
@@ -300,73 +313,35 @@
 
     <script type="text/javascript">
         var AdministradorFichaAlumno = function () {
-            var alumno = JSON.parse($('#alumnoJSON').val());
-            var cursos_inscriptos = JSON.parse($('#cursosJSON').val());
-            var contenedorPlanillaCursos = $('#ContenedorPlanillaCursos');
-            var contenedorPlanillaEvaluaciones = $('#ContenedorPlanillaEvaluaciones');
 
-            var EncabezadoPlanilla;
-            // contenedorFichaAlumno = $('#contenedor_tabla');
-            var columnas = [];
+            var items_pantalla = {
+                alumno: JSON.parse($('#alumnoJSON').val()),
+                cursos_inscriptos: JSON.parse($('#cursosJSON').val()),
+                evaluaciones_por_curso: JSON.parse($('#evaluacionesJSON').val()),
+                contenedorPlanillaCursos: $('#ContenedorPlanillaCursos'),
+                contenedorPlanillaEvaluaciones: $('#ContenedorPlanillaEvaluaciones'),
+                contenedorPlanillaEvaluacionesDetalle: $('#ContenedorPlanillaEvaluacionesDetalle'),
+                sub_eval_2: $("#sub_eval_2"),
+                PlanillaCursos: $("<div>"),
+                PlanillaEvaluaciones: $("<div>"),
+                PlanillaEvaluacionesDetalle: $("<div>"),
+                ficha_nombre: $('#nombre'),
+                ficha_oficina: $('#oficina'),
+                ficha_dni: $('#dni'),
+                ficha_telefono: $('#telefono'),
+                ficha_perfil: $('#perfil'),
+                ficha_modalidad: $('#modalidad'),
+                ficha_celular: $('#celular'),
+                ficha_estado:  $('#estado'),
+                ficha_mail: $('#mail'),
+                ficha_aniocursado: $('#anio_cursando'),
+                ficha_direccion:  $('#direccion'),
+                ficha_tutor:  $('#tutor'),
+                ficha_fecha_nac: $('#fecha_nac'),
+                ficha_ingreso: $('#fecha_ingreso')
+            }
 
-            $('#nombre').html(alumno.Nombre);
-            $('#oficina').html(alumno.Areas[0].Nombre);
-            $('#dni').html(alumno.Documento);
-            $('#perfil').html('Alumno');
-            $('#telefono').html(alumno.Telefono);
-            $('#modalidad').html(alumno.Modalidad.Descripcion);
-            $('#celular').html(alumno.Celular);
-            $('#estado').html(alumno.EstadoDeAlumno);
-            $('#mail').html(alumno.Mail);
-            $('#anio_cursando').html(alumno.CicloCursado);
-            $('#direccion').html(alumno.Direccion);
-            $('#tutor').html(alumno.Tutor);
-            $('#fecha_nac').html(alumno.FechaDeNacimiento);
-            $('#fecha_ingreso').html(alumno.FechaDeIngreso);
-
-
-            columnas.push(new Columna("Materia", { generar: function (un_curso) { return un_curso.Materia.Nombre } }));
-            columnas.push(new Columna("Ciclo", { generar: function (un_curso) { return un_curso.Materia.Ciclo.Nombre } }));
-            columnas.push(new Columna("Docente", { generar: function (un_curso) { return un_curso.Docente.Nombre } }));
-            columnas.push(new Columna("Espacio Fisico", { generar: function (un_curso) { return un_curso.EspacioFisico.Edificio.Nombre } }));
-            columnas.push(new Columna("Horario", { generar: function (un_curso) {
-                var horario = $.map(un_curso.Horarios, function (val, index) {
-                    return val.Dia.substring(0, 3) + " " + val.HoraDeInicio + " - " + val.HoraDeFin;
-                }).join("<br>"); return horario;
-            } 
-            }));
-            columnas.push(new Columna("Estado", { generar: function (un_curso) { return "En Curso" } }));
-            columnas.push(new Columna("Fecha Inicio", { generar: function (un_curso) { return un_curso.FechaInicio } }));
-            columnas.push(new Columna("Fecha Fin", { generar: function (un_curso) { return un_curso.FechaFin } }));
-
-            PlanillaCursos = new Grilla(columnas);
-
-            PlanillaCursos.AgregarEstilo("tabla_macc");
-
-            //            PlanillaCursos.SetOnRowClickEventHandler(function (un_curso) {
-            //                panelCurso.CompletarDatosCurso(un_curso);
-            //            });
-
-            PlanillaCursos.CargarObjetos(cursos_inscriptos);
-            PlanillaCursos.DibujarEn(contenedorPlanillaCursos);
-
-//            columnas = [];
-
-//            columnas.push(new Columna("Materia", { generar: function (un_curso) { return un_curso.Materia.Nombre } }));
-//            columnas.push(new Columna("Ciclo", { generar: function (un_curso) { return un_curso.Materia.Ciclo.Nombre } }));
-//            columnas.push(new Columna("Docente", { generar: function (un_curso) { return un_curso.Docente.Nombre } }));
-//            columnas.push(new Columna("Estado", { generar: function (un_curso) {
-//                var evaluacion = $.map(un_curso.Horarios, function (val, index) {
-//                    return val.Dia.substring(0, 3) + " " + val.HoraDeInicio + " - " + val.HoraDeFin;
-//                }).join("<br>"); return horario;
-//            }
-//            }));
-//            //columnas.push(new Columna("Estado", { generar: function (un_curso) { return "En Curso" } }));
-//            columnas.push(new Columna("Fecha Inicio", { generar: function (un_curso) { return un_curso.FechaInicio } }));
-//            columnas.push(new Columna("Fecha Fin", { generar: function (un_curso) { return un_curso.FechaFin } }));
-
-
-
+            var ficha_alumno = new FichaAlumno(items_pantalla);
 
         };
 
@@ -389,10 +364,7 @@
             AdministradorFichaAlumno();
         });
 
-//        $(document).ready(function () {
-//            AdministradorFichaAlumno();
 
-//        });
     </script>
     </form>
 </body>
