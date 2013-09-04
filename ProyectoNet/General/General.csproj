@@ -96,6 +96,7 @@
     <Compile Include="MICOI\FiltroDeDocumentosPorTipoDocumento.cs" />
     <Compile Include="MICOI\FiltroDeDocumentosPorTransicion.cs" />
     <Compile Include="MICOI\Mensajeria.cs" />
+    <Compile Include="Modi\FolioModi.cs" />
     <Compile Include="Modi\IServicioDeDigitalizacionDeLegajos.cs" />
     <Compile Include="Modi\LegajoModi.cs" />
     <Compile Include="Modi\DocumentoModi.cs" />

@@ -12,24 +12,7 @@ PanelDeImagenes.prototype.start = function () {
     this.ui.droppable({
         accept: ".imagen_miniatura",
         drop: function (event, ui) {
-            return true;
-        }
-    });
-
-    this.ui.sortable({
-        connectWith: '.panel_de_imagenes',
-        placeholder: 'placeholder_sortable',
-        scroll: true,
-        tolerance: 'intersect',
-        stop: function (event, ui) {
-            var posicion_en_la_que_dropeo = _this.ui.find(".imagen_miniatura").index(ui.item);
-            var vista_imagen = _this.o.servicioDeDragAndDrop.imagenOnDrag;
-            var panel_origen = vista_imagen.panelContenedor;
-            ui.item.remove();
-            _this.agregarVistaImagen(vista_imagen, posicion_en_la_que_dropeo);
-            panel_origen.quitarVistaImagen(vista_imagen);
-            _this.o.onImagenDropeada(vista_imagen, posicion_en_la_que_dropeo);
-            console.log('Dropearon en la posicion:' + posicion_en_la_que_dropeo);
+            _this.o.onImagenDropeada(_this.o.servicioDeDragAndDrop.imagenOnDrag);
         }
     });
     this.ui.disableSelection();
@@ -56,15 +39,8 @@ PanelDeImagenes.prototype.quitarVistaImagen = function (imagen) {
     if (this.cantidadDeImagenes() == 0) this.aviso_no_hay_imagenes.show();
 };
 
-PanelDeImagenes.prototype.agregarVistaImagen = function (imagen, posicion) {
-    var cantidad_de_imagenes_original = this.cantidadDeImagenes();
-    if (posicion === undefined || this.cantidad_de_imagenes_original == 0 || posicion >= cantidad_de_imagenes_original) {
-        imagen.dibujarEn(this.ui);
-    }
-    if ((posicion !== undefined) && (posicion < cantidad_de_imagenes_original)) {
-        $(this.ui.find(".imagen_miniatura")[posicion]).before(imagen.ui);
-    }
-    imagen.panelContenedor = this;
+PanelDeImagenes.prototype.agregarVistaImagen = function (imagen) {
+    imagen.dibujarEn(this.ui);    
     imagen.ui.show();
     this.aviso_no_hay_imagenes.hide();
 };

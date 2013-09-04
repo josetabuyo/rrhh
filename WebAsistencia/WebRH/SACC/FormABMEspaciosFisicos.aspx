@@ -73,7 +73,7 @@
         <fieldset>
         <legend>Listado de Espacios Físicos</legend>
         <div id="ContenedorPlanilla" runat="server">
-            <div class="input-append">   
+            <div class="input-append" style="clear:both;">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Espacios" />    
             </div>
         </div>
