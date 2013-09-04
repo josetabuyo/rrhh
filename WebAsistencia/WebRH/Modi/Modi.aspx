@@ -24,7 +24,7 @@
                 <div id="lbl_titulo_imagenes_no_asignadas"> Imágenes no asiginadas a ningún documento </div>
                 <div id="panel_imagenes_no_asignadas"></div>
                 <div id="lbl_titulo_panel_documentos"> Documentos </div>
-                <div id="lbl_titulo_imagenes_documentos"> Imágenes Asignadas </div>
+                <div id="lbl_titulo_imagenes_documentos"> Folios </div>
                 <div id="panel_documentos"> </div>
            </div>
         </div>
@@ -33,6 +33,8 @@
             <div id="ui_buscador_de_legajos">
                 <input id="input_numero" type="text" class="span2"/>
                 <div id="aviso_legajo_no_encontrado" class="alert alert-danger">
+                </div>
+                <div id="progress_bar">
                 </div>
             </div>
 
@@ -46,12 +48,20 @@
                     <div class="panel_datos_sin_categoria">
                         <label class="titulo">Descripción:</label>
                         <label id="lbl_descripcion_en_RRHH"></label>               
-                        <label class="titulo">Folio:</label>
-                        <label id="lbl_folio"></label>    
                     </div>  
                 </div>        
-                <div id="panel_imagenes">
+                <div id="panel_folios">
                     
+                </div>
+            </div>
+
+            <div id="plantilla_ui_folio" class="folio">
+                <div class="contenedor_lbl_folio">
+                    <div id="overlay_lbl_folio">
+                    </div>
+                    <div id="lbl_folio">
+                        Folio 1
+                    </div>
                 </div>
             </div>
 
@@ -59,9 +69,17 @@
                 <img alt="" src="Imagenes/static.gif" id="img_estatica" />
                 <img alt="" src="" id="img_thumbnail" />
             </div>
+            
+            <div id="plantilla_alerta" class="alerta">
+                <div id="lbl_mensaje"></div>
+            </div>
 
-            <div id="plantilla_ui_visualizador_imagen" >
-                <div id="contenedor_imagen">                        
+            <div id="plantilla_ui_visualizador_imagen" class="visualizador_imagen"> 
+                <div id="contenedor_imagen">     
+                    <div id="panel_folio">
+                        <label> Folio:</label>
+                        <input id="txt_folio" type="text" />
+                    </div>                  
                     <img alt="" src="" id="imagen" />
                 </div>
             </div>
@@ -89,12 +107,13 @@
         </asp:ScriptManager>
     </form>
 </body>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"> </script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="Alerta.js"></script>
     <script type="text/javascript" src="BuscadorDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeLegajoModi.js"></script>
     <script type="text/javascript" src="VistaDeDocumentoModi.js"></script>
+    <script type="text/javascript" src="VistaDeFolioModi.js"></script>
     <script type="text/javascript" src="VistaDeImagen.js"></script>
     <script type="text/javascript" src="ServicioDeDragAndDrop.js"></script>
     <script type="text/javascript" src="ServicioDeDigitalizacionDeLegajos.js"></script>

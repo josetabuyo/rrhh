@@ -71,6 +71,7 @@
     <Compile Include="Asistencia\ConceptoDeLicencia.cs" />
     <Compile Include="Asistencia\PaseDeArea.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
+    <Compile Include="ConstantesDeDatosDeContacto.cs" />
     <Compile Include="ExcepcionDeValidacion.cs" />
     <Compile Include="MICOI\AccionDeTransicion.cs" />
     <Compile Include="MICOI\Alias.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="MICOI\FiltroDeDocumentosPorTipoDocumento.cs" />
     <Compile Include="MICOI\FiltroDeDocumentosPorTransicion.cs" />
     <Compile Include="MICOI\Mensajeria.cs" />
+    <Compile Include="Modi\FolioModi.cs" />
     <Compile Include="Modi\IServicioDeDigitalizacionDeLegajos.cs" />
     <Compile Include="Modi\LegajoModi.cs" />
     <Compile Include="Modi\DocumentoModi.cs" />
@@ -112,6 +114,8 @@
     <Compile Include="Organigrama\Asistentes.cs" />
     <Compile Include="Organigrama\BuscadorDeAreas.cs" />
     <Compile Include="Organigrama\ContactoArea.cs" />
+    <Compile Include="Organigrama\AreaDto.cs" />
+    <Compile Include="DatosDeContacto.cs" />
     <Compile Include="Organigrama\FiltroDeAreas.cs" />
     <Compile Include="Organigrama\InterpretadorDeCodigosDeArea.cs" />
     <Compile Include="Organigrama\Nodo.cs" />

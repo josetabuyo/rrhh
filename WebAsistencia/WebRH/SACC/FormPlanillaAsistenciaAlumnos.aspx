@@ -103,6 +103,10 @@
     $(document).ready(function () {
         AdministradorPlanillaMensual();
         CargarComboMeses();
+
+        //Estilos para ver coloreada la grilla en Internet Explorer
+        $("tbody tr:even").css('background-color', '#E6E6FA');
+        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
     });
 
     function GuardarDetalleAsistencias() {

@@ -73,7 +73,7 @@
         <fieldset>
         <legend>Listado de Espacios Físicos</legend>
         <div id="ContenedorPlanilla" runat="server">
-            <div class="input-append">   
+            <div class="input-append" style="clear:both;">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Espacios" />    
             </div>
         </div>
@@ -217,6 +217,9 @@
         AdministradorEspaciosFisicos();
         HabilitarNuevo();
 
+        //Estilos para ver coloreada la grilla en Internet Explorer
+        $("tbody tr:even").css('background-color', '#E6E6FA');
+        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
     });
 </script>
 </html>

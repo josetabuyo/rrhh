@@ -953,17 +953,30 @@ namespace General
             List<Asistente> lista_de_asistentes_area2 = new List<Asistente>();
             List<Asistente> lista_de_asistentes_area3 = new List<Asistente>();
 
-            area1.Telefono = "4333-1111";
-            area2.Telefono = "4333-2222";
-            area3.Telefono = "4333-3333";
+            List<DatoDeContacto> datos_de_contacto = new List<DatoDeContacto>();
+            var lista_de_telefonos = new List<string>(){ "4333-1111", "4333-2222", "4333-3333"};
+            var lista_de_mails = new List<string>(){"area1@ministerio.gob.ar", "area2@ministerio.gob.ar", "area3@mds.gob.ar"};
+            var lista_de_faxes = new List<string>(){"4888-1111", "4999-2222", "4999-3333"};
 
-            area1.Mail = "area1@ministerio.gob.ar";
-            area2.Mail = "area2@ministerio.gob.ar";
-            area3.Mail = "area3@mds.gob.ar";
-
-            area1.Fax = "4888-1111";
-            area2.Fax = "4999-2222";
-            area3.Fax = "4999-3333";
+            DatoDeContacto dato_de_telefonos = new DatoDeContacto(1, "Teléfono", "4333-1111", 1);
+            DatoDeContacto dato_de_telefonos2 = new DatoDeContacto(1, "Teléfono", "4333-1111", 1);
+            DatoDeContacto dato_de_telefonos3 = new DatoDeContacto(1, "Teléfono", "4333-1111", 1);
+            DatoDeContacto dato_de_faxes = new DatoDeContacto(2, "Fax", "4888-1111", 1);
+            DatoDeContacto dato_de_faxes2 = new DatoDeContacto(2, "Fax", "4888-1111", 1);
+            DatoDeContacto dato_de_faxes3 = new DatoDeContacto(2, "Fax", "4888-1111", 1);
+            DatoDeContacto dato_de_mails = new DatoDeContacto(3, "Mail", "area1@ministerio.gob.ar", 1);
+            DatoDeContacto dato_de_mails2 = new DatoDeContacto(3, "Mail", "area1@ministerio.gob.ar", 1);
+            DatoDeContacto dato_de_mails3 = new DatoDeContacto(3, "Mail", "area1@ministerio.gob.ar", 1);
+            
+            datos_de_contacto.Add(dato_de_telefonos);
+            datos_de_contacto.Add(dato_de_mails);
+            datos_de_contacto.Add(dato_de_faxes);
+            datos_de_contacto.Add(dato_de_telefonos2);
+            datos_de_contacto.Add(dato_de_mails2);
+            datos_de_contacto.Add(dato_de_faxes2);
+            datos_de_contacto.Add(dato_de_telefonos3);
+            datos_de_contacto.Add(dato_de_mails3);
+            datos_de_contacto.Add(dato_de_faxes3);
 
             area1.Direccion = "9 de Julio 1925";
             area2.Direccion = "17 de Agosto 1850";

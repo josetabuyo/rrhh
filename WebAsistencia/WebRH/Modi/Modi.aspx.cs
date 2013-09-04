@@ -15,8 +15,6 @@ public partial class AltaDeDocumento : System.Web.UI.Page
         Sesion.VerificarSesion(this);
         usuarioLogueado = ((Usuario)Session[ConstantesDeSesion.USUARIO]);
         
-        Sesion.VerificarSesion(this);
-
         if (!usuarioLogueado.TienePermisosParaModil)//mesa de entrada
         {      
             Response.Redirect("~/SeleccionDeArea.aspx");
