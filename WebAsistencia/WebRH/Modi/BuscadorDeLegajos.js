@@ -79,7 +79,7 @@ BuscadorDeLegajos.prototype.mostrarModal = function () {
 };
 
 BuscadorDeLegajos.prototype.mostrarBarraDeEspera = function () {
-    this.progress_bar = $('<div>');
+    this.progress_bar = $("<div>");
     var progress_label = $("<div>");
     progress_label.css("float", "left");
     progress_label.css("margin-left", "25%");

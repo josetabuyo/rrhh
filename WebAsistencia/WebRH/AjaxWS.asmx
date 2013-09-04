@@ -17,6 +17,7 @@ using System.Web.Script.Services;
 public class AjaxWS : System.Web.Services.WebService {
     private WSViaticos.WSViaticosSoapClient backEndService;
     private WSViaticos.Usuario usuarioLogueado;
+    
     public AjaxWS () {
         this.backEndService = new WSViaticos.WSViaticosSoapClient();
         this.usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
@@ -31,7 +32,7 @@ public class AjaxWS : System.Web.Services.WebService {
         return backEndService.GuardarDocumento_Ajax(documento_dto, usuarioLogueado);
     }
 
-    [WebMethod(EnableSession = false)]
+    [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)] 
     public string GetDocumentosFiltrados(String filtros)
     {

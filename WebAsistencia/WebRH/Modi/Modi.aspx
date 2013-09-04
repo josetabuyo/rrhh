@@ -34,6 +34,8 @@
                 <input id="input_numero" type="text" class="span2"/>
                 <div id="aviso_legajo_no_encontrado" class="alert alert-danger">
                 </div>
+                <div id="progress_bar">
+                </div>
             </div>
 
             <div id="plantilla_ui_documento" class="documento">
@@ -105,8 +107,7 @@
         </asp:ScriptManager>
     </form>
 </body>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"> </script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
     <script type="text/javascript" src="Alerta.js"></script>
     <script type="text/javascript" src="BuscadorDeLegajos.js"></script>
