@@ -174,6 +174,6 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
     private bool DatosEstanCompletos()
     {
-        return !((this.txtAula.Text == "") || (this.cmbEdificio.SelectedIndex < 1) || (this.txtCapacidad.Text == "") || (this.txtCapacidad.Text == "Capacidad") || (this.txtAula.Text == "Aula"));
+        return !((this.txtAula.Text == "") || (this.cmbEdificio.SelectedIndex < 1) || (this.txtCapacidad.Text == "") || (this.txtCapacidad.Text == "Capacidad") || (this.txtAula.Text == "Aula") );
     }
 }
