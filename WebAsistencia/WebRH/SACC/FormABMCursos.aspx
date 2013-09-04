@@ -83,7 +83,7 @@
         <fieldset>
         <legend class="subtitulos">Listado de Cursos</legend>
         <div id="ContenedorPlanilla" runat="server">
-            <div class="input-append">   
+            <div class="input-append" style="clear:both;">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Cursos" />    
             </div>
         </div>

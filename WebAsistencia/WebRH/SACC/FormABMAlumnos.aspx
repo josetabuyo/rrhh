@@ -86,7 +86,7 @@
         <legend class="subtitulos">Listado de Alumnos</legend>
         <div class="estilo_formulario" style="width:95%; overflow:auto; ">
         <div id="ContenedorPlanilla" runat="server">
-             <div class="input-append">   
+             <div class="input-append" style="clear:both;">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" />    
             </div>
         </div>

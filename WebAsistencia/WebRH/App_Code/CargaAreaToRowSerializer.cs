@@ -22,11 +22,16 @@ public class CargaAreaToRowSerializer : EntityToRowConverter<Area>
             area.datos_del_responsable.Apellido + ", " + area.datos_del_responsable.Nombre,
             this.ObtenerAsistentes(area),
             //falta agregar el boton para los datos de los asistentes
-            area.Telefono,
-            area.Fax,
-            area.Mail,
+            this.ObtenerTelefonos(area),
+            //area.Fax,
+            //area.Mail,
             area.Direccion
        };
+    }
+
+    private string ObtenerTelefonos(Area area)
+    {
+        return "probando Carga Area To Row Seriaizer";
     }
 
         private string boton_quitar(Estadia estadia)
