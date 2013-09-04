@@ -6,7 +6,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using General.Calendario;
 using NMock2;
-using TestViaticos.TestSACC;
 
 namespace TestViaticos
 {
