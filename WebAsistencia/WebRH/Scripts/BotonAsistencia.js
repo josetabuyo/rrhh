@@ -22,7 +22,7 @@ var CrearBotonAsistencia = function (id_alumno, dia_cursado, valor, valor_maximo
 var CambiarEstado = function (boton) {
 
     var colores = new Array(); // ['btn_blanco_clicked', 'btn_verde_clicked', 'btn_verde_clicked', 'btn_verde_clicked', 'btn_amarillo_clicked'];
-    var etiquetas = new Array(); // ['  ', '1', '2', '3', 'A', '-'];
+    var etiquetas = new Array(); // ['  ', '1', '2', '3', '4', 'A', '-'];
     var valores = new Array();
 
     colores[0] = 'btn_blanco_clicked';
@@ -37,11 +37,11 @@ var CambiarEstado = function (boton) {
 
     colores[colores.length] = 'btn_amarillo_clicked';
     etiquetas[etiquetas.length] = 'A';
-    valores[valores.length] = 4;
+    valores[valores.length] = 5;
 
     colores[colores.length] = 'btn_amarillo_clicked';
     etiquetas[etiquetas.length] = '-';
-    valores[valores.length] = 5;
+    valores[valores.length] = 6;
 
     var estado = $(boton).attr('estado');
 
@@ -72,11 +72,11 @@ var InicializarBoton = function (boton) {
 
     colores[colores.length] = 'btn_amarillo_clicked';
     etiquetas[etiquetas.length] = 'A';
-    valores[valores.length] = 4;
+    valores[valores.length] = 5;
 
     colores[colores.length] = 'btn_amarillo_clicked';
     etiquetas[etiquetas.length] = '-';
-    valores[valores.length] = 5;
+    valores[valores.length] = 6;
 
 
     for (var h = 0; h <= valores.length; h++) {

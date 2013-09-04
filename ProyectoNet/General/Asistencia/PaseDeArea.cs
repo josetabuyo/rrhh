@@ -12,35 +12,35 @@ namespace General
         public int Id
         {
             get { return _Id; }
-            set { _Id = value;  }
+            set { _Id = value; }
         }
 
         private DateTime _Fecha;
         public DateTime Fecha
         {
             get { return _Fecha; }
-            set { _Fecha = value;  }
+            set { _Fecha = value; }
         }
 
         private Area _AreaOrigen;
         public Area AreaOrigen
         {
             get { return _AreaOrigen; }
-            set { _AreaOrigen = value;  }
+            set { _AreaOrigen = value; }
         }
 
         private Area _AreaDestino;
         public Area AreaDestino
         {
             get { return _AreaDestino; }
-            set { _AreaDestino = value;  }
+            set { _AreaDestino = value; }
         }
 
         private Auditoria _Auditoria;
         public Auditoria Auditoria
         {
             get { return _Auditoria; }
-            set { _Auditoria = value;  }
+            set { _Auditoria = value; }
         }
 
         private Persona _Persona;
@@ -50,5 +50,5 @@ namespace General
             set { _Persona = value; }
         }
 
-     }
+    }
 }

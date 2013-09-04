@@ -34,20 +34,20 @@
                 onclick="btnNuevaPlanilla_Click" class=" btn btn-primary boton_main_documentos" 
                 Visible="False"/> 
         </div>
-
-
-        <img src="Imagenes/area.png" alt="area" width="315" height="54" class="areaadminis" />
+        <br /><br />
+        <legend style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">Áreas a Administrar </legend>
+        <%--<img src="Imagenes/area.png" alt="area" width="315" height="54" class="areaadminis" />--%>
         <a href="FormularioProtocolo/ConsultaProtocolo.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image14','','Imagenes/Botones/consprotocolo_s2.png',1)">
-            <img src="Imagenes/Botones/consprotocolo.png" width="130" height="16" class="lalala"
+            <img src="Imagenes/Botones/consprotocolo.png" width="161" height="20" class="lalala"
                 id="Image14" /></a>
                 <%--<a href="FormularioDeViaticosAprobacion/FControlDeAprobacion.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('gestionar','','Imagenes/Botones/gestiontramites_s2.png',1)">
                     <img src="Imagenes/Botones/gestiontramites.png" width="175" height="16" class="gestionar"
                         id="gestionar" /></a>--%>
-        <div class="edificio">
-            <%--<img src="Imagenes/eva_contenta.jpg" alt="edificio" width="200" height="306" />--%>
-        </div>
+       <%-- <div class="edificio">
+            <img src="Imagenes/eva_contenta.jpg" alt="edificio" width="200" height="306" />
+        </div>--%>
 
-        <div style="float: left;">
+        <div style="clear: both;">
             <%--<uc1:ControlArea runat="server"></uc1:ControlArea>--%>
             <%--<asp:Table ID="TablaAreas" runat="server"></asp:Table>--%>
             <asp:Panel ID="Panel" runat="server"></asp:Panel>

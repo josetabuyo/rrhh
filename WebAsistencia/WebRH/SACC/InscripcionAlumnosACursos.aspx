@@ -10,11 +10,11 @@ Inherits="FormularioDetalleDeViaticos_FDetalleDeViaticos" %>
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
-    <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
+    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+
 </head>
-<body>
+<body class="marca_de_agua">
     <form id="form1" runat="server">
          <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
 
@@ -39,6 +39,8 @@ Inherits="FormularioDetalleDeViaticos_FDetalleDeViaticos" %>
 </body>
 
 <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+<script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
+<script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
 <%--<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>--%>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
@@ -49,6 +51,7 @@ Inherits="FormularioDetalleDeViaticos_FDetalleDeViaticos" %>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
+<script type="text/javascript" src="../Scripts/alertify.js"></script>
 
 <script type="text/javascript">
     $('#selectorAlumnosyCursos').attr('data-source', $('#<%= ListaAreas.ClientID %>').val());

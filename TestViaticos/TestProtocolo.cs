@@ -128,67 +128,67 @@ namespace General
          }
 
 
-         [TestMethod]
-         public void al_buscar_en_una_lista_de_áreas_una_parte_de_telefono_devuelve_todos_las_áreas_cuyo_telefono_de_asistente_o_responsable_o_area_contiene_el_texto_buscado()
-         {
-             string dato_ingresado_en_filtro = "2222";
+         //[TestMethod]
+         //public void al_buscar_en_una_lista_de_áreas_una_parte_de_telefono_devuelve_todos_las_áreas_cuyo_telefono_de_asistente_o_responsable_o_area_contiene_el_texto_buscado()
+         //{
+         //    string dato_ingresado_en_filtro = "2222";
 
-             List<Area> areas = AreasCompletas();
+         //    List<Area> areas = AreasCompletas();
 
-             BuscadorDeAreas buscador_de_areas = new BuscadorDeAreas(areas);
-             FiltroDeAreas filtro = new FiltroDeAreas(FiltroDeAreas.PredicadoPorTelefono, dato_ingresado_en_filtro);
-             List<Area> areas_filtradas = buscador_de_areas.Buscar(filtro);
+         //    BuscadorDeAreas buscador_de_areas = new BuscadorDeAreas(areas);
+         //    FiltroDeAreas filtro = new FiltroDeAreas(FiltroDeAreas.PredicadoPorTelefono, dato_ingresado_en_filtro);
+         //    List<Area> areas_filtradas = buscador_de_areas.Buscar(filtro);
 
-             Assert.AreEqual(2, areas_filtradas.Count);
-             Assert.IsTrue(areas_filtradas.TrueForAll(area => area.Asistentes.Exists(asistente => asistente.Telefono.Contains(dato_ingresado_en_filtro)) || area.datos_del_responsable.Telefono.Contains(dato_ingresado_en_filtro) || area.Telefono.Contains(dato_ingresado_en_filtro)));
-         }
+         //    Assert.AreEqual(2, areas_filtradas.Count);
+         //    Assert.IsTrue(areas_filtradas.TrueForAll(area => area.Asistentes.Exists(asistente => asistente.Telefono.Contains(dato_ingresado_en_filtro)) || area.datos_del_responsable.Telefono.Contains(dato_ingresado_en_filtro) || area.Telefono.Contains(dato_ingresado_en_filtro)));
+         //}
 
-         [TestMethod]
-         public void al_buscar_en_una_lista_de_áreas_un_email_devuelve_todos_las_áreas_cuyo_email_de_asistente_o_responsable_o_area_contiene_el_texto_buscado()
-         {
-             string dato_ingresado_en_filtro = "fabian";
+         //[TestMethod]
+         //public void al_buscar_en_una_lista_de_áreas_un_email_devuelve_todos_las_áreas_cuyo_email_de_asistente_o_responsable_o_area_contiene_el_texto_buscado()
+         //{
+         //    string dato_ingresado_en_filtro = "fabian";
 
-             List<Area> areas = AreasCompletas();
+         //    List<Area> areas = AreasCompletas();
 
-             BuscadorDeAreas buscador_de_areas = new BuscadorDeAreas(areas);
-             FiltroDeAreas filtro = new FiltroDeAreas(FiltroDeAreas.PredicadoPorMail, dato_ingresado_en_filtro);
-             List<Area> areas_filtradas = buscador_de_areas.Buscar(filtro);
+         //    BuscadorDeAreas buscador_de_areas = new BuscadorDeAreas(areas);
+         //    FiltroDeAreas filtro = new FiltroDeAreas(FiltroDeAreas.PredicadoPorMail, dato_ingresado_en_filtro);
+         //    List<Area> areas_filtradas = buscador_de_areas.Buscar(filtro);
 
-             Assert.AreEqual(1, areas_filtradas.Count);
-             Assert.IsTrue(areas_filtradas.TrueForAll(area => area.Asistentes.Exists(asistente => asistente.Mail.Contains(dato_ingresado_en_filtro)) || area.datos_del_responsable.Mail.Contains(dato_ingresado_en_filtro) || area.Mail.Contains(dato_ingresado_en_filtro)));
-         }
+         //    Assert.AreEqual(1, areas_filtradas.Count);
+         //    Assert.IsTrue(areas_filtradas.TrueForAll(area => area.Asistentes.Exists(asistente => asistente.Mail.Contains(dato_ingresado_en_filtro)) || area.datos_del_responsable.Mail.Contains(dato_ingresado_en_filtro) || area.Mail.Contains(dato_ingresado_en_filtro)));
+         //}
 
-         [TestMethod]
-         public void al_buscar_en_una_lista_de_áreas_un_email_devuelve_dos_emails__uno_de_asistente_y_otro_de_area__que_contienen_el_texto_buscado()
-         {
-             string dato_ingresado_en_filtro = "@mds";
+         //[TestMethod]
+         //public void al_buscar_en_una_lista_de_áreas_un_email_devuelve_dos_emails__uno_de_asistente_y_otro_de_area__que_contienen_el_texto_buscado()
+         //{
+         //    string dato_ingresado_en_filtro = "@mds";
 
-             List<Area> areas = AreasCompletas();
+         //    List<Area> areas = AreasCompletas();
 
-             BuscadorDeAreas buscador_de_areas = new BuscadorDeAreas(areas);
-             FiltroDeAreas filtro = new FiltroDeAreas(FiltroDeAreas.PredicadoPorMail, dato_ingresado_en_filtro);
-             List<Area> areas_filtradas = buscador_de_areas.Buscar(filtro);
+         //    BuscadorDeAreas buscador_de_areas = new BuscadorDeAreas(areas);
+         //    FiltroDeAreas filtro = new FiltroDeAreas(FiltroDeAreas.PredicadoPorMail, dato_ingresado_en_filtro);
+         //    List<Area> areas_filtradas = buscador_de_areas.Buscar(filtro);
 
-             Assert.AreEqual(2, areas_filtradas.Count);
-             Assert.IsTrue(areas_filtradas.TrueForAll(area => area.Asistentes.Exists(asistente => asistente.Mail.Contains(dato_ingresado_en_filtro)) || area.datos_del_responsable.Mail.Contains(dato_ingresado_en_filtro) || area.Mail.Contains(dato_ingresado_en_filtro)));
-         }
+         //    Assert.AreEqual(2, areas_filtradas.Count);
+         //    Assert.IsTrue(areas_filtradas.TrueForAll(area => area.Asistentes.Exists(asistente => asistente.Mail.Contains(dato_ingresado_en_filtro)) || area.datos_del_responsable.Mail.Contains(dato_ingresado_en_filtro) || area.Mail.Contains(dato_ingresado_en_filtro)));
+         //}
 
 
 
-         [TestMethod]
-         public void al_buscar_en_una_lista_de_áreas_un_fax_devuelve_todos_las_áreas_cuyo_fax_de_asistente_o_responsable_o_area_contiene_el_texto_buscado()
-         {
-             string dato_ingresado_en_filtro = "888";
+         //[TestMethod]
+         //public void al_buscar_en_una_lista_de_áreas_un_fax_devuelve_todos_las_áreas_cuyo_fax_de_asistente_o_responsable_o_area_contiene_el_texto_buscado()
+         //{
+         //    string dato_ingresado_en_filtro = "888";
 
-             List<Area> areas = AreasCompletas();
+         //    List<Area> areas = AreasCompletas();
 
-             BuscadorDeAreas buscador_de_areas = new BuscadorDeAreas(areas);
-             FiltroDeAreas filtro = new FiltroDeAreas(FiltroDeAreas.PredicadoPorFax, dato_ingresado_en_filtro);
-             List<Area> areas_filtradas = buscador_de_areas.Buscar(filtro);
+         //    BuscadorDeAreas buscador_de_areas = new BuscadorDeAreas(areas);
+         //    FiltroDeAreas filtro = new FiltroDeAreas(FiltroDeAreas.PredicadoPorFax, dato_ingresado_en_filtro);
+         //    List<Area> areas_filtradas = buscador_de_areas.Buscar(filtro);
 
-             Assert.AreEqual(1, areas_filtradas.Count);
-             Assert.IsTrue(areas_filtradas.TrueForAll(area => area.Asistentes.Exists(asistente => asistente.Fax.Contains(dato_ingresado_en_filtro)) || area.datos_del_responsable.Fax.Contains(dato_ingresado_en_filtro) || area.Fax.Contains(dato_ingresado_en_filtro)));
-         }
+         //    Assert.AreEqual(1, areas_filtradas.Count);
+         //    Assert.IsTrue(areas_filtradas.TrueForAll(area => area.Asistentes.Exists(asistente => asistente.Fax.Contains(dato_ingresado_en_filtro)) || area.datos_del_responsable.Fax.Contains(dato_ingresado_en_filtro) || area.Fax.Contains(dato_ingresado_en_filtro)));
+         //}
 
         
          private List<Area> AreasCompletas()
