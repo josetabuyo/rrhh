@@ -47,6 +47,9 @@ public partial class SeleccionDeArea : System.Web.UI.Page
         }
         //esto se usa para encriptar las fotos, NO DESCOMENTAR NI BORRAR
         //GetFotosDelDirectorio();
+
+        if (usuario.TienePermisosParaVisitas)//Sistema para el registro de visitas del edificio MOP
+            Response.Redirect("~/Visitas/Default.aspx");
      
     }
 

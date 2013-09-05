@@ -46,8 +46,10 @@ namespace General.Repositorios
                     if (row.GetSmallintAsInt("Id_Funcionalidad") == 2) unUsuario.TienePermisosParaSiCoI = true;
                     if (row.GetSmallintAsInt("Id_Funcionalidad") == 3 || row.GetSmallintAsInt("Id_Funcionalidad") == 4) unUsuario.TienePermisosParaSACC = true;
                     if (row.GetSmallintAsInt("Id_Funcionalidad") == 5) unUsuario.TienePermisosParaModil = true;
+                    if (row.GetSmallintAsInt("Id_Funcionalidad") == 6) unUsuario.TienePermisosParaVisitas = true;
                     unUsuario.FeaturesDescripcion.Add(row.GetString("Nombre_Funcionalidad"));
 
+                    /*
                     var Asistentes = new List<Asistente>();
                     if (unUsuario.Areas.FindAll(a => a.Id == row.GetSmallintAsInt("Id_Area")).Count == 0) //refactorizar, poner un contains
                     {
@@ -103,6 +105,7 @@ namespace General.Repositorios
 
 
                     }
+                    */
 
                 });
 
