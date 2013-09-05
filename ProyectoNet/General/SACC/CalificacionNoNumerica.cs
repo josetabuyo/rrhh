@@ -19,5 +19,6 @@ namespace General
         {
             this.Descripcion = string.Empty;
         }
+
     }
 }

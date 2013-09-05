@@ -11,6 +11,8 @@ namespace General.Modi
 {
     public class ImagenModi
     {
+        public int id { get; set; }
+        public float orden { get; set; }
         public string bytesImagen { get; set; }
         public string nombre { get; set; }
 
@@ -39,6 +41,17 @@ namespace General.Modi
             this.bytesImagen = bytecode;
         }
 
+        public ImagenModi(int id, float orden)
+        {
+            this.id = id;
+            this.orden = orden;
+        }
+
+        public ImagenModi(int id)
+        {
+            this.id = id;
+        }
+
         public ImagenModi GetThumbnail(int alto, int ancho)
         {
             byte[] imageBytes = Convert.FromBase64String(this.bytesImagen);
@@ -47,12 +60,6 @@ namespace General.Modi
 
             ms.Write(imageBytes, 0, imageBytes.Length);
             Image image = Image.FromStream(ms, true);
-
-
-            //var msThumb = new MemoryStream();
-            //image.GetThumbnailImage(alto, ancho, new Image.GetThumbnailImageAbort(ThumbnailCallback), IntPtr.Zero).Save(msThumb, System.Drawing.Imaging.ImageFormat.Jpeg);
-            //byte[] imageBytesThumb = msThumb.ToArray();
-            //return new ImagenModi(this.nombre, Convert.ToBase64String(imageBytesThumb));
 
             return new ImagenModi(this.nombre, FixedSize(image, ancho, alto));
         }
@@ -70,26 +77,30 @@ namespace General.Modi
             float nPercentW = 0;
             float nPercentH = 0;
 
-            if (Width == 0) Width = sourceWidth;
-            if (Height == 0) Height = sourceHeight;
-
             nPercentW = ((float)Width / (float)sourceWidth);
             nPercentH = ((float)Height / (float)sourceHeight);
+
+            if (Height == 0) nPercentH = 1;
+            if (Width == 0) nPercentW = 1;
+
             if (nPercentH < nPercentW)
             {
                 nPercent = nPercentH;
-                destX = System.Convert.ToInt16((Width -
-                              (sourceWidth * nPercent)) / 2);
+                if (Width == 0) destX = 0;
+                else  destX = System.Convert.ToInt16((Width - (sourceWidth * nPercent)) / 2);
             }
             else
             {
                 nPercent = nPercentW;
-                destY = System.Convert.ToInt16((Height -
-                              (sourceHeight * nPercent)) / 2);
+                if (Height == 0) destY = 0;
+                else destY = System.Convert.ToInt16((Height - (sourceHeight * nPercent)) / 2);
             }
 
             int destWidth = (int)(sourceWidth * nPercent);
             int destHeight = (int)(sourceHeight * nPercent);
+
+            if (Height == 0) Height = destHeight;
+            if (Width == 0) Width = destWidth;
 
             Bitmap bmPhoto = new Bitmap(Width, Height,
                               PixelFormat.Format24bppRgb);
@@ -108,11 +119,6 @@ namespace General.Modi
 
             grPhoto.Dispose();
             return bmPhoto;
-        }
-
-        private bool ThumbnailCallback()
-        {
-            return false;
         }
     }
 }

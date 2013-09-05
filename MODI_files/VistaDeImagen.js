@@ -8,7 +8,6 @@ VistaDeImagen.prototype.start = function () {
     this.ui = $("#plantilla_ui_imagen").clone();
     this.img_thumbnail = this.ui.find('#img_thumbnail');
     this.img_estatica = this.ui.find('#img_estatica');
-
     var _this = this;
     this.ui.click(function () {
         if (!_this.onDrag) {
@@ -22,13 +21,12 @@ VistaDeImagen.prototype.start = function () {
     this.ui.draggable({ revert: "invalid",
         distance: 20,
         start: function (ui) {
+            console.log("empezó a dragear: ", _this);
             _this.o.servicioDeDragAndDrop.imagenOnDrag = _this;
-            _this.onDrag = true;
+            _this.ui.hide();
         },
-        stop: function (ui) {
-            setTimeout(function () { _this.onDrag = false; }, 300);
-        },
-        helper: "clone"
+        helper: "clone",
+        connectToSortable: '.panel_de_imagenes'
     });
 
     this.img_thumbnail.hide();

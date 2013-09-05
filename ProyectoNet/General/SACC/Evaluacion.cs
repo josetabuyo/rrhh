@@ -5,6 +5,7 @@ namespace General
 {
     public class Evaluacion
     {
+        private int _id;
         private  InstanciaDeEvaluacion _instanciaEvaluacion;
         private Alumno _alumno;
         private Curso _curso;
@@ -12,6 +13,7 @@ namespace General
         private DateTime _fecha;
 
 
+        public int Id { get { return _id; } set { _id = value; } }
         public InstanciaDeEvaluacion InstanciaEvaluacion { get { return _instanciaEvaluacion; } set { _instanciaEvaluacion = value; } }
         public Calificacion Calificacion { get { return _calificacion; } set { _calificacion = value; } }
         public Alumno Alumno { get { return _alumno; } set { _alumno = value; } }
@@ -20,8 +22,9 @@ namespace General
 
         public Evaluacion() { }
 
-        public Evaluacion(InstanciaDeEvaluacion instancia_evaluacion, Alumno alumno, Curso curso, Calificacion calificacion, DateTime fecha)
+        public Evaluacion(int id, InstanciaDeEvaluacion instancia_evaluacion, Alumno alumno, Curso curso, Calificacion calificacion, DateTime fecha)
         {
+            this._id = id;
             this._instanciaEvaluacion = instancia_evaluacion;
             this._calificacion = calificacion;
             this._alumno = alumno;
@@ -29,10 +32,21 @@ namespace General
             this._fecha = fecha;
         }
 
-         public void CambiarCalificacionPor(int nota)
+         public void CambiarCalificacionPor(Calificacion nota, DateTime fecha_evaluacion)
          {
-             Calificacion calificacion_nueva = new CalificacionNumerica(nota);
-             this._calificacion = calificacion_nueva; 
+             Calificacion calificacion_nueva = nota;// CalificacionNumerica(nota);
+             this._calificacion = calificacion_nueva;
+             this._fecha = fecha_evaluacion;
          }
+
+         public virtual bool Aprobado()
+         {
+             if (this.Calificacion.Descripcion == "Aprobado" || this.Calificacion.Nota > 6)
+                 return true;
+             return false;
+         }
+
+
+
     }
 }

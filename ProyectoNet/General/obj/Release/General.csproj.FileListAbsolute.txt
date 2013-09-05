@@ -5,3 +5,10 @@ C:\Repositorios\FernandoAssembla\SistemaWeb\ProyectoNet\General\bin\Release\Newt
 C:\Repositorios\FernandoAssembla\SistemaWeb\ProyectoNet\General\obj\Release\ResolveAssemblyReference.cache
 C:\Repositorios\FernandoAssembla\SistemaWeb\ProyectoNet\General\obj\Release\General.dll
 C:\Repositorios\FernandoAssembla\SistemaWeb\ProyectoNet\General\obj\Release\General.pdb
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\ProyectoNet\General\bin\Release\General.dll.config
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\ProyectoNet\General\bin\Release\General.dll
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\ProyectoNet\General\bin\Release\Newtonsoft.Json.dll
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\ProyectoNet\General\obj\Release\ResolveAssemblyReference.cache
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\ProyectoNet\General\obj\Release\General.dll
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\ProyectoNet\General\obj\Release\General.pdb
+C:\Repositorio\Javier\Licencias Viaticos Web\rrhh\ProyectoNet\General\bin\Release\General.pdb

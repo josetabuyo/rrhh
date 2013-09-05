@@ -17,6 +17,7 @@ using System.Web.Script.Services;
 public class AjaxWS : System.Web.Services.WebService {
     private WSViaticos.WSViaticosSoapClient backEndService;
     private WSViaticos.Usuario usuarioLogueado;
+    
     public AjaxWS () {
         this.backEndService = new WSViaticos.WSViaticosSoapClient();
         this.usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
@@ -31,7 +32,7 @@ public class AjaxWS : System.Web.Services.WebService {
         return backEndService.GuardarDocumento_Ajax(documento_dto, usuarioLogueado);
     }
 
-    [WebMethod(EnableSession = false)]
+    [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)] 
     public string GetDocumentosFiltrados(String filtros)
     {
@@ -108,9 +109,9 @@ public class AjaxWS : System.Web.Services.WebService {
     
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento)
-    {        
-        backEndService.AsignarImagenADocumento(id_imagen, tabla, id_documento, usuarioLogueado);
+    public void AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio)
+    {
+        backEndService.AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
@@ -206,9 +207,9 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetPlanillaEvaluaciones(int id_curso)
+    public string GetPlanillaEvaluaciones(int id_curso, int id_instancia)
     {
-        var Planilla = backEndService.GetPlanillaEvaluaciones(id_curso);
+        var Planilla = backEndService.GetPlanillaEvaluaciones(id_curso, id_instancia);
         return Newtonsoft.Json.JsonConvert.SerializeObject(Planilla);
     }
 
@@ -218,6 +219,16 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         var instancias = backEndService.GetInstanciasDeEvaluacion(id_curso);
         return Newtonsoft.Json.JsonConvert.SerializeObject(instancias);
-    }       
+    }
+    [WebMethod(EnableSession = true)]
+    public string GuardarEvaluaciones(string evaluaciones_nuevas, string evaluaciones_originales)
+    {
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        var evaluaciones_nuevas_dto = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.EvaluacionDto[]>(evaluaciones_nuevas);
+        var evaluaciones_originales_dto = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.EvaluacionDto[]>(evaluaciones_originales);
+        
+        var res =backEndService.GuardarEvaluaciones(evaluaciones_nuevas_dto, evaluaciones_originales_dto, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(res);
+    }
 }
 

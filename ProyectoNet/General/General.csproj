@@ -73,6 +73,7 @@
     <Compile Include="Asistencia\ProrrogaLicenciaOrdinaria.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
+    <Compile Include="ConstantesDeDatosDeContacto.cs" />
     <Compile Include="MICOI\AccionDeTransicion.cs" />
     <Compile Include="MICOI\Alias.cs" />
     <Compile Include="MICOI\AliasNull.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="MICOI\TransicionDeDocumento.cs" />
     <Compile Include="MICOI\TransicionesDeAreas.cs" />
     <Compile Include="MICOI\Validador.cs" />
+    <Compile Include="Modi\FolioModi.cs" />
     <Compile Include="Modi\IServicioDeDigitalizacionDeLegajos.cs" />
     <Compile Include="Modi\LegajoModi.cs" />
     <Compile Include="Modi\DocumentoModi.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="Modi\IFileSystem.cs" />
     <Compile Include="Modi\ImagenModi.cs" />
     <Compile Include="Modi\RespuestaABusquedaDeLegajos.cs" />
+    <Compile Include="Modi\ServicioDeCompresionYPersistenciaDeImagenes.cs" />
     <Compile Include="Modi\ServicioDeDigitalizacionDeLegajos.cs" />
     <Compile Include="Modi\ThumbnailImagenModi.cs" />
     <Compile Include="MICOI\Alerta.cs" />
@@ -127,6 +130,10 @@
     <Compile Include="Organigrama\OrganigramaException.cs" />
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
     <Compile Include="Organigrama\Responsable.cs" />
+    <Compile Include="SACC\Articulador.cs" />
+    <Compile Include="SACC\AsistenciaHoraCuatro.cs" />
+    <Compile Include="SACC\ComparadorDeDiferencias.cs" />
+    <Compile Include="SACC\DatosDeContacto.cs" />
     <Compile Include="Seguridad\Auditoria.cs" />
     <Compile Include="Seguridad\Autorizador.cs" />
     <Compile Include="Seguridad\Features.cs" />

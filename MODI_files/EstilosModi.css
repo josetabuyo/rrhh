@@ -16,12 +16,35 @@
 
 .vista_legajo_fila
 {
-    transition: all .3s;
+    transition: all .6s;
+    padding:5px 10px 5px 20px;
+    cursor:pointer;    
 }
 
 .vista_legajo_fila:hover
 {
-    background-color:Blue;
+    background-color:Highlight;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -khtml-border-radius: 15px;
+    border-radius: 15px;    
+}
+
+.vista_legajo_fila:active
+{
+    background-color:Lime;     
+}
+
+.vista_legajo_fila label
+{
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.selector_legajos
+{
+    padding: 0px  !important;
+    margin-top: 5px;
 }
 
 #ui_vista_de_resultados_de_legajos
@@ -55,6 +78,19 @@
 {
     max-height: 420px;
     overflow-y: auto;
+}
+
+.placeholder_sortable
+{
+    display:inline-block;       
+    margin:5px;  
+	height: 90px;
+    width: 90px;
+    background-color:Highlight;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .vista_de_legajo
@@ -128,7 +164,8 @@
     overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
-    transition: all .3s;
+    /*transition: all .3s;*/
+    list-style-type: none;
 }
 
 .panel_de_imagenes:hover  
@@ -140,9 +177,7 @@
 {
     display:inline-block;   
     text-align:center; 
-    margin:5px;  
-    draggable: true;
-	list-style:none; 
+    margin:5px;   
 	height: 90px;
     width: 90px;
 }
@@ -174,7 +209,7 @@
     display:block;
 }
 
-#plantilla_ui_visualizador_imagen #contenedor_imagen
+.visualizador_imagen #contenedor_imagen
 {
     height:510px;
     width:980px;  
@@ -183,19 +218,32 @@
     -khtml-border-radius: 5px;
     border-radius: 5px;
     background-color: White;
+    position: relative;
 }
 
-.panel_con_estatica
-{
-    background-image:url('imagenes/static.gif');
-}
-
-#plantilla_ui_visualizador_imagen #contenedor_imagen img
+.visualizador_imagen #contenedor_imagen img
 {   
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     -khtml-border-radius: 5px;
     border-radius: 5px;
+}
+
+.visualizador_imagen #contenedor_imagen #panel_folio
+{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.visualizador_imagen #contenedor_imagen #txt_folio
+{
+    width:30px;
+}
+
+.panel_con_estatica
+{
+    background-image:url('imagenes/static.gif');
 }
 
 ::-webkit-scrollbar {

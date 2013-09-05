@@ -15,14 +15,16 @@
             this.Contacto = new List<ContactoArea>();
             this.Dependencias = new List<Area>();
             this.Direccion = string.Empty;
-            this.Fax = string.Empty;
             this.Id = -1;
-            this.Mail = string.Empty;
+            this.DatosDeContacto = new List<DatoDeContacto>();
+            //this.Telefono = string.Empty;
+            //this.Fax = string.Empty;
+            //this.Mail = string.Empty;
             this.Nombre = string.Empty;
             this.Personas = new List<Persona>();
             this.PresentaDDJJ = false;
             this.Responsables = new List<Persona>();
-            this.Telefono = string.Empty;
+           
         }
 
     }

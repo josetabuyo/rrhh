@@ -60,26 +60,27 @@ ServicioDeDigitalizacionDeLegajos.prototype.getImagenPorId = function (id_imagen
     });
 };
 
-ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenADocumento = function (id_imagen, tabla, id_documento) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/AsignarImagenADocumento",
+ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajo = function (id_imagen, nro_folio, onSuccess) {
+    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/AsignarImagenAFolioDeLegajo",
         data: {
             id_imagen: id_imagen,
-            tabla: tabla,
-            id_documento: id_documento
+            nro_folio: nro_folio
         },
         success: function () {
+            onSuccess();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
     });
 };
 
-ServicioDeDigitalizacionDeLegajos.prototype.desAsignarImagen = function (id_imagen) {
+ServicioDeDigitalizacionDeLegajos.prototype.desAsignarImagen = function (id_imagen, onSuccess) {
     this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/DesAsignarImagen",
         data: {
             id_imagen: id_imagen
         },
         success: function (imagen) {
+            onSuccess();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }

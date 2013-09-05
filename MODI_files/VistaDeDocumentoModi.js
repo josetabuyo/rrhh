@@ -15,13 +15,14 @@ VistaDeDocumentoModi.prototype.start = function () {
         servicioDeLegajos: this.o.servicioDeLegajos,
         servicioDeDragAndDrop: this.o.servicioDeDragAndDrop,
         mensajeParaCuandoEstaVacio: 'Este documento no tiene imágenes asignadas',
-        onImagenDropeada: function (imagen) {
+        onImagenDropeada: function (imagen, orden) {
             _this.o.servicioDeLegajos.asignarImagenADocumento(imagen.id,
                                                                 _this.o.documento.tabla,
-                                                                _this.o.documento.id);
+                                                                _this.o.documento.id,
+                                                                orden);
         }
     });
-    this.panel_imagenes.cargarImagenes(this.o.documento.idImagenesAsignadas);
+    this.panel_imagenes.cargarImagenes(this.o.documento.imagenesAsignadas);
     this.panel_imagenes.dibujarEn(this.div_imagenes);
 
     this.cmb_categorias = this.o.ui.find('#cmb_categoria select');

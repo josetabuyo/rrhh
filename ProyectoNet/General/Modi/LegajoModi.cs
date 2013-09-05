@@ -8,7 +8,7 @@ namespace General.Modi
     public class LegajoModi
     {
         public List<DocumentoModi> documentos = new List<DocumentoModi>();
-        public List<int> idImagenesSinAsignar = new List<int>();
+        public List<ImagenModi> imagenesSinAsignar = new List<ImagenModi>();
         
         public int idInterna { get; protected set; }
         public int numeroDeDocumento { get; protected set; }
@@ -39,11 +39,14 @@ namespace General.Modi
             this.documentos.AddRange(documentos);
         }
 
-        public void agregarIdsDeImagenesSinAsignar(List<int> ids_imagenes)
+        public void agregarImagenesSinAsignar(List<ImagenModi> imagenes)
         {
-            this.idImagenesSinAsignar.AddRange(ids_imagenes);
+            this.imagenesSinAsignar.AddRange(imagenes);
         }
 
-
+        public FolioModi GetFolio(int nro_folio)
+        {
+            return this.documentos.SelectMany(d => d.folios).First(f => f.numero_folio == nro_folio);
+        }
     }
 }

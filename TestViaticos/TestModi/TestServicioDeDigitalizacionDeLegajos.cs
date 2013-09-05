@@ -33,7 +33,7 @@ namespace TestViaticos
         IServicioDeDigitalizacionDeLegajos servicioDeLegajos;
         string source_javier_lurgo;
         string source_documentos_de_javier_lurgo;
-        string source_imagenes_sin_asignar_de_javier_lurgo;
+        string source_imagenes_del_legajo_de_javier_lurgo;
         string source_imagenes_del_documento_de_javier_lurgo;
         string source_id_categoria_del_documento_de_javier_lurgo;
         string source_imagen_10;
@@ -43,17 +43,13 @@ namespace TestViaticos
         {
             mocks = new Mockery();
             conexion_mockeada = mocks.NewMock<IConexionBD>();
-            file_system_mockeado = mocks.NewMock<IFileSystem>();
-            pathsImagenes = new List<string>();
             tabla_vacia = new TablaDeDatos();
 
             source_javier_lurgo = @"    Nro_Documento   |id_interna |Nombre	    |Apellido   |Cuil_Nro  
                                         29193500        |205171     |Javier     |Lurgo	    |20-29193500-2";
 
-            source_imagenes_sin_asignar_de_javier_lurgo = @"    id_imagen
-                                                                1
-                                                                3
-                                                                5";
+            source_imagenes_del_legajo_de_javier_lurgo = @"    id_imagen    |nro_folio
+                                                                1           |0"; 
 
             source_documentos_de_javier_lurgo = @"      tabla       |id     |JUR	                            |ORG                            |TIPO               |FOLIO	    |fecha_comunicacion    	    |Fecha_Hasta
                                                         curriculums |221    |Ministerio de desarrollo social	|Direccion de recursos humanos	|curriculum         |00-000/000	|2012-05-21 00:00:00.000	|1900-01-01 00:00:00.000";
@@ -76,7 +72,7 @@ namespace TestViaticos
             resultado_sp_categoria_del_documento = tabla_vacia;
             resultado_sp_get_imagen = tabla_vacia;
 
-            servicioDeLegajos = new ServicioDeDigitalizacionDeLegajos(conexion_mockeada, file_system_mockeado, "imagenes");
+            servicioDeLegajos = new ServicioDeDigitalizacionDeLegajos(conexion_mockeada);
         }
 
         public void SetupExpectations()
@@ -85,28 +81,21 @@ namespace TestViaticos
             Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_GET_Datos_Personales_Por_Id_interna", Is.Anything }).Will(Return.Value(resultado_sp_legajo_por_id_interna));
             Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_GET_Datos_Personales_Por_Apellido_Y_Nombre", Is.Anything }).Will(Return.Value(resultado_sp_legajo_por_apellido_y_nombre));
             Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.LEG_GET_Indice_Documentos", Is.Anything }).Will(Return.Value(resultado_sp_indice_documentos));
-            Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_Get_Ids_De_Imagenes_Sin_Asignar_Para_El_Legajo", Is.Anything }).Will(Return.Value(resultado_sp_id_imagenes_sin_asignar));
-            Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_Id_Imagenes_Asignadas_A_Un_Documento", Is.Anything }).Will(Return.Value(resultado_sp_id_imagenes_del_documento));
+            Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_Imagenes_De_Un_Legajo", Is.Anything }).Will(Return.Value(resultado_sp_id_imagenes_sin_asignar));
+            Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_Imagenes_Asignadas_A_Un_Documento", Is.Anything }).Will(Return.Value(resultado_sp_id_imagenes_del_documento));
             Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_Categoria_De_Un_Documento", Is.Anything }).Will(Return.Value(resultado_sp_categoria_del_documento));
             Expect.AtLeastOnce.On(conexion_mockeada).Method("Ejecutar").With(new object[] { "dbo.MODI_Get_Imagen", Is.Anything }).Will(Return.Value(resultado_sp_get_imagen));
             Expect.AtLeastOnce.On(conexion_mockeada).Method("EjecutarEscalar").With(new object[] { "dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", Is.Anything });
-            
-            Expect.AtLeastOnce.On(file_system_mockeado).Method("getPathsArchivosEnCarpeta").Will(Return.Value(pathsImagenes));
-            Expect.AtLeastOnce.On(file_system_mockeado).Method("getImagenFromPath").Will(Return.Value(new Bitmap(1, 1)));
-            Expect.AtLeastOnce.On(file_system_mockeado).Method("moverArchivo");
         }
         
         [TestMethod]
         public void deberia_poder_obtener_un_legajo_completo_pasando_el_numero_de_documento()
         {
             resultado_sp_legajo_por_dni = TablaDeDatos.From(source_javier_lurgo);
-            resultado_sp_id_imagenes_sin_asignar = TablaDeDatos.From(source_imagenes_sin_asignar_de_javier_lurgo);
+            resultado_sp_id_imagenes_sin_asignar = TablaDeDatos.From(source_imagenes_del_legajo_de_javier_lurgo);
             resultado_sp_indice_documentos = TablaDeDatos.From(source_documentos_de_javier_lurgo);
             resultado_sp_id_imagenes_del_documento = TablaDeDatos.From(source_imagenes_del_documento_de_javier_lurgo);
             resultado_sp_categoria_del_documento = TablaDeDatos.From(source_id_categoria_del_documento_de_javier_lurgo);
-            pathsImagenes.Add("imagenes/imagen1.jpg");
-            pathsImagenes.Add("imagenes/imagen2.jpg");
-            pathsImagenes.Add("imagenes/imagen3.jpg");
 
             SetupExpectations();
 
@@ -119,13 +108,10 @@ namespace TestViaticos
         public void deberia_poder_obtener_un_legajo_completo_pasando_la_id_interna()
         {
             resultado_sp_legajo_por_id_interna = TablaDeDatos.From(source_javier_lurgo);
-            resultado_sp_id_imagenes_sin_asignar = TablaDeDatos.From(source_imagenes_sin_asignar_de_javier_lurgo);
+            resultado_sp_id_imagenes_sin_asignar = TablaDeDatos.From(source_imagenes_del_legajo_de_javier_lurgo);
             resultado_sp_indice_documentos = TablaDeDatos.From(source_documentos_de_javier_lurgo);
             resultado_sp_id_imagenes_del_documento = TablaDeDatos.From(source_imagenes_del_documento_de_javier_lurgo);
             resultado_sp_categoria_del_documento = TablaDeDatos.From(source_id_categoria_del_documento_de_javier_lurgo);
-            pathsImagenes.Add("imagenes/imagen1.jpg");
-            pathsImagenes.Add("imagenes/imagen2.jpg");
-            pathsImagenes.Add("imagenes/imagen3.jpg");
 
             SetupExpectations();
 
@@ -138,13 +124,10 @@ namespace TestViaticos
         public void deberia_poder_obtener_un_legajo_completo_pasando_el_apellido_y_el_nombre()
         {
             resultado_sp_legajo_por_apellido_y_nombre = TablaDeDatos.From(source_javier_lurgo);
-            resultado_sp_id_imagenes_sin_asignar = TablaDeDatos.From(source_imagenes_sin_asignar_de_javier_lurgo);
+            resultado_sp_id_imagenes_sin_asignar = TablaDeDatos.From(source_imagenes_del_legajo_de_javier_lurgo);
             resultado_sp_indice_documentos = TablaDeDatos.From(source_documentos_de_javier_lurgo);
             resultado_sp_id_imagenes_del_documento = TablaDeDatos.From(source_imagenes_del_documento_de_javier_lurgo);
             resultado_sp_categoria_del_documento = TablaDeDatos.From(source_id_categoria_del_documento_de_javier_lurgo);
-            pathsImagenes.Add("imagenes/imagen1.jpg");
-            pathsImagenes.Add("imagenes/imagen2.jpg");
-            pathsImagenes.Add("imagenes/imagen3.jpg");
 
             SetupExpectations();
 
@@ -183,9 +166,8 @@ namespace TestViaticos
             Assert.AreEqual(205171, respuesta.legajos[0].idInterna);
             Assert.AreEqual("Javier", respuesta.legajos[0].nombre);
             Assert.AreEqual("Lurgo", respuesta.legajos[0].apellido);
-            Assert.AreEqual(3, respuesta.legajos[0].idImagenesSinAsignar.Count);
+            Assert.AreEqual(0, respuesta.legajos[0].imagenesSinAsignar.Count);
             Assert.AreEqual(1, respuesta.legajos[0].documentos.Count);
-            Assert.AreEqual(2, respuesta.legajos[0].documentos[0].idImagenesAsignadas.Count);
             Assert.AreEqual(54, respuesta.legajos[0].documentos[0].idCategoria);
         }
     }
