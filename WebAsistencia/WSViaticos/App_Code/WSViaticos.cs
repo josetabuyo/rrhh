@@ -1610,10 +1610,15 @@ public class WSViaticos : System.Web.Services.WebService
         return JsonConvert.SerializeObject(espacios_fisicos_dto);
 
     }
-
+    
+    [WebMethod]
+    public List<Area> GetAreasParaProtocolo()
+    {
+        return new RepositorioDeAreas(Conexion()).GetAreasParaProtocolo();
+    }
 
     [WebMethod]
-    public string GetAreasParaProtocolo(Usuario usuario)
+    public string GetAreasParaProtocoloJSON(Usuario usuario)
     {
 
         List<Area> areas = new RepositorioDeAreas(Conexion()).GetAreasParaProtocolo();
