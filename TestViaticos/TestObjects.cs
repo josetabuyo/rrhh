@@ -1076,6 +1076,16 @@ namespace General
             return new Modalidad(1, "Fines Puro", InstanciasDeEvaluacion());
         }
 
+        public static Modalidad ModalidadCens()
+        {
+            return new Modalidad(2, "Fines CENS", InstanciasDeEvaluacion());
+        }
+
+        public static Ciclo PrimerCiclo()
+        {
+            return new Ciclo(1, "Primer Ciclo");
+        }
+
         public static Alumno AlumnoFer() 
         {
             return new Alumno(281941, "Fer", "Caino", 31046911, "", "", "", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", "2° Año", DateTime.Today);
@@ -1116,6 +1126,50 @@ namespace General
             return un_curso;
         }
 
+        public static Curso UnCursoCon2AlumnosFines()
+        {
+            Curso un_curso = new Curso(14, MateriaPuro(), unDocente(), EspacioFisico(), new DateTime(2013, 01, 01), new DateTime(2013, 03, 10), "");
+            un_curso.AgregarAlumno(AlumnoFer());
+            un_curso.AgregarAlumno(AlumnoJor());
+            HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 14);
+            HorarioDeCursada horario_de_cursada_miercoles = new HorarioDeCursada(DayOfWeek.Wednesday, "12:00", "14:00", 2, 14);
+            un_curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
+            un_curso.AgregarHorarioDeCursada(horario_de_cursada_miercoles);
+            un_curso.EspacioFisico = UnEspacioFisico();
+            un_curso.Docente = unDocente();
+            return un_curso;
+        }
+
+        public static Curso UnCursoCon3AlumnosCens()
+        {
+            Curso un_curso = new Curso(14, MateriaCens(), unDocente(), EspacioFisico(), new DateTime(2013, 01, 01), new DateTime(2013, 03, 10), "");
+            un_curso.AgregarAlumno(AlumnoGer());
+            un_curso.AgregarAlumno(AlumnoZambri());
+            un_curso.AgregarAlumno(AlumnoJavi());
+            HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 14);
+            HorarioDeCursada horario_de_cursada_miercoles = new HorarioDeCursada(DayOfWeek.Wednesday, "12:00", "14:00", 2, 14);
+            un_curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
+            un_curso.AgregarHorarioDeCursada(horario_de_cursada_miercoles);
+            un_curso.EspacioFisico = UnEspacioFisico();
+            un_curso.Docente = unDocente();
+            return un_curso;
+        }
+
+        public static Curso UnCursoCon1AlumnosCens()
+        {
+            Curso un_curso = new Curso(14, MateriaCens(), unDocente(), EspacioFisico(), new DateTime(2013, 01, 01), new DateTime(2013, 03, 10), "");
+            un_curso.AgregarAlumno(AlumnoMinisterio());
+            un_curso.AgregarAlumno(AlumnoGer());
+            HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 14);
+            HorarioDeCursada horario_de_cursada_miercoles = new HorarioDeCursada(DayOfWeek.Wednesday, "12:00", "14:00", 2, 14);
+            un_curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
+            un_curso.AgregarHorarioDeCursada(horario_de_cursada_miercoles);
+            un_curso.EspacioFisico = UnEspacioFisico();
+            un_curso.Docente = unDocente();
+            return un_curso;
+        }
+
+
         public static EspacioFisico UnEspacioFisico()
         {
             return new EspacioFisico();
@@ -1143,19 +1197,18 @@ namespace General
         }
 
         public static Materia MateriaCens()
-
         { 
             List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() {PrimerParcial(), SegundoParcial() };
-            Modalidad modalidad_cens = new Modalidad(1, "Cens", instancias);
-            
-            return new Materia(1, "Historia CENS", modalidad_cens);
+            Modalidad modalidad_cens = new Modalidad(2, "Cens", instancias);
+            Ciclo ciclo = new Ciclo(1, "Primer Ciclo");
+            return new Materia(1, "Historia CENS", modalidad_cens, ciclo);
         }
 
         public static Materia MateriaPuro()
         {
             List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() { CalificacionFinal() };
             Modalidad modalidad_cens = new Modalidad(1, "Puro", instancias);
-
+            
             return new Materia(1, "Geografia Puro", modalidad_cens);
         }
 
@@ -1251,8 +1304,18 @@ namespace General
             return AlumnoFer();
         }
         
-        
+        public static List<Curso> CursosSACC()
+        {
+            Curso curso_fines = TestObjects.UnCursoCon2AlumnosFines();
+            Curso curso_cens = TestObjects.UnCursoCon3AlumnosCens();
+            Curso curso_cens2 = TestObjects.UnCursoCon1AlumnosCens();
+            List<Curso> cursos = new List<Curso>();
+            cursos.Add(curso_fines);
+            cursos.Add(curso_cens);
+            cursos.Add(curso_cens2);
 
+            return cursos;
+        }
 
         public static InstanciaDeEvaluacion PrimerParcial()
         {
