@@ -100,20 +100,21 @@
         .Contenedor
         {
             
-            border-top: none; 
+            border:2px solid #E6E6FA; 
             overflow: auto; 
             clear: both; 
             float: left; 
             width: 90%; 
-            height:500px;
-            background: #eee;
+            height:400px;
+            
+           
             -webkit-border-bottom-right-radius: 8px;
             -webkit-border-bottom-left-radius: 8px;
             -moz-border-radius-bottomright: 8px;
             -moz-border-radius-bottomleft: 8px;
             border-bottom-right-radius: 8px;
             border-bottom-left-radius: 8px;
-            
+            /* 
             background: -webkit-gradient(linear, left top, right top, from(#E6E6FA), to(#6E89B1));
             background: -webkit-linear-gradient(top, #E6E6FA, #6E89B1);
             background: -moz-linear-gradient(top, #E6E6FA, #6E89B1);
@@ -121,7 +122,7 @@
             background: -ms-linear-gradient(top, #E6E6FA, #6E89B1);
             background: linear-gradient(top, #E6E6FA, #6E89B1);
             background-color: #E6E6FA;
-            
+            */
             -webkit-box-shadow: 2px 2px 1px #E6E6FA;
             -moz-box-shadow: 2px 2px 1px #E6E6FA;
             -o-box-shadow: 2px 2px 1px #E6E6FA;
@@ -223,7 +224,7 @@
     </style>
 
 </head>
-<body>
+<body class="marca_de_agua">
     <form id="form1" runat="server">
      <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
@@ -327,8 +328,7 @@
             </div>
         </div>
         <div id="tab4" class="Contenido">
-            <h2 class="sub_eval">Observaciones</h2>
-             <div id="notes" style="width:100%; height:500px;"></div>
+            <h2 class="sub_eval">Observaciones</h2> 
         </div>
     </div>
     </div>
