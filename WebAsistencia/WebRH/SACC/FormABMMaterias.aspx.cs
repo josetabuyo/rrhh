@@ -167,6 +167,6 @@ public partial class SACC_FormABMMaterias : System.Web.UI.Page
 
     private bool DatosEstanCompletos()
     {
-        return !((this.txtNombre.Text == "") || (this.cmbPlanDeEstudio.SelectedIndex < 1) || (this.cmbCiclo.SelectedIndex < 1));
+        return !((this.txtNombre.Text == "") || (this.cmbPlanDeEstudio.SelectedIndex < 1) || (this.cmbCiclo.SelectedIndex < 1) || (this.txtNombre.Text == "Nombre") );
     }
 }

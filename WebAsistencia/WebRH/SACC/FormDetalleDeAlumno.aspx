@@ -23,8 +23,7 @@
             list-style: none;  
             height: auto;  
             width: 90%; 
-            border-left:2px solid #777; 
-            border-bottom:2px solid #777;
+            
         }
         ul.tabs li 
         {
@@ -36,14 +35,17 @@
             border: 0px solid #000; 
             overflow: hidden; 
             position: relative; 
-            background: #bbb; 
             border-left:0px; 
             margin-bottom:-2px;
-            background-image: linear-gradient(bottom, rgb(73,136,199) 36%, rgb(199,222,255) 70%);
-            background-image: -o-linear-gradient(bottom, rgb(73,136,199) 36%, rgb(199,222,255) 70%);
-            background-image: -moz-linear-gradient(bottom, rgb(73,136,199) 36%, rgb(199,222,255) 70%);
-            background-image: -webkit-linear-gradient(bottom, rgb(73,136,199) 36%, rgb(199,222,255) 70%);
-            background-image: -ms-linear-gradient(bottom, rgb(73,136,199) 36%, rgb(199,222,255) 70%);
+            
+            background: -webkit-gradient(linear, left top, right top, from(#6E89B1), to(#E6E6FA));
+            background: -webkit-linear-gradient(top, #6E89B1, #E6E6FA);
+            background: -moz-linear-gradient(top, #6E89B1, #E6E6FA);
+            background: -o-linear-gradient(top, #6E89B1, #E6E6FA);
+            background: -ms-linear-gradient(top, #6E89B1, #E6E6FA);
+            background: linear-gradient(top, #6E89B1, #E6E6FA);
+            background-color: #6E89B1;
+            
             -webkit-border-radius: 8px;
             -webkit-border-radius: 8px;
             -moz-border-radius: 8px;
@@ -56,7 +58,7 @@
         ul.tabs li a 
         {
             text-decoration: none; 
-            color: #fff; 
+            color: #434C6F; 
             display: block; 
             font-size: 20px; 
             font-weight:bold; 
@@ -65,11 +67,14 @@
         }
         ul.tabs li a:hover 
         {
-            background-image: linear-gradient(bottom, rgb(199,222,255) 36%, rgb(73,136,199) 70%);
-            background-image: -o-linear-gradient(bottom, rgb(199,222,255) 36%, rgb(73,136,199) 70%);
-            background-image: -moz-linear-gradient(bottom, rgb(199,222,255) 36%, rgb(73,136,199) 70%);
-            background-image: -webkit-linear-gradient(bottom, rgb(199,222,255) 36%, rgb(73,136,199) 70%);
-            background-image: -ms-linear-gradient(bottom, rgb(199,222,255) 36%, rgb(73,136,199) 70%);
+            background: -webkit-gradient(linear, left top, right top, from(#E6E6FA), to(#6E89B1));
+            background: -webkit-linear-gradient(top, #E6E6FA, #6E89B1);
+            background: -moz-linear-gradient(top, #E6E6FA, #6E89B1);
+            background: -o-linear-gradient(top, #E6E6FA, #6E89B1);
+            background: -ms-linear-gradient(top, #E6E6FA, #6E89B1);
+            background: linear-gradient(top, #E6E6FA, #6E89B1);
+            background-color: #E6E6FA;
+
              -webkit-border-radius: 8px;
             -webkit-border-radius: 8px;
             -moz-border-radius: 8px;
@@ -81,17 +86,20 @@
         
         ul.tabs li.active, html ul.tabs li.active a:hover  
         {
-            background-image: linear-gradient(bottom, rgb(199,222,255) 36%, rgb(73,136,199) 70%);
-            background-image: -o-linear-gradient(bottom, rgb(199,222,255) 36%, rgb(73,136,199) 70%);
-            background-image: -moz-linear-gradient(bottom, rgb(199,222,255) 36%, rgb(73,136,199) 70%);
-            background-image: -webkit-linear-gradient(bottom, rgb(199,222,255) 36%, rgb(73,136,199) 70%);
-            background-image: -ms-linear-gradient(bottom, rgb(199,222,255) 36%, rgb(73,136,199) 70%);
-            border-bottom: 2px solid #eee; 
+            background: -webkit-gradient(linear, left top, right top, from(#E6E6FA), to(#6E89B1));
+            background: -webkit-linear-gradient(top, #E6E6FA, #6E89B1);
+            background: -moz-linear-gradient(top, #E6E6FA, #6E89B1);
+            background: -o-linear-gradient(top, #E6E6FA, #6E89B1);
+            background: -ms-linear-gradient(top, #E6E6FA, #6E89B1);
+            background: linear-gradient(top, #E6E6FA, #6E89B1);
+            background-color: #E6E6FA;
+            
+            
             }
  
         .Contenedor
         {
-            border: 2px solid #777; 
+            
             border-top: none; 
             overflow: auto; 
             clear: both; 
@@ -105,11 +113,21 @@
             -moz-border-radius-bottomleft: 8px;
             border-bottom-right-radius: 8px;
             border-bottom-left-radius: 8px;
-            background-image: linear-gradient(bottom, rgb(189,222,255) 42%, rgb(232,241,255) 71%);
-            background-image: -o-linear-gradient(bottom, rgb(189,222,255) 42%, rgb(232,241,255) 71%);
-            background-image: -moz-linear-gradient(bottom, rgb(189,222,255) 42%, rgb(232,241,255) 71%);
-            background-image: -webkit-linear-gradient(bottom, rgb(189,222,255) 42%, rgb(232,241,255) 71%);
-            background-image: -ms-linear-gradient(bottom, rgb(189,222,255) 42%, rgb(232,241,255) 71%);
+            
+            background: -webkit-gradient(linear, left top, right top, from(#E6E6FA), to(#6E89B1));
+            background: -webkit-linear-gradient(top, #E6E6FA, #6E89B1);
+            background: -moz-linear-gradient(top, #E6E6FA, #6E89B1);
+            background: -o-linear-gradient(top, #E6E6FA, #6E89B1);
+            background: -ms-linear-gradient(top, #E6E6FA, #6E89B1);
+            background: linear-gradient(top, #E6E6FA, #6E89B1);
+            background-color: #E6E6FA;
+            
+            -webkit-box-shadow: 2px 2px 1px #E6E6FA;
+            -moz-box-shadow: 2px 2px 1px #E6E6FA;
+            -o-box-shadow: 2px 2px 1px #E6E6FA;
+            -ms-box-shadow: 2px 2px 1px #E6E6FA;
+            box-shadow: 2px 2px 1px #E6E6FA;
+            text-shadow: 0px 0px 0px #E6E6FA;
         }
         .Contenido 
         {
@@ -148,8 +166,13 @@
         }
         .fila_impar .contenedor_celda 
         {
-            background:#87baed;
-            }
+            background:#6E89B1;
+        }
+            
+        .fila_par .contenedor_celda 
+        {
+            background:#E6E6FA;
+        }
         
         .contenedor_celda 
         {
@@ -186,6 +209,16 @@
             text-align:center;
             margin:0 auto;    
         }
+        
+        
+        .sub_eval
+        {
+            color:#434C6F !important; 
+            border-bottom:1px solid #434C6F !important;
+            font-size:20px;
+            margin-bottom:5px;
+            
+            }
     
     </style>
 
@@ -201,7 +234,7 @@
      <div id="datos_personales" class="contenedor_ficha">
         <p class="nombre">Nombre: <span id="nombre" class=""></span></p>
         <p class="nombre">Oficina: <span id="oficina" class=""></span></p>
-        <img id="ficha_alumno" src="../Imagenes/31475729.jpg" alt="foto" width="95" height="95"  class="imagen" />
+        <img id="ficha_alumno" src="../Imagenes/silueta.gif" alt="foto" width="95" height="95"  class="imagen" />
               
         <div id="contenedor_tabla">
             <div class="fila_impar">
@@ -271,25 +304,31 @@
         <li><a href="#tab1">Cursadas</a></li>
         <li><a href="#tab2">Asistencias</a></li>
         <li><a href="#tab3">Evaluaciones</a></li>
-        <li><a href="#tab4">M&aacute;s informaci&oacute;n</a></li>
+        <li><a href="#tab4">Observaciones</a></li>
     </ul>
     <div class="Contenedor">
         <div id="tab1" class="Contenido">
-            <h2>Listado de Cursos Inscriptos</h2>
+            <h2 class="sub_eval">Listado de Cursos Inscriptos</h2>
             <div id="ContenedorPlanillaCursos" runat="server"></div>
         </div>
         <div id="tab2" class="Contenido">
-            <h2>Listado de Asistencia por Curso</h2>
-            <h2>Detalle de Asistencia por Curso</h2>
+            <h2 class="sub_eval">Listado de Asistencia por Curso</h2>
+            <h2 class="sub_eval">Detalle de Asistencia por Curso</h2>
         </div>
         <div id="tab3" class="Contenido">
-            <h2 id="sub_eval_1">Calificaciones por Curso</h2>
-            <div id="ContenedorPlanillaEvaluaciones" style="width:50%;" runat="server"></div>
-            <h2 id="sub_eval_2"></h2>
-            <div id="ContenedorPlanillaEvaluacionesDetalle" style="width:50%;" runat="server"></div>
+            <div style=" width:55%; margin-right:20px; float:left;">
+                <h2 class="sub_eval">Calificaciones por Curso</h2>
+                
+                <div id="ContenedorPlanillaEvaluaciones"  runat="server"></div>
+            </div>
+            <div style="width: 40%; display: inline; float: left;">
+                <h2 id="sub_eval_nota"></h2>
+                <div id="ContenedorPlanillaEvaluacionesDetalle" runat="server"></div>
+            </div>
         </div>
         <div id="tab4" class="Contenido">
-            <h2>Mas informacion</h2>
+            <h2 class="sub_eval">Observaciones</h2>
+             <div id="notes" style="width:100%; height:500px;"></div>
         </div>
     </div>
     </div>
@@ -321,7 +360,7 @@
                 contenedorPlanillaCursos: $('#ContenedorPlanillaCursos'),
                 contenedorPlanillaEvaluaciones: $('#ContenedorPlanillaEvaluaciones'),
                 contenedorPlanillaEvaluacionesDetalle: $('#ContenedorPlanillaEvaluacionesDetalle'),
-                sub_eval_2: $("#sub_eval_2"),
+                sub_eval_2: $("#sub_eval_nota"),
                 PlanillaCursos: $("<div>"),
                 PlanillaEvaluaciones: $("<div>"),
                 PlanillaEvaluacionesDetalle: $("<div>"),
@@ -362,9 +401,14 @@
             });
 
             AdministradorFichaAlumno();
+         
+            
+            //Estilos para ver coloreada la grilla en Internet Explorer
+            $("tbody tr:even").css('background-color', '#E6E6FA');
+            $("tbody tr:odd").css('background-color', '#9CB3D6 ');
         });
 
-
+	
     </script>
     </form>
 </body>

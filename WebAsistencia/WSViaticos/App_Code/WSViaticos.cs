@@ -1795,9 +1795,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void AsignarImagenADocumento(int id_imagen, string tabla, int id_documento, int orden, Usuario usuario)
+    public void AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
     {
-        servicioDeDigitalizacionDeLegajos().AsignarImagenADocumento(id_imagen, tabla, id_documento, orden, usuario);
+        servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
     }
 
     [WebMethod]
@@ -1814,7 +1814,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
     {
-        return new ServicioDeDigitalizacionDeLegajos(Conexion(), new FileSystem(), "\\\\ZEUS\\RRHHyORG\\Organización\\DigitalizacionLegajos");
+        return new ServicioDeDigitalizacionDeLegajos(Conexion());
     }
 
 #endregion
@@ -1900,7 +1900,7 @@ public class WSViaticos : System.Web.Services.WebService
                         Docente = c.Docente.Nombre,
                         CalificacionFinal = CalificacionDelCurso(c,evaluaciones),
                         Estado = "",
-                        FechaFin = c.FechaFin,                     
+                        FechaFin = c.FechaFin.ToShortDateString(),                     
                         Evaluaciones = EvaluacionesDTOPorCurso(evaluaciones, c).ToArray(),
                     });
                 

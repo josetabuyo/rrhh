@@ -43,5 +43,10 @@ namespace General.Modi
         {
             this.imagenesSinAsignar.AddRange(imagenes);
         }
+
+        public FolioModi GetFolio(int nro_folio)
+        {
+            return this.documentos.SelectMany(d => d.folios).First(f => f.numero_folio == nro_folio);
+        }
     }
 }

@@ -8,12 +8,42 @@ VistaDeImagen.prototype.start = function () {
     this.ui = $("#plantilla_ui_imagen").clone();
     this.img_thumbnail = this.ui.find('#img_thumbnail');
     this.img_estatica = this.ui.find('#img_estatica');
+    this.nro_folio = this.o.numeroDeFolio || "";
+
     var _this = this;
     this.ui.click(function () {
         if (!_this.onDrag) {
             new VisualizadorDeImagenes({
-                idImagen: _this.id,
-                servicioDeLegajos: _this.o.servicioDeLegajos
+                imagen: _this,
+                servicioDeLegajos: _this.o.servicioDeLegajos,
+                onNumeroDeFolioIngresado: function (nro_folio) {
+                    if (nro_folio == "") {
+                        _this.o.servicioDeLegajos.desAsignarImagen(
+                            _this.id,
+                            function () {
+                                _this.nro_folio = nro_folio;
+                                _this.dibujarEn($("#panel_imagenes_no_asignadas .panel_de_imagenes"));
+                            });
+                    }
+                    else {
+                        var div_folio = $("#folio_" + nro_folio);
+                        if (div_folio.length == 0) {
+                            new Alerta("El folio ingresado no existe");
+                            return;
+                        }
+                        if (div_folio.find(".imagen_miniatura").length != 0) {
+                            new Alerta("Ya hay una imagen asignada al folio ingresado");
+                            return;
+                        }
+                        _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
+                            _this.id,
+                            nro_folio,
+                            function () {
+                                _this.nro_folio = nro_folio;
+                                _this.dibujarEn(div_folio);
+                            });
+                    }
+                }
             });
         }
     });
@@ -23,10 +53,9 @@ VistaDeImagen.prototype.start = function () {
         start: function (ui) {
             console.log("empezó a dragear: ", _this);
             _this.o.servicioDeDragAndDrop.imagenOnDrag = _this;
-            _this.ui.hide();
         },
         helper: "clone",
-        connectToSortable: '.panel_de_imagenes'
+        scroll: false
     });
 
     this.img_thumbnail.hide();

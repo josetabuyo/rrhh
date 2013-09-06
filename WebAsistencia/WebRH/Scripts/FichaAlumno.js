@@ -75,6 +75,7 @@ FichaAlumno.prototype.CompletarDetalleEvaluaciones = function (evaluacion) {
     //var contenedorPlanillaEvaluacionesDetalle = $('#ContenedorPlanillaEvaluacionesDetalle');
     _this.o.contenedorPlanillaEvaluacionesDetalle.html("");
     _this.o.sub_eval_2.html("Notas del Curso");
+    _this.o.sub_eval_2.attr("class", "sub_eval");
     //$("#sub_eval_2").html("Notas del Curso");
 
     _this.o.PlanillaEvaluacionesDetalle = new Grilla(
@@ -84,17 +85,21 @@ FichaAlumno.prototype.CompletarDetalleEvaluaciones = function (evaluacion) {
             new Columna("Calificac&oacute;n", { generar: function (evaluacionDTO) { return evaluacionDTO.Calificacion } })
 		]);
 
-   // var columnas = [];
+    // var columnas = [];
     var evaluacionDTO = evaluacion.Evaluaciones;
-   // columnas.push(new Columna("Instancia", { generar: function (evaluacionDTO) { return evaluacionDTO.DescripcionInstancia } }));
-   // columnas.push(new Columna("Fecha De Rendici&oacute;n", { generar: function (evaluacionDTO) { return evaluacionDTO.Fecha } }));
-   // columnas.push(new Columna("Calificac&oacute;n", { generar: function (evaluacionDTO) { return evaluacionDTO.Calificacion } }));
+    // columnas.push(new Columna("Instancia", { generar: function (evaluacionDTO) { return evaluacionDTO.DescripcionInstancia } }));
+    // columnas.push(new Columna("Fecha De Rendici&oacute;n", { generar: function (evaluacionDTO) { return evaluacionDTO.Fecha } }));
+    // columnas.push(new Columna("Calificac&oacute;n", { generar: function (evaluacionDTO) { return evaluacionDTO.Calificacion } }));
 
     //PlanillaEvaluacionesDetalle = new Grilla(columnas);
 
     _this.o.PlanillaEvaluacionesDetalle.AgregarEstilo("tabla_macc");
     _this.o.PlanillaEvaluacionesDetalle.CargarObjetos(evaluacionDTO);
     _this.o.PlanillaEvaluacionesDetalle.DibujarEn(_this.o.contenedorPlanillaEvaluacionesDetalle);
+
+    //Estilos para ver coloreada la grilla en Internet Explorer
+    $("tbody tr:even").css('background-color', '#E6E6FA');
+    $("tbody tr:odd").css('background-color', '#9CB3D6 ');
 
     return;
 }

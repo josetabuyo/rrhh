@@ -8,17 +8,17 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo]
-	@legajo int,
+	@id_interna int,
 	@nombre_imagen varchar(50),
 	@bytes_imagen text
 AS
 
 BEGIN
 	INSERT INTO		dbo.MODI_Imagenes
-					(legajo, 
+					(id_interna, 
 					nombre_imagen, 
 					bytes_imagen)
-	VALUES			(@legajo, 
+	VALUES			(@id_interna, 
 					@nombre_imagen, 
 					@bytes_imagen)	
 	

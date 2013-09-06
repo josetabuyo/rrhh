@@ -29,7 +29,7 @@ public class FichaAlumnoEvaluacionPorCursoDto
     public string Estado { get; set; }
     //public string FechaInicio { get; set; }
     public string CalificacionFinal { get; set; }
-    public DateTime FechaFin { get; set; }
+    public string FechaFin { get; set; }
     public EvaluacionDto[] Evaluaciones { get; set; }
     
 }
