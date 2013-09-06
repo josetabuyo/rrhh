@@ -18,7 +18,7 @@ namespace General
         protected EspacioFisico _espacioFisico;
 
         public int Id { get { return _id; } set { _id = value; } }
-        public string Nombre { get { return this.Materia.Nombre + " (" + this.Materia.Modalidad.Descripcion + ")"; } set { } }
+        public string Nombre { get { return this.Materia.Nombre + " - " + this.Cuatrimestre() + " (" + this.Materia.Modalidad.Descripcion + ") - " + this.EspacioFisico.Edificio.Nombre; } set { } }
         public Docente Docente { get { return _docente; } set { _docente = value; } }
         public Materia Materia { get { return _materia; } set { _materia = value; } }
         public string Observaciones { get { return _observaciones; } set { _observaciones = value; } }
@@ -129,5 +129,20 @@ namespace General
             return this.Materia.Modalidad.InstanciasDeEvaluacion;
         }
 
+
+        public string Cuatrimestre()
+        {
+            var anio = this.FechaInicio.Year;
+            var cuatrimestre = "";
+
+            if (this.FechaInicio.Month <= 7)
+            {
+                cuatrimestre = "1°C";
+            } else {
+                cuatrimestre = "2°C";
+            }
+
+            return cuatrimestre + " " + anio;
+        }
     }
 }

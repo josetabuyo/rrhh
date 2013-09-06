@@ -12,9 +12,14 @@
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
+  
+  
+    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+   
 
 </head>
-<body>
+<body class="marca_de_agua">
     <form id="form1" runat="server">
      <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
@@ -79,7 +84,12 @@
     <div class="div_derecho">
         <fieldset>
         <legend>Listado de Alumnos</legend>
-        <div id="ContenedorPlanilla" runat="server"></div>
+       
+        <div id="ContenedorPlanilla" runat="server">
+             <div class="input-append" style="clear:both;">   
+                <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" />    
+            </div>
+        </div>
         <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
        </fieldset>
     </div>
@@ -96,8 +106,9 @@
     </form>
 </body>
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>  
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/list.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"></script>
@@ -108,6 +119,10 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+
+    
 
 <script type="text/javascript">
 
@@ -119,17 +134,20 @@
     }
     document.onkeypress = CapturarTeclaEnter;
 
-
 //Muestra los Mensajes de Error mediante PopUp y los de Éxito por mensaje
     var mostrador_de_mensajes = {
         mostrar: function (mensaje) {
-            alert(mensaje);
+            alertify.alert(mensaje);
+            return false;
+            //alert(mensaje);
         }
     };
+
     var administradorDeErrores = new AdministradorDeMensajes(
-        { 
+        {
             mostrar: function (mensaje) {
-                        alert(mensaje);
+                        alertify.alert(mensaje);
+                        //alert(mensaje);
                     } 
         },
         $("#texto_mensaje_error").val());
@@ -143,11 +161,9 @@
         },
         $("#texto_mensaje_exito").val());
     
-
-
     var PlanillaAlumnos;
     var contenedorPlanilla;
-
+    
     var AdministradorPlanillaMensual = function () {
         var Alumnos = JSON.parse($('#alumnosJSON').val());
         //var nombreAlumno = Alumnos['nombre'];
@@ -188,6 +204,9 @@
 
         PlanillaAlumnos = new Grilla(columnas);
 
+        PlanillaAlumnos.AgregarEstilo("tabla_macc");
+        //PlanillaAlumnos.agregarBuscador();
+
         PlanillaAlumnos.SetOnRowClickEventHandler(function (un_alumno) {
             panelAlumno.CompletarDatosAlumno(un_alumno);
         });
@@ -195,6 +214,7 @@
         PlanillaAlumnos.CargarObjetos(Alumnos);
         PlanillaAlumnos.DibujarEn(contenedorPlanilla);
 
+ 
 
         panelAlumno.CompletarDatosAlumno = function (un_alumno) {
 
@@ -212,6 +232,12 @@
             $("#btnModificarAlumno").attr("disabled", false);
             $("#btnQuitarAlumno").attr("disabled", false);
         };
+
+        var options = {
+            valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad', 'Detalle']
+        };
+
+        var featureList = new List('ContenedorPlanilla', options);
     }
 
     function crearInputAutocompletable(input, lista, elementoSeleccionado) {
@@ -235,8 +261,14 @@
         });
     }
 
+
     $(document).ready(function () {
         AdministradorPlanillaMensual();
+
+        //Estilos para ver coloreada la grilla en Internet Explorer
+        $("tbody tr:even").css('background-color', '#E6E6FA');
+        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
+
     });
 </script>
 </html>

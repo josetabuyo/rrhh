@@ -60,12 +60,13 @@ ServicioDeDigitalizacionDeLegajos.prototype.getImagenPorId = function (id_imagen
     });
 };
 
-ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenADocumento = function (id_imagen, tabla, id_documento) {
+ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenADocumento = function (id_imagen, tabla, id_documento, orden) {
     this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/AsignarImagenADocumento",
         data: {
             id_imagen: id_imagen,
             tabla: tabla,
-            id_documento: id_documento
+            id_documento: id_documento,
+            orden: orden
         },
         success: function () {
         },

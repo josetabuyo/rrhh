@@ -84,7 +84,7 @@ BuscadorDeLegajos.prototype.mostrarBarraDeEspera = function () {
     progress_label.css("margin-top", "5px");
     progress_label.css("font-weight", "bold");
 
-    progress_label.text("Buscando legajo...");
+    progress_label.text("Buscando legajos...");
 
     this.progress_bar.append(progress_label);
 

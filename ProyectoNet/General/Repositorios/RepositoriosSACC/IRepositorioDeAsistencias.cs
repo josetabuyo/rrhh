@@ -9,6 +9,7 @@ namespace General.Repositorios
     {
         IConexionBD conexion_bd { get; set; }
         System.Collections.Generic.List<General.Asistencia> GetAsistenciasFromTabla(TablaDeDatos tablaAsistencias);
+        global::System.Collections.Generic.List<global::General.Asistencia> GetAsistencias();
         
     }
 }

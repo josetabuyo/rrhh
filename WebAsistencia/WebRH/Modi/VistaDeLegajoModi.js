@@ -16,7 +16,11 @@ VistaDeLegajoModi.prototype.start = function () {
         servicioDeDragAndDrop: this.servicioDeDragAndDrop,
         mensajeParaCuandoEstaVacio: 'Este legajo no tiene imágenes sin asignar',
         onImagenDropeada: function (imagen) {
-            _this.o.servicioDeLegajos.desAsignarImagen(imagen.id);
+            _this.o.servicioDeLegajos.desAsignarImagen(imagen.id,
+                                                        function () {
+                                                            imagen.nro_folio = "";
+                                                            _this.panel_imagenes_no_asignadas.agregarVistaImagen(imagen);
+                                                        });
         }
     });
     this.panel_imagenes_no_asignadas.dibujarEn(this.div_imagenes_no_asignadas);
@@ -53,6 +57,6 @@ VistaDeLegajoModi.prototype.mostrarLegajo = function (legajo) {
         vista_documento.dibujarEn(this.panel_documentos);
     }
 
-    this.panel_imagenes_no_asignadas.cargarImagenes(legajo.idImagenesSinAsignar);
+    this.panel_imagenes_no_asignadas.cargarImagenes(legajo.imagenesSinAsignar);
     this.o.ui.css('opacity', '1');
 };

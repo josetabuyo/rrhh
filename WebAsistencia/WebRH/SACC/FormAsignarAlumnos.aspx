@@ -15,9 +15,11 @@
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="InscripcionAlumnos.js"></script>
+    <script type="text/javascript" src="../Scripts/list.js"></script>
+    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
     
 </head>
-<body>
+<body >
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
@@ -29,14 +31,14 @@
             <p>
             <asp:Label ID="lblCiclo"  runat="server" style="padding-right:5px;"  Text="Ciclo:"></asp:Label>
                 <asp:DropDownList ID="cmbCiclo" runat="server"  EnableViewState="false" 
-                    Width="250px">
+                    Width="400px">
                     <asp:ListItem Value="-1" class="placeholder" Selected="true">Ciclo</asp:ListItem>
                 </asp:DropDownList>    
             </p>
             <p>
             <asp:Label ID="lblCursos"  runat="server"  Text="Curso:"></asp:Label>
                 <asp:DropDownList ID="cmbCursos" runat="server" EnableViewState="false" 
-                    Width="250px">
+                    Width="400px">
                     <asp:ListItem Value="0" class="placeholder" Selected="true">Cursos</asp:ListItem>
                 </asp:DropDownList>        
             </p>
@@ -50,7 +52,11 @@
     <div id="panelAlumnoDisponibles" style="margin-left:20px" class="div_izquierdo_inscripcion">
     <fieldset>
         <legend>Listado de Alumnos Para Inscribir</legend>
-        <div style="float:left" class="tablas_alumnos" id="grillaAlumnosDisponibles" runat="server"></div>
+        <div style="float:left" class="tablas_alumnos" id="grillaAlumnosDisponibles" runat="server">
+            <div class="input-append">   
+                <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Buscar Alumnos" />    
+            </div>
+        </div>
     </fieldset>
 
     </div>
@@ -77,6 +83,7 @@
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idAlumnoAVer" runat="server" />
     <asp:HiddenField ID="alumnosEnGrillaParaGuardar" runat="server" />
+
 
     </form>
 </body>
@@ -107,10 +114,19 @@
 
         var modulo_inscripcion = new PaginaInscripcionAlumnos(items_pantalla);
 
+        var options = {
+            valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad']
+        };
+
+        var featureListAlumnosDisponibles = new List('grillaAlumnosDisponibles', options);
     };
 
     $(document).ready(function () {
         AdministradorPlanilla();
+
+        //Estilos para ver coloreada la grilla en Internet Explorer
+        $("tbody tr:even").css('background-color', '#E6E6FA');
+        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
     });
 
 </script>

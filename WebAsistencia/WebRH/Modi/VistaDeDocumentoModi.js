@@ -5,24 +5,32 @@
 
 VistaDeDocumentoModi.prototype.start = function () {
     this.lbl_descripcion_en_RRHH = this.o.ui.find('#lbl_descripcion_en_RRHH');
-    this.lbl_folio = this.o.ui.find('#lbl_folio');
-    this.div_imagenes = this.o.ui.find('#panel_imagenes');
+    this.panel_folios = this.o.ui.find('#panel_folios');
     this.lbl_descripcion_en_RRHH.text(this.o.documento.descripcionEnRRHH);
-    this.lbl_folio.text(this.o.documento.folio)
 
     var _this = this;
-    this.panel_imagenes = new PanelDeImagenes({
-        servicioDeLegajos: this.o.servicioDeLegajos,
-        servicioDeDragAndDrop: this.o.servicioDeDragAndDrop,
-        mensajeParaCuandoEstaVacio: 'Este documento no tiene imágenes asignadas',
-        onImagenDropeada: function (imagen) {
-            _this.o.servicioDeLegajos.asignarImagenADocumento(imagen.id,
-                                                                _this.o.documento.tabla,
-                                                                _this.o.documento.id);
-        }
-    });
-    this.panel_imagenes.cargarImagenes(this.o.documento.idImagenesAsignadas);
-    this.panel_imagenes.dibujarEn(this.div_imagenes);
+    //    this.panel_imagenes = new PanelDeImagenes({
+    //        servicioDeLegajos: this.o.servicioDeLegajos,
+    //        servicioDeDragAndDrop: this.o.servicioDeDragAndDrop,
+    //        mensajeParaCuandoEstaVacio: 'Este documento no tiene imágenes asignadas',
+    //        onImagenDropeada: function (imagen, orden) {
+    //            _this.o.servicioDeLegajos.asignarImagenADocumento(imagen.id,
+    //                                                                _this.o.documento.tabla,
+    //                                                                _this.o.documento.id,
+    //                                                                orden);
+    //        }
+    //    });
+    //    this.panel_imagenes.cargarImagenes(this.o.documento.imagenesAsignadas);
+    //    this.panel_imagenes.dibujarEn(this.div_imagenes);
+
+    for (var i = 0; i < this.o.documento.folios.length; i++) {
+        var vista_folio = new VistaDeFolioModi({
+            folio: this.o.documento.folios[i],
+            servicioDeLegajos: this.o.servicioDeLegajos,
+            servicioDeDragAndDrop: this.o.servicioDeDragAndDrop
+        });
+        vista_folio.dibujarEn(this.panel_folios);
+    }
 
     this.cmb_categorias = this.o.ui.find('#cmb_categoria select');
     this.o.servicioDeCategorias.categoriasDocumentosSICOI(function (categorias) {

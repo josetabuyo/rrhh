@@ -23,6 +23,8 @@ SelectorDeLegajos.prototype.mostrarModal = function () {
     var _this = this;
     this.ui.dialog({
         title: "Seleccione el legajo que busca",
+        height: 600,
+        width: 500,
         dialogClass: "no-close",
         modal: true,
         show: {

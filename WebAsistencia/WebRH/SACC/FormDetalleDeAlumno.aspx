@@ -17,6 +17,13 @@
      <br />
      <br />
      <h1>Página en Construcción</h1>
+
+    <ul id="myTab" class="nav nav-tabs">
+              <li class=""><a href="#home" data-toggle="tab">Cursadas</a></li>
+              <li class="active"><a href="#profile" data-toggle="tab">Asistencias</a></li>
+              <li class=""><a href="#" class="dropdown-toggle" data-toggle="tab">Evaluaciones</a></li>
+            </ul>
+
     <div class="botones_main_sicoi">
     
             <asp:Button ID="btnABMCursos" Text="Asignar Cursos" runat="server" 
@@ -24,6 +31,24 @@
                 Visible="false"/>
     
     </div>
+
+    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#myTab a:last').tab('show');
+            $('#myTab a[href="#profile"]').tab('show'); // Select tab by name
+        })
+    </script>
     </form>
 </body>
 </html>

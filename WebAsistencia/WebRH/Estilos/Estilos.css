@@ -17,6 +17,27 @@
 	margin-left: -512px;	
 	background-color: #FFF;
 }
+
+.tabla_protocolo
+{
+    background-color: #111F2F;
+    padding: 2px ;
+    border-radius: 3px;
+	-webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+    -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+    box-shadow: 3px 3px 19px rgba(0,0,0,0.2); 
+}
+
+.titulo_gradiente
+{
+    float:left;
+    margin:5px; 
+    color: #FFFFFF;
+    font-family: arial, helvetica, sans-serif;
+    font-size: 15px;
+}
+
+
 /*FIN ESTILO GENERAL*/
 
 
@@ -500,19 +521,19 @@
 }
 
 .table tbody tr:hover td, .table tbody tr:hover th {
-    background-color: #f5f5f5;
+    background-color: #6E89B1;/* #f5f5f5;*/
 }
 
 .celda_seleccionada
 {
-    background-color:gray !important;
+    background-color:rgb(159, 177, 236) !important;
     user-select: none;
     cursor:pointer;
 }
 
 .celda_on_hover
 {
-    background-color:Silver !important;
+    background-color:#6E89B1 !important;
     user-select: none;
     cursor:pointer;
 }
@@ -526,6 +547,15 @@
         float:left;
         margin-top: 8px;
     }
+    
+.label_evaluaciones 
+{
+    width:3%; 
+    text-align:left; 
+    padding-right:2%; 
+    float:left; 
+    margin-top: 8px;
+}
 
 .div_derecho {
 	/*right: 5%;*/
@@ -647,3 +677,17 @@ text-align: right;
 .navbar .nav li.dropdown.active > .dropdown-toggle:hover {
   color: #999;
 }
+
+.tabla_macc {
+  background-color: #9CB3D6;
+}
+
+ .marca_de_agua
+    {
+           background-image: url(../Imagenes/pantalla_1.jpg);
+           background-repeat: no-repeat;
+           background-attachment: fixed;
+           background-position: bottom center;
+           background-color: #fff;
+          
+    }

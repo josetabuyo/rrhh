@@ -9,6 +9,8 @@
         margin-top: -10px;
         width: 100%;
         font-weight: normal;
+        background-color: #E6E6FA;
+        border-top:1px solid #000;
     }
     
     .area01datosresaltados
@@ -21,15 +23,19 @@
     .area01
     {
         clear: both;
-        float: right;  /*margin-top: -400px;*/
-        font-family: "Humnst777 BT";
-        font-size: 13px;
+        float: left;  /*margin-top: -400px;*/
+        font-size: 15px;
         font-weight: bold;
         color: #000;
         text-transform: capitalize;
-        margin-top: 50px; /*90px;*/
-        background-color: #FFF;
+        margin-top: 7%; /*90px;*/
+        width: 90%;
+        background-color: #9CB3D6;
         margin-right: 15px;
+        border-radius: 5px;
+	    -webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        box-shadow: 3px 3px 19px rgba(0,0,0,0.2); 
     }
     
     .botones
@@ -63,10 +69,11 @@
 <div>
     <div class="area01">
         
-            <asp:Label ID="lblNombreArea" runat="server"></asp:Label>
+             <legend style="padding-bottom:0; margin-bottom:0; text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);"> <asp:Label ID="lblNombreArea" runat="server"></asp:Label></legend>
+
         
         <p>
-            <img src="Imagenes/linea.png" alt="linea" width="600px" height="4px"  /></p>
+            <%--<img src="Imagenes/linea.png" alt="linea" width="600px" height="4px"  /></p>--%>
         <div class="area01datos">
             
             <%--<label>Responsable:</label>--%>
@@ -77,6 +84,8 @@
             <br />
             <%--<label>Teléfono:</label>--%>
              <asp:Label runat="server" ID="lbTelefonoArea"></asp:Label>
+            <br />
+            <asp:Label runat="server" ID="lbFaxArea"></asp:Label>
             <br />
             <%--<label>Mail:</label>--%>
              <asp:Label runat="server" ID="lbMailArea"></asp:Label>

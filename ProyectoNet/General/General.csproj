@@ -71,6 +71,7 @@
     <Compile Include="Asistencia\ConceptoDeLicencia.cs" />
     <Compile Include="Asistencia\PaseDeArea.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
+    <Compile Include="ConstantesDeDatosDeContacto.cs" />
     <Compile Include="ExcepcionDeValidacion.cs" />
     <Compile Include="MICOI\AccionDeTransicion.cs" />
     <Compile Include="MICOI\Alias.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="MICOI\FiltroDeDocumentosPorTipoDocumento.cs" />
     <Compile Include="MICOI\FiltroDeDocumentosPorTransicion.cs" />
     <Compile Include="MICOI\Mensajeria.cs" />
+    <Compile Include="Modi\FolioModi.cs" />
     <Compile Include="Modi\IServicioDeDigitalizacionDeLegajos.cs" />
     <Compile Include="Modi\LegajoModi.cs" />
     <Compile Include="Modi\DocumentoModi.cs" />
@@ -112,6 +114,8 @@
     <Compile Include="Organigrama\Asistentes.cs" />
     <Compile Include="Organigrama\BuscadorDeAreas.cs" />
     <Compile Include="Organigrama\ContactoArea.cs" />
+    <Compile Include="Organigrama\AreaDto.cs" />
+    <Compile Include="DatosDeContacto.cs" />
     <Compile Include="Organigrama\FiltroDeAreas.cs" />
     <Compile Include="Organigrama\InterpretadorDeCodigosDeArea.cs" />
     <Compile Include="Organigrama\Nodo.cs" />
@@ -119,6 +123,8 @@
     <Compile Include="Organigrama\Organigrama.cs" />
     <Compile Include="Organigrama\OrganigramaException.cs" />
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
+    <Compile Include="SACC\AsistenciaHoraCuatro.cs" />
+    <Compile Include="SACC\Articulador.cs" />
     <Compile Include="Seguridad\Auditoria.cs" />
     <Compile Include="Seguridad\Autorizador.cs" />
     <Compile Include="Seguridad\Features.cs" />
@@ -235,6 +241,7 @@
     <Compile Include="SACC\AsistenciaHoraUno.cs" />
     <Compile Include="SACC\AsistenciaClaseSuspendida.cs" />
     <Compile Include="SACC\CalificacionNoNumerica.cs" />
+    <Compile Include="SACC\ComparadorDeDiferencias.cs" />
     <Compile Include="SACC\ModalidadNull.cs" />
     <Compile Include="SACC\EvaluacionDto.cs" />
     <Compile Include="SACC\DocenteNull.cs" />

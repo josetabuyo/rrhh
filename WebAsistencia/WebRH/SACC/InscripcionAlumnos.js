@@ -18,35 +18,37 @@
 	});
 	
 	this.o.planillaAlumnosDisponibles = new Grilla(
-                [
-                    new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento; } }),
-					new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre; } }),
-					new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }),
-					new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } })
-				]);
+        [
+            new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento; } }),
+			new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre; } }),
+			new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }),
+			new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } })
+		]);
 				
-				this.o.planillaAlumnosDisponibles.SetOnRowClickEventHandler(function (un_alumno) {
-					_this.o.alumnoGlobal = un_alumno;
-				});
+		this.o.planillaAlumnosDisponibles.SetOnRowClickEventHandler(function (un_alumno) {
+			_this.o.alumnoGlobal = un_alumno;
+	});
 				
 	this.o.planillaAlumnosAsignados = new Grilla(
-                [
-                    new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento; } }),
-					new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre; } }),
-					new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }),
-					new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } })
-				]);
+        [
+            new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento; } }),
+			new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre; } }),
+			new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }),
+			new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } })
+		]);
 				
-				this.o.planillaAlumnosAsignados.SetOnRowClickEventHandler(function (un_alumno) {
-					_this.o.alumnoGlobal = un_alumno;
-				});
-				
+		this.o.planillaAlumnosAsignados.SetOnRowClickEventHandler(function (un_alumno) {
+			_this.o.alumnoGlobal = un_alumno;
+	});
+
+
+    this.o.planillaAlumnosAsignados.AgregarEstilo("tabla_macc");
+    this.o.planillaAlumnosDisponibles.AgregarEstilo("tabla_macc");
 	this.o.planillaAlumnosDisponibles.CargarObjetos(this.o.alumnos);
 	this.o.planillaAlumnosDisponibles.DibujarEn(this.o.contenedorAlumnosDisponibles);
 	
 	this.completarcombosDeCursos();
 	this.completarCombosDeCiclo();
-	
 }
 
 PaginaInscripcionAlumnos.prototype.completarCombosDeCiclo = function () {
@@ -124,7 +126,12 @@ PaginaInscripcionAlumnos.prototype.completarCombosDeCiclo = function () {
             else {
 
             }
+
+            //Estilos para ver coloreada la grilla en Internet Explorer
+            $("tbody tr:even").css('background-color', '#E6E6FA');
+            $("tbody tr:odd").css('background-color', '#9CB3D6 ');
         });
+
     };
 
     PaginaInscripcionAlumnos.prototype.AsignarAlumno = function () {
@@ -182,16 +189,16 @@ PaginaInscripcionAlumnos.prototype.completarCombosDeCiclo = function () {
 
                     _this.GetCursosDTO();
 
-                    alert("Se inscribieron los alumnos correctamente");
+                    alertify.alert("Se inscribieron los alumnos correctamente");
                 }
                 if (respuesta.tipoDeRespuesta == "inscripcionAlumno.error") {
-                    alert("Error al inscribir alumnos: " + respuesta.error);
+                    alertify.alert("Error al inscribir alumnos: " + respuesta.error);
                 }
 
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown);
+                alertify.alert(errorThrown);
             }
         });
     };
@@ -212,7 +219,7 @@ PaginaInscripcionAlumnos.prototype.completarCombosDeCiclo = function () {
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown);
+                alertify.alert(errorThrown);
             }
         });
      };

@@ -3,6 +3,11 @@
     display:none;
 }
 
+#contenedor_principal_modi
+{
+    height:500px;
+}
+
 #ui_buscador_de_legajos
 {
     padding:5px;
@@ -12,6 +17,55 @@
 {
     margin-top:9px;
     width:265px;
+}
+
+.folio
+{
+    display:inline-block;
+    height: 90px;
+    width: 90px;
+    border: 1px dashed black;
+    margin:5px;  
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;    
+}
+
+.folio .contenedor_lbl_folio
+{
+    position:relative;
+}
+
+.folio #lbl_folio
+{
+    position:absolute;
+    top: 72px;
+    font-weight: bold;
+    width: 90px;
+    text-align: center;
+}
+
+.folio #overlay_lbl_folio
+{
+    position:absolute;
+    top: 72px;
+    background-color: gray;    
+    opacity: 0.5;
+    width: 90px;
+    height: 18px;
+    border-radius: 0px 0px 5px 5px;
+}
+
+
+.folio .imagen_miniatura
+{
+    display:block;
+}
+
+.folio_drop_hover
+{
+    background-color:White;
 }
 
 .vista_legajo_fila
@@ -71,13 +125,26 @@
     display: inline-block;
     font-weight: bold;
     font-size:15px;
-    margin-left:555px;
+    margin-left:294px;
 }
 
 #panel_documentos
 {
-    max-height: 420px;
+    max-height: 400px;
     overflow-y: auto;
+}
+
+.placeholder_sortable
+{
+    display:inline-block;       
+    margin:5px;  
+	height: 90px;
+    width: 90px;
+    background-color:Highlight;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .vista_de_legajo
@@ -125,7 +192,7 @@
 .documento #panel_datos_documento
 {
     display:inline-block;
-    width:49%;    
+    width:29%;    
     vertical-align: top;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
@@ -137,12 +204,22 @@
     padding:5px;
 }
 
-.documento #panel_imagenes
+.documento #panel_folios
 {
     display:inline-block;
-    width:50%;      
+    width:70%;      
     border-left: 1px dashed black;
     margin-bottom: -4px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+    list-style-type: none;
+    height:99px;
+}
+
+.documento #panel_folios:hover  
+{
+    overflow-x:auto; 
 }
 
 .panel_de_imagenes
@@ -151,7 +228,8 @@
     overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
-    transition: all .3s;
+    /*transition: all .3s;*/
+    list-style-type: none;
 }
 
 .panel_de_imagenes:hover  
@@ -159,15 +237,18 @@
     overflow-x:auto; 
 }
 
+.vista_de_legajo #panel_imagenes_no_asignadas .imagen_miniatura
+{
+    margin: 5px;
+}
+
 .imagen_miniatura
 {
     display:inline-block;   
     text-align:center; 
-    margin:5px;  
-    draggable: true;
-	list-style:none; 
 	height: 90px;
     width: 90px;
+    z-index:1;
 }
 
 .imagen_miniatura #img_thumbnail,
@@ -184,6 +265,7 @@
     border-radius: 5px;
     width: 100%;
     height: 100%;
+    cursor: pointer;
 }
 
 .imagen_miniatura #img_thumbnail:hover
@@ -197,7 +279,7 @@
     display:block;
 }
 
-#plantilla_ui_visualizador_imagen #contenedor_imagen
+.visualizador_imagen #contenedor_imagen
 {
     height:510px;
     width:980px;  
@@ -206,19 +288,44 @@
     -khtml-border-radius: 5px;
     border-radius: 5px;
     background-color: White;
+    position: relative;
 }
 
-.panel_con_estatica
-{
-    background-image:url('imagenes/static.gif');
-}
-
-#plantilla_ui_visualizador_imagen #contenedor_imagen img
+.visualizador_imagen #contenedor_imagen img
 {   
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     -khtml-border-radius: 5px;
     border-radius: 5px;
+}
+
+.visualizador_imagen #panel_folio
+{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background-color: white;
+    padding: 5px;
+    border-color: black;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    max-height: 28px;
+}
+
+.visualizador_imagen #panel_folio label
+{
+    vertical-align: super;
+}
+
+.visualizador_imagen #panel_folio #txt_folio
+{
+    width:30px;
+}
+
+.panel_con_estatica
+{
+    background-image:url('imagenes/static.gif');
 }
 
 ::-webkit-scrollbar {
