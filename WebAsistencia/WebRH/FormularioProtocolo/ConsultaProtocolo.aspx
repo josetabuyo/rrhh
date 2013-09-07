@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ConsultaProtocolo.aspx.cs" Inherits="FormularioProtocolo_ConsultaProtocolo" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
-<%@ Register Src="~/FormularioProtocolo/GrillaProtocolo.ascx" TagName="GrillaProtocolo" TagPrefix="uc1" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,11 +7,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Formulario Protocolo</title>
         <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
-        <link id="link3" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-        <link id="link5" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" /> 
-        <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
-        <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-        <link rel="stylesheet" href="../Estilos/alertify.default.css"  /> 
+        <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
+        <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" /> 
+        <link id="link3" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
+        <link id="link4" rel="stylesheet" href="ConsultaProtocolo.css" type="text/css" runat="server" />
         <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
     </head>
 
@@ -54,9 +52,13 @@
                 </div>
             </div>
             <div id="plantillas">
-                <div id="plantilla_vista_area">
-                    <div id="datos_area">
-                    
+                <div id="plantilla_vista_area" class="vista_area">
+                    <div class="contenido">
+                        <div><div class="titulo">Responsable:</div> <div id="responsable" class="valor"></div></div>
+                        <div><div class="titulo">Dirección:</div> <div id="direccion" class="valor"></div></div>
+                        <div><div class="titulo">Teléfono:</div> <div id="telefono" class="valor"></div></div>
+                        <div><div class="titulo">Fax:</div> <div id="fax" class="valor"></div></div>
+                        <div><div class="titulo">Mail:</div> <div id="mail" class="valor"></div></div>
                     </div>
                 </div>
             </div>
@@ -64,6 +66,7 @@
     </body>
 
     <script type="text/javascript" src="AdministradorDeAreas.js"></script>
+    <script type="text/javascript" src="Area.js"></script>
     <script type="text/javascript" src="VistaDeArea.js"></script>
 
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>
@@ -72,16 +75,12 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
-    <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <script type="text/javascript" src="../Scripts/list.js"></script>
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
 
     <script type="text/javascript">
     $(document).ready(function () {
         var admin = new AdministradorDeAreas();
-        //Estilos para ver coloreada la grilla en Internet Explorer
-        $("tbody tr:even").css('background-color', '#E6E6FA');
-        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
     });
 </script>
 </html>
