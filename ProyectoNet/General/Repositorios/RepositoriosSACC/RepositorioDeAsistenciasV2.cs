@@ -17,7 +17,7 @@ namespace General.Repositorios
 
         public List<Acumulador> GetAsistencias()
         {
-            var tablaAsistencias = conexion_bd.Ejecutar("dbo.SACC_Get_Asistencias");
+            var tablaAsistencias = conexion_bd.Ejecutar("dbo.SACC_Get_Asistencias_2");
             this.asistencias = GetAsistenciasFromTabla(tablaAsistencias);
             return asistencias;
         }
@@ -112,7 +112,7 @@ namespace General.Repositorios
             if (idBaja != 0)
                 parametros.Add("@id_baja", idBaja);
 
-            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Upd_Del_Asistencia", parametros);
+            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Upd_Del_Asistencia_2", parametros);
         }
 
         private int GuardarAsistencia(Acumulador a, Usuario usuario)
@@ -126,7 +126,7 @@ namespace General.Repositorios
             parametros.Add("@id_usuario", usuario.Id);
 
 
-            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Asistencia", parametros);
+            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Asistencia_2", parametros);
         }
 
         private int CrearBaja(Usuario usuario)

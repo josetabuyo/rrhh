@@ -44,27 +44,7 @@ namespace General
         }
 
 
-        public void AgregarInasistenciaPara(Alumno un_alumno, DateTime fecha)
-        {             
-            List<DateTime> diasCursable = this.GetDiasDeCursadaEntre(this.FechaDesde, this.FechaHasta);
-
-            Validador().EstaEnLaColeccion(_un_curso.Alumnos(), un_alumno, "Alumnos");
-            Validador().EstaEnLaColeccion(diasCursable, fecha, "Dias de Cursada");
-
-            AgregarAlAlumnoSiNoEsta(un_alumno);
-            //AgregarInasistencia(un_alumno, fecha);        
-        }
-
-        //private void AgregarInasistencia(Alumno un_alumno, DateTime fecha)
-        //{
-        //    this._asistencias_e_inasistencias[un_alumno].Add(new InasistenciaNormal(fecha));
-        //}
-
-        //private void AgregarAsistencia(Alumno un_alumno, DateTime fecha)
-        //{
-        //    this._asistencias_e_inasistencias[un_alumno].Add(new AsistenciaIndeterminada(fecha));
-        //}
-
+       
         private void AgregarAlAlumnoSiNoEsta(Alumno un_alumno)
         {
             if (!this._asistencias_e_inasistencias.ContainsKey(un_alumno))
@@ -76,35 +56,9 @@ namespace General
             return new Validador();
         }
 
-        public void AgregarAsistenciaPara(Alumno un_alumno, DateTime fecha)
-        {
-            List<DateTime> diasCursable = this.GetDiasDeCursadaEntre(this.FechaDesde, this.FechaHasta);
-
-            Validador().EstaEnLaColeccion(_un_curso.Alumnos(), un_alumno, "Alumnos");
-            Validador().EstaEnLaColeccion(diasCursable, fecha, "Dias de Cursada");
-
-            AgregarAlAlumnoSiNoEsta(un_alumno);
-            //AgregarAsistencia(un_alumno, fecha);        
-        }
-
         private bool AlumnoPerteneceAlcurso(Alumno un_alumno)
         {
             return _un_curso.Alumnos().Contains(un_alumno);
-        }
-
-        public List<Asistencia> GetInasistenciaPorAlumno(Alumno un_alumno)
-        {
-            if (this._asistencias_e_inasistencias.ContainsKey(un_alumno))
-                return this._asistencias_e_inasistencias[un_alumno].FindAll(a => a.Descripcion == "Inasistencia Normal");
-            return new List<Asistencia>();
-            //.FindAll(i => i.Alumno == un_alumno);
-        }
-
-        public List<Asistencia> GetAsistenciasPorAlumno(Alumno un_alumno)
-        {
-            if (this._asistencias_e_inasistencias.ContainsKey(un_alumno))
-                return this._asistencias_e_inasistencias[un_alumno].FindAll(a => a.Descripcion == "Asistencia Indeterminada");
-            return new List<Asistencia>();
         }
 
         public List<DateTime> GetDiasDeCursadaEntre(DateTime fecha_desde, DateTime fecha_hasta)

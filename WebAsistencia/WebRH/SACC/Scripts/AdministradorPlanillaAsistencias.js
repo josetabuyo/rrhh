@@ -1,78 +1,36 @@
-var AdministradorPlanillaMensual = function () {
-    if ($('#PlanillaAsistencia_planillaJSON').val() != "{}" && $('#PlanillaAsistencia_planillaJSON').val() != "") {
+var AdministradorPlanilla = function () {
+    var _this = this;
 
-        var Planilla = JSON.parse($('#PlanillaAsistencia_planillaJSON').val());
+    _this.contenedorPlanilla = {};
 
-        var DiasCursados = Planilla['diascursados'];
-        var AlumnosInasistencias = Planilla['asistenciasalumnos'];
-        var contenedorPlanilla = $('#PlanillaAsistencia_ContenedorPlanilla');
-        var HorasCatedraCurso = Planilla['horas_catedra'];
-        var columnas = [];
-        var columnas_acumuladas = [];
+    var diasCursados = {};
+    var asistencias = {};
+    var horasCatedra = {};
+    var columnas = [];
 
-        columnas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
-        if (DiasCursados) {
-            for (var i = 0; i < DiasCursados.length; i++) {
-                columnas.push(new Columna(DiasCursados[i].nombre_dia + "/" + DiasCursados[i].dia + "<br/>" + DiasCursados[i].horas + " hs",
-                                        new GeneradorCeldaDiaCursado(DiasCursados[i])));
+    _this.cargar_asistencias = function (id_curso, mes) {
+        var data_post = { id_curso: id_curso, mes: mes };
+        $.ajax({
+            url: "../AjaxWS.asmx/GetPlanillaAsistencias",
+            type: "POST",
+            async: false,
+            data: data_post,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (respuestaJson) {
+                var respuesta = JSON.parse(respuestaJson.d);
+                diasCursados = respuesta.diasCursados;
+                asistencias = respuesta.asistencias;
+                hotasCatedra = respuesta.horasCatedra;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alertify.alert(errorThrown);
             }
-        }
-        columnas.push(new Columna("Asistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
-        columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
-
-        columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return '<label class="acumuladas">' + inasistenciaalumno.asistencias_acumuladas + " (" + inasistenciaalumno.por_asistencias_acumuladas + ")</label>" } }));
-        columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return '<label class="acumuladas">' + inasistenciaalumno.inasistencias_acumuladas + " (" + inasistenciaalumno.por_inasistencias_acumuladas + ")</label>" } }));
-
-        var PlanillaMensual = new Grilla(columnas);
-
-        PlanillaMensual.AgregarEstilo("tabla_macc");
-        PlanillaMensual.CargarObjetos(AlumnosInasistencias);
-        PlanillaMensual.DibujarEn(contenedorPlanilla);
-        PlanillaMensual.SetOnRowClickEventHandler(function () {
-            return true;
         });
-        var Docente = JSON.parse($("#PlanillaAsistencia_Curso").val()).Docente;
+    }
 
-        $("#Docente").text(Docente.Nombre + " " + Docente.Apellido);
-        $("#HorasCatedraCurso").text(HorasCatedraCurso);
-
-        var Observaciones = JSON.parse($("#PlanillaAsistencia_Curso").val()).Observaciones;
-
-        $("#TxtObservaciones").val(Observaciones);
+    _this.dibujar_planilla = function () {
 
     }
-    else {
-        $("#lblDocente").css("visibility", "hidden");
-        $("#lblHorasCurso").css("visibility", "hidden");
-        $("#BtnGuardar").css("visibility", "hidden");
-        $("#BtnImprimir").css("visibility", "hidden");
-        $("#TxtObservaciones").css("visibility", "hidden");
-    }
-};
 
-var GeneradorCeldaDiaCursado = function (diaCursado) {
-    var self = this;
-    self.diaCursado = diaCursado;
-    self.generar = function (inasistenciaalumno) {
-        var contenedorAcciones = $('<div>');
-
-        var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
-                .Where(function (x) { return x.fecha == diaCursado.fecha });
-
-        var botonAsistencia;
-        if (queryResult.Count() > 0) {
-            var valor = queryResult.First().valor;
-//            if (valor == 5)
-//                valor = "AUSENTE";
-//            if (valor == 6)
-//                valor = "NO_CURSADO";
-            botonAsistencia = new BotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, valor, diaCursado.horas);
-        }
-        else {
-            botonAsistencia = new BotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, diaCursado.horas);
-        }
-        contenedorAcciones.append(botonAsistencia.html);
-
-        return contenedorAcciones;
-    };
 }

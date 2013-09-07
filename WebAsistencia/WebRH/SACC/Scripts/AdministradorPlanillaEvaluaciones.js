@@ -15,7 +15,7 @@ var admin_planilla;
                 instancias.options.length = 0;
                 contenedor.append(etiqueta).append($(instancias));
             } else {
-                var instancias = $("<input>").attr("type", "hidden").attr("id", "Instancias");
+                instancias = $("<input>").attr("type", "hidden").attr("id", "Instancias");
                 contenedor.append(instancias);
             }
             if (id_curso > 0) {

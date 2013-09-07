@@ -9,8 +9,6 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
     int anio = 2013;
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (IsPostBack)
-            //GuardarDetalleAsistencias();
         if (Request.QueryString.Count > 0)
         {
             this.CursoId.Value = Request["idCurso"];
@@ -50,20 +48,17 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
         {
             var servicio = Servicio();
             
-            var detalle_asistencias_dto = new List<AsistenciaDto>();
+            var detalle_asistencias = new List<AcumuladorDto>();
             foreach (var item in detalle_asistencias_JSON)
             {
-                var id_alumno = int.Parse(item["id_alumno"].ToString());
-                var fecha = DateTime.Parse(item["fecha"].ToString());
-                var valor = int.Parse(item["valor"].ToString());
-                var asistencia_dto = new AsistenciaDto();
-                asistencia_dto.IdAlumno = id_alumno;
-                asistencia_dto.IdCurso = int.Parse(this.CursoId.Value);
-                asistencia_dto.Fecha = fecha;
-                asistencia_dto.Valor = valor;
-                detalle_asistencias_dto.Add(asistencia_dto);
+                AcumuladorDto asistencia = new AcumuladorDto();
+                asistencia.IdAlumno = int.Parse(item["id_alumno"].ToString());
+                asistencia.IdCurso = int.Parse(this.CursoId.Value);
+                asistencia.Fecha = DateTime.Parse(item["fecha"].ToString());
+                asistencia.Valor = item["valor"].ToString();
+                detalle_asistencias.Add(asistencia);
             }
-            servicio.GuardarDetalleAsistencias(detalle_asistencias_dto.ToArray(), (Usuario)Session["usuario"]);
+            var res = servicio.GuardarDetalleAsistencias(detalle_asistencias.ToArray(), detalle_asistencias.ToArray(), (Usuario)Session["usuario"]);
 
             var curso = this.Curso.Value;
         }
@@ -72,30 +67,13 @@ public partial class ControlPlanillaAsistenciasAlumnos : System.Web.UI.UserContr
 
     public void ActualizarCurso(CursoDto detalle_curso_JSON)
     {
-        //Curso detalle_curso_JSON = JsonConvert.DeserializeObject<Curso>(this.curso_con_observaciones.Value);
         if (detalle_curso_JSON != null)
         {
             var servicio = Servicio();
             detalle_curso_JSON.Horarios = servicio.GetCursoDtoById(detalle_curso_JSON.Id, (Usuario)Session["usuario"]).Horarios;
 
-           /* var curso = new CursoDto();
-
-            curso.Id = detalle_curso_JSON.Id;
-            curso.Materia = detalle_curso_JSON.Materia;
-            curso.Docente = detalle_curso_JSON.Docente;
-            curso.EspacioFisico = detalle_curso_JSON.EspacioFisico;
-
-            //var horariosDto = new List<HorarioDto>();
-            //servicio.GetHorariosDeCursoById()
-            //servicio.GetCursoById(curso.Id)//GetHorariosDto(horariosDto); 
-            curso.Horarios = servicio.GetCursoDtoById(curso.Id, (Usuario)Session["usuario"]).Horarios;
-            curso.FechaInicio = detalle_curso_JSON.FechaInicio.ToString();
-            curso.FechaFin = detalle_curso_JSON.FechaFin.ToString();
-            curso.Observaciones = detalle_curso_JSON.Observaciones;*/
-
             servicio.ModificarCurso(detalle_curso_JSON); //, (Usuario)Session["usuario"]); Ver si hay que agregar usuario o no
 
-            //var curso = this.Curso.Value;
         }
     }
 

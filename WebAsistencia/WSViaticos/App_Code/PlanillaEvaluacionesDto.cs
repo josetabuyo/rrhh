@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using General;
+﻿using General;
 
 public class EvaluacionDto
 {
@@ -21,7 +17,6 @@ public class PlanillaEvaluacionesDto
     public string MensajeError { get; set; }
     public Alumno[] Alumnos { get; set; }
     public EvaluacionDto[] Evaluaciones { get; set; }
-   // public EvaluacionDto[] Evaluaciones { get; set; }
     public InstanciaDeEvaluacion[] Instancias { get; set; }
     
 }

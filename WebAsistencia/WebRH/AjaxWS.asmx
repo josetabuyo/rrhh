@@ -159,9 +159,7 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         backEndService.IniciarServicioDeAlertas(PlantillaHtmlHead(), PlantillaHtmlBody());
     }
-
-
-
+    
     private string PlantillaHtml()
     {
        // string plantillaHtml = System.Configuration.ConfigurationManager.AppSettings["PlantillaHtml"];
@@ -211,6 +209,13 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         var Planilla = backEndService.GetPlanillaEvaluaciones(id_curso, id_instancia);
         return Newtonsoft.Json.JsonConvert.SerializeObject(Planilla);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void GetPlanillaAsistencias(int id_curso, DateTime fecha_desde, DateTime fecha_hasta)
+    {
+        backEndService.GetPlanillaAsistencias(id_curso, fecha_desde, fecha_hasta);
     }
 
     [WebMethod(EnableSession = true)]

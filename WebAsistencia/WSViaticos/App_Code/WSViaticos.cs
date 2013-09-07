@@ -860,231 +860,174 @@ public class WSViaticos : System.Web.Services.WebService
         return new GeneradorDePlanillas().GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, calendario);
     }
 
-    [WebMethod]
-    public List<AsistenciaDto> GetAsistenciasPorCursoYAlumno(int id_curso, int id_alumno)
-    {
-        List<AsistenciaDto> asistencias_dto = new List<AsistenciaDto>();
-        var asistencias = RepoAsistencias().GetAsistenciasPorCursoYAlumno(id_curso, id_alumno);
-        asistencias.ForEach(a => asistencias_dto.Add(new AsistenciaDto(a.IdAlumno, a.IdCurso, a.Fecha, a.Valor, a.Descripcion)));
-
-        return asistencias_dto;
-    }
-
     //[WebMethod]
-    //public List<Object> GetEvaluacionesDTOPorCurso(int id_curso)
+    //public List<Acumulador> GetAsistenciasPorCursoYAlumno(int id_curso, int id_alumno)
     //{
-    //    List<EvaluacionDto> evaluaciones_dto = new List<EvaluacionDto>();
-
-    //    var curso = RepositorioDeCursos().GetCursoById(id_curso);
-    //    var evaluaciones = curso.GetEvaluaciones();
-    //    var instancias = curso.Instancias();
-    //    var alumnos = curso.Alumnos();
-
-    //    evaluaciones.ForEach(e => evaluaciones_dto.Add(new EvaluacionDto(e.InstanciaEvaluacion.Id, e.Alumno.Id, e.Curso.Id, e.Calificacion.Nota, e.Fecha)));
-
-    //    var instancia_evaluaciones = new List<Object>();
-
-    //    if (evaluaciones.Count() > 0)
-    //    {
-    //        evaluaciones.ForEach(delegate(Evaluacion evaluacion)
-    //        {
-    //            instancia_evaluaciones.Add(new
-    //            {
-    //                instancias = instancias,
-    //                evaluaciones = evaluaciones_dto
-    //            });
-    //        });
-    //    }
-
-    //    return JsonConvert.SerializeObject(instancia_evaluaciones);
+    //    return RepoAsistencias().GetAsistenciasPorCursoYAlumno(id_curso, id_alumno);
     //}
 
     //[WebMethod]
-    //public string GetPlanillaEvaluacionesPorCurso(int id_curso)
+    //public string GetPlanillaInasistenciaAlumnoPorMes(int id_curso, DateTime fecha_desde, DateTime fecha_hasta)
     //{
     //    var un_curso = RepositorioDeCursos().GetCursoById(id_curso);
 
-    //    //List<InstanciasDeEvaluacion> instancias = un_curso.Instancias();
 
-    //    var planilla_evaluacion_dto = new object();
-    //    var planilla_evaluacion_alumnos_dto = new List<Object>();
-    //    List<object> detalle_evaluacion_dto = new List<object>();
-
-    //    un_curso.Alumnos().ForEach(delegate(Alumno alumno)
+    //    var calendario = GetCalendarioDeCurso(un_curso);
+    //    var planilla_mensual = GetPlanillaMensual(un_curso, fecha_desde, fecha_hasta, calendario);
+    //    var dias_de_cursada = planilla_mensual.GetDiasDeCursadaEntre(fecha_desde, fecha_hasta);
+    //    var dias_del_curso = planilla_mensual.GetDiasDeCursadaEntre(un_curso.FechaInicio, un_curso.FechaFin);
+    //    var horas_catedra = 0;
+    //    dias_del_curso.ForEach(d =>
     //    {
-    //        var detalle_evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCursoYAlumno(un_curso, alumno);//deberia devolver nota e instancias
-    //        //List<object> detalle_evaluacion_dto = new List<object>();
+    //        horas_catedra += planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == d.DayOfWeek).HorasCatedra;
+    //    });
+    //    var planilla_mensual_dto = new object();
+    //    var planilla_mensual_alumnos_dto = new List<Object>();
 
-    //        //foreach (var d in detalle_evaluaciones)
-    //        //{
-    //        //    detalle_evaluacion.Add(new{
-    //        //                valor = d.Calificacion,
-    //        //                instancia = d.InstanciaEvaluacion.Descripcion
-    //        //            });
-    //        //}
 
-    //        detalle_evaluaciones.ForEach(d =>
+    //    if (planilla_mensual.Curso.Alumnos().Count > 0)
+    //    {
+    //        List<object> dias_con_formato = new List<object>();
+
+    //        dias_de_cursada.ForEach(d => dias_con_formato.Add(new
     //        {
+    //            dia = d.ToString("dd"),
+    //            nombre_dia = d.ToString("ddd"),
+    //            fecha = d.ToShortDateString(),
+    //            horas = planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == d.DayOfWeek).HorasCatedra
+    //        }));
 
-    //            detalle_evaluacion_dto.Add(new
+    //        planilla_mensual.Curso.Alumnos().ForEach(delegate(Alumno alumno)
+    //        {
+    //            var cant_asistencias = 0;
+    //            var cant_inasistencias = 0;
+    //            var cant_asistencias_acumuladas = 0;
+    //            var cant_inasistencias_acumuladas = 0;
+
+    //            var detalle_asistencias = RepoAsistencias().GetAsistenciasPorCursoYAlumno(planilla_mensual.Curso.Id, alumno.Id);
+
+    //            var fecha_inicio = fecha_desde.Ticks <= un_curso.FechaInicio.Ticks ? un_curso.FechaInicio : fecha_desde;//fecha_desde : un_curso.FechaInicio;
+    //            var fecha_fin = fecha_hasta.Ticks >= un_curso.FechaFin.Ticks ? un_curso.FechaFin : fecha_hasta;//fecha_hasta : un_curso.FechaFin;
+
+    //            var detalle_asistencias_mensual = detalle_asistencias.FindAll(a => a.Fecha.Ticks >= fecha_inicio.Ticks && a.Fecha.Ticks <= fecha_fin.Ticks);
+    //            var detalle_asistencias_acumuladas = detalle_asistencias.FindAll(a => a.Fecha.Ticks >= un_curso.FechaInicio.Ticks && a.Fecha.Ticks <= fecha_hasta.Ticks);
+    //            List<object> detalle_asistencia = new List<object>();
+
+
+    //            detalle_asistencias_mensual.ForEach(d =>
     //            {
-    //                valor = d.Calificacion,
-    //                instancia = d.InstanciaEvaluacion.Descripcion,
-    //                alumno = d.Alumno
+
+    //                if (d.Fecha >= fecha_inicio && d.Fecha <= fecha_fin)
+    //                    detalle_asistencia.Add(new
+    //                    {
+    //                        valor = d.Valor,
+    //                        fecha = d.Fecha.ToShortDateString()
+    //                    });
+    //            });
+
+    //            //CalcularCantidadDeAsistencias(planilla_mensual, detalle_asistencias_mensual, out cant_asistencias, out cant_inasistencias);
+    //            //CalcularCantidadDeAsistencias(planilla_mensual, detalle_asistencias_acumuladas, out cant_asistencias_acumuladas, out cant_inasistencias_acumuladas);
+
+    //            planilla_mensual_alumnos_dto.Add(new
+    //            {
+    //                id = alumno.Id,
+    //                nombrealumno = alumno.Nombre + " " + alumno.Apellido,
+    //                pertenece_a = "MDS",
+    //                detalle_asistencia = detalle_asistencia.ToArray(),
+    //                asistencias = cant_asistencias.ToString(),
+    //                inasistencias = cant_inasistencias,
+    //                asistencias_acumuladas = cant_asistencias_acumuladas,
+    //                inasistencias_acumuladas = cant_inasistencias_acumuladas,
+    //                por_inasistencias_acumuladas = ((double)cant_inasistencias_acumuladas / (double)horas_catedra).ToString("P"),
+    //                por_asistencias_acumuladas = ((double)cant_asistencias_acumuladas / (double)horas_catedra).ToString("P")
     //            });
     //        });
 
-    //        //planilla_evaluacion_alumnos_dto.Add(new
-    //        //   {
-    //        //       id = alumno.Id,
-    //        //       nombrealumno = alumno.Nombre + " " + alumno.Apellido,
-    //        //       //pertenece_a = "MDS",
-    //        //       detalle_evaluacion = detalle_evaluacion.ToArray()
-
-    //        //   });
-    //    });
-
-    //    //planilla_evaluacion_dto = new
-    //    //{
-    //    //    instancias = instancias,
-    //    //    evaluacionesalumnos = planilla_evaluacion_alumnos_dto
-    //    //};
-
-    //    return JsonConvert.SerializeObject(detalle_evaluacion_dto);
-
-    //    //return string;
-
+    //        planilla_mensual_dto = new
+    //        {
+    //            diascursados = dias_con_formato,
+    //            asistenciasalumnos = planilla_mensual_alumnos_dto,
+    //            horas_catedra = horas_catedra
+    //        };
+    //    }
+    //    return JsonConvert.SerializeObject(planilla_mensual_dto);
     //}
 
+    //private static void CalcularCantidadDeAsistencias(PlanillaMensual planilla, List<Asistencia> detalle_asistencias, out int cant_asistencias, out int cant_inasistencias)
+    //{
+    //    var horas_catedra = 0;
+    //    var cant_asistencias_aux = 0;
+    //    var cant_inasistencias_aux = 0;
 
+    //    detalle_asistencias.ForEach(a =>
+    //    {
+    //        horas_catedra = planilla.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra;
+    //        if (a.Valor > 0)
+    //        {
+    //            cant_asistencias_aux += a.Valor;
+    //            cant_inasistencias_aux += horas_catedra - a.Valor;
+    //        }
+    //        if (a.Valor == -1)
+    //            cant_inasistencias_aux += horas_catedra;
+    //    });
+
+    //    cant_asistencias = cant_asistencias_aux;
+    //    cant_inasistencias = cant_inasistencias_aux;
+    //}
 
     [WebMethod]
-    public string GetPlanillaInasistenciaAlumnoPorMes(int id_curso, DateTime fecha_desde, DateTime fecha_hasta)
+    public PlanillaAsistenciasDto GetPlanillaAsistencias(int id_curso, DateTime fecha_desde, DateTime fecha_hasta)
     {
-        var un_curso = RepositorioDeCursos().GetCursoById(id_curso);
-
-
-        var calendario = GetCalendarioDeCurso(un_curso);
-        var planilla_mensual = GetPlanillaMensual(un_curso, fecha_desde, fecha_hasta, calendario);
-        var dias_de_cursada = planilla_mensual.GetDiasDeCursadaEntre(fecha_desde, fecha_hasta);
-        var dias_del_curso = planilla_mensual.GetDiasDeCursadaEntre(un_curso.FechaInicio, un_curso.FechaFin);
+        var detalle_asistencias = new List<DetalleAsistenciasPorAlumno>();
         var horas_catedra = 0;
-        dias_del_curso.ForEach(d =>
+
+        var curso = RepositorioDeCursos().GetCursoById(id_curso);
+
+        DateTime fecha_inicio_planilla = curso.FechaInicio > fecha_desde ? curso.FechaInicio: fecha_desde;
+        DateTime fecha_fin_planilla = curso.FechaFin < fecha_hasta ? curso.FechaFin : fecha_hasta;
+
+        var calendario = GetCalendarioDeCurso(curso);
+        var planilla_mensual = GetPlanillaMensual(curso, fecha_desde, fecha_hasta, calendario);
+        var dias_planilla = planilla_mensual.GetDiasDeCursadaEntre(fecha_inicio_planilla, fecha_fin_planilla);
+
+
+        var asistencias = RepoAsistencias().GetAsistencias();
+        var alumnos = curso.Alumnos();
+        var horarios_de_cursada = curso.GetHorariosDeCursada();
+       
+        dias_planilla.ForEach(d => horas_catedra += horarios_de_cursada.Find(h => h.Dia.Equals(d.Day)).HorasCatedra);
+
+        var planilla_asistencias_dto = new PlanillaAsistenciasDto()
         {
-            horas_catedra += planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == d.DayOfWeek).HorasCatedra;
-        });
-        var planilla_mensual_dto = new object();
-        var planilla_mensual_alumnos_dto = new List<Object>();
+            Alumnos = curso.Alumnos().ToArray(),
+            HorariosDeCursada = curso.GetHorariosDeCursada().ToArray(),
+            HorasCatedra = horas_catedra,
+            DetalleAsistenciasPorAlumno = detalle_asistencias.ToArray(),
+            CodigoError = 0,
+            MensajeError = ""
+        };
+        return planilla_asistencias_dto;
+    }
 
-
-        if (planilla_mensual.Curso.Alumnos().Count > 0)
+    [WebMethod]
+    public List<AcumuladorDto> GuardarDetalleAsistencias(List<AcumuladorDto> asistencias_nuevas_dto, List<AcumuladorDto> asistencias_originales_dto, Usuario usuario)
+    {
+        List<AcumuladorDto> no_procesados_dto = new List<AcumuladorDto>();
+        var asistencias_nuevas = new List<Acumulador>();
+        var asistencias_originales = new List<Acumulador>();
+        //No agregar asistencias que no estén dentro del rango de fechas del curso
+        var no_procesados = RepoAsistencias().GuardarAsistencias(asistencias_nuevas, asistencias_originales , usuario);
+        foreach (var item in no_procesados)
         {
-            List<object> dias_con_formato = new List<object>();
-
-            dias_de_cursada.ForEach(d => dias_con_formato.Add(new
-            {
-                dia = d.ToString("dd"),
-                nombre_dia = d.ToString("ddd"),
-                fecha = d.ToShortDateString(),
-                horas = planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == d.DayOfWeek).HorasCatedra
-            }));
-
-            planilla_mensual.Curso.Alumnos().ForEach(delegate(Alumno alumno)
-            {
-                var cant_asistencias = 0;
-                var cant_inasistencias = 0;
-                var cant_asistencias_acumuladas = 0;
-                var cant_inasistencias_acumuladas = 0;
-
-                var detalle_asistencias = RepoAsistencias().GetAsistenciasPorCursoYAlumno(planilla_mensual.Curso.Id, alumno.Id);
-
-                var fecha_inicio = fecha_desde.Ticks <= un_curso.FechaInicio.Ticks ? un_curso.FechaInicio : fecha_desde;//fecha_desde : un_curso.FechaInicio;
-                var fecha_fin = fecha_hasta.Ticks >= un_curso.FechaFin.Ticks ? un_curso.FechaFin : fecha_hasta;//fecha_hasta : un_curso.FechaFin;
-
-                var detalle_asistencias_mensual = detalle_asistencias.FindAll(a => a.Fecha.Ticks >= fecha_inicio.Ticks && a.Fecha.Ticks <= fecha_fin.Ticks);
-                var detalle_asistencias_acumuladas = detalle_asistencias.FindAll(a => a.Fecha.Ticks >= un_curso.FechaInicio.Ticks && a.Fecha.Ticks <= fecha_hasta.Ticks);
-                List<object> detalle_asistencia = new List<object>();
-
-
-                detalle_asistencias_mensual.ForEach(d =>
-                {
-
-                    if (d.Fecha >= fecha_inicio && d.Fecha <= fecha_fin)
-                        detalle_asistencia.Add(new
-                        {
-                            valor = d.Valor,
-                            fecha = d.Fecha.ToShortDateString()
-                        });
-                });
-
-                CalcularCantidadDeAsistencias(planilla_mensual, detalle_asistencias_mensual, out cant_asistencias, out cant_inasistencias);
-                CalcularCantidadDeAsistencias(planilla_mensual, detalle_asistencias_acumuladas, out cant_asistencias_acumuladas, out cant_inasistencias_acumuladas);
-
-                planilla_mensual_alumnos_dto.Add(new
-                {
-                    id = alumno.Id,
-                    nombrealumno = alumno.Nombre + " " + alumno.Apellido,
-                    pertenece_a = "MDS",
-                    detalle_asistencia = detalle_asistencia.ToArray(),
-                    asistencias = cant_asistencias.ToString(),
-                    inasistencias = cant_inasistencias,
-                    asistencias_acumuladas = cant_asistencias_acumuladas,
-                    inasistencias_acumuladas = cant_inasistencias_acumuladas,
-                    por_inasistencias_acumuladas = ((double)cant_inasistencias_acumuladas / (double)horas_catedra).ToString("P"),
-                    por_asistencias_acumuladas = ((double)cant_asistencias_acumuladas / (double)horas_catedra).ToString("P")
-                });
+            no_procesados_dto.Add(new AcumuladorDto(){
+                 Id = item.Id,
+                 Fecha = item.Fecha,
+                 IdAlumno = item.IdAlumno,
+                 IdCurso = item.IdCurso,
+                 Valor = item.Valor
             });
-
-            planilla_mensual_dto = new
-            {
-                diascursados = dias_con_formato,
-                asistenciasalumnos = planilla_mensual_alumnos_dto,
-                horas_catedra = horas_catedra
-            };
         }
-        return JsonConvert.SerializeObject(planilla_mensual_dto);
-    }
-
-    private static void CalcularCantidadDeAsistencias(PlanillaMensual planilla, List<Asistencia> detalle_asistencias, out int cant_asistencias, out int cant_inasistencias)
-    {
-        var horas_catedra = 0;
-        var cant_asistencias_aux = 0;
-        var cant_inasistencias_aux = 0;
-
-        detalle_asistencias.ForEach(a =>
-        {
-            horas_catedra = planilla.Curso.GetHorariosDeCursada().Find(h => h.Dia == a.Fecha.DayOfWeek).HorasCatedra;
-            if (a.Valor > 0)
-            {
-                cant_asistencias_aux += a.Valor;
-                cant_inasistencias_aux += horas_catedra - a.Valor;
-            }
-            if (a.Valor == -1)
-                cant_inasistencias_aux += horas_catedra;
-        });
-
-        cant_asistencias = cant_asistencias_aux;
-        cant_inasistencias = cant_inasistencias_aux;
-    }
-
-    [WebMethod]
-    public void GuardarDetalleAsistencias(List<AsistenciaDto> asistencias_dto, Usuario usuario)
-    {
-        var repo_de_cursos = RepositorioDeCursos();
-        List<Asistencia> asistencias = new List<Asistencia>();
-        var repo_cursos = RepositorioDeCursos();
-        foreach (var item in asistencias_dto)
-        {
-            var agrego = item.Fecha <= repo_cursos.GetCursoById(item.IdCurso).FechaFin &&
-                         item.Fecha >= repo_cursos.GetCursoById(item.IdCurso).FechaInicio;
-            if (agrego)
-            { 
-                var asistencia = new Asistencia(item.Fecha, item.Valor, item.Descripcion,  item.IdCurso, item.IdAlumno);
-                asistencias.Add(asistencia);
-            }
-
-        }
-        RepoAsistencias().GuardarAsistencias(asistencias, usuario);
+        return no_procesados_dto;
     }
 
     [WebMethod]
@@ -1856,9 +1799,9 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDeDocentes(Conexion(), RepositorioDeCursos());
     }
 
-    private RepositorioDeAsistencias RepoAsistencias()
+    private RepositorioDeAsistenciasV2 RepoAsistencias()
     {
-        return new RepositorioDeAsistencias(Conexion());
+        return new RepositorioDeAsistenciasV2 (Conexion());
     }
 
     private RepositorioDeEspaciosFisicos RepoEspaciosFisicos()

@@ -129,8 +129,6 @@
 
         $("#curso_con_observaciones").val((JSON.stringify(curso)));
 
-        //  $("#PlanillaAsistencia_Curso").val((JSON.stringify(curso)));
-
         $("#PlanillaAsistencia_DetalleAsistencias").val(JSON.stringify(detalle_asistencias));
         $("#BtnSave").click();
         //        return true;

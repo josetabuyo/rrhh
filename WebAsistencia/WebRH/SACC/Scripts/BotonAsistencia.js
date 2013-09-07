@@ -8,12 +8,12 @@ var BotonAsistencia = function (id_alumno, dia_cursado, valor, valor_maximo) {
     this.atributos = [];
 
     this.IniciarAtributos = function () {
-        _this.atributos[0] = { estilo: 'btn_blanco_clicked', etiqueta: '  ', valor: 0 }
+        _this.atributos[0] = { estilo: 'btn_blanco_clicked', etiqueta: '  ', valor: '' }
         for (var j = 1; j <= _this.valor_maximo; j++) {
             _this.atributos[j] = { estilo: 'btn_verde_clicked', etiqueta: j, valor: j }
         }
-        _this.atributos[_this.atributos.length] = { estilo: 'btn_amarillo_clicked', etiqueta: 'A', valor: "-1" }
-        _this.atributos[_this.atributos.length] = { estilo: 'btn_amarillo_clicked', etiqueta: '-', valor: "-2" }
+        _this.atributos[_this.atributos.length] = { estilo: 'btn_amarillo_clicked', etiqueta: 'A', valor: "0" }
+        _this.atributos[_this.atributos.length] = { estilo: 'btn_amarillo_clicked', etiqueta: '-', valor: "-" }
 		_this.CambiarEstado(0);
     }
 
