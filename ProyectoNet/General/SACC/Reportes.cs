@@ -29,6 +29,12 @@ namespace General.Repositorios
            return  alumnos_de_la_modaldiad.Distinct().ToList();
         }
 
+        public List<Alumno> ObtenerAlumnosDelOrganismo(Organismo organismo, IRepositorioDeAlumnos repo_alumno)
+        {
+            List<Alumno> alumnos_del_organismo = repo_alumno.GetAlumnos();
+
+            return alumnos_del_organismo.FindAll(a => a.Organismo.Id == organismo.Id);
+        }
 
         //public List<Alumno> ObtenerAlumnosConModalidad(Modalidad modalidad, Ciclo ciclo, IRepositorioDeCursos repo_curso)
         //{

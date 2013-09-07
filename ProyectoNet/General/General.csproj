@@ -134,6 +134,8 @@
     <Compile Include="SACC\AsistenciaHoraCuatro.cs" />
     <Compile Include="SACC\ComparadorDeDiferencias.cs" />
     <Compile Include="SACC\DatosDeContacto.cs" />
+    <Compile Include="SACC\Organismo.cs" />
+    <Compile Include="SACC\Reportes.cs" />
     <Compile Include="Seguridad\Auditoria.cs" />
     <Compile Include="Seguridad\Autorizador.cs" />
     <Compile Include="Seguridad\Features.cs" />

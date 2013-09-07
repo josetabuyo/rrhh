@@ -60,11 +60,11 @@ namespace TestViaticos
 
 
 
-            string source = @"      |Id     |Documento   |Apellido     |Nombre     |Telefono      |Mail     |Direccion  |IdModalidad  |ModalidadDescripcion |idInstancia    |DescripcionInstancia   |IdArea |NombreArea                        |LugarTrabajo |FechaNacimiento         |IdBaja
-                                    |01     |31507315    |Cevey        |Belén      |A111          |belen@ar |Calle      |1            |fines                |1              |Primer Parcial         |0      |Ministerio de Desarrollo Social   |MDS          |2012-10-13 21:36:35.077 |0
-                                    |02     |31041236    |Caino        |Fernando   |A222          |fer@ar   |Av         |1            |fines                |1              |Primer Parcial         |1      |Unidad Ministrio                  |MDS          |2012-10-13 21:36:35.077 |0
-                                    |05     |31507315    |Cevey        |Belén      |A111          |belen@ar |Calle      |1            |fines                |1              |Primer Parcial         |1      |Unidad Ministrio                  |MDS          |2012-10-13 21:36:35.077 |0
-                                    |03     |31507315    |Cevey        |Belén      |A111          |belen@ar |Calle      |1            |fines                |1              |Primer Parcial         |621    |Secretaría de Deportes            |MDS          |2012-10-13 21:36:35.077 |0";
+            string source = @"      |Id     |Documento   |Apellido     |Nombre     |Telefono      |Mail     |Direccion  |IdModalidad  |ModalidadDescripcion |idInstancia    |DescripcionInstancia   |IdArea |NombreArea                        |LugarTrabajo |FechaNacimiento         |IdOrganismo |DescripcionOrganismo |IdBaja
+                                    |01     |31507315    |Cevey        |Belén      |A111          |belen@ar |Calle      |1            |fines                |1              |Primer Parcial         |0      |Ministerio de Desarrollo Social   |MDS          |2012-10-13 21:36:35.077 |1           |MDS                  |0
+                                    |02     |31041236    |Caino        |Fernando   |A222          |fer@ar   |Av         |1            |fines                |1              |Primer Parcial         |1      |Unidad Ministrio                  |MDS          |2012-10-13 21:36:35.077 |1           |MDS                  |0
+                                    |05     |31507315    |Cevey        |Belén      |A111          |belen@ar |Calle      |1            |fines                |1              |Primer Parcial         |1      |Unidad Ministrio                  |MDS          |2012-10-13 21:36:35.077 |1           |MDS                  |0
+                                    |03     |31507315    |Cevey        |Belén      |A111          |belen@ar |Calle      |1            |fines                |1              |Primer Parcial         |621    |Secretaría de Deportes            |MDS          |2012-10-13 21:36:35.077 |1           |MDS                  |0";
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);

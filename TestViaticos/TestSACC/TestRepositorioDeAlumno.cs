@@ -24,11 +24,11 @@ namespace TestViaticos
             modalidades.Add(modalidad);
             Expect.AtLeastOnce.On(TestObjects.RepoModalidadesMockeado()).Method("GetModalidades").WithAnyArguments().Will(Return.Value(modalidades));
 
-            string source = @"      |Id     |Documento   |Apellido     |Nombre     |Telefono      |Mail     |LugarTrabajo |FechaNacimiento         |Direccion  |IdModalidad  |ModalidadDescripcion |IdArea |NombreArea                         |IdBaja
-                                    |01     |31507315    |Cevey        |Belén      |A111          |belen@ar |MDS          |2012-10-13 21:36:35.077 |Calle      |1            |fines                |0      |Ministerio de Desarrollo Social    |0
-                                    |02     |31041236    |Caino        |Fernando   |A222          |fer@ar   |MDS          |2012-10-13 21:36:35.077 |Av         |1            |fines                |1      |Unidad Ministrio                   |0
-                                    |05     |31507315    |Cevey        |Belén      |A111          |belen@ar |MDS          |2012-10-13 21:36:35.077 |Calle      |1            |fines                |1      |Unidad Ministrio                   |0
-                                    |03     |31507315    |Cevey        |Belén      |A111          |belen@ar |MDS          |2012-10-13 21:36:35.077 |Calle      |1            |fines                |621    |Secretaría de Deportes             |0";
+            string source = @"      |Id     |Documento   |Apellido     |Nombre     |Telefono      |Mail     |LugarTrabajo |FechaNacimiento         |Direccion  |IdModalidad  |ModalidadDescripcion |IdArea |NombreArea                       |IdOrganismo |DescripcionOrganismo   |IdBaja
+                                    |01     |31507315    |Cevey        |Belén      |A111          |belen@ar |MDS          |2012-10-13 21:36:35.077 |Calle      |1            |fines                |0      |Ministerio de Desarrollo Social  |1           |MDS                    |0
+                                    |02     |31041236    |Caino        |Fernando   |A222          |fer@ar   |MDS          |2012-10-13 21:36:35.077 |Av         |1            |fines                |1      |Unidad Ministrio                 |1           |MDS                    |0
+                                    |05     |31507315    |Cevey        |Belén      |A111          |belen@ar |MDS          |2012-10-13 21:36:35.077 |Calle      |1            |fines                |1      |Unidad Ministrio                 |1           |MDS                    |0
+                                    |03     |31507315    |Cevey        |Belén      |A111          |belen@ar |MDS          |2012-10-13 21:36:35.077 |Calle      |1            |fines                |621    |Secretaría de Deportes           |1           |MDS                    |0";
 
             var mocks = new Mockery();
             var conexion = mocks.NewMock<IConexionBD>();

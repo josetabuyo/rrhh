@@ -5,6 +5,7 @@ using General.Repositorios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using NMock2;
+using TestViaticos;
 
 
 namespace TestViaticos
@@ -55,6 +56,36 @@ namespace TestViaticos
 
         //    Assert.AreEqual(2, alumnos_de_la_modalidad.Count);
         //}
+
+        [TestMethod]
+        public void deberia_poder_saber_cuantos_alumnos_pertenecen_al_organismo_MDS()
+        {
+            Curso curso = TestObjects.UnCursoConAlumnos();
+            List<Alumno> alumnos = curso.Alumnos();
+            
+            Reportes reportes = new Reportes();
+            Expect.AtLeastOnce.On(TestObjects.RepoAlumnosMockeado()).Method("GetAlumnos").WithAnyArguments().Will(Return.Value(alumnos));
+
+            List<Alumno> alumnos_del_mds = reportes.ObtenerAlumnosDelOrganismo(TestObjects.OrganismoMDS(), TestObjects.RepoAlumnosMockeado());
+
+            Assert.AreEqual(2, alumnos_del_mds.Count);
+        }
+
+        [TestMethod]
+        public void deberia_poder_saber_cuantas_materias_le_falta_a_un_alumno_para_terminar_CENS()
+        {
+        }
+
+        [TestMethod]
+        public void deberia_poder_saber_cuantas_materias_le_falta_a_un_alumno_para_terminar_Fines()
+        {
+        }
+
+        [TestMethod]
+        public void deberia_poder_saber_cuantas_personas_no_cursaron_historia_de_primer_ciclo()
+        {
+        }
+
     }
 }
 

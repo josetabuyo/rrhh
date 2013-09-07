@@ -36,6 +36,14 @@ namespace General.Repositorios
                     baja = (int)row.GetObject("IdBaja");
                 Area area = ConstruirAreaDeAlumno(row);
                 
+                Organismo organismo = new Organismo(-1, "Sin Organismo Asignado");
+                if (!(row.GetObject("IdOrganismo") is DBNull))
+                {
+                    organismo.Id = row.GetInt("IdOrganismo");
+                    organismo.Descripcion = row.GetString("DescripcionOrganismo");
+                }
+
+
                 List<Area> areas_alumno = new List<Area>();
                 areas_alumno.Add(area);
                 Alumno alumno =  new Alumno
@@ -49,6 +57,7 @@ namespace General.Repositorios
                     Direccion = row.GetString("Direccion"),
                     //LugarDeTrabajo = row.GetString("LugarTrabajo"),
                     //FechaDeNacimiento = ObtenerFechaDeNacimiento(row),
+                    Organismo = organismo,
                     Areas = areas_alumno,
                     Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
                     Baja = baja

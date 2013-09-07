@@ -83,6 +83,7 @@
     <Compile Include="CodigoTareaTest.cs" />
     <Compile Include="TestAlertas.cs" />
     <Compile Include="TestMail.cs" />
+    <Compile Include="TestSACC\Reportes.cs" />
     <Compile Include="TestSACC\TestReportes.cs" />
     <Compile Include="TestSACC\TestArticuladores.cs" />
     <Compile Include="TestModi\TestServicioDeDigitalizacionDeLegajos.cs" />
