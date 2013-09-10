@@ -1852,6 +1852,38 @@ public class WSViaticos : System.Web.Services.WebService
         return Planilla;
     }
 
+    [WebMethod]
+    public ObservacionDTO[] GetObservaciones()
+    {
+        var observaciones_dto = new List<ObservacionDTO>();
+        var observaciones = RepositorioDeCursos().GetObservaciones();
+
+        foreach (var o in observaciones)
+        {
+            observaciones_dto.Add(new ObservacionDTO()
+            {
+                id = o.Id,
+                FechaCarga = o.FechaCarga.ToShortDateString(),
+                Relacion = o.Relacion,
+                PersonaCarga = o.PersonaCarga,
+                Pertenece = o.Pertenece,
+                Asunto = o.Asunto,
+                ReferenteMDS = o.ReferenteMDS,
+                Seguimiento = o.Seguimiento,
+                Resultado = o.Resultado,
+                FechaResultado = o.FechaResultado.ToShortDateString(),
+                ReferenteRespuestaMDS = o.ReferenteRespuestaMDS
+            });
+        }
+        return observaciones_dto.ToArray();
+
+        
+        //var asistencias = RepoAsistencias().GetAsistenciasPorCursoYAlumno(id_curso, id_alumno);
+        //asistencias.ForEach(a => observaciones.Add(new AsistenciaDto(a.IdAlumno, a.IdCurso, a.Fecha, a.Valor)));
+
+        //return observaciones;
+    }
+
     private RepositorioDeAlumnos RepoAlumnos()
     {
         return new RepositorioDeAlumnos(Conexion(), RepositorioDeCursos(), RepoModalidades());

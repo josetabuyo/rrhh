@@ -366,5 +366,17 @@ namespace General.Repositorios
             return GetCursoById(id_curso).Materia.Modalidad.InstanciasDeEvaluacion; 
         }
 
+
+        public List<Observacion> GetObservaciones()
+        {
+
+            List<Observacion> observaciones = new List<Observacion>();
+            observaciones.Add(new Observacion(1, new DateTime(2013, 09, 06), "Fines CENS", "Mariano", "MDS", "Cursada", "Mariano", "Entre los alumnos agarraron al profesor para golpearle la cabeza", "Los echamos a todos", new DateTime(2013, 09, 15), "Elena"));
+            observaciones.Add(new Observacion(2, new DateTime(2013, 09, 06), "Fines Puro", "Leonardo", "MDS", "Cursada", "Mariano", "Necesito los certificados de los días que faltó a cursar", "MARIANO, por favor pedile los certificados y avisales a todos los de acá que cada vez que faltan a cursar justifiquen", new DateTime(2013, 09, 15), "Elena"));
+            observaciones.Add(new Observacion(3, new DateTime(2013, 09, 06), "Fines Puro", "Cholo", "MDS", "Libre", "Mariano", "Esta por quedar libre", "Se lo llamo para motivarlo a venir y terminar el ciclo", new DateTime(2013, 09, 15), "Elena"));
+            observaciones.Add(new Observacion(4, new DateTime(2013, 09, 06), "Fines CENS", "Stefania", "MDS", "Expulsion", "Mariano", "Saco un arma en clase y amenazo con matar a todos", "Llamamos a la policia y se lo llevaron a comer una pizza para calmarlo", new DateTime(2013, 09, 15), "Elena"));
+
+            return observaciones;
+        }
     }
 }

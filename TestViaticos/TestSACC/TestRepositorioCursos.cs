@@ -117,5 +117,19 @@ namespace TestViaticos
 
           }
 
+          [TestMethod]
+          public void deberia_poder_obtener_las_observaciones()
+          {
+
+              IConexionBD conexion = TestObjects.ConexionMockeada();
+
+              RepositorioDeCursos repo = new RepositorioDeCursos(conexion);
+
+
+              Assert.AreEqual(2, repo.GetObservaciones().Count);
+             
+
+          }
+
     }
 }
