@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-class DetalleAsistenciasPorAlumno
+public class DetalleAsistenciasPorAlumno
 {
     AcumuladorDto[] Asistencias { get; set; }
     float AsistenciasPeriodo { get; set; }

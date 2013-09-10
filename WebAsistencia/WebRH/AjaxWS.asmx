@@ -213,9 +213,12 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public void GetPlanillaAsistencias(int id_curso, DateTime fecha_desde, DateTime fecha_hasta)
+    public string GetPlanillaAsistencias(int id_curso, string fecha_desde, string fecha_hasta)
     {
-        backEndService.GetPlanillaAsistencias(id_curso, fecha_desde, fecha_hasta);
+        var v_fecha_desde = DateTime.Parse(fecha_desde);
+        var v_fecha_hasta = DateTime.Parse(fecha_hasta);
+        var planilla = backEndService.GetPlanillaAsistencias(id_curso, v_fecha_desde, v_fecha_hasta);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(planilla);
     }
 
     [WebMethod(EnableSession = true)]

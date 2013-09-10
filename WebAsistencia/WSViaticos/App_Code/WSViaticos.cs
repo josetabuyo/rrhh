@@ -847,13 +847,6 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-    [WebMethod]
-    public PlanillaMensualDto GetPlanillaMensualDto(Curso un_curso, DateTime fecha_desde, DateTime fecha_hasta, CalendarioDeCurso calendario)
-    {
-        var planilla_mensual = new GeneradorDePlanillas().GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, calendario);
-        return new PlanillaMensualDto();
-    }
-
 
     public PlanillaMensual GetPlanillaMensual(Curso un_curso, DateTime fecha_desde, DateTime fecha_hasta, CalendarioDeCurso calendario)
     {
@@ -983,24 +976,30 @@ public class WSViaticos : System.Web.Services.WebService
 
         var curso = RepositorioDeCursos().GetCursoById(id_curso);
 
-        DateTime fecha_inicio_planilla = curso.FechaInicio > fecha_desde ? curso.FechaInicio: fecha_desde;
+        DateTime fecha_inicio_planilla = curso.FechaInicio > fecha_desde ? curso.FechaInicio : fecha_desde;
         DateTime fecha_fin_planilla = curso.FechaFin < fecha_hasta ? curso.FechaFin : fecha_hasta;
 
         var calendario = GetCalendarioDeCurso(curso);
-        var planilla_mensual = GetPlanillaMensual(curso, fecha_desde, fecha_hasta, calendario);
+        var planilla_mensual = GetPlanillaMensual(curso, fecha_inicio_planilla, fecha_fin_planilla, calendario);
         var dias_planilla = planilla_mensual.GetDiasDeCursadaEntre(fecha_inicio_planilla, fecha_fin_planilla);
+
+        var f = System.IO.File.CreateText(@"c:\repositorio\log.txt");
+        f.WriteLine(fecha_inicio_planilla.ToString());
+        f.WriteLine(fecha_fin_planilla.ToString());
+        f.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(curso.diasDeCursada()));
+        f.Close();
 
 
         var asistencias = RepoAsistencias().GetAsistencias();
         var alumnos = curso.Alumnos();
         var horarios_de_cursada = curso.GetHorariosDeCursada();
-       
+        
         dias_planilla.ForEach(d => horas_catedra += horarios_de_cursada.Find(h => h.Dia.Equals(d.Day)).HorasCatedra);
 
         var planilla_asistencias_dto = new PlanillaAsistenciasDto()
         {
             Alumnos = curso.Alumnos().ToArray(),
-            HorariosDeCursada = curso.GetHorariosDeCursada().ToArray(),
+            HorariosDeCursada = dias_planilla.ToArray(),
             HorasCatedra = horas_catedra,
             DetalleAsistenciasPorAlumno = detalle_asistencias.ToArray(),
             CodigoError = 0,
@@ -1009,26 +1008,27 @@ public class WSViaticos : System.Web.Services.WebService
         return planilla_asistencias_dto;
     }
 
-    [WebMethod]
-    public List<AcumuladorDto> GuardarDetalleAsistencias(List<AcumuladorDto> asistencias_nuevas_dto, List<AcumuladorDto> asistencias_originales_dto, Usuario usuario)
-    {
-        List<AcumuladorDto> no_procesados_dto = new List<AcumuladorDto>();
-        var asistencias_nuevas = new List<Acumulador>();
-        var asistencias_originales = new List<Acumulador>();
-        //No agregar asistencias que no estén dentro del rango de fechas del curso
-        var no_procesados = RepoAsistencias().GuardarAsistencias(asistencias_nuevas, asistencias_originales , usuario);
-        foreach (var item in no_procesados)
-        {
-            no_procesados_dto.Add(new AcumuladorDto(){
-                 Id = item.Id,
-                 Fecha = item.Fecha,
-                 IdAlumno = item.IdAlumno,
-                 IdCurso = item.IdCurso,
-                 Valor = item.Valor
-            });
-        }
-        return no_procesados_dto;
-    }
+    //[WebMethod]
+    //public List<AcumuladorDto> GuardarDetalleAsistencias(List<AcumuladorDto> asistencias_nuevas_dto, List<AcumuladorDto> asistencias_originales_dto, Usuario usuario)
+    //{
+    //    List<AcumuladorDto> no_procesados_dto = new List<AcumuladorDto>();
+    //    var asistencias_nuevas = new List<Acumulador>();
+    //    var asistencias_originales = new List<Acumulador>();
+    //    //No agregar asistencias que no estén dentro del rango de fechas del curso
+    //    var no_procesados = RepoAsistencias().GuardarAsistencias(asistencias_nuevas, asistencias_originales, usuario);
+    //    foreach (var item in no_procesados)
+    //    {
+    //        no_procesados_dto.Add(new AcumuladorDto()
+    //        {
+    //            Id = item.Id,
+    //            Fecha = item.Fecha,
+    //            IdAlumno = item.IdAlumno,
+    //            IdCurso = item.IdCurso,
+    //            Valor = item.Valor
+    //        });
+    //    }
+    //    return no_procesados_dto;
+    //}
 
     [WebMethod]
     public string Personas()

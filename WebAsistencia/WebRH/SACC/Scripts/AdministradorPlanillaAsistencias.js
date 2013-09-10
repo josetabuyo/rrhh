@@ -8,16 +8,17 @@ var AdministradorPlanilla = function () {
     var horasCatedra = {};
     var columnas = [];
 
-    _this.cargar_asistencias = function (id_curso, mes) {
-        var data_post = { id_curso: id_curso, mes: mes };
+    _this.cargar_asistencias = function (id_curso, fecha_desde, fecha_hasta) {
+        var data_post = { id_curso: id_curso, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta };
         $.ajax({
             url: "../AjaxWS.asmx/GetPlanillaAsistencias",
             type: "POST",
             async: false,
-            data: data_post,
+            data: JSON.stringify(data_post),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (respuestaJson) {
+                alert(respuestaJson);
                 var respuesta = JSON.parse(respuestaJson.d);
                 diasCursados = respuesta.diasCursados;
                 asistencias = respuesta.asistencias;

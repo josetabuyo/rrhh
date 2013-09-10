@@ -1,4 +1,5 @@
 ﻿using General;
+using System;
 
 public class PlanillaAsistenciasDto
 {
@@ -6,6 +7,6 @@ public class PlanillaAsistenciasDto
     public string MensajeError { get; set; }
     public Alumno[] Alumnos { get; set; }
     public DetalleAsistenciasPorAlumno[] DetalleAsistenciasPorAlumno { get; set; }
-    public HorarioDeCursada[] HorariosDeCursada { get; set; }
+    public DateTime[] HorariosDeCursada { get; set; }
     public int HorasCatedra { get; set; }
 }

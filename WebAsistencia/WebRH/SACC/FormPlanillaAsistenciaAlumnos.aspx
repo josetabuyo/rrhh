@@ -53,7 +53,6 @@
         <label id="HorasCatedraCurso" runat="server">&nbsp;</label>
         <br />
         <br />
-        <uc1:planilla ID="PlanillaAsistencia" runat="server" />
 
         </div>
         <div id="ContenedorPlanillaAcumulados" runat="server" style="width:40%;">
@@ -66,15 +65,13 @@
         <br />
         <textarea id="TxtObservaciones" style="margin-left: 5px;" class="label_observaciones" rows="6" placeholder="Observaciones" ></textarea>
         </div>
-        <asp:Button style="display:none;" ID="btn_CargarAsistencias" OnClick="CargarAsistencias" runat="server" />
-        <asp:Button style="display:none;" ID="BtnSave" runat="server" Onclick="BtnSave_Click" />
 
         <asp:HiddenField ID="curso_con_observaciones" runat="server" />
     </fieldset>
     </form>
 </body>
 <script type="text/javascript">
-
+    var PlanillaAsistencias;
     var CargarComboMeses = function () {
         $('#CmbMes')[0].options.length = 0;
         var meses = JSON.parse($("#MesesCurso").val());
@@ -100,50 +97,37 @@
             $('#CmbMes').change();
         });
 
-    $(document).ready(function () {
-        AdministradorPlanillaMensual();
-        CargarComboMeses();
+        $(document).ready(function () {
+            PlanillaAsistencias = new AdministradorPlanilla();
+            CargarComboMeses();
+            PlanillaAsistencias.cargar_asistencias(12, "10/01/2013", "10/07/2013");
+            //Estilos para ver coloreada la grilla en Internet Explorer
+            $("tbody tr:even").css('background-color', '#E6E6FA');
+            $("tbody tr:odd").css('background-color', '#9CB3D6 ');
+        });
 
-        //Estilos para ver coloreada la grilla en Internet Explorer
-        $("tbody tr:even").css('background-color', '#E6E6FA');
-        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
-    });
+//    function GuardarDetalleAsistencias() {
+//        var botones_asistencias = $("table input");
+//        var detalle_asistencias = [];
 
-    function GuardarDetalleAsistencias() {
-        var botones_asistencias = $("table input");
-        var detalle_asistencias = [];
+//        for (var i = 0; i < botones_asistencias.length; i++) {
+//            var asistencia_btn = $(botones_asistencias[i]);
+//            var asistencia = {
+//                id_alumno: asistencia_btn.attr("data-id_alumno"),
+//                fecha: asistencia_btn.attr("data-dia_cursado"),
+//                valor: asistencia_btn.attr("data-valor")
+//            };
+//            detalle_asistencias.push(asistencia);
+//        }
 
-        for (var i = 0; i < botones_asistencias.length; i++) {
-            var asistencia_btn = $(botones_asistencias[i]);
-            var asistencia = {
-                id_alumno: asistencia_btn.attr("data-id_alumno"),
-                fecha: asistencia_btn.attr("data-dia_cursado"),
-                valor: asistencia_btn.attr("data-valor")
-            };
-            detalle_asistencias.push(asistencia);
-        }
+//        Obs = $("#TxtObservaciones").val();
+//        var curso = JSON.parse($("#PlanillaAsistencia_Curso").val());
+//        curso.Observaciones = Obs;
 
-        Obs = $("#TxtObservaciones").val();
-        var curso = JSON.parse($("#PlanillaAsistencia_Curso").val());
-        curso.Observaciones = Obs;
+//        $("#curso_con_observaciones").val((JSON.stringify(curso)));
 
-        $("#curso_con_observaciones").val((JSON.stringify(curso)));
-
-        $("#PlanillaAsistencia_DetalleAsistencias").val(JSON.stringify(detalle_asistencias));
-        $("#BtnSave").click();
-        //        return true;
-    }
-
-    function ImprimirPlanilla() {
-        if ($("#CmbCurso").val() != 0 && $("#CmbMes").val() != 0) {
-            window.open('PrintPlanillaAsistenciaAlumnos.aspx?' + 'idCurso=' + $("#CmbCurso").val() + '&mes=' + $("#CmbMes").val() + '&nombre_mes=' + $("#CmbMes option:selected").text() + "&nombre_curso=" + $("#CmbCurso option:selected").text()); ;
-        }
-    }
-
-    function CargarPlanilla() {
-        $("#PlanillaAsistencia_CursoId").val($("#CmbCurso").find('option:selected').val());
-        $("#PlanillaAsistencia_Mes").val($("#CmbMes").find('option:selected').val());
-        $("#btn_CargarAsistencias").click();
-    }
+//        $("#PlanillaAsistencia_DetalleAsistencias").val(JSON.stringify(detalle_asistencias));
+//        $("#BtnSave").click();
+//    }
 </script>
 </html>
