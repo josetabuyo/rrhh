@@ -180,5 +180,37 @@ namespace General
             var cursos_ordenados = sortedCursos.ToList();
             return cursos_ordenados;
         }
+
+        public string EstadoDelAlumnoParaElCurso(Curso curso, List<Evaluacion> evaluaciones)
+        {
+            if (curso.EstaEnCurso() && CalificacionDelCurso(curso, evaluaciones) == "Adeuda Final")
+            {
+                return "Adeuda";
+            }
+            else if (curso.EstaEnCurso() && CalificacionDelCurso(curso, evaluaciones) != "Adeuda Final")
+            {
+                return "En Curso";
+            }
+            else if (!curso.EstaEnCurso() && CalificacionDelCurso(curso, evaluaciones) == "Adeuda Final")
+            {
+                return "Adeuda";
+            }
+            else
+            {
+                return "Aprobada";
+            }
+        }
+
+        public string CalificacionDelCurso(Curso curso, List<Evaluacion> evaluaciones)
+        {
+            //FC: por ahora pregunto si un determinado curso tiene una instancia con id 6 (que es la calificacion final), si no la tiene es que la adeuda
+            var evaluacion_final = evaluaciones.Find(e => e.Curso.Id.Equals(curso.Id) && e.InstanciaEvaluacion.Id == 6);
+            if (evaluacion_final != null)
+            {
+               return evaluacion_final.Calificacion.Descripcion;
+            }
+
+            return "Adeuda Final";
+        }
     }
 }

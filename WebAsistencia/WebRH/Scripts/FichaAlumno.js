@@ -33,7 +33,7 @@
                 }).join("<br>"); return horario;
             }
             }),
-            new Columna("Estado", { generar: function (un_curso) { return "En Curso" } }),
+            new Columna("Estado", { generar: function (un_curso) { return un_curso.EstadoDelAlumno } }),
             new Columna("Fecha Inicio", { generar: function (un_curso) { return un_curso.FechaInicio } }),
             new Columna("Fecha Fin", { generar: function (un_curso) { return un_curso.FechaFin } })
 		]);

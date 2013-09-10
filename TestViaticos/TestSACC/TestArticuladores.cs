@@ -189,6 +189,58 @@ namespace TestViaticos
 
         }
 
+        [TestMethod]
+        public void deberia_poder_saber_la_calificacion_de_un_curso()
+        {
+            var curso = TestObjects.CursoDeHistoriaDelCENS();
+            var evaluaciones = TestObjects.EvaluacionesParaUnAlumno();
+
+            var articulador = new Articulador();
+
+            Assert.AreEqual("8", articulador.CalificacionDelCurso(curso, evaluaciones));
+
+        }
+
+        [TestMethod]
+        public void deberia_poder_saber_que_el_estado_de_un_alumno_para_con_un_curso_es_que_adeuda_el_final()
+        {
+            var curso = TestObjects.CursoDeHistoriaDelCENS();
+            var evaluaciones = TestObjects.EvaluacionesParaUnAlumno();
+
+            evaluaciones.RemoveAt(2);
+
+            var articulador = new Articulador();
+
+            Assert.AreEqual("Adeuda", articulador.EstadoDelAlumnoParaElCurso(curso, evaluaciones));
+
+        }
+
+        [TestMethod]
+        public void deberia_poder_saber_que_el_estado_de_un_alumno_para_con_un_curso_es_que_esta_en_curso()
+        {
+            var curso = TestObjects.CursoDeHistoriaDelCENS();
+            var evaluaciones = TestObjects.EvaluacionesParaUnAlumno();
+
+            var articulador = new Articulador();
+
+            Assert.AreEqual("En Curso", articulador.EstadoDelAlumnoParaElCurso(curso, evaluaciones));
+
+        }
+
+        [TestMethod]
+        public void deberia_poder_saber_que_el_estado_de_un_alumno_para_con_un_curso_es_que_esta_aprobada()
+        {
+            var curso = TestObjects.UnCursoConAlumnos();
+            var evaluaciones = TestObjects.EvaluacionesParaUnAlumno();
+
+            var articulador = new Articulador();
+
+            Assert.AreEqual("Aprobada", articulador.EstadoDelAlumnoParaElCurso(curso, evaluaciones));
+
+        }
+
+
+
        
         [TestMethod]
         public void deberia_saber_las_asistencias_de_un_alumno_por_curso()

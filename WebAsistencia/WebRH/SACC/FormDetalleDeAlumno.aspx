@@ -13,7 +13,7 @@
     <link id="link3" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
 
-    <style>
+    <style type="text/css">
 
         ul.tabs 
         {
@@ -23,8 +23,8 @@
             list-style: none;  
             height: auto;  
             width: 90%; 
-            
         }
+        
         ul.tabs li 
         {
             float: left;  
@@ -36,6 +36,7 @@
             overflow: hidden; 
             position: relative; 
             border-left:0px; 
+            border-bottom:1px solid;
             margin-bottom:-2px;
             
             background: -webkit-gradient(linear, left top, right top, from(#6E89B1), to(#E6E6FA));
@@ -123,11 +124,14 @@
             background: linear-gradient(top, #E6E6FA, #6E89B1);
             background-color: #E6E6FA;
             */
-            -webkit-box-shadow: 2px 2px 1px #E6E6FA;
+             -webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+            -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+            box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+            /*-webkit-box-shadow: 2px 2px 1px #E6E6FA;
             -moz-box-shadow: 2px 2px 1px #E6E6FA;
-            -o-box-shadow: 2px 2px 1px #E6E6FA;
+            -o-box-shadow: 2px 2px 1px #E6E6FA;*/
             -ms-box-shadow: 2px 2px 1px #E6E6FA;
-            box-shadow: 2px 2px 1px #E6E6FA;
+            /*box-shadow: 2px 2px 1px #E6E6FA;*/
             text-shadow: 0px 0px 0px #E6E6FA;
         }
         .Contenido 

@@ -1174,7 +1174,7 @@ namespace General
 
         public static Curso CursoDeHistoriaDelCENS() {
 
-            Curso curso = new Curso(1, MateriaCens(), unDocente(), UnEspacioFisico(), DateTime.Today, DateTime.Today, "Curso Test");
+            Curso curso = new Curso(14, MateriaCens(), unDocente(), UnEspacioFisico(), DateTime.Today, DateTime.Today, "Curso Test");
             curso.AgregarAlumno(AlumnoZambri());
             return curso;
         }
@@ -1357,6 +1357,16 @@ namespace General
             var eval3 = new Evaluacion(3, new InstanciaDeEvaluacion(14, "Primer Parcial"), AlumnoGer(), UnCursoConAlumnos(), new CalificacionNoNumerica("A3"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
 
             return new List<Evaluacion>() {eval1, eval2, eval3};
+
+        }
+
+        public static List<Evaluacion> EvaluacionesParaUnAlumno()
+        {
+            var eval1 = new Evaluacion(1, new InstanciaDeEvaluacion(1, "Primer Parcial"), AlumnoFer(), CursoDeHistoriaDelCENS(), new CalificacionNoNumerica("A1"), new DateTime(2012, 10, 13, 21, 36, 35, 077));  //21:36:35.077
+            var eval2 = new Evaluacion(2, new InstanciaDeEvaluacion(2, "Segundo Parcial"), AlumnoFer(), CursoDeHistoriaDelCENS(), new CalificacionNoNumerica("A2"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
+            var eval3 = new Evaluacion(3, new InstanciaDeEvaluacion(6, "Calificacion Final"), AlumnoFer(), CursoDeHistoriaDelCENS(), new CalificacionNoNumerica("8"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
+
+            return new List<Evaluacion>() { eval1, eval2, eval3 };
 
         }
 

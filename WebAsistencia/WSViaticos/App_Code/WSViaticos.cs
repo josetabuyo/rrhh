@@ -1207,7 +1207,9 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var alumno = RepoAlumnos().GetAlumnoByDNI(dni);
         var cursos = RepositorioDeCursos().GetCursos();
+        var evaluaciones = RepoEvaluaciones().GetEvaluacionesAlumno(alumno);
         var cursos_del_alumno = RepositorioDeCursos().GetCursosParaElAlumno(alumno, cursos);
+        var articulador = new Articulador();
 
         var cursos_dto = new List<CursoDto>();
 
@@ -1222,6 +1224,7 @@ public class WSViaticos : System.Web.Services.WebService
                 un_curso.Docente = curso.Docente;
                 un_curso.Alumnos = curso.Alumnos();
                 un_curso.EspacioFisico = curso.EspacioFisico;
+                un_curso.EstadoDelAlumno = articulador.EstadoDelAlumnoParaElCurso(curso, evaluaciones);
                 un_curso.FechaInicio = curso.FechaInicio.ToShortDateString();
                 un_curso.FechaFin = curso.FechaFin.ToShortDateString();
                 var horarios = new List<HorarioDto>();
@@ -1881,6 +1884,7 @@ public class WSViaticos : System.Web.Services.WebService
         var alumno = RepoAlumnos().GetAlumnoByDNI(dni);
         var cursos = RepositorioDeCursos().GetCursos();
         var cursos_del_alumno = RepositorioDeCursos().GetCursosParaElAlumno(alumno, cursos);
+        var articulador = new Articulador();
 
         List<Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesAlumno(alumno);
         List<FichaAlumnoEvaluacionPorCursoDto> CursosConEvaluacionesDto = new List<FichaAlumnoEvaluacionPorCursoDto>();
@@ -1898,8 +1902,8 @@ public class WSViaticos : System.Web.Services.WebService
                         Materia = c.Materia.Nombre,
                         Ciclo = c.Materia.Ciclo.Nombre,
                         Docente = c.Docente.Nombre,
-                        CalificacionFinal = CalificacionDelCurso(c,evaluaciones),
-                        Estado = "",
+                        CalificacionFinal = articulador.CalificacionDelCurso(c,evaluaciones),
+                        Estado = articulador.EstadoDelAlumnoParaElCurso(c, evaluaciones),
                         FechaFin = c.FechaFin.ToShortDateString(),                     
                         Evaluaciones = EvaluacionesDTOPorCurso(evaluaciones, c).ToArray(),
                     });
@@ -1929,20 +1933,6 @@ public class WSViaticos : System.Web.Services.WebService
         });
 
         return evaluacionesDto;
-    }
-
-    private string CalificacionDelCurso(Curso curso, List<Evaluacion> evaluaciones)
-    {
-        var evaluacion_final = evaluaciones.Find(e => e.Curso.Id.Equals(curso.Id) && e.InstanciaEvaluacion.Id == 6);
-        if (evaluacion_final != null)
-        {
-        if (  evaluacion_final.InstanciaEvaluacion.Id == 6)
-	        {
-		        return evaluacion_final.Calificacion.Descripcion;
-	        }
-        }
-
-        return "Pendiente";
     }
 
     [WebMethod]
