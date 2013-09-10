@@ -11,24 +11,20 @@ VistaDeArea.prototype.start = function () {
     this.ui.find("#telefono").text(this.o.area.telefonos());
     this.ui.find("#fax").text(this.o.area.faxes());
     this.ui.find("#mail").text(this.o.area.mails());
-    for (var i = 0; i < this.o.area.asistentes.length; i++) {
-        var div_titulo = $("<div class='titulo'>");
-        var div_valor = $("<div class='valor'>");
-        div_titulo.text(this.o.area.asistentes[i].cargo);
-        div_valor.text(this.o.area.asistentes[i].resumen);
-        this.ui.append(div_titulo);
-        this.ui.append(div_valor);
+    var div_asistentes = this.ui.find("#asistentes");
+    for (var i = 0; i < this.o.area.asistentes().length; i++) {
+        new VistaDeAsistente({ asistente: this.o.area.asistentes()[i] }).dibujarEn(div_asistentes);
     }
     var _this = this;
     this.ui.dialog({
-        title:_this.o.area.nombre(),
+        title: _this.o.area.nombre(),
         height: 300,
         width: 1020,
         modal: true,
         show: {
             effect: "puff",
             duration: 300,
-            direction:'left'
+            direction: 'left'
         },
         hide: {
             effect: "puff",

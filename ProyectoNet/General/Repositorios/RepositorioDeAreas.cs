@@ -67,25 +67,16 @@ namespace General.Repositorios
                 tablaDatos.Rows.ForEach(row =>
                 {
                     var id_area = row.GetSmallintAsInt("Id_area");
-                    var area_completa = areas_completas.FindAll(ar => ar.Id == id_area);
-                    var area_direccion = " ";
-                    var area_datos = new List<DatoDeContacto>();
-                    if (area_completa.Count > 0) 
-                    {
-                        area_direccion = area_completa.First().Direccion;
-                        area_datos = area_completa.First().DatosDeContacto;
-                    }
-
-                    Responsable datos_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", "");
+                    var area_completa = areas_completas.Find(ar => ar.Id == id_area);
 
                     areas.Add(new Area
                     {
                         Id = id_area,
                         Nombre = row.GetString("Descripcion"),
-                        Direccion = area_direccion,
-                        DatosDeContacto = area_datos,     
-                        datos_del_responsable = datos_responsable,
-                        Asistentes = new List<Asistente>(),
+                        Direccion = area_completa.Direccion,
+                        DatosDeContacto = area_completa.DatosDeContacto,     
+                        datos_del_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", ""),
+                        Asistentes = area_completa.Asistentes
                     });
                 });
             }
@@ -115,7 +106,7 @@ namespace General.Repositorios
                                                             row.GetString("Telefono_Asistente"),
                                                             row.GetString("Telefono_Asistente"),//Falta cambiar por Fax!!!
                                                             row.GetString("Mail_Asistente"));
-                        Asistentes.Add(asistente);
+                        if (asistente.Descripcion_Cargo.Trim() != "" && asistente.Apellido.Trim() != "") Asistentes.Add(asistente);
 
                         Responsable datos_responsable = new Responsable(row.GetString("Nombre_Responsable"),
                                                                         row.GetString("Apellido_Responsable"),
@@ -148,8 +139,7 @@ namespace General.Repositorios
                                                                row.GetString("Telefono_Asistente"),
                                                                row.GetString("Telefono_Asistente"),//Falta cambiar por Fax!!!
                                                                row.GetString("Mail_Asistente"));
-
-                            area_existente.Asistentes.Add(asistente);
+                            if (asistente.Descripcion_Cargo.Trim() != "" && asistente.Apellido.Trim() != "") area_existente.Asistentes.Add(asistente);
                         }
 
                         if (!area_existente.DatosDeContacto.Any(d => d.Id == row.GetSmallintAsInt("Id_Dato_Area") && d.Orden == row.GetSmallintAsInt("Orden")))

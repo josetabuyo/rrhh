@@ -59,7 +59,11 @@
                         <div><div class="titulo">Teléfono:</div> <div id="telefono" class="valor"></div></div>
                         <div><div class="titulo">Fax:</div> <div id="fax" class="valor"></div></div>
                         <div><div class="titulo">Mail:</div> <div id="mail" class="valor"></div></div>
+                        <div id="asistentes"></div>
                     </div>
+                </div>
+                <div id="plantilla_vista_asistente" class="vista_asistente">
+                    <div><div id="cargo" class="titulo"></div> <div id="resumen" class="valor"></div></div>                 
                 </div>
             </div>
         </form>
@@ -68,6 +72,7 @@
     <script type="text/javascript" src="AdministradorDeAreas.js"></script>
     <script type="text/javascript" src="Area.js"></script>
     <script type="text/javascript" src="VistaDeArea.js"></script>
+    <script type="text/javascript" src="VistaDeAsistente.js"></script>
 
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>

@@ -32,16 +32,7 @@ Area.prototype.direccion = function () {
 };
 
 Area.prototype.asistentes = function () {
-    var asistentes = [];
-    for (var i = 0; i < this._area.Asistentes.length; i++) {
-        asistentes.push({
-            cargo: this._area.Asistentes[i].Descripcion_Cargo,
-            resumen:    this._area.Asistentes[i].Apellido + " " + this._area.Asistentes[i].Nombre +
-                        " Telefono: " + this._area.Asistentes[i].Telefono + 
-                        " Mail: " + this._area.Asistentes[i].Mail
-        });
-    }
-    return asistentes; // this._area.Direccion;
+    return this._area.Asistentes; 
 };
 
 Area.prototype.getDatosDeContacto = function (tipoDato) {
