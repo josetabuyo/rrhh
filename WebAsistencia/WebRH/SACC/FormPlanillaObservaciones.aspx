@@ -8,9 +8,10 @@
 <head runat="server">
     <title>Observaciones</title>
 
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
+
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link3" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
+    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
 
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>  
@@ -48,6 +49,8 @@
                         <td class="PersonaCarga">
                             <input type="text" id="PersonaCarga-field" placeholder="PersonaCarga" />
                         </td>
+                    </tr>
+                    <tr>
                         <td class="Pertenece">
                             <input type="text" id="Pertenece-field" placeholder="Pertenece" />
                         </td>
@@ -57,6 +60,8 @@
                         <td class="ReferenteMDS">
                             <input type="text" id="ReferenteMDS-field" placeholder="ReferenteMDS" />
                         </td>
+                    </tr>
+                    <tr>
                         <td class="Seguimiento">
                             <input type="text" id="Seguimiento-field" placeholder="Seguimiento" />
                         </td>
@@ -66,21 +71,23 @@
                         <td class="FechaDelResultado">
                             <input type="text" id="FechaDelResultado-field" placeholder="FechaDelResultado" />
                         </td>
+                        </tr>
                         <td class="ReferenteDeLaRespuestaMDS">
                             <input type="text" id="ReferenteDeLaRespuestaMDS-field" placeholder="ReferenteDeLaRespuestaMDS" />
                         </td>
+                         
                         <td class="add">
                             <input type="button" value="Agregar" id="add-btn" />
                             <input type="button" value="Editar" id="edit-btn" />
                         </td>
-                        </tr>
+                       
                     </table>
                     </div>
                     </fieldset>
                     <div style="height:20px; margin-top:10px; width: 100%">
                         <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="submit" onclick="" value="Guardar" runat="server" />
                         <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="" value="Imprimir" />
-                    </dvi>
+                    </div>
                 <asp:HiddenField ID="observaciones" runat="server" />
 
     </form>
@@ -110,25 +117,36 @@
              columnas.push(new Columna("ReferenteMDS", { generar: function (una_observacion) { return una_observacion.ReferenteMDS } }));
              columnas.push(new Columna("Seguimiento", { generar: function (una_observacion) { return una_observacion.Seguimiento } }));
              columnas.push(new Columna("Resultado", { generar: function (una_observacion) { return una_observacion.Resultado } }));
-             columnas.push(new Columna("FechaDelResultado", { generar: function (una_observacion) { return una_observacion.FechaResultado } }));
-             columnas.push(new Columna("ReferenteDeLaRespuestaMDS", { generar: function (una_observacion) { return una_observacion.ReferenteRespuestaMDS } }));
-             columnas.push(new Columna('Editar', { generar: function (una_observacion) {
-                 var botonEditar = $('<input>');
-                 botonEditar.attr('type', 'button');
+             columnas.push(new Columna("FechaResultado", { generar: function (una_observacion) { return una_observacion.FechaResultado } }));
+             columnas.push(new Columna("ReferenteRtaMDS", { generar: function (una_observacion) { return una_observacion.ReferenteRespuestaMDS } }));
+             columnas.push(new Columna('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acciones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', { generar: function (una_observacion) {
+                 var contenedorBtnAcciones = $('<div>');
+                 var botonEditar = $('<img>');
                  botonEditar.addClass('edit-item-btn');
-                 botonEditar.val('Editar');
+                 botonEditar.attr('src', '../Imagenes/edit.png');
+                 botonEditar.attr('style', 'padding-right:5px;');
+                 botonEditar.attr('width', '40px');
+                 botonEditar.attr('height', '40px');
+                 contenedorBtnAcciones.append(botonEditar);
 
-                 return botonEditar;
-             }
-             }));
-             columnas.push(new Columna('Eliminar', { generar: function (una_observacion) {
-                 var botonEliminar = $('<input>');
-                 botonEliminar.attr('type', 'button');
+                 var botonEliminar = $('<img>');
                  botonEliminar.addClass('remove-item-btn');
-                 botonEliminar.val('Eliminar');
-                 return botonEliminar;
+                 botonEliminar.attr('src', '../Imagenes/iconos_eliminar.jpg');
+                 botonEliminar.attr('width', '40px');
+                 botonEliminar.attr('height', '40px');
+                 contenedorBtnAcciones.append(botonEliminar);
+
+                 return contenedorBtnAcciones;
              }
              }));
+//             columnas.push(new Columna('Eliminar', { generar: function (una_observacion) {
+//                 var botonEliminar = $('<input>');
+//                 botonEliminar.attr('type', 'button');
+//                 botonEliminar.addClass('remove-item-btn');
+//                 botonEliminar.val('Eliminar');
+//                 return botonEliminar;
+//             }
+//             }));
 
              PlanillaObservaciones = new Grilla(columnas);
 
