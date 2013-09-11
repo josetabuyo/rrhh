@@ -19,10 +19,6 @@
         return un_area.telefonos();
     }
     }));
-    columnas.push(new Columna("Fax", { generar: function (un_area) {
-        return un_area.faxes();
-    }
-    }));
     columnas.push(new Columna("Correo Electrónico", { generar: function (un_area) {
         return un_area.mails();
     }

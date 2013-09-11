@@ -15,6 +15,10 @@ tbody tr:odd
 {
     display:inline-block;
 }
+.vista_area .titulo
+{
+    font-weight:bold;
+}
 .dialog_vista_area .ui-dialog-titlebar
 {    
     background-color:#9CB3D6 !important;
