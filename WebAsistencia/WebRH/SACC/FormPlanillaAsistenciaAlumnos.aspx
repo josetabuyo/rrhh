@@ -12,6 +12,11 @@
         type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
+ 
+     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+
+
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
@@ -20,6 +25,7 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="Scripts/BotonAsistencia.js"></script>
     <script type="text/javascript" src="Scripts/AdministradorPlanillaAsistencias.js"></script>
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <style type="text/css">
     .acumuladas
     {
@@ -36,7 +42,7 @@
     <fieldset>
         <legend>Asistencias</legend>
         <label>Curso:&nbsp;</label>
-        <select id="CmbCurso" style="width:400px;" onchange="javascript:CargarPlanilla();" runat="server">
+        <select id="CmbCurso" style="width:400px;" runat="server" onchange="javascript:CargarPlanilla();>
             <option value="0">Seleccione</option>
         </select>
         <br />
@@ -92,6 +98,13 @@
         }
     }
 
+    var CargarPlanilla = function () {
+        var id_curso = $("#CmbCurso option:selected").val(); ;
+        var fecha_desde = "10/01/2013";
+        var fecha_hasta = "15/08/2013";
+        PlanillaAsistencias.cargar_asistencias(id_curso, fecha_desde, fecha_hasta);
+    }
+
     $("#CmbCurso").change(function () {
             CargarComboMeses();
             $('#CmbMes').change();
@@ -100,34 +113,9 @@
         $(document).ready(function () {
             PlanillaAsistencias = new AdministradorPlanilla();
             CargarComboMeses();
-            PlanillaAsistencias.cargar_asistencias(12, "10/01/2013", "10/07/2013");
             //Estilos para ver coloreada la grilla en Internet Explorer
             $("tbody tr:even").css('background-color', '#E6E6FA');
             $("tbody tr:odd").css('background-color', '#9CB3D6 ');
         });
-
-//    function GuardarDetalleAsistencias() {
-//        var botones_asistencias = $("table input");
-//        var detalle_asistencias = [];
-
-//        for (var i = 0; i < botones_asistencias.length; i++) {
-//            var asistencia_btn = $(botones_asistencias[i]);
-//            var asistencia = {
-//                id_alumno: asistencia_btn.attr("data-id_alumno"),
-//                fecha: asistencia_btn.attr("data-dia_cursado"),
-//                valor: asistencia_btn.attr("data-valor")
-//            };
-//            detalle_asistencias.push(asistencia);
-//        }
-
-//        Obs = $("#TxtObservaciones").val();
-//        var curso = JSON.parse($("#PlanillaAsistencia_Curso").val());
-//        curso.Observaciones = Obs;
-
-//        $("#curso_con_observaciones").val((JSON.stringify(curso)));
-
-//        $("#PlanillaAsistencia_DetalleAsistencias").val(JSON.stringify(detalle_asistencias));
-//        $("#BtnSave").click();
-//    }
 </script>
 </html>
