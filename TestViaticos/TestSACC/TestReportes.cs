@@ -74,17 +74,29 @@ namespace TestViaticos
         [TestMethod]
         public void deberia_poder_saber_cuantas_materias_le_falta_a_un_alumno_para_terminar_CENS()
         {
+           // Se cargan las Asistencias;
+           List<Asistencia> asistencias_fer = new List<Asistencia>();
+            asistencias_fer.AddRange(TestObjects.AsistenciaPerfecta(TestObjects.cursoHistoria1Cens2012_1Cuat().FechaInicio, TestObjects.cursoHistoria1Cens2012_1Cuat().FechaFin, TestObjects.cursoHistoria1Cens2012_1Cuat().Id, TestObjects.AlumnoFer().Id));
+            asistencias_fer.AddRange(TestObjects.AsistenciaPerfecta(TestObjects.cursoMatematica1Cens2012_1Cuat().FechaInicio, TestObjects.cursoMatematica1Cens2012_1Cuat().FechaFin, TestObjects.cursoMatematica1Cens2012_1Cuat().Id, TestObjects.AlumnoFer().Id));
+            asistencias_fer.AddRange(TestObjects.AsistenciaPerfecta(TestObjects.cursoMatematica3Cens2013_1Cuat().FechaInicio, TestObjects.cursoMatematica3Cens2013_1Cuat().FechaFin, TestObjects.cursoMatematica3Cens2013_1Cuat().Id, TestObjects.AlumnoFer().Id));
+            asistencias_fer.AddRange(TestObjects.AsistenciaPerfecta(TestObjects.cursoMatematica2Cens2012_2Cuat().FechaInicio, TestObjects.cursoMatematica2Cens2012_2Cuat().FechaFin, TestObjects.cursoMatematica2Cens2012_2Cuat().Id, TestObjects.AlumnoFer().Id));
+
+
+            Reportes reportes = new Reportes();
+
+            List<Materia> materias_que_el_alumno_no_curso = reportes.ObtenerMateriasNoCursadasDe(TestObjects.AlumnoFer(), TestObjects.materiasReportes(), TestObjects.cursosReportes(), asistencias_fer);
+            Assert.AreEqual(2, materias_que_el_alumno_no_curso.Count);
         }
 
-        [TestMethod]
-        public void deberia_poder_saber_cuantas_materias_le_falta_a_un_alumno_para_terminar_Fines()
-        {
-        }
 
-        [TestMethod]
-        public void deberia_poder_saber_cuantas_personas_no_cursaron_historia_de_primer_ciclo()
-        {
-        }
+        //[TestMethod]
+        //public void deberia_poder_saber_cuantas_personas_no_cursaron_historia_de_primer_ciclo()
+        //{
+        //    Reportes reportes = new Reportes();
+
+        //    List<Materia> alumnos_que_aun_no_cursaron_la_materia = reportes.ObtenerAlumnosQueNoCursaron(TestObjects.Matematica3CENS());
+        //    Assert.AreEqual(2, materias_que_el_alumno_no_curso.Count);
+        //}
 
     }
 }
