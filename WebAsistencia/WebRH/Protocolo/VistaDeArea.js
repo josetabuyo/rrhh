@@ -15,6 +15,10 @@ VistaDeArea.prototype.start = function () {
     for (var i = 0; i < this.o.area.asistentes().length; i++) {
         new VistaDeAsistente({ asistente: this.o.area.asistentes()[i] }).dibujarEn(div_asistentes);
     }
+    var _this = this;
+    this.ui.find("#btn_administrar_personal").click(function () {
+        _this.o.sesion.setAreaActual(_this.o.area.id());
+    });
 };
 
 VistaDeArea.prototype.mostrarModal = function () {

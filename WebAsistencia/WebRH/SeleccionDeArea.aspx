@@ -14,6 +14,7 @@
     <link id="link3" rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link5" rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link6" rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" /> 
+    <link id="link7" rel="stylesheet" href="Protocolo/VistaDeArea.css" type="text/css" runat="server" />
 </head>
 
 <form id="form1" runat="server">
@@ -43,6 +44,10 @@
                 <div><div class="titulo">Fax:</div> <div id="fax" class="valor"></div></div>
                 <div><div class="titulo">Mail:</div> <div id="mail" class="valor"></div></div>
                 <div id="asistentes"></div>
+                <div class="botonera">
+                    <a id="btn_administrar_personal"> Administrar Personal </a>
+                    <a id="btn_solicitar_modificacion" href="Principal.aspx"> Solicitar Modificación De Datos </a>
+                </div>
             </div>
         </div>
         <div id="plantilla_vista_asistente" class="vista_asistente">
@@ -82,6 +87,8 @@
 <script type="text/javascript" src="Protocolo/Area.js"></script>
 <script type="text/javascript" src="Protocolo/VistaDeArea.js"></script>
 <script type="text/javascript" src="Protocolo/VistaDeAsistente.js"></script>
+<script type="text/javascript" src="Scripts/Sesion.js"></script>
+<script type="text/javascript" src="Scripts/ProveedorAjax.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
