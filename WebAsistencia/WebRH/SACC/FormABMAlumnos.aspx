@@ -17,15 +17,15 @@
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
      <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
    
-
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
      <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
-    <div id="panelAlumno" class="div_izquierdo">
-        <fieldset>
-        <legend>Panel De Alumnos</legend>
+    <div id="panelAlumno"  class="div_izquierdo">
+        <fieldset >
+        <legend class="subtitulos">Panel De Alumnos</legend>
+        <div class="estilo_formulario" style="width:60%; margin-left: 30%;">
         <div class="input-append">   
             <asp:TextBox id="input_dni" CssClass="label_alumno" placeholder="D.N.I" runat="server"></asp:TextBox>
             <asp:Button ID="btn_buscar_personas" Text="Buscar" runat="server" OnClick="btnBuscarPersona_Click" class=" btn btn-primary" />
@@ -77,18 +77,19 @@
         <br />
         <div runat="server" id="DivMensajeExito" Visible="false" class="alert alert-success">
         </div>
-          
+        </div>
         </div>
     </fieldset>
     </div>
     <div class="div_derecho">
         <fieldset>
-        <legend>Listado de Alumnos</legend>
-       
+        <legend class="subtitulos">Listado de Alumnos</legend>
+        <div class="estilo_formulario" style="width:95%; overflow:auto; ">
         <div id="ContenedorPlanilla" runat="server">
              <div class="input-append" style="clear:both;">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" />    
             </div>
+        </div>
         </div>
         <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
        </fieldset>
@@ -99,10 +100,11 @@
     <asp:HiddenField ID="personasJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idAlumnoAVer" runat="server" />
+    <asp:HiddenField ID="DNIAlumnoFicha" runat="server" />
     <asp:HiddenField ID="idBaja" runat="server" />
     <asp:HiddenField ID="datosPersona" runat="server" />
     <asp:HiddenField ID="personaSeleccionada" runat="server" />
-    <asp:Button ID="btnVerFichaAlumno" Text="" runat="server" OnClick="btnVerAlumno_Click" style="display:none"/>
+    <asp:Button ID="btnVerFichaAlumno" runat="server" OnClick="btnVerAlumno_Click" style="display:none;" />
     </form>
 </body>
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
@@ -182,7 +184,7 @@
         columnas.push(new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento } }));
         columnas.push(new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre } }));
         columnas.push(new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido } }));
-        //        columnas.push(new Columna("Pertenece A", { generar: function (un_alumno) { return un_alumno.area.descripcion } }));
+        //columnas.push(new Columna("Pertenece A", { generar: function (un_alumno) { return un_alumno.area.descripcion } }));
         columnas.push(new Columna("Teléfono", { generar: function (un_alumno) { return un_alumno.Telefono } }));
         columnas.push(new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion } }));
         columnas.push(new Columna('Detalle', { generar: function (un_alumno) {
@@ -193,7 +195,7 @@
             botonVerAlumno.addClass('btn-primary');
             botonVerAlumno.val('Ver Ficha');
             botonVerAlumno.click(function () {
-                $("#idAlumnoAVer").val(un_alumno.Dd);
+                $("#DNIAlumnoFicha").val(un_alumno.Documento);
                 $("#btnVerFichaAlumno").click();
             });
             contenedorBtnFichaAlumno.append(botonVerAlumno);
@@ -234,7 +236,7 @@
         };
 
         var options = {
-            valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad', 'Detalle']
+            valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad']
         };
 
         var featureList = new List('ContenedorPlanilla', options);
@@ -270,5 +272,9 @@
         $("tbody tr:odd").css('background-color', '#9CB3D6 ');
 
     });
+
+
+
+
 </script>
 </html>

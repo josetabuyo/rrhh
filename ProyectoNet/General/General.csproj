@@ -130,10 +130,16 @@
     <Compile Include="Organigrama\OrganigramaException.cs" />
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
     <Compile Include="Organigrama\Responsable.cs" />
+    <Compile Include="SACC\AlumnoDto.cs" />
     <Compile Include="SACC\Articulador.cs" />
     <Compile Include="SACC\AsistenciaHoraCuatro.cs" />
     <Compile Include="SACC\ComparadorDeDiferencias.cs" />
     <Compile Include="SACC\DatosDeContacto.cs" />
+    <Compile Include="SACC\EstadoAlumnoAbandonado.cs" />
+    <Compile Include="SACC\EstadoAlumnoCursando.cs" />
+    <Compile Include="SACC\EstadoAlumnoFinalizado.cs" />
+    <Compile Include="SACC\EstadoAlumnoLibre.cs" />
+    <Compile Include="SACC\EstadoDeAlumno.cs" />
     <Compile Include="SACC\Organismo.cs" />
     <Compile Include="SACC\Reportes.cs" />
     <Compile Include="Seguridad\Auditoria.cs" />

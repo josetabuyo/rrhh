@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 namespace General.Repositorios
 {
     public interface IRepositorioDeCursos
@@ -11,5 +12,6 @@ namespace General.Repositorios
         bool QuitarCurso(General.Curso curso, General.Usuario usuario);
         bool TieneAsignadoAlumnos(General.Curso un_curso);
         bool TieneAsignadoDocente(General.Curso un_curso);
+        List<General.Curso> GetCursosParaElAlumno(General.Alumno alumno, List<General.Curso> cursos);
     }
 }

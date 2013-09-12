@@ -23,7 +23,8 @@
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelEspacioFisico" class="div_izquierdo">
     <fieldset>
-        <legend>Panel De Espacios Físicos</legend>
+        <legend class="subtitulos">Panel De Espacios Físicos</legend>
+        <div class="estilo_formulario">
             <div>
                 <asp:Label ID="lblAula" CssClass="labels_sacc" runat="server" Text="Aula:"></asp:Label>
                 <asp:TextBox ID="txtAula" placeholder="Aula" name="Aula" runat="server" EnableViewState="false"></asp:TextBox>
@@ -66,12 +67,13 @@
             <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
             </div>
             </div>
+            </div>
     </fieldset>
     </div>
 
     <div class="div_derecho">
         <fieldset>
-        <legend>Listado de Espacios Físicos</legend>
+        <legend class="subtitulos">Listado de Espacios Físicos</legend>
         <div id="ContenedorPlanilla" runat="server">
             <div class="input-append" style="clear:both;">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Espacios" />    

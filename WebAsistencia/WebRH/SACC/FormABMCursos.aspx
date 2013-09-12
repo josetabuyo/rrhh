@@ -24,7 +24,7 @@
         <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelCurso" class="div_izquierdo">
         <fieldset>
-           <legend>Panel De Cursos</legend>
+           <legend class="subtitulos">Panel De Cursos</legend>
         <p>
             <asp:Label ID="lblMateria" CssClass="labels_sacc" runat="server" Text="Materia:"></asp:Label>
             <asp:DropDownList ID="cmbMateria" name="Materia" runat="server" EnableViewState="false" data-name="Materia"></asp:DropDownList >
@@ -81,7 +81,7 @@
         </fieldset>
     <div class="div_derecho">
         <fieldset>
-        <legend>Listado de Cursos</legend>
+        <legend class="subtitulos">Listado de Cursos</legend>
         <div id="ContenedorPlanilla" runat="server">
             <div class="input-append" style="clear:both;">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Cursos" />    

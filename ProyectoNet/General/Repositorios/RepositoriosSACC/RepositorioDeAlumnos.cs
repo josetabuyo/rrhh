@@ -10,6 +10,7 @@ namespace General.Repositorios
         
         protected IRepositorioDeModalidades repo_modalidades;
         protected IRepositorioDeCursos repo_cursos;
+        //protected Articulador articulador;
 
         public RepositorioDeAlumnos(IConexionBD conexion, IRepositorioDeCursos repo_cursos, IRepositorioDeModalidades repo_modalidades)
         {
@@ -28,6 +29,7 @@ namespace General.Repositorios
 
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
             var alumnos = new List<Alumno>();
+           
 
             tablaDatos.Rows.ForEach(row =>
             {               
@@ -36,10 +38,10 @@ namespace General.Repositorios
                     baja = (int)row.GetObject("IdBaja");
                 Area area = ConstruirAreaDeAlumno(row);
                 
-                Organismo organismo = new Organismo(-1, "Sin Organismo Asignado");
+                Organismo organismo = new Organismo(0, "Sin Organismo Asignado");
                 if (!(row.GetObject("IdOrganismo") is DBNull))
                 {
-                    organismo.Id = row.GetInt("IdOrganismo");
+                    organismo.Id = row.GetSmallintAsInt("IdOrganismo");
                     organismo.Descripcion = row.GetString("DescripcionOrganismo");
                 }
 
@@ -55,13 +57,16 @@ namespace General.Repositorios
                     Telefono = row.GetString("Telefono"),
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
-                    //LugarDeTrabajo = row.GetString("LugarTrabajo"),
-                    //FechaDeNacimiento = ObtenerFechaDeNacimiento(row),
+                    LugarDeTrabajo = row.GetString("LugarTrabajo"),
+                    FechaDeNacimiento = ObtenerFechaDeNacimiento(row),
+                    //EstadoDeCursada = articulador.EstadoDelAlumno(
+                    //CicloCursado
                     Organismo = organismo,
                     Areas = areas_alumno,
                     Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
                     Baja = baja
                 };
+
 
                 alumnos = CorteDeControlAreasDeAlumno(alumnos, alumno);
             });
@@ -125,12 +130,13 @@ namespace General.Repositorios
         public Alumno GetAlumnoByDNI(int dni)
         {
             var parametros = new Dictionary<string, object>();
+            var articulador = new Articulador();
             List<Alumno> alumnos_dni = new List<Alumno>();
             parametros.Add("@DocumentoPersona", dni);
 
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_DatosPersonales", parametros);
 
-           
+            List<Curso> cursos = repo_cursos.GetCursos();
         
             tablaDatos.Rows.ForEach(row =>
             {
@@ -165,9 +171,16 @@ namespace General.Repositorios
                      Baja = baja
                 };
 
+                
+
                 alumnos_dni = CorteDeControlAreasDeAlumno(alumnos_dni, alumno);
 
             });
+
+
+            alumnos_dni.First().EstadoDeAlumno = articulador.EstadoDelAlumno(alumnos_dni.First(), repo_cursos, cursos);
+            alumnos_dni.First().CicloCursado = articulador.CicloDelAlumno(alumnos_dni.First(), repo_cursos, cursos);
+
             return alumnos_dni.First();      
         }
 

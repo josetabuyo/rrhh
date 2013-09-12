@@ -27,7 +27,7 @@
         <div style="margin:20px;">
         
         <fieldset>
-            <legend>Elija ciclo y curso:</legend>
+            <legend class="subtitulos">Elija ciclo y curso:</legend>
             <p>
             <asp:Label ID="lblCiclo"  runat="server" style="padding-right:5px;"  Text="Ciclo:"></asp:Label>
                 <asp:DropDownList ID="cmbCiclo" runat="server"  EnableViewState="false" 

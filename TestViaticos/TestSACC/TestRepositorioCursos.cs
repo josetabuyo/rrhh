@@ -35,7 +35,7 @@ namespace TestViaticos
                                     |02    |02            |02                 |2012-10-13 21:36:35.077     |3                |0          |02                |1           |Primer Parcial       |31234567   |Pérez      |Ana        |4577-4536  |ana.perez@gmail.com        |MDS          |2012-10-13 21:36:35.077 |Juan B Justo 151   |2013-01-13 21:36:35.077     |2013-10-13 21:36:35.077   |9 de Julio         |500                |02         |Sarmiento      |Principal  |30         |02         |Segundo        |02             |CENS                   |10:00      |12:30      |2              |02         |02         |1      |unidad Ministro                   |1           |MDS                  |Observación
                                     |03    |03            |03                 |2012-10-13 21:36:35.077     |4                |0          |03                |1           |Primer Parcial       |31987654   |González   |Carlos     |4504-3565  |carlos.gonzalez@gmail.com  |MDS          |2012-10-13 21:36:35.077 |Av. Nazca 5002     |2013-02-13 21:36:35.077     |2013-10-13 21:36:35.077   |Florida            |252                |03         |Evita          |PB         |40         |03         |Termero        |03             |Fines                  |15:40      |17:20      |3              |03         |03         |621    |Secretaría de Deportes            |1           |MDS                  |Observación";
                                                                                                                                                                                                                                                                            
-              Curso curso = new Curso(01, TestObjects.MateriaCens(), TestObjects.unDocente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today, "");
+               Curso curso = new Curso(01, TestObjects.MateriaCens(), TestObjects.unDocente(), TestObjects.EspacioFisico(), DateTime.Today, DateTime.Today, "");
                 
                 Usuario usuario = TestObjects.UsuarioSACC();  
 
@@ -114,5 +114,22 @@ namespace TestViaticos
               Assert.AreEqual(repo.GetCursoById(1).GetHorariosDeCursada().First().HoraDeInicio, TimeSpan.Parse("1200"));
               Assert.AreEqual(repo.GetCursoById(1).GetHorariosDeCursada().First().HoraDeFin, TimeSpan.Parse("1300"));
           }
+          [TestMethod]
+          public void deberia_poder_obtener_todos_los_cursos_en_que_se_inscribio_un_alumno()
+          {
+
+              IConexionBD conexion = TestObjects.ConexionMockeada();
+
+              RepositorioDeCursos repo_cursos = new RepositorioDeCursos(conexion);
+
+              var fer = TestObjects.AlumnoFer();
+              var cursos = TestObjects.UnListadoDeCursoConEdificios();
+              cursos.First().AgregarAlumno(fer);
+
+              Assert.AreEqual(1, repo_cursos.GetCursosParaElAlumno(fer, cursos).Count);
+              Assert.IsTrue(repo_cursos.GetCursosParaElAlumno(fer, cursos).All(c => c.Alumnos().Contains(fer)));
+
+          }
+
     }
 }
