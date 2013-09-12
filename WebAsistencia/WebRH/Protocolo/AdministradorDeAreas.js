@@ -35,6 +35,7 @@
 
     PlanillaAreas.SetOnRowClickEventHandler(function (un_area) {
         var vista = new VistaDeArea({ area: un_area });
+        vista.mostrarModal();
     });
 
     PlanillaAreas.CargarObjetos(areas);

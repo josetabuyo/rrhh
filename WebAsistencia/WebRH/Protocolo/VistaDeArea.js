@@ -15,6 +15,9 @@ VistaDeArea.prototype.start = function () {
     for (var i = 0; i < this.o.area.asistentes().length; i++) {
         new VistaDeAsistente({ asistente: this.o.area.asistentes()[i] }).dibujarEn(div_asistentes);
     }
+};
+
+VistaDeArea.prototype.mostrarModal = function () {
     var _this = this;
     this.ui.dialog({
         title: _this.o.area.nombre(),
@@ -33,4 +36,9 @@ VistaDeArea.prototype.start = function () {
         },
         dialogClass: "dialog_vista_area"
     });
+};
+
+
+VistaDeArea.prototype.dibujarEn = function (un_panel) {
+    un_panel.append(this.ui);
 };
