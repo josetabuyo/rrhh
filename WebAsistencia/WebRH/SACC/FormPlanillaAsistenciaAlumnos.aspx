@@ -34,7 +34,7 @@
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="DivContenedor" runat="server" style="margin:10px;">   
     <fieldset>
-        <legend>Asistencias</legend>
+        <legend class="subtitulos">Asistencias</legend>
         <label>Curso:&nbsp;</label>
         <select id="CmbCurso" style="width:400px;" onchange="javascript:CargarPlanilla();" runat="server">
             <option value="0">Seleccione</option>

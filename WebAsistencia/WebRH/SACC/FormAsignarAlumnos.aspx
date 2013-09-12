@@ -19,7 +19,7 @@
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
     
 </head>
-<body >
+<body class="marca_de_agua" >
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
@@ -50,32 +50,35 @@
         </div>
 
     <div id="panelAlumnoDisponibles" style="margin-left:20px" class="div_izquierdo_inscripcion">
+    <div class="estilo_formulario" style="width:75%; margin-left: 10%; overflow:auto;">
     <fieldset>
-        <legend>Listado de Alumnos Para Inscribir</legend>
+        <legend class="subtitulos">Listado de Alumnos Para Inscribir</legend>
         <div style="float:left" class="tablas_alumnos" id="grillaAlumnosDisponibles" runat="server">
             <div class="input-append">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Buscar Alumnos" />    
             </div>
         </div>
     </fieldset>
-
     </div>
-    <div style="margin-top:200px;float: left; padding-right:50px; width: 7%;">
+    </div>
+    <div style="margin-top:200px;float: left; padding:0 30px; width: 2%;">
 
         <p><img alt="" src="../Imagenes/Botones/Botones SACC/flecha_der.png"   height="40"  id="Img1" /></p>
         <p><img alt="" src="../Imagenes/Botones/Botones SACC/flecha_izq.png"  height="40"  id="Img2" /></p>             
         <p><label id="mensaje" ></label></p>
         
-        <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="button" value="Inscribir" runat="server" />
+        <input id="BtnGuardar" style="margin-left: -10px;" class="btn btn-primary " type="button" value="Inscribir" runat="server" />
         <%--<asp:Button ID="btnGrabar" Text="Guardar Inscriptos" runat="server" OnClick="btnGrabarAsignacion_Click" class=" btn btn-primary boton_main_documentos" Visible="true"/> --%>
     </div>
 
 
     <div id="panelAlumnosAsignados" class="div_derecho_inscripcion">
+    <div class="estilo_formulario" style="width:95%; overflow:auto;  margin-left:1%;">
     <fieldset>
-        <legend>Listado de Alumnos Asignados al Curso de <span id="nombreDeCurso"></span></legend> 
+        <legend class="subtitulos">Listado de Alumnos Asignados al Curso de <span id="nombreDeCurso"></span></legend> 
         <div class="tablas_alumnos" id="grillaAlumnosAsignados" runat="server"></div>      
     </fieldset>
+    </div>
     </div>
 
     <asp:HiddenField ID="cursosJSON" runat="server" />

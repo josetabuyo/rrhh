@@ -22,9 +22,10 @@
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelEspacioFisico" class="div_izquierdo">
-    <fieldset>
+   
+        <div class="estilo_formulario" style="width:60%; margin-left: 30%;">
+         <fieldset>
         <legend class="subtitulos">Panel De Espacios Físicos</legend>
-        <div class="estilo_formulario">
             <div>
                 <asp:Label ID="lblAula" CssClass="labels_sacc" runat="server" Text="Aula:"></asp:Label>
                 <asp:TextBox ID="txtAula" placeholder="Aula" name="Aula" runat="server" EnableViewState="false"></asp:TextBox>
@@ -67,11 +68,13 @@
             <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
             </div>
             </div>
+             </fieldset>
             </div>
-    </fieldset>
+   
     </div>
 
     <div class="div_derecho">
+        <div class="estilo_formulario" style="width:95%; overflow:auto;  margin-left:1%;">
         <fieldset>
         <legend class="subtitulos">Listado de Espacios Físicos</legend>
         <div id="ContenedorPlanilla" runat="server">
@@ -80,6 +83,7 @@
             </div>
         </div>
         </fieldset>
+        </div>
     </div>
 
     <asp:HiddenField ID="texto_mensaje_exito" runat="server" />

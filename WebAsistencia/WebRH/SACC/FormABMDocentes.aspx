@@ -22,6 +22,7 @@
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelDocente" class="div_izquierdo">
+    <div class="estilo_formulario" style="width:60%; margin-left: 30%;">
     <fieldset>
        <legend class="subtitulos">Panel De Docentes</legend>
         <div class="input-append">   
@@ -77,8 +78,10 @@
         </div>
     </fieldset>
     </div>
+    </div>
 
     <div class="div_derecho">
+         <div class="estilo_formulario" style="width:95%; overflow:auto;  margin-left:1%;">
         <fieldset>
         <legend class="subtitulos">Listado de Docentes</legend>
         <div id="ContenedorPlanilla" runat="server">
@@ -87,6 +90,7 @@
             </div>
         </div>
         </fieldset>
+        </div>
     </div>
     
     <asp:HiddenField ID="texto_mensaje_exito" runat="server" />

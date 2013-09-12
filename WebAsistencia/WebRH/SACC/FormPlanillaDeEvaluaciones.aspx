@@ -62,7 +62,7 @@
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
         <fieldset>
-            <legend>Evaluaciones</legend>
+            <legend class="subtitulos">Evaluaciones</legend>
             <div id="DivContenedor" runat="server" class="div_izquierdo2" style="margin:10px; z-index:999;  ">
                 <label class="label_evaluaciones">Curso:</label>
                 <select id="CmbCurso" onchange="javascript:cargar_instancias(this.value);" runat="server">

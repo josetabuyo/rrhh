@@ -23,9 +23,10 @@
      <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelAlumno"  class="div_izquierdo">
+        
+        <div class="estilo_formulario" style="width:60%; margin-left: 30%;">
         <fieldset >
         <legend class="subtitulos">Panel De Alumnos</legend>
-        <div class="estilo_formulario" style="width:60%; margin-left: 30%;">
         <div class="input-append">   
             <asp:TextBox id="input_dni" CssClass="label_alumno" placeholder="D.N.I" runat="server"></asp:TextBox>
             <asp:Button ID="btn_buscar_personas" Text="Buscar" runat="server" OnClick="btnBuscarPersona_Click" class=" btn btn-primary" />
@@ -78,21 +79,22 @@
         <div runat="server" id="DivMensajeExito" Visible="false" class="alert alert-success">
         </div>
         </div>
+            </fieldset>
         </div>
-    </fieldset>
+
     </div>
     <div class="div_derecho">
+        <div class="estilo_formulario" style="width:95%; overflow:auto; margin-left:1%; ">
         <fieldset>
-        <legend class="subtitulos">Listado de Alumnos</legend>
-        <div class="estilo_formulario" style="width:95%; overflow:auto; ">
-        <div id="ContenedorPlanilla" runat="server">
-             <div class="input-append" style="clear:both;">   
-                <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" />    
+            <legend class="subtitulos">Listado de Alumnos</legend>
+            <div id="ContenedorPlanilla" runat="server">
+                 <div class="input-append" style="clear:both;">   
+                    <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" />    
+                </div>
             </div>
-        </div>
+        </fieldset>
         </div>
         <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
-       </fieldset>
     </div>
     <asp:HiddenField ID="texto_mensaje_exito" runat="server" />
     <asp:HiddenField ID="texto_mensaje_error" runat="server" />

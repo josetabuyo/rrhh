@@ -23,6 +23,7 @@
         <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelCurso" class="div_izquierdo">
+        <div class="estilo_formulario" style="width:70%; margin-left: 20%;">
         <fieldset>
            <legend class="subtitulos">Panel De Cursos</legend>
         <p>
@@ -47,8 +48,8 @@
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
             <%--<asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" data-name="Dia" ></asp:DropdownList>--%>
             <select id="cmbDia" class="input-small"  runat="server" data-name="Dia" style="text-transform:capitalize" ></select>
-            <asp:TextBox ID="txtHoraInicio" title="Hora de inicio" CssClass="input-small" placeholder="Hora Inicio" runat="server" MaxLength="5"  data-name="Hora de Inicio"></asp:TextBox>
-            <asp:TextBox ID="txtHoraFin" title="Hora de fin" CssClass="input-small" placeholder="Hora Fin" runat="server" MaxLength="5" data-name="Hora de Fin"></asp:TextBox>
+            <asp:TextBox ID="txtHoraInicio" title="Hora de inicio" CssClass="input-mini" placeholder="Hora Inicio" runat="server" MaxLength="5"  data-name="Hora de Inicio"></asp:TextBox>
+            <asp:TextBox ID="txtHoraFin" title="Hora de fin" CssClass="input-mini" placeholder="Hora Fin" runat="server" MaxLength="5" data-name="Hora de Fin"></asp:TextBox>
             <select runat="server" title="Horas C&aacute;tedra" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false" class="input-small" data-name="Cantidad de Horas C&aacute;tedra"></select>
            
             <input id="agregarHorario" type="button" value="Agregar" 
@@ -77,9 +78,12 @@
             class=" btn btn-primary boton_main_documentos"
             onClientClick="javascript:LimpiarCampos();" />
     </div>
+     </fieldset>
         </div>
-        </fieldset>
+        </div>
+
     <div class="div_derecho">
+        <div class="estilo_formulario" style="width:95%; overflow:auto;  margin-left:1%;">
         <fieldset>
         <legend class="subtitulos">Listado de Cursos</legend>
         <div id="ContenedorPlanilla" runat="server">
@@ -89,6 +93,7 @@
         </div>
         <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
         </fieldset>
+        </div>
     </div>
     <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="materiasJSON" runat="server" EnableViewState="true"/>
