@@ -1692,6 +1692,23 @@ namespace General
             return asistencias;
             
         }
+
+        public static List<Asistencia> InasistenciaTotal(DateTime fecha_inicio, DateTime fecha_fin, int id_curso, int id_alumno)
+        {
+            List<Asistencia> asistencias = new List<Asistencia>();
+            for (int i = 0; i < (fecha_fin - fecha_inicio).Days; i++)
+            {
+                InasistenciaNormal asistencia = new InasistenciaNormal(fecha_inicio.AddDays(i), id_curso, id_alumno);
+
+                asistencias.Add(asistencia);
+
+                i = i + 6;
+            }
+
+            return asistencias;
+
+        }
+
         public static List<List<int>> Inscripciones()
         {
              return new List<List<int>>() { new List<int> { 4, 281941 }, new List<int> { 3, 287873 }, new List<int> { 13, 281941 } };
