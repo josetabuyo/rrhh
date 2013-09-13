@@ -46,7 +46,7 @@
                 <div id="asistentes"></div>
                 <div class="botonera">
                     <a id="btn_administrar_personal"> Administrar Personal </a>
-                    <a id="btn_solicitar_modificacion" href="Principal.aspx"> Solicitar Modificación De Datos </a>
+                    <a id="btn_solicitar_modificacion"> Solicitar Modificación De Datos </a>
                 </div>
             </div>
         </div>
@@ -55,29 +55,6 @@
         </div>
     </div>
 </form>
-
-<script type="text/javascript">
-    function EditarElArea(id) {
-        PageMethods.EditarElArea(id, onSuccess, onFailure);
-    }
-
-    function IrAlArea(id) {
-        PageMethods.IrAlArea(id, onSuccess, onFailure);
-    }
-
-    function onSuccess(result) {
-        window.location = result;
-    }
-
-    function onFailure(error) {
-        alert(error);
-    }
-
-
-    </script>
-
-     
-
 </body>
 
 <script type="text/javascript" src="Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>

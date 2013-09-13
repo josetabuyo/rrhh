@@ -17,7 +17,14 @@ VistaDeArea.prototype.start = function () {
     }
     var _this = this;
     this.ui.find("#btn_administrar_personal").click(function () {
-        _this.o.sesion.setAreaActual(_this.o.area.id());
+        _this.o.sesion.setAreaActual(_this.o.area.id(), function () {
+            window.location.href = "Principal.aspx";
+        });
+    });
+    this.ui.find("#btn_solicitar_modificacion").click(function () {
+        _this.o.sesion.setAreaActual(_this.o.area.id(), function () {
+            window.location.href = "FormulariosDatosDeContacto/FModificacionDatosDeContacto.aspx";
+        });
     });
 };
 

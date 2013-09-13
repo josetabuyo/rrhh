@@ -10,3 +10,14 @@ tbody tr:odd
 {
     background-color: '#9CB3D6';
 }
+
+.contenedor_principal_consulta_protocolo
+{
+    top:100px;
+}
+
+.search
+{
+    float:right; 
+    margin:5px;
+}

@@ -42,8 +42,8 @@
     PlanillaAreas.DibujarEn(contenedorPlanilla);
 
     var options = {
-        valueNames: ['Área', 'Responsable', 'Teléfonos', 'Fax', 'Correo Electrónico', 'Dirección']
+        valueNames: ['Área', 'Responsable', 'Teléfonos', 'Correo Electrónico', 'Dirección']
     };
 
-    var featureList = new List('ContenedorPlanilla', options);
+    var featureList = new List('ContenedorPrincipal', options);
 }
