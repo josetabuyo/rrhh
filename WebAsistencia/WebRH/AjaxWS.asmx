@@ -215,12 +215,23 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetPlanillaAsistencias(int id_curso, string fecha_desde, string fecha_hasta)
     {
-        var v_fecha_desde = DateTime.Parse(fecha_desde);
-        var v_fecha_hasta = DateTime.Parse(fecha_hasta);
+        DateTime v_fecha_desde = DateTime.Parse(fecha_desde);
+        DateTime v_fecha_hasta = new DateTime();
+        if(fecha_hasta != "")
+            v_fecha_hasta = DateTime.Parse(fecha_hasta);
         var planilla = backEndService.GetPlanillaAsistencias(id_curso, v_fecha_desde, v_fecha_hasta);
         return Newtonsoft.Json.JsonConvert.SerializeObject(planilla);
     }
 
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetMesesCursoDto(int id_curso)
+    {
+        var meses = backEndService.GetMesesCursoDto(id_curso, (WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(meses);
+    }
+    
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetInstanciasDeEvaluacion(int id_curso)

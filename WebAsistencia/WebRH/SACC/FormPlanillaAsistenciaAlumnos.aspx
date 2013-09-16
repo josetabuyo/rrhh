@@ -41,6 +41,12 @@
     <div id="DivContenedor" runat="server" style="margin:10px;">   
     <fieldset>
         <legend>Asistencias</legend>
+        <label>A&ntilde;o:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <select id="CmbAnio" style="width:100px; text-transform:capitalize" 
+            onchange="javascript:CargarPlanilla();" runat="server" enableviewstate="true">
+          <option value="2013">2013</option>    
+        </select>
+        <br />
         <label>Curso:&nbsp;</label>
         <select id="CmbCurso" style="width:400px;" runat="server" onchange="javascript:CargarPlanilla();>
             <option value="0">Seleccione</option>
@@ -61,8 +67,8 @@
         <br />
 
         </div>
-        <div id="ContenedorPlanillaAcumulados" runat="server" style="width:40%;">
-
+        <div id="ContenedorPlanilla" runat="server" style="display:inline-block;">
+        
         </div>
         <div style="height:20px; width: 100%">
         <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
@@ -99,10 +105,14 @@
     }
 
     var CargarPlanilla = function () {
-        var id_curso = $("#CmbCurso option:selected").val(); ;
-        var fecha_desde = "10/01/2013";
-        var fecha_hasta = "15/08/2013";
-        PlanillaAsistencias.cargar_asistencias(id_curso, fecha_desde, fecha_hasta);
+        var id_curso = $("#CmbCurso option:selected").val();
+        var mes = $("#CmbMes option:selected").val();
+        var anio = $("#CmbAnio option:selected").val();
+        if (mes != 0 && anio && id_curso) {
+            var fecha_desde = anio + "/" + mes + "/01";
+            var fecha_hasta = "";
+            PlanillaAsistencias.cargar_asistencias(id_curso, fecha_desde, fecha_hasta);
+        }
     }
 
     $("#CmbCurso").change(function () {

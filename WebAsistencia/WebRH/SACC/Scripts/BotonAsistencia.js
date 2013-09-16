@@ -18,7 +18,7 @@ var BotonAsistencia = function (id_alumno, dia_cursado, valor, valor_maximo) {
     }
 
     this.html = $('<input>')
-                    .attr('id', 'btnAsistencia' + id_alumno + "_" + dia_cursado)
+                    .attr('id', 'btnAsistencia_' + id_alumno + "_" + dia_cursado)
                     .attr('type', 'button')
                     .attr("data-valor_maximo", valor_maximo)
                     .attr("data-id_alumno", id_alumno)

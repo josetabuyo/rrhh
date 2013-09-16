@@ -967,7 +967,18 @@ public class WSViaticos : System.Web.Services.WebService
     //    cant_asistencias = cant_asistencias_aux;
     //    cant_inasistencias = cant_inasistencias_aux;
     //}
-
+    public List<string> GetMesesCursoDto(int id_curso, Usuario usuario)
+    {
+        var curso = RepositorioDeCursos().GetCursoById(id_curso);
+        var mes_inicio = curso.FechaInicio.Month;
+        var mes_fin = curso.FechaFin.Month;
+        List<string> meses = new List<string>();
+        for (int i = mes_inicio; i < mes_fin; i++)
+        {
+            meses.Add(DateTimeFormatInfo.CurrentInfo.GetMonthName(i));
+        }
+        return meses;
+    }
     [WebMethod]
     public PlanillaAsistenciasDto GetPlanillaAsistencias(int id_curso, DateTime fecha_desde, DateTime fecha_hasta)
     {
@@ -977,6 +988,8 @@ public class WSViaticos : System.Web.Services.WebService
         var curso = RepositorioDeCursos().GetCursoById(id_curso);
 
         DateTime fecha_inicio_planilla = curso.FechaInicio > fecha_desde ? curso.FechaInicio : fecha_desde;
+        if (fecha_hasta == DateTime.MinValue)
+            fecha_hasta = new DateTime(fecha_inicio_planilla.Year, fecha_inicio_planilla.Month, DateTime.DaysInMonth(fecha_inicio_planilla.Year, fecha_inicio_planilla.Month));
         DateTime fecha_fin_planilla = curso.FechaFin < fecha_hasta ? curso.FechaFin : fecha_hasta;
 
         var calendario = GetCalendarioDeCurso(curso);
@@ -986,13 +999,26 @@ public class WSViaticos : System.Web.Services.WebService
         var asistencias = RepoAsistencias().GetAsistencias();
         var alumnos = curso.Alumnos();
         var horarios_de_cursada = curso.GetHorariosDeCursada();
-        
+        var fechas_planilla = new List<FechaDeCursada>();
         dias_planilla.ForEach(d => horas_catedra += horarios_de_cursada.Find(h => h.Dia.Equals(d.DayOfWeek)).HorasCatedra);
+
+        dias_planilla.ForEach(d =>
+        {
+            var fecha_cursada = new FechaDeCursada()
+            {
+                Dia = d.ToString("dd"),
+                NombreDia = d.ToString("ddd"),
+                Fecha = d,
+                HorasCatedra = planilla_mensual.Curso.GetHorariosDeCursada().Find(h => h.Dia == d.DayOfWeek).HorasCatedra
+            };
+            fechas_planilla.Add(fecha_cursada);
+        });
+        
 
         var planilla_asistencias_dto = new PlanillaAsistenciasDto()
         {
             Alumnos = curso.Alumnos().ToArray(),
-            HorariosDeCursada = dias_planilla.ToArray(),
+            FechasDeCursada = fechas_planilla.ToArray(),
             HorasCatedra = horas_catedra,
             DetalleAsistenciasPorAlumno = detalle_asistencias.ToArray(),
             CodigoError = 0,

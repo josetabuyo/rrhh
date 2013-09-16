@@ -7,6 +7,13 @@ public class PlanillaAsistenciasDto
     public string MensajeError { get; set; }
     public Alumno[] Alumnos { get; set; }
     public DetalleAsistenciasPorAlumno[] DetalleAsistenciasPorAlumno { get; set; }
-    public DateTime[] HorariosDeCursada { get; set; }
+    public FechaDeCursada[] FechasDeCursada { get; set; }
+    public int HorasCatedra { get; set; }
+}
+public class FechaDeCursada
+{
+    public string Dia { get; set; }
+    public string NombreDia { get; set; }
+    public DateTime Fecha { get; set; }
     public int HorasCatedra { get; set; }
 }
