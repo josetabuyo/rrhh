@@ -1117,7 +1117,7 @@ namespace General
         }
         public static Alumno AlumnoJor() 
         {
-            return new Alumno(284165, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", PrimerCiclo(), DateTime.Today, OrganismoMDS());
+            return new Alumno(284165, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadCens(), "Oficina Faby", DateTime.Today, "Cursando", PrimerCiclo(), DateTime.Today, OrganismoMDS());
         }
         public static Alumno AlumnoGer() 
         {
@@ -1130,7 +1130,7 @@ namespace General
 
         public static Alumno AlumnoJavi()
         {
-            return new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", PrimerCiclo(), DateTime.Today, OrganismoMSAL());
+            return new Alumno(5, "Javi", "Lurgo", 28753951, "", "", "", areas, ModalidadCens(), "Oficina Faby", DateTime.Today, "Cursando", SegundoCiclo(), DateTime.Today, OrganismoMSAL());
         }
 
         public static Curso UnCursoConAlumnos()
@@ -1153,9 +1153,9 @@ namespace General
 
         public static Curso UnCursoCon2AlumnosFines()
         {
-            Curso un_curso = new Curso(14, MateriaPuro(), unDocente(), EspacioFisico(), new DateTime(2013, 01, 01), new DateTime(2013, 03, 10), "");
-            un_curso.AgregarAlumno(AlumnoFer());
-            un_curso.AgregarAlumno(AlumnoJor());
+            Curso un_curso = new Curso(14, MateriaPuro(), unDocente(), EspacioFisico(), new DateTime(2013, 01, 01), DateTime.Today, "");
+            un_curso.AgregarAlumno(AlumnoGer());
+            un_curso.AgregarAlumno(AlumnoZambri());
             HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 14);
             HorarioDeCursada horario_de_cursada_miercoles = new HorarioDeCursada(DayOfWeek.Wednesday, "12:00", "14:00", 2, 14);
             un_curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
@@ -1167,9 +1167,9 @@ namespace General
 
         public static Curso UnCursoCon3AlumnosCens()
         {
-            Curso un_curso = new Curso(14, MateriaCens(), unDocente(), EspacioFisico(), new DateTime(2013, 01, 01), new DateTime(2013, 03, 10), "");
-            un_curso.AgregarAlumno(AlumnoGer());
-            un_curso.AgregarAlumno(AlumnoZambri());
+            Curso un_curso = new Curso(14, MateriaCens(), unDocente(), EspacioFisico(), new DateTime(2013, 01, 01), DateTime.Today, "");
+            un_curso.AgregarAlumno(AlumnoFer());
+            un_curso.AgregarAlumno(AlumnoJor());
             un_curso.AgregarAlumno(AlumnoJavi());
             HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 14);
             HorarioDeCursada horario_de_cursada_miercoles = new HorarioDeCursada(DayOfWeek.Wednesday, "12:00", "14:00", 2, 14);
@@ -1182,9 +1182,8 @@ namespace General
 
         public static Curso UnCursoCon1AlumnosCens()
         {
-            Curso un_curso = new Curso(14, MateriaCens(), unDocente(), EspacioFisico(), new DateTime(2013, 01, 01), new DateTime(2013, 03, 10), "");
-            un_curso.AgregarAlumno(AlumnoMinisterio());
-            un_curso.AgregarAlumno(AlumnoGer());
+            Curso un_curso = new Curso(14, MateriaCens3erCiclo(), unDocente(), EspacioFisico(), new DateTime(2013, 01, 01), DateTime.Today, "");
+            un_curso.AgregarAlumno(AlumnoJavi());
             HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 14);
             HorarioDeCursada horario_de_cursada_miercoles = new HorarioDeCursada(DayOfWeek.Wednesday, "12:00", "14:00", 2, 14);
             un_curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
@@ -1228,6 +1227,16 @@ namespace General
             Ciclo ciclo = new Ciclo(1, "Primer Ciclo");
             return new Materia(1, "Historia CENS", modalidad_cens, ciclo);            
         }
+
+        public static Materia MateriaCens3erCiclo()
+        { 
+            List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() {PrimerParcial(), SegundoParcial() };
+            Modalidad modalidad_cens = new Modalidad(2, "Cens", instancias);
+            Ciclo ciclo = TercerCiclo();
+            return new Materia(1, "Historia CENS", modalidad_cens, ciclo);            
+        }
+
+        
 
         public static Materia MateriaPuro()
         {
@@ -1559,20 +1568,20 @@ namespace General
         }
 
         public static Curso cursoMatematica1Cens2012_2Cuat()
-        { return new Curso(1, Matematica1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
+        { return new Curso(2, Matematica1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
 
         public static Curso cursoMatematica1Cens2013_1Cuat()
-        { return new Curso(1, Matematica1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
+        { return new Curso(3, Matematica1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
 
         public static Curso cursoMatematica1Cens2013_2Cuat()
-        { return new Curso(1, Matematica1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_2Cuat(), FechaFin2013_2Cuat(), ""); }
+        { return new Curso(4, Matematica1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_2Cuat(), FechaFin2013_2Cuat(), ""); }
 
         public static Curso cursoMatematica2Cens2012_1Cuat()
-        { return new Curso(1, Matematica2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), ""); }
+        { return new Curso(5, Matematica2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), ""); }
 
         public static Curso cursoMatematica2Cens2012_2Cuat()
         {
-            Curso curso = new Curso(1, Matematica2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), "");
+            Curso curso = new Curso(7, Matematica2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), "");
             curso.AgregarAlumno(AlumnoFer());
             //HORARIOS DE CURSADA PARA ASISTENCIAS
             HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 1);
@@ -1581,20 +1590,28 @@ namespace General
         }
 
         public static Curso cursoMatematica2Cens2013_1Cuat()
-        { return new Curso(1, Matematica2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
+        { return new Curso(8, Matematica2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
 
         public static Curso cursoMatematica2Cens2013_2Cuat()
-        { return new Curso(1, Matematica2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_2Cuat(), FechaFin2013_2Cuat(), ""); }
+        { return new Curso(9, Matematica2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_2Cuat(), FechaFin2013_2Cuat(), ""); }
 
         public static Curso cursoMatematica3Cens2012_1Cuat()
-        { return new Curso(1, Matematica3CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), ""); }
+        { return new Curso(10, Matematica3CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), ""); }
 
         public static Curso cursoMatematica3Cens2012_2Cuat()
-        { return new Curso(1, Matematica3CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
+        {
+        Curso curso = new Curso(11, Matematica3CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), "");
+        curso.AgregarAlumno(AlumnoJor());
+        //HORARIOS DE CURSADA PARA ASISTENCIAS
+        HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 1);
+        curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
+        return curso; 
+
+        }
 
         public static Curso cursoMatematica3Cens2013_1Cuat()
         {
-            Curso curso = new Curso(1, Matematica3CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), "");
+            Curso curso = new Curso(12, Matematica3CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), "");
             curso.AgregarAlumno(AlumnoFer());
             //HORARIOS DE CURSADA PARA ASISTENCIAS
             HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 1);
@@ -1603,17 +1620,17 @@ namespace General
         }
 
         public static Curso cursoMatematicaFines2012_1Cuat()
-        { return new Curso(1, MatematicaFines(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), ""); }
+        { return new Curso(13, MatematicaFines(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), ""); }
 
         public static Curso cursoMatematicaFines2012_2Cuat()
-        { return new Curso(1, MatematicaFines(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
+        { return new Curso(14, MatematicaFines(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
 
         public static Curso cursoMatematicaFines2013_1Cuat()
-        { return new Curso(1, MatematicaFines(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
+        { return new Curso(15, MatematicaFines(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
 
         public static Curso cursoHistoria1Cens2012_1Cuat()
         {
-            Curso curso = new Curso(1, Historia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), "");
+            Curso curso = new Curso(16, Historia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), "");
             //ALUMNOS
             curso.AgregarAlumno(AlumnoFer());
             //HORARIOS DE CURSADA PARA ASISTENCIAS
@@ -1624,25 +1641,25 @@ namespace General
         }
 
         public static Curso cursoHistoria1Cens2012_2Cuat()
-        { return new Curso(1, Historia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
+        { return new Curso(17, Historia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
 
         public static Curso cursoHistoria1Cens2013_1Cuat()
-        { return new Curso(1, Historia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
+        { return new Curso(18, Historia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
 
         public static Curso cursoHistoria1Cens2013_2Cuat()
-        { return new Curso(1, Historia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_2Cuat(), FechaFin2013_2Cuat(), ""); }
+        { return new Curso(19, Historia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_2Cuat(), FechaFin2013_2Cuat(), ""); }
 
         public static Curso cursoHistoria2Cens2012_1Cuat()
-        { return new Curso(1, Historia2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), ""); }
+        { return new Curso(20, Historia2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), ""); }
 
         public static Curso cursoHistoria2Cens2012_2Cuat()
-        { return new Curso(1, Historia2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
+        { return new Curso(21, Historia2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
 
         public static Curso cursoHistoria2Cens2013_1Cuat()
-        { return new Curso(1, Historia2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
+        { return new Curso(22, Historia2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
 
         public static Curso cursoHistoria2Cens2013_2Cuat()
-        { return new Curso(1, Historia2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_2Cuat(), FechaFin2013_2Cuat(), ""); }
+        { return new Curso(23, Historia2CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_2Cuat(), FechaFin2013_2Cuat(), ""); }
 
         //public static Curso cursoHistoriaFines2012_1Cuat()
         //{ return new Curso(1, HistoriaFines(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), ""); }
@@ -1654,64 +1671,60 @@ namespace General
         //{ return new Curso(1, HistoriaFines(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
 
         public static Curso cursoEconomia1Cens2012_1Cuat()
-        { return new Curso(1, Economia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), ""); }
+        { return new Curso(24, Economia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), ""); }
 
         public static Curso cursoEconomia1Cens2012_2Cuat()
-        { return new Curso(1, Economia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
+        { return new Curso(25, Economia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
 
         public static Curso cursoEconomia1Cens2013_1Cuat()
-        { return new Curso(1, Economia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
+        { return new Curso(26, Economia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
 
         public static Curso cursoEconomia1Cens2013_2Cuat()
-        { return new Curso(1, Economia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_2Cuat(), FechaFin2013_2Cuat(), ""); }
+        { return new Curso(27, Economia1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2013_2Cuat(), FechaFin2013_2Cuat(), ""); }
 
         public static Curso cursoEconomiaPuro2012_2Cuat()
-        { return new Curso(1, EconomiaFines(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
+        { return new Curso(28, EconomiaFines(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), ""); }
 
         public static Curso cursoEconomiaPuro2013_1Cuat()
-        { return new Curso(1, EconomiaFines(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
+        { return new Curso(29, EconomiaFines(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
 
         public static Curso cursoEconomiaPuro2013_2Cuat()
-        { return new Curso(1, EconomiaFines(), unDocente(), UnEspacioFisico(), FechaInicio2013_2Cuat(), FechaFin2013_2Cuat(), ""); }
+        { return new Curso(30, EconomiaFines(), unDocente(), UnEspacioFisico(), FechaInicio2013_2Cuat(), FechaFin2013_2Cuat(), ""); }
 
         public static Curso cursoGeografiaPuro2013_1Cuat()
-        { return new Curso(1, GeografiaFines(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
+        { return new Curso(31, GeografiaFines(), unDocente(), UnEspacioFisico(), FechaInicio2013_1Cuat(), FechaFin2013_1Cuat(), ""); }
 
-        public static List<Asistencia> AsistenciaPerfecta(DateTime fecha_inicio, DateTime fecha_fin, int id_curso, int id_alumno) 
-        {
-            List<Asistencia> asistencias = new List<Asistencia>();
-            for (int i = 0; i < (fecha_fin - fecha_inicio).Days; i++)
-			{
-                AsistenciaHoraUno asistencia = new AsistenciaHoraUno(fecha_inicio.AddDays(i) , id_curso, id_alumno);
-			 
-                asistencias.Add(asistencia);
-
-                i = i + 6;
-			}
-            
-            return asistencias;
-            
-        }
-
-        public static List<Asistencia> InasistenciaTotal(DateTime fecha_inicio, DateTime fecha_fin, int id_curso, int id_alumno)
-        {
-            List<Asistencia> asistencias = new List<Asistencia>();
-            for (int i = 0; i < (fecha_fin - fecha_inicio).Days; i++)
-            {
-                InasistenciaNormal asistencia = new InasistenciaNormal(fecha_inicio.AddDays(i), id_curso, id_alumno);
-
-                asistencias.Add(asistencia);
-
-                i = i + 6;
-            }
-
-            return asistencias;
-
-        }
 
         public static List<List<int>> Inscripciones()
         {
              return new List<List<int>>() { new List<int> { 4, 281941 }, new List<int> { 3, 287873 }, new List<int> { 13, 281941 } };
         }
+
+        public static List<Asistencia> CargaAsistenciaPerfecta(Curso curso, Alumno alumno)
+        {
+            List<Asistencia> asistencias = new List<Asistencia>();
+
+            for (int i = 0; i < (curso.FechaFin - curso.FechaInicio).Days; i++)
+            {
+                AsistenciaHoraUno asistencia = new AsistenciaHoraUno(curso.FechaInicio.AddDays(i), curso.Id, alumno.Id);
+                asistencias.Add(asistencia);
+                i = i + 6;
+            }
+            return asistencias;
+        }
+
+        public static List<Asistencia> CargaAsistenciaImperfecta(Curso curso, Alumno alumno)
+        {
+            List<Asistencia> asistencias = new List<Asistencia>();
+
+            for (int i = 0; i < (curso.FechaFin - curso.FechaInicio).Days; i++)
+            {
+                InasistenciaNormal asistencia = new InasistenciaNormal(curso.FechaInicio.AddDays(i), curso.Id, alumno.Id);
+                asistencias.Add(asistencia);
+                i = i + 6;
+            }
+            return asistencias;
+        }
+
     }
 }

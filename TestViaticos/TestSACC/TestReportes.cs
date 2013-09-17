@@ -29,9 +29,12 @@ namespace TestViaticos
             Reportes reportes = new Reportes();
             Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursos").WithAnyArguments().Will(Return.Value(TestObjects.CursosSACC()));
 
-            List<Alumno> alumnos_de_la_modalidad = reportes.ObtenerAlumnosConModalidad(TestObjects.ModalidadCens(), TestObjects.RepoCursosMockeado());
+            List<Alumno> alumnos_de_la_modalidad = reportes.ObtenerAlumnosQueEstanCursandoConModalidad(TestObjects.ModalidadCens(), TestObjects.RepoCursosMockeado());
 
-            Assert.AreEqual(4, alumnos_de_la_modalidad.Count);            
+            Assert.AreEqual(3, alumnos_de_la_modalidad.Count);
+            Assert.IsTrue(alumnos_de_la_modalidad.Exists(a => a.Id == TestObjects.AlumnoFer().Id));
+            Assert.IsTrue(alumnos_de_la_modalidad.Exists(a => a.Id == TestObjects.AlumnoJor().Id));
+            Assert.IsTrue(alumnos_de_la_modalidad.Exists(a => a.Id == TestObjects.AlumnoJavi().Id));
         }
 
         [TestMethod]
@@ -40,22 +43,25 @@ namespace TestViaticos
             Reportes reportes = new Reportes();
             Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursos").WithAnyArguments().Will(Return.Value(TestObjects.CursosSACC()));
 
-            List<Alumno> alumnos_de_la_modalidad = reportes.ObtenerAlumnosConModalidad(TestObjects.ModalidadFinesPuro(), TestObjects.RepoCursosMockeado());
+            List<Alumno> alumnos_de_la_modalidad = reportes.ObtenerAlumnosQueEstanCursandoConModalidad(TestObjects.ModalidadFinesPuro(), TestObjects.RepoCursosMockeado());
 
             Assert.AreEqual(2, alumnos_de_la_modalidad.Count);
+            Assert.IsTrue(alumnos_de_la_modalidad.Exists(a => a.Id == TestObjects.AlumnoGer().Id));
+            Assert.IsTrue(alumnos_de_la_modalidad.Exists(a => a.Id == TestObjects.AlumnoZambri().Id));
         }
 
-        //[TestMethod]
-        //public void deberia_poder_saber_cuantos_alumnos_estan_inscriptos_en_fines_cens_en_el_primer_ciclo()
-        //{
-        //    Reportes reportes = new Reportes();
-        //    Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursos").WithAnyArguments().Will(Return.Value(TestObjects.CursosSACC()));
+        [TestMethod]
+        public void deberia_poder_saber_cuantos_alumnos_estan_inscriptos_en_fines_cens_en_el_primer_ciclo()
+        {
+            Reportes reportes = new Reportes();
+            Expect.AtLeastOnce.On(TestObjects.RepoCursosMockeado()).Method("GetCursos").WithAnyArguments().Will(Return.Value(TestObjects.CursosSACC()));
 
-        //    List<Alumno> alumnos_de_la_modalidad = reportes.ObtenerAlumnosConModalidad(TestObjects.ModalidadFinesPuro(), TestObjects.PrimerCiclo() ,TestObjects.RepoCursosMockeado());
+            List<Alumno> alumnos_de_la_modalidad = reportes.ObtenerAlumnosQueEstanCursandoConModalidadYCiclo(TestObjects.ModalidadCens(), TestObjects.TercerCiclo(), TestObjects.RepoCursosMockeado());
 
+            Assert.AreEqual(1, alumnos_de_la_modalidad.Count);
+            Assert.IsTrue(alumnos_de_la_modalidad.Exists(a => a.Id == TestObjects.AlumnoJavi().Id));
+        }
 
-        //    Assert.AreEqual(2, alumnos_de_la_modalidad.Count);
-        //}
 
         [TestMethod]
         public void deberia_poder_saber_cuantos_alumnos_pertenecen_al_organismo_MDS()
@@ -76,28 +82,52 @@ namespace TestViaticos
         {
            // Se cargan las Asistencias;
            List<Asistencia> asistencias_fer = new List<Asistencia>();
-            asistencias_fer.AddRange(TestObjects.AsistenciaPerfecta(TestObjects.cursoHistoria1Cens2012_1Cuat().FechaInicio, TestObjects.cursoHistoria1Cens2012_1Cuat().FechaFin, TestObjects.cursoHistoria1Cens2012_1Cuat().Id, TestObjects.AlumnoFer().Id));
-            asistencias_fer.AddRange(TestObjects.AsistenciaPerfecta(TestObjects.cursoMatematica1Cens2012_1Cuat().FechaInicio, TestObjects.cursoMatematica1Cens2012_1Cuat().FechaFin, TestObjects.cursoMatematica1Cens2012_1Cuat().Id, TestObjects.AlumnoFer().Id));
-            asistencias_fer.AddRange(TestObjects.AsistenciaPerfecta(TestObjects.cursoMatematica3Cens2013_1Cuat().FechaInicio, TestObjects.cursoMatematica3Cens2013_1Cuat().FechaFin, TestObjects.cursoMatematica3Cens2013_1Cuat().Id, TestObjects.AlumnoFer().Id));
-            asistencias_fer.AddRange(TestObjects.AsistenciaPerfecta(TestObjects.cursoMatematica2Cens2012_2Cuat().FechaInicio, TestObjects.cursoMatematica2Cens2012_2Cuat().FechaFin, TestObjects.cursoMatematica2Cens2012_2Cuat().Id, TestObjects.AlumnoFer().Id));
-
-
+           asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoHistoria1Cens2012_1Cuat(), TestObjects.AlumnoFer()));
+           asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica1Cens2012_1Cuat(), TestObjects.AlumnoFer()));
+           asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica3Cens2013_1Cuat(), TestObjects.AlumnoFer()));
+           asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica2Cens2012_2Cuat(), TestObjects.AlumnoFer()));
+           
             Reportes reportes = new Reportes();
 
             List<Materia> materias_que_el_alumno_no_curso = reportes.ObtenerMateriasNoCursadasDe(TestObjects.AlumnoFer(), TestObjects.materiasReportes(), TestObjects.cursosReportes(), asistencias_fer);
             Assert.AreEqual(2, materias_que_el_alumno_no_curso.Count);
         }
 
+        [TestMethod]
+        public void deberia_poder_saber_cuantas_materias_le_falta_a_un_alumno_para_terminar_CENS_con_una_abandonada()
+        {
+            // Se cargan las Asistencias;
+            List<Asistencia> asistencias_fer = new List<Asistencia>();
+            asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoHistoria1Cens2012_1Cuat(), TestObjects.AlumnoFer()));
+            asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica1Cens2012_1Cuat(), TestObjects.AlumnoFer()));
+            asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica2Cens2012_2Cuat(), TestObjects.AlumnoFer()));
+            asistencias_fer.AddRange(TestObjects.CargaAsistenciaImperfecta(TestObjects.cursoMatematica3Cens2013_1Cuat(), TestObjects.AlumnoFer()));
 
-        //[TestMethod]
-        //public void deberia_poder_saber_cuantas_personas_no_cursaron_historia_de_primer_ciclo()
-        //{
-        //    Reportes reportes = new Reportes();
+            Reportes reportes = new Reportes();
 
-        //    List<Materia> alumnos_que_aun_no_cursaron_la_materia = reportes.ObtenerAlumnosQueNoCursaron(TestObjects.Matematica3CENS());
-        //    Assert.AreEqual(2, materias_que_el_alumno_no_curso.Count);
-        //}
+            List<Materia> materias_que_el_alumno_no_curso = reportes.ObtenerMateriasNoCursadasDe(TestObjects.AlumnoFer(), TestObjects.materiasReportes(), TestObjects.cursosReportes(), asistencias_fer);
+            Assert.AreEqual(3, materias_que_el_alumno_no_curso.Count);
+        }
 
+        [TestMethod]
+        public void deberia_poder_saber_cuantos_alumnos_no_cursaron_una_materia()
+        {
+            List<Asistencia> asistencias_de_todos = new List<Asistencia>();
+            // Se cargan las Asistencias;
+            asistencias_de_todos.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica3Cens2013_1Cuat(), TestObjects.AlumnoFer()));
+            asistencias_de_todos.AddRange(TestObjects.CargaAsistenciaImperfecta(TestObjects.cursoMatematica3Cens2012_2Cuat(), TestObjects.AlumnoJor()));
+                       
+            Reportes reportes = new Reportes();
+
+            List<Alumno> alumnos_que_no_cursaron_la_materia = reportes.ObtenerAlumnosQueNoCursaron(TestObjects.Matematica3CENS(), TestObjects.UnCursoConAlumnos().Alumnos(), TestObjects.cursosReportes(), asistencias_de_todos);
+
+            Assert.AreEqual(2, alumnos_que_no_cursaron_la_materia.Count);
+            Assert.IsTrue(!alumnos_que_no_cursaron_la_materia.Exists(a => a.Id == TestObjects.AlumnoFer().Id)); //Fer la Aprobó
+            Assert.IsTrue(alumnos_que_no_cursaron_la_materia.Exists(a => a.Id == TestObjects.AlumnoJor().Id)); // Jorge se quedó Libre
+            Assert.IsTrue(alumnos_que_no_cursaron_la_materia.Exists(a => a.Id == TestObjects.AlumnoJavi().Id)); // Javi nunca la cursó
+        }
+
+        
     }
 }
 

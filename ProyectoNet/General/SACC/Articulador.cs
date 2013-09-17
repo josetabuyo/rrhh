@@ -91,12 +91,12 @@ namespace General
         {
             HorarioDeCursada dia_y_horario = horarios_del_curso.Find(d => d.Dia == asistencia.Fecha.DayOfWeek);
 
-            if (0 < asistencia.Valor && asistencia.Valor < 4)
+            if (0 < asistencia.Valor && asistencia.Valor < 5)
             {
                 ausencias_computables += dia_y_horario.HorasCatedra - asistencia.Valor;
             }
 
-            if (asistencia.Valor == 4)
+            if (asistencia.Valor == 5)
             {
                 ausencias_computables += dia_y_horario.HorasCatedra;
             }
