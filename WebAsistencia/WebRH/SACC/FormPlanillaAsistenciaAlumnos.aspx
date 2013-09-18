@@ -48,21 +48,24 @@
         </select>
         <br />
         <label>Curso:&nbsp;</label>
-        <select id="CmbCurso" style="width:400px;" runat="server" onchange="javascript:CargarPlanilla();>
+        <select id="CmbCurso" style="width:400px;" runat="server" onchange="javascript:CargarPlanilla();">
             <option value="0">Seleccione</option>
         </select>
         <br />
         <label>Mes:&nbsp;&nbsp;&nbsp;</label>
         <select id="CmbMes" style="width:400px; text-transform:capitalize" 
-            onchange="javascript:CargarPlanilla();" runat="server" enableviewstate="true"></select>
-        <input type="hidden" runat="server" id="MesesCurso" />
+            onchange="javascript:CargarPlanilla();" runat="server" enableviewstate="true">
+        <option value="0">Seleccione</option>
+        </select>
         <br />
+        <div id="DatosCurso">
         <label id="lblDocente">Docente:</label>
         <label id="Docente" runat="server">&nbsp;</label>
         <br />
         <br />
         <label id="lblHorasCurso">Horas C&aacute;tedra:</label>
         <label id="HorasCatedraCurso" runat="server">&nbsp;</label>
+        </div>
         <br />
         <br />
 
@@ -70,12 +73,12 @@
         <div id="ContenedorPlanilla" runat="server" style="display:inline-block;">
         
         </div>
-        <div style="height:20px; width: 100%">
-        <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
-        <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla();" value="Imprimir" />
-        <br />
-        <br />
-        <textarea id="TxtObservaciones" style="margin-left: 5px;" class="label_observaciones" rows="6" placeholder="Observaciones" ></textarea>
+        <div id="DivBotonesObservacion" style="visibility:hidden" width: 100%">
+            <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
+            <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla();" value="Imprimir" />
+            <br />
+            <br />
+            <textarea id="TxtObservaciones" style="margin-left: 5px;" class="label_observaciones" rows="6" placeholder="Observaciones" ></textarea>
         </div>
 
         <asp:HiddenField ID="curso_con_observaciones" runat="server" />
@@ -85,26 +88,37 @@
 <script type="text/javascript">
     var PlanillaAsistencias;
     var CargarComboMeses = function () {
-        $('#CmbMes')[0].options.length = 0;
-        var meses = JSON.parse($("#MesesCurso").val());
-        var mes_seleccionado = $("#PlanillaAsistencia_Mes").val();
-        var o = new Option("Seleccione", "0");
-        $(o).html("Seleccione");
-        $("#CmbMes").append(o);
-
-        for (var i = 0; i < meses.length; i++) {
-            if ($("#CmbCurso").find('option:selected').val() == meses[i].IdCurso) {
-                o = new Option(meses[i].Mes, meses[i].NroMes);
-                if (meses[i].NroMes == mes_seleccionado)
-                    $(o).attr("selected", "selected");
-                $(o).html(meses[i].Mes);
-                $("#CmbMes").append(o);
-
-            }
+        var id_curso = $("#CmbCurso option:selected").val();
+        if (id_curso > 0) {
+            var cmb_mes = $("#CmbMes");
+            cmb_mes.html("");
+            cmb_mes.append(new Option('Seleccione', 0, true, true));
+            data_post = { id_curso: id_curso };
+            $.ajax({
+                url: "../AjaxWS.asmx/GetMesesCursoDto",
+                type: "POST",
+                async: false,
+                data: JSON.stringify(data_post),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (respuestaJson) {
+                    var respuesta = JSON.parse(respuestaJson.d);
+                    for (var i = 0; i < respuesta.length; i++) {
+                        cmb_mes.append(new Option(respuesta[i].NombreMes, respuesta[i].Mes, true, true));
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alertify.alert(errorThrown);
+                }
+            });
+            cmb_mes.val(0);
+            CargarPlanilla();
         }
+
     }
 
     var CargarPlanilla = function () {
+        $("#ContenedorPlanilla").html("");
         var id_curso = $("#CmbCurso option:selected").val();
         var mes = $("#CmbMes option:selected").val();
         var anio = $("#CmbAnio option:selected").val();
@@ -116,16 +130,15 @@
     }
 
     $("#CmbCurso").change(function () {
-            CargarComboMeses();
-            $('#CmbMes').change();
-        });
+        CargarComboMeses();
+    });
 
-        $(document).ready(function () {
-            PlanillaAsistencias = new AdministradorPlanilla();
-            CargarComboMeses();
-            //Estilos para ver coloreada la grilla en Internet Explorer
-            $("tbody tr:even").css('background-color', '#E6E6FA');
-            $("tbody tr:odd").css('background-color', '#9CB3D6 ');
-        });
+    $(document).ready(function () {
+        PlanillaAsistencias = new AdministradorPlanilla();
+        CargarComboMeses();
+        //Estilos para ver coloreada la grilla en Internet Explorer
+        $("tbody tr:even").css('background-color', '#E6E6FA');
+        $("tbody tr:odd").css('background-color', '#9CB3D6');
+    });
 </script>
 </html>

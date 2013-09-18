@@ -25,13 +25,7 @@ public partial class SACC_FormPlanillaAsistenciaAlumnos : System.Web.UI.Page
         foreach (var c in cursos)
         {
             this.CmbCurso.Items.Add(new System.Web.UI.WebControls.ListItem(c.Nombre + " " + c.Materia.Ciclo.Nombre.ToUpper(), c.Id.ToString()));
-            
-            for (var mes = DateTime.Parse(c.FechaInicio).Month; mes <= DateTime.Parse(c.FechaFin).Month; mes++)
-            {
-                mesesJson.Add(new{IdCurso = c.Id, Mes = DateTimeFormatInfo.CurrentInfo.GetMonthName(mes),  NroMes= mes.ToString() });
-            } 
         }
-        this.MesesCurso.Value += JsonConvert.SerializeObject(mesesJson);
     }
 
     private WSViaticosSoapClient Servicio()

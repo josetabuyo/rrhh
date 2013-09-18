@@ -1,12 +1,15 @@
 var AdministradorPlanilla = function () {
     var _this = this;
     var contenedor_grilla = $('#ContenedorPlanilla');
+    var label_horas_catedra = $('#HorasCatedraCurso');
+    var label_docente = $('#Docente');
     _this.contenedorPlanilla = {};
     var planilla = {};
     var alumnos = {};
     var diasCursados = {};
     var detalle_asistencias = {};
     var horasCatedra = {};
+    var docente = {};
     var filas = [];
     var generar_filas = function () {
         var rows = [];
@@ -49,6 +52,7 @@ var AdministradorPlanilla = function () {
             success: function (respuestaJson) {
                 var respuesta = JSON.parse(respuestaJson.d);
                 planilla = respuesta;
+                docente = respuesta.Docente;
                 alumnos = respuesta.Alumnos;
                 diasCursados = respuesta.FechasDeCursada;
                 detalle_asistencias = respuesta.DetalleAsistenciasPorAlumno;
@@ -56,6 +60,7 @@ var AdministradorPlanilla = function () {
 
                 generar_filas(respuesta);
                 _this.dibujar_planilla();
+                _this.completar_datos_curso_seleccionado();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alertify.alert(errorThrown);
@@ -63,6 +68,10 @@ var AdministradorPlanilla = function () {
         });
     }
 
+    _this.completar_datos_curso_seleccionado = function () {
+        label_docente.text(docente);
+        label_horas_catedra.text(horasCatedra);
+    }
     _this.dibujar_planilla = function () {
         contenedor_grilla.html("");
         var columnas = [];
