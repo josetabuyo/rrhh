@@ -1527,6 +1527,32 @@ public class WSViaticos : System.Web.Services.WebService
         return JsonConvert.SerializeObject(docentes_dto);
     }
 
+
+    [WebMethod]
+    public List<AlumnoDto> ReporteAlumnosPorModalidad(Modalidad modalidad)
+    {
+         Reportes reportes = new Reportes();
+         List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
+         var alumnos_reporte = reportes.ObtenerAlumnosQueEstanCursandoConModalidad(modalidad, RepositorioDeCursos());
+         foreach (Alumno alumno in alumnos_reporte)
+         {
+             
+             var alumno_dto = new AlumnoDto();
+             alumno_dto.Id = alumno.Id;
+             alumno_dto.Apellido = alumno.Apellido;
+             alumno_dto.Nombre = alumno.Nombre;
+             alumno_dto.Documento = alumno.Documento;
+             //alumno_dto.Modalidad = ModalidadPara(alumno.Modalidad);
+             alumno_dto.Telefono = alumno.Telefono;
+
+             alumnos_dto.Add(alumno_dto);
+         } 
+
+        return alumnos_dto;
+    }
+    
+
+
     [WebMethod]
     public Modalidad[] Modalidades()
     {

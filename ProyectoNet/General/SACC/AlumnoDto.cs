@@ -21,6 +21,10 @@ namespace General
         public string CicloCursado { get; set; }
         public DateTime FechaDeIngreso { get; set; }
         public int Baja { get; set; }
+
+        public AlumnoDto() { }
+    
     }
-      
+        
+    
 }
