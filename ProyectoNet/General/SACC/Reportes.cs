@@ -18,8 +18,15 @@ namespace General.Repositorios
         public List<Alumno> ObtenerAlumnosQueEstanCursandoConModalidad(Modalidad modalidad, IRepositorioDeCursos repo_curso)
         {
             List<Alumno> alumnos_de_la_modaldiad = new List<Alumno>();
-
-            List<Curso> cursos_con_modalidad = repo_curso.GetCursos().FindAll(c => c.Materia.Modalidad.Id == modalidad.Id && c.FechaInicio <= DateTime.Today && DateTime.Today <= c.FechaFin);
+             List<Curso> cursos_con_modalidad = new List<Curso>();
+            if (modalidad.Id > 0)
+            {
+                cursos_con_modalidad = repo_curso.GetCursos().FindAll(c => c.Materia.Modalidad.Id == modalidad.Id && c.FechaInicio <= DateTime.Today && DateTime.Today <= c.FechaFin);
+            }
+            else 
+            {
+                cursos_con_modalidad = repo_curso.GetCursos().FindAll(c => c.FechaInicio <= DateTime.Today && DateTime.Today <= c.FechaFin);
+            }
 
             foreach (Curso curso in cursos_con_modalidad)
             {

@@ -1542,7 +1542,7 @@ public class WSViaticos : System.Web.Services.WebService
              alumno_dto.Apellido = alumno.Apellido;
              alumno_dto.Nombre = alumno.Nombre;
              alumno_dto.Documento = alumno.Documento;
-             //alumno_dto.Modalidad = ModalidadPara(alumno.Modalidad);
+             alumno_dto.Modalidad = alumno.Modalidad;
              alumno_dto.Telefono = alumno.Telefono;
 
              alumnos_dto.Add(alumno_dto);

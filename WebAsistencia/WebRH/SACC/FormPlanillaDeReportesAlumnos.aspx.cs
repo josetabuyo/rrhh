@@ -24,10 +24,8 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
     protected void btnBuscarPorModalidad_Click(object sender, EventArgs e)
     {
         //LimpiarPantalla();
-
         CompletarComboDeModalidades();
     }
-
 
     protected void btnBuscarPorCiclo_Click(object sender, EventArgs e)
     { }
@@ -40,8 +38,8 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
         if(this.tipo_busqueda.Value == "1")
         {
           Modalidad modalidad = ModalidadDesdeElForm();
-          
-            var alumnos_array = ws_viaticos.ReporteAlumnosPorModalidad(modalidad);
+
+          alumnos = ws_viaticos.ReporteAlumnosPorModalidad(modalidad).ToList();
         }
 
         this.MostrarAlumnosEnLaGrilla(alumnos);
@@ -132,6 +130,11 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
 
     private void CompletarComboDeModalidades()
     {
+        this.cmbCampo.Items.Clear();
+        ListItem todos = new ListItem();
+        todos.Value = "-1";
+        todos.Text = "Todos";
+        this.cmbCampo.Items.Add(todos);
         this.lblCampo.Visible = true;
         this.cmbCampo.Visible = true;
         this.btnBuscarCampo.Visible = true;
