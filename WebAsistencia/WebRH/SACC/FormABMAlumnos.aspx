@@ -16,11 +16,12 @@
   
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
      <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
    
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
-     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelAlumno"  class="div_izquierdo">
         
@@ -110,7 +111,7 @@
     </form>
 </body>
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>  
+    
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/list.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
@@ -125,6 +126,7 @@
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 
     
 
@@ -134,7 +136,10 @@
     function CapturarTeclaEnter(evt) {
         var evt = (evt) ? evt : ((event) ? event : null);
         var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
-        if ((evt.keyCode == 13) && (node.type == "text")) { $("#btn_buscar_personas").click(); }
+        if ((evt.keyCode == 13) && (node.type == "text")) {
+            $("#btn_buscar_personas").click();
+        }
+        
     }
     document.onkeypress = CapturarTeclaEnter;
 

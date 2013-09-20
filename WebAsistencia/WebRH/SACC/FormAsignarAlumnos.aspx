@@ -9,19 +9,15 @@
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
+    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="InscripcionAlumnos.js"></script>
-    <script type="text/javascript" src="../Scripts/list.js"></script>
-    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+
     
 </head>
 <body class="marca_de_agua" >
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
         
         <div style="margin:20px;">
@@ -53,7 +49,7 @@
     <div class="estilo_formulario" style="width:75%; margin-left: 10%; overflow:auto;">
     <fieldset>
         <legend class="subtitulos">Listado de Alumnos Para Inscribir</legend>
-        <div style="float:left" class="tablas_alumnos" id="grillaAlumnosDisponibles" runat="server">
+        <div style="float:left; width:100%;" class="tablas_alumnos" id="grillaAlumnosDisponibles" runat="server">
             <div class="input-append">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Buscar Alumnos" />    
             </div>
@@ -76,7 +72,7 @@
     <div class="estilo_formulario" style="width:95%; overflow:auto;  margin-left:1%;">
     <fieldset>
         <legend class="subtitulos">Listado de Alumnos Asignados al Curso de <span id="nombreDeCurso"></span></legend> 
-        <div class="tablas_alumnos" id="grillaAlumnosAsignados" runat="server"></div>      
+        <div class="tablas_alumnos" style="width:100%;" id="grillaAlumnosAsignados" runat="server"></div>      
     </fieldset>
     </div>
     </div>
@@ -87,7 +83,16 @@
     <asp:HiddenField ID="idAlumnoAVer" runat="server" />
     <asp:HiddenField ID="alumnosEnGrillaParaGuardar" runat="server" />
 
+    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
 
+    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="InscripcionAlumnos.js"></script>
+    <script type="text/javascript" src="../Scripts/list.js"></script>
+    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>
     </form>
 </body>
 

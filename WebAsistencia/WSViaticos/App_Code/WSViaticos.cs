@@ -240,6 +240,27 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
+    {
+
+        RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
+
+        if ( repoUsuarios.CambiarPassword(usuario, PasswordActual, PasswordNuevo))
+	    {
+            return JsonConvert.SerializeObject(new
+                {
+                tipoDeRespuesta = "cambioPassword.ok"              
+                });
+	    } else {
+            return JsonConvert.SerializeObject(new
+                {
+                    tipoDeRespuesta = "cambioPassword.error"
+                    //error = e.Message
+                });
+        }
+    }
+
+    [WebMethod]
     public void AltaDeComisionesDeServicio(ComisionDeServicio unaComision)
     {
         var repositorio = new RepositorioDeComisionesDeServicio(Conexion());

@@ -13,9 +13,12 @@ public partial class BarraMenuInicioSACC : System.Web.UI.UserControl
     public String UrlEstilos { get; set; }
     public String UrlImagenes { get; set; }
     public String Feature { get; set; }
+    public String UrlPassword { get; set; } 
 
     protected void Page_Load(object sender, EventArgs e)
-    {        
+    {
+
+        this.FormPassword.UrlAjax = UrlPassword;
         try
         {
             Usuario usuario = ((Usuario)Session["usuario"]);
