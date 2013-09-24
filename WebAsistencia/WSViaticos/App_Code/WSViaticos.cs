@@ -982,6 +982,20 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public PlanillaAsistenciasDto GuardarAsistencias(AcumuladorDto[] asistencias_nuevas_dto, AcumuladorDto[] asistencias_originales_dto, Usuario usuarioLogueado)
+    {
+        List<Acumulador> asistencias_nuevas = new List<Acumulador>();
+        List<Acumulador> asistencias_originales = new List<Acumulador>();
+
+        foreach (var a in asistencias_nuevas_dto)
+        {
+            
+        }
+        RepoAsistencias().GuardarAsistencias(asistencias_nuevas, asistencias_originales, usuarioLogueado);
+        return null;
+    }
+
+    [WebMethod]
     public PlanillaAsistenciasDto GetPlanillaAsistencias(int id_curso, DateTime fecha_desde, DateTime fecha_hasta)
     {
         var detalle_asistencias = new List<DetalleAsistenciasPorAlumno>();

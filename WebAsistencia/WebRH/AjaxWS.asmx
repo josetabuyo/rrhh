@@ -217,10 +217,23 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         DateTime v_fecha_desde = DateTime.Parse(fecha_desde);
         DateTime v_fecha_hasta = new DateTime();
-        if(fecha_hasta != "")
+        if (fecha_hasta != "")
             v_fecha_hasta = DateTime.Parse(fecha_hasta);
         var planilla = backEndService.GetPlanillaAsistencias(id_curso, v_fecha_desde, v_fecha_hasta);
         return Newtonsoft.Json.JsonConvert.SerializeObject(planilla);
+    }
+
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GuardarAsistencias(string asistencias_nuevas, string asistencias_originales)
+    {
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        var evaluaciones_nuevas_dto = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.AcumuladorDto[]>(asistencias_nuevas);
+        var evaluaciones_originales_dto = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.AcumuladorDto[]>(asistencias_originales);
+
+        var res = backEndService.GuardarAsistencias(evaluaciones_nuevas_dto, evaluaciones_originales_dto, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(res);
     }
 
 

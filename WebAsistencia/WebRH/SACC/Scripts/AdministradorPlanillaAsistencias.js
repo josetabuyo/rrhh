@@ -1,9 +1,11 @@
 var AdministradorPlanilla = function () {
     var _this = this;
+
+    _this.contenedorPlanilla = {};
+    
     var contenedor_grilla = $('#ContenedorPlanilla');
     var label_horas_catedra = $('#HorasCatedraCurso');
     var label_docente = $('#Docente');
-    _this.contenedorPlanilla = {};
     var planilla = {};
     var alumnos = {};
     var diasCursados = {};
@@ -22,25 +24,32 @@ var AdministradorPlanilla = function () {
                 var asistencia = Enumerable.From(detalle_asistencias.Asistencias)
                 .Where(function (x) { return x.Fecha == diasCursados[j].Fecha && x.IdAlumno == alumnos[i].id });
                 if (asistencia.length > 0)
-                    row.DetalleAsistencias.push(new BotonAsistencia(alumnos[i].Id, diasCursados[j].Fecha, asistencia.First().Valor, diasCursados[j].HorasCatedra));
+                    row.DetalleAsistencias.push(new BotonAsistencia(alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, asistencia.First().Valor, diasCursados[j].HorasCatedra));
                 else
-                    row.DetalleAsistencias.push(new BotonAsistencia(alumnos[i].Id, diasCursados[j].Fecha, '', diasCursados[j].HorasCatedra));
+                    row.DetalleAsistencias.push(new BotonAsistencia(alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, '', diasCursados[j].HorasCatedra));
             }
             var detalle_asistencias_acumuladas = Enumerable.From(detalle_asistencias.Asistencias)
                 .Where(function (x) { return x.IdAlumno == alumnos[i].id });
             if (detalle_asistencias_acumuladas.length > 0) {
-                row.AsistenciasPeriodo = detalle_asistencias_acumuladas.First().AsistenciasPeriodo;
-                row.InasistenciasPeriodo = detalle_asistencias_acumuladas.First().InAsistenciasPeriodo;
+                var detalle_asistencia = detalle_asistencias_acumuladas.First();
+                row.AsistenciasPeriodo = detalle_asistencia.AsistenciasPeriodo;
+                row.InasistenciasPeriodo = detalle_asistencia.InAsistenciasPeriodo;
+                row.AsistenciasTotal = detalle_asistencia.AsistenciasTotal + " (" + ((detalle_asistencia.AsistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
+                row.InasistenciasTotal = detalle_asistencia.InasistenciasTotal + " (" + ((detalle_asistencia.InasistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
             } else {
-
                 row.AsistenciasPeriodo = '';
                 row.InasistenciasPeriodo = '';
+                row.AsistenciasTotal = '';
+                row.InasistenciasTotal = '';
+
             }
             rows.push(row);
         }
         filas = rows;
     }
+
     _this.cargar_asistencias = function (id_curso, fecha_desde, fecha_hasta) {
+        _this.id_curso = id_curso;
         var data_post = { id_curso: id_curso, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta };
         $.ajax({
             url: "../AjaxWS.asmx/GetPlanillaAsistencias",
@@ -68,6 +77,36 @@ var AdministradorPlanilla = function () {
         });
     }
 
+    _this.guardar_asistencias = function () {
+        var data_post = [];
+        for (var i = 0; i < filas.length; i++) {
+            var detalle_asistencia = filas[i].DetalleAsistencias;
+            for (var j = 0; j < detalle_asistencia.length; j++) {
+                data_post.push({ IdAlumno: detalle_asistencia[j].id_alumno,
+                    DiaCursado: detalle_asistencia[j].dia_cursado,
+                    Valor: detalle_asistencia[j].valor,
+                    ValorOriginal: detalle_asistencia[j].valor_original,
+                    IdCurso: _this.id_curso
+                });
+            }
+        }
+        alert(JSON.stringify(data_post));
+        $.ajax({
+            url: "../AjaxWS.asmx/GuardarAsistencias",
+            type: "POST",
+            async: false,
+            data: JSON.stringify(data_post),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (respuestaJson) {
+                var respuesta = JSON.parse(respuestaJson.d);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alertify.alert(errorThrown);
+            }
+        });
+    }
+
     _this.completar_datos_curso_seleccionado = function () {
         label_docente.text(docente);
         label_horas_catedra.text(horasCatedra);
@@ -83,10 +122,10 @@ var AdministradorPlanilla = function () {
 
         columnas.push(new Columna("Asistencias <br>del mes", { generar: function (row) { return row.AsistenciasPeriodo } }));
         columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (row) { return row.InAsistenciasPeriodo } }));
-        /*
-        columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (asistenciaalumno) { return '<label class="acumuladas">' + asistenciaalumno.asistencias_acumuladas + " (" + asistenciaalumno.por_asistencias_acumuladas + ")</label>" } }));
-        columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (asistenciaalumno) { return '<label class="acumuladas">' + asistenciaalumno.inasistencias_acumuladas + " (" + asistenciaalumno.por_inasistencias_acumuladas + ")</label>" } }));
-        */
+        //toFixed
+        columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (row) { return '<label class="acumuladas">' + row.AsistenciasTotal + "</label>" } }));
+        columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (row) { return '<label class="acumuladas">' + row.InasistenciasTotal + "</label>" } }));
+
 
         var grilla = new Grilla(columnas);
 

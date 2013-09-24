@@ -73,8 +73,8 @@
         <div id="ContenedorPlanilla" runat="server" style="display:inline-block;">
         
         </div>
-        <div id="DivBotonesObservacion" style="visibility:hidden" width: 100%">
-            <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="submit" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar" runat="server" />
+        <div id="DivBotonesObservacion" style="visibility:visible; width: 100%">
+            <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="button" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar"/>
             <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla();" value="Imprimir" />
             <br />
             <br />
@@ -116,7 +116,9 @@
         }
 
     }
-
+    var GuardarDetalleAsistencias = function () {
+        PlanillaAsistencias.guardar_asistencias();
+    }
     var CargarPlanilla = function () {
         $("#ContenedorPlanilla").html("");
         var id_curso = $("#CmbCurso option:selected").val();

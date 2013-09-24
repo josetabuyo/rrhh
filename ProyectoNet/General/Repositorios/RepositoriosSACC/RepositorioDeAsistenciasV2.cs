@@ -35,10 +35,12 @@ namespace General.Repositorios
             int horas_maximas = 3;
             DateTime fecha;
             string valor;
+            int id;
             int id_curso;
             int id_alumno;
             tablaAsistencias.Rows.ForEach(row =>
             {
+                id = row.GetInt("Id");
                 fecha = row.GetDateTime("FechaAsistencia");
                 valor = row.GetString("Valor");
                 id_curso = row.GetSmallintAsInt("IdCurso");
@@ -46,11 +48,11 @@ namespace General.Repositorios
                 
                 if (valor.Equals("-"))
                 {
-                    asistencia = new AcumuladorHorasDiaNoCursado(valor, horas_maximas, fecha, id_alumno, id_curso);
+                    asistencia = new AcumuladorHorasDiaNoCursado(id, valor, horas_maximas, fecha, id_alumno, id_curso);
                 }
                 else
                 {
-                    asistencia = new AcumuladorHorasDiaCursado(int.Parse(valor), horas_maximas, fecha, id_alumno, id_curso);
+                    asistencia = new AcumuladorHorasDiaCursado(id, int.Parse(valor), horas_maximas, fecha, id_alumno, id_curso);
                 }
                     
                 asistencias.Add(asistencia);
