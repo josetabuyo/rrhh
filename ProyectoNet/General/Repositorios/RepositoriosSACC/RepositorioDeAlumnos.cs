@@ -94,7 +94,7 @@ namespace General.Repositorios
 
         private static Area ConstruirAreaDeAlumno(RowDeDatos row)
         {
-            Area area = new Area(0, "Ministerio de Desarrollo Social - Externo"); //Se moquean los que no son del Ministerio
+            Area area = new Area(1, "Ministerio de Desarrollo Social - Externo"); //Se moquean los que no son del Ministerio
             if (!(row.GetObject("IdArea") is DBNull))
             {
                 area = new Area(row.GetSmallintAsInt("IdArea"), row.GetString("NombreArea"));

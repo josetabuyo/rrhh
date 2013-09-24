@@ -9,6 +9,7 @@
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
+    <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
 
      <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
@@ -47,6 +48,8 @@
         border-width: 2px;
         border-style: solid;
         border-color: rgb(67, 58, 116)!important;
+        margin-top:8px;
+        
     }
     
     .text_2caracteres:hover, .text_10caracteres:hover 
@@ -91,7 +94,7 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
-    <script type="text/javascript" src="planilla_ingreso.js"></script>
+    <script type="text/javascript" src="Scripts/planilla_ingreso.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 </body>

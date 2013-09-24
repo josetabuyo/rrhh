@@ -16,7 +16,7 @@
 
         $(document).ready(function () {
             //Al presionarse Enter luego de Ingresar el DNI, se fuerza a realizar la búsqueda de dicho DNI para no tener que hacer necesariamente un click en el botón Buscar
-           
+
             document.onkeypress = CapturarTeclaEnter;
 
             $("#pass").click(function () {
@@ -33,6 +33,16 @@
                     alertify.alert("Las contrase&ntilde;as no coinciden");
                     return;
                 }
+//FC: agregar estas validaciones cuando salgamos a produccion
+//                if (pass_nueva.lenght < 8) {
+//                    alertify.alert("La contrase&ntilde;a debe ser de 8 d&iacute;gitos ");
+//                    return;
+//                }
+
+//                var matches = pass_nueva.match(/\d+/g);
+//                if (matches == null) {
+//                    alertify.alert('La contrase&ntilde;a debe tener algun n&uacute;mero');
+//                }
 
                 var data_post = JSON.stringify({
                     pass_actual: pass_actual,
@@ -52,11 +62,13 @@
                         if (respuesta.tipoDeRespuesta == "cambioPassword.ok") {
 
                             alertify.alert("Se cambio la contrase&ntilde;a correctamente");
+                            $(".modal_close").click();
                             return;
                         }
 
                         if (respuesta.tipoDeRespuesta == "cambioPassword.error") {
                             alertify.alert("La contrase&ntilde;a actual no es correcta");
+                            $(".modal_close").click();
                             return;
                         }
 
@@ -112,7 +124,7 @@
                                <%-- <asp:TextBox ID="passNuevaRepetida" runat="server" />--%>
 				              </div>
 				              <div class="btn-fld">
-                              <p>Advertencia: Debe ingresar 8 d&iacute;gitos que contenga n&uacute;meros y letras</p>
+                              <p><span style="font-weight:bold;">Advertencia:</span> Ingresar 8 d&iacute;gitos (n&uacute;meros y letras)</p>
                                
 				                <input type="button" class="btn btn-primary" id="pass"  value="Cambiar" />
                               </div>

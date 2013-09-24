@@ -12,220 +12,11 @@
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link3" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
+    <link id="link5" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
 
     <style type="text/css">
 
-        ul.tabs 
-        {
-            margin: 0;  
-            padding: 0;  
-            float: left;  
-            list-style: none;  
-            height: auto;  
-            width: 90%; 
-        }
-        
-        ul.tabs li 
-        {
-            float: left;  
-            margin-left: 0px;  
-            
-            width:25%;
-            text-align:center;
-            border: 0px solid #000; 
-            overflow: hidden; 
-            position: relative; 
-            border-left:0px; 
-            border-bottom:1px solid;
-            margin-bottom:-2px;
-            
-            background: -webkit-gradient(linear, left top, right top, from(#6E89B1), to(#E6E6FA));
-            background: -webkit-linear-gradient(top, #6E89B1, #E6E6FA);
-            background: -moz-linear-gradient(top, #6E89B1, #E6E6FA);
-            background: -o-linear-gradient(top, #6E89B1, #E6E6FA);
-            background: -ms-linear-gradient(top, #6E89B1, #E6E6FA);
-            background: linear-gradient(top, #6E89B1, #E6E6FA);
-            background-color: #6E89B1;
-            
-            -webkit-border-radius: 8px;
-            -webkit-border-radius: 8px;
-            -moz-border-radius: 8px;
-            -moz-border-radius: 8px;
-            border-radius: 8px;
-            border-radius: 8px;
-            
-        }
-        
-        ul.tabs li a 
-        {
-            text-decoration: none; 
-            color: #434C6F; 
-            display: block; 
-            font-size: 20px; 
-            font-weight:bold; 
-            padding: 10px 0px; 
-            /*padding: 10px 20px; */
-        }
-        ul.tabs li a:hover 
-        {
-            background: -webkit-gradient(linear, left top, right top, from(#E6E6FA), to(#6E89B1));
-            background: -webkit-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -moz-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -o-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -ms-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: linear-gradient(top, #E6E6FA, #6E89B1);
-            background-color: #E6E6FA;
-
-             -webkit-border-radius: 8px;
-            -webkit-border-radius: 8px;
-            -moz-border-radius: 8px;
-            -moz-border-radius: 8px;
-            border-radius: 8px;
-            border-radius: 8px;
-            padding: 10px 0px; 
-        }
-        
-        ul.tabs li.active, html ul.tabs li.active a:hover  
-        {
-            background: -webkit-gradient(linear, left top, right top, from(#E6E6FA), to(#6E89B1));
-            background: -webkit-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -moz-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -o-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -ms-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: linear-gradient(top, #E6E6FA, #6E89B1);
-            background-color: #E6E6FA;
-            
-            
-            }
- 
-        .Contenedor
-        {
-            
-            border:2px solid #E6E6FA; 
-            overflow: auto; 
-            clear: both; 
-            float: left; 
-            width: 90%; 
-            height:400px;
-            
-           
-            -webkit-border-bottom-right-radius: 8px;
-            -webkit-border-bottom-left-radius: 8px;
-            -moz-border-radius-bottomright: 8px;
-            -moz-border-radius-bottomleft: 8px;
-            border-bottom-right-radius: 8px;
-            border-bottom-left-radius: 8px;
-            /* 
-            background: -webkit-gradient(linear, left top, right top, from(#E6E6FA), to(#6E89B1));
-            background: -webkit-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -moz-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -o-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -ms-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: linear-gradient(top, #E6E6FA, #6E89B1);
-            background-color: #E6E6FA;
-            */
-             -webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
-            -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
-            box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
-            /*-webkit-box-shadow: 2px 2px 1px #E6E6FA;
-            -moz-box-shadow: 2px 2px 1px #E6E6FA;
-            -o-box-shadow: 2px 2px 1px #E6E6FA;*/
-            -ms-box-shadow: 2px 2px 1px #E6E6FA;
-            /*box-shadow: 2px 2px 1px #E6E6FA;*/
-            text-shadow: 0px 0px 0px #E6E6FA;
-        }
-        .Contenido 
-        {
-            padding: 15px; 
-            font-size: 12px;        
-        }
-        
-        .imagen 
-        {
-            float:left;
-            margin:10px 10px;
-            border:2px solid #000;
-            padding:2px;
-            background-color:#f3f3f3;
-           
-            }
-        
-        .contenedor_tabla 
-        {
-
-            }
-            
-        .contenedor_ficha 
-        {
-            width:100%;
-            /*border:1px solid #000;   */
-            font-size:11px;
-            margin-bottom:10px;
-        }
-        
-        .fila_impar, .fila_par 
-        {
-            height:20px; 
-            /*background:#87baed; */
-            /*border:1px solid #000;*/
-        }
-        .fila_impar .contenedor_celda 
-        {
-            background:#6E89B1;
-        }
-            
-        .fila_par .contenedor_celda 
-        {
-            background:#E6E6FA;
-        }
-        
-        .contenedor_celda 
-        {
-            width:40%;
-            float:left;
-            border:1px solid #000;
-            
-        }
-        
-        .titulo 
-        {
-            text-transform:uppercase;
-            font-weight:bold;
-            /*margin-right:20%;*/
-            }
-            
-        .dato 
-        {
-            /*padding-left:100px;*/
-        }
-        .nombre 
-        {
-            font-size:1.5em;
-            font-weight:bold;
-        }
-        .oficina 
-        {
-            font-size:1.2em;
-        }
-            
-        #contenedor_global 
-        {
-            width:80%;
-            text-align:center;
-            margin:0 auto;    
-        }
-        
-        
-        .sub_eval
-        {
-            color:#434C6F !important; 
-            border-bottom:1px solid #434C6F !important;
-            font-size:20px;
-            margin-bottom:5px;
-            
-            }
-    
     </style>
 
 </head>
@@ -310,7 +101,7 @@
         <li><a href="#tab1">Cursadas</a></li>
         <li><a href="#tab2">Asistencias</a></li>
         <li><a href="#tab3">Evaluaciones</a></li>
-        <li><a href="#tab4">Observaciones</a></li>
+        <li><a href="#tab4">Perfil</a></li>
     </ul>
     <div class="Contenedor">
         <div id="tab1" class="Contenido">
@@ -333,7 +124,20 @@
             </div>
         </div>
         <div id="tab4" class="Contenido">
-            <h2 class="sub_eval">Observaciones</h2> 
+            <h2 class="sub_eval">Perfil</h2> 
+        <div  class="content">
+         <ul>
+                <li>Asistencia: <small>Viene siempre</small></li>
+                <li>Puntulidad: <small>Suele llegar tarde los dias martes por problemas personales</small></li>    
+                <li>Nivel de Compromiso: <small>Alto</small></li>
+                <li>Participación: <small>Media</small></li>
+                <li>Cumplimiento con las Tareas: <small>Cumple siempre con la tarea</small></li>
+                <li>Integración al Grupo: <small>Es solitario</small></li>
+                <li>Respeta las Normas de Convivencia: <small>Suele respetar las normas</small></li>
+                <li>Responsabilidad: <small>Muy responsable</small></li>
+            </ul>
+        </div>
+
         </div>
     </div>
     </div>
@@ -345,7 +149,7 @@
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
 
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/FichaAlumno.js"></script>
+    <script type="text/javascript" src="Scripts/FichaAlumno.js"></script>
 
     <script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
@@ -353,6 +157,7 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 
 
     <script type="text/javascript">

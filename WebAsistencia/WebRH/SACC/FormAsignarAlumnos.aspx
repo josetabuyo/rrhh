@@ -9,6 +9,7 @@
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
+    <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
@@ -88,7 +89,7 @@
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="InscripcionAlumnos.js"></script>
+    <script type="text/javascript" src="Scripts/InscripcionAlumnos.js"></script>
     <script type="text/javascript" src="../Scripts/list.js"></script>
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>

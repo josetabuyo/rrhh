@@ -1856,12 +1856,14 @@ public class WSViaticos : System.Web.Services.WebService
     public EvaluacionDto[] GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
     {
         var evaluaciones_no_procesadas = new List<EvaluacionDto>();
+        var repo_alumnos = RepoAlumnos();
+        var repo_cursos = RepositorioDeCursos();
         var evaluaciones_a_guardar = new List<Evaluacion>();
         foreach (var e in evaluaciones_nuevas_dto)
         {
-            var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
+            var un_curso = repo_cursos.GetCursoById(e.IdCurso);
             var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
-            var un_alumno = RepoAlumnos().GetAlumnoByDNI(e.DNIAlumno);
+            var un_alumno = repo_alumnos.GetAlumnoByDNI(e.DNIAlumno);
             var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
             DateTime una_fecha;
             DateTime.TryParse(e.Fecha, out una_fecha );
@@ -1871,9 +1873,9 @@ public class WSViaticos : System.Web.Services.WebService
         var evaluaciones_originales = new List<Evaluacion>();
         foreach (var e in evaluaciones_originales_dto)
         {
-            var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
+            var un_curso = repo_cursos.GetCursoById(e.IdCurso);
             var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
-            var un_alumno = RepoAlumnos().GetAlumnoByDNI(e.DNIAlumno);
+            var un_alumno = repo_alumnos.GetAlumnoByDNI(e.DNIAlumno);
             var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
             DateTime una_fecha;
             DateTime.TryParse(e.Fecha, out una_fecha);
