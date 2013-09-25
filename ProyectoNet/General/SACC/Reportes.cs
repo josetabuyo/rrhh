@@ -36,6 +36,28 @@ namespace General.Repositorios
            return  alumnos_de_la_modaldiad.Distinct().ToList();
         }
 
+
+        public List<Alumno> ObtenerAlumnosDeLosCursos(DateTime fecha_desde, DateTime fecha_hasta, IRepositorioDeCursos repo_curso)
+        {
+            List<Alumno> alumnos = new List<Alumno>();
+            List<Curso> cursos_del_periodo = new List<Curso>();
+
+            cursos_del_periodo = repo_curso.GetCursos().FindAll(c => c.FechaInicio >= fecha_desde && fecha_hasta >= c.FechaFin);
+
+
+            foreach (Curso curso in cursos_del_periodo)
+            {
+                alumnos.AddRange(curso.Alumnos());
+            }
+
+           return  alumnos.Distinct().ToList();
+        }
+
+        
+
+
+
+
         public List<Alumno> ObtenerAlumnosDelOrganismo(Organismo organismo, IRepositorioDeAlumnos repo_alumno)
         {
             List<Alumno> alumnos_del_organismo = repo_alumno.GetAlumnos();

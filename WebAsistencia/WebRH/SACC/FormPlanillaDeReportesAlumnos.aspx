@@ -11,6 +11,10 @@
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+<%--    <meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
+		<style>
+			canvas{}
+		</style>--%>
    
 </head>
 <body class="marca_de_agua">
@@ -24,7 +28,8 @@
 
             <div class="estilo_formulario" style="width:15%; margin-left: 1%; float: left; height: 250px;">
                <legend>Reportes</legend>
-                <p><asp:Button ID="btn_modalidad" Text="Por Modalidad" runat="server" OnClick="btnBuscarPorModalidad_Click" class=" btn btn-primary" style= "width: 100%;" /></p>
+                <%--<p><asp:Button ID="btn_modalidad" Text="Por Modalidad" runat="server" OnClick="btnBuscarPorModalidad_Click" class=" btn btn-primary" style= "width: 100%;" /></p>--%>
+                <p><input id="btn_modalidad" type="button" value="Por Modalidad" onclick="javascript:BuscarPorModalidad();" style="width: 100%;" class="btn btn-primary" /><p>
                 <p><asp:Button ID="btn_ciclo"   Text="Por Ciclo" runat="server" OnClick="btnBuscarPorCiclo_Click" class=" btn btn-primary" style="width: 100%;" /></p>
                 <p><asp:Button ID="btn_organismo" Text="Por Organismo" runat="server" OnClick="btnBuscarPorOrganismo_Click" class=" btn btn-primary" style="width: 100%;" /></p>
                 <p><asp:Button ID="btn_materia" Text="Materia Sin Cursar" runat="server" OnClick="btnBuscarPorMateria_Click" class=" btn btn-primary" style="width: 100%;" /></p>
@@ -40,6 +45,7 @@
             
             <div class="estilo_formulario" style="width:95%; margin-left: 1%; float: left; height: 450px;">
                <legend>Gráfico</legend>
+               <canvas id="canvas" height="350" width="350"></canvas>
             </div> 
                   
         </fieldset>
@@ -49,7 +55,7 @@
         <fieldset>
             <legend class="subtitulos">Listado de Alumnos</legend>
                 <div class="estilo_formulario" style="width:95%; overflow:auto;">
-                    <div id="ContenedorPlanilla" runat="server">
+                    <div id="grillaAlumnosDisponibles" runat="server">
                         <div class="input-append" style="clear:both;">   
                             <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" />    
                         </div>
@@ -61,11 +67,11 @@
 
     <asp:HiddenField ID="tipo_busqueda" runat="server" />
 
-    <asp:HiddenField ID="texto_mensaje_exito" runat="server" />
-    <asp:HiddenField ID="texto_mensaje_error" runat="server" />
-    <asp:HiddenField ID="alerta_mensaje" runat="server" />
-    <asp:HiddenField ID="personasJSON" runat="server" EnableViewState="true"/>
+    <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
+    <asp:HiddenField ID="idFechaDesde" value="01/01/2013" runat="server" />
+    <asp:HiddenField ID="idFechaHasta" value="31/12/2013" runat="server" />
+
     </form>
 </body>
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
@@ -82,145 +88,165 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
+    <script type="text/javascript" src="../SACC/Scripts/Chart.js"></script>
+    <script type="text/javascript" src="../SACC/Scripts/Reportes.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
 
     
-
 <script type="text/javascript">
 
-    //Al presionarse Enter luego de Ingresar el DNI, se fuerza a realizar la búsqueda de dicho DNI para no tener que hacer necesariamente un click en el botón Buscar
-    function CapturarTeclaEnter(evt) {
-        var evt = (evt) ? evt : ((event) ? event : null);
-        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
-        if ((evt.keyCode == 13) && (node.type == "text")) { $("#btn_buscar_personas").click(); }
-    }
-    document.onkeypress = CapturarTeclaEnter;
 
-    //Muestra los Mensajes de Error mediante PopUp y los de Éxito por mensaje
-    var mostrador_de_mensajes = {
-        mostrar: function (mensaje) {
-            alertify.alert(mensaje);
-            return false;
-            //alert(mensaje);
+    var BuscarPorModalidad = function () {
+        
+        AdministradorPlanilla();
+    }
+
+
+    var AdministradorPlanilla = function () {
+
+
+
+        var items_pantalla = {
+            //alumnos: JSON.parse($('#alumnosJSON').val()),
+           // alumnoGlobal: $("<div>"),
+            planillaAlumnosDisponibles: $("<div>"),
+            //panelAlumnoDisponibles: $("#panelAlumnoDisponibles"),
+            contenedorAlumnosDisponibles: $('#grillaAlumnosDisponibles'),
+//            botonAsignarAlumno: $("#Img1"),
+//            botonDesAsignarAlumno: $("#Img2"),
+            botonModalidad: $("#btn_modalidad"),
+            //cmbCursos: $("#cmbCursos"),
+            cmbCampo: $("#cmbCampo")
+            //cursosJSON: JSON.parse($('#cursosJSON').val())
         }
+
+
+        var modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
+
+        modulo_inscripcion.BuscarPorModalidad();
+
+
+
+//        var options = {
+//            valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad']
+//        };
+
+       // var featureListAlumnosDisponibles = new List('grillaAlumnosDisponibles', options);
     };
 
-    var administradorDeErrores = new AdministradorDeMensajes(
-        {
-            mostrar: function (mensaje) {
-                alertify.alert(mensaje);
-                //alert(mensaje);
-            }
-        },
-        $("#texto_mensaje_error").val());
+  $(document).ready(function () {
+      //Estilos para ver coloreada la grilla en Internet Explorer
+      $("tbody tr:even").css('background-color', '#E6E6FA');
+      $("tbody tr:odd").css('background-color', '#9CB3D6 ');
+  });
 
-    var administradorDeExitos = new AdministradorDeMensajes(
-        {
-            mostrar: function (mensaje) {
-                $("#DivMensajeExito").show();
-                $("#DivMensajeExito").Visible = "true";
-            }
-        },
-        $("#texto_mensaje_exito").val());
+    
+//    var PlanillaAlumnos;
+//    var contenedorPlanilla;
 
-    var PlanillaAlumnos;
-    var contenedorPlanilla;
+//    var AdministradorPlanillaMensual = function () {
+//        var Alumnos = JSON.parse($('#alumnosJSON').val());
+//        //var nombreAlumno = Alumnos['nombre'];
+//        var panelAlumno = $("#panelAlumno");
 
-    var AdministradorPlanillaMensual = function () {
-        var Alumnos = JSON.parse($('#alumnosJSON').val());
-        //var nombreAlumno = Alumnos['nombre'];
-        var panelAlumno = $("#panelAlumno");
+//        var listaPersonas = $('#personasJSON');
+//        var selectorDePersonas = $('#input_dni');
+//        var personaSeleccionada = $('#personaSeleccionada');
 
-        var listaPersonas = $('#personasJSON');
-        var selectorDePersonas = $('#input_dni');
-        var personaSeleccionada = $('#personaSeleccionada');
+//        //crearInputAutocompletable(selectorDePersonas, listaPersonas, personaSeleccionada);
 
-        //crearInputAutocompletable(selectorDePersonas, listaPersonas, personaSeleccionada);
-
-        var EncabezadoPlanilla;
-        contenedorPlanilla = $('#ContenedorPlanilla');
-        var columnas = [];
-
-        columnas.push(new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento } }));
-        columnas.push(new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre } }));
-        columnas.push(new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido } }));
-        //columnas.push(new Columna("Pertenece A", { generar: function (un_alumno) { return un_alumno.area.descripcion } }));
-        columnas.push(new Columna("Teléfono", { generar: function (un_alumno) { return un_alumno.Telefono } }));
-        columnas.push(new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion } }));
+//        var EncabezadoPlanilla;
+//        contenedorPlanilla = $('#ContenedorPlanilla');
 
 
-        PlanillaAlumnos = new Grilla(columnas);
+////        PlanillaAlumnos = new Grilla(columnas);
 
-        PlanillaAlumnos.AgregarEstilo("tabla_macc");
-        //PlanillaAlumnos.agregarBuscador();
+//        PlanillaAlumnos.AgregarEstilo("tabla_macc");
+//        //PlanillaAlumnos.agregarBuscador();
 
-        PlanillaAlumnos.SetOnRowClickEventHandler(function (un_alumno) {
-            panelAlumno.CompletarDatosAlumno(un_alumno);
-        });
+//        PlanillaAlumnos.SetOnRowClickEventHandler(function (un_alumno) {
+//            panelAlumno.CompletarDatosAlumno(un_alumno);
+//        });
 
-        PlanillaAlumnos.CargarObjetos(Alumnos);
-        PlanillaAlumnos.DibujarEn(contenedorPlanilla);
+//        PlanillaAlumnos.CargarObjetos(Alumnos);
+//        PlanillaAlumnos.DibujarEn(contenedorPlanilla);
 
 
 
-        panelAlumno.CompletarDatosAlumno = function (un_alumno) {
+//        panelAlumno.CompletarDatosAlumno = function (un_alumno) {
 
-            $("#input_dni").val("");
-            $("#idAlumnoAVer").val(un_alumno.Id);
-            $("#lblDatoApellido").val(un_alumno.Apellido);
-            $("#lblDatoNombre").val(un_alumno.Nombre);
-            $("#lblDatoDocumento").val(un_alumno.Documento);
-            $("#lblDatoTelefono").val(un_alumno.Telefono);
-            $("#lblDatoMail").val(un_alumno.Mail);
-            $("#lblDatoDireccion").val(un_alumno.Direccion);
-            $("#cmbPlanDeEstudio").val(un_alumno.Modalidad.Id);
-            $("#idBaja").val(un_alumno.Baja);
-            $("#btnAgregarAlumno").attr("disabled", true);
-            $("#btnModificarAlumno").attr("disabled", false);
-            $("#btnQuitarAlumno").attr("disabled", false);
-        };
+//            $("#input_dni").val("");
+//            $("#idAlumnoAVer").val(un_alumno.Id);
+//            $("#lblDatoApellido").val(un_alumno.Apellido);
+//            $("#lblDatoNombre").val(un_alumno.Nombre);
+//            $("#lblDatoDocumento").val(un_alumno.Documento);
+//            $("#lblDatoTelefono").val(un_alumno.Telefono);
+//            $("#lblDatoMail").val(un_alumno.Mail);
+//            $("#lblDatoDireccion").val(un_alumno.Direccion);
+//            $("#cmbPlanDeEstudio").val(un_alumno.Modalidad.Id);
+//            $("#idBaja").val(un_alumno.Baja);
+//            $("#btnAgregarAlumno").attr("disabled", true);
+//            $("#btnModificarAlumno").attr("disabled", false);
+//            $("#btnQuitarAlumno").attr("disabled", false);
+//        };
 
-        var options = {
-            valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad']
-        };
+//        var options = {
+//            valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad']
+//        };
 
-        var featureList = new List('ContenedorPlanilla', options);
-    }
+//        var featureList = new List('ContenedorPlanilla', options);
+//    }
 
-    function crearInputAutocompletable(input, lista, elementoSeleccionado) {
-        input.attr('data-source', lista.val());
-        input.attr("autocomplete", "off");
-        input.blur(function () {
-            try {
-                if (input.val() != '') {
-                    var itemSeleccionado = input.data().typeahead.$menu.find('.active').data().item;
-                    elementoSeleccionado.val(itemSeleccionado.value);
-                    input.val(itemSeleccionado.label);
-                }
-                else {
-                    elementoSeleccionado.val('');
-                }
-            }
-            catch (e) {
-                elementoSeleccionado.val('');
-                input.val('');
-            }
-        });
-    }
-
-
-    $(document).ready(function () {
-        AdministradorPlanillaMensual();
-
-        //Estilos para ver coloreada la grilla en Internet Explorer
-        $("tbody tr:even").css('background-color', '#E6E6FA');
-        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
-
-    });
+//    function crearInputAutocompletable(input, lista, elementoSeleccionado) {
+//        input.attr('data-source', lista.val());
+//        input.attr("autocomplete", "off");
+//        input.blur(function () {
+//            try {
+//                if (input.val() != '') {
+//                    var itemSeleccionado = input.data().typeahead.$menu.find('.active').data().item;
+//                    elementoSeleccionado.val(itemSeleccionado.value);
+//                    input.val(itemSeleccionado.label);
+//                }
+//                else {
+//                    elementoSeleccionado.val('');
+//                }
+//            }
+//            catch (e) {
+//                elementoSeleccionado.val('');
+//                input.val('');
+//            }
+//        });
+//    }
 
 
+//    $(document).ready(function () {
+//        AdministradorPlanillaMensual();
 
+//        //Estilos para ver coloreada la grilla en Internet Explorer
+//        $("tbody tr:even").css('background-color', '#E6E6FA');
+//        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
+
+//    });
+
+    //Gráficos
+//    var pieData = [
+//				{
+//				    value: 30,
+//				    color: "#F38630"
+//				},
+//				{
+//				    value: 50,
+//				    color: "#E0E4CC"
+//				},
+//				{
+//				    value: 100,
+//				    color: "#69D2E7"
+//				}
+
+//			];
+
+//    var myPie = new Chart(document.getElementById("canvas").getContext("2d")).Pie(pieData);
 
 </script>
 </html>

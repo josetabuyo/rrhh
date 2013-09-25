@@ -17,7 +17,7 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
         if (!IsPostBack)
         {
             SetearLosTextBox();
-            this.personasJSON.Value = servicio.GetAlumnos((Usuario)Session[ConstantesDeSesion.USUARIO]);
+           // this.personasJSON.Value = servicio.GetAlumnos((Usuario)Session[ConstantesDeSesion.USUARIO]);
         } 
     }
 
@@ -25,11 +25,19 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
     {
         //LimpiarPantalla();
         CompletarComboDeModalidades();
+        WSViaticosSoapClient ws_viaticos = new WSViaticosSoapClient();
+        List<AlumnoDto> alumnos = new List<AlumnoDto>();
+        Modalidad modalidad = ModalidadDesdeElForm();
+
+        alumnos = ws_viaticos.ReporteAlumnosPorModalidad(modalidad).ToList();
+
+        this.MostrarAlumnosEnLaGrilla(alumnos);
     }
 
     protected void btnBuscarPorCiclo_Click(object sender, EventArgs e)
     { }
 
+    //estaría en el front
     protected void btnBuscarCampo_Click(object sender, EventArgs e)
     {
         WSViaticosSoapClient ws_viaticos = new WSViaticosSoapClient();
@@ -56,11 +64,11 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
     protected void btnBuscarPorOrganismo_Click(object sender, EventArgs e)
     {
 
-        if (!DatosEstanCompletos())
-        {
-            this.texto_mensaje_error.Value = "El Alumno no ha sido guardado. Seleccione el Alumno y la Modalidad";
-            return;
-        }
+        //if (!DatosEstanCompletos())
+        //{
+        //    this.texto_mensaje_error.Value = "El Alumno no ha sido guardado. Seleccione el Alumno y la Modalidad";
+        //    return;
+        //}
 
         WSViaticosSoapClient ws_viaticos = new WSViaticosSoapClient();
         var alumno = AlumnoDesdeElForm();
@@ -96,17 +104,17 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
         WSViaticosSoapClient servicio = new WSViaticosSoapClient();
         var alumno = AlumnoDesdeElForm();
 
-        if (servicio.QuitarAlumno(alumno, (Usuario)Session["usuario"]))
-        {
-            LimpiarPantalla();
-           // MostrarAlumnosEnLaGrilla(servicio);
+        //if (servicio.QuitarAlumno(alumno, (Usuario)Session["usuario"]))
+        //{
+        //    LimpiarPantalla();
+        //   // MostrarAlumnosEnLaGrilla(servicio);
 
-            this.texto_mensaje_exito.Value = "Todo bién";
-        }
-        else
-        {
-            //this.texto_mensaje_error.Value = "No se puede eliminar el Alumno " + this.lblDatoNombre.Text + " " + this.lblDatoApellido.Text + " porque se encuentra asignado a un curso";
-        }
+        //    this.texto_mensaje_exito.Value = "Todo bién";
+        //}
+        //else
+        //{
+        //    //this.texto_mensaje_error.Value = "No se puede eliminar el Alumno " + this.lblDatoNombre.Text + " " + this.lblDatoApellido.Text + " porque se encuentra asignado a un curso";
+        //}
     }
 
     private Alumno AlumnoDesdeElForm()
@@ -139,7 +147,7 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
         this.cmbCampo.Visible = true;
         this.btnBuscarCampo.Visible = true;
 
-        this.lblCampo.Text = "Modalidad:";
+        this.lblCampo.Text = "Cursos con Modalidad:";
         this.tipo_busqueda.Value = "1";
 
         var servicio = new WSViaticos.WSViaticosSoapClient();
