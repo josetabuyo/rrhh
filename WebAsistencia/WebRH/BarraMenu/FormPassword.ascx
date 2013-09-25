@@ -34,15 +34,15 @@
                     return;
                 }
 //FC: agregar estas validaciones cuando salgamos a produccion
-//                if (pass_nueva.lenght < 8) {
-//                    alertify.alert("La contrase&ntilde;a debe ser de 8 d&iacute;gitos ");
-//                    return;
-//                }
+                if (pass_nueva.lenght == 8) {
+                    alertify.alert("La contrase&ntilde;a debe ser de 8 d&iacute;gitos ");
+                    return;
+                }
 
-//                var matches = pass_nueva.match(/\d+/g);
-//                if (matches == null) {
-//                    alertify.alert('La contrase&ntilde;a debe tener algun n&uacute;mero');
-//                }
+                var matches = pass_nueva.match(/\d+/g);
+                if (matches == null) {
+                    alertify.alert('La contrase&ntilde;a debe tener algun n&uacute;mero');
+                }
 
                 var data_post = JSON.stringify({
                     pass_actual: pass_actual,
