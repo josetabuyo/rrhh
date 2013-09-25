@@ -225,7 +225,6 @@ public class AjaxWS : System.Web.Services.WebService {
 
 
     [WebMethod(EnableSession = true)]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GuardarAsistencias(string asistencias_nuevas, string asistencias_originales)
     {
         var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);

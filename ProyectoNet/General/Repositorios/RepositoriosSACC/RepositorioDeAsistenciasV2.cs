@@ -63,8 +63,8 @@ namespace General.Repositorios
         public List<Acumulador> GuardarAsistencias(List<Acumulador> asistencias_nuevas, List<Acumulador> asistencias_originales, Usuario usuario)
         {
             var registros_no_procesados = new List<Acumulador>();
-            var asistencias_a_dar_de_alta = new List<Acumulador>();
-            var asistencias_a_dar_de_baja = new List<Acumulador>();
+            var asistencias_a_dar_de_alta = AsistenciasParaDarDeAlta(asistencias_nuevas, asistencias_originales);
+            var asistencias_a_dar_de_baja = AsistenciasParaDarDeBaja(asistencias_nuevas, asistencias_originales);
 
             foreach (var a in asistencias_a_dar_de_alta)
             {
@@ -80,7 +80,7 @@ namespace General.Repositorios
             return registros_no_procesados;
         }
 
-        public List<Acumulador> AsistenciasParaDarDeAlta(List<Acumulador> lista_original, List<Acumulador> lista_nueva)
+        public List<Acumulador> AsistenciasParaDarDeAlta(List<Acumulador> lista_nueva, List<Acumulador> lista_original)
         {
             var asistencias_nuevas = lista_nueva.FindAll(a_nue => 
                 {
@@ -89,7 +89,7 @@ namespace General.Repositorios
             return asistencias_nuevas;
         }
 
-        public List<Acumulador> AsistenciasParaDarDeBaja(List<Acumulador> lista_original, List<Acumulador> lista_nueva)
+        public List<Acumulador> AsistenciasParaDarDeBaja(List<Acumulador> lista_nueva, List<Acumulador> lista_original)
         {
             var query1 = lista_nueva.Where(e1 => {
                 var res = lista_original.Exists(e2 => {

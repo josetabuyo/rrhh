@@ -989,7 +989,17 @@ public class WSViaticos : System.Web.Services.WebService
 
         foreach (var a in asistencias_nuevas_dto)
         {
-            
+            if (a.Valor == "-" || a.Valor == "")
+                asistencias_nuevas.Add(new AcumuladorHorasDiaNoCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
+            else
+                asistencias_nuevas.Add(new AcumuladorHorasDiaCursado(a.Id, int.Parse(a.Valor), 0, a.Fecha, a.IdAlumno, a.IdCurso));
+        }
+        foreach (var a in asistencias_originales_dto)
+        {
+            if (a.Valor == "-" || a.Valor == "")
+                asistencias_originales.Add(new AcumuladorHorasDiaNoCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
+            else
+                asistencias_originales.Add(new AcumuladorHorasDiaCursado(a.Id, int.Parse(a.Valor), 0, a.Fecha, a.IdAlumno, a.IdCurso));
         }
         RepoAsistencias().GuardarAsistencias(asistencias_nuevas, asistencias_originales, usuarioLogueado);
         return null;

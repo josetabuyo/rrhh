@@ -2,7 +2,7 @@ var AdministradorPlanilla = function () {
     var _this = this;
 
     _this.contenedorPlanilla = {};
-    
+
     var contenedor_grilla = $('#ContenedorPlanilla');
     var label_horas_catedra = $('#HorasCatedraCurso');
     var label_docente = $('#Docente');
@@ -24,9 +24,9 @@ var AdministradorPlanilla = function () {
                 var asistencia = Enumerable.From(detalle_asistencias.Asistencias)
                 .Where(function (x) { return x.Fecha == diasCursados[j].Fecha && x.IdAlumno == alumnos[i].id });
                 if (asistencia.length > 0)
-                    row.DetalleAsistencias.push(new BotonAsistencia(alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, asistencia.First().Valor, diasCursados[j].HorasCatedra));
+                    row.DetalleAsistencias.push(new BotonAsistencia(asistencia.First().Id, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, asistencia.First().Valor, diasCursados[j].HorasCatedra));
                 else
-                    row.DetalleAsistencias.push(new BotonAsistencia(alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, '', diasCursados[j].HorasCatedra));
+                    row.DetalleAsistencias.push(new BotonAsistencia(0, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, '', diasCursados[j].HorasCatedra));
             }
             var detalle_asistencias_acumuladas = Enumerable.From(detalle_asistencias.Asistencias)
                 .Where(function (x) { return x.IdAlumno == alumnos[i].id });
@@ -78,18 +78,32 @@ var AdministradorPlanilla = function () {
     }
 
     _this.guardar_asistencias = function () {
-        var data_post = [];
+        var data_post = {};
+        var asistencias_nuevas = [];
+        var asistencias_originales = [];
         for (var i = 0; i < filas.length; i++) {
             var detalle_asistencia = filas[i].DetalleAsistencias;
             for (var j = 0; j < detalle_asistencia.length; j++) {
-                data_post.push({ IdAlumno: detalle_asistencia[j].id_alumno,
-                    DiaCursado: detalle_asistencia[j].dia_cursado,
-                    Valor: detalle_asistencia[j].valor,
-                    ValorOriginal: detalle_asistencia[j].valor_original,
-                    IdCurso: _this.id_curso
+                asistencias_nuevas.push({
+                    Id: detalle_asistencia[j].id,
+                    IdAlumno: detalle_asistencia[j].id_alumno,
+                    IdCurso: _this.id_curso,
+                    Fecha: detalle_asistencia[j].dia_cursado,
+                    Valor: detalle_asistencia[j].valor
+                });
+                asistencias_originales.push({
+                    Id: detalle_asistencia[j].id,
+                    IdAlumno: detalle_asistencia[j].id_alumno,
+                    IdCurso: _this.id_curso,
+                    Fecha: detalle_asistencia[j].dia_cursado,
+                    Valor: detalle_asistencia[j].valor_original
                 });
             }
         }
+        data_post = {
+            asistencias_nuevas: JSON.stringify(asistencias_nuevas),
+            asistencias_originales: JSON.stringify(asistencias_originales)
+        };
         alert(JSON.stringify(data_post));
         $.ajax({
             url: "../AjaxWS.asmx/GuardarAsistencias",

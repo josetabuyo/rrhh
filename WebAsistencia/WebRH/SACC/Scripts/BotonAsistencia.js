@@ -1,5 +1,6 @@
-var BotonAsistencia = function (id_alumno, id_curso, dia_cursado, valor, valor_maximo) {
+var BotonAsistencia = function (id, id_alumno, id_curso, dia_cursado, valor, valor_maximo) {
     var _this = this;
+    this.id = id;
     this.id_alumno = id_alumno;
     this.valor_original = valor;
     this.id_curso = id_curso;
