@@ -89,7 +89,7 @@
     border-top: 3px solid white;  
     height: 25px; 
     margin-top: -3px;
-    
+   
     position: absolute;
     left: 50%;
 	min-height: 30px;
@@ -99,11 +99,13 @@
 
 #barra_menu_inferior_usuario
 {
-    display:inline-block;
-    width:75%;
+    /*display:inline-block;
+    width:75%;*/
     color:White;
     padding-left:20px;
     vertical-align:middle;
+    margin-top: 5px;
+
 }
 
 #barra_menu_label_usuario
@@ -118,25 +120,33 @@
 
 #barra_menu_inferior_botones
 {
-    display:inline-block;    
-    width:19%;    
+   /* display:inline-block;    
+    width:19%;   */ 
     border-left: 4px solid white;   
-    padding-left:20px;  
+    padding-left:20px; 
     height: 30px;  
     
+    float: right;
+    margin-top: -22px;
+    vertical-align:middle;
+    margin-right: 60px;
 }
 
 .barra_menu_botones
 {
     border : solid 0px #ffffff;
 	font-size : 13px;
-	color : White;
+	color : #fff;
 	padding : 4px 9px;
-	background-color : #194ab4;
+	background-color : #194ab4 !important;
+	color: #fff !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
 	
 }
 
 .barra_menu_botones:hover
 {
-    color : rgb(110, 208, 226);
+    color : rgb(110, 208, 226) !important;
+    background-color : #194ab4 !important;    
 }

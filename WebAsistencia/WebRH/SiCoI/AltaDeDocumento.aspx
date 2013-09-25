@@ -12,10 +12,13 @@
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
     <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
-        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+        <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <div id="contenedor_principal_sicoi">
             <div id="botonera_paneles_desplegables">
                 <input type="button" id="boton_alertas" style="display:none;" class=" btn btn-danger" value="!"/>
@@ -184,7 +187,7 @@
         </asp:ScriptManager>
     </form>
 </body>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    
     <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>   
     <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
@@ -201,7 +204,7 @@
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
     <script type="text/javascript" src="../Scripts/InputSoloNumeros.js"></script>
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
-    <script type="text/javascript" src="../Scripts/select2.min.js"></script>
+<%--    <script type="text/javascript" src="../Scripts/select2.min.js"></script>--%>
     <script type="text/javascript" src="PanelDeFiltrosDeDocumentos.js"></script>
     <script type="text/javascript" src="InputAutocompletableDeAreas.js"></script>
     <script type="text/javascript" src="PanelDeDocumentos.js"></script>
@@ -213,6 +216,8 @@
     <script type="text/javascript" src="FabricaDeFichasDeDocumento.js"></script>
     <script type="text/javascript" src="WebService.js"></script>
     <script type="text/javascript" src="BotonAlertas.js"></script>
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

@@ -1,9 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="BarraMenuInicioSACC.ascx.cs" Inherits="BarraMenuInicioSACC" %>
+<%@ Register Src="FormPassword.ascx" TagName="FormPassword" TagPrefix="uc5" %>
 
 <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link id="link1" rel="stylesheet" href="<%= UrlEstilos %>EstilosBarraMenu.css" type="text/css" />
+    <link id="link3" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
+    <link id="link4" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
+
 </head>
 
 <div id= "barra_menu_contenedor">
@@ -31,13 +35,18 @@
                                     OnClick="VolverAInicioLinkButton_Click"
                                     Text="Inicio" >
                     </asp:Button>
+                    <a id="A1" rel="leanModal" class="btn barra_menu_botones" name="signup" href="#signup">Cambiar Contrase&ntilde;a</a>
                     <asp:Button ID="CerrarSessionLinkButton" 
                                     CssClass="barra_menu_botones"
                                     runat="server"
                                     OnClick="CerrarSessionLinkButton_Click" 
                                     Text="Cerrar Sesión" >     
                     </asp:Button>
+                   
                 </div>
+                <uc5:FormPassword ID="FormPassword" runat="server" />
             </div>
-        </div>
+        </div>  
+         
+        <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
 </div>

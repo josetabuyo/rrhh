@@ -179,6 +179,7 @@ public partial class SACC_FormABMAlumnos : System.Web.UI.Page
 
     protected void btnVerAlumno_Click(object sender, EventArgs e)
     {
+        Session[ConstantesDeSesion.ALUMNO] = int.Parse(this.DNIAlumnoFicha.Value);
         Response.Redirect("~/SACC/FormDetalleDeAlumno.aspx"); 
     }
 

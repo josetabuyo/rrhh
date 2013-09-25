@@ -12,10 +12,13 @@ public partial class FormularioDeViaticos_BarraMenu : System.Web.UI.UserControl
 
     public String UrlEstilos { get; set; }
     public String UrlImagenes { get; set; }
+    public String UrlPassword { get; set; }  
     public String Feature { get; set; }
 
     protected void Page_Load(object sender, EventArgs e)
-    {        
+    {
+        this.FormPassword.UrlAjax = UrlPassword;
+
         try
         {
             Usuario usuario = ((Usuario)Session["usuario"]);
