@@ -12,18 +12,22 @@
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
+    <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
 
      <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
      <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
 
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelEspacioFisico" class="div_izquierdo">
-    <fieldset>
-        <legend>Panel De Espacios Físicos</legend>
+   
+        <div class="estilo_formulario" style="width:60%; margin-left: 30%;">
+         <fieldset>
+        <legend class="subtitulos">Panel De Espacios Físicos</legend>
             <div>
                 <asp:Label ID="lblAula" CssClass="labels_sacc" runat="server" Text="Aula:"></asp:Label>
                 <asp:TextBox ID="txtAula" placeholder="Aula" name="Aula" runat="server" EnableViewState="false"></asp:TextBox>
@@ -66,18 +70,22 @@
             <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
             </div>
             </div>
-    </fieldset>
+             </fieldset>
+            </div>
+   
     </div>
 
     <div class="div_derecho">
+        <div class="estilo_formulario" style="width:95%; overflow:auto;  margin-left:1%;">
         <fieldset>
-        <legend>Listado de Espacios Físicos</legend>
+        <legend class="subtitulos">Listado de Espacios Físicos</legend>
         <div id="ContenedorPlanilla" runat="server">
             <div class="input-append" style="clear:both;">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Espacios" />    
             </div>
         </div>
         </fieldset>
+        </div>
     </div>
 
     <asp:HiddenField ID="texto_mensaje_exito" runat="server" />
@@ -91,14 +99,15 @@
 </body>
 
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <script type="text/javascript" src="../Scripts/list.js"></script>
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 
 
 <script type="text/javascript">

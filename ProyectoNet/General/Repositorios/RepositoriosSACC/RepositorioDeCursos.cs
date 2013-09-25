@@ -6,29 +6,52 @@ using System.Collections.Generic;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeCursos: RepositorioLazy<List<Curso>>,  General.Repositorios.IRepositorioDeCursos
+    public class RepositorioDeCursos : RepositorioLazy<List<Curso>>, General.Repositorios.IRepositorioDeCursos
     {
 
         protected IConexionBD conexion_bd { get; set; }
 
         IRepositorioDeDocentes repo_docentes;
-        IRepositorioDeEspaciosFisicos repo_espacios_fisicos; 
+        IRepositorioDeEspaciosFisicos repo_espacios_fisico;
+        IRepositorioDeModalidades repo_modalidades;
+        IRepositorioDeMaterias repo_materias;
+        IRepositorioDeAlumnos repo_alumnos;
 
         public RepositorioDeCursos(IConexionBD conexion)
         {
             this.conexion_bd = conexion;
             this.cache = new CacheNoCargada<List<Curso>>();
             this.repo_docentes = new RepositorioDeDocentes(conexion_bd, this);
+
+            repo_espacios_fisico = new RepositorioDeEspaciosFisicos(conexion_bd, this);
+            repo_modalidades = new RepositorioDeModalidades(conexion_bd);
+            repo_materias = new RepositorioDeMaterias(conexion_bd, this, repo_modalidades);
+            repo_alumnos = new RepositorioDeAlumnos(conexion_bd, this, repo_modalidades);
         }
 
         public void SetRepoDocuentes(IRepositorioDeDocentes new_repo_docentes)
         {
             this.repo_docentes = new_repo_docentes;
         }
-        public void SetRepoEsapciosFisicos(IRepositorioDeEspaciosFisicos new_repo_espacios_fisicos)
+        public void SetRepoEspaciosFisicos(IRepositorioDeEspaciosFisicos new_repo_espacios_fisicos)
         {
-            this.repo_espacios_fisicos = new_repo_espacios_fisicos;
+            this.repo_espacios_fisico = new_repo_espacios_fisicos;
         }
+
+        public void SetRepoAlumnos(IRepositorioDeAlumnos new_repo_alumnos)
+        {
+            this.repo_alumnos = new_repo_alumnos;
+        }
+        public void SetRepoModalidades(IRepositorioDeModalidades new_repo_modalidades)
+        {
+            this.repo_modalidades = new_repo_modalidades;
+        }
+
+        public void SetRepoMaterias(IRepositorioDeMaterias new_repo_materias)
+        {
+            this.repo_materias = new_repo_materias;
+        }
+
 
         public Curso GetCursoById(int id)
         {
@@ -44,51 +67,46 @@ namespace General.Repositorios
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Cursos");
             var cursos = new List<Curso>();
-            RepositorioDeEspaciosFisicos repo_espacios_fisico = new RepositorioDeEspaciosFisicos(conexion_bd, this);       
-            RepositorioDeModalidades repo_modalidades = new RepositorioDeModalidades(conexion_bd);
-            RepositorioDeMaterias repo_materias = new RepositorioDeMaterias(conexion_bd, this, repo_modalidades);
-            RepositorioDeAlumnos repo_alumnos = new RepositorioDeAlumnos(conexion_bd, this, repo_modalidades);
-            
-        
+
             tablaDatos.Rows.ForEach(row =>
             {
                 var docente = GetDocenteByIdCurso(row.GetSmallintAsInt("IdDocente"));
-                                         
+
                 var espacio_fisico = GetEspacioFisicoById(repo_espacios_fisico, row.GetSmallintAsInt("IdEspacioFisico"));
-                
+
                 Curso curso = new Curso
-                    (row.GetSmallintAsInt("Id"), 
-                    repo_materias.GetMateriaById(row.GetSmallintAsInt("IdMateria")), 
-                    docente, 
-                    espacio_fisico, 
-                    row.GetObject("FechaInicio") is DBNull ? new DateTime(DateTime.Now.Year, 1, 1) : row.GetDateTime("FechaInicio"), 
+                    (row.GetSmallintAsInt("Id"),
+                    repo_materias.GetMateriaById(row.GetSmallintAsInt("IdMateria")),
+                    docente,
+                    espacio_fisico,
+                    row.GetObject("FechaInicio") is DBNull ? new DateTime(DateTime.Now.Year, 1, 1) : row.GetDateTime("FechaInicio"),
                     row.GetObject("FechaFin") is DBNull ? new DateTime(DateTime.Now.Year, 12, 1) : row.GetDateTime("FechaFin"),
                     row.GetString("Observaciones"));
-                
+
                 var horarios = GetHorariosByIdCurso(row.GetSmallintAsInt("Id"));
                 foreach (var h in horarios)
                 { curso.AgregarHorarioDeCursada(h); }
 
                 var inscripciones = GetInscripcionesByIdCurso(row.GetSmallintAsInt("Id"));
                 var alumnos = repo_alumnos.GetAlumnos();
- 
+
                 var alumnos_inscriptos = alumnos.FindAll(a =>
-                {   return inscripciones.Contains(a.Id);  });
+                { return inscripciones.Contains(a.Id); });
 
                 curso.AgregarAlumnos(alumnos_inscriptos);
                 cursos.Add(curso);
             });
-            
+
             cursos.Sort((curso1, curso2) => curso1.esMayorAlfabeticamenteQue(curso2));
             return cursos;
         }
 
-        private static EspacioFisico GetEspacioFisicoById(RepositorioDeEspaciosFisicos repo_espacios_fisico, int id_espacio_fisico)
+        private static EspacioFisico GetEspacioFisicoById(IRepositorioDeEspaciosFisicos repo_espacios_fisico, int id_espacio_fisico)
         {
             if (id_espacio_fisico == 0)
             { return new EspacioFisicoNull(); }
             else
-            { return repo_espacios_fisico.GetEspacioFisicoById(id_espacio_fisico);}
+            { return repo_espacios_fisico.GetEspacioFisicoById(id_espacio_fisico); }
         }
 
 
@@ -104,7 +122,7 @@ namespace General.Repositorios
         protected List<HorarioDeCursada> GetHorarios()
         {
             if (cache_horarios != null) return cache_horarios;
-            
+
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Horarios");
             var horarios = new List<HorarioDeCursada>();
             tablaDatos.Rows.ForEach(row =>
@@ -116,7 +134,7 @@ namespace General.Repositorios
                 var curso_id = row.GetSmallintAsInt("idCurso");
                 horarios.Add(new HorarioDeCursada(nro_dia, hora_desde, hora_hasta, horas_catedra, curso_id));
 
-                
+
             });
             cache_horarios = horarios;
             return horarios;
@@ -148,7 +166,7 @@ namespace General.Repositorios
 
 
         protected List<List<int>> cache_inscripciones;
-        protected List<List<int>> GetInscripciones() 
+        protected List<List<int>> GetInscripciones()
         {
             if (cache_inscripciones != null) return cache_inscripciones;
 
@@ -161,7 +179,7 @@ namespace General.Repositorios
                 inscripcion.Add(row.GetInt("IdAlumno"));
                 inscripciones.Add(inscripcion);
             });
-            
+
             return inscripciones;
         }
 
@@ -361,11 +379,18 @@ namespace General.Repositorios
             return un_curso.Docente != null;
         }
 
-        public List<InstanciaDeEvaluacion> GetInstanciasDeEvaluacion(int id_curso) 
+        public List<InstanciaDeEvaluacion> GetInstanciasDeEvaluacion(int id_curso)
         {
-            return GetCursoById(id_curso).Materia.Modalidad.InstanciasDeEvaluacion; 
+            return GetCursoById(id_curso).Materia.Modalidad.InstanciasDeEvaluacion;
         }
 
+
+        public List<Curso> GetCursosParaElAlumno(Alumno alumno, List<Curso> total_de_cursos)
+        {
+            var cursos_del_alumno = total_de_cursos.FindAll(c => c.Alumnos().Contains(alumno));
+
+            return cursos_del_alumno;
+        }
 
         public List<Observacion> GetObservaciones()
         {

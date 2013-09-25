@@ -13,13 +13,18 @@
     <link id="link4" rel="stylesheet" href="Estilos/Estilos.css" type="text/css" runat="server" /> 
     <link id="link2" rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link3" rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
+    <link rel="stylesheet" href="Estilos/alertify.core.css" id="toggleCSS" />
+    <link rel="stylesheet" href="Estilos/alertify.default.css"  />
+    <script type="text/javascript" src="Scripts/alertify.js"></script>
+    <script type="text/javascript" src="bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="Scripts/jquery.leanModal.min.js"></script>
 </head>
 
 <body onload="MM_preloadImages('Imagenes/Botones/gestiontramites_s2.png','Imagenes/Botones/administrar_s2.png','Imagenes/Botones/solicitar_modificacion_s2.png','Imagenes/Botones/Botones Nuevos/ayuda_s2.png','Imagenes/Botones/Botones Nuevos/inicio_s2.png','Imagenes/Botones/cerrarsesion_s2.png','Imagenes/Botones/consprotocolo_s2.png')">
 
 <form id="form1" runat="server">
 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True"></asp:ScriptManager>
-    <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="Imagenes/" UrlEstilos="Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="Imagenes/" UrlPassword="" UrlEstilos="Estilos/" />
     <div class="botones">
 
 
@@ -81,4 +86,5 @@
      
 
 </body>
+
 </html>

@@ -117,9 +117,9 @@ namespace TestViaticos
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);
 
-            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+            Expect.AtLeastOnce.On(conexionMock).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            RepositorioDeModalidades repo = new RepositorioDeModalidades(conexion);
+            RepositorioDeModalidades repo = new RepositorioDeModalidades(conexionMock);
             Modalidad modalidad_cens = repo.GetModalidadById(2);
 
             Assert.AreEqual(2, modalidad_cens.Id);
@@ -149,9 +149,9 @@ namespace TestViaticos
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);
 
-            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+            Expect.AtLeastOnce.On(conexionMock).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            RepositorioDeModalidades repo = new RepositorioDeModalidades(conexion);
+            RepositorioDeModalidades repo = new RepositorioDeModalidades(conexionMock);
             List<Modalidad> modalidades = repo.GetModalidades();
 
             Assert.AreEqual(2, modalidades.Count);
@@ -170,18 +170,49 @@ namespace TestViaticos
                                     |2	          |Fines CENS	          |2	         |Cens	                |4	         |Paepa 2
                                     |2	          |Fines CENS	          |2	         |Cens	                |5	         |Mesa
                                     |1	          |Fines Puro	          |2	         |Cens	                |6	         |Calificación Final";
-
-            IConexionBD conexion = TestObjects.ConexionMockeada();
+         
             var resultado_sp = TablaDeDatos.From(source);
 
-            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+            Expect.AtLeastOnce.On(conexionMock).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            RepositorioDeModalidades repo = new RepositorioDeModalidades(conexion);
+            RepositorioDeModalidades repo = new RepositorioDeModalidades(conexionMock);
             List<Modalidad> modalidades = repo.GetModalidades();
 
             Assert.AreEqual(2, modalidades.Count);
             Assert.IsTrue(modalidades.Exists(m => m.Id == 1));
             Assert.IsTrue(modalidades.Exists(m => m.Id == 2));
         }
+
+        [TestMethod]
+        public void deberia_poder_saber_si_un_alumno_esta_cursando_o_no()
+        {
+           
+            var alumno = TestObjects.AlumnoDelCurso();
+            var articulador = new Articulador();
+            var repo_cursos = new RepositorioDeCursos(conexionMock);
+            var fer = TestObjects.AlumnoFer();
+            var cursos = TestObjects.UnListadoDeCursoConEdificios();
+            cursos.First().AgregarAlumno(fer);
+            cursos.Last().AgregarAlumno(fer);
+
+            Assert.AreEqual("Cursando", articulador.EstadoDelAlumno(alumno, repo_cursos, cursos).Descripcion);
+
+        }
+
+        [TestMethod]
+        public void deberia_poder_saber_el_ciclo_que_esta_cursando_un_alumno()
+        {
+            var alumno = TestObjects.AlumnoDelCurso();
+            var articulador = new Articulador();
+            var repo_cursos = new RepositorioDeCursos(conexionMock);
+            var fer = TestObjects.AlumnoFer();
+            var cursos = TestObjects.UnListadoDeCursoConEdificios();
+            cursos.First().AgregarAlumno(fer);
+            cursos.Last().AgregarAlumno(fer);
+
+            Assert.AreEqual("1er Ciclo", articulador.CicloDelAlumno(alumno, repo_cursos, cursos).Nombre);
+
+        }
+
     }
 }

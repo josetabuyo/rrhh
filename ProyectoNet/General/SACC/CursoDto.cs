@@ -12,8 +12,10 @@ namespace General
         public List<HorarioDto> Horarios { get; set; }
         public List<Alumno> Alumnos { get; set; }
         public EspacioFisico EspacioFisico { get; set; }
+        public string EstadoDelAlumno { get; set; }
         public string FechaInicio { get; set; }
         public string FechaFin { get; set; }
         public string Observaciones { get; set; }
+        public bool EnCurso { get; set; }
     }
 }
