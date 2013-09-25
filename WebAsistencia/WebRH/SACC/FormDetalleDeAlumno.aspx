@@ -37,7 +37,7 @@
             <div class="fila_impar">
                 <div class="contenedor_celda">
                     <span class="titulo">DNI:</span>
-                    <span id="dni" class="dato"> 25.315.235</span>
+                    <span id="dni" class="dato"> </span>
                 </div>
                 <div class="contenedor_celda">
                     <span class="titulo">Perfil:</span>
@@ -47,17 +47,17 @@
             <div class="fila_par">
                 <div class="contenedor_celda">
                     <span class="titulo">T&eacute;lefono:</span>
-                    <span id="telefono" class="dato"> 4444-4444</span>
+                    <span id="telefono" class="dato"></span>
                 </div>
                 <div class="contenedor_celda">
                     <span class="titulo">Modalidad:</span>
-                    <span id="modalidad" class="dato"> Fines CENS</span>
+                    <span id="modalidad" class="dato"></span>
                 </div>
             </div>
             <div class="fila_impar">
                 <div class="contenedor_celda">
                     <span class="titulo">Celular:</span>
-                    <span id="celular" class="dato"> 15-4444-4444</span>
+                    <span id="celular" class="dato"></span>
                 </div>
                 <div class="contenedor_celda">
                     <span class="titulo">Estado:</span>
@@ -67,31 +67,31 @@
             <div class="fila_par">
                 <div class="contenedor_celda">
                     <span class="titulo">Mail:</span>
-                    <span id="mail" class="dato"> carla@gmail.com</span>
+                    <span id="mail" class="dato"></span>
                 </div>
                 <div class="contenedor_celda">
                     <span class="titulo">Cursando A&ntilde;o:</span>
-                    <span id="anio_cursando" class="dato"> 2do a&ntilde;o</span>
+                    <span id="anio_cursando" class="dato"> </span>
                 </div>
             </div>
             <div class="fila_impar">
                 <div class="contenedor_celda">
                     <span class="titulo">Direccion:</span>
-                    <span id="direccion" class="dato">Av. Alvear 2145 Piso 4 dto B</span>
+                    <span id="direccion" class="dato"></span>
                 </div>
                 <div class="contenedor_celda">
                     <span class="titulo">Tutor:</span>
-                    <span id="tutor" class="dato"> Juan Perez</span>
+                    <span id="tutor" class="dato"> </span>
                 </div>
             </div>
             <div class="fila_par">
                 <div class="contenedor_celda">
                     <span class="titulo">Fecha Nac.:</span>
-                    <span id="fecha_nac" class="dato"> 10/08/1984</span>
+                    <span id="fecha_nac" class="dato"> </span>
                 </div>
                 <div class="contenedor_celda">
                     <span class="titulo">Fecha Ingreso:</span>
-                    <span id="fecha_ingreso" class="dato"> 01/01/2012</span>
+                    <span id="fecha_ingreso" class="dato"> </span>
                 </div>
             </div>
         </div>
@@ -127,14 +127,14 @@
             <h2 class="sub_eval">Perfil</h2> 
         <div  class="content">
          <ul>
-                <li>Asistencia: <small>Viene siempre</small></li>
-                <li>Puntulidad: <small>Suele llegar tarde los dias martes por problemas personales</small></li>    
-                <li>Nivel de Compromiso: <small>Alto</small></li>
-                <li>Participación: <small>Media</small></li>
-                <li>Cumplimiento con las Tareas: <small>Cumple siempre con la tarea</small></li>
-                <li>Integración al Grupo: <small>Es solitario</small></li>
-                <li>Respeta las Normas de Convivencia: <small>Suele respetar las normas</small></li>
-                <li>Responsabilidad: <small>Muy responsable</small></li>
+                <li>Asistencia: <small>Sin informaci&oacute;n</small></li>
+                <li>Puntulidad: <small>Sin informaci&oacute;n</small></li>    
+                <li>Nivel de Compromiso: <small>Sin informaci&oacute;n</small></li>
+                <li>Participación: <small>Sin informaci&oacute;n</small></li>
+                <li>Cumplimiento con las Tareas: <small>Sin informaci&oacute;n</small></li>
+                <li>Integración al Grupo: <small>Sin informaci&oacute;n</small></li>
+                <li>Respeta las Normas de Convivencia: <small>Sin informaci&oacute;n</small></li>
+                <li>Responsabilidad: <small>Sin informaci&oacute;n</small></li>
             </ul>
         </div>
 

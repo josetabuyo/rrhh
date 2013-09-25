@@ -257,6 +257,12 @@ text-align: right;
             border-radius: 8px;
             border-radius: 8px;
             
+        /*ESTO ES PARA VER EL SOMBREADO EN IE*/
+       
+        position: relative;
+	    z-index:99;
+        behavior: url(../Estilos/css3_for_ie/PIE.htc);
+            
         }
         
         ul.tabs li a 

@@ -33,8 +33,8 @@
                     alertify.alert("Las contrase&ntilde;as no coinciden");
                     return;
                 }
-//FC: agregar estas validaciones cuando salgamos a produccion
-                if (pass_nueva.lenght == 8) {
+                //FC: agregar estas validaciones cuando salgamos a produccion
+                if (pass_nueva.length != 8) {
                     alertify.alert("La contrase&ntilde;a debe ser de 8 d&iacute;gitos ");
                     return;
                 }
@@ -42,6 +42,7 @@
                 var matches = pass_nueva.match(/\d+/g);
                 if (matches == null) {
                     alertify.alert('La contrase&ntilde;a debe tener algun n&uacute;mero');
+                    return false;
                 }
 
                 var data_post = JSON.stringify({
@@ -63,6 +64,9 @@
 
                             alertify.alert("Se cambio la contrase&ntilde;a correctamente");
                             $(".modal_close").click();
+                            $('#pass_actual').val("");
+                            $('#pass_nueva').val("");
+                            $('#pass_nueva_repetida').val("");
                             return;
                         }
 
