@@ -13,6 +13,7 @@ using General.Modi;
 using System.Net;
 using System.Net.Mail;
 using System.Xml.Serialization;
+using AdministracionDeUsuarios;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -1745,7 +1746,41 @@ public class WSViaticos : System.Web.Services.WebService
 
 #endregion
 
+    #region mau
+    [WebMethod]
+    public List<AdministracionDeUsuarios.Permiso> GetPermisosPara(string usuario)
+    {
+        var funcionalidades = GetFuncionalidades();
+        var permisos = new List<AdministracionDeUsuarios.Permiso>() { new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First(), new List<AdministracionDeUsuarios.Permiso>()) };
+        return permisos;
+    }
 
+
+    [WebMethod]
+    public Funcionalidad[] GetFuncionalidades()
+    {
+        var rrhh = new Funcionalidad("RRHH");
+        var web = new Funcionalidad("Web");
+        var asistencia = new Funcionalidad("Asistencia");
+        var sacc = new Funcionalidad("SACC");
+        var sicoi = new Funcionalidad("SICOI");
+        var viaticos = new Funcionalidad("Viaticos");
+
+        rrhh.AgregarFuncionalidad(web);
+        rrhh.AgregarFuncionalidad(asistencia);
+        rrhh.AgregarFuncionalidad(sacc);
+        rrhh.AgregarFuncionalidad(sicoi);
+        rrhh.AgregarFuncionalidad(viaticos);
+
+        viaticos.AgregarFuncionalidad(new Funcionalidad("Pedir viatico"));
+        viaticos.AgregarFuncionalidad(new Funcionalidad("Autorizar viatico"));
+
+        return new Funcionalidad[]  { rrhh };
+    }
+
+
+
+    #endregion
 
     [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)

@@ -8,9 +8,9 @@ namespace TestAdministracionDeUsuarios
 {
     public class TestObjects
     {
-        public static Autorizador Autorizador()
+        public static AutorizadorFuncionalidades Autorizador()
         {
-            return new Autorizador(PermisosJuanLeeLegajos());
+            return new AutorizadorFuncionalidades(PermisosJuanLeeLegajos());
         }
 
         protected static Dictionary<string, List<Permiso>> PermisosJuanLeeLegajos()

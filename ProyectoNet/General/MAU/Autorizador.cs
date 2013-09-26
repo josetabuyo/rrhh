@@ -6,7 +6,7 @@ using ExtensionesDeLista;
 
 namespace AdministracionDeUsuarios
 {
-    public class Autorizador
+    public class AutorizadorFuncionalidades
     {
         /// <summary>
         /// ejemplo
@@ -14,7 +14,7 @@ namespace AdministracionDeUsuarios
         /// </summary>
         protected Dictionary<string, List<Permiso>> permisos;
 
-        public Autorizador(Dictionary<string, List<Permiso>> permisos)
+        public AutorizadorFuncionalidades(Dictionary<string, List<Permiso>> permisos)
         {
             this.permisos = permisos;
         }

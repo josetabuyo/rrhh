@@ -11,7 +11,21 @@ namespace AdministracionDeUsuarios
         protected List<Funcionalidad> sub_funcionalidades;
         protected int profundidad_en_el_arbol;
 
-        public Funcionalidad(string nombre, int profundidad_en_el_arbol = 1)
+        public Funcionalidad()
+        {
+        }
+
+        public Funcionalidad(string nombre)
+        {
+            Inicializar(nombre, 1);
+        }
+
+        public Funcionalidad(string nombre, int profundidad_en_el_arbol)
+        {
+            Inicializar(nombre, profundidad_en_el_arbol);
+        }
+
+        private void Inicializar(string nombre, int profundidad_en_el_arbol)
         {
             this.nombre = nombre;
             this.sub_funcionalidades = new List<Funcionalidad>();

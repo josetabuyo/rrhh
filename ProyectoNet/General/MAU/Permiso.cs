@@ -20,6 +20,10 @@ namespace AdministracionDeUsuarios
         public static string CONCEDIDO = "Concedido";
         public static string DENEGADO = "Denegado";
 
+        public Permiso()
+        {
+        }
+
         public Permiso(string tipo, Funcionalidad funcionalidad, List<Permiso> sub_permisos)
         {
             this.tipo = tipo;
