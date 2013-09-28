@@ -992,14 +992,14 @@ public class WSViaticos : System.Web.Services.WebService
             if (a.Valor == "-" || a.Valor == "")
                 asistencias_nuevas.Add(new AcumuladorHorasDiaNoCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
             else
-                asistencias_nuevas.Add(new AcumuladorHorasDiaCursado(a.Id, int.Parse(a.Valor), 0, a.Fecha, a.IdAlumno, a.IdCurso));
+                asistencias_nuevas.Add(new AcumuladorHorasDiaCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
         }
         foreach (var a in asistencias_originales_dto)
         {
             if (a.Valor == "-" || a.Valor == "")
                 asistencias_originales.Add(new AcumuladorHorasDiaNoCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
             else
-                asistencias_originales.Add(new AcumuladorHorasDiaCursado(a.Id, int.Parse(a.Valor), 0, a.Fecha, a.IdAlumno, a.IdCurso));
+                asistencias_originales.Add(new AcumuladorHorasDiaCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
         }
         RepoAsistencias().GuardarAsistencias(asistencias_nuevas, asistencias_originales, usuarioLogueado);
         return null;
@@ -1010,7 +1010,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var detalle_asistencias = new List<DetalleAsistenciasPorAlumno>();
         var horas_catedra = 0;
-
         var curso = RepositorioDeCursos().GetCursoById(id_curso);
 
         DateTime fecha_inicio_planilla = curso.FechaInicio > fecha_desde ? curso.FechaInicio : fecha_desde;
@@ -1025,6 +1024,31 @@ public class WSViaticos : System.Web.Services.WebService
 
         var asistencias = RepoAsistencias().GetAsistencias();
         var alumnos = curso.Alumnos();
+
+        foreach (var a in alumnos)
+        {
+            int asist_per = 0;
+            int inasist_per = 0;
+            int asist_acum = 0;
+            int inasist_acum = 0;
+            var asist_dto = new List<AcumuladorDto>();
+            //ver asistencias a dto
+            var asist = asistencias.FindAll(x => x.IdAlumno.Equals(a.Id) && x.Fecha >= fecha_inicio_planilla && x.Fecha <= fecha_fin_planilla);
+            foreach (var item in asist)
+            {
+                asist_per = item.AcumularHorasAsistidas(asist_per);
+                inasist_per = item.AcumularHorasNoAsistidas(inasist_per);
+                //
+                asist_dto.Add(new AcumuladorDto(){ Id = item.Id, Fecha = item.Fecha, IdAlumno = item.IdAlumno, IdCurso = item.IdCurso, Valor = item.Valor});
+            }
+            var detalle_asist = new DetalleAsistenciasPorAlumno() { 
+                    Asistencias = asist_dto.ToArray(), 
+                    AsistenciasPeriodo = asist_per, 
+                    InasistenciasPeriodo = inasist_per
+            };
+            detalle_asistencias.Add(detalle_asist);
+        }
+
         var horarios_de_cursada = curso.GetHorariosDeCursada();
         var fechas_planilla = new List<FechaDeCursada>();
         dias_curso.ForEach(d => horas_catedra += horarios_de_cursada.Find(h => h.Dia.Equals(d.DayOfWeek)).HorasCatedra);

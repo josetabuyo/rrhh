@@ -5,9 +5,9 @@ using System.Text;
 
 public class DetalleAsistenciasPorAlumno
 {
-    AcumuladorDto[] Asistencias { get; set; }
-    float AsistenciasPeriodo { get; set; }
-    float AsistenciasTotal { get; set; }
-    float InasistenciasPeriodo { get; set; }
-    float InasistenciasTotal { get; set; }
+    public AcumuladorDto[] Asistencias { get; set; }
+    public int AsistenciasPeriodo { get; set; }
+    public int AsistenciasTotal { get; set; }
+    public int InasistenciasPeriodo { get; set; }
+    public int InasistenciasTotal { get; set; }
 }

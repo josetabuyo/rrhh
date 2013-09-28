@@ -27,19 +27,19 @@ namespace General
         private int id_alumno;
         private int id_curso;
 
-        public AcumuladorHorasDiaCursado(int valor, int horas_maximas)
+        public AcumuladorHorasDiaCursado(string valor, int horas_maximas)
         {
-            this.valor = valor;
+            this.Valor = valor;
             this.horas_maximas = horas_maximas;
         }
 
-        public AcumuladorHorasDiaCursado(int id, int valor, int horas_maximas, DateTime fecha, int id_alumno, int id_curso)
+        public AcumuladorHorasDiaCursado(int id, string valor, int horas_maximas, DateTime fecha, int id_alumno, int id_curso)
         {
-            this.valor = valor;
+            this.Valor = valor;
             this.horas_maximas = horas_maximas;
-            this.fecha = fecha;
-            this.id_alumno = id_alumno;
-            this.id_curso = id_curso;
+            this.Fecha = fecha;
+            this.IdAlumno = id_alumno;
+            this.IdCurso = id_curso;
         }
         public override int HorasNoAsistidas()
         {

@@ -52,7 +52,7 @@ namespace General.Repositorios
                 }
                 else
                 {
-                    asistencia = new AcumuladorHorasDiaCursado(id, int.Parse(valor), horas_maximas, fecha, id_alumno, id_curso);
+                    asistencia = new AcumuladorHorasDiaCursado(id, valor, horas_maximas, fecha, id_alumno, id_curso);
                 }
                     
                 asistencias.Add(asistencia);
@@ -84,22 +84,28 @@ namespace General.Repositorios
         {
             var asistencias_nuevas = lista_nueva.FindAll(a_nue => 
                 {
-                    return !lista_original.Exists(a_ant => a_ant.Id.Equals(a_nue.Id));
+                    return lista_original.Exists(a_ant => 
+                        a_ant.IdAlumno.Equals(a_nue.IdAlumno) && 
+                        a_ant.IdCurso.Equals(a_nue.IdCurso) && 
+                        a_ant.Fecha.Equals(a_nue.Fecha) &&
+                        a_ant.Valor != a_nue.Valor
+                        );
                 });
             return asistencias_nuevas;
         }
 
         public List<Acumulador> AsistenciasParaDarDeBaja(List<Acumulador> lista_nueva, List<Acumulador> lista_original)
         {
-            var query1 = lista_nueva.Where(e1 => {
-                var res = lista_original.Exists(e2 => {
-                    var res2 = e2.Id.Equals(e1.Id) && e2.Valor != e1.Valor;
-                    return res2;
-                });
-                return res;
+            var asistencias_a_dar_de_baja = lista_original.FindAll(a_ant =>
+            {
+                return a_ant.Id > 0 && lista_nueva.Exists(a_nue =>
+                    a_nue.IdAlumno.Equals(a_ant.IdAlumno) &&
+                    a_nue.IdCurso.Equals(a_ant.IdCurso) &&
+                    a_nue.Fecha.Equals(a_ant.Fecha) &&
+                    a_nue.Valor != a_ant.Valor
+                    );
             });
-
-            return query1.ToList();
+            return asistencias_a_dar_de_baja;
         }
 
         private int BorrarAsistencia(Acumulador a, Usuario usuario, int idBaja)
@@ -109,7 +115,7 @@ namespace General.Repositorios
             parametros.Add("@id_alumno", a.IdAlumno);
             parametros.Add("@id_curso", a.IdCurso);
             parametros.Add("@valor", a.Valor);
-            parametros.Add("@fecha", DateTime.Today);
+            parametros.Add("@fecha", a.Fecha);
             parametros.Add("@id_usuario", usuario.Id);
             if (idBaja != 0)
                 parametros.Add("@id_baja", idBaja);
@@ -120,15 +126,14 @@ namespace General.Repositorios
         private int GuardarAsistencia(Acumulador a, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id", a.Id);
             parametros.Add("@id_alumno", a.IdAlumno);
             parametros.Add("@id_curso", a.IdCurso);
             parametros.Add("@valor", a.Valor);
-            parametros.Add("@fecha", DateTime.Today);
+            parametros.Add("@fecha", a.Fecha);
             parametros.Add("@id_usuario", usuario.Id);
 
-
-            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Asistencia_2", parametros);
+            var res = (int)conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Asistencia_2", parametros);
+            return res;
         }
 
         private int CrearBaja(Usuario usuario)

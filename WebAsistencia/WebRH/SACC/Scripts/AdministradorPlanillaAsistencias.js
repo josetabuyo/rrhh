@@ -21,27 +21,35 @@ var AdministradorPlanilla = function () {
             row.Alumno = { html: alumnos[i].Nombre + ' ' + alumnos[i].Apellido };
             for (var j = 0; j < diasCursados.length; j++) {
                 //AcumuladorDto
-                var asistencia = Enumerable.From(detalle_asistencias.Asistencias)
-                .Where(function (x) { return x.Fecha == diasCursados[j].Fecha && x.IdAlumno == alumnos[i].id });
-                if (asistencia.length > 0)
-                    row.DetalleAsistencias.push(new BotonAsistencia(asistencia.First().Id, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, asistencia.First().Valor, diasCursados[j].HorasCatedra));
-                else
-                    row.DetalleAsistencias.push(new BotonAsistencia(0, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, '', diasCursados[j].HorasCatedra));
+                for (var a = 0; a < detalle_asistencias.length; a++) {
+                    var detalle_asistencia_alumno = detalle_asistencias[i];
+                    var asistencia = Enumerable.From(detalle_asistencia_alumno.Asistencias)
+                        .Where(function (x) {
+                            return x.Fecha == diasCursados[j].Fecha && x.IdAlumno == alumnos[i].Id
+                        });
+                    if (asistencia.Count() > 0)
+                        row.DetalleAsistencias.push(new BotonAsistencia(asistencia.First().Id, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, asistencia.First().Valor, diasCursados[j].HorasCatedra));
+                    else
+                        row.DetalleAsistencias.push(new BotonAsistencia(0, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, '', diasCursados[j].HorasCatedra));
+                }
             }
-            var detalle_asistencias_acumuladas = Enumerable.From(detalle_asistencias.Asistencias)
+            for (var a = 0; a < detalle_asistencias.length; a++) {
+                var detalle_asistencia_alumno = detalle_asistencias[i];
+                var detalle_asistencias_acumuladas = Enumerable.From(detalle_asistencia_alumno.Asistencias)
                 .Where(function (x) { return x.IdAlumno == alumnos[i].id });
-            if (detalle_asistencias_acumuladas.length > 0) {
-                var detalle_asistencia = detalle_asistencias_acumuladas.First();
-                row.AsistenciasPeriodo = detalle_asistencia.AsistenciasPeriodo;
-                row.InasistenciasPeriodo = detalle_asistencia.InAsistenciasPeriodo;
-                row.AsistenciasTotal = detalle_asistencia.AsistenciasTotal + " (" + ((detalle_asistencia.AsistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
-                row.InasistenciasTotal = detalle_asistencia.InasistenciasTotal + " (" + ((detalle_asistencia.InasistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
-            } else {
-                row.AsistenciasPeriodo = '';
-                row.InasistenciasPeriodo = '';
-                row.AsistenciasTotal = '';
-                row.InasistenciasTotal = '';
+                if (detalle_asistencias_acumuladas.Count() > 0) {
+                    var detalle_asistencia = detalle_asistencias_acumuladas.First();
+                    row.AsistenciasPeriodo = detalle_asistencia.AsistenciasPeriodo;
+                    row.InasistenciasPeriodo = detalle_asistencia.InAsistenciasPeriodo;
+                    row.AsistenciasTotal = detalle_asistencia.AsistenciasTotal + " (" + ((detalle_asistencia.AsistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
+                    row.InasistenciasTotal = detalle_asistencia.InasistenciasTotal + " (" + ((detalle_asistencia.InasistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
+                } else {
+                    row.AsistenciasPeriodo = '';
+                    row.InasistenciasPeriodo = '';
+                    row.AsistenciasTotal = '';
+                    row.InasistenciasTotal = '';
 
+                }
             }
             rows.push(row);
         }

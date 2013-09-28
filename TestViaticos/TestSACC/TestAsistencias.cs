@@ -16,7 +16,7 @@ namespace TestViaticos
         [TestMethod]
         public void dado_un_dia_cursado_de_tres_horas_y_un_alumno_que_estuvo_presente_una_hora_deberia_poder_saber_cuantas_horas_no_asistio()
         {
-            var valor_propio = 1;
+            var valor_propio = "1";
             var horas_del_dia_cursado = 3;
 
             var obj_acumulador_una_hora = new AcumuladorHorasDiaCursado(valor_propio, horas_del_dia_cursado);
@@ -26,7 +26,7 @@ namespace TestViaticos
         [TestMethod]
         public void dados_dos_dias_cursados_de_tres_horas_y_un_alumno_que_estuvo_presente_una_hora_en_cada_dia_deberia_poder_saber_cuantas_horas_no_asistio()
         {
-            var valor_propio = 1;
+            var valor_propio = "1";
             var horas_del_dia_cursado = 3;
             var obj_acumulador_primer_dia = new AcumuladorHorasDiaCursado(valor_propio, horas_del_dia_cursado);
             var obj_acumulador_segundo_dia = new AcumuladorHorasDiaCursado(valor_propio, horas_del_dia_cursado);
@@ -37,7 +37,7 @@ namespace TestViaticos
         [TestMethod]
         public void dados_dos_dias_cursados_de_tres_horas_y_un_alumno_que_no_estuvo_presente_ningun_dia_deberia_poder_saber_cuantas_horas_no_asistio()
         {
-            var valor_propio = 0;
+            var valor_propio = "0";
             var horas_del_dia_cursado = 3;
             var obj_acumulador_primer_dia = new AcumuladorHorasDiaCursado(valor_propio, horas_del_dia_cursado);
             var obj_acumulador_segundo_dia = new AcumuladorHorasDiaCursado(valor_propio, horas_del_dia_cursado);
