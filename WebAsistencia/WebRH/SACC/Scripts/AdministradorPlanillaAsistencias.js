@@ -36,13 +36,13 @@ var AdministradorPlanilla = function () {
             for (var a = 0; a < detalle_asistencias.length; a++) {
                 var detalle_asistencia_alumno = detalle_asistencias[i];
                 var detalle_asistencias_acumuladas = Enumerable.From(detalle_asistencia_alumno.Asistencias)
-                .Where(function (x) { return x.IdAlumno == alumnos[i].id });
+                .Where(function (x) { return x.IdAlumno == alumnos[i].Id });
+
                 if (detalle_asistencias_acumuladas.Count() > 0) {
-                    var detalle_asistencia = detalle_asistencias_acumuladas.First();
-                    row.AsistenciasPeriodo = detalle_asistencia.AsistenciasPeriodo;
-                    row.InasistenciasPeriodo = detalle_asistencia.InAsistenciasPeriodo;
-                    row.AsistenciasTotal = detalle_asistencia.AsistenciasTotal + " (" + ((detalle_asistencia.AsistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
-                    row.InasistenciasTotal = detalle_asistencia.InasistenciasTotal + " (" + ((detalle_asistencia.InasistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
+                    row.AsistenciasPeriodo = detalle_asistencias[i].AsistenciasPeriodo;
+                    row.InasistenciasPeriodo = detalle_asistencias[i].InasistenciasPeriodo;
+                    row.AsistenciasTotal = detalle_asistencias[i].AsistenciasTotal + " (" + ((detalle_asistencias[i].AsistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
+                    row.InasistenciasTotal = detalle_asistencias[i].InasistenciasTotal + " (" + ((detalle_asistencias[i].InasistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
                 } else {
                     row.AsistenciasPeriodo = '';
                     row.InasistenciasPeriodo = '';
@@ -112,7 +112,7 @@ var AdministradorPlanilla = function () {
             asistencias_nuevas: JSON.stringify(asistencias_nuevas),
             asistencias_originales: JSON.stringify(asistencias_originales)
         };
-        alert(JSON.stringify(data_post));
+
         $.ajax({
             url: "../AjaxWS.asmx/GuardarAsistencias",
             type: "POST",
@@ -143,7 +143,7 @@ var AdministradorPlanilla = function () {
         }
 
         columnas.push(new Columna("Asistencias <br>del mes", { generar: function (row) { return row.AsistenciasPeriodo } }));
-        columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (row) { return row.InAsistenciasPeriodo } }));
+        columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (row) { return row.InasistenciasPeriodo } }));
         //toFixed
         columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (row) { return '<label class="acumuladas">' + row.AsistenciasTotal + "</label>" } }));
         columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (row) { return '<label class="acumuladas">' + row.InasistenciasTotal + "</label>" } }));

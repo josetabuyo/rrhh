@@ -5,6 +5,7 @@ using System.Text;
 
 public class DetalleAsistenciasPorAlumno
 {
+    public int IdAlumno { get; set; }
     public AcumuladorDto[] Asistencias { get; set; }
     public int AsistenciasPeriodo { get; set; }
     public int AsistenciasTotal { get; set; }

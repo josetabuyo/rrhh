@@ -36,10 +36,12 @@ namespace General
         public AcumuladorHorasDiaCursado(int id, string valor, int horas_maximas, DateTime fecha, int id_alumno, int id_curso)
         {
             this.Valor = valor;
+            this.valor = int.Parse(valor);
             this.horas_maximas = horas_maximas;
             this.Fecha = fecha;
             this.IdAlumno = id_alumno;
             this.IdCurso = id_curso;
+            this.Id = id;
         }
         public override int HorasNoAsistidas()
         {

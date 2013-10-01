@@ -1034,6 +1034,7 @@ public class WSViaticos : System.Web.Services.WebService
             var asist_dto = new List<AcumuladorDto>();
             //ver asistencias a dto
             var asist = asistencias.FindAll(x => x.IdAlumno.Equals(a.Id) && x.Fecha >= fecha_inicio_planilla && x.Fecha <= fecha_fin_planilla);
+            var asist_totales = asistencias.FindAll(x => x.IdAlumno.Equals(a.Id) && x.Fecha >= curso.FechaInicio && x.Fecha <= fecha_fin_planilla);
             foreach (var item in asist)
             {
                 asist_per = item.AcumularHorasAsistidas(asist_per);
@@ -1041,10 +1042,18 @@ public class WSViaticos : System.Web.Services.WebService
                 //
                 asist_dto.Add(new AcumuladorDto(){ Id = item.Id, Fecha = item.Fecha, IdAlumno = item.IdAlumno, IdCurso = item.IdCurso, Valor = item.Valor});
             }
+            foreach (var item in asist_totales)
+            {
+                asist_acum = item.AcumularHorasAsistidas(asist_acum);
+                inasist_acum = item.AcumularHorasNoAsistidas(inasist_acum);
+            }
             var detalle_asist = new DetalleAsistenciasPorAlumno() { 
+                    IdAlumno = a.Id,
                     Asistencias = asist_dto.ToArray(), 
                     AsistenciasPeriodo = asist_per, 
-                    InasistenciasPeriodo = inasist_per
+                    InasistenciasPeriodo = inasist_per,
+                    AsistenciasTotal = asist_acum,
+                    InasistenciasTotal = inasist_acum
             };
             detalle_asistencias.Add(detalle_asist);
         }

@@ -30,9 +30,10 @@ namespace General.Repositorios
 
         public List<Acumulador> GetAsistenciasFromTabla(TablaDeDatos tablaAsistencias)
         {
+            var repo_curso = new RepositorioDeCursos(this.conexion_bd);
             List<Acumulador> asistencias = new List<Acumulador>();
             Acumulador asistencia;
-            int horas_maximas = 3;
+            int horas_maximas = 0;
             DateTime fecha;
             string valor;
             int id;
@@ -45,7 +46,7 @@ namespace General.Repositorios
                 valor = row.GetString("Valor");
                 id_curso = row.GetSmallintAsInt("IdCurso");
                 id_alumno = row.GetSmallintAsInt("IdAlumno");
-                
+                horas_maximas = repo_curso.GetCursoById(id_curso).GetHorariosDeCursada().Find(h => h.Dia.Equals(fecha.DayOfWeek)).HorasCatedra;
                 if (valor.Equals("-"))
                 {
                     asistencia = new AcumuladorHorasDiaNoCursado(id, valor, horas_maximas, fecha, id_alumno, id_curso);
@@ -84,7 +85,7 @@ namespace General.Repositorios
         {
             var asistencias_nuevas = lista_nueva.FindAll(a_nue => 
                 {
-                    return lista_original.Exists(a_ant => 
+                    return a_nue.Valor != "" && lista_original.Exists(a_ant => 
                         a_ant.IdAlumno.Equals(a_nue.IdAlumno) && 
                         a_ant.IdCurso.Equals(a_nue.IdCurso) && 
                         a_ant.Fecha.Equals(a_nue.Fecha) &&
