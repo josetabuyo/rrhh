@@ -6,12 +6,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Login - Sistema RRHH</title>
-    <script type="text/javascript" src="bootstrap/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/jquery-ui-1.8.21.custom.min.js"></script>
-    <link id="link2" rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <link id="link1" rel="stylesheet" href="~/Estilos/estilos-custom.css" type="text/css"
-        runat="server" />
+    <%= Referencias.Css("")%>
+    <link id="link1" rel="stylesheet" href="~/Estilos/estilos-custom.css" type="text/css" />
    
 </head>
 <body id="bodyLogin">
@@ -34,9 +30,6 @@
         </div>
     </div>
     </form>
-    <script type="text/javascript" src="bootstrap/js/bootstrap-alert.js"></script>
-    <script type="text/javascript" src="bootstrap/js/jquery.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap-button.js"></script>
-    <script type="text/javascript" src="Scripts/placeholder_ie.js"></script>
+    <%= Referencias.Javascript("") %>
 </body>
 </html>

@@ -7,11 +7,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>SICOI</title>
-    <link id="link3" rel="stylesheet" href="../Estilos/EstilosSICOI.css" type="text/css" runat="server" />
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
-    <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="../Estilos/EstilosSICOI.css" type="text/css"/>
+    <%= Referencias.Css("../")%>
     <style type="text/css">
         #uiPanelDecontrol
         {
@@ -31,7 +28,7 @@
         </asp:ScriptManager>
     </form>
 </body>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="PanelDeControlDeAlertas.js"> </script>
     <script type="text/javascript">
         $(document).ready(function () {

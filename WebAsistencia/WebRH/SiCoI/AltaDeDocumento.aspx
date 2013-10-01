@@ -7,11 +7,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>SICOI</title>
-    <link id="link3" rel="stylesheet" href="../Estilos/EstilosSICOI.css" type="text/css" runat="server" />
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
-    <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="../Estilos/EstilosSICOI.css" type="text/css" runat="server" />
+    <%= Referencias.Css("../")%>
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
@@ -124,23 +121,13 @@
                 <div id="panel_fichas">
                 </div>
             </div>
+
             <div id="plantilla_ficha_chica_de_documento" class="ficha_chica_de_documento ficha_chica_de_documento_par">
-                <%--<div id="ficha_chica_titulo_tipo">Tipo:</div>--%>
-
-
-
-
-                <div id="ficha_chica_contenido_tipo">Expediente N° 97</div>
-
-                                
-              <div id="ficha_chica_titulo_fecha_documento">Fecha:</div>    
-              <div id="ficha_chica_contenido_fecha_documento"></div>    
-
+                <div id="ficha_chica_contenido_tipo">Expediente N° 97</div>           
+                <div id="ficha_chica_titulo_fecha_documento">Fecha:</div>    
+                <div id="ficha_chica_contenido_fecha_documento"></div>    
                 <div id="ficha_chica_titulo_ticket">Ticket:</div>
-                <div id="ficha_chica_contenido_ticket">AAA036</div>    
-             
-            
-                            
+                <div id="ficha_chica_contenido_ticket">AAA036</div>                   
                 <div id="ficha_chica_titulo_categoria">Categoría:</div>
                 <div id="ficha_chica_contenido_categoria">Renuncia</div>
                 <input type="button" id="ficha_chica_boton_enviar_documento" value="Enviar" class="btn btn-mini btn-primary"/><br />
@@ -201,7 +188,6 @@
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
     <script type="text/javascript" src="../Scripts/InputSoloNumeros.js"></script>
     <script type="text/javascript" src="../Scripts/linq.min.js"></script>
-    <script type="text/javascript" src="../Scripts/select2.min.js"></script>
     <script type="text/javascript" src="PanelDeFiltrosDeDocumentos.js"></script>
     <script type="text/javascript" src="InputAutocompletableDeAreas.js"></script>
     <script type="text/javascript" src="PanelDeDocumentos.js"></script>
