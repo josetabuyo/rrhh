@@ -1008,7 +1008,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public PlanillaAsistenciasDto GetPlanillaAsistencias(int id_curso, DateTime fecha_desde, DateTime fecha_hasta)
     {
-        var detalle_asistencias = new List<DetalleAsistenciasPorAlumno>();
+        var detalle_asistencias = new List<DetalleAsistenciasDto>();
         var horas_catedra = 0;
         var curso = RepositorioDeCursos().GetCursoById(id_curso);
 
@@ -1033,8 +1033,8 @@ public class WSViaticos : System.Web.Services.WebService
             int inasist_acum = 0;
             var asist_dto = new List<AcumuladorDto>();
             //ver asistencias a dto
-            var asist = asistencias.FindAll(x => x.IdAlumno.Equals(a.Id) && x.Fecha >= fecha_inicio_planilla && x.Fecha <= fecha_fin_planilla);
-            var asist_totales = asistencias.FindAll(x => x.IdAlumno.Equals(a.Id) && x.Fecha >= curso.FechaInicio && x.Fecha <= fecha_fin_planilla);
+            var asist = asistencias.FindAll(x => x.IdCurso.Equals(curso.Id) && x.IdAlumno.Equals(a.Id) && x.Fecha >= fecha_inicio_planilla && x.Fecha <= fecha_fin_planilla);
+            var asist_totales = asistencias.FindAll(x => x.IdCurso.Equals(curso.Id) && x.IdAlumno.Equals(a.Id) && x.Fecha >= curso.FechaInicio && x.Fecha <= fecha_fin_planilla);
             foreach (var item in asist)
             {
                 asist_per = item.AcumularHorasAsistidas(asist_per);
@@ -1047,8 +1047,9 @@ public class WSViaticos : System.Web.Services.WebService
                 asist_acum = item.AcumularHorasAsistidas(asist_acum);
                 inasist_acum = item.AcumularHorasNoAsistidas(inasist_acum);
             }
-            var detalle_asist = new DetalleAsistenciasPorAlumno() { 
+            var detalle_asist = new DetalleAsistenciasDto() { 
                     IdAlumno = a.Id,
+                    IdCurso = curso.Id,
                     Asistencias = asist_dto.ToArray(), 
                     AsistenciasPeriodo = asist_per, 
                     InasistenciasPeriodo = inasist_per,

@@ -6,7 +6,7 @@ public class PlanillaAsistenciasDto
     public int CodigoError { get; set; }
     public string MensajeError { get; set; }
     public Alumno[] Alumnos { get; set; }
-    public DetalleAsistenciasPorAlumno[] DetalleAsistenciasPorAlumno { get; set; }
+    public DetalleAsistenciasDto[] DetalleAsistenciasPorAlumno { get; set; }
     public FechaDeCursada[] FechasDeCursada { get; set; }
     public int HorasCatedra { get; set; }
 

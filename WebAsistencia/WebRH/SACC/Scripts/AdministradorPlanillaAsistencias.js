@@ -1,8 +1,7 @@
-var AdministradorPlanilla = function () {
+var AdministradorPlanilla = function (curso) {
     var _this = this;
 
     _this.contenedorPlanilla = {};
-
     var contenedor_grilla = $('#ContenedorPlanilla');
     var label_horas_catedra = $('#HorasCatedraCurso');
     var label_docente = $('#Docente');
@@ -19,37 +18,36 @@ var AdministradorPlanilla = function () {
             var row = { Alumno: {}, DetalleAsistencias: [], AsistenciasPeriodo: '', InasistenciasPeriodo: '' }
             var cols = [];
             row.Alumno = { html: alumnos[i].Nombre + ' ' + alumnos[i].Apellido };
+            var detalle_asistencia_alumno = Enumerable.From(detalle_asistencias)
+                        .Where(function (x) {
+                            return x.IdAlumno == alumnos[i].Id;
+                        });
             for (var j = 0; j < diasCursados.length; j++) {
                 //AcumuladorDto
-                for (var a = 0; a < detalle_asistencias.length; a++) {
-                    var detalle_asistencia_alumno = detalle_asistencias[i];
-                    var asistencia = Enumerable.From(detalle_asistencia_alumno.Asistencias)
+                var asistencia = Enumerable.From(detalle_asistencia_alumno.First().Asistencias)
                         .Where(function (x) {
                             return x.Fecha == diasCursados[j].Fecha && x.IdAlumno == alumnos[i].Id
                         });
-                    if (asistencia.Count() > 0)
-                        row.DetalleAsistencias.push(new BotonAsistencia(asistencia.First().Id, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, asistencia.First().Valor, diasCursados[j].HorasCatedra));
-                    else
-                        row.DetalleAsistencias.push(new BotonAsistencia(0, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, '', diasCursados[j].HorasCatedra));
-                }
+                if (asistencia.Count() > 0)
+                    row.DetalleAsistencias.push(new BotonAsistencia(asistencia.First().Id, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, asistencia.First().Valor, diasCursados[j].HorasCatedra));
+                else
+                    row.DetalleAsistencias.push(new BotonAsistencia(0, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, '', diasCursados[j].HorasCatedra));
+
             }
-            for (var a = 0; a < detalle_asistencias.length; a++) {
-                var detalle_asistencia_alumno = detalle_asistencias[i];
-                var detalle_asistencias_acumuladas = Enumerable.From(detalle_asistencia_alumno.Asistencias)
-                .Where(function (x) { return x.IdAlumno == alumnos[i].Id });
 
-                if (detalle_asistencias_acumuladas.Count() > 0) {
-                    row.AsistenciasPeriodo = detalle_asistencias[i].AsistenciasPeriodo;
-                    row.InasistenciasPeriodo = detalle_asistencias[i].InasistenciasPeriodo;
-                    row.AsistenciasTotal = detalle_asistencias[i].AsistenciasTotal + " (" + ((detalle_asistencias[i].AsistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
-                    row.InasistenciasTotal = detalle_asistencias[i].InasistenciasTotal + " (" + ((detalle_asistencias[i].InasistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
-                } else {
-                    row.AsistenciasPeriodo = '';
-                    row.InasistenciasPeriodo = '';
-                    row.AsistenciasTotal = '';
-                    row.InasistenciasTotal = '';
 
-                }
+
+            if (detalle_asistencia_alumno.Count() > 0) {
+                row.AsistenciasPeriodo = detalle_asistencia_alumno.First().AsistenciasPeriodo;
+                row.InasistenciasPeriodo = detalle_asistencia_alumno.First().InasistenciasPeriodo;
+                row.AsistenciasTotal = detalle_asistencia_alumno.First().AsistenciasTotal + " (" + ((detalle_asistencia_alumno.First().AsistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
+                row.InasistenciasTotal = detalle_asistencia_alumno.First().InasistenciasTotal + " (" + ((detalle_asistencia_alumno.First().InasistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
+            } else {
+                row.AsistenciasPeriodo = '';
+                row.InasistenciasPeriodo = '';
+                row.AsistenciasTotal = '';
+                row.InasistenciasTotal = '';
+
             }
             rows.push(row);
         }

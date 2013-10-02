@@ -19,6 +19,11 @@ namespace General
         public abstract int AcumularHorasNoAsistidas(int valor_acumulado);
         public abstract int AcumularHorasAsistidas(int valor_acumulado);
 
+        public override bool Equals(object obj)
+        {
+            Acumulador a = (Acumulador)obj;
+            return this.Id == a.Id;
+        }
     }
     public class AcumuladorHorasDiaCursado:Acumulador
     {
