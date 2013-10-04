@@ -9,9 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Administrar áreas</title>
     <link id="link1" rel="stylesheet" href="Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />    
-    <link id="link4" rel="stylesheet" href="Estilos/Estilos.css" type="text/css" runat="server" /> 
-    <link id="link2" rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-    <link id="link3" rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
+    <%= Referencias.Css("")%>
 </head>
 
 <form id="form1" runat="server">

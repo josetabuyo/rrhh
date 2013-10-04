@@ -171,23 +171,8 @@
         </asp:ScriptManager>
     </form>
 </body>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>   
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../Scripts/InputAutocompletable.js"></script>
-    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
-    <script type="text/javascript" src="../Scripts/InputSoloNumeros.js"></script>
-    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
+    <%= Referencias.Javascript("../")%>
+
     <script type="text/javascript" src="PanelDeFiltrosDeDocumentos.js"></script>
     <script type="text/javascript" src="InputAutocompletableDeAreas.js"></script>
     <script type="text/javascript" src="PanelDeDocumentos.js"></script>
