@@ -7,11 +7,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Áreas</title>
         <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
-        <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-        <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" /> 
-        <link id="link3" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
-        <link id="link4" rel="stylesheet" href="ConsultaProtocolo.css" type="text/css" runat="server" />
-        <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
+        <%= Referencias.Css("../")%>
+        <link id="link1" rel="stylesheet" href="ConsultaProtocolo.css" type="text/css" runat="server" />
     </head>
     <body>
         <form id="form1" runat="server">
@@ -54,15 +51,9 @@
     <script type="text/javascript" src="Area.js"></script>
     <script type="text/javascript" src="VistaDeArea.js"></script>
     <script type="text/javascript" src="VistaDeAsistente.js"></script>
-
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
-    <script type="text/javascript" src="../Scripts/list.js"></script>
-    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+
+    <%= Referencias.Javascript("../")%>
 
     <script type="text/javascript">
         $(document).ready(function () {
