@@ -235,6 +235,12 @@ public class AjaxWS : System.Web.Services.WebService {
         return Newtonsoft.Json.JsonConvert.SerializeObject(res);
     }
 
+    [WebMethod(EnableSession = true)]
+    public string GuardarObservacionesCurso(int id_curso, string observaciones)
+    {
+        var res = backEndService.GuardarObservacionesCurso(id_curso, observaciones, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(res);
+    }
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

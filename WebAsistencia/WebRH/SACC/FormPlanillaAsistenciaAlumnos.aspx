@@ -116,6 +116,7 @@
         }
 
     }
+
     var GuardarDetalleAsistencias = function () {
         PlanillaAsistencias.guardar_asistencias();
         CargarPlanilla();

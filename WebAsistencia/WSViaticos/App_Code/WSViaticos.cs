@@ -1034,7 +1034,7 @@ public class WSViaticos : System.Web.Services.WebService
             var asist_dto = new List<AcumuladorDto>();
             //ver asistencias a dto
             var asist = asistencias.FindAll(x => x.IdCurso.Equals(curso.Id) && x.IdAlumno.Equals(a.Id) && x.Fecha >= fecha_inicio_planilla && x.Fecha <= fecha_fin_planilla);
-            var asist_totales = asistencias.FindAll(x => x.IdCurso.Equals(curso.Id) && x.IdAlumno.Equals(a.Id) && x.Fecha >= curso.FechaInicio && x.Fecha <= fecha_fin_planilla);
+            var asist_totales = asistencias.FindAll(x => x.IdCurso.Equals(curso.Id) && x.IdAlumno.Equals(a.Id) && x.Fecha >= curso.FechaInicio && x.Fecha <= fecha_hasta);
             foreach (var item in asist)
             {
                 asist_per = item.AcumularHorasAsistidas(asist_per);
@@ -1084,7 +1084,8 @@ public class WSViaticos : System.Web.Services.WebService
             HorasCatedra = horas_catedra,
             DetalleAsistenciasPorAlumno = detalle_asistencias.ToArray(),
             CodigoError = 0,
-            MensajeError = ""
+            MensajeError = "",
+            Observaciones = curso.Observaciones
         };
         return planilla_asistencias_dto;
     }
@@ -1467,6 +1468,13 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeCursos().AgregarCurso(un_curso);
     }
 
+    [WebMethod]
+    public bool GuardarObservacionesCurso(int id_curso, string observaciones)
+    {
+        var un_curso = RepositorioDeCursos().GetCursoById(id_curso);
+        un_curso.Observaciones = observaciones;
+        return RepositorioDeCursos().ModificarCurso(un_curso);
+    }
     [WebMethod]
     public bool ModificarCurso(CursoDto curso)
     {

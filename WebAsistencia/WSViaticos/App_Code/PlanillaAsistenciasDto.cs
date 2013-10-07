@@ -9,9 +9,10 @@ public class PlanillaAsistenciasDto
     public DetalleAsistenciasDto[] DetalleAsistenciasPorAlumno { get; set; }
     public FechaDeCursada[] FechasDeCursada { get; set; }
     public int HorasCatedra { get; set; }
-
+    public string Observaciones { get; set; }
     public string Docente { get; set; }
 }
+
 public class FechaDeCursada
 {
     public string Dia { get; set; }

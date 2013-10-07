@@ -5,6 +5,8 @@ var AdministradorPlanilla = function (curso) {
     var contenedor_grilla = $('#ContenedorPlanilla');
     var label_horas_catedra = $('#HorasCatedraCurso');
     var label_docente = $('#Docente');
+    var txt_observaciones = $('#TxtObservaciones');
+
     var planilla = {};
     var alumnos = {};
     var diasCursados = {};
@@ -34,8 +36,6 @@ var AdministradorPlanilla = function (curso) {
                     row.DetalleAsistencias.push(new BotonAsistencia(0, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, '', diasCursados[j].HorasCatedra));
 
             }
-
-
 
             if (detalle_asistencia_alumno.Count() > 0) {
                 row.AsistenciasPeriodo = detalle_asistencia_alumno.First().AsistenciasPeriodo;
@@ -72,7 +72,7 @@ var AdministradorPlanilla = function (curso) {
                 diasCursados = respuesta.FechasDeCursada;
                 detalle_asistencias = respuesta.DetalleAsistenciasPorAlumno;
                 horasCatedra = respuesta.HorasCatedra;
-
+                observaciones = respuesta.Observaciones;
                 generar_filas(respuesta);
                 _this.dibujar_planilla();
                 _this.completar_datos_curso_seleccionado();
@@ -130,6 +130,8 @@ var AdministradorPlanilla = function (curso) {
     _this.completar_datos_curso_seleccionado = function () {
         label_docente.text(docente);
         label_horas_catedra.text(horasCatedra);
+        txt_observaciones.text(observaciones);
+
     }
     _this.dibujar_planilla = function () {
         contenedor_grilla.html("");
