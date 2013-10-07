@@ -6,15 +6,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title></title>
+    <link id="link9" rel="stylesheet" href="Estilos/EstilosSACC.css"  type="text/css" runat="server"/>
     <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
     <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+     <script type="text/javascript" src="Scripts/modernizr.custom.js" ></script>
 <%--    <meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
 		<style>
 			canvas{}
 		</style>--%>
+
+ <style type="text/css"> 
+         
+    .encabezado_fecha
+    {
+        text-align:center;        
+        visibility:visible;
+        background-color: transparent !important;
+        color: White !important;
+        border: none !important;
+        cursor:default !important;
+        width: 80px;
+        margin-top:6px;
+    }
+    .nota_no_valida, .fecha_no_valida
+    {
+        background-color: #FF3300 !important;
+    }
+    .text_2caracteres
+    {
+        max-width: 20px;
+        margin-left: 3px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(67, 58, 116)!important;
+    }
+    .text_10caracteres
+    {
+        max-width: 100px;
+        margin-left: 17px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: rgb(67, 58, 116)!important;
+    }
+    
+    .text_2caracteres:hover, .text_10caracteres:hover 
+    {     
+        border-color: rgb(255, 187, 187)!important;
+    }
+    </style>
    
 </head>
 <body class="marca_de_agua">
@@ -24,36 +66,65 @@
     
     <div id="panelAlumno"  class="div_izquierdo">
         <fieldset>
-            <legend class="subtitulos">Reportes de Alumnos</legend>
+            <legend class="subtitulos">Reportes</legend>
 
-            <div class="estilo_formulario" style="width:15%; margin-left: 1%; float: left; height: 250px;">
-               <legend>Reportes</legend>
+            <div class="estilo_formulario">
+               <div class="container">
+                <div class="main">
+                    <section>
+                        <input id="showLeft" style="margin: 5px;" class="btn btn-primary " type="button" value="Ver Reportes" ></input>
+                    </section>   
+                </div>
+            </div>
+             <input type="hidden" class="btn btn-primary " id="accion" value="" runat="server" />
+               <nav class="cbp-spmenu cbp-spmenu-left" id="cbp-spmenu-s1">
+                    <h3>Alumnos</h3>
+                    <div class="cbp-spmenu-vertical">
+                    <a href="FormPlanillaDeReportesAlumnos.aspx?accion=modalidad">Por Modalidad</a>
+                    <a href="FormPlanillaDeReportesAlumnos.aspx?accion=ciclo">Por Ciclo</a>
+                    <a href="FormPlanillaDeReportesAlumnos.aspx?accion=organismo">Por Organismo</a>
+                    <a href="FormPlanillaDeReportesAlumnos.aspx?accion=materia">Materia Sin Cursar</a>
+                    </div>
+                    <h3>Materias</h3>
+                     <div class="cbp-spmenu-vertical">
+                    <a href="FormPlanillaDeReportesAlumnos.aspx?accion=materia">Por Materias</a>
+                    </div>
+                </nav>
+               
+
+              <%-- <legend>Reportes</legend>--%>
                 <%--<p><asp:Button ID="btn_modalidad" Text="Por Modalidad" runat="server" OnClick="btnBuscarPorModalidad_Click" class=" btn btn-primary" style= "width: 100%;" /></p>--%>
-                <p><input id="btn_modalidad" type="button" value="Por Modalidad" onclick="javascript:BuscarPorModalidad();" style="width: 100%;" class="btn btn-primary" /><p>
+                <%--<p><input id="btn_modalidad" type="button" value="Por Modalidad" onclick="javascript:BuscarPorModalidad();" style="width: 100%;" class="btn btn-primary" /><p>
                 <p><asp:Button ID="btn_ciclo"   Text="Por Ciclo" runat="server" OnClick="btnBuscarPorCiclo_Click" class=" btn btn-primary" style="width: 100%;" /></p>
                 <p><asp:Button ID="btn_organismo" Text="Por Organismo" runat="server" OnClick="btnBuscarPorOrganismo_Click" class=" btn btn-primary" style="width: 100%;" /></p>
-                <p><asp:Button ID="btn_materia" Text="Materia Sin Cursar" runat="server" OnClick="btnBuscarPorMateria_Click" class=" btn btn-primary" style="width: 100%;" /></p>
+                <p><asp:Button ID="btn_materia" Text="Materia Sin Cursar" runat="server" OnClick="btnBuscarPorMateria_Click" class=" btn btn-primary" style="width: 100%;" /></p>--%>
             </div>
 
-            <div id="parametros" class="estilo_formulario" style="width:76%; margin-left: 1%; float: left; height: 250px;">
+            <div id="parametros" class="estilo_formulario" style="width:76%; margin-left: 1%; float: left; height: 250px; display: none;">
                <legend>Parámetros</legend>
-               <asp:Label ID="lblCampo" CssClass="labels_sacc" runat="server" Text="Campo:"></asp:Label>
+              <%-- <asp:Label ID="lblCampo" CssClass="labels_sacc" runat="server" Text="Campo:"></asp:Label>--%>
+
+               <label> Fecha Desde</label>
+               <input type="text" id="idFechaDesde" class="text_10caracteres hasDatepicker">
+               <label> Fecha Hasta</label>
+               <input type="text" id="idFechaHasta" class="text_10caracteres hasDatepicker">
+
                 <p><asp:DropDownList ID="cmbCampo" runat="server" enableviewstate="true">
                 <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem></asp:DropDownList></p>
-                <asp:Button ID="btnBuscarCampo" Text="Buscar" runat="server" OnClick="btnBuscarCampo_Click" class=" btn btn-primary" style="float:right;" />
+               
             </div> 
-            
+             <asp:Button ID="btnBuscarCampo" Text="Buscar" runat="server" OnClick="btnBuscarCampo_Click" class=" btn btn-primary" style="float:right;" />
             <div class="estilo_formulario" style="width:95%; margin-left: 1%; float: left; height: 450px;">
                <legend>Gráfico</legend>
                <canvas id="canvas" height="350" width="350"></canvas>
             </div> 
-                  
+                   
         </fieldset>
     </div>
 
     <div class="div_derecho">
         <fieldset>
-            <legend class="subtitulos">Listado de Alumnos</legend>
+            <legend class="subtitulos">Listado de Resultados</legend>
                 <div class="estilo_formulario" style="width:95%; overflow:auto;">
                     <div id="grillaAlumnosDisponibles" runat="server">
                         <div class="input-append" style="clear:both;">   
@@ -69,12 +140,15 @@
 
     <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
-    <asp:HiddenField ID="idFechaDesde" value="01/01/2013" runat="server" />
-    <asp:HiddenField ID="idFechaHasta" value="31/12/2013" runat="server" />
+<%--    <asp:HiddenField ID="idFechaDesde" value="01/01/2013" runat="server" />
+    <asp:HiddenField ID="idFechaHasta" value="31/12/2013" runat="server" />--%>
 
     </form>
 </body>
+   
+    <script type="text/javascript" src="Scripts/classie.js" ></script>
     <script type="text/javascript" src="../Scripts/Grilla.js"></script>
+    <script type="text/javascript" src="../SACC/Scripts/Reportes.js"></script>
     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>  
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/list.js"></script>
@@ -89,17 +163,28 @@
     <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/Chart.js"></script>
-    <script type="text/javascript" src="../SACC/Scripts/Reportes.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+
 
     
 <script type="text/javascript">
 
 
     var BuscarPorModalidad = function () {
-        
-        AdministradorPlanilla();
+
+       // HabilitarParametros();
+       // AdministradorPlanilla();
+    }
+
+    var HabilitarParametros = function () {
+        $('#btnBuscarCampo').show();
+        $('#idFechaDesde').show();
+        $('#idFechaHasta').show();
+//        $('#cmbCampo').show();
+//        $('#lblCampo').show();
+        $('#parametros').show();
+    
     }
 
 
@@ -135,10 +220,33 @@
        // var featureListAlumnosDisponibles = new List('grillaAlumnosDisponibles', options);
     };
 
-  $(document).ready(function () {
+    var DeterminarReporteEnPantalla = function (accion) {
+        if (accion == "modalidad") {
+            $('#btnBuscarCampo').show();
+        } else {
+            $('#btnBuscarCampo').show();
+        }
+
+    }
+
+    $(document).ready(function () {
+
+        DeterminarReporteEnPantalla($("#accion").val());
+
+//      $('#btnBuscarCampo').hide();
+//      $('#idFechaDesde').hide();
+//      $('#idFechaHasta').hide();
+//      $('#cmbCampo').hide();
+//      $('#lblCampo').hide();
+//      $('#parametros').hide();
+
+
       //Estilos para ver coloreada la grilla en Internet Explorer
       $("tbody tr:even").css('background-color', '#E6E6FA');
       $("tbody tr:odd").css('background-color', '#9CB3D6 ');
+
+      
+
   });
 
     
@@ -247,6 +355,25 @@
 //			];
 
 //    var myPie = new Chart(document.getElementById("canvas").getContext("2d")).Pie(pieData);
+
+
+  var menuLeft = document.getElementById('cbp-spmenu-s1'),
+        showLeft = document.getElementById('showLeft'),
+        body = document.body;
+
+  showLeft.onclick = function () {
+      classie.toggle(this, 'active');
+      classie.toggle(menuLeft, 'cbp-spmenu-open');
+      disableOther('showLeft');
+  };
+  
+  function disableOther(button) {
+      if (button !== 'showLeft') {
+          classie.toggle(showLeft, 'disabled');
+      } 
+  }
+
+
 
 </script>
 </html>

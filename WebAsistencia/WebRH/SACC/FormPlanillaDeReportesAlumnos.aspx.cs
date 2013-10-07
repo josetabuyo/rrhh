@@ -16,9 +16,43 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-            SetearLosTextBox();
+            //SetearLosTextBox();
            // this.personasJSON.Value = servicio.GetAlumnos((Usuario)Session[ConstantesDeSesion.USUARIO]);
-        } 
+        }
+
+        string accion = ObtenerAccion();
+
+        if (accion != "") 
+        {
+            CargarReporte(accion);
+        }
+       
+    }
+
+    private void CargarReporte(string accion)
+    {
+        WSViaticosSoapClient ws_viaticos = new WSViaticosSoapClient();
+        List<AlumnoDto> alumnos = new List<AlumnoDto>();
+        List<CursoDto> cursos = new List<CursoDto>();
+
+        if (accion == "modalidad")
+        {
+            CompletarComboDeModalidades();
+            cursos = ws_viaticos.ReporteAlumnosDeCursosConFecha("01/01/0000", "31/12/9999");
+            this.cursosJSON.Value = JsonConvert.SerializeObject(cursos);
+            foreach (CursoDto curso in cursos)
+	        {
+		        alumnos.AddRange(curso.Alumnos.ToList());
+	        }
+
+            this.MostrarAlumnosEnLaGrilla(alumnos.Distinct().ToList());
+        }
+    }
+
+    private string ObtenerAccion()
+    {
+        this.accion.Value = Request.QueryString["accion"];
+        return this.accion.Value;
     }
 
     protected void btnBuscarPorModalidad_Click(object sender, EventArgs e)
@@ -143,11 +177,11 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
         todos.Value = "-1";
         todos.Text = "Todos";
         this.cmbCampo.Items.Add(todos);
-        this.lblCampo.Visible = true;
+       // this.lblCampo.Visible = true;
         this.cmbCampo.Visible = true;
         this.btnBuscarCampo.Visible = true;
 
-        this.lblCampo.Text = "Cursos con Modalidad:";
+       // this.lblCampo.Text = "Cursos con Modalidad:";
         this.tipo_busqueda.Value = "1";
 
         var servicio = new WSViaticos.WSViaticosSoapClient();
@@ -194,7 +228,7 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
 
     private void SetearLosTextBox()
     {
-        this.lblCampo.Visible = false;
+        //this.lblCampo.Visible = false;
         this.cmbCampo.Visible = false;
         this.btnBuscarCampo.Visible = false;
         this.tipo_busqueda.Value = "0";
