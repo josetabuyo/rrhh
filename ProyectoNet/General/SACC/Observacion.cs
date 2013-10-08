@@ -20,17 +20,17 @@ namespace General
         private string _rta_por_mds;
         private bool _baja;
 
-        public int Id { get { return _id; } }
-        public DateTime FechaCarga { get { return _fecha_carga; }  }
-        public string Relacion { get { return _relacion; } }
-        public string PersonaCarga { get { return _persona_que_cargo; } }
-        public string Pertenece { get { return _pertenece; } }
-        public string Asunto { get { return _asunto; } }
-        public string ReferenteMDS { get { return _referente_mds; } }
-        public string Seguimiento { get { return _seguimiento; } }
-        public string Resultado { get { return _resultado; } }
-        public DateTime FechaResultado { get { return _fecha_rta; } }
-        public string ReferenteRespuestaMDS { get { return _rta_por_mds; } }
+        public int Id { get { return _id; } set { _id = value; } }
+        public DateTime FechaCarga { get { return _fecha_carga; } set { _fecha_carga = value; } }
+        public string Relacion { get { return _relacion; } set { _relacion = value; } }
+        public string PersonaCarga { get { return _persona_que_cargo; } set { _persona_que_cargo = value; } }
+        public string Pertenece { get { return _pertenece; } set { _pertenece = value; } }
+        public string Asunto { get { return _asunto; } set { _asunto = value; } }
+        public string ReferenteMDS { get { return _referente_mds; } set { _referente_mds = value; } }
+        public string Seguimiento { get { return _seguimiento; } set { _seguimiento = value; } }
+        public string Resultado { get { return _resultado; } set { _resultado = value; } }
+        public DateTime FechaResultado { get { return _fecha_rta; } set { _fecha_rta = value; } }
+        public string ReferenteRespuestaMDS { get { return _rta_por_mds; } set { _rta_por_mds = value; } }
         public bool Baja { get { return _baja; } }
 
         public Observacion() { }
@@ -49,6 +49,18 @@ namespace General
             _fecha_rta = fecha_rta;
             _rta_por_mds = rta_por_mds;
         
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (base.Equals(obj)) { return true; }
+            if (((Observacion)obj).Id == this.Id) { return true; }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this._id.GetHashCode();
         }
 
     }

@@ -138,13 +138,65 @@ namespace TestViaticos
           public void deberia_poder_obtener_las_observaciones()
           {
 
+              string source = @"    |id    |FechaCarga                  |Relacion          |PersonaCarga    |Pertenece     |Asunto      |ReferenteMDS   |Seguimiento    |Resultado          |FechaDelResultado          |ReferenteRtaMDS    |idBaja  
+                                    |01    |2012-10-13 00:00:00.077     |Fines CENS        |Camacho         |Mariano       |zaraza      |Javier         |Laaa           |wawa               |2012-10-13 00:00:00.077    |Cevey              |1    
+                                    |02    |2012-10-13 00:00:00.077     |Fines Puro        |Elizondo        |Cholo         |zaraza      |Fer            |asdsd          |wawa               |2012-10-13 00:00:00.077    |Pérez              |2    
+                                    |03    |2012-10-13 00:00:00.077     |Fines CENS        |Mongui          |Elena         |zaraza      |Carlos         |asd            |wawa               |2012-10-13 00:00:00.077    |González           |1";
+
               IConexionBD conexion = TestObjects.ConexionMockeada();
+              var resultado_sp = TablaDeDatos.From(source);
+
+              Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
               RepositorioDeCursos repo = new RepositorioDeCursos(conexion);
 
-
-              Assert.AreEqual(2, repo.GetObservaciones().Count);
+              Assert.AreEqual(3, repo.GetObservaciones().Count);
              
+          }
+
+          [TestMethod]
+          public void deberia_poder_obtener_las_observaciones_a_actualizar_y_guardar_las_nuevas()
+          {
+             
+              string source = @"    |id    |FechaCarga                  |Relacion          |PersonaCarga    |Pertenece      |Asunto     |ReferenteMDS   |Seguimiento    |Resultado          |FechaDelResultado          |ReferenteRtaMDS    |idBaja  
+                                    |01    |2012-10-13 00:00:00.077     |Fines CENS        |Mariano         |MDS            |Cursada    |Mariano        |Lala           |Sasa               |2012-10-13 00:00:00.077    |Elena              |1    
+                                    |02    |2012-10-13 00:00:00.077     |Fines Puro        |Leonardo        |MDS            |Cursada    |Mariano        |Lala           |Sasa               |2012-10-13 00:00:00.077    |Elena              |2    
+                                    |03    |2012-10-13 00:00:00.077     |Fines CENS        |Cholo           |MDS            |Libre      |Mariano        |Lala           |Sasa               |2012-10-13 00:00:00.077    |Elena              |1";
+
+              IConexionBD conexion = TestObjects.ConexionMockeada();
+              ComparadorDeDiferencias comparador = new ComparadorDeDiferencias();
+
+              var resultado_sp = TablaDeDatos.From(source);
+              List<Observacion> observaciones = new List<Observacion>();
+              var repo = new RepositorioDeCursos(conexion);
+
+              Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+              List<Observacion> observaciones_antiguas = repo.GetObservaciones();
+
+              //Hice una nueva lista de Evaluaciones xq si cambiaba de la lista original tb cambiaba a la lista nueva
+              List<Observacion> observaciones_nuevas = TestObjects.Observaciones();
+
+              observaciones_nuevas.First().Asunto = "cambio el asunto";
+
+              var obser_cambiadas = comparador.ObservacionesParaActualizar(observaciones_antiguas, observaciones_nuevas);
+              var obser_a_agregar = comparador.ObservacionesParaGuardar(observaciones_antiguas, observaciones_nuevas);
+              
+              Assert.AreEqual(1, obser_cambiadas.Count);
+              Assert.AreEqual(1, obser_a_agregar.Count);
+
+              observaciones_nuevas.Find(o => o.Id.Equals(2)).FechaCarga = new DateTime(2013, 08, 01);
+              obser_cambiadas = comparador.ObservacionesParaActualizar(observaciones_antiguas, observaciones_nuevas);
+
+              Assert.AreEqual(2, obser_cambiadas.Count);
+
+
+              //PRUEBO BORRAR OBSERVACIONES
+              observaciones_nuevas.RemoveAt(0);
+
+              var obser_a_borrar = comparador.ObservacionesParaDarDeBajaSinInsertarOtra(observaciones_antiguas, observaciones_nuevas);
+             
+              Assert.AreEqual(1, obser_a_borrar.Count);
 
           }
 
