@@ -241,13 +241,23 @@ public class AjaxWS : System.Web.Services.WebService {
         var res = backEndService.GuardarObservacionesCurso(id_curso, observaciones, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(res);
     }
-
+    
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetMesesCursoDto(int id_curso)
     {
         var meses = backEndService.GetMesesCursoDto(id_curso, (WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
         return Newtonsoft.Json.JsonConvert.SerializeObject(meses);
+    }
+    
+    
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetCursosDto(int anio)
+    {
+        var cursos = backEndService.GetCursosDto((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(cursos);
     }
     
     [WebMethod(EnableSession = true)]

@@ -1469,7 +1469,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool GuardarObservacionesCurso(int id_curso, string observaciones)
+    public bool GuardarObservacionesCurso(int id_curso, string observaciones, Usuario usuario)
     {
         var un_curso = RepositorioDeCursos().GetCursoById(id_curso);
         un_curso.Observaciones = observaciones;

@@ -14,6 +14,7 @@ var AdministradorPlanilla = function (curso) {
     var horasCatedra = {};
     var docente = {};
     var filas = [];
+
     var generar_filas = function () {
         var rows = [];
         for (var i = 0; i < alumnos.length; i++) {
@@ -25,7 +26,6 @@ var AdministradorPlanilla = function (curso) {
                             return x.IdAlumno == alumnos[i].Id;
                         });
             for (var j = 0; j < diasCursados.length; j++) {
-                //AcumuladorDto
                 var asistencia = Enumerable.From(detalle_asistencia_alumno.First().Asistencias)
                         .Where(function (x) {
                             return x.Fecha == diasCursados[j].Fecha && x.IdAlumno == alumnos[i].Id
@@ -144,7 +144,7 @@ var AdministradorPlanilla = function (curso) {
 
         columnas.push(new Columna("Asistencias <br>del mes", { generar: function (row) { return row.AsistenciasPeriodo } }));
         columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (row) { return row.InasistenciasPeriodo } }));
-        //toFixed
+        
         columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (row) { return '<label class="acumuladas">' + row.AsistenciasTotal + "</label>" } }));
         columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (row) { return '<label class="acumuladas">' + row.InasistenciasTotal + "</label>" } }));
 
@@ -180,4 +180,88 @@ var AdministradorPlanilla = function (curso) {
         };
     }
 
+}
+//////////
+////
+//////
+////
+/////////
+
+var CargarCursos = function () {
+
+}
+
+var CargarComboMeses = function () {
+    var id_curso = $("#CmbCurso option:selected").val();
+    var cmb_mes = $("#CmbMes");
+    cmb_mes.html("");
+    cmb_mes.append(new Option('Seleccione', 0, true, true));
+
+    if (id_curso > 0) {
+        data_post = { id_curso: id_curso };
+        $.ajax({
+            url: "../AjaxWS.asmx/GetMesesCursoDto",
+            type: "POST",
+            async: false,
+            data: JSON.stringify(data_post),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (respuestaJson) {
+                var respuesta = JSON.parse(respuestaJson.d);
+                for (var i = 0; i < respuesta.length; i++) {
+                    cmb_mes.append(new Option(respuesta[i].NombreMes, respuesta[i].Mes, true, true));
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alertify.alert(errorThrown);
+            }
+        });
+    }
+    cmb_mes.val(0);
+    CargarPlanilla();
+
+}
+
+var CargarComboCursos = function () {
+    var cmb_cursos = $("#CmbCurso");
+    cmb_cursos.html("");
+    cmb_cursos.append(new Option('Seleccione', 0, true, true));
+
+    //traer cursos por año
+    data_post = { anio: 2013 };
+    $.ajax({
+        url: "../AjaxWS.asmx/GetCursosDto",
+        type: "POST",
+        async: false,
+        data: JSON.stringify(data_post),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (respuestaJson) {
+            var respuesta = JSON.parse(respuestaJson.d);
+            for (var i = 0; i < respuesta.length; i++) {
+                var c = respuesta[i].Nombre + " " + respuesta[i].Materia.Ciclo.Nombre;
+                cmb_cursos.append(new Option(c, respuesta[i].Id, true, true));
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alertify.alert(errorThrown);
+        }
+    });
+    cmb_cursos.val(0);
+}
+
+var GuardarDetalleAsistencias = function () {
+    PlanillaAsistencias.guardar_asistencias();
+    CargarPlanilla();
+}
+var CargarPlanilla = function () {
+    $("#ContenedorPlanilla").html("");
+    var id_curso = $("#CmbCurso option:selected").val();
+    var mes = $("#CmbMes option:selected").val();
+    var anio = $("#CmbAnio option:selected").val();
+    if (mes != 0 && anio && id_curso) {
+        var fecha_desde = anio + "/" + mes + "/01";
+        var fecha_hasta = "";
+        PlanillaAsistencias.cargar_asistencias(id_curso, fecha_desde, fecha_hasta);
+    }
 }

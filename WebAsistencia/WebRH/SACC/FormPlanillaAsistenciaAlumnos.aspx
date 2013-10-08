@@ -43,12 +43,12 @@
         <legend>Asistencias</legend>
         <label>A&ntilde;o:&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <select id="CmbAnio" style="width:100px; text-transform:capitalize" 
-            onchange="javascript:CargarPlanilla();" runat="server" enableviewstate="true">
+            onchange="javascript:CargarCursos();" runat="server" enableviewstate="true">
           <option value="2013">2013</option>    
         </select>
         <br />
         <label>Curso:&nbsp;</label>
-        <select id="CmbCurso" style="width:400px;" runat="server" onchange="javascript:CargarPlanilla();">
+        <select id="CmbCurso" style="width:400px;" runat="server" onchange="javascript:CargarComboMeses();">
             <option value="0">Seleccione</option>
         </select>
         <br />
@@ -87,58 +87,10 @@
 </body>
 <script type="text/javascript">
     var PlanillaAsistencias;
-    var CargarComboMeses = function () {
-        var id_curso = $("#CmbCurso option:selected").val();
-        if (id_curso > 0) {
-            var cmb_mes = $("#CmbMes");
-            cmb_mes.html("");
-            cmb_mes.append(new Option('Seleccione', 0, true, true));
-            data_post = { id_curso: id_curso };
-            $.ajax({
-                url: "../AjaxWS.asmx/GetMesesCursoDto",
-                type: "POST",
-                async: false,
-                data: JSON.stringify(data_post),
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (respuestaJson) {
-                    var respuesta = JSON.parse(respuestaJson.d);
-                    for (var i = 0; i < respuesta.length; i++) {
-                        cmb_mes.append(new Option(respuesta[i].NombreMes, respuesta[i].Mes, true, true));
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alertify.alert(errorThrown);
-                }
-            });
-            cmb_mes.val(0);
-            CargarPlanilla();
-        }
-
-    }
-
-    var GuardarDetalleAsistencias = function () {
-        PlanillaAsistencias.guardar_asistencias();
-        CargarPlanilla();
-    }
-    var CargarPlanilla = function () {
-        $("#ContenedorPlanilla").html("");
-        var id_curso = $("#CmbCurso option:selected").val();
-        var mes = $("#CmbMes option:selected").val();
-        var anio = $("#CmbAnio option:selected").val();
-        if (mes != 0 && anio && id_curso) {
-            var fecha_desde = anio + "/" + mes + "/01";
-            var fecha_hasta = "";
-            PlanillaAsistencias.cargar_asistencias(id_curso, fecha_desde, fecha_hasta);
-        }
-    }
-
-    $("#CmbCurso").change(function () {
-        CargarComboMeses();
-    });
 
     $(document).ready(function () {
         PlanillaAsistencias = new AdministradorPlanilla();
+        CargarComboCursos();
         CargarComboMeses();
         //Estilos para ver coloreada la grilla en Internet Explorer
         $("tbody tr:even").css('background-color', '#E6E6FA');
