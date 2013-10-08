@@ -7,18 +7,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>SICOI</title>
-    <link id="link3" rel="stylesheet" href="../Estilos/EstilosSICOI.css" type="text/css" runat="server" />
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
-    <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
-    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    <link rel="stylesheet" href="../Estilos/EstilosSICOI.css" type="text/css" runat="server" />
+    <%= Referencias.Css("../")%>
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
-        <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <div id="contenedor_principal_sicoi">
             <div id="botonera_paneles_desplegables">
                 <input type="button" id="boton_alertas" style="display:none;" class=" btn btn-danger" value="!"/>
@@ -127,23 +121,13 @@
                 <div id="panel_fichas">
                 </div>
             </div>
+
             <div id="plantilla_ficha_chica_de_documento" class="ficha_chica_de_documento ficha_chica_de_documento_par">
-                <%--<div id="ficha_chica_titulo_tipo">Tipo:</div>--%>
-
-
-
-
-                <div id="ficha_chica_contenido_tipo">Expediente N° 97</div>
-
-                                
-              <div id="ficha_chica_titulo_fecha_documento">Fecha:</div>    
-              <div id="ficha_chica_contenido_fecha_documento"></div>    
-
+                <div id="ficha_chica_contenido_tipo">Expediente N° 97</div>           
+                <div id="ficha_chica_titulo_fecha_documento">Fecha:</div>    
+                <div id="ficha_chica_contenido_fecha_documento"></div>    
                 <div id="ficha_chica_titulo_ticket">Ticket:</div>
-                <div id="ficha_chica_contenido_ticket">AAA036</div>    
-             
-            
-                            
+                <div id="ficha_chica_contenido_ticket">AAA036</div>                   
                 <div id="ficha_chica_titulo_categoria">Categoría:</div>
                 <div id="ficha_chica_contenido_categoria">Renuncia</div>
                 <input type="button" id="ficha_chica_boton_enviar_documento" value="Enviar" class="btn btn-mini btn-primary"/><br />
@@ -187,24 +171,8 @@
         </asp:ScriptManager>
     </form>
 </body>
-    
-    <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>   
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../Scripts/InputAutocompletable.js"></script>
-    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
-    <script type="text/javascript" src="../Scripts/InputSoloNumeros.js"></script>
-    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
-<%--    <script type="text/javascript" src="../Scripts/select2.min.js"></script>--%>
+    <%= Referencias.Javascript("../")%>
+
     <script type="text/javascript" src="PanelDeFiltrosDeDocumentos.js"></script>
     <script type="text/javascript" src="InputAutocompletableDeAreas.js"></script>
     <script type="text/javascript" src="PanelDeDocumentos.js"></script>
@@ -216,8 +184,6 @@
     <script type="text/javascript" src="FabricaDeFichasDeDocumento.js"></script>
     <script type="text/javascript" src="WebService.js"></script>
     <script type="text/javascript" src="BotonAlertas.js"></script>
-    <script type="text/javascript" src="../Scripts/alertify.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

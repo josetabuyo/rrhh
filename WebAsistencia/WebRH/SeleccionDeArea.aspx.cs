@@ -18,52 +18,11 @@ public partial class SeleccionDeArea : System.Web.UI.Page
     {
         Sesion.VerificarSesion(this);
         Usuario usuario = ((Usuario)Session["usuario"]);
-        MostrarTablaDeAreasDelUsuario(usuario);
-
-
-
-        if (usuario.TienePermisosParaSiCoI)//mesa de entrada
-        {
-
-            MostrarControlesDeSiCoI();
-
-            Response.Redirect("~/SiCoI/AltaDeDocumento.aspx");
-        }
-
-        if (usuario.TienePermisosParaSACC)//Sistema de Apoyo de Creación de Capacidades
-        {
-
-            MostrarControlesDeSACC();
-
-            Response.Redirect("~/SACC/Inicio.aspx");
-        }
-
-        if (usuario.TienePermisosParaModil)//Sistema de Apoyo de Creación de Capacidades
-        {
-
-            MostrarControlesDeSACC();
-
-            Response.Redirect("~/Modi/Modi.aspx");
-        }
-        //esto se usa para encriptar las fotos, NO DESCOMENTAR NI BORRAR
-        //GetFotosDelDirectorio();
-     
-    }
-
-
-    private void MostrarControlesDeSiCoI()
-    {
-        btnNuevoDocumento.Visible = true;
-    }
-
-    private void MostrarControlesDeSACC()
-    {
-        btnNuevaPlanilla.Visible = true;
+        MostrarTablaDeAreasDelUsuario(usuario); 
     }
 
     private void MostrarTablaDeAreasDelUsuario(Usuario un_usuario)
     {
-
         RenderizadorDeTablas<List<string>> renderizador = new RenderizadorDeTablas<List<string>>(new AreaToRowSerializer());
         Area[] areas_del_usuario = un_usuario.Areas;
         Session["AreasDeUsuarios"] = un_usuario.Areas;
@@ -71,7 +30,6 @@ public partial class SeleccionDeArea : System.Web.UI.Page
         List<List<string>> ListaDeAreas = new List<List<string>>();
         foreach (Area UnArea in areas_del_usuario)
         {
-
             ControlArea wc = new ControlArea();
             wc = (ControlArea)LoadControl("~\\ControlArea.ascx");
             wc.MostrarTablaDeAreasDelUsuario(UnArea);
@@ -79,7 +37,6 @@ public partial class SeleccionDeArea : System.Web.UI.Page
             this.Panel.Controls.Add(wc);
         }
     }
-
 
     [ScriptMethod, WebMethod]
     public static string EditarElArea(object id_area)
@@ -101,16 +58,4 @@ public partial class SeleccionDeArea : System.Web.UI.Page
         List<Area> lista_de_areas = new List<Area>((Area[])areas_del_usuario);
         HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = lista_de_areas.Find(a => a.Id == (int)id_area);
     }
-
-
-    protected void btnNuevoDocumento_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/SiCoI/AltaDeDocumento.aspx");
-    }
-
-    protected void btnNuevaPlanilla_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/SACC/CreacionDePlanilla.aspx");
-    }
-
 }
