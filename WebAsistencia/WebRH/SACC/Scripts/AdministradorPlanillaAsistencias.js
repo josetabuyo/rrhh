@@ -144,7 +144,7 @@ var AdministradorPlanilla = function (curso) {
 
         columnas.push(new Columna("Asistencias <br>del mes", { generar: function (row) { return row.AsistenciasPeriodo } }));
         columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (row) { return row.InasistenciasPeriodo } }));
-        
+
         columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (row) { return '<label class="acumuladas">' + row.AsistenciasTotal + "</label>" } }));
         columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (row) { return '<label class="acumuladas">' + row.InasistenciasTotal + "</label>" } }));
 
@@ -159,6 +159,37 @@ var AdministradorPlanilla = function (curso) {
         grilla.CargarObjetos(filas);
         grilla.DibujarEn(contenedor_grilla);
     }
+
+
+    /***/
+
+    _this.imprimirPlanilla = function () {
+        var w = window.open();
+
+        w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap.css' type='text/css' />");
+        w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap-responsive.css' type='text/css' />");
+        w.document.write("<link  rel='stylesheet' href='../Estilos/Estilos.css' type='text/css'  />");
+        w.document.write("<style>div_print{margin:20px;}.text_2caracteres{max-width: 20px;margin-left: 3px;}.text_10caracteres{max-width: 100px;margin-left: 17px;}</style>");
+        /*
+        
+        var mes = $("#CmbMes option:selected").val();
+        var anio = $("#CmbAnio option:selected").val();
+        */
+
+        w.document.write("<div class='div_print'><br>Curso: " + $("#CmbCurso option:selected").text() + "<br></div>");
+        w.document.write("<div class='div_print'><br>Per&iacute;odo: " + $("#CmbMes option:selected").text() + "/" + $("#CmbAnio option:selected").text() + "<br></div>");
+        w.document.write("<div class='div_print'><br>Docente: " + $("#Docente").text() + "<br><br></div>");
+        
+        w.document.write(contenedor_grilla.html());
+        w.print();
+        //w.close();
+    }
+
+    /***/
+
+
+
+
 
     var GeneradorCeldaDiaCursado = function (diaCursado) {
         var self = this;
@@ -181,11 +212,6 @@ var AdministradorPlanilla = function (curso) {
     }
 
 }
-//////////
-////
-//////
-////
-/////////
 
 var CargarCursos = function () {
 
