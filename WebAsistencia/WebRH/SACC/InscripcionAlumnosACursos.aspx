@@ -7,9 +7,7 @@ Inherits="FormularioDetalleDeViaticos_FDetalleDeViaticos" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Asignaciones</title>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
+   <%= Referencias.Css("../")%>
     <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
@@ -26,11 +24,6 @@ Inherits="FormularioDetalleDeViaticos_FDetalleDeViaticos" %>
                 </asp:DropDownList>
                 <input id="selectorAlumnosyCursos" class="detalle_viatico_transicion_combo" type="text" data-provide="typeahead" data-items="9" runat="server" onclick="return selectorAlumnosyCursos_onclick()" />
                  <asp:Button ID="btnBuscar" runat="server" Text="Buscar" class="btn btn-primary detalle_viatico_transicion_boton" onclick="btnBuscar_Click"/>
-                 <%--<div class="detalle_viatico_contenedor_transicion_combo_boton">
-            
-           
-                     
-        </div>--%>
 
          <asp:HiddenField ID="ListaAreas" runat="server" />
           <asp:HiddenField ID="AreaSeleccionada" runat="server" />
@@ -39,20 +32,10 @@ Inherits="FormularioDetalleDeViaticos_FDetalleDeViaticos" %>
     </form>
 </body>
 
-<script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-<script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
-<script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
-<%--<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>--%>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
-<script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <%= Referencias.Javascript("../") %>
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>    
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 
 <script type="text/javascript">
     $('#selectorAlumnosyCursos').attr('data-source', $('#<%= ListaAreas.ClientID %>').val());

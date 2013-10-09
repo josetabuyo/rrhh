@@ -7,17 +7,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>ABM Cursos</title>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
-        type="text/css" runat="server" />
-    <link id="link3" rel="stylesheet" href="../Estilos/jquery-ui.css" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
+    <%= Referencias.Css("../")%>
     <link id="link5" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
-
-     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
-     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
 </head>
 <body class="marca_de_agua">
@@ -105,18 +99,11 @@
      <asp:Button ID="btnVerFichaCurso" Text="" runat="server" OnClick="btnVerCurso_Click" style="display:none"/>
     </form>
     
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
-
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/jquery.ui.datepicker.min.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+       <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
-    <script type="text/javascript" src="../Scripts/list.js"></script>
-    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
+
 
 </body>
 <script src="FormABMCursos.js" type="text/javascript"></script>

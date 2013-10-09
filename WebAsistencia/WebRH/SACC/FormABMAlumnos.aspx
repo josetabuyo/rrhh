@@ -7,18 +7,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
-        type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
-  
-  
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
-     <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-   
+    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+   <%= Referencias.Css("../")%>
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
@@ -50,10 +43,6 @@
             <asp:Label ID="lblTelefono" CssClass="labels_sacc" runat="server" Text="Teléfono:"></asp:Label>
             <asp:TextBox ID="lblDatoTelefono" ReadOnly="false" CssClass="label_alumno" runat="server" ></asp:TextBox>
         </p>
-        <%--<p>
--        <asp:Label ID="texto" CssClass="popover-title" runat="server" Text="Otros datos de contacto"></asp:Label>
--        <br/>
--        </p>--%>
 
         <p>   
             <asp:Label ID="lblMail" CssClass="labels_sacc" runat="server" Text="Mail:"></asp:Label>
@@ -111,25 +100,11 @@
     <asp:Button ID="btnVerFichaAlumno" runat="server" OnClick="btnVerAlumno_Click" style="display:none;" />
     </form>
 </body>
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/list.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
+    <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
-    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
-
-    
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script> 
 
 <script type="text/javascript">
 

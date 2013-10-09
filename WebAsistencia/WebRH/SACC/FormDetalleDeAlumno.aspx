@@ -6,18 +6,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link id="link1" rel="stylesheet" href="../Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />    
-    <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
-
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-    <link id="link3" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
+    <%= Referencias.Css("../")%>
+    <link id="link1" rel="stylesheet" href="../Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />
     <link id="link5" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-
-    <style type="text/css">
-
-    </style>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
 </head>
 <body class="marca_de_agua">
@@ -146,19 +138,11 @@
      <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
      <asp:HiddenField ID="evaluacionesJSON" runat="server" EnableViewState="true"/>
 
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="Scripts/FichaAlumno.js"></script>
-
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
-
+   
 
     <script type="text/javascript">
         var AdministradorFichaAlumno = function () {
