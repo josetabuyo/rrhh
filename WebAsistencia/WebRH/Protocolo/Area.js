@@ -7,6 +7,10 @@ Area.prototype.start = function () {
 
 };
 
+Area.prototype.id = function () {
+    return this._area.Id;
+};
+
 Area.prototype.nombre = function () {
     return this._area.Nombre;
 };

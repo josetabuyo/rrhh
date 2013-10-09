@@ -16,6 +16,20 @@ VistaDeArea.prototype.start = function () {
         new VistaDeAsistente({ asistente: this.o.area.asistentes()[i] }).dibujarEn(div_asistentes);
     }
     var _this = this;
+    this.ui.find("#btn_administrar_personal").click(function () {
+        _this.o.sesion.setAreaActual(_this.o.area.id(), function () {
+            window.location.href = "Principal.aspx";
+        });
+    });
+    this.ui.find("#btn_solicitar_modificacion").click(function () {
+        _this.o.sesion.setAreaActual(_this.o.area.id(), function () {
+            window.location.href = "FormulariosDatosDeContacto/FModificacionDatosDeContacto.aspx";
+        });
+    });
+};
+
+VistaDeArea.prototype.mostrarModal = function () {
+    var _this = this;
     this.ui.dialog({
         title: _this.o.area.nombre(),
         height: 300,
@@ -33,4 +47,9 @@ VistaDeArea.prototype.start = function () {
         },
         dialogClass: "dialog_vista_area"
     });
+};
+
+
+VistaDeArea.prototype.dibujarEn = function (un_panel) {
+    un_panel.append(this.ui);
 };

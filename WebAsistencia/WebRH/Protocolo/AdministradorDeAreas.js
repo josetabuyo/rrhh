@@ -35,14 +35,15 @@
 
     PlanillaAreas.SetOnRowClickEventHandler(function (un_area) {
         var vista = new VistaDeArea({ area: un_area });
+        vista.mostrarModal();
     });
 
     PlanillaAreas.CargarObjetos(areas);
     PlanillaAreas.DibujarEn(contenedorPlanilla);
 
     var options = {
-        valueNames: ['Área', 'Responsable', 'Teléfonos', 'Fax', 'Correo Electrónico', 'Dirección']
+        valueNames: ['Área', 'Responsable', 'Teléfonos', 'Correo Electrónico', 'Dirección']
     };
 
-    var featureList = new List('ContenedorPlanilla', options);
+    var featureList = new List('ContenedorPrincipal', options);
 }
