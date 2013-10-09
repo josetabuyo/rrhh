@@ -138,6 +138,28 @@ public class AjaxWS : System.Web.Services.WebService {
     }
     ////////////////////////////////////////FIN MODI  
     
+    /////////////////////MAU
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetPermisosPara(int id_interna)
+    {
+        var respuesta = backEndService.GetPermisosPara(id_interna);
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetFuncionalidades()
+    {
+        var respuesta = backEndService.GetFuncionalidades();
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
+    }
+
+    /////////////////////FIN MAU
+
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string InscribirAlumnos(string alumnos, int id_curso)

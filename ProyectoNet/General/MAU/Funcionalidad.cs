@@ -7,9 +7,9 @@ namespace AdministracionDeUsuarios
 {
     public class Funcionalidad
     {
-        protected string nombre;
-        protected List<Funcionalidad> sub_funcionalidades;
-        protected int profundidad_en_el_arbol;
+        public string nombre;
+        public List<Funcionalidad> sub_funcionalidades;
+        public int profundidad_en_el_arbol;
 
         public Funcionalidad()
         {

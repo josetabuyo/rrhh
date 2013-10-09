@@ -81,10 +81,6 @@
             </div>
         </fieldset>
     </form>
-
-    <%= ReferenciasJavascript.Referencias() %>
-
-
 </body>
 <script type="text/javascript">
     var admin_planilla;

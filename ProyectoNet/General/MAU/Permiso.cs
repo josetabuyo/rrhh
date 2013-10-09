@@ -12,10 +12,10 @@ namespace AdministracionDeUsuarios
         /// ejemplos:
         /// "Concedido", "Denegado"
         /// </summary>
-        protected string tipo;
-        protected Funcionalidad funcionalidad;
-        protected List<Permiso> sub_permisos;
-        protected int profundidad_en_el_arbol;
+        public string tipo;
+        public Funcionalidad funcionalidad;
+        public List<Permiso> sub_permisos;
+        public int profundidad_en_el_arbol;
 
         public static string CONCEDIDO = "Concedido";
         public static string DENEGADO = "Denegado";

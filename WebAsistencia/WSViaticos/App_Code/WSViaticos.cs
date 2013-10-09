@@ -1748,10 +1748,13 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region mau
     [WebMethod]
-    public List<AdministracionDeUsuarios.Permiso> GetPermisosPara(string usuario)
+    public List<AdministracionDeUsuarios.Permiso> GetPermisosPara(int id_interna)
     {
         var funcionalidades = GetFuncionalidades();
-        var permisos = new List<AdministracionDeUsuarios.Permiso>() { new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First(), new List<AdministracionDeUsuarios.Permiso>()) };
+        var permisos = new List<AdministracionDeUsuarios.Permiso>() { 
+            new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First().sub_funcionalidades[3], new List<AdministracionDeUsuarios.Permiso>()),
+            new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First().sub_funcionalidades[4].sub_funcionalidades[1], new List<AdministracionDeUsuarios.Permiso>())
+        };
         return permisos;
     }
 
