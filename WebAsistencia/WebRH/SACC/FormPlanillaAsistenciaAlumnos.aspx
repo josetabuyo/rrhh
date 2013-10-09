@@ -24,6 +24,7 @@
     <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="Scripts/BotonAsistencia.js"></script>
+    <script type="text/javascript" src="Scripts/PlanillaAsistencias.js"></script>
     <script type="text/javascript" src="Scripts/AdministradorPlanillaAsistencias.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <style type="text/css">
@@ -43,8 +44,8 @@
         <legend>Asistencias</legend>
         <label>A&ntilde;o:&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <select id="CmbAnio" style="width:100px; text-transform:capitalize" 
-            onchange="javascript:CargarCursos();" runat="server" enableviewstate="true">
-          <option value="2013">2013</option>    
+            onchange="javascript:CargarComboCursos();" runat="server" enableviewstate="true">
+          <option value="0">Seleccione</option>    
         </select>
         <br />
         <label>Curso:&nbsp;</label>
@@ -89,16 +90,15 @@
     var PlanillaAsistencias;
 
     $(document).ready(function () {
-        PlanillaAsistencias = new AdministradorPlanilla();
-        CargarComboCursos();
-        CargarComboMeses();
+        PlanillaAsistencias = new PlanillaAsistencia();
+        GetCursos();
         //Estilos para ver coloreada la grilla en Internet Explorer
         $("tbody tr:even").css('background-color', '#E6E6FA');
         $("tbody tr:odd").css('background-color', '#9CB3D6');
     });
 
     function ImprimirPlanilla() {
-        PlanillaAsistencias.imprimirPlanilla();
+        PlanillaAsistencias.imprimir_planilla();
     }
 </script>
 </html>
