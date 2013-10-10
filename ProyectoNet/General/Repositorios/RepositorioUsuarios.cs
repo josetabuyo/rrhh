@@ -24,6 +24,36 @@ namespace General.Repositorios
             return new List<Usuario>();
         }
 
+        public bool CambiarPassword(Usuario usuario, string pass_actual, string pass_nueva)
+        {
+            var pass_actual_encriptada = encriptarSHA1(pass_actual);
+            var pass_nueva_encriptada = encriptarSHA1(pass_nueva);
+            var parametros = new Dictionary<string, object>();
+           // parametros.Add("@usuario", usuario.NombreDeUsuario);
+            //parametros.Add("@password", pass_actual_encriptada);
+            //Area area = new Area();
+
+            //var tablaDatos = conexion_bd.Ejecutar("dbo.Web_Login", parametros);
+
+           // if (tablaDatos.Rows.Count > 0)
+           // {
+                //parametros = new Dictionary<string, object>();
+
+                parametros.Add("@idUsuario", usuario.Id);
+                parametros.Add("@password_actual", pass_actual_encriptada);
+                parametros.Add("@password_nuevo", pass_nueva_encriptada);
+                var rto =   (int)conexion_bd.EjecutarEscalar("dbo.SACC_Upd_Password", parametros);
+
+                if (rto > 0)
+		            return true;
+                return false;
+                    
+               
+            //}
+
+           // return false;
+        }
+
         public bool LoginUsuario(Usuario unUsuario, string Password)
         {
             var pass = encriptarSHA1(Password);

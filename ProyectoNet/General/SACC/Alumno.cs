@@ -11,8 +11,8 @@ namespace General
         private int _documento;
         private List<Area> _areas;
         private Modalidad _modalidad;
-        private string _estado_cursada;
-        private string _ciclo_cursado;
+        private EstadoDeAlumno _estado_de_alumno;
+        private Ciclo _ciclo_cursado;
         private string _telefono;
         private string _mail;
         private string _direccion;
@@ -32,14 +32,14 @@ namespace General
         public string Direccion { get { return _direccion; } set { _direccion = value; } }
         public string LugarDeTrabajo{ get { return _lugar_de_trabajo; } set { _lugar_de_trabajo = value; } }
         public DateTime FechaDeNacimiento { get { return _fecha_de_nacimiento; } set { _fecha_de_nacimiento = value; } }
-        public string EstadoDeCursada { get { return _estado_cursada; } set { _estado_cursada = value; } }
-        public string CicloCursado { get { return _ciclo_cursado; } set { _ciclo_cursado = value; } }
+        public EstadoDeAlumno EstadoDeAlumno { get { return _estado_de_alumno; } set { _estado_de_alumno = value; } }
+        public Ciclo CicloCursado { get { return _ciclo_cursado; } set { _ciclo_cursado = value; } }
         public DateTime FechaDeIngreso { get { return _fecha_de_ingreso; } set { _fecha_de_ingreso = value; } }
         public int Baja { get { return _baja; } set { _baja = value; } }
 
         public Alumno() { }
 
-        public Alumno(int id, string nombre, string apellido, int documento, string telefono, string mail, string direccion, List<Area> areas, Modalidad modalidad, string lugar_de_trabajo, DateTime fecha_de_nacimiento, string estado_de_cursada, string ciclo_en_curso, DateTime fecha_de_ingreso)
+        public Alumno(int id, string nombre, string apellido, int documento, string telefono, string mail, string direccion, List<Area> areas, Modalidad modalidad, string lugar_de_trabajo, DateTime fecha_de_nacimiento, string estado_de_cursada, Ciclo ciclo_en_curso, DateTime fecha_de_ingreso)
         {
             this._id = id;
             this._nombre = nombre;
@@ -52,7 +52,7 @@ namespace General
             this._modalidad = modalidad;
             this._lugar_de_trabajo = lugar_de_trabajo;
             this._fecha_de_nacimiento = fecha_de_nacimiento;
-            this._estado_cursada = estado_de_cursada;
+            //this._estado_cursada = estado_de_cursada;
             this._ciclo_cursado = ciclo_en_curso;
             this._fecha_de_ingreso = fecha_de_ingreso;
         }
@@ -95,5 +95,6 @@ namespace General
                 else return 0;
             }
         }
+
     }
 }

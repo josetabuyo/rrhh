@@ -241,6 +241,27 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
+    {
+
+        RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
+
+        if ( repoUsuarios.CambiarPassword(usuario, PasswordActual, PasswordNuevo))
+	    {
+            return JsonConvert.SerializeObject(new
+                {
+                tipoDeRespuesta = "cambioPassword.ok"              
+                });
+	    } else {
+            return JsonConvert.SerializeObject(new
+                {
+                    tipoDeRespuesta = "cambioPassword.error"
+                    //error = e.Message
+                });
+        }
+    }
+
+    [WebMethod]
     public void AltaDeComisionesDeServicio(ComisionDeServicio unaComision)
     {
         var repositorio = new RepositorioDeComisionesDeServicio(Conexion());
@@ -1149,7 +1170,6 @@ public class WSViaticos : System.Web.Services.WebService
         Autorizador autorizador = new Autorizador();
         alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
 
-
         var alumnos_dto = new List<Object>();
 
         if (alumnos.Count() > 0)
@@ -1175,6 +1195,89 @@ public class WSViaticos : System.Web.Services.WebService
         return JsonConvert.SerializeObject(alumnos_dto);
 
     }
+
+    [WebMethod]
+    public string GetAlumnoByDNI(int dni)
+    {
+        var alumno = RepoAlumnos().GetAlumnoByDNI(dni);
+
+        var alumno_dto = new AlumnoDto
+        {
+            Id = alumno.Id,
+            Apellido = alumno.Apellido,
+            Nombre = alumno.Nombre,            
+            Documento = alumno.Documento,
+            Areas = alumno.Areas,
+            Modalidad = ModalidadPara(alumno.Modalidad),
+            Telefono = alumno.Telefono,
+            Mail = alumno.Mail,
+            Direccion = alumno.Direccion,
+            LugarDeTrabajo = alumno.LugarDeTrabajo,
+            FechaDeNacimiento = alumno.FechaDeNacimiento,
+            EstadoDeAlumno = alumno.EstadoDeAlumno.Descripcion,
+            CicloCursado = alumno.CicloCursado.Nombre,
+            FechaDeIngreso = alumno.FechaDeIngreso,
+            Baja = alumno.Baja
+
+        };
+
+        return JsonConvert.SerializeObject(alumno_dto);
+    }
+
+    [WebMethod]
+    public List<CursoDto> GetCursosDelAlumno(int dni)
+    {
+        var alumno = RepoAlumnos().GetAlumnoByDNI(dni);
+        var cursos = RepositorioDeCursos().GetCursos();
+        var evaluaciones = RepoEvaluaciones().GetEvaluacionesAlumno(alumno);
+        var cursos_del_alumno = RepositorioDeCursos().GetCursosParaElAlumno(alumno, cursos);
+        var articulador = new Articulador();
+
+        var cursos_dto = new List<CursoDto>();
+
+        if (cursos_del_alumno.Count() > 0)
+        {
+            cursos_del_alumno.ForEach(delegate(Curso curso)
+            {
+                var un_curso = new CursoDto();
+                un_curso.Id = curso.Id;
+                un_curso.Nombre = curso.Nombre;
+                un_curso.Materia = curso.Materia;
+                un_curso.Docente = curso.Docente;
+                un_curso.Alumnos = curso.Alumnos();
+                un_curso.EspacioFisico = curso.EspacioFisico;
+                un_curso.EstadoDelAlumno = articulador.EstadoDelAlumnoParaElCurso(curso, evaluaciones);
+                un_curso.FechaInicio = curso.FechaInicio.ToShortDateString();
+                un_curso.FechaFin = curso.FechaFin.ToShortDateString();
+                var horarios = new List<HorarioDto>();
+                foreach (var h in curso.GetHorariosDeCursada())
+                {
+                    horarios.Add(new HorarioDto() { NumeroDia = (int)h.Dia, Dia = DateTimeFormatInfo.CurrentInfo.GetDayName(h.Dia), HoraDeInicio = h.HoraDeInicio.ToString().Substring(0, 5), HoraDeFin = h.HoraDeFin.ToString().Substring(0, 5), HorasCatedra = h.HorasCatedra });
+                }
+                un_curso.Horarios = horarios;
+                cursos_dto.Add(un_curso);
+            });
+        }
+        return cursos_dto;
+
+        //return JsonConvert.SerializeObject(alumno_dto);
+    }
+
+
+
+    //private List<Area> AreasDto(List<Area> areas)
+    //{
+    //    var lista_area = new List<Area>();
+    //    foreach (var a in areas)
+    //    {
+            
+    //    }
+    //    return new 
+    //    {
+    //        Id = modalidad.Id,
+    //        Descripcion = modalidad.Descripcion
+    //    };
+    //}
 
 
     //[WebMethod]
@@ -1796,12 +1899,14 @@ public class WSViaticos : System.Web.Services.WebService
     public EvaluacionDto[] GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
     {
         var evaluaciones_no_procesadas = new List<EvaluacionDto>();
+        var repo_alumnos = RepoAlumnos();
+        var repo_cursos = RepositorioDeCursos();
         var evaluaciones_a_guardar = new List<Evaluacion>();
         foreach (var e in evaluaciones_nuevas_dto)
         {
-            var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
+            var un_curso = repo_cursos.GetCursoById(e.IdCurso);
             var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
-            var un_alumno = RepoAlumnos().GetAlumnoByDNI(e.DNIAlumno);
+            var un_alumno = repo_alumnos.GetAlumnoByDNI(e.DNIAlumno);
             var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
             DateTime una_fecha;
             DateTime.TryParse(e.Fecha, out una_fecha );
@@ -1811,9 +1916,9 @@ public class WSViaticos : System.Web.Services.WebService
         var evaluaciones_originales = new List<Evaluacion>();
         foreach (var e in evaluaciones_originales_dto)
         {
-            var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
+            var un_curso = repo_cursos.GetCursoById(e.IdCurso);
             var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
-            var un_alumno = RepoAlumnos().GetAlumnoByDNI(e.DNIAlumno);
+            var un_alumno = repo_alumnos.GetAlumnoByDNI(e.DNIAlumno);
             var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
             DateTime una_fecha;
             DateTime.TryParse(e.Fecha, out una_fecha);
@@ -1831,10 +1936,69 @@ public class WSViaticos : System.Web.Services.WebService
                 IdCurso = e.Curso.Id, 
                 IdInstancia = e.InstanciaEvaluacion.Id, 
                 Calificacion = e.Calificacion.Descripcion,
-                Fecha = e.Fecha.ToShortDateString()
+                Fecha = e.Fecha.ToShortDateString(),
+                DescripcionInstancia = e.InstanciaEvaluacion.Descripcion
             }); 
         }
         return evaluaciones_no_procesadas.ToArray();
+    }
+
+    [WebMethod]
+    public List<FichaAlumnoEvaluacionPorCursoDto> GetEvaluacionesDeAlumno(int dni)
+    {
+        
+        var alumno = RepoAlumnos().GetAlumnoByDNI(dni);
+        var cursos = RepositorioDeCursos().GetCursos();
+        var cursos_del_alumno = RepositorioDeCursos().GetCursosParaElAlumno(alumno, cursos);
+        var articulador = new Articulador();
+
+        List<Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesAlumno(alumno);
+        List<FichaAlumnoEvaluacionPorCursoDto> CursosConEvaluacionesDto = new List<FichaAlumnoEvaluacionPorCursoDto>();
+        //Curso curso = RepositorioDeCursos().GetCursoById(id_curso);
+
+        
+
+        foreach (var c in cursos_del_alumno)
+        {
+
+            CursosConEvaluacionesDto.Add(new FichaAlumnoEvaluacionPorCursoDto()
+                    {
+                        CodigoError = 0,
+                        MensajeError = "",
+                        Materia = c.Materia.Nombre,
+                        Ciclo = c.Materia.Ciclo.Nombre,
+                        Docente = c.Docente.Nombre,
+                        CalificacionFinal = articulador.CalificacionDelCurso(c,evaluaciones),
+                        Estado = articulador.EstadoDelAlumnoParaElCurso(c, evaluaciones),
+                        FechaFin = c.FechaFin.ToShortDateString(),                     
+                        Evaluaciones = EvaluacionesDTOPorCurso(evaluaciones, c).ToArray(),
+                    });
+                
+            
+        }
+
+        return CursosConEvaluacionesDto;
+    }
+
+    private List<EvaluacionDto> EvaluacionesDTOPorCurso(List<Evaluacion> evaluaciones, Curso curso)
+    {
+        List<EvaluacionDto> evaluacionesDto = new List<EvaluacionDto>();
+
+        evaluaciones.FindAll(e => e.Curso.Id.Equals(curso.Id)).ForEach(e =>
+        {
+            evaluacionesDto.Add(new EvaluacionDto()
+            {
+                Id = e.Id,
+                DNIAlumno = e.Alumno.Documento,
+                IdCurso = e.Curso.Id,
+                Calificacion = e.Calificacion.Descripcion,
+                Fecha = e.Fecha.ToShortDateString(),
+                IdInstancia = e.InstanciaEvaluacion.Id,
+                DescripcionInstancia = e.InstanciaEvaluacion.Descripcion
+            });
+        });
+
+        return evaluacionesDto;
     }
 
     [WebMethod]
@@ -1852,7 +2016,8 @@ public class WSViaticos : System.Web.Services.WebService
                 IdCurso = e.Curso.Id,
                 Calificacion = e.Calificacion.Descripcion,
                 Fecha = e.Fecha.ToShortDateString(),
-                IdInstancia = e.InstanciaEvaluacion.Id
+                IdInstancia = e.InstanciaEvaluacion.Id,
+                DescripcionInstancia = e.InstanciaEvaluacion.Descripcion
             }); 
         });
         
@@ -1877,7 +2042,8 @@ public class WSViaticos : System.Web.Services.WebService
                         IdCurso = id_curso,
                         Calificacion = null,
                         Fecha = null,
-                        IdInstancia = i.Id
+                        IdInstancia = i.Id,
+                        DescripcionInstancia = i.Descripcion
                     });
                 }
             }
@@ -1894,6 +2060,8 @@ public class WSViaticos : System.Web.Services.WebService
 
         return Planilla;
     }
+
+
 
     private RepositorioDeAlumnos RepoAlumnos()
     {

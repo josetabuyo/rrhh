@@ -111,5 +111,11 @@ namespace TestViaticos
           { 
               Assert.AreEqual("1°C 2013", un_curso.Cuatrimestre());
           }
+
+          [TestMethod]
+          public void deberia_poder_saber_si_curso_esta_finalizado_o_en_curso()
+          {
+              Assert.AreEqual(false, un_curso.EstaEnCurso());
+          }
     }
 }

@@ -16,6 +16,7 @@ namespace General
         protected List<HorarioDeCursada> _horario = new List<HorarioDeCursada>();
         protected string _observaciones;
         protected EspacioFisico _espacioFisico;
+        protected bool _enCurso;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Nombre { get { return this.Materia.Nombre + " - " + this.Cuatrimestre() + " (" + this.Materia.Modalidad.Descripcion + ") - " + this.EspacioFisico.Edificio.Nombre; } set { } }
@@ -25,11 +26,14 @@ namespace General
         public EspacioFisico EspacioFisico { get { return _espacioFisico; } set { _espacioFisico = value; } }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
+        public bool EnCurso { get { return this._enCurso; } }        
 
         public List<Alumno> Alumnos()
         {
             return _alumnos;
         }
+
+
 
         public Curso()
         {
@@ -44,6 +48,7 @@ namespace General
             FechaFin = fin;
             _alumnos = new List<Alumno>();
             _observaciones = observaciones;
+            _enCurso = this.EstaEnCurso();
         }
 
         public Curso(Materia materia, Docente docente, EspacioFisico espacio, DateTime inicio, DateTime fin, string observaciones)
@@ -143,6 +148,16 @@ namespace General
             }
 
             return cuatrimestre + " " + anio;
+        }
+
+        public bool EstaEnCurso()
+        {
+            var fecha_hoy = DateTime.Today;
+            var fecha_fin_curso = this.FechaFin;
+
+            if (fecha_hoy > fecha_fin_curso)
+                return false;
+            return true;
         }
     }
 }
