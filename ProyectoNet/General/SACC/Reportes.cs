@@ -53,9 +53,6 @@ namespace General.Repositorios
            return  alumnos.Distinct().ToList();
         }
 
-        
-
-
 
 
         public List<Alumno> ObtenerAlumnosDelOrganismo(Organismo organismo, IRepositorioDeAlumnos repo_alumno)

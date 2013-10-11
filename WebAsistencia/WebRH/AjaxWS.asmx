@@ -156,6 +156,17 @@ public class AjaxWS : System.Web.Services.WebService {
         return bbb;
     }
 
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string ReporteAlumnosPorOrganismo()
+    {
+
+        var aaa = backEndService.ReporteAlumnosDeCursosConFecha(fecha_desde, fecha_hasta); //ver si cambiar por List<AlumnoDto>
+        var bbb = Newtonsoft.Json.JsonConvert.SerializeObject(aaa);
+        return bbb;
+    }
+
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetCursosDTO()

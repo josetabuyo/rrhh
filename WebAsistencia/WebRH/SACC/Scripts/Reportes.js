@@ -54,6 +54,31 @@ PaginaReporteAlumnos.prototype.BuscarPorModalidad = function () {
 
 
 
+PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
+
+    _this = this;
+    $.ajax({
+        url: "../AjaxWS.asmx/ReporteAlumnosPorOrganismo",
+        type: "POST",
+        data: "",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (respuestaJson) {
+            var respuesta = JSON.parse(respuestaJson.d);
+
+            _this.o.planillaAlumnosDisponibles.AgregarEstilo("tabla_macc");
+            _this.o.planillaAlumnosDisponibles.CargarObjetos(respuesta);
+            _this.o.planillaAlumnosDisponibles.DibujarEn(_this.o.contenedorAlumnosDisponibles);
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alertify.alert(errorThrown);
+        }
+    });
+};
+
+
+
 //PaginaReporteAlumnos.prototype.completarCombosDeModalidad = function () {
 
 //		_this = this;

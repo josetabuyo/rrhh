@@ -38,12 +38,12 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
         if (accion == "modalidad")
         {
             CompletarComboDeModalidades();
-            cursos = ws_viaticos.ReporteAlumnosDeCursosConFecha("01/01/0000", "31/12/9999");
+            cursos = ws_viaticos.GetCursosDto((Usuario)Session[ConstantesDeSesion.USUARIO]).ToList();
             this.cursosJSON.Value = JsonConvert.SerializeObject(cursos);
             foreach (CursoDto curso in cursos)
-	        {
-		        alumnos.AddRange(curso.Alumnos.ToList());
-	        }
+            {
+                //alumnos.AddRange(curso.Alumnos.ToList());
+            }
 
             this.MostrarAlumnosEnLaGrilla(alumnos.Distinct().ToList());
         }
