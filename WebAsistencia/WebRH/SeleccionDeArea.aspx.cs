@@ -19,29 +19,10 @@ public partial class SeleccionDeArea : System.Web.UI.Page
     {
         Sesion.VerificarSesion(this);
         Usuario usuario = ((Usuario)Session["usuario"]);
+        if (usuario.TienePermisosParaSiCoI) { Response.Redirect("~/SiCoI/AltaDeDocumento.aspx"); }
+        if (usuario.TienePermisosParaSACC) { Response.Redirect("~/SACC/Inicio.aspx"); }
+        if (usuario.TienePermisosParaModil) { Response.Redirect("~/Modi/Modi.aspx"); }
+        Response.Redirect("SeleccionDeArea.aspx");
         this.areasDelUsuarioJSON.Value = JsonConvert.SerializeObject(usuario.Areas);
     }
-
-    /*
-     *     [ScriptMethod, WebMethod]
-    public static string EditarElArea(object id_area)
-    {
-        MeterAreaEnSession(int.Parse(id_area.ToString()));
-        return "FormulariosDatosDeContacto/FModificacionDatosDeContacto.aspx";
-    }
-
-    [ScriptMethod, WebMethod]
-    public static string IrAlArea(object id_area)
-    {
-        MeterAreaEnSession(int.Parse(id_area.ToString()));
-        return "Principal.aspx";       
-    }
-
-    private static void MeterAreaEnSession(int id_area)
-    {
-        var areas_del_usuario = HttpContext.Current.Session["AreasDeUsuarios"];
-        List<Area> lista_de_areas = new List<Area>((Area[])areas_del_usuario);
-        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = lista_de_areas.Find(a => a.Id == (int)id_area);
-    }
-     * */
 }
