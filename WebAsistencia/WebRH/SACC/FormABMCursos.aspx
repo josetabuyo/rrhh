@@ -7,24 +7,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>ABM Cursos</title>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
-        type="text/css" runat="server" />
-    <link id="link3" rel="stylesheet" href="../Estilos/jquery-ui.css" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-
-     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <%= Referencias.Css("../")%>
+    <link id="link5" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
+    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server" onsubmit="return submit_value;">
-        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+        <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelCurso" class="div_izquierdo">
+        <div class="estilo_formulario" style="width:70%; margin-left: 20%;">
         <fieldset>
-           <legend>Panel De Cursos</legend>
+           <legend class="subtitulos">Panel De Cursos</legend>
         <p>
             <asp:Label ID="lblMateria" CssClass="labels_sacc" runat="server" Text="Materia:"></asp:Label>
             <asp:DropDownList ID="cmbMateria" name="Materia" runat="server" EnableViewState="false" data-name="Materia"></asp:DropDownList >
@@ -47,8 +44,8 @@
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
             <%--<asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" data-name="Dia" ></asp:DropdownList>--%>
             <select id="cmbDia" class="input-small"  runat="server" data-name="Dia" style="text-transform:capitalize" ></select>
-            <asp:TextBox ID="txtHoraInicio" title="Hora de inicio" CssClass="input-small" placeholder="Hora Inicio" runat="server" MaxLength="5"  data-name="Hora de Inicio"></asp:TextBox>
-            <asp:TextBox ID="txtHoraFin" title="Hora de fin" CssClass="input-small" placeholder="Hora Fin" runat="server" MaxLength="5" data-name="Hora de Fin"></asp:TextBox>
+            <asp:TextBox ID="txtHoraInicio" title="Hora de inicio" CssClass="input-mini" placeholder="Hora Inicio" runat="server" MaxLength="5"  data-name="Hora de Inicio"></asp:TextBox>
+            <asp:TextBox ID="txtHoraFin" title="Hora de fin" CssClass="input-mini" placeholder="Hora Fin" runat="server" MaxLength="5" data-name="Hora de Fin"></asp:TextBox>
             <select runat="server" title="Horas C&aacute;tedra" id="cmbHorasCatedra" name="HorasCatedra" enableviewstate="false" class="input-small" data-name="Cantidad de Horas C&aacute;tedra"></select>
            
             <input id="agregarHorario" type="button" value="Agregar" 
@@ -77,11 +74,14 @@
             class=" btn btn-primary boton_main_documentos"
             onClientClick="javascript:LimpiarCampos();" />
     </div>
+     </fieldset>
         </div>
-        </fieldset>
+        </div>
+
     <div class="div_derecho">
+        <div class="estilo_formulario" style="width:95%; overflow:auto;  margin-left:1%;">
         <fieldset>
-        <legend>Listado de Cursos</legend>
+        <legend class="subtitulos">Listado de Cursos</legend>
         <div id="ContenedorPlanilla" runat="server">
             <div class="input-append" style="clear:both;">   
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Cursos" />    
@@ -89,6 +89,7 @@
         </div>
         <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
         </fieldset>
+        </div>
     </div>
     <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="materiasJSON" runat="server" EnableViewState="true"/>
@@ -98,17 +99,11 @@
      <asp:Button ID="btnVerFichaCurso" Text="" runat="server" OnClick="btnVerCurso_Click" style="display:none"/>
     </form>
     
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/jquery.ui.datepicker.min.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+       <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
-    <script type="text/javascript" src="../Scripts/list.js"></script>
-    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
+
 
 </body>
 <script src="FormABMCursos.js" type="text/javascript"></script>

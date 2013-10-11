@@ -7,25 +7,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
-        type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-  
-  
+    <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
-   
-
+    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+   <%= Referencias.Css("../")%>
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
-     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
-    <div id="panelAlumno" class="div_izquierdo">
-        <fieldset>
-        <legend>Panel De Alumnos</legend>
+    <div id="panelAlumno"  class="div_izquierdo">
+        
+        <div class="estilo_formulario" style="width:60%; margin-left: 30%;">
+        <fieldset >
+        <legend class="subtitulos">Panel De Alumnos</legend>
         <div class="input-append">   
             <asp:TextBox id="input_dni" CssClass="label_alumno" placeholder="D.N.I" runat="server"></asp:TextBox>
             <asp:Button ID="btn_buscar_personas" Text="Buscar" runat="server" OnClick="btnBuscarPersona_Click" class=" btn btn-primary" />
@@ -47,10 +43,6 @@
             <asp:Label ID="lblTelefono" CssClass="labels_sacc" runat="server" Text="Teléfono:"></asp:Label>
             <asp:TextBox ID="lblDatoTelefono" ReadOnly="false" CssClass="label_alumno" runat="server" ></asp:TextBox>
         </p>
-        <%--<p>
--        <asp:Label ID="texto" CssClass="popover-title" runat="server" Text="Otros datos de contacto"></asp:Label>
--        <br/>
--        </p>--%>
 
         <p>   
             <asp:Label ID="lblMail" CssClass="labels_sacc" runat="server" Text="Mail:"></asp:Label>
@@ -77,21 +69,23 @@
         <br />
         <div runat="server" id="DivMensajeExito" Visible="false" class="alert alert-success">
         </div>
-          
         </div>
-    </fieldset>
+            </fieldset>
+        </div>
+
     </div>
     <div class="div_derecho">
+        <div class="estilo_formulario" style="width:95%; overflow:auto; margin-left:1%; ">
         <fieldset>
-        <legend>Listado de Alumnos</legend>
-       
-        <div id="ContenedorPlanilla" runat="server">
-             <div class="input-append" style="clear:both;">   
-                <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" />    
+            <legend class="subtitulos">Listado de Alumnos</legend>
+            <div id="ContenedorPlanilla" runat="server">
+                 <div class="input-append" style="clear:both;">   
+                    <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" />    
+                </div>
             </div>
+        </fieldset>
         </div>
         <%-- <asp:HiddenField ID="planillaJSON" runat="server" EnableViewState="true"/>--%>
-       </fieldset>
     </div>
     <asp:HiddenField ID="texto_mensaje_exito" runat="server" />
     <asp:HiddenField ID="texto_mensaje_error" runat="server" />
@@ -99,30 +93,18 @@
     <asp:HiddenField ID="personasJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idAlumnoAVer" runat="server" />
+    <asp:HiddenField ID="DNIAlumnoFicha" runat="server" />
     <asp:HiddenField ID="idBaja" runat="server" />
     <asp:HiddenField ID="datosPersona" runat="server" />
     <asp:HiddenField ID="personaSeleccionada" runat="server" />
-    <asp:Button ID="btnVerFichaAlumno" Text="" runat="server" OnClick="btnVerAlumno_Click" style="display:none"/>
+    <asp:Button ID="btnVerFichaAlumno" runat="server" OnClick="btnVerAlumno_Click" style="display:none;" />
     </form>
 </body>
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>  
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/list.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
+    <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
-    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
-
-    
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script> 
 
 <script type="text/javascript">
 
@@ -130,7 +112,10 @@
     function CapturarTeclaEnter(evt) {
         var evt = (evt) ? evt : ((event) ? event : null);
         var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
-        if ((evt.keyCode == 13) && (node.type == "text")) { $("#btn_buscar_personas").click(); }
+        if ((evt.keyCode == 13) && (node.type == "text")) {
+            $("#btn_buscar_personas").click();
+        }
+        
     }
     document.onkeypress = CapturarTeclaEnter;
 
@@ -182,7 +167,7 @@
         columnas.push(new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento } }));
         columnas.push(new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre } }));
         columnas.push(new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido } }));
-        //        columnas.push(new Columna("Pertenece A", { generar: function (un_alumno) { return un_alumno.area.descripcion } }));
+        //columnas.push(new Columna("Pertenece A", { generar: function (un_alumno) { return un_alumno.area.descripcion } }));
         columnas.push(new Columna("Teléfono", { generar: function (un_alumno) { return un_alumno.Telefono } }));
         columnas.push(new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion } }));
         columnas.push(new Columna('Detalle', { generar: function (un_alumno) {
@@ -193,7 +178,7 @@
             botonVerAlumno.addClass('btn-primary');
             botonVerAlumno.val('Ver Ficha');
             botonVerAlumno.click(function () {
-                $("#idAlumnoAVer").val(un_alumno.Dd);
+                $("#DNIAlumnoFicha").val(un_alumno.Documento);
                 $("#btnVerFichaAlumno").click();
             });
             contenedorBtnFichaAlumno.append(botonVerAlumno);
@@ -234,7 +219,7 @@
         };
 
         var options = {
-            valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad', 'Detalle']
+            valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad']
         };
 
         var featureList = new List('ContenedorPlanilla', options);
@@ -270,5 +255,9 @@
         $("tbody tr:odd").css('background-color', '#9CB3D6 ');
 
     });
+
+
+
+
 </script>
 </html>

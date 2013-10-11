@@ -23,7 +23,7 @@
     .area01
     {
         clear: both;
-        float: left;  /*margin-top: -400px;*/
+        float: left;
         font-size: 15px;
         font-weight: bold;
         color: #000;

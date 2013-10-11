@@ -1,13 +1,9 @@
 ﻿jQuery(document).ready(function () {
-    $('[nullValue]').each(function () {
-        HandlePlaceholder($(this));
-    });
-
-    var _placeholderSupport = function () {
-        var t = document.createElement("input");
-        t.type = "text";
-        return (typeof t.placeholder !== "undefined");
-    };
+    setTimeout(function () {
+        $('[nullValue]').each(function () {
+            HandlePlaceholder($(this));
+        });
+    }, 100);
 
     function HandlePlaceholder(input) {
 
@@ -59,50 +55,6 @@
                 label.show();
             else
                 label.hide();
-
-
         });
     }
 });
-
-//PlaceHolders IE
-var arrInputs = document.getElementsByTagName("input");
-for (i = 0; i < arrInputs.length; i++) {
-    var curInput = arrInputs[i];
-    if (!curInput.type || curInput.type == "" || curInput.type == "text")
-        HandlePlaceholder(curInput);
-}
-
-var arrTextArea = document.getElementsByTagName("textarea");
-for (i = 0; i < arrTextArea.length; i++) {
-    var curTextArea = arrTextArea[i];
-    HandlePlaceholder(curTextArea);
-}
-
-var _placeholderSupport = function () {
-    var t = document.createElement("input");
-    t.type = "text";
-    return (typeof t.placeholder !== "undefined");
-};
-
-function HandlePlaceholder(oTextbox) {
-    if (!_placeholderSupport) {
-        var curPlaceholder = oTextbox.getAttribute("placeholder");
-        if (curPlaceholder && curPlaceholder.length > 0) {
-            oTextbox.value = curPlaceholder;
-            oTextbox.setAttribute("old_color", oTextbox.style.color);
-            oTextbox.style.color = "#c0c0c0";
-            oTextbox.onfocus = function () {
-                this.style.color = this.getAttribute("old_color");
-                if (this.value === curPlaceholder)
-                    this.value = "";
-            };
-            oTextbox.onblur = function () {
-                if (this.value === "") {
-                    this.style.color = "#c0c0c0";
-                    this.value = curPlaceholder;
-                }
-            };
-        }
-    }
-}
