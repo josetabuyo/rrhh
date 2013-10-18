@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeAlumnos: RepositorioLazy<List<Alumno>>, General.Repositorios.IRepositorioDeAlumnos
+    public class RepositorioDeAlumnos : RepositorioLazy<List<Alumno>>, General.Repositorios.IRepositorioDeAlumnos
     {
         protected IConexionBD conexion_bd { get; set; }
-        
+
         protected IRepositorioDeModalidades repo_modalidades;
         protected IRepositorioDeCursos repo_cursos;
         //protected Articulador articulador;
@@ -25,19 +25,20 @@ namespace General.Repositorios
             return cache.Ejecutar(ObtenerAlumnosDesdeLaBase, this);
         }
 
-        public List<Alumno> ObtenerAlumnosDesdeLaBase() {
+        public List<Alumno> ObtenerAlumnosDesdeLaBase()
+        {
 
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
             var alumnos = new List<Alumno>();
-           
+
 
             tablaDatos.Rows.ForEach(row =>
-            {               
+            {
                 var baja = 0;
                 if (!(row.GetObject("IdBaja") is DBNull))
                     baja = (int)row.GetObject("IdBaja");
                 Area area = ConstruirAreaDeAlumno(row);
-                
+
                 Organismo organismo = new Organismo(0, "Sin Organismo Asignado");
                 if (!(row.GetObject("IdOrganismo") is DBNull))
                 {
@@ -48,7 +49,7 @@ namespace General.Repositorios
 
                 List<Area> areas_alumno = new List<Area>();
                 areas_alumno.Add(area);
-                Alumno alumno =  new Alumno
+                Alumno alumno = new Alumno
                 {
                     Id = row.GetInt("Id"),
                     Nombre = row.GetString("Nombre"),
@@ -63,7 +64,7 @@ namespace General.Repositorios
                     //CicloCursado
                     Organismo = organismo,
                     Areas = areas_alumno,
-                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),                  
+                    Modalidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad")),
                     Baja = baja
                 };
 
@@ -82,7 +83,7 @@ namespace General.Repositorios
             {
                 return DateTime.Today;
             }
-                return row.GetDateTime("FechaNacimiento");
+            return row.GetDateTime("FechaNacimiento");
         }
 
 
@@ -124,7 +125,7 @@ namespace General.Repositorios
                 BorrarBaja(un_alumno);
                 conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Alumno", parametros);
             }
-            
+
         }
 
         public Alumno GetAlumnoByDNI(int dni)
@@ -137,7 +138,7 @@ namespace General.Repositorios
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_DatosPersonales", parametros);
 
             List<Curso> cursos = repo_cursos.GetCursos();
-        
+
             tablaDatos.Rows.ForEach(row =>
             {
                 var modaldidad = new Modalidad();
@@ -145,7 +146,8 @@ namespace General.Repositorios
                 if (!(row.GetObject("IdModalidad") is DBNull))
                     modaldidad = repo_modalidades.GetModalidadById(row.GetInt("IdModalidad"));
 
-                if (!(row.GetObject("BajaAlumno") is DBNull)){
+                if (!(row.GetObject("BajaAlumno") is DBNull))
+                {
                     baja = row.GetInt("BajaAlumno");
                     modaldidad = repo_modalidades.ModalidadNull();
                 }
@@ -157,21 +159,21 @@ namespace General.Repositorios
                 List<Area> areas_alumno = new List<Area>();
                 areas_alumno.Add(area);
 
-                Alumno alumno =  new Alumno
+                Alumno alumno = new Alumno
                 {
-                     Id = row.GetInt("Id"),
-                     Nombre = row.GetString("Nombre"),
-                     Apellido = row.GetString("Apellido"),
-                     Documento = row.GetInt("Documento"),
-                     Telefono = row.GetString("Telefono"),
-                     Mail = row.GetString("Email_Personal"),
-                     Direccion = row.GetString("Direccion"),
-                     Areas = areas_alumno,
-                     Modalidad = modaldidad,
-                     Baja = baja
+                    Id = row.GetInt("Id"),
+                    Nombre = row.GetString("Nombre"),
+                    Apellido = row.GetString("Apellido"),
+                    Documento = row.GetInt("Documento"),
+                    Telefono = row.GetString("Telefono"),
+                    Mail = row.GetString("Email_Personal"),
+                    Direccion = row.GetString("Direccion"),
+                    Areas = areas_alumno,
+                    Modalidad = modaldidad,
+                    Baja = baja
                 };
 
-                
+
 
                 alumnos_dni = CorteDeControlAreasDeAlumno(alumnos_dni, alumno);
 
@@ -181,7 +183,7 @@ namespace General.Repositorios
             alumnos_dni.First().EstadoDeAlumno = articulador.EstadoDelAlumno(alumnos_dni.First(), repo_cursos, cursos);
             alumnos_dni.First().CicloCursado = articulador.CicloDelAlumno(alumnos_dni.First(), repo_cursos, cursos);
 
-            return alumnos_dni.First();      
+            return alumnos_dni.First();
         }
 
         public Alumno ActualizarAlumno(Alumno alumno, Usuario usuario)
@@ -232,6 +234,30 @@ namespace General.Repositorios
             List<Curso> cursos = repo_cursos.GetCursos();
             return cursos.Exists(c => c.Alumnos().Contains(un_alumno));
         }
+
+
+        public List<Organismo> GetOrganismos()
+        {
+
+            var tablaDatos = conexion_bd.Ejecutar("dbo.CRED_Get_Organismos");
+            List<Organismo> organismos = new List<Organismo>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Organismo organismo = new Organismo
+               {
+                   Id = row.GetSmallintAsInt("Id"),
+                   Descripcion = row.GetString("Descripcion")
+               };
+
+                organismos.Add(organismo);
+            });
+
+            return organismos;
+        }
+
+
+
 
         private static Dictionary<string, object> Parametros(Alumno un_alumno, Usuario usuario, int id_baja)
         {

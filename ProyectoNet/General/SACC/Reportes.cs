@@ -37,12 +37,12 @@ namespace General.Repositorios
         }
 
 
-        public List<Alumno> ObtenerAlumnosDeLosCursos(DateTime fecha_desde, DateTime fecha_hasta, IRepositorioDeCursos repo_curso)
+        public List<Alumno> ObtenerAlumnosDeLosCursos(IRepositorioDeCursos repo_curso)
         {
             List<Alumno> alumnos = new List<Alumno>();
             List<Curso> cursos_del_periodo = new List<Curso>();
 
-            cursos_del_periodo = repo_curso.GetCursos().FindAll(c => c.FechaInicio >= fecha_desde && fecha_hasta >= c.FechaFin);
+            cursos_del_periodo = repo_curso.GetCursos();//.FindAll(c => c.FechaInicio >= fecha_desde && fecha_hasta >= c.FechaFin);
 
 
             foreach (Curso curso in cursos_del_periodo)

@@ -1552,11 +1552,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public List<AlumnoDto> ReporteAlumnosDeCursosConFecha(string fecha_desde, string fecha_hasta)
+    public List<AlumnoDto> ReporteAlumnosDeCursos()
     {
         Reportes reportes = new Reportes();
         List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
-        var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(DateTime.Parse(fecha_desde), DateTime.Parse(fecha_hasta), RepositorioDeCursos());
+        var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(RepositorioDeCursos());
         foreach (Alumno alumno in alumnos_reporte)
         {
             var alumno_dto = new AlumnoDto();
@@ -1578,7 +1578,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         Reportes reportes = new Reportes();
         List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
-        var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(DateTime.Parse(fecha_desde), DateTime.Parse(fecha_hasta), RepositorioDeCursos());
+        var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(RepositorioDeCursos());
         foreach (Alumno alumno in alumnos_reporte)
         {
             var alumno_dto = new AlumnoDto();
@@ -1602,6 +1602,12 @@ public class WSViaticos : System.Web.Services.WebService
     public Modalidad[] Modalidades()
     {
         return RepoModalidades().GetModalidades().ToArray();
+    }
+
+    [WebMethod]
+    public Organismo[] Organismos()
+    {
+        return RepoAlumnos().GetOrganismos().ToArray();
     }
 
     [WebMethod]
