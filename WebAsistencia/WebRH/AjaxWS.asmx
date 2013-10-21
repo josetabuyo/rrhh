@@ -148,6 +148,14 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string CambiarPassword(string pass_actual, string pass_nueva)
+    {
+        return backEndService.CambiarPassword(this.usuarioLogueado, pass_actual, pass_nueva);
+        
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetCursosDTO()
     {
         var curso = Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetCursosDto((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]));
@@ -276,6 +284,15 @@ public class AjaxWS : System.Web.Services.WebService {
         
         var res =backEndService.GuardarEvaluaciones(evaluaciones_nuevas_dto, evaluaciones_originales_dto, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(res);
+    }
+    
+    //GENERAL
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void SetAreaActualEnSesion(int id_area)
+    {
+        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = usuarioLogueado.Areas.ToList().Find(a => a.Id == id_area);
     }
 }
 

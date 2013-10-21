@@ -70,9 +70,10 @@
   <ItemGroup>
     <Compile Include="Asistencia\ConceptoDeLicencia.cs" />
     <Compile Include="Asistencia\PaseDeArea.cs" />
+    <Compile Include="Asistencia\ProrrogaLicenciaOrdinaria.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
+    <Compile Include="Calendario\Periodo.cs" />
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
-    <Compile Include="ExcepcionDeValidacion.cs" />
     <Compile Include="MICOI\AccionDeTransicion.cs" />
     <Compile Include="MICOI\Alias.cs" />
     <Compile Include="MICOI\AliasNull.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="MICOI\DesSerializadorDeFiltros.cs" />
     <Compile Include="MICOI\Documento.cs" />
     <Compile Include="MICOI\EnviadorDeMails.cs" />
+    <Compile Include="MICOI\ExcepcionDeValidacion.cs" />
     <Compile Include="MICOI\FiltroDeDocumentos.cs" />
     <Compile Include="MICOI\FiltroDeDocumentosGoogleano.cs" />
     <Compile Include="MICOI\FiltroDeDocumentosPorAreaActual.cs" />
@@ -96,6 +98,11 @@
     <Compile Include="MICOI\FiltroDeDocumentosPorTipoDocumento.cs" />
     <Compile Include="MICOI\FiltroDeDocumentosPorTransicion.cs" />
     <Compile Include="MICOI\Mensajeria.cs" />
+    <Compile Include="MICOI\ReportadorDeDocumentosEnAlerta.cs" />
+    <Compile Include="MICOI\TipoDeDocumentoSICOI.cs" />
+    <Compile Include="MICOI\TransicionDeDocumento.cs" />
+    <Compile Include="MICOI\TransicionesDeAreas.cs" />
+    <Compile Include="MICOI\Validador.cs" />
     <Compile Include="Modi\FolioModi.cs" />
     <Compile Include="Modi\IServicioDeDigitalizacionDeLegajos.cs" />
     <Compile Include="Modi\LegajoModi.cs" />
@@ -106,6 +113,7 @@
     <Compile Include="Modi\IFileSystem.cs" />
     <Compile Include="Modi\ImagenModi.cs" />
     <Compile Include="Modi\RespuestaABusquedaDeLegajos.cs" />
+    <Compile Include="Modi\ServicioDeCompresionYPersistenciaDeImagenes.cs" />
     <Compile Include="Modi\ServicioDeDigitalizacionDeLegajos.cs" />
     <Compile Include="Modi\ThumbnailImagenModi.cs" />
     <Compile Include="MICOI\Alerta.cs" />
@@ -114,8 +122,6 @@
     <Compile Include="Organigrama\Asistentes.cs" />
     <Compile Include="Organigrama\BuscadorDeAreas.cs" />
     <Compile Include="Organigrama\ContactoArea.cs" />
-    <Compile Include="Organigrama\AreaDto.cs" />
-    <Compile Include="DatosDeContacto.cs" />
     <Compile Include="Organigrama\FiltroDeAreas.cs" />
     <Compile Include="Organigrama\InterpretadorDeCodigosDeArea.cs" />
     <Compile Include="Organigrama\Nodo.cs" />
@@ -123,9 +129,18 @@
     <Compile Include="Organigrama\Organigrama.cs" />
     <Compile Include="Organigrama\OrganigramaException.cs" />
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
+    <Compile Include="Organigrama\Responsable.cs" />
+    <Compile Include="SACC\Articulador.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAsistenciasV2.cs" />
     <Compile Include="SACC\AcumuladorHorasAsistidas.cs" />
-    <Compile Include="SACC\Articulador.cs" />
+    <Compile Include="SACC\ComparadorDeDiferencias.cs" />
+    <Compile Include="SACC\DatosDeContacto.cs" />
+    <Compile Include="SACC\AlumnoDto.cs" />
+    <Compile Include="SACC\EstadoAlumnoFinalizado.cs" />
+    <Compile Include="SACC\EstadoAlumnoAbandonado.cs" />
+    <Compile Include="SACC\EstadoAlumnoLibre.cs" />
+    <Compile Include="SACC\EstadoAlumnoCursando.cs" />
+    <Compile Include="SACC\EstadoDeAlumno.cs" />
     <Compile Include="Seguridad\Auditoria.cs" />
     <Compile Include="Seguridad\Autorizador.cs" />
     <Compile Include="Seguridad\Features.cs" />
@@ -150,6 +165,11 @@
     <Compile Include="Viaticos\ModalidadDeContratacionNivelPolitico.cs" />
     <Compile Include="Viaticos\ModalidadDeContratacionNormal.cs" />
     <Compile Include="Viaticos\Pasaje.cs" />
+    <Compile Include="Viaticos\Persona.cs" />
+    <Compile Include="Viaticos\Provincia.cs" />
+    <Compile Include="Viaticos\TipoDePlanta.cs" />
+    <Compile Include="Viaticos\TipoDeViatico.cs" />
+    <Compile Include="Viaticos\TransicionDeViatico.cs" />
     <Compile Include="Viaticos\Zona.cs" />
     <Compile Include="Asistencia\Licencia.cs" />
     <Compile Include="Seguridad\MenuDelSistema.cs" />
@@ -159,7 +179,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ReportadorDeDocumentosEnAlerta.cs" />
     <Compile Include="Repositorios\Cache.cs" />
     <Compile Include="Repositorios\AliasEquals.cs" />
     <Compile Include="Repositorios\CacheNoCargada.cs" />
@@ -186,14 +205,9 @@
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEvaluaciones.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeMaterias.cs" />
     <Compile Include="Repositorios\RepositorioLazy.cs" />
-    <Compile Include="Responsable.cs" />
     <Compile Include="Asistencia\GrupoConceptosDeLicencia.cs" />
     <Compile Include="Asistencia\Inasistencia.cs" />
-    <Compile Include="Periodo.cs" />
-    <Compile Include="Persona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProrrogaLicenciaOrdinaria.cs" />
-    <Compile Include="Provincia.cs" />
     <Compile Include="Repositorios\AreaEquals.cs" />
     <Compile Include="Repositorios\RepositorioDeDocumentos.cs" />
     <Compile Include="Repositorios\RepositorioDeAreas.cs" />
@@ -236,7 +250,6 @@
     <Compile Include="SACC\CalificacionNumerica.cs" />
     <Compile Include="SACC\Ciclo.cs" />
     <Compile Include="SACC\CalificacionNoNumerica.cs" />
-    <Compile Include="SACC\ComparadorDeDiferencias.cs" />
     <Compile Include="SACC\ModalidadNull.cs" />
     <Compile Include="SACC\EvaluacionDto.cs" />
     <Compile Include="SACC\DocenteNull.cs" />
@@ -263,14 +276,7 @@
     <Compile Include="Asistencia\SaldoLicencia.cs" />
     <Compile Include="Asistencia\SaldoLicenciaDetalle.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="TipoDeDocumentoSICOI.cs" />
-    <Compile Include="TipoDePlanta.cs" />
-    <Compile Include="TipoDeViatico.cs" />
-    <Compile Include="TransicionDeDocumento.cs" />
-    <Compile Include="TransicionDeViatico.cs" />
-    <Compile Include="TransicionesDeAreas.cs" />
     <Compile Include="Seguridad\Usuario.cs" />
-    <Compile Include="Validador.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

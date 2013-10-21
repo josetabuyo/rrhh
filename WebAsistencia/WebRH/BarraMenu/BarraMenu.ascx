@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="BarraMenu.ascx.cs" Inherits="FormularioDeViaticos_BarraMenu" %>
+<%@ Register Src="FormPassword.ascx" TagName="FormPassword" TagPrefix="uc5" %>
 
 <head>
     <title></title>
@@ -13,17 +14,18 @@
                 <img src="<%= UrlImagenes %>logo_sistema.png" id="img_logo_sistema" width="130px" height="39px"  alt="logosistema"  />              
                 <img src="<%= UrlImagenes %>logo_ministerio.png" id="img_logo_minis" style="float:left;" width="150px" height="27px"  alt="logosistema"  />
                 <img src="<%= UrlImagenes %>logo_direccion.png" id="img_logo_direccion" width="130px" height="26px"  alt="logosistema"  />
-                
-
                 <div id="barra_menu_nombre_sistema"><%= Feature %></div>
             </div>
         </div>
+        
         <div id="contenedor_barraInferior">
             <div id="barra_menu_inferior">
                 <div id="barra_menu_inferior_usuario">
                     <div id="barra_menu_label_usuario"> USUARIO </div>
-                    <asp:Label ID="LabelUsuario" runat="server"></asp:Label>  
+                    <asp:Label ID="LabelUsuario" runat="server"></asp:Label>
+                   
                 </div>
+                
                 <div id="barra_menu_inferior_botones">
                     <asp:Button ID="VolverAInicio" 
                                     CssClass="barra_menu_botones"
@@ -31,13 +33,18 @@
                                     OnClick="VolverAInicioLinkButton_Click"
                                     Text="Inicio" >
                     </asp:Button>
+                    
+                    <a id="go" rel="leanModal" class="btn barra_menu_botones" name="signup" href="#signup">Cambiar Password</a>
+                    
                     <asp:Button ID="CerrarSessionLinkButton" 
                                     CssClass="barra_menu_botones"
                                     runat="server"
                                     OnClick="CerrarSessionLinkButton_Click" 
                                     Text="Cerrar Sesión" >     
                     </asp:Button>
+                    
                 </div>
-            </div>
+             <uc5:FormPassword ID="FormPassword" runat="server" />
         </div>
+    </div>
 </div>

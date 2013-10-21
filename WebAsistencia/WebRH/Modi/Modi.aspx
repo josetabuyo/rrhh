@@ -7,11 +7,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MODI</title>
-    <link id="link3" rel="stylesheet" href="EstilosModi.css" type="text/css" runat="server" />
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
-    <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="EstilosModi.css" type="text/css"/>
+    <%= Referencias.Css("../")%>
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
@@ -107,8 +104,7 @@
         </asp:ScriptManager>
     </form>
 </body>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="Alerta.js"></script>
     <script type="text/javascript" src="BuscadorDeLegajos.js"></script>
     <script type="text/javascript" src="VistaDeLegajoModi.js"></script>
@@ -122,7 +118,7 @@
     <script type="text/javascript" src="PanelDeImagenes.js"></script>
     <script type="text/javascript" src="SelectorDeLegajos.js"></script>
     <script type="text/javascript" src="VistaLegajoFila.js"></script>
-    <script type="text/javascript" src="ProveedorAjax.js"></script>
+    <script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
 
 
 

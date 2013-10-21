@@ -23,13 +23,13 @@
     .area01
     {
         clear: both;
-        float: left;  /*margin-top: -400px;*/
+        float: left;
         font-size: 15px;
         font-weight: bold;
         color: #000;
         text-transform: capitalize;
-        margin-top: 7%; /*90px;*/
-        width: 90%;
+        margin-bottom: 20px;
+        width: 100%;
         background-color: #9CB3D6;
         margin-right: 15px;
         border-radius: 5px;

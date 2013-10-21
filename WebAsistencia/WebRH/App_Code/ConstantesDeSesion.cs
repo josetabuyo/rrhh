@@ -14,6 +14,7 @@ public class ConstantesDeSesion
     public static string AREA_ACTUAL = "areaActual";
     public static string VIATICO_VACIO = "Viatico vacio";
     public static string ORGANIGRAMA = "Organigrama";
+    public static string ALUMNO = "Alumno";
 	public ConstantesDeSesion()
 	{
 		
