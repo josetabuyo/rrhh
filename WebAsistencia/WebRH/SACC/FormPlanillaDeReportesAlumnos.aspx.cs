@@ -34,6 +34,7 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
         WSViaticosSoapClient ws_viaticos = new WSViaticosSoapClient();
         List<AlumnoDto> alumnos = new List<AlumnoDto>();
         List<CursoDto> cursos = new List<CursoDto>();
+        this.tipo_busqueda.Value = accion;
 
         if (accion == "modalidad")
         {
@@ -219,7 +220,7 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
         this.tipo_busqueda.Value = "1";
 
         var servicio = new WSViaticos.WSViaticosSoapClient();
-        var organismos = servicio.Organismos().OrderBy(o => o.Descripcion);
+        var organismos = servicio.Organismos();
 
         foreach (Organismo o in organismos)
         {
@@ -264,10 +265,10 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
 
     private void SetearLosTextBox()
     {
-        //this.lblCampo.Visible = false;
-        this.cmbCampo.Visible = false;
-        this.btnBuscarCampo.Visible = false;
-        this.tipo_busqueda.Value = "0";
+        ////this.lblCampo.Visible = false;
+        //this.cmbCampo.Visible = false;
+        //this.btnBuscarCampo.Visible = false;
+        //this.tipo_busqueda.Value = "0";
     }
 
 }

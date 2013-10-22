@@ -65,10 +65,10 @@
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     
     <div id="panelAlumno"  class="div_izquierdo">
-        <fieldset>
+  
             <legend class="subtitulos">Reportes</legend>
 
-            <div class="estilo_formulario">
+             <div class="estilo_formulario" style="overflow: hidden; margin-right: 15px;">
                <div class="container">
                 <div class="main">
                     <section>
@@ -76,6 +76,7 @@
                     </section>   
                 </div>
             </div>
+
              <input type="hidden" class="btn btn-primary " id="accion" value="" runat="server" />
                <nav class="cbp-spmenu cbp-spmenu-left" id="cbp-spmenu-s1">
                     <h3>Alumnos</h3>
@@ -90,36 +91,27 @@
                     <a href="FormPlanillaDeReportesAlumnos.aspx?accion=materia">Por Materias</a>
                     </div>
                 </nav>
+
+                <div id="div_parametros" style="margin-left: 250px; display:none;"> 
+                  <legend id="lb_parametros">Parámetros</legend>
+                   <p><asp:DropDownList ID="cmbCampo" runat="server" enableviewstate="true">
+                <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem></asp:DropDownList></p>
+                 <asp:Button ID="btnBuscarCampo" Text="Buscar" runat="server" OnClick="btnBuscarCampo_Click" class=" btn btn-primary" style="float:right;" />
                
-
-              <%-- <legend>Reportes</legend>--%>
-                <%--<p><asp:Button ID="btn_modalidad" Text="Por Modalidad" runat="server" OnClick="btnBuscarPorModalidad_Click" class=" btn btn-primary" style= "width: 100%;" /></p>--%>
-                <%--<p><input id="btn_modalidad" type="button" value="Por Modalidad" onclick="javascript:BuscarPorModalidad();" style="width: 100%;" class="btn btn-primary" /><p>
-                <p><asp:Button ID="btn_ciclo"   Text="Por Ciclo" runat="server" OnClick="btnBuscarPorCiclo_Click" class=" btn btn-primary" style="width: 100%;" /></p>
-                <p><asp:Button ID="btn_organismo" Text="Por Organismo" runat="server" OnClick="btnBuscarPorOrganismo_Click" class=" btn btn-primary" style="width: 100%;" /></p>
-                <p><asp:Button ID="btn_materia" Text="Materia Sin Cursar" runat="server" OnClick="btnBuscarPorMateria_Click" class=" btn btn-primary" style="width: 100%;" /></p>--%>
-            </div>
-
-            <div id="parametros" class="estilo_formulario" style="width:76%; margin-left: 1%; float: left; height: 250px; display: none;">
-               <legend>Parámetros</legend>
-              <%-- <asp:Label ID="lblCampo" CssClass="labels_sacc" runat="server" Text="Campo:"></asp:Label>--%>
-
-               <label> Fecha Desde</label>
+                               <%--<label> Fecha Desde</label>
                <input type="text" id="idFechaDesde" class="text_10caracteres hasDatepicker">
                <label> Fecha Hasta</label>
-               <input type="text" id="idFechaHasta" class="text_10caracteres hasDatepicker">
+               <input type="text" id="idFechaHasta" class="text_10caracteres hasDatepicker">--%>
+             
+                </div>
 
-                <p><asp:DropDownList ID="cmbCampo" runat="server" enableviewstate="true">
-                <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem></asp:DropDownList></p>
-               
+            
+            
+              <%-- <legend>Gráfico</legend>
+               <canvas id="canvas" height="350" width="350"></canvas>--%>
             </div> 
-             <asp:Button ID="btnBuscarCampo" Text="Buscar" runat="server" OnClick="btnBuscarCampo_Click" class=" btn btn-primary" style="float:right;" />
-            <div class="estilo_formulario" style="width:95%; margin-left: 1%; float: left; height: 450px;">
-               <legend>Gráfico</legend>
-               <canvas id="canvas" height="350" width="350"></canvas>
-            </div> 
-                   
-        </fieldset>
+           
+     
     </div>
 
     <div class="div_derecho">
@@ -221,10 +213,33 @@
     };
 
     var DeterminarReporteEnPantalla = function (accion) {
-        if (accion == "modalidad") {
-            $('#btnBuscarCampo').show();
+
+        if (accion == "") {
+            $('#div_parametros').hide();
+
         } else {
-            $('#btnBuscarCampo').show();
+            $('#div_parametros').show();
+
+            if (accion == "modalidad") {
+                $('#lb_parametros').text(" Parámetros - Por Modalidad");
+                $('#btnBuscarCampo').show();
+
+            }
+
+            if (accion == "organismo") {
+                $('#lb_parametros').text(" Parámetros - Por Organismo");
+
+            }
+
+            if (accion == "ciclo") {
+                $('#lb_parametros').text(" Parámetros - Por Ciclo");
+
+            }
+
+            if (accion == "materia") {
+                $('#lb_parametros').text(" Parámetros - Por Materia");
+
+            }
         }
 
     }
