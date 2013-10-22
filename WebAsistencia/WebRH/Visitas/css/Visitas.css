@@ -1,0 +1,35 @@
+﻿body, table, div
+{
+    margin: 0px auto;
+    padding: 0px auto;
+}
+
+.TituloPagina
+{
+    font-size: xx-large;
+    font-weight: bold;
+    color: #0074CC;
+    padding: 15px 0 40px 0;
+}
+
+.tdDesControl
+{
+    text-align: right;
+    padding-right: 8px;
+    vertical-align: middle;
+}
+
+.tdSubTitulo
+{
+    text-align: center;
+    padding: 10px 0 15px 0;
+}
+
+.divEmptyGrid
+{
+    border: 1px solid #F6CECE;
+    padding: 5px;
+    background-color: #FBF2EF;
+    color: #A4A4A4;
+}
+

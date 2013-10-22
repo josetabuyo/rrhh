@@ -119,6 +119,7 @@
     <Compile Include="Organigrama\Organigrama.cs" />
     <Compile Include="Organigrama\OrganigramaException.cs" />
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
+    <Compile Include="Repositorios\RepositorioVisitas.cs" />
     <Compile Include="SACC\AsistenciaHoraCuatro.cs" />
     <Compile Include="SACC\Articulador.cs" />
     <Compile Include="Seguridad\Auditoria.cs" />
@@ -273,7 +274,10 @@
     <Compile Include="TransicionesDeAreas.cs" />
     <Compile Include="Seguridad\Usuario.cs" />
     <Compile Include="Validador.cs" />
-    <Compile Include="Visitas\Class1.cs" />
+    <Compile Include="Visitas\AutorizacionVisita.cs" />
+    <Compile Include="Visitas\FuncionarioVisita.cs" />
+    <Compile Include="Visitas\MotivoVisita.cs" />
+    <Compile Include="Visitas\PersonaVisita.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

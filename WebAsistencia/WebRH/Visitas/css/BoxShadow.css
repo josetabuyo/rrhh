@@ -1,0 +1,27 @@
+﻿.caja{    
+    background-color: #f4f4f4;
+    width: 90%;
+    margin: 1% 0% 2% 4%;
+}
+.caja-sombra{
+    position: relative;
+    float: none;
+    padding: 1em 1em 4em 1em;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.caja-sombra:before, .caja-sombra:after{
+    content: "";
+    position: absolute;
+    z-index: -2;
+}
+.sombra1:beforez{
+    top: 10px;
+    bottom: 10px;
+    left: 0;
+    right: 50%;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    border-radius: 5px / 100px;
+}
+.sombra2:before{
+    right: 0
+}

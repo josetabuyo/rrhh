@@ -1653,10 +1653,6 @@ public class WSViaticos : System.Web.Services.WebService
 
 #endregion
 
-    #region visitas
-
-    #endregion
-
     [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
     {
@@ -1811,6 +1807,41 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new RepositorioDeEvaluacion(Conexion(), RepositorioDeCursos(), RepoAlumnos());
     }
+
+
+
+
+    #region visitas
+
+    [WebMethod]
+    public FuncionarioVisita[] GetFuncionarios(int UserId)
+    {
+        var Funcionarios = (new RepositorioVisitas(UserId)).getFuncionariosHabilitados().ToArray();
+        return Funcionarios;
+    }
+
+    [WebMethod]
+    public MotivoVisita[] GetMotivoVista(int UserId)
+    {
+        var Motivos = (new RepositorioVisitas(UserId)).getMotivoVista().ToArray();
+        return Motivos;
+    }
+
+    [WebMethod]
+    public PersonaVisita[] GetPersonasVisitas(int UserId, string Apellido, string Nombre, int Documento)
+    {
+        var Personas = (new RepositorioVisitas(UserId)).getPersonas(Apellido, Nombre, Documento).ToArray();
+        return Personas;
+    }
+
+    [WebMethod]
+    public AutorizacionVisita[] GetAutorizaciones(int UserId, string Apellido, string Nombre, int Documento)
+    {
+        var Autorizaciones = (new RepositorioVisitas(UserId)).getAutorizaciones(Apellido, Nombre, Documento).ToArray();
+        return Autorizaciones;
+    }
+
+    #endregion
 
 
 
