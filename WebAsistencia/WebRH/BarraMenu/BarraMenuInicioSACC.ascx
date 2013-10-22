@@ -6,8 +6,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link id="link1" rel="stylesheet" href="<%= UrlEstilos %>EstilosBarraMenu.css" type="text/css" />
     <%= Referencias.Css("../")%>
-    <%-- <link id="link3" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-    <link id="link4" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />--%>
 </head>
 <div id="barra_menu_contenedor">
     <div id="contenedor_imagen">
@@ -43,5 +41,4 @@
         </div>
     </div>
     <%= Referencias.Javascript("../") %>
-    <%-- <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>--%>
 </div>

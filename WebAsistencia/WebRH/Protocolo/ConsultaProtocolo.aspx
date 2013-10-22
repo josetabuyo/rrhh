@@ -9,19 +9,19 @@
         <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
         <%= Referencias.Css("../")%>
         <link id="link1" rel="stylesheet" href="ConsultaProtocolo.css" type="text/css" runat="server" />
+        <link id="link5" rel="stylesheet" href="VistaDeArea.css" type="text/css" runat="server" />
     </head>
     <body>
         <form id="form1" runat="server">
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True"></asp:ScriptManager>
             <uc2:BarraMenu ID="BarraMenu" runat="server" UrlEstilos="../Estilos/" UrlImagenes="../Imagenes/" />
-            <div class= "contenedor_principal">
-                <div class= "contenedor_buscador">
-                </div>               
-                <legend>Listado de Áreas del Ministerio de Desarrollo Social de Nación</legend>  
+            <div id="ContenedorPrincipal" class="contenedor_principal contenedor_principal_consulta_protocolo">            
+                <legend>
+                    Listado de Áreas del Ministerio de Desarrollo Social de Nación                     
+                    <input type="text" id="search" class="search" placeholder="Buscar"/>     
+                </legend>  
                 <div id="ContenedorPlanilla" runat="server">
-                    <div class="input-append" style="clear:both;">                       
-                        <input type="text" id="search" class="search" style="float:right; margin:5px;" placeholder="Buscar"/>    
-                    </div>  
+ 
                 </div>
                 <asp:HiddenField ID="texto_mensaje_exito" runat="server" />
                 <asp:HiddenField ID="texto_mensaje_error" runat="server" />

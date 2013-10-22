@@ -118,7 +118,7 @@
     <script type="text/javascript" src="PanelDeImagenes.js"></script>
     <script type="text/javascript" src="SelectorDeLegajos.js"></script>
     <script type="text/javascript" src="VistaLegajoFila.js"></script>
-    <script type="text/javascript" src="ProveedorAjax.js"></script>
+    <script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
 
 
 
