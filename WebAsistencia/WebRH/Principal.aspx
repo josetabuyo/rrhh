@@ -5,26 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Nomina - Sistema RRHH</title>
-    <link id="link1" rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <script type="text/javascript" src="bootstrap/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/jquery-ui-1.8.21.custom.min.js"></script>
-
-    <link id="link3" rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="Estilos/Estilos.css" type="text/css" runat="server" /> 
-  
-  
-    <link rel="stylesheet" href="Estilos/alertify.core.css" id="toggleCSS" />
-    <link rel="stylesheet" href="Estilos/alertify.default.css"  />
-    <script type="text/javascript" src="bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="Scripts/alertify.js"></script>
-
-    <script type="text/javascript" src="Scripts/jquery.leanModal.min.js"></script>
-
+    <%= Referencias.Css("")%>
+    <%= Referencias.Javascript("") %>
 </head>
 <body>
     <form id="form1" runat="server">
-    <uc1:BarraMenu ID="BarraMenu" UrlPassword="" runat="server" UrlEstilos="Estilos/" UrlImagenes ="Imagenes/" />
+    <uc1:BarraMenu ID="BarraMenu1" runat="server" UrlEstilos="Estilos/" UrlImagenes ="Imagenes/" />
     <table style="width: 100%; text-align: center">
         <tr style="font-size: 12pt; font-family: Times New Roman">
             <td colspan="3" align="center" style="height: 19px">

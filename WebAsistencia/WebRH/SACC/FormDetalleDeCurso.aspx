@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <%= Referencias.Css("../")%>
     <link id="link1" rel="stylesheet" href="../Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />    
-    <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <link id="link5" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-    <link id="link3" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
 </head>
 <body>
     <form id="form1" runat="server">
