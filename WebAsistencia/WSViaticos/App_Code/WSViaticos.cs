@@ -1850,38 +1850,86 @@ public class WSViaticos : System.Web.Services.WebService
 #endregion
 
     #region mau
-    [WebMethod]
-    public List<AdministracionDeUsuarios.Permiso> GetPermisosPara(int id_interna)
+
+    public static AutorizadorFuncionalidades autorizador_mock;
+    protected AutorizadorFuncionalidades Autorizador()
     {
-        var funcionalidades = GetFuncionalidades();
-        var permisos = new List<AdministracionDeUsuarios.Permiso>() { 
-            new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First().sub_funcionalidades[3], new List<AdministracionDeUsuarios.Permiso>()),
-            new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First().sub_funcionalidades[4].sub_funcionalidades[1], new List<AdministracionDeUsuarios.Permiso>())
-        };
-        return permisos;
+        if(autorizador_mock == null) {
+            var funcionalidades = GetFuncionalidades();
+            var dict_permisos = new Dictionary<string, List<AdministracionDeUsuarios.Permiso>>();
+
+            var permisos_veronica = new List<AdministracionDeUsuarios.Permiso>();
+            dict_permisos.Add("veronica", permisos_veronica);
+
+            var permisos_juana = new List<AdministracionDeUsuarios.Permiso>() { 
+                new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First().sub_funcionalidades[2], new List<AdministracionDeUsuarios.Permiso>()),
+            };
+            dict_permisos.Add("juana", permisos_juana);
+
+            var permisos_ernesto = new List<AdministracionDeUsuarios.Permiso>();
+            dict_permisos.Add("ernesto", permisos_ernesto);
+
+            var permisos_felipe = new List<AdministracionDeUsuarios.Permiso>();
+            dict_permisos.Add("felipe", permisos_felipe);
+
+            autorizador_mock = new AdministracionDeUsuarios.AutorizadorFuncionalidades(dict_permisos);
+        }
+        return autorizador_mock;
     }
 
+    [WebMethod]
+    public List<AdministracionDeUsuarios.Permiso> GetPermisosPara(string usuario)
+    {
+        return Autorizador().FuncionalidadDelUsuario(usuario);
+    }
 
     [WebMethod]
-    public Funcionalidad[] GetFuncionalidades()
+    public void ConcederPermisoA(string usuario, string funcionalidad)
     {
-        var rrhh = new Funcionalidad("RRHH");
-        var web = new Funcionalidad("Web");
-        var asistencia = new Funcionalidad("Asistencia");
-        var sacc = new Funcionalidad("SACC");
-        var sicoi = new Funcionalidad("SICOI");
-        var viaticos = new Funcionalidad("Viaticos");
+        Autorizador().ConcederPermisoA(usuario, new Funcionalidad(funcionalidad));
+    }
 
-        rrhh.AgregarFuncionalidad(web);
-        rrhh.AgregarFuncionalidad(asistencia);
-        rrhh.AgregarFuncionalidad(sacc);
-        rrhh.AgregarFuncionalidad(sicoi);
-        rrhh.AgregarFuncionalidad(viaticos);
+    [WebMethod]
+    public void DenegarPermisoA(string usuario, string funcionalidad)
+    {
+        Autorizador().DenegarPermisoA(usuario, new Funcionalidad(funcionalidad));
+    }
 
-        viaticos.AgregarFuncionalidad(new Funcionalidad("Pedir viatico"));
-        viaticos.AgregarFuncionalidad(new Funcionalidad("Autorizar viatico"));
+    [WebMethod]
+    public List<Funcionalidad> GetFuncionalidades()
+    {
 
-        return new Funcionalidad[]  { rrhh };
+        /*
+        [ ] sys
+            /[ ] web
+            /[ ] rrhh
+                /[ ] contratos
+                /[ ] legajos
+            /[ ] licencias
+                /[ ] carga
+                /[ ] modificacion
+                /[ ] consulta
+        */
+        var sys = new Funcionalidad("sys");
+        var web = new Funcionalidad("web");
+        var rrhh = new Funcionalidad("rrhh");
+        var contratos = new Funcionalidad("contratos");
+        var legajos = new Funcionalidad("legajos");
+        var licencias = new Funcionalidad("licencias");
+        var carga = new Funcionalidad("carga");
+        var modificacion = new Funcionalidad("modificacion");
+        var consulta = new Funcionalidad("consulta");
+
+        sys.AgregarFuncionalidad(web);
+        sys.AgregarFuncionalidad(rrhh);
+            rrhh.AgregarFuncionalidad(contratos);
+            rrhh.AgregarFuncionalidad(legajos);
+        sys.AgregarFuncionalidad(licencias);
+            licencias.AgregarFuncionalidad(carga);
+            licencias.AgregarFuncionalidad(modificacion);
+            licencias.AgregarFuncionalidad(consulta);
+
+        return new List<Funcionalidad> { sys };
     }
 
 

@@ -39,6 +39,17 @@ namespace TestAdministracionDeUsuarios
             Assert.IsFalse(autorizador.PuedeAcceder(Roberto(), TestObjects.FuncionalidadEsctrituraLegajos()));
         }
 
+        [TestMethod]
+        public void si_le_concedo_acceso_a_una_funcionalidad_a_un_usuario_y_luego_se_la_denego_el_usuario_no_deberia_poder_acceder_a_la_misma_y_deberia_tener_solo_un_permiso_denegado()
+        {
+            var autorizador = TestObjects.Autorizador();
+            autorizador.ConcederPermisoA(Roberto(), TestObjects.FuncionalidadLecturaLegajos());
+            autorizador.DenegarPermisoA(Roberto(), TestObjects.FuncionalidadLecturaLegajos());
+
+            Assert.IsFalse(autorizador.PuedeAcceder(Roberto(), TestObjects.FuncionalidadLecturaLegajos()));
+            Assert.AreEqual(1, autorizador.FuncionalidadDelUsuario(Roberto()).Count);
+        }
+
         protected string Juan()
         {
             return TestObjects.Juan();

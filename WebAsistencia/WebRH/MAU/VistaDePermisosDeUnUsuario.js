@@ -16,7 +16,32 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
                 checkbox: true,
                 selectMode: 2,
                 children: nodos_funcionalidades,
-                debugLevel: 0
+                debugLevel: 0,
+                onClick: function (node, event) {
+                    if (node.getEventTargetType(event) == 'checkbox') {
+                        if (node.isSelected()) {
+                            _this.servicioDeSeguridad.denegarPermisoA(
+                                _this.usuario,
+                                node.data.title,
+                                function () {
+                                    node.select(false);
+                                },
+                                function () { alert("error al denegar permisos"); }
+                            );
+                        }
+                        else {
+                            _this.servicioDeSeguridad.concederPermisoA(
+                                _this.usuario,
+                                node.data.title,
+                                function () {
+                                    node.select(true);
+                                },
+                                function () { alert("error al conceder permisos"); }
+                            );
+                        }
+                        return false;
+                    }
+                }
             });
             _this.arbol = _this.ui.dynatree('getTree');
         },
@@ -30,11 +55,18 @@ VistaDePermisosDeUnUsuario.prototype.setUsuario = function (un_usuario) {
     this.arbol.visit(function (node) {
         node.select(false);
     }, true);
+    this.usuario = un_usuario;
     var _this = this;
     this.servicioDeSeguridad.getPermisosPara(un_usuario,
         function (permisos) { //on success
             for (var i = 0; i < permisos.length; i++) {
-                _this.arbol.getNodeByKey(permisos[i].funcionalidad.nombre).select();
+                var nodo = _this.arbol.getNodeByKey(permisos[i].funcionalidad.nombre);
+                if (permisos[i].tipo == "Concedido") {
+                    nodo.select(true);
+                }
+                if (permisos[i].tipo == "Denegado") {
+                    nodo.select(false);
+                }
             }
         },
         function (error) { //on error

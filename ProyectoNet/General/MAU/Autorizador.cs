@@ -36,16 +36,20 @@ namespace AdministracionDeUsuarios
 
         public bool ConcederPermisoA(string usuario, Funcionalidad funcionalidad)
         {
-            FuncionalidadDelUsuario(usuario).Add(Permiso.Conceder(funcionalidad));
+            var permiso = Permiso.Conceder(funcionalidad);
+            FuncionalidadDelUsuario(usuario).RemoveAll(p => p.ActuaSobreLaMismaFuncionalidadQue(permiso));
+            FuncionalidadDelUsuario(usuario).Add(permiso);
             return true;
         }
 
         public void DenegarPermisoA(string usuario, Funcionalidad funcionalidad)
         {
-            FuncionalidadDelUsuario(usuario).Add(Permiso.Denegar(funcionalidad));
+            var permiso = Permiso.Denegar(funcionalidad);
+            FuncionalidadDelUsuario(usuario).RemoveAll(p => p.ActuaSobreLaMismaFuncionalidadQue(permiso));
+            FuncionalidadDelUsuario(usuario).Add(permiso);
         }
 
-        protected List<Permiso> FuncionalidadDelUsuario(string usuario)
+        public List<Permiso> FuncionalidadDelUsuario(string usuario)
         {
             if (!permisos.ContainsKey(usuario))
                 permisos.Add(usuario, new List<Permiso>());

@@ -13,7 +13,7 @@
     <form id="form1" runat="server">
         <div>
             <div id="selector_usuario">
-                <input id="txt_buscador" type=text nullvalue="dni"/>
+                <input id="txt_buscador" type=text nullvalue="Ingrese nombre de usuario"/>
                 <input id="btn_buscar_usuario" type=button value="buscar" class="btn btn-primary"/>
             </div>
             <div id="vista_permisos">
