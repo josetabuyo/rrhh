@@ -52,9 +52,6 @@
     {     
         border-color: rgb(255, 187, 187)!important;
     }
-        
-
-    
     </style>
 </head>
 <body class="marca_de_agua">
@@ -83,7 +80,8 @@
     </form>
 
    <%= Referencias.Javascript("../") %>
-    <script type="text/javascript" src="Scripts/planilla_ingreso.js"></script>
+    <script type="text/javascript" src="Scripts/PlanillaEvaluaciones.js"></script>
+    <script type="text/javascript" src="Scripts/AdministradorPlanillaEvaluaciones.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>

@@ -130,10 +130,14 @@
     <Compile Include="Organigrama\OrganigramaException.cs" />
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
     <Compile Include="Organigrama\Responsable.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAsistencias.cs" />
+    <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAsistencias.cs" />
+    <Compile Include="SACC\AcumuladorAsistencia.cs" />
     <Compile Include="SACC\Articulador.cs" />
-    <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAsistenciasV2.cs" />
-    <Compile Include="SACC\AcumuladorHorasAsistidas.cs" />
+    <Compile Include="SACC\Asistencia.cs" />
+    <Compile Include="SACC\AsistenciaDiaCursado.cs" />
     <Compile Include="SACC\ComparadorDeDiferencias.cs" />
+    <Compile Include="SACC\AsistenciaDiaNoCursado.cs" />
     <Compile Include="SACC\DatosDeContacto.cs" />
     <Compile Include="SACC\AlumnoDto.cs" />
     <Compile Include="SACC\EstadoAlumnoFinalizado.cs" />
@@ -194,12 +198,10 @@
     <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeMaterias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeModalidades.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeModalidades.cs" />
-    <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAlumnos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeCursos.cs" />
     <Compile Include="Repositorios\RepositorioDeTickets.cs" />
     <Compile Include="Repositorios\RepositorioMensajeria.cs" />
-    <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeDocentes.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEspaciosFisicos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEvaluaciones.cs" />
@@ -240,7 +242,6 @@
     </Compile>
     <Compile Include="Repositorios\TypeSelector.cs" />
     <Compile Include="SACC\Alumno.cs" />
-    <Compile Include="SACC\Asistencia.cs" />
     <Compile Include="SACC\AsistenciaDto.cs" />
     <Compile Include="SACC\CalendarioDeCurso.cs" />
     <Compile Include="SACC\CalendarioDeFeriados.cs" />

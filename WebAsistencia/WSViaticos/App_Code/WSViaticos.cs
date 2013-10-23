@@ -1005,22 +1005,22 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public PlanillaAsistenciasDto GuardarAsistencias(AcumuladorDto[] asistencias_nuevas_dto, AcumuladorDto[] asistencias_originales_dto, Usuario usuarioLogueado)
     {
-        List<Acumulador> asistencias_nuevas = new List<Acumulador>();
-        List<Acumulador> asistencias_originales = new List<Acumulador>();
+        List<AcumuladorAsistencia> asistencias_nuevas = new List<AcumuladorAsistencia>();
+        List<AcumuladorAsistencia> asistencias_originales = new List<AcumuladorAsistencia>();
 
         foreach (var a in asistencias_nuevas_dto)
         {
             if (a.Valor == "-" || a.Valor == "")
-                asistencias_nuevas.Add(new AcumuladorHorasDiaNoCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
+                asistencias_nuevas.Add(new AsistenciaDiaNoCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
             else
-                asistencias_nuevas.Add(new AcumuladorHorasDiaCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
+                asistencias_nuevas.Add(new AsistenciaDiaCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
         }
         foreach (var a in asistencias_originales_dto)
         {
             if (a.Valor == "-" || a.Valor == "")
-                asistencias_originales.Add(new AcumuladorHorasDiaNoCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
+                asistencias_originales.Add(new AsistenciaDiaNoCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
             else
-                asistencias_originales.Add(new AcumuladorHorasDiaCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
+                asistencias_originales.Add(new AsistenciaDiaCursado(a.Id, a.Valor, 0, a.Fecha, a.IdAlumno, a.IdCurso));
         }
         RepoAsistencias().GuardarAsistencias(asistencias_nuevas, asistencias_originales, usuarioLogueado);
         return null;
@@ -2039,9 +2039,9 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDeDocentes(Conexion(), RepositorioDeCursos());
     }
 
-    private RepositorioDeAsistenciasV2 RepoAsistencias()
+    private RepositorioDeAsistencias RepoAsistencias()
     {
-        return new RepositorioDeAsistenciasV2 (Conexion());
+        return new RepositorioDeAsistencias (Conexion());
     }
 
     private RepositorioDeEspaciosFisicos RepoEspaciosFisicos()

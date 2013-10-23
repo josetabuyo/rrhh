@@ -50,7 +50,7 @@ namespace General
         {
             List<HorarioDeCursada> horarios_del_curso = curso.GetHorariosDeCursada();
 
-            List<Asistencia> lista_de_asistencias_tomadas = repo_asistencias.GetAsistenciasPorCursoYAlumno(curso.Id, alumno.Id);
+            List<AcumuladorAsistencia> lista_de_asistencias_tomadas = repo_asistencias.GetAsistenciasPorCursoYAlumno(curso.Id, alumno.Id);
 
             int ausencias_computables = 0;
 
@@ -74,19 +74,11 @@ namespace General
             return LimiteMaximoDeAusenciasParaAlumnosRegulares(total_horas_catedra);
         }
 
-        private int AusenciasComputables(List<HorarioDeCursada> horarios_del_curso, int ausencias_computables, Asistencia asistencia)
+        private int AusenciasComputables(List<HorarioDeCursada> horarios_del_curso, int ausencias_computables, AcumuladorAsistencia asistencia)
         {
             HorarioDeCursada dia_y_horario = horarios_del_curso.Find(d => d.Dia == asistencia.Fecha.DayOfWeek);
-
-            if (0 < asistencia.Valor && asistencia.Valor < 4)
-            {
-                ausencias_computables += dia_y_horario.HorasCatedra - asistencia.Valor;
-            }
-
-            if (asistencia.Valor == 4)
-            {
-                ausencias_computables += dia_y_horario.HorasCatedra;
-            }
+            ausencias_computables += dia_y_horario.HorasCatedra - int.Parse(asistencia.Valor);
+            
             return ausencias_computables;
         }
 

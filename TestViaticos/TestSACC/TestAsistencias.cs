@@ -19,7 +19,7 @@ namespace TestViaticos
             var valor_propio = "1";
             var horas_del_dia_cursado = 3;
 
-            var obj_acumulador_una_hora = new AcumuladorHorasDiaCursado(valor_propio, horas_del_dia_cursado);
+            var obj_acumulador_una_hora = new AsistenciaDiaCursado(valor_propio, horas_del_dia_cursado);
             Assert.AreEqual(2, obj_acumulador_una_hora.HorasNoAsistidas());
         }
 
@@ -28,8 +28,8 @@ namespace TestViaticos
         {
             var valor_propio = "1";
             var horas_del_dia_cursado = 3;
-            var obj_acumulador_primer_dia = new AcumuladorHorasDiaCursado(valor_propio, horas_del_dia_cursado);
-            var obj_acumulador_segundo_dia = new AcumuladorHorasDiaCursado(valor_propio, horas_del_dia_cursado);
+            var obj_acumulador_primer_dia = new AsistenciaDiaCursado(valor_propio, horas_del_dia_cursado);
+            var obj_acumulador_segundo_dia = new AsistenciaDiaCursado(valor_propio, horas_del_dia_cursado);
 
             Assert.AreEqual(4, obj_acumulador_segundo_dia.AcumularHorasNoAsistidas(obj_acumulador_primer_dia.HorasNoAsistidas()));
         }
@@ -39,8 +39,8 @@ namespace TestViaticos
         {
             var valor_propio = "0";
             var horas_del_dia_cursado = 3;
-            var obj_acumulador_primer_dia = new AcumuladorHorasDiaCursado(valor_propio, horas_del_dia_cursado);
-            var obj_acumulador_segundo_dia = new AcumuladorHorasDiaCursado(valor_propio, horas_del_dia_cursado);
+            var obj_acumulador_primer_dia = new AsistenciaDiaCursado(valor_propio, horas_del_dia_cursado);
+            var obj_acumulador_segundo_dia = new AsistenciaDiaCursado(valor_propio, horas_del_dia_cursado);
 
             Assert.AreEqual(6, obj_acumulador_segundo_dia.AcumularHorasNoAsistidas(obj_acumulador_primer_dia.HorasNoAsistidas()));
         }
@@ -50,7 +50,7 @@ namespace TestViaticos
         {
             var valor_propio = "-";
             var horas_del_dia_cursado = 3;
-            var obj_acumulador = new AcumuladorHorasDiaNoCursado(valor_propio, horas_del_dia_cursado);
+            var obj_acumulador = new AsistenciaDiaNoCursado(valor_propio, horas_del_dia_cursado);
 
             Assert.AreEqual(0, obj_acumulador.HorasNoAsistidas());
             Assert.AreEqual(0, obj_acumulador.HorasAsistidas());
