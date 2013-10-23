@@ -2058,6 +2058,14 @@ public class WSViaticos : System.Web.Services.WebService
             DateTime.TryParse(o.FechaCarga, out fecha_carga);
             DateTime fecha_rta;
             DateTime.TryParse(o.FechaResultado, out fecha_rta);
+
+            if (fecha_carga.Year.Equals(0001))
+            {
+                fecha_carga = new DateTime(1900, 01, 01);
+            } else if (fecha_rta.Year.Equals(0001))
+            {
+                fecha_rta = new DateTime(1900, 01, 01);
+            }
            
             observaciones_a_guardar.Add(new Observacion(o.id, fecha_carga, o.Relacion, o.PersonaCarga, o.Pertenece, o.Asunto, o.ReferenteMDS, o.Seguimiento, o.Resultado, fecha_rta, o.ReferenteRespuestaMDS ));
         }

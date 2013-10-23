@@ -133,6 +133,7 @@
     <Compile Include="SACC\Articulador.cs" />
     <Compile Include="SACC\AsistenciaHoraCuatro.cs" />
     <Compile Include="SACC\ComparadorDeDiferencias.cs" />
+    <Compile Include="SACC\EstadoAlumnoSinCursar.cs" />
     <Compile Include="SACC\DatosDeContacto.cs" />
     <Compile Include="SACC\Observacion.cs" />
     <Compile Include="SACC\ObservacionDTO.cs" />

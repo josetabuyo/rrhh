@@ -13,6 +13,7 @@
     <link id="link3" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
     <link id="link1" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
+    <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
 
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
@@ -25,18 +26,18 @@
      <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
         
-            <div id="ContenedorPlanilla" style="width:80%; overflow:auto; margin:0 auto;" runat="server">
+            <div id="ContenedorPlanilla" style="width:80%; height:550px; overflow:auto; margin:0 auto;" runat="server">
                 <fieldset>
                     <legend>Observaciones</legend>
                      <div class="input-append" style="clear:both;">   
+                        <a id="btnObservacion" rel="leanModal" class="btn btn-primary" name="observacion" href="#observacion">Agregar Observaci&oacute;n</a>
+                        <a id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " href=""  >Imprimir</a>
                         <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Observaciones" />    
                     </div>  
                  </fieldset>    
             </div>
        
-
-
-<%--                <div id="observacion" >
+                <div id="observacion" >
 			        <div id="signup-ct">
 				        <div id="signup-header">
 					        <h2 style="color:#fff;">Observaci&oacute;n</h2>
@@ -44,115 +45,104 @@
 					        <a class="modal_close" href="#"></a>
 				        </div>
 						<div id="contenido_form">
-				                <p style="float:left; margin:0 10px" class="FechaCarga">
-                                    <input type="hidden" id="Hidden1" />
-                                    <input type="text" style="width:100px;" id="Text1" placeholder="FechaCarga" />
-                                </p>
-                                <p style="float:left; margin:0 10px" class="Relacion">
-                                    <input type="text" style="width:150px;" id="Text2" placeholder="Relacion" />
-                                </p>
-                                <p style="float:left; margin:0 10px" class="PersonaCarga">
-                                    <input type="text" style="width:150px;" id="Text3" placeholder="PersonaCarga" />
-                                </p>
-                                <p style="float:left; margin:0 10px" class="Pertenece">
-                                    <input type="text" style="width:150px;" id="Text4" placeholder="Pertenece" />
-                                </p>
-                                <p style="float:left; margin:0 10px" class="Asunto">
-                                    <input type="text" style="width:150px;" id="Text5" placeholder="Asunto" />
-                                </p>
-                                <p style="float:left; margin:0 10px" class="ReferenteMDS">
-                                    <input type="text" style="width:150px;" id="Text6" placeholder="ReferenteMDS" />
-                                </p>
-                                <p style="float:left; margin:0 10px" class="Seguimiento">
-                                    <input type="text" style="width:200px;" id="Text7" placeholder="Seguimiento" />
-                                </p>
-                                <p style="float:left; margin:0 10px" class="Resultado">
-                                    <input type="text" style="width:200px;" id="Text8" placeholder="Resultado" />
-                                </p>
-                                <p style="float:left; margin:0 10px" class="FechaDelResultado">
-                                    <input type="text" style="width:130px;" id="Text9" placeholder="FechaDelResultado" />
-                                </p>
-                                <p style="float:left; margin:0 10px" class="ReferenteRtaMDS">
-                                    <input type="text" style="width:150px;" id="Text10" placeholder="ReferenteRtaMDS" />
-                                </p>
-                                <p style="clear:left; margin:0 10px" class="add">
-                                    <input type="button" class="btn btn-primary " value="Agregar" id="Button1" />
-                                    <input type="button" class="btn btn-primary " value="Editar" id="Button2" />
+                            <input type="hidden" id="id-field" />
+                            <div class="txt-fld">
+				                <label for="">Fecha Carga:</label>
+                                <input type="text"  id="FechaCarga-field" />
+				            </div>
+                            <div class="txt-fld">
+				                <label for="">Relaci&oacute;n:</label>
+                                <input type="text" id="Relacion-field" />
+				            </div>
+                            <div class="txt-fld">
+				                <label for="">Persona Carga:</label>
+                                <input type="text" id="PersonaCarga-field"  />
+				            </div>
+                            <div class="txt-fld">
+				                <label for="">Pertenece:</label>
+                                <input type="text" id="Pertenece-field"  />
+				            </div>
+                            <div class="txt-fld">
+				                <label for="">Asunto:</label>
+                                <input type="text" id="Asunto-field"  />
+				            </div>
+                            <div class="txt-fld">
+				                <label for="">ReferenteMDS:</label>
+                                <input type="text" id="ReferenteMDS-field" />
+				            </div>
+                            <div class="txt-fld">
+				                <label for="">Seguimiento:</label>
+                                <textarea rows="4" cols="50" id="Seguimiento-field"  ></textarea>
+                               <%-- <input type="text" id="Seguimiento-field" placeholder="Seguimiento" />--%>
+				            </div>
+                            <div class="txt-fld">
+				                <label for="">Resultado:</label>
+                                <textarea rows="4" cols="50" id="Resultado-field"  ></textarea>
+                               <%-- <input type="text" id="Resultado-field" placeholder="Resultado" />--%>
+				            </div>
+                            <div class="txt-fld">
+				                <label for="">FechaDelResultado:</label>
+                                <input type="text" id="FechaDelResultado-field"  />
+				            </div>
+                            <div class="txt-fld">
+				                <label for="">ReferenteRtaMDS:</label>
+                                <input type="text" id="ReferenteRtaMDS-field"  />
+				            </div>
+
+                                <p style="clear:left; margin:0 10px; text-align:center; padding:10px 10px" class="add">
+                                    <input type="button" class="btn btn-primary " value="Agregar" id="add-btn" />
+                                    <input type="button" class="btn btn-primary " value="Editar" id="edit-btn" />
                                 </p>
                         </div>
                     </div>	             
                 </div> 
-                 <a id="btnObservacion" rel="leanModal" class="btn barra_menu_botones" name="observacion" href="#observacion">Agregar Observaci&oacute;n</a>--%>
-        <div style="width:80%; overflow:auto; margin:0 auto;">
-            <fieldset>
-                <legend>Agregar Observaci&oacute;n</legend>
-           <div class="estilo_formulario" style="float:left; height:120px !important; width:95%; text-align:center; ">
-                        <p style="float:left; margin:0 10px" class="FechaCarga">
-                            <input type="hidden" id="id-field" />
-                            <input type="text" style="width:100px;" id="FechaCarga-field" placeholder="FechaCarga" />
-                        </p>
-                        <p style="float:left; margin:0 10px" class="Relacion">
-                            <input type="text" style="width:150px;" id="Relacion-field" placeholder="Relacion" />
-                        </p>
-                        <p style="float:left; margin:0 10px" class="PersonaCarga">
-                            <input type="text" style="width:150px;" id="PersonaCarga-field" placeholder="PersonaCarga" />
-                        </p>
-                        <p style="float:left; margin:0 10px" class="Pertenece">
-                            <input type="text" style="width:150px;" id="Pertenece-field" placeholder="Pertenece" />
-                        </p>
-                        <p style="float:left; margin:0 10px" class="Asunto">
-                            <input type="text" style="width:150px;" id="Asunto-field" placeholder="Asunto" />
-                        </p>
-                        <p style="float:left; margin:0 10px" class="ReferenteMDS">
-                            <input type="text" style="width:150px;" id="ReferenteMDS-field" placeholder="ReferenteMDS" />
-                        </p>
-                        <p style="float:left; margin:0 10px" class="Seguimiento">
-                            <input type="text" style="width:200px;" id="Seguimiento-field" placeholder="Seguimiento" />
-                        </p>
-                        <p style="float:left; margin:0 10px" class="Resultado">
-                            <input type="text" style="width:200px;" id="Resultado-field" placeholder="Resultado" />
-                        </p>
-                        <p style="float:left; margin:0 10px" class="FechaDelResultado">
-                            <input type="text" style="width:130px;" id="FechaDelResultado-field" placeholder="FechaDelResultado" />
-                        </p>
-                        <p style="float:left; margin:0 10px" class="ReferenteRtaMDS">
-                            <input type="text" style="width:150px;" id="ReferenteRtaMDS-field" placeholder="ReferenteRtaMDS" />
-                        </p>
-                        <p style="clear:left; margin:0 10px" class="add">
-                            <input type="button" class="btn btn-primary " value="Agregar" id="add-btn" />
-                            <input type="button" class="btn btn-primary " value="Editar" id="edit-btn" />
-                        </p>
-                        </div>
 
-                    </div>
-                    </fieldset>
-                    <div style="height:20px; margin-top:10px; width: 100%">
-                        <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="button" onclick="" value="Guardar" runat="server" />
-                        <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="" value="Imprimir" />
-                    </div>
+<%--                    <div style="height:20px; margin-top:10px; text-align:center; width: 100%">
+                        <%--<input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="button" onclick="" value="Guardar" runat="server" />--%>
+                        <%--<input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="" value="Imprimir" />
+                    </div>--%>
                 <asp:HiddenField ID="observaciones" runat="server" />
 
     </form>
 
 </body>
 
- <script type="text/javascript" src="../Scripts/Grilla.js"></script>
+    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
 
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/list.js"></script>
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 
          <script type="text/javascript">
 
-//             $(function () {
-//                 $('a[rel*=leanModal]').leanModal({ top: 200, closeButton: ".modal_close" });
-//             });
+             function CapturarTeclaEnter(evt) {
+                 var evt = (evt) ? evt : ((event) ? event : null);
+                 var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+                 if ((evt.keyCode == 13) && (node.type == "text") ) { return false; }
+             }
 
              $(document).ready(function () {
                  AdministradorPlanillaObservaciones();
+
+                 $('#FechaCarga-field').datepicker({
+                     dateFormat: 'dd/mm/yy',
+                     onClose: function () {
+                         
+                     }
+                 });
+
+                 $('#FechaDelResultado-field').datepicker({
+                     dateFormat: 'dd/mm/yy',
+                     onClose: function () {
+
+                     }
+                 });
+
+                
 
                  //Estilos para ver coloreada la grilla en Internet Explorer
                  $("tbody tr:even").css('background-color', '#E6E6FA');
@@ -191,7 +181,7 @@
 
                      var botonEliminar = $('<img>');
                      botonEliminar.addClass('remove-item-btn');
-                     botonEliminar.attr('src', '../Imagenes/iconos_eliminar.jpg');
+                     botonEliminar.attr('src', '../Imagenes/iconos_eliminar.png');
                      botonEliminar.attr('width', '35px');
                      botonEliminar.attr('height', '35px');
                      contenedorBtnAcciones.append(botonEliminar);
@@ -199,14 +189,7 @@
                      return contenedorBtnAcciones;
                  }
                  }));
-                 //             columnas.push(new Columna('Eliminar', { generar: function (una_observacion) {
-                 //                 var botonEliminar = $('<input>');
-                 //                 botonEliminar.attr('type', 'button');
-                 //                 botonEliminar.addClass('remove-item-btn');
-                 //                 botonEliminar.val('Eliminar');
-                 //                 return botonEliminar;
-                 //             }
-                 //             }));
+
 
                  PlanillaObservaciones = new Grilla(columnas);
 
@@ -219,10 +202,15 @@
                  PlanillaObservaciones.CargarObjetos(observaciones);
                  PlanillaObservaciones.DibujarEn(contenedorPlanilla);
 
-
+                 $(".modal_close").click(function () {
+                     clearFields();
+                     editBtn.hide();
+                     addBtn.show();
+                 });
 
                  //Guardar o Actualizar Observaciones
-                 $("#BtnGuardar").click(function () {
+                 //$("#BtnGuardar").click(function () {
+                 function GuardarObservacion() {
 
                      var data_post = JSON.stringify({
                          "observaciones_nuevas": JSON.stringify(PlanillaObservaciones.Objetos),
@@ -238,31 +226,10 @@
                              var respuesta = JSON.parse(respuestaJson.d);
                              if (respuesta.length == 0)
                              // _this.MostrarDetalleErrores(respuesta);
-                                 alertify.alert("Las observaciones se guardaron correctamente");
-                             _this.CargarObservacionesDTO();
 
-                         },
-                         error: function (XMLHttpRequest, textStatus, errorThrown) {
-                             alertify.alert(errorThrown);
-                         }
-                     });
-                 });
-
-                 CargarObservacionesDTO = function () {
-                     //PaginaInscripcionAlumnos.prototype.GetCursosDTO = function () {
-                     PlanillaObservaciones.BorrarContenido();
-                     $.ajax({
-                         url: "../AjaxWS.asmx/GetObservaciones",
-                         type: "POST",
-                         contentType: "application/json; charset=utf-8",
-                         success: function (respuestaJson) {
-                             var respuesta = JSON.parse(respuestaJson.d);
-
-                             $('#observaciones').val(respuestaJson.d);
-
-                             PlanillaObservaciones.CargarObjetos(respuesta);
-                             PlanillaObservaciones.DibujarEn(contenedorPlanilla);
-                             //planilla_original = JSON.parse(respuestaJson.d);
+                             location.href = "FormPlanillaObservaciones.aspx";
+                             //alertify.alert("Las observaciones se guardaron correctamente");
+                             //_this.CargarObservacionesDTO();
 
                          },
                          error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -270,6 +237,29 @@
                          }
                      });
                  };
+
+//                function CargarObservacionesDTO() {
+//                    //PaginaInscripcionAlumnos.prototype.GetCursosDTO = function () {
+//                    PlanillaObservaciones.BorrarContenido();
+//                    $.ajax({
+//                        url: "../AjaxWS.asmx/GetObservaciones",
+//                        type: "POST",
+//                        contentType: "application/json; charset=utf-8",
+//                        success: function (respuestaJson) {
+//                            var respuesta = JSON.parse(respuestaJson.d);
+
+//                            $('#observaciones').val(respuestaJson.d);
+
+//                            PlanillaObservaciones.CargarObjetos(respuesta);
+//                            PlanillaObservaciones.DibujarEn(contenedorPlanilla);
+//                            //planilla_original = JSON.parse(respuestaJson.d);
+
+//                        },
+//                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//                            alertify.alert(errorThrown);
+//                        }
+//                    });
+//                };
 
 
                  // Define value names
@@ -300,9 +290,14 @@
 
                  // Sets callbacks to the buttons in the list
                  refreshCallbacks();
+                 clearFields();
 
                  addBtn.click(function () {
-                     var observacion_nueva;
+                     //var observacion_nueva;
+                     if (!(ValidarCamposVacios())) {
+                         return false;
+                     }
+
                      contactList.add({
                          id: 0,
                          FechaCarga: FechaCargaField.val(),
@@ -314,11 +309,16 @@
                          Seguimiento: SeguimientoField.val(),
                          Resultado: ResultadoField.val(),
                          FechaDelResultado: FechaDelResultadoField.val(),
-                         ReferenteDeLaRespuestaMDS: ReferenteDeLaRespuestaMDSField.val()
-
+                         ReferenteRtaMDS: ReferenteDeLaRespuestaMDSField.val()
                      });
+
+                     idField.val(0);
+
                      AgregarObservacionAGrilla();
 
+                     GuardarObservacion();
+
+                     $(".modal_close").click();
                      clearFields();
                      refreshCallbacks();
                  });
@@ -341,19 +341,27 @@
                      return observacion_nueva;
                  }
 
+                 ValidarCamposVacios = function () {
+                     if (FechaCargaField.val() == "" || FechaCargaField.val() == "FechaCarga") {
+                         alertify.alert("Complete el campo fecha de carga");
+                         return false;
+                     }
+                     return true;
+                 };
+
                  AgregarObservacionAGrilla = function () {
-                     PlanillaObservaciones.CargarObjeto(ArmarObservacion());  
-                     PlanillaObservaciones.DibujarEn(contenedorPlanilla);
+                     PlanillaObservaciones.CargarObjetoSinDibujar(ArmarObservacion());
+                     //PlanillaObservaciones.DibujarEn(contenedorPlanilla);
                  }
 
                  QuitarObservacionAGrilla = function () {
                      PlanillaObservaciones.QuitarObjeto(PlanillaObservaciones, ArmarObservacion());
-                     PlanillaObservaciones.DibujarEn(contenedorPlanilla);
+                     //PlanillaObservaciones.DibujarEn(contenedorPlanilla);
                  }
 
                  editBtn.click(function () {
                      var item = contactList.get('id', idField.val());
-                     PlanillaObservaciones.QuitarObjeto(PlanillaObservaciones, ArmarObservacion());
+                     PlanillaObservaciones.QuitarObjetoSinDibujar(ArmarObservacion());
                      item.values({
                          id: idField.val(),
                          FechaCarga: FechaCargaField.val(),
@@ -367,8 +375,11 @@
                          FechaDelResultado: FechaDelResultadoField.val(),
                          ReferenteRtaMDS: ReferenteDeLaRespuestaMDSField.val()
                      });
-                     PlanillaObservaciones.CargarObjeto(ArmarObservacion());
+                     PlanillaObservaciones.CargarObjetoSinDibujar(ArmarObservacion());
 
+                     GuardarObservacion();
+
+                     $(".modal_close").click();
                      clearFields();
                      editBtn.hide();
                      addBtn.show();
@@ -383,11 +394,13 @@
                      removeBtns.click(function () {
                          var itemId = $(this).closest('tr').find('.id').text();
                          contactList.remove('id', itemId);
-                         //PlanillaObservaciones.QuitarObjeto(Observacion);
+                         var obj = PlanillaObservaciones.buscarObjetoPorId(itemId);
+                         PlanillaObservaciones.QuitarObjetoSinDibujar(obj);
+                         GuardarObservacion();
                      });
 
                      editBtns.click(function () {
-                         // $("#btnObservacion").click();
+
                          var itemId = $(this).closest('tr').find('.id').text();
                          var itemValues = contactList.get('id', itemId).values();
                          idField.val(itemValues.id);
@@ -405,6 +418,8 @@
 
                          editBtn.show();
                          addBtn.hide();
+
+                         $("#btnObservacion").click();
                      });
                  }
 
@@ -420,6 +435,20 @@
                         FechaDelResultadoField.val(""),
                         ReferenteDeLaRespuestaMDSField.val("")
                  }
+
+                 $("#BtnImprimir").click(function () {
+                     var w = window.open();
+
+                     w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap.css' type='text/css' />");
+                     w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap-responsive.css' type='text/css' />");
+                     w.document.write("<link  rel='stylesheet' href='../Estilos/Estilos.css' type='text/css'  />");
+                     w.document.write("<link  rel='stylesheet' href='EstilosSACC.css' type='text/css'  />");
+                     w.document.write("<style>div_print{margin:20px;}.text_2caracteres{max-width: 20px;margin-left: 3px;}.text_10caracteres{max-width: 100px;margin-left: 17px;}</style>");
+                     //w.document.write("<div class='div_print'><br>Curso: " + $("#CmbCurso option:selected").text() + "<br><br></div>");
+                     w.document.write(contenedorPlanilla.html());
+                     w.print();
+                     //w.close();
+                 });
              }
 
     </script>
