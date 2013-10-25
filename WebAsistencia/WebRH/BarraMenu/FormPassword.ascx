@@ -34,8 +34,13 @@
                     return;
                 }
                 //FC: agregar estas validaciones cuando salgamos a produccion
-                if (pass_nueva.length != 8) {
-                    alertify.alert("La contrase&ntilde;a debe ser de 8 d&iacute;gitos ");
+                if (pass_nueva.length < 8) {
+                    alertify.alert("La contrase&ntilde;a debe ser tener al menos 8 d&iacute;gitos ");
+                    return;
+                }
+
+                if (pass_nueva == pass_actual) {
+                    alertify.alert("La contrase&ntilde;a debe ser distinta de la actual");
                     return;
                 }
 
@@ -128,7 +133,7 @@
                                <%-- <asp:TextBox ID="passNuevaRepetida" runat="server" />--%>
 				              </div>
 				              <div class="btn-fld">
-                              <p><span style="font-weight:bold;">Advertencia:</span> Ingresar 8 d&iacute;gitos (n&uacute;meros y letras)</p>
+                              <p><span style="font-weight:bold;">Advertencia:</span> Ingresar al menos 8 d&iacute;gitos (n&uacute;meros y letras)</p>
                                
 				                <input type="button" class="btn btn-primary" id="pass"  value="Cambiar" />
                               </div>

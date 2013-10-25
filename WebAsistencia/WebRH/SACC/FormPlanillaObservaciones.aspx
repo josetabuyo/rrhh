@@ -7,18 +7,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Observaciones</title>
-
-
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-    <link id="link3" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-    <link id="link1" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
-    <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
-
-    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+     <%= Referencias.Css("../")%>
+    <link id="link5" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
+    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="Link6" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>  
    
 </head>
 <body class="marca_de_agua">
@@ -107,15 +101,14 @@
 
 </body>
 
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/list.js"></script>
-    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
+    <%= Referencias.Javascript("../") %> 
+    <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
+
+    <script type="text/javascript" src="../Scripts/list.js"></script>
+  
 
          <script type="text/javascript">
 
@@ -227,7 +220,7 @@
                              if (respuesta.length == 0)
                              // _this.MostrarDetalleErrores(respuesta);
 
-                             location.href = "FormPlanillaObservaciones.aspx";
+                                 location.href = "FormPlanillaObservaciones.aspx";
                              //alertify.alert("Las observaciones se guardaron correctamente");
                              //_this.CargarObservacionesDTO();
 
@@ -238,28 +231,28 @@
                      });
                  };
 
-//                function CargarObservacionesDTO() {
-//                    //PaginaInscripcionAlumnos.prototype.GetCursosDTO = function () {
-//                    PlanillaObservaciones.BorrarContenido();
-//                    $.ajax({
-//                        url: "../AjaxWS.asmx/GetObservaciones",
-//                        type: "POST",
-//                        contentType: "application/json; charset=utf-8",
-//                        success: function (respuestaJson) {
-//                            var respuesta = JSON.parse(respuestaJson.d);
+                 //                function CargarObservacionesDTO() {
+                 //                    //PaginaInscripcionAlumnos.prototype.GetCursosDTO = function () {
+                 //                    PlanillaObservaciones.BorrarContenido();
+                 //                    $.ajax({
+                 //                        url: "../AjaxWS.asmx/GetObservaciones",
+                 //                        type: "POST",
+                 //                        contentType: "application/json; charset=utf-8",
+                 //                        success: function (respuestaJson) {
+                 //                            var respuesta = JSON.parse(respuestaJson.d);
 
-//                            $('#observaciones').val(respuestaJson.d);
+                 //                            $('#observaciones').val(respuestaJson.d);
 
-//                            PlanillaObservaciones.CargarObjetos(respuesta);
-//                            PlanillaObservaciones.DibujarEn(contenedorPlanilla);
-//                            //planilla_original = JSON.parse(respuestaJson.d);
+                 //                            PlanillaObservaciones.CargarObjetos(respuesta);
+                 //                            PlanillaObservaciones.DibujarEn(contenedorPlanilla);
+                 //                            //planilla_original = JSON.parse(respuestaJson.d);
 
-//                        },
-//                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-//                            alertify.alert(errorThrown);
-//                        }
-//                    });
-//                };
+                 //                        },
+                 //                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                 //                            alertify.alert(errorThrown);
+                 //                        }
+                 //                    });
+                 //                };
 
 
                  // Define value names
@@ -361,7 +354,8 @@
 
                  editBtn.click(function () {
                      var item = contactList.get('id', idField.val());
-                     PlanillaObservaciones.QuitarObjetoSinDibujar(ArmarObservacion());
+                     var observacion_vieja = PlanillaObservaciones.buscarObjetoPorId(idField.val());
+                     PlanillaObservaciones.QuitarObjetoSinDibujar(observacion_vieja);
                      item.values({
                          id: idField.val(),
                          FechaCarga: FechaCargaField.val(),
