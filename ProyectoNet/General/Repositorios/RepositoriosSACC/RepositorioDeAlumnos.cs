@@ -36,6 +36,11 @@ namespace General.Repositorios
                 var baja = 0;
                 if (!(row.GetObject("IdBaja") is DBNull))
                     baja = (int)row.GetObject("IdBaja");
+
+                var lugar_de_trabajo = "";
+                if (!(row.GetObject("LugarTrabajo") is DBNull))
+                    lugar_de_trabajo = (string)row.GetObject("LugarTrabajo");
+
                 Area area = ConstruirAreaDeAlumno(row);
                 
                 List<Area> areas_alumno = new List<Area>();
@@ -49,7 +54,7 @@ namespace General.Repositorios
                     Telefono = row.GetString("Telefono"),
                     Mail = row.GetString("Mail"),
                     Direccion = row.GetString("Direccion"),
-                    LugarDeTrabajo = row.GetString("LugarTrabajo"),
+                    LugarDeTrabajo = lugar_de_trabajo,
                     FechaDeNacimiento = ObtenerFechaDeNacimiento(row),
                     //EstadoDeCursada = articulador.EstadoDelAlumno(
                     //CicloCursado
