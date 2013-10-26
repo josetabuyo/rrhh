@@ -161,9 +161,9 @@
     }
 
 
-    _this.imprimir_planilla = function () {
+    _this.imprimir_planilla = function (estilos) {
         var w = window.open();
-        //w.document.write(ruta_estilos);
+        w.document.write(estilos);
         w.document.write("<div class='div_print'><br>Curso: " + $("#CmbCurso option:selected").text() + "<br></div>");
         w.document.write("<div class='div_print'><br>Per&iacute;odo: " + $("#CmbMes option:selected").text() + "/" + $("#CmbAnio option:selected").text() + "<br></div>");
         w.document.write("<div class='div_print'><br>Docente: " + $("#Docente").text() + "<br><br></div>");

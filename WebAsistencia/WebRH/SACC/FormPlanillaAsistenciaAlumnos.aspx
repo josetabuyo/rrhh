@@ -91,7 +91,8 @@
     });
 
     function ImprimirPlanilla() {
-        PlanillaAsistencias.imprimir_planilla();
+        var ruta_estilos = '<%= Referencias.Css("../").Replace(Environment.NewLine, " ") %>';
+        PlanillaAsistencias.imprimir_planilla(ruta_estilos);
     }
 </script>
 </html>
