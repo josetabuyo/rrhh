@@ -71,7 +71,7 @@ namespace General
                 var res = observaciones_antiguas.Exists(o2 =>
                 {
                     var res2 = (o2.Id.Equals(o1.Id))
-                        && ((o2.Pertenece != o1.Pertenece) || (o2.FechaCarga.Day != o1.FechaCarga.Day) || (o2.Asunto != o1.Asunto) || (o2.FechaResultado.Day != o1.FechaResultado.Day) || (o2.PersonaCarga != o1.PersonaCarga) || (o2.ReferenteMDS != o1.ReferenteMDS) || (o2.ReferenteRespuestaMDS != o1.ReferenteRespuestaMDS) || (o2.Relacion != o1.Relacion) || (o2.Resultado != o1.Resultado) || (o2.Seguimiento != o1.Seguimiento));
+                        && ((o2.Pertenece != o1.Pertenece) || (o2.FechaCarga.Day != o1.FechaCarga.Day) || (o2.FechaCarga.Month != o1.FechaCarga.Month) || (o2.FechaCarga.Year != o1.FechaCarga.Year) || (o2.Asunto != o1.Asunto) || (o2.FechaResultado.Day != o1.FechaResultado.Day) || (o2.FechaResultado.Month != o1.FechaResultado.Month) || (o2.FechaResultado.Year != o1.FechaResultado.Year) || (o2.PersonaCarga != o1.PersonaCarga) || (o2.ReferenteMDS != o1.ReferenteMDS) || (o2.ReferenteRespuestaMDS != o1.ReferenteRespuestaMDS) || (o2.Relacion != o1.Relacion) || (o2.Resultado != o1.Resultado) || (o2.Seguimiento != o1.Seguimiento));
                     return res2;
                 });
                 return res;
