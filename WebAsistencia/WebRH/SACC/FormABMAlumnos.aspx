@@ -7,11 +7,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <%= Referencias.Css("../")%>
     <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
-   <%= Referencias.Css("../")%>
+   
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">

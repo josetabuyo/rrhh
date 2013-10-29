@@ -12,9 +12,13 @@ var CargarComboAnios = function () {
     var id_curso = $("#CmbCurso option:selected").val();
     var cmb_anio = $("#CmbAnio");
     cmb_anio.html("");
-    cmb_anio.append(new Option('Seleccione', 0, true, true));
+    var o = new Option('Seleccione', '0');
+    $(o).html('Seleccione');
+    cmb_anio.append(o);
     for (var a = anio_inicio; a <= anio_fin; a++) {
-        cmb_anio.append(new Option(a, a, true, true));
+        var o = new Option(a, a);
+        $(o).html(a);
+        cmb_anio.append(o);
     }
 
     cmb_anio.val(0);
@@ -24,7 +28,9 @@ var CargarComboMeses = function () {
     var id_curso = $("#CmbCurso option:selected").val();
     var cmb_mes = $("#CmbMes");
     cmb_mes.html("");
-    cmb_mes.append(new Option('Seleccione', 0, true, true));
+    var o = new Option("Seleccione", "0");
+    $(o).html("Seleccione");
+    cmb_mes.append(o);
 
     if (id_curso > 0) {
         data_post = { id_curso: id_curso };
@@ -38,7 +44,9 @@ var CargarComboMeses = function () {
             success: function (respuestaJson) {
                 var respuesta = JSON.parse(respuestaJson.d);
                 for (var i = 0; i < respuesta.length; i++) {
-                    cmb_mes.append(new Option(respuesta[i].NombreMes, respuesta[i].Mes, true, true));
+                    var o = new Option(respuesta[i].NombreMes, respuesta[i].Mes);
+                    $(o).html(respuesta[i].NombreMes);
+                    cmb_mes.append(o);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -61,11 +69,15 @@ var CargarComboCursos = function () {
                         .ToArray();
 
     cmb_cursos.html("");
-    cmb_cursos.append(new Option('Seleccione', 0, true, true));
+    var o = new Option("Seleccione", "0");
+    $(o).html("Seleccione");
+    cmb_cursos.append(o);
 
     for (var i = 0; i < cursos_por_anio.length; i++) {
         var c = cursos_por_anio[i].Nombre + " " + cursos_por_anio[i].Materia.Ciclo.Nombre;
-        cmb_cursos.append(new Option(c, cursos_por_anio[i].Id, true, true));
+        var o = new Option(c, cursos_por_anio[i].Id);
+        $(o).html(c);
+        cmb_cursos.append(o);
     }
     cmb_cursos.val(0);
     CargarComboMeses();

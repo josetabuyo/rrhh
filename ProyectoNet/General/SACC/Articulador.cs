@@ -134,12 +134,16 @@ namespace General
 
             var cursos_ordenados = OrdenarCursosPorFecha(cursos_del_alumno);
 
-           if (cursos_ordenados.First().FechaFin <= fecha_hoy)
+            if (cursos_ordenados.Count == 0)
+            {
+                return new EstadoAlumnoSinCursar();
+            }
+            else if (cursos_ordenados.First().FechaFin <= fecha_hoy)
             {
                 return new EstadoAlumnoFinalizado();
             }
-
-           return new EstadoAlumnoCursando();
+                return new EstadoAlumnoCursando();
+            
         }
 
         public Ciclo CicloDelAlumno(Alumno alumno, IRepositorioDeCursos repo_cursos, List<Curso> cursos)
@@ -148,6 +152,10 @@ namespace General
 
             var cursos_ordenados = OrdenarCursosPorCiclo(cursos_del_alumno);
 
+            if (cursos_ordenados.Count == 0)
+            {
+                return new Ciclo();
+            }
             return cursos_ordenados.First().Materia.Ciclo;
         }
 

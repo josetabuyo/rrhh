@@ -45,9 +45,10 @@ var AdministradorPlanillaCursos = function () {
             var horario = $.map(un_curso.Horarios, function (val, index) {
                 return val.Dia.substring(0, 3) + " " + val.HoraDeInicio + " - " + val.HoraDeFin;
             }).join("<br>");
-            return horario;
+            var cont = $("<div>").css("width", "120px").append(horario);
+            return cont;
         }
-   }));
+    }));
 
 
     PlanillaCursos = new Grilla(columnas);
@@ -255,7 +256,9 @@ var CambiarHorario = function () {
 
 var completarCombosDeHorasCatedra = function () {
     horasCatedra.html("");
-    horasCatedra.append(new Option('Seleccione', 0, true, true));
+    var o = new Option('Seleccione', 0);
+    $(o).html('Hs. C&aacute;tedra');
+    horasCatedra.append(o);
     $.ajax({
         url: "../AjaxWS.asmx/GetMaxHorasCatedraCurso",
         type: "POST",
@@ -264,8 +267,10 @@ var completarCombosDeHorasCatedra = function () {
         contentType: "application/json; charset=utf-8",
         success: function (respuestaJson) {
             var respuesta = respuestaJson.d;
-            for (var i = 0; i < respuesta; i++) {
-                horasCatedra.append(new Option(i + 1, i + 1, true, true));
+            for (var i = 1; i <= respuesta; i++) {
+                var o = new Option(i, i);
+                $(o).html(i);
+                horasCatedra.append(o);
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
