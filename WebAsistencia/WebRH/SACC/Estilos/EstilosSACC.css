@@ -472,6 +472,7 @@ text-align: right;
 }
 
 
+<<<<<<< HEAD:WebAsistencia/WebRH/SACC/Estilos/EstilosSACC.css
 /* ================ Estilos para los Reportes ================*/
 .cbp-spmenu {
 	background: #47a3da;
@@ -600,3 +601,92 @@ text-align: right;
 		left: 190px;
 	}
 }
+=======
+/*==========OBSERVACIONES==================*/
+
+.id 
+{
+    display:none;
+}
+    
+ #observacion 
+    {
+        width: 60%;
+        padding-bottom: 2px;
+        /*display: none;*/
+        background: #FFF;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
+        -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7);
+        -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+        display: none;
+        top:50px;
+}
+
+
+#observacion-header  
+{
+    background: url(../Imagenes/hd-bg.png); 
+    padding: 18px 18px 14px 18px; 
+    border-bottom: 1px solid #CCC; 
+    border-top-left-radius: 5px; 
+    -moz-border-radius-topleft: 5px; 
+    -webkit-border-top-left-radius: 5px; 
+    border-top-right-radius: 5px; 
+    -moz-border-radius-topright: 5px; 
+    -webkit-border-top-right-radius: 5px; 
+}
+
+#observacion-header  h2 { color: #444; font-size: 1.5em;  margin-bottom: 3px;  }
+#observacion-header  p { color: #444; font-size: 1.5em; margin: 0;  }
+
+#observacion .txt-fld  
+{
+    position: relative; 
+    /*width: 464px; */
+    padding: 14px 20px; 
+    border-bottom: 1px solid #EEE; 
+    float:left;
+    /*text-align: right; */
+}
+#observacion .btn-fld {  overflow: hidden; padding: 12px; text-align:center; }
+
+#observacion .txt-fld label  
+{
+    display: block; 
+    float: left; 
+    width: 130px !important; 
+    padding-top: 8px; 
+    color: #222; 
+    font-size: 1.1em; 
+    text-align: left;  
+}
+
+#observacion .txt-fld input  
+{
+   /* width: 230px; */
+    padding: 8px; 
+    border-radius: 4px; 
+    -moz-border-radius: 4px; 
+    -webkit-border-radius: 4px; 
+    font-size: 1.2em; color: #222; 
+    background: #F7F7F7; 
+    font-family: "Helvetica Neue"; 
+    outline: none; 
+    border-top: 1px solid #CCC; 
+    border-left: 1px solid #CCC; 
+    border-right: 1px solid #E7E6E6; 
+    border-bottom: 1px solid #E7E6E6; 
+    }
+#observacion .txt-fld input.good_input { background: #DEF5E1 url(../img/good.png) 236px center no-repeat; }
+#observacion .txt-fld input.error_input { background: #FDE0E0; }
+
+p.error { position: absolute; bottom: 48px; right: 20px; width: 262px; color: #FFF; font-size: 1.1em; padding-bottom: 5px; background: url(../img/error-arw.png) 20px bottom no-repeat; text-align: left; margin: 0; text-shadow: none; }
+p.error span { display: inline-block; background: #D43636; padding: 6px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;  }
+.txt-fld input:focus, .txt-fld textarea:focus { background-color: #FAF9DC; }
+                
+.modal_close { position: absolute; top: 12px; right: 12px; display: block; width: 14px; height: 14px; background: url(../Imagenes/modal_close.png); z-index: 2; }
+
+>>>>>>> 3d0909cc8c0b3d6a9e09a38c4e8693864ede844c:WebAsistencia/WebRH/SACC/EstilosSACC.css

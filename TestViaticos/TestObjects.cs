@@ -1700,6 +1700,7 @@ namespace General
              return new List<List<int>>() { new List<int> { 4, 281941 }, new List<int> { 3, 287873 }, new List<int> { 13, 281941 } };
         }
 
+<<<<<<< HEAD
         public static List<Asistencia> CargaAsistenciaPerfecta(Curso curso, Alumno alumno)
         {
             List<Asistencia> asistencias = new List<Asistencia>();
@@ -1726,5 +1727,22 @@ namespace General
             return asistencias;
         }
 
+=======
+        public static List<General.Observacion> Observaciones()
+        {
+            List<Observacion> observaciones = new List<Observacion>();
+            var obser1 = new Observacion(1, new DateTime(2012, 10, 13), "Fines CENS", "Mariano", "MDS", "Cursada", "Mariano", "Lala", "Sasa", new DateTime(2013, 10, 13), "Elena");
+            var obser2 = new Observacion(2, new DateTime(2013, 10, 13), "Fines Puro", "Leonardo", "MDS", "Cursada", "Mariano", "Lala", "Sasa", new DateTime(2013, 10, 13), "Elena");
+            var obser3 = new Observacion(3, new DateTime(2013, 10, 13), "Fines CENS", "Cholo", "MDS", "Libre", "Mariano", "Lala", "Sasa", new DateTime(2013, 10, 13), "Elena");
+            var obser4 = new Observacion(4, new DateTime(2013, 10, 13), "Fines CENS", "Stefania", "MDS", "Expulsion", "Mariano", "Saco un arma en clase y amenazo con matar a todos", "Llamamos a la policia y se lo llevaron a comer una pizza para calmarlo", new DateTime(2013, 09, 15), "Elena");
+
+            observaciones.Add(obser1);
+            observaciones.Add(obser2);
+            observaciones.Add(obser3);
+            observaciones.Add(obser4);
+
+            return observaciones;
+        }
+>>>>>>> 3d0909cc8c0b3d6a9e09a38c4e8693864ede844c
     }
 }

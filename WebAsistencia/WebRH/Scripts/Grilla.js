@@ -34,6 +34,9 @@ Grilla.prototype = {
             var th = $("<th>").append(col.titulo);
             th.addClass("sort");
             th.attr("data-sort", col.titulo);
+            if (col.titulo == 'id') {
+                th.css("display","none")
+            }
             encabezado.append(th);
         }
     },
@@ -43,10 +46,10 @@ Grilla.prototype = {
         input.attr('placeholder', 'Buscar');
         input.addClass('search');
         input.attr('style', 'width:80px !important;');
-       
+
         var th = $("<th>").append(input);
         th.attr('colspan', 2);
-        
+
         var encabezado = this.tabla[0].getElementsByClassName('detalle_viatico_titulo_tabla_detalle'); //
         var celdaBuscador = encabezado[0].firstChild.insertCell(-1); //.append(th);
         celdaBuscador.innerHTML = input[0].outerHTML;
@@ -129,6 +132,9 @@ Grilla.prototype = {
             this.CargarFilaSinDatos();
         }
     },
+    CargarObjetoSinDibujar: function(obj) {
+         this.Objetos.push(obj);
+     },
     CargarFilaSinDatos: function () {
         var tr = $('<tr>');
         var td = $('<td>');
@@ -156,6 +162,17 @@ Grilla.prototype = {
         this.tabla.append(tr);
         this.Objetos.push(obj);
     },
+    buscarObjetoPorId: function (id){
+        var ind, pos;
+        for(ind=0; ind< this.Objetos.length; ind++)
+           {
+               if (this.Objetos[ind].id == id)
+              break;
+            }
+           valor_indice = (ind < this.Objetos.length) ? ind : -1;
+           return (this.Objetos[valor_indice]);
+        }, 
+
     QuitarObjetosExistentes: function (objetos) {
         for (var i = 0; i < objetos.length; i++) {
             var obj = objetos[i];
@@ -169,6 +186,10 @@ Grilla.prototype = {
     },
     QuitarObjeto: function (tabla, obj) {
         this.tabla.find(".celda_seleccionada").remove();
+        var indice = this.Objetos.indexOf(obj);
+        this.Objetos.splice(indice, 1);
+    },
+    QuitarObjetoSinDibujar: function (obj) {
         var indice = this.Objetos.indexOf(obj);
         this.Objetos.splice(indice, 1);
     },

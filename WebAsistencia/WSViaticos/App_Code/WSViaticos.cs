@@ -2103,7 +2103,89 @@ public class WSViaticos : System.Web.Services.WebService
         return Planilla;
     }
 
+    [WebMethod]
+    public ObservacionDTO[] GetObservaciones()
+    {
+        var observaciones_dto = new List<ObservacionDTO>();
+        var observaciones = RepositorioDeCursos().GetObservaciones();
 
+        foreach (var o in observaciones)
+        {
+            observaciones_dto.Add(new ObservacionDTO()
+            {
+                id = o.Id,
+                FechaCarga = o.FechaCarga.ToShortDateString(),
+                Relacion = o.Relacion,
+                PersonaCarga = o.PersonaCarga,
+                Pertenece = o.Pertenece,
+                Asunto = o.Asunto,
+                ReferenteMDS = o.ReferenteMDS,
+                Seguimiento = o.Seguimiento,
+                Resultado = o.Resultado,
+                FechaResultado = o.FechaResultado.ToShortDateString(),
+                ReferenteRespuestaMDS = o.ReferenteRespuestaMDS
+            });
+        }
+        return observaciones_dto.ToArray();
+    }
+
+    [WebMethod]
+    public ObservacionDTO[] GuardarObservaciones(ObservacionDTO[] observaciones_nuevas_dto, ObservacionDTO[] observaciones_originales_dto, Usuario usuario)
+    {
+
+        var observaciones_no_procesadas = new List<ObservacionDTO>();
+        var repo_cursos = RepositorioDeCursos();
+       
+        var observaciones_a_guardar = new List<Observacion>();
+        foreach (var o in observaciones_nuevas_dto)
+        { 
+            DateTime fecha_carga;
+            DateTime.TryParse(o.FechaCarga, out fecha_carga);
+            DateTime fecha_rta;
+            DateTime.TryParse(o.FechaResultado, out fecha_rta);
+
+            if (fecha_carga.Year.Equals(0001))
+            {
+                fecha_carga = new DateTime(1900, 01, 01);
+            } else if (fecha_rta.Year.Equals(0001))
+            {
+                fecha_rta = new DateTime(1900, 01, 01);
+            }
+           
+            observaciones_a_guardar.Add(new Observacion(o.id, fecha_carga, o.Relacion, o.PersonaCarga, o.Pertenece, o.Asunto, o.ReferenteMDS, o.Seguimiento, o.Resultado, fecha_rta, o.ReferenteRespuestaMDS ));
+        }
+
+        var observaciones_originales = new List<Observacion>();
+        foreach (var o in observaciones_originales_dto)
+        { 
+            DateTime fecha_carga;
+            DateTime.TryParse(o.FechaCarga, out fecha_carga);
+            DateTime fecha_rta;
+            DateTime.TryParse(o.FechaResultado, out fecha_rta);
+            observaciones_originales.Add(new Observacion(o.id, fecha_carga, o.Relacion, o.PersonaCarga, o.Pertenece, o.Asunto, o.ReferenteMDS, o.Seguimiento, o.Resultado, fecha_rta, o.ReferenteRespuestaMDS ));
+        }
+
+        var res = repo_cursos.GuardarObservaciones(observaciones_originales, observaciones_a_guardar, usuario);
+        foreach (var o in res)
+        {
+            observaciones_no_procesadas.Add(new ObservacionDTO()
+            {
+                id = o.Id,
+                FechaCarga = o.FechaCarga.ToShortDateString(),
+                Relacion = o.Relacion,
+                PersonaCarga = o.PersonaCarga,
+                Pertenece = o.Pertenece,
+                Asunto = o.Asunto,
+                ReferenteMDS = o.ReferenteMDS,
+                Seguimiento = o.Seguimiento,
+                Resultado = o.Resultado,
+                FechaResultado = o.FechaResultado.ToShortDateString(),
+                ReferenteRespuestaMDS = o.ReferenteRespuestaMDS  
+            });
+        }
+        return observaciones_no_procesadas.ToArray();
+  
+    }
 
     private RepositorioDeAlumnos RepoAlumnos()
     {

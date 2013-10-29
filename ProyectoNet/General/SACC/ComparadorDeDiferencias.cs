@@ -63,5 +63,46 @@ namespace General
             return evaluaciones_antiguas.FindAll(eval_ant => !evaluaciones_nuevas.Exists(eval_nuevas => eval_nuevas.Id.Equals(eval_ant.Id)));
             //return evaluaciones_antiguas.FindAll(eval_ant => !evaluaciones_nuevas.Exists(eval_nuevas => eval_nuevas.Alumno.Id.Equals(eval_ant.Alumno.Id) && eval_nuevas.InstanciaEvaluacion.Id.Equals(eval_ant.InstanciaEvaluacion.Id) && eval_nuevas.Curso.Id.Equals(eval_ant.Curso.Id)));
         }
+
+        public List<Observacion> ObservacionesParaActualizar(List<Observacion> observaciones_antiguas, List<Observacion> observaciones_nuevas)
+        {
+            var query1 = observaciones_nuevas.Where(o1 =>
+            {
+                var res = observaciones_antiguas.Exists(o2 =>
+                {
+                    var res2 = (o2.Id.Equals(o1.Id))
+                        && ((o2.Pertenece != o1.Pertenece) || (o2.FechaCarga.Day != o1.FechaCarga.Day) || (o2.FechaCarga.Month != o1.FechaCarga.Month) || (o2.FechaCarga.Year != o1.FechaCarga.Year) || (o2.Asunto != o1.Asunto) || (o2.FechaResultado.Day != o1.FechaResultado.Day) || (o2.FechaResultado.Month != o1.FechaResultado.Month) || (o2.FechaResultado.Year != o1.FechaResultado.Year) || (o2.PersonaCarga != o1.PersonaCarga) || (o2.ReferenteMDS != o1.ReferenteMDS) || (o2.ReferenteRespuestaMDS != o1.ReferenteRespuestaMDS) || (o2.Relacion != o1.Relacion) || (o2.Resultado != o1.Resultado) || (o2.Seguimiento != o1.Seguimiento));
+                    return res2;
+                });
+                return res;
+            });
+
+            return query1.ToList();
+        }
+
+        public List<Observacion> ObservacionesParaDarDeBaja(List<Observacion> observaciones_antiguas, List<Observacion> observaciones_nuevas)
+        {
+
+            List<Observacion> obser_a_guardar_en_historico = new List<Observacion>();
+            obser_a_guardar_en_historico.AddRange(this.ObservacionesParaActualizar(observaciones_antiguas, observaciones_nuevas));
+            obser_a_guardar_en_historico.AddRange(this.ObservacionesParaDarDeBajaSinInsertarOtra(observaciones_antiguas, observaciones_nuevas));
+            var obser_para_actualizar = this.ObservacionesParaActualizar(observaciones_antiguas, observaciones_nuevas);
+            //var obser_para_borrar = this.EvaluacionesParaBorrar(observaciones_antiguas, observaciones_nuevas);
+
+            var obser_historicas = observaciones_antiguas.FindAll(obser_ant => obser_a_guardar_en_historico.Exists(obser_act => obser_act.Id.Equals(obser_ant.Id)));
+
+            return obser_historicas;
+            
+        }
+
+        public List<Observacion> ObservacionesParaGuardar(List<Observacion> observaciones_antiguas, List<Observacion> observaciones_nuevas)
+        {
+            return observaciones_nuevas.FindAll(obser_nuevas => !observaciones_antiguas.Exists(observ_ant => observ_ant.Id.Equals(obser_nuevas.Id)));
+        }
+
+        public List<Observacion> ObservacionesParaDarDeBajaSinInsertarOtra(List<Observacion> observaciones_antiguas, List<Observacion> observaciones_nuevas)
+        {
+            return observaciones_antiguas.FindAll(obser_ant => !observaciones_nuevas.Exists(obser_nuevas => obser_nuevas.Id.Equals(obser_ant.Id)));
+        }
     }
 }
