@@ -26,7 +26,7 @@
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes</a>
                               <ul id="Ul1" class="dropdown-menu" runat="server">
                                 <li><a href="FormPlanillaDeReportesAlumnos.aspx">Listados de Alumnos</a></li>
-                                <li><a href="FormPlanillaDeReportesMaterias.aspx">Listados de Materias</a></li>
+                                <%--<li><a href="FormPlanillaDeReportesMaterias.aspx">Listados de Materias</a></li>--%>
                               </ul>
                           </li>
 

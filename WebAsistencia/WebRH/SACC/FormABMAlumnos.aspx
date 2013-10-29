@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
+    <link id="link3" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>

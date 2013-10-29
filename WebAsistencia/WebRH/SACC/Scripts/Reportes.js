@@ -122,7 +122,7 @@ PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
                         plotShadow: false
                     },
                     title: {
-                        text: 'Distribución de los Alumnos por Organismo'
+                        text: 'Distribución de los Alumnos por Organismo - Total: ' + nro_total
                     },
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -135,7 +135,7 @@ PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
                                 enabled: true,
                                 color: '#000000',
                                 connectorColor: '#000000',
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                format: '{point.name}: {point.percentage:.1f} %'
                             }
                         }
                     },
@@ -143,10 +143,10 @@ PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
                         type: 'pie',
                         name: 'Porcentaje de Alumnos',
                         data: [
-                                 ['Fines', nro_fines],
-                                 ['Ministerio de Salud', nro_msal],
+                                 ['Fines: Cantidad: ' + nro_fines + ' - Porcentaje' , nro_fines],
+                                 ['MSAL: ' + nro_msal + ' - Porcentaje', nro_msal],
                                 {
-                                    name: 'Ministerio de Desarrollo Social',
+                                    name: 'MDS: ' + nro_mds + ' - Porcentaje',
                                     y: nro_mds,
                                     sliced: true,
                                     selected: true

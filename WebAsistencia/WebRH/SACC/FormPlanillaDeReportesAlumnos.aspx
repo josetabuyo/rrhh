@@ -9,6 +9,7 @@
     <%= Referencias.Css("../")%>
     <script src="../Scripts/jquery-1.8.3.min.js" type="text/javascript"></script>
     <link id="link3" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
+     <link id="link1" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
      <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
      <script type="text/javascript" src="Scripts/modernizr.custom.js" ></script>

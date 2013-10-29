@@ -182,7 +182,7 @@ text-align: right;
 
  .marca_de_agua
     {
-           background-image: url(../Imagenes/pantalla_1.jpg);
+           background-image: url(../../Imagenes/pantalla_1.jpg);
            background-repeat: no-repeat;
            background-attachment: fixed;
            background-position: bottom center;
@@ -472,7 +472,7 @@ text-align: right;
 }
 
 
-/* Estilos para los Reportes */
+/* ================ Estilos para los Reportes ================*/
 .cbp-spmenu {
 	background: #47a3da;
 	position: fixed;

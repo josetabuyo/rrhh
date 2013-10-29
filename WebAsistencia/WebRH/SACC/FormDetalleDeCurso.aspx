@@ -7,7 +7,7 @@
     <title></title>
     <%= Referencias.Css("../")%>
     <link id="link1" rel="stylesheet" href="../Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />    
-    <link id="link5" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
+    <link id="link5" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
 </head>
 <body>
     <form id="form1" runat="server">
