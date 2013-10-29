@@ -1,0 +1,63 @@
+﻿.vista_area .titulo,
+.vista_area .valor
+{
+    display:inline-block;
+}
+.vista_area .titulo
+{
+    font-weight:bold;
+}
+.dialog_vista_area .ui-dialog-titlebar
+{    
+    background-color:#9CB3D6 !important;
+    height:35px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border:1px solid black;
+    background: none;
+    padding:0px!important;
+    margin-left:-1px!important;
+    margin-right:-1px!important;
+    margin-top:-1px!important;
+}
+
+.dialog_vista_area .ui-dialog-titlebar .ui-dialog-title
+{
+    text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);
+    font-size: 19.5px;
+    line-height: 36px;
+    color: #333333;
+    margin-left:5px;
+}
+.dialog_vista_area
+{
+    border-radius: 10px!important;    
+    padding:0px!important;
+    border:1px solid black !important;
+    margin-bottom:20px;
+}
+.vista_area
+{
+    padding:0px!important;
+    overflow: visible!important;
+    background-color:#E6E6FA!important;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.vista_area .contenido
+{
+    padding:5px;
+}
+
+.vista_area .botonera
+{
+    text-align:right;
+}
+
+.vista_area .botonera a
+{
+    margin-right:10px;
+    cursor: pointer;
+}

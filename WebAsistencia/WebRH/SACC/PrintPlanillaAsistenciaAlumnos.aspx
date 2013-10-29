@@ -6,37 +6,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <style type="text/css">
-        body
-        {
-            width:98%;
-            height:98%;
-        }
-        #DivContenedor
-        {
-            margin:100px 20px 100px 200px;
-        
-        }
-    
-    </style>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
-        type="text/css" runat="server" />
-    <link id="link3" rel="stylesheet" href="../Estilos/Estilos.css"
-        type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
-        type="text/css" runat="server" />
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+    <%= Referencias.Css("../")%>
+    <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>  
     <script type="text/javascript" src="../Scripts/BotonAsistencia.js"></script>    
+    <style type="text/css">  
     <style type="text/css">
     .acumuladas
     {
         font-weight:bold;
+    }
+    body
+    {
+        width:98%;
+        height:98%;
+    }
+    #DivContenedor
+    {
+        margin:100px 20px 100px 200px;  
     }
     </style>
 
@@ -63,6 +51,7 @@
         </div>
     </form>
 </body>
+
 <script type="text/javascript">
 
     var AdministradorPlanillaMensual = function () {

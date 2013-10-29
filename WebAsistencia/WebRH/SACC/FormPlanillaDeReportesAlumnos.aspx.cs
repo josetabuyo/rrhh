@@ -45,18 +45,15 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
             {
                 //alumnos.AddRange(curso.Alumnos.ToList());
             }
-
-            this.MostrarAlumnosEnLaGrilla(alumnos.Distinct().ToList());
         }
 
         if (accion == "organismo")
         {
             CompletarComboDeOrganismos();
-           // alumnos = ws_viaticos.ReporteAlumnosPorOrganismo().ToList();
-           // this.alumnosJSON.Value = JsonConvert.SerializeObject(alumnos);
+            alumnos = ws_viaticos.ReporteAlumnosPorOrganismo().ToList();
         }
         
-        //this.MostrarAlumnosEnLaGrilla(alumnos.Distinct().ToList());
+        this.MostrarAlumnosEnLaGrilla(alumnos.Distinct().ToList());
     }
 
     private string ObtenerAccion()
@@ -189,7 +186,7 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
         this.cmbCampo.Items.Add(todos);
        // this.lblCampo.Visible = true;
         this.cmbCampo.Visible = true;
-        this.btnBuscarCampo.Visible = true;
+       
 
        // this.lblCampo.Text = "Cursos con Modalidad:";
         this.tipo_busqueda.Value = "1";
@@ -216,7 +213,7 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
         todos.Text = "Todos";
         this.cmbCampo.Items.Add(todos);
         this.cmbCampo.Visible = true;
-        this.btnBuscarCampo.Visible = true;
+       
         this.tipo_busqueda.Value = "1";
 
         var servicio = new WSViaticos.WSViaticosSoapClient();

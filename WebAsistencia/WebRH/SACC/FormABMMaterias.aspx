@@ -7,21 +7,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>ABM Materias</title>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
-        type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-
-     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <%= Referencias.Css("../")%>
+    <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
+    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
    
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelMateria" class="div_izquierdo">
+    <div class="estilo_formulario" style="width:60%; margin-left: 30%;">
     <fieldset>
         <legend class="subtitulos">Panel De Materias</legend>
             <div>
@@ -48,17 +46,16 @@
                  <input type="button" id="btnLimpiar"  value="Limpiar" class=" btn btn-primary boton_main_documentos" onclick="javascript:LimpiarCampos();" />
             <br />
             <br />
-            <%--<div class="alert alert-error" id="div_mensaje" style="width:42%;">
-              <button type="button" class="close" data-dismiss="alert">&times;</button>
-              <strong id="texto_mensaje">Por favor complete todos los campos.</strong> 
-            </div>--%>
+          
             <div runat="server" id="DivMensajeExito" Visible="false" class="alert alert-success">
-            <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
+            
             </div>
     </fieldset>
     </div>
+    </div>
 
     <div class="div_derecho">
+        <div class="estilo_formulario" style="width:95%; overflow:auto;  margin-left:1%;">
         <fieldset>
         <legend class="subtitulos">Listado de Materias</legend>
         <div id="ContenedorPlanilla" runat="server">
@@ -67,6 +64,7 @@
             </div>
         </div>
         </fieldset>
+        </div>
     </div>
 
     <asp:HiddenField ID="texto_mensaje_exito" runat="server" />
@@ -74,20 +72,15 @@
     <asp:HiddenField ID="materiasJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="txtIdMateria" runat="server" />
     <asp:HiddenField ID="idMateria" runat="server" />
-<%--    <asp:HiddenField ID="alerta_mensaje" runat="server" />--%>
+
 
     </form>
 </body>
-
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    <%= Referencias.Javascript("../") %> 
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
-    <script type="text/javascript" src="../Scripts/list.js"></script>
-    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 
 
 <script type="text/javascript">

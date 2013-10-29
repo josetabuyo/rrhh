@@ -7,21 +7,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>ABM Docentes</title>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
-        type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-
+    <%= Referencias.Css("../")%>
+     <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
      <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
      <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
     
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelDocente" class="div_izquierdo">
+    <div class="estilo_formulario" style="width:60%; margin-left: 30%;">
     <fieldset>
        <legend class="subtitulos">Panel De Docentes</legend>
         <div class="input-append">   
@@ -45,10 +43,6 @@
             <asp:Label ID="lblTelefono" CssClass="labels_sacc" runat="server" Text="Teléfono:"></asp:Label>
             <asp:TextBox ID="lblDatoTelefono" ReadOnly="false" CssClass="label_alumno" runat="server" ></asp:TextBox>
         </p>
-        <%--<p>
-        <asp:Label ID="texto" CssClass="popover-title" runat="server" Text="Otros datos de contacto"></asp:Label>
-        <br/>
-        </p>--%>
 
         <p>   
             <asp:Label ID="lblMail" CssClass="labels_sacc" runat="server" Text="Mail:"></asp:Label>
@@ -62,23 +56,21 @@
 
         <div style=" margin-left:17%; margin-top:3%;">
             <asp:Button ID="btnAgregarDocente" runat="server" Text="Agregar" class=" btn btn-primary boton_main_documentos" onclick="btnAgregarDocente_Click" />
-            <%--<asp:Button ID="btnModificarDocente" runat="server" Text="Modificar" class=" btn btn-primary boton_main_documentos" onclick="btnModificarDocente_Click" />--%>
+
             <asp:Button ID="btnQuitarDocente" runat="server" Text="Eliminar" class=" btn btn-primary boton_main_documentos" onclick="btnQuitarDocente_Click" />
             <br />
             <br />
             <div runat="server" id="DivMensaje" Visible="true">
-            <%--<div class="alert alert-error" id="div_mensaje" style="width:42%;">
-              <button type="button" class="close" data-dismiss="alert">&times;</button>
-              <strong id="texto_mensaje">Por favor complete todos los campos.</strong> 
-            </div>--%>
+
             </div>
             <div runat="server" id="DivMensajeExito" Visible="false" class="alert alert-success">
-            <%--<asp:Label ID="lblMensaje" CssClass="error-message" runat="server"></asp:Label>--%>
         </div>
     </fieldset>
     </div>
+    </div>
 
     <div class="div_derecho">
+         <div class="estilo_formulario" style="width:95%; overflow:auto;  margin-left:1%;">
         <fieldset>
         <legend class="subtitulos">Listado de Docentes</legend>
         <div id="ContenedorPlanilla" runat="server">
@@ -87,6 +79,7 @@
             </div>
         </div>
         </fieldset>
+        </div>
     </div>
     
     <asp:HiddenField ID="texto_mensaje_exito" runat="server" />
@@ -98,16 +91,12 @@
     <asp:HiddenField ID="alerta_mensaje" runat="server" />
     </form>
 </body>
-
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
+    <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
-    <script type="text/javascript" src="../Scripts/list.js"></script>
-    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
+    
 
 
 <script type="text/javascript">
@@ -144,26 +133,6 @@
         },
         $("#texto_mensaje_exito").val());
     
-
-
-//    function mostrarMensaje(mensaje) {
-//        alert(mensaje);
-//    }
-
-//    if ($("#alerta_mensaje").val() == "1") {
-//        $(".alert").alert();
-//    } else if ($("#alerta_mensaje").val() == "2") {
-//        this.div_mensaje.setAttribute("class", "alert alert-success");
-//        this.texto_mensaje.innerHTML = "Operación exitosa.";
-//    } else if ($("#alerta_mensaje").val() == "3") {
-//        this.div_mensaje.setAttribute("class", "alert alert-error");
-//        this.texto_mensaje.innerHTML = "No se puede eliminar el docente porque se encuentra asignado a un curso";
-//    } else if ($("#alerta_mensaje").val() == "4") {
-//        this.div_mensaje.setAttribute("class", "alert alert-error");
-//        this.texto_mensaje.innerHTML = "No se encontro una persona con ese documento";
-//    } else {
-//        $(".alert").alert('close');
-//    }
 
     var PlanillaDocentes;
     var contenedorPlanilla;

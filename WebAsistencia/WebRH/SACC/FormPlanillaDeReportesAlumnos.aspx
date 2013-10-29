@@ -6,17 +6,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title></title>
-    <link id="link9" rel="stylesheet" href="Estilos/EstilosSACC.css"  type="text/css" runat="server"/>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+    <%= Referencias.Css("../")%>
+    <script src="../Scripts/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <link id="link3" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
+     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
      <script type="text/javascript" src="Scripts/modernizr.custom.js" ></script>
-<%--    <meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
-		<style>
-			canvas{}
-		</style>--%>
 
  <style type="text/css"> 
          
@@ -64,12 +59,8 @@
      <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     
-    <div id="panelAlumno"  class="div_izquierdo">
-  
-            <legend class="subtitulos">Reportes</legend>
 
-             <div class="estilo_formulario" style="overflow: hidden; margin-right: 15px;">
-               <div class="container">
+            <div >
                 <div class="main">
                     <section>
                         <input id="showLeft" style="margin: 5px;" class="btn btn-primary " type="button" value="Ver Reportes" ></input>
@@ -78,7 +69,7 @@
             </div>
 
              <input type="hidden" class="btn btn-primary " id="accion" value="" runat="server" />
-               <nav class="cbp-spmenu cbp-spmenu-left" id="cbp-spmenu-s1">
+               <nav class="cbp-spmenu cbp-spmenu-left" id="cbp-spmenu-s1" style="z-index:9999; margin-top:120px;">
                     <h3>Alumnos</h3>
                     <div class="cbp-spmenu-vertical">
                     <a href="FormPlanillaDeReportesAlumnos.aspx?accion=modalidad">Por Modalidad</a>
@@ -92,26 +83,28 @@
                     </div>
                 </nav>
 
-                <div id="div_parametros" style="margin-left: 250px; display:none;"> 
+
+
+
+    <div id="panelAlumno" class="div_izquierdo">
+    <fieldset>
+        <legend class="subtitulos">Reportes</legend>
+             <div class="estilo_formulario" style="overflow:hidden; width: 95%;">
+
+                <div id="div_parametros" style="display: none;" > 
                   <legend id="lb_parametros">Parámetros</legend>
-                   <p><asp:DropDownList ID="cmbCampo" runat="server" enableviewstate="true">
-                <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem></asp:DropDownList></p>
-                 <asp:Button ID="btnBuscarCampo" Text="Buscar" runat="server" OnClick="btnBuscarCampo_Click" class=" btn btn-primary" style="float:right;" />
+                    <p><asp:DropDownList ID="cmbCampo" runat="server" enableviewstate="true">
+                    <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem></asp:DropDownList></p>
                
                                <%--<label> Fecha Desde</label>
                <input type="text" id="idFechaDesde" class="text_10caracteres hasDatepicker">
                <label> Fecha Hasta</label>
                <input type="text" id="idFechaHasta" class="text_10caracteres hasDatepicker">--%>
-             
-                </div>
-
-            
-            
-              <%-- <legend>Gráfico</legend>
-               <canvas id="canvas" height="350" width="350"></canvas>--%>
-            </div> 
-           
-     
+                    <legend id="lb_grafico">Gráfico</legend>
+                    <div id="dibujo_grafico" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                </div> 
+            </div>    
+     </fieldset>
     </div>
 
     <div class="div_derecho">
@@ -124,55 +117,56 @@
                         </div>
                     </div>
                 </div>
-                <p><asp:Button ID="btn_exportal_excel" Text="Exportar a Excel" runat="server" OnClick="btnExportarAlumnos_Click" class=" btn btn-primary" style="float:right;" /></p>
+               <%-- <p><asp:Button ID="btn_exportal_excel" Text="Exportar a Excel" runat="server" OnClick="btnExportarAlumnos_Click" class=" btn btn-primary" style="float:right;" /></p>--%>
        </fieldset>
     </div>
 
     <asp:HiddenField ID="tipo_busqueda" runat="server" />
 
+
     <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
+    <asp:HiddenField ID="nro_total" runat="server" EnableViewState="true"/>
 <%--    <asp:HiddenField ID="idFechaDesde" value="01/01/2013" runat="server" />
     <asp:HiddenField ID="idFechaHasta" value="31/12/2013" runat="server" />--%>
 
     </form>
 </body>
-   
+     <%= Referencias.Javascript("../") %>
+    <script type="text/javascript" src="Scripts/highcharts.js"></script>
+    <script type="text/javascript" src="Scripts/exporting.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="Scripts/classie.js" ></script>
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../SACC/Scripts/Reportes.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>  
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/list.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
-    <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
-    <script type="text/javascript" src="../SACC/Scripts/Chart.js"></script>
-    <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="Scripts/Reportes.js"></script>
+    <script type="text/javascript" src="Scripts/AdministradorDeMensajes.js"></script>
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 
 
     
 <script type="text/javascript">
 
+    //Al presionarse Enter luego de Ingresar el DNI, se fuerza a realizar la búsqueda de dicho DNI para no tener que hacer necesariamente un click en el botón Buscar
+    function CapturarTeclaEnter(evt) {
+        var evt = (evt) ? evt : ((event) ? event : null);
+        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        if ((evt.keyCode == 13) && (node.type == "text")) { return false }
+    }
+    document.onkeypress = CapturarTeclaEnter;
+
+
 
     var BuscarPorModalidad = function () {
 
-       // HabilitarParametros();
-       // AdministradorPlanilla();
+       HabilitarParametros();
+       AdministradorPlanilla();
     }
 
     var HabilitarParametros = function () {
         $('#btnBuscarCampo').show();
-        $('#idFechaDesde').show();
-        $('#idFechaHasta').show();
+//        $('#idFechaDesde').show();
+//        $('#idFechaHasta').show();
 //        $('#cmbCampo').show();
 //        $('#lblCampo').show();
         $('#parametros').show();
@@ -185,40 +179,41 @@
 
 
         var items_pantalla = {
-            //alumnos: JSON.parse($('#alumnosJSON').val()),
-           // alumnoGlobal: $("<div>"),
+            alumnos: JSON.parse($('#alumnosJSON').val()),
+            // alumnoGlobal: $("<div>"),
             planillaAlumnosDisponibles: $("<div>"),
+            cmbCombo: $("#cmbCampo"),
             //panelAlumnoDisponibles: $("#panelAlumnoDisponibles"),
             contenedorAlumnosDisponibles: $('#grillaAlumnosDisponibles'),
-//            botonAsignarAlumno: $("#Img1"),
-//            botonDesAsignarAlumno: $("#Img2"),
+            //            botonAsignarAlumno: $("#Img1"),
+            //            botonDesAsignarAlumno: $("#Img2"),
             botonModalidad: $("#btn_modalidad"),
             //cmbCursos: $("#cmbCursos"),
-            cmbCampo: $("#cmbCampo")
+            cmbCampo: $("#cmbCampo"),
+            canvasPie: document.getElementById("dibujo_grafico")
             //cursosJSON: JSON.parse($('#cursosJSON').val())
         }
 
 
         var modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
 
-        modulo_inscripcion.BuscarPorModalidad();
+        modulo_inscripcion.BuscarPorOrganismo();
 
-
-
-//        var options = {
-//            valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad']
-//        };
-
-       // var featureListAlumnosDisponibles = new List('grillaAlumnosDisponibles', options);
     };
 
     var DeterminarReporteEnPantalla = function (accion) {
 
         if (accion == "") {
             $('#div_parametros').hide();
-
+            $('#search').hide();
+            $('#lb_grafico').hide();
+            $('#referencias').hide();
+            
         } else {
             $('#div_parametros').show();
+            $('#lb_grafico').show();
+            $('#referencias').show();
+            
 
             if (accion == "modalidad") {
                 $('#lb_parametros').text(" Parámetros - Por Modalidad");
@@ -242,135 +237,14 @@
             }
         }
 
+        AdministradorPlanilla();
+
     }
 
     $(document).ready(function () {
 
         DeterminarReporteEnPantalla($("#accion").val());
-
-//      $('#btnBuscarCampo').hide();
-//      $('#idFechaDesde').hide();
-//      $('#idFechaHasta').hide();
-//      $('#cmbCampo').hide();
-//      $('#lblCampo').hide();
-//      $('#parametros').hide();
-
-
-      //Estilos para ver coloreada la grilla en Internet Explorer
-      $("tbody tr:even").css('background-color', '#E6E6FA');
-      $("tbody tr:odd").css('background-color', '#9CB3D6 ');
-
-      
-
   });
-
-    
-//    var PlanillaAlumnos;
-//    var contenedorPlanilla;
-
-//    var AdministradorPlanillaMensual = function () {
-//        var Alumnos = JSON.parse($('#alumnosJSON').val());
-//        //var nombreAlumno = Alumnos['nombre'];
-//        var panelAlumno = $("#panelAlumno");
-
-//        var listaPersonas = $('#personasJSON');
-//        var selectorDePersonas = $('#input_dni');
-//        var personaSeleccionada = $('#personaSeleccionada');
-
-//        //crearInputAutocompletable(selectorDePersonas, listaPersonas, personaSeleccionada);
-
-//        var EncabezadoPlanilla;
-//        contenedorPlanilla = $('#ContenedorPlanilla');
-
-
-////        PlanillaAlumnos = new Grilla(columnas);
-
-//        PlanillaAlumnos.AgregarEstilo("tabla_macc");
-//        //PlanillaAlumnos.agregarBuscador();
-
-//        PlanillaAlumnos.SetOnRowClickEventHandler(function (un_alumno) {
-//            panelAlumno.CompletarDatosAlumno(un_alumno);
-//        });
-
-//        PlanillaAlumnos.CargarObjetos(Alumnos);
-//        PlanillaAlumnos.DibujarEn(contenedorPlanilla);
-
-
-
-//        panelAlumno.CompletarDatosAlumno = function (un_alumno) {
-
-//            $("#input_dni").val("");
-//            $("#idAlumnoAVer").val(un_alumno.Id);
-//            $("#lblDatoApellido").val(un_alumno.Apellido);
-//            $("#lblDatoNombre").val(un_alumno.Nombre);
-//            $("#lblDatoDocumento").val(un_alumno.Documento);
-//            $("#lblDatoTelefono").val(un_alumno.Telefono);
-//            $("#lblDatoMail").val(un_alumno.Mail);
-//            $("#lblDatoDireccion").val(un_alumno.Direccion);
-//            $("#cmbPlanDeEstudio").val(un_alumno.Modalidad.Id);
-//            $("#idBaja").val(un_alumno.Baja);
-//            $("#btnAgregarAlumno").attr("disabled", true);
-//            $("#btnModificarAlumno").attr("disabled", false);
-//            $("#btnQuitarAlumno").attr("disabled", false);
-//        };
-
-//        var options = {
-//            valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad']
-//        };
-
-//        var featureList = new List('ContenedorPlanilla', options);
-//    }
-
-//    function crearInputAutocompletable(input, lista, elementoSeleccionado) {
-//        input.attr('data-source', lista.val());
-//        input.attr("autocomplete", "off");
-//        input.blur(function () {
-//            try {
-//                if (input.val() != '') {
-//                    var itemSeleccionado = input.data().typeahead.$menu.find('.active').data().item;
-//                    elementoSeleccionado.val(itemSeleccionado.value);
-//                    input.val(itemSeleccionado.label);
-//                }
-//                else {
-//                    elementoSeleccionado.val('');
-//                }
-//            }
-//            catch (e) {
-//                elementoSeleccionado.val('');
-//                input.val('');
-//            }
-//        });
-//    }
-
-
-//    $(document).ready(function () {
-//        AdministradorPlanillaMensual();
-
-//        //Estilos para ver coloreada la grilla en Internet Explorer
-//        $("tbody tr:even").css('background-color', '#E6E6FA');
-//        $("tbody tr:odd").css('background-color', '#9CB3D6 ');
-
-//    });
-
-    //Gráficos
-//    var pieData = [
-//				{
-//				    value: 30,
-//				    color: "#F38630"
-//				},
-//				{
-//				    value: 50,
-//				    color: "#E0E4CC"
-//				},
-//				{
-//				    value: 100,
-//				    color: "#69D2E7"
-//				}
-
-//			];
-
-//    var myPie = new Chart(document.getElementById("canvas").getContext("2d")).Pie(pieData);
-
 
   var menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeft = document.getElementById('showLeft'),
@@ -387,7 +261,6 @@
           classie.toggle(showLeft, 'disabled');
       } 
   }
-
 
 
 </script>

@@ -7,19 +7,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
-        type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-    <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../Scripts/BotonAsistencia.js"></script>
+    <%= Referencias.Css("../")%>
+    <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
+    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+
     <style type="text/css">
     .acumuladas
     {
@@ -30,11 +23,11 @@
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
-     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="DivContenedor" runat="server" style="margin:10px;">   
     <fieldset>
-        <legend>Asistencias</legend>
+        <legend class="subtitulos">Asistencias</legend>
         <label>Curso:&nbsp;</label>
         <select id="CmbCurso" style="width:400px;" onchange="javascript:CargarPlanilla();" runat="server">
             <option value="0">Seleccione</option>
@@ -71,6 +64,11 @@
 
         <asp:HiddenField ID="curso_con_observaciones" runat="server" />
     </fieldset>
+   <%= Referencias.Javascript("../") %>
+    <script type="text/javascript" src="../Scripts/BotonAsistencia.js"></script>
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
     </form>
 </body>
 <script type="text/javascript">

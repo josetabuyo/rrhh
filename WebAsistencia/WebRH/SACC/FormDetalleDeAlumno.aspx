@@ -6,231 +6,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link id="link1" rel="stylesheet" href="../Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />    
-    <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
-
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-    <link id="link3" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-
-    <style type="text/css">
-
-        ul.tabs 
-        {
-            margin: 0;  
-            padding: 0;  
-            float: left;  
-            list-style: none;  
-            height: auto;  
-            width: 90%; 
-        }
-        
-        ul.tabs li 
-        {
-            float: left;  
-            margin-left: 0px;  
-            
-            width:25%;
-            text-align:center;
-            border: 0px solid #000; 
-            overflow: hidden; 
-            position: relative; 
-            border-left:0px; 
-            border-bottom:1px solid;
-            margin-bottom:-2px;
-            
-            background: -webkit-gradient(linear, left top, right top, from(#6E89B1), to(#E6E6FA));
-            background: -webkit-linear-gradient(top, #6E89B1, #E6E6FA);
-            background: -moz-linear-gradient(top, #6E89B1, #E6E6FA);
-            background: -o-linear-gradient(top, #6E89B1, #E6E6FA);
-            background: -ms-linear-gradient(top, #6E89B1, #E6E6FA);
-            background: linear-gradient(top, #6E89B1, #E6E6FA);
-            background-color: #6E89B1;
-            
-            -webkit-border-radius: 8px;
-            -webkit-border-radius: 8px;
-            -moz-border-radius: 8px;
-            -moz-border-radius: 8px;
-            border-radius: 8px;
-            border-radius: 8px;
-            
-        }
-        
-        ul.tabs li a 
-        {
-            text-decoration: none; 
-            color: #434C6F; 
-            display: block; 
-            font-size: 20px; 
-            font-weight:bold; 
-            padding: 10px 0px; 
-            /*padding: 10px 20px; */
-        }
-        ul.tabs li a:hover 
-        {
-            background: -webkit-gradient(linear, left top, right top, from(#E6E6FA), to(#6E89B1));
-            background: -webkit-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -moz-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -o-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -ms-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: linear-gradient(top, #E6E6FA, #6E89B1);
-            background-color: #E6E6FA;
-
-             -webkit-border-radius: 8px;
-            -webkit-border-radius: 8px;
-            -moz-border-radius: 8px;
-            -moz-border-radius: 8px;
-            border-radius: 8px;
-            border-radius: 8px;
-            padding: 10px 0px; 
-        }
-        
-        ul.tabs li.active, html ul.tabs li.active a:hover  
-        {
-            background: -webkit-gradient(linear, left top, right top, from(#E6E6FA), to(#6E89B1));
-            background: -webkit-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -moz-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -o-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -ms-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: linear-gradient(top, #E6E6FA, #6E89B1);
-            background-color: #E6E6FA;
-            
-            
-            }
- 
-        .Contenedor
-        {
-            
-            border:2px solid #E6E6FA; 
-            overflow: auto; 
-            clear: both; 
-            float: left; 
-            width: 90%; 
-            height:400px;
-            
-           
-            -webkit-border-bottom-right-radius: 8px;
-            -webkit-border-bottom-left-radius: 8px;
-            -moz-border-radius-bottomright: 8px;
-            -moz-border-radius-bottomleft: 8px;
-            border-bottom-right-radius: 8px;
-            border-bottom-left-radius: 8px;
-            /* 
-            background: -webkit-gradient(linear, left top, right top, from(#E6E6FA), to(#6E89B1));
-            background: -webkit-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -moz-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -o-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: -ms-linear-gradient(top, #E6E6FA, #6E89B1);
-            background: linear-gradient(top, #E6E6FA, #6E89B1);
-            background-color: #E6E6FA;
-            */
-             -webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
-            -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
-            box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
-            /*-webkit-box-shadow: 2px 2px 1px #E6E6FA;
-            -moz-box-shadow: 2px 2px 1px #E6E6FA;
-            -o-box-shadow: 2px 2px 1px #E6E6FA;*/
-            -ms-box-shadow: 2px 2px 1px #E6E6FA;
-            /*box-shadow: 2px 2px 1px #E6E6FA;*/
-            text-shadow: 0px 0px 0px #E6E6FA;
-        }
-        .Contenido 
-        {
-            padding: 15px; 
-            font-size: 12px;        
-        }
-        
-        .imagen 
-        {
-            float:left;
-            margin:10px 10px;
-            border:2px solid #000;
-            padding:2px;
-            background-color:#f3f3f3;
-           
-            }
-        
-        .contenedor_tabla 
-        {
-
-            }
-            
-        .contenedor_ficha 
-        {
-            width:100%;
-            /*border:1px solid #000;   */
-            font-size:11px;
-            margin-bottom:10px;
-        }
-        
-        .fila_impar, .fila_par 
-        {
-            height:20px; 
-            /*background:#87baed; */
-            /*border:1px solid #000;*/
-        }
-        .fila_impar .contenedor_celda 
-        {
-            background:#6E89B1;
-        }
-            
-        .fila_par .contenedor_celda 
-        {
-            background:#E6E6FA;
-        }
-        
-        .contenedor_celda 
-        {
-            width:40%;
-            float:left;
-            border:1px solid #000;
-            
-        }
-        
-        .titulo 
-        {
-            text-transform:uppercase;
-            font-weight:bold;
-            /*margin-right:20%;*/
-            }
-            
-        .dato 
-        {
-            /*padding-left:100px;*/
-        }
-        .nombre 
-        {
-            font-size:1.5em;
-            font-weight:bold;
-        }
-        .oficina 
-        {
-            font-size:1.2em;
-        }
-            
-        #contenedor_global 
-        {
-            width:80%;
-            text-align:center;
-            margin:0 auto;    
-        }
-        
-        
-        .sub_eval
-        {
-            color:#434C6F !important; 
-            border-bottom:1px solid #434C6F !important;
-            font-size:20px;
-            margin-bottom:5px;
-            
-            }
-    
-    </style>
+    <%= Referencias.Css("../")%>
+    <link id="link1" rel="stylesheet" href="../Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />
+    <link id="link5" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
-     <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
      <fieldset>
         <legend class="subtitulos">Ficha del Alumno</legend>
@@ -245,7 +29,7 @@
             <div class="fila_impar">
                 <div class="contenedor_celda">
                     <span class="titulo">DNI:</span>
-                    <span id="dni" class="dato"> 25.315.235</span>
+                    <span id="dni" class="dato"> </span>
                 </div>
                 <div class="contenedor_celda">
                     <span class="titulo">Perfil:</span>
@@ -255,17 +39,17 @@
             <div class="fila_par">
                 <div class="contenedor_celda">
                     <span class="titulo">T&eacute;lefono:</span>
-                    <span id="telefono" class="dato"> 4444-4444</span>
+                    <span id="telefono" class="dato"></span>
                 </div>
                 <div class="contenedor_celda">
                     <span class="titulo">Modalidad:</span>
-                    <span id="modalidad" class="dato"> Fines CENS</span>
+                    <span id="modalidad" class="dato"></span>
                 </div>
             </div>
             <div class="fila_impar">
                 <div class="contenedor_celda">
                     <span class="titulo">Celular:</span>
-                    <span id="celular" class="dato"> 15-4444-4444</span>
+                    <span id="celular" class="dato"></span>
                 </div>
                 <div class="contenedor_celda">
                     <span class="titulo">Estado:</span>
@@ -275,31 +59,31 @@
             <div class="fila_par">
                 <div class="contenedor_celda">
                     <span class="titulo">Mail:</span>
-                    <span id="mail" class="dato"> carla@gmail.com</span>
+                    <span id="mail" class="dato"></span>
                 </div>
                 <div class="contenedor_celda">
                     <span class="titulo">Cursando A&ntilde;o:</span>
-                    <span id="anio_cursando" class="dato"> 2do a&ntilde;o</span>
+                    <span id="anio_cursando" class="dato"> </span>
                 </div>
             </div>
             <div class="fila_impar">
                 <div class="contenedor_celda">
                     <span class="titulo">Direccion:</span>
-                    <span id="direccion" class="dato">Av. Alvear 2145 Piso 4 dto B</span>
+                    <span id="direccion" class="dato"></span>
                 </div>
                 <div class="contenedor_celda">
                     <span class="titulo">Tutor:</span>
-                    <span id="tutor" class="dato"> Juan Perez</span>
+                    <span id="tutor" class="dato"> </span>
                 </div>
             </div>
             <div class="fila_par">
                 <div class="contenedor_celda">
                     <span class="titulo">Fecha Nac.:</span>
-                    <span id="fecha_nac" class="dato"> 10/08/1984</span>
+                    <span id="fecha_nac" class="dato"> </span>
                 </div>
                 <div class="contenedor_celda">
                     <span class="titulo">Fecha Ingreso:</span>
-                    <span id="fecha_ingreso" class="dato"> 01/01/2012</span>
+                    <span id="fecha_ingreso" class="dato"> </span>
                 </div>
             </div>
         </div>
@@ -309,7 +93,7 @@
         <li><a href="#tab1">Cursadas</a></li>
         <li><a href="#tab2">Asistencias</a></li>
         <li><a href="#tab3">Evaluaciones</a></li>
-        <li><a href="#tab4">Observaciones</a></li>
+        <li><a href="#tab4">Perfil</a></li>
     </ul>
     <div class="Contenedor">
         <div id="tab1" class="Contenido">
@@ -332,7 +116,20 @@
             </div>
         </div>
         <div id="tab4" class="Contenido">
-            <h2 class="sub_eval">Observaciones</h2> 
+            <h2 class="sub_eval">Perfil</h2> 
+        <div  class="content">
+         <ul>
+                <li>Asistencia: <small>Sin informaci&oacute;n</small></li>
+                <li>Puntulidad: <small>Sin informaci&oacute;n</small></li>    
+                <li>Nivel de Compromiso: <small>Sin informaci&oacute;n</small></li>
+                <li>Participación: <small>Sin informaci&oacute;n</small></li>
+                <li>Cumplimiento con las Tareas: <small>Sin informaci&oacute;n</small></li>
+                <li>Integración al Grupo: <small>Sin informaci&oacute;n</small></li>
+                <li>Respeta las Normas de Convivencia: <small>Sin informaci&oacute;n</small></li>
+                <li>Responsabilidad: <small>Sin informaci&oacute;n</small></li>
+            </ul>
+        </div>
+
         </div>
     </div>
     </div>
@@ -341,18 +138,11 @@
      <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
      <asp:HiddenField ID="evaluacionesJSON" runat="server" EnableViewState="true"/>
 
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/FichaAlumno.js"></script>
-
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
-
+    <%= Referencias.Javascript("../") %>
+    <script type="text/javascript" src="Scripts/FichaAlumno.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
+   
 
     <script type="text/javascript">
         var AdministradorFichaAlumno = function () {

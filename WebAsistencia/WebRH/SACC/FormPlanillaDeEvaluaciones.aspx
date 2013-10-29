@@ -6,13 +6,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>Planilla De Evaluaciones</title>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css" runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
-    <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" /> 
-    <link rel="stylesheet" href="../Estilos/jquery-ui.css" />
-
-     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <%= Referencias.Css("../")%>
+    <link id="link3" rel="stylesheet" href="/Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
+    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
+    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
     <style type="text/css">
         
@@ -46,6 +44,8 @@
         border-width: 2px;
         border-style: solid;
         border-color: rgb(67, 58, 116)!important;
+        margin-top:8px;
+        
     }
     
     .text_2caracteres:hover, .text_10caracteres:hover 
@@ -59,10 +59,10 @@
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
         <fieldset>
-            <legend>Evaluaciones</legend>
+            <legend class="subtitulos">Evaluaciones</legend>
             <div id="DivContenedor" runat="server" class="div_izquierdo2" style="margin:10px; z-index:999;  ">
                 <label class="label_evaluaciones">Curso:</label>
                 <select id="CmbCurso" onchange="javascript:cargar_instancias(this.value);" runat="server">
@@ -82,16 +82,12 @@
         </fieldset>
     </form>
 
-    <script type="text/javascript" src="../Scripts/Grilla.js"></script>
-    <script type="text/javascript" src="../Scripts/linq.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/minified/i18n/jquery.ui.datepicker-es.min.js"></script>
-    <script type="text/javascript" src="planilla_ingreso.js"></script>
+   <%= Referencias.Javascript("../") %>
+    <script type="text/javascript" src="Scripts/planilla_ingreso.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
+
 </body>
 <script type="text/javascript">
     var admin_planilla;

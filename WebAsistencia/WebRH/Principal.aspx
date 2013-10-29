@@ -5,10 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Nomina - Sistema RRHH</title>
-    <link id="link1" rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css"
-        runat="server" />
-    <script type="text/javascript" src="bootstrap/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/jquery-ui-1.8.21.custom.min.js"></script>
+    <%= Referencias.Css("")%>
+    <%= Referencias.Javascript("") %>
 </head>
 <body>
     <form id="form1" runat="server">

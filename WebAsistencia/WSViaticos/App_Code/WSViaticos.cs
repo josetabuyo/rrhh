@@ -240,6 +240,27 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
+    {
+
+        RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
+
+        if ( repoUsuarios.CambiarPassword(usuario, PasswordActual, PasswordNuevo))
+	    {
+            return JsonConvert.SerializeObject(new
+                {
+                tipoDeRespuesta = "cambioPassword.ok"              
+                });
+	    } else {
+            return JsonConvert.SerializeObject(new
+                {
+                    tipoDeRespuesta = "cambioPassword.error"
+                    //error = e.Message
+                });
+        }
+    }
+
+    [WebMethod]
     public void AltaDeComisionesDeServicio(ComisionDeServicio unaComision)
     {
         var repositorio = new RepositorioDeComisionesDeServicio(Conexion());
@@ -1544,6 +1565,7 @@ public class WSViaticos : System.Web.Services.WebService
              alumno_dto.Documento = alumno.Documento;
              alumno_dto.Modalidad = alumno.Modalidad;
              alumno_dto.Telefono = alumno.Telefono;
+             alumno_dto.Organismo = alumno.Organismo.Id;
 
              alumnos_dto.Add(alumno_dto);
          } 
@@ -1566,6 +1588,7 @@ public class WSViaticos : System.Web.Services.WebService
             alumno_dto.Documento = alumno.Documento;
             alumno_dto.Modalidad = alumno.Modalidad;
             alumno_dto.Telefono = alumno.Telefono;
+            alumno_dto.Organismo = alumno.Organismo.Id;
 
             alumnos_dto.Add(alumno_dto);
         }
@@ -1588,6 +1611,7 @@ public class WSViaticos : System.Web.Services.WebService
             alumno_dto.Documento = alumno.Documento;
             alumno_dto.Modalidad = alumno.Modalidad;
             alumno_dto.Telefono = alumno.Telefono;
+            alumno_dto.Organismo = alumno.Organismo.Id;
 
             alumnos_dto.Add(alumno_dto);
         }
@@ -1769,10 +1793,15 @@ public class WSViaticos : System.Web.Services.WebService
         return JsonConvert.SerializeObject(espacios_fisicos_dto);
 
     }
-
+    
+    [WebMethod]
+    public List<Area> GetAreasParaProtocolo()
+    {
+        return new RepositorioDeAreas(Conexion()).GetAreasParaProtocolo();
+    }
 
     [WebMethod]
-    public string GetAreasParaProtocolo(Usuario usuario)
+    public string GetAreasParaProtocoloJSON(Usuario usuario)
     {
 
         List<Area> areas = new RepositorioDeAreas(Conexion()).GetAreasParaProtocolo();
@@ -1912,12 +1941,14 @@ public class WSViaticos : System.Web.Services.WebService
     public EvaluacionDto[] GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
     {
         var evaluaciones_no_procesadas = new List<EvaluacionDto>();
+        var repo_alumnos = RepoAlumnos();
+        var repo_cursos = RepositorioDeCursos();
         var evaluaciones_a_guardar = new List<Evaluacion>();
         foreach (var e in evaluaciones_nuevas_dto)
         {
-            var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
+            var un_curso = repo_cursos.GetCursoById(e.IdCurso);
             var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
-            var un_alumno = RepoAlumnos().GetAlumnoByDNI(e.DNIAlumno);
+            var un_alumno = repo_alumnos.GetAlumnoByDNI(e.DNIAlumno);
             var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
             DateTime una_fecha;
             DateTime.TryParse(e.Fecha, out una_fecha );
@@ -1927,9 +1958,9 @@ public class WSViaticos : System.Web.Services.WebService
         var evaluaciones_originales = new List<Evaluacion>();
         foreach (var e in evaluaciones_originales_dto)
         {
-            var un_curso = RepositorioDeCursos().GetCursoById(e.IdCurso);
+            var un_curso = repo_cursos.GetCursoById(e.IdCurso);
             var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
-            var un_alumno = RepoAlumnos().GetAlumnoByDNI(e.DNIAlumno);
+            var un_alumno = repo_alumnos.GetAlumnoByDNI(e.DNIAlumno);
             var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
             DateTime una_fecha;
             DateTime.TryParse(e.Fecha, out una_fecha);
