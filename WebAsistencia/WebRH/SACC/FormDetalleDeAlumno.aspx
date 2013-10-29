@@ -14,7 +14,7 @@
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
-     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
      <fieldset>
         <legend class="subtitulos">Ficha del Alumno</legend>
