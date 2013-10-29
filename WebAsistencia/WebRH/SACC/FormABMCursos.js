@@ -13,7 +13,6 @@ var horaF = $("#txtHoraFin");
 var horasCatedra = $("#cmbHorasCatedra");
 
 
-
 var AdministradorPlanillaCursos = function () {
     Cursos = JSON.parse($('#cursosJSON').val());
     var panelCurso = $("#panelCurso");
@@ -21,7 +20,7 @@ var AdministradorPlanillaCursos = function () {
     contenedorPlanilla = $('#ContenedorPlanilla');
     var columnas = [];
 
- columnas.push(new Columna("Nombre", {
+    columnas.push(new Columna("Nombre", {
         generar: function (un_curso) {
             return un_curso.Nombre;
         }
@@ -114,8 +113,6 @@ $('#cmbCurso').change(function () {
     for (var mes = mes_inicio; mes <= mes_fin; mes++) {
         this.CmbCurso.Items.Add(new System.Web.UI.WebControls.ListItem(DateTimeFormatInfo.CurrentInfo.GetMonthName(mes), mes.ToString()));
     }
-
-
 });
 
 
@@ -256,16 +253,26 @@ var CambiarHorario = function () {
     }
 };
 
-
-
 var completarCombosDeHorasCatedra = function () {
-    for (var i = 1; i < 5; i++) {
-        var ciclo;
-        var listItem = $('<option>');
-        listItem.val(i);
-        listItem.text(i);
-        horasCatedra.append(listItem);
-    }
+    horasCatedra.html("");
+    horasCatedra.append(new Option('Seleccione', 0, true, true));
+    $.ajax({
+        url: "../AjaxWS.asmx/GetMaxHorasCatedraCurso",
+        type: "POST",
+        async: false,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (respuestaJson) {
+            var respuesta = respuestaJson.d;
+            for (var i = 0; i < respuesta; i++) {
+                horasCatedra.append(new Option(i + 1, i + 1, true, true));
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alertify.alert(errorThrown);
+        }
+    });
+    horasCatedra.val(0);
 }
 
 var NuevoHorario = function () {

@@ -15,45 +15,6 @@
     var docente = {};
     var filas = [];
 
-    var generar_filas = function () {
-        var rows = [];
-        for (var i = 0; i < alumnos.length; i++) {
-            var row = { Alumno: {}, DetalleAsistencias: [], AsistenciasPeriodo: '', InasistenciasPeriodo: '' }
-            var cols = [];
-            row.Alumno = { html: alumnos[i].Nombre + ' ' + alumnos[i].Apellido };
-            var detalle_asistencia_alumno = Enumerable.From(detalle_asistencias)
-                        .Where(function (x) {
-                            return x.IdAlumno == alumnos[i].Id;
-                        });
-            for (var j = 0; j < diasCursados.length; j++) {
-                var asistencia = Enumerable.From(detalle_asistencia_alumno.First().Asistencias)
-                        .Where(function (x) {
-                            return x.Fecha == diasCursados[j].Fecha && x.IdAlumno == alumnos[i].Id
-                        });
-                if (asistencia.Count() > 0)
-                    row.DetalleAsistencias.push(new BotonAsistencia(asistencia.First().Id, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, asistencia.First().Valor, diasCursados[j].HorasCatedra));
-                else
-                    row.DetalleAsistencias.push(new BotonAsistencia(0, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, '', diasCursados[j].HorasCatedra));
-
-            }
-
-            if (detalle_asistencia_alumno.Count() > 0) {
-                row.AsistenciasPeriodo = detalle_asistencia_alumno.First().AsistenciasPeriodo;
-                row.InasistenciasPeriodo = detalle_asistencia_alumno.First().InasistenciasPeriodo;
-                row.AsistenciasTotal = detalle_asistencia_alumno.First().AsistenciasTotal + " (" + ((detalle_asistencia_alumno.First().AsistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
-                row.InasistenciasTotal = detalle_asistencia_alumno.First().InasistenciasTotal + " (" + ((detalle_asistencia_alumno.First().InasistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
-            } else {
-                row.AsistenciasPeriodo = '';
-                row.InasistenciasPeriodo = '';
-                row.AsistenciasTotal = '';
-                row.InasistenciasTotal = '';
-
-            }
-            rows.push(row);
-        }
-        filas = rows;
-    }
-
     _this.cargar_asistencias = function (id_curso, fecha_desde, fecha_hasta) {
         _this.id_curso = id_curso;
         var data_post = { id_curso: id_curso, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta };
@@ -76,11 +37,29 @@
                 generar_filas(respuesta);
                 _this.dibujar_planilla();
                 _this.completar_datos_curso_seleccionado();
+                _this.mostrar_botones();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alertify.alert(errorThrown);
             }
         });
+    }
+
+
+    _this.mostrar_panel_detalle_curso = function () {
+        $("#DatosCurso").css("visibility", "visible");
+    }
+
+    _this.ocultar_panel_detalle_curso = function () {
+        $("#DatosCurso").css("visibility", "hidden");
+    }
+
+    _this.mostrar_botones = function () {
+        $("#DivBotonesObservacion").css("visibility", "visible");
+    }
+
+    _this.ocultar_botones = function () {
+        $("#DivBotonesObservacion").css("visibility", "hidden");
     }
 
     _this.guardar_asistencias = function () {
@@ -120,6 +99,7 @@
             contentType: "application/json; charset=utf-8",
             success: function (respuestaJson) {
                 var respuesta = JSON.parse(respuestaJson.d);
+                alertify.alert("Los cambios se guardaron satisfactoriamente");
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alertify.alert(errorThrown);
@@ -171,6 +151,45 @@
         w.document.write(contenedor_grilla.html());
         w.print();
         w.close();
+    }
+
+    var generar_filas = function () {
+        var rows = [];
+        for (var i = 0; i < alumnos.length; i++) {
+            var row = { Alumno: {}, DetalleAsistencias: [], AsistenciasPeriodo: '', InasistenciasPeriodo: '' }
+            var cols = [];
+            row.Alumno = { html: alumnos[i].Nombre + ' ' + alumnos[i].Apellido };
+            var detalle_asistencia_alumno = Enumerable.From(detalle_asistencias)
+                        .Where(function (x) {
+                            return x.IdAlumno == alumnos[i].Id;
+                        });
+            for (var j = 0; j < diasCursados.length; j++) {
+                var asistencia = Enumerable.From(detalle_asistencia_alumno.First().Asistencias)
+                        .Where(function (x) {
+                            return x.Fecha == diasCursados[j].Fecha && x.IdAlumno == alumnos[i].Id
+                        });
+                if (asistencia.Count() > 0)
+                    row.DetalleAsistencias.push(new BotonAsistencia(asistencia.First().Id, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, asistencia.First().Valor, diasCursados[j].HorasCatedra));
+                else
+                    row.DetalleAsistencias.push(new BotonAsistencia(0, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, '', diasCursados[j].HorasCatedra));
+
+            }
+
+            if (detalle_asistencia_alumno.Count() > 0) {
+                row.AsistenciasPeriodo = detalle_asistencia_alumno.First().AsistenciasPeriodo;
+                row.InasistenciasPeriodo = detalle_asistencia_alumno.First().InasistenciasPeriodo;
+                row.AsistenciasTotal = detalle_asistencia_alumno.First().AsistenciasTotal + " (" + ((detalle_asistencia_alumno.First().AsistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
+                row.InasistenciasTotal = detalle_asistencia_alumno.First().InasistenciasTotal + " (" + ((detalle_asistencia_alumno.First().InasistenciasTotal / horasCatedra) * 100).toFixed(2) + "%)";
+            } else {
+                row.AsistenciasPeriodo = '';
+                row.InasistenciasPeriodo = '';
+                row.AsistenciasTotal = '';
+                row.InasistenciasTotal = '';
+
+            }
+            rows.push(row);
+        }
+        filas = rows;
     }
 
     var GeneradorCeldaDiaCursado = function (diaCursado) {

@@ -47,7 +47,7 @@
         <option value="0">Seleccione</option>
         </select>
         <br />
-        <div id="DatosCurso">
+        <div id="DatosCurso" style="visibility:hidden">
         <label id="lblDocente">Docente:</label>
         <label id="Docente" runat="server">&nbsp;</label>
         <br />
@@ -62,7 +62,7 @@
         <div id="ContenedorPlanilla" runat="server" style="display:inline-block;">
         
         </div>
-        <div id="DivBotonesObservacion" style="visibility:visible; width: 100%">
+        <div id="DivBotonesObservacion" style="visibility:hidden; width: 100%">
             <input id="BtnGuardar" style="margin-left: 10px;" class="btn btn-primary " type="button" onclick="javascript:GuardarDetalleAsistencias();" value="Guardar"/>
             <input id="BtnImprimir" style="margin-left: 5px;" class="btn btn-primary " type="button" onclick="javascript:ImprimirPlanilla();" value="Imprimir" />
             <br />

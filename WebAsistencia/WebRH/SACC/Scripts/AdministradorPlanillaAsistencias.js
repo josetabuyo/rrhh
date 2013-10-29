@@ -18,8 +18,6 @@ var CargarComboAnios = function () {
     }
 
     cmb_anio.val(0);
-
-
 }
 
 var CargarComboMeses = function () {
@@ -86,6 +84,11 @@ var CargarPlanilla = function () {
         var fecha_desde = anio + "/" + mes + "/01";
         var fecha_hasta = "";
         PlanillaAsistencias.cargar_asistencias(id_curso, fecha_desde, fecha_hasta);
+        PlanillaAsistencias.mostrar_botones();
+        PlanillaAsistencias.mostrar_panel_detalle_curso();
+    } else {
+        PlanillaAsistencias.ocultar_botones();
+        PlanillaAsistencias.ocultar_panel_detalle_curso();
     }
 }
 
@@ -99,9 +102,6 @@ var GetCursos = function () {
         success: function (respuestaJson) {
             cursos = JSON.parse(respuestaJson.d);
             CargarComboAnios();
-            /* CargarComboCursos();
-            CargarComboMeses();
-            */
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alertify.alert(errorThrown);

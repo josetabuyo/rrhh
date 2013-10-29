@@ -24,6 +24,7 @@ public class Referencias
         var refs = @"    
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js""></script>
+            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/jquery-ui-1.10.2.custom/development-bundle/ui/i18n/jquery.ui.datepicker-es.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/FuncionesDreamWeaver.js""></script>   
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Grilla.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/InputAutocompletable.js""></script>
