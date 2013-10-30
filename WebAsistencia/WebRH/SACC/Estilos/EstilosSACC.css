@@ -472,7 +472,6 @@ text-align: right;
 }
 
 
-<<<<<<< HEAD:WebAsistencia/WebRH/SACC/Estilos/EstilosSACC.css
 /* ================ Estilos para los Reportes ================*/
 .cbp-spmenu {
 	background: #47a3da;
@@ -601,7 +600,7 @@ text-align: right;
 		left: 190px;
 	}
 }
-=======
+
 /*==========OBSERVACIONES==================*/
 
 .id 
@@ -689,4 +688,3 @@ p.error span { display: inline-block; background: #D43636; padding: 6px; border-
                 
 .modal_close { position: absolute; top: 12px; right: 12px; display: block; width: 14px; height: 14px; background: url(../Imagenes/modal_close.png); z-index: 2; }
 
->>>>>>> 3d0909cc8c0b3d6a9e09a38c4e8693864ede844c:WebAsistencia/WebRH/SACC/EstilosSACC.css

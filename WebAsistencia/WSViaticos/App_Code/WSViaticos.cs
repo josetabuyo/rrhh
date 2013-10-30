@@ -1573,35 +1573,35 @@ public class WSViaticos : System.Web.Services.WebService
         return alumnos_dto;
     }
 
+    //[WebMethod]
+    //public List<AlumnoDto> ReporteAlumnosDeCursos(DateTime fecha_desde, DateTime fecha_hasta)
+    //{
+    //    Reportes reportes = new Reportes();
+    //    List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
+    //    var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(fecha_desde, fecha_hasta, RepositorioDeCursos());
+    //    foreach (Alumno alumno in alumnos_reporte)
+    //    {
+    //        var alumno_dto = new AlumnoDto();
+    //        alumno_dto.Id = alumno.Id;
+    //        alumno_dto.Apellido = alumno.Apellido;
+    //        alumno_dto.Nombre = alumno.Nombre;
+    //        alumno_dto.Documento = alumno.Documento;
+    //        alumno_dto.Modalidad = alumno.Modalidad;
+    //        alumno_dto.Telefono = alumno.Telefono;
+    //        alumno_dto.Organismo = alumno.Organismo.Id;
+
+    //        alumnos_dto.Add(alumno_dto);
+    //    }
+
+    //    return alumnos_dto;
+    //}
+
     [WebMethod]
-    public List<AlumnoDto> ReporteAlumnosDeCursos()
+    public List<AlumnoDto> ReporteAlumnosPorOrganismo(DateTime fecha_desde, DateTime fecha_hasta)
     {
         Reportes reportes = new Reportes();
         List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
-        var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(RepositorioDeCursos());
-        foreach (Alumno alumno in alumnos_reporte)
-        {
-            var alumno_dto = new AlumnoDto();
-            alumno_dto.Id = alumno.Id;
-            alumno_dto.Apellido = alumno.Apellido;
-            alumno_dto.Nombre = alumno.Nombre;
-            alumno_dto.Documento = alumno.Documento;
-            alumno_dto.Modalidad = alumno.Modalidad;
-            alumno_dto.Telefono = alumno.Telefono;
-            alumno_dto.Organismo = alumno.Organismo.Id;
-
-            alumnos_dto.Add(alumno_dto);
-        }
-
-        return alumnos_dto;
-    }
-
-    [WebMethod]
-    public List<AlumnoDto> ReporteAlumnosPorOrganismo()
-    {
-        Reportes reportes = new Reportes();
-        List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
-        var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(RepositorioDeCursos());
+        var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(fecha_desde, fecha_hasta, RepositorioDeCursos());
         foreach (Alumno alumno in alumnos_reporte)
         {
             var alumno_dto = new AlumnoDto();

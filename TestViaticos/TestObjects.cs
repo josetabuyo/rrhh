@@ -1700,7 +1700,7 @@ namespace General
              return new List<List<int>>() { new List<int> { 4, 281941 }, new List<int> { 3, 287873 }, new List<int> { 13, 281941 } };
         }
 
-<<<<<<< HEAD
+
         public static List<Asistencia> CargaAsistenciaPerfecta(Curso curso, Alumno alumno)
         {
             List<Asistencia> asistencias = new List<Asistencia>();
@@ -1727,7 +1727,7 @@ namespace General
             return asistencias;
         }
 
-=======
+
         public static List<General.Observacion> Observaciones()
         {
             List<Observacion> observaciones = new List<Observacion>();
@@ -1743,6 +1743,6 @@ namespace General
 
             return observaciones;
         }
->>>>>>> 3d0909cc8c0b3d6a9e09a38c4e8693864ede844c
+
     }
 }

@@ -9,7 +9,6 @@
     <%= Referencias.Css("../")%>
     <script src="../Scripts/jquery-1.8.3.min.js" type="text/javascript"></script>
     <link id="link3" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
-     <link id="link1" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
      <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
      <script type="text/javascript" src="Scripts/modernizr.custom.js" ></script>
@@ -73,7 +72,7 @@
                <nav class="cbp-spmenu cbp-spmenu-left" id="cbp-spmenu-s1" style="z-index:9999; margin-top:120px;">
                     <h3>Alumnos</h3>
                     <div class="cbp-spmenu-vertical">
-                    <a href="FormPlanillaDeReportesAlumnos.aspx?accion=modalidad">Por Modalidad</a>
+                    <a id="modalidad" href="FormPlanillaDeReportesAlumnos.aspx?accion=modalidad">Por Modalidad</a>
                     <a href="FormPlanillaDeReportesAlumnos.aspx?accion=ciclo">Por Ciclo</a>
                     <a href="FormPlanillaDeReportesAlumnos.aspx?accion=organismo">Por Organismo</a>
                     <a href="FormPlanillaDeReportesAlumnos.aspx?accion=materia">Materia Sin Cursar</a>
@@ -94,15 +93,16 @@
 
                 <div id="div_parametros" style="display: none;" > 
                   <legend id="lb_parametros">Parámetros</legend>
-                    <p><asp:DropDownList ID="cmbCampo" runat="server" enableviewstate="true">
-                    <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem></asp:DropDownList></p>
-               
-                               <%--<label> Fecha Desde</label>
-               <input type="text" id="idFechaDesde" class="text_10caracteres hasDatepicker">
-               <label> Fecha Hasta</label>
-               <input type="text" id="idFechaHasta" class="text_10caracteres hasDatepicker">--%>
-                    <legend id="lb_grafico">Gráfico</legend>
-                    <div id="dibujo_grafico" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    <div><asp:DropDownList ID="cmbCampo" runat="server" enableviewstate="true">
+                        <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem></asp:DropDownList>
+                         <label style="margin-left: 10px"> Fecha Desde</label>
+                            <input type="text" id="idFechaDesde" class="text_10caracteres hasDatepicker"/>
+                        <label style="margin-left: 10px"> Fecha Hasta</label>
+                            <input type="text" id="idFechaHasta" class="text_10caracteres hasDatepicker"/>
+                            <input type="button" id="btn_buscarReportes" class="btn btn-primary"  value="Buscar" style="margin: 10px;"/>   
+                    </div>
+                  <legend id="lb_grafico">Gráfico</legend>
+                        <div id="dibujo_grafico" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                 </div> 
             </div>    
      </fieldset>
@@ -178,7 +178,6 @@
     var AdministradorPlanilla = function () {
 
 
-
         var items_pantalla = {
             alumnos: JSON.parse($('#alumnosJSON').val()),
             // alumnoGlobal: $("<div>"),
@@ -186,6 +185,8 @@
             cmbCombo: $("#cmbCampo"),
             //panelAlumnoDisponibles: $("#panelAlumnoDisponibles"),
             contenedorAlumnosDisponibles: $('#grillaAlumnosDisponibles'),
+            fechaDesde: $('#idFechaDesde'),
+            fechaHasta: $('#idFechaHasta'),
             //            botonAsignarAlumno: $("#Img1"),
             //            botonDesAsignarAlumno: $("#Img2"),
             botonModalidad: $("#btn_modalidad"),
@@ -198,7 +199,9 @@
 
         var modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
 
-        modulo_inscripcion.BuscarPorOrganismo();
+
+        modulo_inscripcion.PrimeraBusqueda();
+        // modulo_inscripcion.BuscarPorOrganismo();
 
     };
 
@@ -214,38 +217,31 @@
             $('#div_parametros').show();
             $('#lb_grafico').show();
             $('#referencias').show();
-            
 
             if (accion == "modalidad") {
                 $('#lb_parametros').text(" Parámetros - Por Modalidad");
-                $('#btnBuscarCampo').show();
-
-            }
+                $('#btnBuscarCampo').show();}
 
             if (accion == "organismo") {
-                $('#lb_parametros').text(" Parámetros - Por Organismo");
-
-            }
+                $('#lb_parametros').text(" Parámetros - Por Organismo");}
 
             if (accion == "ciclo") {
-                $('#lb_parametros').text(" Parámetros - Por Ciclo");
-
-            }
+                $('#lb_parametros').text(" Parámetros - Por Ciclo");}
 
             if (accion == "materia") {
-                $('#lb_parametros').text(" Parámetros - Por Materia");
-
-            }
+                $('#lb_parametros').text(" Parámetros - Por Materia");}
         }
 
         AdministradorPlanilla();
-
     }
 
     $(document).ready(function () {
 
         DeterminarReporteEnPantalla($("#accion").val());
   });
+
+
+//Funciones para el Menú Lateral Izquierdo
 
   var menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeft = document.getElementById('showLeft'),

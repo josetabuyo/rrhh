@@ -159,10 +159,12 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string ReporteAlumnosPorOrganismo()
+    public string ReporteAlumnosPorOrganismo(string fecha_desde, string fecha_hasta)
     {
 
-        var aaa = backEndService.ReporteAlumnosDeCursos(); //ver si cambiar por List<AlumnoDto>
+        var fecha_desde_formateada = new DateTime(2013, 01, 01);
+        var fecha_hasta_formateada = new DateTime(2013, 12, 31);
+        var aaa = backEndService.ReporteAlumnosPorOrganismo(fecha_desde_formateada, fecha_hasta_formateada); //ver si cambiar por List<AlumnoDto>
         var bbb = Newtonsoft.Json.JsonConvert.SerializeObject(aaa);
         return bbb;
     }

@@ -22,7 +22,6 @@
                       </li>
                     </ul>
                     <ul class="nav pull-right">
-<<<<<<< HEAD
                         <li class="dropdown" id="Li1" runat="server">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes</a>
                               <ul id="Ul1" class="dropdown-menu" runat="server">
@@ -30,10 +29,8 @@
                                 <%--<li><a href="FormPlanillaDeReportesMaterias.aspx">Listados de Materias</a></li>--%>
                               </ul>
                           </li>
-
-=======
                        <li><a href="FormPlanillaObservaciones.aspx">Observaciones</a></li>
->>>>>>> 3d0909cc8c0b3d6a9e09a38c4e8693864ede844c
+
                        <li class="dropdown" id="menu_parametria" runat="server">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Parametr&iacute;a <b class="caret"></b></a>
                         <ul id="sub_menu_parametria" class="dropdown-menu" runat="server">
