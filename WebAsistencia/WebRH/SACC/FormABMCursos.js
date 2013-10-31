@@ -12,8 +12,6 @@ var horaI = $("#txtHoraInicio");
 var horaF = $("#txtHoraFin");
 var horasCatedra = $("#cmbHorasCatedra");
 
-
-
 var AdministradorPlanillaCursos = function () {
     Cursos = JSON.parse($('#cursosJSON').val());
     var panelCurso = $("#panelCurso");
@@ -21,7 +19,7 @@ var AdministradorPlanillaCursos = function () {
     contenedorPlanilla = $('#ContenedorPlanilla');
     var columnas = [];
 
- columnas.push(new Columna("Nombre", {
+    columnas.push(new Columna("Nombre", {
         generar: function (un_curso) {
             return un_curso.Nombre;
         }
@@ -46,9 +44,10 @@ var AdministradorPlanillaCursos = function () {
             var horario = $.map(un_curso.Horarios, function (val, index) {
                 return val.Dia.substring(0, 3) + " " + val.HoraDeInicio + " - " + val.HoraDeFin;
             }).join("<br>");
-            return horario;
+            var cont = $("<div>").css("width", "120px").append(horario);
+            return cont;
         }
-   }));
+    }));
 
 
     PlanillaCursos = new Grilla(columnas);
@@ -59,9 +58,7 @@ var AdministradorPlanillaCursos = function () {
         panelCurso.CompletarDatosCurso(un_curso);
     });
 
-    PlanillaCursos.CargarObjetos(Cursos);
-    PlanillaCursos.DibujarEn(contenedorPlanilla);
-
+    ArmarLaGrilla(Cursos, contenedorPlanilla);
 
     panelCurso.CompletarDatosCurso = function (un_curso) {
 
@@ -91,22 +88,31 @@ var AdministradorPlanillaCursos = function () {
     DeshabilitarControl($("#btnModificarCurso"));
     DeshabilitarControl($("#btnQuitarCurso"));
     HabilitarControl($("#btnAgregarCurso"));
-    $("#txtHoraInicio").mask("99:99");
-    $("#txtHoraFin").mask("99:99");
+    //$("#txtHoraInicio").mask("99:99");
+    //$("#txtHoraFin").mask("99:99");
     $("#txtFechaInicio").datepicker($.datepicker.regional["es"]);
     $("#txtFechaFin").datepicker($.datepicker.regional["es"]);
-
-    var options = {
-        valueNames: ['Nombre', 'Materia', 'Docente', 'Espacio Fisico', 'Horario']
-    };
-
-    var featureList = new List('ContenedorPlanilla', options);
 
     //Estilos para ver coloreada la grilla en Internet Explorer
     $("tbody tr:even").css('background-color', '#E6E6FA');
     $("tbody tr:odd").css('background-color', '#9CB3D6 ');
 
 };
+
+ArmarLaGrilla = function (cursos, contenedorPlanilla) {
+
+    PlanillaCursos.BorrarContenido();
+    PlanillaCursos.CargarObjetos(cursos);
+    PlanillaCursos.DibujarEn(contenedorPlanilla);
+
+    var options = {
+        valueNames: ['Nombre', 'Materia', 'Docente', 'Espacio Fisico', 'Horario']
+    };
+
+    var featureList = new List('ContenedorPlanilla', options);
+}
+
+
 
 $('#cmbCurso').change(function () {
     var mes_inicio = un_curso.FechaInicio == null ? 1 : un_curso.FechaInicio.Month;
@@ -266,6 +272,29 @@ var completarCombosDeHorasCatedra = function () {
         listItem.text(i);
         horasCatedra.append(listItem);
     }
+}
+
+$("#filtrar_cursos_vigentes").change(function () {
+    if ($("#filtrar_cursos_vigentes")[0].checked == true) {
+        var cursos_vigentes = Enumerable.From(Cursos)
+        .Select(function (x) { return x })
+        .Where(function (x) { return ParsearFecha(x.FechaFin) > new Date() })
+        .ToArray();
+
+        ArmarLaGrilla(cursos_vigentes, contenedorPlanilla);
+
+
+    } else {
+        ArmarLaGrilla(Cursos, contenedorPlanilla);
+    }
+});
+
+var ParsearFecha = function (fecha) {
+    var day = parseInt(fecha.split("/")[0]);
+    var month = parseInt(fecha.split("/")[1]);
+    var year = parseInt(fecha.split("/")[2]);
+
+    return new Date(year,month,day);
 }
 
 var NuevoHorario = function () {

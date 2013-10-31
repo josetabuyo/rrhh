@@ -32,6 +32,7 @@
         <select id="CmbCurso" style="width:400px;" onchange="javascript:CargarPlanilla();" runat="server">
             <option value="0">Seleccione</option>
         </select>
+        <input type="checkbox" id="filtrar_cursos_vigentes" />    <label>Vigentes </label>
         <br />
         <label>Mes:&nbsp;&nbsp;&nbsp;</label>
         <select id="CmbMes" style="width:400px; text-transform:capitalize" 
@@ -206,6 +207,27 @@ $("#CmbCurso").change(function () {
         $("#PlanillaAsistencia_DetalleAsistencias").val(JSON.stringify(detalle_asistencias));
         $("#BtnSave").click();
 //        return true;
+    }
+
+    function ArmarComboCurso(cursos) {
+        this.o.cmbCursos.empty();
+        for (var i = 0; i < cursos.length; i++) {
+            var curso = cursos[i];
+            var listItem = $('<option>');
+            // alert(JSON.stringify(curso));
+            listItem.val(curso.Id);
+            listItem.text(curso.Nombre);
+            this.o.cmbCursos.append(listItem);
+        }
+    }
+
+    function ParsearFecha(fecha) {
+        var day = parseInt(fecha.split("/")[0]);
+        var month = parseInt(fecha.split("/")[1]);
+        var year = parseInt(fecha.split("/")[2]);
+
+        return new Date(year, month, day);
+
     }
 
     function ImprimirPlanilla() {
