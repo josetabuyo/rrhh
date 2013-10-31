@@ -7,10 +7,12 @@ var TextboxNota = function (id) {
     var _this = this;
     this.html = $("<input>").attr("id", id).attr("class", "text_2caracteres");
     this.html.blur(function () {
-        var calificaciones_validas = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', '']
+        var calificaciones_validas = ['0','1','2','3','4','5','6','7','8','9','10','A','']
         var calif_valida = false;
         if ($.inArray(this.value, calificaciones_validas) < 0) {
-            alertify.alert("La calificaci&oacute;n ingresada no es v&aacute;lida");
+            alertify.alert("La calificación ingresada no es válida");
+            this.select();
+            this.focus();
         }
 
     });
@@ -77,9 +79,6 @@ EncabezadoFecha.prototype.addObservador = function (obs) {
 
 TextboxFecha.prototype.update = function (fecha) {
     this.Fecha = fecha;
-    if (fecha == "Fecha:") {
-        return false;
-    }
     this.html.val(fecha);
 };
 

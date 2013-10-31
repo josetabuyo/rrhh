@@ -13,7 +13,6 @@ var horaF = $("#txtHoraFin");
 var horasCatedra = $("#cmbHorasCatedra");
 
 
-
 var AdministradorPlanillaCursos = function () {
     Cursos = JSON.parse($('#cursosJSON').val());
     var panelCurso = $("#panelCurso");
@@ -21,7 +20,7 @@ var AdministradorPlanillaCursos = function () {
     contenedorPlanilla = $('#ContenedorPlanilla');
     var columnas = [];
 
- columnas.push(new Columna("Nombre", {
+    columnas.push(new Columna("Nombre", {
         generar: function (un_curso) {
             return un_curso.Nombre;
         }
@@ -46,9 +45,10 @@ var AdministradorPlanillaCursos = function () {
             var horario = $.map(un_curso.Horarios, function (val, index) {
                 return val.Dia.substring(0, 3) + " " + val.HoraDeInicio + " - " + val.HoraDeFin;
             }).join("<br>");
-            return horario;
+            var cont = $("<div>").css("width", "120px").append(horario);
+            return cont;
         }
-   }));
+    }));
 
 
     PlanillaCursos = new Grilla(columnas);
@@ -114,8 +114,6 @@ $('#cmbCurso').change(function () {
     for (var mes = mes_inicio; mes <= mes_fin; mes++) {
         this.CmbCurso.Items.Add(new System.Web.UI.WebControls.ListItem(DateTimeFormatInfo.CurrentInfo.GetMonthName(mes), mes.ToString()));
     }
-
-
 });
 
 
@@ -256,16 +254,30 @@ var CambiarHorario = function () {
     }
 };
 
-
-
 var completarCombosDeHorasCatedra = function () {
-    for (var i = 1; i < 5; i++) {
-        var ciclo;
-        var listItem = $('<option>');
-        listItem.val(i);
-        listItem.text(i);
-        horasCatedra.append(listItem);
-    }
+    horasCatedra.html("");
+    var o = new Option('Seleccione', 0);
+    $(o).html('Hs. C&aacute;tedra');
+    horasCatedra.append(o);
+    $.ajax({
+        url: "../AjaxWS.asmx/GetMaxHorasCatedraCurso",
+        type: "POST",
+        async: false,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (respuestaJson) {
+            var respuesta = respuestaJson.d;
+            for (var i = 1; i <= respuesta; i++) {
+                var o = new Option(i, i);
+                $(o).html(i);
+                horasCatedra.append(o);
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alertify.alert(errorThrown);
+        }
+    });
+    horasCatedra.val(0);
 }
 
 var NuevoHorario = function () {
