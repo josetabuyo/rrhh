@@ -12,6 +12,7 @@ var horaI = $("#txtHoraInicio");
 var horaF = $("#txtHoraFin");
 var horasCatedra = $("#cmbHorasCatedra");
 
+
 var AdministradorPlanillaCursos = function () {
     Cursos = JSON.parse($('#cursosJSON').val());
     var panelCurso = $("#panelCurso");
@@ -88,8 +89,8 @@ var AdministradorPlanillaCursos = function () {
     DeshabilitarControl($("#btnModificarCurso"));
     DeshabilitarControl($("#btnQuitarCurso"));
     HabilitarControl($("#btnAgregarCurso"));
-    //$("#txtHoraInicio").mask("99:99");
-    //$("#txtHoraFin").mask("99:99");
+    $("#txtHoraInicio").mask("99:99");
+    $("#txtHoraFin").mask("99:99");
     $("#txtFechaInicio").datepicker($.datepicker.regional["es"]);
     $("#txtFechaFin").datepicker($.datepicker.regional["es"]);
 
@@ -120,8 +121,6 @@ $('#cmbCurso').change(function () {
     for (var mes = mes_inicio; mes <= mes_fin; mes++) {
         this.CmbCurso.Items.Add(new System.Web.UI.WebControls.ListItem(DateTimeFormatInfo.CurrentInfo.GetMonthName(mes), mes.ToString()));
     }
-
-
 });
 
 
@@ -262,16 +261,30 @@ var CambiarHorario = function () {
     }
 };
 
-
-
 var completarCombosDeHorasCatedra = function () {
-    for (var i = 1; i < 5; i++) {
-        var ciclo;
-        var listItem = $('<option>');
-        listItem.val(i);
-        listItem.text(i);
-        horasCatedra.append(listItem);
-    }
+    horasCatedra.html("");
+    var o = new Option('Seleccione', 0);
+    $(o).html('Hs. C&aacute;tedra');
+    horasCatedra.append(o);
+    $.ajax({
+        url: "../AjaxWS.asmx/GetMaxHorasCatedraCurso",
+        type: "POST",
+        async: false,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (respuestaJson) {
+            var respuesta = respuestaJson.d;
+            for (var i = 1; i <= respuesta; i++) {
+                var o = new Option(i, i);
+                $(o).html(i);
+                horasCatedra.append(o);
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alertify.alert(errorThrown);
+        }
+    });
+    horasCatedra.val(0);
 }
 
 $("#filtrar_cursos_vigentes").change(function () {

@@ -393,6 +393,13 @@ namespace General.Repositorios
             return cursos_del_alumno;
         }
 
+        public int GetMaxHorasCatedraCurso()
+        {
+            //Verificar que no se elimine el alumno si tiene asistencias
+
+            return int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Get_MaxHorasCatedraCurso").ToString());
+        }
+
         //public List<Observacion> GetObservaciones()
         //{
 

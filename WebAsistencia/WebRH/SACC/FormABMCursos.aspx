@@ -39,7 +39,7 @@
             <asp:TextBox ID="txtFechaInicio" CssClass="input-small" placeholder="Fecha Inicio" runat="server" MaxLength="8" data-name="Fecha de Inicio del Curso" title="Fecha de Inicio del Curso"></asp:TextBox>
             <br />
             <asp:Label ID="lblFechaFin" CssClass="labels_sacc" runat="server" Text="Fecha Fin"></asp:Label>
-            <asp:TextBox ID="txtFechaFin" CssClass="input-small" placeholder="Fecha Inicio" runat="server" MaxLength="8" data-name="Fecha de Fin del Curso" title="Fecha de Fin del Curso"></asp:TextBox></p>
+            <asp:TextBox ID="txtFechaFin" CssClass="input-small" placeholder="Fecha Fin" runat="server" MaxLength="8" data-name="Fecha de Fin del Curso" title="Fecha de Fin del Curso"></asp:TextBox></p>
         <p>   
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
             <%--<asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" data-name="Dia" ></asp:DropdownList>--%>
@@ -101,12 +101,14 @@
     </form>
     
        <%= Referencias.Javascript("../") %>
+    <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 
 
 </body>
+
 <script src="FormABMCursos.js" type="text/javascript"></script>
 <script src="../Scripts/placeholder_ie.js" type="text/javascript"></script>
 </html>

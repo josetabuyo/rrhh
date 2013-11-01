@@ -11,6 +11,7 @@ public partial class SACC_PrintPlanillaAsistenciaAlumnos : System.Web.UI.Page
     }
     public void CompletarEtiquetas()
     {
+        this.CmbCurso.Value = Request.QueryString["idCurso"];
         this.Mes.InnerText = Request.QueryString["nombre_mes"];
         this.Docente.InnerText = Request.QueryString["docente"];
         this.Curso.InnerText = Request.QueryString["nombre_curso"];

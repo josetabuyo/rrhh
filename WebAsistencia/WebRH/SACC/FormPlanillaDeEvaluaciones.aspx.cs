@@ -12,19 +12,19 @@ public partial class SACC_FormPlanillaDeEvaluaciones : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            CargarComboCursos();
+            //CargarComboCursos();
         }
         this.accion.Value = Request.QueryString["accion"];
     }
 
-    private void CargarComboCursos()
-    {
-        var cursos = Servicio().GetCursosDto((Usuario)Session[ConstantesDeSesion.USUARIO]);
-        foreach (var c in cursos)
-        {
-            this.CmbCurso.Items.Add(new System.Web.UI.WebControls.ListItem(c.Nombre, c.Id.ToString()));
-        }
-    }
+    //private void CargarComboCursos()
+    //{
+    //    var cursos = Servicio().GetCursosDto((Usuario)Session[ConstantesDeSesion.USUARIO]);
+    //    foreach (var c in cursos)
+    //    {
+    //        this.CmbCurso.Items.Add(new System.Web.UI.WebControls.ListItem(c.Nombre, c.Id.ToString()));
+    //    }
+    //}
 
     private WSViaticosSoapClient Servicio()
     {
