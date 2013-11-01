@@ -1864,7 +1864,7 @@ public class WSViaticos : System.Web.Services.WebService
             var permisos_juana = new List<AdministracionDeUsuarios.Permiso>() { 
                 new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First().sub_funcionalidades[2], new List<AdministracionDeUsuarios.Permiso>()),
             };
-            dict_permisos.Add("juana", permisos_juana);
+            dict_permisos.Add("Juana Adela", permisos_juana);
 
             var permisos_ernesto = new List<AdministracionDeUsuarios.Permiso>();
             dict_permisos.Add("ernesto", permisos_ernesto);
@@ -1932,7 +1932,19 @@ public class WSViaticos : System.Web.Services.WebService
         return new List<Funcionalidad> { sys };
     }
 
+    [WebMethod]
+    public Persona[] BuscarPersonas(string criterio)
+    {
+        var personas = RepositorioDePersonas().BuscarPersonas(criterio).ToArray();
+        return personas;
+    }
 
+    [WebMethod]
+    public Persona[] BuscarPersonasConLegajo(string criterio)
+    {
+        var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
+        return personas;
+    }
 
     #endregion
 
@@ -2134,6 +2146,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeCursos RepositorioDeCursos()
     {
         return new RepositorioDeCursos(Conexion());
+    }
+
+    private RepositorioDePersonas RepositorioDePersonas()
+    {
+        return new RepositorioDePersonas(Conexion());
     }
 
     private RepositorioDeDocentes RepositorioDeDocentes()

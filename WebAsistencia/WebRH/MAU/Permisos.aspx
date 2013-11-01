@@ -6,40 +6,64 @@
     <title>RRHH - Permisos de usuario</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%= Referencias.Css("../")%>
+    <link rel="stylesheet" href="../estilos/estillos.css" type="text/css"/>    
     <link rel="stylesheet" href="Permisos.css" type="text/css"/>    
+    <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/>    
     <link href="ui.dynatree.css" rel="stylesheet" type="text/css">
+    <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-            <div id="selector_usuario">
-                <input id="txt_buscador" type=text nullvalue="Ingrese nombre de usuario"/>
-                <input id="btn_buscar_usuario" type=button value="buscar" class="btn btn-primary"/>
+            <div id="selector_personas" class="selector_personas">
+                <input id="buscador" type=hidden />
             </div>
             <div id="vista_permisos">
             </div>
         </div>
     </form>
+    <div id="plantillas">
+        <div class="vista_persona_en_selector">
+            <div id="contenedor_legajo" class="label label-warning">
+                <div id="titulo_legajo">Leg:</div>
+                <div id="legajo"></div>
+            </div> 
+            <div id="nombre"></div>
+            <div id="apellido"></div>
+            <div id="contenedor_doc" class="label label-default">
+                <div id="titulo_doc">Doc:</div>
+                <div id="documento"></div>         
+            </div>   
+        </div>
+    </div>
 </body>
 <%= Referencias.Javascript("../")%>
-<script type="text/javascript" src="SelectorDeUsuarios.js"></script>
 <script type="text/javascript" src="VistaDePermisosDeUnUsuario.js"></script>
 <script type="text/javascript" src="ServicioDeSeguridad.js"></script>
 <script type="text/javascript" src="NodoEnArbolDeFuncionalidades.js"></script>
 <script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
 
+<script type="text/javascript" src="../Scripts/ServicioDePersonas.js"></script>
+<script type="text/javascript" src="../Scripts/Persona.js"></script>
+<script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
+
+<script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
+<script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
 <script type="text/javascript" src="jquery.dynatree.min.js" ></script>
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        selector_usuarios = new SelectorDeUsuarios({ ui: $('#selector_usuario') });
+        selector_personas = new SelectorDePersonas({ 
+            ui: $('#selector_personas'),
+            servicioDePersonas: new ServicioDePersonas(new ProveedorAjax())
+         });
         vista_permisos = new VistaDePermisosDeUnUsuario({
             ui: $('#vista_permisos'),
             servicioDeSeguridad: new ServicioDeSeguridad(new ProveedorAjax())
         });
-        selector_usuarios.alSeleccionarUnUsuario = function (el_usuario_seleccionado) {
-            vista_permisos.setUsuario(el_usuario_seleccionado);
+        selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
+            vista_permisos.setUsuario(la_persona_seleccionada);
         };
     });
 </script>

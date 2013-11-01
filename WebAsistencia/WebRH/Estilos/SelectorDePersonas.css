@@ -1,0 +1,28 @@
+﻿.selector_personas
+{
+    margin:5px;
+}
+
+.selector_personas #buscador
+{
+    width:450px !important;
+}
+
+.vista_persona_en_selector
+{
+}
+
+.vista_persona_en_selector #legajo
+{
+    margin-right:5px;
+}
+
+.vista_persona_en_selector #contenedor_doc
+{
+    margin-left:5px;
+}
+
+.vista_persona_en_selector div
+{
+    display:inline-block;
+}

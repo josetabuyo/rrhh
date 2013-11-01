@@ -170,6 +170,24 @@ public class AjaxWS : System.Web.Services.WebService {
         return respuestaSerializada;
     }
 
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string BuscarPersonas(string criterio)
+    {
+        var respuesta = backEndService.BuscarPersonas(criterio);
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string BuscarPersonasConLegajo(string criterio)
+    {
+        var respuesta = backEndService.BuscarPersonasConLegajo(criterio);
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
+        
+    }
     /////////////////////FIN MAU
 
     [WebMethod(EnableSession = true)]

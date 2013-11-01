@@ -1,24 +1,5 @@
-﻿#plantillas
-{
-    display:none;
-}
-
-#selector_usuario #txt_buscador
-{
-    margin-bottom:0px;
-}
-
-#selector_usuario #btn_buscar_usuario
-{
-    margin-left: 5px;
-}
-
-#selector_usuario
-{
-    padding:5px;
-}
-
-#vista_permisos .dynatree-container
+﻿#vista_permisos .dynatree-container
 {
     border:inherit;
 }
+
