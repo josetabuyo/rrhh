@@ -82,18 +82,21 @@ PaginaReporteAlumnos.prototype.BuscarPorModalidad = function () {
 
 PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
     _this = this;
-        fechadesde = $("#idFechaDesde").val();
-        fechahasta= $("#idFechaHasta").val();
+    fechadesde = $("#idFechaDesde").val();
+    fechahasta = $("#idFechaHasta").val();
 
-        if (fechadesde == '')
-        {
-            fechadesde = '01/01/1900';
-        }
+    var titulo_fechadesde = " Desde: " + fechadesde;
+    var titulo_fechahasta = " Hasta: " + fechahasta;
 
-        if (fechahasta == '')
-        {
-            fechahasta = '31/12/9999';
-        }
+    if (fechadesde == '') {
+        fechadesde = '01/01/1900';
+        titulo_fechadesde = "";
+    }
+
+    if (fechahasta == '') {
+        fechahasta = '31/12/9999';
+        titulo_fechahasta = "";
+    }
 
 
     var data_post = JSON.stringify({
@@ -102,7 +105,6 @@ PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
     });
 
 
-   
     $.ajax({
         url: "../AjaxWS.asmx/ReporteAlumnosPorOrganismo",
         type: "POST",
@@ -137,16 +139,20 @@ PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
                                           .Where(function (x) { return x.Organismo == 2 }).ToArray().length;
             var nro_fines = Enumerable.From(respuesta)
                                           .Where(function (x) { return x.Organismo == 3 }).ToArray().length;
-            
-            //2 - Armo el Dibujo con los Valores
-            $('#dibujo_grafico').highcharts({
+
+            if (nro_total == 0) {
+
+
+
+                //2 - Armo el Dibujo con los Valores
+                $('#dibujo_grafico').highcharts({
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
                         plotShadow: false
                     },
                     title: {
-                        text: 'Distribución de los Alumnos por Organismo - Total: ' + nro_total
+                        text: 'Distribución de los Alumnos por Organismo - Total: ' + nro_total + "<br/>" + titulo_fechadesde + titulo_fechahasta
                     },
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -167,7 +173,46 @@ PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
                         type: 'pie',
                         name: 'Porcentaje de Alumnos',
                         data: [
-                                 ['Fines: Cantidad: ' + nro_fines + ' - Porcentaje' , nro_fines],
+
+                            ]
+                    }]
+                });
+
+
+            }
+            else {
+
+                //2 - Armo el Dibujo con los Valores
+                $('#dibujo_grafico').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: 'Distribución de los Alumnos por Organismo - Total: ' + nro_total + "<br/>" + titulo_fechadesde + titulo_fechahasta
+
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                color: '#000000',
+                                connectorColor: '#000000',
+                                format: '{point.name}: {point.percentage:.1f} %'
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Porcentaje de Alumnos',
+                        data: [
+                                 ['Fines: Cantidad: ' + nro_fines + ' - Porcentaje', nro_fines],
                                  ['MSAL: ' + nro_msal + ' - Porcentaje', nro_msal],
                                 {
                                     name: 'MDS: ' + nro_mds + ' - Porcentaje',
@@ -176,9 +221,10 @@ PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
                                     selected: true
                                 },
                             ]
-                        }]
+                    }]
                 });
-                    },
+            };
+        },
 
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alertify.alert(errorThrown);

@@ -50,7 +50,7 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
         if (accion == "organismo")
         {
             CompletarComboDeOrganismos();
-            alumnos = ws_viaticos.ReporteAlumnosPorOrganismo(new DateTime(1900, 01, 01), new DateTime(9999, 12,31) ).ToList();
+            alumnos = ws_viaticos.ReporteAlumnosPorOrganismo("01/01/1900", "31/12/9999").ToList();
         }
         
         this.MostrarAlumnosEnLaGrilla(alumnos.Distinct().ToList());

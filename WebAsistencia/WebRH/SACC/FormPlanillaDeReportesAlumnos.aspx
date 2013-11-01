@@ -89,17 +89,17 @@
     <div id="panelAlumno" class="div_izquierdo">
     <fieldset>
         <legend class="subtitulos">Reportes</legend>
-             <div class="estilo_formulario" style="overflow:hidden; width: 95%;">
+             <div class="estilo_formulario" style="overflow:hidden; width: 95%; height:600px;">
 
                 <div id="div_parametros" style="display: none;" > 
                   <legend id="lb_parametros">Parámetros</legend>
                     <div><asp:DropDownList ID="cmbCampo" runat="server" enableviewstate="true">
                         <asp:ListItem Value="-1" class="placeholder" Selected="true">Todos</asp:ListItem></asp:DropDownList>
                          <label style="margin-left: 10px"> Fecha Desde</label>
-                            <input type="text" id="idFechaDesde" class="text_10caracteres hasDatepicker"/>
+                            <input type="text" id="idFechaDesde" class="text_10caracteres"/>
                         <label style="margin-left: 10px"> Fecha Hasta</label>
-                            <input type="text" id="idFechaHasta" class="text_10caracteres hasDatepicker"/>
-                            <input type="button" id="btn_buscarReportes" class="btn btn-primary"  value="Buscar" style="margin: 10px;"/>   
+                            <input type="text" id="idFechaHasta" class="text_10caracteres "/>
+                            <input type="button" id="btn_buscarReportes" class="btn btn-primary" onclick="javascript:BuscarPorOrganismo();" value="Buscar" style="margin: 10px;"/>   
                     </div>
                   <legend id="lb_grafico">Gráfico</legend>
                         <div id="dibujo_grafico" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
@@ -111,7 +111,7 @@
     <div class="div_derecho">
         <fieldset>
             <legend class="subtitulos">Listado de Resultados</legend>
-                <div class="estilo_formulario" style="width:95%; overflow:auto;">
+                <div class="estilo_formulario" style="width:95%; overflow:auto; height:600px;">
                     <div id="grillaAlumnosDisponibles" runat="server">
                         <div class="input-append" style="clear:both;">   
                             <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" />    
@@ -162,7 +162,40 @@
 
        HabilitarParametros();
        AdministradorPlanilla();
-    }
+   }
+
+   var BuscarPorOrganismo = function () {
+
+       var items_pantalla = {
+           alumnos: JSON.parse($('#alumnosJSON').val()),
+           // alumnoGlobal: $("<div>"),
+           planillaAlumnosDisponibles: $("<div>"),
+           cmbCombo: $("#cmbCampo"),
+           //panelAlumnoDisponibles: $("#panelAlumnoDisponibles"),
+           contenedorAlumnosDisponibles: $('#grillaAlumnosDisponibles'),
+           fechaDesde: $('#idFechaDesde'),
+           fechaHasta: $('#idFechaHasta'),
+           //            botonAsignarAlumno: $("#Img1"),
+           //            botonDesAsignarAlumno: $("#Img2"),
+           botonModalidad: $("#btn_modalidad"),
+           //cmbCursos: $("#cmbCursos"),
+           cmbCampo: $("#cmbCampo"),
+           canvasPie: document.getElementById("dibujo_grafico")
+           //cursosJSON: JSON.parse($('#cursosJSON').val())
+       }
+
+
+       $('#grillaAlumnosDisponibles').html('');
+       
+       var modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
+
+
+      
+
+       modulo_inscripcion.BuscarPorOrganismo();
+   }
+
+
 
     var HabilitarParametros = function () {
         $('#btnBuscarCampo').show();
@@ -197,6 +230,7 @@
         }
 
 
+
         var modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
 
 
@@ -212,8 +246,10 @@
             $('#search').hide();
             $('#lb_grafico').hide();
             $('#referencias').hide();
-            
+
         } else {
+
+
             $('#div_parametros').show();
             $('#lb_grafico').show();
             $('#referencias').show();
@@ -236,6 +272,20 @@
     }
 
     $(document).ready(function () {
+        
+        $('#idFechaHasta').datepicker({
+            dateFormat: 'dd/mm/yy',
+            onClose: function () {
+
+            }
+        });
+
+        $('#idFechaDesde').datepicker({
+            dateFormat: 'dd/mm/yy',
+            onClose: function () {
+
+            }
+        });
 
         DeterminarReporteEnPantalla($("#accion").val());
   });

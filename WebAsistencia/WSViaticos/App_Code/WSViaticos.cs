@@ -1597,11 +1597,30 @@ public class WSViaticos : System.Web.Services.WebService
     //}
 
     [WebMethod]
-    public List<AlumnoDto> ReporteAlumnosPorOrganismo(DateTime fecha_desde, DateTime fecha_hasta)
+    public List<AlumnoDto> ReporteAlumnosPorOrganismo(string fecha_desde, string fecha_hasta)
     {
         Reportes reportes = new Reportes();
         List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
-        var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(fecha_desde, fecha_hasta, RepositorioDeCursos());
+
+
+        DateTime fecha_desde_formateada;
+        DateTime.TryParse(fecha_desde, out fecha_desde_formateada);
+
+        DateTime fecha_hasta_formateada;
+        DateTime.TryParse(fecha_hasta, out fecha_hasta_formateada);
+
+        if (fecha_desde_formateada.Year.Equals(0001))
+        {
+            fecha_desde_formateada = new DateTime(1900, 01, 01);
+        }
+
+        if (fecha_hasta_formateada.Year.Equals(0001))
+        {
+            fecha_hasta_formateada = new DateTime(1900, 01, 01);
+        }
+
+
+        var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(fecha_desde_formateada, fecha_hasta_formateada, RepositorioDeCursos());
         foreach (Alumno alumno in alumnos_reporte)
         {
             var alumno_dto = new AlumnoDto();
