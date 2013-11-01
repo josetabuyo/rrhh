@@ -65,6 +65,7 @@
                 <select id="CmbCurso" onchange="javascript:cargar_instancias(this.value);" runat="server">
                     <option value="0">Seleccione</option>
                 </select>
+                <input type="checkbox" onchange="javascript:FiltrarCursos()" id="filtrar_cursos_vigentes" /><label> Vigentes</label>
                 <br />
                 <div id="ContenedorInstancia">
                 </div>                       
@@ -74,6 +75,7 @@
             <input type="button" class="btn btn-primary " id="BtnGuardarEvaluaciones" onclick="javascript:admin_planilla.guardarPlanilla();" value="Guardar Cambios" style="display:none;" />
             <input type="button" class="btn btn-primary " id="BtnImprimir" onclick="javascript:admin_planilla.imprimirPlanilla();" value="Imprimir" style="display:none;" />
             <input type="hidden" class="btn btn-primary " id="accion" value="" runat="server" />
+            <input type="hidden" class="btn btn-primary " id="cursosJSON" value="" runat="server" />
             </div>
             </div>
         </fieldset>
@@ -91,6 +93,7 @@
     
     $(document).ready(function () {
         admin_planilla = new AdministradorDeEvaluaciones();
+        GetCursos();
 
         //Estilos para ver coloreada la grilla en Internet Explorer
         $("tbody tr:even").css('background-color', '#E6E6FA');

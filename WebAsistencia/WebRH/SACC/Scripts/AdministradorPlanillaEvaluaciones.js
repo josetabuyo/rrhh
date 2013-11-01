@@ -1,3 +1,5 @@
+var cursos = {};
+
 var admin_planilla;
     function cargar_instancias(id_curso) {
         var instancias;
@@ -215,5 +217,60 @@ var admin_planilla;
             w.print();
             //w.close();
         }
+
+    }
+
+    var GetCursos = function () {
+        $.ajax({
+            url: "../AjaxWS.asmx/GetCursosDto",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (respuestaJson) {
+                cursos = JSON.parse(respuestaJson.d);
+                //$("#cursosJSON").val(cursos);
+                ArmarComboCurso(cursos);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alertify.alert(errorThrown);
+            }
+        });
+    }
+
+    var ArmarComboCurso = function (cursos) {
+        $("#CmbCurso").empty();
+        for (var i = 0; i < cursos.length; i++) {
+            var curso = cursos[i];
+            var listItem = $('<option>');
+            // alert(JSON.stringify(curso));
+            listItem.val(curso.Id);
+            listItem.text(curso.Nombre);
+            $("#CmbCurso").append(listItem);
+        }
+    }
+
+    var FiltrarCursos = function () {
+        _this = this;
+        var cmbCursoVigente = $("#filtrar_cursos_vigentes");
+        if (cmbCursoVigente[0].checked == true) {
+            var cursos_vigentes = Enumerable.From(cursos)
+                .Select(function (x) { return x })
+                .Where(function (x) { return ParsearFecha(x.FechaFin) > new Date() })
+                .ToArray();
+
+            ArmarComboCurso(cursos_vigentes);
+
+        } else {
+            ArmarComboCurso(cursos);
+        }
+    }
+
+    var ParsearFecha = function (fecha) {
+        var day = parseInt(fecha.split("/")[0]);
+        var month = parseInt(fecha.split("/")[1]);
+        var year = parseInt(fecha.split("/")[2]);
+
+        return new Date(year, month, day);
 
     }

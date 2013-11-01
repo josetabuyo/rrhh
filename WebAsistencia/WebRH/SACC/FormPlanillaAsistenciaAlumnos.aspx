@@ -40,6 +40,7 @@
         <select id="CmbCurso" style="width:400px;" runat="server" onchange="javascript:CargarComboMeses();">
             <option value="0">Seleccione</option>
         </select>
+        <input type="checkbox" onchange="javascript:FiltrarCursos()" id="filtrar_cursos_vigentes" /><label> Vigentes</label>
         <br />
         <label>Mes:&nbsp;&nbsp;&nbsp;</label>
         <select id="CmbMes" style="width:400px; text-transform:capitalize" 

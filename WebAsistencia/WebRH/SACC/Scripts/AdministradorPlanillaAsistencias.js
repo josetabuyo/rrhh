@@ -1,4 +1,6 @@
 var cursos = {};
+var cursos_por_anio = [];
+
 
 var CargarComboAnios = function () {
     var anio_inicio = Enumerable.From(cursos)
@@ -62,8 +64,9 @@ var CargarComboMeses = function () {
 var CargarComboCursos = function () {
     var cmb_cursos = $("#CmbCurso");
     var anio = $("#CmbAnio option:selected").val();
+    var chk_curso = $("#filtrar_cursos_vigentes")[0];
 
-    var cursos_por_anio = Enumerable.From(cursos)
+    cursos_por_anio = Enumerable.From(cursos)
                         .Select(function (x) { return x })
                         .Where(function (x) { return x.FechaInicio.substr(6, 4) == anio })
                         .ToArray();
@@ -81,6 +84,50 @@ var CargarComboCursos = function () {
     }
     cmb_cursos.val(0);
     CargarComboMeses();
+    if (cmb_cursos[0].length > 1) {
+        chk_curso.disabled = false;
+    } else {
+        chk_curso.disabled = true;
+    }
+
+}
+
+var FiltrarCursos = function () {
+    _this = this;
+    var cmbCursoVigente = $("#filtrar_cursos_vigentes");
+    if (cmbCursoVigente[0].checked == true) {
+        var cursos_vigentes = Enumerable.From(cursos_por_anio)
+                .Select(function (x) { return x })
+                .Where(function (x) { return _this.ParsearFecha(x.FechaFin) > new Date() })
+                .ToArray();
+
+        ArmarComboCurso(cursos_vigentes);
+
+    } else {
+        ArmarComboCurso(cursos_por_anio);
+    }
+}
+
+var ArmarComboCurso = function (cursos) {
+    var cmb_cursos = $("#CmbCurso");
+    cmb_cursos.empty();
+    for (var i = 0; i < cursos.length; i++) {
+        var curso = cursos[i];
+        var listItem = $('<option>');
+        // alert(JSON.stringify(curso));
+        listItem.val(curso.Id);
+        listItem.text(curso.Nombre);
+        cmb_cursos.append(listItem);
+    }
+}
+
+var ParsearFecha = function(fecha) {
+    var day = parseInt(fecha.split("/")[0]);
+    var month = parseInt(fecha.split("/")[1]);
+    var year = parseInt(fecha.split("/")[2]);
+
+    return new Date(year, month, day);
+
 }
 
 var GuardarDetalleAsistencias = function () {
@@ -112,7 +159,9 @@ var GetCursos = function () {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (respuestaJson) {
+            $("#filtrar_cursos_vigentes")[0].disabled = true;
             cursos = JSON.parse(respuestaJson.d);
+
             CargarComboAnios();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

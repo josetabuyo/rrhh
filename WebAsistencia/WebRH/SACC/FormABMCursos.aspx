@@ -79,11 +79,12 @@
         </div>
 
     <div class="div_derecho">
-        <div class="estilo_formulario" style="width:95%; overflow:auto;  margin-left:1%;">
+        <div class="estilo_formulario" style="width:100%; overflow:auto;  margin-left:1%;">
         <fieldset>
         <legend class="subtitulos">Listado de Cursos</legend>
         <div id="ContenedorPlanilla" runat="server">
             <div class="input-append" style="clear:both;">   
+                <div style="float:left;"><label>Cursos Vigentes: </label><input type="checkbox" id="filtrar_cursos_vigentes" /></div>
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Cursos" />    
             </div>
         </div>
