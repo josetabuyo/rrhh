@@ -6,7 +6,7 @@
     <title>RRHH - Permisos de usuario</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%= Referencias.Css("../")%>
-    <link rel="stylesheet" href="../estilos/estillos.css" type="text/css"/>    
+    <link rel="stylesheet" href="../estilos/estilos.css" type="text/css"/>    
     <link rel="stylesheet" href="Permisos.css" type="text/css"/>    
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/>    
     <link href="ui.dynatree.css" rel="stylesheet" type="text/css">
