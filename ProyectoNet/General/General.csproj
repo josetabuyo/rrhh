@@ -74,6 +74,11 @@
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
+    <Compile Include="MAU\Autorizador.cs" />
+    <Compile Include="MAU\ExtensionList.cs" />
+    <Compile Include="MAU\Funcionalidad.cs" />
+    <Compile Include="MAU\Permiso.cs" />
+    <Compile Include="MAU\PermisoNulo.cs" />
     <Compile Include="MICOI\AccionDeTransicion.cs" />
     <Compile Include="MICOI\Alias.cs" />
     <Compile Include="MICOI\AliasNull.cs" />
@@ -130,6 +135,7 @@
     <Compile Include="Organigrama\OrganigramaException.cs" />
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
     <Compile Include="Organigrama\Responsable.cs" />
+    <Compile Include="Repositorios\RepositorioDePersonas.cs" />
     <Compile Include="SACC\Articulador.cs" />
     <Compile Include="SACC\AsistenciaHoraCuatro.cs" />
     <Compile Include="SACC\ComparadorDeDiferencias.cs" />

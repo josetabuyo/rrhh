@@ -1,0 +1,90 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAdministracionDeUsuarios", "TestAdministracionDeUsuarios.csproj", "{D6CD50CE-0196-4F04-A51A-9590E3D7174D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A8BF08D3-DC4D-48F6-ABFE-C636947D3763}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		TestAdministracionDeUsuarios.vsmdi = TestAdministracionDeUsuarios.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdministracionDeUsuarios", "..\AdministracionDeUsuarios\AdministracionDeUsuarios.csproj", "{974D5793-7587-4FBB-B9BF-DA32BB638CEA}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MAU", "..\MAU", "{FEBC47DC-8F9C-4A71-870F-8246AFF30285}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
+		ProjectReferences = "{974D5793-7587-4FBB-B9BF-DA32BB638CEA}|AdministracionDeUsuarios.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/MAU"
+		Debug.AspNetCompiler.PhysicalPath = "..\MAU\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\MAU\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/MAU"
+		Release.AspNetCompiler.PhysicalPath = "..\MAU\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\MAU\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "26271"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{EC4662CB-B581-41FD-8058-6B6DBA609712} = {EC4662CB-B581-41FD-8058-6B6DBA609712}
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MAUWS", "..\MAUWS", "{EC4662CB-B581-41FD-8058-6B6DBA609712}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
+		Debug.AspNetCompiler.VirtualPath = "/MAUWS"
+		Debug.AspNetCompiler.PhysicalPath = "..\MAUWS\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\MAUWS\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/MAUWS"
+		Release.AspNetCompiler.PhysicalPath = "..\MAUWS\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\MAUWS\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "26324"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = TestAdministracionDeUsuarios.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{974D5793-7587-4FBB-B9BF-DA32BB638CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{974D5793-7587-4FBB-B9BF-DA32BB638CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{974D5793-7587-4FBB-B9BF-DA32BB638CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{974D5793-7587-4FBB-B9BF-DA32BB638CEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEBC47DC-8F9C-4A71-870F-8246AFF30285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEBC47DC-8F9C-4A71-870F-8246AFF30285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEBC47DC-8F9C-4A71-870F-8246AFF30285}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEBC47DC-8F9C-4A71-870F-8246AFF30285}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{EC4662CB-B581-41FD-8058-6B6DBA609712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC4662CB-B581-41FD-8058-6B6DBA609712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC4662CB-B581-41FD-8058-6B6DBA609712}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC4662CB-B581-41FD-8058-6B6DBA609712}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -13,6 +13,7 @@ using General.Modi;
 using System.Net;
 using System.Net.Mail;
 using System.Xml.Serialization;
+using AdministracionDeUsuarios;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -1848,7 +1849,104 @@ public class WSViaticos : System.Web.Services.WebService
 
 #endregion
 
+    #region mau
 
+    public static AutorizadorFuncionalidades autorizador_mock;
+    protected AutorizadorFuncionalidades Autorizador()
+    {
+        if(autorizador_mock == null) {
+            var funcionalidades = GetFuncionalidades();
+            var dict_permisos = new Dictionary<string, List<AdministracionDeUsuarios.Permiso>>();
+
+            var permisos_veronica = new List<AdministracionDeUsuarios.Permiso>();
+            dict_permisos.Add("veronica", permisos_veronica);
+
+            var permisos_juana = new List<AdministracionDeUsuarios.Permiso>() { 
+                new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First().sub_funcionalidades[2], new List<AdministracionDeUsuarios.Permiso>()),
+            };
+            dict_permisos.Add("Juana Adela", permisos_juana);
+
+            var permisos_ernesto = new List<AdministracionDeUsuarios.Permiso>();
+            dict_permisos.Add("ernesto", permisos_ernesto);
+
+            var permisos_felipe = new List<AdministracionDeUsuarios.Permiso>();
+            dict_permisos.Add("felipe", permisos_felipe);
+
+            autorizador_mock = new AdministracionDeUsuarios.AutorizadorFuncionalidades(dict_permisos);
+        }
+        return autorizador_mock;
+    }
+
+    [WebMethod]
+    public List<AdministracionDeUsuarios.Permiso> GetPermisosPara(string usuario)
+    {
+        return Autorizador().FuncionalidadDelUsuario(usuario);
+    }
+
+    [WebMethod]
+    public void ConcederPermisoA(string usuario, string funcionalidad)
+    {
+        Autorizador().ConcederPermisoA(usuario, new Funcionalidad(funcionalidad));
+    }
+
+    [WebMethod]
+    public void DenegarPermisoA(string usuario, string funcionalidad)
+    {
+        Autorizador().DenegarPermisoA(usuario, new Funcionalidad(funcionalidad));
+    }
+
+    [WebMethod]
+    public List<Funcionalidad> GetFuncionalidades()
+    {
+
+        /*
+        [ ] sys
+            /[ ] web
+            /[ ] rrhh
+                /[ ] contratos
+                /[ ] legajos
+            /[ ] licencias
+                /[ ] carga
+                /[ ] modificacion
+                /[ ] consulta
+        */
+        var sys = new Funcionalidad("sys");
+        var web = new Funcionalidad("web");
+        var rrhh = new Funcionalidad("rrhh");
+        var contratos = new Funcionalidad("contratos");
+        var legajos = new Funcionalidad("legajos");
+        var licencias = new Funcionalidad("licencias");
+        var carga = new Funcionalidad("carga");
+        var modificacion = new Funcionalidad("modificacion");
+        var consulta = new Funcionalidad("consulta");
+
+        sys.AgregarFuncionalidad(web);
+        sys.AgregarFuncionalidad(rrhh);
+            rrhh.AgregarFuncionalidad(contratos);
+            rrhh.AgregarFuncionalidad(legajos);
+        sys.AgregarFuncionalidad(licencias);
+            licencias.AgregarFuncionalidad(carga);
+            licencias.AgregarFuncionalidad(modificacion);
+            licencias.AgregarFuncionalidad(consulta);
+
+        return new List<Funcionalidad> { sys };
+    }
+
+    [WebMethod]
+    public Persona[] BuscarPersonas(string criterio)
+    {
+        var personas = RepositorioDePersonas().BuscarPersonas(criterio).ToArray();
+        return personas;
+    }
+
+    [WebMethod]
+    public Persona[] BuscarPersonasConLegajo(string criterio)
+    {
+        var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
+        return personas;
+    }
+
+    #endregion
 
     [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
@@ -2048,6 +2146,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeCursos RepositorioDeCursos()
     {
         return new RepositorioDeCursos(Conexion());
+    }
+
+    private RepositorioDePersonas RepositorioDePersonas()
+    {
+        return new RepositorioDePersonas(Conexion());
     }
 
     private RepositorioDeDocentes RepositorioDeDocentes()
