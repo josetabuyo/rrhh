@@ -86,6 +86,7 @@
     <Compile Include="TestSACC\TestReportes.cs" />
     <Compile Include="TestSACC\TestArticuladores.cs" />
     <Compile Include="TestModi\TestServicioDeDigitalizacionDeLegajos.cs" />
+    <Compile Include="TestSACC\TestAsistencias.cs" />
     <Compile Include="TestSACC\TestRepositorioDeMaterias.cs" />
     <Compile Include="TestSACC\TestRepositorioDeAlumno.cs" />
     <Compile Include="TestSACC\TestAlumnos.cs" />

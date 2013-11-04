@@ -1430,15 +1430,15 @@ namespace General
             return EspaciosFisicos()[0];
         }
 
-        //internal static Asistencia UnAsistenciaPresenteParaZambriEnHistoria()
-        //{
-        //    return new AsistenciaHoraUno(DateTime.Today, 1,4);  
-        //}
+        internal static Asistencia UnAsistenciaPresenteParaZambriEnHistoria()
+        {
+            return new Asistencia(DateTime.Today, 1, "Asistencia Normal", 1, 4);
+        }
 
-        //internal static Asistencia UnAsistenciaAusentePAraZambrienHistoria()
-        //{
-        //    return new AsistenciaClaseSuspendida(DateTime.Today, 1, 4);
-        //}
+        internal static Asistencia UnAsistenciaAusentePAraZambrienHistoria()
+        {
+            return new Asistencia(DateTime.Today, 3, "Asistencia Normal", 1, 4);
+        }
 	    public static List<Evaluacion> Evaluaciones()
         {
             var eval1 = new Evaluacion(1, new InstanciaDeEvaluacion(14, "Primer Parcial"), AlumnoFer(), UnCursoConAlumnos(), new CalificacionNoNumerica("A1"), new DateTime(2012, 10, 13, 21, 36, 35, 077));  //21:36:35.077
@@ -1701,31 +1701,31 @@ namespace General
         }
 
 
-        public static List<Asistencia> CargaAsistenciaPerfecta(Curso curso, Alumno alumno)
-        {
-            List<Asistencia> asistencias = new List<Asistencia>();
+        //public static List<Asistencia> CargaAsistenciaPerfecta(Curso curso, Alumno alumno)
+        //{
+        //    List<Asistencia> asistencias = new List<Asistencia>();
 
-            for (int i = 0; i < (curso.FechaFin - curso.FechaInicio).Days; i++)
-            {
-                AsistenciaHoraUno asistencia = new AsistenciaHoraUno(curso.FechaInicio.AddDays(i), curso.Id, alumno.Id);
-                asistencias.Add(asistencia);
-                i = i + 6;
-            }
-            return asistencias;
-        }
+        //    for (int i = 0; i < (curso.FechaFin - curso.FechaInicio).Days; i++)
+        //    {
+        //        AsistenciaHoraUno asistencia = new AsistenciaHoraUno(curso.FechaInicio.AddDays(i), curso.Id, alumno.Id);
+        //        asistencias.Add(asistencia);
+        //        i = i + 6;
+        //    }
+        //    return asistencias;
+        //}
 
-        public static List<Asistencia> CargaAsistenciaImperfecta(Curso curso, Alumno alumno)
-        {
-            List<Asistencia> asistencias = new List<Asistencia>();
+        //public static List<Asistencia> CargaAsistenciaImperfecta(Curso curso, Alumno alumno)
+        //{
+        //    List<Asistencia> asistencias = new List<Asistencia>();
 
-            for (int i = 0; i < (curso.FechaFin - curso.FechaInicio).Days; i++)
-            {
-                InasistenciaNormal asistencia = new InasistenciaNormal(curso.FechaInicio.AddDays(i), curso.Id, alumno.Id);
-                asistencias.Add(asistencia);
-                i = i + 6;
-            }
-            return asistencias;
-        }
+        //    for (int i = 0; i < (curso.FechaFin - curso.FechaInicio).Days; i++)
+        //    {
+        //        InasistenciaNormal asistencia = new InasistenciaNormal(curso.FechaInicio.AddDays(i), curso.Id, alumno.Id);
+        //        asistencias.Add(asistencia);
+        //        i = i + 6;
+        //    }
+        //    return asistencias;
+        //}
 
 
         public static List<General.Observacion> Observaciones()

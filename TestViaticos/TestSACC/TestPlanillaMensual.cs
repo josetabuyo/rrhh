@@ -50,96 +50,96 @@ namespace TestViaticos
               Assert.IsNotNull(generador.GenerarPlanillaMensualPara(un_curso,fecha_desde, fecha_hasta));
           }
 
-          [TestMethod]
-          public void deberia_agregar_una_inasistencia_a_un_alumno_para_una_planilla_que_esta_en_un_curso()
-          {
-              Curso un_curso = TestObjects.UnCursoConAlumnos();
-              managerDeCalendarios.AgregarCalendarioPara(un_curso);
+          //[TestMethod]
+          //public void deberia_agregar_una_inasistencia_a_un_alumno_para_una_planilla_que_esta_en_un_curso()
+          //{
+          //    Curso un_curso = TestObjects.UnCursoConAlumnos();
+          //    managerDeCalendarios.AgregarCalendarioPara(un_curso);
 
-              GeneradorDePlanillas generador = new GeneradorDePlanillas();
+          //    GeneradorDePlanillas generador = new GeneradorDePlanillas();
              
-              CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
+          //    CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
 
-              PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
+          //    PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
 
-              una_planilla.AgregarInasistenciaPara(un_alumno, fecha_cursable);
+          //    una_planilla.AgregarInasistenciaPara(un_alumno, fecha_cursable);
 
-              Assert.AreEqual(1,una_planilla.GetInasistenciaPorAlumno(un_alumno).Count());
-          }
+          //    Assert.AreEqual(1,una_planilla.GetInasistenciaPorAlumno(un_alumno).Count());
+          //}
 
-          [TestMethod]
-          public void no_deberia_cargar_una_inasistencia_a_un_alumno_que_no_esta_en_un_curso()
-          {
-              Curso un_curso = TestObjects.UnCursoConAlumnos();
-              managerDeCalendarios.AgregarCalendarioPara(un_curso);
+          //[TestMethod]
+          //public void no_deberia_cargar_una_inasistencia_a_un_alumno_que_no_esta_en_un_curso()
+          //{
+          //    Curso un_curso = TestObjects.UnCursoConAlumnos();
+          //    managerDeCalendarios.AgregarCalendarioPara(un_curso);
 
-              GeneradorDePlanillas generador = new GeneradorDePlanillas();
-              CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
-              Alumno un_alumno = TestObjects.UnAlumnoNuevo();
+          //    GeneradorDePlanillas generador = new GeneradorDePlanillas();
+          //    CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
+          //    Alumno un_alumno = TestObjects.UnAlumnoNuevo();
 
-              PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
+          //    PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
 
-              try
-              {
-                  una_planilla.AgregarInasistenciaPara(un_alumno, DateTime.Now);
-                  Assert.Fail("Deberia haber lanzado excepcion");
-              }
-              catch (ExcepcionDeValidacion e)
-              {
-                  Assert.AreEqual(0, una_planilla.GetInasistenciaPorAlumno(un_alumno).Count());
-                  Assert.AreEqual("Andrea, no pertenece a la coleccion de Alumnos", e.Message);
-              }   
-          }
+          //    try
+          //    {
+          //        una_planilla.AgregarInasistenciaPara(un_alumno, DateTime.Now);
+          //        Assert.Fail("Deberia haber lanzado excepcion");
+          //    }
+          //    catch (ExcepcionDeValidacion e)
+          //    {
+          //        Assert.AreEqual(0, una_planilla.GetInasistenciaPorAlumno(un_alumno).Count());
+          //        Assert.AreEqual("Andrea, no pertenece a la coleccion de Alumnos", e.Message);
+          //    }   
+          //}
 
-          [TestMethod]
-          public void deberia_traer_inasistencias_de_un_alumno_para_un_mes()
-          {
-              Curso un_curso = TestObjects.UnCursoConAlumnos();
-              managerDeCalendarios.AgregarCalendarioPara(un_curso);
+          //[TestMethod]
+          //public void deberia_traer_inasistencias_de_un_alumno_para_un_mes()
+          //{
+          //    Curso un_curso = TestObjects.UnCursoConAlumnos();
+          //    managerDeCalendarios.AgregarCalendarioPara(un_curso);
 
-              GeneradorDePlanillas generador = new GeneradorDePlanillas();
+          //    GeneradorDePlanillas generador = new GeneradorDePlanillas();
              
-              CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
+          //    CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
 
-              PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
+          //    PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
 
-              una_planilla.AgregarInasistenciaPara(un_alumno, fecha_cursable);
-              Assert.AreEqual(1, una_planilla.GetInasistenciaPorAlumno(un_alumno).Count());
+          //    una_planilla.AgregarInasistenciaPara(un_alumno, fecha_cursable);
+          //    Assert.AreEqual(1, una_planilla.GetInasistenciaPorAlumno(un_alumno).Count());
 
-              una_planilla.AgregarInasistenciaPara(un_alumno, fecha_cursable.AddDays(1));
-              Assert.AreEqual(2, una_planilla.GetInasistenciaPorAlumno(un_alumno).Count());
-          }
+          //    una_planilla.AgregarInasistenciaPara(un_alumno, fecha_cursable.AddDays(1));
+          //    Assert.AreEqual(2, una_planilla.GetInasistenciaPorAlumno(un_alumno).Count());
+          //}
 
-          [TestMethod]
-          public void no_deberia_traer_inasistencias_de_un_alumno_que_no_falto()
-          {
-              Curso un_curso = TestObjects.UnCursoConAlumnos();
+          //[TestMethod]
+          //public void no_deberia_traer_inasistencias_de_un_alumno_que_no_falto()
+          //{
+          //    Curso un_curso = TestObjects.UnCursoConAlumnos();
 
-              GeneradorDePlanillas generador = new GeneradorDePlanillas();
+          //    GeneradorDePlanillas generador = new GeneradorDePlanillas();
              
-              PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta);
+          //    PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta);
 
-              Assert.AreEqual(0, una_planilla.GetInasistenciaPorAlumno(un_alumno).Count());
-          }
+          //    Assert.AreEqual(0, una_planilla.GetInasistenciaPorAlumno(un_alumno).Count());
+          //}
 
-          [TestMethod]
-          public void deberia_agregar_una_asistencia_a_un_alumno_para_una_planilla_que_esta_en_un_curso()
-          {
-              Curso un_curso = TestObjects.UnCursoConAlumnos();
-              managerDeCalendarios.AgregarCalendarioPara(un_curso);
+          //[TestMethod]
+          //public void deberia_agregar_una_asistencia_a_un_alumno_para_una_planilla_que_esta_en_un_curso()
+          //{
+          //    Curso un_curso = TestObjects.UnCursoConAlumnos();
+          //    managerDeCalendarios.AgregarCalendarioPara(un_curso);
 
-              CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
-              GeneradorDePlanillas generador = new GeneradorDePlanillas();
+          //    CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
+          //    GeneradorDePlanillas generador = new GeneradorDePlanillas();
 
-              Alumno un_alumno_2 = TestObjects.UnAlumnoNuevo();
+          //    Alumno un_alumno_2 = TestObjects.UnAlumnoNuevo();
 
-              PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
+          //    PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
 
-              una_planilla.AgregarAsistenciaPara(un_alumno, fecha_cursable);
+          //    una_planilla.AgregarAsistenciaPara(un_alumno, fecha_cursable);
 
-              Assert.AreEqual(1, una_planilla.GetAsistenciasPorAlumno(un_alumno).Count());
-              Assert.AreEqual(0, una_planilla.GetAsistenciasPorAlumno(un_alumno_2).Count());
-          }
+          //    Assert.AreEqual(1, una_planilla.GetAsistenciasPorAlumno(un_alumno).Count());
+          //    Assert.AreEqual(0, una_planilla.GetAsistenciasPorAlumno(un_alumno_2).Count());
+          //}
 
           [TestMethod]
           public void deberia_poder_conocer_los_dias_de_cursada_de_un_curso_para_un_mes()
@@ -154,29 +154,29 @@ namespace TestViaticos
               Assert.AreEqual(6, una_planilla.GetDiasDeCursadaEntre(fecha_desde, fecha_hasta).Count());
           }
 
-          [TestMethod]
-          public void no_deberia_poder_cargar_una_inasistencia_si_el_dia_no_era_cursable()
-          {
-              Curso un_curso = TestObjects.UnCursoConAlumnos();
-              managerDeCalendarios.AgregarCalendarioPara(un_curso);
+          //[TestMethod]
+          //public void no_deberia_poder_cargar_una_inasistencia_si_el_dia_no_era_cursable()
+          //{
+          //    Curso un_curso = TestObjects.UnCursoConAlumnos();
+          //    managerDeCalendarios.AgregarCalendarioPara(un_curso);
 
-              GeneradorDePlanillas generador = new GeneradorDePlanillas();
-              CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
+          //    GeneradorDePlanillas generador = new GeneradorDePlanillas();
+          //    CalendarioDeCurso un_calendario = managerDeCalendarios.CalendarioPara(un_curso);
 
-              PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
+          //    PlanillaMensual una_planilla = generador.GenerarPlanillaMensualPara(un_curso, fecha_desde, fecha_hasta, un_calendario);
 
-              DateTime fecha_no_cursable = new DateTime(2013, 01, 24);
+          //    DateTime fecha_no_cursable = new DateTime(2013, 01, 24);
 
-              try
-              {
-                  una_planilla.AgregarInasistenciaPara(un_alumno, fecha_no_cursable);
-                  Assert.Fail("Deberia haber lanzado excepcion");
-              }
-              catch (ExcepcionDeValidacion e)
-              {
-                  Assert.AreEqual( fecha_no_cursable.ToString() +  ", no pertenece a la coleccion de Dias de Cursada", e.Message);
-              }
-          }
+          //    try
+          //    {
+          //        una_planilla.AgregarInasistenciaPara(un_alumno, fecha_no_cursable);
+          //        Assert.Fail("Deberia haber lanzado excepcion");
+          //    }
+          //    catch (ExcepcionDeValidacion e)
+          //    {
+          //        Assert.AreEqual( fecha_no_cursable.ToString() +  ", no pertenece a la coleccion de Dias de Cursada", e.Message);
+          //    }
+          //}
 
 
     }

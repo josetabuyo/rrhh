@@ -19,17 +19,27 @@ namespace General
         {    
         }
 
-        public void EvaluarRegularidadPara(Alumno alumno, Curso curso, List<Asistencia> asistencias_por_curso_y_alumno)
+        public void EvaluarRegularidadPara(Alumno alumno, Curso curso, List<AcumuladorAsistencia> repo_asistencias)
         {
 
             int limite_maximo_de_ausencias = ObtenerLimiteDeAusencias(curso);
 
-            int ausencias_computables = ObtenerLasAusenciasComputables(alumno, curso, asistencias_por_curso_y_alumno);
+            int ausencias_computables = ObtenerLasAusenciasComputables(alumno, curso, repo_asistencias);
 
             CriterioDeRegularidad(ausencias_computables, limite_maximo_de_ausencias);
         }
 
-        public bool EsRegular(Alumno alumno, Curso curso, List<Asistencia> asistencias_por_curso_y_alumno)
+
+        public int AusenciasDisponibles(Alumno alumno, Curso curso, List<AcumuladorAsistencia> repo_asistencias)
+        {
+            int limite_maximo_de_ausencias = ObtenerLimiteDeAusencias(curso);
+
+            int ausencias_computables = ObtenerLasAusenciasComputables(alumno, curso, repo_asistencias);
+
+            return (limite_maximo_de_ausencias - ausencias_computables);
+        }
+
+        public bool EsRegular(Alumno alumno, Curso curso, List<AcumuladorAsistencia> asistencias_por_curso_y_alumno)
         {
             this.EvaluarRegularidadPara(alumno, curso, asistencias_por_curso_y_alumno);
             if (condicion_del_alumno == regular)
@@ -39,17 +49,7 @@ namespace General
             else
             {
                 return false;
-            }        
-        }
-
-
-        public int AusenciasDisponibles(Alumno alumno, Curso curso, List<Asistencia> asistencias_por_curso_y_alumno)
-        {
-            int limite_maximo_de_ausencias = ObtenerLimiteDeAusencias(curso);
-
-            int ausencias_computables = ObtenerLasAusenciasComputables(alumno, curso, asistencias_por_curso_y_alumno);
-
-            return (limite_maximo_de_ausencias - ausencias_computables);
+            }
         }
 
 
@@ -59,15 +59,15 @@ namespace General
             return 10 * total_horas_catedra / 100;
         }
 
-        private int ObtenerLasAusenciasComputables(Alumno alumno, Curso curso, List<Asistencia> asistencias_por_curso_y_alumno)
+        private int ObtenerLasAusenciasComputables(Alumno alumno, Curso curso, List<AcumuladorAsistencia> repo_asistencias)
         {
             List<HorarioDeCursada> horarios_del_curso = curso.GetHorariosDeCursada();
 
-           // List<Asistencia> lista_de_asistencias_tomadas = repo_asistencias.GetAsistenciasPorCursoYAlumno(curso.Id, alumno.Id);
+            List<AcumuladorAsistencia> lista_de_asistencias_tomadas = new List<AcumuladorAsistencia>(); //repo_asistencias.GetAsistenciasPorCursoYAlumno(curso.Id, alumno.Id);
 
             int ausencias_computables = 0;
 
-            asistencias_por_curso_y_alumno.ForEach(asistencia =>
+            lista_de_asistencias_tomadas.ForEach(asistencia =>
             {
 
                 ausencias_computables = AusenciasComputables(horarios_del_curso, ausencias_computables, asistencia);
@@ -87,19 +87,11 @@ namespace General
             return LimiteMaximoDeAusenciasParaAlumnosRegulares(total_horas_catedra);
         }
 
-        private int AusenciasComputables(List<HorarioDeCursada> horarios_del_curso, int ausencias_computables, Asistencia asistencia)
+        private int AusenciasComputables(List<HorarioDeCursada> horarios_del_curso, int ausencias_computables, AcumuladorAsistencia asistencia)
         {
             HorarioDeCursada dia_y_horario = horarios_del_curso.Find(d => d.Dia == asistencia.Fecha.DayOfWeek);
-
-            if (0 < asistencia.Valor && asistencia.Valor < 5)
-            {
-                ausencias_computables += dia_y_horario.HorasCatedra - asistencia.Valor;
-            }
-
-            if (asistencia.Valor == 5)
-            {
-                ausencias_computables += dia_y_horario.HorasCatedra;
-            }
+            ausencias_computables += dia_y_horario.HorasCatedra - int.Parse(asistencia.Valor);
+            
             return ausencias_computables;
         }
 

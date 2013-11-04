@@ -10,7 +10,8 @@
     <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>  
-    <script type="text/javascript" src="../Scripts/BotonAsistencia.js"></script>    
+    <script type="text/javascript" src="Scripts/BotonAsistencia.js"></script>
+    <script type="text/javascript" src="Scripts/AdministradorPlanillaAsistencias.js"></script>
     <style type="text/css">  
     <style type="text/css">
     .acumuladas
@@ -29,11 +30,12 @@
     </style>
 
 </head>
-<body onload="javascript:window.print();window.close();">
+<body onload="/*javascript:window.print();window.close();*/">
     <form id="form1" runat="server">
         <div id="DivContenedor" runat="server" style="margin:10px;">
             <label>Curso:&nbsp;</label>
             <label id="Curso" runat="server">&nbsp;</label>
+            <input type="hidden" id="CmbCurso" runat="server" />
             <br />
             <label>Mes:&nbsp;&nbsp;&nbsp;</label>
             <label id="Mes" runat="server">&nbsp;</label>
@@ -44,7 +46,9 @@
             <label id="HorasCatedraCurso" runat="server">&nbsp;</label>
             <br />
             <br />
-            <uc1:planilla ID="PlanillaAsistencia" runat="server" />
+            <div id="ContenedorPlanilla" runat="server" style="display:inline-block;">
+        
+            </div>
             <br />
             <label>Observaciones:</label>
             <label id="Observaciones" runat="server">&nbsp;</label>
@@ -53,70 +57,11 @@
 </body>
 
 <script type="text/javascript">
-
-    var AdministradorPlanillaMensual = function () {
-
-        var Planilla = JSON.parse($('#PlanillaAsistencia_planillaJSON').val());
-        var DiasCursados = Planilla['diascursados'];
-        var AlumnosInasistencias = Planilla['asistenciasalumnos'];
-        var contenedorPlanilla = $('#PlanillaAsistencia_ContenedorPlanilla');
-        var HorasCatedraCurso = Planilla['horas_catedra'];
-        var columnas = [];
-
-        columnas.push(new Columna("Apellido y Nombre", { generar: function (inasistenciaalumno) { return inasistenciaalumno.nombrealumno } }));
-        //columnas.push(new Columna("Pertenece a", { generar: function (inasistenciaalumno) { return inasistenciaalumno.pertenece_a } }));
-
-        for (var i = 0; i < DiasCursados.length; i++) {
-            columnas.push(new Columna(DiasCursados[i].nombre_dia + "/" + DiasCursados[i].dia + "<br/>" + DiasCursados[i].horas + " hs",
-                                        new GeneradorCeldaDiaCursado(DiasCursados[i])));
-        }
-        columnas.push(new Columna("Asistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.asistencias } }));
-        columnas.push(new Columna("Inasistencias <br>del mes", { generar: function (inasistenciaalumno) { return inasistenciaalumno.inasistencias } }));
-        columnas.push(new Columna("Asistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return '<label class="acumuladas">' + inasistenciaalumno.asistencias_acumuladas + " (" + inasistenciaalumno.por_asistencias_acumuladas + ")</label>" } }));
-        columnas.push(new Columna("Inasistencias <br>acumuladas", { generar: function (inasistenciaalumno) { return '<label class="acumuladas">' + inasistenciaalumno.inasistencias_acumuladas + " (" + inasistenciaalumno.por_inasistencias_acumuladas + ")</label>" } }));
-         
-
-
-        var PlanillaMensual = new Grilla(columnas);
-
-
-        PlanillaMensual.CargarObjetos(AlumnosInasistencias);
-        PlanillaMensual.DibujarEn(contenedorPlanilla);
-        PlanillaMensual.SetOnRowClickEventHandler(function () {
-            return true;
-        });
-
-        var Docente = JSON.parse($("#PlanillaAsistencia_Curso").val()).Docente;
-        $("#Docente").text(Docente.Nombre + " " + Docente.Apellido);
-        $("#HorasCatedraCurso").text(HorasCatedraCurso);
-
-        var Observaciones = JSON.parse($("#PlanillaAsistencia_Curso").val()).Observaciones;
-        $("#Observaciones").text(Observaciones);
-    };
-
-    var GeneradorCeldaDiaCursado = function (diaCursado) {
-        var self = this;
-        self.diaCursado = diaCursado;
-        self.generar = function (inasistenciaalumno) {
-            var contenedorAcciones = $('<div>');
-            var queryResult = Enumerable.From(inasistenciaalumno.detalle_asistencia)
-                .Where(function (x) { return x.fecha == diaCursado.fecha });
-
-            var botonAsistencia;
-            if (queryResult.Count() > 0) {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, queryResult.First().valor, diaCursado.horas);
-            }
-            else {
-                botonAsistencia = new CrearBotonAsistencia(inasistenciaalumno.id, diaCursado.fecha, 0, diaCursado.horas);
-            }
-            contenedorAcciones.append(botonAsistencia);
-
-            return contenedorAcciones;
-        };
-    }
-
     $(document).ready(function () {
-        AdministradorPlanillaMensual();
+        //
+        PlanillaAsistencias = new AdministradorPlanilla();
+        CargarPlanilla();
+
         $("input").css("border", "none");
         $("input").css("background", "none");
     });

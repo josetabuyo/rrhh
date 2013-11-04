@@ -82,10 +82,10 @@ namespace TestViaticos
         {
            // Se cargan las Asistencias;
            List<Asistencia> asistencias_fer = new List<Asistencia>();
-           asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoHistoria1Cens2012_1Cuat(), TestObjects.AlumnoFer()));
-           asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica1Cens2012_1Cuat(), TestObjects.AlumnoFer()));
-           asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica3Cens2013_1Cuat(), TestObjects.AlumnoFer()));
-           asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica2Cens2012_2Cuat(), TestObjects.AlumnoFer()));
+           //asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoHistoria1Cens2012_1Cuat(), TestObjects.AlumnoFer()));
+           //asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica1Cens2012_1Cuat(), TestObjects.AlumnoFer()));
+           //asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica3Cens2013_1Cuat(), TestObjects.AlumnoFer()));
+           //asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica2Cens2012_2Cuat(), TestObjects.AlumnoFer()));
            
             Reportes reportes = new Reportes();
 
@@ -98,10 +98,10 @@ namespace TestViaticos
         {
             // Se cargan las Asistencias;
             List<Asistencia> asistencias_fer = new List<Asistencia>();
-            asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoHistoria1Cens2012_1Cuat(), TestObjects.AlumnoFer()));
-            asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica1Cens2012_1Cuat(), TestObjects.AlumnoFer()));
-            asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica2Cens2012_2Cuat(), TestObjects.AlumnoFer()));
-            asistencias_fer.AddRange(TestObjects.CargaAsistenciaImperfecta(TestObjects.cursoMatematica3Cens2013_1Cuat(), TestObjects.AlumnoFer()));
+            //asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoHistoria1Cens2012_1Cuat(), TestObjects.AlumnoFer()));
+            //asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica1Cens2012_1Cuat(), TestObjects.AlumnoFer()));
+            //asistencias_fer.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica2Cens2012_2Cuat(), TestObjects.AlumnoFer()));
+            ////asistencias_fer.AddRange(TestObjects.CargaAsistenciaImperfecta(TestObjects.cursoMatematica3Cens2013_1Cuat(), TestObjects.AlumnoFer()));
 
             Reportes reportes = new Reportes();
 
@@ -114,8 +114,8 @@ namespace TestViaticos
         {
             List<Asistencia> asistencias_de_todos = new List<Asistencia>();
             // Se cargan las Asistencias;
-            asistencias_de_todos.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica3Cens2013_1Cuat(), TestObjects.AlumnoFer()));
-            asistencias_de_todos.AddRange(TestObjects.CargaAsistenciaImperfecta(TestObjects.cursoMatematica3Cens2012_2Cuat(), TestObjects.AlumnoJor()));
+            //asistencias_de_todos.AddRange(TestObjects.CargaAsistenciaPerfecta(TestObjects.cursoMatematica3Cens2013_1Cuat(), TestObjects.AlumnoFer()));
+            //asistencias_de_todos.AddRange(TestObjects.CargaAsistenciaImperfecta(TestObjects.cursoMatematica3Cens2012_2Cuat(), TestObjects.AlumnoJor()));
                        
             Reportes reportes = new Reportes();
 

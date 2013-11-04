@@ -14,30 +14,6 @@
      <script type="text/javascript" src="Scripts/modernizr.custom.js" ></script>
 
  <style type="text/css"> 
-         
-    .encabezado_fecha
-    {
-        text-align:center;        
-        visibility:visible;
-        background-color: transparent !important;
-        color: White !important;
-        border: none !important;
-        cursor:default !important;
-        width: 80px;
-        margin-top:6px;
-    }
-    .nota_no_valida, .fecha_no_valida
-    {
-        background-color: #FF3300 !important;
-    }
-    .text_2caracteres
-    {
-        max-width: 20px;
-        margin-left: 3px;
-        border-width: 1px;
-        border-style: solid;
-        border-color: rgb(67, 58, 116)!important;
-    }
     .text_10caracteres
     {
         max-width: 100px;
@@ -47,11 +23,11 @@
         border-color: rgb(67, 58, 116)!important;
     }
     
-    .text_2caracteres:hover, .text_10caracteres:hover 
+    .text_10caracteres:hover 
     {     
         border-color: rgb(255, 187, 187)!important;
     }
-    </style>
+ </style>
    
 </head>
 <body class="marca_de_agua">
@@ -59,20 +35,17 @@
      <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     
-
-            <div >
                 <div class="main">
                     <section>
-                        <input id="showLeft" style="margin: 5px;" class="btn btn-primary " type="button" value="Ver Reportes" ></input>
+                        <input id="showLeft" style="margin: 5px;" class="btn btn-primary " type="button" value="Ver Reportes" />
                     </section>   
                 </div>
-            </div>
 
              <input type="hidden" class="btn btn-primary " id="accion" value="" runat="server" />
                <nav class="cbp-spmenu cbp-spmenu-left" id="cbp-spmenu-s1" style="z-index:9999; margin-top:120px;">
                     <h3>Alumnos</h3>
                     <div class="cbp-spmenu-vertical">
-                    <a id="modalidad" href="FormPlanillaDeReportesAlumnos.aspx?accion=modalidad">Por Modalidad</a>
+                    <a href="FormPlanillaDeReportesAlumnos.aspx?accion=modalidad">Por Modalidad</a>
                     <a href="FormPlanillaDeReportesAlumnos.aspx?accion=ciclo">Por Ciclo</a>
                     <a href="FormPlanillaDeReportesAlumnos.aspx?accion=organismo">Por Organismo</a>
                     <a href="FormPlanillaDeReportesAlumnos.aspx?accion=materia">Materia Sin Cursar</a>
@@ -84,13 +57,10 @@
                 </nav>
 
 
-
-
     <div id="panelAlumno" class="div_izquierdo">
     <fieldset>
         <legend class="subtitulos">Reportes</legend>
              <div class="estilo_formulario" style="overflow:hidden; width: 95%; height:600px;">
-
                 <div id="div_parametros" style="display: none;" > 
                   <legend id="lb_parametros">Parámetros</legend>
                     <div><asp:DropDownList ID="cmbCampo" runat="server" enableviewstate="true">
@@ -116,6 +86,7 @@
                         <div class="input-append" style="clear:both;">   
                             <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" />    
                         </div>
+                        
                     </div>
                 </div>
                <%-- <p><asp:Button ID="btn_exportal_excel" Text="Exportar a Excel" runat="server" OnClick="btnExportarAlumnos_Click" class=" btn btn-primary" style="float:right;" /></p>--%>
@@ -123,16 +94,14 @@
     </div>
 
     <asp:HiddenField ID="tipo_busqueda" runat="server" />
-
-
     <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
-    <asp:HiddenField ID="nro_total" runat="server" EnableViewState="true"/>
-<%--    <asp:HiddenField ID="idFechaDesde" value="01/01/2013" runat="server" />
-    <asp:HiddenField ID="idFechaHasta" value="31/12/2013" runat="server" />--%>
+    <asp:HiddenField ID="nro_total" runat="server" EnableViewState="true" />
 
     </form>
 </body>
+
+
      <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="Scripts/highcharts.js"></script>
     <script type="text/javascript" src="Scripts/exporting.js"></script>
@@ -143,8 +112,6 @@
     <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
-
-
     
 <script type="text/javascript">
 
@@ -157,87 +124,45 @@
     document.onkeypress = CapturarTeclaEnter;
 
 
-
-    var BuscarPorModalidad = function () {
-
-       HabilitarParametros();
-       AdministradorPlanilla();
-   }
-
    var BuscarPorOrganismo = function () {
 
        var items_pantalla = {
            alumnos: JSON.parse($('#alumnosJSON').val()),
-           // alumnoGlobal: $("<div>"),
            planillaAlumnosDisponibles: $("<div>"),
            cmbCombo: $("#cmbCampo"),
-           //panelAlumnoDisponibles: $("#panelAlumnoDisponibles"),
            contenedorAlumnosDisponibles: $('#grillaAlumnosDisponibles'),
            fechaDesde: $('#idFechaDesde'),
-           fechaHasta: $('#idFechaHasta'),
-           //            botonAsignarAlumno: $("#Img1"),
-           //            botonDesAsignarAlumno: $("#Img2"),
-           botonModalidad: $("#btn_modalidad"),
-           //cmbCursos: $("#cmbCursos"),
-           cmbCampo: $("#cmbCampo"),
-           canvasPie: document.getElementById("dibujo_grafico")
-           //cursosJSON: JSON.parse($('#cursosJSON').val())
+           fechaHasta: $('#idFechaHasta')
        }
 
-
+       //Borro la Grilla para construirla de nuevo con los nuevos datos de la BD
        $('#grillaAlumnosDisponibles').html('');
+
+       //Genero nuevamente el campo de búsqueda
+       $('#grillaAlumnosDisponibles').html(
+                                            '<div class="input-append" style="clear:both;">' +    
+                                            '<input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" /> ' +
+                                            '</div>'
+                                            );
        
        var modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
-
-
-      
-
        modulo_inscripcion.BuscarPorOrganismo();
-   }
+   };
 
-
-
-    var HabilitarParametros = function () {
-        $('#btnBuscarCampo').show();
-//        $('#idFechaDesde').show();
-//        $('#idFechaHasta').show();
-//        $('#cmbCampo').show();
-//        $('#lblCampo').show();
-        $('#parametros').show();
     
-    }
-
-
     var AdministradorPlanilla = function () {
-
 
         var items_pantalla = {
             alumnos: JSON.parse($('#alumnosJSON').val()),
-            // alumnoGlobal: $("<div>"),
             planillaAlumnosDisponibles: $("<div>"),
             cmbCombo: $("#cmbCampo"),
-            //panelAlumnoDisponibles: $("#panelAlumnoDisponibles"),
-            contenedorAlumnosDisponibles: $('#grillaAlumnosDisponibles'),
-            fechaDesde: $('#idFechaDesde'),
-            fechaHasta: $('#idFechaHasta'),
-            //            botonAsignarAlumno: $("#Img1"),
-            //            botonDesAsignarAlumno: $("#Img2"),
-            botonModalidad: $("#btn_modalidad"),
-            //cmbCursos: $("#cmbCursos"),
-            cmbCampo: $("#cmbCampo"),
-            canvasPie: document.getElementById("dibujo_grafico")
-            //cursosJSON: JSON.parse($('#cursosJSON').val())
+            contenedorAlumnosDisponibles: $('#grillaAlumnosDisponibles')
         }
 
-
-
         var modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
-
-
         modulo_inscripcion.PrimeraBusqueda();
-        // modulo_inscripcion.BuscarPorOrganismo();
 
-    };
+    }
 
     var DeterminarReporteEnPantalla = function (accion) {
 
@@ -245,18 +170,14 @@
             $('#div_parametros').hide();
             $('#search').hide();
             $('#lb_grafico').hide();
-            $('#referencias').hide();
 
         } else {
 
-
             $('#div_parametros').show();
             $('#lb_grafico').show();
-            $('#referencias').show();
 
             if (accion == "modalidad") {
-                $('#lb_parametros').text(" Parámetros - Por Modalidad");
-                $('#btnBuscarCampo').show();}
+                $('#lb_parametros').text(" Parámetros - Por Modalidad");}
 
             if (accion == "organismo") {
                 $('#lb_parametros').text(" Parámetros - Por Organismo");}
@@ -275,16 +196,12 @@
         
         $('#idFechaHasta').datepicker({
             dateFormat: 'dd/mm/yy',
-            onClose: function () {
-
-            }
+            onClose: function () {}
         });
 
         $('#idFechaDesde').datepicker({
             dateFormat: 'dd/mm/yy',
-            onClose: function () {
-
-            }
+            onClose: function () {}
         });
 
         DeterminarReporteEnPantalla($("#accion").val());
@@ -308,7 +225,6 @@
           classie.toggle(showLeft, 'disabled');
       } 
   }
-
 
 </script>
 </html>

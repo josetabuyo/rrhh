@@ -29,13 +29,16 @@
                     <asp:ListItem Value="-1" class="placeholder" Selected="true">Ciclo</asp:ListItem>
                 </asp:DropDownList>    
             </p>
+            
             <p>
             <asp:Label ID="lblCursos"  runat="server"  Text="Curso:"></asp:Label>
                 <asp:DropDownList ID="cmbCursos" runat="server" EnableViewState="false" 
                     Width="400px">
                     <asp:ListItem Value="0" class="placeholder" Selected="true">Cursos</asp:ListItem>
-                </asp:DropDownList>        
+                </asp:DropDownList>  
+                <input type="checkbox" id="filtrar_cursos_vigentes" />    <label>Vigentes </label>
             </p>
+            
         </fieldset>
         
         </div>
@@ -110,7 +113,8 @@
             mensaje: $("#mensaje"),
             botonAsignarAlumno: $("#Img1"),
             botonDesAsignarAlumno: $("#Img2"),
-            botonGuardarInscriptos: $("#BtnGuardar")
+            botonGuardarInscriptos: $("#BtnGuardar"),
+            checkCurso: $("#filtrar_cursos_vigentes")
         }
 
         var modulo_inscripcion = new PaginaInscripcionAlumnos(items_pantalla);

@@ -82,10 +82,10 @@ namespace General.Repositorios
             {
                 List<Asistencia> asistencias_por_curso_y_alumno = asistencias_del_alumno.FindAll(a => a.IdCurso == curso.Id);
                 
-                if (articulador.EsRegular(alumno, curso, asistencias_por_curso_y_alumno)) //&& aprobó!
+                /*if (articulador.EsRegular(alumno, curso, asistencias_por_curso_y_alumno)) //&& aprobó!
                 {
                     cursos_aprobados.Add(curso);
-                }
+                }*/
             }
 
             //Me quedo con todas las Materias que no aprobó
