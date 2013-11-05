@@ -1272,14 +1272,44 @@ public class WSViaticos : System.Web.Services.WebService
         try
         {
             Curso curso = RepositorioDeCursos().GetCursoById(idCurso);
+            List<Alumno> alumnos;
+            if (alumnos_a_inscribir.Count == 0)
+                alumnos = RepositorioDeCursos().ObtenerAlumnosDelCurso(curso).FindAll(a => !alumnos_a_inscribir.Contains(a));
+            else
+                alumnos = alumnos_a_inscribir;
 
-            RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos_a_inscribir, curso, usuario);
+            var asistencias = RepoAsistencias().GetAsistencias();
+            var alumnos_que_se_pueden_desinscribir = alumnos.FindAll(a => !asistencias.Exists(asist => asist.IdAlumno == a.Id && asist.IdCurso == idCurso));
+            var alumnos_que_no_se_pueden_desinscribir = alumnos.FindAll(a => asistencias.Exists(asist => asist.IdAlumno == a.Id && asist.IdCurso == idCurso));
 
-            return JsonConvert.SerializeObject(new
+            RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos_que_se_pueden_desinscribir, curso, usuario);
+
+            if (alumnos_que_no_se_pueden_desinscribir.Count > 0)
             {
-                tipoDeRespuesta = "inscripcionAlumno.ok",
-                //ticket = documento.ticket
-            });
+                var alumnos_dto = new List<Object>();
+
+                alumnos_que_no_se_pueden_desinscribir.ForEach(delegate(Alumno alumno)
+                {
+                    alumnos_dto.Add(new
+                    {
+                        Id = alumno.Id,
+                        Nombre = alumno.Nombre,
+                        Apellido = alumno.Apellido,
+                        Documento = alumno.Documento,
+                        Telefono = alumno.Telefono,
+                        Mail = alumno.Mail,
+                        Direccion = alumno.Direccion,
+                        Modalidad = ModalidadPara(alumno.Modalidad),
+                        Baja = alumno.Baja,
+                    });
+                });
+
+                return JsonConvert.SerializeObject(new { tipoDeRespuesta = "inscripcionAlumno.parcial", alumnos = alumnos_dto });
+            }
+            else
+            {
+                return JsonConvert.SerializeObject(new { tipoDeRespuesta = "inscripcionAlumno.ok" });
+            }
         }
         catch (Exception e)
         {
@@ -1439,14 +1469,10 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool QuitarCurso(CursoDto curso, Usuario usuario)
     {
-        var un_curso = new Curso(curso.Id, curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin), curso.Observaciones);
-        var horarios = curso.Horarios;
-        horarios.ForEach(h =>
-        {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra, h.IdCurso));
-        });
-
-        return RepositorioDeCursos().QuitarCurso(un_curso, usuario);
+        var un_curso = RepositorioDeCursos().GetCursoById(curso.Id);
+        if (un_curso.Alumnos().Count == 0)
+            return RepositorioDeCursos().QuitarCurso(un_curso, usuario);
+        else return false;
     }
 
     [WebMethod]

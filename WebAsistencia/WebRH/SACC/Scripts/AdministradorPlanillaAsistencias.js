@@ -68,7 +68,7 @@ var CargarComboCursos = function () {
 
     cursos_por_anio = Enumerable.From(cursos)
                         .Select(function (x) { return x })
-                        .Where(function (x) { return x.FechaInicio.substr(6, 4) == anio })
+                        .Where(function (x) { return x.FechaInicio.substr(6, 4) <= anio && anio <= x.FechaFin.substr(6, 4) })
                         .ToArray();
 
     cmb_cursos.html("");

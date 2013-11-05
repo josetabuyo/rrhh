@@ -197,7 +197,7 @@ PaginaInscripcionAlumnos.prototype.FiltrarCursos = function () {
             alumnos: JSON.stringify(this.o.planillaAlumnosAsignados.Objetos),
             id_curso: $("#idCursoSeleccionado").val()
         });
-		_this = this;
+        _this = this;
         $.ajax({
             url: "../AjaxWS.asmx/InscribirAlumnos",
             type: "POST",
@@ -208,10 +208,16 @@ PaginaInscripcionAlumnos.prototype.FiltrarCursos = function () {
             success: function (respuestaJson) {
                 var respuesta = JSON.parse(respuestaJson.d);
                 if (respuesta.tipoDeRespuesta == "inscripcionAlumno.ok") {
-
                     _this.GetCursosDTO();
-
                     alertify.alert("Se inscribieron los alumnos correctamente");
+                }
+                if (respuesta.tipoDeRespuesta == "inscripcionAlumno.parcial") {
+                    var mensaje = "No se pudo desinscribir a los siguientes alumnos por tener asistencias cargadas en el curso";
+                    for (var i = 0; i < respuesta.alumnos.length; i++) {
+                        mensaje += "\n" + respuesta.alumnos[i].Nombre;
+                    }
+                    _this.GetCursosDTO();
+                    alertify.alert(mensaje);
                 }
                 if (respuesta.tipoDeRespuesta == "inscripcionAlumno.error") {
                     alertify.alert("Error al inscribir alumnos: " + respuesta.error);

@@ -22,7 +22,7 @@ public partial class SeleccionDeArea : System.Web.UI.Page
         if (usuario.TienePermisosParaSiCoI) { Response.Redirect("~/SiCoI/AltaDeDocumento.aspx"); }
         if (usuario.TienePermisosParaSACC) { Response.Redirect("~/SACC/Inicio.aspx"); }
         if (usuario.TienePermisosParaModil) { Response.Redirect("~/Modi/Modi.aspx"); }
-        Response.Redirect("SeleccionDeArea.aspx");
+        //Response.Redirect("SeleccionDeArea.aspx");
         this.areasDelUsuarioJSON.Value = JsonConvert.SerializeObject(usuario.Areas);
     }
 }
