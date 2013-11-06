@@ -1267,16 +1267,15 @@ public class WSViaticos : System.Web.Services.WebService
     public string InscribirAlumnosACurso(List<Alumno> alumnos_a_inscribir, int idCurso, Usuario usuario)
     {
         var conexion = Conexion();
-        //var lista_alumnos_para_inscribir = JsonConvert.DeserializeObject<List<Alumno>>(alumnos);
 
         try
         {
             Curso curso = RepositorioDeCursos().GetCursoById(idCurso);
             List<Alumno> alumnos;
             if (alumnos_a_inscribir.Count == 0)
-                alumnos = RepositorioDeCursos().ObtenerAlumnosDelCurso(curso).FindAll(a => !alumnos_a_inscribir.Contains(a));
+                alumnos = RepositorioDeCursos().ObtenerAlumnosDelCurso(curso);
             else
-                alumnos = alumnos_a_inscribir;
+                alumnos = alumnos_a_inscribir.FindAll(a => !alumnos_a_inscribir.Contains(a));
 
             var asistencias = RepoAsistencias().GetAsistencias();
             var alumnos_que_se_pueden_desinscribir = alumnos.FindAll(a => !asistencias.Exists(asist => asist.IdAlumno == a.Id && asist.IdCurso == idCurso));
