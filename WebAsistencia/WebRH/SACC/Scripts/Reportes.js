@@ -1,26 +1,27 @@
 ﻿var PaginaReporteAlumnos = function (options) {
     this.o = options;
     var _this = this;
-    var titulo_fechadesde;
-    var titulo_fechahasta;
+    //    var titulo_fechadesde;
+    //    var titulo_fechahasta;
 
 
-//***********************COMBOS***********************//
+    //***********************COMBOS***********************//
     this.o.cmbCombo.change(function (e) {
+
+        respuesta = JSON.parse($('#alumnosJSONSeleccionados').val());
+       
         var idSeleccionado = _this.o.cmbCombo.find('option:selected').val();
 
         if (idSeleccionado == -1) {
-            queryResult = _this.o.alumnos;
+            queryResult = respuesta;
         } else {
-            var queryResult = Enumerable.From(_this.o.alumnos)
+            var queryResult = Enumerable.From(respuesta)
                                           .Where(function (x) { return x.Organismo == idSeleccionado }).ToArray();
         };
         _this.o.planillaAlumnosDisponibles.BorrarContenido();
         ArmarGrilla(queryResult);
 
     });
-
-
 
     this.o.planillaAlumnosDisponibles = new Grilla(
         [
@@ -29,6 +30,7 @@
 			new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }),
 			new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } })
 		]);
+
 };
 
 
@@ -36,14 +38,11 @@
 PaginaReporteAlumnos.prototype.PrimeraBusqueda = function () {
     _this = this;
     var respuesta = _this.o.alumnos;
-    ArmarGrilla(respuesta);
-
-    ArmarGraficoPorOrganismo(respuesta, FechaMinima(), FechaMaxima());
+    Buscar(_this.o.tipoBusqueda);
 };
 
-PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
-    _this = this;
 
+PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
 
     fechadesde = FechaDesde($("#idFechaDesde").val());
     fechahasta = FechaHasta($("#idFechaHasta").val());
@@ -65,9 +64,8 @@ PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
         contentType: "application/json; charset=utf-8",
         success: function (respuestaJson) {
             var respuesta = JSON.parse(respuestaJson.d);
+            $("#alumnosJSONSeleccionados").val(respuestaJson.d);
             ArmarGrilla(respuesta);
-
-
             ArmarGraficoPorOrganismo(respuesta, fechadesde, fechahasta);
         },
 
@@ -77,6 +75,28 @@ PaginaReporteAlumnos.prototype.BuscarPorOrganismo = function () {
     });
 };
 
+
+var Buscar = function (busqueda) {
+
+    if (busqueda == "modalidad") {
+
+
+
+    } else if (busqueda == "organismo") {
+
+        BuscarPorOrganismo();
+
+    } else if (busqueda == "ciclo") {
+
+
+
+    } else if (busqueda == "materia") {
+
+
+
+    }
+
+}
 
 //***********************ARMADO DE GRÁFICOS***********************//
 var ArmarGraficoPorOrganismo = function (respuesta, fechadesde, fechahasta) {
@@ -103,7 +123,6 @@ var ArmarGraficoPorOrganismo = function (respuesta, fechadesde, fechahasta) {
     }
 
 };
-
 
 
 //***********************GRÁFICOS***********************//
@@ -158,25 +177,26 @@ var GraficoPorOrganismo = function (titulo, nro_mds, nro_msal, nro_fines) {
             type: 'pie',
             name: 'Porcentaje de Alumnos',
             data: [
-                                         ['Fines: Cantidad: ' + nro_fines + ' - Porcentaje', nro_fines],
-                                         ['MSAL: ' + nro_msal + ' - Porcentaje', nro_msal],
-                                        {
-                                            name: 'MDS: ' + nro_mds + ' - Porcentaje',
-                                            y: nro_mds,
-                                            sliced: true,
-                                            selected: true
-                                        },
-                           ]
+                    ['Fines: Cantidad: ' + nro_fines + ' - Porcentaje', nro_fines],
+                    ['MSAL: ' + nro_msal + ' - Porcentaje', nro_msal],
+                        {
+                          name: 'MDS: ' + nro_mds + ' - Porcentaje',
+                          y: nro_mds,
+                          sliced: true,
+                          selected: true
+                        },
+                 ]
         }]
     });
 
 };
 
 
-
 //***********************ARMADO DE GRILLA***********************//
 var ArmarGrilla = function (respuesta) {
 
+    BorrarContenido();
+    _this.o.planillaAlumnosDisponibles.BorrarContenido();
     _this.o.planillaAlumnosDisponibles.AgregarEstilo("tabla_macc");
     _this.o.planillaAlumnosDisponibles.CargarObjetos(respuesta);
     _this.o.planillaAlumnosDisponibles.DibujarEn(_this.o.contenedorAlumnosDisponibles);
@@ -185,7 +205,6 @@ var ArmarGrilla = function (respuesta) {
     $("tbody tr:even").css('background-color', '#E6E6FA');
     $("tbody tr:odd").css('background-color', '#9CB3D6 ');
 
-
     var options = {
         valueNames: ['Documento', 'Nombre', 'Apellido', 'Modalidad']
     };
@@ -193,8 +212,20 @@ var ArmarGrilla = function (respuesta) {
     var featureListAlumnosDisponibles = new List('grillaAlumnosDisponibles', options);
 };
 
+var BorrarContenido = function () {
+    //Borro la Grilla para construirla de nuevo con los nuevos datos de la BD
+    $('#grillaAlumnosDisponibles').html('');
 
-//***********************PA´RAMETROS***********************//
+    //Genero nuevamente el campo de búsqueda
+    $('#grillaAlumnosDisponibles').html(
+                                            '<div class="input-append" style="clear:both;">' +
+                                            '<input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" /> ' +
+                                            '</div>'
+                                            );
+
+}
+
+//***********************PARÁMETROS***********************//
 var FechaDesde = function (fechadesde) {
 
     if (fechadesde == '') {

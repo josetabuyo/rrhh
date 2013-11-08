@@ -53,7 +53,7 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
             alumnos = ws_viaticos.ReporteAlumnosPorOrganismo("01/01/1900", "31/12/9999").ToList();
         }
         
-        this.MostrarAlumnosEnLaGrilla(alumnos.Distinct().ToList());
+        this.MostrarAlumnosEnLaGrilla(alumnos.ToList());
     }
 
     private string ObtenerAccion()
@@ -104,41 +104,14 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
 
     protected void btnBuscarPorOrganismo_Click(object sender, EventArgs e)
     {
-
-        //if (!DatosEstanCompletos())
-        //{
-        //    this.texto_mensaje_error.Value = "El Alumno no ha sido guardado. Seleccione el Alumno y la Modalidad";
-        //    return;
-        //}
-
         WSViaticosSoapClient ws_viaticos = new WSViaticosSoapClient();
         var alumno = AlumnoDesdeElForm();
 
         alumno = ws_viaticos.GuardarAlumno(alumno, (Usuario)Session["usuario"]);
 
-        LimpiarPantalla();
-
-        //this.MostrarAlumnosEnLaGrilla(ws_viaticos);
     }
 
-    //protected void btnModificarAlumno_Click(object sender, EventArgs e)
-    //{
-
-    //    if (!DatosEstanCompletos())
-    //    {
-    //        this.texto_mensaje_error.Value = "El Alumno no ha sido guardado. Seleccione el Alumno y la Modalidad";
-    //        return;
-    //    }
-
-    //    WSViaticosSoapClient servicio = new WSViaticosSoapClient();
-    //    var alumno = AlumnoDesdeElForm();
-
-    //    servicio.ActualizarAlumno(alumno, new Usuario());
-
-    //    LimpiarPantalla();
-
-    //    this.MostrarAlumnosEnLaGrilla(servicio);
-    //}
+    
 
     protected void btnBuscarPorMateria_Click(object sender, EventArgs e)
     {
@@ -229,43 +202,14 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
     }
 
 
-
-    //protected void btnVerAlumno_Click(object sender, EventArgs e)
-    //{
-    //   // Session[ConstantesDeSesion.ALUMNO] = int.Parse(this.DNIAlumnoFicha.Value);
-    //    Response.Redirect("~/SACC/FormDetalleDeAlumno.aspx");
-    //}
-
-    private bool DatosEstanCompletos()
-    {
-        return !((this.cmbCampo.SelectedIndex < 1));
-    }
-
     private void MostrarAlumnosEnLaGrilla(List<AlumnoDto> alumnos)
     {
         this.alumnosJSON.Value = JsonConvert.SerializeObject(alumnos);
-        //var alumnos = JsonConvert.DeserializeObject(servicio.GetAlumnos((Usuario)Session[ConstantesDeSesion.USUARIO]));
-        //this.alumnosJSON.Value = alumnos.ToString();
+
     }
 
-    private void LimpiarPantalla()
-    {
-        //this.lblDatoNombre.Text = "";
-        //this.lblDatoApellido.Text = "";
-        //this.lblDatoDocumento.Text = "";
-        //this.lblDatoTelefono.Text = "";
-        //this.lblDatoMail.Text = "";
-        //this.lblDatoDireccion.Text = "";
-        //this.texto_mensaje_error.Value = "";
-        //this.texto_mensaje_exito.Value = "";
-    }
+   
 
-    private void SetearLosTextBox()
-    {
-        ////this.lblCampo.Visible = false;
-        //this.cmbCampo.Visible = false;
-        //this.btnBuscarCampo.Visible = false;
-        //this.tipo_busqueda.Value = "0";
-    }
+   
 
 }

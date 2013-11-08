@@ -69,7 +69,7 @@
                             <input type="text" id="idFechaDesde" class="text_10caracteres"/>
                         <label style="margin-left: 10px"> Fecha Hasta</label>
                             <input type="text" id="idFechaHasta" class="text_10caracteres "/>
-                            <input type="button" id="btn_buscarReportes" class="btn btn-primary" onclick="javascript:BuscarPorOrganismo();" value="Buscar" style="margin: 10px;"/>   
+                            <input type="button" id="btn_buscarReportes" class="btn btn-primary" value="Buscar" onclick="javascript:BuscarPor()" style="margin: 10px;"/>   
                     </div>
                   <legend id="lb_grafico">Gráfico</legend>
                         <div id="dibujo_grafico" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
@@ -96,6 +96,7 @@
     <asp:HiddenField ID="tipo_busqueda" runat="server" />
     <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
+     <asp:HiddenField ID="alumnosJSONSeleccionados" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="nro_total" runat="server" EnableViewState="true" />
 
     </form>
@@ -115,6 +116,8 @@
     
 <script type="text/javascript">
 
+    var modulo_inscripcion;
+
     //Al presionarse Enter luego de Ingresar el DNI, se fuerza a realizar la búsqueda de dicho DNI para no tener que hacer necesariamente un click en el botón Buscar
     function CapturarTeclaEnter(evt) {
         var evt = (evt) ? evt : ((event) ? event : null);
@@ -123,6 +126,29 @@
     }
     document.onkeypress = CapturarTeclaEnter;
 
+
+    var BuscarPor = function () {
+
+        tipoBusqueda = $("#accion").val();
+
+        if (tipoBusqueda == "modalidad") {
+
+            BuscarPorModalidad();
+
+        } else if (tipoBusqueda == "organismo") {
+
+            BuscarPorOrganismo();
+
+        } else if (tipoBusqueda == "ciclo") {
+
+            BuscarPorCiclo();
+
+        } else if (tipoBusqueda == "materia") {
+
+            BuscarPorMateria();
+        }
+
+    };
 
    var BuscarPorOrganismo = function () {
 
@@ -134,63 +160,61 @@
            fechaDesde: $('#idFechaDesde'),
            fechaHasta: $('#idFechaHasta')
        }
-
-       //Borro la Grilla para construirla de nuevo con los nuevos datos de la BD
-       $('#grillaAlumnosDisponibles').html('');
-
-       //Genero nuevamente el campo de búsqueda
-       $('#grillaAlumnosDisponibles').html(
-                                            '<div class="input-append" style="clear:both;">' +    
-                                            '<input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" /> ' +
-                                            '</div>'
-                                            );
        
        var modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
        modulo_inscripcion.BuscarPorOrganismo();
    };
 
-    
-    var AdministradorPlanilla = function () {
 
-        var items_pantalla = {
-            alumnos: JSON.parse($('#alumnosJSON').val()),
-            planillaAlumnosDisponibles: $("<div>"),
-            cmbCombo: $("#cmbCampo"),
-            contenedorAlumnosDisponibles: $('#grillaAlumnosDisponibles')
-        }
+   var AdministradorPlanilla = function (accion) {
 
-        var modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
-        modulo_inscripcion.PrimeraBusqueda();
+       var items_pantalla = {
+           alumnos: JSON.parse($('#alumnosJSON').val()),
+           planillaAlumnosDisponibles: $("<div>"),
+           cmbCombo: $("#cmbCampo"),
+           btnBuscarReportes: $("#btn_buscarReportes"),
+           tipoBusqueda: accion,
+           contenedorAlumnosDisponibles: $('#grillaAlumnosDisponibles')
+       }
 
-    }
+       modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
+       modulo_inscripcion.PrimeraBusqueda();
 
-    var DeterminarReporteEnPantalla = function (accion) {
+   };
 
-        if (accion == "") {
-            $('#div_parametros').hide();
-            $('#search').hide();
-            $('#lb_grafico').hide();
+   var DeterminarReporteEnPantalla = function (accion) {
 
-        } else {
+       if (accion == "") {
+           $('#div_parametros').hide();
+           $('#search').hide();
+           $('#lb_grafico').hide();
 
-            $('#div_parametros').show();
-            $('#lb_grafico').show();
+       } else {
 
-            if (accion == "modalidad") {
-                $('#lb_parametros').text(" Parámetros - Por Modalidad");}
+           $('#div_parametros').show();
+           $('#lb_grafico').show();
 
-            if (accion == "organismo") {
-                $('#lb_parametros').text(" Parámetros - Por Organismo");}
+           if (accion == "modalidad") {
+               $('#lb_parametros').text(" Parámetros - Por Modalidad");
+           }
 
-            if (accion == "ciclo") {
-                $('#lb_parametros').text(" Parámetros - Por Ciclo");}
+           if (accion == "organismo") {
+               $('#lb_parametros').text(" Parámetros - Por Organismo");
+           }
 
-            if (accion == "materia") {
-                $('#lb_parametros').text(" Parámetros - Por Materia");}
-        }
+           if (accion == "ciclo") {
+               $('#lb_parametros').text(" Parámetros - Por Ciclo");
+           }
 
-        AdministradorPlanilla();
-    }
+           if (accion == "materia") {
+               $('#lb_parametros').text(" Parámetros - Por Materia");
+           }
+
+           
+       }
+
+       AdministradorPlanilla(accion);
+   };
 
     $(document).ready(function () {
         
@@ -224,7 +248,7 @@
       if (button !== 'showLeft') {
           classie.toggle(showLeft, 'disabled');
       } 
-  }
+  };
 
 </script>
 </html>
