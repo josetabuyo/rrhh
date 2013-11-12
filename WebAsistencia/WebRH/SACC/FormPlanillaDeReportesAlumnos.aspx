@@ -48,12 +48,12 @@
                     <a href="FormPlanillaDeReportesAlumnos.aspx?accion=modalidad">Por Modalidad</a>
                     <a href="FormPlanillaDeReportesAlumnos.aspx?accion=ciclo">Por Ciclo</a>
                     <a href="FormPlanillaDeReportesAlumnos.aspx?accion=organismo">Por Organismo</a>
-                    <a href="FormPlanillaDeReportesAlumnos.aspx?accion=materia">Materia Sin Cursar</a>
+                    <%--<a href="FormPlanillaDeReportesAlumnos.aspx?accion=materia">Materia Sin Cursar</a>--%>
                     </div>
-                    <h3>Materias</h3>
+                    <%--<h3>Materias</h3>
                      <div class="cbp-spmenu-vertical">
                     <a href="FormPlanillaDeReportesAlumnos.aspx?accion=materia">Por Materias</a>
-                    </div>
+                    </div>--%>
                 </nav>
 
 
@@ -93,11 +93,9 @@
        </fieldset>
     </div>
 
-    <asp:HiddenField ID="tipo_busqueda" runat="server" />
-    <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
-     <asp:HiddenField ID="alumnosJSONSeleccionados" runat="server" EnableViewState="true"/>
-    <asp:HiddenField ID="nro_total" runat="server" EnableViewState="true" />
+    <asp:HiddenField ID="alumnosJSONSeleccionados" runat="server" EnableViewState="true"/>
+
 
     </form>
 </body>
@@ -128,25 +126,6 @@
 
 
     var BuscarPor = function () {
-
-//        tipoBusqueda = $("#accion").val();
-
-//        if (tipoBusqueda == "modalidad") {
-
-//            BuscarPorAlumnos();
-
-//        } else if (tipoBusqueda == "organismo") {
-
-//            BuscarPorAlumnos();
-
-//        } else if (tipoBusqueda == "ciclo") {
-
-//            BuscarPorAlumnos();
-
-//        } else if (tipoBusqueda == "materia") {
-
-//            BuscarPorMateria();
-//        }
 
         BuscarPorAlumnos();
     };
@@ -220,6 +199,7 @@
            $('#div_parametros').hide();
            $('#search').hide();
            $('#lb_grafico').hide();
+           $('#grillaAlumnosDisponibles').hide();
 
        } else {
 

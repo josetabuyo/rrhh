@@ -1,8 +1,6 @@
 ﻿var PaginaReporteAlumnos = function (options) {
     this.o = options;
     var _this = this;
-    //    var titulo_fechadesde;
-    //    var titulo_fechahasta;
 
 
     //***********************COMBOS***********************//
@@ -12,11 +10,14 @@
         busqueda = $("#accion").val();
         var idSeleccionado = _this.o.cmbCombo.find('option:selected').val();
 
+        
         if (idSeleccionado == -1) {
             queryResult = respuesta;
+        
         } else {
 
             if (busqueda == "modalidad") {
+                
                 var queryResult = Enumerable.From(respuesta)
                                           .Where(function (x) { return x.Modalidad.Id == idSeleccionado }).ToArray();
             }
@@ -33,7 +34,7 @@
 
 
         };
-        _this.o.planillaAlumnosDisponibles.BorrarContenido();
+
         ArmarGrilla(queryResult);
 
     });
@@ -53,10 +54,9 @@
 PaginaReporteAlumnos.prototype.PrimeraBusqueda = function () {
     _this = this;
     var respuesta = _this.o.alumnos;
-    Buscar(_this.o.tipoBusqueda);
+    BuscarPorAlumnos();
 };
 
-//PaginaReporteAlumnos.prototype.
 BuscarPorAlumnos = function () {
 
     busqueda = $("#accion").val();
@@ -72,6 +72,7 @@ BuscarPorAlumnos = function () {
         fecha_hasta: fechahasta
     });
 
+
     $.ajax({
         url: "../AjaxWS.asmx/ReporteAlumnos",
         type: "POST",
@@ -79,21 +80,24 @@ BuscarPorAlumnos = function () {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (respuestaJson) {
+            
             var respuesta = JSON.parse(respuestaJson.d);
             $("#alumnosJSONSeleccionados").val(respuestaJson.d);
+            
             ArmarGrilla(respuesta);
 
             if (busqueda == "modalidad") {
-            ArmarGraficoPorModalidad(respuesta, fechadesde, fechahasta);
+                
+                ArmarGraficoPorModalidad(respuesta, fechadesde, fechahasta);
             }
             else if (busqueda == "organismo"){
-             ArmarGraficoPorOrganismo(respuesta, fechadesde, fechahasta);
-         }
-         else if (busqueda == "ciclo") {
-             ArmarGraficoPorCiclo(respuesta, fechadesde, fechahasta);
+                
+                ArmarGraficoPorOrganismo(respuesta, fechadesde, fechahasta);
             }
-            
-           
+            else if (busqueda == "ciclo") {
+                
+                ArmarGraficoPorCiclo(respuesta, fechadesde, fechahasta);
+            }
         },
 
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -103,33 +107,13 @@ BuscarPorAlumnos = function () {
 };
 
 
-var Buscar = function (busqueda) {
 
-    if (busqueda == "modalidad") {
-
-        BuscarPorAlumnos();
-
-    } else if (busqueda == "organismo") {
-
-        BuscarPorAlumnos();
-
-    } else if (busqueda == "ciclo") {
-
-        BuscarPorAlumnos();
-
-    } else if (busqueda == "materia") {
-
-
-
-    }
-
-}
 
 //***********************ARMADO DE GRÁFICOS***********************//
 var ArmarGraficoPorOrganismo = function (respuesta, fechadesde, fechahasta) {
 
-    //1 - Obtengo Valores para el Gráfico
     var nro_total = respuesta.length;
+    
     var nro_mds = Enumerable.From(respuesta)
                                           .Where(function (x) { return x.Organismo == 1 }).ToArray().length;
     var nro_msal = Enumerable.From(respuesta)
@@ -140,21 +124,21 @@ var ArmarGraficoPorOrganismo = function (respuesta, fechadesde, fechahasta) {
     titulo_accion = 'Distribución de los Alumnos por Organismo - Total: ';
     titulo = titulo_accion + nro_total + "<br/>" + TituloFechaDesde(fechadesde) + TituloFechaHasta(fechahasta);
 
-
     if (nro_total == 0) {
 
         GraficoVacio(titulo);
     }
     else {
+        
         GraficoPorOrganismo(titulo, nro_mds, nro_msal, nro_fines);
     }
 
 };
 
 var ArmarGraficoPorModalidad = function (respuesta, fechadesde, fechahasta) {
-
-    //1 - Obtengo Valores para el Gráfico
+    
     var nro_total = respuesta.length;
+    
     var nro_cens = Enumerable.From(respuesta)
                                           .Where(function (x) { return x.Modalidad.Id == 1 }).ToArray().length;
     var nro_puro = Enumerable.From(respuesta)
@@ -164,12 +148,12 @@ var ArmarGraficoPorModalidad = function (respuesta, fechadesde, fechahasta) {
     titulo_accion = 'Distribución de los Alumnos por Modalidad - Total: ';
     titulo = titulo_accion + nro_total + "<br/>" + TituloFechaDesde(fechadesde) + TituloFechaHasta(fechahasta);
 
-
     if (nro_total == 0) {
 
         GraficoVacio(titulo);
     }
     else {
+        
         GraficoPorModalidad(titulo, nro_cens, nro_puro);
     }
 
@@ -178,8 +162,8 @@ var ArmarGraficoPorModalidad = function (respuesta, fechadesde, fechahasta) {
 
 var ArmarGraficoPorCiclo = function (respuesta, fechadesde, fechahasta) {
 
-    //1 - Obtengo Valores para el Gráfico
     var nro_total = respuesta.length;
+    
     var nro_sinciclo = Enumerable.From(respuesta)
                                           .Where(function (x) { return x.CicloCursado == 1 }).ToArray().length;
     var nro_primero = Enumerable.From(respuesta)
@@ -198,6 +182,7 @@ var ArmarGraficoPorCiclo = function (respuesta, fechadesde, fechahasta) {
         GraficoVacio(titulo);
     }
     else {
+        
         GraficoPorCiclo(titulo, nro_sinciclo, nro_primero, nro_segundo, nro_tercero);
     }
 
@@ -206,8 +191,7 @@ var ArmarGraficoPorCiclo = function (respuesta, fechadesde, fechahasta) {
 
 //***********************GRÁFICOS***********************//
 var GraficoVacio = function (titulo) {
-
-    //2 - Armo el Dibujo con los Valores
+    
     $('#dibujo_grafico').highcharts({
         chart: {
             plotBackgroundColor: null,
@@ -227,7 +211,6 @@ var GraficoVacio = function (titulo) {
 
 var GraficoPorOrganismo = function (titulo, nro_mds, nro_msal, nro_fines) {
 
-    //2 - Armo el Dibujo con los Valores
     $('#dibujo_grafico').highcharts({
         chart: {
             plotBackgroundColor: null,
@@ -257,9 +240,9 @@ var GraficoPorOrganismo = function (titulo, nro_mds, nro_msal, nro_fines) {
             name: 'Porcentaje de Alumnos',
             data: [
                     ['Fines: Cantidad: ' + nro_fines + ' - Porcentaje', nro_fines],
-                    ['MSAL: ' + nro_msal + ' - Porcentaje', nro_msal],
+                    ['MSAL: Cantidad: ' + nro_msal + ' - Porcentaje', nro_msal],
                         {
-                          name: 'MDS: ' + nro_mds + ' - Porcentaje',
+                            name: 'MDS: Cantidad: ' + nro_mds + ' - Porcentaje',
                           y: nro_mds,
                           sliced: true,
                           selected: true
@@ -270,10 +253,8 @@ var GraficoPorOrganismo = function (titulo, nro_mds, nro_msal, nro_fines) {
 
 };
 
-
 var GraficoPorModalidad = function (titulo, nro_cens, nro_puro) {
 
-    //2 - Armo el Dibujo con los Valores
     $('#dibujo_grafico').highcharts({
         chart: {
             plotBackgroundColor: null,
@@ -302,9 +283,9 @@ var GraficoPorModalidad = function (titulo, nro_cens, nro_puro) {
             type: 'pie',
             name: 'Porcentaje de Alumnos',
             data: [
-                    ['Puro: ' + nro_puro + ' - Porcentaje', nro_puro],
+                    ['Puro: Cantidad: ' + nro_puro + ' - Porcentaje', nro_puro],
                         {
-                          name: 'CENS: ' + nro_cens + ' - Porcentaje',
+                            name: 'CENS: Cantidad: ' + nro_cens + ' - Porcentaje',
                           y: nro_cens,
                           sliced: true,
                           selected: true
@@ -317,8 +298,7 @@ var GraficoPorModalidad = function (titulo, nro_cens, nro_puro) {
 
 
  var GraficoPorCiclo = function (titulo, nro_sinciclo, nro_primero, nro_segundo, nro_tercero) {
-
-              //2 - Armo el Dibujo con los Valores
+              
               $('#dibujo_grafico').highcharts({
                   chart: {
                       plotBackgroundColor: null,
@@ -348,10 +328,10 @@ var GraficoPorModalidad = function (titulo, nro_cens, nro_puro) {
                       name: 'Porcentaje de Alumnos',
                       data: [
                     ['Sin Ciclo: Cantidad: ' + nro_sinciclo + ' - Porcentaje', nro_sinciclo],
-                    ['1°: ' + nro_primero + ' - Porcentaje', nro_primero],
-                     ['2°: ' + nro_segundo + ' - Porcentaje', nro_segundo],
+                    ['1° Ciclo: Cantidad: ' + nro_primero + ' - Porcentaje', nro_primero],
+                    ['2° Ciclo: Cantidad: ' + nro_segundo + ' - Porcentaje', nro_segundo],
                         {
-                            name: '3°: ' + nro_tercero + ' - Porcentaje',
+                            name: '3° Ciclo: Cantidad: ' + nro_tercero + ' - Porcentaje',
                             y: nro_tercero,
                             sliced: true,
                             selected: true
@@ -392,7 +372,6 @@ var BorrarContenido = function () {
                                             '<input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Alumnos" /> ' +
                                             '</div>'
                                             );
-
 }
 
 //***********************PARÁMETROS***********************//
