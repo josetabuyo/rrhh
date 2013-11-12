@@ -81,6 +81,15 @@ namespace General.Repositorios
                 return row.GetDateTime("FechaNacimiento");
         }
 
+        private DateTime ObtenerFechaDeIngreso(RowDeDatos row)
+        {
+            if (row.GetObject("FechaIngresoMDS") is DBNull)
+            {
+                return DateTime.Today;
+            }
+            return row.GetDateTime("FechaIngresoMDS");
+        }
+
 
         private static List<Alumno> CorteDeControlAreasDeAlumno(List<Alumno> alumnos, Alumno alumno)
         {
@@ -162,6 +171,8 @@ namespace General.Repositorios
                      Telefono = row.GetString("Telefono"),
                      Mail = row.GetString("Email_Personal"),
                      Direccion = row.GetString("Direccion"),
+                     FechaDeNacimiento = ObtenerFechaDeNacimiento(row),
+                     FechaDeIngreso = ObtenerFechaDeIngreso(row),
                      Areas = areas_alumno,
                      Modalidad = modaldidad,
                      Baja = baja

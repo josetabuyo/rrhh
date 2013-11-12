@@ -1335,6 +1335,12 @@ namespace General
 
         }
 
+        public static List<DateTime> DiasDeCursada()
+        {
+            return new List<DateTime>() { new DateTime(2013, 11, 10), new DateTime(2013, 11, 11), new DateTime(2013, 11, 12), new DateTime(2013, 11, 13) };
+
+        }
+
 
         public static EspacioFisico EspacioFisico()
         {
@@ -1398,9 +1404,9 @@ namespace General
         public static List<General.Observacion> Observaciones()
         {
             List<Observacion> observaciones = new List<Observacion>();
-            var obser1 = new Observacion(1, new DateTime(2012, 10, 13), "Fines CENS", "Mariano", "MDS", "Cursada", "Mariano", "Lala", "Sasa", new DateTime(2013, 10, 13), "Elena");
-            var obser2 = new Observacion(2, new DateTime(2013, 10, 13), "Fines Puro", "Leonardo", "MDS", "Cursada", "Mariano", "Lala", "Sasa", new DateTime(2013, 10, 13), "Elena");
-            var obser3 = new Observacion(3, new DateTime(2013, 10, 13), "Fines CENS", "Cholo", "MDS", "Libre", "Mariano", "Lala", "Sasa", new DateTime(2013, 10, 13), "Elena");
+            var obser1 = new Observacion(1, new DateTime(2012, 10, 13), "Fines CENS", "Mariano", "MDS", "Cursada", "Mariano", "Lala", "Sasa", new DateTime(2012, 10, 13), "Elena");
+            var obser2 = new Observacion(2, new DateTime(2012, 10, 13), "Fines Puro", "Leonardo", "MDS", "Cursada", "Mariano", "Lala", "Sasa", new DateTime(2012, 10, 13), "Elena");
+            var obser3 = new Observacion(3, new DateTime(2012, 10, 13), "Fines CENS", "Cholo", "MDS", "Libre", "Mariano", "Lala", "Sasa", new DateTime(2012, 10, 13), "Elena");
             var obser4 = new Observacion(4, new DateTime(2013, 10, 13), "Fines CENS", "Stefania", "MDS", "Expulsion", "Mariano", "Saco un arma en clase y amenazo con matar a todos", "Llamamos a la policia y se lo llevaron a comer una pizza para calmarlo", new DateTime(2013, 09, 15), "Elena");
 
             observaciones.Add(obser1);
@@ -1409,6 +1415,18 @@ namespace General
             observaciones.Add(obser4);
 
             return observaciones;
+        }
+
+        public static List<AcumuladorAsistencia> Asistencias()
+        {
+            AcumuladorAsistencia asistencia0 = new AsistenciaDiaCursado(1, "2", 4, new DateTime(2013, 11, 10), AlumnoFer().Id, 14);
+            AcumuladorAsistencia asistencia1 = new AsistenciaDiaCursado(2, "3", 4, new DateTime(2013, 11, 11), AlumnoFer().Id, 14);
+            AcumuladorAsistencia asistencia2 = new AsistenciaDiaCursado(3, "0", 4, new DateTime(2013, 11, 12), AlumnoFer().Id, 14);
+            AcumuladorAsistencia asistencia3 = new AsistenciaDiaCursado(4, "2", 4, new DateTime(2013, 11, 13), AlumnoFer().Id, 14);
+            AcumuladorAsistencia asistencia4 = new AsistenciaDiaCursado(5, "4", 4, new DateTime(2013, 11, 10), AlumnoGer().Id, 14);
+            AcumuladorAsistencia asistencia5 = new AsistenciaDiaCursado(6, "0", 4, new DateTime(2013, 11, 11), AlumnoGer().Id, 14);
+
+            return  new List<AcumuladorAsistencia>() { asistencia0, asistencia1, asistencia2, asistencia3, asistencia4, asistencia5 };
         }
     }
 }

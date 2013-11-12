@@ -10,10 +10,29 @@ using NMock2;
 
 namespace TestViaticos
 {
+   
 
     [TestClass]
     public class TestArticuladores
     {
+        Curso un_curso;
+        List<Alumno> lista_alumnos_nuevos;
+        Alumno un_alumno_del_curso;
+        Alumno un_alumno_nuevo;
+        List<AcumuladorAsistencia> acumulador_asistencias;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            un_curso = TestObjects.UnCursoConAlumnos();
+            lista_alumnos_nuevos = TestObjects.AlumnosNuevos();
+            un_alumno_del_curso = TestObjects.UnAlumnoDelCurso();
+            un_alumno_nuevo = TestObjects.UnAlumnoNuevo();
+            acumulador_asistencias = TestObjects.Asistencias();
+
+        }
+
+
         [TestMethod]
         public void deberia_poder_preguntarle_al_articulador_si_Zambri_quedo_libre_para_una_materia_del_cens_y_deberia_decirme_que_no()
         {
@@ -245,9 +264,41 @@ namespace TestViaticos
         [TestMethod]
         public void deberia_saber_las_asistencias_de_un_alumno_por_curso()
         {
-           //FC: ESPERAR EL REFACTOR DE JORGE
+//            string source = @" |id   |FechaAsistencia                 |Valor    |IdCurso    |idAlumno 
+//                               |1    |2013-11-10 21:36:35.077         |'2'        |14         |281941      
+//                               |2    |2013-11-11 21:36:35.077         |'3'        |14         |281941      
+//                               |3    |2013-11-12 21:36:35.077         |'0'        |14         |281941      
+//                               |4    |2013-11-13 21:36:35.077         |'2'        |14         |281941           
+//                               |5    |2013-11-10 21:36:35.077         |'4'        |14         |287872           
+//                               |6    |2013-11-11 21:36:35.077         |'0'        |14         |287872           ";
+
+            
+//            IConexionBD conexion = TestObjects.ConexionMockeada();
+//            var resultado_sp = TablaDeDatos.From(source);
+//            var repo = new RepositorioDeAsistencias(conexion);
+
+            var repo_mock = TestObjects.RepoAsistenciasMockeado();
+
+
+            Expect.AtLeastOnce.On(repo_mock).Method("GetAsistencias").WithAnyArguments().Will(Return.Value(acumulador_asistencias));
+
+            var articulador = new Articulador();
+            Assert.AreEqual(4, articulador.AsistenciasParaUnAlumnoYCurso(TestObjects.AlumnoFer(), un_curso, repo_mock).Count); 
 
         }
+
+
+        [TestMethod]
+        public void deberia_saber_el_total_de_horas_catedra_de_un_curso()
+        {
+            //var repo_mock = TestObjects.RepoAsistenciasMockeado();
+
+            //Expect.AtLeastOnce.On(repo_mock).Method("GetAsistencias").WithAnyArguments().Will(Return.Value(acumulador_asistencias));
+
+            var articulador = new Articulador();
+            Assert.AreEqual(3, articulador.TotalDeHorasCatedra(un_curso,TestObjects.DiasDeCursada())); 
+        }
+
 
     }
 }
