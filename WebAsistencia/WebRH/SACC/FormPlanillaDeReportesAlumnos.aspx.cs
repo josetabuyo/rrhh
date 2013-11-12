@@ -39,20 +39,26 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
         if (accion == "modalidad")
         {
             CompletarComboDeModalidades();
-            cursos = ws_viaticos.GetCursosDto((Usuario)Session[ConstantesDeSesion.USUARIO]).ToList();
-            this.cursosJSON.Value = JsonConvert.SerializeObject(cursos);
-            foreach (CursoDto curso in cursos)
-            {
-                //alumnos.AddRange(curso.Alumnos.ToList());
-            }
+            
+            //cursos = ws_viaticos.GetCursosDto((Usuario)Session[ConstantesDeSesion.USUARIO]).ToList();
+            //this.cursosJSON.Value = JsonConvert.SerializeObject(cursos);
+            //foreach (CursoDto curso in cursos)
+            //{
+            //    //alumnos.AddRange(curso.Alumnos.ToList());
+            //}
         }
 
-        if (accion == "organismo")
+        else if (accion == "organismo")
         {
             CompletarComboDeOrganismos();
-            alumnos = ws_viaticos.ReporteAlumnosPorOrganismo("01/01/1900", "31/12/9999").ToList();
+           
         }
-        
+        else if (accion == "ciclo")
+        {
+            CompletarComboDeCiclos();
+        }
+
+        alumnos = ws_viaticos.ReporteAlumnos("01/01/1900", "31/12/9999").ToList();
         this.MostrarAlumnosEnLaGrilla(alumnos.ToList());
     }
 
@@ -197,6 +203,30 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
             ListItem unListItem = new ListItem();
             unListItem.Value = o.Id.ToString();
             unListItem.Text = o.Descripcion;
+            this.cmbCampo.Items.Add(unListItem);
+        }
+    }
+
+
+    private void CompletarComboDeCiclos()
+    {
+        this.cmbCampo.Items.Clear();
+        ListItem todos = new ListItem();
+        todos.Value = "-1";
+        todos.Text = "Todos";
+        this.cmbCampo.Items.Add(todos);
+        this.cmbCampo.Visible = true;
+
+        this.tipo_busqueda.Value = "1";
+
+        var servicio = new WSViaticos.WSViaticosSoapClient();
+        var ciclos = servicio.Ciclos();
+
+        foreach (Ciclo o in ciclos)
+        {
+            ListItem unListItem = new ListItem();
+            unListItem.Value = o.Id.ToString();
+            unListItem.Text = o.Nombre;
             this.cmbCampo.Items.Add(unListItem);
         }
     }

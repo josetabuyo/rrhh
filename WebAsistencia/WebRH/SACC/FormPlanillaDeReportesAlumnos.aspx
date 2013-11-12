@@ -129,25 +129,26 @@
 
     var BuscarPor = function () {
 
-        tipoBusqueda = $("#accion").val();
+//        tipoBusqueda = $("#accion").val();
 
-        if (tipoBusqueda == "modalidad") {
+//        if (tipoBusqueda == "modalidad") {
 
-            BuscarPorModalidad();
+//            BuscarPorAlumnos();
 
-        } else if (tipoBusqueda == "organismo") {
+//        } else if (tipoBusqueda == "organismo") {
 
-            BuscarPorOrganismo();
+//            BuscarPorAlumnos();
 
-        } else if (tipoBusqueda == "ciclo") {
+//        } else if (tipoBusqueda == "ciclo") {
 
-            BuscarPorCiclo();
+//            BuscarPorAlumnos();
 
-        } else if (tipoBusqueda == "materia") {
+//        } else if (tipoBusqueda == "materia") {
 
-            BuscarPorMateria();
-        }
+//            BuscarPorMateria();
+//        }
 
+        BuscarPorAlumnos();
     };
 
    var BuscarPorOrganismo = function () {
@@ -163,6 +164,37 @@
        
        var modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
        modulo_inscripcion.BuscarPorOrganismo();
+   };
+
+   var BuscarPorModalidad = function () {
+
+       var items_pantalla = {
+           alumnos: JSON.parse($('#alumnosJSON').val()),
+           planillaAlumnosDisponibles: $("<div>"),
+           cmbCombo: $("#cmbCampo"),
+           contenedorAlumnosDisponibles: $('#grillaAlumnosDisponibles'),
+           fechaDesde: $('#idFechaDesde'),
+           fechaHasta: $('#idFechaHasta')
+       }
+
+       var modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
+       modulo_inscripcion.BuscarPorModalidad();
+   };
+
+
+   var BuscarPorCiclo = function () {
+
+       var items_pantalla = {
+           alumnos: JSON.parse($('#alumnosJSON').val()),
+           planillaAlumnosDisponibles: $("<div>"),
+           cmbCombo: $("#cmbCampo"),
+           contenedorAlumnosDisponibles: $('#grillaAlumnosDisponibles'),
+           fechaDesde: $('#idFechaDesde'),
+           fechaHasta: $('#idFechaHasta')
+       }
+
+       var modulo_inscripcion = new PaginaReporteAlumnos(items_pantalla);
+       modulo_inscripcion.BuscarPorCiclo();
    };
 
 

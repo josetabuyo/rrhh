@@ -1466,7 +1466,7 @@ public class WSViaticos : System.Web.Services.WebService
     //}
 
     [WebMethod]
-    public List<AlumnoDto> ReporteAlumnosPorOrganismo(string fecha_desde, string fecha_hasta)
+    public List<AlumnoDto> ReporteAlumnos(string fecha_desde, string fecha_hasta)
     {
         Reportes reportes = new Reportes();
         List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
@@ -1500,6 +1500,7 @@ public class WSViaticos : System.Web.Services.WebService
             alumno_dto.Modalidad = alumno.Modalidad;
             alumno_dto.Telefono = alumno.Telefono;
             alumno_dto.Organismo = alumno.Organismo.Id;
+            alumno_dto.CicloCursado = alumno.CicloCursado.Id.ToString();
 
             alumnos_dto.Add(alumno_dto);
         }
