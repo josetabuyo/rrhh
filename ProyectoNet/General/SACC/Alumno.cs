@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using General;
 
 namespace General
 {
@@ -17,6 +18,7 @@ namespace General
         private string _mail;
         private string _direccion;
         private string _lugar_de_trabajo;
+        private Organismo _organismo;
         private DateTime _fecha_de_nacimiento;
         private DateTime _fecha_de_ingreso;
         private int _baja;
@@ -31,6 +33,7 @@ namespace General
         public string Mail { get { return _mail; } set { _mail = value; } }
         public string Direccion { get { return _direccion; } set { _direccion = value; } }
         public string LugarDeTrabajo{ get { return _lugar_de_trabajo; } set { _lugar_de_trabajo = value; } }
+        public Organismo Organismo { get { return _organismo; } set { _organismo = value; } }
         public DateTime FechaDeNacimiento { get { return _fecha_de_nacimiento; } set { _fecha_de_nacimiento = value; } }
         public EstadoDeAlumno EstadoDeAlumno { get { return _estado_de_alumno; } set { _estado_de_alumno = value; } }
         public Ciclo CicloCursado { get { return _ciclo_cursado; } set { _ciclo_cursado = value; } }
@@ -38,8 +41,10 @@ namespace General
         public int Baja { get { return _baja; } set { _baja = value; } }
 
         public Alumno() { }
+    
+       
 
-        public Alumno(int id, string nombre, string apellido, int documento, string telefono, string mail, string direccion, List<Area> areas, Modalidad modalidad, string lugar_de_trabajo, DateTime fecha_de_nacimiento, string estado_de_cursada, Ciclo ciclo_en_curso, DateTime fecha_de_ingreso)
+        public Alumno(int id, string nombre, string apellido, int documento, string telefono, string mail, string direccion, List<Area> areas, Modalidad modalidad, string lugar_de_trabajo, DateTime fecha_de_nacimiento, string estado_de_cursada, Ciclo ciclo_en_curso, DateTime fecha_de_ingreso, Organismo organismo)
         {
             this._id = id;
             this._nombre = nombre;
@@ -55,6 +60,7 @@ namespace General
             //this._estado_cursada = estado_de_cursada;
             this._ciclo_cursado = ciclo_en_curso;
             this._fecha_de_ingreso = fecha_de_ingreso;
+            this._organismo = organismo;
         }
 
 

@@ -22,6 +22,7 @@
                       </li>
                     </ul>
                     <ul class="nav pull-right">
+                     <li><a href="FormPlanillaDeReportesAlumnos.aspx">Reportes</a></li>
                        <li><a href="FormPlanillaObservaciones.aspx">Observaciones</a></li>
                        <li class="dropdown" id="menu_parametria" runat="server">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Parametr&iacute;a <b class="caret"></b></a>

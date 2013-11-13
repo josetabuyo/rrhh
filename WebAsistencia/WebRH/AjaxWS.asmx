@@ -146,6 +146,24 @@ public class AjaxWS : System.Web.Services.WebService {
         return backEndService.InscribirAlumnosACurso(lista_alumnos_para_inscribir.ToArray(), id_curso, usuarioLogueado);
     }
 
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string ReporteAlumnosDeCursosConFecha(string fecha_desde, string fecha_hasta)
+    //{
+        
+    //    var aaa = backEndService.ReporteAlumnosDeCursosConFecha(fecha_desde, fecha_hasta); //ver si cambiar por List<AlumnoDto>
+    //    var  bbb =  Newtonsoft.Json.JsonConvert.SerializeObject(aaa);
+    //    return bbb;
+    //}
+
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string ReporteAlumnos(string fecha_desde, string fecha_hasta)
+    {   
+        return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.ReporteAlumnos(fecha_desde, fecha_hasta));
+    }
+
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string CambiarPassword(string pass_actual, string pass_nueva)

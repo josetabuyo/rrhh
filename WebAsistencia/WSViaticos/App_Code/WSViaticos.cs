@@ -912,6 +912,8 @@ public class WSViaticos : System.Web.Services.WebService
         return null;
     }
 
+
+
     [WebMethod]
     public PlanillaAsistenciasDto GetPlanillaAsistencias(int id_curso, DateTime fecha_desde, DateTime fecha_hasta)
     {
@@ -1081,10 +1083,10 @@ public class WSViaticos : System.Web.Services.WebService
             Mail = alumno.Mail,
             Direccion = alumno.Direccion,
             LugarDeTrabajo = alumno.LugarDeTrabajo,
-            FechaDeNacimiento = alumno.FechaDeNacimiento,
+            FechaDeNacimiento = alumno.FechaDeNacimiento.ToShortDateString(),
             EstadoDeAlumno = alumno.EstadoDeAlumno.Descripcion,
             CicloCursado = alumno.CicloCursado.Nombre,
-            FechaDeIngreso = alumno.FechaDeIngreso,
+            FechaDeIngreso = alumno.FechaDeIngreso.ToShortDateString(),
             Baja = alumno.Baja
 
         };
@@ -1457,10 +1459,110 @@ public class WSViaticos : System.Web.Services.WebService
         return JsonConvert.SerializeObject(docentes_dto);
     }
 
+
+    [WebMethod]
+    public List<AlumnoDto> ReporteAlumnosPorModalidad(Modalidad modalidad)
+    {
+         Reportes reportes = new Reportes();
+         List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
+         var alumnos_reporte = reportes.ObtenerAlumnosQueEstanCursandoConModalidad(modalidad, RepositorioDeCursos());
+         foreach (Alumno alumno in alumnos_reporte)
+         {
+             
+             var alumno_dto = new AlumnoDto();
+             alumno_dto.Id = alumno.Id;
+             alumno_dto.Apellido = alumno.Apellido;
+             alumno_dto.Nombre = alumno.Nombre;
+             alumno_dto.Documento = alumno.Documento;
+             alumno_dto.Modalidad = alumno.Modalidad;
+             alumno_dto.Telefono = alumno.Telefono;
+             alumno_dto.Organismo = alumno.Organismo.Id;
+
+             alumnos_dto.Add(alumno_dto);
+         } 
+
+        return alumnos_dto;
+    }
+
+    //[WebMethod]
+    //public List<AlumnoDto> ReporteAlumnosDeCursos(DateTime fecha_desde, DateTime fecha_hasta)
+    //{
+    //    Reportes reportes = new Reportes();
+    //    List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
+    //    var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(fecha_desde, fecha_hasta, RepositorioDeCursos());
+    //    foreach (Alumno alumno in alumnos_reporte)
+    //    {
+    //        var alumno_dto = new AlumnoDto();
+    //        alumno_dto.Id = alumno.Id;
+    //        alumno_dto.Apellido = alumno.Apellido;
+    //        alumno_dto.Nombre = alumno.Nombre;
+    //        alumno_dto.Documento = alumno.Documento;
+    //        alumno_dto.Modalidad = alumno.Modalidad;
+    //        alumno_dto.Telefono = alumno.Telefono;
+    //        alumno_dto.Organismo = alumno.Organismo.Id;
+
+    //        alumnos_dto.Add(alumno_dto);
+    //    }
+
+    //    return alumnos_dto;
+    //}
+
+    [WebMethod]
+    public List<AlumnoDto> ReporteAlumnos(string fecha_desde, string fecha_hasta)
+    {
+        Reportes reportes = new Reportes();
+        List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
+
+
+        DateTime fecha_desde_formateada;
+        DateTime.TryParse(fecha_desde, out fecha_desde_formateada);
+
+        DateTime fecha_hasta_formateada;
+        DateTime.TryParse(fecha_hasta, out fecha_hasta_formateada);
+
+        if (fecha_desde_formateada.Year.Equals(0001))
+        {
+            fecha_desde_formateada = new DateTime(1900, 01, 01);
+        }
+
+        if (fecha_hasta_formateada.Year.Equals(0001))
+        {
+            fecha_hasta_formateada = new DateTime(1900, 01, 01);
+        }
+
+
+        var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(fecha_desde_formateada, fecha_hasta_formateada, RepositorioDeCursos());
+        foreach (Alumno alumno in alumnos_reporte)
+        {
+            var alumno_dto = new AlumnoDto();
+            alumno_dto.Id = alumno.Id;
+            alumno_dto.Apellido = alumno.Apellido;
+            alumno_dto.Nombre = alumno.Nombre;
+            alumno_dto.Documento = alumno.Documento;
+            alumno_dto.Modalidad = alumno.Modalidad;
+            alumno_dto.Telefono = alumno.Telefono;
+            alumno_dto.Organismo = alumno.Organismo.Id;
+            alumno_dto.CicloCursado = alumno.CicloCursado.Id.ToString();
+
+            alumnos_dto.Add(alumno_dto);
+        }
+
+        return alumnos_dto;
+    }
+    
+    
+
+
     [WebMethod]
     public Modalidad[] Modalidades()
     {
         return RepoModalidades().GetModalidades().ToArray();
+    }
+
+    [WebMethod]
+    public Organismo[] Organismos()
+    {
+        return RepoAlumnos().GetOrganismos().ToArray();
     }
 
     [WebMethod]
@@ -1818,6 +1920,79 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public List<FichaAlumnoAsistenciaPorCursoDto> GetAsistenciasDelAlumno(int id_alumno)
+    {
+        var articulador = new Articulador();
+        var detalle_asistencias_alumno_por_curso = new List<FichaAlumnoAsistenciaPorCursoDto>();
+        
+        var alumno = RepoAlumnos().GetAlumnoByDNI(id_alumno);
+        var total_cursos = RepositorioDeCursos().GetCursos();
+        var cursos_del_alumno = RepositorioDeCursos().GetCursosParaElAlumno(alumno, total_cursos);
+
+        var asistencias = RepoAsistencias().GetAsistencias();
+        
+        foreach (var curso in cursos_del_alumno)
+        {
+            //int asist_per = 0;
+            //int inasist_per = 0;
+            int asist_acum = 0;
+            int inasist_acum = 0;
+            int dias_no_cursados_acum = 0;
+            var asist_dto = new List<AcumuladorDto>();
+            var calendario = articulador.CalendarioDelCurso(curso);
+            var dias_de_cursada = articulador.GetDiasDeCursadaEntre(curso.FechaInicio, curso.FechaFin, calendario);
+            var total_horas_catedra = articulador.TotalDeHorasCatedra(curso, dias_de_cursada);
+            //ver asistencias a dto
+            //var asist = asistencias.FindAll(x => x.IdCurso.Equals(curso.Id) && x.IdAlumno.Equals(a.Id) && x.Fecha >= fecha_inicio_planilla && x.Fecha <= fecha_fin_planilla);
+            var asist_totales = asistencias.FindAll(asis => asis.IdCurso.Equals(curso.Id) && asis.IdAlumno.Equals(alumno.Id));
+            //foreach (var item in asist)
+            //{
+            //    asist_per = item.AcumularHorasAsistidas(asist_per);
+            //    inasist_per = item.AcumularHorasNoAsistidas(inasist_per);
+            //    //
+            //    asist_dto.Add(new AcumuladorDto() { Id = item.Id, Fecha = item.Fecha, IdAlumno = item.IdAlumno, IdCurso = item.IdCurso, Valor = item.Valor });
+            //}
+            foreach (var item in asist_totales)
+            {
+                asist_acum = item.AcumularHorasAsistidas(asist_acum);
+                inasist_acum = item.AcumularHorasNoAsistidas(inasist_acum);
+                if (item.Valor.Equals("-"))
+	            {
+                    dias_no_cursados_acum += 1;
+	            }
+                 
+            }
+
+            var detalle_asist = new FichaAlumnoAsistenciaPorCursoDto() 
+            {
+                Materia = curso.Materia.Nombre,
+                Ciclo = curso.Materia.Ciclo.Nombre,
+                AsistenciasTotal = asist_acum,
+                InasistenciasTotal = inasist_acum,
+                TotalHorasCatedra = total_horas_catedra,
+                FechaInicio = curso.FechaInicio.ToShortDateString(),
+                FechaFin = curso.FechaFin.ToShortDateString(),
+                DiasSinCursarTotal = dias_no_cursados_acum,
+            };
+
+            //var detalle_asist = new DetalleAsistenciasDto()
+            //{
+            //    IdAlumno = a.Id,
+            //    IdCurso = curso.Id,
+            //    Asistencias = asist_dto.ToArray(),
+            //    AsistenciasPeriodo = asist_per,
+            //    InasistenciasPeriodo = inasist_per,
+            //    AsistenciasTotal = asist_acum,
+            //    InasistenciasTotal = inasist_acum
+            //};
+            detalle_asistencias_alumno_por_curso.Add(detalle_asist);
+        }
+
+        return detalle_asistencias_alumno_por_curso;
+
+    }
+
+    [WebMethod]
     public List<FichaAlumnoEvaluacionPorCursoDto> GetEvaluacionesDeAlumno(int dni)
     {
         
@@ -1979,7 +2154,8 @@ public class WSViaticos : System.Web.Services.WebService
             if (fecha_carga.Year.Equals(0001))
             {
                 fecha_carga = new DateTime(1900, 01, 01);
-            } else if (fecha_rta.Year.Equals(0001))
+            } 
+            if (fecha_rta.Year.Equals(0001))
             {
                 fecha_rta = new DateTime(1900, 01, 01);
             }

@@ -15,12 +15,17 @@ namespace General
         public string Mail { get; set; }
         public string Direccion { get; set; }
         public string LugarDeTrabajo { get; set; }
-        public DateTime FechaDeNacimiento { get; set; }
+        public string FechaDeNacimiento { get; set; }
         public string EstadoDeCursada { get; set; }
         public string EstadoDeAlumno { get; set; }
+        public int Organismo { get; set; }
         public string CicloCursado { get; set; }
-        public DateTime FechaDeIngreso { get; set; }
+        public string FechaDeIngreso { get; set; }
         public int Baja { get; set; }
+
+        public AlumnoDto() { }
+    
     }
-      
+        
+    
 }
