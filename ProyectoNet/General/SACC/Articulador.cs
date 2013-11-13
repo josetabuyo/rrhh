@@ -95,22 +95,28 @@ namespace General
             return ausencias_computables;
         }
 
-        private int TotalDeHorasCatedra(Curso curso, List<DateTime> dias_de_cursada)
+        public int TotalDeHorasCatedra(Curso curso, List<DateTime> dias_de_cursada)
         {
             var total_horas_catedra = 0;
+            var horarios_de_cursada = curso.GetHorariosDeCursada();
             dias_de_cursada.ForEach(d =>
             {
-                total_horas_catedra += curso.GetHorariosDeCursada().Find(h => h.Dia == d.DayOfWeek).HorasCatedra;
+                var horario = horarios_de_cursada.Find(h => h.Dia == d.DayOfWeek);
+                if (horario  != null)
+                {
+                    total_horas_catedra += horario.HorasCatedra;
+                }
+               
             });
             return total_horas_catedra;
         }
 
-        private List<DateTime> GetDiasDeCursadaEntre(DateTime fecha_desde, DateTime fecha_hasta, CalendarioDeCurso calendario)
+        public List<DateTime> GetDiasDeCursadaEntre(DateTime fecha_desde, DateTime fecha_hasta, CalendarioDeCurso calendario)
         {
             return calendario.DiasACursarSinIncluirFeriadosEntre(fecha_desde, fecha_hasta).Select(dia => dia.Dia()).ToList();
         }
 
-        private static CalendarioDeCurso CalendarioDelCurso(Curso curso)
+        public CalendarioDeCurso CalendarioDelCurso(Curso curso)
         {
             ManagerDeCalendarios manager_de_calendarios = new ManagerDeCalendarios(new CalendarioDeFeriados());
             manager_de_calendarios.AgregarCalendarioPara(curso);
@@ -225,5 +231,13 @@ namespace General
 
             return "Adeuda Final";
         }
+
+        public List<AcumuladorAsistencia> AsistenciasParaUnAlumnoYCurso(Alumno alumno, Curso curso, IRepositorioDeAsistencias repo_asistencias)
+        {
+            var asistencias = repo_asistencias.GetAsistencias();
+            return asistencias.FindAll(asistencia => asistencia.IdCurso.Equals(curso.Id) && asistencia.IdAlumno.Equals(alumno.Id));
+        }
+
+       
     }
 }

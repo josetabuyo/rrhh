@@ -33,3 +33,31 @@ public class FichaAlumnoEvaluacionPorCursoDto
     public EvaluacionDto[] Evaluaciones { get; set; }
     
 }
+
+public class FichaAlumnoAsistenciaPorCursoDto
+{
+
+    public int CodigoError { get; set; }
+    public string MensajeError { get; set; }
+    //public int Id { get; set; }
+    //public string Nombre { get; set; }
+    public string Materia { get; set; }
+    
+    public string Ciclo { get; set; }
+    //public Alumno Alumno { get; set; }
+    //public string Estado { get; set; }
+    public string FechaInicio { get; set; }
+    //public string CalificacionFinal { get; set; }
+    public string FechaFin { get; set; }
+    //public EvaluacionDto[] Evaluaciones { get; set; }
+    public int TotalHorasCatedra { get; set; }
+    //public int IdAlumno { get; set; }
+    //public int IdCurso { get; set; }
+    public AcumuladorDto[] Asistencias { get; set; }
+    //public int AsistenciasPeriodo { get; set; }
+    public int AsistenciasTotal { get; set; }
+    //public int InasistenciasPeriodo { get; set; }
+    public int InasistenciasTotal { get; set; }
+    public int DiasSinCursarTotal { get; set; }
+
+}

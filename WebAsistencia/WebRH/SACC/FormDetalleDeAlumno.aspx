@@ -102,7 +102,9 @@
         </div>
         <div id="tab2" class="Contenido">
             <h2 class="sub_eval">Listado de Asistencia por Curso</h2>
-            <h2 class="sub_eval">Detalle de Asistencia por Curso</h2>
+            <div id="ContenedorPlanillaAsistencias"  runat="server"></div>
+           <%-- <h2 class="sub_eval">Detalle de Asistencia por Curso</h2>
+            <div id="ContenedorPlanillaAsistenciasDetalle" runat="server"></div>--%>
         </div>
         <div id="tab3" class="Contenido">
             <div style=" width:55%; margin-right:20px; float:left;">
@@ -136,6 +138,7 @@
 
      <asp:HiddenField ID="alumnoJSON" runat="server" EnableViewState="true"/>
      <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
+     <asp:HiddenField ID="asistenciasJSON" runat="server" EnableViewState="true"/>
      <asp:HiddenField ID="evaluacionesJSON" runat="server" EnableViewState="true"/>
 
     <%= Referencias.Javascript("../") %>
@@ -151,11 +154,16 @@
                 alumno: JSON.parse($('#alumnoJSON').val()),
                 cursos_inscriptos: JSON.parse($('#cursosJSON').val()),
                 evaluaciones_por_curso: JSON.parse($('#evaluacionesJSON').val()),
+                asistencias_por_curso: JSON.parse($('#asistenciasJSON').val()),
                 contenedorPlanillaCursos: $('#ContenedorPlanillaCursos'),
                 contenedorPlanillaEvaluaciones: $('#ContenedorPlanillaEvaluaciones'),
                 contenedorPlanillaEvaluacionesDetalle: $('#ContenedorPlanillaEvaluacionesDetalle'),
+                contenedorPlanillaAsistencias: $('#ContenedorPlanillaAsistencias'),
+                contenedorPlanillaAsistenciasDetalle: $('#ContenedorPlanillaAsistenciasDetalle'),
                 sub_eval_2: $("#sub_eval_nota"),
                 PlanillaCursos: $("<div>"),
+                PlanillaAsistencias: $("<div>"),
+                PlanillaAsistenciasDetalle: $("<div>"),
                 PlanillaEvaluaciones: $("<div>"),
                 PlanillaEvaluacionesDetalle: $("<div>"),
                 ficha_nombre: $('#nombre'),

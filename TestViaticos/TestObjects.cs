@@ -349,25 +349,25 @@ namespace General
         }
 
         private static IRepositorioDeAlumnos repo_alumnos_mockeados;
- 
+
         public static IRepositorioDeAlumnos RepoAlumnosMockeado()
         {
             if (repo_alumnos_mockeados == null)
             {
-            var mocks = new Mockery();
-            repo_alumnos_mockeados =  mocks.NewMock<IRepositorioDeAlumnos>();
+                var mocks = new Mockery();
+                repo_alumnos_mockeados = mocks.NewMock<IRepositorioDeAlumnos>();
             }
             return repo_alumnos_mockeados;
         }
 
         private static IRepositorioDeCursos repo_cursos_mockeados;
-       
+
         public static IRepositorioDeCursos RepoCursosMockeado()
         {
             if (repo_cursos_mockeados == null)
             {
-            var mocks = new Mockery();
-            repo_cursos_mockeados = mocks.NewMock<IRepositorioDeCursos>();
+                var mocks = new Mockery();
+                repo_cursos_mockeados = mocks.NewMock<IRepositorioDeCursos>();
             }
             return repo_cursos_mockeados;
         }
@@ -954,9 +954,9 @@ namespace General
             List<Asistente> lista_de_asistentes_area3 = new List<Asistente>();
 
             List<DatoDeContacto> datos_de_contacto = new List<DatoDeContacto>();
-            var lista_de_telefonos = new List<string>(){ "4333-1111", "4333-2222", "4333-3333"};
-            var lista_de_mails = new List<string>(){"area1@ministerio.gob.ar", "area2@ministerio.gob.ar", "area3@mds.gob.ar"};
-            var lista_de_faxes = new List<string>(){"4888-1111", "4999-2222", "4999-3333"};
+            var lista_de_telefonos = new List<string>() { "4333-1111", "4333-2222", "4333-3333" };
+            var lista_de_mails = new List<string>() { "area1@ministerio.gob.ar", "area2@ministerio.gob.ar", "area3@mds.gob.ar" };
+            var lista_de_faxes = new List<string>() { "4888-1111", "4999-2222", "4999-3333" };
 
             DatoDeContacto dato_de_telefonos = new DatoDeContacto(1, "Teléfono", "4333-1111", 1);
             DatoDeContacto dato_de_telefonos2 = new DatoDeContacto(1, "Teléfono", "4333-1111", 1);
@@ -967,7 +967,7 @@ namespace General
             DatoDeContacto dato_de_mails = new DatoDeContacto(3, "Mail", "area1@ministerio.gob.ar", 1);
             DatoDeContacto dato_de_mails2 = new DatoDeContacto(3, "Mail", "area1@ministerio.gob.ar", 1);
             DatoDeContacto dato_de_mails3 = new DatoDeContacto(3, "Mail", "area1@ministerio.gob.ar", 1);
-            
+
             datos_de_contacto.Add(dato_de_telefonos);
             datos_de_contacto.Add(dato_de_mails);
             datos_de_contacto.Add(dato_de_faxes);
@@ -1007,9 +1007,9 @@ namespace General
         public static TablaDeDatos TablaDeAliasConDosAlias()
         {
 
-            string source2 = @" |Id     	|Id_Area        |Alias          |
-                                |1	        |3              |area de fabi   |
-                                |2	        |4              |area de marta  |";
+            string source2 = @" |Id             |Id_Area        |Alias          |
+                                |1                |3              |area de fabi   |
+                                |2                |4              |area de marta  |";
 
 
             return TablaDeDatos.From(source2);
@@ -1071,14 +1071,14 @@ namespace General
             return new Documento(4, new TipoDeDocumentoSICOI(1, "nota"), "001", new CategoriaDeDocumentoSICOI(1, "contratacion"), AreaDeFabi(), "extracto bleh");
         }
 
-        public static Modalidad ModalidadFinesPuro() 
+        public static Modalidad ModalidadFinesPuro()
         {
             return new Modalidad(1, "Fines Puro", InstanciasDeEvaluacion());
         }
 
         public static Ciclo PrimerCiclo()
         {
-            return new Ciclo(1,"1er Ciclo");
+            return new Ciclo(1, "1er Ciclo");
         }
 
         public static Modalidad ModalidadCens()
@@ -1096,7 +1096,7 @@ namespace General
             return new Ciclo(3, "Tercer Ciclo");
         }
 
-        public static Organismo OrganismoMDS() 
+        public static Organismo OrganismoMDS()
         {
             return new Organismo(1, "MDS");
         }
@@ -1111,19 +1111,19 @@ namespace General
             return new Organismo(3, "Fines");
         }
 
-        public static Alumno AlumnoFer() 
+        public static Alumno AlumnoFer()
         {
             return new Alumno(281941, "Fer", "Caino", 31046911, "", "", "", areas, ModalidadCens(), "Oficina Faby", DateTime.Today, "Cursando", PrimerCiclo(), DateTime.Today, OrganismoMDS());
         }
-        public static Alumno AlumnoJor() 
+        public static Alumno AlumnoJor()
         {
             return new Alumno(284165, "Jor", "Castle", 28753951, "", "", "", areas, ModalidadCens(), "Oficina Faby", DateTime.Today, "Cursando", PrimerCiclo(), DateTime.Today, OrganismoMDS());
         }
-        public static Alumno AlumnoGer() 
+        public static Alumno AlumnoGer()
         {
             return new Alumno(287872, "Ger", "Caino", 31507315, "", "", "", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", PrimerCiclo(), DateTime.Today, OrganismoFines());
         }
-        public static Alumno AlumnoZambri() 
+        public static Alumno AlumnoZambri()
         {
             return new Alumno(4, "Zambri", "Zambri", 28753951, "", "", "", areas, ModalidadFinesPuro(), "Oficina Faby", DateTime.Today, "Cursando", PrimerCiclo(), DateTime.Today, OrganismoMSAL());
         }
@@ -1221,28 +1221,28 @@ namespace General
         }
 
         public static Materia MateriaCens()
-        { 
-            List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() {PrimerParcial(), SegundoParcial() };
+        {
+            List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() { PrimerParcial(), SegundoParcial() };
             Modalidad modalidad_cens = new Modalidad(2, "Cens", instancias);
             Ciclo ciclo = new Ciclo(1, "Primer Ciclo");
-            return new Materia(1, "Historia CENS", modalidad_cens, ciclo);            
+            return new Materia(1, "Historia CENS", modalidad_cens, ciclo);
         }
 
         public static Materia MateriaCens3erCiclo()
-        { 
-            List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() {PrimerParcial(), SegundoParcial() };
+        {
+            List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() { PrimerParcial(), SegundoParcial() };
             Modalidad modalidad_cens = new Modalidad(2, "Cens", instancias);
             Ciclo ciclo = TercerCiclo();
-            return new Materia(1, "Historia CENS", modalidad_cens, ciclo);            
+            return new Materia(1, "Historia CENS", modalidad_cens, ciclo);
         }
 
-        
+
 
         public static Materia MateriaPuro()
         {
             List<InstanciaDeEvaluacion> instancias = new List<InstanciaDeEvaluacion>() { CalificacionFinal() };
             Modalidad modalidad_cens = new Modalidad(1, "Puro", instancias);
-            
+
             return new Materia(1, "Geografia Puro", modalidad_cens);
         }
 
@@ -1251,7 +1251,8 @@ namespace General
             return new CalificacionNumerica(10);
         }
 
-        public static Curso CursoDeHistoriaDelCENS() {
+        public static Curso CursoDeHistoriaDelCENS()
+        {
 
             Curso curso = new Curso(14, MateriaCens(), unDocente(), UnEspacioFisico(), DateTime.Today, DateTime.Today, "Curso Test");
             curso.AgregarAlumno(AlumnoZambri());
@@ -1269,7 +1270,7 @@ namespace General
             Edificio moreno = new Edificio(2, "Moreno", "moreno", new Area(939, "Secretaria de Coordinacion y Monitoreo"));
             Edificio cenard = new Edificio(3, "Cenard", "Libertador", new Area(621, "Secretaria de Deporte"));
 
-            Curso curso_uno = new Curso(1, MateriaCens(), unDocente(), TestObjects.EspacioFisico(), new DateTime(2013,03,03),new DateTime(2013,07,28), "");
+            Curso curso_uno = new Curso(1, MateriaCens(), unDocente(), TestObjects.EspacioFisico(), new DateTime(2013, 03, 03), new DateTime(2013, 07, 28), "");
             curso_uno.EspacioFisico = espacio_fisico1;
             curso_uno.EspacioFisico.Edificio = julio_de_9;
             cursos.Add(curso_uno);
@@ -1310,7 +1311,7 @@ namespace General
 
         public static Alumno UnAlumnoDelCurso()
         {
-            return AlumnoFer();    
+            return AlumnoFer();
         }
 
         public static Alumno UnAlumnoNuevo()
@@ -1337,7 +1338,7 @@ namespace General
         {
             return AlumnoFer();
         }
-        
+
         public static List<Curso> CursosSACC()
         {
             Curso curso_fines = TestObjects.UnCursoCon2AlumnosFines();
@@ -1415,12 +1416,18 @@ namespace General
 
         internal static Docente unDocente()
         {
-           return new Docente(1, 31507315, "Belen", "Cevey");
+            return new Docente(1, 31507315, "Belen", "Cevey");
         }
 
         public static List<HorarioDeCursada> HorariosDeCursada()
         {
-            return new List<HorarioDeCursada>() { new HorarioDeCursada(new DayOfWeek(), "12:00", "13:00", 3, 13), new HorarioDeCursada(new DayOfWeek(), "12:00", "13:00", 1, 13) }; 
+            return new List<HorarioDeCursada>() { new HorarioDeCursada(new DayOfWeek(), "12:00", "13:00", 3, 13), new HorarioDeCursada(new DayOfWeek(), "12:00", "13:00", 1, 13) };
+
+        }
+
+        public static List<DateTime> DiasDeCursada()
+        {
+            return new List<DateTime>() { new DateTime(2013, 11, 10), new DateTime(2013, 11, 11), new DateTime(2013, 11, 12), new DateTime(2013, 11, 13) };
 
         }
 
@@ -1439,13 +1446,13 @@ namespace General
         {
             return new Asistencia(DateTime.Today, 3, "Asistencia Normal", 1, 4);
         }
-	    public static List<Evaluacion> Evaluaciones()
+        public static List<Evaluacion> Evaluaciones()
         {
             var eval1 = new Evaluacion(1, new InstanciaDeEvaluacion(14, "Primer Parcial"), AlumnoFer(), UnCursoConAlumnos(), new CalificacionNoNumerica("A1"), new DateTime(2012, 10, 13, 21, 36, 35, 077));  //21:36:35.077
             var eval2 = new Evaluacion(2, new InstanciaDeEvaluacion(14, "Primer Parcial"), AlumnoJor(), UnCursoConAlumnos(), new CalificacionNoNumerica("A2"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
             var eval3 = new Evaluacion(3, new InstanciaDeEvaluacion(14, "Primer Parcial"), AlumnoGer(), UnCursoConAlumnos(), new CalificacionNoNumerica("A3"), new DateTime(2012, 10, 13, 21, 36, 35, 077));
 
-            return new List<Evaluacion>() {eval1, eval2, eval3};
+            return new List<Evaluacion>() { eval1, eval2, eval3 };
 
         }
 
@@ -1483,7 +1490,7 @@ namespace General
 
         public static List<Materia> materiasReportes()
         {
-            return new List<Materia>() { Matematica1CENS(), Matematica2CENS(), Matematica3CENS(), Historia1CENS(), Historia2CENS(), Economia1CENS(), EconomiaFines(), MatematicaFines(), GeografiaFines() }; 
+            return new List<Materia>() { Matematica1CENS(), Matematica2CENS(), Matematica3CENS(), Historia1CENS(), Historia2CENS(), Economia1CENS(), EconomiaFines(), MatematicaFines(), GeografiaFines() };
         }
 
         public static List<Asistencia> asistenciasReportes()
@@ -1492,7 +1499,7 @@ namespace General
         }
 
         public static List<Curso> cursosReportes()
-        {            
+        {
             return new List<Curso>() {  cursoMatematica1Cens2012_1Cuat(), cursoMatematica1Cens2012_2Cuat(), cursoMatematica1Cens2013_1Cuat(), cursoMatematica1Cens2013_2Cuat(),
                                         cursoMatematica2Cens2012_1Cuat(), cursoMatematica2Cens2012_2Cuat(), cursoMatematica2Cens2013_1Cuat(), cursoMatematica2Cens2013_2Cuat(),
                                         cursoMatematica3Cens2012_1Cuat(), cursoMatematica3Cens2012_2Cuat(), cursoMatematica3Cens2013_1Cuat(),
@@ -1504,17 +1511,17 @@ namespace General
                                         cursoGeografiaPuro2013_1Cuat() };
         }
 
-        public static Materia Matematica1CENS() 
-        { return new Materia(1, "Matemática", ModalidadCens(), PrimerCiclo());}
+        public static Materia Matematica1CENS()
+        { return new Materia(1, "Matemática", ModalidadCens(), PrimerCiclo()); }
 
-        public static Materia Matematica2CENS() 
-        { return new Materia(2, "Matemática", ModalidadCens(), SegundoCiclo());}
+        public static Materia Matematica2CENS()
+        { return new Materia(2, "Matemática", ModalidadCens(), SegundoCiclo()); }
 
-        public static Materia Matematica3CENS() 
-        { return new Materia(3, "Matemática", ModalidadCens(), TercerCiclo());}
+        public static Materia Matematica3CENS()
+        { return new Materia(3, "Matemática", ModalidadCens(), TercerCiclo()); }
 
-        public static Materia Historia1CENS() 
-        { return new Materia(4, "Historia", ModalidadCens(), PrimerCiclo());}
+        public static Materia Historia1CENS()
+        { return new Materia(4, "Historia", ModalidadCens(), PrimerCiclo()); }
 
         public static Materia Historia2CENS()
         { return new Materia(5, "Historia", ModalidadCens(), SegundoCiclo()); }
@@ -1559,12 +1566,13 @@ namespace General
         { return new DateTime(2013, 12, 12, 21, 36, 35, 077); }
 
         public static Curso cursoMatematica1Cens2012_1Cuat()
-        { Curso curso = new Curso(1, Matematica1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), "");
-                curso.AgregarAlumno(AlumnoFer());
-                //HORARIOS DE CURSADA PARA ASISTENCIAS
-                HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 1);
-                curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
-                return curso;
+        {
+            Curso curso = new Curso(1, Matematica1CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_1Cuat(), FechaFin2012_1Cuat(), "");
+            curso.AgregarAlumno(AlumnoFer());
+            //HORARIOS DE CURSADA PARA ASISTENCIAS
+            HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 1);
+            curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
+            return curso;
         }
 
         public static Curso cursoMatematica1Cens2012_2Cuat()
@@ -1586,7 +1594,7 @@ namespace General
             //HORARIOS DE CURSADA PARA ASISTENCIAS
             HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 1);
             curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
-            return curso; 
+            return curso;
         }
 
         public static Curso cursoMatematica2Cens2013_1Cuat()
@@ -1600,12 +1608,12 @@ namespace General
 
         public static Curso cursoMatematica3Cens2012_2Cuat()
         {
-        Curso curso = new Curso(11, Matematica3CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), "");
-        curso.AgregarAlumno(AlumnoJor());
-        //HORARIOS DE CURSADA PARA ASISTENCIAS
-        HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 1);
-        curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
-        return curso; 
+            Curso curso = new Curso(11, Matematica3CENS(), unDocente(), UnEspacioFisico(), FechaInicio2012_2Cuat(), FechaFin2012_2Cuat(), "");
+            curso.AgregarAlumno(AlumnoJor());
+            //HORARIOS DE CURSADA PARA ASISTENCIAS
+            HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 1);
+            curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
+            return curso;
 
         }
 
@@ -1616,7 +1624,7 @@ namespace General
             //HORARIOS DE CURSADA PARA ASISTENCIAS
             HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 1);
             curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
-            return curso;    
+            return curso;
         }
 
         public static Curso cursoMatematicaFines2012_1Cuat()
@@ -1636,7 +1644,7 @@ namespace General
             //HORARIOS DE CURSADA PARA ASISTENCIAS
             HorarioDeCursada horario_de_cursada_martes = new HorarioDeCursada(DayOfWeek.Tuesday, "12:00", "13:00", 1, 1);
             curso.AgregarHorarioDeCursada(horario_de_cursada_martes);
-            
+
             return curso;
         }
 
@@ -1697,7 +1705,7 @@ namespace General
 
         public static List<List<int>> Inscripciones()
         {
-             return new List<List<int>>() { new List<int> { 4, 281941 }, new List<int> { 3, 287873 }, new List<int> { 13, 281941 } };
+            return new List<List<int>>() { new List<int> { 4, 281941 }, new List<int> { 3, 287873 }, new List<int> { 13, 281941 } };
         }
 
 
@@ -1731,9 +1739,9 @@ namespace General
         public static List<General.Observacion> Observaciones()
         {
             List<Observacion> observaciones = new List<Observacion>();
-            var obser1 = new Observacion(1, new DateTime(2012, 10, 13), "Fines CENS", "Mariano", "MDS", "Cursada", "Mariano", "Lala", "Sasa", new DateTime(2013, 10, 13), "Elena");
-            var obser2 = new Observacion(2, new DateTime(2013, 10, 13), "Fines Puro", "Leonardo", "MDS", "Cursada", "Mariano", "Lala", "Sasa", new DateTime(2013, 10, 13), "Elena");
-            var obser3 = new Observacion(3, new DateTime(2013, 10, 13), "Fines CENS", "Cholo", "MDS", "Libre", "Mariano", "Lala", "Sasa", new DateTime(2013, 10, 13), "Elena");
+            var obser1 = new Observacion(1, new DateTime(2012, 10, 13), "Fines CENS", "Mariano", "MDS", "Cursada", "Mariano", "Lala", "Sasa", new DateTime(2012, 10, 13), "Elena");
+            var obser2 = new Observacion(2, new DateTime(2012, 10, 13), "Fines Puro", "Leonardo", "MDS", "Cursada", "Mariano", "Lala", "Sasa", new DateTime(2012, 10, 13), "Elena");
+            var obser3 = new Observacion(3, new DateTime(2012, 10, 13), "Fines CENS", "Cholo", "MDS", "Libre", "Mariano", "Lala", "Sasa", new DateTime(2012, 10, 13), "Elena");
             var obser4 = new Observacion(4, new DateTime(2013, 10, 13), "Fines CENS", "Stefania", "MDS", "Expulsion", "Mariano", "Saco un arma en clase y amenazo con matar a todos", "Llamamos a la policia y se lo llevaron a comer una pizza para calmarlo", new DateTime(2013, 09, 15), "Elena");
 
             observaciones.Add(obser1);
@@ -1742,6 +1750,18 @@ namespace General
             observaciones.Add(obser4);
 
             return observaciones;
+        }
+
+        public static List<AcumuladorAsistencia> Asistencias()
+        {
+            AcumuladorAsistencia asistencia0 = new AsistenciaDiaCursado(1, "2", 4, new DateTime(2013, 11, 10), AlumnoFer().Id, 14);
+            AcumuladorAsistencia asistencia1 = new AsistenciaDiaCursado(2, "3", 4, new DateTime(2013, 11, 11), AlumnoFer().Id, 14);
+            AcumuladorAsistencia asistencia2 = new AsistenciaDiaCursado(3, "0", 4, new DateTime(2013, 11, 12), AlumnoFer().Id, 14);
+            AcumuladorAsistencia asistencia3 = new AsistenciaDiaCursado(4, "2", 4, new DateTime(2013, 11, 13), AlumnoFer().Id, 14);
+            AcumuladorAsistencia asistencia4 = new AsistenciaDiaCursado(5, "4", 4, new DateTime(2013, 11, 10), AlumnoGer().Id, 14);
+            AcumuladorAsistencia asistencia5 = new AsistenciaDiaCursado(6, "0", 4, new DateTime(2013, 11, 11), AlumnoGer().Id, 14);
+
+            return new List<AcumuladorAsistencia>() { asistencia0, asistencia1, asistencia2, asistencia3, asistencia4, asistencia5 };
         }
 
     }

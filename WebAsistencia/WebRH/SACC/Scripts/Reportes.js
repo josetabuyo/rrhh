@@ -156,9 +156,9 @@ var ArmarGraficoPorModalidad = function (respuesta, fechadesde, fechahasta) {
     var nro_total = respuesta.length;
     
     var nro_cens = Enumerable.From(respuesta)
-                                          .Where(function (x) { return x.Modalidad.Id == 1 }).ToArray().length;
-    var nro_puro = Enumerable.From(respuesta)
                                           .Where(function (x) { return x.Modalidad.Id == 2 }).ToArray().length;
+    var nro_puro = Enumerable.From(respuesta)
+                                          .Where(function (x) { return x.Modalidad.Id == 1 }).ToArray().length;
     
 
     titulo_accion = 'Distribución de los Alumnos por Modalidad - Total: ';
@@ -171,15 +171,16 @@ var ArmarGraficoPorModalidad = function (respuesta, fechadesde, fechahasta) {
     else {
         var data = [
                         {
-                            name: 'Puro: Cantidad: ' + nro_puro + ' - Porcentaje',
-                            y: nro_puro
-                        },
-                        {
                             name: 'CENS: Cantidad: ' + nro_cens + ' - Porcentaje',
                             y: nro_cens,
                             sliced: true,
                             selected: true
                         },
+                        {
+                            name: 'Puro: Cantidad: ' + nro_puro + ' - Porcentaje',
+                            y: nro_puro
+                        },
+
                  ];
 
         Grafico(titulo, data);
@@ -216,15 +217,15 @@ var ArmarGraficoPorCiclo = function (respuesta, fechadesde, fechahasta) {
                     y: nro_sinciclo
                 },
                 {
-                    name: '1° Ciclo: Cantidad: ' + nro_primero + ' - Porcentaje',
+                    name: '1°: Cantidad: ' + nro_primero + ' - Porcentaje',
                     y: nro_primero
                 },
                 {
-                    name: '2° Ciclo: Cantidad: ' + nro_segundo + ' - Porcentaje',
+                    name: '2°: Cantidad: ' + nro_segundo + ' - Porcentaje',
                     y: nro_segundo
                 },
                 {
-                    name: '3° Ciclo: Cantidad: ' + nro_tercero + ' - Porcentaje',
+                    name: '3°: Cantidad: ' + nro_tercero + ' - Porcentaje',
                     y: nro_tercero,
                     sliced: true,
                     selected: true
