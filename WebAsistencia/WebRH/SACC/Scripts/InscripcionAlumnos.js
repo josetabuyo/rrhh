@@ -212,9 +212,9 @@ PaginaInscripcionAlumnos.prototype.FiltrarCursos = function () {
                     alertify.alert("Se inscribieron los alumnos correctamente");
                 }
                 if (respuesta.tipoDeRespuesta == "inscripcionAlumno.parcial") {
-                    var mensaje = "No se pudo desinscribir a los siguientes alumnos por tener asistencias cargadas en el curso";
+                    var mensaje = "No se pudo desinscribir a los siguientes alumnos por tener asistencias cargadas en el curso:";
                     for (var i = 0; i < respuesta.alumnos.length; i++) {
-                        mensaje += "\n" + respuesta.alumnos[i].Nombre;
+                        mensaje += "<br>" + respuesta.alumnos[i].Nombre + " " + respuesta.alumnos[i].Apellido;
                     }
                     _this.GetCursosDTO();
                     alertify.alert(mensaje);

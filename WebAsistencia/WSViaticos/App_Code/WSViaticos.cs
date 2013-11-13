@@ -1271,17 +1271,28 @@ public class WSViaticos : System.Web.Services.WebService
         try
         {
             Curso curso = RepositorioDeCursos().GetCursoById(idCurso);
-            List<Alumno> alumnos;
+            var alumnos_a_procesar = new List<Alumno>();
+            var alumnos_desincriptos = new List<Alumno>();
+            var alumnos_nuevos = new List<Alumno>();
+            var alumnos_que_ya_estaban = new List<Alumno>();
+
             if (alumnos_a_inscribir.Count == 0)
-                alumnos = RepositorioDeCursos().ObtenerAlumnosDelCurso(curso);
+                alumnos_desincriptos = RepositorioDeCursos().ObtenerAlumnosDelCurso(curso);
             else
-                alumnos = alumnos_a_inscribir.FindAll(a => !alumnos_a_inscribir.Contains(a));
-
+            {
+                alumnos_nuevos = alumnos_a_inscribir.FindAll(a => !RepositorioDeCursos().ObtenerAlumnosDelCurso(curso).Contains(a));
+                alumnos_que_ya_estaban = alumnos_a_inscribir.FindAll(a => RepositorioDeCursos().ObtenerAlumnosDelCurso(curso).Contains(a));
+                alumnos_desincriptos = RepositorioDeCursos().ObtenerAlumnosDelCurso(curso).FindAll(a => !alumnos_a_inscribir.Contains(a));
+            }
             var asistencias = RepoAsistencias().GetAsistencias();
-            var alumnos_que_se_pueden_desinscribir = alumnos.FindAll(a => !asistencias.Exists(asist => asist.IdAlumno == a.Id && asist.IdCurso == idCurso));
-            var alumnos_que_no_se_pueden_desinscribir = alumnos.FindAll(a => asistencias.Exists(asist => asist.IdAlumno == a.Id && asist.IdCurso == idCurso));
+            var alumnos_que_se_pueden_desinscribir = alumnos_desincriptos.FindAll(a => !asistencias.Exists(asist => asist.IdAlumno == a.Id && asist.IdCurso == idCurso));
+            var alumnos_que_no_se_pueden_desinscribir = alumnos_desincriptos.FindAll(a => asistencias.Exists(asist => asist.IdAlumno == a.Id && asist.IdCurso == idCurso));
 
-            RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos_que_se_pueden_desinscribir, curso, usuario);
+            alumnos_a_procesar.AddRange(alumnos_nuevos);
+            alumnos_a_procesar.AddRange(alumnos_que_ya_estaban);
+            alumnos_a_procesar.AddRange(alumnos_que_no_se_pueden_desinscribir);
+
+            RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos_a_procesar, curso, usuario);
 
             if (alumnos_que_no_se_pueden_desinscribir.Count > 0)
             {

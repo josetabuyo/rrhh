@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
-
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server" onsubmit="return submit_value;">
@@ -102,7 +102,7 @@
     
        <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    
     <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 
