@@ -18,9 +18,14 @@ namespace General
         public DateTime FechaDeNacimiento { get; set; }
         public string EstadoDeCursada { get; set; }
         public string EstadoDeAlumno { get; set; }
+        public int Organismo { get; set; }
         public string CicloCursado { get; set; }
         public DateTime FechaDeIngreso { get; set; }
         public int Baja { get; set; }
+
+        public AlumnoDto() { }
+    
     }
-      
+        
+    
 }

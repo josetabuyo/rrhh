@@ -19,7 +19,7 @@ namespace General
         {    
         }
 
-        public void EvaluarRegularidadPara(Alumno alumno, Curso curso, RepositorioDeAsistencias repo_asistencias)
+        public void EvaluarRegularidadPara(Alumno alumno, Curso curso, List<AcumuladorAsistencia> repo_asistencias)
         {
 
             int limite_maximo_de_ausencias = ObtenerLimiteDeAusencias(curso);
@@ -30,13 +30,26 @@ namespace General
         }
 
 
-        public int AusenciasDisponibles(Alumno alumno, Curso curso, RepositorioDeAsistencias repo_asistencias)
+        public int AusenciasDisponibles(Alumno alumno, Curso curso, List<AcumuladorAsistencia> repo_asistencias)
         {
             int limite_maximo_de_ausencias = ObtenerLimiteDeAusencias(curso);
 
             int ausencias_computables = ObtenerLasAusenciasComputables(alumno, curso, repo_asistencias);
 
             return (limite_maximo_de_ausencias - ausencias_computables);
+        }
+
+        public bool EsRegular(Alumno alumno, Curso curso, List<AcumuladorAsistencia> asistencias_por_curso_y_alumno)
+        {
+            this.EvaluarRegularidadPara(alumno, curso, asistencias_por_curso_y_alumno);
+            if (condicion_del_alumno == regular)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
@@ -46,11 +59,11 @@ namespace General
             return 10 * total_horas_catedra / 100;
         }
 
-        private int ObtenerLasAusenciasComputables(Alumno alumno, Curso curso, RepositorioDeAsistencias repo_asistencias)
+        private int ObtenerLasAusenciasComputables(Alumno alumno, Curso curso, List<AcumuladorAsistencia> repo_asistencias)
         {
             List<HorarioDeCursada> horarios_del_curso = curso.GetHorariosDeCursada();
 
-            List<AcumuladorAsistencia> lista_de_asistencias_tomadas = repo_asistencias.GetAsistenciasPorCursoYAlumno(curso.Id, alumno.Id);
+            List<AcumuladorAsistencia> lista_de_asistencias_tomadas = new List<AcumuladorAsistencia>(); //repo_asistencias.GetAsistenciasPorCursoYAlumno(curso.Id, alumno.Id);
 
             int ausencias_computables = 0;
 
