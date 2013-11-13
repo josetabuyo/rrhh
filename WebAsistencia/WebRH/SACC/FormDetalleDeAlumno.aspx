@@ -8,7 +8,7 @@
     <title></title>
     <%= Referencias.Css("../")%>
     <link id="link1" rel="stylesheet" href="../Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />
-    <link id="link5" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
+    <link id="link5" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
 </head>

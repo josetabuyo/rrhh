@@ -7,7 +7,7 @@
 <head id="Head1" runat="server">
     <title></title>
      <%= Referencias.Css("../")%>
-    <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
+    <link id="link3" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
@@ -83,9 +83,9 @@
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idAlumnoAVer" runat="server" />
     <asp:HiddenField ID="alumnosEnGrillaParaGuardar" runat="server" />
-
+        <script type="text/javascript" src="Scripts/InscripcionAlumnos.js"></script>
     <%= Referencias.Javascript("../") %>
-    <script type="text/javascript" src="Scripts/InscripcionAlumnos.js"></script>
+
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>

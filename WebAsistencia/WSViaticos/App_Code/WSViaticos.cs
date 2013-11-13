@@ -1419,10 +1419,110 @@ public class WSViaticos : System.Web.Services.WebService
         return JsonConvert.SerializeObject(docentes_dto);
     }
 
+
+    [WebMethod]
+    public List<AlumnoDto> ReporteAlumnosPorModalidad(Modalidad modalidad)
+    {
+         Reportes reportes = new Reportes();
+         List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
+         var alumnos_reporte = reportes.ObtenerAlumnosQueEstanCursandoConModalidad(modalidad, RepositorioDeCursos());
+         foreach (Alumno alumno in alumnos_reporte)
+         {
+             
+             var alumno_dto = new AlumnoDto();
+             alumno_dto.Id = alumno.Id;
+             alumno_dto.Apellido = alumno.Apellido;
+             alumno_dto.Nombre = alumno.Nombre;
+             alumno_dto.Documento = alumno.Documento;
+             alumno_dto.Modalidad = alumno.Modalidad;
+             alumno_dto.Telefono = alumno.Telefono;
+             alumno_dto.Organismo = alumno.Organismo.Id;
+
+             alumnos_dto.Add(alumno_dto);
+         } 
+
+        return alumnos_dto;
+    }
+
+    //[WebMethod]
+    //public List<AlumnoDto> ReporteAlumnosDeCursos(DateTime fecha_desde, DateTime fecha_hasta)
+    //{
+    //    Reportes reportes = new Reportes();
+    //    List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
+    //    var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(fecha_desde, fecha_hasta, RepositorioDeCursos());
+    //    foreach (Alumno alumno in alumnos_reporte)
+    //    {
+    //        var alumno_dto = new AlumnoDto();
+    //        alumno_dto.Id = alumno.Id;
+    //        alumno_dto.Apellido = alumno.Apellido;
+    //        alumno_dto.Nombre = alumno.Nombre;
+    //        alumno_dto.Documento = alumno.Documento;
+    //        alumno_dto.Modalidad = alumno.Modalidad;
+    //        alumno_dto.Telefono = alumno.Telefono;
+    //        alumno_dto.Organismo = alumno.Organismo.Id;
+
+    //        alumnos_dto.Add(alumno_dto);
+    //    }
+
+    //    return alumnos_dto;
+    //}
+
+    [WebMethod]
+    public List<AlumnoDto> ReporteAlumnos(string fecha_desde, string fecha_hasta)
+    {
+        Reportes reportes = new Reportes();
+        List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
+
+
+        DateTime fecha_desde_formateada;
+        DateTime.TryParse(fecha_desde, out fecha_desde_formateada);
+
+        DateTime fecha_hasta_formateada;
+        DateTime.TryParse(fecha_hasta, out fecha_hasta_formateada);
+
+        if (fecha_desde_formateada.Year.Equals(0001))
+        {
+            fecha_desde_formateada = new DateTime(1900, 01, 01);
+        }
+
+        if (fecha_hasta_formateada.Year.Equals(0001))
+        {
+            fecha_hasta_formateada = new DateTime(1900, 01, 01);
+        }
+
+
+        var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(fecha_desde_formateada, fecha_hasta_formateada, RepositorioDeCursos());
+        foreach (Alumno alumno in alumnos_reporte)
+        {
+            var alumno_dto = new AlumnoDto();
+            alumno_dto.Id = alumno.Id;
+            alumno_dto.Apellido = alumno.Apellido;
+            alumno_dto.Nombre = alumno.Nombre;
+            alumno_dto.Documento = alumno.Documento;
+            alumno_dto.Modalidad = alumno.Modalidad;
+            alumno_dto.Telefono = alumno.Telefono;
+            alumno_dto.Organismo = alumno.Organismo.Id;
+            alumno_dto.CicloCursado = alumno.CicloCursado.Id.ToString();
+
+            alumnos_dto.Add(alumno_dto);
+        }
+
+        return alumnos_dto;
+    }
+    
+    
+
+
     [WebMethod]
     public Modalidad[] Modalidades()
     {
         return RepoModalidades().GetModalidades().ToArray();
+    }
+
+    [WebMethod]
+    public Organismo[] Organismos()
+    {
+        return RepoAlumnos().GetOrganismos().ToArray();
     }
 
     [WebMethod]
