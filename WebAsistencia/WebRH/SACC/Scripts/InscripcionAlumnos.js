@@ -217,6 +217,7 @@ PaginaInscripcionAlumnos.prototype.FiltrarCursos = function () {
                         mensaje += "<br>" + respuesta.alumnos[i].Nombre + " " + respuesta.alumnos[i].Apellido;
                     }
                     _this.GetCursosDTO();
+                    _this.o.cmbCursos.change();
                     alertify.alert(mensaje);
                 }
                 if (respuesta.tipoDeRespuesta == "inscripcionAlumno.error") {
