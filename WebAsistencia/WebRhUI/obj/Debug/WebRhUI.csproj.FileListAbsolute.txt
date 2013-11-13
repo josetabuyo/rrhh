@@ -1,0 +1,5 @@
+C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.dll
+C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.pdb
+C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\WebAsistencia\WebRhUI\obj\Debug\ResolveAssemblyReference.cache
+C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.dll
+C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.pdb

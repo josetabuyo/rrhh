@@ -67,6 +67,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebRhUI", "WebRhUI\WebRhUI.csproj", "{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAdministracionDeUsuarios", "..\TestAdministracionDeUsuarios\TestAdministracionDeUsuarios.csproj", "{D6CD50CE-0196-4F04-A51A-9590E3D7174D}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -146,6 +148,18 @@ Global
 		{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}.Release|x86.ActiveCfg = Release|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|.NET.ActiveCfg = Release|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
