@@ -113,7 +113,7 @@ BuscarPorAlumnos = function () {
 var ArmarGraficoPorOrganismo = function (respuesta, fechadesde, fechahasta) {
 
     var nro_total = respuesta.length;
-    
+
     var nro_mds = Enumerable.From(respuesta)
                                           .Where(function (x) { return x.Organismo == 1 }).ToArray().length;
     var nro_msal = Enumerable.From(respuesta)
@@ -129,8 +129,24 @@ var ArmarGraficoPorOrganismo = function (respuesta, fechadesde, fechahasta) {
         GraficoVacio(titulo);
     }
     else {
-        
-        GraficoPorOrganismo(titulo, nro_mds, nro_msal, nro_fines);
+        var data = [
+            {
+                name: 'Fines: Cantidad: ' + nro_fines + ' - Porcentaje',
+                y: nro_fines
+            },
+            {
+                name: 'MSAL: Cantidad: ' + nro_msal + ' - Porcentaje',
+                y: nro_msal
+            },
+            {
+                name: 'MDS: Cantidad: ' + nro_mds + ' - Porcentaje',
+                y: nro_mds,
+                sliced: true,
+                selected: true
+            }
+        ];
+
+        Grafico(titulo, data);
     }
 
 };
@@ -153,10 +169,21 @@ var ArmarGraficoPorModalidad = function (respuesta, fechadesde, fechahasta) {
         GraficoVacio(titulo);
     }
     else {
-        
-        GraficoPorModalidad(titulo, nro_cens, nro_puro);
-    }
+        var data = [
+                        {
+                            name: 'Puro: Cantidad: ' + nro_puro + ' - Porcentaje',
+                            y: nro_puro
+                        },
+                        {
+                            name: 'CENS: Cantidad: ' + nro_cens + ' - Porcentaje',
+                            y: nro_cens,
+                            sliced: true,
+                            selected: true
+                        },
+                 ];
 
+        Grafico(titulo, data);
+    }
 };
 
 
@@ -182,8 +209,29 @@ var ArmarGraficoPorCiclo = function (respuesta, fechadesde, fechahasta) {
         GraficoVacio(titulo);
     }
     else {
-        
-        GraficoPorCiclo(titulo, nro_sinciclo, nro_primero, nro_segundo, nro_tercero);
+
+        var data = [
+                {
+                    name: 'Sin Ciclo: Cantidad: ' + nro_sinciclo + ' - Porcentaje',
+                    y: nro_sinciclo
+                },
+                {
+                    name: '1° Ciclo: Cantidad: ' + nro_primero + ' - Porcentaje',
+                    y: nro_primero
+                },
+                {
+                    name: '2° Ciclo: Cantidad: ' + nro_segundo + ' - Porcentaje',
+                    y: nro_segundo
+                },
+                {
+                    name: '3° Ciclo: Cantidad: ' + nro_tercero + ' - Porcentaje',
+                    y: nro_tercero,
+                    sliced: true,
+                    selected: true
+                },
+            ];
+
+        Grafico(titulo, data);
     }
 
 };
@@ -209,7 +257,7 @@ var GraficoVacio = function (titulo) {
     });
 };
 
-var GraficoPorOrganismo = function (titulo, nro_mds, nro_msal, nro_fines) {
+var Grafico = function (titulo, data) {
 
     $('#dibujo_grafico').highcharts({
         chart: {
@@ -238,109 +286,12 @@ var GraficoPorOrganismo = function (titulo, nro_mds, nro_msal, nro_fines) {
         series: [{
             type: 'pie',
             name: 'Porcentaje de Alumnos',
-            data: [
-                    ['Fines: Cantidad: ' + nro_fines + ' - Porcentaje', nro_fines],
-                    ['MSAL: Cantidad: ' + nro_msal + ' - Porcentaje', nro_msal],
-                        {
-                            name: 'MDS: Cantidad: ' + nro_mds + ' - Porcentaje',
-                          y: nro_mds,
-                          sliced: true,
-                          selected: true
-                        },
-                 ]
+            data: data
         }]
     });
 
 };
 
-var GraficoPorModalidad = function (titulo, nro_cens, nro_puro) {
-
-    $('#dibujo_grafico').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        title: {
-            text: titulo
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    color: '#000000',
-                    connectorColor: '#000000',
-                    format: '{point.name}: {point.percentage:.1f} %'
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Porcentaje de Alumnos',
-            data: [
-                    ['Puro: Cantidad: ' + nro_puro + ' - Porcentaje', nro_puro],
-                        {
-                            name: 'CENS: Cantidad: ' + nro_cens + ' - Porcentaje',
-                          y: nro_cens,
-                          sliced: true,
-                          selected: true
-                        },
-                 ]
-        }]
-    });
-
-};
-
-
- var GraficoPorCiclo = function (titulo, nro_sinciclo, nro_primero, nro_segundo, nro_tercero) {
-              
-              $('#dibujo_grafico').highcharts({
-                  chart: {
-                      plotBackgroundColor: null,
-                      plotBorderWidth: null,
-                      plotShadow: false
-                  },
-                  title: {
-                      text: titulo
-                  },
-                  tooltip: {
-                      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                  },
-                  plotOptions: {
-                      pie: {
-                          allowPointSelect: true,
-                          cursor: 'pointer',
-                          dataLabels: {
-                              enabled: true,
-                              color: '#000000',
-                              connectorColor: '#000000',
-                              format: '{point.name}: {point.percentage:.1f} %'
-                          }
-                      }
-                  },
-                  series: [{
-                      type: 'pie',
-                      name: 'Porcentaje de Alumnos',
-                      data: [
-                    ['Sin Ciclo: Cantidad: ' + nro_sinciclo + ' - Porcentaje', nro_sinciclo],
-                    ['1° Ciclo: Cantidad: ' + nro_primero + ' - Porcentaje', nro_primero],
-                    ['2° Ciclo: Cantidad: ' + nro_segundo + ' - Porcentaje', nro_segundo],
-                        {
-                            name: '3° Ciclo: Cantidad: ' + nro_tercero + ' - Porcentaje',
-                            y: nro_tercero,
-                            sliced: true,
-                            selected: true
-                        },
-                 ]
-                  }]
-              });
-
-          };
 
 //***********************ARMADO DE GRILLA***********************//
 var ArmarGrilla = function (respuesta) {
