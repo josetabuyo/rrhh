@@ -12,14 +12,14 @@
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
-
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server" onsubmit="return submit_value;">
         <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelCurso" class="div_izquierdo">
-        <div class="estilo_formulario" style="width:70%; margin-left: 20%;">
+        <div class="estilo_formulario" style="width:90%; margin-left: 5%;">
         <fieldset>
            <legend class="subtitulos">Panel De Cursos</legend>
         <p>
@@ -69,7 +69,7 @@
                 class=" btn btn-primary boton_main_documentos"
                  OnClick="btnModificarCurso_Click" OnClientClick="ValidarCurso();" />
             <asp:Button  ID="btnQuitarCurso" runat="server" Text="Eliminar Curso" 
-                class=" btn btn-primary boton_main_documentos" OnClick="btnQuitarCurso_Click" />
+                class=" btn btn-primary boton_main_documentos" OnClick="btnQuitarCurso_Click" OnClientClick="ValidarCurso();" />
             <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" 
             class=" btn btn-primary boton_main_documentos"
             onClientClick="javascript:LimpiarCampos();" />
@@ -102,7 +102,7 @@
     
        <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    
     <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 

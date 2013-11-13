@@ -1269,19 +1269,59 @@ public class WSViaticos : System.Web.Services.WebService
     public string InscribirAlumnosACurso(List<Alumno> alumnos_a_inscribir, int idCurso, Usuario usuario)
     {
         var conexion = Conexion();
-        //var lista_alumnos_para_inscribir = JsonConvert.DeserializeObject<List<Alumno>>(alumnos);
 
         try
         {
             Curso curso = RepositorioDeCursos().GetCursoById(idCurso);
+            var alumnos_a_procesar = new List<Alumno>();
+            var alumnos_desincriptos = new List<Alumno>();
+            var alumnos_nuevos = new List<Alumno>();
+            var alumnos_que_ya_estaban = new List<Alumno>();
 
-            RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos_a_inscribir, curso, usuario);
-
-            return JsonConvert.SerializeObject(new
+            if (alumnos_a_inscribir.Count == 0)
+                alumnos_desincriptos = RepositorioDeCursos().ObtenerAlumnosDelCurso(curso);
+            else
             {
-                tipoDeRespuesta = "inscripcionAlumno.ok",
-                //ticket = documento.ticket
-            });
+                alumnos_nuevos = alumnos_a_inscribir.FindAll(a => !RepositorioDeCursos().ObtenerAlumnosDelCurso(curso).Contains(a));
+                alumnos_que_ya_estaban = alumnos_a_inscribir.FindAll(a => RepositorioDeCursos().ObtenerAlumnosDelCurso(curso).Contains(a));
+                alumnos_desincriptos = RepositorioDeCursos().ObtenerAlumnosDelCurso(curso).FindAll(a => !alumnos_a_inscribir.Contains(a));
+            }
+            var asistencias = RepoAsistencias().GetAsistencias();
+            var alumnos_que_se_pueden_desinscribir = alumnos_desincriptos.FindAll(a => !asistencias.Exists(asist => asist.IdAlumno == a.Id && asist.IdCurso == idCurso));
+            var alumnos_que_no_se_pueden_desinscribir = alumnos_desincriptos.FindAll(a => asistencias.Exists(asist => asist.IdAlumno == a.Id && asist.IdCurso == idCurso));
+
+            alumnos_a_procesar.AddRange(alumnos_nuevos);
+            alumnos_a_procesar.AddRange(alumnos_que_ya_estaban);
+            alumnos_a_procesar.AddRange(alumnos_que_no_se_pueden_desinscribir);
+
+            RepositorioDeCursos().ActualizarInscripcionesACurso(alumnos_a_procesar, curso, usuario);
+
+            if (alumnos_que_no_se_pueden_desinscribir.Count > 0)
+            {
+                var alumnos_dto = new List<Object>();
+
+                alumnos_que_no_se_pueden_desinscribir.ForEach(delegate(Alumno alumno)
+                {
+                    alumnos_dto.Add(new
+                    {
+                        Id = alumno.Id,
+                        Nombre = alumno.Nombre,
+                        Apellido = alumno.Apellido,
+                        Documento = alumno.Documento,
+                        Telefono = alumno.Telefono,
+                        Mail = alumno.Mail,
+                        Direccion = alumno.Direccion,
+                        Modalidad = ModalidadPara(alumno.Modalidad),
+                        Baja = alumno.Baja,
+                    });
+                });
+
+                return JsonConvert.SerializeObject(new { tipoDeRespuesta = "inscripcionAlumno.parcial", alumnos = alumnos_dto });
+            }
+            else
+            {
+                return JsonConvert.SerializeObject(new { tipoDeRespuesta = "inscripcionAlumno.ok" });
+            }
         }
         catch (Exception e)
         {
@@ -1541,14 +1581,10 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool QuitarCurso(CursoDto curso, Usuario usuario)
     {
-        var un_curso = new Curso(curso.Id, curso.Materia, curso.Docente, curso.EspacioFisico, DateTime.Parse(curso.FechaInicio), DateTime.Parse(curso.FechaFin), curso.Observaciones);
-        var horarios = curso.Horarios;
-        horarios.ForEach(h =>
-        {
-            un_curso.AgregarHorarioDeCursada(new HorarioDeCursada((DayOfWeek)h.NumeroDia, h.HoraDeInicio, h.HoraDeFin, h.HorasCatedra, h.IdCurso));
-        });
-
-        return RepositorioDeCursos().QuitarCurso(un_curso, usuario);
+        var un_curso = RepositorioDeCursos().GetCursoById(curso.Id);
+        if (un_curso.Alumnos().Count == 0)
+            return RepositorioDeCursos().QuitarCurso(un_curso, usuario);
+        else return false;
     }
 
     [WebMethod]

@@ -213,20 +213,27 @@ namespace General.Repositorios
 
         public bool QuitarCurso(Curso curso, Usuario usuario)
         {
-            var idBaja = CrearBaja(usuario);
-            var parametros = new Dictionary<string, object>();
+            if (!this.TieneAsignadoAlumnos(curso))
+            {
+                var idBaja = CrearBaja(usuario);
+                var parametros = new Dictionary<string, object>();
 
-            parametros.Add("id_curso", curso.Id);
-            parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
-            parametros.Add("id_materia", curso.Materia.Id);
-            parametros.Add("id_docente", curso.Docente.Id);
-            parametros.Add("fecha_inicio", curso.FechaInicio);
-            parametros.Add("fecha_fin", curso.FechaFin);
-            parametros.Add("fecha", DateTime.Now);
-            parametros.Add("Baja", idBaja);
-            parametros.Add("Observaciones", curso.Observaciones);
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
-            return true;
+                parametros.Add("id_curso", curso.Id);
+                parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
+                parametros.Add("id_materia", curso.Materia.Id);
+                parametros.Add("id_docente", curso.Docente.Id);
+                parametros.Add("fecha_inicio", curso.FechaInicio);
+                parametros.Add("fecha_fin", curso.FechaFin);
+                parametros.Add("fecha", DateTime.Now);
+                parametros.Add("Baja", idBaja);
+                parametros.Add("Observaciones", curso.Observaciones);
+                conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private int CrearBaja(Usuario usuario)
@@ -317,7 +324,7 @@ namespace General.Repositorios
             alumnosAEliminar.ForEach(alumno => EliminarAlumnoDelCurso(alumno, curso, usuario));
         }
 
-        private List<Alumno> ObtenerAlumnosDelCurso(Curso curso)
+        public List<Alumno> ObtenerAlumnosDelCurso(Curso curso)
         {
             var id_alumnos_de_la_base = GetInscripcionesByIdCurso(curso.Id);
             var alumnos = new RepositorioDeAlumnos(conexion_bd, this, new RepositorioDeModalidades(conexion_bd)).GetAlumnos();
