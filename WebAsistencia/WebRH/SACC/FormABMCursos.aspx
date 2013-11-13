@@ -79,7 +79,7 @@
         </div>
 
     <div class="div_derecho">
-        <div class="estilo_formulario" style="width:100%; overflow:auto;  margin-left:1%;">
+        <div class="estilo_formulario" style="width:90%; overflow:auto;  margin-left:1%;">
         <fieldset>
         <legend class="subtitulos">Listado de Cursos</legend>
         <div id="ContenedorPlanilla" runat="server">
