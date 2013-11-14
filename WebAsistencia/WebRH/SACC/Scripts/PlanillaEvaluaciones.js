@@ -11,8 +11,6 @@ var TextboxNota = function (id) {
         var calif_valida = false;
         if ($.inArray(this.value, calificaciones_validas) < 0) {
             alertify.alert("La calificación ingresada no es válida");
-            this.select();
-            this.focus();
         }
 
     });
@@ -35,7 +33,7 @@ var EncabezadoFecha = function (id) {
                 .attr("class", "encabezado_fecha")               
                 .attr("disabled", "disabled")
                 .attr("title", "Aplicar fecha a todas las evaluaciones de la instancia")
-                .val("Fecha:");
+                .val("Fecha");
     this.boton = $("<img>")
                 .attr("src", "../Imagenes/calendar-icon.gif")
                 .css("width", "20px")
@@ -50,7 +48,7 @@ var EncabezadoFecha = function (id) {
         dateFormat: 'dd/mm/yy',
         onClose: function () {
             for (var i = 0; i < _this.observadores.length; i++) {
-                if (this.value != "")
+                if (this.value != "" && this.value != "Fecha")
                     _this.observadores[i].update(this.value);
             }
             this.value = "Fecha";
@@ -66,7 +64,7 @@ var TextboxFecha = function (id) {
         dateFormat: 'dd/mm/yy',
         onClose: function () {
             for (var i = 0; i < _this.observadores.length; i++) {
-                if(this.value != "")
+                if(this.value != "" && this.value != "Fecha")
                     _this.observadores[i].update(this.value);
             }
         }
