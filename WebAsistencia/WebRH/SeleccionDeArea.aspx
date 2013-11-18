@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />    
     <link rel="stylesheet" href="Protocolo/VistaDeArea.css" type="text/css" runat="server" />
     <%= Referencias.Css("")%>
+    <script type="text/javascript" src="Scripts/bootstrap/js/jquery.js"> </script>
+    
+
 </head>
 
 <form id="form1" runat="server">
@@ -19,9 +22,9 @@
     <div class="contenedor_principal contenedor_principal_seleccion_areas">
         <legend style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
             Áreas a Administrar 
-            <a id="btn_consultar_areas" class="btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx"> 
-                Consultar Todas las Areas 
-            </a>
+            <a id="btn_consultar_areas" class="btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Consultar Todas las Areas</a>
+            <a id="btn_consultar_mis_areas" class="btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Consultar listado total de personas a cargo</a>
+            
         </legend>
         <div id="contenedor_areas_usuario">          
         </div> 
@@ -62,6 +65,7 @@
 <script type="text/javascript" src="Protocolo/VistaDeAsistente.js"></script>
 <script type="text/javascript" src="Scripts/Sesion.js"></script>
 <script type="text/javascript" src="Scripts/ProveedorAjax.js"></script>
+<%= Referencias.Javascript("") %>
 
 <script type="text/javascript">
     $(document).ready(function () {

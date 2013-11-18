@@ -57,6 +57,8 @@ namespace General
                                   Grado = dr.GetValue(dr.GetOrdinal("grado")).ToString(),
                                   Telefono = dr.GetValue(dr.GetOrdinal("telefono")).ToString(),
                                   Cuit = dr.GetValue(dr.GetOrdinal("cuit")).ToString(),
+                                  
+                                  //Area = unArea,
                                   TipoDePlanta = new TipoDePlanta
                                                      {
                                                          Descripcion = dr.GetValue(dr.GetOrdinal("planta")).ToString()
@@ -66,6 +68,11 @@ namespace General
             }
             cn.Desconestar();
             return unArea.Personas;
+        }
+
+        public Area ArmarArea(SqlDataReader fila)
+        {
+            return new Area((int)fila.GetValue(fila.GetOrdinal("idAreaDependencia")), fila.GetString(fila.GetOrdinal("dependencia")).ToString());
         }
 
         public TipoDePlanta GetTipoDePlantaActualDe(Persona unaPersona)
