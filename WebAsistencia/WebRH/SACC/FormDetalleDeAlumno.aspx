@@ -143,9 +143,6 @@
 
     <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="Scripts/FichaAlumno.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
-   
 
     <script type="text/javascript">
         var AdministradorFichaAlumno = function () {

@@ -9,8 +9,6 @@
     <title>Observaciones</title>
      <%= Referencias.Css("../")%>
      <link id="link3" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
-    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="Link6" />
-    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
    
@@ -103,9 +101,6 @@
 
     <%= Referencias.Javascript("../") %> 
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
-    <script type="text/javascript" src="../Scripts/alertify.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
 
     <script type="text/javascript" src="../Scripts/list.js"></script>
   

@@ -9,8 +9,7 @@
     <%= Referencias.Css("../")%>
     <script src="../Scripts/jquery-1.8.3.min.js" type="text/javascript"></script>
     <link id="link3" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
-     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+
      <script type="text/javascript" src="Scripts/modernizr.custom.js" ></script>
 
  <style type="text/css"> 
@@ -104,13 +103,10 @@
      <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="Scripts/highcharts.js"></script>
     <script type="text/javascript" src="Scripts/exporting.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="Scripts/classie.js" ></script>
     <script type="text/javascript" src="Scripts/Reportes.js"></script>
     <script type="text/javascript" src="Scripts/AdministradorDeMensajes.js"></script>
-    <script type="text/javascript" src="../Scripts/placeholder_ie.js"></script>
-    <script type="text/javascript" src="../Scripts/alertify.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
+
     
 <script type="text/javascript">
 

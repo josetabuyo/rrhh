@@ -7,12 +7,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>ABM Cursos</title>
-    <%= Referencias.Css("../")%>
-    <link id="link5" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
-    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <%= Referencias.Css("../")%> 
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/alertify.js"></script>
+
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server" onsubmit="return submit_value;">
@@ -101,14 +98,9 @@
     </form>
     
        <%= Referencias.Javascript("../") %>
-    <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
-    
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
-
-
+    <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>    
 </body>
 
 <script src="FormABMCursos.js" type="text/javascript"></script>
-<script src="../Scripts/placeholder_ie.js" type="text/javascript"></script>
+
 </html>
