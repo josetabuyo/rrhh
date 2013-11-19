@@ -164,10 +164,16 @@
                             return x.IdAlumno == alumnos[i].Id;
                         });
             for (var j = 0; j < diasCursados.length; j++) {
-                var asistencia = Enumerable.From(detalle_asistencia_alumno.First().Asistencias)
+                var asistencia;
+                if (detalle_asistencia_alumno.Count() > 0) {
+                    asistencia = Enumerable.From(detalle_asistencia_alumno.First().Asistencias)
                         .Where(function (x) {
                             return x.Fecha == diasCursados[j].Fecha && x.IdAlumno == alumnos[i].Id
                         });
+                } else {
+                    asistencia = Enumerable.From({});
+                }
+
                 if (asistencia.Count() > 0)
                     row.DetalleAsistencias.push(new BotonAsistencia(asistencia.First().Id, alumnos[i].Id, _this.id_curso, diasCursados[j].Fecha, asistencia.First().Valor, diasCursados[j].HorasCatedra));
                 else

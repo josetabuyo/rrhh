@@ -916,8 +916,11 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public PlanillaAsistenciasDto GetPlanillaAsistencias(int id_curso, DateTime fecha_desde, DateTime fecha_hasta)
+    public PlanillaAsistenciasDto GetPlanillaAsistencias(int id_curso, DateTime fecha_desde, DateTime fecha_hasta, Usuario usuario)
     {
+        var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+        var autorizador = new Autorizador();
+
         var detalle_asistencias = new List<DetalleAsistenciasDto>();
         var horas_catedra = 0;
         var curso = RepositorioDeCursos().GetCursoById(id_curso);
@@ -934,6 +937,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         var asistencias = RepoAsistencias().GetAsistencias();
         var alumnos = curso.Alumnos();
+        alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
 
         foreach (var a in alumnos)
         {
@@ -1509,11 +1513,13 @@ public class WSViaticos : System.Web.Services.WebService
     //}
 
     [WebMethod]
-    public List<AlumnoDto> ReporteAlumnos(string fecha_desde, string fecha_hasta)
+    public List<AlumnoDto> ReporteAlumnos(string fecha_desde, string fecha_hasta, Usuario usuario)
     {
         Reportes reportes = new Reportes();
         List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
 
+        var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+        var autorizador = new Autorizador();
 
         DateTime fecha_desde_formateada;
         DateTime.TryParse(fecha_desde, out fecha_desde_formateada);
@@ -1533,6 +1539,9 @@ public class WSViaticos : System.Web.Services.WebService
 
 
         var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(fecha_desde_formateada, fecha_hasta_formateada, RepositorioDeCursos());
+        
+        alumnos_reporte = autorizador.FiltrarAlumnosPorUsuario(alumnos_reporte, organigrama, usuario);
+
         foreach (Alumno alumno in alumnos_reporte)
         {
             var alumno_dto = new AlumnoDto();
