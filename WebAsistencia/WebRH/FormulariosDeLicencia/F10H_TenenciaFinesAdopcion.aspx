@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/FormulariosDeLicencia/LicenciaPorNota.master" AutoEventWireup="true" CodeFile="F10H_TenenciaFinesAdopcion.aspx.cs" Inherits="FormulariosDeLicencia_Default" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
-
 <table>
 <tr>
     <td>
