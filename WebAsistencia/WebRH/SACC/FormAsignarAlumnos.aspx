@@ -88,6 +88,13 @@
 
 <script type="text/javascript">
 
+    function CapturarTeclaEnter(evt) {
+        var evt = (evt) ? evt : ((event) ? event : null);
+        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        if (evt.keyCode == 13) { return false; }
+    }
+    document.onkeypress = CapturarTeclaEnter;
+
     var AdministradorPlanilla = function () {
 
         var items_pantalla = {

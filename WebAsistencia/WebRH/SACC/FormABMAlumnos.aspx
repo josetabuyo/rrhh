@@ -109,6 +109,7 @@
         var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
         if ((evt.keyCode == 13) && (node.type == "text")) {
             $("#btn_buscar_personas").click();
+            return false;
         }
         
     }

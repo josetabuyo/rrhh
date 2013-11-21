@@ -9,8 +9,6 @@
     <title>ABM Docentes</title>
     <%= Referencias.Css("../")%>
      <link id="link3" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
-     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-     <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
      <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
     
 </head>
@@ -93,11 +91,6 @@
 </body>
     <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
-    <script type="text/javascript" src="../Scripts/alertify.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
-    
-
 
 <script type="text/javascript">
 
@@ -105,7 +98,7 @@
     function CapturarTeclaEnter(evt) {
         var evt = (evt) ? evt : ((event) ? event : null);
         var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
-        if ((evt.keyCode == 13) && (node.type == "text")) { $("#btn_buscar_personas").click(); }
+        if ((evt.keyCode == 13) && (node.type == "text")) { $("#btn_buscar_personas").click(); return false; }
     }
     document.onkeypress = CapturarTeclaEnter;
 

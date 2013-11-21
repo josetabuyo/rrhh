@@ -29,6 +29,8 @@
                 <asp:HiddenField ID="personasJSON" runat="server" EnableViewState="true"/>
                 <asp:HiddenField ID="txtIdArea" runat="server" />
                 <asp:HiddenField ID="idArea" runat="server" />
+                <asp:HiddenField ID="DNIPersona" runat="server" />
+                <asp:Button ID="btnAsistenciaAlumno" runat="server" OnClick="btnAsistenciaAlumno_Click" style="display:none;" />
             </div>
            
         </form>

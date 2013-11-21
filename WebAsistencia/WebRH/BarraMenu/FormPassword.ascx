@@ -77,7 +77,7 @@
 
                         if (respuesta.tipoDeRespuesta == "cambioPassword.error") {
                             alertify.alert("La contrase&ntilde;a actual no es correcta");
-                            $(".modal_close").click();
+                            //$(".modal_close").click();
                             return;
                         }
 

@@ -20,4 +20,10 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
         this.personasJSON.Value = JsonConvert.SerializeObject((Persona[])Session["personas"]);
         //this.areasJSON.Value = JsonConvert.SerializeObject(servicio.GetAreasParaProtocolo());
     }
+
+    protected void btnAsistenciaAlumno_Click(object sender, EventArgs e)
+    {
+        Session[ConstantesDeSesion.PERSONA] = int.Parse(this.DNIPersona.Value);
+        Response.Redirect("~\\ConceptosLicencia.aspx");
+    }
 }

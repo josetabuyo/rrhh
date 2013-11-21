@@ -19,17 +19,50 @@
         return una_persona.area();
     }
     }));
-    
+    columnas.push(new Columna("Asistencia", { generar: function (una_persona) {
+        var contenedorBtnAcciones = $('<div>');
+        var botonPresente = $('<a>');
+        botonPresente.addClass('assitencia-btn');
+        botonPresente.attr('href', '../ConceptosLicencia.aspx');
+        botonPresente.text('Presente');
+        botonPresente.click(function () {
+            $("#DNIPersona").val(un_alumno.Documento);
+            $("#btnAsistenciaAlumno").click();
+        });
+        // botonEditar.attr('style', 'padding-right:5px;');
+        //botonEditar.attr('width', '35px');
+        // botonEditar.attr('height', '35px');
+        contenedorBtnAcciones.append(botonPresente);
+
+        return contenedorBtnAcciones;
+
+    }
+    }));
+    columnas.push(new Columna("Pase", { generar: function (una_persona) {
+        var contenedorBtnAcciones = $('<div>');
+        var botonPase = $('<img>');
+        botonPase.addClass('pase-btn');
+        botonPase.attr('src', '../Imagenes/paseMin.png');
+
+        // botonEditar.attr('style', 'padding-right:5px;');
+        //botonEditar.attr('width', '35px');
+        // botonEditar.attr('height', '35px');
+        contenedorBtnAcciones.append(botonPase);
+
+        return contenedorBtnAcciones;
+    }
+    }));
+
 
     PlanillaPersonas = new Grilla(columnas);
 
     PlanillaPersonas.AgregarEstilo("tabla_macc");
     PlanillaPersonas.AgregarEstilo("tabla_protocolo");
 
-//    PlanillaPersonas.SetOnRowClickEventHandler(function (un_area) {
-//        var vista = new VistaDeArea({ area: un_area });
-//        vista.mostrarModal();
-//    });
+    //    PlanillaPersonas.SetOnRowClickEventHandler(function (un_area) {
+    //        var vista = new VistaDeArea({ area: un_area });
+    //        vista.mostrarModal();
+    //    });
 
     PlanillaPersonas.CargarObjetos(personas);
     PlanillaPersonas.DibujarEn(contenedorPlanilla);
@@ -40,3 +73,7 @@
 
     var featureList = new List('ContenedorPrincipal', options);
 }
+
+$(".pase-btn").click(function () {
+    location.href = "../FormulariosOtros/Pases.aspx";
+});
