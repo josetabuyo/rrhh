@@ -45,7 +45,12 @@
                 <div id="asistentes"></div>
                 <div class="botonera">
                     <a id="btn_administrar_personal"> Administrar Personal </a>
-                    <a id="btn_solicitar_modificacion"> Solicitar Modificación De Datos </a>
+
+                    <%--Javi: te cambie el ID del link para poner momentáneamente el mensaje de modificación
+                        para que vuelva a funcionar lo tuyo, se tiene que llamar: btn_solicitar_modificacion
+                        Bel :)--%>
+
+                    <a id="btn_mod" onclick="Modal()" > Solicitar Modificación De Datos </a>          
                 </div>
             </div>
         </div>
@@ -58,7 +63,6 @@
 
 <script type="text/javascript" src="Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
-
 <script type="text/javascript" src="PantallaDeSeleccionDeAreas.js"></script>
 <script type="text/javascript" src="Protocolo/Area.js"></script>
 <script type="text/javascript" src="Protocolo/VistaDeArea.js"></script>
@@ -71,5 +75,18 @@
     $(document).ready(function () {
         var seleccion_de_areas = new PantallaDeSeleccionDeAreas();
     });
+
+
+   function Modal() {
+
+       alertify.alert(
+         "<p>Para solicitar la modificación de los datos del Área, enviar un correo electrónico a</p>"
+       + "<p><b>rhcomunica@desarrollosocial.gov.ar</b></p>"
+       + "</br>"
+
+       );
+       return false;
+    };
+
 </script>
 </html>
