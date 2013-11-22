@@ -3,6 +3,7 @@
 using System;
 using System.Web.UI.WebControls;
 using WSViaticos;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -41,10 +42,18 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
 
             WSViaticosSoapClient s = new WSViaticosSoapClient();
             //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
-
+            //Persona persona = JsonConvert.DeserializeObject<Persona>(s.GetPersonaByDNI((int)Session[ConstantesDeSesion.ALUMNO], (Usuario)Session[ConstantesDeSesion.USUARIO]));
             //WSAsistencia s = new WSAsistencia();
+            Persona per = (Persona)Session["persona"];
+
+            //per.Documento = persona.Documento;
+            //per.Apellido = persona.Nombre;
+            //per.Nombre = persona.Apellido;
+
+            //per = Session["persona"];
+
             SaldoLicencia saldo;
-            saldo = s.GetSaldoLicencia((Persona)Session["persona"], this.Concepto);
+            saldo = s.GetSaldoLicencia(per, this.Concepto);
             Session["saldoLicencia"] = saldo;
             foreach (SaldoLicenciaDetalle d in saldo.Detalle)
             {

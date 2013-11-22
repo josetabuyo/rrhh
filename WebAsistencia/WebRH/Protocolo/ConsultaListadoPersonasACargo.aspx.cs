@@ -23,7 +23,11 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
 
     protected void btnAsistenciaAlumno_Click(object sender, EventArgs e)
     {
-        Session[ConstantesDeSesion.PERSONA] = int.Parse(this.DNIPersona.Value);
+        var s = new WSViaticos.WSViaticosSoapClient();
+        var dni = int.Parse(this.DNIPersona.Value);
+        Persona persona = JsonConvert.DeserializeObject<Persona>(s.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
+        Session["persona"] = persona;
+        //Session["areaActual"] = 
         Response.Redirect("~\\ConceptosLicencia.aspx");
     }
 }

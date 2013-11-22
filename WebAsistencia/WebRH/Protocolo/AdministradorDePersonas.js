@@ -23,10 +23,10 @@
         var contenedorBtnAcciones = $('<div>');
         var botonPresente = $('<a>');
         botonPresente.addClass('assitencia-btn');
-        botonPresente.attr('href', '../ConceptosLicencia.aspx');
+        //botonPresente.attr('href', '../ConceptosLicencia.aspx');
         botonPresente.text('Presente');
         botonPresente.click(function () {
-            $("#DNIPersona").val(un_alumno.Documento);
+            $("#DNIPersona").val(una_persona.documento());
             $("#btnAsistenciaAlumno").click();
         });
         // botonEditar.attr('style', 'padding-right:5px;');
