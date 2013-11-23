@@ -30,4 +30,26 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
         //Session["areaActual"] = 
         Response.Redirect("~\\ConceptosLicencia.aspx");
     }
+
+
+    protected void btnPasePersona_Click(object sender, EventArgs e)
+    {
+        var ws = new WSViaticos.WSViaticosSoapClient();
+        var dni = int.Parse(this.DNIPersona.Value);
+        Persona persona = JsonConvert.DeserializeObject<Persona>(ws.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
+        Session["personaPase"] = persona;
+        Response.Redirect("~\\FormulariosOtros\\Pases.aspx");
+    }
+
+
+    protected void btnEliminarPasePersona_Click(object sender, EventArgs e)
+    {
+        var ws = new WSViaticos.WSViaticosSoapClient();
+        var dni = int.Parse(this.DNIPersona.Value);
+        Persona persona = JsonConvert.DeserializeObject<Persona>(ws.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
+        PaseDeArea pase = new PaseDeArea();
+        pase.Id = persona.PasePendiente.Id;
+        ws.EliminarPase(pase);
+        Response.Redirect("~\\Principal.aspx");
+    }
 }

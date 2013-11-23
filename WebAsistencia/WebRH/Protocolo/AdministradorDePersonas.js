@@ -44,6 +44,11 @@
         botonPase.addClass('pase-btn');
         botonPase.attr('src', '../Imagenes/paseMin.png');
 
+        botonPase.click(function () {
+            $("#DNIPersona").val(una_persona.documento());
+            $("#btnPasePersona").click();
+        });
+
         // botonEditar.attr('style', 'padding-right:5px;');
         //botonEditar.attr('width', '35px');
         // botonEditar.attr('height', '35px');
