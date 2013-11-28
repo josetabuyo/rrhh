@@ -6,12 +6,17 @@ var TextboxCalificacion = function (id) {
 var TextboxNota = function (id) {
     var _this = this;
     this.html = $("<input>").attr("id", id).attr("class", "text_2caracteres");
-    this.html.blur(function () {
+    this.validar = function () {
         var calificaciones_validas = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', '']
         var calif_valida = false;
-        if ($.inArray(this.value, calificaciones_validas) < 0) {
-            alertify.alert("La calificaci&oacute;n ingresada no es v&aacute;lida");
+        if ($.inArray(this.html.val(), calificaciones_validas) < 0) {
+            return false; // alertify.alert("La calificaci&oacute;n ingresada no es v&aacute;lida");
+        } else {
+            return true;
         }
+    }
+    this.html.blur(function () {
+        _this.validar();
 
     });
 }
@@ -33,7 +38,7 @@ var EncabezadoFecha = function (id) {
                 .attr("class", "encabezado_fecha")               
                 .attr("disabled", "disabled")
                 .attr("title", "Aplicar fecha a todas las evaluaciones de la instancia")
-                .val("Fecha:");
+                .val("Fecha");
     this.boton = $("<img>")
                 .attr("src", "../Imagenes/calendar-icon.gif")
                 .css("width", "20px")
@@ -48,7 +53,7 @@ var EncabezadoFecha = function (id) {
         dateFormat: 'dd/mm/yy',
         onClose: function () {
             for (var i = 0; i < _this.observadores.length; i++) {
-                if (this.value != "")
+                if (this.value != "" && this.value != "Fecha")
                     _this.observadores[i].update(this.value);
             }
             this.value = "Fecha";
@@ -64,7 +69,7 @@ var TextboxFecha = function (id) {
         dateFormat: 'dd/mm/yy',
         onClose: function () {
             for (var i = 0; i < _this.observadores.length; i++) {
-                if(this.value != "")
+                if (this.value != "" && this.value != "Fecha")
                     _this.observadores[i].update(this.value);
             }
         }
@@ -77,9 +82,6 @@ EncabezadoFecha.prototype.addObservador = function (obs) {
 
 TextboxFecha.prototype.update = function (fecha) {
     this.Fecha = fecha;
-    if (fecha == "Fecha:") {
-        return false;
-    }
     this.html.val(fecha);
 };
 
@@ -139,7 +141,7 @@ var Planilla = function (planilla, readonly) {
                     var fecha = this.fecha.html;
                     var nota = this.nota.html;
                     var fecha_no_valida = nota.val() != "" && fecha.val() == "";
-                    var nota_no_valida = nota.val() == "" && fecha.val() != "";
+                    var nota_no_valida = (nota.val() == "" || !this.nota.validar()) && fecha.val() != "";
                     if (fecha_no_valida) {
                         fecha.addClass("fecha_no_valida");
                     } else {

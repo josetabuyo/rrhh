@@ -16,6 +16,7 @@ namespace General.Repositorios
         IRepositorioDeModalidades repo_modalidades;
         IRepositorioDeMaterias repo_materias;
         IRepositorioDeAlumnos repo_alumnos;
+        ComparadorDeDiferencias comparador = new ComparadorDeDiferencias();
 
         public RepositorioDeCursos(IConexionBD conexion)
         {
@@ -212,20 +213,27 @@ namespace General.Repositorios
 
         public bool QuitarCurso(Curso curso, Usuario usuario)
         {
-            var idBaja = CrearBaja(usuario);
-            var parametros = new Dictionary<string, object>();
+            if (!this.TieneAsignadoAlumnos(curso))
+            {
+                var idBaja = CrearBaja(usuario);
+                var parametros = new Dictionary<string, object>();
 
-            parametros.Add("id_curso", curso.Id);
-            parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
-            parametros.Add("id_materia", curso.Materia.Id);
-            parametros.Add("id_docente", curso.Docente.Id);
-            parametros.Add("fecha_inicio", curso.FechaInicio);
-            parametros.Add("fecha_fin", curso.FechaFin);
-            parametros.Add("fecha", DateTime.Now);
-            parametros.Add("Baja", idBaja);
-            parametros.Add("Observaciones", curso.Observaciones);
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
-            return true;
+                parametros.Add("id_curso", curso.Id);
+                parametros.Add("id_espacioFisico", curso.EspacioFisico.Id);
+                parametros.Add("id_materia", curso.Materia.Id);
+                parametros.Add("id_docente", curso.Docente.Id);
+                parametros.Add("fecha_inicio", curso.FechaInicio);
+                parametros.Add("fecha_fin", curso.FechaFin);
+                parametros.Add("fecha", DateTime.Now);
+                parametros.Add("Baja", idBaja);
+                parametros.Add("Observaciones", curso.Observaciones);
+                conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private int CrearBaja(Usuario usuario)
@@ -316,7 +324,7 @@ namespace General.Repositorios
             alumnosAEliminar.ForEach(alumno => EliminarAlumnoDelCurso(alumno, curso, usuario));
         }
 
-        private List<Alumno> ObtenerAlumnosDelCurso(Curso curso)
+        public List<Alumno> ObtenerAlumnosDelCurso(Curso curso)
         {
             var id_alumnos_de_la_base = GetInscripcionesByIdCurso(curso.Id);
             var alumnos = new RepositorioDeAlumnos(conexion_bd, this, new RepositorioDeModalidades(conexion_bd)).GetAlumnos();
@@ -391,5 +399,140 @@ namespace General.Repositorios
 
             return cursos_del_alumno;
         }
+
+        public int GetMaxHorasCatedraCurso()
+        {
+            //Verificar que no se elimine el alumno si tiene asistencias
+
+            return int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Get_MaxHorasCatedraCurso").ToString());
+        }
+
+        //public List<Observacion> GetObservaciones()
+        //{
+
+        //    List<Observacion> observaciones = new List<Observacion>();
+        //    observaciones.Add(new Observacion(1, new DateTime(2013, 09, 06), "Fines CENS", "Mariano", "MDS", "Cursada", "Mariano", "Entre los alumnos agarraron al profesor para golpearle la cabeza", "Los echamos a todos", new DateTime(2013, 09, 15), "Elena"));
+        //    observaciones.Add(new Observacion(2, new DateTime(2013, 09, 06), "Fines Puro", "Leonardo", "MDS", "Cursada", "Mariano", "Necesito los certificados de los días que faltó a cursar", "MARIANO, por favor pedile los certificados y avisales a todos los de acá que cada vez que faltan a cursar justifiquen", new DateTime(2013, 09, 15), "Elena"));
+        //    observaciones.Add(new Observacion(3, new DateTime(2013, 09, 06), "Fines Puro", "Cholo", "MDS", "Libre", "Mariano", "Esta por quedar libre", "Se lo llamo para motivarlo a venir y terminar el ciclo", new DateTime(2013, 09, 15), "Elena"));
+        //    observaciones.Add(new Observacion(4, new DateTime(2013, 09, 06), "Fines CENS", "Stefania", "MDS", "Expulsion", "Mariano", "Saco un arma en clase y amenazo con matar a todos", "Llamamos a la policia y se lo llevaron a comer una pizza para calmarlo", new DateTime(2013, 09, 15), "Elena"));
+
+        //    return observaciones;
+        //}
+
+        //public List<Observacion> GetObservaciones()
+        //{
+        //    return this.cache.Ejecutar(GetObservacionesDesdeLaBase, this);
+        //}
+
+        public List<Observacion> GetObservaciones()
+        {
+            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Observaciones");
+            var observaciones = new List<Observacion>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+               
+                Observacion observacion = new Observacion
+                    (
+                    row.GetInt("id"),
+                    row.GetObject("FechaCarga") is DBNull ? new DateTime(DateTime.Now.Year, 1, 1) : row.GetDateTime("FechaCarga"),
+                    row.GetString("Relacion"),
+                    row.GetString("PersonaCarga"),
+                    row.GetString("Pertenece"),
+                    row.GetString("Asunto"),
+                    row.GetString("ReferenteMDS"),
+                    row.GetString("Seguimiento"),
+                    row.GetString("Resultado"),
+                    row.GetObject("FechaDelResultado") is DBNull ? new DateTime(DateTime.Now.Year, 1, 1) : row.GetDateTime("FechaDelResultado"),
+                    row.GetString("ReferenteRtaMDS"));
+
+                //observacion.Id = row.GetInt("id");
+                    //row.GetString("idBaja"));
+
+                observaciones.Add(observacion);
+            });
+
+            //observaciones.Sort((curso1, curso2) => curso1.esMayorAlfabeticamenteQue(curso2));
+            return observaciones;
+        }
+
+        public List<Observacion> GuardarObservaciones(List<Observacion> observaciones_antiguas, List<Observacion> observaciones_nuevas, Usuario usuario)
+        {
+            var registros_no_procesados = new List<Observacion>();
+            //FC: tengo que incluir para update a las que borre y ya estaban
+            var observaciones_a_updatear = comparador.ObservacionesParaActualizar(observaciones_antiguas, observaciones_nuevas);
+            //FC: estas no tengo que insertarlas mas en el historico
+            var observaciones_para_dar_de_baja = comparador.ObservacionesParaDarDeBaja(observaciones_antiguas, observaciones_nuevas);
+            var observaciones_a_insertar = comparador.ObservacionesParaGuardar(observaciones_antiguas, observaciones_nuevas);
+            //FC:estas no tengo que borrarlas mas
+            var observaciones_a_borrar = comparador.ObservacionesParaDarDeBajaSinInsertarOtra(observaciones_antiguas, observaciones_nuevas);
+
+            foreach (var e in observaciones_a_insertar)
+            {
+                if (GuardarObservacion(e, usuario).Equals(0))
+                    registros_no_procesados.Add(e);
+            }
+            foreach (var e in observaciones_a_updatear)
+            {
+                if (GuardarObservacion(e, usuario).Equals(0))
+                    registros_no_procesados.Add(e);
+            }
+            foreach (var e in observaciones_para_dar_de_baja)
+            {
+                var idBaja = CrearBaja(usuario);
+                ActualizarObservacion(e, usuario, idBaja);
+            }
+            foreach (var e in observaciones_a_borrar)
+            {
+                var idBaja = CrearBaja(usuario);
+                if (ActualizarObservacion(e, usuario, idBaja).Equals(0))
+                    registros_no_procesados.Add(e);
+            }
+            return registros_no_procesados;
+        }
+
+        public int GuardarObservacion(Observacion observacion, Usuario usuario)
+        {
+
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@FechaCarga", observacion.FechaCarga);
+            parametros.Add("@Relacion", observacion.Relacion);
+            parametros.Add("@PersonaCarga", observacion.PersonaCarga);
+            parametros.Add("@Pertenece", observacion.Pertenece);
+            parametros.Add("@Asunto", observacion.Asunto);
+            parametros.Add("@ReferenteMDS", observacion.ReferenteMDS);
+            parametros.Add("@Seguimiento", observacion.Seguimiento);
+            parametros.Add("@Resultado", observacion.Resultado);
+            parametros.Add("@FechaDelResultado", observacion.FechaResultado);
+            parametros.Add("@ReferenteRtaMDS", observacion.ReferenteRespuestaMDS);
+            parametros.Add("@idUsuario", usuario.Id);
+
+            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Observacion", parametros);
+
+        }
+
+        private int ActualizarObservacion(Observacion observacion, Usuario usuario, int idBaja)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id", observacion.Id);
+            parametros.Add("@FechaCarga", observacion.FechaCarga);
+            parametros.Add("@Relacion", observacion.Relacion);
+            parametros.Add("@PersonaCarga", observacion.PersonaCarga);
+            parametros.Add("@Pertenece", observacion.Pertenece);
+            parametros.Add("@Asunto", observacion.Asunto);
+            parametros.Add("@ReferenteMDS", observacion.ReferenteMDS);
+            parametros.Add("@Seguimiento", observacion.Seguimiento);
+            parametros.Add("@Resultado", observacion.Resultado);
+            parametros.Add("@FechaDelResultado", observacion.FechaResultado);
+            parametros.Add("@ReferenteRtaMDS", observacion.ReferenteRespuestaMDS);
+            parametros.Add("@idUsuario", usuario.Id);
+            if (idBaja != 0)
+                parametros.Add("@id_baja", idBaja);
+                                                     
+            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Upd_Del_Observaciones", parametros);
+        }
+
+
     }
 }

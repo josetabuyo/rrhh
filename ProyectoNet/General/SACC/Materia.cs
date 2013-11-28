@@ -10,6 +10,14 @@ namespace General
         private Modalidad _modalidad;
         private Ciclo _ciclo;
 
+        public int Id { get { return _id; } set { _id = value; }}
+
+        public string Nombre { get { return _nombre; } set { _nombre = value; }}
+
+        public Modalidad Modalidad { get { return _modalidad; } set { _modalidad = value; }}
+
+        public Ciclo Ciclo { get { return _ciclo; } set { _ciclo = value; }}
+
         public Materia()
         {
 
@@ -21,33 +29,13 @@ namespace General
             this._modalidad = modalidad;
         }
 
-        public int Id
+        public Materia(int id, string nombre, Modalidad modalidad, Ciclo ciclo)
         {
-            get { return _id; }
-            set { _id = value; }
+            this._id = id;
+            this._nombre = nombre;
+            this._modalidad = modalidad;
+            this._ciclo = ciclo;
         }
-
-        public string Nombre
-        {
-            get { return _nombre; }
-            set { _nombre = value; }
-        }
-
-        public Modalidad Modalidad
-        {
-            get { return _modalidad; }
-            set { _modalidad = value; }
-        }
-
-        public Ciclo Ciclo
-        {
-            get { return _ciclo; }
-            set { _ciclo = value; }
-        }
-
-
-
-
 
         internal int esMayorAlfabeticamenteQue(Materia otramateria)
         {

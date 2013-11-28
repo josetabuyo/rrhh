@@ -7,10 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>ABM Cursos</title>
-    <%= Referencias.Css("../")%>
-    <link id="link5" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
-    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
+    <%= Referencias.Css("../")%> 
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
 </head>
@@ -19,7 +16,7 @@
         <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
         <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
     <div id="panelCurso" class="div_izquierdo">
-        <div class="estilo_formulario" style="width:70%; margin-left: 20%;">
+        <div class="estilo_formulario" style="width:90%; margin-left: 5%;">
         <fieldset>
            <legend class="subtitulos">Panel De Cursos</legend>
         <p>
@@ -39,7 +36,7 @@
             <asp:TextBox ID="txtFechaInicio" CssClass="input-small" placeholder="Fecha Inicio" runat="server" MaxLength="8" data-name="Fecha de Inicio del Curso" title="Fecha de Inicio del Curso"></asp:TextBox>
             <br />
             <asp:Label ID="lblFechaFin" CssClass="labels_sacc" runat="server" Text="Fecha Fin"></asp:Label>
-            <asp:TextBox ID="txtFechaFin" CssClass="input-small" placeholder="Fecha Inicio" runat="server" MaxLength="8" data-name="Fecha de Fin del Curso" title="Fecha de Fin del Curso"></asp:TextBox></p>
+            <asp:TextBox ID="txtFechaFin" CssClass="input-small" placeholder="Fecha Fin" runat="server" MaxLength="8" data-name="Fecha de Fin del Curso" title="Fecha de Fin del Curso"></asp:TextBox></p>
         <p>   
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
             <%--<asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" data-name="Dia" ></asp:DropdownList>--%>
@@ -69,7 +66,7 @@
                 class=" btn btn-primary boton_main_documentos"
                  OnClick="btnModificarCurso_Click" OnClientClick="ValidarCurso();" />
             <asp:Button  ID="btnQuitarCurso" runat="server" Text="Eliminar Curso" 
-                class=" btn btn-primary boton_main_documentos" OnClick="btnQuitarCurso_Click" />
+                class=" btn btn-primary boton_main_documentos" OnClick="btnQuitarCurso_Click" OnClientClick="ValidarCurso();" />
             <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" 
             class=" btn btn-primary boton_main_documentos"
             onClientClick="javascript:LimpiarCampos();" />
@@ -79,11 +76,12 @@
         </div>
 
     <div class="div_derecho">
-        <div class="estilo_formulario" style="width:95%; overflow:auto;  margin-left:1%;">
+        <div class="estilo_formulario" style="width:90%; overflow:auto;  margin-left:1%;">
         <fieldset>
         <legend class="subtitulos">Listado de Cursos</legend>
         <div id="ContenedorPlanilla" runat="server">
             <div class="input-append" style="clear:both;">   
+                <div style="float:left;"><label>Cursos Vigentes: </label><input type="checkbox" id="filtrar_cursos_vigentes" /></div>
                 <input type="text" id="search" class="search" style="float:right; margin-bottom:10px;" placeholder="Filtrar Cursos" />    
             </div>
         </div>
@@ -100,12 +98,9 @@
     </form>
     
        <%= Referencias.Javascript("../") %>
-    <script type="text/javascript" src="../Scripts/alertify.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
-
-
+    <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>    
 </body>
+
 <script src="FormABMCursos.js" type="text/javascript"></script>
-<script src="../Scripts/placeholder_ie.js" type="text/javascript"></script>
+
 </html>

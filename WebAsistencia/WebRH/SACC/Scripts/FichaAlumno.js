@@ -40,7 +40,24 @@
 
     //		this.o.planillaAlumnosDisponibles.SetOnRowClickEventHandler(function (un_alumno) {
     //			_this.o.alumnoGlobal = un_alumno;
-    //});
+        //});
+
+    this.o.PlanillaAsistencias = new Grilla(
+    [
+        new Columna("Materia", { generar: function (asistencia) { return asistencia.Materia } }),
+        new Columna("Ciclo", { generar: function (asistencia) { return asistencia.Ciclo } }),
+        new Columna("Asistencia", { generar: function (asistencia) { return asistencia.AsistenciasTotal + _this.ValorPorcentaje(asistencia.AsistenciasTotal, asistencia.TotalHorasCatedra)  } }),
+        new Columna("Inasistencia", { generar: function (asistencia) { return asistencia.InasistenciasTotal +  _this.ValorPorcentaje(asistencia.InasistenciasTotal, asistencia.TotalHorasCatedra)  } }),
+        new Columna("Sin Cursar", { generar: function (asistencia) { return asistencia.DiasSinCursarTotal +  _this.ValorPorcentaje(asistencia.DiasSinCursarTotal, asistencia.TotalHorasCatedra)  } }),
+        new Columna("Fecha Inicio", { generar: function (asistencia) { return asistencia.FechaInicio } }),
+        new Columna("Fecha Fin", { generar: function (asistencia) { return asistencia.FechaFin } })
+
+	]);
+
+    this.o.PlanillaAsistencias.SetOnRowClickEventHandler(function (asistencia) {
+        //_this.o.alumnoGlobal = un_alumno;
+        _this.CompletarDetalleAsistencias(asistencia);
+    });
 
     this.o.PlanillaEvaluaciones = new Grilla(
         [
@@ -62,12 +79,53 @@
     this.o.PlanillaEvaluaciones.AgregarEstilo("tabla_macc");
     this.o.PlanillaCursos.CargarObjetos(this.o.cursos_inscriptos);
     this.o.PlanillaCursos.DibujarEn(this.o.contenedorPlanillaCursos);
+    this.o.PlanillaAsistencias.CargarObjetos(this.o.asistencias_por_curso);
+    this.o.PlanillaAsistencias.DibujarEn(this.o.contenedorPlanillaAsistencias);
     this.o.PlanillaEvaluaciones.CargarObjetos(this.o.evaluaciones_por_curso);
     this.o.PlanillaEvaluaciones.DibujarEn(this.o.contenedorPlanillaEvaluaciones);
 
     //this.completarcombosDeCursos();
     //this.completarCombosDeCiclo();
 
+}
+
+FichaAlumno.prototype.ValorPorcentaje = function (asistencia, horasCatedra) {
+    return " (" + ((asistencia / horasCatedra) * 100).toFixed(2) + "%)";
+}
+
+
+FichaAlumno.prototype.CompletarDetalleAsistencias = function (asistenciasDTO) {
+//    _this = this;
+//    //var contenedorPlanillaEvaluacionesDetalle = $('#ContenedorPlanillaEvaluacionesDetalle');
+//    _this.o.contenedorPlanillaAsistenciasDetalle.html("");
+//    //_this.o.sub_eval_2.html("Asistencias del Curso");
+//    //_this.o.sub_eval_2.attr("class", "sub_eval");
+//    //$("#sub_eval_2").html("Notas del Curso");
+
+//    _this.o.PlanillaAsistenciasDetalle = new Grilla(
+//        [
+//            new Columna("Asistencia", { generar: function (asistenciasDTO) { return asistencias_por_curso.AsistenciasTotal } }),
+//            new Columna("Cantidad de d&iacute;as", { generar: function (asistenciasDTO) { return asistenciasDTO.Fecha } }),
+//            new Columna("Porcentaje", { generar: function (asistenciasDTO) { return asistenciasDTO.Calificacion } })
+//		]);
+
+//    // var columnas = [];
+//    var asistenciasDTO = evaluacion.Evaluaciones;
+//    // columnas.push(new Columna("Instancia", { generar: function (evaluacionDTO) { return evaluacionDTO.DescripcionInstancia } }));
+//    // columnas.push(new Columna("Fecha De Rendici&oacute;n", { generar: function (evaluacionDTO) { return evaluacionDTO.Fecha } }));
+//    // columnas.push(new Columna("Calificac&oacute;n", { generar: function (evaluacionDTO) { return evaluacionDTO.Calificacion } }));
+
+//    //PlanillaEvaluacionesDetalle = new Grilla(columnas);
+
+//    _this.o.PlanillaAsistenciasDetalle.AgregarEstilo("tabla_macc");
+//    _this.o.PlanillaAsistenciasDetalle.CargarObjetos(evaluacionDTO);
+//    _this.o.PlanillaAsistenciasDetalle.DibujarEn(_this.o.contenedorPlanillaAsistenciasDetalle);
+
+//    //Estilos para ver coloreada la grilla en Internet Explorer
+//    $("tbody tr:even").css('background-color', '#E6E6FA');
+//    $("tbody tr:odd").css('background-color', '#9CB3D6 ');
+
+    return;
 }
 
 FichaAlumno.prototype.CompletarDetalleEvaluaciones = function (evaluacion) {

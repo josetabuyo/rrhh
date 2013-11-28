@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />    
     <link rel="stylesheet" href="Protocolo/VistaDeArea.css" type="text/css" runat="server" />
     <%= Referencias.Css("")%>
+    <script type="text/javascript" src="Scripts/bootstrap/js/jquery.js"> </script>
+    
+
 </head>
 
 <form id="form1" runat="server">
@@ -19,9 +22,9 @@
     <div class="contenedor_principal contenedor_principal_seleccion_areas">
         <div id="titulo_areas_a_administrar" style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
             Áreas a Administrar 
-            <a id="btn_consultar_areas" class="btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx"> 
-                Consultar Todas las Areas 
-            </a>
+            <a id="btn_consultar_areas" class="btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Consultar Todas las Areas</a>
+            <a id="btn_consultar_mis_areas" class="btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Consultar listado total de personas a cargo</a>
+            
         </div>
         <div id="contenedor_areas_usuario">          
         </div> 
@@ -42,7 +45,12 @@
                 <div id="asistentes"></div>
                 <div class="botonera">
                     <a id="btn_administrar_personal"> Administrar Personal </a>
-                    <a id="btn_solicitar_modificacion"> Solicitar Modificación De Datos </a>
+
+                    <%--Javi: te cambie el ID del link para poner momentáneamente el mensaje de modificación
+                        para que vuelva a funcionar lo tuyo, se tiene que llamar: btn_solicitar_modificacion
+                        Bel :)--%>
+
+                    <a id="btn_mod" onclick="Modal()" > Solicitar Modificación De Datos </a>          
                 </div>
             </div>
         </div>
@@ -55,17 +63,30 @@
 
 <script type="text/javascript" src="Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
-
 <script type="text/javascript" src="PantallaDeSeleccionDeAreas.js"></script>
 <script type="text/javascript" src="Protocolo/Area.js"></script>
 <script type="text/javascript" src="Protocolo/VistaDeArea.js"></script>
 <script type="text/javascript" src="Protocolo/VistaDeAsistente.js"></script>
 <script type="text/javascript" src="Scripts/Sesion.js"></script>
 <script type="text/javascript" src="Scripts/ProveedorAjax.js"></script>
+<%= Referencias.Javascript("") %>
 
 <script type="text/javascript">
     $(document).ready(function () {
         var seleccion_de_areas = new PantallaDeSeleccionDeAreas();
     });
+
+
+   function Modal() {
+
+       alertify.alert(
+         "<p>Para solicitar la modificación de los datos del Área, enviar un correo electrónico a</p>"
+       + "<p><b>rhcomunica@desarrollosocial.gov.ar</b></p>"
+       + "</br>"
+
+       );
+       return false;
+    };
+
 </script>
 </html>

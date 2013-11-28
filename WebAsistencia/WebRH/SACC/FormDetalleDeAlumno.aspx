@@ -8,13 +8,13 @@
     <title></title>
     <%= Referencias.Css("../")%>
     <link id="link1" rel="stylesheet" href="../Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />
-    <link id="link5" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
+    <link id="link5" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
 </head>
 <body class="marca_de_agua">
     <form id="form1" runat="server">
-     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'>M.A.C.C</span> <br/> Módulo de Administración <br/> de Creación de Capacidades" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
      <uc3:BarraNavegacion ID="BarraNavegacion" runat="server" />
      <fieldset>
         <legend class="subtitulos">Ficha del Alumno</legend>
@@ -102,7 +102,9 @@
         </div>
         <div id="tab2" class="Contenido">
             <h2 class="sub_eval">Listado de Asistencia por Curso</h2>
-            <h2 class="sub_eval">Detalle de Asistencia por Curso</h2>
+            <div id="ContenedorPlanillaAsistencias"  runat="server"></div>
+           <%-- <h2 class="sub_eval">Detalle de Asistencia por Curso</h2>
+            <div id="ContenedorPlanillaAsistenciasDetalle" runat="server"></div>--%>
         </div>
         <div id="tab3" class="Contenido">
             <div style=" width:55%; margin-right:20px; float:left;">
@@ -136,13 +138,11 @@
 
      <asp:HiddenField ID="alumnoJSON" runat="server" EnableViewState="true"/>
      <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
+     <asp:HiddenField ID="asistenciasJSON" runat="server" EnableViewState="true"/>
      <asp:HiddenField ID="evaluacionesJSON" runat="server" EnableViewState="true"/>
 
     <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="Scripts/FichaAlumno.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
-   
 
     <script type="text/javascript">
         var AdministradorFichaAlumno = function () {
@@ -151,11 +151,16 @@
                 alumno: JSON.parse($('#alumnoJSON').val()),
                 cursos_inscriptos: JSON.parse($('#cursosJSON').val()),
                 evaluaciones_por_curso: JSON.parse($('#evaluacionesJSON').val()),
+                asistencias_por_curso: JSON.parse($('#asistenciasJSON').val()),
                 contenedorPlanillaCursos: $('#ContenedorPlanillaCursos'),
                 contenedorPlanillaEvaluaciones: $('#ContenedorPlanillaEvaluaciones'),
                 contenedorPlanillaEvaluacionesDetalle: $('#ContenedorPlanillaEvaluacionesDetalle'),
+                contenedorPlanillaAsistencias: $('#ContenedorPlanillaAsistencias'),
+                contenedorPlanillaAsistenciasDetalle: $('#ContenedorPlanillaAsistenciasDetalle'),
                 sub_eval_2: $("#sub_eval_nota"),
                 PlanillaCursos: $("<div>"),
+                PlanillaAsistencias: $("<div>"),
+                PlanillaAsistenciasDetalle: $("<div>"),
                 PlanillaEvaluaciones: $("<div>"),
                 PlanillaEvaluacionesDetalle: $("<div>"),
                 ficha_nombre: $('#nombre'),

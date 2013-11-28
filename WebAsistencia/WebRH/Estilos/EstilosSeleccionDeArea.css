@@ -107,6 +107,13 @@ img
     margin-top: 4px;
 }
 
+#btn_consultar_mis_areas
+{
+    float: right;
+    margin-top:4px;
+    margin-right:4px;    
+}
+
 .contenedor_principal_seleccion_areas
 {
     top:100px;
