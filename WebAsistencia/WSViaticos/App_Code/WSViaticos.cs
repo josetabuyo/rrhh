@@ -921,6 +921,7 @@ public class WSViaticos : System.Web.Services.WebService
         var detalle_asistencias = new List<DetalleAsistenciasDto>();
         var horas_catedra = 0;
         var curso = RepositorioDeCursos().GetCursoById(id_curso);
+        var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
 
         DateTime fecha_inicio_planilla = curso.FechaInicio > fecha_desde ? curso.FechaInicio : fecha_desde;
         if (fecha_hasta == DateTime.MinValue)
@@ -934,7 +935,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         var asistencias = RepoAsistencias().GetAsistencias();
         var alumnos = curso.Alumnos();
-        alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, alumnos);
+        alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, alumnos, organigrama);
 
         foreach (var a in alumnos)
         {
@@ -1390,7 +1391,7 @@ public class WSViaticos : System.Web.Services.WebService
                 un_curso.Nombre = curso.Nombre;
                 un_curso.Materia = curso.Materia;
                 un_curso.Docente = curso.Docente;
-                un_curso.Alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos());
+                un_curso.Alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos(), organigrama);
                 un_curso.EspacioFisico = curso.EspacioFisico;
                 un_curso.FechaInicio = curso.FechaInicio.ToShortDateString();
                 un_curso.FechaFin = curso.FechaFin.ToShortDateString();
@@ -1514,8 +1515,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         Reportes reportes = new Reportes();
         List<AlumnoDto> alumnos_dto = new List<AlumnoDto>();
-
-        
+        var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
 
         DateTime fecha_desde_formateada;
         DateTime.TryParse(fecha_desde, out fecha_desde_formateada);
@@ -1534,7 +1534,7 @@ public class WSViaticos : System.Web.Services.WebService
         }
         var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(fecha_desde_formateada, fecha_hasta_formateada, RepositorioDeCursos());
 
-        alumnos_reporte = FiltrarAlumnosPorUsuarioLogueado(usuario, alumnos_reporte);
+        alumnos_reporte = FiltrarAlumnosPorUsuarioLogueado(usuario, alumnos_reporte, organigrama);
 
         foreach (Alumno alumno in alumnos_reporte)
         {
@@ -1554,9 +1554,8 @@ public class WSViaticos : System.Web.Services.WebService
         return alumnos_dto;
     }
 
-    private List<Alumno> FiltrarAlumnosPorUsuarioLogueado(Usuario usuario, List<Alumno> alumnos)
+    private List<Alumno> FiltrarAlumnosPorUsuarioLogueado(Usuario usuario, List<Alumno> alumnos, Organigrama organigrama)
     {
-        var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
         var autorizador = new Autorizador();
 
         alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
@@ -2172,7 +2171,8 @@ public class WSViaticos : System.Web.Services.WebService
     public PlanillaEvaluacionesDto GetPlanillaEvaluaciones(int id_curso, int id_instancia, Usuario usuario)
     {
         var curso = RepositorioDeCursos().GetCursoById(id_curso);
-        List <Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCurso(curso);
+        List<Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCurso(curso);
+        var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
         
         List<EvaluacionDto> EvaluacionesDto = new List<EvaluacionDto>();
 
@@ -2189,7 +2189,7 @@ public class WSViaticos : System.Web.Services.WebService
             }); 
         });
 
-        var alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos()).ToArray(); 
+        var alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos(), organigrama).ToArray(); 
         var Instancias = curso.Materia.Modalidad.InstanciasDeEvaluacion;
         if (id_instancia > 0)
         {
