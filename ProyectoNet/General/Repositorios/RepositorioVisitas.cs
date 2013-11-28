@@ -5,6 +5,7 @@ using System.Linq;
 using General;
 using General.Repositorios;
 using System.Data.SqlClient;
+using System.Configuration;
 
 /// <summary>
 /// Descripción breve de RepositorioVisitas
@@ -37,14 +38,6 @@ public class RepositorioVisitas
             unFuncionario = new FuncionarioVisita { Id = Convert.ToInt32(dr[0]), Apellido = dr[1].ToString(), Nombre = dr[2].ToString(), Documento = Convert.ToInt32(dr[3]), Tratamiento = dr[4].ToString(), Telefono = Convert.ToInt32(dr[5]), LugarTrabajo = dr[6].ToString() };
             lFuncionarios.Add(unFuncionario);
         }
-        
-/*            
-        List<FuncionarioVisita> lFuncionarios = new List<FuncionarioVisita>();
-        // Llamar al WS
-        lFuncionarios.Add( new FuncionarioVisita() { Id=1, Apellido="NOVOA", Nombre="MARTA", Documento=0, Tratamiento ="Dra.", Telefono=43790000, LugarTrabajo="Dir.RRHH - MDS - Piso 21 - Ala Belgrano."} );
-        lFuncionarios.Add( new FuncionarioVisita() { Id=2, Apellido="SPINAZZOLA", Nombre="GUSTAVO", Documento=0, Tratamiento ="Dr.", Telefono=43790000, LugarTrabajo="Dir.RRHH - MDS - Piso 21 - Ala Moreno."});
-*/
-
         return lFuncionarios;
     }
 
@@ -64,59 +57,92 @@ public class RepositorioVisitas
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     public List<PersonaVisita> getPersonas(string Apellido, string Nombre, int Documento)
     {
-        List<PersonaVisita> lPersonas = new List<PersonaVisita>();
-        /****************************/
-        // Llamar al WS        
-        lPersonas.Add(new PersonaVisita() { Id = 1, Nombre = "RUBEN ATILIO", Apellido = "ACOSTA", Documento = 11225580, Telefono = 0 });
-        lPersonas.Add(new PersonaVisita() { Id = 2, Nombre = "DANIEL REMIGIO", Apellido = "MIÑO", Documento = 7911354, Telefono = 0 });
-        lPersonas.Add(new PersonaVisita() { Id = 3, Nombre = "ALCIDES", Apellido = "DIAZ", Documento = 10002067, Telefono = 0 });
-        lPersonas.Add(new PersonaVisita() { Id = 4, Nombre = "ROLANDO", Apellido = "GOMEZ", Documento = 11886072, Telefono = 0 });
-        lPersonas.Add(new PersonaVisita() { Id = 5, Nombre = "ROBERTO", Apellido = "ORTIGOZA", Documento = 12329256, Telefono = 0 });
-        lPersonas.Add(new PersonaVisita() { Id = 6, Nombre = "OSVALDO ROBERTO", Apellido = "SANCHEZ", Documento = 12229412, Telefono = 0 });
-        /****************************/
-        IEnumerable<PersonaVisita> ieP = lPersonas.Where(p => p.Apellido.ToUpper().Contains(Apellido.ToUpper()) && p.Nombre.ToUpper().Contains(Nombre.ToUpper()));
+        ConexionDB cn = new ConexionDB("[dbo].[CtlAcc_SEL_Persona]");
+        cn.AsignarParametro("@Apellido", Apellido);
+        cn.AsignarParametro("@Nombre", Nombre);
+        cn.AsignarParametro("@Documento", Documento); 
+
+        SqlDataReader dr = cn.EjecutarConsulta();
+        PersonaVisita unaPersona;
         List<PersonaVisita> lPerResult = new List<PersonaVisita>();
-        foreach (PersonaVisita p in ieP) lPerResult.Add(p);
+        while (dr.Read())
+        {
+            unaPersona = new PersonaVisita { Id = Convert.ToInt32(dr[0]), Nombre = Convert.ToString(dr[1].ToString()), Apellido = Convert.ToString(dr[2].ToString()), Documento = Convert.ToInt32(dr[3])};
+            lPerResult.Add(unaPersona);
+        }
         return lPerResult;
     }
 
 
+
     public List<AutorizacionVisita> getAutorizaciones(string Apellido, string Nombre, int Documento)
     {
+        ConexionDB cn = new ConexionDB("[dbo].[CtlAcc_SEL_Autorizaciones_Hoy]");
+        cn.AsignarParametro("@Apellido", Apellido);
+        cn.AsignarParametro("@Nombre", Nombre);
+        cn.AsignarParametro("@Documento", Documento);
+        SqlDataReader dr = cn.EjecutarConsulta();
+
+        AutorizacionVisita unaAutorizacion;
         List<AutorizacionVisita> lAutorizaciones = new List<AutorizacionVisita>();
-        /****************************/
-        // Llamar al WS        
-
-        List<FuncionarioVisita> lF = this.getFuncionariosHabilitados();
-        List<PersonaVisita> lP = this.getPersonas("", "", 0);
-        List<MotivoVisita> lM = this.getMotivoVista();
-
-        lAutorizaciones.Add(new AutorizacionVisita() { Id = 1, Acompanantes = 2, Acreditado = false, FechaAut = DateTime.Now, Funcionario = lF[0], Lugar = lF[0].LugarTrabajo, Motivo = lM[2], Representa = "Presidencia", PersonaAutorizada = lP[3] });
-        lAutorizaciones.Add(new AutorizacionVisita() { Id = 2, Acompanantes = 1, Acreditado = true, FechaAut = DateTime.Now, Funcionario = lF[0], Lugar = lF[0].LugarTrabajo, Motivo = lM[0], Representa = "Ministerio de Economia", PersonaAutorizada = lP[1] });
-        lAutorizaciones.Add(new AutorizacionVisita() { Id = 3, Acompanantes = 0, Acreditado = false, FechaAut = DateTime.Now, Funcionario = lF[1], Lugar = lF[1].LugarTrabajo, Motivo = lM[3], Representa = "Municipalidad Avellaneda", PersonaAutorizada = lP[4] });
-        lAutorizaciones.Add(new AutorizacionVisita() { Id = 4, Acompanantes = 3, Acreditado = false, FechaAut = DateTime.Now, Funcionario = lF[0], Lugar = lF[0].LugarTrabajo, Motivo = lM[5], Representa = "-", PersonaAutorizada = lP[2] });
-        lAutorizaciones.Add(new AutorizacionVisita() { Id = 5, Acompanantes = 2, Acreditado = false, FechaAut = DateTime.Now, Funcionario = lF[1], Lugar = lF[1].LugarTrabajo, Motivo = lM[0], Representa = "Provincia Misiones", PersonaAutorizada = lP[5] });
-
-        /****************************/
-        IEnumerable<AutorizacionVisita> ieAut = lAutorizaciones.Where(a => a.PersonaAutorizada.Apellido.ToUpper().Contains(Apellido.ToUpper()) && a.PersonaAutorizada.Nombre.ToUpper().Contains(Nombre.ToUpper()));
-        List<AutorizacionVisita> lAutResult = new List<AutorizacionVisita>();
-        foreach (AutorizacionVisita p in ieAut) lAutResult.Add(p);
-        return lAutResult;
+        while (dr.Read())
+        {
+            /***********************************/
+            /***********************************/
+            unaAutorizacion = new AutorizacionVisita { Id = Convert.ToInt32(dr[0]), Acompanantes = Convert.ToInt32(dr[1]), Acreditado = Convert.ToBoolean(dr[2]), FechaAut = Convert.ToDateTime(dr[3]), Funcionario = new FuncionarioVisita() { Id = Convert.ToInt32(dr[4]) }, Lugar = Convert.ToString(dr[5]), Motivo = new MotivoVisita() { Id = Convert.ToInt32(dr[6]) }, Representa = Convert.ToString(dr[7]), PersonaAutorizada = new PersonaVisita() { Id = Convert.ToInt32(dr[8]) } };
+            /***********************************/
+            /***********************************/
+            lAutorizaciones.Add(unaAutorizacion);
+        }
+        return lAutorizaciones;
     }
+
+
+    public bool savePersona(PersonaVisita unaPersona)
+    {
+        SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLConection"].ConnectionString);
+        cnn.Open();
+        SqlCommand cmd = new SqlCommand("[dbo].[CtlAcc_INS_Persona]", cnn);
+        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+        cmd.Parameters.Add("@Apellido", System.Data.SqlDbType.VarChar, 64, unaPersona.Apellido);
+        cmd.Parameters.Add("@Nombre", System.Data.SqlDbType.VarChar, 64, unaPersona.Nombre);
+        cmd.Parameters.Add("@Documento", System.Data.SqlDbType.Int, 4, unaPersona.Documento.ToString());
+        cmd.Parameters.Add("@IdPersona", System.Data.SqlDbType.Int, 4, null).Direction = System.Data.ParameterDirection.Output;
+
+
+        cnn.Close();
+        cnn.Dispose();
+        return false;
+    }
+
+    public bool saveAutorizacion(AutorizacionVisita unaAutorizacion)
+    {
+
+        /*
+         * 
+        ConexionDB cn = new ConexionDB("[dbo].[CtlAcc_SEL_Autorizaciones_Hoy]");
+        cn.AsignarParametro("@Apellido", Apellido);
+        cn.AsignarParametro("@Nombre", Nombre);
+        cn.AsignarParametro("@Documento", Documento);
+        SqlDataReader dr = cn.EjecutarConsulta();
+
+        AutorizacionVisita unaAutorizacion;
+        List<AutorizacionVisita> lAutorizaciones = new List<AutorizacionVisita>();
+        while (dr.Read())
+        {
+            unaAutorizacion = new AutorizacionVisita { Id = Convert.ToInt32(dr[0]), Acompanantes = Convert.ToInt32(dr[1]), Acreditado = Convert.ToBoolean(dr[2]), FechaAut = Convert.ToDateTime(dr[3]), Funcionario = new FuncionarioVisita() { Id = Convert.ToInt32(dr[4]) }, Lugar = Convert.ToString(dr[5]), Motivo = new MotivoVisita() { Id = Convert.ToInt32(dr[6]) }, Representa = Convert.ToString(dr[7]), PersonaAutorizada = new PersonaVisita() { Id = Convert.ToInt32(dr[8]) } };
+            lAutorizaciones.Add(unaAutorizacion);
+        }
+        return lAutorizaciones;
+        *
+        */
+
+        return true;
+    }
+
+
+
 
 }
