@@ -292,7 +292,7 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetPlanillaEvaluaciones(int id_curso, int id_instancia)
     {
-        var Planilla = backEndService.GetPlanillaEvaluaciones(id_curso, id_instancia);
+        var Planilla = backEndService.GetPlanillaEvaluaciones(id_curso, id_instancia, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(Planilla);
     }
 

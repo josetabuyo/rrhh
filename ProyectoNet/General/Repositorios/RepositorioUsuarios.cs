@@ -177,7 +177,8 @@ namespace General.Repositorios
                     row.GetSmallintAsInt("orden"),
                     row.GetString("nombre"),
                     row.GetString("url"),
-                    row.GetSmallintAsInt("padre")
+                    row.GetSmallintAsInt("padre"),
+                    row.GetString("posicion")
                 ));
             });
             return new MenuDelSistema(nombre, items);
