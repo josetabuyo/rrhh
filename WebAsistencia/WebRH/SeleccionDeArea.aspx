@@ -20,12 +20,12 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True"></asp:ScriptManager>
     <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="Imagenes/" UrlEstilos="Estilos/" />
     <div class="contenedor_principal contenedor_principal_seleccion_areas">
-        <legend style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
+        <div id="titulo_areas_a_administrar" style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
             Áreas a Administrar 
             <a id="btn_consultar_areas" class="btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Consultar Todas las Areas</a>
             <a id="btn_consultar_mis_areas" class="btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Consultar listado total de personas a cargo</a>
             
-        </legend>
+        </div>
         <div id="contenedor_areas_usuario">          
         </div> 
         <asp:HiddenField ID="areasDelUsuarioJSON" runat="server" EnableViewState="true"/>
