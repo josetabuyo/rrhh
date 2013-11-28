@@ -19,6 +19,14 @@ public class RepositorioVisitas
         get { return this._UserId; }
     }
 
+    private string _IP;
+    public string IP
+    {
+        set { this._IP = value; }
+        get { return this._IP; }
+    }
+
+
     public RepositorioVisitas(int UserId_Param)
     {
         UserId = UserId_Param;
@@ -100,46 +108,58 @@ public class RepositorioVisitas
     }
 
 
-    public bool savePersona(PersonaVisita unaPersona)
+    public PersonaVisita savePersona(PersonaVisita unaPersona)
     {
-        SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLConection"].ConnectionString);
-        cnn.Open();
-        SqlCommand cmd = new SqlCommand("[dbo].[CtlAcc_INS_Persona]", cnn);
-        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-        cmd.Parameters.Add("@Apellido", System.Data.SqlDbType.VarChar, 64, unaPersona.Apellido);
-        cmd.Parameters.Add("@Nombre", System.Data.SqlDbType.VarChar, 64, unaPersona.Nombre);
-        cmd.Parameters.Add("@Documento", System.Data.SqlDbType.Int, 4, unaPersona.Documento.ToString());
-        cmd.Parameters.Add("@IdPersona", System.Data.SqlDbType.Int, 4, null).Direction = System.Data.ParameterDirection.Output;
-
-
-        cnn.Close();
-        cnn.Dispose();
-        return false;
+        try
+        {
+            SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLConection"].ConnectionString);
+            cnn.Open();
+            SqlCommand cmd = new SqlCommand("[dbo].[CtlAcc_INS_Persona]", cnn);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add("@Apellido", System.Data.SqlDbType.VarChar, 64).Value = unaPersona.Apellido;
+            cmd.Parameters.Add("@Nombre", System.Data.SqlDbType.VarChar, 64).Value = unaPersona.Nombre;
+            cmd.Parameters.Add("@Documento", System.Data.SqlDbType.Int, 4).Value = unaPersona.Documento;
+            cmd.Parameters.Add("@IdPersona", System.Data.SqlDbType.Int, 4).Direction = System.Data.ParameterDirection.Output;
+            cmd.ExecuteNonQuery();
+            unaPersona.Id = (int)cmd.Parameters["@IdPersona"].Value;
+            cnn.Close();
+            cnn.Dispose();
+            return unaPersona;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
-    public bool saveAutorizacion(AutorizacionVisita unaAutorizacion)
+    public AutorizacionVisita saveAutorizacion(AutorizacionVisita unaAutorizacion)
     {
-
-        /*
-         * 
-        ConexionDB cn = new ConexionDB("[dbo].[CtlAcc_SEL_Autorizaciones_Hoy]");
-        cn.AsignarParametro("@Apellido", Apellido);
-        cn.AsignarParametro("@Nombre", Nombre);
-        cn.AsignarParametro("@Documento", Documento);
-        SqlDataReader dr = cn.EjecutarConsulta();
-
-        AutorizacionVisita unaAutorizacion;
-        List<AutorizacionVisita> lAutorizaciones = new List<AutorizacionVisita>();
-        while (dr.Read())
+        try
         {
-            unaAutorizacion = new AutorizacionVisita { Id = Convert.ToInt32(dr[0]), Acompanantes = Convert.ToInt32(dr[1]), Acreditado = Convert.ToBoolean(dr[2]), FechaAut = Convert.ToDateTime(dr[3]), Funcionario = new FuncionarioVisita() { Id = Convert.ToInt32(dr[4]) }, Lugar = Convert.ToString(dr[5]), Motivo = new MotivoVisita() { Id = Convert.ToInt32(dr[6]) }, Representa = Convert.ToString(dr[7]), PersonaAutorizada = new PersonaVisita() { Id = Convert.ToInt32(dr[8]) } };
-            lAutorizaciones.Add(unaAutorizacion);
+            SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLConection"].ConnectionString);
+            cnn.Open();
+            SqlCommand cmd = new SqlCommand("[dbo].[CtlAcc_INS_Autorizacion]", cnn);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add("@IdFuncionario", System.Data.SqlDbType.Int, 4).Value = unaAutorizacion.Id;            
+            cmd.Parameters.Add("@IdPersona", System.Data.SqlDbType.Int, 4).Value = unaAutorizacion.PersonaAutorizada.Id;
+            cmd.Parameters.Add("@Telefono", System.Data.SqlDbType.BigInt, 8).Value = unaAutorizacion.Telefono;
+            cmd.Parameters.Add("@IdMotivo", System.Data.SqlDbType.TinyInt, 1).Value = unaAutorizacion.Motivo.Id;
+            cmd.Parameters.Add("@Lugar", System.Data.SqlDbType.VarChar, 64).Value = unaAutorizacion.Lugar;
+            cmd.Parameters.Add("@Representa", System.Data.SqlDbType.VarChar, 64).Value = unaAutorizacion.Representa;
+            cmd.Parameters.Add("@Acompanantes", System.Data.SqlDbType.TinyInt, 1).Value = unaAutorizacion.Acompanantes;
+            cmd.Parameters.Add("@Log_UserId", System.Data.SqlDbType.Int, 4).Value = this.UserId;
+            cmd.Parameters.Add("@Log_IP", System.Data.SqlDbType.VarChar, 16).Value = this.IP.ToString();
+            cmd.Parameters.Add("@IdAutorizacion", System.Data.SqlDbType.Int, 4).Direction = System.Data.ParameterDirection.Output;
+            cmd.ExecuteNonQuery();
+            unaAutorizacion.Id = (int)cmd.Parameters["@IdAutorizacion"].Value;
+            cnn.Close();
+            cnn.Dispose();
+            return unaAutorizacion;
         }
-        return lAutorizaciones;
-        *
-        */
-
-        return true;
+        catch
+        {
+            return null;
+        }
     }
 
 

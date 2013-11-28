@@ -192,8 +192,8 @@
                                 <asp:HiddenField ID="HiddenField_IdPersona" runat="server" />
                             </td>
                             <td style="text-align: left; padding: 10px 0 5px;">
-                                <asp:Button ID="Button_Agregar" runat="server" Text="Agregar Autorización" CssClass="btn btn-primary"
-                                    Width="220px" onclick="Button_Agregar_Click" />
+                                <asp:Button ID="Button_Ingresar" runat="server" Text="Ingresar Autorización" CssClass="btn btn-primary"
+                                    Width="220px" onclick="Button_Ingresar_Click" />
                             </td>
                             <td>
                             </td>

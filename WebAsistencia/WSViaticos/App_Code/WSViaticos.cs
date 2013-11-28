@@ -1841,6 +1841,13 @@ public class WSViaticos : System.Web.Services.WebService
         return Autorizaciones;
     }
 
+    [WebMethod]
+    public PersonaVisita savePersonaVisita(int UserId, PersonaVisita unaPersona)
+    {
+        return (new RepositorioVisitas(UserId)).savePersona(unaPersona);
+    }
+
+
     #endregion
 
 

@@ -161,7 +161,6 @@ public partial class Visitas_Autorizaciones : System.Web.UI.Page
         txtApellido.Enabled = false;
         txtDoc.Text = Server.HtmlDecode(GridView_Personas.SelectedRow.Cells[4].Text);
         txtDoc.Enabled = false;
-        txtTelefono.Text = Server.HtmlDecode(GridView_Personas.SelectedRow.Cells[5].Text);
         HiddenField_IdPersona.Value = GridView_Personas.SelectedDataKey.Value.ToString();
         HidePersonasBusqueda();
     }
@@ -236,14 +235,19 @@ public partial class Visitas_Autorizaciones : System.Web.UI.Page
         SetLugarSegunFuncionario();
     }
 
-    protected void Button_Agregar_Click(object sender, EventArgs e)
-    {
-
-    }
-
     protected void Calendar_SelDias_DayRender(object sender, DayRenderEventArgs e)
     {
         if( ListBox_DiasSeleccionados.Items.FindByValue(e.Day.Date.ToString(DateFormat)) != null )
             e.Cell.BackColor = System.Drawing.Color.FromArgb(0xBC, 0xF5, 0xA9);
+    }
+
+    protected void Button_Ingresar_Click(object sender, EventArgs e)
+    {
+        Usuario user = (Usuario)Session[ConstantesDeSesion.USUARIO];
+        WSViaticosSoapClient ws = new WSViaticosSoapClient();
+        PersonaVisita unaPersona = new PersonaVisita() { Apellido = txtApellido.Text, Nombre = txtNombre.Text, Documento = Convert.ToInt32(txtDoc.Text) };
+        unaPersona = ws.savePersonaVisita(user.Id, unaPersona);
+        txtTelefono.Text = unaPersona.Id.ToString();
+
     }
 }

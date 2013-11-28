@@ -71,6 +71,13 @@ namespace General
             get { return this._Acreditado; }
         }
 
+        private long _Telefono;
+        public long Telefono
+        {
+            set { this._Telefono = value; }
+            get { return this._Telefono; }
+        }
+
     }
 
 }

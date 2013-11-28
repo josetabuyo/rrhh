@@ -71,7 +71,7 @@ CREATE TABLE [dbo].[CtlAcc_Autorizacion](
 	[IdAutorizacion] [int] NOT NULL primary key,
 	[IdFuncionario] [int] NOT NULL,
 	[IdPersona] [int] NOT NULL,
-	[Telefono] [int] NOT NULL,
+	[Telefono] [bigint] NOT NULL,
 	[IdMotivo] [tinyint] NOT NULL foreign key references [dbo].[CtlAcc_Motivo] (IdMotivo),
 	[Lugar] [varchar] (64) NOT NULL,
 	[Representa] [varchar] (64) NOT NULL,
@@ -164,19 +164,7 @@ BEGIN
 
 	SELECT	Id, Nombre, Apellido, Documento
 	FROM	(
-				SELECT	1 Id, 'RUBEN ATILIO' Nombre, 'ACOSTA' Apellido, 11225580 Documento
-				UNION ALL
-				SELECT	2 Id, 'DANIEL REMIGIO' Nombre, 'ACOSTA' Apellido, 7911354 Documento
-				UNION ALL
-				SELECT	3 Id, 'ALCIDES' Nombre, 'DIAZ' Apellido, 10002067 Documento
-				UNION ALL
-				SELECT	4 Id, 'ROLANDO' Nombre, 'GOMEZ' Apellido, 11886072 Documento
-				UNION ALL
-				SELECT	5 Id, 'ROBERTO' Nombre, 'ORTIGOZA' Apellido, 12329256 Documento
-				UNION ALL
-				SELECT	6 Id, 'OSVALDO ROBERTO' Nombre, 'SANCHEZ' Apellido, 12229412 Documento
-				UNION ALL
-				SELECT	IdPersona, Nombre, Apellido, Documento
+				SELECT	IdPersona Id, Nombre, Apellido, Documento
 				FROM	dbo.CtlAcc_PersonaVisita
 			)	as t
 	WHERE	t.Nombre LIKE '%' + @Nombre + '%'
@@ -275,6 +263,12 @@ PROCEDURE dbo.CtlAcc_INS_Persona
 AS
 BEGIN
 
+	SET NOCOUNT ON
+
+	SET @IdPersona = (SELECT IdPersona FROM dbo.CtlAcc_PersonaVisita as p WHERE p.Documento = @Documento AND p.Apellido = @Apellido AND p.Nombre = @Nombre )
+	IF ( @IdPersona > 0 ) 
+		return
+
 	SET @IdPersona = ISNULL((SELECT MAX(IdPersona) FROM dbo.CtlAcc_PersonaVisita), 0) + 1
 
 	INSERT dbo.CtlAcc_PersonaVisita ( IdPersona, Apellido, Nombre, Documento )
@@ -298,7 +292,7 @@ PROCEDURE dbo.CtlAcc_INS_Autorizacion
 (
 	@IdFuncionario [int],
 	@IdPersona [int],
-	@Telefono [int],
+	@Telefono [bigint],
 	@IdMotivo [tinyint],
 	@Lugar [varchar] (64),
 	@Representa [varchar] (64),
@@ -382,4 +376,3 @@ GO
 
 -- ROLLBACK tran
 COMMIT tran
- 
