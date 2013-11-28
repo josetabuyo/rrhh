@@ -20,5 +20,12 @@ namespace General
             set { this._LugarTrabajo = value; }
             get { return this._LugarTrabajo; }
         }
+
+        private int _Telefono;
+        public int Telefono
+        {
+            set { this._Telefono = value; }
+            get { return this._Telefono; }
+        }
     }
 }

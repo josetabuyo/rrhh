@@ -77,7 +77,7 @@ public partial class Visitas_Acreditacion : System.Web.UI.Page
                 dr["Documento"] = a.PersonaAutorizada.Documento;
 
             if (dt.Columns.Contains("Telefono"))
-                dr["Telefono"] = a.PersonaAutorizada.Telefono;
+                dr["Telefono"] = 0;
 
             if (dt.Columns.Contains("Motivo"))
                 dr["Motivo"] = a.Motivo.Motivo;
@@ -121,6 +121,7 @@ public partial class Visitas_Acreditacion : System.Web.UI.Page
         this.DetailsView_Autorizacion.DataKeyNames = new string[] { strNombreIDAutorizacion };
         this.DetailsView_Autorizacion.DataBind();
         this.DetailsView_Autorizacion.Rows[0].Visible = false;
+        this.Button_Cancelar.Focus();
         this.divAutorizacion.Visible = true;
     }
 

@@ -35,12 +35,6 @@ namespace General
             get { return this._Documento; }
         }
 
-        private int _Telefono;
-        public int Telefono
-        {
-            set { this._Telefono = value; }
-            get { return this._Telefono; }
-        }
     }
 
 }

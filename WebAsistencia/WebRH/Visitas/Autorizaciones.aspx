@@ -9,7 +9,7 @@
         <table border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td colspan="3" class="TituloPagina" >
-                        Ingresar nueva autorización
+                        Ingresar nueva autorizaci&oacute;n
                 </td>
             </tr>
             <tr>
@@ -208,7 +208,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td style="padding-top: 10px">
                                 <asp:Calendar ID="Calendar_SelDias" runat="server" BackColor="White" BorderColor="#999999"
                                     CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt"
                                     ForeColor="Black" Height="180px" Width="100%" 
@@ -239,7 +239,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td style="padding-top: 10px">
                                 <asp:ListBox ID="ListBox_DiasSeleccionados" runat="server" Width="100%" 
                                     Height="210px"></asp:ListBox>
                             </td>
@@ -266,8 +266,10 @@
             <asp:GridView ID="GridView_Personas" runat="server" BackColor="White" 
                 BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" 
                 EnableModelValidation="True" ForeColor="Black" GridLines="None"
+                Caption="<div class='TituloPagina'>Resultados de la b&uacute;squeda</div>"
                 onrowdatabound="GridView_Personas_RowDataBound"
-                onselectedindexchanged="GridView_Personas_SelectedIndexChanged">
+                onselectedindexchanged="GridView_Personas_SelectedIndexChanged"
+                Width="100%" >
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:CommandField ShowSelectButton="True" ItemStyle-Font-Bold ="true" />

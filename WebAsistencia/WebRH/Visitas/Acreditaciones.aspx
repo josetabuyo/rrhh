@@ -108,7 +108,7 @@
     </div>    
     </asp:Panel>
     <div id="divAutorizacion" runat="server" 
-        style="background-image:url('Imagenes/fondoBusq.png'); bottom: 0px; top: 0px; left: 0; text-align: center;">
+        style="background-image:url('Imagenes/fondoBusq.png'); bottom: 0px; top: 0px; left: 0; text-align: center">
         <div id="divGridViewAutorizaciones" runat="server">
             <asp:DetailsView ID="DetailsView_Autorizacion" runat="server" CellPadding="4" 
                 EnableModelValidation="True" ForeColor="#333333" GridLines="None" 
@@ -126,12 +126,10 @@
             <asp:Button ID="Button_Acreditar" runat="server" 
                 Text="Acreditar" CssClass="btn btn-primary"
                 CausesValidation="False" onclick="Button_Aceptar_Click"/>
-
         &nbsp;
             <asp:Button ID="Button_Cancelar" runat="server" 
                 Text="Cancelar" CssClass="btn btn-primary"
                 CausesValidation="False" onclick="Button_Cancelar_Click"/>
-
         </div>
     </div>
 </asp:Content>
