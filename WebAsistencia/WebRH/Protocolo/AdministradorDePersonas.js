@@ -42,12 +42,26 @@
         var contenedorBtnAcciones = $('<div>');
         var botonPase = $('<img>');
         botonPase.addClass('pase-btn');
-        botonPase.attr('src', '../Imagenes/paseMin.png');
+        if (una_persona.idPase() == 0) {
+            botonPase.attr('src', '../Imagenes/paseMin.png');
 
-        botonPase.click(function () {
-            $("#DNIPersona").val(una_persona.documento());
-            $("#btnPasePersona").click();
-        });
+            botonPase.click(function () {
+                $("#DNIPersona").val(una_persona.documento());
+                $("#btnPasePersona").click();
+            });
+
+        } else {
+            botonPase.attr('src', '../Imagenes/eliminar.PNG');
+
+            botonPase.click(function () {
+                $("#DNIPersona").val(una_persona.documento());
+                $("#btnEliminarPasePersona").click();
+            });
+
+        };
+        
+
+
 
         // botonEditar.attr('style', 'padding-right:5px;');
         //botonEditar.attr('width', '35px');

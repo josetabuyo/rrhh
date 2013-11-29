@@ -12,7 +12,7 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
     protected void Page_Load(object sender, EventArgs e)
     {
         //var servicio = new WSViaticos.WSViaticosSoapClient();
-        MostrarPersonasEnLaGrilla();
+        MostrarPersonasEnLaGrilla(); 
     }
 
     private void MostrarPersonasEnLaGrilla()
@@ -23,11 +23,15 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
 
     protected void btnAsistenciaAlumno_Click(object sender, EventArgs e)
     {
-        var s = new WSViaticos.WSViaticosSoapClient();
+       // var s = new WSViaticos.WSViaticosSoapClient();
         var dni = int.Parse(this.DNIPersona.Value);
-        Persona persona = JsonConvert.DeserializeObject<Persona>(s.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
+        //Persona persona = JsonConvert.DeserializeObject<Persona>(s.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
+
+        Persona[] personas = (Persona[])Session["personas"];
+        Persona persona = personas.ToList().Find(p => p.Documento == dni);
+
         Session["persona"] = persona;
-        //Session["areaActual"] = 
+        Session["areaActual"] = persona.Area;
         Response.Redirect("~\\ConceptosLicencia.aspx");
     }
 
@@ -36,8 +40,13 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
     {
         var ws = new WSViaticos.WSViaticosSoapClient();
         var dni = int.Parse(this.DNIPersona.Value);
-        Persona persona = JsonConvert.DeserializeObject<Persona>(ws.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
+        //Persona persona = JsonConvert.DeserializeObject<Persona>(ws.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
+
+        Persona[] personas = (Persona[])Session["personas"];
+        Persona persona = personas.ToList().Find(p => p.Documento == dni);
+        
         Session["personaPase"] = persona;
+        Session["areaActual"] = persona.Area;
         Response.Redirect("~\\FormulariosOtros\\Pases.aspx");
     }
 
@@ -46,10 +55,16 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
     {
         var ws = new WSViaticos.WSViaticosSoapClient();
         var dni = int.Parse(this.DNIPersona.Value);
-        Persona persona = JsonConvert.DeserializeObject<Persona>(ws.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
+        //Persona persona = JsonConvert.DeserializeObject<Persona>(ws.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
         PaseDeArea pase = new PaseDeArea();
+
+
+        Persona[] personas = (Persona[])Session["personas"];
+        
+
+        Persona persona = personas.ToList().Find(p => p.Documento == dni);
         pase.Id = persona.PasePendiente.Id;
         ws.EliminarPase(pase);
-        Response.Redirect("~\\Principal.aspx");
+        Response.Redirect("~\\SeleccionDeArea.aspx");
     }
 }

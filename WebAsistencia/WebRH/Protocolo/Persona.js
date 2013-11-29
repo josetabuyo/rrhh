@@ -24,4 +24,8 @@ Persona.prototype.area = function () {
     return this._persona.Area.Alias;
 };
 
+Persona.prototype.idPase = function () {
+    return this._persona.PasePendiente.Id;
+};
+
 

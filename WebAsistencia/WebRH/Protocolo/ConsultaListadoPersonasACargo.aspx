@@ -29,10 +29,10 @@
                 <asp:HiddenField ID="personasJSON" runat="server" EnableViewState="true"/>
                 <asp:HiddenField ID="txtIdArea" runat="server" />
                 <asp:HiddenField ID="idArea" runat="server" />
-                <asp:HiddenField ID="estadoPase" runat="server" />
                 <asp:HiddenField ID="DNIPersona" runat="server" />
                 <asp:Button ID="btnAsistenciaAlumno" runat="server" OnClick="btnAsistenciaAlumno_Click" style="display:none;" />
                 <asp:Button ID="btnPasePersona" runat="server" OnClick="btnPasePersona_Click" style="display:none;" />
+                <asp:Button ID="btnEliminarPasePersona" runat="server" OnClick="btnEliminarPasePersona_Click" style="display:none;" />
             </div>
            
         </form>
