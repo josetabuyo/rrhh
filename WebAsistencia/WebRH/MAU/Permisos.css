@@ -3,3 +3,78 @@
     border:inherit;
 }
 
+form, body, html
+{
+    height:100%;
+}
+
+#btn_crear_usuario
+{
+
+}
+
+#selector_personas
+{
+    display: inline-block;
+}
+
+#panel_busqueda
+{
+    padding:5px;
+}
+
+#panel_datos_usuario
+{
+    height:100%;
+}
+
+#panel_izquierdo
+{
+    width:45%;
+    display:inline-block;
+    vertical-align: top;
+    height:100%;
+    margin-right: 10px;
+}
+
+#panel_derecho
+{
+    width:45%;
+    display:inline-block;
+    vertical-align: top;
+    height:100%;
+}
+
+#administrador_usuarios
+{
+    height:70%;
+}
+
+#panel_datos_personales
+{
+    display:inline-block;
+    font-weight:bold;
+    font-size:medium;
+    margin-top: 17px;
+}
+
+#panel_datos_personales .linea
+{
+    margin:12px;
+}
+
+#panel_datos_personales .titulo
+{
+    display:inline-block;
+}
+
+#panel_datos_personales .dato
+{
+    display:inline-block;
+}
+
+#foto_usuario
+{
+    display:inline-block;
+    vertical-align:top;
+}

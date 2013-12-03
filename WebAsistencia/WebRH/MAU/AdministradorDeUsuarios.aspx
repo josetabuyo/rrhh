@@ -1,5 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Permisos.aspx.cs" Inherits="MAU_Permisos" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AdministradorDeUsuarios.aspx.cs" Inherits="MAU_Permisos" %>
+<%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -14,12 +14,36 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-            <div id="selector_personas" class="selector_personas">
-                <input id="buscador" type=hidden />
-            </div>
-            <div id="vista_permisos">
-            </div>
+        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.A.U.</span> <br/> <span style='font-size:12px;'> Administración de Usuarios </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />        
+        <div id="administrador_usuarios">
+            <div id="panel_busqueda">
+                <div id="selector_usuario" class="selector_personas">
+                    <input id="buscador" type=hidden />
+                </div>
+            </div>  
+            <div id="panel_datos_usuario" style="display:none">
+                <div id="panel_izquierdo" class="estilo_formulario">
+                    <img id="foto_usuario" src="usuario.png" alt="Usuario" width="128" height="128">
+                    <div id="panel_datos_personales">
+                        <div class="linea">
+                            <div id="nombre" class="dato"></div>
+                            <div id="apellido" class="dato"></div>
+                        </div>
+                        <div class="linea">
+                            <div class="titulo">Documento:</div>
+                            <div id="documento" class="dato"></div>
+                        </div>
+                        <div class="linea">
+                            <div class="titulo">Legajo:</div>
+                            <div id="legajo" class="dato"></div>    
+                        </div>                
+                    </div>
+                </div>                
+                <div id="panel_derecho" class="estilo_formulario">
+                    <legend class="subtitulos"> Permisos </legend>
+                    <div id="vista_permisos"> </div>            
+                </div>  
+            </div>     
         </div>
     </form>
     <div id="plantillas">
@@ -41,6 +65,7 @@
 <script type="text/javascript" src="VistaDePermisosDeUnUsuario.js"></script>
 <script type="text/javascript" src="ServicioDeSeguridad.js"></script>
 <script type="text/javascript" src="NodoEnArbolDeFuncionalidades.js"></script>
+<script type="text/javascript" src="AdministradorDeUsuarios.js"></script>
 <script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
 
 <script type="text/javascript" src="../Scripts/ServicioDePersonas.js"></script>
@@ -54,17 +79,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        selector_personas = new SelectorDePersonas({ 
-            ui: $('#selector_personas'),
-            servicioDePersonas: new ServicioDePersonas(new ProveedorAjax())
-         });
-        vista_permisos = new VistaDePermisosDeUnUsuario({
-            ui: $('#vista_permisos'),
-            servicioDeSeguridad: new ServicioDeSeguridad(new ProveedorAjax())
-        });
-        selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-            vista_permisos.setUsuario(la_persona_seleccionada);
-        };
+        var adm_usuarios = new AdministradorDeUsuarios();
     });
 </script>
 </html>

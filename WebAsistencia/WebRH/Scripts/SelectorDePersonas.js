@@ -10,7 +10,7 @@ SelectorDePersonas.prototype.start = function () {
     this.buscador.select2({
         minimumInputLength: 3,
         width: 'resolve',
-        placeholder: 'ingrese nombre, apellido, documento o legajo',
+        placeholder: this.placeholder || 'ingrese nombre, apellido, documento o legajo',
         query: function (query) {
             _this.servicioDePersonas.buscarPersonasConLegajo(
                 query.term,
@@ -43,4 +43,12 @@ SelectorDePersonas.prototype.generarVistaPersona = function (persona) {
     ui.find("#legajo").text(persona.legajo);
     ui.find("#documento").text(persona.documento);
     return ui;
+};
+
+SelectorDePersonas.prototype.mostrar = function () {
+    this.ui.show();
+};
+
+SelectorDePersonas.prototype.ocultar = function () {
+    this.ui.hide();
 };
