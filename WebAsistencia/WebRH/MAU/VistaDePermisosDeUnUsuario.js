@@ -44,6 +44,9 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
                 }
             });
             _this.arbol = _this.ui.dynatree('getTree');
+            _this.ui.dynatree("getRoot").visit(function (node) {
+                node.expand(true);
+            });
         },
         function (error) { //on error
             alert(error);

@@ -38,6 +38,20 @@
                             <div id="legajo" class="dato"></div>    
                         </div>                
                     </div>
+                    <div>
+                        <div class="titulo">Nombre de Usuario:</div>
+                        <input id="txtNombreUsuario" type="text" class="dato_editable"/>    
+                    </div>
+                    <div>
+                        <div class="titulo">Contraseña:</div>
+                        <input id="btnResetPassWord" type="button"/>
+                        <div>Fecha de Expiración:</div>
+                        <div id="dtpFechaExpiracionPassWord"></div>
+                    </div>
+                    <legend class="subtitulos"> Areas que Administra </legend>
+                    <div id="listaAreasAdministradas">                        
+                    </div>
+                    <input id="btnAgregarArea" type=button class="btn btn-default" value="+"/>
                 </div>                
                 <div id="panel_derecho" class="estilo_formulario">
                     <legend class="subtitulos"> Permisos </legend>

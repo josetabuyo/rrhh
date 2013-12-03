@@ -63,7 +63,8 @@ form, body, html
     margin:12px;
 }
 
-#panel_datos_personales .titulo
+.titulo,
+.dato_editable
 {
     display:inline-block;
 }
