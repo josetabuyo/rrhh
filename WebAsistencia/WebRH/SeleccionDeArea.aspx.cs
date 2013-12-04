@@ -48,6 +48,7 @@ public partial class SeleccionDeArea : System.Web.UI.Page
         var mi_area = new Area();
         mi_area.Id = area.Id;
         mi_area.Alias = area.Alias;
+        mi_area.Nombre = area.Nombre;
 
         return mi_area;
     }

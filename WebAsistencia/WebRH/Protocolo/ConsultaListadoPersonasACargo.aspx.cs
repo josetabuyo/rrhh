@@ -21,13 +21,31 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
         //this.areasJSON.Value = JsonConvert.SerializeObject(servicio.GetAreasParaProtocolo());
     }
 
-    protected void btnAsistenciaAlumno_Click(object sender, EventArgs e)
+    protected void btnAsistencia_Click(object sender, EventArgs e)
     {
         var s = new WSViaticos.WSViaticosSoapClient();
         var dni = int.Parse(this.DNIPersona.Value);
+        Area area = new Area();
+        area.Nombre = this.areaPersona.Value;
         Persona persona = JsonConvert.DeserializeObject<Persona>(s.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
+        Persona[] personas = (Persona[])Session["personas"];
+
         Session["persona"] = persona;
-        //Session["areaActual"] = 
+        Session["areaActual"] = personas.ToList().Find(p => p.Documento.Equals(persona.Documento)).Area;
         Response.Redirect("~\\ConceptosLicencia.aspx");
     }
+
+    protected void btnEliminarAsistencia_Click(object sender, EventArgs e)
+    {
+        //var s = new WSViaticos.WSViaticosSoapClient();
+        //var dni = int.Parse(this.DNIPersona.Value);
+        //Area area = new Area();
+        //area.Nombre = this.areaPersona.Value;
+        //Persona persona = JsonConvert.DeserializeObject<Persona>(s.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
+        //Persona[] personas = (Persona[])Session["personas"];
+
+        //Session["persona"] = persona;
+        //Session["areaActual"] = personas.ToList().Find(p => p.Documento.Equals(persona.Documento)).Area;
+        //Response.Redirect("~\\ConceptosLicencia.aspx");
+    } 
 }

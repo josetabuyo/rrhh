@@ -30,7 +30,9 @@
                 <asp:HiddenField ID="txtIdArea" runat="server" />
                 <asp:HiddenField ID="idArea" runat="server" />
                 <asp:HiddenField ID="DNIPersona" runat="server" />
-                <asp:Button ID="btnAsistenciaAlumno" runat="server" OnClick="btnAsistenciaAlumno_Click" style="display:none;" />
+                <asp:HiddenField ID="areaPersona" runat="server" />
+                <asp:Button ID="btnAsistencia" runat="server" OnClick="btnAsistencia_Click" style="display:none;" />
+                <asp:Button ID="btnEliminarAsistencia" runat="server" OnClick="btnEliminarAsistencia_Click" style="display:none;" />
             </div>
            
         </form>

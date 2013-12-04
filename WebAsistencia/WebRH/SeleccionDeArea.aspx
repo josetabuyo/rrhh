@@ -23,7 +23,7 @@
         <legend style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
             Áreas a Administrar 
             <a id="btn_consultar_areas" class="btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Consultar Todas las Areas</a>
-            <a id="btn_consultar_mis_areas" class="btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Consultar listado total de personas a cargo</a>
+            <a id="btn_consultar_mis_areas" class="btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Administrar Personal</a>
             
         </legend>
         <div id="contenedor_areas_usuario">          

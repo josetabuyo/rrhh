@@ -142,7 +142,7 @@ namespace General.Repositorios
                 detalle = new SaldoLicenciaDetalle();
                 detalle.Periodo = dr.GetInt16(dr.GetOrdinal("periodo"));
                 detalle.Disponible = dr.GetInt16(dr.GetOrdinal("saldo"));
-
+                //saldo.Detalle.Add(detalle);
                 if (prorroga == null)
                 {
                     //si la prorroga esta vacía solo se puede tomar las de este año, o el año pasado

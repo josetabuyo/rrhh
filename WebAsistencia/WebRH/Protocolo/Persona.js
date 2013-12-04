@@ -23,5 +23,12 @@ Persona.prototype.nombre = function () {
 Persona.prototype.area = function () {
     return this._persona.Area.Alias;
 };
+Persona.prototype.Es1184 = function () {
+    return this._persona.Es1184;
+};
+Persona.prototype.InasistenciaActual = function () {
+    return this._persona.InasistenciaActual;
+};
+
 
 

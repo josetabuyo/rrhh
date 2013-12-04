@@ -23,10 +23,59 @@
         var contenedorBtnAcciones = $('<div>');
         var botonPresente = $('<a>');
         botonPresente.addClass('assitencia-btn');
+
+
+        if (!una_persona.Es1184()) {
+            if (una_persona.documento() == 16533276) {
+                var algo;
+            }
+            botonPresente.text('Presente');
+            botonPresente.click(function () {
+                $("#DNIPersona").val(una_persona.documento());
+                $("#areaPersona").val(una_persona.area());
+                $("#btnAsistencia").click();
+            });
+
+            if (una_persona.InasistenciaActual() != null) {
+                if (una_persona.InasistenciaActual().Descripcion != null) {
+                    if (!una_persona.InasistenciaActual().Aprobada) {
+
+                        var botonEliminarAsistencia = $('<a>');
+                        //botonEliminarAsistencia.addClass('pase-btn');
+                        //botonEliminarAsistencia.attr('src', '../Imagenes/eliminar.png');
+                        //botonEliminarAsistencia.attr('width', '15');
+                        //botonEliminarAsistencia.attr('height', '15');
+                        botonEliminarAsistencia.click(function () {
+                            //$("#DNIPersona").val(una_persona.documento());
+                            //$("#areaPersona").val(una_persona.area());
+                            alertify.alert('Cancele la licencia desde el panel de administración');
+                           // $("#btnEliminarAsistencia").click();
+                        });
+                        botonEliminarAsistencia.text(una_persona.InasistenciaActual().Descripcion);
+                        contenedorBtnAcciones.append(botonEliminarAsistencia);
+
+                        //ibEliminarInasistencia = new ImageButton();
+                        //ibEliminarInasistencia.ImageUrl = "Imagenes/eliminar.PNG";
+                        //ibEliminarInasistencia.Click += new ImageClickEventHandler(ibEliminarInasistencia_Click);
+                        //ibEliminarInasistencia.Width = 15;
+                        //ibEliminarInasistencia.Height = 15;
+                        //ibEliminarInasistencia.ToolTip = "Eliminar Inasistencia";
+                        //cell.Controls.Add(ibEliminarInasistencia);
+                    }
+
+                    //lbAsistencia.Text = unaPersona.InasistenciaActual.Descripcion;
+                }
+                return contenedorBtnAcciones;
+            }
+        }
+
+
+
         //botonPresente.attr('href', '../ConceptosLicencia.aspx');
         botonPresente.text('Presente');
         botonPresente.click(function () {
             $("#DNIPersona").val(una_persona.documento());
+            $("#areaPersona").val(una_persona.area());
             $("#btnAsistenciaAlumno").click();
         });
         // botonEditar.attr('style', 'padding-right:5px;');
