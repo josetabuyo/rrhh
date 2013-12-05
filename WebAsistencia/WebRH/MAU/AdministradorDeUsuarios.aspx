@@ -9,50 +9,62 @@
     <link rel="stylesheet" href="../estilos/estilos.css" type="text/css"/>    
     <link rel="stylesheet" href="Permisos.css" type="text/css"/>    
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/>    
-    <link href="ui.dynatree.css" rel="stylesheet" type="text/css">
+    <link href="ui.dynatree.css" rel="stylesheet" type="text/css"/>
     <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <form id="form1" runat="server">
         <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.A.U.</span> <br/> <span style='font-size:12px;'> Administración de Usuarios </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />        
-        <div id="administrador_usuarios">
+        <div id="administrador_usuarios">            
             <div id="panel_busqueda">
+                <div id="instrucciones_de_uso">Ingrese la persona que desea administrar --></div>
                 <div id="selector_usuario" class="selector_personas">
                     <input id="buscador" type=hidden />
                 </div>
             </div>  
             <div id="panel_datos_usuario" style="display:none">
-                <div id="panel_izquierdo" class="estilo_formulario">
+                <div id="panel_superior_izquierdo" class="estilo_formulario">
                     <img id="foto_usuario" src="usuario.png" alt="Usuario" width="128" height="128">
                     <div id="panel_datos_personales">
-                        <div class="linea">
-                            <div id="nombre" class="dato"></div>
-                            <div id="apellido" class="dato"></div>
+                        <div class="linea dato_personal">
+                            <div id="nombre"></div>
+                            <div id="apellido"></div>
                         </div>
-                        <div class="linea">
-                            <div class="titulo">Documento:</div>
-                            <div id="documento" class="dato"></div>
+                        <div class="linea dato_personal">
+                            <div>Documento:</div>
+                            <div id="documento" ></div>
                         </div>
-                        <div class="linea">
-                            <div class="titulo">Legajo:</div>
-                            <div id="legajo" class="dato"></div>    
+                        <div class="linea dato_personal">
+                            <div>Legajo:</div>
+                            <div id="legajo"></div>    
                         </div>                
                     </div>
-                    <div>
-                        <div class="titulo">Nombre de Usuario:</div>
-                        <input id="txtNombreUsuario" type="text" class="dato_editable"/>    
+                    <div id="panel_password">
+                        <div class="linea linea_nombre_usuario">
+                            <div class="titulo">Nombre de Usuario:</div>
+                            <input id="txt_nombre_usuario" type="text"/>    
+                        </div>
+                        <div class="linea linea_passwrd">
+                            <div class="titulo">Contraseña:</div>
+                            <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear"/>
+                        </div>
                     </div>
-                    <div>
-                        <div class="titulo">Contraseña:</div>
-                        <input id="btnResetPassWord" type="button"/>
-                        <div>Fecha de Expiración:</div>
-                        <div id="dtpFechaExpiracionPassWord"></div>
-                    </div>
+                </div> 
+                <div id="panel_inferior_izquierdo" class="estilo_formulario">
                     <legend class="subtitulos"> Areas que Administra </legend>
-                    <div id="listaAreasAdministradas">                        
+                    <div id="lista_areas_administradas">
+                        <div class="area_administrada">
+                            <div id="nombre_area">Secretaría de Coordinación y Monitoreo Institucional</div>
+                            <input id="btn_quitar_area" type=button class="btn btn-primary" value="-"/>
+                        </div>
+                        <div class="area_administrada">
+                            <div id="nombre_area">Mesa de Entradas</div>
+                            <input id="btn_quitar_area" type=button class="btn btn-primary" value="-"/>
+                        </div>
                     </div>
-                    <input id="btnAgregarArea" type=button class="btn btn-default" value="+"/>
-                </div>                
+                    <div id="selector_area_administrada"></div>
+                    <input id="btn_agregar_area" type=button class="btn btn-primary" value="+"/>
+                </div>           
                 <div id="panel_derecho" class="estilo_formulario">
                     <legend class="subtitulos"> Permisos </legend>
                     <div id="vista_permisos"> </div>            

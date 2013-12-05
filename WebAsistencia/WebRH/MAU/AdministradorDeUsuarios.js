@@ -10,7 +10,7 @@
     this.selector_usuario = new SelectorDePersonas({
         ui: $('#selector_usuario'),
         servicioDePersonas: new ServicioDePersonas(new ProveedorAjax()),
-        placeholder: "ingrese usuario, nombre, apellido, documento o legajo de la persona"
+        placeholder: "nombre, apellido, documento o legajo"
     });
 
     this.vista_permisos = new VistaDePermisosDeUnUsuario({
