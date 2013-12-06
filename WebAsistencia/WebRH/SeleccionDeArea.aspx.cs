@@ -25,21 +25,26 @@ public partial class SeleccionDeArea : System.Web.UI.Page
         if (usuario.TienePermisosParaModil) { Response.Redirect("~/Modi/Modi.aspx"); }
         //Response.Redirect("SeleccionDeArea.aspx");
         this.areasDelUsuarioJSON.Value = JsonConvert.SerializeObject(usuario.Areas);
-        Persona[] personas;
-        List<Persona> personas_todas_areas_a_cargo = new List<Persona>();
-        
-        foreach (var area in usuario.Areas)
-        {
-            personas =  s.GetPersonas(area);
-            
-            foreach (var per in personas)
-            {
-                per.Area = ArmarArea(area);
-                personas_todas_areas_a_cargo.Add(per);
-            }
-        }
+        //Persona[] personas;
+        //List<Persona> personas_todas_areas_a_cargo = new List<Persona>();
 
-        Session["personas"] = personas_todas_areas_a_cargo.ToArray();
+        //if (Session["personas"] == null )
+        //{
+        //    foreach (var area in usuario.Areas)
+        //    {
+        //        personas =  s.GetPersonas(area);
+            
+        //        foreach (var per in personas)
+        //        {
+        //            per.Area = ArmarArea(area);
+        //            personas_todas_areas_a_cargo.Add(per);
+        //        }
+        //    }
+
+        //    personas_todas_areas_a_cargo.Sort((persona1, persona2) => persona1.Apellido.CompareTo(persona2.Apellido));
+
+        //    Session["personas"] = personas_todas_areas_a_cargo.ToArray();
+        //}
 
     }
 

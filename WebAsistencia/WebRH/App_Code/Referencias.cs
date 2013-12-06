@@ -16,6 +16,7 @@ public class Referencias
             <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Scripts/bootstrap/css/bootstrap-responsive.css"" type=""text/css""/>
             <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css"" />
             <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/Estilos.css"" type=""text/css""/>
+            <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/EstilosLicencia.css"" type=""text/css""/>
             <link rel=""stylesheet"" href=""__RUTA_ORIGEN__SACC/Estilos/EstilosSACC.css"" type=""text/css""/>
             <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/alertify.core.css"" type=""text/css""/>
             <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/alertify.default.css"" type=""text/css""/>";

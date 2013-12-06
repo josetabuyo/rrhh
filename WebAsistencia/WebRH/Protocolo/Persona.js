@@ -31,4 +31,8 @@ Persona.prototype.InasistenciaActual = function () {
 };
 
 
+Persona.prototype.idPase = function () {
+    return this._persona.PasePendiente.Id;
+};
+
 

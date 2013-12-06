@@ -47,7 +47,7 @@ public partial class FormPase : System.Web.UI.Page
         pase.Auditoria = new Auditoria();
         pase.Auditoria.UsuarioDeCarga = (Usuario)Session["usuario"];
         s.CargarPase(pase);
-        Response.Redirect("..\\Principal.aspx");
+        Response.Redirect("..\\SeleccionDeArea.aspx");//("..\\Principal.aspx");
     }
     protected void ImageButton2_Click(object sender, System.Web.UI.ImageClickEventArgs e)
     {

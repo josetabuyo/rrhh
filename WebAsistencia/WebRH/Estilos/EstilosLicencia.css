@@ -1,0 +1,102 @@
+﻿
+
+#botonera_paneles_desplegables
+{
+    text-align:right;
+    margin-left:5%;
+    margin-right:5%;
+    margin-top:10px;
+}
+
+
+
+.boton_que_abre_panel_desplegable
+{
+    height:18px;    
+    display:inline-block;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    border-top: 2px black solid;
+    border-left: 2px black solid;
+    border-right: 2px black solid;
+    border-bottom: 2px black solid;
+    padding: 6px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor:pointer;
+}
+
+.boton_que_abre_panel_desplegable_activo
+{
+    height:20px;
+    margin-bottom:-2px;
+    
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+    border-top: 2px black solid;
+    border-left: 2px black solid;
+    border-right: 2px black solid;
+    border-bottom: 2px white solid;
+    
+    background: #b7b7b7; /* Old browsers */
+    background: -moz-linear-gradient(top,  #b7b7b7 0%, #ffffff 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b7b7b7), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #b7b7b7 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #b7b7b7 0%,#ffffff 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #b7b7b7 0%,#ffffff 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #b7b7b7 0%,#ffffff 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7b7b7', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+    
+}
+
+
+.boton_que_abre_panel_desplegable:hover
+{
+    background-color:#C1C1C1;
+}
+
+
+.panel_desplegable
+{
+    margin-left:5%;
+    margin-right:5%;
+    margin-bottom:10px;
+    overflow:hidden;
+    display:none;
+    
+    border:2px solid black;
+    padding:10px;
+}
+
+
+/* ESTILO ALTA DOCUMENTO */
+#panel_alta_documento
+{
+    -webkit-border-radius: 5px 0px 5px 5px;
+    border-radius: 5px 0px 5px 5px;
+}
+
+.placeholder
+{
+    color: #B1B1B1;
+}
+
+#panel_documentos
+{
+    margin-left:5%;
+    margin-right:5%;
+    overflow-y:scroll;
+    height:87%;
+    margin-top: 17px;
+    
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+        transition: all .5s ease;
+    }
+
+/* FIN ESTILO PANEL DOCUMENTOS */
+

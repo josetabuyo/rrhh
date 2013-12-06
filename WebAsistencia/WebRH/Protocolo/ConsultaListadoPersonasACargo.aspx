@@ -20,7 +20,17 @@
                 <legend>
                     Listado de Personas de mis Áreas a cargo                     
                     <input type="text" id="search" class="search" placeholder="Buscar"/>     
-                </legend>  
+                </legend> 
+                <div id="botonera_paneles_desplegables"> 
+                    <div id="boton_desplegar_panel_alta_documento" class="boton_que_abre_panel_desplegable"
+                        title="Ver licencias">
+                        Visor de Licencias
+                    </div>
+                </div>
+                <div id="panel_alta_documento" class="panel_desplegable">
+                 <h1>lalalal</h1>
+                </div>
+
                 <div id="ContenedorPlanilla" runat="server">
  
                 </div>
@@ -33,6 +43,8 @@
                 <asp:HiddenField ID="areaPersona" runat="server" />
                 <asp:Button ID="btnAsistencia" runat="server" OnClick="btnAsistencia_Click" style="display:none;" />
                 <asp:Button ID="btnEliminarAsistencia" runat="server" OnClick="btnEliminarAsistencia_Click" style="display:none;" />
+                <asp:Button ID="btnPasePersona" runat="server" OnClick="btnPasePersona_Click" style="display:none;" />
+                <asp:Button ID="btnEliminarPasePersona" runat="server" OnClick="btnEliminarPasePersona_Click" style="display:none;" />
             </div>
            
         </form>

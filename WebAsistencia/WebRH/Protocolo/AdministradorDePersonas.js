@@ -26,9 +26,6 @@
 
 
         if (!una_persona.Es1184()) {
-            if (una_persona.documento() == 16533276) {
-                var algo;
-            }
             botonPresente.text('Presente');
             botonPresente.click(function () {
                 $("#DNIPersona").val(una_persona.documento());
@@ -68,9 +65,6 @@
                 return contenedorBtnAcciones;
             }
         }
-
-
-
         //botonPresente.attr('href', '../ConceptosLicencia.aspx');
         botonPresente.text('Presente');
         botonPresente.click(function () {
@@ -91,8 +85,23 @@
         var contenedorBtnAcciones = $('<div>');
         var botonPase = $('<img>');
         botonPase.addClass('pase-btn');
-        botonPase.attr('src', '../Imagenes/paseMin.png');
+        if (una_persona.idPase() == 0) {
+            botonPase.attr('src', '../Imagenes/paseMin.png');
 
+            botonPase.click(function () {
+                $("#DNIPersona").val(una_persona.documento());
+                $("#btnPasePersona").click();
+            });
+
+        } else {
+            botonPase.attr('src', '../Imagenes/eliminar.PNG');
+
+            botonPase.click(function () {
+                $("#DNIPersona").val(una_persona.documento());
+                $("#btnEliminarPasePersona").click();
+            });
+
+        };
         // botonEditar.attr('style', 'padding-right:5px;');
         //botonEditar.attr('width', '35px');
         // botonEditar.attr('height', '35px');
@@ -126,3 +135,25 @@
 $(".pase-btn").click(function () {
     location.href = "../FormulariosOtros/Pases.aspx";
 });
+
+
+$("#boton_desplegar_panel_alta_documento").click(function (e) {
+    //contraer();
+    alternarDespliegue();
+});
+ //botonDesplegarPanelAlta: $("#boton_desplegar_panel_alta_documento"),
+   //             divPanelAlta: $("#panel_alta_documento"),
+function alternarDespliegue() {
+    $("#panel_alta_documento").slideToggle("fast");
+    $("#boton_desplegar_panel_alta_documento").toggleClass("boton_que_abre_panel_desplegable_activo");
+};
+
+function desplegar() {
+    $("#panel_alta_documento").slideDown("fast");
+    $("#boton_desplegar_panel_alta_documento").addClass("boton_que_abre_panel_desplegable_activo");
+}
+
+function contraer() {
+    $("#panel_alta_documento").slideUp("fast");
+    $("#boton_desplegar_panel_alta_documento").removeClass("boton_que_abre_panel_desplegable_activo");
+}
