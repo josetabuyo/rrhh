@@ -77,7 +77,7 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
 
     protected void btnPasePersona_Click(object sender, EventArgs e)
     {
-        var ws = new WSViaticos.WSViaticosSoapClient();
+       // var ws = new WSViaticos.WSViaticosSoapClient();
         var dni = int.Parse(this.DNIPersona.Value);
         //Persona persona = JsonConvert.DeserializeObject<Persona>(ws.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
 
@@ -105,6 +105,19 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
         pase.Id = persona.PasePendiente.Id;
         ws.EliminarPase(pase);
         Response.Redirect("~\\SeleccionDeArea.aspx");
+    }
+
+    protected void btnAdministrarPersonal_Click(object sender, EventArgs e)
+    {
+        var dni = int.Parse(this.DNIPersona.Value);
+        //Persona persona = JsonConvert.DeserializeObject<Persona>(ws.GetPersonaByDNI(dni, (Usuario)Session[ConstantesDeSesion.USUARIO]));
+
+        Persona[] personas = (Persona[])Session["personas"];
+        Persona persona = personas.ToList().Find(p => p.Documento == dni);
+
+        Session["personaAdministrar"] = persona;
+        Session["areaActual"] = persona.Area;
+        Response.Redirect("~\\AdministrarPersonal.aspx");
     }
 
     private Area ArmarArea(Area area)
