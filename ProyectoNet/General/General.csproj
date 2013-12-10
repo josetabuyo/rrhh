@@ -79,6 +79,7 @@
     <Compile Include="MAU\Funcionalidad.cs" />
     <Compile Include="MAU\Permiso.cs" />
     <Compile Include="MAU\PermisoNulo.cs" />
+    <Compile Include="MAU\ServicioDeSeguridad.cs" />
     <Compile Include="MICOI\AccionDeTransicion.cs" />
     <Compile Include="MICOI\Alias.cs" />
     <Compile Include="MICOI\AliasNull.cs" />

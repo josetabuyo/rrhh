@@ -2,6 +2,28 @@
     this.proveedor_ajax = un_proveedor_ajax;
 };
 
+ServicioDeSeguridad.prototype.getUsuarioPorIdPersona = function (id_persona, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetUsuarioPorIdPersona",
+        data: {
+            id_persona: id_persona
+        },
+        success: function (usuario_json) {
+            var usuario = new Usuario({
+                id: usuario_json.Id,
+                nombre: usuario_json.Nombre,
+                apellido: usuario_json.Apellido,
+                legajo: usuario_json.Legajo,
+                documento: usuario_json.Documento,
+                alias: usuario_json.NombreDeUsuario
+            });
+            onSuccess(usuario);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            onerror(errorThrown);
+        }
+    });
+};
+
 ServicioDeSeguridad.prototype.getPermisosPara = function (usuario, onSuccess, onError) {
     this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetPermisosPara",
         data: {

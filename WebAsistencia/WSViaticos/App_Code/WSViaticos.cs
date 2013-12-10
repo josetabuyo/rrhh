@@ -1946,6 +1946,25 @@ public class WSViaticos : System.Web.Services.WebService
         return personas;
     }
 
+    public static ServicioDeSeguridad servicio_de_seguridad_mock;
+    protected ServicioDeSeguridad ServicioDeSeguridad()
+    {
+        if (servicio_de_seguridad_mock == null)
+        {
+            servicio_de_seguridad_mock = new ServicioDeSeguridad(RepositorioDePersonas());
+        }
+        return servicio_de_seguridad_mock;
+    }
+
+    [WebMethod]
+    public Usuario GetUsuarioPorIdPersona(int id_persona)
+    {
+        var usuario = ServicioDeSeguridad().GetUsuarioPorIdPersona(id_persona);
+        return usuario;
+    }
+
+
+
     #endregion
 
     [WebMethod]

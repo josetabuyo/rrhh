@@ -8,8 +8,6 @@ namespace General
 {
     public class Usuario : Persona
     {
- 
-
         private string _NombreDeUsuario;
         public string NombreDeUsuario
         {

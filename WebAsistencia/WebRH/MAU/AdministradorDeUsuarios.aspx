@@ -92,6 +92,8 @@
 <script type="text/javascript" src="ServicioDeSeguridad.js"></script>
 <script type="text/javascript" src="NodoEnArbolDeFuncionalidades.js"></script>
 <script type="text/javascript" src="AdministradorDeUsuarios.js"></script>
+<script type="text/javascript" src="Usuario.js"></script>
+
 <script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
 
 <script type="text/javascript" src="../Scripts/ServicioDePersonas.js"></script>
