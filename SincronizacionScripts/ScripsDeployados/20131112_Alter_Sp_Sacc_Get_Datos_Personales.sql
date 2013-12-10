@@ -1,6 +1,7 @@
 ALTER procedure[dbo].[SACC_Get_DatosPersonales] 
 @DocumentoPersona int
 as
+
 select 
 pe.Id,
 pr.Documento,
@@ -35,12 +36,12 @@ doc.idBaja BajaDocente
 from dbo.CRED_PersonasRelevadas pr 
 inner join  dbo.CRED_Domicilios cd on 
 pr.Documento = cd.Documento
-inner join dbo.CRED_Personas pe on
-pr.Documento = pe.Documento
 left join dbo.DatosPersonales dp ON
-dp.Nrodocumento = pe.Documento
+dp.Nrodocumento = pr.Documento
+inner join dbo.CRED_Personas pe on
+dp.Id = pe.id
 left join dbo.Designaciones_Fechas desig_fecha ON
-desig_fecha.Nro_Doc = pe.Documento
+desig_fecha.Nro_Doc = dp.NroDocumento
 left join dbo.SAC_Alumnos al ON
 al.IdPersona = pe.Id
 left join dbo.SAC_Docentes doc ON

@@ -216,6 +216,8 @@ namespace General
             }
             else
             {
+                if (int.Parse(CalificacionDelCurso(curso, evaluaciones)) < 6)
+                    return "Reprobado";
                 return "Aprobada";
             }
         }

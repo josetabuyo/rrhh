@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using General;
 
 namespace General.Repositorios
 {
@@ -140,6 +141,39 @@ namespace General.Repositorios
                 conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Alumno", parametros);
             }
 
+        }
+
+        public AlumnoPerfil GetAlumnoPerfilById(int id)
+        {
+
+            return GetAlumnosPerfil().Find(ap => ap.IdAlumno == id);
+        }
+
+        public List<AlumnoPerfil> GetAlumnosPerfil()
+        {
+            var perfiles = new List<AlumnoPerfil>();
+            var parametros = new Dictionary<string, object>();
+            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_AlumnosPerfil");
+            tablaDatos.Rows.ForEach(row =>
+            {
+                var perfil = new AlumnoPerfil()
+                {
+                    Id = row.GetInt("Id"),
+                    IdAlumno = row.GetInt("IdPersona"),
+                    Asistencia = row.GetString("Asistencia"),
+                    Puntualidad = row.GetString("Puntualidad"),
+                    Compromiso = row.GetString("NivelCompromiso"),
+                    Participacion = row.GetString("Participacion"),
+                    Cumplimiento = row.GetString("CumplimientoTareas"),
+                    Integracion = row.GetString("IntegracionGrupo"),
+                    Respeto = row.GetString("RespetoNormas"),
+                    Responsabilidad = row.GetString("Responsabilidad"),
+                    Otro1 = row.GetString("Otro1"),
+                    Otro2 = row.GetString("Otro2")
+                };
+            });
+
+            return perfiles;
         }
 
         public Alumno GetAlumnoByDNI(int dni)
@@ -287,8 +321,5 @@ namespace General.Repositorios
 
             return parametros;
         }
-
-
-
     }
 }

@@ -18,6 +18,7 @@ public partial class SACC_FormDetalleDeAlumno : System.Web.UI.Page
         {
             this.CargarGrilla();
             this.alumnoJSON.Value = Servicio().GetAlumnoByDNI((int)Session[ConstantesDeSesion.ALUMNO]);
+            this.alumnoPerfilJSON.Value = JsonConvert.SerializeObject(Servicio().GetAlumnoPerfilById((JsonConvert.DeserializeObject<AlumnoDto>(this.alumnoJSON.Value)).Id));
         }
 
     }

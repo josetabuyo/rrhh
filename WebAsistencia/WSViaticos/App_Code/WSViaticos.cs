@@ -1098,6 +1098,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public AlumnoPerfil GetAlumnoPerfilById(int id)
+    {
+        var alumno_perfil = RepoAlumnos().GetAlumnoPerfilById(id);
+        return alumno_perfil;
+    }
+
+    [WebMethod]
     public List<CursoDto> GetCursosDelAlumno(int dni)
     {
         var alumno = RepoAlumnos().GetAlumnoByDNI(dni);

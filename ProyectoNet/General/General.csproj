@@ -137,6 +137,7 @@
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
     <Compile Include="Organigrama\Responsable.cs" />
     <Compile Include="Repositorios\RepositorioDePersonas.cs" />
+    <Compile Include="SACC\AlumnoPerfil.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAsistencias.cs" />
     <Compile Include="SACC\AcumuladorAsistencia.cs" />
