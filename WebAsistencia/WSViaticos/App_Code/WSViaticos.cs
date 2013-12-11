@@ -221,6 +221,23 @@ public class WSViaticos : System.Web.Services.WebService
         return returnPersonas;
     }
 
+
+    [WebMethod]
+    public Persona[] GetPersonasACargo(Area unArea)
+    {
+
+        RepositorioPersonas repositorio = new RepositorioPersonas();
+        List<Persona> personas = repositorio.GetPersonasDelAreaACargo(unArea);
+        Persona[] returnPersonas = new Persona[personas.Count];
+
+        for (int i = 0; i < personas.Count; i++)
+        {
+            returnPersonas[i] = personas[i];
+        }
+        return returnPersonas;
+    }
+
+
     #endregion
 
     #region viaticos

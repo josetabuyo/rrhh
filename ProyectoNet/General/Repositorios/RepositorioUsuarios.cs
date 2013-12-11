@@ -81,7 +81,6 @@ namespace General.Repositorios
                     if (unUsuario.Areas.FindAll(a => a.Id == row.GetSmallintAsInt("Id_Area")).Count == 0)
                     {
                         List<DatoDeContacto> DatosDeContacto = new List<DatoDeContacto>();
-
                         unUsuario.Id = row.GetSmallintAsInt("Id_Usuario");
                         unUsuario.EsFirmante = row.GetSmallintAsInt("es_firmante") != 0;
 
