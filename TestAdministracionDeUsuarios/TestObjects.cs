@@ -13,9 +13,10 @@ namespace TestAdministracionDeUsuarios
         {
             return new Usuario() { Id = 1, NombreDeUsuario = "jorge" };
         }
-        public static Funcionalidad FuncionalidadIngresoSacc()
+
+        public static Usuario Javier()
         {
-            return new Funcionalidad(1, "ingreso_a_sacc");
+            return new Usuario() { Id = 2, NombreDeUsuario = "javier" };
         }
 
         private static Dictionary<Usuario, List<AdministracionDeUsuarios.Funcionalidad>> diccionario_permisos()
@@ -30,6 +31,16 @@ namespace TestAdministracionDeUsuarios
         public static Autorizador Autorizador()
         {
             return new Autorizador(diccionario_permisos()); 
+        }
+
+        public static Funcionalidad FuncionalidadIngresoSacc()
+        {
+            return new Funcionalidad(1, "ingreso_a_sacc");
+        }
+
+        public static Funcionalidad FuncionalidadIngresoModi()
+        {
+            return new Funcionalidad(2, "ingreso_a_modi");
         }
     }
 }

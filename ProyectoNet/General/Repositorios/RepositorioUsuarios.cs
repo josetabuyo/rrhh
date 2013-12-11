@@ -5,8 +5,9 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Collections;
-using General.Seguridad;
+using General.Sacc;
 using AdministracionDeUsuarios;
+using General.Sacc.Seguridad;
 
 namespace General.Repositorios
 {
@@ -185,7 +186,7 @@ namespace General.Repositorios
             return new MenuDelSistema(nombre, items);
         }
 
-        public General.Seguridad.Autorizador AutorizadorPara(Usuario usuario)
+        public AutorizadorSacc AutorizadorPara(Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Accesos_Sistema", parametros);
@@ -198,7 +199,7 @@ namespace General.Repositorios
                                 menues.Add(this.MenuFrom(nombre, rows_menu));
                             }
                 );
-            return new General.Seguridad.Autorizador(menues);
+            return new AutorizadorSacc(menues);
         }
     }
 }

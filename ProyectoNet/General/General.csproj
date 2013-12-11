@@ -147,8 +147,7 @@
     <Compile Include="SACC\EstadoAlumnoCursando.cs" />
     <Compile Include="SACC\EstadoDeAlumno.cs" />
     <Compile Include="Seguridad\Auditoria.cs" />
-    <Compile Include="Seguridad\Autorizador.cs" />
-    <Compile Include="Seguridad\Features.cs" />
+    <Compile Include="Seguridad\AutorizadorSacc.cs" />
     <Compile Include="Seguridad\ItemDeMenu.cs" />
     <Compile Include="Viaticos\CalculadorDeViaticos.cs" />
     <Compile Include="Viaticos\CircuitoDeAprobacionDeViatico.cs" />
@@ -178,7 +177,6 @@
     <Compile Include="Viaticos\Zona.cs" />
     <Compile Include="Asistencia\Licencia.cs" />
     <Compile Include="Seguridad\MenuDelSistema.cs" />
-    <Compile Include="Seguridad\Permiso.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -288,7 +286,7 @@
     <Compile Include="Asistencia\SaldoLicencia.cs" />
     <Compile Include="Asistencia\SaldoLicenciaDetalle.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Seguridad\Usuario.cs" />
+    <Compile Include="MAU\Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

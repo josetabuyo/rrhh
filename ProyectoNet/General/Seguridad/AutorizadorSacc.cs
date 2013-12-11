@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using AdministracionDeUsuarios;
 
-namespace General.Seguridad
+namespace General.Sacc.Seguridad
 {
-    public class Autorizador
+    public class AutorizadorSacc
     {
         protected List<MenuDelSistema> menues_del_sistema;
-        public Autorizador(List<MenuDelSistema> menues_del_sistema)
+        public AutorizadorSacc(List<MenuDelSistema> menues_del_sistema)
         {
             this.menues_del_sistema = menues_del_sistema;
         }
@@ -21,7 +21,7 @@ namespace General.Seguridad
             return menu.Items();
         }
 
-        public Autorizador()
+        public AutorizadorSacc()
         {
 
         }

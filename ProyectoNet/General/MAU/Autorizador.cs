@@ -18,25 +18,25 @@ namespace AdministracionDeUsuarios
 
         public Autorizador()
         {
-            // TODO: Complete member initialization
         }
 
         public bool PuedeAcceder(Usuario usuario, Funcionalidad funcionalidad)
         {
-            var permisos_usuario = new List<Funcionalidad>();
+            List<Funcionalidad> permisos_usuario;
             if (!this.permisos.TryGetValue(usuario, out permisos_usuario)) return false;
-            return permisos_usuario.Exists(p => p.Equals(funcionalidad));
+            return permisos_usuario.Exists(f => f.Equals(funcionalidad));
         }
 
-
-
-        //public bool ConcederPermisoA(string usuario, Funcionalidad funcionalidad)
-        //{
-        //    var permiso = Permiso.Conceder(funcionalidad);
-        //    FuncionalidadDelUsuario(usuario).RemoveAll(p => p.ActuaSobreLaMismaFuncionalidadQue(permiso));
-        //    FuncionalidadDelUsuario(usuario).Add(permiso);
-        //    return true;
-        //}
+        public void ConcederPermisoA(Usuario usuario, Funcionalidad funcionalidad)
+        {
+            if(PuedeAcceder(usuario, funcionalidad)) return;
+            List<Funcionalidad> permisos_usuario;
+            if (!this.permisos.TryGetValue(usuario, out permisos_usuario)) {
+                permisos_usuario = new List<Funcionalidad>();
+                this.permisos.Add(usuario, permisos_usuario);
+            };            
+            permisos_usuario.Add(funcionalidad);
+        }
 
         //public void DenegarPermisoA(string usuario, Funcionalidad funcionalidad)
         //{
@@ -62,6 +62,17 @@ namespace AdministracionDeUsuarios
             var areas_usuario = new List<Area>();
             this.areas.TryGetValue(usuario, out areas_usuario);
             return areas_usuario;
+        }
+
+        public void AsignarAreaAUnUsuario(Usuario usuario, Area area)
+        {
+            List<Area> areas_usuario;
+            if (!this.areas.TryGetValue(usuario, out areas_usuario))
+            {
+                areas_usuario = new List<Area>();
+                this.areas.Add(usuario, areas_usuario);
+            };
+            areas_usuario.Add(area);
         }
     }
 }

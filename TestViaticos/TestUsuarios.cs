@@ -2,6 +2,7 @@
 using General.Repositorios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMock2;
+using General.Sacc.Seguridad;
 
 namespace General
 {
@@ -162,6 +163,7 @@ namespace General
             ConexionMockeada(source, usuario);
 
             var areas_usuario = AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario);
+
             Assert.AreEqual(4, areas_usuario.Count);
             Assert.AreEqual("Claudia Silvia", areas_usuario[0].datos_del_responsable.Nombre);
             Assert.AreEqual("CAL Quilmes", areas_usuario[0].Nombre);
@@ -172,7 +174,7 @@ namespace General
             Assert.AreEqual("PIRES", areas_usuario[0].Asistentes[0].Apellido);
             Assert.AreEqual("1111-0333", areas_usuario[0].Asistentes[0].Telefono);
             // Assert.AreEqual("44444444", usuario.Areas[0].Asistentes[0].Fax);
-            Assert.AreEqual("area333-1@ministerio.gov.ar", usuario.AreasAdministradas[0].Asistentes[0].Mail);
+            Assert.AreEqual("area333-1@ministerio.gov.ar", areas_usuario[0].Asistentes[0].Mail);
 
         }
 
@@ -183,7 +185,7 @@ namespace General
             items_de_menu.Add(new ItemDeMenu(){ NombreItem = "Materias", Url ="Materias.aspx"});
             var menu_esperado_sacc_no_cenard = new List<MenuDelSistema>() { new MenuDelSistema("MenuSaccNoCenard", items_de_menu) };
 
-            var autorizador = new Autorizador(menu_esperado_sacc_no_cenard);
+            var autorizador = new AutorizadorSacc(menu_esperado_sacc_no_cenard);
             Assert.AreEqual(autorizador.ItemsPermitidos("MenuSaccNoCenard").Count, 1);
             Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSaccNoCenard").Find(i => i.NombreItem == "Materias").Url);
         }
@@ -194,7 +196,7 @@ namespace General
             var items_de_menu = new List<ItemDeMenu>();
             items_de_menu.Add(new ItemDeMenu() { NombreItem = "Cursos", Url = "ABMCursos.aspx" });
             var menu_esperado_sacc_cenard = new List<MenuDelSistema>() { new MenuDelSistema("MenuSaccCenard", items_de_menu) };
-            var autorizador = new Autorizador(menu_esperado_sacc_cenard);
+            var autorizador = new AutorizadorSacc(menu_esperado_sacc_cenard);
 
             Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSaccCenard").Count);
             Assert.IsFalse(autorizador.ItemsPermitidos("MenuSaccCenard").Exists(i => i.NombreItem == "Materias"));
@@ -206,7 +208,7 @@ namespace General
             var items_de_menu = new List<ItemDeMenu>();
             items_de_menu.Add(new ItemDeMenu() { NombreItem = "Materias", Url = "Materias.aspx" });
             var menu_esperado_sacc = new List<MenuDelSistema>() { new MenuDelSistema("MenuSACC", items_de_menu) };
-            var autorizador = new Autorizador(menu_esperado_sacc);
+            var autorizador = new AutorizadorSacc(menu_esperado_sacc);
 
             Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
             Assert.IsTrue(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "Materias"));
@@ -228,7 +230,7 @@ namespace General
 
             var menues = new List<MenuDelSistema>() { menu_esperado_sacc, otro_menu_esperado };
 
-            var autorizador = new Autorizador(menues);
+            var autorizador = new AutorizadorSacc(menues);
 
             Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
             Assert.IsTrue(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "Materias"));

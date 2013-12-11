@@ -14,7 +14,8 @@ using System.Net;
 using System.Net.Mail;
 using System.Xml.Serialization;
 using AdministracionDeUsuarios;
-using General.Seguridad;
+using General.Sacc;
+using General.Sacc.Seguridad;
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -1167,7 +1168,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var alumnos = RepoAlumnos().GetAlumnos();
         Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        var autorizador = new General.Seguridad.Autorizador();
+        var autorizador = new AutorizadorSacc();
         alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
 
         var alumnos_dto = new List<Object>();
@@ -1462,7 +1463,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var cursos = new RepositorioDeCursos(Conexion()).GetCursos();
         var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        var autorizador = new General.Seguridad.Autorizador();
+        var autorizador = new AutorizadorSacc();
 
         cursos = autorizador.FiltrarCursosPorUsuario(cursos, organigrama, usuario);
 
@@ -1619,7 +1620,7 @@ public class WSViaticos : System.Web.Services.WebService
         Alumno persona = repo.GetAlumnoByDNI(dni);
 
         Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        var autorizador = new General.Seguridad.Autorizador();
+        var autorizador = new AutorizadorSacc();
         var persona_dto = new Object();
 
         if (!autorizador.AlumnoVisibleParaUsuario(persona, organigrama, usuario))
@@ -1692,7 +1693,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion(), RepositorioDeCursos()).GetEspaciosFisicos();
         var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        var autorizador = new General.Seguridad.Autorizador();
+        var autorizador = new AutorizadorSacc();
 
         espacios_fisicos = autorizador.FiltrarEspaciosFisicosPorUsuario(espacios_fisicos, organigrama, usuario);
 
