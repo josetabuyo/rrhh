@@ -8,9 +8,9 @@ namespace General
     [TestClass]
     public class TestUsuarios
     {
-        Usuario usuario = new Usuario();
+        private AdministracionDeUsuarios.Usuario usuario = new AdministracionDeUsuarios.Usuario();
 
-        public static void ConexionMockeada(string source, Usuario usuario)
+        public static void ConexionMockeada(string source, AdministracionDeUsuarios.Usuario usuario)
         {
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
@@ -101,17 +101,18 @@ namespace General
 
             ConexionMockeada(source, usuario);
 
-            Assert.AreEqual(1, usuario.Areas.Count);
-            Assert.AreEqual("Claudia Silvia", usuario.Areas[0].datos_del_responsable.Nombre);
-            Assert.AreEqual("CAL Quilmes", usuario.Areas[0].Nombre);
-            Assert.AreEqual(". 0  Piso  Dto", usuario.Areas[0].Direccion);
-            Assert.IsTrue(usuario.Areas[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.TELEFONO).Dato.Contains("1111-0333"));
-            Assert.IsTrue(usuario.Areas[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.MAIL).Dato.Contains("area333@ministerio.gov.ar"));
-            Assert.AreEqual("Sabrina Vanesa", usuario.Areas[0].Asistentes[0].Nombre);
-            Assert.AreEqual("PIRES", usuario.Areas[0].Asistentes[0].Apellido);
-            Assert.AreEqual("1111-0333", usuario.Areas[0].Asistentes[0].Telefono);
+            var areas_usuario = AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario);
+            Assert.AreEqual(1, areas_usuario.Count);
+            Assert.AreEqual("Claudia Silvia", areas_usuario[0].datos_del_responsable.Nombre);
+            Assert.AreEqual("CAL Quilmes", areas_usuario[0].Nombre);
+            Assert.AreEqual(". 0  Piso  Dto", areas_usuario[0].Direccion);
+            Assert.IsTrue(areas_usuario[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.TELEFONO).Dato.Contains("1111-0333"));
+            Assert.IsTrue(areas_usuario[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.MAIL).Dato.Contains("area333@ministerio.gov.ar"));
+            Assert.AreEqual("Sabrina Vanesa", areas_usuario[0].Asistentes[0].Nombre);
+            Assert.AreEqual("PIRES", areas_usuario[0].Asistentes[0].Apellido);
+            Assert.AreEqual("1111-0333", areas_usuario[0].Asistentes[0].Telefono);
             // Assert.AreEqual("44444444", usuario.Areas[0].Asistentes[0].Fax);
-            Assert.AreEqual("area333@ministerio.gov.ar", usuario.Areas[0].Asistentes[0].Mail);
+            Assert.AreEqual("area333@ministerio.gov.ar", areas_usuario[0].Asistentes[0].Mail);
 
         }
 
@@ -126,7 +127,7 @@ namespace General
 
             ConexionMockeada(source, usuario);
 
-            Assert.AreEqual(1, usuario.Areas.Count);
+            Assert.AreEqual(1, AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario).Count);
         }
 
 
@@ -140,8 +141,8 @@ namespace General
 
             ConexionMockeada(source, usuario);
 
-            Assert.AreEqual(1, usuario.Areas.Count);
-            Assert.AreEqual(3, usuario.Areas[0].Asistentes.Count);
+            Assert.AreEqual(1, AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario).Count);
+            Assert.AreEqual(3, AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario)[0].Asistentes.Count);
             //Assert.AreEqual("Secretaria: PIRES Sabrina Vanesa |Teléfono: 1111-1111 |Mail: sabrina@secretaria-area333.gov.ar", " ");
 
         }
@@ -160,17 +161,18 @@ namespace General
 
             ConexionMockeada(source, usuario);
 
-            Assert.AreEqual(4, usuario.Areas.Count);
-            Assert.AreEqual("Claudia Silvia", usuario.Areas[0].datos_del_responsable.Nombre);
-            Assert.AreEqual("CAL Quilmes", usuario.Areas[0].Nombre);
-            Assert.AreEqual(". 0  Piso  Dto", usuario.Areas[0].Direccion);
-            Assert.IsTrue(usuario.Areas[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.TELEFONO).Dato.Contains("1111-0333"));
-            Assert.IsTrue(usuario.Areas[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.MAIL).Dato.Contains("area333@ministerio.gov.ar"));
-            Assert.AreEqual("Sabrina Vanesa", usuario.Areas[0].Asistentes[0].Nombre);
-            Assert.AreEqual("PIRES", usuario.Areas[0].Asistentes[0].Apellido);
-            Assert.AreEqual("1111-0333", usuario.Areas[0].Asistentes[0].Telefono);
+            var areas_usuario = AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario);
+            Assert.AreEqual(4, areas_usuario.Count);
+            Assert.AreEqual("Claudia Silvia", areas_usuario[0].datos_del_responsable.Nombre);
+            Assert.AreEqual("CAL Quilmes", areas_usuario[0].Nombre);
+            Assert.AreEqual(". 0  Piso  Dto", areas_usuario[0].Direccion);
+            Assert.IsTrue(areas_usuario[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.TELEFONO).Dato.Contains("1111-0333"));
+            Assert.IsTrue(areas_usuario[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.MAIL).Dato.Contains("area333@ministerio.gov.ar"));
+            Assert.AreEqual("Sabrina Vanesa", areas_usuario[0].Asistentes[0].Nombre);
+            Assert.AreEqual("PIRES", areas_usuario[0].Asistentes[0].Apellido);
+            Assert.AreEqual("1111-0333", areas_usuario[0].Asistentes[0].Telefono);
             // Assert.AreEqual("44444444", usuario.Areas[0].Asistentes[0].Fax);
-            Assert.AreEqual("area333-1@ministerio.gov.ar", usuario.Areas[0].Asistentes[0].Mail);
+            Assert.AreEqual("area333-1@ministerio.gov.ar", usuario.AreasAdministradas[0].Asistentes[0].Mail);
 
         }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace General
+namespace General.Seguridad
 {
     public class Permiso
     {

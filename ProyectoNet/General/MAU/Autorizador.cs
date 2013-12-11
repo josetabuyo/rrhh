@@ -1,59 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ExtensionesDeLista;
+using General;
 
 namespace AdministracionDeUsuarios
 {
-    public class AutorizadorFuncionalidades
+    public class Autorizador
     {
-        /// <summary>
-        /// ejemplo
-        /// { "juan", { Permiso("Concedido", Funcionalidad("lectura_legajos")), Permiso("Denegado", Funcionalidad("escritura_legajos")) } }
-        /// </summary>
-        protected Dictionary<string, List<Permiso>> permisos;
 
-        public AutorizadorFuncionalidades(Dictionary<string, List<Permiso>> permisos)
+        protected Dictionary<Usuario, List<Funcionalidad>> permisos;
+        protected Dictionary<Usuario, List<Area>> areas;
+
+        public Autorizador(Dictionary<Usuario, List<Funcionalidad>> permisos)
         {
             this.permisos = permisos;
         }
 
-        public bool PuedeAcceder(string usuario, Funcionalidad funcionalidad)
+        public Autorizador()
         {
-            var permiso = PermisoPara(usuario, funcionalidad, permisos[usuario]);
-            return permiso.Permite();
+            // TODO: Complete member initialization
         }
 
-        protected Permiso PermisoPara(string usuario, Funcionalidad funcionalidad, List<Permiso> permisos)
+        public bool PuedeAcceder(Usuario usuario, Funcionalidad funcionalidad)
         {
-            var permisos_mas_especificos_que_this = permisos.FindAll(
-                    permiso => permiso.EsPara(funcionalidad), Permiso.Null());
-            permisos_mas_especificos_que_this.Sort((p1, p2) => { return p2.GradoDeEspecificidad() - p1.GradoDeEspecificidad(); });
-            var permiso_mas_especifico_que_this = permisos_mas_especificos_que_this.First();
-            return permiso_mas_especifico_que_this.PermisoEspecifico(funcionalidad);
+            var permisos_usuario = new List<Funcionalidad>();
+            if (!this.permisos.TryGetValue(usuario, out permisos_usuario)) return false;
+            return permisos_usuario.Exists(p => p.Equals(funcionalidad));
         }
 
-        public bool ConcederPermisoA(string usuario, Funcionalidad funcionalidad)
+
+
+        //public bool ConcederPermisoA(string usuario, Funcionalidad funcionalidad)
+        //{
+        //    var permiso = Permiso.Conceder(funcionalidad);
+        //    FuncionalidadDelUsuario(usuario).RemoveAll(p => p.ActuaSobreLaMismaFuncionalidadQue(permiso));
+        //    FuncionalidadDelUsuario(usuario).Add(permiso);
+        //    return true;
+        //}
+
+        //public void DenegarPermisoA(string usuario, Funcionalidad funcionalidad)
+        //{
+        //    var permiso = Permiso.Denegar(funcionalidad);
+        //    FuncionalidadDelUsuario(usuario).RemoveAll(p => p.ActuaSobreLaMismaFuncionalidadQue(permiso));
+        //    FuncionalidadDelUsuario(usuario).Add(permiso);
+        //}
+
+        //public List<Permiso> FuncionalidadDelUsuario(string usuario)
+        //{
+        //    if (!permisos.ContainsKey(usuario))
+        //        permisos.Add(usuario, new List<Permiso>());
+        //    return permisos[usuario];
+        //}
+
+        public static Autorizador Instancia()
         {
-            var permiso = Permiso.Conceder(funcionalidad);
-            FuncionalidadDelUsuario(usuario).RemoveAll(p => p.ActuaSobreLaMismaFuncionalidadQue(permiso));
-            FuncionalidadDelUsuario(usuario).Add(permiso);
-            return true;
+            return new Autorizador();
         }
 
-        public void DenegarPermisoA(string usuario, Funcionalidad funcionalidad)
+        public List<General.Area> AreasAdministradasPor(Usuario usuario)
         {
-            var permiso = Permiso.Denegar(funcionalidad);
-            FuncionalidadDelUsuario(usuario).RemoveAll(p => p.ActuaSobreLaMismaFuncionalidadQue(permiso));
-            FuncionalidadDelUsuario(usuario).Add(permiso);
-        }
-
-        public List<Permiso> FuncionalidadDelUsuario(string usuario)
-        {
-            if (!permisos.ContainsKey(usuario))
-                permisos.Add(usuario, new List<Permiso>());
-            return permisos[usuario];
+            var areas_usuario = new List<Area>();
+            this.areas.TryGetValue(usuario, out areas_usuario);
+            return areas_usuario;
         }
     }
 }

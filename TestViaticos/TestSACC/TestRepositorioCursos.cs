@@ -8,6 +8,7 @@ using General.Calendario;
 
 using NMock2;
 using System;
+using AdministracionDeUsuarios;
 
 namespace TestViaticos
 {

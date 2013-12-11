@@ -14,7 +14,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Xml.Serialization;
 using AdministracionDeUsuarios;
-
+using General.Seguridad;
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -369,7 +369,7 @@ public class WSViaticos : System.Web.Services.WebService
         //Se puede mejorar
         var lista_de_todos_los_viaticos = repositorio.ObtenerTodosLosViaticos();
         var lista_viaticos_usuario = new List<ComisionDeServicio>();
-        usuario.Areas.ForEach(a => lista_viaticos_usuario.AddRange(lista_de_todos_los_viaticos.FindAll(v => v.TransicionesRealizadas.Select(t => t.AreaOrigen.Id).Contains(a.Id) ||
+        new AdministracionDeUsuarios.Autorizador().AreasAdministradasPor(usuario).ForEach(a => lista_viaticos_usuario.AddRange(lista_de_todos_los_viaticos.FindAll(v => v.TransicionesRealizadas.Select(t => t.AreaOrigen.Id).Contains(a.Id) ||
                                                                                                             v.TransicionesRealizadas.Select(t => t.AreaDestino.Id).Contains(a.Id))));
 
         return lista_viaticos_usuario.Distinct().ToArray();
@@ -589,7 +589,7 @@ public class WSViaticos : System.Web.Services.WebService
             if (id_area_destino != -1)
             {
                 area_destino = repo_organigrama.GetAreaById(id_area_destino);
-                mensajeria.SeEnviaAFuturo(un_documento, usuario.Areas[0], area_destino);
+                mensajeria.SeEnviaAFuturo(un_documento, new AdministracionDeUsuarios.Autorizador().AreasAdministradasPor(usuario)[0], area_destino);
             }
             else
             {
@@ -629,7 +629,7 @@ public class WSViaticos : System.Web.Services.WebService
         var un_documento = repo_documentos.GetDocumentoPorId(id_documento);
         var area_destino = repo_organigrama.GetAreaById(id_area_destino);
 
-        mensajeria.SeEnviaAFuturo(un_documento, usuario.Areas[0], area_destino);
+        mensajeria.SeEnviaAFuturo(un_documento, new AdministracionDeUsuarios.Autorizador().AreasAdministradasPor(usuario)[0], area_destino);
 
         repo_transiciones.GuardarTransicionesDe(mensajeria);
         return un_documento;
@@ -1167,7 +1167,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var alumnos = RepoAlumnos().GetAlumnos();
         Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        Autorizador autorizador = new Autorizador();
+        var autorizador = new General.Seguridad.Autorizador();
         alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
 
         var alumnos_dto = new List<Object>();
@@ -1462,7 +1462,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var cursos = new RepositorioDeCursos(Conexion()).GetCursos();
         var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        var autorizador = new Autorizador();
+        var autorizador = new General.Seguridad.Autorizador();
 
         cursos = autorizador.FiltrarCursosPorUsuario(cursos, organigrama, usuario);
 
@@ -1619,7 +1619,7 @@ public class WSViaticos : System.Web.Services.WebService
         Alumno persona = repo.GetAlumnoByDNI(dni);
 
         Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        Autorizador autorizador = new Autorizador();
+        var autorizador = new General.Seguridad.Autorizador();
         var persona_dto = new Object();
 
         if (!autorizador.AlumnoVisibleParaUsuario(persona, organigrama, usuario))
@@ -1692,7 +1692,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion(), RepositorioDeCursos()).GetEspaciosFisicos();
         var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        var autorizador = new Autorizador();
+        var autorizador = new General.Seguridad.Autorizador();
 
         espacios_fisicos = autorizador.FiltrarEspaciosFisicosPorUsuario(espacios_fisicos, organigrama, usuario);
 
@@ -1849,123 +1849,123 @@ public class WSViaticos : System.Web.Services.WebService
 
 #endregion
 
-    #region mau
+    //#region mau
 
-    public static AutorizadorFuncionalidades autorizador_mock;
-    protected AutorizadorFuncionalidades Autorizador()
-    {
-        if(autorizador_mock == null) {
-            var funcionalidades = GetFuncionalidades();
-            var dict_permisos = new Dictionary<string, List<AdministracionDeUsuarios.Permiso>>();
+    //public static Autorizador autorizador_mock;
+    //protected Autorizador Autorizador()
+    //{
+    //    if(autorizador_mock == null) {
+    //        var funcionalidades = GetFuncionalidades();
+    //        var dict_permisos = new Dictionary<string, List<AdministracionDeUsuarios.Permiso>>();
 
-            var permisos_veronica = new List<AdministracionDeUsuarios.Permiso>();
-            dict_permisos.Add("veronica", permisos_veronica);
+    //        var permisos_veronica = new List<AdministracionDeUsuarios.Permiso>();
+    //        dict_permisos.Add("veronica", permisos_veronica);
 
-            var permisos_juana = new List<AdministracionDeUsuarios.Permiso>() { 
-                new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First().sub_funcionalidades[2], new List<AdministracionDeUsuarios.Permiso>()),
-            };
-            dict_permisos.Add("Juana Adela", permisos_juana);
+    //        var permisos_juana = new List<AdministracionDeUsuarios.Permiso>() { 
+    //            new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First().sub_funcionalidades[2], new List<AdministracionDeUsuarios.Permiso>()),
+    //        };
+    //        dict_permisos.Add("Juana Adela", permisos_juana);
 
-            var permisos_ernesto = new List<AdministracionDeUsuarios.Permiso>();
-            dict_permisos.Add("ernesto", permisos_ernesto);
+    //        var permisos_ernesto = new List<AdministracionDeUsuarios.Permiso>();
+    //        dict_permisos.Add("ernesto", permisos_ernesto);
 
-            var permisos_felipe = new List<AdministracionDeUsuarios.Permiso>();
-            dict_permisos.Add("felipe", permisos_felipe);
+    //        var permisos_felipe = new List<AdministracionDeUsuarios.Permiso>();
+    //        dict_permisos.Add("felipe", permisos_felipe);
 
-            autorizador_mock = new AdministracionDeUsuarios.AutorizadorFuncionalidades(dict_permisos);
-        }
-        return autorizador_mock;
-    }
+    //        autorizador_mock = new AdministracionDeUsuarios.Autorizador(dict_permisos);
+    //    }
+    //    return autorizador_mock;
+    //}
 
-    [WebMethod]
-    public List<AdministracionDeUsuarios.Permiso> GetPermisosPara(string usuario)
-    {
-        return Autorizador().FuncionalidadDelUsuario(usuario);
-    }
+    //[WebMethod]
+    //public List<AdministracionDeUsuarios.Permiso> GetPermisosPara(string usuario)
+    //{
+    //    return Autorizador().FuncionalidadDelUsuario(usuario);
+    //}
 
-    [WebMethod]
-    public void ConcederPermisoA(string usuario, string funcionalidad)
-    {
-        Autorizador().ConcederPermisoA(usuario, new Funcionalidad(funcionalidad));
-    }
+    //[WebMethod]
+    //public void ConcederPermisoA(string usuario, string funcionalidad)
+    //{
+    //    Autorizador().ConcederPermisoA(usuario, new Funcionalidad(funcionalidad));
+    //}
 
-    [WebMethod]
-    public void DenegarPermisoA(string usuario, string funcionalidad)
-    {
-        Autorizador().DenegarPermisoA(usuario, new Funcionalidad(funcionalidad));
-    }
+    //[WebMethod]
+    //public void DenegarPermisoA(string usuario, string funcionalidad)
+    //{
+    //    Autorizador().DenegarPermisoA(usuario, new Funcionalidad(funcionalidad));
+    //}
 
-    [WebMethod]
-    public List<Funcionalidad> GetFuncionalidades()
-    {
+    //[WebMethod]
+    //public List<Funcionalidad> GetFuncionalidades()
+    //{
 
-        /*
-        [ ] sys
-            /[ ] web
-            /[ ] rrhh
-                /[ ] contratos
-                /[ ] legajos
-            /[ ] licencias
-                /[ ] carga
-                /[ ] modificacion
-                /[ ] consulta
-        */
-        var sys = new Funcionalidad("sys");
-        var web = new Funcionalidad("web");
-        var rrhh = new Funcionalidad("rrhh");
-        var contratos = new Funcionalidad("contratos");
-        var legajos = new Funcionalidad("legajos");
-        var licencias = new Funcionalidad("licencias");
-        var carga = new Funcionalidad("carga");
-        var modificacion = new Funcionalidad("modificacion");
-        var consulta = new Funcionalidad("consulta");
+    //    /*
+    //    [ ] sys
+    //        /[ ] web
+    //        /[ ] rrhh
+    //            /[ ] contratos
+    //            /[ ] legajos
+    //        /[ ] licencias
+    //            /[ ] carga
+    //            /[ ] modificacion
+    //            /[ ] consulta
+    //    */
+    //    var sys = new Funcionalidad("sys");
+    //    var web = new Funcionalidad("web");
+    //    var rrhh = new Funcionalidad("rrhh");
+    //    var contratos = new Funcionalidad("contratos");
+    //    var legajos = new Funcionalidad("legajos");
+    //    var licencias = new Funcionalidad("licencias");
+    //    var carga = new Funcionalidad("carga");
+    //    var modificacion = new Funcionalidad("modificacion");
+    //    var consulta = new Funcionalidad("consulta");
 
-        sys.AgregarFuncionalidad(web);
-        sys.AgregarFuncionalidad(rrhh);
-            rrhh.AgregarFuncionalidad(contratos);
-            rrhh.AgregarFuncionalidad(legajos);
-        sys.AgregarFuncionalidad(licencias);
-            licencias.AgregarFuncionalidad(carga);
-            licencias.AgregarFuncionalidad(modificacion);
-            licencias.AgregarFuncionalidad(consulta);
+    //    sys.AgregarFuncionalidad(web);
+    //    sys.AgregarFuncionalidad(rrhh);
+    //        rrhh.AgregarFuncionalidad(contratos);
+    //        rrhh.AgregarFuncionalidad(legajos);
+    //    sys.AgregarFuncionalidad(licencias);
+    //        licencias.AgregarFuncionalidad(carga);
+    //        licencias.AgregarFuncionalidad(modificacion);
+    //        licencias.AgregarFuncionalidad(consulta);
 
-        return new List<Funcionalidad> { sys };
-    }
+    //    return new List<Funcionalidad> { sys };
+    //}
 
-    [WebMethod]
-    public Persona[] BuscarPersonas(string criterio)
-    {
-        var personas = RepositorioDePersonas().BuscarPersonas(criterio).ToArray();
-        return personas;
-    }
+    //[WebMethod]
+    //public Persona[] BuscarPersonas(string criterio)
+    //{
+    //    var personas = RepositorioDePersonas().BuscarPersonas(criterio).ToArray();
+    //    return personas;
+    //}
 
-    [WebMethod]
-    public Persona[] BuscarPersonasConLegajo(string criterio)
-    {
-        var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
-        return personas;
-    }
+    //[WebMethod]
+    //public Persona[] BuscarPersonasConLegajo(string criterio)
+    //{
+    //    var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
+    //    return personas;
+    //}
 
-    public static ServicioDeSeguridad servicio_de_seguridad_mock;
-    protected ServicioDeSeguridad ServicioDeSeguridad()
-    {
-        if (servicio_de_seguridad_mock == null)
-        {
-            servicio_de_seguridad_mock = new ServicioDeSeguridad(RepositorioDePersonas());
-        }
-        return servicio_de_seguridad_mock;
-    }
+    //public static ServicioDeSeguridad servicio_de_seguridad_mock;
+    //protected ServicioDeSeguridad ServicioDeSeguridad()
+    //{
+    //    if (servicio_de_seguridad_mock == null)
+    //    {
+    //        servicio_de_seguridad_mock = new ServicioDeSeguridad(RepositorioDePersonas());
+    //    }
+    //    return servicio_de_seguridad_mock;
+    //}
 
-    [WebMethod]
-    public Usuario GetUsuarioPorIdPersona(int id_persona)
-    {
-        var usuario = ServicioDeSeguridad().GetUsuarioPorIdPersona(id_persona);
-        return usuario;
-    }
+    //[WebMethod]
+    //public Usuario GetUsuarioPorIdPersona(int id_persona)
+    //{
+    //    var usuario = ServicioDeSeguridad().GetUsuarioPorIdPersona(id_persona);
+    //    return usuario;
+    //}
 
 
 
-    #endregion
+    //#endregion
 
     [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)

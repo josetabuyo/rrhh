@@ -8,48 +8,28 @@ namespace TestAdministracionDeUsuarios
 {
     public class TestObjects
     {
-        public static AutorizadorFuncionalidades Autorizador()
+
+        public static Usuario Jorge()
         {
-            return new AutorizadorFuncionalidades(PermisosJuanLeeLegajos());
+            return new Usuario() { Id = 1, NombreDeUsuario = "jorge" };
+        }
+        public static Funcionalidad FuncionalidadIngresoSacc()
+        {
+            return new Funcionalidad(1, "ingreso_a_sacc");
         }
 
-        protected static Dictionary<string, List<Permiso>> PermisosJuanLeeLegajos()
+        private static Dictionary<Usuario, List<AdministracionDeUsuarios.Funcionalidad>> diccionario_permisos()
         {
-            var permisos = new Dictionary<string, List<Permiso>>();
-            permisos.Add(Juan(), new List<Permiso> { Permiso.Conceder(FuncionalidadLecturaLegajos()) });
-            return permisos;
+            var diccionario = new Dictionary<Usuario, List<AdministracionDeUsuarios.Funcionalidad>>();
+            var permisos_jorge = new List<Funcionalidad>();
+            permisos_jorge.Add(FuncionalidadIngresoSacc());
+            diccionario.Add(Jorge(), permisos_jorge);
+            return diccionario;
         }
 
-        public static string Juan()
+        public static Autorizador Autorizador()
         {
-            return "Juan";
-        }
-
-        protected static List<Funcionalidad> SoloFuncionalidadLecturaLegajos()
-        {
-            return new List<Funcionalidad> { FuncionalidadLecturaLegajos() };
-        }
-
-        public static Funcionalidad FuncionalidadLecturaLegajos()
-        {
-            return new Funcionalidad("lectura legajos");
-        }
-
-        public static Funcionalidad FuncionalidadEsctrituraLegajos()
-        {
-            return new Funcionalidad("escritura legajos");
-        }
-
-        public static Funcionalidad RescindirContrato()
-        {
-            return new Funcionalidad("Rescindir contrato");
-        }
-
-        public static Funcionalidad FuncionalidadContratos()
-        {
-            var funcionalidad_contratos = new Funcionalidad("Acceso a contratos");
-            funcionalidad_contratos.AgregarFuncionalidad(RescindirContrato());
-            return funcionalidad_contratos;
+            return new Autorizador(diccionario_permisos()); 
         }
     }
 }

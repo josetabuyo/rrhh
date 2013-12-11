@@ -121,7 +121,7 @@ namespace TestViaticos
             var fabian = TestObjects.Fabian();
             repo.LoginUsuario(fabian, "web1");
 
-            Assert.AreEqual(1, fabian.Areas.Count);
+            Assert.AreEqual(1, fabian.AreasAdministradas.Count);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace TestViaticos
             var fabian = TestObjects.Fabian();
             repo.LoginUsuario(fabian, "web1");
 
-            Assert.AreEqual(1, fabian.Areas[0].Asistentes.Count);
+            Assert.AreEqual(1, fabian.AreasAdministradas[0].Asistentes.Count);
         }
     }
 }

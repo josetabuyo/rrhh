@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 using System.Text;
 using System.Data.SqlClient;
+using General;
 
-namespace General
+namespace AdministracionDeUsuarios
 {
     public class Usuario : Persona
     {
@@ -15,27 +16,27 @@ namespace General
             set { _NombreDeUsuario = value;  }
         }
 
-        public List<Area> Areas { get; set; }
+        //public List<Area> AreasAdministradas { get; set; }
         public Usuario()
         {
-            this.Areas = new List<Area>();
-            this.TienePermisosParaViaticos = false;
-            this.TienePermisosParaSiCoI = false;
-            this.TienePermisosParaSACC = false;
-            this.TienePermisosParaModil = false;
-            this.FeaturesDescripcion = new List<string>();
+            //this.AreasAdministradas = new List<Area>();
+            //this.TienePermisosParaViaticos = false;
+            //this.TienePermisosParaSiCoI = false;
+            //this.TienePermisosParaSACC = false;
+            ////this.TienePermisosParaModil = false;
+            //this.FeaturesDescripcion = new List<string>();
         }
 
-        public bool EsFirmante { get; set; }
+        //public bool EsFirmante { get; set; }
              
         //public List<int> FuncionalidadesPermitidas { get; set; }
 
-        public bool TienePermisosParaSACC { get; set; }
-        public bool TienePermisosParaSiCoI { get; set; }
-        public bool TienePermisosParaModil { get; set; }
-        public bool TienePermisosParaViaticos { get; set; }
+        //public bool TienePermisosParaSACC { get; set; }
+        //public bool TienePermisosParaSiCoI { get; set; }
+        //public bool TienePermisosParaModil { get; set; }
+        //public bool TienePermisosParaViaticos { get; set; }
 
-        public List<string> FeaturesDescripcion { get; set; }
+        //public List<string> FeaturesDescripcion { get; set; }
 
     }
 }
