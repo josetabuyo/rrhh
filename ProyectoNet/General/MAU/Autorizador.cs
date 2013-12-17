@@ -2,6 +2,10 @@
 using System.Linq;
 using ExtensionesDeLista;
 using General;
+using System;
+using System.Security.Cryptography;
+using System.Text;
+using General.MAU;
 
 namespace AdministracionDeUsuarios
 {
@@ -10,10 +14,12 @@ namespace AdministracionDeUsuarios
 
         protected Dictionary<Usuario, List<Funcionalidad>> permisos;
         protected Dictionary<Usuario, List<Area>> areas;
+        protected IRepositorioDeUsuarios repositorio_usuarios { get; set; }
 
-        public Autorizador(Dictionary<Usuario, List<Funcionalidad>> permisos)
+        public Autorizador(Dictionary<Usuario, List<Funcionalidad>> permisos, IRepositorioDeUsuarios repo_usuarios)
         {
             this.permisos = permisos;
+            this.repositorio_usuarios = repo_usuarios;
         }
 
         public Autorizador()
@@ -74,5 +80,21 @@ namespace AdministracionDeUsuarios
             };
             areas_usuario.Add(area);
         }
+
+        public bool Login(string nombre_usuario, string password)
+        {
+            var pass_encriptado = encriptarSHA1(password);
+            var usuario = this.repositorio_usuarios.GetUsuarioPorNombre(nombre_usuario);
+            return pass_encriptado == this.repositorio_usuarios.GetPasswordEncriptadoDeUnUsuario(usuario);
+        }
+
+        private static string encriptarSHA1(string CadenaOriginal)
+        {
+            HashAlgorithm hashValue = new SHA1CryptoServiceProvider();
+            byte[] bytes = Encoding.UTF8.GetBytes(CadenaOriginal); byte[] byteHash = hashValue.ComputeHash(bytes);
+            hashValue.Clear();
+            return (Convert.ToBase64String(byteHash));
+        }
+
     }
 }

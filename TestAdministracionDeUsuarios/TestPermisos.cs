@@ -12,6 +12,12 @@ namespace TestAdministracionDeUsuarios
     public class TestPermisos
     {
         [TestMethod]
+        public void jorge_deberia_poder_loguearse_si_ingresa_bien_su_clave()
+        {
+            Assert.IsTrue(TestObjects.Autorizador().Login("jorgito", "trespuntouno"));
+        }
+
+        [TestMethod]
         public void jorge_deberia_tener_permisos_para_ingresar_a_sacc()
         {
             Assert.IsTrue(TestObjects.Autorizador().PuedeAcceder(TestObjects.Jorge(), TestObjects.FuncionalidadIngresoSacc()));

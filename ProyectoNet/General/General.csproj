@@ -78,6 +78,7 @@
     <Compile Include="MAU\Autorizador.cs" />
     <Compile Include="MAU\ExtensionList.cs" />
     <Compile Include="MAU\Funcionalidad.cs" />
+    <Compile Include="MAU\IRepositorioDeUsuarios.cs" />
     <Compile Include="MAU\ServicioDeSeguridad.cs" />
     <Compile Include="MICOI\AccionDeTransicion.cs" />
     <Compile Include="MICOI\Alias.cs" />
