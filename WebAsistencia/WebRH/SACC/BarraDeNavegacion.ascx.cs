@@ -16,15 +16,17 @@ public partial class SACC_BarraDeNavegacion : System.Web.UI.UserControl
     protected void items_accesibles()
     {
         var usuario = (Usuario)Session["usuario"];
-        
-        var items = Servicio().ItemsDelMenu(usuario, usuario.FeaturesDescripcion.First());
 
-        items.ToList().ForEach(item =>
-        {
-            var nuevo_elemento = new Literal() { Text="<li><a href=" + item.Url + ">" + item.NombreItem + "</a></li>"};
-            this.sub_menu_parametria.Controls.Add(nuevo_elemento);
+        throw new Exception();
 
-        });
+        //var items = Servicio().ItemsDelMenu(usuario, usuario.FeaturesDescripcion.First());
+
+        //items.ToList().ForEach(item =>
+        //{
+        //    var nuevo_elemento = new Literal() { Text="<li><a href=" + item.Url + ">" + item.NombreItem + "</a></li>"};
+        //    this.sub_menu_parametria.Controls.Add(nuevo_elemento);
+
+        //});
     }
 
     protected void Page_Load(object sender, EventArgs e)

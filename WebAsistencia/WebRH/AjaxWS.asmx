@@ -140,35 +140,35 @@ public class AjaxWS : System.Web.Services.WebService {
     
     /////////////////////MAU
 
-    [WebMethod(EnableSession = true)]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetPermisosPara(string usuario)
-    {
-        var respuesta = backEndService.GetPermisosPara(usuario);
-        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
-        return respuestaSerializada;
-    }
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string GetPermisosPara(string usuario)
+    //{
+    //    var respuesta = backEndService.GetPermisosPara(usuario);
+    //    var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+    //    return respuestaSerializada;
+    //}
 
-    [WebMethod(EnableSession = true)]
-    public void ConcederPermisoA(string usuario, string funcionalidad)
-    {
-        backEndService.ConcederPermisoA(usuario, funcionalidad);
-    }
+    //[WebMethod(EnableSession = true)]
+    //public void ConcederPermisoA(string usuario, string funcionalidad)
+    //{
+    //    backEndService.ConcederPermisoA(usuario, funcionalidad);
+    //}
 
-    [WebMethod(EnableSession = true)]
-    public void DenegarPermisoA(string usuario, string funcionalidad)
-    {
-        backEndService.DenegarPermisoA(usuario, funcionalidad);
-    }    
+    //[WebMethod(EnableSession = true)]
+    //public void DenegarPermisoA(string usuario, string funcionalidad)
+    //{
+    //    backEndService.DenegarPermisoA(usuario, funcionalidad);
+    //}    
     
-    [WebMethod(EnableSession = true)]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetFuncionalidades()
-    {
-        var respuesta = backEndService.GetFuncionalidades();
-        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
-        return respuestaSerializada;
-    }
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string GetFuncionalidades()
+    //{
+    //    var respuesta = backEndService.GetFuncionalidades();
+    //    var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+    //    return respuestaSerializada;
+    //}
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -189,14 +189,14 @@ public class AjaxWS : System.Web.Services.WebService {
         
     }
 
-    [WebMethod(EnableSession = true)]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetUsuarioPorIdPersona(int id_persona)
-    {
-        var respuesta = backEndService.GetUsuarioPorIdPersona(id_persona);
-        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
-        return respuestaSerializada;
-    }
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string GetUsuarioPorIdPersona(int id_persona)
+    //{
+    //    var respuesta = backEndService.GetUsuarioPorIdPersona(id_persona);
+    //    var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+    //    return respuestaSerializada;
+    //}
     /////////////////////FIN MAU
 
     [WebMethod(EnableSession = true)]
@@ -306,7 +306,7 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void SetAreaActualEnSesion(int id_area)
     {
-        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = usuarioLogueado.Areas.ToList().Find(a => a.Id == id_area);
+        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = backEndService.GetAreasAdministradasPorElUsuario(usuarioLogueado).ToList().Find(a => a.Id == id_area);
     }
 }
 

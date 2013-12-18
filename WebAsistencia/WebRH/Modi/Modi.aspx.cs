@@ -14,8 +14,10 @@ public partial class AltaDeDocumento : System.Web.UI.Page
     {
         Sesion.VerificarSesion(this);
         usuarioLogueado = ((Usuario)Session[ConstantesDeSesion.USUARIO]);
-        
-        if (!usuarioLogueado.TienePermisosParaModil)//mesa de entrada
+
+        var ws = new WSViaticosSoapClient();
+
+        if (!ws.ElUsuarioTieneAccesoA(usuarioLogueado, "MODI"))//mesa de entrada
         {      
             Response.Redirect("~/SeleccionDeArea.aspx");
         }

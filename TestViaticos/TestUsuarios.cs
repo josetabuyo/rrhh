@@ -20,10 +20,8 @@ namespace General
 
             RepositorioUsuarios repo = new RepositorioUsuarios(conexion);
 
-            usuario.NombreDeUsuario = "UsuDirGral";
+            usuario.Alias = "UsuDirGral";
             string password = "web1";
-
-            bool acceso_correcto = repo.LoginUsuario(usuario, password);
         }
 
         [TestMethod]

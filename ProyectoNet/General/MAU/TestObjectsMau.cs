@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AdministracionDeUsuarios;
+using General.MAU;
 
-namespace TestAdministracionDeUsuarios
+namespace AdministracionDeUsuarios
 {
-    public class TestObjects
+    public class TestObjectsMau
     {
 
         public static Usuario Jorge()
         {
-            return new Usuario() { Id = 1, NombreDeUsuario = "jorge" };
+            return new Usuario(1, "jorge", "BNlHU/MO3sKjsOIeSFRf8yCC8a4=");
         }
 
         public static Usuario Javier()
         {
-            return new Usuario() { Id = 2, NombreDeUsuario = "javier" };
+            return new Usuario(2, "javier", "AFQCASWRGAWERGWEASGAV");
+        }
+
+        public static Usuario Zambri()
+        {
+            return new Usuario(3, "zambri", "AFQCASWRGAWERGWEASGAV");
         }
 
         private static Dictionary<Usuario, List<AdministracionDeUsuarios.Funcionalidad>> diccionario_permisos()
@@ -30,7 +36,16 @@ namespace TestAdministracionDeUsuarios
 
         public static Autorizador Autorizador()
         {
-            return new Autorizador(diccionario_permisos()); 
+            return new Autorizador(diccionario_permisos(), TestObjectsMau.RepositorioDeUsuarios()); 
+        }
+
+        public static IRepositorioDeUsuarios RepositorioDeUsuarios()
+        {
+            var lista_usuarios = new List<Usuario>();
+            lista_usuarios.Add(Jorge());
+            lista_usuarios.Add(Javier());
+            lista_usuarios.Add(Zambri());
+            return new RepositorioDeUsuariosMock(lista_usuarios);
         }
 
         public static Funcionalidad FuncionalidadIngresoSacc()

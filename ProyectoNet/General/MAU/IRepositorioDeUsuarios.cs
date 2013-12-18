@@ -8,7 +8,6 @@ namespace General.MAU
 {
     public interface IRepositorioDeUsuarios
     {
-        string GetPasswordEncriptadoDeUnUsuario(Usuario usuario);
-        Usuario GetUsuarioPorNombre(string nombre_usuario);
+        Usuario GetUsuarioPorAlias(string nombre_usuario);
     }
 }

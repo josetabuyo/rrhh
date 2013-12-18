@@ -14,15 +14,12 @@ public partial class AltaDeDocumento : System.Web.UI.Page
     {
         Sesion.VerificarSesion(this);
         usuarioLogueado = ((Usuario)Session[ConstantesDeSesion.USUARIO]);
+        var ws = new WSViaticosSoapClient();
 
-        Sesion.VerificarSesion(this);
-
-        if (!usuarioLogueado.TienePermisosParaSiCoI)//Sicoi
+        if (ws.ElUsuarioTieneAccesoA(usuarioLogueado, "SICOI"))
         {
             Response.Redirect("~/SeleccionDeArea.aspx");
+            return;
         }
-
-
-
     }    
 }

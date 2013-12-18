@@ -20,7 +20,11 @@ public partial class FormularioDeViaticosJefe_FControlDeAprobacion : System.Web.
         controlador_controles = new ControladorDeWebControls();
         Usuario usuario = ((Usuario)Session["usuario"]);
         var dDLAreas = new DropDownList();
-        foreach (Area area in usuario.Areas)
+
+        var ws = new WSViaticosSoapClient();
+        var areas_usuario = ws.GetAreasAdministradasPorElUsuario(usuario);
+
+        foreach (Area area in areas_usuario)
         {
             dDLAreas.Items.Add(new ListItem(area.Nombre, area.Id.ToString()));
         }
@@ -37,7 +41,7 @@ public partial class FormularioDeViaticosJefe_FControlDeAprobacion : System.Web.
         var lista_de_viaticos = ViaticosFromWS();
         Session["listaDeComisiones"] = lista_de_viaticos;
 
-        var idAreasUsuario = usuario.Areas.Select(a => a.Id);
+        var idAreasUsuario = areas_usuario.Select(a => a.Id);
 
         string[] columnasTabla1 = new string[] { "", "DNI", "Nombre de Agente", "Desde", "Hasta", "Importe", "Dias faltantes", "Estado", "Ver Mas" };
         string[] columnasTabla2 = new string[] { "", "DNI", "Nombre de Agente", "Desde", "Hasta", "Area Actual", "Estado", "Ver Mas" };

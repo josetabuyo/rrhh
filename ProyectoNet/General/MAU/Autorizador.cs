@@ -14,6 +14,7 @@ namespace AdministracionDeUsuarios
 
         protected Dictionary<Usuario, List<Funcionalidad>> permisos;
         protected Dictionary<Usuario, List<Area>> areas;
+        protected Dictionary<Funcionalidad, List<string>> enlaces;
         protected IRepositorioDeUsuarios repositorio_usuarios { get; set; }
 
         public Autorizador(Dictionary<Usuario, List<Funcionalidad>> permisos, IRepositorioDeUsuarios repo_usuarios)
@@ -31,6 +32,13 @@ namespace AdministracionDeUsuarios
             List<Funcionalidad> permisos_usuario;
             if (!this.permisos.TryGetValue(usuario, out permisos_usuario)) return false;
             return permisos_usuario.Exists(f => f.Equals(funcionalidad));
+        }
+
+        public bool PuedeAcceder(Usuario usuario, string nombre_funcionalidad)
+        {
+            List<Funcionalidad> permisos_usuario;
+            if (!this.permisos.TryGetValue(usuario, out permisos_usuario)) return false;
+            return permisos_usuario.Exists(f => f.Nombre==nombre_funcionalidad);
         }
 
         public void ConcederPermisoA(Usuario usuario, Funcionalidad funcionalidad)
@@ -81,20 +89,15 @@ namespace AdministracionDeUsuarios
             areas_usuario.Add(area);
         }
 
-        public bool Login(string nombre_usuario, string password)
+        public bool Login(string nombre_usuario, string clave)
         {
-            var pass_encriptado = encriptarSHA1(password);
-            var usuario = this.repositorio_usuarios.GetUsuarioPorNombre(nombre_usuario);
-            return pass_encriptado == this.repositorio_usuarios.GetPasswordEncriptadoDeUnUsuario(usuario);
+            var usuario = this.repositorio_usuarios.GetUsuarioPorAlias(nombre_usuario);
+            return usuario.ValidarClave(clave);
         }
 
-        private static string encriptarSHA1(string CadenaOriginal)
+        public List<string> EnlacesMenu(string nombre_menu, Usuario usuario)
         {
-            HashAlgorithm hashValue = new SHA1CryptoServiceProvider();
-            byte[] bytes = Encoding.UTF8.GetBytes(CadenaOriginal); byte[] byteHash = hashValue.ComputeHash(bytes);
-            hashValue.Clear();
-            return (Convert.ToBase64String(byteHash));
+            throw new NotImplementedException();
         }
-
     }
 }

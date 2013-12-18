@@ -22,7 +22,7 @@ public partial class _Default : System.Web.UI.Page
     {
         WSViaticosSoapClient ws = new WSViaticosSoapClient();
         if (ws.Login(nombre_usuario, password)){
-            Session[ConstantesDeSesion.USUARIO] = ws.GetUsuario(nombre_usuario);
+            Session[ConstantesDeSesion.USUARIO] = ws.GetUsuarioPorAlias(nombre_usuario);
             Response.Redirect("Menu.aspx");
         }
         else

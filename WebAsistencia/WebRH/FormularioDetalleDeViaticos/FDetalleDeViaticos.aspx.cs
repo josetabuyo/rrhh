@@ -17,7 +17,11 @@ public partial class FormularioDetalleDeViaticos_FDetalleDeViaticos : System.Web
         comision = (ComisionDeServicio)Session["comisionActual"];    
     
         Usuario usuario = ((Usuario)Session["usuario"]);
-        var idAreasUsuario = usuario.Areas.Select(a => a.Id).ToList();
+
+        var ws = new WSViaticosSoapClient();
+        var areas_usuario = ws.GetAreasAdministradasPorElUsuario(usuario);
+
+        var idAreasUsuario = areas_usuario.Select(a => a.Id).ToList();
 
         MostrarDatosViajante();
         MostrarTablaEstadias();

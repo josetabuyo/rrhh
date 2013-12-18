@@ -16,6 +16,7 @@ using System.Xml.Serialization;
 using AdministracionDeUsuarios;
 using General.Sacc;
 using General.Sacc.Seguridad;
+using General.MAU;
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -225,42 +226,6 @@ public class WSViaticos : System.Web.Services.WebService
     #endregion
 
     #region viaticos
-
-    [WebMethod]
-    public Usuario Login(string NombreUsuario, string Password)
-    {
-        Usuario usuario = new Usuario();
-        usuario.NombreDeUsuario = NombreUsuario;
-
-        RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
-        if (repoUsuarios.LoginUsuario(usuario, Password))
-        {
-            return usuario;
-        }
-        return null;
-
-    }
-
-    [WebMethod]
-    public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
-    {
-
-        RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
-
-        if ( repoUsuarios.CambiarPassword(usuario, PasswordActual, PasswordNuevo))
-	    {
-            return JsonConvert.SerializeObject(new
-                {
-                tipoDeRespuesta = "cambioPassword.ok"              
-                });
-	    } else {
-            return JsonConvert.SerializeObject(new
-                {
-                    tipoDeRespuesta = "cambioPassword.error"
-                    //error = e.Message
-                });
-        }
-    }
 
     [WebMethod]
     public void AltaDeComisionesDeServicio(ComisionDeServicio unaComision)
@@ -1850,123 +1815,76 @@ public class WSViaticos : System.Web.Services.WebService
 
 #endregion
 
-    //#region mau
-
-    //public static Autorizador autorizador_mock;
-    //protected Autorizador Autorizador()
-    //{
-    //    if(autorizador_mock == null) {
-    //        var funcionalidades = GetFuncionalidades();
-    //        var dict_permisos = new Dictionary<string, List<AdministracionDeUsuarios.Permiso>>();
-
-    //        var permisos_veronica = new List<AdministracionDeUsuarios.Permiso>();
-    //        dict_permisos.Add("veronica", permisos_veronica);
-
-    //        var permisos_juana = new List<AdministracionDeUsuarios.Permiso>() { 
-    //            new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First().sub_funcionalidades[2], new List<AdministracionDeUsuarios.Permiso>()),
-    //        };
-    //        dict_permisos.Add("Juana Adela", permisos_juana);
-
-    //        var permisos_ernesto = new List<AdministracionDeUsuarios.Permiso>();
-    //        dict_permisos.Add("ernesto", permisos_ernesto);
-
-    //        var permisos_felipe = new List<AdministracionDeUsuarios.Permiso>();
-    //        dict_permisos.Add("felipe", permisos_felipe);
-
-    //        autorizador_mock = new AdministracionDeUsuarios.Autorizador(dict_permisos);
-    //    }
-    //    return autorizador_mock;
-    //}
-
-    //[WebMethod]
-    //public List<AdministracionDeUsuarios.Permiso> GetPermisosPara(string usuario)
-    //{
-    //    return Autorizador().FuncionalidadDelUsuario(usuario);
-    //}
-
-    //[WebMethod]
-    //public void ConcederPermisoA(string usuario, string funcionalidad)
-    //{
-    //    Autorizador().ConcederPermisoA(usuario, new Funcionalidad(funcionalidad));
-    //}
-
-    //[WebMethod]
-    //public void DenegarPermisoA(string usuario, string funcionalidad)
-    //{
-    //    Autorizador().DenegarPermisoA(usuario, new Funcionalidad(funcionalidad));
-    //}
-
-    //[WebMethod]
-    //public List<Funcionalidad> GetFuncionalidades()
-    //{
-
-    //    /*
-    //    [ ] sys
-    //        /[ ] web
-    //        /[ ] rrhh
-    //            /[ ] contratos
-    //            /[ ] legajos
-    //        /[ ] licencias
-    //            /[ ] carga
-    //            /[ ] modificacion
-    //            /[ ] consulta
-    //    */
-    //    var sys = new Funcionalidad("sys");
-    //    var web = new Funcionalidad("web");
-    //    var rrhh = new Funcionalidad("rrhh");
-    //    var contratos = new Funcionalidad("contratos");
-    //    var legajos = new Funcionalidad("legajos");
-    //    var licencias = new Funcionalidad("licencias");
-    //    var carga = new Funcionalidad("carga");
-    //    var modificacion = new Funcionalidad("modificacion");
-    //    var consulta = new Funcionalidad("consulta");
-
-    //    sys.AgregarFuncionalidad(web);
-    //    sys.AgregarFuncionalidad(rrhh);
-    //        rrhh.AgregarFuncionalidad(contratos);
-    //        rrhh.AgregarFuncionalidad(legajos);
-    //    sys.AgregarFuncionalidad(licencias);
-    //        licencias.AgregarFuncionalidad(carga);
-    //        licencias.AgregarFuncionalidad(modificacion);
-    //        licencias.AgregarFuncionalidad(consulta);
-
-    //    return new List<Funcionalidad> { sys };
-    //}
-
-    //[WebMethod]
-    //public Persona[] BuscarPersonas(string criterio)
-    //{
-    //    var personas = RepositorioDePersonas().BuscarPersonas(criterio).ToArray();
-    //    return personas;
-    //}
-
-    //[WebMethod]
-    //public Persona[] BuscarPersonasConLegajo(string criterio)
-    //{
-    //    var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
-    //    return personas;
-    //}
-
-    //public static ServicioDeSeguridad servicio_de_seguridad_mock;
-    //protected ServicioDeSeguridad ServicioDeSeguridad()
-    //{
-    //    if (servicio_de_seguridad_mock == null)
-    //    {
-    //        servicio_de_seguridad_mock = new ServicioDeSeguridad(RepositorioDePersonas());
-    //    }
-    //    return servicio_de_seguridad_mock;
-    //}
-
-    //[WebMethod]
-    //public Usuario GetUsuarioPorIdPersona(int id_persona)
-    //{
-    //    var usuario = ServicioDeSeguridad().GetUsuarioPorIdPersona(id_persona);
-    //    return usuario;
-    //}
+    #region mau
 
 
+    [WebMethod]
+    public bool Login(string alias, string clave)
+    {
+        return Autorizador().Login(alias, clave);
+    }
 
-    //#endregion
+    [WebMethod]
+    public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
+    {
+
+        RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
+
+        if (repoUsuarios.CambiarPassword(usuario, PasswordActual, PasswordNuevo))
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "cambioPassword.ok"
+            });
+        }
+        else
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "cambioPassword.error"
+                //error = e.Message
+            });
+        }
+    }
+
+    [WebMethod]
+    public Usuario GetUsuarioPorAlias(string alias)
+    {
+        return RepositorioDeUsuarios().GetUsuarioPorAlias(alias);
+    }
+
+    [WebMethod]
+    public Persona[] BuscarPersonas(string criterio)
+    {
+        var personas = RepositorioDePersonas().BuscarPersonas(criterio).ToArray();
+        return personas;
+    }
+
+    [WebMethod]
+    public Persona[] BuscarPersonasConLegajo(string criterio)
+    {
+        var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
+        return personas;
+    }
+
+    [WebMethod]
+    public Area[] GetAreasAdministradasPorElUsuario(Usuario usuario)
+    {
+        return Autorizador().AreasAdministradasPor(usuario).ToArray();
+    }
+
+    [WebMethod]
+    public bool ElUsuarioTieneAccesoA(Usuario usuario, string nombre_funcionalidad)
+    {
+        return Autorizador().PuedeAcceder(usuario, nombre_funcionalidad);
+    }
+
+    private Autorizador Autorizador()
+    {
+        return TestObjectsMau.Autorizador();
+    }
+
+    #endregion
 
     [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
@@ -2171,6 +2089,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDePersonas RepositorioDePersonas()
     {
         return new RepositorioDePersonas(Conexion());
+    }
+
+    private IRepositorioDeUsuarios RepositorioDeUsuarios()
+    {
+        return TestObjectsMau.RepositorioDeUsuarios();
     }
 
     private RepositorioDeDocentes RepositorioDeDocentes()

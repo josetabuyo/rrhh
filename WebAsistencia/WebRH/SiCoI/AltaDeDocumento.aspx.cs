@@ -16,22 +16,24 @@ public partial class AltaDeDocumento : System.Web.UI.Page
         usuarioLogueado = ((Usuario)Session[ConstantesDeSesion.USUARIO]);
         
         Sesion.VerificarSesion(this);
+        var ws = new WSViaticosSoapClient();
 
-        if (!usuarioLogueado.TienePermisosParaSiCoI)//mesa de entrada
+        if (!ws.ElUsuarioTieneAccesoA(usuarioLogueado, "SICOI"))
         {      
             Response.Redirect("~/SeleccionDeArea.aspx");
+            return;
         }
-            
-        var servicio = new WSViaticos.WSViaticosSoapClient();
 
-        this.ListaAreas.Value = servicio.AreasFormalesConInformales_JSON();
-        this.TiposDeDocumento.Value = JsonConvert.SerializeObject(servicio.TiposDeDocumentosSICOI().OrderBy(td => td.descripcion));
-        this.CategoriasDeDocumento.Value = JsonConvert.SerializeObject(servicio.CategoriasDocumentosSICOI().OrderBy(cd => cd.descripcion));
+        this.ListaAreas.Value = ws.AreasFormalesConInformales_JSON();
+        this.TiposDeDocumento.Value = JsonConvert.SerializeObject(ws.TiposDeDocumentosSICOI().OrderBy(td => td.descripcion));
+        this.CategoriasDeDocumento.Value = JsonConvert.SerializeObject(ws.CategoriasDocumentosSICOI().OrderBy(cd => cd.descripcion));
+
+        var areas_usuario = ws.GetAreasAdministradasPorElUsuario(usuarioLogueado);
 
         var areaDelUsuarioDTO = new
         {
-            id = usuarioLogueado.Areas[0].Id,
-            descripcion = usuarioLogueado.Areas[0].Nombre
+            id = areas_usuario[0].Id,
+            descripcion = areas_usuario[0].Nombre
         };
         AreaDelUsuario.Value = JsonConvert.SerializeObject(areaDelUsuarioDTO);
     }    

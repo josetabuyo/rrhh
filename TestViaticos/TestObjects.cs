@@ -154,21 +154,21 @@ namespace General
         public static Usuario Fabian()
         {
             Usuario fabian = new Usuario();
-            fabian.NombreDeUsuario = "UsuDirGral";
+            fabian.Alias = "UsuDirGral";
             return fabian;
         }
 
         public static Usuario UsuarioMesaEntrada()
         {
             Usuario usumesa = new Usuario();
-            usumesa.NombreDeUsuario = "UsuMesa";
+            usumesa.Alias = "UsuMesa";
             return usumesa;
         }
 
         public static Usuario UsuarioCENARD()
         {
             Usuario usucenard = new Usuario();
-            usucenard.NombreDeUsuario = "usucenard";
+            usucenard.Alias = "usucenard";
             Autorizador.Instancia().AsignarAreaAUnUsuario(usucenard, new Area(621, "Secretaria de Deporte"));
             return usucenard;
         }
@@ -176,7 +176,7 @@ namespace General
         public static Usuario UsuarioSACC()
         {
             Usuario ususacc = new Usuario();
-            ususacc.NombreDeUsuario = "ususacc";
+            ususacc.Alias = "ususacc";
             Autorizador.Instancia().AsignarAreaAUnUsuario(ususacc, new Area(1, "Unidad Ministro"));
             return ususacc;
         }

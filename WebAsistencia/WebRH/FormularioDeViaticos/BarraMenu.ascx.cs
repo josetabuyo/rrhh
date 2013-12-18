@@ -18,9 +18,8 @@ public partial class FormularioDeViaticos_BarraMenu : System.Web.UI.UserControl
         try
         {
             Usuario usuario = ((Usuario)Session["usuario"]);
-            this.LabelUsuario.Text = usuario.NombreDeUsuario;
-            this.LabelUsuario.Text = usuario.NombreDeUsuario;
-            ConfigurarBarraDeNavegacion();
+            this.LabelUsuario.Text = usuario.Alias;
+            this.LabelUsuario.Text = usuario.Alias;
         }
         catch (Exception)
         {
@@ -60,33 +59,9 @@ public partial class FormularioDeViaticos_BarraMenu : System.Web.UI.UserControl
         Response.Redirect("~\\FormularioDeViaticosAprobacion\\FControlDeAprobacion.aspx");
     }
 
-    private void VisibilidadDeLosBotonesDeViaticos(bool son_visibles)
-    {
-        //SolicitarViaticoLinkButton.Visible = false;// son_visibles;
-        //DetalleDeViaticoLinkButton.Visible = false;// son_visibles;
-    }
-
-    private void ConfigurarBarraDeNavegacion()
-    {
-        if (EstaEnModoDesarrollo())
-            VisibilidadDeLosBotonesDeViaticos(true);
-        else
-            HabilitarBotonesSegunUsuario();
-    }
-
-
-    private void HabilitarBotonesSegunUsuario()
-    {
-        Usuario usuario = ((Usuario)Session["usuario"]);
-
-        var el_usuario_puede_ver_los_botones = (usuario.NombreDeUsuario.Contains("fmiranda") || usuario.NombreDeUsuario.Contains("mnovoa") || usuario.NombreDeUsuario.Contains("UsuDir") || usuario.NombreDeUsuario.Contains("UsuDirGral") || usuario.NombreDeUsuario.Contains("UsuSecre") || usuario.NombreDeUsuario.Contains("UsuViat"));
-        VisibilidadDeLosBotonesDeViaticos(el_usuario_puede_ver_los_botones);
-
-    }
-
-    private bool EstaEnModoDesarrollo()
-    {
-        string development_key = ConfigurationManager.AppSettings["developmentMode"];
-        return development_key.Equals("afkr73p21");
-    }
+    //private bool EstaEnModoDesarrollo()
+    //{
+    //    string development_key = ConfigurationManager.AppSettings["developmentMode"];
+    //    return development_key.Equals("afkr73p21");
+    //}
 }
