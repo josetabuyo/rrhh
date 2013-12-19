@@ -16,9 +16,9 @@ public partial class AltaDeDocumento : System.Web.UI.Page
         usuarioLogueado = ((Usuario)Session[ConstantesDeSesion.USUARIO]);
         var ws = new WSViaticosSoapClient();
 
-        if (ws.ElUsuarioTieneAccesoA(usuarioLogueado, "SICOI"))
+        if (ws.ElUsuarioTienePermisosPara(usuarioLogueado, "ingreso_a_sicoi"))
         {
-            Response.Redirect("~/SeleccionDeArea.aspx");
+            Response.Redirect("~/MenuPrincipal/Menu.aspx");
             return;
         }
     }    

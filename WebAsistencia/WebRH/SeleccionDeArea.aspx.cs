@@ -19,10 +19,6 @@ public partial class SeleccionDeArea : System.Web.UI.Page
     {
         Sesion.VerificarSesion(this);
         Usuario usuario = ((Usuario)Session["usuario"]);
-        //if (usuario.TienePermisosParaSiCoI) { Response.Redirect("~/SiCoI/AltaDeDocumento.aspx"); }
-        //if (usuario.TienePermisosParaSACC) { Response.Redirect("~/SACC/Inicio.aspx"); }
-        //if (usuario.TienePermisosParaModil) { Response.Redirect("~/Modi/Modi.aspx"); }
-        //Response.Redirect("SeleccionDeArea.aspx");
         var ws = new WSViaticosSoapClient();
         this.areasDelUsuarioJSON.Value = JsonConvert.SerializeObject(ws.GetAreasAdministradasPorElUsuario(usuario));
     }

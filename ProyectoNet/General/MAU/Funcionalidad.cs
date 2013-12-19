@@ -7,7 +7,10 @@ namespace AdministracionDeUsuarios
 {
     public class Funcionalidad
     {
+        public Funcionalidad()
+        {
 
+        }
         public Funcionalidad(int id, string nombre)
         {
             this.Id = id;

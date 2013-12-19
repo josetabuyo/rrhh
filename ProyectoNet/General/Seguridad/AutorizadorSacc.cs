@@ -18,7 +18,7 @@ namespace General.Sacc.Seguridad
         {
             var menu = menues_del_sistema.Find(m => m.SeLlama(nombre_menu));
             if (menu == null) menu = MenuDelSistema.MenuNulo();
-            return menu.Items();
+            return menu.Items;
         }
 
         public AutorizadorSacc()

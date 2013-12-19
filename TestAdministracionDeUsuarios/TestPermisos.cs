@@ -32,13 +32,13 @@ namespace TestAdministracionDeUsuarios
         [TestMethod]
         public void jorge_deberia_tener_permisos_para_ingresar_a_sacc()
         {
-            Assert.IsTrue(TestObjectsMau.Autorizador().PuedeAcceder(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoSacc()));
+            Assert.IsTrue(TestObjectsMau.Autorizador().ElUsuarioTienePermisosPara(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoSacc()));
         }
 
         [TestMethod]
         public void jorge_no_deberia_tener_permisos_para_ingresar_a_modi()
         {
-            Assert.IsFalse(TestObjectsMau.Autorizador().PuedeAcceder(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi()));
+            Assert.IsFalse(TestObjectsMau.Autorizador().ElUsuarioTienePermisosPara(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi()));
         }
 
         [TestMethod]
@@ -46,13 +46,13 @@ namespace TestAdministracionDeUsuarios
         {
             var autorizador = TestObjectsMau.Autorizador();
             autorizador.ConcederPermisoA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi());
-            Assert.IsTrue(autorizador.PuedeAcceder(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi()));
+            Assert.IsTrue(autorizador.ElUsuarioTienePermisosPara(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi()));
         }
 
         [TestMethod]
         public void javier_no_deberia_tener_permisos_para_ingresar_a_sacc()
         {
-            Assert.IsFalse(TestObjectsMau.Autorizador().PuedeAcceder(TestObjectsMau.Javier(), TestObjectsMau.FuncionalidadIngresoModi()));
+            Assert.IsFalse(TestObjectsMau.Autorizador().ElUsuarioTienePermisosPara(TestObjectsMau.Javier(), TestObjectsMau.FuncionalidadIngresoModi()));
         }
 
         [TestMethod]
@@ -60,15 +60,24 @@ namespace TestAdministracionDeUsuarios
         {
             var autorizador = TestObjectsMau.Autorizador();
             autorizador.ConcederPermisoA(TestObjectsMau.Javier(), TestObjectsMau.FuncionalidadIngresoSacc());
-            Assert.IsTrue(autorizador.PuedeAcceder(TestObjectsMau.Javier(), TestObjectsMau.FuncionalidadIngresoSacc()));
+            Assert.IsTrue(autorizador.ElUsuarioTienePermisosPara(TestObjectsMau.Javier(), TestObjectsMau.FuncionalidadIngresoSacc()));
         }
 
         [TestMethod]
         public void deberia_poder_obtener_el_menu_principal_para_jorge()
         {
             var autorizador = TestObjectsMau.Autorizador();
-            var links = autorizador.EnlacesMenu("PRINCIPAL", TestObjectsMau.Jorge());
+            var menu_principal_de_jorge = autorizador.GetMenuPara("PRINCIPAL", TestObjectsMau.Jorge());
+            Assert.AreEqual(1, menu_principal_de_jorge.Items.Count);
+        }
 
+        [TestMethod]
+        public void si_le_doy_permisos_a_jorge_para_acceder_a_modi_deberia_ver_dos_items_en_su_menu_principal()
+        {
+            var autorizador = TestObjectsMau.Autorizador();
+            autorizador.ConcederPermisoA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi());
+            var menu_principal_de_jorge = autorizador.GetMenuPara("PRINCIPAL", TestObjectsMau.Jorge());
+            Assert.AreEqual(2, menu_principal_de_jorge.Items.Count);
         }
     }
 }

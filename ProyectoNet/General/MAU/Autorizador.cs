@@ -14,12 +14,13 @@ namespace AdministracionDeUsuarios
 
         protected Dictionary<Usuario, List<Funcionalidad>> permisos;
         protected Dictionary<Usuario, List<Area>> areas;
-        protected Dictionary<Funcionalidad, List<string>> enlaces;
+        protected List<MenuDelSistema> menues;
         protected IRepositorioDeUsuarios repositorio_usuarios { get; set; }
 
-        public Autorizador(Dictionary<Usuario, List<Funcionalidad>> permisos, IRepositorioDeUsuarios repo_usuarios)
+        public Autorizador(Dictionary<Usuario, List<Funcionalidad>> permisos, List<MenuDelSistema> menues, IRepositorioDeUsuarios repo_usuarios)
         {
             this.permisos = permisos;
+            this.menues = menues;
             this.repositorio_usuarios = repo_usuarios;
         }
 
@@ -27,14 +28,14 @@ namespace AdministracionDeUsuarios
         {
         }
 
-        public bool PuedeAcceder(Usuario usuario, Funcionalidad funcionalidad)
+        public bool ElUsuarioTienePermisosPara(Usuario usuario, Funcionalidad funcionalidad)
         {
             List<Funcionalidad> permisos_usuario;
             if (!this.permisos.TryGetValue(usuario, out permisos_usuario)) return false;
             return permisos_usuario.Exists(f => f.Equals(funcionalidad));
         }
 
-        public bool PuedeAcceder(Usuario usuario, string nombre_funcionalidad)
+        public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
         {
             List<Funcionalidad> permisos_usuario;
             if (!this.permisos.TryGetValue(usuario, out permisos_usuario)) return false;
@@ -43,7 +44,7 @@ namespace AdministracionDeUsuarios
 
         public void ConcederPermisoA(Usuario usuario, Funcionalidad funcionalidad)
         {
-            if(PuedeAcceder(usuario, funcionalidad)) return;
+            if(ElUsuarioTienePermisosPara(usuario, funcionalidad)) return;
             List<Funcionalidad> permisos_usuario;
             if (!this.permisos.TryGetValue(usuario, out permisos_usuario)) {
                 permisos_usuario = new List<Funcionalidad>();
@@ -95,9 +96,9 @@ namespace AdministracionDeUsuarios
             return usuario.ValidarClave(clave);
         }
 
-        public List<string> EnlacesMenu(string nombre_menu, Usuario usuario)
+        public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
         {
-            throw new NotImplementedException();
+            return menues.Find(m => m.SeLlama(nombre_menu)).FitrarPorFuncionalidades(permisos[usuario]);
         }
     }
 }

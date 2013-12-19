@@ -17,9 +17,9 @@ public partial class AltaDeDocumento : System.Web.UI.Page
 
         var ws = new WSViaticosSoapClient();
 
-        if (!ws.ElUsuarioTieneAccesoA(usuarioLogueado, "MODI"))//mesa de entrada
+        if (!ws.ElUsuarioTienePermisosPara(usuarioLogueado, "ingreso_a_modi"))//mesa de entrada
         {      
-            Response.Redirect("~/SeleccionDeArea.aspx");
+            Response.Redirect("~/Menu.aspx");
         }
     }    
 }

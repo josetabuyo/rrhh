@@ -169,37 +169,37 @@ namespace General.Repositorios
         }
         #endregion
 
-        protected MenuDelSistema MenuFrom(string nombre, List<RowDeDatos> rows)
-        {
-            var items = new List<ItemDeMenu>();
-            rows.ForEach(row =>
-            {
-                items.Add(new ItemDeMenu(
-                    row.GetSmallintAsInt("id"),
-                    row.GetString("menu"),
-                    row.GetSmallintAsInt("orden"),
-                    row.GetString("nombre"),
-                    row.GetString("url"),
-                    row.GetSmallintAsInt("padre")
-                ));
-            });
-            return new MenuDelSistema(nombre, items);
-        }
+        //protected MenuDelSistema MenuFrom(string nombre, List<RowDeDatos> rows)
+        //{
+        //    var items = new List<ItemDeMenu>();
+        //    rows.ForEach(row =>
+        //    {
+        //        items.Add(new ItemDeMenu(
+        //            row.GetSmallintAsInt("id"),
+        //            row.GetString("menu"),
+        //            row.GetSmallintAsInt("orden"),
+        //            row.GetString("nombre"),
+        //            row.GetString("url"),
+        //            row.GetSmallintAsInt("padre")
+        //        ));
+        //    });
+        //    return new MenuDelSistema(nombre, items);
+        //}
 
-        public AutorizadorSacc AutorizadorPara(Usuario usuario)
-        {
-            var parametros = new Dictionary<string, object>();
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Accesos_Sistema", parametros);
-            var menues = new List<MenuDelSistema>();
+        //public AutorizadorSacc AutorizadorPara(Usuario usuario)
+        //{
+        //    var parametros = new Dictionary<string, object>();
+        //    var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Accesos_Sistema", parametros);
+        //    var menues = new List<MenuDelSistema>();
 
-            var nombres_menu = tablaDatos.Rows.Select(row => row.GetString("menu")).Distinct().ToList();
-            nombres_menu.ForEach(nombre =>
-                            {
-                                var rows_menu = tablaDatos.Rows.FindAll(row => row.GetString("menu") == nombre).ToList();
-                                menues.Add(this.MenuFrom(nombre, rows_menu));
-                            }
-                );
-            return new AutorizadorSacc(menues);
-        }
+        //    var nombres_menu = tablaDatos.Rows.Select(row => row.GetString("menu")).Distinct().ToList();
+        //    nombres_menu.ForEach(nombre =>
+        //                    {
+        //                        var rows_menu = tablaDatos.Rows.FindAll(row => row.GetString("menu") == nombre).ToList();
+        //                        menues.Add(this.MenuFrom(nombre, rows_menu));
+        //                    }
+        //        );
+        //    return new AutorizadorSacc(menues);
+        //}
     }
 }

@@ -1,9 +1,9 @@
-﻿var ServicioDeSeguridad = function (un_proveedor_ajax) {
+﻿var Autorizador = function (un_proveedor_ajax) {
     this.proveedor_ajax = un_proveedor_ajax;
 };
 
-ServicioDeSeguridad.prototype.getUsuarioPorIdPersona = function (id_persona, onSuccess, onError) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetUsuarioPorIdPersona",
+Autorizador.prototype.getUsuarioPorIdPersona = function (id_persona, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "GetUsuarioPorIdPersona",
         data: {
             id_persona: id_persona
         },
@@ -24,8 +24,8 @@ ServicioDeSeguridad.prototype.getUsuarioPorIdPersona = function (id_persona, onS
     });
 };
 
-ServicioDeSeguridad.prototype.getPermisosPara = function (usuario, onSuccess, onError) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetPermisosPara",
+Autorizador.prototype.getPermisosPara = function (usuario, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "GetPermisosPara",
         data: {
             usuario: usuario.nombre
         },
@@ -38,8 +38,8 @@ ServicioDeSeguridad.prototype.getPermisosPara = function (usuario, onSuccess, on
     });
 };
 
-ServicioDeSeguridad.prototype.concederPermisoA = function (usuario, funcionalidad, onSuccess, onError) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/ConcederPermisoA",
+Autorizador.prototype.concederPermisoA = function (usuario, funcionalidad, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "ConcederPermisoA",
         data: {
             usuario: usuario.nombre,
             funcionalidad: funcionalidad
@@ -53,8 +53,8 @@ ServicioDeSeguridad.prototype.concederPermisoA = function (usuario, funcionalida
     });
 };
 
-ServicioDeSeguridad.prototype.denegarPermisoA = function (usuario, funcionalidad, onSuccess, onError) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/DenegarPermisoA",
+Autorizador.prototype.denegarPermisoA = function (usuario, funcionalidad, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "DenegarPermisoA",
         data: {
             usuario: usuario.nombre,
             funcionalidad: funcionalidad
@@ -68,12 +68,26 @@ ServicioDeSeguridad.prototype.denegarPermisoA = function (usuario, funcionalidad
     });
 
 };
-ServicioDeSeguridad.prototype.getFuncionalidades = function (onSuccess, onError) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetFuncionalidades",
+Autorizador.prototype.getFuncionalidades = function (onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "GetFuncionalidades",
         data: {
         },
         success: function (funcionalidades) {
             onSuccess(funcionalidades);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            onerror(errorThrown);
+        }
+    });
+};
+
+Autorizador.prototype.getMenu = function (nombre_menu, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "GetMenu",
+        data: {
+            nombre_menu: nombre_menu
+        },
+        success: function (menu) {
+            onSuccess(menu);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             onerror(errorThrown);
