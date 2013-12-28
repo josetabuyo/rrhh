@@ -19,15 +19,8 @@ namespace AdministracionDeUsuarios
 
         protected string clave_encriptada { get; set; }
 
-        //public List<Area> AreasAdministradas { get; set; }
         public Usuario()
         {
-            //this.AreasAdministradas = new List<Area>();
-            //this.TienePermisosParaViaticos = false;
-            //this.TienePermisosParaSiCoI = false;
-            //this.TienePermisosParaSACC = false;
-            ////this.TienePermisosParaModil = false;
-            //this.FeaturesDescripcion = new List<string>();
         }
 
         public Usuario(int id, string alias, string clave_encriptada)
@@ -38,16 +31,6 @@ namespace AdministracionDeUsuarios
         }
 
         public bool EsFirmante { get; set; }
-             
-        //public List<int> FuncionalidadesPermitidas { get; set; }
-
-        //public bool TienePermisosParaSACC { get; set; }
-        //public bool TienePermisosParaSiCoI { get; set; }
-        //public bool TienePermisosParaModil { get; set; }
-        //public bool TienePermisosParaViaticos { get; set; }
-
-        //public List<string> FeaturesDescripcion { get; set; }
-
 
         public virtual bool ValidarClave(string clave)
         {
@@ -60,6 +43,16 @@ namespace AdministracionDeUsuarios
             byte[] bytes = Encoding.UTF8.GetBytes(CadenaOriginal); byte[] byteHash = hashValue.ComputeHash(bytes);
             hashValue.Clear();
             return (Convert.ToBase64String(byteHash));
-        }        
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.Id == ((Usuario)obj).Id; 
+        } 
     }
 }

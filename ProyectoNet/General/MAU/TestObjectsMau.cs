@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using AdministracionDeUsuarios;
 using General.MAU;
+using General;
 
 namespace AdministracionDeUsuarios
 {
@@ -12,17 +13,17 @@ namespace AdministracionDeUsuarios
 
         public static Usuario Jorge()
         {
-            return new Usuario(1, "jorge", "BNlHU/MO3sKjsOIeSFRf8yCC8a4=");
+            return new Usuario(1, "jorge", "l3WIqH4QWCAycWcSzPXYXRil/M8="); // pass = web1
         }
 
         public static Usuario Javier()
         {
-            return new Usuario(2, "javier", "AFQCASWRGAWERGWEASGAV");
+            return new Usuario(2, "javier", "l3WIqH4QWCAycWcSzPXYXRil/M8="); // pass = web1
         }
 
         public static Usuario Zambri()
         {
-            return new Usuario(3, "zambri", "AFQCASWRGAWERGWEASGAV");
+            return new Usuario(3, "zambri", "l3WIqH4QWCAycWcSzPXYXRil/M8="); // pass = web1
         }
 
         private static Dictionary<Usuario, List<AdministracionDeUsuarios.Funcionalidad>> diccionario_permisos()
@@ -32,7 +33,22 @@ namespace AdministracionDeUsuarios
             permisos_jorge.Add(FuncionalidadIngresoMenuPrincipal());
             permisos_jorge.Add(FuncionalidadIngresoSacc());
             permisos_jorge.Add(FuncionalidadIngresoModi());
+
+            var permisos_javier = new List<Funcionalidad>();
+            permisos_javier.Add(FuncionalidadIngresoMenuPrincipal());
+            permisos_javier.Add(FuncionalidadIngresoAdministracionDeAreas());
+
             diccionario.Add(Jorge(), permisos_jorge);
+            diccionario.Add(Javier(), permisos_javier);
+            return diccionario;
+        }
+
+        private static Dictionary<Usuario, List<Area>> diccionario_areas()
+        {
+            var diccionario = new Dictionary<Usuario, List<Area>>();
+            var areas_jorge = new List<Area>();
+            areas_jorge.Add(AreaDeLegajos());
+            diccionario.Add(Jorge(), areas_jorge);
             return diccionario;
         }
 
@@ -47,13 +63,14 @@ namespace AdministracionDeUsuarios
         {
             var items = new List<ItemDeMenu>();
             items.Add(new ItemDeMenu(1, "SACC", "SACC/Inicio.aspx", FuncionalidadIngresoSacc()));
-            items.Add(new ItemDeMenu(2, "MODI", "modi/modi.aspx", FuncionalidadIngresoModi()));
+            items.Add(new ItemDeMenu(2, "MODI", "Modi/modi.aspx", FuncionalidadIngresoModi()));
+            items.Add(new ItemDeMenu(3, "Administracion de Areas", "SeleccionDeArea.aspx", FuncionalidadIngresoAdministracionDeAreas()));
             return new MenuDelSistema("PRINCIPAL", items);
         }
 
         public static Autorizador Autorizador()
         {
-            return new Autorizador(diccionario_permisos(), menues(), TestObjectsMau.RepositorioDeUsuarios()); 
+            return new Autorizador(diccionario_permisos(), menues(), diccionario_areas(), TestObjectsMau.RepositorioDeUsuarios()); 
         }
 
         public static IRepositorioDeUsuarios RepositorioDeUsuarios()
@@ -78,6 +95,16 @@ namespace AdministracionDeUsuarios
         public static Funcionalidad FuncionalidadIngresoMenuPrincipal()
         {
             return new Funcionalidad(3, "ingreso_a_menu_principal");
+        }
+
+        public static Funcionalidad FuncionalidadIngresoAdministracionDeAreas()
+        {
+            return new Funcionalidad(4, "ingreso_a_administracion_de_areas");
+        }
+
+        public static Area AreaDeLegajos()
+        {
+            return new Area(1, "Legajos");
         }
     }
 }

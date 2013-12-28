@@ -17,10 +17,11 @@ namespace AdministracionDeUsuarios
         protected List<MenuDelSistema> menues;
         protected IRepositorioDeUsuarios repositorio_usuarios { get; set; }
 
-        public Autorizador(Dictionary<Usuario, List<Funcionalidad>> permisos, List<MenuDelSistema> menues, IRepositorioDeUsuarios repo_usuarios)
+        public Autorizador(Dictionary<Usuario, List<Funcionalidad>> permisos, List<MenuDelSistema> menues, Dictionary<Usuario, List<Area>> areas, IRepositorioDeUsuarios repo_usuarios)
         {
             this.permisos = permisos;
             this.menues = menues;
+            this.areas = areas;
             this.repositorio_usuarios = repo_usuarios;
         }
 

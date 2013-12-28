@@ -14,7 +14,7 @@ namespace TestAdministracionDeUsuarios
         [TestMethod]
         public void jorge_deberia_poder_loguearse_si_ingresa_bien_su_clave()
         {
-            Assert.IsTrue(TestObjectsMau.Autorizador().Login("jorge", "trespuntouno"));
+            Assert.IsTrue(TestObjectsMau.Autorizador().Login("jorge", "web1"));
         }
 
         [TestMethod]
@@ -26,7 +26,7 @@ namespace TestAdministracionDeUsuarios
         [TestMethod]
         public void jorge_no_deberia_poder_loguearse_si_ingresa_mal_su_nombre_de_usuario()
         {
-            Assert.IsFalse(TestObjectsMau.Autorizador().Login("jorgelintriple", "trespuntouno"));
+            Assert.IsFalse(TestObjectsMau.Autorizador().Login("jorgelintriple", "web1"));
         }
 
         [TestMethod]
@@ -36,9 +36,9 @@ namespace TestAdministracionDeUsuarios
         }
 
         [TestMethod]
-        public void jorge_no_deberia_tener_permisos_para_ingresar_a_modi()
+        public void jorge_no_deberia_tener_permisos_para_ingresar_a_administracion_de_areas()
         {
-            Assert.IsFalse(TestObjectsMau.Autorizador().ElUsuarioTienePermisosPara(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi()));
+            Assert.IsFalse(TestObjectsMau.Autorizador().ElUsuarioTienePermisosPara(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoAdministracionDeAreas()));
         }
 
         [TestMethod]
@@ -47,6 +47,12 @@ namespace TestAdministracionDeUsuarios
             var autorizador = TestObjectsMau.Autorizador();
             autorizador.ConcederPermisoA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi());
             Assert.IsTrue(autorizador.ElUsuarioTienePermisosPara(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi()));
+        }
+
+        [TestMethod]
+        public void javier_deberia_tener_permisos_para_ingresar_a_administracion_de_areas()
+        {
+            Assert.IsTrue(TestObjectsMau.Autorizador().ElUsuarioTienePermisosPara(TestObjectsMau.Javier(), TestObjectsMau.FuncionalidadIngresoAdministracionDeAreas()));
         }
 
         [TestMethod]
@@ -68,16 +74,24 @@ namespace TestAdministracionDeUsuarios
         {
             var autorizador = TestObjectsMau.Autorizador();
             var menu_principal_de_jorge = autorizador.GetMenuPara("PRINCIPAL", TestObjectsMau.Jorge());
-            Assert.AreEqual(1, menu_principal_de_jorge.Items.Count);
+            Assert.AreEqual(2, menu_principal_de_jorge.Items.Count);
         }
 
         [TestMethod]
-        public void si_le_doy_permisos_a_jorge_para_acceder_a_modi_deberia_ver_dos_items_en_su_menu_principal()
+        public void si_le_doy_permisos_a_jorge_para_acceder_a_administracion_de_areas_deberia_ver_tres_items_en_su_menu_principal()
         {
             var autorizador = TestObjectsMau.Autorizador();
-            autorizador.ConcederPermisoA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi());
+            autorizador.ConcederPermisoA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoAdministracionDeAreas());
             var menu_principal_de_jorge = autorizador.GetMenuPara("PRINCIPAL", TestObjectsMau.Jorge());
-            Assert.AreEqual(2, menu_principal_de_jorge.Items.Count);
+            Assert.AreEqual(3, menu_principal_de_jorge.Items.Count);
+        }
+
+        [TestMethod]
+        public void jorge_deberia_administrar_el_area_de_legajos()
+        {
+            var autorizador = TestObjectsMau.Autorizador();
+            var areas_administradas_por_jorge = autorizador.AreasAdministradasPor(TestObjectsMau.Jorge());
+            Assert.IsTrue(areas_administradas_por_jorge.Contains(TestObjectsMau.AreaDeLegajos()));
         }
     }
 }
