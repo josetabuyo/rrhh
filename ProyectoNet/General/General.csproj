@@ -74,11 +74,14 @@
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
+    <Compile Include="DictionaryExtension.cs" />
     <Compile Include="MAU\Areas.cs" />
     <Compile Include="MAU\Autorizador.cs" />
     <Compile Include="MAU\ExtensionList.cs" />
     <Compile Include="MAU\Funcionalidad.cs" />
+    <Compile Include="MAU\IRepositorioDePermisosSobreAreas.cs" />
     <Compile Include="MAU\IRepositorioDeUsuarios.cs" />
+    <Compile Include="MAU\RepositorioDePermisosSobreAreas.cs" />
     <Compile Include="MAU\RepositorioDeUsuariosMock.cs" />
     <Compile Include="MAU\TestObjectsMau.cs" />
     <Compile Include="MAU\UsuarioNulo.cs" />

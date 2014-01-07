@@ -5,6 +5,8 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AdministracionDeUsuarios;
 using General;
+using NMock2;
+using General.MAU;
 
 namespace TestAdministracionDeUsuarios
 {
@@ -87,11 +89,32 @@ namespace TestAdministracionDeUsuarios
         }
 
         [TestMethod]
-        public void jorge_deberia_administrar_el_area_de_legajos()
+        public void jorge_no_deberia_administrar_ningun_area()
         {
             var autorizador = TestObjectsMau.Autorizador();
             var areas_administradas_por_jorge = autorizador.AreasAdministradasPor(TestObjectsMau.Jorge());
-            Assert.IsTrue(areas_administradas_por_jorge.Contains(TestObjectsMau.AreaDeLegajos()));
+            Assert.AreEqual(0, areas_administradas_por_jorge.Count);
         }
+
+        [TestMethod]
+        public void javier_deberia_administrar_el_area_de_legajos()
+        {
+            var autorizador = TestObjectsMau.Autorizador();
+            var areas_administradas_por_javier = autorizador.AreasAdministradasPor(TestObjectsMau.Javier());
+            Assert.IsTrue(areas_administradas_por_javier.Contains(TestObjectsMau.AreaDeLegajos()));
+        }
+
+        [TestMethod]
+        public void al_pedirle_al_autorizador_las_areas_administradas_por_javier_el_autorizador_pide_a_un_repositorio_los_datos()
+        {
+            var mocks = new Mockery();
+            var repo = mocks.NewMock<IRepositorioDePermisosSobreAreas>();
+            var autorizador = TestObjectsMau.Autorizador();
+
+            Expect.AtLeastOnce.On(repo).Method("AreasAdministradasPor").WithAnyArguments();
+
+            autorizador.AreasAdministradasPor(TestObjectsMau.Javier());
+        }
+
     }
 }

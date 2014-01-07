@@ -13,16 +13,18 @@ namespace AdministracionDeUsuarios
     {
 
         protected Dictionary<Usuario, List<Funcionalidad>> permisos;
-        protected Dictionary<Usuario, List<Area>> areas;
+        protected IRepositorioDePermisosSobreAreas repositorio_permisos_sobre_areas;
+        //protected Dictionary<Usuario, List<Area>> areas;
         protected List<MenuDelSistema> menues;
         protected IRepositorioDeUsuarios repositorio_usuarios { get; set; }
 
-        public Autorizador(Dictionary<Usuario, List<Funcionalidad>> permisos, List<MenuDelSistema> menues, Dictionary<Usuario, List<Area>> areas, IRepositorioDeUsuarios repo_usuarios)
+        public Autorizador(Dictionary<Usuario, List<Funcionalidad>> permisos, List<MenuDelSistema> menues, Dictionary<Usuario, List<Area>> areas, IRepositorioDeUsuarios repo_usuarios, IRepositorioDePermisosSobreAreas repo_permisos_sobre_areas)
         {
             this.permisos = permisos;
             this.menues = menues;
-            this.areas = areas;
+            //this.areas = areas;
             this.repositorio_usuarios = repo_usuarios;
+            this.repositorio_permisos_sobre_areas = repo_permisos_sobre_areas;
         }
 
         public Autorizador()
@@ -73,22 +75,27 @@ namespace AdministracionDeUsuarios
             return new Autorizador();
         }
 
-        public List<General.Area> AreasAdministradasPor(Usuario usuario)
+        public List<Area> AreasAdministradasPor(Usuario usuario)
         {
-            var areas_usuario = new List<Area>();
-            this.areas.TryGetValue(usuario, out areas_usuario);
-            return areas_usuario;
+            //var areas_usuario = new List<Area>();
+            //this.areas.TryGetValue(usuario, out areas_usuario);
+            //if (areas_usuario == null) areas_usuario = new List<Area>();
+
+            return repositorio_permisos_sobre_areas.AreasAdministradasPor(usuario);
+            //return areas_usuario;
         }
 
         public void AsignarAreaAUnUsuario(Usuario usuario, Area area)
         {
-            List<Area> areas_usuario;
-            if (!this.areas.TryGetValue(usuario, out areas_usuario))
-            {
-                areas_usuario = new List<Area>();
-                this.areas.Add(usuario, areas_usuario);
-            };
-            areas_usuario.Add(area);
+            //List<Area> areas_usuario;
+            //if (!this.areas.TryGetValue(usuario, out areas_usuario))
+            //{
+            //    areas_usuario = new List<Area>();
+            //    this.areas.Add(usuario, areas_usuario);
+            //};
+
+            repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(usuario, area);
+            //areas_usuario.Add(area);
         }
 
         public bool Login(string nombre_usuario, string clave)

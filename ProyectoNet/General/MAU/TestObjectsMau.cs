@@ -46,9 +46,11 @@ namespace AdministracionDeUsuarios
         private static Dictionary<Usuario, List<Area>> diccionario_areas()
         {
             var diccionario = new Dictionary<Usuario, List<Area>>();
-            var areas_jorge = new List<Area>();
-            areas_jorge.Add(AreaDeLegajos());
-            diccionario.Add(Jorge(), areas_jorge);
+            var areas_javier = new List<Area>();
+            areas_javier.Add(AreaDeLegajos());
+            diccionario.Add(Javier(), areas_javier);
+
+            diccionario.Add(new UsuarioNulo(), new List<Area>());
             return diccionario;
         }
 
@@ -70,7 +72,12 @@ namespace AdministracionDeUsuarios
 
         public static Autorizador Autorizador()
         {
-            return new Autorizador(diccionario_permisos(), menues(), diccionario_areas(), TestObjectsMau.RepositorioDeUsuarios()); 
+            return new Autorizador(diccionario_permisos(), menues(), diccionario_areas(), TestObjectsMau.RepositorioDeUsuarios(), TestObjectsMau.RepositorioDePermisosSobreAreas()); 
+        }
+
+        public static IRepositorioDePermisosSobreAreas RepositorioDePermisosSobreAreas()
+        {
+            return new RepositorioDePermisosSobreAreas(diccionario_areas());
         }
 
         public static IRepositorioDeUsuarios RepositorioDeUsuarios()
@@ -105,6 +112,11 @@ namespace AdministracionDeUsuarios
         public static Area AreaDeLegajos()
         {
             return new Area(1, "Legajos");
+        }
+
+        public static Autorizador AutorizadorCon(IRepositorioDePermisosSobreAreas repo)
+        {
+            return new Autorizador(diccionario_permisos(), menues(), diccionario_areas(), TestObjectsMau.RepositorioDeUsuarios(), repo); 
         }
     }
 }
