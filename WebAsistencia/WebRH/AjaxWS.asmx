@@ -212,8 +212,8 @@ public class AjaxWS : System.Web.Services.WebService {
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string ReporteAlumnos(string fecha_desde, string fecha_hasta)
-    {   
-        return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.ReporteAlumnos(fecha_desde, fecha_hasta));
+    {
+        return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.ReporteAlumnos(fecha_desde, fecha_hasta, usuarioLogueado));
     }
 
     [WebMethod(EnableSession = true)]
@@ -292,7 +292,7 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetPlanillaEvaluaciones(int id_curso, int id_instancia)
     {
-        var Planilla = backEndService.GetPlanillaEvaluaciones(id_curso, id_instancia);
+        var Planilla = backEndService.GetPlanillaEvaluaciones(id_curso, id_instancia, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(Planilla);
     }
 
@@ -304,7 +304,7 @@ public class AjaxWS : System.Web.Services.WebService {
         DateTime v_fecha_hasta = new DateTime();
         if (fecha_hasta != "")
             v_fecha_hasta = DateTime.Parse(fecha_hasta);
-        var planilla = backEndService.GetPlanillaAsistencias(id_curso, v_fecha_desde, v_fecha_hasta);
+        var planilla = backEndService.GetPlanillaAsistencias(id_curso, v_fecha_desde, v_fecha_hasta, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(planilla);
     }
 

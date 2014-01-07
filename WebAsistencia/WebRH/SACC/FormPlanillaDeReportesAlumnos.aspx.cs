@@ -22,7 +22,7 @@ public partial class SACC_FormPlanillaDeReportesAlumnos : System.Web.UI.Page
 
         CompletarCombo(accion);
         //La primer llamada es con las fechas máximas
-        alumnos = ws_viaticos.ReporteAlumnos("01/01/1900", "31/12/9999").ToList();
+        alumnos = ws_viaticos.ReporteAlumnos("01/01/1900", "31/12/9999", (Usuario)Session["usuario"]).ToList();
         this.MostrarAlumnosEnLaGrilla(alumnos.ToList());
     }
 

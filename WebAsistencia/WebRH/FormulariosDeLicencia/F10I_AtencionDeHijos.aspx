@@ -10,6 +10,18 @@
 <%@ Register Src="Partes/SaldoOrdinaria.ascx" TagName="SaldoOrdinaria" TagPrefix="uc6" %>
 <%@ Register Src="Partes/FirmaAutorizante.ascx" TagName="FirmaAutorizante" TagPrefix="uc5" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="CPHDatos" runat="Server">
+    <%--para que no se pueda imprimir por fuera del sistema--%>
+    <style type="text/css">
+        @media print {
+            .no_imprimible  
+            {
+                display: none !important;
+            }
+        }
+    </style>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../Scripts/deshabilitarImpresion.js"></script>
+    <%--para que no se pueda imprimir por fuera del sistema--%>
     <table width="100%">
         <tr>
             <td valign="top">

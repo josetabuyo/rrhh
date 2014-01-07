@@ -11,7 +11,7 @@ namespace General
         {
 
         }
-        public ItemDeMenu(int id, string menu, int orden, string nombre_item, string url, int padre)
+        public ItemDeMenu(int id, string menu, int orden, string nombre_item, string url, int padre, string posicion)
         {
             this.Id = id;
             this.Menu = menu;
@@ -19,6 +19,7 @@ namespace General
             this.NombreItem = nombre_item;
             this.Url = url;
             this.Padre = padre;
+            this.Posicion = posicion;
         }
 
         public string Menu { get; set; }
@@ -27,5 +28,6 @@ namespace General
         public string NombreItem { get; set; }
         public string Url { get; set; }
         public int Padre { get; set; }
+        public string Posicion { get; set; }
     }
 }
