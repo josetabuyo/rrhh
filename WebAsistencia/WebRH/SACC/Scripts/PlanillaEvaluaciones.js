@@ -7,7 +7,7 @@ var TextboxNota = function (id) {
     var _this = this;
     this.html = $("<input>").attr("id", id).attr("class", "text_2caracteres");
     this.validar = function () {
-        var calificaciones_validas = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', '']
+        var calificaciones_validas = ['0', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', 'A', ''];
         var calif_valida = false;
         if ($.inArray(this.html.val(), calificaciones_validas) < 0) {
             return false; // alertify.alert("La calificaci&oacute;n ingresada no es v&aacute;lida");
