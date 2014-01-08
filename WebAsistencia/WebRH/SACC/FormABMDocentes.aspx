@@ -8,7 +8,7 @@
 <head id="Head1" runat="server">
     <title>ABM Docentes</title>
     <%= Referencias.Css("../")%>
-     <link id="link3" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" /> 
+     <link id="link3" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" />  
      <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
     
 </head>

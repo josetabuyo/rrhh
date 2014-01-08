@@ -20,12 +20,12 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True"></asp:ScriptManager>
     <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="Imagenes/" UrlEstilos="Estilos/" />
     <div class="contenedor_principal contenedor_principal_seleccion_areas">
-        <legend style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
+        <div id="titulo_areas_a_administrar" style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
             Áreas a Administrar 
             <a id="btn_consultar_areas" class="btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Consultar Todas las Areas</a>
             <a id="btn_consultar_mis_areas" class="btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Administrar Personal</a>
             
-        </legend>
+        </div>
         <div id="contenedor_areas_usuario">          
         </div> 
         <asp:HiddenField ID="areasDelUsuarioJSON" runat="server" EnableViewState="true"/>
@@ -45,7 +45,12 @@
                 <div id="asistentes"></div>
                 <div class="botonera">
                     <a id="btn_administrar_personal"> Administrar Personal </a>
-                    <a id="btn_solicitar_modificacion"> Solicitar Modificación De Datos </a>
+
+                    <%--Javi: te cambie el ID del link para poner momentáneamente el mensaje de modificación
+                        para que vuelva a funcionar lo tuyo, se tiene que llamar: btn_solicitar_modificacion
+                        Bel :)--%>
+
+                    <a id="btn_mod" onclick="Modal()" > Solicitar Modificación De Datos </a>          
                 </div>
             </div>
         </div>
@@ -58,7 +63,6 @@
 
 <script type="text/javascript" src="Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
-
 <script type="text/javascript" src="PantallaDeSeleccionDeAreas.js"></script>
 <script type="text/javascript" src="Protocolo/Area.js"></script>
 <script type="text/javascript" src="Protocolo/VistaDeArea.js"></script>
@@ -71,5 +75,18 @@
     $(document).ready(function () {
         var seleccion_de_areas = new PantallaDeSeleccionDeAreas();
     });
+
+
+   function Modal() {
+
+       alertify.alert(
+         "<p>Para solicitar la modificación de los datos del Área, enviar un correo electrónico a</p>"
+       + "<p><b>rhcomunica@desarrollosocial.gov.ar</b></p>"
+       + "</br>"
+
+       );
+       return false;
+    };
+
 </script>
 </html>
