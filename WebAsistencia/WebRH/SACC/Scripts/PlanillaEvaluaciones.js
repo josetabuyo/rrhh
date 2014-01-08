@@ -7,12 +7,17 @@ var TextboxNota = function (id) {
     var _this = this;
     this.html = $("<input>").attr("id", id).attr("class", "text_2caracteres");
     this.validar = function () {
-        var calificaciones_validas = ['0', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', 'A', ''];
+        var expresion_regular_calificaciones = /^(([1]0){0,1}|(([0-9]{1}))(\.[0-9]{1,2}){0,1})$/i;
+        //calificaciones_validas = ['0', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', 'A', ''];
         var calif_valida = false;
-        if ($.inArray(this.html.val(), calificaciones_validas) < 0) {
-            return false; // alertify.alert("La calificaci&oacute;n ingresada no es v&aacute;lida");
+        this.html.val(this.html.val().replace(",", "."));
+        if (expresion_regular_calificaciones.test(this.html.val()) || this.html.val() == "A" || this.html.val() == "" )
+        {
+        //expresion_regular_calificaciones.test(this.html.val());
+        //if ($.inArray(this.html.val(), calificaciones_validas) < 0) {
+            return true; // alertify.alert("La calificaci&oacute;n ingresada no es v&aacute;lida");
         } else {
-            return true;
+            return false;
         }
     }
     this.html.blur(function () {
