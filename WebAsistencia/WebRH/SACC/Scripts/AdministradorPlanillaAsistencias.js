@@ -4,12 +4,12 @@ var cursos_por_anio = [];
 
 var CargarComboAnios = function () {
     var anio_inicio = Enumerable.From(cursos)
-    .Select(function (x) { return x.FechaInicio })
-    .Min().substr(6, 4);
+    .Select(function (x) { return x.FechaInicio.substr(6, 4) })
+    .Min();
 
     var anio_fin = Enumerable.From(cursos)
-    .Select(function (x) { return x.FechaInicio })
-    .Max().substr(6, 4);
+    .Select(function (x) { return x.FechaInicio.substr(6, 4) })
+    .Max();
 
     var id_curso = $("#CmbCurso option:selected").val();
     var cmb_anio = $("#CmbAnio");
