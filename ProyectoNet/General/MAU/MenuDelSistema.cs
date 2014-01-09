@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace AdministracionDeUsuarios
+namespace General.MAU
 {
     public class MenuDelSistema
     {
@@ -33,7 +33,7 @@ namespace AdministracionDeUsuarios
 
         public MenuDelSistema FitrarPorFuncionalidades(List<Funcionalidad> funcionalidades)
         {
-            return new MenuDelSistema(this.nombre, this.Items.FindAll(i => funcionalidades.Contains(i.Funcionalidad)));
+            return new MenuDelSistema(this.nombre, this.Items.FindAll(i => funcionalidades.Contains(i.Acceso.Funcionalidad)));
         }
     }
 }

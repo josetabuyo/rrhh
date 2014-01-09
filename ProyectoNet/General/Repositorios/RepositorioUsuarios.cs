@@ -6,8 +6,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Collections;
 using General.Sacc;
-using AdministracionDeUsuarios;
 using General.Sacc.Seguridad;
+using General.MAU;
 
 namespace General.Repositorios
 {

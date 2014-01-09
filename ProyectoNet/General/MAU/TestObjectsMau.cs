@@ -26,7 +26,7 @@ namespace AdministracionDeUsuarios
             return new Usuario(3, "zambri", "l3WIqH4QWCAycWcSzPXYXRil/M8="); // pass = web1
         }
 
-        private static Dictionary<Usuario, List<AdministracionDeUsuarios.Funcionalidad>> diccionario_permisos()
+        private static Dictionary<Usuario, List<Funcionalidad>> diccionario_permisos()
         {
             var diccionario = new Dictionary<Usuario, List<Funcionalidad>>();
             var permisos_jorge = new List<Funcionalidad>();
@@ -64,20 +64,34 @@ namespace AdministracionDeUsuarios
         private static MenuDelSistema MenuPrincipal()
         {
             var items = new List<ItemDeMenu>();
-            items.Add(new ItemDeMenu(1, "SACC", "SACC/Inicio.aspx", FuncionalidadIngresoSacc()));
-            items.Add(new ItemDeMenu(2, "MODI", "Modi/modi.aspx", FuncionalidadIngresoModi()));
-            items.Add(new ItemDeMenu(3, "Administracion de Areas", "SeleccionDeArea.aspx", FuncionalidadIngresoAdministracionDeAreas()));
+            items.Add(new ItemDeMenu(1, "SACC", new AccesoAURL(FuncionalidadIngresoSacc(), URLInicioSacc())));
+            items.Add(new ItemDeMenu(2, "MODI", new AccesoAURL(FuncionalidadIngresoModi(), URLInicioModi())));
+            items.Add(new ItemDeMenu(3, "Administracion de Areas", new AccesoAURL(FuncionalidadIngresoAdministracionDeAreas(), URLInicioAdministracionDeAreas())));
             return new MenuDelSistema("PRINCIPAL", items);
+        }
+
+        private static List<AccesoAURL> ListaDeAccesosAUrls()
+        {
+            var lista = new List<AccesoAURL>();
+            lista.Add(new AccesoAURL(FuncionalidadIngresoSacc(), URLInicioSacc()));
+            lista.Add(new AccesoAURL(FuncionalidadIngresoModi(), URLInicioModi()));
+            lista.Add(new AccesoAURL(FuncionalidadIngresoAdministracionDeAreas(), URLInicioAdministracionDeAreas()));
+            return lista;
         }
 
         public static Autorizador Autorizador()
         {
-            return new Autorizador(diccionario_permisos(), menues(), diccionario_areas(), TestObjectsMau.RepositorioDeUsuarios(), TestObjectsMau.RepositorioDePermisosSobreAreas()); 
+            return new Autorizador(TestObjectsMau.RepositorioDeFuncionalidades(), TestObjectsMau.menues(), TestObjectsMau.RepositorioDeUsuarios(), TestObjectsMau.RepositorioDePermisosSobreAreas(), TestObjectsMau.ListaDeAccesosAUrls());
+        }
+
+        private static IRepositorioDeFuncionalidades RepositorioDeFuncionalidades()
+        {
+            return new RepositorioDeFuncionalidades_EnMemoria(diccionario_permisos());
         }
 
         public static IRepositorioDePermisosSobreAreas RepositorioDePermisosSobreAreas()
         {
-            return new RepositorioDePermisosSobreAreas(diccionario_areas());
+            return new RepositorioDePermisosSobreAreas_EnMemoria(diccionario_areas());
         }
 
         public static IRepositorioDeUsuarios RepositorioDeUsuarios()
@@ -86,7 +100,7 @@ namespace AdministracionDeUsuarios
             lista_usuarios.Add(Jorge());
             lista_usuarios.Add(Javier());
             lista_usuarios.Add(Zambri());
-            return new RepositorioDeUsuariosMock(lista_usuarios);
+            return new RepositorioDeUsuarios_EnMemoria(lista_usuarios);
         }
 
         public static Funcionalidad FuncionalidadIngresoSacc()
@@ -114,9 +128,29 @@ namespace AdministracionDeUsuarios
             return new Area(1, "Legajos");
         }
 
-        public static Autorizador AutorizadorCon(IRepositorioDePermisosSobreAreas repo)
+        //public static Autorizador AutorizadorCon(IRepositorioDePermisosSobreAreas repo)
+        //{
+        //    return new Autorizador(diccionario_permisos(), menues(), diccionario_areas(), TestObjectsMau.RepositorioDeUsuarios(), TestObjectsMau.RepositorioDePermisosSobreAreas()); 
+        //}
+
+        //public static Autorizador AutorizadorCon(IRepositorioDeFuncionalidades repo)
+        //{
+        //    return new Autorizador(repo, menues(), diccionario_areas(), TestObjectsMau.RepositorioDeUsuarios(), TestObjectsMau.RepositorioDePermisosSobreAreas());
+        //}
+
+        public static string URLInicioSacc()
         {
-            return new Autorizador(diccionario_permisos(), menues(), diccionario_areas(), TestObjectsMau.RepositorioDeUsuarios(), repo); 
+            return @"/WEBRH/SACC/Inicio.aspx";
+        }
+
+        public static string URLInicioModi()
+        {
+            return @"/WEBRH/Modi/modi.aspx";
+        }
+
+        public static string URLInicioAdministracionDeAreas()
+        {
+            return @"/WEBRH/SeleccionDeArea.aspx";
         }
     }
 }

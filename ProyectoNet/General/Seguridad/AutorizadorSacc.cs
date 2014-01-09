@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AdministracionDeUsuarios;
+using General.MAU;
 
 namespace General.Sacc.Seguridad
 {
@@ -28,7 +28,7 @@ namespace General.Sacc.Seguridad
 
         public List<Curso> FiltrarCursosPorUsuario(List<Curso> cursos, Organigrama organigrama, Usuario usuario)
         {
-            List<Area> areas_usuario = organigrama.GetAreasInferioresDeLasAreas(AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario));
+            List<Area> areas_usuario = organigrama.GetAreasInferioresDeLasAreas(Autorizador.Instancia().AreasAdministradasPor(usuario));
 
             List<Curso> curso_filtrado_por_usuario = cursos.FindAll(c => areas_usuario.Contains(c.EspacioFisico.Edificio.Area));
 
@@ -37,7 +37,7 @@ namespace General.Sacc.Seguridad
 
         public List<EspacioFisico> FiltrarEspaciosFisicosPorUsuario(List<EspacioFisico> espacios_fisicos, Organigrama organigrama, Usuario usuario)
         {
-            List<Area> areas_usuario = organigrama.GetAreasInferioresDeLasAreas(AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario));
+            List<Area> areas_usuario = organigrama.GetAreasInferioresDeLasAreas(Autorizador.Instancia().AreasAdministradasPor(usuario));
 
             List<EspacioFisico> espacios_filtrado_por_usuario = espacios_fisicos.FindAll(e => areas_usuario.Contains(e.Edificio.Area));
 
@@ -46,14 +46,14 @@ namespace General.Sacc.Seguridad
 
         public bool AlumnoVisibleParaUsuario(Alumno alumno, Organigrama organigrama, Usuario usuario)
         {
-            return AlumnoPerteneceAListaDeAreas(organigrama.GetAreasInferioresDeLasAreas(AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario)), alumno);
+            return AlumnoPerteneceAListaDeAreas(organigrama.GetAreasInferioresDeLasAreas(Autorizador.Instancia().AreasAdministradasPor(usuario)), alumno);
         }
         
 
         public List<Alumno> FiltrarAlumnosPorUsuario(List<Alumno> alumnos, Organigrama organigrama, Usuario usuario)
         {
 
-            List<Area> areas_del_usuario_logueado = organigrama.GetAreasInferioresDeLasAreas(AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario));
+            List<Area> areas_del_usuario_logueado = organigrama.GetAreasInferioresDeLasAreas(Autorizador.Instancia().AreasAdministradasPor(usuario));
 
             return FiltrarAlumnosPorAreas(areas_del_usuario_logueado, alumnos);     
         }

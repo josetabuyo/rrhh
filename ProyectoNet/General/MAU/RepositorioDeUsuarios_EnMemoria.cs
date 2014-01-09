@@ -7,18 +7,18 @@ using AdministracionDeUsuarios;
 
 namespace AdministracionDeUsuarios
 {
-    class RepositorioDeUsuariosMock:IRepositorioDeUsuarios
+    class RepositorioDeUsuarios_EnMemoria:IRepositorioDeUsuarios
     {
         public List<Usuario> usuarios { get; set; }
 
-        public RepositorioDeUsuariosMock(List<Usuario> usuarios)
+        public RepositorioDeUsuarios_EnMemoria(List<Usuario> usuarios)
         {
             this.usuarios = usuarios;
         }
 
         public Usuario GetUsuarioPorAlias(string alias)
         {
-            return usuarios.FirstOrDefault(u => u.Alias == alias) ?? new UsuarioNulo(); ;
+            return usuarios.FirstOrDefault(u => u.Alias == alias) ?? new UsuarioNulo();
         }
     }
 }

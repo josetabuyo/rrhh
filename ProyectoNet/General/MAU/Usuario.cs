@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using General;
 using System.Security.Cryptography;
 
-namespace AdministracionDeUsuarios
+namespace General.MAU
 {
     public class Usuario : Persona
     {

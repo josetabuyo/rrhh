@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
-using AdministracionDeUsuarios;
+using General.MAU;
 namespace General.Repositorios
 {
     public class RepositorioDeDocumentos : General.Repositorios.IRepositorioDeDocumentos

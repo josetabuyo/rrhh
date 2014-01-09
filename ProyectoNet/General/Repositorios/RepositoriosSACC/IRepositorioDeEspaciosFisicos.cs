@@ -1,5 +1,5 @@
 ﻿using System;
-using AdministracionDeUsuarios;
+using General.MAU;
 namespace General.Repositorios
 {
    public interface IRepositorioDeEspaciosFisicos

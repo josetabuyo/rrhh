@@ -5,26 +5,25 @@ using General;
 using System;
 using System.Security.Cryptography;
 using System.Text;
-using General.MAU;
 
-namespace AdministracionDeUsuarios
+namespace General.MAU
 {
     public class Autorizador
     {
 
-        protected Dictionary<Usuario, List<Funcionalidad>> permisos;
+        protected IRepositorioDeFuncionalidades repositorio_funcionalidades;
         protected IRepositorioDePermisosSobreAreas repositorio_permisos_sobre_areas;
-        //protected Dictionary<Usuario, List<Area>> areas;
         protected List<MenuDelSistema> menues;
-        protected IRepositorioDeUsuarios repositorio_usuarios { get; set; }
+        protected IRepositorioDeUsuarios repositorio_usuarios;
+        protected List<AccesoAURL> accesos_a_urls;
 
-        public Autorizador(Dictionary<Usuario, List<Funcionalidad>> permisos, List<MenuDelSistema> menues, Dictionary<Usuario, List<Area>> areas, IRepositorioDeUsuarios repo_usuarios, IRepositorioDePermisosSobreAreas repo_permisos_sobre_areas)
+        public Autorizador(IRepositorioDeFuncionalidades repo_funcionalidades, List<MenuDelSistema> menues, IRepositorioDeUsuarios repo_usuarios, IRepositorioDePermisosSobreAreas repo_permisos_sobre_areas, List<AccesoAURL> accesos_a_urls)
         {
-            this.permisos = permisos;
+            this.repositorio_funcionalidades = repo_funcionalidades;
             this.menues = menues;
-            //this.areas = areas;
             this.repositorio_usuarios = repo_usuarios;
             this.repositorio_permisos_sobre_areas = repo_permisos_sobre_areas;
+            this.accesos_a_urls = accesos_a_urls;
         }
 
         public Autorizador()
@@ -33,42 +32,18 @@ namespace AdministracionDeUsuarios
 
         public bool ElUsuarioTienePermisosPara(Usuario usuario, Funcionalidad funcionalidad)
         {
-            List<Funcionalidad> permisos_usuario;
-            if (!this.permisos.TryGetValue(usuario, out permisos_usuario)) return false;
-            return permisos_usuario.Exists(f => f.Equals(funcionalidad));
+            return this.repositorio_funcionalidades.FuncionalidadesPara(usuario).Exists(f => f.Equals(funcionalidad));
         }
 
         public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
         {
-            List<Funcionalidad> permisos_usuario;
-            if (!this.permisos.TryGetValue(usuario, out permisos_usuario)) return false;
-            return permisos_usuario.Exists(f => f.Nombre==nombre_funcionalidad);
+            return this.repositorio_funcionalidades.FuncionalidadesPara(usuario).Exists(f => f.Nombre == nombre_funcionalidad);
         }
 
-        public void ConcederPermisoA(Usuario usuario, Funcionalidad funcionalidad)
+        public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
         {
-            if(ElUsuarioTienePermisosPara(usuario, funcionalidad)) return;
-            List<Funcionalidad> permisos_usuario;
-            if (!this.permisos.TryGetValue(usuario, out permisos_usuario)) {
-                permisos_usuario = new List<Funcionalidad>();
-                this.permisos.Add(usuario, permisos_usuario);
-            };            
-            permisos_usuario.Add(funcionalidad);
+            this.repositorio_funcionalidades.ConcederFuncionalidadA(usuario, funcionalidad);           
         }
-
-        //public void DenegarPermisoA(string usuario, Funcionalidad funcionalidad)
-        //{
-        //    var permiso = Permiso.Denegar(funcionalidad);
-        //    FuncionalidadDelUsuario(usuario).RemoveAll(p => p.ActuaSobreLaMismaFuncionalidadQue(permiso));
-        //    FuncionalidadDelUsuario(usuario).Add(permiso);
-        //}
-
-        //public List<Permiso> FuncionalidadDelUsuario(string usuario)
-        //{
-        //    if (!permisos.ContainsKey(usuario))
-        //        permisos.Add(usuario, new List<Permiso>());
-        //    return permisos[usuario];
-        //}
 
         public static Autorizador Instancia()
         {
@@ -77,25 +52,12 @@ namespace AdministracionDeUsuarios
 
         public List<Area> AreasAdministradasPor(Usuario usuario)
         {
-            //var areas_usuario = new List<Area>();
-            //this.areas.TryGetValue(usuario, out areas_usuario);
-            //if (areas_usuario == null) areas_usuario = new List<Area>();
-
             return repositorio_permisos_sobre_areas.AreasAdministradasPor(usuario);
-            //return areas_usuario;
         }
 
         public void AsignarAreaAUnUsuario(Usuario usuario, Area area)
         {
-            //List<Area> areas_usuario;
-            //if (!this.areas.TryGetValue(usuario, out areas_usuario))
-            //{
-            //    areas_usuario = new List<Area>();
-            //    this.areas.Add(usuario, areas_usuario);
-            //};
-
             repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(usuario, area);
-            //areas_usuario.Add(area);
         }
 
         public bool Login(string nombre_usuario, string clave)
@@ -106,7 +68,13 @@ namespace AdministracionDeUsuarios
 
         public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
         {
-            return menues.Find(m => m.SeLlama(nombre_menu)).FitrarPorFuncionalidades(permisos[usuario]);
+            return menues.Find(m => m.SeLlama(nombre_menu)).FitrarPorFuncionalidades(repositorio_funcionalidades.FuncionalidadesPara(usuario));
+        }
+
+        public Boolean ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
+        {
+            var funcionalidades_que_permiten_acceder_a_la_url = this.accesos_a_urls.FindAll(a => a.Url == url).Select(a=> a.Funcionalidad);
+            return this.repositorio_funcionalidades.FuncionalidadesPara(usuario).Any(f => funcionalidades_que_permiten_acceder_a_la_url.Contains(f));
         }
     }
 }

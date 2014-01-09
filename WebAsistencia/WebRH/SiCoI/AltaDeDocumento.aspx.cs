@@ -20,6 +20,7 @@ public partial class AltaDeDocumento : System.Web.UI.Page
 
         if (!ws.ElUsuarioTienePermisosPara(usuarioLogueado, "ingreso_a_sicoi"))
         {
+            
             Response.Redirect("~/MenuPrincipal/Menu.aspx");
             return;
         }

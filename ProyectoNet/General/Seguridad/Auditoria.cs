@@ -4,7 +4,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using AdministracionDeUsuarios;
+    using General.MAU;
 
     public class Auditoria
     {

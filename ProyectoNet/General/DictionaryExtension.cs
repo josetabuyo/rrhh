@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AdministracionDeUsuarios;
+using General.MAU;
 
 namespace General
 {
@@ -17,7 +17,17 @@ namespace General
             }
             catch (KeyNotFoundException)
             {
-  
+                return valor_defecto;
+            }
+        }
+        public static List<Funcionalidad> GetValueOrDefault(this Dictionary<Usuario, List<Funcionalidad>> areas, Usuario key, List<Funcionalidad> valor_defecto)
+        {
+            try
+            {
+                return areas[key];
+            }
+            catch (KeyNotFoundException)
+            {
                 return valor_defecto;
             }
         }

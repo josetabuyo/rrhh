@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using General.Repositorios;
 using System.IO;
-using AdministracionDeUsuarios;
+using General.MAU;
 
 namespace General.Modi
 {

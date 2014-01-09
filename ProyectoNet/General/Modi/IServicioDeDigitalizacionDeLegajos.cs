@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AdministracionDeUsuarios;
+using General.MAU;
 
 namespace General.Modi
 {

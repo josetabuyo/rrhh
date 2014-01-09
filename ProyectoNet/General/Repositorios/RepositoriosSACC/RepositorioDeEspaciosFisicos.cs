@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AdministracionDeUsuarios;
+using General.MAU;
 
 namespace General.Repositorios
 {

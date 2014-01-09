@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AdministracionDeUsuarios;
+using General.MAU;
 namespace General.Repositorios
 {
     public interface IRepositorioDeCursos

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using AdministracionDeUsuarios;
 
-namespace AdministracionDeUsuarios
+namespace General.MAU
 {
     public class UsuarioNulo:Usuario
     {

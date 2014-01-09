@@ -38,6 +38,12 @@ namespace TestAdministracionDeUsuarios
         }
 
         [TestMethod]
+        public void jorge_deberia_poder_acceder_a_la_pagina_de_inicio_de_sacc()
+        {
+            Assert.IsTrue(TestObjectsMau.Autorizador().ElUsuarioPuedeAccederALaURL(TestObjectsMau.Jorge(), TestObjectsMau.URLInicioSacc()));
+        }
+
+        [TestMethod]
         public void jorge_no_deberia_tener_permisos_para_ingresar_a_administracion_de_areas()
         {
             Assert.IsFalse(TestObjectsMau.Autorizador().ElUsuarioTienePermisosPara(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoAdministracionDeAreas()));
@@ -47,7 +53,7 @@ namespace TestAdministracionDeUsuarios
         public void deberia_poder_darle_permisos_a_jorge_para_ingresar_a_modi()
         {
             var autorizador = TestObjectsMau.Autorizador();
-            autorizador.ConcederPermisoA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi());
+            autorizador.ConcederFuncionalidadA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi());
             Assert.IsTrue(autorizador.ElUsuarioTienePermisosPara(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi()));
         }
 
@@ -67,7 +73,7 @@ namespace TestAdministracionDeUsuarios
         public void deberia_poder_darle_permisos_a_javier_para_ingresar_a_sacc()
         {
             var autorizador = TestObjectsMau.Autorizador();
-            autorizador.ConcederPermisoA(TestObjectsMau.Javier(), TestObjectsMau.FuncionalidadIngresoSacc());
+            autorizador.ConcederFuncionalidadA(TestObjectsMau.Javier(), TestObjectsMau.FuncionalidadIngresoSacc());
             Assert.IsTrue(autorizador.ElUsuarioTienePermisosPara(TestObjectsMau.Javier(), TestObjectsMau.FuncionalidadIngresoSacc()));
         }
 
@@ -83,7 +89,7 @@ namespace TestAdministracionDeUsuarios
         public void si_le_doy_permisos_a_jorge_para_acceder_a_administracion_de_areas_deberia_ver_tres_items_en_su_menu_principal()
         {
             var autorizador = TestObjectsMau.Autorizador();
-            autorizador.ConcederPermisoA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoAdministracionDeAreas());
+            autorizador.ConcederFuncionalidadA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoAdministracionDeAreas());
             var menu_principal_de_jorge = autorizador.GetMenuPara("PRINCIPAL", TestObjectsMau.Jorge());
             Assert.AreEqual(3, menu_principal_de_jorge.Items.Count);
         }
@@ -104,17 +110,30 @@ namespace TestAdministracionDeUsuarios
             Assert.IsTrue(areas_administradas_por_javier.Contains(TestObjectsMau.AreaDeLegajos()));
         }
 
-        [TestMethod]
-        public void al_pedirle_al_autorizador_las_areas_administradas_por_javier_el_autorizador_pide_a_un_repositorio_los_datos()
-        {
-            var mocks = new Mockery();
-            var repo = mocks.NewMock<IRepositorioDePermisosSobreAreas>();
-            var autorizador = TestObjectsMau.Autorizador();
+        //[TestMethod]
+        //public void al_pedirle_al_autorizador_las_areas_administradas_por_javier_el_autorizador_pide_a_un_repositorio_los_datos()
+        //{
+        //    var mocks = new Mockery();
+        //    var repo = mocks.NewMock<IRepositorioDePermisosSobreAreas>();
+        //    var autorizador = TestObjectsMau.AutorizadorCon(repo);
 
-            Expect.AtLeastOnce.On(repo).Method("AreasAdministradasPor").WithAnyArguments();
+        //    Expect.AtLeastOnce.On(repo).Method("AreasAdministradasPor").WithAnyArguments();
 
-            autorizador.AreasAdministradasPor(TestObjectsMau.Javier());
-        }
+        //    autorizador.AreasAdministradasPor(TestObjectsMau.Javier());
+        //    mocks.VerifyAllExpectationsHaveBeenMet();
+        //}
 
+        //[TestMethod]
+        //public void al_pedirle_al_autorizador_los_permisos_de_javier_el_autorizador_pide_a_un_repositorio_los_datos()
+        //{
+        //    var mocks = new Mockery();
+        //    var repo = mocks.NewMock<IRepositorioDeFuncionalidades>();
+        //    var autorizador = TestObjectsMau.AutorizadorCon(repo);
+
+        //    Expect.AtLeastOnce.On(repo).Method("AreasAdministradasPor").WithAnyArguments();
+
+        //    autorizador.AreasAdministradasPor(TestObjectsMau.Javier());
+        //    mocks.VerifyAllExpectationsHaveBeenMet();
+        //}
     }
 }
