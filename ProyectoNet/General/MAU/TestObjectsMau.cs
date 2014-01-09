@@ -38,8 +38,12 @@ namespace AdministracionDeUsuarios
             permisos_javier.Add(FuncionalidadIngresoMenuPrincipal());
             permisos_javier.Add(FuncionalidadIngresoAdministracionDeAreas());
 
+            var permisos_usuario_nulo = new List<Funcionalidad>();
+            permisos_usuario_nulo.Add(FuncionalidadIngresoPantallaLogin());
+
             diccionario.Add(Jorge(), permisos_jorge);
             diccionario.Add(Javier(), permisos_javier);
+            diccionario.Add(new UsuarioNulo(), permisos_usuario_nulo);
             return diccionario;
         }
 
@@ -76,6 +80,7 @@ namespace AdministracionDeUsuarios
             lista.Add(new AccesoAURL(FuncionalidadIngresoSacc(), URLInicioSacc()));
             lista.Add(new AccesoAURL(FuncionalidadIngresoModi(), URLInicioModi()));
             lista.Add(new AccesoAURL(FuncionalidadIngresoAdministracionDeAreas(), URLInicioAdministracionDeAreas()));
+            lista.Add(new AccesoAURL(FuncionalidadIngresoPantallaLogin(), URLPantallaLogin()));
             return lista;
         }
 
@@ -123,6 +128,11 @@ namespace AdministracionDeUsuarios
             return new Funcionalidad(4, "ingreso_a_administracion_de_areas");
         }
 
+        private static Funcionalidad FuncionalidadIngresoPantallaLogin()
+        {
+            return new Funcionalidad(5, "ingreso_a_pantalla_login");
+        }
+
         public static Area AreaDeLegajos()
         {
             return new Area(1, "Legajos");
@@ -151,6 +161,11 @@ namespace AdministracionDeUsuarios
         public static string URLInicioAdministracionDeAreas()
         {
             return @"/WEBRH/SeleccionDeArea.aspx";
+        }
+
+        public static string URLPantallaLogin()
+        {
+            return @"/WEBRH/Login.aspx";
         }
     }
 }

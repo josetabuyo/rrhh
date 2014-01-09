@@ -3,15 +3,16 @@ using General.Repositorios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMock2;
 using General.Sacc.Seguridad;
+using General.MAU;
 
 namespace General
 {
     [TestClass]
     public class TestUsuarios
     {
-        private AdministracionDeUsuarios.Usuario usuario = new AdministracionDeUsuarios.Usuario();
+        private Usuario usuario = new Usuario();
 
-        public static void ConexionMockeada(string source, AdministracionDeUsuarios.Usuario usuario)
+        public static void ConexionMockeada(string source, Usuario usuario)
         {
             IConexionBD conexion = TestObjects.ConexionMockeada();
             var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
@@ -100,7 +101,7 @@ namespace General
 
             ConexionMockeada(source, usuario);
 
-            var areas_usuario = AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario);
+            var areas_usuario = Autorizador.Instancia().AreasAdministradasPor(usuario);
             Assert.AreEqual(1, areas_usuario.Count);
             Assert.AreEqual("Claudia Silvia", areas_usuario[0].datos_del_responsable.Nombre);
             Assert.AreEqual("CAL Quilmes", areas_usuario[0].Nombre);
@@ -126,7 +127,7 @@ namespace General
 
             ConexionMockeada(source, usuario);
 
-            Assert.AreEqual(1, AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario).Count);
+            Assert.AreEqual(1, Autorizador.Instancia().AreasAdministradasPor(usuario).Count);
         }
 
 
@@ -140,8 +141,8 @@ namespace General
 
             ConexionMockeada(source, usuario);
 
-            Assert.AreEqual(1, AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario).Count);
-            Assert.AreEqual(3, AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario)[0].Asistentes.Count);
+            Assert.AreEqual(1, Autorizador.Instancia().AreasAdministradasPor(usuario).Count);
+            Assert.AreEqual(3, Autorizador.Instancia().AreasAdministradasPor(usuario)[0].Asistentes.Count);
             //Assert.AreEqual("Secretaria: PIRES Sabrina Vanesa |Teléfono: 1111-1111 |Mail: sabrina@secretaria-area333.gov.ar", " ");
 
         }
@@ -160,7 +161,7 @@ namespace General
 
             ConexionMockeada(source, usuario);
 
-            var areas_usuario = AdministracionDeUsuarios.Autorizador.Instancia().AreasAdministradasPor(usuario);
+            var areas_usuario = Autorizador.Instancia().AreasAdministradasPor(usuario);
 
             Assert.AreEqual(4, areas_usuario.Count);
             Assert.AreEqual("Claudia Silvia", areas_usuario[0].datos_del_responsable.Nombre);

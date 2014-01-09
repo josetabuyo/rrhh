@@ -9,7 +9,7 @@ using General;
 
 
 using NMock2;
-using AdministracionDeUsuarios;
+using General.MAU;
 
 namespace TestViaticos
 {

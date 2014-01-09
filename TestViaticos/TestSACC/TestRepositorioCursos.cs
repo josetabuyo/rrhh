@@ -5,12 +5,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using General.Calendario;
 
-
 using NMock2;
 using System;
-using AdministracionDeUsuarios;
 using General.Sacc;
 using General.Sacc.Seguridad;
+using General.MAU;
 
 namespace TestViaticos
 {

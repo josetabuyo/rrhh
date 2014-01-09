@@ -335,7 +335,7 @@ public class WSViaticos : System.Web.Services.WebService
         //Se puede mejorar
         var lista_de_todos_los_viaticos = repositorio.ObtenerTodosLosViaticos();
         var lista_viaticos_usuario = new List<ComisionDeServicio>();
-        new AdministracionDeUsuarios.Autorizador().AreasAdministradasPor(usuario).ForEach(a => lista_viaticos_usuario.AddRange(lista_de_todos_los_viaticos.FindAll(v => v.TransicionesRealizadas.Select(t => t.AreaOrigen.Id).Contains(a.Id) ||
+        new Autorizador().AreasAdministradasPor(usuario).ForEach(a => lista_viaticos_usuario.AddRange(lista_de_todos_los_viaticos.FindAll(v => v.TransicionesRealizadas.Select(t => t.AreaOrigen.Id).Contains(a.Id) ||
                                                                                                             v.TransicionesRealizadas.Select(t => t.AreaDestino.Id).Contains(a.Id))));
 
         return lista_viaticos_usuario.Distinct().ToArray();
@@ -555,7 +555,7 @@ public class WSViaticos : System.Web.Services.WebService
             if (id_area_destino != -1)
             {
                 area_destino = repo_organigrama.GetAreaById(id_area_destino);
-                mensajeria.SeEnviaAFuturo(un_documento, new AdministracionDeUsuarios.Autorizador().AreasAdministradasPor(usuario)[0], area_destino);
+                mensajeria.SeEnviaAFuturo(un_documento, new Autorizador().AreasAdministradasPor(usuario)[0], area_destino);
             }
             else
             {
@@ -595,7 +595,7 @@ public class WSViaticos : System.Web.Services.WebService
         var un_documento = repo_documentos.GetDocumentoPorId(id_documento);
         var area_destino = repo_organigrama.GetAreaById(id_area_destino);
 
-        mensajeria.SeEnviaAFuturo(un_documento, new AdministracionDeUsuarios.Autorizador().AreasAdministradasPor(usuario)[0], area_destino);
+        mensajeria.SeEnviaAFuturo(un_documento, new Autorizador().AreasAdministradasPor(usuario)[0], area_destino);
 
         repo_transiciones.GuardarTransicionesDe(mensajeria);
         return un_documento;
@@ -1854,6 +1854,18 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeUsuarios().GetUsuarioPorAlias(alias);
     }
 
+    [WebMethod]
+    public Usuario UsuarioNulo()
+    {
+        return new UsuarioNulo();
+    }
+
+    [WebMethod]
+    public bool ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
+    {
+        return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
+    }
+    
     [WebMethod]
     public Persona[] BuscarPersonas(string criterio)
     {

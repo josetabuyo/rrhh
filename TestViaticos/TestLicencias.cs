@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using General;
 using General.Repositorios;
-using AdministracionDeUsuarios;
+using General.MAU;
 
 namespace TestViaticos
 {

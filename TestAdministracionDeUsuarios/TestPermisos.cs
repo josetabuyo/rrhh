@@ -44,6 +44,20 @@ namespace TestAdministracionDeUsuarios
         }
 
         [TestMethod]
+        public void un_usuario_nulo_deberia_poder_entrar_solo_a_la_pantalla_de_login()
+        {
+            Assert.IsTrue(TestObjectsMau.Autorizador().ElUsuarioPuedeAccederALaURL(new UsuarioNulo(), TestObjectsMau.URLPantallaLogin()));
+            Assert.IsFalse(TestObjectsMau.Autorizador().ElUsuarioPuedeAccederALaURL(new UsuarioNulo(), TestObjectsMau.URLInicioSacc()));
+            Assert.IsFalse(TestObjectsMau.Autorizador().ElUsuarioPuedeAccederALaURL(new UsuarioNulo(), TestObjectsMau.URLInicioModi()));
+        }
+
+        [TestMethod]
+        public void un_usuario_deberia_poder_acceder_a_cualquier_url_no_afectada_por_los_accesos()
+        {
+            Assert.IsTrue(TestObjectsMau.Autorizador().ElUsuarioPuedeAccederALaURL(TestObjectsMau.Jorge(), @"/WEBRH/Scripts/Grilla.js"));
+        }
+
+        [TestMethod]
         public void jorge_no_deberia_tener_permisos_para_ingresar_a_administracion_de_areas()
         {
             Assert.IsFalse(TestObjectsMau.Autorizador().ElUsuarioTienePermisosPara(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoAdministracionDeAreas()));

@@ -1,7 +1,6 @@
 ﻿<%@ Application Language="C#" %>
 
 <script runat="server">
-
     void Application_Start(object sender, EventArgs e) 
     {
         // Código que se ejecuta al iniciarse la aplicación
@@ -23,8 +22,8 @@
     void Session_Start(object sender, EventArgs e) 
     {
         // Código que se ejecuta cuando se inicia una nueva sesión
-        var a = 1;
-
+        var ws = new WSViaticos.WSViaticosSoapClient();
+        Session[ConstantesDeSesion.USUARIO] = ws.UsuarioNulo();
     }
 
     void Session_End(object sender, EventArgs e) 
@@ -38,16 +37,14 @@
 
     void Application_BeginRequest(object sender, EventArgs e)
     {
-
         var a = 1;
     }
 
     void Application_AcquireRequestState(object sender, EventArgs e)        
     {
         var ws = new WSViaticos.WSViaticosSoapClient();
-        // Session is Available here
-        HttpContext context = HttpContext.Current;
-        //context.Session["foo"] = "foo";
+        if(ws.ElUsuarioPuedeAccederALaURL((WSViaticos.Usuario) Session[ConstantesDeSesion.USUARIO], Request.Path)) return;
+        Response.Redirect("Login.aspx");
     }
        
 </script>

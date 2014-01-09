@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using General.Repositorios;
 using General;
 using NMock2;
-using AdministracionDeUsuarios;
+using General.MAU;
 
 
 namespace General
