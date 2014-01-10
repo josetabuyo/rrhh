@@ -12,18 +12,9 @@ public partial class AltaDeDocumento : System.Web.UI.Page
     private Usuario usuarioLogueado;
     protected void Page_Load(object sender, EventArgs e)
     {
-        Sesion.VerificarSesion(this);
         usuarioLogueado = ((Usuario)Session[ConstantesDeSesion.USUARIO]);
-        
-        Sesion.VerificarSesion(this);
+      
         var ws = new WSViaticosSoapClient();
-
-        if (!ws.ElUsuarioTienePermisosPara(usuarioLogueado, "ingreso_a_sicoi"))
-        {
-            
-            Response.Redirect("~/MenuPrincipal/Menu.aspx");
-            return;
-        }
 
         this.ListaAreas.Value = ws.AreasFormalesConInformales_JSON();
         this.TiposDeDocumento.Value = JsonConvert.SerializeObject(ws.TiposDeDocumentosSICOI().OrderBy(td => td.descripcion));

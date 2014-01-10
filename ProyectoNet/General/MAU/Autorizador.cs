@@ -73,7 +73,7 @@ namespace General.MAU
 
         public Boolean ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
         {
-            var funcionalidades_que_permiten_acceder_a_la_url = this.accesos_a_urls.FindAll(a => a.Url == url).Select(a=> a.Funcionalidad);
+            var funcionalidades_que_permiten_acceder_a_la_url = this.accesos_a_urls.FindAll(a => a.Url.ToUpper() == url.ToUpper()).Select(a=> a.Funcionalidad);
             if (funcionalidades_que_permiten_acceder_a_la_url.Count() == 0) return true;
             return this.repositorio_funcionalidades.FuncionalidadesPara(usuario).Any(f => funcionalidades_que_permiten_acceder_a_la_url.Contains(f));
         }

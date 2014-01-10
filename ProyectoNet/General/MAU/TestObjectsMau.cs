@@ -68,9 +68,9 @@ namespace AdministracionDeUsuarios
         private static MenuDelSistema MenuPrincipal()
         {
             var items = new List<ItemDeMenu>();
-            items.Add(new ItemDeMenu(1, "SACC", new AccesoAURL(FuncionalidadIngresoSacc(), URLInicioSacc())));
-            items.Add(new ItemDeMenu(2, "MODI", new AccesoAURL(FuncionalidadIngresoModi(), URLInicioModi())));
-            items.Add(new ItemDeMenu(3, "Administracion de Areas", new AccesoAURL(FuncionalidadIngresoAdministracionDeAreas(), URLInicioAdministracionDeAreas())));
+            items.Add(new ItemDeMenu(1, "MACC", new AccesoAURL(FuncionalidadIngresoSacc(), URLInicioSacc()), "Módulo para administrar las asistencias de cursos"));
+            items.Add(new ItemDeMenu(2, "MODI", new AccesoAURL(FuncionalidadIngresoModi(), URLInicioModi()), "Módulo para digitalizar legajos"));
+            items.Add(new ItemDeMenu(3, "Administracion de Areas", new AccesoAURL(FuncionalidadIngresoAdministracionDeAreas(), URLInicioAdministracionDeAreas()), "Módulo para administrar áreas"));
             return new MenuDelSistema("PRINCIPAL", items);
         }
 
@@ -81,6 +81,7 @@ namespace AdministracionDeUsuarios
             lista.Add(new AccesoAURL(FuncionalidadIngresoModi(), URLInicioModi()));
             lista.Add(new AccesoAURL(FuncionalidadIngresoAdministracionDeAreas(), URLInicioAdministracionDeAreas()));
             lista.Add(new AccesoAURL(FuncionalidadIngresoPantallaLogin(), URLPantallaLogin()));
+            lista.Add(new AccesoAURL(FuncionalidadIngresoMenuPrincipal(), URLMenuPrincipal()));
             return lista;
         }
 
@@ -155,7 +156,7 @@ namespace AdministracionDeUsuarios
 
         public static string URLInicioModi()
         {
-            return @"/WEBRH/Modi/modi.aspx";
+            return @"/WEBRH/Modi/Modi.aspx";
         }
 
         public static string URLInicioAdministracionDeAreas()
@@ -166,6 +167,11 @@ namespace AdministracionDeUsuarios
         public static string URLPantallaLogin()
         {
             return @"/WEBRH/Login.aspx";
+        }
+
+        private static string URLMenuPrincipal()
+        {
+            return @"/WEBRH/MenuPrincipal/Menu.aspx";
         }
     }
 }

@@ -23,7 +23,7 @@
     {
         // Código que se ejecuta cuando se inicia una nueva sesión
         var ws = new WSViaticos.WSViaticosSoapClient();
-        Session[ConstantesDeSesion.USUARIO] = ws.UsuarioNulo();
+        Session[ConstantesDeSesion.USUARIO] = ws.GetUsuarioNulo();
     }
 
     void Session_End(object sender, EventArgs e) 
@@ -35,16 +35,22 @@
 
     }
 
-    void Application_BeginRequest(object sender, EventArgs e)
+    void Application_EndRequest(object sender, EventArgs e)
     {
         var a = 1;
     }
 
     void Application_AcquireRequestState(object sender, EventArgs e)        
     {
-        var ws = new WSViaticos.WSViaticosSoapClient();
-        if(ws.ElUsuarioPuedeAccederALaURL((WSViaticos.Usuario) Session[ConstantesDeSesion.USUARIO], Request.Path)) return;
-        Response.Redirect("Login.aspx");
-    }
-       
+        try
+        {
+            if (Request.Path.ToUpper() == @"/WEBRH/LOGIN.ASPX") return;
+            var ws = new WSViaticos.WSViaticosSoapClient();
+            if (!ws.ElUsuarioPuedeAccederALaURL((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO], Request.Path)) Response.Redirect("~/Login.aspx");
+        }
+        catch (HttpException exc)
+        {
+            return;
+        }
+    }       
 </script>

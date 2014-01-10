@@ -1855,7 +1855,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Usuario UsuarioNulo()
+    public UsuarioNulo GetUsuarioNulo()
     {
         return new UsuarioNulo();
     }
