@@ -9,6 +9,7 @@ namespace General.MAU
     {
         public int Orden { get; set; }
         public string NombreItem { get; set; }
+        public string Descripcion { get; set; }
         public AccesoAURL Acceso { get; set; }
 
         public ItemDeMenu()
@@ -16,11 +17,12 @@ namespace General.MAU
 
         }
 
-        public ItemDeMenu(int orden, string nombre_item, AccesoAURL acceso)
+        public ItemDeMenu(int orden, string nombre_item, AccesoAURL acceso, String descripcion = "")
         {
             this.Orden = orden;
             this.NombreItem = nombre_item;
             this.Acceso = acceso;
+            this.Descripcion = descripcion;
         }      
     }
 }
