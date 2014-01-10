@@ -1,7 +1,9 @@
 ﻿var VistaDeItemDeMenuPrincipal = function (item) {
     this.ui = $("#plantillas .item_de_menu_principal").clone();
-    this.caption_item = this.ui.find("#caption_item");
-    this.caption_item.text(item.NombreItem);
+    this.link = this.ui.find("a");
+    this.link.attr("href", item.Acceso.Url);
+    this.link.attr("data-original-title", item.Descripcion);
+    this.link.attr("href", item.Acceso.Url);
 };
 
 VistaDeItemDeMenuPrincipal.prototype.dibujarEn = function (un_panel) {
