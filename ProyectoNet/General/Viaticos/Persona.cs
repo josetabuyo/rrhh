@@ -51,6 +51,16 @@ namespace General
         
         public Persona() { }
 
+        public Persona(int id, int documento, string nombre, string apellido, Area area) 
+        {
+            this._id = id;
+            this._Documento = documento;
+            this._Apellido = apellido;
+            this._Nombre = nombre;
+            this._Area = area;
+        }
+
+
         public override bool Equals(object obj)
         {
             //return this.Id == ((Persona)obj).Id;

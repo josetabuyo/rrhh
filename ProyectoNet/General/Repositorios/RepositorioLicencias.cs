@@ -8,10 +8,19 @@ using System.Data.SqlClient;
 
 namespace General.Repositorios
 {
-    public class RepositorioLicencias
+    public class RepositorioLicencias : IRepositorioLicencia
     {
+        public IConexionBD conexion_bd { get; set; }
+
+        public RepositorioLicencias(IConexionBD conexion)
+        {
+            this.conexion_bd = conexion;
+        }
+
+
         #region IRepositorioLicencias Members
 
+        
         public string Guardar(Licencia unaLicencia)
         {
             if (this.GetLicenciasQueSePisanCon(unaLicencia))
@@ -177,5 +186,16 @@ namespace General.Repositorios
 
         }
         #endregion
+
+
+        public List<VacacionesPermitidas> GetVacacionesPermitidas(List<Persona> personas, List<Periodo> periodos)        
+        {
+
+
+          // conexion_bd.Ejecutar("dbo.");
+           
+            return new List<VacacionesPermitidas>();
+        }
+
     }
 }

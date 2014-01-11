@@ -5,11 +5,12 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using General;
 using General.Repositorios;
+using NMock2;
 
 namespace TestViaticos
 {
     [TestClass]
-    //[Ignore]
+   // [Ignore]
     public class TestLicencias
     {
         private Persona unaPersona;
@@ -17,10 +18,13 @@ namespace TestViaticos
         private ConceptoDeLicencia unConcepto;
         private Usuario unUsuario;
         private Auditoria unaAuditoria;
-        private IRepositorioLicencia repositorioLicencias;
+        private RepositorioLicencias repositorioLicencias;
         private RepositorioPersonas repositorioPersonas;
         private Licencia unaLicencia;
-        
+        private IConexionBD conexion;
+        private string source;
+        private Licencia una_licencia_del_04_04_2001;
+        List<Licencia> lista_licencias;
 
         #region TestConfiguration
 
@@ -29,8 +33,13 @@ namespace TestViaticos
         public void Setup()
         {
 
+            una_licencia_del_04_04_2001 = TestObjects.UnaLicencia();
 
-            //repositorioLicencias = TestObjects.RepoLicenciaMockeado();
+            lista_licencias = new List<Licencia>() { una_licencia_del_04_04_2001 };
+            
+            //conexion = TestObjects.ConexionMockeada();
+
+            //repositorioLicencias = new RepositorioLicencias(conexion);
             //repositorioPersonas = new RepositorioPersonas();
             //unaFecha = new DateTime(2001, 04, 04);
             //unaPersona = new Persona { Documento = 29753914, Area = new Area { Id = 1 } };
@@ -51,6 +60,10 @@ namespace TestViaticos
             //                  };
 
             //repositorioLicencias.Guardar(unaLicencia);
+
+           // source = @"  |id     	    |id_interna     |concepto   |desde                      |hasta                      |usuario    |fecha_solicitud            |id_area    |baja
+            //             |1	            |29753914       |1          |2001-04-04 00:00:00.000    |2001-04-04 00:00:00.000    |1          |2001-04-04 00:00:00.000    |1          |0       ";
+
         }
 
         [TestCleanup]
@@ -78,10 +91,20 @@ namespace TestViaticos
             otraLicencia.Concepto = unConcepto;
             otraLicencia.Auditoria = unaAuditoria;
 
+
+            //conexion = TestObjects.ConexionMockeada();
+            //var resultado_sp = TablaDeDatos.From(source);
+
+           // Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+
+
             var mensajeObtenido = repositorioLicencias.Guardar(otraLicencia);
 
             const string mensajeEsperado = "Error, ya existe una solicitud cargada en ese periodo.";
             Assert.AreEqual(mensajeObtenido, mensajeEsperado);
+
+            //Assert.IsTrue(lista
 
             repositorioPersonas.EliminarInasistenciaALaFecha(unaPersona, unaFecha);
 
@@ -132,36 +155,5 @@ namespace TestViaticos
 
             repositorioPersonas.EliminarInasistenciaALaFecha(unaPersona, otraFecha);
         }
-
-        [TestMethod]
-        public void deberia_saber_cuantas_vacaciones_permitidas_tiene_agus_para_el_2010()
-        {
-//            string source = @"  |Id	    |documento     |direccion             |Id_Dato_Area   |Descripcion_Dato_Area      |Dato_Area                  |Orden  |Nombre_Asistente	   |Apellido_Asistente	     |Cargo	        |Prioridad_Asistente	  |Telefono_Asistente	    |Fax_Asistente          |Mail_Asistente	                |Nombre_Responsable     |Apellido_Responsable	  |Telefono_Responsable	    |Fax_Responsable  	    |Mail_Responsable	                
-//                                |1  	    |RRHH            |9 de Julio 1925       |1              |Teléfono                   |4333-2222                  |1      |Juan                  |García                   |Secretaria    |1                        |4444-5555                |4444-1111              |juan.garcia@mds.gov.ar         |Fabián                 |Miranda                  |4567-2222                |4544-3322              |fabian.miranda@ministerio.gov.ar
-//                                |2	        |Dirección       |17 de Agosto 1850     |2              |Mail                       |area2@ministerio.gob.ar    |1      |María                 |Pérez                    |Secretaria    |1                        |4444-5555                |4444-1111              |maria.perez@ministerio.gov.ar  |Marta                  |Novoa                    |4567-1111                |4544-1111              |marta.novoa@ministerio.gov.ar               
-//                                |1  	    |RRHH            |9 de Julio 1925       |1              |Teléfono                   |4333-2222                  |1      |Juan                  |García                   |Secretaria    |1                        |4444-5555                |4444-1111              |juan.garcia@mds.gov.ar         |Fabián                 |Miranda                  |4567-2222                |4544-3322              |fabian.miranda@ministerio.gov.ar
-//                                |2	        |Dirección       |17 de Agosto 1850     |2              |Mail                       |area2@ministerio.gob.ar    |1      |María                 |Pérez                    |Secretaria    |1                        |4444-5555                |4444-1111              |maria.perez@ministerio.gov.ar  |Marta                  |Novoa                    |4567-1111                |4544-1111              |marta.novoa@ministerio.gov.ar               ";
-
-
-//            IConexionBD conexion = TestObjects.ConexionMockeada();
-//            var resultado_sp = TablaDeDatos.From(source);
-
-//            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
-
-
-            var persona = TestObjects.UnaPersona();
-            var lista_personas = new List<Persona>() { persona };
-            CalculadorDeVacaciones calculador = new CalculadorDeVacaciones(repositorioLicencias);
-            
-            var vacaciones_permitidas_de_agus = new VacacionesPermitidas();
-            var periodo = new Periodo(new DateTime(2010,01,01),new DateTime(2010,12,31));
-            Assert.AreEqual(20, calculador.CalcularVacacionesPermitidasPara(lista_personas));
-
-           
-
-            
-        }
-
-
     }
 }

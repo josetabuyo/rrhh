@@ -384,6 +384,18 @@ namespace General
             return repo_asistencias_mockeados;
         }
 
+        private static IRepositorioLicencia repo_licencias_mockeados;
+
+        public static IRepositorioLicencia RepoLicenciaMockeado()
+        {
+            if (repo_licencias_mockeados == null)
+            {
+                var mocks = new Mockery();
+                repo_licencias_mockeados = mocks.NewMock<IRepositorioLicencia>();
+            }
+            return repo_licencias_mockeados;
+        }
+
         private static IRepositorioDeEspaciosFisicos repo_espacios_fisicos_mockeados;
 
         public static IRepositorioDeEspaciosFisicos RepoEspaciosFisicosMockeado()
@@ -1764,5 +1776,10 @@ namespace General
             return new List<AcumuladorAsistencia>() { asistencia0, asistencia1, asistencia2, asistencia3, asistencia4, asistencia5 };
         }
 
+
+        public static Persona UnaPersona()
+        {
+           return new Persona(1, 29753914, "Agustin", "Calqui", new Area(1, "Direccion de RRHH"));
+        }
     }
 }

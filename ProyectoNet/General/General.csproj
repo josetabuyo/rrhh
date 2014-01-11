@@ -68,9 +68,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asistencia\CalculadorDeVacaciones.cs" />
     <Compile Include="Asistencia\ConceptoDeLicencia.cs" />
     <Compile Include="Asistencia\PaseDeArea.cs" />
     <Compile Include="Asistencia\ProrrogaLicenciaOrdinaria.cs" />
+    <Compile Include="Asistencia\VacacionesPermitidas.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="Organigrama\OrganigramaException.cs" />
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
     <Compile Include="Organigrama\Responsable.cs" />
+    <Compile Include="Repositorios\IRepositorioLicencia.cs" />
     <Compile Include="Repositorios\RepositorioDePersonas.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAsistencias.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAsistencias.cs" />

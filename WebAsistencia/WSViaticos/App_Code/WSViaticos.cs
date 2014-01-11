@@ -143,7 +143,7 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioPersonas repoPersonas = new RepositorioPersonas();
         unaPersona.TipoDePlanta = repoPersonas.GetTipoDePlantaActualDe(unaPersona);
 
-        RepositorioLicencias repoLicencias = new RepositorioLicencias();
+        RepositorioLicencias repoLicencias = new RepositorioLicencias(Conexion());
         SaldoLicencia unSaldo;
         ProrrogaLicenciaOrdinaria prorroga = new ProrrogaLicenciaOrdinaria();
         if (prorroga.SeAplicaAlTipoDePlanta(unaPersona.TipoDePlanta))
@@ -182,7 +182,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string CargarLicencia(Licencia unaLicencia)
     {
-        RepositorioLicencias repositorio = new RepositorioLicencias();
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
         if (repositorio.GetLicenciasQueSePisanCon(unaLicencia))
             return "Ya existe una licencia en el periodo especificado";
         if (repositorio.GetSolicitudesQueSePisanCon(unaLicencia))
