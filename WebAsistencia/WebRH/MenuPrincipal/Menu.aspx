@@ -9,54 +9,24 @@
     </head>
 
 
-    <link rel="stylesheet" type="text/css" href="../Scripts/bootstrap/css/component.css" />
+    <link rel="stylesheet" type="text/css" href="MenuPrincipal.css" />
 
     <body>
         <form runat="server">
             <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />        
-    
-            <div id="menu_principal">
+            <section id="set-8" class="container">
+				<div id="menu_principal" class="hi-icon-wrap hi-icon-effect-8">
             
-            </div>
+                </div>
+            </section>
         </form>
                 
 
         <div id="plantillas">
             <div class="item_de_menu_principal">
-              	<a class="hi-icon" 
-								data-toggle="tooltip" data-placement="right" title="" >
-								</a>
+              	<a class="hi-icon" data-toggle="tooltip" data-placement="right" title="" ></a>
             </div>
         </div>
-
-            <div class="container">
-			<!-- Top Navigation -->
-			<section id="set-8">
-				<div class="hi-icon-wrap hi-icon-effect-8">
-					<a href="" id="licencia" class="hi-icon" 
-								data-toggle="tooltip" data-placement="right" title="" 
-								data-original-title="Modulo para cargar licencias de los agentes" >Licencias</a>
-					<a href="" id="macc" class="hi-icon" 
-								data-toggle="tooltip" data-placement="right" title="" 
-								data-original-title="Modulo para administrar las asistencias de cursos">MACC</a>
-					<a href="" id="mesa" class="hi-icon" data-toggle="tooltip" data-placement="right" title="" 
-								data-original-title="Modulo para administrar el movimiento de los documentos">Mesa de Entrada</a>
-				</div>
-			</section>
-			<li>
-			<a id="tul" href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right asfasdf ksdgjafjkasdgf klsdfkasdf"></a>
-			
-
-			</li>
-			
-		</div><!-- /container -->
-
-
-
-
-
-
-
 
         <%= Referencias.Javascript("../")%>
 
@@ -70,11 +40,6 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 var menu = new MenuPrincipal({ ui: $("#menu_principal"), autorizador: new Autorizador(new ProveedorAjax("../")) });
-
-                $('#licencia').tooltip();
-                $('#macc').tooltip();
-                $('#mesa').tooltip();
-
             });
         </script> 
         
