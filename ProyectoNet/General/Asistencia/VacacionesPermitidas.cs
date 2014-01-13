@@ -9,15 +9,17 @@ namespace General
     {
         private Persona _persona;
         private Periodo _periodo;
-        private int _total;
+        private int _dias;
 
-        public int total { get { return _total; } set { _total = value; } }
+        public int Dias { get { return _dias; } set { _dias = value; } }
+        public Persona Persona { get { return _persona; } }
+        public Periodo Periodo { get { return _periodo; } }
 
-        public VacacionesPermitidas(Persona persona, Periodo periodo, int total) 
+        public VacacionesPermitidas(Persona persona, Periodo periodo, int dias) 
         {
             this._persona = persona;
             this._periodo = periodo;
-            this._total = total;
+            this._dias = dias;
         }
 
         public VacacionesPermitidas()

@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using General;
 using General.Repositorios;
+using NMock2;
 
 namespace TestViaticos
 {
@@ -17,7 +18,7 @@ namespace TestViaticos
         private ConceptoDeLicencia unConcepto;
         private Usuario unUsuario;
         private Auditoria unaAuditoria;
-        private IRepositorioLicencia repositorioLicencias;
+        private RepositorioLicencias repositorioLicencias;
         private RepositorioPersonas repositorioPersonas;
         private Licencia unaLicencia;
         
@@ -56,7 +57,7 @@ namespace TestViaticos
         [TestCleanup]
         public void TearDown()
         {
-            repositorioPersonas.EliminarInasistenciaALaFecha(unaPersona, unaFecha);
+            //repositorioPersonas.EliminarInasistenciaALaFecha(unaPersona, unaFecha);
         }
 
         #endregion
@@ -134,32 +135,52 @@ namespace TestViaticos
         }
 
         [TestMethod]
-        public void deberia_saber_cuantas_vacaciones_permitidas_tiene_agus_para_el_2010()
+        public void deberia_saber_cuantas_vacaciones_permitidas_tiene_agus()
         {
-//            string source = @"  |Id	    |documento     |direccion             |Id_Dato_Area   |Descripcion_Dato_Area      |Dato_Area                  |Orden  |Nombre_Asistente	   |Apellido_Asistente	     |Cargo	        |Prioridad_Asistente	  |Telefono_Asistente	    |Fax_Asistente          |Mail_Asistente	                |Nombre_Responsable     |Apellido_Responsable	  |Telefono_Responsable	    |Fax_Responsable  	    |Mail_Responsable	                
-//                                |1  	    |RRHH            |9 de Julio 1925       |1              |Teléfono                   |4333-2222                  |1      |Juan                  |García                   |Secretaria    |1                        |4444-5555                |4444-1111              |juan.garcia@mds.gov.ar         |Fabián                 |Miranda                  |4567-2222                |4544-3322              |fabian.miranda@ministerio.gov.ar
-//                                |2	        |Dirección       |17 de Agosto 1850     |2              |Mail                       |area2@ministerio.gob.ar    |1      |María                 |Pérez                    |Secretaria    |1                        |4444-5555                |4444-1111              |maria.perez@ministerio.gov.ar  |Marta                  |Novoa                    |4567-1111                |4544-1111              |marta.novoa@ministerio.gov.ar               
-//                                |1  	    |RRHH            |9 de Julio 1925       |1              |Teléfono                   |4333-2222                  |1      |Juan                  |García                   |Secretaria    |1                        |4444-5555                |4444-1111              |juan.garcia@mds.gov.ar         |Fabián                 |Miranda                  |4567-2222                |4544-3322              |fabian.miranda@ministerio.gov.ar
-//                                |2	        |Dirección       |17 de Agosto 1850     |2              |Mail                       |area2@ministerio.gob.ar    |1      |María                 |Pérez                    |Secretaria    |1                        |4444-5555                |4444-1111              |maria.perez@ministerio.gov.ar  |Marta                  |Novoa                    |4567-1111                |4544-1111              |marta.novoa@ministerio.gov.ar               ";
+            string source = @"  |NroDocumento	|Apellido       |Nombre                 |Id_Interna     |Dias_Autorizados  |Periodo    |Dias_Tomados	  
+                                |29753914  	    |CALCAGNO       |Agustín Emanuel        |201530         |20                |2009       |0                
+                                |29753914	    |CALCAGNO       |Agustín Emanuel        |201530         |20                |2010       |0                        
+                                |29753914  	    |CALCAGNO       |Agustín Emanuel        |201530         |20                |2011       |0                
+                                |29753914	    |CALCAGNO       |Agustín Emanuel        |201530         |25                |2012       |0              ";                    
+           
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
 
-
-//            IConexionBD conexion = TestObjects.ConexionMockeada();
-//            var resultado_sp = TablaDeDatos.From(source);
-
-//            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
-
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
             var persona = TestObjects.UnaPersona();
-            var lista_personas = new List<Persona>() { persona };
-            CalculadorDeVacaciones calculador = new CalculadorDeVacaciones(repositorioLicencias);
+           
+            CalculadorDeVacaciones calculador = new CalculadorDeVacaciones(new RepositorioLicencias(conexion));
             
             var vacaciones_permitidas_de_agus = new VacacionesPermitidas();
             var periodo = new Periodo(new DateTime(2010,01,01),new DateTime(2010,12,31));
-            Assert.AreEqual(20, calculador.CalcularVacacionesPermitidasPara(lista_personas));
+            Assert.AreEqual(4, calculador.CalcularVacacionesPermitidasPara(persona).Count());
 
-           
+        }
 
-            
+        [TestMethod]
+        public void deberia_saber_cuantas_vacaciones_permitidas_tiene_agus_para_el_2010()
+        {
+            string source = @"  |NroDocumento	|Apellido       |Nombre                 |Id_Interna     |Dias_Autorizados  |Periodo    |Dias_Tomados	  
+                                |29753914  	    |CALCAGNO       |Agustín Emanuel        |201530         |20                |2009       |0                
+                                |29753914	    |CALCAGNO       |Agustín Emanuel        |201530         |20                |2010       |0                        
+                                |29753914  	    |CALCAGNO       |Agustín Emanuel        |201530         |20                |2011       |0                
+                                |29753914	    |CALCAGNO       |Agustín Emanuel        |201530         |25                |2012       |0              ";
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            var persona = TestObjects.UnaPersona();
+
+            CalculadorDeVacaciones calculador = new CalculadorDeVacaciones(new RepositorioLicencias(conexion));
+
+            var vacaciones_permitidas_de_agus = new VacacionesPermitidas();
+            var periodo = new Periodo(new DateTime(2010, 01, 01), new DateTime(2010, 12, 31));
+            periodo.anio = 2012;
+            Assert.AreEqual(25, calculador.CalcularVacacionesPermitidasParaEn(persona, periodo).Dias);
+
         }
 
 

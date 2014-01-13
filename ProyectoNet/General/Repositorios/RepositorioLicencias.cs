@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace General.Repositorios
 {
-    public class RepositorioLicencias : IRepositorioLicencia
+    public class RepositorioLicencias : RepositorioLazy<List<VacacionesPermitidas>>, General.Repositorios.IRepositorioLicencia
     {
         public IConexionBD conexion_bd { get; set; }
 
@@ -188,13 +188,36 @@ namespace General.Repositorios
         #endregion
 
 
-        public List<VacacionesPermitidas> GetVacacionesPermitidas(List<Persona> personas, List<Periodo> periodos)        
+        public List<VacacionesPermitidas> GetVacacionesPermitidas()        
         {
+            //List<Persona> personas, List<Periodo> periodos
 
+            //var parametros = new Dictionary<string, object>();
+            //parametros.Add("@documento", evaluacion.Alumno.Id);
+            //parametros.Add("@periodo", evaluacion.Curso.Id);
+            //parametros.Add("@id_concepto_licencia", 1);
+            List<VacacionesPermitidas> vacaciones_permitidas = new List<VacacionesPermitidas>();
 
-          // conexion_bd.Ejecutar("dbo.");
-           
-            return new List<VacacionesPermitidas>();
+            var tablaDatos = conexion_bd.Ejecutar("dbo.Gral_Lic_GetDiasVacaciones");
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Persona persona = new Persona();
+                persona.Documento = row.GetInt("NroDocumento");
+                persona.Apellido = row.GetString("Apellido");
+                persona.Nombre = row.GetString("Nombre");
+
+                Periodo periodo = new Periodo();
+                periodo.anio = row.GetSmallintAsInt("Periodo");
+
+                int dias = row.GetSmallintAsInt("Dias_Autorizados");
+
+                VacacionesPermitidas vacaciones = new VacacionesPermitidas(persona, periodo, dias);
+
+                vacaciones_permitidas.Add(vacaciones);
+            });
+
+            return vacaciones_permitidas;
         }
 
     }

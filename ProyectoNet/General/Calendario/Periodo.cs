@@ -10,6 +10,9 @@ namespace General
 
         DateTime fechaDesde;
         DateTime fechaHasta;
+        int _anio;
+
+        public int anio { get { return _anio; } set { _anio = value; } } 
 
         public Periodo()
         { }
@@ -25,6 +28,10 @@ namespace General
             return estadia.Desde >= fechaDesde && estadia.Desde <= fechaHasta;
         
         }
+
+
+
+
 
     }
 }
