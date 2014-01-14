@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    public class VacacionesPermitidas
+    public class VacacionesAprobadas
     {
         private Persona _persona;
         private Periodo _periodo;
@@ -17,7 +17,7 @@ namespace General
         public Periodo Periodo { get { return _periodo; } }
         public int Concepto { get { return _concepto; } }
 
-        public VacacionesPermitidas(Persona persona, Periodo periodo, int dias, int concepto) 
+        public VacacionesAprobadas(Persona persona, Periodo periodo, int dias, int concepto) 
         {
             this._persona = persona;
             this._periodo = periodo;
@@ -25,10 +25,6 @@ namespace General
             this._concepto = concepto;
         }
 
-        public VacacionesPermitidas()
-        {
-            // TODO: Complete member initialization
-        }
 
 
     }

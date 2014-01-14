@@ -69,9 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Asistencia\CalculadorDeVacaciones.cs" />
+    <Compile Include="Asistencia\Vacacion.cs" />
     <Compile Include="Asistencia\ConceptoDeLicencia.cs" />
+    <Compile Include="Asistencia\CodigosDeLicencias.cs" />
     <Compile Include="Asistencia\PaseDeArea.cs" />
     <Compile Include="Asistencia\ProrrogaLicenciaOrdinaria.cs" />
+    <Compile Include="Asistencia\VacacionesAprobadas.cs" />
     <Compile Include="Asistencia\VacacionesPermitidas.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />

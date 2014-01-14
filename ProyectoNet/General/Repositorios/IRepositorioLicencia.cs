@@ -11,6 +11,10 @@ namespace General.Repositorios
         bool GetSolicitudesQueSePisanCon(General.Licencia unaLicencia);
         string Guardar(General.Licencia unaLicencia);
         //System.Collections.Generic.List<General.VacacionesPermitidas> GetVacacionesPermitidas( System.Collections.Generic.List<General.Persona> personas, System.Collections.Generic.List<General.Periodo> periodos );
-        global::System.Collections.Generic.List<global::General.VacacionesPermitidas> GetVacacionesPermitidas();
+        List<VacacionesPermitidas> GetVacacionesPermitidas();
+        List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, Periodo periodo, Licencia licencia);
+        List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, Periodo periodo, Licencia licencia);
+
+        List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona);
     }
 }
