@@ -1898,18 +1898,6 @@ public class WSViaticos : System.Web.Services.WebService
         return Autorizador().GetMenuPara(nombre_menu, usuario);
     }
 
-    private Autorizador Autorizador()
-    {
-        var repo_funcionalidades = new RepositorioDeFuncionalidades(Conexion());
-        var repo_accesos = new RepositorioDeAccesosAURL(Conexion(), repo_funcionalidades);
-
-        return new Autorizador(repo_funcionalidades,
-            new RepositorioDeMenues(Conexion(), repo_accesos), 
-            new RepositorioDeUsuarios(Conexion()), 
-            new RepositorioDePermisosSobreAreas(Conexion()),
-            repo_accesos); 
-    }
-
     #endregion
 
     [WebMethod]
@@ -2119,7 +2107,19 @@ public class WSViaticos : System.Web.Services.WebService
 
     private IRepositorioDeUsuarios RepositorioDeUsuarios()
     {
-        return TestObjectsMau.RepositorioDeUsuarios();
+        return new RepositorioDeUsuarios(Conexion());
+    }
+
+    private Autorizador Autorizador()
+    {
+        var repo_funcionalidades = new RepositorioDeFuncionalidades(Conexion());
+        var repo_accesos = new RepositorioDeAccesosAURL(Conexion(), repo_funcionalidades);
+
+        return new Autorizador(repo_funcionalidades,
+            new RepositorioDeMenues(Conexion(), repo_accesos),
+            RepositorioDeUsuarios(),
+            new RepositorioDePermisosSobreAreas(Conexion()),
+            repo_accesos);
     }
 
     private RepositorioDeDocentes RepositorioDeDocentes()

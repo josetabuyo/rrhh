@@ -38,10 +38,11 @@ namespace General.MAU
                     menues.Add(menu);
                 };
                 var menu_actual = menues.Find(m => m.Id == row.GetInt("IdMenu"));
-                if(!menu_actual.Items.Exists(i => i.Id == row.GetInt("IdItem"))){
+                if(!menu_actual.Items.Exists(i => i.Id == row.GetInt("IdItemMenu"))){
                     var item = new ItemDeMenu();
-                    item.Id = row.GetInt("IdItem");
-                    item.NombreItem = row.GetString("NombreItem");
+                    item.Id = row.GetInt("IdItemMenu");
+                    item.NombreItem = row.GetString("NombreItemMenu");
+                    item.Descripcion = row.GetString("DescripcionItemMenu");
                     item.Orden = row.GetInt("OrdenItemMenu");
                     item.Acceso = accesos.Find(a=> a.Id==row.GetInt("IdAccesoAURL"));
                     menu_actual.Items.Add(item);
