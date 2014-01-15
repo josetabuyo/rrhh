@@ -7,17 +7,22 @@ namespace General
 {
     public class VacacionesPendientesDeAprobacion
     {
-        private Persona juan;
-        private object primero_de_febrero;
-        private object cinco_de_febrero;
+        private Persona _persona;
+        private DateTime _desde;
+        private DateTime _hasta;
 
-        public VacacionesPendientesDeAprobacion(Persona juan, object primero_de_febrero, object cinco_de_febrero)
+        public VacacionesPendientesDeAprobacion(Persona persona, DateTime desde, DateTime hasta)
         {
             // TODO: Complete member initialization
-            this.juan = juan;
-            this.primero_de_febrero = primero_de_febrero;
-            this.cinco_de_febrero = cinco_de_febrero;
+            this._persona = persona;
+            this._desde = desde;
+            this._hasta = hasta;
         }
 
+
+        public int CantidadDeDias()
+        {
+            return (_hasta - _desde).Days + 1;
+        }
     }
 }

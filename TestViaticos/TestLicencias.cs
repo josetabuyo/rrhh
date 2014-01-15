@@ -196,7 +196,7 @@ namespace TestViaticos
             //var vacaciones_permitidas_de_agus = new VacacionesPermitidas();
             var periodo = new Periodo(new DateTime(2010, 01, 01), new DateTime(2010, 12, 31));
             periodo.anio = 2012;
-            Assert.AreEqual(25, calculador.ObtenerLicenciasPermitidasPara(persona, periodo, licencia).First().Dias);
+            Assert.AreEqual(25, calculador.ObtenerLicenciasPermitidasPara(persona, periodo, licencia).First().CantidadDeDias());
 
         }
 
@@ -254,15 +254,11 @@ namespace TestViaticos
 
 
         [TestMethod]
-        public void xxxx()
+        public void calcula_el_saldo_de_10_dias_pendientes_para_juan()
         {
-
             var permitidas_para_juan = new VacacionesPermitidas(juan, 2013, 20);
-
-            var aprobadas_para_juan = new VacacionesAprobadas(juan, primero_de_enero, cinco_de_enero);
-
-            var pendientes_de_aprobar_a_juan = new VacacionesPendientesDeAprobacion(juan, primero_de_febrero, cinco_de_febrero);
-
+            var aprobadas_para_juan = new VacacionesAprobadas(juan, primero_de_enero(), cinco_de_enero());
+            var pendientes_de_aprobar_a_juan = new VacacionesPendientesDeAprobacion(juan, primero_de_febrero(), cinco_de_febrero());
             var calculador_de_vacaciones = new CalculadorDeVacaciones(TestObjects.RepoLicenciaMockeado());
 
             var dias_restantes_de_juan = calculador_de_vacaciones.DiasRestantes(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan);
@@ -271,14 +267,28 @@ namespace TestViaticos
         }
 
 
-        public object primero_de_febrero { get; set; }
+        [TestMethod]
+        public void calcula_el_saldo_de_20_dias_pendientes_para_juan()
+        {
+            var permitidas_para_juan = new VacacionesPermitidas(juan, 2013, 30);
+            var aprobadas_para_juan = new VacacionesAprobadas(juan, primero_de_enero(), cinco_de_enero());
+            var pendientes_de_aprobar_a_juan = new VacacionesPendientesDeAprobacion(juan, primero_de_febrero(), cinco_de_febrero());
+            var calculador_de_vacaciones = new CalculadorDeVacaciones(TestObjects.RepoLicenciaMockeado());
 
-        public object cinco_de_febrero { get; set; }
+            var dias_restantes_de_juan = calculador_de_vacaciones.DiasRestantes(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan);
+
+            Assert.AreEqual(20, dias_restantes_de_juan);
+        }
+
 
         public Persona juan { get; set; }
 
-        public Periodo primero_de_enero { get; set; }
+        public DateTime primero_de_febrero() { return new DateTime(2013, 02, 01); }
+        public DateTime cinco_de_febrero() { return new DateTime(2013, 02, 05); }
 
-        public int cinco_de_enero { get; set; }
+        public DateTime primero_de_enero(){ return  new DateTime(2013,01,01); }
+        public DateTime cinco_de_enero(){ return  new DateTime(2013,01,05) ;}
+
+        
     }
 }

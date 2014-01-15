@@ -29,6 +29,11 @@ namespace General
         
         }
 
+        public int CantidadDeDias() 
+        {
+            return (fechaHasta - fechaDesde).Days;
+        }
+
 
 
 

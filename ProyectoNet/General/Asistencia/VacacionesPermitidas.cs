@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General;
 
 namespace General
 {
     public class VacacionesPermitidas
     {
-        private Persona _persona;
-        private Periodo _periodo;
-        private int _dias;
-        private int _concepto;
-        private General.Persona juan;
-        private int p;
-        private int p_2;
+        protected Persona _persona;
+        protected Periodo _periodo;
+        protected int _dias;
+        protected int _anio;
+        protected int _concepto;
+        protected Persona juan;
 
-        public int Dias { get { return _dias; } set { _dias = value; } }
+
+       
         public Persona Persona { get { return _persona; } }
         public Periodo Periodo { get { return _periodo; } }
         public int Concepto { get { return _concepto; } }
@@ -33,14 +34,18 @@ namespace General
             // TODO: Complete member initialization
         }
 
-        public VacacionesPermitidas(General.Persona juan, int p, int p_2)
+        public VacacionesPermitidas(General.Persona juan, int anio, int dias)
         {
             // TODO: Complete member initialization
             this.juan = juan;
-            this.p = p;
-            this.p_2 = p_2;
+            this._anio = anio;
+            this._dias = dias;
         }
 
+        public int CantidadDeDias() 
+        {
+            return _dias;
+        }
 
     }
 }

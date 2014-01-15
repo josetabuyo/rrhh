@@ -9,34 +9,35 @@ namespace General
     {
         private Persona _persona;
         private Periodo _periodo;
-        private int _dias;
         private int _concepto;
-        private General.Persona juan;
-        private General.Periodo primero_de_enero;
-        private int cinco_de_enero;
+        private Persona juan;
+        private DateTime _desde;
+        private DateTime _hasta;
 
-        public int Dias { get { return _dias; } set { _dias = value; } }
+        
         public Persona Persona { get { return _persona; } }
         public Periodo Periodo { get { return _periodo; } }
         public int Concepto { get { return _concepto; } }
 
-        public VacacionesAprobadas(Persona persona, Periodo periodo, int dias, int concepto) 
+        public VacacionesAprobadas(Persona persona, Periodo periodo, int concepto) 
         {
             this._persona = persona;
             this._periodo = periodo;
-            this._dias = dias;
             this._concepto = concepto;
         }
 
-        public VacacionesAprobadas(General.Persona juan, General.Periodo primero_de_enero, int cinco_de_enero)
+        public VacacionesAprobadas(Persona juan, DateTime desde, DateTime hasta)
         {
             // TODO: Complete member initialization
             this.juan = juan;
-            this.primero_de_enero = primero_de_enero;
-            this.cinco_de_enero = cinco_de_enero;
+            this._desde = desde;
+            this._hasta = hasta;
         }
 
-
+        public int CantidadDeDias()
+        {
+           return (_hasta - _desde).Days +1;
+        }
 
     }
 }

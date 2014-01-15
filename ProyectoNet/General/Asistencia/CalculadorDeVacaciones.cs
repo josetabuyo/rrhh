@@ -52,7 +52,7 @@ namespace General
             int total = 0;
             var vacaciones = lista.FindAll(licencias => licencias.Concepto.Equals(CodigosDeLicencias.Vacaciones));
 
-            return vacaciones.Select(v => v.Dias).Sum();
+            return vacaciones.Select(v => v.CantidadDeDias()).Sum();
         }
 
         public List<VacacionesPermitidas> ObtenerLicenciasPermitidasPara(Persona persona)
@@ -66,7 +66,7 @@ namespace General
 
         public object DiasRestantes(VacacionesPermitidas permitidas_para_juan, VacacionesAprobadas aprobadas_para_juan, VacacionesPendientesDeAprobacion pendientes_de_aprobar_a_juan)
         {
-            return 10;
+            return permitidas_para_juan.CantidadDeDias() - aprobadas_para_juan.CantidadDeDias() - pendientes_de_aprobar_a_juan.CantidadDeDias();
         }
     }
 }
