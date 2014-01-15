@@ -10,5 +10,6 @@ namespace General.MAU
     {
         List<Funcionalidad> FuncionalidadesPara(Usuario usuario);
         void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad);
+        List<Funcionalidad> TodasLasFuncionalidades();
     }
 }

@@ -7,23 +7,24 @@ namespace General.MAU
 {
     public class MenuDelSistema
     {
-        protected string nombre;
+        public string Nombre { get; set; }
         public List<ItemDeMenu> Items {get; set;}
+        public int Id { get; set; }
 
         public MenuDelSistema()
         {
-
+            this.Items = new List<ItemDeMenu>();
         }
 
         public MenuDelSistema(string nombre, List<ItemDeMenu> items)
         {
-            this.nombre = nombre;
+            this.Nombre = nombre;
             this.Items = items;
         }
 
         public bool SeLlama(string nombre_menu)
         {
-            return nombre_menu.Equals(this.nombre);
+            return nombre_menu.Equals(this.Nombre);
         }
 
         public static MenuDelSistema MenuNulo()
@@ -33,7 +34,7 @@ namespace General.MAU
 
         public MenuDelSistema FitrarPorFuncionalidades(List<Funcionalidad> funcionalidades)
         {
-            return new MenuDelSistema(this.nombre, this.Items.FindAll(i => funcionalidades.Contains(i.Acceso.Funcionalidad)));
+            return new MenuDelSistema(this.Nombre, this.Items.FindAll(i => funcionalidades.Contains(i.Acceso.Funcionalidad)));
         }
     }
 }

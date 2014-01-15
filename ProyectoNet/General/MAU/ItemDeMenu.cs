@@ -7,6 +7,7 @@ namespace General.MAU
 {
     public class ItemDeMenu
     {
+        public int Id { get; set; }
         public int Orden { get; set; }
         public string NombreItem { get; set; }
         public string Descripcion { get; set; }
@@ -23,6 +24,6 @@ namespace General.MAU
             this.NombreItem = nombre_item;
             this.Acceso = acceso;
             this.Descripcion = descripcion;
-        }      
+        }
     }
 }

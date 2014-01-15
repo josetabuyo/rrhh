@@ -1898,10 +1898,16 @@ public class WSViaticos : System.Web.Services.WebService
         return Autorizador().GetMenuPara(nombre_menu, usuario);
     }
 
-
     private Autorizador Autorizador()
     {
-        return TestObjectsMau.Autorizador();
+        var repo_funcionalidades = new RepositorioDeFuncionalidades(Conexion());
+        var repo_accesos = new RepositorioDeAccesosAURL(Conexion(), repo_funcionalidades);
+
+        return new Autorizador(repo_funcionalidades,
+            new RepositorioDeMenues(Conexion(), repo_accesos), 
+            new RepositorioDeUsuarios(Conexion()), 
+            new RepositorioDePermisosSobreAreas(Conexion()),
+            repo_accesos); 
     }
 
     #endregion

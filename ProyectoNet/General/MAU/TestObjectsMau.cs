@@ -26,7 +26,7 @@ namespace AdministracionDeUsuarios
             return new Usuario(3, "zambri", "l3WIqH4QWCAycWcSzPXYXRil/M8="); // pass = web1
         }
 
-        private static Dictionary<Usuario, List<Funcionalidad>> diccionario_permisos()
+        public static Dictionary<Usuario, List<Funcionalidad>> diccionario_permisos()
         {
             var diccionario = new Dictionary<Usuario, List<Funcionalidad>>();
             var permisos_jorge = new List<Funcionalidad>();
@@ -38,16 +38,12 @@ namespace AdministracionDeUsuarios
             permisos_javier.Add(FuncionalidadIngresoMenuPrincipal());
             permisos_javier.Add(FuncionalidadIngresoAdministracionDeAreas());
 
-            var permisos_usuario_nulo = new List<Funcionalidad>();
-            permisos_usuario_nulo.Add(FuncionalidadIngresoPantallaLogin());
-
             diccionario.Add(Jorge(), permisos_jorge);
             diccionario.Add(Javier(), permisos_javier);
-            diccionario.Add(new UsuarioNulo(), permisos_usuario_nulo);
             return diccionario;
         }
 
-        private static Dictionary<Usuario, List<Area>> diccionario_areas()
+        public static Dictionary<Usuario, List<Area>> diccionario_areas()
         {
             var diccionario = new Dictionary<Usuario, List<Area>>();
             var areas_javier = new List<Area>();
@@ -58,39 +54,47 @@ namespace AdministracionDeUsuarios
             return diccionario;
         }
 
-        private static List<MenuDelSistema> menues()
+        public static List<MenuDelSistema> menues()
         {
             var menues = new List<MenuDelSistema>();
             menues.Add(MenuPrincipal());
             return menues;
         }
 
-        private static MenuDelSistema MenuPrincipal()
+        public static MenuDelSistema MenuPrincipal()
         {
             var items = new List<ItemDeMenu>();
-            items.Add(new ItemDeMenu(1, "MACC", new AccesoAURL(FuncionalidadIngresoSacc(), URLInicioSacc()), "Módulo para administrar las asistencias de cursos"));
-            items.Add(new ItemDeMenu(2, "MODI", new AccesoAURL(FuncionalidadIngresoModi(), URLInicioModi()), "Módulo para digitalizar legajos"));
-            items.Add(new ItemDeMenu(3, "Administracion de Areas", new AccesoAURL(FuncionalidadIngresoAdministracionDeAreas(), URLInicioAdministracionDeAreas()), "Módulo para administrar áreas"));
+            items.Add(new ItemDeMenu(1, "MACC", new AccesoAURL(1, FuncionalidadIngresoSacc(), URLInicioSacc()), "Módulo para administrar las asistencias de cursos"));
+            items.Add(new ItemDeMenu(2, "MODI", new AccesoAURL(2, FuncionalidadIngresoModi(), URLInicioModi()), "Módulo para digitalizar legajos"));
+            items.Add(new ItemDeMenu(3, "Administracion de Areas", new AccesoAURL(3, FuncionalidadIngresoAdministracionDeAreas(), URLInicioAdministracionDeAreas()), "Módulo para administrar áreas"));
             return new MenuDelSistema("PRINCIPAL", items);
         }
 
-        private static List<AccesoAURL> ListaDeAccesosAUrls()
+        public static List<AccesoAURL> ListaDeAccesosAUrls()
         {
             var lista = new List<AccesoAURL>();
-            lista.Add(new AccesoAURL(FuncionalidadIngresoSacc(), URLInicioSacc()));
-            lista.Add(new AccesoAURL(FuncionalidadIngresoModi(), URLInicioModi()));
-            lista.Add(new AccesoAURL(FuncionalidadIngresoAdministracionDeAreas(), URLInicioAdministracionDeAreas()));
-            lista.Add(new AccesoAURL(FuncionalidadIngresoPantallaLogin(), URLPantallaLogin()));
-            lista.Add(new AccesoAURL(FuncionalidadIngresoMenuPrincipal(), URLMenuPrincipal()));
+            lista.Add(new AccesoAURL(1, FuncionalidadIngresoSacc(), URLInicioSacc()));
+            lista.Add(new AccesoAURL(2, FuncionalidadIngresoModi(), URLInicioModi()));
+            lista.Add(new AccesoAURL(3, FuncionalidadIngresoAdministracionDeAreas(), URLInicioAdministracionDeAreas()));
+            lista.Add(new AccesoAURL(4, FuncionalidadIngresoMenuPrincipal(), URLMenuPrincipal()));
             return lista;
         }
 
         public static Autorizador Autorizador()
         {
-            return new Autorizador(TestObjectsMau.RepositorioDeFuncionalidades(), TestObjectsMau.menues(), TestObjectsMau.RepositorioDeUsuarios(), TestObjectsMau.RepositorioDePermisosSobreAreas(), TestObjectsMau.ListaDeAccesosAUrls());
+            return new Autorizador(TestObjectsMau.RepositorioDeFuncionalidades(),
+                TestObjectsMau.RepositorioDeMenues(), 
+                TestObjectsMau.RepositorioDeUsuarios(), 
+                TestObjectsMau.RepositorioDePermisosSobreAreas(),
+                TestObjectsMau.RepositorioDeAccesosAURL());
         }
 
-        private static IRepositorioDeFuncionalidades RepositorioDeFuncionalidades()
+        public static IRepositorioDeMenues RepositorioDeMenues()
+        {
+            return new RepositorioDeMenues_EnMemoria(menues());
+        }
+
+        public static IRepositorioDeFuncionalidades RepositorioDeFuncionalidades()
         {
             return new RepositorioDeFuncionalidades_EnMemoria(diccionario_permisos());
         }
@@ -98,6 +102,11 @@ namespace AdministracionDeUsuarios
         public static IRepositorioDePermisosSobreAreas RepositorioDePermisosSobreAreas()
         {
             return new RepositorioDePermisosSobreAreas_EnMemoria(diccionario_areas());
+        }
+
+        public static IRepositorioDeAccesosAURL RepositorioDeAccesosAURL()
+        {
+            return new RepositorioDeAccesosAURL_EnMemoria(TestObjectsMau.ListaDeAccesosAUrls());
         }
 
         public static IRepositorioDeUsuarios RepositorioDeUsuarios()
@@ -129,7 +138,7 @@ namespace AdministracionDeUsuarios
             return new Funcionalidad(4, "ingreso_a_administracion_de_areas");
         }
 
-        private static Funcionalidad FuncionalidadIngresoPantallaLogin()
+        public static Funcionalidad FuncionalidadIngresoPantallaLogin()
         {
             return new Funcionalidad(5, "ingreso_a_pantalla_login");
         }
@@ -169,7 +178,7 @@ namespace AdministracionDeUsuarios
             return @"/WEBRH/Login.aspx";
         }
 
-        private static string URLMenuPrincipal()
+        public static string URLMenuPrincipal()
         {
             return @"/WEBRH/MenuPrincipal/Menu.aspx";
         }

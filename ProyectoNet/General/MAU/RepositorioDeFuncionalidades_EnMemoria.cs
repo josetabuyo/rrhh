@@ -37,5 +37,11 @@ namespace General.MAU
             }
             
         }
+
+
+        public List<Funcionalidad> TodasLasFuncionalidades()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

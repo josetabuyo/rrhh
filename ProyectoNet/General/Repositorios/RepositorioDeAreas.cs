@@ -88,6 +88,13 @@ namespace General.Repositorios
         public List<Area> GetTodasLasAreasCompletas()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetAreasCompletas");
+            List<Area> areas = GetAreasDeTablaDeDatos(tablaDatos);
+
+            return areas;
+        }
+
+        public static List<Area> GetAreasDeTablaDeDatos(TablaDeDatos tablaDatos)
+        {
             List<Area> areas = new List<Area>();
 
             if (tablaDatos.Rows.Count > 0)
@@ -160,7 +167,6 @@ namespace General.Repositorios
             {
                 area.DatosDeContacto.Sort((dato1, dato2) => dato1.esMayorQue(dato2));
             }
-
             return areas;
         }
 

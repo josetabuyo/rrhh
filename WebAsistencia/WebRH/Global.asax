@@ -39,12 +39,21 @@
     {
         var a = 1;
     }
-
+    
+    void Application_BeginRequest(object sender, EventArgs e)
+    {
+        var a = 1;
+        //HttpContext.Current.Session.SetSessionStateBehavior(SessionStateBehavior.Default);
+    }
+    void Application_PreRequestHandlerExecute(object sender, EventArgs e)
+    {
+        var a = 1;
+    }
+    
     void Application_AcquireRequestState(object sender, EventArgs e)        
     {
         try
         {
-            if (Request.Path.ToUpper() == @"/WEBRH/LOGIN.ASPX") return;
             var ws = new WSViaticos.WSViaticosSoapClient();
             if (!ws.ElUsuarioPuedeAccederALaURL((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO], Request.Path)) Response.Redirect("~/Login.aspx");
         }

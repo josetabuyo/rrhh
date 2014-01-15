@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AdministracionDeUsuarios;
 
 namespace General.MAU
 {
-    public interface IRepositorioDeUsuarios
+    public interface IRepositorioDeMenues
     {
-        Usuario GetUsuarioPorAlias(string alias);
+        List<MenuDelSistema> TodosLosMenues();
     }
 }
