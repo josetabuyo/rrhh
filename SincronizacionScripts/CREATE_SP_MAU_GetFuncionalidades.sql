@@ -1,4 +1,4 @@
-ALTER PROCEDURE dbo.MAU_GetFuncionalidades 
+CREATE PROCEDURE dbo.MAU_GetFuncionalidades 
 	@id_usuario int = null,
 	@id_funcionalidad int = null
 AS
@@ -14,3 +14,14 @@ BEGIN
 END
 
 
+GO
+
+
+grant exec on dbo.MAU_GetFuncionalidades to RRHH_SIS_LEG_ADM
+grant exec on dbo.MAU_GetFuncionalidades to RRHH_SIS_LEG_INS
+grant exec on dbo.MAU_GetFuncionalidades to RRHH_SIS_LEG_UPD
+grant exec on dbo.MAU_GetFuncionalidades to RRHH_SIS_LEG_USR
+grant exec on dbo.MAU_GetFuncionalidades to usrRRHHws
+
+
+GO

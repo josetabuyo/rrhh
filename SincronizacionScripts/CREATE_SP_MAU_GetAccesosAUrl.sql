@@ -1,21 +1,32 @@
-CREATE PROCEDURE dbo.MAU_GetMenues
-	@id_menu int = null
+CREATE PROCEDURE dbo.MAU_GetAccesosAUrl
+	@id_url int = null,
+	@id_funcionalidad int = null
 AS
 BEGIN  
 
-  SELECT MM.[id]				IdMenu
-        ,MM.[menu]				NombreMenu
-        ,MIM.[id]				IdItemMenu
-        ,MIM.[nombre]			NombreItemMenu
-        ,MIM.[descripcion]	DescripcionItemMenu
-        ,MIM.[idAccesoAUrl]	IdAccesoAUrl
-  FROM [dbo].[MAU_Menues] MM
-  LEFT JOIN [dbo].[MAU_Items_De_Menu_Por_Menu] MIMM ON
-	     MM.Id = MIMM.IdMenu
-  LEFT JOIN [dbo].[MAU_Items_De_Menu] MIM ON
-	     MIM.Id = MIMM.IdItemMenu
-  WHERE (MM.id = @id_menu or @id_menu is null) AND	   
-		 MM.idBaja is null AND MIM.idBaja is null	
+  SELECT [MU].[id]
+        ,[MU].[idFuncionalidad]
+        ,[MU].[url]
+  FROM [dbo].[MAU_Accesos_A_URL] MU
+  LEFT JOIN [dbo].[MAU_Funcionalidades] MF ON
+	     MU.[idFuncionalidad] = MF.[Id]
+  WHERE (MU.Id = @id_url or @id_url is null) AND
+		(MF.Id = @id_funcionalidad or @id_funcionalidad is null) AND
+		MU.idBaja is null AND
+		MF.idBaja is null		
 END
+
+
+GO
+
+
+grant exec on dbo.MAU_GetAccesosAUrl to RRHH_SIS_LEG_ADM
+grant exec on dbo.MAU_GetAccesosAUrl to RRHH_SIS_LEG_INS
+grant exec on dbo.MAU_GetAccesosAUrl to RRHH_SIS_LEG_UPD
+grant exec on dbo.MAU_GetAccesosAUrl to RRHH_SIS_LEG_USR
+grant exec on dbo.MAU_GetAccesosAUrl to usrRRHHws
+
+
+GO
 
 

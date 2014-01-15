@@ -19,3 +19,13 @@ BEGIN
 		 MM.idBaja is null AND MIM.idBaja is null	
 END
 
+
+GO
+
+grant exec on dbo.MAU_GetMenues to RRHH_SIS_LEG_ADM
+grant exec on dbo.MAU_GetMenues to RRHH_SIS_LEG_INS
+grant exec on dbo.MAU_GetMenues to RRHH_SIS_LEG_UPD
+grant exec on dbo.MAU_GetMenues to RRHH_SIS_LEG_USR
+grant exec on dbo.MAU_GetMenues to usrRRHHws
+
+GO
