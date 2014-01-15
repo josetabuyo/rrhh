@@ -223,23 +223,6 @@ namespace General.Repositorios
            // return vacaciones_permitidas;
         }
 
-        public List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, Periodo periodo, Licencia licencia)
-        {
-            var parametros = new Dictionary<string, object>();
-
-            if (persona != null)
-                parametros.Add("@nro_documento", persona.Documento);
-            if (periodo != null)
-                parametros.Add("@periodo", periodo.anio);
-            if (licencia != null)
-                parametros.Add("@id_concepto_licencia", licencia.Concepto);
-
-
-            var tablaDatos = conexion_bd.Ejecutar("dbo.GEN_LIC_GetDiasPermitidos", parametros);
-
-            return ConstruirVacacionesPermitidas(tablaDatos);
-           
-        }
 
         public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, Periodo periodo, Licencia licencia)
         {
@@ -296,17 +279,42 @@ namespace General.Repositorios
         }
 
 
-
-        public List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona)
+        public List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, Periodo periodo, Licencia licencia)
         {
             var parametros = new Dictionary<string, object>();
+                parametros.Add("@nro_documento", persona.Documento);
+                parametros.Add("@periodo", periodo.anio);
+                parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
 
-            parametros.Add("@nro_documento", persona.Documento);
+
+            var tablaDatos = conexion_bd.Ejecutar("dbo.GEN_LIC_GetDiasPermitidos", parametros);
+
+            return ConstruirVacacionesPermitidas(tablaDatos);
+
+        }
+
+        public List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, Licencia licencia)
+        {
+            var parametros = new Dictionary<string, object>();
+                parametros.Add("@nro_documento", persona.Documento);
+                parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
 
             var tablaDatos = conexion_bd.Ejecutar("dbo.GEN_LIC_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesPermitidas(tablaDatos);
 
+
+        }
+
+        public List<VacacionesPermitidas> GetVacacionPermitidaPara(Periodo periodo, Licencia licencia)
+        {
+            var parametros = new Dictionary<string, object>();
+                parametros.Add("@periodo", periodo.anio);
+                parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
+
+            var tablaDatos = conexion_bd.Ejecutar("dbo.GEN_LIC_GetDiasAprobados", parametros);
+
+            return ConstruirVacacionesPermitidas(tablaDatos);
 
         }
     }

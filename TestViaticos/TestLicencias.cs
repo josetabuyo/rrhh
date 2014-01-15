@@ -253,6 +253,32 @@ namespace TestViaticos
 //        }
 
 
+        [TestMethod]
+        public void xxxx()
+        {
 
+            var permitidas_para_juan = new VacacionesPermitidas(juan, 2013, 20);
+
+            var aprobadas_para_juan = new VacacionesAprobadas(juan, primero_de_enero, cinco_de_enero);
+
+            var pendientes_de_aprobar_a_juan = new VacacionesPendientesDeAprobacion(juan, primero_de_febrero, cinco_de_febrero);
+
+            var calculador_de_vacaciones = new CalculadorDeVacaciones(TestObjects.RepoLicenciaMockeado());
+
+            var dias_restantes_de_juan = calculador_de_vacaciones.DiasRestantes(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan);
+
+            Assert.AreEqual(10, dias_restantes_de_juan);
+        }
+
+
+        public object primero_de_febrero { get; set; }
+
+        public object cinco_de_febrero { get; set; }
+
+        public Persona juan { get; set; }
+
+        public Periodo primero_de_enero { get; set; }
+
+        public int cinco_de_enero { get; set; }
     }
 }

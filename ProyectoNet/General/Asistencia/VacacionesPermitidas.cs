@@ -11,6 +11,9 @@ namespace General
         private Periodo _periodo;
         private int _dias;
         private int _concepto;
+        private General.Persona juan;
+        private int p;
+        private int p_2;
 
         public int Dias { get { return _dias; } set { _dias = value; } }
         public Persona Persona { get { return _persona; } }
@@ -28,6 +31,14 @@ namespace General
         public VacacionesPermitidas()
         {
             // TODO: Complete member initialization
+        }
+
+        public VacacionesPermitidas(General.Persona juan, int p, int p_2)
+        {
+            // TODO: Complete member initialization
+            this.juan = juan;
+            this.p = p;
+            this.p_2 = p_2;
         }
 
 

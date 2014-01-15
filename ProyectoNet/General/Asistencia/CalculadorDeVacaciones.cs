@@ -52,17 +52,21 @@ namespace General
             int total = 0;
             var vacaciones = lista.FindAll(licencias => licencias.Concepto.Equals(CodigosDeLicencias.Vacaciones));
 
-            foreach (var dia in vacaciones)
-            {
-                total += dia.Dias;
-            }
-
-            return total;
+            return vacaciones.Select(v => v.Dias).Sum();
         }
 
         public List<VacacionesPermitidas> ObtenerLicenciasPermitidasPara(Persona persona)
         {
-            return _repositorio_licencia.GetVacacionPermitidaPara(persona);// ObtenerLicenciasPermitidasPara(persona);
+            ConceptoDeLicencia concepto = new ConceptoDeLicencia();
+            concepto.Id = CodigosDeLicencias.Vacaciones;
+            Licencia licencia_por_vacaciones = new Licencia();
+            licencia_por_vacaciones.Concepto = concepto;
+            return _repositorio_licencia.GetVacacionPermitidaPara(persona, licencia_por_vacaciones);// ObtenerLicenciasPermitidasPara(persona);
+        }
+
+        public object DiasRestantes(VacacionesPermitidas permitidas_para_juan, VacacionesAprobadas aprobadas_para_juan, VacacionesPendientesDeAprobacion pendientes_de_aprobar_a_juan)
+        {
+            return 10;
         }
     }
 }

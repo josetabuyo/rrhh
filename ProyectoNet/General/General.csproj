@@ -75,6 +75,7 @@
     <Compile Include="Asistencia\PaseDeArea.cs" />
     <Compile Include="Asistencia\ProrrogaLicenciaOrdinaria.cs" />
     <Compile Include="Asistencia\VacacionesAprobadas.cs" />
+    <Compile Include="Asistencia\VacacionesPendientesDeAprobacion.cs" />
     <Compile Include="Asistencia\VacacionesPermitidas.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
