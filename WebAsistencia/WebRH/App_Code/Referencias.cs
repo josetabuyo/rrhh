@@ -30,7 +30,6 @@ public class Referencias
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/placeholder_ie.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/InputSoloNumeros.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/linq.min.js""></script>
-            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/list.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/list.js""></script>";
         refs = refs.Replace("__RUTA_ORIGEN__", ruta_origen);
         return refs;
