@@ -468,6 +468,49 @@ namespace TestViaticos
 
         }
 
+        [TestMethod]
+        public void juan_deberia_poder_solicitar_0_dias_para_2002_y_0_para_2003_y_10_para_2004()
+        {
+            var permitidas_para_juan = new List<VacacionesPermitidas>() { new VacacionesPermitidas(juan, 2002, 12), new VacacionesPermitidas(juan, 2003, 20), new VacacionesPermitidas(juan, 2004, 20) };
+            var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero(), cinco_de_enero()), new VacacionesAprobadas(juan, primero_de_marzo(), diez_de_marzo()), new VacacionesAprobadas(juan, primero_de_abril(), veinte_de_abril()) };
+            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>();
+
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan);
+
+            var vacaciones_solicitables_2002 = listado_solicitables[0];
+            var vacaciones_solicitables_2003 = listado_solicitables[1];
+            var vacaciones_solicitables_2004 = listado_solicitables[2];
+
+            Assert.AreEqual(3, listado_solicitables.Count());
+            Assert.AreEqual(2002, vacaciones_solicitables_2002.Periodo());
+            Assert.AreEqual(0, vacaciones_solicitables_2002.CantidadDeDias());
+            Assert.AreEqual(2003, vacaciones_solicitables_2003.Periodo());
+            Assert.AreEqual(0, vacaciones_solicitables_2003.CantidadDeDias());
+            Assert.AreEqual(2004, vacaciones_solicitables_2004.Periodo());
+            Assert.AreEqual(17, vacaciones_solicitables_2004.CantidadDeDias());
+
+        }
+
+        [TestMethod]
+        public void juan_deberia_poder_solicitar_0_dias_para_2002_y_12_para_2003_y_tener_pendiente_5()
+        {
+            var permitidas_para_juan = new List<VacacionesPermitidas>() { new VacacionesPermitidas(juan, 2002, 12), new VacacionesPermitidas(juan, 2003, 20) };
+            var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero(), cinco_de_enero()), new VacacionesAprobadas(juan, primero_de_marzo(), diez_de_marzo())};
+            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>() { new VacacionesPendientesDeAprobacion(juan, primero_de_febrero(), cinco_de_febrero()) };
+
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan);
+
+            var vacaciones_solicitables_2002 = listado_solicitables.First();
+            var vacaciones_solicitables_2003 = listado_solicitables.Last();
+
+            Assert.AreEqual(2, listado_solicitables.Count());
+            Assert.AreEqual(2002, vacaciones_solicitables_2002.Periodo());
+            Assert.AreEqual(0, vacaciones_solicitables_2002.CantidadDeDias());
+            Assert.AreEqual(2003, vacaciones_solicitables_2003.Periodo());
+            Assert.AreEqual(12, vacaciones_solicitables_2003.CantidadDeDias());
+
+        }
+
 
         public Persona juan { get; set; }
 
@@ -479,6 +522,9 @@ namespace TestViaticos
 
         public DateTime primero_de_marzo() { return new DateTime(2013, 03, 01); }
         public DateTime diez_de_marzo() { return new DateTime(2013, 03, 10); }
+
+        public DateTime primero_de_abril() { return new DateTime(2013, 04, 01); }
+        public DateTime veinte_de_abril() { return new DateTime(2013, 04, 20); }
 
         public CalculadorDeVacaciones calculador() { return new CalculadorDeVacaciones(TestObjects.RepoLicenciaMockeado()); }
 

@@ -79,11 +79,12 @@ namespace General
             var vacaciones_solicitables = new List<VacacionesSolicitables>();
 
             var vacas_aprob = aprobadas.Select(aprob => aprob.CantidadDeDias()).Sum();
+            var vacas_pend = pendientes_de_aprobar.Select(pend => pend.CantidadDeDias()).Sum();
 
             permitidas.ForEach(
                 (permit) => {
-                    var vacas_a_restar = permit.CantidadDeDias() - vacas_aprob;
-                    var dias_del_periodo = permit.CantidadDeDias() - vacas_aprob;
+                    var vacas_a_restar = permit.CantidadDeDias() - vacas_aprob - vacas_pend;
+                    var dias_del_periodo = permit.CantidadDeDias() - vacas_aprob - vacas_pend;
                     if (vacas_a_restar < 0)  {
                         vacas_a_restar = permit.CantidadDeDias();
                         dias_del_periodo = 0;
