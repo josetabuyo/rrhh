@@ -9,7 +9,6 @@ namespace General
     public class VacacionesPermitidas
     {
         protected Persona _persona;
-        protected Periodo _periodo;
         protected int _dias;
         protected int _anio;
         protected int _concepto;
@@ -18,13 +17,13 @@ namespace General
 
        
         public Persona Persona { get { return _persona; } }
-        public Periodo Periodo { get { return _periodo; } }
+        public int Periodo { get { return _anio; } }
         public int Concepto { get { return _concepto; } }
 
-        public VacacionesPermitidas(Persona persona, Periodo periodo, int dias, int concepto) 
+        public VacacionesPermitidas(Persona persona, int periodo, int dias, int concepto) 
         {
             this._persona = persona;
-            this._periodo = periodo;
+            this._anio = periodo;
             this._dias = dias;
             this._concepto = concepto;
         }

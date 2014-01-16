@@ -260,12 +260,7 @@ namespace General.Repositorios
                 persona.Apellido = row.GetString("Apellido");
                 persona.Nombre = row.GetString("Nombre");
 
-                Periodo periodo = new Periodo();
-
-
-              
-                
-                periodo.anio = row.GetSmallintAsInt("Periodo");
+                int periodo = row.GetSmallintAsInt("Periodo");
 
                 int dias = row.GetSmallintAsInt("Dias_Autorizados");
                 int concepto = row.GetSmallintAsInt("Id_Concepto_Licencia");
