@@ -124,30 +124,10 @@ namespace TestAdministracionDeUsuarios
             Assert.IsTrue(areas_administradas_por_javier.Contains(TestObjectsMau.AreaDeLegajos()));
         }
 
-        //[TestMethod]
-        //public void al_pedirle_al_autorizador_las_areas_administradas_por_javier_el_autorizador_pide_a_un_repositorio_los_datos()
-        //{
-        //    var mocks = new Mockery();
-        //    var repo = mocks.NewMock<IRepositorioDePermisosSobreAreas>();
-        //    var autorizador = TestObjectsMau.AutorizadorCon(repo);
-
-        //    Expect.AtLeastOnce.On(repo).Method("AreasAdministradasPor").WithAnyArguments();
-
-        //    autorizador.AreasAdministradasPor(TestObjectsMau.Javier());
-        //    mocks.VerifyAllExpectationsHaveBeenMet();
-        //}
-
-        //[TestMethod]
-        //public void al_pedirle_al_autorizador_los_permisos_de_javier_el_autorizador_pide_a_un_repositorio_los_datos()
-        //{
-        //    var mocks = new Mockery();
-        //    var repo = mocks.NewMock<IRepositorioDeFuncionalidades>();
-        //    var autorizador = TestObjectsMau.AutorizadorCon(repo);
-
-        //    Expect.AtLeastOnce.On(repo).Method("AreasAdministradasPor").WithAnyArguments();
-
-        //    autorizador.AreasAdministradasPor(TestObjectsMau.Javier());
-        //    mocks.VerifyAllExpectationsHaveBeenMet();
-        //}
+        [TestMethod]
+        public void deberia_poder_obtener_del_repositorio_la_lista_completa_de_funcionalidades()
+        {           
+            Assert.AreEqual(5, TestObjectsMau.RepositorioDeFuncionalidades().TodasLasFuncionalidades().Count);
+        }
     }
 }

@@ -37,11 +37,10 @@ namespace General.MAU
             }
             
         }
-
-
+        
         public List<Funcionalidad> TodasLasFuncionalidades()
         {
-            throw new NotImplementedException();
+            return diccionario_de_funcionalidades.SelectMany(key => key.Value).Distinct().ToList();
         }
     }
 }

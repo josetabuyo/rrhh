@@ -8,8 +8,8 @@
     this.lbl_legajo = $('#legajo');
     this.txt_nombre_usuario = $('#txt_nombre_usuario');
 
-    var proveedor_ajax = new ProveedorAjax();
-    this.servicioDeSeguridad = new ServicioDeSeguridad(proveedor_ajax);
+    var proveedor_ajax = new ProveedorAjax("../");
+    this.servicioDeSeguridad = new Autorizador(proveedor_ajax);
     this.servicioDePersonas = new ServicioDePersonas(proveedor_ajax);
 
     this.selector_usuario = new SelectorDePersonas({

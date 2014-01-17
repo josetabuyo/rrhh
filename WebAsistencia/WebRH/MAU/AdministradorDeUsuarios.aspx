@@ -89,7 +89,7 @@
 </body>
 <%= Referencias.Javascript("../")%>
 <script type="text/javascript" src="VistaDePermisosDeUnUsuario.js"></script>
-<script type="text/javascript" src="ServicioDeSeguridad.js"></script>
+<script type="text/javascript" src="Autorizador.js"></script>
 <script type="text/javascript" src="NodoEnArbolDeFuncionalidades.js"></script>
 <script type="text/javascript" src="AdministradorDeUsuarios.js"></script>
 <script type="text/javascript" src="Usuario.js"></script>

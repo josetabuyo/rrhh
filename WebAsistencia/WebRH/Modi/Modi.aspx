@@ -124,7 +124,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var proveedor_ajax = new ProveedorAjax();
+            var proveedor_ajax = new ProveedorAjax("../");
             var servicio_de_legajos = new ServicioDeDigitalizacionDeLegajos(proveedor_ajax);
             var servicio_de_categorias = new ServicioDeCategoriasDeDocumentos(proveedor_ajax);
 
