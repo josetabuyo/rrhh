@@ -67,7 +67,7 @@ namespace AdministracionDeUsuarios
             items.Add(new ItemDeMenu(1, "MACC", new AccesoAURL(1, FuncionalidadIngresoSacc(), URLInicioSacc()), "Módulo para administrar las asistencias de cursos"));
             items.Add(new ItemDeMenu(2, "MODI", new AccesoAURL(2, FuncionalidadIngresoModi(), URLInicioModi()), "Módulo para digitalizar legajos"));
             items.Add(new ItemDeMenu(3, "Administracion de Areas", new AccesoAURL(3, FuncionalidadIngresoAdministracionDeAreas(), URLInicioAdministracionDeAreas()), "Módulo para administrar áreas"));
-            return new MenuDelSistema("PRINCIPAL", items);
+            return new MenuDelSistema("PRINCIPAL", items, new List<MenuDelSistema>());
         }
 
         public static List<AccesoAURL> ListaDeAccesosAUrls()
