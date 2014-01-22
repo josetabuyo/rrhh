@@ -9,5 +9,6 @@ namespace General.MAU
     public interface IRepositorioDeUsuarios
     {
         Usuario GetUsuarioPorAlias(string alias);
+        Usuario GetUsuarioPorIdPersona(int id_persona);
     }
 }

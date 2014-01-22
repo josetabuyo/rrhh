@@ -8,17 +8,17 @@ using General.Repositorios;
 using System.Linq;
 namespace General.Repositorios
 {
-    public class RepositorioDePersonas : RepositorioLazy<List<Persona>>
+    public class RepositorioDePersonas : RepositorioLazy<List<Persona>>, IRepositorioDePersonas
     {
-        public IConexionBD conexion_bd { get; set; }
+        public IConexionBD conexion { get; set; }
 
         public RepositorioDePersonas(IConexionBD conexion)
         {
-            this.conexion_bd = conexion;
+            this.conexion = conexion;
             this.cache = new CacheNoCargada<List<Persona>>();
         }
 
-        public List<Persona> GetPersonas()
+        public List<Persona> TodasLasPersonas()
         {
             return cache.Ejecutar(ObtenerPersonasDesdeLaBase, this);
         }
@@ -27,7 +27,7 @@ namespace General.Repositorios
         {
             var palabras_busqueda = criterio.Split(' ').Select(p => p.ToUpper().Trim());
 
-            return GetPersonas().FindAll(persona => 
+            return TodasLasPersonas().FindAll(persona => 
                 palabras_busqueda.All(palabra =>
                         persona.Apellido.ToUpper().Contains(palabra)||
                         persona.Nombre.ToUpper().Contains(palabra)||
@@ -42,9 +42,22 @@ namespace General.Repositorios
             return this.BuscarPersonas(criterio).FindAll(p => p.Legajo.Trim() != "");
         }
 
-        public List<Persona> ObtenerPersonasDesdeLaBase()
+        protected List<Persona> ObtenerPersonasDesdeLaBase()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.WEB_Get_Personas");
+            var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Personas");
+            return GetPersonasDeTablaDeDatos(tablaDatos);
+        }
+
+        public Persona GetPersonaPorId(int id_persona)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_persona", id_persona);
+            var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Personas", parametros);
+            return GetPersonasDeTablaDeDatos(tablaDatos).First();
+        }
+
+        private static List<Persona> GetPersonasDeTablaDeDatos(TablaDeDatos tablaDatos)
+        {
             var personas = new List<Persona>();
             if (tablaDatos.Rows.Count > 0)
             {

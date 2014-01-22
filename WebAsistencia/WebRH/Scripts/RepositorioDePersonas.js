@@ -1,9 +1,9 @@
-﻿var ServicioDePersonas = function (un_proveedor_ajax) {
+﻿var RepositorioDePersonas = function (un_proveedor_ajax) {
     this.proveedor_ajax = un_proveedor_ajax;
 };
 
-ServicioDePersonas.prototype.buscarPersonas = function (criterio, onSuccess, onError) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/BuscarPersonas",
+RepositorioDePersonas.prototype.buscarPersonas = function (criterio, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "BuscarPersonas",
         data: {
             criterio: criterio
         },
@@ -27,8 +27,8 @@ ServicioDePersonas.prototype.buscarPersonas = function (criterio, onSuccess, onE
     });
 };
 
-ServicioDePersonas.prototype.buscarPersonasConLegajo = function (criterio, onSuccess, onError) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/BuscarPersonasConLegajo",
+RepositorioDePersonas.prototype.buscarPersonasConLegajo = function (criterio, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "BuscarPersonasConLegajo",
         data: {
             criterio: criterio
         },

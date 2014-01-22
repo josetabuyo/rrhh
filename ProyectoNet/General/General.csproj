@@ -80,6 +80,7 @@
     <Compile Include="MAU\Autorizador.cs" />
     <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
+    <Compile Include="Repositorios\IRepositorioDePersonas.cs" />
     <Compile Include="MAU\RepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\RepositorioDeAccesosAURL_EnMemoria.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidades.cs" />

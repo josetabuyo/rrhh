@@ -1855,6 +1855,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Usuario GetUsuarioPorIdPersona(int id_persona)
+    {
+        return RepositorioDeUsuarios().GetUsuarioPorIdPersona(id_persona);
+    }
+
+    [WebMethod]
     public UsuarioNulo GetUsuarioNulo()
     {
         return new UsuarioNulo();
@@ -1865,7 +1871,21 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
     }
-    
+
+    [WebMethod]
+    public Funcionalidad[] TodasLasFuncionalidades()
+    {
+        var funcionalidades = RepositorioDeFuncionalidades().TodasLasFuncionalidades().ToArray();
+        return funcionalidades;
+    }
+
+    [WebMethod]
+    public Funcionalidad[] FuncionalidadesPara(int id_usuario)
+    {
+        var funcionalidades = RepositorioDeFuncionalidades().FuncionalidadesPara(id_usuario).ToArray();
+        return funcionalidades;
+    }
+
     [WebMethod]
     public Persona[] BuscarPersonas(string criterio)
     {
@@ -2107,12 +2127,17 @@ public class WSViaticos : System.Web.Services.WebService
 
     private IRepositorioDeUsuarios RepositorioDeUsuarios()
     {
-        return new RepositorioDeUsuarios(Conexion());
+        return new RepositorioDeUsuarios(Conexion(), RepositorioDePersonas());
+    }
+
+    private IRepositorioDeFuncionalidades RepositorioDeFuncionalidades()
+    {
+        return new RepositorioDeFuncionalidades(Conexion());
     }
 
     private Autorizador Autorizador()
     {
-        var repo_funcionalidades = new RepositorioDeFuncionalidades(Conexion());
+        var repo_funcionalidades = RepositorioDeFuncionalidades();
         var repo_accesos = new RepositorioDeAccesosAURL(Conexion(), repo_funcionalidades);
 
         return new Autorizador(repo_funcionalidades,

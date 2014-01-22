@@ -20,5 +20,10 @@ namespace AdministracionDeUsuarios
         {
             return usuarios.FirstOrDefault(u => u.Alias == alias) ?? new UsuarioNulo();
         }
+
+        public Usuario GetUsuarioPorIdPersona(int id_persona)
+        {
+            return usuarios.FirstOrDefault(u => u.Id == id_persona) ?? new UsuarioNulo();
+        }
     }
 }

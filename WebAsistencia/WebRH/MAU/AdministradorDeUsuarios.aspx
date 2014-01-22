@@ -66,7 +66,7 @@
                     <input id="btn_agregar_area" type=button class="btn btn-primary" value="+"/>
                 </div>           
                 <div id="panel_derecho" class="estilo_formulario">
-                    <legend class="subtitulos"> Permisos </legend>
+                    <legend class="subtitulos"> Funcionalidades </legend>
                     <div id="vista_permisos"> </div>            
                 </div>  
             </div>     
@@ -90,13 +90,15 @@
 <%= Referencias.Javascript("../")%>
 <script type="text/javascript" src="VistaDePermisosDeUnUsuario.js"></script>
 <script type="text/javascript" src="Autorizador.js"></script>
+<script type="text/javascript" src="RepositorioDeFuncionalidades.js"></script>
+<script type="text/javascript" src="RepositorioDeUsuarios.js"></script>
 <script type="text/javascript" src="NodoEnArbolDeFuncionalidades.js"></script>
 <script type="text/javascript" src="AdministradorDeUsuarios.js"></script>
 <script type="text/javascript" src="Usuario.js"></script>
 
 <script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
 
-<script type="text/javascript" src="../Scripts/ServicioDePersonas.js"></script>
+<script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
 <script type="text/javascript" src="../Scripts/Persona.js"></script>
 <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
 

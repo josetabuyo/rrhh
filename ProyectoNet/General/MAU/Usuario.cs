@@ -10,13 +10,7 @@ namespace General.MAU
 {
     public class Usuario : Persona
     {
-        private string _Alias;
-        public string Alias
-        {
-            get { return _Alias; }
-            set { _Alias = value;  }
-        }
-
+        public string Alias { get; set; }
         protected string clave_encriptada { get; set; }
 
         public Usuario()
@@ -26,6 +20,17 @@ namespace General.MAU
         public Usuario(int id, string alias, string clave_encriptada)
         {
             this.Id = id;
+            this.Alias = alias;
+            this.clave_encriptada = clave_encriptada;
+        }
+
+        public Usuario(Persona persona, string alias, string clave_encriptada)
+        {
+            this.Id = persona.Id;
+            this.Nombre = persona.Nombre;
+            this.Apellido = persona.Apellido;
+            this.Documento = persona.Documento;
+            this.Legajo = persona.Legajo;
             this.Alias = alias;
             this.clave_encriptada = clave_encriptada;
         }

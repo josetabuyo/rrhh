@@ -98,7 +98,6 @@ namespace General
             cn.Desconestar();
         }
 
-
         public List<Persona> GetPersonas()
         {
             Persona persona_fer = new Persona();

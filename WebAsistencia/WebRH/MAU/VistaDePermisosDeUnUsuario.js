@@ -5,7 +5,7 @@
 
 VistaDePermisosDeUnUsuario.prototype.start = function () {
     var _this = this;
-    this.servicioDeSeguridad.getFuncionalidades(
+    this.repositorioDeFuncionalidades.todasLasFuncionalidades(
         function (funcionalidades) { //on success
             _this.funcionalidades = funcionalidades;
             var nodos_funcionalidades = [];
@@ -60,10 +60,10 @@ VistaDePermisosDeUnUsuario.prototype.setUsuario = function (un_usuario) {
     }, true);
     this.usuario = un_usuario;
     var _this = this;
-    this.servicioDeSeguridad.getPermisosPara(un_usuario,
+    this.repositorioDeFuncionalidades.funcionalidadesPara(un_usuario,
         function (permisos) { //on success
             for (var i = 0; i < permisos.length; i++) {
-                var nodo = _this.arbol.getNodeByKey(permisos[i].funcionalidad.nombre);
+                var nodo = _this.arbol.getNodeByKey(permisos[i].Id);
                 if (permisos[i].tipo == "Concedido") {
                     nodo.select(true);
                 }

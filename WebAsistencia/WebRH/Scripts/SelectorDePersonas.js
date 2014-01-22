@@ -12,7 +12,7 @@ SelectorDePersonas.prototype.start = function () {
         width: 'resolve',
         placeholder: this.placeholder || 'ingrese nombre, apellido, documento o legajo',
         query: function (query) {
-            _this.servicioDePersonas.buscarPersonasConLegajo(
+            _this.repositorioDePersonas.buscarPersonasConLegajo(
                 query.term,
                 function (personas) {
                     var data = { results: personas };

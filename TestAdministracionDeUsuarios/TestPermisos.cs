@@ -129,5 +129,11 @@ namespace TestAdministracionDeUsuarios
         {           
             Assert.AreEqual(5, TestObjectsMau.RepositorioDeFuncionalidades().TodasLasFuncionalidades().Count);
         }
+
+        [TestMethod]
+        public void deberia_poder_obtener_un_usuario_pasando_su_id_persona()
+        {
+            Assert.AreEqual(TestObjectsMau.Jorge(), TestObjectsMau.RepositorioDeUsuarios().GetUsuarioPorIdPersona(1));
+        }
     }
 }

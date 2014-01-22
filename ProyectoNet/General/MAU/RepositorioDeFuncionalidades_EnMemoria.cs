@@ -21,6 +21,11 @@ namespace General.MAU
             return diccionario_de_funcionalidades.GetValueOrDefault(usuario, new List<Funcionalidad>());
         }
 
+        public List<Funcionalidad> FuncionalidadesPara(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
         public void  ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
         {
             if (diccionario_de_funcionalidades.ContainsKey(usuario))

@@ -23,8 +23,13 @@ namespace General.MAU
 
         public List<Funcionalidad> FuncionalidadesPara(Usuario usuario)
         {
+            return this.FuncionalidadesPara(usuario.Id);
+        }
+
+        public List<Funcionalidad> FuncionalidadesPara(int id_usuario)
+        {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario", usuario.Id);
+            parametros.Add("@id_usuario", id_usuario);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_GetFuncionalidades", parametros);
 
             return GetFuncionalidadesDeTablaDeDatos(tablaDatos);
