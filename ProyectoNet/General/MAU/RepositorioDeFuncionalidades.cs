@@ -48,7 +48,24 @@ namespace General.MAU
 
         public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
         {
-            throw new NotImplementedException();
+            this.ConcederFuncionalidadA(usuario.Id, funcionalidad.Id);
+        }
+
+        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_funcionalidad", id_funcionalidad);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_ConcederFuncionalidadA", parametros);
+        }
+
+
+        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_funcionalidad", id_funcionalidad);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_DenegarFuncionalidadA", parametros);
         }
     }
 }

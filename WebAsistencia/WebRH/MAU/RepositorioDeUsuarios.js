@@ -7,15 +7,7 @@ RepositorioDeUsuarios.prototype.getUsuarioPorIdPersona = function (id_persona, o
         data: {
             id_persona: id_persona
         },
-        success: function (usuario_json) {
-            var usuario = new Usuario({
-                id: usuario_json.Id,
-                nombre: usuario_json.Nombre,
-                apellido: usuario_json.Apellido,
-                legajo: usuario_json.Legajo,
-                documento: usuario_json.Documento,
-                alias: usuario_json.Alias
-            });
+        success: function (usuario) {
             onSuccess(usuario);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

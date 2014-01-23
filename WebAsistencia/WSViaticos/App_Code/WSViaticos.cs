@@ -1913,6 +1913,18 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+    {
+        Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+    }
+
+    [WebMethod]
+    public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+    {
+        Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+    }
+
+    [WebMethod]
     public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
     {
         return Autorizador().GetMenuPara(nombre_menu, usuario);

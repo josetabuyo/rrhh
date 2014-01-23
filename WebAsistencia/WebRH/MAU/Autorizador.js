@@ -2,11 +2,11 @@
     this.proveedor_ajax = un_proveedor_ajax;
 };
 
-Autorizador.prototype.concederPermisoA = function (usuario, funcionalidad, onSuccess, onError) {
-    this.proveedor_ajax.postearAUrl({ url: "ConcederPermisoA",
+Autorizador.prototype.concederFuncionalidadA = function (id_usuario, id_funcionalidad, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "ConcederFuncionalidadA",
         data: {
-            usuario: usuario.nombre,
-            funcionalidad: funcionalidad
+            id_usuario: id_usuario,
+            id_funcionalidad: id_funcionalidad
         },
         success: function () {
             onSuccess();
@@ -17,11 +17,11 @@ Autorizador.prototype.concederPermisoA = function (usuario, funcionalidad, onSuc
     });
 };
 
-Autorizador.prototype.denegarPermisoA = function (usuario, funcionalidad, onSuccess, onError) {
-    this.proveedor_ajax.postearAUrl({ url: "DenegarPermisoA",
+Autorizador.prototype.denegarFuncionalidadA = function (id_usuario, id_funcionalidad, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "DenegarFuncionalidadA",
         data: {
-            usuario: usuario.nombre,
-            funcionalidad: funcionalidad
+            id_usuario: id_usuario,
+            id_funcionalidad: id_funcionalidad
         },
         success: function () {
             onSuccess();
