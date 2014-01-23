@@ -1,14 +1,13 @@
 ﻿var AdministradorDeUsuarios = function () {
     var _this = this;
     this.panel_datos_usuario = $('#panel_datos_usuario');
-    this.panel_datos_usuario.hide();
+    this.panel_datos_usuario.show();
     this.lbl_nombre = $('#nombre');
     this.lbl_apellido = $('#apellido');
     this.lbl_documento = $('#documento');
     this.lbl_legajo = $('#legajo');
     this.txt_nombre_usuario = $('#txt_nombre_usuario');
 
-    this.panel_datos_usuario.show(); //borrar
 
     var proveedor_ajax = new ProveedorAjax("../");
     this.autorizador = new Autorizador(proveedor_ajax);
@@ -24,7 +23,8 @@
 
     this.vista_permisos = new VistaDePermisosDeUnUsuario({
         ui: $('#vista_permisos'),
-        repositorioDeFuncionalidades: this.repositorioDeFuncionalidades
+        repositorioDeFuncionalidades: this.repositorioDeFuncionalidades,
+        autorizador: this.autorizador
     });
 
     this.selector_usuario.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
@@ -33,11 +33,11 @@
             function (usuario) {
                 _this.panel_datos_usuario.show();
                 _this.vista_permisos.setUsuario(usuario);
-                _this.lbl_nombre.text(usuario.nombre);
-                _this.lbl_apellido.text(usuario.apellido);
-                _this.lbl_documento.text(usuario.documento);
-                _this.lbl_legajo.text(usuario.legajo);
-                _this.txt_nombre_usuario.val(usuario.alias);
+                _this.lbl_nombre.text(usuario.Owner.Nombre);
+                _this.lbl_apellido.text(usuario.Owner.Apellido);
+                _this.lbl_documento.text(usuario.Owner.Documento);
+                _this.lbl_legajo.text(usuario.Owner.Legajo);
+                _this.txt_nombre_usuario.val(usuario.Alias);
             },
             function () {
                 alert('error al obtener el usuario');

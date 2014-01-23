@@ -47,5 +47,16 @@ namespace General.MAU
         {
             return diccionario_de_funcionalidades.SelectMany(key => key.Value).Distinct().ToList();
         }
+
+        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

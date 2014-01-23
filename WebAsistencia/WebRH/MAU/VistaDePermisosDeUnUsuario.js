@@ -20,9 +20,9 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
                 onClick: function (node, event) {
                     if (node.getEventTargetType(event) == 'checkbox') {
                         if (node.isSelected()) {
-                            _this.servicioDeSeguridad.denegarPermisoA(
-                                _this.usuario,
-                                node.data.title,
+                            _this.autorizador.denegarFuncionalidadA(
+                                _this.usuario.Id,
+                                node.data.key,
                                 function () {
                                     node.select(false);
                                 },
@@ -30,9 +30,9 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
                             );
                         }
                         else {
-                            _this.servicioDeSeguridad.concederPermisoA(
-                                _this.usuario,
-                                node.data.title,
+                            _this.autorizador.concederFuncionalidadA(
+                                _this.usuario.Id,
+                                node.data.key,
                                 function () {
                                     node.select(true);
                                 },
@@ -61,15 +61,10 @@ VistaDePermisosDeUnUsuario.prototype.setUsuario = function (un_usuario) {
     this.usuario = un_usuario;
     var _this = this;
     this.repositorioDeFuncionalidades.funcionalidadesPara(un_usuario,
-        function (permisos) { //on success
-            for (var i = 0; i < permisos.length; i++) {
-                var nodo = _this.arbol.getNodeByKey(permisos[i].Id);
-                if (permisos[i].tipo == "Concedido") {
-                    nodo.select(true);
-                }
-                if (permisos[i].tipo == "Denegado") {
-                    nodo.select(false);
-                }
+        function (funcionalidades) { //on success
+            for (var i = 0; i < funcionalidades.length; i++) {
+                var nodo = _this.arbol.getNodeByKey(funcionalidades[i].Id.toString());
+                nodo.select(true);
             }
         },
         function (error) { //on error

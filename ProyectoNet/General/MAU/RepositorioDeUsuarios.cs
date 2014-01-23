@@ -41,8 +41,8 @@ namespace General.MAU
         {
             if (tablaDatos.Rows.Count == 0) return new UsuarioNulo();
             var row = tablaDatos.Rows.First();
-            var persona = repositorio_de_personas.GetPersonaPorId(row.GetInt("Id"));
-            return new Usuario(persona, row.GetString("Alias"), row.GetString("Clave_Encriptada"));
+            var persona = repositorio_de_personas.GetPersonaPorId(row.GetInt("Id_Persona"));
+            return new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), persona);
         }
     }
 }

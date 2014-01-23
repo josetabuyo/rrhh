@@ -49,6 +49,16 @@ namespace General.MAU
             this.repositorio_funcionalidades.ConcederFuncionalidadA(usuario, funcionalidad);           
         }
 
+        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+        {
+            this.repositorio_funcionalidades.ConcederFuncionalidadA(id_usuario, id_funcionalidad);           
+        }
+
+        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+        {
+            this.repositorio_funcionalidades.DenegarFuncionalidadA(id_usuario, id_funcionalidad);           
+        }
+
         public static Autorizador Instancia()
         {
             return new Autorizador();

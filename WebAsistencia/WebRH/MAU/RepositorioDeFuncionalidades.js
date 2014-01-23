@@ -17,7 +17,7 @@ RepositorioDeFuncionalidades.prototype.todasLasFuncionalidades = function (onSuc
 RepositorioDeFuncionalidades.prototype.funcionalidadesPara = function (usuario, onSuccess, onError) {
     this.proveedor_ajax.postearAUrl({ url: "FuncionalidadesPara",
         data: {
-            id_usuario: usuario.id
+            id_usuario: usuario.Id
         },
         success: function (permisos) {
             onSuccess(permisos);

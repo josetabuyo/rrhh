@@ -149,17 +149,17 @@ public class AjaxWS : System.Web.Services.WebService {
         return respuestaSerializada;
     }
 
-    //[WebMethod(EnableSession = true)]
-    //public void ConcederPermisoA(string usuario, string funcionalidad)
-    //{
-    //    backEndService.ConcederPermisoA(usuario, funcionalidad);
-    //}
+    [WebMethod(EnableSession = true)]
+    public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+    {
+        backEndService.ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+    }
 
-    //[WebMethod(EnableSession = true)]
-    //public void DenegarPermisoA(string usuario, string funcionalidad)
-    //{
-    //    backEndService.DenegarPermisoA(usuario, funcionalidad);
-    //}    
+    [WebMethod(EnableSession = true)]
+    public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+    {
+        backEndService.DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+    }    
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

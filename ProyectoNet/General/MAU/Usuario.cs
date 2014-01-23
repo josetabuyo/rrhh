@@ -8,29 +8,29 @@ using System.Security.Cryptography;
 
 namespace General.MAU
 {
-    public class Usuario : Persona
+    public class Usuario
     {
+        public int Id { get; set; }
         public string Alias { get; set; }
+        public Persona Owner { get; set; }
+
         protected string clave_encriptada { get; set; }
 
         public Usuario()
         {
         }
 
-        public Usuario(int id, string alias, string clave_encriptada)
+        public Usuario(int id, string alias, string clave_encriptada, Persona owner)
         {
             this.Id = id;
             this.Alias = alias;
             this.clave_encriptada = clave_encriptada;
+            this.Owner = owner;
         }
 
-        public Usuario(Persona persona, string alias, string clave_encriptada)
+        public Usuario(int id, string alias, string clave_encriptada)
         {
-            this.Id = persona.Id;
-            this.Nombre = persona.Nombre;
-            this.Apellido = persona.Apellido;
-            this.Documento = persona.Documento;
-            this.Legajo = persona.Legajo;
+            this.Id = id;
             this.Alias = alias;
             this.clave_encriptada = clave_encriptada;
         }
@@ -58,6 +58,6 @@ namespace General.MAU
             }
 
             return this.Id == ((Usuario)obj).Id; 
-        } 
+        }
     }
 }
