@@ -515,32 +515,112 @@ namespace TestViaticos
         [TestMethod]
         public void test_que_debe__fallar()
         {
-            var vacaciones_permitidas_2011 = new VacacionesPermitidas(juan, 2011, 20);
-            var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { vacaciones_permitidas_2011, new VacacionesPermitidas(juan, 2012, 20) };
-            var aprobadas_para_juan_al_30_11_2013 = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2012(), quince_de_enero_2012()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), veinte_de_marzo_2013()) };
-            var listado_solicitables_al_31_11_2013 = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, aprobadas_para_juan_al_30_11_2013, new List<VacacionesPendientesDeAprobacion>());
+            //var vacaciones_permitidas_2011 = new VacacionesPermitidas(juan, 2011, 20);
+            //var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { vacaciones_permitidas_2011, new VacacionesPermitidas(juan, 2012, 20) };
+            //var aprobadas_para_juan_al_30_11_2013 = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2012(), quince_de_enero_2012()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), veinte_de_marzo_2013()) };
+            //var listado_solicitables_al_31_11_2013 = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, aprobadas_para_juan_al_30_11_2013, new List<VacacionesPendientesDeAprobacion>());
 
 
-            Assert.AreEqual(0, listado_solicitables_al_31_11_2013.First().CantidadDeDias());
-            Assert.AreEqual(2011,listado_solicitables_al_31_11_2013.First().Periodo());
+            //Assert.AreEqual(0, listado_solicitables_al_31_11_2013.First().CantidadDeDias());
+            //Assert.AreEqual(2011,listado_solicitables_al_31_11_2013.First().Periodo());
+            //Assert.AreEqual(5, listado_solicitables_al_31_11_2013.Last().CantidadDeDias());
+            //Assert.AreEqual(2012, listado_solicitables_al_31_11_2013.Last().Periodo());
 
-            //Pasa el 01/12/2013
-
-            var permitidas_para_juan_hasta_2013 = permitidas_para_juan_hasta_2012;
+            ////Pasa el 01/12/2013
+            ////falla porque las permitidas no estan actualizadas y las aprobadas son las mismas que en el año anterior
             
-            permitidas_para_juan_hasta_2013.Remove(vacaciones_permitidas_2011);
-            permitidas_para_juan_hasta_2013.Add(new VacacionesPermitidas(juan, 2013, 20));
+            //var permitidas_para_juan_hasta_2013 =  permitidas_para_juan_hasta_2012;
+            
+            ////permitidas_para_juan_hasta_2013.Remove(vacaciones_permitidas_2011);
+            //permitidas_para_juan_hasta_2013.Add(new VacacionesPermitidas(juan, 2013, 20));
 
-            var listado_solicitables_al_31_11_2014 = calculador().DiasSolicitables(permitidas_para_juan_hasta_2013, aprobadas_para_juan_al_30_11_2013, new List<VacacionesPendientesDeAprobacion>());
+            //var listado_solicitables_al_31_11_2014 = calculador().DiasSolicitables(permitidas_para_juan_hasta_2013, aprobadas_para_juan_al_30_11_2013, new List<VacacionesPendientesDeAprobacion>());
 
-            Assert.AreEqual(5, listado_solicitables_al_31_11_2014.First().CantidadDeDias());
-            Assert.AreEqual(2012, listado_solicitables_al_31_11_2014.First().Periodo());
-            Assert.AreEqual(20, listado_solicitables_al_31_11_2014.Last().CantidadDeDias());
-            Assert.AreEqual(2013, listado_solicitables_al_31_11_2014.Last().Periodo());
+            //Assert.AreEqual(5, listado_solicitables_al_31_11_2014[1].CantidadDeDias());
+            //Assert.AreEqual(2012, listado_solicitables_al_31_11_2014[1].Periodo());
+            //Assert.AreEqual(20, listado_solicitables_al_31_11_2014.Last().CantidadDeDias());
+            //Assert.AreEqual(2013, listado_solicitables_al_31_11_2014.Last().Periodo());
 
         }
 
-        
+        [TestMethod]
+        public void debe_ser_año_imputable_2011()
+        {
+            var aprobacion = new VacacionesAprobadas(juan, primero_de_enero_2012(), quince_de_enero_2012());
+            Assert.AreEqual(1, aprobacion.AnioMaximoImputable().Count());
+            Assert.AreEqual(2011, aprobacion.AnioMaximoImputable().First().Periodo());
+            Assert.AreEqual(15, aprobacion.AnioMaximoImputable().First().CantidadDeDias());
+        }
+
+        [TestMethod]
+        public void debe_ser_año_imputable_2012()
+        {
+            var aprobacion = new VacacionesAprobadas(juan, primero_de_marzo_2013(), veinte_de_marzo_2013());
+            Assert.AreEqual(1, aprobacion.AnioMaximoImputable().Count());
+            Assert.AreEqual(2012, aprobacion.AnioMaximoImputable().First().Periodo());
+            Assert.AreEqual(20, aprobacion.AnioMaximoImputable().First().CantidadDeDias());
+        }
+
+        [TestMethod]
+        public void debe_ser_año_imputable_2012_en_diciembre()
+        {
+            var aprobacion = new VacacionesAprobadas(juan, new DateTime(2012, 12, 01), new DateTime(2012, 12, 15));
+            Assert.AreEqual(1, aprobacion.AnioMaximoImputable().Count());
+            Assert.AreEqual(2012, aprobacion.AnioMaximoImputable().First().Periodo());
+            Assert.AreEqual(15, aprobacion.AnioMaximoImputable().First().CantidadDeDias());
+        }
+
+        [TestMethod]
+        public void debe_ser_año_imputable_2011_y_2012_desde_nov_a_dic()
+        {
+            var aprobacion = new VacacionesAprobadas(juan, new DateTime(2012, 11, 15), new DateTime(2012, 12, 05));
+            Assert.AreEqual(2, aprobacion.AnioMaximoImputable().Count());
+            Assert.AreEqual(2011, aprobacion.AnioMaximoImputable().First().Periodo());
+            Assert.AreEqual(16, aprobacion.AnioMaximoImputable().First().CantidadDeDias());
+            Assert.AreEqual(2012, aprobacion.AnioMaximoImputable().Last().Periodo());
+            Assert.AreEqual(5, aprobacion.AnioMaximoImputable().Last().CantidadDeDias());
+        }
+
+        [TestMethod]
+        public void debe_ser_año_imputable_2012_desde_dic_a_ene()
+        {
+            var aprobacion = new VacacionesAprobadas(juan, new DateTime(2012, 12, 15), new DateTime(2013, 01, 05));
+            Assert.AreEqual(1, aprobacion.AnioMaximoImputable().Count());
+            Assert.AreEqual(2012, aprobacion.AnioMaximoImputable().First().Periodo());
+            Assert.AreEqual(22, aprobacion.AnioMaximoImputable().First().CantidadDeDias());
+        }
+
+        [TestMethod]
+        public void debe_ser_año_imputable_2011_y_2015_nov_a_ene()
+        {
+            var aprobacion = new VacacionesAprobadas(juan, new DateTime(2012, 11, 20), new DateTime(2013, 01, 05));
+            Assert.AreEqual(2, aprobacion.AnioMaximoImputable().Count());
+            Assert.AreEqual(2011, aprobacion.AnioMaximoImputable().First().Periodo());
+            Assert.AreEqual(11, aprobacion.AnioMaximoImputable().First().CantidadDeDias());
+            Assert.AreEqual(2012, aprobacion.AnioMaximoImputable().Last().Periodo());
+            Assert.AreEqual(36, aprobacion.AnioMaximoImputable().Last().CantidadDeDias());
+
+        }
+
+        [TestMethod]
+        public void debe_ser_año_imputable_2012_desde_dic_a_enebaaaa()
+        {
+            var aprobacion = new VacacionesAprobadas(juan, new DateTime(2012, 01, 01), new DateTime(2012, 11, 01));
+            Assert.AreEqual(1, aprobacion.AnioMaximoImputable().Count());
+            Assert.AreEqual(2011, aprobacion.AnioMaximoImputable().First().Periodo());
+            Assert.AreEqual(306666, aprobacion.AnioMaximoImputable().First().CantidadDeDias());
+        }
+
+        [TestMethod]
+        public void debe_ser_año_imputable_2012_desde_dic_a_enebaaaaeeeeeeeeeeeeeee()
+        {
+            var aprobacion = new VacacionesAprobadas(juan, new DateTime(2012, 01, 01), new DateTime(2012, 12, 05));
+            Assert.AreEqual(2, aprobacion.AnioMaximoImputable().Count());
+            Assert.AreEqual(2011, aprobacion.AnioMaximoImputable().First().Periodo());
+            Assert.AreEqual(3356666, aprobacion.AnioMaximoImputable().First().CantidadDeDias());
+            Assert.AreEqual(2012, aprobacion.AnioMaximoImputable().Last().Periodo());
+            Assert.AreEqual(566666, aprobacion.AnioMaximoImputable().Last().CantidadDeDias());
+        }
 
         //PARA DESPUÉS
         //[TestMethod]
