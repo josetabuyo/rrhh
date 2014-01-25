@@ -16,12 +16,12 @@ namespace General
             this._dias = dias;
         }
 
-        public object Periodo()
+        public int Periodo()
         {
             return this._perido;
         }
 
-        public object CantidadDeDias()
+        public int CantidadDeDias()
         {
             return this._dias;
         }

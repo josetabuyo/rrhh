@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using General.Repositorios;
+using General;
 
 namespace General
 {
@@ -77,26 +78,74 @@ namespace General
         public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<VacacionesAprobadas> aprobadas, List<VacacionesPendientesDeAprobacion> pendientes_de_aprobar)
         {
             var vacaciones_solicitables = new List<VacacionesSolicitables>();
-
+                        
             var vacas_aprob = aprobadas.Select(aprob => aprob.CantidadDeDias()).Sum();
             var vacas_pend = pendientes_de_aprobar.Select(pend => pend.CantidadDeDias()).Sum();
 
             permitidas.ForEach(
-                (permit) => {
+                (permit) =>
+                {
+
                     var vacas_a_restar = permit.CantidadDeDias() - vacas_aprob - vacas_pend;
-                    var dias_del_periodo = permit.CantidadDeDias() - vacas_aprob - vacas_pend;
-                    if (vacas_a_restar < 0)  {
+                    var dias_vigentes_para_el_perido = permit.CantidadDeDias() - vacas_aprob - vacas_pend;
+                    if (vacas_a_restar < 0)
+                    {
                         vacas_a_restar = permit.CantidadDeDias();
-                        dias_del_periodo = 0;
+                        dias_vigentes_para_el_perido = 0;
+                    } else { 
+                        vacas_a_restar = vacas_aprob; 
                     };
 
-                    vacaciones_solicitables.Add(new VacacionesSolicitables(permit.Periodo, dias_del_periodo));
+                    vacaciones_solicitables.Add(new VacacionesSolicitables(permit.Periodo, dias_vigentes_para_el_perido));
+                    
                     vacas_aprob -= vacas_a_restar;
                     if (vacas_aprob < 0) vacas_aprob = 0;
                 }
                 );
 
             return vacaciones_solicitables;
+        }
+
+        public List<VacacionesPermitidas> DiasPerdidos(List<VacacionesPermitidas> vacaciones_permitidas, List<VacacionesAprobadas> vacaciones_aprobadas, List<VacacionesPendientesDeAprobacion> vacaciones_pendientes_de_aprobacion)
+        {
+            List<VacacionesPermitidas> licencias_perdidas = new List<VacacionesPermitidas>();
+
+            var licencias_solicitadas = ObtenerLicenciasSolicitadas(vacaciones_aprobadas, vacaciones_pendientes_de_aprobacion);
+            var licencias_permitidas = vacaciones_permitidas;
+            //ME FALTA ORDENARLAS
+
+            var primer_licencia_solicitada = licencias_solicitadas.First();
+            var primer_licencia_permitida = licencias_permitidas.First();
+
+            if ((primer_licencia_permitida.Periodo - primer_licencia_solicitada.Periodo()) < 0 )
+            {
+                var prorroga_del_primer_usufructo = licencias_permitidas.Find(lic_permitida => lic_permitida.Periodo == primer_licencia_solicitada.Periodo()).Prorroga;
+                var anio_vigente = primer_licencia_solicitada.Periodo() - prorroga_del_primer_usufructo;
+
+                licencias_perdidas = licencias_permitidas.FindAll(lic_permitida => lic_permitida.Periodo < anio_vigente);
+
+            }
+
+
+            return licencias_perdidas;
+        }
+
+        private List<CantidadDeDiasPorPeriodo> ObtenerLicenciasSolicitadas(List<VacacionesAprobadas> vacaciones_aprobadas, List<VacacionesPendientesDeAprobacion> vacaciones_pendientes_de_aprobacion)
+        {
+            List<CantidadDeDiasPorPeriodo> licencias_solicitadas = new List<CantidadDeDiasPorPeriodo>();
+
+            foreach (var aprobada in vacaciones_aprobadas)
+            {
+                licencias_solicitadas.AddRange(aprobada.AnioMaximoImputable());
+            }
+
+            //HARÍA EXACTAMENTE LO MISMO QUE LAS APROBADAS
+            //foreach (var pendientes_de_aprobar in vacaciones_pendientes_de_aprobacion)
+            //{
+            //    licencias_solicitadas.AddRange(pendientes_de_aprobar.AnioMaximoImputable());
+            //}
+
+            return licencias_solicitadas;
         }
     }
 }
