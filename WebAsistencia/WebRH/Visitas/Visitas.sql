@@ -8,6 +8,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[CtlAcc_Ac
 	DROP TABLE [dbo].[CtlAcc_Acreditacion]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[CtlAcc_AutorizacionFechaPersonas]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	DROP TABLE [CtlAcc_AutorizacionFechaPersonas]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[CtlAcc_AutorizacionFecha]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	DROP TABLE [dbo].[CtlAcc_AutorizacionFecha]
 GO
@@ -20,7 +24,6 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[CtlAcc_Mo
 	DROP TABLE [dbo].[CtlAcc_Motivo]
 GO
 
-
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[CtlAcc_PersonaVisita]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	DROP TABLE [dbo].[CtlAcc_PersonaVisita]
 GO
@@ -28,9 +31,9 @@ GO
 
 CREATE TABLE dbo.CtlAcc_PersonaVisita (
 	IdPersona	int primary key,
-	Apellido	varchar(32) ,
-	Nombre		varchar(64) ,
-	Documento	int			,
+	Apellido	varchar(32) not null,
+	Nombre		varchar(64) not null,
+	Documento	int			not null,
 )
 GO
 
@@ -86,7 +89,21 @@ GO
 
 CREATE TABLE [dbo].[CtlAcc_AutorizacionFecha](
 	[IdAutorizacion] [int] NOT NULL foreign key references CtlAcc_Autorizacion ([IdAutorizacion]),
-	[Fecha] [smalldatetime]
+	[Fecha] [smalldatetime] NOT NULL,
+	primary key ([IdAutorizacion], [Fecha]),
+
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [dbo].[CtlAcc_AutorizacionFechaPersonas](
+	[IdAutorizacion] [int] NOT NULL,
+	[Fecha] [smalldatetime] NOT NULL,
+	[IdPersona] [int] NOT NULL foreign key references dbo.CtlAcc_PersonaVisita ([IdPersona]),
+	[NroCredencial] varchar(64) not null,
+	foreign key ([IdAutorizacion], [Fecha]) references dbo.CtlAcc_AutorizacionFecha ([IdAutorizacion], [Fecha]),
+	primary key ([IdAutorizacion], [Fecha], [IdPersona]),
+
 ) ON [PRIMARY]
 GO
 
@@ -95,7 +112,6 @@ CREATE TABLE [dbo].[CtlAcc_Acreditacion](
 	[IdAcreditacion] int primary key,
 	[IdAutorizacion] int foreign key references [dbo].[CtlAcc_Autorizacion] (IdAutorizacion),
 	[Fecha] [smalldatetime],
-	[NroCredencial] varchar(64) not null,
 	[Log_UserId] int not null,
 	[Log_Fecha] smalldatetime not null default( getdate() ),
 	[Log_IP] varchar(16) not null default(''), 
@@ -174,77 +190,6 @@ BEGIN
 END
 GO
 
-
-
-
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[CtlAcc_SEL_Autorizaciones_Hoy]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-	DROP PROCEDURE [dbo].[CtlAcc_SEL_Autorizaciones_Hoy]
-GO
-
-CREATE 
-PROCEDURE dbo.CtlAcc_SEL_Autorizaciones_Hoy
-(
-	@Apellido	varchar(64),
-	@Nombre		varchar(64),
-	@Documento	int
-)
-AS
-BEGIN
-
-CREATE TABLE #tmpFun ( IdFuncionario int, Apellido	varchar(64), Nombre		varchar(64), NroDoc		int, Tratamiento	varchar(32), Telefono	int,  Lugar		varchar(128) )
-INSERT INTO #tmpFun exec CtlAcc_SEL_Funcionario 1
-
-
-CREATE TABLE #tmpPer ( Id int, Nombre varchar(64), Apellido varchar(64), Documento int, Telefono int )
-INSERT INTO #tmpPer exec CtlAcc_SEL_Persona '', '', 0
-
-
-SELECT	U.IdAutorizacion,
-		U.Acompanantes,
-		CASE WHEN A.IdAcreditacion IS NULL THEN 0 ELSE 1 END Acreditacion,
-		U.Fecha,
-		U.IdFuncionario,
-		U.Lugar,
-		U.IdMotivo,
-		U.Representa,
-		U.IdPersona,
-		F.Apellido +', ' + F.Nombre Funcionario,
-		P.Apellido +', ' + P.Nombre Persona,
-		M.Motivo
-
-FROM	(
-			SELECT	1	IdAutorizacion, 
-					2	Acompanantes,
-					convert(datetime,convert(varchar(8), getdate(),112 ))	Fecha, 
-					1	IdFuncionario, 
-					'PISO 14'	Lugar, 
-					1 IdMotivo, 
-					'Presidencia' Representa, 
-					2 IdPersona
-			UNION ALL
-			SELECT	2	IdAutorizacion, 
-					4	Acompanantes, 
-					convert(datetime,convert(varchar(8), getdate(),112 ))	Fecha, 
-					2	IdFuncionario, 
-					'PISO 21'	Lugar, 
-					3 IdMotivo, 
-					'MIN: ECONOM.' Representa, 
-					3 IdPersona
-		)	as U
-JOIN	dbo.CtlAcc_Motivo as M ON U.IdMotivo = M.IdMotivo
-JOIN	#tmpFun as F ON F.IdFuncionario = U.IdFuncionario
-JOIN	#tmpPer as P ON P.Id = U.IdPersona
-LEFT	JOIN dbo.CtlAcc_Acreditacion as A ON A.IdAutorizacion = U.IdAutorizacion
-WHERE	U.Fecha = convert(datetime,convert(varchar(8), getdate(),112 ))
-
-DROP TABLE #tmpFun
-DROP TABLE #tmpPer
-
-
-END
-GO
-
-
 -----------------------------------------
 -----------------------------------------
 
@@ -265,9 +210,11 @@ BEGIN
 
 	SET NOCOUNT ON
 
+	SET @Apellido	= LTRIM(RTRIM(UPPER(@Apellido)))
+	SET @Nombre		= LTRIM(RTRIM(UPPER(@Nombre)))
+
 	SET @IdPersona = (SELECT IdPersona FROM dbo.CtlAcc_PersonaVisita as p WHERE p.Documento = @Documento AND p.Apellido = @Apellido AND p.Nombre = @Nombre )
-	IF ( @IdPersona > 0 ) 
-		return
+	IF ( @IdPersona > 0 ) RETURN
 
 	SET @IdPersona = ISNULL((SELECT MAX(IdPersona) FROM dbo.CtlAcc_PersonaVisita), 0) + 1
 
@@ -363,11 +310,185 @@ GO
 -----------------------------------------
 -----------------------------------------
 
+/*
+CREATE TABLE #tmpFun ( IdFuncionario int, Apellido	varchar(64), Nombre		varchar(64), NroDoc		int, Tratamiento	varchar(32), Telefono	int,  Lugar		varchar(128) )
+INSERT INTO #tmpFun exec CtlAcc_SEL_Funcionario 1
+
+
+CREATE TABLE #tmpPer ( Id int, Nombre varchar(64), Apellido varchar(64), Documento int, Telefono int )
+INSERT INTO #tmpPer exec CtlAcc_SEL_Persona '', '', 0
+
+
+SELECT	U.IdAutorizacion,
+		U.Acompanantes,
+		CASE WHEN A.IdAcreditacion IS NULL THEN 0 ELSE 1 END Acreditacion,
+		U.Fecha,
+		U.IdFuncionario,
+		U.Lugar,
+		U.IdMotivo,
+		U.Representa,
+		U.IdPersona,
+		F.Apellido +', ' + F.Nombre Funcionario,
+		P.Apellido +', ' + P.Nombre Persona,
+		M.Motivo
+
+FROM	(
+			SELECT	1	IdAutorizacion, 
+					2	Acompanantes,
+					convert(datetime,convert(varchar(8), getdate(),112 ))	Fecha, 
+					1	IdFuncionario, 
+					'PISO 14'	Lugar, 
+					1 IdMotivo, 
+					'Presidencia' Representa, 
+					2 IdPersona
+			UNION ALL
+			SELECT	2	IdAutorizacion, 
+					4	Acompanantes, 
+					convert(datetime,convert(varchar(8), getdate(),112 ))	Fecha, 
+					2	IdFuncionario, 
+					'PISO 21'	Lugar, 
+					3 IdMotivo, 
+					'MIN: ECONOM.' Representa, 
+					3 IdPersona
+		)	as U
+JOIN	dbo.CtlAcc_Motivo as M ON U.IdMotivo = M.IdMotivo
+JOIN	#tmpFun as F ON F.IdFuncionario = U.IdFuncionario
+JOIN	#tmpPer as P ON P.Id = U.IdPersona
+LEFT	JOIN dbo.CtlAcc_Acreditacion as A ON A.IdAutorizacion = U.IdAutorizacion
+WHERE	U.Fecha = convert(datetime,convert(varchar(8), getdate(),112 ))
+
+DROP TABLE #tmpFun
+DROP TABLE #tmpPer
+*/
+
+
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[CtlAcc_SEL_Autorizaciones]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [dbo].[CtlAcc_SEL_Autorizaciones]
+GO
+
+CREATE 
+PROCEDURE dbo.CtlAcc_SEL_Autorizaciones
+(
+	@Fecha	smalldatetime
+)
+AS
+BEGIN
+
+----------------------
+----------------------
+CREATE TABLE #tmpFun ( IdFuncionario int, Apellido	varchar(64), Nombre		varchar(64), NroDoc		int, Tratamiento	varchar(32), Telefono	int,  Lugar		varchar(128) )
+INSERT INTO #tmpFun exec CtlAcc_SEL_Funcionario 1
+----------------------
+----------------------
+
+	SELECT	af.IdAutorizacion, pe.Apellido, pe.Nombre, pe.Documento, au.Representa, fu.Tratamiento + ' ' +  fu.Apellido + ' ' + fu.Nombre as Funcionario, au.Lugar, au.Acompanantes
+	FROM	( SELECT aaff.IdAutorizacion FROM [dbo].[CtlAcc_AutorizacionFecha] as aaff WHERE aaff.Fecha = @Fecha ) as af
+	JOIN	[dbo].[CtlAcc_Autorizacion] as au ON au.IdAutorizacion = af.IdAutorizacion
+	JOIN	[dbo].[CtlAcc_PersonaVisita] as pe ON au.IdPersona = pe.IdPersona
+	JOIN	#tmpFun as fu ON fu.IdFuncionario = au.IdFuncionario
+
+----------------------
+---------------------
+DROP TABLE #tmpFun
+---------------------
+----------------------
+
+END
+GO
+
+-- exec CtlAcc_SEL_Autorizaciones '20140109'
+
+-----------------------------------------
+-----------------------------------------
+
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[CtlAcc_INS_PersonaAutorizacionFecha]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [dbo].[CtlAcc_INS_PersonaAutorizacionFecha]
+GO
+
+CREATE 
+PROCEDURE dbo.CtlAcc_INS_PersonaAutorizacionFecha
+(
+	@IdAutorizacion	int,
+	@Fecha			smalldatetime,
+	@Apellido		varchar(32),
+	@Nombre			varchar(64),
+	@Documento		int,
+	@NroCredencial	varchar(64)
+)
+AS
+BEGIN
+
+	DECLARE @IdPersona INT;
+
+	EXEC dbo.CtlAcc_INS_Persona @Apellido, @Nombre, @Documento, @IdPersona output;
+	
+	INSERT INTO dbo.CtlAcc_AutorizacionFechaPersonas ( IdAutorizacion, Fecha, IdPersona, NroCredencial )
+	VALUES	( @IdAutorizacion, @Fecha, @IdPersona, @NroCredencial );
+
+END
+GO
 
 
 
 -----------------------------------------
 -----------------------------------------
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[CtlAcc_SEL_PersonasAcreditacion]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [dbo].[CtlAcc_SEL_PersonasAcreditacion]
+GO
+
+CREATE 
+PROCEDURE dbo.CtlAcc_SEL_PersonasAcreditacion
+(
+	@IdAutorizacion	int,
+	@Fecha			smalldatetime
+)
+AS
+BEGIN
+
+	SELECT	pvi.IdPersona, pvi.Apellido, pvi.Nombre, pvi.Documento, afp.NroCredencial
+	FROM	dbo.CtlAcc_AutorizacionFechaPersonas as afp
+	JOIN	dbo.CtlAcc_PersonaVisita as pvi ON afp.IdPersona = pvi.IdPersona
+	WHERE	afp.IdAutorizacion = @IdAutorizacion
+	AND		afp.Fecha = @Fecha;
+
+END
+GO
+
+
+-----------------------------------------
+-----------------------------------------
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[CtlAcc_DEL_PersonasAcreditacion]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [dbo].[CtlAcc_DEL_PersonasAcreditacion]
+GO
+
+CREATE 
+PROCEDURE dbo.CtlAcc_DEL_PersonasAcreditacion
+(
+	@IdAutorizacion	int,
+	@Fecha			smalldatetime,
+	@IdPersona		int
+)
+AS
+BEGIN
+
+	DELETE	afp
+	FROM	dbo.CtlAcc_AutorizacionFechaPersonas as afp
+	WHERE	afp.IdAutorizacion = @IdAutorizacion
+	AND		afp.Fecha = @Fecha
+	AND		afp.IdPersona = @IdPersona;
+
+END
+GO
+
+
+-----------------------------------------
+-----------------------------------------
+
+
 
 
 /*********************************************************************************************************/
@@ -376,3 +497,13 @@ GO
 
 -- ROLLBACK tran
 COMMIT tran
+
+
+-- select * from DB_RRHH.dbo.CtlAcc_Autorizacion
+-- select * from DB_RRHH.dbo.CtlAcc_PersonaVisita
+-- select * from DB_RRHH.dbo.CtlAcc_AutorizacionFecha
+-- select * from DB_RRHH.dbo.CtlAcc_AutorizacionFechaPersonas
+-- delete DB_RRHH.dbo.CtlAcc_AutorizacionFechaPersonas
+
+
+

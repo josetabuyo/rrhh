@@ -1,0 +1,187 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using WSViaticos;
+
+
+public partial class Visitas_Acreditaciones : System.Web.UI.Page
+{
+    public const string cmdAcomp = "CMD_ACOMP";
+
+    private void InitDetalles()
+    {
+        this.divConfirmar.Visible = false;
+        this.divConfirmar.Style["height"] = "1000%";
+        this.divConfirmar.Style["width"] = "100%";
+        this.divConfirmar.Style["position"] = "absolute";
+
+        this.divAddPersona.Visible = false;
+        this.divAddPersona.Style["height"] = "1000%";
+        this.divAddPersona.Style["width"] = "100%";
+        this.divAddPersona.Style["position"] = "absolute";
+
+        this.divPersonasBusq.Visible = false;
+        this.divPersonasBusq.Style["height"] = "1000%";
+        this.divPersonasBusq.Style["width"] = "100%";
+        this.divPersonasBusq.Style["position"] = "absolute";
+
+    }
+
+
+    private void ShowConfirmacion()
+    {
+        this.lbCancelar.Focus();
+        this.divConfirmar.Visible = true;
+    }
+
+    private void HideConfirmacion()
+    {
+        this.divConfirmar.Visible = false;
+    }
+
+    private void ChargeAutorizaciones()
+    {
+        WSViaticosSoapClient ws = new WSViaticosSoapClient();
+        AutorizacionVisitaExtracto[] AutExt = ws.GetAutorizaciones(DateTime.ParseExact(DateTime.Now.ToString("yyyyMMdd"), "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture));
+        GridView_Autorizaciones.DataSource = AutExt;
+        GridView_Autorizaciones.DataBind();
+    }
+
+    private void ShowAcomp()
+    {
+        this.divAddPersona.Visible = true;
+    }
+
+    private void HideAcomp()
+    {
+        this.divAddPersona.Visible = false;
+    }
+
+
+    private void ShowPersonasBusq()
+    {
+        WSViaticosSoapClient ws = new WSViaticosSoapClient();
+        PersonaVisita[] aPV = ws.GetPersonasVisitas(txtApellido.Text, txtNombre.Text, (txtDoc.Text.CompareTo(string.Empty) == 0 ? 0 : Convert.ToInt32(txtDoc.Text)));
+        GridView_Personas.DataSource = aPV;
+        string[] dkn = new string[] { "Id" };
+        GridView_Personas.DataKeyNames = dkn;
+        GridView_Personas.DataBind();
+        GridView_Personas.SelectedIndex = -1;
+        this.divPersonasBusq.Visible = true;
+        this.Button_CancelarBusqueda.Focus();
+    }
+
+    private void HidePersonasBusq()
+    {
+        this.divPersonasBusq.Visible = false;
+    }
+
+    private void SetPersonaBusqueda()
+    {
+        txtNombre.Text = Server.HtmlDecode(GridView_Personas.SelectedRow.Cells[2].Text);
+        txtNombre.Enabled = false;
+        txtApellido.Text = Server.HtmlDecode(GridView_Personas.SelectedRow.Cells[3].Text);
+        txtApellido.Enabled = false;
+        txtDoc.Text = Server.HtmlDecode(GridView_Personas.SelectedRow.Cells[4].Text);
+        txtDoc.Enabled = false;
+        HiddenField_IdPersona.Value = GridView_Personas.SelectedDataKey.Value.ToString();
+    }
+
+    private void ClearPersonaSeleccionada()
+    {
+        txtNombre.Text = string.Empty;
+        txtNombre.Enabled = true;
+        txtApellido.Text = string.Empty;
+        txtApellido.Enabled = true;
+        txtDoc.Text = string.Empty;
+        txtDoc.Enabled = true;
+    }
+
+
+    /***********************************************************/
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!Page.IsPostBack)
+        {
+            lblTitulo.Text = "Autorizaciones de acceso " + DateTime.Now.ToString("dd/MM/yyyy") + ":";
+            InitDetalles();
+            ChargeAutorizaciones();
+        }
+    }
+
+    protected void GridView_Autorizaciones_PreRender(object sender, EventArgs e)
+    {
+        if (GridView_Autorizaciones.Rows.Count > 0)
+        {
+            GridView_Autorizaciones.UseAccessibleHeader = true;
+            GridView_Autorizaciones.HeaderRow.TableSection = TableRowSection.TableHeader;
+        }
+    }
+
+    protected void GridView_Autorizaciones_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.ShowConfirmacion();
+    }
+
+    protected void lbCancelar_Click(object sender, EventArgs e)
+    {
+        this.HideConfirmacion();
+    }
+
+    protected void lbConfirmar_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void GridView_Autorizaciones_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName.CompareTo(Visitas_Acreditaciones.cmdAcomp) == 0)
+        {
+            /*********************/
+            WSViaticosSoapClient ws = new WSViaticosSoapClient();
+            AutorizacionVisitaExtracto[] AutExt = ws.GetAutorizaciones(DateTime.ParseExact(DateTime.Now.ToString("yyyyMMdd"), "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture));
+            GridView_Acomp.DataSource = AutExt;
+            GridView_Acomp.DataBind();
+            /*********************/
+            this.ShowAcomp();
+        }
+    }
+
+    protected void Button_CancelarAcomp_Click(object sender, EventArgs e)
+    {
+        this.HideAcomp();
+    }
+
+    protected void ImageButton_BusAcomp_Click(object sender, ImageClickEventArgs e)
+    {       
+        this.ShowPersonasBusq();
+    }
+
+    protected void ImageButton_DelAcomp_Click(object sender, ImageClickEventArgs e)
+    {
+        this.ClearPersonaSeleccionada();
+    }
+
+    protected void Button_CancelarBusqueda_Click(object sender, EventArgs e)
+    {
+        this.HidePersonasBusq();
+    }
+
+    protected void GridView_Personas_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.SetPersonaBusqueda();
+        this.HidePersonasBusq();
+    }
+
+    protected void GridView_Personas_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.Cells.Count > 1) e.Row.Cells[1].Visible = false;
+    }
+
+
+}

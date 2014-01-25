@@ -1814,39 +1814,62 @@ public class WSViaticos : System.Web.Services.WebService
     #region visitas
 
     [WebMethod]
-    public FuncionarioVisita[] GetFuncionarios(int UserId)
+    public FuncionarioVisita[] GetFuncionarios()
     {
-        var Funcionarios = (new RepositorioVisitas(UserId)).getFuncionariosHabilitados().ToArray();
+        var Funcionarios = (new RepositorioVisitas()).getFuncionariosHabilitados().ToArray();
         return Funcionarios;
     }
 
     [WebMethod]
-    public MotivoVisita[] GetMotivoVista(int UserId)
+    public MotivoVisita[] GetMotivoVista()
     {
-        var Motivos = (new RepositorioVisitas(UserId)).getMotivoVista().ToArray();
+        var Motivos = (new RepositorioVisitas()).getMotivoVista().ToArray();
         return Motivos;
     }
 
     [WebMethod]
-    public PersonaVisita[] GetPersonasVisitas(int UserId, string Apellido, string Nombre, int Documento)
+    public PersonaVisita[] GetPersonasVisitas(string Apellido, string Nombre, int Documento)
     {
-        var Personas = (new RepositorioVisitas(UserId)).getPersonas(Apellido, Nombre, Documento).ToArray();
+        var Personas = (new RepositorioVisitas()).getPersonas(Apellido, Nombre, Documento).ToArray();
         return Personas;
     }
 
     [WebMethod]
-    public AutorizacionVisita[] GetAutorizaciones(int UserId, string Apellido, string Nombre, int Documento)
+    public AutorizacionVisitaExtracto[] GetAutorizaciones(DateTime Fecha)
     {
-        var Autorizaciones = (new RepositorioVisitas(UserId)).getAutorizaciones(Apellido, Nombre, Documento).ToArray();
-        return Autorizaciones;
+        var AutExt = (new RepositorioVisitas()).getAutorizaciones(Fecha).ToArray();
+        return AutExt;
     }
 
     [WebMethod]
-    public PersonaVisita savePersonaVisita(int UserId, PersonaVisita unaPersona)
+    public PersonaVisita savePersonaVisita(int UserId, string IP, PersonaVisita unaPersona)
     {
-        return (new RepositorioVisitas(UserId)).savePersona(unaPersona);
+        return (new RepositorioVisitas(UserId, IP)).savePersona(unaPersona);
     }
 
+    [WebMethod]
+    public AutorizacionVisita saveAutorizacionVisita(int UserId, string IP, AutorizacionVisita unaAutorizacion)
+    {
+        return (new RepositorioVisitas(UserId, IP)).saveAutorizacion(unaAutorizacion);
+    }
+
+    [WebMethod]
+    public bool savePersonaAcreditacion(int UserId, string IP, AcreditacionVisita acreditacion, PersonaVisitaAcreditada persona)
+    {
+        return (new RepositorioVisitas(UserId, IP)).savePersonaAcreditacion(acreditacion, persona);
+    }
+
+    [WebMethod]
+    public PersonaVisitaAcreditada[] getPersonasAcreditacion(AcreditacionVisita acreditacion)
+    {
+        return (new RepositorioVisitas()).getPersonasAcreditacion(acreditacion).ToArray();
+    }
+
+    [WebMethod]
+    public bool eliminarPersonaAcreditacion(AcreditacionVisita acreditacion, PersonaVisitaAcreditada persona)
+    {
+        return (new RepositorioVisitas()).eliminarPersonaAcreditacion(acreditacion, persona);
+    }
 
     #endregion
 

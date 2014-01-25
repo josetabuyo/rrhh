@@ -22,30 +22,20 @@ public partial class Visitas_Autorizaciones : System.Web.UI.Page
 
     private void Init_Controls()
     {
-        Usuario user = (Usuario)Session[ConstantesDeSesion.USUARIO];
         WSViaticosSoapClient ws = new WSViaticosSoapClient();
-        SetFuncionarios(DropDownList_Funcionarios, ws.GetFuncionarios(user.Id));
-        SetMotivos(DropDownListMotivo, ws.GetMotivoVista(user.Id));
-        InitPersonasBusqueda();
-        SetJavaScriptControls();
-        SetDiasDisponibles();
+        this.SetFuncionarios(DropDownList_Funcionarios, ws.GetFuncionarios());
+        this.SetMotivos(DropDownListMotivo, ws.GetMotivoVista());
+        this.InitPersonasBusqueda();
+        this.InitInfoPagina();
+        this.SetDiasDisponibles();
+        this.DropDownList_Funcionarios.Focus();
+        this.Form.DefaultButton = this.Button_Ingresar.UniqueID;
     }
 
     private void SetDiasDisponibles()
     {
         lblContadorDias.Text = "Días disponibles: " + (iDiasDispMax - ListBox_DiasSeleccionados.Items.Count).ToString();
     }
-
-    private void SetJavaScriptControls()
-    {
-        txtDoc.Attributes.Add("onkeypress", "return isNumberKey(event);");
-        txtDoc.Attributes.Add("onpaste", "return false;");
-        txtTelefono.Attributes.Add("onkeypress", "return isNumberKey(event);");
-        txtTelefono.Attributes.Add("onpaste", "return false;");
-        txtAcomp.Attributes.Add("onkeypress", "return isNumberKey(event);");
-        txtAcomp.Attributes.Add("onpaste", "return false;");
-    }
-
 
     private void SetLugarSegunFuncionario()
     {
@@ -129,28 +119,58 @@ public partial class Visitas_Autorizaciones : System.Web.UI.Page
 
         this.divGridViewPersonas.Style["position"] = "absolute";
         this.divGridViewPersonas.Style["width"] = "600px";
-        this.divGridViewPersonas.Style["height"] = "300px";
+        this.divGridViewPersonas.Style["height"] = "600px";
         this.divGridViewPersonas.Style["top"] = "50%";
         this.divGridViewPersonas.Style["left"] = "50%";
-        this.divGridViewPersonas.Style["margin"] = "-150px 0 0 -300px";
+        this.divGridViewPersonas.Style["margin"] = "-300px 0 0 -300px";
+    }
+
+    private void InitInfoPagina()
+    {
+        this.divInfoPagina.Visible = false;
+        this.divInfoPagina.Style["height"] = "auto";
+        this.divInfoPagina.Style["width"] = "100%";
+        this.divInfoPagina.Style["position"] = "absolute";
+
+        this.tableInfoPagina.Style["position"] = "absolute";
+        this.tableInfoPagina.Style["width"] = "600px";
+        this.tableInfoPagina.Style["height"] = "150px";
+        this.tableInfoPagina.Style["top"] = "50%";
+        this.tableInfoPagina.Style["left"] = "50%";
+        this.tableInfoPagina.Style["margin"] = "-75px 0 0 -300px";
+
+        this.tableInfoPagina.Style["background-color"] = "White";
     }
 
     private void ShowPersonasBusqueda()
     {
-        Usuario user = (Usuario)Session[ConstantesDeSesion.USUARIO];
         WSViaticosSoapClient ws = new WSViaticosSoapClient();
-        PersonaVisita[] aPV = ws.GetPersonasVisitas(user.Id, txtApellido.Text, txtNombre.Text, (txtDoc.Text.CompareTo(string.Empty) == 0 ? 0 : Convert.ToInt32(txtDoc.Text)));
+        PersonaVisita[] aPV = ws.GetPersonasVisitas(txtApellido.Text, txtNombre.Text, (txtDoc.Text.CompareTo(string.Empty) == 0 ? 0 : Convert.ToInt32(txtDoc.Text)));
         GridView_Personas.DataSource = aPV;
         string[] dkn = new string[] { "Id" };
         GridView_Personas.DataKeyNames = dkn;        
         GridView_Personas.DataBind();
         GridView_Personas.SelectedIndex = -1;
         this.divPersonas.Visible = true;
+        Button_CancelarBusqueda.Focus();
+    }
+
+    private void ShowInfoPagina(string Mensaje, System.Drawing.Color textColor)
+    {
+        lblInfoPagina.Text = Mensaje;
+        lblInfoPagina.ForeColor = textColor;
+        this.divInfoPagina.Visible = true;
+        Button_Aceptar.Focus();
     }
 
     private void HidePersonasBusqueda()
     {
         this.divPersonas.Visible = false;
+    }
+
+    private void HideInfoPagina()
+    {
+        this.divInfoPagina.Visible = false;
     }
 
     private void SetPersonaBusqueda()
@@ -173,8 +193,66 @@ public partial class Visitas_Autorizaciones : System.Web.UI.Page
         txtApellido.Enabled = true;
         txtDoc.Text = string.Empty;
         txtDoc.Enabled = true;
-        txtTelefono.Text = string.Empty;
     }
+
+    private bool ValIngresoAutorizacion()
+    {
+        if (ListBox_DiasSeleccionados.Items.Count < 1)
+        {
+            lblMsj.Text = "Debe agregar al menos un dia a la lista.";
+            return false;
+        }
+        return true;
+    }
+
+    private PersonaVisita CrearPersona()
+    {
+        WSViaticosSoapClient ws = new WSViaticosSoapClient();
+        PersonaVisita unaPersona = new PersonaVisita() { Apellido = txtApellido.Text, Nombre = txtNombre.Text, Documento = Convert.ToInt32(txtDoc.Text) };
+        string IP = HttpContext.Current.Request.UserHostAddress.ToString();
+        unaPersona = ws.savePersonaVisita(((Usuario)Session[ConstantesDeSesion.USUARIO]).Id, IP, unaPersona);
+        return unaPersona;
+    }
+
+    private MotivoVisita CrearMotivo()
+    {
+        return new MotivoVisita() { Id = Convert.ToInt32(DropDownList_Funcionarios.SelectedValue), Motivo = DropDownList_Funcionarios.SelectedItem.Text };
+    }
+
+    private FuncionarioVisita CrearFuncionario()
+    {
+        FuncionarioVisita[] lFun = (FuncionarioVisita[])Session[KeyListFun];
+        return lFun.Single(Fun => Fun.Id == Convert.ToInt32(DropDownList_Funcionarios.SelectedValue));
+    }
+
+
+    private DateTime[] GetFechasSeleccionadas()
+    {
+        DateTime[] aFechas = new DateTime[ListBox_DiasSeleccionados.Items.Count];
+        for (int i = 0; i < ListBox_DiasSeleccionados.Items.Count; i++)
+            aFechas[i] = DateTime.ParseExact(ListBox_DiasSeleccionados.Items[i].Value, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
+        return aFechas;     
+    }
+
+    private AutorizacionVisita GuardarAutorizacion(AutorizacionVisita autVisita)
+    {
+        WSViaticosSoapClient ws = new WSViaticosSoapClient();
+        string IP = HttpContext.Current.Request.UserHostAddress.ToString();
+        return ws.saveAutorizacionVisita(((Usuario)Session[ConstantesDeSesion.USUARIO]).Id, IP, autVisita);
+    }
+
+    private void ClearForm()
+    {
+        this.DropDownList_Funcionarios.SelectedIndex = 0;
+        this.ClearPersonaSeleccionada();
+        this.DropDownListMotivo.SelectedIndex = 0;
+        this.txtLugar.Text = string.Empty;
+        this.txtRepresenta.Text = string.Empty;
+        this.txtAcomp.Text = string.Empty;
+        this.ListBox_DiasSeleccionados.Items.Clear();
+        this.SetDiasDisponibles();
+    }
+    
 
     /*******************************************************/
 
@@ -190,7 +268,6 @@ public partial class Visitas_Autorizaciones : System.Web.UI.Page
     {
         ShowPersonasBusqueda();
     }
-
 
     protected void ImageButton_DelDoc_Click(object sender, ImageClickEventArgs e)
     {
@@ -208,6 +285,7 @@ public partial class Visitas_Autorizaciones : System.Web.UI.Page
     protected void Button_CancelarBusqueda_Click(object sender, EventArgs e)
     {
         HidePersonasBusqueda();
+        this.DropDownList_Funcionarios.Focus();
     }
 
     protected void Calendar_SelDias_SelectionChanged(object sender, EventArgs e)
@@ -228,6 +306,7 @@ public partial class Visitas_Autorizaciones : System.Web.UI.Page
     protected void GridView_Personas_SelectedIndexChanged(object sender, EventArgs e)
     {
         SetPersonaBusqueda();
+        this.DropDownList_Funcionarios.Focus();
     }
 
     protected void DropDownList_Funcionarios_SelectedIndexChanged(object sender, EventArgs e)
@@ -241,13 +320,41 @@ public partial class Visitas_Autorizaciones : System.Web.UI.Page
             e.Cell.BackColor = System.Drawing.Color.FromArgb(0xBC, 0xF5, 0xA9);
     }
 
+    protected void Button_Aceptar_Click(object sender, EventArgs e)
+    {
+        this.HideInfoPagina();
+        this.DropDownList_Funcionarios.Focus();
+    }
+
     protected void Button_Ingresar_Click(object sender, EventArgs e)
     {
-        Usuario user = (Usuario)Session[ConstantesDeSesion.USUARIO];
-        WSViaticosSoapClient ws = new WSViaticosSoapClient();
-        PersonaVisita unaPersona = new PersonaVisita() { Apellido = txtApellido.Text, Nombre = txtNombre.Text, Documento = Convert.ToInt32(txtDoc.Text) };
-        unaPersona = ws.savePersonaVisita(user.Id, unaPersona);
-        txtTelefono.Text = unaPersona.Id.ToString();
-
+        if (!ValIngresoAutorizacion()) return;
+        string strMensaje = string.Empty;
+        System.Drawing.Color colorText = System.Drawing.Color.Green;
+        try
+        {
+            AutorizacionVisita av = new AutorizacionVisita();
+            av.PersonaAutorizada = this.CrearPersona(); 
+            av.Funcionario = this.CrearFuncionario();
+            av.Motivo = this.CrearMotivo();
+            av.Acompanantes = Convert.ToInt32((txtAcomp.Text.CompareTo(string.Empty) == 0 ? "0" : txtAcomp.Text));
+            av.FechasAut = this.GetFechasSeleccionadas();
+            av.Lugar = txtLugar.Text;
+            av.Representa = txtRepresenta.Text;
+            av = GuardarAutorizacion(av);
+            if (av == null) throw new Exception();
+            this.ClearForm();
+            strMensaje = "La autorización fue ingresada exitosamente.";
+        }
+        catch
+        {
+            strMensaje = "No fue posible agregar la autorización. Vuelva a intentar.";
+            colorText = System.Drawing.Color.Red;
+        }
+        finally
+        {
+            this.ShowInfoPagina(strMensaje, colorText);
+        }
     }
+
 }

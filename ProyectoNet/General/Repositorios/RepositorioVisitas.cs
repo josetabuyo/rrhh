@@ -6,30 +6,36 @@ using General;
 using General.Repositorios;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Data;
 
 /// <summary>
 /// Descripción breve de RepositorioVisitas
 /// </summary>
 public class RepositorioVisitas
 {
-    private int _UserId;
+    private int _UserId = -1;
     public int UserId
     {
         set { this._UserId = value; }
         get { return this._UserId; }
     }
 
-    private string _IP;
+    private string _IP = string.Empty;
     public string IP
     {
         set { this._IP = value; }
         get { return this._IP; }
     }
 
-
-    public RepositorioVisitas(int UserId_Param)
+    public RepositorioVisitas()
     {
-        UserId = UserId_Param;
+    }
+
+
+    public RepositorioVisitas(int UserId_Param, string IP_Param)
+    {
+        this.UserId = UserId_Param;
+        this.IP = IP_Param;
     }
 
 
@@ -83,31 +89,6 @@ public class RepositorioVisitas
         return lPerResult;
     }
 
-
-
-    public List<AutorizacionVisita> getAutorizaciones(string Apellido, string Nombre, int Documento)
-    {
-        ConexionDB cn = new ConexionDB("[dbo].[CtlAcc_SEL_Autorizaciones_Hoy]");
-        cn.AsignarParametro("@Apellido", Apellido);
-        cn.AsignarParametro("@Nombre", Nombre);
-        cn.AsignarParametro("@Documento", Documento);
-        SqlDataReader dr = cn.EjecutarConsulta();
-
-        AutorizacionVisita unaAutorizacion;
-        List<AutorizacionVisita> lAutorizaciones = new List<AutorizacionVisita>();
-        while (dr.Read())
-        {
-            /***********************************/
-            /***********************************/
-            unaAutorizacion = new AutorizacionVisita { Id = Convert.ToInt32(dr[0]), Acompanantes = Convert.ToInt32(dr[1]), Acreditado = Convert.ToBoolean(dr[2]), FechaAut = Convert.ToDateTime(dr[3]), Funcionario = new FuncionarioVisita() { Id = Convert.ToInt32(dr[4]) }, Lugar = Convert.ToString(dr[5]), Motivo = new MotivoVisita() { Id = Convert.ToInt32(dr[6]) }, Representa = Convert.ToString(dr[7]), PersonaAutorizada = new PersonaVisita() { Id = Convert.ToInt32(dr[8]) } };
-            /***********************************/
-            /***********************************/
-            lAutorizaciones.Add(unaAutorizacion);
-        }
-        return lAutorizaciones;
-    }
-
-
     public PersonaVisita savePersona(PersonaVisita unaPersona)
     {
         try
@@ -134,13 +115,15 @@ public class RepositorioVisitas
 
     public AutorizacionVisita saveAutorizacion(AutorizacionVisita unaAutorizacion)
     {
+        SqlTransaction tran = null;
+        SqlConnection cnn = null;
         try
         {
-            SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLConection"].ConnectionString);
+            cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLConection"].ConnectionString);
             cnn.Open();
             SqlCommand cmd = new SqlCommand("[dbo].[CtlAcc_INS_Autorizacion]", cnn);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.Add("@IdFuncionario", System.Data.SqlDbType.Int, 4).Value = unaAutorizacion.Id;            
+            cmd.Parameters.Add("@IdFuncionario", System.Data.SqlDbType.Int, 4).Value = unaAutorizacion.Funcionario.Id;
             cmd.Parameters.Add("@IdPersona", System.Data.SqlDbType.Int, 4).Value = unaAutorizacion.PersonaAutorizada.Id;
             cmd.Parameters.Add("@Telefono", System.Data.SqlDbType.BigInt, 8).Value = unaAutorizacion.Telefono;
             cmd.Parameters.Add("@IdMotivo", System.Data.SqlDbType.TinyInt, 1).Value = unaAutorizacion.Motivo.Id;
@@ -150,19 +133,109 @@ public class RepositorioVisitas
             cmd.Parameters.Add("@Log_UserId", System.Data.SqlDbType.Int, 4).Value = this.UserId;
             cmd.Parameters.Add("@Log_IP", System.Data.SqlDbType.VarChar, 16).Value = this.IP.ToString();
             cmd.Parameters.Add("@IdAutorizacion", System.Data.SqlDbType.Int, 4).Direction = System.Data.ParameterDirection.Output;
+            tran = cnn.BeginTransaction();
+            cmd.Transaction = tran;
             cmd.ExecuteNonQuery();
             unaAutorizacion.Id = (int)cmd.Parameters["@IdAutorizacion"].Value;
-            cnn.Close();
-            cnn.Dispose();
-            return unaAutorizacion;
+            cmd.Dispose();
+            foreach (DateTime fecha in unaAutorizacion.FechasAut)
+            {
+                cmd.CommandText = "[dbo].[CtlAcc_INS_AutorizacionFecha]";
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add("@IdAutorizacion", System.Data.SqlDbType.Int, 4).Value = unaAutorizacion.Id;
+                cmd.Parameters.Add("@Fecha", System.Data.SqlDbType.SmallDateTime).Value = fecha;
+                cmd.ExecuteNonQuery();
+            }
+            tran.Commit();
         }
         catch
         {
-            return null;
+            if (tran != null)
+                tran.Rollback();
+            unaAutorizacion = null;
         }
+        finally
+        {
+            if(cnn != null)
+                if (cnn.State != System.Data.ConnectionState.Closed)
+                {
+                    cnn.Close();
+                    cnn.Dispose();
+                }
+        }
+        return unaAutorizacion;
+    }
+
+    public List<AutorizacionVisitaExtracto> getAutorizaciones(DateTime Fecha)
+    {
+        ConexionDB cn = new ConexionDB("[dbo].[CtlAcc_SEL_Autorizaciones]");
+        cn.AsignarParametro("@Fecha", Fecha);
+        SqlDataReader dr = cn.EjecutarConsulta();
+        AutorizacionVisitaExtracto unaAutExt;
+        List<AutorizacionVisitaExtracto> lAutExt = new List<AutorizacionVisitaExtracto>();
+        while (dr.Read())
+        {
+            unaAutExt = new AutorizacionVisitaExtracto { Autorización = Convert.ToInt32(dr[0]), Apellido = dr[1].ToString(), Nombre = dr[2].ToString(), Documento = Convert.ToInt32(dr[3]), Representa = dr[4].ToString(), Funcionario = dr[5].ToString(), Lugar = dr[6].ToString()};
+            lAutExt.Add(unaAutExt);
+        }
+        dr.Close();
+        dr.Dispose();
+        return lAutExt;
     }
 
 
+    public bool savePersonaAcreditacion( AcreditacionVisita acreditacion, PersonaVisitaAcreditada persona )
+    {
+        ConexionDB cn = new ConexionDB("[dbo].[CtlAcc_INS_PersonaAutorizacionFecha]");
+        cn.AsignarParametro("@IdAutorizacion", acreditacion.Autorizacion.Id);
+        cn.AsignarParametro("@Fecha", acreditacion.Fecha);
+        cn.AsignarParametro("@Apellido", persona.Apellido);
+        cn.AsignarParametro("@Nombre", persona.Nombre);
+        cn.AsignarParametro("@Documento", persona.Documento);
+        cn.AsignarParametro("@NroCredencial", persona.NroCredencial);
+        try {
+            cn.EjecutarSinResultado();
+        }
+        catch
+        {
+            return false;
+        }
+        return true;
+    }
 
+    public List<PersonaVisitaAcreditada> getPersonasAcreditacion(AcreditacionVisita acreditacion)
+    {
+        ConexionDB cn = new ConexionDB("[dbo].[CtlAcc_SEL_PersonasAcreditacion]");
+        cn.AsignarParametro("@IdAutorizacion", acreditacion.Autorizacion.Id);
+        cn.AsignarParametro("@Fecha", acreditacion.Fecha);
+        SqlDataReader dr = cn.EjecutarConsulta();
+        PersonaVisitaAcreditada unaPersona;
+        List<PersonaVisitaAcreditada> lPerAcred = new List<PersonaVisitaAcreditada>();
+        while (dr.Read())
+        {
+            unaPersona = new PersonaVisitaAcreditada() { Id = Convert.ToInt32(dr[0]), Apellido = dr[1].ToString(), Nombre = dr[2].ToString(), Documento = Convert.ToInt32(dr[3]), NroCredencial = dr[4].ToString() };
+            lPerAcred.Add(unaPersona);
+        }
+        dr.Close();
+        dr.Dispose();
+        return lPerAcred;
+    }
+
+    public bool eliminarPersonaAcreditacion(AcreditacionVisita acreditacion, PersonaVisitaAcreditada persona)
+    {
+        ConexionDB cn = new ConexionDB("[dbo].[CtlAcc_DEL_PersonasAcreditacion]");
+        cn.AsignarParametro("@IdAutorizacion", acreditacion.Autorizacion.Id);
+        cn.AsignarParametro("@Fecha", acreditacion.Fecha);
+        cn.AsignarParametro("@IdPersona", persona.Id);
+        try
+        {
+            cn.EjecutarSinResultado();
+        }
+        catch
+        {
+            return false;
+        }
+        return true;
+    }
 
 }

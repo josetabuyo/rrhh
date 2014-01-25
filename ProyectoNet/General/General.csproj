@@ -274,10 +274,13 @@
     <Compile Include="TransicionesDeAreas.cs" />
     <Compile Include="Seguridad\Usuario.cs" />
     <Compile Include="Validador.cs" />
+    <Compile Include="Visitas\AcreditacionVisita.cs" />
     <Compile Include="Visitas\AutorizacionVisita.cs" />
+    <Compile Include="Visitas\AutorizacionVisitaExtracto.cs" />
     <Compile Include="Visitas\FuncionarioVisita.cs" />
     <Compile Include="Visitas\MotivoVisita.cs" />
     <Compile Include="Visitas\PersonaVisita.cs" />
+    <Compile Include="Visitas\PersonaVisitaAcreditada.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

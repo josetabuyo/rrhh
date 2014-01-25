@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Visitas/Visitas.master" AutoEventWireup="true"
-    CodeFile="Acreditaciones.aspx.cs" Inherits="Visitas_Acreditaciones" %>
+    CodeFile="---Acreditaciones.aspx.cs" Inherits="Visitas_Acreditaciones" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderHead" runat="Server">
     <link href="css/PrettyTableStyling.css" rel="stylesheet" type="text/css" />
@@ -63,8 +63,27 @@
                     <asp:CommandField SelectText="Acreditar" ShowSelectButton="True">
                         <ControlStyle ForeColor="#009933" />
                     </asp:CommandField>
+                    <asp:ButtonField Text="Acompañantes" CommandName="CMD_ACOMP">
+                        <ControlStyle ForeColor="#0000CC" />
+                    </asp:ButtonField>
                 </Columns>
             </asp:GridView>
+        </div>
+    </div>
+    <div id="divConfirmar" runat="server" style="background-image: url('Imagenes/bgblack.png');
+        bottom: 0px; top: 0px; left: 0; text-align: center;">
+        <div id="dialog">
+            <div id="dialog-bg">
+                <div id="dialog-title">
+                    ¿Confirma la acreditaci&oacute;n?</div>
+                <div id="dialog-description">
+                    Seleccione <strong>"Confirmar" </strong>para permitir el ingreso al edificio de
+                    la(s) persona(s) autorizada(s).</div>
+                <div id="dialog-buttons">
+                    <asp:LinkButton ID="lbConfirmar" runat="server" CssClass="large green button" OnClick="lbConfirmar_Click">Confirmar</asp:LinkButton>
+                    <asp:LinkButton ID="lbCancelar" runat="server" CssClass="large red button" OnClick="lbCancelar_Click">Cancelar</asp:LinkButton>
+                </div>
+            </div>
         </div>
     </div>
     <div id="divAddPersona" runat="server" style="background-image: url('Imagenes/bgblack.png');
@@ -79,7 +98,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="tdDesControl">
+                    <td>
                         Documento:
                     </td>
                     <td style="text-align: left;">
@@ -117,36 +136,22 @@
                             onclick="ImageButton_DelAcomp_Click" />
                     </td>
                 </tr>
-
-                <tr>
-                    <td class="tdDesControl">
-                        Nro. Credencial:
-                    </td>
-                    <td style="text-align: left;">
-                        <asp:TextBox ID="txtCredencial" runat="server" Width="290px" MaxLength="64"></asp:TextBox>
-                    </td>
-                </tr>
-
                 <tr>
                     <td colspan="2" style="text-align: center">
-                        <asp:Button ID="Button_AgregarAcomp" runat="server" Text="Agregar Persona" CssClass="btn btn-primary"
-                            CausesValidation="False" onclick="Button_AgregarAcomp_Click" />
-                        &nbsp;&nbsp;&nbsp;
-                        <asp:Button ID="Button_Acreditar" runat="server" Text="Acreditar" CssClass="btn btn-primary"
-                            CausesValidation="False" onclick="Button_Acreditar_Click" />
-                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;<asp:Button ID="Button_AgregarAcomp" runat="server" Text="Agregar" CssClass="btn btn-primary"
+                            CausesValidation="False" />
+                        &nbsp;
                         <asp:Button ID="Button_CancelarAcomp" runat="server" Text="Cancelar" CssClass="btn btn-primary"
                             CausesValidation="False" OnClick="Button_CancelarAcomp_Click" />
+                        <asp:HiddenField ID="HiddenField_IdPersona" runat="server" />
                     </td>
                 </tr>
             </tbody>
         </table>
-        <asp:GridView ID="GridView_Acomp" runat="server" EnableModelValidation="True" 
-            DataKeyNames="Id" onrowdatabound="GridView_Acomp_RowDataBound" 
-            onselectedindexchanged="GridView_Acomp_SelectedIndexChanged">
+        <asp:GridView ID="GridView_Acomp" runat="server" EnableModelValidation="True">
             <Columns>
-                <asp:CommandField SelectText="Eliminar" ShowSelectButton="True">
-                <ControlStyle ForeColor="Red" />
+                <asp:CommandField ShowDeleteButton="True">
+                    <ControlStyle ForeColor="Red" />
                 </asp:CommandField>
             </Columns>
         </asp:GridView>
@@ -170,32 +175,11 @@
                             </td>
                         </tr>
                     </table>                   
-                </EmptyDataTemplate>
+                </EmptyDataTemplate>                   
             </asp:GridView>
             <br />
             <asp:Button ID="Button_CancelarBusqueda" runat="server" Text="Cancelar" CssClass="btn btn-primary"
                 CausesValidation="False" onclick="Button_CancelarBusqueda_Click" />
-        </div>
-    </div>
-    <div id="divConfirmar" runat="server" style="background-image: url('Imagenes/bgblack.png');
-        bottom: 0px; top: 0px; left: 0; text-align: center;">
-        <div id="dialog">
-            <div id="dialog-bg">
-                <div id="dialog-title">
-                    <asp:Label ID="lblTituloMsj" runat="server"></asp:Label>
-                </div>
-                <div id="dialog-description">
-                    <asp:Label ID="lblDescipMsj" runat="server"></asp:Label>
-                </div>
-                <div id="dialog-buttons">
-                    <asp:LinkButton ID="lbConfirmar" runat="server" CssClass="large green button" 
-                        onclick="lbConfirmarEliminar_Click">Confirmar</asp:LinkButton>
-                    <asp:LinkButton ID="lbAceptar" runat="server" CssClass="large green button" 
-                        OnClick="lbConfirmar_Click">Aceptar</asp:LinkButton>
-                    <asp:LinkButton ID="lbCancelar" runat="server" CssClass="large red button" 
-                        OnClick="lbCancelar_Click">Cancelar</asp:LinkButton>
-                </div>
-            </div>
         </div>
     </div>
 </asp:Content>

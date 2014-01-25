@@ -14,11 +14,11 @@ namespace General
             get { return this._Id; }
         }
 
-        private DateTime _FechaAut;
-        public DateTime FechaAut
+        private List<DateTime> _FechasAut;
+        public List<DateTime> FechasAut
         {
-            set { this._FechaAut = value; }
-            get { return this._FechaAut; }
+            set { this._FechasAut = value; }
+            get { return this._FechasAut; }
         }
 
         private PersonaVisita _Persona;
@@ -62,13 +62,6 @@ namespace General
         {
             set { this._Acompanantes = value; }
             get { return this._Acompanantes; }
-        }
-
-        private bool _Acreditado;
-        public bool Acreditado
-        {
-            set { this._Acreditado = value; }
-            get { return this._Acreditado; }
         }
 
         private long _Telefono;
