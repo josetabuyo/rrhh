@@ -10,5 +10,6 @@ namespace General.MAU
     {
         Usuario GetUsuarioPorAlias(string alias);
         Usuario GetUsuarioPorIdPersona(int id_persona);
+        Usuario CrearUsuarioPara(int id_persona);
     }
 }

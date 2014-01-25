@@ -8,10 +8,26 @@ RepositorioDeUsuarios.prototype.getUsuarioPorIdPersona = function (id_persona, o
             id_persona: id_persona
         },
         success: function (usuario) {
-            onSuccess(usuario);
+            if (usuario.EsNulo) onError("LA_PERSONA_NO_TIENE_USUARIO");
+            else onSuccess(usuario);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            onerror(errorThrown);
+            onError(errorThrown);
+        }
+    });
+};
+
+RepositorioDeUsuarios.prototype.crearUsuarioPara = function (id_persona, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "CrearUsuarioPara",
+        data: {
+            id_persona: id_persona
+        },
+        success: function (usuario) {
+            if (usuario.EsNulo) onError("LA_PERSONA_NO_TIENE_USUARIO");
+            else onSuccess(usuario);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            onError(errorThrown);
         }
     });
 };

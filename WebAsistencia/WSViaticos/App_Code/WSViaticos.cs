@@ -1861,6 +1861,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Usuario CrearUsuarioPara(int id_persona)
+    {
+        return RepositorioDeUsuarios().CrearUsuarioPara(id_persona);
+    }
+
+    [WebMethod]
     public UsuarioNulo GetUsuarioNulo()
     {
         return new UsuarioNulo();

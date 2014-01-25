@@ -23,7 +23,18 @@ namespace AdministracionDeUsuarios
 
         public Usuario GetUsuarioPorIdPersona(int id_persona)
         {
-            return usuarios.FirstOrDefault(u => u.Id == id_persona) ?? new UsuarioNulo();
+            try{
+                return usuarios.First(u => u.Id == id_persona);
+            }catch(InvalidOperationException exc){
+                Exception e = new Exception();
+                e.Data["codigo"] = "NO_EXISTE_EL_USUARIO";
+                throw e;
+            }
+        }
+
+        public Usuario CrearUsuarioPara(int id_persona)
+        {
+            throw new NotImplementedException();
         }
     }
 }

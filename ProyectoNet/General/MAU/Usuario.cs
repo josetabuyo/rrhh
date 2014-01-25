@@ -39,15 +39,7 @@ namespace General.MAU
 
         public virtual bool ValidarClave(string clave)
         {
-            return this.clave_encriptada == this.EncriptarSHA1(clave);
-        }
-
-        private string EncriptarSHA1(string CadenaOriginal)
-        {
-            HashAlgorithm hashValue = new SHA1CryptoServiceProvider();
-            byte[] bytes = Encoding.UTF8.GetBytes(CadenaOriginal); byte[] byteHash = hashValue.ComputeHash(bytes);
-            hashValue.Clear();
-            return (Convert.ToBase64String(byteHash));
+            return this.clave_encriptada == RepositorioDeUsuarios.EncriptarSHA1(clave);
         }
 
         public override bool Equals(object obj)

@@ -2,21 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AdministracionDeUsuarios;
 
-namespace General.MAU
+namespace General
 {
-    public class UsuarioNulo:Usuario
+    public class PersonaNula:Persona
     {
-        public bool EsNulo = true;
-        public UsuarioNulo()
+        public PersonaNula()
         {
-            //this.Owner = new PersonaNula();
-        }
 
-        public override bool ValidarClave(string clave)
-        {
-            return false;
         }
 
         public override bool Equals(object obj)

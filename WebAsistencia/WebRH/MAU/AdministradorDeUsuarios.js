@@ -1,7 +1,6 @@
 ﻿var AdministradorDeUsuarios = function () {
     var _this = this;
     this.panel_datos_usuario = $('#panel_datos_usuario');
-    this.panel_datos_usuario.show();
     this.lbl_nombre = $('#nombre');
     this.lbl_apellido = $('#apellido');
     this.lbl_documento = $('#documento');
@@ -28,19 +27,40 @@
     });
 
     this.selector_usuario.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
+        _this.panel_datos_usuario.hide();
         _this.repositorioDeUsuarios.getUsuarioPorIdPersona(
             la_persona_seleccionada.id,
             function (usuario) {
-                _this.panel_datos_usuario.show();
-                _this.vista_permisos.setUsuario(usuario);
-                _this.lbl_nombre.text(usuario.Owner.Nombre);
-                _this.lbl_apellido.text(usuario.Owner.Apellido);
-                _this.lbl_documento.text(usuario.Owner.Documento);
-                _this.lbl_legajo.text(usuario.Owner.Legajo);
-                _this.txt_nombre_usuario.val(usuario.Alias);
+                _this.cargarUsuario(usuario);
             },
-            function () {
-                alert('error al obtener el usuario');
-            });        
+            function (error) {
+                if (error == "LA_PERSONA_NO_TIENE_USUARIO") {
+                    alertify.confirm(la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario, desea crear uno?", function (usuario_acepto) {
+                        if (usuario_acepto) {
+                            _this.repositorioDeUsuarios.crearUsuarioPara(la_persona_seleccionada.id,
+                                function (usuario) {
+                                    alertify.success("Se ha creado un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);    
+                                    _this.cargarUsuario(usuario);                                    
+                                },
+                                function (error) {
+                                    alertify.error("Error al crear un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
+                                }
+                            );
+                        } else {
+                            alertify.error("No se creó un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
+                        }
+                    });
+                }
+            });
     };
+};
+
+AdministradorDeUsuarios.prototype.cargarUsuario = function(usuario) {
+    this.panel_datos_usuario.show();
+    this.vista_permisos.setUsuario(usuario);
+    this.lbl_nombre.text(usuario.Owner.Nombre);
+    this.lbl_apellido.text(usuario.Owner.Apellido);
+    this.lbl_documento.text(usuario.Owner.Documento);
+    this.lbl_legajo.text(usuario.Owner.Legajo);
+    this.txt_nombre_usuario.val(usuario.Alias);
 };

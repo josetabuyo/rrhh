@@ -15,7 +15,8 @@ SELECT
 FROM   dbo.RH_usuarios		us	 
 				
 where            
-  (us.Nombre = @alias OR @alias is null) AND (us.IdPersona = @id_persona OR @id_persona is null) AND
-  us.Baja <> 1
+  (us.Nombre = @alias OR @alias is null) AND 
+  (us.IdPersona = @id_persona OR @id_persona is null)
+
 
 

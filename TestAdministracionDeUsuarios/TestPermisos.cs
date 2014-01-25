@@ -135,5 +135,28 @@ namespace TestAdministracionDeUsuarios
         {
             Assert.AreEqual(TestObjectsMau.Jorge(), TestObjectsMau.RepositorioDeUsuarios().GetUsuarioPorIdPersona(1));
         }
+
+        [TestMethod]
+        public void si_se_pasa_el_id_persona_de_una_persona_sin_usuario_el_repositorio_deberia_lanzar_una_excepcion()
+        {
+            var codigo_excepcion = "";
+
+            try 
+	        {	        
+		        TestObjectsMau.RepositorioDeUsuarios().GetUsuarioPorIdPersona(555);
+	        }
+	        catch (Exception e)
+	        {
+		        codigo_excepcion =  (string)e.Data["codigo"];
+	        }
+            Assert.AreEqual("NO_EXISTE_EL_USUARIO", codigo_excepcion);
+        }
+
+        //[TestMethod]
+        //public void deberia_poder_crear_un_usuario_nuevo_para_una_persona()
+        //{
+        //    var usuario = TestObjectsMau.RepositorioDeUsuarios().CrearUsuarioPara(555);
+        //    Assert.AreEqual(TestObjectsMau.Jorge(), TestObjectsMau.RepositorioDeUsuarios().GetUsuarioPorIdPersona(1));
+        //}
     }
 }
