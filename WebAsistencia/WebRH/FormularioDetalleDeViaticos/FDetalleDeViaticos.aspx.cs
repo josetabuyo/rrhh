@@ -19,7 +19,7 @@ public partial class FormularioDetalleDeViaticos_FDetalleDeViaticos : System.Web
         Usuario usuario = ((Usuario)Session["usuario"]);
 
         var ws = new WSViaticosSoapClient();
-        var areas_usuario = ws.GetAreasAdministradasPorElUsuario(usuario);
+        var areas_usuario = ws.AreasAdministradasPor(usuario);
 
         var idAreasUsuario = areas_usuario.Select(a => a.Id).ToList();
 

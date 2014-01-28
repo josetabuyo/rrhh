@@ -26,6 +26,11 @@
         autorizador: this.autorizador
     });
 
+    this.vista_areas = new VistaDeAreasAdministradas({
+        ui: $('#panel_areas_administradas'),
+        autorizador: this.autorizador
+    });
+
     this.selector_usuario.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
         _this.panel_datos_usuario.hide();
         _this.repositorioDeUsuarios.getUsuarioPorIdPersona(
@@ -55,7 +60,7 @@
     };
 };
 
-AdministradorDeUsuarios.prototype.cargarUsuario = function(usuario) {
+AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
     this.panel_datos_usuario.show();
     this.vista_permisos.setUsuario(usuario);
     this.lbl_nombre.text(usuario.Owner.Nombre);
@@ -63,4 +68,5 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function(usuario) {
     this.lbl_documento.text(usuario.Owner.Documento);
     this.lbl_legajo.text(usuario.Owner.Legajo);
     this.txt_nombre_usuario.val(usuario.Alias);
+    this.vista_areas.setUsuario(usuario);
 };

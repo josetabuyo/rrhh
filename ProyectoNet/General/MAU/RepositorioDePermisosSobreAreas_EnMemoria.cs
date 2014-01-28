@@ -21,6 +21,11 @@ namespace General.MAU
             return diccionario_de_areas.GetValueOrDefault(usuario, new List<Area>());
         }
 
+        public List<Area> AreasAdministradasPor(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
         public Area AsignarAreaAUnUsuario(Usuario usuario, Area area)
         {
             return area;

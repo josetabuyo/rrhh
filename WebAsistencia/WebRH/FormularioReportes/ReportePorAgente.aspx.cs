@@ -18,7 +18,7 @@ public partial class FormularioReportes_ReportePorAgente : System.Web.UI.Page
         var dDLAreas = new DropDownList();
 
         var ws = new WSViaticosSoapClient();
-        var areas_usuario = ws.GetAreasAdministradasPorElUsuario(usuario);
+        var areas_usuario = ws.AreasAdministradasPor(usuario);
 
         foreach (Area area in areas_usuario)
         {

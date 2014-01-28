@@ -17,8 +17,13 @@ namespace General.MAU
 
         List<Area> IRepositorioDePermisosSobreAreas.AreasAdministradasPor(Usuario usuario)
         {
+            return AreasAdministradasPor(usuario.Id);
+        }
+
+        public List<Area> AreasAdministradasPor(int id_usuario)
+        {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario_administrador", usuario.Id);
+            parametros.Add("@id_usuario_administrador", id_usuario);
             var tablaDatos = conexion.Ejecutar("dbo.VIA_GetAreasCompletas", parametros);
             return RepositorioDeAreas.GetAreasDeTablaDeDatos(tablaDatos);
         }
@@ -27,6 +32,5 @@ namespace General.MAU
         {
             throw new NotImplementedException();
         }
-
     }
 }

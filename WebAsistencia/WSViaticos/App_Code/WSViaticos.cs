@@ -1907,9 +1907,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Area[] GetAreasAdministradasPorElUsuario(Usuario usuario)
+    public Area[] AreasAdministradasPor(Usuario usuario)
     {
         return Autorizador().AreasAdministradasPor(usuario).ToArray();
+    }
+
+    [WebMethod]
+    public Area[] AreasAdministradasPorIdUsuario(int id_usuario)
+    {
+        return Autorizador().AreasAdministradasPor(id_usuario).ToArray();
     }
 
     [WebMethod]

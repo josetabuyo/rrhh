@@ -9,6 +9,7 @@ namespace General.MAU
     public interface IRepositorioDePermisosSobreAreas
     {
         List<Area> AreasAdministradasPor(Usuario usuario);
-        Area AsignarAreaAUnUsuario(Usuario usuario, Area area);
+        List<Area> AreasAdministradasPor(int id_usuario);
+        Area AsignarAreaAUnUsuario(Usuario usuario, Area area);        
     }
 }

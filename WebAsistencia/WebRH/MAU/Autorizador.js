@@ -46,3 +46,17 @@ Autorizador.prototype.getMenu = function (nombre_menu, onSuccess, onError) {
         }
     });
 };
+
+Autorizador.prototype.areasAdministradasPor = function (id_usuario, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "AreasAdministradasPor",
+        data: {
+            id_usuario: id_usuario
+        },
+        success: function (areas) {
+            onSuccess(areas);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            onerror(errorThrown);
+        }
+    });
+};

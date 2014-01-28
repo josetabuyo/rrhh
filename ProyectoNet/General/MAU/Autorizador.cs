@@ -69,6 +69,11 @@ namespace General.MAU
             return repositorio_permisos_sobre_areas.AreasAdministradasPor(usuario);
         }
 
+        public List<Area> AreasAdministradasPor(int id_usuario)
+        {
+            return repositorio_permisos_sobre_areas.AreasAdministradasPor(id_usuario);
+        }
+
         public void AsignarAreaAUnUsuario(Usuario usuario, Area area)
         {
             repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(usuario, area);

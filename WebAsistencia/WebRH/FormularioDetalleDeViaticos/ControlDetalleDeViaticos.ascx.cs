@@ -49,7 +49,7 @@ public partial class FormularioDetalleDeViaticos_ControlDetalleDeViaticos : Syst
 
         WSViaticosSoapClient ws = new WSViaticosSoapClient();
 
-        var idAreasUsuario = ws.GetAreasAdministradasPorElUsuario(usuario).Select(a => a.Id);
+        var idAreasUsuario = ws.AreasAdministradasPor(usuario).Select(a => a.Id);
 
         if (!idAreasUsuario.Contains(comision.AreaActual.Id))
         {

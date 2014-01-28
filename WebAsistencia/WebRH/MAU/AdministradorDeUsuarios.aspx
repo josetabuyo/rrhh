@@ -54,18 +54,13 @@
                 </div> 
                 <div id="panel_inferior_izquierdo" class="estilo_formulario">
                     <legend class="subtitulos"> Areas que Administra </legend>
-                    <div id="lista_areas_administradas">
-                        <div class="area_administrada">
-                            <div id="nombre_area">Secretaría de Coordinación y Monitoreo Institucional</div>
-                            <input id="btn_quitar_area" type=button class="btn btn-primary" value="-"/>
+                    <div id="panel_areas_administradas">
+                        <div id="lista_areas_administradas">
+                        
                         </div>
-                        <div class="area_administrada">
-                            <div id="nombre_area">Mesa de Entradas</div>
-                            <input id="btn_quitar_area" type=button class="btn btn-primary" value="-"/>
-                        </div>
+                        <div id="selector_area_administrada"></div>
+                        <input id="btn_agregar_area" type=button class="btn btn-primary" value="+"/>
                     </div>
-                    <div id="selector_area_administrada"></div>
-                    <input id="btn_agregar_area" type=button class="btn btn-primary" value="+"/>
                 </div>           
                 <div id="panel_derecho" class="estilo_formulario">
                     <legend class="subtitulos"> Funcionalidades </legend>
@@ -87,9 +82,15 @@
                 <div id="documento"></div>         
             </div>   
         </div>
+        <div class="area_administrada">
+            <div id="nombre_area">Secretaría de Coordinación y Monitoreo Institucional</div>
+            <input id="btn_quitar_area" type=button class="btn btn-primary" value="-"/>
+        </div>
     </div>
 </body>
 <%= Referencias.Javascript("../")%>
+<script type="text/javascript" src="VistaDeAreasAdministradas.js"></script>
+<script type="text/javascript" src="VistaDeAreaAdministrada.js"></script>
 <script type="text/javascript" src="VistaDePermisosDeUnUsuario.js"></script>
 <script type="text/javascript" src="Autorizador.js"></script>
 <script type="text/javascript" src="RepositorioDeFuncionalidades.js"></script>

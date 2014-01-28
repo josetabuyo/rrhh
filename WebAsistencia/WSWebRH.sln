@@ -25,7 +25,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WSViaticos", "WSViaticos\",
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "42827"
+		VWDPort = "9503"
 	EndProjectSection
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebRH", "WebRH\", "{A75712E4-258D-405D-A2F3-082E5C1C0E7F}"
@@ -50,7 +50,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebRH", "WebRH\", "{A75712E
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "42829"
+		VWDPort = "9505"
 	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 		{D1CFEFAB-1202-4294-A2C0-D8D7C6D91094} = {D1CFEFAB-1202-4294-A2C0-D8D7C6D91094}

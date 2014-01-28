@@ -194,8 +194,7 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         var respuesta = backEndService.BuscarPersonasConLegajo(criterio);
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
-        return respuestaSerializada;
-        
+        return respuestaSerializada;        
     }
 
     [WebMethod(EnableSession = true)]
@@ -212,6 +211,15 @@ public class AjaxWS : System.Web.Services.WebService {
     public string CrearUsuarioPara(int id_persona)
     {
         var respuesta = backEndService.CrearUsuarioPara(id_persona);
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string AreasAdministradasPor(int id_usuario)
+    {
+        var respuesta = backEndService.AreasAdministradasPorIdUsuario(id_usuario);
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
     }
@@ -324,7 +332,7 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void SetAreaActualEnSesion(int id_area)
     {
-        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = backEndService.GetAreasAdministradasPorElUsuario(usuarioLogueado).ToList().Find(a => a.Id == id_area);
+        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = backEndService.AreasAdministradasPor(usuarioLogueado).ToList().Find(a => a.Id == id_area);
     }
 }
 

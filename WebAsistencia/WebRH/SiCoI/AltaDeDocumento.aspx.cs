@@ -20,7 +20,7 @@ public partial class AltaDeDocumento : System.Web.UI.Page
         this.TiposDeDocumento.Value = JsonConvert.SerializeObject(ws.TiposDeDocumentosSICOI().OrderBy(td => td.descripcion));
         this.CategoriasDeDocumento.Value = JsonConvert.SerializeObject(ws.CategoriasDocumentosSICOI().OrderBy(cd => cd.descripcion));
 
-        var areas_usuario = ws.GetAreasAdministradasPorElUsuario(usuarioLogueado);
+        var areas_usuario = ws.AreasAdministradasPor(usuarioLogueado);
 
         var areaDelUsuarioDTO = new
         {

@@ -22,7 +22,7 @@ public partial class FormularioReportes_FReportesViaticos : System.Web.UI.Page
         Usuario usuario = ((Usuario)Session["usuario"]);
         var dDLAreas = new DropDownList();
 
-        var areas_usuario = ws.GetAreasAdministradasPorElUsuario(usuario);
+        var areas_usuario = ws.AreasAdministradasPor(usuario);
 
         foreach (Area area in areas_usuario)
         {
