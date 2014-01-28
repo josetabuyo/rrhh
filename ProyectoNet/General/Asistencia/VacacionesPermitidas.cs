@@ -49,5 +49,10 @@ namespace General
             return _dias;
         }
 
+
+        internal void CantidadDeDias(int dias_a_setear)
+        {
+            this._dias = dias_a_setear;
+        }
     }
 }

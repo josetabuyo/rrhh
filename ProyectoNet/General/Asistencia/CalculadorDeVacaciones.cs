@@ -82,6 +82,12 @@ namespace General
             var vacas_aprob = aprobadas.Select(aprob => aprob.CantidadDeDias()).Sum();
             var vacas_pend = pendientes_de_aprobar.Select(pend => pend.CantidadDeDias()).Sum();
 
+
+            //var vacaciones_perdidas = DiasPerdidos(permitidas, aprobadas, pendientes_de_aprobar);
+            //var vacaciones_permitidas_sin_periodos_perdidos = permitidas.FindAll(vac_permit => !vacaciones_perdidas.Exists(vac_perd => vac_perd.Periodo == vac_permit.Periodo));
+            //var vacaciones_solicitables_sin_perdidos = calculador().DiasSolicitables(vacaciones_permitidas_excluyendo_dias_perdidos, VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>());
+
+
             permitidas.ForEach(
                 (permit) =>
                 {
@@ -108,24 +114,67 @@ namespace General
 
         public List<VacacionesPermitidas> DiasPerdidos(List<VacacionesPermitidas> vacaciones_permitidas, List<VacacionesAprobadas> vacaciones_aprobadas, List<VacacionesPendientesDeAprobacion> vacaciones_pendientes_de_aprobacion)
         {
+            //SE DEVUELVE EN ESTA LISTA TODAS LAS LICENCIAS QUE PERDIÓ
             List<VacacionesPermitidas> licencias_perdidas = new List<VacacionesPermitidas>();
+            //SE DEVUELVE EN ESTA LISTA TODAS LAS LICENCIAS QUE EFECTIVAMENTE YA GOZÓ
+            List<VacacionesPermitidas> licencias_consumidas = new List<VacacionesPermitidas>();
+            //SE DEVUELVE EN ESTA LISTA TODAS LAS LICENCIAS QUE AÚN TIENE PERMITIDAS Y QUE PUEDE TOMARSE
+            List<VacacionesPermitidas> licencias_que_se_puede_tomar = new List<VacacionesPermitidas>();
+            //LISTA INTERNA QUE USAREMOS PARA IR QUITANDO LAS LICENCIAS YA PROCESADAS Y DEPOSITADAS EN LAS 3 ANTERIORES LISTAS
+            List<VacacionesPermitidas> lista_interna_licencias_pendientes_de_ser_tratadas = new List<VacacionesPermitidas>();
 
-            var licencias_solicitadas = ObtenerLicenciasSolicitadas(vacaciones_aprobadas, vacaciones_pendientes_de_aprobacion);
+            var primer_vacacion_permitida = vacaciones_permitidas.First();
+           
+            //FUSIONAMOS LAS LICENCIAS APROBADAS CON LAS LICENCIAS QUE ESTÁN EN PROCESO DE SER APROBADAS
+            var todas_las_licencias_solicitadas = ObtenerLicenciasSolicitadas(vacaciones_aprobadas, vacaciones_pendientes_de_aprobacion);
+            //
             var licencias_permitidas = vacaciones_permitidas;
             //ME FALTA ORDENARLAS
 
-            var primer_licencia_solicitada = licencias_solicitadas.First();
+            var primer_licencia_solicitada = todas_las_licencias_solicitadas.First();
             var primer_licencia_permitida = licencias_permitidas.First();
 
-            if ((primer_licencia_permitida.Periodo - primer_licencia_solicitada.Periodo()) < 0 )
+            //Si dejó pasar los años y no se tomó vacaciones, tengo que ver si la prórroga lo salva de perderse los días
+            if ((primer_licencia_permitida.Periodo - primer_licencia_solicitada.Periodo()) < 0)
             {
-                var prorroga_del_primer_usufructo = licencias_permitidas.Find(lic_permitida => lic_permitida.Periodo == primer_licencia_solicitada.Periodo()).Prorroga;
+                //obtengo el año de la prórroga de la primer licencias que se tomó
+                var prorroga_del_primer_usufructo = licencias_permitidas.DefaultIfEmpty(primer_vacacion_permitida).FirstOrDefault(lic_permitida => lic_permitida.Periodo == primer_licencia_solicitada.Periodo()).Prorroga;
+
+                //Obtengo el año más antigui que está vigente para todavía poderle descontar vacaciones
                 var anio_vigente = primer_licencia_solicitada.Periodo() - prorroga_del_primer_usufructo;
 
+                //Las perdidas son todas aquellas que son más chicas a este año
                 licencias_perdidas = licencias_permitidas.FindAll(lic_permitida => lic_permitida.Periodo < anio_vigente);
 
             }
+            else
+            {
+                lista_interna_licencias_pendientes_de_ser_tratadas = licencias_perdidas;
 
+            }
+
+            //------------------------------------------
+
+            var cantidad_de_licencias_por_consumir = primer_licencia_solicitada.CantidadDeDias();
+
+            foreach (var licencia_pendiente in lista_interna_licencias_pendientes_de_ser_tratadas)
+            {
+                if (cantidad_de_licencias_por_consumir == 0)
+                {
+                    break;
+                }
+
+                if (licencia_pendiente.CantidadDeDias() - cantidad_de_licencias_por_consumir < 0)
+                {
+                    lista_interna_licencias_pendientes_de_ser_tratadas.Find(l => l == licencia_pendiente).CantidadDeDias(0);
+                    cantidad_de_licencias_por_consumir = primer_licencia_solicitada.CantidadDeDias() - licencia_pendiente.CantidadDeDias();
+                }
+                else 
+                {
+                    lista_interna_licencias_pendientes_de_ser_tratadas.Find(l => l == licencia_pendiente).CantidadDeDias(licencia_pendiente.CantidadDeDias() - cantidad_de_licencias_por_consumir);
+                    cantidad_de_licencias_por_consumir = 0;
+                }
+            }
 
             return licencias_perdidas;
         }

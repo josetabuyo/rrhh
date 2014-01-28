@@ -656,27 +656,12 @@ namespace TestViaticos
 
 
         [TestMethod]
-        public void test_completo()
+        public void test_completo_con_caso_planteado_por_belen()
         {
-            //Vacaciones permitidas
-            var lista_vacaciones_permitidas = new List<VacacionesPermitidas>() { new VacacionesPermitidas(juan, 2009, 20, 2), 
-                                                                                 new VacacionesPermitidas(juan, 2010, 20, 2), 
-                                                                                 new VacacionesPermitidas(juan, 2011, 20, 2), 
-                                                                                 new VacacionesPermitidas(juan, 2012, 20, 2), 
-                                                                                 new VacacionesPermitidas(juan, 2013, 25, 2) };
-            
-            //Vacaciones Aprobadas
-            var lista_vacaciones_aprobadas = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, new DateTime(2013, 01, 01), new DateTime(2013, 02, 04)),
-                                                                               new VacacionesAprobadas(juan, new DateTime(2013, 11, 26), new DateTime(2013, 12, 10)) };
 
-            //Vacaciones Pendientes de Aprobación
-            var lista_vacaciones_pendientes_de_aprobacion = new List<VacacionesPendientesDeAprobacion>();
+            var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidas(), VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>());
 
-
-
-            var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(lista_vacaciones_permitidas, lista_vacaciones_aprobadas, lista_vacaciones_pendientes_de_aprobacion);
-
-            new List<VacacionesSolicitables>() { new VacacionesSolicitables(2006, 27) };
+            //new List<VacacionesSolicitables>() { new VacacionesSolicitables(2006, 27) };
 
 
             Assert.AreEqual(5, lista_de_dias_pendientes_por_periodo.Count());
@@ -691,23 +676,41 @@ namespace TestViaticos
         [TestMethod]
         public void deberia_tener_20_dias_perdidos_para_2009()
         {
-            //Vacaciones permitidas
-            var lista_vacaciones_permitidas = new List<VacacionesPermitidas>() { new VacacionesPermitidas(juan, 2009, 20, 2), 
-                                                                                 new VacacionesPermitidas(juan, 2010, 20, 2), 
-                                                                                 new VacacionesPermitidas(juan, 2011, 20, 2), 
-                                                                                 new VacacionesPermitidas(juan, 2012, 20, 2), 
-                                                                                 new VacacionesPermitidas(juan, 2013, 25, 2) 
-                                                                                };
-                
-            //Vacaciones Aprobadas
-            var lista_vacaciones_aprobadas = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, new DateTime(2013, 01, 01), new DateTime(2013, 02, 04)),
-                                                                               new VacacionesAprobadas(juan, new DateTime(2013, 11, 26), new DateTime(2013, 12, 10))    
-                                                                             };
 
-            var vacaciones_perdidas = calculador().DiasPerdidos(lista_vacaciones_permitidas, lista_vacaciones_aprobadas, new List<VacacionesPendientesDeAprobacion>());
+            var vacaciones_perdidas = calculador().DiasPerdidos(VacacionesPermitidas(), VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>());
 
             Assert.AreEqual(1, vacaciones_perdidas.Count());
             Assert.AreEqual(20, vacaciones_perdidas.Find(lic_perdida => lic_perdida.Periodo == 2009).CantidadDeDias());
+
+        }
+
+        [TestMethod]
+        public void deberia_excluir_de_las_licencias_solicitables_las_que_se_perdieron()
+        {
+
+            //var vacaciones_perdidas = calculador().DiasPerdidos(VacacionesPermitidas(), VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>());
+
+            //Assert.AreEqual(1, vacaciones_perdidas.Count());
+            //Assert.AreEqual(20, vacaciones_perdidas.Find(lic_perdida => lic_perdida.Periodo == 2009).CantidadDeDias());
+
+            //var vacaciones_solicitables = calculador().DiasSolicitables(VacacionesPermitidas(), VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>());
+
+            ////Assert.AreEqual(5, vacaciones_solicitables.Count());
+            ////Assert.AreEqual(0, vacaciones_solicitables.Find(l => l.Periodo() == 2009).CantidadDeDias());
+            ////Assert.AreEqual(0, vacaciones_solicitables.Find(l => l.Periodo() == 2010).CantidadDeDias());
+            ////Assert.AreEqual(10, vacaciones_solicitables.Find(l => l.Periodo() == 2011).CantidadDeDias());
+            ////Assert.AreEqual(20, vacaciones_solicitables.Find(l => l.Periodo() == 2012).CantidadDeDias());
+            ////Assert.AreEqual(25, vacaciones_solicitables.Find(l => l.Periodo() == 2013).CantidadDeDias());
+
+            ////saco de los permitidos los dias perdidos y vuelvo a calcular los dias solicitables
+            ////var vacaciones_permitidas_excluyendo_dias_perdidos = VacacionesPermitidas().FindAll(vac_permit => !vacaciones_perdidas.Exists(vac_perd => vac_perd.Periodo == vac_permit.Periodo));
+            //var vacaciones_solicitables_sin_perdidos = calculador().DiasSolicitables(VacacionesPermitidas(), VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>());
+
+            //Assert.AreEqual(4, vacaciones_solicitables_sin_perdidos.Count());
+            //Assert.AreEqual(0, vacaciones_solicitables_sin_perdidos.Find(l => l.Periodo() == 2010).CantidadDeDias());
+            //Assert.AreEqual(0, vacaciones_solicitables_sin_perdidos.Find(l => l.Periodo() == 2011).CantidadDeDias());
+            //Assert.AreEqual(10, vacaciones_solicitables_sin_perdidos.Find(l => l.Periodo() == 2012).CantidadDeDias());
+            //Assert.AreEqual(25, vacaciones_solicitables_sin_perdidos.Find(l => l.Periodo() == 2013).CantidadDeDias());
 
         }
 
@@ -756,7 +759,22 @@ namespace TestViaticos
         
         public CalculadorDeVacaciones calculador() { return new CalculadorDeVacaciones(TestObjects.RepoLicenciaMockeado()); }
 
+        private List<VacacionesPermitidas> VacacionesPermitidas()
+        {
+            var lista_vacaciones_permitidas = new List<VacacionesPermitidas>() { new VacacionesPermitidas(juan, 2009, 20, 2), 
+                                                                                 new VacacionesPermitidas(juan, 2010, 20, 2), 
+                                                                                 new VacacionesPermitidas(juan, 2011, 20, 2), 
+                                                                                 new VacacionesPermitidas(juan, 2012, 20, 2), 
+                                                                                 new VacacionesPermitidas(juan, 2013, 25, 2) };
+            return lista_vacaciones_permitidas;
+        }
 
+        private List<VacacionesAprobadas> VacacionesAprobadas()
+        {
+            var lista_vacaciones_aprobadas = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, new DateTime(2013, 01, 01), new DateTime(2013, 02, 04)),
+                                                                               new VacacionesAprobadas(juan, new DateTime(2013, 11, 26), new DateTime(2013, 12, 10)) };
+            return lista_vacaciones_aprobadas;
+        }
 
     }
 }
