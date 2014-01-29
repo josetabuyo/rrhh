@@ -52,6 +52,44 @@ Autorizador.prototype.areasAdministradasPor = function (id_usuario, onSuccess, o
         data: {
             id_usuario: id_usuario
         },
+        success: function (areas_json) {
+            var lista_areas = [];
+            for (var i = 0; i < areas_json.length; i++) {
+                lista_areas.push({
+                    id: areas_json[i].Id,
+                    nombre: areas_json[i].Nombre,
+                    alias: areas_json[i].Alias
+                });
+            }
+            onSuccess(lista_areas);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            onerror(errorThrown);
+        }
+    });
+};
+
+Autorizador.prototype.asignarAreaAUnUsuario = function (id_usuario, id_area, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "AsignarAreaAUnUsuario",
+        data: {
+            id_usuario: id_usuario,
+            id_area: id_area
+        },
+        success: function (areas) {
+            onSuccess(areas);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            onerror(errorThrown);
+        }
+    });
+};
+
+Autorizador.prototype.desAsignarAreaAUnUsuario = function (id_usuario, id_area, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "DesAsignarAreaAUnUsuario",
+        data: {
+            id_usuario: id_usuario,
+            id_area: id_area
+        },
         success: function (areas) {
             onSuccess(areas);
         },

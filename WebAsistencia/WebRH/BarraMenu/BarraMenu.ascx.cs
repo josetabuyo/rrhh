@@ -34,7 +34,7 @@ public partial class FormularioDeViaticos_BarraMenu : System.Web.UI.UserControl
     protected void VolverAInicioLinkButton_Click(object sender, EventArgs e)
     {
         {
-            Response.Redirect("~\\SeleccionDeArea.aspx");
+            Response.Redirect("~\\MenuPrincipal\\Menu.aspx");
         }
     }
 

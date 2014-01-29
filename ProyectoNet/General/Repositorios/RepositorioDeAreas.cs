@@ -84,6 +84,12 @@ namespace General.Repositorios
             return areas;
          }
 
+         public List<Area> BuscarAreas(string criterio)
+         {
+             var palabras_busqueda = criterio.Split(' ').Select(p => p.ToUpper().Trim());
+             return GetTodasLasAreasCompletas().FindAll(area =>
+                 palabras_busqueda.All(palabra => area.Nombre.ToUpper().Contains(palabra.ToUpper())));
+         }
 
         public List<Area> GetTodasLasAreasCompletas()
         {

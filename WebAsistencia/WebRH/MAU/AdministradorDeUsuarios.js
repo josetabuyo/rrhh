@@ -13,6 +13,7 @@
     this.repositorioDeFuncionalidades = new RepositorioDeFuncionalidades(proveedor_ajax);
     this.repositorioDeUsuarios = new RepositorioDeUsuarios(proveedor_ajax);
     this.repositorioDePersonas = new RepositorioDePersonas(proveedor_ajax);
+    this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
 
     this.selector_usuario = new SelectorDePersonas({
         ui: $('#selector_usuario'),
@@ -28,7 +29,8 @@
 
     this.vista_areas = new VistaDeAreasAdministradas({
         ui: $('#panel_areas_administradas'),
-        autorizador: this.autorizador
+        autorizador: this.autorizador,
+        repositorioDeAreas: this.repositorioDeAreas
     });
 
     this.selector_usuario.alSeleccionarUnaPersona = function (la_persona_seleccionada) {

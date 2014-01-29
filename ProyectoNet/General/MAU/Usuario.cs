@@ -51,5 +51,11 @@ namespace General.MAU
 
             return this.Id == ((Usuario)obj).Id; 
         }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.Id;
+        }
     }
 }

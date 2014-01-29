@@ -26,9 +26,32 @@ namespace General.MAU
             throw new NotImplementedException();
         }
 
-        public Area AsignarAreaAUnUsuario(Usuario usuario, Area area)
+        public void AsignarAreaAUnUsuario(Usuario usuario, Area area)
         {
-            return area;
+            if (diccionario_de_areas.ContainsKey(usuario))
+            {
+                diccionario_de_areas[usuario].Add(area);
+            }
+            else
+            {
+                diccionario_de_areas.Add(usuario, new List<Area>(){area});
+            }
+        }
+
+        public void DesAsignarAreaAUnUsuario(Usuario usuario, Area area)
+        {
+            diccionario_de_areas[usuario].Remove(area);
+        }
+
+
+        public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -28,9 +28,29 @@ namespace General.MAU
             return RepositorioDeAreas.GetAreasDeTablaDeDatos(tablaDatos);
         }
 
-        Area IRepositorioDePermisosSobreAreas.AsignarAreaAUnUsuario(Usuario usuario, Area area)
+        public void AsignarAreaAUnUsuario(Usuario usuario, Area area)
         {
-            throw new NotImplementedException();
+            this.AsignarAreaAUnUsuario(usuario.Id, area.Id);
+        }
+
+        public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_area", id_area);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarAreaAUsuario", parametros);
+        }
+        public void DesAsignarAreaAUnUsuario(Usuario usuario, Area area)
+        {
+            this.DesAsignarAreaAUnUsuario(usuario.Id, area.Id);
+        }
+
+        public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_area", id_area);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarAreaAUsuario", parametros);
         }
     }
 }

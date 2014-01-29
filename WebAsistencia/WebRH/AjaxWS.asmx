@@ -190,6 +190,15 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string BuscarAreas(string criterio)
+    {
+        var respuesta = backEndService.BuscarAreas(criterio);
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
+    }
+    
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string BuscarPersonasConLegajo(string criterio)
     {
         var respuesta = backEndService.BuscarPersonasConLegajo(criterio);
@@ -222,6 +231,18 @@ public class AjaxWS : System.Web.Services.WebService {
         var respuesta = backEndService.AreasAdministradasPorIdUsuario(id_usuario);
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
+    }
+
+    [WebMethod(EnableSession = true)]
+    public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
+    {
+        backEndService.AsignarAreaAUnUsuario(id_usuario, id_area);
+    }
+
+    [WebMethod(EnableSession = true)]
+    public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
+    {
+        backEndService.DesAsignarAreaAUnUsuario(id_usuario, id_area);
     }
     /////////////////////FIN MAU
 

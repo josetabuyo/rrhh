@@ -125,6 +125,22 @@ namespace TestAdministracionDeUsuarios
         }
 
         [TestMethod]
+        public void deberia_poder_darle_permisos_a_javier_para_administrar_el_area_de_contratos()
+        {
+            var autorizador = TestObjectsMau.Autorizador();
+            autorizador.AsignarAreaAUnUsuario(TestObjectsMau.Javier(), TestObjectsMau.AreaDeContratos());
+            Assert.IsTrue(autorizador.AreasAdministradasPor(TestObjectsMau.Javier()).Contains(TestObjectsMau.AreaDeContratos()));
+        }
+
+        [TestMethod]
+        public void deberia_poder_quitarle_permisos_a_javier_para_administrar_el_area_de_legajos()
+        {
+            var autorizador = TestObjectsMau.Autorizador();
+            autorizador.DesAsignarAreaAUnUsuario(TestObjectsMau.Javier(), TestObjectsMau.AreaDeLegajos());
+            Assert.IsFalse(autorizador.AreasAdministradasPor(TestObjectsMau.Javier()).Contains(TestObjectsMau.AreaDeLegajos()));
+        }
+
+        [TestMethod]
         public void deberia_poder_obtener_del_repositorio_la_lista_completa_de_funcionalidades()
         {           
             Assert.AreEqual(5, TestObjectsMau.RepositorioDeFuncionalidades().TodasLasFuncionalidades().Count);

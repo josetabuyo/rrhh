@@ -1,0 +1,9 @@
+﻿.vista_area_en_selector #nombre
+{
+    margin-right:5px;
+}
+
+.vista_area_en_selector div
+{
+    display:inline-block;
+}

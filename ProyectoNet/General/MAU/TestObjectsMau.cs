@@ -148,6 +148,11 @@ namespace AdministracionDeUsuarios
             return new Area(1, "Legajos");
         }
 
+        public static Area AreaDeContratos()
+        {
+            return new Area(2, "Contratos");
+        }
+
         //public static Autorizador AutorizadorCon(IRepositorioDePermisosSobreAreas repo)
         //{
         //    return new Autorizador(diccionario_permisos(), menues(), diccionario_areas(), TestObjectsMau.RepositorioDeUsuarios(), TestObjectsMau.RepositorioDePermisosSobreAreas()); 

@@ -79,6 +79,11 @@ namespace General.MAU
             repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(usuario, area);
         }
 
+        public void DesAsignarAreaAUnUsuario(Usuario usuario, Area area)
+        {
+            repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(usuario, area);
+        }
+
         public bool Login(string nombre_usuario, string clave)
         {
             var usuario = this.repositorio_usuarios.GetUsuarioPorAlias(nombre_usuario);
@@ -95,6 +100,16 @@ namespace General.MAU
             var funcionalidades_que_permiten_acceder_a_la_url = this.repositorio_accesos_a_url.TodosLosAccesos().FindAll(a => a.Url.ToUpper() == url.ToUpper()).Select(a=> a.Funcionalidad);
             if (funcionalidades_que_permiten_acceder_a_la_url.Count() == 0) return true;
             return this.repositorio_funcionalidades.FuncionalidadesPara(usuario).Any(f => funcionalidades_que_permiten_acceder_a_la_url.Contains(f));
+        }
+
+        public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
+        {
+            repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(id_usuario, id_area);
+        }
+
+        public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
+        {
+            repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(id_usuario, id_area);
         }
     }
 }

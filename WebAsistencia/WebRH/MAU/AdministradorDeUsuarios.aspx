@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../estilos/estilos.css" type="text/css"/>    
     <link rel="stylesheet" href="Permisos.css" type="text/css"/>    
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/>    
+    <link rel="stylesheet" href="../estilos/SelectorDeAreas.css" type="text/css"/>    
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css" />
     <link href="ui.dynatree.css" rel="stylesheet" type="text/css"/>
@@ -58,8 +59,10 @@
                         <div id="lista_areas_administradas">
                         
                         </div>
-                        <div id="selector_area_administrada"></div>
-                        <input id="btn_agregar_area" type=button class="btn btn-primary" value="+"/>
+                        <div id="selector_area_administrada" class="selector_areas">
+                            <input id="buscador" type=hidden />
+                        </div>
+                        <%--<input id="btn_agregar_area" type=button class="btn btn-primary" value="+"/>--%>
                     </div>
                 </div>           
                 <div id="panel_derecho" class="estilo_formulario">
@@ -81,6 +84,9 @@
                 <div id="titulo_doc">Doc:</div>
                 <div id="documento"></div>         
             </div>   
+        </div>
+        <div class="vista_area_en_selector">
+            <div id="nombre"></div> 
         </div>
         <div class="area_administrada">
             <div id="nombre_area">Secretaría de Coordinación y Monitoreo Institucional</div>
@@ -104,6 +110,9 @@
 <script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
 <script type="text/javascript" src="../Scripts/Persona.js"></script>
 <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
+<script type="text/javascript" src="../Scripts/SelectorDeAreas.js"></script>
+<script type="text/javascript" src="../Scripts/RepositorioDeAreas.js"></script>
+<script type="text/javascript" src="../Scripts/Area.js"></script>
 <script type="text/javascript" src="../Scripts/alertify.js"></script>
 
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>

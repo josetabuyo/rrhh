@@ -12,7 +12,7 @@
         try
         {
             var ws = new WSViaticos.WSViaticosSoapClient();
-            if (!ws.ElUsuarioPuedeAccederALaURL((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO], Request.Path)) Response.Redirect("~/Login.aspx");
+            if (!ws.ElUsuarioPuedeAccederALaURL((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO], Request.Path)) Response.Redirect("~/Forbidden.aspx");
         }
         catch (HttpException exc)
         {

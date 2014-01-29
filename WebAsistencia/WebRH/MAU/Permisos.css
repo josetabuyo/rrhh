@@ -185,6 +185,20 @@
     float: right;
 }
 
+.selector_areas
+{
+    margin:5px;
+    position:absolute;
+    bottom:5px;
+    left: 5px;
+    right: 5px;
+}
+
+.selector_areas #buscador
+{
+    width:535px !important;
+}
+
 
 ::-webkit-scrollbar {
     width: 10px;

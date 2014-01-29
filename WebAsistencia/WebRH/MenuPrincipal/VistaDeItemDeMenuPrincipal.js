@@ -5,12 +5,13 @@
     this.link.attr("data-original-title", item.Descripcion);
     this.link.tooltip();
 
-    this.link.attr("id", item.NombreItem);
+    var nombre_sin_espacios = item.NombreItem.split(' ').join('_');
+    this.link.attr("id", nombre_sin_espacios);
 
     var style = document.createElement('style');
     style.type = 'text/css';
-    style.innerHTML = "#" + item.NombreItem + " { background:url('" + item.NombreItem + ".png') no-repeat;}";
-    style.innerHTML += "#" + item.NombreItem + ":after { background:url('" + item.NombreItem + "_after.png') no-repeat;}";
+    style.innerHTML = "#" + nombre_sin_espacios + " { background:url('" + nombre_sin_espacios + ".png') no-repeat;}";
+    style.innerHTML += "#" + nombre_sin_espacios + ":after { background:url('" + nombre_sin_espacios + "_after.png') no-repeat;}";
     document.getElementsByTagName('head')[0].appendChild(style);    
 };
 

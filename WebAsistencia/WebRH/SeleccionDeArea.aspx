@@ -57,7 +57,7 @@
 <script type="text/javascript" src="Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
 
 <script type="text/javascript" src="PantallaDeSeleccionDeAreas.js"></script>
-<script type="text/javascript" src="Protocolo/Area.js"></script>
+<script type="text/javascript" src="Scripts/Area.js"></script>
 <script type="text/javascript" src="Protocolo/VistaDeArea.js"></script>
 <script type="text/javascript" src="Protocolo/VistaDeAsistente.js"></script>
 <script type="text/javascript" src="Scripts/Sesion.js"></script>

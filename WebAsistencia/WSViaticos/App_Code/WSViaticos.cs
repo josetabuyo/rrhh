@@ -1900,6 +1900,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Area[] BuscarAreas(string criterio)
+    {
+        var areas = RepositorioDeAreas().BuscarAreas(criterio).ToArray();
+        return areas;
+    }
+
+    [WebMethod]
     public Persona[] BuscarPersonasConLegajo(string criterio)
     {
         var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
@@ -1916,6 +1923,18 @@ public class WSViaticos : System.Web.Services.WebService
     public Area[] AreasAdministradasPorIdUsuario(int id_usuario)
     {
         return Autorizador().AreasAdministradasPor(id_usuario).ToArray();
+    }
+
+    [WebMethod]
+    public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
+    {
+        Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area);
+    }
+
+    [WebMethod]
+    public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
+    {
+        Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area);
     }
 
     [WebMethod]
@@ -2147,6 +2166,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDePersonas RepositorioDePersonas()
     {
         return new RepositorioDePersonas(Conexion());
+    }
+
+    private RepositorioDeAreas RepositorioDeAreas()
+    {
+        return new RepositorioDeAreas(Conexion());
     }
 
     private IRepositorioDeUsuarios RepositorioDeUsuarios()
