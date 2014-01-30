@@ -10,50 +10,25 @@ namespace General
     public class CalculadorDeVacaciones
     {
         protected IRepositorioLicencia _repositorio_licencia;
-        //private int IdConceptoVacaciones = 1;
 
         public CalculadorDeVacaciones(IRepositorioLicencia repo_licencia)
         {
             this._repositorio_licencia = repo_licencia;
         }
 
-        public List<VacacionesPermitidas> GetVacacionesPermitidas() 
+        public List<VacacionesPermitidas> GetVacacionesPermitidas()
         {
             return _repositorio_licencia.GetVacacionesPermitidas();
         }
 
-        //public List<VacacionesPermitidas> ObtenerLicenciasPermitidasPara(Persona persona)
-        //{
-
-        //    //List<VacacionesPermitidas> vacaciones_permitidas_gral = GetVacacionesPermitidas();
-
-        //    _repositorio_licencia.GetVacacionPermitidaPara(
-
-        //    List<VacacionesPermitidas> vacaciones_permitidas_particular = vacaciones_permitidas_gral.FindAll(v => v.Persona.Equals(persona) && v.Concepto.Equals(this.IdConceptoVacaciones));
-
-        //    return vacaciones_permitidas_particular;
- 
-        //}
-
         public List<VacacionesPermitidas> ObtenerLicenciasPermitidasPara(Persona persona, Periodo periodo, Licencia licencia)
         {
-            return _repositorio_licencia.GetVacacionPermitidaPara(persona, periodo, licencia);// ObtenerLicenciasPermitidasPara(persona);
-
-            //return vacaciones_permitidas.Find(v => v.Periodo.anio.Equals(periodo.anio) && v.Concepto.Equals(this.IdConceptoVacaciones));
+            return _repositorio_licencia.GetVacacionPermitidaPara(persona, periodo, licencia);
         }
 
         public List<VacacionesAprobadas> ObtenerLicenciasAprobadasPara(Persona persona, Periodo periodo, Licencia licencia)
         {
             return _repositorio_licencia.GetVacacionesAprobadasPara(persona, periodo, licencia);
-        }
-
-        public int CalcularTotalPermitido(List<VacacionesPermitidas> lista)
-        {
-
-            int total = 0;
-            var vacaciones = lista.FindAll(licencias => licencias.Concepto.Equals(CodigosDeLicencias.Vacaciones));
-
-            return vacaciones.Select(v => v.CantidadDeDias()).Sum();
         }
 
         public List<VacacionesPermitidas> ObtenerLicenciasPermitidasPara(Persona persona)
@@ -70,47 +45,100 @@ namespace General
             return permitidas.CantidadDeDias() - aprobadas.CantidadDeDias() - pendientes_de_aprobar.CantidadDeDias();
         }
 
-        public object DiasRestantes(List<VacacionesPermitidas> permitidas, List<VacacionesAprobadas> aprobadas, List<VacacionesPendientesDeAprobacion> pendientes)
+        protected List<VacacionesPermitidas> Clonar(List<VacacionesPermitidas> original)
         {
-            return permitidas.Select(permit => permit.CantidadDeDias()).Sum() - aprobadas.Select(aprob => aprob.CantidadDeDias()).Sum() - pendientes.Select(pend => pend.CantidadDeDias()).Sum();
+            var permitidas_consumibles = new List<VacacionesPermitidas>();
+            original.ForEach(permitida => permitidas_consumibles.Add(permitida.Clonar()));
+            return permitidas_consumibles;
         }
 
-        public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<VacacionesAprobadas> aprobadas, List<VacacionesPendientesDeAprobacion> pendientes_de_aprobar)
+        private void ImputarA(VacacionesAprobadas aprobadas, List<VacacionesPermitidas> permitidas_consumibles)
+        {
+
+            //permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable() > consumible.Periodo && aprobadas.AnioMaximoImputable().Last().Periodo() <= consumible.Periodo);
+            permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable() > consumible.Periodo);
+
+            var permitidas_aplicables = permitidas_consumibles.FindAll(consumible => consumible.CantidadDeDias() > 0);
+            var primera_permitida_aplicable = new VacacionesPermitidas();
+            if (permitidas_aplicables.Count() == 0) throw new SolicitudInvalidaException();
+            primera_permitida_aplicable = permitidas_aplicables.First();
+      
+            if (primera_permitida_aplicable.CantidadDeDias() > aprobadas.CantidadDeDias())
+            {
+                primera_permitida_aplicable.RestarDias(aprobadas.CantidadDeDias());
+            }
+            else
+            {
+                aprobadas.DiasYaImputados(primera_permitida_aplicable.CantidadDeDias());
+                primera_permitida_aplicable.RestarDias(primera_permitida_aplicable.CantidadDeDias());
+                if (primera_permitida_aplicable.CantidadDeDias() == 0) {
+                    permitidas_consumibles.Remove(primera_permitida_aplicable);
+                }
+                ImputarA(aprobadas, permitidas_consumibles);
+            }
+        }
+
+
+        protected int AnioMinimoImputable(DateTime fecha)
+        {
+            var offset = 2;
+            if (fecha.Month == 12) offset = 1;
+            return fecha.Year - offset;
+        }
+
+        public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<VacacionesAprobadas> aprobadas, List<VacacionesPendientesDeAprobacion> pendientes_de_aprobar, DateTime fecha_de_calculo)
         {
             var vacaciones_solicitables = new List<VacacionesSolicitables>();
-                        
-            var vacas_aprob = aprobadas.Select(aprob => aprob.CantidadDeDias()).Sum();
-            var vacas_pend = pendientes_de_aprobar.Select(pend => pend.CantidadDeDias()).Sum();
 
+            var permitidas_consumibles = Clonar(permitidas);
+
+            if (aprobadas.Count() == 0)
+            {
+               var vacaciones_permitidas = permitidas_consumibles.FindAll(permitida => permitida.Periodo >= fecha_de_calculo.Year - 1); //El -1 representa la prórroga
+               vacaciones_permitidas.ForEach(permitida => vacaciones_solicitables.Add(new VacacionesSolicitables(permitida.Periodo, permitida.CantidadDeDias())));
+               return vacaciones_solicitables;
+            }
+            
+            aprobadas.ForEach(aprobada => ImputarA(aprobada.Clonar(), permitidas_consumibles));
+
+            permitidas_consumibles.RemoveAll(consumible => consumible.Periodo < AnioMinimoImputable(fecha_de_calculo));
+
+            permitidas_consumibles.ForEach(consumible => vacaciones_solicitables.Add(new VacacionesSolicitables(consumible.Periodo, consumible.CantidadDeDias())));
+
+            return vacaciones_solicitables;
 
             //var vacaciones_perdidas = DiasPerdidos(permitidas, aprobadas, pendientes_de_aprobar);
             //var vacaciones_permitidas_sin_periodos_perdidos = permitidas.FindAll(vac_permit => !vacaciones_perdidas.Exists(vac_perd => vac_perd.Periodo == vac_permit.Periodo));
             //var vacaciones_solicitables_sin_perdidos = calculador().DiasSolicitables(vacaciones_permitidas_excluyendo_dias_perdidos, VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>());
 
 
-            permitidas.ForEach(
-                (permit) =>
-                {
+            //permitidas.ForEach(
+            //    (permit) =>
+            //    {
 
-                    var vacas_a_restar = permit.CantidadDeDias() - vacas_aprob - vacas_pend;
-                    var dias_vigentes_para_el_perido = permit.CantidadDeDias() - vacas_aprob - vacas_pend;
-                    if (vacas_a_restar < 0)
-                    {
-                        vacas_a_restar = permit.CantidadDeDias();
-                        dias_vigentes_para_el_perido = 0;
-                    } else { 
-                        vacas_a_restar = vacas_aprob; 
-                    };
+            //        var vacas_a_restar = permit.CantidadDeDias() - vacas_aprob - vacas_pend;
+            //        var dias_vigentes_para_el_perido = permit.CantidadDeDias() - vacas_aprob - vacas_pend;
+            //        if (vacas_a_restar < 0)
+            //        {
+            //            vacas_a_restar = permit.CantidadDeDias();
+            //            dias_vigentes_para_el_perido = 0;
+            //        }
+            //        else
+            //        {
+            //            vacas_a_restar = vacas_aprob;
+            //        };
 
-                    vacaciones_solicitables.Add(new VacacionesSolicitables(permit.Periodo, dias_vigentes_para_el_perido));
-                    
-                    vacas_aprob -= vacas_a_restar;
-                    if (vacas_aprob < 0) vacas_aprob = 0;
-                }
-                );
+            //        vacaciones_solicitables.Add(new VacacionesSolicitables(permit.Periodo, dias_vigentes_para_el_perido));
 
-            return vacaciones_solicitables;
+            //        vacas_aprob -= vacas_a_restar;
+            //        if (vacas_aprob < 0) vacas_aprob = 0;
+            //    }
+            //    );
+
+            //return vacaciones_solicitables;
         }
+
+    
 
         public List<VacacionesPermitidas> DiasPerdidos(List<VacacionesPermitidas> vacaciones_permitidas, List<VacacionesAprobadas> vacaciones_aprobadas, List<VacacionesPendientesDeAprobacion> vacaciones_pendientes_de_aprobacion)
         {
@@ -124,7 +152,7 @@ namespace General
             List<VacacionesPermitidas> lista_interna_licencias_pendientes_de_ser_tratadas = new List<VacacionesPermitidas>();
 
             var primer_vacacion_permitida = vacaciones_permitidas.First();
-           
+
             //FUSIONAMOS LAS LICENCIAS APROBADAS CON LAS LICENCIAS QUE ESTÁN EN PROCESO DE SER APROBADAS
             var todas_las_licencias_solicitadas = ObtenerLicenciasSolicitadas(vacaciones_aprobadas, vacaciones_pendientes_de_aprobacion);
             //
@@ -169,7 +197,7 @@ namespace General
                     lista_interna_licencias_pendientes_de_ser_tratadas.Find(l => l == licencia_pendiente).CantidadDeDias(0);
                     cantidad_de_licencias_por_consumir = primer_licencia_solicitada.CantidadDeDias() - licencia_pendiente.CantidadDeDias();
                 }
-                else 
+                else
                 {
                     lista_interna_licencias_pendientes_de_ser_tratadas.Find(l => l == licencia_pendiente).CantidadDeDias(licencia_pendiente.CantidadDeDias() - cantidad_de_licencias_por_consumir);
                     cantidad_de_licencias_por_consumir = 0;

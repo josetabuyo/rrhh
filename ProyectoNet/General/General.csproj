@@ -73,6 +73,7 @@
     <Compile Include="Asistencia\CreadorDePeriodosImputablesSimples.cs" />
     <Compile Include="Asistencia\CalculadorDeVacaciones.cs" />
     <Compile Include="Asistencia\CantidadDeDiasPorPeriodo.cs" />
+    <Compile Include="Asistencia\SolicitudInvalidaException.cs" />
     <Compile Include="Asistencia\Vacacion.cs" />
     <Compile Include="Asistencia\ConceptoDeLicencia.cs" />
     <Compile Include="Asistencia\CodigosDeLicencias.cs" />

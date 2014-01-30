@@ -265,7 +265,7 @@ namespace General.Repositorios
                 int dias = row.GetSmallintAsInt("Dias_Autorizados");
                 int concepto = row.GetSmallintAsInt("Id_Concepto_Licencia");
 
-                VacacionesPermitidas vacaciones = new VacacionesPermitidas(persona, periodo, dias, concepto);
+                VacacionesPermitidas vacaciones = new VacacionesPermitidas(persona, periodo, dias);
 
                 vacaciones_permitidas.Add(vacaciones);
             });
