@@ -11,7 +11,7 @@
                   <a class="brand" href="#">MACC</a>
                   <div class="nav-collapse navbar-responsive-collapse">
                     <ul class="nav">
-                      <li><a href="FormAsignarAlumnos.aspx">Inscripcion</a></li>
+                      <li><a href="FormAsignarAlumnos.aspx">Inscripci&oacute;n</a></li>
                       <li><a href="FormPlanillaAsistenciaAlumnos.aspx">Planilla de Asistencia</a></li>
                       <li class="dropdown" id="menu_evaluaciones" runat="server">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Evaluaciones</a>
