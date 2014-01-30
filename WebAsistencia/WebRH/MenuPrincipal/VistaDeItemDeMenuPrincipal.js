@@ -7,12 +7,15 @@
 
     var nombre_sin_espacios = item.NombreItem.split(' ').join('_');
     this.link.attr("id", nombre_sin_espacios);
+  
+    var estilo = "<style>";
+    estilo += "#" + nombre_sin_espacios + " { background:url('" + nombre_sin_espacios + ".png') no-repeat;}";
+    estilo += "#" + nombre_sin_espacios + ":after { background:url('" + nombre_sin_espacios + "_after.png') no-repeat;}";
+    estilo += "</style>";
 
-    var style = document.createElement('style');
-    style.type = 'text/css';
-    style.innerHTML = "#" + nombre_sin_espacios + " { background:url('" + nombre_sin_espacios + ".png') no-repeat;}";
-    style.innerHTML += "#" + nombre_sin_espacios + ":after { background:url('" + nombre_sin_espacios + "_after.png') no-repeat;}";
-    document.getElementsByTagName('head')[0].appendChild(style);    
+    $(estilo).appendTo("head")
+
+
 };
 
 VistaDeItemDeMenuPrincipal.prototype.dibujarEn = function (un_panel) {
