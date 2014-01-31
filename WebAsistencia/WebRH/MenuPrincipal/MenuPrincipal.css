@@ -52,6 +52,7 @@
     padding:5px;
     color:white;
     font-size: 20px;
+    white-space: nowrap;
 }
 
 #contenedor_descripcion_item {
