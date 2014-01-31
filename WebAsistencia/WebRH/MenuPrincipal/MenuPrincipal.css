@@ -27,15 +27,53 @@
 	box-sizing: content-box;
 }
 
-.item_de_menu_principal a
+.item_de_menu_principal
 {
-    display:block;    
+    position:relative;
+}
+
+#contenedor_descripcion_item
+{
+    display:inline-block;    
+    position:relative;
+    overflow:hidden;
+}
+
+#descripcion_item
+{
+    background-color:rgb(204, 204, 204);
+    position:absolute;  
+    left:100px;
+    top:5px;
+    bottom:5px;
+    right:5px;
+    border-radius: 0px 2px 2px 0px;  
+    border:.5px solid black; 
+    padding:5px;
+    color:white;
+}
+
+#contenedor_descripcion_item {
+    left:80px;
+    top:30px;
+    height:60px;
+    width:0px;
+    background:rgb(150, 150, 150);
+    position:absolute;   
+    border-radius: 15% 5px 5px 15%;  
+    transition: width .2s ease-out;
+}
+
+.hi-icon:hover + #contenedor_descripcion_item{
+    width:900px;
+    border:2px solid rgb(89, 141, 235);
 }
 
 html, body, form
 {
     height:100%;
 }
+
 .container {
 	background-color: #122b48;
 	height:100%;
@@ -45,7 +83,7 @@ html, body, form
 #menu_principal
 {
     margin-left: 150px;
-    margin-top:50px;
+    margin-top:20px;    
 }
 /* Effect 8 */
 .hi-icon-effect-8 .hi-icon {
@@ -57,7 +95,7 @@ html, body, form
 	top: 0;
 	left: 0;
 	padding: 0;
-	z-index: -1;*/
+	z-index: -1;
 	box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
 	opacity: 0;
 	-webkit-transform: scale(0.9);
@@ -66,21 +104,19 @@ html, body, form
 	transform: scale(0.9);
 }
 
-.no-touch .hi-icon-effect-8 .hi-icon:hover {
-	
+.no-touch .hi-icon-effect-8 .hi-icon:hover {	
 	background: rgba(255,255,255,0.05);
 	-webkit-transform: scale(0.93);
 	-moz-transform: scale(0.93);
 	-ms-transform: scale(0.93);
 	transform: scale(0.93);
 	color: #fff;
-
 }
 
 .hi-icon-effect-8 .hi-icon:hover:after {
-	-webkit-animation: sonarEffect 1.3s ease-out 75ms;
-	-moz-animation: sonarEffect 1.3s ease-out 75ms;
-	animation: sonarEffect 1.3s ease-out 75ms;
+	-webkit-animation: sonarEffect 0.8s ease-out 75ms;
+	-moz-animation: sonarEffect 0.8s ease-out 75ms;
+	animation: sonarEffect 0.8s ease-out 75ms;
 }
 
 @-webkit-keyframes sonarEffect {

@@ -5,10 +5,11 @@
     {
         var ws = new WSViaticos.WSViaticosSoapClient();
         Session[ConstantesDeSesion.USUARIO] = ws.GetUsuarioNulo();
+        Response.Redirect("~/Login.aspx");
     }
 
     void Application_AcquireRequestState(object sender, EventArgs e)        
-    {
+    {  
         try
         {
             var ws = new WSViaticos.WSViaticosSoapClient();

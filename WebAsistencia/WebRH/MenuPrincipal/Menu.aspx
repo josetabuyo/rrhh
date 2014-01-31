@@ -25,6 +25,9 @@
         <div id="plantillas">
             <div class="item_de_menu_principal">
               	<a class="hi-icon" data-toggle="tooltip" data-placement="right" title="" ></a>
+                <div id="contenedor_descripcion_item">
+                    <div id="descripcion_item"> Esta es una descripcion </div>
+                </div>
             </div>
         </div>
 
@@ -34,8 +37,7 @@
         <script type="text/javascript" src="VistaDeItemDeMenuPrincipal.js"></script>
         <script type="text/javascript" src="../MAU/Autorizador.js"></script>
         <script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
-
-         <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
+        <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {
