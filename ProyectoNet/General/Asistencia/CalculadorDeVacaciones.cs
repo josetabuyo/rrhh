@@ -57,8 +57,11 @@ namespace General
 
             //permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable() > consumible.Periodo && aprobadas.AnioMaximoImputable().Last().Periodo() <= consumible.Periodo);
             permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable() > consumible.Periodo);
+            var permitidas_consumibles2 = new List<VacacionesPermitidas>(permitidas_consumibles);
+            permitidas_consumibles2.RemoveAll(consumible => aprobadas.AnioMaximoImputable().Last().Periodo() < consumible.Periodo);
 
-            var permitidas_aplicables = permitidas_consumibles.FindAll(consumible => consumible.CantidadDeDias() > 0);
+
+            var permitidas_aplicables = permitidas_consumibles2.FindAll(consumible => consumible.CantidadDeDias() > 0);
             var primera_permitida_aplicable = new VacacionesPermitidas();
             if (permitidas_aplicables.Count() == 0) throw new SolicitudInvalidaException();
             primera_permitida_aplicable = permitidas_aplicables.First();
@@ -74,7 +77,37 @@ namespace General
                 if (primera_permitida_aplicable.CantidadDeDias() == 0) {
                     permitidas_consumibles.Remove(primera_permitida_aplicable);
                 }
-                ImputarA(aprobadas, permitidas_consumibles);
+                if (aprobadas.CantidadDeDias() > 0)
+                {
+                    ImputarA(aprobadas, permitidas_consumibles);
+                }
+            }
+        }
+
+        private void ImputarA(VacacionesPendientesDeAprobacion pendiente, List<VacacionesPermitidas> permitidas_consumibles)
+        {
+
+            //permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable() > consumible.Periodo && aprobadas.AnioMaximoImputable().Last().Periodo() <= consumible.Periodo);
+            permitidas_consumibles.RemoveAll(consumible => pendiente.AnioMinimoImputable() > consumible.Periodo);
+
+            var permitidas_aplicables = permitidas_consumibles.FindAll(consumible => consumible.CantidadDeDias() > 0);
+            var primera_permitida_aplicable = new VacacionesPermitidas();
+            if (permitidas_aplicables.Count() == 0) throw new SolicitudInvalidaException();
+            primera_permitida_aplicable = permitidas_aplicables.First();
+
+            if (primera_permitida_aplicable.CantidadDeDias() > pendiente.CantidadDeDias())
+            {
+                primera_permitida_aplicable.RestarDias(pendiente.CantidadDeDias());
+            }
+            else
+            {
+                pendiente.DiasYaImputados(primera_permitida_aplicable.CantidadDeDias());
+                primera_permitida_aplicable.RestarDias(primera_permitida_aplicable.CantidadDeDias());
+                if (primera_permitida_aplicable.CantidadDeDias() == 0)
+                {
+                    permitidas_consumibles.Remove(primera_permitida_aplicable);
+                }
+                ImputarA(pendiente, permitidas_consumibles);
             }
         }
 
@@ -99,9 +132,13 @@ namespace General
                return vacaciones_solicitables;
             }
             
+
             aprobadas.ForEach(aprobada => ImputarA(aprobada.Clonar(), permitidas_consumibles));
 
             permitidas_consumibles.RemoveAll(consumible => consumible.Periodo < AnioMinimoImputable(fecha_de_calculo));
+
+            //imputo las pendientes a las permitidas consumibles
+            pendientes_de_aprobar.ForEach(pendiente => ImputarA(pendiente.Clonar(), permitidas_consumibles));
 
             permitidas_consumibles.ForEach(consumible => vacaciones_solicitables.Add(new VacacionesSolicitables(consumible.Periodo, consumible.CantidadDeDias())));
 

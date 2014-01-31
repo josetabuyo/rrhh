@@ -13,5 +13,12 @@ namespace General
 
             return new List<CantidadDeDiasPorPeriodo>() { new CantidadDeDiasPorPeriodo(GetAnioimputable(aprobadas.Hasta()), dias_periodo) };
         }
+
+        public override List<CantidadDeDiasPorPeriodo> AnioMaximoImputable(VacacionesPendientesDeAprobacion pendientes)
+        {
+            var dias_periodo = pendientes.CantidadDeDias();
+
+            return new List<CantidadDeDiasPorPeriodo>() { new CantidadDeDiasPorPeriodo(GetAnioimputable(pendientes.Hasta()), dias_periodo) };
+        }
     }
 }

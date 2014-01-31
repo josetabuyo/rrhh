@@ -243,10 +243,10 @@ namespace TestViaticos
         }
 
         [TestMethod]
-        public void juan_deberia_poder_solicitar_0_dias_para_2012_y_0_para_2013_y_10_para_2014()
+        public void en_diciembre_ya_deberia_tener_disponibles_los_dias_de_ese_anio()
         {
-            var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12), VacacionesPermitidas(2013, 20), VacacionesPermitidas(2014, 20) };
-            var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()), new VacacionesAprobadas(juan, primero_de_abril_2013(), veinte_de_abril_2013()) };
+            var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 15), VacacionesPermitidas(2013, 21) };
+            var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()), new VacacionesAprobadas(juan, primero_de_diciembre_2013(), veinte_de_diciembre_2013()) };
             var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>();
             var fecha_de_hoy = new DateTime(2014, 12, 01);
 
@@ -255,9 +255,8 @@ namespace TestViaticos
             var vacaciones_solicitables_2014 = listado_solicitables[0];
 
             Assert.AreEqual(1, listado_solicitables.Count());
-            Assert.AreEqual(2014, vacaciones_solicitables_2014.Periodo());
-            Assert.AreEqual(17, vacaciones_solicitables_2014.CantidadDeDias());
-
+            Assert.AreEqual(2013, vacaciones_solicitables_2014.Periodo());
+            Assert.AreEqual(1, vacaciones_solicitables_2014.CantidadDeDias());
         }
 
         [TestMethod]
@@ -555,6 +554,15 @@ namespace TestViaticos
         protected DateTime quince_de_enero_2012()
         {
             return new DateTime(2012, 01, 15);
+        }
+
+        protected DateTime primero_de_diciembre_2013() {
+            return new DateTime(2013, 12, 01);
+        }
+
+        protected DateTime veinte_de_diciembre_2013()
+        {
+            return new DateTime(2013, 12, 20);
         }
 
         protected DateTime primero_de_enero_2012()
