@@ -9,10 +9,11 @@
     <title>SICOI</title>
     <link rel="stylesheet" href="../Estilos/EstilosSICOI.css" type="text/css" runat="server" />
     <%= Referencias.Css("../")%>
+    <%= Referencias.Javascript("../")%>
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
-        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
         <div id="contenedor_principal_sicoi">
             <div id="botonera_paneles_desplegables">
                 <input type="button" id="boton_alertas" style="display:none;" class=" btn btn-danger" value="!"/>
@@ -171,7 +172,6 @@
         </asp:ScriptManager>
     </form>
 </body>
-    <%= Referencias.Javascript("../")%>
 
     <script type="text/javascript" src="PanelDeFiltrosDeDocumentos.js"></script>
     <script type="text/javascript" src="InputAutocompletableDeAreas.js"></script>

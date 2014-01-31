@@ -79,6 +79,7 @@
     <Compile Include="MAU\Areas.cs" />
     <Compile Include="Extensiones\ExtensionString.cs" />
     <Compile Include="MAU\Autorizador.cs" />
+    <Compile Include="MAU\Encriptador.cs" />
     <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="Viaticos\PersonaNula.cs" />

@@ -36,5 +36,17 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+
+        public bool CambiarPassword(Usuario usuario, string pass_actual, string pass_nueva)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public bool CambiarPassword(int id_usuario, string pass_actual, string pass_nueva)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

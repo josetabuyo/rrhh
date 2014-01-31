@@ -1539,7 +1539,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private List<Alumno> FiltrarAlumnosPorUsuarioLogueado(Usuario usuario, List<Alumno> alumnos, Organigrama organigrama)
     {
-        var autorizador = new Autorizador();
+        var autorizador = new AutorizadorSacc();
 
         alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
         return alumnos;
@@ -1870,10 +1870,9 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
     {
+        var repoUsuarios = RepositorioDeUsuarios();
 
-        RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
-
-        if (repoUsuarios.CambiarPassword(usuario, PasswordActual, PasswordNuevo))
+        if (repoUsuarios.CambiarPassword(usuario.Id, PasswordActual, PasswordNuevo))
         {
             return JsonConvert.SerializeObject(new
             {

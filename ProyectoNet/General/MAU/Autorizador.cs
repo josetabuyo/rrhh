@@ -17,10 +17,10 @@ namespace General.MAU
         protected IRepositorioDeUsuarios repositorio_usuarios;
         protected IRepositorioDeAccesosAURL repositorio_accesos_a_url;
 
-        public Autorizador(IRepositorioDeFuncionalidades repo_funcionalidades, 
-            IRepositorioDeMenues repo_menues, 
-            IRepositorioDeUsuarios repo_usuarios, 
-            IRepositorioDePermisosSobreAreas repo_permisos_sobre_areas, 
+        public Autorizador(IRepositorioDeFuncionalidades repo_funcionalidades,
+            IRepositorioDeMenues repo_menues,
+            IRepositorioDeUsuarios repo_usuarios,
+            IRepositorioDePermisosSobreAreas repo_permisos_sobre_areas,
             IRepositorioDeAccesosAURL repo_accesos_a_url)
         {
             this.repositorio_funcionalidades = repo_funcionalidades;
@@ -46,17 +46,17 @@ namespace General.MAU
 
         public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
         {
-            this.repositorio_funcionalidades.ConcederFuncionalidadA(usuario, funcionalidad);           
+            this.repositorio_funcionalidades.ConcederFuncionalidadA(usuario, funcionalidad);
         }
 
         public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
         {
-            this.repositorio_funcionalidades.ConcederFuncionalidadA(id_usuario, id_funcionalidad);           
+            this.repositorio_funcionalidades.ConcederFuncionalidadA(id_usuario, id_funcionalidad);
         }
 
         public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
         {
-            this.repositorio_funcionalidades.DenegarFuncionalidadA(id_usuario, id_funcionalidad);           
+            this.repositorio_funcionalidades.DenegarFuncionalidadA(id_usuario, id_funcionalidad);
         }
 
         public static Autorizador Instancia()
@@ -97,7 +97,7 @@ namespace General.MAU
 
         public Boolean ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
         {
-            var funcionalidades_que_permiten_acceder_a_la_url = this.repositorio_accesos_a_url.TodosLosAccesos().FindAll(a => a.Url.ToUpper() == url.ToUpper()).Select(a=> a.Funcionalidad);
+            var funcionalidades_que_permiten_acceder_a_la_url = this.repositorio_accesos_a_url.TodosLosAccesos().FindAll(a => a.Url.ToUpper() == url.ToUpper()).Select(a => a.Funcionalidad);
             if (funcionalidades_que_permiten_acceder_a_la_url.Count() == 0) return true;
             return this.repositorio_funcionalidades.FuncionalidadesPara(usuario).Any(f => funcionalidades_que_permiten_acceder_a_la_url.Contains(f));
         }
@@ -111,5 +111,6 @@ namespace General.MAU
         {
             repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(id_usuario, id_area);
         }
+
     }
 }

@@ -39,7 +39,14 @@ namespace General.MAU
 
         public virtual bool ValidarClave(string clave)
         {
-            return this.clave_encriptada == RepositorioDeUsuarios.EncriptarSHA1(clave);
+            return this.clave_encriptada == Encriptador.EncriptarSHA1(clave);
+        }
+
+        public bool CambiarClave(string clave_actual, string clave_nueva)
+        {
+            if (!this.ValidarClave(clave_actual)) return false;
+            this.clave_encriptada = Encriptador.EncriptarSHA1(clave_nueva);
+            return true;
         }
 
         public override bool Equals(object obj)

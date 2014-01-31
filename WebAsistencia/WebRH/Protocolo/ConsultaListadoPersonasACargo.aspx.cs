@@ -16,7 +16,8 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
         Persona[] personas;
         List<Persona> personas_todas_areas_a_cargo = new List<Persona>();
 
-        foreach (var area in usuario.Areas)
+
+        foreach (var area in servicio.AreasAdministradasPor(usuario))
         {
             personas = servicio.GetPersonasACargo(area);
 

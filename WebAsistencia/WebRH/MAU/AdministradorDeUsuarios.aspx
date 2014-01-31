@@ -6,6 +6,7 @@
     <title>RRHH - Permisos de usuario</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%= Referencias.Css("../")%>
+    <%= Referencias.Javascript("../")%>
     <link rel="stylesheet" href="../estilos/estilos.css" type="text/css"/>    
     <link rel="stylesheet" href="Permisos.css" type="text/css"/>    
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/>    
@@ -17,7 +18,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.A.U.</span> <br/> <span style='font-size:12px;'> Administración de Usuarios </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />        
+        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.A.U.</span> <br/> <span style='font-size:12px;'> Administración de Usuarios </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
         <div id="administrador_usuarios">            
             <div id="panel_busqueda">
                 <div id="instrucciones_de_uso">Ingrese la persona que desea administrar --></div>
@@ -94,7 +95,6 @@
         </div>
     </div>
 </body>
-<%= Referencias.Javascript("../")%>
 <script type="text/javascript" src="VistaDeAreasAdministradas.js"></script>
 <script type="text/javascript" src="VistaDeAreaAdministrada.js"></script>
 <script type="text/javascript" src="VistaDePermisosDeUnUsuario.js"></script>

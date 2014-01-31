@@ -1,4 +1,5 @@
-ALTER  procedure[dbo].[Web_GetUsuario]      
+CREATE  procedure[dbo].[Web_GetUsuario]      
+	@id int = null,
 	@id_persona int = null,
 	@alias varchar(15) = null 
 as      
@@ -15,6 +16,7 @@ SELECT
 FROM   dbo.RH_usuarios		us	 
 				
 where            
+  (us.id = @id OR @id is null) AND 
   (us.Nombre = @alias OR @alias is null) AND 
   (us.IdPersona = @id_persona OR @id_persona is null)
 

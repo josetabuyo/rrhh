@@ -13,7 +13,7 @@
 <body class="body-detalle">
     <form id="form1" runat="server">
         <uc2:BarraMenu ID="BarraMenu" runat="server" 
-            Feature="<div style='margin-top: 6px;'> <span style='font-size:20px; font-weight: bold;'>MODI</span> <br/> <span style='font-size:12px;'> Módulo de Digitalización </span> </div>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+            Feature="<div style='margin-top: 6px;'> <span style='font-size:20px; font-weight: bold;'>MODI</span> <br/> <span style='font-size:12px;'> Módulo de Digitalización </span> </div>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
         <div id="contenedor_principal_modi">
            <div id="ui_vista_de_resultados_de_legajos" class="vista_de_legajo">
                 <label id="lbl_resumen_datos_personales"></label>
