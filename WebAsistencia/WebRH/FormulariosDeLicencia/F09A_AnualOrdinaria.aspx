@@ -8,6 +8,19 @@
 <%@ Register Src="Partes/FirmaSolicitante.ascx" TagName="FirmaSolicitante" TagPrefix="uc2" %>
 <%@ Register Src="Partes/DesdeHasta.ascx" TagName="DesdeHasta" TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="CPHDatos" runat="Server">
+    <%--para que no se pueda imprimir por fuera del sistema--%>
+    <style type="text/css">
+        @media print {
+           .no_imprimible  
+           {
+               display: none !important;
+           }
+        }
+    </style>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../Scripts/deshabilitarImpresion.js"></script>
+    <%--para que no se pueda imprimir por fuera del sistema--%>
+
     &nbsp;
     <table>
         <tr>

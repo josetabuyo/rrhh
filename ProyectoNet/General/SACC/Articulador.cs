@@ -19,7 +19,7 @@ namespace General
         {    
         }
 
-        public void EvaluarRegularidadPara(Alumno alumno, Curso curso, RepositorioDeAsistencias repo_asistencias)
+        public void EvaluarRegularidadPara(Alumno alumno, Curso curso, List<AcumuladorAsistencia> repo_asistencias)
         {
 
             int limite_maximo_de_ausencias = ObtenerLimiteDeAusencias(curso);
@@ -30,13 +30,26 @@ namespace General
         }
 
 
-        public int AusenciasDisponibles(Alumno alumno, Curso curso, RepositorioDeAsistencias repo_asistencias)
+        public int AusenciasDisponibles(Alumno alumno, Curso curso, List<AcumuladorAsistencia> repo_asistencias)
         {
             int limite_maximo_de_ausencias = ObtenerLimiteDeAusencias(curso);
 
             int ausencias_computables = ObtenerLasAusenciasComputables(alumno, curso, repo_asistencias);
 
             return (limite_maximo_de_ausencias - ausencias_computables);
+        }
+
+        public bool EsRegular(Alumno alumno, Curso curso, List<AcumuladorAsistencia> asistencias_por_curso_y_alumno)
+        {
+            this.EvaluarRegularidadPara(alumno, curso, asistencias_por_curso_y_alumno);
+            if (condicion_del_alumno == regular)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
@@ -46,11 +59,11 @@ namespace General
             return 10 * total_horas_catedra / 100;
         }
 
-        private int ObtenerLasAusenciasComputables(Alumno alumno, Curso curso, RepositorioDeAsistencias repo_asistencias)
+        private int ObtenerLasAusenciasComputables(Alumno alumno, Curso curso, List<AcumuladorAsistencia> repo_asistencias)
         {
             List<HorarioDeCursada> horarios_del_curso = curso.GetHorariosDeCursada();
 
-            List<Asistencia> lista_de_asistencias_tomadas = repo_asistencias.GetAsistenciasPorCursoYAlumno(curso.Id, alumno.Id);
+            List<AcumuladorAsistencia> lista_de_asistencias_tomadas = new List<AcumuladorAsistencia>(); //repo_asistencias.GetAsistenciasPorCursoYAlumno(curso.Id, alumno.Id);
 
             int ausencias_computables = 0;
 
@@ -74,38 +87,36 @@ namespace General
             return LimiteMaximoDeAusenciasParaAlumnosRegulares(total_horas_catedra);
         }
 
-        private int AusenciasComputables(List<HorarioDeCursada> horarios_del_curso, int ausencias_computables, Asistencia asistencia)
+        private int AusenciasComputables(List<HorarioDeCursada> horarios_del_curso, int ausencias_computables, AcumuladorAsistencia asistencia)
         {
             HorarioDeCursada dia_y_horario = horarios_del_curso.Find(d => d.Dia == asistencia.Fecha.DayOfWeek);
-
-            if (0 < asistencia.Valor && asistencia.Valor < 4)
-            {
-                ausencias_computables += dia_y_horario.HorasCatedra - asistencia.Valor;
-            }
-
-            if (asistencia.Valor == 4)
-            {
-                ausencias_computables += dia_y_horario.HorasCatedra;
-            }
+            ausencias_computables += dia_y_horario.HorasCatedra - int.Parse(asistencia.Valor);
+            
             return ausencias_computables;
         }
 
-        private int TotalDeHorasCatedra(Curso curso, List<DateTime> dias_de_cursada)
+        public int TotalDeHorasCatedra(Curso curso, List<DateTime> dias_de_cursada)
         {
             var total_horas_catedra = 0;
+            var horarios_de_cursada = curso.GetHorariosDeCursada();
             dias_de_cursada.ForEach(d =>
             {
-                total_horas_catedra += curso.GetHorariosDeCursada().Find(h => h.Dia == d.DayOfWeek).HorasCatedra;
+                var horario = horarios_de_cursada.Find(h => h.Dia == d.DayOfWeek);
+                if (horario  != null)
+                {
+                    total_horas_catedra += horario.HorasCatedra;
+                }
+               
             });
             return total_horas_catedra;
         }
 
-        private List<DateTime> GetDiasDeCursadaEntre(DateTime fecha_desde, DateTime fecha_hasta, CalendarioDeCurso calendario)
+        public List<DateTime> GetDiasDeCursadaEntre(DateTime fecha_desde, DateTime fecha_hasta, CalendarioDeCurso calendario)
         {
             return calendario.DiasACursarSinIncluirFeriadosEntre(fecha_desde, fecha_hasta).Select(dia => dia.Dia()).ToList();
         }
 
-        private static CalendarioDeCurso CalendarioDelCurso(Curso curso)
+        public CalendarioDeCurso CalendarioDelCurso(Curso curso)
         {
             ManagerDeCalendarios manager_de_calendarios = new ManagerDeCalendarios(new CalendarioDeFeriados());
             manager_de_calendarios.AgregarCalendarioPara(curso);
@@ -142,12 +153,16 @@ namespace General
 
             var cursos_ordenados = OrdenarCursosPorFecha(cursos_del_alumno);
 
-           if (cursos_ordenados.First().FechaFin <= fecha_hoy)
+            if (cursos_ordenados.Count == 0)
+            {
+                return new EstadoAlumnoSinCursar();
+            }
+            else if (cursos_ordenados.First().FechaFin <= fecha_hoy)
             {
                 return new EstadoAlumnoFinalizado();
             }
-
-           return new EstadoAlumnoCursando();
+                return new EstadoAlumnoCursando();
+            
         }
 
         public Ciclo CicloDelAlumno(Alumno alumno, IRepositorioDeCursos repo_cursos, List<Curso> cursos)
@@ -156,6 +171,10 @@ namespace General
 
             var cursos_ordenados = OrdenarCursosPorCiclo(cursos_del_alumno);
 
+            if (cursos_ordenados.Count == 0)
+            {
+                return new Ciclo();
+            }
             return cursos_ordenados.First().Materia.Ciclo;
         }
 
@@ -212,5 +231,13 @@ namespace General
 
             return "Adeuda Final";
         }
+
+        public List<AcumuladorAsistencia> AsistenciasParaUnAlumnoYCurso(Alumno alumno, Curso curso, IRepositorioDeAsistencias repo_asistencias)
+        {
+            var asistencias = repo_asistencias.GetAsistencias();
+            return asistencias.FindAll(asistencia => asistencia.IdCurso.Equals(curso.Id) && asistencia.IdAlumno.Equals(alumno.Id));
+        }
+
+       
     }
 }

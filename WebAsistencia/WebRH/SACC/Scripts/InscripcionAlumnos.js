@@ -1,103 +1,125 @@
 ﻿var PaginaInscripcionAlumnos = function (options) {
-    this.o = options;	
-	var _this = this;	
-	this.btnAsignar = options.botonAsignarAlumno;	
-	this.btnDesAsignar = options.botonDesAsignarAlumno;
-	this.btnInscribir = options.botonGuardarInscriptos;
-	
-	this.btnAsignar.click(function(){
-		_this.AsignarAlumno();
-	});
+    this.o = options;
+    var _this = this;
+    this.btnAsignar = options.botonAsignarAlumno;
+    this.btnDesAsignar = options.botonDesAsignarAlumno;
+    this.btnInscribir = options.botonGuardarInscriptos;
+    this.chkCursos = options.checkCurso;
 
-	this.btnDesAsignar.click(function(){
-		_this.DesasignarAlumno();
-	});
+    this.btnAsignar.click(function () {
+        _this.AsignarAlumno();
+    });
 
-	this.btnInscribir.click(function(){
-		_this.InscribirAlumnos();
-	});
-	
-	this.o.planillaAlumnosDisponibles = new Grilla(
+    this.btnDesAsignar.click(function () {
+        _this.DesasignarAlumno();
+    });
+
+    this.btnInscribir.click(function () {
+        _this.InscribirAlumnos();
+    });
+
+    this.chkCursos.change(function () {
+        _this.FiltrarCursos();
+    });
+
+    this.o.planillaAlumnosDisponibles = new Grilla(
         [
             new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento; } }),
 			new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre; } }),
 			new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }),
 			new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } })
 		]);
-				
-		this.o.planillaAlumnosDisponibles.SetOnRowClickEventHandler(function (un_alumno) {
-			_this.o.alumnoGlobal = un_alumno;
-	});
-				
-	this.o.planillaAlumnosAsignados = new Grilla(
+
+    this.o.planillaAlumnosDisponibles.SetOnRowClickEventHandler(function (un_alumno) {
+        _this.o.alumnoGlobal = un_alumno;
+    });
+
+    this.o.planillaAlumnosAsignados = new Grilla(
         [
             new Columna("Documento", { generar: function (un_alumno) { return un_alumno.Documento; } }),
 			new Columna("Nombre", { generar: function (un_alumno) { return un_alumno.Nombre; } }),
 			new Columna("Apellido", { generar: function (un_alumno) { return un_alumno.Apellido; } }),
 			new Columna("Modalidad", { generar: function (un_alumno) { return un_alumno.Modalidad.Descripcion; } })
 		]);
-				
-		this.o.planillaAlumnosAsignados.SetOnRowClickEventHandler(function (un_alumno) {
-			_this.o.alumnoGlobal = un_alumno;
-	});
+
+    this.o.planillaAlumnosAsignados.SetOnRowClickEventHandler(function (un_alumno) {
+        _this.o.alumnoGlobal = un_alumno;
+    });
 
 
     this.o.planillaAlumnosAsignados.AgregarEstilo("tabla_macc");
     this.o.planillaAlumnosDisponibles.AgregarEstilo("tabla_macc");
-	this.o.planillaAlumnosDisponibles.CargarObjetos(this.o.alumnos);
-	this.o.planillaAlumnosDisponibles.DibujarEn(this.o.contenedorAlumnosDisponibles);
-	
-	this.completarcombosDeCursos();
-	this.completarCombosDeCiclo();
+    this.o.planillaAlumnosDisponibles.CargarObjetos(this.o.alumnos);
+    this.o.planillaAlumnosDisponibles.DibujarEn(this.o.contenedorAlumnosDisponibles);
+
+    this.completarcombosDeCursos();
+    this.completarCombosDeCiclo();
 }
 
 PaginaInscripcionAlumnos.prototype.completarCombosDeCiclo = function () {
 
-		_this = this;
-        this.o.cmbCiclo.change(function (e) {
-            var cicloSeleccionado = _this.o.cmbCiclo.find('option:selected').val();
-            if (cicloSeleccionado == -1) {
-                _this.o.cmbCursos.empty();
-                for (var i = 0; i < _this.o.cursosJSON.length; i++) {
-                    var curso = _this.o.cursosJSON[i];
-                    var listItem = $('<option>');
-                    // alert(JSON.stringify(curso));
-                    listItem.val(curso.Id);
-                    listItem.text(curso.Nombre);
-                    _this.o.cmbCursos.append(listItem);
-                }
-                return;
-            }
+    _this = this;
+    this.o.cmbCiclo.change(function (e) {
+        var cicloSeleccionado = _this.o.cmbCiclo.find('option:selected').val();
+        if (cicloSeleccionado == -1) {
+            _this.o.cmbCursos.empty();
+            _this.ArmarComboCurso(_this.o.cursosJSON);
 
-            var queryResult = Enumerable.From(_this.o.cursosJSON)
+            return;
+        }
+
+        var queryResult = Enumerable.From(_this.o.cursosJSON)
                     .Where(function (x) { return x.Materia.Ciclo.Id == cicloSeleccionado }).ToArray();
 
-            _this.o.cmbCursos.empty();
+        _this.o.cmbCursos.empty();
 
-            for (var i = 0; i < queryResult.length; i++) {
-                var curso = queryResult[i];
-                var listItem = $('<option>');
-                // alert(JSON.stringify(curso));
-                listItem.val(curso.Id);
-                listItem.text(curso.Nombre);
-                _this.o.cmbCursos.append(listItem);
-            }
+        _this.ArmarComboCurso(queryResult);
 
-            _this.o.cmbCursos.change();
-        });
-    };
+        _this.o.cmbCursos.change();
+    });
+};
 
-    PaginaInscripcionAlumnos.prototype.completarcombosDeCursos = function () {
-        this.o.idCursoSeleccionado.val("");
-
-        for (var i = 0; i < this.o.cursosJSON.length; i++) {
-            var curso = this.o.cursosJSON[i];
+PaginaInscripcionAlumnos.prototype.ArmarComboCurso = function (cursos) {
+        this.o.cmbCursos.empty();
+        for (var i = 0; i < cursos.length; i++) {
+            var curso = cursos[i];
             var listItem = $('<option>');
             // alert(JSON.stringify(curso));
             listItem.val(curso.Id);
             listItem.text(curso.Nombre);
             this.o.cmbCursos.append(listItem);
         }
+    }
+
+PaginaInscripcionAlumnos.prototype.ParsearFecha = function (fecha) {
+    var day = parseInt(fecha.split("/")[0]);
+    var month = parseInt(fecha.split("/")[1]);
+    var year = parseInt(fecha.split("/")[2]);
+
+    return new Date(year, month, day);
+
+}
+
+PaginaInscripcionAlumnos.prototype.FiltrarCursos = function () {
+        _this = this;
+            if (_this.o.checkCurso[0].checked == true) {
+                var cursos_vigentes = Enumerable.From(_this.o.cursosJSON)
+                .Select(function (x) { return x })
+                .Where(function (x) { return _this.ParsearFecha(x.FechaFin) > new Date() })
+                .ToArray();
+
+                _this.ArmarComboCurso(cursos_vigentes);
+
+            } else {
+                _this.ArmarComboCurso(_this.o.cursosJSON);
+            }
+   }
+
+    PaginaInscripcionAlumnos.prototype.completarcombosDeCursos = function () {
+        this.o.idCursoSeleccionado.val("");
+
+        this.ArmarComboCurso(this.o.cursosJSON);
+
 		_this = this;
         this.o.cmbCursos.change(function (e) {
             var idSeleccionado = _this.o.cmbCursos.find('option:selected').val();
@@ -175,7 +197,7 @@ PaginaInscripcionAlumnos.prototype.completarCombosDeCiclo = function () {
             alumnos: JSON.stringify(this.o.planillaAlumnosAsignados.Objetos),
             id_curso: $("#idCursoSeleccionado").val()
         });
-		_this = this;
+        _this = this;
         $.ajax({
             url: "../AjaxWS.asmx/InscribirAlumnos",
             type: "POST",
@@ -186,10 +208,17 @@ PaginaInscripcionAlumnos.prototype.completarCombosDeCiclo = function () {
             success: function (respuestaJson) {
                 var respuesta = JSON.parse(respuestaJson.d);
                 if (respuesta.tipoDeRespuesta == "inscripcionAlumno.ok") {
-
                     _this.GetCursosDTO();
-
                     alertify.alert("Se inscribieron los alumnos correctamente");
+                }
+                if (respuesta.tipoDeRespuesta == "inscripcionAlumno.parcial") {
+                    var mensaje = "No se pudo desinscribir a los siguientes alumnos por tener asistencias cargadas en el curso:";
+                    for (var i = 0; i < respuesta.alumnos.length; i++) {
+                        mensaje += "<br>" + respuesta.alumnos[i].Nombre + " " + respuesta.alumnos[i].Apellido;
+                    }
+                    _this.GetCursosDTO();
+                    _this.o.cmbCursos.change();
+                    alertify.alert(mensaje);
                 }
                 if (respuesta.tipoDeRespuesta == "inscripcionAlumno.error") {
                     alertify.alert("Error al inscribir alumnos: " + respuesta.error);

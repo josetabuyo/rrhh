@@ -10,6 +10,7 @@
         <%= Referencias.Css("../")%>
         <link id="link1" rel="stylesheet" href="ConsultaProtocolo.css" type="text/css" runat="server" />
         <link id="link5" rel="stylesheet" href="VistaDeArea.css" type="text/css" runat="server" />
+        <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
     </head>
     <body>
         <form id="form1" runat="server">
@@ -58,6 +59,10 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var admin = new AdministradorDeAreas();
+
+            //Estilos para ver coloreada la grilla en Internet Explorer
+            $("tbody tr:even").css('background-color', '#E6E6FA');
+            $("tbody tr:odd").css('background-color', '#9CB3D6 ');
         });
     </script>
 </html>

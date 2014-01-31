@@ -37,8 +37,10 @@ public partial class SACC_FormDetalleDeAlumno : System.Web.UI.Page
     {
         var servicio = Servicio();
         var cursos = servicio.GetCursosDelAlumno((int)Session[ConstantesDeSesion.ALUMNO]);
+        var asistencias_por_curso = servicio.GetAsistenciasDelAlumno((int)Session[ConstantesDeSesion.ALUMNO]);
         var evaluaciones_por_curso = servicio.GetEvaluacionesDeAlumno((int)Session[ConstantesDeSesion.ALUMNO]);
         this.cursosJSON.Value = ConvertirAJSON(cursos);
+        this.asistenciasJSON.Value = JsonConvert.SerializeObject(asistencias_por_curso);
         this.evaluacionesJSON.Value = JsonConvert.SerializeObject(evaluaciones_por_curso);
     }
 

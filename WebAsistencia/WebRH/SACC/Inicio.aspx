@@ -10,7 +10,7 @@
 
     <title>Sistema de Apoyo de Creación de Capacidades</title>
     <link id="link1" rel="stylesheet" href="../Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />
-    <link id="link2" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" />
+    <link id="link2" rel="stylesheet" href="Estilos/EstilosSACC.css" type="text/css" runat="server" />
     <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
     <link rel="stylesheet" href="../Estilos/alertify.default.css" />
     <script type="text/javascript" src="../Scripts/alertify.js"></script>
