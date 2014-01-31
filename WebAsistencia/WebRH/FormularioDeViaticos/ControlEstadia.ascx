@@ -11,7 +11,7 @@
     }
 </style>
 
-<script src="../bootstrap/js/jquery.validate.js" type="text/javascript"></script>
+<script src="../Scripts/bootstrap/js/jquery.validate.js" type="text/javascript"></script>
 
 
 

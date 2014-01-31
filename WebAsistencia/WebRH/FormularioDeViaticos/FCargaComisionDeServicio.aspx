@@ -11,10 +11,14 @@
 <%@ Register Src="GrillaEstadias.ascx" TagName="GrillaEstadias" TagPrefix="uc6" %>
 <%@ Register Src="GrillaPasajes.ascx" TagName="GrillaPasajes" TagPrefix="uc7" %>
 <%@ Register TagPrefix="cc1" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit, Version=3.0.30930.28736, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e" %>
+
+<%@ Register Src="../BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc8" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Formulario de Viáticos - Solicitud</title>
+     
     <style type="text/css">
         #myTabContent .tab-content
         {
@@ -105,14 +109,14 @@
             color: #FFF;
         }
     </style>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
+    <link id="link1" rel="stylesheet" href="../Scripts/bootstrap/css/bootstrap.css" type="text/css"
         runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
+    <link id="link2" rel="stylesheet" href="../Scripts/bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
-    <script src="../bootstrap/js/jquery-1.7.2.min.js" type="text/javascript"></script>
-    <script src="../bootstrap/js/jquery.validate.js" type="text/javascript"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/jquery-ui-1.8.21.custom.min.js"></script>
+    <script src="../Scripts/bootstrap/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../Scripts/bootstrap/js/jquery.validate.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery-ui-1.8.21.custom.min.js"></script>
     <script type="text/javascript">
 
 
@@ -149,6 +153,9 @@
 <form id="form1" runat="server">
     <%--COMIENZO DE PLATILLA--%>
      
+        <uc8:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:14px;font-weight: bold;'> Gestión de Viáticos </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />        
+           
+
     <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server" />
     <%--     Se cambió todo el código de la Barrá de Menú por el Control llamado Barra Menú--%>
     <%--<uc8:BarraMenu ID="BarraMenu" runat="server" />--%>   
@@ -285,12 +292,17 @@
 
         </script>
 
-    
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
-    <%--<script type="text/javascript" src="../bootstrap/js/bootstrap-popover"></script>--%>
+    <%--  <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"></script>
+     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tab.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-transition.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-popover.js"></script>--%>
+     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
+       <script type="text/javascript" src="../Scripts/alertify.js"></script>
+    <%= Referencias.Css("../")%>  
+     <%= Referencias.Javascript("../")%>    
 </body>
 </html>

@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="Estilos/EstilosSeleccionDeArea.css" type="text/css" runat="server" />    
     <link rel="stylesheet" href="Protocolo/VistaDeArea.css" type="text/css" runat="server" />
     <%= Referencias.Css("")%>
+    <script type="text/javascript" src="Scripts/bootstrap/js/jquery.js"> </script>
+    
+
 </head>
 
 <form id="form1" runat="server">
