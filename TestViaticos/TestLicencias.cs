@@ -265,16 +265,16 @@ namespace TestViaticos
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12), VacacionesPermitidas(2013, 20) };
             var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()) };
             var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>() { new VacacionesPendientesDeAprobacion(juan, primero_de_febrero_2013(), cinco_de_febrero_2013()) };
-
+            var listado_solicitables = new List<VacacionesSolicitables>();
             try
             {
-                var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_de_hoy());
+                 listado_solicitables= calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_de_hoy());
                 Assert.Fail("Deberia haber lanzado excepcion al intentar pedir licencias cuando no tiene nada autorizado");
             }
             catch (SolicitudInvalidaException e)
             {
                 Assert.AreEqual(e.Message(), "Inconsistencia de datos en licencias: Existen solicitudes de licencia ingresadas sin una autorizacion previa.");
-                //Assert.AreEqual(0, listado_solicitables.Count());
+                Assert.AreEqual(0, listado_solicitables.Count());
             }
 
         }
@@ -445,23 +445,6 @@ namespace TestViaticos
             Assert.AreEqual(27, lista_de_dias_pendientes_por_periodo.First().CantidadDeDias());
         }
 
-
-        //[TestMethod]
-        //public void test_completo_con_caso_planteado_por_belen()
-        //{
-
-        //    var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidas(), VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>());
-
-
-        //    Assert.AreEqual(5, lista_de_dias_pendientes_por_periodo.Count());
-        //    Assert.AreEqual(0, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2009).CantidadDeDias());
-        //    Assert.AreEqual(0, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2010).CantidadDeDias());
-        //    Assert.AreEqual(10, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2011).CantidadDeDias());
-        //    Assert.AreEqual(20, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2012).CantidadDeDias());
-        //    Assert.AreEqual(25, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2013).CantidadDeDias());
-
-        //}
-
         [TestMethod]
         public void deberia_tener_20_dias_perdidos_para_2009()
         {
@@ -474,65 +457,18 @@ namespace TestViaticos
             Assert.AreEqual(25, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2013).CantidadDeDias());
         }
 
-        //[TestMethod]
-        //public void deberia_tener_20_dias_perdidos_para_2009()
-        //{
-        //    var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidas(), VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>());
+        [TestMethod]
+        public void deberia_partir_en_dos_el_periodo_de_noviembre_a_diciembre()
+        {
+            var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() {  VacacionesPermitidas(2011, 20), VacacionesPermitidas(2012, 20) };
+            var vacaciones_solicitadas = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, new DateTime(2012, 11, 16), new DateTime(2012, 12, 20)) };
 
-        //    Assert.AreEqual(5, lista_de_dias_pendientes_por_periodo.Count());
+            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, new List<VacacionesPendientesDeAprobacion>(), fecha_de_hoy());
 
-        //    Assert.AreEqual(0, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2009).CantidadDeDias());
-        //    Assert.AreEqual(0, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2010).CantidadDeDias());
-        //    Assert.AreEqual(0, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2011).CantidadDeDias());
-        //    Assert.AreEqual(5, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2012).CantidadDeDias());
-        //    Assert.AreEqual(25, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2013).CantidadDeDias());
-        //}
-
-        //    Assert.AreEqual(1, vacaciones_perdidas.Count());
-        //    Assert.AreEqual(20, vacaciones_perdidas.Find(lic_perdida => lic_perdida.Periodo == 2009).CantidadDeDias());
-        //}
-
-        //[TestMethod]
-        //public void deberia_excluir_de_las_licencias_solicitables_las_que_se_perdieron()
-        //{
-
-        //var vacaciones_perdidas = calculador().DiasPerdidos(VacacionesPermitidas(), VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>());
-
-        //Assert.AreEqual(1, vacaciones_perdidas.Count());
-        //Assert.AreEqual(20, vacaciones_perdidas.Find(lic_perdida => lic_perdida.Periodo == 2009).CantidadDeDias());
-
-        //var vacaciones_solicitables = calculador().DiasSolicitables(VacacionesPermitidas(), VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>());
-
-        ////Assert.AreEqual(5, vacaciones_solicitables.Count());
-        ////Assert.AreEqual(0, vacaciones_solicitables.Find(l => l.Periodo() == 2009).CantidadDeDias());
-        ////Assert.AreEqual(0, vacaciones_solicitables.Find(l => l.Periodo() == 2010).CantidadDeDias());
-        ////Assert.AreEqual(10, vacaciones_solicitables.Find(l => l.Periodo() == 2011).CantidadDeDias());
-        ////Assert.AreEqual(20, vacaciones_solicitables.Find(l => l.Periodo() == 2012).CantidadDeDias());
-        ////Assert.AreEqual(25, vacaciones_solicitables.Find(l => l.Periodo() == 2013).CantidadDeDias());
-
-        ////saco de los permitidos los dias perdidos y vuelvo a calcular los dias solicitables
-        ////var vacaciones_permitidas_excluyendo_dias_perdidos = VacacionesPermitidas().FindAll(vac_permit => !vacaciones_perdidas.Exists(vac_perd => vac_perd.Periodo == vac_permit.Periodo));
-        //var vacaciones_solicitables_sin_perdidos = calculador().DiasSolicitables(VacacionesPermitidas(), VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>());
-
-        //Assert.AreEqual(4, vacaciones_solicitables_sin_perdidos.Count());
-        //Assert.AreEqual(0, vacaciones_solicitables_sin_perdidos.Find(l => l.Periodo() == 2010).CantidadDeDias());
-        //Assert.AreEqual(0, vacaciones_solicitables_sin_perdidos.Find(l => l.Periodo() == 2011).CantidadDeDias());
-        //Assert.AreEqual(10, vacaciones_solicitables_sin_perdidos.Find(l => l.Periodo() == 2012).CantidadDeDias());
-        //Assert.AreEqual(25, vacaciones_solicitables_sin_perdidos.Find(l => l.Periodo() == 2013).CantidadDeDias());
-
-        //}
-
-        //PARA DESPUÉS
-        //[TestMethod]
-        //public void xxxxx()
-        //{
-        //    var saldo_licencias = servicio.DetalleDeVacaciones();
-
-        //    Assert.AreEqual(1, saldo_licencias.Detalle.Count());
-        //    Assert.AreEqual(2002, saldo_licencias.Detalle.First().Periodo);
-        //    Assert.AreEqual(2, saldo_licencias.Detalle.First().Disponible);
-        //}
-
+            Assert.AreEqual(1, licencia_solicitables.Count());
+            Assert.AreEqual(5, licencia_solicitables.First().CantidadDeDias());
+            Assert.AreEqual(2012, licencia_solicitables.First().Periodo());
+        }
 
         public Persona juan { get; set; }
 
