@@ -23,9 +23,12 @@
         return un_area.mails();
     }
     }));
-    columnas.push(new Columna("Dirección", { generar: function (un_area) {
-        return un_area.direccion();
-    }
+    columnas.push(new Columna("Dirección", {
+        generar: function (un_area) {
+            var direccion = un_area.direccion();
+            var cont = $("<div>").css("width", "320px").append(direccion);
+            return cont;
+        }
     }));
 
     PlanillaAreas = new Grilla(columnas);
