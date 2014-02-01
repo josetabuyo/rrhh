@@ -81,7 +81,14 @@ namespace General
             for (int i = codigo.Length; i > 0; i--)
             {
                 if (Right(codigo, i).Equals(StringConCeros(i)))
+                {
+                    //FC:le tuve que agregar esta condicion porque si el codigo viene 0110 el right toma solo hasta el 011 y rompe
+                    if (i.Equals(21)) {
+                        return codigo.Substring(0, codigo.Length - 20);
+                    }
                     return codigo.Substring(0, codigo.Length - i);
+                }
+
             }
             return codigo;
         }

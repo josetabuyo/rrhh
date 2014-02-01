@@ -57,6 +57,8 @@ namespace General
                                   Grado = dr.GetValue(dr.GetOrdinal("grado")).ToString(),
                                   Telefono = dr.GetValue(dr.GetOrdinal("telefono")).ToString(),
                                   Cuit = dr.GetValue(dr.GetOrdinal("cuit")).ToString(),
+                                  
+                                  //Area = unArea,
                                   TipoDePlanta = new TipoDePlanta
                                                      {
                                                          Descripcion = dr.GetValue(dr.GetOrdinal("planta")).ToString()
@@ -66,6 +68,40 @@ namespace General
             }
             cn.Desconestar();
             return unArea.Personas;
+        }
+
+
+
+
+        public List<Persona> GetPersonasDelAreaACargo(Area unArea)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.Web_GetAgentesDelAreaACargo");
+            cn.AsignarParametro("@idArea", unArea.Id);
+            unArea.Personas = new List<Persona>();
+            dr = cn.EjecutarConsulta();
+
+            Persona persona;
+            while (dr.Read())
+            {
+                persona = new Persona
+                {
+                    Documento = dr.GetInt32(dr.GetOrdinal("nro_documento")),
+                    Nombre = dr.GetString(dr.GetOrdinal("nombre")),
+                    Apellido = dr.GetString(dr.GetOrdinal("apellido")),
+                    Legajo = dr.GetValue(dr.GetOrdinal("legajo")).ToString(),
+                    Cuit = dr.GetValue(dr.GetOrdinal("cuit")).ToString()
+                };
+                unArea.Personas.Add(persona);
+            }
+            cn.Desconestar();
+            return unArea.Personas;
+        }
+
+
+        public Area ArmarArea(SqlDataReader fila)
+        {
+            return new Area((int)fila.GetValue(fila.GetOrdinal("idAreaDependencia")), fila.GetString(fila.GetOrdinal("dependencia")).ToString());
         }
 
         public TipoDePlanta GetTipoDePlantaActualDe(Persona unaPersona)

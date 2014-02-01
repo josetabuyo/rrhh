@@ -11,5 +11,6 @@ namespace General.MAU
         Usuario GetUsuarioPorAlias(string alias);
         Usuario GetUsuarioPorIdPersona(int id_persona);
         Usuario CrearUsuarioPara(int id_persona);
+        bool CambiarPassword(int id_usuario, string pass_actual, string pass_nueva);
     }
 }

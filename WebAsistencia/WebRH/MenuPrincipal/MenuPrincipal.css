@@ -41,7 +41,7 @@
 
 #descripcion_item
 {
-    background-color:rgb(204, 204, 204);
+    background-color: rgb(185, 185, 185);
     position:absolute;  
     left:100px;
     top:5px;
@@ -51,6 +51,8 @@
     border:.5px solid black; 
     padding:5px;
     color:white;
+    font-size: 20px;
+    white-space: nowrap;
 }
 
 #contenedor_descripcion_item {

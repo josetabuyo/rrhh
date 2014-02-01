@@ -7,9 +7,6 @@
 <head id="Head1" runat="server">
     <title></title>
      <%= Referencias.Css("../")%>
-    <link id="link3" rel="stylesheet" href="EstilosSACC.css" type="text/css" runat="server" /> 
-    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-    <link rel="stylesheet" href="../Estilos/alertify.default.css"  />
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 </head>
 
@@ -29,13 +26,16 @@
                     <asp:ListItem Value="-1" class="placeholder" Selected="true">Ciclo</asp:ListItem>
                 </asp:DropDownList>    
             </p>
+            
             <p>
             <asp:Label ID="lblCursos"  runat="server"  Text="Curso:"></asp:Label>
                 <asp:DropDownList ID="cmbCursos" runat="server" EnableViewState="false" 
                     Width="400px">
                     <asp:ListItem Value="0" class="placeholder" Selected="true">Cursos</asp:ListItem>
-                </asp:DropDownList>        
+                </asp:DropDownList>  
+                <input type="checkbox" id="filtrar_cursos_vigentes" />    <label>Vigentes </label>
             </p>
+            
         </fieldset>
         
         </div>
@@ -80,12 +80,9 @@
     <asp:HiddenField ID="alumnosJSON" runat="server" EnableViewState="true"/>
     <asp:HiddenField ID="idAlumnoAVer" runat="server" />
     <asp:HiddenField ID="alumnosEnGrillaParaGuardar" runat="server" />
-
+        <script type="text/javascript" src="Scripts/InscripcionAlumnos.js"></script>
     <%= Referencias.Javascript("../") %>
-    <script type="text/javascript" src="Scripts/InscripcionAlumnos.js"></script>
-    <script type="text/javascript" src="../Scripts/alertify.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
+
     </form>
 </body>
 
@@ -110,7 +107,8 @@
             mensaje: $("#mensaje"),
             botonAsignarAlumno: $("#Img1"),
             botonDesAsignarAlumno: $("#Img2"),
-            botonGuardarInscriptos: $("#BtnGuardar")
+            botonGuardarInscriptos: $("#BtnGuardar"),
+            checkCurso: $("#filtrar_cursos_vigentes")
         }
 
         var modulo_inscripcion = new PaginaInscripcionAlumnos(items_pantalla);

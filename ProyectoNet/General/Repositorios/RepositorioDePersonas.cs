@@ -6,6 +6,9 @@ using General;
 using System.Data.SqlClient;
 using General.Repositorios;
 using System.Linq;
+
+using Extensiones;
+
 namespace General.Repositorios
 {
     public class RepositorioDePersonas : RepositorioLazy<List<Persona>>, IRepositorioDePersonas
@@ -29,13 +32,14 @@ namespace General.Repositorios
 
             return TodasLasPersonas().FindAll(persona => 
                 palabras_busqueda.All(palabra =>
-                        persona.Apellido.ToUpper().Contains(palabra)||
-                        persona.Nombre.ToUpper().Contains(palabra)||
+                        persona.Apellido.ToUpper().QuitarTildes().Contains(palabra.QuitarTildes()) ||
+                        persona.Nombre.ToUpper().QuitarTildes().Contains(palabra.QuitarTildes()) ||
                         persona.Documento.ToString().Contains(palabra)||
                         persona.Legajo.Contains(palabra)
                     )
                 );
         }
+
 
         public List<Persona> BuscarPersonasConLegajo(string criterio)
         {

@@ -4,7 +4,7 @@
 };
 
 VistaDeArea.prototype.start = function () {
-    this.ui = $("#plantilla_vista_area").clone();
+    this.ui = $("#plantillas #plantilla_vista_area").clone();
     this.ui.find("#nombre_area").text(this.o.area.nombre());
     this.ui.find("#responsable").text(this.o.area.responsable());
     this.ui.find("#direccion").text(this.o.area.direccion());

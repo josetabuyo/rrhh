@@ -28,6 +28,14 @@ namespace General.MAU
             return GetUsuarioDeTablaDeDatos(tablaDatos);                                 
         }
 
+        public Usuario GetUsuarioPorId(int id)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id", id);
+            var tablaDatos = conexion.Ejecutar("dbo.Web_GetUsuario", parametros);
+            return GetUsuarioDeTablaDeDatos(tablaDatos);
+        }
+
         public Usuario GetUsuarioPorIdPersona(int id_persona)
         {
             var parametros = new Dictionary<string, object>();
@@ -61,7 +69,7 @@ namespace General.MAU
                 alias = persona.Nombre.First() + persona.Apellido + contador.ToString();
                 contador++;
             }
-            var clave_encriptada = EncriptarSHA1("1234");
+            var clave_encriptada = Encriptador.EncriptarSHA1("1234");
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_persona", id_persona);
@@ -72,12 +80,22 @@ namespace General.MAU
             return new Usuario(id_usuario, alias, clave_encriptada, persona);
         }
 
-        public static string EncriptarSHA1(string CadenaOriginal)
+        public bool CambiarPassword(int id_usuario, string clave_actual, string clave_nueva)
         {
-            HashAlgorithm hashValue = new SHA1CryptoServiceProvider();
-            byte[] bytes = Encoding.UTF8.GetBytes(CadenaOriginal); byte[] byteHash = hashValue.ComputeHash(bytes);
-            hashValue.Clear();
-            return (Convert.ToBase64String(byteHash));
+            return CambiarPassword(this.GetUsuarioPorId(id_usuario), clave_actual, clave_nueva);
+        }
+
+        public bool CambiarPassword(Usuario usuario, string clave_actual, string clave_nueva)
+        {
+            if (!usuario.CambiarClave(clave_actual, clave_nueva)) return false;
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id", usuario.Id);
+            parametros.Add("@clave_encriptada", Encriptador.EncriptarSHA1(clave_nueva));
+
+            conexion.Ejecutar("dbo.MAU_GuardarUsuario", parametros);
+
+            return true;
         }
     }
 }

@@ -8,8 +8,8 @@ namespace General.Repositorios
     public interface IRepositorioDeAsistencias
     {
         IConexionBD conexion_bd { get; set; }
-        System.Collections.Generic.List<General.Asistencia> GetAsistenciasFromTabla(TablaDeDatos tablaAsistencias);
-        global::System.Collections.Generic.List<global::General.Asistencia> GetAsistencias();
-        
+        System.Collections.Generic.List<General.AcumuladorAsistencia> GetAsistenciasFromTabla(TablaDeDatos tablaAsistencias);
+        global::System.Collections.Generic.List<global::General.AcumuladorAsistencia> GetAsistencias();
+       
     }
 }
