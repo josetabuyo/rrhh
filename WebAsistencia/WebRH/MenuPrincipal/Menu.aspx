@@ -16,17 +16,26 @@
     <body>
         <form runat="server">
             <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
-            <section id="set-8" class="container">
+            <div id="set-8" class="container">
 				<div id="menu_principal" class="hi-icon-wrap hi-icon-effect-8">
             
                 </div>
-            </section>
+            </div>
         </form>
                 
 
         <div id="plantillas">
             <div class="item_de_menu_principal">
-              	<a class="hi-icon" data-toggle="tooltip" data-placement="right" title="" ></a>
+                <!--[if !IE]><!-->
+                <div class="linea_gradiente"></div>
+                <!--<![endif]-->
+              	<a class="hi-icon" data-toggle="tooltip" data-placement="right" title="" >
+                    <!--[if !IE]><!-->
+                    <div class="circulo circulo1"></div>
+                    <div class="circulo circulo2"></div>
+                    <div class="circulo circulo3"></div>
+                    <!--<![endif]-->
+                </a>
                 <div id="contenedor_descripcion_item">
                     <div id="descripcion_item"> Esta es una descripcion </div>
                 </div>
@@ -44,12 +53,7 @@
                 var menu = new MenuPrincipal({ ui: $("#menu_principal"), autorizador: new Autorizador(new ProveedorAjax("../")) });
             });
         </script> 
-        
-    
-		
 	</script>
-        
-          
     </body>    
 </html>
 
