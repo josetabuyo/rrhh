@@ -15,6 +15,7 @@ namespace General
         public AsistenciaDiaCursado(string valor, int horas_maximas)
         {
             this.Valor = valor;
+            this.valor = int.Parse(valor);
             this.horas_maximas = horas_maximas;
         }
 
