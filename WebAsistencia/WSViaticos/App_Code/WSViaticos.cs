@@ -140,31 +140,12 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public SaldoLicencia GetSaldoLicencia(Persona unaPersona, ConceptoDeLicencia concepto)
     {
-        RepositorioPersonas repoPersonas = new RepositorioPersonas();
-        unaPersona.TipoDePlanta = repoPersonas.GetTipoDePlantaActualDe(unaPersona);
 
-        RepositorioLicencias repoLicencias = new RepositorioLicencias(Conexion());
-        SaldoLicencia unSaldo;
-        ProrrogaLicenciaOrdinaria prorroga = new ProrrogaLicenciaOrdinaria();
-        if (prorroga.SeAplicaAlTipoDePlanta(unaPersona.TipoDePlanta))
-        {
-            RepositorioProrrogasDeLicenciaOrdinaria repoProrrogas = new RepositorioProrrogasDeLicenciaOrdinaria();
-            prorroga = repoProrrogas.CargarDatos(new ProrrogaLicenciaOrdinaria());
-        }
-        else
-        {
-            prorroga = null;
-        }
+        ServicioDeLicencias servicioLicencias = new ServicioDeLicencias(RepoLicencias());
 
-        if (concepto.Id == 1)
-        {
-            unSaldo = repoLicencias.CargarSaldoLicenciaOrdinariaDe(concepto, prorroga, unaPersona);
-        }
-        else
-        {
-            unSaldo = repoLicencias.CargarSaldoLicenciaGeneralDe(concepto, unaPersona);
-        }
-        return unSaldo;
+        SaldoLicencia saldo = servicioLicencias.GetSaldoLicencia(unaPersona, concepto);
+
+        return saldo;
     }
 
     [WebMethod]
@@ -2329,6 +2310,11 @@ public class WSViaticos : System.Web.Services.WebService
         }
         return observaciones_no_procesadas.ToArray();
   
+    }
+
+    private RepositorioLicencias RepoLicencias()
+    {
+        return new RepositorioLicencias(Conexion());
     }
 
     private RepositorioDeAlumnos RepoAlumnos()
