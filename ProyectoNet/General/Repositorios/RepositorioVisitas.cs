@@ -125,11 +125,9 @@ public class RepositorioVisitas
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add("@IdFuncionario", System.Data.SqlDbType.Int, 4).Value = unaAutorizacion.Funcionario.Id;
             cmd.Parameters.Add("@IdPersona", System.Data.SqlDbType.Int, 4).Value = unaAutorizacion.PersonaAutorizada.Id;
-            cmd.Parameters.Add("@Telefono", System.Data.SqlDbType.BigInt, 8).Value = unaAutorizacion.Telefono;
             cmd.Parameters.Add("@IdMotivo", System.Data.SqlDbType.TinyInt, 1).Value = unaAutorizacion.Motivo.Id;
             cmd.Parameters.Add("@Lugar", System.Data.SqlDbType.VarChar, 64).Value = unaAutorizacion.Lugar;
             cmd.Parameters.Add("@Representa", System.Data.SqlDbType.VarChar, 64).Value = unaAutorizacion.Representa;
-            cmd.Parameters.Add("@Acompanantes", System.Data.SqlDbType.TinyInt, 1).Value = unaAutorizacion.Acompanantes;
             cmd.Parameters.Add("@Log_UserId", System.Data.SqlDbType.Int, 4).Value = this.UserId;
             cmd.Parameters.Add("@Log_IP", System.Data.SqlDbType.VarChar, 16).Value = this.IP.ToString();
             cmd.Parameters.Add("@IdAutorizacion", System.Data.SqlDbType.Int, 4).Direction = System.Data.ParameterDirection.Output;
@@ -227,6 +225,25 @@ public class RepositorioVisitas
         cn.AsignarParametro("@IdAutorizacion", acreditacion.Autorizacion.Id);
         cn.AsignarParametro("@Fecha", acreditacion.Fecha);
         cn.AsignarParametro("@IdPersona", persona.Id);
+        try
+        {
+            cn.EjecutarSinResultado();
+        }
+        catch
+        {
+            return false;
+        }
+        return true;
+    }
+
+
+    public bool saveAcreditacion(AcreditacionVisita acreditacion)
+    {
+        ConexionDB cn = new ConexionDB("[dbo].[CtlAcc_INS_Acreditacion]");
+        cn.AsignarParametro("@IdAutorizacion", acreditacion.Autorizacion.Id);
+        cn.AsignarParametro("@Fecha", acreditacion.Fecha);
+        cn.AsignarParametro("@Log_UserId", this.UserId);
+        cn.AsignarParametro("@Log_IP", this.IP.ToString());
         try
         {
             cn.EjecutarSinResultado();

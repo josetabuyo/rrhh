@@ -57,20 +57,6 @@ namespace General
             get { return this._Representa; }
         }
 
-        private int _Acompanantes;
-        public int Acompanantes
-        {
-            set { this._Acompanantes = value; }
-            get { return this._Acompanantes; }
-        }
-
-        private long _Telefono;
-        public long Telefono
-        {
-            set { this._Telefono = value; }
-            get { return this._Telefono; }
-        }
-
     }
 
 }

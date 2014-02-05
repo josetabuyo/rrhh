@@ -1871,6 +1871,13 @@ public class WSViaticos : System.Web.Services.WebService
         return (new RepositorioVisitas()).eliminarPersonaAcreditacion(acreditacion, persona);
     }
 
+
+    [WebMethod]
+    public bool saveAcreditacion(int UserId, string IP, AcreditacionVisita acreditacion)
+    {
+        return (new RepositorioVisitas(UserId, IP)).saveAcreditacion(acreditacion);
+    }
+
     #endregion
 
 

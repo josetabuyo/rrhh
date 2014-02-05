@@ -144,21 +144,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="tdDesControl">
-                                    Acompañantes:
-                                </td>
-                                <td style="text-align: left;">
-                                    <div class="inputs">
-                                        <asp:TextBox ID="txtAcomp" runat="server" MaxLength="2" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" ></asp:TextBox>
-                                    </div>
-                                </td>
-                                <td>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator_Acomp" runat="server"
-                                        ControlToValidate="txtAcomp" ErrorMessage="El campo acompañantes debe ser una expresión numérica."
-                                        Font-Bold="True" Font-Size="X-Large" ValidationExpression="\d{1,2}">*</asp:RegularExpressionValidator>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td colspan="3">
                                     <div style="padding-left: 90px; text-align: left;">
                                         <asp:ValidationSummary ID="ValidationSummary_AgrAut" runat="server" />

@@ -74,11 +74,9 @@ CREATE TABLE [dbo].[CtlAcc_Autorizacion](
 	[IdAutorizacion] [int] NOT NULL primary key,
 	[IdFuncionario] [int] NOT NULL,
 	[IdPersona] [int] NOT NULL,
-	[Telefono] [bigint] NOT NULL,
 	[IdMotivo] [tinyint] NOT NULL foreign key references [dbo].[CtlAcc_Motivo] (IdMotivo),
 	[Lugar] [varchar] (64) NOT NULL,
 	[Representa] [varchar] (64) NOT NULL,
-	[Acompanantes] [tinyint] NOT NULL,
 	[Log_UserId] [int] not null,
 	[Log_Fecha] smalldatetime not null default( getdate() ),
 	[Log_IP] varchar(16) not null default(''), 
@@ -239,11 +237,9 @@ PROCEDURE dbo.CtlAcc_INS_Autorizacion
 (
 	@IdFuncionario [int],
 	@IdPersona [int],
-	@Telefono [bigint],
 	@IdMotivo [tinyint],
 	@Lugar [varchar] (64),
 	@Representa [varchar] (64),
-	@Acompanantes [tinyint],
 	@Log_UserId [int],
 	@Log_IP varchar(16),
 	@IdAutorizacion int output
@@ -258,21 +254,17 @@ BEGIN
 	INSERT [dbo].[CtlAcc_Autorizacion]( [IdAutorizacion], 
 										[IdFuncionario], 
 										[IdPersona], 
-										[Telefono], 
 										[IdMotivo], 
 										[Lugar], 
 										[Representa], 
-										[Acompanantes], 
 										[Log_UserId],
 										[Log_IP] ) 
 	VALUES	(	@IdAutorizacion,
 				@IdFuncionario,
 				@IdPersona,
-				@Telefono,
 				@IdMotivo,
 				@Lugar,
 				@Representa,
-				@Acompanantes,
 				@Log_UserId,
 				@Log_IP				
 			)
@@ -382,11 +374,13 @@ INSERT INTO #tmpFun exec CtlAcc_SEL_Funcionario 1
 ----------------------
 ----------------------
 
-	SELECT	af.IdAutorizacion, pe.Apellido, pe.Nombre, pe.Documento, au.Representa, fu.Tratamiento + ' ' +  fu.Apellido + ' ' + fu.Nombre as Funcionario, au.Lugar, au.Acompanantes
+	SELECT	af.IdAutorizacion, pe.Apellido, pe.Nombre, pe.Documento, au.Representa, fu.Tratamiento + ' ' +  fu.Apellido + ' ' + fu.Nombre as Funcionario, au.Lugar
 	FROM	( SELECT aaff.IdAutorizacion FROM [dbo].[CtlAcc_AutorizacionFecha] as aaff WHERE aaff.Fecha = @Fecha ) as af
-	JOIN	[dbo].[CtlAcc_Autorizacion] as au ON au.IdAutorizacion = af.IdAutorizacion
-	JOIN	[dbo].[CtlAcc_PersonaVisita] as pe ON au.IdPersona = pe.IdPersona
-	JOIN	#tmpFun as fu ON fu.IdFuncionario = au.IdFuncionario
+	INNER	JOIN	[dbo].[CtlAcc_Autorizacion] as au ON au.IdAutorizacion = af.IdAutorizacion
+	INNER	JOIN	[dbo].[CtlAcc_PersonaVisita] as pe ON au.IdPersona = pe.IdPersona
+	INNER	JOIN	#tmpFun as fu ON fu.IdFuncionario = au.IdFuncionario
+	LEFT	JOIN	[dbo].[CtlAcc_Acreditacion] as ac ON ac.IdAutorizacion = au.IdAutorizacion and ac.Fecha = @Fecha
+	WHERE	ac.IdAcreditacion IS null
 
 ----------------------
 ---------------------
@@ -488,6 +482,36 @@ GO
 -----------------------------------------
 -----------------------------------------
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[CtlAcc_INS_Acreditacion]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [dbo].[CtlAcc_INS_Acreditacion]
+GO
+
+CREATE 
+PROCEDURE dbo.CtlAcc_INS_Acreditacion
+(
+	@IdAutorizacion int,
+	@Fecha [smalldatetime],
+	@Log_UserId int,
+	@Log_IP varchar(16)
+)
+AS
+BEGIN
+
+	declare @IdAcreditacion int;
+
+	SET @IdAcreditacion = ISNULL((SELECT MAX(IdAcreditacion) FROM dbo.CtlAcc_Acreditacion), 0) + 1;
+
+	INSERT [dbo].[CtlAcc_Acreditacion]( [IdAcreditacion], [IdAutorizacion], [Fecha], [Log_UserId], [Log_IP] )
+	VALUES	( @IdAcreditacion, @IdAutorizacion, @Fecha, @Log_UserId, @Log_IP );
+
+END
+GO
+
+
+-----------------------------------------
+-----------------------------------------
+
+
 
 
 
@@ -506,4 +530,6 @@ COMMIT tran
 -- delete DB_RRHH.dbo.CtlAcc_AutorizacionFechaPersonas
 
 
-
+-- select * FROM [CtlAcc_Acreditacion]
+-- select * FROM dbo.CtlAcc_Autorizacion
+-- delete dbo.CtlAcc_Acreditacion

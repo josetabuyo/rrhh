@@ -248,7 +248,6 @@ public partial class Visitas_Autorizaciones : System.Web.UI.Page
         this.DropDownListMotivo.SelectedIndex = 0;
         this.txtLugar.Text = string.Empty;
         this.txtRepresenta.Text = string.Empty;
-        this.txtAcomp.Text = string.Empty;
         this.ListBox_DiasSeleccionados.Items.Clear();
         this.SetDiasDisponibles();
     }
@@ -337,7 +336,6 @@ public partial class Visitas_Autorizaciones : System.Web.UI.Page
             av.PersonaAutorizada = this.CrearPersona(); 
             av.Funcionario = this.CrearFuncionario();
             av.Motivo = this.CrearMotivo();
-            av.Acompanantes = Convert.ToInt32((txtAcomp.Text.CompareTo(string.Empty) == 0 ? "0" : txtAcomp.Text));
             av.FechasAut = this.GetFechasSeleccionadas();
             av.Lugar = txtLugar.Text;
             av.Representa = txtRepresenta.Text;

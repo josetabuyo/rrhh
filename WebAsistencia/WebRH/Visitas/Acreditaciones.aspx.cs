@@ -36,6 +36,7 @@ public partial class Visitas_Acreditaciones : System.Web.UI.Page
         this.lblDescipMsj.Text = Descrip;
         this.lbCancelar.Visible = false;
         this.lbConfirmar.Visible = false;
+        this.lbAcreditar.Visible = false;
         this.lbAceptar.Visible = true;
         this.lbAceptar.Focus();
         this.divConfirmar.Visible = true;
@@ -48,10 +49,25 @@ public partial class Visitas_Acreditaciones : System.Web.UI.Page
         this.lbCancelar.Visible = true;
         this.lbCancelar.Focus();
         this.lbConfirmar.Visible = true;
+        this.lbAcreditar.Visible = false;
         this.lbAceptar.Visible = false;
         this.divConfirmar.Visible = true;
     }
 
+    private void ShowMensajeIngresarAcreditacion()
+    {
+        this.lblTituloMsj.Text = "Confirmar:";
+        if(GridView_Acomp.Rows.Count > 1 )
+            this.lblDescipMsj.Text = "¿Confirma generar la acreditación de las personas autorizadas?";
+        else
+            this.lblDescipMsj.Text = "¿Confirma generar la acreditación de la persona autorizada?";
+        this.lbCancelar.Visible = true;
+        this.lbCancelar.Focus();
+        this.lbConfirmar.Visible = false;
+        this.lbAceptar.Visible = false;
+        this.lbAcreditar.Visible = true;
+        this.divConfirmar.Visible = true;
+    }
 
     private void HideMensaje()
     {
@@ -73,6 +89,10 @@ public partial class Visitas_Acreditaciones : System.Web.UI.Page
         AutorizacionVisitaExtracto[] AutExt = ws.GetAutorizaciones(DateTime.ParseExact(DateTime.Now.ToString("yyyyMMdd"), "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture));
         GridView_Autorizaciones.DataSource = AutExt;
         GridView_Autorizaciones.DataBind();
+        if (GridView_Autorizaciones.Rows.Count > 0)
+            this.divEmpyGridViewAutorizaciones.Visible = false;
+        else
+            this.divEmpyGridViewAutorizaciones.Visible = true;
     }
 
     private void ShowAcomp()
@@ -97,8 +117,13 @@ public partial class Visitas_Acreditaciones : System.Web.UI.Page
         GridView_Personas.DataKeyNames = dkn;
         GridView_Personas.DataBind();
         GridView_Personas.SelectedIndex = -1;
+        if (GridView_Personas.Rows.Count<1)
+            this.divEmpyGridViewPersonas.Visible = true;
+        else
+            this.divEmpyGridViewPersonas.Visible = false;
         this.divPersonasBusq.Visible = true;
         this.Button_CancelarBusqueda.Focus();
+
     }
 
     private void HidePersonasBusq()
@@ -229,9 +254,13 @@ public partial class Visitas_Acreditaciones : System.Web.UI.Page
         return false;
     }
 
-    private void IngresarAcreditacion()
+    private bool IngresarAcreditacion()
     {
-
+        WSViaticosSoapClient ws = new WSViaticosSoapClient();
+        string IP = HttpContext.Current.Request.UserHostAddress.ToString();
+        int IdUser =  ((Usuario)Session[ConstantesDeSesion.USUARIO]).Id;
+        AcreditacionVisita acred = this.CrearAcreditacionSeleccionada();
+        return ws.saveAcreditacion(IdUser, IP, acred);
     }
 
     /***********************************************************/
@@ -267,10 +296,6 @@ public partial class Visitas_Acreditaciones : System.Web.UI.Page
         this.HideMensaje();
     }
 
-    protected void lbConfirmar_Click(object sender, EventArgs e)
-    {
-        this.HideMensaje();
-    }
 
     protected void GridView_Autorizaciones_RowCommand(object sender, GridViewCommandEventArgs e)
     {
@@ -332,7 +357,7 @@ public partial class Visitas_Acreditaciones : System.Web.UI.Page
             this.ShowMensaje("Atención:", "Es obligarorio ingresar la persona autorizada");
             return;
         }
-        this.IngresarAcreditacion();
+        this.ShowMensajeIngresarAcreditacion();
     }
 
     protected void lbConfirmarEliminar_Click(object sender, EventArgs e)
@@ -341,4 +366,18 @@ public partial class Visitas_Acreditaciones : System.Web.UI.Page
         this.SetPersonasAcreditacion();
         this.HideMensaje();
     }
+
+    protected void ImageButton_Refesh_Click(object sender, ImageClickEventArgs e)
+    {
+        this.ChargeAutorizaciones();
+    }
+
+    protected void lbAcreditar_Click(object sender, EventArgs e)
+    {
+        this.IngresarAcreditacion();
+        this.HideMensaje();
+        this.HideAcomp();
+        this.ChargeAutorizaciones();
+    }
+
 }
