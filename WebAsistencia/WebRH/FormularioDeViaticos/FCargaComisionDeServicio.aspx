@@ -291,18 +291,12 @@
                     }
 
         </script>
+     <%= Referencias.Javascript("../")%>  
 
-    <%--  <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"></script>
      <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.validate.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tab.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-transition.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-popover.js"></script>--%>
-     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
-       <script type="text/javascript" src="../Scripts/alertify.js"></script>
+     <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tab.js"></script>
     <%= Referencias.Css("../")%>  
-     <%= Referencias.Javascript("../")%>    
+  
+     
 </body>
 </html>

@@ -351,8 +351,8 @@ text-align: right;
         
         .imagen 
         {
-            float:left;
-            margin:10px 10px;
+            /*float:left;
+            margin:10px 10px;*/
             border:2px solid #000;
             padding:2px;
             background-color:#f3f3f3;
