@@ -11,7 +11,7 @@ using Extensiones;
 
 namespace General.Repositorios
 {
-    public class RepositorioDePersonas : RepositorioLazy<List<Persona>>
+    public class RepositorioDePersonas : RepositorioLazy<List<Persona>>, IRepositorioDePersonas
     {
         public IConexionBD conexion_bd { get; set; }
 
@@ -71,6 +71,22 @@ namespace General.Repositorios
             }
 
             return personas;
+        }
+
+        public TipoDePlanta GetTipoDePlantaActualDe(Persona unaPersona)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("[dbo].[Web_GetTipoDePlantaDePersona]");
+            cn.AsignarParametro("@Documento", unaPersona.Documento);
+            dr = cn.EjecutarConsulta();
+
+            TipoDePlanta planta = null;
+
+            if (dr.Read())
+            {
+                planta = new TipoDePlanta { Id = dr.GetInt16(dr.GetOrdinal("idPlanta")) };
+            }
+            return planta;
         }
     }
 }

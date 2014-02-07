@@ -444,6 +444,19 @@ namespace General
             return repo_modalidades_mockeados;
         }
 
+        private static IRepositorioDePersonas repo_de_personas_mockeados;
+
+        public static IRepositorioDePersonas RepoDePersonasMockeado()
+        {
+            if (repo_de_personas_mockeados == null)
+            {
+                var mocks = new Mockery();
+                repo_de_personas_mockeados = mocks.NewMock<IRepositorioDePersonas>();
+            }
+            return repo_de_personas_mockeados;
+        }
+
+
         private static RepositorioDeComisionesDeServicio UnRepositorioCon(IConexionBD mock_conexion_bd)
         {
             var un_repositorio = new RepositorioDeComisionesDeServicio(mock_conexion_bd);
@@ -1781,5 +1794,6 @@ namespace General
         {
            return new Persona(1, 29753914, "Agustin", "Calqui", new Area(1, "Direccion de RRHH"));
         }
+
     }
 }

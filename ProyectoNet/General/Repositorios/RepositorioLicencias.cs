@@ -198,7 +198,7 @@ namespace General.Repositorios
             //parametros.Add("@id_concepto_licencia", 1);
             //List<VacacionesPermitidas> vacaciones_permitidas = new List<VacacionesPermitidas>();
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.GEN_LIC_GetDiasPermitidos");
+            var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos");
 
             return ConstruirVacacionesPermitidas(tablaDatos);
 
@@ -224,19 +224,19 @@ namespace General.Repositorios
         }
 
 
-        public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, Periodo periodo, Licencia licencia)
+        public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona)
         {
             var parametros = new Dictionary<string, object>();
 
            
                 parametros.Add("@nro_documento", persona.Documento);
 
-                parametros.Add("@periodo", periodo.anio);
+                //parametros.Add("@periodo", periodo.anio);
            
-                parametros.Add("@id_concepto_licencia", licencia.Concepto);
+                //parametros.Add("@id_concepto_licencia", licencia.Concepto);
 
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.GEN_LIC_GetDiasAprobados", parametros);
+                var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesAprobadas(tablaDatos);
 
@@ -244,7 +244,27 @@ namespace General.Repositorios
 
         protected List<VacacionesAprobadas> ConstruirVacacionesAprobadas(TablaDeDatos tablaDatos)
         {
-            throw new NotImplementedException();
+            List<VacacionesAprobadas> vacaciones_aprobadas = new List<VacacionesAprobadas>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Persona persona = new Persona();
+                persona.Documento = row.GetInt("NroDocumento");
+                persona.Apellido = row.GetString("Apellido");
+                persona.Nombre = row.GetString("Nombre");
+
+                //int periodo = row.GetSmallintAsInt("Periodo");
+
+                DateTime fecha_desde = row.GetDateTime("Desde");
+                DateTime fecha_hasta = row.GetDateTime("Hasta");
+                //int concepto = row.GetSmallintAsInt("Id_Concepto_Licencia");
+
+                VacacionesAprobadas vacaciones = new VacacionesAprobadas(persona, fecha_desde, fecha_hasta);
+
+                vacaciones_aprobadas.Add(vacaciones);
+            });
+
+            return vacaciones_aprobadas;
         }
 
 
@@ -282,7 +302,7 @@ namespace General.Repositorios
                 parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
 
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.GEN_LIC_GetDiasPermitidos", parametros);
+                var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
 
             return ConstruirVacacionesPermitidas(tablaDatos);
 
@@ -294,7 +314,7 @@ namespace General.Repositorios
                 parametros.Add("@nro_documento", persona.Documento);
                 parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.GEN_LIC_GetDiasAprobados", parametros);
+                var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesPermitidas(tablaDatos);
 
@@ -307,10 +327,72 @@ namespace General.Repositorios
                 parametros.Add("@periodo", periodo.anio);
                 parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.GEN_LIC_GetDiasAprobados", parametros);
+                var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesPermitidas(tablaDatos);
 
+        }
+
+
+        public List<VacacionesPendientesDeAprobacion> GetVacacionesPendientesPara(Persona persona)
+        {
+            var parametros = new Dictionary<string, object>();
+
+
+            parametros.Add("@nro_documento", persona.Documento);
+
+
+            var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
+
+            return ConstruirVacacionesPendientes(tablaDatos);
+
+        }
+
+        protected List<VacacionesPendientesDeAprobacion> ConstruirVacacionesPendientes(TablaDeDatos tablaDatos)
+        {
+            List<VacacionesPendientesDeAprobacion> vacaciones_pendientes = new List<VacacionesPendientesDeAprobacion>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Persona persona = new Persona();
+                persona.Documento = row.GetInt("NroDocumento");
+                persona.Apellido = row.GetString("Apellido");
+                persona.Nombre = row.GetString("Nombre");
+
+                //int periodo = row.GetSmallintAsInt("Periodo");
+
+                DateTime fecha_desde = row.GetDateTime("Desde");
+                DateTime fecha_hasta = row.GetDateTime("Hasta");
+                //int concepto = row.GetSmallintAsInt("Id_Concepto_Licencia");
+
+                VacacionesPendientesDeAprobacion vacaciones = new VacacionesPendientesDeAprobacion(persona, fecha_desde, fecha_hasta);
+
+                vacaciones_pendientes.Add(vacaciones);
+            });
+
+            return vacaciones_pendientes;
+        }
+
+        public ProrrogaLicenciaOrdinaria CargarDatos(ProrrogaLicenciaOrdinaria unaProrroga)
+        {
+            unaProrroga.Periodo = DateTime.Today.Year;
+
+            ConexionDB cn = new ConexionDB("dbo.WEB_GetProrrogaOrdinaria");
+            cn.AsignarParametro("@periodo", unaProrroga.Periodo);
+
+            SqlDataReader dr;
+            dr = cn.EjecutarConsulta();
+
+            if (dr.Read())
+            {
+                unaProrroga.UsufructoDesde = dr.GetInt16(dr.GetOrdinal("Prorroga_Desde"));
+                unaProrroga.UsufructoHasta = dr.GetInt16(dr.GetOrdinal("Prorroga_Hasta"));
+            }
+            else
+            {
+                unaProrroga = null;
+            }
+            return unaProrroga;
         }
     }
 }

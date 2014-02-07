@@ -16,29 +16,34 @@ namespace General
             this._repositorio_licencia = repo_licencia;
         }
 
-        public List<VacacionesPermitidas> GetVacacionesPermitidas()
+        public CalculadorDeVacaciones()
         {
-            return _repositorio_licencia.GetVacacionesPermitidas();
+            // TODO: Complete member initialization
         }
+
+        //public List<VacacionesPermitidas> GetVacacionesPermitidas()
+        //{
+        //    return _repositorio_licencia.GetVacacionesPermitidas();
+        //}
 
         public List<VacacionesPermitidas> ObtenerLicenciasPermitidasPara(Persona persona, Periodo periodo, Licencia licencia)
         {
             return _repositorio_licencia.GetVacacionPermitidaPara(persona, periodo, licencia);
         }
 
-        public List<VacacionesAprobadas> ObtenerLicenciasAprobadasPara(Persona persona, Periodo periodo, Licencia licencia)
-        {
-            return _repositorio_licencia.GetVacacionesAprobadasPara(persona, periodo, licencia);
-        }
+        //public List<VacacionesAprobadas> ObtenerLicenciasAprobadasPara(Persona persona, Periodo periodo, Licencia licencia)
+        //{
+        //    return _repositorio_licencia.GetVacacionesAprobadasPara(persona, periodo, licencia);
+        //}
 
-        public List<VacacionesPermitidas> ObtenerLicenciasPermitidasPara(Persona persona)
-        {
-            ConceptoDeLicencia concepto = new ConceptoDeLicencia();
-            concepto.Id = CodigosDeLicencias.Vacaciones;
-            Licencia licencia_por_vacaciones = new Licencia();
-            licencia_por_vacaciones.Concepto = concepto;
-            return _repositorio_licencia.GetVacacionPermitidaPara(persona, licencia_por_vacaciones);// ObtenerLicenciasPermitidasPara(persona);
-        }
+        //public List<VacacionesPermitidas> ObtenerLicenciasPermitidasPara(Persona persona)
+        //{
+        //    ConceptoDeLicencia concepto = new ConceptoDeLicencia();
+        //    concepto.Id = CodigosDeLicencias.Vacaciones;
+        //    Licencia licencia_por_vacaciones = new Licencia();
+        //    licencia_por_vacaciones.Concepto = concepto;
+        //    return _repositorio_licencia.GetVacacionPermitidaPara(persona, licencia_por_vacaciones);// ObtenerLicenciasPermitidasPara(persona);
+        //}
 
         public object DiasRestantes(VacacionesPermitidas permitidas, VacacionesAprobadas aprobadas, VacacionesPendientesDeAprobacion pendientes_de_aprobar)
         {

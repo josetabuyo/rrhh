@@ -149,6 +149,7 @@
     <Compile Include="Organigrama\OrganigramaException.cs" />
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
     <Compile Include="Organigrama\Responsable.cs" />
+    <Compile Include="Repositorios\IRepositorioDePersonas.cs" />
     <Compile Include="Repositorios\IRepositorioLicencia.cs" />
     <Compile Include="Repositorios\RepositorioDePersonas.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAsistencias.cs" />
