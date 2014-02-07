@@ -343,7 +343,7 @@ namespace General
 
         public static IConexionBD ConexionMockeada()
         {
-            var mocks = new Mockery();
+            var mocks = Mockery();
             var mock_conexion_bd = mocks.NewMock<IConexionBD>();
             return mock_conexion_bd;
         }
@@ -354,7 +354,7 @@ namespace General
         {
             if (repo_alumnos_mockeados == null)
             {
-                var mocks = new Mockery();
+                var mocks = Mockery();
                 repo_alumnos_mockeados = mocks.NewMock<IRepositorioDeAlumnos>();
             }
             return repo_alumnos_mockeados;
@@ -366,7 +366,7 @@ namespace General
         {
             if (repo_cursos_mockeados == null)
             {
-                var mocks = new Mockery();
+                var mocks = Mockery();
                 repo_cursos_mockeados = mocks.NewMock<IRepositorioDeCursos>();
             }
             return repo_cursos_mockeados;
@@ -378,7 +378,7 @@ namespace General
         {
             if (repo_asistencias_mockeados == null)
             {
-                var mocks = new Mockery();
+                var mocks = Mockery();
                 repo_asistencias_mockeados = mocks.NewMock<IRepositorioDeAsistencias>();
             }
             return repo_asistencias_mockeados;
@@ -390,10 +390,18 @@ namespace General
         {
             if (repo_licencias_mockeados == null)
             {
-                var mocks = new Mockery();
+                var mocks = Mockery();
                 repo_licencias_mockeados = mocks.NewMock<IRepositorioLicencia>();
             }
             return repo_licencias_mockeados;
+        }
+
+        protected static Mockery _mockery;
+        public static Mockery Mockery()
+        {
+            if (_mockery == null)
+                _mockery = new Mockery();
+            return _mockery;
         }
 
         private static IRepositorioDeEspaciosFisicos repo_espacios_fisicos_mockeados;

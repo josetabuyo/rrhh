@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+using General.Repositorios;
 
     public class ConceptoDeLicencia
     {
@@ -46,6 +47,11 @@
         {
             get { return _DiasHabiles; }
             set { _DiasHabiles = value; }
+        }
+
+        public virtual SaldoLicencia RealizarCalculoDeSaldo(IRepositorioLicencia iRepositorioLicencia, IRepositorioDePersonas repositorio_personas, Persona persona, DateTime fecha_de_consulta)
+        {
+            throw new Exception("Responsabilidad de la subclase");
         }
     }
 }

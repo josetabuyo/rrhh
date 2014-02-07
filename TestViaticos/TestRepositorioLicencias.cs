@@ -10,7 +10,7 @@ using NMock2;
 namespace TestViaticos
 {
 
-            
+
 
     [TestClass]
     public class TestRepositorioLicencias
@@ -60,7 +60,7 @@ namespace TestViaticos
 
             var persona = TestObjects.UnaPersona();
             var repo_licencia = new RepositorioLicencias(conexion);
-           // ServicioDeLicencias servicio_de_licencias = new ServicioDeLicencias(new RepositorioLicencias(conexion));
+            // ServicioDeLicencias servicio_de_licencias = new ServicioDeLicencias(new RepositorioLicencias(conexion));
 
             Assert.AreEqual(4, repo_licencia.GetVacacionPermitidaPara(persona, licencia_por_vacaciones).Count());
         }
@@ -123,49 +123,90 @@ namespace TestViaticos
             IConexionBD conexion = TestObjects.ConexionMockeada();
             Expect.AtLeastOnce.On(repo_personas).Method("GetTipoDePlantaActualDe").WithAnyArguments().Will(Return.Value(tipo_planta));
             Expect.AtLeastOnce.On(repo_licencias).Method("CargarDatos").WithAnyArguments().Will(Return.Value(prorroga));
-            Expect.AtLeastOnce.On(repo_licencias).Method("GetVacacionPermitidaPara").WithAnyArguments().Will(Return.Value(new List<VacacionesPermitidas>() { new VacacionesPermitidas(persona,2013,20) }));
+            Expect.AtLeastOnce.On(repo_licencias).Method("GetVacacionPermitidaPara").WithAnyArguments().Will(Return.Value(new List<VacacionesPermitidas>() { new VacacionesPermitidas(persona, 2013, 20) }));
             Expect.AtLeastOnce.On(repo_licencias).Method("GetVacacionesAprobadasPara").WithAnyArguments().Will(Return.Value(new List<VacacionesAprobadas>()));
             Expect.AtLeastOnce.On(repo_licencias).Method("GetVacacionesPendientesPara").WithAnyArguments().Will(Return.Value(new List<VacacionesPendientesDeAprobacion>()));
 
-           
-            ConceptoDeLicencia concepto = new ConceptoDeLicencia();
+
+            ConceptoDeLicencia concepto = new ConceptoLicenciaAnualOrdinaria();
             concepto.Id = CodigosDeLicencias.Vacaciones;
 
-            //creo la prorroga por afuera asi evito el llamado al repo dentro del metodo
-            
-            
-            //le seteo el tipo de planta por afuera asi evito el llamado al repo dentro del metodo
-            //persona.TipoDePlanta = new TipoDePlanta { Id = 1 };
 
-            var fecha_de_consulta = new DateTime(2014,02,06);
+            var fecha_de_consulta = new DateTime(2014, 02, 06);
             ServicioDeLicencias servicio_de_licencias = new ServicioDeLicencias(repo_licencias);
 
-            Assert.AreEqual(20, servicio_de_licencias.GetSaldoLicencia(persona, concepto, fecha_de_consulta, repo_personas).SaldoAnual);
+            Assert.AreEqual(20, servicio_de_licencias.GetSaldoLicencia(persona, concepto, fecha_de_consulta, repo_personas).Detalle.First().Disponible);
+            Assert.AreEqual(2013, servicio_de_licencias.GetSaldoLicencia(persona, concepto, fecha_de_consulta, repo_personas).Detalle.First().Periodo);
         }
 
 
-//        [TestMethod]
-//        public void deberia_saber_cuantas_vacaciones_permitidas_tiene_agus_para_el_2012_para_el_concepto_1()
-//        {
-//            string source = @"  |NroDocumento	|Apellido       |Nombre                 |Id_Interna     |Dias_Autorizados |Id_Concepto_Licencia  |Periodo    |Dias_Tomados	                  
-//                                |29753914	    |CALCAGNO       |Agustín Emanuel        |201530         |25               |1                     |2012       |0              ";
 
-//            IConexionBD conexion = TestObjects.ConexionMockeada();
-//            var resultado_sp = TablaDeDatos.From(source);
+        [TestMethod]
+        public void cuando_se_colicita_una_licencia_general_debe_invocarse_el_metodo_del_objeto_del_ConceptoLicenciaGeneral()
+        {
+            var repo_licencias = TestObjects.RepoLicenciaMockeado();
+            ConceptoDeLicencia concepto = new ConceptoLicenciaGeneral();
+            concepto.Id = 2;
+            var fecha_de_consulta = new DateTime(2014, 02, 06);
+            Expect.AtLeastOnce.On(repo_licencias).Method("CargarSaldoLicenciaGeneralDe").WithAnyArguments();
 
-//            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+            var servicio_licencia = new ServicioDeLicencias(repo_licencias);
+            servicio_licencia.GetSaldoLicencia(TestObjects.UnaPersona(), concepto, fecha_de_consulta, TestObjects.RepoDePersonasMockeado());
 
-//            var persona = TestObjects.UnaPersona();
+            TestObjects.Mockery().VerifyAllExpectationsHaveBeenMet();
+        }
 
-//            CalculadorDeVacaciones calculador = new CalculadorDeVacaciones(new RepositorioLicencias(conexion));
-//            Licencia licencia = unaLicencia;
+        [TestMethod]
+        public void cuando_se_colicita_una_licencia_para_vacaciones_debe_invocarse_el_metodo_del_objeto_del_ConceptoLicenciaAnualOrdinaria()
+        {
+            var repo_licencias = TestObjects.RepoLicenciaMockeado();
+            var repo_personas = TestObjects.RepoDePersonasMockeado();
+            ConceptoDeLicencia concepto = new ConceptoLicenciaAnualOrdinaria();
+            concepto.Id = CodigosDeLicencias.Vacaciones;
+            var fecha_de_consulta = new DateTime(2014, 02, 06);
+            var persona = TestObjects.UnaPersona();
+            var tipo_planta = new TipoDePlanta { Id = 1 };
+            var prorroga = new ProrrogaLicenciaOrdinaria { Periodo = 2014, UsufructoDesde = 2005, UsufructoHasta = 2013 };
+            var calculador_de_vacaciones = new CalculadorDeVacaciones();
+            var vacaciones_solicitables = new List<VacacionesSolicitables>() { new VacacionesSolicitables(2013, 20) };
 
-//            //var vacaciones_permitidas_de_agus = new VacacionesPermitidas();
-//            var periodo = new Periodo(new DateTime(2010, 01, 01), new DateTime(2010, 12, 31));
-//            periodo.anio = 2012;
-//            Assert.AreEqual(25, calculador.ObtenerLicenciasPermitidasPara(persona, periodo, licencia).First().CantidadDeDias());
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            Expect.AtLeastOnce.On(repo_personas).Method("GetTipoDePlantaActualDe").WithAnyArguments().Will(Return.Value(tipo_planta));
+           // Expect.AtLeastOnce.On(repo_licencias).Method("CargarDatos").WithAnyArguments().Will(Return.Value(prorroga));
+            Expect.AtLeastOnce.On(repo_licencias).Method("GetVacacionPermitidaPara").WithAnyArguments().Will(Return.Value(new List<VacacionesPermitidas>() { new VacacionesPermitidas(persona, 2013, 20) }));
+            Expect.AtLeastOnce.On(repo_licencias).Method("GetVacacionesAprobadasPara").WithAnyArguments().Will(Return.Value(new List<VacacionesAprobadas>()));
+            Expect.AtLeastOnce.On(repo_licencias).Method("GetVacacionesPendientesPara").WithAnyArguments().Will(Return.Value(new List<VacacionesPendientesDeAprobacion>()));
 
-//        }
+
+            var servicio_licencia = new ServicioDeLicencias(repo_licencias);
+            servicio_licencia.GetSaldoLicencia(TestObjects.UnaPersona(), concepto, fecha_de_consulta, TestObjects.RepoDePersonasMockeado());
+
+            TestObjects.Mockery().VerifyAllExpectationsHaveBeenMet();
+        }
+
+
+        //        [TestMethod]
+        //        public void deberia_saber_cuantas_vacaciones_permitidas_tiene_agus_para_el_2012_para_el_concepto_1()
+        //        {
+        //            string source = @"  |NroDocumento	|Apellido       |Nombre                 |Id_Interna     |Dias_Autorizados |Id_Concepto_Licencia  |Periodo    |Dias_Tomados	                  
+        //                                |29753914	    |CALCAGNO       |Agustín Emanuel        |201530         |25               |1                     |2012       |0              ";
+
+        //            IConexionBD conexion = TestObjects.ConexionMockeada();
+        //            var resultado_sp = TablaDeDatos.From(source);
+
+        //            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+        //            var persona = TestObjects.UnaPersona();
+
+        //            CalculadorDeVacaciones calculador = new CalculadorDeVacaciones(new RepositorioLicencias(conexion));
+        //            Licencia licencia = unaLicencia;
+
+        //            //var vacaciones_permitidas_de_agus = new VacacionesPermitidas();
+        //            var periodo = new Periodo(new DateTime(2010, 01, 01), new DateTime(2010, 12, 31));
+        //            periodo.anio = 2012;
+        //            Assert.AreEqual(25, calculador.ObtenerLicenciasPermitidasPara(persona, periodo, licencia).First().CantidadDeDias());
+
+        //        }
 
 
         //        [TestMethod]

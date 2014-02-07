@@ -68,6 +68,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asistencia\ConceptoLicenciaAnualOrdinaria.cs" />
+    <Compile Include="Asistencia\ConceptoLicenciaGeneral.cs" />
     <Compile Include="Asistencia\ServicioDeLicencias.cs" />
     <Compile Include="Asistencia\CreadorDePeriodosImputablesDivisibles.cs" />
     <Compile Include="Asistencia\CreadorDePeriodosImputables.cs" />
