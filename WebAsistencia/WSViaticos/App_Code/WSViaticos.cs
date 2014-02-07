@@ -1023,7 +1023,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var alumnos = RepoAlumnos().GetAlumnos();
         Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        var autorizador = new AutorizadorSacc();
+        var autorizador = new AutorizadorSacc(Autorizador());
         alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
 
         var alumnos_dto = new List<Object>();
@@ -1358,7 +1358,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var cursos = new RepositorioDeCursos(Conexion()).GetCursos();
         var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        var autorizador = new AutorizadorSacc();
+        var autorizador = new AutorizadorSacc(Autorizador());
 
         cursos = autorizador.FiltrarCursosPorUsuario(cursos, organigrama, usuario);
 
@@ -1539,7 +1539,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private List<Alumno> FiltrarAlumnosPorUsuarioLogueado(Usuario usuario, List<Alumno> alumnos, Organigrama organigrama)
     {
-        var autorizador = new AutorizadorSacc();
+        var autorizador = new AutorizadorSacc(Autorizador());
 
         alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
         return alumnos;
@@ -1700,7 +1700,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion(), RepositorioDeCursos()).GetEspaciosFisicos();
         var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        var autorizador = new AutorizadorSacc();
+        var autorizador = new AutorizadorSacc(Autorizador());
 
         espacios_fisicos = autorizador.FiltrarEspaciosFisicosPorUsuario(espacios_fisicos, organigrama, usuario);
 

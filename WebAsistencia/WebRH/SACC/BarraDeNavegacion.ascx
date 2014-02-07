@@ -16,7 +16,7 @@
             <li class="divider-vertical"></li>                 
             <li><input type="text" class="search-query span2" placeholder="Busqueda rapida" /></li>                       
         </ul>
-        <ul class="nav pull-right" id="menu_derecho" runat="server">                  
+        <ul class="nav pull-right" id="menu_derecho" runat="server">
         </ul>
         </div><!-- /.nav-collapse -->
     </div>

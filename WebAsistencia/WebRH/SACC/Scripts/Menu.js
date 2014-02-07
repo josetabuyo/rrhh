@@ -11,7 +11,6 @@ Menu.prototype.getMenu = function (nombre_menu) {
         contentType: "application/json; charset=utf-8",
         success: function (respuestaJson) {
             var respuesta = JSON.parse(respuestaJson.d);
-            alert(respuestaJson.d);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alertify.alert(errorThrown);
