@@ -1803,5 +1803,10 @@ namespace General
            return new Persona(1, 29753914, "Agustin", "Calqui", new Area(1, "Direccion de RRHH"));
         }
 
+
+        public static ConceptoDeLicencia ConceptoLicenciaOrdinaria()
+        {
+            return new ConceptoLicenciaAnualOrdinaria();
+        }
     }
 }

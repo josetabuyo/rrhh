@@ -8,6 +8,10 @@ namespace General
 {
     public class ConceptoLicenciaAnualOrdinaria : ConceptoDeLicencia
     {
+        public ConceptoLicenciaAnualOrdinaria()
+        {
+            this.Id = 1;
+        }
 
         public override SaldoLicencia RealizarCalculoDeSaldo(IRepositorioLicencia repositorio_licencia, IRepositorioDePersonas repositorio_personas, Persona unaPersona, DateTime fecha_de_consulta)
         {
@@ -26,11 +30,7 @@ namespace General
         }
         public List<VacacionesPermitidas> LicenciasPermitidasPara(IRepositorioLicencia repositorio_licencia, Persona persona)
         {
-            ConceptoDeLicencia concepto = new ConceptoDeLicencia();
-            concepto.Id = CodigosDeLicencias.Vacaciones;
-            Licencia licencia_por_vacaciones = new Licencia();
-            licencia_por_vacaciones.Concepto = concepto;
-            return repositorio_licencia.GetVacacionPermitidaPara(persona, licencia_por_vacaciones);// ObtenerLicenciasPermitidasPara(persona);
+            return repositorio_licencia.GetVacacionPermitidaPara(persona, this);// ObtenerLicenciasPermitidasPara(persona);
         }
 
 

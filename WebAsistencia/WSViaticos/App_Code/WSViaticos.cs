@@ -140,12 +140,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public SaldoLicencia GetSaldoLicencia(Persona unaPersona, ConceptoDeLicencia concepto)
     {
+        var concepto_subclasificado = concepto.InstanciaDeSubclase();
+
         DateTime fecha_de_consulta = new DateTime(2014,02,06);
-       
 
         ServicioDeLicencias servicioLicencias = new ServicioDeLicencias(RepoLicencias());
 
-        SaldoLicencia saldo = servicioLicencias.GetSaldoLicencia(unaPersona, concepto, fecha_de_consulta, RepositorioDePersonas());
+        SaldoLicencia saldo = servicioLicencias.GetSaldoLicencia(unaPersona, concepto_subclasificado, fecha_de_consulta, RepositorioDePersonas());
 
         return saldo;
     }

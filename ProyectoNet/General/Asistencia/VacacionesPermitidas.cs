@@ -14,8 +14,6 @@ namespace General
         protected int _concepto;
         protected int _prorroga;
 
-
-       
         public Persona Persona { get { return _persona; } }
         public int Periodo { get { return _anio; } }
         public int Concepto { get { return _concepto; } }
@@ -61,6 +59,11 @@ namespace General
         public void RestarDias(int dias_a_restar)
         {
             this._dias = this._dias - dias_a_restar;
+        }
+
+        public override string ToString()
+        {
+            return this.Periodo.ToString() + " - " + this.CantidadDeDias().ToString();
         }
     }
 }

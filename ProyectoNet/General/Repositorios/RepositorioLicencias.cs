@@ -308,13 +308,13 @@ namespace General.Repositorios
 
         }
 
-        public List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, Licencia licencia)
+        public List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, ConceptoDeLicencia concepto)
         {
             var parametros = new Dictionary<string, object>();
                 parametros.Add("@nro_documento", persona.Documento);
-                parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
+                parametros.Add("@id_concepto_licencia", concepto.Id);
 
-                var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
+                var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
 
             return ConstruirVacacionesPermitidas(tablaDatos);
 

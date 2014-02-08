@@ -53,16 +53,12 @@ namespace TestViaticos
 
             Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            ConceptoDeLicencia concepto = new ConceptoDeLicencia();
-            concepto.Id = CodigosDeLicencias.Vacaciones;
-            Licencia licencia_por_vacaciones = new Licencia();
-            licencia_por_vacaciones.Concepto = concepto;
 
             var persona = TestObjects.UnaPersona();
             var repo_licencia = new RepositorioLicencias(conexion);
             // ServicioDeLicencias servicio_de_licencias = new ServicioDeLicencias(new RepositorioLicencias(conexion));
 
-            Assert.AreEqual(4, repo_licencia.GetVacacionPermitidaPara(persona, licencia_por_vacaciones).Count());
+            Assert.AreEqual(4, repo_licencia.GetVacacionPermitidaPara(persona, TestObjects.ConceptoLicenciaOrdinaria()).Count());
         }
 
         [TestMethod]
@@ -145,8 +141,7 @@ namespace TestViaticos
         public void cuando_se_colicita_una_licencia_general_debe_invocarse_el_metodo_del_objeto_del_ConceptoLicenciaGeneral()
         {
             var repo_licencias = TestObjects.RepoLicenciaMockeado();
-            ConceptoDeLicencia concepto = new ConceptoLicenciaGeneral();
-            concepto.Id = 2;
+            ConceptoDeLicencia concepto = new ConceptoLicenciaGeneral(2);
             var fecha_de_consulta = new DateTime(2014, 02, 06);
             Expect.AtLeastOnce.On(repo_licencias).Method("CargarSaldoLicenciaGeneralDe").WithAnyArguments();
 

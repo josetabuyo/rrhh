@@ -53,5 +53,17 @@ using General.Repositorios;
         {
             throw new Exception("Responsabilidad de la subclase");
         }
+
+        public ConceptoDeLicencia InstanciaDeSubclase()
+        {
+            if (this.Id == 1)
+            {
+                return new ConceptoLicenciaAnualOrdinaria();
+            }
+            else
+            {
+                return new ConceptoLicenciaGeneral(this.Id);
+            }
+        }
     }
 }

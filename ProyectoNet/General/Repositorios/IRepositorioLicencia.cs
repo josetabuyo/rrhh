@@ -15,7 +15,7 @@ namespace General.Repositorios
         List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, Periodo periodo, Licencia licencia);
         List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona);
 
-        List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, Licencia licencia);
+        List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, ConceptoDeLicencia concepto);
         List<VacacionesPermitidas> GetVacacionPermitidaPara(Periodo periodo, Licencia licencia);
 
         List<VacacionesPendientesDeAprobacion> GetVacacionesPendientesPara(Persona persona);

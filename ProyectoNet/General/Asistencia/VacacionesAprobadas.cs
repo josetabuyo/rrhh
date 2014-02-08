@@ -86,5 +86,10 @@ namespace General
         {
             return new VacacionesAprobadas(_persona, _desde, _hasta);
         }
+
+        public override string ToString()
+        {
+            return this.Desde().ToString() + " - " + this.Hasta().ToString();
+        }
     }
 }
