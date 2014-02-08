@@ -6,13 +6,16 @@ using General.Repositorios;
 
 namespace General.MAU
 {
-    public class RepositorioDePermisosSobreAreas: IRepositorioDePermisosSobreAreas
+    public class RepositorioDePermisosSobreAreas : RepositorioLazy<List<KeyValuePair<int, int>>>, IRepositorioDePermisosSobreAreas
     {
         protected IConexionBD conexion;
+        private RepositorioDeAreas repositorioDeAreas;
 
-        public RepositorioDePermisosSobreAreas(IConexionBD conexion)
+        public RepositorioDePermisosSobreAreas(IConexionBD conexion, RepositorioDeAreas repo_areas)
         {
             this.conexion = conexion;
+            this.repositorioDeAreas = repo_areas;
+            this.cache = new CacheNoCargada<List<KeyValuePair<int, int>>>();
         }
 
         List<Area> IRepositorioDePermisosSobreAreas.AreasAdministradasPor(Usuario usuario)
@@ -20,12 +23,17 @@ namespace General.MAU
             return AreasAdministradasPor(usuario.Id);
         }
 
+        public List<KeyValuePair<int, int>> ObtenerTodosLosPermisosDesdeLaBase()
+        {
+            return conexion.Ejecutar("dbo.MAU_GetPermisosSobreAreas")
+                .Rows.Select(row => new KeyValuePair<int, int>(row.GetSmallintAsInt("id_usuario"), row.GetSmallintAsInt("id_area")))
+                .ToList();
+        }
+
         public List<Area> AreasAdministradasPor(int id_usuario)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario_administrador", id_usuario);
-            var tablaDatos = conexion.Ejecutar("dbo.VIA_GetAreasCompletas", parametros);
-            return RepositorioDeAreas.GetAreasDeTablaDeDatos(tablaDatos);
+            var permisos = cache.Ejecutar(ObtenerTodosLosPermisosDesdeLaBase, this);
+            return permisos.FindAll(p => p.Key == id_usuario).Select(p => this.repositorioDeAreas.GetAreaPorId(p.Value)).ToList();
         }
 
         public void AsignarAreaAUnUsuario(Usuario usuario, Area area)

@@ -918,7 +918,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         var asistencias = RepoAsistencias().GetAsistencias();
         var alumnos = curso.Alumnos();
-        alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, alumnos, organigrama);
+        alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, alumnos, organigrama, new AutorizadorSacc(Autorizador()));
 
         foreach (var a in alumnos)
         {
@@ -1374,7 +1374,7 @@ public class WSViaticos : System.Web.Services.WebService
                 un_curso.Nombre = curso.Nombre;
                 un_curso.Materia = curso.Materia;
                 un_curso.Docente = curso.Docente;
-                un_curso.Alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos(), organigrama);
+                un_curso.Alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos(), organigrama, autorizador);
                 un_curso.EspacioFisico = curso.EspacioFisico;
                 un_curso.FechaInicio = curso.FechaInicio.ToShortDateString();
                 un_curso.FechaFin = curso.FechaFin.ToShortDateString();
@@ -1517,7 +1517,7 @@ public class WSViaticos : System.Web.Services.WebService
         }
         var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(fecha_desde_formateada, fecha_hasta_formateada, RepositorioDeCursos());
 
-        alumnos_reporte = FiltrarAlumnosPorUsuarioLogueado(usuario, alumnos_reporte, organigrama);
+        alumnos_reporte = FiltrarAlumnosPorUsuarioLogueado(usuario, alumnos_reporte, organigrama, new AutorizadorSacc(Autorizador()));
 
         foreach (Alumno alumno in alumnos_reporte)
         {
@@ -1537,10 +1537,8 @@ public class WSViaticos : System.Web.Services.WebService
         return alumnos_dto;
     }
 
-    private List<Alumno> FiltrarAlumnosPorUsuarioLogueado(Usuario usuario, List<Alumno> alumnos, Organigrama organigrama)
+    private List<Alumno> FiltrarAlumnosPorUsuarioLogueado(Usuario usuario, List<Alumno> alumnos, Organigrama organigrama, AutorizadorSacc autorizador)
     {
-        var autorizador = new AutorizadorSacc(Autorizador());
-
         alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
         return alumnos;
     }
@@ -2212,7 +2210,7 @@ public class WSViaticos : System.Web.Services.WebService
             }); 
         });
 
-        var alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos(), organigrama).ToArray(); 
+        var alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos(), organigrama, new AutorizadorSacc(Autorizador())).ToArray(); 
         var Instancias = curso.Materia.Modalidad.InstanciasDeEvaluacion;
         if (id_instancia > 0)
         {
@@ -2390,7 +2388,7 @@ public class WSViaticos : System.Web.Services.WebService
         return new Autorizador(repo_funcionalidades,
             new RepositorioDeMenues(Conexion(), repo_accesos),
             RepositorioDeUsuarios(),
-            new RepositorioDePermisosSobreAreas(Conexion()),
+            new RepositorioDePermisosSobreAreas(Conexion(), RepositorioDeAreas()),
             repo_accesos);
     }
 
