@@ -123,10 +123,8 @@ namespace TestViaticos
             Expect.AtLeastOnce.On(repo_licencias).Method("GetVacacionesAprobadasPara").WithAnyArguments().Will(Return.Value(new List<VacacionesAprobadas>()));
             Expect.AtLeastOnce.On(repo_licencias).Method("GetVacacionesPendientesPara").WithAnyArguments().Will(Return.Value(new List<VacacionesPendientesDeAprobacion>()));
 
-
             ConceptoDeLicencia concepto = new ConceptoLicenciaAnualOrdinaria();
             concepto.Id = CodigosDeLicencias.Vacaciones;
-
 
             var fecha_de_consulta = new DateTime(2014, 02, 06);
             ServicioDeLicencias servicio_de_licencias = new ServicioDeLicencias(repo_licencias);
@@ -138,7 +136,7 @@ namespace TestViaticos
 
 
         [TestMethod]
-        public void cuando_se_colicita_una_licencia_general_debe_invocarse_el_metodo_del_objeto_del_ConceptoLicenciaGeneral()
+        public void cuando_se_solicita_una_licencia_general_debe_invocarse_el_metodo_del_objeto_del_ConceptoLicenciaGeneral()
         {
             var repo_licencias = TestObjects.RepoLicenciaMockeado();
             ConceptoDeLicencia concepto = new ConceptoLicenciaGeneral(2);
@@ -152,7 +150,7 @@ namespace TestViaticos
         }
 
         [TestMethod]
-        public void cuando_se_colicita_una_licencia_para_vacaciones_debe_invocarse_el_metodo_del_objeto_del_ConceptoLicenciaAnualOrdinaria()
+        public void cuando_se_solicita_una_licencia_para_vacaciones_debe_invocarse_el_metodo_del_objeto_del_ConceptoLicenciaAnualOrdinaria()
         {
             var repo_licencias = TestObjects.RepoLicenciaMockeado();
             var repo_personas = TestObjects.RepoDePersonasMockeado();
@@ -167,7 +165,7 @@ namespace TestViaticos
 
             IConexionBD conexion = TestObjects.ConexionMockeada();
             Expect.AtLeastOnce.On(repo_personas).Method("GetTipoDePlantaActualDe").WithAnyArguments().Will(Return.Value(tipo_planta));
-           // Expect.AtLeastOnce.On(repo_licencias).Method("CargarDatos").WithAnyArguments().Will(Return.Value(prorroga));
+            //Expect.AtLeastOnce.On(repo_licencias).Method("CargarDatos").WithAnyArguments().Will(Return.Value(prorroga));
             Expect.AtLeastOnce.On(repo_licencias).Method("GetVacacionPermitidaPara").WithAnyArguments().Will(Return.Value(new List<VacacionesPermitidas>() { new VacacionesPermitidas(persona, 2013, 20) }));
             Expect.AtLeastOnce.On(repo_licencias).Method("GetVacacionesAprobadasPara").WithAnyArguments().Will(Return.Value(new List<VacacionesAprobadas>()));
             Expect.AtLeastOnce.On(repo_licencias).Method("GetVacacionesPendientesPara").WithAnyArguments().Will(Return.Value(new List<VacacionesPendientesDeAprobacion>()));
