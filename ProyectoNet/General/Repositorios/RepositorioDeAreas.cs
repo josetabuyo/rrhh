@@ -8,14 +8,15 @@ using General.Repositorios;
 using System.Linq;
 namespace General.Repositorios
 {
-    public class RepositorioDeAreas
+    public class RepositorioDeAreas : RepositorioLazy<List<Area>>
     {
 
-        public IConexionBD conexion_bd { get; set; }
+        public IConexionBD conexion_bd { get; set; } 
 
-        public RepositorioDeAreas(IConexionBD conexion)
+        public RepositorioDeAreas(IConexionBD conexion) 
         {
             this.conexion_bd = conexion;
+            this.cache = new CacheNoCargada<List<Area>>();
         }
 
         public void ReloadArea(Area unArea)
@@ -93,11 +94,16 @@ namespace General.Repositorios
 
         public List<Area> GetTodasLasAreasCompletas()
         {
+            return cache.Ejecutar(ObtenerTodasLasAreasDesdeLaBase, this);        
+        }
+
+         public List<Area> ObtenerTodasLasAreasDesdeLaBase()
+        {
             var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetAreasCompletas");
             List<Area> areas = GetAreasDeTablaDeDatos(tablaDatos);
-
             return areas;
         }
+
 
         public static List<Area> GetAreasDeTablaDeDatos(TablaDeDatos tablaDatos)
         {
@@ -176,6 +182,11 @@ namespace General.Repositorios
             return areas;
         }
 
+        public Area GetAreaPorId(int id_area)
+        {
+            return this.GetTodasLasAreasCompletas().Find(a => a.Id == id_area);
+        }
+        
         private FiltroDeAreas DeterminarFiltro(int idCombo, string dato_ingresado_en_filtro)
         {
             switch (idCombo )
