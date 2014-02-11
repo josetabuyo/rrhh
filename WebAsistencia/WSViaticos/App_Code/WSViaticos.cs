@@ -352,7 +352,7 @@ public class WSViaticos : System.Web.Services.WebService
         //Se puede mejorar
         var lista_de_todos_los_viaticos = repositorio.ObtenerTodosLosViaticos();
         var lista_viaticos_usuario = new List<ComisionDeServicio>();
-        new Autorizador().AreasAdministradasPor(usuario).ForEach(a => lista_viaticos_usuario.AddRange(lista_de_todos_los_viaticos.FindAll(v => v.TransicionesRealizadas.Select(t => t.AreaOrigen.Id).Contains(a.Id) ||
+        Autorizador().AreasAdministradasPor(usuario).ForEach(a => lista_viaticos_usuario.AddRange(lista_de_todos_los_viaticos.FindAll(v => v.TransicionesRealizadas.Select(t => t.AreaOrigen.Id).Contains(a.Id) ||
                                                                                                             v.TransicionesRealizadas.Select(t => t.AreaDestino.Id).Contains(a.Id))));
 
         return lista_viaticos_usuario.Distinct().ToArray();
@@ -1927,7 +1927,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Funcionalidad[] FuncionalidadesPara(int id_usuario)
     {
-        var funcionalidades = RepositorioDeFuncionalidades().FuncionalidadesPara(id_usuario).ToArray();
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(id_usuario).ToArray();
         return funcionalidades;
     }
 
@@ -2377,15 +2377,22 @@ public class WSViaticos : System.Web.Services.WebService
 
     private IRepositorioDeFuncionalidades RepositorioDeFuncionalidades()
     {
-        return new RepositorioDeFuncionalidades(Conexion());
+        return General.MAU.RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(Conexion());
     }
+
+    private IRepositorioDeFuncionalidadesDeUsuarios RepositorioDeFuncionalidadesDeUsuarios()
+    {
+        return General.MAU.RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(Conexion(), RepositorioDeFuncionalidades());
+    }
+
 
     private Autorizador Autorizador()
     {
         var repo_funcionalidades = RepositorioDeFuncionalidades();
-        var repo_accesos = new RepositorioDeAccesosAURL(Conexion(), repo_funcionalidades);
+        var repo_funcionalidades_de_usuarios = RepositorioDeFuncionalidadesDeUsuarios();
+        var repo_accesos = RepositorioDeAccesosAURL.NuevoRepositorioDeAccesosAURL(Conexion(), repo_funcionalidades);
 
-        return new Autorizador(repo_funcionalidades,
+        return new Autorizador(repo_funcionalidades_de_usuarios,
             new RepositorioDeMenues(Conexion(), repo_accesos),
             RepositorioDeUsuarios(),
             new RepositorioDePermisosSobreAreas(Conexion(), RepositorioDeAreas()),
