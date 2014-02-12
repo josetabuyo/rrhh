@@ -82,11 +82,16 @@ namespace AdministracionDeUsuarios
 
         public static Autorizador Autorizador()
         {
-            return new Autorizador(TestObjectsMau.RepositorioDeFuncionalidades(),
+            return new Autorizador(TestObjectsMau.RepositorioDeFuncionalidadesDeUsuarios(),
                 TestObjectsMau.RepositorioDeMenues(), 
                 TestObjectsMau.RepositorioDeUsuarios(), 
                 TestObjectsMau.RepositorioDePermisosSobreAreas(),
                 TestObjectsMau.RepositorioDeAccesosAURL());
+        }
+
+        private static IRepositorioDeFuncionalidadesDeUsuarios RepositorioDeFuncionalidadesDeUsuarios()
+        {
+            return new RepositorioDeFuncionalidadesDeUsuarios_EnMemoria(diccionario_permisos());
         }
 
         public static IRepositorioDeMenues RepositorioDeMenues()

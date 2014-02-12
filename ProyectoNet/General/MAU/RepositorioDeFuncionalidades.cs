@@ -6,32 +6,51 @@ using General.Repositorios;
 
 namespace General.MAU
 {
-    public class RepositorioDeFuncionalidades:IRepositorioDeFuncionalidades
+    public class RepositorioDeFuncionalidades : RepositorioLazy<List<Funcionalidad>>,  IRepositorioDeFuncionalidades
     {
         protected IConexionBD conexion;
+        private static RepositorioDeFuncionalidades _instancia;
+        private static DateTime _fecha_creacion;
 
-        public RepositorioDeFuncionalidades(IConexionBD conexion)
+        private RepositorioDeFuncionalidades(IConexionBD conexion)
         {
             this.conexion = conexion;
+            this.cache = new CacheNoCargada<List<Funcionalidad>>();
+        }
+
+        public static RepositorioDeFuncionalidades NuevoRepositorioDeFuncionalidades(IConexionBD conexion)
+        {
+            if (_instancia == null || ExpiroTiempoDelRepositorio())
+            {
+                _instancia = new RepositorioDeFuncionalidades(conexion);
+                _fecha_creacion = DateTime.Now;
+            }
+            return _instancia;
+        }
+
+        private static bool ExpiroTiempoDelRepositorio()
+        {
+            if (FechaExpiracion() < DateTime.Now)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private static DateTime FechaExpiracion()
+        {
+            return _fecha_creacion.AddMinutes(10);
+
         }
 
         public List<Funcionalidad> TodasLasFuncionalidades()
         {
+            return cache.Ejecutar(GetFuncionalidadesDeBaseDeDatos, this);
+        }
+
+        public List<Funcionalidad> GetFuncionalidadesDeBaseDeDatos()
+        {
             var tablaDatos = conexion.Ejecutar("dbo.MAU_GetFuncionalidades");
-            return GetFuncionalidadesDeTablaDeDatos(tablaDatos);
-        }
-
-        public List<Funcionalidad> FuncionalidadesPara(Usuario usuario)
-        {
-            return this.FuncionalidadesPara(usuario.Id);
-        }
-
-        public List<Funcionalidad> FuncionalidadesPara(int id_usuario)
-        {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario", id_usuario);
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetFuncionalidades", parametros);
-
             return GetFuncionalidadesDeTablaDeDatos(tablaDatos);
         }
 
@@ -46,26 +65,9 @@ namespace General.MAU
             return funcionalidades;
         }
 
-        public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
+        public Funcionalidad GetFuncionalidadPorId(int id_funcionalidad)
         {
-            this.ConcederFuncionalidadA(usuario.Id, funcionalidad.Id);
-        }
-
-        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
-        {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario", id_usuario);
-            parametros.Add("@id_funcionalidad", id_funcionalidad);
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_ConcederFuncionalidadA", parametros);
-        }
-
-
-        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
-        {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario", id_usuario);
-            parametros.Add("@id_funcionalidad", id_funcionalidad);
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_DenegarFuncionalidadA", parametros);
+            return TodasLasFuncionalidades().Find(f => f.Id == id_funcionalidad);
         }
     }
 }
