@@ -65,5 +65,6 @@ namespace General
         {
             return this.Periodo.ToString() + " - " + this.CantidadDeDias().ToString();
         }
+
     }
 }

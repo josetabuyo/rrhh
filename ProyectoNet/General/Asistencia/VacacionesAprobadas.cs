@@ -91,5 +91,6 @@ namespace General
         {
             return this.Desde().ToString() + " - " + this.Hasta().ToString();
         }
+
     }
 }

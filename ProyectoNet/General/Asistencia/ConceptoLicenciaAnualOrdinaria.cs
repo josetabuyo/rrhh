@@ -36,12 +36,12 @@ namespace General
 
         public List<VacacionesAprobadas> LicenciasAprobadasPara(IRepositorioLicencia repositorio_licencia, Persona persona)
         {
-            return repositorio_licencia.GetVacacionesAprobadasPara(persona);
+            return repositorio_licencia.GetVacacionesAprobadasPara(persona, this);
         }
 
         public List<VacacionesPendientesDeAprobacion> LicenciasPendientesPara(IRepositorioLicencia repositorio_licencia, Persona persona)
         {
-            return repositorio_licencia.GetVacacionesPendientesPara(persona);
+            return repositorio_licencia.GetVacacionesPendientesPara(persona, this);
         }
     }
 }
