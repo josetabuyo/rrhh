@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using System.Text;
 using General;
 using General.Repositorios;
@@ -223,7 +223,7 @@ namespace General.Repositorios
            // return vacaciones_permitidas;
         }
 
-
+        
         public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona)
         {
             var parametros = new Dictionary<string, object>();
@@ -237,6 +237,22 @@ namespace General.Repositorios
 
 
                 var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
+
+            return ConstruirVacacionesAprobadas(tablaDatos);
+
+        }
+
+
+        public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, ConceptoDeLicencia concepto)
+        {
+            var parametros = new Dictionary<string, object>();
+
+
+            parametros.Add("@nro_documento", persona.Documento);
+            parametros.Add("@id_concepto_licencia", concepto.Id);
+
+
+            var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesAprobadas(tablaDatos);
 
@@ -263,8 +279,10 @@ namespace General.Repositorios
 
                 vacaciones_aprobadas.Add(vacaciones);
             });
+           
+            List<VacacionesAprobadas> vacaciones_aprobadas_ordenadas = (from vacacion in vacaciones_aprobadas orderby vacacion.Desde() select vacacion).ToList();
 
-            return vacaciones_aprobadas;
+           return vacaciones_aprobadas_ordenadas;
         }
 
 
@@ -290,7 +308,8 @@ namespace General.Repositorios
                 vacaciones_permitidas.Add(vacaciones);
             });
 
-            return vacaciones_permitidas;
+            List<VacacionesPermitidas> vacaciones_permitidas_ordenadas = (from vacacion in vacaciones_permitidas orderby vacacion.Periodo select vacacion).ToList();
+            return vacaciones_permitidas_ordenadas;
         }
 
 
@@ -348,6 +367,22 @@ namespace General.Repositorios
 
         }
 
+
+        public List<VacacionesPendientesDeAprobacion> GetVacacionesPendientesPara(Persona persona, ConceptoDeLicencia concepto)
+        {
+            var parametros = new Dictionary<string, object>();
+
+
+            parametros.Add("@nro_documento", persona.Documento);
+            parametros.Add("@id_concepto_licencia", concepto.Id);
+
+
+            var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
+
+            return ConstruirVacacionesPendientes(tablaDatos);
+
+        }
+
         protected List<VacacionesPendientesDeAprobacion> ConstruirVacacionesPendientes(TablaDeDatos tablaDatos)
         {
             List<VacacionesPendientesDeAprobacion> vacaciones_pendientes = new List<VacacionesPendientesDeAprobacion>();
@@ -370,7 +405,9 @@ namespace General.Repositorios
                 vacaciones_pendientes.Add(vacaciones);
             });
 
-            return vacaciones_pendientes;
+            List<VacacionesPendientesDeAprobacion> vacaciones_pendientes_ordenadas = (from vacacion in vacaciones_pendientes orderby vacacion.Desde() select vacacion).ToList();
+
+            return vacaciones_pendientes_ordenadas;
         }
 
         public ProrrogaLicenciaOrdinaria CargarDatos(ProrrogaLicenciaOrdinaria unaProrroga)
@@ -394,5 +431,6 @@ namespace General.Repositorios
             }
             return unaProrroga;
         }
+
     }
 }
