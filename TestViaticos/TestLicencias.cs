@@ -451,7 +451,7 @@ namespace TestViaticos
         {
             var fecha_de_hoy = new DateTime(2014, 01, 01);
             var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidas(), VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>(), fecha_de_hoy, TestObjects.UnaPersona());
-
+            //las aprob se deben imputar a 2011 a 2012
             Assert.AreEqual(2, lista_de_dias_pendientes_por_periodo.Count());
 
             Assert.AreEqual(5, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2012).CantidadDeDias());
@@ -472,7 +472,7 @@ namespace TestViaticos
         }
 
         [TestMethod]
-        public void deberia_eliminar_los_periodos_que_no_esten_comprendidos_en_prorroga_para_un_contratado()
+        public void deberia_eliminar_los_periodos_que_no_esten_comprendidos_en_prorroga_para_un_contratado_sin_aprobadas()
         {
             var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 20), VacacionesPermitidas(2012, 20), VacacionesPermitidas(2013, 20), };
             var vacaciones_solicitadas = new List<VacacionesAprobadas>();
@@ -486,7 +486,7 @@ namespace TestViaticos
         }
 
         [TestMethod]
-        public void deberia_eliminar_los_periodos_que_no_esten_comprendidos_en_prorroga_para_un_permanente()
+        public void deberia_eliminar_los_periodos_que_no_esten_comprendidos_en_prorroga_para_un_permanente_sin_aprobadas()
         {
             var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { VacacionesPermitidas(2004, 20), VacacionesPermitidas(2005, 20), VacacionesPermitidas(2006, 20), VacacionesPermitidas(2007, 20), VacacionesPermitidas(2008, 20), VacacionesPermitidas(2009, 20), VacacionesPermitidas(2010, 20), VacacionesPermitidas(2011, 20), VacacionesPermitidas(2012, 20), VacacionesPermitidas(2013, 20) };
             var vacaciones_solicitadas = new List<VacacionesAprobadas>();
@@ -497,6 +497,38 @@ namespace TestViaticos
 
             Assert.AreEqual(9, licencia_solicitables.Count());
             Assert.AreEqual(2005, licencia_solicitables.First().Periodo());
+        }
+
+        [TestMethod]
+        public void deberia_eliminar_los_periodos_que_no_esten_comprendidos_en_prorroga_para_un_contratado_con_aprobadas()
+        {
+            var una_persona = TestObjects.UnaPersona();
+            var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 20), VacacionesPermitidas(2012, 20), VacacionesPermitidas(2013, 20) };
+            var vacaciones_solicitadas = new List<VacacionesAprobadas>() { new VacacionesAprobadas(una_persona,new DateTime(2012,01,01),new DateTime(2012,01,15))};//del 01-01 al 04-02
+            
+            una_persona.TipoDePlanta = new TipoDePlantaContratado();
+
+            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, new List<VacacionesPendientesDeAprobacion>(), fecha_de_hoy(), una_persona);
+
+            Assert.AreEqual(2, licencia_solicitables.Count());
+            Assert.AreEqual(2012, licencia_solicitables.First().Periodo());
+            Assert.AreEqual(20, licencia_solicitables.First().CantidadDeDias());
+        }
+
+        [TestMethod]
+        public void deberia_eliminar_los_periodos_que_no_esten_comprendidos_en_prorroga_para_un_permanente_con_aprobadas()
+        {
+            var una_persona = TestObjects.UnaPersona();
+            var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { VacacionesPermitidas(2004, 20), VacacionesPermitidas(2005, 20), VacacionesPermitidas(2006, 20), VacacionesPermitidas(2007, 20), VacacionesPermitidas(2008, 20), VacacionesPermitidas(2009, 20), VacacionesPermitidas(2010, 20), VacacionesPermitidas(2011, 20), VacacionesPermitidas(2012, 20), VacacionesPermitidas(2013, 20) };
+            var vacaciones_solicitadas = new List<VacacionesAprobadas>() { new VacacionesAprobadas(una_persona, new DateTime(2012, 01, 01), new DateTime(2012, 01, 15)) };//del 01-01 al 04-02
+
+            una_persona.TipoDePlanta = new TipoDePlantaGeneral(1,"Planta Permanente");
+
+            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, new List<VacacionesPendientesDeAprobacion>(), fecha_de_hoy(), una_persona);
+
+            Assert.AreEqual(9, licencia_solicitables.Count());
+            Assert.AreEqual(2005, licencia_solicitables.First().Periodo());
+            Assert.AreEqual(20, licencia_solicitables.First().CantidadDeDias());
         }
 
         public Persona juan { get; set; }

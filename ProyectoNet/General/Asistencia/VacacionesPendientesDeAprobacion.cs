@@ -28,9 +28,9 @@ namespace General
             return (_hasta - _desde).Days + 1;
         }
 
-        public int AnioMinimoImputable()
+        public int AnioMinimoImputable(Persona persona)
         {
-            return _creador_dias_por_periodo.AnioMaximoImputable(this).First().Periodo() - 1;
+            return persona.TipoDePlanta.Prorroga(this.Desde()).UsufructoDesde;// _creador_dias_por_periodo.AnioMaximoImputable(this).First().Periodo() - 1;
         }
 
         protected CreadorDePeriodosImputables SeDivideEnDosPeriodos()

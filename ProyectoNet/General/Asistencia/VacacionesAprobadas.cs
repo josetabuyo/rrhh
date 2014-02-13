@@ -77,9 +77,9 @@ namespace General
             return new CreadorDePeriodosImputablesSimples();
         }
 
-        public int AnioMinimoImputable()
+        public int AnioMinimoImputable(Persona persona)
         {
-            return _creador_dias_por_periodo.AnioMaximoImputable(this).First().Periodo() - 1;
+            return persona.TipoDePlanta.Prorroga(this.Desde()).UsufructoDesde;
         }
 
         public VacacionesAprobadas Clonar()

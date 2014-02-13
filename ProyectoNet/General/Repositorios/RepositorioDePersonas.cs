@@ -86,10 +86,13 @@ namespace General.Repositorios
             if (dr.Read())
             {
                 //planta = new TipoDePlanta {Id = dr.GetInt16(dr.GetOrdinal("idPlanta"))};
-                if (dr.GetInt16(dr.GetOrdinal("idPlanta")) == 22) {
+                if (dr.GetInt16(dr.GetOrdinal("idPlanta")) == 22)
+                {
                     planta = new TipoDePlantaContratado();
-                }   
-                planta = new TipoDePlantaGeneral(dr.GetInt16(dr.GetOrdinal("idPlanta")),"Planta Permanente");
+                }
+                else { 
+                    planta = new TipoDePlantaGeneral(dr.GetInt16(dr.GetOrdinal("idPlanta")),"Planta Permanente");
+                }
             }
             return planta;
         }
