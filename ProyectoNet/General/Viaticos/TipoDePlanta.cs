@@ -21,5 +21,22 @@ namespace General
             get { return _Descripcion; }
             set { _Descripcion = value;  }
         }
+
+        public virtual ProrrogaLicenciaOrdinaria Prorroga(DateTime fecha_calculo)
+        {
+            throw new Exception("Responsabilidad de la subclase");
+        }
+
+        public TipoDePlanta InstanciaDeSubclase()
+        {
+            if (this.Id == 22)
+            {
+                return new TipoDePlantaContratado();
+            }
+            else
+            {
+                return new TipoDePlantaGeneral(this._Id, this._Descripcion);
+            }
+        }
     }
 }

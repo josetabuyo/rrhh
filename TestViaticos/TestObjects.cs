@@ -1800,7 +1800,9 @@ namespace General
 
         public static Persona UnaPersona()
         {
-           return new Persona(1, 29753914, "Agustin", "Calqui", new Area(1, "Direccion de RRHH"));
+            var persona = new Persona(1, 29753914, "Agustin", "Calqui", new Area(1, "Direccion de RRHH"));
+            persona.TipoDePlanta = new TipoDePlantaContratado();
+            return persona;
         }
 
 

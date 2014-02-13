@@ -111,7 +111,7 @@ namespace TestViaticos
             var repo_licencias = TestObjects.RepoLicenciaMockeado();
             var persona = TestObjects.UnaPersona();
             var repo_personas = TestObjects.RepoDePersonasMockeado();
-            var tipo_planta = new TipoDePlanta { Id = 1 };
+            var tipo_planta = new TipoDePlantaContratado();// { Id = 22 };
             var prorroga = new ProrrogaLicenciaOrdinaria { Periodo = 2014, UsufructoDesde = 2005, UsufructoHasta = 2013 };
             var calculador_de_vacaciones = new CalculadorDeVacaciones();
             var vacaciones_solicitables = new List<VacacionesSolicitables>() { new VacacionesSolicitables(2013, 20) };
@@ -139,8 +139,9 @@ namespace TestViaticos
         public void cuando_se_solicita_una_licencia_general_debe_invocarse_el_metodo_del_objeto_del_ConceptoLicenciaGeneral()
         {
             var repo_licencias = TestObjects.RepoLicenciaMockeado();
-            ConceptoDeLicencia concepto = new ConceptoLicenciaGeneral(2);
+            ConceptoDeLicencia concepto = new ConceptoLicenciaGeneral(2);           
             var fecha_de_consulta = new DateTime(2014, 02, 06);
+
             Expect.AtLeastOnce.On(repo_licencias).Method("CargarSaldoLicenciaGeneralDe").WithAnyArguments();
 
             var servicio_licencia = new ServicioDeLicencias(repo_licencias);
@@ -158,7 +159,7 @@ namespace TestViaticos
             concepto.Id = CodigosDeLicencias.Vacaciones;
             var fecha_de_consulta = new DateTime(2014, 02, 06);
             var persona = TestObjects.UnaPersona();
-            var tipo_planta = new TipoDePlanta { Id = 1 };
+            var tipo_planta = new TipoDePlantaContratado();// { Id = 1 };
             var prorroga = new ProrrogaLicenciaOrdinaria { Periodo = 2014, UsufructoDesde = 2005, UsufructoHasta = 2013 };
             var calculador_de_vacaciones = new CalculadorDeVacaciones();
             var vacaciones_solicitables = new List<VacacionesSolicitables>() { new VacacionesSolicitables(2013, 20) };
@@ -175,6 +176,17 @@ namespace TestViaticos
             servicio_licencia.GetSaldoLicencia(TestObjects.UnaPersona(), concepto, fecha_de_consulta, TestObjects.RepoDePersonasMockeado());
 
             TestObjects.Mockery().VerifyAllExpectationsHaveBeenMet();
+        }
+
+        [TestMethod]
+        public void cuando_le_solicito_a_un_tipo_de_planta_la_prorroga_debe_devolver_su_correspondiente_prorroga()
+        {
+            TipoDePlantaContratado tipo_planta_contratado = new TipoDePlantaContratado();
+            TipoDePlantaGeneral tipo_planta_general = new TipoDePlantaGeneral(1, "Planta Permanente");
+            var fecha_calculo = new DateTime(2014, 01, 01);
+
+            Assert.AreEqual(2012, tipo_planta_contratado.Prorroga(fecha_calculo).UsufructoDesde);
+            Assert.AreEqual(2005, tipo_planta_general.Prorroga(fecha_calculo).UsufructoDesde);   
         }
 
 

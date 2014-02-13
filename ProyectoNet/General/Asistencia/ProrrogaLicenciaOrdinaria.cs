@@ -9,27 +9,14 @@ namespace General
 {
     public class ProrrogaLicenciaOrdinaria
     {
-
         private int _UsufructoDesde;
-        public int UsufructoDesde
-        {
-            get { return _UsufructoDesde; }
-            set { _UsufructoDesde = value;  }
-        }
+        public int UsufructoDesde {get { return _UsufructoDesde; }set { _UsufructoDesde = value;  }}
 
         private int _UsufructoHasta;
-        public int UsufructoHasta
-        {
-            get { return _UsufructoHasta; }
-            set { _UsufructoHasta = value;  }
-        }
+        public int UsufructoHasta  {get { return _UsufructoHasta; } set { _UsufructoHasta = value;  }}
 
         private int _Periodo;
-        public int Periodo
-        {
-            get { return _Periodo; }
-            set { _Periodo = value;  }
-        }
+        public int Periodo {get { return _Periodo; } set { _Periodo = value;  }}
 
         public int PeriodoDeUsufructoActual()
         {

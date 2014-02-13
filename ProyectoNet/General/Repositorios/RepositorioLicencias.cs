@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace General.Repositorios
 {
-    public class RepositorioLicencias : RepositorioLazy<List<VacacionesPermitidas>>, General.Repositorios.IRepositorioLicencia
+    public class RepositorioLicencias : RepositorioLazy<List<VacacionesPermitidas>>, IRepositorioLicencia
     {
         public IConexionBD conexion_bd { get; set; }
 

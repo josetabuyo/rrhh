@@ -17,11 +17,11 @@ namespace General
         {
             SaldoLicencia saldo = new SaldoLicencia();
             saldo.Detalle = new List<SaldoLicenciaDetalle>();
-            ProrrogaLicenciaOrdinaria prorroga;
+            //ProrrogaLicenciaOrdinaria prorroga;
             unaPersona.TipoDePlanta = repositorio_personas.GetTipoDePlantaActualDe(unaPersona);
             CalculadorDeVacaciones calculador_de_vacaciones = new CalculadorDeVacaciones();
 
-            List<VacacionesSolicitables> vacaciones_solicitables = calculador_de_vacaciones.DiasSolicitables(this.LicenciasPermitidasPara(repositorio_licencia, unaPersona), this.LicenciasAprobadasPara(repositorio_licencia, unaPersona), this.LicenciasPendientesPara(repositorio_licencia, unaPersona), fecha_de_consulta);
+            List<VacacionesSolicitables> vacaciones_solicitables = calculador_de_vacaciones.DiasSolicitables(this.LicenciasPermitidasPara(repositorio_licencia, unaPersona), this.LicenciasAprobadasPara(repositorio_licencia, unaPersona), this.LicenciasPendientesPara(repositorio_licencia, unaPersona), fecha_de_consulta, unaPersona);
 
             vacaciones_solicitables.ForEach(vac_solic => saldo.Detalle.Add(new SaldoLicenciaDetalle { Periodo = vac_solic.Periodo(), Disponible = vac_solic.CantidadDeDias() }));
 

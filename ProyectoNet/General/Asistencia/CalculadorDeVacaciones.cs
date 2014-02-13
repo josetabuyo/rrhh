@@ -124,7 +124,7 @@ namespace General
             return fecha.Year - offset;
         }
 
-        public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<VacacionesAprobadas> aprobadas, List<VacacionesPendientesDeAprobacion> pendientes_de_aprobar, DateTime fecha_de_calculo)
+        public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<VacacionesAprobadas> aprobadas, List<VacacionesPendientesDeAprobacion> pendientes_de_aprobar, DateTime fecha_de_calculo, Persona persona)
         {
             var vacaciones_solicitables = new List<VacacionesSolicitables>();
 
@@ -132,7 +132,7 @@ namespace General
 
             if (aprobadas.Count() == 0)
             {
-               var vacaciones_permitidas = permitidas_consumibles.FindAll(permitida => permitida.Periodo >= fecha_de_calculo.Year - 1); //El -1 representa la prórroga
+                var vacaciones_permitidas = permitidas_consumibles.FindAll(permitida => permitida.Periodo >= persona.TipoDePlanta.Prorroga(fecha_de_calculo).UsufructoDesde);// fecha_de_calculo.Year - 1); //El -1 representa la prórroga
                vacaciones_permitidas.ForEach(permitida => vacaciones_solicitables.Add(new VacacionesSolicitables(permitida.Periodo, permitida.CantidadDeDias())));
                return vacaciones_solicitables;
             }

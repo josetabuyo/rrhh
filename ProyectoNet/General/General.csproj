@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Asistencia\ConceptoLicenciaAnualOrdinaria.cs" />
     <Compile Include="Asistencia\ConceptoLicenciaGeneral.cs" />
+    <Compile Include="Asistencia\TipoDePlantaGeneral.cs" />
     <Compile Include="Asistencia\ServicioDeLicencias.cs" />
     <Compile Include="Asistencia\CreadorDePeriodosImputablesDivisibles.cs" />
     <Compile Include="Asistencia\CreadorDePeriodosImputables.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Asistencia\CalculadorDeVacaciones.cs" />
     <Compile Include="Asistencia\CantidadDeDiasPorPeriodo.cs" />
     <Compile Include="Asistencia\SolicitudInvalidaException.cs" />
+    <Compile Include="Asistencia\TipoDePlantaContratado.cs" />
     <Compile Include="Asistencia\Vacacion.cs" />
     <Compile Include="Asistencia\ConceptoDeLicencia.cs" />
     <Compile Include="Asistencia\CodigosDeLicencias.cs" />
