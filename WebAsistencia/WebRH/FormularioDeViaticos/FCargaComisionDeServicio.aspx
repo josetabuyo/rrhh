@@ -164,7 +164,7 @@
         <div class="row-fluid" style="text-align: center;">
             <asp:Image ID="img_perfil" runat="server" Width="95" Height="90" CssClass="imagen" />
             <%--<img src="../Imagenes/fabi.jpg" alt="cont+foto" width="95" height="90" class="imagen" />--%>
-            <uc2:DatosDelAgente ID="DatosDelAgente1" runat="server" />
+        <uc2:DatosDelAgente ID="DatosDelAgente1" runat="server" />
         </div>
         <%--<a data-toggle="modal" href="#myModal" class="btn-large">Instrucciones</a>--%>
         <br />

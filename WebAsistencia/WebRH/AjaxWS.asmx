@@ -149,6 +149,18 @@ public class AjaxWS : System.Web.Services.WebService {
         return respuestaSerializada;
     }
 
+
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public bool ElUsuarioLogueadoTieneLaFuncionalidad(int id_funcionalidad)
+    {
+     
+        return backEndService.ElUsuarioTienePermisosPara(usuarioLogueado.Id, id_funcionalidad);;
+        
+    }
+    
+    
     [WebMethod(EnableSession = true)]
     public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
     {
