@@ -43,6 +43,13 @@ namespace General.MAU
             return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f => f.Nombre == nombre_funcionalidad);
         }
 
+
+        public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
+        {
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(id_usuario).Exists(f => f.Id==id_funcionalidad);
+        }
+
+
         public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
         {
             this.repositorio_funcionalidades_usuarios.ConcederFuncionalidadA(usuario, funcionalidad);
