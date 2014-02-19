@@ -50,7 +50,7 @@ namespace General.MAU
 
         private static DateTime FechaExpiracion()
         {
-            return _fecha_creacion.AddMinutes(10);
+            return _fecha_creacion.AddMinutes(1);
 
         }
 

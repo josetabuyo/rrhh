@@ -1931,6 +1931,16 @@ public class WSViaticos : System.Web.Services.WebService
         return funcionalidades;
     }
 
+
+    [WebMethod]
+    public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
+    {
+        return Autorizador().ElUsuarioTienePermisosPara(id_usuario, id_funcionalidad);
+        
+    }
+
+    
+
     [WebMethod]
     public Funcionalidad[] FuncionalidadesPara(int id_usuario)
     {
@@ -1983,11 +1993,11 @@ public class WSViaticos : System.Web.Services.WebService
         Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area);
     }
 
-    [WebMethod]
-    public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
-    {
-        return Autorizador().ElUsuarioTienePermisosPara(usuario, nombre_funcionalidad);
-    }
+   // [WebMethod]
+    //public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
+    //{
+    //    return Autorizador().ElUsuarioTienePermisosPara(usuario, nombre_funcionalidad);
+    //}
 
     [WebMethod]
     public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)

@@ -60,7 +60,7 @@
                     url: $('#BarraMenu_FormPassword_urlAjax').val().concat("AjaxWS.asmx/CambiarPassword"),
                     type: "POST",
                     data: data_post,
-                    //data: "{pass_actual : '" + pass_actual + "', pass_nueva: " + pass_nueva + " }",
+                    data: "{pass_actual : '" + pass_actual + "', pass_nueva: " + pass_nueva + " }",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     success: function (respuestaJson) {

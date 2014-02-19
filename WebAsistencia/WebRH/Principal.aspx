@@ -29,6 +29,8 @@
                     OnClick="ImageButton3_Click" EnableViewState="False" Style="text-align: center" />
                 <asp:Button ID="ImageButton5" class="btn" runat="server" Text="Enviar e Imprimir Parte"
                     OnClick="ImageButton5_Click" EnableViewState="False" Style="text-align: center" />
+                       <asp:Button ID="btn_GestionViaticos" class="btn" runat="server" Text="Gestionar Viáticos" RequiereFuncionalidad = "11"
+                    OnClick="btn_GestionViaticos_Click" EnableViewState="False" Style="text-align: center" />
                 <br />
                 <br />
             </td>
