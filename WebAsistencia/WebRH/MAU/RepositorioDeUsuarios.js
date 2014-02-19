@@ -31,3 +31,17 @@ RepositorioDeUsuarios.prototype.crearUsuarioPara = function (id_persona, onSucce
         }
     });
 };
+
+RepositorioDeUsuarios.prototype.resetearPassword = function (id_usuario, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "ResetearPassword",
+        data: {
+            id_usuario: id_usuario
+        },
+        success: function (respuesta) {
+            onSuccess(respuesta.nueva_clave);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            onError(errorThrown);
+        }
+    });
+};

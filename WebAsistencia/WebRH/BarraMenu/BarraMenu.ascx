@@ -10,7 +10,9 @@
 <div id= "barra_menu_contenedor">
         <div id="contenedor_imagen">
             <div id="barra_menu_contenedor_imagen">
-                <img src="<%= UrlImagenes %>BarraMenu/encabezado_sin_logos.png" height="69px;" width="1024px;" alt="logosistema"  />
+            <% if (Feature != ""){%> 
+               <img src="<%= UrlImagenes %>BarraMenu/encabezado_sin_logos.png" height="69px;" width="1024px;" alt="logosistema"  />
+            <%}%> 
                 <img src="<%= UrlImagenes %>logo_sistema.png" id="img_logo_sistema" width="130px" height="39px"  alt="logosistema"  />              
                 <img src="<%= UrlImagenes %>logo_ministerio.png" id="img_logo_minis" style="float:left;" width="150px" height="27px"  alt="logosistema"  />
                 <img src="<%= UrlImagenes %>logo_direccion.png" id="img_logo_direccion" width="130px" height="26px"  alt="logosistema"  />

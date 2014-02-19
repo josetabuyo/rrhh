@@ -13,7 +13,8 @@ VistaDeAreasAdministradas.prototype.start = function () {
         alSeleccionarUnArea: function (area) {
             _this.autorizador.asignarAreaAUnUsuario(_this.usuario.Id, area.id,
             function () { //on success
-                var vista_area = new VistaDeAreaAdministrada({ area: area,
+                var vista_area = new VistaDeAreaAdministrada({ 
+                    area: area,
                     usuario: _this.usuario,
                     autorizador: _this.autorizador
                 });

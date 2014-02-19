@@ -9,6 +9,7 @@ SelectorDeAreas.prototype.start = function () {
     this.plantilla_vista_area = $("#plantillas .vista_area_en_selector");
     this.buscador.select2({
         minimumInputLength: 3,
+        quietMillis: 1000, 
         width: 'resolve',
         placeholder: this.placeholder || 'ingrese parte del nombre del area',
         query: function (query) {

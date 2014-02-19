@@ -43,7 +43,7 @@ public partial class SACC_BarraDeNavegacion : System.Web.UI.UserControl
 
         elementos_de_menu += "<li class='dropdown'>" +
                                        "<a href='#'  class='dropdown-toggle' data-toggle='dropdown'>" + menu_fijo + "</a>" +
-                                       "<ul id='menu_calificaciones' class='dropdown-menu'>";
+                                       "<ul class='dropdown-menu'>";
 
         sub_menu.Items.ToList().ForEach(m =>
         {

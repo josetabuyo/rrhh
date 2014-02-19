@@ -1888,6 +1888,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string ResetearPassword(int id_usuario)
+    {
+        var repoUsuarios = RepositorioDeUsuarios();
+        return repoUsuarios.ResetearPassword(id_usuario);
+    }
+
+    [WebMethod]
     public Usuario GetUsuarioPorAlias(string alias)
     {
         return RepositorioDeUsuarios().GetUsuarioPorAlias(alias);

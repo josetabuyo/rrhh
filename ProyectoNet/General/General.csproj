@@ -76,7 +76,6 @@
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
     <Compile Include="DictionaryExtension.cs" />
     <Compile Include="MAU\AccesoAURL.cs" />
-    <Compile Include="MAU\Areas.cs" />
     <Compile Include="Extensiones\ExtensionString.cs" />
     <Compile Include="MAU\Autorizador.cs" />
     <Compile Include="MAU\IRepositorioDeFuncionalidadesDeUsuarios.cs" />

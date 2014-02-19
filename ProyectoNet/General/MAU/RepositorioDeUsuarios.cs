@@ -62,14 +62,15 @@ namespace General.MAU
         public Usuario CrearUsuarioPara(int id_persona)
         {
             var persona = repositorio_de_personas.GetPersonaPorId(id_persona);
-            var alias = persona.Nombre.First() + persona.Apellido;
+            var alias = (persona.Nombre.First() + persona.Apellido).Replace(" ", "");
             var contador = 1;
             while (!GetUsuarioPorAlias(alias).Equals(new UsuarioNulo()))
             {
-                alias = persona.Nombre.First() + persona.Apellido + contador.ToString();
+                alias = (persona.Nombre.First() + persona.Apellido + contador.ToString()).Replace(" ", "");
                 contador++;
             }
-            var clave_encriptada = Encriptador.EncriptarSHA1("1234");
+
+            var clave_encriptada = Encriptador.EncriptarSHA1(ClaveRandom());
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_persona", id_persona);
@@ -96,6 +97,28 @@ namespace General.MAU
             conexion.Ejecutar("dbo.MAU_GuardarUsuario", parametros);
 
             return true;
+        }
+
+        public string ResetearPassword(int id_usuario)
+        {
+            var clave_nueva = ClaveRandom();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id", id_usuario);
+            parametros.Add("@clave_encriptada", Encriptador.EncriptarSHA1(clave_nueva));
+
+            conexion.Ejecutar("dbo.MAU_GuardarUsuario", parametros);
+            return clave_nueva;
+        }
+
+        private static string ClaveRandom()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var clave_nueva = new string(
+                Enumerable.Repeat(chars, 8)
+              .Select(s => s[random.Next(s.Length)])
+              .ToArray());
+            return clave_nueva;
         }
     }
 }

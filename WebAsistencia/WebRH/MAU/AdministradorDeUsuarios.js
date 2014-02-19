@@ -6,7 +6,7 @@
     this.lbl_documento = $('#documento');
     this.lbl_legajo = $('#legajo');
     this.txt_nombre_usuario = $('#txt_nombre_usuario');
-
+    this.btn_reset_password = $('#btn_reset_password');
 
     var proveedor_ajax = new ProveedorAjax("../");
     this.autorizador = new Autorizador(proveedor_ajax);
@@ -46,8 +46,11 @@
                         if (usuario_acepto) {
                             _this.repositorioDeUsuarios.crearUsuarioPara(la_persona_seleccionada.id,
                                 function (usuario) {
-                                    alertify.success("Se ha creado un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);    
-                                    _this.cargarUsuario(usuario);                                    
+                                    alertify.success("Se ha creado un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
+                                    _this.repositorioDeUsuarios.resetearPassword(usuario.Id, function (nueva_clave) {
+                                        alertify.alert("El password para el usuario: " + usuario.Alias + " es: " + nueva_clave);
+                                    });
+                                    _this.cargarUsuario(usuario);
                                 },
                                 function (error) {
                                     alertify.error("Error al crear un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
@@ -60,15 +63,22 @@
                 }
             });
     };
+
+    this.btn_reset_password.click(function () {
+        _this.repositorioDeUsuarios.resetearPassword(_this.usuario.Id, function (nueva_clave) {
+            alertify.alert("El nuevo password para el usuario: " + _this.usuario.Alias + " es: " + nueva_clave);
+        });
+    });
 };
 
 AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
+    this.usuario = usuario;
     this.panel_datos_usuario.show();
     this.vista_permisos.setUsuario(usuario);
     this.lbl_nombre.text(usuario.Owner.Nombre);
     this.lbl_apellido.text(usuario.Owner.Apellido);
     this.lbl_documento.text(usuario.Owner.Documento);
     this.lbl_legajo.text(usuario.Owner.Legajo);
-    this.txt_nombre_usuario.val(usuario.Alias);
+    this.txt_nombre_usuario.text(usuario.Alias);
     this.vista_areas.setUsuario(usuario);
 };

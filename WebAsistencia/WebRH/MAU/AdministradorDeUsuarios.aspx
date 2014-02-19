@@ -46,7 +46,7 @@
                     <div id="panel_password">
                         <div class="linea linea_nombre_usuario">
                             <div class="titulo">Nombre de Usuario:</div>
-                            <input id="txt_nombre_usuario" type="text"/>    
+                            <div id="txt_nombre_usuario"> </div>  
                         </div>
                         <div class="linea linea_passwrd">
                             <div class="titulo">Contraseña:</div>

@@ -22,4 +22,3 @@
     </div>
     </div><!-- /navbar-inner -->
 </div><!-- /navbar -->
-<script type="text/javascript" src="Scripts/Menu.js"></script>

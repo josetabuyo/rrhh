@@ -1,4 +1,4 @@
-﻿ <%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormABMAlumnos.aspx.cs" Inherits="SACC_FormABMAlumnos" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormABMAlumnos.aspx.cs" Inherits="SACC_FormABMAlumnos" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="BarraDeNavegacion.ascx" TagName="BarraNavegacion" TagPrefix="uc3" %>
 
@@ -8,7 +8,7 @@
 <head runat="server">
     <title></title>
      <%= Referencias.Css("../")%>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+     <%= Referencias.Javascript("../") %>
    
 </head>
 <body class="marca_de_agua">
@@ -98,7 +98,6 @@
     <asp:Button ID="btnVerFichaAlumno" runat="server" OnClick="btnVerAlumno_Click" style="display:none;" />
     </form>
 </body>
-    <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
 
 <script type="text/javascript">

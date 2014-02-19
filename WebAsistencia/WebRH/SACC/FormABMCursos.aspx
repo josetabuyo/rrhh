@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" EnableEventValidation="false" CodeFile="FormABMCursos.aspx.cs" Inherits="SACC_FormABMCursos" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormABMCursos.aspx.cs" Inherits="SACC_FormABMCursos" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="BarraDeNavegacion.ascx" TagName="BarraNavegacion" TagPrefix="uc3" %>
 
@@ -8,7 +8,7 @@
 <head id="Head1" runat="server">
     <title>ABM Cursos</title>
     <%= Referencias.Css("../")%> 
-    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+    <%= Referencias.Javascript("../") %>
 
 </head>
 <body class="marca_de_agua">
@@ -96,8 +96,6 @@
     <asp:HiddenField ID="horaCatedra" runat="server" />
      <asp:Button ID="btnVerFichaCurso" Text="" runat="server" OnClick="btnVerCurso_Click" style="display:none"/>
     </form>
-    
-       <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>    
 </body>
 

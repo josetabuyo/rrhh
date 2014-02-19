@@ -281,6 +281,12 @@ public class AjaxWS : System.Web.Services.WebService {
     }
 
     [WebMethod(EnableSession = true)]
+    public string ResetearPassword(int id_usuario)
+    {
+        return Newtonsoft.Json.JsonConvert.SerializeObject(new{nueva_clave = backEndService.ResetearPassword(id_usuario)});
+    }
+
+    [WebMethod(EnableSession = true)]
     public string GetMaxHorasCatedraCurso()
     {
         var horas = Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetMaxHorasCatedraCurso((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]));

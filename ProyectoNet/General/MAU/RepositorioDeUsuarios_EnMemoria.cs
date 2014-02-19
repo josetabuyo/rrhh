@@ -48,5 +48,11 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+
+        public string ResetearPassword(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

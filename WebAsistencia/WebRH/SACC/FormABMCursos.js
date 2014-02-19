@@ -1,4 +1,4 @@
-var submit_value = false;
+var submit_value = true;
 var i;
 var Cursos;
 var PlanillaCurso;

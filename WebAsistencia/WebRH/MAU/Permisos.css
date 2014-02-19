@@ -59,7 +59,6 @@
     right:10px;
     height:195px;
     width:539px;
-    height:initial;
 }
 
 #panel_inferior_izquierdo
@@ -137,6 +136,8 @@
 .linea_nombre_usuario
 {
     margin-left: 25px;
+    margin-bottom: 10px;
+    margin-top: 5px;
 }
 
 .linea_passwrd
