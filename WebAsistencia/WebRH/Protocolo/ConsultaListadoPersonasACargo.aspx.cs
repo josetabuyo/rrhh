@@ -29,7 +29,6 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
 
         Session["personas"] = personas_todas_areas_a_cargo.ToArray();
 
-
         MostrarPersonasEnLaGrilla();
     }
 
