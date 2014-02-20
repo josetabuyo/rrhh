@@ -6,16 +6,21 @@ using General.Repositorios;
 
 namespace General.MAU
 {
-    public class RepositorioDePermisosSobreAreas : RepositorioLazy<List<KeyValuePair<int, int>>>, IRepositorioDePermisosSobreAreas
+    public class RepositorioDePermisosSobreAreas : RepositorioLazySingleton<KeyValuePair<int, int>>, IRepositorioDePermisosSobreAreas
     {
-        protected IConexionBD conexion;
+        private static RepositorioDePermisosSobreAreas _instancia;
         private RepositorioDeAreas repositorioDeAreas;
 
-        public RepositorioDePermisosSobreAreas(IConexionBD conexion, RepositorioDeAreas repo_areas)
+        private RepositorioDePermisosSobreAreas(IConexionBD conexion, RepositorioDeAreas repo_areas)
+            :base(conexion, 10)
         {
-            this.conexion = conexion;
             this.repositorioDeAreas = repo_areas;
-            this.cache = new CacheNoCargada<List<KeyValuePair<int, int>>>();
+        }
+
+        public static RepositorioDePermisosSobreAreas NuevoRepositorioDePermisosSobreAreas(IConexionBD conexion, RepositorioDeAreas repo_areas)
+        {
+            if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDePermisosSobreAreas(conexion, repo_areas);
+            return _instancia;
         }
 
         List<Area> IRepositorioDePermisosSobreAreas.AreasAdministradasPor(Usuario usuario)
@@ -23,16 +28,9 @@ namespace General.MAU
             return AreasAdministradasPor(usuario.Id);
         }
 
-        public List<KeyValuePair<int, int>> ObtenerTodosLosPermisosDesdeLaBase()
-        {
-            return conexion.Ejecutar("dbo.MAU_GetPermisosSobreAreas")
-                .Rows.Select(row => new KeyValuePair<int, int>(row.GetSmallintAsInt("id_usuario"), row.GetSmallintAsInt("id_area")))
-                .ToList();
-        }
-
         public List<Area> AreasAdministradasPor(int id_usuario)
         {
-            var permisos = cache.Ejecutar(ObtenerTodosLosPermisosDesdeLaBase, this);
+            var permisos = this.Obtener();
             return permisos.FindAll(p => p.Key == id_usuario).Select(p => this.repositorioDeAreas.GetAreaPorId(p.Value)).ToList();
         }
 
@@ -43,11 +41,9 @@ namespace General.MAU
 
         public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario", id_usuario);
-            parametros.Add("@id_area", id_area);
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarAreaAUsuario", parametros);
+            this.Guardar(new KeyValuePair<int, int>(id_usuario, id_area));
         }
+
         public void DesAsignarAreaAUnUsuario(Usuario usuario, Area area)
         {
             this.DesAsignarAreaAUnUsuario(usuario.Id, area.Id);
@@ -55,9 +51,29 @@ namespace General.MAU
 
         public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
         {
+            this.Quitar(new KeyValuePair<int, int>(id_usuario, id_area));
+        }
+
+        protected override List<KeyValuePair<int, int>> ObtenerDesdeLaBase()
+        {
+            return conexion.Ejecutar("dbo.MAU_GetPermisosSobreAreas")
+                .Rows.Select(row => new KeyValuePair<int, int>(row.GetSmallintAsInt("id_usuario"), row.GetSmallintAsInt("id_area")))
+                .ToList();
+        }
+
+        protected override void GuardarEnLaBase(KeyValuePair<int, int> objeto)
+        {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario", id_usuario);
-            parametros.Add("@id_area", id_area);
+            parametros.Add("@id_usuario", objeto.Key);
+            parametros.Add("@id_area", objeto.Value);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarAreaAUsuario", parametros);
+        }
+
+        protected override void QuitarDeLaBase(KeyValuePair<int, int> objeto)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", objeto.Key);
+            parametros.Add("@id_area", objeto.Value);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarAreaAUsuario", parametros);
         }
     }

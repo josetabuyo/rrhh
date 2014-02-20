@@ -6,21 +6,27 @@ using General.Repositorios;
 
 namespace General.MAU
 {
-    public class RepositorioDeMenues:IRepositorioDeMenues
+    public class RepositorioDeMenues : RepositorioLazySingleton<MenuDelSistema>, IRepositorioDeMenues
     {
-        protected IConexionBD conexion;
         protected  IRepositorioDeAccesosAURL repositorio_accesos;
 
-        public RepositorioDeMenues(IConexionBD conexion, IRepositorioDeAccesosAURL repo_accesos)
+        private static RepositorioDeMenues _instancia;
+
+        private RepositorioDeMenues(IConexionBD conexion, IRepositorioDeAccesosAURL repo_accesos)
+            : base(conexion, 10)
         {
-            this.conexion = conexion;
             this.repositorio_accesos = repo_accesos;
+        }
+
+        public static RepositorioDeMenues NuevoRepositorioDeMenues(IConexionBD conexion, IRepositorioDeAccesosAURL repo_accesos)
+        {
+            if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeMenues(conexion, repo_accesos);
+            return _instancia;
         }
 
         public List<MenuDelSistema> TodosLosMenues()
         {
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetMenues");
-            return GetMenuesDeTablaDeDatos(tablaDatos);
+            return this.Obtener();
         }
 
         private List<MenuDelSistema> GetMenuesDeTablaDeDatos(TablaDeDatos tablaDatos)
@@ -53,6 +59,22 @@ namespace General.MAU
                 }
             });
             return menues;
+        }
+
+        protected override List<MenuDelSistema> ObtenerDesdeLaBase()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetMenues");
+            return GetMenuesDeTablaDeDatos(tablaDatos);
+        }
+
+        protected override void GuardarEnLaBase(MenuDelSistema objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void QuitarDeLaBase(MenuDelSistema objeto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

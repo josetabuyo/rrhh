@@ -13,12 +13,9 @@ namespace General.Repositorios
 {
     public class RepositorioDePersonas : RepositorioLazy<List<Persona>>, IRepositorioDePersonas
     {
-        public IConexionBD conexion { get; set; }
-
         public RepositorioDePersonas(IConexionBD conexion)
+            :base(conexion)
         {
-            this.conexion = conexion;
-            this.cache = new CacheNoCargada<List<Persona>>();
         }
 
         public List<Persona> TodasLasPersonas()

@@ -14,7 +14,7 @@
         </ul>
         <ul class="nav pull-right" id="Ul1" runat="server">
             <li class="divider-vertical"></li>                 
-            <li><input type="text" class="search-query span2" placeholder="Busqueda rapida" /></li>                       
+            <li><input type="text" class="search-query span2" placeholder="Busqueda rapida" style="margin-top: 6px; margin-bottom: 0px;"/></li>                       
         </ul>
         <ul class="nav pull-right" id="menu_derecho" runat="server">
         </ul>

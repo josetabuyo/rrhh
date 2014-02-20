@@ -6,52 +6,24 @@ using General.Repositorios;
 
 namespace General.MAU
 {
-    public class RepositorioDeFuncionalidades : RepositorioLazy<List<Funcionalidad>>,  IRepositorioDeFuncionalidades
+    public class RepositorioDeFuncionalidades : RepositorioLazySingleton<Funcionalidad>, IRepositorioDeFuncionalidades
     {
-        protected IConexionBD conexion;
         private static RepositorioDeFuncionalidades _instancia;
-        private static DateTime _fecha_creacion;
 
         private RepositorioDeFuncionalidades(IConexionBD conexion)
+            : base(conexion, 10)
         {
-            this.conexion = conexion;
-            this.cache = new CacheNoCargada<List<Funcionalidad>>();
         }
 
         public static RepositorioDeFuncionalidades NuevoRepositorioDeFuncionalidades(IConexionBD conexion)
         {
-            if (_instancia == null || ExpiroTiempoDelRepositorio())
-            {
-                _instancia = new RepositorioDeFuncionalidades(conexion);
-                _fecha_creacion = DateTime.Now;
-            }
+            if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeFuncionalidades(conexion);
             return _instancia;
-        }
-
-        private static bool ExpiroTiempoDelRepositorio()
-        {
-            if (FechaExpiracion() < DateTime.Now)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private static DateTime FechaExpiracion()
-        {
-            return _fecha_creacion.AddMinutes(10);
-
         }
 
         public List<Funcionalidad> TodasLasFuncionalidades()
         {
-            return cache.Ejecutar(GetFuncionalidadesDeBaseDeDatos, this);
-        }
-
-        public List<Funcionalidad> GetFuncionalidadesDeBaseDeDatos()
-        {
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetFuncionalidades");
-            return GetFuncionalidadesDeTablaDeDatos(tablaDatos);
+            return this.Obtener();
         }
 
         private static List<Funcionalidad> GetFuncionalidadesDeTablaDeDatos(TablaDeDatos tablaDatos)
@@ -68,6 +40,22 @@ namespace General.MAU
         public Funcionalidad GetFuncionalidadPorId(int id_funcionalidad)
         {
             return TodasLasFuncionalidades().Find(f => f.Id == id_funcionalidad);
+        }
+
+        protected override List<Funcionalidad> ObtenerDesdeLaBase()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetFuncionalidades");
+            return GetFuncionalidadesDeTablaDeDatos(tablaDatos);
+        }
+
+        protected override void GuardarEnLaBase(Funcionalidad objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void QuitarDeLaBase(Funcionalidad objeto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

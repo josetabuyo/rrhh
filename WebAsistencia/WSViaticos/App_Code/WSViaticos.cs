@@ -2410,9 +2410,9 @@ public class WSViaticos : System.Web.Services.WebService
         var repo_accesos = RepositorioDeAccesosAURL.NuevoRepositorioDeAccesosAURL(Conexion(), repo_funcionalidades);
 
         return new Autorizador(repo_funcionalidades_de_usuarios,
-            new RepositorioDeMenues(Conexion(), repo_accesos),
+            RepositorioDeMenues.NuevoRepositorioDeMenues(Conexion(), repo_accesos),
             RepositorioDeUsuarios(),
-            new RepositorioDePermisosSobreAreas(Conexion(), RepositorioDeAreas()),
+            RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(Conexion(), RepositorioDeAreas()),
             repo_accesos);
     }
 

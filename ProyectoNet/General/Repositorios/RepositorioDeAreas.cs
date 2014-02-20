@@ -10,12 +10,9 @@ namespace General.Repositorios
 {
     public class RepositorioDeAreas : RepositorioLazy<List<Area>>
     {
-
-        public IConexionBD conexion_bd { get; set; } 
-
-        public RepositorioDeAreas(IConexionBD conexion) 
+        public RepositorioDeAreas(IConexionBD conexion)
+            : base(conexion)
         {
-            this.conexion_bd = conexion;
             this.cache = new CacheNoCargada<List<Area>>();
         }
 
@@ -23,13 +20,13 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_Area", unArea.Id);
-            var tablaDatos = conexion_bd.Ejecutar("dbo.Web_GetArea", parametros);            
+            var tablaDatos = conexion.Ejecutar("dbo.Web_GetArea", parametros);            
             var primeraFila = tablaDatos.Rows[0];
             unArea.Id = primeraFila.GetInt("id_area");
             unArea.Nombre = primeraFila.GetString("descripcion");
             unArea.Direccion = primeraFila.GetString("direccion_area");
 
-            tablaDatos = conexion_bd.Ejecutar("dbo.Web_GetContactoArea", parametros);      
+            tablaDatos = conexion.Ejecutar("dbo.Web_GetContactoArea", parametros);      
             var contacArea = new List<ContactoArea>();
             tablaDatos.Rows.ForEach(row =>
             {
@@ -41,7 +38,7 @@ namespace General.Repositorios
 
         public Alias ObtenerAliasDeAreaByIdDeArea(Area area)
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.Via_GetAliasByIdDeArea");
+            var tablaDatos = conexion.Ejecutar("dbo.Via_GetAliasByIdDeArea");
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_Area", area.Id);
@@ -59,7 +56,7 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@FechaVigencia", DateTime.Today);
-            var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_Get_AreasParaProtocolo", parametros);
+            var tablaDatos = conexion.Ejecutar("dbo.VIA_Get_AreasParaProtocolo", parametros);
             List<Area> areas_completas = GetTodasLasAreasCompletas();
             List<Area> areas = new List<Area>();
 
@@ -99,7 +96,7 @@ namespace General.Repositorios
 
          public List<Area> ObtenerTodasLasAreasDesdeLaBase()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetAreasCompletas");
+            var tablaDatos = conexion.Ejecutar("dbo.VIA_GetAreasCompletas");
             List<Area> areas = GetAreasDeTablaDeDatos(tablaDatos);
             return areas;
         }

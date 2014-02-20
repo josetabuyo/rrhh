@@ -7,15 +7,13 @@ namespace General.Repositorios
 {
     public class RepositorioDeAlumnos : RepositorioLazy<List<Alumno>>, General.Repositorios.IRepositorioDeAlumnos
     {
-        protected IConexionBD conexion_bd { get; set; }
-
         protected IRepositorioDeModalidades repo_modalidades;
         protected IRepositorioDeCursos repo_cursos;
         //protected Articulador articulador;
 
         public RepositorioDeAlumnos(IConexionBD conexion, IRepositorioDeCursos repo_cursos, IRepositorioDeModalidades repo_modalidades)
+            :base(conexion)
         {
-            this.conexion_bd = conexion;
             this.repo_modalidades = repo_modalidades;
             this.repo_cursos = repo_cursos;
             this.cache = new CacheNoCargada<List<Alumno>>();
@@ -29,7 +27,7 @@ namespace General.Repositorios
         public List<Alumno> ObtenerAlumnosDesdeLaBase()
         {
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Alumnos");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_Alumnos");
             var alumnos = new List<Alumno>();
 
 
@@ -133,12 +131,12 @@ namespace General.Repositorios
 
             try
             {
-                conexion_bd.EjecutarSinResultado("SACC_Ins_Alumno", parametros);
+                conexion.EjecutarSinResultado("SACC_Ins_Alumno", parametros);
             }
             catch (Exception)
             {
                 BorrarBaja(un_alumno);
-                conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Alumno", parametros);
+                conexion.EjecutarSinResultado("SACC_Upd_Del_Alumno", parametros);
             }
 
         }
@@ -150,7 +148,7 @@ namespace General.Repositorios
             List<Alumno> alumnos_dni = new List<Alumno>();
             parametros.Add("@DocumentoPersona", dni);
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_DatosPersonales", parametros);
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_DatosPersonales", parametros);
 
             List<Curso> cursos = repo_cursos.GetCursos();
 
@@ -210,7 +208,7 @@ namespace General.Repositorios
             //deberia borrar la baja asociada
             BorrarBaja(alumno);
 
-            conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Alumno", parametros);
+            conexion.EjecutarSinResultado("SACC_Upd_Del_Alumno", parametros);
 
             return alumno;
         }
@@ -221,7 +219,7 @@ namespace General.Repositorios
 
             parametros.Add("@IdBaja", alumno.Baja);
 
-            conexion_bd.EjecutarSinResultado("SACC_Del_Baja", parametros);
+            conexion.EjecutarSinResultado("SACC_Del_Baja", parametros);
         }
 
         public void QuitarAlumno(Alumno un_alumno, Usuario usuario)
@@ -230,7 +228,7 @@ namespace General.Repositorios
 
             var parametros = Parametros(un_alumno, usuario, idBaja);
 
-            conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Alumno", parametros);
+            conexion.EjecutarSinResultado("SACC_Upd_Del_Alumno", parametros);
         }
 
         private int CrearBaja(Usuario usuario)
@@ -241,7 +239,7 @@ namespace General.Repositorios
             parametros.Add("@IdUsuario", usuario.Id);
             parametros.Add("@Fecha", "");
 
-            int id = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
+            int id = int.Parse(conexion.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
 
             return id;
         }
@@ -256,7 +254,7 @@ namespace General.Repositorios
         public List<Organismo> GetOrganismos()
         {
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.CRED_Get_Organismos");
+            var tablaDatos = conexion.Ejecutar("dbo.CRED_Get_Organismos");
             List<Organismo> organismos = new List<Organismo>();
 
             tablaDatos.Rows.ForEach(row =>

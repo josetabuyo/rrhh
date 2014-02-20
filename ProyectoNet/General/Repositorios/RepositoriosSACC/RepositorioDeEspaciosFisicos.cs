@@ -5,15 +5,12 @@ namespace General.Repositorios
 {
     public class RepositorioDeEspaciosFisicos: RepositorioLazy<List<EspacioFisico>>, General.Repositorios.IRepositorioDeEspaciosFisicos
     {
-       
-
-        protected IConexionBD conexion_bd { get; set; }
         protected static List<EspacioFisico> espacios_fisicos { get; set; }
         protected IRepositorioDeCursos repo_cursos;
 
         public RepositorioDeEspaciosFisicos(IConexionBD conexion, IRepositorioDeCursos repo_cursos)
+            :base(conexion)
         {
-            this.conexion_bd = conexion;
             this.repo_cursos = repo_cursos;
             this.cache = new CacheNoCargada<List<EspacioFisico>>();
         }
@@ -32,7 +29,7 @@ namespace General.Repositorios
         {
             var parametros = Parametros(espacio_fisico, usuario, 0);
 
-            conexion_bd.EjecutarSinResultado("SACC_Ins_EspacioFisico", parametros);
+            conexion.EjecutarSinResultado("SACC_Ins_EspacioFisico", parametros);
 
             return espacio_fisico;
         }
@@ -55,7 +52,7 @@ namespace General.Repositorios
 
         public List<Edificio> GetEdificios()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Edificios");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_Edificios");
             List<Edificio> edificios = new List<Edificio>();
             string numero = "";
             string dto = "";
@@ -101,7 +98,7 @@ namespace General.Repositorios
 
         public List<EspacioFisico> ObtenerEspaciosFisicosDesdeLaBase()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Espacios_Fisicos");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_Espacios_Fisicos");
             var espacios_fisicos = new List<EspacioFisico>();
 
             tablaDatos.Rows.ForEach(row =>
@@ -133,7 +130,7 @@ namespace General.Repositorios
         {
             var parametros = Parametros(espacio_fisico, usuario, 0);
 
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_EspacioFisico", parametros);
+            conexion.EjecutarSinResultado("dbo.SACC_Upd_Del_EspacioFisico", parametros);
 
             return espacio_fisico;
         }
@@ -144,7 +141,7 @@ namespace General.Repositorios
 
             var parametros = Parametros(espacio_fisico, usuario, idBaja);
 
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_EspacioFisico", parametros);
+            conexion.EjecutarSinResultado("dbo.SACC_Upd_Del_EspacioFisico", parametros);
         }
 
         private int CrearBaja(Usuario usuario)
@@ -155,7 +152,7 @@ namespace General.Repositorios
             parametros.Add("@IdUsuario", usuario.Id);
             parametros.Add("@Fecha", "");
 
-            int id = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
+            int id = int.Parse(conexion.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
 
             return id;
         }

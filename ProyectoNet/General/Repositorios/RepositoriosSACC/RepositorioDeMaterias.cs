@@ -8,17 +8,15 @@ namespace General.Repositorios
 {
     public class RepositorioDeMaterias : RepositorioLazy<List<Materia>> , General.Repositorios.IRepositorioDeMaterias
     {
-        protected IConexionBD conexion_bd { get; set; }
         protected static List<Materia> materias { get; set; }
         protected IRepositorioDeModalidades repo_modalidades;
         protected IRepositorioDeCursos repo_cursos;
         
         public RepositorioDeMaterias(IConexionBD conexion, IRepositorioDeCursos repo_cursos,IRepositorioDeModalidades repo_modalidades)
+            :base(conexion)
         {
-            this.conexion_bd = conexion;
             this.repo_modalidades = repo_modalidades;
             this.repo_cursos = repo_cursos;
-            this.cache = new CacheNoCargada<List<Materia>>();
         }
 
         public Materia GetMateriaById(int id)
@@ -39,7 +37,7 @@ namespace General.Repositorios
 
         public List<Materia> ObtenerMateriasDesdeLaBase()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Materias");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_Materias");
             materias = new List<Materia>();
 
             tablaDatos.Rows.ForEach(row =>
@@ -65,7 +63,7 @@ namespace General.Repositorios
         {
             var parametros = Parametros(materia, usuario, 0);
 
-            conexion_bd.EjecutarSinResultado("SACC_Ins_Materia", parametros);
+            conexion.EjecutarSinResultado("SACC_Ins_Materia", parametros);
 
             return materia;
         }
@@ -74,7 +72,7 @@ namespace General.Repositorios
         {
             var parametros = Parametros(materia, usuario, 0);
 
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Materia", parametros);
+            conexion.EjecutarSinResultado("dbo.SACC_Upd_Del_Materia", parametros);
 
             return materia;
         }
@@ -85,7 +83,7 @@ namespace General.Repositorios
 
             var parametros = Parametros(materia, usuario, idBaja);
 
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Materia", parametros);
+            conexion.EjecutarSinResultado("dbo.SACC_Upd_Del_Materia", parametros);
         }
 
         private int CrearBaja(Usuario usuario)
@@ -96,7 +94,7 @@ namespace General.Repositorios
             parametros.Add("@IdUsuario", usuario.Id);
             parametros.Add("@Fecha", "");
 
-            int id = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
+            int id = int.Parse(conexion.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
 
             return id;
         }
@@ -127,7 +125,7 @@ namespace General.Repositorios
 
         public List<Ciclo> GetCiclos()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Ciclos");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_Ciclos");
             List<Ciclo> ciclos = new List<Ciclo>();
 
             tablaDatos.Rows.ForEach(row =>

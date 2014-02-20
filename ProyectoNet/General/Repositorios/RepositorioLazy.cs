@@ -5,8 +5,13 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class RepositorioLazy<T>
+    public class RepositorioLazy<T>:Repositorio<T>
     {
+        public RepositorioLazy(IConexionBD conexion)
+            :base(conexion)
+        {
+            this.cache = new CacheNoCargada<T>();
+        }
         protected Cache<T> cache;
         public void RealizasteConexion(T resultado)
         {
