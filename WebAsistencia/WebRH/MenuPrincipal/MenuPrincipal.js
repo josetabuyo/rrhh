@@ -17,7 +17,7 @@
             }
         },
         function () {
-            alert("error al obtener el menú")
+            alertify.alert("error al obtener el menú")
         });
 
 };

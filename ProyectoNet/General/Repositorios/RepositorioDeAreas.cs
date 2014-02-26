@@ -8,12 +8,19 @@ using General.Repositorios;
 using System.Linq;
 namespace General.Repositorios
 {
-    public class RepositorioDeAreas : RepositorioLazy<List<Area>>
+    public class RepositorioDeAreas : RepositorioLazySingleton<Area>
     {
-        public RepositorioDeAreas(IConexionBD conexion)
-            : base(conexion)
+        private static RepositorioDeAreas _instancia;
+
+        private RepositorioDeAreas(IConexionBD conexion)
+            : base(conexion, 10)
         {
-            this.cache = new CacheNoCargada<List<Area>>();
+        }
+
+        public static RepositorioDeAreas NuevoRepositorioDeAreas(IConexionBD conexion)
+        {
+            if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeAreas(conexion);
+            return _instancia;
         }
 
         public void ReloadArea(Area unArea)
@@ -91,16 +98,8 @@ namespace General.Repositorios
 
         public List<Area> GetTodasLasAreasCompletas()
         {
-            return cache.Ejecutar(ObtenerTodasLasAreasDesdeLaBase, this);        
+            return this.Obtener(); 
         }
-
-         public List<Area> ObtenerTodasLasAreasDesdeLaBase()
-        {
-            var tablaDatos = conexion.Ejecutar("dbo.VIA_GetAreasCompletas");
-            List<Area> areas = GetAreasDeTablaDeDatos(tablaDatos);
-            return areas;
-        }
-
 
         public static List<Area> GetAreasDeTablaDeDatos(TablaDeDatos tablaDatos)
         {
@@ -193,6 +192,23 @@ namespace General.Repositorios
                 default:
                     return null;
             }
+        }
+
+        protected override List<Area> ObtenerDesdeLaBase()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.VIA_GetAreasCompletas");
+            List<Area> areas = GetAreasDeTablaDeDatos(tablaDatos);
+            return areas;
+        }
+
+        protected override void GuardarEnLaBase(Area objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void QuitarDeLaBase(Area objeto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

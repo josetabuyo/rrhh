@@ -32,11 +32,11 @@
                     onSuccess(respuesta.documento);
                 }
                 if (respuesta.tipoDeRespuesta == "envioDeDocumento.error") {
-                    alert("Error al enviar el documento: " + respuesta.error);
+                    alertify.alert("Error al enviar el documento: " + respuesta.error);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown);
+                alertify.alert(errorThrown);
             }
         });
     },
@@ -58,11 +58,11 @@
                     onSuccess(respuesta.documento);
                 }
                 if (respuesta.tipoDeRespuesta == "envioDeDocumento.error") {
-                    alert("Error al enviar el documento: " + respuesta.error);
+                    alertify.alert("Error al enviar el documento: " + respuesta.error);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown);
+                alertify.alert(errorThrown);
             }
         });
     },
@@ -83,11 +83,11 @@
                     onSuccess(respuesta.documento);
                 }
                 if (respuesta.tipoDeRespuesta == "guardarDocumento.error") {
-                    alert("Error al guardar cambios en documento: " + respuesta.error);
+                    alertify.alert("Error al guardar cambios en documento: " + respuesta.error);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown);
+                alertify.alert(errorThrown);
             }
         });    
     }

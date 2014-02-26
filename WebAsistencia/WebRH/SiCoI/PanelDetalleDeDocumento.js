@@ -16,7 +16,7 @@ var PanelDetalleDeDocumento = function (cfg) {
         var post_url = "../AjaxWS.asmx/GuardarCambiosEnDocumento";
         var post_data =  JSON.stringify({
             id_documento: self.documentoEnDetalle.id,
-            id_area_destino: self.selectorDeAreaDestinoEnDetalle.areaSeleccionada().id,
+            id_area_destino: self.selectorDeAreaDestinoEnDetalle.areaSeleccionada.id,
             comentario: cfg.txtComentariosEnDetalle.val()
         });       
         $.ajax({
@@ -31,11 +31,11 @@ var PanelDetalleDeDocumento = function (cfg) {
                     self._panel_documentos.refrescarGrilla();
                 }
                 if (respuesta.tipoDeRespuesta == "guardarDocumento.error") {
-                    alert("Error al guardar cambios en documento: " + respuesta.error);
+                    alertify.alert("Error al guardar cambios en documento: " + respuesta.error);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown);
+                alertify.alert(errorThrown);
             }
         });                   
         self.cerrar();
@@ -70,7 +70,15 @@ PanelDetalleDeDocumento.prototype = {
 
         this.crearHistorialDeTransiciones(documento);
 
-        this.selectorDeAreaDestinoEnDetalle = new InputAutocompletableDeAreas(this.cfg.selectorDeAreaDestinoEnDetalle, this.cfg.listaAreas);
+        //this.selectorDeAreaDestinoEnDetalle = new InputAutocompletableDeAreas(this.cfg.selectorDeAreaDestinoEnDetalle, this.cfg.listaAreas);
+        this.selectorDeAreaOrigenEnAlta = new SelectorDeAreas({
+            ui: this.cfg.selectorDeAreaDestinoEnDetalle,
+            repositorioDeAreas: cfg.repositorioDeAreas,
+            placeholder: "",
+            alSeleccionarUnArea: function (area) {
+            }
+        });
+
 
         if (documento.areaDestino == null) this.selectorDeAreaDestinoEnDetalle.limpiar();
         else this.selectorDeAreaDestinoEnDetalle.setAreaSeleccionada(documento.areaDestino);

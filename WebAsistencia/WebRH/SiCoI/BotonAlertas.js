@@ -12,7 +12,7 @@
                 cfg.panel_documentos.mostrarDocumentos(documentos);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown);
+                alertify.alert(errorThrown);
             }
         });
     });

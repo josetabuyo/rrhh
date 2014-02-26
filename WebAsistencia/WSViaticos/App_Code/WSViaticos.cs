@@ -134,7 +134,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Area RecargarArea(Area unArea)
     {
-        var repositorio = new RepositorioDeAreas(Conexion());
+        var repositorio = RepositorioDeAreas();
         repositorio.ReloadArea(unArea);
         return unArea;
     }
@@ -572,7 +572,7 @@ public class WSViaticos : System.Web.Services.WebService
             if (id_area_destino != -1)
             {
                 area_destino = repo_organigrama.GetAreaById(id_area_destino);
-                mensajeria.SeEnviaAFuturo(un_documento, new Autorizador().AreasAdministradasPor(usuario)[0], area_destino);
+                mensajeria.SeEnviaAFuturo(un_documento, Autorizador().AreasAdministradasPor(usuario)[0], area_destino);
             }
             else
             {
@@ -612,7 +612,7 @@ public class WSViaticos : System.Web.Services.WebService
         var un_documento = repo_documentos.GetDocumentoPorId(id_documento);
         var area_destino = repo_organigrama.GetAreaById(id_area_destino);
 
-        mensajeria.SeEnviaAFuturo(un_documento, new Autorizador().AreasAdministradasPor(usuario)[0], area_destino);
+        mensajeria.SeEnviaAFuturo(un_documento, Autorizador().AreasAdministradasPor(usuario)[0], area_destino);
 
         repo_transiciones.GuardarTransicionesDe(mensajeria);
         return un_documento;
@@ -623,7 +623,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
 
         List<Area> areas = new List<Area>();
-        var repositorio = new RepositorioDeAreas(Conexion());
+        var repositorio = RepositorioDeAreas();
 
         return areas = repositorio.GetTodasLasAreasCompletas();
     }
@@ -1724,16 +1724,16 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public List<Area> GetAreasParaProtocolo()
     {
-        return new RepositorioDeAreas(Conexion()).GetAreasParaProtocolo();
+        return RepositorioDeAreas().GetAreasParaProtocolo();
     }
 
     [WebMethod]
     public string GetAreasParaProtocoloJSON(Usuario usuario)
     {
 
-        List<Area> areas = new RepositorioDeAreas(Conexion()).GetAreasParaProtocolo();
+        List<Area> areas = RepositorioDeAreas().GetAreasParaProtocolo();
         //var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        //var autorizador = new Autorizador();
+        //var autorizador = Autorizador();
 
         //areas = autorizador.FiltrarEspaciosFisicosPorUsuario(areas, organigrama, usuario);
 
@@ -2379,12 +2379,12 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDePersonas RepositorioDePersonas()
     {
-        return new RepositorioDePersonas(Conexion());
+        return General.Repositorios.RepositorioDePersonas.NuevoRepositorioDePersonas(Conexion());
     }
 
     private RepositorioDeAreas RepositorioDeAreas()
     {
-        return new RepositorioDeAreas(Conexion());
+        return General.Repositorios.RepositorioDeAreas.NuevoRepositorioDeAreas(Conexion());
     }
 
     private IRepositorioDeUsuarios RepositorioDeUsuarios()

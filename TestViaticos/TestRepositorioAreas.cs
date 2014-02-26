@@ -37,7 +37,7 @@ namespace TestViaticos
 
             Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            RepositorioDeAreas repo = new RepositorioDeAreas(conexion);
+            RepositorioDeAreas repo = RepositorioDeAreas.NuevoRepositorioDeAreas(conexion);
 
             var alias = repo.ObtenerAliasDeAreaByIdDeArea(area_de_fabi);
 
@@ -72,7 +72,7 @@ namespace TestViaticos
 
             Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            RepositorioDeAreas repo = new RepositorioDeAreas(conexion);
+            RepositorioDeAreas repo = RepositorioDeAreas.NuevoRepositorioDeAreas(conexion);
 
 
             List<Area> lista_areas_del_repo = repo.GetTodasLasAreasCompletas();

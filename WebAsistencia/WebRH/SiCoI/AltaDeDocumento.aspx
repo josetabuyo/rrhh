@@ -8,6 +8,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>SICOI</title>
     <link rel="stylesheet" href="../Estilos/EstilosSICOI.css" type="text/css" runat="server" />
+    <link rel="stylesheet" href="../estilos/SelectorDeAreas.css" type="text/css"/>    
+    <link rel="stylesheet" href="../scripts/select2-3.4.4/select2.css" type="text/css"/>
+
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
 </head>
@@ -71,11 +74,13 @@
                     </div>
                     <div id="titulo_filtro_area_actual" class="titulo_filtro">
                         Área Actual:</div>
-                    <input id="selectorAreaActualEnfiltro" type="text" data-provide="typeahead" data-items="9" runat="server" />
+                    <div id="selectorAreaActualEnfiltro" class="selector_areas">
+                        <input id="buscador" type=hidden />
+                    </div>
                     <div id="titulo_filtro_area_origen" class="titulo_filtro">
                         Área Origen:</div>
-                    <input id="selectorAreaOrigenEnfiltro" type="text" data-provide="typeahead" data-items="9" runat="server" />
-                    <div>
+                    <div id="selectorAreaOrigenEnfiltro" class="selector_areas">
+                        <input id="buscador" type=hidden />
                     </div>
                     <div class="titulo_filtro">
                         Detenido más de:</div>
@@ -98,14 +103,17 @@
                 <asp:DropDownList ID="cmbCategoria" nullValue="Categoría de documento" runat="server" EnableViewState="true">
                     <asp:ListItem Value="" Selected="true"></asp:ListItem>
                 </asp:DropDownList>
-                <input id="selectorDeAreaOrigen" nullValue="Área de Origen" type="text" data-provide="typeahead" data-items="9" runat="server" />
-               
+                <div id="selectorDeAreaOrigen" class="selector_areas">
+                    <input id="buscador" type=hidden />
+                </div>
 
-                  <input type="text" id="inputFechaDoc" nullValue="Fecha de documento (opcional)" runat="server"/>
+                <input type="text" id="inputFechaDoc" nullValue="Fecha de documento (opcional)" runat="server"/>
 
 
                 <asp:TextBox ID="txtExtracto" nullValue="Ingrese el extracto del documento" TextMode="MultiLine" type = "text" Height="112px" runat="server"></asp:TextBox>
-                <input id="selectorDeAreaDestino" nullValue="Área de Destino (opcional)" type="text" data-provide="typeahead" data-items="9" runat="server" />
+                <div id="selectorDeAreaDestino" class="selector_areas">
+                    <input id="buscador" type=hidden />
+                </div>
                 <asp:TextBox ID="txtComentarios" nullValue="Ingrese sus comentarios (opcional)" runat="server" TextMode="MultiLine" Height="32px" class="detalle_alta_documento" ></asp:TextBox>
                 <div class="botones_alta_documento">
                     <input type="button" id="btnCrearDocumento" class=" btn btn-primary" value="Agregar Documento"/>
@@ -150,7 +158,10 @@
                 <div id='ficha_grande_titulo_fecha_de_ingreso'> Fecha de Ingreso</div>
                 <div id='ficha_grande_transiciones'></div>
                 <div id='ficha_grande_titulo_area_destino'> Próximo Área Destino:</div>
-                <input type="text" id='ficha_grande_contenido_area_destino' data-provide="typeahead" data-items="9"/>
+                <div id="ficha_grande_contenido_area_destino" class="selector_areas">
+                    <input id="buscador" type=hidden />
+                </div>
+                <%--<input type="text" id='ficha_grande_contenido_area_destino' data-provide="typeahead" data-items="9"/>--%>
                 <input type="button" id="ficha_grande_boton_guardar_cambios" value="Guardar Cambios" class="btn btn-mini btn-primary"/>
             </div>
 
@@ -158,10 +169,13 @@
                 <div id='transicion_documento_fecha_de_ingreso'></div>            
                 <div id='transicion_documento_area_destino'></div>            
             </div>
+
+            <div class="vista_area_en_selector">
+                <div id="nombre"></div> 
+            </div>
         </div>
 
         <asp:HiddenField ID="AreaDelUsuario" runat="server" />
-        <asp:HiddenField ID="ListaAreas" runat="server" />
         <asp:HiddenField ID="CategoriasDeDocumento" runat="server" />
         <asp:HiddenField ID="TiposDeDocumento" runat="server" />
 
@@ -185,6 +199,14 @@
     <script type="text/javascript" src="WebService.js"></script>
     <script type="text/javascript" src="BotonAlertas.js"></script>
 
+    <script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
+    <script type="text/javascript" src="../Scripts/Area.js"></script>
+    <script type="text/javascript" src="../Scripts/SelectorDeAreas.js"></script>
+    <script type="text/javascript" src="../Scripts/RepositorioDeAreas.js"></script>
+
+    <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
+    <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $(window).keydown(function (event) {
@@ -193,10 +215,11 @@
                     return false;
                 }
             });
-            var listaAreas = JSON.parse($('#ListaAreas').val());
             var tiposDeDocumento = JSON.parse($('#TiposDeDocumento').val());
             var categoriasDeDocumento = JSON.parse($('#CategoriasDeDocumento').val());
             var areaDelUsuario = JSON.parse($('#AreaDelUsuario').val());
+
+            var repositorioDeAreas = new RepositorioDeAreas(new ProveedorAjax());
 
             var cfg_panel_documentos = {
                 divPanelDocumentos: $("#panel_documentos"),
@@ -206,8 +229,8 @@
                 uiListaDeDocs: $("#lista_de_documentos"),
                 btnOrdenarPorAreaActual: $("#boton_ordenar_por_area_actual"),
                 btnOrdenarPorTipo: $("#boton_ordenar_por_tipo"),
-                listaAreas:listaAreas,
-                areaDelUsuario: areaDelUsuario
+                areaDelUsuario: areaDelUsuario,
+                repositorioDeAreas: repositorioDeAreas
             }
             var panel_documentos = new PanelDeDocumentos(cfg_panel_documentos);
 
@@ -224,11 +247,11 @@
                 btnCancelar: $('#btnCancelar'),
                 botonDesplegarPanelAlta: $("#boton_desplegar_panel_alta_documento"),
                 divPanelAlta: $("#panel_alta_documento"),
-                listaAreas: listaAreas,
                 tiposDeDocumento: tiposDeDocumento,
                 categoriasDeDocumento: categoriasDeDocumento,
                 areaDelUsuario: areaDelUsuario,
-                inputFechaDoc: $('#inputFechaDoc')
+                inputFechaDoc: $('#inputFechaDoc'),
+                repositorioDeAreas: repositorioDeAreas
             }
             var panel_alta = new PanelAltaDeDocumento(cfg_panel_alta);
 
@@ -256,10 +279,10 @@
                 panelBusquedaAvanzada: $('#panelBusquedaAvanzada'),
                 btnToggleBusquedaAvanzada: $('#btnToggleBusquedaAvanzada'),
                 areaDelUsuario: areaDelUsuario,
-                listaAreas: listaAreas,
                 tiposDeDocumento: tiposDeDocumento,
-                categoriasDeDocumento: categoriasDeDocumento
-                 
+                categoriasDeDocumento: categoriasDeDocumento,
+                repositorioDeAreas: repositorioDeAreas
+
             }
             var panel_filtros = new PanelDeFiltrosDeDocumentos(cfg_panel_filtros);
 
@@ -271,11 +294,11 @@
             panel_filtros.setPanelAlta(panel_alta);
             panel_filtros.setPanelDocumentos(panel_documentos);
 
-            var botonAlertas = new BotonAlertas({   
-                boton_alertas : $("#boton_alertas"),
+            var botonAlertas = new BotonAlertas({
+                boton_alertas: $("#boton_alertas"),
                 panel_documentos: panel_documentos
             });
-            
+
 
         });
     </script>   

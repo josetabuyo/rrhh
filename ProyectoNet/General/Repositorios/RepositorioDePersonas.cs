@@ -11,16 +11,24 @@ using Extensiones;
 
 namespace General.Repositorios
 {
-    public class RepositorioDePersonas : RepositorioLazy<List<Persona>>, IRepositorioDePersonas
+    public class RepositorioDePersonas : RepositorioLazySingleton<Persona>, IRepositorioDePersonas
     {
-        public RepositorioDePersonas(IConexionBD conexion)
-            :base(conexion)
+        private static RepositorioDePersonas _instancia;
+
+        private RepositorioDePersonas(IConexionBD conexion)
+            :base(conexion, 1)
         {
+        }
+
+        public static RepositorioDePersonas NuevoRepositorioDePersonas(IConexionBD conexion)
+        {
+            if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDePersonas(conexion);
+            return _instancia;
         }
 
         public List<Persona> TodasLasPersonas()
         {
-            return cache.Ejecutar(ObtenerPersonasDesdeLaBase, this);
+            return this.Obtener();
         }
 
         public List<Persona> BuscarPersonas(string criterio)
@@ -41,12 +49,6 @@ namespace General.Repositorios
         public List<Persona> BuscarPersonasConLegajo(string criterio)
         {
             return this.BuscarPersonas(criterio).FindAll(p => p.Legajo.Trim() != "");
-        }
-
-        protected List<Persona> ObtenerPersonasDesdeLaBase()
-        {
-            var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Personas");
-            return GetPersonasDeTablaDeDatos(tablaDatos);
         }
 
         public Persona GetPersonaPorId(int id_persona)
@@ -81,6 +83,22 @@ namespace General.Repositorios
             }
 
             return personas;
+        }
+
+        protected override List<Persona> ObtenerDesdeLaBase()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Personas");
+            return GetPersonasDeTablaDeDatos(tablaDatos);
+        }
+
+        protected override void GuardarEnLaBase(Persona objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void QuitarDeLaBase(Persona objeto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

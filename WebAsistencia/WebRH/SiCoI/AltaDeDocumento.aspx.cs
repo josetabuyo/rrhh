@@ -16,7 +16,6 @@ public partial class AltaDeDocumento : System.Web.UI.Page
       
         var ws = new WSViaticosSoapClient();
 
-        this.ListaAreas.Value = ws.AreasFormalesConInformales_JSON();
         this.TiposDeDocumento.Value = JsonConvert.SerializeObject(ws.TiposDeDocumentosSICOI().OrderBy(td => td.descripcion));
         this.CategoriasDeDocumento.Value = JsonConvert.SerializeObject(ws.CategoriasDocumentosSICOI().OrderBy(cd => cd.descripcion));
 
