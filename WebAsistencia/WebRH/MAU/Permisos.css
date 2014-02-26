@@ -51,6 +51,11 @@
     bottom: 0px;
 }
 
+#btn_reset_password
+{
+    margin-top:-4px;
+}
+
 #panel_superior_izquierdo
 {
     position: absolute;
