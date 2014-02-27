@@ -73,11 +73,13 @@
             </div>
             <div id="divEmpyGridViewAutorizaciones" runat="server">
                 <table border="0" cellpadding="0" cellspacing="0">
-                    <thead>                        <tr>
+                    <thead>
+                        <tr>
                             <td style="text-align: center">
                                 <strong>No se encontraron autorizaciones para acreditar con fecha actual.</strong>
                             </td>
-                        </tr>                    </thead>
+                        </tr>
+                    </thead>
                 </table>
             </div>
         </div>
@@ -172,11 +174,13 @@
                 </asp:GridView>
                 <div id="divEmpyGridViewPersonas" runat="server">
                     <table border="0" cellpadding="0" cellspacing="0">
-                        <thead>                            <tr>
+                        <thead>
+                            <tr>
                                 <td style="text-align: center">
                                     <strong>No se encontraron personas con esos parametros de búsqueda.</strong>
                                 </td>
-                            </tr>                        </thead>
+                            </tr>
+                        </thead>
                     </table>
                 </div>
                 <br />

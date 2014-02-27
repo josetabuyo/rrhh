@@ -2,16 +2,34 @@
     CodeFile="Autorizaciones.aspx.cs" Inherits="Visitas_Autorizaciones" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderHead" runat="Server">
+        .contenedor-tabla
+        {
+            display: table;
+        }
+        .contenedor-fila
+        {
+            display: table-row;
+        }
+        .contenedor-celda
+        {
+            display: table-cell;
+        }    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolderBody" runat="Server">
     <asp:Panel ID="Panel_Form" runat="Server" DefaultButton="Button_Ingresar">
         <div style="text-align: center;" class="caja caja-sombra sombra1 sombra2">
+            <div class="contenedor-tabla">
+                <div class="contenedor-fila">
+                    <div class="contenedor-celda">
+                        <a class="TituloPagina">
+                        Ingresar nueva autorizaci&oacute;n</a></div></div>
+
+                <div class="contenedor-fila">
+                    <div class="contenedor-celda">
+                        </div></div> 
+            </div>
+
             <table border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td colspan="3" class="TituloPagina">
-                        Ingresar nueva autorizaci&oacute;n
-                    </td>
-                </tr>
                 <tr>
                     <td style="vertical-align: top;">
                         <table border="0" cellpadding="0" cellspacing="0">

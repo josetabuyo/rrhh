@@ -176,14 +176,13 @@ AS
 BEGIN
 
 
-	SELECT	Id, Nombre, Apellido, Documento
-	FROM	(
-				SELECT	IdPersona Id, Nombre, Apellido, Documento
-				FROM	dbo.CtlAcc_PersonaVisita
-			)	as t
+	SELECT	top 20
+			t.IdPersona Id, t.Apellido, t.Nombre, t.Documento
+	FROM	dbo.CtlAcc_PersonaVisita as t
 	WHERE	t.Nombre LIKE '%' + @Nombre + '%'
 	AND		t.Apellido LIKE '%' + @Apellido + '%'
 	AND		t.Documento = case when @Documento = 0 then t.Documento else @Documento end
+	ORDER	BY t.Apellido ASC, t.Nombre ASC, t.Documento ASC
 
 END
 GO
