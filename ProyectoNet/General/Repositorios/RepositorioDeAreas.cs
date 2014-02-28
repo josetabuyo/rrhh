@@ -85,6 +85,37 @@ namespace General.Repositorios
          }
 
 
+         public List<Area> GetAreasParaLugaresDeTrabajo()
+         {
+             var parametros = new Dictionary<string, object>();
+             parametros.Add("@FechaVigencia", DateTime.Today);
+             var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_Get_AreasParaLugaresDeTrabajo", parametros);
+             List<Area> areas_completas = GetTodasLasAreasCompletas();
+             List<Area> areas = new List<Area>();
+
+             if (tablaDatos.Rows.Count > 0)
+             {
+                 tablaDatos.Rows.ForEach(row =>
+                 {
+                     var id_area = row.GetSmallintAsInt("Id_area");
+                     var area_completa = areas_completas.Find(ar => ar.Id == id_area);
+
+                     areas.Add(new Area
+                     {
+                         Id = id_area,
+                         Nombre = row.GetString("Descripcion"),
+                         Direccion = area_completa.Direccion,
+                         DatosDeContacto = area_completa.DatosDeContacto,
+                         datos_del_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", ""),
+                         Asistentes = area_completa.Asistentes
+                     });
+                 });
+             }
+
+             return areas;
+         }
+
+
         public List<Area> GetTodasLasAreasCompletas()
         {
             var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetAreasCompletas");
