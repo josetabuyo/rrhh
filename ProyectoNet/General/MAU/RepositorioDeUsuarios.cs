@@ -50,11 +50,10 @@ namespace General.MAU
         {
             if (tablaDatos.Rows.Count == 0) return new UsuarioNulo();
             var row = tablaDatos.Rows.First();
-            var legajo = "";
             if (!(row.GetObject("Id_Persona") is DBNull))
             {
                 var persona = repositorio_de_personas.GetPersonaPorId(row.GetInt("Id_Persona"));
-                return new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), persona);
+                return new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), persona, !row.GetBoolean("Baja"));
             }
             return new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"));            
         }
@@ -78,7 +77,7 @@ namespace General.MAU
             parametros.Add("@clave_encriptada", clave_encriptada);
             int id_usuario = (int)conexion.EjecutarEscalar("dbo.MAU_CrearUsuario", parametros);
 
-            return new Usuario(id_usuario, alias, clave_encriptada, persona);
+            return new Usuario(id_usuario, alias, clave_encriptada, persona, true);
         }
 
         public bool CambiarPassword(int id_usuario, string clave_actual, string clave_nueva)

@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="Permisos.css" type="text/css"/>    
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/>    
     <link rel="stylesheet" href="../estilos/SelectorDeAreas.css" type="text/css"/>    
-    <link rel="stylesheet" href="../Estilos/alertify.core.css" id="toggleCSS" />
-    <link rel="stylesheet" href="../Estilos/alertify.default.css" />
     <link href="ui.dynatree.css" rel="stylesheet" type="text/css"/>
     <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -55,7 +53,7 @@
                     </div>
                 </div> 
                 <div id="panel_inferior_izquierdo" class="estilo_formulario">
-                    <legend class="subtitulos"> Areas que Administra </legend>
+                    <legend class="subtitulos"> Areas </legend>
                     <div id="panel_areas_administradas">
                         <div id="lista_areas_administradas">
                         

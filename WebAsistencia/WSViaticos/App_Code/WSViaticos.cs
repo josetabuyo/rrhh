@@ -2413,7 +2413,8 @@ public class WSViaticos : System.Web.Services.WebService
             RepositorioDeMenues.NuevoRepositorioDeMenues(Conexion(), repo_accesos),
             RepositorioDeUsuarios(),
             RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(Conexion(), RepositorioDeAreas()),
-            repo_accesos);
+            repo_accesos,
+            Conexion());
     }
 
     private RepositorioDeDocentes RepositorioDeDocentes()

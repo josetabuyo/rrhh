@@ -5,6 +5,7 @@ using General;
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using General.Repositorios;
 
 namespace General.MAU
 {
@@ -15,12 +16,28 @@ namespace General.MAU
         protected IRepositorioDeMenues repositorio_menues;
         protected IRepositorioDeUsuarios repositorio_usuarios;
         protected IRepositorioDeAccesosAURL repositorio_accesos_a_url;
+        protected IConexionBD conexion;
 
         public Autorizador(IRepositorioDeFuncionalidadesDeUsuarios repo_funcionalidades,
             IRepositorioDeMenues repo_menues,
             IRepositorioDeUsuarios repo_usuarios,
             IRepositorioDePermisosSobreAreas repo_permisos_sobre_areas,
-            IRepositorioDeAccesosAURL repo_accesos_a_url)
+            IRepositorioDeAccesosAURL repo_accesos_a_url,
+            IConexionBD conexion)
+        {
+            this.repositorio_funcionalidades_usuarios = repo_funcionalidades;
+            this.repositorio_menues = repo_menues;
+            this.repositorio_usuarios = repo_usuarios;
+            this.repositorio_permisos_sobre_areas = repo_permisos_sobre_areas;
+            this.repositorio_accesos_a_url = repo_accesos_a_url;
+            this.conexion = conexion;
+        }
+
+        public Autorizador(IRepositorioDeFuncionalidadesDeUsuarios repo_funcionalidades,
+        IRepositorioDeMenues repo_menues,
+        IRepositorioDeUsuarios repo_usuarios,
+        IRepositorioDePermisosSobreAreas repo_permisos_sobre_areas,
+        IRepositorioDeAccesosAURL repo_accesos_a_url)
         {
             this.repositorio_funcionalidades_usuarios = repo_funcionalidades;
             this.repositorio_menues = repo_menues;
@@ -93,7 +110,17 @@ namespace General.MAU
         public bool Login(string nombre_usuario, string clave)
         {
             var usuario = this.repositorio_usuarios.GetUsuarioPorAlias(nombre_usuario);
-            return usuario.ValidarClave(clave);
+            if (!usuario.Habilitado) return false;
+            if (!usuario.ValidarClave(clave)) return false;
+            this.loguearIngresoDe(usuario);
+            return true;
+        }
+
+        private void loguearIngresoDe(Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", usuario.Id);
+            this.conexion.EjecutarSinResultado("MAU_Loguear_Ingreso", parametros); 
         }
 
         public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)

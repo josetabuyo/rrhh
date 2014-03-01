@@ -15,10 +15,18 @@ BEGIN
 		ta.descripcion,
 		isnull(dap2.Apellido, '')			  		    Apellido_Responsable,
 		isnull(dap2.Nombre, '')							Nombre_Responsable,
-		isnull((tad.Calle + ' '+ tad.Nro + ' ' + ' Piso ' + 
-		tad.Piso + ' Dto ' +tad.Dpto), '') AS					direccion,
-		isnull(dp2.Apellido, '')							Apellido_Asistente,
-		isnull(dp2.Nombre, '')								Nombre_Asistente,
+		isnull(	   (tad.Calle	+ ' ' + 
+					tad.Nro		+ ' ' + 
+(CASE tad.Piso WHEN '' then '' else ' Piso ' + tad.Piso end)
+					+ 
+(CASE tad.Dpto WHEN '' then '' else ' Dto ' + tad.Dpto end)
+					+
+					' - ('		+ convert(varchar(10), localAfip.codigopostal, 103) + 
+					') '		+ localAfip.nombrelocalidad + 
+					' - '		+ prov.nombreProvincia
+			   ), '') AS								direccion,
+		isnull(dp2.Apellido, '')						Apellido_Asistente,
+		isnull(dp2.Nombre, '')							Nombre_Asistente,
 		isnull(ca.Telefono, '')							Telefono_Asistente,
 		isnull(ca.Fax, '')								Fax_Asistente,
 		isnull(ca.Mail, '')								Mail_Asistente, 
@@ -34,6 +42,18 @@ BEGIN
 		left join  dbo.Tabla_Areas_Detalle					tad on
 			tad.Id_Area =  ta.Id_Area
 			and tad.Baja <> 1
+
+		LEFT JOIN dbo.LocalidadesAFIP						localAfip ON 
+			tad.Localidad = localAfip.idLocalidad
+			and localAfip.baja <>1 
+		LEFT JOIN dbo.Partidos								partidos ON 
+			localAfip.ID_Partido = partidos.Partido
+			and partidos.Baja = 'N'
+		LEFT JOIN dbo.Provincias							prov ON 
+			prov.codAFIP = localAfip.id_provincia
+
+
+
 		left join  dbo.Tabla_Areas_DatosContacto			dca on
 			dca.Id_Area =  ta.Id_Area 
 			and dca.baja <> 1
@@ -66,4 +86,6 @@ BEGIN
 
 		
 end
+
+
 

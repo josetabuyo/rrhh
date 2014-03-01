@@ -20,7 +20,7 @@
         repositorioDePersonas: this.repositorioDePersonas,
         placeholder: "nombre, apellido, documento o legajo"
     });
-
+      
     this.vista_permisos = new VistaDePermisosDeUnUsuario({
         ui: $('#vista_permisos'),
         repositorioDeFuncionalidades: this.repositorioDeFuncionalidades,

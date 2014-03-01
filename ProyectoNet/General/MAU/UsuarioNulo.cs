@@ -8,9 +8,10 @@ namespace General.MAU
 {
     public class UsuarioNulo:Usuario
     {
-        public bool EsNulo = true;
+        public bool EsNulo { get; set; }
         public UsuarioNulo()
         {
+            this.EsNulo = true;
             //this.Owner = new PersonaNula();
         }
 
