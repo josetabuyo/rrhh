@@ -285,7 +285,7 @@ namespace TestViaticos
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12), VacacionesPermitidas(2013, 20) };
             var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2014(), diez_de_marzo_2014()) };
-            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>() { new VacacionesPendientesDeAprobacion(juan, primero_de_febrero_2013(), cinco_de_febrero_2013()) };
+            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>() { new VacacionesPendientesDeAprobacion(juan, new DateTime(2014,04,01), new DateTime(2014,04,05)) };
             var fecha_de_hoy = new DateTime(2014, 12, 01);
 
             var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_de_hoy, TestObjects.UnaPersona());

@@ -124,10 +124,12 @@ namespace General
             return fecha.Year - offset;
         }
 
-        public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<VacacionesAprobadas> aprobadas, List<VacacionesPendientesDeAprobacion> pendientes_de_aprobar, DateTime fecha_de_calculo, Persona persona)
+        public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<VacacionesAprobadas> aprobadas, List<VacacionesPendientesDeAprobacion> pendientes, DateTime fecha_de_calculo, Persona persona)
         {
             var vacaciones_solicitables = new List<VacacionesSolicitables>();
 
+            var pendientes_de_aprobar = pendientes.FindAll(pend => pend.Desde() >= aprobadas.Last().Desde());
+            
             var permitidas_consumibles = Clonar(permitidas);
 
             if (aprobadas.Count() == 0)
