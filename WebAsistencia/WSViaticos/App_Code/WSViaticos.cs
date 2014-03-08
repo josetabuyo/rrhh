@@ -142,7 +142,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var concepto_subclasificado = concepto.InstanciaDeSubclase();
 
-        DateTime fecha_de_consulta = new DateTime(2012,02,06);
+        DateTime fecha_de_consulta = DateTime.Today;
 
         ServicioDeLicencias servicioLicencias = new ServicioDeLicencias(RepoLicencias());
 

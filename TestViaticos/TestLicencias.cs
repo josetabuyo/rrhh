@@ -105,12 +105,13 @@ namespace TestViaticos
         public void juan_deberia_poder_solicitar_5_dias_para_2001()
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2001, 5) };
-            var aprobadas_para_juan = new List<VacacionesAprobadas>();
-            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>();
+
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>();
+
             var fecha_de_hoy = new DateTime(2002, 01, 01);
 
 
-            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_de_hoy, TestObjects.UnaPersona());
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy, TestObjects.UnaPersona());
             var vacaciones_solicitables = listado_solicitables.First();
 
             Assert.AreEqual(1, listado_solicitables.Count());
@@ -123,11 +124,11 @@ namespace TestViaticos
         public void juan_deberia_poder_solicitar_5_dias_para_2001_y_10_dias_para_2002_en_el_2003()
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 5), VacacionesPermitidas(2012, 10) };
-            var aprobadas_para_juan = new List<VacacionesAprobadas>();
-            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>();
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>();
+            
             var fecha_de_hoy = new DateTime(2003, 01, 01);
 
-            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_de_hoy, TestObjects.UnaPersona());
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy, TestObjects.UnaPersona());
             var vacaciones_solicitables_2001 = listado_solicitables.First();
             var vacaciones_solicitables_2002 = listado_solicitables.Last();
 
@@ -142,10 +143,9 @@ namespace TestViaticos
         public void juan_no_deberia_poder_solicitar_5_dias_para_2001_y_10_dias_para_2002_en_el_2014()
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2001, 5), VacacionesPermitidas(2002, 10) };
-            var aprobadas_para_juan = new List<VacacionesAprobadas>();
-            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>();
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>();
 
-            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_de_hoy(), TestObjects.UnaPersona());
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona());
 
             Assert.AreEqual(0, listado_solicitables.Count());
         }
@@ -154,10 +154,9 @@ namespace TestViaticos
         public void juan_deberia_poder_solicitar_7_dias_para_2012()
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12) };
-            var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()) };
-            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>();
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()) };
 
-            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_de_hoy(), TestObjects.UnaPersona());
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona());
             var vacaciones_solicitables = listado_solicitables.First();
 
             Assert.AreEqual(1, listado_solicitables.Count());
@@ -169,10 +168,9 @@ namespace TestViaticos
         public void juan_deberia_poder_solicitar_2_dias_para_2012()
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12) };
-            var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_febrero_2013(), cinco_de_febrero_2013()) };
-            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>();
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_febrero_2013(), cinco_de_febrero_2013()) };
 
-            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_de_hoy(), TestObjects.UnaPersona());
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona());
             var vacaciones_solicitables = listado_solicitables.First();
 
             Assert.AreEqual(1, listado_solicitables.Count());
@@ -186,11 +184,10 @@ namespace TestViaticos
         public void juan_deberia_poder_solicitar_7_dias_para_2012_y_20_para_2013()
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12), VacacionesPermitidas(2013, 20) };
-            var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()) };
-            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>();
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()) };
             var fecha_hoy = new DateTime(2013, 01, 01);
 
-            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_hoy, TestObjects.UnaPersona());
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_hoy, TestObjects.UnaPersona());
 
             var vacaciones_solicitables_2001 = listado_solicitables.First();
             var vacaciones_solicitables_2002 = listado_solicitables.Last();
@@ -207,13 +204,12 @@ namespace TestViaticos
         public void juan_no_deberia_poder_tener_unas_vacacioens_aprobadas_en_el_2013_si_no_hay_permitidas_para_ese_periodo()
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2002, 12), VacacionesPermitidas(2003, 20) };
-            var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()) };
-            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>();
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()) };
 
             var listado_solicitables = new List<VacacionesSolicitables>();
             try
             {
-                listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_de_hoy(), TestObjects.UnaPersona());
+                listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona());
                 Assert.Fail("Deberia haber lanzado excepcion al intentar pedir licencias cuando no tiene nada autorizado");
             }
             catch (SolicitudInvalidaException e)
@@ -228,11 +224,10 @@ namespace TestViaticos
         public void juan_deberia_poder_solicitar_0_dias_para_2011_y_17_para_2012()
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 12), VacacionesPermitidas(2012, 20) };
-            var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()) };
-            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>();
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()) };
             var fecha_hoy = new DateTime(2013, 01, 01);
 
-            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_hoy, TestObjects.UnaPersona());
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_hoy, TestObjects.UnaPersona());
 
             var vacaciones_solicitables_2001 = listado_solicitables.First();
             var vacaciones_solicitables_2002 = listado_solicitables.Last();
@@ -247,11 +242,10 @@ namespace TestViaticos
         public void en_diciembre_ya_deberia_tener_disponibles_los_dias_de_ese_anio()
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 15), VacacionesPermitidas(2013, 21) };
-            var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()), new VacacionesAprobadas(juan, primero_de_diciembre_2013(), veinte_de_diciembre_2013()) };
-            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>();
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()), new VacacionesAprobadas(juan, primero_de_diciembre_2013(), veinte_de_diciembre_2013()) };
             var fecha_de_hoy = new DateTime(2014, 12, 01);
 
-            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_de_hoy, TestObjects.UnaPersona());
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy, TestObjects.UnaPersona());
 
             var vacaciones_solicitables_2014 = listado_solicitables[0];
 
@@ -264,12 +258,11 @@ namespace TestViaticos
         public void juan_no_deberia_poder_solicitar_tantos_dias_para_el_2013_porque_solo_en_diciembre_se_puede_tomar_las_autorizadas_del_2013()
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12), VacacionesPermitidas(2013, 20) };
-            var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()) };
-            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>() { new VacacionesPendientesDeAprobacion(juan, primero_de_febrero_2013(), cinco_de_febrero_2013()) };
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()), new VacacionesPendientesDeAprobacion(juan, primero_de_febrero_2013(), cinco_de_febrero_2013()) };
             var listado_solicitables = new List<VacacionesSolicitables>();
             try
             {
-                listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_de_hoy(), TestObjects.UnaPersona());
+                listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona());
                 Assert.Fail("Deberia haber lanzado excepcion al intentar pedir licencias cuando no tiene nada autorizado");
             }
             catch (SolicitudInvalidaException e)
@@ -284,11 +277,10 @@ namespace TestViaticos
         public void juan_deberia_poder_solicitar_12_para_2013_y_tener_pendiente_5()
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12), VacacionesPermitidas(2013, 20) };
-            var aprobadas_para_juan = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2014(), diez_de_marzo_2014()) };
-            var pendientes_de_aprobar_a_juan = new List<VacacionesPendientesDeAprobacion>() { new VacacionesPendientesDeAprobacion(juan, new DateTime(2014,04,01), new DateTime(2014,04,05)) };
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2014(), diez_de_marzo_2014()), new VacacionesPendientesDeAprobacion(juan, new DateTime(2014, 04, 01), new DateTime(2014, 04, 05)) };
             var fecha_de_hoy = new DateTime(2014, 12, 01);
 
-            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, pendientes_de_aprobar_a_juan, fecha_de_hoy, TestObjects.UnaPersona());
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy, TestObjects.UnaPersona());
 
             var vacaciones_solicitables_2013 = listado_solicitables.First();
 
@@ -303,9 +295,9 @@ namespace TestViaticos
         {
             var vacaciones_permitidas_2011 = VacacionesPermitidas(2011, 20);
             var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { vacaciones_permitidas_2011, VacacionesPermitidas(2012, 20) };
-            var aprobadas_para_juan_al_30_11_2013 = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, primero_de_enero_2012(), quince_de_enero_2012())  };
+            var aprobadas_para_juan_al_30_11_2013 = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2012(), quince_de_enero_2012()) };
             var fecha_hoy = new DateTime(2013, 01, 01);
-            var listado_solicitables_al_31_11_2013 = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, aprobadas_para_juan_al_30_11_2013, new List<VacacionesPendientesDeAprobacion>(), fecha_hoy, TestObjects.UnaPersona());
+            var listado_solicitables_al_31_11_2013 = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, aprobadas_para_juan_al_30_11_2013, fecha_hoy, TestObjects.UnaPersona());
 
             Assert.AreEqual(2, listado_solicitables_al_31_11_2013.Count());
             Assert.AreEqual(5, listado_solicitables_al_31_11_2013.First().CantidadDeDias());
@@ -321,7 +313,7 @@ namespace TestViaticos
             permitidas_para_juan_hasta_2013.Add(VacacionesPermitidas(2013, 20));
             aprobadas_para_juan_al_30_11_2013.Add(new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()));
 
-            var listado_solicitables_post_01_12_2013 = calculador().DiasSolicitables(permitidas_para_juan_hasta_2013, aprobadas_para_juan_al_30_11_2013, new List<VacacionesPendientesDeAprobacion>(), fecha_de_hoy(), TestObjects.UnaPersona());
+            var listado_solicitables_post_01_12_2013 = calculador().DiasSolicitables(permitidas_para_juan_hasta_2013, aprobadas_para_juan_al_30_11_2013, fecha_de_hoy(), TestObjects.UnaPersona());
 
             Assert.AreEqual(2, listado_solicitables_post_01_12_2013.Count());
             Assert.AreEqual(2012, listado_solicitables_post_01_12_2013.First().Periodo());
@@ -335,7 +327,7 @@ namespace TestViaticos
             //Pasa el 01/12/2014
             fecha_hoy = new DateTime(2015, 01, 01);
 
-            var listado_solicitables_al_31_11_2014 = calculador().DiasSolicitables(permitidas_para_juan_hasta_2013, aprobadas_para_juan_al_30_11_2013, new List<VacacionesPendientesDeAprobacion>(), fecha_hoy, TestObjects.UnaPersona());
+            var listado_solicitables_al_31_11_2014 = calculador().DiasSolicitables(permitidas_para_juan_hasta_2013, aprobadas_para_juan_al_30_11_2013, fecha_hoy, TestObjects.UnaPersona());
 
             Assert.AreEqual(2, listado_solicitables_al_31_11_2014.Count());
             Assert.AreEqual(20, listado_solicitables_al_31_11_2014.First().CantidadDeDias());
@@ -436,7 +428,7 @@ namespace TestViaticos
             var vacaciones_2006 = VacacionesPermitidas(2006, 27);
             var fecha_de_hoy = new DateTime(2007, 01, 01);
 
-            var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(new List<VacacionesPermitidas>() { vacaciones_2006 }, new List<VacacionesAprobadas>(), new List<VacacionesPendientesDeAprobacion>(), fecha_de_hoy, TestObjects.UnaPersona());
+            var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(new List<VacacionesPermitidas>() { vacaciones_2006 }, new List<SolicitudesDeVacaciones>(), fecha_de_hoy, TestObjects.UnaPersona());
 
             new List<VacacionesSolicitables>() { new VacacionesSolicitables(2006, 27) };
 
@@ -450,7 +442,7 @@ namespace TestViaticos
         public void deberia_tener_20_dias_perdidos_para_2009()
         {
             var fecha_de_hoy = new DateTime(2014, 01, 01);
-            var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidas(), VacacionesAprobadas(), new List<VacacionesPendientesDeAprobacion>(), fecha_de_hoy, TestObjects.UnaPersona());
+            var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidas(), VacacionesAprobadas(), fecha_de_hoy, TestObjects.UnaPersona());
             //las aprob se deben imputar a 2011 a 2012
             Assert.AreEqual(2, lista_de_dias_pendientes_por_periodo.Count());
 
@@ -458,13 +450,86 @@ namespace TestViaticos
             Assert.AreEqual(25, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2013).CantidadDeDias());
         }
 
+
+        [TestMethod]
+        public void carla_solicita_aprobacion_de_33_dias_de_vacaciones_que_deberan_imputarse_a_20_permitidas_del_2012_y_20_permitidas_del_2013_quedandole_7_dias()
+        {
+            var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() {new VacacionesPendientesDeAprobacion(juan, new DateTime(2014, 01, 06), new DateTime(2014, 02, 07)) };
+
+            var fecha_de_hoy = new DateTime(2014, 03, 06);
+
+            var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidasParaCarla(), vacaciones_solicitadas, fecha_de_hoy, TestObjects.UnaPersona());
+
+            Assert.AreEqual(1, lista_de_dias_pendientes_por_periodo.Count());
+            Assert.AreEqual(7, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2013).CantidadDeDias());
+
+        }
+
+        [TestMethod]
+        public void carla_jamas_se_pidio_licencias___no_tiene_pendientes_ni_aprobadas___y_se_consulta_el_formulario_quedando_20_para_2012_y_20_para_2013()
+        {
+            var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>();
+
+            var fecha_de_hoy = new DateTime(2014, 03, 06);
+
+            var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidasParaCarla(), vacaciones_solicitadas, fecha_de_hoy, TestObjects.UnaPersona());
+
+            Assert.AreEqual(2, lista_de_dias_pendientes_por_periodo.Count());
+            Assert.AreEqual(20, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2012).CantidadDeDias());
+            Assert.AreEqual(20, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2013).CantidadDeDias());
+
+        }
+
+
+        [TestMethod]
+        public void carla_solicita_aprobacion_de_un_periodo_que_abarca_noviembre_y_diciembre_y_debe_partirse_por_la_aplicacion_de_prorroga_A()
+        {
+            var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesPendientesDeAprobacion(juan, new DateTime(2013, 11, 26), new DateTime(2013, 12, 5)) };
+            var fecha_de_hoy = new DateTime(2013, 11, 30); //SI CAMBIO LA FECHA CAMBIA LA IMPUTACION
+
+            var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidasParaCarla2(), vacaciones_solicitadas, fecha_de_hoy, TestObjects.UnaPersona());
+
+            Assert.AreEqual(1, lista_de_dias_pendientes_por_periodo.Count());
+            Assert.AreEqual(15, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2012).CantidadDeDias());
+
+        }
+        //Y ENCIMA CON LAS VACACIONES APROBADAS PASA LO MISMO, CUANDO FUNCIONE ESTE TEST, PROBAR CAMBIANDO PENDIENTESDEAPROBACION POR APROBADAS
+        [TestMethod]
+        public void carla_solicita_aprobacion_de_un_periodo_que_abarca_noviembre_y_diciembre_y_debe_partirse_por_la_aplicacion_de_prorroga_A_A()
+        {
+            var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesPendientesDeAprobacion(juan, new DateTime(2013, 11, 26), new DateTime(2013, 12, 5)) };
+            var fecha_de_hoy = new DateTime(2013, 12, 01); //SI CAMBIO LA FECHA CAMBIA LA IMPUTACION
+
+            var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidasParaCarla2(), vacaciones_solicitadas, fecha_de_hoy, TestObjects.UnaPersona());
+
+            Assert.AreEqual(1, lista_de_dias_pendientes_por_periodo.Count());
+            Assert.AreEqual(15, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2012).CantidadDeDias());
+
+        }
+
+
+        [TestMethod]
+        public void carla_solicita_aprobacion_de_un_periodo_que_abarca_noviembre_y_diciembre_y_debe_partirse_por_la_aplicacion_de_prorroga_B()
+        {
+            var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesPendientesDeAprobacion(juan, new DateTime(2013, 11, 26), new DateTime(2013, 12, 5)) };
+            var fecha_de_hoy = new DateTime(2013, 10, 25);
+
+            var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidasParaCarla(), vacaciones_solicitadas, fecha_de_hoy, TestObjects.UnaPersona());
+
+            Assert.AreEqual(2, lista_de_dias_pendientes_por_periodo.Count());
+            Assert.AreEqual(10, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2012).CantidadDeDias());
+            Assert.AreEqual(20, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2013).CantidadDeDias());
+        }
+
+
+
         [TestMethod]
         public void deberia_partir_en_dos_el_periodo_de_noviembre_a_diciembre()
         {
             var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() {  VacacionesPermitidas(2011, 20), VacacionesPermitidas(2012, 20) };
-            var vacaciones_solicitadas = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, new DateTime(2012, 11, 16), new DateTime(2012, 12, 20)) };
+            var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, new DateTime(2012, 11, 16), new DateTime(2012, 12, 20)) };
 
-            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, new List<VacacionesPendientesDeAprobacion>(), fecha_de_hoy(), TestObjects.UnaPersona());
+            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, fecha_de_hoy(), TestObjects.UnaPersona());
 
             Assert.AreEqual(1, licencia_solicitables.Count());
             Assert.AreEqual(5, licencia_solicitables.First().CantidadDeDias());
@@ -475,11 +540,11 @@ namespace TestViaticos
         public void deberia_eliminar_los_periodos_que_no_esten_comprendidos_en_prorroga_para_un_contratado_sin_aprobadas()
         {
             var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 20), VacacionesPermitidas(2012, 20), VacacionesPermitidas(2013, 20), };
-            var vacaciones_solicitadas = new List<VacacionesAprobadas>();
+            var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>();
             var una_persona = TestObjects.UnaPersona();
             una_persona.TipoDePlanta = new TipoDePlantaContratado();
 
-            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, new List<VacacionesPendientesDeAprobacion>(), fecha_de_hoy(), una_persona);
+            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, fecha_de_hoy(), una_persona);
 
             Assert.AreEqual(2, licencia_solicitables.Count());
             Assert.AreEqual(2012, licencia_solicitables.First().Periodo());
@@ -489,11 +554,11 @@ namespace TestViaticos
         public void deberia_eliminar_los_periodos_que_no_esten_comprendidos_en_prorroga_para_un_permanente_sin_aprobadas()
         {
             var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { VacacionesPermitidas(2004, 20), VacacionesPermitidas(2005, 20), VacacionesPermitidas(2006, 20), VacacionesPermitidas(2007, 20), VacacionesPermitidas(2008, 20), VacacionesPermitidas(2009, 20), VacacionesPermitidas(2010, 20), VacacionesPermitidas(2011, 20), VacacionesPermitidas(2012, 20), VacacionesPermitidas(2013, 20) };
-            var vacaciones_solicitadas = new List<VacacionesAprobadas>();
+            var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>();
             var una_persona = TestObjects.UnaPersona();
             una_persona.TipoDePlanta = new TipoDePlantaGeneral(1,"Planta Permanente");
 
-            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, new List<VacacionesPendientesDeAprobacion>(), fecha_de_hoy(), una_persona);
+            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, fecha_de_hoy(), una_persona);
 
             Assert.AreEqual(9, licencia_solicitables.Count());
             Assert.AreEqual(2005, licencia_solicitables.First().Periodo());
@@ -504,11 +569,11 @@ namespace TestViaticos
         {
             var una_persona = TestObjects.UnaPersona();
             var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 20), VacacionesPermitidas(2012, 20), VacacionesPermitidas(2013, 20) };
-            var vacaciones_solicitadas = new List<VacacionesAprobadas>() { new VacacionesAprobadas(una_persona,new DateTime(2012,01,01),new DateTime(2012,01,15))};//del 01-01 al 04-02
+            var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(una_persona, new DateTime(2012, 01, 01), new DateTime(2012, 01, 15)) };//del 01-01 al 04-02
             
             una_persona.TipoDePlanta = new TipoDePlantaContratado();
 
-            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, new List<VacacionesPendientesDeAprobacion>(), fecha_de_hoy(), una_persona);
+            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, fecha_de_hoy(), una_persona);
 
             Assert.AreEqual(2, licencia_solicitables.Count());
             Assert.AreEqual(2012, licencia_solicitables.First().Periodo());
@@ -520,11 +585,11 @@ namespace TestViaticos
         {
             var una_persona = TestObjects.UnaPersona();
             var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { VacacionesPermitidas(2004, 20), VacacionesPermitidas(2005, 20), VacacionesPermitidas(2006, 20), VacacionesPermitidas(2007, 20), VacacionesPermitidas(2008, 20), VacacionesPermitidas(2009, 20), VacacionesPermitidas(2010, 20), VacacionesPermitidas(2011, 20), VacacionesPermitidas(2012, 20), VacacionesPermitidas(2013, 20) };
-            var vacaciones_solicitadas = new List<VacacionesAprobadas>() { new VacacionesAprobadas(una_persona, new DateTime(2012, 01, 01), new DateTime(2012, 01, 15)) };//del 01-01 al 04-02
+            var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(una_persona, new DateTime(2012, 01, 01), new DateTime(2012, 01, 15)) };//del 01-01 al 04-02
 
             una_persona.TipoDePlanta = new TipoDePlantaGeneral(1,"Planta Permanente");
 
-            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, new List<VacacionesPendientesDeAprobacion>(), fecha_de_hoy(), una_persona);
+            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, fecha_de_hoy(), una_persona);
 
             Assert.AreEqual(9, licencia_solicitables.Count());
             Assert.AreEqual(2005, licencia_solicitables.First().Periodo());
@@ -589,9 +654,9 @@ namespace TestViaticos
             return lista_vacaciones_permitidas;
         }
 
-        protected List<VacacionesAprobadas> VacacionesAprobadas()
+        protected List<SolicitudesDeVacaciones> VacacionesAprobadas()
         {
-            var lista_vacaciones_aprobadas = new List<VacacionesAprobadas>() { new VacacionesAprobadas(juan, new DateTime(2013, 01, 01), new DateTime(2013, 02, 04)) };
+            var lista_vacaciones_aprobadas = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, new DateTime(2013, 01, 01), new DateTime(2013, 02, 04)) };
             return lista_vacaciones_aprobadas;
         }
 
@@ -600,5 +665,18 @@ namespace TestViaticos
             return new VacacionesPermitidas(juan, anio, dias);
         }
 
+        protected List<VacacionesPermitidas> VacacionesPermitidasParaCarla()
+        {
+            var lista_vacaciones_permitidas = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 20), 
+                                                                                 VacacionesPermitidas(2013, 20)};
+            return lista_vacaciones_permitidas;
+        }
+
+        protected List<VacacionesPermitidas> VacacionesPermitidasParaCarla2()
+        {
+            var lista_vacaciones_permitidas = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 20), 
+                                                                                 VacacionesPermitidas(2012, 20)};
+            return lista_vacaciones_permitidas;
+        }
     }
 }

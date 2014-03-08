@@ -7,18 +7,11 @@ namespace General
 {
     public class CreadorDePeriodosImputablesSimples:CreadorDePeriodosImputables
     {
-        public override List<CantidadDeDiasPorPeriodo> AnioMaximoImputable(VacacionesAprobadas aprobadas)
+        public override List<CantidadDeDiasPorPeriodo> AnioMaximoImputable(SolicitudesDeVacaciones aprobadas)
         {
             var dias_periodo = aprobadas.CantidadDeDias();
 
             return new List<CantidadDeDiasPorPeriodo>() { new CantidadDeDiasPorPeriodo(GetAnioimputable(aprobadas.Hasta()), dias_periodo) };
-        }
-
-        public override List<CantidadDeDiasPorPeriodo> AnioMaximoImputable(VacacionesPendientesDeAprobacion pendientes)
-        {
-            var dias_periodo = pendientes.CantidadDeDias();
-
-            return new List<CantidadDeDiasPorPeriodo>() { new CantidadDeDiasPorPeriodo(GetAnioimputable(pendientes.Hasta()), dias_periodo) };
-        }
+        }       
     }
 }

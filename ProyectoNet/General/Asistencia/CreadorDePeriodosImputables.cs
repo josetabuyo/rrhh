@@ -7,9 +7,7 @@ namespace General
 {
     public abstract class CreadorDePeriodosImputables
     {
-        public abstract List<CantidadDeDiasPorPeriodo> AnioMaximoImputable(VacacionesAprobadas aprobadas);
-        public abstract List<CantidadDeDiasPorPeriodo> AnioMaximoImputable(VacacionesPendientesDeAprobacion pendientes);
-
+        public abstract List<CantidadDeDiasPorPeriodo> AnioMaximoImputable(SolicitudesDeVacaciones aprobadas);
 
         public int GetAnioimputable(DateTime fecha)
         {
