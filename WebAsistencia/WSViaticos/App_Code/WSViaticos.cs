@@ -1730,7 +1730,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public List<Area> GetAreasParaLugaresDeTrabajo()
     {
-        return new RepositorioDeAreas(Conexion()).GetAreasParaLugaresDeTrabajo();
+        return RepositorioDeAreas().GetAreasParaLugaresDeTrabajo();
     }
 
     [WebMethod]
