@@ -6,7 +6,6 @@ namespace General.Repositorios
     {
         SaldoLicencia CargarSaldoLicenciaGeneralDe(General.ConceptoDeLicencia concepto, General.Persona unaPersona);
         SaldoLicencia CargarSaldoLicenciaOrdinariaDe(General.ConceptoDeLicencia concepto, General.ProrrogaLicenciaOrdinaria prorroga, General.Persona unaPersona);
-        IConexionBD conexion_bd { get; set; }
         bool GetLicenciasQueSePisanCon(General.Licencia unaLicencia);
         bool GetSolicitudesQueSePisanCon(General.Licencia unaLicencia);
         string Guardar(General.Licencia unaLicencia);

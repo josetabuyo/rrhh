@@ -9,6 +9,7 @@
     <title>SICOI</title>
     <link rel="stylesheet" href="../Estilos/EstilosSICOI.css" type="text/css"/>
     <%= Referencias.Css("../")%>
+    <%= Referencias.Javascript("../")%>
     <style type="text/css">
         #uiPanelDecontrol
         {
@@ -18,7 +19,7 @@
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
-        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+        <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.Co.I</span> <br/> <span style='font-size:12px;'> Módulo de Comunicación  <br/> Interna</span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
         <div id="uiPanelDecontrol">
             <div id="lblEstado" class="label label-important"></div>
             <input type="button" id="btnIniciarServicioDeAlertas" class="alertas_boton_start" value="Iniciar" />
@@ -28,7 +29,7 @@
         </asp:ScriptManager>
     </form>
 </body>
-    <%= Referencias.Javascript("../")%>
+
     <script type="text/javascript" src="PanelDeControlDeAlertas.js"> </script>
     <script type="text/javascript">
         $(document).ready(function () {

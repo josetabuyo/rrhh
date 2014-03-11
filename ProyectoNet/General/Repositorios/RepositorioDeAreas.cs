@@ -8,27 +8,32 @@ using General.Repositorios;
 using System.Linq;
 namespace General.Repositorios
 {
-    public class RepositorioDeAreas
+    public class RepositorioDeAreas : RepositorioLazySingleton<Area>
     {
+        private static RepositorioDeAreas _instancia;
 
-        public IConexionBD conexion_bd { get; set; }
-
-        public RepositorioDeAreas(IConexionBD conexion)
+        private RepositorioDeAreas(IConexionBD conexion)
+            : base(conexion, 10)
         {
-            this.conexion_bd = conexion;
+        }
+
+        public static RepositorioDeAreas NuevoRepositorioDeAreas(IConexionBD conexion)
+        {
+            if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeAreas(conexion);
+            return _instancia;
         }
 
         public void ReloadArea(Area unArea)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_Area", unArea.Id);
-            var tablaDatos = conexion_bd.Ejecutar("dbo.Web_GetArea", parametros);            
+            var tablaDatos = conexion.Ejecutar("dbo.Web_GetArea", parametros);            
             var primeraFila = tablaDatos.Rows[0];
             unArea.Id = primeraFila.GetInt("id_area");
             unArea.Nombre = primeraFila.GetString("descripcion");
             unArea.Direccion = primeraFila.GetString("direccion_area");
 
-            tablaDatos = conexion_bd.Ejecutar("dbo.Web_GetContactoArea", parametros);      
+            tablaDatos = conexion.Ejecutar("dbo.Web_GetContactoArea", parametros);      
             var contacArea = new List<ContactoArea>();
             tablaDatos.Rows.ForEach(row =>
             {
@@ -40,7 +45,7 @@ namespace General.Repositorios
 
         public Alias ObtenerAliasDeAreaByIdDeArea(Area area)
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.Via_GetAliasByIdDeArea");
+            var tablaDatos = conexion.Ejecutar("dbo.Via_GetAliasByIdDeArea");
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_Area", area.Id);
@@ -58,7 +63,7 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@FechaVigencia", DateTime.Today);
-            var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_Get_AreasParaProtocolo", parametros);
+            var tablaDatos = conexion.Ejecutar("dbo.VIA_Get_AreasParaProtocolo", parametros);
             List<Area> areas_completas = GetTodasLasAreasCompletas();
             List<Area> areas = new List<Area>();
 
@@ -84,10 +89,51 @@ namespace General.Repositorios
             return areas;
          }
 
+         public List<Area> BuscarAreas(string criterio)
+         {
+             var palabras_busqueda = criterio.Split(' ').Select(p => p.ToUpper().Trim());
+             return GetTodasLasAreasCompletas().FindAll(area =>
+                 palabras_busqueda.All(palabra => area.Nombre.ToUpper().Contains(palabra.ToUpper())));
+         }
+
+         public List<Area> GetAreasParaLugaresDeTrabajo()
+         {
+             var parametros = new Dictionary<string, object>();
+             parametros.Add("@FechaVigencia", DateTime.Today);
+             var tablaDatos = this.conexion.Ejecutar("dbo.VIA_Get_AreasParaLugaresDeTrabajo", parametros);
+             List<Area> areas_completas = GetTodasLasAreasCompletas();
+             List<Area> areas = new List<Area>();
+
+             if (tablaDatos.Rows.Count > 0)
+             {
+                 tablaDatos.Rows.ForEach(row =>
+                 {
+                     var id_area = row.GetSmallintAsInt("Id_area");
+                     var area_completa = areas_completas.Find(ar => ar.Id == id_area);
+
+                     areas.Add(new Area
+                     {
+                         Id = id_area,
+                         Nombre = row.GetString("Descripcion"),
+                         Direccion = area_completa.Direccion,
+                         DatosDeContacto = area_completa.DatosDeContacto,
+                         datos_del_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", ""),
+                         Asistentes = area_completa.Asistentes
+                     });
+                 });
+             }
+
+             return areas;
+         }
+
 
         public List<Area> GetTodasLasAreasCompletas()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_GetAreasCompletas");
+            return this.Obtener(); 
+        }
+
+        public static List<Area> GetAreasDeTablaDeDatos(TablaDeDatos tablaDatos)
+        {
             List<Area> areas = new List<Area>();
 
             if (tablaDatos.Rows.Count > 0)
@@ -160,10 +206,14 @@ namespace General.Repositorios
             {
                 area.DatosDeContacto.Sort((dato1, dato2) => dato1.esMayorQue(dato2));
             }
-
             return areas;
         }
 
+        public Area GetAreaPorId(int id_area)
+        {
+            return this.GetTodasLasAreasCompletas().Find(a => a.Id == id_area);
+        }
+        
         private FiltroDeAreas DeterminarFiltro(int idCombo, string dato_ingresado_en_filtro)
         {
             switch (idCombo )
@@ -173,6 +223,23 @@ namespace General.Repositorios
                 default:
                     return null;
             }
+        }
+
+        protected override List<Area> ObtenerDesdeLaBase()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.VIA_GetAreasCompletas");
+            List<Area> areas = GetAreasDeTablaDeDatos(tablaDatos);
+            return areas;
+        }
+
+        protected override void GuardarEnLaBase(Area objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void QuitarDeLaBase(Area objeto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

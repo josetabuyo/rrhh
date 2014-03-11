@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.MAU;
 
 namespace General.Repositorios
 {
     public class RepositorioDeDocentes : RepositorioLazy<List<Docente>>, General.Repositorios.IRepositorioDeDocentes
     {
-        protected IConexionBD conexion_bd { get; set; }
         protected static List<Docente> docentes { get; set; }
         protected IRepositorioDeCursos repo_cursos;
 
 
         public RepositorioDeDocentes(IConexionBD conexion, IRepositorioDeCursos repo_cursos)
+            :base(conexion)
         {
-            this.conexion_bd = conexion;
             this.repo_cursos = repo_cursos;
             this.cache = new CacheNoCargada<List<Docente>>();
         }
@@ -41,7 +41,7 @@ namespace General.Repositorios
 
         public List<Docente> ObtenerDocentesDesdeLaBase()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Docentes");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_Docentes");
             docentes = new List<Docente>();
 
             tablaDatos.Rows.ForEach(row =>
@@ -72,12 +72,12 @@ namespace General.Repositorios
 
             try
             {
-                conexion_bd.EjecutarSinResultado("SACC_Ins_Docente", parametros);
+                conexion.EjecutarSinResultado("SACC_Ins_Docente", parametros);
             }
             catch (Exception)
             {
 
-                conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Docente", parametros);
+                conexion.EjecutarSinResultado("SACC_Upd_Del_Docente", parametros);
                 BorrarBaja(un_docente);
             }        
             
@@ -90,7 +90,7 @@ namespace General.Repositorios
 
             parametros.Add("@IdBaja", docente.Baja);
 
-            conexion_bd.EjecutarSinResultado("SACC_Del_Baja", parametros);
+            conexion.EjecutarSinResultado("SACC_Del_Baja", parametros);
         }
 
         public void QuitarDocente(Docente un_docente, Usuario usuario)
@@ -99,7 +99,7 @@ namespace General.Repositorios
 
                 var parametros = Parametros(un_docente, usuario, idBaja);
 
-                conexion_bd.EjecutarSinResultado("SACC_Upd_Del_Docente", parametros);        
+                conexion.EjecutarSinResultado("SACC_Upd_Del_Docente", parametros);        
         }
 
         public bool DocenteAsignadoACurso(Docente un_docente)
@@ -116,7 +116,7 @@ namespace General.Repositorios
             parametros.Add("@IdUsuario", usuario.Id);
             parametros.Add("@Fecha", "");
 
-            int id = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
+            int id = int.Parse(conexion.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
 
             return id;
         }

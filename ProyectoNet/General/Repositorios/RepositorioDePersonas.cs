@@ -11,26 +11,31 @@ using Extensiones;
 
 namespace General.Repositorios
 {
-    public class RepositorioDePersonas : RepositorioLazy<List<Persona>>, IRepositorioDePersonas
+    public class RepositorioDePersonas : RepositorioLazySingleton<Persona>, IRepositorioDePersonas
     {
-        public IConexionBD conexion_bd { get; set; }
+        private static RepositorioDePersonas _instancia;
 
-        public RepositorioDePersonas(IConexionBD conexion)
+        private RepositorioDePersonas(IConexionBD conexion)
+            :base(conexion, 1)
         {
-            this.conexion_bd = conexion;
-            this.cache = new CacheNoCargada<List<Persona>>();
         }
 
-        public List<Persona> GetPersonas()
+        public static RepositorioDePersonas NuevoRepositorioDePersonas(IConexionBD conexion)
         {
-            return cache.Ejecutar(ObtenerPersonasDesdeLaBase, this);
+            if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDePersonas(conexion);
+            return _instancia;
+        }
+
+        public List<Persona> TodasLasPersonas()
+        {
+            return this.Obtener();
         }
 
         public List<Persona> BuscarPersonas(string criterio)
         {
             var palabras_busqueda = criterio.Split(' ').Select(p => p.ToUpper().Trim());
 
-            return GetPersonas().FindAll(persona => 
+            return TodasLasPersonas().FindAll(persona => 
                 palabras_busqueda.All(palabra =>
                         persona.Apellido.ToUpper().QuitarTildes().Contains(palabra.QuitarTildes()) ||
                         persona.Nombre.ToUpper().QuitarTildes().Contains(palabra.QuitarTildes()) ||
@@ -46,9 +51,16 @@ namespace General.Repositorios
             return this.BuscarPersonas(criterio).FindAll(p => p.Legajo.Trim() != "");
         }
 
-        public List<Persona> ObtenerPersonasDesdeLaBase()
+        public Persona GetPersonaPorId(int id_persona)
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.WEB_Get_Personas");
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_persona", id_persona);
+            var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Personas", parametros);
+            return GetPersonasDeTablaDeDatos(tablaDatos).First();
+        }
+
+        private static List<Persona> GetPersonasDeTablaDeDatos(TablaDeDatos tablaDatos)
+        {
             var personas = new List<Persona>();
             if (tablaDatos.Rows.Count > 0)
             {
@@ -72,6 +84,23 @@ namespace General.Repositorios
 
             return personas;
         }
+
+        protected override List<Persona> ObtenerDesdeLaBase()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Personas");
+            return GetPersonasDeTablaDeDatos(tablaDatos);
+        }
+
+        protected override void GuardarEnLaBase(Persona objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void QuitarDeLaBase(Persona objeto)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public TipoDePlanta GetTipoDePlantaActualDe(Persona unaPersona)
         {

@@ -7,7 +7,7 @@ ServicioDeDigitalizacionDeLegajos.prototype.buscarLegajosParaDigitalizacion = fu
     diccionario['OK'] = on_legajo_encontrado;
     diccionario['LEGAJO_NO_ENCONTRADO'] = on_legajo_no_encontrado;
 
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/BuscarLegajosParaDigitalizacion",
+    this.proveedor_ajax.postearAUrl({ url: "BuscarLegajosParaDigitalizacion",
         data: { criterio: criterio },
         success: function (respuestaAPedidoDeLegajo) {
             diccionario[respuestaAPedidoDeLegajo.codigoDeResultado](respuestaAPedidoDeLegajo);
@@ -19,7 +19,7 @@ ServicioDeDigitalizacionDeLegajos.prototype.buscarLegajosParaDigitalizacion = fu
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.asignarCategoriaADocumento = function (id_categoria, tabla, id_documento) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/AsignarCategoriaADocumento",
+    this.proveedor_ajax.postearAUrl({ url: "AsignarCategoriaADocumento",
         data: {
             id_categoria: id_categoria,
             tabla: tabla,
@@ -33,7 +33,7 @@ ServicioDeDigitalizacionDeLegajos.prototype.asignarCategoriaADocumento = functio
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.getThumbnailPorId = function (id_imagen, alto, ancho, on_imagen_encontrada) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetThumbnailPorId",
+    this.proveedor_ajax.postearAUrl({ url: "GetThumbnailPorId",
         data: {
             id_imagen: id_imagen,
             alto: alto,
@@ -48,7 +48,7 @@ ServicioDeDigitalizacionDeLegajos.prototype.getThumbnailPorId = function (id_ima
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.getImagenPorId = function (id_imagen, on_imagen_encontrada) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/GetImagenPorId",
+    this.proveedor_ajax.postearAUrl({ url: "GetImagenPorId",
         data: {
             id_imagen: id_imagen
         },
@@ -61,7 +61,7 @@ ServicioDeDigitalizacionDeLegajos.prototype.getImagenPorId = function (id_imagen
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajo = function (id_imagen, nro_folio, onSuccess) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/AsignarImagenAFolioDeLegajo",
+    this.proveedor_ajax.postearAUrl({ url: "AsignarImagenAFolioDeLegajo",
         data: {
             id_imagen: id_imagen,
             nro_folio: nro_folio
@@ -75,7 +75,7 @@ ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajo = functi
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.desAsignarImagen = function (id_imagen, onSuccess) {
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/DesAsignarImagen",
+    this.proveedor_ajax.postearAUrl({ url: "DesAsignarImagen",
         data: {
             id_imagen: id_imagen
         },

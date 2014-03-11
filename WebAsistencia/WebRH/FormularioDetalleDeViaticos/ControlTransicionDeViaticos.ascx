@@ -56,7 +56,7 @@
     <asp:HiddenField ID="AreaSeleccionada" runat="server" />
     <asp:HiddenField ID="ListaAreas" runat="server" />
     
-    <script type="text/javascript" src="../bootstrap/js/jquery.js">    
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js">    
     </script>
     <script type="text/javascript">
         $('#SelectorDeAreas').attr('data-source', $('#<%= ListaAreas.ClientID %>').val());

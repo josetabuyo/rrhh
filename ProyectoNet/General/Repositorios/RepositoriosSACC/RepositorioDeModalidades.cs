@@ -8,16 +8,11 @@ namespace General.Repositorios
 {
     public class RepositorioDeModalidades : RepositorioLazy<List<Modalidad>>, General.Repositorios.IRepositorioDeModalidades
     {
-
-        public IConexionBD conexion_bd { get; set; }
         List<Modalidad> modalidades = new List<Modalidad>();
 
-       
-
         public RepositorioDeModalidades(IConexionBD conexion)
+            :base(conexion)
         {
-            this.conexion_bd = conexion;
-            this.cache = new CacheNoCargada<List<Modalidad>>();
         }
 
         public List<Modalidad> GetModalidades()
@@ -27,7 +22,7 @@ namespace General.Repositorios
 
         public List<Modalidad> ObtenerModalidadesDesdeLaBase()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_GetModalidades");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_GetModalidades");
 
             var campos_del_corte = new List<string>() { "IdModalidad", "idInstancia" };
 

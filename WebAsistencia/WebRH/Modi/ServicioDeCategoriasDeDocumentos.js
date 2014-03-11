@@ -4,7 +4,7 @@
 
 ServicioDeCategoriasDeDocumentos.prototype.categoriasDocumentosSICOI = function (on_categorias_encontradas) {
     var _this = this;
-    this.proveedor_ajax.postearAUrl({ url: "../AjaxWS.asmx/CategoriasDocumentosSICOI",
+    this.proveedor_ajax.postearAUrl({ url: "CategoriasDocumentosSICOI",
         data: {
     },
     success: function (categorias) {

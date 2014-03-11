@@ -14,7 +14,9 @@ using System.Net;
 using System.Net.Mail;
 using System.Xml.Serialization;
 using AdministracionDeUsuarios;
-
+using General.Sacc;
+using General.Sacc.Seguridad;
+using General.MAU;
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -132,7 +134,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Area RecargarArea(Area unArea)
     {
-        var repositorio = new RepositorioDeAreas(Conexion());
+        var repositorio = RepositorioDeAreas();
         repositorio.ReloadArea(unArea);
         return unArea;
     }
@@ -225,42 +227,6 @@ public class WSViaticos : System.Web.Services.WebService
     #endregion
 
     #region viaticos
-
-    [WebMethod]
-    public Usuario Login(string NombreUsuario, string Password)
-    {
-        Usuario usuario = new Usuario();
-        usuario.NombreDeUsuario = NombreUsuario;
-
-        RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
-        if (repoUsuarios.LoginUsuario(usuario, Password))
-        {
-            return usuario;
-        }
-        return null;
-
-    }
-
-    [WebMethod]
-    public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
-    {
-
-        RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
-
-        if ( repoUsuarios.CambiarPassword(usuario, PasswordActual, PasswordNuevo))
-	    {
-            return JsonConvert.SerializeObject(new
-                {
-                tipoDeRespuesta = "cambioPassword.ok"              
-                });
-	    } else {
-            return JsonConvert.SerializeObject(new
-                {
-                    tipoDeRespuesta = "cambioPassword.error"
-                    //error = e.Message
-                });
-        }
-    }
 
     [WebMethod]
     public void AltaDeComisionesDeServicio(ComisionDeServicio unaComision)
@@ -370,7 +336,7 @@ public class WSViaticos : System.Web.Services.WebService
         //Se puede mejorar
         var lista_de_todos_los_viaticos = repositorio.ObtenerTodosLosViaticos();
         var lista_viaticos_usuario = new List<ComisionDeServicio>();
-        usuario.Areas.ForEach(a => lista_viaticos_usuario.AddRange(lista_de_todos_los_viaticos.FindAll(v => v.TransicionesRealizadas.Select(t => t.AreaOrigen.Id).Contains(a.Id) ||
+        Autorizador().AreasAdministradasPor(usuario).ForEach(a => lista_viaticos_usuario.AddRange(lista_de_todos_los_viaticos.FindAll(v => v.TransicionesRealizadas.Select(t => t.AreaOrigen.Id).Contains(a.Id) ||
                                                                                                             v.TransicionesRealizadas.Select(t => t.AreaDestino.Id).Contains(a.Id))));
 
         return lista_viaticos_usuario.Distinct().ToArray();
@@ -590,7 +556,7 @@ public class WSViaticos : System.Web.Services.WebService
             if (id_area_destino != -1)
             {
                 area_destino = repo_organigrama.GetAreaById(id_area_destino);
-                mensajeria.SeEnviaAFuturo(un_documento, usuario.Areas[0], area_destino);
+                mensajeria.SeEnviaAFuturo(un_documento, Autorizador().AreasAdministradasPor(usuario)[0], area_destino);
             }
             else
             {
@@ -630,7 +596,7 @@ public class WSViaticos : System.Web.Services.WebService
         var un_documento = repo_documentos.GetDocumentoPorId(id_documento);
         var area_destino = repo_organigrama.GetAreaById(id_area_destino);
 
-        mensajeria.SeEnviaAFuturo(un_documento, usuario.Areas[0], area_destino);
+        mensajeria.SeEnviaAFuturo(un_documento, Autorizador().AreasAdministradasPor(usuario)[0], area_destino);
 
         repo_transiciones.GuardarTransicionesDe(mensajeria);
         return un_documento;
@@ -641,7 +607,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
 
         List<Area> areas = new List<Area>();
-        var repositorio = new RepositorioDeAreas(Conexion());
+        var repositorio = RepositorioDeAreas();
 
         return areas = repositorio.GetTodasLasAreasCompletas();
     }
@@ -936,7 +902,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         var asistencias = RepoAsistencias().GetAsistencias();
         var alumnos = curso.Alumnos();
-        alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, alumnos, organigrama);
+        alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, alumnos, organigrama, new AutorizadorSacc(Autorizador()));
 
         foreach (var a in alumnos)
         {
@@ -1041,7 +1007,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var alumnos = RepoAlumnos().GetAlumnos();
         Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        Autorizador autorizador = new Autorizador();
+        var autorizador = new AutorizadorSacc(Autorizador());
         alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
 
         var alumnos_dto = new List<Object>();
@@ -1376,7 +1342,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var cursos = new RepositorioDeCursos(Conexion()).GetCursos();
         var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        var autorizador = new Autorizador();
+        var autorizador = new AutorizadorSacc(Autorizador());
 
         cursos = autorizador.FiltrarCursosPorUsuario(cursos, organigrama, usuario);
 
@@ -1392,7 +1358,7 @@ public class WSViaticos : System.Web.Services.WebService
                 un_curso.Nombre = curso.Nombre;
                 un_curso.Materia = curso.Materia;
                 un_curso.Docente = curso.Docente;
-                un_curso.Alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos(), organigrama);
+                un_curso.Alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos(), organigrama, autorizador);
                 un_curso.EspacioFisico = curso.EspacioFisico;
                 un_curso.FechaInicio = curso.FechaInicio.ToShortDateString();
                 un_curso.FechaFin = curso.FechaFin.ToShortDateString();
@@ -1535,7 +1501,7 @@ public class WSViaticos : System.Web.Services.WebService
         }
         var alumnos_reporte = reportes.ObtenerAlumnosDeLosCursos(fecha_desde_formateada, fecha_hasta_formateada, RepositorioDeCursos());
 
-        alumnos_reporte = FiltrarAlumnosPorUsuarioLogueado(usuario, alumnos_reporte, organigrama);
+        alumnos_reporte = FiltrarAlumnosPorUsuarioLogueado(usuario, alumnos_reporte, organigrama, new AutorizadorSacc(Autorizador()));
 
         foreach (Alumno alumno in alumnos_reporte)
         {
@@ -1555,10 +1521,8 @@ public class WSViaticos : System.Web.Services.WebService
         return alumnos_dto;
     }
 
-    private List<Alumno> FiltrarAlumnosPorUsuarioLogueado(Usuario usuario, List<Alumno> alumnos, Organigrama organigrama)
+    private List<Alumno> FiltrarAlumnosPorUsuarioLogueado(Usuario usuario, List<Alumno> alumnos, Organigrama organigrama, AutorizadorSacc autorizador)
     {
-        var autorizador = new Autorizador();
-
         alumnos = autorizador.FiltrarAlumnosPorUsuario(alumnos, organigrama, usuario);
         return alumnos;
     }
@@ -1645,7 +1609,7 @@ public class WSViaticos : System.Web.Services.WebService
         Alumno persona = repo.GetAlumnoByDNI(dni);
 
         Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        Autorizador autorizador = new Autorizador();
+        var autorizador = new AutorizadorSacc(Autorizador());
         var persona_dto = new Object();
 
         if (!autorizador.AlumnoVisibleParaUsuario(persona, organigrama, usuario))
@@ -1718,7 +1682,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         var espacios_fisicos = new RepositorioDeEspaciosFisicos(Conexion(), RepositorioDeCursos()).GetEspaciosFisicos();
         var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        var autorizador = new Autorizador();
+        var autorizador = new AutorizadorSacc(Autorizador());
 
         espacios_fisicos = autorizador.FiltrarEspaciosFisicosPorUsuario(espacios_fisicos, organigrama, usuario);
 
@@ -1744,16 +1708,22 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public List<Area> GetAreasParaProtocolo()
     {
-        return new RepositorioDeAreas(Conexion()).GetAreasParaProtocolo();
+        return RepositorioDeAreas().GetAreasParaProtocolo();
+    }
+
+    [WebMethod]
+    public List<Area> GetAreasParaLugaresDeTrabajo()
+    {
+        return RepositorioDeAreas().GetAreasParaLugaresDeTrabajo();
     }
 
     [WebMethod]
     public string GetAreasParaProtocoloJSON(Usuario usuario)
     {
 
-        List<Area> areas = new RepositorioDeAreas(Conexion()).GetAreasParaProtocolo();
+        List<Area> areas = RepositorioDeAreas().GetAreasParaProtocolo();
         //var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        //var autorizador = new Autorizador();
+        //var autorizador = Autorizador();
 
         //areas = autorizador.FiltrarEspaciosFisicosPorUsuario(areas, organigrama, usuario);
 
@@ -1814,26 +1784,19 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public ItemDeMenu[] ItemsDelMenu(Usuario usuario, string menu)
     {
-        List<ItemDeMenu> items_permitidos_dto = new List<ItemDeMenu>();
-        var repo_usuarios = new RepositorioUsuarios(Conexion());
-        var items_permitidos = from i in repo_usuarios.AutorizadorPara(usuario).ItemsPermitidos(menu)
-                               orderby i.Orden
-                               select i;
+        //List<ItemDeMenu> items_permitidos_dto = new List<ItemDeMenu>();
+        //var repo_usuarios = new RepositorioUsuarios(Conexion());
+        //var items_permitidos = from i in repo_usuarios.AutorizadorPara(usuario).ItemsPermitidos(menu)
+        //                       orderby i.Orden
+        //                       select i;
 
-        foreach (var item in items_permitidos)
-        {
-            items_permitidos_dto.Add(
-                new ItemDeMenu() {
-                    Id=item.Id, 
-                    NombreItem = item.NombreItem, 
-                    Url = item.Url, 
-                    Menu = item.Menu, 
-                    Orden = item.Orden, 
-                    Padre = item.Padre, 
-                    Posicion = item.Posicion });
-        }
+        //foreach (var item in items_permitidos)
+        //{
+        //    items_permitidos_dto.Add(new ItemDeMenu() { NombreItem = item.NombreItem, Url = item.Url });
+        //}
 
-        return items_permitidos_dto.ToArray();
+        //return items_permitidos_dto.ToArray();
+        return new List<ItemDeMenu>().ToArray();
     }
 
     #endregion
@@ -1885,85 +1848,94 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region mau
 
-    public static AutorizadorFuncionalidades autorizador_mock;
-    protected AutorizadorFuncionalidades Autorizador()
+
+    [WebMethod]
+    public bool Login(string alias, string clave)
     {
-        if(autorizador_mock == null) {
-            var funcionalidades = GetFuncionalidades();
-            var dict_permisos = new Dictionary<string, List<AdministracionDeUsuarios.Permiso>>();
+        return Autorizador().Login(alias, clave);
+    }
 
-            var permisos_veronica = new List<AdministracionDeUsuarios.Permiso>();
-            dict_permisos.Add("veronica", permisos_veronica);
+    [WebMethod]
+    public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
+    {
+        var repoUsuarios = RepositorioDeUsuarios();
 
-            var permisos_juana = new List<AdministracionDeUsuarios.Permiso>() { 
-                new AdministracionDeUsuarios.Permiso(AdministracionDeUsuarios.Permiso.CONCEDIDO, funcionalidades.First().sub_funcionalidades[2], new List<AdministracionDeUsuarios.Permiso>()),
-            };
-            dict_permisos.Add("Juana Adela", permisos_juana);
-
-            var permisos_ernesto = new List<AdministracionDeUsuarios.Permiso>();
-            dict_permisos.Add("ernesto", permisos_ernesto);
-
-            var permisos_felipe = new List<AdministracionDeUsuarios.Permiso>();
-            dict_permisos.Add("felipe", permisos_felipe);
-
-            autorizador_mock = new AdministracionDeUsuarios.AutorizadorFuncionalidades(dict_permisos);
+        if (repoUsuarios.CambiarPassword(usuario.Id, PasswordActual, PasswordNuevo))
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "cambioPassword.ok"
+            });
         }
-        return autorizador_mock;
+        else
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "cambioPassword.error"
+                //error = e.Message
+            });
+        }
     }
 
     [WebMethod]
-    public List<AdministracionDeUsuarios.Permiso> GetPermisosPara(string usuario)
+    public string ResetearPassword(int id_usuario)
     {
-        return Autorizador().FuncionalidadDelUsuario(usuario);
+        var repoUsuarios = RepositorioDeUsuarios();
+        return repoUsuarios.ResetearPassword(id_usuario);
     }
 
     [WebMethod]
-    public void ConcederPermisoA(string usuario, string funcionalidad)
+    public Usuario GetUsuarioPorAlias(string alias)
     {
-        Autorizador().ConcederPermisoA(usuario, new Funcionalidad(funcionalidad));
+        return RepositorioDeUsuarios().GetUsuarioPorAlias(alias);
     }
 
     [WebMethod]
-    public void DenegarPermisoA(string usuario, string funcionalidad)
+    public Usuario GetUsuarioPorIdPersona(int id_persona)
     {
-        Autorizador().DenegarPermisoA(usuario, new Funcionalidad(funcionalidad));
+        return RepositorioDeUsuarios().GetUsuarioPorIdPersona(id_persona);
     }
 
     [WebMethod]
-    public List<Funcionalidad> GetFuncionalidades()
+    public Usuario CrearUsuarioPara(int id_persona)
     {
+        return RepositorioDeUsuarios().CrearUsuarioPara(id_persona);
+    }
 
-        /*
-        [ ] sys
-            /[ ] web
-            /[ ] rrhh
-                /[ ] contratos
-                /[ ] legajos
-            /[ ] licencias
-                /[ ] carga
-                /[ ] modificacion
-                /[ ] consulta
-        */
-        var sys = new Funcionalidad("sys");
-        var web = new Funcionalidad("web");
-        var rrhh = new Funcionalidad("rrhh");
-        var contratos = new Funcionalidad("contratos");
-        var legajos = new Funcionalidad("legajos");
-        var licencias = new Funcionalidad("licencias");
-        var carga = new Funcionalidad("carga");
-        var modificacion = new Funcionalidad("modificacion");
-        var consulta = new Funcionalidad("consulta");
+    [WebMethod]
+    public UsuarioNulo GetUsuarioNulo()
+    {
+        return new UsuarioNulo();
+    }
 
-        sys.AgregarFuncionalidad(web);
-        sys.AgregarFuncionalidad(rrhh);
-            rrhh.AgregarFuncionalidad(contratos);
-            rrhh.AgregarFuncionalidad(legajos);
-        sys.AgregarFuncionalidad(licencias);
-            licencias.AgregarFuncionalidad(carga);
-            licencias.AgregarFuncionalidad(modificacion);
-            licencias.AgregarFuncionalidad(consulta);
+    [WebMethod]
+    public bool ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
+    {
+        return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
+    }
 
-        return new List<Funcionalidad> { sys };
+    [WebMethod]
+    public Funcionalidad[] TodasLasFuncionalidades()
+    {
+        var funcionalidades = RepositorioDeFuncionalidades().TodasLasFuncionalidades().ToArray();
+        return funcionalidades;
+    }
+
+
+    [WebMethod]
+    public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
+    {
+        return Autorizador().ElUsuarioTienePermisosPara(id_usuario, id_funcionalidad);
+        
+    }
+
+    
+
+    [WebMethod]
+    public Funcionalidad[] FuncionalidadesPara(int id_usuario)
+    {
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(id_usuario).ToArray();
+        return funcionalidades;
     }
 
     [WebMethod]
@@ -1974,10 +1946,65 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Area[] BuscarAreas(string criterio)
+    {
+        var areas = RepositorioDeAreas().BuscarAreas(criterio).ToArray();
+        return areas;
+    }
+
+    [WebMethod]
     public Persona[] BuscarPersonasConLegajo(string criterio)
     {
         var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
         return personas;
+    }
+
+    [WebMethod]
+    public Area[] AreasAdministradasPor(Usuario usuario)
+    {
+        return Autorizador().AreasAdministradasPor(usuario).ToArray();
+    }
+
+    [WebMethod]
+    public Area[] AreasAdministradasPorIdUsuario(int id_usuario)
+    {
+        return Autorizador().AreasAdministradasPor(id_usuario).ToArray();
+    }
+
+    [WebMethod]
+    public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
+    {
+        Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area);
+    }
+
+    [WebMethod]
+    public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
+    {
+        Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area);
+    }
+
+   // [WebMethod]
+    //public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
+    //{
+    //    return Autorizador().ElUsuarioTienePermisosPara(usuario, nombre_funcionalidad);
+    //}
+
+    [WebMethod]
+    public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+    {
+        Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+    }
+
+    [WebMethod]
+    public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+    {
+        Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+    }
+
+    [WebMethod]
+    public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
+    {
+        return Autorizador().GetMenuPara(nombre_menu, usuario);
     }
 
     #endregion
@@ -2190,7 +2217,7 @@ public class WSViaticos : System.Web.Services.WebService
             }); 
         });
 
-        var alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos(), organigrama).ToArray(); 
+        var alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos(), organigrama, new AutorizadorSacc(Autorizador())).ToArray(); 
         var Instancias = curso.Materia.Modalidad.InstanciasDeEvaluacion;
         if (id_instancia > 0)
         {
@@ -2347,7 +2374,42 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDePersonas RepositorioDePersonas()
     {
-        return new RepositorioDePersonas(Conexion());
+        return General.Repositorios.RepositorioDePersonas.NuevoRepositorioDePersonas(Conexion());
+    }
+
+    private RepositorioDeAreas RepositorioDeAreas()
+    {
+        return General.Repositorios.RepositorioDeAreas.NuevoRepositorioDeAreas(Conexion());
+    }
+
+    private IRepositorioDeUsuarios RepositorioDeUsuarios()
+    {
+        return new RepositorioDeUsuarios(Conexion(), RepositorioDePersonas());
+    }
+
+    private IRepositorioDeFuncionalidades RepositorioDeFuncionalidades()
+    {
+        return General.MAU.RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(Conexion());
+    }
+
+    private IRepositorioDeFuncionalidadesDeUsuarios RepositorioDeFuncionalidadesDeUsuarios()
+    {
+        return General.MAU.RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(Conexion(), RepositorioDeFuncionalidades());
+    }
+
+
+    private Autorizador Autorizador()
+    {
+        var repo_funcionalidades = RepositorioDeFuncionalidades();
+        var repo_funcionalidades_de_usuarios = RepositorioDeFuncionalidadesDeUsuarios();
+        var repo_accesos = RepositorioDeAccesosAURL.NuevoRepositorioDeAccesosAURL(Conexion(), repo_funcionalidades);
+
+        return new Autorizador(repo_funcionalidades_de_usuarios,
+            RepositorioDeMenues.NuevoRepositorioDeMenues(Conexion(), repo_accesos),
+            RepositorioDeUsuarios(),
+            RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(Conexion(), RepositorioDeAreas()),
+            repo_accesos,
+            Conexion());
     }
 
     private RepositorioDeDocentes RepositorioDeDocentes()

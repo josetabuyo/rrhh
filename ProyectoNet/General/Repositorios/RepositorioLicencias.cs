@@ -10,11 +10,10 @@ namespace General.Repositorios
 {
     public class RepositorioLicencias : RepositorioLazy<List<VacacionesPermitidas>>, IRepositorioLicencia
     {
-        public IConexionBD conexion_bd { get; set; }
-
+        
         public RepositorioLicencias(IConexionBD conexion)
-        {
-            this.conexion_bd = conexion;
+            : base(conexion)
+        { 
         }
 
 
@@ -198,7 +197,7 @@ namespace General.Repositorios
             //parametros.Add("@id_concepto_licencia", 1);
             //List<VacacionesPermitidas> vacaciones_permitidas = new List<VacacionesPermitidas>();
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos");
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos");
 
             return ConstruirVacacionesPermitidas(tablaDatos);
 
@@ -236,7 +235,7 @@ namespace General.Repositorios
                 //parametros.Add("@id_concepto_licencia", licencia.Concepto);
 
 
-                var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
+                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesAprobadas(tablaDatos);
 
@@ -252,7 +251,7 @@ namespace General.Repositorios
             parametros.Add("@id_concepto_licencia", concepto.Id);
 
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesAprobadas(tablaDatos);
 
@@ -321,7 +320,7 @@ namespace General.Repositorios
                 parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
 
 
-                var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
+                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
 
             return ConstruirVacacionesPermitidas(tablaDatos);
 
@@ -333,7 +332,7 @@ namespace General.Repositorios
                 parametros.Add("@nro_documento", persona.Documento);
                 parametros.Add("@id_concepto_licencia", concepto.Id);
 
-                var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
+                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
 
             return ConstruirVacacionesPermitidas(tablaDatos);
 
@@ -346,7 +345,7 @@ namespace General.Repositorios
                 parametros.Add("@periodo", periodo.anio);
                 parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
 
-                var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
+                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesPermitidas(tablaDatos);
 
@@ -361,7 +360,7 @@ namespace General.Repositorios
             parametros.Add("@nro_documento", persona.Documento);
 
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
 
             return ConstruirVacacionesPendientes(tablaDatos);
 
@@ -377,7 +376,7 @@ namespace General.Repositorios
             parametros.Add("@id_concepto_licencia", concepto.Id);
 
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
 
             return ConstruirVacacionesPendientes(tablaDatos);
 

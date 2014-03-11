@@ -355,4 +355,8 @@ public partial class Principal : System.Web.UI.Page
     {
         Response.Redirect("~\\FormularioDeViaticosAprobacion\\FControlDeAprobacion.aspx");
     }
+    protected void btn_GestionViaticos_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~\\FormularioDeViaticosAprobacion\\FControlDeAprobacion.aspx");
+    }
 }

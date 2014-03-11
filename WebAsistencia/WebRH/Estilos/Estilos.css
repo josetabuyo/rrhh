@@ -616,3 +616,28 @@ p.error span { display: inline-block; background: #D43636; padding: 6px; border-
 /*---------------------------------------*/
         
 
+.estilo_formulario 
+{
+    /*height:550px;*/
+    /*margin-left: 10px;*/
+    margin-bottom:10px; 
+    padding:10px 10px;   
+    -webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+    -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+    box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    
+    /*ESTO ES PARA VER EL SOMBREADO EN IE*/
+    background:#fff;
+    position: relative;
+	z-index:99;
+    behavior: url(../Estilos/css3_for_ie/PIE.htc);
+}
+        
+.subtitulos 
+{
+    text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);
+}
+    

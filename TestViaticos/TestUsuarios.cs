@@ -2,13 +2,15 @@
 using General.Repositorios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMock2;
+using General.Sacc.Seguridad;
+using General.MAU;
 
 namespace General
 {
     [TestClass]
     public class TestUsuarios
     {
-        Usuario usuario = new Usuario();
+        private Usuario usuario = new Usuario();
 
         public static void ConexionMockeada(string source, Usuario usuario)
         {
@@ -19,10 +21,8 @@ namespace General
 
             RepositorioUsuarios repo = new RepositorioUsuarios(conexion);
 
-            usuario.NombreDeUsuario = "UsuDirGral";
+            usuario.Alias = "UsuDirGral";
             string password = "web1";
-
-            bool acceso_correcto = repo.LoginUsuario(usuario, password);
         }
 
         [TestMethod]
@@ -101,17 +101,18 @@ namespace General
 
             ConexionMockeada(source, usuario);
 
-            Assert.AreEqual(1, usuario.Areas.Count);
-            Assert.AreEqual("Claudia Silvia", usuario.Areas[0].datos_del_responsable.Nombre);
-            Assert.AreEqual("CAL Quilmes", usuario.Areas[0].Nombre);
-            Assert.AreEqual(". 0  Piso  Dto", usuario.Areas[0].Direccion);
-            Assert.IsTrue(usuario.Areas[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.TELEFONO).Dato.Contains("1111-0333"));
-            Assert.IsTrue(usuario.Areas[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.MAIL).Dato.Contains("area333@ministerio.gov.ar"));
-            Assert.AreEqual("Sabrina Vanesa", usuario.Areas[0].Asistentes[0].Nombre);
-            Assert.AreEqual("PIRES", usuario.Areas[0].Asistentes[0].Apellido);
-            Assert.AreEqual("1111-0333", usuario.Areas[0].Asistentes[0].Telefono);
+            var areas_usuario = Autorizador.Instancia().AreasAdministradasPor(usuario);
+            Assert.AreEqual(1, areas_usuario.Count);
+            Assert.AreEqual("Claudia Silvia", areas_usuario[0].datos_del_responsable.Nombre);
+            Assert.AreEqual("CAL Quilmes", areas_usuario[0].Nombre);
+            Assert.AreEqual(". 0  Piso  Dto", areas_usuario[0].Direccion);
+            Assert.IsTrue(areas_usuario[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.TELEFONO).Dato.Contains("1111-0333"));
+            Assert.IsTrue(areas_usuario[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.MAIL).Dato.Contains("area333@ministerio.gov.ar"));
+            Assert.AreEqual("Sabrina Vanesa", areas_usuario[0].Asistentes[0].Nombre);
+            Assert.AreEqual("PIRES", areas_usuario[0].Asistentes[0].Apellido);
+            Assert.AreEqual("1111-0333", areas_usuario[0].Asistentes[0].Telefono);
             // Assert.AreEqual("44444444", usuario.Areas[0].Asistentes[0].Fax);
-            Assert.AreEqual("area333@ministerio.gov.ar", usuario.Areas[0].Asistentes[0].Mail);
+            Assert.AreEqual("area333@ministerio.gov.ar", areas_usuario[0].Asistentes[0].Mail);
 
         }
 
@@ -126,7 +127,7 @@ namespace General
 
             ConexionMockeada(source, usuario);
 
-            Assert.AreEqual(1, usuario.Areas.Count);
+            Assert.AreEqual(1, Autorizador.Instancia().AreasAdministradasPor(usuario).Count);
         }
 
 
@@ -140,8 +141,8 @@ namespace General
 
             ConexionMockeada(source, usuario);
 
-            Assert.AreEqual(1, usuario.Areas.Count);
-            Assert.AreEqual(3, usuario.Areas[0].Asistentes.Count);
+            Assert.AreEqual(1, Autorizador.Instancia().AreasAdministradasPor(usuario).Count);
+            Assert.AreEqual(3, Autorizador.Instancia().AreasAdministradasPor(usuario)[0].Asistentes.Count);
             //Assert.AreEqual("Secretaria: PIRES Sabrina Vanesa |Teléfono: 1111-1111 |Mail: sabrina@secretaria-area333.gov.ar", " ");
 
         }
@@ -160,144 +161,153 @@ namespace General
 
             ConexionMockeada(source, usuario);
 
-            Assert.AreEqual(4, usuario.Areas.Count);
-            Assert.AreEqual("Claudia Silvia", usuario.Areas[0].datos_del_responsable.Nombre);
-            Assert.AreEqual("CAL Quilmes", usuario.Areas[0].Nombre);
-            Assert.AreEqual(". 0  Piso  Dto", usuario.Areas[0].Direccion);
-            Assert.IsTrue(usuario.Areas[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.TELEFONO).Dato.Contains("1111-0333"));
-            Assert.IsTrue(usuario.Areas[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.MAIL).Dato.Contains("area333@ministerio.gov.ar"));
-            Assert.AreEqual("Sabrina Vanesa", usuario.Areas[0].Asistentes[0].Nombre);
-            Assert.AreEqual("PIRES", usuario.Areas[0].Asistentes[0].Apellido);
-            Assert.AreEqual("1111-0333", usuario.Areas[0].Asistentes[0].Telefono);
+            var areas_usuario = Autorizador.Instancia().AreasAdministradasPor(usuario);
+
+            Assert.AreEqual(4, areas_usuario.Count);
+            Assert.AreEqual("Claudia Silvia", areas_usuario[0].datos_del_responsable.Nombre);
+            Assert.AreEqual("CAL Quilmes", areas_usuario[0].Nombre);
+            Assert.AreEqual(". 0  Piso  Dto", areas_usuario[0].Direccion);
+            Assert.IsTrue(areas_usuario[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.TELEFONO).Dato.Contains("1111-0333"));
+            Assert.IsTrue(areas_usuario[0].DatosDeContacto.Find(d => d.Id == ConstantesDeDatosDeContacto.MAIL).Dato.Contains("area333@ministerio.gov.ar"));
+            Assert.AreEqual("Sabrina Vanesa", areas_usuario[0].Asistentes[0].Nombre);
+            Assert.AreEqual("PIRES", areas_usuario[0].Asistentes[0].Apellido);
+            Assert.AreEqual("1111-0333", areas_usuario[0].Asistentes[0].Telefono);
             // Assert.AreEqual("44444444", usuario.Areas[0].Asistentes[0].Fax);
-            Assert.AreEqual("area333-1@ministerio.gov.ar", usuario.Areas[0].Asistentes[0].Mail);
+            Assert.AreEqual("area333-1@ministerio.gov.ar", areas_usuario[0].Asistentes[0].Mail);
 
         }
 
         [TestMethod]
         public void un_usuario_no_CENARD_debe_acceder_a_Materias()
         {
-            var items_de_menu = new List<ItemDeMenu>();
-            items_de_menu.Add(new ItemDeMenu(){ NombreItem = "Materias", Url ="Materias.aspx"});
-            var menu_esperado_sacc_no_cenard = new List<MenuDelSistema>() { new MenuDelSistema("MenuSaccNoCenard", items_de_menu) };
+            //var items_de_menu = new List<ItemDeMenu>();
+            //items_de_menu.Add(new ItemDeMenu(){ NombreItem = "Materias", Url ="Materias.aspx"});
+            //var menu_esperado_sacc_no_cenard = new List<MenuDelSistema>() { new MenuDelSistema("MenuSaccNoCenard", items_de_menu) };
 
-            var autorizador = new Autorizador(menu_esperado_sacc_no_cenard);
-            Assert.AreEqual(autorizador.ItemsPermitidos("MenuSaccNoCenard").Count, 1);
-            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSaccNoCenard").Find(i => i.NombreItem == "Materias").Url);
+            //var autorizador = new AutorizadorSacc(menu_esperado_sacc_no_cenard);
+            //Assert.AreEqual(autorizador.ItemsPermitidos("MenuSaccNoCenard").Count, 1);
+            //Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSaccNoCenard").Find(i => i.NombreItem == "Materias").Url);
+            Assert.Fail();
         }
 
         [TestMethod]
         public void un_usuario_CENARD_no_debe_acceder_a_Materias()
         {
-            var items_de_menu = new List<ItemDeMenu>();
-            items_de_menu.Add(new ItemDeMenu() { NombreItem = "Cursos", Url = "ABMCursos.aspx" });
-            var menu_esperado_sacc_cenard = new List<MenuDelSistema>() { new MenuDelSistema("MenuSaccCenard", items_de_menu) };
-            var autorizador = new Autorizador(menu_esperado_sacc_cenard);
+            //var items_de_menu = new List<ItemDeMenu>();
+            //items_de_menu.Add(new ItemDeMenu() { NombreItem = "Cursos", Url = "ABMCursos.aspx" });
+            //var menu_esperado_sacc_cenard = new List<MenuDelSistema>() { new MenuDelSistema("MenuSaccCenard", items_de_menu) };
+            //var autorizador = new AutorizadorSacc(menu_esperado_sacc_cenard);
 
-            Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSaccCenard").Count);
-            Assert.IsFalse(autorizador.ItemsPermitidos("MenuSaccCenard").Exists(i => i.NombreItem == "Materias"));
+            //Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSaccCenard").Count);
+            //Assert.IsFalse(autorizador.ItemsPermitidos("MenuSaccCenard").Exists(i => i.NombreItem == "Materias"));
+            Assert.Fail();
         }
 
         [TestMethod]
         public void un_usuario_SACC_no_debe_acceder_al_menu_Sicoi()
         {
-            var items_de_menu = new List<ItemDeMenu>();
-            items_de_menu.Add(new ItemDeMenu() { NombreItem = "Materias", Url = "Materias.aspx" });
-            var menu_esperado_sacc = new List<MenuDelSistema>() { new MenuDelSistema("MenuSACC", items_de_menu) };
-            var autorizador = new Autorizador(menu_esperado_sacc);
+            //var items_de_menu = new List<ItemDeMenu>();
+            //items_de_menu.Add(new ItemDeMenu() { NombreItem = "Materias", Url = "Materias.aspx" });
+            //var menu_esperado_sacc = new List<MenuDelSistema>() { new MenuDelSistema("MenuSACC", items_de_menu) };
+            //var autorizador = new AutorizadorSacc(menu_esperado_sacc);
 
-            Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
-            Assert.IsTrue(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "Materias"));
-            Assert.IsFalse(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "AltaDocumentos"));
+            //Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
+            //Assert.IsTrue(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "Materias"));
+            //Assert.IsFalse(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "AltaDocumentos"));
 
-            Assert.AreEqual(0, autorizador.ItemsPermitidos("MenuSicoi").Count);
+            //Assert.AreEqual(0, autorizador.ItemsPermitidos("MenuSicoi").Count);
+            Assert.Fail();
         }
 
         [TestMethod]
         public void un_usuario_SACC_puede_acceder_a_dos_menues_sacc()
         {
-            var items_de_menu = new List<ItemDeMenu>();
-            var otros_items = new List<ItemDeMenu>();
+            //var items_de_menu = new List<ItemDeMenu>();
+            //var otros_items = new List<ItemDeMenu>();
 
-            items_de_menu.Add(new ItemDeMenu() { NombreItem = "Materias", Url = "Materias.aspx" });
-            otros_items.Add(new ItemDeMenu() { NombreItem = "OtraOpcion", Url = "OtraOpcion.aspx" });
-            var menu_esperado_sacc = new MenuDelSistema("MenuSACC", items_de_menu);
-            var otro_menu_esperado = new MenuDelSistema("OtroMenu", otros_items);
+            //items_de_menu.Add(new ItemDeMenu() { NombreItem = "Materias", Url = "Materias.aspx" });
+            //otros_items.Add(new ItemDeMenu() { NombreItem = "OtraOpcion", Url = "OtraOpcion.aspx" });
+            //var menu_esperado_sacc = new MenuDelSistema("MenuSACC", items_de_menu);
+            //var otro_menu_esperado = new MenuDelSistema("OtroMenu", otros_items);
 
-            var menues = new List<MenuDelSistema>() { menu_esperado_sacc, otro_menu_esperado };
+            //var menues = new List<MenuDelSistema>() { menu_esperado_sacc, otro_menu_esperado };
 
-            var autorizador = new Autorizador(menues);
+            //var autorizador = new AutorizadorSacc(menues);
 
-            Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
-            Assert.IsTrue(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "Materias"));
-            Assert.IsFalse(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "OtraOpcion"));
+            //Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
+            //Assert.IsTrue(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "Materias"));
+            //Assert.IsFalse(autorizador.ItemsPermitidos("MenuSACC").Exists(i => i.NombreItem == "OtraOpcion"));
 
-            Assert.AreEqual(1, autorizador.ItemsPermitidos("OtroMenu").Count);
-            Assert.IsTrue(autorizador.ItemsPermitidos("OtroMenu").Exists(i => i.NombreItem == "OtraOpcion"));
-            Assert.IsFalse(autorizador.ItemsPermitidos("OtroMenu").Exists(i => i.NombreItem == "Materias"));
+            //Assert.AreEqual(1, autorizador.ItemsPermitidos("OtroMenu").Count);
+            //Assert.IsTrue(autorizador.ItemsPermitidos("OtroMenu").Exists(i => i.NombreItem == "OtraOpcion"));
+            //Assert.IsFalse(autorizador.ItemsPermitidos("OtroMenu").Exists(i => i.NombreItem == "Materias"));
+            Assert.Fail();
         }
 
         [TestMethod]
         public void el_repo_de_usuarios_construye_un_autorizador_con_un_acceso()
         {
-            string source = @"  id| menu        | nombre      |  url                    | orden | nivel | padre
-                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 2     | 0";
+//            string source = @"  id| menu        | nombre      |  url                    | orden | nivel | padre
+//                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 2     | 0";
 
-            IConexionBD conexion = TestObjects.ConexionMockeada();
-            var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
+//            IConexionBD conexion = TestObjects.ConexionMockeada();
+//            var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
 
-            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+//            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            RepositorioUsuarios repo = new RepositorioUsuarios(conexion);
+//            RepositorioUsuarios repo = new RepositorioUsuarios(conexion);
 
-            var autorizador = repo.AutorizadorPara(usuario);
+//            var autorizador = repo.AutorizadorPara(usuario);
 
-            Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
-            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSACC").Find(i => i.NombreItem == "Materias").Url);
+//            Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
+//            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSACC").Find(i => i.NombreItem == "Materias").Url);
+              Assert.Fail();
         }
 
         [TestMethod]
         public void el_repo_de_usuarios_construye_un_autorizador_con_dos_accesos_para_un_menu()
         {
 
-            string source = @"  id| menu        | nombre      |  url                    | orden | padre
-                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 0
-                                2 | MenuSACC	| Curso       |  Cursos.aspx            | 2     | 0";
+//            string source = @"  id| menu        | nombre      |  url                    | orden | padre
+//                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 0
+//                                2 | MenuSACC	| Curso       |  Cursos.aspx            | 2     | 0";
 
-            IConexionBD conexion = TestObjects.ConexionMockeada();
-            var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
+//            IConexionBD conexion = TestObjects.ConexionMockeada();
+//            var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
 
-            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+//            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            RepositorioUsuarios repo = new RepositorioUsuarios(conexion);
+//            RepositorioUsuarios repo = new RepositorioUsuarios(conexion);
 
-            var autorizador = repo.AutorizadorPara(usuario);
+//            var autorizador = repo.AutorizadorPara(usuario);
 
-            Assert.AreEqual(2, autorizador.ItemsPermitidos("MenuSACC").Count);
-            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSACC").Find(i => i.NombreItem == "Materias").Url);
-            Assert.AreEqual("Cursos.aspx", autorizador.ItemsPermitidos("MenuSACC").Find(i => i.NombreItem == "Curso").Url);
+//            Assert.AreEqual(2, autorizador.ItemsPermitidos("MenuSACC").Count);
+//            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSACC").Find(i => i.NombreItem == "Materias").Url);
+//            Assert.AreEqual("Cursos.aspx", autorizador.ItemsPermitidos("MenuSACC").Find(i => i.NombreItem == "Curso").Url);
+            Assert.Fail();
         }
 
         [TestMethod]
         public void el_repo_de_usuarios_construye_un_autorizador_con_accesos_para_dos_menues()
         {
-            string source = @"  id| menu        | nombre      |  url                    | orden | padre
-                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 0
-                                2 | MenuSicoi	| Documentos  |  AltaDocumento.aspx     | 2     | 0";
+//            string source = @"  id| menu        | nombre      |  url                    | orden | padre
+//                                1 | MenuSACC	| Materias    |  Materias.aspx          | 1     | 0
+//                                2 | MenuSicoi	| Documentos  |  AltaDocumento.aspx     | 2     | 0";
 
-            IConexionBD conexion = TestObjects.ConexionMockeada();
-            var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
+//            IConexionBD conexion = TestObjects.ConexionMockeada();
+//            var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
 
-            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+//            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-            RepositorioUsuarios repo = new RepositorioUsuarios(conexion);
+//            RepositorioUsuarios repo = new RepositorioUsuarios(conexion);
 
-            var autorizador = repo.AutorizadorPara(usuario);
+//            var autorizador = repo.AutorizadorPara(usuario);
 
-            Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
-            Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSicoi").Count);
-            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSACC").Find(i => i.NombreItem == "Materias").Url);
-            Assert.AreEqual("AltaDocumento.aspx", autorizador.ItemsPermitidos("MenuSicoi").Find(i => i.NombreItem == "Documentos").Url);
+//            Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSACC").Count);
+//            Assert.AreEqual(1, autorizador.ItemsPermitidos("MenuSicoi").Count);
+//            Assert.AreEqual("Materias.aspx", autorizador.ItemsPermitidos("MenuSACC").Find(i => i.NombreItem == "Materias").Url);
+//            Assert.AreEqual("AltaDocumento.aspx", autorizador.ItemsPermitidos("MenuSicoi").Find(i => i.NombreItem == "Documentos").Url);
+            Assert.Fail();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using General.MAU;
 
 
 namespace General.Repositorios

@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using General.Repositorios;
 using General;
 using NMock2;
+using General.MAU;
 
 
 namespace General
@@ -153,30 +154,30 @@ namespace General
         public static Usuario Fabian()
         {
             Usuario fabian = new Usuario();
-            fabian.NombreDeUsuario = "UsuDirGral";
+            fabian.Alias = "UsuDirGral";
             return fabian;
         }
 
         public static Usuario UsuarioMesaEntrada()
         {
             Usuario usumesa = new Usuario();
-            usumesa.NombreDeUsuario = "UsuMesa";
+            usumesa.Alias = "UsuMesa";
             return usumesa;
         }
 
         public static Usuario UsuarioCENARD()
         {
             Usuario usucenard = new Usuario();
-            usucenard.NombreDeUsuario = "usucenard";
-            usucenard.Areas.Add(new Area(621, "Secretaria de Deporte"));
+            usucenard.Alias = "usucenard";
+            Autorizador.Instancia().AsignarAreaAUnUsuario(usucenard, new Area(621, "Secretaria de Deporte"));
             return usucenard;
         }
 
         public static Usuario UsuarioSACC()
         {
             Usuario ususacc = new Usuario();
-            ususacc.NombreDeUsuario = "ususacc";
-            ususacc.Areas.Add(new Area(1, "Unidad Ministro"));
+            ususacc.Alias = "ususacc";
+            Autorizador.Instancia().AsignarAreaAUnUsuario(ususacc, new Area(1, "Unidad Ministro"));
             return ususacc;
         }
 

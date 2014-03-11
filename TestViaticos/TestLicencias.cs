@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using General;
 using General.Repositorios;
 using NMock2;
+using General.MAU;
 
 namespace TestViaticos
 {

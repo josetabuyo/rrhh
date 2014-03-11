@@ -1,4 +1,4 @@
-﻿ <%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormABMAlumnos.aspx.cs" Inherits="SACC_FormABMAlumnos" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormABMAlumnos.aspx.cs" Inherits="SACC_FormABMAlumnos" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="BarraDeNavegacion.ascx" TagName="BarraNavegacion" TagPrefix="uc3" %>
 
@@ -8,7 +8,7 @@
 <head runat="server">
     <title></title>
      <%= Referencias.Css("../")%>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+     <%= Referencias.Javascript("../") %>
    
 </head>
 <body class="marca_de_agua">
@@ -98,22 +98,9 @@
     <asp:Button ID="btnVerFichaAlumno" runat="server" OnClick="btnVerAlumno_Click" style="display:none;" />
     </form>
 </body>
-    <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
 
 <script type="text/javascript">
-
-//Al presionarse Enter luego de Ingresar el DNI, se fuerza a realizar la búsqueda de dicho DNI para no tener que hacer necesariamente un click en el botón Buscar
-    function CapturarTeclaEnter(evt) {
-        var evt = (evt) ? evt : ((event) ? event : null);
-        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
-        if ((evt.keyCode == 13) && (node.type == "text")) {
-            $("#btn_buscar_personas").click();
-        }
-        
-    }
-    document.onkeypress = CapturarTeclaEnter;
-
 //Muestra los Mensajes de Error mediante PopUp y los de Éxito por mensaje
     var mostrador_de_mensajes = {
         mostrar: function (mensaje) {
@@ -243,6 +230,13 @@
 
 
     $(document).ready(function () {
+        //Al presionarse Enter luego de Ingresar el DNI, se fuerza a realizar la búsqueda de dicho DNI para no tener que hacer necesariamente un click en el botón Buscar
+
+        $("#input_dni").keyup(function (event) {
+            if (event.keyCode == 13) {
+                $("#btn_buscar_personas").click();
+            }
+        });
         AdministradorPlanillaMensual();
 
         //Estilos para ver coloreada la grilla en Internet Explorer
