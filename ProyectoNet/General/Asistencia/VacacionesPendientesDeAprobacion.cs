@@ -23,5 +23,13 @@ namespace General
             return new VacacionesPendientesDeAprobacion(_persona, _desde, _hasta);
         }
 
+        public override List<SolicitudesDeVacaciones> DoPartir()
+        {
+            var result = new List<SolicitudesDeVacaciones>();
+            result.Add(new VacacionesPendientesDeAprobacion(_persona, _desde, new DateTime(_desde.Year, 11, 30)));
+            result.Add(new VacacionesPendientesDeAprobacion(_persona, new DateTime(_desde.Year, 12, 01), _hasta));
+            return result;
+        }
+
     }
 }

@@ -131,7 +131,7 @@ namespace General
          //   var pendientes_de_aprobar = pendientes.FindAll(pend => pend.Desde() >= aprobadas.Last().Desde());
             
             var permitidas_consumibles = Clonar(permitidas);
-
+            solicitudes = this.DividirSolicitudes(solicitudes);
             if (solicitudes.Count() == 0)
             {
                 var vacaciones_permitidas = permitidas_consumibles.FindAll(permitida => permitida.Periodo >= persona.TipoDePlanta.Prorroga(fecha_de_calculo).UsufructoDesde);// fecha_de_calculo.Year - 1); //El -1 representa la prórroga
@@ -152,6 +152,13 @@ namespace General
             return vacaciones_solicitables;
 
         }
-       
+
+
+        public List<SolicitudesDeVacaciones> DividirSolicitudes(List<SolicitudesDeVacaciones> solicitudes_original)
+        {
+            var result = new List<SolicitudesDeVacaciones>();
+            solicitudes_original.ForEach(solicitud => result.AddRange(solicitud.Partir()));
+            return result;
+        }
     }
 }

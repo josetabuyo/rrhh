@@ -508,6 +508,35 @@ namespace TestViaticos
         }
 
 
+
+        //[TestMethod]
+        //public void test_para_hacer_fallar_la_prorroga() //Deberia pedir un límite futuro para reservar vacaciones??? cuánto límite --> hasta 6 meses (hablado con faby)
+        //{
+        //    var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesPendientesDeAprobacion(juan, new DateTime(2015, 03, 01), new DateTime(2014, 03, 30)) };
+        //    var fecha_de_hoy = new DateTime(2014, 01, 01);
+
+        //    var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidasal2014(), vacaciones_solicitadas, fecha_de_hoy, TestObjects.UnaPersona());
+
+        //    Assert.AreEqual(1, lista_de_dias_pendientes_por_periodo.Count());
+        //    Assert.AreEqual(5, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2013).CantidadDeDias());
+
+        //}
+
+
+        [TestMethod]
+        public void test_para_hacer_fallar_la_prorroga_2()
+        {
+            var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesPendientesDeAprobacion(juan, new DateTime(2014, 03, 01), new DateTime(2014, 03, 30)) };
+            var fecha_de_hoy = new DateTime(2014, 01, 01);
+
+            var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidasal2014(), vacaciones_solicitadas, fecha_de_hoy, TestObjects.UnaPersona());
+
+            Assert.AreEqual(2, lista_de_dias_pendientes_por_periodo.Count());
+            Assert.AreEqual(5, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2012).CantidadDeDias());
+            Assert.AreEqual(35, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2013).CantidadDeDias());
+        }
+
+
         [TestMethod]
         public void carla_solicita_aprobacion_de_un_periodo_que_abarca_noviembre_y_diciembre_y_debe_partirse_por_la_aplicacion_de_prorroga_B()
         {
@@ -523,6 +552,8 @@ namespace TestViaticos
 
 
 
+
+
         [TestMethod]
         public void deberia_partir_en_dos_el_periodo_de_noviembre_a_diciembre()
         {
@@ -534,6 +565,20 @@ namespace TestViaticos
             Assert.AreEqual(1, licencia_solicitables.Count());
             Assert.AreEqual(5, licencia_solicitables.First().CantidadDeDias());
             Assert.AreEqual(2012, licencia_solicitables.First().Periodo());
+        }
+
+
+        [TestMethod]
+        public void deberia_partir_en_dos_el_periodo_de_noviembre_a_diciembre_perdiendo_dias()
+        {
+            var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { VacacionesPermitidas(2010, 20), VacacionesPermitidas(2011, 20) };
+            var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, new DateTime(2012, 11, 16), new DateTime(2012, 12, 15)) };
+            var fecha = new DateTime(2012, 12, 20);
+            var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, fecha, TestObjects.UnaPersona());
+
+            Assert.AreEqual(1, licencia_solicitables.Count());
+            Assert.AreEqual(5, licencia_solicitables.First().CantidadDeDias());
+            Assert.AreEqual(2011, licencia_solicitables.First().Periodo());
         }
 
         [TestMethod]
@@ -594,6 +639,63 @@ namespace TestViaticos
             Assert.AreEqual(9, licencia_solicitables.Count());
             Assert.AreEqual(2005, licencia_solicitables.First().Periodo());
             Assert.AreEqual(20, licencia_solicitables.First().CantidadDeDias());
+        }
+
+        [TestMethod]
+        public void deberia_partise_la_solicitud_si_contiene_al_30_de_nov_y_1_de_dic()
+        {
+            var una_persona = TestObjects.UnaPersona();
+            var solicitud_original = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(una_persona, new DateTime(2012, 11, 25), new DateTime(2012, 12, 05)) };
+            List<SolicitudesDeVacaciones> solicitudes = calculador().DividirSolicitudes(solicitud_original);
+
+            Assert.AreEqual(2, solicitudes.Count());
+            Assert.AreEqual(new DateTime(2012, 11, 25), solicitudes.First().Desde());
+            Assert.AreEqual(new DateTime(2012, 11, 30), solicitudes.First().Hasta());
+            Assert.AreEqual(new DateTime(2012, 12, 01), solicitudes.Last().Desde());
+            Assert.AreEqual(new DateTime(2012, 12, 05), solicitudes.Last().Hasta());
+        }
+
+        [TestMethod]
+        public void deberia_partise_la_solicitud_si_contiene_al_30_de_nov_y_1_de_dic_y_poner_el_anio_correspondiente()
+        {
+            var una_persona = TestObjects.UnaPersona();
+            var solicitud_original = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(una_persona, new DateTime(2012, 11, 25), new DateTime(2013, 01, 10)) };
+            List<SolicitudesDeVacaciones> solicitudes = calculador().DividirSolicitudes(solicitud_original);
+
+            Assert.AreEqual(2, solicitudes.Count());
+            Assert.AreEqual(new DateTime(2012, 11, 25), solicitudes.First().Desde());
+            Assert.AreEqual(new DateTime(2012, 11, 30), solicitudes.First().Hasta());
+            Assert.AreEqual(new DateTime(2012, 12, 01), solicitudes.Last().Desde());
+            Assert.AreEqual(new DateTime(2013, 01, 10), solicitudes.Last().Hasta());
+        }
+
+
+        [TestMethod]
+        public void deberia_partir_bien_las_solicitudes_cuando_hay_mas_de_una()
+        {
+            var una_persona = TestObjects.UnaPersona();
+            var solicitud_original = new List<SolicitudesDeVacaciones>() {new VacacionesAprobadas(una_persona, new DateTime(2012, 05, 01), new DateTime(2012, 05, 15)) , new VacacionesAprobadas(una_persona, new DateTime(2012, 11, 25), new DateTime(2013, 01, 10)) };
+            List<SolicitudesDeVacaciones> solicitudes = calculador().DividirSolicitudes(solicitud_original);
+
+            Assert.AreEqual(3, solicitudes.Count());
+            Assert.AreEqual(new DateTime(2012, 05, 01), solicitudes.First().Desde());
+            Assert.AreEqual(new DateTime(2012, 05, 15), solicitudes.First().Hasta());
+            Assert.AreEqual(new DateTime(2012, 11, 25), solicitudes[1].Desde());
+            Assert.AreEqual(new DateTime(2012, 11, 30), solicitudes[1].Hasta());
+            Assert.AreEqual(new DateTime(2012, 12, 01), solicitudes.Last().Desde());
+            Assert.AreEqual(new DateTime(2013, 01, 10), solicitudes.Last().Hasta());
+        }
+
+        [TestMethod]
+        public void no_deberia_partise_la_solicitud_si_solo_contiene_al_30_de_nov()
+        {
+            var una_persona = TestObjects.UnaPersona();
+            var solicitud_original = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(una_persona, new DateTime(2012, 11, 25), new DateTime(2012, 11, 30)) };
+            List<SolicitudesDeVacaciones> solicitudes = calculador().DividirSolicitudes(solicitud_original);
+
+            Assert.AreEqual(1, solicitudes.Count());
+            Assert.AreEqual(new DateTime(2012, 11, 25), solicitudes.First().Desde());
+            Assert.AreEqual(new DateTime(2012, 11, 30), solicitudes.First().Hasta());
         }
 
         public Persona juan { get; set; }
@@ -676,6 +778,14 @@ namespace TestViaticos
         {
             var lista_vacaciones_permitidas = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 20), 
                                                                                  VacacionesPermitidas(2012, 20)};
+            return lista_vacaciones_permitidas;
+        }
+
+        protected List<VacacionesPermitidas> VacacionesPermitidasal2014()
+        {
+            var lista_vacaciones_permitidas = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 35), 
+                                                                                 VacacionesPermitidas(2012, 35),
+                                                                                 VacacionesPermitidas(2013, 35)};
             return lista_vacaciones_permitidas;
         }
     }

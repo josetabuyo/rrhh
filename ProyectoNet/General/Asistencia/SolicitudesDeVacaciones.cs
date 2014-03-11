@@ -69,6 +69,25 @@ namespace General
         {
             return this.Desde().ToString() + " - " + this.Hasta().ToString();
         }
+
+        public List<SolicitudesDeVacaciones> Partir()
+        {
+            if (this.EsPartible())
+            {
+                return this.DoPartir();
+            }
+            else
+            {
+                return new List<SolicitudesDeVacaciones>() { this };
+            }
+        }
+
+        public abstract List<SolicitudesDeVacaciones> DoPartir();
+
+        public Boolean EsPartible()
+        {
+            return (this.Desde() <= new DateTime(this.Desde().Year, 11, 30) && (this.Hasta() >= new DateTime(this.Desde().Year, 12, 01)));
+        }
         
     }
 }
