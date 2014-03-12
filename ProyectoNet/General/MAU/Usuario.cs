@@ -10,6 +10,11 @@ namespace General.MAU
 {
     public class Usuario
     {
+        private int p;
+        private string p_2;
+        private string p_3;
+        private bool p_4;
+
         public int Id { get; set; }
         public string Alias { get; set; }
         public Persona Owner { get; set; }
@@ -30,11 +35,12 @@ namespace General.MAU
             this.Habilitado = habilitado;
         }
 
-        public Usuario(int id, string alias, string clave_encriptada)
+        public Usuario(int id, string alias, string clave_encriptada, bool habilitado)
         {
             this.Id = id;
             this.Alias = alias;
             this.clave_encriptada = clave_encriptada;
+            this.Habilitado = habilitado;
         }
 
         public bool EsFirmante { get; set; }
