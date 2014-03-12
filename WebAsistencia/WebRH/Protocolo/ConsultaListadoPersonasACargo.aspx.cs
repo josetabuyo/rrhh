@@ -28,6 +28,7 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
             }
         }
 
+        personas_todas_areas_a_cargo.Sort((persona1, persona2) => persona1.Apellido.CompareTo(persona2.Apellido));
         Session["personas"] = personas_todas_areas_a_cargo.ToArray();
 
         MostrarPersonasEnLaGrilla();
