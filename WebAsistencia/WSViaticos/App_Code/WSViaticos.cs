@@ -514,8 +514,14 @@ public class WSViaticos : System.Web.Services.WebService
             var documento = documento_dto_alta.toDocumento();
 
             this.GuardarDocumento(documento, int.Parse(documento_dto_alta.id_area_origen), int.Parse(documento_dto_alta.id_area_actual), usuario);
-            var id_area_destino = int.Parse(documento_dto_alta.id_area_destino);
-            if (id_area_destino >= 0) this.CrearTransicionFuturaParaDocumento(documento.Id, id_area_destino, usuario);
+
+
+            int id_area_destino = -1;
+            if (documento_dto_alta.id_area_destino != "")
+            {
+                id_area_destino = int.Parse(documento_dto_alta.id_area_destino);
+                if (id_area_destino >= 0) this.CrearTransicionFuturaParaDocumento(documento.Id, id_area_destino, usuario);
+            }
 
             return JsonConvert.SerializeObject(new
             {
