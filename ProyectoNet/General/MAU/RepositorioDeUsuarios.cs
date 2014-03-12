@@ -55,7 +55,7 @@ namespace General.MAU
                 var persona = repositorio_de_personas.GetPersonaPorId(row.GetInt("Id_Persona"));
                 return new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), persona, !row.GetBoolean("Baja"));
             }
-            return new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"));            
+            return new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja"));            
         }
         
         public Usuario CrearUsuarioPara(int id_persona)

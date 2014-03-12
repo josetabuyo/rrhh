@@ -1,5 +1,5 @@
 ﻿
-var FabricaDeFichasDeDocumento = function (plantilla_ficha_chica, plantilla_ficha_grande, plantilla_transicion, lista_areas, area_del_usuario, repo_areas) {
+var FabricaDeFichasDeDocumento = function (plantilla_ficha_chica, plantilla_ficha_grande, plantilla_transicion, area_del_usuario, repo_areas) {
     this.plantilla_ficha_chica = plantilla_ficha_chica;
     this.plantilla_ficha_grande = plantilla_ficha_grande;
     this.plantilla_transicion = plantilla_transicion;
