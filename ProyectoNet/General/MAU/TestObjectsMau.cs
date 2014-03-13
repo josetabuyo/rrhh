@@ -13,17 +13,17 @@ namespace AdministracionDeUsuarios
 
         public static Usuario Jorge()
         {
-            return new Usuario(1, "jorge", "l3WIqH4QWCAycWcSzPXYXRil/M8="); // pass = web1
+            return new Usuario(1, "jorge", "l3WIqH4QWCAycWcSzPXYXRil/M8=", false); // pass = web1
         }
 
         public static Usuario Javier()
         {
-            return new Usuario(2, "javier", "l3WIqH4QWCAycWcSzPXYXRil/M8="); // pass = web1
+            return new Usuario(2, "javier", "l3WIqH4QWCAycWcSzPXYXRil/M8=", false); // pass = web1
         }
 
         public static Usuario Zambri()
         {
-            return new Usuario(3, "zambri", "l3WIqH4QWCAycWcSzPXYXRil/M8="); // pass = web1
+            return new Usuario(3, "zambri", "l3WIqH4QWCAycWcSzPXYXRil/M8=", false); // pass = web1
         }
 
         public static Dictionary<Usuario, List<Funcionalidad>> diccionario_permisos()

@@ -149,7 +149,7 @@ namespace General
         public EstadoDeAlumno EstadoDelAlumno(Alumno alumno, IRepositorioDeCursos repo_cursos, List<Curso> cursos)
         {
             var cursos_del_alumno = repo_cursos.GetCursosParaElAlumno(alumno, cursos);
-            var fecha_hoy = DateTime.Today;
+            var fecha_hoy = new DateTime(2013,10,01);
 
             var cursos_ordenados = OrdenarCursosPorFecha(cursos_del_alumno);
 

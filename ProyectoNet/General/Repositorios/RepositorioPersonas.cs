@@ -104,22 +104,6 @@ namespace General
             return new Area((int)fila.GetValue(fila.GetOrdinal("idAreaDependencia")), fila.GetString(fila.GetOrdinal("dependencia")).ToString());
         }
 
-        public TipoDePlanta GetTipoDePlantaActualDe(Persona unaPersona)
-        {
-            SqlDataReader dr;
-            ConexionDB cn = new ConexionDB("[dbo].[Web_GetTipoDePlantaDePersona]");
-            cn.AsignarParametro("@Documento", unaPersona.Documento);
-            dr = cn.EjecutarConsulta();
-
-            TipoDePlanta planta = null;
-
-            if (dr.Read())
-            {
-                planta = new TipoDePlanta { Id = dr.GetInt16(dr.GetOrdinal("idPlanta")) };
-            }
-            return planta;
-        }
-
         public void EliminarInasistenciaActual(Persona unaPersona)
         {
             this.EliminarInasistenciaALaFecha(unaPersona, DateTime.Today);

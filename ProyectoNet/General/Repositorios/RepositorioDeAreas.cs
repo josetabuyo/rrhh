@@ -100,7 +100,7 @@ namespace General.Repositorios
          {
              var parametros = new Dictionary<string, object>();
              parametros.Add("@FechaVigencia", DateTime.Today);
-             var tablaDatos = conexion_bd.Ejecutar("dbo.VIA_Get_AreasParaLugaresDeTrabajo", parametros);
+             var tablaDatos = this.conexion.Ejecutar("dbo.VIA_Get_AreasParaLugaresDeTrabajo", parametros);
              List<Area> areas_completas = GetTodasLasAreasCompletas();
              List<Area> areas = new List<Area>();
 

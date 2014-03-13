@@ -263,7 +263,7 @@ var CambiarHorario = function () {
 
 var completarCombosDeHorasCatedra = function () {
     horasCatedra.html("");
-    var o = new Option('Seleccione', 0);
+    var o = new Option('Seleccione', '');
     $(o).html('Hs. C&aacute;tedra');
     horasCatedra.append(o);
     $.ajax({
@@ -324,6 +324,7 @@ var ValidarHorario = function (para_modificar) {
     return ValidarCampoObligatorio(dia) &&
     ValidarHora(horaI) &&
     ValidarHora(horaF) &&
+    ValidarCampoObligatorio(horasCatedra) &&
     (para_modificar || ValidarSuperposicion()) &&
     ValidarRangoDeHoras(horaI.val(), horaF.val());
 }
@@ -441,7 +442,8 @@ var ValidarCamposObligatorios = function (controles) {
     return false;
 }
 var ValidarCurso = function () {
-    if (ValidarCamposObligatorios([$("#cmbMateria"), $("#cmbDocente"), $("#cmbEspacioFisico")]) && horarios.length > 0) {
+    if (ValidarCamposObligatorios([$("#cmbMateria"), $("#cmbDocente"), $("#cmbEspacioFisico"), $("#txtFechaInicio"), $("#txtFechaFin")]) 
+        && horarios.length > 0) {
         submit_value = true;
     }
     else

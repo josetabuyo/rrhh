@@ -14,24 +14,7 @@ namespace General.Repositorios
 
         public ProrrogaLicenciaOrdinaria CargarDatos(ProrrogaLicenciaOrdinaria unaProrroga)
         {
-            unaProrroga.Periodo = DateTime.Today.Year;
-
-            ConexionDB cn = new ConexionDB("dbo.WEB_GetProrrogaOrdinaria");
-            cn.AsignarParametro("@periodo", unaProrroga.Periodo);
-
-            SqlDataReader dr;
-            dr = cn.EjecutarConsulta();
-
-            if (dr.Read())
-            {
-                unaProrroga.UsufructoDesde = dr.GetInt16(dr.GetOrdinal("Prorroga_Desde"));
-                unaProrroga.UsufructoHasta = dr.GetInt16(dr.GetOrdinal("Prorroga_Hasta"));
-            }
-            else
-            {
-                unaProrroga = null;
-            }
-            return unaProrroga;
+            throw new NotImplementedException("Este metodo se hace desde el Repo Licencias");
         }
 
         #endregion

@@ -142,31 +142,15 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public SaldoLicencia GetSaldoLicencia(Persona unaPersona, ConceptoDeLicencia concepto)
     {
-        RepositorioPersonas repoPersonas = new RepositorioPersonas();
-        unaPersona.TipoDePlanta = repoPersonas.GetTipoDePlantaActualDe(unaPersona);
+        var concepto_subclasificado = concepto.InstanciaDeSubclase();
 
-        RepositorioLicencias repoLicencias = new RepositorioLicencias();
-        SaldoLicencia unSaldo;
-        ProrrogaLicenciaOrdinaria prorroga = new ProrrogaLicenciaOrdinaria();
-        if (prorroga.SeAplicaAlTipoDePlanta(unaPersona.TipoDePlanta))
-        {
-            RepositorioProrrogasDeLicenciaOrdinaria repoProrrogas = new RepositorioProrrogasDeLicenciaOrdinaria();
-            prorroga = repoProrrogas.CargarDatos(new ProrrogaLicenciaOrdinaria());
-        }
-        else
-        {
-            prorroga = null;
-        }
+        DateTime fecha_de_consulta = DateTime.Today;
 
-        if (concepto.Id == 1)
-        {
-            unSaldo = repoLicencias.CargarSaldoLicenciaOrdinariaDe(concepto, prorroga, unaPersona);
-        }
-        else
-        {
-            unSaldo = repoLicencias.CargarSaldoLicenciaGeneralDe(concepto, unaPersona);
-        }
-        return unSaldo;
+        ServicioDeLicencias servicioLicencias = new ServicioDeLicencias(RepoLicencias());
+
+        SaldoLicencia saldo = servicioLicencias.GetSaldoLicencia(unaPersona, concepto_subclasificado, fecha_de_consulta, RepositorioDePersonas());
+
+        return saldo;
     }
 
     [WebMethod]
@@ -184,7 +168,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string CargarLicencia(Licencia unaLicencia)
     {
-        RepositorioLicencias repositorio = new RepositorioLicencias();
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
         if (repositorio.GetLicenciasQueSePisanCon(unaLicencia))
             return "Ya existe una licencia en el periodo especificado";
         if (repositorio.GetSolicitudesQueSePisanCon(unaLicencia))
@@ -514,8 +498,14 @@ public class WSViaticos : System.Web.Services.WebService
             var documento = documento_dto_alta.toDocumento();
 
             this.GuardarDocumento(documento, int.Parse(documento_dto_alta.id_area_origen), int.Parse(documento_dto_alta.id_area_actual), usuario);
-            var id_area_destino = int.Parse(documento_dto_alta.id_area_destino);
-            if (id_area_destino >= 0) this.CrearTransicionFuturaParaDocumento(documento.Id, id_area_destino, usuario);
+
+
+            int id_area_destino = -1;
+            if (documento_dto_alta.id_area_destino != "")
+            {
+                id_area_destino = int.Parse(documento_dto_alta.id_area_destino);
+                if (id_area_destino >= 0) this.CrearTransicionFuturaParaDocumento(documento.Id, id_area_destino, usuario);
+            }
 
             return JsonConvert.SerializeObject(new
             {
@@ -1625,7 +1615,7 @@ public class WSViaticos : System.Web.Services.WebService
         Alumno persona = repo.GetAlumnoByDNI(dni);
 
         Organigrama organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        var autorizador = new AutorizadorSacc();
+        var autorizador = new AutorizadorSacc(Autorizador());
         var persona_dto = new Object();
 
         if (!autorizador.AlumnoVisibleParaUsuario(persona, organigrama, usuario))
@@ -1730,7 +1720,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public List<Area> GetAreasParaLugaresDeTrabajo()
     {
-        return new RepositorioDeAreas(Conexion()).GetAreasParaLugaresDeTrabajo();
+        return RepositorioDeAreas().GetAreasParaLugaresDeTrabajo();
     }
 
     [WebMethod]
@@ -2356,6 +2346,11 @@ public class WSViaticos : System.Web.Services.WebService
         }
         return observaciones_no_procesadas.ToArray();
   
+    }
+
+    private RepositorioLicencias RepoLicencias()
+    {
+        return new RepositorioLicencias(Conexion());
     }
 
     private RepositorioDeAlumnos RepoAlumnos()

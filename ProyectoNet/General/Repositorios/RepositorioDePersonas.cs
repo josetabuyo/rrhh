@@ -100,5 +100,30 @@ namespace General.Repositorios
         {
             throw new NotImplementedException();
         }
+
+
+        public TipoDePlanta GetTipoDePlantaActualDe(Persona unaPersona)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("[dbo].[Web_GetTipoDePlantaDePersona]");
+            cn.AsignarParametro("@Documento", unaPersona.Documento);
+            dr = cn.EjecutarConsulta();
+
+
+            TipoDePlanta planta = null;
+            //FC: antes solo devolvia el tipo de planta comun con el id que trae del sp
+            if (dr.Read())
+            {
+                //planta = new TipoDePlanta {Id = dr.GetInt16(dr.GetOrdinal("idPlanta"))};
+                if (dr.GetInt16(dr.GetOrdinal("idPlanta")) == 22)
+                {
+                    planta = new TipoDePlantaContratado();
+                }
+                else { 
+                    planta = new TipoDePlantaGeneral(dr.GetInt16(dr.GetOrdinal("idPlanta")),"Planta Permanente");
+                }
+            }
+            return planta;
+        }
     }
 }

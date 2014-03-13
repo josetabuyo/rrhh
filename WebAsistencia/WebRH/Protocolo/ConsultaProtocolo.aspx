@@ -6,12 +6,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Áreas</title>
-        <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
         <%= Referencias.Css("../")%>
         <%= Referencias.Javascript("../")%>
         <link id="link1" rel="stylesheet" href="ConsultaProtocolo.css" type="text/css" runat="server" />
         <link id="link5" rel="stylesheet" href="VistaDeArea.css" type="text/css" runat="server" />
-        <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
     </head>
     <body>
         <form id="form1" runat="server">

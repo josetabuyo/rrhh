@@ -344,7 +344,7 @@ namespace General
 
         public static IConexionBD ConexionMockeada()
         {
-            var mocks = new Mockery();
+            var mocks = Mockery();
             var mock_conexion_bd = mocks.NewMock<IConexionBD>();
             return mock_conexion_bd;
         }
@@ -355,7 +355,7 @@ namespace General
         {
             if (repo_alumnos_mockeados == null)
             {
-                var mocks = new Mockery();
+                var mocks = Mockery();
                 repo_alumnos_mockeados = mocks.NewMock<IRepositorioDeAlumnos>();
             }
             return repo_alumnos_mockeados;
@@ -367,7 +367,7 @@ namespace General
         {
             if (repo_cursos_mockeados == null)
             {
-                var mocks = new Mockery();
+                var mocks = Mockery();
                 repo_cursos_mockeados = mocks.NewMock<IRepositorioDeCursos>();
             }
             return repo_cursos_mockeados;
@@ -379,10 +379,30 @@ namespace General
         {
             if (repo_asistencias_mockeados == null)
             {
-                var mocks = new Mockery();
+                var mocks = Mockery();
                 repo_asistencias_mockeados = mocks.NewMock<IRepositorioDeAsistencias>();
             }
             return repo_asistencias_mockeados;
+        }
+
+        private static IRepositorioLicencia repo_licencias_mockeados;
+
+        public static IRepositorioLicencia RepoLicenciaMockeado()
+        {
+            if (repo_licencias_mockeados == null)
+            {
+                var mocks = Mockery();
+                repo_licencias_mockeados = mocks.NewMock<IRepositorioLicencia>();
+            }
+            return repo_licencias_mockeados;
+        }
+
+        protected static Mockery _mockery;
+        public static Mockery Mockery()
+        {
+            if (_mockery == null)
+                _mockery = new Mockery();
+            return _mockery;
         }
 
         private static IRepositorioDeEspaciosFisicos repo_espacios_fisicos_mockeados;
@@ -432,6 +452,19 @@ namespace General
             }
             return repo_modalidades_mockeados;
         }
+
+        private static IRepositorioDePersonas repo_de_personas_mockeados;
+
+        public static IRepositorioDePersonas RepoDePersonasMockeado()
+        {
+            if (repo_de_personas_mockeados == null)
+            {
+                var mocks = new Mockery();
+                repo_de_personas_mockeados = mocks.NewMock<IRepositorioDePersonas>();
+            }
+            return repo_de_personas_mockeados;
+        }
+
 
         private static RepositorioDeComisionesDeServicio UnRepositorioCon(IConexionBD mock_conexion_bd)
         {
@@ -1765,5 +1798,18 @@ namespace General
             return new List<AcumuladorAsistencia>() { asistencia0, asistencia1, asistencia2, asistencia3, asistencia4, asistencia5 };
         }
 
+
+        public static Persona UnaPersona()
+        {
+            var persona = new Persona(1, 29753914, "Agustin", "Calqui", new Area(1, "Direccion de RRHH"));
+            persona.TipoDePlanta = new TipoDePlantaContratado();
+            return persona;
+        }
+
+
+        public static ConceptoDeLicencia ConceptoLicenciaOrdinaria()
+        {
+            return new ConceptoLicenciaAnualOrdinaria();
+        }
     }
 }

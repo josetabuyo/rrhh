@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using System.Text;
 using General;
 using General.Repositorios;
@@ -8,10 +8,18 @@ using System.Data.SqlClient;
 
 namespace General.Repositorios
 {
-    public class RepositorioLicencias
+    public class RepositorioLicencias : RepositorioLazy<List<VacacionesPermitidas>>, IRepositorioLicencia
     {
+        
+        public RepositorioLicencias(IConexionBD conexion)
+            : base(conexion)
+        { 
+        }
+
+
         #region IRepositorioLicencias Members
 
+        
         public string Guardar(Licencia unaLicencia)
         {
             if (this.GetLicenciasQueSePisanCon(unaLicencia))
@@ -177,5 +185,251 @@ namespace General.Repositorios
 
         }
         #endregion
+
+
+        public List<VacacionesPermitidas> GetVacacionesPermitidas()        
+        {
+            //List<Persona> personas, List<Periodo> periodos
+
+            //var parametros = new Dictionary<string, object>();
+            //parametros.Add("@documento", evaluacion.Alumno.Id);
+            //parametros.Add("@periodo", evaluacion.Curso.Id);
+            //parametros.Add("@id_concepto_licencia", 1);
+            //List<VacacionesPermitidas> vacaciones_permitidas = new List<VacacionesPermitidas>();
+
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos");
+
+            return ConstruirVacacionesPermitidas(tablaDatos);
+
+            //tablaDatos.Rows.ForEach(row =>
+            //{
+            //    Persona persona = new Persona();
+            //    persona.Documento = row.GetInt("NroDocumento");
+            //    persona.Apellido = row.GetString("Apellido");
+            //    persona.Nombre = row.GetString("Nombre");
+
+            //    Periodo periodo = new Periodo();
+            //    periodo.anio = row.GetSmallintAsInt("Periodo");
+
+            //    int dias = row.GetSmallintAsInt("Dias_Autorizados");
+            //    int concepto = row.GetSmallintAsInt("Id_Concepto_Licencia");
+
+            //    VacacionesPermitidas vacaciones = new VacacionesPermitidas(persona, periodo, dias, concepto);
+
+            //    vacaciones_permitidas.Add(vacaciones);
+            //});
+
+           // return vacaciones_permitidas;
+        }
+
+        
+        public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona)
+        {
+            var parametros = new Dictionary<string, object>();
+
+           
+                parametros.Add("@nro_documento", persona.Documento);
+
+                //parametros.Add("@periodo", periodo.anio);
+           
+                //parametros.Add("@id_concepto_licencia", licencia.Concepto);
+
+
+                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
+
+            return ConstruirVacacionesAprobadas(tablaDatos);
+
+        }
+
+
+        public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, ConceptoDeLicencia concepto)
+        {
+            var parametros = new Dictionary<string, object>();
+
+
+            parametros.Add("@nro_documento", persona.Documento);
+            parametros.Add("@id_concepto_licencia", concepto.Id);
+
+
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
+
+            return ConstruirVacacionesAprobadas(tablaDatos);
+
+        }
+
+        protected List<VacacionesAprobadas> ConstruirVacacionesAprobadas(TablaDeDatos tablaDatos)
+        {
+            List<VacacionesAprobadas> vacaciones_aprobadas = new List<VacacionesAprobadas>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Persona persona = new Persona();
+                persona.Documento = row.GetInt("NroDocumento");
+                persona.Apellido = row.GetString("Apellido");
+                persona.Nombre = row.GetString("Nombre");
+
+                //int periodo = row.GetSmallintAsInt("Periodo");
+
+                DateTime fecha_desde = row.GetDateTime("Desde");
+                DateTime fecha_hasta = row.GetDateTime("Hasta");
+                //int concepto = row.GetSmallintAsInt("Id_Concepto_Licencia");
+
+                VacacionesAprobadas vacaciones = new VacacionesAprobadas(persona, fecha_desde, fecha_hasta);
+
+                vacaciones_aprobadas.Add(vacaciones);
+            });
+           
+            List<VacacionesAprobadas> vacaciones_aprobadas_ordenadas = (from vacacion in vacaciones_aprobadas orderby vacacion.Desde() select vacacion).ToList();
+
+           return vacaciones_aprobadas_ordenadas;
+        }
+
+
+
+        protected List<VacacionesPermitidas> ConstruirVacacionesPermitidas(TablaDeDatos tablaDatos)
+        {
+            List<VacacionesPermitidas> vacaciones_permitidas = new List<VacacionesPermitidas>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Persona persona = new Persona();
+                persona.Documento = row.GetInt("NroDocumento");
+                persona.Apellido = row.GetString("Apellido");
+                persona.Nombre = row.GetString("Nombre");
+
+                int periodo = row.GetSmallintAsInt("Periodo");
+
+                int dias = row.GetSmallintAsInt("Dias_Autorizados");
+                int concepto = row.GetSmallintAsInt("Id_Concepto_Licencia");
+
+                VacacionesPermitidas vacaciones = new VacacionesPermitidas(persona, periodo, dias);
+
+                vacaciones_permitidas.Add(vacaciones);
+            });
+
+            List<VacacionesPermitidas> vacaciones_permitidas_ordenadas = (from vacacion in vacaciones_permitidas orderby vacacion.Periodo select vacacion).ToList();
+            return vacaciones_permitidas_ordenadas;
+        }
+
+
+        public List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, Periodo periodo, Licencia licencia)
+        {
+            var parametros = new Dictionary<string, object>();
+                parametros.Add("@nro_documento", persona.Documento);
+                parametros.Add("@periodo", periodo.anio);
+                parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
+
+
+                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
+
+            return ConstruirVacacionesPermitidas(tablaDatos);
+
+        }
+
+        public List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, ConceptoDeLicencia concepto)
+        {
+            var parametros = new Dictionary<string, object>();
+                parametros.Add("@nro_documento", persona.Documento);
+                parametros.Add("@id_concepto_licencia", concepto.Id);
+
+                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
+
+            return ConstruirVacacionesPermitidas(tablaDatos);
+
+
+        }
+
+        public List<VacacionesPermitidas> GetVacacionPermitidaPara(Periodo periodo, Licencia licencia)
+        {
+            var parametros = new Dictionary<string, object>();
+                parametros.Add("@periodo", periodo.anio);
+                parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
+
+                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
+
+            return ConstruirVacacionesPermitidas(tablaDatos);
+
+        }
+
+
+        public List<VacacionesPendientesDeAprobacion> GetVacacionesPendientesPara(Persona persona)
+        {
+            var parametros = new Dictionary<string, object>();
+
+
+            parametros.Add("@nro_documento", persona.Documento);
+
+
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
+
+            return ConstruirVacacionesPendientes(tablaDatos);
+
+        }
+
+
+        public List<VacacionesPendientesDeAprobacion> GetVacacionesPendientesPara(Persona persona, ConceptoDeLicencia concepto)
+        {
+            var parametros = new Dictionary<string, object>();
+
+
+            parametros.Add("@nro_documento", persona.Documento);
+            parametros.Add("@id_concepto_licencia", concepto.Id);
+
+
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
+
+            return ConstruirVacacionesPendientes(tablaDatos);
+
+        }
+
+        protected List<VacacionesPendientesDeAprobacion> ConstruirVacacionesPendientes(TablaDeDatos tablaDatos)
+        {
+            List<VacacionesPendientesDeAprobacion> vacaciones_pendientes = new List<VacacionesPendientesDeAprobacion>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Persona persona = new Persona();
+                persona.Documento = row.GetInt("NroDocumento");
+                persona.Apellido = row.GetString("Apellido");
+                persona.Nombre = row.GetString("Nombre");
+
+                //int periodo = row.GetSmallintAsInt("Periodo");
+
+                DateTime fecha_desde = row.GetDateTime("Desde");
+                DateTime fecha_hasta = row.GetDateTime("Hasta");
+                //int concepto = row.GetSmallintAsInt("Id_Concepto_Licencia");
+
+                VacacionesPendientesDeAprobacion vacaciones = new VacacionesPendientesDeAprobacion(persona, fecha_desde, fecha_hasta);
+
+                vacaciones_pendientes.Add(vacaciones);
+            });
+
+            List<VacacionesPendientesDeAprobacion> vacaciones_pendientes_ordenadas = (from vacacion in vacaciones_pendientes orderby vacacion.Desde() select vacacion).ToList();
+
+            return vacaciones_pendientes_ordenadas;
+        }
+
+        public ProrrogaLicenciaOrdinaria CargarDatos(ProrrogaLicenciaOrdinaria unaProrroga)
+        {
+            unaProrroga.Periodo = DateTime.Today.Year;
+
+            ConexionDB cn = new ConexionDB("dbo.WEB_GetProrrogaOrdinaria");
+            cn.AsignarParametro("@periodo", unaProrroga.Periodo);
+
+            SqlDataReader dr;
+            dr = cn.EjecutarConsulta();
+
+            if (dr.Read())
+            {
+                unaProrroga.UsufructoDesde = dr.GetInt16(dr.GetOrdinal("Prorroga_Desde"));
+                unaProrroga.UsufructoHasta = dr.GetInt16(dr.GetOrdinal("Prorroga_Hasta"));
+            }
+            else
+            {
+                unaProrroga = null;
+            }
+            return unaProrroga;
+        }
+
     }
 }
