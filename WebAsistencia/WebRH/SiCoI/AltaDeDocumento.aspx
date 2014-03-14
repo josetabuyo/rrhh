@@ -219,7 +219,7 @@
             var categoriasDeDocumento = JSON.parse($('#CategoriasDeDocumento').val());
             var areaDelUsuario = JSON.parse($('#AreaDelUsuario').val());
 
-            var repositorioDeAreas = new RepositorioDeAreas(new ProveedorAjax());
+            var repositorioDeAreas = new RepositorioDeAreas(new ProveedorAjax("../"));
 
             var cfg_panel_documentos = {
                 divPanelDocumentos: $("#panel_documentos"),
