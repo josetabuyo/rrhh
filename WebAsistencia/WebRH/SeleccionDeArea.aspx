@@ -20,12 +20,16 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True"></asp:ScriptManager>
     <uc2:BarraMenu ID="BarraMenu" runat="server" UrlImagenes="Imagenes/" UrlEstilos="Estilos/" />
     <div class="contenedor_principal contenedor_principal_seleccion_areas">
+        
+        <%--Esto luego va a ser un panel de resumen de Licencia sPendientes y Ausencias inmediatas--%>
+        <a id="btn_para_cambiar_por_panel" class="btn btn btn-primary" style="padding: 28px 28px 28px 28px; display: inline-block; margin: 28px 28px 28px 28px;" 
+            href="Protocolo/ConsultaListadoLicencias.aspx">Para Cambiar Por un Panel</a>
+        
         <div id="titulo_areas_a_administrar" style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
             Áreas a Administrar 
             <a id="btn_consultar_areas" class="btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Autoridades</a>
             <a id="btn_consultar_trabajo" class="btn btn-primary" href="Protocolo/ConsultaLugaresDeTrabajo.aspx">Lugares de Trabajo</a>
             <a id="btn_consultar_mis_areas" class="btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Personas a Cargo</a>
-            
         </div>
         <div id="contenedor_areas_usuario">          
         </div> 
