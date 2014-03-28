@@ -23,6 +23,8 @@ public partial class FormularioDetalleDeViaticos_FDetalleDeViaticos : System.Web
 
         var idAreasUsuario = areas_usuario.Select(a => a.Id).ToList();
 
+        Session["personaViatico"] = comision.Persona;
+
         MostrarDatosViajante();
         MostrarTablaEstadias();
         MostrarTablaDePasajes();
@@ -44,6 +46,14 @@ public partial class FormularioDetalleDeViaticos_FDetalleDeViaticos : System.Web
 
     private void MostrarDatosViajante()
     {
+        Encriptador crypt = new Encriptador();
+        WSViaticosSoapClient service = new WSViaticosSoapClient();
+        Persona personaViat = (Persona)Session["personaViatico"];
+        personaViat = service.CompletarDatosDeContratacion(personaViat);
+        Session[ConstantesDeSesion.PERSONA] = personaViat;
+
+        string documentoEncriptado = crypt.getMd5Hash(personaViat.Documento + ".jpg");
+        this.img_perfil.ImageUrl = "../Imagenes/fotosEncriptadas/" + documentoEncriptado + ".jpg";
         this.LabelNombreApellidoViajante.Text = comision.Persona.Apellido + ", " + comision.Persona.Nombre;
         this.LabelAreaViajante.Text = comision.Persona.Area.Nombre;
         this.LabelTelefonoViajante.Text = comision.Persona.Telefono;

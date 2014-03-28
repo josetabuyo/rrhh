@@ -117,13 +117,19 @@
     <script src="../Scripts/bootstrap/js/jquery.validate.js" type="text/javascript"></script>
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery-ui-1.8.21.custom.min.js"></script>
+    <script type="text/javascript" src="../Scripts/alertify.js"></script>
+
+
+       <%-- <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/alertify.core.css"" type=""text/css""/>
+            <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/alertify.default.css"" type=""text/css""/>";--%>
+
     <script type="text/javascript">
 
 
    
         function mostrarMensaje(mensaje) {
-            debugger;
-            alert(mensaje)
+//            debugger;
+            alertify.alert(mensaje);
             muestra('contenido_a_mostrar')
         }
 
@@ -283,7 +289,7 @@
                     }
 
                     function onFailure(error) {
-                        alert(error);
+                        alertify.alert(error);
                     }
 
                     function QuitarEstadia(id_estadia) {
