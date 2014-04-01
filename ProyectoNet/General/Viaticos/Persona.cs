@@ -17,6 +17,7 @@ namespace General
         private Area _Area;
         private PaseDeArea _PasePendiente;
         private Inasistencia _InasistenciaActual;
+        private List<Inasistencia> _Inasistencias;
         private TipoDeViatico _TipoDeViatico;
         private ModalidadDeContratacion _ModalidadDeContratacion;
         private string _Nivel;
@@ -58,6 +59,18 @@ namespace General
             this._Apellido = apellido;
             this._Nombre = nombre;
             this._Area = area;
+            this._Inasistencias = new List<Inasistencia>();
+        }
+
+        public List<Inasistencia> Inasistencias()
+        {
+            return _Inasistencias;
+        }
+
+        public void AgregarInasistencia(Inasistencia inasistencia)
+        {
+            if (!_Inasistencias.Contains(inasistencia))
+                _Inasistencias.Add(inasistencia);
         }
 
 

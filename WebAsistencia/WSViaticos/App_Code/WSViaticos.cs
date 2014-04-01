@@ -224,6 +224,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+    [WebMethod]
+    public Persona[] GetAusentesEntreFechasPara(List<Persona> personas, DateTime desde, DateTime hasta) 
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+        Persona[] personas_ausentes = repositorio.GetAusentesEntreFechasPara(personas, desde, hasta).ToArray();
+
+        return personas_ausentes;
+    }
+
     #endregion
 
     #region viaticos

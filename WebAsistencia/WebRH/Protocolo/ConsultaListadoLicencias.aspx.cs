@@ -27,9 +27,13 @@ public partial class FormularioProtocolo_ConsultaListadoLicencias : System.Web.U
                 personas_todas_areas_a_cargo.Add(per);
             }
         }
+        var desde = new DateTime(2005, 12, 31);
+        var hasta = new DateTime(9999, 12, 31);
 
-        personas_todas_areas_a_cargo.Sort((persona1, persona2) => persona1.Apellido.CompareTo(persona2.Apellido));
-        Session["personas"] = personas_todas_areas_a_cargo.ToArray();
+        List<Persona> personas_con_ausencias = servicio.GetAusentesEntreFechasPara(personas_todas_areas_a_cargo.ToArray(), desde, hasta).ToList();
+
+        personas_con_ausencias.Sort((persona1, persona2) => persona1.Apellido.CompareTo(persona2.Apellido));
+        Session["personas"] = personas_con_ausencias.ToArray();
 
         MostrarPersonasEnLaGrilla();
     }

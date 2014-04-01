@@ -382,6 +382,35 @@ namespace General.Repositorios
 
         }
 
+
+        public List<Persona> GetAusentesEntreFechasPara(List<Persona> personas, DateTime fecha_desde, DateTime fecha_hasta) 
+        {
+            List<Inasistencia> inasistencias = new List<Inasistencia>();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@fecha_desde", fecha_desde);
+            parametros.Add("@fecha_hasta", fecha_hasta);
+
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetAusenciasEntreFechas", parametros);
+
+             tablaDatos.Rows.ForEach(row =>
+            {
+                if(personas.FindAll(p => p.Documento == row.GetInt("NroDocumento")).Count() >0 )
+                {
+                    Inasistencia inasistencia = new Inasistencia();
+                    inasistencia.Aprobada = true;
+                    inasistencia.Descripcion = row.GetString("Descripcion");
+                    inasistencia.Desde = row.GetDateTime("Desde");
+                    inasistencia.Hasta = row.GetDateTime("Hasta");
+
+                    personas.Find(p => p.Documento == row.GetInt("NroDocumento")).AgregarInasistencia(inasistencia);
+                }
+
+            });
+
+             return personas;
+        }
+
+
         protected List<VacacionesPendientesDeAprobacion> ConstruirVacacionesPendientes(TablaDeDatos tablaDatos)
         {
             List<VacacionesPendientesDeAprobacion> vacaciones_pendientes = new List<VacacionesPendientesDeAprobacion>();
