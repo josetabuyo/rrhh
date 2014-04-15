@@ -225,12 +225,29 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public Persona[] GetAusentesEntreFechasPara(List<Persona> personas, DateTime desde, DateTime hasta) 
+    public Persona[] GetAusentesEntreFechasPara(Persona[] personas, DateTime desde, DateTime hasta) 
     {
+        desde = DateTime.Today;
+        hasta = DateTime.Today;
+        List<Persona> personas_con_inasistencia = new List<Persona>();
+        List<Persona> personas_bd = new List<Persona>();
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
-        Persona[] personas_ausentes = repositorio.GetAusentesEntreFechasPara(personas, desde, hasta).ToArray();
+        personas_bd = repositorio.GetAusentesEntreFechasPara(personas.ToList(), desde, hasta);
 
-        return personas_ausentes;
+        foreach (var persona in personas_bd)
+        {
+            foreach (var inasistencia in persona.Inasistencias)
+	            {
+                    if (!inasistencia.Aprobada)
+                    {
+                        var persona_inasitencia = new Persona(persona.Id, persona.Documento, persona.Nombre, persona.Apellido, persona.Area, persona.Inasistencias);
+
+                        personas_con_inasistencia.Add(persona_inasitencia);
+                    }
+	            }
+        }
+
+        return personas_con_inasistencia.ToArray();
     }
 
     #endregion
@@ -1001,6 +1018,12 @@ public class WSViaticos : System.Web.Services.WebService
         {
             personas.ForEach(delegate(Persona persona)
             {
+                Inasistencia inasistenciadto = new Inasistencia();
+                inasistenciadto.Aprobada = persona.Inasistencias.First().Aprobada;
+                inasistenciadto.Descripcion = persona.Inasistencias.First().Descripcion;
+                inasistenciadto.Desde = persona.Inasistencias.First().Desde;
+                inasistenciadto.Hasta = persona.Inasistencias.First().Hasta;
+               
                 persoas_dto.Add(new
                 {
                     label = persona.Apellido + ", " + persona.Nombre + " (DNI: " + persona.Documento + ")",
@@ -1008,7 +1031,8 @@ public class WSViaticos : System.Web.Services.WebService
                     nombre = persona.Apellido + ", " + persona.Nombre,
                     apellido = persona.Apellido,
                     documento = persona.Documento,
-                    area = new AreaDTO(persona.Area)
+                    area = new AreaDTO(persona.Area),
+                    inasistencia = inasistenciadto
                 });
             });
         }

@@ -35,7 +35,7 @@
         </form>
     </body>
 
-    <script type="text/javascript" src="AdministradorDePersonas.js"></script>
+    <script type="text/javascript" src="AdministradorDeLicencias.js"></script>
     <script type="text/javascript" src="Persona.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
 

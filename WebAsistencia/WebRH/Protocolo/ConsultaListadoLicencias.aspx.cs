@@ -15,7 +15,7 @@ public partial class FormularioProtocolo_ConsultaListadoLicencias : System.Web.U
         Usuario usuario = ((Usuario)Session["usuario"]);
         Persona[] personas;
         List<Persona> personas_todas_areas_a_cargo = new List<Persona>();
-
+        List<Persona> personas_con_ausencias = new List<Persona>();
 
         foreach (var area in servicio.AreasAdministradasPor(usuario))
         {
@@ -30,17 +30,17 @@ public partial class FormularioProtocolo_ConsultaListadoLicencias : System.Web.U
         var desde = new DateTime(2005, 12, 31);
         var hasta = new DateTime(9999, 12, 31);
 
-        List<Persona> personas_con_ausencias = servicio.GetAusentesEntreFechasPara(personas_todas_areas_a_cargo.ToArray(), desde, hasta).ToList();
+        personas_con_ausencias = servicio.GetAusentesEntreFechasPara(personas_todas_areas_a_cargo.ToArray(), desde, hasta).ToList();
 
         personas_con_ausencias.Sort((persona1, persona2) => persona1.Apellido.CompareTo(persona2.Apellido));
-        Session["personas"] = personas_con_ausencias.ToArray();
+        Session["personas_inasistencia"] = personas_con_ausencias.ToArray();
 
         MostrarPersonasEnLaGrilla();
     }
 
     private void MostrarPersonasEnLaGrilla()
     {
-        this.personasJSON.Value = JsonConvert.SerializeObject((Persona[])Session["personas"]);
+        this.personasJSON.Value = JsonConvert.SerializeObject((Persona[])Session["personas_inasistencia"]);
         //this.areasJSON.Value = JsonConvert.SerializeObject(servicio.GetAreasParaProtocolo());
     }
 

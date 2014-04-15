@@ -383,33 +383,47 @@ namespace General.Repositorios
         }
 
 
-        public List<Persona> GetAusentesEntreFechasPara(List<Persona> personas, DateTime fecha_desde, DateTime fecha_hasta) 
+        public List<Persona> GetAusentesEntreFechasPara(List<Persona> personas, DateTime fecha_desde, DateTime fecha_hasta)
         {
             List<Inasistencia> inasistencias = new List<Inasistencia>();
+            List<Persona> personas_con_inasistencias = new List<Persona>();
             var parametros = new Dictionary<string, object>();
             parametros.Add("@fecha_desde", fecha_desde);
             parametros.Add("@fecha_hasta", fecha_hasta);
 
-            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetAusenciasEntreFechas", parametros);
-
-             tablaDatos.Rows.ForEach(row =>
+            try
             {
-                if(personas.FindAll(p => p.Documento == row.GetInt("NroDocumento")).Count() >0 )
+                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetAusenciasEntreFechas", parametros);
+
+
+                foreach (var persona in personas)
                 {
-                    Inasistencia inasistencia = new Inasistencia();
-                    inasistencia.Aprobada = true;
-                    inasistencia.Descripcion = row.GetString("Descripcion");
-                    inasistencia.Desde = row.GetDateTime("Desde");
-                    inasistencia.Hasta = row.GetDateTime("Hasta");
-
-                    personas.Find(p => p.Documento == row.GetInt("NroDocumento")).AgregarInasistencia(inasistencia);
+                    if (tablaDatos.Rows.Exists(row => row.GetInt("NroDocumento") == persona.Documento))
+                    {
+                        tablaDatos.Rows.FindAll(row => row.GetInt("NroDocumento") == persona.Documento).ForEach(row =>
+                        {
+                            Inasistencia inasistencia = new Inasistencia();
+                            inasistencia.Aprobada = true;
+                            inasistencia.Descripcion = row.GetSmallintAsInt("Concepto") + " - " + row.GetString("Descripcion");
+                            inasistencia.Desde = row.GetDateTime("Desde");
+                            inasistencia.Hasta = row.GetDateTime("Hasta");
+                            persona.AgregarInasistencia(inasistencia);
+                        });
+                    }
+                    else
+                    {
+                        Inasistencia inasistencia = new Inasistencia();
+                        persona.AgregarInasistencia(inasistencia);
+                    }
                 }
+                return personas;
+            }
+            catch
+            {
 
-            });
-
-             return personas;
+                return personas;
+            }
         }
-
 
         protected List<VacacionesPendientesDeAprobacion> ConstruirVacacionesPendientes(TablaDeDatos tablaDatos)
         {
