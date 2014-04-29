@@ -19,7 +19,7 @@
             <uc2:BarraMenu ID="BarraMenu" runat="server" UrlEstilos="../Estilos/" UrlImagenes="../Imagenes/" UrlPassword="../" />
             <div id="ContenedorPrincipal" class="contenedor_principal contenedor_principal_consulta_protocolo">            
                 <legend>
-                    Listados del Panel de Licencias                     
+                    Listado de Licencias Futuras del Personal a Cargo                     
                     <input type="text" id="search" class="search" placeholder="Buscar"/>     
                 </legend>  
                 <div id="ContenedorPlanilla" runat="server">
