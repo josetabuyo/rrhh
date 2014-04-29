@@ -29,11 +29,11 @@ Persona.prototype.inasistencias = function () {
 };
 
 Persona.prototype.desde = function () {
-    return this._persona.Inasistencias[0].Desde;
+    return new Date(this._persona.Inasistencias[0].Desde).toLocaleDateString();
 };
 
 Persona.prototype.hasta = function () {
-    return this._persona.Inasistencias[0].Hasta;
+    return new Date(this._persona.Inasistencias[0].Hasta).toLocaleDateString();
 };
 
 Persona.prototype.estado = function () {
