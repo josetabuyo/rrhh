@@ -43,7 +43,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var admin = new AdministradorDePersonas();
+            var admin = new AdministradorDeLicencias();
 
             //Estilos para ver coloreada la grilla en Internet Explorer
             $("tbody tr:even").css('background-color', '#E6E6FA');

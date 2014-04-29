@@ -391,38 +391,59 @@ namespace General.Repositorios
             parametros.Add("@fecha_desde", fecha_desde);
             parametros.Add("@fecha_hasta", fecha_hasta);
 
-            try
-            {
-                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetAusenciasEntreFechas", parametros);
+            //Licencias Aprobadas por RRHH
+            var tablaDatos1 = this.conexion.Ejecutar("dbo.LIC_GEN_GetAusenciasEntreFechas", parametros);
 
 
                 foreach (var persona in personas)
                 {
-                    if (tablaDatos.Rows.Exists(row => row.GetInt("NroDocumento") == persona.Documento))
+                    if (tablaDatos1.Rows.Exists(row => row.GetInt("NroDocumento") == persona.Documento))
                     {
-                        tablaDatos.Rows.FindAll(row => row.GetInt("NroDocumento") == persona.Documento).ForEach(row =>
+                        tablaDatos1.Rows.FindAll(row => row.GetInt("NroDocumento") == persona.Documento).ForEach(row =>
                         {
                             Inasistencia inasistencia = new Inasistencia();
+                            Persona persona_con_inasistencia = new Persona();
                             inasistencia.Aprobada = true;
                             inasistencia.Descripcion = row.GetSmallintAsInt("Concepto") + " - " + row.GetString("Descripcion");
                             inasistencia.Desde = row.GetDateTime("Desde");
                             inasistencia.Hasta = row.GetDateTime("Hasta");
-                            persona.AgregarInasistencia(inasistencia);
+                            inasistencia.Estado = "Recepcionada en DGRHyO";
+                            persona_con_inasistencia.Apellido = persona.Apellido;
+                            persona_con_inasistencia.Nombre = persona.Nombre;
+                            persona_con_inasistencia.Documento = persona.Documento;
+                            persona_con_inasistencia.AgregarInasistencia(inasistencia);
+                            personas_con_inasistencias.Add(persona_con_inasistencia);
                         });
                     }
-                    else
+                }
+
+            //Licencias pendientes de Aprobación por RRHH (solicitadas por la Web)
+                var tablaDatos2 = this.conexion.Ejecutar("dbo.LIC_GEN_GetAusenciasPendientesEntreFechas", parametros);
+
+
+                foreach (var persona in personas)
+                {
+                    if (tablaDatos2.Rows.Exists(row => row.GetInt("NroDocumento") == persona.Documento))
                     {
-                        Inasistencia inasistencia = new Inasistencia();
-                        persona.AgregarInasistencia(inasistencia);
+                        tablaDatos2.Rows.FindAll(row => row.GetInt("NroDocumento") == persona.Documento).ForEach(row =>
+                        {
+                            Inasistencia inasistencia = new Inasistencia();
+                            Persona persona_con_inasistencia = new Persona();
+                            inasistencia.Aprobada = true;
+                            inasistencia.Descripcion = row.GetSmallintAsInt("Concepto") + " - " + row.GetString("Descripcion");
+                            inasistencia.Desde = row.GetDateTime("Desde");
+                            inasistencia.Hasta = row.GetDateTime("Hasta");
+                            inasistencia.Estado = "En Trámite";
+                            persona_con_inasistencia.Apellido = persona.Apellido;
+                            persona_con_inasistencia.Nombre = persona.Nombre;
+                            persona_con_inasistencia.Documento = persona.Documento;
+                            persona_con_inasistencia.AgregarInasistencia(inasistencia);
+                            personas_con_inasistencias.Add(persona_con_inasistencia);
+                        });
                     }
                 }
-                return personas;
-            }
-            catch
-            {
 
-                return personas;
-            }
+                return personas_con_inasistencias;
         }
 
         protected List<VacacionesPendientesDeAprobacion> ConstruirVacacionesPendientes(TablaDeDatos tablaDatos)

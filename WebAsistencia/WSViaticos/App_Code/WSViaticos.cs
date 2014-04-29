@@ -227,27 +227,9 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Persona[] GetAusentesEntreFechasPara(Persona[] personas, DateTime desde, DateTime hasta) 
     {
-        desde = DateTime.Today;
-        hasta = DateTime.Today;
-        List<Persona> personas_con_inasistencia = new List<Persona>();
-        List<Persona> personas_bd = new List<Persona>();
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
-        personas_bd = repositorio.GetAusentesEntreFechasPara(personas.ToList(), desde, hasta);
 
-        foreach (var persona in personas_bd)
-        {
-            foreach (var inasistencia in persona.Inasistencias)
-	            {
-                    if (!inasistencia.Aprobada)
-                    {
-                        var persona_inasitencia = new Persona(persona.Id, persona.Documento, persona.Nombre, persona.Apellido, persona.Area, persona.Inasistencias);
-
-                        personas_con_inasistencia.Add(persona_inasitencia);
-                    }
-	            }
-        }
-
-        return personas_con_inasistencia.ToArray();
+        return repositorio.GetAusentesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
     }
 
     #endregion
@@ -1023,6 +1005,7 @@ public class WSViaticos : System.Web.Services.WebService
                 inasistenciadto.Descripcion = persona.Inasistencias.First().Descripcion;
                 inasistenciadto.Desde = persona.Inasistencias.First().Desde;
                 inasistenciadto.Hasta = persona.Inasistencias.First().Hasta;
+                inasistenciadto.Estado = persona.Inasistencias.First().Estado;
                
                 persoas_dto.Add(new
                 {

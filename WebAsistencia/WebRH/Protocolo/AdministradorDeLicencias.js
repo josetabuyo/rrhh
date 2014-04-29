@@ -1,4 +1,4 @@
-﻿var AdministradorDePersonas = function () {
+﻿var AdministradorDeLicencias = function () {
     var json_personas = JSON.parse($('#personasJSON').val());
     var personas = [];
     for (var i = 0; i < json_personas.length; i++) {
@@ -16,17 +16,22 @@
     }
     }));
     columnas.push(new Columna("Licencia", { generar: function (una_persona) {
-        return una_persona.area();
+        return una_persona.inasistencias();
     }
     }));
     columnas.push(new Columna("Desde", { generar: function (una_persona) {
-        return una_persona.area();
+        return una_persona.desde();
     }
     }));
     columnas.push(new Columna("Hasta", { generar: function (una_persona) {
-        return una_persona.area();
+        return una_persona.hasta();
     }
     }));
+    columnas.push(new Columna("Estado", { generar: function (una_persona) {
+        return una_persona.estado();
+    }
+    }));
+
     
 
     PlanillaPersonas = new Grilla(columnas);

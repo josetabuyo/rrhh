@@ -24,4 +24,20 @@ Persona.prototype.area = function () {
     return this._persona.Area.Alias;
 };
 
+Persona.prototype.inasistencias = function () {
+    return this._persona.Inasistencias[0].Descripcion;
+};
+
+Persona.prototype.desde = function () {
+    return this._persona.Inasistencias[0].Desde;
+};
+
+Persona.prototype.hasta = function () {
+    return this._persona.Inasistencias[0].Hasta;
+};
+
+Persona.prototype.estado = function () {
+    return this._persona.Inasistencias[0].Estado;
+};
+
 

@@ -27,22 +27,18 @@ public partial class FormularioProtocolo_ConsultaListadoLicencias : System.Web.U
                 personas_todas_areas_a_cargo.Add(per);
             }
         }
-        var desde = new DateTime(2005, 12, 31);
+        //Por ahora se pensó en tomar siempre las ausencias desde hoy hasta futuro, pero se programó así de forma tal que
+        //a futuro se puedan parametrizar los períodos para la visualización de las licencias
+        var desde = DateTime.Today;
         var hasta = new DateTime(9999, 12, 31);
 
         personas_con_ausencias = servicio.GetAusentesEntreFechasPara(personas_todas_areas_a_cargo.ToArray(), desde, hasta).ToList();
 
         personas_con_ausencias.Sort((persona1, persona2) => persona1.Apellido.CompareTo(persona2.Apellido));
-        Session["personas_inasistencia"] = personas_con_ausencias.ToArray();
+        this.personasJSON.Value = JsonConvert.SerializeObject(personas_con_ausencias.ToArray());
 
-        MostrarPersonasEnLaGrilla();
     }
 
-    private void MostrarPersonasEnLaGrilla()
-    {
-        this.personasJSON.Value = JsonConvert.SerializeObject((Persona[])Session["personas_inasistencia"]);
-        //this.areasJSON.Value = JsonConvert.SerializeObject(servicio.GetAreasParaProtocolo());
-    }
 
     private Area ArmarArea(Area area)
     {
