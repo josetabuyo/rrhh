@@ -390,5 +390,14 @@ public class AjaxWS : System.Web.Services.WebService {
         var observaciones = backEndService.GetObservaciones();
         return Newtonsoft.Json.JsonConvert.SerializeObject(observaciones);
     }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string AgregarAntecedenteAcademico()
+    {
+        return "ok";
+        //return backEndService.CambiarPassword(this.usuarioLogueado, pass_actual, pass_nueva);
+
+    }
 }
 
