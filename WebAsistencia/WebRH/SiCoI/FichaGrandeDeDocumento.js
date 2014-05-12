@@ -1,9 +1,9 @@
-﻿var FichaGrandeDeDocumento = function (documento, ui, plantilla_transicion, lista_areas, ficha_chica) {
+﻿var FichaGrandeDeDocumento = function (documento, ui, plantilla_transicion, ficha_chica, repo_areas) {
     this.ui = ui;
     this.documento = documento;
-    this.lista_areas = lista_areas;
     this.ficha_chica = ficha_chica;
     this.plantilla_transicion = plantilla_transicion;
+    this.repositorio_de_areas = repo_areas;
     this.start();
 };
 FichaGrandeDeDocumento.prototype = {
@@ -19,7 +19,7 @@ FichaGrandeDeDocumento.prototype = {
 
         this.boton_guardar_cambios.click(function () {
             WebService.guardarCambiosEnDocumento(self.documento.id,
-                                                self.selector_de_area_destino.areaSeleccionada().id,
+                                                self.selector_de_area_destino.areaSeleccionada.id,
                                                 self.comentarios.val(),
                                                 function (doc) {
                                                     self.ficha_chica.mostrarDocumento(doc);
@@ -28,16 +28,21 @@ FichaGrandeDeDocumento.prototype = {
                                             );
         });
 
-        this.selector_de_area_destino = new InputAutocompletableDeAreas(this.div_area_destino, this.lista_areas);
+        this.selector_de_area_destino = new SelectorDeAreas({
+            ui: this.div_area_destino,
+            repositorioDeAreas: this.repositorio_de_areas,
+            placeholder: ""
+        });
+
         this.mostrarDocumento(this.documento);
     },
     mostrarDocumento: function (documento) {
         this.documento = documento;
-        this.area_creadora.text(this.documento.areaCreadora.descripcion);
+        this.area_creadora.text(this.documento.areaCreadora.nombre);
         this.tiempo_en_area_actual.text(this.documento.enAreaActualHace.dias + " dias");
         this.comentarios.val(this.documento.comentarios);
 
-        if (this.documento.areaDestino == null) this.selector_de_area_destino.limpiar();
+        if (this.documento.areaDestino.id == -1) this.selector_de_area_destino.limpiar();
         else this.selector_de_area_destino.setAreaSeleccionada(this.documento.areaDestino);
 
         this.panel_transiciones.empty();

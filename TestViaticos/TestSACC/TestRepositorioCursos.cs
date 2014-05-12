@@ -5,9 +5,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using General.Calendario;
 
-
 using NMock2;
 using System;
+using General.Sacc;
+using General.Sacc.Seguridad;
+using General.MAU;
 
 namespace TestViaticos
 {
@@ -65,7 +67,7 @@ namespace TestViaticos
               Organigrama organigrama = TestObjects.OrganigramaConDosRamas();
 
               IConexionBD conexion = TestObjects.ConexionMockeada();
-              Autorizador autorizador = new Autorizador();
+              AutorizadorSacc autorizador = new AutorizadorSacc();
 
               List<Curso> cursos = TestObjects.UnListadoDeCursoConEdificios();
 

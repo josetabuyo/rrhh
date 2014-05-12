@@ -16,7 +16,8 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
         Persona[] personas;
         List<Persona> personas_todas_areas_a_cargo = new List<Persona>();
 
-        foreach (var area in usuario.Areas)
+
+        foreach (var area in servicio.AreasAdministradasPor(usuario))
         {
             personas = servicio.GetPersonasACargo(area);
 
@@ -27,8 +28,8 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
             }
         }
 
+        personas_todas_areas_a_cargo.Sort((persona1, persona2) => persona1.Apellido.CompareTo(persona2.Apellido));
         Session["personas"] = personas_todas_areas_a_cargo.ToArray();
-
 
         MostrarPersonasEnLaGrilla();
     }

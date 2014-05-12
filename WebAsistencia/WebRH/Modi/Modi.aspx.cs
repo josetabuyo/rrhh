@@ -12,12 +12,5 @@ public partial class AltaDeDocumento : System.Web.UI.Page
     private Usuario usuarioLogueado;
     protected void Page_Load(object sender, EventArgs e)
     {
-        Sesion.VerificarSesion(this);
-        usuarioLogueado = ((Usuario)Session[ConstantesDeSesion.USUARIO]);
-        
-        if (!usuarioLogueado.TienePermisosParaModil)//mesa de entrada
-        {      
-            Response.Redirect("~/SeleccionDeArea.aspx");
-        }
     }    
 }

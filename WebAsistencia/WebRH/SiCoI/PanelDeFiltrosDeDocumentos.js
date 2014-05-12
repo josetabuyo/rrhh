@@ -330,8 +330,27 @@ var PanelDeFiltrosDeDocumentos = function (cfg) {
     var blanco = 'rgb(255, 255, 255)';
     var amarillo = 'rgb(255, 255, 200)';
 
-    var selectorDeAreaActualEnfiltro = new InputAutocompletableDeAreas(self.cfg.inputFiltroAreaActual, self.cfg.listaAreas, self.cfg.areaActualSeleccionadaEnFiltro);
-    var selectorDeAreaOrigenEnfiltro = new InputAutocompletableDeAreas(self.cfg.inputFiltroAreaOrigen, self.cfg.listaAreas, self.cfg.areaOrigenSeleccionadaEnFiltro);
+    self.cfg.areaActualSeleccionadaEnFiltro.val("");
+    var selectorDeAreaActualEnfiltro = new SelectorDeAreas({
+        ui: self.cfg.inputFiltroAreaActual,
+        repositorioDeAreas: cfg.repositorioDeAreas,
+        placeholder: "",
+        alSeleccionarUnArea: function (area) {
+            self.cfg.areaActualSeleccionadaEnFiltro.val(area.id);
+            self.cfg.areaActualSeleccionadaEnFiltro.change();
+        },
+    });
+
+    self.cfg.areaOrigenSeleccionadaEnFiltro.val("");
+    var selectorDeAreaOrigenEnfiltro = new SelectorDeAreas({
+        ui: self.cfg.inputFiltroAreaOrigen,
+        repositorioDeAreas: cfg.repositorioDeAreas,
+        placeholder: "",
+        alSeleccionarUnArea: function (area) {
+            self.cfg.areaOrigenSeleccionadaEnFiltro.val(area.id);
+            self.cfg.areaOrigenSeleccionadaEnFiltro.change();
+        },
+    });
 
     for (var i = 0; i < self.cfg.tiposDeDocumento.length; i++) {
         var tipo = self.cfg.tiposDeDocumento[i];

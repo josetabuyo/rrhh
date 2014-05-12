@@ -16,12 +16,16 @@ public partial class FormularioReportes_FReportePorProvincia : System.Web.UI.Pag
 
         Usuario usuario = ((Usuario)Session["usuario"]);
         var dDLAreas = new DropDownList();
-        foreach (Area area in usuario.Areas)
+
+        var ws = new WSViaticosSoapClient();
+        var areas_usuario = ws.AreasAdministradasPor(usuario);
+
+        foreach (Area area in areas_usuario)
         {
             dDLAreas.Items.Add(new ListItem(area.Nombre, area.Id.ToString()));
         }
 
-        var idAreasUsuario = usuario.Areas.Select(a => a.Id);
+        var idAreasUsuario = areas_usuario.Select(a => a.Id);
 
         if (Session["zonas"] == null)
         {

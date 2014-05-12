@@ -1,4 +1,5 @@
 ﻿using System;
+using General.MAU;
 namespace General.Repositorios
 {
     public interface IRepositorioDeDocumentos
@@ -7,6 +8,6 @@ namespace General.Repositorios
         System.Collections.Generic.List<General.Documento> GetDocumentosFromTabla(TablaDeDatos tablaDocumentos);
         System.Collections.Generic.List<General.TipoDeDocumentoSICOI> GetTiposDeDocumentos();
         System.Collections.Generic.List<General.Documento> GetTodosLosDocumentos();
-        void GuardarDocumento(General.Documento un_documento, General.Usuario usuario);
+        void GuardarDocumento(General.Documento un_documento, Usuario usuario);
     }
 }

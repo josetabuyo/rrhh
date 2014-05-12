@@ -1,10 +1,25 @@
 ﻿
 var PanelAltaDeDocumento = function (cfg) {
+    var self = this;
     this.cfg = cfg;
-    this.selectorDeAreaOrigenEnAlta = new InputAutocompletableDeAreas(cfg.selectorDeAreaOrigenEnAlta, cfg.listaAreas);
-    this.selectorDeAreaDestinoEnAlta = new InputAutocompletableDeAreas(cfg.selectorDeAreaDestinoEnAlta, cfg.listaAreas);
+    this.selectorDeAreaOrigenEnAlta = new SelectorDeAreas({
+        ui: cfg.selectorDeAreaOrigenEnAlta,
+        repositorioDeAreas: cfg.repositorioDeAreas,
+        placeholder: "Área de Origen",
+        alSeleccionarUnArea: function (area) {
+            self.validarAltaDeDocumento(); 
+        }
+    });
 
-    
+    this.selectorDeAreaDestinoEnAlta = new SelectorDeAreas({
+        ui: cfg.selectorDeAreaDestinoEnAlta,
+        repositorioDeAreas: cfg.repositorioDeAreas,
+        placeholder: "Área de Destino",
+        alSeleccionarUnArea: function (area) {
+            self.validarAltaDeDocumento();
+        }
+    });
+
     cfg.inputFechaDoc.datepicker({ dateFormat: "dd/mm/yy",
         onSelect: function (date) {
             self.cfg.inputFechaDoc.change();
@@ -48,9 +63,7 @@ var PanelAltaDeDocumento = function (cfg) {
         cfg.cmbCategoriaDocumento.append(listItem);
     }
 
-
-        var self = this;
-    this.selectorDeAreaOrigenEnAlta.change(function () { self.validarAltaDeDocumento(); });
+    //this.selectorDeAreaOrigenEnAlta.change(function () { self.validarAltaDeDocumento(); });
     cfg.cmbTipoDeDocumento.change(function () { self.validarAltaDeDocumento(); });
     cfg.cmbCategoriaDocumento.change(function () { self.validarAltaDeDocumento(); });
     cfg.txtExtracto.keyup(function () { self.validarAltaDeDocumento(); });
@@ -67,8 +80,8 @@ var PanelAltaDeDocumento = function (cfg) {
             extracto: cfg.txtExtracto.val(),
             tipo: cfg.cmbTipoDeDocumento.val(),
             categoria: cfg.cmbCategoriaDocumento.val(),
-            id_area_origen: self.selectorDeAreaOrigenEnAlta.areaSeleccionada().id,
-            id_area_destino: self.selectorDeAreaDestinoEnAlta.areaSeleccionada().id,
+            id_area_origen: self.selectorDeAreaOrigenEnAlta.areaSeleccionada.id,
+            id_area_destino: self.selectorDeAreaDestinoEnAlta.areaSeleccionada.id,
             id_area_actual: cfg.areaDelUsuario.id,
             numero: cfg.txtNumero.val(),
             comentarios: cfg.txtComentarios.val(),
@@ -99,14 +112,14 @@ var PanelAltaDeDocumento = function (cfg) {
                     self.validarAltaDeDocumento();
                     self._panel_documentos.refrescarDocumentos();
                  
-                    alert("Se creó un documento con el número de ticket: " + ticket);
+                    alertify.alert("Se creó un documento con el número de ticket: " + ticket);
                 }
                 if (respuesta.tipoDeRespuesta == "altaDeDocumento.error") {
-                    alert("Error al dar de alta el documento: " + respuesta.error);
+                    alertify.alert("Error al dar de alta el documento: " + respuesta.error);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(errorThrown);
+                alertify.alert(errorThrown);
             }
         });
     });
@@ -133,9 +146,7 @@ PanelAltaDeDocumento.prototype = {
         this.cfg.cmbCategoriaDocumento.val("");
         this.cfg.cmbCategoriaDocumento.blur();
         this.selectorDeAreaOrigenEnAlta.limpiar();
-        this.selectorDeAreaOrigenEnAlta.blur();
         this.selectorDeAreaDestinoEnAlta.limpiar();
-        this.selectorDeAreaDestinoEnAlta.blur();
         this.cfg.txtNumero.val("");
         this.cfg.txtNumero.blur();
         this.cfg.txtComentarios.val("");
@@ -157,7 +168,7 @@ PanelAltaDeDocumento.prototype = {
         this.cfg.botonDesplegarPanelAlta.removeClass("boton_que_abre_panel_desplegable_activo");
     },
     validarAltaDeDocumento: function () {
-        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '' || this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '-1') {
+        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada.id == '' || this.selectorDeAreaOrigenEnAlta.areaSeleccionada.id == '-1') {
             this.cfg.selectorDeAreaOrigenEnAlta.css("background-color", 'rgb(255, 255, 235)');
 
         } else {
@@ -187,7 +198,7 @@ PanelAltaDeDocumento.prototype = {
             this.cfg.txtExtracto.css("background-color", 'rgb(255, 255, 255)');
         }
 
-        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '' || this.selectorDeAreaOrigenEnAlta.areaSeleccionada().id == '-1' ||
+        if (this.selectorDeAreaOrigenEnAlta.areaSeleccionada.id == '' || this.selectorDeAreaOrigenEnAlta.areaSeleccionada.id == '-1' ||
             this.cfg.cmbTipoDeDocumento.val() == '' ||
             this.cfg.cmbCategoriaDocumento.val() == '' ||
             this.cfg.txtExtracto.val() == '') {

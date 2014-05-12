@@ -24,7 +24,7 @@
                 </div>
                 <div id="loginAlertaInvalido" class="alert  alert-error" runat="server">
                     <a class="close" data-dismiss="alert">×</a> <strong>Error</strong> El nombre de
-                        usuario o la contraseña ingresados no son v&aacute;lidos.
+                        usuario o la contraseña ingresados no son v&aacute;lidos o el usuario está dado de baja.
             </div>
            
         </div>

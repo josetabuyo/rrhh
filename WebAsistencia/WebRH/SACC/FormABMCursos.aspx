@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" EnableEventValidation="false" CodeFile="FormABMCursos.aspx.cs" Inherits="SACC_FormABMCursos" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormABMCursos.aspx.cs" Inherits="SACC_FormABMCursos" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="BarraDeNavegacion.ascx" TagName="BarraNavegacion" TagPrefix="uc3" %>
 
@@ -8,7 +8,7 @@
 <head id="Head1" runat="server">
     <title>ABM Cursos</title>
     <%= Referencias.Css("../")%> 
-    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+    <%= Referencias.Javascript("../") %>
 
 </head>
 <body class="marca_de_agua">
@@ -33,10 +33,10 @@
         </p>
         <p>
             <asp:Label ID="lblFechaInicio" CssClass="labels_sacc" runat="server" Text="Fecha Inicio"></asp:Label>
-            <asp:TextBox ID="txtFechaInicio" CssClass="input-small" placeholder="Fecha Inicio" runat="server" MaxLength="8" data-name="Fecha de Inicio del Curso" title="Fecha de Inicio del Curso"></asp:TextBox>
+            <asp:TextBox ID="txtFechaInicio" CssClass="input-small" placeholder="Fecha Inicio" runat="server" MaxLength="10" data-name="Fecha de Inicio del Curso" title="Fecha de Inicio del Curso"></asp:TextBox>
             <br />
             <asp:Label ID="lblFechaFin" CssClass="labels_sacc" runat="server" Text="Fecha Fin"></asp:Label>
-            <asp:TextBox ID="txtFechaFin" CssClass="input-small" placeholder="Fecha Fin" runat="server" MaxLength="8" data-name="Fecha de Fin del Curso" title="Fecha de Fin del Curso"></asp:TextBox></p>
+            <asp:TextBox ID="txtFechaFin" CssClass="input-small" placeholder="Fecha Fin" runat="server" MaxLength="10" data-name="Fecha de Fin del Curso" title="Fecha de Fin del Curso"></asp:TextBox></p>
         <p>   
             <asp:Label ID="lblHorario" CssClass="labels_sacc" runat="server" Text="Horario:"></asp:Label>
             <%--<asp:DropdownList ID="cmbDia" CssClass="input-small"  runat="server" data-name="Dia" ></asp:DropdownList>--%>
@@ -96,8 +96,6 @@
     <asp:HiddenField ID="horaCatedra" runat="server" />
      <asp:Button ID="btnVerFichaCurso" Text="" runat="server" OnClick="btnVerCurso_Click" style="display:none"/>
     </form>
-    
-       <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>    
 </body>
 

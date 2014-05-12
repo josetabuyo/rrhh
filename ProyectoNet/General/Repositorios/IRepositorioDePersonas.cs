@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using General;
+
 namespace General.Repositorios
 {
     public interface IRepositorioDePersonas
     {
-        System.Collections.Generic.List<General.Persona> BuscarPersonas(string criterio);
-        System.Collections.Generic.List<General.Persona> BuscarPersonasConLegajo(string criterio);
-        IConexionBD conexion_bd { get; set; }
-        System.Collections.Generic.List<General.Persona> GetPersonas();
-        General.TipoDePlanta GetTipoDePlantaActualDe(General.Persona unaPersona);
-        System.Collections.Generic.List<General.Persona> ObtenerPersonasDesdeLaBase();
+        List<Persona> BuscarPersonas(string criterio);
+        List<Persona> BuscarPersonasConLegajo(string criterio);
+        TipoDePlanta GetTipoDePlantaActualDe(Persona unaPersona);
+		List<Persona> TodasLasPersonas();
+		Persona GetPersonaPorId(int id_persona);
     }
 }

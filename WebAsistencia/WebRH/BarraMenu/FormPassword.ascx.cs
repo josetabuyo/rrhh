@@ -15,7 +15,4 @@ public partial class BarraMenu_FormPassword : System.Web.UI.UserControl
         this.urlAjax.Text = UrlAjax;
 
     }
-
-
-
 }

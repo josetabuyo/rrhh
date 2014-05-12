@@ -6,17 +6,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title></title>
-    <link id="link1" rel="stylesheet" href="../bootstrap/css/bootstrap.css" type="text/css"
+
+
+    <link id="link1" rel="stylesheet" href="../Scripts/bootstrap/css/bootstrap.css" type="text/css"
         runat="server" />
-    <link id="link2" rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css"
+    <link id="link2" rel="stylesheet" href="../Scripts/bootstrap/css/bootstrap-responsive.css"
         type="text/css" runat="server" />
     <link id="link4" rel="stylesheet" href="../Estilos/Estilos.css" type="text/css" runat="server" />
     <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
+
+
 </head>
 
 <body class="body-detalle" onload="MM_preloadImages('../Imagenes/Botones/Botones Nuevos/cerrar_s2.png','/WebRH/Imagenes/Botones/Botones Gestion/modificar_s2.png','/WebRH/Imagenes/Botones/Botones Gestion/imprimir_s2.png','/WebRH/Imagenes/Botones/Botones Gestion/enviar_s2.png','/WebRH/Imagenes/Botones/Botones Gestion/modificar_solicitud_s2.png')">
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu1" runat="server" />
+    <uc2:BarraMenu ID="BarraMenu1" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:14px;font-weight: bold;'> Gestión de Viáticos </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
 
     <div class="contenedor_principal">       
        <div class="detalle_viatico_label_usuario">
@@ -193,8 +197,11 @@
     </form>
     
 </body>--%>
+
+
+
 <script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
-<%--<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>--%>
+
 <script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"></script>
@@ -205,6 +212,10 @@
 <script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
 <script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
 <script type="text/javascript">
+
+
+
+
     $('#SelectorDeAreas').attr('data-source', $('#<%= ListaAreas.ClientID %>').val());
     $('#SelectorDeAreas').attr("autocomplete", "off");
     //$('#SelectorDeAreas').blur(function () { alert($('#SelectorDeAreas').data().typeahead.$menu.find('.active').data().item.value); });
@@ -230,4 +241,13 @@
         $('#<%= AreaSeleccionadaRechazo.ClientID %>').val($('#selectorDeAreaRechazo').data().typeahead.$menu.find('.active').data().item.value);
     });
 </script>
+
+
+
+       <%= Referencias.Javascript("../")%>  
+
+     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.validate.js"></script>
+     <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tab.js"></script>
+    <%= Referencias.Css("../")%>  
+
 </html>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using General.MAU;
 namespace General.Repositorios
 {
     public class RepositorioDeDocumentos : General.Repositorios.IRepositorioDeDocumentos
@@ -169,8 +170,8 @@ namespace General.Repositorios
         public List<Documento> GetDocumentosFiltrados(List<FiltroDeDocumentos> filtros)
         {
             BuscadorDeDocumentos buscador_de_documentos = new BuscadorDeDocumentos(GetTodosLosDocumentos());
-           var lista_a_devolver = buscador_de_documentos.Buscar(filtros);
-           return lista_a_devolver;
+            var lista_a_devolver = buscador_de_documentos.Buscar(filtros);
+            return lista_a_devolver;
         }
 
         public Documento GetDocumentoPorId(int id_documento)

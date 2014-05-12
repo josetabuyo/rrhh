@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Asistencia\ConceptoLicenciaAnualOrdinaria.cs" />
     <Compile Include="Asistencia\ConceptoLicenciaGeneral.cs" />
+    <Compile Include="Asistencia\SolicitudesDeVacaciones.cs" />
     <Compile Include="Asistencia\TipoDePlantaGeneral.cs" />
     <Compile Include="Asistencia\ServicioDeLicencias.cs" />
     <Compile Include="Asistencia\CreadorDePeriodosImputablesDivisibles.cs" />
@@ -91,12 +92,37 @@
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
+    <Compile Include="DictionaryExtension.cs" />
+    <Compile Include="MAU\AccesoAURL.cs" />
     <Compile Include="Extensiones\ExtensionString.cs" />
     <Compile Include="MAU\Autorizador.cs" />
+    <Compile Include="MAU\IRepositorioDeFuncionalidadesDeUsuarios.cs" />
+    <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios.cs" />
+    <Compile Include="MAU\Encriptador.cs" />
+    <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
+    <Compile Include="MAU\IRepositorioDeMenues.cs" />
+    <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
+    <Compile Include="Repositorios\Repositorio.cs" />
+    <Compile Include="Repositorios\RepositorioLazySingleton.cs" />
+    <Compile Include="Viaticos\PersonaNula.cs" />
+    <Compile Include="Repositorios\IRepositorioDePersonas.cs" />
+    <Compile Include="MAU\RepositorioDeAccesosAURL.cs" />
+    <Compile Include="MAU\RepositorioDeAccesosAURL_EnMemoria.cs" />
+    <Compile Include="MAU\RepositorioDeFuncionalidades.cs" />
+    <Compile Include="MAU\RepositorioDeFuncionalidades_EnMemoria.cs" />
     <Compile Include="MAU\ExtensionList.cs" />
     <Compile Include="MAU\Funcionalidad.cs" />
-    <Compile Include="MAU\Permiso.cs" />
-    <Compile Include="MAU\PermisoNulo.cs" />
+    <Compile Include="MAU\IRepositorioDeFuncionalidades.cs" />
+    <Compile Include="MAU\IRepositorioDePermisosSobreAreas.cs" />
+    <Compile Include="MAU\IRepositorioDeUsuarios.cs" />
+    <Compile Include="MAU\RepositorioDeMenues.cs" />
+    <Compile Include="MAU\RepositorioDeMenues_EnMemoria.cs" />
+    <Compile Include="MAU\RepositorioDePermisosSobreAreas.cs" />
+    <Compile Include="MAU\RepositorioDePermisosSobreAreas_EnMemoria.cs" />
+    <Compile Include="MAU\RepositorioDeUsuarios.cs" />
+    <Compile Include="MAU\RepositorioDeUsuarios_EnMemoria.cs" />
+    <Compile Include="MAU\TestObjectsMau.cs" />
+    <Compile Include="MAU\UsuarioNulo.cs" />
     <Compile Include="MICOI\AccionDeTransicion.cs" />
     <Compile Include="MICOI\Alias.cs" />
     <Compile Include="MICOI\AliasNull.cs" />
@@ -153,7 +179,6 @@
     <Compile Include="Organigrama\OrganigramaException.cs" />
     <Compile Include="Organigrama\OrganigramaVisitor.cs" />
     <Compile Include="Organigrama\Responsable.cs" />
-    <Compile Include="Repositorios\IRepositorioDePersonas.cs" />
     <Compile Include="Repositorios\IRepositorioLicencia.cs" />
     <Compile Include="Repositorios\RepositorioDePersonas.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\IRepositorioDeAsistencias.cs" />
@@ -177,9 +202,8 @@
     <Compile Include="SACC\Organismo.cs" />
     <Compile Include="SACC\Reportes.cs" />
     <Compile Include="Seguridad\Auditoria.cs" />
-    <Compile Include="Seguridad\Autorizador.cs" />
-    <Compile Include="Seguridad\Features.cs" />
-    <Compile Include="Seguridad\ItemDeMenu.cs" />
+    <Compile Include="Seguridad\AutorizadorSacc.cs" />
+    <Compile Include="MAU\ItemDeMenu.cs" />
     <Compile Include="Viaticos\CalculadorDeViaticos.cs" />
     <Compile Include="Viaticos\CircuitoDeAprobacionDeViatico.cs" />
     <Compile Include="Viaticos\ComisionDeServicio.cs" />
@@ -207,8 +231,7 @@
     <Compile Include="Viaticos\TransicionDeViatico.cs" />
     <Compile Include="Viaticos\Zona.cs" />
     <Compile Include="Asistencia\Licencia.cs" />
-    <Compile Include="Seguridad\MenuDelSistema.cs" />
-    <Compile Include="Seguridad\Permiso.cs" />
+    <Compile Include="MAU\MenuDelSistema.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -308,7 +331,7 @@
     <Compile Include="Asistencia\SaldoLicencia.cs" />
     <Compile Include="Asistencia\SaldoLicenciaDetalle.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Seguridad\Usuario.cs" />
+    <Compile Include="MAU\Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

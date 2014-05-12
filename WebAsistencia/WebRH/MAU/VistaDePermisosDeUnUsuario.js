@@ -5,7 +5,7 @@
 
 VistaDePermisosDeUnUsuario.prototype.start = function () {
     var _this = this;
-    this.servicioDeSeguridad.getFuncionalidades(
+    this.repositorioDeFuncionalidades.todasLasFuncionalidades(
         function (funcionalidades) { //on success
             _this.funcionalidades = funcionalidades;
             var nodos_funcionalidades = [];
@@ -20,23 +20,23 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
                 onClick: function (node, event) {
                     if (node.getEventTargetType(event) == 'checkbox') {
                         if (node.isSelected()) {
-                            _this.servicioDeSeguridad.denegarPermisoA(
-                                _this.usuario,
-                                node.data.title,
+                            _this.autorizador.denegarFuncionalidadA(
+                                _this.usuario.Id,
+                                node.data.key,
                                 function () {
                                     node.select(false);
                                 },
-                                function () { alert("error al denegar permisos"); }
+                                function () { alertify.alert("error al denegar permisos"); }
                             );
                         }
                         else {
-                            _this.servicioDeSeguridad.concederPermisoA(
-                                _this.usuario,
-                                node.data.title,
+                            _this.autorizador.concederFuncionalidadA(
+                                _this.usuario.Id,
+                                node.data.key,
                                 function () {
                                     node.select(true);
                                 },
-                                function () { alert("error al conceder permisos"); }
+                                function () { alertify.alert("error al conceder permisos"); }
                             );
                         }
                         return false;
@@ -44,9 +44,12 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
                 }
             });
             _this.arbol = _this.ui.dynatree('getTree');
+            _this.ui.dynatree("getRoot").visit(function (node) {
+                node.expand(true);
+            });
         },
         function (error) { //on error
-            alert(error);
+            alertify.alert(error);
         }
     );
 };
@@ -57,20 +60,15 @@ VistaDePermisosDeUnUsuario.prototype.setUsuario = function (un_usuario) {
     }, true);
     this.usuario = un_usuario;
     var _this = this;
-    this.servicioDeSeguridad.getPermisosPara(un_usuario,
-        function (permisos) { //on success
-            for (var i = 0; i < permisos.length; i++) {
-                var nodo = _this.arbol.getNodeByKey(permisos[i].funcionalidad.nombre);
-                if (permisos[i].tipo == "Concedido") {
-                    nodo.select(true);
-                }
-                if (permisos[i].tipo == "Denegado") {
-                    nodo.select(false);
-                }
+    this.repositorioDeFuncionalidades.funcionalidadesPara(un_usuario,
+        function (funcionalidades) { //on success
+            for (var i = 0; i < funcionalidades.length; i++) {
+                var nodo = _this.arbol.getNodeByKey(funcionalidades[i].Id.toString());
+                nodo.select(true);
             }
         },
         function (error) { //on error
-            alert('error');
+            alertify.alert('error');
         }
     );
 };

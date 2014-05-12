@@ -206,13 +206,13 @@
 #selectorAreaActualEnfiltro 
 {
     display:inline-block;
-    width:84%;
+    width:85%;
 }
 
 #selectorAreaOrigenEnfiltro 
 {
     display:inline-block;
-    width:84%;
+    width:85%;
 }
 
 /* FIN ESTILO PANEL FILTROS */
@@ -270,12 +270,23 @@
     width: 250px;
 }
 
-#selectorDeAreaOrigen, #selectorDeAreaDestino
+#selectorDeAreaOrigen
 {
     display:inline-block;
-    width:645px;/*  width:880px;*/
+    width:645px;
 }
 
+#selectorDeAreaDestino
+{
+    display:inline-block;
+    width:864px;
+}
+
+.selector_areas .select2-container
+{
+    width:100% !important;
+    margin-bottom: 8px;
+}
 /*FIN ESTILO ALTA DOCUMENTO */
 
 
@@ -719,6 +730,7 @@
 #ficha_grande_contenido_area_destino{
     width: 600px;
     display: inline-block;
+    margin-top: 5px;
 }
 #guardar_cambios_documento{
 	display: inline-block;

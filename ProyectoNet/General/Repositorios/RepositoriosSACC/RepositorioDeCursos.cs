@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Linq;
-
 using System.Collections.Generic;
+using General.MAU;
 
 
 namespace General.Repositorios
 {
     public class RepositorioDeCursos : RepositorioLazy<List<Curso>>, General.Repositorios.IRepositorioDeCursos
     {
-
-        protected IConexionBD conexion_bd { get; set; }
 
         IRepositorioDeDocentes repo_docentes;
         IRepositorioDeEspaciosFisicos repo_espacios_fisico;
@@ -19,15 +17,15 @@ namespace General.Repositorios
         ComparadorDeDiferencias comparador = new ComparadorDeDiferencias();
 
         public RepositorioDeCursos(IConexionBD conexion)
+            :base(conexion)
         {
-            this.conexion_bd = conexion;
             this.cache = new CacheNoCargada<List<Curso>>();
-            this.repo_docentes = new RepositorioDeDocentes(conexion_bd, this);
+            this.repo_docentes = new RepositorioDeDocentes(conexion, this);
 
-            repo_espacios_fisico = new RepositorioDeEspaciosFisicos(conexion_bd, this);
-            repo_modalidades = new RepositorioDeModalidades(conexion_bd);
-            repo_materias = new RepositorioDeMaterias(conexion_bd, this, repo_modalidades);
-            repo_alumnos = new RepositorioDeAlumnos(conexion_bd, this, repo_modalidades);
+            repo_espacios_fisico = new RepositorioDeEspaciosFisicos(conexion, this);
+            repo_modalidades = new RepositorioDeModalidades(conexion);
+            repo_materias = new RepositorioDeMaterias(conexion, this, repo_modalidades);
+            repo_alumnos = new RepositorioDeAlumnos(conexion, this, repo_modalidades);
         }
 
         public void SetRepoDocuentes(IRepositorioDeDocentes new_repo_docentes)
@@ -66,7 +64,7 @@ namespace General.Repositorios
 
         public List<Curso> GetCursosDesdeLaBase()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Cursos");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_Cursos");
             var cursos = new List<Curso>();
 
             tablaDatos.Rows.ForEach(row =>
@@ -124,7 +122,7 @@ namespace General.Repositorios
         {
             if (cache_horarios != null) return cache_horarios;
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Horarios");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_Horarios");
             var horarios = new List<HorarioDeCursada>();
             tablaDatos.Rows.ForEach(row =>
             {
@@ -171,7 +169,7 @@ namespace General.Repositorios
         {
             if (cache_inscripciones != null) return cache_inscripciones;
 
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Inscripciones");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_Inscripciones");
             var inscripciones = new List<List<int>>();
             tablaDatos.Rows.ForEach(row =>
             {
@@ -204,7 +202,7 @@ namespace General.Repositorios
             parametros.Add("fecha", DateTime.Now);
             parametros.Add("Observaciones", curso.Observaciones);
 
-            int id_curso = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Curso", parametros).ToString());
+            int id_curso = int.Parse(conexion.EjecutarEscalar("dbo.SACC_Ins_Curso", parametros).ToString());
 
             InsertarHorarios(id_curso, horarios_nuevos);
             return true;
@@ -227,7 +225,7 @@ namespace General.Repositorios
                 parametros.Add("fecha", DateTime.Now);
                 parametros.Add("Baja", idBaja);
                 parametros.Add("Observaciones", curso.Observaciones);
-                conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
+                conexion.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
                 return true;
             }
             else
@@ -244,7 +242,7 @@ namespace General.Repositorios
             parametros.Add("@IdUsuario", usuario.Id);
             parametros.Add("@Fecha", "");
 
-            int id = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
+            int id = int.Parse(conexion.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
 
             return id;
         }
@@ -272,7 +270,7 @@ namespace General.Repositorios
                 parametros.Add("fecha", DateTime.Now);
                 parametros.Add("Observaciones", curso.Observaciones);
 
-                conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
+                conexion.EjecutarSinResultado("dbo.SACC_Upd_Del_Curso", parametros);
                 return true;
             }
             else
@@ -291,7 +289,7 @@ namespace General.Repositorios
                 parametros.Add("desde", FormatHora(h.HoraDeInicio.ToString()));
                 parametros.Add("hasta", FormatHora(h.HoraDeFin.ToString()));
                 parametros.Add("horas_catedra", h.HorasCatedra);
-                conexion_bd.EjecutarSinResultado("dbo.SACC_Ins_Horario", parametros);
+                conexion.EjecutarSinResultado("dbo.SACC_Ins_Horario", parametros);
             }
         }
 
@@ -300,7 +298,7 @@ namespace General.Repositorios
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("id_curso", id_curso);
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Del_Horarios", parametros);
+            conexion.EjecutarSinResultado("dbo.SACC_Del_Horarios", parametros);
         }
 
         public void ActualizarInscripcionesACurso(List<Alumno> alumnos_a_inscribir, Curso curso, Usuario usuario)
@@ -327,7 +325,7 @@ namespace General.Repositorios
         public List<Alumno> ObtenerAlumnosDelCurso(Curso curso)
         {
             var id_alumnos_de_la_base = GetInscripcionesByIdCurso(curso.Id);
-            var alumnos = new RepositorioDeAlumnos(conexion_bd, this, new RepositorioDeModalidades(conexion_bd)).GetAlumnos();
+            var alumnos = new RepositorioDeAlumnos(conexion, this, new RepositorioDeModalidades(conexion)).GetAlumnos();
             var alumnos_en_la_base = alumnos.FindAll(a => id_alumnos_de_la_base.Contains(a.Id));
             return alumnos_en_la_base;
         }
@@ -347,7 +345,7 @@ namespace General.Repositorios
             parametros.Add("@Fecha", "");
             parametros.Add("@idBaja", null);
 
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Ins_Inscripcion", parametros);
+            conexion.EjecutarSinResultado("dbo.SACC_Ins_Inscripcion", parametros);
         }
 
         private void EliminarAlumnoDelCurso(Alumno alumno, Curso curso, Usuario usuario)
@@ -360,14 +358,14 @@ namespace General.Repositorios
             parametros.Add("@IdUsuario", usuario.Id);
             parametros.Add("@Fecha", "");
             parametros.Add("@idBaja", idBaja);
-            conexion_bd.EjecutarSinResultado("dbo.SACC_Upd_Del_Inscripcion", parametros);
+            conexion.EjecutarSinResultado("dbo.SACC_Upd_Del_Inscripcion", parametros);
 
         }
 
         private bool TieneAsistenciasEnHorarios(Curso un_curso, List<HorarioDeCursada> horarios_nuevos)
         {
             var horarios_originales = un_curso.GetHorariosDeCursada();
-            var asistencias = new RepositorioDeAsistencias(this.conexion_bd).GetAsistencias();
+            var asistencias = new RepositorioDeAsistencias(this.conexion).GetAsistencias();
 
             var horarios_inamovibles = horarios_originales.FindAll(h => asistencias.Exists(a => a.Fecha.DayOfWeek == h.Dia));
             var horarios_con_horas_catedra_cambiadas = horarios_originales.FindAll(h => horarios_nuevos.Exists(hn => h.Dia == hn.Dia && h.HorasCatedra != hn.HorasCatedra));
@@ -404,7 +402,7 @@ namespace General.Repositorios
         {
             //Verificar que no se elimine el alumno si tiene asistencias
 
-            return int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Get_MaxHorasCatedraCurso").ToString());
+            return int.Parse(conexion.EjecutarEscalar("dbo.SACC_Get_MaxHorasCatedraCurso").ToString());
         }
 
         //public List<Observacion> GetObservaciones()
@@ -426,7 +424,7 @@ namespace General.Repositorios
 
         public List<Observacion> GetObservaciones()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Observaciones");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_Observaciones");
             var observaciones = new List<Observacion>();
 
             tablaDatos.Rows.ForEach(row =>
@@ -508,7 +506,7 @@ namespace General.Repositorios
             parametros.Add("@ReferenteRtaMDS", observacion.ReferenteRespuestaMDS);
             parametros.Add("@idUsuario", usuario.Id);
 
-            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Observacion", parametros);
+            return (int)conexion.EjecutarEscalar("dbo.SACC_Ins_Observacion", parametros);
 
         }
 
@@ -530,7 +528,7 @@ namespace General.Repositorios
             if (idBaja != 0)
                 parametros.Add("@id_baja", idBaja);
                                                      
-            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Upd_Del_Observaciones", parametros);
+            return (int)conexion.EjecutarEscalar("dbo.SACC_Upd_Del_Observaciones", parametros);
         }
 
 

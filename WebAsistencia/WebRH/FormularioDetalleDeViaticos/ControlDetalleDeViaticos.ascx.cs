@@ -46,7 +46,10 @@ public partial class FormularioDetalleDeViaticos_ControlDetalleDeViaticos : Syst
         this.Controls.Add(lista_firmantes);
 
         Usuario usuario = ((Usuario)Session["usuario"]);
-        var idAreasUsuario = usuario.Areas.Select(a => a.Id);
+
+        WSViaticosSoapClient ws = new WSViaticosSoapClient();
+
+        var idAreasUsuario = ws.AreasAdministradasPor(usuario).Select(a => a.Id);
 
         if (!idAreasUsuario.Contains(comision.AreaActual.Id))
         {

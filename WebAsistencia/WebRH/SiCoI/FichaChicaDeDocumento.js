@@ -80,7 +80,7 @@ FichaChicaDeDocumento.prototype = {
         this.tipo.text(this.documento.tipo.descripcion + " " + this.documento.tipo.sigla + " " + this.documento.numero);
         this.categoria.text(this.documento.categoria.descripcion);
         this.extracto.text(this.extractoResumido());
-        this.area_actual.text(this.documento.areaActual.descripcion);
+        this.area_actual.text(this.documento.areaActual.nombre);
         this.boton_enviar.toggle(this.documento.areaDestino.id >= 0);
 
 

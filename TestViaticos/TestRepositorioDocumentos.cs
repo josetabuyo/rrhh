@@ -9,6 +9,7 @@ using General;
 
 
 using NMock2;
+using General.MAU;
 
 namespace TestViaticos
 {

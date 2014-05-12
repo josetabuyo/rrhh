@@ -6,16 +6,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Áreas</title>
-        <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
         <%= Referencias.Css("../")%>
+        <%= Referencias.Javascript("../")%>
         <link id="link1" rel="stylesheet" href="ConsultaProtocolo.css" type="text/css" runat="server" />
         <link id="link5" rel="stylesheet" href="VistaDeArea.css" type="text/css" runat="server" />
-        <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
     </head>
     <body>
         <form id="form1" runat="server">
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True"></asp:ScriptManager>
-            <uc2:BarraMenu ID="BarraMenu" runat="server" UrlEstilos="../Estilos/" UrlImagenes="../Imagenes/" />
+            <uc2:BarraMenu ID="BarraMenu" runat="server" UrlEstilos="../Estilos/" UrlImagenes="../Imagenes/" UrlPassword="../" />
             <div id="ContenedorPrincipal" class="contenedor_principal contenedor_principal_consulta_protocolo">            
                 <legend>
                     Listado de Áreas del Ministerio de Desarrollo Social de Nación                     
@@ -49,12 +48,10 @@
     </body>
 
     <script type="text/javascript" src="AdministradorDeAreas.js"></script>
-    <script type="text/javascript" src="Area.js"></script>
+    <script type="text/javascript" src="../Scripts/Area.js"></script>
     <script type="text/javascript" src="VistaDeArea.js"></script>
     <script type="text/javascript" src="VistaDeAsistente.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
-
-    <%= Referencias.Javascript("../")%>
 
     <script type="text/javascript">
         $(document).ready(function () {

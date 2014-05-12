@@ -1,4 +1,5 @@
 ﻿using System;
+using General.MAU;
 namespace General.Repositorios
 {
     public interface IRepositorioDeDocentes
@@ -8,7 +9,7 @@ namespace General.Repositorios
         General.Docente GetDocenteById(int id);
         General.Docente GetDocenteByNombre(string nombre);
         System.Collections.Generic.List<General.Docente> GetDocentes();
-        void GuardarDocente(General.Docente un_docente, General.Usuario usuario);
-        void QuitarDocente(General.Docente un_docente, General.Usuario usuario);
+        void GuardarDocente(General.Docente un_docente, Usuario usuario);
+        void QuitarDocente(General.Docente un_docente, Usuario usuario);
     }
 }

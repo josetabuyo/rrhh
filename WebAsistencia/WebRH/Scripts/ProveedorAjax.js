@@ -1,9 +1,14 @@
-﻿var ProveedorAjax = function () {
+﻿var ProveedorAjax = function (raiz) {
+    var raiz_detectada = "";
+    for (var i = 0; i < window.location.pathname.split('/').length - 3; i++) {
+        raiz_detectada += "../";
+    };
+    this.raiz = raiz || raiz_detectada;
 };
 
 ProveedorAjax.prototype.postearAUrl = function (datos_del_post) {
     $.ajax({
-        url: datos_del_post.url,
+        url: this.raiz + "AjaxWS.asmx/" + datos_del_post.url,
         type: "POST",
         data: JSON.stringify(datos_del_post.data),
         dataType: "json",

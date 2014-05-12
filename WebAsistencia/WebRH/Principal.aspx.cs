@@ -141,13 +141,12 @@ public partial class Principal : System.Web.UI.Page
 
     void ibEliminarInasistencia_Click(object sender, ImageClickEventArgs e)
     {
-
         //AgenteE agente = new AgenteE();
         Persona persona = new Persona();
         TableRow rowClickeada = (TableRow)((TableCell)((ImageButton)sender).Parent).Parent;
-        string[] nombreCompleto = rowClickeada.Cells[3].Text.Split(',');
+        string[] nombreCompleto = rowClickeada.Cells[2].Text.Split(',');
 
-        persona.Documento = int.Parse(rowClickeada.Cells[2].Text.Replace(".", "").Replace("&nbsp;", ""));
+        persona.Documento = int.Parse(rowClickeada.Cells[1].Text.Replace(".", "").Replace("&nbsp;", ""));
         persona.Apellido = nombreCompleto[0];
         persona.Nombre = nombreCompleto[1];
         persona.Area = (Area)Session["areaActual"];
@@ -353,6 +352,10 @@ public partial class Principal : System.Web.UI.Page
     }
 
     protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~\\FormularioDeViaticosAprobacion\\FControlDeAprobacion.aspx");
+    }
+    protected void btn_GestionViaticos_Click(object sender, EventArgs e)
     {
         Response.Redirect("~\\FormularioDeViaticosAprobacion\\FControlDeAprobacion.aspx");
     }

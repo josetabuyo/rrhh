@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using General.MAU;
 
 
 namespace General.Repositorios
@@ -7,19 +8,16 @@ namespace General.Repositorios
     public class RepositorioDeEvaluacion : RepositorioLazy<List<Evaluacion>> 
     {
         List<Evaluacion> evaluaciones = new List<Evaluacion>();
-        public IConexionBD conexion_bd { get; set; }
         IRepositorioDeAlumnos repo_alumnos;
         IRepositorioDeCursos repo_cursos;
         ComparadorDeDiferencias comparador_de_evalauciones = new ComparadorDeDiferencias();
 
 
         public RepositorioDeEvaluacion(IConexionBD conexion, IRepositorioDeCursos repo_cursos, IRepositorioDeAlumnos repo_alumnos)
+            :base(conexion)
         {
-            this.conexion_bd = conexion;
             this.repo_alumnos = repo_alumnos;
             this.repo_cursos = repo_cursos;
-            this.cache = new CacheNoCargada<List<Evaluacion>>();
-
         }
 
         public List<Evaluacion> GetEvaluaciones()
@@ -29,7 +27,7 @@ namespace General.Repositorios
 
         public List<Evaluacion> ObtenerEvaluacionesDesdeLaBase()
         {
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_Evaluaciones");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_Evaluaciones");
             var alumnos = repo_alumnos.GetAlumnos();
             var cursos = repo_cursos.GetCursos();
             tablaDatos.Rows.ForEach(row =>
@@ -98,7 +96,7 @@ namespace General.Repositorios
             parametros.Add("@id_usuario", usuario.Id);
            
 
-            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Evaluacion", parametros);
+            return (int)conexion.EjecutarEscalar("dbo.SACC_Ins_Evaluacion", parametros);
         }
 
 
@@ -169,7 +167,7 @@ namespace General.Repositorios
             if (idBaja != 0)
                 parametros.Add("@id_baja", idBaja);
 
-            return (int)conexion_bd.EjecutarEscalar("dbo.SACC_Upd_Del_Evaluacion", parametros);
+            return (int)conexion.EjecutarEscalar("dbo.SACC_Upd_Del_Evaluacion", parametros);
         }
 
         //private void BorrarEvaluacion(Evaluacion evaluacion, Usuario usuario)
@@ -206,7 +204,7 @@ namespace General.Repositorios
             parametros.Add("@IdUsuario", usuario.Id);
             parametros.Add("@Fecha", "");
 
-            int id = int.Parse(conexion_bd.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
+            int id = int.Parse(conexion.EjecutarEscalar("dbo.SACC_Ins_Bajas", parametros).ToString());
 
             return id;
         }

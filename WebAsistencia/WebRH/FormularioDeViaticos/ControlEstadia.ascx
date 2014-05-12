@@ -11,8 +11,6 @@
     }
 </style>
 
-<script src="../bootstrap/js/jquery.validate.js" type="text/javascript"></script>
-
 
 
 
@@ -319,6 +317,7 @@
 <%--Comentado por German porque no podiamos pasar de solapas entre la estadia y los pasajes--%>
 
         
+<script src="../Scripts/bootstrap/js/jquery.validate.js" type="text/javascript"></script>
         <script type="text/javascript">
             $(document).ready(function () {
         

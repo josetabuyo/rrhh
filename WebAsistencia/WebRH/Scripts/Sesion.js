@@ -4,7 +4,7 @@
 
 Sesion.prototype.setAreaActual = function (id_area, on_success) {
     var _this = this;
-    this.proveedor_ajax.postearAUrl({ url: "AjaxWS.asmx/SetAreaActualEnSesion",
+    this.proveedor_ajax.postearAUrl({ url: "SetAreaActualEnSesion",
         data: {
             id_area: id_area
         },
