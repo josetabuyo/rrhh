@@ -482,7 +482,7 @@ li a:hover
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
                     <legend><a id="a2" rel="leanModal" class="link" style="" name="form_antecedentesAcademicos" href="#form_antecedentesAcademicos">Cargar antecedentes academicos</a></legend>
-                    <input type="text" style="width:90%;" />           
+                           
                         <h4>Antecedentes Agregados</h4>
                         <div id="ContenedorPlanilla" runat="server">
                         <table id="tabla_antecedentes" class="table table-striped">
@@ -757,7 +757,8 @@ li a:hover
                         <div style="float:left; clear:left; margin:4px 8px 4px 8px">
                             <label for="txt_especialidad">Nombre de Especialidad o Competencia <em>*</em></label>
                             <input id="txt_especialidad" type="text" style="width:350px;" name="txt_especialidad" />
-                            <input id="btn_agregar_especialidad" type="image" style="width:40px; height:30px;"    src="../Imagenes/Botones/agregar.png"   />
+                            <input id="btn_agregar_especialidad" type="button" value="+" />
+                           
                 
                             <table class="table table-striped">
                             <thead>
@@ -787,9 +788,9 @@ li a:hover
 			<div id="form_actividadesCapacitacion-header" class="form_concursar_header">
 				<h2>Actividades de Capacitación</h2>
 				<p></p>
-				<a class="modal_close" href="#"></a>
+				 <a class="modal_close_concursar" href="#"></a>
 			</div>
-				<div id="contenido_form_capacitacion">
+				<div id="contenido_form_capacitacion" class="fondo_form">
     <fieldset style="width:95%; padding-left:3%;" >
             <p><em>*</em> Campos Obligatorios</p>
             <legend>Actividades de Capacitaci&oacute;n</legend>
@@ -866,9 +867,9 @@ li a:hover
 			<div id="form_actividadesDocentes-header" class="form_concursar_header">
 				<h2>Actividades Docentes</h2>
 				<p></p>
-				<a class="modal_close" href="#"></a>
+				 <a class="modal_close_concursar" href="#"></a>
 			</div>
-				<div id="contenido_form_docentes">
+				<div id="contenido_form_docentes" class="fondo_form">
                 <fieldset style="width:95%; padding-left:3%;" >
 <p><em>*</em> Campos Obligatorios</p>
 <legend>Ingresar Actividad Docente</legend>
@@ -940,9 +941,9 @@ li a:hover
 			<div id="form_eventosAcademicos-header" class="form_concursar_header">
 				<h2>Eventos Academicos</h2>
 				<p></p>
-				<a class="modal_close" href="#"></a>
+				 <a class="modal_close_concursar" href="#"></a>
 			</div>
-				<div id="Div4">
+				<div id="Div4" class="fondo_form">
         <fieldset style="width:95%; padding-left:3%;" >
 <p><em>*</em> Campos Obligatorios</p>
 <legend>Ingresar Evento Académico</legend>
@@ -1005,9 +1006,9 @@ li a:hover
 			<div id="form_publicaciones-header" class="form_concursar_header">
 				<h2>Publicaciones o Trabajos</h2>
 				<p></p>
-				<a class="modal_close" href="#"></a>
+				 <a class="modal_close_concursar" href="#"></a>
 			</div>
-				<div id="Div5">
+				<div id="Div5" class="fondo_form">
     <fieldset style="width:95%; padding-left:3%;" >
 <p><em>*</em> Campos Obligatorios</p>
 <legend>Ingresar Publicación o Trabajo de Investigación</legend>
@@ -1054,9 +1055,9 @@ li a:hover
 			<div id="form_matriculas-header" class="form_concursar_header">
 				<h2>Matriculas</h2>
 				<p></p>
-				<a class="modal_close" href="#"></a>
+				 <a class="modal_close_concursar" href="#"></a>
 			</div>
-				<div id="Div6">
+				<div id="Div6" class="fondo_form">
         <fieldset style="width:95%; padding-left:3%;" >
             <p><em>*</em> Campos Obligatorios</p>
             <legend>Ingresar Matrícula Profesional</legend>
@@ -1095,9 +1096,9 @@ li a:hover
 			<div id="form_institucionesAcademicas-header" class="form_concursar_header">
 				<h2>Instituciones Academicas</h2>
 				<p></p>
-				<a class="modal_close" href="#"></a>
+				 <a class="modal_close_concursar" href="#"></a>
 			</div>
-				<div id="Div7">
+				<div id="Div7" class="fondo_form">
         <fieldset style="width:95%; padding-left:3%;" >
             <p><em>*</em> Campos Obligatorios</p>
             <legend>Ingresar Pertenencia a Institución Académica, o Profesional Relevante</legend>
@@ -1166,9 +1167,9 @@ li a:hover
 			<div id="form_experienciasLaborales-header" class="form_concursar_header">
 				<h2>Experiencias Laborales</h2>
 				<p></p>
-				<a class="modal_close" href="#"></a>
+				 <a class="modal_close_concursar" href="#"></a>
 			</div>
-				<div id="Div8">
+				<div id="Div8" class="fondo_form">
         <fieldset style="width:95%; padding-left:3%;" >
             <p><em>*</em> Campos Obligatorios</p>
             <legend>Ingresar Experiencia Laboral Relevante</legend>
@@ -1253,9 +1254,9 @@ li a:hover
 			<div id="form_idiomasExtranjeros-header" class="form_concursar_header">
 				<h2>Idiomas Extranjeros</h2>
 				<p></p>
-				<a class="modal_close" href="#"></a>
+				 <a class="modal_close_concursar" href="#"></a>
 			</div>
-				<div id="Div9">
+				<div id="Div9" class="fondo_form">
        <fieldset style="width:95%; padding-left:3%;" >
             <p><em>*</em> Campos Obligatorios</p>
             <legend>Ingresar Idioma Extranjero</legend>
@@ -1344,9 +1345,9 @@ li a:hover
 			<div id="form_competenciasInformaticas-header" class="form_concursar_header">
 				<h2>Competencias Informaticas</h2>
 				<p></p>
-				<a class="modal_close" href="#"></a>
+				 <a class="modal_close_concursar" href="#"></a>
 			</div>
-				<div id="Div13">
+				<div id="Div13" class="fondo_form">
         <fieldset style="width:95%; padding-left:3%;" >
             <p><em>*</em> Campos Obligatorios</p>
             <legend>Ingresar Competencia Informática</legend>
@@ -1429,9 +1430,9 @@ li a:hover
 			<div id="form_otrasCapacidades-header" class="form_concursar_header">
 				<h2>Otras Capacidades</h2>
 				<p></p>
-				<a class="modal_close" href="#"></a>
+				 <a class="modal_close_concursar" href="#"></a>
 			</div>
-				<div id="Div10">
+				<div id="Div10" class="fondo_form">
       <fieldset style="width:95%; padding-left:3%;" >
            
             <legend>Capacidades personales</legend>
