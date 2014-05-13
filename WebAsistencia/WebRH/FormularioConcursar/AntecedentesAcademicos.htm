@@ -1,0 +1,75 @@
+﻿<div id="form_antecedentesAcademicos">
+	<div id="form_antecedentesAcademicos-ct">
+		<div id="form_antecedentesAcademicos-header" class="form_concursar_header">
+			<h2>Estudios Realizados</h2>
+			<p>
+			</p>
+			<a class="modal_close_concursar" href="#"></a>
+		</div>
+		<div id="contenido_form_antecedentes" class="fondo_form">
+			<fieldset style="width:95%; padding-left:3%;">
+				<p>
+					<em>*</em> Campos Obligatorios
+				</p>
+				<legend>III - Antecedentes Académicos</legend>
+				<div style="float:left; margin:4px 8px 4px 8px">
+					<label for="nombre">Título <em>*</em></label>
+					<input id="txt_titulo" type="text" style="width:350px;"/>
+				</div>
+				<div style="float:left; margin:4px 8px 4px 8px">
+					<label for="txt_ingreso">Año/Mes Ingreso <em>*</em></label>
+					<input id="txt_ingreso" type="text" style="width:100px;"/>
+				</div>
+				<div style="float:left; margin:4px 8px 4px 8px">
+					<label for="txt_egreso">Año/Mes Egreso <em>*</em></label>
+					<input id="txt_egreso" type="text" style="width:100px;"/>
+				</div>
+				<div style="float:left; clear:left; margin:4px 8px 4px 8px">
+					<label for="txt_establecimiento">Establecimiento <em>*</em></label>
+					<input id="txt_establecimiento" type="text" style="width:350px;" name="txt_establecimiento"/>
+				</div>
+				<div style="float:left; margin:4px 8px 4px 8px">
+					<label for="txt_localidad">Localidad <em>*</em></label>
+					<input id="txt_localidad" type="text" style="width:100px;"/>
+				</div>
+				<div style="float:left; margin:4px 8px 4px 8px">
+					<label for="cmb_pais">País <em>*</em></label>
+					<select id="cmb_pais" style="width:110px;">
+						<option>Seleccione</option>
+						<option value="1">Argentina</option>
+					</select>
+				</div>
+				<div style="float:left; clear:left; margin:4px 8px 4px 8px">
+					<label for="txt_especialidad">Nombre de Especialidad o Competencia <em>*</em></label>
+					<input id="txt_especialidad" type="text" style="width:350px;" name="txt_especialidad"/>
+					<input id="btn_agregar_especialidad" type="image" style="width:40px; height:30px;" src="../Imagenes/Botones/agregar.png"/>
+					<table class="table table-striped">
+					<thead>
+					<tr>
+						<th>
+							Especialidades
+						</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>
+							Una Especialidad
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Otra Especialidad
+						</td>
+					</tr>
+					</tbody>
+					</table>
+				</div>
+			</fieldset>
+			<div class="btn-fld">
+				<input type="button" class="btn btn-primary" id="add_antecedentesAcademicos" value="Agregar" onclick="javascript:AgregarAntecedentes();"/>
+				
+			</div>
+		</div>
+	</div>
+</div>
