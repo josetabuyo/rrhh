@@ -23,21 +23,13 @@
       <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:SACC/f:Curso.cs" caret="2900" fromTop="28" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/f:TestObjects.cs" caret="62446" fromTop="33" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="3139" fromTop="40" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormAsignarAlumnos.aspx" caret="0" fromTop="0" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormulariosOtros/f:FormPase.aspx" caret="0" fromTop="0" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/d:Estilos/f:EstilosSACC.css" caret="4197" fromTop="20" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="8787" fromTop="47" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:Estilos/f:Estilos.css" caret="10100" fromTop="52" />
     </RecentFiles>
     <RecentEdits>
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioEspaciosFisicos.cs" caret="3330" fromTop="41" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioEspaciosFisicos.cs" caret="3330" fromTop="31" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioEspaciosFisicos.cs" caret="3330" fromTop="33" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioEspaciosFisicos.cs" caret="3330" fromTop="38" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioEspaciosFisicos.cs" caret="2427" fromTop="35" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioEspaciosFisicos.cs" caret="3312" fromTop="44" />
-      <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:Repositorios/d:RepositoriosSACC/f:RepositorioDeEspaciosFisicos.cs" caret="7753" fromTop="28" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioEspaciosFisicos.cs" caret="3330" fromTop="10" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioEspaciosFisicos.cs" caret="583" fromTop="25" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestEspaciosFisico.cs" caret="380" fromTop="19" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="237" fromTop="10" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="548" fromTop="13" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="3624" fromTop="14" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="153" fromTop="5" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="290" fromTop="10" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="2837" fromTop="21" />
@@ -55,6 +47,19 @@
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="2968" fromTop="39" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="2825" fromTop="32" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="2594" fromTop="30" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="76648" fromTop="20" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:Estilos/f:Estilos.css" caret="13748" fromTop="19" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="7273" fromTop="24" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="6963" fromTop="21" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="7273" fromTop="26" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="73378" fromTop="18" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="73574" fromTop="23" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="72722" fromTop="17" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:Estilos/f:Estilos.css" caret="10418" fromTop="26" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:Estilos/f:Estilos.css" caret="10100" fromTop="22" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="8297" fromTop="22" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="7720" fromTop="11" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="8787" fromTop="26" />
     </RecentEdits>
   </RecentFiles>
   <CompletionStatisticsManager>
@@ -143,6 +148,18 @@
     <ItemStatistics item="Qualified:@General.TestObjects">
       <Item value="UnAlumnoFer`0" priority="26" />
       <Item value="AreaDeFabi`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="AspCodeCompletionContext">
+      <Item value="span" priority="6" />
+      <Item value="style" priority="6" />
+      <Item value="min-width" priority="9" />
+    </ItemStatistics>
+    <ItemStatistics item="CssCodeCompletionContext">
+      <Item value="overflow-style" priority="5" />
+      <Item value="overflow" priority="5" />
+      <Item value="visible" priority="6" />
+      <Item value="auto" priority="6" />
+      <Item value="min-width" priority="0" />
     </ItemStatistics>
   </CompletionStatisticsManager>
   <NAntValidationSettings>
