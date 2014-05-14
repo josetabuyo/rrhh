@@ -219,7 +219,7 @@
               <div id="collapseTwo" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="a2" rel="leanModal" data-url="AntecedentesAcademicos.htm" class="link" style="" name="form_antecedentesAcademicos" href="#un_div_modal">Cargar antecedentes academicos</a></legend>
+                    <legend><a id="a2" rel="leanModalConcursar" data-url="AntecedentesAcademicos.htm" class="link" style="" name="form_antecedentesAcademicos" href="#un_div_modal">Cargar antecedentes academicos</a></legend>
                            
                         <h4>Antecedentes Agregados</h4>
                         <div id="ContenedorPlanilla" runat="server">
@@ -280,7 +280,7 @@
               <div id="collapseThree" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                 <fieldset style="width:100%;">
-                <legend><a id="a3" rel="leanModal" data-url="ActividadesCapacitacion.htm" class="link" name="form_actividadesCapacitacion"  href="#un_div_modal">Cargar actividades de capacitacion</a></legend>
+                <legend><a id="a3" rel="leanModalConcursar" data-url="ActividadesCapacitacion.htm" class="link" name="form_actividadesCapacitacion"  href="#un_div_modal">Cargar actividades de capacitacion</a></legend>
                     <p>No tiene actividades cargadas</p>                    
                   </fieldset>
                 </div>
@@ -296,7 +296,7 @@
               <div id="collapseFour" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go4" rel="leanModal" data-url="ActividadesDocentes.htm" class="link" name="form_actividadesDocentes"  href="#un_div_modal">Cargar actividades docentes</a></legend>
+                    <legend><a id="go4" rel="leanModalConcursar" data-url="ActividadesDocentes.htm" class="link" name="form_actividadesDocentes"  href="#un_div_modal">Cargar actividades docentes</a></legend>
                     <p>No tiene actividades cargadas</p>      
                   </fieldset>
                 </div>
@@ -312,7 +312,7 @@
               <div id="collapseFive" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go5" rel="leanModal" data-url="EventosAcademicos.htm" class="link" name="form_eventosAcademicos"  href="#un_div_modal">Cargar eventos académicos</a></legend>
+                    <legend><a id="go5" rel="leanModalConcursar" data-url="EventosAcademicos.htm" class="link" name="form_eventosAcademicos"  href="#un_div_modal">Cargar eventos académicos</a></legend>
                     <p>No tiene eventos cargados</p>      
                   </fieldset>
                 </div>
@@ -328,7 +328,7 @@
               <div id="collapseSix" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go6" rel="leanModal" data-url="Publicaciones.htm" class="link" name="form_publicaciones"  href="#un_div_modal">Cargar publicaciones o trabajos</a></legend>
+                    <legend><a id="go6" rel="leanModalConcursar" data-url="Publicaciones.htm" class="link" name="form_publicaciones"  href="#un_div_modal">Cargar publicaciones o trabajos</a></legend>
                     <p>No tiene publicaciones cargadas</p>   
                   </fieldset>
                 </div>
@@ -344,7 +344,7 @@
               <div id="collapseSeven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go7" rel="leanModal" data-url="Matriculas.htm" class="link" name="form_matriculas"  href="#un_div_modal">Cargar matriculas</a></legend>
+                    <legend><a id="go7" rel="leanModalConcursar" data-url="Matriculas.htm" class="link" name="form_matriculas"  href="#un_div_modal">Cargar matriculas</a></legend>
                     <p>No tiene matriculas cargadas</p>   
                   </fieldset>
                 </div>
@@ -360,7 +360,7 @@
               <div id="collapseEight" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go8" rel="leanModal" data-url="InstitucionesAcademicas.htm" class="link" name="form_institucionesAcademicas"  href="#un_div_modal">Cargar instituciones</a></legend>
+                    <legend><a id="go8" rel="leanModalConcursar" data-url="InstitucionesAcademicas.htm" class="link" name="form_institucionesAcademicas"  href="#un_div_modal">Cargar instituciones</a></legend>
                     <p>No tiene instituciones cargadas</p>   
                   </fieldset>
                 </div>
@@ -376,7 +376,7 @@
               <div id="collapseNine" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go9" rel="leanModal" data-url="ExperienciasLaborales.htm" class="link" name="form_experienciasLaborales"  href="#un_div_modal">Cargar experiencias laborales</a></legend>
+                    <legend><a id="go9" rel="leanModalConcursar" data-url="ExperienciasLaborales.htm" class="link" name="form_experienciasLaborales"  href="#un_div_modal">Cargar experiencias laborales</a></legend>
                     <p>No tiene experiencias cargadas</p>      
                   </fieldset>
                 </div>
@@ -392,7 +392,7 @@
               <div id="collapseTen" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go10" rel="leanModal" data-url="IdiomasExtranjeros.htm" class="link" name="form_idiomasExtranjeros"  href="#un_div_modal">Cargar idiomas</a></legend>
+                    <legend><a id="go10" rel="leanModalConcursar" data-url="IdiomasExtranjeros.htm" class="link" name="form_idiomasExtranjeros"  href="#un_div_modal">Cargar idiomas</a></legend>
                     <p>No tiene idiomas cargados</p>      
                   </fieldset>
                 </div>
@@ -408,7 +408,7 @@
               <div id="collapseEleven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go11" rel="leanModal" data-url="CompetenciasInformaticas.htm" class="link" name="form_competenciasInformaticas"  href="#un_div_modal">Cargar competencias informáticas</a></legend>
+                    <legend><a id="go11" rel="leanModalConcursar" data-url="CompetenciasInformaticas.htm" class="link" name="form_competenciasInformaticas"  href="#un_div_modal">Cargar competencias informáticas</a></legend>
                      <p>No tiene compentencias informaticas cargadas</p>  
                   </fieldset>
                 </div>
@@ -424,7 +424,7 @@
               <div id="collapseTwelve" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go12" rel="leanModal" data-url="OtrasCapacidades.htm" class="link" name="form_otrasCapacidades"  href="#un_div_modal">Cargar otras capacidades</a></legend>
+                    <legend><a id="go12" rel="leanModalConcursar" data-url="OtrasCapacidades.htm" class="link" name="form_otrasCapacidades"  href="#un_div_modal">Cargar otras capacidades</a></legend>
                     <p>No tiene capacidades cargadas</p>  
                     
                   </fieldset>
@@ -453,7 +453,10 @@
 
  <asp:TextBox ID="urlAjax" runat="server" Text=""  style="display:none;" />
  
-<div id="un_div_modal" style="width:50%;" class="form_concursar"></div>
+<div id="un_div_modal" style="width:50%;" class="form_concursar">
+    <a class="modal_close_concursar" href="#"></a>
+    <div id="contenido_modal"></div>
+</div>
   </form>
 
 <div id='IrArriba'><a href='#Arriba'><span></span></a></div>
@@ -520,31 +523,23 @@
                 }
             });
         });
-    });
 
 
-
-
-    $('a[rel*=leanModal]').click(function () {
-        var _this = $(this);
-        if (_this.attr("data-url") !== undefined) {
-            var div = $(_this.attr("href"));
-            div.html("");
-            $.ajax({
-                url: _this.attr("data-url"),
-                success: function (r) {
-                    div.html(r);
-                }
-            });
-        }
-    });
-
-    $(function () {
-        $('a[rel*=leanModal]').leanModal({ top: 300, closeButton: ".modal_close" });
-    });
-
-    $(function () {
-        $('a[rel*=leanModal]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
+        $('a[rel*=leanModalConcursar]').click(function () {
+            var _this = $(this);
+            if (_this.attr("data-url") !== undefined) {
+                var div = $("#contenido_modal");
+                div.html("");
+                $.ajax({
+                    url: _this.attr("data-url"),
+                    success: function (r) {
+                        div.append(r);
+                    }
+                });
+            }
+        });
+        $('a[rel*=leanModalConcursar]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
+        
     });
 
     var AgregarAntecedentes = function () {
