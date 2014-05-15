@@ -137,14 +137,12 @@ border-bottom: 1px solid #929292;
 
 #accordion .accordion-heading:first-of-type {  
     background-color: #389abe;  
-    background-image: -moz-linear-gradient(top,  #dbdbdb 0%, #f9f9f9 100%); /* FF3.6+ */  
-    background-image: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#dbdbdb), color-stop(100%,#f9f9f9)); /* Chrome,Safari4+ */  
-    background-image: -webkit-linear-gradient(top,  #dbdbdb 0%,#f9f9f9 100%); /* Chrome10+,Safari5.1+ */  
-    background-image: -o-linear-gradient(top,  #dbdbdb 0%,#f9f9f9 100%); /* Opera 11.10+ */  
-    background-image: -ms-linear-gradient(top,  #dbdbdb 0%,#f9f9f9 100%); /* IE10+ */  
-    background-image: linear-gradient(to bottombottom,  #dbdbdb 0%,#f9f9f9 100%); /* W3C */  
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbdbdb', endColorstr='#f9f9f9',GradientType=0 ); /* IE6-9 */  
-} 
+    background-image: linear-gradient(to bottombottom,  #dbdbdb 0%,#f9f9f9 100%); /* FF3.6+ */  
+    /* Chrome,Safari4+ */  
+    /* Chrome10+,Safari5.1+ */  
+    /* Opera 11.10+ */  
+    /* IE10+ */  
+    } 
 
 #accordion .accordion-heading a   
 {
@@ -269,4 +267,42 @@ li a:hover
 .nueva_linea
 {
     clear:left; 
+}
+
+/*ESTILO LOGIN*/
+
+.cuerpo_claro
+{
+    padding: 15px 0;
+    text-shadow: 0 1px 0 #fff;
+    border-bottom: 1px solid #e5e5e5;
+    min-width: 1000px;
+}
+
+.cuerpo_oscuro
+{
+    text-shadow: 0 1px 3px #222;
+    background: #202021 url('../Imagenes/octicons-bg.png') center repeat;
+    position: relative;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    border-bottom: 1px solid #e5e5e5;
+    box-sizing: border-box;
+}
+
+.panel_izquierdo
+{
+    float: right;
+    width: 320px;
+    margin-left: 40px;    
+}
+
+.label_login
+{
+    width: 100%;
+    margin-right: 0;
+    border-color: #fff;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
 }
