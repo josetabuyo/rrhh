@@ -453,8 +453,8 @@
 
  <asp:TextBox ID="urlAjax" runat="server" Text=""  style="display:none;" />
  
-<div id="un_div_modal" style="width:50%;" class="form_concursar">
-    <a class="modal_close_concursar" href="#"></a>
+<div id="un_div_modal" style="width:65%;" class="form_concursar">
+    <div class="modal_close_concursar"></div>
     <div id="contenido_modal"></div>
 </div>
   </form>
