@@ -411,6 +411,7 @@ namespace General.Repositorios
                             persona_con_inasistencia.Apellido = persona.Apellido;
                             persona_con_inasistencia.Nombre = persona.Nombre;
                             persona_con_inasistencia.Documento = persona.Documento;
+                            persona_con_inasistencia.PasePendiente = persona.PasePendiente;
                             persona_con_inasistencia.AgregarInasistencia(inasistencia);
                             personas_con_inasistencias.Add(persona_con_inasistencia);
                         });
@@ -457,10 +458,8 @@ namespace General.Repositorios
             parametros.Add("@fecha_desde", fecha_desde);
             parametros.Add("@fecha_hasta", fecha_hasta);
 
-            //////BELLLLLLLLLLLLLL Terminar
-            
-            var tablaDatos1 = this.conexion.Ejecutar("dbo.LIC_GEN_GetPasesEntreFechas", parametros);
 
+            var tablaDatos1 = this.conexion.Ejecutar("dbo.LIC_GEN_GetPasesEntreFechas", parametros);
 
             foreach (var persona in personas)
             {
@@ -468,49 +467,28 @@ namespace General.Repositorios
                 {
                     tablaDatos1.Rows.FindAll(row => row.GetInt("NroDocumento") == persona.Documento).ForEach(row =>
                     {
-                        PaseDeArea pase = new Inasistencia();
-                        Persona persona_con_inasistencia = new Persona();
-                        inasistencia.Aprobada = true;
-                        inasistencia.Descripcion = row.GetSmallintAsInt("Concepto") + " - " + row.GetString("Descripcion");
-                        inasistencia.Desde = row.GetDateTime("Desde");
-                        inasistencia.Hasta = row.GetDateTime("Hasta");
-                        inasistencia.Estado = "Recepcionada en DGRHyO";
-                        persona_con_inasistencia.Apellido = persona.Apellido;
-                        persona_con_inasistencia.Nombre = persona.Nombre;
-                        persona_con_inasistencia.Documento = persona.Documento;
-                        persona_con_inasistencia.AgregarInasistencia(inasistencia);
-                        personas_con_inasistencias.Add(persona_con_inasistencia);
+                        PaseDeArea pase = new PaseDeArea();
+                        Area area = new Area();
+                        Persona persona_con_pase = new Persona();
+                        persona_con_pase.Apellido = persona.Apellido;
+                        persona_con_pase.Nombre = persona.Nombre;
+                        persona_con_pase.Documento = persona.Documento;
+                        area.Nombre = row.GetString("descripcion");
+                        pase.Fecha = row.GetDateTime("fecha_solicitud");
+                        pase.Estado = determinarEstado(row.GetSmallintAsInt("estado"));
+                        pase.AreaDestino = area;
+                        persona_con_pase.PasePendiente = pase;
+                        personas_con_pases.Add(persona_con_pase);
                     });
                 }
             }
 
-            //Licencias pendientes de Aprobación por RRHH (solicitadas por la Web)
-            var tablaDatos2 = this.conexion.Ejecutar("dbo.LIC_GEN_GetAusenciasPendientesEntreFechas", parametros);
+            return personas_con_pases;
+        }
 
-
-            foreach (var persona in personas)
-            {
-                if (tablaDatos2.Rows.Exists(row => row.GetInt("NroDocumento") == persona.Documento))
-                {
-                    tablaDatos2.Rows.FindAll(row => row.GetInt("NroDocumento") == persona.Documento).ForEach(row =>
-                    {
-                        Inasistencia inasistencia = new Inasistencia();
-                        Persona persona_con_inasistencia = new Persona();
-                        inasistencia.Aprobada = true;
-                        inasistencia.Descripcion = row.GetSmallintAsInt("Concepto") + " - " + row.GetString("Descripcion");
-                        inasistencia.Desde = row.GetDateTime("Desde");
-                        inasistencia.Hasta = row.GetDateTime("Hasta");
-                        inasistencia.Estado = "En Trámite";
-                        persona_con_inasistencia.Apellido = persona.Apellido;
-                        persona_con_inasistencia.Nombre = persona.Nombre;
-                        persona_con_inasistencia.Documento = persona.Documento;
-                        persona_con_inasistencia.AgregarInasistencia(inasistencia);
-                        personas_con_inasistencias.Add(persona_con_inasistencia);
-                    });
-                }
-            }
-
-            return personas_con_inasistencias;
+        private string determinarEstado(int estado)
+        {
+            if (estado == 0){return "Pendiente";}else if(estado == 1){return "Aprobado";}else{return "Rechazado";}
         }
 
 

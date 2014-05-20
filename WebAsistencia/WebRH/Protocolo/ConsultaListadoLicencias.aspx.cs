@@ -36,8 +36,11 @@ public partial class FormularioProtocolo_ConsultaListadoLicencias : System.Web.U
         personas_con_pases = servicio.GetPasesEntreFechasPara(personas_todas_areas_a_cargo.ToArray(), desde, hasta).ToList();
 
         personas_con_ausencias.Sort((persona1, persona2) => persona1.Apellido.CompareTo(persona2.Apellido));
+        personas_con_pases.Sort((persona1, persona2) => persona1.Apellido.CompareTo(persona2.Apellido));
         this.personasJSON.Value = JsonConvert.SerializeObject(personas_con_ausencias.ToArray());
+        this.pasesJSON.Value = JsonConvert.SerializeObject(personas_con_pases.ToArray());
 
+        
     }
 
 

@@ -40,4 +40,15 @@ Persona.prototype.estado = function () {
     return this._persona.Inasistencias[0].Estado;
 };
 
+Persona.prototype.areaDestino = function () {
+    return this._persona.PasePendiente.AreaDestino.Nombre;
+};
+
+Persona.prototype.fechaPase = function () {
+    return new Date(this._persona.PasePendiente.Fecha).toLocaleDateString();
+};
+
+Persona.prototype.estadoPase = function () {
+    return this._persona.PasePendiente.Estado
+};
 
