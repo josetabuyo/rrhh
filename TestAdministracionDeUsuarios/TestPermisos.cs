@@ -168,6 +168,44 @@ namespace TestAdministracionDeUsuarios
             Assert.AreEqual("NO_EXISTE_EL_USUARIO", codigo_excepcion);
         }
 
+        [TestMethod]
+        public void dada_2_areas_deberia_traerme_la_unica_que_presenta_DDJJ()
+        {
+            var area1 = TestObjectsMau.AreaDeContratos();
+            var area2 = TestObjectsMau.AreaDeLegajos();
+            
+            var repo = TestObjectsMau.RepositorioDePermisosSobreAreas();            
+            var jorge = TestObjectsMau.Jorge();
+
+            repo.AsignarAreaAUnUsuario(jorge, area1);
+            repo.AsignarAreaAUnUsuario(jorge, area2);
+
+            var responsableDDJJ = new ResponsableDDJJ(repo);
+
+            var resultado = responsableDDJJ.AreasConDDJJAdministradasPor(jorge);
+
+            Assert.AreEqual(1, resultado.Count);
+        }
+
+        [TestMethod]
+        public void dada_1_areas_no_deberia_traermela_si_no_presenta_DDJJ()
+        {
+            var area1 = TestObjectsMau.AreaDeContratos();         
+
+            var repo = TestObjectsMau.RepositorioDePermisosSobreAreas();
+            var jorge = TestObjectsMau.Jorge();
+
+            repo.AsignarAreaAUnUsuario(jorge, area1);
+            
+            var responsableDDJJ = new ResponsableDDJJ(repo);
+
+            var resultado = responsableDDJJ.AreasConDDJJAdministradasPor(jorge);
+
+            Assert.AreEqual(0, resultado.Count);
+        }
+
+
+
         //[TestMethod]
         //public void deberia_poder_crear_un_usuario_nuevo_para_una_persona()
         //{

@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Asistencia\ConceptoLicenciaAnualOrdinaria.cs" />
     <Compile Include="Asistencia\ConceptoLicenciaGeneral.cs" />
+    <Compile Include="Asistencia\ResponsableDDJJ.cs" />
     <Compile Include="Asistencia\SolicitudesDeVacaciones.cs" />
     <Compile Include="Asistencia\TipoDePlantaGeneral.cs" />
     <Compile Include="Asistencia\ServicioDeLicencias.cs" />
@@ -345,7 +346,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Repositorios\DDJJ104\" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>

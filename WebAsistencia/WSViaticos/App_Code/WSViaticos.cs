@@ -45,6 +45,13 @@ public class WSViaticos : System.Web.Services.WebService
     #region asistencia
 
     [WebMethod]
+    public Area[] AreasConDDJJAdministradasPor(Usuario usuario)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
+        return responsableDDJJ.AreasConDDJJAdministradasPor(usuario).ToArray();
+    }
+
+    [WebMethod]
     public void EliminarInasistenciaActual(Persona unaPersona)
     {
         RepositorioPersonas repoPersonas = new RepositorioPersonas();
@@ -2429,9 +2436,14 @@ public class WSViaticos : System.Web.Services.WebService
         return new Autorizador(repo_funcionalidades_de_usuarios,
             RepositorioDeMenues.NuevoRepositorioDeMenues(Conexion(), repo_accesos),
             RepositorioDeUsuarios(),
-            RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(Conexion(), RepositorioDeAreas()),
+            RepoPermisosSobreAreas(),
             repo_accesos,
             Conexion());
+    }
+
+    private RepositorioDePermisosSobreAreas RepoPermisosSobreAreas()
+    {
+        return RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(Conexion(), RepositorioDeAreas());
     }
 
     private RepositorioDeDocentes RepositorioDeDocentes()
