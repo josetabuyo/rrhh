@@ -208,7 +208,7 @@ nav
         
     }
     
-ul
+.ul_cv
     {
         margin: 0 auto; 
         float: left;
@@ -226,12 +226,12 @@ ul
         border-right: solid 1.5px #0088cc  ;
     }
     
-li a
+.menu_lista_formularios a
     {
         padding: 10px; /* El padding añadirá separación entre los elementos */  
     }
     
-li a:hover 
+.menu_lista_formularios a:hover 
 {
      text-decoration:none !important;
 }
@@ -259,6 +259,17 @@ li a:hover
 .link
 {
     text-decoration:none !important;
+}
+
+.grupo_campos
+{
+    float:left; 
+    margin:4px 8px;
+}
+
+.nueva_linea
+{
+    clear:left; 
 }
 
 
@@ -553,3 +564,42 @@ li a:hover
 .panel-body {
     padding: 15px;
 }
+
+
+/*-------  ESTILO LOGIN ----------
+
+.cuerpo_claro
+{
+    padding: 15px 0;
+    text-shadow: 0 1px 0 #fff;
+    border-bottom: 1px solid #e5e5e5;
+    min-width: 1000px;
+}
+
+.cuerpo_oscuro
+{
+    text-shadow: 0 1px 3px #222;
+    background: #202021 url('../Imagenes/octicons-bg.png') center repeat;
+    position: relative;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    border-bottom: 1px solid #e5e5e5;
+    box-sizing: border-box;
+}
+
+.panel_izquierdo
+{
+    float: right;
+    width: 320px;
+    margin-left: 40px;    
+}
+
+.label_login
+{
+    width: 100%;
+    margin-right: 0;
+    border-color: #fff;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}*/

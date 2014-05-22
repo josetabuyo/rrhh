@@ -15,10 +15,10 @@
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <div class="contenedor_concursar">
+    <div class="contenedor_concursar" >
     
 
-    <div class="navbar">
+    <div class="navbar" style="font-size: 15px;">
         <div class="navbar-inner">
             <div class="container">
                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -31,7 +31,7 @@
                 <ul class="nav"  runat="server">
                 <li><a href="PanelDeControl.aspx" >Panel de Control</a></li>
                 <li><a href="#" >Postulaciones</a></li>
-                <li><a href="Pantalla1.aspx" >MI CV</a></li>
+                <li><a href="CargaInformacionPersonal.aspx" >MI CV</a></li>
                 </ul>
        
                 <ul class="nav pull-right"  runat="server">

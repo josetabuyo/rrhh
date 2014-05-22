@@ -29,7 +29,7 @@
             <ul id="Ul1" class="nav"  runat="server">
                 <li><a href="PanelDeControl.aspx" >Panel de Control</a></li>
                 <li><a href="#" >Postulaciones</a></li>
-                <li><a href="Pantalla1.aspx" >MI CV</a></li>
+                <li><a href="CargaInformacionPersonal.aspx" >MI CV</a></li>
             </ul>
        
             <ul id="Ul2" class="nav pull-right"  runat="server">

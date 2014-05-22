@@ -1,17 +1,6 @@
 <Configuration>
   <RecentFiles>
     <RecentFiles>
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioEspaciosFisicos.cs" caret="153" fromTop="5" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestAlumnos.cs" caret="399" fromTop="19" />
-      <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:Repositorios/f:RowDeDatos.cs" caret="459" fromTop="23" />
-      <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:Repositorios/f:TablaDeDatos.cs" caret="483" fromTop="19" />
-      <File id="D1CFEFAB-1202-4294-A2C0-D8D7C6D91094/d:App_Code/f:WSViaticos.cs" caret="47815" fromTop="19" />
-      <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:Repositorios/d:RepositoriosSACC/f:RepositorioDeDocentes.cs" caret="1368" fromTop="21" />
-      <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:Repositorios/d:RepositoriosSACC/f:RepositorioDeEspaciosFisicos.cs" caret="3824" fromTop="28" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormABMCursos.aspx" caret="5732" fromTop="31" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="2957" fromTop="36" />
-      <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:Repositorios/d:RepositoriosSACC/f:RepositorioDeCursos.cs" caret="6465" fromTop="26" />
-      <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:SACC/f:Curso.cs" caret="2900" fromTop="28" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/f:TestObjects.cs" caret="62446" fromTop="33" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="3139" fromTop="40" />
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/f:Web.config" caret="6902" fromTop="20" />
@@ -27,42 +16,40 @@
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:App_Code/f:Referencias.cs" caret="297" fromTop="12" />
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormAsignarAlumnos.aspx" caret="0" fromTop="0" />
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormulariosOtros/f:FormPase.aspx" caret="0" fromTop="0" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:EstilosPostular.css" caret="6544" fromTop="23" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PanelDeControl.aspx" caret="5946" fromTop="0" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="71301" fromTop="12" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="12768" fromTop="25" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:EventosAcademicos.htm" caret="0" fromTop="0" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:VistaPreliminar.aspx" caret="0" fromTop="0" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:CargaInformacionPersonal.aspx" caret="1408" fromTop="17" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="1676" fromTop="19" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:CargaInformacionPersonal.aspx.cs" caret="295" fromTop="12" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:EstilosPostular.css" caret="5545" fromTop="0" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Inscripcion.aspx" caret="1677" fromTop="23" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PanelDeControl.aspx" caret="1018" fromTop="14" />
     </RecentFiles>
     <RecentEdits>
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="10743" fromTop="18" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="10447" fromTop="13" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="10171" fromTop="8" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="9866" fromTop="12" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="9539" fromTop="13" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="9230" fromTop="8" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="8503" fromTop="9" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="8199" fromTop="11" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="7894" fromTop="7" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="7608" fromTop="12" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="7292" fromTop="8" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="6957" fromTop="4" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="6656" fromTop="8" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="6384" fromTop="4" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="5887" fromTop="8" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="5367" fromTop="12" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="5035" fromTop="17" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="4489" fromTop="9" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="704" fromTop="14" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="2579" fromTop="13" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PanelDeControl.aspx" caret="8974" fromTop="0" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="67784" fromTop="6" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="12848" fromTop="25" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="12404" fromTop="31" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="12381" fromTop="20" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="12397" fromTop="25" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="2152" fromTop="15" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="11564" fromTop="24" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="12505" fromTop="17" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="12724" fromTop="24" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:EstilosPostular.css" caret="12592" fromTop="17" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PanelDeControl.aspx" caret="2061" fromTop="13" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:EstilosPostular.css" caret="14559" fromTop="22" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:EstilosPostular.css" caret="6633" fromTop="18" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:EstilosPostular.css" caret="6731" fromTop="27" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:CargaInformacionPersonal.aspx" caret="763" fromTop="13" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:EstilosPostular.css" caret="15419" fromTop="1" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:EstilosPostular.css" caret="16084" fromTop="37" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:CargaInformacionPersonal.aspx" caret="1151" fromTop="20" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:CargaInformacionPersonal.aspx" caret="26050" fromTop="18" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:CargaInformacionPersonal.aspx" caret="2848" fromTop="29" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:CargaInformacionPersonal.aspx" caret="2300" fromTop="27" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:CargaInformacionPersonal.aspx" caret="1272" fromTop="16" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:CargaInformacionPersonal.aspx" caret="1896" fromTop="23" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:CargaInformacionPersonal.aspx" caret="2487" fromTop="30" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:EstilosPostular.css" caret="4947" fromTop="12" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:EstilosPostular.css" caret="5415" fromTop="27" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:EstilosPostular.css" caret="5545" fromTop="0" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Inscripcion.aspx" caret="1677" fromTop="23" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PreInscripcion.aspx" caret="1676" fromTop="19" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PanelDeControl.aspx" caret="1726" fromTop="33" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:CargaInformacionPersonal.aspx.cs" caret="374" fromTop="18" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:CargaInformacionPersonal.aspx.cs" caret="269" fromTop="10" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:PanelDeControl.aspx" caret="1018" fromTop="14" />
     </RecentEdits>
   </RecentFiles>
   <CompletionStatisticsManager>
@@ -153,8 +140,8 @@
       <Item value="AreaDeFabi`0" priority="26" />
     </ItemStatistics>
     <ItemStatistics item="AspCodeCompletionContext">
-      <Item value="span" priority="6" />
-      <Item value="style" priority="48" />
+      <Item value="span" priority="13" />
+      <Item value="style" priority="76" />
       <Item value="min-width" priority="9" />
       <Item value="a" priority="41" />
       <Item value="href" priority="34" />
@@ -164,27 +151,27 @@
       <Item value="server" priority="6" />
       <Item value="li" priority="6" />
       <Item value="legend" priority="20" />
-      <Item value="type" priority="41" />
-      <Item value="div" priority="27" />
+      <Item value="type" priority="48" />
+      <Item value="div" priority="34" />
       <Item value="width" priority="22" />
-      <Item value="class" priority="84" />
+      <Item value="class" priority="112" />
       <Item value="accordion-heading" priority="6" />
       <Item value="panel_izquierdo" priority="6" />
       <Item value="panel_derecho" priority="13" />
-      <Item value="p" priority="48" />
-      <Item value="br" priority="13" />
+      <Item value="p" priority="83" />
+      <Item value="br" priority="34" />
       <Item value="b" priority="6" />
       <Item value="link" priority="6" />
       <Item value="EstilosPostular.css" priority="27" />
       <Item value="fieldset" priority="13" />
       <Item value="button" priority="28" />
       <Item value="hr" priority="6" />
-      <Item value="fondo_form" priority="6" />
+      <Item value="fondo_form" priority="14" />
       <Item value="src" priority="6" />
       <Item value="Imagenes" priority="7" />
       <Item value="Botones" priority="6" />
-      <Item value="height" priority="6" />
-      <Item value="input" priority="6" />
+      <Item value="height" priority="14" />
+      <Item value="input" priority="13" />
       <Item value="value" priority="146" />
       <Item value="btn_concursar" priority="7" />
       <Item value="onclick" priority="6" />
@@ -197,6 +184,12 @@
       <Item value="etiqueta_campo" priority="6" />
       <Item value="script" priority="6" />
       <Item value="text/javascript" priority="6" />
+      <Item value="tr" priority="6" />
+      <Item value="Inscripcion.aspx" priority="7" />
+      <Item value="checkbox" priority="6" />
+      <Item value="padding" priority="7" />
+      <Item value="cmxform" priority="7" />
+      <Item value="font-size" priority="7" />
     </ItemStatistics>
     <ItemStatistics item="CssCodeCompletionContext">
       <Item value="overflow-style" priority="5" />
@@ -221,6 +214,12 @@
       <Item value="margin" priority="5" />
       <Item value="none" priority="5" />
       <Item value="margin-left" priority="0" />
+      <Item value="subtitulo_incripcion" priority="4" />
+      <Item value="font-weight" priority="5" />
+      <Item value="bold" priority="6" />
+      <Item value="padding" priority="0" />
+      <Item value="height" priority="0" />
+      <Item value="font-size" priority="0" />
     </ItemStatistics>
   </CompletionStatisticsManager>
   <NAntValidationSettings>

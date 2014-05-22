@@ -1,0 +1,79 @@
+﻿<div id="form_actividadesCapacitacion">
+	<div id="form_actividadesCapacitacion-ct">
+		<div id="form_actividadesCapacitacion-header" class="form_concursar_header">
+			<h2>Actividades de Capacitación</h2>
+			<p>
+			</p>
+		</div>
+		<div id="contenido_form_capacitacion" class="fondo_form">
+			<fieldset style="width:95%; padding-left:3%;">
+				<p>
+					<em>*</em> Campos Obligatorios
+				</p>
+				<legend>Actividades de Capacitaci&oacute;n</legend>
+				<br/>
+				<legend>Ingresar Certificaci&oacute;n/Actividad de Capacitaci&oacute;n</legend>
+				<div class="grupo_campos">
+					<label for="NombreDiploma">Diploma o certificaci&oacute;n <em>*</em></label>
+					<input id="NombreDiploma" type="text" style="width:350px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="Capacitacion-FechaInicio">Fecha de inicio <em>*</em></label>
+					<input id="Capacitacion-FechaInicio" type="text" style="width:100px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="Capacitacion-FechaFin">Fecha finalizaci&oacute;n <em>*</em></label>
+					<input id="Capacitacion-FechaFin" type="text" style="width:100px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="Capacitacion-Duracion">Duraci&oacute;n (Horas, d&iacute;as o meses) <em>*</em></label>
+					<input id="Capacitacion-Duracion" type="text" style="width:150px;" name="txt_establecimiento"/>
+				</div>
+				<div style="float:left; clear:left;margin:4px 8px 4px 8px">
+					<label for="Capacitacion-Especialidad">Nombre de Especialidad o Competencia <em>*</em></label>
+					<input id="Capacitacion-Especialidad" type="text" style="width:350px;" name="txt_especialidad"/>
+					<input id="Capacitacion-AgregarEspecialidad" type="button" value="+"/>
+					<table class="table table-striped">
+					<thead>
+					<tr>
+						<th>
+							Especialidades
+						</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>
+							Una Especialidad
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Otra Especialidad
+						</td>
+					</tr>
+					</tbody>
+					</table>
+				</div>
+				<div class="grupo_campos nueva_linea">
+					<label for="Capacitacion-Establecimiento">Establecimiento <em>*</em></label>
+					<input id="Capacitacion-Establecimiento" type="text" style="width:350px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="Capacitacion-Localidad">Localidad <em>*</em></label>
+					<input id="Capacitacion-Localidad" type="text" style="width:100px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="Capacitacion-Pais">Pa&iacute;s <em>*</em></label>
+					<select id="Capacitacion-Pais" style="width:110px;">
+						<option>Seleccione</option>
+						<option value="1">Argentina</option>
+					</select>
+				</div>
+			</fieldset>
+			<div class="btn-fld">
+				<input type="button" class="btn btn-primary" id="Capacitacion-Agregar" value="Agregar"/>
+			</div>
+		</div>
+	</div>
+</div>
