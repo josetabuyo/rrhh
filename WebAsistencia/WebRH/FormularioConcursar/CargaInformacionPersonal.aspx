@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Pantalla1.aspx.cs" Inherits="FormularioConcursar_Pantalla1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CargaInformacionPersonal.aspx.cs" Inherits="FormularioConcursar_Pantalla1" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 
 
@@ -15,36 +15,38 @@
     
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
-
-    <link rel="stylesheet" href="Estilos.css" />
+    <link rel="stylesheet" href="EstilosPostular.css" />
 </head>
 <body class="">
 
  <form   runat="server" class="cmxform">
  <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+   <div class="contenedor_concursar" >
+   
    <div class="accordion" id="accordion">
 
         <nav style="min-width: 900px;">
-            <ul style="width:100%; margin-left:1%; margin-top:35px; margin-bottom:3px;">    
-                <li class=""><a href="#ancla1">Información Personal</a></li>
-                <li class=""><a href="#ancla2">Antecedentes Academicos</a></li>
-                <li class=""><a href="#ancla3">Actividades de Capacitación</a></li>
-                <li class=""><a href="#ancla4">Actividades Docentes</a></li>
+            <ul class="ul_cv" style="width:100%; margin-left:1%; margin-top:35px; margin-bottom:3px;">    
+                <li class="menu_lista_formularios"><a href="#ancla1">Información Personal</a></li>
+                <li class="menu_lista_formularios"><a href="#ancla2">Antecedentes Academicos</a></li>
+                <li class="menu_lista_formularios"><a href="#ancla3">Actividades de Capacitación</a></li>
+                <li class="menu_lista_formularios"><a href="#ancla4">Actividades Docentes</a></li>
                 <li class="no_borde"><a href="#ancla5">Eventos Académicos</a></li>
              </ul>
-             <ul style="width:90%; margin-left:6%; margin-bottom:3px;">
-                <li class=""><a href="#ancla6">Publicaciones o trabajos</a></li>
-                <li class=""><a href="#ancla7">Matriculas</a></li>
-                <li class=""><a href="#ancla8">Instituciones Académicas</a></li>
-                <li class=""><a href="#ancla9">Experiencias Laborales</a></li>
+             <ul class="ul_cv" style="width:90%; margin-left:6%; margin-bottom:3px;">
+                <li class="menu_lista_formularios"><a href="#ancla6">Publicaciones o trabajos</a></li>
+                <li class="menu_lista_formularios"><a href="#ancla7">Matriculas</a></li>
+                <li class="menu_lista_formularios"><a href="#ancla8">Instituciones Académicas</a></li>
+                <li class="menu_lista_formularios"><a href="#ancla9">Experiencias Laborales</a></li>
                 <li class="no_borde"><a href="#ancla10">Idiomas Extranjeros</a></li>
             </ul>
-            <ul style="width:60%; margin-left:20%;">
-                <li class=""><a href="#ancla11">Competencias Informáticas</a></li>
-                <li class=""><a href="#ancla12">Otras Capacidades</a></li>
+            <ul class="ul_cv" style="width:60%; margin-left:20%;">
+                <li class="menu_lista_formularios"><a href="#ancla11">Competencias Informáticas</a></li>
+                <li class="menu_lista_formularios"><a href="#ancla12">Otras Capacidades</a></li>
                 <li class="no_borde"><a href="#ancla13">Vista Preliminar</a></li>
             </ul>
         </nav>
+
         <hr style="clear:both; background-color:#0088cc;" />
             <div class="accordion-group">
               <div id="ancla1" class="accordion-heading">
@@ -447,7 +449,7 @@
               </div>
             </div>
           </div>
-    
+    </div>
 
 <%-----------------    MODAL DE VISTA PREELIMINAR ---------------------%>
 
