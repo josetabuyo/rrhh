@@ -105,6 +105,7 @@ img
 {
     float:right;
     margin-top: 4px;
+    margin-right:4px;
 }
 
 #btn_consultar_trabajo
@@ -120,6 +121,14 @@ img
     margin-top:4px;
     margin-right:4px;    
 }
+
+#btn_consultar_areas_ddjj
+{
+    float: right;
+    margin-top:4px;
+        
+}
+
 
 #btn_consultar_mis_inasistencias
 {

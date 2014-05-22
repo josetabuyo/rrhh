@@ -24,11 +24,12 @@
         <%--Esto luego va a ser un panel de resumen de Licencias Pendientes y Ausencias inmediatas--%>
 
         <div id="titulo_areas_a_administrar" style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
-            Áreas a Administrar 
+            Áreas a Administrar             
+            <a id="btn_consultar_areas_ddjj" class="btn btn-primary" href="DDJJ104/FAreasConDDJJ.aspx">Cert. de Servicios</a>
             <a id="btn_consultar_areas" class="btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Autoridades</a>
             <a id="btn_consultar_trabajo" class="btn btn-primary" href="Protocolo/ConsultaLugaresDeTrabajo.aspx">Lugares de Trabajo</a>
             <a id="btn_consultar_mis_areas" class="btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Personas a Cargo</a>
-            <a id="btn_consultar_mis_inasistencias" class="btn btn-primary" href="Protocolo/ConsultaListadoLicencias.aspx">Licencias Futuras</a>
+            <a id="btn_consultar_mis_inasistencias" class="btn btn-primary" href="Protocolo/ConsultaListadoLicencias.aspx">Licencias Futuras</a>            
         </div>
         <div id="contenedor_areas_usuario">          
         </div> 
