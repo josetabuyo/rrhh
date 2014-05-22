@@ -7,22 +7,9 @@ RepositorioDePersonas.prototype.buscarPersonas = function (criterio, onSuccess, 
         data: {
             criterio: criterio
         },
-        success: function (personas_json) {
-            var lista_personas = [];
-            for (var i = 0; i < personas_json.length; i++) {
-                var persona_json = personas_json[i];
-                lista_personas.push(new Persona({
-                    id: persona_json.Id,
-                    nombre: persona_json.Nombre,
-                    apellido: persona_json.Apellido,
-                    legajo: persona_json.Legajo,
-                    documento: persona_json.Documento
-                }));
-            }
-            onSuccess(lista_personas);
-        },
+        success:onSuccess,
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            onerror(errorThrown);
+            onError(errorThrown);
         }
     });
 };
@@ -36,13 +23,13 @@ RepositorioDePersonas.prototype.buscarPersonasConLegajo = function (criterio, on
             var lista_personas = [];
             for (var i = 0; i < personas_json.length; i++) {
                 var persona_json = personas_json[i];
-                lista_personas.push(new Persona({
+                lista_personas.push({
                     id: persona_json.Id,
                     nombre: persona_json.Nombre,
                     apellido: persona_json.Apellido,
                     legajo: persona_json.Legajo,
                     documento: persona_json.Documento
-                }));
+                });
             }
             onSuccess(lista_personas);
         },
