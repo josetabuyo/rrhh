@@ -42,6 +42,7 @@ namespace General.Modi
             return new ImagenModi(primera_fila.GetString("nombre_imagen"), primera_fila.GetString("bytes_imagen"));
         }
 
+
         public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
         {
             return this.GetImagenPorId(id_imagen).GetThumbnail(alto, ancho);
@@ -61,7 +62,7 @@ namespace General.Modi
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_imagen", id_imagen);
-            parametros.Add("@id_usuario", usuario.Id);
+            //parametros.Add("@id_usuario", usuario.Id);
 
             this.conexion_db.EjecutarSinResultado("dbo.MODI_Des_Asignar_Imagen", parametros);
         }
@@ -75,6 +76,16 @@ namespace General.Modi
             parametros.Add("@id_usuario", usuario.Id);
 
             this.conexion_db.EjecutarSinResultado("dbo.MODI_Asignar_Categoria_A_Un_Documento", parametros);
+        }
+
+        public void AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_interna", id_interna);
+            parametros.Add("@nombre_imagen", nombre_imagen);
+            parametros.Add("@bytes_imagen", bytes_imagen);
+
+            this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros);
         }
 
 

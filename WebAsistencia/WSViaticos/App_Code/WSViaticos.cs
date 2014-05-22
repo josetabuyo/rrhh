@@ -1838,6 +1838,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public void AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+    {
+        servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
+    }
+
+    [WebMethod]
     public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
     {
         return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);

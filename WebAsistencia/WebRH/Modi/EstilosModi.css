@@ -110,6 +110,7 @@
 #lbl_titulo_imagenes_no_asignadas
 {
     font-weight: bold;
+    display:inline-block;
 }
 
 #lbl_titulo_panel_documentos
@@ -156,7 +157,7 @@
 {
     font-size:18px;
     font-weight:bold;  
-    margin-bottom:15px;  
+    margin-bottom:15px;
 }
 
 #btn_nueva_busqueda

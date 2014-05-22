@@ -86,3 +86,18 @@ ServicioDeDigitalizacionDeLegajos.prototype.desAsignarImagen = function (id_imag
         }
     });
 };
+
+ServicioDeDigitalizacionDeLegajos.prototype.agregarImagenSinAsignarAUnLegajo = function (id_interna, nombre_imagen, bytes_imagen, onSuccess) {
+    this.proveedor_ajax.postearAUrl({ url: "AgregarImagenSinAsignarAUnLegajo",
+        data: {
+            id_interna: id_interna,
+            nombre_imagen: nombre_imagen,
+            bytes_imagen: bytes_imagen
+        },
+        success: function () {
+            onSuccess();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+};

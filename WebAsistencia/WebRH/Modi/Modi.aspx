@@ -15,15 +15,19 @@
         <uc2:BarraMenu ID="BarraMenu" runat="server" 
             Feature="<div style='margin-top: 6px;'> <span style='font-size:20px; font-weight: bold;'>MODI</span> <br/> <span style='font-size:12px;'> Módulo de Digitalización </span> </div>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
         <div id="contenedor_principal_modi">
-           <div id="ui_vista_de_resultados_de_legajos" class="vista_de_legajo">
-                <label id="lbl_resumen_datos_personales"></label>
-                <input id="btn_nueva_busqueda" type="button" value = "Buscar" class="btn btn-primary"/>
+            <div id="ui_vista_de_resultados_de_legajos" class="vista_de_legajo">
+                <div>
+                    <label id="lbl_resumen_datos_personales"></label>
+                    <input id="btn_nueva_busqueda" type="button" value = "Buscar" class="btn btn-primary"/>
+                </div>                
                 <div id="lbl_titulo_imagenes_no_asignadas"> Imágenes no asiginadas a ningún documento </div>
-                <div id="panel_imagenes_no_asignadas"></div>
+                <input type=button id="btn_subir_imagenes" class="btn btn-primary" value="+"/>
+                <input type='file' name='img' size='65' multiple id="subir_imagenes" style="display:none"/>
+                <div id="panel_imagenes_no_asignadas"></div>                
                 <div id="lbl_titulo_panel_documentos"> Documentos </div>
                 <div id="lbl_titulo_imagenes_documentos"> Folios </div>
                 <div id="panel_documentos"> </div>
-           </div>
+            </div>
         </div>
 
         <div id="plantillas">
