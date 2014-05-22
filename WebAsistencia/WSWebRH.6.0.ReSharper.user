@@ -6,7 +6,6 @@
       <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:Repositorios/f:RepositorioProvincias.cs" caret="0" fromTop="0" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestEspaciosFisico.cs" caret="0" fromTop="0" />
       <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:SACC/f:CursoDto.cs" caret="69" fromTop="3" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/f:Web.config" caret="5784" fromTop="20" />
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormABMCursos.aspx.cs" caret="7585" fromTop="37" />
       <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:SACC/f:EspacioFisico.cs" caret="876" fromTop="32" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/f:TestRepositorioDocumentos.cs" caret="2210" fromTop="24" />
@@ -23,25 +22,17 @@
       <File id="D6802AD2-A6E1-4612-8F01-811E926A1D2E/d:SACC/f:Curso.cs" caret="2900" fromTop="28" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/f:TestObjects.cs" caret="62446" fromTop="33" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="3139" fromTop="40" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormAsignarAlumnos.aspx" caret="0" fromTop="0" />
-      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormulariosOtros/f:FormPase.aspx" caret="0" fromTop="0" />
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/d:Estilos/f:EstilosSACC.css" caret="4197" fromTop="20" />
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="8787" fromTop="47" />
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:Estilos/f:Estilos.css" caret="10100" fromTop="52" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:SACC/f:FormAsignarAlumnos.aspx" caret="0" fromTop="0" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormulariosOtros/f:FormPase.aspx" caret="0" fromTop="0" />
+      <File id="D1CFEFAB-1202-4294-A2C0-D8D7C6D91094/f:web.config" caret="0" fromTop="0" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:Scripts/f:alertify.js" caret="13440" fromTop="44" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/f:Web.config" caret="6111" fromTop="17" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:FichaInscripcion-CV-Decla-Jurada.aspx" caret="12830" fromTop="32" />
     </RecentFiles>
     <RecentEdits>
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="153" fromTop="5" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="290" fromTop="10" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="2837" fromTop="21" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="2770" fromTop="26" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="3621" fromTop="35" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="3221" fromTop="30" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="3610" fromTop="39" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestRepositorioCursos.cs" caret="871" fromTop="23" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="1652" fromTop="36" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="1667" fromTop="37" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="33" fromTop="1" />
-      <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="2145" fromTop="42" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="3062" fromTop="50" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="3062" fromTop="52" />
       <File id="C284778C-6A84-4887-AFC3-04700EEFAAB8/d:TestSACC/f:TestCursos.cs" caret="2968" fromTop="39" />
@@ -60,6 +51,18 @@
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="8297" fromTop="22" />
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="7720" fromTop="11" />
       <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:Pantalla1.aspx" caret="8787" fromTop="26" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:FichaInscripcion-CV-Decla-Jurada.aspx" caret="0" fromTop="0" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:FichaInscripcion-CV-Decla-Jurada.aspx" caret="9385" fromTop="15" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:FichaInscripcion-CV-Decla-Jurada.aspx" caret="423" fromTop="12" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:FichaInscripcion-CV-Decla-Jurada.aspx" caret="9385" fromTop="16" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:FichaInscripcion-CV-Decla-Jurada.aspx" caret="12876" fromTop="15" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:FichaInscripcion-CV-Decla-Jurada.aspx" caret="12859" fromTop="12" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:FichaInscripcion-CV-Decla-Jurada.aspx" caret="9443" fromTop="34" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:FichaInscripcion-CV-Decla-Jurada.aspx" caret="355" fromTop="6" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:FichaInscripcion-CV-Decla-Jurada.aspx" caret="11200" fromTop="0" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/f:Web.config" caret="7229" fromTop="25" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/f:Web.config" caret="6289" fromTop="21" />
+      <File id="A75712E4-258D-405D-A2F3-082E5C1C0E7F/d:FormularioConcursar/f:FichaInscripcion-CV-Decla-Jurada.aspx" caret="12539" fromTop="20" />
     </RecentEdits>
   </RecentFiles>
   <CompletionStatisticsManager>
