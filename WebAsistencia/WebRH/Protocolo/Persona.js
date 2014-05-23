@@ -29,15 +29,21 @@ Persona.prototype.inasistencias = function () {
 };
 
 Persona.prototype.desde = function () {
-    return new Date(this._persona.Inasistencias[0].Desde).toLocaleDateString();
+    var fecha = new Date(this._persona.Inasistencias[0].Desde);
+    return (fecha.getDate()+1) + "/" + (fecha.getMonth()+1) + "/" + fecha.getFullYear();
 };
 
 Persona.prototype.hasta = function () {
-    return new Date(this._persona.Inasistencias[0].Hasta).toLocaleDateString();
+    var fecha = new Date(this._persona.Inasistencias[0].Hasta);
+    return (fecha.getDate()+1) + "/" + (fecha.getMonth()+1) + "/" + fecha.getFullYear();
 };
 
 Persona.prototype.estado = function () {
     return this._persona.Inasistencias[0].Estado;
+};
+
+Persona.prototype.areaOrigen = function () {
+    return this._persona.PasePendiente.AreaOrigen.Nombre;
 };
 
 Persona.prototype.areaDestino = function () {
@@ -45,7 +51,8 @@ Persona.prototype.areaDestino = function () {
 };
 
 Persona.prototype.fechaPase = function () {
-    return new Date(this._persona.PasePendiente.Fecha).toLocaleDateString();
+   var fecha = new Date(this._persona.PasePendiente.Fecha);
+    return (fecha.getDate()+1) + "/" + (fecha.getMonth()+1) + "/" + fecha.getFullYear();
 };
 
 Persona.prototype.estadoPase = function () {

@@ -15,6 +15,10 @@
         return una_persona.nombre();
     }
     }));
+    columnas.push(new Columna("Area Origen", { generar: function (una_persona) {
+        return una_persona.areaOrigen();
+    }
+    }));
     columnas.push(new Columna("Area Solicitada", { generar: function (una_persona) {
         return una_persona.areaDestino();
     }

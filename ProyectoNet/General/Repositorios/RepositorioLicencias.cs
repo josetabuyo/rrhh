@@ -468,15 +468,18 @@ namespace General.Repositorios
                     tablaDatos1.Rows.FindAll(row => row.GetInt("NroDocumento") == persona.Documento).ForEach(row =>
                     {
                         PaseDeArea pase = new PaseDeArea();
-                        Area area = new Area();
+                        Area areaDestino = new Area();
+                        Area areaOrigen = new Area();
                         Persona persona_con_pase = new Persona();
                         persona_con_pase.Apellido = persona.Apellido;
                         persona_con_pase.Nombre = persona.Nombre;
                         persona_con_pase.Documento = persona.Documento;
-                        area.Nombre = row.GetString("descripcion");
+                        areaDestino.Nombre = row.GetString("area_destino");
+                        areaOrigen.Nombre = row.GetString("area_origen");
                         pase.Fecha = row.GetDateTime("fecha_solicitud");
                         pase.Estado = determinarEstado(row.GetSmallintAsInt("estado"));
-                        pase.AreaDestino = area;
+                        pase.AreaDestino = areaDestino;
+                        pase.AreaOrigen = areaOrigen;
                         persona_con_pase.PasePendiente = pase;
                         personas_con_pases.Add(persona_con_pase);
                     });
