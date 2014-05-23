@@ -8,7 +8,7 @@ describe("Interactuando con el backend", function() {
 	beforeEach(function() {
 		jasmine.Ajax.install();
 		proveedorAjax = new ProveedorAjax();
-		jsonJuan = '{"d":"[{\\"Id\\":6944,\\"Documento\\":10659739,\\"Nombre\\":\\"Juan\\",\\"Apellido\\":\\"CALCAGNO\\",\\"Legajo\\":\\"301318\\"}]"}';
+		jsonJuan = '{"d":"[{\\"Id\\":6944,\\"Documento\\":10659739,\\"Nombre\\":\\"Juan\\",\\"Apellido\\":\\"CALCAGNO\\",\\"Legajo\\":\\"301318\\"},{}]"}';
 		urlBuscarPersonasPart = "BuscarPersonas"
 		urlBase = '../../../../AjaxWS.asmx/';
 		urlBuscarPersonas = urlBase + urlBuscarPersonasPart;

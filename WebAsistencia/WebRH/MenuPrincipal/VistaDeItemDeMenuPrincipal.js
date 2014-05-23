@@ -1,14 +1,14 @@
 ﻿var VistaDeItemDeMenuPrincipal = function (item) {
     this.ui = $("#plantillas .item_de_menu_principal").clone();
     this.link = this.ui.find("a");
-    this.link.attr("href", item.Acceso.Url);
+    this.link.attr("href", item.acceso.Url);
     //this.link.attr("data-original-title", item.Descripcion);
     this.link.tooltip();
 
     this.descriptor = this.ui.find("#descripcion_item");
-    this.descriptor.text(item.Descripcion);
+    this.descriptor.text(item.descripcion);
 
-    var nombre_sin_espacios = item.NombreItem.split(' ').join('_');
+    var nombre_sin_espacios = item.nombreitem.split(' ').join('_');
     this.link.attr("id", nombre_sin_espacios);
 
     var estilo = "<style>";
