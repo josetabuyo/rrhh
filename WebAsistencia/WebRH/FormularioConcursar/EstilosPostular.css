@@ -224,6 +224,7 @@ nav
         /*width: 25%;*/
         float: left; /* Floto los li para que se dispongan horizontalmente */
         border-right: solid 1.5px #0088cc  ;
+        
     }
     
 .menu_lista_formularios a
@@ -566,7 +567,7 @@ nav
 }
 
 
-/*-------  ESTILO LOGIN ----------
+/*-------  ESTILO LOGIN ----------*/
 
 .cuerpo_claro
 {
@@ -586,7 +587,7 @@ nav
     border-bottom: 1px solid #e5e5e5;
     box-sizing: border-box;
 }
-
+/*
 .panel_izquierdo
 {
     float: right;

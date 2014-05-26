@@ -7,7 +7,7 @@
     <title></title>
      <%= Referencias.Css("../")%>    
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
-    <link rel="stylesheet" href="Estilos.css" />
+    <link rel="stylesheet" href="EstilosPostular.css" />
 </head>
 <body>
     <form id="form1" runat="server">
