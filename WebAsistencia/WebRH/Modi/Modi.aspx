@@ -22,7 +22,7 @@
                 </div>                
                 <div id="lbl_titulo_imagenes_no_asignadas"> Imágenes no asiginadas a ningún documento </div>
                 <input type=button id="btn_subir_imagenes" class="btn btn-primary" value="+"/>
-                <input type='file' name='img' size='65' multiple id="subir_imagenes" style="display:none"/>
+                <%--<input type='file' name='img' size='65' multiple id="subir_imagenes" style="display:none"/>--%>
                 <div id="panel_imagenes_no_asignadas"></div>                
                 <div id="lbl_titulo_panel_documentos"> Documentos </div>
                 <div id="lbl_titulo_imagenes_documentos"> Folios </div>
@@ -122,6 +122,7 @@
     <script type="text/javascript" src="PanelDeImagenes.js"></script>
     <script type="text/javascript" src="SelectorDeLegajos.js"></script>
     <script type="text/javascript" src="VistaLegajoFila.js"></script>
+    <script type="text/javascript" src="SubidorDeImagenes.js"></script>
     <script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
 
 

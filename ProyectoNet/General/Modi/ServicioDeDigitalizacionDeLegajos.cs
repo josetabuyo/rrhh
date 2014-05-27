@@ -78,21 +78,27 @@ namespace General.Modi
             this.conexion_db.EjecutarSinResultado("dbo.MODI_Asignar_Categoria_A_Un_Documento", parametros);
         }
 
-        public void AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+        public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_interna", id_interna);
             parametros.Add("@nombre_imagen", nombre_imagen);
             parametros.Add("@bytes_imagen", bytes_imagen);
 
-            this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros);
+            return int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros).ToString()); 
         }
 
+        public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_interna", id_interna);
+            parametros.Add("@nombre_imagen", nombre_imagen);
+            parametros.Add("@bytes_imagen", bytes_imagen);
+            parametros.Add("@numero_folio", numero_folio);
 
-
-
-
-
+            return int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_A_Un_Folio_De_Un_Legajo", parametros).ToString());
+        }
+        
         private List<LegajoModi> GetLegajoPorDocumento(int numero_de_documento)
         {
             var legajos = new List<LegajoModi>();
