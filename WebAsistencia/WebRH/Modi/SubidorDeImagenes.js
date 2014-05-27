@@ -48,23 +48,5 @@ SubidorDeImagenes.prototype.subirProximaImagen = function (onImagenLista) {
 
         if (_this.indiceFileSubiendo >= _this.colaDeSubida.length) return;
         _this.subirProximaImagen(onImagenLista);
-
-
-//        if (!(numero_folio === undefined)) {
-//            _this.servicioDeLegajos.agregarImagenAUnFolioDeUnLegajo(_this.numero_legajo,
-//                numero_folio,
-//                "un_nombre",
-//                bytes_imagen,
-//                function () {
-//                    console.log("imagen subida ok");
-//                });
-//            return;
-//        }
-//        _this.servicioDeLegajos.agregarImagenSinAsignarAUnLegajo(_this.numero_legajo,
-//                "un_nombre",
-//                bytes_imagen,
-//                function () {
-
-//                });
     };
 };
