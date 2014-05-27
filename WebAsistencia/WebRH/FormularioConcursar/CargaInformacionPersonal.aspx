@@ -11,7 +11,7 @@
       <!--[if lte IE 8]>  
         <script type="text/javascript" src="js/mootools.js"></script>  
         <script type="text/javascript" src="js/selectivizr.js"></script>  
-    <![endif]-->  
+    <![endif]-->   
     
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
@@ -25,25 +25,48 @@
    
    <div class="accordion" id="accordion">
 
+       <div class="navbar" style="font-size: 15px;">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#"></a>
+                    <div class="nav-collapse navbar-responsive-collapse">
+                    <ul id="Ul1" class="nav"  runat="server">
+                    <li><a href="PanelDeControl.aspx" >Panel de Control</a></li>
+                    <li><a href="Postulaciones.aspx" >Postulaciones</a></li>
+                    <li><a href="CargaInformacionPersonal.aspx" >MI CV</a></li>
+                    </ul>
+       
+                    <ul id="Ul2" class="nav pull-right"  runat="server">
+                    </ul>
+                    </div><!-- /.nav-collapse -->
+                </div>
+            </div><!-- /navbar-inner -->
+        </div><!-- /navbar -->
+
         <nav style="min-width: 900px;">
-            <ul class="ul_cv" style="width:100%; margin-left:1%; margin-top:35px; margin-bottom:3px;">    
+            <ul class="ul_cv" style="width:100%; margin-left:1%; margin-top:15px; margin-bottom:3px;">    
                 <li class="menu_lista_formularios"><a href="#ancla1">Información Personal</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla2">Antecedentes Academicos</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla3">Actividades de Capacitación</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla4">Actividades Docentes</a></li>
-                <li class="no_borde"><a href="#ancla5">Eventos Académicos</a></li>
+                <li class="menu_lista_formularios no_borde"><a href="#ancla5">Eventos Académicos</a></li>
              </ul>
              <ul class="ul_cv" style="width:90%; margin-left:6%; margin-bottom:3px;">
                 <li class="menu_lista_formularios"><a href="#ancla6">Publicaciones o trabajos</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla7">Matriculas</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla8">Instituciones Académicas</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla9">Experiencias Laborales</a></li>
-                <li class="no_borde"><a href="#ancla10">Idiomas Extranjeros</a></li>
+                <li class="menu_lista_formularios no_borde"><a href="#ancla10">Idiomas Extranjeros</a></li>
             </ul>
             <ul class="ul_cv" style="width:60%; margin-left:20%;">
                 <li class="menu_lista_formularios"><a href="#ancla11">Competencias Informáticas</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla12">Otras Capacidades</a></li>
-                <li class="no_borde"><a href="#ancla13">Vista Preliminar</a></li>
+                <li class="menu_lista_formularios no_borde"><a href="#ancla13">Vista Preliminar</a></li>
             </ul>
         </nav>
 
