@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FichaInscripcion-CV-Decla-Jurada.aspx.cs" Inherits="FormularioConcursar_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FichaInscripcionCVDeclaJurada.aspx.cs" Inherits="FormularioConcursar_Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -69,7 +69,7 @@
 	
 	<div class="tit-pos">
 	<p class="sub-titulos">TíTULOS EDUCATIVOS</p>
-	<hr class="lineas"/>
+	<hr class="lineas-subraya"/>
 	
 	<p class="general"><span class="atributos">- En Curso: </span>- Universitario - U.B.A. - F.A.D.U. - Dis. de Imágen y Sonido</p>
 	<p class="general"><span class="atributos">- Año de Egreso: 2004 </span>- Secundario Completo - Instituto Grilli - Bachillerato de Economía y Gestión de las Organizaciones</p>
@@ -77,20 +77,20 @@
 		
 	<div class="tit-pos">
 	<p class="sub-titulos">OTRAS CERTIFICACIONES / ACTIVIDADES DE CAPACITACIÓN</p>
-	<hr class="lineas"/>
+	<hr class="lineas-subraya"/>
 	<p class="general"><span class="atributos">- Año de Egreso: 2014 </span>- Centro Cultural Matienzo - Curso Intensivo: Del Guión a la Actuación</p>
 	<p class="general"><span class="atributos">- Año de Egreso: 2010 </span>- Sindicato de Cinematografía Argentina - Centro de Formación Profesional - Curso Completo de Edición
 	</div>
 	
 	<div class="tit-pos">
 	<p class="sub-titulos">ACTIVIDAD DOCENTE</p>
-	<hr class="lineas"/>
+	<hr class="lineas-subraya"/>
 	<p class="no-hay-datos">No hay datos cargados</p>
 	</div>
 	
 	<div class="tit-pos">
 	<p class="sub-titulos">EVENTOS ACADÉMICOS</p>
-	<hr class="lineas"/>
+	<hr class="lineas-subraya"/>
 	<p class="general"><span class="atributos">- Imágenes Forenses:</span>
     Docente en el Curso de Aspirantes para Instructores Judiciales para la Provincia de Buenos Aires (“Imágenes Forenses”). Procuración General de la Provincia de Buenos Aires, año 2007.</p>
 	</div>
@@ -104,13 +104,13 @@
 	
 	<div class="tit-pos">
 	<p class="sub-titulos">MATRICULA PROFESIONAL</p>
-	<hr class="lineas"/>
+	<hr class="lineas-subraya"/>
 	<p class="general"><span class="atributos">- Matrícula Profesional Nº: </span>11.111 - Diseñadora de Imagen y Sonido (Universidad de Buenos Aires)</p>
 	</div>
 	
 	<div class="tit-pos">
 	<p class="sub-titulos">PERTENENCIA A INSTITUCIONES ACADÉMICAS O PROFESIONALES RELEVANTES</p>
-	<hr class="lineas"/>
+	<hr class="lineas-subraya"/>
 	<p class="no-hay-datos">No hay datos cargados</p>	
 	</div>
 	</div>
@@ -120,7 +120,7 @@
 	
     <div class="tit-pos">
 	<p class="sub-titulos">OCUPACIONES</p>
-	<hr class="lineas"/>
+	<hr class="lineas-subraya"/>
 	
 	<p class="general"><span class="atributos">- 01/01/2007 al 31/12/2010</span>- Ámbito Privado - Contratado - Empresa Sarasa - Técnico Administrativo
 	<p class="general"><span class="atributos">- 01/01/2005 al 31/12/2007</span>- Ámbito Privado - Contratado - Empresa La lalala - Recepcionista
@@ -135,7 +135,7 @@
 	
     <div class="tit-pos">
 	<p class="sub-titulos">IDIOMAS EXTRANJEROS</p>
-	<hr class="lineas"/>
+	<hr class="lineas-subraya"/>
 	<p class="general"><span class="atributos">- Inglés: </span> Avanzado</p>
     <p class="general"><span class="atributos">- Francés: </span> Intermedio</p>
     <p class="general"><span class="atributos">- Italiano: </span> Básico</p>
@@ -143,7 +143,7 @@
 
     <div class="tit-pos">
 	<p class="sub-titulos">COMPETENCIAS INFORMÁTICAS</p>
-	<hr class="lineas"/>
+	<hr class="lineas-subraya"/>
 	<p class="general"><span class="atributos">- Microsoft Office 2013: </span> Manejo avanzando</p>
     <p class="general"><span class="atributos">- Microsoft Windows XP/7/8: </span> Básico</p>
     <p class="general"><span class="atributos">- Adobe Photoshop Ver 14.1.2: </span> Avanzado</p>
@@ -151,13 +151,13 @@
 
     <div class="tit-pos">
 	<p class="sub-titulos">OTRAS CAPACIDADES PERSONALES</p>
-	<hr class="lineas"/>
+	<hr class="lineas-subraya"/>
 	<p class="no-hay-datos">No hay datos cargados</p>
 	</div>
 
     <div class="tit-pos">
 	<p class="sub-titulos">OTRAS OBSERVACIONES</p>
-	<hr class="lineas"/>
+	<hr class="lineas-subraya"/>
 	<p class="no-hay-datos">No hay datos cargados</p>
     </div>
 </div>
@@ -283,7 +283,7 @@ font-size: 14px;
 font-size:14px;
 }
 
-.lineas
+.lineas-subraya
 {
 color: #87a7ad;
 background-color: #87a7ad;
