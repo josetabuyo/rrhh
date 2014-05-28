@@ -8,6 +8,8 @@ VistaDeLegajoModi.prototype.start = function () {
     this.lbl_resumen_datos_personales = this.o.ui.find('#lbl_resumen_datos_personales');
     this.panel_documentos = this.o.ui.find('#panel_documentos');
     this.div_imagenes_no_asignadas = this.o.ui.find('#panel_imagenes_no_asignadas');
+    this.btn_subir_imagenes = $("#btn_subir_imagenes");
+
     this.vistasDeDocumentos = [];
     this.servicioDeDragAndDrop = new ServicioDeDragAndDrop();
     var _this = this;
@@ -30,6 +32,23 @@ VistaDeLegajoModi.prototype.start = function () {
         _this.o.ui.css('opacity', '0');
         _this.buscadorDeLegajos.mostrarModal();
     });
+
+    this.btn_subir_imagenes.click(function () {
+        var subidor = new SubidorDeImagenes();
+        subidor.subirImagenes(function (bytes_imagen) {
+            _this.o.servicioDeLegajos.agregarImagenSinAsignarAUnLegajo(_this.legajo.idInterna,
+                "un_nombre",
+                bytes_imagen,
+                function (id_imagen) {
+                    var vista_imagen = new VistaDeImagen({
+                        idImagen: id_imagen,
+                        servicioDeDragAndDrop: _this.servicioDeDragAndDrop,
+                        servicioDeLegajos: _this.o.servicioDeLegajos
+                    });
+                    _this.panel_imagenes_no_asignadas.agregarVistaImagen(vista_imagen);
+                });
+        });
+    });
 };
 
 VistaDeLegajoModi.prototype.mostrandoVisualizadorDeImagenes = function () {
@@ -40,7 +59,7 @@ VistaDeLegajoModi.prototype.mostrarLegajo = function (legajo) {
     this.lbl_resumen_datos_personales.text(legajo.apellido + ", " + legajo.nombre + " (" + legajo.numeroDeDocumento + ") Id Interna:" + legajo.idInterna);
     this.vistasDeDocumentos = [];
     this.panel_documentos.empty();
-
+    this.legajo = legajo;
     var _this = this;
     for (var i = 0; i < legajo.documentos.length; i++) {
         var vista_documento = new VistaDeDocumentoModi({

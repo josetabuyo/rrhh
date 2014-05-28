@@ -38,6 +38,27 @@ VistaDeFolioModi.prototype.start = function () {
             return true;
         }
     });
+
+    this.ui.click(function () {
+        if (_this.ui.find(".imagen_miniatura").length != 0) return;
+        var subidor = new SubidorDeImagenes();
+        subidor.subirImagen(function (bytes_imagen) {
+            _this.o.servicioDeLegajos.agregarImagenAUnFolioDeUnLegajo(_this.o.numero_legajo,
+                    _this.o.folio.numero_folio,
+                    "un_nombre",
+                    bytes_imagen,
+                    function (id_imagen) {
+                        //_this.o.folio.imagen.id = id_imagen;
+                        var vista_imagen = new VistaDeImagen({
+                            idImagen: id_imagen,
+                            servicioDeDragAndDrop: _this.o.servicioDeDragAndDrop,
+                            servicioDeLegajos: _this.o.servicioDeLegajos,
+                            numeroDeFolio: _this.o.folio.numero_folio
+                        });
+                        vista_imagen.dibujarEn(_this.ui);
+                    });
+        });
+    });
 };
 
 VistaDeFolioModi.prototype.dibujarEn = function (panel) {

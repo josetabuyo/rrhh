@@ -12,7 +12,7 @@
            
             <table width="100%" border="0" >
             <tr><td align="right">
-                <asp:Image ID="ImbBarcode" runat="server" Height="26px" />
+                <asp:Image ID="ImbBarcode" runat="server" Height="26px" Width="310px" />
                 
 				</td></tr>
             </table>

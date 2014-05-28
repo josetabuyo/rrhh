@@ -42,6 +42,11 @@ namespace General
             set { _Hasta = value;  }
         }
 
-
+        private string _Estado;
+        public string Estado
+        {
+            get { return _Estado; }
+            set { _Estado = value; }
+        }
     }
 }

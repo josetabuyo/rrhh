@@ -230,6 +230,22 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+    [WebMethod]
+    public Persona[] GetAusentesEntreFechasPara(Persona[] personas, DateTime desde, DateTime hasta) 
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.GetAusentesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
+    }
+
+    [WebMethod]
+    public Persona[] GetPasesEntreFechasPara(Persona[] personas, DateTime desde, DateTime hasta)
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.GetPasesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
+    }
+
     #endregion
 
     #region viaticos
@@ -998,6 +1014,13 @@ public class WSViaticos : System.Web.Services.WebService
         {
             personas.ForEach(delegate(Persona persona)
             {
+                Inasistencia inasistenciadto = new Inasistencia();
+                inasistenciadto.Aprobada = persona.Inasistencias.First().Aprobada;
+                inasistenciadto.Descripcion = persona.Inasistencias.First().Descripcion;
+                inasistenciadto.Desde = persona.Inasistencias.First().Desde;
+                inasistenciadto.Hasta = persona.Inasistencias.First().Hasta;
+                inasistenciadto.Estado = persona.Inasistencias.First().Estado;
+               
                 persoas_dto.Add(new
                 {
                     label = persona.Apellido + ", " + persona.Nombre + " (DNI: " + persona.Documento + ")",
@@ -1005,7 +1028,8 @@ public class WSViaticos : System.Web.Services.WebService
                     nombre = persona.Apellido + ", " + persona.Nombre,
                     apellido = persona.Apellido,
                     documento = persona.Documento,
-                    area = new AreaDTO(persona.Area)
+                    area = new AreaDTO(persona.Area),
+                    inasistencia = inasistenciadto
                 });
             });
         }
@@ -1825,6 +1849,18 @@ public class WSViaticos : System.Web.Services.WebService
     public ImagenModi GetImagenPorId(int id_imagen)
     {
         return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
+    }
+
+    [WebMethod]
+    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
+    }
+
+    [WebMethod]
+    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
     }
 
     [WebMethod]

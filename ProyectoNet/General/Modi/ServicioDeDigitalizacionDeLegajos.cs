@@ -42,6 +42,7 @@ namespace General.Modi
             return new ImagenModi(primera_fila.GetString("nombre_imagen"), primera_fila.GetString("bytes_imagen"));
         }
 
+
         public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
         {
             return this.GetImagenPorId(id_imagen).GetThumbnail(alto, ancho);
@@ -61,7 +62,7 @@ namespace General.Modi
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_imagen", id_imagen);
-            parametros.Add("@id_usuario", usuario.Id);
+            //parametros.Add("@id_usuario", usuario.Id);
 
             this.conexion_db.EjecutarSinResultado("dbo.MODI_Des_Asignar_Imagen", parametros);
         }
@@ -77,11 +78,27 @@ namespace General.Modi
             this.conexion_db.EjecutarSinResultado("dbo.MODI_Asignar_Categoria_A_Un_Documento", parametros);
         }
 
+        public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_interna", id_interna);
+            parametros.Add("@nombre_imagen", nombre_imagen);
+            parametros.Add("@bytes_imagen", bytes_imagen);
 
+            return int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros).ToString()); 
+        }
 
+        public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_interna", id_interna);
+            parametros.Add("@nombre_imagen", nombre_imagen);
+            parametros.Add("@bytes_imagen", bytes_imagen);
+            parametros.Add("@numero_folio", numero_folio);
 
-
-
+            return int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_A_Un_Folio_De_Un_Legajo", parametros).ToString());
+        }
+        
         private List<LegajoModi> GetLegajoPorDocumento(int numero_de_documento)
         {
             var legajos = new List<LegajoModi>();
