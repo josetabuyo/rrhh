@@ -89,14 +89,17 @@
               <div class="panel-body estilo_paneles fondo_form ">
                  <div class="feedPostulacionesAplicadas sombra_y_redondeado">
                     <h3 class="subtitulo_postulaciones"><a href="#">Programador para RRHH/ CABA </a></h3>
-                    <hr class="SubrayadoPostulaciones"/>
-                    <p class="feedAvisoDescripcion">Se require programadores con conocimientos avanzados en c# y un lenguaje proximamente a inventar para...<a href="#">Ver mas</a></p>
-                </div>
+                    <hr class="SubrayadoPostulaciones degrade"/>
+                    <p>Se require programadores con conocimientos avanzados en c# y un lenguaje proximamente a inventar para...<a href="#">Ver mas</a></p>
+                    <p style="text-align: right; font-size:12px;"><a style="margin-top: 100px; text-align:left;"class="link-cv" href="FichaInscripcionCVDeclaJurada.aspx">CV postulado</a></p>
+                    
+                    </div>
                 <div class="feedPostulacionesAplicadas sombra_y_redondeado">
                     <h3 class="subtitulo_postulaciones"><a href="#">Adminitrador de Redes RRHH/ CABA </a></h3>
-                    <hr class="SubrayadoPostulaciones"/>
-                    <a style="text-align:right; margin-top: -15px  ;" href="FichaInscripcionCVDeclaJurada.aspx">CV postulado</a>
-                    <p class="feedAvisoDescripcion">Se require expertos en Redes para administrar la infraestructura de todo el ministerior...<a href="#">Ver mas</a></p>
+                    <hr class="SubrayadoPostulaciones degrade"/>
+                    <p>Se require expertos en Redes para administrar la infraestructura de todo el ministerior...<a href="#">Ver mas</a></p>
+                    <p style="text-align: right; font-size:12px;"><a style="margin-top: 100px; text-align:left;"class="link-cv" href="FichaInscripcionCVDeclaJurada.aspx">CV postulado</a></p>
+                    
                 </div>
               </div>
             </div>

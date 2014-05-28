@@ -4,8 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
-    <title></title>
+        <title></title>
+     <%= Referencias.Css("../")%>    
+
+     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+     <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -21,26 +25,26 @@
 <p class="general oferta-empleo"><span class="atributos">Postulación Nº: </span>2233</p>
 
 <div class="tabla">
-<table class="tabla-inscripcion">
-<tbody>
-<tr>
-<td style="width: 60%"><p class="general p-tabla"><span class="atributos">Oferta de Empleo Nº: </span>32.267</p></td>
-<td style="width: 40%"><p class="general p-tabla"><span class="atributos">Tipo de Convocatoria: </span>GENERAL</p></td>
-</tr>
-    <tr>
-      <td colspan="2" class="tabla-inscripcion-td" ><p class="general p-tabla"><span class="atributos">Denominación del Cargo: </span>Abogado asesor especializado en Empleo Público</p></td></tr>
-	<tr>
-      <td colspan="2" class="tabla-inscripcion-td"><p class="general p-tabla"><span class="atributos">Agrupamiento: </span>GENERAL</p></td>
-    </tr>
-    <tr>
-      <td><p class="general p-tabla"><span class="atributos">Nivel Escalafonario: </span>A</p>
-      </td>
-
-      <td><p class="general p-tabla"><span class="atributos">Nivel de Jefatura: </span></p>
-      </td>
-    </tr>
-</tbody>
-</table>
+    <table class="tabla-inscripcion">
+        <tbody>
+            <tr>
+                <td style="width: 60%"><p class="general p-tabla"><span class="atributos">Oferta de Empleo Nº: </span>32.267</p></td>
+                <td style="width: 40%"><p class="general p-tabla"><span class="atributos">Tipo de Convocatoria: </span>GENERAL</p></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="tabla-inscripcion-td" ><p class="general p-tabla"><span class="atributos">Denominación del Cargo: </span>Abogado asesor especializado en Empleo Público</p></td>
+            </tr>
+	
+            <tr>
+                <td colspan="2" class="tabla-inscripcion-td"><p class="general p-tabla"><span class="atributos">Agrupamiento: </span>GENERAL</p></td>
+            </tr>
+    
+            <tr>
+                <td><p class="general p-tabla"><span class="atributos">Nivel Escalafonario: </span>A</p></td>
+                <td><p class="general p-tabla"><span class="atributos">Nivel de Jefatura: </span></p></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 
@@ -97,7 +101,7 @@
 	
 	<div class="tit-pos">
 	<p class="sub-titulos">PUBLICACIONES O TRABAJOS DE INVESTIGACIÓN</p>
-	<hr class="lineas"/>
+	<hr class="lineas-subraya"/>
     <p class="general"><span class="atributos">- Publicación: </span>
 	"Imágenes Forenses" - Instituto Universitarios de la Policía Federal Argentina, Inédito. Año 2007.</p>
 	</div>
@@ -202,258 +206,4 @@
     </form>
 </body>
 
-<style type="text/css">
-.principal
-{
-width: 92%;
-background-color: fff;
-margin-left: 4%;
-margin-right: 4%;
-font-family: Arial;
-}
-
-.encabezado
-{
-margin-top: 2%;
-text-align: center;
-font-size: 26px;
-font-weight: bold;
-margin-bottom: 5%;
-}
-
-.top-header
-{
-text-align:center;
-width: 92%;
-background-color: #fff;
-margin-left: 4%;
-margin-right: 4%;
-font-family: Arial;
-font-size: 12px;
-}
-
-.tabla
-{
-}
-
-.orden
-{
-text-align: center;
-margin-left: 5%;
-margin-right: 5%;
-}
-
-.tabla-inscripcion
-{
-width: 100%;
-margin-bottom: 40px;
-border-collapse: collapse;
-border: 2px solid black;
-
-}
-
-.tabla-inscripcion tr
-{
-    border-collapse: collapse;
-    border: 2px solid black;
-    }
-
-.tabla-inscripcion tr td
-{
-    border-collapse: collapse;
-    border: 2px solid black;
-    }    
-    
-
-.tabla-inscripcion-td
-{
-    width: 100%;
-    border: 2px solid black;
-    }
-   
-
-.atributos
-{
-font-weight: bold;
-font-size: 14px;
-}
-
-.general
-{
-font-size:14px;
-}
-
-.lineas-subraya
-{
-color: #87a7ad;
-background-color: #87a7ad;
-height: 5px;
-margin-top: -20px;
-}
-
-.linea-top
-{
-color: #87a7ad;
-background-color: #87a7ad;
-height: 5px;
-width: 100%;
-margin-left: 2%;
-margin-right: 2%;
-font-family: Arial;
-}
-
-.titulos
-{
-text-align: left;
-height: 30px;
-margin-top: 10px;
-margin-bottom: 30px;
-font-size: 18px;
-font-weight: bold;
-font-family: Arial;
-padding-top: 9px;
-padding-left:10px;
-}
-
-.sub-titulos
-{
-text-align: left;
-margin-top: 10px;
-margin-bottom: 20px;
-font-size: 16px;
-font-weight: bold;
-font-family: Arial;
-}
-
-.degrade
-{
-	background: -moz-linear-gradient(right,  #fff 0%,  #87a7ad 100%); /* FF3.6+ */  
-    background: -webkit-gradient(linear, left right, left bottombottom, color-stop(0%,#fff), color-stop(100%, #87a7ad)); /* Chrome,Safari4+ */  
-    background: -webkit-linear-gradient(right,  #fff 0%,#87a7ad 100%); /* Chrome10+,Safari5.1+ */  
-    background: -o-linear-gradient(right,  #fff 0%, #87a7ad 100%); /* Opera 11.10+ */  
-    background: -ms-linear-gradient(right,  #fff 0%,# 87a7ad 100%); /* IE10+ */  
-    background: linear-gradient(to bottombottom,  #fff 0%,#87a7ad 100%); /* W3C */  
-    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#87a7ad',GradientType=0 ); /* IE6-9   */
-	
-	/*PARA QUE SE VEA EN IE VIEJOS*/
-    -pie-background: linear-gradient(#fff 0%, #87a7ad 100%, #fff) 0 / 50px #0ae;
-    behavior: url(../Estilos/css3_for_ie/PIE.htc);
-}
-
-.no-hay-datos
-{
-margin-top: 20px;
-margin-bottom: 20px;
-text-align: center;
-font-size: 15px;
-}
-
-.p-tabla
-{
-margin: 5px 10px 5px 10px !important;
-vertical-align: middle !important;
-}
-
-.nombre-h
-{
-font-size: 20px;
-}
-
-.posicion
-{
-margin-top: 35px;
-margin-bottom: 35px;
-}
-
-.tit-pos
-{
-margin-top: 25px;
-margin-bottom: 70px;
-}
-
-
-.pie-tabla
-{
-width: 100%;
-height: 100px;
-border: 1 solid black;
-text-align: bottom;
-}
-
-.div-pie-tabla
-{
-margin-left: auto;
-width:100%;
-}
-
-.td-pie-tabla
-{
-text-align: center;
-font-size: 15px;
-width: 50%;
-padding-bottom: 5px;
-colspan: 2;
-height: 130px;
-vertical-align: bottom;
-}
-
-.motivo-encajado
-{
-margin: 1% 5% 1% 5%;
-}
-
-.motivos-cargo
-{
-display: block;
-text-align: left;
-padding: 30px 60px 30px 60px;
-border: 1px solid black;
-border-top: 1;
-color: Black;
-margin-bottom: 250px;
-margin-left:2%;
-margin-right:2%;
--webkit-border-radius:10px;
--moz-border-radius:10px;
--ms-border-radius:10px;
--o-border-radius:10px;
-border-radius:10px;
-
-behavior: url(../Estilos/css3_for_ie/PIE.htc);
-}
-
-.decla-jurada
-{
-display: block;
-text-align: left;
-padding: 15px 12px 15px 12px;
-border: 1px solid black;
-border-top: 1;
-color: Black;
-font-size: 11px;
-}
-
-.resaltado
-{
-font-size: 12px;
-font-weight: bold;
-}
-
-.link-pagina
-{
-text-align:center;
-
-}
-
-.atributo-apelido
-{
- font-weight: bold;
-}
-
-.oferta-empleo
-{
-text-align: right;
-margin: 15px 0 15px 0;
-    }
-</style>
 </html>
