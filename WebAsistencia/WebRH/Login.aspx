@@ -17,6 +17,7 @@
                 <input type="text" id="usuario" class="span3" nullValue="usuario" runat="server"/><br />
                 <input type="password" id="password" class="span3" nullValue="contraseña" runat="server"/><br />
                 <div id="loginBoton">
+                    <a id="lnk_registrarse">Registrarse</a>
                     <button id="fat-btn" data-loading-text="Iniciando..." class=" btn btn-primary"> 
                         Iniciar Sesión
                     </button>
@@ -28,8 +29,18 @@
             </div>
            
         </div>
+        <div id="registrarse_dialog"></div>
     </div>
     </form>
     <%= Referencias.Javascript("") %>
 </body>
+<script>
+    var lnk_registrarse = $("#lnk_registrarse");
+    lnk_registrarse.click(function () {
+        $("#registrarse_dialog").load("RegistroPostular/Registrarse.htm").dialog({
+            modal: true,
+            title: "Registrarse"
+        });
+    });
+</script>
 </html>
