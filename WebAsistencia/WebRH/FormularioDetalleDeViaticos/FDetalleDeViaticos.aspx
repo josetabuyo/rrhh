@@ -204,17 +204,17 @@
 
 
 
-<script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
-<script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-transition.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-alert.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-modal.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tab.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-popover.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-button.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-typeahead.js"></script>
 <script type="text/javascript">
 
 

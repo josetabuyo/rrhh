@@ -206,9 +206,9 @@
             </div>
         </div>
         <br />
-        <div id="contenido_a_mostrar" class="alert alert-error" style="display: none;">
+        <%--<div id="contenido_a_mostrar" class="alert alert-error" style="display: none;">
             <uc5:ControlNotficaciones ID="ControlNoficaciones" runat="server" EnableViewState="true" />
-        </div>
+        </div>--%>
         <%--        <div class="container-fluid" id="contenido_a_mostrar">
             <div class="row-fluid">
                 <div class="span10">

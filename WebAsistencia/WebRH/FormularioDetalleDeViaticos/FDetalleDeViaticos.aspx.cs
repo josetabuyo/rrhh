@@ -29,7 +29,7 @@ public partial class FormularioDetalleDeViaticos_FDetalleDeViaticos : System.Web
         MostrarTablaEstadias();
         MostrarTablaDePasajes();
         MostrarTablaDeFirmantes();
-        if (!idAreasUsuario.Contains(comision.AreaActual.Id) || !usuario.EsFirmante)
+        if (!idAreasUsuario.Contains(comision.AreaActual.Id)) // || !usuario.EsFirmante) NOTA IMPORTANTE: volver a poner obteniendo desde la bd esta condición porque el login ya no lo trae más
         {
             this.controlDeTransiciones.Visible = false;
         }
