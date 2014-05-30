@@ -183,7 +183,13 @@ public class WSViaticos : System.Web.Services.WebService
         GrupoConceptosDeLicencia grupo = new GrupoConceptosDeLicencia();
         RepositorioConceptosDeLicencia repositorio = new RepositorioConceptosDeLicencia();
         List<GrupoConceptosDeLicencia> grupos = repositorio.GetGruposConceptosLicencia();
+       
+        
+
         GrupoConceptosDeLicencia[] returnGrupos = new GrupoConceptosDeLicencia[grupos.Count];
+
+
+
 
         for (int i = 0; i < grupos.Count; i++)
         {

@@ -41,11 +41,14 @@ namespace General.Repositorios
             }
 
 
-            ////GRUPO PARA VIATICOS
-            //grupo = new GrupoConceptosDeLicencia { Id = 5, Descripcion = "Viaticos", Detalle = "1. Generación de Viáticos del Personal." };
-            //grupo.Conceptos = new List<ConceptoDeLicencia>();
-            //grupo.Conceptos.Add(new ConceptoDeLicencia { Id = 0, Articulo = "101", Inciso = "VIA", Descripcion = "Viáticos", PathFormularioWeb = "~\\FormularioDeViaticos\\FCargaComisionDeServicio.aspx", DiasHabiles = false });
-            //grupos.Add(grupo);
+            //GRUPO PARA VIATICOS
+
+ 
+
+            grupo = new GrupoConceptosDeLicencia { Id = 5, Descripcion = "Viáticos", Detalle = "1. Generación de Viáticos del Personal." };
+            grupo.Conceptos = new List<ConceptoDeLicencia>();
+            grupo.Conceptos.Add(new ConceptoDeLicencia { Id = 0, Articulo = "101", Inciso = "VIA", Descripcion = "Viáticos", PathFormularioWeb = "~\\FormularioDeViaticos\\FCargaComisionDeServicio.aspx", DiasHabiles = false });
+            grupos.Add(grupo);
             
 
             return grupos;

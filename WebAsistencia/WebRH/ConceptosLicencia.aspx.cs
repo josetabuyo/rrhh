@@ -3,6 +3,7 @@
 using System;
 using System.Web.UI.WebControls;
 using WSViaticos;
+using System.Linq;
 
 #endregion
 
@@ -14,6 +15,15 @@ public partial class ConceptosLicencia : System.Web.UI.Page
         WSViaticosSoapClient s = new WSViaticosSoapClient();
         //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
         GrupoConceptosDeLicencia[] grupos = s.GetGruposConceptosLicencia();
+        
+        bool puede_solicitar_viaticos = s.ElUsuarioTienePermisosPara(((Usuario)Session[ConstantesDeSesion.USUARIO]).Id,12);
+
+        if (!puede_solicitar_viaticos)
+        {
+            grupos = grupos.Where(g=>g.Id !=5).ToArray();
+        }
+
+
         TableCell tc; TableRow tr;
 
         foreach (GrupoConceptosDeLicencia grupo in grupos)
