@@ -26,6 +26,35 @@ public class AjaxWS : System.Web.Services.WebService {
         //InitializeComponent(); 
     }
 
+    //DDJJ//
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string AreasConDDJJAdministradasPor()
+    {
+        var areas = backEndService.AreasConDDJJAdministradasPor(usuarioLogueado);
+        var areas_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(areas);
+        return areas_serializados;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetAreasParaDDJJDelMes()
+    {
+        var areas = backEndService.GetAreasParaDDJJDelMes(usuarioLogueado);
+        var areas_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(areas);
+        return areas_serializados;
+    }
+    //DDJJ//
+    
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetMeses()
+    {
+        var meses = backEndService.GetMeses();
+        var meses_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(meses);
+        return meses_serializados;
+    }
+    
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)] 
     public string CrearDocumento(string documento_dto) {        

@@ -17,6 +17,7 @@ using AdministracionDeUsuarios;
 using General.Sacc;
 using General.Sacc.Seguridad;
 using General.MAU;
+
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -50,6 +51,21 @@ public class WSViaticos : System.Web.Services.WebService
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
         return responsableDDJJ.AreasConDDJJAdministradasPor(usuario).ToArray();
     }
+
+    [WebMethod]
+    public Area[] AreasSinDDJJInferioresA(Area area)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
+        return responsableDDJJ.AreasSinDDJJInferioresA(area).ToArray(); 
+    }
+
+    [WebMethod]
+    public DDJJ104[] GetAreasParaDDJJDelMes(Usuario usuario)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
+        return responsableDDJJ.GetAreasDDJJ(usuario,0).ToArray();
+    }
+
 
     [WebMethod]
     public void EliminarInasistenciaActual(Persona unaPersona)
@@ -2370,6 +2386,22 @@ public class WSViaticos : System.Web.Services.WebService
         return observaciones_no_procesadas.ToArray();
   
     }
+
+
+    [WebMethod]
+    public MesDto[] GetMeses()
+    {
+        List<MesDto> meses = new List<MesDto>();
+        
+        DateTime fechaAnterior = DateTime.Now.AddMonths(-1);
+        DateTime fechaActual = DateTime.Now;
+
+        meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });
+        meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });
+
+        return meses.ToArray();
+    }
+
 
     private RepositorioLicencias RepoLicencias()
     {

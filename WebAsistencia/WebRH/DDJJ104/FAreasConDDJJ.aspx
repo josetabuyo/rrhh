@@ -5,12 +5,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <%= Referencias.Css("../")%> 
+    <%= Referencias.Javascript("../") %>
+
+
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
-    
+        <select runat="server" title="Seleccione un mes" id="cmbMeses" name="Meses" enableviewstate="false" class="input-small" 
+        style="text-transform: capitalize;"></select>
+           
     </div>
+
+        <div id="ContenedorGrilla" runat="server">
+            
+        </div>
+
+
+    <asp:HiddenField ID="AreasJSON" runat="server" EnableViewState="true"/>
+
     </form>
 </body>
+
+
+<script src="DDJJ.js" type="text/javascript"></script>
+
 </html>
