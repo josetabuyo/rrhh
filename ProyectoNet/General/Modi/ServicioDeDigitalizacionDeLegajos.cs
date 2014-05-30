@@ -5,6 +5,7 @@ using System.Text;
 using General.Repositorios;
 using System.IO;
 using General.MAU;
+using System.Drawing;
 
 namespace General.Modi
 {
@@ -39,7 +40,7 @@ namespace General.Modi
             parametros.Add("@id_imagen", id_imagen);
             var tabla_imagen = this.conexion_db.Ejecutar("dbo.MODI_Get_Imagen", parametros);
             var primera_fila = tabla_imagen.Rows.First();
-            return new ImagenModi(primera_fila.GetString("nombre_imagen"), primera_fila.GetString("bytes_imagen"));
+            return new ImagenModi(primera_fila.GetString("nombre_imagen"), primera_fila.GetImage("bytes_imagen"));
         }
 
 
@@ -80,20 +81,23 @@ namespace General.Modi
 
         public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
         {
+            byte[] imageBytes = Convert.FromBase64String(bytes_imagen);
+
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_interna", id_interna);
             parametros.Add("@nombre_imagen", nombre_imagen);
-            parametros.Add("@bytes_imagen", bytes_imagen);
+            parametros.Add("@bytes_imagen", imageBytes);
 
             return int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros).ToString()); 
         }
 
         public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
         {
+            byte[] imageBytes = Convert.FromBase64String(bytes_imagen);
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_interna", id_interna);
             parametros.Add("@nombre_imagen", nombre_imagen);
-            parametros.Add("@bytes_imagen", bytes_imagen);
+            parametros.Add("@bytes_imagen", imageBytes);
             parametros.Add("@numero_folio", numero_folio);
 
             return int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_A_Un_Folio_De_Un_Legajo", parametros).ToString());
@@ -184,7 +188,7 @@ namespace General.Modi
                                                             row.GetString("ORG"),
                                                             row.GetString("FOLIO"),
                                                             row.GetDateTime("fecha_comunicacion"));
-                    documentos.Add(nuevoDocumento);
+                    if (!(documentos.SelectMany(d => d.folios).Select(f => f.numero_folio).Any(num_folio => nuevoDocumento.folios.Select(f => f.numero_folio).Contains(num_folio)))) documentos.Add(nuevoDocumento);
                 });
             }
 
