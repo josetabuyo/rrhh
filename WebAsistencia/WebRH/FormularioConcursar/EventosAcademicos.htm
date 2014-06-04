@@ -12,47 +12,47 @@
 				</p>
 				<legend>Ingresar Evento Académico</legend>
 				<div class="grupo_campos">
-					<label for="nombre">Denominación <em>*</em></label>
-					<input id="Text10" type="text" style="width:250px;"/>
+					<label for="txt_evento_denominacion">Denominación <em>*</em></label>
+					<input id="txt_evento_denominacion" type="text" style="width:250px;"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="evento-academico_tipo_evento">Tipo evento <em>*</em></label>
-					<input id="Text11" type="text" style="width:100px;"/>
+					<label for="evento_academico_tipo_evento">Tipo evento <em>*</em></label>
+					<input id="evento_academico_tipo_evento" type="text" style="width:100px;"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="evento-academico_caracter_participacion">Carácter de participación <em>*</em></label>
-					<input id="Text13" type="text" style="width:200px;"/>
+					<label for="evento_academico_caracter_participacion">Carácter de participación <em>*</em></label>
+					<input id="evento_academico_caracter_participacion" type="text" style="width:200px;"/>
 				</div>
 				<div class="grupo_campos nueva_linea">
-					<label for="evento-academico_fecha_inicio">Fecha de Inicio <em>*</em></label>
-					<input id="Text14" type="text" style="width:350px;" name="txt_establecimiento"/>
+					<label for="evento_academico_fecha_inicio">Fecha de Inicio <em>*</em></label>
+					<input id="evento_academico_fecha_inicio" type="text" style="width:350px;" name="txt_establecimiento"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="evento-academico_fecha_fin">Fecha de Fin <em>*</em></label>
-					<input id="Text15" type="text" style="width:100px;"/>
+					<label for="evento_academico_fecha_fin">Fecha de Fin <em>*</em></label>
+					<input id="evento_academico_fecha_fin" type="text" style="width:100px;"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="evento-academico_pais">Duración <em>*</em></label>
-					<input id="Text16" type="text" style="width:100px;"/>
+					<label for="evento_academico_pais">Duración <em>*</em></label>
+					<input id="evento_academico_pais" type="text" style="width:100px;"/>
 				</div>
 				<div class="grupo_campos nueva_linea">
-					<label for="evento-academico_institucion">Institución <em>*</em></label>
-					<input id="Text17" type="text" style="width:350px;" name="txt_establecimiento"/>
+					<label for="evento_academico_institucion">Institución <em>*</em></label>
+					<input id="evento_academico_institucion" type="text" style="width:350px;" name="txt_establecimiento"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="evento-academico_localidad">Localidad <em>*</em></label>
-					<input id="Text19" type="text" style="width:100px;"/>
+					<label for="evento_academico_localidad">Localidad <em>*</em></label>
+					<input id="evento_academico_localidad" type="text" style="width:100px;"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="evento-academico_pais">País <em>*</em></label>
-					<select id="Select6" style="width:110px;">
+					<label for="cmb_evento_academico_pais">País <em>*</em></label>
+					<select id="cmb_evento_academico_pais" style="width:110px;">
 						<option>Seleccione</option>
 						<option value="1">Argentina</option>
 					</select>
 				</div>
 			</fieldset>
 			<div class="btn-fld">
-				<input type="button" class="btn btn-primary" id="Button3" value="Agregar"/>
+				<input type="button" class="btn btn-primary" onclick="javascript:AgregarEventoAcademico()" id="Button3" value="Agregar"/>
 				<%--<input type="button" class="btn btn-primary" id="del_antecedentesAcademicos" value="Cancelar"/>--%>
 			</div>
 		</div>

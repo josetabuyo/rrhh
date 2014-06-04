@@ -453,6 +453,70 @@ public class AjaxWS : System.Web.Services.WebService {
     }
 
     [WebMethod(EnableSession = true)]
+    public string GuardarCVDatosPersonales(WSViaticos.CvDatosPersonales datosPersonales_nuevos, WSViaticos.CvDatosPersonales datosPersonales_originales)
+    {
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        //var datosPersonales_nuevos_dto = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.CvDatosPersonales>(datosPersonales_nuevos);
+        //var datosPersonales_originales_dto = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.CvDatosPersonales>(datosPersonales_originales);
+
+        backEndService.GuardarCvDatosPersonales(datosPersonales_nuevos, datosPersonales_originales, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject("");
+    }
+    
+    [WebMethod(EnableSession = true)]
+    public string GuardarCVAntecedentesAcademicos(WSViaticos.CvEstudios antecedentesAcademicos_nuevos, WSViaticos.CvEstudios antecedentesAcademicos_originales)
+    {
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+
+        backEndService.GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevos, antecedentesAcademicos_originales, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject("");
+    }
+    
+    [WebMethod(EnableSession = true)]
+    public string GuardarCVCapacitaciones(WSViaticos.CvCertificadoDeCapacitacion capacitaciones_nuevas, WSViaticos.CvCertificadoDeCapacitacion capacitaciones_originales)
+    {
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+
+        backEndService.GuardarCvCapacidades(capacitaciones_nuevas, capacitaciones_originales, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject("");
+    }
+    
+    [WebMethod(EnableSession = true)]
+    public string GuardarCVDocencia(WSViaticos.CvDocencia docencias_nuevas, WSViaticos.CvDocencia docencias_originales)
+    {
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+
+        backEndService.GuardarCvDocencia(docencias_nuevas, docencias_originales, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject("");
+    }
+    
+    [WebMethod(EnableSession = true)]
+    public string GuardarCVEventoAcademico(WSViaticos.CvEventoAcademico eventosAcademicos_nuevos, WSViaticos.CvEventoAcademico eventosAcademicos_originales)
+    {
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+
+        backEndService.GuardarCvEventoAcademico(eventosAcademicos_nuevos, eventosAcademicos_originales, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject("");
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string GuardarCVPublicaciones(WSViaticos.CvPublicaciones publicaciones_nuevas, WSViaticos.CvPublicaciones publicaciones_originales)
+    {
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+
+        backEndService.GuardarCvPublicaciones(publicaciones_nuevas, publicaciones_originales, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject("");
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+
+    [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetObservaciones()
     {

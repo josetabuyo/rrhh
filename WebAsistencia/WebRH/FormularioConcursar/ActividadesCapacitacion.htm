@@ -14,24 +14,24 @@
 				<br/>
 				<legend>Ingresar Certificaci&oacute;n/Actividad de Capacitaci&oacute;n</legend>
 				<div class="grupo_campos">
-					<label for="NombreDiploma">Diploma o certificaci&oacute;n <em>*</em></label>
-					<input id="NombreDiploma" type="text" style="width:350px;"/>
+					<label for="txt_capacitacion_nombreDiploma">Diploma o certificaci&oacute;n <em>*</em></label>
+					<input id="txt_capacitacion_nombreDiploma" type="text" style="width:350px;"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="Capacitacion-FechaInicio">Fecha de inicio <em>*</em></label>
-					<input id="Capacitacion-FechaInicio" type="text" style="width:100px;"/>
+					<label for="txt_capacitacion_fechaInicio">Fecha de inicio <em>*</em></label>
+					<input id="txt_capacitacion_fechaInicio" type="text" style="width:100px;"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="Capacitacion-FechaFin">Fecha finalizaci&oacute;n <em>*</em></label>
-					<input id="Capacitacion-FechaFin" type="text" style="width:100px;"/>
+					<label for="txt_capacitacion_fechaFin">Fecha finalizaci&oacute;n <em>*</em></label>
+					<input id="txt_capacitacion_fechaFin" type="text" style="width:100px;"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="Capacitacion-Duracion">Duraci&oacute;n (Horas, d&iacute;as o meses) <em>*</em></label>
-					<input id="Capacitacion-Duracion" type="text" style="width:150px;" name="txt_establecimiento"/>
+					<label for="txt_capacitacion_duracion">Duraci&oacute;n (Horas, d&iacute;as o meses) <em>*</em></label>
+					<input id="txt_capacitacion_duracion" type="text" style="width:150px;" name="txt_capacitacion_duracion"/>
 				</div>
 				<div style="float:left; clear:left;margin:4px 8px 4px 8px">
-					<label for="Capacitacion-Especialidad">Nombre de Especialidad o Competencia <em>*</em></label>
-					<input id="Capacitacion-Especialidad" type="text" style="width:350px;" name="txt_especialidad"/>
+					<label for="txt_capacitacion_especialidad">Nombre de Especialidad o Competencia <em>*</em></label>
+					<input id="txt_capacitacion_especialidad" type="text" style="width:350px;" name="txt_capacitacion_especialidad"/>
 					<input id="Capacitacion-AgregarEspecialidad" type="button" value="+"/>
 					<table class="table table-striped">
 					<thead>
@@ -56,23 +56,23 @@
 					</table>
 				</div>
 				<div class="grupo_campos nueva_linea">
-					<label for="Capacitacion-Establecimiento">Establecimiento <em>*</em></label>
-					<input id="Capacitacion-Establecimiento" type="text" style="width:350px;"/>
+					<label for="txt_capacitacion_establecimiento">Establecimiento <em>*</em></label>
+					<input id="txt_capacitacion_establecimiento" type="text" style="width:350px;"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="Capacitacion-Localidad">Localidad <em>*</em></label>
-					<input id="Capacitacion-Localidad" type="text" style="width:100px;"/>
+					<label for="txt_capacitacion_localidad">Localidad <em>*</em></label>
+					<input id="txt_capacitacion_localidad" type="text" style="width:100px;"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="Capacitacion-Pais">Pa&iacute;s <em>*</em></label>
-					<select id="Capacitacion-Pais" style="width:110px;">
+					<label for="txt_capacitacion_pais">Pa&iacute;s <em>*</em></label>
+					<select id="txt_capacitacion_pais" style="width:110px;">
 						<option>Seleccione</option>
 						<option value="1">Argentina</option>
 					</select>
 				</div>
 			</fieldset>
 			<div class="btn-fld">
-				<input type="button" class="btn btn-primary" id="Capacitacion-Agregar" value="Agregar"/>
+				<input type="button" class="btn btn-primary" onclick="javascript:AgregarCapacitacion()" id="Capacitacion-Agregar" value="Agregar"/>
 			</div>
 		</div>
 	</div>
