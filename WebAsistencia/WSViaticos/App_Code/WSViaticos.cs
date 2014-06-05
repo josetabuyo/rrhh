@@ -2383,6 +2383,12 @@ public class WSViaticos : System.Web.Services.WebService
         RepoCurriculum().GuardarCvPublicaciones(publicaciones_nuevas, usuario);
     }
 
+    [WebMethod]
+    public void GuardarCvMatriculas(CvMatricula matriculas_nuevas, CvMatricula matriculas_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvMatriculas(matriculas_nuevas, usuario);
+    }
+
 
     [WebMethod]
     public ObservacionDTO[] GuardarObservaciones(ObservacionDTO[] observaciones_nuevas_dto, ObservacionDTO[] observaciones_originales_dto, Usuario usuario)
