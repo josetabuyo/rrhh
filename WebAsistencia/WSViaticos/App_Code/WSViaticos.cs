@@ -2290,6 +2290,81 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public CurriculumDto GetCurriculumDTO()
+    {
+        var curriculum_dto = new CurriculumDto();
+        CurriculumVitae curriculum = RepoCurriculum().GetCV(31046911);
+       
+        //foreach (var o in curriculum)
+        //{
+        curriculum_dto = new CurriculumDto() //.Add(new CurriculumDto()
+                             {
+                                 //Id = 1,
+                                 DatosPersonales = curriculum.DatosPersonales,
+                                 CvDocencias = curriculum.CvDocencias,
+                                 CvEstudios = curriculum.CvEstudios,
+                                 CvEventosAcademicos = curriculum.CvEventosAcademicos,
+                                 CvCompetenciasInformaticas = curriculum.CvCompetenciasInformaticas,
+                                 CvExperienciaLaboral = curriculum.CvExperienciaLaboral,
+                                 CvIdiomas = curriculum.CvIdiomas,
+                                 CvInstitucionesAcademicas = curriculum.CvInstitucionesAcademicas,
+                                 CvMatricula = curriculum.CvMatricula,
+                                 CvPublicaciones = curriculum.CvPublicaciones,
+                                 CvCertificadosDeCapacitacion = curriculum.CvCertificadosDeCapacitacion
+
+                             };
+
+        return curriculum_dto;
+    }
+
+    [WebMethod]
+    public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO_nueva, CvDatosPersonales datosPersonalesDTO_original, Usuario usuario)
+    {
+
+        //var curriculum_a_guardar = new CurriculumVitae(datosPersonalesDTO_nueva);
+
+        RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO_nueva, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+
+    }
+
+    [WebMethod]
+    public void GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, CvEstudios antecedentesAcademicos_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarCvCapacidades(CvCertificadoDeCapacitacion capacidades_nuevo, CvCertificadoDeCapacitacion capacidades_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvCapacidades(capacidades_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarCvDocencia(CvDocencia docencia_nuevo, CvDocencia docencia_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvDocencia(docencia_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, CvEventoAcademico eventoAcademico_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvEventoAcademico(eventoAcademico_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarCvPublicaciones(CvPublicaciones publicaciones_nuevas, CvPublicaciones publicaciones_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvPublicaciones(publicaciones_nuevas, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarCvMatriculas(CvMatricula matriculas_nuevas, CvMatricula matriculas_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvMatriculas(matriculas_nuevas, usuario);
+    }
+
+
+    [WebMethod]
     public ObservacionDTO[] GuardarObservaciones(ObservacionDTO[] observaciones_nuevas_dto, ObservacionDTO[] observaciones_originales_dto, Usuario usuario)
     {
 
@@ -2436,6 +2511,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeEvaluacion RepoEvaluaciones()
     {
         return new RepositorioDeEvaluacion(Conexion(), RepositorioDeCursos(), RepoAlumnos());
+    }
+
+    private RepositorioDeCurriculum RepoCurriculum()
+    {
+        return new RepositorioDeCurriculum(Conexion());
     }
 
 

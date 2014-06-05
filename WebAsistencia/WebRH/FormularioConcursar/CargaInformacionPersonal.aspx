@@ -8,10 +8,6 @@
 <head id="Head1" runat="server">
     <title></title>
     <%= Referencias.Css("../")%>    
-      <!--[if lte IE 8]>  
-        <script type="text/javascript" src="js/mootools.js"></script>  
-        <script type="text/javascript" src="js/selectivizr.js"></script>  
-    <![endif]-->   
     
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
@@ -58,7 +54,7 @@
              </ul>
              <ul class="ul_cv" style="width:90%; margin-left:6%; margin-bottom:3px;">
                 <li class="menu_lista_formularios"><a href="#ancla6">Publicaciones o trabajos</a></li>
-                <li class="menu_lista_formularios"><a href="#ancla7">Matriculas</a></li>
+                <li class="menu_lista_formularios"><a href="#ancla7">Matr&iacute;culas</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla8">Instituciones Académicas</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla9">Experiencias Laborales</a></li>
                 <li class="menu_lista_formularios no_borde"><a href="#ancla10">Idiomas Extranjeros</a></li>
@@ -89,8 +85,8 @@
                           <input id="apellido" type="text" style="width:150px;" />
                         </div>
                         <div style="float:left; margin:8px">
-                            <label for="cmb_nivel_educativo">Sexo <em>*</em></label>
-                            <select id="cmb_nivel_educativo" style="width:100px;" name="cmb_sexo" >
+                            <label for="cmb_sexo">Sexo <em>*</em></label>
+                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" >
                                 <option value="-1">Sexo</option>
                                 <option value="1">Masculino</option>
                                 <option value="1">Femenino</option>
@@ -110,65 +106,65 @@
                           <span style="float:left;">Ej.:20-22114543-5</span>
                         </div>
                         <div style="float:left; clear:left; margin:8px">
-                             <label class="etiqueta_campo" for="cmb_nivel_educativo">Lugar nacimiento <em>*</em></label>
-                             <select id="Select1" style="width:120px;" name="cmb_nivel_educativo" >
+                             <label class="etiqueta_campo" for="cmb_lugar_nacimiento">Lugar nacimiento <em>*</em></label>
+                             <select id="cmb_lugar_nacimiento" style="width:120px;" name="cmb_lugar_nacimiento" >
                                 <option value="-1">Seleccione</option>
                                 <option value="1">Argentina</option>
                                 <option value="1">Bolivia</option>
                               </select>
                         </div>
                         <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo" for="txt_categoria_docente">Fecha Nac <em>*</em></label>
-                            <input type="text" id="txt_categoria_docente" style="width:120px;" name="txt_categoria_docente" size="10"/>
+                            <label class="etiqueta_campo" for="txt_fechaNac">Fecha Nac <em>*</em></label>
+                            <input type="text" id="txt_fechaNac" style="width:120px;" name="txt_fechaNac" size="10"/>
                         </div>
                       <div style="float:left; margin:8px">
-                        <label class="etiqueta_campo" for="cmb_nivel_educativo">Nacionalidad <em>*</em></label>
-                         <select id="Select2" style="width:120px;" name="cmb_nivel_educativo" >
+                        <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
+                         <select id="cmb_nacionalidad" style="width:120px;" name="cmb_nacionalidad" >
                             <option value="-1">Seleccione</option>
                             <option value="1">Argentina</option>
                             <option value="1">Boliviano</option>
                          </select>
                       </div>
                       <div style="float:left; margin:8px">
-                       <label class="etiqueta_campo" for="cmb_nivel_educativo">Tipo documento <em>*</em></label>
-                        <select id="Select3" style="width:100px;" name="cmb_nivel_educativo" >
+                       <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo documento <em>*</em></label>
+                        <select id="cmb_tipoDocumento" style="width:100px;" name="cmb_tipoDocumento" >
                             <option value="-1">DNI</option>
                             <option value="1">LC</option>
                             <option value="1">LE</option>
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
-                          <label class="etiqueta_campo" for="documento">Nro documento <em>*</em></label>
-                          <input id="documento" type="text" style="width:150px;" />
+                          <label class="etiqueta_campo" for="txt_documento">Nro documento <em>*</em></label>
+                          <input id="txt_documento" type="text" style="width:150px;" />
                       </div>
                        <div style="float:left; margin:8px">
-                        <label class="etiqueta_campo" for="txt_categoria_docente">Calle <em>*</em></label>
-                        <input type="text" id="Text1" name="txt_categoria_docente" size="20"/>
+                        <label class="etiqueta_campo" for="txt_calle1">Calle <em>*</em></label>
+                        <input type="text" id="txt_calle1" name="txt_calle1" size="20"/>
                       </div>
 
                        <div style="float:left; margin:8px; width:60px;">
-                        <label class="etiqueta_campo" for="txt_caracter_designacion">Número <em>*</em></label>
-                        <input type="text" id="txt_caracter_designacion" name="txt_caracter_designacion" style="width:50px"/>
+                        <label class="etiqueta_campo" for="txt_numero1">Número <em>*</em></label>
+                        <input type="text" id="txt_numero1" name="txt_numero1" style="width:50px"/>
                        </div>      
                        <div style="float:left; margin:8px; width:60px;">
-                        <label class="etiqueta_campo" for="txt_dedicacion_docente">Piso</label>
-                        <input type="text" id="txt_dedicacion_docente" name="txt_dedicacion_docente" style="width:50px"/>
+                        <label class="etiqueta_campo" for="txt_piso1">Piso</label>
+                        <input type="text" id="txt_piso1" name="txt_piso1" style="width:50px"/>
                        </div>
                       <div style="float:left; margin:8px; width:80px;">     
-                          <label class="etiqueta_campo" for="txt_carga_horaria">Dto</label>
-                          <input type="text" id="txt_carga_horaria" name="txt_carga_horaria" style="width:50px"/>
+                          <label class="etiqueta_campo" for="txt_dto1">Dto</label>
+                          <input type="text" id="txt_dto1" name="txt_dto1" style="width:50px"/>
                       </div>
                       <div style="float:left; margin:8px">
-                          <label class="etiqueta_campo_small" for="txt_fecha_inicio">Localidad <em>*</em></label>
-                          <input type="text" id="txt_fecha_inicio" name="txt_fecha_inicio" style="width:100px"/> 
+                          <label class="etiqueta_campo_small" for="txt_localidad1">Localidad <em>*</em></label>
+                          <input type="text" id="txt_localidad1" name="txt_localidad1" style="width:100px"/> 
                       </div>
                       <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo_small" for="txt_fecha_fin">Código postal <em>*</em></label>
-                          <input type="text" id="txt_fecha_fin" name="txt_fecha_fin" style="width:80px"/><br/>
+                            <label class="etiqueta_campo_small" for="txt_cp1">Código postal <em>*</em></label>
+                          <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/><br/>
                       </div>
                       <div style="float:left; margin:8px">     
-                        <label class="etiqueta_campo" for="cmb_nivel_educativo">Provincia <em>*</em></label>
-                        <select id="Select4" name="cmb_nivel_educativo" style="width:130px;" >
+                        <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
+                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:130px;" >
                             <option value="-1">Seleccione</option>
                             <option value="1">Buenos Aires</option>
                             <option value="1">Cordoba</option>
@@ -178,38 +174,38 @@
                     <fieldset style="width:100%;" >
 		                <p style="font-weight:bold; text-transform:uppercase;">II.- Información Requerida Para Recibir Notificaciones y Avisos</p>
 	                    <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo" for="txt_categoria_docente">Calle <em>*</em></label>
-                            <input type="text" id="Text2" name="txt_categoria_docente" size="20"/>
+                            <label class="etiqueta_campo" for="text_calle2">Calle <em>*</em></label>
+                            <input type="text" id="text_calle2" name="text_calle2" size="20"/>
                         </div>
 
                        <div style="float:left; margin:8px; width:60px;">
-                            <label class="etiqueta_campo" for="txt_caracter_designacion">Número <em>*</em></label>
-                            <input type="text" id="Text3" name="txt_caracter_designacion" style="width:50px"/>
+                            <label class="etiqueta_campo" for="txt_numero2">Número <em>*</em></label>
+                            <input type="text" id="txt_numero2" name="txt_numero2" style="width:50px"/>
                        </div>
        
                        <div style="float:left; margin:8px; width:60px;">
-                            <label class="etiqueta_campo" for="txt_dedicacion_docente">Piso</label>
-                            <input type="text" id="Text4" name="txt_dedicacion_docente" style="width:50px"/>
+                            <label class="etiqueta_campo" for="txt_piso2">Piso</label>
+                            <input type="text" id="txt_piso2" name="txt_piso2" style="width:50px"/>
                        </div>
 
                       <div style="float:left; margin:8px; width:80px;">     
-                          <label class="etiqueta_campo" for="txt_carga_horaria">Dto</label>
-                          <input type="text" id="Text5" name="txt_carga_horaria" style="width:50px"/>
+                          <label class="etiqueta_campo" for="txt_dto2">Dto</label>
+                          <input type="text" id="txt_dto2" name="txt_dto2" style="width:50px"/>
                       </div>
 
                       <div style="float:left; margin:8px">
-                          <label class="etiqueta_campo_small" for="txt_fecha_inicio">Localidad <em>*</em></label>
-                          <input type="text" id="Text6" name="txt_fecha_inicio" style="width:100px"/> 
+                          <label class="etiqueta_campo_small" for="txt_localidad2">Localidad <em>*</em></label>
+                          <input type="text" id="txt_localidad2" name="txt_localidad2" style="width:100px"/> 
                       </div>
 
                       <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo_small" for="txt_fecha_fin">Código postal <em>*</em></label>
-                          <input type="text" id="Text7" name="txt_fecha_fin" style="width:50px"/><br/>
+                            <label class="etiqueta_campo_small" for="txt_cp2">Código postal <em>*</em></label>
+                          <input type="text" id="txt_cp2" name="txt_cp2" style="width:50px"/><br/>
                       </div>
 
                       <div style="float:left; margin:8px">     
-                        <label class="etiqueta_campo" for="cmb_nivel_educativo">Provincia <em>*</em></label>
-                        <select id="Select5" name="cmb_nivel_educativo" style="width:150px;" >
+                        <label class="etiqueta_campo" for="cmb_provincia2">Provincia <em>*</em></label>
+                        <select id="cmb_provincia2" name="cmb_provincia2" style="width:150px;" >
                             <option value="-1">Seleccione</option>
                             <option value="1">Buenos Aires</option>
                             <option value="1">Cordoba</option>
@@ -217,21 +213,23 @@
                       </div>
 
                         <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo" for="txt_categoria_docente">Telefono fijo <em>*</em></label>
-                            <input type="text" id="Text8" name="txt_categoria_docente" style="width:100px;"/>
+                            <label class="etiqueta_campo" for="txt_telefonoFijo">Telefono fijo <em>*</em></label>
+                            <input type="text" id="txt_telefonoFijo" name="txt_telefonoFijo" style="width:100px;"/>
                         </div>
 
                         <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo" for="txt_categoria_docente">Telefono celular</label>
-                            <input type="text" id="Text12" name="txt_categoria_docente" style="width:100px;"/>
+                            <label class="etiqueta_campo" for="txt_telefonoCelular">Telefono celular</label>
+                            <input type="text" id="txt_telefonoCelular" name="txt_telefonoCelular" style="width:100px;"/>
                         </div>
 
                        <div style="float:left; margin:8px; ">
-                            <label class="etiqueta_campo" for="txt_caracter_designacion">Email alternativo</label>
-                            <input type="text" id="Text9" name="txt_caracter_designacion" style="width:100px"/>
+                            <label class="etiqueta_campo" for="txt_email">Email alternativo</label>
+                            <input type="text" id="txt_email" name="txt_email" style="width:100px"/>
                        </div>
                       </fieldset>
+                      <input type="button" style="text-align: center;" class="btn" onclick="javascript:GuardarDatosPersonales()"  value="Guardar"/>
                 </div>
+                
               </div>
             </div>
             
@@ -248,7 +246,7 @@
                            
                         <h4>Antecedentes Agregados</h4>
                         <div id="ContenedorPlanilla" runat="server">
-                        <table id="tabla_antecedentes" class="table table-striped">
+                            <table id="tabla_antecedentes" class="table table-striped">
                           <thead>
                             <tr>
                               <th>Nivel</th>
@@ -289,7 +287,7 @@
                               <td>No</td>
                             </tr>
                           </tbody>
-                    </table>
+                            </table>
                         </div>
                     </fieldset>
                 </div>
@@ -306,7 +304,29 @@
                 <div class="accordion-inner fondo_form">
                 <fieldset style="width:100%;">
                 <legend><a id="a3" rel="leanModalConcursar" data-url="ActividadesCapacitacion.htm" class="link" name="form_actividadesCapacitacion"  href="#un_div_modal">Cargar actividades de capacitacion</a></legend>
-                    <p>No tiene actividades cargadas</p>                    
+                    <p>No tiene actividades cargadas</p> 
+                     <table id="tabla_capacitacion" class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Diploma</th>
+                              <th>F. Inicio</th>
+                              <th>F. Finalización</th>
+                              <th>Duración</th>
+                              <th>Especialidad</th>
+                              <th>Establecimiento</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Tecnico en Computadoras</td>
+                              <td>12/12/2012</td>
+                              <td>12/12/2012</td>
+                              <td>5 dias</td>
+                              <td>Computacion</td>
+                              <td>UBA</td>
+                            </tr>
+                          </tbody>
+                            </table>                   
                   </fieldset>
                 </div>
               </div>
@@ -322,7 +342,35 @@
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
                     <legend><a id="go4" rel="leanModalConcursar" data-url="ActividadesDocentes.htm" class="link" name="form_actividadesDocentes"  href="#un_div_modal">Cargar actividades docentes</a></legend>
-                    <p>No tiene actividades cargadas</p>      
+                    <p>No tiene actividades cargadas</p>
+                    <table id="tabla_docentes" class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Asignatura</th>
+                              <th>Nivel Educativo</th>
+                              <th>Tipo de Actividad</th>
+                              <th>Categoría Docente</th>
+                              <th>Caracter Designación</th>
+                              <th>Dedicación Docente</th>
+                              <th>F. Inicio</th>
+                              <th>F. Fin</th>
+                              <th>Establecimiento</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Tecnico en Computadoras</td>
+                              <td>12/12/2012</td>
+                              <td>12/12/2012</td>
+                              <td>5 dias</td>
+                              <td>Computacion</td>
+                              <td>UBA</td>
+                              <td>5 dias</td>
+                              <td>Computacion</td>
+                              <td>UBA</td>
+                            </tr>
+                          </tbody>
+                            </table>                         
                   </fieldset>
                 </div>
               </div>
@@ -338,7 +386,29 @@
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
                     <legend><a id="go5" rel="leanModalConcursar" data-url="EventosAcademicos.htm" class="link" name="form_eventosAcademicos"  href="#un_div_modal">Cargar eventos académicos</a></legend>
-                    <p>No tiene eventos cargados</p>      
+                    <p>No tiene eventos cargados</p>  
+                    <table id="tabla_eventoAcademico" class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Denominación</th>
+                              <th>Tipo Evento</th>
+                              <th>Caracter de Participación</th>
+                              <th>F. Inicio</th>
+                              <th>F. Fin</th>
+                              <th>Institución</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Tecnico en Computadoras</td>
+                              <td>12/12/2012</td>
+                              <td>12/12/2012</td>
+                              <td>5 dias</td>
+                              <td>Computacion</td>
+                              <td>UBA</td>
+                            </tr>
+                          </tbody>
+                            </table>                             
                   </fieldset>
                 </div>
               </div>
@@ -355,6 +425,26 @@
                   <fieldset style="width:100%;">
                     <legend><a id="go6" rel="leanModalConcursar" data-url="Publicaciones.htm" class="link" name="form_publicaciones"  href="#un_div_modal">Cargar publicaciones o trabajos</a></legend>
                     <p>No tiene publicaciones cargadas</p>   
+                    <table id="tabla_publicaciones" class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Titulo</th>
+                              <th>Datos de Editorial</th>
+                              <th>Fecha</th>
+                              <th>Cant. de Hojas</th>
+                              <th>Dispone copia</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>El estado de bienestar</td>
+                              <td>Atlantida</td>
+                              <td>12/12/2012</td>
+                              <td>5</td>
+                              <td>Si</td>
+                            </tr>
+                          </tbody>
+                            </table>                             
                   </fieldset>
                 </div>
               </div>
@@ -363,14 +453,35 @@
              <div class="accordion-group">
               <div id="ancla7" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
-                  MATRICULAS
+                  MATR&Iacute;CULAS
                 </a>
               </div>
               <div id="collapseSeven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
                     <legend><a id="go7" rel="leanModalConcursar" data-url="Matriculas.htm" class="link" name="form_matriculas"  href="#un_div_modal">Cargar matriculas</a></legend>
-                    <p>No tiene matriculas cargadas</p>   
+                    <p>No tiene matr&iacute;culas cargadas</p>  
+                    
+                      <table id="tabla_matriculas" class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>N&uacute;mero</th>
+                              <th>Expedida por</th>
+                              <th>Fecha Inscr.</th>
+                              <th>Situaci&oacute;n Actual</th>
+                           </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>M.N. 20586</td>
+                              <td>Ministerio de Salud</td>
+                              <td>01/08/2005</td>
+                              <td>Vigente</td>
+                            </tr>
+                          </tbody>
+                     </table>                   
+                   
+                     
                   </fieldset>
                 </div>
               </div>
@@ -482,17 +593,20 @@
     <div class="modal_close_concursar"></div>
     <div id="contenido_modal"></div>
 </div>
+<asp:HiddenField ID="curriculum" runat="server" />
   </form>
 
 <div id='IrArriba'><a href='#Arriba'><span></span></a></div>
+
 </body>
+<script type="text/javascript" src="Postular.js" ></script>
     <%= Referencias.Javascript("../") %>
        
 
 <script type="text/javascript">
-  //<![CDATA[
+
     // Botón para Ir Arriba
-    
+
     jQuery(document).ready(function () {
         jQuery("#IrArriba").hide();
         jQuery(function () {
@@ -512,7 +626,7 @@
         });
 
     });
-    //]]>
+
     $(document).ready(function () {
       
 
@@ -522,32 +636,18 @@
 
         $(".collapse").collapse('show');
 
+         //var curriculumDTO = JSON.parse($('#curriculum').val());
 
-        //Al presionarse Enter luego de Ingresar el DNI, se fuerza a realizar la búsqueda de dicho DNI para no tener que hacer necesariamente un click en el botón Buscar
+        
+        function CompletarCV() {
 
-        //document.onkeypress = CapturarTeclaEnter;
+            $("#nombre").val(curriculumDTO.DatosPersonales.Nombre);
+            $("#apellido").val(curriculumDTO.DatosPersonales.Apellido);
+            
 
-        $("#add_antecedentesAcademicos").click(function () {
+        };
 
-            var data_post = JSON.stringify({
-
-            });
-            _this = this;
-
-            $.ajax({
-                url: $('#urlAjax').val().concat("AjaxWS.asmx/CambiarPassword"),
-                type: "POST",
-                data: data_post,
-                //data: "{pass_actual : '" + pass_actual + "', pass_nueva: " + pass_nueva + " }",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (respuestaJson) {
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alertify.alert(errorThrown);
-                }
-            });
-        });
+        
 
 
         $('a[rel*=leanModalConcursar]').click(function () {
@@ -563,32 +663,15 @@
                 });
             }
         });
+        
         $('a[rel*=leanModalConcursar]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
         
     });
 
-    var AgregarAntecedentes = function () {
+   
 
-        var n = $('tr:last td', $("#tabla_antecedentes")).length;
-        var valores = new Array();
-        valores.push($("#txt_titulo").val());
-        valores.push($("#txt_ingreso").val());
-        valores.push($("#txt_egreso").val());
-        valores.push($("#txt_establecimiento").val());
-        valores.push($("#txt_localidad").val());
-        valores.push($("#cmb_pais").val());
-        valores.push($("#txt_especialidad").val());
 
-        var tds = '<tr>';
-        for (var i = 0; i < n; i++) {
 
-            tds += '<td>'+ valores[i] + '</td>';
-        }
-        tds += '</tr>';
-
-        $("#tabla_antecedentes").append(tds);
-
-    };
 
 </script>
 </html>
