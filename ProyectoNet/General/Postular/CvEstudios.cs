@@ -7,6 +7,7 @@ namespace General
 {
     public class CvEstudios
     {
+        protected int _id;
         protected string _titulo;
         protected string _establecimiento;
         protected DateTime _fechaIngreso;
@@ -15,6 +16,7 @@ namespace General
         protected string _pais;
         protected string _especialidad;
 
+        public int Id { get { return _id; } set { _id = value; } }
         public string Titulo { get { return _titulo; } set { _titulo = value; } }
         public string Establecimiento { get { return _establecimiento; } set { _establecimiento = value; } }
         public string Especialidad { get { return _especialidad; } set { _especialidad = value; } }

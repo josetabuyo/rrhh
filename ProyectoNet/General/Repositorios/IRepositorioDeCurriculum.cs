@@ -8,5 +8,6 @@ namespace General.Repositorios
         void GuardarCVDatosPersonales(CvDatosPersonales cv, Usuario usuario);
         void ActualizarCV(CurriculumVitae cv);
         General.CurriculumVitae GetCV(int documento);
+        System.Collections.Generic.List<General.CvEstudios> GetCvEstudios(int documento);
     }
 }

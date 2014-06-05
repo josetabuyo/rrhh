@@ -566,13 +566,15 @@
 
 <%-----------------    MODAL DE VISTA PREELIMINAR ---------------------%>
 
- <asp:TextBox ID="urlAjax" runat="server" Text=""  style="display:none;" />
+ <input type="text" id="urlAjax" value=""  style="display:none;" />
  
 <div id="un_div_modal" style="width:65%;" class="form_concursar">
     <div class="modal_close_concursar"></div>
     <div id="contenido_modal"></div>
 </div>
 <asp:HiddenField ID="curriculum" runat="server" />
+<asp:HiddenField ID="cvEstudios" runat="server" />
+
   </form>
 
 <div id='IrArriba'><a href='#Arriba'><span></span></a></div>
@@ -607,7 +609,7 @@
     });
 
     $(document).ready(function () {
-      
+
 
         //Estilos para ver coloreada la grilla en Internet Explorer
         $("tbody tr:even").css('background-color', '#fff');
@@ -615,18 +617,29 @@
 
         $(".collapse").collapse('show');
 
-         //var curriculumDTO = JSON.parse($('#curriculum').val());
+        //var curriculumDTO = JSON.parse($('#curriculum').val());
 
-        
+        $('#txt_fechaNac').datepicker({
+            dateFormat: 'dd/mm/yy',
+            onClose: function () {
+
+            }
+        });
+
+        ArmarGrillaEstudios();
+
+
+
+
         function CompletarCV() {
 
             $("#nombre").val(curriculumDTO.DatosPersonales.Nombre);
             $("#apellido").val(curriculumDTO.DatosPersonales.Apellido);
-            
+
 
         };
 
-        
+
 
 
         $('a[rel*=leanModalConcursar]').click(function () {
@@ -642,9 +655,9 @@
                 });
             }
         });
-        
+
         $('a[rel*=leanModalConcursar]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
-        
+
     });
 
    

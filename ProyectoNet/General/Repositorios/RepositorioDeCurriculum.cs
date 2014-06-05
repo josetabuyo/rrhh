@@ -17,7 +17,7 @@ namespace General.Repositorios
         protected CvEventoAcademico _cvEventoAcademico;
         protected CvPublicaciones _cvPublicacion;
 
-        public RepositorioDeCurriculum(IConexionBD conexion)
+        public RepositorioDeCurriculum(IConexionBD conexion) 
         {
             this.conexion_bd = conexion;
             this.lista_cv = new List<CurriculumVitae>();
@@ -44,6 +44,19 @@ namespace General.Repositorios
         public void GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
         {
             this._cvAntecedentesAcademicos = antecedentesAcademicos_nuevo;
+        }
+
+
+        public List<CvEstudios> GetCvEstudios(int documento)
+        {
+            var estudios = new List<CvEstudios>()
+                               {
+                                   new CvEstudios("Contador", "UBA", "Te dije contador", new DateTime(2014, 12, 12),
+                                                  new DateTime(2014, 12, 13), "CABA", "Argentina")
+                               };
+            //Hacer que la fecha sea shortDateTime
+            //estudios.ForEach(e => e.FechaIngreso.ToShortDateString() e.FechaEgreso.ToShortDateString());
+            return estudios;
         }
 
         public void GuardarCvCapacidades(CvCertificadoDeCapacitacion capacidades_nuevo, Usuario usuario)
