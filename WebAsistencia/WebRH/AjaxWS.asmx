@@ -507,8 +507,15 @@ public class AjaxWS : System.Web.Services.WebService {
         backEndService.GuardarCvPublicaciones(publicaciones_nuevas, publicaciones_originales, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject("");
     }
-    
-    
+
+    [WebMethod(EnableSession = true)]
+    public string GuardarCVMatriculas(WSViaticos.CvMatricula matriculas_nuevas, WSViaticos.CvMatricula matriculas_originales)
+    {
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+
+        backEndService.GuardarCvMatriculas(matriculas_nuevas, matriculas_originales, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject("");
+    }
     
     
     

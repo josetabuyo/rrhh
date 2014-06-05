@@ -235,6 +235,52 @@ var AgregarPublicacion = function () {
 }
 
 
+var AgregarMatricula = function () {
+
+    var matricula = {};
+    matricula.numero = $("#matricula_numero").val();
+    matricula.expedidapor = $("#matricula_expedida_por").val();
+    matricula.fechaInscripcion = ParsearFecha($("#matricula_fecha_inscripcion").val());
+    matricula.situacionActual = $("#matricula_situacion").val();
+
+    var data_post = JSON.stringify({
+        "matriculas_nuevas": matricula,
+        "matriculas_originales": matricula
+    });
+    $.ajax({
+        url: "../AjaxWS.asmx/GuardarCVMatriculas",
+        type: "POST",
+        data: data_post,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (respuestaJson) {
+            var respuesta = JSON.parse(respuestaJson.d);
+            if (respuesta.length == 0)
+                AgregarEnTabla($("#tabla_matriculas"), matricula);
+            alertify.alert("Los datos fueron guardados correctamente");
+            $(".modal_close_concursar").click();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alertify.alert(errorThrown);
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var AgregarEnTabla = function (tabla,datos) {
 

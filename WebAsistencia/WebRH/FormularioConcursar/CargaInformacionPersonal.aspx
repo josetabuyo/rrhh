@@ -54,7 +54,7 @@
              </ul>
              <ul class="ul_cv" style="width:90%; margin-left:6%; margin-bottom:3px;">
                 <li class="menu_lista_formularios"><a href="#ancla6">Publicaciones o trabajos</a></li>
-                <li class="menu_lista_formularios"><a href="#ancla7">Matriculas</a></li>
+                <li class="menu_lista_formularios"><a href="#ancla7">Matr&iacute;culas</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla8">Instituciones Académicas</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla9">Experiencias Laborales</a></li>
                 <li class="menu_lista_formularios no_borde"><a href="#ancla10">Idiomas Extranjeros</a></li>
@@ -453,14 +453,35 @@
              <div class="accordion-group">
               <div id="ancla7" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
-                  MATRICULAS
+                  MATR&Iacute;CULAS
                 </a>
               </div>
               <div id="collapseSeven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
                     <legend><a id="go7" rel="leanModalConcursar" data-url="Matriculas.htm" class="link" name="form_matriculas"  href="#un_div_modal">Cargar matriculas</a></legend>
-                    <p>No tiene matriculas cargadas</p>   
+                    <p>No tiene matr&iacute;culas cargadas</p>  
+                    
+                      <table id="tabla_matriculas" class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>N&uacute;mero</th>
+                              <th>Expedida por</th>
+                              <th>Fecha Inscr.</th>
+                              <th>Situaci&oacute;n Actual</th>
+                           </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>M.N. 20586</td>
+                              <td>Ministerio de Salud</td>
+                              <td>01/08/2005</td>
+                              <td>Vigente</td>
+                            </tr>
+                          </tbody>
+                     </table>                   
+                   
+                     
                   </fieldset>
                 </div>
               </div>
