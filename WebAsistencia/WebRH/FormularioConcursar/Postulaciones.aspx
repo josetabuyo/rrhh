@@ -10,7 +10,7 @@
 
      <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
    
-
+   <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
      <style>
      
       .contenedor_concursar 
@@ -64,7 +64,7 @@
      }
          
     .accordion-group {
-        margin-bottom: 2px !important;
+      /*  margin-bottom: 2px !important;*/
         border: none !important;
         -webkit-border-radius: 4px;
         -moz-border-radius: 4px;
@@ -73,7 +73,7 @@
     }
     
     .accordion-inner {
-      padding: 9px 15px;
+     /* padding: 9px 15px;*/
       border: none;
     }
      
@@ -82,8 +82,8 @@
         line-height: 15px;  
         /*display: block;  */
         font-size: 12pt;  
-        text-indent: 10px;  
-        text-decoration:none;  
+        /*text-indent: 10px;  */
+       /* text-decoration:none;  */
         background-image: none;
         
     } 
@@ -93,14 +93,12 @@
 } 
     .btn_concursar {
             display: inline-block;
-            
             margin-bottom: 0;
             font-size: 13px;
             line-height: 18px;
             color: #333333;
             text-align: center;
             text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-            
             cursor: pointer;
             background-color: #f5f5f5;
             background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
@@ -124,6 +122,40 @@
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
         }
      
+     .encabezado-columna
+     {
+      height: 100%;
+      width: 25%;
+      float: left;
+         }    
+         
+      .accordion-toggle
+     {
+      width:100%; 
+      padding: 4px 0 4px 0 !important;
+             }
+             
+      .buscador
+      {
+       width: 70%;
+       margin-top:10px;    
+      }
+     
+     .columna-buscador
+     {
+     float:left; 
+     width:100%;
+         }
+         
+      .resultado-busqueda
+      {
+       float:left;
+       height:auto;
+       width: 72%;
+       padding: 45px 0px 10px 25px;
+          }
+         
+         
      </style>
 
 </head>
@@ -154,15 +186,19 @@
             </div><!-- /navbar-inner -->
         </div><!-- /navbar -->
         
-        <input type="text" style="width: 90%;"  placeholder="Buscar"/><a class="btn_concursar btn-small" href="#">Buscar</a>
+        
+        
+        <div class="encabezado-columna">
+        <input type="text" class="buscador" placeholder="Buscar"/><a class="btn_concursar btn-small" href="#">Buscar</a>
+        
 
     <div class="accordion" id="accordion" >
 
-        <div style="float:left; width:30%;">
+        <div class="columna-buscador">
 
         <div class="accordion-group">
             <div id="ancla2" class="accordion-heading ">
-                <a class="accordion-toggle titulo_acordion" style="" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                     Abogado
                 </a>   
             </div>
@@ -175,6 +211,7 @@
                        <input type="checkbox"/><span> Litigante / Sumariante</span>
                 </div>
             </div>
+               
         </div>
 
         <div class="accordion-group">
@@ -281,9 +318,9 @@
             </div>
         </div>
 
-        </div>
+        
 
-        <div style="float:left; width:30%;  ">
+      <!-- <div style="float:left; width:30%;  "> -->
 
         <div class="accordion-group">
             <div id="Div13" class="accordion-heading">
@@ -387,13 +424,29 @@
                 <div class="accordion-inner fondo_form">
                     <input type="checkbox"/><span> Trabajo Social</span>
                 </div>
+              
             </div>
         </div>
         </div>
+        </div>
+        </div>
 
-    </div>
+        <div class="resultado-busqueda">
 
-    <div class="feedPostulaciones sombra_y_redondeado " style="clear: both; padding-top:20px;">
+           <div class="feedPostulaciones sombra_y_redondeado ">
+                    <h3 class="subtitulo_postulaciones"><a href="#">Programador para RRHH/ CABA </a></h3>
+                    <p class="feedAvisoDescripcion">Se require programadores con conocimientos avanzados en c# y un lenguaje proximamente a inventar para...<a href="#">Ver mas</a></p>
+                    <a class="btn_concursar btn-small" href="PreInscripcion.aspx">Aplicar</a>
+                    <a class="btn_concursar btn-small" href="#">Ver postulación</a>
+                </div>
+                <div class="feedPostulaciones sombra_y_redondeado ">
+                    <h3 class="subtitulo_postulaciones"><a href="#">Adminitrador de Redes RRHH/ CABA </a></h3>
+                    <p class="feedAvisoDescripcion">Se require expertos en Redes para administrar la infraestructura de todo el ministerior...<a href="#">Ver mas</a></p>
+                    <a class="btn_concursar btn-small" href="PreInscripcion.aspx">Aplicar</a>
+                    <a class="btn_concursar btn-small" href="#">Ver postulación</a>
+                </div>
+
+        <div class="feedPostulaciones sombra_y_redondeado resultados-busqueda">
         <h3 class="subtitulo_postulaciones"><a href="#">Programador para RRHH/ CABA </a></h3>
         <p class="feedAvisoDescripcion">Se require programadores con conocimientos avanzados en c# y un lenguaje proximamente a inventar para...<a href="#">Ver mas</a></p>
         <a class="btn_concursar btn-small" href="PreInscripcion.aspx">Aplicar</a>
@@ -405,7 +458,11 @@
         <a class="btn_concursar btn-small" href="PreInscripcion.aspx">Aplicar</a>
         <a class="btn_concursar btn-small" href="#">Ver postulación</a>
     </div>
+    </div>
 
+
+         
+    
     </div>
     </form>
 </body>
