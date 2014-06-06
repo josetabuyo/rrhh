@@ -473,5 +473,14 @@ public class AjaxWS : System.Web.Services.WebService {
         var observaciones = backEndService.GetObservaciones();
         return Newtonsoft.Json.JsonConvert.SerializeObject(observaciones);
     }
+    
+    
+    //Registro Usuarios Postular
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void RegistrarNuevoUsuario(Postulante postulante)
+    {
+        var a = postulante.Nombre;
+    }
 }
 

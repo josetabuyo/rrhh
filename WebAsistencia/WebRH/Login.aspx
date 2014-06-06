@@ -8,7 +8,8 @@
     <title>Login - Sistema RRHH</title>
     <%= Referencias.Css("")%>
     <link id="link1" rel="stylesheet" href="~/Estilos/estilos-custom.css" type="text/css" />
-   
+    <link rel="stylesheet" href="Scripts/vex-2.1.1/css/vex-theme-os.css" />
+    <link rel="stylesheet" href="Scripts/vex-2.1.1/css/vex.css" />
 </head>
 <body id="bodyLogin">
     <form id="formLogin" runat="server">
@@ -33,14 +34,14 @@
     </div>
     </form>
     <%= Referencias.Javascript("") %>
+    <script type="text/javascript" src="Scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+    <script type="text/javascript" src="RegistroPostular/PantallaRegistro.js">  </script>
 </body>
 <script>
+    vex.defaultOptions.className = 'vex-theme-os';
     var lnk_registrarse = $("#lnk_registrarse");
     lnk_registrarse.click(function () {
-        $("#registrarse_dialog").load("RegistroPostular/Registrarse.htm").dialog({
-            modal: true,
-            title: "Registrarse"
-        });
+        PantallaRegistro.abrir();
     });
 </script>
 </html>
