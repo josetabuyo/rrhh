@@ -320,6 +320,53 @@ var AgregarMatricula = function () {
 }
 
 
+var AgregarInstitucionAcademica = function () {
+
+    var Institucion = {};
+    Institucion.institucion = $("#pertenencia-institucion_nombre").val();
+    Institucion.caracterEntidad = $("#pertenencia-institucion_caracter").val();
+    Institucion.cargosDesempeniados = $("#pertenencia-institucion_cargo").val();
+   
+    Institucion.numeroAfiliado = $("#matricula_situacion").val();
+    Institucion.categoriaActual = $("#matricula_numero").val();
+    Institucion.fechaDeAfiliacion = ParsearFecha($("#matricula_fecha_inscripcion").val());
+    Institucion.fecha = ParsearFecha($("#matricula_fecha_inscripcion").val());
+    Institucion.fechaInicio = ParsearFecha($("#matricula_fecha_inscripcion").val());
+    Institucion.fechaFin = ParsearFecha($("#matricula_fecha_inscripcion").val());
+    Institucion.localidad = $("#matricula_expedida_por").val();
+    Institucion.pais = $("#matricula_numero").val();
+  
+
+
+
+    var data_post = JSON.stringify({
+        "instituciones_nuevas": Institucion,
+        "instituciones_originales": Institucion
+    });
+    $.ajax({
+        url: "../AjaxWS.asmx/GuardarCVInstituciones",
+        type: "POST",
+        data: data_post,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (respuestaJson) {
+            var respuesta = JSON.parse(respuestaJson.d);
+            if (respuesta.length == 0)
+                AgregarEnTabla($("#tabla_instituciones_academicas"), Institucion);
+            alertify.alert("Los datos fueron guardados correctamente");
+            $(".modal_close_concursar").click();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alertify.alert(errorThrown);
+        }
+    });
+}
+
+
+
+
+
+
 
 
 
