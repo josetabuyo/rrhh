@@ -17,6 +17,7 @@ namespace General.Repositorios
         protected CvEventoAcademico _cvEventoAcademico;
         protected CvPublicaciones _cvPublicacion;
         protected CvMatricula _cvMatricula;
+        protected CvInstitucionesAcademicas _cvInstitucion;
 
 
         public RepositorioDeCurriculum(IConexionBD conexion) 
@@ -88,6 +89,11 @@ namespace General.Repositorios
             this._cvMatricula = matricula_nueva;
         }
 
+
+        public void GuardarCvInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
+        {
+            this._cvInstitucion = institucion_nueva;
+        }
 
 
     }
