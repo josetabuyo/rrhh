@@ -49,18 +49,7 @@
                 Ante cualquier duda, por favor comunicarse con la oficina de RRHH.
             </p>
             <legend>Postulaciones Abiertas</legend>
-            <div class="feedPostulaciones sombra_y_redondeado ">
-                    <h3 class="subtitulo_postulaciones"><a href="#">Programador para RRHH/ CABA </a></h3>
-                    <p class="feedAvisoDescripcion">Se require programadores con conocimientos avanzados en c# y un lenguaje proximamente a inventar para...<a href="#">Ver mas</a></p>
-                    <a class="btn_concursar btn-small" href="PreInscripcion.aspx">Aplicar</a>
-                    <a class="btn_concursar btn-small" href="#">Ver postulación</a>
-                </div>
-                <div class="feedPostulaciones sombra_y_redondeado ">
-                    <h3 class="subtitulo_postulaciones"><a href="#">Adminitrador de Redes RRHH/ CABA </a></h3>
-                    <p class="feedAvisoDescripcion">Se require expertos en Redes para administrar la infraestructura de todo el ministerior...<a href="#">Ver mas</a></p>
-                    <a class="btn_concursar btn-small" href="PreInscripcion.aspx">Aplicar</a>
-                    <a class="btn_concursar btn-small" href="#">Ver postulación</a>
-                </div>
+         
         </div>
         <div class="panel_derecho">
             <div class="panel panel-default">
