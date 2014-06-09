@@ -320,6 +320,53 @@ var AgregarMatricula = function () {
 }
 
 
+var AgregarInstitucionAcademica = function () {
+
+    var Institucion = {};
+    Institucion.institucion = $("#pertenencia-institucion_nombre").val();
+    Institucion.caracterEntidad = $("#pertenencia-institucion_caracter").val();
+    Institucion.cargosDesempeniados = $("#pertenencia-institucion_cargo").val();
+
+    Institucion.numeroAfiliado = $("#pertenencia-institucion_numero_afiliado").val();
+    Institucion.categoriaActual = $("#pertenencia-institucion_categoria_actual").val();
+    Institucion.fechaDeAfiliacion = ParsearFecha($("#pertenencia-institucion_fecha_afiliacion").val());
+    Institucion.fecha = ParsearFecha($("#pertenencia-institucion_fecha").val());
+    Institucion.fechaInicio = ParsearFecha($("#pertenencia-institucion_fecha_inicio").val());
+    Institucion.fechaFin = ParsearFecha($("#pertenencia-institucion_fecha_fin").val());
+    Institucion.localidad = $("#pertenencia-institucion_localidad").val();
+    Institucion.pais = $("#pertenencia-institucion_pais").val();
+  
+
+
+
+    var data_post = JSON.stringify({
+        "instituciones_nuevas": Institucion,
+        "instituciones_originales": Institucion
+    });
+    $.ajax({
+        url: "../AjaxWS.asmx/GuardarCVInstituciones",
+        type: "POST",
+        data: data_post,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (respuestaJson) {
+            var respuesta = JSON.parse(respuestaJson.d);
+            if (respuesta.length == 0)
+                AgregarEnTabla($("#tabla_instituciones_academicas"), Institucion);
+            alertify.alert("Los datos fueron guardados correctamente");
+            $(".modal_close_concursar").click();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alertify.alert(errorThrown);
+        }
+    });
+}
+
+
+
+
+
+
 
 
 

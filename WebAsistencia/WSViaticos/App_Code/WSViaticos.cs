@@ -2391,6 +2391,14 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
+    public void GuardarCvInstituciones(CvInstitucionesAcademicas instituciones_nuevas, CvInstitucionesAcademicas instituciones_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvInstituciones(instituciones_nuevas, usuario);
+    }
+
+
+
+    [WebMethod]
     public ObservacionDTO[] GuardarObservaciones(ObservacionDTO[] observaciones_nuevas_dto, ObservacionDTO[] observaciones_originales_dto, Usuario usuario)
     {
 
