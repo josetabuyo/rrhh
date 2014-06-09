@@ -6,7 +6,7 @@ using General.MAU;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeCurriculum : General.Repositorios.IRepositorioDeCurriculum
+    public class RepositorioDeCurriculum : IRepositorioDeCurriculum
     {
         protected IConexionBD conexion_bd;
         protected List<CurriculumVitae> lista_cv;
@@ -76,15 +76,12 @@ namespace General.Repositorios
             return compotencias_informaticas;
         }
 
-        public List<CvDatosPersonales> GetCvDatosPersonales(int documento)
+
+        public CvDatosPersonales GetCvDatosPersonales(int documento)
         {
            var domicilio = new CvDomicilio("Pedro Morán", 1234, 7, "A", "Capital Federal", 1419, "CABA");
-            var datos_personales = new List<CvDatosPersonales>()
-                               {
-                                   new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono",  "Soltero" , "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23), "D.N.I", domicilio)
-                               };
-
-            return datos_personales;
+           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23), "D.N.I", domicilio);
+           return datos_personales;
         }
 
 
@@ -223,7 +220,6 @@ namespace General.Repositorios
         {
             this._cvInstitucion = institucion_nueva;
         }
-
 
     }
 }
