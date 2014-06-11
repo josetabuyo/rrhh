@@ -2049,6 +2049,11 @@ public class WSViaticos : System.Web.Services.WebService
         return Autorizador().GetMenuPara(nombre_menu, usuario);
     }
 
+    [WebMethod]
+    public void RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
+    {
+        Autorizador().RegistrarNuevoUsuario(aspirante);
+    }
     #endregion
 
     [WebMethod]

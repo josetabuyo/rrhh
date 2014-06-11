@@ -478,9 +478,9 @@ public class AjaxWS : System.Web.Services.WebService {
     //Registro Usuarios Postular
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public void RegistrarNuevoUsuario(Postulante postulante)
+    public void RegistrarNuevoUsuario(WSViaticos.AspiranteAUsuario aspirante)
     {
-        var a = postulante.Nombre;
+        backEndService.RegistrarNuevoUsuario(aspirante);
     }
 }
 

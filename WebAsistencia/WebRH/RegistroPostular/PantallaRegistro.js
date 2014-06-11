@@ -34,8 +34,13 @@
         this.panel_paso_2.hide();
         this.btn_validar.click(function () {
             if (_this.panel_paso_1.esValido()) {
-                _this.proveedor_ajax.postearAUrl({ url: "BuscarPersonasConLegajo",
-                    data: { criterio: _this.txt_numero_documento.val() },
+                _this.proveedor_ajax.postearAUrl({ url: "BuscarPersonas",
+                    data: { 
+                        criterio: JSON.stringify({
+                                        Documento: parseInt(_this.txt_numero_documento.val()),
+                                        ConLegajo: true
+                                    })
+                    },
                     success: function (personas) {
                         if (personas.length > 0) {
                             alertify.alert("El documento ingresado ya está registrado, inicie sesión o comuníquese con Recursos Humanos.");
@@ -76,7 +81,7 @@
             if (_this.panel_paso_2.esValido()) {
                 _this.proveedor_ajax.postearAUrl({ url: "RegistrarNuevoUsuario",
                     data: {
-                        postulante: {
+                        aspirante: {
                             Documento: _this.txt_numero_documento.val(),
                             Nombre: _this.txt_nombre.val(),
                             Apellido: _this.txt_apellido.val(),
@@ -84,7 +89,9 @@
                         }
                     },
                     success: function () {
-                        alertify.alert("Se le ha enviado un mail con su nombre de usuario y contraseña");
+                        alertify.alert("Se le ha enviado un mail con su nombre de usuario y contraseña", function(){
+                            vex.closeAll();
+                        });
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.alert("Error al registrar el usuario, inténtelo nuevamente.");
