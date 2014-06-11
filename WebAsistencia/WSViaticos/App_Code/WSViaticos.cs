@@ -2320,43 +2320,29 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvEstudios[] GetCvEstudios(int documento)
     {
-        var estudios_dto = new List<CvEstudios>();
         var estudios = RepoCurriculum().GetCvEstudios(documento);
-
-        //foreach (var e in estudios)
-        //{
-        //    observaciones_dto.Add(new ObservacionDTO()
-        //    {
-        //        id = o.Id,
-        //        FechaCarga = o.FechaCarga.ToShortDateString(),
-        //        Relacion = o.Relacion,
-        //        PersonaCarga = o.PersonaCarga,
-        //        Pertenece = o.Pertenece,
-        //        Asunto = o.Asunto,
-        //        ReferenteMDS = o.ReferenteMDS,
-        //        Seguimiento = o.Seguimiento,
-        //        Resultado = o.Resultado,
-        //        FechaResultado = o.FechaResultado.ToShortDateString(),
-        //        ReferenteRespuestaMDS = o.ReferenteRespuestaMDS
-        //    });
-        //}
+        
         return estudios.ToArray();
     }
 
     [WebMethod]
     public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO_nueva, CvDatosPersonales datosPersonalesDTO_original, Usuario usuario)
     {
-
-        //var curriculum_a_guardar = new CurriculumVitae(datosPersonalesDTO_nueva);
-
-        RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO_nueva, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
-
+        RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO_nueva, usuario);
     }
 
     [WebMethod]
-    public void GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, CvEstudios antecedentesAcademicos_original, Usuario usuario)
+    public CvEstudios EliminarCvAntecedentesAcademicos(CvEstudios antecedente_a_borrar, Usuario usuario)
     {
-        RepoCurriculum().GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+        return RepoCurriculum().EliminarCVAntecedentesAcademicos(antecedente_a_borrar, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+    }
+
+    
+
+    [WebMethod]
+    public CvEstudios[] GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, CvEstudios antecedentesAcademicos_original, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario).ToArray();
     }
 
     [WebMethod]
