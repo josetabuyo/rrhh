@@ -255,15 +255,15 @@ var AgregarInstitucionAcademica = function () {
     Institucion.institucion = $("#pertenencia-institucion_nombre").val();
     Institucion.caracterEntidad = $("#pertenencia-institucion_caracter").val();
     Institucion.cargosDesempeniados = $("#pertenencia-institucion_cargo").val();
-   
-    Institucion.numeroAfiliado = $("#matricula_situacion").val();
-    Institucion.categoriaActual = $("#matricula_numero").val();
-    Institucion.fechaDeAfiliacion = ParsearFecha($("#matricula_fecha_inscripcion").val());
-    Institucion.fecha = ParsearFecha($("#matricula_fecha_inscripcion").val());
-    Institucion.fechaInicio = ParsearFecha($("#matricula_fecha_inscripcion").val());
-    Institucion.fechaFin = ParsearFecha($("#matricula_fecha_inscripcion").val());
-    Institucion.localidad = $("#matricula_expedida_por").val();
-    Institucion.pais = $("#matricula_numero").val();
+
+    Institucion.numeroAfiliado = $("#pertenencia-institucion_numero_afiliado").val();
+    Institucion.categoriaActual = $("#pertenencia-institucion_categoria_actual").val();
+    Institucion.fechaDeAfiliacion = ParsearFecha($("#pertenencia-institucion_fecha_afiliacion").val());
+    Institucion.fecha = ParsearFecha($("#pertenencia-institucion_fecha").val());
+    Institucion.fechaInicio = ParsearFecha($("#pertenencia-institucion_fecha_inicio").val());
+    Institucion.fechaFin = ParsearFecha($("#pertenencia-institucion_fecha_fin").val());
+    Institucion.localidad = $("#pertenencia-institucion_localidad").val();
+    Institucion.pais = $("#pertenencia-institucion_pais").val();
   
 
 

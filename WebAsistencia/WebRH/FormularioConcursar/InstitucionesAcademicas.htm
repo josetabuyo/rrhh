@@ -23,14 +23,17 @@
 					<label for="pertenencia-institucion_cargo">Cargos Desempeñados <em>*</em></label>
 					<input id="pertenencia-institucion_cargo" type="text" style="width:225px;" name=""/>
 				</div>
+
+               	<div class="grupo_campos">
+					<label for="pertenencia-institucion_numero_afiliado">Número Afiliado <em>*</em></label>
+					<input id="pertenencia-institucion_numero_afiliado" type="text" style="width:225px;"/>
+				</div>
+
 				<div class="grupo_campos nueva_linea">
 					<label for="pertenencia-institucion_fecha_afiliacion">Fecha de Afiliación <em>*</em></label>
 					<input id="pertenencia-institucion_fecha_afiliacion" type="text" style="width:100px;"/>
 				</div>
-				<div class="grupo_campos">
-					<label for="pertenencia-institucion_numero_afiliado">Número Afiliado <em>*</em></label>
-					<input id="pertenencia-institucion_numero_afiliado" type="text" style="width:225px;"/>
-				</div>
+			
 				<div class="grupo_campos">
 					<label for="pertenencia-institucion_categoria_actual">Categoría actual <em>*</em></label>
 					<input id="pertenencia-institucion_categoria_actual" type="text" style="width:225px;"/>
@@ -44,7 +47,7 @@
 					<input id="pertenencia-institucion_localidad" type="text" style="width:225px;"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="pertenencia-institucion_pais">País <em>*</em></label>
+					<label for="pertenencia-institucion_pais">País<em>*</em></label>
 					<select id="pertenencia-institucion_pais" style="width:130px;">
 					</select>
 				</div>
@@ -58,7 +61,7 @@
 				</div>
 			</fieldset>
 			<div class="btn-fld">
-				<input type="button" class="btn btn-primary" id="Button6" value="Agregar"/>
+				<input type="button" class="btn btn-primary" id="Button6" value="Agregar" onclick="javascript:AgregarInstitucionAcademica()"/>
 			</div>
 		</div>
 	</div>

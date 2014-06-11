@@ -320,14 +320,14 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <td>Tecnico en Computadoras</td>
+                              <td>T&eacute;cnico en Computadoras</td>
                               <td>12/12/2012</td>
                               <td>12/12/2012</td>
                               <td>5 dias</td>
-                              <td>Computacion</td>
+                              <td>Computaci&oacute;n</td>
                               <td>UBA</td>
                               <td>5 dias</td>
-                              <td>Computacion</td>
+                              <td>Computaci&oacute;n</td>
                               <td>UBA</td>
                             </tr>
                           </tbody>
@@ -351,7 +351,7 @@
                     <table id="tabla_eventoAcademico" class="table table-striped">
                           <thead>
                             <tr>
-                              <th>Denominación</th>
+                              <th>Denominaci&oacute;n</th>
                               <th>Tipo Evento</th>
                               <th>Car&aacute;cter de Participaci&oacute;n</th>
                               <th>F. Inicio</th>
@@ -467,14 +467,16 @@
                               <th>Nombre Inst.</th>
                               <th>Car&aacute;cter Entidad</th>
                               <th>Cargos Desempeñados</th>
-                              <th>Fecha de afiliaci&oacute;n</th>
                               <th>N&uacute;mero de Afiliado</th>
-                              <th>Categor&iacute;a actual</th>
+                                <th>Categor&iacute;a actual</th>
+                              <th>Fecha de afiliaci&oacute;n</th>
+                            
                               <th>Fecha</th>
-                              <th>Localidad</th>
-                              <th>Pa&iacute;s</th>
+                             
                               <th>Fecha inicio</th>
                               <th>Fecha Fin</th>
+                               <th>Localidad</th>
+                              <th>Pa&iacute;s</th>
                            </tr>
                           </thead>
                           <tbody>
@@ -482,17 +484,20 @@
                               <td>Universidad Kennedy</td>
                               <td>Privada</td>
                               <td>Preceptor</td>
-                              <td>01/02/03</td>
+                             
                               <td>457345</td>
                               <td>Vigente</td>
+                               <td>01/02/03</td>
+                              
                               <td>01/08/2014</td>
-                              <td>CABA</td>
-                              <td>Argentina</td>
+                             
                               <td>01/04/08</td>
                               <td>01/08/12</td>
+                               <td>CABA</td>
+                              <td>Argentina</td>
                             </tr>
                           </tbody>
-                     </table>                   
+                     </table>            
                    
                     
                     
