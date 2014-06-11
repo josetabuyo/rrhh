@@ -45,18 +45,7 @@ namespace General.Repositorios
             return this.lista_cv.Find(cvs => cvs.DatosPersonales.Dni.Equals(documento));
         }
 
-        public List<CvEstudios> GetCvEstudios(int documento)
-        {
-            var estudios = new List<CvEstudios>()
-                               {
-                                   new CvEstudios("Contador", "UBA", "Te dije contador", new DateTime(2014, 12, 12),
-                                                  new DateTime(2014, 12, 13), "CABA", "Argentina")
-                               };
-            //Hacer que la fecha sea shortDateTime
-            //estudios.ForEach(e => e.FechaIngreso.ToShortDateString() e.FechaEgreso.ToShortDateString());
-            return estudios;
-        }
-
+       
         public List<CvCapacidadesPersonales> GetCvCapacidadesPersonales(int documento)
         {
             var capacidades_personales = new List<CvCapacidadesPersonales>()
