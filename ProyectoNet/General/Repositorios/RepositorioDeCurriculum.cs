@@ -11,7 +11,7 @@ namespace General.Repositorios
         protected IConexionBD conexion_bd;
         protected List<CurriculumVitae> lista_cv;
         protected CvDatosPersonales _cvDatosPersonales;
-        protected CvEstudios _cvAntecedentesAcademicos;
+        protected List<CvEstudios> _cvAntecedentesAcademicos;
         protected CvCertificadoDeCapacitacion _cvCapacitacion;
         protected CvDocencia _cvDocencia;
         protected CvEventoAcademico _cvEventoAcademico;
@@ -25,6 +25,17 @@ namespace General.Repositorios
         {
             this.conexion_bd = conexion;
             this.lista_cv = new List<CurriculumVitae>();
+            this._cvAntecedentesAcademicos = new List<CvEstudios>();
+
+            //FC a borrar cuando traiga los datos de la base
+            string fechaIngreso = new DateTime(2014, 12, 12).ToShortDateString();
+
+            string fechaEgreso = new DateTime(2014, 12, 13).ToShortDateString();
+
+            var un_estudio = new CvEstudios(1, "Contador", "UBA", "Te dije contador", fechaIngreso,
+                                                  fechaEgreso, "CABA", "Argentina");
+
+            this._cvAntecedentesAcademicos.Add(un_estudio);
 
         }
 
@@ -35,18 +46,7 @@ namespace General.Repositorios
             return this.lista_cv.Find(cvs => cvs.DatosPersonales.Dni.Equals(documento));
         }
 
-        public List<CvEstudios> GetCvEstudios(int documento)
-        {
-            var estudios = new List<CvEstudios>()
-                               {
-                                   new CvEstudios("Contador", "UBA", "Te dije contador", new DateTime(2014, 12, 12),
-                                                  new DateTime(2014, 12, 13), "CABA", "Argentina")
-                               };
-            //Hacer que la fecha sea shortDateTime
-            //estudios.ForEach(e => e.FechaIngreso.ToShortDateString() e.FechaEgreso.ToShortDateString());
-            return estudios;
-        }
-
+       
         public List<CvCapacidadesPersonales> GetCvCapacidadesPersonales(int documento)
         {
             var capacidades_personales = new List<CvCapacidadesPersonales>()
@@ -183,9 +183,28 @@ namespace General.Repositorios
         }
 
 
-        public void GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
+        public List<CvEstudios> GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
         {
-            this._cvAntecedentesAcademicos = antecedentesAcademicos_nuevo;
+            this._cvAntecedentesAcademicos.Add(antecedentesAcademicos_nuevo);
+
+            return this._cvAntecedentesAcademicos;
+        }
+
+        public CvEstudios EliminarCVAntecedentesAcademicos(CvEstudios antecedentesAcademicos_a_borrar, Usuario usuario)
+        {
+            this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_a_borrar);
+            return antecedentesAcademicos_a_borrar;
+        }
+
+        
+
+
+        public List<CvEstudios> GetCvEstudios(int documento)
+        {
+            
+            //Hacer que la fecha sea shortDateTime
+            //estudios.ForEach(e => e.FechaIngreso.ToShortDateString() e.FechaEgreso.ToShortDateString());
+            return this._cvAntecedentesAcademicos;
         }
 
         public void GuardarCvCapacidades(CvCertificadoDeCapacitacion capacidades_nuevo, Usuario usuario)

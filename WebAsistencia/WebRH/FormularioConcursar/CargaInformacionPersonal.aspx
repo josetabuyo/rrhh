@@ -242,51 +242,12 @@
               <div id="collapseTwo" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="a2" rel="leanModalConcursar" data-url="AntecedentesAcademicos.htm" class="link" style="" name="form_antecedentesAcademicos" href="#un_div_modal">Cargar antecedentes academicos</a></legend>
+                    <legend><a id="antecedentes_link"  onclick="javascript:AgregarAntecedentesAcademico();"  class="link" >Cargar antecedentes academicos</a></legend>
                            
                         <h4>Antecedentes Agregados</h4>
                         <div id="ContenedorPlanilla" runat="server">
                             <table id="tabla_antecedentes" class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>Nivel</th>
-                              <th>Universidad</th>
-                              <th>Facultad</th>
-                              <th>Institución</th>
-                              <th>Título</th>
-                              <th>Especialidad</th>
-                              <th>Certificado</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Universitario</td>
-                              <td>UBA</td>
-                              <td>Derecho</td>
-                              <td></td>
-                              <td>Abogado</td>
-                              <td></td>
-                              <td>Si</td>
-                            </tr>
-                            <tr>
-                              <td>Terciario</td>
-                              <td></td>
-                              <td></td>
-                              <td>Instituto Da Vinci</td>
-                              <td>Diseñador Web</td>
-                              <td></td>
-                              <td>Si</td>
-                            </tr>
-                            <tr>
-                              <td>Maestria</td>
-                              <td>UBA</td>
-                              <td>Ciencias Economicas</td>
-                              <td></td>
-                              <td>MBA</td>
-                              <td></td>
-                              <td>No</td>
-                            </tr>
-                          </tbody>
+                          
                             </table>
                         </div>
                     </fieldset>
@@ -680,6 +641,7 @@
 
 </body>
 <script type="text/javascript" src="Postular.js" ></script>
+<script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
     <%= Referencias.Javascript("../") %>
        
 
@@ -725,21 +687,14 @@
             }
         });
 
-        ArmarGrillaEstudios();
-
-
-
-
         function CompletarCV() {
 
             $("#nombre").val(curriculumDTO.DatosPersonales.Nombre);
             $("#apellido").val(curriculumDTO.DatosPersonales.Apellido);
-
-
         };
 
-
-
+        CvDatosPersonales.completarDatos($('#curriculum').val());
+        AntecedentesAcademicos.armarGrilla($('#cvEstudios').val());
 
         $('a[rel*=leanModalConcursar]').click(function () {
             var _this = $(this);
@@ -758,11 +713,8 @@
         $('a[rel*=leanModalConcursar]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
 
     });
-
-   
-
-
-
+    
+    
 
 </script>
 </html>
