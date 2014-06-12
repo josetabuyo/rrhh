@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using System.Drawing;
+using System.IO;
 
 namespace General.Repositorios
 {
@@ -53,6 +55,17 @@ namespace General.Repositorios
         {
             var valor_double = (double)dataRow[campo];
             return (float)valor_double;
+        }
+
+        public Image GetImage(string campo)
+        {
+            var bytes = (byte[])dataRow[campo];
+            MemoryStream ms = new MemoryStream(bytes, 0,
+                bytes.Length);
+
+            ms.Write(bytes, 0, bytes.Length);
+            Image image = Image.FromStream(ms, true);
+            return image;
         }
     }
 }
