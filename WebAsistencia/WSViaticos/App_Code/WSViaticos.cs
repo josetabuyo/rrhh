@@ -2395,56 +2395,38 @@ public class WSViaticos : System.Web.Services.WebService
     #region CV
 
     [WebMethod]
-    public CurriculumDto GetCurriculumDTO()
+    public CurriculumVitae GetCurriculum(int documento)
     {
-        var curriculum_dto = new CurriculumDto();
-        CurriculumVitae curriculum = RepoCurriculum().GetCV(31046911);
+        //var curriculum_dto = new CurriculumVitae();
+        CurriculumVitae curriculum = RepoCurriculum().GetCV(documento);
        
         //foreach (var o in curriculum)
         //{
-        curriculum_dto = new CurriculumDto() //.Add(new CurriculumDto()
-                             {
-                                 //Id = 1,
-                                 DatosPersonales = curriculum.DatosPersonales,
-                                 CvDocencias = curriculum.CvDocencias,
-                                 CvEstudios = curriculum.CvEstudios,
-                                 CvEventosAcademicos = curriculum.CvEventosAcademicos,
-                                 CvCompetenciasInformaticas = curriculum.CvCompetenciasInformaticas,
-                                 CvExperienciaLaboral = curriculum.CvExperienciaLaboral,
-                                 CvIdiomas = curriculum.CvIdiomas,
-                                 CvInstitucionesAcademicas = curriculum.CvInstitucionesAcademicas,
-                                 CvMatricula = curriculum.CvMatricula,
-                                 CvPublicaciones = curriculum.CvPublicaciones,
-                                 CvCertificadosDeCapacitacion = curriculum.CvCertificadosDeCapacitacion
+        //curriculum_dto = new CurriculumVitae() //.Add(new CurriculumDto()
+        //                     {
+        //                         //Id = 1,
+        //                         DatosPersonales = curriculum.DatosPersonales,
+        //                         CvDocencias = curriculum.CvDocencias,
+        //                         CvEstudios = curriculum.CvEstudios,
+        //                         CvEventosAcademicos = curriculum.CvEventosAcademicos,
+        //                         CvCompetenciasInformaticas = curriculum.CvCompetenciasInformaticas,
+        //                         CvExperienciaLaboral = curriculum.CvExperienciaLaboral,
+        //                         CvIdiomas = curriculum.CvIdiomas,
+        //                         CvInstitucionesAcademicas = curriculum.CvInstitucionesAcademicas,
+        //                         CvMatricula = curriculum.CvMatricula,
+        //                         CvPublicaciones = curriculum.CvPublicaciones,
+        //                         CvCertificadosDeCapacitacion = curriculum.CvCertificadosDeCapacitacion
 
-                             };
+        //                     };
 
-        return curriculum_dto;
+        return curriculum;
     }
 
     [WebMethod]
     public CvEstudios[] GetCvEstudios(int documento)
     {
-        var estudios_dto = new List<CvEstudios>();
         var estudios = RepoCurriculum().GetCvEstudios(documento);
-
-        //foreach (var e in estudios)
-        //{
-        //    observaciones_dto.Add(new ObservacionDTO()
-        //    {
-        //        id = o.Id,
-        //        FechaCarga = o.FechaCarga.ToShortDateString(),
-        //        Relacion = o.Relacion,
-        //        PersonaCarga = o.PersonaCarga,
-        //        Pertenece = o.Pertenece,
-        //        Asunto = o.Asunto,
-        //        ReferenteMDS = o.ReferenteMDS,
-        //        Seguimiento = o.Seguimiento,
-        //        Resultado = o.Resultado,
-        //        FechaResultado = o.FechaResultado.ToShortDateString(),
-        //        ReferenteRespuestaMDS = o.ReferenteRespuestaMDS
-        //    });
-        //}
+        
         return estudios.ToArray();
     }
 
@@ -2537,17 +2519,21 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO_nueva, CvDatosPersonales datosPersonalesDTO_original, Usuario usuario)
     {
-
-        //var curriculum_a_guardar = new CurriculumVitae(datosPersonalesDTO_nueva);
-
-        RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO_nueva, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
-
+        RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO_nueva, usuario);
     }
 
     [WebMethod]
-    public void GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, CvEstudios antecedentesAcademicos_original, Usuario usuario)
+    public CvEstudios EliminarCvAntecedentesAcademicos(CvEstudios antecedente_a_borrar, Usuario usuario)
     {
-        RepoCurriculum().GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+        return RepoCurriculum().EliminarCVAntecedentesAcademicos(antecedente_a_borrar, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+    }
+
+    
+
+    [WebMethod]
+    public CvEstudios[] GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, CvEstudios antecedentesAcademicos_original, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario).ToArray();
     }
 
     [WebMethod]
@@ -2586,6 +2572,13 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepoCurriculum().GuardarCvInstituciones(instituciones_nuevas, usuario);
     }
+
+    [WebMethod]
+    public void GuardarCvExperiencias(CvExperienciaLaboral experiencias_nuevas, CvExperienciaLaboral experiencias_originales, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvExperiencias(experiencias_nuevas, usuario);
+    }
+
 
     #endregion
 
