@@ -120,6 +120,7 @@
             -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
             -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+            
         }
      
      .encabezado-columna
@@ -127,6 +128,7 @@
       height: 100%;
       width: 25%;
       float: left;
+      margin-left: 2.5%;
          }    
          
       .accordion-toggle
@@ -151,7 +153,7 @@
       {
        float:left;
        height:auto;
-       width: 72%;
+       width: 65%;
        padding: 45px 0px 10px 25px;
           }
          
@@ -197,13 +199,13 @@
         <div class="columna-buscador">
 
         <div class="accordion-group">
-            <div id="ancla2" class="accordion-heading ">
+            <div id="ancla2" class="fondo-accordion ">
                 <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                     Abogado
                 </a>   
             </div>
             <div id="collapseTwo" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Abogacía</span><br/>
                      <input type="checkbox"/><span> Analista Jurídico</span><br/>
                       <input type="checkbox"/><span> Dictaminante</span><br/>
@@ -215,13 +217,13 @@
         </div>
 
         <div class="accordion-group">
-            <div id="ancla3" class="accordion-heading">
+            <div id="ancla3" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                 Abordaje Territorial
             </a>    
             </div>
             <div id="collapseThree" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Lic. Cs Educación</span><br/>
                     <input type="checkbox"/><span> Lic. Cs. Políticas</span><br/>
                     <input type="checkbox"/><span> Lic. Sociología</span>
@@ -230,13 +232,13 @@
         </div>
 
         <div class="accordion-group">
-            <div id="Div1" class="accordion-heading">
+            <div id="Div1" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
                 Administrativo
             </a>    
             </div>
             <div id="collapseFour" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Asistente Administrativo</span><br/>
                     <input type="checkbox"/><span> Auxiliar Administrativo</span><br/>
                     <input type="checkbox"/><span> Resp Administrativo (Jefat.Depto)</span><br/>
@@ -246,13 +248,13 @@
         </div>
 
         <div class="accordion-group">
-            <div id="Div3" class="accordion-heading">
+            <div id="Div3" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
                 Administrativo / Contable
             </a>    
             </div>
             <div id="collapseFive" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Contabilidad</span><br/>
                     <input type="checkbox"/><span> Contabilidad / Lic Economía</span><br/>
                     <input type="checkbox"/><span> Resp Administrativo (Jefat.Depto)</span>
@@ -261,26 +263,26 @@
         </div>
 
         <div class="accordion-group">
-            <div id="Div5" class="accordion-heading">
+            <div id="Div5" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
                Arquitecto
             </a>    
             </div>
             <div id="collapseSix" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Arquitectura</span>
                 </div>
             </div>
         </div>
 
         <div class="accordion-group">
-            <div id="Div7" class="accordion-heading">
+            <div id="Div7" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
                 Auditoría
             </a>    
             </div>
             <div id="collapseSeven" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Medicina</span><br/>
                     <input type="checkbox"/><span> Varios / Lic Economía</span>
                 </div>
@@ -288,13 +290,13 @@
         </div>
 
         <div class="accordion-group">
-            <div id="Div9" class="accordion-heading">
+            <div id="Div9" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
                 Auxiliares
             </a>    
             </div>
             <div id="collapseEight" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Auxiliar de Maestr y Mant.</span><br/>
                     <input type="checkbox"/><span> Cadete / Gestor</span>
                 </div>
@@ -302,13 +304,13 @@
         </div>
 
         <div class="accordion-group">
-            <div id="Div11" class="accordion-heading">
+            <div id="Div11" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">
                 Comunicación
             </a>    
             </div>
             <div id="collapseNine" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Ceremonial</span><br/>
                     <input type="checkbox"/><span> Comunicación</span><br/>
                     <input type="checkbox"/><span> Lic. Comunicación Soc / Periodista</span><br/>
@@ -323,13 +325,13 @@
       <!-- <div style="float:left; width:30%;  "> -->
 
         <div class="accordion-group">
-            <div id="Div13" class="accordion-heading">
+            <div id="Div13" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">
                 Deportes
             </a>    
             </div>
             <div id="collapseTen" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Deporte y Actividad Física</span><br/>
                     <input type="checkbox"/><span> Lic. Dep y Act Fís</span>
                 </div>
@@ -337,26 +339,26 @@
         </div>
 
         <div class="accordion-group">
-            <div id="Div15" class="accordion-heading">
+            <div id="Div15" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">
                 Diseño / Imagen / Sonido
             </a>    
             </div>
             <div id="collapseEleven" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Diseño / Imagen / Sonido</span>
                 </div>
             </div>
         </div>
       
         <div class="accordion-group">
-            <div id="Div17" class="accordion-heading">
+            <div id="Div17" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve">
                 Gestión de la información
             </a>    
             </div>
             <div id="collapseTwelve" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Administración</span><br/>
                     <input type="checkbox"/><span> Resp Administrativo (Jefat.Depto)</span><br/>
                     <input type="checkbox"/><span> Sistemas Información</span>
@@ -365,13 +367,13 @@
         </div>
 
         <div class="accordion-group">
-            <div id="Div19" class="accordion-heading">
+            <div id="Div19" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseThirteen">
                 Gestión de programas
             </a>    
             </div>
             <div id="collapseThirteen" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Administración</span><br/>
                     <input type="checkbox"/><span> Administración / Lic. Sociología</span><br/>
                     <input type="checkbox"/><span> Lic. Economía</span><br/>
@@ -384,13 +386,13 @@
         </div>
 
         <div class="accordion-group">
-            <div id="Div21" class="accordion-heading">
+            <div id="Div21" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseFourteen">
                Gestión de rrhh
             </a>    
             </div>
             <div id="collapseFourteen" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Administración</span><br/>
                     <input type="checkbox"/><span> Capacitación</span><br/>
                     <input type="checkbox"/><span> Medicina</span><br/>
@@ -400,13 +402,13 @@
         </div>
 
         <div class="accordion-group">
-            <div id="Div23" class="accordion-heading">
+            <div id="Div23" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseFifteen">
                Mantenimiento
             </a>    
             </div>
             <div id="collapseFifteen" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
+                <div class="accordion-inner">
                     <input type="checkbox"/><span> Ing. Telecomunicac.</span><br/>
                     <input type="checkbox"/><span> Resp Administrativo (Jefat.Depto)</span><br/>
                     <input type="checkbox"/><span> Responsable Administrativo</span>
@@ -415,14 +417,14 @@
         </div>
 
         <div class="accordion-group">
-            <div id="Div25" class="accordion-heading">
+            <div id="Div25" class="fondo-accordion">
             <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseSeventeen">
                Trabajo Social
             </a>    
             </div>
             <div id="collapseSeventeen" class="accordion-body collapse">
-                <div class="accordion-inner fondo_form">
-                    <input type="checkbox"/><span> Trabajo Social</span>
+                <div class="accordion-inner">
+                    <input type="checkbox"/><span class=""> Trabajo Social</span>
                 </div>
               
             </div>
@@ -433,30 +435,39 @@
 
         <div class="resultado-busqueda">
 
-           <div class="feedPostulaciones sombra_y_redondeado ">
+           <div class="feedPostulacionesAplicadas sombra_y_redondeado degrade_modulo caja-postulacion">
                     <h3 class="subtitulo_postulaciones"><a href="#">Programador para RRHH/ CABA </a></h3>
-                    <p class="feedAvisoDescripcion">Se require programadores con conocimientos avanzados en c# y un lenguaje proximamente a inventar para...<a href="#">Ver mas</a></p>
-                    <a class="btn_concursar btn-small" href="PreInscripcion.aspx">Aplicar</a>
-                    <a class="btn_concursar btn-small" href="#">Ver postulación</a>
+                    <p class="btn-concursar listado-accordion">Se require programadores con conocimientos avanzados en c# y un lenguaje proximamente a inventar para...<a href="#">Ver mas</a>
+                   
+                    <a class="btn_concursar btn-small posicion-btn" href="PreInscripcion.aspx">Aplicar</a>
+                    </p>
+                    
                 </div>
-                <div class="feedPostulaciones sombra_y_redondeado ">
+                <div class="feedPostulacionesAplicadas sombra_y_redondeado degrade_modulo caja-postulacion">
                     <h3 class="subtitulo_postulaciones"><a href="#">Adminitrador de Redes RRHH/ CABA </a></h3>
-                    <p class="feedAvisoDescripcion">Se require expertos en Redes para administrar la infraestructura de todo el ministerior...<a href="#">Ver mas</a></p>
-                    <a class="btn_concursar btn-small" href="PreInscripcion.aspx">Aplicar</a>
-                    <a class="btn_concursar btn-small" href="#">Ver postulación</a>
+                    <p class="feedAvisoDescripcion listado-accordion">Se require expertos en Redes para administrar la infraestructura de todo el ministerior...<a href="#">Ver mas</a>
+                    
+                    <a class="btn_concursar btn-small posicion-btn" href="PreInscripcion.aspx">Aplicar</a>
+                    </p>
+                    
                 </div>
 
-        <div class="feedPostulaciones sombra_y_redondeado resultados-busqueda">
-        <h3 class="subtitulo_postulaciones"><a href="#">Programador para RRHH/ CABA </a></h3>
-        <p class="feedAvisoDescripcion">Se require programadores con conocimientos avanzados en c# y un lenguaje proximamente a inventar para...<a href="#">Ver mas</a></p>
-        <a class="btn_concursar btn-small" href="PreInscripcion.aspx">Aplicar</a>
-        <a class="btn_concursar btn-small" href="#">Ver postulación</a>
-    </div>
-    <div class="feedPostulaciones sombra_y_redondeado ">
-        <h3 class="subtitulo_postulaciones"><a href="#">Adminitrador de Redes RRHH/ CABA </a></h3>
-        <p class="feedAvisoDescripcion">Se require expertos en Redes para administrar la infraestructura de todo el ministerior...<a href="#">Ver mas</a></p>
-        <a class="btn_concursar btn-small" href="PreInscripcion.aspx">Aplicar</a>
-        <a class="btn_concursar btn-small" href="#">Ver postulación</a>
+        <div class="feedPostulacionesAplicadas sombra_y_redondeado degrade_modulo caja-postulacion">
+            <h3 class="subtitulo_postulaciones">
+            <a href="#">Programador para RRHH/ CABA </a></h3>
+            <p class="feedAvisoDescripcion listado-accordion">Se require programadores con conocimientos avanzados en c# y un lenguaje proximamente a inventar para...<a href="#">Ver mas</a>
+          
+            <a class="btn_concursar btn-small posicion-btn" href="PreInscripcion.aspx">Aplicar</a>
+            </p>
+            
+        </div>
+
+
+    <div class="feedPostulacionesAplicadas sombra_y_redondeado degrade_modulo caja-postulacion">
+        <h3 class="subtitulo_postulaciones "><a href="#">Adminitrador de Redes RRHH/ CABA </a></h3>
+        <p class="feedAvisoDescripcion listado-accordion">Se require expertos en Redes para administrar la infraestructura de todo el ministerior...<a href="#">Ver mas</a>
+        <a class="btn_concursar btn-small posicion-btn" href="PreInscripcion.aspx">Aplicar</a></p>
+                
     </div>
     </div>
 

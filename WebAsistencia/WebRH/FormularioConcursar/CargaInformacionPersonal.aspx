@@ -359,14 +359,14 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <td>Tecnico en Computadoras</td>
+                              <td>T&eacute;cnico en Computadoras</td>
                               <td>12/12/2012</td>
                               <td>12/12/2012</td>
                               <td>5 dias</td>
-                              <td>Computacion</td>
+                              <td>Computaci&oacute;n</td>
                               <td>UBA</td>
                               <td>5 dias</td>
-                              <td>Computacion</td>
+                              <td>Computaci&oacute;n</td>
                               <td>UBA</td>
                             </tr>
                           </tbody>
@@ -390,21 +390,21 @@
                     <table id="tabla_eventoAcademico" class="table table-striped">
                           <thead>
                             <tr>
-                              <th>Denominación</th>
+                              <th>Denominaci&oacute;n</th>
                               <th>Tipo Evento</th>
-                              <th>Caracter de Participación</th>
+                              <th>Car&aacute;cter de Participaci&oacute;n</th>
                               <th>F. Inicio</th>
                               <th>F. Fin</th>
-                              <th>Institución</th>
+                              <th>Instituci&oacute;n</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr>
-                              <td>Tecnico en Computadoras</td>
+                              <td>T&eacute;cnico en Computadoras</td>
                               <td>12/12/2012</td>
                               <td>12/12/2012</td>
                               <td>5 dias</td>
-                              <td>Computacion</td>
+                              <td>Computaci&oacute;n</td>
                               <td>UBA</td>
                             </tr>
                           </tbody>
@@ -428,7 +428,7 @@
                     <table id="tabla_publicaciones" class="table table-striped">
                           <thead>
                             <tr>
-                              <th>Titulo</th>
+                              <th>T&iacute;tulo</th>
                               <th>Datos de Editorial</th>
                               <th>Fecha</th>
                               <th>Cant. de Hojas</th>
@@ -438,7 +438,7 @@
                           <tbody>
                             <tr>
                               <td>El estado de bienestar</td>
-                              <td>Atlantida</td>
+                              <td>Atl&aacute;ntida</td>
                               <td>12/12/2012</td>
                               <td>5</td>
                               <td>Si</td>
@@ -490,14 +490,59 @@
             <div class="accordion-group">
               <div id="ancla8" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
-                  INSTITUCIONES ACADEMICAS
+                  INSTITUCIONES ACAD&Eacute;MICAS
                 </a>
               </div>
               <div id="collapseEight" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
                     <legend><a id="go8" rel="leanModalConcursar" data-url="InstitucionesAcademicas.htm" class="link" name="form_institucionesAcademicas"  href="#un_div_modal">Cargar instituciones</a></legend>
-                    <p>No tiene instituciones cargadas</p>   
+                    <p>No tiene instituciones cargadas</p> 
+                    
+                    
+                       <table id="tabla_instituciones_academicas" class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Nombre Inst.</th>
+                              <th>Car&aacute;cter Entidad</th>
+                              <th>Cargos Desempeñados</th>
+                              <th>N&uacute;mero de Afiliado</th>
+                                <th>Categor&iacute;a actual</th>
+                              <th>Fecha de afiliaci&oacute;n</th>
+                            
+                              <th>Fecha</th>
+                             
+                              <th>Fecha inicio</th>
+                              <th>Fecha Fin</th>
+                               <th>Localidad</th>
+                              <th>Pa&iacute;s</th>
+                           </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Universidad Kennedy</td>
+                              <td>Privada</td>
+                              <td>Preceptor</td>
+                             
+                              <td>457345</td>
+                              <td>Vigente</td>
+                               <td>01/02/03</td>
+                              
+                              <td>01/08/2014</td>
+                             
+                              <td>01/04/08</td>
+                              <td>01/08/12</td>
+                               <td>CABA</td>
+                              <td>Argentina</td>
+                            </tr>
+                          </tbody>
+                     </table>            
+                   
+                    
+                    
+                    
+                    
+                      
                   </fieldset>
                 </div>
               </div>
@@ -587,13 +632,15 @@
 
 <%-----------------    MODAL DE VISTA PREELIMINAR ---------------------%>
 
- <asp:TextBox ID="urlAjax" runat="server" Text=""  style="display:none;" />
+ <input type="text" id="urlAjax" value=""  style="display:none;" />
  
 <div id="un_div_modal" style="width:65%;" class="form_concursar">
     <div class="modal_close_concursar"></div>
     <div id="contenido_modal"></div>
 </div>
 <asp:HiddenField ID="curriculum" runat="server" />
+<asp:HiddenField ID="cvEstudios" runat="server" />
+
   </form>
 
 <div id='IrArriba'><a href='#Arriba'><span></span></a></div>
@@ -628,7 +675,7 @@
     });
 
     $(document).ready(function () {
-      
+
 
         //Estilos para ver coloreada la grilla en Internet Explorer
         $("tbody tr:even").css('background-color', '#fff');
@@ -636,18 +683,29 @@
 
         $(".collapse").collapse('show');
 
-         //var curriculumDTO = JSON.parse($('#curriculum').val());
+        //var curriculumDTO = JSON.parse($('#curriculum').val());
 
-        
+        $('#txt_fechaNac').datepicker({
+            dateFormat: 'dd/mm/yy',
+            onClose: function () {
+
+            }
+        });
+
+        ArmarGrillaEstudios();
+
+
+
+
         function CompletarCV() {
 
             $("#nombre").val(curriculumDTO.DatosPersonales.Nombre);
             $("#apellido").val(curriculumDTO.DatosPersonales.Apellido);
-            
+
 
         };
 
-        
+
 
 
         $('a[rel*=leanModalConcursar]').click(function () {
@@ -663,9 +721,9 @@
                 });
             }
         });
-        
+
         $('a[rel*=leanModalConcursar]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
-        
+
     });
 
    

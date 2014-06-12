@@ -1,4 +1,57 @@
-﻿function GuardarDatosPersonales() {
+﻿function ArmarGrillaEstudios () {
+    var _this = this;
+    var estudios = JSON.parse($('#cvEstudios').val());
+    contenedorPlanilla = $('#tabla_antecedentes');
+
+    var columnas = [];
+
+    columnas.push(new Columna("Id", { generar: function (un_estudio) { return un_estudio.id } }));
+    columnas.push(new Columna("Titulo", { generar: function (un_estudio) { return un_estudio.Titulo } }));
+    columnas.push(new Columna("Establecimiento", { generar: function (un_estudio) { return un_estudio.Establecimiento } }));
+    columnas.push(new Columna("Especialidad", { generar: function (un_estudio) { return un_estudio.Especialidad } }));
+    columnas.push(new Columna("FechaIngreso", { generar: function (un_estudio) { return un_estudio.FechaIngreso } }));
+    columnas.push(new Columna("FechaEgreso", { generar: function (un_estudio) { return un_estudio.FechaEgreso } }));
+    columnas.push(new Columna("Localidad", { generar: function (un_estudio) { return un_estudio.Localidad } }));
+    columnas.push(new Columna("Pais", { generar: function (un_estudio) { return un_estudio.Pais } }));
+    columnas.push(new Columna('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acciones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', { generar: function (un_estudio) {
+        var contenedorBtnAcciones = $('<div>');
+        var botonEditar = $('<img>');
+        botonEditar.addClass('edit-item-btn');
+        botonEditar.attr('src', '../Imagenes/edit.png');
+        botonEditar.attr('style', 'padding-right:5px;');
+        botonEditar.attr('width', '35px');
+        botonEditar.attr('height', '35px');
+        contenedorBtnAcciones.append(botonEditar);
+
+        var botonEliminar = $('<img>');
+        botonEliminar.addClass('remove-item-btn');
+        botonEliminar.attr('src', '../Imagenes/iconos_eliminar.png');
+        botonEliminar.attr('width', '35px');
+        botonEliminar.attr('height', '35px');
+        contenedorBtnAcciones.append(botonEliminar);
+
+        return contenedorBtnAcciones;
+    }
+    }));
+
+
+    PlanillaCvEstudios = new Grilla(columnas);
+
+    //PlanillaCvEstudios.AgregarEstilo("tabla_macc");
+
+    PlanillaCvEstudios.SetOnRowClickEventHandler(function (un_estudio) {
+        //                 panelAlumno.CompletarDatosAlumno(un_alumno);
+    });
+
+    PlanillaCvEstudios.CargarObjetos(estudios);
+    PlanillaCvEstudios.DibujarEn(contenedorPlanilla);
+
+    
+    
+}
+
+
+function GuardarDatosPersonales() {
     
     var datosPersonales = {};
     var domicilio = {};
@@ -265,6 +318,53 @@ var AgregarMatricula = function () {
         }
     });
 }
+
+
+var AgregarInstitucionAcademica = function () {
+
+    var Institucion = {};
+    Institucion.institucion = $("#pertenencia-institucion_nombre").val();
+    Institucion.caracterEntidad = $("#pertenencia-institucion_caracter").val();
+    Institucion.cargosDesempeniados = $("#pertenencia-institucion_cargo").val();
+
+    Institucion.numeroAfiliado = $("#pertenencia-institucion_numero_afiliado").val();
+    Institucion.categoriaActual = $("#pertenencia-institucion_categoria_actual").val();
+    Institucion.fechaDeAfiliacion = ParsearFecha($("#pertenencia-institucion_fecha_afiliacion").val());
+    Institucion.fecha = ParsearFecha($("#pertenencia-institucion_fecha").val());
+    Institucion.fechaInicio = ParsearFecha($("#pertenencia-institucion_fecha_inicio").val());
+    Institucion.fechaFin = ParsearFecha($("#pertenencia-institucion_fecha_fin").val());
+    Institucion.localidad = $("#pertenencia-institucion_localidad").val();
+    Institucion.pais = $("#pertenencia-institucion_pais").val();
+  
+
+
+
+    var data_post = JSON.stringify({
+        "instituciones_nuevas": Institucion,
+        "instituciones_originales": Institucion
+    });
+    $.ajax({
+        url: "../AjaxWS.asmx/GuardarCVInstituciones",
+        type: "POST",
+        data: data_post,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (respuestaJson) {
+            var respuesta = JSON.parse(respuestaJson.d);
+            if (respuesta.length == 0)
+                AgregarEnTabla($("#tabla_instituciones_academicas"), Institucion);
+            alertify.alert("Los datos fueron guardados correctamente");
+            $(".modal_close_concursar").click();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alertify.alert(errorThrown);
+        }
+    });
+}
+
+
+
+
 
 
 
