@@ -1,0 +1,88 @@
+﻿<div id="form_antecedentesAcademicos">
+	<div id="form_antecedentesAcademicos-ct">
+		<div id="form_antecedentesAcademicos-header" class="form_concursar_header">
+			<h2>Estudios Realizados</h2>
+			<p>
+			</p>
+		</div>
+		<div id="contenido_form_antecedentes" class="fondo_form">
+			<fieldset style="width:95%; padding-left:3%;">
+				<p>
+					<em>*</em> Campos Obligatorios
+				</p>
+				<legend>III - Antecedentes Académicos</legend>
+				<div class="grupo_campos">
+					<label for="txt_antecedentes_titulo">Título <em>*</em></label>
+					<input id="txt_antecedentes_titulo" type="text" style="width:350px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_antecedentes_ingreso">Año/Mes Ingreso <em>*</em></label>
+					<input id="txt_antecedentes_ingreso" type="text" style="width:100px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_antecedentes_egreso">Año/Mes Egreso <em>*</em></label>
+					<input id="txt_antecedentes_egreso" type="text" style="width:100px;"/>
+				</div>
+				<div class="grupo_campos nueva_linea">
+					<label for="txt_antecedentes_establecimiento">Establecimiento <em>*</em></label>
+					<input id="txt_antecedentes_establecimiento" type="text" style="width:350px;" name="txt_establecimiento"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_antecedentes_localidad">Localidad <em>*</em></label>
+					<input id="txt_antecedentes_localidad" type="text" style="width:100px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="cmb_antecedentes_pais">País <em>*</em></label>
+					<select id="cmb_antecedentes_pais" style="width:110px;">
+						<option>Seleccione</option>
+						<option value="1">Argentina</option>
+					</select>
+				</div>
+				<div class="grupo_campos nueva_linea">
+					<label for="txt_antecedentes_especialidad">Nombre de Especialidad o Competencia <em>*</em></label>
+					<input id="txt_antecedentes_especialidad" type="text" style="width:350px;" name="txt_especialidad"/>
+					<input id="btn_agregar_especialidad" type="image" style="width:40px; height:30px;" src="../Imagenes/Botones/agregar.png"/>
+					<table class="table table-striped">
+					<thead>
+					<tr>
+						<th>
+							Especialidades
+						</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>
+							Una Especialidad
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Otra Especialidad
+						</td>
+					</tr>
+					</tbody>
+					</table>
+				</div>
+			</fieldset>
+			<div class="btn-fld">
+				<input type="button" class="btn btn-primary" id="add_antecedentesAcademicos" value="Agregar" onclick="javascript:AgregarAntecedentes();"/>
+				
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    $('#txt_antecedentes_ingreso').datepicker({
+        dateFormat: 'dd/mm/yy',
+        onClose: function () {
+
+        }
+    });
+    $('#txt_antecedentes_egreso').datepicker({
+        dateFormat: 'dd/mm/yy',
+        onClose: function () {
+
+        }
+    });
+</script>

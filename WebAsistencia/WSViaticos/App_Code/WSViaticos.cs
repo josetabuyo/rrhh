@@ -1809,8 +1809,6 @@ public class WSViaticos : System.Web.Services.WebService
         }
     }
 
-
-
     [WebMethod]
     public ItemDeMenu[] ItemsDelMenu(Usuario usuario, string menu)
     {
@@ -1829,61 +1827,340 @@ public class WSViaticos : System.Web.Services.WebService
         return new List<ItemDeMenu>().ToArray();
     }
 
-    #endregion
-
-    #region modi
-
     [WebMethod]
-    public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio)
+    public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
     {
-        return servicioDeDigitalizacionDeLegajos().BuscarLegajos(criterio);
+        var instancias = RepositorioDeCursos().GetInstanciasDeEvaluacion(id_curso).ToArray();
+        return instancias;
     }
 
     [WebMethod]
-    public ImagenModi GetImagenPorId(int id_imagen)
+    public EvaluacionDto[] GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
     {
-        return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
+        var evaluaciones_no_procesadas = new List<EvaluacionDto>();
+        var repo_alumnos = RepoAlumnos();
+        var repo_cursos = RepositorioDeCursos();
+        var evaluaciones_a_guardar = new List<Evaluacion>();
+        foreach (var e in evaluaciones_nuevas_dto)
+        {
+            var un_curso = repo_cursos.GetCursoById(e.IdCurso);
+            var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
+            var un_alumno = repo_alumnos.GetAlumnoByDNI(e.DNIAlumno);
+            var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
+            DateTime una_fecha;
+            DateTime.TryParse(e.Fecha, out una_fecha);
+            evaluaciones_a_guardar.Add(new Evaluacion(e.Id, una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
+        }
+
+        var evaluaciones_originales = new List<Evaluacion>();
+        foreach (var e in evaluaciones_originales_dto)
+        {
+            var un_curso = repo_cursos.GetCursoById(e.IdCurso);
+            var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
+            var un_alumno = repo_alumnos.GetAlumnoByDNI(e.DNIAlumno);
+            var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
+            DateTime una_fecha;
+            DateTime.TryParse(e.Fecha, out una_fecha);
+            evaluaciones_originales.Add(new Evaluacion(e.Id, una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
+        }
+
+        var evaluaciones_nuevas_posta = evaluaciones_a_guardar.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
+        var evaluaciones_originales_posta = evaluaciones_originales.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
+
+        var res = RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+        foreach (var e in res)
+        {
+            evaluaciones_no_procesadas.Add(new EvaluacionDto()
+            {
+                Id = e.Id,
+                DNIAlumno = e.Alumno.Documento,
+                IdCurso = e.Curso.Id,
+                IdInstancia = e.InstanciaEvaluacion.Id,
+                Calificacion = e.Calificacion.Descripcion,
+                Fecha = e.Fecha.ToShortDateString(),
+                DescripcionInstancia = e.InstanciaEvaluacion.Descripcion
+            });
+        }
+        return evaluaciones_no_procesadas.ToArray();
     }
 
     [WebMethod]
-    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+    public List<FichaAlumnoAsistenciaPorCursoDto> GetAsistenciasDelAlumno(int id_alumno)
     {
-        return servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
+        var articulador = new Articulador();
+        var detalle_asistencias_alumno_por_curso = new List<FichaAlumnoAsistenciaPorCursoDto>();
+
+        var alumno = RepoAlumnos().GetAlumnoByDNI(id_alumno);
+        var total_cursos = RepositorioDeCursos().GetCursos();
+        var cursos_del_alumno = RepositorioDeCursos().GetCursosParaElAlumno(alumno, total_cursos);
+
+        var asistencias = RepoAsistencias().GetAsistencias();
+
+        foreach (var curso in cursos_del_alumno)
+        {
+            //int asist_per = 0;
+            //int inasist_per = 0;
+            int asist_acum = 0;
+            int inasist_acum = 0;
+            int dias_no_cursados_acum = 0;
+            var asist_dto = new List<AcumuladorDto>();
+            var calendario = articulador.CalendarioDelCurso(curso);
+            var dias_de_cursada = articulador.GetDiasDeCursadaEntre(curso.FechaInicio, curso.FechaFin, calendario);
+            var total_horas_catedra = articulador.TotalDeHorasCatedra(curso, dias_de_cursada);
+            //ver asistencias a dto
+            //var asist = asistencias.FindAll(x => x.IdCurso.Equals(curso.Id) && x.IdAlumno.Equals(a.Id) && x.Fecha >= fecha_inicio_planilla && x.Fecha <= fecha_fin_planilla);
+            var asist_totales = asistencias.FindAll(asis => asis.IdCurso.Equals(curso.Id) && asis.IdAlumno.Equals(alumno.Id));
+            //foreach (var item in asist)
+            //{
+            //    asist_per = item.AcumularHorasAsistidas(asist_per);
+            //    inasist_per = item.AcumularHorasNoAsistidas(inasist_per);
+            //    //
+            //    asist_dto.Add(new AcumuladorDto() { Id = item.Id, Fecha = item.Fecha, IdAlumno = item.IdAlumno, IdCurso = item.IdCurso, Valor = item.Valor });
+            //}
+            foreach (var item in asist_totales)
+            {
+                asist_acum = item.AcumularHorasAsistidas(asist_acum);
+                inasist_acum = item.AcumularHorasNoAsistidas(inasist_acum);
+                if (item.Valor.Equals("-"))
+                {
+                    dias_no_cursados_acum += 1;
+                }
+
+            }
+
+            var detalle_asist = new FichaAlumnoAsistenciaPorCursoDto()
+            {
+                Materia = curso.Materia.Nombre,
+                Ciclo = curso.Materia.Ciclo.Nombre,
+                AsistenciasTotal = asist_acum,
+                InasistenciasTotal = inasist_acum,
+                TotalHorasCatedra = total_horas_catedra,
+                FechaInicio = curso.FechaInicio.ToShortDateString(),
+                FechaFin = curso.FechaFin.ToShortDateString(),
+                DiasSinCursarTotal = dias_no_cursados_acum,
+            };
+
+            //var detalle_asist = new DetalleAsistenciasDto()
+            //{
+            //    IdAlumno = a.Id,
+            //    IdCurso = curso.Id,
+            //    Asistencias = asist_dto.ToArray(),
+            //    AsistenciasPeriodo = asist_per,
+            //    InasistenciasPeriodo = inasist_per,
+            //    AsistenciasTotal = asist_acum,
+            //    InasistenciasTotal = inasist_acum
+            //};
+            detalle_asistencias_alumno_por_curso.Add(detalle_asist);
+        }
+
+        return detalle_asistencias_alumno_por_curso;
+
     }
 
     [WebMethod]
-    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
+    public List<FichaAlumnoEvaluacionPorCursoDto> GetEvaluacionesDeAlumno(int dni)
     {
-        return servicioDeDigitalizacionDeLegajos().AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
+
+        var alumno = RepoAlumnos().GetAlumnoByDNI(dni);
+        var cursos = RepositorioDeCursos().GetCursos();
+        var cursos_del_alumno = RepositorioDeCursos().GetCursosParaElAlumno(alumno, cursos);
+        var articulador = new Articulador();
+
+        List<Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesAlumno(alumno);
+        List<FichaAlumnoEvaluacionPorCursoDto> CursosConEvaluacionesDto = new List<FichaAlumnoEvaluacionPorCursoDto>();
+        //Curso curso = RepositorioDeCursos().GetCursoById(id_curso);
+
+
+
+        foreach (var c in cursos_del_alumno)
+        {
+
+            CursosConEvaluacionesDto.Add(new FichaAlumnoEvaluacionPorCursoDto()
+            {
+                CodigoError = 0,
+                MensajeError = "",
+                Materia = c.Materia.Nombre,
+                Ciclo = c.Materia.Ciclo.Nombre,
+                Docente = c.Docente.Nombre,
+                CalificacionFinal = articulador.CalificacionDelCurso(c, evaluaciones),
+                Estado = articulador.EstadoDelAlumnoParaElCurso(c, evaluaciones),
+                FechaFin = c.FechaFin.ToShortDateString(),
+                Evaluaciones = EvaluacionesDTOPorCurso(evaluaciones, c).ToArray(),
+            });
+
+
+        }
+
+        return CursosConEvaluacionesDto;
+    }
+
+    private List<EvaluacionDto> EvaluacionesDTOPorCurso(List<Evaluacion> evaluaciones, Curso curso)
+    {
+        List<EvaluacionDto> evaluacionesDto = new List<EvaluacionDto>();
+
+        evaluaciones.FindAll(e => e.Curso.Id.Equals(curso.Id)).ForEach(e =>
+        {
+            evaluacionesDto.Add(new EvaluacionDto()
+            {
+                Id = e.Id,
+                DNIAlumno = e.Alumno.Documento,
+                IdCurso = e.Curso.Id,
+                Calificacion = e.Calificacion.Descripcion,
+                Fecha = e.Fecha.ToShortDateString(),
+                IdInstancia = e.InstanciaEvaluacion.Id,
+                DescripcionInstancia = e.InstanciaEvaluacion.Descripcion
+            });
+        });
+
+        return evaluacionesDto;
     }
 
     [WebMethod]
-    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
+    public PlanillaEvaluacionesDto GetPlanillaEvaluaciones(int id_curso, int id_instancia, Usuario usuario)
     {
-        return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);
+        var curso = RepositorioDeCursos().GetCursoById(id_curso);
+        List<Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCurso(curso);
+        var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
+
+        List<EvaluacionDto> EvaluacionesDto = new List<EvaluacionDto>();
+
+        evaluaciones.ForEach(e =>
+        {
+            EvaluacionesDto.Add(new EvaluacionDto()
+            {
+                Id = e.Id,
+                DNIAlumno = e.Alumno.Documento,
+                IdCurso = e.Curso.Id,
+                Calificacion = e.Calificacion.Descripcion,
+                Fecha = e.Fecha.ToShortDateString(),
+                IdInstancia = e.InstanciaEvaluacion.Id,
+                DescripcionInstancia = e.InstanciaEvaluacion.Descripcion
+            });
+        });
+
+        var alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos(), organigrama, new AutorizadorSacc(Autorizador())).ToArray();
+        var Instancias = curso.Materia.Modalidad.InstanciasDeEvaluacion;
+        if (id_instancia > 0)
+        {
+            Instancias = Instancias.FindAll(i => i.Id.Equals(id_instancia));
+        }
+        var Calificaciones = evaluaciones.Select(e => e.Calificacion.Descripcion).ToList();
+
+        foreach (var a in alumnos)
+        {
+            foreach (var i in Instancias)
+            {
+                if (EvaluacionesDto.FindAll(e => e.DNIAlumno == a.Documento && e.IdInstancia == i.Id).Count == 0)
+                {
+                    EvaluacionesDto.Add(new EvaluacionDto()
+                    {
+                        Id = 0,
+                        DNIAlumno = a.Documento,
+                        IdCurso = id_curso,
+                        Calificacion = string.Empty,
+                        Fecha = string.Empty,
+                        IdInstancia = i.Id,
+                        DescripcionInstancia = i.Descripcion
+                    });
+                }
+            }
+        }
+
+        var Planilla = new PlanillaEvaluacionesDto()
+        {
+            CodigoError = 0,
+            MensajeError = "",
+            Alumnos = alumnos,
+            Evaluaciones = EvaluacionesDto.ToArray(),
+            Instancias = Instancias.ToArray()
+        };
+
+        return Planilla;
     }
 
     [WebMethod]
-    public void AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
+    public ObservacionDTO[] GetObservaciones()
     {
-        servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
+        var observaciones_dto = new List<ObservacionDTO>();
+        var observaciones = RepositorioDeCursos().GetObservaciones();
+
+        foreach (var o in observaciones)
+        {
+            observaciones_dto.Add(new ObservacionDTO()
+            {
+                id = o.Id,
+                FechaCarga = o.FechaCarga.ToShortDateString(),
+                Relacion = o.Relacion,
+                PersonaCarga = o.PersonaCarga,
+                Pertenece = o.Pertenece,
+                Asunto = o.Asunto,
+                ReferenteMDS = o.ReferenteMDS,
+                Seguimiento = o.Seguimiento,
+                Resultado = o.Resultado,
+                FechaResultado = o.FechaResultado.ToShortDateString(),
+                ReferenteRespuestaMDS = o.ReferenteRespuestaMDS
+            });
+        }
+        return observaciones_dto.ToArray();
     }
 
     [WebMethod]
-    public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
+    public ObservacionDTO[] GuardarObservaciones(ObservacionDTO[] observaciones_nuevas_dto, ObservacionDTO[] observaciones_originales_dto, Usuario usuario)
     {
-        servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
-    }
 
-    [WebMethod]
-    public void DesAsignarImagen(int id_imagen, Usuario usuario)
-    {        
-        servicioDeDigitalizacionDeLegajos().DesAsignarImagen(id_imagen, usuario);
-    }
+        var observaciones_no_procesadas = new List<ObservacionDTO>();
+        var repo_cursos = RepositorioDeCursos();
 
-    private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
-    {
-        return new ServicioDeDigitalizacionDeLegajos(Conexion());
+        var observaciones_a_guardar = new List<Observacion>();
+        foreach (var o in observaciones_nuevas_dto)
+        {
+            DateTime fecha_carga;
+            DateTime.TryParse(o.FechaCarga, out fecha_carga);
+            DateTime fecha_rta;
+            DateTime.TryParse(o.FechaResultado, out fecha_rta);
+
+            if (fecha_carga.Year.Equals(0001))
+            {
+                fecha_carga = new DateTime(1900, 01, 01);
+            }
+            if (fecha_rta.Year.Equals(0001))
+            {
+                fecha_rta = new DateTime(1900, 01, 01);
+            }
+
+            observaciones_a_guardar.Add(new Observacion(o.id, fecha_carga, o.Relacion, o.PersonaCarga, o.Pertenece, o.Asunto, o.ReferenteMDS, o.Seguimiento, o.Resultado, fecha_rta, o.ReferenteRespuestaMDS));
+        }
+
+        var observaciones_originales = new List<Observacion>();
+        foreach (var o in observaciones_originales_dto)
+        {
+            DateTime fecha_carga;
+            DateTime.TryParse(o.FechaCarga, out fecha_carga);
+            DateTime fecha_rta;
+            DateTime.TryParse(o.FechaResultado, out fecha_rta);
+            observaciones_originales.Add(new Observacion(o.id, fecha_carga, o.Relacion, o.PersonaCarga, o.Pertenece, o.Asunto, o.ReferenteMDS, o.Seguimiento, o.Resultado, fecha_rta, o.ReferenteRespuestaMDS));
+        }
+
+        var res = repo_cursos.GuardarObservaciones(observaciones_originales, observaciones_a_guardar, usuario);
+        foreach (var o in res)
+        {
+            observaciones_no_procesadas.Add(new ObservacionDTO()
+            {
+                id = o.Id,
+                FechaCarga = o.FechaCarga.ToShortDateString(),
+                Relacion = o.Relacion,
+                PersonaCarga = o.PersonaCarga,
+                Pertenece = o.Pertenece,
+                Asunto = o.Asunto,
+                ReferenteMDS = o.ReferenteMDS,
+                Seguimiento = o.Seguimiento,
+                Resultado = o.Resultado,
+                FechaResultado = o.FechaResultado.ToShortDateString(),
+                ReferenteRespuestaMDS = o.ReferenteRespuestaMDS
+            });
+        }
+        return observaciones_no_procesadas.ToArray();
+
     }
 
 #endregion
@@ -1963,15 +2240,12 @@ public class WSViaticos : System.Web.Services.WebService
         return funcionalidades;
     }
 
-
     [WebMethod]
     public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
     {
         return Autorizador().ElUsuarioTienePermisosPara(id_usuario, id_funcionalidad);
         
     }
-
-    
 
     [WebMethod]
     public Funcionalidad[] FuncionalidadesPara(int id_usuario)
@@ -2054,340 +2328,262 @@ public class WSViaticos : System.Web.Services.WebService
     {
         Autorizador().RegistrarNuevoUsuario(aspirante);
     }
+
+    private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
+    {
+        return new ServicioDeDigitalizacionDeLegajos(Conexion());
+    }
     #endregion
 
+    #region modi
+
     [WebMethod]
-    public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
+    public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio)
     {
-        var instancias = RepositorioDeCursos().GetInstanciasDeEvaluacion(id_curso).ToArray();
-        return instancias;
+        return servicioDeDigitalizacionDeLegajos().BuscarLegajos(criterio);
     }
 
     [WebMethod]
-    public EvaluacionDto[] GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
+    public ImagenModi GetImagenPorId(int id_imagen)
     {
-        var evaluaciones_no_procesadas = new List<EvaluacionDto>();
-        var repo_alumnos = RepoAlumnos();
-        var repo_cursos = RepositorioDeCursos();
-        var evaluaciones_a_guardar = new List<Evaluacion>();
-        foreach (var e in evaluaciones_nuevas_dto)
-        {
-            var un_curso = repo_cursos.GetCursoById(e.IdCurso);
-            var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
-            var un_alumno = repo_alumnos.GetAlumnoByDNI(e.DNIAlumno);
-            var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
-            DateTime una_fecha;
-            DateTime.TryParse(e.Fecha, out una_fecha );
-            evaluaciones_a_guardar.Add(new Evaluacion(e.Id, una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
-        }
-
-        var evaluaciones_originales = new List<Evaluacion>();
-        foreach (var e in evaluaciones_originales_dto)
-        {
-            var un_curso = repo_cursos.GetCursoById(e.IdCurso);
-            var una_instancia = un_curso.Materia.Modalidad.InstanciasDeEvaluacion.Find(i => i.Id == e.IdInstancia);
-            var un_alumno = repo_alumnos.GetAlumnoByDNI(e.DNIAlumno);
-            var una_calificacion = new CalificacionNoNumerica { Descripcion = e.Calificacion };
-            DateTime una_fecha;
-            DateTime.TryParse(e.Fecha, out una_fecha);
-            evaluaciones_originales.Add(new Evaluacion(e.Id, una_instancia, un_alumno, un_curso, una_calificacion, una_fecha));
-        }
-
-        var evaluaciones_nuevas_posta = evaluaciones_a_guardar.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
-        var evaluaciones_originales_posta = evaluaciones_originales.FindAll(e => e.Calificacion.Descripcion != "" && e.Fecha.Date != DateTime.MinValue);
-
-        var res= RepoEvaluaciones().GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
-        foreach (var e in res)
-        {
-            evaluaciones_no_procesadas.Add(new EvaluacionDto() { Id = e.Id, 
-                DNIAlumno = e.Alumno.Documento, 
-                IdCurso = e.Curso.Id, 
-                IdInstancia = e.InstanciaEvaluacion.Id, 
-                Calificacion = e.Calificacion.Descripcion,
-                Fecha = e.Fecha.ToShortDateString(),
-                DescripcionInstancia = e.InstanciaEvaluacion.Descripcion
-            }); 
-        }
-        return evaluaciones_no_procesadas.ToArray();
+        return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
     }
 
     [WebMethod]
-    public List<FichaAlumnoAsistenciaPorCursoDto> GetAsistenciasDelAlumno(int id_alumno)
+    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
     {
-        var articulador = new Articulador();
-        var detalle_asistencias_alumno_por_curso = new List<FichaAlumnoAsistenciaPorCursoDto>();
-        
-        var alumno = RepoAlumnos().GetAlumnoByDNI(id_alumno);
-        var total_cursos = RepositorioDeCursos().GetCursos();
-        var cursos_del_alumno = RepositorioDeCursos().GetCursosParaElAlumno(alumno, total_cursos);
-
-        var asistencias = RepoAsistencias().GetAsistencias();
-        
-        foreach (var curso in cursos_del_alumno)
-        {
-            //int asist_per = 0;
-            //int inasist_per = 0;
-            int asist_acum = 0;
-            int inasist_acum = 0;
-            int dias_no_cursados_acum = 0;
-            var asist_dto = new List<AcumuladorDto>();
-            var calendario = articulador.CalendarioDelCurso(curso);
-            var dias_de_cursada = articulador.GetDiasDeCursadaEntre(curso.FechaInicio, curso.FechaFin, calendario);
-            var total_horas_catedra = articulador.TotalDeHorasCatedra(curso, dias_de_cursada);
-            //ver asistencias a dto
-            //var asist = asistencias.FindAll(x => x.IdCurso.Equals(curso.Id) && x.IdAlumno.Equals(a.Id) && x.Fecha >= fecha_inicio_planilla && x.Fecha <= fecha_fin_planilla);
-            var asist_totales = asistencias.FindAll(asis => asis.IdCurso.Equals(curso.Id) && asis.IdAlumno.Equals(alumno.Id));
-            //foreach (var item in asist)
-            //{
-            //    asist_per = item.AcumularHorasAsistidas(asist_per);
-            //    inasist_per = item.AcumularHorasNoAsistidas(inasist_per);
-            //    //
-            //    asist_dto.Add(new AcumuladorDto() { Id = item.Id, Fecha = item.Fecha, IdAlumno = item.IdAlumno, IdCurso = item.IdCurso, Valor = item.Valor });
-            //}
-            foreach (var item in asist_totales)
-            {
-                asist_acum = item.AcumularHorasAsistidas(asist_acum);
-                inasist_acum = item.AcumularHorasNoAsistidas(inasist_acum);
-                if (item.Valor.Equals("-"))
-	            {
-                    dias_no_cursados_acum += 1;
-	            }
-                 
-            }
-
-            var detalle_asist = new FichaAlumnoAsistenciaPorCursoDto() 
-            {
-                Materia = curso.Materia.Nombre,
-                Ciclo = curso.Materia.Ciclo.Nombre,
-                AsistenciasTotal = asist_acum,
-                InasistenciasTotal = inasist_acum,
-                TotalHorasCatedra = total_horas_catedra,
-                FechaInicio = curso.FechaInicio.ToShortDateString(),
-                FechaFin = curso.FechaFin.ToShortDateString(),
-                DiasSinCursarTotal = dias_no_cursados_acum,
-            };
-
-            //var detalle_asist = new DetalleAsistenciasDto()
-            //{
-            //    IdAlumno = a.Id,
-            //    IdCurso = curso.Id,
-            //    Asistencias = asist_dto.ToArray(),
-            //    AsistenciasPeriodo = asist_per,
-            //    InasistenciasPeriodo = inasist_per,
-            //    AsistenciasTotal = asist_acum,
-            //    InasistenciasTotal = inasist_acum
-            //};
-            detalle_asistencias_alumno_por_curso.Add(detalle_asist);
-        }
-
-        return detalle_asistencias_alumno_por_curso;
-
+        return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);
     }
 
     [WebMethod]
-    public List<FichaAlumnoEvaluacionPorCursoDto> GetEvaluacionesDeAlumno(int dni)
+    public void AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
     {
-        
-        var alumno = RepoAlumnos().GetAlumnoByDNI(dni);
-        var cursos = RepositorioDeCursos().GetCursos();
-        var cursos_del_alumno = RepositorioDeCursos().GetCursosParaElAlumno(alumno, cursos);
-        var articulador = new Articulador();
-
-        List<Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesAlumno(alumno);
-        List<FichaAlumnoEvaluacionPorCursoDto> CursosConEvaluacionesDto = new List<FichaAlumnoEvaluacionPorCursoDto>();
-        //Curso curso = RepositorioDeCursos().GetCursoById(id_curso);
-
-        
-
-        foreach (var c in cursos_del_alumno)
-        {
-
-            CursosConEvaluacionesDto.Add(new FichaAlumnoEvaluacionPorCursoDto()
-                    {
-                        CodigoError = 0,
-                        MensajeError = "",
-                        Materia = c.Materia.Nombre,
-                        Ciclo = c.Materia.Ciclo.Nombre,
-                        Docente = c.Docente.Nombre,
-                        CalificacionFinal = articulador.CalificacionDelCurso(c,evaluaciones),
-                        Estado = articulador.EstadoDelAlumnoParaElCurso(c, evaluaciones),
-                        FechaFin = c.FechaFin.ToShortDateString(),                     
-                        Evaluaciones = EvaluacionesDTOPorCurso(evaluaciones, c).ToArray(),
-                    });
-                
-            
-        }
-
-        return CursosConEvaluacionesDto;
-    }
-
-    private List<EvaluacionDto> EvaluacionesDTOPorCurso(List<Evaluacion> evaluaciones, Curso curso)
-    {
-        List<EvaluacionDto> evaluacionesDto = new List<EvaluacionDto>();
-
-        evaluaciones.FindAll(e => e.Curso.Id.Equals(curso.Id)).ForEach(e =>
-        {
-            evaluacionesDto.Add(new EvaluacionDto()
-            {
-                Id = e.Id,
-                DNIAlumno = e.Alumno.Documento,
-                IdCurso = e.Curso.Id,
-                Calificacion = e.Calificacion.Descripcion,
-                Fecha = e.Fecha.ToShortDateString(),
-                IdInstancia = e.InstanciaEvaluacion.Id,
-                DescripcionInstancia = e.InstanciaEvaluacion.Descripcion
-            });
-        });
-
-        return evaluacionesDto;
+        servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
     }
 
     [WebMethod]
-    public PlanillaEvaluacionesDto GetPlanillaEvaluaciones(int id_curso, int id_instancia, Usuario usuario)
+    public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
     {
-        var curso = RepositorioDeCursos().GetCursoById(id_curso);
-        List<Evaluacion> evaluaciones = RepoEvaluaciones().GetEvaluacionesPorCurso(curso);
-        var organigrama = new RepositorioDeOrganigrama(Conexion()).GetOrganigrama();
-        
-        List<EvaluacionDto> EvaluacionesDto = new List<EvaluacionDto>();
-
-        evaluaciones.ForEach(e =>{
-            EvaluacionesDto.Add(new EvaluacionDto()
-            {
-                Id = e.Id,
-                DNIAlumno = e.Alumno.Documento,
-                IdCurso = e.Curso.Id,
-                Calificacion = e.Calificacion.Descripcion,
-                Fecha = e.Fecha.ToShortDateString(),
-                IdInstancia = e.InstanciaEvaluacion.Id,
-                DescripcionInstancia = e.InstanciaEvaluacion.Descripcion
-            }); 
-        });
-
-        var alumnos = FiltrarAlumnosPorUsuarioLogueado(usuario, curso.Alumnos(), organigrama, new AutorizadorSacc(Autorizador())).ToArray(); 
-        var Instancias = curso.Materia.Modalidad.InstanciasDeEvaluacion;
-        if (id_instancia > 0)
-        {
-            Instancias = Instancias.FindAll(i => i.Id.Equals(id_instancia));
-        }
-        var Calificaciones = evaluaciones.Select(e => e.Calificacion.Descripcion).ToList();
-
-        foreach (var a in alumnos)
-        {
-            foreach (var i in Instancias)
-            {
-                if (EvaluacionesDto.FindAll(e => e.DNIAlumno == a.Documento && e.IdInstancia == i.Id).Count == 0)
-                {
-                    EvaluacionesDto.Add(new EvaluacionDto()
-                    {
-                        Id = 0,
-                        DNIAlumno = a.Documento,
-                        IdCurso = id_curso,
-                        Calificacion = string.Empty,
-                        Fecha = string.Empty,
-                        IdInstancia = i.Id,
-                        DescripcionInstancia = i.Descripcion
-                    });
-                }
-            }
-        }
-
-        var Planilla = new PlanillaEvaluacionesDto()
-        {
-            CodigoError = 0,
-            MensajeError = "",
-            Alumnos = alumnos,
-            Evaluaciones = EvaluacionesDto.ToArray(),
-            Instancias = Instancias.ToArray()
-        };
-
-        return Planilla;
+        servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
     }
 
     [WebMethod]
-    public ObservacionDTO[] GetObservaciones()
-    {
-        var observaciones_dto = new List<ObservacionDTO>();
-        var observaciones = RepositorioDeCursos().GetObservaciones();
-
-        foreach (var o in observaciones)
-        {
-            observaciones_dto.Add(new ObservacionDTO()
-            {
-                id = o.Id,
-                FechaCarga = o.FechaCarga.ToShortDateString(),
-                Relacion = o.Relacion,
-                PersonaCarga = o.PersonaCarga,
-                Pertenece = o.Pertenece,
-                Asunto = o.Asunto,
-                ReferenteMDS = o.ReferenteMDS,
-                Seguimiento = o.Seguimiento,
-                Resultado = o.Resultado,
-                FechaResultado = o.FechaResultado.ToShortDateString(),
-                ReferenteRespuestaMDS = o.ReferenteRespuestaMDS
-            });
-        }
-        return observaciones_dto.ToArray();
+    public void DesAsignarImagen(int id_imagen, Usuario usuario)
+    {        
+        servicioDeDigitalizacionDeLegajos().DesAsignarImagen(id_imagen, usuario);
     }
 
     [WebMethod]
-    public ObservacionDTO[] GuardarObservaciones(ObservacionDTO[] observaciones_nuevas_dto, ObservacionDTO[] observaciones_originales_dto, Usuario usuario)
+    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
     {
+        return servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
+    }
 
-        var observaciones_no_procesadas = new List<ObservacionDTO>();
-        var repo_cursos = RepositorioDeCursos();
+    [WebMethod]
+    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
+    }    
+#endregion
+
+    #region CV
+
+    [WebMethod]
+    public CurriculumDto GetCurriculumDTO()
+    {
+        var curriculum_dto = new CurriculumDto();
+        CurriculumVitae curriculum = RepoCurriculum().GetCV(31046911);
        
-        var observaciones_a_guardar = new List<Observacion>();
-        foreach (var o in observaciones_nuevas_dto)
-        { 
-            DateTime fecha_carga;
-            DateTime.TryParse(o.FechaCarga, out fecha_carga);
-            DateTime fecha_rta;
-            DateTime.TryParse(o.FechaResultado, out fecha_rta);
+        //foreach (var o in curriculum)
+        //{
+        curriculum_dto = new CurriculumDto() //.Add(new CurriculumDto()
+                             {
+                                 //Id = 1,
+                                 DatosPersonales = curriculum.DatosPersonales,
+                                 CvDocencias = curriculum.CvDocencias,
+                                 CvEstudios = curriculum.CvEstudios,
+                                 CvEventosAcademicos = curriculum.CvEventosAcademicos,
+                                 CvCompetenciasInformaticas = curriculum.CvCompetenciasInformaticas,
+                                 CvExperienciaLaboral = curriculum.CvExperienciaLaboral,
+                                 CvIdiomas = curriculum.CvIdiomas,
+                                 CvInstitucionesAcademicas = curriculum.CvInstitucionesAcademicas,
+                                 CvMatricula = curriculum.CvMatricula,
+                                 CvPublicaciones = curriculum.CvPublicaciones,
+                                 CvCertificadosDeCapacitacion = curriculum.CvCertificadosDeCapacitacion
 
-            if (fecha_carga.Year.Equals(0001))
-            {
-                fecha_carga = new DateTime(1900, 01, 01);
-            } 
-            if (fecha_rta.Year.Equals(0001))
-            {
-                fecha_rta = new DateTime(1900, 01, 01);
-            }
-           
-            observaciones_a_guardar.Add(new Observacion(o.id, fecha_carga, o.Relacion, o.PersonaCarga, o.Pertenece, o.Asunto, o.ReferenteMDS, o.Seguimiento, o.Resultado, fecha_rta, o.ReferenteRespuestaMDS ));
-        }
+                             };
 
-        var observaciones_originales = new List<Observacion>();
-        foreach (var o in observaciones_originales_dto)
-        { 
-            DateTime fecha_carga;
-            DateTime.TryParse(o.FechaCarga, out fecha_carga);
-            DateTime fecha_rta;
-            DateTime.TryParse(o.FechaResultado, out fecha_rta);
-            observaciones_originales.Add(new Observacion(o.id, fecha_carga, o.Relacion, o.PersonaCarga, o.Pertenece, o.Asunto, o.ReferenteMDS, o.Seguimiento, o.Resultado, fecha_rta, o.ReferenteRespuestaMDS ));
-        }
-
-        var res = repo_cursos.GuardarObservaciones(observaciones_originales, observaciones_a_guardar, usuario);
-        foreach (var o in res)
-        {
-            observaciones_no_procesadas.Add(new ObservacionDTO()
-            {
-                id = o.Id,
-                FechaCarga = o.FechaCarga.ToShortDateString(),
-                Relacion = o.Relacion,
-                PersonaCarga = o.PersonaCarga,
-                Pertenece = o.Pertenece,
-                Asunto = o.Asunto,
-                ReferenteMDS = o.ReferenteMDS,
-                Seguimiento = o.Seguimiento,
-                Resultado = o.Resultado,
-                FechaResultado = o.FechaResultado.ToShortDateString(),
-                ReferenteRespuestaMDS = o.ReferenteRespuestaMDS  
-            });
-        }
-        return observaciones_no_procesadas.ToArray();
-  
+        return curriculum_dto;
     }
+
+    [WebMethod]
+    public CvEstudios[] GetCvEstudios(int documento)
+    {
+        var estudios_dto = new List<CvEstudios>();
+        var estudios = RepoCurriculum().GetCvEstudios(documento);
+
+        //foreach (var e in estudios)
+        //{
+        //    observaciones_dto.Add(new ObservacionDTO()
+        //    {
+        //        id = o.Id,
+        //        FechaCarga = o.FechaCarga.ToShortDateString(),
+        //        Relacion = o.Relacion,
+        //        PersonaCarga = o.PersonaCarga,
+        //        Pertenece = o.Pertenece,
+        //        Asunto = o.Asunto,
+        //        ReferenteMDS = o.ReferenteMDS,
+        //        Seguimiento = o.Seguimiento,
+        //        Resultado = o.Resultado,
+        //        FechaResultado = o.FechaResultado.ToShortDateString(),
+        //        ReferenteRespuestaMDS = o.ReferenteRespuestaMDS
+        //    });
+        //}
+        return estudios.ToArray();
+    }
+
+    [WebMethod]
+    public CvCapacidadesPersonales[] GetCvCapacidadesPersonales(int documento)
+    {
+        var capacidades_personales = RepoCurriculum().GetCvCapacidadesPersonales(documento);
+        return capacidades_personales.ToArray();
+    }
+
+    [WebMethod]
+    public CvCertificadoDeCapacitacion[] GetCvCertificadoDeCapacitacion(int documento)
+    { 
+        var certificados_de_capacitacion = RepoCurriculum().GetCvCertificadoDeCapacitacion(documento);
+        return certificados_de_capacitacion.ToArray();
+    }
+
+    [WebMethod]
+    public CvCompetenciasInformaticas[] GetCvCompetenciasInformaticas(int documento)
+    {
+        var competencias_informaticas = RepoCurriculum().GetCvCompetenciasInformaticas(documento);
+        return competencias_informaticas.ToArray();
+    }
+
+    [WebMethod]
+    public CvDatosPersonales GetCvDatosPersonales(int documento)
+    {
+ 
+        var datos_personales = RepoCurriculum().GetCvDatosPersonales(documento);
+        return datos_personales;
+    }
+
+    [WebMethod]
+    public CvDocencia[] GetCvDocencia(int documento)
+    {
+        var docencia = RepoCurriculum().GetCvDocencia(documento);
+        return docencia.ToArray();
+    }
+
+    [WebMethod]
+    public CvDomicilio[] GetCvDomicilio(int documento)
+    {
+        var domicilios = RepoCurriculum().GetCvDomicilio(documento);
+        return domicilios.ToArray();
+    }
+
+    [WebMethod]
+    public CvEventoAcademico[] GetCvEventoAcademico(int documento)
+    {
+        var eventos_academicos = RepoCurriculum().GetCvEventoAcademico(documento);
+        return eventos_academicos.ToArray();
+    }
+
+    [WebMethod]
+    public CvExperienciaLaboral[] GetCvExperienciaLaboral(int documento)
+    {
+        var experiencias_laborales = RepoCurriculum().GetCvExperienciaLaboral(documento);
+        return experiencias_laborales.ToArray();
+    }
+
+    [WebMethod]
+    public CvIdiomas[] GetCvIdiomas(int documento)
+    {
+        var idiomas = RepoCurriculum().GetCvIdiomas(documento);
+        return idiomas.ToArray();
+    }
+
+    [WebMethod]
+    public CvInstitucionesAcademicas[] GetCvInstitucionesAcademicas(int documento)
+    {
+        var instituciones_academicas = RepoCurriculum().GetCvInstitucionesAcademicas(documento);
+        return instituciones_academicas.ToArray();
+    }
+
+    [WebMethod]
+    public CvMatricula[] GetCvMatricula(int documento)
+    {
+        var matriculas = RepoCurriculum().GetCvMatricula(documento);
+        return matriculas.ToArray();
+    }
+
+    [WebMethod]
+    public CvPublicaciones[] GetCvPublicaciones(int documento)
+    {
+        var publicaciones = RepoCurriculum().GetCvPublicaciones(documento);
+        return publicaciones.ToArray();
+    }
+
+
+    [WebMethod]
+    public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO_nueva, CvDatosPersonales datosPersonalesDTO_original, Usuario usuario)
+    {
+
+        //var curriculum_a_guardar = new CurriculumVitae(datosPersonalesDTO_nueva);
+
+        RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO_nueva, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+
+    }
+
+    [WebMethod]
+    public void GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, CvEstudios antecedentesAcademicos_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarCvCapacidades(CvCertificadoDeCapacitacion capacidades_nuevo, CvCertificadoDeCapacitacion capacidades_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvCapacidades(capacidades_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarCvDocencia(CvDocencia docencia_nuevo, CvDocencia docencia_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvDocencia(docencia_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, CvEventoAcademico eventoAcademico_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvEventoAcademico(eventoAcademico_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarCvPublicaciones(CvPublicaciones publicaciones_nuevas, CvPublicaciones publicaciones_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvPublicaciones(publicaciones_nuevas, usuario);
+    }
+
+    [WebMethod]
+    public void GuardarCvMatriculas(CvMatricula matriculas_nuevas, CvMatricula matriculas_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvMatriculas(matriculas_nuevas, usuario);
+    }
+
+
+    [WebMethod]
+    public void GuardarCvInstituciones(CvInstitucionesAcademicas instituciones_nuevas, CvInstitucionesAcademicas instituciones_original, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvInstituciones(instituciones_nuevas, usuario);
+    }
+
+    #endregion
+
+    
 
     private RepositorioLicencias RepoLicencias()
     {
@@ -2477,6 +2673,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeEvaluacion RepoEvaluaciones()
     {
         return new RepositorioDeEvaluacion(Conexion(), RepositorioDeCursos(), RepoAlumnos());
+    }
+
+    private RepositorioDeCurriculum RepoCurriculum()
+    {
+        return new RepositorioDeCurriculum(Conexion());
     }
 
 

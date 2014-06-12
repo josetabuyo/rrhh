@@ -38,10 +38,12 @@
                 </a>
                 <div id="contenedor_descripcion_item">
                     <div id="descripcion_item"> Esta es una descripcion </div>
+
+                    
                 </div>
             </div>
         </div>
-
+        
         <script type="text/javascript" src="MenuPrincipal.js"></script>
         <script type="text/javascript" src="VistaDeItemDeMenuPrincipal.js"></script>
         <script type="text/javascript" src="../MAU/Autorizador.js"></script>

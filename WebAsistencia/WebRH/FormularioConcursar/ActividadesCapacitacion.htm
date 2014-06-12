@@ -1,0 +1,94 @@
+﻿<div id="form_actividadesCapacitacion">
+	<div id="form_actividadesCapacitacion-ct">
+		<div id="form_actividadesCapacitacion-header" class="form_concursar_header">
+			<h2>Actividades de Capacitación</h2>
+			<p>
+			</p>
+		</div>
+		<div id="contenido_form_capacitacion" class="fondo_form">
+			<fieldset style="width:95%; padding-left:3%;">
+				<p>
+					<em>*</em> Campos Obligatorios
+				</p>
+				<legend>Actividades de Capacitaci&oacute;n</legend>
+				<br/>
+				<legend>Ingresar Certificaci&oacute;n/Actividad de Capacitaci&oacute;n</legend>
+				<div class="grupo_campos">
+					<label for="txt_capacitacion_nombreDiploma">Diploma o certificaci&oacute;n <em>*</em></label>
+					<input id="txt_capacitacion_nombreDiploma" type="text" style="width:350px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_capacitacion_fechaInicio">Fecha de inicio <em>*</em></label>
+					<input id="txt_capacitacion_fechaInicio" type="text" style="width:100px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_capacitacion_fechaFin">Fecha finalizaci&oacute;n <em>*</em></label>
+					<input id="txt_capacitacion_fechaFin" type="text" style="width:100px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_capacitacion_duracion">Duraci&oacute;n (Horas, d&iacute;as o meses) <em>*</em></label>
+					<input id="txt_capacitacion_duracion" type="text" style="width:150px;" name="txt_capacitacion_duracion"/>
+				</div>
+				<div style="float:left; clear:left;margin:4px 8px 4px 8px">
+					<label for="txt_capacitacion_especialidad">Nombre de Especialidad o Competencia <em>*</em></label>
+					<input id="txt_capacitacion_especialidad" type="text" style="width:350px;" name="txt_capacitacion_especialidad"/>
+					<input id="Capacitacion-AgregarEspecialidad" type="button" value="+"/>
+					<table class="table table-striped">
+					<thead>
+					<tr>
+						<th>
+							Especialidades
+						</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>
+							Una Especialidad
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Otra Especialidad
+						</td>
+					</tr>
+					</tbody>
+					</table>
+				</div>
+				<div class="grupo_campos nueva_linea">
+					<label for="txt_capacitacion_establecimiento">Establecimiento <em>*</em></label>
+					<input id="txt_capacitacion_establecimiento" type="text" style="width:350px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_capacitacion_localidad">Localidad <em>*</em></label>
+					<input id="txt_capacitacion_localidad" type="text" style="width:100px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_capacitacion_pais">Pa&iacute;s <em>*</em></label>
+					<select id="txt_capacitacion_pais" style="width:110px;">
+						<option>Seleccione</option>
+						<option value="1">Argentina</option>
+					</select>
+				</div>
+			</fieldset>
+			<div class="btn-fld">
+				<input type="button" class="btn btn-primary" onclick="javascript:AgregarCapacitacion()" id="Capacitacion-Agregar" value="Agregar"/>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    $('#txt_capacitacion_fechaInicio').datepicker({
+        dateFormat: 'dd/mm/yy',
+        onClose: function () {
+
+        }
+    });
+    $('#txt_capacitacion_fechaFin').datepicker({
+        dateFormat: 'dd/mm/yy',
+        onClose: function () {
+
+        }
+    });
+</script>
