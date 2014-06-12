@@ -33,7 +33,7 @@ namespace General
             return repositorio.GetOrganigrama().AreasInferioresInmediatasDe(area).FindAll(a => !a.PresentaDDJJ);
         }
 
-        public List<DDJJ104> GetAreasDDJJ(Usuario usuario , int mes)
+        public List<DDJJ104> GetAreasDDJJ(Usuario usuario , int mes, int anio)
         {
             RepositorioPersonas repoPersonas = new RepositorioPersonas();
             DDJJ104 ddjj_dto;
@@ -62,6 +62,10 @@ namespace General
 
                 ddjj_dto.CantidadPersonas = contador_de_personas;
 
+                ddjj_dto.Mes = mes;
+                ddjj_dto.Anio = anio;
+                ddjj_dto.Estado = new RepositorioDDJJ104().GetEstadoDDJJ(ddjj_dto);
+
                 lista_ddjj.Add(ddjj_dto);
 
                 contador_de_personas = 0;
@@ -69,6 +73,15 @@ namespace General
 
 
             return lista_ddjj;
+        }
+
+
+        public bool GenerarDDJJ104(Usuario usuario, List<DDJJ104> lista)
+        {
+
+            RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+            return ddjj.GenerarDDJJ104(usuario, lista);
+
         }
 
 

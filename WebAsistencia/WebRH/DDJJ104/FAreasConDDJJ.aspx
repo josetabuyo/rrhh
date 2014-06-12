@@ -1,34 +1,34 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FAreasConDDJJ.aspx.cs" Inherits="DDJJ104_FAreasConDDJJ" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <%= Referencias.Css("../")%> 
+    <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../") %>
 
-
+    <link rel="stylesheet" type="text/css" href="Style.css" />
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
-        <select runat="server" title="Seleccione un mes" id="cmbMeses" name="Meses" enableviewstate="false" class="input-small" 
-        style="text-transform: capitalize;"></select>
-           
+        <select runat="server" title="Seleccione un mes" id="cmbMeses" name="Meses" enableviewstate="false"
+            style="text-transform: capitalize;">
+        </select>
     </div>
-
-        <div id="ContenedorGrilla" runat="server">
-            
-        </div>
-
-
-    <asp:HiddenField ID="AreasJSON" runat="server" EnableViewState="true"/>
-
+    <div id="ContenedorGrilla" runat="server">
+    </div>
+    
+    <div id="progressbar">
+        <div class="ui-progressbar-overlay">
+            Cargando...</div>
+    </div>
+    
+    <asp:HiddenField ID="AreasJSON" runat="server" EnableViewState="true" />
+    
     </form>
 </body>
-
-
 <script src="DDJJ.js" type="text/javascript"></script>
+
 
 </html>

@@ -45,6 +45,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region asistencia
 
+    //INICIO: DDJJ 104 ---------------
     [WebMethod]
     public Area[] AreasConDDJJAdministradasPor(Usuario usuario)
     {
@@ -60,12 +61,21 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public DDJJ104[] GetAreasParaDDJJDelMes(Usuario usuario)
+    public DDJJ104[] GetAreasParaDDJJDelMes(Usuario usuario, string valorCombo)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
-        return responsableDDJJ.GetAreasDDJJ(usuario,0).ToArray();
+        var mes_anio = valorCombo.Split('-');
+        return responsableDDJJ.GetAreasDDJJ(usuario, Convert.ToInt32(mes_anio[0]), Convert.ToInt32(mes_anio[1])).ToArray();
     }
 
+    [WebMethod]
+    public bool GenerarDDJJ104(Usuario usuario, List<DDJJ104> lista)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
+        return responsableDDJJ.GenerarDDJJ104(usuario, lista);
+    }
+
+    //FIN: DDJJ 104 ---------------
 
     [WebMethod]
     public void EliminarInasistenciaActual(Persona unaPersona)

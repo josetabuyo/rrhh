@@ -57,7 +57,10 @@ namespace General
                                   Grado = dr.GetValue(dr.GetOrdinal("grado")).ToString(),
                                   Telefono = dr.GetValue(dr.GetOrdinal("telefono")).ToString(),
                                   Cuit = dr.GetValue(dr.GetOrdinal("cuit")).ToString(),
-                                  
+                                  Id = dr.GetInt32(dr.GetOrdinal("idpersona")),
+                                  Area = new Area() {Id = dr.GetInt32(dr.GetOrdinal("id_area"))},
+                                  Categoria = dr.GetString(dr.GetOrdinal("categoria")),
+
                                   //Area = unArea,
                                   TipoDePlanta = new TipoDePlanta
                                                      {

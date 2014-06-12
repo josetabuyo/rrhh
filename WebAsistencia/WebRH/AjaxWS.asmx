@@ -26,7 +26,7 @@ public class AjaxWS : System.Web.Services.WebService {
         //InitializeComponent(); 
     }
 
-    //DDJJ//
+    //INICIO: DDJJ//
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string AreasConDDJJAdministradasPor()
@@ -38,13 +38,36 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetAreasParaDDJJDelMes()
+    public string GetAreasParaDDJJDelMes(string valorCombo)
     {
-        var areas = backEndService.GetAreasParaDDJJDelMes(usuarioLogueado);
+        var areas = backEndService.GetAreasParaDDJJDelMes(usuarioLogueado, valorCombo);
         var areas_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(areas);
         return areas_serializados;
     }
-    //DDJJ//
+    
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GenerarDDJJ104(List<WSViaticos.DDJJ104> lista)
+    {
+
+        var resp = backEndService.GenerarDDJJ104 (usuarioLogueado, lista.ToArray());
+        //var areas_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(areas);
+        //return areas_serializados;
+        
+        if (resp)
+        {
+            return "OK";     
+        }
+        else
+        {
+            return "ERROR";
+        }
+        
+        
+    }
+    
+        
+    //FIN: DDJJ//
     
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
