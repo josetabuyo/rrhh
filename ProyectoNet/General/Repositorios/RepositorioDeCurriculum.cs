@@ -18,6 +18,7 @@ namespace General.Repositorios
         protected CvPublicaciones _cvPublicacion;
         protected CvMatricula _cvMatricula;
         protected CvInstitucionesAcademicas _cvInstitucion;
+        protected CvExperienciaLaboral _cvExperiencia;
 
 
         public RepositorioDeCurriculum(IConexionBD conexion) 
@@ -219,6 +220,12 @@ namespace General.Repositorios
         public void GuardarCvInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
         {
             this._cvInstitucion = institucion_nueva;
+        }
+
+
+        public void GuardarCvExperiencias(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
+        {
+            this._cvExperiencia = experiencia_nueva;
         }
 
     }

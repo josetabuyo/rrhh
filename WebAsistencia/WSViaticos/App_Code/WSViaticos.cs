@@ -2546,6 +2546,13 @@ public class WSViaticos : System.Web.Services.WebService
         RepoCurriculum().GuardarCvInstituciones(instituciones_nuevas, usuario);
     }
 
+    [WebMethod]
+    public void GuardarCvExperiencias(CvExperienciaLaboral experiencias_nuevas, CvExperienciaLaboral experiencias_originales, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvExperiencias(experiencias_nuevas, usuario);
+    }
+
+
     #endregion
 
     

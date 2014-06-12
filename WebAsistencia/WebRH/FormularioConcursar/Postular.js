@@ -336,9 +336,6 @@ var AgregarInstitucionAcademica = function () {
     Institucion.localidad = $("#pertenencia-institucion_localidad").val();
     Institucion.pais = $("#pertenencia-institucion_pais").val();
   
-
-
-
     var data_post = JSON.stringify({
         "instituciones_nuevas": Institucion,
         "instituciones_originales": Institucion
@@ -367,6 +364,45 @@ var AgregarInstitucionAcademica = function () {
 
 
 
+
+var AgregarExperiencia = function () {
+
+    var experiencia = {};
+    experiencia.puestoOcupado = $("#experiencia-laboral_puesto").val();
+    experiencia.motivoDesvinculacion = $("#experiencia-laboral_motivo_desvinculacion").val();
+    experiencia.nombreEmpleador = $("#experiencia-laboral_empleador").val();
+    experiencia.fechaInicio = ParsearFecha($("#experiencia-laboral_fecha_inicio").val());
+    experiencia.fechaFin = ParsearFecha($("#experiencia-laboral_fecha_fin").val());
+    experiencia.localidad = $("#experiencia-laboral_localidad").val();
+
+    experiencia.pais = $("#experiencia-laboral_pais").val();
+    experiencia.personasACargo = $("#experiencia-laboral_personal_a_cargo").val();
+    experiencia.tipoEmpresa = $("#experiencia-laboral_tipo_empresa").val();
+    experiencia.actividad = $("#experiencia-laboral_sector").val();
+
+    
+    var data_post = JSON.stringify({
+        "experiencias_nuevas": experiencia,
+        "experiencias_originales": experiencia
+    });
+    $.ajax({
+        url: "../AjaxWS.asmx/GuardarCVExperiencias",
+        type: "POST",
+        data: data_post,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (respuestaJson) {
+            var respuesta = JSON.parse(respuestaJson.d);
+            if (respuesta.length == 0)
+                AgregarEnTabla($("#tabla_experiencia_laboral"), experiencia);
+            alertify.alert("Los datos fueron guardados correctamente");
+            $(".modal_close_concursar").click();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alertify.alert(errorThrown);
+        }
+    });
+}
 
 
 

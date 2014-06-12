@@ -56,7 +56,7 @@
                 <li class="menu_lista_formularios"><a href="#ancla6">Publicaciones o trabajos</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla7">Matr&iacute;culas</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla8">Instituciones Académicas</a></li>
-                <li class="menu_lista_formularios"><a href="#ancla9">Experiencias Laborales</a></li>
+                <li class="menu_lista_formularios"><a href="#ancla9">Experiencia Laboral</a></li>
                 <li class="menu_lista_formularios no_borde"><a href="#ancla10">Idiomas Extranjeros</a></li>
             </ul>
             <ul class="ul_cv" style="width:60%; margin-left:20%;">
@@ -213,12 +213,12 @@
                       </div>
 
                         <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo" for="txt_telefonoFijo">Telefono fijo <em>*</em></label>
+                            <label class="etiqueta_campo" for="txt_telefonoFijo">Tel&eacute;fono fijo <em>*</em></label>
                             <input type="text" id="txt_telefonoFijo" name="txt_telefonoFijo" style="width:100px;"/>
                         </div>
 
                         <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo" for="txt_telefonoCelular">Telefono celular</label>
+                            <label class="etiqueta_campo" for="txt_telefonoCelular">Tel&eacute;fono celular</label>
                             <input type="text" id="txt_telefonoCelular" name="txt_telefonoCelular" style="width:100px;"/>
                         </div>
 
@@ -297,7 +297,7 @@
             <div class="accordion-group">
               <div id="ancla3" class="accordion-heading">
                 <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                 ACTIVIDADES DE CAPACITACIÓN
+                 ACTIVIDADES DE CAPACITACI&Oacute;N
                 </a>    
               </div>
               <div id="collapseThree" class="accordion-body collapse">
@@ -379,7 +379,7 @@
              <div class="accordion-group">
               <div id="ancla5" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-                  EVENTOS ACADEMICOS
+                  EVENTOS ACAD&Eacute;MICOS
                 </a>
               </div>
               <div id="collapseFive" class="accordion-body collapse">
@@ -551,14 +551,47 @@
             <div class="accordion-group">
               <div id="ancla9" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">
-                  EXPERIENCIAS LABORALES
+                  EXPERIENCIA LABORAL
                 </a>
               </div>
               <div id="collapseNine" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go9" rel="leanModalConcursar" data-url="ExperienciasLaborales.htm" class="link" name="form_experienciasLaborales"  href="#un_div_modal">Cargar experiencias laborales</a></legend>
-                    <p>No tiene experiencias cargadas</p>      
+                    <legend><a id="go9" rel="leanModalConcursar" data-url="ExperienciasLaborales.htm" class="link" name="form_experienciasLaborales"  href="#un_div_modal">Cargar experiencia laboral</a></legend>
+                    <p>No tiene experiencia laboral cargada</p>  
+                                        
+                        <table id="tabla_experiencia_laboral" class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Puesto</th>
+                              <th>Personal a cargo</th>
+                              <th>Fecha Inicio</th>
+                              <th>Fecha Fin</th>
+                              <th>Motivo de Desvinculaci&oacute;n </th>
+                              <th>Empleador</th>
+                              <th>Tipo Empresa</th>
+                              <th>Sector</th>
+                              <th>Localidad</th>
+                              <th>Pa&iacute;s</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Analista Programador</td>
+                              <td>3</td>
+                              <td>01/05/2008</td>
+                              <td>01/09/2009</td>
+                              <td>Cambio laboral</td>
+                              <td>SAP Argentina S.A.</td>
+                              <td>Privada</td>
+                              <td>Inform&aacute;tica</td>
+                              <td>CABA</td>
+                              <td>Argentina</td>
+                            </tr>
+                          </tbody>
+                     </table>            
+                    
+                        
                   </fieldset>
                 </div>
               </div>
@@ -583,14 +616,14 @@
             <div class="accordion-group">
               <div id="ancla10" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">
-                  COMPETENCIAS INFORMATICAS
+                  COMPETENCIAS INFORM&Aacute;TICAS
                 </a>
               </div>
               <div id="collapseEleven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
                     <legend><a id="go11" rel="leanModalConcursar" data-url="CompetenciasInformaticas.htm" class="link" name="form_competenciasInformaticas"  href="#un_div_modal">Cargar competencias informáticas</a></legend>
-                     <p>No tiene compentencias informaticas cargadas</p>  
+                     <p>No tiene competencias inform&aacute;ticas cargadas</p>  
                   </fieldset>
                 </div>
               </div>
