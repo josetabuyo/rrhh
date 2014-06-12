@@ -122,9 +122,6 @@
 
     },
     eliminar: function (estudio_a_eliminar, alModificar) {
-        //var itemId = estudio_a_eliminar.Id;// $(this).closest('tr').find('.id').text();
-        //contactList.remove('id', itemId);
-        //var estudio_a_borrar = PlanillaCvEstudios.buscarObjetoPorId(estudio_a_eliminar);
         // confirm dialog
         alertify.confirm("Está seguro que desea eliminar el antecedente", function (e) {
             if (e) {

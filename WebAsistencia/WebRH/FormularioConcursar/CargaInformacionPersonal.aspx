@@ -72,7 +72,7 @@
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">INFORMACION PERSONAL</a>
               </div>
               <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
-                <div class="accordion-inner fondo_form">
+                <div id="contenedor_datosPersonales" class="accordion-inner fondo_form">
                     <fieldset style=" width:100%; min-width:800px;" >
                       <p><em>*</em> Campos Obligatorios</p>
                       <p style="text-transform:uppercase; font-weight:bold;">I.- Editar información personal</p>
@@ -227,7 +227,7 @@
                             <input type="text" id="txt_email" name="txt_email" style="width:100px"/>
                        </div>
                       </fieldset>
-                      <input type="button" style="text-align: center;" class="btn" onclick="javascript:GuardarDatosPersonales()"  value="Guardar"/>
+                      <input type="button" style="text-align: center;" class="btn" id="btn_guardar_datosPersonales"  value="Guardar"/>
                 </div>
                 
               </div>
@@ -609,6 +609,7 @@
 </body>
 <script type="text/javascript" src="Postular.js" ></script>
 <script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
+<script type="text/javascript" src="CvDatosPersonales.js" ></script>
     <%= Referencias.Javascript("../") %>
        
 
@@ -660,7 +661,9 @@
             $("#apellido").val(curriculumDTO.DatosPersonales.Apellido);
         };
 
-        CvDatosPersonales.completarDatos($('#curriculum').val());
+        var curriculum = JSON.parse($('#curriculum').val());
+        
+        CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
         AntecedentesAcademicos.armarGrilla($('#cvEstudios').val());
 
         $('a[rel*=leanModalConcursar]').click(function () {

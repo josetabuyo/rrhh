@@ -41,8 +41,25 @@ namespace General.Repositorios
         #region GETS Mockeados
         public CurriculumVitae GetCV(int documento)
         {
+            var curriculum = new CurriculumVitae() 
+                            {
+                                //Id = 1,
+                                DatosPersonales = this.GetCvDatosPersonales(documento),// get.DatosPersonales,
+                                CvDocencias = this.GetCvDocencia(documento),// curriculum.CvDocencias,
+                                CvEstudios = this.GetCvEstudios(documento),// curriculum.CvEstudios,
+                                CvEventosAcademicos = this.GetCvEventoAcademico(documento),// curriculum.CvEventosAcademicos,
+                                CvCompetenciasInformaticas = this.GetCvCompetenciasInformaticas(documento),// curriculum.CvCompetenciasInformaticas,
+                                CvExperienciaLaboral = this.GetCvExperienciaLaboral(documento),// curriculum.CvExperienciaLaboral,
+                                CvIdiomas = this.GetCvIdiomas(documento),// curriculum.CvIdiomas,
+                                CvInstitucionesAcademicas = this.GetCvInstitucionesAcademicas(documento),// curriculum.CvInstitucionesAcademicas,
+                                CvMatricula = this.GetCvMatricula(documento),// curriculum.CvMatricula,
+                                CvPublicaciones = this.GetCvPublicaciones(documento),// curriculum.CvPublicaciones,
+                                CvCertificadosDeCapacitacion = this.GetCvCertificadoDeCapacitacion(documento)// curriculum.CvCertificadosDeCapacitacion
 
-            return this.lista_cv.Find(cvs => cvs.DatosPersonales.Dni.Equals(documento));
+                            };
+
+            return curriculum; 
+                //this.lista_cv.Find(cvs => cvs.DatosPersonales.Dni.Equals(documento));
         }
 
        
@@ -80,7 +97,7 @@ namespace General.Repositorios
         public CvDatosPersonales GetCvDatosPersonales(int documento)
         {
            var domicilio = new CvDomicilio("Pedro Morán", 1234, 7, "A", "Capital Federal", 1419, "CABA");
-           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23), "D.N.I", domicilio);
+           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23), "D.N.I", domicilio,domicilio);
            return datos_personales;
         }
 

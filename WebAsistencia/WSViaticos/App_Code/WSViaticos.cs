@@ -2354,31 +2354,31 @@ public class WSViaticos : System.Web.Services.WebService
     #region CV
 
     [WebMethod]
-    public CurriculumDto GetCurriculumDTO()
+    public CurriculumVitae GetCurriculum(int documento)
     {
-        var curriculum_dto = new CurriculumDto();
-        CurriculumVitae curriculum = RepoCurriculum().GetCV(31046911);
+        //var curriculum_dto = new CurriculumVitae();
+        CurriculumVitae curriculum = RepoCurriculum().GetCV(documento);
        
         //foreach (var o in curriculum)
         //{
-        curriculum_dto = new CurriculumDto() //.Add(new CurriculumDto()
-                             {
-                                 //Id = 1,
-                                 DatosPersonales = curriculum.DatosPersonales,
-                                 CvDocencias = curriculum.CvDocencias,
-                                 CvEstudios = curriculum.CvEstudios,
-                                 CvEventosAcademicos = curriculum.CvEventosAcademicos,
-                                 CvCompetenciasInformaticas = curriculum.CvCompetenciasInformaticas,
-                                 CvExperienciaLaboral = curriculum.CvExperienciaLaboral,
-                                 CvIdiomas = curriculum.CvIdiomas,
-                                 CvInstitucionesAcademicas = curriculum.CvInstitucionesAcademicas,
-                                 CvMatricula = curriculum.CvMatricula,
-                                 CvPublicaciones = curriculum.CvPublicaciones,
-                                 CvCertificadosDeCapacitacion = curriculum.CvCertificadosDeCapacitacion
+        //curriculum_dto = new CurriculumVitae() //.Add(new CurriculumDto()
+        //                     {
+        //                         //Id = 1,
+        //                         DatosPersonales = curriculum.DatosPersonales,
+        //                         CvDocencias = curriculum.CvDocencias,
+        //                         CvEstudios = curriculum.CvEstudios,
+        //                         CvEventosAcademicos = curriculum.CvEventosAcademicos,
+        //                         CvCompetenciasInformaticas = curriculum.CvCompetenciasInformaticas,
+        //                         CvExperienciaLaboral = curriculum.CvExperienciaLaboral,
+        //                         CvIdiomas = curriculum.CvIdiomas,
+        //                         CvInstitucionesAcademicas = curriculum.CvInstitucionesAcademicas,
+        //                         CvMatricula = curriculum.CvMatricula,
+        //                         CvPublicaciones = curriculum.CvPublicaciones,
+        //                         CvCertificadosDeCapacitacion = curriculum.CvCertificadosDeCapacitacion
 
-                             };
+        //                     };
 
-        return curriculum_dto;
+        return curriculum;
     }
 
     [WebMethod]

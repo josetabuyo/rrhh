@@ -19,8 +19,10 @@ public partial class FormularioConcursar_Pantalla1 : System.Web.UI.Page
         {
             //CargarCvEstudios();
             var estudios = JsonConvert.SerializeObject(Servicio().GetCvEstudios(documento));
+            var curriculum = JsonConvert.SerializeObject(Servicio().GetCurriculum(documento));
 
             this.cvEstudios.Value = estudios;
+            this.curriculum.Value = curriculum;
         }
 
     }
