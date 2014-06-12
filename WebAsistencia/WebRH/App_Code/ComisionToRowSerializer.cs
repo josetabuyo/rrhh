@@ -81,8 +81,8 @@ public class ComisionToRowSerializer : EntityToRowConverter<ComisionDeServicio>
     private string MostrarDiasFaltantes(int dias)
     {
         var div="";
-        if (dias < 0) div = "<div style='background-color:red; color:white; width:100%; height: 28px;text-align: center; padding-top: 8px;'>" + "vencido" + "</div>";
-        if (dias >= 0 && dias <= 5) div = "<div style='background-color:yellow; color:white; width:100%; height: 28px;text-align: center; padding-top: 8px;'>" + dias.ToString() + "</div>";
+        if (dias < 0) div = "<div style='background-color:red; color:black; width:100%; height: 28px;text-align: center; padding-top: 8px;'>" + "vencido" + "</div>";
+        if (dias >= 0 && dias <= 5) div = "<div style='background-color:yellow; color:black; width:100%; height: 28px;text-align: center; padding-top: 8px;'>" + dias.ToString() + "</div>";
         if (dias > 5) div = "<div style='background-color:green; width:100%; color:white; height: 28px;text-align: center; padding-top: 8px;'>" + dias.ToString() + "</div>";
         return div;
 

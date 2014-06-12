@@ -173,7 +173,13 @@ public partial class FCargaComisionDeServicio : System.Web.UI.Page
         /*AZA Validación de fechas superpuestas en estadías*/
         if (ValidarFechasEstadiaSonSuperpuestas())
         {
-            this.labelGuardado.Text = "Ya ingresó una estadía entre esas fechas.";
+
+            string mensaje = "Ya ingresó una estadía entre esas fechas.";
+            ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:mostrarMensaje('" + mensaje + "');</script>");
+
+
+
+           // this.labelGuardado.Text = "Ya ingresó una estadía entre esas fechas.";
             this.ControlGrillaEstadias.MostrarTablaDeEstadias((ComisionDeServicio)Session[ConstantesDeSesion.VIATICO_EN_EDICION]);
             this.ControlEstadia.LimpiarControles();
             // Session.Contents.Remove("");
@@ -237,7 +243,7 @@ public partial class FCargaComisionDeServicio : System.Web.UI.Page
 
         if (menor_a_72_horas) {
 
-            string mensaje = "Se está solicitando un Viático con un lapso menor a 72 horas hábiles";
+            string mensaje = "Viático pedido con un lapso menor a 72 horas hábiles.";
             ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:mostrarMensaje('" + mensaje + "');</script>");
 
         };
@@ -362,7 +368,7 @@ public partial class FCargaComisionDeServicio : System.Web.UI.Page
         if (menor_a_72_horas)
         {
 
-            string mensaje = "Se está solicitando un Viático con un lapso menor a 72 horas hábiles";
+            string mensaje = "Viático pedido con un lapso menor a 72 horas hábiles.";
             ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:mostrarMensaje('" + mensaje + "');</script>");
 
         };
@@ -377,8 +383,17 @@ public partial class FCargaComisionDeServicio : System.Web.UI.Page
         var comision = (ComisionDeServicio)Session[ConstantesDeSesion.VIATICO_EN_EDICION];
         if (estadias().Count == 0)
         {
-            this.labelGuardado.Text = "Debe especificar la estadía.";
+            //this.labelGuardado.Text = "Debe especificar la estadía.";
+
+
+            string mensaje = "Debe especificar la estadía.";
+            ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:mostrarMensaje('" + mensaje + "');</script>");
+
+
             return;
+
+
+
         }
 
         comision.AreaCreadora = (Area)Session[ConstantesDeSesion.AREA_ACTUAL];
@@ -403,7 +418,7 @@ public partial class FCargaComisionDeServicio : System.Web.UI.Page
 
             if (!ws.PuedeGuardarseComision(comision))
             {
-                string mensaje = "Ya existen registradas estadías para esta persona en esas fechas.";
+                string mensaje = "Ya existen registradas estadías para esta persona en ese rango de fechas.";
                 ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:mostrarMensaje('" + mensaje + "');</script>");
 
                 this.ControlGrillaPasajes.MostrarTablaDePasajes((ComisionDeServicio)Session[ConstantesDeSesion.VIATICO_EN_EDICION]);
@@ -421,12 +436,23 @@ public partial class FCargaComisionDeServicio : System.Web.UI.Page
             //limpio la comision de la sesion
             LimpiarComisionEnSession();
 
-            this.labelGuardado.Text = "Estadía guardada correctamente";
+            //this.labelGuardado.Text = "Estadía guardada correctamente";
+
+
+            string mensaje2 = "Estadía guardada correctamente";
+            ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:mostrarMensaje('" + mensaje2 + "');</script>");
+
+
         }
         catch (Exception)
         {
             LimpiarComisionEnSession();
-            this.labelGuardado.Text = "No cargó ninguna estadía";
+            //this.labelGuardado.Text = "No cargó ninguna estadía";
+
+            string mensaje = "No cargó ninguna estadía";
+            ClientScript.RegisterStartupScript(this.GetType(), "myScript", "<script>javascript:mostrarMensaje('" + mensaje + "');</script>");
+
+
         }
     }
 

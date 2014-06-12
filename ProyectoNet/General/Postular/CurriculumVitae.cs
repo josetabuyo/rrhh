@@ -47,6 +47,8 @@ namespace General
             this._cvCertificadosDeCapacitacion = new List<CvCertificadoDeCapacitacion>();
         }
 
+        public CurriculumVitae() { }
+
         public void AgregarEstudio(CvEstudios cvEstudio)
         {
             this._cvEstudios.Add(cvEstudio);

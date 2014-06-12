@@ -17,7 +17,8 @@ namespace General
         protected string _nacionalidad;
         protected DateTime _fechaNacimiento;
         protected string _tipoDocumento;
-        protected CvDomicilio _domicilio;
+        protected CvDomicilio _domicilioPersonal;
+        protected CvDomicilio _domicilioLegal;
 
         public int Dni { get { return _dni; } set { _dni = value; } }
         public string Nombre { get { return _nombre; } set { _nombre = value; } }
@@ -29,9 +30,10 @@ namespace General
         public string Nacionalidad { get { return _nacionalidad; } set { _nacionalidad = value; } }
         public DateTime FechaNacimiento { get { return _fechaNacimiento; } set { _fechaNacimiento = value; } }
         public string TipoDocumento { get { return _tipoDocumento; } set { _tipoDocumento = value; } }
-        public CvDomicilio Domicilio { get { return _domicilio; } set { _domicilio = value; } }
+        public CvDomicilio DomicilioPersonal { get { return _domicilioPersonal; } set { _domicilioPersonal = value; } }
+        public CvDomicilio DomicilioLegal { get { return _domicilioLegal; } set { _domicilioLegal = value; } }
 
-        public CvDatosPersonales(int dni, string nombre, string apellido, string sexo, string estadoCivil, string cuil, string lugarNacimiento, string nacionalidad, DateTime fechaNacimiento, string tipoDocumento, CvDomicilio domicilio)
+        public CvDatosPersonales(int dni, string nombre, string apellido, string sexo, string estadoCivil, string cuil, string lugarNacimiento, string nacionalidad, DateTime fechaNacimiento, string tipoDocumento, CvDomicilio domicilio_personal, CvDomicilio domicilio_legal)
         {
             this._dni = dni;
             this._nombre = nombre;
@@ -43,8 +45,9 @@ namespace General
             this._nacionalidad = nacionalidad;
             this._fechaNacimiento = fechaNacimiento;
             this._tipoDocumento = tipoDocumento;
-            
-            this._domicilio = domicilio;
+
+            this._domicilioPersonal = domicilio_personal;
+            this._domicilioLegal = domicilio_legal;
         }
 
         public CvDatosPersonales()

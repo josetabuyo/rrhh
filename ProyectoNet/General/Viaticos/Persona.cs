@@ -17,6 +17,7 @@ namespace General
         private Area _Area;
         private PaseDeArea _PasePendiente;
         private Inasistencia _InasistenciaActual;
+        private List<Inasistencia> _Inasistencias;
         private TipoDeViatico _TipoDeViatico;
         private ModalidadDeContratacion _ModalidadDeContratacion;
         private string _Nivel;
@@ -36,6 +37,7 @@ namespace General
         public Area Area { get { return _Area; } set { _Area = value;  } }
         public PaseDeArea PasePendiente { get { return _PasePendiente; } set { _PasePendiente = value;  } }
         public Inasistencia InasistenciaActual { get { return _InasistenciaActual; } set { _InasistenciaActual = value;  } }
+        public List<Inasistencia> Inasistencias { get { return _Inasistencias; } set { _Inasistencias = value; } }
         public TipoDeViatico TipoDeViatico { get { return _TipoDeViatico; } set { _TipoDeViatico = value; } }
         public ModalidadDeContratacion ModalidadDeContratacion { get { return _ModalidadDeContratacion; } set { _ModalidadDeContratacion = value; } }
         public string Nivel { get { return _Nivel; } set { _Nivel = value;  } }
@@ -58,8 +60,31 @@ namespace General
             this._Apellido = apellido;
             this._Nombre = nombre;
             this._Area = area;
+            this._Inasistencias = new List<Inasistencia>();
         }
 
+        public Persona(int id, int documento, string nombre, string apellido, Area area, List<Inasistencia> inasistencias)
+        {
+            this._id = id;
+            this._Documento = documento;
+            this._Apellido = apellido;
+            this._Nombre = nombre;
+            this._Area = area;
+            this._Inasistencias = inasistencias;
+        }
+
+        //public List<Inasistencia> Inasistencias()
+        //{
+        //    return _Inasistencias;
+        //}
+
+        public void AgregarInasistencia(Inasistencia inasistencia)
+        {
+            if(_Inasistencias == null)
+            {_Inasistencias = new List<Inasistencia>();}
+            if (!_Inasistencias.Contains(inasistencia))
+                _Inasistencias.Add(inasistencia);
+        }  
 
         public override bool Equals(object obj)
         {
@@ -72,7 +97,6 @@ namespace General
         public override int GetHashCode()
         {
             return this.Documento.GetHashCode();
-        }
-       
+        }        
     }
 }

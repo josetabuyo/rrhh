@@ -183,7 +183,13 @@ public class WSViaticos : System.Web.Services.WebService
         GrupoConceptosDeLicencia grupo = new GrupoConceptosDeLicencia();
         RepositorioConceptosDeLicencia repositorio = new RepositorioConceptosDeLicencia();
         List<GrupoConceptosDeLicencia> grupos = repositorio.GetGruposConceptosLicencia();
+       
+        
+
         GrupoConceptosDeLicencia[] returnGrupos = new GrupoConceptosDeLicencia[grupos.Count];
+
+
+
 
         for (int i = 0; i < grupos.Count; i++)
         {
@@ -223,6 +229,22 @@ public class WSViaticos : System.Web.Services.WebService
         return returnPersonas;
     }
 
+
+    [WebMethod]
+    public Persona[] GetAusentesEntreFechasPara(Persona[] personas, DateTime desde, DateTime hasta) 
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.GetAusentesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
+    }
+
+    [WebMethod]
+    public Persona[] GetPasesEntreFechasPara(Persona[] personas, DateTime desde, DateTime hasta)
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.GetPasesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
+    }
 
     #endregion
 
@@ -992,6 +1014,13 @@ public class WSViaticos : System.Web.Services.WebService
         {
             personas.ForEach(delegate(Persona persona)
             {
+                Inasistencia inasistenciadto = new Inasistencia();
+                inasistenciadto.Aprobada = persona.Inasistencias.First().Aprobada;
+                inasistenciadto.Descripcion = persona.Inasistencias.First().Descripcion;
+                inasistenciadto.Desde = persona.Inasistencias.First().Desde;
+                inasistenciadto.Hasta = persona.Inasistencias.First().Hasta;
+                inasistenciadto.Estado = persona.Inasistencias.First().Estado;
+               
                 persoas_dto.Add(new
                 {
                     label = persona.Apellido + ", " + persona.Nombre + " (DNI: " + persona.Documento + ")",
@@ -999,7 +1028,8 @@ public class WSViaticos : System.Web.Services.WebService
                     nombre = persona.Apellido + ", " + persona.Nombre,
                     apellido = persona.Apellido,
                     documento = persona.Documento,
-                    area = new AreaDTO(persona.Area)
+                    area = new AreaDTO(persona.Area),
+                    inasistencia = inasistenciadto
                 });
             });
         }
@@ -1785,8 +1815,6 @@ public class WSViaticos : System.Web.Services.WebService
         }
     }
 
-
-
     [WebMethod]
     public ItemDeMenu[] ItemsDelMenu(Usuario usuario, string menu)
     {
@@ -2141,51 +2169,6 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-    #endregion
-
-    #region modi
-
-    [WebMethod]
-    public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio)
-    {
-        return servicioDeDigitalizacionDeLegajos().BuscarLegajos(criterio);
-    }
-
-    [WebMethod]
-    public ImagenModi GetImagenPorId(int id_imagen)
-    {
-        return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
-    }
-
-    [WebMethod]
-    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
-    {
-        return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);
-    }
-
-    [WebMethod]
-    public void AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
-    {
-        servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
-    }
-
-    [WebMethod]
-    public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
-    {
-        servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
-    }
-
-    [WebMethod]
-    public void DesAsignarImagen(int id_imagen, Usuario usuario)
-    {        
-        servicioDeDigitalizacionDeLegajos().DesAsignarImagen(id_imagen, usuario);
-    }
-
-    private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
-    {
-        return new ServicioDeDigitalizacionDeLegajos(Conexion());
-    }
-
 #endregion
 
     #region mau
@@ -2263,15 +2246,12 @@ public class WSViaticos : System.Web.Services.WebService
         return funcionalidades;
     }
 
-
     [WebMethod]
     public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
     {
         return Autorizador().ElUsuarioTienePermisosPara(id_usuario, id_funcionalidad);
         
     }
-
-    
 
     [WebMethod]
     public Funcionalidad[] FuncionalidadesPara(int id_usuario)
@@ -2349,61 +2329,104 @@ public class WSViaticos : System.Web.Services.WebService
         return Autorizador().GetMenuPara(nombre_menu, usuario);
     }
 
-    #endregion   
+    [WebMethod]
+    public void RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
+    {
+        Autorizador().RegistrarNuevoUsuario(aspirante);
+    }
+
+    private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
+    {
+        return new ServicioDeDigitalizacionDeLegajos(Conexion());
+    }
+    #endregion
+
+    #region modi
+
+    [WebMethod]
+    public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio)
+    {
+        return servicioDeDigitalizacionDeLegajos().BuscarLegajos(criterio);
+    }
+
+    [WebMethod]
+    public ImagenModi GetImagenPorId(int id_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
+    }
+
+    [WebMethod]
+    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
+    {
+        return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);
+    }
+
+    [WebMethod]
+    public void AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
+    {
+        servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
+    }
+
+    [WebMethod]
+    public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
+    {
+        servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
+    }
+
+    [WebMethod]
+    public void DesAsignarImagen(int id_imagen, Usuario usuario)
+    {        
+        servicioDeDigitalizacionDeLegajos().DesAsignarImagen(id_imagen, usuario);
+    }
+
+    [WebMethod]
+    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
+    }
+
+    [WebMethod]
+    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
+    }    
+#endregion
 
     #region CV
 
     [WebMethod]
-    public CurriculumDto GetCurriculumDTO()
+    public CurriculumVitae GetCurriculum(int documento)
     {
-        var curriculum_dto = new CurriculumDto();
-        CurriculumVitae curriculum = RepoCurriculum().GetCV(31046911);
+        //var curriculum_dto = new CurriculumVitae();
+        CurriculumVitae curriculum = RepoCurriculum().GetCV(documento);
        
         //foreach (var o in curriculum)
         //{
-        curriculum_dto = new CurriculumDto() //.Add(new CurriculumDto()
-                             {
-                                 //Id = 1,
-                                 DatosPersonales = curriculum.DatosPersonales,
-                                 CvDocencias = curriculum.CvDocencias,
-                                 CvEstudios = curriculum.CvEstudios,
-                                 CvEventosAcademicos = curriculum.CvEventosAcademicos,
-                                 CvCompetenciasInformaticas = curriculum.CvCompetenciasInformaticas,
-                                 CvExperienciaLaboral = curriculum.CvExperienciaLaboral,
-                                 CvIdiomas = curriculum.CvIdiomas,
-                                 CvInstitucionesAcademicas = curriculum.CvInstitucionesAcademicas,
-                                 CvMatricula = curriculum.CvMatricula,
-                                 CvPublicaciones = curriculum.CvPublicaciones,
-                                 CvCertificadosDeCapacitacion = curriculum.CvCertificadosDeCapacitacion
+        //curriculum_dto = new CurriculumVitae() //.Add(new CurriculumDto()
+        //                     {
+        //                         //Id = 1,
+        //                         DatosPersonales = curriculum.DatosPersonales,
+        //                         CvDocencias = curriculum.CvDocencias,
+        //                         CvEstudios = curriculum.CvEstudios,
+        //                         CvEventosAcademicos = curriculum.CvEventosAcademicos,
+        //                         CvCompetenciasInformaticas = curriculum.CvCompetenciasInformaticas,
+        //                         CvExperienciaLaboral = curriculum.CvExperienciaLaboral,
+        //                         CvIdiomas = curriculum.CvIdiomas,
+        //                         CvInstitucionesAcademicas = curriculum.CvInstitucionesAcademicas,
+        //                         CvMatricula = curriculum.CvMatricula,
+        //                         CvPublicaciones = curriculum.CvPublicaciones,
+        //                         CvCertificadosDeCapacitacion = curriculum.CvCertificadosDeCapacitacion
 
-                             };
+        //                     };
 
-        return curriculum_dto;
+        return curriculum;
     }
 
     [WebMethod]
     public CvEstudios[] GetCvEstudios(int documento)
     {
-        var estudios_dto = new List<CvEstudios>();
         var estudios = RepoCurriculum().GetCvEstudios(documento);
-
-        //foreach (var e in estudios)
-        //{
-        //    observaciones_dto.Add(new ObservacionDTO()
-        //    {
-        //        id = o.Id,
-        //        FechaCarga = o.FechaCarga.ToShortDateString(),
-        //        Relacion = o.Relacion,
-        //        PersonaCarga = o.PersonaCarga,
-        //        Pertenece = o.Pertenece,
-        //        Asunto = o.Asunto,
-        //        ReferenteMDS = o.ReferenteMDS,
-        //        Seguimiento = o.Seguimiento,
-        //        Resultado = o.Resultado,
-        //        FechaResultado = o.FechaResultado.ToShortDateString(),
-        //        ReferenteRespuestaMDS = o.ReferenteRespuestaMDS
-        //    });
-        //}
+        
         return estudios.ToArray();
     }
 
@@ -2496,17 +2519,21 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO_nueva, CvDatosPersonales datosPersonalesDTO_original, Usuario usuario)
     {
-
-        //var curriculum_a_guardar = new CurriculumVitae(datosPersonalesDTO_nueva);
-
-        RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO_nueva, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
-
+        RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO_nueva, usuario);
     }
 
     [WebMethod]
-    public void GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, CvEstudios antecedentesAcademicos_original, Usuario usuario)
+    public CvEstudios EliminarCvAntecedentesAcademicos(CvEstudios antecedente_a_borrar, Usuario usuario)
     {
-        RepoCurriculum().GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+        return RepoCurriculum().EliminarCVAntecedentesAcademicos(antecedente_a_borrar, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+    }
+
+    
+
+    [WebMethod]
+    public CvEstudios[] GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, CvEstudios antecedentesAcademicos_original, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario).ToArray();
     }
 
     [WebMethod]
@@ -2545,6 +2572,13 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepoCurriculum().GuardarCvInstituciones(instituciones_nuevas, usuario);
     }
+
+    [WebMethod]
+    public void GuardarCvExperiencias(CvExperienciaLaboral experiencias_nuevas, CvExperienciaLaboral experiencias_originales, Usuario usuario)
+    {
+        RepoCurriculum().GuardarCvExperiencias(experiencias_nuevas, usuario);
+    }
+
 
     #endregion
 
