@@ -30,6 +30,20 @@ namespace General.Repositorios
         #region GETS Mockeados
         public CurriculumVitae GetCV(int documento)
         {
+            var parametros = new Dictionary<string, object>();
+            
+            parametros.Add("@NroDocumento", documento);
+            var tablaCVs = conexion_bd.Ejecutar("dbo.CV_GetCurriculum", parametros);
+
+
+            CurriculumVitae cv;
+
+            tablaCVs.Rows.ForEach(row => 
+                cv = new CurriculumVitae(
+                new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetString("Sexo"), row.GetString("EstadoCivil"),
+                    row.GetString("Cuil"), row.GetString("LugarNacimiento"), row.GetString("Nacionalidad"), row.GetDateTime("FechaNacimiento"), "DNI",
+                    new CvDomicilio(row.GetString("DomPers_Calle"), row.GetInt("DomPers_Numero"), row.GetInt("DomPers_Piso"), row.GetString("DomPers_Depto"),
+                        row.GetString("DomPers_Localidad"), row.GetInt("DomPers_CodigoPostal"), row.GetString("DomPers_Provincia")))));
 
             return this.lista_cv.Find(cvs => cvs.DatosPersonales.Dni.Equals(documento));
         }
@@ -164,8 +178,7 @@ namespace General.Repositorios
                                };
 
             return publicaciones;
-        } 
-            
+        }
 
 
         # endregion
