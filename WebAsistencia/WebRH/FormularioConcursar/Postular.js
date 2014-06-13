@@ -1,55 +1,34 @@
-﻿
+﻿// Botón para Ir Arriba
 
-//function GuardarDatosPersonales() {
-//    
-//    var datosPersonales = {};
-//    var domicilioPersonal = {};
-//    var domicilioLegal = {};
-//    datosPersonales.Nombre = $("#nombre").val();
-//    datosPersonales.Apellido = $("#apellido").val();
-//    datosPersonales.Sexo = $("#cmb_sexo").val();
-//    //datosPersonales.NivelEducativo = $("#cmb_nivel_educativo").val();
-//    datosPersonales.EstadoCivil = $("#cmb_estadoCivil").val();
-//    datosPersonales.Cuil = $("#cuil").val();
-//    datosPersonales.LugarDeNacimiento = $("#cmb_lugar_nacimiento").val();
-//    datosPersonales.FechaNacimiento = ParsearFecha($("#txt_fechaNac").val());
-//    datosPersonales.Nacionalidad = $("#cmb_nacionalidad").val();
-//    datosPersonales.TipoDocumento = $("#cmb_tipoDocumento").val();
-//    datosPersonales.Dni = parseInt($("#txt_documento").val());
+jQuery(document).ready(function () {
+    jQuery("#IrArriba").hide();
+    jQuery(function () {
+        jQuery(window).scroll(function () {
+            if (jQuery(this).scrollTop() > 200) {
+                jQuery('#IrArriba').fadeIn();
+            } else {
+                jQuery('#IrArriba').fadeOut();
+            }
+        });
+        jQuery('#IrArriba a').click(function () {
+            jQuery('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
 
-//    domicilioPersonal.Calle = $("#txt_calle1").val();
-//    domicilioPersonal.Numero = parseInt($("#txt_numero1").val());
-//    domicilioPersonal.Piso = parseInt($("#txt_piso1").val());
-//    domicilioPersonal.Depto = $("#txt_dto1").val();
-//    domicilioPersonal.Localidad = $("#txt_localidad1").val();
-//    domicilioPersonal.Cp = parseInt($("#txt_cp1").val());
-//    domicilioPersonal.Provincia = $("#cmb_provincia1").val();
+});
 
-//    domicilioLegal
 
-//    datosPersonales.DomicilioPersonal = domicilio;
+//DatePicker del formulario de DatosPersonales
+$('#txt_fechaNac').datepicker({
+    dateFormat: 'dd/mm/yy',
+    onClose: function () {
 
-//    var data_post = JSON.stringify({
-//        "datosPersonales_nuevos": datosPersonales,
-//        "datosPersonales_originales": datosPersonales
-//    });
-//    $.ajax({
-//        url: "../AjaxWS.asmx/GuardarCVDatosPersonales",
-//        type: "POST",
-//        data: data_post,
-//        dataType: "json",
-//        contentType: "application/json; charset=utf-8",
-//        success: function (respuestaJson) {
-//            var respuesta = JSON.parse(respuestaJson.d);
-//            if (respuesta.length == 0)
-//                
-//                alertify.alert("Los datos fueron guardados correctamente");
-//        },
-//        error: function (XMLHttpRequest, textStatus, errorThrown) {
-//            alertify.alert(errorThrown);
-//        }
-//    });
-//};
+    }
+});
+
 
 var ParsearFecha = function (fecha) {
     var day = parseInt(fecha.split("/")[0]);
@@ -69,6 +48,20 @@ function AgregarAntecedentesAcademico() {
     });
 
 };
+
+function AgregarActividadesDocentes() {
+
+    var antecedentes = {};
+
+    ActividadesDocentes.mostrar(antecedentes, function (actividades_docentes) {
+        PlanillaCvActividadesDocentes.BorrarContenido();
+        PlanillaCvActividadesDocentes.CargarObjetos(actividades_docentes);
+    });
+
+};
+
+
+
 
 
 var AgregarCapacitacion = function () {
@@ -106,46 +99,46 @@ var AgregarCapacitacion = function () {
     });
 }
 
+//SOY BEL, lo Borré para reemplazarlo por como estaba Actividsdes academicas
+//var AgregarDocencia = function () {
 
-var AgregarDocencia = function () {
+//    var docencia = {};
+//    docencia.Asignatura = $("#actividad_docente_asignatura").val();
+//    docencia.NivelEducativo = $("#actividad_docente_nivel_educativo").val();
+//    docencia.TipoActividad = $("#actividad_docente_tipo_actividad").val();
+//    docencia.CategoriaDocente = $("#actividad_docente_categoria").val();
+//    docencia.CaracterDesignacion = $("#actividad_docente_caracter_designacion").val();
+//    docencia.DedicacionDocente = $("#actividad_docente_dedicacion").val();
+//    docencia.CargaHoraria = $("#actividad_docente_carga_horaria").val();
+//    docencia.FechaInicio = ParsearFecha($("#actividad_docente_fecha_inicio").val());
+//    docencia.FechaFinalizacion = ParsearFecha($("#actividad_docente_fecha_fin").val());
+//    docencia.Establecimiento = $("#actividad_docente_establecimiento").val();
+//    docencia.Localidad = $("#actividad_docente_localidad").val();
+//    docencia.Pais = $("#actividad_docente_pais").val();
 
-    var docencia = {};
-    docencia.Asignatura = $("#actividad_docente_asignatura").val();
-    docencia.NivelEducativo = $("#actividad_docente_nivel_educativo").val();
-    docencia.TipoActividad = $("#actividad_docente_tipo_actividad").val();
-    docencia.CategoriaDocente = $("#actividad_docente_categoria").val();
-    docencia.CaracterDesignacion = $("#actividad_docente_caracter_designacion").val();
-    docencia.DedicacionDocente = $("#actividad_docente_dedicacion").val();
-    docencia.CargaHoraria = $("#actividad_docente_carga_horaria").val();
-    docencia.FechaInicio = ParsearFecha($("#actividad_docente_fecha_inicio").val());
-    docencia.FechaFinalizacion = ParsearFecha($("#actividad_docente_fecha_fin").val());
-    docencia.Establecimiento = $("#actividad_docente_establecimiento").val();
-    docencia.Localidad = $("#actividad_docente_localidad").val();
-    docencia.Pais = $("#actividad_docente_pais").val();
+//    var data_post = JSON.stringify({
+//        "docencias_nuevas": docencia,
+//        "docencias_originales": docencia
+//    });
+//    $.ajax({
+//        url: "../AjaxWS.asmx/GuardarCvActividadesDocentes",
+//        type: "POST",
+//        data: data_post,
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        success: function (respuestaJson) {
+//            var respuesta = JSON.parse(respuestaJson.d);
+//            if (respuesta.length == 0)
+//                AgregarEnTabla($("#tabla_docentes"), docencia);
+//            alertify.alert("Los datos fueron guardados correctamente");
+//            $(".modal_close_concursar").click();
+//        },
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alertify.alert(errorThrown);
+//        }
+//    });
 
-    var data_post = JSON.stringify({
-        "docencias_nuevas": docencia,
-        "docencias_originales": docencia
-    });
-    $.ajax({
-        url: "../AjaxWS.asmx/GuardarCVDocencia",
-        type: "POST",
-        data: data_post,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            var respuesta = JSON.parse(respuestaJson.d);
-            if (respuesta.length == 0)
-                AgregarEnTabla($("#tabla_docentes"), docencia);
-            alertify.alert("Los datos fueron guardados correctamente");
-            $(".modal_close_concursar").click();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
-        }
-    });
-
-}
+//}
 
 var AgregarEventoAcademico = function () {
 

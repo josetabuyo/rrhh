@@ -201,7 +201,7 @@ nav
         height: auto; /*Junto a overflow: hidden; aplicará a nuestro elemento nav el mismo alto que el más alto de sus elementos hijos */ 
         margin: 0 auto; /* Centro el contenedor */
         overflow: hidden;
-        text-align: left;
+        /*text-align: left;*/
         width: 100%; /* Defino el ancho de mi página */
         vertical-align: middle;
        
@@ -260,6 +260,7 @@ nav
 .link
 {
     text-decoration:none !important;
+    cursor:pointer;
 }
 
 .grupo_campos

@@ -21,17 +21,18 @@
             //Bt agregar
             _this.add_antecedentesAcademicos = _this.ui.find("#add_antecedentesAcademicos");
             _this.add_antecedentesAcademicos.click(function () {
+                var estudio_nuevo = {};
                 //var estudio_modificado = $.extend(true, estudio_original);
-                estudio_original.Titulo = _this.txt_antecedentes_titulo.val();
-                estudio_original.Establecimiento = _this.txt_establecimiento.val();
-                estudio_original.Especialidad = _this.txt_antecedentes_especialidad.val();
-                estudio_original.FechaIngreso = _this.txt_antecedentes_ingreso.val();
-                estudio_original.FechaEgreso = _this.txt_antecedentes_egreso.val();
-                estudio_original.Localidad = _this.txt_antecedentes_localidad.val();
-                estudio_original.Pais = _this.cmb_antecedentes_pais.val();
+                estudio_nuevo.Titulo = _this.txt_antecedentes_titulo.val();
+                estudio_nuevo.Establecimiento = _this.txt_establecimiento.val();
+                estudio_nuevo.Especialidad = _this.txt_antecedentes_especialidad.val();
+                estudio_nuevo.FechaIngreso = _this.txt_antecedentes_ingreso.val();
+                estudio_nuevo.FechaEgreso = _this.txt_antecedentes_egreso.val();
+                estudio_nuevo.Localidad = _this.txt_antecedentes_localidad.val();
+                estudio_nuevo.Pais = _this.cmb_antecedentes_pais.val();
 
                 var data_post = JSON.stringify({
-                    "antecedentesAcademicos_nuevos": estudio_original,
+                    "antecedentesAcademicos_nuevos": estudio_nuevo,
                     "antecedentesAcademicos_originales": estudio_original
                 });
                 $.ajax({
@@ -42,9 +43,9 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (respuestaJson) {
                         var respuesta = JSON.parse(respuestaJson.d);
-                        alertify.alert("Los datos fueron guardados correctamente");
                         alModificar(respuesta);
                         $(".modal_close_concursar").click();
+                        alertify.success("Los datos fueron guardados correctamente");
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.alert(errorThrown);
@@ -52,15 +53,31 @@
                 });
             });
 
+            //Activar datePicker para el modal de AntecedentesAcademicos
+            $('#txt_capacitacion_fechaInicio').datepicker({
+                dateFormat: 'dd/mm/yy',
+                onClose: function () {
+
+                }
+            });
+            $('#txt_capacitacion_fechaFin').datepicker({
+                dateFormat: 'dd/mm/yy',
+                onClose: function () {
+
+                }
+            });
+
             var link_trucho = $("<a href='#un_div_modal'></a>");
             link_trucho.leanModal({ top: 300, closeButton: ".modal_close_concursar" });
             link_trucho.click();
+
+
         });
     },
     armarGrilla: function (estudios) {
         var _this = this;
 
-        var estudios = JSON.parse(estudios);
+        //var estudios = JSON.parse(estudios);
 
         contenedorPlanilla = $('#tabla_antecedentes');
 
@@ -80,13 +97,13 @@
             botonEditar.addClass('edit-item-btn');
             botonEditar.attr('src', '../Imagenes/edit.png');
             botonEditar.attr('style', 'padding-right:5px;');
-            botonEditar.attr('width', '35px');
-            botonEditar.attr('height', '35px');
+            botonEditar.attr('width', '25px');
+            botonEditar.attr('height', '25px');
 
             botonEditar.click(function () {
-                AntecedentesAcademicos.mostrar(un_estudio, function (estudio_modificado) {
+                AntecedentesAcademicos.mostrar(un_estudio, function (estudios_actualizados) {
                     PlanillaCvEstudios.BorrarContenido();
-                    PlanillaCvEstudios.CargarObjetos(estudios);
+                    PlanillaCvEstudios.CargarObjetos(estudios_actualizados);
                 });
             });
 
@@ -95,8 +112,8 @@
             var botonEliminar = $('<img>');
             botonEliminar.addClass('remove-item-btn');
             botonEliminar.attr('src', '../Imagenes/iconos_eliminar.png');
-            botonEliminar.attr('width', '35px');
-            botonEliminar.attr('height', '35px');
+            botonEliminar.attr('width', '25px');
+            botonEliminar.attr('height', '25px');
 
             botonEliminar.click(function () {
                 AntecedentesAcademicos.eliminar(un_estudio, function (estudio_eliminado) {
@@ -144,11 +161,12 @@
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.alert(errorThrown);
+                        alertify.error("No se pudo eliminar el antecedente");
                     }
                 });
             } else {
                 // user clicked "cancel"
-                alertify.error("No se puedo eliminar el antecedente");
+                
             }
         });
 

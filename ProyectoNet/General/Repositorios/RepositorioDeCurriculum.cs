@@ -13,7 +13,7 @@ namespace General.Repositorios
         protected CvDatosPersonales _cvDatosPersonales;
         protected List<CvEstudios> _cvAntecedentesAcademicos;
         protected CvCertificadoDeCapacitacion _cvCapacitacion;
-        protected CvDocencia _cvDocencia;
+        protected List<CvDocencia> _cvDocencia;
         protected CvEventoAcademico _cvEventoAcademico;
         protected CvPublicaciones _cvPublicacion;
         protected CvMatricula _cvMatricula;
@@ -26,16 +26,15 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
             this.lista_cv = new List<CurriculumVitae>();
             this._cvAntecedentesAcademicos = new List<CvEstudios>();
+            //this._cvDocencia = new List<CvDocencia>();
 
             //FC a borrar cuando traiga los datos de la base
             string fechaIngreso = new DateTime(2014, 12, 12).ToShortDateString();
-
             string fechaEgreso = new DateTime(2014, 12, 13).ToShortDateString();
-
             var un_estudio = new CvEstudios(1, "Contador", "UBA", "Te dije contador", fechaIngreso,
                                                   fechaEgreso, "CABA", "Argentina");
-
             this._cvAntecedentesAcademicos.Add(un_estudio);
+            
 
         }
 
@@ -96,8 +95,9 @@ namespace General.Repositorios
         public CvDatosPersonales GetCvDatosPersonales(int documento)
         {
            var domicilio = new CvDomicilio("Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, "CABA");
-           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23), "D.N.I", domicilio,domicilio);
-           return datos_personales;
+           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23).ToShortDateString(), "D.N.I", domicilio,domicilio);
+           //return datos_personales;
+           return this._cvDatosPersonales;
         }
 
 
@@ -210,6 +210,11 @@ namespace General.Repositorios
             return antecedentesAcademicos_a_borrar;
         }
 
+        public CvDocencia EliminarCvActividadesDocentes(CvDocencia actividades_docentes_a_borrar, Usuario usuario)
+        {
+            this._cvDocencia.Remove(actividades_docentes_a_borrar);
+            return actividades_docentes_a_borrar;
+        }
         
 
 
@@ -226,9 +231,10 @@ namespace General.Repositorios
             this._cvCapacitacion = capacidades_nuevo;
         }
 
-        public void GuardarCvDocencia(CvDocencia docencia_nuevo, Usuario usuario)
+        public List<CvDocencia> GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
         {
-            this._cvDocencia = docencia_nuevo;
+            this._cvDocencia.Add(docencia_nuevo);
+            return this._cvDocencia;
         }
 
         public void GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)
