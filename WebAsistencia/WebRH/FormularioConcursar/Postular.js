@@ -1,55 +1,34 @@
-﻿
+﻿// Botón para Ir Arriba
 
-//function GuardarDatosPersonales() {
-//    
-//    var datosPersonales = {};
-//    var domicilioPersonal = {};
-//    var domicilioLegal = {};
-//    datosPersonales.Nombre = $("#nombre").val();
-//    datosPersonales.Apellido = $("#apellido").val();
-//    datosPersonales.Sexo = $("#cmb_sexo").val();
-//    //datosPersonales.NivelEducativo = $("#cmb_nivel_educativo").val();
-//    datosPersonales.EstadoCivil = $("#cmb_estadoCivil").val();
-//    datosPersonales.Cuil = $("#cuil").val();
-//    datosPersonales.LugarDeNacimiento = $("#cmb_lugar_nacimiento").val();
-//    datosPersonales.FechaNacimiento = ParsearFecha($("#txt_fechaNac").val());
-//    datosPersonales.Nacionalidad = $("#cmb_nacionalidad").val();
-//    datosPersonales.TipoDocumento = $("#cmb_tipoDocumento").val();
-//    datosPersonales.Dni = parseInt($("#txt_documento").val());
+jQuery(document).ready(function () {
+    jQuery("#IrArriba").hide();
+    jQuery(function () {
+        jQuery(window).scroll(function () {
+            if (jQuery(this).scrollTop() > 200) {
+                jQuery('#IrArriba').fadeIn();
+            } else {
+                jQuery('#IrArriba').fadeOut();
+            }
+        });
+        jQuery('#IrArriba a').click(function () {
+            jQuery('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
 
-//    domicilioPersonal.Calle = $("#txt_calle1").val();
-//    domicilioPersonal.Numero = parseInt($("#txt_numero1").val());
-//    domicilioPersonal.Piso = parseInt($("#txt_piso1").val());
-//    domicilioPersonal.Depto = $("#txt_dto1").val();
-//    domicilioPersonal.Localidad = $("#txt_localidad1").val();
-//    domicilioPersonal.Cp = parseInt($("#txt_cp1").val());
-//    domicilioPersonal.Provincia = $("#cmb_provincia1").val();
+});
 
-//    domicilioLegal
 
-//    datosPersonales.DomicilioPersonal = domicilio;
+//DatePicker del formulario de DatosPersonales
+$('#txt_fechaNac').datepicker({
+    dateFormat: 'dd/mm/yy',
+    onClose: function () {
 
-//    var data_post = JSON.stringify({
-//        "datosPersonales_nuevos": datosPersonales,
-//        "datosPersonales_originales": datosPersonales
-//    });
-//    $.ajax({
-//        url: "../AjaxWS.asmx/GuardarCVDatosPersonales",
-//        type: "POST",
-//        data: data_post,
-//        dataType: "json",
-//        contentType: "application/json; charset=utf-8",
-//        success: function (respuestaJson) {
-//            var respuesta = JSON.parse(respuestaJson.d);
-//            if (respuesta.length == 0)
-//                
-//                alertify.alert("Los datos fueron guardados correctamente");
-//        },
-//        error: function (XMLHttpRequest, textStatus, errorThrown) {
-//            alertify.alert(errorThrown);
-//        }
-//    });
-//};
+    }
+});
+
 
 var ParsearFecha = function (fecha) {
     var day = parseInt(fecha.split("/")[0]);
