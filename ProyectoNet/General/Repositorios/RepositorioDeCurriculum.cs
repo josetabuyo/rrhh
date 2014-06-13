@@ -58,8 +58,8 @@ namespace General.Repositorios
                                 CvCertificadosDeCapacitacion = this.GetCvCertificadoDeCapacitacion(documento)// curriculum.CvCertificadosDeCapacitacion
 
                             };
-
-            return curriculum; 
+            return new CurriculumVitaeNulo();
+           // return curriculum; 
                 //this.lista_cv.Find(cvs => cvs.DatosPersonales.Dni.Equals(documento));
         }
 
@@ -98,7 +98,7 @@ namespace General.Repositorios
         public CvDatosPersonales GetCvDatosPersonales(int documento)
         {
            var domicilio = new CvDomicilio("Pedro Morán", 1234, 7, "A", "Capital Federal", 1419, "CABA");
-           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23), "D.N.I", domicilio,domicilio);
+           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23).ToShortDateString(), "D.N.I", domicilio,domicilio);
            return datos_personales;
         }
 
