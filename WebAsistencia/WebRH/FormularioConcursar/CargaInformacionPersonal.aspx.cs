@@ -13,13 +13,16 @@ public partial class FormularioConcursar_Pantalla1 : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        var documento = 21345678;
+        var documento = 29753914;
 
         if (!IsPostBack)
         {
             //CargarCvEstudios();
             var estudios = JsonConvert.SerializeObject(Servicio().GetCvEstudios(documento));
-            var curriculum = JsonConvert.SerializeObject(Servicio().GetCurriculum(documento));
+
+            var cv = Servicio().GetCurriculum(documento);
+
+            var curriculum = JsonConvert.SerializeObject(cv);
 
             this.cvEstudios.Value = estudios;
             this.curriculum.Value = curriculum;
