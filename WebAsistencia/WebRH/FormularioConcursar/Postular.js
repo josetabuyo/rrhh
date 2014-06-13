@@ -70,6 +70,20 @@ function AgregarAntecedentesAcademico() {
 
 };
 
+function AgregarActividadesDocentes() {
+
+    var antecedentes = {};
+
+    ActividadesDocentes.mostrar(antecedentes, function (actividades_docentes) {
+        PlanillaCvActividadesDocentes.BorrarContenido();
+        PlanillaCvActividadesDocentes.CargarObjetos(actividades_docentes);
+    });
+
+};
+
+
+
+
 
 var AgregarCapacitacion = function () {
 
@@ -106,46 +120,46 @@ var AgregarCapacitacion = function () {
     });
 }
 
+//SOY BEL, lo Borré para reemplazarlo por como estaba Actividsdes academicas
+//var AgregarDocencia = function () {
 
-var AgregarDocencia = function () {
+//    var docencia = {};
+//    docencia.Asignatura = $("#actividad_docente_asignatura").val();
+//    docencia.NivelEducativo = $("#actividad_docente_nivel_educativo").val();
+//    docencia.TipoActividad = $("#actividad_docente_tipo_actividad").val();
+//    docencia.CategoriaDocente = $("#actividad_docente_categoria").val();
+//    docencia.CaracterDesignacion = $("#actividad_docente_caracter_designacion").val();
+//    docencia.DedicacionDocente = $("#actividad_docente_dedicacion").val();
+//    docencia.CargaHoraria = $("#actividad_docente_carga_horaria").val();
+//    docencia.FechaInicio = ParsearFecha($("#actividad_docente_fecha_inicio").val());
+//    docencia.FechaFinalizacion = ParsearFecha($("#actividad_docente_fecha_fin").val());
+//    docencia.Establecimiento = $("#actividad_docente_establecimiento").val();
+//    docencia.Localidad = $("#actividad_docente_localidad").val();
+//    docencia.Pais = $("#actividad_docente_pais").val();
 
-    var docencia = {};
-    docencia.Asignatura = $("#actividad_docente_asignatura").val();
-    docencia.NivelEducativo = $("#actividad_docente_nivel_educativo").val();
-    docencia.TipoActividad = $("#actividad_docente_tipo_actividad").val();
-    docencia.CategoriaDocente = $("#actividad_docente_categoria").val();
-    docencia.CaracterDesignacion = $("#actividad_docente_caracter_designacion").val();
-    docencia.DedicacionDocente = $("#actividad_docente_dedicacion").val();
-    docencia.CargaHoraria = $("#actividad_docente_carga_horaria").val();
-    docencia.FechaInicio = ParsearFecha($("#actividad_docente_fecha_inicio").val());
-    docencia.FechaFinalizacion = ParsearFecha($("#actividad_docente_fecha_fin").val());
-    docencia.Establecimiento = $("#actividad_docente_establecimiento").val();
-    docencia.Localidad = $("#actividad_docente_localidad").val();
-    docencia.Pais = $("#actividad_docente_pais").val();
+//    var data_post = JSON.stringify({
+//        "docencias_nuevas": docencia,
+//        "docencias_originales": docencia
+//    });
+//    $.ajax({
+//        url: "../AjaxWS.asmx/GuardarCvActividadesDocentes",
+//        type: "POST",
+//        data: data_post,
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        success: function (respuestaJson) {
+//            var respuesta = JSON.parse(respuestaJson.d);
+//            if (respuesta.length == 0)
+//                AgregarEnTabla($("#tabla_docentes"), docencia);
+//            alertify.alert("Los datos fueron guardados correctamente");
+//            $(".modal_close_concursar").click();
+//        },
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alertify.alert(errorThrown);
+//        }
+//    });
 
-    var data_post = JSON.stringify({
-        "docencias_nuevas": docencia,
-        "docencias_originales": docencia
-    });
-    $.ajax({
-        url: "../AjaxWS.asmx/GuardarCVDocencia",
-        type: "POST",
-        data: data_post,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            var respuesta = JSON.parse(respuestaJson.d);
-            if (respuesta.length == 0)
-                AgregarEnTabla($("#tabla_docentes"), docencia);
-            alertify.alert("Los datos fueron guardados correctamente");
-            $(".modal_close_concursar").click();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
-        }
-    });
-
-}
+//}
 
 var AgregarEventoAcademico = function () {
 

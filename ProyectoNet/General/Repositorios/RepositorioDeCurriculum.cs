@@ -13,7 +13,7 @@ namespace General.Repositorios
         protected CvDatosPersonales _cvDatosPersonales;
         protected List<CvEstudios> _cvAntecedentesAcademicos;
         protected CvCertificadoDeCapacitacion _cvCapacitacion;
-        protected CvDocencia _cvDocencia;
+        protected List<CvDocencia> _cvDocencia;
         protected CvEventoAcademico _cvEventoAcademico;
         protected CvPublicaciones _cvPublicacion;
         protected CvMatricula _cvMatricula;
@@ -26,6 +26,7 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
             this.lista_cv = new List<CurriculumVitae>();
             this._cvAntecedentesAcademicos = new List<CvEstudios>();
+            //this._cvDocencia = new List<CvDocencia>();
 
             //FC a borrar cuando traiga los datos de la base
             string fechaIngreso = new DateTime(2014, 12, 12).ToShortDateString();
@@ -213,6 +214,11 @@ namespace General.Repositorios
             return antecedentesAcademicos_a_borrar;
         }
 
+        public CvDocencia EliminarCvActividadesDocentes(CvDocencia actividades_docentes_a_borrar, Usuario usuario)
+        {
+            this._cvDocencia.Remove(actividades_docentes_a_borrar);
+            return actividades_docentes_a_borrar;
+        }
         
 
 
@@ -229,9 +235,10 @@ namespace General.Repositorios
             this._cvCapacitacion = capacidades_nuevo;
         }
 
-        public void GuardarCvDocencia(CvDocencia docencia_nuevo, Usuario usuario)
+        public List<CvDocencia> GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
         {
-            this._cvDocencia = docencia_nuevo;
+            this._cvDocencia.Add(docencia_nuevo);
+            return this._cvDocencia;
         }
 
         public void GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)

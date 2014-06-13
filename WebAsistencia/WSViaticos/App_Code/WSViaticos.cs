@@ -2487,6 +2487,13 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoCurriculum().EliminarCVAntecedentesAcademicos(antecedente_a_borrar, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
     }
 
+     [WebMethod]
+    public CvDocencia EliminarCvActividadesDocentes(CvDocencia actividades_docentes_a_borrar, Usuario usuario)
+    {
+        return RepoCurriculum().EliminarCvActividadesDocentes(actividades_docentes_a_borrar, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+    }
+
+    
     
 
     [WebMethod]
@@ -2502,9 +2509,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void GuardarCvDocencia(CvDocencia docencia_nuevo, CvDocencia docencia_original, Usuario usuario)
+    public CvDocencia[] GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, CvDocencia docencia_original, Usuario usuario)
     {
-        RepoCurriculum().GuardarCvDocencia(docencia_nuevo, usuario);
+        return RepoCurriculum().GuardarCvActividadesDocentes(docencia_nuevo, usuario).ToArray();
+    
     }
 
     [WebMethod]

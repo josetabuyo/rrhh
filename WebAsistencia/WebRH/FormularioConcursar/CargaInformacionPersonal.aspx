@@ -297,42 +297,19 @@
               <div id="ancla4" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
                   ACTIVIDADES DOCENTES
-                </a>
+                </a>   
               </div>
               <div id="collapseFour" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go4" rel="leanModalConcursar" data-url="ActividadesDocentes.htm" class="link" name="form_actividadesDocentes"  href="#un_div_modal">Cargar actividades docentes</a></legend>
-                    <p>No tiene actividades cargadas</p>
-                    <table id="tabla_docentes" class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>Asignatura</th>
-                              <th>Nivel Educativo</th>
-                              <th>Tipo de Actividad</th>
-                              <th>Categoría Docente</th>
-                              <th>Caracter Designación</th>
-                              <th>Dedicación Docente</th>
-                              <th>F. Inicio</th>
-                              <th>F. Fin</th>
-                              <th>Establecimiento</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>T&eacute;cnico en Computadoras</td>
-                              <td>12/12/2012</td>
-                              <td>12/12/2012</td>
-                              <td>5 dias</td>
-                              <td>Computaci&oacute;n</td>
-                              <td>UBA</td>
-                              <td>5 dias</td>
-                              <td>Computaci&oacute;n</td>
-                              <td>UBA</td>
-                            </tr>
-                          </tbody>
-                            </table>                         
-                  </fieldset>
+                    <legend><a id="actividades_docentes_link"  onclick="javascript:AgregarActividadesDocentes();"  class="link" >Cargar actividades docentes</a></legend>
+                        <h4>Actividades Docentes Agregadas</h4>
+                        <div id="ContenedorPlanillaActividadesAcademicas" runat="server">
+                            <table id="tabla_actividades_docentes" class="table table-striped">
+                          
+                            </table>
+                        </div>
+                    </fieldset>
                 </div>
               </div>
             </div>
@@ -634,7 +611,7 @@
 </div>
 <asp:HiddenField ID="curriculum" runat="server" />
 <asp:HiddenField ID="cvEstudios" runat="server" />
-
+<asp:HiddenField ID="cvActividadesDocentes" runat="server" />
   </form>
 
 <div id='IrArriba'><a href='#Arriba'><span></span></a></div>
@@ -643,6 +620,7 @@
 <script type="text/javascript" src="Postular.js" ></script>
 <script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
 <script type="text/javascript" src="CvDatosPersonales.js" ></script>
+<script type="text/javascript" src="ActividadesDocentes.js" ></script>
     <%= Referencias.Javascript("../") %>
        
 
@@ -698,6 +676,7 @@
         
         CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
         AntecedentesAcademicos.armarGrilla($('#cvEstudios').val());
+        ActividadesDocentes.armarGrilla($('#cvActividadesDocentes').val());
 
         $('a[rel*=leanModalConcursar]').click(function () {
             var _this = $(this);
