@@ -106,6 +106,20 @@ public class AjaxWS : System.Web.Services.WebService {
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
     }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+    {
+        return backEndService.AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
+    {
+        return backEndService.AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
+    }
     
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -565,6 +579,15 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         var observaciones = backEndService.GetObservaciones();
         return Newtonsoft.Json.JsonConvert.SerializeObject(observaciones);
+    }
+    
+    
+    //Registro Usuarios Postular
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void RegistrarNuevoUsuario(WSViaticos.AspiranteAUsuario aspirante)
+    {
+        backEndService.RegistrarNuevoUsuario(aspirante);
     }
 
     [WebMethod(EnableSession = true)]

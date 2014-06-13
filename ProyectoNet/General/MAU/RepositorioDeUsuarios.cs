@@ -77,6 +77,12 @@ namespace General.MAU
             parametros.Add("@clave_encriptada", clave_encriptada);
             int id_usuario = (int)conexion.EjecutarEscalar("dbo.MAU_CrearUsuario", parametros);
 
+            var repo_funcionalidades_usuarios = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(this.conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(this.conexion));
+
+            //Permisos básicos
+            repo_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 3); //Menu principal
+            repo_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 13); //Postular
+
             return new Usuario(id_usuario, alias, clave_encriptada, persona, true);
         }
 
