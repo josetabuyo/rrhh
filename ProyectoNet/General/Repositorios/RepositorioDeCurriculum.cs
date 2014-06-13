@@ -52,17 +52,13 @@ namespace General.Repositorios
             tablaCVs.Rows.ForEach(row => 
                 cv = new CurriculumVitae(
                     new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetString("Sexo"), row.GetString("EstadoCivil"),
-                        row.GetString("Cuil"), row.GetString("LugarNacimiento"), row.GetString("Nacionalidad"), row.GetDateTime("FechaNacimiento"), "DNI",
+                        row.GetString("Cuil"), row.GetString("LugarNacimiento"), row.GetString("Nacionalidad"), row.GetDateTime("FechaNacimiento"), "DNI", 
                         new CvDomicilio(row.GetString("DomPers_Calle"), row.GetInt("DomPers_Numero"), row.GetString("DomPers_Piso"), row.GetString("DomPers_Depto"),
                             row.GetString("DomPers_Localidad"), row.GetSmallintAsInt("DomPers_CodigoPostal"), row.GetString("DomPers_Provincia")),
                         new CvDomicilio(row.GetString("DomLab_Calle"), row.GetInt("DomLab_Numero"), row.GetString("DomLab_Piso"), row.GetString("DomLab_Depto"),
                             row.GetString("DomLab_Localidad"), row.GetSmallintAsInt("DomLab_CodigoPostal"), row.GetString("DomLab_Provincia")))));
 
-        //    return this.lista_cv.Find(cvs => cvs.DatosPersonales.Dni.Equals(documento));
-        //}
-
             return cv; 
-
         }
 
        
