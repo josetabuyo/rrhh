@@ -30,38 +30,36 @@ namespace General.Repositorios
 
             //FC a borrar cuando traiga los datos de la base
             string fechaIngreso = new DateTime(2014, 12, 12).ToShortDateString();
-
             string fechaEgreso = new DateTime(2014, 12, 13).ToShortDateString();
-
             var un_estudio = new CvEstudios(1, "Contador", "UBA", "Te dije contador", fechaIngreso,
                                                   fechaEgreso, "CABA", "Argentina");
-
             this._cvAntecedentesAcademicos.Add(un_estudio);
+            
 
         }
 
         #region GETS Mockeados
         public CurriculumVitae GetCV(int documento)
         {
-            var curriculum = new CurriculumVitae() 
-                            {
-                                //Id = 1,
-                                DatosPersonales = this.GetCvDatosPersonales(documento),// get.DatosPersonales,
-                                CvDocencias = this.GetCvDocencia(documento),// curriculum.CvDocencias,
-                                CvEstudios = this.GetCvEstudios(documento),// curriculum.CvEstudios,
-                                CvEventosAcademicos = this.GetCvEventoAcademico(documento),// curriculum.CvEventosAcademicos,
-                                CvCompetenciasInformaticas = this.GetCvCompetenciasInformaticas(documento),// curriculum.CvCompetenciasInformaticas,
-                                CvExperienciaLaboral = this.GetCvExperienciaLaboral(documento),// curriculum.CvExperienciaLaboral,
-                                CvIdiomas = this.GetCvIdiomas(documento),// curriculum.CvIdiomas,
-                                CvInstitucionesAcademicas = this.GetCvInstitucionesAcademicas(documento),// curriculum.CvInstitucionesAcademicas,
-                                CvMatricula = this.GetCvMatricula(documento),// curriculum.CvMatricula,
-                                CvPublicaciones = this.GetCvPublicaciones(documento),// curriculum.CvPublicaciones,
-                                CvCertificadosDeCapacitacion = this.GetCvCertificadoDeCapacitacion(documento)// curriculum.CvCertificadosDeCapacitacion
+            //var curriculum = new CurriculumVitae() 
+            //                {
+            //                    //Id = 1,
+            //                    DatosPersonales = this.GetCvDatosPersonales(documento),// get.DatosPersonales,
+            //                    CvDocencias = this.GetCvDocencia(documento),// curriculum.CvDocencias,
+            //                    CvEstudios = this.GetCvEstudios(documento),// curriculum.CvEstudios,
+            //                    CvEventosAcademicos = this.GetCvEventoAcademico(documento),// curriculum.CvEventosAcademicos,
+            //                    CvCompetenciasInformaticas = this.GetCvCompetenciasInformaticas(documento),// curriculum.CvCompetenciasInformaticas,
+            //                    CvExperienciaLaboral = this.GetCvExperienciaLaboral(documento),// curriculum.CvExperienciaLaboral,
+            //                    CvIdiomas = this.GetCvIdiomas(documento),// curriculum.CvIdiomas,
+            //                    CvInstitucionesAcademicas = this.GetCvInstitucionesAcademicas(documento),// curriculum.CvInstitucionesAcademicas,
+            //                    CvMatricula = this.GetCvMatricula(documento),// curriculum.CvMatricula,
+            //                    CvPublicaciones = this.GetCvPublicaciones(documento),// curriculum.CvPublicaciones,
+            //                    CvCertificadosDeCapacitacion = this.GetCvCertificadoDeCapacitacion(documento)// curriculum.CvCertificadosDeCapacitacion
 
-                            };
-
-            return curriculum; 
-                //this.lista_cv.Find(cvs => cvs.DatosPersonales.Dni.Equals(documento));
+            //                };
+            return new CurriculumVitaeNull();
+            //return curriculum; 
+            //this.lista_cv.Find(cvs => cvs.DatosPersonales.Dni.Equals(documento));
         }
 
        
@@ -99,8 +97,9 @@ namespace General.Repositorios
         public CvDatosPersonales GetCvDatosPersonales(int documento)
         {
            var domicilio = new CvDomicilio("Pedro Morán", 1234, 7, "A", "Capital Federal", 1419, "CABA");
-           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23), "D.N.I", domicilio,domicilio);
-           return datos_personales;
+           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23).ToShortDateString(), "D.N.I", domicilio,domicilio);
+           //return datos_personales;
+           return this._cvDatosPersonales;
         }
 
 

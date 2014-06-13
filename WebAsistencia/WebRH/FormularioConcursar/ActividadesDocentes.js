@@ -72,61 +72,60 @@
     armarGrilla: function (actividades_docentes) {
         var _this = this;
 
-        var actividades_docentes = JSON.parse(actividades_docentes);
+        //var actividades_docentes = JSON.parse(actividades_docentes);
 
         contenedorPlanilla = $('#tabla_actividades_docentes');
 
         var columnas = [];
-
-        
-        columnas.push(new Columna('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acciones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', { generar: function (una_actividad_docente) {
-            var contenedorBtnAcciones = $('<div>');
-            var botonEditar = $('<img>');
-            botonEditar.addClass('edit-item-btn');
-            botonEditar.attr('src', '../Imagenes/edit.png');
-            botonEditar.attr('style', 'padding-right:5px;');
-            botonEditar.attr('width', '35px');
-            botonEditar.attr('height', '35px');
-
-            botonEditar.click(function () {
-                ActividadesDocentes.mostrar(una_actividad_docente, function (actididad_docente_modificada) {
-                    PlanillaCvActividadesDocentes.BorrarContenido();
-                    PlanillaCvActividadesDocentes.CargarObjetos(actividades_docentes);
-                });
-            });
-
-            contenedorBtnAcciones.append(botonEditar);
-
-            var botonEliminar = $('<img>');
-            botonEliminar.addClass('remove-item-btn');
-            botonEliminar.attr('src', '../Imagenes/iconos_eliminar.png');
-            botonEliminar.attr('width', '35px');
-            botonEliminar.attr('height', '35px');
-
-            botonEliminar.click(function () {
-                ActividadesDocentes.eliminar(una_actividad_docente, function (actividad_docente_eliminada) {
-                    PlanillaCvActividadesDocentes.QuitarObjeto(contenedorPlanilla, actividad_docente_eliminada);
-                });
-            });
-
-            contenedorBtnAcciones.append(botonEliminar);
-
-            return contenedorBtnAcciones;
-        }
-        }));
 
     columnas.push(new Columna("Id", { generar: function (una_actividad_docente) { return una_actividad_docente.Id } }));
     columnas.push(new Columna("Asignatura", { generar: function (una_actividad_docente) { return una_actividad_docente.Asignatura } }));
     columnas.push(new Columna("Nivel Educativo", { generar: function (una_actividad_docente) { return una_actividad_docente.NivelEducativo } }));
     columnas.push(new Columna("Tipo de Actividad", { generar: function (una_actividad_docente) { return una_actividad_docente.TipoActividad } }));
     columnas.push(new Columna("Categoría Docente", { generar: function (una_actividad_docente) { return una_actividad_docente.CategoriaDocente } }));
-    columnas.push(new Columna("Caracter de Designación", { generar: function (una_actividad_docente) { return una_actividad_docente.CaracterDesignación } }));
-    columnas.push(new Columna("Dedicación Docente", { generar: function (una_actividad_docente) { return una_actividad_docente.DedicacionDocente } }));
+    //columnas.push(new Columna("Caracter de Designación", { generar: function (una_actividad_docente) { return una_actividad_docente.CaracterDesignación } }));
+    //columnas.push(new Columna("Dedicación Docente", { generar: function (una_actividad_docente) { return una_actividad_docente.DedicacionDocente } }));
     columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_docente) { return una_actividad_docente.FechaInicio } }));
     columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_docente) { return una_actividad_docente.FechaFin } }));
     columnas.push(new Columna("Establecimiento", { generar: function (una_actividad_docente) { return una_actividad_docente.Establecimiento } }));
-    columnas.push(new Columna("Localidad", { generar: function (una_actividad_docente) { return una_actividad_docente.Localidad } }));
-    columnas.push(new Columna("Pais", { generar: function (una_actividad_docente) { return una_actividad_docente.Pais } }));
+    //columnas.push(new Columna("Localidad", { generar: function (una_actividad_docente) { return una_actividad_docente.Localidad } }));
+    //columnas.push(new Columna("Pais", { generar: function (una_actividad_docente) { return una_actividad_docente.Pais } }));
+    columnas.push(new Columna('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acciones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', { generar: function (una_actividad_docente) {
+        var contenedorBtnAcciones = $('<div>');
+        var botonEditar = $('<img>');
+        botonEditar.addClass('edit-item-btn');
+        botonEditar.attr('src', '../Imagenes/edit.png');
+        botonEditar.attr('style', 'padding-right:5px;');
+        botonEditar.attr('width', '35px');
+        botonEditar.attr('height', '35px');
+
+        botonEditar.click(function () {
+            ActividadesDocentes.mostrar(una_actividad_docente, function (actididad_docente_modificada) {
+                PlanillaCvActividadesDocentes.BorrarContenido();
+                PlanillaCvActividadesDocentes.CargarObjetos(actividades_docentes);
+            });
+        });
+
+        contenedorBtnAcciones.append(botonEditar);
+
+        var botonEliminar = $('<img>');
+        botonEliminar.addClass('remove-item-btn');
+        botonEliminar.attr('src', '../Imagenes/iconos_eliminar.png');
+        botonEliminar.attr('width', '35px');
+        botonEliminar.attr('height', '35px');
+
+        botonEliminar.click(function () {
+            ActividadesDocentes.eliminar(una_actividad_docente, function (actividad_docente_eliminada) {
+                PlanillaCvActividadesDocentes.QuitarObjeto(contenedorPlanilla, actividad_docente_eliminada);
+            });
+        });
+
+        contenedorBtnAcciones.append(botonEliminar);
+
+        return contenedorBtnAcciones;
+    }
+    }));
+
 
     PlanillaCvActividadesDocentes = new Grilla(columnas);
     PlanillaCvActividadesDocentes.AgregarEstilo("table table-striped");

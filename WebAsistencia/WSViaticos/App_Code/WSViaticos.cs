@@ -2395,6 +2395,7 @@ public class WSViaticos : System.Web.Services.WebService
     #region CV
 
     [WebMethod]
+    [XmlInclude(typeof(CurriculumVitaeNull))]
     public CurriculumVitae GetCurriculum(int documento)
     {
         //var curriculum_dto = new CurriculumVitae();
@@ -2418,7 +2419,7 @@ public class WSViaticos : System.Web.Services.WebService
         //                         CvCertificadosDeCapacitacion = curriculum.CvCertificadosDeCapacitacion
 
         //                     };
-
+        //return new CurriculumVitaeNull();
         return curriculum;
     }
 

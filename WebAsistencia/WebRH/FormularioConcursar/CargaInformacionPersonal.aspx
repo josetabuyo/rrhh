@@ -73,7 +73,7 @@
               </div>
               <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
                 <div id="contenedor_datosPersonales" class="accordion-inner fondo_form">
-                    <fieldset style=" width:100%; min-width:800px;" >
+                    <fieldset style=" width:100%; min-width:500px;" >
                       <p><em>*</em> Campos Obligatorios</p>
                       <p style="text-transform:uppercase; font-weight:bold;">I.- Editar información personal</p>
                         <div style="float:left; margin:8px" >
@@ -227,7 +227,9 @@
                             <input type="text" id="txt_email" name="txt_email" style="width:100px"/>
                        </div>
                       </fieldset>
-                      <input type="button" style="text-align: center;" class="btn" id="btn_guardar_datosPersonales"  value="Guardar"/>
+                      <div style="text-align: center;">
+                        <input type="button"  class="btn" id="btn_guardar_datosPersonales"  value="Guardar"/>
+                      </div>
                 </div>
                 
               </div>
@@ -293,7 +295,7 @@
               </div>
             </div>
 
-             <div class="accordion-group">
+            <div class="accordion-group">
               <div id="ancla4" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
                   ACTIVIDADES DOCENTES
@@ -314,7 +316,7 @@
               </div>
             </div>
 
-             <div class="accordion-group">
+            <div class="accordion-group">
               <div id="ancla5" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
                   EVENTOS ACAD&Eacute;MICOS
@@ -352,7 +354,7 @@
               </div>
             </div>
 
-             <div class="accordion-group">
+            <div class="accordion-group">
               <div id="ancla6" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
                   PUBLICACIONES O TRABAJOS
@@ -388,7 +390,7 @@
               </div>
             </div>
 
-             <div class="accordion-group">
+            <div class="accordion-group">
               <div id="ancla7" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
                   MATR&Iacute;CULAS
@@ -418,8 +420,7 @@
                             </tr>
                           </tbody>
                      </table>                   
-                   
-                     
+
                   </fieldset>
                 </div>
               </div>
@@ -436,8 +437,7 @@
                   <fieldset style="width:100%;">
                     <legend><a id="go8" rel="leanModalConcursar" data-url="InstitucionesAcademicas.htm" class="link" name="form_institucionesAcademicas"  href="#un_div_modal">Cargar instituciones</a></legend>
                     <p>No tiene instituciones cargadas</p> 
-                    
-                    
+
                        <table id="tabla_instituciones_academicas" class="table table-striped">
                           <thead>
                             <tr>
@@ -474,13 +474,7 @@
                               <td>Argentina</td>
                             </tr>
                           </tbody>
-                     </table>            
-                   
-                    
-                    
-                    
-                    
-                      
+                     </table>               
                   </fieldset>
                 </div>
               </div>
@@ -617,67 +611,28 @@
 <div id='IrArriba'><a href='#Arriba'><span></span></a></div>
 
 </body>
-<script type="text/javascript" src="Postular.js" ></script>
+
 <script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
 <script type="text/javascript" src="CvDatosPersonales.js" ></script>
 <script type="text/javascript" src="ActividadesDocentes.js" ></script>
     <%= Referencias.Javascript("../") %>
-       
+<script type="text/javascript" src="Postular.js" ></script>
 
 <script type="text/javascript">
 
-    // Botón para Ir Arriba
-
-    jQuery(document).ready(function () {
-        jQuery("#IrArriba").hide();
-        jQuery(function () {
-            jQuery(window).scroll(function () {
-                if (jQuery(this).scrollTop() > 200) {
-                    jQuery('#IrArriba').fadeIn();
-                } else {
-                    jQuery('#IrArriba').fadeOut();
-                }
-            });
-            jQuery('#IrArriba a').click(function () {
-                jQuery('body,html').animate({
-                    scrollTop: 0
-                }, 800);
-                return false;
-            });
-        });
-
-    });
-
     $(document).ready(function () {
-
-
-        //Estilos para ver coloreada la grilla en Internet Explorer
-        $("tbody tr:even").css('background-color', '#fff');
-        $("tbody tr:odd").css('background-color', 'transparent ');
 
         $(".collapse").collapse('show');
 
-        //var curriculumDTO = JSON.parse($('#curriculum').val());
-
-        $('#txt_fechaNac').datepicker({
-            dateFormat: 'dd/mm/yy',
-            onClose: function () {
-
-            }
-        });
-
-        function CompletarCV() {
-
-            $("#nombre").val(curriculumDTO.DatosPersonales.Nombre);
-            $("#apellido").val(curriculumDTO.DatosPersonales.Apellido);
-        };
 
         var curriculum = JSON.parse($('#curriculum').val());
         
         CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
-        AntecedentesAcademicos.armarGrilla($('#cvEstudios').val());
-        ActividadesDocentes.armarGrilla($('#cvActividadesDocentes').val());
+        AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
+        ActividadesDocentes.armarGrilla(curriculum.CvDocencias);
 
+
+        //Activar leanModal
         $('a[rel*=leanModalConcursar]').click(function () {
             var _this = $(this);
             if (_this.attr("data-url") !== undefined) {
@@ -694,6 +649,10 @@
 
         $('a[rel*=leanModalConcursar]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
 
+
+        //Estilos para ver coloreada la grilla en Internet Explorer
+        $("tbody tr:even").css('background-color', '#fff');
+        $("tbody tr:odd").css('background-color', 'transparent ');
     });
     
     
