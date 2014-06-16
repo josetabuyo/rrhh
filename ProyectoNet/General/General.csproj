@@ -95,6 +95,7 @@
     <Compile Include="DictionaryExtension.cs" />
     <Compile Include="MAU\AccesoAURL.cs" />
     <Compile Include="Extensiones\ExtensionString.cs" />
+    <Compile Include="MAU\AspiranteAUsuario.cs" />
     <Compile Include="MAU\Autorizador.cs" />
     <Compile Include="MAU\IRepositorioDeFuncionalidadesDeUsuarios.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
-    <Compile Include="Postular\CurriculumVitaeNulo.cs" />
+    <Compile Include="Postular\CurriculumVitaeNull.cs" />
     <Compile Include="Postular\CvDocenciaDto.cs" />
     <Compile Include="Postular\CurriculumDto.cs" />
     <Compile Include="Postular\CurriculumVitae.cs" />

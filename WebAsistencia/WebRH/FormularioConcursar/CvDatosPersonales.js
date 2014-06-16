@@ -25,7 +25,7 @@
         _this.txt_fechaNac.val(datos_personales.FechaNacimiento);
         _this.cmb_nacionalidad.val(datos_personales.Nacionalidad);
         _this.cmb_tipoDocumento.val(datos_personales.TipoDocumento);
-        _this.txt_dni.val(datos_personales.Dni);
+        _this.txt_dni.val(parseInt(datos_personales.Dni));
 
         //DomicilioPersonal
         _this.txt_domicilio_personal_calle = _this.ui.find("#txt_calle1");
@@ -37,11 +37,11 @@
         _this.txt_domicilio_personal_provincia = _this.ui.find("#cmb_provincia1");
 
         _this.txt_domicilio_personal_calle.val(datos_personales.DomicilioPersonal.Calle);
-        _this.txt_domicilio_personal_numero.val(datos_personales.DomicilioPersonal.Numero);
-        _this.txt_domicilio_personal_piso.val(datos_personales.DomicilioPersonal.Piso);
+        _this.txt_domicilio_personal_numero.val(parseInt(datos_personales.DomicilioPersonal.Numero));
+        _this.txt_domicilio_personal_piso.val(parseInt(datos_personales.DomicilioPersonal.Piso));
         _this.txt_domicilio_personal_dto.val(datos_personales.DomicilioPersonal.Depto);
         _this.txt_domicilio_personal_localidad.val(datos_personales.DomicilioPersonal.Localidad);
-        _this.txt_domicilio_personal_cp.val(datos_personales.DomicilioPersonal.Cp);
+        _this.txt_domicilio_personal_cp.val(parseInt(datos_personales.DomicilioPersonal.Cp));
         _this.txt_domicilio_personal_provincia.val(datos_personales.DomicilioPersonal.Provincia);
 
 
@@ -58,11 +58,11 @@
         _this.txt_domicilio_legal_mail = _this.ui.find("#txt_email");
 
         _this.txt_domicilio_legal_calle.val(datos_personales.DomicilioLegal.Calle);
-        _this.txt_domicilio_legal_numero.val(datos_personales.DomicilioLegal.Numero);
-        _this.txt_domicilio_legal_piso.val(datos_personales.DomicilioLegal.Piso);
+        _this.txt_domicilio_legal_numero.val(parseInt(datos_personales.DomicilioLegal.Numero));
+        _this.txt_domicilio_legal_piso.val(parseInt(datos_personales.DomicilioLegal.Piso));
         _this.txt_domicilio_legal_dto.val(datos_personales.DomicilioLegal.Depto);
         _this.txt_domicilio_legal_localidad.val(datos_personales.DomicilioLegal.Localidad);
-        _this.txt_domicilio_legal_cp.val(datos_personales.DomicilioLegal.Cp);
+        _this.txt_domicilio_legal_cp.val(parseInt(datos_personales.DomicilioLegal.Cp));
         _this.txt_domicilio_legal_provincia.val(datos_personales.DomicilioLegal.Provincia);
         _this.txt_domicilio_legal_telefonoFijo.val(datos_personales.DomicilioLegal.TelefonoFijo);
         _this.txt_domicilio_legal_telefonoCelular.val(datos_personales.DomicilioLegal.TelefonoCelular);
@@ -84,33 +84,33 @@
             datos_personales_nuevo.FechaNacimiento = _this.txt_fechaNac.val();
             datos_personales_nuevo.Nacionalidad = _this.cmb_nacionalidad.val();
             datos_personales_nuevo.TipoDocumento = _this.cmb_tipoDocumento.val();
-            datos_personales_nuevo.Dni = _this.txt_dni.val();
+            datos_personales_nuevo.Dni = parseInt(_this.txt_dni.val());
 
             domicilioPersonal_nuevo.Calle = _this.txt_domicilio_personal_calle.val();
-            domicilioPersonal_nuevo.Numero = _this.txt_domicilio_personal_numero.val();
-            domicilioPersonal_nuevo.Piso = _this.txt_domicilio_personal_piso.val();
+            domicilioPersonal_nuevo.Numero = parseInt(_this.txt_domicilio_personal_numero.val());
+            domicilioPersonal_nuevo.Piso = parseInt(_this.txt_domicilio_personal_piso.val());
             domicilioPersonal_nuevo.Depto = _this.txt_domicilio_personal_dto.val();
             domicilioPersonal_nuevo.Localidad = _this.txt_domicilio_personal_localidad.val();
-            domicilioPersonal_nuevo.Cp = _this.txt_domicilio_personal_cp.val();
+            domicilioPersonal_nuevo.Cp = parseInt(_this.txt_domicilio_personal_cp.val());
             domicilioPersonal_nuevo.Provincia = _this.txt_domicilio_personal_provincia.val();
 
             domicilioLegal_nuevo.Calle = _this.txt_domicilio_legal_calle.val();
-            domicilioLegal_nuevo.Numero = _this.txt_domicilio_legal_numero.val();
-            domicilioLegal_nuevo.Piso = _this.txt_domicilio_legal_piso.val();
+            domicilioLegal_nuevo.Numero = parseInt(_this.txt_domicilio_legal_numero.val());
+            domicilioLegal_nuevo.Piso = parseInt(_this.txt_domicilio_legal_piso.val());
             domicilioLegal_nuevo.Depto = _this.txt_domicilio_legal_dto.val();
             domicilioLegal_nuevo.Localidad = _this.txt_domicilio_legal_localidad.val();
-            domicilioLegal_nuevo.Cp = _this.txt_domicilio_legal_cp.val();
+            domicilioLegal_nuevo.Cp = parseInt(_this.txt_domicilio_legal_cp.val());
             domicilioLegal_nuevo.Provincia = _this.txt_domicilio_legal_provincia.val();
-            domicilioLegal_nuevo.TelefonoFijo = _this.txt_domicilio_legal_telefonoFijo.val();
-            domicilioLegal_nuevo.TelefonoCelular = _this.txt_domicilio_legal_telefonoCelular.val();
-            domicilioLegal_nuevo.Mail = _this.txt_domicilio_legal_mail.val();
+            //domicilioLegal_nuevo.TelefonoFijo = _this.txt_domicilio_legal_telefonoFijo.val();
+            //domicilioLegal_nuevo.TelefonoCelular = _this.txt_domicilio_legal_telefonoCelular.val();
+            //domicilioLegal_nuevo.Mail = _this.txt_domicilio_legal_mail.val();
 
             datos_personales_nuevo.DomicilioPersonal = domicilioPersonal_nuevo;
             datos_personales_nuevo.DomicilioLegal = domicilioLegal_nuevo;
 
             var data_post = JSON.stringify({
-                "antecedentesAcademicos_nuevos": datos_personales_nuevo,
-                "antecedentesAcademicos_originales": datos_personales
+                "datosPersonales_nuevos": datos_personales_nuevo,
+                "datosPersonales_originales": datos_personales
             });
             $.ajax({
                 url: "../AjaxWS.asmx/GuardarCVDatosPersonales",

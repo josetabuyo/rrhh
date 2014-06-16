@@ -38,7 +38,16 @@
 #loginBoton
 {   
     display: inline;
-    margin-left: 163px;
+    margin-left: 95px;
+}
+#lnk_registrarse
+{
+    cursor:pointer;
+}
+
+#registrarse_dialog
+{
+    min-height:0px !important;
 }
 
 .tituloDetalleDeFirmantes

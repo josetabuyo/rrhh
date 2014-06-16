@@ -8,6 +8,11 @@ C:\Repositorios\Agustin\rrhh\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.pdb
 C:\Repositorios\Agustin\rrhh\WebAsistencia\WebRhUI\obj\Debug\ResolveAssemblyReference.cache
 C:\Repositorios\Agustin\rrhh\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.dll
 C:\Repositorios\Agustin\rrhh\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.pdb
+C:\Repositorios\Agustin\rrhh\rrhh\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.dll
+C:\Repositorios\Agustin\rrhh\rrhh\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.pdb
+C:\Repositorios\Agustin\rrhh\rrhh\WebAsistencia\WebRhUI\obj\Debug\ResolveAssemblyReference.cache
+C:\Repositorios\Agustin\rrhh\rrhh\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.dll
+C:\Repositorios\Agustin\rrhh\rrhh\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.pdb
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.dll
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.pdb
 C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh\WebAsistencia\WebRhUI\obj\Debug\ResolveAssemblyReference.cache

@@ -13,7 +13,7 @@ namespace General.Repositorios
         protected CvDatosPersonales _cvDatosPersonales;
         protected List<CvEstudios> _cvAntecedentesAcademicos;
         protected CvCertificadoDeCapacitacion _cvCapacitacion;
-        protected CvDocencia _cvDocencia;
+        protected List<CvDocencia> _cvDocencia;
         protected CvEventoAcademico _cvEventoAcademico;
         protected CvPublicaciones _cvPublicacion;
         protected CvMatricula _cvMatricula;
@@ -26,41 +26,38 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
             this.lista_cv = new List<CurriculumVitae>();
             this._cvAntecedentesAcademicos = new List<CvEstudios>();
+            this._cvDocencia = new List<CvDocencia>();
 
             //FC a borrar cuando traiga los datos de la base
             string fechaIngreso = new DateTime(2014, 12, 12).ToShortDateString();
-
             string fechaEgreso = new DateTime(2014, 12, 13).ToShortDateString();
-
             var un_estudio = new CvEstudios(1, "Contador", "UBA", "Te dije contador", fechaIngreso,
                                                   fechaEgreso, "CABA", "Argentina");
-
             this._cvAntecedentesAcademicos.Add(un_estudio);
+            
 
         }
 
         #region GETS Mockeados
         public CurriculumVitae GetCV(int documento)
         {
-            var curriculum = new CurriculumVitae() 
-                            {
-                                //Id = 1,
-                                DatosPersonales = this.GetCvDatosPersonales(documento),// get.DatosPersonales,
-                                CvDocencias = this.GetCvDocencia(documento),// curriculum.CvDocencias,
-                                CvEstudios = this.GetCvEstudios(documento),// curriculum.CvEstudios,
-                                CvEventosAcademicos = this.GetCvEventoAcademico(documento),// curriculum.CvEventosAcademicos,
-                                CvCompetenciasInformaticas = this.GetCvCompetenciasInformaticas(documento),// curriculum.CvCompetenciasInformaticas,
-                                CvExperienciaLaboral = this.GetCvExperienciaLaboral(documento),// curriculum.CvExperienciaLaboral,
-                                CvIdiomas = this.GetCvIdiomas(documento),// curriculum.CvIdiomas,
-                                CvInstitucionesAcademicas = this.GetCvInstitucionesAcademicas(documento),// curriculum.CvInstitucionesAcademicas,
-                                CvMatricula = this.GetCvMatricula(documento),// curriculum.CvMatricula,
-                                CvPublicaciones = this.GetCvPublicaciones(documento),// curriculum.CvPublicaciones,
-                                CvCertificadosDeCapacitacion = this.GetCvCertificadoDeCapacitacion(documento)// curriculum.CvCertificadosDeCapacitacion
+            var parametros = new Dictionary<string, object>();
+            
+            parametros.Add("@NroDocumento", documento);
+            var tablaCVs = conexion_bd.Ejecutar("dbo.CV_GetCurriculumVitae", parametros);
 
-                            };
-            return new CurriculumVitaeNulo();
-           // return curriculum; 
-                //this.lista_cv.Find(cvs => cvs.DatosPersonales.Dni.Equals(documento));
+            CurriculumVitae cv = null;
+
+            tablaCVs.Rows.ForEach(row => 
+                cv = new CurriculumVitae(
+                    new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetString("Sexo"), row.GetString("EstadoCivil"),
+                        row.GetString("Cuil"), row.GetString("LugarNacimiento"), row.GetString("Nacionalidad"), row.GetDateTime("FechaNacimiento").ToString("dd/MM/yyyy"), "DNI", 
+                        new CvDomicilio(row.GetString("DomPers_Calle"), row.GetInt("DomPers_Numero"), row.GetString("DomPers_Piso"), row.GetString("DomPers_Depto"),
+                            row.GetString("DomPers_Localidad"), row.GetSmallintAsInt("DomPers_CodigoPostal"), row.GetString("DomPers_Provincia")),
+                        new CvDomicilio(row.GetString("DomLab_Calle"), row.GetInt("DomLab_Numero"), row.GetString("DomLab_Piso"), row.GetString("DomLab_Depto"),
+                            row.GetString("DomLab_Localidad"), row.GetSmallintAsInt("DomLab_CodigoPostal"), row.GetString("DomLab_Provincia")))));
+
+            return cv; 
         }
 
        
@@ -97,9 +94,10 @@ namespace General.Repositorios
 
         public CvDatosPersonales GetCvDatosPersonales(int documento)
         {
-           var domicilio = new CvDomicilio("Pedro Morán", 1234, 7, "A", "Capital Federal", 1419, "CABA");
+           var domicilio = new CvDomicilio("Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, "CABA");
            var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23).ToShortDateString(), "D.N.I", domicilio,domicilio);
-           return datos_personales;
+           //return datos_personales;
+           return this._cvDatosPersonales;
         }
 
 
@@ -117,7 +115,7 @@ namespace General.Repositorios
         {
             var domicilio = new List<CvDomicilio>()
                                {
-                                   new CvDomicilio("Pedro Morán", 1234, 7, "A", "Capital Federal", 1419, "CABA")
+                                   new CvDomicilio("Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, "CABA")
                                };
 
             return domicilio;
@@ -182,8 +180,7 @@ namespace General.Repositorios
                                };
 
             return publicaciones;
-        } 
-            
+        }
 
 
         # endregion
@@ -191,6 +188,42 @@ namespace General.Repositorios
         #region GUARDAR Datos
         public void GuardarCVDatosPersonales(CvDatosPersonales datosPersonales, Usuario usuario)
         {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@", datosPersonales.Dni);
+            parametros.Add("@", datosPersonales.Apellido);
+            parametros.Add("@", datosPersonales.Nombre);
+            parametros.Add("@", datosPersonales.Cuil);
+            parametros.Add("@", datosPersonales.EstadoCivil);
+            parametros.Add("@", datosPersonales.FechaNacimiento);
+            parametros.Add("@", datosPersonales.LugarDeNacimiento);
+            parametros.Add("@", datosPersonales.Nacionalidad);
+            parametros.Add("@", datosPersonales.Sexo);
+
+            parametros.Add("@", datosPersonales.DomicilioPersonal.Calle);
+            parametros.Add("@", datosPersonales.DomicilioPersonal.Numero);
+            parametros.Add("@", datosPersonales.DomicilioPersonal.Piso);
+            parametros.Add("@", datosPersonales.DomicilioPersonal.Depto);
+            parametros.Add("@", datosPersonales.DomicilioPersonal.Piso);
+            parametros.Add("@", datosPersonales.DomicilioPersonal.Cp);
+            parametros.Add("@", datosPersonales.DomicilioPersonal.Localidad);
+            parametros.Add("@", datosPersonales.DomicilioPersonal.Provincia);
+
+            parametros.Add("@", datosPersonales.DomicilioLegal.Calle);
+            parametros.Add("@", datosPersonales.DomicilioLegal.Numero);
+            parametros.Add("@", datosPersonales.DomicilioLegal.Piso);
+            parametros.Add("@", datosPersonales.DomicilioLegal.Depto);
+            parametros.Add("@", datosPersonales.DomicilioLegal.Piso);
+            parametros.Add("@", datosPersonales.DomicilioLegal.Cp);
+            parametros.Add("@", datosPersonales.DomicilioLegal.Localidad);
+            parametros.Add("@", datosPersonales.DomicilioLegal.Provincia);
+
+            parametros.Add("@idUsuario", usuario.Id);
+
+            //return (int)conexion_bd.EjecutarEscalar("dbo.CV_Ins_DatosPersonales", parametros);
+            
+            
+            
             this._cvDatosPersonales = datosPersonales;
             //this.lista_cv.Add(cv);
         }
@@ -213,6 +246,11 @@ namespace General.Repositorios
             return antecedentesAcademicos_a_borrar;
         }
 
+        public CvDocencia EliminarCvActividadesDocentes(CvDocencia actividades_docentes_a_borrar, Usuario usuario)
+        {
+            this._cvDocencia.Remove(actividades_docentes_a_borrar);
+            return actividades_docentes_a_borrar;
+        }
         
 
 
@@ -229,9 +267,10 @@ namespace General.Repositorios
             this._cvCapacitacion = capacidades_nuevo;
         }
 
-        public void GuardarCvDocencia(CvDocencia docencia_nuevo, Usuario usuario)
+        public List<CvDocencia> GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
         {
-            this._cvDocencia = docencia_nuevo;
+            this._cvDocencia.Add(docencia_nuevo);
+            return this._cvDocencia;
         }
 
         public void GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)

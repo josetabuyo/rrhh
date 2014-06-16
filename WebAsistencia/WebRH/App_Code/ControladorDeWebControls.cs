@@ -14,7 +14,7 @@ namespace WebRhUI
 
             checkbox.ID = IdPara(entidad);
 
-            return checkbox;           
+            return checkbox;
         }
 
         public string DibujarChecboxPara(object entidad)
@@ -29,7 +29,7 @@ namespace WebRhUI
 
         public string DibujarLink(object entidad, string metodo, string texto)
         {
-            return "<a href=\"#\" id=\"boton_" + IdPara(entidad) + "\" onclick=\"" + metodo + "(" + IdDeLaEntidad(entidad) + ")\"/>"+ texto +"</a>";
+            return "<a href=\"#\" id=\"boton_" + IdPara(entidad) + "\" onclick=\"" + metodo + "(" + IdDeLaEntidad(entidad) + ")\"/>" + texto + "</a>";
         }
 
         public string DibujarLinkParaRequest(object entidad, string metodo)
@@ -44,7 +44,7 @@ namespace WebRhUI
             btn.OnClientClick = metodo + "(" + IdDeLaEntidad(entidad) + ")";
 
             return btn;
-            
+
             //return "<a href=\"#\" onclick=\"" + metodo + "(" + IdDeLaEntidad(entidad) + ")\"  id=\"quitar_" + IdPara(entidad) + "\">Quitar</a>";
             //return "<input type=\"submit\" runat=\"server\" value=\"Quitar\" onclick=\"" + metodo + "(" + IdDeLaEntidad(entidad) + ")\" />";
 

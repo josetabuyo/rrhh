@@ -6,6 +6,9 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 using General.Repositorios;
+using System.Net.Mail;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace General.MAU
 {
@@ -145,5 +148,35 @@ namespace General.MAU
             repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(id_usuario, id_area);
         }
 
+        public void RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
+        {            
+            var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
+            if (repo_personas.BuscarPersonas(JsonConvert.SerializeObject(new { Documento=aspirante.Documento, ConLegajo=true})).Count > 0)
+            {
+                throw new Exception("Ya hay alguien registrado con su documento.");
+            }
+            MailAddress mail = new MailAddress(aspirante.Email);
+            if(aspirante.Nombre.Trim() == "") throw new Exception("El nombre no puede ser vacío.");
+            if(aspirante.Apellido.Trim() == "") throw new Exception("El apellido no puede ser vacío.");
+
+            var persona = new Persona();
+            persona.Documento = aspirante.Documento;
+            persona.Nombre = aspirante.Nombre;
+            persona.Apellido = aspirante.Apellido;
+
+            repo_personas.GuardarPersona(persona);
+
+            var usuario = repositorio_usuarios.CrearUsuarioPara(persona.Id);
+            var clave =  repositorio_usuarios.ResetearPassword(usuario.Id);
+            //mandarla por mail
+            var enviador = new EnviadorDeMails();
+            enviador.EnviarMail(new NetworkCredential("no-reply@desarrollosocial.gov.ar", "1234"),
+                    aspirante.Email,
+                    "Bienvenido al SIGIRH",
+                    "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Password: " + clave,
+                    () => { },
+                    () => { throw new Exception("No se pudo enviar un mail con la clave"); }
+                );
+        }
     }
 }
