@@ -190,35 +190,44 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
 
-            parametros.Add("@", datosPersonales.Dni);
-            parametros.Add("@", datosPersonales.Apellido);
-            parametros.Add("@", datosPersonales.Nombre);
-            parametros.Add("@", datosPersonales.Cuil);
-            parametros.Add("@", datosPersonales.EstadoCivil);
-            parametros.Add("@", datosPersonales.FechaNacimiento);
-            parametros.Add("@", datosPersonales.LugarDeNacimiento);
-            parametros.Add("@", datosPersonales.Nacionalidad);
-            parametros.Add("@", datosPersonales.Sexo);
+            parametros.Add("@Dni", datosPersonales.Dni);
+            parametros.Add("@Apellido", datosPersonales.Apellido);
+            parametros.Add("@Nombre", datosPersonales.Nombre);
+            parametros.Add("@Cuil", datosPersonales.Cuil);
+            parametros.Add("@EstadoCivil", datosPersonales.EstadoCivil);
+            parametros.Add("@FechaNacimiento", datosPersonales.FechaNacimiento);
+            parametros.Add("@LugarDeNacimiento", datosPersonales.LugarDeNacimiento);
+            parametros.Add("@Nacionalidad", datosPersonales.Nacionalidad);
+            parametros.Add("@TipoDocumento", datosPersonales.TipoDocumento);
+            parametros.Add("@Sexo", datosPersonales.Sexo);
 
-            parametros.Add("@", datosPersonales.DomicilioPersonal.Calle);
-            parametros.Add("@", datosPersonales.DomicilioPersonal.Numero);
-            parametros.Add("@", datosPersonales.DomicilioPersonal.Piso);
-            parametros.Add("@", datosPersonales.DomicilioPersonal.Depto);
-            parametros.Add("@", datosPersonales.DomicilioPersonal.Piso);
-            parametros.Add("@", datosPersonales.DomicilioPersonal.Cp);
-            parametros.Add("@", datosPersonales.DomicilioPersonal.Localidad);
-            parametros.Add("@", datosPersonales.DomicilioPersonal.Provincia);
+            if (datosPersonales.DomicilioPersonal is CvDomicilio)
+            {
+                parametros.Add("@DomicilioPersonalCalle", datosPersonales.DomicilioPersonal.Calle);
+                parametros.Add("@DomicilioPersonalNumero", datosPersonales.DomicilioPersonal.Numero);
+                parametros.Add("@DomicilioPersonalPiso", datosPersonales.DomicilioPersonal.Piso);
+                parametros.Add("@DomicilioPersonalDepto", datosPersonales.DomicilioPersonal.Depto);
+                parametros.Add("@DomicilioPersonalCp", datosPersonales.DomicilioPersonal.Cp);
+                parametros.Add("@DomicilioPersonalLocalidad", datosPersonales.DomicilioPersonal.Localidad);
+                parametros.Add("@DomicilioPersonalProvincia", datosPersonales.DomicilioPersonal.Provincia);
+                parametros.Add("@DomicilioPersonalTipo", 1);
+            }
 
-            parametros.Add("@", datosPersonales.DomicilioLegal.Calle);
-            parametros.Add("@", datosPersonales.DomicilioLegal.Numero);
-            parametros.Add("@", datosPersonales.DomicilioLegal.Piso);
-            parametros.Add("@", datosPersonales.DomicilioLegal.Depto);
-            parametros.Add("@", datosPersonales.DomicilioLegal.Piso);
-            parametros.Add("@", datosPersonales.DomicilioLegal.Cp);
-            parametros.Add("@", datosPersonales.DomicilioLegal.Localidad);
-            parametros.Add("@", datosPersonales.DomicilioLegal.Provincia);
 
-            parametros.Add("@idUsuario", usuario.Id);
+            if (datosPersonales.DomicilioLegal is CvDomicilio)
+            {
+                parametros.Add("@DomicilioLegalCalle", datosPersonales.DomicilioLegal.Calle);
+                parametros.Add("@DomicilioLegalNumero", datosPersonales.DomicilioLegal.Numero);
+                parametros.Add("@DomicilioLegalPiso", datosPersonales.DomicilioLegal.Piso);
+                parametros.Add("@DomicilioLegalDepto", datosPersonales.DomicilioLegal.Depto);
+                parametros.Add("@DomicilioLegalCp", datosPersonales.DomicilioLegal.Cp);
+                parametros.Add("@DomicilioLegalLocalidad", datosPersonales.DomicilioLegal.Localidad);
+                parametros.Add("@DomicilioLegalProvincia", datosPersonales.DomicilioLegal.Provincia);
+                parametros.Add("@DomicilioLegalTipo", 2);
+
+            }
+
+                parametros.Add("@idUsuario", usuario.Id);
 
             //return (int)conexion_bd.EjecutarEscalar("dbo.CV_Ins_DatosPersonales", parametros);
             
