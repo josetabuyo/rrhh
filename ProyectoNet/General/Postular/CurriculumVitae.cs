@@ -19,17 +19,17 @@ namespace General
         protected List<CvCompetenciasInformaticas> _cvCompetenciasInformaticas;
         protected List<CvCertificadoDeCapacitacion> _cvCertificadosDeCapacitacion;
 
-        public CvDatosPersonales DatosPersonales { get { return _datosPersonales; } set { _datosPersonales = value; } }
-        public List<CvEstudios> CvEstudios { get { return _cvEstudios; } set { _cvEstudios = value; } }
-        public List<CvEventoAcademico> CvEventosAcademicos { get { return _cvEventoAcademicos; } set { _cvEventoAcademicos = value; } }
-        public List<CvExperienciaLaboral> CvExperienciaLaboral { get { return _cvExperienciaLaboral; } set { _cvExperienciaLaboral = value; } }
-        public List<CvIdiomas> CvIdiomas { get { return _cvIdiomas; } set { _cvIdiomas = value; } }
-        public List<CvInstitucionesAcademicas> CvInstitucionesAcademicas { get { return _cvInstitucionesAcademicas; } set { _cvInstitucionesAcademicas = value; } }
-        public List<CvMatricula> CvMatricula { get { return _cvMatriculas; } set { _cvMatriculas = value; } }
-        public List<CvPublicaciones> CvPublicaciones { get { return _cvPublicaciones; } set { _cvPublicaciones = value; } }
-        public List<CvDocencia> CvDocencias { get { return _cvDocencias; } set { _cvDocencias = value; } }
-        public List<CvCompetenciasInformaticas> CvCompetenciasInformaticas { get { return _cvCompetenciasInformaticas; } set { _cvCompetenciasInformaticas = value; } }
-        public List<CvCertificadoDeCapacitacion> CvCertificadosDeCapacitacion { get { return _cvCertificadosDeCapacitacion; } set { _cvCertificadosDeCapacitacion = value; } }
+        public virtual CvDatosPersonales DatosPersonales { get { return _datosPersonales; } set { _datosPersonales = value; } }
+        public virtual List<CvEstudios> CvEstudios { get { return _cvEstudios; } set { _cvEstudios = value; } }
+        public virtual List<CvEventoAcademico> CvEventosAcademicos { get { return _cvEventoAcademicos; } set { _cvEventoAcademicos = value; } }
+        public virtual List<CvExperienciaLaboral> CvExperienciaLaboral { get { return _cvExperienciaLaboral; } set { _cvExperienciaLaboral = value; } }
+        public virtual List<CvIdiomas> CvIdiomas { get { return _cvIdiomas; } set { _cvIdiomas = value; } }
+        public virtual List<CvInstitucionesAcademicas> CvInstitucionesAcademicas { get { return _cvInstitucionesAcademicas; } set { _cvInstitucionesAcademicas = value; } }
+        public virtual List<CvMatricula> CvMatricula { get { return _cvMatriculas; } set { _cvMatriculas = value; } }
+        public virtual List<CvPublicaciones> CvPublicaciones { get { return _cvPublicaciones; } set { _cvPublicaciones = value; } }
+        public virtual List<CvDocencia> CvDocencias { get { return _cvDocencias; } set { _cvDocencias = value; } }
+        public virtual List<CvCompetenciasInformaticas> CvCompetenciasInformaticas { get { return _cvCompetenciasInformaticas; } set { _cvCompetenciasInformaticas = value; } }
+        public virtual List<CvCertificadoDeCapacitacion> CvCertificadosDeCapacitacion { get { return _cvCertificadosDeCapacitacion; } set { _cvCertificadosDeCapacitacion = value; } }
 
 
         public CurriculumVitae(CvDatosPersonales datosPersonales)
@@ -46,6 +46,8 @@ namespace General
             this._cvCompetenciasInformaticas = new List<CvCompetenciasInformaticas>();
             this._cvCertificadosDeCapacitacion = new List<CvCertificadoDeCapacitacion>();
         }
+
+        public CurriculumVitae() { }
 
         public void AgregarEstudio(CvEstudios cvEstudio)
         {

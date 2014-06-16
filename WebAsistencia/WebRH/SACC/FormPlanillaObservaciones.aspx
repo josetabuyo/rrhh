@@ -146,7 +146,7 @@
 
                  var columnas = [];
 
-                 columnas.push(new Columna("id", { generar: function (una_observacion) { return una_observacion.id } }));
+//                 columnas.push(new Columna("id", { generar: function (una_observacion) { return una_observacion.id } }));
                  columnas.push(new Columna("FechaCarga", { generar: function (una_observacion) { return una_observacion.FechaCarga } }));
                  columnas.push(new Columna("Relacion", { generar: function (una_observacion) { return una_observacion.Relacion } }));
                  columnas.push(new Columna("PersonaCarga", { generar: function (una_observacion) { return una_observacion.PersonaCarga } }));
@@ -225,29 +225,6 @@
                          }
                      });
                  };
-
-                 //                function CargarObservacionesDTO() {
-                 //                    //PaginaInscripcionAlumnos.prototype.GetCursosDTO = function () {
-                 //                    PlanillaObservaciones.BorrarContenido();
-                 //                    $.ajax({
-                 //                        url: "../AjaxWS.asmx/GetObservaciones",
-                 //                        type: "POST",
-                 //                        contentType: "application/json; charset=utf-8",
-                 //                        success: function (respuestaJson) {
-                 //                            var respuesta = JSON.parse(respuestaJson.d);
-
-                 //                            $('#observaciones').val(respuestaJson.d);
-
-                 //                            PlanillaObservaciones.CargarObjetos(respuesta);
-                 //                            PlanillaObservaciones.DibujarEn(contenedorPlanilla);
-                 //                            //planilla_original = JSON.parse(respuestaJson.d);
-
-                 //                        },
-                 //                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                 //                            alertify.alert(errorThrown);
-                 //                        }
-                 //                    });
-                 //                };
 
 
                  // Define value names

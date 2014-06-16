@@ -121,6 +121,13 @@ img
     margin-right:4px;    
 }
 
+#btn_consultar_mis_inasistencias
+{
+    float: right;
+    margin-top:4px;
+    margin-right:4px;    
+}
+
 .contenedor_principal_seleccion_areas
 {
     top:100px;

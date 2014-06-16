@@ -63,17 +63,17 @@ namespace TestViaticos
         public CvDatosPersonales DatosPersonales()
         {
             return new CvDatosPersonales(29753914, "Julian", "Dominguez", "Masculino", "Soltero", "20-29753456-5",
-                                         "Argentina", "Argentino", new DateTime(1980, 01, 25), "dni", UnDomicilio());
+                                         "Argentina", "Argentino", new DateTime(1980, 01, 25).ToShortDateString(), "dni", UnDomicilio(), UnDomicilio());
         }
 
         public CvDomicilio UnDomicilio()
         {
-            return new CvDomicilio("Habana",1234,1,"B","CABA",1427,"Buenos Aires");
+            return new CvDomicilio("Habana",1234,"1","B","CABA",1427,"Buenos Aires");
         }
 
         public CvEstudios UnEstudio()
         {
-            return new CvEstudios("Lic. en Administracion", "Universidad de Buenos Aires", "", new DateTime(2003,03,01),new DateTime(2007,12,20),"CABA","Argentina");
+            return new CvEstudios("Lic. en Administracion", "Universidad de Buenos Aires", "", new DateTime(2003,03,01).ToShortDateString(),new DateTime(2007,12,20).ToShortDateString(),"CABA","Argentina");
         }
 
         public CvEventoAcademico UnEventoAcademico()

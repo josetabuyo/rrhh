@@ -56,7 +56,7 @@
                 <li class="menu_lista_formularios"><a href="#ancla6">Publicaciones o trabajos</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla7">Matr&iacute;culas</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla8">Instituciones Académicas</a></li>
-                <li class="menu_lista_formularios"><a href="#ancla9">Experiencias Laborales</a></li>
+                <li class="menu_lista_formularios"><a href="#ancla9">Experiencia Laboral</a></li>
                 <li class="menu_lista_formularios no_borde"><a href="#ancla10">Idiomas Extranjeros</a></li>
             </ul>
             <ul class="ul_cv" style="width:60%; margin-left:20%;">
@@ -72,8 +72,8 @@
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">INFORMACION PERSONAL</a>
               </div>
               <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
-                <div class="accordion-inner fondo_form">
-                    <fieldset style=" width:100%; min-width:800px;" >
+                <div id="contenedor_datosPersonales" class="accordion-inner fondo_form">
+                    <fieldset style=" width:100%; min-width:500px;" >
                       <p><em>*</em> Campos Obligatorios</p>
                       <p style="text-transform:uppercase; font-weight:bold;">I.- Editar información personal</p>
                         <div style="float:left; margin:8px" >
@@ -213,12 +213,12 @@
                       </div>
 
                         <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo" for="txt_telefonoFijo">Telefono fijo <em>*</em></label>
+                            <label class="etiqueta_campo" for="txt_telefonoFijo">Tel&eacute;fono fijo <em>*</em></label>
                             <input type="text" id="txt_telefonoFijo" name="txt_telefonoFijo" style="width:100px;"/>
                         </div>
 
                         <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo" for="txt_telefonoCelular">Telefono celular</label>
+                            <label class="etiqueta_campo" for="txt_telefonoCelular">Tel&eacute;fono celular</label>
                             <input type="text" id="txt_telefonoCelular" name="txt_telefonoCelular" style="width:100px;"/>
                         </div>
 
@@ -227,7 +227,9 @@
                             <input type="text" id="txt_email" name="txt_email" style="width:100px"/>
                        </div>
                       </fieldset>
-                      <input type="button" style="text-align: center;" class="btn" onclick="javascript:GuardarDatosPersonales()"  value="Guardar"/>
+                      <div style="text-align: center;">
+                        <input type="button"  class="btn" id="btn_guardar_datosPersonales"  value="Guardar"/>
+                      </div>
                 </div>
                 
               </div>
@@ -242,51 +244,12 @@
               <div id="collapseTwo" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="a2" rel="leanModalConcursar" data-url="AntecedentesAcademicos.htm" class="link" style="" name="form_antecedentesAcademicos" href="#un_div_modal">Cargar antecedentes academicos</a></legend>
+                    <legend><a id="antecedentes_link"  onclick="javascript:AgregarAntecedentesAcademico();"  class="link" >Cargar antecedentes academicos</a></legend>
                            
                         <h4>Antecedentes Agregados</h4>
                         <div id="ContenedorPlanilla" runat="server">
                             <table id="tabla_antecedentes" class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>Nivel</th>
-                              <th>Universidad</th>
-                              <th>Facultad</th>
-                              <th>Institución</th>
-                              <th>Título</th>
-                              <th>Especialidad</th>
-                              <th>Certificado</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Universitario</td>
-                              <td>UBA</td>
-                              <td>Derecho</td>
-                              <td></td>
-                              <td>Abogado</td>
-                              <td></td>
-                              <td>Si</td>
-                            </tr>
-                            <tr>
-                              <td>Terciario</td>
-                              <td></td>
-                              <td></td>
-                              <td>Instituto Da Vinci</td>
-                              <td>Diseñador Web</td>
-                              <td></td>
-                              <td>Si</td>
-                            </tr>
-                            <tr>
-                              <td>Maestria</td>
-                              <td>UBA</td>
-                              <td>Ciencias Economicas</td>
-                              <td></td>
-                              <td>MBA</td>
-                              <td></td>
-                              <td>No</td>
-                            </tr>
-                          </tbody>
+                          
                             </table>
                         </div>
                     </fieldset>
@@ -297,7 +260,7 @@
             <div class="accordion-group">
               <div id="ancla3" class="accordion-heading">
                 <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                 ACTIVIDADES DE CAPACITACIÓN
+                 ACTIVIDADES DE CAPACITACI&Oacute;N
                 </a>    
               </div>
               <div id="collapseThree" class="accordion-body collapse">
@@ -332,54 +295,31 @@
               </div>
             </div>
 
-             <div class="accordion-group">
+            <div class="accordion-group">
               <div id="ancla4" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
                   ACTIVIDADES DOCENTES
-                </a>
+                </a>   
               </div>
               <div id="collapseFour" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go4" rel="leanModalConcursar" data-url="ActividadesDocentes.htm" class="link" name="form_actividadesDocentes"  href="#un_div_modal">Cargar actividades docentes</a></legend>
-                    <p>No tiene actividades cargadas</p>
-                    <table id="tabla_docentes" class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>Asignatura</th>
-                              <th>Nivel Educativo</th>
-                              <th>Tipo de Actividad</th>
-                              <th>Categoría Docente</th>
-                              <th>Caracter Designación</th>
-                              <th>Dedicación Docente</th>
-                              <th>F. Inicio</th>
-                              <th>F. Fin</th>
-                              <th>Establecimiento</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>T&eacute;cnico en Computadoras</td>
-                              <td>12/12/2012</td>
-                              <td>12/12/2012</td>
-                              <td>5 dias</td>
-                              <td>Computaci&oacute;n</td>
-                              <td>UBA</td>
-                              <td>5 dias</td>
-                              <td>Computaci&oacute;n</td>
-                              <td>UBA</td>
-                            </tr>
-                          </tbody>
-                            </table>                         
-                  </fieldset>
+                    <legend><a id="actividades_docentes_link"  onclick="javascript:AgregarActividadesDocentes();"  class="link" >Cargar actividades docentes</a></legend>
+                        <h4>Actividades Docentes Agregadas</h4>
+                        <div id="ContenedorPlanillaActividadesAcademicas" runat="server">
+                            <table id="tabla_actividades_docentes" class="table table-striped">
+                          
+                            </table>
+                        </div>
+                    </fieldset>
                 </div>
               </div>
             </div>
 
-             <div class="accordion-group">
+            <div class="accordion-group">
               <div id="ancla5" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-                  EVENTOS ACADEMICOS
+                  EVENTOS ACAD&Eacute;MICOS
                 </a>
               </div>
               <div id="collapseFive" class="accordion-body collapse">
@@ -414,7 +354,7 @@
               </div>
             </div>
 
-             <div class="accordion-group">
+            <div class="accordion-group">
               <div id="ancla6" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
                   PUBLICACIONES O TRABAJOS
@@ -450,7 +390,7 @@
               </div>
             </div>
 
-             <div class="accordion-group">
+            <div class="accordion-group">
               <div id="ancla7" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
                   MATR&Iacute;CULAS
@@ -480,8 +420,7 @@
                             </tr>
                           </tbody>
                      </table>                   
-                   
-                     
+
                   </fieldset>
                 </div>
               </div>
@@ -498,8 +437,7 @@
                   <fieldset style="width:100%;">
                     <legend><a id="go8" rel="leanModalConcursar" data-url="InstitucionesAcademicas.htm" class="link" name="form_institucionesAcademicas"  href="#un_div_modal">Cargar instituciones</a></legend>
                     <p>No tiene instituciones cargadas</p> 
-                    
-                    
+
                        <table id="tabla_instituciones_academicas" class="table table-striped">
                           <thead>
                             <tr>
@@ -536,13 +474,7 @@
                               <td>Argentina</td>
                             </tr>
                           </tbody>
-                     </table>            
-                   
-                    
-                    
-                    
-                    
-                      
+                     </table>               
                   </fieldset>
                 </div>
               </div>
@@ -551,14 +483,47 @@
             <div class="accordion-group">
               <div id="ancla9" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">
-                  EXPERIENCIAS LABORALES
+                  EXPERIENCIA LABORAL
                 </a>
               </div>
               <div id="collapseNine" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go9" rel="leanModalConcursar" data-url="ExperienciasLaborales.htm" class="link" name="form_experienciasLaborales"  href="#un_div_modal">Cargar experiencias laborales</a></legend>
-                    <p>No tiene experiencias cargadas</p>      
+                    <legend><a id="go9" rel="leanModalConcursar" data-url="ExperienciasLaborales.htm" class="link" name="form_experienciasLaborales"  href="#un_div_modal">Cargar experiencia laboral</a></legend>
+                    <p>No tiene experiencia laboral cargada</p>  
+                                        
+                        <table id="tabla_experiencia_laboral" class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Puesto</th>
+                              <th>Personal a cargo</th>
+                              <th>Fecha Inicio</th>
+                              <th>Fecha Fin</th>
+                              <th>Motivo de Desvinculaci&oacute;n </th>
+                              <th>Empleador</th>
+                              <th>Tipo Empresa</th>
+                              <th>Sector</th>
+                              <th>Localidad</th>
+                              <th>Pa&iacute;s</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Analista Programador</td>
+                              <td>3</td>
+                              <td>01/05/2008</td>
+                              <td>01/09/2009</td>
+                              <td>Cambio laboral</td>
+                              <td>SAP Argentina S.A.</td>
+                              <td>Privada</td>
+                              <td>Inform&aacute;tica</td>
+                              <td>CABA</td>
+                              <td>Argentina</td>
+                            </tr>
+                          </tbody>
+                     </table>            
+                    
+                        
                   </fieldset>
                 </div>
               </div>
@@ -583,14 +548,14 @@
             <div class="accordion-group">
               <div id="ancla10" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">
-                  COMPETENCIAS INFORMATICAS
+                  COMPETENCIAS INFORM&Aacute;TICAS
                 </a>
               </div>
               <div id="collapseEleven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
                     <legend><a id="go11" rel="leanModalConcursar" data-url="CompetenciasInformaticas.htm" class="link" name="form_competenciasInformaticas"  href="#un_div_modal">Cargar competencias informáticas</a></legend>
-                     <p>No tiene compentencias informaticas cargadas</p>  
+                     <p>No tiene competencias inform&aacute;ticas cargadas</p>  
                   </fieldset>
                 </div>
               </div>
@@ -640,74 +605,34 @@
 </div>
 <asp:HiddenField ID="curriculum" runat="server" />
 <asp:HiddenField ID="cvEstudios" runat="server" />
-
+<asp:HiddenField ID="cvActividadesDocentes" runat="server" />
   </form>
 
 <div id='IrArriba'><a href='#Arriba'><span></span></a></div>
 
 </body>
-<script type="text/javascript" src="Postular.js" ></script>
+
+<script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
+<script type="text/javascript" src="CvDatosPersonales.js" ></script>
+<script type="text/javascript" src="ActividadesDocentes.js" ></script>
     <%= Referencias.Javascript("../") %>
-       
+<script type="text/javascript" src="Postular.js" ></script>
 
 <script type="text/javascript">
 
-    // Botón para Ir Arriba
-
-    jQuery(document).ready(function () {
-        jQuery("#IrArriba").hide();
-        jQuery(function () {
-            jQuery(window).scroll(function () {
-                if (jQuery(this).scrollTop() > 200) {
-                    jQuery('#IrArriba').fadeIn();
-                } else {
-                    jQuery('#IrArriba').fadeOut();
-                }
-            });
-            jQuery('#IrArriba a').click(function () {
-                jQuery('body,html').animate({
-                    scrollTop: 0
-                }, 800);
-                return false;
-            });
-        });
-
-    });
-
     $(document).ready(function () {
-
-
-        //Estilos para ver coloreada la grilla en Internet Explorer
-        $("tbody tr:even").css('background-color', '#fff');
-        $("tbody tr:odd").css('background-color', 'transparent ');
 
         $(".collapse").collapse('show');
 
-        //var curriculumDTO = JSON.parse($('#curriculum').val());
 
-        $('#txt_fechaNac').datepicker({
-            dateFormat: 'dd/mm/yy',
-            onClose: function () {
-
-            }
-        });
-
-        ArmarGrillaEstudios();
+        var curriculum = JSON.parse($('#curriculum').val());
+        
+        CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
+        AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
+        ActividadesDocentes.armarGrilla(curriculum.CvDocencias);
 
 
-
-
-        function CompletarCV() {
-
-            $("#nombre").val(curriculumDTO.DatosPersonales.Nombre);
-            $("#apellido").val(curriculumDTO.DatosPersonales.Apellido);
-
-
-        };
-
-
-
-
+        //Activar leanModal
         $('a[rel*=leanModalConcursar]').click(function () {
             var _this = $(this);
             if (_this.attr("data-url") !== undefined) {
@@ -724,12 +649,13 @@
 
         $('a[rel*=leanModalConcursar]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
 
+
+        //Estilos para ver coloreada la grilla en Internet Explorer
+        $("tbody tr:even").css('background-color', '#fff');
+        $("tbody tr:odd").css('background-color', 'transparent ');
     });
-
-   
-
-
-
+    
+    
 
 </script>
 </html>

@@ -1,103 +1,34 @@
-﻿function ArmarGrillaEstudios () {
-    var _this = this;
-    var estudios = JSON.parse($('#cvEstudios').val());
-    contenedorPlanilla = $('#tabla_antecedentes');
+﻿// Botón para Ir Arriba
 
-    var columnas = [];
+jQuery(document).ready(function () {
+    jQuery("#IrArriba").hide();
+    jQuery(function () {
+        jQuery(window).scroll(function () {
+            if (jQuery(this).scrollTop() > 200) {
+                jQuery('#IrArriba').fadeIn();
+            } else {
+                jQuery('#IrArriba').fadeOut();
+            }
+        });
+        jQuery('#IrArriba a').click(function () {
+            jQuery('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
 
-    columnas.push(new Columna("Id", { generar: function (un_estudio) { return un_estudio.id } }));
-    columnas.push(new Columna("Titulo", { generar: function (un_estudio) { return un_estudio.Titulo } }));
-    columnas.push(new Columna("Establecimiento", { generar: function (un_estudio) { return un_estudio.Establecimiento } }));
-    columnas.push(new Columna("Especialidad", { generar: function (un_estudio) { return un_estudio.Especialidad } }));
-    columnas.push(new Columna("FechaIngreso", { generar: function (un_estudio) { return un_estudio.FechaIngreso } }));
-    columnas.push(new Columna("FechaEgreso", { generar: function (un_estudio) { return un_estudio.FechaEgreso } }));
-    columnas.push(new Columna("Localidad", { generar: function (un_estudio) { return un_estudio.Localidad } }));
-    columnas.push(new Columna("Pais", { generar: function (un_estudio) { return un_estudio.Pais } }));
-    columnas.push(new Columna('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acciones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', { generar: function (un_estudio) {
-        var contenedorBtnAcciones = $('<div>');
-        var botonEditar = $('<img>');
-        botonEditar.addClass('edit-item-btn');
-        botonEditar.attr('src', '../Imagenes/edit.png');
-        botonEditar.attr('style', 'padding-right:5px;');
-        botonEditar.attr('width', '35px');
-        botonEditar.attr('height', '35px');
-        contenedorBtnAcciones.append(botonEditar);
+});
 
-        var botonEliminar = $('<img>');
-        botonEliminar.addClass('remove-item-btn');
-        botonEliminar.attr('src', '../Imagenes/iconos_eliminar.png');
-        botonEliminar.attr('width', '35px');
-        botonEliminar.attr('height', '35px');
-        contenedorBtnAcciones.append(botonEliminar);
 
-        return contenedorBtnAcciones;
+//DatePicker del formulario de DatosPersonales
+$('#txt_fechaNac').datepicker({
+    dateFormat: 'dd/mm/yy',
+    onClose: function () {
+
     }
-    }));
+});
 
-
-    PlanillaCvEstudios = new Grilla(columnas);
-
-    //PlanillaCvEstudios.AgregarEstilo("tabla_macc");
-
-    PlanillaCvEstudios.SetOnRowClickEventHandler(function (un_estudio) {
-        //                 panelAlumno.CompletarDatosAlumno(un_alumno);
-    });
-
-    PlanillaCvEstudios.CargarObjetos(estudios);
-    PlanillaCvEstudios.DibujarEn(contenedorPlanilla);
-
-    
-    
-}
-
-
-function GuardarDatosPersonales() {
-    
-    var datosPersonales = {};
-    var domicilio = {};
-    datosPersonales.Nombre = $("#nombre").val();
-    datosPersonales.Apellido = $("#apellido").val();
-    datosPersonales.Sexo = $("#cmb_sexo").val();
-    //datosPersonales.NivelEducativo = $("#cmb_nivel_educativo").val();
-    datosPersonales.EstadoCivil = $("#cmb_estadoCivil").val();
-    datosPersonales.Cuil = $("#cuil").val();
-    datosPersonales.LugarDeNacimiento = $("#cmb_lugar_nacimiento").val();
-    datosPersonales.FechaNacimiento = ParsearFecha($("#txt_fechaNac").val());
-    datosPersonales.Nacionalidad = $("#cmb_nacionalidad").val();
-    datosPersonales.TipoDocumento = $("#cmb_tipoDocumento").val();
-    datosPersonales.Dni = parseInt($("#txt_documento").val());
-
-    domicilio.Calle = $("#txt_calle1").val();
-    domicilio.Numero = parseInt($("#txt_numero1").val());
-    domicilio.Piso = parseInt($("#txt_piso1").val());
-    domicilio.Depto = $("#txt_dto1").val();
-    domicilio.Localidad = $("#txt_localidad1").val();
-    domicilio.Cp = parseInt($("#txt_cp1").val());
-    domicilio.Provincia = $("#cmb_provincia1").val();
-
-    datosPersonales.Domicilio = domicilio;
-
-    var data_post = JSON.stringify({
-        "datosPersonales_nuevos": datosPersonales,
-        "datosPersonales_originales": datosPersonales
-    });
-    $.ajax({
-        url: "../AjaxWS.asmx/GuardarCVDatosPersonales",
-        type: "POST",
-        data: data_post,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            var respuesta = JSON.parse(respuestaJson.d);
-            if (respuesta.length == 0)
-                
-                alertify.alert("Los datos fueron guardados correctamente");
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
-        }
-    });
-};
 
 var ParsearFecha = function (fecha) {
     var day = parseInt(fecha.split("/")[0]);
@@ -107,39 +38,30 @@ var ParsearFecha = function (fecha) {
     return new Date(year, month, day);
 }
 
-function AgregarAntecedentes() {
+function AgregarAntecedentesAcademico() {
 
     var antecedentes = {};
-    antecedentes.Titulo = $("#txt_antecedentes_titulo").val();
-    antecedentes.Establecimiento = $("#txt_antecedentes_establecimiento").val();
-    antecedentes.Especialidad = $("#txt_establecimiento").val();
-    antecedentes.FechaIngreso = ParsearFecha($("#txt_antecedentes_ingreso").val());
-    antecedentes.FechaEgreso = ParsearFecha($("#txt_antecedentes_egreso").val());
-    antecedentes.Localidad = $("#txt_antecedentes_localidad").val();
-    antecedentes.Pais = $("#cmb_antecedentes_pais").val();
 
-    var data_post = JSON.stringify({
-        "antecedentesAcademicos_nuevos": antecedentes,
-        "antecedentesAcademicos_originales": antecedentes
+    AntecedentesAcademicos.mostrar(antecedentes, function (estudios) {
+        PlanillaCvEstudios.BorrarContenido();
+        PlanillaCvEstudios.CargarObjetos(estudios);
     });
-    $.ajax({
-    url: "../AjaxWS.asmx/GuardarCVAntecedentesAcademicos",
-    type: "POST",
-    data: data_post,
-    dataType: "json",
-    contentType: "application/json; charset=utf-8",
-    success: function (respuestaJson) {
-        var respuesta = JSON.parse(respuestaJson.d);
-        if (respuesta.length == 0)
-            AgregarEnTabla($("#tabla_antecedentes"), antecedentes);
-            alertify.alert("Los datos fueron guardados correctamente");
-            $(".modal_close_concursar").click();
-    },
-    error: function (XMLHttpRequest, textStatus, errorThrown) {
-        alertify.alert(errorThrown);
-    }
-    });
+
 };
+
+function AgregarActividadesDocentes() {
+
+    var antecedentes = {};
+
+    ActividadesDocentes.mostrar(antecedentes, function (actividades_docentes) {
+        PlanillaCvActividadesDocentes.BorrarContenido();
+        PlanillaCvActividadesDocentes.CargarObjetos(actividades_docentes);
+    });
+
+};
+
+
+
 
 
 var AgregarCapacitacion = function () {
@@ -168,8 +90,8 @@ var AgregarCapacitacion = function () {
             var respuesta = JSON.parse(respuestaJson.d);
             if (respuesta.length == 0)
                 AgregarEnTabla($("#tabla_capacitacion"), capacitacion);
-                alertify.alert("Los datos fueron guardados correctamente");
-                $(".modal_close_concursar").click();
+            alertify.alert("Los datos fueron guardados correctamente");
+            $(".modal_close_concursar").click();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alertify.alert(errorThrown);
@@ -177,46 +99,46 @@ var AgregarCapacitacion = function () {
     });
 }
 
+//SOY BEL, lo Borré para reemplazarlo por como estaba Actividsdes academicas
+//var AgregarDocencia = function () {
 
-var AgregarDocencia = function () {
+//    var docencia = {};
+//    docencia.Asignatura = $("#actividad_docente_asignatura").val();
+//    docencia.NivelEducativo = $("#actividad_docente_nivel_educativo").val();
+//    docencia.TipoActividad = $("#actividad_docente_tipo_actividad").val();
+//    docencia.CategoriaDocente = $("#actividad_docente_categoria").val();
+//    docencia.CaracterDesignacion = $("#actividad_docente_caracter_designacion").val();
+//    docencia.DedicacionDocente = $("#actividad_docente_dedicacion").val();
+//    docencia.CargaHoraria = $("#actividad_docente_carga_horaria").val();
+//    docencia.FechaInicio = ParsearFecha($("#actividad_docente_fecha_inicio").val());
+//    docencia.FechaFinalizacion = ParsearFecha($("#actividad_docente_fecha_fin").val());
+//    docencia.Establecimiento = $("#actividad_docente_establecimiento").val();
+//    docencia.Localidad = $("#actividad_docente_localidad").val();
+//    docencia.Pais = $("#actividad_docente_pais").val();
 
-    var docencia = {};
-    docencia.Asignatura = $("#actividad_docente_asignatura").val();
-    docencia.NivelEducativo = $("#actividad_docente_nivel_educativo").val();
-    docencia.TipoActividad = $("#actividad_docente_tipo_actividad").val();
-    docencia.CategoriaDocente = $("#actividad_docente_categoria").val();
-    docencia.CaracterDesignacion = $("#actividad_docente_caracter_designacion").val();
-    docencia.DedicacionDocente = $("#actividad_docente_dedicacion").val();
-    docencia.CargaHoraria = $("#actividad_docente_carga_horaria").val();
-    docencia.FechaInicio = ParsearFecha($("#actividad_docente_fecha_inicio").val());
-    docencia.FechaFinalizacion = ParsearFecha($("#actividad_docente_fecha_fin").val());
-    docencia.Establecimiento = $("#actividad_docente_establecimiento").val();
-    docencia.Localidad = $("#actividad_docente_localidad").val();
-    docencia.Pais = $("#actividad_docente_pais").val();
+//    var data_post = JSON.stringify({
+//        "docencias_nuevas": docencia,
+//        "docencias_originales": docencia
+//    });
+//    $.ajax({
+//        url: "../AjaxWS.asmx/GuardarCvActividadesDocentes",
+//        type: "POST",
+//        data: data_post,
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        success: function (respuestaJson) {
+//            var respuesta = JSON.parse(respuestaJson.d);
+//            if (respuesta.length == 0)
+//                AgregarEnTabla($("#tabla_docentes"), docencia);
+//            alertify.alert("Los datos fueron guardados correctamente");
+//            $(".modal_close_concursar").click();
+//        },
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alertify.alert(errorThrown);
+//        }
+//    });
 
-    var data_post = JSON.stringify({
-        "docencias_nuevas": docencia,
-        "docencias_originales": docencia
-    });
-    $.ajax({
-        url: "../AjaxWS.asmx/GuardarCVDocencia",
-        type: "POST",
-        data: data_post,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            var respuesta = JSON.parse(respuestaJson.d);
-            if (respuesta.length == 0)
-                AgregarEnTabla($("#tabla_docentes"), docencia);
-                alertify.alert("Los datos fueron guardados correctamente");
-                $(".modal_close_concursar").click();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
-        }
-    });
-
-}
+//}
 
 var AgregarEventoAcademico = function () {
 
@@ -262,7 +184,7 @@ var AgregarPublicacion = function () {
     publicacion.FechaPublicacion = ParsearFecha($("#publicaciones_fecha").val());
     publicacion.CantidadHojas = $("#publicaciones_paginas").val();
     publicacion.DisponeCopia = $("#publicaciones_dispone_copia").val();
-    
+
 
     var data_post = JSON.stringify({
         "publicaciones_nuevas": publicacion,
@@ -335,9 +257,6 @@ var AgregarInstitucionAcademica = function () {
     Institucion.fechaFin = ParsearFecha($("#pertenencia-institucion_fecha_fin").val());
     Institucion.localidad = $("#pertenencia-institucion_localidad").val();
     Institucion.pais = $("#pertenencia-institucion_pais").val();
-  
-
-
 
     var data_post = JSON.stringify({
         "instituciones_nuevas": Institucion,
@@ -368,6 +287,44 @@ var AgregarInstitucionAcademica = function () {
 
 
 
+var AgregarExperiencia = function () {
+
+    var experiencia = {};
+    experiencia.puestoOcupado = $("#experiencia-laboral_puesto").val();
+    experiencia.motivoDesvinculacion = $("#experiencia-laboral_motivo_desvinculacion").val();
+    experiencia.nombreEmpleador = $("#experiencia-laboral_empleador").val();
+    experiencia.fechaInicio = ParsearFecha($("#experiencia-laboral_fecha_inicio").val());
+    experiencia.fechaFin = ParsearFecha($("#experiencia-laboral_fecha_fin").val());
+    experiencia.localidad = $("#experiencia-laboral_localidad").val();
+
+    experiencia.pais = $("#experiencia-laboral_pais").val();
+    experiencia.personasACargo = $("#experiencia-laboral_personal_a_cargo").val();
+    experiencia.tipoEmpresa = $("#experiencia-laboral_tipo_empresa").val();
+    experiencia.actividad = $("#experiencia-laboral_sector").val();
+
+
+    var data_post = JSON.stringify({
+        "experiencias_nuevas": experiencia,
+        "experiencias_originales": experiencia
+    });
+    $.ajax({
+        url: "../AjaxWS.asmx/GuardarCVExperiencias",
+        type: "POST",
+        data: data_post,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (respuestaJson) {
+            var respuesta = JSON.parse(respuestaJson.d);
+            if (respuesta.length == 0)
+                AgregarEnTabla($("#tabla_experiencia_laboral"), experiencia);
+            alertify.alert("Los datos fueron guardados correctamente");
+            $(".modal_close_concursar").click();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alertify.alert(errorThrown);
+        }
+    });
+}
 
 
 
@@ -382,7 +339,8 @@ var AgregarInstitucionAcademica = function () {
 
 
 
-var AgregarEnTabla = function (tabla,datos) {
+
+var AgregarEnTabla = function (tabla, datos) {
 
     var n = $('tr:last td', tabla).length;
     var valores = new Array();
@@ -391,7 +349,7 @@ var AgregarEnTabla = function (tabla,datos) {
     jQuery.map(datos, function (value, key) {
         valores.push(value)
     });
-    
+
     var tds = '<tr>';
     for (var i = 0; i < n; i++) {
 
@@ -401,6 +359,9 @@ var AgregarEnTabla = function (tabla,datos) {
 
     tabla.append(tds);
 }
+
+
+
 
 
 

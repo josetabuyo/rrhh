@@ -10,10 +10,10 @@ namespace General.Modi
         public List<DocumentoModi> documentos = new List<DocumentoModi>();
         public List<ImagenModi> imagenesSinAsignar = new List<ImagenModi>();
         
-        public int idInterna { get; protected set; }
-        public int numeroDeDocumento { get; protected set; }
-        public string nombre { get; protected set; }
-        public string apellido { get; protected set; }
+        public int idInterna { get; set; }
+        public int numeroDeDocumento { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
         public string cuil { get; set; }
     
         public LegajoModi()
