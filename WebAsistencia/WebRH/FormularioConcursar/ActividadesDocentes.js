@@ -15,6 +15,8 @@
             _this.caracter_designacion.val(actividad_docente_original.CaracterDesignacion);
             _this.dedicacion_docente = _this.ui.find("#dedicacion_docente");
             _this.dedicacion_docente.val(actividad_docente_original.DedicacionDocente);
+            _this.carga_horaria = _this.ui.find("#actividad_docente_carga_horaria");
+            _this.carga_horaria.val(actividad_docente_original.CargaHoraria);
             _this.fecha_inicio = _this.ui.find("#fecha_inicio");
             _this.fecha_inicio.val(actividad_docente_original.FechaInicio);
             _this.fecha_fin = _this.ui.find("#fecha_fin");
@@ -36,15 +38,17 @@
                 actividad_docente_original.CategoriaDocente = _this.categoria_docente.val();
                 actividad_docente_original.CaracterDesignacion = _this.caracter_designacion.val();
                 actividad_docente_original.DedicacionDocente = _this.dedicacion_docente.val();
+                actividad_docente_original.CargaHoraria = _this.dedicacion_docente.val();
                 actividad_docente_original.FechaInicio = _this.fecha_inicio.val();
-                actividad_docente_original.FechaFin = _this.fecha_fin.val();
+                actividad_docente_original.FechaFinalizacion = _this.fecha_fin.val();
                 actividad_docente_original.Establecimiento = _this.establecimiento.val();
                 actividad_docente_original.Localidad = _this.cmb_actividad_docente_localidad.val();
                 actividad_docente_original.Pais = _this.cmb_actividad_docente_pais.val();
 
+
                 var data_post = JSON.stringify({
-                    "actividadesDocentes_nuevos": actividad_docente_original,
-                    "actividadesDocentes_originales": actividad_docente_original
+                    "docencias_nuevas": actividad_docente_original,
+                    "docencias_originales": actividad_docente_original
                 });
                 $.ajax({
                     url: "../AjaxWS.asmx/GuardarCvActividadesDocentes",
@@ -67,6 +71,19 @@
             var link_trucho = $("<a href='#un_div_modal'></a>");
             link_trucho.leanModal({ top: 300, closeButton: ".modal_close_concursar" });
             link_trucho.click();
+
+            $('#actividad_docente_fecha_inicio').datepicker({
+                dateFormat: 'dd/mm/yy',
+                onClose: function () {
+
+                }
+            });
+            $('#actividad_docente_fecha_fin').datepicker({
+                dateFormat: 'dd/mm/yy',
+                onClose: function () {
+
+                }
+            });
         });
     },
     armarGrilla: function (actividades_docentes) {
@@ -96,8 +113,8 @@
         botonEditar.addClass('edit-item-btn');
         botonEditar.attr('src', '../Imagenes/edit.png');
         botonEditar.attr('style', 'padding-right:5px;');
-        botonEditar.attr('width', '35px');
-        botonEditar.attr('height', '35px');
+        botonEditar.attr('width', '25px');
+        botonEditar.attr('height', '25px');
 
         botonEditar.click(function () {
             ActividadesDocentes.mostrar(una_actividad_docente, function (actididad_docente_modificada) {
@@ -111,8 +128,8 @@
         var botonEliminar = $('<img>');
         botonEliminar.addClass('remove-item-btn');
         botonEliminar.attr('src', '../Imagenes/iconos_eliminar.png');
-        botonEliminar.attr('width', '35px');
-        botonEliminar.attr('height', '35px');
+        botonEliminar.attr('width', '25px');
+        botonEliminar.attr('height', '25px');
 
         botonEliminar.click(function () {
             ActividadesDocentes.eliminar(una_actividad_docente, function (actividad_docente_eliminada) {
