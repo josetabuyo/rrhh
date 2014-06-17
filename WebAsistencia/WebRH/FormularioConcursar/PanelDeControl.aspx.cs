@@ -9,7 +9,7 @@ using WSViaticos;
 
 public partial class FormularioConcursar_PanelDeControl : System.Web.UI.Page
 {
-    public int documento;
+  
     public string apellido;
     public string nombre;
     private WSViaticos.Usuario usuarioLogueado;
@@ -23,8 +23,9 @@ public partial class FormularioConcursar_PanelDeControl : System.Web.UI.Page
 
             var cv = Servicio().GetCurriculum(dni);
 
-            var curriculum = JsonConvert.SerializeObject(cv);
-            
+            //var curriculum = JsonConvert.SerializeObject(cv);
+            apellido = cv.DatosPersonales.Apellido;
+            nombre = cv.DatosPersonales.Nombre;
             
         }
         }
