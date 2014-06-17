@@ -13,7 +13,7 @@ namespace General
         protected string _depto;
         protected string _localidad;
         protected int _cp;
-        protected Provincia _provincia;
+        protected int _provincia;
 
         public string Calle { get { return _calle; } set { _calle = value; } }
         public int Numero { get { return _numero; } set { _numero = value; } }
@@ -21,10 +21,10 @@ namespace General
         public string Depto { get { return _depto; } set { _depto = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Cp { get { return _cp; } set { _cp = value; } }
-        public Provincia Provincia { get { return _provincia; } set { _provincia = value; } }
+        public int Provincia { get { return _provincia; } set { _provincia = value; } }
 
 
-        public CvDomicilio(string calle, int numero, string piso, string depto, string localidad, int cp, Provincia provincia)
+        public CvDomicilio(string calle, int numero, string piso, string depto, string localidad, int cp, int provincia)
         {
             this._calle = calle;
             this._numero = numero;

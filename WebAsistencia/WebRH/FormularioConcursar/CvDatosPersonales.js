@@ -3,6 +3,8 @@
         var _this = this;
 
         this.repo_provincias = new RepositorioDeProvincias(new ProveedorAjax());
+        this.repo_nacionalidades = new RepositorioDeNacionalidades(new ProveedorAjax());
+
         this.ui = $("#contenedor_datosPersonales");
         _this.txt_nombre = _this.ui.find("#nombre");
         _this.txt_apellido = _this.ui.find("#apellido");
@@ -15,6 +17,11 @@
         _this.cmb_tipoDocumento = _this.ui.find("#cmb_tipoDocumento");
         _this.txt_dni = _this.ui.find("#txt_documento");
 
+        this.repo_nacionalidades.getNacionalidades(function (nacionalidades) {
+            _this.cmb_nacionalidad.cargarCombo(nacionalidades, "Id", "Descripcion");
+            _this.cmb_nacionalidad.val(datos_personales.Nacionalidad);
+        });
+
         _this.txt_nombre.val(datos_personales.Nombre);
         _this.txt_apellido.val(datos_personales.Apellido);
         _this.cmb_sexo.val(datos_personales.Sexo);
@@ -22,7 +29,6 @@
         _this.txt_cuil.val(datos_personales.Cuil);
         _this.cmb_lugar_nac.val(datos_personales.LugarDeNacimiento);
         _this.txt_fechaNac.val(datos_personales.FechaNacimiento);
-        _this.cmb_nacionalidad.val(datos_personales.Nacionalidad);
         _this.cmb_tipoDocumento.val(datos_personales.TipoDocumento);
         _this.txt_dni.val(parseInt(datos_personales.Dni));
 
@@ -37,7 +43,7 @@
 
         this.repo_provincias.getProvincias(function (provincias) {
             _this.cmb_domicilio_personal_provincia.cargarCombo(provincias, "Id", "Nombre");
-            _this.cmb_domicilio_personal_provincia.val(datos_personales.DomicilioPersonal.Provincia.Id);
+            _this.cmb_domicilio_personal_provincia.val(datos_personales.DomicilioPersonal.Provincia);
         });
 
         _this.txt_domicilio_personal_calle.val(datos_personales.DomicilioPersonal.Calle);
@@ -61,7 +67,7 @@
 
         this.repo_provincias.getProvincias(function (provincias) {
             _this.cmb_domicilio_legal_provincia.cargarCombo(provincias, "Id", "Nombre");
-            _this.cmb_domicilio_legal_provincia.val(datos_personales.DomicilioLegal.Provincia.Id);
+            _this.cmb_domicilio_legal_provincia.val(datos_personales.DomicilioLegal.Provincia);
         });
 
         _this.txt_domicilio_legal_calle.val(datos_personales.DomicilioLegal.Calle);
@@ -88,7 +94,7 @@
             datos_personales_nuevo.Cuil = _this.txt_cuil.val();
             datos_personales_nuevo.LugarDeNacimiento = _this.cmb_lugar_nac.val();
             datos_personales_nuevo.FechaNacimiento = _this.txt_fechaNac.val();
-            datos_personales_nuevo.Nacionalidad = _this.cmb_nacionalidad.val();
+            datos_personales_nuevo.Nacionalidad = _this.cmb_nacionalidad.itemSeleccionado().Id;
             datos_personales_nuevo.TipoDocumento = _this.cmb_tipoDocumento.val();
             datos_personales_nuevo.Dni = parseInt(_this.txt_dni.val());
 
@@ -98,7 +104,7 @@
             domicilioPersonal_nuevo.Depto = _this.txt_domicilio_personal_dto.val();
             domicilioPersonal_nuevo.Localidad = _this.txt_domicilio_personal_localidad.val();
             domicilioPersonal_nuevo.Cp = parseInt(_this.txt_domicilio_personal_cp.val());
-            domicilioPersonal_nuevo.Provincia = { Id: _this.cmb_domicilio_personal_provincia.val(), Nombre: _this.cmb_domicilio_personal_provincia.find("option:selected").text()};
+            domicilioPersonal_nuevo.Provincia = _this.cmb_domicilio_personal_provincia.itemSeleccionado().Id;
 
             domicilioLegal_nuevo.Calle = _this.txt_domicilio_legal_calle.val();
             domicilioLegal_nuevo.Numero = parseInt(_this.txt_domicilio_legal_numero.val());
@@ -106,7 +112,7 @@
             domicilioLegal_nuevo.Depto = _this.txt_domicilio_legal_dto.val();
             domicilioLegal_nuevo.Localidad = _this.txt_domicilio_legal_localidad.val();
             domicilioLegal_nuevo.Cp = parseInt(_this.txt_domicilio_legal_cp.val());
-            domicilioLegal_nuevo.Provincia = { Id: _this.cmb_domicilio_legal_provincia.val(), Nombre: _this.cmb_domicilio_legal_provincia.find("option:selected").text() };
+            domicilioLegal_nuevo.Provincia = _this.cmb_domicilio_legal_provincia.itemSeleccionado().Id;
             //domicilioLegal_nuevo.TelefonoFijo = _this.txt_domicilio_legal_telefonoFijo.val();
             //domicilioLegal_nuevo.TelefonoCelular = _this.txt_domicilio_legal_telefonoCelular.val();
             //domicilioLegal_nuevo.Mail = _this.txt_domicilio_legal_mail.val();

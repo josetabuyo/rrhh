@@ -2594,6 +2594,12 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeProvincias.NuevoRepositorioDeProvincias(Conexion()).TodasLasProvincias().ToArray();
     }
 
+    [WebMethod]
+    public Nacionalidad[] GetNacionalidades()
+    {
+        return RepositorioDeNacionalidades.NuevoRepositorioDeNacionalidades(Conexion()).TodasLasNacionalidades().ToArray();
+    }
+
     #endregion
 
     

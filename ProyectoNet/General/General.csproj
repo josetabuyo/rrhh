@@ -103,6 +103,7 @@
     <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
+    <Compile Include="Nacionalidad.cs" />
     <Compile Include="Postular\CurriculumVitaeNull.cs" />
     <Compile Include="Postular\CvDocenciaDto.cs" />
     <Compile Include="Postular\CurriculumDto.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Repositorios\IRepositorioDeCurriculum.cs" />
     <Compile Include="Repositorios\Repositorio.cs" />
     <Compile Include="Repositorios\RepositorioDeCurriculum.cs" />
+    <Compile Include="Repositorios\RepositorioDeNacionalidades.cs" />
     <Compile Include="Repositorios\RepositorioLazySingleton.cs" />
     <Compile Include="Viaticos\PersonaNula.cs" />
     <Compile Include="Repositorios\IRepositorioDePersonas.cs" />

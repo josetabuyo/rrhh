@@ -610,6 +610,7 @@
     <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postular.js" ></script>
 <script type="text/javascript" src="../Scripts/RepositorioDeProvincias.js" ></script>
+<script type="text/javascript" src="../Scripts/RepositorioDeNacionalidades.js" ></script>
 
 <script type="text/javascript">
 

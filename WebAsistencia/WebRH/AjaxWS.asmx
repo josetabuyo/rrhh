@@ -603,5 +603,13 @@ public class AjaxWS : System.Web.Services.WebService {
         var provincias = backEndService.GetProvincias();
         return Newtonsoft.Json.JsonConvert.SerializeObject(provincias);
     }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetNacionalidades()
+    {
+        var nacionalidades = backEndService.GetNacionalidades();
+        return Newtonsoft.Json.JsonConvert.SerializeObject(nacionalidades);
+    }
 }
 

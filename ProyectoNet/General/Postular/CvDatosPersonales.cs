@@ -14,7 +14,7 @@ namespace General
         protected string _estadoCivil;
         protected string _cuil;
         protected string _lugarNacimiento;
-        protected string _nacionalidad;
+        protected int _nacionalidad;
         protected string _fechaNacimiento;
         protected string _tipoDocumento;
         protected CvDomicilio _domicilioPersonal;
@@ -27,13 +27,13 @@ namespace General
         public string EstadoCivil { get { return _estadoCivil; } set { _estadoCivil = value; } }
         public string Cuil { get { return _cuil; } set { _cuil = value; } }
         public string LugarDeNacimiento { get { return _lugarNacimiento; } set { _lugarNacimiento = value; } }
-        public string Nacionalidad { get { return _nacionalidad; } set { _nacionalidad = value; } }
+        public int Nacionalidad { get { return _nacionalidad; } set { _nacionalidad = value; } }
         public string FechaNacimiento { get { return _fechaNacimiento; } set { _fechaNacimiento = value; } }
         public string TipoDocumento { get { return _tipoDocumento; } set { _tipoDocumento = value; } }
         public CvDomicilio DomicilioPersonal { get { return _domicilioPersonal; } set { _domicilioPersonal = value; } }
         public CvDomicilio DomicilioLegal { get { return _domicilioLegal; } set { _domicilioLegal = value; } }
 
-        public CvDatosPersonales(int dni, string nombre, string apellido, string sexo, string estadoCivil, string cuil, string lugarNacimiento, string nacionalidad, string fechaNacimiento, string tipoDocumento, CvDomicilio domicilio_personal, CvDomicilio domicilio_legal)
+        public CvDatosPersonales(int dni, string nombre, string apellido, string sexo, string estadoCivil, string cuil, string lugarNacimiento, int nacionalidad, string fechaNacimiento, string tipoDocumento, CvDomicilio domicilio_personal, CvDomicilio domicilio_legal)
         {
             this._dni = dni;
             this._nombre = nombre;

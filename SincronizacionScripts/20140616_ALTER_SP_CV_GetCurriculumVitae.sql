@@ -13,7 +13,7 @@ BEGIN
 		dpadd.CUIL,
 		dpadd.LugarNacimiento,
 		dp.FechaNacimiento,
-		nac.Descripcion Nacionalidad,
+		nac.Id Nacionalidad,
 
 		dom_pers.Calle DomPers_Calle,
 		dom_pers.Número DomPers_Numero,
@@ -22,7 +22,6 @@ BEGIN
 		dom_pers_afip.NombreLocalidad DomPers_Localidad,
 		dom_pers.Codigo_Postal DomPers_CodigoPostal,
 		isnull(prov_pers.IdProvincia, 0) DomPers_IdProvincia,
-		isnull(prov_pers.NombreProvincia, 'No Especificado') DomPers_NombreProvincia,
 
 		dom_lab.Calle DomLab_Calle,
 		dom_lab.Número DomLab_Numero,
@@ -30,8 +29,7 @@ BEGIN
 		dom_lab.Dpto DomLab_Depto,
 		dom_lab_afip.NombreLocalidad DomLab_Localidad,
 		dom_lab.Codigo_Postal DomLab_CodigoPostal,
-		isnull(prov_lab.IdProvincia, 0) DomLab_IdProvincia,
-		isnull(prov_lab.NombreProvincia, 'No Especificado') DomLab_NombreProvincia
+		isnull(prov_lab.IdProvincia, 0) DomLab_IdProvincia
 	FROM dbo.DatosPersonales dp
 	INNER JOIN dbo.CV_DatosPersonales cvdp
 		ON cvdp.IdPersona = dp.Id
