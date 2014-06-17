@@ -2595,6 +2595,11 @@ public class WSViaticos : System.Web.Services.WebService
         RepoCurriculum().GuardarCvExperiencias(experiencias_nuevas, usuario);
     }
 
+    [WebMethod]
+    public Provincia[] GetProvincias()
+    {
+        return RepositorioDeProvincias.NuevoRepositorioDeProvincias(Conexion()).TodasLasProvincias().ToArray();
+    }
 
     #endregion
 

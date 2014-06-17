@@ -89,15 +89,15 @@
                             <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" >
                                 <option value="-1">Sexo</option>
                                 <option value="1">Masculino</option>
-                                <option value="1">Femenino</option>
+                                <option value="2">Femenino</option>
                              </select>
                         </div>
                         <div style="float:left; margin:8px">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
                          <select id="cmb_estadoCivil" name="cmb_estado_civil" style="width:150px;" >
                             <option value="-1">Estado Civil</option>
-                            <option value="1">Masculino</option>
-                            <option value="1">Femenino</option>
+                            <option value="1">Soltero</option>
+                            <option value="2">Casado</option>
                          </select>
                          </div>
                         <div style="float:left; margin:8px; width:130px;">
@@ -109,8 +109,6 @@
                              <label class="etiqueta_campo" for="cmb_lugar_nacimiento">Lugar nacimiento <em>*</em></label>
                              <select id="cmb_lugar_nacimiento" style="width:120px;" name="cmb_lugar_nacimiento" >
                                 <option value="-1">Seleccione</option>
-                                <option value="1">Argentina</option>
-                                <option value="1">Bolivia</option>
                               </select>
                         </div>
                         <div style="float:left; margin:8px">
@@ -121,16 +119,14 @@
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
                          <select id="cmb_nacionalidad" style="width:120px;" name="cmb_nacionalidad" >
                             <option value="-1">Seleccione</option>
-                            <option value="1">Argentina</option>
-                            <option value="1">Boliviano</option>
                          </select>
                       </div>
                       <div style="float:left; margin:8px">
                        <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo documento <em>*</em></label>
                         <select id="cmb_tipoDocumento" style="width:100px;" name="cmb_tipoDocumento" >
-                            <option value="-1">DNI</option>
+                            <option value="0">DNI</option>
                             <option value="1">LC</option>
-                            <option value="1">LE</option>
+                            <option value="2">LE</option>
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
@@ -159,15 +155,13 @@
                           <input type="text" id="txt_localidad1" name="txt_localidad1" style="width:100px"/> 
                       </div>
                       <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo_small" for="txt_cp1">Código postal <em>*</em></label>
+                          <label class="etiqueta_campo_small" for="txt_cp1">Código postal <em>*</em></label>
                           <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/><br/>
                       </div>
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
                         <select id="cmb_provincia1" name="cmb_provincia1" style="width:130px;" >
                             <option value="-1">Seleccione</option>
-                            <option value="1">Buenos Aires</option>
-                            <option value="1">Cordoba</option>
                         </select>
                       </div>
                     </fieldset>
@@ -207,8 +201,6 @@
                         <label class="etiqueta_campo" for="cmb_provincia2">Provincia <em>*</em></label>
                         <select id="cmb_provincia2" name="cmb_provincia2" style="width:150px;" >
                             <option value="-1">Seleccione</option>
-                            <option value="1">Buenos Aires</option>
-                            <option value="1">Cordoba</option>
                         </select>
                       </div>
 
@@ -266,30 +258,13 @@
               <div id="collapseThree" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                 <fieldset style="width:100%;">
-                <legend><a id="a3" rel="leanModalConcursar" data-url="ActividadesCapacitacion.htm" class="link" name="form_actividadesCapacitacion"  href="#un_div_modal">Cargar actividades de capacitacion</a></legend>
-                    <p>No tiene actividades cargadas</p> 
-                     <table id="tabla_capacitacion" class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>Diploma</th>
-                              <th>F. Inicio</th>
-                              <th>F. Finalización</th>
-                              <th>Duración</th>
-                              <th>Especialidad</th>
-                              <th>Establecimiento</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Tecnico en Computadoras</td>
-                              <td>12/12/2012</td>
-                              <td>12/12/2012</td>
-                              <td>5 dias</td>
-                              <td>Computacion</td>
-                              <td>UBA</td>
-                            </tr>
-                          </tbody>
-                            </table>                   
+                <legend><a id="actividades_capacitacion_link" onclick="javascript:AgregarActividadesCapacitacion();"  class="link"> Cargar actividades de capacitación</a></legend>
+                        <h4>Actividades de Capacitación Agregadas</h4>
+                        <div id="ContenedorPlanillaActividadesCapacitacion" runat="server">
+                            <table id="tabla_actividades_capacitacion" class="table table-striped">
+                          
+                            </table>
+                        </div>  
                   </fieldset>
                 </div>
               </div>
@@ -306,7 +281,7 @@
                   <fieldset style="width:100%;">
                     <legend><a id="actividades_docentes_link"  onclick="javascript:AgregarActividadesDocentes();"  class="link" >Cargar actividades docentes</a></legend>
                         <h4>Actividades Docentes Agregadas</h4>
-                        <div id="ContenedorPlanillaActividadesAcademicas" runat="server">
+                        <div id="ContenedorPlanillaActividadesDocentes" runat="server">
                             <table id="tabla_actividades_docentes" class="table table-striped">
                           
                             </table>
@@ -325,30 +300,13 @@
               <div id="collapseFive" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go5" rel="leanModalConcursar" data-url="EventosAcademicos.htm" class="link" name="form_eventosAcademicos"  href="#un_div_modal">Cargar eventos académicos</a></legend>
-                    <p>No tiene eventos cargados</p>  
-                    <table id="tabla_eventoAcademico" class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>Denominaci&oacute;n</th>
-                              <th>Tipo Evento</th>
-                              <th>Car&aacute;cter de Participaci&oacute;n</th>
-                              <th>F. Inicio</th>
-                              <th>F. Fin</th>
-                              <th>Instituci&oacute;n</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>T&eacute;cnico en Computadoras</td>
-                              <td>12/12/2012</td>
-                              <td>12/12/2012</td>
-                              <td>5 dias</td>
-                              <td>Computaci&oacute;n</td>
-                              <td>UBA</td>
-                            </tr>
-                          </tbody>
-                            </table>                             
+                    <legend><a id="eventos_academicos_link"  onclick="javascript:AgregarEventosAcademicos();"  class="link" >Cargar eventos académicos</a></legend>
+                        <h4>Eventos Acadmémicos Agregads</h4>
+                        <div id="ContenedorPlanillEventosAcademicos" runat="server">
+                            <table id="tabla_eventos_academicos" class="table table-striped">
+                          
+                            </table>
+                        </div>                       
                   </fieldset>
                 </div>
               </div>
@@ -363,28 +321,13 @@
               <div id="collapseSix" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go6" rel="leanModalConcursar" data-url="Publicaciones.htm" class="link" name="form_publicaciones"  href="#un_div_modal">Cargar publicaciones o trabajos</a></legend>
-                    <p>No tiene publicaciones cargadas</p>   
-                    <table id="tabla_publicaciones" class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>T&iacute;tulo</th>
-                              <th>Datos de Editorial</th>
-                              <th>Fecha</th>
-                              <th>Cant. de Hojas</th>
-                              <th>Dispone copia</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>El estado de bienestar</td>
-                              <td>Atl&aacute;ntida</td>
-                              <td>12/12/2012</td>
-                              <td>5</td>
-                              <td>Si</td>
-                            </tr>
-                          </tbody>
-                            </table>                             
+                    <legend><a id="publicaciones_trabajos_link"  onclick="javascript:AgregarPublicacionesTrabajos();"  class="link" >Cargar publicaciones y trabajos</a></legend>
+                        <h4>Publicaciones y Trabajos Agregados</h4>
+                        <div id="ContenedorPlanillaPublicacionesTrabajos" runat="server">
+                            <table id="tabla_publicaciones_trabajos" class="table table-striped">
+                          
+                            </table>
+                        </div>                           
                   </fieldset>
                 </div>
               </div>
@@ -399,28 +342,13 @@
               <div id="collapseSeven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go7" rel="leanModalConcursar" data-url="Matriculas.htm" class="link" name="form_matriculas"  href="#un_div_modal">Cargar matriculas</a></legend>
-                    <p>No tiene matr&iacute;culas cargadas</p>  
-                    
-                      <table id="tabla_matriculas" class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>N&uacute;mero</th>
-                              <th>Expedida por</th>
-                              <th>Fecha Inscr.</th>
-                              <th>Situaci&oacute;n Actual</th>
-                           </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>M.N. 20586</td>
-                              <td>Ministerio de Salud</td>
-                              <td>01/08/2005</td>
-                              <td>Vigente</td>
-                            </tr>
-                          </tbody>
-                     </table>                   
-
+                    <legend><a id="matriculas_link"  onclick="javascript:AgregarMatriculas();"  class="link" >Cargar matrículas</a></legend>
+                        <h4>Matrículas Agregadas</h4>
+                        <div id="ContenedorPlanillaMatriculas" runat="server">
+                            <table id="tabla_matriculas" class="table table-striped">
+                          
+                            </table>
+                        </div>
                   </fieldset>
                 </div>
               </div>
@@ -435,46 +363,13 @@
               <div id="collapseEight" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go8" rel="leanModalConcursar" data-url="InstitucionesAcademicas.htm" class="link" name="form_institucionesAcademicas"  href="#un_div_modal">Cargar instituciones</a></legend>
-                    <p>No tiene instituciones cargadas</p> 
-
-                       <table id="tabla_instituciones_academicas" class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>Nombre Inst.</th>
-                              <th>Car&aacute;cter Entidad</th>
-                              <th>Cargos Desempeñados</th>
-                              <th>N&uacute;mero de Afiliado</th>
-                                <th>Categor&iacute;a actual</th>
-                              <th>Fecha de afiliaci&oacute;n</th>
-                            
-                              <th>Fecha</th>
-                             
-                              <th>Fecha inicio</th>
-                              <th>Fecha Fin</th>
-                               <th>Localidad</th>
-                              <th>Pa&iacute;s</th>
-                           </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Universidad Kennedy</td>
-                              <td>Privada</td>
-                              <td>Preceptor</td>
-                             
-                              <td>457345</td>
-                              <td>Vigente</td>
-                               <td>01/02/03</td>
-                              
-                              <td>01/08/2014</td>
-                             
-                              <td>01/04/08</td>
-                              <td>01/08/12</td>
-                               <td>CABA</td>
-                              <td>Argentina</td>
-                            </tr>
-                          </tbody>
-                     </table>               
+                    <legend><a id="instituciones_academicas_link"  onclick="javascript:AgregarInstitucionesAcademicas();"  class="link" >Cargar instituciones académicas</a></legend>
+                        <h4>Instituciones Académicas Agregadas</h4>
+                        <div id="ContenedorPlanillaInstitucionesAcademicas" runat="server">
+                            <table id="tabla_instituciones_academicas" class="table table-striped">
+                          
+                            </table>
+                        </div>     
                   </fieldset>
                 </div>
               </div>
@@ -489,41 +384,13 @@
               <div id="collapseNine" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go9" rel="leanModalConcursar" data-url="ExperienciasLaborales.htm" class="link" name="form_experienciasLaborales"  href="#un_div_modal">Cargar experiencia laboral</a></legend>
-                    <p>No tiene experiencia laboral cargada</p>  
-                                        
-                        <table id="tabla_experiencia_laboral" class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>Puesto</th>
-                              <th>Personal a cargo</th>
-                              <th>Fecha Inicio</th>
-                              <th>Fecha Fin</th>
-                              <th>Motivo de Desvinculaci&oacute;n </th>
-                              <th>Empleador</th>
-                              <th>Tipo Empresa</th>
-                              <th>Sector</th>
-                              <th>Localidad</th>
-                              <th>Pa&iacute;s</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Analista Programador</td>
-                              <td>3</td>
-                              <td>01/05/2008</td>
-                              <td>01/09/2009</td>
-                              <td>Cambio laboral</td>
-                              <td>SAP Argentina S.A.</td>
-                              <td>Privada</td>
-                              <td>Inform&aacute;tica</td>
-                              <td>CABA</td>
-                              <td>Argentina</td>
-                            </tr>
-                          </tbody>
-                     </table>            
-                    
-                        
+                    <legend><a id="experiencia_laboral_link"  onclick="javascript:AgregarExperienciaLaboral();"  class="link" >Cargar experiencia laboral</a></legend>
+                        <h4>Experiencia Laboral Agregada</h4>
+                        <div id="ContenedorPlanillaExperienciaLaboral" runat="server">
+                            <table id="tabla_experiencia_laboral" class="table table-striped">
+                          
+                            </table>
+                        </div>
                   </fieldset>
                 </div>
               </div>
@@ -538,8 +405,13 @@
               <div id="collapseTen" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go10" rel="leanModalConcursar" data-url="IdiomasExtranjeros.htm" class="link" name="form_idiomasExtranjeros"  href="#un_div_modal">Cargar idiomas</a></legend>
-                    <p>No tiene idiomas cargados</p>      
+                    <legend><a id="idiomas_extranjeros_link"  onclick="javascript:AgregarIdiomasExtranjeros();"  class="link" >Cargar idiomas extranjeros</a></legend>
+                        <h4>Idiomas Extranjeros Agregados</h4>
+                        <div id="ContenedorPlanillaIdiomasExtranjeros" runat="server">
+                            <table id="tabla_idiomas_extranjeros" class="table table-striped">
+                          
+                            </table>
+                        </div> 
                   </fieldset>
                 </div>
               </div>
@@ -554,8 +426,13 @@
               <div id="collapseEleven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go11" rel="leanModalConcursar" data-url="CompetenciasInformaticas.htm" class="link" name="form_competenciasInformaticas"  href="#un_div_modal">Cargar competencias informáticas</a></legend>
-                     <p>No tiene competencias inform&aacute;ticas cargadas</p>  
+                    <legend><a id="competencias_informaticas_link"  onclick="javascript:AgregarCompetenciasInformaticas();"  class="link" >Cargar competencias informáticas</a></legend>
+                        <h4>Competencias Informáticas Agregadas</h4>
+                        <div id="ContenedorPlanillaCompetenciasInformaticas" runat="server">
+                            <table id="tabla_competencias_informaticas" class="table table-striped">
+                          
+                            </table>
+                        </div> 
                   </fieldset>
                 </div>
               </div>
@@ -570,8 +447,13 @@
               <div id="collapseTwelve" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="go12" rel="leanModalConcursar" data-url="OtrasCapacidades.htm" class="link" name="form_otrasCapacidades"  href="#un_div_modal">Cargar otras capacidades</a></legend>
-                    <p>No tiene capacidades cargadas</p>  
+                    <legend><a id="otras_capacidades_link"  onclick="javascript:AgregarOtrasCapacidades();"  class="link" >Cargar otras capacidades</a></legend>
+                        <h4>Otras Capacidades Agregadas</h4>
+                        <div id="ContenedorPlanillaOtrasCapacidades" runat="server">
+                            <table id="tabla_otras_capacidades" class="table table-striped">
+                          
+                            </table>
+                        </div>
                     
                   </fieldset>
                 </div>
@@ -606,17 +488,41 @@
 <asp:HiddenField ID="curriculum" runat="server" />
 <asp:HiddenField ID="cvEstudios" runat="server" />
 <asp:HiddenField ID="cvActividadesDocentes" runat="server" />
+<asp:HiddenField ID="cvActividadesCapacitacion" runat="server" />
+<asp:HiddenField ID="CvEventosAcademicos" runat="server" />
+<asp:HiddenField ID="CvExperienciaLaboral" runat="server" />
+<asp:HiddenField ID="CvIdiomas" runat="server" />
+<asp:HiddenField ID="CvInstitucionesAcademicas" runat="server" />
+<asp:HiddenField ID="CvMatricula" runat="server" />
+<asp:HiddenField ID="CvPublicaciones" runat="server" />
+<asp:HiddenField ID="CvCompetenciasInformaticas" runat="server" />
+
+
   </form>
 
 <div id='IrArriba'><a href='#Arriba'><span></span></a></div>
 
 </body>
 
-<script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
 <script type="text/javascript" src="CvDatosPersonales.js" ></script>
+<script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
+<script type="text/javascript" src="ActividadesCapacitacion.js" ></script>
 <script type="text/javascript" src="ActividadesDocentes.js" ></script>
+
+<script type="text/javascript" src="EventosAcademicos.js" ></script>
+<script type="text/javascript" src="PublicacionesTrabajos.js" ></script>
+<script type="text/javascript" src="Matriculas.js" ></script>
+<script type="text/javascript" src="InstitucionesAcademicas.js" ></script>
+<script type="text/javascript" src="ExperienciaLaboral.js" ></script>
+<script type="text/javascript" src="IdiomasExtranjeros.js" ></script>
+<script type="text/javascript" src="CompetenciasInformaticas.js" ></script>
+<script type="text/javascript" src="OtrasCapacidades.js" ></script>
+
+
+
     <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postular.js" ></script>
+<script type="text/javascript" src="../Scripts/RepositorioDeProvincias.js" ></script>
 
 <script type="text/javascript">
 
@@ -630,6 +536,15 @@
         CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
         AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
         ActividadesDocentes.armarGrilla(curriculum.CvDocencias);
+        ActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
+        EventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
+        PublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
+        Matriculas.armarGrilla(curriculum.CvMatricula);
+        InstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
+        ExperienciaLaboral.armarGrilla(curriculum.CvExperienciaLaboral);
+        IdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
+        CompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
+        OtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
 
 
         //Activar leanModal

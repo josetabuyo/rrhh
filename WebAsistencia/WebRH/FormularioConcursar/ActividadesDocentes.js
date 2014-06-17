@@ -3,30 +3,31 @@
         var _this = this;
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("ActividadesDocentes.htm", function () {
-            _this.txt_asignatura = _this.ui.find("#txt_asignatura");
+            _this.txt_asignatura = _this.ui.find("#txt_actividad_docente_asignatura");
             _this.txt_asignatura.val(actividad_docente_original.Asignatura);
-            _this.nivel_educativo = _this.ui.find("#nivel_educativo");
+            _this.nivel_educativo = _this.ui.find("#txt_actividad_docente_nivel_educativo");
             _this.nivel_educativo.val(actividad_docente_original.NivelEducativo);
-            _this.tipo_actividad = _this.ui.find("#tipo_actividad");
+            _this.tipo_actividad = _this.ui.find("#txt_actividad_docente_tipo_actividad");
             _this.tipo_actividad.val(actividad_docente_original.TipoActividad);
-            _this.categoria_docente = _this.ui.find("#categoria_docente");
+            _this.categoria_docente = _this.ui.find("#txt_actividad_docente_categoria");
             _this.categoria_docente.val(actividad_docente_original.CategoriaDocente);
-            _this.caracter_designacion = _this.ui.find("#caracter_designacion");
+            _this.caracter_designacion = _this.ui.find("#txt_actividad_docente_caracter_designacion");
             _this.caracter_designacion.val(actividad_docente_original.CaracterDesignacion);
-            _this.dedicacion_docente = _this.ui.find("#dedicacion_docente");
+            _this.dedicacion_docente = _this.ui.find("#txt_actividad_docente_dedicacion");
             _this.dedicacion_docente.val(actividad_docente_original.DedicacionDocente);
-            _this.carga_horaria = _this.ui.find("#actividad_docente_carga_horaria");
+            _this.carga_horaria = _this.ui.find("#txt_actividad_docente_carga_horaria");
             _this.carga_horaria.val(actividad_docente_original.CargaHoraria);
-            _this.fecha_inicio = _this.ui.find("#fecha_inicio");
+            _this.fecha_inicio = _this.ui.find("#txt_actividad_docente_fecha_inicio");
             _this.fecha_inicio.val(actividad_docente_original.FechaInicio);
-            _this.fecha_fin = _this.ui.find("#fecha_fin");
+            _this.fecha_fin = _this.ui.find("#txt_actividad_docente_fecha_fin");
             _this.fecha_fin.val(actividad_docente_original.FechaFin);
-            _this.establecimiento = _this.ui.find("#establecimiento");
+            _this.establecimiento = _this.ui.find("#txt_actividad_docente_establecimiento");
             _this.establecimiento.val(actividad_docente_original.Establecimiento);
             _this.cmb_actividad_docente_localidad = _this.ui.find("#cmb_actividad_docente_localidad");
             _this.cmb_actividad_docente_localidad.val(actividad_docente_original.Localidad);
             _this.cmb_actividad_docente_pais = _this.ui.find("#cmb_actividad_docente_pais");
             _this.cmb_actividad_docente_pais.val(actividad_docente_original.Pais);
+
 
             //Bt agregar
             _this.add_actividadesDocentes = _this.ui.find("#add_actividadesDocentes");
@@ -72,13 +73,13 @@
             link_trucho.leanModal({ top: 300, closeButton: ".modal_close_concursar" });
             link_trucho.click();
 
-            $('#actividad_docente_fecha_inicio').datepicker({
+            $('#txt_actividad_docente_fecha_inicio').datepicker({
                 dateFormat: 'dd/mm/yy',
                 onClose: function () {
 
                 }
             });
-            $('#actividad_docente_fecha_fin').datepicker({
+            $('#txt_actividad_docente_fecha_fin').datepicker({
                 dateFormat: 'dd/mm/yy',
                 onClose: function () {
 
@@ -102,8 +103,9 @@
     columnas.push(new Columna("Categoría Docente", { generar: function (una_actividad_docente) { return una_actividad_docente.CategoriaDocente } }));
     //columnas.push(new Columna("Caracter de Designación", { generar: function (una_actividad_docente) { return una_actividad_docente.CaracterDesignación } }));
     //columnas.push(new Columna("Dedicación Docente", { generar: function (una_actividad_docente) { return una_actividad_docente.DedicacionDocente } }));
+    //columnas.push(new Columna("Carga Horaria", { generar: function (una_actividad_docente) { return una_actividad_docente.CargaHoraria } }));
     columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_docente) { return una_actividad_docente.FechaInicio } }));
-    columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_docente) { return una_actividad_docente.FechaFin } }));
+    columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_docente) { return una_actividad_docente.FechaFinalizacion } }));
     columnas.push(new Columna("Establecimiento", { generar: function (una_actividad_docente) { return una_actividad_docente.Establecimiento } }));
     //columnas.push(new Columna("Localidad", { generar: function (una_actividad_docente) { return una_actividad_docente.Localidad } }));
     //columnas.push(new Columna("Pais", { generar: function (una_actividad_docente) { return una_actividad_docente.Pais } }));
@@ -189,3 +191,8 @@
 
     }
 }
+
+FormatoFecha = function (fecha_string) {
+    var fecha = new Date(fecha_string);
+    return (fecha.getDate() + 1) + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
+};

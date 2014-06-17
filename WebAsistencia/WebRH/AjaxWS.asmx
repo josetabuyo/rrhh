@@ -580,8 +580,7 @@ public class AjaxWS : System.Web.Services.WebService {
         var observaciones = backEndService.GetObservaciones();
         return Newtonsoft.Json.JsonConvert.SerializeObject(observaciones);
     }
-    
-    
+
     //Registro Usuarios Postular
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -595,8 +594,14 @@ public class AjaxWS : System.Web.Services.WebService {
     public string AgregarAntecedenteAcademico()
     {
         return "ok";
-        //return backEndService.CambiarPassword(this.usuarioLogueado, pass_actual, pass_nueva);
+    }
 
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetProvincias()
+    {
+        var provincias = backEndService.GetProvincias();
+        return Newtonsoft.Json.JsonConvert.SerializeObject(provincias);
     }
 }
 
