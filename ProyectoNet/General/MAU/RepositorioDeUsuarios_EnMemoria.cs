@@ -54,5 +54,11 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+
+        public int GetDniPorAlias(string alias)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

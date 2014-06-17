@@ -60,7 +60,7 @@
                 <hr class="lineas-subraya"/>
                 <a class="cvFotoUsuario " href="#"><img src="../Imagenes/silueta.gif" alt="Avatar Usuario" width="125" /></a>
                 <div class="cvOverview"> 
-                	<p class=""><a class="cvNombrePostulante" href="#">Wilbur Smith</a></p>
+                	<p class=""><a class="cvNombrePostulante" href="#"><% %> Wilbur Smith</a></p>
                     <p class="cvEstadoCv">Tu CV está al  <span id="Span1">85</span>%</p>
                     <div class="cvProgress">
                         <div class="cvProgressBar cvProgressBarAlta" style="width: 85%"></div>
@@ -100,5 +100,5 @@
             </form>
 </body>
  <%= Referencias.Javascript("../") %>
-
+ <script type="text/javascript" src="CvDatosPersonales.js"></script>
 </html>
