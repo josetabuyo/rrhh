@@ -59,7 +59,7 @@ namespace General.Repositorios
         public Zona GetZonaFromProvincia(Provincia provincia)
         {
             //Zona zona;// = new Zona();
-            RepositorioDeProvincias repositorio = new RepositorioDeProvincias();
+            RepositorioDeProvincias repositorio = RepositorioDeProvincias.NuevoRepositorioDeProvincias(this.conexion_bd);
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idProvincia", provincia.Id);
             

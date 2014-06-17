@@ -36,6 +36,12 @@ namespace General.Repositorios
             return (string)dataRow[campo];
         }
 
+        public string GetString(String campo, String default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull) return default_if_null;
+            return (string)dataRow[campo];
+        }
+
         public DateTime GetDateTime(String campo)
         {
             return (DateTime)dataRow[campo];

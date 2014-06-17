@@ -89,15 +89,15 @@
                             <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" >
                                 <option value="-1">Sexo</option>
                                 <option value="1">Masculino</option>
-                                <option value="1">Femenino</option>
+                                <option value="2">Femenino</option>
                              </select>
                         </div>
                         <div style="float:left; margin:8px">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
                          <select id="cmb_estadoCivil" name="cmb_estado_civil" style="width:150px;" >
                             <option value="-1">Estado Civil</option>
-                            <option value="1">Masculino</option>
-                            <option value="1">Femenino</option>
+                            <option value="1">Soltero</option>
+                            <option value="2">Casado</option>
                          </select>
                          </div>
                         <div style="float:left; margin:8px; width:130px;">
@@ -109,8 +109,6 @@
                              <label class="etiqueta_campo" for="cmb_lugar_nacimiento">Lugar nacimiento <em>*</em></label>
                              <select id="cmb_lugar_nacimiento" style="width:120px;" name="cmb_lugar_nacimiento" >
                                 <option value="-1">Seleccione</option>
-                                <option value="1">Argentina</option>
-                                <option value="1">Bolivia</option>
                               </select>
                         </div>
                         <div style="float:left; margin:8px">
@@ -121,16 +119,14 @@
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
                          <select id="cmb_nacionalidad" style="width:120px;" name="cmb_nacionalidad" >
                             <option value="-1">Seleccione</option>
-                            <option value="1">Argentina</option>
-                            <option value="1">Boliviano</option>
                          </select>
                       </div>
                       <div style="float:left; margin:8px">
                        <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo documento <em>*</em></label>
                         <select id="cmb_tipoDocumento" style="width:100px;" name="cmb_tipoDocumento" >
-                            <option value="-1">DNI</option>
+                            <option value="0">DNI</option>
                             <option value="1">LC</option>
-                            <option value="1">LE</option>
+                            <option value="2">LE</option>
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
@@ -159,15 +155,13 @@
                           <input type="text" id="txt_localidad1" name="txt_localidad1" style="width:100px"/> 
                       </div>
                       <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo_small" for="txt_cp1">Código postal <em>*</em></label>
+                          <label class="etiqueta_campo_small" for="txt_cp1">Código postal <em>*</em></label>
                           <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/><br/>
                       </div>
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
                         <select id="cmb_provincia1" name="cmb_provincia1" style="width:130px;" >
                             <option value="-1">Seleccione</option>
-                            <option value="1">Buenos Aires</option>
-                            <option value="1">Cordoba</option>
                         </select>
                       </div>
                     </fieldset>
@@ -207,8 +201,6 @@
                         <label class="etiqueta_campo" for="cmb_provincia2">Provincia <em>*</em></label>
                         <select id="cmb_provincia2" name="cmb_provincia2" style="width:150px;" >
                             <option value="-1">Seleccione</option>
-                            <option value="1">Buenos Aires</option>
-                            <option value="1">Cordoba</option>
                         </select>
                       </div>
 
@@ -617,6 +609,7 @@
 <script type="text/javascript" src="ActividadesDocentes.js" ></script>
     <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postular.js" ></script>
+<script type="text/javascript" src="../Scripts/RepositorioDeProvincias.js" ></script>
 
 <script type="text/javascript">
 
