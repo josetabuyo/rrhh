@@ -42,7 +42,10 @@ public class Referencias
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/jquery.leanModal.min.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/bootstrap/js/bootstrap-collapse.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/bootstrap/js/bootstrap-transition.js""></script>
-            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/ProveedorAjax.js""></script>";
+            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/ProveedorAjax.js""></script>
+            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Extensiones/Validaciones.js""></script>
+            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Extensiones/Colecciones.js""></script>
+            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Extensiones/Combos.js""></script>";
         refs = refs.Replace("__RUTA_ORIGEN__", ruta_origen);
         return refs;
     }

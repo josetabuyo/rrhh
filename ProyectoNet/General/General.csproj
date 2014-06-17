@@ -306,7 +306,7 @@
     <Compile Include="Repositorios\RepositorioPasesDeArea.cs" />
     <Compile Include="Repositorios\RepositorioPersonas.cs" />
     <Compile Include="Repositorios\RepositorioProrrogasDeLicenciaOrdinaria.cs" />
-    <Compile Include="Repositorios\RepositorioProvincias.cs" />
+    <Compile Include="Repositorios\RepositorioDeProvincias.cs" />
     <Compile Include="Repositorios\RepositorioTipoDeViatico.cs" />
     <Compile Include="Repositorios\RepositorioUsuarios.cs" />
     <Compile Include="Repositorios\RepositorioZonas.cs" />

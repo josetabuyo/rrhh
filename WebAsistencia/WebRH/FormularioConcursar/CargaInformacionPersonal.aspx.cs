@@ -13,15 +13,15 @@ public partial class FormularioConcursar_Pantalla1 : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        var documento = 29753914;
+        var  usuario = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
 
         if (!IsPostBack)
         {
             //CargarCvEstudios();
 
-            var estudios = JsonConvert.SerializeObject(Servicio().GetCvEstudios(documento));
+            var estudios = JsonConvert.SerializeObject(Servicio().GetCvEstudios(usuario.Owner.Documento));
 
-            var cv = Servicio().GetCurriculum(documento);
+            var cv = Servicio().GetCurriculum(usuario.Owner.Documento);
 
             var curriculum = JsonConvert.SerializeObject(cv);
 
