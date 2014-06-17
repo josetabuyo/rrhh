@@ -12,7 +12,7 @@ namespace General.Repositorios
         protected List<CurriculumVitae> lista_cv;
         protected CvDatosPersonales _cvDatosPersonales;
         protected List<CvEstudios> _cvAntecedentesAcademicos;
-        protected CvCertificadoDeCapacitacion _cvCapacitacion;
+        protected List<CvCertificadoDeCapacitacion> _cvCapacitacion;
         protected List<CvDocencia> _cvDocencia;
         protected CvEventoAcademico _cvEventoAcademico;
         protected CvPublicaciones _cvPublicacion;
@@ -27,6 +27,7 @@ namespace General.Repositorios
             this.lista_cv = new List<CurriculumVitae>();
             this._cvAntecedentesAcademicos = new List<CvEstudios>();
             this._cvDocencia = new List<CvDocencia>();
+            this._cvCapacitacion = new List<CvCertificadoDeCapacitacion>();
 
             //FC a borrar cuando traiga los datos de la base
             string fechaIngreso = new DateTime(2014, 12, 12).ToShortDateString();
@@ -261,8 +262,12 @@ namespace General.Repositorios
             this._cvDocencia.Remove(actividades_docentes_a_borrar);
             return actividades_docentes_a_borrar;
         }
-        
 
+        public CvCertificadoDeCapacitacion EliminarCvActividadesCapacitacion(CvCertificadoDeCapacitacion actividades_capacitacion_a_borrar, Usuario usuario)
+        {
+            this._cvCapacitacion.Remove(actividades_capacitacion_a_borrar);
+            return actividades_capacitacion_a_borrar;
+        }
 
         public List<CvEstudios> GetCvEstudios(int documento)
         {
@@ -272,9 +277,10 @@ namespace General.Repositorios
             return this._cvAntecedentesAcademicos;
         }
 
-        public void GuardarCvCapacidades(CvCertificadoDeCapacitacion capacidades_nuevo, Usuario usuario)
+        public List<CvCertificadoDeCapacitacion> GuardarCvCapacidades(CvCertificadoDeCapacitacion capacidades_nuevo, Usuario usuario)
         {
-            this._cvCapacitacion = capacidades_nuevo;
+            this._cvCapacitacion.Add(capacidades_nuevo);
+            return this._cvCapacitacion;
         }
 
         public List<CvDocencia> GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)

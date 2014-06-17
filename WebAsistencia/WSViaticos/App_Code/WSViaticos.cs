@@ -2222,6 +2222,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public int GetDniPorAlias(string alias)
+    {
+        return RepositorioDeUsuarios().GetDniPorAlias(alias);
+    }
+
+
+    [WebMethod]
     public Usuario CrearUsuarioPara(int id_persona)
     {
         return RepositorioDeUsuarios().CrearUsuarioPara(id_persona);
