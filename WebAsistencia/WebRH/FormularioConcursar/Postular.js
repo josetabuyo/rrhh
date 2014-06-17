@@ -60,46 +60,142 @@ function AgregarActividadesDocentes() {
 
 };
 
+function AgregarActividadesCapacitacion() {
 
+    var antecedentes = {};
 
-
-
-var AgregarCapacitacion = function () {
-
-    var capacitacion = {};
-    capacitacion.DiplomaDeCertificacion = $("#txt_capacitacion_nombreDiploma").val();
-    capacitacion.Establecimiento = $("#txt_capacitacion_establecimiento").val();
-    capacitacion.Especialidad = $("#txt_capacitacion_especialidad").val();
-    capacitacion.Duracion = $("#txt_capacitacion_duracion").val();
-    capacitacion.FechaInicio = ParsearFecha($("#txt_capacitacion_fechaInicio").val());
-    capacitacion.FechaFinalizacion = ParsearFecha($("#txt_capacitacion_fechaFin").val());
-    capacitacion.Localidad = $("#txt_capacitacion_localidad").val();
-    capacitacion.Pais = $("#txt_capacitacion_pais").val();
-
-    var data_post = JSON.stringify({
-        "capacitaciones_nuevas": capacitacion,
-        "capacitaciones_originales": capacitacion
+    ActividadesCapacitacion.mostrar(antecedentes, function (actividades_capacitacion) {
+        PlanillaCvActividadesCapacitacion.BorrarContenido();
+        PlanillaCvActividadesCapacitacion.CargarObjetos(actividades_capacitacion);
     });
-    $.ajax({
-        url: "../AjaxWS.asmx/GuardarCVCapacitaciones",
-        type: "POST",
-        data: data_post,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            var respuesta = JSON.parse(respuestaJson.d);
-            if (respuesta.length == 0)
-                AgregarEnTabla($("#tabla_capacitacion"), capacitacion);
-            alertify.alert("Los datos fueron guardados correctamente");
-            $(".modal_close_concursar").click();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
-        }
+
+};
+
+function AgregarEventosAcademicos() {
+
+    var antecedentes = {};
+
+    EventosAcademicos.mostrar(antecedentes, function (eventos_academicos) {
+        PlanillaCvEventosAcademicos.BorrarContenido();
+        PlanillaCvEventosAcademicos.CargarObjetos(eventos_academicos);
     });
-}
+
+};
+
+function AgregarPublicacionesTrabajos() {
+
+    var antecedentes = {};
+
+    PublicacionesTrabajos.mostrar(antecedentes, function (publicaciones_trabajos) {
+        PlanillaCvPublicacionesTrabajos.BorrarContenido();
+        PlanillaCvPublicacionesTrabajos.CargarObjetos(publicaciones_trabajos);
+    });
+
+};
+
+function AgregarMatriculas() {
+
+    var antecedentes = {};
+
+    Matriculas.mostrar(antecedentes, function (matriculas) {
+        PlanillaCvMatriculas.BorrarContenido();
+        PlanillaCvMatriculas.CargarObjetos(matriculas);
+    });
+
+};
+
+function InstitucionesAcademicas() {
+
+    var antecedentes = {};
+
+    InstitucionesAcademicas.mostrar(antecedentes, function (instituciones_academicas) {
+        PlanillaCvInstitucionesAcademicas.BorrarContenido();
+        PlanillaCvInstitucionesAcademicas.CargarObjetos(instituciones_academicas);
+    });
+
+};
+
+function AgregarExperienciaLaboral() {
+
+    var antecedentes = {};
+
+    ExperienciaLaboral.mostrar(antecedentes, function (experiencia_laboral) {
+        PlanillaCvExperienciaLaboral.BorrarContenido();
+        PlanillaCvExperienciaLaboral.CargarObjetos(experiencia_laboral);
+    });
+
+};
+
+function AgregarIdiomasExtranjeros() {
+
+    var antecedentes = {};
+
+    IdiomasExtranjeros.mostrar(antecedentes, function (idiomas_extranjeros) {
+        PlanillaCvIdiomasExtranjeros.BorrarContenido();
+        PlanillaCvIdiomasExtranjeros.CargarObjetos(idiomas_extranjeros);
+    });
+
+};
+
+function AgregarCompetenciasInformaticas() {
+
+    var antecedentes = {};
+
+    CompetenciasInformaticas.mostrar(antecedentes, function (competencias_informaticas) {
+        PlanillaCvCompetenciasInformaticas.BorrarContenido();
+        PlanillaCvCompetenciasInformaticas.CargarObjetos(competencias_informaticas);
+    });
+
+};
+
+function AgregarOtrasCapacidades() {
+
+    var antecedentes = {};
+
+    OtrasCapacidades.mostrar(antecedentes, function (otras_capacidades) {
+        PlanillaCvOtrasCapacidades.BorrarContenido();
+        PlanillaCvOtrasCapacidades.CargarObjetos(otras_capacidades);
+    });
+
+};
+
 
 //SOY BEL, lo Borré para reemplazarlo por como estaba Actividsdes academicas
+//var AgregarCapacitacion = function () {
+
+//    var capacitacion = {};
+//    capacitacion.DiplomaDeCertificacion = $("#txt_capacitacion_nombreDiploma").val();
+//    capacitacion.Establecimiento = $("#txt_capacitacion_establecimiento").val();
+//    capacitacion.Especialidad = $("#txt_capacitacion_especialidad").val();
+//    capacitacion.Duracion = $("#txt_capacitacion_duracion").val();
+//    capacitacion.FechaInicio = ParsearFecha($("#txt_capacitacion_fechaInicio").val());
+//    capacitacion.FechaFinalizacion = ParsearFecha($("#txt_capacitacion_fechaFin").val());
+//    capacitacion.Localidad = $("#txt_capacitacion_localidad").val();
+//    capacitacion.Pais = $("#txt_capacitacion_pais").val();
+
+//    var data_post = JSON.stringify({
+//        "capacitaciones_nuevas": capacitacion,
+//        "capacitaciones_originales": capacitacion
+//    });
+//    $.ajax({
+//        url: "../AjaxWS.asmx/GuardarCVCapacitaciones",
+//        type: "POST",
+//        data: data_post,
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        success: function (respuestaJson) {
+//            var respuesta = JSON.parse(respuestaJson.d);
+//            if (respuesta.length == 0)
+//                AgregarEnTabla($("#tabla_capacitacion"), capacitacion);
+//            alertify.alert("Los datos fueron guardados correctamente");
+//            $(".modal_close_concursar").click();
+//        },
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alertify.alert(errorThrown);
+//        }
+//    });
+//}
+
 //var AgregarDocencia = function () {
 
 //    var docencia = {};
@@ -140,203 +236,189 @@ var AgregarCapacitacion = function () {
 
 //}
 
-var AgregarEventoAcademico = function () {
+//var AgregarEventoAcademico = function () {
 
-    var eventoAcademico = {};
-    eventoAcademico.Denominacion = $("#txt_evento_denominacion").val();
-    eventoAcademico.TipoDeEvento = $("#evento_academico_tipo_evento").val();
-    eventoAcademico.CaracterDeParticipacion = $("#evento_academico_caracter_participacion").val();
-    eventoAcademico.Institucion = $("#evento_academico_institucion").val();
-    eventoAcademico.FechaInicio = ParsearFecha($("#evento_academico_fecha_inicio").val());
-    eventoAcademico.FechaFinalizacion = ParsearFecha($("#evento_academico_fecha_fin").val());
-    //eventoAcademico.Duracion =
-    eventoAcademico.Localidad = $("#evento_academico_localidad").val();
-    eventoAcademico.Pais = $("#cmb_evento_academico_pais").val();
+//    var eventoAcademico = {};
+//    eventoAcademico.Denominacion = $("#txt_evento_denominacion").val();
+//    eventoAcademico.TipoDeEvento = $("#evento_academico_tipo_evento").val();
+//    eventoAcademico.CaracterDeParticipacion = $("#evento_academico_caracter_participacion").val();
+//    eventoAcademico.Institucion = $("#evento_academico_institucion").val();
+//    eventoAcademico.FechaInicio = ParsearFecha($("#evento_academico_fecha_inicio").val());
+//    eventoAcademico.FechaFinalizacion = ParsearFecha($("#evento_academico_fecha_fin").val());
+//    //eventoAcademico.Duracion =
+//    eventoAcademico.Localidad = $("#evento_academico_localidad").val();
+//    eventoAcademico.Pais = $("#cmb_evento_academico_pais").val();
 
-    var data_post = JSON.stringify({
-        "eventosAcademicos_nuevos": eventoAcademico,
-        "eventosAcademicos_originales": eventoAcademico
-    });
-    $.ajax({
-        url: "../AjaxWS.asmx/GuardarCVEventoAcademico",
-        type: "POST",
-        data: data_post,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            var respuesta = JSON.parse(respuestaJson.d);
-            if (respuesta.length == 0)
-                AgregarEnTabla($("#tabla_eventoAcademico"), eventoAcademico);
-            alertify.alert("Los datos fueron guardados correctamente");
-            $(".modal_close_concursar").click();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
-        }
-    });
-}
+//    var data_post = JSON.stringify({
+//        "eventosAcademicos_nuevos": eventoAcademico,
+//        "eventosAcademicos_originales": eventoAcademico
+//    });
+//    $.ajax({
+//        url: "../AjaxWS.asmx/GuardarCVEventoAcademico",
+//        type: "POST",
+//        data: data_post,
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        success: function (respuestaJson) {
+//            var respuesta = JSON.parse(respuestaJson.d);
+//            if (respuesta.length == 0)
+//                AgregarEnTabla($("#tabla_eventoAcademico"), eventoAcademico);
+//            alertify.alert("Los datos fueron guardados correctamente");
+//            $(".modal_close_concursar").click();
+//        },
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alertify.alert(errorThrown);
+//        }
+//    });
+//}
 
-var AgregarPublicacion = function () {
+//var AgregarPublicacion = function () {
 
-    var publicacion = {};
-    publicacion.Titulo = $("#publicaciones_titulo").val();
-    publicacion.DatosEditorial = $("#publicaciones_editorial").val();
-    publicacion.FechaPublicacion = ParsearFecha($("#publicaciones_fecha").val());
-    publicacion.CantidadHojas = $("#publicaciones_paginas").val();
-    publicacion.DisponeCopia = $("#publicaciones_dispone_copia").val();
-
-
-    var data_post = JSON.stringify({
-        "publicaciones_nuevas": publicacion,
-        "publicaciones_originales": publicacion
-    });
-    $.ajax({
-        url: "../AjaxWS.asmx/GuardarCVPublicaciones",
-        type: "POST",
-        data: data_post,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            var respuesta = JSON.parse(respuestaJson.d);
-            if (respuesta.length == 0)
-                AgregarEnTabla($("#tabla_publicaciones"), publicacion);
-            alertify.alert("Los datos fueron guardados correctamente");
-            $(".modal_close_concursar").click();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
-        }
-    });
-}
+//    var publicacion = {};
+//    publicacion.Titulo = $("#publicaciones_titulo").val();
+//    publicacion.DatosEditorial = $("#publicaciones_editorial").val();
+//    publicacion.FechaPublicacion = ParsearFecha($("#publicaciones_fecha").val());
+//    publicacion.CantidadHojas = $("#publicaciones_paginas").val();
+//    publicacion.DisponeCopia = $("#publicaciones_dispone_copia").val();
 
 
-var AgregarMatricula = function () {
-
-    var matricula = {};
-    matricula.numero = $("#matricula_numero").val();
-    matricula.expedidapor = $("#matricula_expedida_por").val();
-    matricula.fechaInscripcion = ParsearFecha($("#matricula_fecha_inscripcion").val());
-    matricula.situacionActual = $("#matricula_situacion").val();
-
-    var data_post = JSON.stringify({
-        "matriculas_nuevas": matricula,
-        "matriculas_originales": matricula
-    });
-    $.ajax({
-        url: "../AjaxWS.asmx/GuardarCVMatriculas",
-        type: "POST",
-        data: data_post,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            var respuesta = JSON.parse(respuestaJson.d);
-            if (respuesta.length == 0)
-                AgregarEnTabla($("#tabla_matriculas"), matricula);
-            alertify.alert("Los datos fueron guardados correctamente");
-            $(".modal_close_concursar").click();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
-        }
-    });
-}
+//    var data_post = JSON.stringify({
+//        "publicaciones_nuevas": publicacion,
+//        "publicaciones_originales": publicacion
+//    });
+//    $.ajax({
+//        url: "../AjaxWS.asmx/GuardarCVPublicaciones",
+//        type: "POST",
+//        data: data_post,
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        success: function (respuestaJson) {
+//            var respuesta = JSON.parse(respuestaJson.d);
+//            if (respuesta.length == 0)
+//                AgregarEnTabla($("#tabla_publicaciones"), publicacion);
+//            alertify.alert("Los datos fueron guardados correctamente");
+//            $(".modal_close_concursar").click();
+//        },
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alertify.alert(errorThrown);
+//        }
+//    });
+//}
 
 
-var AgregarInstitucionAcademica = function () {
+//var AgregarMatricula = function () {
 
-    var Institucion = {};
-    Institucion.institucion = $("#pertenencia-institucion_nombre").val();
-    Institucion.caracterEntidad = $("#pertenencia-institucion_caracter").val();
-    Institucion.cargosDesempeniados = $("#pertenencia-institucion_cargo").val();
+//    var matricula = {};
+//    matricula.numero = $("#matricula_numero").val();
+//    matricula.expedidapor = $("#matricula_expedida_por").val();
+//    matricula.fechaInscripcion = ParsearFecha($("#matricula_fecha_inscripcion").val());
+//    matricula.situacionActual = $("#matricula_situacion").val();
 
-    Institucion.numeroAfiliado = $("#pertenencia-institucion_numero_afiliado").val();
-    Institucion.categoriaActual = $("#pertenencia-institucion_categoria_actual").val();
-    Institucion.fechaDeAfiliacion = ParsearFecha($("#pertenencia-institucion_fecha_afiliacion").val());
-    Institucion.fecha = ParsearFecha($("#pertenencia-institucion_fecha").val());
-    Institucion.fechaInicio = ParsearFecha($("#pertenencia-institucion_fecha_inicio").val());
-    Institucion.fechaFin = ParsearFecha($("#pertenencia-institucion_fecha_fin").val());
-    Institucion.localidad = $("#pertenencia-institucion_localidad").val();
-    Institucion.pais = $("#pertenencia-institucion_pais").val();
-
-    var data_post = JSON.stringify({
-        "instituciones_nuevas": Institucion,
-        "instituciones_originales": Institucion
-    });
-    $.ajax({
-        url: "../AjaxWS.asmx/GuardarCVInstituciones",
-        type: "POST",
-        data: data_post,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            var respuesta = JSON.parse(respuestaJson.d);
-            if (respuesta.length == 0)
-                AgregarEnTabla($("#tabla_instituciones_academicas"), Institucion);
-            alertify.alert("Los datos fueron guardados correctamente");
-            $(".modal_close_concursar").click();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
-        }
-    });
-}
+//    var data_post = JSON.stringify({
+//        "matriculas_nuevas": matricula,
+//        "matriculas_originales": matricula
+//    });
+//    $.ajax({
+//        url: "../AjaxWS.asmx/GuardarCVMatriculas",
+//        type: "POST",
+//        data: data_post,
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        success: function (respuestaJson) {
+//            var respuesta = JSON.parse(respuestaJson.d);
+//            if (respuesta.length == 0)
+//                AgregarEnTabla($("#tabla_matriculas"), matricula);
+//            alertify.alert("Los datos fueron guardados correctamente");
+//            $(".modal_close_concursar").click();
+//        },
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alertify.alert(errorThrown);
+//        }
+//    });
+//}
 
 
+//var AgregarInstitucionAcademica = function () {
+
+//    var Institucion = {};
+//    Institucion.institucion = $("#pertenencia-institucion_nombre").val();
+//    Institucion.caracterEntidad = $("#pertenencia-institucion_caracter").val();
+//    Institucion.cargosDesempeniados = $("#pertenencia-institucion_cargo").val();
+
+//    Institucion.numeroAfiliado = $("#pertenencia-institucion_numero_afiliado").val();
+//    Institucion.categoriaActual = $("#pertenencia-institucion_categoria_actual").val();
+//    Institucion.fechaDeAfiliacion = ParsearFecha($("#pertenencia-institucion_fecha_afiliacion").val());
+//    Institucion.fecha = ParsearFecha($("#pertenencia-institucion_fecha").val());
+//    Institucion.fechaInicio = ParsearFecha($("#pertenencia-institucion_fecha_inicio").val());
+//    Institucion.fechaFin = ParsearFecha($("#pertenencia-institucion_fecha_fin").val());
+//    Institucion.localidad = $("#pertenencia-institucion_localidad").val();
+//    Institucion.pais = $("#pertenencia-institucion_pais").val();
+
+//    var data_post = JSON.stringify({
+//        "instituciones_nuevas": Institucion,
+//        "instituciones_originales": Institucion
+//    });
+//    $.ajax({
+//        url: "../AjaxWS.asmx/GuardarCVInstituciones",
+//        type: "POST",
+//        data: data_post,
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        success: function (respuestaJson) {
+//            var respuesta = JSON.parse(respuestaJson.d);
+//            if (respuesta.length == 0)
+//                AgregarEnTabla($("#tabla_instituciones_academicas"), Institucion);
+//            alertify.alert("Los datos fueron guardados correctamente");
+//            $(".modal_close_concursar").click();
+//        },
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alertify.alert(errorThrown);
+//        }
+//    });
+//}
 
 
 
 
 
-var AgregarExperiencia = function () {
+//var AgregarExperiencia = function () {
 
-    var experiencia = {};
-    experiencia.puestoOcupado = $("#experiencia-laboral_puesto").val();
-    experiencia.motivoDesvinculacion = $("#experiencia-laboral_motivo_desvinculacion").val();
-    experiencia.nombreEmpleador = $("#experiencia-laboral_empleador").val();
-    experiencia.fechaInicio = ParsearFecha($("#experiencia-laboral_fecha_inicio").val());
-    experiencia.fechaFin = ParsearFecha($("#experiencia-laboral_fecha_fin").val());
-    experiencia.localidad = $("#experiencia-laboral_localidad").val();
+//    var experiencia = {};
+//    experiencia.puestoOcupado = $("#experiencia-laboral_puesto").val();
+//    experiencia.motivoDesvinculacion = $("#experiencia-laboral_motivo_desvinculacion").val();
+//    experiencia.nombreEmpleador = $("#experiencia-laboral_empleador").val();
+//    experiencia.fechaInicio = ParsearFecha($("#experiencia-laboral_fecha_inicio").val());
+//    experiencia.fechaFin = ParsearFecha($("#experiencia-laboral_fecha_fin").val());
+//    experiencia.localidad = $("#experiencia-laboral_localidad").val();
 
-    experiencia.pais = $("#experiencia-laboral_pais").val();
-    experiencia.personasACargo = $("#experiencia-laboral_personal_a_cargo").val();
-    experiencia.tipoEmpresa = $("#experiencia-laboral_tipo_empresa").val();
-    experiencia.actividad = $("#experiencia-laboral_sector").val();
-
-
-    var data_post = JSON.stringify({
-        "experiencias_nuevas": experiencia,
-        "experiencias_originales": experiencia
-    });
-    $.ajax({
-        url: "../AjaxWS.asmx/GuardarCVExperiencias",
-        type: "POST",
-        data: data_post,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            var respuesta = JSON.parse(respuestaJson.d);
-            if (respuesta.length == 0)
-                AgregarEnTabla($("#tabla_experiencia_laboral"), experiencia);
-            alertify.alert("Los datos fueron guardados correctamente");
-            $(".modal_close_concursar").click();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
-        }
-    });
-}
+//    experiencia.pais = $("#experiencia-laboral_pais").val();
+//    experiencia.personasACargo = $("#experiencia-laboral_personal_a_cargo").val();
+//    experiencia.tipoEmpresa = $("#experiencia-laboral_tipo_empresa").val();
+//    experiencia.actividad = $("#experiencia-laboral_sector").val();
 
 
-
-
-
-
-
-
-
-
-
-
+//    var data_post = JSON.stringify({
+//        "experiencias_nuevas": experiencia,
+//        "experiencias_originales": experiencia
+//    });
+//    $.ajax({
+//        url: "../AjaxWS.asmx/GuardarCVExperiencias",
+//        type: "POST",
+//        data: data_post,
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        success: function (respuestaJson) {
+//            var respuesta = JSON.parse(respuestaJson.d);
+//            if (respuesta.length == 0)
+//                AgregarEnTabla($("#tabla_experiencia_laboral"), experiencia);
+//            alertify.alert("Los datos fueron guardados correctamente");
+//            $(".modal_close_concursar").click();
+//        },
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alertify.alert(errorThrown);
+//        }
+//    });
+//}
 
 
 
@@ -359,10 +441,4 @@ var AgregarEnTabla = function (tabla, datos) {
 
     tabla.append(tds);
 }
-
-
-
-
-
-
 
