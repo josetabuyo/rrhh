@@ -26,7 +26,7 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
             this.lista_cv = new List<CurriculumVitae>();
             this._cvAntecedentesAcademicos = new List<CvEstudios>();
-            //this._cvDocencia = new List<CvDocencia>();
+            this._cvDocencia = new List<CvDocencia>();
 
             //FC a borrar cuando traiga los datos de la base
             string fechaIngreso = new DateTime(2014, 12, 12).ToShortDateString();
@@ -188,6 +188,51 @@ namespace General.Repositorios
         #region GUARDAR Datos
         public void GuardarCVDatosPersonales(CvDatosPersonales datosPersonales, Usuario usuario)
         {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@Dni", datosPersonales.Dni);
+            parametros.Add("@Apellido", datosPersonales.Apellido);
+            parametros.Add("@Nombre", datosPersonales.Nombre);
+            parametros.Add("@Cuil", datosPersonales.Cuil);
+            parametros.Add("@EstadoCivil", datosPersonales.EstadoCivil);
+            parametros.Add("@FechaNacimiento", datosPersonales.FechaNacimiento);
+            parametros.Add("@LugarDeNacimiento", datosPersonales.LugarDeNacimiento);
+            parametros.Add("@Nacionalidad", datosPersonales.Nacionalidad);
+            parametros.Add("@TipoDocumento", datosPersonales.TipoDocumento);
+            parametros.Add("@Sexo", datosPersonales.Sexo);
+
+            if (datosPersonales.DomicilioPersonal is CvDomicilio)
+            {
+                parametros.Add("@DomicilioPersonalCalle", datosPersonales.DomicilioPersonal.Calle);
+                parametros.Add("@DomicilioPersonalNumero", datosPersonales.DomicilioPersonal.Numero);
+                parametros.Add("@DomicilioPersonalPiso", datosPersonales.DomicilioPersonal.Piso);
+                parametros.Add("@DomicilioPersonalDepto", datosPersonales.DomicilioPersonal.Depto);
+                parametros.Add("@DomicilioPersonalCp", datosPersonales.DomicilioPersonal.Cp);
+                parametros.Add("@DomicilioPersonalLocalidad", datosPersonales.DomicilioPersonal.Localidad);
+                parametros.Add("@DomicilioPersonalProvincia", datosPersonales.DomicilioPersonal.Provincia);
+                parametros.Add("@DomicilioPersonalTipo", 1);
+            }
+
+
+            if (datosPersonales.DomicilioLegal is CvDomicilio)
+            {
+                parametros.Add("@DomicilioLegalCalle", datosPersonales.DomicilioLegal.Calle);
+                parametros.Add("@DomicilioLegalNumero", datosPersonales.DomicilioLegal.Numero);
+                parametros.Add("@DomicilioLegalPiso", datosPersonales.DomicilioLegal.Piso);
+                parametros.Add("@DomicilioLegalDepto", datosPersonales.DomicilioLegal.Depto);
+                parametros.Add("@DomicilioLegalCp", datosPersonales.DomicilioLegal.Cp);
+                parametros.Add("@DomicilioLegalLocalidad", datosPersonales.DomicilioLegal.Localidad);
+                parametros.Add("@DomicilioLegalProvincia", datosPersonales.DomicilioLegal.Provincia);
+                parametros.Add("@DomicilioLegalTipo", 2);
+
+            }
+
+                parametros.Add("@idUsuario", usuario.Id);
+
+            //return (int)conexion_bd.EjecutarEscalar("dbo.CV_Ins_DatosPersonales", parametros);
+            
+            
+            
             this._cvDatosPersonales = datosPersonales;
             //this.lista_cv.Add(cv);
         }
