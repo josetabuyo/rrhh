@@ -19,6 +19,7 @@ namespace General
         protected List<CvCompetenciasInformaticas> _cvCompetenciasInformaticas;
         protected List<CvCertificadoDeCapacitacion> _cvCertificadosDeCapacitacion;
         protected List<CvCapacidadesPersonales> _cvCapacidadesPersonales;
+        protected bool _tieneCV;
         
 
         public virtual CvDatosPersonales DatosPersonales { get { return _datosPersonales; } set { _datosPersonales = value; } }
@@ -33,7 +34,7 @@ namespace General
         public virtual List<CvCompetenciasInformaticas> CvCompetenciasInformaticas { get { return _cvCompetenciasInformaticas; } set { _cvCompetenciasInformaticas = value; } }
         public virtual List<CvCertificadoDeCapacitacion> CvCertificadosDeCapacitacion { get { return _cvCertificadosDeCapacitacion; } set { _cvCertificadosDeCapacitacion = value; } }
         public virtual List<CvCapacidadesPersonales> cvCapacidadesPersonales { get { return _cvCapacidadesPersonales; } set { _cvCapacidadesPersonales = value; } }
-       
+        public virtual bool TieneCv { get { return _tieneCV; } set { _tieneCV = value; } }
 
         public CurriculumVitae(CvDatosPersonales datosPersonales)
         {
@@ -116,5 +117,6 @@ namespace General
                 return true;
             return false;
         }
+
     }
 }

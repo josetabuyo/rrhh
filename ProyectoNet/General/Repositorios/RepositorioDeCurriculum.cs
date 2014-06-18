@@ -49,19 +49,22 @@ namespace General.Repositorios
 
             CurriculumVitae cv = new CurriculumVitaeNull();
 
-            if (tablaCVs.Rows.Count() != 0)
+            tablaCVs.Rows.ForEach(row =>
+            cv = new CurriculumVitae(
+                new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetString("Sexo"), row.GetSmallintAsInt("EstadoCivil"),
+                    row.GetString("Cuil"), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad"), row.GetDateTime("FechaNacimiento").ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento"),
+                    new CvDomicilio(row.GetInt("DomPers_Id"), row.GetString("DomPers_Calle"), row.GetInt("DomPers_Numero"), row.GetString("DomPers_Piso"), row.GetString("DomPers_Depto"),
+                        row.GetString("DomPers_Localidad"), row.GetSmallintAsInt("DomPers_CodigoPostal"), row.GetSmallintAsInt("DomPers_IdProvincia")),
+                    new CvDomicilio(row.GetInt("DomLab_Id"), row.GetString("DomLab_Calle"), row.GetInt("DomLab_Numero"), row.GetString("DomLab_Piso"), row.GetString("DomLab_Depto"),
+                        row.GetString("DomLab_Localidad"), row.GetSmallintAsInt("DomLab_CodigoPostal"), row.GetSmallintAsInt("DomLab_IdProvincia")), row.GetString("TieneLegajo"))));
+                //aca se agregaran todos los demas items que tiene el curriculum (estudios, capacitaciones, etc)
+
+            if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
             {
-               tablaCVs.Rows.ForEach(row =>
-               cv = new CurriculumVitae(
-                   new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetString("Sexo"), row.GetString("EstadoCivil"),
-                       row.GetString("Cuil"), row.GetString("LugarNacimiento", ""), row.GetString("Nacionalidad"), row.GetDateTime("FechaNacimiento").ToString("dd/MM/yyyy"), "DNI",
-                       new CvDomicilio(row.GetInt("DomPers_Id"), row.GetString("DomPers_Calle"), row.GetInt("DomPers_Numero"), row.GetString("DomPers_Piso"), row.GetString("DomPers_Depto"),
-                           row.GetString("DomPers_Localidad"), row.GetSmallintAsInt("DomPers_CodigoPostal"), new Provincia(row.GetSmallintAsInt("DomPers_IdProvincia"), row.GetString("DomPers_NombreProvincia"))),
-                       new CvDomicilio(row.GetInt("DomLab_Id"), row.GetString("DomLab_Calle"), row.GetInt("DomLab_Numero"), row.GetString("DomLab_Piso"), row.GetString("DomLab_Depto"),
-                           row.GetString("DomLab_Localidad"), row.GetSmallintAsInt("DomLab_CodigoPostal"), new Provincia(row.GetSmallintAsInt("DomLab_IdProvincia"), row.GetString("DomLab_NombreProvincia"))), row.GetString("TieneLegajo"))));
-            
+                cv.TieneCv = true;
+            } else {
+                cv.TieneCv = false;
             }
- 
             return cv; 
         }
 
@@ -99,8 +102,8 @@ namespace General.Repositorios
 
         public CvDatosPersonales GetCvDatosPersonales(int documento)
         {
-           var domicilio = new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, new Provincia(2, "CABA"));
-           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23).ToShortDateString(), "D.N.I", domicilio,domicilio, "Tiene Legajo");
+           var domicilio = new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, 2);
+           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", 1, "20-31369852-7", "Buenos Aires", 1, new DateTime(1985, 07, 23).ToShortDateString(), 1, domicilio,domicilio,"Tiene legajo");
            //return datos_personales;
            return this._cvDatosPersonales;
         }
@@ -120,7 +123,7 @@ namespace General.Repositorios
         {
             var domicilio = new List<CvDomicilio>()
                                {
-                                   new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, new Provincia(2, "CABA"))
+                                   new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, 2)
                                };
 
             return domicilio;
@@ -201,7 +204,7 @@ namespace General.Repositorios
             //El domicilio al entrar x primera vez no deberia verlos los del Legajo, asiq hago un insert la primera vez
             
             //Si todavia no tiene CV
-            if (cv.GetType() == typeof(CurriculumVitaeNull))
+            if (cv.TieneCv == false)
             {
                 //Si no es empleado
                 if (datosPersonales.TieneLegajo == "No tiene Legajo")

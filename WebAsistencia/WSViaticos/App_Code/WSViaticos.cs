@@ -2601,6 +2601,24 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeProvincias.NuevoRepositorioDeProvincias(Conexion()).TodasLasProvincias().ToArray();
     }
 
+    [WebMethod]
+    public Nacionalidad[] GetNacionalidades()
+    {
+        return RepositorioDeNacionalidades.NuevoRepositorioDeNacionalidades(Conexion()).TodasLasNacionalidades().ToArray();
+    }
+
+    [WebMethod]
+    public EstadoCivil[] GetEstadosCiviles()
+    {
+        return RepositorioDeEstadosCiviles.NuevoRepositorioDeEstadoCivil(Conexion()).TodosLosEstadosCiviles().ToArray();
+    }
+
+    [WebMethod]
+    public TipoDeDocumento[] GetTiposDeDocumento()
+    {
+        return RepositorioDeTiposdeDocumento.NuevoRepositorioDeTiposdeDocumento(Conexion()).TodosLosTiposDeDocumento().ToArray();
+    }
+
     #endregion
 
     
