@@ -59,8 +59,9 @@ namespace General
                                   Cuit = dr.GetValue(dr.GetOrdinal("cuit")).ToString(),
                                   Id = dr.GetInt32(dr.GetOrdinal("idpersona")),
                                   Area = new Area() {Id = dr.GetInt32(dr.GetOrdinal("id_area"))},
-                                  Categoria = dr.GetString(dr.GetOrdinal("categoria")),
-
+                                  Categoria = dr.GetValue(dr.GetOrdinal("nivel")).ToString() +'-'+ string.Format("00", dr.GetValue(dr.GetOrdinal("grado")).ToString()) +'#'+ dr.GetString(dr.GetOrdinal("mod_contratacion")),
+                                  //ModalidadDeContratacion = new ModalidadDeContratacionNormal(){Descripcion = dr.GetString(dr.GetOrdinal("mod_contratacion"))},
+                                   
                                   //Area = unArea,
                                   TipoDePlanta = new TipoDePlanta
                                                      {

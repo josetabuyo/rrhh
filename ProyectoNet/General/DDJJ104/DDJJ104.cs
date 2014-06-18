@@ -18,7 +18,7 @@ namespace General
         public int Estado { get; set; }
         public int Mes { get; set; }
         public int Anio { get; set; }
-
+        public Persona Agente { get; set; }
 
         public DDJJ104()
         { 

@@ -15,7 +15,7 @@ namespace General
 
     public class RepositorioDDJJ104
     {
-
+        
         public int GetEstadoDDJJ(DDJJ104 ddjj)
         {
             SqlDataReader dr;
@@ -60,12 +60,16 @@ namespace General
                     int orden = 1;
                     foreach (var personas in ddjj.First().Area.Personas)
                     {
+                        
+                        string[] Cat_Mod = personas.Categoria.ToString().Split('#');
+
                         cn.CrearComandoConTransaccionIniciada("dbo.PLA_ADD_DDJJ104_Detalle");
                         cn.AsignarParametro("@Id_DDJJ", id_ddjj_nuevo);
                         cn.AsignarParametro("@Id_Persona", personas.Id);
                         cn.AsignarParametro("@Orden", orden);
                         cn.AsignarParametro("@Id_Area_Persona", personas.Area.Id);
-                        cn.AsignarParametro("@Categoria", personas.Categoria);
+                        cn.AsignarParametro("@Mod_Contratacion", Cat_Mod[1].Trim());
+                        cn.AsignarParametro("@Categoria", Cat_Mod[0].Trim());
 
                         cn.EjecutarSinResultado();
 
@@ -87,6 +91,40 @@ namespace General
 
         }
 
+
+
+        public void ImprimirDDJJ104(List<DDJJ104> ddjj)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PLA_GET_DDJJ104");
+            cn.AsignarParametro("@Id_Area", ddjj.First().Area.Id);
+            cn.AsignarParametro("@Mes", ddjj.First().Mes);
+            cn.AsignarParametro("@Año", ddjj.First().Anio);
+
+            dr = cn.EjecutarConsulta();
+
+            DDJJ104 ddjj104;
+            List<DDJJ104> listaddjj104 = new List<DDJJ104>();
+
+            while (dr.Read())
+            {
+                ddjj104 = new DDJJ104();
+
+                ddjj104.Area = new Area() {Id = dr.GetInt32(dr.GetOrdinal("Id_Area"))};
+                ddjj104.Agente = new Persona()
+                {
+                    Apellido = dr.GetString(dr.GetOrdinal("Apellido")),
+                    Nombre = dr.GetString(dr.GetOrdinal("Nombre")),
+                    Cuit = dr.GetString(dr.GetOrdinal("Cuil_Nro")),
+                    Categoria = dr.GetString(dr.GetOrdinal("Categoria")) + '#' + dr.GetString(dr.GetOrdinal("Mod_Contratacion"))
+                };
+                
+                listaddjj104.Add(ddjj104);
+            }
+
+            cn.Desconestar();
+
+        }
 
     }
 

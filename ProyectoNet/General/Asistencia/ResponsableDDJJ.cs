@@ -78,12 +78,15 @@ namespace General
 
         public bool GenerarDDJJ104(Usuario usuario, List<DDJJ104> lista)
         {
-
             RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
             return ddjj.GenerarDDJJ104(usuario, lista);
-
         }
 
+        public void ImprimirDDJJ104(List<DDJJ104> lista)
+        {
+            RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+            ddjj.ImprimirDDJJ104(lista);
+        }
 
 
     }
