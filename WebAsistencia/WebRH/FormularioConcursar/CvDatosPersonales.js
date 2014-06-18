@@ -1,35 +1,39 @@
 ﻿var CvDatosPersonales = {
     completarDatos: function (datos_personales) {
         var _this = this;
-
-        this.repo_provincias = new RepositorioDeProvincias(new ProveedorAjax());
-        this.repo_nacionalidades = new RepositorioDeNacionalidades(new ProveedorAjax());
-
         this.ui = $("#contenedor_datosPersonales");
         _this.txt_nombre = _this.ui.find("#nombre");
         _this.txt_apellido = _this.ui.find("#apellido");
         _this.cmb_sexo = _this.ui.find("#cmb_sexo");
-        _this.cmb_estadoCivil = _this.ui.find("#cmb_estadoCivil");
         _this.txt_cuil = _this.ui.find("#cuil");
         _this.cmb_lugar_nac = _this.ui.find("#cmb_lugar_nacimiento");
         _this.txt_fechaNac = _this.ui.find("#txt_fechaNac");
-        _this.cmb_nacionalidad = _this.ui.find("#cmb_nacionalidad");
-        _this.cmb_tipoDocumento = _this.ui.find("#cmb_tipoDocumento");
         _this.txt_dni = _this.ui.find("#txt_documento");
 
-        this.repo_nacionalidades.getNacionalidades(function (nacionalidades) {
+        this.cmb_estadoCivil = this.ui.find("#cmb_estadoCivil");
+        Repositorio.get("EstadosCiviles", function (estados_civiles) {
+            _this.cmb_estadoCivil.cargarCombo(estados_civiles, "Id", "Descripcion");
+            _this.cmb_estadoCivil.val(datos_personales.EstadoCivil);
+        });
+
+        this.cmb_nacionalidad = this.ui.find("#cmb_nacionalidad");
+        Repositorio.get("Nacionalidades", function (nacionalidades) {
             _this.cmb_nacionalidad.cargarCombo(nacionalidades, "Id", "Descripcion");
             _this.cmb_nacionalidad.val(datos_personales.Nacionalidad);
+        });
+
+        this.cmb_tipoDocumento = this.ui.find("#cmb_tipoDocumento");
+        Repositorio.get("TiposDeDocumento", function (tipos) {
+            _this.cmb_tipoDocumento.cargarCombo(tipos, "Id", "Descripcion");
+            _this.cmb_tipoDocumento.val(datos_personales.TipoDocumento);
         });
 
         _this.txt_nombre.val(datos_personales.Nombre);
         _this.txt_apellido.val(datos_personales.Apellido);
         _this.cmb_sexo.val(datos_personales.Sexo);
-        _this.cmb_estadoCivil.val(datos_personales.EstadoCivil);
         _this.txt_cuil.val(datos_personales.Cuil);
         _this.cmb_lugar_nac.val(datos_personales.LugarDeNacimiento);
         _this.txt_fechaNac.val(datos_personales.FechaNacimiento);
-        _this.cmb_tipoDocumento.val(datos_personales.TipoDocumento);
         _this.txt_dni.val(parseInt(datos_personales.Dni));
 
         //DomicilioPersonal
@@ -41,7 +45,7 @@
         _this.txt_domicilio_personal_cp = _this.ui.find("#txt_cp1");
         _this.cmb_domicilio_personal_provincia = _this.ui.find("#cmb_provincia1");
 
-        this.repo_provincias.getProvincias(function (provincias) {
+        Repositorio.get("Provincias", function (provincias) {
             _this.cmb_domicilio_personal_provincia.cargarCombo(provincias, "Id", "Nombre");
             _this.cmb_domicilio_personal_provincia.val(datos_personales.DomicilioPersonal.Provincia);
         });
@@ -65,7 +69,7 @@
         _this.txt_domicilio_legal_telefonoCelular = _this.ui.find("#txt_telefonoCelular");
         _this.txt_domicilio_legal_mail = _this.ui.find("#txt_email");
 
-        this.repo_provincias.getProvincias(function (provincias) {
+        Repositorio.get("Provincias", function (provincias) {
             _this.cmb_domicilio_legal_provincia.cargarCombo(provincias, "Id", "Nombre");
             _this.cmb_domicilio_legal_provincia.val(datos_personales.DomicilioLegal.Provincia);
         });

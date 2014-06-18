@@ -11,12 +11,12 @@ namespace General
         protected string _nombre;
         protected string _apellido;
         protected string _sexo;
-        protected string _estadoCivil;
+        protected int _estadoCivil;
         protected string _cuil;
         protected string _lugarNacimiento;
         protected int _nacionalidad;
         protected string _fechaNacimiento;
-        protected string _tipoDocumento;
+        protected int _tipoDocumento;
         protected CvDomicilio _domicilioPersonal;
         protected CvDomicilio _domicilioLegal;
 
@@ -24,16 +24,16 @@ namespace General
         public string Nombre { get { return _nombre; } set { _nombre = value; } }
         public string Apellido { get { return _apellido; } set { _apellido = value; } }
         public string Sexo { get { return _sexo; } set { _sexo = value; } }
-        public string EstadoCivil { get { return _estadoCivil; } set { _estadoCivil = value; } }
+        public int EstadoCivil { get { return _estadoCivil; } set { _estadoCivil = value; } }
         public string Cuil { get { return _cuil; } set { _cuil = value; } }
         public string LugarDeNacimiento { get { return _lugarNacimiento; } set { _lugarNacimiento = value; } }
         public int Nacionalidad { get { return _nacionalidad; } set { _nacionalidad = value; } }
         public string FechaNacimiento { get { return _fechaNacimiento; } set { _fechaNacimiento = value; } }
-        public string TipoDocumento { get { return _tipoDocumento; } set { _tipoDocumento = value; } }
+        public int TipoDocumento { get { return _tipoDocumento; } set { _tipoDocumento = value; } }
         public CvDomicilio DomicilioPersonal { get { return _domicilioPersonal; } set { _domicilioPersonal = value; } }
         public CvDomicilio DomicilioLegal { get { return _domicilioLegal; } set { _domicilioLegal = value; } }
 
-        public CvDatosPersonales(int dni, string nombre, string apellido, string sexo, string estadoCivil, string cuil, string lugarNacimiento, int nacionalidad, string fechaNacimiento, string tipoDocumento, CvDomicilio domicilio_personal, CvDomicilio domicilio_legal)
+        public CvDatosPersonales(int dni, string nombre, string apellido, string sexo, int estadoCivil, string cuil, string lugarNacimiento, int nacionalidad, string fechaNacimiento, int tipoDocumento, CvDomicilio domicilio_personal, CvDomicilio domicilio_legal)
         {
             this._dni = dni;
             this._nombre = nombre;

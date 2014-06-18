@@ -598,18 +598,16 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetProvincias()
+    public string GetTodoDeRepositorio(string nombre_repositorio)
     {
-        var provincias = backEndService.GetProvincias();
-        return Newtonsoft.Json.JsonConvert.SerializeObject(provincias);
-    }
-
-    [WebMethod(EnableSession = true)]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetNacionalidades()
-    {
-        var nacionalidades = backEndService.GetNacionalidades();
-        return Newtonsoft.Json.JsonConvert.SerializeObject(nacionalidades);
+        switch (nombre_repositorio)
+        {
+            case "Provincias": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetProvincias());
+            case "Nacionalidades": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetNacionalidades());
+            case "EstadosCiviles": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetEstadosCiviles());
+            case "TiposDeDocumento": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetTiposDeDocumento());
+            default: return "El repositorio no existe";
+        }
     }
 }
 

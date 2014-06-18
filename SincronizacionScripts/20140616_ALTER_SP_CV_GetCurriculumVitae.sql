@@ -8,13 +8,15 @@ BEGIN
 		dp.Id IdPersona,
 		dp.Nombre,
 		dp.Apellido,
+		dp.TipoDocumento,
 		sex.Descripcion Sexo,
-		eciv.Descripcion EstadoCivil,
+		dpadd.IdEstadoCivil EstadoCivil,
 		dpadd.CUIL,
 		dpadd.LugarNacimiento,
 		dp.FechaNacimiento,
-		nac.Id Nacionalidad,
-
+		dpadd.IdNacionalidad Nacionalidad,
+		
+		dom_pers.ID_Domicilio DomPers_Id, 
 		dom_pers.Calle DomPers_Calle,
 		dom_pers.Número DomPers_Numero,
 		dom_pers.Piso DomPers_Piso,
@@ -23,13 +25,19 @@ BEGIN
 		dom_pers.Codigo_Postal DomPers_CodigoPostal,
 		isnull(prov_pers.IdProvincia, 0) DomPers_IdProvincia,
 
+		dom_lab.ID_Domicilio DomLab_Id,
 		dom_lab.Calle DomLab_Calle,
 		dom_lab.Número DomLab_Numero,
 		dom_lab.Piso DomLab_Piso,
 		dom_lab.Dpto DomLab_Depto,
 		dom_lab_afip.NombreLocalidad DomLab_Localidad,
 		dom_lab.Codigo_Postal DomLab_CodigoPostal,
-		isnull(prov_lab.IdProvincia, 0) DomLab_IdProvincia
+		isnull(prov_lab.IdProvincia, 0) DomLab_IdProvincia,
+		CASE TieneLegajo.idPersona
+			WHEN null THEN 'No tiene legajo'
+			ELSE 'Tiene legajo'
+			END AS TieneLegajo
+		
 	FROM dbo.DatosPersonales dp
 	INNER JOIN dbo.CV_DatosPersonales cvdp
 		ON cvdp.IdPersona = dp.Id
@@ -37,11 +45,6 @@ BEGIN
 		ON dpadd.IdPersona = dp.Id
 	INNER JOIN dbo.Tabla_Sexo sex
 		ON sex.Id = dpAdd.IdSexo
-	INNER JOIN dbo.Tabla_Nacionalidad nac
-		ON nac.Id = dpadd.IdNacionalidad
-	INNER JOIN dbo.Tabla_Estado_Civil eciv
-		ON eciv.Id = dpadd.IdEstadoCivil
-
 
 	INNER JOIN dbo.CV_Domicilios cv_dom_pers
 		ON cv_dom_pers.IdPersona = dp.Id
@@ -63,6 +66,9 @@ BEGIN
 		ON prov_lab.idProvincia = dom_lab.Provincia
 	LEFT JOIN dbo.LocalidadesAFIP dom_lab_afip
 		ON dom_lab_afip.idLocalidad = dom_lab.Localidad
+		
+	LEFT JOIN dbo.Datos_Personales TieneLegajo
+		ON TieneLegajo.IdPersona = dp.Id
 
 	WHERE 
 		dom_lab.DatoDeBaja = 0

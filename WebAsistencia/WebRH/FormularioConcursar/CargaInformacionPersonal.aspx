@@ -95,9 +95,7 @@
                         <div style="float:left; margin:8px">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
                          <select id="cmb_estadoCivil" name="cmb_estado_civil" style="width:150px;" >
-                            <option value="-1">Estado Civil</option>
-                            <option value="1">Soltero</option>
-                            <option value="2">Casado</option>
+                            <option value="-1">Seleccione</option>
                          </select>
                          </div>
                         <div style="float:left; margin:8px; width:130px;">
@@ -124,9 +122,7 @@
                       <div style="float:left; margin:8px">
                        <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo documento <em>*</em></label>
                         <select id="cmb_tipoDocumento" style="width:100px;" name="cmb_tipoDocumento" >
-                            <option value="0">DNI</option>
-                            <option value="1">LC</option>
-                            <option value="2">LE</option>
+                            <option value="-1">Seleccione</option>
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
@@ -522,8 +518,7 @@
 
     <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postular.js" ></script>
-<script type="text/javascript" src="../Scripts/RepositorioDeProvincias.js" ></script>
-<script type="text/javascript" src="../Scripts/RepositorioDeNacionalidades.js" ></script>
+<script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
 
 <script type="text/javascript">
 

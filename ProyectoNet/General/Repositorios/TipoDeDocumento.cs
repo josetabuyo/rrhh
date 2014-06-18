@@ -5,17 +5,17 @@ using System.Text;
 
 namespace General.Repositorios
 {
-    public class Nacionalidad
+    public class TipoDeDocumento
     {
         public int Id;
         public string Descripcion;
 
-        public Nacionalidad()
+        public TipoDeDocumento()
         {
 
         }
 
-        public Nacionalidad(int id, string descripcion)
+        public TipoDeDocumento(int id, string descripcion)
         {
             this.Id = id;
             this.Descripcion = descripcion;

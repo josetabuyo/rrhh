@@ -51,8 +51,8 @@ namespace General.Repositorios
 
             tablaCVs.Rows.ForEach(row => 
                 cv = new CurriculumVitae(
-                    new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetString("Sexo"), row.GetString("EstadoCivil"),
-                        row.GetString("Cuil"), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad"), row.GetDateTime("FechaNacimiento").ToString("dd/MM/yyyy"), "DNI", 
+                    new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetString("Sexo"), row.GetSmallintAsInt("EstadoCivil"),
+                        row.GetString("Cuil"), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad"), row.GetDateTime("FechaNacimiento").ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento"), 
                         new CvDomicilio(row.GetString("DomPers_Calle"), row.GetInt("DomPers_Numero"), row.GetString("DomPers_Piso"), row.GetString("DomPers_Depto"),
                             row.GetString("DomPers_Localidad"), row.GetSmallintAsInt("DomPers_CodigoPostal"), row.GetSmallintAsInt("DomPers_IdProvincia")),
                         new CvDomicilio(row.GetString("DomLab_Calle"), row.GetInt("DomLab_Numero"), row.GetString("DomLab_Piso"), row.GetString("DomLab_Depto"),
@@ -97,7 +97,7 @@ namespace General.Repositorios
         public CvDatosPersonales GetCvDatosPersonales(int documento)
         {
            var domicilio = new CvDomicilio("Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, 2);
-           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", 1, new DateTime(1985, 07, 23).ToShortDateString(), "D.N.I", domicilio,domicilio);
+           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", 1, "20-31369852-7", "Buenos Aires", 1, new DateTime(1985, 07, 23).ToShortDateString(), 1, domicilio,domicilio);
            //return datos_personales;
            return this._cvDatosPersonales;
         }
