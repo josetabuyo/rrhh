@@ -19,6 +19,8 @@ namespace General
         protected string _tipoDocumento;
         protected CvDomicilio _domicilioPersonal;
         protected CvDomicilio _domicilioLegal;
+        protected string _legajo;
+
 
         public int Dni { get { return _dni; } set { _dni = value; } }
         public string Nombre { get { return _nombre; } set { _nombre = value; } }
@@ -32,8 +34,9 @@ namespace General
         public string TipoDocumento { get { return _tipoDocumento; } set { _tipoDocumento = value; } }
         public CvDomicilio DomicilioPersonal { get { return _domicilioPersonal; } set { _domicilioPersonal = value; } }
         public CvDomicilio DomicilioLegal { get { return _domicilioLegal; } set { _domicilioLegal = value; } }
+        public string TieneLegajo { get { return _legajo; } set { _legajo = value; } }
 
-        public CvDatosPersonales(int dni, string nombre, string apellido, string sexo, string estadoCivil, string cuil, string lugarNacimiento, string nacionalidad, string fechaNacimiento, string tipoDocumento, CvDomicilio domicilio_personal, CvDomicilio domicilio_legal)
+        public CvDatosPersonales(int dni, string nombre, string apellido, string sexo, string estadoCivil, string cuil, string lugarNacimiento, string nacionalidad, string fechaNacimiento, string tipoDocumento, CvDomicilio domicilio_personal, CvDomicilio domicilio_legal, string tiene_legajo)
         {
             this._dni = dni;
             this._nombre = nombre;
@@ -48,10 +51,12 @@ namespace General
 
             this._domicilioPersonal = domicilio_personal;
             this._domicilioLegal = domicilio_legal;
+            this._legajo = tiene_legajo;
         }
 
         public CvDatosPersonales()
         {
         }
+ 
     }
 }

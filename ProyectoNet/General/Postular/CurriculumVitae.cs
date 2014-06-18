@@ -19,6 +19,7 @@ namespace General
         protected List<CvCompetenciasInformaticas> _cvCompetenciasInformaticas;
         protected List<CvCertificadoDeCapacitacion> _cvCertificadosDeCapacitacion;
         protected List<CvCapacidadesPersonales> _cvCapacidadesPersonales;
+        
 
         public virtual CvDatosPersonales DatosPersonales { get { return _datosPersonales; } set { _datosPersonales = value; } }
         public virtual List<CvEstudios> CvEstudios { get { return _cvEstudios; } set { _cvEstudios = value; } }
@@ -32,6 +33,7 @@ namespace General
         public virtual List<CvCompetenciasInformaticas> CvCompetenciasInformaticas { get { return _cvCompetenciasInformaticas; } set { _cvCompetenciasInformaticas = value; } }
         public virtual List<CvCertificadoDeCapacitacion> CvCertificadosDeCapacitacion { get { return _cvCertificadosDeCapacitacion; } set { _cvCertificadosDeCapacitacion = value; } }
         public virtual List<CvCapacidadesPersonales> cvCapacidadesPersonales { get { return _cvCapacidadesPersonales; } set { _cvCapacidadesPersonales = value; } }
+       
 
         public CurriculumVitae(CvDatosPersonales datosPersonales)
         {
@@ -47,6 +49,7 @@ namespace General
             this._cvCompetenciasInformaticas = new List<CvCompetenciasInformaticas>();
             this._cvCertificadosDeCapacitacion = new List<CvCertificadoDeCapacitacion>();
             this._cvCapacidadesPersonales = new List<CvCapacidadesPersonales>();
+            
         }
 
         public CurriculumVitae() { }
@@ -104,6 +107,14 @@ namespace General
         public void AgregarCapacidadesPersonales(CvCapacidadesPersonales cvCapacidadesPersonales)
         {
             this._cvCapacidadesPersonales.Add(cvCapacidadesPersonales);
+        }
+
+
+        public bool TieneLegajo()
+        {
+            if (this.DatosPersonales.TieneLegajo == "Tiene legajo")
+                return true;
+            return false;
         }
     }
 }

@@ -47,17 +47,21 @@ namespace General.Repositorios
             parametros.Add("@NroDocumento", documento);
             var tablaCVs = conexion_bd.Ejecutar("dbo.CV_GetCurriculumVitae", parametros);
 
-            CurriculumVitae cv = null;
+            CurriculumVitae cv = new CurriculumVitaeNull();
 
-            tablaCVs.Rows.ForEach(row => 
-                cv = new CurriculumVitae(
-                    new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetString("Sexo"), row.GetString("EstadoCivil"),
-                        row.GetString("Cuil"), row.GetString("LugarNacimiento", ""), row.GetString("Nacionalidad"), row.GetDateTime("FechaNacimiento").ToString("dd/MM/yyyy"), "DNI", 
-                        new CvDomicilio(row.GetString("DomPers_Calle"), row.GetInt("DomPers_Numero"), row.GetString("DomPers_Piso"), row.GetString("DomPers_Depto"),
-                            row.GetString("DomPers_Localidad"), row.GetSmallintAsInt("DomPers_CodigoPostal"), new Provincia(row.GetSmallintAsInt("DomPers_IdProvincia"), row.GetString("DomPers_NombreProvincia"))),
-                        new CvDomicilio(row.GetString("DomLab_Calle"), row.GetInt("DomLab_Numero"), row.GetString("DomLab_Piso"), row.GetString("DomLab_Depto"),
-                            row.GetString("DomLab_Localidad"), row.GetSmallintAsInt("DomLab_CodigoPostal"), new Provincia(row.GetSmallintAsInt("DomLab_IdProvincia"), row.GetString("DomLab_NombreProvincia"))))));
-
+            if (tablaCVs.Rows.Count() != 0)
+            {
+               tablaCVs.Rows.ForEach(row =>
+               cv = new CurriculumVitae(
+                   new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetString("Sexo"), row.GetString("EstadoCivil"),
+                       row.GetString("Cuil"), row.GetString("LugarNacimiento", ""), row.GetString("Nacionalidad"), row.GetDateTime("FechaNacimiento").ToString("dd/MM/yyyy"), "DNI",
+                       new CvDomicilio(row.GetInt("DomPers_Id"), row.GetString("DomPers_Calle"), row.GetInt("DomPers_Numero"), row.GetString("DomPers_Piso"), row.GetString("DomPers_Depto"),
+                           row.GetString("DomPers_Localidad"), row.GetSmallintAsInt("DomPers_CodigoPostal"), new Provincia(row.GetSmallintAsInt("DomPers_IdProvincia"), row.GetString("DomPers_NombreProvincia"))),
+                       new CvDomicilio(row.GetInt("DomLab_Id"), row.GetString("DomLab_Calle"), row.GetInt("DomLab_Numero"), row.GetString("DomLab_Piso"), row.GetString("DomLab_Depto"),
+                           row.GetString("DomLab_Localidad"), row.GetSmallintAsInt("DomLab_CodigoPostal"), new Provincia(row.GetSmallintAsInt("DomLab_IdProvincia"), row.GetString("DomLab_NombreProvincia"))), row.GetString("TieneLegajo"))));
+            
+            }
+ 
             return cv; 
         }
 
@@ -95,8 +99,8 @@ namespace General.Repositorios
 
         public CvDatosPersonales GetCvDatosPersonales(int documento)
         {
-           var domicilio = new CvDomicilio("Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, new Provincia(2, "CABA"));
-           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23).ToShortDateString(), "D.N.I", domicilio,domicilio);
+           var domicilio = new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, new Provincia(2, "CABA"));
+           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", "Masculono", "Soltero", "20-31369852-7", "Buenos Aires", "Argentina", new DateTime(1985, 07, 23).ToShortDateString(), "D.N.I", domicilio,domicilio, "Tiene Legajo");
            //return datos_personales;
            return this._cvDatosPersonales;
         }
@@ -116,7 +120,7 @@ namespace General.Repositorios
         {
             var domicilio = new List<CvDomicilio>()
                                {
-                                   new CvDomicilio("Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, new Provincia(2, "CABA"))
+                                   new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, new Provincia(2, "CABA"))
                                };
 
             return domicilio;
@@ -189,7 +193,87 @@ namespace General.Repositorios
         #region GUARDAR Datos
         public void GuardarCVDatosPersonales(CvDatosPersonales datosPersonales, Usuario usuario)
         {
+
             var parametros = new Dictionary<string, object>();
+            var cv = this.GetCV(datosPersonales.Dni);
+            
+            //Si la persona existe en Leg => Datos_Personales no se debe poder modificar ni DatosPersonales ni DatosPersonalesAdicionales
+            //El domicilio al entrar x primera vez no deberia verlos los del Legajo, asiq hago un insert la primera vez
+            
+            //Si todavia no tiene CV
+            if (cv.GetType() == typeof(CurriculumVitaeNull))
+            {
+                //Si no es empleado
+                if (datosPersonales.TieneLegajo == "No tiene Legajo")
+                {
+                    //insertar en CV_DatosPersonales
+                    parametros = CompletarDatosPersonales(datosPersonales, parametros, usuario);
+
+                    conexion_bd.Ejecutar("dbo.CV_Ins_DatosPersonales_NoEmpleados_1ra_vez", parametros);
+                }//Si es empleado 
+                else
+                {
+                    //insert de CV
+                    conexion_bd.Ejecutar("dbo.CV_Ins_Curriculum", parametros);
+                }
+
+                //insertar en GEN_Domicilios y CV_Domicilio el DomicilioPersonal
+                parametros = CompletarDatosDomicilios(cv.DatosPersonales.DomicilioPersonal, parametros, 1, usuario);
+                conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
+
+                //insertar en GEN_Domicilios y CV_Domicilio el DomicilioLaboral
+                parametros = CompletarDatosDomicilios(cv.DatosPersonales.DomicilioLegal, parametros, 2, usuario);
+                conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
+
+            }
+            else
+            {
+                if (datosPersonales.TieneLegajo == "No tiene Legajo") //Si ya tiene CV y no es Empleado
+                {
+                    //modificar el CV para no empleados
+                    parametros = CompletarDatosPersonales(datosPersonales, parametros, usuario);
+
+                    conexion_bd.Ejecutar("dbo.CV_Upd_DatosPersonales_NoEmpleados", parametros);
+                }
+               
+                //update GEN_Domicilios del domicilio personal
+                parametros = CompletarDatosDomicilios(cv.DatosPersonales.DomicilioPersonal, parametros, 1, usuario);
+                conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
+
+                //update en GEN_Domicilios del domicilio laboral
+                parametros = CompletarDatosDomicilios(cv.DatosPersonales.DomicilioLegal, parametros, 2, usuario);
+                conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
+
+            }
+
+            //this._cvDatosPersonales = datosPersonales;
+            //this.lista_cv.Add(cv);
+        }
+
+        private Dictionary<string, object> CompletarDatosDomicilios(CvDomicilio domicilio, Dictionary<string, object> parametros, int tipo, Usuario usuario)
+        {
+            parametros = new Dictionary<string, object>();
+
+            parametros.Add("@DomicilioCalle", domicilio.Calle);
+            parametros.Add("@DomicilioNumero", domicilio.Numero);
+            parametros.Add("@DomicilioPiso", domicilio.Piso);
+            parametros.Add("@DomicilioDepto", domicilio.Depto);
+            parametros.Add("@DomicilioCp", domicilio.Cp);
+            parametros.Add("@DomicilioLocalidad", domicilio.Localidad);
+            parametros.Add("@DomicilioProvincia", domicilio.Provincia);
+            parametros.Add("@DomicilioTelefono", "");
+            parametros.Add("@DomicilioCorreo_Electronico", "");
+            parametros.Add("@Correo_Electronico_MDS", "");
+            parametros.Add("@DomicilioTelefono2", "");
+            parametros.Add("@DomicilioTipo", tipo);
+            parametros.Add("@idUsuario", usuario.Id);
+
+            return parametros;
+        }
+
+        private Dictionary<string, object> CompletarDatosPersonales(CvDatosPersonales datosPersonales, Dictionary<string, object> parametros, Usuario usuario)
+        {
+            parametros = new Dictionary<string, object>();
 
             parametros.Add("@Dni", datosPersonales.Dni);
             parametros.Add("@Apellido", datosPersonales.Apellido);
@@ -201,41 +285,9 @@ namespace General.Repositorios
             parametros.Add("@Nacionalidad", datosPersonales.Nacionalidad);
             parametros.Add("@TipoDocumento", datosPersonales.TipoDocumento);
             parametros.Add("@Sexo", datosPersonales.Sexo);
+            parametros.Add("@idUsuario", usuario.Id);
 
-            if (datosPersonales.DomicilioPersonal is CvDomicilio)
-            {
-                parametros.Add("@DomicilioPersonalCalle", datosPersonales.DomicilioPersonal.Calle);
-                parametros.Add("@DomicilioPersonalNumero", datosPersonales.DomicilioPersonal.Numero);
-                parametros.Add("@DomicilioPersonalPiso", datosPersonales.DomicilioPersonal.Piso);
-                parametros.Add("@DomicilioPersonalDepto", datosPersonales.DomicilioPersonal.Depto);
-                parametros.Add("@DomicilioPersonalCp", datosPersonales.DomicilioPersonal.Cp);
-                parametros.Add("@DomicilioPersonalLocalidad", datosPersonales.DomicilioPersonal.Localidad);
-                parametros.Add("@DomicilioPersonalProvincia", datosPersonales.DomicilioPersonal.Provincia);
-                parametros.Add("@DomicilioPersonalTipo", 1);
-            }
-
-
-            if (datosPersonales.DomicilioLegal is CvDomicilio)
-            {
-                parametros.Add("@DomicilioLegalCalle", datosPersonales.DomicilioLegal.Calle);
-                parametros.Add("@DomicilioLegalNumero", datosPersonales.DomicilioLegal.Numero);
-                parametros.Add("@DomicilioLegalPiso", datosPersonales.DomicilioLegal.Piso);
-                parametros.Add("@DomicilioLegalDepto", datosPersonales.DomicilioLegal.Depto);
-                parametros.Add("@DomicilioLegalCp", datosPersonales.DomicilioLegal.Cp);
-                parametros.Add("@DomicilioLegalLocalidad", datosPersonales.DomicilioLegal.Localidad);
-                parametros.Add("@DomicilioLegalProvincia", datosPersonales.DomicilioLegal.Provincia);
-                parametros.Add("@DomicilioLegalTipo", 2);
-
-            }
-
-                parametros.Add("@idUsuario", usuario.Id);
-
-            //return (int)conexion_bd.EjecutarEscalar("dbo.CV_Ins_DatosPersonales", parametros);
-            
-            
-            
-            this._cvDatosPersonales = datosPersonales;
-            //this.lista_cv.Add(cv);
+            return parametros;
         }
 
         public void ActualizarCV(CurriculumVitae cv)
