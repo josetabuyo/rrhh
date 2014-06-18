@@ -49,10 +49,7 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GenerarDDJJ104(List<WSViaticos.DDJJ104> lista)
     {
-
         var resp = backEndService.GenerarDDJJ104 (usuarioLogueado, lista.ToArray());
-        //var areas_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(areas);
-        //return areas_serializados;
         
         if (resp)
         {
@@ -61,11 +58,16 @@ public class AjaxWS : System.Web.Services.WebService {
         else
         {
             return "ERROR";
-        }
-        
-        
+        }    
     }
-    
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void ImprimirDDJJ104(List<WSViaticos.DDJJ104> lista)
+    {
+        backEndService.ImprimirDDJJ104(lista.ToArray());
+
+    }
         
     //FIN: DDJJ//
     

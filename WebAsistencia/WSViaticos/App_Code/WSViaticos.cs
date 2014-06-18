@@ -75,6 +75,13 @@ public class WSViaticos : System.Web.Services.WebService
         return responsableDDJJ.GenerarDDJJ104(usuario, lista);
     }
 
+    [WebMethod]
+    public void ImprimirDDJJ104(List<DDJJ104> lista)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
+        responsableDDJJ.ImprimirDDJJ104(lista);
+    }
+
     //FIN: DDJJ 104 ---------------
 
     [WebMethod]

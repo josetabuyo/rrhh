@@ -103,7 +103,7 @@ var GeneradorBotones = function () {
             case '2':
                 boton = $("<input type='button'>");
                 boton.val("Imprimir");
-                boton.click();
+                boton.click(ImprimirDDJJ(row.Area.Id));
                 break;
             case '3':
                 boton = $("<input type='button'>");
@@ -137,8 +137,7 @@ var GetDescripcionEstado = function (estado) {
 
 var GenerarDDJJ = function (idArea) {
     return function (e) {
-       // alert(idArea);
-
+       
         var queryResult = Enumerable.From(lista_DDJJ)
                 .Where(function (x) { return x.Area.Id == idArea });
 
@@ -152,7 +151,11 @@ var GenerarDDJJ = function (idArea) {
         contentType: "application/json; charset=utf-8",
         success: function (respuestaJson) {
             if (respuestaJson.d == "OK") {
-                alertify.alert("Se genero correctamente");    
+                alertify.alert("Se genero correctamente");
+
+                $("#progressbar").show();
+                ContenedorGrilla.html("");
+                getAreasDDJJ();
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -160,7 +163,33 @@ var GenerarDDJJ = function (idArea) {
         }
         });
     }
+};
 
+
+var ImprimirDDJJ = function (idArea) {
+    return function (e) {
+
+        var queryResult = Enumerable.From(lista_DDJJ)
+                .Where(function (x) { return x.Area.Id == idArea });
+
+        var data_post = { lista: queryResult.ToArray() };
+        $.ajax({
+            url: "../AjaxWS.asmx/ImprimirDDJJ104",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(data_post),
+            contentType: "application/json; charset=utf-8",
+            success: function (respuestaJson) {
+                if (respuestaJson.d == "OK") {
+                    alertify.alert("Se genero correctamente");
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alertify.alert(errorThrown);
+            }
+        });
+    }
 };
 
 
