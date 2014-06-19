@@ -54,9 +54,9 @@ namespace General.Repositorios
                 new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo"), row.GetSmallintAsInt("EstadoCivil"),
                     row.GetString("Cuil"), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad"), row.GetDateTime("FechaNacimiento").ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento"),
                     new CvDomicilio(row.GetInt("DomPers_Id"), row.GetString("DomPers_Calle"), row.GetInt("DomPers_Numero"), row.GetString("DomPers_Piso"), row.GetString("DomPers_Depto"),
-                        row.GetString("DomPers_Localidad"), row.GetSmallintAsInt("DomPers_CodigoPostal"), row.GetSmallintAsInt("DomPers_IdProvincia")),
+                        row.GetSmallintAsInt("DomPers_Localidad"), row.GetSmallintAsInt("DomPers_CodigoPostal"), row.GetSmallintAsInt("DomPers_IdProvincia")),
                     new CvDomicilio(row.GetInt("DomLab_Id"), row.GetString("DomLab_Calle"), row.GetInt("DomLab_Numero"), row.GetString("DomLab_Piso"), row.GetString("DomLab_Depto"),
-                        row.GetString("DomLab_Localidad"), row.GetSmallintAsInt("DomLab_CodigoPostal"), row.GetSmallintAsInt("DomLab_IdProvincia")), row.GetString("TieneLegajo"))));
+                        row.GetSmallintAsInt("DomLab_Localidad"), row.GetSmallintAsInt("DomLab_CodigoPostal"), row.GetSmallintAsInt("DomLab_IdProvincia")), row.GetString("TieneLegajo"))));
                 //aca se agregaran todos los demas items que tiene el curriculum (estudios, capacitaciones, etc)
 
             if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
@@ -102,7 +102,7 @@ namespace General.Repositorios
 
         public CvDatosPersonales GetCvDatosPersonales(int documento)
         {
-           var domicilio = new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, 2);
+           var domicilio = new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", 1, 1419, 2);
            var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", 1, 1, "20-31369852-7", "Buenos Aires", 1, new DateTime(1985, 07, 23).ToShortDateString(), 1, domicilio,domicilio,"Tiene legajo");
            //return datos_personales;
            return this._cvDatosPersonales;
@@ -123,7 +123,7 @@ namespace General.Repositorios
         {
             var domicilio = new List<CvDomicilio>()
                                {
-                                   new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", "Capital Federal", 1419, 2)
+                                   new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", 1, 1419, 2)
                                };
 
             return domicilio;

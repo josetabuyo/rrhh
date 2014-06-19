@@ -2625,6 +2625,12 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeSexos.NuevoRepositorioDeSexos(Conexion()).TodosLosSexos().ToArray();
     }
 
+    [WebMethod]
+    public Localidad[] BuscarLocalidades(string criterio)
+    {
+        return RepositorioDeLocalidades.NuevoRepositorioDeLocalidades(Conexion()).BuscarLocalidades(criterio).ToArray();
+    }
+
     #endregion
 
     

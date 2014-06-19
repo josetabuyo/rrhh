@@ -606,7 +606,18 @@ public class AjaxWS : System.Web.Services.WebService {
             case "Nacionalidades": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetNacionalidades());
             case "EstadosCiviles": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetEstadosCiviles());
             case "TiposDeDocumento": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetTiposDeDocumento());
-            case "Sexos": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetSexos());
+            case "Sexos": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetSexos());            
+            default: return "El repositorio no existe";
+        }
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string BuscarEnRepositorio(string nombre_repositorio, string criterio)
+    {
+        switch (nombre_repositorio)
+        {
+            case "Localidades": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.BuscarLocalidades(criterio));
             default: return "El repositorio no existe";
         }
     }
