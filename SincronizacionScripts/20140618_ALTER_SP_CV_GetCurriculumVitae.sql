@@ -9,7 +9,7 @@ BEGIN
 		dp.Nombre,
 		dp.Apellido,
 		dp.TipoDocumento,
-		sex.Descripcion Sexo,
+		dpAdd.IdSexo Sexo,
 		dpadd.IdEstadoCivil EstadoCivil,
 		dpadd.CUIL,
 		dpadd.LugarNacimiento,
@@ -36,15 +36,17 @@ BEGIN
 		CASE TieneLegajo.idPersona
 			WHEN null THEN 'No tiene legajo'
 			ELSE 'Tiene legajo'
-			END AS TieneLegajo
+			END AS TieneLegajo,
+		CASE cvdp.IdPersona 
+			WHEN null THEN 'No tiene curriculum'
+			ELSE 'Tiene curriculum'
+			END AS TieneCurriculum
 		
 	FROM dbo.DatosPersonales dp
-	INNER JOIN dbo.CV_DatosPersonales cvdp
+	LEFT JOIN dbo.CV_DatosPersonales cvdp
 		ON cvdp.IdPersona = dp.Id
 	INNER JOIN dbo.DatosPersonalesAdicionales dpadd
 		ON dpadd.IdPersona = dp.Id
-	INNER JOIN dbo.Tabla_Sexo sex
-		ON sex.Id = dpAdd.IdSexo
 
 	INNER JOIN dbo.CV_Domicilios cv_dom_pers
 		ON cv_dom_pers.IdPersona = dp.Id
@@ -75,4 +77,5 @@ BEGIN
 		and dom_pers.DatoDeBaja = 0
 		and dp.NroDocumento = @NroDocumento
 END
+
 

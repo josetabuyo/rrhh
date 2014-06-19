@@ -10,7 +10,7 @@ namespace General
         protected int _dni;
         protected string _nombre;
         protected string _apellido;
-        protected string _sexo;
+        protected int _sexo;
         protected int _estadoCivil;
         protected string _cuil;
         protected string _lugarNacimiento;
@@ -24,7 +24,7 @@ namespace General
         public int Dni { get { return _dni; } set { _dni = value; } }
         public string Nombre { get { return _nombre; } set { _nombre = value; } }
         public string Apellido { get { return _apellido; } set { _apellido = value; } }
-        public string Sexo { get { return _sexo; } set { _sexo = value; } }
+        public int Sexo { get { return _sexo; } set { _sexo = value; } }
         public int EstadoCivil { get { return _estadoCivil; } set { _estadoCivil = value; } }
         public string Cuil { get { return _cuil; } set { _cuil = value; } }
         public string LugarDeNacimiento { get { return _lugarNacimiento; } set { _lugarNacimiento = value; } }
@@ -35,7 +35,7 @@ namespace General
         public CvDomicilio DomicilioLegal { get { return _domicilioLegal; } set { _domicilioLegal = value; } }
         public string TieneLegajo { get { return _legajo; } set { _legajo = value; } }
 
-        public CvDatosPersonales(int dni, string nombre, string apellido, string sexo, int estadoCivil, string cuil, string lugarNacimiento, int nacionalidad, string fechaNacimiento, int tipoDocumento, CvDomicilio domicilio_personal, CvDomicilio domicilio_legal, string tiene_legajo)
+        public CvDatosPersonales(int dni, string nombre, string apellido, int sexo, int estadoCivil, string cuil, string lugarNacimiento, int nacionalidad, string fechaNacimiento, int tipoDocumento, CvDomicilio domicilio_personal, CvDomicilio domicilio_legal, string tiene_legajo)
         {
             this._dni = dni;
             this._nombre = nombre;

@@ -62,7 +62,7 @@ namespace TestViaticos
 
         public CvDatosPersonales DatosPersonales()
         {
-            return new CvDatosPersonales(29753914, "Julian", "Dominguez", "Masculino", 1, "20-29753456-5",
+            return new CvDatosPersonales(29753914, "Julian", "Dominguez", 1, 1, "20-29753456-5",
                                          "Argentina", 1, new DateTime(1980, 01, 25).ToShortDateString(), 1, UnDomicilio(), UnDomicilio(),"Tiene legajo");
         }
 

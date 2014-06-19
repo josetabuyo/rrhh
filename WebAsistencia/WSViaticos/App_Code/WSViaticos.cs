@@ -2619,6 +2619,12 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeTiposdeDocumento.NuevoRepositorioDeTiposdeDocumento(Conexion()).TodosLosTiposDeDocumento().ToArray();
     }
 
+    [WebMethod]
+    public Sexo[] GetSexos()
+    {
+        return RepositorioDeSexos.NuevoRepositorioDeSexos(Conexion()).TodosLosSexos().ToArray();
+    }
+
     #endregion
 
     
