@@ -16,7 +16,7 @@ namespace General
         protected int _cp;
         protected int _provincia;
 
-        public int Id { get { return _id; }  }
+        public int Id { get { return _id; } set { _id = value; } }
         public string Calle { get { return _calle; } set { _calle = value; } }
         public int Numero { get { return _numero; } set { _numero = value; } }
         public string Piso { get { return _piso; } set { _piso = value; } }
@@ -35,7 +35,7 @@ namespace General
             this._localidad = localidad;
             this._cp = cp;
             this._provincia = provincia;
-            this._id = Id;
+            this._id = id;
 
         }
 
