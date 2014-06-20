@@ -2,6 +2,7 @@
     completarDatos: function (datos_personales) {
         var _this = this;
         this.ui = $("#contenedor_datosPersonales");
+
         _this.txt_nombre = _this.ui.find("#nombre");
         _this.txt_apellido = _this.ui.find("#apellido");
         _this.cmb_sexo = _this.ui.find("#cmb_sexo");
@@ -105,6 +106,7 @@
             datos_personales_nuevo.TipoDocumento = _this.cmb_tipoDocumento.val();
             datos_personales_nuevo.Dni = parseInt(_this.txt_dni.val());
 
+            domicilioPersonal_nuevo.Id = datos_personales.DomicilioPersonal.Id;
             domicilioPersonal_nuevo.Calle = _this.txt_domicilio_personal_calle.val();
             domicilioPersonal_nuevo.Numero = parseInt(_this.txt_domicilio_personal_numero.val());
             domicilioPersonal_nuevo.Piso = parseInt(_this.txt_domicilio_personal_piso.val());
@@ -113,6 +115,7 @@
             domicilioPersonal_nuevo.Provincia = _this.cmb_domicilio_personal_provincia.itemSeleccionado().Id;
             domicilioPersonal_nuevo.Localidad = _this.cmb_domicilio_personal_localidad.itemSeleccionado().Id;
 
+            domicilioLegal_nuevo.Id = datos_personales.DomicilioLegal.Id;
             domicilioLegal_nuevo.Calle = _this.txt_domicilio_legal_calle.val();
             domicilioLegal_nuevo.Numero = parseInt(_this.txt_domicilio_legal_numero.val());
             domicilioLegal_nuevo.Piso = parseInt(_this.txt_domicilio_legal_piso.val());
