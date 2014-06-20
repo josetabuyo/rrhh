@@ -5,14 +5,26 @@
             var option = $("<option value='" + item[nombreVal] + "' item='" + JSON.stringify(item) + "'>" + item[nombreDescripcion] + "</option>");
             _this.append(option);
         });
+        _this.change(function () {
+            _this.attr("item-seleccionado", _this.val());
+        });
     },
     itemSeleccionado: function (id) {
-        if (id!== undefined) {
+        if (id !== undefined) {
             this.val(id);
-            this.attr("item-seleccionado", id);
+            this.attr("item-seleccionado", id);       
+            this.change();
         } else {
             return JSON.parse(this.find("option:selected").attr("item"));
         }
+    },
+    cargarBusquedaEnRepositorio: function (nombre_repositorio, criterio, id_item, descripcion_item) {
+        var combo = $(this);
+        Repositorio.buscar(nombre_repositorio, criterio, function (items) {
+            combo.cargarCombo(items, id_item, descripcion_item);
+            var id_seleccionado = combo.attr("item-seleccionado");
+            if (id_seleccionado) combo.itemSeleccionado(id_seleccionado);
+        });
     }
 });
 

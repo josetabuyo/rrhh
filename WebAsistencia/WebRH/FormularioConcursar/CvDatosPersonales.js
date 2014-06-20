@@ -14,7 +14,6 @@
         _this.cmb_nacionalidad = _this.ui.find("#cmb_nacionalidad");
         _this.cmb_tipoDocumento = _this.ui.find("#cmb_tipoDocumento");
 
-
         _this.txt_nombre.val(datos_personales.Nombre);
         _this.txt_apellido.val(datos_personales.Apellido);
         _this.cmb_sexo.itemSeleccionado(datos_personales.Sexo);
@@ -31,17 +30,27 @@
         _this.txt_domicilio_personal_numero = _this.ui.find("#txt_numero1");
         _this.txt_domicilio_personal_piso = _this.ui.find("#txt_piso1");
         _this.txt_domicilio_personal_dto = _this.ui.find("#txt_dto1");
-        _this.txt_domicilio_personal_localidad = _this.ui.find("#txt_localidad1");
         _this.txt_domicilio_personal_cp = _this.ui.find("#txt_cp1");
         _this.cmb_domicilio_personal_provincia = _this.ui.find("#cmb_provincia1");
+        _this.cmb_domicilio_personal_localidad = _this.ui.find("#cmb_localidad1");
 
+        _this.cmb_domicilio_personal_provincia.change(function () {
+            _this.cmb_domicilio_personal_localidad.cargarBusquedaEnRepositorio(
+                "Localidades",
+                {
+                    provincia: _this.cmb_domicilio_personal_provincia.attr("item-seleccionado")
+                },
+                "Id",
+                "Descripcion"
+            );
+        });
         _this.txt_domicilio_personal_calle.val(datos_personales.DomicilioPersonal.Calle);
         _this.txt_domicilio_personal_numero.val(parseInt(datos_personales.DomicilioPersonal.Numero));
         _this.txt_domicilio_personal_piso.val(parseInt(datos_personales.DomicilioPersonal.Piso));
         _this.txt_domicilio_personal_dto.val(datos_personales.DomicilioPersonal.Depto);
-        _this.txt_domicilio_personal_localidad.val(datos_personales.DomicilioPersonal.Localidad);
         _this.txt_domicilio_personal_cp.val(parseInt(datos_personales.DomicilioPersonal.Cp));
         _this.cmb_domicilio_personal_provincia.itemSeleccionado(datos_personales.DomicilioPersonal.Provincia);
+        _this.cmb_domicilio_personal_localidad.val(datos_personales.DomicilioPersonal.Localidad);
 
         //DomicilioLaboral
         _this.txt_domicilio_legal_calle = _this.ui.find("#text_calle2");
