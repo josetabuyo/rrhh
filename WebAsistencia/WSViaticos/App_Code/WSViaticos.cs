@@ -2542,9 +2542,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void GuardarCvactividadesCapacitacion(CvCertificadoDeCapacitacion capacidades_nuevo, CvCertificadoDeCapacitacion capacidades_original, Usuario usuario)
+    public void GuardarCvActividadesCapacitacion(CvCertificadoDeCapacitacion capacidades_nuevo, CvCertificadoDeCapacitacion capacidades_original, Usuario usuario)
     {
-        RepoCurriculum().GuardarCvCapacidades(capacidades_nuevo, usuario);
+        RepoCurriculum().GuardarCvActividadesCapacitacion(capacidades_nuevo, usuario);
     }
 
     [WebMethod]
@@ -2561,9 +2561,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void GuardarCvPublicaciones(CvPublicaciones publicaciones_nuevas, CvPublicaciones publicaciones_original, Usuario usuario)
+    public void GuardarCvPublicacionesTrabajos(CvPublicaciones publicaciones_nuevas, CvPublicaciones publicaciones_original, Usuario usuario)
     {
-        RepoCurriculum().GuardarCvPublicaciones(publicaciones_nuevas, usuario);
+        RepoCurriculum().GuardarCvPublicacionesTrabajos(publicaciones_nuevas, usuario);
     }
 
     [WebMethod]
@@ -2690,6 +2690,12 @@ public class WSViaticos : System.Web.Services.WebService
     public Sexo[] GetSexos()
     {
         return RepositorioDeSexos.NuevoRepositorioDeSexos(Conexion()).TodosLosSexos().ToArray();
+    }
+
+    [WebMethod]
+    public Localidad[] BuscarLocalidades(string criterio)
+    {
+        return RepositorioDeLocalidades.NuevoRepositorioDeLocalidades(Conexion()).BuscarLocalidades(criterio).ToArray();
     }
 
     #endregion
