@@ -109,7 +109,7 @@
                         </div>
                       <div style="float:left; margin:8px">
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
-                         <select id="cmb_nacionalidad" style="width:120px;" name="cmb_nacionalidad" nombre_repositorio="Nacionalidades" id_item="Id" descripcion_item="Descripcion" >
+                         <select id="cmb_nacionalidad" style="width:250px;" name="cmb_nacionalidad" nombre_repositorio="Nacionalidades" id_item="Id" descripcion_item="Descripcion" >
                             <option value="-1">Seleccione</option>
                          </select>
                       </div>
@@ -145,12 +145,12 @@
                       </div>
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
-                        <select id="cmb_provincia1" name="cmb_provincia1" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:130px;" >
+                        <select id="cmb_provincia1" name="cmb_provincia1" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:200px;" >
                         </select>
                       </div> 
                       <div style="float:left; margin:8px">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
-                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:130px;" >
+                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:300px;" >
                             </select>
                       </div>
                     </fieldset>
@@ -183,12 +183,12 @@
 
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia2">Provincia <em>*</em></label>
-                        <select id="cmb_provincia2" name="cmb_provincia2" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:150px;" >
+                        <select id="cmb_provincia2" name="cmb_provincia2" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:200px;" >
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
                           <label class="etiqueta_campo_small" for="cmb_localidad2">Localidad <em>*</em></label>
-                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:130px;" >
+                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:300px;" >
                             </select>
                       </div>
 
