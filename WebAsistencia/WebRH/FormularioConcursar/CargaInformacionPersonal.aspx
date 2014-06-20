@@ -87,13 +87,10 @@
                         <div style="float:left; margin:8px">
                             <label for="cmb_sexo">Sexo <em>*</em></label>
                             <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" nombre_repositorio="Sexos" id_item="Id" descripcion_item="Descripcion">
-                                <option value="-1">Seleccione</option>
                             </select>
                         </div>
                         <div style="float:left; margin:8px">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
-                         <select id="cmb_estadoCivil" name="cmb_estado_civil" nombre_repositorio="EstadosCiviles" id_item="Id" descripcion_item="Descripcion" style="width:150px;" >
-                            <option value="-1">Seleccione</option>
                          </select>
                          </div>
                         <div style="float:left; margin:8px; width:130px;">
@@ -104,7 +101,6 @@
                         <div style="float:left; clear:left; margin:8px">
                              <label class="etiqueta_campo" for="cmb_lugar_nacimiento">Lugar nacimiento <em>*</em></label>
                              <select id="cmb_lugar_nacimiento" style="width:120px;" name="cmb_lugar_nacimiento" >
-                                <option value="-1">Seleccione</option>
                               </select>
                         </div>
                         <div style="float:left; margin:8px">
@@ -113,14 +109,13 @@
                         </div>
                       <div style="float:left; margin:8px">
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
-                         <select id="cmb_nacionalidad" style="width:120px;" name="cmb_nacionalidad" nombre_repositorio="Nacionalidades" id_item="Id" descripcion_item="Descripcion" >
+                         <select id="cmb_nacionalidad" style="width:250px;" name="cmb_nacionalidad" nombre_repositorio="Nacionalidades" id_item="Id" descripcion_item="Descripcion" >
                             <option value="-1">Seleccione</option>
                          </select>
                       </div>
                       <div style="float:left; margin:8px">
                        <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo documento <em>*</em></label>
                         <select id="cmb_tipoDocumento" style="width:100px;" name="cmb_tipoDocumento" nombre_repositorio="TiposDeDocumento" id_item="Id" descripcion_item="Descripcion">
-                            <option value="-1">Seleccione</option>
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
@@ -150,14 +145,12 @@
                       </div>
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
-                        <select id="cmb_provincia1" name="cmb_provincia1" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:130px;" >
-                            <option value="-1">Seleccione</option>
+                        <select id="cmb_provincia1" name="cmb_provincia1" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:200px;" >
                         </select>
                       </div> 
                       <div style="float:left; margin:8px">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
-                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:130px;" >
-                                <option value="-1">Seleccione</option>
+                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:300px;" >
                             </select>
                       </div>
                     </fieldset>
@@ -184,20 +177,19 @@
                       </div>
 
                       <div style="float:left; margin:8px">
-                          <label class="etiqueta_campo_small" for="txt_localidad2">Localidad <em>*</em></label>
-                          <input type="text" id="txt_localidad2" name="txt_localidad2" style="width:100px"/> 
-                      </div>
-
-                      <div style="float:left; margin:8px">
                             <label class="etiqueta_campo_small" for="txt_cp2">Código postal <em>*</em></label>
                           <input type="text" id="txt_cp2" name="txt_cp2" style="width:50px"/><br/>
                       </div>
 
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia2">Provincia <em>*</em></label>
-                        <select id="cmb_provincia2" name="cmb_provincia2" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:150px;" >
-                            <option value="-1">Seleccione</option>
+                        <select id="cmb_provincia2" name="cmb_provincia2" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:200px;" >
                         </select>
+                      </div>
+                      <div style="float:left; margin:8px">
+                          <label class="etiqueta_campo_small" for="cmb_localidad2">Localidad <em>*</em></label>
+                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:300px;" >
+                            </select>
                       </div>
 
                         <div style="float:left; margin:8px">
@@ -297,7 +289,7 @@
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
                     <legend><a id="eventos_academicos_link"  onclick="javascript:AgregarEventosAcademicos();"  class="link" >Cargar eventos académicos</a></legend>
-                        <h4>Eventos Acadmémicos Agregads</h4>
+                        <h4>Eventos Acadmémicos Agregados</h4>
                         <div id="ContenedorPlanillEventosAcademicos" runat="server">
                             <table id="tabla_eventos_academicos" class="table table-striped">
                           

@@ -73,9 +73,9 @@ function AgregarActividadesCapacitacion() {
 
 function AgregarEventosAcademicos() {
 
-    var antecedentes = {};
+    var eventos = {};
 
-    EventosAcademicos.mostrar(antecedentes, function (eventos_academicos) {
+    EventosAcademicos.mostrar(eventos, function (eventos_academicos) {
         PlanillaCvEventosAcademicos.BorrarContenido();
         PlanillaCvEventosAcademicos.CargarObjetos(eventos_academicos);
     });

@@ -1,19 +1,16 @@
 ﻿$.fn.extend({
     cargarCombo: function (coleccion, nombreVal, nombreDescripcion) {
         var _this = this;
+        _this.empty();
         coleccion.forEach(function (item) {
             var option = $("<option value='" + item[nombreVal] + "' item='" + JSON.stringify(item) + "'>" + item[nombreDescripcion] + "</option>");
             _this.append(option);
-        });
-        _this.change(function () {
-            _this.attr("item-seleccionado", _this.val());
         });
     },
     itemSeleccionado: function (id) {
         if (id !== undefined) {
             this.val(id);
-            this.attr("item-seleccionado", id);       
-            this.change();
+            this.attr("item-seleccionado", id);
         } else {
             return JSON.parse(this.find("option:selected").attr("item"));
         }
