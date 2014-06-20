@@ -21,6 +21,8 @@ namespace General
             set { _Nombre = value;  }
         }
 
+        public int IdProvincia { get; set; }
+
         public Localidad()
         {
               
@@ -30,6 +32,13 @@ namespace General
         {
             this.Id = Id;
             this.Nombre = Nombre;
+        }
+
+        public Localidad(int Id, string Nombre, int id_provincia)
+        {
+            this.Id = Id;
+            this.Nombre = Nombre;
+            this.IdProvincia = id_provincia;
         }
     }
 }

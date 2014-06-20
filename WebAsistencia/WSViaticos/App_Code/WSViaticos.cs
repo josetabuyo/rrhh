@@ -2533,13 +2533,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvEstudios EliminarCvAntecedentesAcademicos(CvEstudios antecedente_a_borrar, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCVAntecedentesAcademicos(antecedente_a_borrar, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+        return RepoCurriculum().EliminarCvAntecedentesAcademicos(antecedente_a_borrar, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
     }
 
      [WebMethod]
     public CvDocencia EliminarCvActividadesDocentes(CvDocencia actividades_docentes_a_borrar, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvActividadesDocentes(actividades_docentes_a_borrar, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+        return RepoCurriculum().EliminarCvAntecedentesDocencia(actividades_docentes_a_borrar, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
     }
 
     
@@ -2623,6 +2623,12 @@ public class WSViaticos : System.Web.Services.WebService
     public Sexo[] GetSexos()
     {
         return RepositorioDeSexos.NuevoRepositorioDeSexos(Conexion()).TodosLosSexos().ToArray();
+    }
+
+    [WebMethod]
+    public Localidad[] BuscarLocalidades(string criterio)
+    {
+        return RepositorioDeLocalidades.NuevoRepositorioDeLocalidades(Conexion()).BuscarLocalidades(criterio).ToArray();
     }
 
     #endregion

@@ -308,7 +308,7 @@
     <Compile Include="Repositorios\RepositorioCalculadorDeViatico.cs" />
     <Compile Include="Repositorios\RepositorioConceptosDeLicencia.cs" />
     <Compile Include="Repositorios\RepositorioLicencias.cs" />
-    <Compile Include="Repositorios\RepositorioLocalidades.cs" />
+    <Compile Include="Repositorios\RepositorioDeLocalidades.cs" />
     <Compile Include="Repositorios\RepositorioMediosDePago.cs" />
     <Compile Include="Repositorios\RepositorioMediosDeTransporte.cs" />
     <Compile Include="Repositorios\RepositorioPasesDeArea.cs" />

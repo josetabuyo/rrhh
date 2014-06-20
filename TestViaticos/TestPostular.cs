@@ -68,7 +68,7 @@ namespace TestViaticos
 
         public CvDomicilio UnDomicilio()
         {
-            return new CvDomicilio(1,"Habana",1234,"1","B","CABA",1427,6);
+            return new CvDomicilio(1,"Habana",1234,"1","B",1,1427,6);
         }
 
         public CvEstudios UnEstudio()

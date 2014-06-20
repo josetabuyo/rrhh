@@ -143,11 +143,7 @@
                       <div style="float:left; margin:8px; width:80px;">     
                           <label class="etiqueta_campo" for="txt_dto1">Dto</label>
                           <input type="text" id="txt_dto1" name="txt_dto1" style="width:50px"/>
-                      </div>
-                      <div style="float:left; margin:8px">
-                          <label class="etiqueta_campo_small" for="txt_localidad1">Localidad <em>*</em></label>
-                          <input type="text" id="txt_localidad1" name="txt_localidad1" style="width:100px"/> 
-                      </div>
+                      </div> 
                       <div style="float:left; margin:8px">
                           <label class="etiqueta_campo_small" for="txt_cp1">Código postal <em>*</em></label>
                           <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/><br/>
@@ -157,6 +153,12 @@
                         <select id="cmb_provincia1" name="cmb_provincia1" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:130px;" >
                             <option value="-1">Seleccione</option>
                         </select>
+                      </div> 
+                      <div style="float:left; margin:8px">
+                          <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
+                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:130px;" >
+                                <option value="-1">Seleccione</option>
+                            </select>
                       </div>
                     </fieldset>
                     <fieldset style="width:100%;" >
