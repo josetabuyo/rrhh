@@ -48,8 +48,8 @@
 
 
                 var data_post = JSON.stringify({
-                    "actividadesDocentes_nuevas": actividad_docente_original,
-                    "actividadesDocentes_originales": actividad_docente_original
+                    "docencias_nuevas": actividad_docente_original,
+                    "docencias_originales": actividad_docente_original
                 });
                 $.ajax({
                     url: "../AjaxWS.asmx/GuardarCvActividadesDocentes",

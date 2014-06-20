@@ -502,7 +502,6 @@
 <script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
 <script type="text/javascript" src="ActividadesCapacitacion.js" ></script>
 <script type="text/javascript" src="ActividadesDocentes.js" ></script>
-
 <script type="text/javascript" src="EventosAcademicos.js" ></script>
 <script type="text/javascript" src="PublicacionesTrabajos.js" ></script>
 <script type="text/javascript" src="Matriculas.js" ></script>

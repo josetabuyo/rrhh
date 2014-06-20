@@ -1,58 +1,38 @@
-﻿var ActividadesDocentes = {
-    mostrar: function (actividad_docente_original, alModificar) {
+﻿var PublicacionesTrabajos = {
+    mostrar: function (publicacion_trabajo_original, alModificar) {
         var _this = this;
         this.ui = $("#un_div_modal");
-        this.ui.find("#contenido_modal").load("ActividadesDocentes.htm", function () {
-            _this.txt_asignatura = _this.ui.find("#txt_actividad_docente_asignatura");
-            _this.txt_asignatura.val(actividad_docente_original.Asignatura);
-            _this.nivel_educativo = _this.ui.find("#txt_actividad_docente_nivel_educativo");
-            _this.nivel_educativo.val(actividad_docente_original.NivelEducativo);
-            _this.tipo_actividad = _this.ui.find("#txt_actividad_docente_tipo_actividad");
-            _this.tipo_actividad.val(actividad_docente_original.TipoActividad);
-            _this.categoria_docente = _this.ui.find("#txt_actividad_docente_categoria");
-            _this.categoria_docente.val(actividad_docente_original.CategoriaDocente);
-            _this.caracter_designacion = _this.ui.find("#txt_actividad_docente_caracter_designacion");
-            _this.caracter_designacion.val(actividad_docente_original.CaracterDesignacion);
-            _this.dedicacion_docente = _this.ui.find("#txt_actividad_docente_dedicacion");
-            _this.dedicacion_docente.val(actividad_docente_original.DedicacionDocente);
-            _this.carga_horaria = _this.ui.find("#txt_actividad_docente_carga_horaria");
-            _this.carga_horaria.val(actividad_docente_original.CargaHoraria);
-            _this.fecha_inicio = _this.ui.find("#txt_actividad_docente_fecha_inicio");
-            _this.fecha_inicio.val(actividad_docente_original.FechaInicio);
-            _this.fecha_fin = _this.ui.find("#txt_actividad_docente_fecha_fin");
-            _this.fecha_fin.val(actividad_docente_original.FechaFin);
-            _this.establecimiento = _this.ui.find("#txt_actividad_docente_establecimiento");
-            _this.establecimiento.val(actividad_docente_original.Establecimiento);
-            _this.cmb_actividad_docente_localidad = _this.ui.find("#cmb_actividad_docente_localidad");
-            _this.cmb_actividad_docente_localidad.val(actividad_docente_original.Localidad);
-            _this.cmb_actividad_docente_pais = _this.ui.find("#cmb_actividad_docente_pais");
-            _this.cmb_actividad_docente_pais.val(actividad_docente_original.Pais);
+        this.ui.find("#contenido_modal").load("PublicacionesTrabajos.htm", function () {
+            _this.publicaciones_titulo = _this.ui.find("#txt_publicaciones_titulo");
+            _this.publicaciones_titulo.val(publicacion_trabajo_original.Titulo);
+            _this.publicaciones_editorial = _this.ui.find("#txt_publicaciones_editorial");
+            _this.publicaciones_editorial.val(publicacion_trabajo_original.DatosEditorial);
+            _this.publicaciones_fecha = _this.ui.find("#txt_publicaciones_fecha");
+            _this.publicaciones_fecha.val(publicacion_trabajo_original.FechaPublicacion);
+            _this.publicaciones_paginas = _this.ui.find("#txt_publicaciones_paginas");
+            _this.publicaciones_paginas.val(publicacion_trabajo_original.CantidadHojas);
+            _this.publicaciones_dispone_copia = _this.ui.find("#cmb_publicaciones_dispone_copia");
+            _this.publicaciones_dispone_copia.val(publicacion_trabajo_original.DisponeCopia);
 
 
             //Bt agregar
-            _this.add_actividadesDocentes = _this.ui.find("#add_actividadesDocentes");
-            _this.add_actividadesDocentes.click(function () {
+            _this.add_publicacionesTrabajos = _this.ui.find("#add_publicacionesTrabajos");
+            _this.add_publicacionesTrabajos.click(function () {
                 //var estudio_modificado = $.extend(true, estudio_original);
-                actividad_docente_original.Asignatura = _this.txt_asignatura.val();
-                actividad_docente_original.NivelEducativo = _this.nivel_educativo.val();
-                actividad_docente_original.TipoActividad = _this.tipo_actividad.val();
-                actividad_docente_original.CategoriaDocente = _this.categoria_docente.val();
-                actividad_docente_original.CaracterDesignacion = _this.caracter_designacion.val();
-                actividad_docente_original.DedicacionDocente = _this.dedicacion_docente.val();
-                actividad_docente_original.CargaHoraria = _this.dedicacion_docente.val();
-                actividad_docente_original.FechaInicio = _this.fecha_inicio.val();
-                actividad_docente_original.FechaFinalizacion = _this.fecha_fin.val();
-                actividad_docente_original.Establecimiento = _this.establecimiento.val();
-                actividad_docente_original.Localidad = _this.cmb_actividad_docente_localidad.val();
-                actividad_docente_original.Pais = _this.cmb_actividad_docente_pais.val();
+                publicacion_trabajo_original.Titulo = _this.publicaciones_titulo.val();
+                publicacion_trabajo_original.Titulo = _this.publicaciones_editorial.val();
+                publicacion_trabajo_original.FechaPublicacion = _this.publicaciones_fecha.val();
+                publicacion_trabajo_original.FechaPublicacion = _this.publicaciones_paginas.val();
+                publicacion_trabajo_original.DisponeCopia = _this.publicaciones_dispone_copia.val();
+                
 
 
                 var data_post = JSON.stringify({
-                    "actividadesDocentes_nuevas": actividad_docente_original,
-                    "actividadesDocentes_originales": actividad_docente_original
+                    "docencias_nuevas": actividad_docente_original,
+                    "docencias_originales": actividad_docente_original
                 });
                 $.ajax({
-                    url: "../AjaxWS.asmx/GuardarCvActividadesDocentes",
+                    url: "../AjaxWS.asmx/GuardarCvPublicacionesTrabajos",
                     type: "POST",
                     data: data_post,
                     dataType: "json",
@@ -119,9 +99,9 @@
         botonEditar.attr('height', '25px');
 
         botonEditar.click(function () {
-            ActividadesDocentes.mostrar(una_actividad_docente, function (actididad_docente_modificada) {
-                PlanillaCvActividadesDocentes.BorrarContenido();
-                PlanillaCvActividadesDocentes.CargarObjetos(actividades_docentes);
+            PublicacionesTrabajos.mostrar(una_actividad_docente, function (actididad_docente_modificada) {
+                PlanillaCvPublicacionesTrabajos.BorrarContenido();
+                PlanillaCvPublicacionesTrabajos.CargarObjetos(actividades_docentes);
             });
         });
 
@@ -134,8 +114,8 @@
         botonEliminar.attr('height', '25px');
 
         botonEliminar.click(function () {
-            ActividadesDocentes.eliminar(una_actividad_docente, function (actividad_docente_eliminada) {
-                PlanillaCvActividadesDocentes.QuitarObjeto(contenedorPlanilla, actividad_docente_eliminada);
+            PublicacionesTrabajos.eliminar(una_actividad_docente, function (actividad_docente_eliminada) {
+                PlanillaCvPublicacionesTrabajos.QuitarObjeto(contenedorPlanilla, actividad_docente_eliminada);
             });
         });
 
@@ -146,14 +126,14 @@
     }));
 
 
-    PlanillaCvActividadesDocentes = new Grilla(columnas);
-    PlanillaCvActividadesDocentes.AgregarEstilo("table table-striped");
-    PlanillaCvActividadesDocentes.SetOnRowClickEventHandler(function (un_estudio) {
+PlanillaCvPublicacionesTrabajos = new Grilla(columnas);
+PlanillaCvPublicacionesTrabajos.AgregarEstilo("table table-striped");
+PlanillaCvPublicacionesTrabajos.SetOnRowClickEventHandler(function (un_estudio) {
             // panelAlumno.CompletarDatosAlumno(un_alumno);
         });
 
-    PlanillaCvActividadesDocentes.CargarObjetos(actividades_docentes);
-    PlanillaCvActividadesDocentes.DibujarEn(contenedorPlanilla);
+PlanillaCvPublicacionesTrabajos.CargarObjetos(actividades_docentes);
+PlanillaCvPublicacionesTrabajos.DibujarEn(contenedorPlanilla);
 
     },
     eliminar: function (actividad_docente_a_eliminar, alModificar) {
@@ -162,10 +142,10 @@
             if (e) {
                 // user clicked "ok"
                 var data_post = JSON.stringify({
-                    "actividadesDocentes_borrar": actividad_docente_a_eliminar
+                    "publicacionesTrabajos_borrar": actividad_docente_a_eliminar
                 });
                 $.ajax({
-                    url: "../AjaxWS.asmx/EliminarCVActividadesDocentes",
+                    url: "../AjaxWS.asmx/EliminarCVPublicacionesTrabajos",
                     type: "POST",
                     data: data_post,
                     dataType: "json",

@@ -36,8 +36,8 @@
 
 
                 var data_post = JSON.stringify({
-                    "actividades_cacitacion_nuevas": actividad_capacitacion_original,
-                    "actividades_capacitacion_originales": actividad_capacitacion_original
+                    "actividadesCapacitacion_nuevas": actividad_capacitacion_original,
+                    "actividadesCapacitacion_originales": actividad_capacitacion_original
                 });
                 $.ajax({
                     url: "../AjaxWS.asmx/GuardarCvactividadesCapacitacion",
