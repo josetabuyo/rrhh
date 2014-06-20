@@ -289,7 +289,7 @@
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
                     <legend><a id="eventos_academicos_link"  onclick="javascript:AgregarEventosAcademicos();"  class="link" >Cargar eventos académicos</a></legend>
-                        <h4>Eventos Acadmémicos Agregads</h4>
+                        <h4>Eventos Acadmémicos Agregados</h4>
                         <div id="ContenedorPlanillEventosAcademicos" runat="server">
                             <table id="tabla_eventos_academicos" class="table table-striped">
                           
