@@ -1,8 +1,8 @@
-﻿var AntecedentesAcademicos = {
+﻿var EventosAcademicos = {
     mostrar: function (evento, alModificar) {
         var _this = this;
         this.ui = $("#un_div_modal");
-        this.ui.find("#contenido_modal").load("AntecedentesAcademicos.htm", function () {
+        this.ui.find("#contenido_modal").load("EventosAcademicos.htm", function () {
             _this.txt_evento_denominacion = _this.ui.find("#txt_evento_denominacion");
             _this.txt_evento_denominacion.val(evento.Denominacion);
 
