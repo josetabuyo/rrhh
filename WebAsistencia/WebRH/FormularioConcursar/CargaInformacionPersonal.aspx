@@ -87,13 +87,10 @@
                         <div style="float:left; margin:8px">
                             <label for="cmb_sexo">Sexo <em>*</em></label>
                             <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" nombre_repositorio="Sexos" id_item="Id" descripcion_item="Descripcion">
-                                <option value="-1">Seleccione</option>
                             </select>
                         </div>
                         <div style="float:left; margin:8px">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
-                         <select id="cmb_estadoCivil" name="cmb_estado_civil" nombre_repositorio="EstadosCiviles" id_item="Id" descripcion_item="Descripcion" style="width:150px;" >
-                            <option value="-1">Seleccione</option>
                          </select>
                          </div>
                         <div style="float:left; margin:8px; width:130px;">
@@ -104,7 +101,6 @@
                         <div style="float:left; clear:left; margin:8px">
                              <label class="etiqueta_campo" for="cmb_lugar_nacimiento">Lugar nacimiento <em>*</em></label>
                              <select id="cmb_lugar_nacimiento" style="width:120px;" name="cmb_lugar_nacimiento" >
-                                <option value="-1">Seleccione</option>
                               </select>
                         </div>
                         <div style="float:left; margin:8px">
@@ -120,7 +116,6 @@
                       <div style="float:left; margin:8px">
                        <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo documento <em>*</em></label>
                         <select id="cmb_tipoDocumento" style="width:100px;" name="cmb_tipoDocumento" nombre_repositorio="TiposDeDocumento" id_item="Id" descripcion_item="Descripcion">
-                            <option value="-1">Seleccione</option>
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
@@ -151,13 +146,11 @@
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
                         <select id="cmb_provincia1" name="cmb_provincia1" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:130px;" >
-                            <option value="-1">Seleccione</option>
                         </select>
                       </div> 
                       <div style="float:left; margin:8px">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
                            <select id="cmb_localidad1" name="cmb_localidad1" style="width:130px;" >
-                                <option value="-1">Seleccione</option>
                             </select>
                       </div>
                     </fieldset>
@@ -184,11 +177,6 @@
                       </div>
 
                       <div style="float:left; margin:8px">
-                          <label class="etiqueta_campo_small" for="txt_localidad2">Localidad <em>*</em></label>
-                          <input type="text" id="txt_localidad2" name="txt_localidad2" style="width:100px"/> 
-                      </div>
-
-                      <div style="float:left; margin:8px">
                             <label class="etiqueta_campo_small" for="txt_cp2">Código postal <em>*</em></label>
                           <input type="text" id="txt_cp2" name="txt_cp2" style="width:50px"/><br/>
                       </div>
@@ -196,8 +184,12 @@
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia2">Provincia <em>*</em></label>
                         <select id="cmb_provincia2" name="cmb_provincia2" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:150px;" >
-                            <option value="-1">Seleccione</option>
                         </select>
+                      </div>
+                      <div style="float:left; margin:8px">
+                          <label class="etiqueta_campo_small" for="cmb_localidad2">Localidad <em>*</em></label>
+                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:130px;" >
+                            </select>
                       </div>
 
                         <div style="float:left; margin:8px">

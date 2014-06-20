@@ -38,7 +38,7 @@ namespace General.Repositorios
 
             if (criterio_deserializado["provincia"]!= null) {
                 filtrar_por_provincia = true;
-                id_provincia = (int)((JValue)criterio_deserializado["Provincia"]);
+                id_provincia = (int)((JValue)criterio_deserializado["provincia"]);
             }
 
             return TodasLasLocalidades().FindAll(localidad =>
