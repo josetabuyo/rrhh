@@ -113,7 +113,7 @@
             domicilioPersonal_nuevo.Depto = _this.txt_domicilio_personal_dto.val();
             domicilioPersonal_nuevo.Cp = parseInt(_this.txt_domicilio_personal_cp.val());
             domicilioPersonal_nuevo.Provincia = _this.cmb_domicilio_personal_provincia.itemSeleccionado().Id;
-            domicilioPersonal_nuevo.Localidad = _this.cmb_domicilio_personal_localidad.itemSeleccionado().Id;
+            domicilioPersonal_nuevo.Localidad = 1; //_this.cmb_domicilio_personal_localidad.itemSeleccionado().Id;
 
             domicilioLegal_nuevo.Id = datos_personales.DomicilioLegal.Id;
             domicilioLegal_nuevo.Calle = _this.txt_domicilio_legal_calle.val();
@@ -122,7 +122,7 @@
             domicilioLegal_nuevo.Depto = _this.txt_domicilio_legal_dto.val();
             domicilioLegal_nuevo.Cp = parseInt(_this.txt_domicilio_legal_cp.val());
             domicilioLegal_nuevo.Provincia = _this.cmb_domicilio_legal_provincia.itemSeleccionado().Id;
-            domicilioLegal_nuevo.Localidad = _this.cmb_domicilio_legal_localidad.itemSeleccionado().Id;
+            domicilioLegal_nuevo.Localidad = 1;// _this.cmb_domicilio_legal_localidad.itemSeleccionado().Id;
 
             //domicilioLegal_nuevo.TelefonoFijo = _this.txt_domicilio_legal_telefonoFijo.val();
             //domicilioLegal_nuevo.TelefonoCelular = _this.txt_domicilio_legal_telefonoCelular.val();

@@ -55,12 +55,12 @@ namespace General.Repositorios
 
             tablaCVs.Rows.ForEach(row =>
             cv = new CurriculumVitae(
-                new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo"), row.GetSmallintAsInt("EstadoCivil"),
-                    row.GetString("Cuil"), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad"), row.GetDateTime("FechaNacimiento").ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento"),
-                    new CvDomicilio(row.GetInt("DomPers_Id"), row.GetString("DomPers_Calle"), row.GetInt("DomPers_Numero"), row.GetString("DomPers_Piso"), row.GetString("DomPers_Depto"),
-                        row.GetSmallintAsInt("DomPers_Localidad"), row.GetSmallintAsInt("DomPers_CodigoPostal"), row.GetSmallintAsInt("DomPers_IdProvincia")),
-                    new CvDomicilio(row.GetInt("DomLab_Id"), row.GetString("DomLab_Calle"), row.GetInt("DomLab_Numero"), row.GetString("DomLab_Piso"), row.GetString("DomLab_Depto"),
-                        row.GetSmallintAsInt("DomLab_Localidad"), row.GetSmallintAsInt("DomLab_CodigoPostal"), row.GetSmallintAsInt("DomLab_IdProvincia")), row.GetString("TieneLegajo"))));
+                new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo",0), row.GetSmallintAsInt("EstadoCivil",0),
+                    row.GetString("Cuil",""), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad",0), row.GetDateTime("FechaNacimiento",DateTime.Today).ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento",0),
+                    new CvDomicilio(row.GetInt("DomPers_Id",0), row.GetString("DomPers_Calle",""), row.GetInt("DomPers_Numero",0), row.GetString("DomPers_Piso",""), row.GetString("DomPers_Depto",""),
+                        row.GetInt("DomPers_Localidad",0), row.GetSmallintAsInt("DomPers_CodigoPostal",0), row.GetSmallintAsInt("DomPers_IdProvincia",0)),
+                    new CvDomicilio(row.GetInt("DomLab_Id",0), row.GetString("DomLab_Calle",""), row.GetInt("DomLab_Numero",0), row.GetString("DomLab_Piso",""), row.GetString("DomLab_Depto",""),
+                        row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0)), row.GetString("TieneLegajo"))));
                 //aca se agregaran todos los demas items que tiene el curriculum (estudios, capacitaciones, etc)
 
             if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
@@ -212,20 +212,19 @@ namespace General.Repositorios
             if (cv.TieneCv == false)
             {
                 //Si no es empleado
-                if (datosPersonales.TieneLegajo == "No tiene Legajo")
+                if (cv.DatosPersonales.TieneLegajo == "No tiene legajo")
                 {
                     //insertar en CV_DatosPersonales
                     parametros = CompletarDatosPersonales(datosPersonales, parametros, usuario);
 
                     conexion_bd.Ejecutar("dbo.CV_Ins_DatosPersonalesNoEmpleados1ravez", parametros);
-                }//Si es empleado 
-                else
-                {
-                    //insert de CV
-                    parametros.Add("@Dni", datosPersonales.Dni);
-                    parametros.Add("@usuario", usuario.Id);    
-                    conexion_bd.Ejecutar("dbo.CV_Ins_Curriculum", parametros);
                 }
+                //Si es empleado 
+
+                //insert de CV
+                parametros.Add("@Dni", datosPersonales.Dni);
+                parametros.Add("@usuario", usuario.Id);
+                conexion_bd.Ejecutar("dbo.CV_Ins_Curriculum", parametros);
 
                 //insertar en GEN_Domicilios y CV_Domicilio el DomicilioPersonal
                 parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario);
@@ -240,7 +239,7 @@ namespace General.Repositorios
             }
             else
             {
-                if (datosPersonales.TieneLegajo == "No tiene Legajo") //Si ya tiene CV y no es Empleado
+                if (cv.DatosPersonales.TieneLegajo == "No tiene legajo") //Si ya tiene CV y no es Empleado
                 {
                     //modificar el CV para no empleados
                     parametros = CompletarDatosPersonales(datosPersonales, parametros, usuario);
