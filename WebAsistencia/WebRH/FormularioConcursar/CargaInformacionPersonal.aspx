@@ -86,11 +86,12 @@
                         </div>
                         <div style="float:left; margin:8px">
                             <label for="cmb_sexo">Sexo <em>*</em></label>
-                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" nombre_repositorio="Sexos" id_item="Id" descripcion_item="Descripcion">
+                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" >
                             </select>
                         </div>
                         <div style="float:left; margin:8px">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
+                         <select id="cmb_estadoCivil" style="width:100px;" name="cmb_estadoCivil" >
                          </select>
                          </div>
                         <div style="float:left; margin:8px; width:130px;">
@@ -109,13 +110,12 @@
                         </div>
                       <div style="float:left; margin:8px">
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
-                         <select id="cmb_nacionalidad" style="width:250px;" name="cmb_nacionalidad" nombre_repositorio="Nacionalidades" id_item="Id" descripcion_item="Descripcion" >
-                            <option value="-1">Seleccione</option>
+                         <select id="cmb_nacionalidad" style="width:250px;" name="cmb_nacionalidad">
                          </select>
                       </div>
                       <div style="float:left; margin:8px">
                        <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo documento <em>*</em></label>
-                        <select id="cmb_tipoDocumento" style="width:100px;" name="cmb_tipoDocumento" nombre_repositorio="TiposDeDocumento" id_item="Id" descripcion_item="Descripcion">
+                        <select id="cmb_tipoDocumento" style="width:100px;" name="cmb_tipoDocumento">
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
@@ -145,7 +145,7 @@
                       </div>
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
-                        <select id="cmb_provincia1" name="cmb_provincia1" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:200px;" >
+                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:200px;" >
                         </select>
                       </div> 
                       <div style="float:left; margin:8px">
@@ -183,7 +183,7 @@
 
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia2">Provincia <em>*</em></label>
-                        <select id="cmb_provincia2" name="cmb_provincia2" nombre_repositorio="Provincias" id_item="Id" descripcion_item="Nombre" style="width:200px;" >
+                        <select id="cmb_provincia2" name="cmb_provincia2" style="width:200px;" >
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
@@ -510,6 +510,7 @@
     <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postular.js" ></script>
 <script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
+<script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
 
 <script type="text/javascript">
 
