@@ -1,4 +1,4 @@
-﻿var ActividadesDocentes = {
+﻿var InstitucionesAcademicas = {
     mostrar: function (actividad_docente_original, alModificar) {
         var _this = this;
         this.ui = $("#un_div_modal");
@@ -48,11 +48,11 @@
 
 
                 var data_post = JSON.stringify({
-                    "docencias_nuevas": actividad_docente_original,
-                    "docencias_originales": actividad_docente_original
+                    "institucionesAcademicas_nuevas": institucion_academicas_original,
+                    "institucionesAcademicas_originales": institucion_academicas_original
                 });
                 $.ajax({
-                    url: "../AjaxWS.asmx/GuardarCvActividadesDocentes",
+                    url: "../AjaxWS.asmx/GuardarCvInstitucionesAcademicas",
                     type: "POST",
                     data: data_post,
                     dataType: "json",
@@ -92,7 +92,7 @@
 
         //var actividades_docentes = JSON.parse(actividades_docentes);
 
-        contenedorPlanilla = $('#tabla_actividades_docentes');
+        contenedorPlanilla = $('#tabla_instituciones_academicas');
 
         var columnas = [];
 

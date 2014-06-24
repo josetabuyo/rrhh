@@ -227,8 +227,8 @@
                     <legend><a id="antecedentes_link"  onclick="javascript:AgregarAntecedentesAcademico();"  class="link" >Cargar antecedentes academicos</a></legend>
                            
                         <h4>Antecedentes Agregados</h4>
-                        <div id="ContenedorPlanilla" runat="server">
-                            <table id="tabla_antecedentes" class="table table-striped">
+                        <div id="ContenedorPlanillaAntecendentesAcademicos" runat="server">
+                            <table id="tabla_antecedentes_academicos" class="table table-striped">
                           
                             </table>
                         </div>

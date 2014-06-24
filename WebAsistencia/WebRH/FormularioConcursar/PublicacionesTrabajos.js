@@ -18,7 +18,6 @@
             //Bt agregar
             _this.add_publicacionesTrabajos = _this.ui.find("#add_publicacionesTrabajos");
             _this.add_publicacionesTrabajos.click(function () {
-                //var estudio_modificado = $.extend(true, estudio_original);
                 publicacion_trabajo_original.Titulo = _this.publicaciones_titulo.val();
                 publicacion_trabajo_original.Titulo = _this.publicaciones_editorial.val();
                 publicacion_trabajo_original.FechaPublicacion = _this.publicaciones_fecha.val();
@@ -28,8 +27,8 @@
 
 
                 var data_post = JSON.stringify({
-                    "docencias_nuevas": actividad_docente_original,
-                    "docencias_originales": actividad_docente_original
+                    "publicacionesTrabajos_nuevas": publicacion_trabajo_original,
+                    "publicacionesTrabajos_originales": publicacion_trabajo_original
                 });
                 $.ajax({
                     url: "../AjaxWS.asmx/GuardarCvPublicacionesTrabajos",
@@ -53,13 +52,7 @@
             link_trucho.leanModal({ top: 300, closeButton: ".modal_close_concursar" });
             link_trucho.click();
 
-            $('#txt_actividad_docente_fecha_inicio').datepicker({
-                dateFormat: 'dd/mm/yy',
-                onClose: function () {
-
-                }
-            });
-            $('#txt_actividad_docente_fecha_fin').datepicker({
+            $('#txt_publicaciones_fecha').datepicker({
                 dateFormat: 'dd/mm/yy',
                 onClose: function () {
 
@@ -67,29 +60,21 @@
             });
         });
     },
-    armarGrilla: function (actividades_docentes) {
+    armarGrilla: function (publicaciones_trabajos) {
         var _this = this;
 
-        //var actividades_docentes = JSON.parse(actividades_docentes);
-
-        contenedorPlanilla = $('#tabla_actividades_docentes');
+        contenedorPlanilla = $('#tabla_publicaciones_trabajos');
 
         var columnas = [];
 
-    columnas.push(new Columna("Id", { generar: function (una_actividad_docente) { return una_actividad_docente.Id } }));
-    columnas.push(new Columna("Asignatura", { generar: function (una_actividad_docente) { return una_actividad_docente.Asignatura } }));
-    columnas.push(new Columna("Nivel Educativo", { generar: function (una_actividad_docente) { return una_actividad_docente.NivelEducativo } }));
-    columnas.push(new Columna("Tipo de Actividad", { generar: function (una_actividad_docente) { return una_actividad_docente.TipoActividad } }));
-    columnas.push(new Columna("Categoría Docente", { generar: function (una_actividad_docente) { return una_actividad_docente.CategoriaDocente } }));
-    //columnas.push(new Columna("Caracter de Designación", { generar: function (una_actividad_docente) { return una_actividad_docente.CaracterDesignación } }));
-    //columnas.push(new Columna("Dedicación Docente", { generar: function (una_actividad_docente) { return una_actividad_docente.DedicacionDocente } }));
-    //columnas.push(new Columna("Carga Horaria", { generar: function (una_actividad_docente) { return una_actividad_docente.CargaHoraria } }));
-    columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_docente) { return una_actividad_docente.FechaInicio } }));
-    columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_docente) { return una_actividad_docente.FechaFinalizacion } }));
-    columnas.push(new Columna("Establecimiento", { generar: function (una_actividad_docente) { return una_actividad_docente.Establecimiento } }));
-    //columnas.push(new Columna("Localidad", { generar: function (una_actividad_docente) { return una_actividad_docente.Localidad } }));
-    //columnas.push(new Columna("Pais", { generar: function (una_actividad_docente) { return una_actividad_docente.Pais } }));
-    columnas.push(new Columna('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acciones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', { generar: function (una_actividad_docente) {
+    columnas.push(new Columna("Id", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.Id } }));
+    columnas.push(new Columna("Título", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.Titulo } }));
+    columnas.push(new Columna("Editorial", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.FechaPublicacion } }));
+    columnas.push(new Columna("Fecha", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.CantidadHojas } }));
+    columnas.push(new Columna("Páginas", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.CantidadHojas } }));
+    columnas.push(new Columna("Dispone Copias", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.DisponeCopia } }));
+    //columnas.push(new Columna("Copia", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo. } }));
+    columnas.push(new Columna('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acciones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', { generar: function (una_publicacion_trabajo) {
         var contenedorBtnAcciones = $('<div>');
         var botonEditar = $('<img>');
         botonEditar.addClass('edit-item-btn');
@@ -99,9 +84,9 @@
         botonEditar.attr('height', '25px');
 
         botonEditar.click(function () {
-            PublicacionesTrabajos.mostrar(una_actividad_docente, function (actididad_docente_modificada) {
+            PublicacionesTrabajos.mostrar(una_publicacion_trabajo, function (publicacion_trabajo_modificada) {
                 PlanillaCvPublicacionesTrabajos.BorrarContenido();
-                PlanillaCvPublicacionesTrabajos.CargarObjetos(actividades_docentes);
+                PlanillaCvPublicacionesTrabajos.CargarObjetos(publucaciones_trabajos);
             });
         });
 
@@ -114,8 +99,8 @@
         botonEliminar.attr('height', '25px');
 
         botonEliminar.click(function () {
-            PublicacionesTrabajos.eliminar(una_actividad_docente, function (actividad_docente_eliminada) {
-                PlanillaCvPublicacionesTrabajos.QuitarObjeto(contenedorPlanilla, actividad_docente_eliminada);
+            PublicacionesTrabajos.eliminar(una_publicacion_trabajo, function (publicacion_trabajo_eliminada) {
+                PlanillaCvPublicacionesTrabajos.QuitarObjeto(contenedorPlanilla, publicacion_trabajo_eliminada);
             });
         });
 
@@ -128,21 +113,21 @@
 
 PlanillaCvPublicacionesTrabajos = new Grilla(columnas);
 PlanillaCvPublicacionesTrabajos.AgregarEstilo("table table-striped");
-PlanillaCvPublicacionesTrabajos.SetOnRowClickEventHandler(function (un_estudio) {
+PlanillaCvPublicacionesTrabajos.SetOnRowClickEventHandler(function (una_piblicacion_trabajo) {
             // panelAlumno.CompletarDatosAlumno(un_alumno);
         });
 
-PlanillaCvPublicacionesTrabajos.CargarObjetos(actividades_docentes);
+PlanillaCvPublicacionesTrabajos.CargarObjetos(publicaciones_trabajos);
 PlanillaCvPublicacionesTrabajos.DibujarEn(contenedorPlanilla);
 
     },
-    eliminar: function (actividad_docente_a_eliminar, alModificar) {
+    eliminar: function (publicacion_trabajo_a_eliminar, alModificar) {
         // confirm dialog
         alertify.confirm("Está seguro que desea eliminar el antecedente", function (e) {
             if (e) {
                 // user clicked "ok"
                 var data_post = JSON.stringify({
-                    "publicacionesTrabajos_borrar": actividad_docente_a_eliminar
+                    "publicacionesTrabajos_borrar": publicacion_trabajo_a_eliminar
                 });
                 $.ajax({
                     url: "../AjaxWS.asmx/EliminarCVPublicacionesTrabajos",

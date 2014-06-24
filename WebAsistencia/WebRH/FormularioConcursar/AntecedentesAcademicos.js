@@ -79,7 +79,7 @@
 
         //var estudios = JSON.parse(estudios);
 
-        contenedorPlanilla = $('#tabla_antecedentes');
+        contenedorPlanilla = $('#tabla_antecedentes_academicos');
 
         var columnas = [];
 
