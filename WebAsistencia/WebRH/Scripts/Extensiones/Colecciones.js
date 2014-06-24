@@ -4,3 +4,22 @@
         iterador(_this[i]);
     }
 };
+
+Array.prototype.find = function (filtro) {
+    var _this = this;
+    var item_encontrado = {};
+    this.forEach(function (item) {
+        var cumple_todas_las_condiciones = true;
+        for (var key in filtro) {
+            if (filtro.hasOwnProperty(key)) {
+                if (item[key] != filtro[key]) {
+                    cumple_todas_las_condiciones = false;
+                }
+            }
+        }
+        if (cumple_todas_las_condiciones) {
+            item_encontrado = item;
+        }
+    });
+    return item_encontrado;
+};
