@@ -1,4 +1,4 @@
-﻿var ActividadesDocentes = {
+﻿var CompetenciasInformaticas = {
     mostrar: function (actividad_docente_original, alModificar) {
         var _this = this;
         this.ui = $("#un_div_modal");
@@ -48,11 +48,11 @@
 
 
                 var data_post = JSON.stringify({
-                    "docencias_nuevas": actividad_docente_original,
-                    "docencias_originales": actividad_docente_original
+                    "competenciasInformaticas_nuevas": competencia_informatica_original,
+                    "competenciasInformaticas_originales": competencia_informatica_original
                 });
                 $.ajax({
-                    url: "../AjaxWS.asmx/GuardarCvActividadesDocentes",
+                    url: "../AjaxWS.asmx/GuardarCvCompetenciasInformaticas",
                     type: "POST",
                     data: data_post,
                     dataType: "json",
@@ -92,7 +92,7 @@
 
         //var actividades_docentes = JSON.parse(actividades_docentes);
 
-        contenedorPlanilla = $('#tabla_actividades_docentes');
+        contenedorPlanilla = $('#tabla_competencias_informaticas');
 
         var columnas = [];
 

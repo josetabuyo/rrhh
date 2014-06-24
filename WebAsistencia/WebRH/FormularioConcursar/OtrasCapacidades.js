@@ -1,4 +1,4 @@
-﻿var ActividadesDocentes = {
+﻿var OtrasCapacidades = {
     mostrar: function (actividad_docente_original, alModificar) {
         var _this = this;
         this.ui = $("#un_div_modal");
@@ -48,11 +48,11 @@
 
 
                 var data_post = JSON.stringify({
-                    "docencias_nuevas": actividad_docente_original,
-                    "docencias_originales": actividad_docente_original
+                    "otrasCapacidades_nuevas": otra_capacidad_original,
+                    "otrasCapacidades_originales": otra_capacidad_original
                 });
                 $.ajax({
-                    url: "../AjaxWS.asmx/GuardarCvActividadesDocentes",
+                    url: "../AjaxWS.asmx/GuardarCvOtrasCapacidades",
                     type: "POST",
                     data: data_post,
                     dataType: "json",
@@ -92,7 +92,7 @@
 
         //var actividades_docentes = JSON.parse(actividades_docentes);
 
-        contenedorPlanilla = $('#tabla_actividades_docentes');
+        contenedorPlanilla = $('#tabla_otras_capacidades');
 
         var columnas = [];
 
@@ -193,6 +193,8 @@
 }
 
 FormatoFecha = function (fecha_string) {
-    var fecha = new Date(fecha_string);
-    return (fecha.getDate() + 1) + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
+
+    var vector = fecha_string.split("/")
+    return (vector[2] + "-" + vector[1] + "-" + vector[0]);
+
 };

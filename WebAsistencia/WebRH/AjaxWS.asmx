@@ -589,10 +589,11 @@ public class AjaxWS : System.Web.Services.WebService {
     }
 
     [WebMethod(EnableSession = true)]
-    public string GuardarCvActividadesDocentes(WSViaticos.CvDocencia actividadesDocentes_nuevas, WSViaticos.CvDocencia actividadesDocentes_originales)
+    public string GuardarCvActividadesDocentes(string actividadesDocentes_nuevas, string actividadesDocentes_originales)
     {
-        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
-        var actividades_docentes = backEndService.GuardarCvActividadesDocentes(actividadesDocentes_nuevas, actividadesDocentes_originales, usuarioLogueado);
+        
+        var actividades_docentes = backEndService.GuardarCvActividadesDocentes(
+            Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.CvDocencia>(actividadesDocentes_nuevas), Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.CvDocencia>(actividadesDocentes_originales), usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(actividades_docentes);
         
     }
@@ -672,7 +673,7 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetTodoDeRepositorio(string nombre_repositorio)
+    public string BuscarEnRepositorio(string nombre_repositorio, string criterio)
     {
         switch (nombre_repositorio)
         {
@@ -681,16 +682,6 @@ public class AjaxWS : System.Web.Services.WebService {
             case "EstadosCiviles": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetEstadosCiviles());
             case "TiposDeDocumento": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetTiposDeDocumento());
             case "Sexos": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetSexos());            
-            default: return "El repositorio no existe";
-        }
-    }
-
-    [WebMethod(EnableSession = true)]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string BuscarEnRepositorio(string nombre_repositorio, string criterio)
-    {
-        switch (nombre_repositorio)
-        {
             case "Localidades": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.BuscarLocalidades(criterio));
             default: return "El repositorio no existe";
         }

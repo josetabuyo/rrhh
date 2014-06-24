@@ -40,16 +40,16 @@
                 actividad_docente_original.CaracterDesignacion = _this.caracter_designacion.val();
                 actividad_docente_original.DedicacionDocente = _this.dedicacion_docente.val();
                 actividad_docente_original.CargaHoraria = _this.dedicacion_docente.val();
-                actividad_docente_original.FechaInicio = _this.fecha_inicio.val();
-                actividad_docente_original.FechaFinalizacion = _this.fecha_fin.val();
+                actividad_docente_original.FechaInicio = FormatoFecha(_this.fecha_inicio.val());
+                actividad_docente_original.FechaFinalizacion = FormatoFecha(_this.fecha_fin.val());
                 actividad_docente_original.Establecimiento = _this.establecimiento.val();
                 actividad_docente_original.Localidad = _this.cmb_actividad_docente_localidad.val();
                 actividad_docente_original.Pais = _this.cmb_actividad_docente_pais.val();
 
 
                 var data_post = JSON.stringify({
-                    "actividadesDocentes_nuevas": actividad_docente_original,
-                    "actividadesDocentes_originales": actividad_docente_original
+                    "actividadesDocentes_nuevas": JSON.stringify(actividad_docente_original),
+                    "actividadesDocentes_originales": JSON.stringify(actividad_docente_original)
                 });
                 $.ajax({
                     url: "../AjaxWS.asmx/GuardarCvActividadesDocentes",
@@ -193,6 +193,10 @@
 }
 
 FormatoFecha = function (fecha_string) {
-    var fecha = new Date(fecha_string);
-    return (fecha.getDate() + 1) + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
+//    return fecha_string.format("mm-dd-yyyy");
+    return $.datepicker.formatDate('mm/dd/yyyy', fecha_string);
+
+
+//    var fecha = new Date(fecha_string);
+//    return ((fecha.getMonth() + 1) + "/" + fecha.getDate() + 1) + "/" + fecha.getFullYear();
 };
