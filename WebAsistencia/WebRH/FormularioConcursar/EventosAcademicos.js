@@ -34,21 +34,23 @@
             _this.add_antecedentesAcademicos = _this.ui.find("#add_evento_academico");
             _this.add_antecedentesAcademicos.click(function () {
                 var evento_nuevo = {};
-                //var estudio_modificado = $.extend(true, estudio_original);
-                evento_nuevo.Titulo = _this.txt_antecedentes_titulo.val();
-                evento_nuevo.Establecimiento = _this.txt_establecimiento.val();
-                evento_nuevo.Especialidad = _this.txt_antecedentes_especialidad.val();
-                evento_nuevo.FechaIngreso = _this.txt_antecedentes_ingreso.val();
-                evento_nuevo.FechaEgreso = _this.txt_antecedentes_egreso.val();
-                evento_nuevo.Localidad = _this.txt_antecedentes_localidad.val();
-                evento_nuevo.Pais = _this.cmb_antecedentes_pais.val();
+
+                evento_nuevo.Denominacion = _this.txt_evento_denominacion.val();
+                evento_nuevo.TipoEvento = _this.txt_evento_academico_tipo_evento.val();
+                evento_nuevo.CaracterParticipacion = _this.txt_evento_academico_caracter_participacion.val();
+                evento_nuevo.FechaInicio = _this.txt_evento_academico_fecha_inicio.val();
+                evento_nuevo.FechaFin = _this.txt_evento_academico_fecha_fin.val();
+                evento_nuevo.Duracion = _this.txt_evento_academico_duracion.val();
+                evento_nuevo.Institucion = _this.txt_evento_academico_institucion.val();
+                evento_nuevo.Localidad = _this.txt_evento_academico_localidad.val();
+                evento_nuevo.Pais = _this.cmb_evento_academico_pais.val();
 
                 var data_post = JSON.stringify({
-                    "evento_nuevos": estudio_nuevo,
-                    "evento_originales": estudio_original
+                    "eventosAcademicos_nuevos": evento_nuevo,
+                    "eventosAcademicos_originales": evento
                 });
                 $.ajax({
-                    url: "../AjaxWS.asmx/GuardarCVEventosAcademicos",
+                    url: "../AjaxWS.asmx/GuardarCVEventoAcademico",
                     type: "POST",
                     data: data_post,
                     dataType: "json",
@@ -86,24 +88,22 @@
 
         });
     },
-    armarGrilla: function (estudios) {
+    armarGrilla: function (eventos) {
         var _this = this;
-
-        //var estudios = JSON.parse(estudios);
-
-        contenedorPlanilla = $('#tabla_antecedentes');
+        
+        contenedorPlanilla = $('#tabla_eventos_academicos');
 
         var columnas = [];
-
-        columnas.push(new Columna("Id", { generar: function (un_estudio) { return un_estudio.Id } }));
-        columnas.push(new Columna("Titulo", { generar: function (un_estudio) { return un_estudio.Titulo } }));
-        columnas.push(new Columna("Establecimiento", { generar: function (un_estudio) { return un_estudio.Establecimiento } }));
-        columnas.push(new Columna("Especialidad", { generar: function (un_estudio) { return un_estudio.Especialidad } }));
-        columnas.push(new Columna("FechaIngreso", { generar: function (un_estudio) { return un_estudio.FechaIngreso } }));
-        columnas.push(new Columna("FechaEgreso", { generar: function (un_estudio) { return un_estudio.FechaEgreso } }));
-        columnas.push(new Columna("Localidad", { generar: function (un_estudio) { return un_estudio.Localidad } }));
-        columnas.push(new Columna("Pais", { generar: function (un_estudio) { return un_estudio.Pais } }));
-        columnas.push(new Columna('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acciones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', { generar: function (un_estudio) {
+        columnas.push(new Columna("Id", { generar: function (un_evento) { return un_evento.Id } }));
+        columnas.push(new Columna("Tipo", { generar: function (un_evento) { return un_evento.Titulo } }));
+        columnas.push(new Columna("Carácter", { generar: function (un_evento) { return un_evento.Establecimiento } }));
+        columnas.push(new Columna("Fecha Inicio", { generar: function (un_evento) { return un_evento.FechaInicio } }));
+        columnas.push(new Columna("Fecha Fin", { generar: function (un_evento) { return un_evento.FechaFin } }));
+        columnas.push(new Columna("Duración", { generar: function (un_evento) { return un_evento.Duración } }));
+        columnas.push(new Columna("Institución", { generar: function (un_evento) { return un_evento.Institución } }));
+        columnas.push(new Columna("Localidad", { generar: function (un_evento) { return un_evento.Localidad } }));
+        columnas.push(new Columna("País", { generar: function (un_evento) { return un_evento.Pais } }));
+        columnas.push(new Columna("&nbsp", { generar: function (un_evento) {
             var contenedorBtnAcciones = $('<div>');
             var botonEditar = $('<img>');
             botonEditar.addClass('edit-item-btn');
@@ -113,9 +113,9 @@
             botonEditar.attr('height', '25px');
 
             botonEditar.click(function () {
-                AntecedentesAcademicos.mostrar(un_estudio, function (estudios_actualizados) {
-                    PlanillaCvEstudios.BorrarContenido();
-                    PlanillaCvEstudios.CargarObjetos(estudios_actualizados);
+                EventosAcademicos.mostrar(un_evento, function (eventos_actualizados) {
+                    PlanillaCvEventos.BorrarContenido();
+                    PlanillaCvEventos.CargarObjetos(eventos_actualizados);
                 });
             });
 
@@ -128,8 +128,8 @@
             botonEliminar.attr('height', '25px');
 
             botonEliminar.click(function () {
-                AntecedentesAcademicos.eliminar(un_estudio, function (estudio_eliminado) {
-                    PlanillaCvEstudios.QuitarObjeto(contenedorPlanilla, estudio_eliminado);
+                EventosAcademicos.eliminar(un_evento, function (evento_eliminado) {
+                    PlanillaCvEventos.QuitarObjeto(contenedorPlanilla, evento_eliminado);
                 });
             });
 
@@ -140,45 +140,43 @@
         }));
 
 
-        PlanillaCvEstudios = new Grilla(columnas);
-        PlanillaCvEstudios.AgregarEstilo("table table-striped");
-        PlanillaCvEstudios.SetOnRowClickEventHandler(function (un_estudio) {
-            // panelAlumno.CompletarDatosAlumno(un_alumno);
+        PlanillaCvEventosAcademicos = new Grilla(columnas);
+        PlanillaCvEventosAcademicos.AgregarEstilo("table table-striped");
+        PlanillaCvEventosAcademicos.SetOnRowClickEventHandler(function (un_evento) {
+            return true;
         });
 
-        PlanillaCvEstudios.CargarObjetos(estudios);
-        PlanillaCvEstudios.DibujarEn(contenedorPlanilla);
+        PlanillaCvEventos.CargarObjetos(eventos);
+        PlanillaCvEventos.DibujarEn(contenedorPlanilla);
 
     },
-    eliminar: function (estudio_a_eliminar, alModificar) {
+    eliminar: function (evento_a_eliminar, alModificar) {
         // confirm dialog
         alertify.confirm("Está seguro que desea eliminar el antecedente", function (e) {
             if (e) {
                 // user clicked "ok"
                 var data_post = JSON.stringify({
-                    "antecedentesAcademicos_borrar": estudio_a_eliminar
+                    "eventosAcademicos_borrar": evento_a_eliminar
                 });
                 $.ajax({
-                    url: "../AjaxWS.asmx/EliminarCVAntecedentesAcademicos",
+                    url: "../AjaxWS.asmx/EliminarCvEventosAcademicos",
                     type: "POST",
                     data: data_post,
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     success: function (respuestaJson) {
                         var respuesta = JSON.parse(respuestaJson.d);
-                        alertify.success("Antecedente Academico eliminado correctamente");
-                        //alertify.alert("Los datos fueron guardados correctamente");
+                        alertify.success("Evento Académico eliminado correctamente");
                         alModificar(respuesta);
-                        //$(".modal_close_concursar").click();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.alert(errorThrown);
-                        alertify.error("No se pudo eliminar el antecedente");
+                        alertify.error("No se pudo eliminar el evento");
                     }
                 });
             } else {
                 // user clicked "cancel"
-                
+
             }
         });
 
