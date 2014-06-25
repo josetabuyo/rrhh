@@ -59,3 +59,7 @@ SuperCombo.prototype.cambiarFiltro = function (filtro) {
     this.filtro = filtro;
     this.cargarBusqueda(this.nombre_repositorio, this.filtro, this.str_val, this.str_descripcion);
 };
+
+SuperCombo.prototype.desactivar = function () {
+    this.ui[0].disabled = true;
+};

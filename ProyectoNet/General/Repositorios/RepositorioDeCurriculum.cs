@@ -222,6 +222,7 @@ namespace General.Repositorios
                 //Si es empleado 
 
                 //insert de CV
+                parametros = new Dictionary<string, object>();
                 parametros.Add("@Dni", datosPersonales.Dni);
                 parametros.Add("@usuario", usuario.Id);
                 conexion_bd.Ejecutar("dbo.CV_Ins_Curriculum", parametros);
@@ -377,10 +378,6 @@ namespace General.Repositorios
 
             return capacidades_nuevo;
         }
-
-
-
-
 
         public CvCertificadoDeCapacitacion EliminarCvActividadesCapacitacion(CvCertificadoDeCapacitacion capacitacion_nuevo, Usuario usuario)
         {
@@ -736,7 +733,6 @@ namespace General.Repositorios
 
         }
         # endregion
-
 
         #region CvCapacidadesPersonales/OtrasCapacidades
 
