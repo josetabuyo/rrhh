@@ -434,7 +434,7 @@
               <div id="collapseTwelve" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="otras_capacidades_link"  onclick="javascript:AgregarOtrasCapacidades();"  class="link" >Cargar otras capacidades</a></legend>
+                    <legend><a id="btn_agregar_otra_capacidad"  class="link" >Cargar otras capacidades</a></legend>
                         <h4>Otras Capacidades Agregadas</h4>
                         <div id="ContenedorPlanillaOtrasCapacidades" runat="server">
                             <table id="tabla_otras_capacidades" class="table table-striped">
@@ -464,10 +464,17 @@
           </div>
     </div>
 
-<%-----------------    MODAL DE VISTA PREELIMINAR ---------------------%>
+<%-----------------    MODAL DE VISTA PRELIMINAR ---------------------%>
 
  <input type="text" id="urlAjax" value=""  style="display:none;" />
- 
+
+ <div id="plantillas">
+    <div class="botonera_grilla">
+        <img id="btn_editar" src="../Imagenes/edit.png"/>
+        <img id="btn_eliminar" src="../Imagenes/iconos_eliminar.jpg"/>
+    </div>
+ </div>
+
 <div id="un_div_modal" style="width:65%;" class="form_concursar">
     <div class="modal_close_concursar"></div>
     <div id="contenido_modal"></div>
@@ -502,7 +509,8 @@
 <script type="text/javascript" src="ExperienciaLaboral.js" ></script>
 <script type="text/javascript" src="IdiomasExtranjeros.js" ></script>
 <script type="text/javascript" src="CompetenciasInformaticas.js" ></script>
-<script type="text/javascript" src="OtrasCapacidades.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeOtraCapacidad.js" ></script>
+<script type="text/javascript" src="PanelListaDeOtrasCapacidades.js" ></script>
 
 
 
@@ -519,19 +527,27 @@
 
 
         var curriculum = JSON.parse($('#curriculum').val());
-        
+
         CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
-        AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
-        ActividadesDocentes.armarGrilla(curriculum.CvDocencias);
-        ActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
-        EventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
-        PublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
-        Matriculas.armarGrilla(curriculum.CvMatricula);
-        InstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
-        ExperienciaLaboral.armarGrilla(curriculum.CvExperienciaLaboral);
-        IdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
-        CompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
-        OtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
+        //        AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
+        //        ActividadesDocentes.armarGrilla(curriculum.CvDocencias);
+        //        ActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
+        //        EventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
+        //        PublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
+        //        Matriculas.armarGrilla(curriculum.CvMatricula);
+        //        InstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
+        //        ExperienciaLaboral.armarGrilla(curriculum.CvExperienciaLaboral);
+        //        IdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
+        //        CompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
+
+        //mockeado!!!
+        curriculum.CvCapacidadesPersonales = [
+            { Id: 1, Tipo: 1, Detalle: "una capacidad diferente" },
+            { Id: 2, Tipo: 2, Detalle: "una capacidad especial" },
+            { Id: 3, Tipo: 2, Detalle: "una capacidad distinta" }
+        ];
+
+        PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
 
 
         //Activar leanModal

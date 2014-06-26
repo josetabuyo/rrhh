@@ -2441,7 +2441,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public CvCapacidadesPersonales[] GetCvCapacidadesPersonales(int documento)
+    public CvCapacidadPersonal[] GetCvCapacidadesPersonales(int documento)
     {
         var capacidades_personales = RepoCurriculum().GetCvCapacidadesPersonales(documento);
         return capacidades_personales.ToArray();

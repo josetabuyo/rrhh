@@ -97,18 +97,6 @@
             }
         });
 
-
-        //        _this.cmb_domicilio_personal_provincia.change(function () {
-        //            _this.cmb_domicilio_personal_localidad.cargarBusquedaEnRepositorio(
-        //                "Localidades",
-        //                {
-        //                    provincia: parseInt(_this.cmb_domicilio_personal_provincia.val())
-        //                },
-        //                "Id",
-        //                "Nombre"
-        //            );
-        //        });
-
         //DomicilioLaboral
         _this.txt_domicilio_legal_calle = _this.ui.find("#text_calle2");
         _this.txt_domicilio_legal_numero = _this.ui.find("#txt_numero2");
@@ -148,19 +136,6 @@
                 _this.cmb_domicilio_legal_localidad.cambiarFiltro({ provincia: id_provincia });
             }
         });
-
-
-
-        //        _this.cmb_domicilio_legal_provincia.change(function () {
-        //            _this.cmb_domicilio_legal_localidad.cargarBusquedaEnRepositorio(
-        //                "Localidades",
-        //                {
-        //                    provincia: parseInt(_this.cmb_domicilio_legal_provincia.val())
-        //                },
-        //                "Id",
-        //                "Nombre"
-        //            );
-        //        });
 
         //Bt guardar
         _this.add_datosPersonales = _this.ui.find("#btn_guardar_datosPersonales");
