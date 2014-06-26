@@ -101,8 +101,7 @@
                         </div>
                         <div style="float:left; clear:left; margin:8px">
                              <label class="etiqueta_campo" for="cmb_lugar_nacimiento">Lugar nacimiento <em>*</em></label>
-                             <select id="cmb_lugar_nacimiento" style="width:120px;" name="cmb_lugar_nacimiento" >
-                              </select>
+                             <input type="text" id="cmb_lugar_nacimiento" style="width:120px;" />
                         </div>
                         <div style="float:left; margin:8px">
                             <label class="etiqueta_campo" for="txt_fechaNac">Fecha Nac <em>*</em></label>

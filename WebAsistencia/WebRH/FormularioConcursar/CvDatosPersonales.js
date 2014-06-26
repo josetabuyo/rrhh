@@ -50,6 +50,20 @@
         _this.txt_fechaNac.val(datos_personales.FechaNacimiento);
         _this.txt_dni.val(parseInt(datos_personales.Dni));
 
+        if (datos_personales.TieneLegajo == "Tiene legajo") {
+            _this.txt_nombre[0].disabled = true;
+            _this.txt_apellido[0].disabled = true;
+            _this.txt_cuil[0].disabled = true;
+            _this.cmb_lugar_nac[0].disabled = true;
+            _this.txt_fechaNac[0].disabled = true;
+            _this.txt_dni[0].disabled = true;
+            _this.cmb_tipoDocumento.desactivar();
+            _this.cmb_sexo.desactivar();
+            _this.cmb_estadoCivil.desactivar();
+            _this.cmb_nacionalidad.desactivar();
+            _this.cmb_tipoDocumento.desactivar();
+        }
+
         //DomicilioPersonal
         _this.txt_domicilio_personal_calle = _this.ui.find("#txt_calle1");
         _this.txt_domicilio_personal_numero = _this.ui.find("#txt_numero1");
