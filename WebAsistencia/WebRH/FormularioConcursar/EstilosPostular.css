@@ -960,3 +960,16 @@ margin: 15px 0 15px 0;
  font-size: 12pt;
  text-align: center;
     }
+    
+.botonera_grilla #btn_editar
+{
+    padding-right: 5px;
+    width: 25px;
+    height: 25px;
+}
+
+.botonera_grilla #btn_eliminar
+{
+    width: 25px;
+    height: 25px;
+}

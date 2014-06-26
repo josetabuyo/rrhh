@@ -186,11 +186,11 @@ namespace General.Repositorios
             return publicaciones;
         }
 
-        public List<CvCapacidadesPersonales> GetCvCapacidadesPersonales(int documento)
+        public List<CvCapacidadPersonal> GetCvCapacidadesPersonales(int documento)
         {
-            var capacidades_personales = new List<CvCapacidadesPersonales>()
+            var capacidades_personales = new List<CvCapacidadPersonal>()
                                {
-                                   new CvCapacidadesPersonales("Simpático", "Organizado", "Analista Técnica", "Creativo")
+                                   new CvCapacidadPersonal(1, 1, "Simpatico")
                                };
 
             return capacidades_personales;

@@ -148,18 +148,6 @@ function AgregarCompetenciasInformaticas() {
 
 };
 
-function AgregarOtrasCapacidades() {
-
-    var antecedentes = {};
-
-    OtrasCapacidades.mostrar(antecedentes, function (otras_capacidades) {
-        PlanillaCvOtrasCapacidades.BorrarContenido();
-        PlanillaCvOtrasCapacidades.CargarObjetos(otras_capacidades);
-    });
-
-};
-
-
 //SOY BEL, lo Borré para reemplazarlo por como estaba Actividsdes academicas
 //var AgregarCapacitacion = function () {
 

@@ -103,6 +103,7 @@
     <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
+    <Compile Include="Postular\CvCapacidadPersonal.cs" />
     <Compile Include="Repositorios\RepositorioDeSexos.cs" />
     <Compile Include="Repositorios\Nacionalidad.cs" />
     <Compile Include="Postular\CurriculumVitaeNull.cs" />
