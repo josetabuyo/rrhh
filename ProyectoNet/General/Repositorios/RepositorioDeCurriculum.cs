@@ -306,8 +306,6 @@ namespace General.Repositorios
 
         #endregion CvDatosPersonales
 
-
-
         #region CvEstudios
         public List<CvEstudios> GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
         {
@@ -754,8 +752,6 @@ namespace General.Repositorios
 
 
         #endregion CvCapacidadesPersonales/OtrasCapacidades
-
-
 
         #region CvCompetenciasInformaticas
 
