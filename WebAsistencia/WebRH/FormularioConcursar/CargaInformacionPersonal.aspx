@@ -529,7 +529,7 @@
         var curriculum = JSON.parse($('#curriculum').val());
 
         CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
-        //        AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
+        AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
         //        ActividadesDocentes.armarGrilla(curriculum.CvDocencias);
         //        ActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
         //        EventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);

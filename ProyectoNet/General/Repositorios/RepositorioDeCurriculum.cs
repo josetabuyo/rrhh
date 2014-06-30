@@ -32,9 +32,8 @@ namespace General.Repositorios
             //FC a borrar cuando traiga los datos de la base
             string fechaIngreso = new DateTime(2014, 12, 12).ToShortDateString();
             string fechaEgreso = new DateTime(2014, 12, 13).ToShortDateString();
-            var un_estudio = new CvEstudios(1, "Contador", "UBA", "Te dije contador", fechaIngreso,
-                                                  fechaEgreso, "CABA", "Argentina");
-            this._cvAntecedentesAcademicos.Add(un_estudio);
+            //var un_estudio = new CvEstudios(1, "Contador", "UBA", "Te dije contador", fechaIngreso,fechaEgreso, "CABA", "Argentina");
+            //this._cvAntecedentesAcademicos.Add(un_estudio);
             
 
         }
