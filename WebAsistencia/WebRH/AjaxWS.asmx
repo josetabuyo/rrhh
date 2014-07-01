@@ -590,6 +590,14 @@ public class AjaxWS : System.Web.Services.WebService {
     }
 
     [WebMethod(EnableSession = true)]
+    public string GuardarCvCompetenciasInformaticas(WSViaticos.CvCompetenciasInformaticas competencia_informatica_original, WSViaticos.CvCompetenciasInformaticas competencia_informatica_nueva)
+    {
+    
+        //competencia_informatica_nueva.Id = new Random().Next();
+        return Newtonsoft.Json.JsonConvert.SerializeObject(competencia_informatica_nueva);
+    }
+
+    [WebMethod(EnableSession = true)]
     public string GuardarCvOtrasCapacidades(WSViaticos.CvCapacidadPersonal otra_capacidad_original, WSViaticos.CvCapacidadPersonal otra_capacidad_nueva)
     {
         //backEndService.GuardarCvOtrasCapacidades(otra_capacidad_original, otra_capacidad_nueva, usuarioLogueado);

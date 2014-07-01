@@ -17,7 +17,8 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Tipo", { generar: function (una_capacidad) { return RepositorioDeTiposDeCapacidadPersonal.buscar({ id: una_capacidad.Tipo }).descripcion;}}));
+        columnas.push(new Columna("Id", { generar: function (una_capacidad) { return una_capacidad.Id } }));
+        columnas.push(new Columna("Tipo", { generar: function (una_capacidad) { return una_capacidad.Tipo } }));
         columnas.push(new Columna("Detalle", { generar: function (una_capacidad) { return una_capacidad.Detalle } }));
         columnas.push(new Columna('Acciones', {
             generar: function (una_capacidad) {

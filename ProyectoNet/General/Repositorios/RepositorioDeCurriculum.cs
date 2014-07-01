@@ -165,7 +165,7 @@ namespace General.Repositorios
         {
             var compotencias_informaticas = new List<CvCompetenciasInformaticas>()
                                {
-                                   new CvCompetenciasInformaticas("Administrador de Base de Datos", "Sigma", "Base de Datos", "Senior",  "Avanzado" , "CABA", "Argentina", new DateTime(2013, 11, 15) )
+                                   new CvCompetenciasInformaticas(1, "Administrador de Base de Datos", "Sigma", "Base de Datos", "Senior",  "Avanzado" , "CABA", "Argentina", new DateTime(2013, 11, 15) )
                                };
 
             return compotencias_informaticas;
