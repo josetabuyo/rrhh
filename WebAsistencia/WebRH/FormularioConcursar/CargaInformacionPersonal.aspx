@@ -223,7 +223,7 @@
               <div id="collapseTwo" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="antecedentes_link"  onclick="javascript:AgregarAntecedentesAcademico();"  class="link" >Cargar antecedentes academicos</a></legend>
+                    <legend><a id="btn_agregar_antecedente_academico" class="link" >Cargar antecedentes academicos</a></legend>
                            
                         <h4>Antecedentes Agregados</h4>
                         <div id="ContenedorPlanillaAntecendentesAcademicos" runat="server">
@@ -245,7 +245,7 @@
               <div id="collapseThree" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                 <fieldset style="width:100%;">
-                <legend><a id="actividades_capacitacion_link" onclick="javascript:AgregarActividadesCapacitacion();"  class="link"> Cargar actividades de capacitación</a></legend>
+                <legend><a id="btn_agregar_actividad_capacitacion" class="link"> Cargar actividades de capacitación</a></legend>
                         <h4>Actividades de Capacitación Agregadas</h4>
                         <div id="ContenedorPlanillaActividadesCapacitacion" runat="server">
                             <table id="tabla_actividades_capacitacion" class="table table-striped">
@@ -266,7 +266,7 @@
               <div id="collapseFour" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="actividades_docentes_link"  onclick="javascript:AgregarActividadesDocentes();"  class="link" >Cargar actividades docentes</a></legend>
+                    <legend><a id="btn_agregar_actividad_docente" class="link" >Cargar actividades docentes</a></legend>
                         <h4>Actividades Docentes Agregadas</h4>
                         <div id="ContenedorPlanillaActividadesDocentes" runat="server">
                             <table id="tabla_actividades_docentes" class="table table-striped">
@@ -287,7 +287,7 @@
               <div id="collapseFive" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="eventos_academicos_link"  onclick="javascript:AgregarEventosAcademicos();"  class="link" >Cargar eventos académicos</a></legend>
+                    <legend><a id="btn_agregar_evento_academico" class="link" >Cargar eventos académicos</a></legend>
                         <h4>Eventos Acadmémicos Agregados</h4>
                         <div id="ContenedorPlanillEventosAcademicos" runat="server">
                             <table id="tabla_eventos_academicos" class="table table-striped">
@@ -308,7 +308,7 @@
               <div id="collapseSix" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="publicaciones_trabajos_link"  onclick="javascript:AgregarPublicacionesTrabajos();"  class="link" >Cargar publicaciones y trabajos</a></legend>
+                    <legend><a id="btn_agregar_publicacion_trabajo" class="link" >Cargar publicaciones y trabajos</a></legend>
                         <h4>Publicaciones y Trabajos Agregados</h4>
                         <div id="ContenedorPlanillaPublicacionesTrabajos" runat="server">
                             <table id="tabla_publicaciones_trabajos" class="table table-striped">
@@ -329,7 +329,7 @@
               <div id="collapseSeven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="matriculas_link"  onclick="javascript:AgregarMatriculas();"  class="link" >Cargar matrículas</a></legend>
+                    <legend><a id="btn_agregar_matricula" class="link" >Cargar matrículas</a></legend>
                         <h4>Matrículas Agregadas</h4>
                         <div id="ContenedorPlanillaMatriculas" runat="server">
                             <table id="tabla_matriculas" class="table table-striped">
@@ -350,7 +350,7 @@
               <div id="collapseEight" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="instituciones_academicas_link"  onclick="javascript:AgregarInstitucionesAcademicas();"  class="link" >Cargar instituciones académicas</a></legend>
+                    <legend><a id="btn_agregar_institucion_academica" class="link" >Cargar instituciones académicas</a></legend>
                         <h4>Instituciones Académicas Agregadas</h4>
                         <div id="ContenedorPlanillaInstitucionesAcademicas" runat="server">
                             <table id="tabla_instituciones_academicas" class="table table-striped">
@@ -371,10 +371,10 @@
               <div id="collapseNine" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="experiencia_laboral_link"  onclick="javascript:AgregarExperienciaLaboral();"  class="link" >Cargar experiencia laboral</a></legend>
+                    <legend><a id="btn_agregar_experiencia_laboral" class="link" >Cargar experiencia laboral</a></legend>
                         <h4>Experiencia Laboral Agregada</h4>
-                        <div id="ContenedorPlanillaExperienciaLaboral" runat="server">
-                            <table id="tabla_experiencia_laboral" class="table table-striped">
+                        <div id="ContenedorPlanillaExperienciasLaborales" runat="server">
+                            <table id="tabla_experiencias_laborales" class="table table-striped">
                           
                             </table>
                         </div>
@@ -392,7 +392,7 @@
               <div id="collapseTen" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="idiomas_extranjeros_link"  onclick="javascript:AgregarIdiomasExtranjeros();"  class="link" >Cargar idiomas extranjeros</a></legend>
+                    <legend><a id="btn_agregar_idioma_extranjero" class="link" >Cargar idiomas extranjeros</a></legend>
                         <h4>Idiomas Extranjeros Agregados</h4>
                         <div id="ContenedorPlanillaIdiomasExtranjeros" runat="server">
                             <table id="tabla_idiomas_extranjeros" class="table table-striped">
@@ -413,7 +413,7 @@
               <div id="collapseEleven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="competencias_informaticas_link"  onclick="javascript:AgregarCompetenciasInformaticas();"  class="link" >Cargar competencias informáticas</a></legend>
+                    <legend><a id="btn_agregar_competencia_informatica"  class="link" >Cargar competencias informáticas</a></legend>
                         <h4>Competencias Informáticas Agregadas</h4>
                         <div id="ContenedorPlanillaCompetenciasInformaticas" runat="server">
                             <table id="tabla_competencias_informaticas" class="table table-striped">
@@ -479,6 +479,7 @@
     <div class="modal_close_concursar"></div>
     <div id="contenido_modal"></div>
 </div>
+<%--VER SI ESTO VA O NO VA MAS--%>
 <asp:HiddenField ID="curriculum" runat="server" />
 <asp:HiddenField ID="cvEstudios" runat="server" />
 <asp:HiddenField ID="cvActividadesDocentes" runat="server" />
@@ -499,7 +500,7 @@
 </body>
 
 <script type="text/javascript" src="CvDatosPersonales.js" ></script>
-<script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
+<%--<script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
 <script type="text/javascript" src="ActividadesCapacitacion.js" ></script>
 <script type="text/javascript" src="ActividadesDocentes.js" ></script>
 <script type="text/javascript" src="EventosAcademicos.js" ></script>
@@ -508,9 +509,31 @@
 <script type="text/javascript" src="InstitucionesAcademicas.js" ></script>
 <script type="text/javascript" src="ExperienciaLaboral.js" ></script>
 <script type="text/javascript" src="IdiomasExtranjeros.js" ></script>
-<script type="text/javascript" src="CompetenciasInformaticas.js" ></script>
+<script type="text/javascript" src="CompetenciasInformaticas.js" ></script>--%>
+
+<script type="text/javascript" src="PanelDetalleDeAntecedenteAcademico.js" ></script>
+<script type="text/javascript" src="PanelListaDeAntecedentesAcademicos.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeActividadCapacitacion.js" ></script>
+<script type="text/javascript" src="PanelListaDeActividadesCapacitacion.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeActividadDocente.js" ></script>
+<script type="text/javascript" src="PanelListaDeActividadesDocentes.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeEventoAcademico.js" ></script>
+<script type="text/javascript" src="PanelListaDeEventosAcademicos.js" ></script>
+<script type="text/javascript" src="PanelDetalleDePublicacionTrabajo.js" ></script>
+<script type="text/javascript" src="PanelListaDePublicacionesTrabajos.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeMatricula.js" ></script>
+<script type="text/javascript" src="PanelListaDeMatriculas.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeInstitucionAcademica.js" ></script>
+<script type="text/javascript" src="PanelListaDeInstitucionesAcademicas.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeExperienciaLaboral.js" ></script>
+<script type="text/javascript" src="PanelListaDeExperienciasLaborales.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeIdiomaExtranjero.js" ></script>
+<script type="text/javascript" src="PanelListaDeIdiomasExtranjeros.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeCompetenciaInformatica.js" ></script>
+<script type="text/javascript" src="PanelListaDeCompetenciasInformaticas.js" ></script>
 <script type="text/javascript" src="PanelDetalleDeOtraCapacidad.js" ></script>
 <script type="text/javascript" src="PanelListaDeOtrasCapacidades.js" ></script>
+<script type="text/javascript" src="RepositorioDeTiposDeCapacidadPersonal.js" ></script>
 
 
 
@@ -529,16 +552,16 @@
         var curriculum = JSON.parse($('#curriculum').val());
 
         CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
-        //        AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
-        //        ActividadesDocentes.armarGrilla(curriculum.CvDocencias);
-        //        ActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
-        //        EventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
-        //        PublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
-        //        Matriculas.armarGrilla(curriculum.CvMatricula);
-        //        InstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
-        //        ExperienciaLaboral.armarGrilla(curriculum.CvExperienciaLaboral);
-        //        IdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
-        //        CompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
+//        AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
+//        ActividadesDocentes.armarGrilla(curriculum.CvDocencias);
+//        ActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
+//        EventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
+//        PublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
+//        Matriculas.armarGrilla(curriculum.CvMatricula);
+//        InstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
+//        ExperienciaLaboral.armarGrilla(curriculum.CvExperienciaLaboral);
+//        IdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
+//        CompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
 
         //mockeado!!!
         curriculum.CvCapacidadesPersonales = [
@@ -547,7 +570,16 @@
             { Id: 3, Tipo: 2, Detalle: "una capacidad distinta" }
         ];
 
-        PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
+        PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvAntecedentesAcademicos);
+        PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
+        PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
+        PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
+        PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
+        PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
+        PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
+        PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
+        PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomasExtranjeros);
+
 
 
         //Activar leanModal
