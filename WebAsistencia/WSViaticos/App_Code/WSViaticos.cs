@@ -2542,6 +2542,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public CvEstudios[] ActualizarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, CvEstudios antecedentesAcademicos_original, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario).ToArray();
+    }
+
+    [WebMethod]
     public void GuardarCvActividadesCapacitacion(CvCertificadoDeCapacitacion capacidades_nuevo, CvCertificadoDeCapacitacion capacidades_original, Usuario usuario)
     {
         RepoCurriculum().GuardarCvActividadesCapacitacion(capacidades_nuevo, usuario);
@@ -2594,9 +2600,9 @@ public class WSViaticos : System.Web.Services.WebService
     #region ELIMINAR
 
     [WebMethod]
-    public CvEstudios EliminarCvAntecedentesAcademicos(CvEstudios antecedente_a_borrar, Usuario usuario)
+    public CvEstudios[] EliminarCvAntecedentesAcademicos(CvEstudios antecedente_a_borrar, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCVAntecedentesAcademicos(antecedente_a_borrar, usuario);
+        return RepoCurriculum().EliminarCVAntecedentesAcademicos(antecedente_a_borrar, usuario).ToArray();
     }
 
      [WebMethod]

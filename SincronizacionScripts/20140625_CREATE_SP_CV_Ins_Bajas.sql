@@ -13,5 +13,7 @@ BEGIN
 		(Motivo, Usuario )
 	VALUES 
 		(@Motivo, @Usuario )
+		
+	SELECT SCOPE_IDENTITY()
 	
 END

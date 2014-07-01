@@ -46,7 +46,8 @@ namespace General.Repositorios
         public CurriculumVitae GetCV(int documento)
         {
             var parametros = new Dictionary<string, object>();
-            
+            var estudios = new List<CvEstudios>();
+
             parametros.Add("@NroDocumento", documento);
             var tablaCVs = conexion_bd.Ejecutar("dbo.CV_GetCurriculumVitae", parametros);
 
@@ -54,25 +55,101 @@ namespace General.Repositorios
 
             tablaCVs.Rows.ForEach(row =>
             cv = new CurriculumVitae(
-                new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo",0), row.GetSmallintAsInt("EstadoCivil",0),
-                    row.GetString("Cuil",""), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad",0), row.GetDateTime("FechaNacimiento",DateTime.Today).ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento",0),
-                    new CvDomicilio(row.GetInt("DomPers_Id",0), row.GetString("DomPers_Calle",""), row.GetInt("DomPers_Numero",0), row.GetString("DomPers_Piso",""), row.GetString("DomPers_Depto",""),
-                        row.GetInt("DomPers_Localidad",0), row.GetSmallintAsInt("DomPers_CodigoPostal",0), row.GetSmallintAsInt("DomPers_IdProvincia",0)),
-                    new CvDomicilio(row.GetInt("DomLab_Id",0), row.GetString("DomLab_Calle",""), row.GetInt("DomLab_Numero",0), row.GetString("DomLab_Piso",""), row.GetString("DomLab_Depto",""),
+                new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo", 0), row.GetSmallintAsInt("EstadoCivil", 0),
+                    row.GetString("Cuil", ""), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad", 0), row.GetDateTime("FechaNacimiento", DateTime.Today).ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento", 0),
+                    new CvDomicilio(row.GetInt("DomPers_Id", 0), row.GetString("DomPers_Calle", ""), row.GetInt("DomPers_Numero", 0), row.GetString("DomPers_Piso", ""), row.GetString("DomPers_Depto", ""),
+                        row.GetInt("DomPers_Localidad", 0), row.GetSmallintAsInt("DomPers_CodigoPostal", 0), row.GetSmallintAsInt("DomPers_IdProvincia", 0)),
+                    new CvDomicilio(row.GetInt("DomLab_Id", 0), row.GetString("DomLab_Calle", ""), row.GetInt("DomLab_Numero", 0), row.GetString("DomLab_Piso", ""), row.GetString("DomLab_Depto", ""),
                         row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0)), row.GetString("TieneLegajo"))));
-                //aca se agregaran todos los demas items que tiene el curriculum (estudios, capacitaciones, etc)
+            //aca se agregaran todos los demas items que tiene el curriculum (estudios, capacitaciones, etc)
 
-            if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
+
+            //CORTE DE CONTROL PARA ESTUDIOS
+            //1.- Controlo que haya al menos 1 resultado
+            if (tablaCVs.Rows.Count() > 0)
             {
-                cv.TieneCv = true;
-            } else {
-                cv.TieneCv = false;
-            }
-            return cv; 
-        }
 
+                //2.- Creo el estudio anterior por primera vez
+                var estudioAnterior = GetAntecedenteAcademicosFromDataRow(tablaCVs.Rows[0]);
+
+                var estudio = estudioAnterior;
+
+                if (estudio.Id != 0)
+                {
+                    cv.AgregarEstudio(estudio);
+                    
+                }
+                //cv.AgregarEstudio(estudio);
+                //personas.Add(persona);
+
+                foreach (var row in tablaCVs.Rows)
+                {
+                    if (!(row.GetObject("IdAntecedentesAcademicos") is DBNull))
+                    {
+
+                        //if (row.GetObject("IdBajaPersona") is DBNull)
+                        //{
+
+                        //3.- Comparo el estudio anterior con la estudio actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
+                        if (estudioAnterior.Id != row.GetInt("IdAntecedentesAcademicos",0))
+                        {
+                            estudio = GetAntecedenteAcademicosFromDataRow(row);
+                            if (estudio.Id != 0)
+                            {
+                                cv.AgregarEstudio(estudio);
+                                estudioAnterior = estudio;
+                            }
+                            
+
+                        }
+
+                        //4.- Pregunto si tiene asignacion. Si es true, la construyo y se la agrego a la persona
+
+                        //if (!(row.GetObject("IdAsignacion") is DBNull))
+                        //{
+                        //    if (!lista_asignaciones.Any(a => a.Id == row.GetSmallintAsInt("IdAsignacion"))) {
+                        //        var asignacion = ConstruirAsignacion(row, persona);
+                        //        lista_asignaciones.Add(asignacion);
+                        //    }
+                        //    persona.SetAsignaciones(lista_asignaciones);   //FC:IMPORTANTE: ACA SE ESTA DUPLICANDO LA ASIGNACION DE LAS PERSONAS. PORQUE EL AGREGAR LLAMA AL GETASIGNACIONES                
+                        //}
+
+
+                        //5.- Pregunto si ese pedido de alta ya esta, sino lo agrego
+                        //if (!lista_pedido_altas.Any(a => a.Documento.folioDesde == row.GetString("FolioDesdePedidoDeAlta")))
+                        //{
+                        //    var pedido_de_alta = ConstruirPedidoDeAlta(row, persona);
+                        //    lista_pedido_altas.Add(pedido_de_alta);
+                        //}
+
+
+                        //persona.SetPedidosDeAltas(lista_pedido_altas);   
+                    }
+                }
+            }
+
+            this._cvAntecedentesAcademicos = cv.CvEstudios;
+
+                if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
+                {
+                    cv.TieneCv = true;
+                }
+                else
+                {
+                    cv.TieneCv = false;
+                }
+                return cv;
+            
+        }
        
-        
+        private CvEstudios GetAntecedenteAcademicosFromDataRow(RowDeDatos row)
+        {
+           return new CvEstudios(row.GetInt("IdAntecedentesAcademicos",0), row.GetString("AntecedentesAcademicosTitulo",""), row.GetString("AntecedentesAcademicosEstablecimiento",""),
+                                  row.GetString("AntecedentesAcademicosEspecialidad",""), row.GetDateTime("AntecedentesAcademicosFechaIngreso",DateTime.Today).ToShortDateString(),
+                                  row.GetDateTime("AntecedentesAcademicosFechaEgreso",DateTime.Today).ToShortDateString(), row.GetString("AntecedentesAcademicosLocalidad",""),
+                                  row.GetString("AntecedentesAcademicosPais",""));
+
+        }
 
         public List<CvCertificadoDeCapacitacion> GetCvCertificadoDeCapacitacion(int documento)
         {
@@ -310,36 +387,48 @@ namespace General.Repositorios
         {
             var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario, 0);
 
-            var estudios = conexion_bd.Ejecutar("dbo.CV_Ins_AntecedentesAcademicos", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_AntecedentesAcademicos", parametros);
+            antecedentesAcademicos_nuevo.Id = int.Parse(id.ToString());
 
             this._cvAntecedentesAcademicos.Add(antecedentesAcademicos_nuevo);
 
             return this._cvAntecedentesAcademicos;
         }
 
-        public CvEstudios ActualizarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
-        {
-            var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario, 0);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
-
-            return antecedentesAcademicos_nuevo;
-        }
-
-        public CvEstudios EliminarCVAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
+        public List<CvEstudios> ActualizarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario, baja);
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idBaja", baja);
+            parametros.Add("@idAntecedente", antecedentesAcademicos_nuevo.Id);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
+            //parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario, baja);
+            this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
 
-            return antecedentesAcademicos_nuevo;
+            return GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+
+        }
+
+        public List<CvEstudios> EliminarCVAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
+        {
+            var baja = CrearBaja(usuario);
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idBaja", baja);
+            parametros.Add("@idAntecedente", antecedentesAcademicos_nuevo.Id);
+            //var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario, baja);
+
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
+            this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
+            return this._cvAntecedentesAcademicos;
         }
 
         private Dictionary<string, object> ParametrosDeAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario, int baja)
         {
             var parametros = new Dictionary<string, object>();
+            
             parametros.Add("@Titulo", antecedentesAcademicos_nuevo.Titulo);
             parametros.Add("@Establecimiento", antecedentesAcademicos_nuevo.Establecimiento);
             parametros.Add("@Especialidad", antecedentesAcademicos_nuevo.Especialidad);
@@ -349,6 +438,7 @@ namespace General.Repositorios
             parametros.Add("@Pais", antecedentesAcademicos_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Baja", baja);
+            parametros.Add("@Dni", usuario.Owner.Documento);
 
             return parametros;
 
@@ -792,7 +882,7 @@ namespace General.Repositorios
 
             parametros.Add("@Motivo", "");
             parametros.Add("@IdUsuario", usuario.Id);
-            parametros.Add("@Fecha", "");
+            //parametros.Add("@Fecha", "");
 
             int id = int.Parse(conexion_bd.EjecutarEscalar("dbo.CV_Ins_Bajas", parametros).ToString());
 

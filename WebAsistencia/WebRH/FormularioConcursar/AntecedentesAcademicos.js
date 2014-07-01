@@ -3,9 +3,11 @@
         var _this = this;
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("AntecedentesAcademicos.htm", function () {
+            _this.txt_antecedentes_id = _this.ui.find("#txt_AntecedenteAcademico_id");
+            _this.txt_antecedentes_id.val(estudio_original.Id);
             _this.txt_antecedentes_titulo = _this.ui.find("#txt_antecedentes_titulo");
             _this.txt_antecedentes_titulo.val(estudio_original.Titulo);
-            _this.txt_establecimiento = _this.ui.find("#txt_establecimiento");
+            _this.txt_establecimiento = _this.ui.find("#txt_antecedentes_establecimiento");
             _this.txt_establecimiento.val(estudio_original.Establecimiento);
             _this.txt_antecedentes_especialidad = _this.ui.find("#txt_antecedentes_especialidad");
             _this.txt_antecedentes_especialidad.val(estudio_original.Especialidad);
@@ -23,6 +25,7 @@
             _this.add_antecedentesAcademicos.click(function () {
                 var estudio_nuevo = {};
                 //var estudio_modificado = $.extend(true, estudio_original);
+                estudio_nuevo.Id = _this.txt_antecedentes_id.val();
                 estudio_nuevo.Titulo = _this.txt_antecedentes_titulo.val();
                 estudio_nuevo.Establecimiento = _this.txt_establecimiento.val();
                 estudio_nuevo.Especialidad = _this.txt_antecedentes_especialidad.val();
@@ -116,8 +119,9 @@
             botonEliminar.attr('height', '25px');
 
             botonEliminar.click(function () {
-                AntecedentesAcademicos.eliminar(un_estudio, function (estudio_eliminado) {
-                    PlanillaCvEstudios.QuitarObjeto(contenedorPlanilla, estudio_eliminado);
+                AntecedentesAcademicos.eliminar(un_estudio, function (estudios_actualizados) {
+                    PlanillaCvEstudios.BorrarContenido();
+                    PlanillaCvEstudios.CargarObjetos(estudios_actualizados);
                 });
             });
 
@@ -166,7 +170,7 @@
                 });
             } else {
                 // user clicked "cancel"
-                
+
             }
         });
 

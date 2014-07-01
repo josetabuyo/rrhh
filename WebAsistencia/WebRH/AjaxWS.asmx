@@ -481,9 +481,22 @@ public class AjaxWS : System.Web.Services.WebService {
     public string GuardarCVAntecedentesAcademicos(WSViaticos.CvEstudios antecedentesAcademicos_nuevos, WSViaticos.CvEstudios antecedentesAcademicos_originales)
     {
         var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        if (antecedentesAcademicos_nuevos.Id != 0)
+        {
+            return this.ActualizarCVAntecedentesAcademicos(antecedentesAcademicos_nuevos,antecedentesAcademicos_originales);
+        }
 
         var antecedentesAcademicos = backEndService.GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevos, antecedentesAcademicos_originales, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicos );
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string ActualizarCVAntecedentesAcademicos(WSViaticos.CvEstudios antecedentesAcademicos_nuevos, WSViaticos.CvEstudios antecedentesAcademicos_originales)
+    {
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+
+        var antecedentesAcademicos = backEndService.ActualizarCvAntecedentesAcademicos(antecedentesAcademicos_nuevos, antecedentesAcademicos_originales, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicos);
     }
     
     [WebMethod(EnableSession = true)]
