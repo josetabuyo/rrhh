@@ -1,4 +1,4 @@
-Create procedure dbo.CV_Ins_AntecedentesDeDocencia
+create procedure dbo.CV_Ins_AntecedentesDeDocencia
 @Asignatura varchar(100) = null,
 @CaracterDesignacion varchar(100)= null,
 @CargaHoraria varchar(100)= null,
@@ -13,11 +13,16 @@ Create procedure dbo.CV_Ins_AntecedentesDeDocencia
 @Pais varchar(100)= null,
 @Usuario int,
 --@FechaOperacion, datetime,
-@Baja int= null
+@Baja int= null,
+@Documento int = null
 
 AS
 
 Begin
+
+declare @IdPersona int
+select @IdPersona = id from dbo.datospersonales where nrodocumento = @Documento
+
 
 INSERT INTO [dbo].[CV_AntecedentesDeDocencia]
            ([Asignatura]
@@ -34,7 +39,8 @@ INSERT INTO [dbo].[CV_AntecedentesDeDocencia]
            ,[Pais]
            ,[Usuario]
            ,[FechaOperacion]
-           ,[Baja])
+           ,[Baja],
+           [IdPersona])
      VALUES
            (@Asignatura,
            @CaracterDesignacion,
@@ -50,7 +56,8 @@ INSERT INTO [dbo].[CV_AntecedentesDeDocencia]
            @Pais,
            @Usuario,
            GETDATE(),
-           @Baja)
+           @Baja,
+           @IdPersona)
 
 
 END
