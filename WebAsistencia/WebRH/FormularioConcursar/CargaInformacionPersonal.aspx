@@ -511,6 +511,7 @@
 <script type="text/javascript" src="CompetenciasInformaticas.js" ></script>
 <script type="text/javascript" src="PanelDetalleDeOtraCapacidad.js" ></script>
 <script type="text/javascript" src="PanelListaDeOtrasCapacidades.js" ></script>
+<script type="text/javascript" src="RepositorioDeTiposDeCapacidadPersonal.js" ></script>
 
 
 
@@ -529,16 +530,16 @@
         var curriculum = JSON.parse($('#curriculum').val());
 
         CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
-        //        AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
-        //        ActividadesDocentes.armarGrilla(curriculum.CvDocencias);
-        //        ActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
-        //        EventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
-        //        PublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
-        //        Matriculas.armarGrilla(curriculum.CvMatricula);
-        //        InstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
-        //        ExperienciaLaboral.armarGrilla(curriculum.CvExperienciaLaboral);
-        //        IdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
-        //        CompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
+//        AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
+//        ActividadesDocentes.armarGrilla(curriculum.CvDocencias);
+//        ActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
+//        EventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
+//        PublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
+//        Matriculas.armarGrilla(curriculum.CvMatricula);
+//        InstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
+//        ExperienciaLaboral.armarGrilla(curriculum.CvExperienciaLaboral);
+//        IdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
+//        CompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
 
         //mockeado!!!
         curriculum.CvCapacidadesPersonales = [
