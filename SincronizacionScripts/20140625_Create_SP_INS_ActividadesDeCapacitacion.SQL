@@ -1,4 +1,4 @@
-Create procedure dbo.CV_Ins_ActividadesDeCapacitacion
+Create procedure [dbo].[CV_Ins_ActividadesDeCapacitacion]
 @Titulo varchar(100) = null,
 @Establecimiento varchar(100) = null,
 @Especialidad varchar(100) = null,
@@ -9,12 +9,16 @@ Create procedure dbo.CV_Ins_ActividadesDeCapacitacion
 @Pais varchar(100)= null,
 @Usuario int,
 --@FechaOperacion datetime = null,
-@Baja int= null
+@Baja int= null,
+@Documento int = null
 
 AS
 
 Begin
 
+declare @IdPersona int
+
+select @IdPersona = Id from dbo.DatosPersonales where NroDocumento = @Documento
 
 INSERT INTO [dbo].[CV_ActividadesDeCapacitacion]
            ([Titulo]
@@ -27,26 +31,26 @@ INSERT INTO [dbo].[CV_ActividadesDeCapacitacion]
            ,[Pais]
            ,[Usuario]
            ,[FechaOperacion]
-           ,[Baja])
+           ,[Baja]
+           ,[IdPersona]
+           )
      VALUES
            (
-            @Titulo,
-	    @Establecimiento,
-	    @Especialidad,
-	    @Duracion,
-	    @FechaIngreso,
-	    @FechaEgreso,
-	    @Localidad,
-            @Pais,
-	    @Usuario,
-	    getdate(),
-	    @Baja
-	)
+           @Titulo,
+			@Establecimiento,
+			@Especialidad,
+			@Duracion,
+			@FechaIngreso,
+			@FechaEgreso,
+			@Localidad,
+			@Pais,
+			@Usuario,
+			getdate(),
+			@Baja,
+			@IdPersona
+			)
 
 END
-
-
-
 
 
 
