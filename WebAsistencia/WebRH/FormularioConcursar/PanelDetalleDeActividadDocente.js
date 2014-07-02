@@ -6,7 +6,7 @@
 
         var _this = this;
         this.ui = $("#un_div_modal");
-        this.ui.find("#contenido_modal").load("PanelDetalleDeOtraCapacidad.htm", function () {
+        this.ui.find("#contenido_modal").load("ActividadesDocentes.htm", function () {
             _this.cmb_tipo = _this.ui.find("#cmb_tipo");
             _this.cmb_tipo.val(capacidad.Tipo);
             _this.txt_detalle = _this.ui.find("#txt_detalle");
