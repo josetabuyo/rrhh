@@ -25,7 +25,12 @@
             _this.add_antecedentesAcademicos.click(function () {
                 var estudio_nuevo = {};
                 //var estudio_modificado = $.extend(true, estudio_original);
-                estudio_nuevo.Id = _this.txt_antecedentes_id.val();
+                if (_this.txt_antecedentes_id.val() == "") {
+                    estudio_nuevo.Id = 0;
+                } else {
+                    estudio_nuevo.Id = _this.txt_antecedentes_id.val();
+                }
+                
                 estudio_nuevo.Titulo = _this.txt_antecedentes_titulo.val();
                 estudio_nuevo.Establecimiento = _this.txt_establecimiento.val();
                 estudio_nuevo.Especialidad = _this.txt_antecedentes_especialidad.val();

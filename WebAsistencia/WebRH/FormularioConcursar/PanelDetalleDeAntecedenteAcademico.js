@@ -1,31 +1,54 @@
-﻿var PanelDetalleDeOtraCapacidad = {
+﻿var PanelDetalleDeAntecedenteAcademico = {
     mostrar: function (opciones) {
         //valores default
-        var capacidad = opciones.capacidad || {};
+        var estudio = opciones.estudio || {};
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
         this.ui = $("#un_div_modal");
-        this.ui.find("#contenido_modal").load("PanelDetalleDeOtraCapacidad.htm", function () {
-            _this.cmb_tipo = _this.ui.find("#cmb_tipo");
-            _this.cmb_tipo.val(capacidad.Tipo);
-            _this.txt_detalle = _this.ui.find("#txt_detalle");
-            _this.txt_detalle.val(capacidad.Detalle);
+        this.ui.find("#contenido_modal").load("AntecedentesAcademicos.htm", function () {
+            _this.txt_antecedentes_id = _this.ui.find("#txt_AntecedenteAcademico_id");
+            _this.txt_antecedentes_id.val(estudio.Id);
+            _this.txt_antecedentes_titulo = _this.ui.find("#txt_antecedentes_titulo");
+            _this.txt_antecedentes_titulo.val(estudio.Titulo);
+            _this.txt_establecimiento = _this.ui.find("#txt_antecedentes_establecimiento");
+            _this.txt_establecimiento.val(estudio.Establecimiento);
+            _this.txt_antecedentes_especialidad = _this.ui.find("#txt_antecedentes_especialidad");
+            _this.txt_antecedentes_especialidad.val(estudio.Especialidad);
+            _this.txt_antecedentes_ingreso = _this.ui.find("#txt_antecedentes_ingreso");
+            _this.txt_antecedentes_ingreso.val(estudio.FechaIngreso);
+            _this.txt_antecedentes_egreso = _this.ui.find("#txt_antecedentes_egreso");
+            _this.txt_antecedentes_egreso.val(estudio.FechaEgreso);
+            _this.txt_antecedentes_localidad = _this.ui.find("#txt_antecedentes_localidad");
+            _this.txt_antecedentes_localidad.val(estudio.Localidad);
+            _this.cmb_antecedentes_pais = _this.ui.find("#cmb_antecedentes_pais");
+            _this.cmb_antecedentes_pais.val(estudio.Pais);
 
             //Bt agregar
-            _this.btn_guardar = _this.ui.find("#btn_guardar");
-            if (opciones.capacidad) _this.btn_guardar.val("Guardar Cambios");
+            _this.btn_guardar = _this.ui.find("#add_antecedentesAcademicos");
+            if (opciones.estudio) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-                capacidad.Tipo = _this.cmb_tipo.val();
-                capacidad.Detalle = _this.txt_detalle.val();
+                if (_this.txt_antecedentes_id.val() == "") {
+                    estudio.Id = 0;
+                } else {
+                    estudio.Id = _this.txt_antecedentes_id.val();
+                }
+
+                estudio.Titulo = _this.txt_antecedentes_titulo.val();
+                estudio.Establecimiento = _this.txt_establecimiento.val();
+                estudio.Especialidad = _this.txt_antecedentes_especialidad.val();
+                estudio.FechaIngreso = _this.txt_antecedentes_ingreso.val();
+                estudio.FechaEgreso = _this.txt_antecedentes_egreso.val();
+                estudio.Localidad = _this.txt_antecedentes_localidad.val();
+                estudio.Pais = _this.cmb_antecedentes_pais.val();
 
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "GuardarCvOtrasCapacidades",
+                proveedor_ajax.postearAUrl({ url: "GuardarCVAntecedentesAcademicos",
                     data: {
-                        otra_capacidad_original: capacidad,
-                        otra_capacidad_nueva: capacidad
+                        antecedentesAcademicos_nuevos: estudio,
+                        antecedentesAcademicos_originales: estudio
                     },
                     success: function (respuesta) {
                         alertify.alert("Los datos fueron guardados correctamente");
@@ -33,7 +56,7 @@
                         $(".modal_close_concursar").click();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error al guardar la capacidad.");
+                        alertify.alert("Error al guardar el antecedente.");
                     }
                 });
             });

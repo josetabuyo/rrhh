@@ -551,8 +551,8 @@
 
         var curriculum = JSON.parse($('#curriculum').val());
 
-        CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
-//        AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
+          CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
+        //  AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
 //        ActividadesDocentes.armarGrilla(curriculum.CvDocencias);
 //        ActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
 //        EventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
@@ -570,15 +570,15 @@
             { Id: 3, Tipo: 2, Detalle: "una capacidad distinta" }
         ];
 
-        PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvAntecedentesAcademicos);
-        PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
-        PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
-        PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
-        PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
-        PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
-        PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
-        PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
-        PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomasExtranjeros);
+        PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
+      /* PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
+      PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
+      PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
+      PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
+      PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
+      PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
+      PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
+      PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomasExtranjeros);*/
 
 
 

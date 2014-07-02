@@ -29,7 +29,7 @@
                     },
                     success: function (respuesta) {
                         alertify.alert("Los datos fueron guardados correctamente");
-                        alModificar(respuesta);
+                        alModificar(respuesta);                     
                         $(".modal_close_concursar").click();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
