@@ -22,13 +22,29 @@
 
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "GuardarCvOtrasCapacidades",
+                if (opciones.capacidad) {
+                    proveedor_ajax.postearAUrl({ url: "ActualizarCvOtraCapacidad",
+                        data: {
+                            otra_capacidad: capacidad
+                        },
+                        success: function (respuesta) {
+                            alertify.alert("Los capacidad fue creada correctamente");
+                            alModificar(respuesta);
+                            $(".modal_close_concursar").click();
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alertify.alert("Error al crear la capacidad.");
+                        }
+                    });
+
+                    return;
+                }
+                proveedor_ajax.postearAUrl({ url: "GuardarCvOtraCapacidad",
                     data: {
-                        otra_capacidad_original: capacidad,
-                        otra_capacidad_nueva: capacidad
+                        otra_capacidad: capacidad
                     },
                     success: function (respuesta) {
-                        alertify.alert("Los datos fueron guardados correctamente");
+                        alertify.alert("La capacidad fué guardada correctamente");
                         alModificar(respuesta);
                         $(".modal_close_concursar").click();
                     },

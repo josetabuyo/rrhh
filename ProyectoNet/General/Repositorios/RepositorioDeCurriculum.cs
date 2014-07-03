@@ -42,7 +42,7 @@ namespace General.Repositorios
         {
         }
 
-        #region GETS Mockeados
+        #region GETS
         public CurriculumVitae GetCV(int documento)
         {
             var parametros = new Dictionary<string, object>();
@@ -77,10 +77,8 @@ namespace General.Repositorios
                 if (estudio.Id != 0)
                 {
                     cv.AgregarEstudio(estudio);
-                    
+
                 }
-                //cv.AgregarEstudio(estudio);
-                //personas.Add(persona);
 
                 foreach (var row in tablaCVs.Rows)
                 {
@@ -91,7 +89,7 @@ namespace General.Repositorios
                         //{
 
                         //3.- Comparo el estudio anterior con la estudio actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
-                        if (estudioAnterior.Id != row.GetInt("IdAntecedentesAcademicos",0))
+                        if (estudioAnterior.Id != row.GetInt("IdAntecedentesAcademicos", 0))
                         {
                             estudio = GetAntecedenteAcademicosFromDataRow(row);
                             if (estudio.Id != 0)
@@ -99,31 +97,36 @@ namespace General.Repositorios
                                 cv.AgregarEstudio(estudio);
                                 estudioAnterior = estudio;
                             }
-                            
-
                         }
+                    }
+                }
+            }
 
-                        //4.- Pregunto si tiene asignacion. Si es true, la construyo y se la agrego a la persona
+            //CORTE DE CONTROL PARA OTRAS CAPACIDADES
+            //1.- Controlo que haya al menos 1 resultado
+            if (tablaCVs.Rows.Count() > 0)
+            {
+                //2.- Creo la capacidad anterior por primera vez
+                var capacidadAnterior = GetOtraCapacidadFromDataRow(tablaCVs.Rows[0]);
 
-                        //if (!(row.GetObject("IdAsignacion") is DBNull))
-                        //{
-                        //    if (!lista_asignaciones.Any(a => a.Id == row.GetSmallintAsInt("IdAsignacion"))) {
-                        //        var asignacion = ConstruirAsignacion(row, persona);
-                        //        lista_asignaciones.Add(asignacion);
-                        //    }
-                        //    persona.SetAsignaciones(lista_asignaciones);   //FC:IMPORTANTE: ACA SE ESTA DUPLICANDO LA ASIGNACION DE LAS PERSONAS. PORQUE EL AGREGAR LLAMA AL GETASIGNACIONES                
-                        //}
+                var capacidad = capacidadAnterior;
 
+                if (!(tablaCVs.Rows[0].GetObject("CapacidadesPersonalesId") is DBNull))
+                {
+                    cv.AgregarCapacidadPersonal(capacidad);
+                    
+                }
 
-                        //5.- Pregunto si ese pedido de alta ya esta, sino lo agrego
-                        //if (!lista_pedido_altas.Any(a => a.Documento.folioDesde == row.GetString("FolioDesdePedidoDeAlta")))
-                        //{
-                        //    var pedido_de_alta = ConstruirPedidoDeAlta(row, persona);
-                        //    lista_pedido_altas.Add(pedido_de_alta);
-                        //}
-
-
-                        //persona.SetPedidosDeAltas(lista_pedido_altas);   
+                foreach (var row in tablaCVs.Rows)
+                {
+                    if (!(row.GetObject("CapacidadesPersonalesId") is DBNull))
+                    {
+                        if (capacidadAnterior.Id != row.GetSmallintAsInt("CapacidadesPersonalesId"))
+                        {
+                            capacidad = GetOtraCapacidadFromDataRow(row);
+                            cv.AgregarCapacidadPersonal(capacidad);
+                            capacidadAnterior = capacidad;                        
+                        } 
                     }
                 }
             }
@@ -149,6 +152,11 @@ namespace General.Repositorios
                                   row.GetDateTime("AntecedentesAcademicosFechaEgreso",DateTime.Today).ToShortDateString(), row.GetString("AntecedentesAcademicosLocalidad",""),
                                   row.GetString("AntecedentesAcademicosPais",""));
 
+        }
+
+        private CvCapacidadPersonal GetOtraCapacidadFromDataRow(RowDeDatos row)
+        {
+            return new CvCapacidadPersonal(row.GetInt("CapacidadesPersonalesId", -1), row.GetInt("CapacidadesPersonalesTipo", -1), row.GetString("CapacidadesPersonalesDetalle", ""));
         }
 
         public List<CvCertificadoDeCapacitacion> GetCvCertificadoDeCapacitacion(int documento)
@@ -260,16 +268,6 @@ namespace General.Repositorios
                                };
 
             return publicaciones;
-        }
-
-        public List<CvCapacidadPersonal> GetCvCapacidadesPersonales(int documento)
-        {
-            var capacidades_personales = new List<CvCapacidadPersonal>()
-                               {
-                                   new CvCapacidadPersonal(1, 1, "Simpatico")
-                               };
-
-            return capacidades_personales;
         }
 
         # endregion
@@ -823,22 +821,54 @@ namespace General.Repositorios
 
         #region CvCapacidadesPersonales/OtrasCapacidades
 
-        public CvCapacidadesPersonales EliminarCvOtrasCapacidades(CvCapacidadesPersonales capacidades_nuevo, Usuario usuario)
+        public CvCapacidadPersonal GuardarCvOtraCapacidad(CvCapacidadPersonal capacidad_personal_nueva, Usuario usuario)
         {
-            var baja = CrearBaja(usuario);
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPersona", usuario.Owner.Id);
+            parametros.Add("@Tipo", capacidad_personal_nueva.Tipo);
+            parametros.Add("@Detalle", capacidad_personal_nueva.Detalle);
+            parametros.Add("@Usuario", usuario.Id);
 
-            var parametros = ParametrosDeCapacidadesPersonales(capacidades_nuevo, usuario, baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CapacidadesPersonales", parametros);
-
-            return capacidades_nuevo;
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_CapacidadesPersonales", parametros);
+            capacidad_personal_nueva.Id = int.Parse(id.ToString());
+            return capacidad_personal_nueva;
         }
 
-        private Dictionary<string, object> ParametrosDeCapacidadesPersonales(CvCapacidadesPersonales capacidades_nuevo, Usuario usuario, int baja)
+        public CvCapacidadPersonal ActualizarCvOtraCapacidad(CvCapacidadPersonal capacidad_personal_modificada, Usuario usuario)
         {
-            return new Dictionary<string, object>();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id", capacidad_personal_modificada.Id);
+            parametros.Add("@Tipo", capacidad_personal_modificada.Tipo);
+            parametros.Add("@Detalle", capacidad_personal_modificada.Detalle);
+            parametros.Add("@Usuario", usuario.Id);
+
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_CapacidadesPersonales", parametros);
+            return capacidad_personal_modificada;
         }
 
+        public bool EliminarCvOtraCapacidad(int id_capacidad, Usuario usuario)
+        {
+            var id_baja = CrearBaja(usuario);
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id", id_capacidad);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@Baja", id_baja);
+
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_CapacidadesPersonales", parametros);
+
+            return true;
+        }
+
+        //public List<CvCapacidadPersonal> GetCvCapacidadesPersonales(int documento)
+        //{
+        //    var capacidades_personales = new List<CvCapacidadPersonal>()
+        //                       {
+        //                           new CvCapacidadPersonal(1, 1, "Simpatico")
+        //                       };
+
+        //    return capacidades_personales;
+        //}
 
         #endregion CvCapacidadesPersonales/OtrasCapacidades
 
@@ -882,7 +912,6 @@ namespace General.Repositorios
 
             parametros.Add("@Motivo", "");
             parametros.Add("@IdUsuario", usuario.Id);
-            //parametros.Add("@Fecha", "");
 
             int id = int.Parse(conexion_bd.EjecutarEscalar("dbo.CV_Ins_Bajas", parametros).ToString());
 

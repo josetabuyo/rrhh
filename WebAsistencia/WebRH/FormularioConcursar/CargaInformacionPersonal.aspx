@@ -564,21 +564,23 @@
 //        CompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
 
         //mockeado!!!
-        curriculum.CvCapacidadesPersonales = [
-            { Id: 1, Tipo: 1, Detalle: "una capacidad diferente" },
-            { Id: 2, Tipo: 2, Detalle: "una capacidad especial" },
-            { Id: 3, Tipo: 2, Detalle: "una capacidad distinta" }
-        ];
+//        curriculum.CvCapacidadesPersonales = [
+//            { Id: 1, Tipo: 1, Detalle: "una capacidad diferente" },
+//            { Id: 2, Tipo: 2, Detalle: "una capacidad especial" },
+//            { Id: 3, Tipo: 2, Detalle: "una capacidad distinta" }
+//        ];
 
-        PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvAntecedentesAcademicos);
-        PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
-        PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
-        PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
-        PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
-        PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
-        PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
-        PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
-        PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomasExtranjeros);
+        PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
+
+//        PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvAntecedentesAcademicos);
+//        PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
+//        PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
+//        PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
+//        PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
+//        PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
+//        PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
+//        PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
+//        PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomasExtranjeros);
 
 
 

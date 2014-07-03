@@ -18,7 +18,7 @@ namespace General
         protected List<CvDocencia> _cvDocencias;
         protected List<CvCompetenciasInformaticas> _cvCompetenciasInformaticas;
         protected List<CvCertificadoDeCapacitacion> _cvCertificadosDeCapacitacion;
-        protected List<CvCapacidadesPersonales> _cvCapacidadesPersonales;
+        protected List<CvCapacidadPersonal> _cvCapacidadesPersonales;
         protected bool _tieneCV;
         
 
@@ -33,7 +33,7 @@ namespace General
         public virtual List<CvDocencia> CvDocencias { get { return _cvDocencias; } set { _cvDocencias = value; } }
         public virtual List<CvCompetenciasInformaticas> CvCompetenciasInformaticas { get { return _cvCompetenciasInformaticas; } set { _cvCompetenciasInformaticas = value; } }
         public virtual List<CvCertificadoDeCapacitacion> CvCertificadosDeCapacitacion { get { return _cvCertificadosDeCapacitacion; } set { _cvCertificadosDeCapacitacion = value; } }
-        public virtual List<CvCapacidadesPersonales> cvCapacidadesPersonales { get { return _cvCapacidadesPersonales; } set { _cvCapacidadesPersonales = value; } }
+        public virtual List<CvCapacidadPersonal> CvCapacidadesPersonales { get { return _cvCapacidadesPersonales; } set { _cvCapacidadesPersonales = value; } }
         public virtual bool TieneCv { get { return _tieneCV; } set { _tieneCV = value; } }
 
         public CurriculumVitae(CvDatosPersonales datosPersonales)
@@ -49,7 +49,7 @@ namespace General
             this._cvDocencias = new List<CvDocencia>();
             this._cvCompetenciasInformaticas = new List<CvCompetenciasInformaticas>();
             this._cvCertificadosDeCapacitacion = new List<CvCertificadoDeCapacitacion>();
-            this._cvCapacidadesPersonales = new List<CvCapacidadesPersonales>();
+            this._cvCapacidadesPersonales = new List<CvCapacidadPersonal>();
             
         }
 
@@ -105,9 +105,9 @@ namespace General
             this._cvCertificadosDeCapacitacion.Add(cvCertificacionDeCapacitacion);
         }
 
-        public void AgregarCapacidadesPersonales(CvCapacidadesPersonales cvCapacidadesPersonales)
+        public void AgregarCapacidadPersonal(CvCapacidadPersonal cvCapacidadPersonal)
         {
-            this._cvCapacidadesPersonales.Add(cvCapacidadesPersonales);
+            this._cvCapacidadesPersonales.Add(cvCapacidadPersonal);
         }
 
 

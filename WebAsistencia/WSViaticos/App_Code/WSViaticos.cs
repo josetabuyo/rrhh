@@ -2441,13 +2441,6 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public CvCapacidadPersonal[] GetCvCapacidadesPersonales(int documento)
-    {
-        var capacidades_personales = RepoCurriculum().GetCvCapacidadesPersonales(documento);
-        return capacidades_personales.ToArray();
-    }
-
-    [WebMethod]
     public CvCertificadoDeCapacitacion[] GetCvCertificadoDeCapacitacion(int documento)
     { 
         var certificados_de_capacitacion = RepoCurriculum().GetCvCertificadoDeCapacitacion(documento);
@@ -2591,7 +2584,17 @@ public class WSViaticos : System.Web.Services.WebService
         RepoCurriculum().GuardarCvExperiencias(experiencias_nuevas, usuario);
     }
 
+    [WebMethod]
+    public CvCapacidadPersonal GuardarCvOtraCapacidad(CvCapacidadPersonal capacidad_personal, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvOtraCapacidad(capacidad_personal, usuario);
+    }
 
+    [WebMethod]
+    public CvCapacidadPersonal ActualizarCvOtraCapacidad(CvCapacidadPersonal capacidad_personal, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvOtraCapacidad(capacidad_personal, usuario);
+    }
 
 
     #endregion GUARDAR
@@ -2660,11 +2663,10 @@ public class WSViaticos : System.Web.Services.WebService
      }
 
      [WebMethod]
-     public CvCapacidadesPersonales EliminarCvOtrasCapacidades(CvCapacidadesPersonales otras_capacidades_a_borrar, Usuario usuario)
+     public bool EliminarCvOtraCapacidad(int id_capacidad, Usuario usuario)
      {
-         return RepoCurriculum().EliminarCvOtrasCapacidades(otras_capacidades_a_borrar, usuario);
+         return RepoCurriculum().EliminarCvOtraCapacidad(id_capacidad, usuario);
      }
-
      #endregion ELIMINAR
 
 

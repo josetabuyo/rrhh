@@ -581,14 +581,6 @@ public class AjaxWS : System.Web.Services.WebService {
         return Newtonsoft.Json.JsonConvert.SerializeObject(competenciasInformaticas);
     }
 
-
-    [WebMethod(EnableSession = true)]
-    public string EliminarCvOtrasCapacidades(WSViaticos.CvCapacidadPersonal una_capacidad)
-    {
-        //var otrasCapacidades = backEndService.EliminarCvOtrasCapacidades(otrasCapacidades_borrar, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(una_capacidad);
-    }
-
     [WebMethod(EnableSession = true)]
     public string GuardarCvCompetenciasInformaticas(WSViaticos.CvCompetenciasInformaticas competencia_informatica_original, WSViaticos.CvCompetenciasInformaticas competencia_informatica_nueva)
     {
@@ -598,11 +590,23 @@ public class AjaxWS : System.Web.Services.WebService {
     }
 
     [WebMethod(EnableSession = true)]
-    public string GuardarCvOtrasCapacidades(WSViaticos.CvCapacidadPersonal otra_capacidad_original, WSViaticos.CvCapacidadPersonal otra_capacidad_nueva)
+    public string ActualizarCvOtraCapacidad(WSViaticos.CvCapacidadPersonal otra_capacidad)
     {
-        //backEndService.GuardarCvOtrasCapacidades(otra_capacidad_original, otra_capacidad_nueva, usuarioLogueado);
-        otra_capacidad_nueva.Id = new Random().Next();
-        return Newtonsoft.Json.JsonConvert.SerializeObject(otra_capacidad_nueva);
+        otra_capacidad = backEndService.ActualizarCvOtraCapacidad(otra_capacidad, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(otra_capacidad);
+    }
+    
+    [WebMethod(EnableSession = true)]
+    public string GuardarCvOtraCapacidad(WSViaticos.CvCapacidadPersonal otra_capacidad)
+    {
+        backEndService.GuardarCvOtraCapacidad(otra_capacidad, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(otra_capacidad);
+    }
+
+    [WebMethod(EnableSession = true)]
+    public bool EliminarCvOtraCapacidad(int id_capacidad)
+    {
+        return backEndService.EliminarCvOtraCapacidad(id_capacidad, usuarioLogueado);
     }
     
     

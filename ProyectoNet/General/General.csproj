@@ -110,7 +110,6 @@
     <Compile Include="Postular\CvDocenciaDto.cs" />
     <Compile Include="Postular\CurriculumDto.cs" />
     <Compile Include="Postular\CurriculumVitae.cs" />
-    <Compile Include="Postular\CvCapacidadesPersonales.cs" />
     <Compile Include="Postular\CvCertificadoDeCapacitacion.cs" />
     <Compile Include="Postular\CvCompetenciasInformaticas.cs" />
     <Compile Include="Postular\CvDatosPersonales.cs" />
