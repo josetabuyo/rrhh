@@ -118,7 +118,45 @@ namespace General.Repositorios
             }
         }
 
-        private void CorteDeControlEventosAcademicos(TablaDeDatos tablaCVs, CurriculumVitae cv){
+        private void CorteDeControlActividadesDocentes(TablaDeDatos tablaCVs, CurriculumVitae cv)
+        {
+            //1.- Controlo que haya al menos 1 resultado
+            if (tablaCVs.Rows.Count() > 0)
+            {
+
+                //2.- Creo la docencia anterior por primera vez
+                var docenciaAnterior = GetActividadesDocentesFromDataRow(tablaCVs.Rows[0]);
+
+                var docencia = docenciaAnterior;
+
+                if (docencia.Id != 0)
+                {
+                    cv.AgregarDocencia(docencia);
+
+                }
+
+                foreach (var row in tablaCVs.Rows)
+                {
+                    if (!(row.GetObject("IdAntecedentesDeDocencia") is DBNull))
+                    {
+
+                        //3.- Comparo la docencia anterior con la docencia actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
+                        if (docenciaAnterior.Id != row.GetInt("IdAntecedentesDeDocencia", 0))
+                        {
+                            docencia = GetActividadesDocentesFromDataRow(row);
+                            if (docencia.Id != 0)
+                            {
+                                cv.AgregarDocencia(docencia);
+                                docenciaAnterior = docencia;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CorteDeControlEventosAcademicos(TablaDeDatos tablaCVs, CurriculumVitae cv)
+        {
             //CORTE DE CONTROL PARA EVENTOS ACADEMICOS
             //1.- Controlo que haya al menos 1 resultado
             if (tablaCVs.Rows.Count() > 0)
@@ -156,13 +194,13 @@ namespace General.Repositorios
             }
         }
 
-       private CvEstudios GetAntecedenteAcademicosFromDataRow(RowDeDatos row)
+        private CvEstudios GetAntecedenteAcademicosFromDataRow(RowDeDatos row)
         {
-           return new CvEstudios(row.GetInt("IdAntecedentesAcademicos",0), row.GetString("AntecedentesAcademicosTitulo",""), row.GetString("AntecedentesAcademicosEstablecimiento",""),
-                                  row.GetString("AntecedentesAcademicosEspecialidad",""), row.GetDateTime("AntecedentesAcademicosFechaIngreso",DateTime.Today).ToShortDateString(),
-                                  row.GetDateTime("AntecedentesAcademicosFechaEgreso",DateTime.Today).ToShortDateString(), row.GetString("AntecedentesAcademicosLocalidad",""),
-                                  row.GetString("AntecedentesAcademicosPais",""));
-             
+            return new CvEstudios(row.GetInt("IdAntecedentesAcademicos", 0), row.GetString("AntecedentesAcademicosTitulo", ""), row.GetString("AntecedentesAcademicosEstablecimiento", ""),
+                                   row.GetString("AntecedentesAcademicosEspecialidad", ""), row.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today).ToShortDateString(),
+                                   row.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today).ToShortDateString(), row.GetString("AntecedentesAcademicosLocalidad", ""),
+                                   row.GetString("AntecedentesAcademicosPais", ""));
+
         }
 
         private CvDocencia GetActividadesDocentesFromDataRow(RowDeDatos row)
@@ -173,7 +211,7 @@ namespace General.Repositorios
                                    row.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", DateTime.Today), row.GetString("AntecedentesDeDocenciaEstablecimiento", ""),
                                    row.GetString("AntecedentesDeDocenciaLocalidad", ""), row.GetString("AntecedentesDeDocenciaPais", ""));
         }
-        
+
         private CvEventoAcademico GetEventosAcademicosFromDataRow(RowDeDatos row)
         {
             return new CvEventoAcademico(
@@ -187,7 +225,7 @@ namespace General.Repositorios
                 row.GetString("EventosAcademicosInstitucion", ""),
                 row.GetString("EventosAcademicosLocalidad", ""),
                 row.GetString("EventosAcademicosPais", ""));
-               
+
         }
 
         #region GETSMockeados
@@ -195,7 +233,7 @@ namespace General.Repositorios
         {
             var certificados_de_capacitaciones = new List<CvCertificadoDeCapacitacion>()
                                {
-                                   new CvCertificadoDeCapacitacion("Arquitecto Java", "Oracle", "Java", "2 años",  new DateTime(2012, 01, 13), new DateTime(2014, 03, 10), "CABA", "Argentina" )
+                                   new CvCertificadoDeCapacitacion(1, "Arquitecto Java", "Oracle", "Java", "2 años",  new DateTime(2012, 01, 13), new DateTime(2014, 03, 10), "CABA", "Argentina" )
                                };
 
             return certificados_de_capacitaciones;
@@ -214,10 +252,10 @@ namespace General.Repositorios
 
         public CvDatosPersonales GetCvDatosPersonales(int documento)
         {
-           var domicilio = new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", 1, 1419, 2);
-           var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", 1, 1, "20-31369852-7", "Buenos Aires", 1, new DateTime(1985, 07, 23).ToShortDateString(), 1, domicilio,domicilio,"Tiene legajo");
-           //return datos_personales;
-           return this._cvDatosPersonales;
+            var domicilio = new CvDomicilio(1, "Pedro Morán", 1234, "7", "A", 1, 1419, 2);
+            var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", 1, 1, "20-31369852-7", "Buenos Aires", 1, new DateTime(1985, 07, 23).ToShortDateString(), 1, domicilio, domicilio, "Tiene legajo");
+            //return datos_personales;
+            return this._cvDatosPersonales;
         }
 
 
@@ -255,7 +293,7 @@ namespace General.Repositorios
         {
             var experiencia_laboral = new List<CvExperienciaLaboral>()
                                {
-                                   new CvExperienciaLaboral("Analista Oracle", "Renuncia", "Accenture S.A", false, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina")
+                                   new CvExperienciaLaboral(1,"Analista Oracle", "Renuncia", "Accenture S.A", false, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina")
                                };
 
             return experiencia_laboral;
@@ -265,8 +303,8 @@ namespace General.Repositorios
         {
             var idiomas = new List<CvIdiomas>()
                                {
-                                   new CvIdiomas("CAF Certification", "Cultural Inglesa Pueyrredón", "Inglés", "Avanzado", "Avanzado","Avanzado", new DateTime(1999, 01, 07), new DateTime(1997, 12, 15), "CABA", "Argentina"),
-                                   new CvIdiomas("International French Language", "CUI", "Francés", "Avanzado", "Intermedio","Intermedio", new DateTime(2002, 04, 27), new DateTime(2007, 05, 17), "CABA", "Argentina")
+                                   new CvIdiomas(1,"CAF Certification", "Cultural Inglesa Pueyrredón", "Inglés", "Avanzado", "Avanzado","Avanzado", new DateTime(1999, 01, 07), new DateTime(1997, 12, 15), "CABA", "Argentina"),
+                                   new CvIdiomas(1,"International French Language", "CUI", "Francés", "Avanzado", "Intermedio","Intermedio", new DateTime(2002, 04, 27), new DateTime(2007, 05, 17), "CABA", "Argentina")
                                };
 
             return idiomas;
@@ -276,7 +314,7 @@ namespace General.Repositorios
         {
             var instituciones_academicas = new List<CvInstitucionesAcademicas>()
                                {
-                                   new CvInstitucionesAcademicas("Universidad Tecnológica Nacional", "Pública", "Docente", 1234, "Jefe de Cátedra", new DateTime(1992, 08, 17), new DateTime(1993, 01, 17), new DateTime(1992, 04, 21), new DateTime(2011, 09, 29), "CABA", "Argentina")
+                                   new CvInstitucionesAcademicas(1, "Universidad Tecnológica Nacional", "Pública", "Docente", 1234, "Jefe de Cátedra", new DateTime(1992, 08, 17), new DateTime(1993, 01, 17), new DateTime(1992, 04, 21), new DateTime(2011, 09, 29), "CABA", "Argentina")
                                };
 
             return instituciones_academicas;
@@ -286,7 +324,7 @@ namespace General.Repositorios
         {
             var matricula = new List<CvMatricula>()
                                {
-                                   new CvMatricula("3217/14", "Gobierno de la ciudad de Buenos Aires", "Vigente", new DateTime(1990, 09, 07))
+                                   new CvMatricula(1,"3217/14", "Gobierno de la ciudad de Buenos Aires", "Vigente", new DateTime(1990, 09, 07))
                                };
 
             return matricula;
@@ -296,7 +334,7 @@ namespace General.Repositorios
         {
             var publicaciones = new List<CvPublicaciones>()
                                {
-                                   new CvPublicaciones("Factorizaciones", "Santillana", "377", true, new DateTime(2001, 11, 11))
+                                   new CvPublicaciones(1,"Factorizaciones", "Santillana", "377", true, new DateTime(2001, 11, 11))
                                };
 
             return publicaciones;
@@ -320,10 +358,10 @@ namespace General.Repositorios
 
             var parametros = new Dictionary<string, object>();
             var cv = this.GetCV(datosPersonales.Dni);
-            
+
             //Si la persona existe en Leg => Datos_Personales no se debe poder modificar ni DatosPersonales ni DatosPersonalesAdicionales
             //El domicilio al entrar x primera vez no deberia verlos los del Legajo, asiq hago un insert la primera vez
-            
+
             //Si todavia no tiene CV
             if (cv.TieneCv == false)
             {
@@ -363,7 +401,7 @@ namespace General.Repositorios
 
                     conexion_bd.Ejecutar("dbo.CV_Upd_DatosPersonalesNoEmpleados", parametros);
                 }
-               
+
                 //update GEN_Domicilios del domicilio personal
                 parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario);
                 parametros.Add("@idDomicilio", datosPersonales.DomicilioPersonal.Id);
@@ -422,12 +460,12 @@ namespace General.Repositorios
 
         #endregion CvDatosPersonales
 
-        #region CvEstudios
+        #region CvAntecedentesAcademicos
         public CvEstudios GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
         {
-            
-            var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario, 0);
-            parametros.Add("@Dni", usuario.Owner.Documento);
+
+            var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+            parametros.Add("@idPersona", usuario.Owner.Id);
 
             var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_AntecedentesAcademicos", parametros);
             antecedentesAcademicos_nuevo.Id = int.Parse(id.ToString());
@@ -439,13 +477,12 @@ namespace General.Repositorios
         {
             //var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario, 0);
-            //var parametros = new Dictionary<string, object>();
-            //parametros.Add("@idBaja", baja);
+            var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+
             parametros.Add("@idAntecedente", antecedentesAcademicos_nuevo.Id);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_ActividadesAcademicas", parametros);
-            
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
+
             this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
 
             return antecedentesAcademicos_nuevo;
@@ -456,20 +493,19 @@ namespace General.Repositorios
         {
             var baja = CrearBaja(usuario);
 
-            var parametros = new Dictionary<string, object>();
+            var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
             parametros.Add("@idBaja", baja);
             parametros.Add("@idAntecedente", antecedentesAcademicos_nuevo.Id);
-            //var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario, baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
             //this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
             return antecedentesAcademicos_nuevo;
         }
 
-        private Dictionary<string, object> ParametrosDeAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario, int baja)
+        private Dictionary<string, object> ParametrosDeAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            
+
             parametros.Add("@Titulo", antecedentesAcademicos_nuevo.Titulo);
             parametros.Add("@Establecimiento", antecedentesAcademicos_nuevo.Establecimiento);
             parametros.Add("@Especialidad", antecedentesAcademicos_nuevo.Especialidad);
@@ -478,24 +514,22 @@ namespace General.Repositorios
             parametros.Add("@Localidad", antecedentesAcademicos_nuevo.Localidad);
             parametros.Add("@Pais", antecedentesAcademicos_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", baja);
             
-
             return parametros;
 
         }
         #endregion
 
         #region CvCertificadosDeCapacitacion
-        public List<CvCertificadoDeCapacitacion> GuardarCvActividadesCapacitacion(CvCertificadoDeCapacitacion certificados_capacitacion_nuevo, Usuario usuario)
+        public CvCertificadoDeCapacitacion GuardarCvActividadesCapacitacion(CvCertificadoDeCapacitacion certificados_capacitacion_nuevo, Usuario usuario)
         {
             //deberia ser el mismo sp y tabla que antecedentes
             var parametros = ParametrosDeAntecedentesDocencia(certificados_capacitacion_nuevo, usuario, 0);
 
-            var capacidades = conexion_bd.Ejecutar("dbo.CV_Ins_AntecedentesAcademicos", parametros);
-
-            this._cvCapacitacion.Add(certificados_capacitacion_nuevo);
-            return this._cvCapacitacion;
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_AntecedentesAcademicos", parametros);
+            certificados_capacitacion_nuevo.Id = int.Parse(id.ToString());
+           
+            return certificados_capacitacion_nuevo;
         }
 
         public CvCertificadoDeCapacitacion ActualizarCvCapacidades(CvCertificadoDeCapacitacion capacidades_nuevo, Usuario usuario)
@@ -540,21 +574,21 @@ namespace General.Repositorios
         #endregion CvCertificadosDeCapacitacion
 
         #region CvAntecedentesDocentes
-        public List<CvDocencia> GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
+        public CvDocencia GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
         {
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario, 0);
 
-            var docencia = conexion_bd.Ejecutar("dbo.CV_Ins_ActividadesDocentes", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ActividadesDocentes", parametros);
+            docencia_nuevo.Id = int.Parse(id.ToString());
 
-            this._cvDocencia.Add(docencia_nuevo);
-            return this._cvDocencia;
+            return docencia_nuevo;
         }
 
-        public CvDocencia ActualizarCvAntecedentesDocencia(CvDocencia docencia_nuevo, Usuario usuario)
+        public CvDocencia ActualizarCvActividadesDocencia(CvDocencia docencia_nuevo, Usuario usuario)
         {
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario, 0);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_AntecedentesDeDocencia", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesDocentes", parametros);
 
             return docencia_nuevo;
         }
@@ -595,9 +629,14 @@ namespace General.Repositorios
 
         #region CvEventosAcademicos
 
-        public void GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)
+        public CvEventoAcademico GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)
         {
-            this._cvEventoAcademico = eventoAcademico_nuevo;
+            return eventoAcademico_nuevo;
+        }
+
+        public CvEventoAcademico ActualizarCvEventoAcademico(CvEventoAcademico evento_nuevo, Usuario usuario)
+        {
+            return evento_nuevo;
         }
 
         public CvEventoAcademico EliminarCvEventosAcademicos(CvEventoAcademico evento_academico_nuevo, Usuario usuario)
@@ -619,13 +658,14 @@ namespace General.Repositorios
         #endregion CvEventosAcademicos
 
         #region CvPublicaciones
-        public void GuardarCvPublicacionesTrabajos(CvPublicaciones publicacion_nueva, Usuario usuario)
+        public CvPublicaciones GuardarCvPublicacionesTrabajos(CvPublicaciones publicacion_nueva, Usuario usuario)
         {
             var parametros = ParametrosDePublicaciones(publicacion_nueva, usuario, 0);
 
-            var publicaciones = conexion_bd.Ejecutar("dbo.CV_Ins_Publicaciones", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Publicaciones", parametros);
+            publicacion_nueva.Id = int.Parse(id.ToString());
 
-            this._cvPublicacion = publicacion_nueva;
+            return publicacion_nueva;
         }
 
         public CvPublicaciones ActualizarCvPublicaciones(CvPublicaciones publicacion_nueva, Usuario usuario)
@@ -665,13 +705,14 @@ namespace General.Repositorios
         #endregion
 
         #region CvMatriculas
-        public void GuardarCvMatriculas(CvMatricula matricula_nueva, Usuario usuario)
+        public CvMatricula GuardarCvMatriculas(CvMatricula matricula_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeMatricula(matricula_nueva, usuario, 0);
 
-            var matriculas = conexion_bd.Ejecutar("dbo.CV_Ins_Matriculas", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Matriculas", parametros);
+            matricula_nueva.Id = int.Parse(id.ToString());
 
-            this._cvMatricula = matricula_nueva;
+            return matricula_nueva;
         }
 
         public CvMatricula ActualizarCvMatriculas(CvMatricula matricula_nueva, Usuario usuario)
@@ -710,13 +751,14 @@ namespace General.Repositorios
         #endregion
 
         #region CvInstituciones
-        public void GuardarCvInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
+        public CvInstitucionesAcademicas GuardarCvInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeInstituciones(institucion_nueva, usuario, 0);
 
-            var instituciones = conexion_bd.Ejecutar("dbo.CV_Ins_Instituciones", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Instituciones", parametros);
+            institucion_nueva.Id = int.Parse(id.ToString());
 
-            this._cvInstitucion = institucion_nueva;
+            return institucion_nueva;
         }
 
         public CvInstitucionesAcademicas ActualizarCvInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
@@ -762,13 +804,14 @@ namespace General.Repositorios
         #endregion
 
         #region CvExperiencias
-        public void GuardarCvExperiencias(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
+        public CvExperienciaLaboral GuardarCvExperiencias(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario, 0);
 
-            var experiencias = conexion_bd.Ejecutar("dbo.CV_Ins_Experiencias", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Experiencias", parametros);
+            experiencia_nueva.Id = int.Parse(id.ToString());
 
-            this._cvExperiencia = experiencia_nueva;
+            return experiencia_nueva;
         }
 
         public CvExperienciaLaboral ActualizarCvExperiencias(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
@@ -814,11 +857,14 @@ namespace General.Repositorios
 
         #region CvIdiomas
 
-        public void GuardarCvIdiomas(CvIdiomas idioma_nuevo, Usuario usuario)
+        public CvIdiomas GuardarCvIdiomas(CvIdiomas idioma_nuevo, Usuario usuario)
         {
             var parametros = ParametrosDelIdioma(idioma_nuevo, usuario, 0);
 
-            var idiomas = conexion_bd.Ejecutar("dbo.CV_Ins_Idiomas", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Idiomas", parametros);
+            idioma_nuevo.Id = int.Parse(id.ToString());
+
+            return idioma_nuevo;
         }
 
         public CvIdiomas ActualizarCvIdiomas(CvIdiomas idioma, Usuario usuario)
@@ -884,6 +930,24 @@ namespace General.Repositorios
         #endregion CvCapacidadesPersonales/OtrasCapacidades
 
         #region CvCompetenciasInformaticas
+        public CvCompetenciasInformaticas GuardarCompetenciasInformaticas(CvCompetenciasInformaticas competencia_informatica, Usuario usuario)
+        {
+            var parametros = ParametrosDeCompetenciasInformaticas(competencia_informatica, usuario, 0);
+
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_CompetenciasInformaticas", parametros);
+            competencia_informatica.Id = int.Parse(id.ToString());
+
+            return competencia_informatica;
+        }
+
+        public CvCompetenciasInformaticas ActualizarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia_informatica, Usuario usuario)
+        {
+            var parametros = ParametrosDeCompetenciasInformaticas(competencia_informatica, usuario, 0);
+
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CompetenciasInformaticas", parametros);
+
+            return competencia_informatica;
+        }
 
         public CvCompetenciasInformaticas EliminarCvCompetenciasInformaticas(CvCompetenciasInformaticas competencias_nuevo, Usuario usuario)
         {
@@ -891,7 +955,7 @@ namespace General.Repositorios
 
             var parametros = ParametrosDeCompetenciasInformaticas(competencias_nuevo, usuario, baja);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CapacidadesPersonales", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CompetenciasInformaticas", parametros);
 
             return competencias_nuevo;
         }

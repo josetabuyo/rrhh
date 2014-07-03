@@ -7,6 +7,7 @@ namespace General
 {
     public class CvIdiomas
     {
+        protected int _id;
         protected string _diploma;
         protected string _establecimiento;
         protected string _idioma;
@@ -18,7 +19,7 @@ namespace General
         protected string _localidad;
         protected string _pais;
 
-
+        public int Id { get { return _id; } set { _id = value; } }
         public string Diploma { get { return _diploma; } set { _diploma = value; } }
         public string Establecimiento { get { return _establecimiento; } set { _establecimiento = value; } }
         public string Idioma { get { return _idioma; } set { _idioma = value; } }
@@ -31,8 +32,9 @@ namespace General
         public string Pais { get { return _pais; } set { _pais = value; } }
 
 
-        public CvIdiomas(string diploma, string establecimiento, string idioma, string lectura, string escritura, string oral, DateTime fechaObtencion, DateTime fechaFin, string localidad, string pais)
+        public CvIdiomas(int id, string diploma, string establecimiento, string idioma, string lectura, string escritura, string oral, DateTime fechaObtencion, DateTime fechaFin, string localidad, string pais)
         {
+            this._id = id;
             this._diploma = diploma;
             this._establecimiento = establecimiento;
             this._idioma = idioma;
