@@ -1,114 +1,67 @@
-﻿<div id="form_otrasCapacidades">
-	<div id="form_otrasCapacidades-ct">
-		<div id="form_otrasCapacidades-header" class="form_concursar_header">
-			<h2>Otras Capacidades</h2>
+﻿<div id="form_institucionesAcademicas">
+	<div id="form_institucionesAcademicas-ct">
+		<div id="form_institucionesAcademicas-header" class="form_concursar_header">
+			<h2>Instituciones Academicas</h2>
 			<p>
 			</p>
 		</div>
-		<div id="contenido_form_otras_capacidades" class="fondo_form">
+		<div id="contenido_form_instituciones_academicas" class="fondo_form">
 			<fieldset style="width:95%; padding-left:3%;">
-				<legend>Ingresar Capacidad Personal</legend>
+				<p>
+					<em>*</em> Campos Obligatorios
+				</p>
+				<legend>Ingresar Pertenencia a Institución Académica, o Profesional Relevante</legend>
 				<div class="grupo_campos">
-					<label for="cmb_tipo">Tipo de Capacidad <em>*</em></label>
-					<select id="cmb_tipo" style="width:130px;">
-						<option>Seleccione</option>
-						<option value="1">Social</option>
-                        <option value="2">Organizativa</option>
-                        <option value="3">Técnica</option>
-                        <option value="4">Otra</option>
+					<label for="pertenencia-institucion_nombre">Nombre de la Institución <em>*</em></label>
+					<input id="pertenencia-institucion_nombre" type="text" style="width:250px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="pertenencia-institucion_caracter">Carácter de la Entidad <em>*</em></label>
+					<input id="pertenencia-institucion_caracter" type="text" style="width:225px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="pertenencia-institucion_cargo">Cargos Desempeñados <em>*</em></label>
+					<input id="pertenencia-institucion_cargo" type="text" style="width:225px;" name=""/>
+				</div>
+
+               	<div class="grupo_campos">
+					<label for="pertenencia-institucion_numero_afiliado">Número Afiliado <em>*</em></label>
+					<input id="pertenencia-institucion_numero_afiliado" type="text" style="width:225px;"/>
+				</div>
+
+				<div class="grupo_campos nueva_linea">
+					<label for="pertenencia-institucion_fecha_afiliacion">Fecha de Afiliación <em>*</em></label>
+					<input id="pertenencia-institucion_fecha_afiliacion" type="text" style="width:100px;"/>
+				</div>
+			
+				<div class="grupo_campos">
+					<label for="pertenencia-institucion_categoria_actual">Categoría actual <em>*</em></label>
+					<input id="pertenencia-institucion_categoria_actual" type="text" style="width:225px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="pertenencia-institucion_fecha">Fecha <em>*</em></label>
+					<input id="pertenencia-institucion_fecha" type="text" style="width:100px;" name=""/>
+				</div>
+				<div class="grupo_campos nueva_linea">
+					<label for="pertenencia-institucion_localidad">Localidad <em>*</em></label>
+					<input id="pertenencia-institucion_localidad" type="text" style="width:225px;"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="pertenencia-institucion_pais">País<em>*</em></label>
+					<select id="pertenencia-institucion_pais" style="width:130px;">
 					</select>
 				</div>
-                <div class="grupo_campos">
-					<label for="txt_detalle">Detalle <em>*</em></label>
-					<input id="txt_detalle" type="text" style="width:250px;"/>
-				</div>
-    <!--
 				<div class="grupo_campos">
-					<label for="txt_especialidad">Aptitudes Sociales</label>
-					<input id="Button19" type="button" value "agregar r aptitud social" style="width:300px;" name="txt_especialidad"/>&nbsp;
-					<table class="table table-striped">
-					<thead>
-					<tr>
-						<th>
-							Describa el &aacute;mbito en el que las ha usado
-						</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>
-							<textarea class="field span3" rows="2" cols="1"></textarea>
-						</td>
-					</tr>
-					</tbody>
-					</table>
+					<label for="pertenencia-institucion_fecha_inicio">Fecha Inicio <em>*</em></label>
+					<input id="pertenencia-institucion_fecha_inicio" type="text" style="width:125px;"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="txt_especialidad">Aptitudes Organizativas</label>
-					<input id="Button20" type="button" value "agregar r aptitud organizativa" style="width:300px;" name="txt_especialidad"/>&nbsp;
-					<table class="table table-striped">
-					<thead>
-					<tr>
-						<th>
-							Describa el &aacute;mbito en el que las ha usado
-						</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>
-							<textarea rows="2" cols="1" class="field span3">
-							</textarea>
-						</td>
-					</tr>
-					</tbody>
-					</table>
+					<label for="pertenencia-institucion_fecha_fin">Fecha Fin <em>*</em></label>
+					<input id="pertenencia-institucion_fecha_fin" type="text" style="width:120px;" name=""/>
 				</div>
-				<div class="grupo_campos">
-					<label for="txt_especialidad">Otras Aptitudes T&eacute;cnicas</label>
-					<input id="Button21" type="button" value "agregar r otra aptitud" style="width:300px;" name="txt_especialidad"/>&nbsp;
-					<table class="table table-striped">
-					<thead>
-					<tr>
-						<th>
-							Describa el &aacute;mbito en el que las ha usado
-						</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>
-							<textarea rows="2" cols="1" class="field span3">
-							</textarea>
-						</td>
-					</tr>
-					</tbody>
-					</table>
-				</div>
-				<div class="grupo_campos">
-					<label for="txt_especialidad">Otras que considere relevantes</label>
-					<input id="Button22" type="button" value "agregar r otra aptitud relevante" style="width:300px;" name="txt_especialidad"/>&nbsp;
-					<table class="table table-striped">
-					<thead>
-					<tr>
-						<th>
-							Describa el &aacute;mbito en el que las ha usado
-						</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>
-							<textarea rows="2" cols="1" class="field span3">
-							</textarea>
-						</td>
-					</tr>
-					</tbody>
-					</table>
-				</div>-->
 			</fieldset>
 			<div class="btn-fld">
-				<input type="button" class="btn btn-primary" id="btn_guardar" value="Agregar"/>
+				<input type="button" class="btn btn-primary" id="Button6" value="Agregar" onclick="javascript:AgregarInstitucionAcademica()"/>
 			</div>
 		</div>
 	</div>

@@ -563,16 +563,17 @@
         //        IdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
         //        CompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
 
-        PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
-        PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
-        /* PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
-        PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
-        PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
-        PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
-        PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
-        PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
-        PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
-        PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomasExtranjeros);*/
+      PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
+      PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
+      PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
+      PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
+      PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
+      PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
+      PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
+      PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
+      PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
+      PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
+      PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomasExtranjeros);
 
         //Activar leanModal
         $('a[rel*=leanModalConcursar]').click(function () {

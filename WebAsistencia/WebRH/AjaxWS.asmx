@@ -476,53 +476,63 @@ public class AjaxWS : System.Web.Services.WebService {
         backEndService.GuardarCvDatosPersonales(datosPersonales_nuevos, datosPersonales_originales, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject("");
     }
-    
+
     [WebMethod(EnableSession = true)]
     public string GuardarCVAntecedentesAcademicos(WSViaticos.CvEstudios antecedentesAcademicos_nuevos, WSViaticos.CvEstudios antecedentesAcademicos_originales)
     {
         var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+       
         if (antecedentesAcademicos_nuevos.Id != 0)
         {
-            return this.ActualizarCVAntecedentesAcademicos(antecedentesAcademicos_nuevos,antecedentesAcademicos_originales);
+            var antecedentesAcademicosActualizados = backEndService.ActualizarCvAntecedentesAcademicos(antecedentesAcademicos_nuevos, antecedentesAcademicos_originales, usuarioLogueado);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicosActualizados);
+            //return this.ActualizarCVAntecedentesAcademicos(antecedentesAcademicos_nuevos,antecedentesAcademicos_originales);
         }
 
-        var antecedentesAcademicos = backEndService.GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevos, antecedentesAcademicos_originales, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicos );
+        var antecedenteAcademicoGuardado = backEndService.GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevos, antecedentesAcademicos_originales, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(antecedenteAcademicoGuardado);
     }
 
-    [WebMethod(EnableSession = true)]
-    public string ActualizarCVAntecedentesAcademicos(WSViaticos.CvEstudios antecedentesAcademicos_nuevos, WSViaticos.CvEstudios antecedentesAcademicos_originales)
-    {
-        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+    //[WebMethod(EnableSession = true)]
+    //public string ActualizarCVAntecedentesAcademicos(WSViaticos.CvEstudios antecedentesAcademicos_nuevos, WSViaticos.CvEstudios antecedentesAcademicos_originales)
+    //{
+    //    var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
 
-        var antecedentesAcademicos = backEndService.ActualizarCvAntecedentesAcademicos(antecedentesAcademicos_nuevos, antecedentesAcademicos_originales, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicos);
-    }
-    
+    //    var antecedentesAcademicos = backEndService.ActualizarCvAntecedentesAcademicos(antecedentesAcademicos_nuevos, antecedentesAcademicos_originales, usuarioLogueado);
+    //    return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicos);
+    //}
+
     [WebMethod(EnableSession = true)]
     public string EliminarCVAntecedentesAcademicos(WSViaticos.CvEstudios antecedentesAcademicos_borrar)
     {
         var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
 
         var antecedentesAcademicos = backEndService.EliminarCvAntecedentesAcademicos(antecedentesAcademicos_borrar, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicos );
+        return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicos);
     }
 
     [WebMethod(EnableSession = true)]
-    public string GuardarCvActividadesDocentes(string actividadesDocentes_nuevas, string actividadesDocentes_originales)
+    public string GuardarCvActividadesDocentes(WSViaticos.CvDocencia docencia_nueva, WSViaticos.CvDocencia docencia_original)
     {
-        var actividades_docentes = backEndService.GuardarCvActividadesDocentes(
-            Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.CvDocencia>(actividadesDocentes_nuevas), Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.CvDocencia>(actividadesDocentes_originales), usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(actividades_docentes);
+        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        
+        if (docencia_nueva.Id != 0)
+        {
+            var actividadDocenciaActualizada = backEndService.ActualizarCvActividadesDocencia(docencia_nueva, usuarioLogueado);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(actividadDocenciaActualizada);
+        }
+
+        var actividadDocenciaGuardada = backEndService.GuardarCvActividadesDocentes(docencia_nueva, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(actividadDocenciaGuardada);
 
     }
 
     [WebMethod(EnableSession = true)]
-    public string EliminarCvActividadesDocentes(WSViaticos.CvDocencia actividadesDocentes_borrar)
+    public string EliminarCvActividadesDocentes(WSViaticos.CvDocencia actividadDocente_borrar)
     {
         var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
 
-        var actividadesDocentes = backEndService.EliminarCvActividadesDocentes(actividadesDocentes_borrar, usuarioLogueado);
+        var actividadesDocentes = backEndService.EliminarCvActividadesDocentes(actividadDocente_borrar, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(actividadesDocentes);
     }
 
@@ -577,7 +587,7 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
 
-        var idiomasExtranjeros = backEndService.EliminarCvIdiomasExtranjeros(idiomasExtranjeros_borrar, usuarioLogueado);
+        var idiomasExtranjeros = backEndService.EliminarCvIdiomas(idiomasExtranjeros_borrar, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(idiomasExtranjeros);
     }
 
@@ -631,7 +641,7 @@ public class AjaxWS : System.Web.Services.WebService {
     [WebMethod(EnableSession = true)]
     public string GuardarCVEventoAcademico(WSViaticos.CvEventoAcademico eventosAcademicos_nuevos, WSViaticos.CvEventoAcademico eventosAcademicos_originales)
     {
-        backEndService.GuardarCvEventoAcademico(eventosAcademicos_nuevos, eventosAcademicos_originales, usuarioLogueado);
+        backEndService.GuardarCvEventoAcademico(eventosAcademicos_nuevos, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject("");
     }
 
@@ -645,7 +655,7 @@ public class AjaxWS : System.Web.Services.WebService {
     [WebMethod(EnableSession = true)]
     public string GuardarCVMatriculas(WSViaticos.CvMatricula matriculas_nuevas, WSViaticos.CvMatricula matriculas_originales)
     {
-        backEndService.GuardarCvMatriculas(matriculas_nuevas, matriculas_originales, usuarioLogueado);
+        backEndService.GuardarCvMatriculas(matriculas_nuevas, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject("");
     }
 
@@ -661,7 +671,7 @@ public class AjaxWS : System.Web.Services.WebService {
     [WebMethod(EnableSession = true)]
     public string GuardarCVExperiencias(WSViaticos.CvExperienciaLaboral experiencias_nuevas, WSViaticos.CvExperienciaLaboral experiencias_originales)
     {
-        backEndService.GuardarCvExperiencias(experiencias_nuevas, experiencias_originales, usuarioLogueado);
+        backEndService.GuardarCvExperiencias(experiencias_nuevas, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject("");
     }
     
