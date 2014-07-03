@@ -576,7 +576,7 @@ namespace General.Repositorios
         #region CvAntecedentesDocentes
         public CvDocencia GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
         {
-            var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario, 0);
+            var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
 
             var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ActividadesDocentes", parametros);
             docencia_nuevo.Id = int.Parse(id.ToString());
@@ -586,9 +586,10 @@ namespace General.Repositorios
 
         public CvDocencia ActualizarCvActividadesDocencia(CvDocencia docencia_nuevo, Usuario usuario)
         {
-            var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario, 0);
+            var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
+            parametros.Add("@IdDocencia", docencia_nuevo.Id);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesDocentes", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_AntecedentesDeDocencia", parametros);
 
             return docencia_nuevo;
         }
@@ -597,14 +598,16 @@ namespace General.Repositorios
         {
             var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario, baja);
+            var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
+            parametros.Add("@idBaja", baja);
+            parametros.Add("@IdDocencia", docencia_nuevo.Id);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesDocentes", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_AntecedentesDeDocencia", parametros);
 
             return docencia_nuevo;
         }
 
-        private Dictionary<string, object> ParametrosDeAntecedentesDocencia(CvDocencia docencia_nuevo, Usuario usuario, int baja)
+        private Dictionary<string, object> ParametrosDeAntecedentesDocencia(CvDocencia docencia_nuevo, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Asignatura", docencia_nuevo.Asignatura);
@@ -620,7 +623,7 @@ namespace General.Repositorios
             parametros.Add("@Localidad", docencia_nuevo.Localidad);
             parametros.Add("@Pais", docencia_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", baja);
+            
 
             return parametros;
 

@@ -1,4 +1,4 @@
-create procedure dbo.CV_Ins_AntecedentesDeDocencia
+create procedure [dbo].[CV_Ins_AntecedentesDeDocencia]
 @Asignatura varchar(100) = null,
 @CaracterDesignacion varchar(100)= null,
 @CargaHoraria varchar(100)= null,
@@ -7,22 +7,21 @@ create procedure dbo.CV_Ins_AntecedentesDeDocencia
 @Establecimiento varchar(100)= null,
 @NivelEducativo varchar(100)= null,
 @TipoActividad varchar(100)= null,
-@FechaInicio datetime,
-@FechaFinalizacion datetime,
+@FechaInicio datetime = null,
+@FechaFinalizacion datetime = null,
 @Localidad varchar(100)= null,
 @Pais varchar(100)= null,
 @Usuario int,
---@FechaOperacion, datetime,
 @Baja int= null,
-@Documento int = null
+@IdPersona int
 
 AS
 
 Begin
 
-declare @IdPersona int
-select @IdPersona = id from dbo.datospersonales where nrodocumento = @Documento
-
+	declare @NombreSp varchar(60) 
+	set @NombreSp = (select OBJECT_NAME(@@PROCID))
+	exec dbo.Audit @NombreSp  
 
 INSERT INTO [dbo].[CV_AntecedentesDeDocencia]
            ([Asignatura]
