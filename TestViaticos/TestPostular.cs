@@ -78,7 +78,7 @@ namespace TestViaticos
 
         public CvEventoAcademico UnEventoAcademico()
         {
-            return new CvEventoAcademico("Conferencia de Economia","Conferencia","Oyente","UBA",new DateTime(2011,12,12),new DateTime(2011,12,13),"2 dias","CABA","Argentina");
+            return new CvEventoAcademico(1, "Conferencia de Economia","Conferencia","Oyente",new DateTime(2011,12,12),new DateTime(2011,12,13),"2 dias","UBA","CABA","Argentina");
         }
 
         public CvExperienciaLaboral UnaExperienciaLaboral()

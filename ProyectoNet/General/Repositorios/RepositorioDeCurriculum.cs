@@ -129,25 +129,76 @@ namespace General.Repositorios
             }
 
 
-                if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
+            //CORTE DE CONTROL PARA EVENTOS ACADEMICOS
+            //1.- Controlo que haya al menos 1 resultado
+            if (tablaCVs.Rows.Count() > 0)
+            {
+
+                //2.- Creo el evento anterior por primera vez
+                var eventoAnterior = GetEventosAcademicosFromDataRow(tablaCVs.Rows[0]);
+
+                var evento = eventoAnterior;
+
+                if (evento.Id != 0)
                 {
-                    cv.TieneCv = true;
+                    cv.AgregarEventoAcademico(evento);
+
                 }
-                else
+
+                foreach (var row in tablaCVs.Rows)
                 {
-                    cv.TieneCv = false;
+                    if (!(row.GetObject("EventosAcademicosId") is DBNull))
+                    {
+
+                        if (eventoAnterior.Id != row.GetInt("EventosAcademicosId", 0))
+                        {
+                            evento = GetEventosAcademicosFromDataRow(row);
+                            if (evento.Id != 0)
+                            {
+                                cv.AgregarEventoAcademico(evento);
+                                eventoAnterior = evento;
+                            }
+
+
+                        }
+                    }
                 }
-                return cv;
+            }
+
+            if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
+            {
+                cv.TieneCv = true;
+            }
+            else
+            {
+                cv.TieneCv = false;
+            }
+            return cv;
             
         }
-       
-        private CvEstudios GetAntecedenteAcademicosFromDataRow(RowDeDatos row)
+       private CvEstudios GetAntecedenteAcademicosFromDataRow(RowDeDatos row)
         {
            return new CvEstudios(row.GetInt("IdAntecedentesAcademicos",0), row.GetString("AntecedentesAcademicosTitulo",""), row.GetString("AntecedentesAcademicosEstablecimiento",""),
                                   row.GetString("AntecedentesAcademicosEspecialidad",""), row.GetDateTime("AntecedentesAcademicosFechaIngreso",DateTime.Today).ToShortDateString(),
                                   row.GetDateTime("AntecedentesAcademicosFechaEgreso",DateTime.Today).ToShortDateString(), row.GetString("AntecedentesAcademicosLocalidad",""),
                                   row.GetString("AntecedentesAcademicosPais",""));
 
+        }
+
+       private CvEventoAcademico GetEventosAcademicosFromDataRow(RowDeDatos row)
+        {
+            return new CvEventoAcademico(
+                row.GetInt("EventosAcademicosId", 0),
+                row.GetString("EventosAcademicosDenominacion", ""),
+                row.GetString("EventosAcademicosTipoDeEvento", ""),
+                row.GetString("EventosAcademicosCaracterDeParticipacion", ""),
+                row.GetDateTime("EventosAcademicosFechaInicio", DateTime.Today),
+                row.GetDateTime("EventosAcademicosFechaFin", DateTime.Today),
+                row.GetString("EventosAcademicosDuracion", ""),
+                row.GetString("EventosAcademicosInstitucion", ""),
+                row.GetString("EventosAcademicosLocalidad", ""),
+                row.GetString("EventosAcademicosPais", ""));
+               
         }
 
         //private CvDocencia GetActividadesDocentesFromDataRow(RowDeDatos row)
@@ -213,7 +264,7 @@ namespace General.Repositorios
         {
             var evento_academico = new List<CvEventoAcademico>()
                                {
-                                   new CvEventoAcademico("Encuentro Nacional Docente", "Congreso Nacional", "Expositor", "Joaquín V. González", new DateTime(2008, 02, 07), new DateTime(2008, 02, 11), "4 Jornadas", "CABA", "Argentina")
+                                   new CvEventoAcademico(1, "Encuentro Nacional Docente", "Congreso Nacional", "Expositor", new DateTime(2008, 02, 07), new DateTime(2008, 02, 11), "4 Jornadas",  "Joaquín V. González", "CABA", "Argentina")
                                };
 
             return evento_academico;
