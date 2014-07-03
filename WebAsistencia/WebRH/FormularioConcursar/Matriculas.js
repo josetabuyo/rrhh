@@ -2,7 +2,7 @@
     mostrar: function (actividad_docente_original, alModificar) {
         var _this = this;
         this.ui = $("#un_div_modal");
-        this.ui.find("#contenido_modal").load("ActividadesDocentes.htm", function () {
+        this.ui.find("#contenido_modal").load("Matriculas.htm", function () {
             _this.txt_asignatura = _this.ui.find("#txt_actividad_docente_asignatura");
             _this.txt_asignatura.val(actividad_docente_original.Asignatura);
             _this.nivel_educativo = _this.ui.find("#txt_actividad_docente_nivel_educativo");

@@ -7,6 +7,7 @@ namespace General
 {
     public class CvCertificadoDeCapacitacion
     {
+        protected int _id;
         protected string _diplomaDeCertificacion;
         protected string _establecimiento;
         protected DateTime _fechaInicio;
@@ -16,6 +17,7 @@ namespace General
         protected string _localidad;
         protected string _pais;
 
+        public int Id { get { return _id; } set { _id = value; } }
         public string DiplomaDeCertificacion { get { return _diplomaDeCertificacion; } set { _diplomaDeCertificacion = value; } }
         public string Establecimiento { get { return _establecimiento; } set { _establecimiento = value; } }
         public string Especialidad { get { return _especialidad; } set { _especialidad = value; } }
@@ -25,8 +27,9 @@ namespace General
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public string Pais { get { return _pais; } set { _pais = value; } }
 
-        public CvCertificadoDeCapacitacion(string diplomaDeCertificacion, string establecimiento, string especialidad, string duracion, DateTime fechaInicio, DateTime fechaFinalizacion, string localidad, string pais)
+        public CvCertificadoDeCapacitacion(int id, string diplomaDeCertificacion, string establecimiento, string especialidad, string duracion, DateTime fechaInicio, DateTime fechaFinalizacion, string localidad, string pais)
         {
+            this._id = id;
             this._diplomaDeCertificacion = diplomaDeCertificacion;
             this._establecimiento = establecimiento;
             this._especialidad = especialidad;

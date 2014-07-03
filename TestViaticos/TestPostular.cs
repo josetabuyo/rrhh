@@ -78,33 +78,33 @@ namespace TestViaticos
 
         public CvEventoAcademico UnEventoAcademico()
         {
-            return new CvEventoAcademico("Conferencia de Economia","Conferencia","Oyente","UBA",new DateTime(2011,12,12),new DateTime(2011,12,13),"2 dias","CABA","Argentina");
+            return new CvEventoAcademico(1, "Conferencia de Economia","Conferencia","Oyente",new DateTime(2011,12,12),new DateTime(2011,12,13),"2 dias","UBA","CABA","Argentina");
         }
 
         public CvExperienciaLaboral UnaExperienciaLaboral()
         {
-            return new CvExperienciaLaboral("Administrativo", "Renuncia", "Banco Macro", false, "Empresa Financiera","No se",
+            return new CvExperienciaLaboral(1,"Administrativo", "Renuncia", "Banco Macro", false, "Empresa Financiera","No se",
                                      new DateTime(2007, 09, 01), new DateTime(2010, 09, 01), "CABA", "Argentina");
         }
 
         public CvIdiomas UnIdioma()
         {
-            return new CvIdiomas("First Certificate","Cultural Inglesa","Ingles","Avanzado","Intermedio","Basico",new DateTime(2013,12,20),new DateTime(2013,12,20),"CABA","Argentina");
+            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles","Avanzado","Intermedio","Basico",new DateTime(2013,12,20),new DateTime(2013,12,20),"CABA","Argentina");
         }
 
         public CvInstitucionesAcademicas UnaInstitucionAcademica()
         {
-            return new CvInstitucionesAcademicas("UBA","Universitario","Profesor",1234,"Categoria",new DateTime(2013,12,20),new DateTime(2013,12,20), new DateTime(2013,10,12),new DateTime(2014,12,20),"CABA","Argentina");
+            return new CvInstitucionesAcademicas(1,"UBA","Universitario","Profesor",1234,"Categoria",new DateTime(2013,12,20),new DateTime(2013,12,20), new DateTime(2013,10,12),new DateTime(2014,12,20),"CABA","Argentina");
         }
 
         public CvMatricula UnaMatricula()
         {
-            return new CvMatricula("1234","Ministerio de Educacion","No se",new DateTime(2007,12,20));
+            return new CvMatricula(1,"1234","Ministerio de Educacion","No se",new DateTime(2007,12,20));
         }
 
         public CvDocencia UnaDocencia()
         {
-            return new CvDocencia("Ingles", "Secundario", "No se", "No se", "Nombrado", "No se", "12 a 18",
+            return new CvDocencia(1,"Ingles", "Secundario", "No se", "No se", "Nombrado", "No se", "12 a 18",
                                   new DateTime(2008, 01, 01), new DateTime(2010, 12, 20), "Colegio Coppelo", "CABA",
                                   "Argetina");
 
@@ -117,12 +117,12 @@ namespace TestViaticos
 
         public CvCertificadoDeCapacitacion UnCertificadoDeCapacitacion()
         {
-            return new CvCertificadoDeCapacitacion("No se", "UBA", "Plomero", "5 años", new DateTime(2012, 10, 01), new DateTime(2012, 12, 01),"CABA","Argentina");
+            return new CvCertificadoDeCapacitacion(1,"No se", "UBA", "Plomero", "5 años", new DateTime(2012, 10, 01), new DateTime(2012, 12, 01),"CABA","Argentina");
         }
 
         public CvPublicaciones UnaPublicacion()
         {
-            return new CvPublicaciones("Como manejar bases", "Editarial", "5", true, new DateTime(2012, 12, 01));
+            return new CvPublicaciones(1,"Como manejar bases", "Editarial", "5", true, new DateTime(2012, 12, 01));
         }
 
     }
