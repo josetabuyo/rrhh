@@ -104,7 +104,7 @@ function AgregarMatriculas() {
 
 };
 
-function InstitucionesAcademicas() {
+function AgregarInstitucionesAcademicas() {
 
     var antecedentes = {};
 

@@ -7,7 +7,7 @@ namespace General
 {
     public class CvDocencia
     {
-
+        protected int _id;
         protected string _asignatura;
         protected string _nivelEducativo;
         protected string _tipoActividad;
@@ -21,6 +21,7 @@ namespace General
         protected string _localidad;
         protected string _pais;
 
+        public int Id { get { return _id; } set { _id = value; } }
         public string Asignatura { get { return _asignatura; } set { _asignatura = value; } }
         public string NivelEducativo { get { return _nivelEducativo; } set { _nivelEducativo = value; } }
         public string TipoActividad { get { return _tipoActividad; } set { _tipoActividad = value; } }
@@ -36,6 +37,19 @@ namespace General
 
 
         public CvDocencia(string asignatura, string nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
+        {
+            SetearCampos(asignatura, nivelEducativo, tipoActividad, categoriaDocente, caracterDesignacion, dedicacionDocente, cargaHoraria, fechaInicio, fechaFinalizacion, establecimiento, localidad, pais);
+        }
+
+        public CvDocencia(int id, string asignatura, string nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
+        {
+            this._id = id;
+            SetearCampos(asignatura, nivelEducativo, tipoActividad, categoriaDocente, caracterDesignacion, dedicacionDocente, cargaHoraria, fechaInicio, fechaFinalizacion, establecimiento, localidad, pais);
+        }
+
+
+
+        private void SetearCampos(string asignatura, string nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
         {
             this._asignatura = asignatura;
             this._nivelEducativo = nivelEducativo;
@@ -53,6 +67,18 @@ namespace General
 
         public CvDocencia()
         {
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (base.Equals(obj)) { return true; }
+            if (((CvDocencia)obj).Id == this.Id) { return true; }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this._id.GetHashCode();
         }
 
     }
