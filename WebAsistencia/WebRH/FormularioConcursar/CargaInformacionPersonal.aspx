@@ -570,15 +570,17 @@
             { Id: 3, Tipo: 2, Detalle: "una capacidad distinta" }
         ];
 
-        PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
-      /* PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
+      PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
+      PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
+      PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
+      PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
       PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
       PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
       PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
       PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
       PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
       PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
-      PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomasExtranjeros);*/
+      PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomasExtranjeros);
 
 
 
