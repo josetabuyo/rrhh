@@ -513,10 +513,19 @@
 
 <script type="text/javascript" src="PanelDetalleDeAntecedenteAcademico.js" ></script>
 <script type="text/javascript" src="PanelListaDeAntecedentesAcademicos.js" ></script>
-<script type="text/javascript" src="PanelDetalleDeActividadCapacitacion.js" ></script>
-<script type="text/javascript" src="PanelListaDeActividadesCapacitacion.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeOtraCapacidad.js" ></script>
+<script type="text/javascript" src="PanelListaDeOtrasCapacidades.js" ></script>
+<script type="text/javascript" src="RepositorioDeTiposDeCapacidadPersonal.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeIdiomaExtranjero.js" ></script>
+<script type="text/javascript" src="PanelListaDeIdiomasExtranjeros.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeCompetenciaInformatica.js" ></script>
+<script type="text/javascript" src="PanelListaDeCompetenciasInformaticas.js" ></script>
+
+<%--
 <script type="text/javascript" src="PanelDetalleDeActividadDocente.js" ></script>
 <script type="text/javascript" src="PanelListaDeActividadesDocentes.js" ></script>
+<script type="text/javascript" src="PanelDetalleDeActividadCapacitacion.js" ></script>
+<script type="text/javascript" src="PanelListaDeActividadesCapacitacion.js" ></script>
 <script type="text/javascript" src="PanelDetalleDeEventoAcademico.js" ></script>
 <script type="text/javascript" src="PanelListaDeEventosAcademicos.js" ></script>
 <script type="text/javascript" src="PanelDetalleDePublicacionTrabajo.js" ></script>
@@ -527,15 +536,8 @@
 <script type="text/javascript" src="PanelListaDeInstitucionesAcademicas.js" ></script>
 <script type="text/javascript" src="PanelDetalleDeExperienciaLaboral.js" ></script>
 <script type="text/javascript" src="PanelListaDeExperienciasLaborales.js" ></script>
-<script type="text/javascript" src="PanelDetalleDeIdiomaExtranjero.js" ></script>
-<script type="text/javascript" src="PanelListaDeIdiomasExtranjeros.js" ></script>
-<script type="text/javascript" src="PanelDetalleDeCompetenciaInformatica.js" ></script>
-<script type="text/javascript" src="PanelListaDeCompetenciasInformaticas.js" ></script>
-<script type="text/javascript" src="PanelDetalleDeOtraCapacidad.js" ></script>
-<script type="text/javascript" src="PanelListaDeOtrasCapacidades.js" ></script>
-<script type="text/javascript" src="RepositorioDeTiposDeCapacidadPersonal.js" ></script>
 
-
+--%>
 
     <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postular.js" ></script>
@@ -560,20 +562,24 @@
         //        Matriculas.armarGrilla(curriculum.CvMatricula);
         //        InstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
         //        ExperienciaLaboral.armarGrilla(curriculum.CvExperienciaLaboral);
-        //        IdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
-        //        CompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
+        //        
+        //        
 
       PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
       PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
       PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
-      PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
-      PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
-      PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
-      PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
-      PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
-      PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
-      PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
-      PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomasExtranjeros);
+      PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
+
+//      PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
+
+//      
+//      PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
+//      PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
+//      PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
+//      PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
+//      PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
+//      PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
+//     
 
         //Activar leanModal
         $('a[rel*=leanModalConcursar]').click(function () {
