@@ -569,8 +569,7 @@
       PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
       PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
       PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
-
-//      PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
+      PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
 
 //      
 //      PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);

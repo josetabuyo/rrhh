@@ -1,4 +1,4 @@
-﻿var PanelListaDeActividadesDOcentes = {
+﻿var PanelListaDeActividadesDocentes = {
     armarGrilla: function (actividades_docentes) {
         var _this = this;
 
