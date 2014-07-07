@@ -42,7 +42,7 @@ namespace General.Repositorios
         {
         }
 
-        #region GETS
+        
         public CurriculumVitae GetCV(int documento)
         {
             var parametros = new Dictionary<string, object>();
@@ -62,11 +62,34 @@ namespace General.Repositorios
                         row.GetInt("DomPers_Localidad", 0), row.GetSmallintAsInt("DomPers_CodigoPostal", 0), row.GetSmallintAsInt("DomPers_IdProvincia", 0)),
                     new CvDomicilio(row.GetInt("DomLab_Id", 0), row.GetString("DomLab_Calle", ""), row.GetInt("DomLab_Numero", 0), row.GetString("DomLab_Piso", ""), row.GetString("DomLab_Depto", ""),
                         row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0)), row.GetString("TieneLegajo"))));
-            //aca se agregaran todos los demas items que tiene el curriculum (estudios, capacitaciones, etc)
 
 
-            //CORTE DE CONTROL PARA ESTUDIOS
+            //CORTE DE CONTROL PARA ANTECEDENTES ACADEMICOS
             CorteDeControlAntecedentesAcademicos(tablaCVs, cv);
+
+            //CORTE DE CONTROL PARA CERTIFICADOS DE CAPACITACION
+            CorteDeControlCertificadosDeCapacitacion(tablaCVs, cv);
+
+            //CORTE DE CONTROL PARA ACTIVIDADES DOCENTES
+            CorteDeControlActividadesDocentes(tablaCVs, cv);
+
+            //CORTE DE CONTROL PARA MATRICULAS
+            CorteDeControlMatriculas(tablaCVs, cv);
+
+            //CORTE DE CONTROL PARA PUBLICACIONES
+            CorteDeControlPublicaciones(tablaCVs, cv);
+
+            //CORTE DE CONTROL PARA INSTITUCIONES ACADEMICAS
+            CorteDeControlInstituciones(tablaCVs, cv);
+
+            //CORTE DE CONTROL PARA EXPERIENCIAS LABORALES
+            CorteDeControlExperienciasLaborales(tablaCVs, cv);
+
+            //CORTE DE CONTROL PARA IDIOMA
+            CorteDeControlIdioma(tablaCVs, cv);
+
+            //CORTE DE CONTROL PARA COMPETENCIA INFORMATICA
+            CorteDeControlCompetenciaInformatica(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA OTRAS CAPACIDADES
             CorteDeControlOtrasCapacidades(tablaCVs, cv);
@@ -83,6 +106,7 @@ namespace General.Repositorios
             
         }
 
+        #region CortesDeControl
         private void CorteDeControlAntecedentesAcademicos(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
             //1.- Controlo que haya al menos 1 resultado
@@ -113,6 +137,43 @@ namespace General.Repositorios
                             {
                                 cv.AgregarEstudio(estudio);
                                 estudioAnterior = estudio;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CorteDeControlCertificadosDeCapacitacion(TablaDeDatos tablaCVs, CurriculumVitae cv)
+        {
+            //1.- Controlo que haya al menos 1 resultado
+            if (tablaCVs.Rows.Count() > 0)
+            {
+
+                //2.- Creo el certificado anterior por primera vez
+                var certificadoAnterior = GetCertificadoDeCapacitacionFromDataRow(tablaCVs.Rows[0]);
+
+                var certificado = certificadoAnterior;
+
+                if (certificado.Id != 0)
+                {
+                    cv.AgregarCertificadoDeCapacitacion(certificado);
+
+                }
+
+                foreach (var row in tablaCVs.Rows)
+                {
+                    if (!(row.GetObject("IdCertificadoCapacitacion") is DBNull))
+                    {
+
+                        //3.- Comparo el certificado anterior con la certificado actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
+                        if (certificadoAnterior.Id != row.GetInt("IdCertificadoCapacitacion", 0))
+                        {
+                            certificado = GetCertificadoDeCapacitacionFromDataRow(row);
+                            if (certificado.Id != 0)
+                            {
+                                cv.AgregarCertificadoDeCapacitacion(certificado);
+                                certificadoAnterior = certificado;
                             }
                         }
                     }
@@ -228,12 +289,249 @@ namespace General.Repositorios
             }
         }
 
-       private CvEstudios GetAntecedenteAcademicosFromDataRow(RowDeDatos row)
+        private void CorteDeControlMatriculas(TablaDeDatos tablaCVs, CurriculumVitae cv)
+        {
+            //1.- Controlo que haya al menos 1 resultado
+            if (tablaCVs.Rows.Count() > 0)
+            {
+
+                //2.- Creo la matricula anterior por primera vez
+                var matriculaAnterior = GetMatriculaFromDataRow(tablaCVs.Rows[0]);
+
+                var matricula = matriculaAnterior;
+
+                if (matricula.Id != 0)
+                {
+                    cv.AgregarMatricula(matricula);
+
+                }
+
+                foreach (var row in tablaCVs.Rows)
+                {
+                    if (!(row.GetObject("IdMatricula") is DBNull))
+                    {
+
+                        //3.- Comparo la matricula anterior con la matricula actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
+                        if (matriculaAnterior.Id != row.GetInt("IdMatricula", 0))
+                        {
+                            matricula = GetMatriculaFromDataRow(row);
+                            if (matricula.Id != 0)
+                            {
+                                cv.AgregarMatricula(matricula);
+                                matriculaAnterior = matricula;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CorteDeControlPublicaciones(TablaDeDatos tablaCVs, CurriculumVitae cv)
+        {
+            //1.- Controlo que haya al menos 1 resultado
+            if (tablaCVs.Rows.Count() > 0)
+            {
+
+                //2.- Creo la publicacion anterior por primera vez
+                var publicacionAnterior = GetPublicacionFromDataRow(tablaCVs.Rows[0]);
+
+                var publicacion = publicacionAnterior;
+
+                if (publicacion.Id != 0)
+                {
+                    cv.AgregarPublicacion(publicacion);
+
+                }
+
+                foreach (var row in tablaCVs.Rows)
+                {
+                    if (!(row.GetObject("IdPublicacion") is DBNull))
+                    {
+
+                        //3.- Comparo la publicacion anterior con la publicacion actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
+                        if (publicacionAnterior.Id != row.GetInt("IdPublicacion", 0))
+                        {
+                            publicacion = GetPublicacionFromDataRow(row);
+                            if (publicacion.Id != 0)
+                            {
+                                cv.AgregarPublicacion(publicacion);
+                                publicacionAnterior = publicacion;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CorteDeControlInstituciones(TablaDeDatos tablaCVs, CurriculumVitae cv)
+        {
+            //1.- Controlo que haya al menos 1 resultado
+            if (tablaCVs.Rows.Count() > 0)
+            {
+
+                //2.- Creo la institucion anterior por primera vez
+                var institucionAnterior = GetInstitucionFromDataRow(tablaCVs.Rows[0]);
+
+                var institucion = institucionAnterior;
+
+                if (institucion.Id != 0)
+                {
+                    cv.AgregarInstitucionAcademica(institucion);
+
+                }
+
+                foreach (var row in tablaCVs.Rows)
+                {
+                    if (!(row.GetObject("IdInstitucion") is DBNull))
+                    {
+
+                        //3.- Comparo la institucion anterior con la institucion actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
+                        if (institucionAnterior.Id != row.GetInt("IdInstitucion", 0))
+                        {
+                            institucion = GetInstitucionFromDataRow(row);
+                            if (institucion.Id != 0)
+                            {
+                                cv.AgregarInstitucionAcademica(institucion);
+                                institucionAnterior = institucion;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CorteDeControlExperienciasLaborales(TablaDeDatos tablaCVs, CurriculumVitae cv)
+        {
+            //1.- Controlo que haya al menos 1 resultado
+            if (tablaCVs.Rows.Count() > 0)
+            {
+
+                //2.- Creo la experiencia anterior por primera vez
+                var experienciaAnterior = GetExperienciaFromDataRow(tablaCVs.Rows[0]);
+
+                var experiencia = experienciaAnterior;
+
+                if (experiencia.Id != 0)
+                {
+                    cv.AgregarExperienciaLaboral(experiencia);
+
+                }
+
+                foreach (var row in tablaCVs.Rows)
+                {
+                    if (!(row.GetObject("IdExperienciaLaboral") is DBNull))
+                    {
+
+                        //3.- Comparo la experiencia anterior con la experiencia actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
+                        if (experienciaAnterior.Id != row.GetInt("IdExperienciaLaboral", 0))
+                        {
+                            experiencia = GetExperienciaFromDataRow(row);
+                            if (experiencia.Id != 0)
+                            {
+                                cv.AgregarExperienciaLaboral(experiencia);
+                                experienciaAnterior = experiencia;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CorteDeControlIdioma(TablaDeDatos tablaCVs, CurriculumVitae cv)
+        {
+            //1.- Controlo que haya al menos 1 resultado
+            if (tablaCVs.Rows.Count() > 0)
+            {
+
+                //2.- Creo la idioma anterior por primera vez
+                var idiomaAnterior = GetIdiomaFromDataRow(tablaCVs.Rows[0]);
+
+                var idioma = idiomaAnterior;
+
+                if (idioma.Id != 0)
+                {
+                    cv.AgregarIdioma(idioma);
+
+                }
+
+                foreach (var row in tablaCVs.Rows)
+                {
+                    if (!(row.GetObject("IdIdioma") is DBNull))
+                    {
+
+                        //3.- Comparo la idioma anterior con la idioma actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
+                        if (idiomaAnterior.Id != row.GetInt("IdIdioma", 0))
+                        {
+                            idioma = GetIdiomaFromDataRow(row);
+                            if (idioma.Id != 0)
+                            {
+                                cv.AgregarIdioma(idioma);
+                                idiomaAnterior = idioma;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CorteDeControlCompetenciaInformatica(TablaDeDatos tablaCVs, CurriculumVitae cv)
+        {
+            //1.- Controlo que haya al menos 1 resultado
+            if (tablaCVs.Rows.Count() > 0)
+            {
+
+                //2.- Creo la competencia anterior por primera vez
+                var competenciaAnterior = GetCompetenciaFromDataRow(tablaCVs.Rows[0]);
+
+                var competencia = competenciaAnterior;
+
+                if (competencia.Id != 0)
+                {
+                    cv.AgregarCompetenciaInformatica(competencia);
+
+                }
+
+                foreach (var row in tablaCVs.Rows)
+                {
+                    if (!(row.GetObject("IdCompetenciaInformatica") is DBNull))
+                    {
+
+                        //3.- Comparo la competencia anterior con la competencia actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
+                        if (competenciaAnterior.Id != row.GetInt("IdCompetenciaInformatica", 0))
+                        {
+                            competencia = GetCompetenciaFromDataRow(row);
+                            if (competencia.Id != 0)
+                            {
+                                cv.AgregarCompetenciaInformatica(competencia);
+                                competenciaAnterior = competencia;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private CvEstudios GetAntecedenteAcademicosFromDataRow(RowDeDatos row)
         {
             return new CvEstudios(row.GetInt("IdAntecedentesAcademicos", 0), row.GetString("AntecedentesAcademicosTitulo", ""), row.GetString("AntecedentesAcademicosEstablecimiento", ""),
                                    row.GetString("AntecedentesAcademicosEspecialidad", ""), row.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today).ToShortDateString(),
                                    row.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today).ToShortDateString(), row.GetString("AntecedentesAcademicosLocalidad", ""),
                                    row.GetString("AntecedentesAcademicosPais", ""));
+
+        }
+
+        private CvCertificadoDeCapacitacion GetCertificadoDeCapacitacionFromDataRow(RowDeDatos row)
+        {
+            return new CvCertificadoDeCapacitacion(row.GetInt("IdCertificadoCapacitacion", 0),
+                                                   row.GetString("CertificadoDiploma", ""),
+                                                   row.GetString("CertificadoEstablecimiento", ""),
+                                                   row.GetString("CertificadoEspecialidad", ""),
+                                                   row.GetString("CertificadoDuracion", ""),
+                                                   row.GetDateTime("CertificadoFechaInicion", DateTime.Today),
+                                                   row.GetDateTime("CertificadoFechaFinalizacion", DateTime.Today),
+                                                   row.GetString("CertificadoLocalidad", ""),
+                                                   row.GetString("CertificadoPais", ""));
 
         }
 
@@ -244,6 +542,82 @@ namespace General.Repositorios
                                    row.GetDateTime("AntecedentesDeDocenciaFechaInicio", DateTime.Today),
                                    row.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", DateTime.Today), row.GetString("AntecedentesDeDocenciaEstablecimiento", ""),
                                    row.GetString("AntecedentesDeDocenciaLocalidad", ""), row.GetString("AntecedentesDeDocenciaPais", ""));
+        }
+
+        private CvMatricula GetMatriculaFromDataRow(RowDeDatos row)
+        {
+            return new CvMatricula(row.GetInt("IdMatricula", 0), row.GetString("MatriculaNumero", ""), 
+                                   row.GetString("MatriculaExpedidoPor", ""), 
+                                   row.GetString("MatriculaSituacionActual", ""), 
+                                   row.GetDateTime("MatriculaFechaObtencion", DateTime.Today));
+        }
+
+        private CvPublicaciones GetPublicacionFromDataRow(RowDeDatos row)
+        {
+            return new CvPublicaciones(row.GetInt("IdPublicacion", 0), row.GetString("PublicacionTitulo", ""),
+                                   row.GetString("PublicacionEditorial", ""),
+                                   row.GetString("PublicacionHojas", ""),
+                                   row.GetBoolean("PublicacionCopia"),
+                                   row.GetDateTime("PublicacionFecha", DateTime.Today));
+        }
+
+        private CvInstitucionesAcademicas GetInstitucionFromDataRow(RowDeDatos row)
+        {
+            return new CvInstitucionesAcademicas(row.GetInt("IdInstitucion", 0),
+                                   row.GetString("InstitucionInstitucion", ""),
+                                   row.GetString("InstitucionCaracterEntidad", ""),
+                                   row.GetString("InstitucionCargos", ""),
+                                   row.GetInt("InstitucionAfiliados",0),
+                                   row.GetString("InstitucionCategoriaActual", ""),
+                                   row.GetDateTime("InstitucionFechaAfiliacion", DateTime.Today),
+                                   row.GetDateTime("InstitucionFecha", DateTime.Today),
+                                   row.GetDateTime("InstitucionFechaInicio", DateTime.Today),
+                                   row.GetDateTime("InstitucionFechaFin", DateTime.Today),
+                                   row.GetString("InstitucionLocalidad", ""),
+                                   row.GetString("InstitucionPais", ""));
+        }
+
+        private CvExperienciaLaboral GetExperienciaFromDataRow(RowDeDatos row)
+        {
+            return new CvExperienciaLaboral(row.GetInt("IdExperienciaLaboral", 0),
+                                            row.GetString("ExperienciaLaboralPuestoOcupado", ""),
+                                            row.GetString("ExperienciaLaboralMotivoDesvinculacion", ""),
+                                            row.GetString("ExperienciaLaboralNombreEmpleador", ""),
+                                            row.GetBoolean("ExperienciaLaboralPersonasACargo"),
+                                            row.GetString("ExperienciaLaboralTipoEmpresa", ""),
+                                            row.GetString("ExperienciaLaboralActividad", ""),
+                                            row.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
+                                            row.GetDateTime("ExperienciaLaboralFin", DateTime.Today),
+                                            row.GetString("ExperienciaLaboralLocalidad", ""),
+                                            row.GetString("ExperienciaLaboralPais", ""));
+        }
+
+        private CvIdiomas GetIdiomaFromDataRow(RowDeDatos row)
+        {
+            return new CvIdiomas(row.GetInt("IdIdioma", 0),
+                                row.GetString("IdiomaDiploma", ""),
+                                row.GetString("IdiomaEstablecimiento", ""),
+                                row.GetString("IdiomaIdioma", ""),
+                                row.GetString("IdiomaLectura", ""),
+                                row.GetString("IdiomaEscritura", ""),
+                                row.GetString("IdiomaOral", ""),
+                                row.GetDateTime("IdiomaFechaObtencion", DateTime.Today),
+                                row.GetDateTime("IdiomaFechaFin", DateTime.Today),
+                                row.GetString("IdiomaLocalidad", ""),
+                                row.GetString("IdiomaPais", ""));
+        }
+
+        private CvCompetenciasInformaticas GetCompetenciaFromDataRow(RowDeDatos row)
+        {
+            return new CvCompetenciasInformaticas(row.GetInt("IdCompetenciaInformatica", 0),
+                                row.GetString("CompetenciaDiploma", ""),
+                                row.GetString("CompetenciaEstablecimiento", ""),
+                                row.GetString("CompetenciaTipoInformatica", ""),
+                                row.GetString("CompetenciaConocimiento", ""),
+                                row.GetString("CompetenciaNivel", ""),
+                                row.GetString("CompetenciaLocalidad", ""),
+                                row.GetString("CompetenciaPais", ""),
+                                row.GetDateTime("CompetenciaFechaObtencion", DateTime.Today));
         }
 
         private CvEventoAcademico GetEventosAcademicosFromDataRow(RowDeDatos row)
@@ -267,116 +641,7 @@ namespace General.Repositorios
             return new CvCapacidadPersonal(row.GetInt("CapacidadesPersonalesId", -1), row.GetInt("CapacidadesPersonalesTipo", -1), row.GetString("CapacidadesPersonalesDetalle", ""));
         }
 
-        public List<CvCertificadoDeCapacitacion> GetCvCertificadoDeCapacitacion(int documento)
-        {
-            var certificados_de_capacitaciones = new List<CvCertificadoDeCapacitacion>()
-                               {
-                                   new CvCertificadoDeCapacitacion(1, "Arquitecto Java", "Oracle", "Java", "2 años",  new DateTime(2012, 01, 13), new DateTime(2014, 03, 10), "CABA", "Argentina" )
-                               };
-
-            return certificados_de_capacitaciones;
-        }
-
-        public List<CvCompetenciasInformaticas> GetCvCompetenciasInformaticas(int documento)
-        {
-            var compotencias_informaticas = new List<CvCompetenciasInformaticas>()
-                               {
-                                   new CvCompetenciasInformaticas(1, "Administrador de Base de Datos", "Sigma", "Base de Datos", "Senior",  "Avanzado" , "CABA", "Argentina", new DateTime(2013, 11, 15) )
-                               };
-
-            return compotencias_informaticas;
-        }
-
-
-        public CvDatosPersonales GetCvDatosPersonales(int documento)
-        {
-            var domicilio = new CvDomicilio(1, "Pedro Morán", 1234, "7", "A", 1, 1419, 2);
-            var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", 1, 1, "20-31369852-7", "Buenos Aires", 1, new DateTime(1985, 07, 23).ToShortDateString(), 1, domicilio, domicilio, "Tiene legajo");
-            //return datos_personales;
-            return this._cvDatosPersonales;
-        }
-
-
-        public List<CvDocencia> GetCvDocencia(int documento)
-        {
-            var docencia = new List<CvDocencia>()
-                               {
-                                   new CvDocencia("Matemática Discreta", "Universitario", "Docencia", "Profesor Titular",  "Jefe de Cátedra" , "Dedicación Exclusiva", "40 horas semanales", new DateTime(2005, 03, 01), new DateTime(2009, 12, 01), "Universidad Tecnológica Nacional", "CABA", "Argentina")
-                               };
-
-            return docencia;
-        }
-
-        public List<CvDomicilio> GetCvDomicilio(int documento)
-        {
-            var domicilio = new List<CvDomicilio>()
-                               {
-                                   new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", 1, 1419, 2)
-                               };
-
-            return domicilio;
-        }
-
-        public List<CvEventoAcademico> GetCvEventoAcademico(int documento)
-        {
-            var evento_academico = new List<CvEventoAcademico>()
-                               {
-                                   new CvEventoAcademico(1, "Encuentro Nacional Docente", "Congreso Nacional", "Expositor", new DateTime(2008, 02, 07), new DateTime(2008, 02, 11), "4 Jornadas",  "Joaquín V. González", "CABA", "Argentina")
-                               };
-
-            return evento_academico;
-        }
-
-        public List<CvExperienciaLaboral> GetCvExperienciaLaboral(int documento)
-        {
-            var experiencia_laboral = new List<CvExperienciaLaboral>()
-                               {
-                                   new CvExperienciaLaboral(1,"Analista Oracle", "Renuncia", "Accenture S.A", false, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina")
-                               };
-
-            return experiencia_laboral;
-        }
-
-        public List<CvIdiomas> GetCvIdiomas(int documento)
-        {
-            var idiomas = new List<CvIdiomas>()
-                               {
-                                   new CvIdiomas(1,"CAF Certification", "Cultural Inglesa Pueyrredón", "Inglés", "Avanzado", "Avanzado","Avanzado", new DateTime(1999, 01, 07), new DateTime(1997, 12, 15), "CABA", "Argentina"),
-                                   new CvIdiomas(1,"International French Language", "CUI", "Francés", "Avanzado", "Intermedio","Intermedio", new DateTime(2002, 04, 27), new DateTime(2007, 05, 17), "CABA", "Argentina")
-                               };
-
-            return idiomas;
-        }
-
-        public List<CvInstitucionesAcademicas> GetCvInstitucionesAcademicas(int documento)
-        {
-            var instituciones_academicas = new List<CvInstitucionesAcademicas>()
-                               {
-                                   new CvInstitucionesAcademicas(1, "Universidad Tecnológica Nacional", "Pública", "Docente", 1234, "Jefe de Cátedra", new DateTime(1992, 08, 17), new DateTime(1993, 01, 17), new DateTime(1992, 04, 21), new DateTime(2011, 09, 29), "CABA", "Argentina")
-                               };
-
-            return instituciones_academicas;
-        }
-
-        public List<CvMatricula> GetCvMatricula(int documento)
-        {
-            var matricula = new List<CvMatricula>()
-                               {
-                                   new CvMatricula(1,"3217/14", "Gobierno de la ciudad de Buenos Aires", "Vigente", new DateTime(1990, 09, 07))
-                               };
-
-            return matricula;
-        }
-
-        public List<CvPublicaciones> GetCvPublicaciones(int documento)
-        {
-            var publicaciones = new List<CvPublicaciones>()
-                               {
-                                   new CvPublicaciones(1,"Factorizaciones", "Santillana", "377", true, new DateTime(2001, 11, 11))
-                               };
-
-            return publicaciones;
-        }
+        
 
         # endregion
 
@@ -1062,14 +1327,124 @@ namespace General.Repositorios
 
 
 
-
+        #region GETS
         public List<CvEstudios> GetCvEstudios(int documento)
         {
 
-            //Hacer que la fecha sea shortDateTime
-            //estudios.ForEach(e => e.FechaIngreso.ToShortDateString() e.FechaEgreso.ToShortDateString());
             return this._cvAntecedentesAcademicos;
         }
+
+        public List<CvCertificadoDeCapacitacion> GetCvCertificadoDeCapacitacion(int documento)
+        {
+            var certificados_de_capacitaciones = new List<CvCertificadoDeCapacitacion>()
+                               {
+                                   new CvCertificadoDeCapacitacion(1, "Arquitecto Java", "Oracle", "Java", "2 años",  new DateTime(2012, 01, 13), new DateTime(2014, 03, 10), "CABA", "Argentina" )
+                               };
+
+            return certificados_de_capacitaciones;
+        }
+
+        public List<CvCompetenciasInformaticas> GetCvCompetenciasInformaticas(int documento)
+        {
+            var compotencias_informaticas = new List<CvCompetenciasInformaticas>()
+                               {
+                                   new CvCompetenciasInformaticas(1, "Administrador de Base de Datos", "Sigma", "Base de Datos", "Senior",  "Avanzado" , "CABA", "Argentina", new DateTime(2013, 11, 15) )
+                               };
+
+            return compotencias_informaticas;
+        }
+
+
+        public CvDatosPersonales GetCvDatosPersonales(int documento)
+        {
+            var domicilio = new CvDomicilio(1, "Pedro Morán", 1234, "7", "A", 1, 1419, 2);
+            var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", 1, 1, "20-31369852-7", "Buenos Aires", 1, new DateTime(1985, 07, 23).ToShortDateString(), 1, domicilio, domicilio, "Tiene legajo");
+            //return datos_personales;
+            return this._cvDatosPersonales;
+        }
+
+
+        public List<CvDocencia> GetCvDocencia(int documento)
+        {
+            var docencia = new List<CvDocencia>()
+                               {
+                                   new CvDocencia("Matemática Discreta", "Universitario", "Docencia", "Profesor Titular",  "Jefe de Cátedra" , "Dedicación Exclusiva", "40 horas semanales", new DateTime(2005, 03, 01), new DateTime(2009, 12, 01), "Universidad Tecnológica Nacional", "CABA", "Argentina")
+                               };
+
+            return docencia;
+        }
+
+        public List<CvDomicilio> GetCvDomicilio(int documento)
+        {
+            var domicilio = new List<CvDomicilio>()
+                               {
+                                   new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", 1, 1419, 2)
+                               };
+
+            return domicilio;
+        }
+
+        public List<CvEventoAcademico> GetCvEventoAcademico(int documento)
+        {
+            var evento_academico = new List<CvEventoAcademico>()
+                               {
+                                   new CvEventoAcademico(1, "Encuentro Nacional Docente", "Congreso Nacional", "Expositor", new DateTime(2008, 02, 07), new DateTime(2008, 02, 11), "4 Jornadas",  "Joaquín V. González", "CABA", "Argentina")
+                               };
+
+            return evento_academico;
+        }
+
+        public List<CvExperienciaLaboral> GetCvExperienciaLaboral(int documento)
+        {
+            var experiencia_laboral = new List<CvExperienciaLaboral>()
+                               {
+                                   new CvExperienciaLaboral(1,"Analista Oracle", "Renuncia", "Accenture S.A", false, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina")
+                               };
+
+            return experiencia_laboral;
+        }
+
+        public List<CvIdiomas> GetCvIdiomas(int documento)
+        {
+            var idiomas = new List<CvIdiomas>()
+                               {
+                                   new CvIdiomas(1,"CAF Certification", "Cultural Inglesa Pueyrredón", "Inglés", "Avanzado", "Avanzado","Avanzado", new DateTime(1999, 01, 07), new DateTime(1997, 12, 15), "CABA", "Argentina"),
+                                   new CvIdiomas(1,"International French Language", "CUI", "Francés", "Avanzado", "Intermedio","Intermedio", new DateTime(2002, 04, 27), new DateTime(2007, 05, 17), "CABA", "Argentina")
+                               };
+
+            return idiomas;
+        }
+
+        public List<CvInstitucionesAcademicas> GetCvInstitucionesAcademicas(int documento)
+        {
+            var instituciones_academicas = new List<CvInstitucionesAcademicas>()
+                               {
+                                   new CvInstitucionesAcademicas(1, "Universidad Tecnológica Nacional", "Pública", "Docente", 1234, "Jefe de Cátedra", new DateTime(1992, 08, 17), new DateTime(1993, 01, 17), new DateTime(1992, 04, 21), new DateTime(2011, 09, 29), "CABA", "Argentina")
+                               };
+
+            return instituciones_academicas;
+        }
+
+        public List<CvMatricula> GetCvMatricula(int documento)
+        {
+            var matricula = new List<CvMatricula>()
+                               {
+                                   new CvMatricula(1,"3217/14", "Gobierno de la ciudad de Buenos Aires", "Vigente", new DateTime(1990, 09, 07))
+                               };
+
+            return matricula;
+        }
+
+        public List<CvPublicaciones> GetCvPublicaciones(int documento)
+        {
+            var publicaciones = new List<CvPublicaciones>()
+                               {
+                                   new CvPublicaciones(1,"Factorizaciones", "Santillana", "377", true, new DateTime(2001, 11, 11))
+                               };
+
+            return publicaciones;
+        }
+        #endregion
 
         private int CrearBaja(Usuario usuario)
         {
