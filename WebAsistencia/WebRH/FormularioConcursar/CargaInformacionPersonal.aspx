@@ -508,8 +508,8 @@
 <script type="text/javascript" src="Matriculas.js" ></script>
 <script type="text/javascript" src="InstitucionesAcademicas.js" ></script>
 <script type="text/javascript" src="ExperienciaLaboral.js" ></script>
-<script type="text/javascript" src="IdiomasExtranjeros.js" ></script>
-<script type="text/javascript" src="CompetenciasInformaticas.js" ></script>
+<%--<script type="text/javascript" src="IdiomasExtranjeros.js" ></script>--%>
+<%--<script type="text/javascript" src="CompetenciasInformaticas.js" ></script>--%>
 
 <script type="text/javascript" src="PanelDetalleDeAntecedenteAcademico.js" ></script>
 <script type="text/javascript" src="PanelListaDeAntecedentesAcademicos.js" ></script>
