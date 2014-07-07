@@ -17,9 +17,9 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Id", { generar: function (una_competencia_informatica) { return una_competencia_informatica.Id } }));
-        columnas.push(new Columna("Tipo", { generar: function (una_competencia_informatica) { return una_competencia_informatica.Tipo } }));
-        columnas.push(new Columna("Detalle", { generar: function (una_competencia_informatica) { return una_competencia_informatica.Detalle } }));
+        columnas.push(new Columna("Diploma/Certificación", { generar: function (una_competencia_informatica) { return una_competencia_informatica.Diploma } }));
+        columnas.push(new Columna("Fecha Obtención", { generar: function (una_competencia_informatica) { return una_competencia_informatica.FechaObtencion } }));
+        columnas.push(new Columna("Establecimiento", { generar: function (una_competencia_informatica) { return una_competencia_informatica.Establecimiento } }));
         columnas.push(new Columna('Acciones', {
             generar: function (una_competencia_informatica) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
@@ -64,7 +64,7 @@
 
                 proveedor_ajax.postearAUrl({ url: "EliminarCVCompetenciasInformaticas",
                     data: {
-                        una_competencia_informatica: una_competencia_informatica
+                        id_competencia_informatica: una_competencia_informatica.Id
                     },
                     success: function (respuesta) {
                         alertify.success("Competencia informática eliminada correctamente");

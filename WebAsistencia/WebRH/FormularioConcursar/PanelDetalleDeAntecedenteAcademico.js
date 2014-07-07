@@ -7,8 +7,8 @@
         var _this = this;
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("AntecedentesAcademicos.htm", function () {
-            _this.txt_antecedentes_id = _this.ui.find("#txt_AntecedenteAcademico_id");
-            _this.txt_antecedentes_id.val(estudio.Id);
+            //_this.txt_antecedentes_id = _this.ui.find("#txt_AntecedenteAcademico_id");
+            //_this.txt_antecedentes_id.val(estudio.Id);
             _this.txt_antecedentes_titulo = _this.ui.find("#txt_antecedentes_titulo");
             _this.txt_antecedentes_titulo.val(estudio.Titulo);
             _this.txt_establecimiento = _this.ui.find("#txt_antecedentes_establecimiento");
@@ -29,11 +29,9 @@
             if (opciones.estudio) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-                if (_this.txt_antecedentes_id.val() == "") {
+                if (estudio.Id == "") {
                     estudio.Id = 0;
-                } else {
-                    estudio.Id = _this.txt_antecedentes_id.val();
-                }
+                } 
 
                 estudio.Titulo = _this.txt_antecedentes_titulo.val();
                 estudio.Establecimiento = _this.txt_establecimiento.val();
