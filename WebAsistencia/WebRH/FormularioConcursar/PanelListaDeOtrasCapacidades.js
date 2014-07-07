@@ -61,9 +61,9 @@
                 // user clicked "ok"
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "EliminarCVOtrasCapacidades",
+                proveedor_ajax.postearAUrl({ url: "EliminarCVOtraCapacidad",
                     data: {
-                        una_capacidad: una_capacidad
+                        id_capacidad: una_capacidad.Id
                     },
                     success: function (respuesta) {
                         alertify.success("Capacidad eliminada correctamente");
@@ -75,7 +75,6 @@
                 });
             } else {
                 // user clicked "cancel"
-                alertify.error("No se pudo eliminar la capacidad");
             }
         });
 

@@ -11,7 +11,6 @@ namespace General.Repositorios
         void ActualizarCV(CurriculumVitae cv);
         CurriculumVitae GetCV(int documento);
         List<CvEstudios> GetCvEstudios(int documento);
-        List<CvCapacidadPersonal> GetCvCapacidadesPersonales(int documento);
         List<CvCertificadoDeCapacitacion> GetCvCertificadoDeCapacitacion(int documento);
         List<CvCompetenciasInformaticas> GetCvCompetenciasInformaticas(int documento);
         CvDatosPersonales GetCvDatosPersonales(int documento);

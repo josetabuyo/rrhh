@@ -1,4 +1,4 @@
-﻿var PanelListaDeOtrasCapacidades = {
+﻿var PanelListaDeActividadesDocentes = {
     armarGrilla: function (actividades_docentes) {
         var _this = this;
 
@@ -62,7 +62,7 @@
     eliminar: function (una_actividad_docente) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar la capacidad?", function (e) {
+        alertify.confirm("¿Está seguro que desea eliminar este registro?", function (e) {
             if (e) {
                 // user clicked "ok"
                 var proveedor_ajax = new ProveedorAjax();
