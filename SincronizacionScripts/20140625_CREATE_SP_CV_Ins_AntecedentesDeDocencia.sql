@@ -20,6 +20,11 @@ AS
 
 Begin
 
+declare @NombreSp varchar(60)   
+ set @NombreSp = (select OBJECT_NAME(@@PROCID))  
+ exec dbo.Audit @NombreSp  
+
+
 declare @IdPersona int
 select @IdPersona = id from dbo.datospersonales where nrodocumento = @Documento
 
