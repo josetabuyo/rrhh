@@ -10,6 +10,7 @@ namespace General
         protected int _id;
         protected string _titulo;
         protected string _establecimiento;
+        protected int _nivel;
         protected string _fechaIngreso;
         protected string _fechaEgreso;
         protected string _localidad;
@@ -19,6 +20,7 @@ namespace General
         public int Id { get { return _id; } set { _id = value; } }
         public string Titulo { get { return _titulo; } set { _titulo = value; } }
         public string Establecimiento { get { return _establecimiento; } set { _establecimiento = value; } }
+        public int Nivel { get { return _nivel; } set { _nivel = value; } }
         public string Especialidad { get { return _especialidad; } set { _especialidad = value; } }
         public string FechaIngreso { get { return _fechaIngreso; } set { _fechaIngreso = value; } }
         public string FechaEgreso { get { return _fechaEgreso; } set { _fechaEgreso = value; } }
@@ -26,22 +28,23 @@ namespace General
         public string Pais { get { return _pais; } set { _pais = value; } }
         
 
-        public CvEstudios(string titulo, string establecimiento, string especialidad, string fechaIngeso, string fechaEgreso, string localidad, string pais)
+        public CvEstudios(string titulo, int nivel, string establecimiento, string especialidad, string fechaIngeso, string fechaEgreso, string localidad, string pais)
         {
-            SetearCampos(titulo, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);
+            SetearCampos(titulo, nivel, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);
         }
 
-        public CvEstudios(int id, string titulo, string establecimiento, string especialidad, string fechaIngeso, string fechaEgreso, string localidad, string pais)
+        public CvEstudios(int id, string titulo, int nivel, string establecimiento, string especialidad, string fechaIngeso, string fechaEgreso, string localidad, string pais)
         {
             this._id = id;
-            SetearCampos(titulo, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);
+            SetearCampos(titulo, nivel, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);
 
         }
 
-        private void SetearCampos(string titulo, string establecimiento, string especialidad, string fechaIngeso, string fechaEgreso, string localidad, string pais)
+        private void SetearCampos(string titulo, int nivel, string establecimiento, string especialidad, string fechaIngeso, string fechaEgreso, string localidad, string pais)
         {
             this._titulo = titulo;
             this._establecimiento = establecimiento;
+            this._nivel = Nivel;
             this._especialidad = especialidad;
             this._fechaIngreso = fechaIngeso;
             this._fechaEgreso = fechaEgreso;

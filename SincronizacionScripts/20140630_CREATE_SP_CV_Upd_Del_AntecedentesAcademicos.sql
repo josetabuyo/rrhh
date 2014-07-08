@@ -2,6 +2,7 @@ CREATE PROCEDURE [dbo].[CV_Upd_Del_ActividadesAcademicas]
 (
 	@idAntecedente [int], 
 	@Titulo varchar(100) = null,
+	@Nivel varchar(100) = null,
 	@Establecimiento varchar(100) = null,
 	@Especialidad varchar(100) = null,
 	@FechaIngreso[datetime] = null,
@@ -23,6 +24,7 @@ BEGIN
 	UPDATE [dbo].[CV_AntecedentesAcademicos]
 	SET 
 		Titulo = ISNULL(@Titulo,Titulo),
+		Nivel = ISNULL(@Nivel,Nivel),
 		Establecimiento = ISNULL(@Establecimiento,Establecimiento),
 		Especialidad = ISNULL(@Especialidad,Especialidad),
 		FechaIngreso = ISNULL(@FechaIngreso,FechaIngreso),

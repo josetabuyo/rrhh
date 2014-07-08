@@ -477,23 +477,24 @@ public class AjaxWS : System.Web.Services.WebService {
     #region CvAntecedentesAcademicos
     
     [WebMethod(EnableSession = true)]
-    public string GuardarCVAntecedentesAcademicos(WSViaticos.CvEstudios antecedentesAcademicos_nuevos, WSViaticos.CvEstudios antecedentesAcademicos_originales)
+    public string GuardarCVAntecedenteAcademico(WSViaticos.CvEstudios antecedentesAcademicos_nuevos, WSViaticos.CvEstudios antecedentesAcademicos_originales)
     {
-        if (antecedentesAcademicos_nuevos.Id != 0)
-        {
-            var antecedentesAcademicosActualizados = backEndService.ActualizarCvAntecedentesAcademicos(antecedentesAcademicos_nuevos, antecedentesAcademicos_originales, usuarioLogueado);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicosActualizados); 
-        }
 
-        var antecedenteAcademicoGuardado = backEndService.GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevos, antecedentesAcademicos_originales, usuarioLogueado);
+        var antecedenteAcademicoGuardado = backEndService.GuardarCvAntecedenteAcademico(antecedentesAcademicos_nuevos, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(antecedenteAcademicoGuardado);
     }
 
+    [WebMethod(EnableSession = true)]
+    public string ActualizarCvAntecedenteAcademico(WSViaticos.CvEstudios un_estudio)
+    {
+        un_estudio = backEndService.ActualizarCvAntecedenteAcademico(un_estudio, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(un_estudio);
+    }
 
     [WebMethod(EnableSession = true)]
-    public string EliminarCVAntecedentesAcademicos(WSViaticos.CvEstudios antecedentesAcademicos_borrar)
+    public string EliminarCVAntecedenteAcademico(int antecedentesAcademicos_borrar)
     {
-        var antecedentesAcademicos = backEndService.EliminarCvAntecedentesAcademicos(antecedentesAcademicos_borrar, usuarioLogueado);
+        var antecedentesAcademicos = backEndService.EliminarCvAntecedenteAcademico(antecedentesAcademicos_borrar, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicos);
     }
 
