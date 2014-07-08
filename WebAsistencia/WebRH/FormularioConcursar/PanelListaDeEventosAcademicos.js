@@ -71,7 +71,7 @@
                     },
                     success: function (respuesta) {
                         alertify.success("Evento académico eliminado correctamente");
-                        _this.GrillaEventosAcademicos.QuitarObjeto(_this.divGrilla, una_capacidad);
+                        _this.GrillaEventosAcademicos.QuitarObjeto(_this.divGrilla, un_evento_academico);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.error("No se pudo eliminar el evento académico");
