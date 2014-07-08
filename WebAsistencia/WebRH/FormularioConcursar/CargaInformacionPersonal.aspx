@@ -388,11 +388,11 @@
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">
                   IDIOMAS EXTRANJEROS
                 </a>
-              </div>
+              </div>s
               <div id="collapseTen" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_idioma_extranjero" onclick="javascript:AgregarIdiomasExtranjeros();" class="link" >Cargar idiomas extranjeros</a></legend>
+                    <legend><a id="btn_agregar_idioma_extranjero" class="link" >Cargar idiomas extranjeros</a></legend>
                         <h4>Idiomas Extranjeros Agregados</h4>
                         <div id="ContenedorPlanillaIdiomasExtranjeros" runat="server">
                             <table id="tabla_idiomas_extranjeros" class="table table-striped">
@@ -409,7 +409,7 @@
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">
                   COMPETENCIAS INFORM&Aacute;TICAS
                 </a>
-              </div>
+              </div>    
               <div id="collapseEleven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
@@ -569,8 +569,7 @@
       PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
       PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
       PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
-
-//      PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
+      PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
 
 //      
 //      PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
