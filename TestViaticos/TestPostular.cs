@@ -89,7 +89,7 @@ namespace TestViaticos
 
         public CvIdiomas UnIdioma()
         {
-            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles","Avanzado","Intermedio","Basico",new DateTime(2013,12,20),new DateTime(2013,12,20),"CABA","Argentina");
+            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles","Avanzado","Intermedio","Basico",new DateTime(2013,12,20),"CABA","Argentina");
         }
 
         public CvInstitucionesAcademicas UnaInstitucionAcademica()

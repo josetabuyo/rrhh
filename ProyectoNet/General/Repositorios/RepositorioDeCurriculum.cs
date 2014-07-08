@@ -65,34 +65,34 @@ namespace General.Repositorios
 
 
             //CORTE DE CONTROL PARA ANTECEDENTES ACADEMICOS
-            CorteDeControlAntecedentesAcademicos(tablaCVs, cv);
+           // CorteDeControlAntecedentesAcademicos(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA CERTIFICADOS DE CAPACITACION
-            CorteDeControlCertificadosDeCapacitacion(tablaCVs, cv);
+            //CorteDeControlCertificadosDeCapacitacion(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA ACTIVIDADES DOCENTES
-            CorteDeControlActividadesDocentes(tablaCVs, cv);
+            //CorteDeControlActividadesDocentes(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA MATRICULAS
-            CorteDeControlMatriculas(tablaCVs, cv);
+            //CorteDeControlMatriculas(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA PUBLICACIONES
-            CorteDeControlPublicaciones(tablaCVs, cv);
+            //CorteDeControlPublicaciones(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA INSTITUCIONES ACADEMICAS
-            CorteDeControlInstituciones(tablaCVs, cv);
+            //CorteDeControlInstituciones(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA EXPERIENCIAS LABORALES
-            CorteDeControlExperienciasLaborales(tablaCVs, cv);
+            //CorteDeControlExperienciasLaborales(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA IDIOMA
-            CorteDeControlIdioma(tablaCVs, cv);
+            //CorteDeControlIdioma(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA COMPETENCIA INFORMATICA
-            CorteDeControlCompetenciaInformatica(tablaCVs, cv);
+            //CorteDeControlCompetenciaInformatica(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA OTRAS CAPACIDADES
-            CorteDeControlOtrasCapacidades(tablaCVs, cv);
+            //CorteDeControlOtrasCapacidades(tablaCVs, cv);
 
             if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
             {
@@ -602,7 +602,7 @@ namespace General.Repositorios
                                 row.GetString("IdiomaEscritura", ""),
                                 row.GetString("IdiomaOral", ""),
                                 row.GetDateTime("IdiomaFechaObtencion", DateTime.Today),
-                                row.GetDateTime("IdiomaFechaFin", DateTime.Today),
+                                //row.GetDateTime("IdiomaFechaFin", DateTime.Today),
                                 row.GetString("IdiomaLocalidad", ""),
                                 row.GetString("IdiomaPais", ""));
         }
@@ -1161,40 +1161,43 @@ namespace General.Repositorios
         }
         #endregion
 
-        #region CvIdiomas
+        #region CvIdiomasExtranjeros
 
-        public CvIdiomas GuardarCvIdiomas(CvIdiomas idioma_nuevo, Usuario usuario)
+
+        public CvIdiomas GuardarCvIdiomaExtranjero(CvIdiomas idioma_extranjero_nuevo, Usuario usuario)
         {
-            var parametros = ParametrosDelIdioma(idioma_nuevo, usuario);
+            var parametros = ParametrosDelIdioma(idioma_extranjero_nuevo, usuario);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Idiomas", parametros);
-            idioma_nuevo.Id = int.Parse(id.ToString());
+                //var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Idiomas", parametros);
+                //idioma_extranjero_nuevo.Id = int.Parse(id.ToString());
 
-            return idioma_nuevo;
+                return idioma_extranjero_nuevo;
         }
 
-        public CvIdiomas ActualizarCvIdiomas(CvIdiomas idioma, Usuario usuario)
+        public CvIdiomas ActualizarCvIdiomaExtranjero(CvIdiomas idioma_extranjero_modificado, Usuario usuario)
         {
-            var parametros = ParametrosDelIdioma(idioma, usuario);
-            parametros.Add("@IdIdioma", idioma.Id);
+            //var parametros = ParametrosDelIdioma(idioma_extranjero_modificado, usuario);
+            //parametros.Add("@IdIdioma", idioma_extranjero_modificado.Id);
+
+            //    conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
+
+                return idioma_extranjero_modificado;
+        }
+
+        public bool EliminarCvIdiomaExtranjero(int id_capacidad, Usuario usuario)
+        {
+            var id_baja = CrearBaja(usuario);
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdIdioma", id_capacidad);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@Baja", id_baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
 
-            return idioma;
+            return true;
         }
 
-        public CvIdiomas EliminarCvIdiomasExtranjeros(CvIdiomas idioma, Usuario usuario)
-        {
-            var baja = CrearBaja(usuario);
-
-            var parametros = ParametrosDelIdioma(idioma, usuario);
-            parametros.Add("@IdIdioma", idioma.Id);
-            parametros.Add("@Baja", baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
-
-            return idioma;
-        }
 
         private Dictionary<string, object> ParametrosDelIdioma(CvIdiomas idioma_nuevo, Usuario usuario)
         {
@@ -1206,7 +1209,7 @@ namespace General.Repositorios
             parametros.Add("@Idioma", idioma_nuevo.Idioma);
             parametros.Add("@Lectura", idioma_nuevo.Lectura);
             parametros.Add("@Oral", idioma_nuevo.Oral);
-            parametros.Add("@FechaFin", idioma_nuevo.FechaFin);
+            //parametros.Add("@FechaFin", idioma_nuevo.FechaFin);
             parametros.Add("@Localidad", idioma_nuevo.Localidad);
             parametros.Add("@Pais", idioma_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
@@ -1408,8 +1411,8 @@ namespace General.Repositorios
         {
             var idiomas = new List<CvIdiomas>()
                                {
-                                   new CvIdiomas(1,"CAF Certification", "Cultural Inglesa Pueyrredón", "Inglés", "Avanzado", "Avanzado","Avanzado", new DateTime(1999, 01, 07), new DateTime(1997, 12, 15), "CABA", "Argentina"),
-                                   new CvIdiomas(1,"International French Language", "CUI", "Francés", "Avanzado", "Intermedio","Intermedio", new DateTime(2002, 04, 27), new DateTime(2007, 05, 17), "CABA", "Argentina")
+                                   new CvIdiomas(1,"CAF Certification", "Cultural Inglesa Pueyrredón", "Inglés", "Avanzado", "Avanzado","Avanzado", new DateTime(1999, 01, 07), "CABA", "Argentina"),
+                                   new CvIdiomas(1,"International French Language", "CUI", "Francés", "Avanzado", "Intermedio","Intermedio", new DateTime(2002, 04, 27), "CABA", "Argentina")
                                };
 
             return idiomas;
