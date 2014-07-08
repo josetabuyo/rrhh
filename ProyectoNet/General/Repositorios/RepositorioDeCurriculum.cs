@@ -1201,8 +1201,8 @@ namespace General.Repositorios
             parametros.Add("@IdIdioma", id_capacidad);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Baja", id_baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
+            //DESCOMENTAR CUANDO ESTÉ HECHO EL SP
+            //conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
 
             return true;
         }

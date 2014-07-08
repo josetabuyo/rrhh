@@ -662,9 +662,9 @@ public class AjaxWS : System.Web.Services.WebService {
     }
     
     [WebMethod(EnableSession = true)]
-    public bool EliminarCvIdiomaExtranjero(int id_capacidad)
+    public bool EliminarCvIdiomaExtranjero(int id_idioma_extranjero)
     {
-        return backEndService.EliminarCvIdiomaExtranjero(id_capacidad, usuarioLogueado);
+        return backEndService.EliminarCvIdiomaExtranjero(id_idioma_extranjero, usuarioLogueado);
     }
     
     //[WebMethod(EnableSession = true)]
