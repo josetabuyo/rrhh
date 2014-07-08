@@ -71,16 +71,16 @@ function AgregarActividadesCapacitacion() {
 
 };
 
-function AgregarEventosAcademicos() {
+//function AgregarEventosAcademicos() {
 
-    var eventos = {};
+//    var eventos = {};
 
-    EventosAcademicos.mostrar(eventos, function (eventos_academicos) {
-        PlanillaCvEventosAcademicos.BorrarContenido();
-        PlanillaCvEventosAcademicos.CargarObjetos(eventos_academicos);
-    });
+//    EventosAcademicos.mostrar(eventos, function (eventos_academicos) {
+//        PlanillaCvEventosAcademicos.BorrarContenido();
+//        PlanillaCvEventosAcademicos.CargarObjetos(eventos_academicos);
+//    });
 
-};
+//};
 
 function AgregarPublicacionesTrabajos() {
 

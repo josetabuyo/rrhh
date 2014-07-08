@@ -942,7 +942,7 @@ namespace General.Repositorios
 
             var parametros = ParametrosDeEventosAcademicos(evento_academico_nuevo, usuario, baja);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_EventosAcademicos", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_EventosAcademicos", parametros);
 
             return evento_academico_nuevo;
         }

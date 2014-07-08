@@ -1,4 +1,4 @@
-Create procedure [dbo].[CV_Ins_ActividadesDeCapacitacion]
+CREATE procedure [dbo].[CV_Ins_ActividadesDeCapacitacion]
 @Titulo varchar(100) = null,
 @Establecimiento varchar(100) = null,
 @Especialidad varchar(100) = null,
@@ -10,15 +10,12 @@ Create procedure [dbo].[CV_Ins_ActividadesDeCapacitacion]
 @Usuario int,
 --@FechaOperacion datetime = null,
 @Baja int= null,
-@Documento int = null
+@IdPersona int = null
 
 AS
 
 Begin
 
-declare @IdPersona int
-
-select @IdPersona = Id from dbo.DatosPersonales where NroDocumento = @Documento
 
 INSERT INTO [dbo].[CV_ActividadesDeCapacitacion]
            ([Titulo]
@@ -50,7 +47,10 @@ INSERT INTO [dbo].[CV_ActividadesDeCapacitacion]
 			@IdPersona
 			)
 
+ SELECT SCOPE_IDENTITY()  
+
 END
+
 
 
 
