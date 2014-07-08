@@ -63,10 +63,11 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public void ImprimirDDJJ104(List<WSViaticos.DDJJ104> lista)
+    public string ImprimirDDJJ104(List<WSViaticos.DDJJ104> lista)
     {
-        backEndService.ImprimirDDJJ104(lista.ToArray());
-
+        var ddjj = backEndService.ImprimirDDJJ104(lista.ToArray());
+        var ddjj_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(ddjj);
+        return ddjj_serializados;
     }
         
     //FIN: DDJJ//

@@ -76,10 +76,20 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void ImprimirDDJJ104(List<DDJJ104> lista)
+    public DDJJ104[] ImprimirDDJJ104(List<DDJJ104> lista)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
-        responsableDDJJ.ImprimirDDJJ104(lista);
+        List<DDJJ104> ddjj = responsableDDJJ.ImprimirDDJJ104(lista);
+
+
+        DDJJ104[] returnDDJJ = new DDJJ104[ddjj.Count];
+
+        for (int i = 0; i < ddjj.Count; i++)
+        {
+            returnDDJJ[i] = ddjj[i];
+        }
+        return returnDDJJ;
+
     }
 
     //FIN: DDJJ 104 ---------------

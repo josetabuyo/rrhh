@@ -93,7 +93,7 @@ namespace General
 
 
 
-        public void ImprimirDDJJ104(List<DDJJ104> ddjj)
+        public List<DDJJ104> ImprimirDDJJ104(List<DDJJ104> ddjj)
         {
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.PLA_GET_DDJJ104");
@@ -110,20 +110,23 @@ namespace General
             {
                 ddjj104 = new DDJJ104();
 
-                ddjj104.Area = new Area() {Id = dr.GetInt32(dr.GetOrdinal("Id_Area"))};
+                ddjj104.Area = new Area() { Id = dr.GetInt32(dr.GetOrdinal("Id_Area")), Nombre = dr.GetString(dr.GetOrdinal("Area")) };
                 ddjj104.Agente = new Persona()
                 {
                     Apellido = dr.GetString(dr.GetOrdinal("Apellido")),
                     Nombre = dr.GetString(dr.GetOrdinal("Nombre")),
                     Cuit = dr.GetString(dr.GetOrdinal("Cuil_Nro")),
-                    Categoria = dr.GetString(dr.GetOrdinal("Categoria")) + '#' + dr.GetString(dr.GetOrdinal("Mod_Contratacion"))
+                    Categoria = dr.GetString(dr.GetOrdinal("Categoria")) + '#' + dr.GetString(dr.GetOrdinal("Mod_Contratacion"))                    
                 };
-                
+                ddjj104.Mes = dr.GetInt16(dr.GetOrdinal("Mes"));
+                ddjj104.Anio = dr.GetInt16(dr.GetOrdinal("Año"));
+
                 listaddjj104.Add(ddjj104);
             }
 
             cn.Desconestar();
 
+            return listaddjj104;
         }
 
     }

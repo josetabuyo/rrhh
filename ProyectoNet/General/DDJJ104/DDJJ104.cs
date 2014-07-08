@@ -20,6 +20,7 @@ namespace General
         public int Anio { get; set; }
         public Persona Agente { get; set; }
 
+
         public DDJJ104()
         { 
         }
