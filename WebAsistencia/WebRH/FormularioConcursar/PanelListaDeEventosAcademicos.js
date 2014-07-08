@@ -1,7 +1,6 @@
 ﻿var PanelListaDeEventosAcademicos = {
     armarGrilla: function (eventos_academicos) {
         var _this = this;
-
         _this.divGrilla = $('#tabla_eventos_academicos');
         _this.btn_agregar_evento_academico = $("#btn_agregar_evento_academico");
 
@@ -18,8 +17,12 @@
         var columnas = [];
 
         columnas.push(new Columna("Id", { generar: function (un_evento_academico) { return un_evento_academico.Id } }));
-        columnas.push(new Columna("Tipo", { generar: function (un_evento_academico) { return un_evento_academico.Tipo } }));
-        columnas.push(new Columna("Detalle", { generar: function (un_evento_academico) { return un_evento_academico.Detalle } }));
+        columnas.push(new Columna("Denominación", { generar: function (un_evento_academico) { return un_evento_academico.Denominacion } }));
+        columnas.push(new Columna("Tipo", { generar: function (un_evento_academico) { return un_evento_academico.TipoDeEvento } }));
+        columnas.push(new Columna("Carácter", { generar: function (un_evento_academico) { return un_evento_academico.CaracterDeParticipacion } }));
+        columnas.push(new Columna("Desde", { generar: function (un_evento_academico) { return un_evento_academico.FechaInicio } }));
+        columnas.push(new Columna("Hasta", { generar: function (un_evento_academico) { return un_evento_academico.FechaFinalizacion } }));
+        columnas.push(new Columna("Institución", { generar: function (un_evento_academico) { return un_evento_academico.Institucion } }));
         columnas.push(new Columna('Acciones', {
             generar: function (un_evento_academico) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();

@@ -287,7 +287,7 @@
               <div id="collapseFive" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_evento_academico" onclick="javascript:AgregarEventosAcademicos();" class="link" >Cargar eventos académicos</a></legend>
+                    <legend><a id="btn_agregar_evento_academico" class="link" >Cargar eventos académicos</a></legend>
                         <h4>Eventos Acadmémicos Agregados</h4>
                         <div id="ContenedorPlanillEventosAcademicos" runat="server">
                             <table id="tabla_eventos_academicos" class="table table-striped">
@@ -565,15 +565,15 @@
         //        
         //        
 
+      PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
       PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
       PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
       PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
       PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
       PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
-
 //      
 //      PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
-//      PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
+//      
 //      PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
 //      PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
 //      PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
