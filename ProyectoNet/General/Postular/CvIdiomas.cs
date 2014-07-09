@@ -15,7 +15,7 @@ namespace General
         protected string _escritura;
         protected string _oral;
         protected DateTime _fechaObtencion;
-        protected DateTime _fechaFin;
+        //protected DateTime _fechaFin;
         protected string _localidad;
         protected string _pais;
 
@@ -27,12 +27,12 @@ namespace General
         public string Escritura { get { return _escritura; } set { _escritura = value; } }
         public string Oral { get { return _oral; } set { _oral = value; } }
         public DateTime FechaObtencion { get { return _fechaObtencion; } set { _fechaObtencion = value; } }
-        public DateTime FechaFin { get { return _fechaFin; } set { _fechaFin = value; } }
+        //public DateTime FechaFin { get { return _fechaFin; } set { _fechaFin = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public string Pais { get { return _pais; } set { _pais = value; } }
 
 
-        public CvIdiomas(int id, string diploma, string establecimiento, string idioma, string lectura, string escritura, string oral, DateTime fechaObtencion, DateTime fechaFin, string localidad, string pais)
+        public CvIdiomas(int id, string diploma, string establecimiento, string idioma, string lectura, string escritura, string oral, DateTime fechaObtencion, string localidad, string pais)
         {
             this._id = id;
             this._diploma = diploma;
@@ -42,7 +42,7 @@ namespace General
             this._escritura = escritura;
             this._oral = oral;
             this._fechaObtencion = fechaObtencion;
-            this._fechaFin = fechaFin;
+            //this._fechaFin = fechaFin;
             this._localidad = localidad;
             this._pais = pais;
         }

@@ -2673,23 +2673,26 @@ public class WSViaticos : System.Web.Services.WebService
     #endregion
 
     #region CvIdiomas
+
     [WebMethod]
-    public CvIdiomas GuardarCvIdiomas(CvIdiomas idioma_nuevo, Usuario usuario)
+    public CvIdiomas GuardarCvIdiomaExtranjero(CvIdiomas idioma_extranjero, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvIdiomas(idioma_nuevo, usuario);
+        return RepoCurriculum().GuardarCvIdiomaExtranjero(idioma_extranjero, usuario);
     }
 
     [WebMethod]
-    public CvIdiomas ActualizarCvIdiomas(CvIdiomas idioma_nuevo, Usuario usuario)
+    public CvIdiomas ActualizarCvIdiomaExtranjero(CvIdiomas idioma_extranjero, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvIdiomas(idioma_nuevo, usuario);
+        return RepoCurriculum().ActualizarCvIdiomaExtranjero(idioma_extranjero, usuario);
     }
 
     [WebMethod]
-    public CvIdiomas EliminarCvIdiomas(CvIdiomas idiomas_a_borrar, Usuario usuario)
+    public bool EliminarCvIdiomaExtranjero(int id_capacidad, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvIdiomasExtranjeros(idiomas_a_borrar, usuario);
+        return RepoCurriculum().EliminarCvIdiomaExtranjero(id_capacidad, usuario);
     }
+
+
     #endregion
 
     #region CvComptenciasInformaticas

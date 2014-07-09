@@ -1,31 +1,59 @@
-﻿var PanelDetalleDeOtraCapacidad = {
+﻿var PanelDetalleDeEventoAcademico = {
     mostrar: function (opciones) {
         //valores default
-        var capacidad = opciones.capacidad || {};
+        var evento_academico = opciones.evento_academico || {};
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
         this.ui = $("#un_div_modal");
-        this.ui.find("#contenido_modal").load("PanelDetalleDeOtraCapacidad.htm", function () {
-            _this.cmb_tipo = _this.ui.find("#cmb_tipo");
-            _this.cmb_tipo.val(capacidad.Tipo);
-            _this.txt_detalle = _this.ui.find("#txt_detalle");
-            _this.txt_detalle.val(capacidad.Detalle);
+        this.ui.find("#contenido_modal").load("PanelDetalleDeEventoAcademico.htm", function () {
+            _this.txt_evento_denominacion = _this.ui.find("#txt_evento_denominacion");
+            _this.txt_evento_denominacion.val(evento_academico.Denominacion);
+
+            _this.txt_evento_academico_tipo_evento = _this.ui.find("#txt_evento_academico_tipo_evento");
+            _this.txt_evento_academico_tipo_evento.val(evento_academico.TipoDeEvento);
+
+            _this.txt_evento_academico_caracter_participacion = _this.ui.find("#txt_evento_academico_caracter_participacion");
+            _this.txt_evento_academico_caracter_participacion.val(evento_academico.CaracterDeParticipacion);
+
+            _this.txt_evento_academico_fecha_inicio = _this.ui.find("#txt_evento_academico_fecha_inicio");
+            _this.txt_evento_academico_fecha_inicio.val(evento_academico.FechaInicio);
+
+            _this.txt_evento_academico_fecha_fin = _this.ui.find("#txt_evento_academico_fecha_fin");
+            _this.txt_evento_academico_fecha_fin.val(evento_academico.FechaFinalizacion);
+
+            _this.txt_evento_academico_duracion = _this.ui.find("#txt_evento_academico_duracion");
+            _this.txt_evento_academico_duracion.val(evento_academico.Duracion);
+
+            _this.txt_evento_academico_institucion = _this.ui.find("#txt_evento_academico_institucion");
+            _this.txt_evento_academico_institucion.val(evento_academico.Institucion);
+
+            _this.txt_evento_academico_localidad = _this.ui.find("#txt_evento_academico_localidad");
+            _this.txt_evento_academico_localidad.val(evento_academico.Localidad);
+
+            _this.cmb_evento_academico_pais = _this.ui.find("#cmb_evento_academico_pais");
+            _this.cmb_evento_academico_pais.val(evento_academico.Pais);
 
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#btn_guardar");
-            if (opciones.capacidad) _this.btn_guardar.val("Guardar Cambios");
+            if (opciones.evento_academico) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-                capacidad.Tipo = _this.cmb_tipo.val();
-                capacidad.Detalle = _this.txt_detalle.val();
+                evento_academico.Denominacion = _this.txt_evento_denominacion.val();
+                evento_academico.TipoDeEvento = _this.txt_evento_academico_tipo_evento.val();
+                evento_academico.CaracterDeParticipacion = _this.txt_evento_academico_caracter_participacion.val();
+                evento_academico.FechaInicio = _this.txt_evento_academico_fecha_inicio.val();
+                evento_academico.FechaFinalizacion = _this.txt_evento_academico_fecha_fin.val();
+                evento_academico.Duracion = _this.txt_evento_academico_duracion.val();
+                evento_academico.Institucion = _this.txt_evento_academico_institucion.val();
+                evento_academico.Localidad = _this.txt_evento_academico_localidad.val();
+                evento_academico.Pais = _this.cmb_evento_academico_pais.val();
 
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "GuardarCvOtrasCapacidades",
+                proveedor_ajax.postearAUrl({ url: "GuardarCvEventoAcademico",
                     data: {
-                        otra_capacidad_original: capacidad,
-                        otra_capacidad_nueva: capacidad
+                        eventoAcademico: evento_academico
                     },
                     success: function (respuesta) {
                         alertify.alert("Los datos fueron guardados correctamente");
@@ -33,7 +61,7 @@
                         $(".modal_close_concursar").click();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error al guardar la capacidad.");
+                        alertify.alert("Error al guardar el evento académico.");
                     }
                 });
             });
