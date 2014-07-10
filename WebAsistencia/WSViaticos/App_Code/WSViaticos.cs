@@ -2613,21 +2613,21 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region CVMatriculas
     [WebMethod]
-    public CvMatricula GuardarCvMatriculas(CvMatricula matricula, Usuario usuario)
+    public CvMatricula GuardarCvMatricula(CvMatricula matricula, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvMatriculas(matricula, usuario);
+        return RepoCurriculum().GuardarCvMatricula(matricula, usuario);
     }
 
     [WebMethod]
-    public CvMatricula ActualizarCvMatriculas(CvMatricula matricula, Usuario usuario)
+    public CvMatricula ActualizarCvMatricula(CvMatricula matricula, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvMatriculas(matricula, usuario);
+        return RepoCurriculum().ActualizarCvMatricula(matricula, usuario);
     }
 
     [WebMethod]
-    public CvMatricula EliminarCvMatriculas(CvMatricula matricula, Usuario usuario)
+    public bool EliminarCvMatricula(int id_matricula, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvMatriculas(matricula, usuario);
+        return RepoCurriculum().EliminarCvMatricula(id_matricula, usuario);
     }
     #endregion
 

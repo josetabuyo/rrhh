@@ -1,4 +1,4 @@
-Create Procedure dbo.CV_Ins_ExperienciasLaborales
+Create Procedure [dbo].[CV_Ins_ExperienciasLaborales]
 @Actividad varchar(100)=null,
 @MotivoDesvinculacion varchar(100)=null,
 @NombreEmpleador varchar(100)=null,
@@ -10,9 +10,8 @@ Create Procedure dbo.CV_Ins_ExperienciasLaborales
 @Localidad varchar(100)=null,
 @Pais varchar(100)=null,
 @Usuario int=null,
---@FechaOperacion datetime,
 @Baja int=null,
-@Documento int =null
+@IdPersona int =null
 
 
 AS
@@ -20,10 +19,9 @@ AS
 
 BEGIN
 
-
-declare @IdPersona int
-select @IdPersona = id from dbo.datospersonales where nrodocumento = @Documento
-
+ declare @NombreSp varchar(60)   
+ set @NombreSp = (select OBJECT_NAME(@@PROCID))  
+ exec dbo.Audit @NombreSp 
 
 INSERT INTO [DB_RRHH].[dbo].[CV_ExperienciasLaborales]
            ([Actividad]
@@ -57,7 +55,7 @@ INSERT INTO [DB_RRHH].[dbo].[CV_ExperienciasLaborales]
            @IdPersona)
 
 
-
+SELECT SCOPE_IDENTITY()	
 
 END
 

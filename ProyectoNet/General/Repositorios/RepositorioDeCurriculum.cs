@@ -65,34 +65,34 @@ namespace General.Repositorios
 
 
             //CORTE DE CONTROL PARA ANTECEDENTES ACADEMICOS
-            // CorteDeControlAntecedentesAcademicos(tablaCVs, cv);
+             CorteDeControlAntecedentesAcademicos(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA CERTIFICADOS DE CAPACITACION
-            //CorteDeControlCertificadosDeCapacitacion(tablaCVs, cv);
+            CorteDeControlCertificadosDeCapacitacion(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA ACTIVIDADES DOCENTES
-            //CorteDeControlActividadesDocentes(tablaCVs, cv);
+            CorteDeControlActividadesDocentes(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA MATRICULAS
-            //CorteDeControlMatriculas(tablaCVs, cv);
+            CorteDeControlMatriculas(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA PUBLICACIONES
-            //CorteDeControlPublicaciones(tablaCVs, cv);
+            CorteDeControlPublicaciones(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA INSTITUCIONES ACADEMICAS
-            //CorteDeControlInstituciones(tablaCVs, cv);
+            CorteDeControlInstituciones(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA EXPERIENCIAS LABORALES
-            //CorteDeControlExperienciasLaborales(tablaCVs, cv);
+            CorteDeControlExperienciasLaborales(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA IDIOMA
-            //CorteDeControlIdioma(tablaCVs, cv);
+            CorteDeControlIdioma(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA COMPETENCIA INFORMATICA
-            //CorteDeControlCompetenciaInformatica(tablaCVs, cv);
+            CorteDeControlCompetenciaInformatica(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA OTRAS CAPACIDADES
-            //CorteDeControlOtrasCapacidades(tablaCVs, cv);
+            CorteDeControlOtrasCapacidades(tablaCVs, cv);
 
             if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
             {
@@ -366,11 +366,17 @@ namespace General.Repositorios
         private void CorteDeControlInstituciones(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
             //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("IdInstitucion") is DBNull))
+            var lista = new TablaDeDatos();
+            tablaCVs.Rows.ForEach(r =>
             {
-
+                if (!(r.GetObject("IdInstitucion") is DBNull) && (!(r.GetObject("InstitucionBaja") is DBNull)) )
+                    lista.Rows.Add(r);
+            });
+            if (lista.Rows.Count() > 0)
+            {
+                
                 //2.- Creo la institucion anterior por primera vez
-                var institucionAnterior = GetInstitucionFromDataRow(tablaCVs.Rows[0]);
+                var institucionAnterior = GetInstitucionFromDataRow(lista.Rows[0]);
 
                 var institucion = institucionAnterior;
 
@@ -1008,7 +1014,7 @@ namespace General.Repositorios
         #endregion
 
         #region CvMatriculas
-        public CvMatricula GuardarCvMatriculas(CvMatricula matricula_nueva, Usuario usuario)
+        public CvMatricula GuardarCvMatricula(CvMatricula matricula_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeMatricula(matricula_nueva, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
@@ -1019,7 +1025,7 @@ namespace General.Repositorios
             return matricula_nueva;
         }
 
-        public CvMatricula ActualizarCvMatriculas(CvMatricula matricula_nueva, Usuario usuario)
+        public CvMatricula ActualizarCvMatricula(CvMatricula matricula_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeMatricula(matricula_nueva, usuario);
             parametros.Add("@IdMatricula", matricula_nueva.Id);
@@ -1029,17 +1035,17 @@ namespace General.Repositorios
             return matricula_nueva;
         }
 
-        public CvMatricula EliminarCvMatriculas(CvMatricula matricula_nueva, Usuario usuario)
+        public bool EliminarCvMatricula(int id_matricula, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeMatricula(matricula_nueva, usuario);
-            parametros.Add("@IdMatricula", matricula_nueva.Id);
+            var parametros = new Dictionary<string, object>(); //ParametrosDeMatricula(matricula_nueva, usuario);
+            parametros.Add("@IdMatricula", id_matricula);
             parametros.Add("@Baja", baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Matriculas", parametros);
 
-            return matricula_nueva;
+            return true;
         }
 
         private Dictionary<string, object> ParametrosDeMatricula(CvMatricula matricula_nueva, Usuario usuario)
