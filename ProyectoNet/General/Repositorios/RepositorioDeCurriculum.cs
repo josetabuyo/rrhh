@@ -1177,8 +1177,8 @@ namespace General.Repositorios
             parametros.Add("@idPersona", usuario.Owner.Id);
 
             //DESCOMENTAR CUANDO ESTÉ HECHO EL SP
-            //var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Idiomas", parametros);
-            //idioma_extranjero_nuevo.Id = int.Parse(id.ToString());
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Idiomas", parametros);
+            idioma_extranjero_nuevo.Id = int.Parse(id.ToString());
 
             return idioma_extranjero_nuevo;
         }
@@ -1188,7 +1188,7 @@ namespace General.Repositorios
             var parametros = ParametrosDelIdioma(idioma_extranjero_modificado, usuario);
             parametros.Add("@IdIdioma", idioma_extranjero_modificado.Id);
             //DESCOMENTAR CUANDO ESTÉ HECHO EL SP
-            //    conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
+                conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
 
             return idioma_extranjero_modificado;
         }
@@ -1202,7 +1202,7 @@ namespace General.Repositorios
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Baja", id_baja);
             //DESCOMENTAR CUANDO ESTÉ HECHO EL SP
-            //conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
 
             return true;
         }
