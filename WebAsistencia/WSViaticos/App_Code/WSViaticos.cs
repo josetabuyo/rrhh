@@ -2509,19 +2509,19 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region CVAntecedentesAcademicos
     [WebMethod]
-    public CvEstudios GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, CvEstudios antecedentesAcademicos_original, Usuario usuario)
+    public CvEstudios GuardarCvAntecedenteAcademico(CvEstudios antecedentesAcademicos_nuevo,  Usuario usuario)
     {
         return RepoCurriculum().GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
     }
 
     [WebMethod]
-    public CvEstudios ActualizarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, CvEstudios antecedentesAcademicos_original, Usuario usuario)
+    public CvEstudios ActualizarCvAntecedenteAcademico(CvEstudios antecedentesAcademicos_nuevo,  Usuario usuario)
     {
         return RepoCurriculum().ActualizarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
     }
 
     [WebMethod]
-    public CvEstudios EliminarCvAntecedentesAcademicos(CvEstudios antecedente_a_borrar, Usuario usuario)
+    public bool EliminarCvAntecedenteAcademico(int antecedente_a_borrar, Usuario usuario)
     {
         return RepoCurriculum().EliminarCVAntecedentesAcademicos(antecedente_a_borrar, usuario);
     }

@@ -514,7 +514,7 @@ namespace General.Repositorios
 
         private CvEstudios GetAntecedenteAcademicosFromDataRow(RowDeDatos row)
         {
-            return new CvEstudios(row.GetInt("IdAntecedentesAcademicos", 0), row.GetString("AntecedentesAcademicosTitulo", ""), row.GetString("AntecedentesAcademicosEstablecimiento", ""),
+            return new CvEstudios(row.GetInt("IdAntecedentesAcademicos", 0), row.GetString("AntecedentesAcademicosTitulo", ""), row.GetInt("AntecedentesAcademicosNivel",0), row.GetString("AntecedentesAcademicosEstablecimiento", ""),
                                    row.GetString("AntecedentesAcademicosEspecialidad", ""), row.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today).ToShortDateString(),
                                    row.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today).ToShortDateString(), row.GetString("AntecedentesAcademicosLocalidad", ""),
                                    row.GetString("AntecedentesAcademicosPais", ""));
@@ -781,17 +781,19 @@ namespace General.Repositorios
 
         }
 
-        public CvEstudios EliminarCVAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
+        public bool EliminarCVAntecedentesAcademicos(int antecedentesAcademicos_nuevo, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+            //var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+             var parametros = new Dictionary<string, object>();
             parametros.Add("@idBaja", baja);
-            parametros.Add("@idAntecedente", antecedentesAcademicos_nuevo.Id);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@idAntecedente", antecedentesAcademicos_nuevo);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
             //this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
-            return antecedentesAcademicos_nuevo;
+            return true;
         }
 
         private Dictionary<string, object> ParametrosDeAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
