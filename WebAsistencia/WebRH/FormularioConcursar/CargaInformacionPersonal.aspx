@@ -287,7 +287,7 @@
               <div id="collapseFive" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_evento_academico" onclick="javascript:AgregarEventosAcademicos();" class="link" >Cargar eventos académicos</a></legend>
+                    <legend><a id="btn_agregar_evento_academico" class="link" >Cargar eventos académicos</a></legend>
                         <h4>Eventos Acadmémicos Agregados</h4>
                         <div id="ContenedorPlanillEventosAcademicos" runat="server">
                             <table id="tabla_eventos_academicos" class="table table-striped">
@@ -388,11 +388,11 @@
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">
                   IDIOMAS EXTRANJEROS
                 </a>
-              </div>
+              </div>s
               <div id="collapseTen" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_idioma_extranjero" onclick="javascript:AgregarIdiomasExtranjeros();" class="link" >Cargar idiomas extranjeros</a></legend>
+                    <legend><a id="btn_agregar_idioma_extranjero" class="link" >Cargar idiomas extranjeros</a></legend>
                         <h4>Idiomas Extranjeros Agregados</h4>
                         <div id="ContenedorPlanillaIdiomasExtranjeros" runat="server">
                             <table id="tabla_idiomas_extranjeros" class="table table-striped">
@@ -409,7 +409,7 @@
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">
                   COMPETENCIAS INFORM&Aacute;TICAS
                 </a>
-              </div>
+              </div>    
               <div id="collapseEleven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
@@ -503,7 +503,7 @@
 <script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
 <script type="text/javascript" src="ActividadesCapacitacion.js" ></script>
 <script type="text/javascript" src="ActividadesDocentes.js" ></script>
-<script type="text/javascript" src="EventosAcademicos.js" ></script>
+<%--<script type="text/javascript" src="EventosAcademicos.js" ></script>--%>
 <script type="text/javascript" src="PublicacionesTrabajos.js" ></script>
 <script type="text/javascript" src="Matriculas.js" ></script>
 <script type="text/javascript" src="InstitucionesAcademicas.js" ></script>
@@ -526,12 +526,12 @@
 <script type="text/javascript" src="PanelListaDeMatriculas.js" ></script>
 <script type="text/javascript" src="PanelDetalleDePublicacionTrabajo.js" ></script>
 <script type="text/javascript" src="PanelListaDePublicacionesTrabajos.js" ></script>
-
+<script type="text/javascript" src="PanelDetalleDeEventoAcademico.js" ></script>
+<script type="text/javascript" src="PanelListaDeEventosAcademicos.js" ></script>
 <%--
 <script type="text/javascript" src="PanelDetalleDeActividadCapacitacion.js" ></script>
 <script type="text/javascript" src="PanelListaDeActividadesCapacitacion.js" ></script>
-<script type="text/javascript" src="PanelDetalleDeEventoAcademico.js" ></script>
-<script type="text/javascript" src="PanelListaDeEventosAcademicos.js" ></script>
+
 <script type="text/javascript" src="PanelDetalleDeInstitucionAcademica.js" ></script>
 <script type="text/javascript" src="PanelListaDeInstitucionesAcademicas.js" ></script>
 <script type="text/javascript" src="PanelDetalleDeExperienciaLaboral.js" ></script>
@@ -573,7 +573,7 @@
 
 //      
 //      PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
-//      PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
+//      
 //      PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
 //      PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
 //      PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);

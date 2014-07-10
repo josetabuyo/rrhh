@@ -73,7 +73,7 @@ namespace TestViaticos
 
         public CvEstudios UnEstudio()
         {
-            return new CvEstudios("Lic. en Administracion", "Universidad de Buenos Aires", "", new DateTime(2003,03,01).ToShortDateString(),new DateTime(2007,12,20).ToShortDateString(),"CABA","Argentina");
+            return new CvEstudios("Lic. en Administracion",1 , "Universidad de Buenos Aires", "", new DateTime(2003,03,01).ToShortDateString(),new DateTime(2007,12,20).ToShortDateString(),"CABA","Argentina");
         }
 
         public CvEventoAcademico UnEventoAcademico()
@@ -89,7 +89,7 @@ namespace TestViaticos
 
         public CvIdiomas UnIdioma()
         {
-            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles","Avanzado","Intermedio","Basico",new DateTime(2013,12,20),new DateTime(2013,12,20),"CABA","Argentina");
+            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles","Avanzado","Intermedio","Basico",new DateTime(2013,12,20),"CABA","Argentina");
         }
 
         public CvInstitucionesAcademicas UnaInstitucionAcademica()

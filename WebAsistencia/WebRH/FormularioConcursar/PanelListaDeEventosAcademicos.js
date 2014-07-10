@@ -1,43 +1,46 @@
-﻿var PanelListaDeOtrasCapacidades = {
-    armarGrilla: function (capacidades) {
+﻿var PanelListaDeEventosAcademicos = {
+    armarGrilla: function (eventos_academicos) {
         var _this = this;
+        _this.divGrilla = $('#tabla_eventos_academicos');
+        _this.btn_agregar_evento_academico = $("#btn_agregar_evento_academico");
 
-        _this.divGrilla = $('#tabla_otras_capacidades');
-        _this.btn_agregar_otra_capacidad = $("#btn_agregar_otra_capacidad");
-
-        _this.btn_agregar_otra_capacidad.click(function () {
-            PanelDetalleDeOtraCapacidad.mostrar({
-                alModificar: function (nueva_capacidad) {
-                    _this.GrillaCapacidades.BorrarContenido();
-                    capacidades.push(nueva_capacidad);
-                    _this.GrillaCapacidades.CargarObjetos(capacidades);
+        _this.btn_agregar_evento_academico.click(function () {
+            PanelDetalleDeEventoAcademico.mostrar({
+                alModificar: function (nuevo_evento_academico) {
+                    _this.GrillaEventosAcademicos.BorrarContenido();
+                    eventos_academicos.push(nuevo_evento_academico);
+                    _this.GrillaEventosAcademicos.CargarObjetos(eventos_academicos);
                 }
             });
         });
 
         var columnas = [];
 
-        columnas.push(new Columna("Id", { generar: function (una_capacidad) { return una_capacidad.Id } }));
-        columnas.push(new Columna("Tipo", { generar: function (una_capacidad) { return una_capacidad.Tipo } }));
-        columnas.push(new Columna("Detalle", { generar: function (una_capacidad) { return una_capacidad.Detalle } }));
+        columnas.push(new Columna("Id", { generar: function (un_evento_academico) { return un_evento_academico.Id } }));
+        columnas.push(new Columna("Denominación", { generar: function (un_evento_academico) { return un_evento_academico.Denominacion } }));
+        columnas.push(new Columna("Tipo", { generar: function (un_evento_academico) { return un_evento_academico.TipoDeEvento } }));
+        columnas.push(new Columna("Carácter", { generar: function (un_evento_academico) { return un_evento_academico.CaracterDeParticipacion } }));
+        columnas.push(new Columna("Desde", { generar: function (un_evento_academico) { return un_evento_academico.FechaInicio } }));
+        columnas.push(new Columna("Hasta", { generar: function (un_evento_academico) { return un_evento_academico.FechaFinalizacion } }));
+        columnas.push(new Columna("Institución", { generar: function (un_evento_academico) { return un_evento_academico.Institucion } }));
         columnas.push(new Columna('Acciones', {
-            generar: function (una_capacidad) {
+            generar: function (un_evento_academico) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
                 var btn_editar = contenedorBtnAcciones.find("#btn_editar");
                 var btn_eliminar = contenedorBtnAcciones.find("#btn_eliminar");
 
                 btn_editar.click(function () {
-                    PanelDetalleDeOtraCapacidad.mostrar({
-                        capacidad: una_capacidad,
-                        alModificar: function (capacidad_modificada) {
+                    PanelDetalleDeEventoAcademico.mostrar({
+                        evento_academico: un_evento_academico,
+                        alModificar: function (evento_academico_modificado) {
                             _this.GrillaCapacidades.BorrarContenido();
-                            _this.GrillaCapacidades.CargarObjetos(capacidades);
+                            _this.GrillaCapacidades.CargarObjetos(eventos);
                         }
                     });
                 });
 
                 btn_eliminar.click(function () {
-                    _this.eliminar(una_capacidad);
+                    _this.eliminar(un_evento_academico);
                 });
 
                 return contenedorBtnAcciones;
@@ -45,38 +48,38 @@
         }
         ));
 
-        this.GrillaCapacidades = new Grilla(columnas);
-        this.GrillaCapacidades.AgregarEstilo("table table-striped");
-        this.GrillaCapacidades.SetOnRowClickEventHandler(function (una_capacidad) {
+        this.GrillaEventosAcademicos = new Grilla(columnas);
+        this.GrillaEventosAcademicos.AgregarEstilo("table table-striped");
+        this.GrillaEventosAcademicos.SetOnRowClickEventHandler(function (un_evento_academico) {
         });
 
-        this.GrillaCapacidades.CargarObjetos(capacidades);
-        this.GrillaCapacidades.DibujarEn(_this.divGrilla);
+        this.GrillaEventosAcademicos.CargarObjetos(eventos_academicos);
+        this.GrillaEventosAcademicos.DibujarEn(_this.divGrilla);
 
     },
-    eliminar: function (una_capacidad) {
+    eliminar: function (un_evento_academico) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar la capacidad?", function (e) {
+        alertify.confirm("¿Está seguro que desea eliminar la el evento académico?", function (e) {
             if (e) {
                 // user clicked "ok"
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "EliminarCVOtrasCapacidades",
+                proveedor_ajax.postearAUrl({ url: "EliminarCVEventosAcademicos",
                     data: {
-                        una_capacidad: una_capacidad
+                        eventosAcademicos_borrar: un_evento_academico
                     },
                     success: function (respuesta) {
-                        alertify.success("Capacidad eliminada correctamente");
-                        _this.GrillaCapacidades.QuitarObjeto(_this.divGrilla, una_capacidad);
+                        alertify.success("Evento académico eliminado correctamente");
+                        _this.GrillaEventosAcademicos.QuitarObjeto(_this.divGrilla, un_evento_academico);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.error("No se pudo eliminar la capacidad");
+                        alertify.error("No se pudo eliminar el evento académico");
                     }
                 });
             } else {
                 // user clicked "cancel"
-                alertify.error("No se pudo eliminar la capacidad");
+                alertify.error("No se pudo eliminar el evento académico");
             }
         });
 

@@ -63,7 +63,7 @@
                 // user clicked "ok"
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "EliminarCVIdiomasExtranjeros",
+                proveedor_ajax.postearAUrl({ url: "EliminarCVIdiomaExtranjero",
                     data: {
                         id_idioma_extranjero: un_idioma_extranjero.Id
                     },

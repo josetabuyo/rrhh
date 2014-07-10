@@ -15,6 +15,13 @@
 					<label for="txt_antecedentes_titulo">Título <em>*</em></label>
 					<input id="txt_antecedentes_titulo" type="text" style="width:350px;"/>
 				</div>
+                <div class="grupo_campos">
+					<label for="cmb_antecedentes_nivel">Nivel <em>*</em></label>
+					<select id="cmb_antecedentes_nivel" style="width:110px;">
+						<option>Seleccione</option>
+						<option value="1">Universitario</option>
+					</select>
+				</div>
 				<div class="grupo_campos">
 					<label for="txt_antecedentes_ingreso">Año/Mes Ingreso <em>*</em></label>
 					<input id="txt_antecedentes_ingreso" type="text" style="width:100px;"/>
@@ -74,19 +81,3 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-    $('#txt_antecedentes_ingreso').datepicker({
-        dateFormat: 'dd/mm/yy',
-        onClose: function () {
-
-        }
-    });
-    $('#txt_antecedentes_egreso').datepicker({
-        dateFormat: 'dd/mm/yy',
-        onClose: function () {
-
-        }
-    });
-    
-    
-</script>
