@@ -15,8 +15,8 @@ namespace General
         protected string _caracterDesignacion;
         protected string _dedicacionDocente;
         protected string _cargaHoraria;
-        protected DateTime _fechaInicio;
-        protected DateTime _fechaFinalizacion;
+        protected string _fechaInicio;
+        protected string _fechaFinalizacion;
         protected string _establecimiento;
         protected string _localidad;
         protected string _pais;
@@ -29,19 +29,19 @@ namespace General
         public string CaracterDesignacion { get { return _caracterDesignacion; } set { _caracterDesignacion = value; } }
         public string DedicacionDocente { get { return _dedicacionDocente; } set { _dedicacionDocente = value; } }
         public string CargaHoraria { get { return _cargaHoraria; } set { _cargaHoraria = value; } }
-        public DateTime FechaInicio { get { return _fechaInicio; } set { _fechaInicio = value; } }
-        public DateTime FechaFinalizacion { get { return _fechaFinalizacion; } set { _fechaFinalizacion = value; } }
+        public string FechaInicio { get { return _fechaInicio; } set { _fechaInicio = value; } }
+        public string FechaFinalizacion { get { return _fechaFinalizacion; } set { _fechaFinalizacion = value; } }
         public string Establecimiento { get { return _establecimiento; } set { _establecimiento = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public string Pais { get { return _pais; } set { _pais = value; } }
 
 
-        public CvDocencia(string asignatura, string nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
+        public CvDocencia(string asignatura, string nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, string fechaInicio, string fechaFinalizacion, string establecimiento, string localidad, string pais)
         {
             SetearCampos(asignatura, nivelEducativo, tipoActividad, categoriaDocente, caracterDesignacion, dedicacionDocente, cargaHoraria, fechaInicio, fechaFinalizacion, establecimiento, localidad, pais);
         }
 
-        public CvDocencia(int id, string asignatura, string nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
+        public CvDocencia(int id, string asignatura, string nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, string fechaInicio, string fechaFinalizacion, string establecimiento, string localidad, string pais)
         {
             this._id = id;
             SetearCampos(asignatura, nivelEducativo, tipoActividad, categoriaDocente, caracterDesignacion, dedicacionDocente, cargaHoraria, fechaInicio, fechaFinalizacion, establecimiento, localidad, pais);
@@ -49,7 +49,7 @@ namespace General
 
 
 
-        private void SetearCampos(string asignatura, string nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
+        private void SetearCampos(string asignatura, string nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, string fechaInicio, string fechaFinalizacion, string establecimiento, string localidad, string pais)
         {
             this._asignatura = asignatura;
             this._nivelEducativo = nivelEducativo;

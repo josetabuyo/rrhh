@@ -105,7 +105,7 @@ namespace TestViaticos
         public CvDocencia UnaDocencia()
         {
             return new CvDocencia(1,"Ingles", "Secundario", "No se", "No se", "Nombrado", "No se", "12 a 18",
-                                  new DateTime(2008, 01, 01), new DateTime(2010, 12, 20), "Colegio Coppelo", "CABA",
+                                  new DateTime(2008, 01, 01).ToString("dd/MM/yyyy"), new DateTime(2010, 12, 20).ToString("dd/MM/yyyy"), "Colegio Coppelo", "CABA",
                                   "Argetina");
 
         }

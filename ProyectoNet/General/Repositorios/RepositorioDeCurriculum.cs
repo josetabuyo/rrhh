@@ -64,32 +64,32 @@ namespace General.Repositorios
                         row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0)), row.GetString("TieneLegajo"))));
 
 
-            //CORTE DE CONTROL PARA ANTECEDENTES ACADEMICOS
-            CorteDeControlAntecedentesAcademicos(tablaCVs, cv);
+            ////CORTE DE CONTROL PARA ANTECEDENTES ACADEMICOS
+            //CorteDeControlAntecedentesAcademicos(tablaCVs, cv);
 
-            //CORTE DE CONTROL PARA CERTIFICADOS DE CAPACITACION
-            CorteDeControlCertificadosDeCapacitacion(tablaCVs, cv);
+            ////CORTE DE CONTROL PARA CERTIFICADOS DE CAPACITACION
+            //CorteDeControlCertificadosDeCapacitacion(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA ACTIVIDADES DOCENTES
             CorteDeControlActividadesDocentes(tablaCVs, cv);
 
-            //CORTE DE CONTROL PARA MATRICULAS
-            CorteDeControlMatriculas(tablaCVs, cv);
+            ////CORTE DE CONTROL PARA MATRICULAS
+            //CorteDeControlMatriculas(tablaCVs, cv);
 
-            //CORTE DE CONTROL PARA PUBLICACIONES
-            CorteDeControlPublicaciones(tablaCVs, cv);
+            ////CORTE DE CONTROL PARA PUBLICACIONES
+            //CorteDeControlPublicaciones(tablaCVs, cv);
 
-            //CORTE DE CONTROL PARA INSTITUCIONES ACADEMICAS
-            CorteDeControlInstituciones(tablaCVs, cv);
+            ////CORTE DE CONTROL PARA INSTITUCIONES ACADEMICAS
+            //CorteDeControlInstituciones(tablaCVs, cv);
 
-            //CORTE DE CONTROL PARA EXPERIENCIAS LABORALES
-            CorteDeControlExperienciasLaborales(tablaCVs, cv);
+            ////CORTE DE CONTROL PARA EXPERIENCIAS LABORALES
+            //CorteDeControlExperienciasLaborales(tablaCVs, cv);
 
-            //CORTE DE CONTROL PARA IDIOMA
-            CorteDeControlIdioma(tablaCVs, cv);
+            ////CORTE DE CONTROL PARA IDIOMA
+            //CorteDeControlIdioma(tablaCVs, cv);
 
-            //CORTE DE CONTROL PARA COMPETENCIA INFORMATICA
-            CorteDeControlCompetenciaInformatica(tablaCVs, cv);
+            ////CORTE DE CONTROL PARA COMPETENCIA INFORMATICA
+            //CorteDeControlCompetenciaInformatica(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA OTRAS CAPACIDADES
             CorteDeControlOtrasCapacidades(tablaCVs, cv);
@@ -539,8 +539,8 @@ namespace General.Repositorios
         {
             return new CvDocencia(row.GetInt("IdAntecedentesDeDocencia", 0), row.GetString("AntecedentesDeDocenciaAsignatura", ""), row.GetString("AntecedentesDeDocenciaNivelEducativo", ""),
                                    row.GetString("AntecedentesDeDocenciaTipoActividad", ""), row.GetString("AntecedentesDeDocenciaCategoriaDocente", ""), row.GetString("AntecedentesDeDocenciaCaracterDesignacion", ""), row.GetString("AntecedentesDeDocenciaDedicacionDocente", ""), row.GetString("AntecedentesDeDocenciaCargaHoraria", ""),
-                                   row.GetDateTime("AntecedentesDeDocenciaFechaInicio", DateTime.Today),
-                                   row.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", DateTime.Today), row.GetString("AntecedentesDeDocenciaEstablecimiento", ""),
+                                   row.GetDateTime("AntecedentesDeDocenciaFechaInicio", DateTime.Today).ToShortDateString(),
+                                   row.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", DateTime.Today).ToShortDateString(), row.GetString("AntecedentesDeDocenciaEstablecimiento", ""),
                                    row.GetString("AntecedentesDeDocenciaLocalidad", ""), row.GetString("AntecedentesDeDocenciaPais", ""));
         }
 
@@ -870,7 +870,7 @@ namespace General.Repositorios
         {
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ActividadesDocentes", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_AntecedentesDeDocencia", parametros);
             docencia_nuevo.Id = int.Parse(id.ToString());
 
             return docencia_nuevo;
@@ -881,7 +881,7 @@ namespace General.Repositorios
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@IdDocencia", docencia_nuevo.Id);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesDocentes", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_AntecedentesDeDocencia", parametros);
 
             return docencia_nuevo;
         }
@@ -894,7 +894,7 @@ namespace General.Repositorios
             parametros.Add("@IdDocencia", docencia_nuevo.Id);
             parametros.Add("@Baja", baja);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesDocentes", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_AntecedentesDeDocencia", parametros);
 
             return docencia_nuevo;
         }
@@ -915,7 +915,7 @@ namespace General.Repositorios
             parametros.Add("@Localidad", docencia_nuevo.Localidad);
             parametros.Add("@Pais", docencia_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
-            
+            parametros.Add("@IdPersona", usuario.Owner.Id);
 
             return parametros;
 
@@ -1368,7 +1368,7 @@ namespace General.Repositorios
         {
             var docencia = new List<CvDocencia>()
                                {
-                                   new CvDocencia("Matemática Discreta", "Universitario", "Docencia", "Profesor Titular",  "Jefe de Cátedra" , "Dedicación Exclusiva", "40 horas semanales", new DateTime(2005, 03, 01), new DateTime(2009, 12, 01), "Universidad Tecnológica Nacional", "CABA", "Argentina")
+                                   new CvDocencia("Matemática Discreta", "Universitario", "Docencia", "Profesor Titular",  "Jefe de Cátedra" , "Dedicación Exclusiva", "40 horas semanales", new DateTime(2005, 03, 01).ToString("dd/MM/yyyy"), new DateTime(2009, 12, 01).ToString("dd/MM/yyyy"), "Universidad Tecnológica Nacional", "CABA", "Argentina")
                                };
 
             return docencia;
