@@ -65,34 +65,34 @@ namespace General.Repositorios
 
 
             //CORTE DE CONTROL PARA ANTECEDENTES ACADEMICOS
-            // CorteDeControlAntecedentesAcademicos(tablaCVs, cv);
+             CorteDeControlAntecedentesAcademicos(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA CERTIFICADOS DE CAPACITACION
-            //CorteDeControlCertificadosDeCapacitacion(tablaCVs, cv);
+            CorteDeControlCertificadosDeCapacitacion(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA ACTIVIDADES DOCENTES
-            //CorteDeControlActividadesDocentes(tablaCVs, cv);
+            CorteDeControlActividadesDocentes(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA MATRICULAS
-            //CorteDeControlMatriculas(tablaCVs, cv);
+            CorteDeControlMatriculas(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA PUBLICACIONES
-            //CorteDeControlPublicaciones(tablaCVs, cv);
+            CorteDeControlPublicaciones(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA INSTITUCIONES ACADEMICAS
-            //CorteDeControlInstituciones(tablaCVs, cv);
+            CorteDeControlInstituciones(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA EXPERIENCIAS LABORALES
-            //CorteDeControlExperienciasLaborales(tablaCVs, cv);
+            CorteDeControlExperienciasLaborales(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA IDIOMA
-            //CorteDeControlIdioma(tablaCVs, cv);
+            CorteDeControlIdioma(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA COMPETENCIA INFORMATICA
-            //CorteDeControlCompetenciaInformatica(tablaCVs, cv);
+            CorteDeControlCompetenciaInformatica(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA OTRAS CAPACIDADES
-            //CorteDeControlOtrasCapacidades(tablaCVs, cv);
+            CorteDeControlOtrasCapacidades(tablaCVs, cv);
 
             if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
             {
@@ -1190,7 +1190,7 @@ namespace General.Repositorios
             var parametros = ParametrosDelIdioma(idioma_extranjero_modificado, usuario);
             parametros.Add("@IdIdioma", idioma_extranjero_modificado.Id);
             //DESCOMENTAR CUANDO ESTÉ HECHO EL SP
-                conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idiomas", parametros);
 
             return idioma_extranjero_modificado;
         }
@@ -1202,9 +1202,9 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdIdioma", id_capacidad);
             parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", id_baja);
+            parametros.Add("@idBaja", id_baja);
             //DESCOMENTAR CUANDO ESTÉ HECHO EL SP
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idiomas", parametros);
 
             return true;
         }

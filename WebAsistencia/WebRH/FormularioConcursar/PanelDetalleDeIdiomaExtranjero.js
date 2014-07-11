@@ -9,8 +9,12 @@
         this.ui.find("#contenido_modal").load("PanelDetalleDeIdiomaExtranjero.htm", function () {
             _this.txt_idioma_extranjero_diploma_certificacion = _this.ui.find("#txt_idioma_extranjero_diploma_certificacion");
             _this.txt_idioma_extranjero_diploma_certificacion.val(idioma_extranjero.Diploma);
+
             _this.txt_idioma_extranjero_fecha_obtencion = _this.ui.find("#txt_idioma_extranjero_fecha_obtencion");
-            _this.txt_idioma_extranjero_fecha_obtencion.val(idioma_extranjero.FechaObtencion);
+            _this.txt_idioma_extranjero_fecha_obtencion.datepicker();
+            _this.txt_idioma_extranjero_fecha_obtencion.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.txt_idioma_extranjero_fecha_obtencion.datepicker('setDate', new Date(idioma_extranjero.FechaObtencion).toGMTString());
+            
             _this.txt_idioma_extranjero_establecimiento = _this.ui.find("#txt_idioma_extranjero_establecimiento");
             _this.txt_idioma_extranjero_establecimiento.val(idioma_extranjero.Establecimiento);
             _this.cmb_idioma_extranjero_localidad = _this.ui.find("#cmb_idioma_extranjero_localidad");
@@ -49,7 +53,7 @@
 
                     proveedor_ajax.postearAUrl({ url: "ActualizarCvIdiomaExtranjero",
                         data: {
-                            idioma_extranjero: idioma_extranjero
+                            idioma_extranjero: JSON.stringify(idioma_extranjero)
                         },
                         success: function (respuesta) {
                             alertify.alert("El idioma fue actualizado correctamente");
@@ -66,7 +70,7 @@
 
                 proveedor_ajax.postearAUrl({ url: "GuardarCvIdiomaExtranjero",
                     data: {
-                        idioma_extranjero: idioma_extranjero
+                        idioma_extranjero: JSON.stringify(idioma_extranjero)
                     },
                     success: function (respuesta) {
                         alertify.alert("El idioma fue guardado correctamente");
@@ -79,12 +83,10 @@
                 });
             });
 
-            $('#txt_idioma_extranjero_fecha_obtencion').datepicker({
-                dateFormat: 'dd/mm/yy',
-                onClose: function () {
-
-                }
-            });
+//            FormatoFecha = function (fecha_string) {
+//                var retorno = $.datepicker.formatDate('mm/dd/yyyy', fecha_string);
+//                return retorno;
+//            };
 
             var link_trucho = $("<a href='#un_div_modal'></a>");
             link_trucho.leanModal({ top: 300, closeButton: ".modal_close_concursar" });
