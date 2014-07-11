@@ -112,39 +112,32 @@ namespace General.Repositorios
         #region CortesDeControl
         private void CorteDeControlAntecedentesAcademicos(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
-            //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("IdAntecedentesAcademicos") is DBNull))
+            var lista = ArmarFilas(tablaCVs, "IdAntecedentesAcademicos", "AntecedentesAcademicosBaja");
+
+            if (lista.Count > 0)
             {
+                var antecedentes_anonimos = (from RowDeDatos dRow in lista
+                                        select new //CvAntecedentesAcademicos ()
+                                        {
+                                            Id = dRow.GetInt("IdAntecedentesAcademicos", 0),
+                                            Titulo = dRow.GetString("AntecedentesAcademicosTitulo", string.Empty),
+                                            Nivel = dRow.GetInt("AntecedentesAcademicosNivel", 0),
+                                            Establecimiento = dRow.GetString("AntecedentesAcademicosEstablecimiento", string.Empty),
+                                            Especialidad = dRow.GetString("AntecedentesAcademicosEspecialidad", string.Empty),
+                                            FechaIngreso = dRow.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today),
+                                            FechaEgreso = dRow.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today),
+                                            Localidad = dRow.GetString("AntecedentesAcademicosLocalidad", string.Empty),
+                                            Pais = dRow.GetString("AntecedentesAcademicosPais", string.Empty)
+                                        }).Distinct().ToList();
 
-                //2.- Creo el estudio anterior por primera vez
-                var estudioAnterior = GetAntecedenteAcademicosFromDataRow(tablaCVs.Rows[0]);
 
-                var estudio = estudioAnterior;
+                antecedentes_anonimos.Select(a => new CvEstudios(a.Id, a.Titulo, a.Nivel, a.Establecimiento,
+                                                                    a.Especialidad, a.FechaIngreso.ToShortDateString(), a.FechaEgreso.ToShortDateString(),
+                                                                    a.Localidad, a.Pais)).ToList().ForEach(ev => cv.AgregarEstudio(ev));
 
-                if (estudio.Id != 0)
-                {
-                    cv.AgregarEstudio(estudio);
-
-                }
-
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("IdAntecedentesAcademicos") is DBNull))
-                    {
-
-                        //3.- Comparo el estudio anterior con la estudio actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
-                        if (estudioAnterior.Id != row.GetInt("IdAntecedentesAcademicos", 0))
-                        {
-                            estudio = GetAntecedenteAcademicosFromDataRow(row);
-                            if (estudio.Id != 0)
-                            {
-                                cv.AgregarEstudio(estudio);
-                                estudioAnterior = estudio;
-                            }
-                        }
-                    }
-                }
             }
+
+
         }
 
         private void CorteDeControlCertificadosDeCapacitacion(TablaDeDatos tablaCVs, CurriculumVitae cv)
@@ -186,39 +179,36 @@ namespace General.Repositorios
 
         private void CorteDeControlActividadesDocentes(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
-            //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("IdAntecedentesDeDocencia") is DBNull))
+            var lista = ArmarFilas(tablaCVs, "IdAntecedentesDeDocencia", "AntecedentesDeDocenciaBaja");
+
+            if (lista.Count > 0)
             {
+                var docencias_anonimos = (from RowDeDatos dRow in lista
+                                             select new //CvAntecedentesAcademicos ()
+                                             {
+                                                 Id = dRow.GetInt("IdAntecedentesDeDocencia", 0),
+                                                 Asignatura = dRow.GetString("AntecedentesDeDocenciaAsignatura", string.Empty),
+                                                 NivelEducativo = dRow.GetString("AntecedentesDeDocenciaNivelEducativo", string.Empty),
+                                                 TipoActividad = dRow.GetString("AntecedentesDeDocenciaTipoActividad", string.Empty),
+                                                 CategoriaDocente = dRow.GetString("AntecedentesDeDocenciaCategoriaDocente", string.Empty),
+                                                 CaracterDesignacion = dRow.GetString("AntecedentesDeDocenciaCaracterDesignacion", string.Empty),
+                                                 DedicacionDocente = dRow.GetString("AntecedentesDeDocenciaDedicacionDocente", string.Empty),
+                                                 CargaHoraria = dRow.GetString("AntecedentesDeDocenciaCargaHoraria", string.Empty),
+                                                 Establecimiento = dRow.GetString("AntecedentesDeDocenciaEstablecimiento", string.Empty),
+                                                 FechaInicio = dRow.GetDateTime("AntecedentesDeDocenciaFechaInicio", DateTime.Today),
+                                                 FechaFinalizacion = dRow.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", DateTime.Today),
+                                                 Localidad = dRow.GetString("AntecedentesDeDocenciaLocalidad", string.Empty),
+                                                 Pais = dRow.GetString("AntecedentesDeDocenciaPais", string.Empty)
+                                             }).Distinct().ToList();
 
-                //2.- Creo la docencia anterior por primera vez
-                var docenciaAnterior = GetActividadesDocentesFromDataRow(tablaCVs.Rows[0]);
 
-                var docencia = docenciaAnterior;
+                docencias_anonimos.Select(d => new CvDocencia(d.Id, d.Asignatura, d.NivelEducativo, d.TipoActividad,d.CategoriaDocente,d.CaracterDesignacion,
+                                                                    d.DedicacionDocente, d.CargaHoraria, d.FechaInicio,d.FechaFinalizacion,d.Establecimiento,
+                                                                    d.Localidad, d.Pais)).ToList().ForEach(doc => cv.AgregarDocencia(doc));
 
-                if (docencia.Id != 0)
-                {
-                    cv.AgregarDocencia(docencia);
-
-                }
-
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("IdAntecedentesDeDocencia") is DBNull))
-                    {
-
-                        //3.- Comparo la docencia anterior con la docencia actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
-                        if (docenciaAnterior.Id != row.GetInt("IdAntecedentesDeDocencia", 0))
-                        {
-                            docencia = GetActividadesDocentesFromDataRow(row);
-                            if (docencia.Id != 0)
-                            {
-                                cv.AgregarDocencia(docencia);
-                                docenciaAnterior = docencia;
-                            }
-                        }
-                    }
-                }
             }
+
+
         }
 
         private void CorteDeControlEventosAcademicos(TablaDeDatos tablaCVs, CurriculumVitae cv)
@@ -289,229 +279,174 @@ namespace General.Repositorios
 
         private void CorteDeControlMatriculas(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
-            //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("IdMatricula") is DBNull))
+            var lista = ArmarFilas(tablaCVs, "IdMatricula", "MatriculaBaja");
+
+            if (lista.Count > 0)
             {
+                var matriculas_anonimos = (from RowDeDatos dRow in lista
+                                        select new //CvIdioma ()
+                                        {
+                                            Id = dRow.GetInt("IdMatricula", 0),
+                                            Numero = dRow.GetString("MatriculaNumero", string.Empty),
+                                            ExpedidaPor = dRow.GetString("MatriculaExpedidoPor", string.Empty),
+                                            SituacionActual = dRow.GetString("MatriculaSituacionActual", string.Empty),
+                                            FechaObtencion = dRow.GetDateTime("MatriculaFechaObtencion", DateTime.Today)
+                                            
+                                        }).Distinct().ToList();
 
-                //2.- Creo la matricula anterior por primera vez
-                var matriculaAnterior = GetMatriculaFromDataRow(tablaCVs.Rows[0]);
+                matriculas_anonimos.Select(m => new CvMatricula(m.Id, m.Numero, m.ExpedidaPor, m.SituacionActual, 
+                                           m.FechaObtencion)).ToList().ForEach(mat => cv.AgregarMatricula(mat));
 
-                var matricula = matriculaAnterior;
-
-                if (matricula.Id != 0)
-                {
-                    cv.AgregarMatricula(matricula);
-
-                }
-
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("IdMatricula") is DBNull))
-                    {
-
-                        //3.- Comparo la matricula anterior con la matricula actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
-                        if (matriculaAnterior.Id != row.GetInt("IdMatricula", 0))
-                        {
-                            matricula = GetMatriculaFromDataRow(row);
-                            if (matricula.Id != 0)
-                            {
-                                cv.AgregarMatricula(matricula);
-                                matriculaAnterior = matricula;
-                            }
-                        }
-                    }
-                }
             }
+
+           
         }
 
         private void CorteDeControlPublicaciones(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
-            //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("IdPublicacion") is DBNull))
+            var lista = ArmarFilas(tablaCVs, "IdPublicacion", "PublicacionBaja");
+
+            if (lista.Count > 0)
             {
+                var publicaciones_anonimos = (from RowDeDatos dRow in lista
+                                           select new //CvIdioma ()
+                                           {
+                                               Id = dRow.GetInt("IdPublicacion", 0),
+                                               Titulo = dRow.GetString("PublicacionTitulo", string.Empty),
+                                               Editorial = dRow.GetString("PublicacionEditorial", string.Empty),
+                                               Hojas = dRow.GetString("PublicacionHojas", string.Empty),
+                                               Copia = dRow.GetBoolean("PublicacionCopia"),
+                                               Fecha = dRow.GetDateTime("PublicacionFecha", DateTime.Today)
 
-                //2.- Creo la publicacion anterior por primera vez
-                var publicacionAnterior = GetPublicacionFromDataRow(tablaCVs.Rows[0]);
+                                           }).Distinct().ToList();
 
-                var publicacion = publicacionAnterior;
 
-                if (publicacion.Id != 0)
-                {
-                    cv.AgregarPublicacion(publicacion);
 
-                }
+                publicaciones_anonimos.Select(p => new CvPublicaciones(p.Id, p.Titulo,p.Editorial,p.Hojas,p.Copia,
+                                           p.Fecha)).ToList().ForEach(pub => cv.AgregarPublicacion(pub));
 
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("IdPublicacion") is DBNull))
-                    {
-
-                        //3.- Comparo la publicacion anterior con la publicacion actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
-                        if (publicacionAnterior.Id != row.GetInt("IdPublicacion", 0))
-                        {
-                            publicacion = GetPublicacionFromDataRow(row);
-                            if (publicacion.Id != 0)
-                            {
-                                cv.AgregarPublicacion(publicacion);
-                                publicacionAnterior = publicacion;
-                            }
-                        }
-                    }
-                }
             }
+
         }
 
         private void CorteDeControlInstituciones(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
-            //1.- Controlo que haya al menos 1 resultado
-            var lista = new TablaDeDatos();
-            tablaCVs.Rows.ForEach(r =>
+
+            var lista = ArmarFilas(tablaCVs, "IdInstitucion", "InstitucionBaja");
+
+            if (lista.Count > 0)
             {
-                if (!(r.GetObject("IdInstitucion") is DBNull) && (!(r.GetObject("InstitucionBaja") is DBNull)) )
-                    lista.Rows.Add(r);
-            });
-            if (lista.Rows.Count() > 0)
-            {
-                
-                //2.- Creo la institucion anterior por primera vez
-                var institucionAnterior = GetInstitucionFromDataRow(lista.Rows[0]);
+                var instituciones_anonimos = (from RowDeDatos dRow in lista
+                                              select new
+                                              {
+                                                  Id = dRow.GetInt("IdInstitucion", 0),
+                                                  Institucion = dRow.GetString("InstitucionInstitucion", string.Empty),
+                                                  CaracterEntidad = dRow.GetString("InstitucionCaracterEntidad", string.Empty),
+                                                  Cargos = dRow.GetString("InstitucionCargos", string.Empty),
+                                                  Afiliados = dRow.GetInt("InstitucionAfiliados", 0),
+                                                  CategoriaActual = dRow.GetString("InstitucionCategoriaActual", string.Empty),
+                                                  FechaAfiliacion = dRow.GetDateTime("InstitucionFechaAfiliacion", DateTime.Today),
+                                                  Fecha = dRow.GetDateTime("InstitucionFecha", DateTime.Today),
+                                                  FechaInicio = dRow.GetDateTime("InstitucionFechaInicio", DateTime.Today),
+                                                  FechaFin = dRow.GetDateTime("InstitucionFechaFin", DateTime.Today),
+                                                  Localidad = dRow.GetString("InstitucionLocalidad", string.Empty),
+                                                  Pais = dRow.GetString("InstitucionPais", string.Empty)
 
-                var institucion = institucionAnterior;
+                                              }).Distinct().ToList();
 
-                if (institucion.Id != 0)
-                {
-                    cv.AgregarInstitucionAcademica(institucion);
 
-                }
+                instituciones_anonimos.Select(i => new CvInstitucionesAcademicas(i.Id, i.Institucion, i.CaracterEntidad, i.Cargos, i.Afiliados,
+                                            i.CategoriaActual, i.FechaAfiliacion, i.Fecha, i.FechaInicio, i.FechaFin,i.Localidad,
+                                            i.Pais)).ToList().ForEach(inst => cv.AgregarInstitucionAcademica(inst));
 
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("IdInstitucion") is DBNull))
-                    {
-
-                        //3.- Comparo la institucion anterior con la institucion actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
-                        if (institucionAnterior.Id != row.GetInt("IdInstitucion", 0))
-                        {
-                            institucion = GetInstitucionFromDataRow(row);
-                            if (institucion.Id != 0)
-                            {
-                                cv.AgregarInstitucionAcademica(institucion);
-                                institucionAnterior = institucion;
-                            }
-                        }
-                    }
-                }
             }
         }
 
         private void CorteDeControlExperienciasLaborales(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
-            //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("IdExperienciaLaboral") is DBNull))
+            var lista = ArmarFilas(tablaCVs, "IdExperienciaLaboral", "ExperienciaLaboralBaja");
+
+            if (lista.Count > 0)
             {
+                var experiencias_anonimos = (from RowDeDatos dRow in lista
+                                              select new
+                                              {
+                                                  Id = dRow.GetInt("IdExperienciaLaboral", 0),
+                                                  PuestoOcupado = dRow.GetString("ExperienciaLaboralPuestoOcupado", string.Empty),
+                                                  MotivoDesvinculacion = dRow.GetString("ExperienciaLaboralMotivoDesvinculacion", string.Empty),
+                                                  NombreEmpleador = dRow.GetString("ExperienciaLaboralNombreEmpleador", string.Empty),
+                                                  PersonasACargo = dRow.GetBoolean("ExperienciaLaboralPersonasACargo"),
+                                                  TipoEmpresa = dRow.GetString("ExperienciaLaboralTipoEmpresa", string.Empty),
+                                                  Actividad = dRow.GetString("ExperienciaLaboralActividad", string.Empty),
+                                                  FechaInicio = dRow.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
+                                                  FechaFin = dRow.GetDateTime("ExperienciaLaboralFin", DateTime.Today),
+                                                  Localidad = dRow.GetString("ExperienciaLaboralLocalidad", string.Empty),
+                                                  Pais = dRow.GetString("ExperienciaLaboralPais", string.Empty)
 
-                //2.- Creo la experiencia anterior por primera vez
-                var experienciaAnterior = GetExperienciaFromDataRow(tablaCVs.Rows[0]);
+                                              }).Distinct().ToList();
 
-                var experiencia = experienciaAnterior;
 
-                if (experiencia.Id != 0)
-                {
-                    cv.AgregarExperienciaLaboral(experiencia);
+                experiencias_anonimos.Select(e => new CvExperienciaLaboral(e.Id, e.PuestoOcupado, e.MotivoDesvinculacion, e.NombreEmpleador, e.PersonasACargo,
+                                            e.TipoEmpresa, e.Actividad, e.FechaInicio, e.FechaFin, e.Localidad,
+                                            e.Pais)).ToList().ForEach(exp => cv.AgregarExperienciaLaboral(exp));
 
-                }
-
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("IdExperienciaLaboral") is DBNull))
-                    {
-
-                        //3.- Comparo la experiencia anterior con la experiencia actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
-                        if (experienciaAnterior.Id != row.GetInt("IdExperienciaLaboral", 0))
-                        {
-                            experiencia = GetExperienciaFromDataRow(row);
-                            if (experiencia.Id != 0)
-                            {
-                                cv.AgregarExperienciaLaboral(experiencia);
-                                experienciaAnterior = experiencia;
-                            }
-                        }
-                    }
-                }
             }
+            
         }
 
         private void CorteDeControlIdioma(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
-            //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("IdIdioma") is DBNull))
+            var lista = ArmarFilas(tablaCVs, "IdIdioma", "IdiomaBaja");
+
+            if (lista.Count > 0)
             {
+                var idiomas_anonimos = (from RowDeDatos dRow in lista
+                                             select new //CvIdioma ()
+                                             {
+                                                 Id = dRow.GetInt("IdIdioma", 0),
+                                                 Diploma = dRow.GetString("IdiomaDiploma", string.Empty),
+                                                 Establecimiento = dRow.GetString("IdiomaEstablecimiento", string.Empty),
+                                                 Idioma = dRow.GetString("IdiomaIdioma", string.Empty),
+                                                 Lectura = dRow.GetString("IdiomaLectura", string.Empty),
+                                                 Escritura = dRow.GetString("IdiomaEscritura", string.Empty),
+                                                 Oral = dRow.GetString("IdiomaOral", string.Empty),
+                                                 FechaObtencion = dRow.GetDateTime("IdiomaFechaObtencion", DateTime.Today),
+                                                 Localidad = dRow.GetString("IdiomaLocalidad", string.Empty),
+                                                 Pais = dRow.GetString("IdiomaPais", string.Empty)
+                                             }).Distinct().ToList();
 
-                //2.- Creo la idioma anterior por primera vez
-                var idiomaAnterior = GetIdiomaFromDataRow(tablaCVs.Rows[0]);
 
-                var idioma = idiomaAnterior;
+                idiomas_anonimos.Select(i => new CvIdiomas(i.Id, i.Diploma, i.Establecimiento,i.Idioma, i.Lectura, i.Escritura, 
+                                                           i.Oral,i.FechaObtencion,i.Localidad,i.Pais)).ToList().ForEach(idi => cv.AgregarIdioma(idi));
 
-                if (idioma.Id != 0)
-                {
-                    cv.AgregarIdioma(idioma);
-
-                }
-
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("IdIdioma") is DBNull))
-                    {
-
-                        //3.- Comparo la idioma anterior con la idioma actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
-                        if (idiomaAnterior.Id != row.GetInt("IdIdioma", 0))
-                        {
-                            idioma = GetIdiomaFromDataRow(row);
-                            if (idioma.Id != 0)
-                            {
-                                cv.AgregarIdioma(idioma);
-                                idiomaAnterior = idioma;
-                            }
-                        }
-                    }
-                }
             }
+       
         }
 
         private void CorteDeControlCompetenciaInformatica(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
-            //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("IdCompetenciaInformatica") is DBNull))
+            var lista = ArmarFilas(tablaCVs, "IdCompetenciaInformatica", "CompetenciaBaja");
+
+            if (lista.Count > 0)
             {
+                var competencia_anonimos = (from RowDeDatos dRow in lista
+                                          select new 
+                                          {
+                                              Id = dRow.GetInt("IdCompetenciaInformatica", 0),
+                                              Diploma = dRow.GetString("CompetenciaDiploma", string.Empty),
+                                              Establecimiento = dRow.GetString("CompetenciaEstablecimiento", string.Empty),
+                                              TipoInformatica = dRow.GetString("CompetenciaTipoInformatica", string.Empty),
+                                              Conocimiento = dRow.GetString("CompetenciaConocimiento", string.Empty),
+                                              Nivel = dRow.GetString("CompetenciaNivel", string.Empty),
+                                              Localidad = dRow.GetString("CompetenciaLocalidad", string.Empty),
+                                              Pais = dRow.GetString("CompetenciaPais", string.Empty),
+                                              FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today)
+                                          }).Distinct().ToList();
 
-                //2.- Creo la competencia anterior por primera vez
-                var competenciaAnterior = GetCompetenciaFromDataRow(tablaCVs.Rows[0]);
 
-                var competencia = competenciaAnterior;
+                competencia_anonimos.Select(c => new CvCompetenciasInformaticas(c.Id, c.Diploma, c.Establecimiento, c.TipoInformatica, c.Conocimiento, c.Nivel,
+                                                                    c.Localidad, c.Pais, c.FechaObtencion)).ToList().ForEach(comp => cv.AgregarCompetenciaInformatica(comp));
 
-                if (competencia.Id != 0)
-                {
-                    cv.AgregarCompetenciaInformatica(competencia);
-
-                }
-
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("IdCompetenciaInformatica") is DBNull))
-                    {
-
-                        //3.- Comparo la competencia anterior con la competencia actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
-                        if (competenciaAnterior.Id != row.GetInt("IdCompetenciaInformatica", 0))
-                        {
-                            competencia = GetCompetenciaFromDataRow(row);
-                            if (competencia.Id != 0)
-                            {
-                                cv.AgregarCompetenciaInformatica(competencia);
-                                competenciaAnterior = competencia;
-                            }
-                        }
-                    }
-                }
             }
         }
 
@@ -645,7 +580,17 @@ namespace General.Repositorios
             return new CvCapacidadPersonal(row.GetInt("CapacidadesPersonalesId", -1), row.GetInt("CapacidadesPersonalesTipo", -1), row.GetString("CapacidadesPersonalesDetalle", ""));
         }
 
+        private List<RowDeDatos> ArmarFilas(TablaDeDatos tabla, string campo_id, string campo_baja)
+        {
+            var lista = new List<RowDeDatos>();
+            tabla.Rows.ForEach(r =>
+            {
+                if (!(r.GetObject(campo_id) is DBNull) && (r.GetObject(campo_baja) is DBNull))
+                    lista.Add(r);
+            });
 
+            return lista;
+        }
 
         # endregion
 
@@ -1182,9 +1127,8 @@ namespace General.Repositorios
             var parametros = ParametrosDelIdioma(idioma_extranjero_nuevo, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
-            //DESCOMENTAR CUANDO ESTÉ HECHO EL SP
-            //var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Idiomas", parametros);
-            //idioma_extranjero_nuevo.Id = int.Parse(id.ToString());
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Idiomas", parametros);
+            idioma_extranjero_nuevo.Id = int.Parse(id.ToString());
 
             return idioma_extranjero_nuevo;
         }
@@ -1193,8 +1137,8 @@ namespace General.Repositorios
         {
             var parametros = ParametrosDelIdioma(idioma_extranjero_modificado, usuario);
             parametros.Add("@IdIdioma", idioma_extranjero_modificado.Id);
-            //DESCOMENTAR CUANDO ESTÉ HECHO EL SP
-            //    conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
+           
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
 
             return idioma_extranjero_modificado;
         }
@@ -1207,8 +1151,8 @@ namespace General.Repositorios
             parametros.Add("@IdIdioma", id_capacidad);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Baja", id_baja);
-            //DESCOMENTAR CUANDO ESTÉ HECHO EL SP
-            //conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
+           
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
 
             return true;
         }
