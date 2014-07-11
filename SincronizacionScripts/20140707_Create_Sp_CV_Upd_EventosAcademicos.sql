@@ -1,4 +1,4 @@
-Create Procedure dbo.Cv_Upd_EventosAcademicos
+Create Procedure dbo.Cv_Upd_Del_EventosAcademicos
 @IdEvento int = null,
 @Denominacion varchar(100)=null,
 @TipoDeEvento  varchar(100)=null,
@@ -37,5 +37,6 @@ UPDATE [dbo].[CV_EventosAcademicos]
 
 
 END
+
 
 

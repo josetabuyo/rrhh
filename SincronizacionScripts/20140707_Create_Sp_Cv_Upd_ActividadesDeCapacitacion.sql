@@ -1,4 +1,4 @@
-Create procedure dbo.Cv_Upd_ActividadesDeCapacitacion
+Create procedure dbo.Cv_Upd_Del_ActividadesDeCapacitacion
 @IdActividadDeCapacitacion int=NULL,
 @Titulo varchar(100)=NULL,
 @Establecimiento varchar(100)=NULL,
