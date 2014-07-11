@@ -53,7 +53,7 @@
 
                     proveedor_ajax.postearAUrl({ url: "ActualizarCvIdiomaExtranjero",
                         data: {
-                            idioma_extranjero: JSON.stringify(idioma_extranjero)
+                            idioma_extranjero: idioma_extranjero
                         },
                         success: function (respuesta) {
                             alertify.alert("El idioma fue actualizado correctamente");
@@ -70,7 +70,7 @@
 
                 proveedor_ajax.postearAUrl({ url: "GuardarCvIdiomaExtranjero",
                     data: {
-                        idioma_extranjero: JSON.stringify(idioma_extranjero)
+                        idioma_extranjero: idioma_extranjero
                     },
                     success: function (respuesta) {
                         alertify.alert("El idioma fue guardado correctamente");
@@ -83,14 +83,10 @@
                 });
             });
 
-//            FormatoFecha = function (fecha_string) {
-//                var retorno = $.datepicker.formatDate('mm/dd/yyyy', fecha_string);
-//                return retorno;
-//            };
-
             var link_trucho = $("<a href='#un_div_modal'></a>");
             link_trucho.leanModal({ top: 300, closeButton: ".modal_close_concursar" });
             link_trucho.click();
+
         });
     }
 }

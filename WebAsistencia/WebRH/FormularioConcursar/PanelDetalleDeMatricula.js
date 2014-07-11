@@ -6,7 +6,7 @@
 
         var _this = this;
         this.ui = $("#un_div_modal");
-        this.ui.find("#contenido_modal").load("PanelDetalleDeOtraCapacidad.htm", function () {
+        this.ui.find("#contenido_modal").load("PanelDetalleDeMatricula.htm", function () {
             _this.txt_numero = _this.ui.find("#txt_matricula_numero");
             _this.txt_numero.val(matricula.Numero);
             _this.txt_expedidaPor = _this.ui.find("#txt_matricula_expedida_por");
@@ -29,7 +29,7 @@
                 matricula.Numero = _this.txt_numero.val()
                 matricula.ExpedidoPor = _this.txt_expedidaPor.val()
                 matricula.FechaInscripcion = _this.txt_fecha.val();
-                matricula.SituacionActual = __this.txt_situacion.val();
+                matricula.SituacionActual = _this.txt_situacion.val();
 
                 var proveedor_ajax = new ProveedorAjax();
 
