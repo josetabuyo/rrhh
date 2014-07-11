@@ -64,6 +64,9 @@ namespace General.Repositorios
                         row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0)), row.GetString("TieneLegajo"))));
 
 
+            //CORTE DE CONTROL PARA EVENTOS ACADEMICOS
+            CorteDeControlEventosAcademicos(tablaCVs, cv);
+
             //CORTE DE CONTROL PARA ANTECEDENTES ACADEMICOS
              CorteDeControlAntecedentesAcademicos(tablaCVs, cv);
 
@@ -222,38 +225,33 @@ namespace General.Repositorios
         {
             //CORTE DE CONTROL PARA EVENTOS ACADEMICOS
             //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("EventosAcademicosId") is DBNull))
+            var lista = new List<RowDeDatos>();
+            tablaCVs.Rows.ForEach(r =>
             {
+                if (!(r.GetObject("EventosAcademicosId") is DBNull) && (r.GetObject("EventosAcademicosBaja") is DBNull))
+                    lista.Add(r);
+            });
+            if (lista.Count > 0)
+            {
+                var eventos_anonimos = (from RowDeDatos dRow in lista
+                                            select new //CvEventoAcademico ()
+                                            {
+                                                Id = dRow.GetInt("EventosAcademicosId",0),
+                                                Denominacion = dRow.GetString("EventosAcademicosDenominacion", string.Empty),
+                                                TipoDeEvento = dRow.GetString("EventosAcademicosTipoDeEvento", string.Empty),
+                                                CaracterDeParticipacion = dRow.GetString("EventosAcademicosCaracterDeParticipacion", string.Empty),
+                                                FechaInicio = dRow.GetDateTime("EventosAcademicosFechaInicio", DateTime.Today),
+                                                FechaFinalizacion = dRow.GetDateTime("EventosAcademicosFechaFin", DateTime.Today),
+                                                Duracion = dRow.GetString("EventosAcademicosDuracion", string.Empty),
+                                                Institucion = dRow.GetString("EventosAcademicosInstitucion", string.Empty),
+                                                Localidad = dRow.GetString("EventosAcademicosLocalidad", string.Empty),
+                                                Pais = dRow.GetString("EventosAcademicosPais", string.Empty)
+                                            }).Distinct().ToList();
 
-                //2.- Creo el evento anterior por primera vez
-                var eventoAnterior = GetEventosAcademicosFromDataRow(tablaCVs.Rows[0]);
+                eventos_anonimos.Select(e => new CvEventoAcademico(e.Id, e.Denominacion, e.TipoDeEvento, e.CaracterDeParticipacion,
+                                                                    e.FechaInicio, e.FechaFinalizacion, e.Duracion, e.Institucion,
+                                                                    e.Localidad, e.Pais)).ToList().ForEach(ev => cv.AgregarEventoAcademico(ev));
 
-                var evento = eventoAnterior;
-
-                if (evento.Id != 0)
-                {
-                    cv.AgregarEventoAcademico(evento);
-
-                }
-
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("EventosAcademicosId") is DBNull))
-                    {
-
-                        if (eventoAnterior.Id != row.GetInt("EventosAcademicosId", 0))
-                        {
-                            evento = GetEventosAcademicosFromDataRow(row);
-                            if (evento.Id != 0)
-                            {
-                                cv.AgregarEventoAcademico(evento);
-                                eventoAnterior = evento;
-                            }
-
-
-                        }
-                    }
-                }
             }
         }
 
