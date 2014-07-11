@@ -388,7 +388,7 @@
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">
                   IDIOMAS EXTRANJEROS
                 </a>
-              </div>s
+              </div>
               <div id="collapseTen" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
@@ -542,6 +542,7 @@
     <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postular.js" ></script>
 <script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
+<script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 <script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
 
 <script type="text/javascript">

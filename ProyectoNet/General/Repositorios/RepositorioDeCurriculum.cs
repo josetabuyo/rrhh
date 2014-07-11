@@ -86,13 +86,13 @@ namespace General.Repositorios
             //CorteDeControlExperienciasLaborales(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA IDIOMA
-            //CorteDeControlIdioma(tablaCVs, cv);
+            CorteDeControlIdioma(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA COMPETENCIA INFORMATICA
             //CorteDeControlCompetenciaInformatica(tablaCVs, cv);
 
             //CORTE DE CONTROL PARA OTRAS CAPACIDADES
-            //CorteDeControlOtrasCapacidades(tablaCVs, cv);
+            CorteDeControlOtrasCapacidades(tablaCVs, cv);
 
             if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
             {
@@ -1179,8 +1179,8 @@ namespace General.Repositorios
             parametros.Add("@idPersona", usuario.Owner.Id);
 
             //DESCOMENTAR CUANDO ESTÉ HECHO EL SP
-            //var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Idiomas", parametros);
-            //idioma_extranjero_nuevo.Id = int.Parse(id.ToString());
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Idiomas", parametros);
+            idioma_extranjero_nuevo.Id = int.Parse(id.ToString());
 
             return idioma_extranjero_nuevo;
         }
@@ -1190,7 +1190,7 @@ namespace General.Repositorios
             var parametros = ParametrosDelIdioma(idioma_extranjero_modificado, usuario);
             parametros.Add("@IdIdioma", idioma_extranjero_modificado.Id);
             //DESCOMENTAR CUANDO ESTÉ HECHO EL SP
-            //    conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idiomas", parametros);
 
             return idioma_extranjero_modificado;
         }
@@ -1200,11 +1200,11 @@ namespace General.Repositorios
             var id_baja = CrearBaja(usuario);
 
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdIdioma", id_capacidad);
+            parametros.Add("@idIdioma", id_capacidad);
             parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", id_baja);
+            parametros.Add("@idBaja", id_baja);
             //DESCOMENTAR CUANDO ESTÉ HECHO EL SP
-            //conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idiomas", parametros);
 
             return true;
         }

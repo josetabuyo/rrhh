@@ -9,8 +9,13 @@
         this.ui.find("#contenido_modal").load("PanelDetalleDeIdiomaExtranjero.htm", function () {
             _this.txt_idioma_extranjero_diploma_certificacion = _this.ui.find("#txt_idioma_extranjero_diploma_certificacion");
             _this.txt_idioma_extranjero_diploma_certificacion.val(idioma_extranjero.Diploma);
+
             _this.txt_idioma_extranjero_fecha_obtencion = _this.ui.find("#txt_idioma_extranjero_fecha_obtencion");
-            _this.txt_idioma_extranjero_fecha_obtencion.val(idioma_extranjero.FechaObtencion);
+            _this.txt_idioma_extranjero_fecha_obtencion.datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
+            _this.txt_idioma_extranjero_fecha_obtencion.datepicker('setDate', ConversorDeFechas.deIsoAFechaCriolla(idioma_extranjero.FechaObtencion));
+
             _this.txt_idioma_extranjero_establecimiento = _this.ui.find("#txt_idioma_extranjero_establecimiento");
             _this.txt_idioma_extranjero_establecimiento.val(idioma_extranjero.Establecimiento);
             _this.cmb_idioma_extranjero_localidad = _this.ui.find("#cmb_idioma_extranjero_localidad");
@@ -31,10 +36,8 @@
             if (opciones.idioma_extranjero) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-
-
                 idioma_extranjero.Diploma = _this.txt_idioma_extranjero_diploma_certificacion.val();
-                idioma_extranjero.FechaObtencion = _this.txt_idioma_extranjero_fecha_obtencion.val();
+                idioma_extranjero.FechaObtencion = _this.txt_idioma_extranjero_fecha_obtencion.datepicker('getDate').toISOString();
                 idioma_extranjero.Establecimiento = _this.txt_idioma_extranjero_establecimiento.val();
                 idioma_extranjero.Localidad = _this.cmb_idioma_extranjero_localidad.val();
                 idioma_extranjero.Pais = _this.cmb_idioma_extranjero_pais.val();
@@ -77,13 +80,6 @@
                         alertify.alert("Error al guardar la idioma extranjero.");
                     }
                 });
-            });
-
-            $('#txt_idioma_extranjero_fecha_obtencion').datepicker({
-                dateFormat: 'dd/mm/yy',
-                onClose: function () {
-
-                }
             });
 
             var link_trucho = $("<a href='#un_div_modal'></a>");
