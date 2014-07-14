@@ -6,7 +6,7 @@
 
         var _this = this;
         this.ui = $("#un_div_modal");
-        this.ui.find("#contenido_modal").load("ActividadesDocentes.htm", function () {
+        this.ui.find("#contenido_modal").load("PanelDetalleDeActividadDocente.htm", function () {
             _this.txt_asignatura = _this.ui.find("#txt_actividad_docente_asignatura");
             _this.txt_asignatura.val(docencia.Asignatura);
             _this.nivel_educativo = _this.ui.find("#txt_actividad_docente_nivel_educativo");
@@ -33,7 +33,7 @@
             _this.cmb_actividad_docente_pais.val(docencia.Pais);
 
             //Bt agregar
-            _this.btn_guardar = _this.ui.find("#btn_guardar");
+            _this.btn_guardar = _this.ui.find("#add_actividadesDocentes");
             if (opciones.docencia) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
@@ -48,13 +48,14 @@
                 docencia.CaracterDesignacion = _this.caracter_designacion.val();
                 docencia.DedicacionDocente = _this.dedicacion_docente.val();
                 docencia.CargaHoraria = _this.dedicacion_docente.val();
-                docencia.FechaInicio = FormatoFecha(_this.fecha_inicio.val());
-                docencia.FechaFinalizacion = FormatoFecha(_this.fecha_fin.val());
+                docencia.FechaInicio = _this.fecha_inicio.val();
+                docencia.FechaFinalizacion = _this.fecha_fin.val();
                 docencia.Establecimiento = _this.establecimiento.val();
                 docencia.Localidad = _this.cmb_actividad_docente_localidad.val();
                 docencia.Pais = _this.cmb_actividad_docente_pais.val();
 
                 var proveedor_ajax = new ProveedorAjax();
+
 
                 proveedor_ajax.postearAUrl({ url: "GuardarCvActividadesDocentes",
                     data: {
