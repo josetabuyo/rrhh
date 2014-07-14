@@ -655,12 +655,14 @@ public class AjaxWS : System.Web.Services.WebService {
         idioma_extranjero = backEndService.ActualizarCvIdiomaExtranjero(idioma_extranjero, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(idioma_extranjero);
     }
-
+   
+    
     [WebMethod(EnableSession = true)]
     public string GuardarCvIdiomaExtranjero(WSViaticos.CvIdiomas idioma_extranjero)
     {
-        backEndService.GuardarCvIdiomaExtranjero(idioma_extranjero, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(idioma_extranjero);
+        var idioma = backEndService.GuardarCvIdiomaExtranjero(idioma_extranjero, usuarioLogueado);
+        
+        return Newtonsoft.Json.JsonConvert.SerializeObject(idioma);        
     }
     
     [WebMethod(EnableSession = true)]

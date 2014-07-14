@@ -1138,7 +1138,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdIdioma", id_capacidad);
             parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", id_baja);
+            parametros.Add("@IdBaja", id_baja);
            
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idiomas", parametros);
 
