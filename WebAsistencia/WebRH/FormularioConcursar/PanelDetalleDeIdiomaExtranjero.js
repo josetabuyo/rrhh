@@ -9,10 +9,12 @@
         this.ui.find("#contenido_modal").load("PanelDetalleDeIdiomaExtranjero.htm", function () {
             _this.txt_idioma_extranjero_diploma_certificacion = _this.ui.find("#txt_idioma_extranjero_diploma_certificacion");
             _this.txt_idioma_extranjero_diploma_certificacion.val(idioma_extranjero.Diploma);
+
             _this.txt_idioma_extranjero_fecha_obtencion = _this.ui.find("#txt_idioma_extranjero_fecha_obtencion");
             _this.txt_idioma_extranjero_fecha_obtencion.datepicker();
             _this.txt_idioma_extranjero_fecha_obtencion.datepicker('option', 'dateFormat', 'dd/mm/yy');
-            _this.txt_idioma_extranjero_fecha_obtencion.datepicker('setDate', new Date(idioma_extranjero.FechaObtencion).toGMTString());
+            _this.txt_idioma_extranjero_fecha_obtencion.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(idioma_extranjero.FechaObtencion));
+            
             _this.txt_idioma_extranjero_establecimiento = _this.ui.find("#txt_idioma_extranjero_establecimiento");
             _this.txt_idioma_extranjero_establecimiento.val(idioma_extranjero.Establecimiento);
             _this.cmb_idioma_extranjero_localidad = _this.ui.find("#cmb_idioma_extranjero_localidad");
@@ -33,10 +35,8 @@
             if (opciones.idioma_extranjero) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-
-
                 idioma_extranjero.Diploma = _this.txt_idioma_extranjero_diploma_certificacion.val();
-                idioma_extranjero.FechaObtencion = _this.txt_idioma_extranjero_fecha_obtencion.val();
+                idioma_extranjero.FechaObtencion = _this.txt_idioma_extranjero_fecha_obtencion.datepicker('getDate').toISOString();
                 idioma_extranjero.Establecimiento = _this.txt_idioma_extranjero_establecimiento.val();
                 idioma_extranjero.Localidad = _this.cmb_idioma_extranjero_localidad.val();
                 idioma_extranjero.Pais = _this.cmb_idioma_extranjero_pais.val();
@@ -59,7 +59,7 @@
                             $(".modal_close_concursar").click();
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alertify.alert("Error al actualizar el idioma.");
+                            alertify.alert("Error al actualziar el idioma.");
                         }
                     });
 

@@ -1144,9 +1144,14 @@ namespace General.Repositorios
             return idioma_extranjero_modificado;
         }
 
-        public bool EliminarCvIdiomaExtranjero(int id_capacidad, Usuario usuario)
+        public bool EliminarCvIdiomaExtranjero(int id_idioma, Usuario usuario)
         {
-            var parametros = ParametrosDeBaja(id_capacidad, usuario);
+            var id_baja = CrearBaja(usuario);
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdIdioma", id_idioma);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@IdBaja", id_baja);
            
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idiomas", parametros);
 
@@ -1251,23 +1256,18 @@ namespace General.Repositorios
 
         public bool EliminarCvCompetenciaInformatica(int id_competencia, Usuario usuario)
         {
-            var parametros = ParametrosDeBaja(id_competencia, usuario);
+            var id_baja = CrearBaja(usuario);
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdCompetencia", id_competencia);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@Baja", id_baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CompetenciasInformaticas", parametros);
 
             return true;            
         }
 
-        private Dictionary<string, object> ParametrosDeBaja(int id, Usuario usuario)
-        {
-            var id_baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdIdioma", id);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@IdBaja", id_baja);
-            return parametros;
-        }
 
         private Dictionary<string, object> ParametrosDeCompetenciasInformaticas(CvCompetenciasInformaticas competencia, Usuario usuario)
         {

@@ -266,7 +266,7 @@
               <div id="collapseFour" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_actividad_docente" onclick="javascript:AgregarActividadesDocentes()" class="link" >Cargar actividades docentes</a></legend>
+                    <legend><a id="btn_agregar_actividad_docente" class="link" >Cargar actividades docentes</a></legend>
                         <h4>Actividades Docentes Agregadas</h4>
                         <div id="ContenedorPlanillaActividadesDocentes" runat="server">
                             <table id="tabla_actividades_docentes" class="table table-striped">
@@ -542,6 +542,7 @@
     <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postular.js" ></script>
 <script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
+<script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 <script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
 
 <script type="text/javascript">
@@ -565,12 +566,12 @@
         //        
         //        
 
-      PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
-      PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
-      PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
-      PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
-      PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
-      PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvActividadesDocentes);
+        PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
+        PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
+        PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
+        PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
+        PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvDocencias);
+
 //      
 //      PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
 //      

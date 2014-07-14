@@ -10,8 +10,12 @@
 
             _this.txt_competencias_informaticas_diploma_certificacion = _this.ui.find("#txt_competencias_informaticas_diploma_certificacion");
             _this.txt_competencias_informaticas_diploma_certificacion.val(competencia_informatica.Diploma);
+
             _this.txt_competencias_informaticas_fecha_obtencion = _this.ui.find("#txt_competencias_informaticas_fecha_obtencion");
-            _this.txt_competencias_informaticas_fecha_obtencion.val(competencia_informatica.FechaObtencion);
+            _this.txt_competencias_informaticas_fecha_obtencion.datepicker();
+            _this.txt_competencias_informaticas_fecha_obtencion.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.txt_competencias_informaticas_fecha_obtencion.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(competencia_informatica.FechaObtencion));
+
             _this.txt_competencias_informaticas_establecimiento = _this.ui.find("#txt_competencias_informaticas_establecimiento");
             _this.txt_competencias_informaticas_establecimiento.val(competencia_informatica.Establecimiento);
             _this.cmb_competencias_informaticas_localidad = _this.ui.find("#cmb_competencias_informaticas_localidad");
@@ -33,7 +37,7 @@
 
             _this.btn_guardar.click(function () {
                 competencia_informatica.Diploma = _this.txt_competencias_informaticas_diploma_certificacion.val();
-                competencia_informatica.FechaObtencion = _this.txt_competencias_informaticas_fecha_obtencion.val();
+                competencia_informatica.FechaObtencion = _this.txt_competencias_informaticas_fecha_obtencion.datepicker('getDate').toISOString();
                 competencia_informatica.Establecimiento = _this.txt_competencias_informaticas_establecimiento.val();
                 competencia_informatica.Localidad = _this.cmb_competencias_informaticas_localidad.val();
                 competencia_informatica.Pais = _this.cmb_competencias_informaticas_pais.val();
