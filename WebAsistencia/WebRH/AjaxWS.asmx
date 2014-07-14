@@ -675,28 +675,27 @@ public class AjaxWS : System.Web.Services.WebService {
     #endregion
 
     #region CvCompetenciasInformaticas
-
+    
     [WebMethod(EnableSession = true)]
-    public string GuardarCvCompetenciasInformaticas(WSViaticos.CvCompetenciasInformaticas competencia_informatica)
+    public string ActualizarCvCompetenciaInformatica(WSViaticos.CvCompetenciasInformaticas competencia_informatica)
     {
-        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        competencia_informatica = backEndService.ActualizarCvCompetenciaInformatica(competencia_informatica, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(competencia_informatica);
+    }
+   
+    
+    [WebMethod(EnableSession = true)]
+    public string GuardarCvCompetenciaInformatica(WSViaticos.CvCompetenciasInformaticas competencia_informatica)
+    {
+        var competencia = backEndService.GuardarCvCompetenciaInformatica(competencia_informatica, usuarioLogueado);
 
-        if (competencia_informatica.Id != 0)
-        {
-            var competenciaActualizada = backEndService.ActualizarCvCompetenciaInformatica(competencia_informatica, usuarioLogueado);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(competenciaActualizada);
-        }
-        var competenciaGuardada = backEndService.GuardarCvCompetenciaInformatica(competencia_informatica, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(competenciaGuardada);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(competencia);        
     }
     
     [WebMethod(EnableSession = true)]
-    public string EliminarCvCompetenciasInformaticas(WSViaticos.CvCompetenciasInformaticas competenciasInformaticas_borrar)
+    public bool EliminarCvCompetenciaInformatica(int id_competencia_informatica)
     {
-        var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
-
-        var competenciasInformaticas = backEndService.EliminarCvCompetenciasInformaticas(competenciasInformaticas_borrar, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(competenciasInformaticas);
+        return backEndService.EliminarCvCompetenciaInformatica(id_competencia_informatica, usuarioLogueado);
     }
 
 
