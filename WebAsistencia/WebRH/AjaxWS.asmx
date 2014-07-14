@@ -577,24 +577,25 @@ public class AjaxWS : System.Web.Services.WebService {
     #region CvMatriculas
 
     [WebMethod(EnableSession = true)]
-    public string GuardarCVMatriculas(WSViaticos.CvMatricula matricula)
+    public string GuardarCVMatricula(WSViaticos.CvMatricula matricula)
     {
-        if (matricula.Id != 0)
-        {
-            var matriculaActualizada = backEndService.ActualizarCvMatriculas(matricula, usuarioLogueado);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(matriculaActualizada);
-        }
-
-        var matriculaGuardada = backEndService.GuardarCvMatriculas(matricula, usuarioLogueado);
+        var matriculaGuardada = backEndService.GuardarCvMatricula(matricula, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(matriculaGuardada);
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string ActualizarCvMatricula(WSViaticos.CvMatricula una_matricula)
+    {
+        una_matricula = backEndService.ActualizarCvMatricula(una_matricula, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(una_matricula);
     }
     
     [WebMethod(EnableSession = true)]
-    public string EliminarCvMatriculas(WSViaticos.CvMatricula matricula)
+    public bool EliminarCvMatricula(int id_matricula)
     {
-        var matriculas = backEndService.EliminarCvMatriculas(matricula, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(matriculas);
-    }
+        return backEndService.EliminarCvMatricula(id_matricula, usuarioLogueado);
+       
+    } 
 
     #endregion
 
@@ -654,12 +655,14 @@ public class AjaxWS : System.Web.Services.WebService {
         idioma_extranjero = backEndService.ActualizarCvIdiomaExtranjero(idioma_extranjero, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(idioma_extranjero);
     }
-
+   
+    
     [WebMethod(EnableSession = true)]
     public string GuardarCvIdiomaExtranjero(WSViaticos.CvIdiomas idioma_extranjero)
     {
-        backEndService.GuardarCvIdiomaExtranjero(idioma_extranjero, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(idioma_extranjero);
+        var idioma = backEndService.GuardarCvIdiomaExtranjero(idioma_extranjero, usuarioLogueado);
+        
+        return Newtonsoft.Json.JsonConvert.SerializeObject(idioma);        
     }
     
     [WebMethod(EnableSession = true)]
@@ -668,14 +671,6 @@ public class AjaxWS : System.Web.Services.WebService {
         return backEndService.EliminarCvIdiomaExtranjero(id_idioma_extranjero, usuarioLogueado);
     }
     
-    //[WebMethod(EnableSession = true)]
-    //public string EliminarCvIdiomasExtranjeros(WSViaticos.CvIdiomas idiomasExtranjeros_borrar)
-    //{
-    //    var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
-
-    //    var idiomasExtranjeros = backEndService.EliminarCvIdiomas(idiomasExtranjeros_borrar, usuarioLogueado);
-    //    return Newtonsoft.Json.JsonConvert.SerializeObject(idiomasExtranjeros);
-    //}
 
     #endregion
 

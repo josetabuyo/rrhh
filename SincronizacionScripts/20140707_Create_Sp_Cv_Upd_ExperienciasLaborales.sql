@@ -1,4 +1,4 @@
-CREATE Procedure dbo.CV_Upd_ExperienciasLaborales
+Create Procedure dbo.CV_Upd_Del_ExperienciasLaborales
 @IdExperiencia int = null,
 @Actividad varchar(100)=null,
 @MotivoDesvinculacion varchar(100)=null,
@@ -40,3 +40,4 @@ WHERE id=@IdExperiencia
 
 
 END
+

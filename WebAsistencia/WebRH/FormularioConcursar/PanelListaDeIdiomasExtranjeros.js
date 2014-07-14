@@ -54,6 +54,7 @@
         this.GrillaIdiomasExtranjeros.CargarObjetos(idiomas_extranjeros);
         this.GrillaIdiomasExtranjeros.DibujarEn(_this.divGrilla);
 
+        this.idiomas = idiomas_extranjeros;
     },
     eliminar: function (un_idioma_extranjero) {
         var _this = this;
@@ -70,6 +71,8 @@
                     success: function (respuesta) {
                         alertify.success("Idioma eliminado correctamente");
                         _this.GrillaIdiomasExtranjeros.QuitarObjeto(_this.divGrilla, un_idioma_extranjero);
+                        var indice = _this.idiomas.indexOf(un_idioma_extranjero);
+                        _this.idiomas.splice(indice, 1);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.error("No se pudo eliminar el idioma");

@@ -31,6 +31,7 @@ namespace General
 
         public CvEventoAcademico(int id, string denominacion, string tipoDeEvento, string caracterDeParticipacion, DateTime fechaInicio, DateTime fechaFinalizacion, string duracion, string institucion, string localidad, string pais)
         {
+            this._id = id;
             this._denominacion = denominacion;
             this._tipoEvento = tipoDeEvento;
             this._caracterDeParticipacion = caracterDeParticipacion;

@@ -1,4 +1,4 @@
-Create Procedure dbo.CV_Upd_CompetenciasInformaticas
+Create Procedure dbo.CV_Upd_Del_CompetenciasInformaticas
 @IdCompetencia int = null,
 @Diploma varchar(100)=null,
 @Establecimiento varchar(100)=null,
@@ -35,5 +35,6 @@ UPDATE dbo.CV_CompetenciasInformaticas
  WHERE id=@IdCompetencia
 
 END
+
 
 

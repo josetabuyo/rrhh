@@ -413,7 +413,7 @@
               <div id="collapseEleven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_competencia_informatica" onclick="javascript:AgregarCompetenciasInformaticas();"  class="link" >Cargar competencias informáticas</a></legend>
+                    <legend><a id="btn_agregar_competencia_informatica" class="link" >Cargar competencias informáticas</a></legend>
                         <h4>Competencias Informáticas Agregadas</h4>
                         <div id="ContenedorPlanillaCompetenciasInformaticas" runat="server">
                             <table id="tabla_competencias_informaticas" class="table table-striped">

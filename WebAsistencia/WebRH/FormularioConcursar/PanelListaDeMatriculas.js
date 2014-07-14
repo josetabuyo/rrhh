@@ -55,6 +55,7 @@
         this.GrillaMatriculas.CargarObjetos(matriculas);
         this.GrillaMatriculas.DibujarEn(_this.divGrilla);
 
+        this.matriculas = matriculas;
     },
     eliminar: function (una_matricula) {
         var _this = this;
@@ -66,11 +67,13 @@
 
                 proveedor_ajax.postearAUrl({ url: "EliminarCvMatriculas",
                     data: {
-                        matricula: una_matricula
+                        id_matricula: una_matricula.Id
                     },
                     success: function (respuesta) {
                         alertify.success("Matrícula eliminada correctamente");
                         _this.GrillaMatriculas.QuitarObjeto(_this.divGrilla, una_matricula);
+                        var indice = _this.matriculas.indexOf(una_matricula);
+                        _this.matriculas.splice(indice, 1);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.error("No se pudo eliminar la matrícula");
