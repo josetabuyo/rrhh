@@ -60,8 +60,8 @@
                 }
                 proveedor_ajax.postearAUrl({ url: "GuardarCVAntecedenteAcademico",
                     data: {
-                        antecedentesAcademicos_nuevos: estudio,
-                        antecedentesAcademicos_originales: estudio
+                        antecedentesAcademicos_nuevos: estudio
+                        
                     },
                     success: function (respuesta) {
                         alertify.alert("Los datos fueron guardados correctamente");

@@ -142,39 +142,31 @@ namespace General.Repositorios
 
         private void CorteDeControlCertificadosDeCapacitacion(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
-            //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("IdCertificadoCapacitacion") is DBNull))
+            var lista = ArmarFilas(tablaCVs, "IdCertificadoCapacitacion", "CertificadoBaja");
+
+            if (lista.Count > 0)
             {
+                var certificados_anonimos = (from RowDeDatos dRow in lista
+                                              select new 
+                                              {
+                                                  Id = dRow.GetInt("IdCertificadoCapacitacion", 0),
+                                                  Diploma = dRow.GetString("CertificadoDiploma", string.Empty),
+                                                  Establecimiento = dRow.GetString("CertificadoEstablecimiento", string.Empty),
+                                                  Especialidad = dRow.GetString("CertificadoEspecialidad", string.Empty),
+                                                  Duracion = dRow.GetString("CertificadoDuracion", string.Empty),
+                                                  FechaInicio = dRow.GetDateTime("CertificadoFechaInicio", DateTime.Today),
+                                                  FechaFinalizacion = dRow.GetDateTime("CertificadoFechaFinalizacion", DateTime.Today),
+                                                  Localidad = dRow.GetString("CertificadoLocalidad", string.Empty),
+                                                  Pais = dRow.GetString("CertificadoPais", string.Empty)
 
-                //2.- Creo el certificado anterior por primera vez
-                var certificadoAnterior = GetCertificadoDeCapacitacionFromDataRow(tablaCVs.Rows[0]);
+                                              }).Distinct().ToList();
 
-                var certificado = certificadoAnterior;
 
-                if (certificado.Id != 0)
-                {
-                    cv.AgregarCertificadoDeCapacitacion(certificado);
+                certificados_anonimos.Select(c => new CvCertificadoDeCapacitacion(c.Id, c.Diploma, c.Establecimiento, c.Especialidad, c.Duracion,
+                                                c.FechaInicio, c.FechaFinalizacion, c.Localidad, c.Pais)).ToList().ForEach(cert => cv.AgregarCertificadoDeCapacitacion(cert));
 
-                }
-
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("IdCertificadoCapacitacion") is DBNull))
-                    {
-
-                        //3.- Comparo el certificado anterior con la certificado actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
-                        if (certificadoAnterior.Id != row.GetInt("IdCertificadoCapacitacion", 0))
-                        {
-                            certificado = GetCertificadoDeCapacitacionFromDataRow(row);
-                            if (certificado.Id != 0)
-                            {
-                                cv.AgregarCertificadoDeCapacitacion(certificado);
-                                certificadoAnterior = certificado;
-                            }
-                        }
-                    }
-                }
             }
+            
         }
 
         private void CorteDeControlActividadesDocentes(TablaDeDatos tablaCVs, CurriculumVitae cv)
@@ -215,12 +207,8 @@ namespace General.Repositorios
         {
             //CORTE DE CONTROL PARA EVENTOS ACADEMICOS
             //1.- Controlo que haya al menos 1 resultado
-            var lista = new List<RowDeDatos>();
-            tablaCVs.Rows.ForEach(r =>
-            {
-                if (!(r.GetObject("EventosAcademicosId") is DBNull) && (r.GetObject("EventosAcademicosBaja") is DBNull))
-                    lista.Add(r);
-            });
+            var lista = ArmarFilas(tablaCVs, "EventosAcademicosId", "EventosAcademicosBaja"); new List<RowDeDatos>();
+           
             if (lista.Count > 0)
             {
                 var eventos_anonimos = (from RowDeDatos dRow in lista
@@ -1138,7 +1126,7 @@ namespace General.Repositorios
             var parametros = ParametrosDelIdioma(idioma_extranjero_modificado, usuario);
             parametros.Add("@IdIdioma", idioma_extranjero_modificado.Id);
            
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idiomas", parametros);
 
             return idioma_extranjero_modificado;
         }
@@ -1152,7 +1140,7 @@ namespace General.Repositorios
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Baja", id_baja);
            
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idioma", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idiomas", parametros);
 
             return true;
         }

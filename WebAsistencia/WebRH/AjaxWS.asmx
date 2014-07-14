@@ -477,7 +477,7 @@ public class AjaxWS : System.Web.Services.WebService {
     #region CvAntecedentesAcademicos
     
     [WebMethod(EnableSession = true)]
-    public string GuardarCVAntecedenteAcademico(WSViaticos.CvEstudios antecedentesAcademicos_nuevos, WSViaticos.CvEstudios antecedentesAcademicos_originales)
+    public string GuardarCVAntecedenteAcademico(WSViaticos.CvEstudios antecedentesAcademicos_nuevos)
     {
 
         var antecedenteAcademicoGuardado = backEndService.GuardarCvAntecedenteAcademico(antecedentesAcademicos_nuevos, usuarioLogueado);

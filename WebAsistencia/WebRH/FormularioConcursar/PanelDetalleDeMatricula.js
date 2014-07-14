@@ -17,15 +17,11 @@
             _this.txt_situacion.val(matricula.SituacionActual);
 
 
-
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#btn_guardar");
             if (opciones.matricula) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-             if (matricula.Id == "") {
-                        matricula.Id = 0;
-                    } 
                 matricula.Numero = _this.txt_numero.val()
                 matricula.ExpedidoPor = _this.txt_expedidaPor.val()
                 matricula.FechaInscripcion = _this.txt_fecha.val();
@@ -33,7 +29,24 @@
 
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "GuardarCVMatriculas",
+                if (opciones.matricula) {
+                    proveedor_ajax.postearAUrl({ url: "ActualizarCvMatricula",
+                        data: {
+                            una_matricula: matricula
+                        },
+                        success: function (respuesta) {
+                            alertify.alert("La matricula fue creada correctamente");
+                            alModificar(respuesta);
+                            $(".modal_close_concursar").click();
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alertify.alert("Error al crear la matricula.");
+                        }
+                    });
+
+                    return;
+                }
+                proveedor_ajax.postearAUrl({ url: "GuardarCVMatricula",
                     data: {
                         matricula: matricula,
                         
