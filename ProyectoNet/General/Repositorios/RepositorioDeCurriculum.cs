@@ -433,7 +433,7 @@ namespace General.Repositorios
 
 
                 competencia_anonimos.Select(c => new CvCompetenciasInformaticas(c.Id, c.Diploma, c.Establecimiento, c.TipoInformatica, c.Conocimiento, c.Nivel,
-                                                                    c.Localidad, c.Pais, c.FechaObtencion)).ToList().ForEach(comp => cv.AgregarCompetenciaInformatica(comp));
+                                                                    c.Localidad, c.Pais, c.FechaObtencion, "")).ToList().ForEach(comp => cv.AgregarCompetenciaInformatica(comp));
 
             }
         }
@@ -544,7 +544,8 @@ namespace General.Repositorios
                                 row.GetString("CompetenciaNivel", ""),
                                 row.GetString("CompetenciaLocalidad", ""),
                                 row.GetString("CompetenciaPais", ""),
-                                row.GetDateTime("CompetenciaFechaObtencion", DateTime.Today));
+                                row.GetDateTime("CompetenciaFechaObtencion", DateTime.Today), 
+                                "");
         }
 
         private CvEventoAcademico GetEventosAcademicosFromDataRow(RowDeDatos row)
@@ -867,28 +868,55 @@ namespace General.Repositorios
 
         public CvEventoAcademico GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)
         {
+            var parametros = ParametrosDeEventosAcademicos(eventoAcademico_nuevo, usuario);
+            parametros.Add("@idPersona", usuario.Owner.Id);
+
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_EventosAcademicos", parametros);
+            eventoAcademico_nuevo.Id = int.Parse(id.ToString());
             return eventoAcademico_nuevo;
         }
 
-        public CvEventoAcademico ActualizarCvEventoAcademico(CvEventoAcademico evento_nuevo, Usuario usuario)
+        public CvEventoAcademico ActualizarCvEventoAcademico(CvEventoAcademico evento_actualizado, Usuario usuario)
         {
-            return evento_nuevo;
+            var parametros = ParametrosDeEventosAcademicos(evento_actualizado, usuario);
+            parametros.Add("@IdEvento", evento_actualizado.Id);
+
+            conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_EventosAcademicos", parametros);
+
+            return evento_actualizado;
+            
         }
 
-        public CvEventoAcademico EliminarCvEventosAcademicos(CvEventoAcademico evento_academico_nuevo, Usuario usuario)
+        public bool EliminarCvEventosAcademicos(int id_evento_academico, Usuario usuario)
         {
-            var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeEventosAcademicos(evento_academico_nuevo, usuario, baja);
+            var id_baja = CrearBaja(usuario);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_EventosAcademicos", parametros);
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdEvento", id_evento_academico);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@Baja", id_baja);
 
-            return evento_academico_nuevo;
+            conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_EventosAcademicos", parametros);
+
+            return true;
         }
 
-        private Dictionary<string, object> ParametrosDeEventosAcademicos(CvEventoAcademico evento_academico_nuevo, Usuario usuario, int baja)
+        private Dictionary<string, object> ParametrosDeEventosAcademicos(CvEventoAcademico evento_academico_nuevo, Usuario usuario)
         {
-            return new Dictionary<string, object>(); //Le toca a Fer :P
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Denominacion", evento_academico_nuevo.Denominacion);
+            parametros.Add("@TipoDeEvento", evento_academico_nuevo.TipoDeEvento);
+            parametros.Add("@CaracterDeParticipacion", evento_academico_nuevo.CaracterDeParticipacion);
+            parametros.Add("@FechaInicio", evento_academico_nuevo.FechaInicio);
+            parametros.Add("@FechaFin", evento_academico_nuevo.FechaFinalizacion);
+            parametros.Add("@Duracion", evento_academico_nuevo.Duracion);
+            parametros.Add("@Institucion", evento_academico_nuevo.Institucion);
+            parametros.Add("@Localidad", evento_academico_nuevo.Localidad);
+            parametros.Add("@Pais", evento_academico_nuevo.Pais);
+            parametros.Add("@Usuario", usuario.Id);
+
+            return parametros;
         }
 
         #endregion CvEventosAcademicos
@@ -972,7 +1000,8 @@ namespace General.Repositorios
 
             var parametros = new Dictionary<string, object>(); //ParametrosDeMatricula(matricula_nueva, usuario);
             parametros.Add("@IdMatricula", id_matricula);
-            parametros.Add("@Baja", baja);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@idBaja", baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Matriculas", parametros);
 
@@ -982,7 +1011,7 @@ namespace General.Repositorios
         private Dictionary<string, object> ParametrosDeMatricula(CvMatricula matricula_nueva, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@ExpedidaPor", matricula_nueva.ExpedidaPor);
+            parametros.Add("@ExpedidoPor", matricula_nueva.ExpedidaPor);
             parametros.Add("@Numero", matricula_nueva.Numero);
             parametros.Add("@SituacionActual", matricula_nueva.SituacionActual);
             parametros.Add("@FechaInscripcion", matricula_nueva.FechaInscripcion);
@@ -1131,12 +1160,12 @@ namespace General.Repositorios
             return idioma_extranjero_modificado;
         }
 
-        public bool EliminarCvIdiomaExtranjero(int id_capacidad, Usuario usuario)
+        public bool EliminarCvIdiomaExtranjero(int id_idioma, Usuario usuario)
         {
             var id_baja = CrearBaja(usuario);
 
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdIdioma", id_capacidad);
+            parametros.Add("@IdIdioma", id_idioma);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@IdBaja", id_baja);
            
@@ -1220,7 +1249,7 @@ namespace General.Repositorios
         #endregion CvCapacidadesPersonales/OtrasCapacidades
 
         #region CvCompetenciasInformaticas
-        public CvCompetenciasInformaticas GuardarCompetenciasInformaticas(CvCompetenciasInformaticas competencia_informatica, Usuario usuario)
+        public CvCompetenciasInformaticas GuardarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia_informatica, Usuario usuario)
         {
             var parametros = ParametrosDeCompetenciasInformaticas(competencia_informatica, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
@@ -1234,25 +1263,27 @@ namespace General.Repositorios
         public CvCompetenciasInformaticas ActualizarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia, Usuario usuario)
         {
             var parametros = ParametrosDeCompetenciasInformaticas(competencia, usuario);
-            parametros.Add("@IdCompetenciaInformatica", competencia.Id);
+            parametros.Add("@IdCompetencia", competencia.Id);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CompetenciasInformaticas", parametros);
 
             return competencia;
         }
 
-        public CvCompetenciasInformaticas EliminarCvCompetenciasInformaticas(CvCompetenciasInformaticas competencia, Usuario usuario)
+        public bool EliminarCvCompetenciaInformatica(int id_competencia, Usuario usuario)
         {
-            var baja = CrearBaja(usuario);
+            var id_baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeCompetenciasInformaticas(competencia, usuario);
-            parametros.Add("@IdCompetenciaInformatica", competencia.Id);
-            parametros.Add("@Baja", baja);
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdCompetencia", id_competencia);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@Baja", id_baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CompetenciasInformaticas", parametros);
 
-            return competencia;
+            return true;            
         }
+
 
         private Dictionary<string, object> ParametrosDeCompetenciasInformaticas(CvCompetenciasInformaticas competencia, Usuario usuario)
         {
@@ -1298,7 +1329,7 @@ namespace General.Repositorios
         {
             var compotencias_informaticas = new List<CvCompetenciasInformaticas>()
                                {
-                                   new CvCompetenciasInformaticas(1, "Administrador de Base de Datos", "Sigma", "Base de Datos", "Senior",  "Avanzado" , "CABA", "Argentina", new DateTime(2013, 11, 15) )
+                                   new CvCompetenciasInformaticas(1, "Administrador de Base de Datos", "Sigma", "Base de Datos", "Senior",  "Avanzado" , "CABA", "Argentina", new DateTime(2013, 11, 15), "" )
                                };
 
             return compotencias_informaticas;

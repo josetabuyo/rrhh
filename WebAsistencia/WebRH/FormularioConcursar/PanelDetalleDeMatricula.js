@@ -10,7 +10,7 @@
             _this.txt_numero = _this.ui.find("#txt_matricula_numero");
             _this.txt_numero.val(matricula.Numero);
             _this.txt_expedidaPor = _this.ui.find("#txt_matricula_expedida_por");
-            _this.txt_expedidaPor.val(matricula.ExpedidoPor);
+            _this.txt_expedidaPor.val(matricula.ExpedidaPor);
             _this.txt_fecha = _this.ui.find("#txt_matricula_fecha_inscripcion");
             _this.txt_fecha.datepicker();
             _this.txt_fecha.datepicker('option', 'dateFormat', 'dd/mm/yy');

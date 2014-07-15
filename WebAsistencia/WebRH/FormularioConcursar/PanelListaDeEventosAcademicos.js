@@ -20,8 +20,8 @@
         columnas.push(new Columna("Denominación", { generar: function (un_evento_academico) { return un_evento_academico.Denominacion } }));
         columnas.push(new Columna("Tipo", { generar: function (un_evento_academico) { return un_evento_academico.TipoDeEvento } }));
         columnas.push(new Columna("Carácter", { generar: function (un_evento_academico) { return un_evento_academico.CaracterDeParticipacion } }));
-        columnas.push(new Columna("Desde", { generar: function (un_evento_academico) { return un_evento_academico.FechaInicio } }));
-        columnas.push(new Columna("Hasta", { generar: function (un_evento_academico) { return un_evento_academico.FechaFinalizacion } }));
+        columnas.push(new Columna("Desde", { generar: function (un_evento_academico) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_evento_academico.FechaInicio) } }));
+        columnas.push(new Columna("Hasta", { generar: function (un_evento_academico) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_evento_academico.FechaFinalizacion) } }));
         columnas.push(new Columna("Institución", { generar: function (un_evento_academico) { return un_evento_academico.Institucion } }));
         columnas.push(new Columna('Acciones', {
             generar: function (un_evento_academico) {
@@ -33,8 +33,8 @@
                     PanelDetalleDeEventoAcademico.mostrar({
                         evento_academico: un_evento_academico,
                         alModificar: function (evento_academico_modificado) {
-                            _this.GrillaCapacidades.BorrarContenido();
-                            _this.GrillaCapacidades.CargarObjetos(eventos);
+                            _this.GrillaEventosAcademicos.BorrarContenido();
+                            _this.GrillaEventosAcademicos.CargarObjetos(eventos_academicos);
                         }
                     });
                 });
@@ -67,7 +67,7 @@
 
                 proveedor_ajax.postearAUrl({ url: "EliminarCVEventosAcademicos",
                     data: {
-                        eventosAcademicos_borrar: un_evento_academico
+                        id_evento_academico: un_evento_academico.Id
                     },
                     success: function (respuesta) {
                         alertify.success("Evento académico eliminado correctamente");
