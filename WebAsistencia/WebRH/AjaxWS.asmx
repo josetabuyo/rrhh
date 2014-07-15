@@ -728,16 +728,24 @@ public class AjaxWS : System.Web.Services.WebService {
     #region CvActividadesCapacitacion
 
     [WebMethod(EnableSession = true)]
-    public string GuardarCvactividadesCapacitacion(WSViaticos.CvCertificadoDeCapacitacion actividadCapacitacion)
+    public string GuardarCvActividadDeCapacitacion(WSViaticos.CvCertificadoDeCapacitacion actividadCapacitacion)
     {
-        if (actividadCapacitacion.Id != 0)
-        {
-            var publicacionActualizada = backEndService.EliminarCvActividadesCapacitacion(actividadCapacitacion, usuarioLogueado);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(publicacionActualizada);
-        }
 
         var actividadGuardada = backEndService.GuardarCvActividadesCapacitacion(actividadCapacitacion, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(actividadGuardada);
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string ActualizarCVActividadDeCapacitacion(WSViaticos.CvCertificadoDeCapacitacion actividadCapacitacion)
+    {
+        var actividadCapacitacionActualizado = backEndService.ActualizarCvActividadesCapacitacion(actividadCapacitacion, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(actividadCapacitacion);
+    }
+
+    [WebMethod(EnableSession = true)]
+    public bool EliminarCvActividadDeCapacitacion(int id_actividad_capacitacion)
+    {
+        return backEndService.EliminarCvEventosAcademicos(id_actividad_capacitacion, usuarioLogueado);
     }
 
     #endregion

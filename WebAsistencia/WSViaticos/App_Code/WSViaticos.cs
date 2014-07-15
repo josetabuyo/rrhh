@@ -2531,19 +2531,19 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvCertificadoDeCapacitacion GuardarCvActividadesCapacitacion(CvCertificadoDeCapacitacion actividad_capacitacion, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvActividadesCapacitacion(actividad_capacitacion, usuario);
+        return RepoCurriculum().GuardarCvActividadDeCapacitacion(actividad_capacitacion, usuario);
     }
 
-    //[WebMethod]
-    //public CvEstudios ActualizarCvAntecedentesAcademicos(CvCertificadoDeCapacitacion actividad_capacitacion, Usuario usuario)
-    //{
-    //    return RepoCurriculum().ActualizarCvAntecedentesAcademicos(actividad_capacitacion, usuario);
-    //}
+    [WebMethod]
+    public CvCertificadoDeCapacitacion ActualizarCvActividadesCapacitacion(CvCertificadoDeCapacitacion actividad_capacitacion, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvActividadDeCapacitacion(actividad_capacitacion, usuario);
+    }
 
     [WebMethod]
-    public CvCertificadoDeCapacitacion EliminarCvActividadesCapacitacion(CvCertificadoDeCapacitacion actividades_capacitacion_a_borrar, Usuario usuario)
+    public bool EliminarCvActividadesCapacitacion(int id_actividades_capacitacion_a_borrar, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvActividadesCapacitacion(actividades_capacitacion_a_borrar, usuario);
+        return RepoCurriculum().EliminarCvActividadDeCapacitacion(id_actividades_capacitacion_a_borrar, usuario);
     }
     #endregion
 
