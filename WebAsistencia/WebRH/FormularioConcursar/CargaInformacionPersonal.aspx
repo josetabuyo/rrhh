@@ -500,12 +500,12 @@
 </body>
 
 <script type="text/javascript" src="CvDatosPersonales.js" ></script>
-<script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
+<%--<script type="text/javascript" src="AntecedentesAcademicos.js" ></script>--%>
 <script type="text/javascript" src="ActividadesCapacitacion.js" ></script>
 <script type="text/javascript" src="ActividadesDocentes.js" ></script>
 <%--<script type="text/javascript" src="EventosAcademicos.js" ></script>--%>
 <script type="text/javascript" src="PublicacionesTrabajos.js" ></script>
-<script type="text/javascript" src="Matriculas.js" ></script>
+<%--<script type="text/javascript" src="Matriculas.js" ></script>--%>
 <script type="text/javascript" src="InstitucionesAcademicas.js" ></script>
 <script type="text/javascript" src="ExperienciaLaboral.js" ></script>
 <%--<script type="text/javascript" src="IdiomasExtranjeros.js" ></script>--%>
@@ -560,7 +560,7 @@
         //        ActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
         //        EventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
         //        PublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
-        //        Matriculas.armarGrilla(curriculum.CvMatricula);
+              // Matriculas.armarGrilla(curriculum.CvMatricula);
         //        InstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
         //        ExperienciaLaboral.armarGrilla(curriculum.CvExperienciaLaboral);
         //        
@@ -571,12 +571,13 @@
         PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
         PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
         PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvDocencias);
+        PanelListaDeMatriculas.armarGrilla(curriculum.CvMatricula);
 
 //      
 //      PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
 //      
 //      PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
-//      PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
+      
 //      PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
 //      PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
 //     

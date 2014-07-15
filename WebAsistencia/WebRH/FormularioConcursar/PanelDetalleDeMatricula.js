@@ -12,7 +12,10 @@
             _this.txt_expedidaPor = _this.ui.find("#txt_matricula_expedida_por");
             _this.txt_expedidaPor.val(matricula.ExpedidoPor);
             _this.txt_fecha = _this.ui.find("#txt_matricula_fecha_inscripcion");
-            _this.txt_fecha.val(matricula.FechaInscripcion);
+            _this.txt_fecha.datepicker();
+            _this.txt_fecha.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.txt_fecha.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(matricula.FechaInscripcion));
+            
             _this.txt_situacion = _this.ui.find("#txt_matricula_situacion");
             _this.txt_situacion.val(matricula.SituacionActual);
 
@@ -22,9 +25,9 @@
             if (opciones.matricula) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-                matricula.Numero = _this.txt_numero.val()
-                matricula.ExpedidoPor = _this.txt_expedidaPor.val()
-                matricula.FechaInscripcion = _this.txt_fecha.val();
+                matricula.Numero = _this.txt_numero.val();
+                matricula.ExpedidaPor = _this.txt_expedidaPor.val();
+                matricula.FechaInscripcion = _this.txt_fecha.datepicker('getDate').toISOString();
                 matricula.SituacionActual = _this.txt_situacion.val();
 
                 var proveedor_ajax = new ProveedorAjax();
@@ -65,6 +68,14 @@
             var link_trucho = $("<a href='#un_div_modal'></a>");
             link_trucho.leanModal({ top: 300, closeButton: ".modal_close_concursar" });
             link_trucho.click();
+
+            
+            $('#txt_matricula_fecha_inscripcion').datepicker({
+                dateFormat: 'dd/mm/yy',
+                onClose: function () {
+
+                }
+            });
         });
     }
 }
