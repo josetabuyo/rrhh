@@ -48,7 +48,7 @@
 
                 var proveedor_ajax = new ProveedorAjax();
 
-                 if (opciones.idioma_extranjero) {
+                 if (opciones.competencia_informatica) {
 
                 proveedor_ajax.postearAUrl({ url: "ActualizarCvCompetenciaInformatica",
                     data: {

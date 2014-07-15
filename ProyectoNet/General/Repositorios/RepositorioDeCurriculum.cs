@@ -1247,7 +1247,7 @@ namespace General.Repositorios
         public CvCompetenciasInformaticas ActualizarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia, Usuario usuario)
         {
             var parametros = ParametrosDeCompetenciasInformaticas(competencia, usuario);
-            parametros.Add("@IdCompetenciaInformatica", competencia.Id);
+            parametros.Add("@IdCompetencia", competencia.Id);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CompetenciasInformaticas", parametros);
 
