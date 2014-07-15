@@ -530,23 +530,22 @@ public class AjaxWS : System.Web.Services.WebService {
     [WebMethod(EnableSession = true)]
     public string GuardarCVEventoAcademico(WSViaticos.CvEventoAcademico eventoAcademico)
     {
-        if (eventoAcademico.Id != 0)
-        {
-            var eventoAcademicoActualizado = backEndService.ActualizarCvEventoAcademico(eventoAcademico, usuarioLogueado);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(eventoAcademicoActualizado);
-        }
-
         var eventoAcademicoGuardado = backEndService.GuardarCvEventoAcademico(eventoAcademico, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(eventoAcademicoGuardado);
     }
     
     [WebMethod(EnableSession = true)]
-    public string EliminarCvEventosAcademicos(WSViaticos.CvEventoAcademico eventosAcademicos_borrar)
+    public string ActualizarVEventoAcademico(WSViaticos.CvEventoAcademico eventoAcademico)
     {
-        var eventosAcademicos = backEndService.EliminarCvEventosAcademicos(eventosAcademicos_borrar, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(eventosAcademicos);
+        var eventoAcademicoActualizado = backEndService.ActualizarCvEventoAcademico(eventoAcademico, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(eventoAcademicoActualizado);
     }
-
+    
+    [WebMethod(EnableSession = true)]
+    public bool EliminarCvEventosAcademicos(int id_evento_academico)
+    {
+        return backEndService.EliminarCvEventosAcademicos(id_evento_academico, usuarioLogueado);
+    }
     #endregion
 
     #region CvPublicaciones

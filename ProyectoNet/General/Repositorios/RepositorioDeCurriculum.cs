@@ -888,28 +888,55 @@ namespace General.Repositorios
 
         public CvEventoAcademico GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)
         {
+            var parametros = ParametrosDeEventosAcademicos(eventoAcademico_nuevo, usuario);
+            parametros.Add("@idPersona", usuario.Owner.Id);
+
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_EventosAcademicos", parametros);
+            eventoAcademico_nuevo.Id = int.Parse(id.ToString());
             return eventoAcademico_nuevo;
         }
 
-        public CvEventoAcademico ActualizarCvEventoAcademico(CvEventoAcademico evento_nuevo, Usuario usuario)
+        public CvEventoAcademico ActualizarCvEventoAcademico(CvEventoAcademico evento_actualizado, Usuario usuario)
         {
-            return evento_nuevo;
+            var parametros = ParametrosDeEventosAcademicos(evento_actualizado, usuario);
+            parametros.Add("@IdEvento", evento_actualizado.Id);
+
+            conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_EventosAcademicos", parametros);
+
+            return evento_actualizado;
+            
         }
 
-        public CvEventoAcademico EliminarCvEventosAcademicos(CvEventoAcademico evento_academico_nuevo, Usuario usuario)
+        public bool EliminarCvEventosAcademicos(int id_evento_academico, Usuario usuario)
         {
-            var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeEventosAcademicos(evento_academico_nuevo, usuario, baja);
+            var id_baja = CrearBaja(usuario);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_EventosAcademicos", parametros);
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdEvento", id_evento_academico);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@Baja", id_baja);
 
-            return evento_academico_nuevo;
+            conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_EventosAcademicos", parametros);
+
+            return true;
         }
 
-        private Dictionary<string, object> ParametrosDeEventosAcademicos(CvEventoAcademico evento_academico_nuevo, Usuario usuario, int baja)
+        private Dictionary<string, object> ParametrosDeEventosAcademicos(CvEventoAcademico evento_academico_nuevo, Usuario usuario)
         {
-            return new Dictionary<string, object>(); //Le toca a Fer :P
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Denominacion", evento_academico_nuevo.Denominacion);
+            parametros.Add("@TipoDeEvento", evento_academico_nuevo.TipoDeEvento);
+            parametros.Add("@CaracterDeParticipacion", evento_academico_nuevo.CaracterDeParticipacion);
+            parametros.Add("@FechaInicio", evento_academico_nuevo.FechaInicio);
+            parametros.Add("@FechaFin", evento_academico_nuevo.FechaFinalizacion);
+            parametros.Add("@Duracion", evento_academico_nuevo.Duracion);
+            parametros.Add("@Institucion", evento_academico_nuevo.Institucion);
+            parametros.Add("@Localidad", evento_academico_nuevo.Localidad);
+            parametros.Add("@Pais", evento_academico_nuevo.Pais);
+            parametros.Add("@Usuario", usuario.Id);
+
+            return parametros;
         }
 
         #endregion CvEventosAcademicos
