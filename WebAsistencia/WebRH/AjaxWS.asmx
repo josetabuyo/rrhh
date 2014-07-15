@@ -530,14 +530,15 @@ public class AjaxWS : System.Web.Services.WebService {
     [WebMethod(EnableSession = true)]
     public string GuardarCVEventoAcademico(WSViaticos.CvEventoAcademico eventoAcademico)
     {
-        if (eventoAcademico.Id != 0)
-        {
-            var eventoAcademicoActualizado = backEndService.ActualizarCvEventoAcademico(eventoAcademico, usuarioLogueado);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(eventoAcademicoActualizado);
-        }
-
         var eventoAcademicoGuardado = backEndService.GuardarCvEventoAcademico(eventoAcademico, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(eventoAcademicoGuardado);
+    }
+    
+    [WebMethod(EnableSession = true)]
+    public string ActualizarVEventoAcademico(WSViaticos.CvEventoAcademico eventoAcademico)
+    {
+        var eventoAcademicoActualizado = backEndService.ActualizarCvEventoAcademico(eventoAcademico, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(eventoAcademicoActualizado);
     }
     
     [WebMethod(EnableSession = true)]
