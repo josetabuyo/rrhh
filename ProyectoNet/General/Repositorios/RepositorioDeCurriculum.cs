@@ -764,38 +764,46 @@ namespace General.Repositorios
         }
         #endregion
 
-        #region CvCertificadosDeCapacitacion
-        public CvCertificadoDeCapacitacion GuardarCvActividadesCapacitacion(CvCertificadoDeCapacitacion certificados_capacitacion_nuevo, Usuario usuario)
+        #region CvActividadesCapacitacion/CvCertificadosDeCapacitacion
+
+        public CvCertificadoDeCapacitacion GuardarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
         {
-            //deberia ser el mismo sp y tabla que antecedentes
-            var parametros = ParametrosDeAntecedentesDocencia(certificados_capacitacion_nuevo, usuario, 0);
-            parametros.Add("@idPersona", usuario.Owner.Id);
+        //deberia ser el mismo sp y tabla que antecedentes
+        var parametros = ParametrosDeAntecedentesDocencia(actividad_nueva, usuario, 0);
+        parametros.Add("@idPersona", usuario.Owner.Id);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_AntecedentesAcademicos", parametros);
-            certificados_capacitacion_nuevo.Id = int.Parse(id.ToString());
+        var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ActividadesDeCapacitacion", parametros);
+        actividad_nueva.Id = int.Parse(id.ToString());
 
-            return certificados_capacitacion_nuevo;
+        return actividad_nueva;
         }
 
-        public CvCertificadoDeCapacitacion ActualizarCvCapacidades(CvCertificadoDeCapacitacion capacidades_nuevo, Usuario usuario)
+        public CvCertificadoDeCapacitacion ActualizarCvActividadCapacitacion(CvCertificadoDeCapacitacion capacidad_nueva, Usuario usuario)
         {
-            var parametros = ParametrosDeAntecedentesDocencia(capacidades_nuevo, usuario, 0);
+        var parametros = ParametrosDeAntecedentesDocencia(capacidad_nueva, usuario, 0);
+        parametros.Add("@IdActividadDeCapacitacion", capacidad_nueva.Id);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
+        conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
 
-            return capacidades_nuevo;
+        return capacidad_nueva;
         }
 
-        public CvCertificadoDeCapacitacion EliminarCvActividadesCapacitacion(CvCertificadoDeCapacitacion capacitacion_nuevo, Usuario usuario)
+        public bool EliminarCvActividadCapacitacion(int id_capacitacion_nuevo, Usuario usuario)
         {
-            var baja = CrearBaja(usuario);
+        var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeAntecedentesDocencia(capacitacion_nuevo, usuario, baja);
+        //var parametros = ParametrosDeAntecedentesDocencia(capacitacion_nuevo, usuario, baja);
+        var parametros = new Dictionary<string, object>();
+        parametros.Add("@Baja", baja);
+        parametros.Add("@Usuario", usuario.Id);
+        parametros.Add("@IdActividadDeCapacitacion", id_capacitacion_nuevo);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesCapacitacion", parametros);
+        conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
 
-            return capacitacion_nuevo;
+        return true;
         }
+
+
 
 
 

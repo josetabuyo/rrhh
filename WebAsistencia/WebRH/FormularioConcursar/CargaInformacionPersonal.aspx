@@ -245,7 +245,7 @@
               <div id="collapseThree" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                 <fieldset style="width:100%;">
-                <legend><a id="btn_agregar_actividad_capacitacion" onclick="javascript:AgregarActividadesCapacitacion();" class="link"> Cargar actividades de capacitación</a></legend>
+                <legend><a id="btn_agregar_actividad_capacitacion" class="link"> Cargar actividades de capacitación</a></legend>
                         <h4>Actividades de Capacitación Agregadas</h4>
                         <div id="ContenedorPlanillaActividadesCapacitacion" runat="server">
                             <table id="tabla_actividades_capacitacion" class="table table-striped">
@@ -501,7 +501,7 @@
 
 <script type="text/javascript" src="CvDatosPersonales.js" ></script>
 <script type="text/javascript" src="AntecedentesAcademicos.js" ></script>
-<script type="text/javascript" src="ActividadesCapacitacion.js" ></script>
+<%--<script type="text/javascript" src="ActividadesCapacitacion.js" ></script>--%>
 <script type="text/javascript" src="ActividadesDocentes.js" ></script>
 <%--<script type="text/javascript" src="EventosAcademicos.js" ></script>--%>
 <script type="text/javascript" src="PublicacionesTrabajos.js" ></script>
@@ -528,10 +528,10 @@
 <script type="text/javascript" src="PanelListaDePublicacionesTrabajos.js" ></script>
 <script type="text/javascript" src="PanelDetalleDeEventoAcademico.js" ></script>
 <script type="text/javascript" src="PanelListaDeEventosAcademicos.js" ></script>
-<%--
+
 <script type="text/javascript" src="PanelDetalleDeActividadCapacitacion.js" ></script>
 <script type="text/javascript" src="PanelListaDeActividadesCapacitacion.js" ></script>
-
+<%--
 <script type="text/javascript" src="PanelDetalleDeInstitucionAcademica.js" ></script>
 <script type="text/javascript" src="PanelListaDeInstitucionesAcademicas.js" ></script>
 <script type="text/javascript" src="PanelDetalleDeExperienciaLaboral.js" ></script>
@@ -571,9 +571,7 @@
         PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
         PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
         PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvDocencias);
-
-//      
-//      PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvActividadesCapacitacion);
+        PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
 //      
 //      PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
 //      PanelListaDeMatriculas.armarGrilla(curriculum.CvMatriculas);
