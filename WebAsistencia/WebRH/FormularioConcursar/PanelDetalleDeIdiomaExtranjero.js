@@ -59,7 +59,7 @@
                             $(".modal_close_concursar").click();
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alertify.alert("Error al crear la capacidad.");
+                            alertify.alert("Error al actualziar el idioma.");
                         }
                     });
 

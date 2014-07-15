@@ -16,6 +16,7 @@ namespace General
         protected string _nivel;
         protected string _localidad;
         protected string _pais;
+        protected string _detalle;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Diploma { get { return _diploma; } set { _diploma = value; } }
@@ -26,8 +27,9 @@ namespace General
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public string Pais { get { return _pais; } set { _pais = value; } }
         public DateTime FechaObtencion { get { return _fechaObtencion; } set { _fechaObtencion = value; } }
+        public string Detalle { get { return _detalle; } set { _detalle = value; } }
 
-        public CvCompetenciasInformaticas(int id, string diploma, string establecimiento, string tipoInformatica, string conocimiento, string nivel, string localidad, string pais, DateTime fechaObtencion)
+        public CvCompetenciasInformaticas(int id, string diploma, string establecimiento, string tipoInformatica, string conocimiento, string nivel, string localidad, string pais, DateTime fechaObtencion, string detalle)
         {
             this._id = id;
             this._diploma = diploma;
@@ -38,6 +40,7 @@ namespace General
             this._localidad = localidad;
             this._pais = pais;
             this._fechaObtencion = fechaObtencion;
+            this._detalle = detalle;
         }
 
         public CvCompetenciasInformaticas()

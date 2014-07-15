@@ -445,7 +445,7 @@ namespace General.Repositorios
 
 
                 competencia_anonimos.Select(c => new CvCompetenciasInformaticas(c.Id, c.Diploma, c.Establecimiento, c.TipoInformatica, c.Conocimiento, c.Nivel,
-                                                                    c.Localidad, c.Pais, c.FechaObtencion)).ToList().ForEach(comp => cv.AgregarCompetenciaInformatica(comp));
+                                                                    c.Localidad, c.Pais, c.FechaObtencion, "")).ToList().ForEach(comp => cv.AgregarCompetenciaInformatica(comp));
 
             }
         }
@@ -556,7 +556,8 @@ namespace General.Repositorios
                                 row.GetString("CompetenciaNivel", ""),
                                 row.GetString("CompetenciaLocalidad", ""),
                                 row.GetString("CompetenciaPais", ""),
-                                row.GetDateTime("CompetenciaFechaObtencion", DateTime.Today));
+                                row.GetDateTime("CompetenciaFechaObtencion", DateTime.Today), 
+                                "");
         }
 
         private CvEventoAcademico GetEventosAcademicosFromDataRow(RowDeDatos row)
@@ -1170,12 +1171,12 @@ namespace General.Repositorios
             return idioma_extranjero_modificado;
         }
 
-        public bool EliminarCvIdiomaExtranjero(int id_capacidad, Usuario usuario)
+        public bool EliminarCvIdiomaExtranjero(int id_idioma, Usuario usuario)
         {
             var id_baja = CrearBaja(usuario);
 
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdIdioma", id_capacidad);
+            parametros.Add("@IdIdioma", id_idioma);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@IdBaja", id_baja);
            
@@ -1259,7 +1260,7 @@ namespace General.Repositorios
         #endregion CvCapacidadesPersonales/OtrasCapacidades
 
         #region CvCompetenciasInformaticas
-        public CvCompetenciasInformaticas GuardarCompetenciasInformaticas(CvCompetenciasInformaticas competencia_informatica, Usuario usuario)
+        public CvCompetenciasInformaticas GuardarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia_informatica, Usuario usuario)
         {
             var parametros = ParametrosDeCompetenciasInformaticas(competencia_informatica, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
@@ -1273,25 +1274,27 @@ namespace General.Repositorios
         public CvCompetenciasInformaticas ActualizarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia, Usuario usuario)
         {
             var parametros = ParametrosDeCompetenciasInformaticas(competencia, usuario);
-            parametros.Add("@IdCompetenciaInformatica", competencia.Id);
+            parametros.Add("@IdCompetencia", competencia.Id);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CompetenciasInformaticas", parametros);
 
             return competencia;
         }
 
-        public CvCompetenciasInformaticas EliminarCvCompetenciasInformaticas(CvCompetenciasInformaticas competencia, Usuario usuario)
+        public bool EliminarCvCompetenciaInformatica(int id_competencia, Usuario usuario)
         {
-            var baja = CrearBaja(usuario);
+            var id_baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeCompetenciasInformaticas(competencia, usuario);
-            parametros.Add("@IdCompetenciaInformatica", competencia.Id);
-            parametros.Add("@Baja", baja);
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdCompetencia", id_competencia);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@Baja", id_baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CompetenciasInformaticas", parametros);
 
-            return competencia;
+            return true;            
         }
+
 
         private Dictionary<string, object> ParametrosDeCompetenciasInformaticas(CvCompetenciasInformaticas competencia, Usuario usuario)
         {
@@ -1337,7 +1340,7 @@ namespace General.Repositorios
         {
             var compotencias_informaticas = new List<CvCompetenciasInformaticas>()
                                {
-                                   new CvCompetenciasInformaticas(1, "Administrador de Base de Datos", "Sigma", "Base de Datos", "Senior",  "Avanzado" , "CABA", "Argentina", new DateTime(2013, 11, 15) )
+                                   new CvCompetenciasInformaticas(1, "Administrador de Base de Datos", "Sigma", "Base de Datos", "Senior",  "Avanzado" , "CABA", "Argentina", new DateTime(2013, 11, 15), "" )
                                };
 
             return compotencias_informaticas;
