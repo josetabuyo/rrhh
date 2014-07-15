@@ -752,47 +752,50 @@ namespace General.Repositorios
         }
         #endregion
 
-        #region CvCertificadosDeCapacitacion
-        public CvCertificadoDeCapacitacion GuardarCvActividadDeCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
+        #region CvActividadesCapacitacion/CvCertificadosDeCapacitacion
+
+        public CvCertificadoDeCapacitacion GuardarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
         {
-            //deberia ser el mismo sp y tabla que antecedentes
-            var parametros = ParametrosDeAntecedentesDocencia(actividad_nueva, usuario, 0);
-            parametros.Add("@idPersona", usuario.Owner.Id);
+        //deberia ser el mismo sp y tabla que antecedentes
+        var parametros = ParametrosDeAntecedentesDocencia(actividad_nueva, usuario);
+        parametros.Add("@idPersona", usuario.Owner.Id);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ActividadesDeCapacitacion", parametros);
-            actividad_nueva.Id = int.Parse(id.ToString());
+        var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ActividadesDeCapacitacion", parametros);
+        actividad_nueva.Id = int.Parse(id.ToString());
 
-            return actividad_nueva;
+        return actividad_nueva;
         }
 
-        public CvCertificadoDeCapacitacion ActualizarCvActividadDeCapacitacion(CvCertificadoDeCapacitacion capacidad_nueva, Usuario usuario)
+        public CvCertificadoDeCapacitacion ActualizarCvActividadCapacitacion(CvCertificadoDeCapacitacion capacidad_nueva, Usuario usuario)
         {
-            var parametros = ParametrosDeAntecedentesDocencia(capacidad_nueva, usuario, 0);
-            parametros.Add("@IdActividadDeCapacitacion", capacidad_nueva.Id);
+        var parametros = ParametrosDeAntecedentesDocencia(capacidad_nueva, usuario);
+        parametros.Add("@IdActividadDeCapacitacion", capacidad_nueva.Id);
 
-            conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
+        conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
 
-            return capacidad_nueva;
+        return capacidad_nueva;
         }
 
-        public bool EliminarCvActividadDeCapacitacion(int id_capacitacion_nuevo, Usuario usuario)
+        public bool EliminarCvActividadCapacitacion(int id_capacitacion_nuevo, Usuario usuario)
         {
-            var baja = CrearBaja(usuario);
+        var baja = CrearBaja(usuario);
 
-            //var parametros = ParametrosDeAntecedentesDocencia(capacitacion_nuevo, usuario, baja);
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@Baja", baja);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@IdActividadDeCapacitacion", id_capacitacion_nuevo);
+        //var parametros = ParametrosDeAntecedentesDocencia(capacitacion_nuevo, usuario, baja);
+        var parametros = new Dictionary<string, object>();
+        parametros.Add("@Baja", baja);
+        parametros.Add("@Usuario", usuario.Id);
+        parametros.Add("@IdActividadDeCapacitacion", id_capacitacion_nuevo);
 
-            conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
+        conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
 
-            return true;
+        return true;
         }
 
 
 
-        private Dictionary<string, object> ParametrosDeAntecedentesDocencia(CvCertificadoDeCapacitacion capacidades_nuevo, Usuario usuario, int baja)
+
+
+        private Dictionary<string, object> ParametrosDeAntecedentesDocencia(CvCertificadoDeCapacitacion capacidades_nuevo, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Titulo", capacidades_nuevo.DiplomaDeCertificacion);
@@ -804,7 +807,7 @@ namespace General.Repositorios
             parametros.Add("@Localidad", capacidades_nuevo.Localidad);
             parametros.Add("@Pais", capacidades_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", baja);
+           
 
             return parametros;
 

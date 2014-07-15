@@ -1,82 +1,82 @@
-﻿var PanelDetalleDeActividadDeCapacitacion = {
+﻿var PanelDetalleDeActividadCapacitacion = {
     mostrar: function (opciones) {
         //valores default
-        var actividadCapacitacion = opciones.actividad || {};
+        var actividad_capacitacion = opciones.actividad_capacitacion || {};
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
         this.ui = $("#un_div_modal");
-        this.ui.find("#contenido_modal").load("PanelDetalleDeActividadDeCapacitacion.htm", function () {
-            _this.txt_diploma_certificacion = _this.ui.find("#txt_capacitacion_nombreDiploma");
-            _this.txt_diploma_certificacion.val(actividadCapacitacion.DiplomaDeCertificacion);
-            _this.txt_fecha_inicio = _this.ui.find("#txt_capacitacion_fechaInicio");
-           // _this.txt_fecha_inicio.val(actividadCapacitacion.FechaInicio);
-            _this.txt_fecha_inicio.datepicker();
-            _this.txt_fecha_inicio.datepicker('option', 'dateFormat', 'dd/mm/yy');
-            _this.txt_fecha_inicio.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(actividadCapacitacion.FechaInicio));
-            _this.txt_fecha_fin = _this.ui.find("#txt_capacitacion_fechaFin");
-            //_this.txt_fecha_fin.val(actividadCapacitacion.FechaFinalizacion);
-            _this.txt_fecha_fin.datepicker();
-            _this.txt_fecha_fin.datepicker('option', 'dateFormat', 'dd/mm/yy');
-            _this.txt_fecha_fin.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(actividadCapacitacion.FechaFinalizacion));
+        this.ui.find("#contenido_modal").load("PanelDetalleDeActividadCapacitacion.htm", function () {
+            _this.txt_actividad_capacitacion_nombreDiploma = _this.ui.find("#txt_actividad_capacitacion_nombreDiploma");
+            _this.txt_actividad_capacitacion_nombreDiploma.val(actividad_capacitacion.DiplomaDeCertificacion);
 
-            _this.txt_duracion = _this.ui.find("#txt_capacitacion_duracion");
-            _this.txt_duracion.val(actividadCapacitacion.Duracion);
-            _this.txt_especialidad = _this.ui.find("#txt_capacitacion_especialidad");
-            _this.txt_especialidad.val(actividadCapacitacion.Especialidad);
-            _this.txt_establecimiento = _this.ui.find("#txt_capacitacion_establecimiento");
-            _this.txt_establecimiento.val(actividadCapacitacion.Establecimiento);
-            _this.cmb_localidad = _this.ui.find("#cmb_capacitacion_localidad");
-            _this.cmb_localidad.val(actividadCapacitacion.Localidad);
-            _this.cmb_pais = _this.ui.find("#cmb_capacitacion_pais");
-            _this.cmb_pais.val(actividadCapacitacion.Pais);
+            _this.txt_actividad_capacitacion_fechaInicio = _this.ui.find("#txt_actividad_capacitacion_fechaInicio");
+            _this.txt_actividad_capacitacion_fechaInicio.datepicker();
+            _this.txt_actividad_capacitacion_fechaInicio.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.txt_actividad_capacitacion_fechaInicio.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(actividad_capacitacion.FechaInicio));
+            _this.txt_actividad_capacitacion_fechaFin = _this.ui.find("#txt_actividad_capacitacion_fechaFin");
+            _this.txt_actividad_capacitacion_fechaFin.datepicker();
+            _this.txt_actividad_capacitacion_fechaFin.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.txt_actividad_capacitacion_fechaFin.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(actividad_capacitacion.FechaFinalizacion));
 
+            _this.txt_actividad_capacitacion_duracion = _this.ui.find("#txt_actividad_capacitacion_duracion");
+            _this.txt_actividad_capacitacion_duracion.val(actividad_capacitacion.Duracion);
+            _this.txt_actividad_capacitacion_especialidad = _this.ui.find("#txt_actividad_capacitacion_especialidad");
+            _this.txt_actividad_capacitacion_especialidad.val(actividad_capacitacion.Especialidad);
+            _this.txt_actividad_capacitacion_establecimiento = _this.ui.find("#txt_actividad_capacitacion_establecimiento");
+            _this.txt_actividad_capacitacion_establecimiento.val(actividad_capacitacion.Establecimiento);
+            _this.cmb_actividad_capacitacion_localidad = _this.ui.find("#cmb_actividad_capacitacion_localidad");
+            _this.cmb_actividad_capacitacion_localidad.val(actividad_capacitacion.Localidad);
+            _this.cmb_actividad_capacitacion_pais = _this.ui.find("#cmb_actividad_capacitacion_pais");
+            _this.cmb_actividad_capacitacion_pais.val(actividad_capacitacion.Pais);
+            
 
             //Bt agregar
-            _this.btn_guardar = _this.ui.find("#btn_agregar_actividades_capacitacion");
-            if (opciones.actividad) _this.btn_guardar.val("Guardar Cambios");
+            _this.btn_guardar = _this.ui.find("#btn_guardar");
+            if (opciones.actividad_capacitacion) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-                actividadCapacitacion.DiplomaDeCertificacion = _this.txt_diploma_certificacion.val();
-                actividadCapacitacion.Establecimiento = _this.txt_establecimiento.val();
-                actividadCapacitacion.Especialidad = _this.txt_especialidad.val();
-                actividadCapacitacion.Duracion = _this.txt_duracion.val();
-                actividadCapacitacion.FechaInicio = _this.txt_fecha_inicio.datepicker('getDate').toISOString();
-                actividadCapacitacion.FechaFinalizacion = _this.txt_fecha_fin.datepicker('getDate').toISOString();
-                actividadCapacitacion.Localidad = _this.cmb_localidad.val();
-                actividadCapacitacion.Pais = _this.cmb_pais.val();
+                actividad_capacitacion.DiplomaDeCertificacion = _this.txt_actividad_capacitacion_nombreDiploma.val();
+                actividad_capacitacion.FechaInicio = _this.txt_actividad_capacitacion_fechaInicio.datepicker('getDate').toISOString();
+                actividad_capacitacion.FechaFinalizacion = _this.txt_actividad_capacitacion_fechaFin.datepicker('getDate').toISOString();
+                actividad_capacitacion.Duracion = _this.txt_actividad_capacitacion_duracion.val();
+                actividad_capacitacion.Especialidad = _this.txt_actividad_capacitacion_especialidad.val();
+                actividad_capacitacion.Establecimiento = _this.txt_actividad_capacitacion_establecimiento.val();
+                actividad_capacitacion.Localidad = _this.cmb_actividad_capacitacion_localidad.val();
+                actividad_capacitacion.Pais = _this.cmb_actividad_capacitacion_pais.val();
 
                 var proveedor_ajax = new ProveedorAjax();
-                if (opciones.actividad) {
-                    proveedor_ajax.postearAUrl({ url: "ActualizarCvActividadDeCapacitacion",
+
+                if (opciones.actividad_capacitacion) {
+
+                    proveedor_ajax.postearAUrl({ url: "ActualizarCvActividadCapacitacion",
                         data: {
-                            una_actividad: actividadCapacitacion
+                            actividad_capacitacion: actividad_capacitacion
                         },
                         success: function (respuesta) {
-                            alertify.alert("La actividad fue creada correctamente");
+                            alertify.alert("La actividad fue actualizada correctamente");
                             alModificar(respuesta);
                             $(".modal_close_concursar").click();
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alertify.alert("Error al crear la actividad.");
+                            alertify.alert("Error al actualziar la actividad.");
                         }
                     });
 
                     return;
                 }
 
-                proveedor_ajax.postearAUrl({ url: "GuardarCvActividadDeCapacitacion",
+                proveedor_ajax.postearAUrl({ url: "GuardarCvActividadCapacitacion",
                     data: {
-                        actividadCapacitacion: actividadCapacitacion
-                        
+                        actividad_capacitacion: actividad_capacitacion
                     },
                     success: function (respuesta) {
-                        alertify.alert("Los datos fueron guardados correctamente");
+                        alertify.alert("La actividad fue guardada correctamente");
                         alModificar(respuesta);
                         $(".modal_close_concursar").click();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error al guardar la capacidad.");
+                        alertify.alert("Error al guardar la actividad de capacitación.");
                     }
                 });
             });
@@ -85,18 +85,6 @@
             link_trucho.leanModal({ top: 300, closeButton: ".modal_close_concursar" });
             link_trucho.click();
 
-            $('#txt_capacitacion_fechaInicio').datepicker({
-                dateFormat: 'dd/mm/yy',
-                onClose: function () {
-
-                }
-            });
-            $('#txt_capacitacion_fechaFin').datepicker({
-                dateFormat: 'dd/mm/yy',
-                onClose: function () {
-
-                }
-            });
         });
     }
 }
