@@ -13,6 +13,14 @@
           
             _this.txt_experiencia_personal_a_cargo = _this.ui.find("#experiencia-laboral_personal_a_cargo");
             _this.txt_experiencia_laboral_puesto.val(experiencia.PersonasACargo);
+
+
+
+            _this.txt_experiencia_laboral_fecha_inicio.datepicker();
+            _this.txt_experiencia_laboral_fecha_inicio.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.txt_experiencia_laboral_fecha_inicio.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(experiencia.FechaInicio));
+
+            
             /*
             fechas
             */
