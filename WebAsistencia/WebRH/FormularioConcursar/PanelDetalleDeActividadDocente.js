@@ -21,10 +21,17 @@
             _this.dedicacion_docente.val(docencia.DedicacionDocente);
             _this.carga_horaria = _this.ui.find("#txt_actividad_docente_carga_horaria");
             _this.carga_horaria.val(docencia.CargaHoraria);
+
             _this.fecha_inicio = _this.ui.find("#txt_actividad_docente_fecha_inicio");
-            _this.fecha_inicio.val(docencia.FechaInicio);
+            _this.fecha_inicio.datepicker();
+            _this.fecha_inicio.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.fecha_inicio.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(docencia.FechaInicio));
+
             _this.fecha_fin = _this.ui.find("#txt_actividad_docente_fecha_fin");
-            _this.fecha_fin.val(docencia.FechaFin);
+            _this.fecha_fin.datepicker();
+            _this.fecha_fin.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.fecha_fin.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(docencia.FechaFinalizacion));
+
             _this.establecimiento = _this.ui.find("#txt_actividad_docente_establecimiento");
             _this.establecimiento.val(docencia.Establecimiento);
             _this.cmb_actividad_docente_localidad = _this.ui.find("#cmb_actividad_docente_localidad");
@@ -48,8 +55,8 @@
                 docencia.CaracterDesignacion = _this.caracter_designacion.val();
                 docencia.DedicacionDocente = _this.dedicacion_docente.val();
                 docencia.CargaHoraria = _this.dedicacion_docente.val();
-                docencia.FechaInicio = _this.fecha_inicio.val();
-                docencia.FechaFinalizacion = _this.fecha_fin.val();
+                docencia.FechaInicio = _this.fecha_inicio.datepicker('getDate').toISOString();
+                docencia.FechaFinalizacion = _this.fecha_fin.datepicker('getDate').toISOString();
                 docencia.Establecimiento = _this.establecimiento.val();
                 docencia.Localidad = _this.cmb_actividad_docente_localidad.val();
                 docencia.Pais = _this.cmb_actividad_docente_pais.val();
@@ -71,19 +78,6 @@
                         alertify.alert("Error al guardar.");
                     }
                 });
-            });
-
-             $('#txt_actividad_docente_fecha_inicio').datepicker({
-                dateFormat: 'dd/mm/yy',
-                onClose: function () {
-
-                }
-            });
-            $('#txt_actividad_docente_fecha_fin').datepicker({
-                dateFormat: 'dd/mm/yy',
-                onClose: function () {
-
-                }
             });
        
             var link_trucho = $("<a href='#un_div_modal'></a>");

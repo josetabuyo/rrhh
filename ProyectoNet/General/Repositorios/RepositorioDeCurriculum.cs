@@ -823,7 +823,7 @@ namespace General.Repositorios
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ActividadesDocentes", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_AntecedentesDeDocencia", parametros);
             docencia_nuevo.Id = int.Parse(id.ToString());
 
             return docencia_nuevo;
@@ -834,7 +834,7 @@ namespace General.Repositorios
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@IdDocencia", docencia_nuevo.Id);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesDocentes", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_AntecedentesDeDocencia", parametros);
 
             return docencia_nuevo;
         }
@@ -847,7 +847,7 @@ namespace General.Repositorios
             parametros.Add("@IdDocencia", docencia_nuevo.Id);
             parametros.Add("@Baja", baja);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesDocentes", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_AntecedentesDeDocencia", parametros);
 
             return docencia_nuevo;
         }

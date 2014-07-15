@@ -17,13 +17,12 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Id", { generar: function (una_actividad_docente) { return una_actividad_docente.Id } }));
         columnas.push(new Columna("Asignatura", { generar: function (una_actividad_docente) { return una_actividad_docente.Asignatura } }));
         columnas.push(new Columna("Nivel Educativo", { generar: function (una_actividad_docente) { return una_actividad_docente.NivelEducativo } }));
         columnas.push(new Columna("Tipo de Actividad", { generar: function (una_actividad_docente) { return una_actividad_docente.TipoActividad } }));
         columnas.push(new Columna("Categoría Docente", { generar: function (una_actividad_docente) { return una_actividad_docente.CategoriaDocente } }));
-        columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_docente) { return una_actividad_docente.FechaInicio } }));
-        columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_docente) { return una_actividad_docente.FechaFinalizacion } }));
+        columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_docente) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_docente.FechaInicio);}}));
+        columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_docente) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_docente.FechaFinalizacion);}}));
         columnas.push(new Columna("Establecimiento", { generar: function (una_actividad_docente) { return una_actividad_docente.Establecimiento } }));
         columnas.push(new Columna('Acciones', {
             generar: function (una_actividad_docente) {
