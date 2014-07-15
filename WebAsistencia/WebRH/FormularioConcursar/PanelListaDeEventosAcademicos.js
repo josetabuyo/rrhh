@@ -33,8 +33,8 @@
                     PanelDetalleDeEventoAcademico.mostrar({
                         evento_academico: un_evento_academico,
                         alModificar: function (evento_academico_modificado) {
-                            _this.GrillaCapacidades.BorrarContenido();
-                            _this.GrillaCapacidades.CargarObjetos(eventos);
+                            _this.GrillaEventosAcademicos.BorrarContenido();
+                            _this.GrillaEventosAcademicos.CargarObjetos(eventos_academicos);
                         }
                     });
                 });
@@ -67,7 +67,7 @@
 
                 proveedor_ajax.postearAUrl({ url: "EliminarCVEventosAcademicos",
                     data: {
-                        eventosAcademicos_borrar: un_evento_academico
+                        id_evento_academico: un_evento_academico.Id
                     },
                     success: function (respuesta) {
                         alertify.success("Evento académico eliminado correctamente");

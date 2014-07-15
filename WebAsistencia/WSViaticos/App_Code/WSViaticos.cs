@@ -2583,9 +2583,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public CvEventoAcademico EliminarCvEventosAcademicos(CvEventoAcademico eventos_academicos_a_borrar, Usuario usuario)
+    public bool EliminarCvEventosAcademicos(int id_evento, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvEventosAcademicos(eventos_academicos_a_borrar, usuario);
+        return RepoCurriculum().EliminarCvEventosAcademicos(id_evento, usuario);
     }
     #endregion
 

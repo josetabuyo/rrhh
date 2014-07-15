@@ -55,6 +55,24 @@
 
                 var proveedor_ajax = new ProveedorAjax();
 
+                if (opciones.evento_academico) {
+
+                    proveedor_ajax.postearAUrl({ url: "ActualizarVEventoAcademico",
+                        data: {
+                            eventoAcademico: evento_academico
+                        },
+                        success: function (respuesta) {
+                            alertify.alert("El evento académico fue actualizado correctamente");
+                            alModificar(respuesta);
+                            $(".modal_close_concursar").click();
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alertify.alert("Error al actualizar el evento académico.");
+                        }
+                    });
+
+                    return;
+                }
                 proveedor_ajax.postearAUrl({ url: "GuardarCvEventoAcademico",
                     data: {
                         eventoAcademico: evento_academico

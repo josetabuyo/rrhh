@@ -542,12 +542,10 @@ public class AjaxWS : System.Web.Services.WebService {
     }
     
     [WebMethod(EnableSession = true)]
-    public string EliminarCvEventosAcademicos(WSViaticos.CvEventoAcademico eventosAcademicos_borrar)
+    public bool EliminarCvEventosAcademicos(int id_evento_academico)
     {
-        var eventosAcademicos = backEndService.EliminarCvEventosAcademicos(eventosAcademicos_borrar, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(eventosAcademicos);
+        return backEndService.EliminarCvEventosAcademicos(id_evento_academico, usuarioLogueado);
     }
-
     #endregion
 
     #region CvPublicaciones

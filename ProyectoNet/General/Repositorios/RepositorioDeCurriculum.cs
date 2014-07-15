@@ -890,7 +890,7 @@ namespace General.Repositorios
         public CvEventoAcademico ActualizarCvEventoAcademico(CvEventoAcademico evento_actualizado, Usuario usuario)
         {
             var parametros = ParametrosDeEventosAcademicos(evento_actualizado, usuario);
-            parametros.Add("@idPersona", usuario.Owner.Id);
+            parametros.Add("@IdEvento", evento_actualizado.Id);
 
             conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_EventosAcademicos", parametros);
 
@@ -904,9 +904,9 @@ namespace General.Repositorios
             var id_baja = CrearBaja(usuario);
 
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdIdioma", id_evento_academico);
+            parametros.Add("@IdEvento", id_evento_academico);
             parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@IdBaja", id_baja);
+            parametros.Add("@Baja", id_baja);
 
             conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_EventosAcademicos", parametros);
 
@@ -926,7 +926,6 @@ namespace General.Repositorios
             parametros.Add("@Localidad", evento_academico_nuevo.Localidad);
             parametros.Add("@Pais", evento_academico_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@IdPersona", usuario.Id);
 
             return parametros;
         }
