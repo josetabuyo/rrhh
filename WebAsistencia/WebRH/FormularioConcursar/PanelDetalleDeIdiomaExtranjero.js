@@ -76,7 +76,7 @@
                         $(".modal_close_concursar").click();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error al guardar la idioma extranjero.");
+                        alertify.alert("Error al guardar el idioma extranjero.");
                     }
                 });
             });

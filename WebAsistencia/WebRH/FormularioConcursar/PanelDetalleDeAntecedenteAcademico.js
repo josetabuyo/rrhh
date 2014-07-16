@@ -18,9 +18,13 @@
             _this.txt_antecedentes_especialidad = _this.ui.find("#txt_antecedentes_especialidad");
             _this.txt_antecedentes_especialidad.val(estudio.Especialidad);
             _this.txt_antecedentes_ingreso = _this.ui.find("#txt_antecedentes_ingreso");
-            _this.txt_antecedentes_ingreso.val(estudio.FechaIngreso);
+            _this.txt_antecedentes_ingreso.datepicker();
+            _this.txt_antecedentes_ingreso.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.txt_antecedentes_ingreso.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(estudio.FechaIngreso));
             _this.txt_antecedentes_egreso = _this.ui.find("#txt_antecedentes_egreso");
-            _this.txt_antecedentes_egreso.val(estudio.FechaEgreso);
+            _this.txt_antecedentes_egreso.datepicker();
+            _this.txt_antecedentes_egreso.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.txt_antecedentes_egreso.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(estudio.FechaEgreso));
             _this.txt_antecedentes_localidad = _this.ui.find("#txt_antecedentes_localidad");
             _this.txt_antecedentes_localidad.val(estudio.Localidad);
             _this.cmb_antecedentes_pais = _this.ui.find("#cmb_antecedentes_pais");
@@ -35,8 +39,8 @@
                 estudio.Nivel = _this.cmb_antecedentes_nivel.val();
                 estudio.Establecimiento = _this.txt_establecimiento.val();
                 estudio.Especialidad = _this.txt_antecedentes_especialidad.val();
-                estudio.FechaIngreso = _this.txt_antecedentes_ingreso.val();
-                estudio.FechaEgreso = _this.txt_antecedentes_egreso.val();
+                estudio.FechaIngreso = _this.txt_antecedentes_ingreso.datepicker('getDate').toISOString(); 
+                estudio.FechaEgreso = _this.txt_antecedentes_egreso.datepicker('getDate').toISOString();
                 estudio.Localidad = _this.txt_antecedentes_localidad.val();
                 estudio.Pais = _this.cmb_antecedentes_pais.val();
 
@@ -60,8 +64,8 @@
                 }
                 proveedor_ajax.postearAUrl({ url: "GuardarCVAntecedenteAcademico",
                     data: {
-                        antecedentesAcademicos_nuevos: estudio,
-                        antecedentesAcademicos_originales: estudio
+                        antecedentesAcademicos_nuevos: estudio
+                        
                     },
                     success: function (respuesta) {
                         alertify.alert("Los datos fueron guardados correctamente");

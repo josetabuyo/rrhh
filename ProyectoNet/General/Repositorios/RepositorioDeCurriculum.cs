@@ -132,7 +132,7 @@ namespace General.Repositorios
 
 
                 antecedentes_anonimos.Select(a => new CvEstudios(a.Id, a.Titulo, a.Nivel, a.Establecimiento,
-                                                                    a.Especialidad, a.FechaIngreso.ToShortDateString(), a.FechaEgreso.ToShortDateString(),
+                                                                    a.Especialidad, a.FechaIngreso, a.FechaEgreso,
                                                                     a.Localidad, a.Pais)).ToList().ForEach(ev => cv.AgregarEstudio(ev));
 
             }
@@ -142,39 +142,31 @@ namespace General.Repositorios
 
         private void CorteDeControlCertificadosDeCapacitacion(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
-            //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("IdCertificadoCapacitacion") is DBNull))
+            var lista = ArmarFilas(tablaCVs, "IdCertificadoCapacitacion", "CertificadoBaja");
+
+            if (lista.Count > 0)
             {
+                var certificados_anonimos = (from RowDeDatos dRow in lista
+                                              select new 
+                                              {
+                                                  Id = dRow.GetInt("IdCertificadoCapacitacion", 0),
+                                                  Diploma = dRow.GetString("CertificadoDiploma", string.Empty),
+                                                  Establecimiento = dRow.GetString("CertificadoEstablecimiento", string.Empty),
+                                                  Especialidad = dRow.GetString("CertificadoEspecialidad", string.Empty),
+                                                  Duracion = dRow.GetString("CertificadoDuracion", string.Empty),
+                                                  FechaInicio = dRow.GetDateTime("CertificadoFechaInicio", DateTime.Today),
+                                                  FechaFinalizacion = dRow.GetDateTime("CertificadoFechaFinalizacion", DateTime.Today),
+                                                  Localidad = dRow.GetString("CertificadoLocalidad", string.Empty),
+                                                  Pais = dRow.GetString("CertificadoPais", string.Empty)
 
-                //2.- Creo el certificado anterior por primera vez
-                var certificadoAnterior = GetCertificadoDeCapacitacionFromDataRow(tablaCVs.Rows[0]);
+                                              }).Distinct().ToList();
 
-                var certificado = certificadoAnterior;
 
-                if (certificado.Id != 0)
-                {
-                    cv.AgregarCertificadoDeCapacitacion(certificado);
+                certificados_anonimos.Select(c => new CvCertificadoDeCapacitacion(c.Id, c.Diploma, c.Establecimiento, c.Especialidad, c.Duracion,
+                                                c.FechaInicio, c.FechaFinalizacion, c.Localidad, c.Pais)).ToList().ForEach(cert => cv.AgregarCertificadoDeCapacitacion(cert));
 
-                }
-
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("IdCertificadoCapacitacion") is DBNull))
-                    {
-
-                        //3.- Comparo el certificado anterior con la certificado actual. Si son distitnas creo una nueva y la asigno a la anterior. Si es la misma voy al paso 4
-                        if (certificadoAnterior.Id != row.GetInt("IdCertificadoCapacitacion", 0))
-                        {
-                            certificado = GetCertificadoDeCapacitacionFromDataRow(row);
-                            if (certificado.Id != 0)
-                            {
-                                cv.AgregarCertificadoDeCapacitacion(certificado);
-                                certificadoAnterior = certificado;
-                            }
-                        }
-                    }
-                }
             }
+            
         }
 
         private void CorteDeControlActividadesDocentes(TablaDeDatos tablaCVs, CurriculumVitae cv)
@@ -215,12 +207,8 @@ namespace General.Repositorios
         {
             //CORTE DE CONTROL PARA EVENTOS ACADEMICOS
             //1.- Controlo que haya al menos 1 resultado
-            var lista = new List<RowDeDatos>();
-            tablaCVs.Rows.ForEach(r =>
-            {
-                if (!(r.GetObject("EventosAcademicosId") is DBNull) && (r.GetObject("EventosAcademicosBaja") is DBNull))
-                    lista.Add(r);
-            });
+            var lista = ArmarFilas(tablaCVs, "EventosAcademicosId", "EventosAcademicosBaja"); new List<RowDeDatos>();
+           
             if (lista.Count > 0)
             {
                 var eventos_anonimos = (from RowDeDatos dRow in lista
@@ -440,12 +428,13 @@ namespace General.Repositorios
                                               Nivel = dRow.GetString("CompetenciaNivel", string.Empty),
                                               Localidad = dRow.GetString("CompetenciaLocalidad", string.Empty),
                                               Pais = dRow.GetString("CompetenciaPais", string.Empty),
-                                              FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today)
+                                              FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today),
+                                              Detalle = dRow.GetString("Detalle", string.Empty)
                                           }).Distinct().ToList();
 
 
                 competencia_anonimos.Select(c => new CvCompetenciasInformaticas(c.Id, c.Diploma, c.Establecimiento, c.TipoInformatica, c.Conocimiento, c.Nivel,
-                                                                    c.Localidad, c.Pais, c.FechaObtencion, "")).ToList().ForEach(comp => cv.AgregarCompetenciaInformatica(comp));
+                                                                    c.Localidad, c.Pais, c.FechaObtencion, c.Detalle)).ToList().ForEach(comp => cv.AgregarCompetenciaInformatica(comp));
 
             }
         }
@@ -454,8 +443,8 @@ namespace General.Repositorios
         private CvEstudios GetAntecedenteAcademicosFromDataRow(RowDeDatos row)
         {
             return new CvEstudios(row.GetInt("IdAntecedentesAcademicos", 0), row.GetString("AntecedentesAcademicosTitulo", ""), row.GetInt("AntecedentesAcademicosNivel",0), row.GetString("AntecedentesAcademicosEstablecimiento", ""),
-                                   row.GetString("AntecedentesAcademicosEspecialidad", ""), row.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today).ToShortDateString(),
-                                   row.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today).ToShortDateString(), row.GetString("AntecedentesAcademicosLocalidad", ""),
+                                   row.GetString("AntecedentesAcademicosEspecialidad", ""), row.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today),
+                                   row.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today), row.GetString("AntecedentesAcademicosLocalidad", ""),
                                    row.GetString("AntecedentesAcademicosPais", ""));
 
         }
@@ -557,7 +546,7 @@ namespace General.Repositorios
                                 row.GetString("CompetenciaLocalidad", ""),
                                 row.GetString("CompetenciaPais", ""),
                                 row.GetDateTime("CompetenciaFechaObtencion", DateTime.Today), 
-                                "");
+                                row.GetString("Detalle", ""));
         }
 
         private CvEventoAcademico GetEventosAcademicosFromDataRow(RowDeDatos row)
@@ -764,42 +753,50 @@ namespace General.Repositorios
         }
         #endregion
 
-        #region CvCertificadosDeCapacitacion
-        public CvCertificadoDeCapacitacion GuardarCvActividadesCapacitacion(CvCertificadoDeCapacitacion certificados_capacitacion_nuevo, Usuario usuario)
+        #region CvActividadesCapacitacion/CvCertificadosDeCapacitacion
+
+        public CvCertificadoDeCapacitacion GuardarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
         {
-            //deberia ser el mismo sp y tabla que antecedentes
-            var parametros = ParametrosDeAntecedentesDocencia(certificados_capacitacion_nuevo, usuario, 0);
-            parametros.Add("@idPersona", usuario.Owner.Id);
+        //deberia ser el mismo sp y tabla que antecedentes
+        var parametros = ParametrosDeAntecedentesDocencia(actividad_nueva, usuario);
+        parametros.Add("@idPersona", usuario.Owner.Id);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_AntecedentesAcademicos", parametros);
-            certificados_capacitacion_nuevo.Id = int.Parse(id.ToString());
+        var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ActividadesDeCapacitacion", parametros);
+        actividad_nueva.Id = int.Parse(id.ToString());
 
-            return certificados_capacitacion_nuevo;
+        return actividad_nueva;
         }
 
-        public CvCertificadoDeCapacitacion ActualizarCvCapacidades(CvCertificadoDeCapacitacion capacidades_nuevo, Usuario usuario)
+        public CvCertificadoDeCapacitacion ActualizarCvActividadCapacitacion(CvCertificadoDeCapacitacion capacidad_nueva, Usuario usuario)
         {
-            var parametros = ParametrosDeAntecedentesDocencia(capacidades_nuevo, usuario, 0);
+        var parametros = ParametrosDeAntecedentesDocencia(capacidad_nueva, usuario);
+        parametros.Add("@IdActividadDeCapacitacion", capacidad_nueva.Id);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
+        conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
 
-            return capacidades_nuevo;
+        return capacidad_nueva;
         }
 
-        public CvCertificadoDeCapacitacion EliminarCvActividadesCapacitacion(CvCertificadoDeCapacitacion capacitacion_nuevo, Usuario usuario)
+        public bool EliminarCvActividadCapacitacion(int id_capacitacion_nuevo, Usuario usuario)
         {
-            var baja = CrearBaja(usuario);
+        var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeAntecedentesDocencia(capacitacion_nuevo, usuario, baja);
+        //var parametros = ParametrosDeAntecedentesDocencia(capacitacion_nuevo, usuario, baja);
+        var parametros = new Dictionary<string, object>();
+        parametros.Add("@Baja", baja);
+        parametros.Add("@Usuario", usuario.Id);
+        parametros.Add("@IdActividadDeCapacitacion", id_capacitacion_nuevo);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesCapacitacion", parametros);
+        conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
 
-            return capacitacion_nuevo;
+        return true;
         }
 
 
 
-        private Dictionary<string, object> ParametrosDeAntecedentesDocencia(CvCertificadoDeCapacitacion capacidades_nuevo, Usuario usuario, int baja)
+
+
+        private Dictionary<string, object> ParametrosDeAntecedentesDocencia(CvCertificadoDeCapacitacion capacidades_nuevo, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Titulo", capacidades_nuevo.DiplomaDeCertificacion);
@@ -811,7 +808,7 @@ namespace General.Repositorios
             parametros.Add("@Localidad", capacidades_nuevo.Localidad);
             parametros.Add("@Pais", capacidades_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", baja);
+           
 
             return parametros;
 
@@ -1012,7 +1009,8 @@ namespace General.Repositorios
 
             var parametros = new Dictionary<string, object>(); //ParametrosDeMatricula(matricula_nueva, usuario);
             parametros.Add("@IdMatricula", id_matricula);
-            parametros.Add("@Baja", baja);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@idBaja", baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Matriculas", parametros);
 
@@ -1022,7 +1020,7 @@ namespace General.Repositorios
         private Dictionary<string, object> ParametrosDeMatricula(CvMatricula matricula_nueva, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@ExpedidaPor", matricula_nueva.ExpedidaPor);
+            parametros.Add("@ExpedidoPor", matricula_nueva.ExpedidaPor);
             parametros.Add("@Numero", matricula_nueva.Numero);
             parametros.Add("@SituacionActual", matricula_nueva.SituacionActual);
             parametros.Add("@FechaInscripcion", matricula_nueva.FechaInscripcion);
@@ -1308,6 +1306,7 @@ namespace General.Repositorios
             parametros.Add("@Localidad", competencia.Localidad);
             parametros.Add("@Pais", competencia.Pais);
             parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@Detalle", competencia.Detalle);
 
             return parametros;
         }

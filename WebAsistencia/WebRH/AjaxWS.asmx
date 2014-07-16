@@ -477,7 +477,7 @@ public class AjaxWS : System.Web.Services.WebService {
     #region CvAntecedentesAcademicos
     
     [WebMethod(EnableSession = true)]
-    public string GuardarCVAntecedenteAcademico(WSViaticos.CvEstudios antecedentesAcademicos_nuevos, WSViaticos.CvEstudios antecedentesAcademicos_originales)
+    public string GuardarCVAntecedenteAcademico(WSViaticos.CvEstudios antecedentesAcademicos_nuevos)
     {
 
         var antecedenteAcademicoGuardado = backEndService.GuardarCvAntecedenteAcademico(antecedentesAcademicos_nuevos, usuarioLogueado);
@@ -649,19 +649,18 @@ public class AjaxWS : System.Web.Services.WebService {
     #region CvIdiomas
 
     [WebMethod(EnableSession = true)]
-    public string ActualizarCvIdiomaExtranjero(WSViaticos.CvIdiomas idioma_extranjero)
-    {
-        idioma_extranjero = backEndService.ActualizarCvIdiomaExtranjero(idioma_extranjero, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(idioma_extranjero);
-    }
-   
-    
-    [WebMethod(EnableSession = true)]
     public string GuardarCvIdiomaExtranjero(WSViaticos.CvIdiomas idioma_extranjero)
     {
         var idioma = backEndService.GuardarCvIdiomaExtranjero(idioma_extranjero, usuarioLogueado);
         
         return Newtonsoft.Json.JsonConvert.SerializeObject(idioma);        
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string ActualizarCvIdiomaExtranjero(WSViaticos.CvIdiomas idioma_extranjero)
+    {
+        idioma_extranjero = backEndService.ActualizarCvIdiomaExtranjero(idioma_extranjero, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(idioma_extranjero);
     }
     
     [WebMethod(EnableSession = true)]
@@ -728,16 +727,24 @@ public class AjaxWS : System.Web.Services.WebService {
     #region CvActividadesCapacitacion
 
     [WebMethod(EnableSession = true)]
-    public string GuardarCvactividadesCapacitacion(WSViaticos.CvCertificadoDeCapacitacion actividadCapacitacion)
+    public string GuardarCvActividadCapacitacion(WSViaticos.CvCertificadoDeCapacitacion actividad_capacitacion)
     {
-        if (actividadCapacitacion.Id != 0)
-        {
-            var publicacionActualizada = backEndService.EliminarCvActividadesCapacitacion(actividadCapacitacion, usuarioLogueado);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(publicacionActualizada);
-        }
+        var actividad = backEndService.GuardarCvActividadCapacitacion(actividad_capacitacion, usuarioLogueado);
 
-        var actividadGuardada = backEndService.GuardarCvActividadesCapacitacion(actividadCapacitacion, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(actividadGuardada);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(actividad);
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string ActualizarCvActividadCapacitacion(WSViaticos.CvCertificadoDeCapacitacion actividad_capacitacion)
+    {
+        var actividad = backEndService.ActualizarCvActividadCapacitacion(actividad_capacitacion, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(actividad);
+    }
+
+    [WebMethod(EnableSession = true)]
+    public bool EliminarCvActividadCapacitacion(int id_actividad_capacitacion)
+    {
+        return backEndService.EliminarCvActividadCapacitacion(id_actividad_capacitacion, usuarioLogueado);
     }
 
     #endregion

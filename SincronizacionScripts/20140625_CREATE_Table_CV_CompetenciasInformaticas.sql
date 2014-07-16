@@ -1,6 +1,7 @@
 CREATE TABLE [dbo].[CV_CompetenciasInformaticas](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Diploma][varchar](100) NULL,
+	[Detalle][varchar](100) NULL,
 	[Establecimiento][varchar](100) NULL,
 	[FechaObtencion][datetime]  NULL,
 	[TipoInformatica][varchar](100) NULL,
