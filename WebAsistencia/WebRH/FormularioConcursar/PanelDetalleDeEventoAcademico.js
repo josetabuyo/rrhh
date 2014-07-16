@@ -57,7 +57,7 @@
 
                 if (opciones.evento_academico) {
 
-                    proveedor_ajax.postearAUrl({ url: "ActualizarVEventoAcademico",
+                    proveedor_ajax.postearAUrl({ url: "ActualizarCVEventoAcademico",
                         data: {
                             eventoAcademico: evento_academico
                         },
