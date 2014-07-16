@@ -308,7 +308,7 @@
               <div id="collapseSix" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_publicacion_trabajo" onclick="javascript:AgregarPublicacionesTrabajos();" class="link" >Cargar publicaciones y trabajos</a></legend>
+                    <legend><a id="btn_agregar_publicacion_trabajo" class="link" >Cargar publicaciones y trabajos</a></legend>
                         <h4>Publicaciones y Trabajos Agregados</h4>
                         <div id="ContenedorPlanillaPublicacionesTrabajos" runat="server">
                             <table id="tabla_publicaciones_trabajos" class="table table-striped">
@@ -350,7 +350,7 @@
               <div id="collapseEight" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_institucion_academica" onclick="javascript:AgregarInstitucionesAcademicas();" class="link" >Cargar instituciones académicas</a></legend>
+                    <legend><a id="btn_agregar_institucion_academica"  class="link" >Cargar instituciones académicas</a></legend>
                         <h4>Instituciones Académicas Agregadas</h4>
                         <div id="ContenedorPlanillaInstitucionesAcademicas" runat="server">
                             <table id="tabla_instituciones_academicas" class="table table-striped">
@@ -506,7 +506,7 @@
 <%--<script type="text/javascript" src="EventosAcademicos.js" ></script>--%>
 <script type="text/javascript" src="PublicacionesTrabajos.js" ></script>
 <%--<script type="text/javascript" src="Matriculas.js" ></script>--%>
-<script type="text/javascript" src="InstitucionesAcademicas.js" ></script>
+<%--<script type="text/javascript" src="InstitucionesAcademicas.js" ></script>--%>
 <script type="text/javascript" src="ExperienciaLaboral.js" ></script>
 <%--<script type="text/javascript" src="IdiomasExtranjeros.js" ></script>--%>
 <%--<script type="text/javascript" src="CompetenciasInformaticas.js" ></script>--%>
@@ -531,9 +531,10 @@
 
 <script type="text/javascript" src="PanelDetalleDeActividadCapacitacion.js" ></script>
 <script type="text/javascript" src="PanelListaDeActividadesCapacitacion.js" ></script>
-<%--
+
 <script type="text/javascript" src="PanelDetalleDeInstitucionAcademica.js" ></script>
 <script type="text/javascript" src="PanelListaDeInstitucionesAcademicas.js" ></script>
+<%--
 <script type="text/javascript" src="PanelDetalleDeExperienciaLaboral.js" ></script>
 <script type="text/javascript" src="PanelListaDeExperienciasLaborales.js" ></script>
 
@@ -572,12 +573,12 @@
         PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
         PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvDocencias);
         PanelListaDeMatriculas.armarGrilla(curriculum.CvMatricula);
-
+        PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
         PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
 //      
-//      PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
+
       
-//      PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
+     PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
 //      PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
 //     
 

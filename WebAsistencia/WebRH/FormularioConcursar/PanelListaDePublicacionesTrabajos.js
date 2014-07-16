@@ -1,11 +1,11 @@
-﻿var PanelListaDePublicaciones = {
+﻿var PanelListaDePublicacionesTrabajos    = {
     armarGrilla: function (publicaciones) {
         var _this = this;
 
         _this.divGrilla = $('#tabla_publicaciones_trabajos');
-        _this.btn_agregar_otra_publicacion = $("#add_publicacionesTrabajos");
+        _this.btn_agregar_publicacion_trabajo = $("#btn_agregar_publicacion_trabajo");
 
-        _this.btn_agregar_otra_publicacion.click(function () {
+        _this.btn_agregar_publicacion_trabajo.click(function () {
             PanelDetalleDePublicaciones.mostrar({
                 alModificar: function (nueva_publicacion) {
                     _this.GrillaPublicaciones.BorrarContenido();

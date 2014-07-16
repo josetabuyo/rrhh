@@ -1,4 +1,4 @@
-Create Procedure dbo.CV_Upd_Del_CompetenciasInformaticas
+CREATE Procedure [dbo].[CV_Upd_Del_CompetenciasInformaticas]
 @IdCompetencia int = null,
 @Diploma varchar(100)=null,
 @Establecimiento varchar(100)=null,
@@ -9,7 +9,8 @@ Create Procedure dbo.CV_Upd_Del_CompetenciasInformaticas
 @Localidad varchar(100)=null,
 @Pais varchar(100)=null,
 @Usuario int=null,
-@Baja int=null
+@Baja int=null,
+@Detalle varchar(100)=null
 
 AS
 
@@ -30,11 +31,13 @@ UPDATE dbo.CV_CompetenciasInformaticas
       Pais = isnull(@Pais,Pais), 
       Usuario = isnull(@Usuario,Usuario),
       FechaOperacion = getdate(),
-      Baja = isnull(@Baja,Baja)
+      Baja = isnull(@Baja,Baja),
+	  Detalle = isnull(@Detalle,Detalle), 
       
  WHERE id=@IdCompetencia
 
 END
+
 
 
 

@@ -428,12 +428,13 @@ namespace General.Repositorios
                                               Nivel = dRow.GetString("CompetenciaNivel", string.Empty),
                                               Localidad = dRow.GetString("CompetenciaLocalidad", string.Empty),
                                               Pais = dRow.GetString("CompetenciaPais", string.Empty),
-                                              FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today)
+                                              FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today),
+                                              Detalle = dRow.GetString("Detalle", string.Empty)
                                           }).Distinct().ToList();
 
 
                 competencia_anonimos.Select(c => new CvCompetenciasInformaticas(c.Id, c.Diploma, c.Establecimiento, c.TipoInformatica, c.Conocimiento, c.Nivel,
-                                                                    c.Localidad, c.Pais, c.FechaObtencion, "")).ToList().ForEach(comp => cv.AgregarCompetenciaInformatica(comp));
+                                                                    c.Localidad, c.Pais, c.FechaObtencion, c.Detalle)).ToList().ForEach(comp => cv.AgregarCompetenciaInformatica(comp));
 
             }
         }
@@ -545,7 +546,7 @@ namespace General.Repositorios
                                 row.GetString("CompetenciaLocalidad", ""),
                                 row.GetString("CompetenciaPais", ""),
                                 row.GetDateTime("CompetenciaFechaObtencion", DateTime.Today), 
-                                "");
+                                row.GetString("Detalle", ""));
         }
 
         private CvEventoAcademico GetEventosAcademicosFromDataRow(RowDeDatos row)
@@ -1305,6 +1306,7 @@ namespace General.Repositorios
             parametros.Add("@Localidad", competencia.Localidad);
             parametros.Add("@Pais", competencia.Pais);
             parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@Detalle", competencia.Detalle);
 
             return parametros;
         }
