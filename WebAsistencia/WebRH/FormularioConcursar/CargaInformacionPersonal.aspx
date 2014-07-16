@@ -308,7 +308,7 @@
               <div id="collapseSix" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_publicacion_trabajo" onclick="javascript:AgregarPublicacionesTrabajos();" class="link" >Cargar publicaciones y trabajos</a></legend>
+                    <legend><a id="btn_agregar_publicacion_trabajo" class="link" >Cargar publicaciones y trabajos</a></legend>
                         <h4>Publicaciones y Trabajos Agregados</h4>
                         <div id="ContenedorPlanillaPublicacionesTrabajos" runat="server">
                             <table id="tabla_publicaciones_trabajos" class="table table-striped">
@@ -573,10 +573,10 @@
         PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
         PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvDocencias);
         PanelListaDeMatriculas.armarGrilla(curriculum.CvMatricula);
-
+        PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
         PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
 //      
-//      PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
+
       
      PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
 //      PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
