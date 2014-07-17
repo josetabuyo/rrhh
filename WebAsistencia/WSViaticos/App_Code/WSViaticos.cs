@@ -2737,7 +2737,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
     #endregion
 
-
+    [WebMethod]
+    public Puesto[] GetCvPuestos()
+    {
+        return RepoPuestos().GetPuestos().ToArray();
+    }
 
      [WebMethod]
     public Provincia[] GetProvincias()
@@ -2872,6 +2876,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeCurriculum RepoCurriculum()
     {
         return new RepositorioDeCurriculum(Conexion());
+    }
+
+    private RepositorioDePuestos RepoPuestos()
+    {
+        return new RepositorioDePuestos(Conexion());
     }
 
 
