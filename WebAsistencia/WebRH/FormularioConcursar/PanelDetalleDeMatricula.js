@@ -38,12 +38,12 @@
                             una_matricula: matricula
                         },
                         success: function (respuesta) {
-                            alertify.alert("La matricula fue creada correctamente");
+                            alertify.alert("La matrícula fue creada correctamente");
                             alModificar(respuesta);
                             $(".modal_close_concursar").click();
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alertify.alert("Error al crear la matricula.");
+                            alertify.alert("Error al crear la matrícula.");
                         }
                     });
 

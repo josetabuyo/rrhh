@@ -10,20 +10,17 @@
 
             _this.txt_experiencia_laboral_puesto = _this.ui.find("#experiencia-laboral_puesto");
             _this.txt_experiencia_laboral_puesto.val(experiencia.PuestoOcupado);
-          
+
             _this.txt_experiencia_personal_a_cargo = _this.ui.find("#experiencia-laboral_personal_a_cargo");
-            _this.txt_experiencia_laboral_puesto.val(experiencia.PersonasACargo);
-
-
+            _this.txt_experiencia_personal_a_cargo.val(experiencia.PersonasACargo);
 
             _this.txt_experiencia_laboral_fecha_inicio.datepicker();
             _this.txt_experiencia_laboral_fecha_inicio.datepicker('option', 'dateFormat', 'dd/mm/yy');
             _this.txt_experiencia_laboral_fecha_inicio.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(experiencia.FechaInicio));
 
-            
-            /*
-            fechas
-            */
+            _this.txt_experiencia_laboral_fecha_fin.datepicker();
+            _this.txt_experiencia_laboral_fecha_fin.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.txt_experiencia_laboral_fecha_fin.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(experiencia.FechaFin));
 
             _this.txt_motivo_desvinculacion = _this.ui.find("#experiencia-laboral_motivo_desvinculacion");
             _this.txt_motivo_desvinculacion.val(experiencia.MotivoDesvinculacion);
@@ -39,21 +36,33 @@
 
             _this.txt_experiencia_laboral_localidad = _this.ui.find("#experiencia-laboral_localidad");
             _this.txt_experiencia_laboral_localidad.val(experiencia.Localidad);
-            
+
             _this.cmb_experiencia_laboral_pais = _this.ui.find("#cmb_experiencia_laboral_pais");
             _this.cmb_experiencia_laboral_pais.val(experiencia.Pais);
 
             _this.txt_experiencia_laboral_actividad = _this.ui.find("#txt_experiencia_laboral_actividad");
             _this.txt_experiencia_laboral_actividad.val(experiencia.Actividad);
-            
-                      
+
+
             //Bt agregar
-            _this.btn_guardar = _this.ui.find("#btn_guardar");
+            _this.btn_guardar = _this.ui.find("#add_experiencia_laboral");
             if (opciones.experiencia) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-                experiencia.Tipo = _this.cmb_tipo.val();
-                experiencia.Detalle = _this.txt_detalle.val();
+
+                experiencia.PuestoOcupado = _this.txt_experiencia_laboral_puesto.val();
+                experiencia.PersonasACargo = _this.txt_experiencia_personal_a_cargo.val();
+                experiencia.FechaInicio = _this.txt_experiencia_laboral_fecha_inicio.datepicker('getDate').toISOString();
+                experiencia.FechaFin = _this.txt_experiencia_laboral_fecha_fin.datepicker('getDate').toISOString();
+                experiencia.MotivoDesvinculacion = _this.txt_motivo_desvinculacion.val();
+                experiencia.NombreEmpleador = _this.txt_nombre_empleador.val();
+                experiencia.TipoEmpresa = _this.txt_tipo_empresa_institucion.val();
+                experiencia.Sector = _this.txt_experiencia_laboral_sector.val();
+                experiencia.Localidad = _this.txt_experiencia_laboral_localidad.val();
+                experiencia.Pais = _this.cmb_experiencia_laboral_pais.val();
+                experiencia.Actividad = _this.txt_experiencia_laboral_actividad.val();
+
+                     
 
                 var proveedor_ajax = new ProveedorAjax();
 
@@ -76,6 +85,23 @@
             var link_trucho = $("<a href='#un_div_modal'></a>");
             link_trucho.leanModal({ top: 300, closeButton: ".modal_close_concursar" });
             link_trucho.click();
+
+
+            $('#txt_experiencia_laboral_fecha_inicio').datepicker({
+                dateFormat: 'dd/mm/yy',
+                onClose: function () {
+
+                }
+            });
+
+            $('#txt_experiencia_laboral_fecha_fin').datepicker({
+                dateFormat: 'dd/mm/yy',
+                onClose: function () {
+
+                }
+            });
+
+
         });
     }
 }

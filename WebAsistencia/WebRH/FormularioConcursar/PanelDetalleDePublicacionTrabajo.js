@@ -20,8 +20,8 @@
 
             _this.publicaciones_paginas = _this.ui.find("#txt_publicaciones_paginas");
             _this.publicaciones_paginas.val(publicacion.CantidadHojas);
-            _this.publicaciones_dispone_copia = _this.ui.find("#cmb_publicaciones_dispone_copia");
-            _this.publicaciones_dispone_copia.val(publicacion.DisponeCopia);
+            _this.publicaciones_dispone_copia = _this.ui.find("#txt_publicaciones_dispone_copia");
+            _this.publicaciones_dispone_copia.val(publicacion.DisponeCopia); 
 
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#btn_guardar");
@@ -37,10 +37,9 @@
                 var proveedor_ajax = new ProveedorAjax();
 
                 if (opciones.publicacion) {
-
                     proveedor_ajax.postearAUrl({ url: "ActualizarCVPublicacionesTrabajos",
                         data: {
-                            eventoAcademico: evento_academico
+                            publicacion: publicacion
                         },
                         success: function (respuesta) {
                             alertify.alert("La publicación fue actualizada correctamente");

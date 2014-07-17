@@ -16,10 +16,14 @@
      <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
 </head>
 <body>
+<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>
     <form id="form1" runat="server">
+    
     <div class="contenedor_concursar">
-
+    
 <p class="top-header">Recuerde firmar todas y cada una de las hojas que integran su Ficha de inscripción.<br>La ausencia de su firma invalida la valoración del antecedente declarado.</p>
+
+
 
 <hr class="linea-top"/>
 
@@ -207,8 +211,9 @@
 
 <p class="top-header posicion">Recuerde firmar todas y cada una de las hojas que integran su Ficha de inscripción.<br>La ausencia de su firma invalida la valoración del antecedente declarado.</p>
 
-</div>
 
+</div>
+<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>
     </form>
 </body>
 
