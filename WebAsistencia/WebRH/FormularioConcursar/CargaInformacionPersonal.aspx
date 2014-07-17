@@ -561,7 +561,7 @@
         //        ActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
         //        EventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
         //        PublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
-              // Matriculas.armarGrilla(curriculum.CvMatricula);
+        // Matriculas.armarGrilla(curriculum.CvMatricula);
         //        InstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
         //        ExperienciaLaboral.armarGrilla(curriculum.CvExperienciaLaboral);
         //        
@@ -573,14 +573,14 @@
         PanelListaDeIdiomasExtranjeros.armarGrilla(curriculum.CvIdiomas);
         PanelListaDeActividadesDocentes.armarGrilla(curriculum.CvDocencias);
         PanelListaDeMatriculas.armarGrilla(curriculum.CvMatricula);
-        PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicacionesTrabajos);
+        PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
         PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
-//      
+        //      
 
-      
-     PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
-//      PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
-//     
+
+        PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
+        //      PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
+        //     
 
         //Activar leanModal
         $('a[rel*=leanModalConcursar]').click(function () {

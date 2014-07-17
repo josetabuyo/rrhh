@@ -553,14 +553,14 @@ public class AjaxWS : System.Web.Services.WebService {
     [WebMethod(EnableSession = true)]
     public string GuardarCvPublicacionesTrabajos(WSViaticos.CvPublicaciones publicacion)
     {
-        if (publicacion.Id != 0)
-        {
-            var publicacionActualizada = backEndService.ActualizarCvPublicaciones(publicacion, usuarioLogueado);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(publicacionActualizada);
-        }
-
         var publicacionGuardada = backEndService.GuardarCvPublicacionesTrabajos(publicacion, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(publicacionGuardada);
+    }
+    [WebMethod(EnableSession = true)]
+    public string ActualizarCvPublicacionesTrabajos(WSViaticos.CvPublicaciones publicacion)
+    {
+        var publicacionActualizada = backEndService.ActualizarCvPublicaciones(publicacion, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(publicacionActualizada);
     }
     
     [WebMethod(EnableSession = true)]
