@@ -1,11 +1,10 @@
-﻿var PanelListaDePublicaciones = {
+﻿var PanelListaDePublicacionesTrabajos = {
     armarGrilla: function (publicaciones) {
         var _this = this;
-
         _this.divGrilla = $('#tabla_publicaciones_trabajos');
-        _this.btn_agregar_otra_publicacion = $("#add_publicacionesTrabajos");
+        _this.btn_agregar_publicacion_trabajo = $("#btn_agregar_publicacion_trabajo");
 
-        _this.btn_agregar_otra_publicacion.click(function () {
+        _this.btn_agregar_publicacion_trabajo.click(function () {
             PanelDetalleDePublicaciones.mostrar({
                 alModificar: function (nueva_publicacion) {
                     _this.GrillaPublicaciones.BorrarContenido();
@@ -19,10 +18,10 @@
 
         columnas.push(new Columna("Id", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.Id } }));
         columnas.push(new Columna("Título", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.Titulo } }));
-        columnas.push(new Columna("Editorial", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.FechaPublicacion } }));
-        columnas.push(new Columna("Fecha", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.CantidadHojas } }));
+        columnas.push(new Columna("Datos de Editorial/Revista", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.DatosEditorial } }));
+        columnas.push(new Columna("Fecha", { generar: function (una_publicacion_trabajo) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_publicacion_trabajo.FechaPublicacion) } }));
         columnas.push(new Columna("Páginas", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.CantidadHojas } }));
-        columnas.push(new Columna("Dispone Copias", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.DisponeCopia } }));
+        columnas.push(new Columna("Dispone Copias", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.DisponeCopia} }));
         columnas.push(new Columna('Acciones', {
             generar: function (una_publicacion_trabajo) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();

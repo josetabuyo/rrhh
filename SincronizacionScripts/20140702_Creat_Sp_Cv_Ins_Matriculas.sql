@@ -1,5 +1,5 @@
 Create procedure [dbo].[CV_Ins_Matriculas]
-@ExpedidaPor varchar(100)=null,
+@ExpedidoPor varchar(100)=null,
 @Numero varchar(100)=null,
 @SituacionActual varchar(100)=null,
 @FechaInscripcion datetime=null,

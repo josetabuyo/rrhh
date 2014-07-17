@@ -65,7 +65,7 @@
                 // user clicked "ok"
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "EliminarCvMatriculas",
+                proveedor_ajax.postearAUrl({ url: "EliminarCvMatricula",
                     data: {
                         id_matricula: una_matricula.Id
                     },

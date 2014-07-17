@@ -17,10 +17,14 @@
             _this.txt_evento_academico_caracter_participacion.val(evento_academico.CaracterDeParticipacion);
 
             _this.txt_evento_academico_fecha_inicio = _this.ui.find("#txt_evento_academico_fecha_inicio");
-            _this.txt_evento_academico_fecha_inicio.val(evento_academico.FechaInicio);
+            _this.txt_evento_academico_fecha_inicio.datepicker();
+            _this.txt_evento_academico_fecha_inicio.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.txt_evento_academico_fecha_inicio.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(txt_evento_academico_fecha_inicio.FechaInicio));
 
             _this.txt_evento_academico_fecha_fin = _this.ui.find("#txt_evento_academico_fecha_fin");
-            _this.txt_evento_academico_fecha_fin.val(evento_academico.FechaFinalizacion);
+            _this.txt_evento_academico_fecha_fin.datepicker();
+            _this.txt_evento_academico_fecha_fin.datepicker('option', 'dateFormat', 'dd/mm/yy');
+            _this.txt_evento_academico_fecha_fin.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(txt_evento_academico_fecha_fin.FechaFinalizacion));
 
             _this.txt_evento_academico_duracion = _this.ui.find("#txt_evento_academico_duracion");
             _this.txt_evento_academico_duracion.val(evento_academico.Duracion);
@@ -42,8 +46,8 @@
                 evento_academico.Denominacion = _this.txt_evento_denominacion.val();
                 evento_academico.TipoDeEvento = _this.txt_evento_academico_tipo_evento.val();
                 evento_academico.CaracterDeParticipacion = _this.txt_evento_academico_caracter_participacion.val();
-                evento_academico.FechaInicio = _this.txt_evento_academico_fecha_inicio.val();
-                evento_academico.FechaFinalizacion = _this.txt_evento_academico_fecha_fin.val();
+                evento_academico.FechaInicio = _this.txt_evento_academico_fecha_inicio.datepicker('getDate').toISOString();
+                evento_academico.FechaFinalizacion = _this.txt_evento_academico_fecha_fin.datepicker('getDate').toISOString();
                 evento_academico.Duracion = _this.txt_evento_academico_duracion.val();
                 evento_academico.Institucion = _this.txt_evento_academico_institucion.val();
                 evento_academico.Localidad = _this.txt_evento_academico_localidad.val();
@@ -51,6 +55,24 @@
 
                 var proveedor_ajax = new ProveedorAjax();
 
+                if (opciones.evento_academico) {
+
+                    proveedor_ajax.postearAUrl({ url: "ActualizarCVEventoAcademico",
+                        data: {
+                            eventoAcademico: evento_academico
+                        },
+                        success: function (respuesta) {
+                            alertify.alert("El evento académico fue actualizado correctamente");
+                            alModificar(respuesta);
+                            $(".modal_close_concursar").click();
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alertify.alert("Error al actualizar el evento académico.");
+                        }
+                    });
+
+                    return;
+                }
                 proveedor_ajax.postearAUrl({ url: "GuardarCvEventoAcademico",
                     data: {
                         eventoAcademico: evento_academico

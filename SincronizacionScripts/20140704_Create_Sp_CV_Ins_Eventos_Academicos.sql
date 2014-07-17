@@ -1,5 +1,5 @@
 Create Procedure dbo.CV_Ins_EventosAcademicos
-@Documento int,
+--@Documento int,
 @Denominacion varchar(100),
 @TipoDeEvento varchar(100),
 @CaracterDeParticipacion varchar(100),

@@ -19,13 +19,13 @@ public partial class FormularioConcursar_PanelDeControl : System.Web.UI.Page
         {
          
             this.usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
-            var dni = Servicio().GetDniPorAlias(usuarioLogueado.Alias);
+            //var dni = Servicio().GetDniPorAlias(usuarioLogueado.Alias);
 
-            var cv = Servicio().GetCurriculum(dni);
+            //var cv = Servicio().GetCurriculum(dni);
 
             //var curriculum = JsonConvert.SerializeObject(cv);
-            apellido = cv.DatosPersonales.Apellido;
-            nombre = cv.DatosPersonales.Nombre;
+            apellido = this.usuarioLogueado.Owner.Apellido;// cv.DatosPersonales.Apellido;
+            nombre = this.usuarioLogueado.Owner.Nombre;// cv.DatosPersonales.Nombre;
             
         }
         }

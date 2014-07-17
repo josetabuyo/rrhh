@@ -73,7 +73,7 @@
 
         _this.txt_domicilio_personal_calle.val(datos_personales.DomicilioPersonal.Calle);
         _this.txt_domicilio_personal_numero.val(parseInt(datos_personales.DomicilioPersonal.Numero));
-        _this.txt_domicilio_personal_piso.val(parseInt(datos_personales.DomicilioPersonal.Piso));
+        _this.txt_domicilio_personal_piso.val((datos_personales.DomicilioPersonal.Piso));
         _this.txt_domicilio_personal_dto.val(datos_personales.DomicilioPersonal.Depto);
         _this.txt_domicilio_personal_cp.val(parseInt(datos_personales.DomicilioPersonal.Cp));
 
@@ -110,7 +110,7 @@
 
         _this.txt_domicilio_legal_calle.val(datos_personales.DomicilioLegal.Calle);
         _this.txt_domicilio_legal_numero.val(parseInt(datos_personales.DomicilioLegal.Numero));
-        _this.txt_domicilio_legal_piso.val(parseInt(datos_personales.DomicilioLegal.Piso));
+        _this.txt_domicilio_legal_piso.val((datos_personales.DomicilioLegal.Piso));
         _this.txt_domicilio_legal_dto.val(datos_personales.DomicilioLegal.Depto);
         _this.txt_domicilio_legal_cp.val(parseInt(datos_personales.DomicilioLegal.Cp));
         _this.txt_domicilio_legal_telefonoFijo.val(datos_personales.DomicilioLegal.TelefonoFijo);

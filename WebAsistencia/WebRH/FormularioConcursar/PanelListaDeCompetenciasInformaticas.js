@@ -18,7 +18,7 @@
         var columnas = [];
 
         columnas.push(new Columna("Diploma/Certificación", { generar: function (una_competencia_informatica) { return una_competencia_informatica.Diploma } }));
-        columnas.push(new Columna("Fecha Obtención", { generar: function (una_competencia_informatica) { return una_competencia_informatica.FechaObtencion } }));
+        columnas.push(new Columna("Fecha Obtención", { generar: function (una_competencia_informatica) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_competencia_informatica.FechaObtencion) } }));
         columnas.push(new Columna("Establecimiento", { generar: function (una_competencia_informatica) { return una_competencia_informatica.Establecimiento } }));
         columnas.push(new Columna('Acciones', {
             generar: function (una_competencia_informatica) {
@@ -52,6 +52,7 @@
 
         this.GrillaCompetenciasInformaticas.CargarObjetos(competencias_informaticas);
         this.GrillaCompetenciasInformaticas.DibujarEn(_this.divGrilla);
+        this.competencias = competencias_informaticas;
 
     },
     eliminar: function (una_competencia_informatica) {
@@ -62,13 +63,15 @@
                 // user clicked "ok"
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "EliminarCVCompetenciasInformaticas",
+                proveedor_ajax.postearAUrl({ url: "EliminarCVCompetenciaInformatica",
                     data: {
                         id_competencia_informatica: una_competencia_informatica.Id
                     },
                     success: function (respuesta) {
                         alertify.success("Competencia informática eliminada correctamente");
                         _this.GrillaCompetenciasInformaticas.QuitarObjeto(_this.divGrilla, una_competencia_informatica);
+                        var indice = _this.competencias.indexOf(una_competencia_informatica);
+                        _this.competencias.splice(indice, 1);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.error("No se pudo eliminar la competencia informática");
@@ -79,8 +82,6 @@
                 alertify.error("No se pudo eliminar la competencia informática");
             }
         });
-
-
 
     }
 }
