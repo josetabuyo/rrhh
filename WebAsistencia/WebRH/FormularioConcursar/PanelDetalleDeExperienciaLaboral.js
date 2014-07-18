@@ -1,4 +1,4 @@
-﻿var PanelDetalleDeOtraExperiencia = {
+﻿var PanelDetalleDeExperienciaLaboral = {
     mostrar: function (opciones) {
         //valores default
         var experiencia = opciones.experiencia || {};
@@ -13,6 +13,10 @@
 
             _this.txt_experiencia_personal_a_cargo = _this.ui.find("#experiencia-laboral_personal_a_cargo");
             _this.txt_experiencia_personal_a_cargo.val(experiencia.PersonasACargo);
+
+            _this.txt_experiencia_laboral_fecha_inicio = _this.ui.find("#txt_experiencia_laboral_fecha_inicio");
+
+            _this.txt_experiencia_laboral_fecha_fin = _this.ui.find("#txt_experiencia_laboral_fecha_fin");
 
             _this.txt_experiencia_laboral_fecha_inicio.datepicker();
             _this.txt_experiencia_laboral_fecha_inicio.datepicker('option', 'dateFormat', 'dd/mm/yy');
@@ -61,15 +65,18 @@
                 experiencia.Localidad = _this.txt_experiencia_laboral_localidad.val();
                 experiencia.Pais = _this.cmb_experiencia_laboral_pais.val();
                 experiencia.Actividad = _this.txt_experiencia_laboral_actividad.val();
-
-                     
+                                    
 
                 var proveedor_ajax = new ProveedorAjax();
 
+
+                 if (opciones.experiencia) {
+
+
                 proveedor_ajax.postearAUrl({ url: "GuardarCvExperiencias",
                     data: {
-                        otra_experiencia_original: experiencia,
-                        otra_experiencia_nueva: experiencia
+                       experiencia: experiencia
+                       
                     },
                     success: function (respuesta) {
                         alertify.alert("Los datos fueron guardados correctamente");
@@ -80,6 +87,22 @@
                         alertify.alert("Error al guardar la experiencia laboral.");
                     }
                 });
+
+                   return;
+               }
+                    proveedor_ajax.postearAUrl({ url: "GuardarCvExperienciaLaboral",
+                    data: {
+                        experiencia: experiencia
+                    },
+                    success: function (respuesta) {
+                        alertify.alert("La experiencia fue guardada correctamente");
+                        alModificar(respuesta);
+                        $(".modal_close_concursar").click();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alertify.alert("Error al guardar la experiencia.");
+                    }
+                });
             });
 
             var link_trucho = $("<a href='#un_div_modal'></a>");
@@ -87,20 +110,7 @@
             link_trucho.click();
 
 
-            $('#txt_experiencia_laboral_fecha_inicio').datepicker({
-                dateFormat: 'dd/mm/yy',
-                onClose: function () {
-
-                }
-            });
-
-            $('#txt_experiencia_laboral_fecha_fin').datepicker({
-                dateFormat: 'dd/mm/yy',
-                onClose: function () {
-
-                }
-            });
-
+         
 
         });
     }

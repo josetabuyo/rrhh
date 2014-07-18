@@ -1,15 +1,16 @@
-﻿var PanelListaDeOtrasCapacidades = {
+﻿var PanelListaDeExperienciasLaborales = {
     armarGrilla: function (experiencias) {
         var _this = this;
 
-        _this.divGrilla = $('#tabla_otras_capacidades');
-        _this.btn_agregar_otra_capacidad = $("#btn_agregar_otra_capacidad");
+        _this.divGrilla = $('#tabla_experiencias_laborales');
+        _this.btn_agregar_experiencia_laboral = $("#btn_agregar_experiencia_laboral");
 
-        _this.btn_agregar_otra_capacidad.click(function () {
+        _this.btn_agregar_experiencia_laboral.click(function () {
+
             PanelDetalleDeExperienciaLaboral.mostrar({
                 alModificar: function (nueva_experiencia) {
                     _this.GrillaExperiencias.BorrarContenido();
-                    capacidades.push(nueva_experiencia);
+                    experiencias.push(nueva_experiencia);
                     _this.GrillaCapacidades.CargarObjetos(experiencias);
                 }
             });
@@ -17,21 +18,22 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Id", { generar: function (una_experiencia) { return una_capacidad.Id } }));
-        columnas.push(new Columna("Tipo", { generar: function (una_experiencia) { return una_capacidad.Tipo } }));
-        columnas.push(new Columna("Detalle", { generar: function (una_experiencia) { return una_capacidad.Detalle } }));
+     
+        columnas.push(new Columna("Puesto", { generar: function (una_experiencia) { return una_experiencia.Puesto } }));
+        columnas.push(new Columna("Fecha Inicio", { generar: function (una_experiencia) { return una_experiencia.FechaInicio } }));
+        columnas.push(new Columna("Fecha Fin", { generar: function (una_experiencia) { return una_experiencia.FechaFin } }));
         columnas.push(new Columna('Acciones', {
-            generar: function (una_capacidad) {
+            generar: function (una_experiencia) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
                 var btn_editar = contenedorBtnAcciones.find("#btn_editar");
                 var btn_eliminar = contenedorBtnAcciones.find("#btn_eliminar");
 
                 btn_editar.click(function () {
                     PanelDetalleDeExperienciaLaboral.mostrar({
-                        capacidad: una_capacidad,
+                        experiencia: una_experiencia,
                         alModificar: function (experiencia_modificada) {
-                            _this.GrillaCapacidades.BorrarContenido();
-                            _this.GrillaCapacidades.CargarObjetos(experiencias);
+                            _this.GrillaExperiencias.BorrarContenido();
+                            _this.GrillaExperiencias.CargarObjetos(experiencias);
                         }
                     });
                 });
@@ -45,16 +47,16 @@
         }
         ));
 
-        this.GrillaCapacidades = new Grilla(columnas);
-        this.GrillaCapacidades.AgregarEstilo("table table-striped");
-        this.GrillaCapacidades.SetOnRowClickEventHandler(function (una_capacidad) {
+        this.GrillaExperiencias = new Grilla(columnas);
+        this.GrillaExperiencias.AgregarEstilo("table table-striped");
+        this.GrillaExperiencias.SetOnRowClickEventHandler(function (una_experiencia) {
         });
 
-        this.GrillaCapacidades.CargarObjetos(experiencias);
-        this.GrillaCapacidades.DibujarEn(_this.divGrilla);
+        this.GrillaExperiencias.CargarObjetos(experiencias);
+        this.GrillaExperiencias.DibujarEn(_this.divGrilla);
 
     },
-    eliminar: function (una_capacidad) {
+    eliminar: function (una_experiencia) {
         var _this = this;
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la experiencia informada?", function (e) {
@@ -64,11 +66,13 @@
 
                 proveedor_ajax.postearAUrl({ url: "EliminarCVExperiencias",
                     data: {
-                        una_capacidad: una_capacidad
+                        id_experiencia: una_experiencia.id
                     },
                     success: function (respuesta) {
                         alertify.success("Experiencia eliminada correctamente");
-                        _this.GrillaCapacidades.QuitarObjeto(_this.divGrilla, una_capacidad);
+                        _this.GrillaExperiencias.QuitarObjeto(_this.divGrilla, una_experiencia);
+                        var indice = _this.idiomas.indexOf(una_experiencia);
+                        _this.experiencias.splice(indice, 1);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.error("No se pudo eliminar la experiencia");
