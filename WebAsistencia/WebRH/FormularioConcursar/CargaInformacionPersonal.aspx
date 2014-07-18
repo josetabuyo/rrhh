@@ -479,18 +479,9 @@
     <div class="modal_close_concursar"></div>
     <div id="contenido_modal"></div>
 </div>
-<%--VER SI ESTO VA O NO VA MAS--%>
+
 <asp:HiddenField ID="curriculum" runat="server" />
-<asp:HiddenField ID="cvEstudios" runat="server" />
-<asp:HiddenField ID="cvActividadesDocentes" runat="server" />
-<asp:HiddenField ID="cvActividadesCapacitacion" runat="server" />
-<asp:HiddenField ID="CvEventosAcademicos" runat="server" />
-<asp:HiddenField ID="CvExperienciaLaboral" runat="server" />
-<asp:HiddenField ID="CvIdiomas" runat="server" />
-<asp:HiddenField ID="CvInstitucionesAcademicas" runat="server" />
-<asp:HiddenField ID="CvMatricula" runat="server" />
-<asp:HiddenField ID="CvPublicaciones" runat="server" />
-<asp:HiddenField ID="CvCompetenciasInformaticas" runat="server" />
+
 
 
   </form>
