@@ -14,7 +14,6 @@ namespace General.Repositorios
         List<CvCertificadoDeCapacitacion> GetCvCertificadoDeCapacitacion(int documento);
         List<CvCompetenciasInformaticas> GetCvCompetenciasInformaticas(int documento);
         CvDatosPersonales GetCvDatosPersonales(int documento);
-        List<CvDocencia> GetCvDocencia(int documento);
         List<CvDomicilio> GetCvDomicilio(int documento);
         List<CvEventoAcademico> GetCvEventoAcademico(int documento);
         List<CvExperienciaLaboral> GetCvExperienciaLaboral(int documento);
@@ -22,13 +21,5 @@ namespace General.Repositorios
         List<CvInstitucionesAcademicas> GetCvInstitucionesAcademicas(int documento);
         List<CvMatricula> GetCvMatricula(int documento);
         List<CvPublicaciones> GetCvPublicaciones(int documento);
-                    
-            
-            
-            
-            
-            
-            
-            
     }
 }

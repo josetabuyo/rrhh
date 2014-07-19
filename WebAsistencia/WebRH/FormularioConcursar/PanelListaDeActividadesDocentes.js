@@ -2,6 +2,7 @@
     armarGrilla: function (actividades_docentes) {
         var _this = this;
 
+        _this.actividades_docentes = actividades_docentes;
         _this.divGrilla = $('#tabla_actividades_docentes');
         _this.btn_agregar_otra_actividad_docente = $("#btn_agregar_actividad_docente");
 
@@ -9,8 +10,8 @@
             PanelDetalleDeActividadDocente.mostrar({
                 alModificar: function (nueva_actividad) {
                     _this.GrillaActividadesDocentes.BorrarContenido();
-                    actividades_docentes.push(nueva_actividad);
-                    _this.GrillaActividadesDocentes.CargarObjetos(actividades_docentes);
+                    _this.actividades_docentes.push(nueva_actividad);
+                    _this.GrillaActividadesDocentes.CargarObjetos(_this.actividades_docentes);
                 }
             });
         });
@@ -18,11 +19,11 @@
         var columnas = [];
 
         columnas.push(new Columna("Asignatura", { generar: function (una_actividad_docente) { return una_actividad_docente.Asignatura } }));
-        columnas.push(new Columna("Nivel Educativo", { generar: function (una_actividad_docente) { return una_actividad_docente.NivelEducativo } }));
+        columnas.push(new Columna("Nivel Educativo", { generar: function (una_actividad_docente) { return una_actividad_docente.NivelEducativo.Descripcion } }));
         columnas.push(new Columna("Tipo de Actividad", { generar: function (una_actividad_docente) { return una_actividad_docente.TipoActividad } }));
         columnas.push(new Columna("Categoría Docente", { generar: function (una_actividad_docente) { return una_actividad_docente.CategoriaDocente } }));
-        columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_docente) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_docente.FechaInicio);}}));
-        columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_docente) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_docente.FechaFinalizacion);}}));
+        columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_docente) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_docente.FechaInicio); } }));
+        columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_docente) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_docente.FechaFinalizacion); } }));
         columnas.push(new Columna("Establecimiento", { generar: function (una_actividad_docente) { return una_actividad_docente.Establecimiento } }));
         columnas.push(new Columna('Acciones', {
             generar: function (una_actividad_docente) {
@@ -35,7 +36,7 @@
                         docencia: una_actividad_docente,
                         alModificar: function (docencia_modificada) {
                             _this.GrillaActividadesDocentes.BorrarContenido();
-                            _this.GrillaActividadesDocentes.CargarObjetos(actividades_docentes);
+                            _this.GrillaActividadesDocentes.CargarObjetos(_this.actividades_docentes);
                         }
                     });
                 });
@@ -54,7 +55,7 @@
         this.GrillaActividadesDocentes.SetOnRowClickEventHandler(function (una_actividad_docente) {
         });
 
-        this.GrillaActividadesDocentes.CargarObjetos(actividades_docentes);
+        this.GrillaActividadesDocentes.CargarObjetos(_this.actividades_docentes);
         this.GrillaActividadesDocentes.DibujarEn(_this.divGrilla);
 
     },
@@ -73,6 +74,8 @@
                     success: function (respuesta) {
                         alertify.success("Docencia eliminada correctamente");
                         _this.GrillaActividadesDocentes.QuitarObjeto(_this.divGrilla, una_actividad_docente);
+                        var indice = _this.actividades_docentes.indexOf(una_actividad_docente);
+                        _this.actividades_docentes.splice(indice, 1);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.error("No se pudo eliminar la docencia");
@@ -80,7 +83,6 @@
                 });
             } else {
                 // user clicked "cancel"
-                //alertify.error("No se pudo eliminar la capacidad");
             }
         });
 

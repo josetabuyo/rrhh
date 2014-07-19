@@ -1,7 +1,9 @@
 ﻿var PanelDetalleDeActividadDocente = {
     mostrar: function (opciones) {
         //valores default
-        var docencia = opciones.docencia || {};
+        var docencia = opciones.docencia || {
+            NivelEducativo: {Id:0}
+        };
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
@@ -9,8 +11,18 @@
         this.ui.find("#contenido_modal").load("PanelDetalleDeActividadDocente.htm", function () {
             _this.txt_asignatura = _this.ui.find("#txt_actividad_docente_asignatura");
             _this.txt_asignatura.val(docencia.Asignatura);
-            _this.nivel_educativo = _this.ui.find("#txt_actividad_docente_nivel_educativo");
-            _this.nivel_educativo.val(docencia.NivelEducativo);
+
+            _this.cmb_nivel_educativo = new SuperCombo({
+                ui: _this.ui.find("#cmb_actividad_docente_nivel_educativo"),
+                nombre_repositorio: "NivelesDeDocencia",
+                str_val: "Id",
+                str_descripcion: "Descripcion",
+                id_item_seleccionado: docencia.NivelEducativo.Id
+            });
+
+            //            _this.nivel_educativo = _this.ui.find("#txt_actividad_docente_nivel_educativo");
+            //            _this.nivel_educativo.val(docencia.NivelEducativo);
+
             _this.tipo_actividad = _this.ui.find("#txt_actividad_docente_tipo_actividad");
             _this.tipo_actividad.val(docencia.TipoActividad);
             _this.categoria_docente = _this.ui.find("#txt_actividad_docente_categoria");
@@ -45,11 +57,11 @@
 
             _this.btn_guardar.click(function () {
                 if (docencia.Id == "") {
-                        docencia.Id = 0;
-                    } 
+                    docencia.Id = 0;
+                }
 
                 docencia.Asignatura = _this.txt_asignatura.val();
-                docencia.NivelEducativo = _this.nivel_educativo.val();
+                docencia.NivelEducativo = _this.cmb_nivel_educativo.itemSeleccionado();
                 docencia.TipoActividad = _this.tipo_actividad.val();
                 docencia.CategoriaDocente = _this.categoria_docente.val();
                 docencia.CaracterDesignacion = _this.caracter_designacion.val();
@@ -79,7 +91,7 @@
                     }
                 });
             });
-       
+
             var link_trucho = $("<a href='#un_div_modal'></a>");
             link_trucho.leanModal({ top: 300, closeButton: ".modal_close_concursar" });
             link_trucho.click();

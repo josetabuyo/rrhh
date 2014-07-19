@@ -13,7 +13,6 @@ namespace General.Repositorios
         protected CvDatosPersonales _cvDatosPersonales;
         protected List<CvEstudios> _cvAntecedentesAcademicos;
         protected List<CvCertificadoDeCapacitacion> _cvCapacitacion;
-        protected List<CvDocencia> _cvDocencia;
         protected CvEventoAcademico _cvEventoAcademico;
         protected CvPublicaciones _cvPublicacion;
         protected CvMatricula _cvMatricula;
@@ -26,7 +25,6 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
             this.lista_cv = new List<CurriculumVitae>();
             this._cvAntecedentesAcademicos = new List<CvEstudios>();
-            this._cvDocencia = new List<CvDocencia>();
             this._cvCapacitacion = new List<CvCertificadoDeCapacitacion>();
 
             //FC a borrar cuando traiga los datos de la base
@@ -180,7 +178,7 @@ namespace General.Repositorios
                                              {
                                                  Id = dRow.GetInt("IdAntecedentesDeDocencia", 0),
                                                  Asignatura = dRow.GetString("AntecedentesDeDocenciaAsignatura", string.Empty),
-                                                 NivelEducativo = dRow.GetString("AntecedentesDeDocenciaNivelEducativo", string.Empty),
+                                                 NivelEducativo = new NivelDeDocencia(dRow.GetInt("AntecedentesDeDocenciaNivelEducativo_Id", 0), dRow.GetString("AntecedentesDeDocenciaNivelEducativo_Descripcion", string.Empty)),
                                                  TipoActividad = dRow.GetString("AntecedentesDeDocenciaTipoActividad", string.Empty),
                                                  CategoriaDocente = dRow.GetString("AntecedentesDeDocenciaCategoriaDocente", string.Empty),
                                                  CaracterDesignacion = dRow.GetString("AntecedentesDeDocenciaCaracterDesignacion", string.Empty),
@@ -461,15 +459,6 @@ namespace General.Repositorios
                                                    row.GetString("CertificadoLocalidad", ""),
                                                    row.GetString("CertificadoPais", ""));
 
-        }
-
-        private CvDocencia GetActividadesDocentesFromDataRow(RowDeDatos row)
-        {
-            return new CvDocencia(row.GetInt("IdAntecedentesDeDocencia", 0), row.GetString("AntecedentesDeDocenciaAsignatura", ""), row.GetString("AntecedentesDeDocenciaNivelEducativo", ""),
-                                   row.GetString("AntecedentesDeDocenciaTipoActividad", ""), row.GetString("AntecedentesDeDocenciaCategoriaDocente", ""), row.GetString("AntecedentesDeDocenciaCaracterDesignacion", ""), row.GetString("AntecedentesDeDocenciaDedicacionDocente", ""), row.GetString("AntecedentesDeDocenciaCargaHoraria", ""),
-                                   row.GetDateTime("AntecedentesDeDocenciaFechaInicio", DateTime.Today),
-                                   row.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", DateTime.Today), row.GetString("AntecedentesDeDocenciaEstablecimiento", ""),
-                                   row.GetString("AntecedentesDeDocenciaLocalidad", ""), row.GetString("AntecedentesDeDocenciaPais", ""));
         }
 
         private CvMatricula GetMatriculaFromDataRow(RowDeDatos row)
@@ -843,7 +832,7 @@ namespace General.Repositorios
 
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@IdDocencia", docencia_nuevo.Id);
-            parametros.Add("@Baja", baja);
+            parametros.Add("@IdBaja", baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_AntecedentesDeDocencia", parametros);
 
@@ -859,7 +848,7 @@ namespace General.Repositorios
             parametros.Add("@CategoriaDocente", docencia_nuevo.CategoriaDocente);
             parametros.Add("@DedicacionDocente", docencia_nuevo.DedicacionDocente);
             parametros.Add("@Establecimiento", docencia_nuevo.Establecimiento);
-            parametros.Add("@NivelEducativo", docencia_nuevo.NivelEducativo);
+            parametros.Add("@NivelEducativo", docencia_nuevo.NivelEducativo.Id);
             parametros.Add("@TipoActividad", docencia_nuevo.TipoActividad);
             parametros.Add("@FechaInicio", docencia_nuevo.FechaInicio);
             parametros.Add("@FechaFinalizacion", docencia_nuevo.FechaFinalizacion);
@@ -1352,17 +1341,6 @@ namespace General.Repositorios
             var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", 1, 1, "20-31369852-7", "Buenos Aires", 1, new DateTime(1985, 07, 23).ToShortDateString(), 1, domicilio, domicilio, "Tiene legajo");
             //return datos_personales;
             return this._cvDatosPersonales;
-        }
-
-
-        public List<CvDocencia> GetCvDocencia(int documento)
-        {
-            var docencia = new List<CvDocencia>()
-                               {
-                                   new CvDocencia("Matemática Discreta", "Universitario", "Docencia", "Profesor Titular",  "Jefe de Cátedra" , "Dedicación Exclusiva", "40 horas semanales", new DateTime(2005, 03, 01), new DateTime(2009, 12, 01), "Universidad Tecnológica Nacional", "CABA", "Argentina")
-                               };
-
-            return docencia;
         }
 
         public List<CvDomicilio> GetCvDomicilio(int documento)
