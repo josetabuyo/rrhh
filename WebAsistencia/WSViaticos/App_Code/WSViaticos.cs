@@ -2443,13 +2443,6 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public CvDocencia[] GetCvDocencia(int documento)
-    {
-        var docencia = RepoCurriculum().GetCvDocencia(documento);
-        return docencia.ToArray();
-    }
-
-    [WebMethod]
     public CvDomicilio[] GetCvDomicilio(int documento)
     {
         var domicilios = RepoCurriculum().GetCvDomicilio(documento);
@@ -2771,6 +2764,12 @@ public class WSViaticos : System.Web.Services.WebService
     public Sexo[] GetSexos()
     {
         return RepositorioDeSexos.NuevoRepositorioDeSexos(Conexion()).TodosLosSexos().ToArray();
+    }
+
+    [WebMethod]
+    public NivelDeDocencia[] GetNivelesDeDocencia()
+    {
+        return RepositorioDeNivelesDeDocencia.NuevoRepositorioDeNivelesDeDocencia(Conexion()).TodosLosNivelesDeDocencia().ToArray();
     }
 
     [WebMethod]

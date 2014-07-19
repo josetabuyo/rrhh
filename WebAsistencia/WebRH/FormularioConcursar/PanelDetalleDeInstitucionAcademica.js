@@ -21,7 +21,7 @@
             _this.txt_institucion_academica_fecha_afiliacion.datepicker('option', 'dateFormat', 'dd/mm/yy');
             _this.txt_institucion_academica_fecha_afiliacion.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(institucion_academica.FechaDeAfiliacion));
 
-            this.txt_institucion_academica_categoria_actual = _this.ui.find("#txt_institucion_academica_categoria_actual");
+            _this.txt_institucion_academica_categoria_actual = _this.ui.find("#txt_institucion_academica_categoria_actual");
             _this.txt_institucion_academica_categoria_actual.val(institucion_academica.CategoriaActual);
 
             _this.txt_institucion_academica_fecha = _this.ui.find("#txt_institucion_academica_fecha");
@@ -58,8 +58,8 @@
                 institucion_academica.Fecha = _this.txt_institucion_academica_fecha.datepicker('getDate').toISOString();
                 institucion_academica.Localidad = _this.cmb_institucion_academica_localidad.val();
                 institucion_academica.Pais = _this.cmb_institucion_academica_pais.val();
-                institucion_academica.FechaInicio = _this.txt_institucion_academica_fecha_inicio.datepicker('getDate').toISOString();
-                institucion_academica.FechaFin = _this.txt_institucion_academica_fecha_fin.datepicker('getDate').toISOString();
+                institucion_academica.FechaInicio = _this.txt_institucion_academica_fechaInicio.datepicker('getDate').toISOString();
+                institucion_academica.FechaFin = _this.txt_institucion_academica_fechaFin.datepicker('getDate').toISOString();
 
                 var proveedor_ajax = new ProveedorAjax();
 

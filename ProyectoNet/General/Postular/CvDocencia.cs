@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.Repositorios;
 
 namespace General
 {
@@ -9,7 +10,7 @@ namespace General
     {
         protected int _id;
         protected string _asignatura;
-        protected string _nivelEducativo;
+        protected NivelDeDocencia _nivelEducativo;
         protected string _tipoActividad;
         protected string _categoriaDocente;
         protected string _caracterDesignacion;
@@ -23,7 +24,7 @@ namespace General
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Asignatura { get { return _asignatura; } set { _asignatura = value; } }
-        public string NivelEducativo { get { return _nivelEducativo; } set { _nivelEducativo = value; } }
+        public NivelDeDocencia NivelEducativo { get { return _nivelEducativo; } set { _nivelEducativo = value; } }
         public string TipoActividad { get { return _tipoActividad; } set { _tipoActividad = value; } }
         public string CategoriaDocente { get { return _categoriaDocente; } set { _categoriaDocente = value; } }
         public string CaracterDesignacion { get { return _caracterDesignacion; } set { _caracterDesignacion = value; } }
@@ -36,12 +37,12 @@ namespace General
         public string Pais { get { return _pais; } set { _pais = value; } }
 
 
-        public CvDocencia(string asignatura, string nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
+        public CvDocencia(string asignatura, NivelDeDocencia nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
         {
             SetearCampos(asignatura, nivelEducativo, tipoActividad, categoriaDocente, caracterDesignacion, dedicacionDocente, cargaHoraria, fechaInicio, fechaFinalizacion, establecimiento, localidad, pais);
         }
 
-        public CvDocencia(int id, string asignatura, string nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
+        public CvDocencia(int id, string asignatura, NivelDeDocencia nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
         {
             this._id = id;
             SetearCampos(asignatura, nivelEducativo, tipoActividad, categoriaDocente, caracterDesignacion, dedicacionDocente, cargaHoraria, fechaInicio, fechaFinalizacion, establecimiento, localidad, pais);
@@ -49,7 +50,7 @@ namespace General
 
 
 
-        private void SetearCampos(string asignatura, string nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
+        private void SetearCampos(string asignatura, NivelDeDocencia nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
         {
             this._asignatura = asignatura;
             this._nivelEducativo = nivelEducativo;
@@ -71,6 +72,10 @@ namespace General
 
         public override bool Equals(object obj)
         {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
             if (base.Equals(obj)) { return true; }
             if (((CvDocencia)obj).Id == this.Id) { return true; }
             return false;
