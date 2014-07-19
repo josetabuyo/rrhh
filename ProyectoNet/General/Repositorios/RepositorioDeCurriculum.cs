@@ -1023,18 +1023,18 @@ namespace General.Repositorios
         #endregion
 
         #region CvInstituciones
-        public CvInstitucionesAcademicas GuardarCvInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
+        public CvInstitucionesAcademicas GuardarCvInstitucionAcademica(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Instituciones", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Upd_Del_Instituciones", parametros);
             institucion_nueva.Id = int.Parse(id.ToString());
 
             return institucion_nueva;
         }
 
-        public CvInstitucionesAcademicas ActualizarCvInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
+        public CvInstitucionesAcademicas ActualizarCvInstitucionAcademica(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
 
@@ -1044,17 +1044,19 @@ namespace General.Repositorios
             return institucion_nueva;
         }
 
-        public CvInstitucionesAcademicas EliminarCvInstitucionesAcademicas(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
+        public bool EliminarCvInstitucionAcademica(int id_institucion_nueva, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
-            parametros.Add("@IdInstitucion", institucion_nueva.Id);
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@IdInstitucion", id_institucion_nueva);
+            parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Baja", baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Instituciones", parametros);
 
-            return institucion_nueva;
+            return true;
         }
 
         private Dictionary<string, object> ParametrosDeInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)

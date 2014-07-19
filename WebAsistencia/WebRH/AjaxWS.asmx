@@ -599,25 +599,27 @@ public class AjaxWS : System.Web.Services.WebService {
     #endregion
 
     #region CvInstituciones
-
     [WebMethod(EnableSession = true)]
-    public string GuardarCVInstituciones(WSViaticos.CvInstitucionesAcademicas institucion)
+    public string ActualizarCvInstitucionAcademica(WSViaticos.CvInstitucionesAcademicas institucion_academica)
     {
-        if (institucion.Id != 0)
-        {
-            var institucionActualizada = backEndService.ActualizarCvInstituciones(institucion, usuarioLogueado);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(institucionActualizada);
-        }
-
-        var institucionGuardada = backEndService.GuardarCvInstituciones(institucion, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(institucionGuardada);
+        var institucion = backEndService.ActualizarCvInstitucionAcademica(institucion_academica, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(institucion);
     }
-    
+
+
+
     [WebMethod(EnableSession = true)]
-    public string EliminarCvInstitucionesAcademicas(WSViaticos.CvInstitucionesAcademicas institucionesAcademicas_borrar)
-    { 
-        var institucionesAcademicas = backEndService.EliminarCvInstitucionesAcademicas(institucionesAcademicas_borrar, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(institucionesAcademicas);
+    public string GuardarCvInstitucionAcademica(WSViaticos.CvInstitucionesAcademicas institucion_academica)
+    {
+        var institucion = backEndService.GuardarCvInstitucionAcademica(institucion_academica, usuarioLogueado);
+
+        return Newtonsoft.Json.JsonConvert.SerializeObject(institucion);
+    }
+
+    [WebMethod(EnableSession = true)]
+    public bool EliminarCvInstitucionAcademica(int id_institucion_academica)
+    {
+        return backEndService.EliminarCvInstitucionAcademica(id_institucion_academica, usuarioLogueado);
     }
 
     #endregion
