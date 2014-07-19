@@ -1044,12 +1044,13 @@ namespace General.Repositorios
             return institucion_nueva;
         }
 
-        public bool EliminarCvInstitucionAcademica(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
+        public bool EliminarCvInstitucionAcademica(int id_institucion_nueva, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
-            parametros.Add("@IdInstitucion", institucion_nueva.Id);
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@IdInstitucion", id_institucion_nueva);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Baja", baja);
 

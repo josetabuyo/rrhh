@@ -2633,21 +2633,21 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region CvInstituciones
     [WebMethod]
-    public CvInstitucionesAcademicas GuardarCvInstitucionesAcademicas(CvInstitucionesAcademicas competencia_informatica, Usuario usuario)
+    public CvInstitucionesAcademicas GuardarCvInstitucionAcademica(CvInstitucionesAcademicas competencia_informatica, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvInstitucionesAcademicas(competencia_informatica, usuario);
+        return RepoCurriculum().GuardarCvInstitucionAcademica(competencia_informatica, usuario);
     }
 
     [WebMethod]
-    public CvInstitucionesAcademicas ActualizarCvInstitucionesAcademicas(CvInstitucionesAcademicas competencia_informatica, Usuario usuario)
+    public CvInstitucionesAcademicas ActualizarCvInstitucionAcademica(CvInstitucionesAcademicas competencia_informatica, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvInstitucionesAcademicas(competencia_informatica, usuario);
+        return RepoCurriculum().ActualizarCvInstitucionAcademica(competencia_informatica, usuario);
     }
 
     [WebMethod]
-    public bool EliminarCvInstitucionesAcademicas(int id_competencia, Usuario usuario)
+    public bool EliminarCvInstitucionAcademica(int id_competencia, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvInstitucionesAcademicas(id_competencia, usuario);
+        return RepoCurriculum().EliminarCvInstitucionAcademica(id_competencia, usuario);
     }
     #endregion
 
