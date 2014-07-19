@@ -56,8 +56,11 @@
 
                 experiencia.PuestoOcupado = _this.txt_experiencia_laboral_puesto.val();
                 experiencia.PersonasACargo = _this.txt_experiencia_personal_a_cargo.val();
+            
                 experiencia.FechaInicio = _this.txt_experiencia_laboral_fecha_inicio.datepicker('getDate').toISOString();
+
                 experiencia.FechaFin = _this.txt_experiencia_laboral_fecha_fin.datepicker('getDate').toISOString();
+                debugger;
                 experiencia.MotivoDesvinculacion = _this.txt_motivo_desvinculacion.val();
                 experiencia.NombreEmpleador = _this.txt_nombre_empleador.val();
                 experiencia.TipoEmpresa = _this.txt_tipo_empresa_institucion.val();
@@ -65,32 +68,33 @@
                 experiencia.Localidad = _this.txt_experiencia_laboral_localidad.val();
                 experiencia.Pais = _this.cmb_experiencia_laboral_pais.val();
                 experiencia.Actividad = _this.txt_experiencia_laboral_actividad.val();
-                                    
+
 
                 var proveedor_ajax = new ProveedorAjax();
 
 
-                 if (opciones.experiencia) {
+                if (opciones.experiencia) {
 
 
-                proveedor_ajax.postearAUrl({ url: "GuardarCvExperiencias",
-                    data: {
-                       experiencia: experiencia
-                       
-                    },
-                    success: function (respuesta) {
-                        alertify.alert("Los datos fueron guardados correctamente");
-                        alModificar(respuesta);
-                        $(".modal_close_concursar").click();
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error al guardar la experiencia laboral.");
-                    }
-                });
+                    proveedor_ajax.postearAUrl({ url: "ActualizarCVExperiencias",
+                        data: {
+                            experiencia: experiencia
 
-                   return;
-               }
-                    proveedor_ajax.postearAUrl({ url: "GuardarCvExperienciaLaboral",
+                        },
+                        success: function (respuesta) {
+                            alertify.alert("Los datos fueron guardados correctamente");
+                            alModificar(respuesta);
+                            $(".modal_close_concursar").click();
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alertify.alert("Error al guardar la experiencia laboral.");
+                        }
+                    });
+
+                    return;
+                }
+                //               proveedor_ajax.postearAUrl({ url: "GuardarCvExperienciaLaboral",
+                proveedor_ajax.postearAUrl({ url: "GuardarCVExperiencias",
                     data: {
                         experiencia: experiencia
                     },
@@ -110,7 +114,7 @@
             link_trucho.click();
 
 
-         
+
 
         });
     }
