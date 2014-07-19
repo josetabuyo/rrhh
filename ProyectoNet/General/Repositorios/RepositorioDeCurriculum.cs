@@ -24,15 +24,6 @@ namespace General.Repositorios
         {
             this.conexion_bd = conexion;
             this.lista_cv = new List<CurriculumVitae>();
-            this._cvAntecedentesAcademicos = new List<CvEstudios>();
-            this._cvCapacitacion = new List<CvCertificadoDeCapacitacion>();
-
-            //FC a borrar cuando traiga los datos de la base
-            string fechaIngreso = new DateTime(2014, 12, 12).ToShortDateString();
-            string fechaEgreso = new DateTime(2014, 12, 13).ToShortDateString();
-            //var un_estudio = new CvEstudios(1, "Contador", "UBA", "Te dije contador", fechaIngreso,fechaEgreso, "CABA", "Argentina");
-            //this._cvAntecedentesAcademicos.Add(un_estudio);
-
 
         }
 
@@ -1021,8 +1012,8 @@ namespace General.Repositorios
         }
         #endregion
 
-        #region CvInstituciones
-        public CvInstitucionesAcademicas GuardarCvInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
+        #region CvInstituciones Academicas
+        public CvInstitucionesAcademicas GuardarCvInstitucionAcademica(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
@@ -1033,7 +1024,7 @@ namespace General.Repositorios
             return institucion_nueva;
         }
 
-        public CvInstitucionesAcademicas ActualizarCvInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
+        public CvInstitucionesAcademicas ActualizarCvInstitucionAcademica(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
 
@@ -1043,17 +1034,19 @@ namespace General.Repositorios
             return institucion_nueva;
         }
 
-        public CvInstitucionesAcademicas EliminarCvInstitucionesAcademicas(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
+        public bool EliminarCvInstitucionAcademica(int id_institucion_nueva, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
-            parametros.Add("@IdInstitucion", institucion_nueva.Id);
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@IdInstitucion", id_institucion_nueva);
+            parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Baja", baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Instituciones", parametros);
 
-            return institucion_nueva;
+            return true;
         }
 
         private Dictionary<string, object> ParametrosDeInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)

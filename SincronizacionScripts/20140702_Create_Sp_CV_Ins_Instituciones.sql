@@ -1,4 +1,4 @@
-Create Procedure dbo.CV_Ins_Instituciones
+CREATE procedure [dbo].[CV_Ins_Instituciones]
 @CaracterEntidad varchar(100)=null,
 @CargosDesempeniados varchar(100)=null,
 @CategoriaActual varchar(100)=null,
@@ -13,14 +13,12 @@ Create Procedure dbo.CV_Ins_Instituciones
 @Usuario int=null,
 @FechaOperacion datetime=null,
 @Baja int=null,
-@Documento int=null
+@IdPersona int=null
+
            
 AS
 
 BEGIN
-
-declare @IdPersona int
-select @IdPersona = id from dbo.datospersonales where nrodocumento = @Documento
 
 INSERT INTO [DB_RRHH].[dbo].[CV_Instituciones]
            ([CaracterEntidad]

@@ -371,7 +371,7 @@
               <div id="collapseNine" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_experiencia_laboral" onclick="javascript:AgregarExperienciaLaboral();" class="link" >Cargar experiencia laboral</a></legend>
+                    <legend><a id="btn_agregar_experiencia_laboral" class="link" >Cargar experiencia laboral</a></legend>
                         <h4>Experiencia Laboral Agregada</h4>
                         <div id="ContenedorPlanillaExperienciasLaborales" runat="server">
                             <table id="tabla_experiencias_laborales" class="table table-striped">
@@ -479,18 +479,9 @@
     <div class="modal_close_concursar"></div>
     <div id="contenido_modal"></div>
 </div>
-<%--VER SI ESTO VA O NO VA MAS--%>
+
 <asp:HiddenField ID="curriculum" runat="server" />
-<asp:HiddenField ID="cvEstudios" runat="server" />
-<asp:HiddenField ID="cvActividadesDocentes" runat="server" />
-<asp:HiddenField ID="cvActividadesCapacitacion" runat="server" />
-<asp:HiddenField ID="CvEventosAcademicos" runat="server" />
-<asp:HiddenField ID="CvExperienciaLaboral" runat="server" />
-<asp:HiddenField ID="CvIdiomas" runat="server" />
-<asp:HiddenField ID="CvInstitucionesAcademicas" runat="server" />
-<asp:HiddenField ID="CvMatricula" runat="server" />
-<asp:HiddenField ID="CvPublicaciones" runat="server" />
-<asp:HiddenField ID="CvCompetenciasInformaticas" runat="server" />
+
 
 
   </form>
@@ -507,7 +498,7 @@
 <script type="text/javascript" src="PublicacionesTrabajos.js" ></script>
 <%--<script type="text/javascript" src="Matriculas.js" ></script>--%>
 <%--<script type="text/javascript" src="InstitucionesAcademicas.js" ></script>--%>
-<script type="text/javascript" src="ExperienciaLaboral.js" ></script>
+<%--<script type="text/javascript" src="ExperienciaLaboral.js" ></script>--%>
 <%--<script type="text/javascript" src="IdiomasExtranjeros.js" ></script>--%>
 <%--<script type="text/javascript" src="CompetenciasInformaticas.js" ></script>--%>
 
@@ -534,11 +525,11 @@
 
 <script type="text/javascript" src="PanelDetalleDeInstitucionAcademica.js" ></script>
 <script type="text/javascript" src="PanelListaDeInstitucionesAcademicas.js" ></script>
-<%--
+
 <script type="text/javascript" src="PanelDetalleDeExperienciaLaboral.js" ></script>
 <script type="text/javascript" src="PanelListaDeExperienciasLaborales.js" ></script>
 
---%>
+
 
     <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postular.js" ></script>
@@ -579,7 +570,7 @@
 
 
         PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
-        //      PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciasLaborales);
+        PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciaLaboral);
         //     
 
         //Activar leanModal

@@ -107,6 +107,7 @@
     <Compile Include="Postular\Puesto.cs" />
     <Compile Include="Repositorios\NivelDeDocencia.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesDeDocencia.cs" />
+    <Compile Include="Postular\RepositorioDePuestos.cs" />
     <Compile Include="Repositorios\RepositorioDeSexos.cs" />
     <Compile Include="Repositorios\Nacionalidad.cs" />
     <Compile Include="Postular\CurriculumVitaeNull.cs" />

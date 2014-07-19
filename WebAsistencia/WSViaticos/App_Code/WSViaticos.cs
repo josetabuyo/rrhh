@@ -2626,21 +2626,21 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region CvInstituciones
     [WebMethod]
-    public CvInstitucionesAcademicas GuardarCvInstituciones(CvInstitucionesAcademicas institucion, Usuario usuario)
+    public CvInstitucionesAcademicas GuardarCvInstitucionAcademica(CvInstitucionesAcademicas competencia_informatica, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvInstituciones(institucion, usuario);
+        return RepoCurriculum().GuardarCvInstitucionAcademica(competencia_informatica, usuario);
     }
 
     [WebMethod]
-    public CvInstitucionesAcademicas ActualizarCvInstituciones(CvInstitucionesAcademicas institucion, Usuario usuario)
+    public CvInstitucionesAcademicas ActualizarCvInstitucionAcademica(CvInstitucionesAcademicas competencia_informatica, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvInstituciones(institucion, usuario);
+        return RepoCurriculum().ActualizarCvInstitucionAcademica(competencia_informatica, usuario);
     }
 
     [WebMethod]
-    public CvInstitucionesAcademicas EliminarCvInstitucionesAcademicas(CvInstitucionesAcademicas institucion, Usuario usuario)
+    public bool EliminarCvInstitucionAcademica(int id_competencia, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvInstitucionesAcademicas(institucion, usuario);
+        return RepoCurriculum().EliminarCvInstitucionAcademica(id_competencia, usuario);
     }
     #endregion
 
@@ -2730,7 +2730,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
     #endregion
 
-
+    [WebMethod]
+    public Puesto[] GetCvPuestos()
+    {
+        return RepoPuestos().GetPuestos().ToArray();
+    }
 
      [WebMethod]
     public Provincia[] GetProvincias()
@@ -2871,6 +2875,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeCurriculum RepoCurriculum()
     {
         return new RepositorioDeCurriculum(Conexion());
+    }
+
+    private RepositorioDePuestos RepoPuestos()
+    {
+        return new RepositorioDePuestos(Conexion());
     }
 
 

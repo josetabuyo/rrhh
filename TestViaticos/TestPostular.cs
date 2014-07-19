@@ -30,6 +30,19 @@ namespace TestViaticos
             Assert.IsNull(repoCv.GetCV(31046911));
         }
 
+        [TestMethod] 
+        public void deberia_traer_puestos()
+        {
+            var puestos = new List<Puesto>();
+            var un_puesto = new Puesto(1, "Abogacia", "Penal","aaffa","A", "Se busca un abogado...pero no el que tengo aca colgado", 5, "Abierto");
+            var otro_puesto = new Puesto(2, "Contador", "Discreto","","", "Experiencia en balances", 10, "Cerrado");
+
+            //repoCv.GuardarCVDatosPersonales(DatosPersonales(), TestObjects.UsuarioSACC());
+
+            //Assert.IsNotNull(repoCv.GetCV(29753914));
+            //Assert.IsNull(repoCv.GetCV(31046911));
+        }
+
         [TestMethod]
         public void deberia_poder_ver_los_diferentes_elementos_de_mi_cv()
         {
