@@ -1022,13 +1022,13 @@ namespace General.Repositorios
         }
         #endregion
 
-        #region CvInstituciones
+        #region CvInstituciones Academicas
         public CvInstitucionesAcademicas GuardarCvInstitucionAcademica(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Upd_Del_Instituciones", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Instituciones", parametros);
             institucion_nueva.Id = int.Parse(id.ToString());
 
             return institucion_nueva;
