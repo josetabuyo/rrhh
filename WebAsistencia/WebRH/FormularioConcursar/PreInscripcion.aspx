@@ -204,18 +204,19 @@
                 </div>	         
 		    </div>
         </div> 
+
+        <asp:HiddenField ID="curriculum" runat="server" />
+        <asp:HiddenField ID="puesto" runat="server" />
     </form>
+
+
+
 </body>
  <%= Referencias.Javascript("../") %>
  <script type="text/javascript">
 
-//     $(function () {
-//         $('a[rel*=leanModal]').leanModal({ top: 300, closeButton: ".modal_close" });
-//     });
-
      $(document).ready(function () {
 
-         //$("#modal_mensaje").leanModal();
          
          $('a[rel*=leanModal]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
      
