@@ -329,7 +329,7 @@
               <div id="collapseSeven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_matricula" onclick="javascript:AgregarMatriculas();" class="link" >Cargar matrículas</a></legend>
+                    <legend><a id="btn_agregar_matricula" class="link" >Cargar matrículas</a></legend>
                         <h4>Matrículas Agregadas</h4>
                         <div id="ContenedorPlanillaMatriculas" runat="server">
                             <table id="tabla_matriculas" class="table table-striped">
@@ -557,7 +557,7 @@
         //        ExperienciaLaboral.armarGrilla(curriculum.CvExperienciaLaboral);
         //        
         //        
-
+        
         PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
         PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
         PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
@@ -566,13 +566,14 @@
         PanelListaDeMatriculas.armarGrilla(curriculum.CvMatricula);
         PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
         PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
-        //      
-
+              
+        
 
         PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
         PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciaLaboral);
-        //     
-
+//        FER ESTE ES EL LISTADO  QUE FALTABA PERO CUANDO LO QUERÉS AGREGAR EN OTRA LÍNEA MÁS ARRIBA ROMPE LOS OTROS
+        PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventoAcademico);     
+       
         //Activar leanModal
         $('a[rel*=leanModalConcursar]').click(function () {
             var _this = $(this);
