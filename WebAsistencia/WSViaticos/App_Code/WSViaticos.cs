@@ -2500,6 +2500,13 @@ public class WSViaticos : System.Web.Services.WebService
         RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO_nueva, usuario);
     }
 
+    [WebMethod]
+    public void PostularseA(int id_puesto, Usuario usuario)
+    {
+        var postulaciones = new Postulacion();
+        RepoPostulaciones().PostularseA(postulaciones, usuario);
+    }
+
     #region CVAntecedentesAcademicos
     [WebMethod]
     public CvEstudios GuardarCvAntecedenteAcademico(CvEstudios antecedentesAcademicos_nuevo,  Usuario usuario)
@@ -2886,6 +2893,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDePuestos RepoPuestos()
     {
         return new RepositorioDePuestos(Conexion());
+    }
+
+    private RepositorioDePostulaciones RepoPostulaciones()
+    {
+        return new RepositorioDePostulaciones(Conexion());
     }
 
 

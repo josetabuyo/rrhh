@@ -329,7 +329,7 @@
               <div id="collapseSeven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_matricula" onclick="javascript:AgregarMatriculas();" class="link" >Cargar matrículas</a></legend>
+                    <legend><a id="btn_agregar_matricula" class="link" >Cargar matrículas</a></legend>
                         <h4>Matrículas Agregadas</h4>
                         <div id="ContenedorPlanillaMatriculas" runat="server">
                             <table id="tabla_matriculas" class="table table-striped">
@@ -491,16 +491,6 @@
 </body>
 
 <script type="text/javascript" src="CvDatosPersonales.js" ></script>
-<%--<script type="text/javascript" src="AntecedentesAcademicos.js" ></script>--%>
-<%--<script type="text/javascript" src="ActividadesCapacitacion.js" ></script>--%>
-<script type="text/javascript" src="ActividadesDocentes.js" ></script>
-<%--<script type="text/javascript" src="EventosAcademicos.js" ></script>--%>
-<script type="text/javascript" src="PublicacionesTrabajos.js" ></script>
-<%--<script type="text/javascript" src="Matriculas.js" ></script>--%>
-<%--<script type="text/javascript" src="InstitucionesAcademicas.js" ></script>--%>
-<%--<script type="text/javascript" src="ExperienciaLaboral.js" ></script>--%>
-<%--<script type="text/javascript" src="IdiomasExtranjeros.js" ></script>--%>
-<%--<script type="text/javascript" src="CompetenciasInformaticas.js" ></script>--%>
 
 <script type="text/javascript" src="PanelDetalleDeAntecedenteAcademico.js" ></script>
 <script type="text/javascript" src="PanelListaDeAntecedentesAcademicos.js" ></script>
@@ -519,19 +509,16 @@
 <script type="text/javascript" src="PanelListaDePublicacionesTrabajos.js" ></script>
 <script type="text/javascript" src="PanelDetalleDeEventoAcademico.js" ></script>
 <script type="text/javascript" src="PanelListaDeEventosAcademicos.js" ></script>
-
 <script type="text/javascript" src="PanelDetalleDeActividadCapacitacion.js" ></script>
 <script type="text/javascript" src="PanelListaDeActividadesCapacitacion.js" ></script>
-
 <script type="text/javascript" src="PanelDetalleDeInstitucionAcademica.js" ></script>
 <script type="text/javascript" src="PanelListaDeInstitucionesAcademicas.js" ></script>
-
 <script type="text/javascript" src="PanelDetalleDeExperienciaLaboral.js" ></script>
 <script type="text/javascript" src="PanelListaDeExperienciasLaborales.js" ></script>
 
 
 
-    <%= Referencias.Javascript("../") %>
+<%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postular.js" ></script>
 <script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
@@ -547,17 +534,7 @@
         var curriculum = JSON.parse($('#curriculum').val());
 
         CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
-        //  AntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
-        //        ActividadesDocentes.armarGrilla(curriculum.CvDocencias);
-        //        ActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
-        //        EventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
-        //        PublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
-        // Matriculas.armarGrilla(curriculum.CvMatricula);
-        //        InstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
-        //        ExperienciaLaboral.armarGrilla(curriculum.CvExperienciaLaboral);
-        //        
-        //        
-
+        
         PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
         PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
         PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
@@ -566,13 +543,10 @@
         PanelListaDeMatriculas.armarGrilla(curriculum.CvMatricula);
         PanelListaDePublicacionesTrabajos.armarGrilla(curriculum.CvPublicaciones);
         PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
-        //      
-
-
         PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
         PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciaLaboral);
-        //     
-
+        PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);     
+       
         //Activar leanModal
         $('a[rel*=leanModalConcursar]').click(function () {
             var _this = $(this);

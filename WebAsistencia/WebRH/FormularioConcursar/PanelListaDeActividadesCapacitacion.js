@@ -69,7 +69,7 @@
                         id_actividad_capacitacion: una_actividad_capacitacion.Id
                     },
                     success: function (respuesta) {
-                        alertify.success("Actividad eliminado correctamente");
+                        alertify.success("Actividad eliminada correctamente");
                         _this.GrillaActividadesCapacitacion.QuitarObjeto(_this.divGrilla, una_actividad_capacitacion);
                         var indice = _this.actividades.indexOf(una_actividad_capacitacion);
                         _this.actividades.splice(indice, 1);
