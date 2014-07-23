@@ -60,7 +60,7 @@
                 experiencia.FechaInicio = _this.txt_experiencia_laboral_fecha_inicio.datepicker('getDate').toISOString();
 
                 experiencia.FechaFin = _this.txt_experiencia_laboral_fecha_fin.datepicker('getDate').toISOString();
-                debugger;
+               
                 experiencia.MotivoDesvinculacion = _this.txt_motivo_desvinculacion.val();
                 experiencia.NombreEmpleador = _this.txt_nombre_empleador.val();
                 experiencia.TipoEmpresa = _this.txt_tipo_empresa_institucion.val();
