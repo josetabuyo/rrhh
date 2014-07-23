@@ -2749,6 +2749,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Pais[] GetPaises()
+    {
+        return RepositorioDePaises.NuevoRepositorioDePaises(Conexion()).TodosLosPaises().ToArray();
+    }
+
+    [WebMethod]
     public EstadoCivil[] GetEstadosCiviles()
     {
         return RepositorioDeEstadosCiviles.NuevoRepositorioDeEstadoCivil(Conexion()).TodosLosEstadosCiviles().ToArray();

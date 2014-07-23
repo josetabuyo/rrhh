@@ -179,7 +179,7 @@ namespace General.Repositorios
                                                  FechaInicio = dRow.GetDateTime("AntecedentesDeDocenciaFechaInicio", DateTime.Today),
                                                  FechaFinalizacion = dRow.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", DateTime.Today),
                                                  Localidad = dRow.GetString("AntecedentesDeDocenciaLocalidad", string.Empty),
-                                                 Pais = dRow.GetString("AntecedentesDeDocenciaPais", string.Empty)
+                                                 Pais = dRow.GetInt("AntecedentesDeDocenciaPais", 9)
                                              }).Distinct().ToList();
 
 

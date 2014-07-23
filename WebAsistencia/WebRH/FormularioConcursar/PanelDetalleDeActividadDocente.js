@@ -20,9 +20,6 @@
                 id_item_seleccionado: docencia.NivelEducativo.Id
             });
 
-            //            _this.nivel_educativo = _this.ui.find("#txt_actividad_docente_nivel_educativo");
-            //            _this.nivel_educativo.val(docencia.NivelEducativo);
-
             _this.tipo_actividad = _this.ui.find("#txt_actividad_docente_tipo_actividad");
             _this.tipo_actividad.val(docencia.TipoActividad);
             _this.categoria_docente = _this.ui.find("#txt_actividad_docente_categoria");
@@ -48,8 +45,14 @@
             _this.establecimiento.val(docencia.Establecimiento);
             _this.cmb_actividad_docente_localidad = _this.ui.find("#cmb_actividad_docente_localidad");
             _this.cmb_actividad_docente_localidad.val(docencia.Localidad);
-            _this.cmb_actividad_docente_pais = _this.ui.find("#cmb_actividad_docente_pais");
-            _this.cmb_actividad_docente_pais.val(docencia.Pais);
+
+            _this.cmb_actividad_docente_pais = new SuperCombo({
+                ui: _this.ui.find("#cmb_actividad_docente_pais"),
+                nombre_repositorio: "Paises",
+                str_val: "Id",
+                str_descripcion: "Descripcion",
+                id_item_seleccionado: docencia.Pais
+            });
 
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#add_actividadesDocentes");
@@ -71,7 +74,7 @@
                 docencia.FechaFinalizacion = _this.fecha_fin.datepicker('getDate').toISOString();
                 docencia.Establecimiento = _this.establecimiento.val();
                 docencia.Localidad = _this.cmb_actividad_docente_localidad.val();
-                docencia.Pais = _this.cmb_actividad_docente_pais.val();
+                docencia.Pais = _this.cmb_actividad_docente_pais.idItemSeleccionado();
 
                 var proveedor_ajax = new ProveedorAjax();
 

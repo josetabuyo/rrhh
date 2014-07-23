@@ -1,3 +1,13 @@
+/****** Object:  Table [dbo].[CV_AntecedentesDeDocencia]    Script Date: 07/23/2014 19:52:47 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING OFF
+GO
+
 CREATE TABLE [dbo].[CV_AntecedentesDeDocencia](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Asignatura] [varchar](100) NULL,
@@ -11,7 +21,7 @@ CREATE TABLE [dbo].[CV_AntecedentesDeDocencia](
 	[FechaInicio] [datetime] NULL,
 	[FechaFinalizacion] [datetime] NULL,
 	[Localidad] [varchar](100) NULL,
-	[Pais] [varchar](100) NULL,
+	[Pais] [int] NOT NULL,
 	[Usuario] [int] NOT NULL,
 	[FechaOperacion] [datetime] NOT NULL,
 	[Baja] [int] NULL,
