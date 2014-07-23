@@ -750,9 +750,17 @@ public class AjaxWS : System.Web.Services.WebService {
     }
 
     #endregion
-    
+
+    [WebMethod(EnableSession = true)]
+    public bool PostulacionA(int id_puesto)
+    {
+        backEndService.PostularseA(id_puesto, usuarioLogueado);
+        return true;
+    }
     
     #endregion
+    
+    
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -790,6 +798,7 @@ public class AjaxWS : System.Web.Services.WebService {
             case "Sexos": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetSexos());
             case "Localidades": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.BuscarLocalidades(criterio));
             case "NivelesDeDocencia": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetNivelesDeDocencia());
+            case "Paises": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetPaises());
             default: return "El repositorio no existe";
         }
     }

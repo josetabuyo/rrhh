@@ -20,7 +20,7 @@ namespace General
         protected DateTime _fechaFinalizacion;
         protected string _establecimiento;
         protected string _localidad;
-        protected string _pais;
+        protected int _pais;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Asignatura { get { return _asignatura; } set { _asignatura = value; } }
@@ -34,15 +34,15 @@ namespace General
         public DateTime FechaFinalizacion { get { return _fechaFinalizacion; } set { _fechaFinalizacion = value; } }
         public string Establecimiento { get { return _establecimiento; } set { _establecimiento = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
-        public string Pais { get { return _pais; } set { _pais = value; } }
+        public int Pais { get { return _pais; } set { _pais = value; } }
 
 
-        public CvDocencia(string asignatura, NivelDeDocencia nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
+        public CvDocencia(string asignatura, NivelDeDocencia nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, int pais)
         {
             SetearCampos(asignatura, nivelEducativo, tipoActividad, categoriaDocente, caracterDesignacion, dedicacionDocente, cargaHoraria, fechaInicio, fechaFinalizacion, establecimiento, localidad, pais);
         }
 
-        public CvDocencia(int id, string asignatura, NivelDeDocencia nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
+        public CvDocencia(int id, string asignatura, NivelDeDocencia nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, int pais)
         {
             this._id = id;
             SetearCampos(asignatura, nivelEducativo, tipoActividad, categoriaDocente, caracterDesignacion, dedicacionDocente, cargaHoraria, fechaInicio, fechaFinalizacion, establecimiento, localidad, pais);
@@ -50,7 +50,7 @@ namespace General
 
 
 
-        private void SetearCampos(string asignatura, NivelDeDocencia nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, string pais)
+        private void SetearCampos(string asignatura, NivelDeDocencia nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, int pais)
         {
             this._asignatura = asignatura;
             this._nivelEducativo = nivelEducativo;

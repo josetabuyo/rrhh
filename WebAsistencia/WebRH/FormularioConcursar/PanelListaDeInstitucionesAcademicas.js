@@ -17,10 +17,10 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Diploma/Certificación", { generar: function (una_institucion_academica) { return una_institucion_academica.DiplomaDeCertificacion } }));
+        columnas.push(new Columna("Institución", { generar: function (una_institucion_academica) { return una_institucion_academica.Institucion } }));
+        columnas.push(new Columna("Cargo", { generar: function (una_institucion_academica) { return una_institucion_academica.CargosDesempeniados } }));
         columnas.push(new Columna("Fecha Inicio", { generar: function (una_institucion_academica) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_institucion_academica.FechaInicio) } }));
-        columnas.push(new Columna("Fecha Fin", { generar: function (una_institucion_academica) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_institucion_academica.FechaFinalizacion) } }));
-        columnas.push(new Columna("Especialidad", { generar: function (una_institucion_academica) { return una_institucion_academica.Especialidad } }));
+        columnas.push(new Columna("Fecha Fin", { generar: function (una_institucion_academica) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_institucion_academica.FechaFin) } }));
         columnas.push(new Columna('Acciones', {
             generar: function (una_institucion_academica) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();

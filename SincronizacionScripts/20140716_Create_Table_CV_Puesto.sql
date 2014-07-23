@@ -7,6 +7,6 @@ CREATE TABLE [dbo].[CV_Puesto](
 	[Nivel] [varchar](10) NULL,
 	[Agrupamiento] [varchar](100) NULL,
 	[Vacantes] [int] NULL,
-	[Tipo] [varchar](50) NULL
+	[Tipo] [varchar](50) NULL,
+	[Fecha] [datetime] NULL
 ) 
-

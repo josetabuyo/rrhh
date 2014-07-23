@@ -107,7 +107,7 @@ namespace TestViaticos
 
         public CvInstitucionesAcademicas UnaInstitucionAcademica()
         {
-            return new CvInstitucionesAcademicas(1,"UBA","Universitario","Profesor",1234,"Categoria",new DateTime(2013,12,20),new DateTime(2013,12,20), new DateTime(2013,10,12),new DateTime(2014,12,20),"CABA","Argentina");
+            return new CvInstitucionesAcademicas(1,"UBA","Universitario","Profesor","1234","Categoria",new DateTime(2013,12,20),new DateTime(2013,12,20), new DateTime(2013,10,12),new DateTime(2014,12,20),1,1);
         }
 
         public CvMatricula UnaMatricula()
@@ -119,7 +119,7 @@ namespace TestViaticos
         {
             return new CvDocencia(1,"Ingles", new NivelDeDocencia(1, "Secundario"), "No se", "No se", "Nombrado", "No se", "12 a 18",
                                   new DateTime(2008, 01, 01), new DateTime(2010, 12, 20), "Colegio Coppelo", "CABA",
-                                  "Argetina");
+                                  1);
 
         }
 

@@ -179,7 +179,7 @@ namespace General.Repositorios
                                                  FechaInicio = dRow.GetDateTime("AntecedentesDeDocenciaFechaInicio", DateTime.Today),
                                                  FechaFinalizacion = dRow.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", DateTime.Today),
                                                  Localidad = dRow.GetString("AntecedentesDeDocenciaLocalidad", string.Empty),
-                                                 Pais = dRow.GetString("AntecedentesDeDocenciaPais", string.Empty)
+                                                 Pais = dRow.GetInt("AntecedentesDeDocenciaPais", 9)
                                              }).Distinct().ToList();
 
 
@@ -320,14 +320,14 @@ namespace General.Repositorios
                                                   Institucion = dRow.GetString("InstitucionInstitucion", string.Empty),
                                                   CaracterEntidad = dRow.GetString("InstitucionCaracterEntidad", string.Empty),
                                                   Cargos = dRow.GetString("InstitucionCargos", string.Empty),
-                                                  Afiliados = dRow.GetInt("InstitucionAfiliados", 0),
+                                                  Afiliados = dRow.GetString("InstitucionAfiliados", string.Empty),
                                                   CategoriaActual = dRow.GetString("InstitucionCategoriaActual", string.Empty),
                                                   FechaAfiliacion = dRow.GetDateTime("InstitucionFechaAfiliacion", DateTime.Today),
                                                   Fecha = dRow.GetDateTime("InstitucionFecha", DateTime.Today),
                                                   FechaInicio = dRow.GetDateTime("InstitucionFechaInicio", DateTime.Today),
                                                   FechaFin = dRow.GetDateTime("InstitucionFechaFin", DateTime.Today),
-                                                  Localidad = dRow.GetString("InstitucionLocalidad", string.Empty),
-                                                  Pais = dRow.GetString("InstitucionPais", string.Empty)
+                                                  Localidad = dRow.GetInt("InstitucionLocalidad", 0),
+                                                  Pais = dRow.GetInt("InstitucionPais", 0)
 
                                               }).Distinct().ToList();
 
@@ -475,14 +475,14 @@ namespace General.Repositorios
                                    row.GetString("InstitucionInstitucion", ""),
                                    row.GetString("InstitucionCaracterEntidad", ""),
                                    row.GetString("InstitucionCargos", ""),
-                                   row.GetInt("InstitucionAfiliados", 0),
+                                   row.GetString("InstitucionAfiliados", ""),
                                    row.GetString("InstitucionCategoriaActual", ""),
                                    row.GetDateTime("InstitucionFechaAfiliacion", DateTime.Today),
                                    row.GetDateTime("InstitucionFecha", DateTime.Today),
                                    row.GetDateTime("InstitucionFechaInicio", DateTime.Today),
                                    row.GetDateTime("InstitucionFechaFin", DateTime.Today),
-                                   row.GetString("InstitucionLocalidad", ""),
-                                   row.GetString("InstitucionPais", ""));
+                                   row.GetInt("InstitucionLocalidad", 0),
+                                   row.GetInt("InstitucionPais", 0));
         }
 
         private CvExperienciaLaboral GetExperienciaFromDataRow(RowDeDatos row)
@@ -738,7 +738,7 @@ namespace General.Repositorios
         public CvCertificadoDeCapacitacion GuardarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
         {
         //deberia ser el mismo sp y tabla que antecedentes
-        var parametros = ParametrosDeAntecedentesDocencia(actividad_nueva, usuario);
+            var parametros = ParametrosDeActividadesDeCapacitacion(actividad_nueva, usuario);
         parametros.Add("@idPersona", usuario.Owner.Id);
 
         var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ActividadesDeCapacitacion", parametros);
@@ -747,14 +747,14 @@ namespace General.Repositorios
         return actividad_nueva;
         }
 
-        public CvCertificadoDeCapacitacion ActualizarCvActividadCapacitacion(CvCertificadoDeCapacitacion capacidad_nueva, Usuario usuario)
+        public CvCertificadoDeCapacitacion ActualizarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
         {
-        var parametros = ParametrosDeAntecedentesDocencia(capacidad_nueva, usuario);
-        parametros.Add("@IdActividadDeCapacitacion", capacidad_nueva.Id);
+            var parametros = ParametrosDeActividadesDeCapacitacion(actividad_nueva, usuario);
+        parametros.Add("@IdActividadDeCapacitacion", actividad_nueva.Id);
 
         conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
 
-        return capacidad_nueva;
+        return actividad_nueva;
         }
 
         public bool EliminarCvActividadCapacitacion(int id_capacitacion_nuevo, Usuario usuario)
@@ -775,18 +775,18 @@ namespace General.Repositorios
 
 
 
-
-        private Dictionary<string, object> ParametrosDeAntecedentesDocencia(CvCertificadoDeCapacitacion capacidades_nuevo, Usuario usuario)
+        
+        private Dictionary<string, object> ParametrosDeActividadesDeCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@Titulo", capacidades_nuevo.DiplomaDeCertificacion);
-            parametros.Add("@Establecimiento", capacidades_nuevo.Establecimiento);
-            parametros.Add("@Especialidad", capacidades_nuevo.Especialidad);
-            parametros.Add("@Duracion", capacidades_nuevo.Duracion);
-            parametros.Add("@FechaIngreso", capacidades_nuevo.FechaInicio);
-            parametros.Add("@FechaEgreso", capacidades_nuevo.FechaFinalizacion);
-            parametros.Add("@Localidad", capacidades_nuevo.Localidad);
-            parametros.Add("@Pais", capacidades_nuevo.Pais);
+            parametros.Add("@Titulo", actividad_nueva.DiplomaDeCertificacion);
+            parametros.Add("@Establecimiento", actividad_nueva.Establecimiento);
+            parametros.Add("@Especialidad", actividad_nueva.Especialidad);
+            parametros.Add("@Duracion", actividad_nueva.Duracion);
+            parametros.Add("@FechaIngreso", actividad_nueva.FechaInicio);
+            parametros.Add("@FechaEgreso", actividad_nueva.FechaFinalizacion);
+            parametros.Add("@Localidad", actividad_nueva.Localidad);
+            parametros.Add("@Pais", actividad_nueva.Pais);
             parametros.Add("@Usuario", usuario.Id);
            
 
@@ -1027,9 +1027,9 @@ namespace General.Repositorios
         public CvInstitucionesAcademicas ActualizarCvInstitucionAcademica(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
-
+            parametros.Add("@idInstitucion", institucion_nueva.Id);
+            
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Instituciones", parametros);
-            parametros.Add("@IdInstitucion", institucion_nueva.Id);
 
             return institucion_nueva;
         }
@@ -1040,7 +1040,7 @@ namespace General.Repositorios
 
             var parametros = new Dictionary<string, object>();
 
-            parametros.Add("@IdInstitucion", id_institucion_nueva);
+            parametros.Add("@idInstitucion", id_institucion_nueva);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Baja", baja);
 
@@ -1381,7 +1381,7 @@ namespace General.Repositorios
         {
             var instituciones_academicas = new List<CvInstitucionesAcademicas>()
                                {
-                                   new CvInstitucionesAcademicas(1, "Universidad Tecnológica Nacional", "Pública", "Docente", 1234, "Jefe de Cátedra", new DateTime(1992, 08, 17), new DateTime(1993, 01, 17), new DateTime(1992, 04, 21), new DateTime(2011, 09, 29), "CABA", "Argentina")
+                                   new CvInstitucionesAcademicas(1, "Universidad Tecnológica Nacional", "Pública", "Docente", "1234", "Jefe de Cátedra", new DateTime(1992, 08, 17), new DateTime(1993, 01, 17), new DateTime(1992, 04, 21), new DateTime(2011, 09, 29), 1, 1)
                                };
 
             return instituciones_academicas;
