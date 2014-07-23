@@ -750,9 +750,17 @@ public class AjaxWS : System.Web.Services.WebService {
     }
 
     #endregion
-    
+
+    [WebMethod(EnableSession = true)]
+    public bool PostulacionA(int id_puesto)
+    {
+        backEndService.PostularseA(id_puesto, usuarioLogueado);
+        return true;
+    }
     
     #endregion
+    
+    
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

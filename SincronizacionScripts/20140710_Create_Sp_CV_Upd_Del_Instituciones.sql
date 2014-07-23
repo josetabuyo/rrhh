@@ -1,4 +1,13 @@
-create Procedure dbo.CV_Upd_Del_Instituciones
+USE [DB_RRHH]
+GO
+/****** Object:  StoredProcedure [dbo].[CV_Upd_Del_Instituciones]    Script Date: 07/22/2014 20:31:56 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER Procedure [dbo].[CV_Upd_Del_Instituciones]
+(
+@idInstitucion [int], 
 @CaracterEntidad varchar(100)=null,
 @CargosDesempeniados varchar(100)=null,
 @CategoriaActual varchar(100)=null,
@@ -8,11 +17,11 @@ create Procedure dbo.CV_Upd_Del_Instituciones
 @FechaFin datetime=null,
 @Institucion varchar(100)=null,
 @NumeroAfiliado varchar(100)=null,
-@Localidad varchar(100)=null,
-@Pais varchar(100)=null,
+@Localidad int=null,
+@Pais int=null,
 @Usuario int=null,
-@Baja int=null,
-@IdInstitucion int
+@Baja int=null
+)
 
 AS
 
@@ -23,7 +32,8 @@ declare @NombreSp varchar(60)
 	exec dbo.Audit @NombreSp  
 
 UPDATE [dbo].[CV_Instituciones]
-   SET CaracterEntidad = isnull(@CaracterEntidad,CaracterEntidad),
+   SET 
+      CaracterEntidad = isnull(@CaracterEntidad,CaracterEntidad),
       CargosDesempeniados = isnull(@CargosDesempeniados,CargosDesempeniados), 
       CategoriaActual = isnull(@CategoriaActual,CategoriaActual),
       Fecha = isnull(@Fecha,Fecha), 
@@ -37,7 +47,7 @@ UPDATE [dbo].[CV_Instituciones]
       Usuario = isnull(@Usuario, Usuario),
       FechaOperacion = getdate(),
       Baja = isnull(@Baja,Baja) 
-   WHERE Id = @IdInstitucion
+   WHERE Id = @idInstitucion
 
 
 END

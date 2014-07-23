@@ -31,23 +31,19 @@
             //linkPostularse.attr('href', 'PreInscripcion.aspx');
             linkPostularse[0].innerText = "Postularse";
 
-
-
-            linkPostularse.click(function () {
-                $.get("PreInscripcion.aspx", function (un_puesto) {
-                    //$("#form1").html(un_puesto);
-                    //alert("Load was performed.");
+            linkPostularse.click(function (e) {
+                $.post("PreInscripcion.aspx", un_puesto, function () {
+                    window.location.href = 'PreInscripcion.aspx?Puesto='+ un_puesto.Id; 
                 });
-               //relocate('PreInscripcion.aspx',un_puesto);
-                    });
-               
+             });
+              
                 return linkPostularse;
             }}));
        
         this.GrillaDePuestos = new Grilla(columnas);
         this.GrillaDePuestos.AgregarEstilo("table table-striped");
-        //this.GrillaDePuestos.SetOnRowClickEventHandler(function (una_matricula) {
-        //});
+        this.GrillaDePuestos.SetOnRowClickEventHandler(function (un_puesto) {
+        });
 
         this.GrillaDePuestos.CargarObjetos(puestos);
         this.GrillaDePuestos.DibujarEn(_this.divGrilla);

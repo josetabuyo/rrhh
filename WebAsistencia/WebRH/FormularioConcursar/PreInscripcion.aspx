@@ -40,7 +40,7 @@
     </div><!-- /navbar -->
     
         <a style="margin-right: 10px;" class="btn btn-primary" href="#">Guardar Cambios </a>
-        <a class="btn btn-primary" href="Inscripcion.aspx">Confirmar Postulación</a>
+        <a class="btn btn-primary" onclick="javascript:PasarAInscripcion()" href="#">Confirmar Postulación</a>
         <a id="go5" rel="leanModal" class="link" name="modal_mensaje"  href="#modal_mensaje">MODALLLLLL</a>
             <div class="fondo_form">
                 <fieldset style="width:100%; min-width:800px;" >
@@ -214,13 +214,33 @@
 </body>
  <%= Referencias.Javascript("../") %>
  <script type="text/javascript">
+     var puesto;
+     var curriculum;
 
      $(document).ready(function () {
+         puesto = getVarsUrl();
+         curriculum = JSON.parse($('#curriculum').val());
 
-         
          $('a[rel*=leanModal]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
-     
-    });
+
+     });
+
+     function getVarsUrl() {
+         var url = location.search.replace("?", "");
+         var arrUrl = url.split("&");
+         var urlObj = {};
+         for (var i = 0; i < arrUrl.length; i++) {
+             var x = arrUrl[i].split("=");
+             urlObj[x[0]] = x[1]
+         }
+         return urlObj;
+     }
+
+     function PasarAInscripcion() {
+
+         window.location.href = 'Inscripcion.aspx?Puesto=' + puesto.Puesto;
+
+     }
        
 </script>
 </html>
