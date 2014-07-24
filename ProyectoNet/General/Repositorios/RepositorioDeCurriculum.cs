@@ -358,14 +358,14 @@ namespace General.Repositorios
                                                   FechaInicio = dRow.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
                                                   FechaFin = dRow.GetDateTime("ExperienciaLaboralFin", DateTime.Today),
                                                   Localidad = dRow.GetString("ExperienciaLaboralLocalidad", string.Empty),
-                                                  Pais = dRow.GetInt("ExperienciaLaboralPais", 9)
-
-                                              }).Distinct().ToList();
+                                                  Pais = dRow.GetInt("ExperienciaLaboralPais", 9),
+                                                  Sector = dRow.GetString("ExperienciaLaboralSector", string.Empty) 
+                                          }).Distinct().ToList();
 
 
                 experiencias_anonimos.Select(e => new CvExperienciaLaboral(e.Id, e.PuestoOcupado, e.MotivoDesvinculacion, e.NombreEmpleador, e.PersonasACargo,
                                             e.TipoEmpresa, e.Actividad, e.FechaInicio, e.FechaFin, e.Localidad,
-                                            e.Pais)).ToList().ForEach(exp => cv.AgregarExperienciaLaboral(exp));
+                                            e.Pais,e.Sector)).ToList().ForEach(exp => cv.AgregarExperienciaLaboral(exp));
 
             }
             
@@ -1077,7 +1077,7 @@ namespace General.Repositorios
             var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Experiencias", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ExperienciasLaborales", parametros);
             experiencia_nueva.Id = int.Parse(id.ToString());
 
             return experiencia_nueva;
@@ -1088,7 +1088,7 @@ namespace General.Repositorios
             var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
             parametros.Add("@IdExperienciaLaboral", experiencia_nueva.Id);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Experiencias", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ExperienciasLaborales", parametros);
 
             return experiencia_nueva;
         }
@@ -1101,7 +1101,7 @@ namespace General.Repositorios
             parametros.Add("@IdExperienciaLaboral", experiencia_nueva.Id);
             parametros.Add("@Baja", baja);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Experiencias", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ExperienciasLaborales", parametros);
 
             return experiencia_nueva;
         }
@@ -1360,7 +1360,7 @@ namespace General.Repositorios
         {
             var experiencia_laboral = new List<CvExperienciaLaboral>()
                                {
-                                   new CvExperienciaLaboral(1,"Analista Oracle", "Renuncia", "Accenture S.A", false, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina")
+                                   new CvExperienciaLaboral(1,"Analista Oracle", "Renuncia", "Accenture S.A", false, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina","Informática")
                                };
 
             return experiencia_laboral;

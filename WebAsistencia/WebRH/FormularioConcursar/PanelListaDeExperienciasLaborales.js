@@ -18,8 +18,8 @@
 
         var columnas = [];
 
-     
-        columnas.push(new Columna("Puesto", { generar: function (una_experiencia) { return una_experiencia.Puesto } }));
+
+        columnas.push(new Columna("Puesto", { generar: function (una_experiencia) { return una_experiencia.PuestoOcupado } }));
         columnas.push(new Columna("Fecha Inicio", { generar: function (una_experiencia) { return una_experiencia.FechaInicio } }));
         columnas.push(new Columna("Fecha Fin", { generar: function (una_experiencia) { return una_experiencia.FechaFin } }));
         columnas.push(new Columna('Acciones', {

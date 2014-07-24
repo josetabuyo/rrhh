@@ -18,6 +18,7 @@ namespace General
         protected bool _personasACargo;
         protected string _tipoEmpresa;
         protected string _actividad;
+        protected string _sector;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string PuestoOcupado { get { return _puestoOcupado; } set { _puestoOcupado = value; } }
@@ -30,10 +31,10 @@ namespace General
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Pais { get { return _pais; } set { _pais = value; } }
         public string Actividad { get { return _actividad; } set { _actividad = value; } }
-
-
-
-        public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, bool personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais)
+        public string Sector { get { return _sector; } set { _sector = value; } }
+       
+        
+        public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, bool personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais,string sector)
         {
             this._id = id;
             this._puestoOcupado = puestoOcupado;
@@ -46,6 +47,7 @@ namespace General
             this._localidad = localidad;
             this._pais = pais;
             this._actividad = actividad;
+            this._sector = sector;
         }
 
         public CvExperienciaLaboral()
