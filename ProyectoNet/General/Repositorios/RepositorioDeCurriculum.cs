@@ -1121,7 +1121,7 @@ namespace General.Repositorios
             parametros.Add("@Localidad", experiencia_nueva.Localidad);
             parametros.Add("@Pais", experiencia_nueva.Pais);
             parametros.Add("@Usuario", usuario.Id);
-
+            parametros.Add("@Sector", experiencia_nueva.Sector);
             return parametros;
 
         }

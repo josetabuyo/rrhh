@@ -56,15 +56,16 @@
 
                 experiencia.PuestoOcupado = _this.txt_experiencia_laboral_puesto.val();
                 experiencia.PersonasACargo = _this.txt_experiencia_personal_a_cargo.val();
-            
+
                 experiencia.FechaInicio = _this.txt_experiencia_laboral_fecha_inicio.datepicker('getDate').toISOString();
 
                 experiencia.FechaFin = _this.txt_experiencia_laboral_fecha_fin.datepicker('getDate').toISOString();
-               
+
                 experiencia.MotivoDesvinculacion = _this.txt_motivo_desvinculacion.val();
                 experiencia.NombreEmpleador = _this.txt_nombre_empleador.val();
                 experiencia.TipoEmpresa = _this.txt_tipo_empresa_institucion.val();
                 experiencia.Sector = _this.txt_experiencia_laboral_sector.val();
+             
                 experiencia.Localidad = _this.txt_experiencia_laboral_localidad.val();
                 experiencia.Pais = _this.cmb_experiencia_laboral_pais.val();
                 experiencia.Actividad = _this.txt_experiencia_laboral_actividad.val();
