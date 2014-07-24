@@ -627,23 +627,24 @@ public class AjaxWS : System.Web.Services.WebService {
     #region CvExperienciasLaborales
 
     [WebMethod(EnableSession = true)]
-    public string GuardarCVExperiencias(WSViaticos.CvExperienciaLaboral experiencia)
+    public string GuardarCvExperienciaLaboral(WSViaticos.CvExperienciaLaboral experiencia_laboral)
     {
-        if (experiencia.Id != 0)
-        {
-            var experienciaActualizada = backEndService.ActualizarCvExperiencia(experiencia, usuarioLogueado);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(experienciaActualizada);
-        }
+        var experiencia = backEndService.GuardarCvExperienciaLaboral(experiencia_laboral, usuarioLogueado);
 
-        var experienciaGuardada = backEndService.GuardarCvExperiencias(experiencia, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(experienciaGuardada);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(experiencia);
     }
-    
+
     [WebMethod(EnableSession = true)]
-    public string EliminarCvExperienciaLaboral(WSViaticos.CvExperienciaLaboral experienciaLaboral_borrar)
+    public string ActualizarCvExperienciaLaboral(WSViaticos.CvExperienciaLaboral experiencia_laboral)
     {
-        var experienciaLaboral = backEndService.EliminarCvExperienciaLaboral(experienciaLaboral_borrar, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(experienciaLaboral);
+        experiencia_laboral = backEndService.ActualizarCvExperienciaLaboral(experiencia_laboral, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(experiencia_laboral);
+    }
+
+    [WebMethod(EnableSession = true)]
+    public bool EliminarCvExperienciaLaboral(int id_experiencia_laboral)
+    {
+        return backEndService.EliminarCvExperienciaLaboral(id_experiencia_laboral, usuarioLogueado);
     }
 
     #endregion
