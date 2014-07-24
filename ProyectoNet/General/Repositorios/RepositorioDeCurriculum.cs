@@ -352,7 +352,7 @@ namespace General.Repositorios
                                                   PuestoOcupado = dRow.GetString("ExperienciaLaboralPuestoOcupado", string.Empty),
                                                   MotivoDesvinculacion = dRow.GetString("ExperienciaLaboralMotivoDesvinculacion", string.Empty),
                                                   NombreEmpleador = dRow.GetString("ExperienciaLaboralNombreEmpleador", string.Empty),
-                                                  PersonasACargo = dRow.GetBoolean("ExperienciaLaboralPersonasACargo"),
+                                                  PersonasACargo = dRow.GetInt("ExperienciaLaboralPersonasACargo", 0),
                                                   TipoEmpresa = dRow.GetString("ExperienciaLaboralTipoEmpresa", string.Empty),
                                                   Actividad = dRow.GetString("ExperienciaLaboralActividad", string.Empty),
                                                   FechaInicio = dRow.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
@@ -491,7 +491,7 @@ namespace General.Repositorios
                                             row.GetString("ExperienciaLaboralPuestoOcupado", ""),
                                             row.GetString("ExperienciaLaboralMotivoDesvinculacion", ""),
                                             row.GetString("ExperienciaLaboralNombreEmpleador", ""),
-                                            row.GetBoolean("ExperienciaLaboralPersonasACargo"),
+                                            row.GetInt("ExperienciaLaboralPersonasACargo", 0),
                                             row.GetString("ExperienciaLaboralTipoEmpresa", ""),
                                             row.GetString("ExperienciaLaboralActividad", ""),
                                             row.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
@@ -1362,7 +1362,7 @@ namespace General.Repositorios
         {
             var experiencia_laboral = new List<CvExperienciaLaboral>()
                                {
-                                   new CvExperienciaLaboral(1,"Analista Oracle", "Renuncia", "Accenture S.A", false, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina","Informática")
+                                   new CvExperienciaLaboral(1,"Analista Oracle", "Renuncia", "Accenture S.A", 0, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina","Informática")
                                };
 
             return experiencia_laboral;
