@@ -15,7 +15,7 @@ namespace General
         protected DateTime _fechaFin;
         protected string _localidad;
         protected int _pais;
-        protected bool _personasACargo;
+        protected int _personasACargo;
         protected string _tipoEmpresa;
         protected string _actividad;
         protected string _sector;
@@ -24,7 +24,7 @@ namespace General
         public string PuestoOcupado { get { return _puestoOcupado; } set { _puestoOcupado = value; } }
         public string MotivoDesvinculacion { get { return _motivoDesvinculacion; } set { _motivoDesvinculacion = value; } }
         public string NombreEmpleador { get { return _nombreEmpleador; } set { _nombreEmpleador = value; } }
-        public bool PersonasACargo { get { return _personasACargo; } set { _personasACargo = value; } }
+        public int PersonasACargo { get { return _personasACargo; } set { _personasACargo = value; } }
         public string TipoEmpresa { get { return _tipoEmpresa; } set { _tipoEmpresa = value; } }
         public DateTime FechaInicio { get { return _fechaInicio; } set { _fechaInicio = value; } }
         public DateTime FechaFin { get { return _fechaFin; } set { _fechaFin = value; } }
@@ -32,9 +32,9 @@ namespace General
         public int Pais { get { return _pais; } set { _pais = value; } }
         public string Actividad { get { return _actividad; } set { _actividad = value; } }
         public string Sector { get { return _sector; } set { _sector = value; } }
-       
-        
-        public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, bool personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais,string sector)
+
+
+        public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, int personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais, string sector)
         {
             this._id = id;
             this._puestoOcupado = puestoOcupado;

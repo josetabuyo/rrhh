@@ -96,7 +96,7 @@ namespace TestViaticos
 
         public CvExperienciaLaboral UnaExperienciaLaboral()
         {
-            return new CvExperienciaLaboral(1,"Administrativo", "Renuncia", "Banco Macro", false, "Empresa Financiera","No se",
+            return new CvExperienciaLaboral(1,"Administrativo", "Renuncia", "Banco Macro", 1, "Empresa Financiera","No se",
                                      new DateTime(2007, 09, 01), new DateTime(2010, 09, 01), "CABA", 9, "bla");
         }
 
@@ -135,7 +135,7 @@ namespace TestViaticos
 
         public CvPublicaciones UnaPublicacion()
         {
-            return new CvPublicaciones(1,"Como manejar bases", "Editarial", "5", true, new DateTime(2012, 12, 01));
+            return new CvPublicaciones(1,"Como manejar bases", "Editarial", "5", 1, new DateTime(2012, 12, 01));
         }
 
     }
