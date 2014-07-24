@@ -77,9 +77,9 @@
                 if (opciones.experiencia) {
 
 
-                    proveedor_ajax.postearAUrl({ url: "ActualizarCVExperiencias",
+                    proveedor_ajax.postearAUrl({ url: "ActualizarCvExperienciaLaboral",
                         data: {
-                            experiencia: experiencia
+                            experiencia_laboral: experiencia
 
                         },
                         success: function (respuesta) {
@@ -95,9 +95,9 @@
                     return;
                 }
                 //               proveedor_ajax.postearAUrl({ url: "GuardarCvExperienciaLaboral",
-                proveedor_ajax.postearAUrl({ url: "GuardarCVExperiencias",
+                proveedor_ajax.postearAUrl({ url: "GuardarCvExperienciaLaboral",
                     data: {
-                        experiencia: experiencia
+                        experiencia_laboral: experiencia
                     },
                     success: function (respuesta) {
                         alertify.alert("La experiencia fue guardada correctamente");

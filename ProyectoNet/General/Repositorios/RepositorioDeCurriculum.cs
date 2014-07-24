@@ -292,7 +292,7 @@ namespace General.Repositorios
                                                Titulo = dRow.GetString("PublicacionTitulo", string.Empty),
                                                Editorial = dRow.GetString("PublicacionEditorial", string.Empty),
                                                Hojas = dRow.GetString("PublicacionHojas", string.Empty),
-                                               Copia = dRow.GetBoolean("PublicacionCopia"),
+                                               Copia = dRow.GetInt("PublicacionCopia", 0),
                                                Fecha = dRow.GetDateTime("PublicacionFecha", DateTime.Today)
 
                                            }).Distinct().ToList();
@@ -352,7 +352,7 @@ namespace General.Repositorios
                                                   PuestoOcupado = dRow.GetString("ExperienciaLaboralPuestoOcupado", string.Empty),
                                                   MotivoDesvinculacion = dRow.GetString("ExperienciaLaboralMotivoDesvinculacion", string.Empty),
                                                   NombreEmpleador = dRow.GetString("ExperienciaLaboralNombreEmpleador", string.Empty),
-                                                  PersonasACargo = dRow.GetBoolean("ExperienciaLaboralPersonasACargo"),
+                                                  PersonasACargo = dRow.GetInt("ExperienciaLaboralPersonasACargo", 0),
                                                   TipoEmpresa = dRow.GetString("ExperienciaLaboralTipoEmpresa", string.Empty),
                                                   Actividad = dRow.GetString("ExperienciaLaboralActividad", string.Empty),
                                                   FechaInicio = dRow.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
@@ -465,7 +465,7 @@ namespace General.Repositorios
             return new CvPublicaciones(row.GetInt("IdPublicacion", 0), row.GetString("PublicacionTitulo", ""),
                                    row.GetString("PublicacionEditorial", ""),
                                    row.GetString("PublicacionHojas", ""),
-                                   row.GetBoolean("PublicacionCopia"),
+                                   row.GetInt("PublicacionCopia", 0),
                                    row.GetDateTime("PublicacionFecha", DateTime.Today));
         }
 
@@ -491,7 +491,7 @@ namespace General.Repositorios
                                             row.GetString("ExperienciaLaboralPuestoOcupado", ""),
                                             row.GetString("ExperienciaLaboralMotivoDesvinculacion", ""),
                                             row.GetString("ExperienciaLaboralNombreEmpleador", ""),
-                                            row.GetBoolean("ExperienciaLaboralPersonasACargo"),
+                                            row.GetInt("ExperienciaLaboralPersonasACargo", 0),
                                             row.GetString("ExperienciaLaboralTipoEmpresa", ""),
                                             row.GetString("ExperienciaLaboralActividad", ""),
                                             row.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
@@ -1073,7 +1073,7 @@ namespace General.Repositorios
         #endregion
 
         #region CvExperiencias
-        public CvExperienciaLaboral GuardarCvExperiencias(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
+        public CvExperienciaLaboral GuardarCvExperienciaLaboral(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
@@ -1084,7 +1084,7 @@ namespace General.Repositorios
             return experiencia_nueva;
         }
 
-        public CvExperienciaLaboral ActualizarCvExperiencias(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
+        public CvExperienciaLaboral ActualizarCvExperienciaLaboral(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
             parametros.Add("@IdExperienciaLaboral", experiencia_nueva.Id);
@@ -1094,17 +1094,18 @@ namespace General.Repositorios
             return experiencia_nueva;
         }
 
-        public CvExperienciaLaboral EliminarCvExperienciaLaboral(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
+        public bool EliminarCvExperienciaLaboral(int id_experiencia_nueva, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
-
-            var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
-            parametros.Add("@IdExperienciaLaboral", experiencia_nueva.Id);
+            var parametros = new Dictionary<string, object>();
+           
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@IdExperienciaLaboral", id_experiencia_nueva);
             parametros.Add("@Baja", baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ExperienciasLaborales", parametros);
 
-            return experiencia_nueva;
+            return true;
         }
 
         private Dictionary<string, object> ParametrosDeExperiencias(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
@@ -1210,7 +1211,7 @@ namespace General.Repositorios
             parametros.Add("@Detalle", capacidad_personal_modificada.Detalle);
             parametros.Add("@Usuario", usuario.Id);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_CapacidadesPersonales", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CapacidadesPersonales", parametros);
             return capacidad_personal_modificada;
         }
 
@@ -1361,7 +1362,7 @@ namespace General.Repositorios
         {
             var experiencia_laboral = new List<CvExperienciaLaboral>()
                                {
-                                   new CvExperienciaLaboral(1,"Analista Oracle", "Renuncia", "Accenture S.A", false, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina","Informática")
+                                   new CvExperienciaLaboral(1,"Analista Oracle", "Renuncia", "Accenture S.A", 0, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina","Informática")
                                };
 
             return experiencia_laboral;
@@ -1402,7 +1403,7 @@ namespace General.Repositorios
         {
             var publicaciones = new List<CvPublicaciones>()
                                {
-                                   new CvPublicaciones(1,"Factorizaciones", "Santillana", "377", true, new DateTime(2001, 11, 11))
+                                   new CvPublicaciones(1,"Factorizaciones", "Santillana", "377", 0, new DateTime(2001, 11, 11))
                                };
 
             return publicaciones;

@@ -2653,21 +2653,21 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region CvExperiencias
     [WebMethod]
-    public CvExperienciaLaboral GuardarCvExperiencias(CvExperienciaLaboral experiencia, Usuario usuario)
+    public CvExperienciaLaboral GuardarCvExperienciaLaboral(CvExperienciaLaboral experiencia, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvExperiencias(experiencia, usuario);
+        return RepoCurriculum().GuardarCvExperienciaLaboral(experiencia, usuario);
     }
 
     [WebMethod]
-    public CvExperienciaLaboral ActualizarCvExperiencia(CvExperienciaLaboral experiencia, Usuario usuario)
+    public CvExperienciaLaboral ActualizarCvExperienciaLaboral(CvExperienciaLaboral experiencia, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvExperiencias(experiencia, usuario);
+        return RepoCurriculum().ActualizarCvExperienciaLaboral(experiencia, usuario);
     }
 
     [WebMethod]
-    public CvExperienciaLaboral EliminarCvExperienciaLaboral(CvExperienciaLaboral experiencia, Usuario usuario)
+    public bool EliminarCvExperienciaLaboral(int id_experiencia, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvExperienciaLaboral(experiencia, usuario);
+        return RepoCurriculum().EliminarCvExperienciaLaboral(id_experiencia, usuario);
     }
 
     #endregion
