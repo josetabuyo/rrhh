@@ -2409,7 +2409,7 @@ public class WSViaticos : System.Web.Services.WebService
        
         return curriculum;
     }
-
+    /*
     #region GETs
 
     [WebMethod]
@@ -2492,7 +2492,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     #endregion GETs
-
+    */
     
     [WebMethod]
     public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO_nueva, CvDatosPersonales datosPersonalesDTO_original, Usuario usuario)

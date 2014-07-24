@@ -27,8 +27,14 @@
             _this.txt_antecedentes_egreso.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(estudio.FechaEgreso));
             _this.txt_antecedentes_localidad = _this.ui.find("#txt_antecedentes_localidad");
             _this.txt_antecedentes_localidad.val(estudio.Localidad);
-            _this.cmb_antecedentes_pais = _this.ui.find("#cmb_antecedentes_pais");
-            _this.cmb_antecedentes_pais.val(estudio.Pais);
+
+            _this.cmb_antecedentes_pais = new SuperCombo({
+                ui: _this.ui.find("#cmb_antecedentes_pais"),
+                nombre_repositorio: "Paises",
+                str_val: "Id",
+                str_descripcion: "Descripcion",
+                id_item_seleccionado: estudio.Pais
+            });
 
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#add_antecedentesAcademicos");
@@ -42,7 +48,7 @@
                 estudio.FechaIngreso = _this.txt_antecedentes_ingreso.datepicker('getDate').toISOString(); 
                 estudio.FechaEgreso = _this.txt_antecedentes_egreso.datepicker('getDate').toISOString();
                 estudio.Localidad = _this.txt_antecedentes_localidad.val();
-                estudio.Pais = _this.cmb_antecedentes_pais.val();
+                estudio.Pais = _this.cmb_antecedentes_pais.idItemSeleccionado();
 
                 var proveedor_ajax = new ProveedorAjax();
                 if (opciones.estudio) {

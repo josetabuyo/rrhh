@@ -10,6 +10,7 @@ namespace General.Repositorios
         void GuardarCVDatosPersonales(CvDatosPersonales cv, Usuario usuario);
         void ActualizarCV(CurriculumVitae cv);
         CurriculumVitae GetCV(int documento);
+        /*
         List<CvEstudios> GetCvEstudios(int documento);
         List<CvCertificadoDeCapacitacion> GetCvCertificadoDeCapacitacion(int documento);
         List<CvCompetenciasInformaticas> GetCvCompetenciasInformaticas(int documento);
@@ -20,6 +21,6 @@ namespace General.Repositorios
         List<CvIdiomas> GetCvIdiomas(int documento);
         List<CvInstitucionesAcademicas> GetCvInstitucionesAcademicas(int documento);
         List<CvMatricula> GetCvMatricula(int documento);
-        List<CvPublicaciones> GetCvPublicaciones(int documento);
+        List<CvPublicaciones> GetCvPublicaciones(int documento);*/
     }
 }

@@ -20,8 +20,15 @@
             _this.txt_competencias_informaticas_establecimiento.val(competencia_informatica.Establecimiento);
             _this.cmb_competencias_informaticas_localidad = _this.ui.find("#cmb_competencias_informaticas_localidad");
             _this.cmb_competencias_informaticas_localidad.val(competencia_informatica.Localidad);
-            _this.cmb_competencias_informaticas_pais = _this.ui.find("#cmb_competencias_informaticas_pais");
-            _this.cmb_competencias_informaticas_pais.val(competencia_informatica.Pais);
+
+            _this.cmb_competencias_informaticas_pais = new SuperCombo({
+                ui: _this.ui.find("#cmb_competencias_informaticas_pais"),
+                nombre_repositorio: "Paises",
+                str_val: "Id",
+                str_descripcion: "Descripcion",
+                id_item_seleccionado: competencia_informatica.Pais
+            });
+
             _this.txt_competencias_informaticas_tipo_informatica = _this.ui.find("#txt_competencias_informaticas_tipo_informatica");
             _this.txt_competencias_informaticas_tipo_informatica.val(competencia_informatica.TipoInformatica);
             _this.txt_competencias_informaticas_conocimiento = _this.ui.find("#txt_competencias_informaticas_conocimiento");
@@ -40,7 +47,7 @@
                 competencia_informatica.FechaObtencion = _this.txt_competencias_informaticas_fecha_obtencion.datepicker('getDate').toISOString();
                 competencia_informatica.Establecimiento = _this.txt_competencias_informaticas_establecimiento.val();
                 competencia_informatica.Localidad = _this.cmb_competencias_informaticas_localidad.val();
-                competencia_informatica.Pais = _this.cmb_competencias_informaticas_pais.val();
+                competencia_informatica.Pais = _this.cmb_competencias_informaticas_pais.idItemSeleccionado();
                 competencia_informatica.TipoInformatica = _this.txt_competencias_informaticas_tipo_informatica.val();
                 competencia_informatica.Conocimiento = _this.txt_competencias_informaticas_conocimiento.val();
                 competencia_informatica.Nivel = _this.txt_competencias_informaticas_nivel.val();

@@ -15,7 +15,7 @@ namespace General
         protected string _duracion;
         protected string _especialidad;
         protected string _localidad;
-        protected string _pais;
+        protected int _pais;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string DiplomaDeCertificacion { get { return _diplomaDeCertificacion; } set { _diplomaDeCertificacion = value; } }
@@ -25,9 +25,9 @@ namespace General
         public DateTime FechaInicio { get { return _fechaInicio; } set { _fechaInicio = value; } }
         public DateTime FechaFinalizacion { get { return _fechaFinalizacion; } set { _fechaFinalizacion = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
-        public string Pais { get { return _pais; } set { _pais = value; } }
+        public int Pais { get { return _pais; } set { _pais = value; } }
 
-        public CvCertificadoDeCapacitacion(int id, string diplomaDeCertificacion, string establecimiento, string especialidad, string duracion, DateTime fechaInicio, DateTime fechaFinalizacion, string localidad, string pais)
+        public CvCertificadoDeCapacitacion(int id, string diplomaDeCertificacion, string establecimiento, string especialidad, string duracion, DateTime fechaInicio, DateTime fechaFinalizacion, string localidad, int pais)
         {
             this._id = id;
             this._diplomaDeCertificacion = diplomaDeCertificacion;
