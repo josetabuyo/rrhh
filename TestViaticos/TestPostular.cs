@@ -86,23 +86,23 @@ namespace TestViaticos
 
         public CvEstudios UnEstudio()
         {
-            return new CvEstudios("Lic. en Administracion",1 , "Universidad de Buenos Aires", "", new DateTime(2003,03,01),new DateTime(2007,12,20),"CABA","Argentina");
+            return new CvEstudios("Lic. en Administracion",1 , "Universidad de Buenos Aires", "", new DateTime(2003,03,01),new DateTime(2007,12,20),"CABA",9);
         }
 
         public CvEventoAcademico UnEventoAcademico()
         {
-            return new CvEventoAcademico(1, "Conferencia de Economia","Conferencia","Oyente",new DateTime(2011,12,12),new DateTime(2011,12,13),"2 dias","UBA","CABA","Argentina");
+            return new CvEventoAcademico(1, "Conferencia de Economia","Conferencia","Oyente",new DateTime(2011,12,12),new DateTime(2011,12,13),"2 dias","UBA","CABA",9);
         }
 
         public CvExperienciaLaboral UnaExperienciaLaboral()
         {
             return new CvExperienciaLaboral(1,"Administrativo", "Renuncia", "Banco Macro", false, "Empresa Financiera","No se",
-                                     new DateTime(2007, 09, 01), new DateTime(2010, 09, 01), "CABA", "Argentina");
+                                     new DateTime(2007, 09, 01), new DateTime(2010, 09, 01), "CABA", 9);
         }
 
         public CvIdiomas UnIdioma()
         {
-            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles","Avanzado","Intermedio","Basico",new DateTime(2013,12,20),"CABA","Argentina");
+            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles","Avanzado","Intermedio","Basico",new DateTime(2013,12,20),"CABA",9);
         }
 
         public CvInstitucionesAcademicas UnaInstitucionAcademica()
@@ -125,12 +125,12 @@ namespace TestViaticos
 
         public CvCompetenciasInformaticas UnaCompetenciaInformatica()
         {
-            return new CvCompetenciasInformaticas(1, "Admnistrador de Base de Datos","UTN","Base de Datos","SQL","Avanzado","CABA","Argentina",new DateTime(2012,12,01), "");
+            return new CvCompetenciasInformaticas(1, "Admnistrador de Base de Datos","UTN","Base de Datos","SQL","Avanzado","CABA",9,new DateTime(2012,12,01), "");
         }
 
         public CvCertificadoDeCapacitacion UnCertificadoDeCapacitacion()
         {
-            return new CvCertificadoDeCapacitacion(1,"No se", "UBA", "Plomero", "5 años", new DateTime(2012, 10, 01), new DateTime(2012, 12, 01),"CABA","Argentina");
+            return new CvCertificadoDeCapacitacion(1,"No se", "UBA", "Plomero", "5 años", new DateTime(2012, 10, 01), new DateTime(2012, 12, 01),"CABA",9);
         }
 
         public CvPublicaciones UnaPublicacion()
