@@ -1077,7 +1077,7 @@ namespace General.Repositorios
             var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Experiencias", parametros);
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ExperienciasLaborales", parametros);
             experiencia_nueva.Id = int.Parse(id.ToString());
 
             return experiencia_nueva;
@@ -1088,7 +1088,7 @@ namespace General.Repositorios
             var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
             parametros.Add("@IdExperienciaLaboral", experiencia_nueva.Id);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Experiencias", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ExperienciasLaborales", parametros);
 
             return experiencia_nueva;
         }
@@ -1101,7 +1101,7 @@ namespace General.Repositorios
             parametros.Add("@IdExperienciaLaboral", experiencia_nueva.Id);
             parametros.Add("@Baja", baja);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Experiencias", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ExperienciasLaborales", parametros);
 
             return experiencia_nueva;
         }
