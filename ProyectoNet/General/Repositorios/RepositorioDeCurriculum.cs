@@ -292,7 +292,7 @@ namespace General.Repositorios
                                                Titulo = dRow.GetString("PublicacionTitulo", string.Empty),
                                                Editorial = dRow.GetString("PublicacionEditorial", string.Empty),
                                                Hojas = dRow.GetString("PublicacionHojas", string.Empty),
-                                               Copia = dRow.GetBoolean("PublicacionCopia"),
+                                               Copia = dRow.GetInt("PublicacionCopia", 0),
                                                Fecha = dRow.GetDateTime("PublicacionFecha", DateTime.Today)
 
                                            }).Distinct().ToList();
@@ -465,7 +465,7 @@ namespace General.Repositorios
             return new CvPublicaciones(row.GetInt("IdPublicacion", 0), row.GetString("PublicacionTitulo", ""),
                                    row.GetString("PublicacionEditorial", ""),
                                    row.GetString("PublicacionHojas", ""),
-                                   row.GetBoolean("PublicacionCopia"),
+                                   row.GetInt("PublicacionCopia", 0),
                                    row.GetDateTime("PublicacionFecha", DateTime.Today));
         }
 
@@ -1209,7 +1209,7 @@ namespace General.Repositorios
             parametros.Add("@Detalle", capacidad_personal_modificada.Detalle);
             parametros.Add("@Usuario", usuario.Id);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_CapacidadesPersonales", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CapacidadesPersonales", parametros);
             return capacidad_personal_modificada;
         }
 
@@ -1401,7 +1401,7 @@ namespace General.Repositorios
         {
             var publicaciones = new List<CvPublicaciones>()
                                {
-                                   new CvPublicaciones(1,"Factorizaciones", "Santillana", "377", true, new DateTime(2001, 11, 11))
+                                   new CvPublicaciones(1,"Factorizaciones", "Santillana", "377", 0, new DateTime(2001, 11, 11))
                                };
 
             return publicaciones;
