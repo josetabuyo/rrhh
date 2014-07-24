@@ -71,14 +71,8 @@
                 experiencia.TipoEmpresa = _this.txt_tipo_empresa_institucion.val();
                 experiencia.Sector = _this.txt_experiencia_laboral_sector.val();
                 experiencia.Localidad = _this.txt_experiencia_laboral_localidad.val();
-                experiencia.Pais = _this.cmb_experiencia_laboral_pais.val();
-<<<<<<< HEAD
-                experiencia.Actividad = _this.txt_experiencia_laboral_actividad.idItemSeleccionado();
-                                    
-=======
+                experiencia.Pais = _this.cmb_experiencia_laboral_pais.idItemSeleccionado();
                 experiencia.Actividad = _this.txt_experiencia_laboral_actividad.val();
-
->>>>>>> e1124e055709ee61f976e8523a60c907c0c40f9f
 
                 var proveedor_ajax = new ProveedorAjax();
 
