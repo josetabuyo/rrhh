@@ -11,7 +11,7 @@
                 alModificar: function (nueva_experiencia) {
                     _this.GrillaExperiencias.BorrarContenido();
                     experiencias.push(nueva_experiencia);
-                    _this.GrillaCapacidades.CargarObjetos(experiencias);
+                    _this.GrillaExperiencias.CargarObjetos(experiencias);
                 }
             });
         });
@@ -20,8 +20,8 @@
 
 
         columnas.push(new Columna("Puesto", { generar: function (una_experiencia) { return una_experiencia.PuestoOcupado } }));
-        columnas.push(new Columna("Fecha Inicio", { generar: function (una_experiencia) { return una_experiencia.FechaInicio } }));
-        columnas.push(new Columna("Fecha Fin", { generar: function (una_experiencia) { return una_experiencia.FechaFin } }));
+        columnas.push(new Columna("Fecha Inicio", { generar: function (una_experiencia) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_experiencia.FechaInicio) } }));
+        columnas.push(new Columna("Fecha Fin", { generar: function (una_experiencia) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_experiencia.FechaFin) } }));
         columnas.push(new Columna('Acciones', {
             generar: function (una_experiencia) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
@@ -59,14 +59,14 @@
     eliminar: function (una_experiencia) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar la experiencia informada?", function (e) {
+        alertify.confirm("¿Está seguro que desea eliminar la experiencia laboral?", function (e) {
             if (e) {
                 // user clicked "ok"
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "EliminarCVExperiencias",
+                proveedor_ajax.postearAUrl({ url: "EliminarCvExperienciaLaboral",
                     data: {
-                        id_experiencia: una_experiencia.id
+                        id_experiencia_laboral: una_experiencia.id
                     },
                     success: function (respuesta) {
                         alertify.success("Experiencia eliminada correctamente");

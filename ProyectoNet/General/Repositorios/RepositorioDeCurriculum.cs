@@ -1072,7 +1072,7 @@ namespace General.Repositorios
         #endregion
 
         #region CvExperiencias
-        public CvExperienciaLaboral GuardarCvExperiencias(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
+        public CvExperienciaLaboral GuardarCvExperienciaLaboral(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
@@ -1083,7 +1083,7 @@ namespace General.Repositorios
             return experiencia_nueva;
         }
 
-        public CvExperienciaLaboral ActualizarCvExperiencias(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
+        public CvExperienciaLaboral ActualizarCvExperienciaLaboral(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
         {
             var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
             parametros.Add("@IdExperienciaLaboral", experiencia_nueva.Id);
@@ -1093,17 +1093,18 @@ namespace General.Repositorios
             return experiencia_nueva;
         }
 
-        public CvExperienciaLaboral EliminarCvExperienciaLaboral(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
+        public bool EliminarCvExperienciaLaboral(int id_experiencia_nueva, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
-
-            var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
-            parametros.Add("@IdExperienciaLaboral", experiencia_nueva.Id);
+            var parametros = new Dictionary<string, object>();
+           
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@IdExperienciaLaboral", id_experiencia_nueva);
             parametros.Add("@Baja", baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ExperienciasLaborales", parametros);
 
-            return experiencia_nueva;
+            return true;
         }
 
         private Dictionary<string, object> ParametrosDeExperiencias(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
