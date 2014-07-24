@@ -358,14 +358,14 @@ namespace General.Repositorios
                                                   FechaInicio = dRow.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
                                                   FechaFin = dRow.GetDateTime("ExperienciaLaboralFin", DateTime.Today),
                                                   Localidad = dRow.GetString("ExperienciaLaboralLocalidad", string.Empty),
-                                                  Pais = dRow.GetString("ExperienciaLaboralPais", string.Empty)
-
+                                                  Pais = dRow.GetString("ExperienciaLaboralPais", string.Empty),
+                                                  Sector = dRow.GetString("ExperienciaLaboralSector", string.Empty)
                                               }).Distinct().ToList();
 
 
                 experiencias_anonimos.Select(e => new CvExperienciaLaboral(e.Id, e.PuestoOcupado, e.MotivoDesvinculacion, e.NombreEmpleador, e.PersonasACargo,
                                             e.TipoEmpresa, e.Actividad, e.FechaInicio, e.FechaFin, e.Localidad,
-                                            e.Pais)).ToList().ForEach(exp => cv.AgregarExperienciaLaboral(exp));
+                                            e.Pais,e.Sector)).ToList().ForEach(exp => cv.AgregarExperienciaLaboral(exp));
 
             }
             
@@ -497,7 +497,8 @@ namespace General.Repositorios
                                             row.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
                                             row.GetDateTime("ExperienciaLaboralFin", DateTime.Today),
                                             row.GetString("ExperienciaLaboralLocalidad", ""),
-                                            row.GetString("ExperienciaLaboralPais", ""));
+                                            row.GetString("ExperienciaLaboralPais", ""),
+                                              row.GetString("ExperienciaLaboralSector", ""));
         }
 
         private CvIdiomas GetIdiomaFromDataRow(RowDeDatos row)
@@ -1361,7 +1362,7 @@ namespace General.Repositorios
         {
             var experiencia_laboral = new List<CvExperienciaLaboral>()
                                {
-                                   new CvExperienciaLaboral(1,"Analista Oracle", "Renuncia", "Accenture S.A", false, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina")
+                                   new CvExperienciaLaboral(1,"Analista Oracle", "Renuncia", "Accenture S.A", false, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina","Informática")
                                };
 
             return experiencia_laboral;
