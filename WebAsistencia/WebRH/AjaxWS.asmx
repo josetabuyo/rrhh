@@ -753,11 +753,11 @@ public class AjaxWS : System.Web.Services.WebService {
     #endregion
 
     [WebMethod(EnableSession = true)]
-    public bool PostulacionA(int id_puesto)
+    public bool PostularseA(WSViaticos.Postulacion una_postulacion)
     {
-        backEndService.PostularseA(id_puesto, usuarioLogueado);
-        return true;
-    }
+        return backEndService.PostularseA(una_postulacion, usuarioLogueado);
+        
+    } 
     
     #endregion
     

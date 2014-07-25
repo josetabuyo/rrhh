@@ -519,7 +519,7 @@
 
 
 <%= Referencias.Javascript("../") %>
-<script type="text/javascript" src="Postular.js" ></script>
+<script type="text/javascript" src="Postulacion.js" ></script>
 <script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 <script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>

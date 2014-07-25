@@ -6,9 +6,9 @@
         //_this.divGrilla = $('#tabla_puestos');
 
          _this.idPuesto = getVarsUrl();
-         _this.idPersona = _this.ui.find("#txt_matricula_fecha_inscripcion");
-         _this.txt_motivo = _this.ui.find("#txt_matricula_situacion");
-         _this.txt_observaciones = _this.ui.find("#txt_matricula_situacion");
+         //_this.idPersona = _this.ui.find("#txt_matricula_fecha_inscripcion");
+         _this.txt_motivo = _this.ui.find("#txt_motivo");
+         _this.txt_observaciones = _this.ui.find("#txt_observaciones");
 
         _this.btn_guardar.click(function () {
             var postulacion = {};
@@ -18,20 +18,20 @@
                 postulacion.Motivo = _this.cmb_competencias_informaticas_localidad.val();
                 postulacion.Observaciones = _this.cmb_competencias_informaticas_pais.val();
                
-
+               
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "ActualizarCvCompetenciaInformatica",
+                proveedor_ajax.postearAUrl({ url: "PostularseA",
                     data: {
-                        competencia_informatica: competencia_informatica,
+                        una_postulacion: postulacion,
                     },
                     success: function (respuesta) {
-                        alertify.alert("La competencia fue actualizada correctamente");
-                        alModificar(respuesta);
-                        $(".modal_close_concursar").click();
+                        alertify.alert("Usted se postuló correctamente");
+                        //alModificar(respuesta);
+                        //$(".modal_close_concursar").click();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error al actualizar la competencia informática.");
+                        alertify.alert("Error al postularse.");
                      }
                   });
 

@@ -117,11 +117,11 @@
             <hr />
             <div id = "cont_info_a_completar">
                <label>Motivo de la postulaci&oacute;n</label>
-                <textarea rows="2" cols="80"></textarea>
+                <textarea id="txt_motivo" rows="2" cols="80"></textarea>
             </div>
             <div id="cont_info_a_completar_2">
                 <label>Observaciones</label>
-                <textarea rows="2" cols="80"></textarea>
+                <textarea id="txt_observaciones" rows="2" cols="80"></textarea>
             </div>
             <hr />
 

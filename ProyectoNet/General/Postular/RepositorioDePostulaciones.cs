@@ -22,16 +22,17 @@ namespace General
         //    return puestos;
         //}
 
-        public void PostularseA(Postulacion postulacion, MAU.Usuario usuario)
+        public bool PostularseA(Postulacion postulacion, MAU.Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idPuesto", postulacion.IdPuesto);
             parametros.Add("@idPersona", usuario.Owner.Id);
-            parametros.Add("@FechaPostulacion", postulacion.FechaPostulacion);
+            //parametros.Add("@FechaPostulacion", postulacion.FechaPostulacion);
             parametros.Add("@Motivo", postulacion.Motivo);
             parametros.Add("@Observacion", postulacion.Observaciones);
 
-            throw new NotImplementedException();
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
+            return true;
         }
     }
 }
