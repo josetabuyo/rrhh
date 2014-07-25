@@ -17,7 +17,7 @@ namespace General
         protected DateTime _fechaObtencion;
         //protected DateTime _fechaFin;
         protected string _localidad;
-        protected string _pais;
+        protected int _pais;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Diploma { get { return _diploma; } set { _diploma = value; } }
@@ -29,10 +29,10 @@ namespace General
         public DateTime FechaObtencion { get { return _fechaObtencion; } set { _fechaObtencion = value; } }
         //public DateTime FechaFin { get { return _fechaFin; } set { _fechaFin = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
-        public string Pais { get { return _pais; } set { _pais = value; } }
+        public int Pais { get { return _pais; } set { _pais = value; } }
 
 
-        public CvIdiomas(int id, string diploma, string establecimiento, string idioma, string lectura, string escritura, string oral, DateTime fechaObtencion, string localidad, string pais)
+        public CvIdiomas(int id, string diploma, string establecimiento, string idioma, string lectura, string escritura, string oral, DateTime fechaObtencion, string localidad, int pais)
         {
             this._id = id;
             this._diploma = diploma;

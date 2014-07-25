@@ -14,7 +14,7 @@ namespace General
         protected DateTime _fechaInicio;
         protected DateTime _fechaFin;
         protected string _localidad;
-        protected string _pais;
+        protected int _pais;
         protected int _personasACargo;
         protected string _tipoEmpresa;
         protected string _actividad;
@@ -29,12 +29,12 @@ namespace General
         public DateTime FechaInicio { get { return _fechaInicio; } set { _fechaInicio = value; } }
         public DateTime FechaFin { get { return _fechaFin; } set { _fechaFin = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
-        public string Pais { get { return _pais; } set { _pais = value; } }
+        public int Pais { get { return _pais; } set { _pais = value; } }
         public string Actividad { get { return _actividad; } set { _actividad = value; } }
         public string Sector { get { return _sector; } set { _sector = value; } }
-       
-        
-        public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, int personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, string pais,string sector)
+
+
+        public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, int personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais, string sector)
         {
             this._id = id;
             this._puestoOcupado = puestoOcupado;

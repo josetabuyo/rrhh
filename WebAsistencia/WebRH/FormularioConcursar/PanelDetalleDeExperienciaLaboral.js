@@ -41,8 +41,13 @@
             _this.txt_experiencia_laboral_localidad = _this.ui.find("#experiencia-laboral_localidad");
             _this.txt_experiencia_laboral_localidad.val(experiencia.Localidad);
 
-            _this.cmb_experiencia_laboral_pais = _this.ui.find("#cmb_experiencia_laboral_pais");
-            _this.cmb_experiencia_laboral_pais.val(experiencia.Pais);
+            _this.cmb_experiencia_laboral_pais = new SuperCombo({
+                ui: _this.ui.find("#cmb_experiencia_laboral_pais"),
+                nombre_repositorio: "Paises",
+                str_val: "Id",
+                str_descripcion: "Descripcion",
+                id_item_seleccionado: experiencia.Pais
+            });
 
             _this.txt_experiencia_laboral_actividad = _this.ui.find("#txt_experiencia_laboral_actividad");
             _this.txt_experiencia_laboral_actividad.val(experiencia.Actividad);
@@ -67,9 +72,8 @@
                 experiencia.Sector = _this.txt_experiencia_laboral_sector.val();
              
                 experiencia.Localidad = _this.txt_experiencia_laboral_localidad.val();
-                experiencia.Pais = _this.cmb_experiencia_laboral_pais.val();
+                experiencia.Pais = _this.cmb_experiencia_laboral_pais.idItemSeleccionado();
                 experiencia.Actividad = _this.txt_experiencia_laboral_actividad.val();
-
 
                 var proveedor_ajax = new ProveedorAjax();
 
