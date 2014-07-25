@@ -578,7 +578,7 @@ namespace General.Repositorios
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
 
-            this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
+            //this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
 
             return antecedentesAcademicos_nuevo;
 
