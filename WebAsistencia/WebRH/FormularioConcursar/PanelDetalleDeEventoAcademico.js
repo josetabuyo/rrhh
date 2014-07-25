@@ -35,8 +35,13 @@
             _this.txt_evento_academico_localidad = _this.ui.find("#txt_evento_academico_localidad");
             _this.txt_evento_academico_localidad.val(evento_academico.Localidad);
 
-            _this.cmb_evento_academico_pais = _this.ui.find("#cmb_evento_academico_pais");
-            _this.cmb_evento_academico_pais.val(evento_academico.Pais);
+            _this.cmb_evento_academico_pais = new SuperCombo({
+                ui: _this.ui.find("#cmb_evento_academico_pais"),
+                nombre_repositorio: "Paises",
+                str_val: "Id",
+                str_descripcion: "Descripcion",
+                id_item_seleccionado: evento_academico.Pais
+            });
 
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#btn_guardar");
@@ -51,7 +56,7 @@
                 evento_academico.Duracion = _this.txt_evento_academico_duracion.val();
                 evento_academico.Institucion = _this.txt_evento_academico_institucion.val();
                 evento_academico.Localidad = _this.txt_evento_academico_localidad.val();
-                evento_academico.Pais = _this.cmb_evento_academico_pais.val();
+                evento_academico.Pais = _this.cmb_evento_academico_pais.idItemSeleccionado();
 
                 var proveedor_ajax = new ProveedorAjax();
 

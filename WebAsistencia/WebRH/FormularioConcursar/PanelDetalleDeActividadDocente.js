@@ -2,7 +2,8 @@
     mostrar: function (opciones) {
         //valores default
         var docencia = opciones.docencia || {
-            NivelEducativo: {Id:0}
+            NivelEducativo: {Id:0},
+            Pais: 9
         };
         var alModificar = opciones.alModificar || function () { };
 

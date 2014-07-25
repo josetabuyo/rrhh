@@ -20,15 +20,15 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Id", { generar: function (un_estudio) { return un_estudio.Id } }));
+        //columnas.push(new Columna("Id", { generar: function (un_estudio) { return un_estudio.Id } }));
         columnas.push(new Columna("Titulo", { generar: function (un_estudio) { return un_estudio.Titulo } }));
         columnas.push(new Columna("Nivel", { generar: function (un_estudio) { return un_estudio.Nivel } }));
         columnas.push(new Columna("Establecimiento", { generar: function (un_estudio) { return un_estudio.Establecimiento } }));
-        columnas.push(new Columna("Especialidad", { generar: function (un_estudio) { return un_estudio.Especialidad } }));
-        columnas.push(new Columna("FechaIngreso", { generar: function (un_estudio) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_estudio.FechaIngreso) } }));
-        columnas.push(new Columna("FechaEgreso", { generar: function (un_estudio) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_estudio.FechaEgreso) } }));
+        //columnas.push(new Columna("Especialidad", { generar: function (un_estudio) { return un_estudio.Especialidad } }));
+        //columnas.push(new Columna("FechaIngreso", { generar: function (un_estudio) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_estudio.FechaIngreso) } }));
+        //columnas.push(new Columna("FechaEgreso", { generar: function (un_estudio) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_estudio.FechaEgreso) } }));
         //columnas.push(new Columna("Localidad", { generar: function (un_estudio) { return un_estudio.Localidad } }));
-        columnas.push(new Columna("Pais", { generar: function (un_estudio) { return un_estudio.Pais } }));
+        //columnas.push(new Columna("Pais", { generar: function (un_estudio) { return un_estudio.Pais } }));
         columnas.push(new Columna('Acciones', {
             generar: function (un_estudio) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();

@@ -47,7 +47,7 @@
         <nav style="min-width: 900px;">
             <ul class="ul_cv" style="width:100%; margin-left:1%; margin-top:15px; margin-bottom:3px;">    
                 <li class="menu_lista_formularios"><a href="#ancla1">Información Personal</a></li>
-                <li class="menu_lista_formularios"><a href="#ancla2">Antecedentes Academicos</a></li>
+                <li class="menu_lista_formularios"><a href="#ancla2">Antecedentes Académicos</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla3">Actividades de Capacitación</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla4">Actividades Docentes</a></li>
                 <li class="menu_lista_formularios no_borde"><a href="#ancla5">Eventos Académicos</a></li>
@@ -223,7 +223,7 @@
               <div id="collapseTwo" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_antecedente_academico" class="link" >Cargar antecedentes academicos</a></legend>
+                    <legend><a id="btn_agregar_antecedente_academico" class="link" >Cargar antecedentes académicos</a></legend>
                            
                         <h4>Antecedentes Agregados</h4>
                         <div id="ContenedorPlanillaAntecendentesAcademicos" runat="server">

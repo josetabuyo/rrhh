@@ -31,8 +31,14 @@
 
             _this.cmb_institucion_academica_localidad = _this.ui.find("#cmb_institucion_academica_localidad");
             _this.cmb_institucion_academica_localidad.val(institucion_academica.Localidad);
-            _this.cmb_institucion_academica_pais = _this.ui.find("#cmb_institucion_academica_pais");
-            _this.cmb_institucion_academica_pais.val(institucion_academica.Pais);
+
+            _this.cmb_institucion_academica_pais = new SuperCombo({
+                ui: _this.ui.find("#cmb_institucion_academica_pais"),
+                nombre_repositorio: "Paises",
+                str_val: "Id",
+                str_descripcion: "Descripcion",
+                id_item_seleccionado: institucion_academica.Pais
+            });
 
             _this.txt_institucion_academica_fechaInicio = _this.ui.find("#txt_institucion_academica_fechaInicio");
             _this.txt_institucion_academica_fechaInicio.datepicker();
@@ -57,7 +63,7 @@
                 institucion_academica.CategoriaActual = _this.txt_institucion_academica_categoria_actual.val();
                 institucion_academica.Fecha = _this.txt_institucion_academica_fecha.datepicker('getDate').toISOString();
                 institucion_academica.Localidad = _this.cmb_institucion_academica_localidad.val();
-                institucion_academica.Pais = _this.cmb_institucion_academica_pais.val();
+                institucion_academica.Pais = _this.cmb_institucion_academica_pais.idItemSeleccionado();
                 institucion_academica.FechaInicio = _this.txt_institucion_academica_fechaInicio.datepicker('getDate').toISOString();
                 institucion_academica.FechaFin = _this.txt_institucion_academica_fechaFin.datepicker('getDate').toISOString();
 

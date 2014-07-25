@@ -45,7 +45,7 @@ namespace General.Repositorios
 
             tablaCVs.Rows.ForEach(row =>
             cv = new CurriculumVitae(
-                new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo", 0), row.GetSmallintAsInt("EstadoCivil", 0),
+                new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo", 1), row.GetSmallintAsInt("EstadoCivil", 0),
                     row.GetString("Cuil", ""), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad", 0), row.GetDateTime("FechaNacimiento", DateTime.Today).ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento", 0),
                     new CvDomicilio(row.GetInt("DomPers_Id", 0), row.GetString("DomPers_Calle", ""), row.GetInt("DomPers_Numero", 0), row.GetString("DomPers_Piso", ""), row.GetString("DomPers_Depto", ""),
                         row.GetInt("DomPers_Localidad", 0), row.GetSmallintAsInt("DomPers_CodigoPostal", 0), row.GetSmallintAsInt("DomPers_IdProvincia", 0)),
@@ -116,7 +116,7 @@ namespace General.Repositorios
                                             FechaIngreso = dRow.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today),
                                             FechaEgreso = dRow.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today),
                                             Localidad = dRow.GetString("AntecedentesAcademicosLocalidad", string.Empty),
-                                            Pais = dRow.GetString("AntecedentesAcademicosPais", string.Empty)
+                                            Pais = dRow.GetInt("AntecedentesAcademicosPais", 9)
                                         }).Distinct().ToList();
 
 
@@ -146,7 +146,7 @@ namespace General.Repositorios
                                                   FechaInicio = dRow.GetDateTime("CertificadoFechaInicio", DateTime.Today),
                                                   FechaFinalizacion = dRow.GetDateTime("CertificadoFechaFinalizacion", DateTime.Today),
                                                   Localidad = dRow.GetString("CertificadoLocalidad", string.Empty),
-                                                  Pais = dRow.GetString("CertificadoPais", string.Empty)
+                                                  Pais = dRow.GetInt("CertificadoPais", 9)
 
                                               }).Distinct().ToList();
 
@@ -212,7 +212,7 @@ namespace General.Repositorios
                                                 Duracion = dRow.GetString("EventosAcademicosDuracion", string.Empty),
                                                 Institucion = dRow.GetString("EventosAcademicosInstitucion", string.Empty),
                                                 Localidad = dRow.GetString("EventosAcademicosLocalidad", string.Empty),
-                                                Pais = dRow.GetString("EventosAcademicosPais", string.Empty)
+                                                Pais = dRow.GetInt("EventosAcademicosPais", 9)
                                             }).Distinct().ToList();
 
                 eventos_anonimos.Select(e => new CvEventoAcademico(e.Id, e.Denominacion, e.TipoDeEvento, e.CaracterDeParticipacion,
@@ -327,7 +327,7 @@ namespace General.Repositorios
                                                   FechaInicio = dRow.GetDateTime("InstitucionFechaInicio", DateTime.Today),
                                                   FechaFin = dRow.GetDateTime("InstitucionFechaFin", DateTime.Today),
                                                   Localidad = dRow.GetInt("InstitucionLocalidad", 0),
-                                                  Pais = dRow.GetInt("InstitucionPais", 0)
+                                                  Pais = dRow.GetInt("InstitucionPais", 9)
 
                                               }).Distinct().ToList();
 
@@ -358,7 +358,7 @@ namespace General.Repositorios
                                                   FechaInicio = dRow.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
                                                   FechaFin = dRow.GetDateTime("ExperienciaLaboralFin", DateTime.Today),
                                                   Localidad = dRow.GetString("ExperienciaLaboralLocalidad", string.Empty),
-                                                  Pais = dRow.GetString("ExperienciaLaboralPais", string.Empty),
+                                                  Pais = dRow.GetInt("ExperienciaLaboralPais", 9),
                                                   Sector = dRow.GetString("ExperienciaLaboralSector", string.Empty)
                                               }).Distinct().ToList();
 
@@ -389,7 +389,7 @@ namespace General.Repositorios
                                                  Oral = dRow.GetString("IdiomaOral", string.Empty),
                                                  FechaObtencion = dRow.GetDateTime("IdiomaFechaObtencion", DateTime.Today),
                                                  Localidad = dRow.GetString("IdiomaLocalidad", string.Empty),
-                                                 Pais = dRow.GetString("IdiomaPais", string.Empty)
+                                                 Pais = dRow.GetInt("IdiomaPais", 9)
                                              }).Distinct().ToList();
 
 
@@ -416,7 +416,7 @@ namespace General.Repositorios
                                               Conocimiento = dRow.GetString("CompetenciaConocimiento", string.Empty),
                                               Nivel = dRow.GetString("CompetenciaNivel", string.Empty),
                                               Localidad = dRow.GetString("CompetenciaLocalidad", string.Empty),
-                                              Pais = dRow.GetString("CompetenciaPais", string.Empty),
+                                              Pais = dRow.GetInt("CompetenciaPais", 9),
                                               FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today),
                                               Detalle = dRow.GetString("Detalle", string.Empty)
                                           }).Distinct().ToList();
@@ -428,123 +428,6 @@ namespace General.Repositorios
             }
         }
 
-
-        private CvEstudios GetAntecedenteAcademicosFromDataRow(RowDeDatos row)
-        {
-            return new CvEstudios(row.GetInt("IdAntecedentesAcademicos", 0), row.GetString("AntecedentesAcademicosTitulo", ""), row.GetInt("AntecedentesAcademicosNivel",0), row.GetString("AntecedentesAcademicosEstablecimiento", ""),
-                                   row.GetString("AntecedentesAcademicosEspecialidad", ""), row.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today),
-                                   row.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today), row.GetString("AntecedentesAcademicosLocalidad", ""),
-                                   row.GetString("AntecedentesAcademicosPais", ""));
-
-        }
-
-        private CvCertificadoDeCapacitacion GetCertificadoDeCapacitacionFromDataRow(RowDeDatos row)
-        {
-            return new CvCertificadoDeCapacitacion(row.GetInt("IdCertificadoCapacitacion", 0),
-                                                   row.GetString("CertificadoDiploma", ""),
-                                                   row.GetString("CertificadoEstablecimiento", ""),
-                                                   row.GetString("CertificadoEspecialidad", ""),
-                                                   row.GetString("CertificadoDuracion", ""),
-                                                   row.GetDateTime("CertificadoFechaInicio", DateTime.Today),
-                                                   row.GetDateTime("CertificadoFechaFinalizacion", DateTime.Today),
-                                                   row.GetString("CertificadoLocalidad", ""),
-                                                   row.GetString("CertificadoPais", ""));
-
-        }
-
-        private CvMatricula GetMatriculaFromDataRow(RowDeDatos row)
-        {
-            return new CvMatricula(row.GetInt("IdMatricula", 0), row.GetString("MatriculaNumero", ""),
-                                   row.GetString("MatriculaExpedidoPor", ""),
-                                   row.GetString("MatriculaSituacionActual", ""),
-                                   row.GetDateTime("MatriculaFechaObtencion", DateTime.Today));
-        }
-
-        private CvPublicaciones GetPublicacionFromDataRow(RowDeDatos row)
-        {
-            return new CvPublicaciones(row.GetInt("IdPublicacion", 0), row.GetString("PublicacionTitulo", ""),
-                                   row.GetString("PublicacionEditorial", ""),
-                                   row.GetString("PublicacionHojas", ""),
-                                   row.GetInt("PublicacionCopia", 0),
-                                   row.GetDateTime("PublicacionFecha", DateTime.Today));
-        }
-
-        private CvInstitucionesAcademicas GetInstitucionFromDataRow(RowDeDatos row)
-        {
-            return new CvInstitucionesAcademicas(row.GetInt("IdInstitucion", 0),
-                                   row.GetString("InstitucionInstitucion", ""),
-                                   row.GetString("InstitucionCaracterEntidad", ""),
-                                   row.GetString("InstitucionCargos", ""),
-                                   row.GetString("InstitucionAfiliados", ""),
-                                   row.GetString("InstitucionCategoriaActual", ""),
-                                   row.GetDateTime("InstitucionFechaAfiliacion", DateTime.Today),
-                                   row.GetDateTime("InstitucionFecha", DateTime.Today),
-                                   row.GetDateTime("InstitucionFechaInicio", DateTime.Today),
-                                   row.GetDateTime("InstitucionFechaFin", DateTime.Today),
-                                   row.GetInt("InstitucionLocalidad", 0),
-                                   row.GetInt("InstitucionPais", 0));
-        }
-
-        private CvExperienciaLaboral GetExperienciaFromDataRow(RowDeDatos row)
-        {
-            return new CvExperienciaLaboral(row.GetInt("IdExperienciaLaboral", 0),
-                                            row.GetString("ExperienciaLaboralPuestoOcupado", ""),
-                                            row.GetString("ExperienciaLaboralMotivoDesvinculacion", ""),
-                                            row.GetString("ExperienciaLaboralNombreEmpleador", ""),
-                                            row.GetInt("ExperienciaLaboralPersonasACargo", 0),
-                                            row.GetString("ExperienciaLaboralTipoEmpresa", ""),
-                                            row.GetString("ExperienciaLaboralActividad", ""),
-                                            row.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
-                                            row.GetDateTime("ExperienciaLaboralFin", DateTime.Today),
-                                            row.GetString("ExperienciaLaboralLocalidad", ""),
-                                            row.GetString("ExperienciaLaboralPais", ""),
-                                              row.GetString("ExperienciaLaboralSector", ""));
-        }
-
-        private CvIdiomas GetIdiomaFromDataRow(RowDeDatos row)
-        {
-            return new CvIdiomas(row.GetInt("IdIdioma", 0),
-                                row.GetString("IdiomaDiploma", ""),
-                                row.GetString("IdiomaEstablecimiento", ""),
-                                row.GetString("IdiomaIdioma", ""),
-                                row.GetString("IdiomaLectura", ""),
-                                row.GetString("IdiomaEscritura", ""),
-                                row.GetString("IdiomaOral", ""),
-                                row.GetDateTime("IdiomaFechaObtencion", DateTime.Today),
-                //row.GetDateTime("IdiomaFechaFin", DateTime.Today),
-                                row.GetString("IdiomaLocalidad", ""),
-                                row.GetString("IdiomaPais", ""));
-        }
-
-        private CvCompetenciasInformaticas GetCompetenciaFromDataRow(RowDeDatos row)
-        {
-            return new CvCompetenciasInformaticas(row.GetInt("IdCompetenciaInformatica", 0),
-                                row.GetString("CompetenciaDiploma", ""),
-                                row.GetString("CompetenciaEstablecimiento", ""),
-                                row.GetString("CompetenciaTipoInformatica", ""),
-                                row.GetString("CompetenciaConocimiento", ""),
-                                row.GetString("CompetenciaNivel", ""),
-                                row.GetString("CompetenciaLocalidad", ""),
-                                row.GetString("CompetenciaPais", ""),
-                                row.GetDateTime("CompetenciaFechaObtencion", DateTime.Today), 
-                                row.GetString("Detalle", ""));
-        }
-
-        private CvEventoAcademico GetEventosAcademicosFromDataRow(RowDeDatos row)
-        {
-            return new CvEventoAcademico(
-                row.GetInt("EventosAcademicosId", 0),
-                row.GetString("EventosAcademicosDenominacion", ""),
-                row.GetString("EventosAcademicosTipoDeEvento", ""),
-                row.GetString("EventosAcademicosCaracterDeParticipacion", ""),
-                row.GetDateTime("EventosAcademicosFechaInicio", DateTime.Today),
-                row.GetDateTime("EventosAcademicosFechaFin", DateTime.Today),
-                row.GetString("EventosAcademicosDuracion", ""),
-                row.GetString("EventosAcademicosInstitucion", ""),
-                row.GetString("EventosAcademicosLocalidad", ""),
-                row.GetString("EventosAcademicosPais", ""));
-
-        }
 
         private CvCapacidadPersonal GetOtraCapacidadFromDataRow(RowDeDatos row)
         {
@@ -695,7 +578,7 @@ namespace General.Repositorios
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
 
-            this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
+            //this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
 
             return antecedentesAcademicos_nuevo;
 
@@ -1298,118 +1181,7 @@ namespace General.Repositorios
 
         #endregion CvCompetenciasInformaticas
 
-
-
-
-
-        #region GETS
-        public List<CvEstudios> GetCvEstudios(int documento)
-        {
-
-            return this._cvAntecedentesAcademicos;
-        }
-
-        public List<CvCertificadoDeCapacitacion> GetCvCertificadoDeCapacitacion(int documento)
-        {
-            var certificados_de_capacitaciones = new List<CvCertificadoDeCapacitacion>()
-                               {
-                                   new CvCertificadoDeCapacitacion(1, "Arquitecto Java", "Oracle", "Java", "2 años",  new DateTime(2012, 01, 13), new DateTime(2014, 03, 10), "CABA", "Argentina" )
-                               };
-
-            return certificados_de_capacitaciones;
-        }
-
-        public List<CvCompetenciasInformaticas> GetCvCompetenciasInformaticas(int documento)
-        {
-            var compotencias_informaticas = new List<CvCompetenciasInformaticas>()
-                               {
-                                   new CvCompetenciasInformaticas(1, "Administrador de Base de Datos", "Sigma", "Base de Datos", "Senior",  "Avanzado" , "CABA", "Argentina", new DateTime(2013, 11, 15), "" )
-                               };
-
-            return compotencias_informaticas;
-        }
-
-
-        public CvDatosPersonales GetCvDatosPersonales(int documento)
-        {
-            var domicilio = new CvDomicilio(1, "Pedro Morán", 1234, "7", "A", 1, 1419, 2);
-            var datos_personales = new CvDatosPersonales(31369852, "Roberto", "Moreno", 1, 1, "20-31369852-7", "Buenos Aires", 1, new DateTime(1985, 07, 23).ToShortDateString(), 1, domicilio, domicilio, "Tiene legajo");
-            //return datos_personales;
-            return this._cvDatosPersonales;
-        }
-
-        public List<CvDomicilio> GetCvDomicilio(int documento)
-        {
-            var domicilio = new List<CvDomicilio>()
-                               {
-                                   new CvDomicilio(1,"Pedro Morán", 1234, "7", "A", 1, 1419, 2)
-                               };
-
-            return domicilio;
-        }
-
-        public List<CvEventoAcademico> GetCvEventoAcademico(int documento)
-        {
-            var evento_academico = new List<CvEventoAcademico>()
-                               {
-                                   new CvEventoAcademico(1, "Encuentro Nacional Docente", "Congreso Nacional", "Expositor", new DateTime(2008, 02, 07), new DateTime(2008, 02, 11), "4 Jornadas",  "Joaquín V. González", "CABA", "Argentina")
-                               };
-
-            return evento_academico;
-        }
-
-        public List<CvExperienciaLaboral> GetCvExperienciaLaboral(int documento)
-        {
-            var experiencia_laboral = new List<CvExperienciaLaboral>()
-                               {
-                                   new CvExperienciaLaboral(1,"Analista Oracle", "Renuncia", "Accenture S.A", 0, "Privada", "Consultoría", new DateTime(2001, 07, 07), new DateTime(2004, 12, 21), "CABA", "Argentina","Informática")
-                               };
-
-            return experiencia_laboral;
-        }
-
-        public List<CvIdiomas> GetCvIdiomas(int documento)
-        {
-            var idiomas = new List<CvIdiomas>()
-                               {
-                                   new CvIdiomas(1,"CAF Certification", "Cultural Inglesa Pueyrredón", "Inglés", "Avanzado", "Avanzado","Avanzado", new DateTime(1999, 01, 07), "CABA", "Argentina"),
-                                   new CvIdiomas(1,"International French Language", "CUI", "Francés", "Avanzado", "Intermedio","Intermedio", new DateTime(2002, 04, 27), "CABA", "Argentina")
-                               };
-
-            return idiomas;
-        }
-
-        public List<CvInstitucionesAcademicas> GetCvInstitucionesAcademicas(int documento)
-        {
-            var instituciones_academicas = new List<CvInstitucionesAcademicas>()
-                               {
-                                   new CvInstitucionesAcademicas(1, "Universidad Tecnológica Nacional", "Pública", "Docente", "1234", "Jefe de Cátedra", new DateTime(1992, 08, 17), new DateTime(1993, 01, 17), new DateTime(1992, 04, 21), new DateTime(2011, 09, 29), 1, 1)
-                               };
-
-            return instituciones_academicas;
-        }
-
-        public List<CvMatricula> GetCvMatricula(int documento)
-        {
-            var matricula = new List<CvMatricula>()
-                               {
-                                   new CvMatricula(1,"3217/14", "Gobierno de la ciudad de Buenos Aires", "Vigente", new DateTime(1990, 09, 07))
-                               };
-
-            return matricula;
-        }
-
-        public List<CvPublicaciones> GetCvPublicaciones(int documento)
-        {
-            var publicaciones = new List<CvPublicaciones>()
-                               {
-                                   new CvPublicaciones(1,"Factorizaciones", "Santillana", "377", 0, new DateTime(2001, 11, 11))
-                               };
-
-            return publicaciones;
-        }
-        #endregion
-
+              
         private int CrearBaja(Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();

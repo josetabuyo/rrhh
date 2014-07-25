@@ -14,7 +14,7 @@ namespace General
         protected DateTime _fechaIngreso;
         protected DateTime _fechaEgreso;
         protected string _localidad;
-        protected string _pais;
+        protected int _pais;
         protected string _especialidad;
 
         public int Id { get { return _id; } set { _id = value; } }
@@ -25,22 +25,22 @@ namespace General
         public DateTime FechaIngreso { get { return _fechaIngreso; } set { _fechaIngreso = value; } }
         public DateTime FechaEgreso { get { return _fechaEgreso; } set { _fechaEgreso = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
-        public string Pais { get { return _pais; } set { _pais = value; } }
-        
+        public int Pais { get { return _pais; } set { _pais = value; } }
 
-        public CvEstudios(string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, string pais)
+
+        public CvEstudios(string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais)
         {
             SetearCampos(titulo, nivel, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);
         }
 
-        public CvEstudios(int id, string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, string pais)
+        public CvEstudios(int id, string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais)
         {
             this._id = id;
             SetearCampos(titulo, nivel, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);
 
         }
 
-        private void SetearCampos(string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, string pais)
+        private void SetearCampos(string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais)
         {
             this._titulo = titulo;
             this._establecimiento = establecimiento;
