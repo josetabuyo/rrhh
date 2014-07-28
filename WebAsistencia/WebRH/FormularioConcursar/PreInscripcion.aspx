@@ -238,7 +238,7 @@
 
      function PasarAInscripcion() {
 
-         window.location.href = 'Inscripcion.aspx?Puesto=' + puesto.Puesto;
+         window.location.href = 'Inscripcion.aspx?id=' + puesto.id;
 
      }
        

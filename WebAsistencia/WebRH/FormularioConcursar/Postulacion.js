@@ -4,20 +4,24 @@
 
         //_this.divListado = $('#listado_puestos');
         //_this.divGrilla = $('#tabla_puestos');
-
-         _this.idPuesto = getVarsUrl();
+        //_this.ui = $("#fondo_form");
+        _this.Puesto = getVarsUrl();
+        _this.btn_postular = $("#btn_postularse");
          //_this.idPersona = _this.ui.find("#txt_matricula_fecha_inscripcion");
-         _this.txt_motivo = _this.ui.find("#txt_motivo");
-         _this.txt_observaciones = _this.ui.find("#txt_observaciones");
+        _this.txt_motivo = $("#txt_motivo");
+        _this.txt_observaciones = $("#txt_observaciones");
 
-        _this.btn_guardar.click(function () {
+        _this.btn_postular.click(function () {
+        if (!($('#chk_bases').attr('checked'))) {
+                alert('Debe aceptar los términos y bases del concurso');
+                return;
+            }
             var postulacion = {};
-                postulacion.IdPuesto = _this.idPuesto;
+                postulacion.IdPuesto = parseInt(_this.Puesto.id);
                 //postulacion.IdPersona = _this.txt_competencias_informaticas_establecimiento.val();
                 //postulacion.FechaPostulacion = _this.txt_competencias_informaticas_fecha_obtencion.datepicker('getDate').toISOString();
-                postulacion.Motivo = _this.cmb_competencias_informaticas_localidad.val();
-                postulacion.Observaciones = _this.cmb_competencias_informaticas_pais.val();
-               
+                postulacion.Motivo =  _this.txt_motivo.val();
+                postulacion.Observaciones = _this.txt_observaciones.val();
                
                 var proveedor_ajax = new ProveedorAjax();
 
@@ -26,7 +30,7 @@
                         una_postulacion: postulacion,
                     },
                     success: function (respuesta) {
-                        alertify.alert("Usted se postuló correctamente");
+                        alertify.alert("Usted se postuló correctamente. Número de postulación: " + respuesta.Id);
                         //alModificar(respuesta);
                         //$(".modal_close_concursar").click();
                     },
@@ -74,12 +78,12 @@ jQuery(document).ready(function () {
 
 
 //DatePicker del formulario de DatosPersonales
-$('#txt_fechaNac').datepicker({
-    dateFormat: 'dd/mm/yy',
-    onClose: function () {
+//$('#txt_fechaNac').datepicker({
+//    dateFormat: 'dd/mm/yy',
+//    onClose: function () {
 
-    }
-});
+//    }
+//});
 
 
 //var ParsearFecha = function (fecha) {

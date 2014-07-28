@@ -2501,7 +2501,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool PostularseA(Postulacion postulacion, Usuario usuario)
+    public Postulacion PostularseA(Postulacion postulacion, Usuario usuario)
     {
        // var postulaciones = new Postulacion();
         return RepoPostulaciones().PostularseA(postulacion, usuario);

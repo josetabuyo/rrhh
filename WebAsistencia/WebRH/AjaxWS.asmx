@@ -753,9 +753,10 @@ public class AjaxWS : System.Web.Services.WebService {
     #endregion
 
     [WebMethod(EnableSession = true)]
-    public bool PostularseA(WSViaticos.Postulacion una_postulacion)
+    public string PostularseA(WSViaticos.Postulacion una_postulacion)
     {
-        return backEndService.PostularseA(una_postulacion, usuarioLogueado);
+        var postulacion = backEndService.PostularseA(una_postulacion, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(postulacion);
         
     } 
     
