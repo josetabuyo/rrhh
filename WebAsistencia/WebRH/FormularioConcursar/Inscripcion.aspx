@@ -117,11 +117,11 @@
             <hr />
             <div id = "cont_info_a_completar">
                <label>Motivo de la postulaci&oacute;n</label>
-                <textarea rows="2" cols="80"></textarea>
+                <textarea id="txt_motivo" rows="2" cols="80"></textarea>
             </div>
             <div id="cont_info_a_completar_2">
                 <label>Observaciones</label>
-                <textarea rows="2" cols="80"></textarea>
+                <textarea id="txt_observaciones" rows="2" cols="80"></textarea>
             </div>
             <hr />
 
@@ -151,12 +151,26 @@
                     g) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
                     h) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
                 </p>
-                <p class="aclaraciones"><input type="checkbox" />He leído y acepto las Bases y Condiciones del Concurso al que me postulo</p>
+                <p class="aclaraciones"><input id="chk_bases" type="checkbox" />He leído y acepto las Bases y Condiciones del Concurso al que me postulo</p>
                 <a style="margin-right: 10px;" class="btn btn-primary" href="#">Cancelar</a>
-                <a class="btn btn-primary" href="VistaPreliminar.aspx">Confirmar Postulación</a>
+                <input type="button" class="btn btn-primary" id="btn_postularse" value="Confirmar Postulación" />
             </div>
         </div>
     </div>
     </form>
 </body>
+ <script type="text/javascript" src="Postulacion.js" ></script>
+ <%= Referencias.Javascript("../") %>
+
+  <script type="text/javascript">
+
+      $(document).ready(function () {
+          Postulacion.armarPostulacion();
+          
+      });
+
+
+  </script>
+
+
 </html>

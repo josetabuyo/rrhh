@@ -36,6 +36,16 @@ namespace General.MAU
             return GetUsuarioDeTablaDeDatos(tablaDatos);
         }
 
+        public int GetDniPorAlias(string alias)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@alias", alias);
+            var tablaDatos = conexion.Ejecutar("dbo.Web_Get_UsuarioPorAlias", parametros);
+            return GetDNIUsuarioDeTablaDeDatos(tablaDatos);
+        }
+
+
+
         public Usuario GetUsuarioPorIdPersona(int id_persona)
         {
             var parametros = new Dictionary<string, object>();
@@ -57,6 +67,19 @@ namespace General.MAU
             }
             return new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja"));            
         }
+
+
+        private int GetDNIUsuarioDeTablaDeDatos(TablaDeDatos tablaDatos)
+        {
+            if (tablaDatos.Rows.Count == 0) return 0;
+            var row = tablaDatos.Rows.First();
+            if ((row.GetObject("NroDocumento") is DBNull))
+            {
+                return 0;
+            }
+            return row.GetSmallintAsInt("NroDocumento");
+        }
+
         
         public Usuario CrearUsuarioPara(int id_persona)
         {

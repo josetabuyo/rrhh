@@ -7,6 +7,7 @@ namespace General
 {
     public class CvEventoAcademico
     {
+        protected int _id;
         protected string _denominacion;
         protected string _tipoEvento;
         protected string _caracterDeParticipacion;
@@ -15,8 +16,9 @@ namespace General
         protected DateTime _fechaFinalizacion;
         protected string _duracion;
         protected string _localidad;
-        protected string _pais;
+        protected int _pais;
 
+        public int Id { get { return _id; } set { _id = value; } }
         public string Denominacion { get { return _denominacion; } set { _denominacion = value; } }
         public string TipoDeEvento { get { return _tipoEvento; } set { _tipoEvento = value; } }
         public string CaracterDeParticipacion { get { return _caracterDeParticipacion; } set { _caracterDeParticipacion = value; } }
@@ -25,10 +27,11 @@ namespace General
         public DateTime FechaFinalizacion { get { return _fechaFinalizacion; } set { _fechaFinalizacion = value; } }
         public string Duracion { get { return _duracion; } set { _duracion = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
-        public string Pais { get { return _pais; } set { _pais = value; } }
+        public int Pais { get { return _pais; } set { _pais = value; } }
 
-        public CvEventoAcademico(string denominacion, string tipoDeEvento, string caracterDeParticipacion, string institucion, DateTime fechaInicio, DateTime fechaFinalizacion, string duracion, string localidad, string pais)
+        public CvEventoAcademico(int id, string denominacion, string tipoDeEvento, string caracterDeParticipacion, DateTime fechaInicio, DateTime fechaFinalizacion, string duracion, string institucion, string localidad, int pais)
         {
+            this._id = id;
             this._denominacion = denominacion;
             this._tipoEvento = tipoDeEvento;
             this._caracterDeParticipacion = caracterDeParticipacion;

@@ -18,6 +18,9 @@ namespace General
         protected List<CvDocencia> _cvDocencias;
         protected List<CvCompetenciasInformaticas> _cvCompetenciasInformaticas;
         protected List<CvCertificadoDeCapacitacion> _cvCertificadosDeCapacitacion;
+        protected List<CvCapacidadPersonal> _cvCapacidadesPersonales;
+        protected bool _tieneCV;
+        
 
         public virtual CvDatosPersonales DatosPersonales { get { return _datosPersonales; } set { _datosPersonales = value; } }
         public virtual List<CvEstudios> CvEstudios { get { return _cvEstudios; } set { _cvEstudios = value; } }
@@ -30,7 +33,8 @@ namespace General
         public virtual List<CvDocencia> CvDocencias { get { return _cvDocencias; } set { _cvDocencias = value; } }
         public virtual List<CvCompetenciasInformaticas> CvCompetenciasInformaticas { get { return _cvCompetenciasInformaticas; } set { _cvCompetenciasInformaticas = value; } }
         public virtual List<CvCertificadoDeCapacitacion> CvCertificadosDeCapacitacion { get { return _cvCertificadosDeCapacitacion; } set { _cvCertificadosDeCapacitacion = value; } }
-
+        public virtual List<CvCapacidadPersonal> CvCapacidadesPersonales { get { return _cvCapacidadesPersonales; } set { _cvCapacidadesPersonales = value; } }
+        public virtual bool TieneCv { get { return _tieneCV; } set { _tieneCV = value; } }
 
         public CurriculumVitae(CvDatosPersonales datosPersonales)
         {
@@ -45,6 +49,8 @@ namespace General
             this._cvDocencias = new List<CvDocencia>();
             this._cvCompetenciasInformaticas = new List<CvCompetenciasInformaticas>();
             this._cvCertificadosDeCapacitacion = new List<CvCertificadoDeCapacitacion>();
+            this._cvCapacidadesPersonales = new List<CvCapacidadPersonal>();
+            
         }
 
         public CurriculumVitae() { }
@@ -98,5 +104,19 @@ namespace General
         {
             this._cvCertificadosDeCapacitacion.Add(cvCertificacionDeCapacitacion);
         }
+
+        public void AgregarCapacidadPersonal(CvCapacidadPersonal cvCapacidadPersonal)
+        {
+            this._cvCapacidadesPersonales.Add(cvCapacidadPersonal);
+        }
+
+
+        public bool TieneLegajo()
+        {
+            if (this.DatosPersonales.TieneLegajo == "Tiene legajo")
+                return true;
+            return false;
+        }
+
     }
 }

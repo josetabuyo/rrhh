@@ -2222,6 +2222,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public int GetDniPorAlias(string alias)
+    {
+        return RepositorioDeUsuarios().GetDniPorAlias(alias);
+    }
+
+
+    [WebMethod]
     public Usuario CrearUsuarioPara(int id_persona)
     {
         return RepositorioDeUsuarios().CrearUsuarioPara(id_persona);
@@ -2398,30 +2405,12 @@ public class WSViaticos : System.Web.Services.WebService
     [XmlInclude(typeof(CurriculumVitaeNull))]
     public CurriculumVitae GetCurriculum(int documento)
     {
-        //var curriculum_dto = new CurriculumVitae();
         CurriculumVitae curriculum = RepoCurriculum().GetCV(documento);
        
-        //foreach (var o in curriculum)
-        //{
-        //curriculum_dto = new CurriculumVitae() //.Add(new CurriculumDto()
-        //                     {
-        //                         //Id = 1,
-        //                         DatosPersonales = curriculum.DatosPersonales,
-        //                         CvDocencias = curriculum.CvDocencias,
-        //                         CvEstudios = curriculum.CvEstudios,
-        //                         CvEventosAcademicos = curriculum.CvEventosAcademicos,
-        //                         CvCompetenciasInformaticas = curriculum.CvCompetenciasInformaticas,
-        //                         CvExperienciaLaboral = curriculum.CvExperienciaLaboral,
-        //                         CvIdiomas = curriculum.CvIdiomas,
-        //                         CvInstitucionesAcademicas = curriculum.CvInstitucionesAcademicas,
-        //                         CvMatricula = curriculum.CvMatricula,
-        //                         CvPublicaciones = curriculum.CvPublicaciones,
-        //                         CvCertificadosDeCapacitacion = curriculum.CvCertificadosDeCapacitacion
-
-        //                     };
-        //return new CurriculumVitaeNull();
         return curriculum;
     }
+    /*
+    #region GETs
 
     [WebMethod]
     public CvEstudios[] GetCvEstudios(int documento)
@@ -2429,13 +2418,6 @@ public class WSViaticos : System.Web.Services.WebService
         var estudios = RepoCurriculum().GetCvEstudios(documento);
         
         return estudios.ToArray();
-    }
-
-    [WebMethod]
-    public CvCapacidadesPersonales[] GetCvCapacidadesPersonales(int documento)
-    {
-        var capacidades_personales = RepoCurriculum().GetCvCapacidadesPersonales(documento);
-        return capacidades_personales.ToArray();
     }
 
     [WebMethod]
@@ -2458,13 +2440,6 @@ public class WSViaticos : System.Web.Services.WebService
  
         var datos_personales = RepoCurriculum().GetCvDatosPersonales(documento);
         return datos_personales;
-    }
-
-    [WebMethod]
-    public CvDocencia[] GetCvDocencia(int documento)
-    {
-        var docencia = RepoCurriculum().GetCvDocencia(documento);
-        return docencia.ToArray();
     }
 
     [WebMethod]
@@ -2516,7 +2491,9 @@ public class WSViaticos : System.Web.Services.WebService
         return publicaciones.ToArray();
     }
 
-
+    #endregion GETs
+    */
+    
     [WebMethod]
     public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO_nueva, CvDatosPersonales datosPersonalesDTO_original, Usuario usuario)
     {
@@ -2524,70 +2501,295 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public CvEstudios EliminarCvAntecedentesAcademicos(CvEstudios antecedente_a_borrar, Usuario usuario)
+    public Postulacion PostularseA(Postulacion postulacion, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCVAntecedentesAcademicos(antecedente_a_borrar, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
+       // var postulaciones = new Postulacion();
+        return RepoPostulaciones().PostularseA(postulacion, usuario);
+    }
+
+    #region CVAntecedentesAcademicos
+    [WebMethod]
+    public CvEstudios GuardarCvAntecedenteAcademico(CvEstudios antecedentesAcademicos_nuevo,  Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public CvEstudios ActualizarCvAntecedenteAcademico(CvEstudios antecedentesAcademicos_nuevo,  Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public bool EliminarCvAntecedenteAcademico(int antecedente_a_borrar, Usuario usuario)
+    {
+        return RepoCurriculum().EliminarCVAntecedentesAcademicos(antecedente_a_borrar, usuario);
+    }
+    #endregion
+
+    #region CVActividadesCapacitacion
+    [WebMethod]
+    public CvCertificadoDeCapacitacion GuardarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_capacitacion, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvActividadCapacitacion(actividad_capacitacion, usuario);
+    }
+
+    [WebMethod]
+    public CvCertificadoDeCapacitacion ActualizarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_capacitacion, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvActividadCapacitacion(actividad_capacitacion, usuario);
+    }
+
+    [WebMethod]
+    public bool EliminarCvActividadCapacitacion(int id_actividad, Usuario usuario)
+    {
+        return RepoCurriculum().EliminarCvActividadCapacitacion(id_actividad, usuario);
+    }
+    #endregion
+
+    #region CVActividadesDocentes
+    [WebMethod]
+    public CvDocencia GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvActividadesDocentes(docencia_nuevo, usuario);
+
+    }
+
+    [WebMethod]
+    public CvDocencia ActualizarCvActividadesDocencia(CvDocencia docencia_nuevo, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvActividadesDocencia(docencia_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public CvDocencia EliminarCvActividadesDocentes(CvDocencia actividades_docentes_a_borrar, Usuario usuario)
+    {
+        return RepoCurriculum().EliminarCvActividadesDocentes(actividades_docentes_a_borrar, usuario);
+    }
+
+    #endregion
+
+    #region CvEventoAcademico
+    [WebMethod]
+    public CvEventoAcademico GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvEventoAcademico(eventoAcademico_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public CvEventoAcademico ActualizarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvEventoAcademico(eventoAcademico_nuevo, usuario);
+    }
+
+    [WebMethod]
+    public bool EliminarCvEventosAcademicos(int id_evento, Usuario usuario)
+    {
+        return RepoCurriculum().EliminarCvEventosAcademicos(id_evento, usuario);
+    }
+    #endregion
+
+    #region CvPublicaciones
+
+    [WebMethod]
+    public CvPublicaciones GuardarCvPublicacionesTrabajos(CvPublicaciones publicaciones_nuevas, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvPublicacionesTrabajos(publicaciones_nuevas, usuario);
+    }
+
+    [WebMethod]
+    public CvPublicaciones ActualizarCvPublicaciones(CvPublicaciones publicacion_nueva, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvPublicaciones(publicacion_nueva, usuario);
+    }
+
+    [WebMethod]
+    public CvPublicaciones EliminarCvPublicacionesTrabajos(CvPublicaciones publicaciones_trabajos_a_borrar, Usuario usuario)
+    {
+        return RepoCurriculum().EliminarCvPublicacionesTrabajos(publicaciones_trabajos_a_borrar, usuario);
+    }
+
+    #endregion
+
+    #region CVMatriculas
+    [WebMethod]
+    public CvMatricula GuardarCvMatricula(CvMatricula matricula, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvMatricula(matricula, usuario);
+    }
+
+    [WebMethod]
+    public CvMatricula ActualizarCvMatricula(CvMatricula matricula, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvMatricula(matricula, usuario);
+    }
+
+    [WebMethod]
+    public bool EliminarCvMatricula(int id_matricula, Usuario usuario)
+    {
+        return RepoCurriculum().EliminarCvMatricula(id_matricula, usuario);
+    }
+    #endregion
+
+    #region CvInstituciones
+    [WebMethod]
+    public CvInstitucionesAcademicas GuardarCvInstitucionAcademica(CvInstitucionesAcademicas competencia_informatica, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvInstitucionAcademica(competencia_informatica, usuario);
+    }
+
+    [WebMethod]
+    public CvInstitucionesAcademicas ActualizarCvInstitucionAcademica(CvInstitucionesAcademicas competencia_informatica, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvInstitucionAcademica(competencia_informatica, usuario);
+    }
+
+    [WebMethod]
+    public bool EliminarCvInstitucionAcademica(int id_competencia, Usuario usuario)
+    {
+        return RepoCurriculum().EliminarCvInstitucionAcademica(id_competencia, usuario);
+    }
+    #endregion
+
+    #region CvExperiencias
+    [WebMethod]
+    public CvExperienciaLaboral GuardarCvExperienciaLaboral(CvExperienciaLaboral experiencia, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvExperienciaLaboral(experiencia, usuario);
+    }
+
+    [WebMethod]
+    public CvExperienciaLaboral ActualizarCvExperienciaLaboral(CvExperienciaLaboral experiencia, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvExperienciaLaboral(experiencia, usuario);
+    }
+
+    [WebMethod]
+    public bool EliminarCvExperienciaLaboral(int id_experiencia, Usuario usuario)
+    {
+        return RepoCurriculum().EliminarCvExperienciaLaboral(id_experiencia, usuario);
+    }
+
+    #endregion
+
+    #region CvIdiomas
+
+    [WebMethod]
+    public CvIdiomas GuardarCvIdiomaExtranjero(CvIdiomas idioma_extranjero, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvIdiomaExtranjero(idioma_extranjero, usuario);
+    }
+
+    [WebMethod]
+    public CvIdiomas ActualizarCvIdiomaExtranjero(CvIdiomas idioma_extranjero, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvIdiomaExtranjero(idioma_extranjero, usuario);
+    }
+
+    [WebMethod]
+    public bool EliminarCvIdiomaExtranjero(int id_capacidad, Usuario usuario)
+    {
+        return RepoCurriculum().EliminarCvIdiomaExtranjero(id_capacidad, usuario);
+    }
+
+
+    #endregion
+    
+    #region CvComptenciasInformaticas
+    [WebMethod]
+    public CvCompetenciasInformaticas GuardarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia_informatica, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvCompetenciaInformatica(competencia_informatica, usuario);
+    }
+
+    [WebMethod]
+    public CvCompetenciasInformaticas ActualizarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia_informatica, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvCompetenciaInformatica(competencia_informatica, usuario);
+    }
+
+    [WebMethod]
+    public bool EliminarCvCompetenciaInformatica(int id_competencia, Usuario usuario)
+    {
+        return RepoCurriculum().EliminarCvCompetenciaInformatica(id_competencia, usuario);
+    }
+
+    #endregion
+
+    #region CvOtrasCapacidades
+
+    [WebMethod]
+    public CvCapacidadPersonal GuardarCvOtraCapacidad(CvCapacidadPersonal capacidad_personal, Usuario usuario)
+    {
+        return RepoCurriculum().GuardarCvOtraCapacidad(capacidad_personal, usuario);
+    }
+
+    [WebMethod]
+    public CvCapacidadPersonal ActualizarCvOtraCapacidad(CvCapacidadPersonal capacidad_personal, Usuario usuario)
+    {
+        return RepoCurriculum().ActualizarCvOtraCapacidad(capacidad_personal, usuario);
+    }
+
+    [WebMethod]
+    public bool EliminarCvOtraCapacidad(int id_capacidad, Usuario usuario)
+    {
+        return RepoCurriculum().EliminarCvOtraCapacidad(id_capacidad, usuario);
+    }
+    #endregion
+
+    [WebMethod]
+    public Puesto[] GetCvPuestos()
+    {
+        return RepoPuestos().GetPuestos().ToArray();
     }
 
      [WebMethod]
-    public CvDocencia EliminarCvActividadesDocentes(CvDocencia actividades_docentes_a_borrar, Usuario usuario)
+    public Provincia[] GetProvincias()
     {
-        return RepoCurriculum().EliminarCvActividadesDocentes(actividades_docentes_a_borrar, usuario);//.GuardarEvaluaciones(evaluaciones_originales_posta, evaluaciones_nuevas_posta, usuario);
-    }
-
-    
-    
-
-    [WebMethod]
-    public CvEstudios[] GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, CvEstudios antecedentesAcademicos_original, Usuario usuario)
-    {
-        return RepoCurriculum().GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario).ToArray();
+        return RepositorioDeProvincias.NuevoRepositorioDeProvincias(Conexion()).TodasLasProvincias().ToArray();
     }
 
     [WebMethod]
-    public void GuardarCvCapacidades(CvCertificadoDeCapacitacion capacidades_nuevo, CvCertificadoDeCapacitacion capacidades_original, Usuario usuario)
+    public Nacionalidad[] GetNacionalidades()
     {
-        RepoCurriculum().GuardarCvCapacidades(capacidades_nuevo, usuario);
+        return RepositorioDeNacionalidades.NuevoRepositorioDeNacionalidades(Conexion()).TodasLasNacionalidades().ToArray();
     }
 
     [WebMethod]
-    public CvDocencia[] GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, CvDocencia docencia_original, Usuario usuario)
+    public Pais[] GetPaises()
     {
-        return RepoCurriculum().GuardarCvActividadesDocentes(docencia_nuevo, usuario).ToArray();
-    
+        return RepositorioDePaises.NuevoRepositorioDePaises(Conexion()).TodosLosPaises().ToArray();
     }
 
     [WebMethod]
-    public void GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, CvEventoAcademico eventoAcademico_original, Usuario usuario)
+    public EstadoCivil[] GetEstadosCiviles()
     {
-        RepoCurriculum().GuardarCvEventoAcademico(eventoAcademico_nuevo, usuario);
+        return RepositorioDeEstadosCiviles.NuevoRepositorioDeEstadoCivil(Conexion()).TodosLosEstadosCiviles().ToArray();
     }
 
     [WebMethod]
-    public void GuardarCvPublicaciones(CvPublicaciones publicaciones_nuevas, CvPublicaciones publicaciones_original, Usuario usuario)
+    public TipoDeDocumento[] GetTiposDeDocumento()
     {
-        RepoCurriculum().GuardarCvPublicaciones(publicaciones_nuevas, usuario);
+        return RepositorioDeTiposdeDocumento.NuevoRepositorioDeTiposdeDocumento(Conexion()).TodosLosTiposDeDocumento().ToArray();
     }
 
     [WebMethod]
-    public void GuardarCvMatriculas(CvMatricula matriculas_nuevas, CvMatricula matriculas_original, Usuario usuario)
+    public Sexo[] GetSexos()
     {
-        RepoCurriculum().GuardarCvMatriculas(matriculas_nuevas, usuario);
-    }
-
-
-    [WebMethod]
-    public void GuardarCvInstituciones(CvInstitucionesAcademicas instituciones_nuevas, CvInstitucionesAcademicas instituciones_original, Usuario usuario)
-    {
-        RepoCurriculum().GuardarCvInstituciones(instituciones_nuevas, usuario);
+        return RepositorioDeSexos.NuevoRepositorioDeSexos(Conexion()).TodosLosSexos().ToArray();
     }
 
     [WebMethod]
-    public void GuardarCvExperiencias(CvExperienciaLaboral experiencias_nuevas, CvExperienciaLaboral experiencias_originales, Usuario usuario)
+    public NivelDeDocencia[] GetNivelesDeDocencia()
     {
-        RepoCurriculum().GuardarCvExperiencias(experiencias_nuevas, usuario);
+        return RepositorioDeNivelesDeDocencia.NuevoRepositorioDeNivelesDeDocencia(Conexion()).TodosLosNivelesDeDocencia().ToArray();
     }
 
+    [WebMethod]
+    public Localidad[] BuscarLocalidades(string criterio)
+    {
+        return RepositorioDeLocalidades.NuevoRepositorioDeLocalidades(Conexion()).BuscarLocalidades(criterio).ToArray();
+    }
 
     #endregion
 
@@ -2686,6 +2888,16 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeCurriculum RepoCurriculum()
     {
         return new RepositorioDeCurriculum(Conexion());
+    }
+
+    private RepositorioDePuestos RepoPuestos()
+    {
+        return new RepositorioDePuestos(Conexion());
+    }
+
+    private RepositorioDePostulaciones RepoPostulaciones()
+    {
+        return new RepositorioDePostulaciones(Conexion());
     }
 
 
