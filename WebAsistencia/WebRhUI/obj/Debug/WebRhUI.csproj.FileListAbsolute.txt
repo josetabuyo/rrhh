@@ -21,3 +21,5 @@ C:\Repositorios\Agustin\rrhh\rrhh\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.pdb
 C:\Documents and Settings\msaenz\Escritorio\Repositorio\master\WebAsistencia\WebRhUI\obj\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\msaenz\Escritorio\Repositorio\master\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.dll
 C:\Documents and Settings\msaenz\Escritorio\Repositorio\master\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.pdb
+C:\Documents and Settings\msaenz\Escritorio\Repositorio\master\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.dll
+C:\Documents and Settings\msaenz\Escritorio\Repositorio\master\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.pdb
