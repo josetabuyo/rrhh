@@ -223,7 +223,7 @@
               <div id="collapseTwo" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_antecedente_academico" class="link" >Cargar antecedentes académicos</a></legend>
+                    <legend><a id="btn_agregar_antecedente_academico" class="link" >Cargar antecedente académico</a></legend>
                            
                         <h4>Antecedentes Agregados</h4>
                         <div id="ContenedorPlanillaAntecendentesAcademicos" runat="server">
@@ -245,7 +245,7 @@
               <div id="collapseThree" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                 <fieldset style="width:100%;">
-                <legend><a id="btn_agregar_actividad_capacitacion" class="link"> Cargar actividades de capacitación</a></legend>
+                <legend><a id="btn_agregar_actividad_capacitacion" class="link"> Cargar actividad de capacitación</a></legend>
                         <h4>Actividades de Capacitación Agregadas</h4>
                         <div id="ContenedorPlanillaActividadesCapacitacion" runat="server">
                             <table id="tabla_actividades_capacitacion" class="table table-striped">
@@ -266,7 +266,7 @@
               <div id="collapseFour" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_actividad_docente" class="link" >Cargar actividades docentes</a></legend>
+                    <legend><a id="btn_agregar_actividad_docente" class="link" >Cargar actividad docente</a></legend>
                         <h4>Actividades Docentes Agregadas</h4>
                         <div id="ContenedorPlanillaActividadesDocentes" runat="server">
                             <table id="tabla_actividades_docentes" class="table table-striped">
@@ -287,7 +287,7 @@
               <div id="collapseFive" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_evento_academico" class="link" >Cargar eventos académicos</a></legend>
+                    <legend><a id="btn_agregar_evento_academico" class="link" >Cargar evento académico</a></legend>
                         <h4>Eventos Acadmémicos Agregados</h4>
                         <div id="ContenedorPlanillEventosAcademicos" runat="server">
                             <table id="tabla_eventos_academicos" class="table table-striped">
@@ -308,7 +308,7 @@
               <div id="collapseSix" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_publicacion_trabajo" class="link" >Cargar publicaciones y trabajos</a></legend>
+                    <legend><a id="btn_agregar_publicacion_trabajo" class="link" >Cargar publicación o trabajo</a></legend>
                         <h4>Publicaciones y Trabajos Agregados</h4>
                         <div id="ContenedorPlanillaPublicacionesTrabajos" runat="server">
                             <table id="tabla_publicaciones_trabajos" class="table table-striped">
@@ -329,7 +329,7 @@
               <div id="collapseSeven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_matricula" class="link" >Cargar matrículas</a></legend>
+                    <legend><a id="btn_agregar_matricula" class="link" >Cargar matrícula</a></legend>
                         <h4>Matrículas Agregadas</h4>
                         <div id="ContenedorPlanillaMatriculas" runat="server">
                             <table id="tabla_matriculas" class="table table-striped">
@@ -350,7 +350,7 @@
               <div id="collapseEight" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_institucion_academica"  class="link" >Cargar instituciones académicas</a></legend>
+                    <legend><a id="btn_agregar_institucion_academica"  class="link" >Cargar institución académica</a></legend>
                         <h4>Instituciones Académicas Agregadas</h4>
                         <div id="ContenedorPlanillaInstitucionesAcademicas" runat="server">
                             <table id="tabla_instituciones_academicas" class="table table-striped">
@@ -392,7 +392,7 @@
               <div id="collapseTen" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_idioma_extranjero" class="link" >Cargar idiomas extranjeros</a></legend>
+                    <legend><a id="btn_agregar_idioma_extranjero" class="link" >Cargar idioma extranjero</a></legend>
                         <h4>Idiomas Extranjeros Agregados</h4>
                         <div id="ContenedorPlanillaIdiomasExtranjeros" runat="server">
                             <table id="tabla_idiomas_extranjeros" class="table table-striped">
@@ -413,7 +413,7 @@
               <div id="collapseEleven" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_competencia_informatica" class="link" >Cargar competencias informáticas</a></legend>
+                    <legend><a id="btn_agregar_competencia_informatica" class="link" >Cargar competencia informática</a></legend>
                         <h4>Competencias Informáticas Agregadas</h4>
                         <div id="ContenedorPlanillaCompetenciasInformaticas" runat="server">
                             <table id="tabla_competencias_informaticas" class="table table-striped">
@@ -434,7 +434,7 @@
               <div id="collapseTwelve" class="accordion-body collapse">
                 <div class="accordion-inner fondo_form">
                   <fieldset style="width:100%;">
-                    <legend><a id="btn_agregar_otra_capacidad"  class="link" >Cargar otras capacidades</a></legend>
+                    <legend><a id="btn_agregar_otra_capacidad"  class="link" >Cargar otra capacidad</a></legend>
                         <h4>Otras Capacidades Agregadas</h4>
                         <div id="ContenedorPlanillaOtrasCapacidades" runat="server">
                             <table id="tabla_otras_capacidades" class="table table-striped">

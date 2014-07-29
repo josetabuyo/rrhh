@@ -753,6 +753,13 @@ public class AjaxWS : System.Web.Services.WebService {
     #endregion
 
     [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void SetPuestoEnSesion(WSViaticos.Puesto puesto)
+    {
+        HttpContext.Current.Session[ConstantesDeSesion.PUESTO] = puesto;
+    }
+    
+    [WebMethod(EnableSession = true)]
     public string PostularseA(WSViaticos.Postulacion una_postulacion)
     {
         var postulacion = backEndService.PostularseA(una_postulacion, usuarioLogueado);
