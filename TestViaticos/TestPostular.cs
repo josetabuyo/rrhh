@@ -107,7 +107,7 @@ namespace TestViaticos
 
         public CvInstitucionesAcademicas UnaInstitucionAcademica()
         {
-            return new CvInstitucionesAcademicas(1,"UBA","Universitario","Profesor","1234","Categoria",new DateTime(2013,12,20),new DateTime(2013,12,20), new DateTime(2013,10,12),new DateTime(2014,12,20),1,1);
+            return new CvInstitucionesAcademicas(1,"UBA","Universitario","Profesor","1234","Categoria",new DateTime(2013,12,20),new DateTime(2013,12,20), new DateTime(2013,10,12),new DateTime(2014,12,20),"Capital federal",1);
         }
 
         public CvMatricula UnaMatricula()

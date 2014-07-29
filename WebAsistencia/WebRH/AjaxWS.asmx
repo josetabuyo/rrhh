@@ -535,7 +535,7 @@ public class AjaxWS : System.Web.Services.WebService {
     }
     
     [WebMethod(EnableSession = true)]
-    public string ActualizarVEventoAcademico(WSViaticos.CvEventoAcademico eventoAcademico)
+    public string ActualizarCVEventoAcademico(WSViaticos.CvEventoAcademico eventoAcademico)
     {
         var eventoAcademicoActualizado = backEndService.ActualizarCvEventoAcademico(eventoAcademico, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(eventoAcademicoActualizado);

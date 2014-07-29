@@ -66,7 +66,7 @@
 
                 proveedor_ajax.postearAUrl({ url: "EliminarCvExperienciaLaboral",
                     data: {
-                        id_experiencia_laboral: una_experiencia.id
+                        id_experiencia_laboral: una_experiencia.Id
                     },
                     success: function (respuesta) {
                         alertify.success("Experiencia eliminada correctamente");

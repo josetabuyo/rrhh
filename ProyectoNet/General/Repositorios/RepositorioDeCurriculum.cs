@@ -326,7 +326,7 @@ namespace General.Repositorios
                                                   Fecha = dRow.GetDateTime("InstitucionFecha", DateTime.Today),
                                                   FechaInicio = dRow.GetDateTime("InstitucionFechaInicio", DateTime.Today),
                                                   FechaFin = dRow.GetDateTime("InstitucionFechaFin", DateTime.Today),
-                                                  Localidad = dRow.GetInt("InstitucionLocalidad", 0),
+                                                  Localidad = dRow.GetString("InstitucionLocalidad", string.Empty),
                                                   Pais = dRow.GetInt("InstitucionPais", 9)
 
                                               }).Distinct().ToList();
