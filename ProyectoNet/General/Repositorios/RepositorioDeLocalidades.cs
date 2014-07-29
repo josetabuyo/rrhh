@@ -19,18 +19,18 @@ namespace General.Repositorios
         {
         }
 
-        public static RepositorioDeLocalidades NuevoRepositorioDeLocalidades(IConexionBD conexion)
+        public static RepositorioDeLocalidades Nuevo(IConexionBD conexion)
         {
             if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeLocalidades(conexion);
             return _instancia;
         }
 
-        public List<Localidad> TodasLasLocalidades()
+        public List<Localidad> All()
         {
             return this.Obtener();
         }
 
-        public List<Localidad> BuscarLocalidades(string criterio)
+        public List<Localidad> Find(string criterio)
         {
             var criterio_deserializado = (JObject) JsonConvert.DeserializeObject(criterio);
             bool filtrar_por_provincia = false;
@@ -45,7 +45,7 @@ namespace General.Repositorios
 
             List<Localidad> localidades = new List<Localidad>();
 
-            localidades = TodasLasLocalidades().FindAll(localidad =>
+            localidades = All().FindAll(localidad =>
             {
                 var pasa_todas_las_condiciones = true;
                 if (filtrar_por_provincia)

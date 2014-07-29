@@ -36,7 +36,7 @@ namespace General.Repositorios
             dr = cn.EjecutarConsulta();
             Provincia unaProvincia;
             List<Provincia> provincias = new List<Provincia>();
-            RepositorioDeLocalidades repositorio = RepositorioDeLocalidades.NuevoRepositorioDeLocalidades(this.conexion);
+            RepositorioDeLocalidades repositorio = RepositorioDeLocalidades.Nuevo(this.conexion);
 
             while (dr.Read())
             {
