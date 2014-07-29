@@ -21,7 +21,7 @@
         var columnas = [];
 
         //columnas.push(new Columna("Id", { generar: function (un_estudio) { return un_estudio.Id } }));
-        columnas.push(new Columna("Titulo", { generar: function (un_estudio) { return un_estudio.Titulo } }));
+        columnas.push(new Columna("Título", { generar: function (un_estudio) { return un_estudio.Titulo } }));
         columnas.push(new Columna("Nivel", { generar: function (un_estudio) { return un_estudio.Nivel } }));
         columnas.push(new Columna("Establecimiento", { generar: function (un_estudio) { return un_estudio.Establecimiento } }));
         //columnas.push(new Columna("Especialidad", { generar: function (un_estudio) { return un_estudio.Especialidad } }));
