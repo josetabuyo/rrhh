@@ -2403,9 +2403,9 @@ public class WSViaticos : System.Web.Services.WebService
 
     [WebMethod]
     [XmlInclude(typeof(CurriculumVitaeNull))]
-    public CurriculumVitae GetCurriculum(int documento)
+    public CurriculumVitae GetCurriculum(int id)
     {
-        CurriculumVitae curriculum = RepoCurriculum().GetCV(documento);
+        CurriculumVitae curriculum = RepoCurriculum().GetCV(id);
        
         return curriculum;
     }
