@@ -806,7 +806,7 @@ public class AjaxWS : System.Web.Services.WebService {
             case "TiposDeDocumento": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetTiposDeDocumento());
             case "Sexos": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetSexos());
             case "Localidades": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.BuscarLocalidades(criterio));
-            case "NivelesDeDocencia": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetNivelesDeDocencia());
+            case "NivelesDeDocencia": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.BuscarNivelesDeDocencia(criterio));
             case "Paises": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetPaises());
             case "NivelesDeIdioma": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.BuscarNivelesDeIdioma(criterio));
             default: return "El repositorio no existe";

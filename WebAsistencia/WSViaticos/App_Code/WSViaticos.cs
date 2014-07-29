@@ -2662,7 +2662,7 @@ public class WSViaticos : System.Web.Services.WebService
      [WebMethod]
     public Provincia[] GetProvincias()
     {
-        return RepositorioDeProvincias.NuevoRepositorioDeProvincias(Conexion()).TodasLasProvincias().ToArray();
+        return RepositorioDeProvincias.Nuevo(Conexion()).All().ToArray();
     }
 
     [WebMethod]
@@ -2674,13 +2674,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public NivelDeIdioma[] BuscarNivelesDeIdioma(string criterio)
     {
-        return RepositorioDeNivelesDeIdioma.NuevoRepositorioDeNivelesDeIdioma(Conexion()).Find(criterio).ToArray();
+        return RepositorioDeNivelesDeIdioma.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
     [WebMethod]
     public Pais[] GetPaises()
     {
-        return RepositorioDePaises.NuevoRepositorioDePaises(Conexion()).TodosLosPaises().ToArray();
+        return RepositorioDePaises.Nuevo(Conexion()).All().ToArray();
     }
 
     [WebMethod]
@@ -2692,19 +2692,19 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public TipoDeDocumento[] GetTiposDeDocumento()
     {
-        return RepositorioDeTiposdeDocumento.NuevoRepositorioDeTiposdeDocumento(Conexion()).TodosLosTiposDeDocumento().ToArray();
+        return RepositorioDeTiposdeDocumento.Nuevo(Conexion()).All().ToArray();
     }
 
     [WebMethod]
     public Sexo[] GetSexos()
     {
-        return RepositorioDeSexos.NuevoRepositorioDeSexos(Conexion()).TodosLosSexos().ToArray();
+        return RepositorioDeSexos.Nuevo(Conexion()).All().ToArray();
     }
 
     [WebMethod]
-    public NivelDeDocencia[] GetNivelesDeDocencia()
+    public NivelDeDocencia[] BuscarNivelesDeDocencia(string criterio)
     {
-        return RepositorioDeNivelesDeDocencia.NuevoRepositorioDeNivelesDeDocencia(Conexion()).TodosLosNivelesDeDocencia().ToArray();
+        return RepositorioDeNivelesDeDocencia.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
     [WebMethod]

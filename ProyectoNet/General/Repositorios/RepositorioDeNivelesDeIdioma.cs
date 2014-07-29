@@ -18,7 +18,7 @@ namespace General.Repositorios
         {
         }
 
-        public static RepositorioDeNivelesDeIdioma NuevoRepositorioDeNivelesDeIdioma(IConexionBD conexion)
+        public static RepositorioDeNivelesDeIdioma Nuevo(IConexionBD conexion)
         {
             if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeNivelesDeIdioma(conexion);
             return _instancia;

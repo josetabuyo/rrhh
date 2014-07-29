@@ -65,7 +65,7 @@
                 }
 
                 docencia.Asignatura = _this.txt_asignatura.val();
-                docencia.NivelEducativo = _this.cmb_nivel_educativo.itemSeleccionado();
+                docencia.NivelEducativo = _this.cmb_nivel_educativo.idItemSeleccionado();
                 docencia.TipoActividad = _this.tipo_actividad.val();
                 docencia.CategoriaDocente = _this.categoria_docente.val();
                 docencia.CaracterDesignacion = _this.caracter_designacion.val();

@@ -20,7 +20,7 @@
 
         columnas.push(new Columna("Asignatura", { generar: function (una_actividad_docente) { return una_actividad_docente.Asignatura } }));
         columnas.push(new Columna("Nivel Educativo", {
-            generar: function (un_idioma_extranjero, callback) {
+            generar: function (una_actividad_docente, callback) {
                 Repositorio.buscar( "NivelesDeDocencia",
                                     { Id: una_actividad_docente.NivelEducativo },
                                     function (niveles) {
