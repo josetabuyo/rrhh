@@ -32,20 +32,20 @@ namespace General.Repositorios
         }
 
 
-        public CurriculumVitae GetCV(int documento)
+        public CurriculumVitae GetCV(int id)
         {
             var parametros = new Dictionary<string, object>();
             //var estudios = new List<CvEstudios>();
             //var docencias = new List<CvDocencia>();
 
-            parametros.Add("@NroDocumento", documento);
+            parametros.Add("@idPersona", id);
             var tablaCVs = conexion_bd.Ejecutar("dbo.CV_GetCurriculumVitae", parametros);
 
             CurriculumVitae cv = new CurriculumVitaeNull();
 
             tablaCVs.Rows.ForEach(row =>
             cv = new CurriculumVitae(
-                new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo", 1), row.GetSmallintAsInt("EstadoCivil", 0),
+                new CvDatosPersonales(row.GetInt("NroDocumento"), row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo", 1), row.GetSmallintAsInt("EstadoCivil", 0),
                     row.GetString("Cuil", ""), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad", 0), row.GetDateTime("FechaNacimiento", DateTime.Today).ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento", 0),
                     new CvDomicilio(row.GetInt("DomPers_Id", 0), row.GetString("DomPers_Calle", ""), row.GetInt("DomPers_Numero", 0), row.GetString("DomPers_Piso", ""), row.GetString("DomPers_Depto", ""),
                         row.GetInt("DomPers_Localidad", 0), row.GetSmallintAsInt("DomPers_CodigoPostal", 0), row.GetSmallintAsInt("DomPers_IdProvincia", 0)),
@@ -453,7 +453,7 @@ namespace General.Repositorios
         {
 
             var parametros = new Dictionary<string, object>();
-            var cv = this.GetCV(datosPersonales.Dni);
+            var cv = this.GetCV(usuario.Owner.Id);
 
             //Si la persona existe en Leg => Datos_Personales no se debe poder modificar ni DatosPersonales ni DatosPersonalesAdicionales
             //El domicilio al entrar x primera vez no deberia verlos los del Legajo, asiq hago un insert la primera vez
@@ -466,6 +466,7 @@ namespace General.Repositorios
                 {
                     //insertar en CV_DatosPersonales
                     parametros = CompletarDatosPersonales(datosPersonales, parametros, usuario);
+                    parametros.Add("@IdPersona", usuario.Owner.Id);
 
                     conexion_bd.Ejecutar("dbo.CV_Ins_DatosPersonalesNoEmpleados1ravez", parametros);
                 }
@@ -494,6 +495,7 @@ namespace General.Repositorios
                 {
                     //modificar el CV para no empleados
                     parametros = CompletarDatosPersonales(datosPersonales, parametros, usuario);
+                    parametros.Add("@IdPersona", usuario.Owner.Id);
 
                     conexion_bd.Ejecutar("dbo.CV_Upd_DatosPersonalesNoEmpleados", parametros);
                 }

@@ -15,6 +15,7 @@ public class ConstantesDeSesion
     public static string VIATICO_VACIO = "Viatico vacio";
     public static string ORGANIGRAMA = "Organigrama";
     public static string ALUMNO = "Alumno";
+    public static string PUESTO = "Puesto";
 	public ConstantesDeSesion()
 	{
 		
