@@ -41,15 +41,38 @@ namespace General.Repositorios
                 id_provincia = (int)((JValue)criterio_deserializado["provincia"]);
             }
 
-            return TodasLasLocalidades().FindAll(localidad =>
+
+
+            List<Localidad> localidades = new List<Localidad>();
+
+            localidades = TodasLasLocalidades().FindAll(localidad =>
             {
                 var pasa_todas_las_condiciones = true;
                 if (filtrar_por_provincia)
                 {
                     if (localidad.IdProvincia != id_provincia) pasa_todas_las_condiciones = false;
-                }               
+                }     
+          
+
                 return pasa_todas_las_condiciones;
-            });    
+                                
+            });
+
+
+            if (id_provincia==0)
+            {
+                Localidad caba = new Localidad();
+                caba = localidades.Find(x => x.IdProvincia == 0);
+                localidades.Clear();
+                localidades.Add(caba);
+                return localidades;
+
+            }
+
+            return localidades;
+          
+
+
         }
 
         protected override List<Localidad> ObtenerDesdeLaBase()
