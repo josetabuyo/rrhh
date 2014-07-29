@@ -19,7 +19,17 @@
         var columnas = [];
 
         columnas.push(new Columna("Asignatura", { generar: function (una_actividad_docente) { return una_actividad_docente.Asignatura } }));
-        columnas.push(new Columna("Nivel Educativo", { generar: function (una_actividad_docente) { return una_actividad_docente.NivelEducativo.Descripcion } }));
+        columnas.push(new Columna("Nivel Educativo", {
+            generar: function (un_idioma_extranjero, callback) {
+                Repositorio.buscar( "NivelesDeDocencia",
+                                    { Id: una_actividad_docente.NivelEducativo },
+                                    function (niveles) {
+                                        callback(niveles[0].Descripcion);
+                                    }
+                );
+            }, 
+            asincronico: true
+        }));
         columnas.push(new Columna("Tipo de Actividad", { generar: function (una_actividad_docente) { return una_actividad_docente.TipoActividad } }));
         columnas.push(new Columna("Categoría Docente", { generar: function (una_actividad_docente) { return una_actividad_docente.CategoriaDocente } }));
         columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_docente) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_docente.FechaInicio); } }));

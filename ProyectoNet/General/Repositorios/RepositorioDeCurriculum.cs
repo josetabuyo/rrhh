@@ -169,7 +169,7 @@ namespace General.Repositorios
                                              {
                                                  Id = dRow.GetInt("IdAntecedentesDeDocencia", 0),
                                                  Asignatura = dRow.GetString("AntecedentesDeDocenciaAsignatura", string.Empty),
-                                                 NivelEducativo = new NivelDeDocencia(dRow.GetInt("AntecedentesDeDocenciaNivelEducativo_Id", 0), dRow.GetString("AntecedentesDeDocenciaNivelEducativo_Descripcion", string.Empty)),
+                                                 NivelEducativo = dRow.GetInt("AntecedentesDeDocenciaNivelEducativo", 0),
                                                  TipoActividad = dRow.GetString("AntecedentesDeDocenciaTipoActividad", string.Empty),
                                                  CategoriaDocente = dRow.GetString("AntecedentesDeDocenciaCategoriaDocente", string.Empty),
                                                  CaracterDesignacion = dRow.GetString("AntecedentesDeDocenciaCaracterDesignacion", string.Empty),
@@ -723,7 +723,7 @@ namespace General.Repositorios
             parametros.Add("@CategoriaDocente", docencia_nuevo.CategoriaDocente);
             parametros.Add("@DedicacionDocente", docencia_nuevo.DedicacionDocente);
             parametros.Add("@Establecimiento", docencia_nuevo.Establecimiento);
-            parametros.Add("@NivelEducativo", docencia_nuevo.NivelEducativo.Id);
+            parametros.Add("@NivelEducativo", docencia_nuevo.NivelEducativo);
             parametros.Add("@TipoActividad", docencia_nuevo.TipoActividad);
             parametros.Add("@FechaInicio", docencia_nuevo.FechaInicio);
             parametros.Add("@FechaFinalizacion", docencia_nuevo.FechaFinalizacion);
