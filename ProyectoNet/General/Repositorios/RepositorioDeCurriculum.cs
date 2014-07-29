@@ -226,31 +226,19 @@ namespace General.Repositorios
         {
             //CORTE DE CONTROL PARA OTRAS CAPACIDADES
             //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("CapacidadesPersonalesId") is DBNull))
+            var lista = ArmarFilas(tablaCVs, "CapacidadesPersonalesId", "CapacidadesPersonalesBaja"); new List<RowDeDatos>();
+
+            if (lista.Count > 0)
             {
-                //2.- Creo la capacidad anterior por primera vez
-                var capacidadAnterior = GetOtraCapacidadFromDataRow(tablaCVs.Rows[0]);
+                var capacidades_anonimos = (from RowDeDatos dRow in lista
+                                        select new //CvEventoAcademico ()
+                                        {
+                                            Id = dRow.GetInt("CapacidadesPersonalesId", 0),
+                                            Tipo =  dRow.GetInt("CapacidadesPersonalesTipo", 0),
+                                            Detalle = dRow.GetString("CapacidadesPersonalesDetalle", "")
+                                        }).Distinct().ToList();
 
-                var capacidad = capacidadAnterior;
-
-                if (!(tablaCVs.Rows[0].GetObject("CapacidadesPersonalesId") is DBNull))
-                {
-                    cv.AgregarCapacidadPersonal(capacidad);
-
-                }
-
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("CapacidadesPersonalesId") is DBNull))
-                    {
-                        if (capacidadAnterior.Id != row.GetSmallintAsInt("CapacidadesPersonalesId"))
-                        {
-                            capacidad = GetOtraCapacidadFromDataRow(row);
-                            cv.AgregarCapacidadPersonal(capacidad);
-                            capacidadAnterior = capacidad;
-                        }
-                    }
-                }
+                capacidades_anonimos.Select(e => new CvCapacidadPersonal(e.Id, e.Tipo, e.Detalle)).ToList().ForEach(ev => cv.AgregarCapacidadPersonal(ev));
             }
         }
 
@@ -428,11 +416,6 @@ namespace General.Repositorios
             }
         }
 
-
-        private CvCapacidadPersonal GetOtraCapacidadFromDataRow(RowDeDatos row)
-        {
-            return new CvCapacidadPersonal(row.GetInt("CapacidadesPersonalesId", -1), row.GetInt("CapacidadesPersonalesTipo", -1), row.GetString("CapacidadesPersonalesDetalle", ""));
-        }
 
         private List<RowDeDatos> ArmarFilas(TablaDeDatos tabla, string campo_id, string campo_baja)
         {
@@ -1109,20 +1092,11 @@ namespace General.Repositorios
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Baja", id_baja);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_CapacidadesPersonales", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CapacidadesPersonales", parametros);
 
             return true;
         }
 
-        //public List<CvCapacidadPersonal> GetCvCapacidadesPersonales(int documento)
-        //{
-        //    var capacidades_personales = new List<CvCapacidadPersonal>()
-        //                       {
-        //                           new CvCapacidadPersonal(1, 1, "Simpatico")
-        //                       };
-
-        //    return capacidades_personales;
-        //}
 
         #endregion CvCapacidadesPersonales/OtrasCapacidades
 
