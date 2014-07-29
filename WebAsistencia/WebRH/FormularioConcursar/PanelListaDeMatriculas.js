@@ -21,7 +21,7 @@
         columnas.push(new Columna("Número", { generar: function (una_matricula) { return una_matricula.Numero } }));
         columnas.push(new Columna("Expedida Por", { generar: function (una_matricula) { return una_matricula.ExpedidaPor } }));
         columnas.push(new Columna("Situación Actual", { generar: function (una_matricula) { return una_matricula.SituacionActual } }));
-        columnas.push(new Columna("Fecha", { generar: function (una_matricula) { return una_matricula.FechaInscripcion } })); 
+        columnas.push(new Columna("Fecha", { generar: function (una_matricula) {  return ConversorDeFechas.deIsoAFechaEnCriollo(una_matricula.FechaInscripcion)} })); 
         columnas.push(new Columna('Acciones', {
             generar: function (una_matricula) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();

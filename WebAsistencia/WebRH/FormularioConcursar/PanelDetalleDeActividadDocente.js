@@ -70,7 +70,7 @@
                 docencia.CategoriaDocente = _this.categoria_docente.val();
                 docencia.CaracterDesignacion = _this.caracter_designacion.val();
                 docencia.DedicacionDocente = _this.dedicacion_docente.val();
-                docencia.CargaHoraria = _this.dedicacion_docente.val();
+                docencia.CargaHoraria = _this.carga_horaria.val();
                 docencia.FechaInicio = _this.fecha_inicio.datepicker('getDate').toISOString();
                 docencia.FechaFinalizacion = _this.fecha_fin.datepicker('getDate').toISOString();
                 docencia.Establecimiento = _this.establecimiento.val();
