@@ -2409,91 +2409,7 @@ public class WSViaticos : System.Web.Services.WebService
        
         return curriculum;
     }
-    /*
-    #region GETs
 
-    [WebMethod]
-    public CvEstudios[] GetCvEstudios(int documento)
-    {
-        var estudios = RepoCurriculum().GetCvEstudios(documento);
-        
-        return estudios.ToArray();
-    }
-
-    [WebMethod]
-    public CvCertificadoDeCapacitacion[] GetCvCertificadoDeCapacitacion(int documento)
-    { 
-        var certificados_de_capacitacion = RepoCurriculum().GetCvCertificadoDeCapacitacion(documento);
-        return certificados_de_capacitacion.ToArray();
-    }
-
-    [WebMethod]
-    public CvCompetenciasInformaticas[] GetCvCompetenciasInformaticas(int documento)
-    {
-        var competencias_informaticas = RepoCurriculum().GetCvCompetenciasInformaticas(documento);
-        return competencias_informaticas.ToArray();
-    }
-
-    [WebMethod]
-    public CvDatosPersonales GetCvDatosPersonales(int documento)
-    {
- 
-        var datos_personales = RepoCurriculum().GetCvDatosPersonales(documento);
-        return datos_personales;
-    }
-
-    [WebMethod]
-    public CvDomicilio[] GetCvDomicilio(int documento)
-    {
-        var domicilios = RepoCurriculum().GetCvDomicilio(documento);
-        return domicilios.ToArray();
-    }
-
-    [WebMethod]
-    public CvEventoAcademico[] GetCvEventoAcademico(int documento)
-    {
-        var eventos_academicos = RepoCurriculum().GetCvEventoAcademico(documento);
-        return eventos_academicos.ToArray();
-    }
-
-    [WebMethod]
-    public CvExperienciaLaboral[] GetCvExperienciaLaboral(int documento)
-    {
-        var experiencias_laborales = RepoCurriculum().GetCvExperienciaLaboral(documento);
-        return experiencias_laborales.ToArray();
-    }
-
-    [WebMethod]
-    public CvIdiomas[] GetCvIdiomas(int documento)
-    {
-        var idiomas = RepoCurriculum().GetCvIdiomas(documento);
-        return idiomas.ToArray();
-    }
-
-    [WebMethod]
-    public CvInstitucionesAcademicas[] GetCvInstitucionesAcademicas(int documento)
-    {
-        var instituciones_academicas = RepoCurriculum().GetCvInstitucionesAcademicas(documento);
-        return instituciones_academicas.ToArray();
-    }
-
-    [WebMethod]
-    public CvMatricula[] GetCvMatricula(int documento)
-    {
-        var matriculas = RepoCurriculum().GetCvMatricula(documento);
-        return matriculas.ToArray();
-    }
-
-    [WebMethod]
-    public CvPublicaciones[] GetCvPublicaciones(int documento)
-    {
-        var publicaciones = RepoCurriculum().GetCvPublicaciones(documento);
-        return publicaciones.ToArray();
-    }
-
-    #endregion GETs
-    */
-    
     [WebMethod]
     public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO_nueva, CvDatosPersonales datosPersonalesDTO_original, Usuario usuario)
     {
@@ -2753,6 +2669,12 @@ public class WSViaticos : System.Web.Services.WebService
     public Nacionalidad[] GetNacionalidades()
     {
         return RepositorioDeNacionalidades.NuevoRepositorioDeNacionalidades(Conexion()).TodasLasNacionalidades().ToArray();
+    }
+
+    [WebMethod]
+    public NivelDeIdioma[] BuscarNivelesDeIdioma(string criterio)
+    {
+        return RepositorioDeNivelesDeIdioma.NuevoRepositorioDeNivelesDeIdioma(Conexion()).Find(criterio).ToArray();
     }
 
     [WebMethod]

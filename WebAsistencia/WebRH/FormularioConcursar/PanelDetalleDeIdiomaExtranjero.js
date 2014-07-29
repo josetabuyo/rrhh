@@ -30,12 +30,30 @@
 
             _this.txt_idioma_extranjero_idioma = _this.ui.find("#txt_idioma_extranjero_idioma");
             _this.txt_idioma_extranjero_idioma.val(idioma_extranjero.Idioma);
-            _this.cmb_idioma_extranjero_lectura = _this.ui.find("#cmb_idioma_extranjero_lectura");
-            _this.cmb_idioma_extranjero_lectura.val(idioma_extranjero.Lectura);
-            _this.cmb_idioma_extranjero_escritura = _this.ui.find("#cmb_idioma_extranjero_escritura");
-            _this.cmb_idioma_extranjero_escritura.val(idioma_extranjero.Escritura);
-            _this.cmb_idioma_extranjero_oral = _this.ui.find("#cmb_idioma_extranjero_oral");
-            _this.cmb_idioma_extranjero_oral.val(idioma_extranjero.Oral);
+
+            _this.cmb_idioma_extranjero_lectura = new SuperCombo({
+                ui: _this.ui.find("#cmb_idioma_extranjero_lectura"),
+                nombre_repositorio: "NivelesDeIdioma",
+                str_val: "Id",
+                str_descripcion: "Descripcion",
+                id_item_seleccionado: idioma_extranjero.Lectura
+            });
+
+            _this.cmb_idioma_extranjero_escritura = new SuperCombo({
+                ui: _this.ui.find("#cmb_idioma_extranjero_escritura"),
+                nombre_repositorio: "NivelesDeIdioma",
+                str_val: "Id",
+                str_descripcion: "Descripcion",
+                id_item_seleccionado: idioma_extranjero.Lectura
+            });
+
+            _this.cmb_idioma_extranjero_oral = new SuperCombo({
+                ui: _this.ui.find("#cmb_idioma_extranjero_oral"),
+                nombre_repositorio: "NivelesDeIdioma",
+                str_val: "Id",
+                str_descripcion: "Descripcion",
+                id_item_seleccionado: idioma_extranjero.Oral
+            });
 
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#btn_guardar");
@@ -48,9 +66,9 @@
                 idioma_extranjero.Localidad = _this.cmb_idioma_extranjero_localidad.val();
                 idioma_extranjero.Pais = _this.cmb_idioma_extranjero_pais.idItemSeleccionado();
                 idioma_extranjero.Idioma = _this.txt_idioma_extranjero_idioma.val();
-                idioma_extranjero.Lectura = _this.cmb_idioma_extranjero_lectura.val();
-                idioma_extranjero.Escritura = _this.cmb_idioma_extranjero_escritura.val();
-                idioma_extranjero.Oral = _this.cmb_idioma_extranjero_oral.val();
+                idioma_extranjero.Lectura = _this.cmb_idioma_extranjero_lectura.idItemSeleccionado();
+                idioma_extranjero.Escritura = _this.cmb_idioma_extranjero_escritura.idItemSeleccionado();
+                idioma_extranjero.Oral = _this.cmb_idioma_extranjero_oral.idItemSeleccionado();
 
                 var proveedor_ajax = new ProveedorAjax();
 

@@ -35,7 +35,7 @@ Grilla.prototype = {
             th.addClass("sort");
             th.attr("data-sort", col.titulo);
             if (col.titulo == 'id') {
-                th.css("display","none")
+                th.css("display", "none")
             }
             encabezado.append(th);
         }
@@ -132,9 +132,9 @@ Grilla.prototype = {
             this.CargarFilaSinDatos();
         }
     },
-    CargarObjetoSinDibujar: function(obj) {
-         this.Objetos.push(obj);
-     },
+    CargarObjetoSinDibujar: function (obj) {
+        this.Objetos.push(obj);
+    },
     CargarFilaSinDatos: function () {
         var tr = $('<tr>');
         var td = $('<td>');
@@ -142,14 +142,22 @@ Grilla.prototype = {
         tr.append(td);
         this.tabla.append(tr);
     },
+    CrearCelda: function (col, obj) {
+        var td = $('<td>');
+        if (col.generadorDeContenido.asincronico) {
+            col.generadorDeContenido.generar(obj, function (contenido) {
+                td.append(contenido);
+            });
+        } else {
+            td.append(col.generadorDeContenido.generar(obj));
+        }
+        td.addClass(col.titulo);
+        return td;
+    },
     CargarObjeto: function (obj) {
         var tr = $('<tr>');
         for (var i = 0; i < this.columnas.length; i++) {
-            var col = this.columnas[i];
-            var td = $('<td>');
-            td.append(col.generadorDeContenido.generar(obj));
-            td.addClass(col.titulo);
-            tr.append(td);
+            tr.append(this.CrearCelda(this.columnas[i], obj));
         }
         //seteo el evento click para la fila
         var self = this;
@@ -162,16 +170,15 @@ Grilla.prototype = {
         this.tabla.append(tr);
         this.Objetos.push(obj);
     },
-    buscarObjetoPorId: function (id){
+    buscarObjetoPorId: function (id) {
         var ind, pos;
-        for(ind=0; ind< this.Objetos.length; ind++)
-           {
-               if (this.Objetos[ind].id == id)
-              break;
-            }
-           valor_indice = (ind < this.Objetos.length) ? ind : -1;
-           return (this.Objetos[valor_indice]);
-        }, 
+        for (ind = 0; ind < this.Objetos.length; ind++) {
+            if (this.Objetos[ind].id == id)
+                break;
+        }
+        valor_indice = (ind < this.Objetos.length) ? ind : -1;
+        return (this.Objetos[valor_indice]);
+    },
 
     QuitarObjetosExistentes: function (objetos) {
         for (var i = 0; i < objetos.length; i++) {

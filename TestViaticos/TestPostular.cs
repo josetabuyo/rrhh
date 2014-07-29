@@ -102,7 +102,7 @@ namespace TestViaticos
 
         public CvIdiomas UnIdioma()
         {
-            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles","Avanzado","Intermedio","Basico",new DateTime(2013,12,20),"CABA",9);
+            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles",3,3,3,new DateTime(2013,12,20),"CABA",9);
         }
 
         public CvInstitucionesAcademicas UnaInstitucionAcademica()

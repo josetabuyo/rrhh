@@ -384,9 +384,9 @@ namespace General.Repositorios
                                                  Diploma = dRow.GetString("IdiomaDiploma", string.Empty),
                                                  Establecimiento = dRow.GetString("IdiomaEstablecimiento", string.Empty),
                                                  Idioma = dRow.GetString("IdiomaIdioma", string.Empty),
-                                                 Lectura = dRow.GetString("IdiomaLectura", string.Empty),
-                                                 Escritura = dRow.GetString("IdiomaEscritura", string.Empty),
-                                                 Oral = dRow.GetString("IdiomaOral", string.Empty),
+                                                 Lectura = dRow.GetInt("IdiomaLectura", 3),
+                                                 Escritura = dRow.GetInt("IdiomaEscritura", 3),
+                                                 Oral = dRow.GetInt("IdiomaOral", 3),
                                                  FechaObtencion = dRow.GetDateTime("IdiomaFechaObtencion", DateTime.Today),
                                                  Localidad = dRow.GetString("IdiomaLocalidad", string.Empty),
                                                  Pais = dRow.GetInt("IdiomaPais", 9)
