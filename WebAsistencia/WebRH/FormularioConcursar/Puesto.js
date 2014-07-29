@@ -32,9 +32,23 @@
             linkPostularse[0].innerText = "Postularse";
 
             linkPostularse.click(function (e) {
-                $.post("PreInscripcion.aspx", un_puesto, function () {
-                    window.location.href = 'PreInscripcion.aspx?id='+ un_puesto.Id; 
+                var proveedor_ajax = new ProveedorAjax();
+
+                proveedor_ajax.postearAUrl({ url: "SetPuestoEnSesion",
+                    data: {
+                        puesto: un_puesto
+                    },
+                    success: function (respuesta) {
+                        window.location.href = 'PreInscripcion.aspx?id=' + un_puesto.Id; 
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alertify.alert("Error");
+                    }
                 });
+
+               // $.post("PreInscripcion.aspx", un_puesto, function () {
+               //     window.location.href = 'PreInscripcion.aspx?id='+ un_puesto.Id; 
+               // });
              });
               
                 return linkPostularse;
