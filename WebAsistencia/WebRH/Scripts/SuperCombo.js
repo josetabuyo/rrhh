@@ -1,7 +1,6 @@
 ﻿var SuperCombo = function (opt) {
     this.al_seleccionar = function () {
     };
-    this.id_item_seleccionado = -1;
     this.objetos = [];
     $.extend(this, opt, true);
     this.start();
@@ -19,7 +18,10 @@ SuperCombo.prototype.start = function () {
 };
 
 SuperCombo.prototype.idItemSeleccionado = function (id) {
-    if (id === undefined) return this.id_item_seleccionado;
+    if (id === undefined) {
+        if(this.id_item_seleccionado) return this.id_item_seleccionado;
+        if(this.objetos.length > 0) return this.objetos[0][this.str_val];
+    }
     this.id_item_seleccionado = id;
     this.ui.val(id);
     this.al_seleccionar(this.id_item_seleccionado);

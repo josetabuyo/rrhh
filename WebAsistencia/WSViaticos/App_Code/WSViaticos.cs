@@ -2417,10 +2417,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void PostularseA(int id_puesto, Usuario usuario)
+    public Postulacion PostularseA(Postulacion postulacion, Usuario usuario)
     {
-        var postulaciones = new Postulacion();
-        RepoPostulaciones().PostularseA(postulaciones, usuario);
+       // var postulaciones = new Postulacion();
+        return RepoPostulaciones().PostularseA(postulacion, usuario);
     }
 
     #region CVAntecedentesAcademicos

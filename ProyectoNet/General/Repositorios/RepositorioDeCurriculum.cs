@@ -45,7 +45,7 @@ namespace General.Repositorios
 
             tablaCVs.Rows.ForEach(row =>
             cv = new CurriculumVitae(
-                new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo", 0), row.GetSmallintAsInt("EstadoCivil", 0),
+                new CvDatosPersonales(documento, row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo", 1), row.GetSmallintAsInt("EstadoCivil", 0),
                     row.GetString("Cuil", ""), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad", 0), row.GetDateTime("FechaNacimiento", DateTime.Today).ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento", 0),
                     new CvDomicilio(row.GetInt("DomPers_Id", 0), row.GetString("DomPers_Calle", ""), row.GetInt("DomPers_Numero", 0), row.GetString("DomPers_Piso", ""), row.GetString("DomPers_Depto", ""),
                         row.GetInt("DomPers_Localidad", 0), row.GetSmallintAsInt("DomPers_CodigoPostal", 0), row.GetSmallintAsInt("DomPers_IdProvincia", 0)),
@@ -326,7 +326,7 @@ namespace General.Repositorios
                                                   Fecha = dRow.GetDateTime("InstitucionFecha", DateTime.Today),
                                                   FechaInicio = dRow.GetDateTime("InstitucionFechaInicio", DateTime.Today),
                                                   FechaFin = dRow.GetDateTime("InstitucionFechaFin", DateTime.Today),
-                                                  Localidad = dRow.GetInt("InstitucionLocalidad", 0),
+                                                  Localidad = dRow.GetString("InstitucionLocalidad", string.Empty),
                                                   Pais = dRow.GetInt("InstitucionPais", 9)
 
                                               }).Distinct().ToList();
@@ -578,7 +578,7 @@ namespace General.Repositorios
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
 
-            this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
+            //this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
 
             return antecedentesAcademicos_nuevo;
 

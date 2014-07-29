@@ -535,7 +535,7 @@ public class AjaxWS : System.Web.Services.WebService {
     }
     
     [WebMethod(EnableSession = true)]
-    public string ActualizarVEventoAcademico(WSViaticos.CvEventoAcademico eventoAcademico)
+    public string ActualizarCVEventoAcademico(WSViaticos.CvEventoAcademico eventoAcademico)
     {
         var eventoAcademicoActualizado = backEndService.ActualizarCvEventoAcademico(eventoAcademico, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(eventoAcademicoActualizado);
@@ -753,11 +753,12 @@ public class AjaxWS : System.Web.Services.WebService {
     #endregion
 
     [WebMethod(EnableSession = true)]
-    public bool PostulacionA(int id_puesto)
+    public string PostularseA(WSViaticos.Postulacion una_postulacion)
     {
-        backEndService.PostularseA(id_puesto, usuarioLogueado);
-        return true;
-    }
+        var postulacion = backEndService.PostularseA(una_postulacion, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(postulacion);
+        
+    } 
     
     #endregion
     

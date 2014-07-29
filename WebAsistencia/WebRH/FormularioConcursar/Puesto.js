@@ -33,7 +33,7 @@
 
             linkPostularse.click(function (e) {
                 $.post("PreInscripcion.aspx", un_puesto, function () {
-                    window.location.href = 'PreInscripcion.aspx?Puesto='+ un_puesto.Id; 
+                    window.location.href = 'PreInscripcion.aspx?id='+ un_puesto.Id; 
                 });
              });
               

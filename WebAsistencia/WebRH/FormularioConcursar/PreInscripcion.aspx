@@ -42,21 +42,21 @@
         <a style="margin-right: 10px;" class="btn btn-primary" href="#">Guardar Cambios </a>
         <a class="btn btn-primary" onclick="javascript:PasarAInscripcion()" href="#">Confirmar Postulación</a>
         <a id="go5" rel="leanModal" class="link" name="modal_mensaje"  href="#modal_mensaje">MODALLLLLL</a>
-            <div class="fondo_form">
+            <div id="contenedor_datosPersonales" class="fondo_form">
                 <fieldset style="width:100%; min-width:800px;" >
                     <p><em>*</em> Campos Obligatorios</p>
                     <p style="text-transform:uppercase; font-weight:bold;">I.- Editar información personal</p>
                     <div style="float:left; margin:8px;" >
                         <label for="nombre" class="">Nombre <em>*</em></label>
-                        <input id="nombre" type="text" style="width:150px;" value="Nestor"  />
+                        <input id="nombre" type="text" style="width:150px;"   />
                     </div>
                     <div style="float:left; margin:8px;">
                         <label for="apellido">Apellido <em>*</em></label>
-                        <input id="apellido" type="text" style="width:150px;" value="Kirner" />
+                        <input id="apellido" type="text" style="width:150px;"  />
                     </div>
                     <div style="float:left; margin:8px;">
-                        <label for="cmb_nivel_educativo">Sexo <em>*</em></label>
-                        <select id="cmb_nivel_educativo" style="width:100px;" name="cmb_sexo" >
+                        <label for="cmb_sexo">Sexo <em>*</em></label>
+                        <select id="cmb_sexo" style="width:100px;"  >
                             <option value="-1">Sexo</option>
                             <option value="1" selected="selected">Masculino</option>
                             <option value="1">Femenino</option>
@@ -64,7 +64,7 @@
                     </div>
                     <div style="float:left; margin:8px;">
                         <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
-                        <select id="cmb_estadoCivil" name="cmb_estado_civil" style="width:150px;" >
+                        <select id="cmb_estadoCivil" style="width:150px;" >
                         <option value="-1">Estado Civil</option>
                         <option value="1" selected="selected">Masculino</option>
                         <option value="1">Femenino</option>
@@ -72,69 +72,69 @@
                         </div>
                     <div style="float:left; margin:8px; width:130px;">
                         <label for="cuil">Cuil / Cuit <em>*</em></label>
-                        <input id="cuil" type="text" style="width:120px;" value="20-22114543-5" />
+                        <input id="cuil" type="text" style="width:120px;"  />
                         <span style="float:left;">Ej.:20-22114543-5</span>
                     </div>
                     <div style="float:left; clear:left; margin:8px">
-                            <label class="" for="cmb_nivel_educativo">Lugar nacimiento <em>*</em></label>
-                            <select id="Select1" style="width:120px;" name="cmb_nivel_educativo" >
+                            <label class="" for="cmb_lugar_nacimiento">Lugar nacimiento <em>*</em></label>
+                            <select id="cmb_lugar_nacimiento" style="width:120px;"  >
                             <option value="-1">Seleccione</option>
                             <option value="1" selected="selected">Argentina</option>
                             <option value="1">Bolivia</option>
                             </select>
                     </div>
                     <div style="float:left; margin:8px">
-                        <label class="" for="txt_categoria_docente">Fecha Nac <em>*</em></label>
-                        <input type="text" id="txt_categoria_docente" value="18/05/2005" style="width:120px;" name="txt_categoria_docente" size="10"/>
+                        <label class="" for="txt_fechaNac">Fecha Nac <em>*</em></label>
+                        <input type="text" id="txt_fechaNac" style="width:120px;"/>
                     </div>
                     <div style="float:left; margin:8px">
-                    <label class="" for="cmb_nivel_educativo">Nacionalidad <em>*</em></label>
-                        <select id="Select2" style="width:120px;" name="cmb_nivel_educativo" >
+                    <label class="" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
+                        <select id="cmb_nacionalidad" style="width:120px;" >
                         <option value="-1">Seleccione</option>
                         <option value="1" selected="selected">Argentina</option>
                         <option value="1">Boliviano</option>
                         </select>
                     </div>
                     <div style="float:left; margin:8px">
-                    <label class="" for="cmb_nivel_educativo">Tipo documento <em>*</em></label>
-                    <select id="Select3" style="width:100px;" name="cmb_nivel_educativo" >
+                    <label class="" for="cmb_tipoDocumento">Tipo documento <em>*</em></label>
+                    <select id="cmb_tipoDocumento" style="width:100px;"  >
                         <option value="-1" selected="selected">DNI</option>
                         <option value="1">LC</option>
                         <option value="1">LE</option>
                     </select>
                     </div>
                     <div style="float:left; margin:8px">
-                        <label class="" for="documento">Nro documento <em>*</em></label>
-                        <input id="documento" type="text" style="width:150px;" value="22114523" />
+                        <label class="" for="txt_documento">Nro documento <em>*</em></label>
+                        <input id="txt_documento" type="text" style="width:150px;" />
                     </div>
                     <div style="float:left; margin:8px">
-                    <label class="" for="txt_categoria_docente">Calle <em>*</em></label>
-                    <input type="text" id="Text1" name="txt_categoria_docente" size="20" value="Tinogasta"/>
+                    <label class="" for="txt_calle1">Calle <em>*</em></label>
+                    <input type="text" id="txt_calle1" size="20" />
                     </div>
 
                     <div style="float:left; margin:8px; width:60px;">
-                    <label class="" for="txt_caracter_designacion">Número <em>*</em></label>
-                    <input type="text" id="txt_caracter_designacion" name="txt_caracter_designacion" style="width:50px" value="3222"/>
+                    <label class="" for="txt_numero1">Número <em>*</em></label>
+                    <input type="text" id="txt_numero1"  style="width:50px" />
                     </div>      
                     <div style="float:left; margin:8px; width:60px;">
-                    <label class="" for="txt_dedicacion_docente">Piso</label>
-                    <input type="text" id="txt_dedicacion_docente" name="txt_dedicacion_docente" style="width:50px" value="1"/>
+                    <label class="" for="txt_piso1">Piso</label>
+                    <input type="text" id="txt_piso1"  style="width:50px" />
                     </div>
                     <div style="float:left; margin:8px; width:80px;">     
-                        <label class="" for="txt_carga_horaria">Dto</label>
-                        <input type="text" id="txt_carga_horaria" name="txt_carga_horaria" style="width:50px" value="C"/>
+                        <label class="" for="txt_dto1">Dto</label>
+                        <input type="text" id="txt_dto1"  style="width:50px" />
                     </div>
                     <div style="float:left; margin:8px">
-                        <label class="" for="txt_fecha_inicio">Localidad <em>*</em></label>
-                        <input type="text" id="txt_fecha_inicio" name="txt_fecha_inicio" style="width:100px" value="CABA"/> 
+                        <label class="" for="cmb_localidad1">Localidad <em>*</em></label>
+                        <input type="text" id="cmb_localidad1"  style="width:100px" /> 
                     </div>
                     <div style="float:left; margin:8px">
-                        <label class="" for="txt_fecha_fin">Código postal <em>*</em></label>
-                        <input type="text" id="txt_fecha_fin" name="txt_fecha_fin" style="width:80px" value="1427"/><br/>
+                        <label class="" for="txt_cp1">Código postal <em>*</em></label>
+                        <input type="text" id="txt_cp1"  style="width:80px" /><br/>
                     </div>
                     <div style="float:left; margin:8px">     
-                    <label class="" for="cmb_nivel_educativo">Provincia <em>*</em></label>
-                    <select id="Select4" name="cmb_nivel_educativo" style="width:130px;" >
+                    <label class="" for="cmb_provincia1">Provincia <em>*</em></label>
+                    <select id="Select4" name="cmb_provincia1" style="width:130px;" >
                         <option value="-1">Seleccione</option>
                         <option value="1" selected="selected">Buenos Aires</option>
                         <option value="1">Cordoba</option>
@@ -144,38 +144,38 @@
                 <fieldset style="width:100%;" >
 		            <p style="font-weight:bold; text-transform:uppercase;">II.- Información Requerida Para Recibir Notificaciones y Avisos</p>
 	                <div style="float:left; margin:8px">
-                        <label class="" for="txt_categoria_docente">Calle <em>*</em></label>
-                        <input type="text" id="Text2" name="txt_categoria_docente" size="20" value="Tinogasta"/>
+                        <label class="" for="text_calle2">Calle <em>*</em></label>
+                        <input type="text" id="text_calle2" size="20" />
                     </div>
 
                     <div style="float:left; margin:8px; width:60px;">
-                        <label class="" for="txt_caracter_designacion">Número <em>*</em></label>
-                        <input type="text" id="Text3" name="txt_caracter_designacion" style="width:50px" value="1427"/>
+                        <label class="" for="txt_numero2">Número <em>*</em></label>
+                        <input type="text" id="txt_numero2"  style="width:50px" />
                     </div>
        
                     <div style="float:left; margin:8px; width:60px;">
-                        <label class="" for="txt_dedicacion_docente">Piso</label>
-                        <input type="text" id="Text4" name="txt_dedicacion_docente" style="width:50px" value="1"/>
+                        <label class="" for="txt_piso2">Piso</label>
+                        <input type="text" id="txt_piso2"  style="width:50px" />
                     </div>
 
                     <div style="float:left; margin:8px; width:80px;">     
-                        <label class="" for="txt_carga_horaria">Dto</label>
-                        <input type="text" id="Text5" name="txt_carga_horaria" style="width:50px" value="C"/>
+                        <label class="" for="txt_dto2">Dto</label>
+                        <input type="text" id="txt_dto2"  style="width:50px" />
                     </div>
 
                     <div style="float:left; margin:8px">
-                        <label class="" for="txt_fecha_inicio">Localidad <em>*</em></label>
-                        <input type="text" id="Text6" name="txt_fecha_inicio" style="width:100px" value="CABA"/> 
+                        <label class="" for="cmb_localidad2">Localidad <em>*</em></label>
+                        <input type="text" id="cmb_localidad2" style="width:100px" /> 
                     </div>
 
                     <div style="float:left; margin:8px">
-                        <label class="" for="txt_fecha_fin">Código postal <em>*</em></label>
-                        <input type="text" id="Text7" name="txt_fecha_fin" style="width:50px" value="1427"/><br/>
+                        <label class="" for="txt_cp2">Código postal <em>*</em></label>
+                        <input type="text" id="txt_cp2"  style="width:50px" value="1427"/><br/>
                     </div>
 
                     <div style="float:left; margin:8px">     
-                    <label class="" for="cmb_nivel_educativo">Provincia <em>*</em></label>
-                    <select id="Select5" name="cmb_nivel_educativo" style="width:150px;" >
+                    <label class="" for="cmb_provincia2">Provincia <em>*</em></label>
+                    <select id="cmb_provincia2"  style="width:150px;" >
                         <option value="-1">Seleccione</option>
                         <option value="1" selected="selected">Buenos Aires</option>
                         <option value="1">Cordoba</option>
@@ -212,14 +212,19 @@
 
 
 </body>
- <%= Referencias.Javascript("../") %>
- <script type="text/javascript">
+<%= Referencias.Javascript("../") %>
+<script type="text/javascript" src="CvDatosPersonales.js" ></script>
+<script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
+<script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
+<script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
+<script type="text/javascript">
      var puesto;
      var curriculum;
 
      $(document).ready(function () {
          puesto = getVarsUrl();
          curriculum = JSON.parse($('#curriculum').val());
+         CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
 
          $('a[rel*=leanModal]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
 
@@ -238,7 +243,7 @@
 
      function PasarAInscripcion() {
 
-         window.location.href = 'Inscripcion.aspx?Puesto=' + puesto.Puesto;
+         window.location.href = 'Inscripcion.aspx?id=' + puesto.id;
 
      }
        
