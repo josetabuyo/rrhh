@@ -16,13 +16,13 @@ namespace General.Repositorios
         {
         }
 
-        public static RepositorioDeNacionalidades NuevoRepositorioDeNacionalidades(IConexionBD conexion)
+        public static RepositorioDeNacionalidades Nuevo(IConexionBD conexion)
         {
             if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeNacionalidades(conexion);
             return _instancia;
         }
 
-        public List<Nacionalidad> TodasLasNacionalidades()
+        public List<Nacionalidad> All()
         {
             return this.Obtener();
         }

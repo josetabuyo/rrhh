@@ -2660,15 +2660,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
      [WebMethod]
-    public Provincia[] GetProvincias()
+    public Provincia[] BuscarProvincias(string criterio)
     {
         return RepositorioDeProvincias.Nuevo(Conexion()).All().ToArray();
     }
 
     [WebMethod]
-    public Nacionalidad[] GetNacionalidades()
+     public Nacionalidad[] BuscarNacionalidades(string criterio)
     {
-        return RepositorioDeNacionalidades.NuevoRepositorioDeNacionalidades(Conexion()).TodasLasNacionalidades().ToArray();
+        return RepositorioDeNacionalidades.Nuevo(Conexion()).All().ToArray();
     }
 
     [WebMethod]
@@ -2678,25 +2678,25 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Pais[] GetPaises()
+    public Pais[] BuscarPaises(string criterio)
     {
         return RepositorioDePaises.Nuevo(Conexion()).All().ToArray();
     }
 
     [WebMethod]
-    public EstadoCivil[] GetEstadosCiviles()
+    public EstadoCivil[] BuscarEstadosCiviles(string criterio)
     {
-        return RepositorioDeEstadosCiviles.NuevoRepositorioDeEstadoCivil(Conexion()).TodosLosEstadosCiviles().ToArray();
+        return RepositorioDeEstadosCiviles.Nuevo(Conexion()).All().ToArray();
     }
 
     [WebMethod]
-    public TipoDeDocumento[] GetTiposDeDocumento()
+    public TipoDeDocumento[] BuscarTiposDeDocumento(string criterio)
     {
         return RepositorioDeTiposdeDocumento.Nuevo(Conexion()).All().ToArray();
     }
 
     [WebMethod]
-    public Sexo[] GetSexos()
+    public Sexo[] BuscarSexos(string criterio)
     {
         return RepositorioDeSexos.Nuevo(Conexion()).All().ToArray();
     }
@@ -2710,7 +2710,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Localidad[] BuscarLocalidades(string criterio)
     {
-        return RepositorioDeLocalidades.NuevoRepositorioDeLocalidades(Conexion()).BuscarLocalidades(criterio).ToArray();
+        return RepositorioDeLocalidades.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
     #endregion

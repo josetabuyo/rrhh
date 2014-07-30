@@ -38,8 +38,8 @@
             _this.cmb_evento_academico_pais = new SuperCombo({
                 ui: _this.ui.find("#cmb_evento_academico_pais"),
                 nombre_repositorio: "Paises",
-                str_val: "Id",
-                str_descripcion: "Descripcion",
+                campo_id: "Id",
+                campo_descripcion: "Descripcion",
                 id_item_seleccionado: evento_academico.Pais
             });
 
