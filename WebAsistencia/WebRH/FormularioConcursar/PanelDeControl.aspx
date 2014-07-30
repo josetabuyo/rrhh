@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PanelDeControl.aspx.cs" Inherits="FormularioConcursar_PanelDeControl" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
+<%@ Register Src="~/FormularioConcursar/MenuConcursar.ascx" TagName="BarraMenuConcursar" TagPrefix="uc3" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -16,30 +17,8 @@
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="contenedor_concursar" >
-    
 
-    <div class="navbar" style="font-size: 15px;">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="#"></a>
-                <div class="nav-collapse navbar-responsive-collapse">
-                <ul class="nav"  runat="server">
-                <li><a href="PanelDeControl.aspx" >Panel de Control</a></li>
-                <li><a href="Postulaciones.aspx" >Postulaciones</a></li>
-                <li><a href="CargaInformacionPersonal.aspx" >MI CV</a></li>
-                </ul>
-       
-                <ul class="nav pull-right"  runat="server">
-                </ul>
-                </div><!-- /.nav-collapse -->
-            </div>
-        </div><!-- /navbar-inner -->
-    </div><!-- /navbar -->
+    <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
     
     <div class="panel panel-heading">
         <div class="panel_izquierdo" style="height:auto;" >

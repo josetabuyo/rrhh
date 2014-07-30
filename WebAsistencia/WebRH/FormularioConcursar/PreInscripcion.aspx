@@ -2,6 +2,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
+<%@ Register Src="~/FormularioConcursar/MenuConcursar.ascx" TagName="BarraMenuConcursar" TagPrefix="uc3" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -16,33 +17,12 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="contenedor_concursar">
 
-    <div class="navbar">
-        <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </a>
-            <a class="brand" href="#"></a>
-            <div class="nav-collapse navbar-responsive-collapse">
-            <ul id="Ul1" class="nav"  runat="server">
-                <li><a href="PanelDeControl.aspx" >Panel de Control</a></li>
-                <li><a href="#" >Postulaciones</a></li>
-                <li><a href="CargaInformacionPersonal.aspx" >MI CV</a></li>
-            </ul>
-       
-            <ul id="Ul2" class="nav pull-right"  runat="server">
-            </ul>
-            </div><!-- /.nav-collapse -->
-        </div>
-        </div><!-- /navbar-inner -->
-    </div><!-- /navbar -->
+   <uc3:BarraMenuConcursar runat="server" />
     
-        <a style="margin-right: 10px;" class="btn btn-primary" href="#">Guardar Cambios </a>
-        <a class="btn btn-primary" onclick="javascript:PasarAInscripcion()" href="#">Confirmar Postulación</a>
-        <a id="go5" rel="leanModal" class="link" name="modal_mensaje"  href="#modal_mensaje">MODALLLLLL</a>
+        
             <div id="contenedor_datosPersonales" class="fondo_form">
+                <a style="margin-right: 10px;" id="btn_guardar_datosPersonales" class="btn btn-primary" href="#">Guardar Cambios </a>
+                <a class="btn btn-primary" onclick="javascript:PasarAInscripcion()" href="#">Confirmar Postulación</a>
                 <fieldset style="width:100%; min-width:800px;" >
                     <p><em>*</em> Campos Obligatorios</p>
                     <p style="text-transform:uppercase; font-weight:bold;">I.- Editar información personal</p>
@@ -204,7 +184,7 @@
                 </div>	         
 		    </div>
         </div> 
-
+        <a id="modal_preinscripcion" rel="leanModal" style="display:none;" name="modal_mensaje" href="#modal_mensaje"></a>
         <asp:HiddenField ID="curriculum" runat="server" />
         <asp:HiddenField ID="puesto" runat="server" />
     </form>
@@ -226,7 +206,12 @@
          curriculum = JSON.parse($('#curriculum').val());
          CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
 
+         //this.ui = $("#modal_mensaje");
+         //this.ui.find("#div").load("PanelDetalleDePublicacionTrabajo.htm", function ()
+
          $('a[rel*=leanModal]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
+
+         $("#modal_preinscripcion").click();
 
      });
 

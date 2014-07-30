@@ -758,6 +758,13 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         HttpContext.Current.Session[ConstantesDeSesion.PUESTO] = puesto;
     }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetPuestoEnSesion(WSViaticos.Puesto puesto)
+    {
+        return Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Session[ConstantesDeSesion.PUESTO]);
+    }
     
     [WebMethod(EnableSession = true)]
     public string PostularseA(WSViaticos.Postulacion una_postulacion)
