@@ -363,7 +363,7 @@
             </div>
 
             <div class="accordion-group">
-              <div id="ancla9" class="accordion-heading">
+              <div id="ancla10" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">
                   IDIOMAS EXTRANJEROS
                 </a>
@@ -384,7 +384,7 @@
             </div>
 
             <div class="accordion-group">
-              <div id="ancla10" class="accordion-heading">
+              <div id="ancla11" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">
                   COMPETENCIAS INFORM&Aacute;TICAS
                 </a>
@@ -405,7 +405,7 @@
             </div>
 
             <div class="accordion-group">
-              <div id="ancla11" class="accordion-heading">
+              <div id="ancla12" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve">
                   OTRAS CAPACIDADES
                 </a>
@@ -427,7 +427,7 @@
             </div>
 
             <div class="accordion-group">
-              <div id="ancla12" class="accordion-heading">
+              <div id="ancla13" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThirteen">
                   VISTA PRELIMINIAR
                 </a>

@@ -805,18 +805,8 @@ public class AjaxWS : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string BuscarEnRepositorio(string nombre_repositorio, string criterio)
     {
-        switch (nombre_repositorio)
-        {
-            case "Provincias": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetProvincias());
-            case "Nacionalidades": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetNacionalidades());
-            case "EstadosCiviles": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetEstadosCiviles());
-            case "TiposDeDocumento": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetTiposDeDocumento());
-            case "Sexos": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetSexos());
-            case "Localidades": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.BuscarLocalidades(criterio));
-            case "NivelesDeDocencia": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetNivelesDeDocencia());
-            case "Paises": return Newtonsoft.Json.JsonConvert.SerializeObject(backEndService.GetPaises());
-            default: return "El repositorio no existe";
-        }
+        var metodo = backEndService.GetType().GetMethods().ToList().Find(m => m.Name == "Buscar" + nombre_repositorio);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(metodo.Invoke(backEndService, new object[]{criterio}));
     }
 }
 

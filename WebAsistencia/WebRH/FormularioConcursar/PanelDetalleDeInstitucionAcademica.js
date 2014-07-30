@@ -35,8 +35,8 @@
             _this.cmb_institucion_academica_pais = new SuperCombo({
                 ui: _this.ui.find("#cmb_institucion_academica_pais"),
                 nombre_repositorio: "Paises",
-                str_val: "Id",
-                str_descripcion: "Descripcion",
+                campo_id: "Id",
+                campo_descripcion: "Descripcion",
                 id_item_seleccionado: institucion_academica.Pais
             });
 

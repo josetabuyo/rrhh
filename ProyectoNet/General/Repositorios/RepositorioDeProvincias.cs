@@ -16,13 +16,13 @@ namespace General.Repositorios
         {
         }
 
-        public static RepositorioDeProvincias NuevoRepositorioDeProvincias(IConexionBD conexion)
+        public static RepositorioDeProvincias Nuevo(IConexionBD conexion)
         {
             if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeProvincias(conexion);
             return _instancia;
         }
 
-        public List<Provincia> TodasLasProvincias()
+        public List<Provincia> All()
         {
             return this.Obtener();
         }
@@ -36,7 +36,7 @@ namespace General.Repositorios
             dr = cn.EjecutarConsulta();
             Provincia unaProvincia;
             List<Provincia> provincias = new List<Provincia>();
-            RepositorioDeLocalidades repositorio = RepositorioDeLocalidades.NuevoRepositorioDeLocalidades(this.conexion);
+            RepositorioDeLocalidades repositorio = RepositorioDeLocalidades.Nuevo(this.conexion);
 
             while (dr.Read())
             {

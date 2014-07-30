@@ -15,13 +15,13 @@ namespace General.Repositorios
         {
         }
 
-        public static RepositorioDeEstadosCiviles NuevoRepositorioDeEstadoCivil(IConexionBD conexion)
+        public static RepositorioDeEstadosCiviles Nuevo(IConexionBD conexion)
         {
             if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeEstadosCiviles(conexion);
             return _instancia;
         }
 
-        public List<EstadoCivil> TodosLosEstadosCiviles()
+        public List<EstadoCivil> All()
         {
             return this.Obtener();
         }

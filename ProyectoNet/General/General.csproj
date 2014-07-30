@@ -108,6 +108,8 @@
     <Compile Include="Postular\CvCapacidadPersonal.cs" />
     <Compile Include="Postular\Puesto.cs" />
     <Compile Include="Postular\Pais.cs" />
+    <Compile Include="Postular\NivelDeIdioma.cs" />
+    <Compile Include="Repositorios\RepositorioDeNivelesDeIdioma.cs" />
     <Compile Include="Repositorios\RepositorioDePaises.cs" />
     <Compile Include="Postular\NivelDeDocencia.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesDeDocencia.cs" />
@@ -115,7 +117,6 @@
     <Compile Include="Repositorios\RepositorioDeSexos.cs" />
     <Compile Include="Postular\Nacionalidad.cs" />
     <Compile Include="Postular\CurriculumVitaeNull.cs" />
-    <Compile Include="Postular\CvDocenciaDto.cs" />
     <Compile Include="Postular\CurriculumDto.cs" />
     <Compile Include="Postular\CurriculumVitae.cs" />
     <Compile Include="Postular\CvCertificadoDeCapacitacion.cs" />

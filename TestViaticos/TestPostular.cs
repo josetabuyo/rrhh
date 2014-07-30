@@ -102,7 +102,7 @@ namespace TestViaticos
 
         public CvIdiomas UnIdioma()
         {
-            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles","Avanzado","Intermedio","Basico",new DateTime(2013,12,20),"CABA",9);
+            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles",3,3,3,new DateTime(2013,12,20),"CABA",9);
         }
 
         public CvInstitucionesAcademicas UnaInstitucionAcademica()
@@ -117,7 +117,7 @@ namespace TestViaticos
 
         public CvDocencia UnaDocencia()
         {
-            return new CvDocencia(1,"Ingles", new NivelDeDocencia(1, "Secundario"), "No se", "No se", "Nombrado", "No se", "12 a 18",
+            return new CvDocencia(1,"Ingles", 1, "No se", "No se", "Nombrado", "No se", "12 a 18",
                                   new DateTime(2008, 01, 01), new DateTime(2010, 12, 20), "Colegio Coppelo", "CABA",
                                   1);
 

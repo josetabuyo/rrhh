@@ -14,32 +14,32 @@
         _this.cmb_sexo = new SuperCombo({
             ui: _this.ui.find("#cmb_sexo"),
             nombre_repositorio: "Sexos",
-            str_val: "Id",
-            str_descripcion: "Descripcion",
+            campo_id: "Id",
+            campo_descripcion: "Descripcion",
             id_item_seleccionado: datos_personales.Sexo
         });
 
         _this.cmb_estadoCivil = new SuperCombo({
             ui: _this.ui.find("#cmb_estadoCivil"),
             nombre_repositorio: "EstadosCiviles",
-            str_val: "Id",
-            str_descripcion: "Descripcion",
+            campo_id: "Id",
+            campo_descripcion: "Descripcion",
             id_item_seleccionado: datos_personales.EstadoCivil
         });
 
         _this.cmb_nacionalidad = new SuperCombo({
             ui: _this.ui.find("#cmb_nacionalidad"),
             nombre_repositorio: "Nacionalidades",
-            str_val: "Id",
-            str_descripcion: "Descripcion",
+            campo_id: "Id",
+            campo_descripcion: "Descripcion",
             id_item_seleccionado: datos_personales.Nacionalidad
         });
 
         _this.cmb_tipoDocumento = new SuperCombo({
             ui: _this.ui.find("#cmb_tipoDocumento"),
             nombre_repositorio: "TiposDeDocumento",
-            str_val: "Id",
-            str_descripcion: "Descripcion",
+            campo_id: "Id",
+            campo_descripcion: "Descripcion",
             id_item_seleccionado: datos_personales.TipoDocumento
         });
 
@@ -81,16 +81,16 @@
             ui: _this.ui.find("#cmb_localidad1"),
             nombre_repositorio: "Localidades",
             filtro: { provincia: datos_personales.DomicilioPersonal.Provincia },
-            str_val: "Id",
-            str_descripcion: "Nombre",
+            campo_id: "Id",
+            campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioPersonal.Localidad
         });
 
         _this.cmb_domicilio_personal_provincia = new SuperCombo({
             ui: _this.ui.find("#cmb_provincia1"),
             nombre_repositorio: "Provincias",
-            str_val: "Id",
-            str_descripcion: "Nombre",
+            campo_id: "Id",
+            campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioPersonal.Provincia,
             al_seleccionar: function (id_provincia) {
                 _this.cmb_domicilio_personal_localidad.cambiarFiltro({ provincia: id_provincia });
@@ -121,16 +121,16 @@
             ui: _this.ui.find("#cmb_localidad2"),
             nombre_repositorio: "Localidades",
             filtro: { provincia: datos_personales.DomicilioLegal.Provincia },
-            str_val: "Id",
-            str_descripcion: "Nombre",
+            campo_id: "Id",
+            campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioLegal.Localidad
         });
 
         _this.cmb_domicilio_legal_provincia = new SuperCombo({
             ui: _this.ui.find("#cmb_provincia2"),
             nombre_repositorio: "Provincias",
-            str_val: "Id",
-            str_descripcion: "Nombre",
+            campo_id: "Id",
+            campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioLegal.Provincia,
             al_seleccionar: function (id_provincia) {
                 _this.cmb_domicilio_legal_localidad.cambiarFiltro({ provincia: id_provincia });
