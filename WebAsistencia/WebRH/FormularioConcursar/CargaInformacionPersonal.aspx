@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CargaInformacionPersonal.aspx.cs" Inherits="FormularioConcursar_Pantalla1" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
-
+<%@ Register Src="~/FormularioConcursar/MenuConcursar.ascx" TagName="BarraMenuConcursar" TagPrefix="uc3" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -21,28 +21,7 @@
    
    <div class="accordion" id="accordion">
 
-       <div class="navbar" style="font-size: 15px;">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="#"></a>
-                    <div class="nav-collapse navbar-responsive-collapse">
-                    <ul id="Ul1" class="nav"  runat="server">
-                    <li><a href="PanelDeControl.aspx" >Panel de Control</a></li>
-                    <li><a href="Postulaciones.aspx" >Postulaciones</a></li>
-                    <li><a href="CargaInformacionPersonal.aspx" >MI CV</a></li>
-                    </ul>
-       
-                    <ul id="Ul2" class="nav pull-right"  runat="server">
-                    </ul>
-                    </div><!-- /.nav-collapse -->
-                </div>
-            </div><!-- /navbar-inner -->
-        </div><!-- /navbar -->
+      <uc3:BarraMenuConcursar runat="server" />
 
         <nav style="min-width: 900px;">
             <ul class="ul_cv" style="width:100%; margin-left:1%; margin-top:15px; margin-bottom:3px;">    

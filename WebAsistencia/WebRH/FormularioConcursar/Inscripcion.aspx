@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Inscripcion.aspx.cs" Inherits="FormularioConcursar_Inscripcion" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
+<%@ Register Src="~/FormularioConcursar/MenuConcursar.ascx" TagName="BarraMenuConcursar" TagPrefix="uc3" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -17,47 +18,26 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="contenedor_concursar" >
 
-        <div class="navbar">
-        <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </a>
-            <a class="brand" href="#"></a>
-            <div class="nav-collapse navbar-responsive-collapse">
-            <ul id="Ul1" class="nav"  runat="server">
-                <li><a href="PanelDeControl.aspx" >Panel de Control</a></li>
-                <li><a href="Postulaciones.aspx" >Postulaciones</a></li>
-                <li><a href="CargaInformacionPersonal.aspx" >MI CV</a></li>
-            </ul>
-       
-            <ul id="Ul2" class="nav pull-right"  runat="server">
-            </ul>
-            </div><!-- /.nav-collapse -->
-        </div>
-        </div><!-- /navbar-inner -->
-    </div><!-- /navbar -->
+       <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
     
         <div class="fondo_form" style="padding: 10px;">
             <div id = "cont_titulo">
                 <p>Usted est&aacute; por inscribirse para concursar al cargo de:</p>
             </div>
             <hr />
-            <div id = "cont_detalles_cargo" class = "cont_detalles_cargo">
+            <div id="puesto_cuadro" class = "cont_detalles_cargo">
             <table>
                 <tr>
                     <td>        
-                        <label class = "titulo_cargo">N° Central de Oferta de empleo:</label>   
+                        <label class ="titulo_cargo">N° Central de Oferta de empleo:</label>   
                         <td>
-                            <label class = "detalle_cargo">2013-001234-MDS-G-SI-0-A</label>
+                            <label id="puesto_numero" class = "detalle_cargo">2013-001234-MDS-G-SI-0-A</label>
                         </td>  
                     </td>
                     <td>
-                        <label class = "titulo_cargo">Entidad Convocante:</label>        
+                        <label class="titulo_cargo">Entidad Convocante:</label>        
                         <td>
-                            <label class = "detalle_cargo">Desarrollo Social</label>
+                            <label id="puesto_convocante" class = "detalle_cargo"></label>
                         </td>
                     </td>
                 </tr>
@@ -65,11 +45,11 @@
                   <td>
                         <label class = "titulo_cargo">Denominaci&oacute;n del puesto:</label>          
                         <td>
-                            <label class = "detalle_cargo">Abogado asesor especializado en Empleo P&uacute;blico</label>
+                            <label id="puesto_denominacion" class="detalle_cargo"></label>
                         </td>
                         <td>
-                            <label class ="titulo_cargo">Secretar&iacute;a/SubSecretar&iacute;a:</label>     
-                            <label class = "detalle_cargo"> </label>
+                            <label class="titulo_cargo">Secretar&iacute;a/SubSecretar&iacute;a:</label>     
+                            <label id="puesto_secretaria" class="detalle_cargo"> </label>
                          </td>
                   </td>
                 </tr>
@@ -77,27 +57,27 @@
                     <td>
                         <label class ="titulo_cargo">Agrupamiento:</label> 
                         <td>
-                            <label class = "detalle_cargo">GENERAL</label>
+                            <label id="puesto_agrupamiento" class="detalle_cargo"></label>
                         </td>
                     </td>
                     <td>                      
-                        <label class = "titulo_cargo">Direcci&oacute;n Nacional/General o Equivalente:</label>  
+                        <label class="titulo_cargo">Direcci&oacute;n Nacional/General o Equivalente:</label>  
                         <td>
-                            <label class = "detalle_cargo"></label>   
+                            <label id="puesto_cargo" class="detalle_cargo"></label>   
                         </td>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label class = "titulo_cargo">Tipo de convocatoria:</label> 
+                        <label class="titulo_cargo">Tipo de convocatoria:</label> 
                         <td>
-                            <label class = "detalle_cargo">GENERAL</label>
+                            <label id="puesto_convocatoria" class="detalle_cargo"></label>
                         </td>
                     </td>
                     <td>
                         <label class = "titulo_cargo">Unidad Destino:</label>    
                         <td>  
-                            <label class = "detalle_cargo">Avenida 9 de Julio 1925 - CABA</label>       
+                            <label id="puesto_destino" class="detalle_cargo"></label>       
                         </td>
                     </td>
                 </tr>
@@ -105,7 +85,7 @@
                     <td>  
                         <label class = "titulo_cargo">Nivel escalafonario:</label>  
                         <td>
-                            <label class = "detalle_cargo">A</label>
+                            <label id="puesto_nivel" class="detalle_cargo"></label>
                         </td>
                   </td>
               </tr>
@@ -157,6 +137,7 @@
             </div>
         </div>
     </div>
+    <asp:HiddenField ID="puesto" runat="server" />
     </form>
 </body>
  <script type="text/javascript" src="Postulacion.js" ></script>
@@ -165,7 +146,9 @@
   <script type="text/javascript">
 
       $(document).ready(function () {
-          Postulacion.armarPostulacion();
+          var puesto = JSON.parse($('#puesto').val());
+
+          Postulacion.armarPostulacion(puesto);
           
       });
 

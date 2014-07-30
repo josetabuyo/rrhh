@@ -34,8 +34,8 @@ namespace TestViaticos
         public void deberia_traer_puestos()
         {
             var puestos = new List<Puesto>();
-            var un_puesto = new Puesto(1, "Abogacia", "Penal","aaffa","A", "Se busca un abogado...pero no el que tengo aca colgado", 5, "Abierto");
-            var otro_puesto = new Puesto(2, "Contador", "Discreto","","", "Experiencia en balances", 10, "Cerrado");
+            var un_puesto = new Puesto(1, "Abogacia", "Penal","aaffa","A", "Se busca un abogado...pero no el que tengo aca colgado", 5, "Abierto","A-132");
+            var otro_puesto = new Puesto(2, "Contador", "Discreto","","", "Experiencia en balances", 10, "Cerrado","A-123" );
 
             //repoCv.GuardarCVDatosPersonales(DatosPersonales(), TestObjects.UsuarioSACC());
 
