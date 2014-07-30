@@ -22,9 +22,7 @@
 
             _this.cmb_idioma_extranjero_pais = new SuperCombo({
                 ui: _this.ui.find("#cmb_idioma_extranjero_pais"),
-                nombre_repositorio: "Paises",
-                campo_id: "Id",
-                campo_descripcion: "Descripcion",
+                nombre_repositorio: "Paises",                
                 id_item_seleccionado: idioma_extranjero.Pais
             });
 
@@ -34,24 +32,18 @@
             _this.cmb_idioma_extranjero_lectura = new SuperCombo({
                 ui: _this.ui.find("#cmb_idioma_extranjero_lectura"),
                 nombre_repositorio: "NivelesDeIdioma",
-                campo_id: "Id",
-                campo_descripcion: "Descripcion",
                 id_item_seleccionado: idioma_extranjero.Lectura
             });
 
             _this.cmb_idioma_extranjero_escritura = new SuperCombo({
                 ui: _this.ui.find("#cmb_idioma_extranjero_escritura"),
                 nombre_repositorio: "NivelesDeIdioma",
-                campo_id: "Id",
-                campo_descripcion: "Descripcion",
                 id_item_seleccionado: idioma_extranjero.Escritura
             });
 
             _this.cmb_idioma_extranjero_oral = new SuperCombo({
                 ui: _this.ui.find("#cmb_idioma_extranjero_oral"),
                 nombre_repositorio: "NivelesDeIdioma",
-                campo_id: "Id",
-                campo_descripcion: "Descripcion",
                 id_item_seleccionado: idioma_extranjero.Oral
             });
 

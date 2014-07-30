@@ -16,8 +16,6 @@
             _this.cmb_nivel_educativo = new SuperCombo({
                 ui: _this.ui.find("#cmb_actividad_docente_nivel_educativo"),
                 nombre_repositorio: "NivelesDeDocencia",
-                campo_id: "Id",
-                campo_descripcion: "Descripcion",
                 id_item_seleccionado: docencia.NivelEducativo
             });
 
@@ -50,8 +48,6 @@
             _this.cmb_actividad_docente_pais = new SuperCombo({
                 ui: _this.ui.find("#cmb_actividad_docente_pais"),
                 nombre_repositorio: "Paises",
-                campo_id: "Id",
-                campo_descripcion: "Descripcion",
                 id_item_seleccionado: docencia.Pais
             });
 

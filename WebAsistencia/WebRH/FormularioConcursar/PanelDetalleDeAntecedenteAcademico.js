@@ -31,8 +31,6 @@
             _this.cmb_antecedentes_pais = new SuperCombo({
                 ui: _this.ui.find("#cmb_antecedentes_pais"),
                 nombre_repositorio: "Paises",
-                campo_id: "Id",
-                campo_descripcion: "Descripcion",
                 id_item_seleccionado: estudio.Pais
             });
 

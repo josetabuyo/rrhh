@@ -31,8 +31,6 @@
             _this.cmb_actividad_capacitacion_pais = new SuperCombo({
                 ui: _this.ui.find("#cmb_actividad_capacitacion_pais"),
                 nombre_repositorio: "Paises",
-                campo_id: "Id",
-                campo_descripcion: "Descripcion",
                 id_item_seleccionado: actividad_capacitacion.Pais
             });
 
