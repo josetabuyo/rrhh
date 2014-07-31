@@ -14,24 +14,28 @@
         _this.cmb_sexo = new SuperCombo({
             ui: _this.ui.find("#cmb_sexo"),
             nombre_repositorio: "Sexos",
+            repositorio: Repositorio,
             id_item_seleccionado: datos_personales.Sexo
         });
 
         _this.cmb_estadoCivil = new SuperCombo({
             ui: _this.ui.find("#cmb_estadoCivil"),
             nombre_repositorio: "EstadosCiviles",
+            repositorio: Repositorio,
             id_item_seleccionado: datos_personales.EstadoCivil
         });
 
         _this.cmb_nacionalidad = new SuperCombo({
             ui: _this.ui.find("#cmb_nacionalidad"),
             nombre_repositorio: "Nacionalidades",
+            repositorio: Repositorio,
             id_item_seleccionado: datos_personales.Nacionalidad
         });
 
         _this.cmb_tipoDocumento = new SuperCombo({
             ui: _this.ui.find("#cmb_tipoDocumento"),
             nombre_repositorio: "TiposDeDocumento",
+            repositorio: Repositorio,
             id_item_seleccionado: datos_personales.TipoDocumento
         });
 
