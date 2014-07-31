@@ -6,7 +6,7 @@
         campo_id: "Id",
         campo_descripcion: "Descripcion"
     };
-    $.extend(true, this, opt, def);
+    $.extend(true, this, def, opt);
     this.start();
 };
 
@@ -55,7 +55,7 @@ SuperCombo.prototype.cargarCombo = function (objetos, campo_id, campo_descripcio
 
 SuperCombo.prototype.cargarBusqueda = function (nombre_repositorio, filtro, campo_id, campo_descripcion) {
     var _this = this;
-    Repositorio.buscar(nombre_repositorio, filtro, function (items) {
+    _this.repositorio.buscar(nombre_repositorio, filtro, function (items) {
         _this.cargarCombo(items, campo_id, campo_descripcion);
         _this.idItemSeleccionado(_this.idItemSeleccionado());
     });
