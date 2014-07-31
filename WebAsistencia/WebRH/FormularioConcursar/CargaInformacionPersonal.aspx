@@ -41,7 +41,7 @@
             <ul class="ul_cv" style="width:60%; margin-left:20%;">
                 <li class="menu_lista_formularios"><a href="#ancla11">Competencias Informáticas</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla12">Otras Capacidades</a></li>
-                <li class="menu_lista_formularios no_borde"><a href="#ancla13">Vista Preliminar</a></li>
+                <li class="menu_lista_formularios no_borde"><a href="CAMBIAR!">Vista Preliminar</a></li>
             </ul>
         </nav>
 
@@ -426,7 +426,7 @@
               </div>
             </div>
 
-            <div class="accordion-group">
+           <%-- <div class="accordion-group">
               <div id="ancla13" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThirteen">
                   VISTA PRELIMINIAR
@@ -439,7 +439,7 @@
                   </fieldset>
                 </div>
               </div>
-            </div>
+            </div>--%>
           </div>
     </div>
 
