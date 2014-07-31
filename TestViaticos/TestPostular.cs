@@ -135,7 +135,7 @@ namespace TestViaticos
 
         public CvPublicaciones UnaPublicacion()
         {
-            return new CvPublicaciones(1,"Como manejar bases", "Editarial", "5", 1, new DateTime(2012, 12, 01));
+            return new CvPublicaciones(1,"Como manejar bases", "Editarial", "5", 1, 1, new DateTime(2012, 12, 01));
         }
 
     }

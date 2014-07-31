@@ -281,13 +281,14 @@ namespace General.Repositorios
                                                Editorial = dRow.GetString("PublicacionEditorial", string.Empty),
                                                Hojas = dRow.GetString("PublicacionHojas", string.Empty),
                                                Copia = dRow.GetInt("PublicacionCopia", 0),
+                                               Adjunto = dRow.GetInt("PublicacionAdjunto", 0),
                                                Fecha = dRow.GetDateTime("PublicacionFecha", DateTime.Today)
 
                                            }).Distinct().ToList();
 
 
 
-                publicaciones_anonimos.Select(p => new CvPublicaciones(p.Id, p.Titulo,p.Editorial,p.Hojas,p.Copia,
+                publicaciones_anonimos.Select(p => new CvPublicaciones(p.Id, p.Titulo,p.Editorial,p.Hojas,p.Copia, p.Adjunto,
                                            p.Fecha)).ToList().ForEach(pub => cv.AgregarPublicacion(pub));
 
             }
@@ -820,6 +821,7 @@ namespace General.Repositorios
             parametros.Add("@CantidadHojas", publicacion_nueva.CantidadHojas);
             parametros.Add("@DatosEditorial", publicacion_nueva.DatosEditorial);
             parametros.Add("@DisponeCopia", publicacion_nueva.DisponeCopia);
+            parametros.Add("@DisponeAdjunto", publicacion_nueva.DisponeAdjunto);
             parametros.Add("@Titulo", publicacion_nueva.Titulo);
             parametros.Add("@FechaPublicacion", publicacion_nueva.FechaPublicacion);
             parametros.Add("@Usuario", usuario.Id);

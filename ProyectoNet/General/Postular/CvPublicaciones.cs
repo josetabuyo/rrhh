@@ -12,7 +12,7 @@ namespace General
         protected string _datosEditorial;
         protected string _cantidadHojas;
         protected int _disponeCopia;
-        protected int _adjuntaCopia;
+        protected int _disponeAdjunto;
         protected DateTime _fechaPublicacion;
 
 
@@ -21,17 +21,17 @@ namespace General
         public string DatosEditorial { get { return _datosEditorial; } set { _datosEditorial = value; } }
         public string CantidadHojas { get { return _cantidadHojas; } set { _cantidadHojas = value; } }
         public int DisponeCopia { get { return _disponeCopia; } set { _disponeCopia = value; } }
-        public int AdjuntaCopia { get { return _adjuntaCopia; } set { _adjuntaCopia = value; } }
+        public int DisponeAdjunto { get { return _disponeAdjunto; } set { _disponeAdjunto = value; } }
         public DateTime FechaPublicacion { get { return _fechaPublicacion; } set { _fechaPublicacion = value; } }
 
-        public CvPublicaciones(int id, string titulo, string datosEditorial, string cantidadHojas, int disponeCopia, int adjuntaCopia, DateTime fechaPublicacion)
+        public CvPublicaciones(int id, string titulo, string datosEditorial, string cantidadHojas, int disponeCopia, int disponeAdjunto, DateTime fechaPublicacion)
         {
             this._id = id;
             this._titulo = titulo;
             this._datosEditorial = datosEditorial;
             this._cantidadHojas = cantidadHojas;
             this._disponeCopia = disponeCopia;
-            this._adjuntaCopia = adjuntaCopia;
+            this._disponeAdjunto = disponeCopia;
             this._fechaPublicacion = fechaPublicacion;
 
         }
