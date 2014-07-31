@@ -51,24 +51,25 @@
         </div>
 
         <div class="panel_derecho">
-            
 
           <!--  <div class="panel panel-default">-->
-              <div class="panel-body estilo_paneles fondo_form ">
+              <div class="panel-body estilo_paneles  ">
                <h3 class="panel-title" >Mis Postulaciones</h3>
-                           <hr class="lineas-subraya"/>
+               
+                 <hr class="lineas-subraya"/>
+                 <div id="tabla_postulaciones"> </div>
+                  <!-- <table id="tabla_postulaciones" style="width:100%;"></table>
                  <div class="feedPostulacionesAplicadas sombra_y_redondeado"> 
                     <h3 class="subtitulo_postulaciones"><a href="#">Programador para RRHH/ CABA </a></h3>
                     <hr class="SubrayadoPostulaciones degrade"/>
-                    <p>Se require programadores con conocimientos avanzados en c# y un lenguaje proximamente a inventar para...En caso de no cumplir los requisitos para un determinado puesto, el sistema les avisará sobre la imposibilidad de inscripción para ese en particular...<a href="#">Ver mas</a></p>
-                    <p style="text-align: right; font-size:12px;"><a style="margin-top: 100px; text-align:left;"class="link-cv" href="FichaInscripcionCVDeclaJurada.aspx">CV postulado</a></p>
-                    
-                    </div>
+                  <p>Se require programadores con conocimientos avanzados en c#</p>
+                  </div>
+
                 <div class="feedPostulacionesAplicadas sombra_y_redondeado">
                     <h3 class="subtitulo_postulaciones"><a href="#">Adminitrador de Redes RRHH/ CABA </a></h3>
                     <hr class="SubrayadoPostulaciones degrade"/>
-                    <p>Se require expertos en Redes para administrar la infraestructura de todo el ministerio. En caso de no cumplir los requisitos para un determinado puesto, el sistema les avisará sobre la imposibilidad de inscripción para ese en particular...<a href="#">Ver mas</a></p>
-                    <p style="text-align: right; font-size:12px;"><a style="margin-top: 100px; text-align:left;"class="link-cv" href="FichaInscripcionCVDeclaJurada.aspx">CV postulado</a></p>
+                    <p>Se require expertos en Redes para administrar la infraestructura</p>-->
+                    
                     
                 </div>
               </div>
@@ -76,8 +77,22 @@
 
         <!--</div>-->
     </div>
+    <asp:HiddenField ID="postulaciones" runat="server" />
             </form>
 </body>
  <%= Referencias.Javascript("../") %>
+ <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
  <script type="text/javascript" src="CvDatosPersonales.js"></script>
+  <script type="text/javascript" src="PanelDeControl.js"></script>
+ <script type="text/javascript">
+
+     $(document).ready(function () {
+
+         var postulaciones = JSON.parse($('#postulaciones').val());
+         PanelDeControl.armarPostulaciones(postulaciones);
+
+
+    
+ });
+ </script>
 </html>

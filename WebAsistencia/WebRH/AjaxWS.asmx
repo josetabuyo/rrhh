@@ -772,7 +772,15 @@ public class AjaxWS : System.Web.Services.WebService {
         var postulacion = backEndService.PostularseA(una_postulacion, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(postulacion);
         
-    } 
+    }
+
+    //[WebMethod(EnableSession = true)]
+    //public string GetPostulaciones()
+    //{
+    //    var postulaciones = backEndService.GetPostulaciones(usuarioLogueado);
+    //    return Newtonsoft.Json.JsonConvert.SerializeObject(postulaciones);
+
+    //} 
     
     #endregion
     
