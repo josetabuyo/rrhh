@@ -65,12 +65,12 @@
                         </div>
                         <div style="float:left; margin:8px">
                             <label for="cmb_sexo">Sexo <em>*</em></label>
-                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" >
+                            <select id="cmb_sexo" style="width:100px;" dataProvider="Sexos" name="cmb_sexo" >
                             </select>
                         </div>
                         <div style="float:left; margin:8px">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
-                         <select id="cmb_estadoCivil" style="width:100px;" name="cmb_estadoCivil" >
+                         <select id="cmb_estadoCivil" style="width:100px;" dataProvider="EstadosCiviles" name="cmb_estadoCivil" >
                          </select>
                          </div>
                         <div style="float:left; margin:8px; width:130px;">
@@ -88,12 +88,12 @@
                         </div>
                       <div style="float:left; margin:8px">
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
-                         <select id="cmb_nacionalidad" style="width:250px;" name="cmb_nacionalidad">
+                         <select id="cmb_nacionalidad" style="width:250px;" dataProvider="Nacionalidades" name="cmb_nacionalidad">
                          </select>
                       </div>
                       <div style="float:left; margin:8px">
                        <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo documento <em>*</em></label>
-                        <select id="cmb_tipoDocumento" style="width:100px;" name="cmb_tipoDocumento">
+                        <select id="cmb_tipoDocumento" style="width:100px;" dataProvider="TiposDeDocumento" name="cmb_tipoDocumento">
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
@@ -123,7 +123,7 @@
                       </div>
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
-                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:200px;" >
+                        <select id="cmb_provincia1" name="cmb_provincia1" dataProvider="Provincias" label="Nombre" style="width:200px;" >
                         </select>
                       </div> 
                       <div style="float:left; margin:8px">
@@ -161,15 +161,13 @@
 
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia2">Provincia <em>*</em></label>
-                        <select id="cmb_provincia2" name="cmb_provincia2" style="width:200px;" >
+                        <select id="cmb_provincia2" name="cmb_provincia2" dataProvider="Provincias" label="Nombre" style="width:200px;" >
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
                           <label class="etiqueta_campo_small" for="cmb_localidad2">Localidad <em>*</em></label>
-                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:300px;" >
-                            </select>
+                          <select id="cmb_localidad2" name="cmb_localidad2" dataProvider="Localidades" dependeDe="cmb_provincia2" style="width:300px;"></select>
                       </div>
-
                         <div style="float:left; margin:8px">
                             <label class="etiqueta_campo" for="txt_telefonoFijo">Tel&eacute;fono fijo <em>*</em></label>
                             <input type="text" id="txt_telefonoFijo" name="txt_telefonoFijo" style="width:100px;"/>
@@ -501,6 +499,7 @@
 <script type="text/javascript" src="Postulacion.js" ></script>
 <script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
+<script type="text/javascript" src="../Scripts/ComboPopuladoConRepoBuilder.js" ></script>
 <script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
 
 <script type="text/javascript">
