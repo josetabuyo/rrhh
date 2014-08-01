@@ -16,13 +16,13 @@ namespace General.Repositorios
         {
         }
 
-        public static RepositorioDeTiposdeDocumento NuevoRepositorioDeTiposdeDocumento(IConexionBD conexion)
+        public static RepositorioDeTiposdeDocumento Nuevo(IConexionBD conexion)
         {
             if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeTiposdeDocumento(conexion);
             return _instancia;
         }
 
-        public List<TipoDeDocumento> TodosLosTiposDeDocumento()
+        public List<TipoDeDocumento> All()
         {
             return this.Obtener();
         }

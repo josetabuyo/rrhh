@@ -18,9 +18,21 @@
         var columnas = [];
 
         columnas.push(new Columna("Idioma", { generar: function (un_idioma_extranjero) { return un_idioma_extranjero.Idioma } }));
-        columnas.push(new Columna("Lectura", { generar: function (un_idioma_extranjero) { return un_idioma_extranjero.Lectura } }));
-        columnas.push(new Columna("Escritura", { generar: function (un_idioma_extranjero) { return un_idioma_extranjero.Escritura } }));
-        columnas.push(new Columna("Oral", { generar: function (un_idioma_extranjero) { return un_idioma_extranjero.Oral } }));
+        columnas.push(new Columna("Lectura", {
+            generar: function (un_idioma_extranjero, callback) {
+                Repositorio.buscar("NivelesDeIdioma", { Id: un_idioma_extranjero.Lectura }, function (niveles) { callback(niveles[0].Descripcion) });
+            }, asincronico: true 
+        }));
+        columnas.push(new Columna("Escritura", {
+            generar: function (un_idioma_extranjero, callback) {
+                Repositorio.buscar("NivelesDeIdioma", { Id: un_idioma_extranjero.Escritura }, function (niveles) { callback(niveles[0].Descripcion) });
+            }, asincronico: true 
+        }));
+        columnas.push(new Columna("Oral", {
+            generar: function (un_idioma_extranjero, callback) {
+                Repositorio.buscar("NivelesDeIdioma", { Id: un_idioma_extranjero.Oral }, function(niveles){callback(niveles[0].Descripcion)});
+            }, asincronico: true 
+        }));
         columnas.push(new Columna('Acciones', {
             generar: function (un_idioma_extranjero) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();

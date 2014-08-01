@@ -44,8 +44,6 @@
             _this.cmb_experiencia_laboral_pais = new SuperCombo({
                 ui: _this.ui.find("#cmb_experiencia_laboral_pais"),
                 nombre_repositorio: "Paises",
-                str_val: "Id",
-                str_descripcion: "Descripcion",
                 id_item_seleccionado: experiencia.Pais
             });
 

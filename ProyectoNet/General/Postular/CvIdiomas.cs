@@ -11,9 +11,9 @@ namespace General
         protected string _diploma;
         protected string _establecimiento;
         protected string _idioma;
-        protected string _lectura;
-        protected string _escritura;
-        protected string _oral;
+        protected int _lectura;
+        protected int _escritura;
+        protected int _oral;
         protected DateTime _fechaObtencion;
         //protected DateTime _fechaFin;
         protected string _localidad;
@@ -23,16 +23,16 @@ namespace General
         public string Diploma { get { return _diploma; } set { _diploma = value; } }
         public string Establecimiento { get { return _establecimiento; } set { _establecimiento = value; } }
         public string Idioma { get { return _idioma; } set { _idioma = value; } }
-        public string Lectura { get { return _lectura; } set { _lectura = value; } }
-        public string Escritura { get { return _escritura; } set { _escritura = value; } }
-        public string Oral { get { return _oral; } set { _oral = value; } }
+        public int Lectura { get { return _lectura; } set { _lectura = value; } }
+        public int Escritura { get { return _escritura; } set { _escritura = value; } }
+        public int Oral { get { return _oral; } set { _oral = value; } }
         public DateTime FechaObtencion { get { return _fechaObtencion; } set { _fechaObtencion = value; } }
         //public DateTime FechaFin { get { return _fechaFin; } set { _fechaFin = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Pais { get { return _pais; } set { _pais = value; } }
 
 
-        public CvIdiomas(int id, string diploma, string establecimiento, string idioma, string lectura, string escritura, string oral, DateTime fechaObtencion, string localidad, int pais)
+        public CvIdiomas(int id, string diploma, string establecimiento, string idioma, int lectura, int escritura, int oral, DateTime fechaObtencion, string localidad, int pais)
         {
             this._id = id;
             this._diploma = diploma;

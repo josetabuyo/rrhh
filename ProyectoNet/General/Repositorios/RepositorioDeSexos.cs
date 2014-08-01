@@ -15,13 +15,13 @@ namespace General.Repositorios
         {
         }
 
-        public static RepositorioDeSexos NuevoRepositorioDeSexos(IConexionBD conexion)
+        public static RepositorioDeSexos Nuevo(IConexionBD conexion)
         {
             if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeSexos(conexion);
             return _instancia;
         }
 
-        public List<Sexo> TodosLosSexos()
+        public List<Sexo> All()
         {
             return this.Obtener();
         }

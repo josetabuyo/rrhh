@@ -34,8 +34,8 @@ namespace TestViaticos
         public void deberia_traer_puestos()
         {
             var puestos = new List<Puesto>();
-            var un_puesto = new Puesto(1, "Abogacia", "Penal","aaffa","A", "Se busca un abogado...pero no el que tengo aca colgado", 5, "Abierto");
-            var otro_puesto = new Puesto(2, "Contador", "Discreto","","", "Experiencia en balances", 10, "Cerrado");
+            var un_puesto = new Puesto(1, "Abogacia", "Penal","aaffa","A", "Se busca un abogado...pero no el que tengo aca colgado", 5, "Abierto","A-132");
+            var otro_puesto = new Puesto(2, "Contador", "Discreto","","", "Experiencia en balances", 10, "Cerrado","A-123" );
 
             //repoCv.GuardarCVDatosPersonales(DatosPersonales(), TestObjects.UsuarioSACC());
 
@@ -102,7 +102,7 @@ namespace TestViaticos
 
         public CvIdiomas UnIdioma()
         {
-            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles","Avanzado","Intermedio","Basico",new DateTime(2013,12,20),"CABA",9);
+            return new CvIdiomas(1,"First Certificate","Cultural Inglesa","Ingles",3,3,3,new DateTime(2013,12,20),"CABA",9);
         }
 
         public CvInstitucionesAcademicas UnaInstitucionAcademica()
@@ -117,7 +117,7 @@ namespace TestViaticos
 
         public CvDocencia UnaDocencia()
         {
-            return new CvDocencia(1,"Ingles", new NivelDeDocencia(1, "Secundario"), "No se", "No se", "Nombrado", "No se", "12 a 18",
+            return new CvDocencia(1,"Ingles", 1, "No se", "No se", "Nombrado", "No se", "12 a 18",
                                   new DateTime(2008, 01, 01), new DateTime(2010, 12, 20), "Colegio Coppelo", "CABA",
                                   1);
 
@@ -135,7 +135,7 @@ namespace TestViaticos
 
         public CvPublicaciones UnaPublicacion()
         {
-            return new CvPublicaciones(1,"Como manejar bases", "Editarial", "5", 1, new DateTime(2012, 12, 01));
+            return new CvPublicaciones(1,"Como manejar bases", "Editarial", "5", 1, 1, new DateTime(2012, 12, 01));
         }
 
     }

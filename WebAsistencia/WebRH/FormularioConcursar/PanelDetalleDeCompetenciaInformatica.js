@@ -24,8 +24,6 @@
             _this.cmb_competencias_informaticas_pais = new SuperCombo({
                 ui: _this.ui.find("#cmb_competencias_informaticas_pais"),
                 nombre_repositorio: "Paises",
-                str_val: "Id",
-                str_descripcion: "Descripcion",
                 id_item_seleccionado: competencia_informatica.Pais
             });
 

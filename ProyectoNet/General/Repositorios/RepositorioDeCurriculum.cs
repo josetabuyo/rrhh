@@ -169,7 +169,7 @@ namespace General.Repositorios
                                              {
                                                  Id = dRow.GetInt("IdAntecedentesDeDocencia", 0),
                                                  Asignatura = dRow.GetString("AntecedentesDeDocenciaAsignatura", string.Empty),
-                                                 NivelEducativo = new NivelDeDocencia(dRow.GetInt("AntecedentesDeDocenciaNivelEducativo_Id", 0), dRow.GetString("AntecedentesDeDocenciaNivelEducativo_Descripcion", string.Empty)),
+                                                 NivelEducativo = dRow.GetInt("AntecedentesDeDocenciaNivelEducativo", 0),
                                                  TipoActividad = dRow.GetString("AntecedentesDeDocenciaTipoActividad", string.Empty),
                                                  CategoriaDocente = dRow.GetString("AntecedentesDeDocenciaCategoriaDocente", string.Empty),
                                                  CaracterDesignacion = dRow.GetString("AntecedentesDeDocenciaCaracterDesignacion", string.Empty),
@@ -226,31 +226,19 @@ namespace General.Repositorios
         {
             //CORTE DE CONTROL PARA OTRAS CAPACIDADES
             //1.- Controlo que haya al menos 1 resultado
-            if (!(tablaCVs.Rows[0].GetObject("CapacidadesPersonalesId") is DBNull))
+            var lista = ArmarFilas(tablaCVs, "CapacidadesPersonalesId", "CapacidadesPersonalesBaja"); new List<RowDeDatos>();
+
+            if (lista.Count > 0)
             {
-                //2.- Creo la capacidad anterior por primera vez
-                var capacidadAnterior = GetOtraCapacidadFromDataRow(tablaCVs.Rows[0]);
+                var capacidades_anonimos = (from RowDeDatos dRow in lista
+                                        select new //CvEventoAcademico ()
+                                        {
+                                            Id = dRow.GetInt("CapacidadesPersonalesId", 0),
+                                            Tipo =  dRow.GetInt("CapacidadesPersonalesTipo", 0),
+                                            Detalle = dRow.GetString("CapacidadesPersonalesDetalle", "")
+                                        }).Distinct().ToList();
 
-                var capacidad = capacidadAnterior;
-
-                if (!(tablaCVs.Rows[0].GetObject("CapacidadesPersonalesId") is DBNull))
-                {
-                    cv.AgregarCapacidadPersonal(capacidad);
-
-                }
-
-                foreach (var row in tablaCVs.Rows)
-                {
-                    if (!(row.GetObject("CapacidadesPersonalesId") is DBNull))
-                    {
-                        if (capacidadAnterior.Id != row.GetSmallintAsInt("CapacidadesPersonalesId"))
-                        {
-                            capacidad = GetOtraCapacidadFromDataRow(row);
-                            cv.AgregarCapacidadPersonal(capacidad);
-                            capacidadAnterior = capacidad;
-                        }
-                    }
-                }
+                capacidades_anonimos.Select(e => new CvCapacidadPersonal(e.Id, e.Tipo, e.Detalle)).ToList().ForEach(ev => cv.AgregarCapacidadPersonal(ev));
             }
         }
 
@@ -293,13 +281,14 @@ namespace General.Repositorios
                                                Editorial = dRow.GetString("PublicacionEditorial", string.Empty),
                                                Hojas = dRow.GetString("PublicacionHojas", string.Empty),
                                                Copia = dRow.GetInt("PublicacionCopia", 0),
+                                               Adjunto = dRow.GetInt("PublicacionAdjunto", 0),
                                                Fecha = dRow.GetDateTime("PublicacionFecha", DateTime.Today)
 
                                            }).Distinct().ToList();
 
 
 
-                publicaciones_anonimos.Select(p => new CvPublicaciones(p.Id, p.Titulo,p.Editorial,p.Hojas,p.Copia,
+                publicaciones_anonimos.Select(p => new CvPublicaciones(p.Id, p.Titulo,p.Editorial,p.Hojas,p.Copia, p.Adjunto,
                                            p.Fecha)).ToList().ForEach(pub => cv.AgregarPublicacion(pub));
 
             }
@@ -384,9 +373,9 @@ namespace General.Repositorios
                                                  Diploma = dRow.GetString("IdiomaDiploma", string.Empty),
                                                  Establecimiento = dRow.GetString("IdiomaEstablecimiento", string.Empty),
                                                  Idioma = dRow.GetString("IdiomaIdioma", string.Empty),
-                                                 Lectura = dRow.GetString("IdiomaLectura", string.Empty),
-                                                 Escritura = dRow.GetString("IdiomaEscritura", string.Empty),
-                                                 Oral = dRow.GetString("IdiomaOral", string.Empty),
+                                                 Lectura = dRow.GetInt("IdiomaLectura", 3),
+                                                 Escritura = dRow.GetInt("IdiomaEscritura", 3),
+                                                 Oral = dRow.GetInt("IdiomaOral", 3),
                                                  FechaObtencion = dRow.GetDateTime("IdiomaFechaObtencion", DateTime.Today),
                                                  Localidad = dRow.GetString("IdiomaLocalidad", string.Empty),
                                                  Pais = dRow.GetInt("IdiomaPais", 9)
@@ -428,11 +417,6 @@ namespace General.Repositorios
             }
         }
 
-
-        private CvCapacidadPersonal GetOtraCapacidadFromDataRow(RowDeDatos row)
-        {
-            return new CvCapacidadPersonal(row.GetInt("CapacidadesPersonalesId", -1), row.GetInt("CapacidadesPersonalesTipo", -1), row.GetString("CapacidadesPersonalesDetalle", ""));
-        }
 
         private List<RowDeDatos> ArmarFilas(TablaDeDatos tabla, string campo_id, string campo_baja)
         {
@@ -730,7 +714,7 @@ namespace General.Repositorios
             parametros.Add("@CategoriaDocente", docencia_nuevo.CategoriaDocente);
             parametros.Add("@DedicacionDocente", docencia_nuevo.DedicacionDocente);
             parametros.Add("@Establecimiento", docencia_nuevo.Establecimiento);
-            parametros.Add("@NivelEducativo", docencia_nuevo.NivelEducativo.Id);
+            parametros.Add("@NivelEducativo", docencia_nuevo.NivelEducativo);
             parametros.Add("@TipoActividad", docencia_nuevo.TipoActividad);
             parametros.Add("@FechaInicio", docencia_nuevo.FechaInicio);
             parametros.Add("@FechaFinalizacion", docencia_nuevo.FechaFinalizacion);
@@ -842,6 +826,7 @@ namespace General.Repositorios
             parametros.Add("@CantidadHojas", publicacion_nueva.CantidadHojas);
             parametros.Add("@DatosEditorial", publicacion_nueva.DatosEditorial);
             parametros.Add("@DisponeCopia", publicacion_nueva.DisponeCopia);
+            parametros.Add("@DisponeAdjunto", publicacion_nueva.DisponeAdjunto);
             parametros.Add("@Titulo", publicacion_nueva.Titulo);
             parametros.Add("@FechaPublicacion", publicacion_nueva.FechaPublicacion);
             parametros.Add("@Usuario", usuario.Id);
@@ -1114,20 +1099,11 @@ namespace General.Repositorios
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Baja", id_baja);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_CapacidadesPersonales", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CapacidadesPersonales", parametros);
 
             return true;
         }
 
-        //public List<CvCapacidadPersonal> GetCvCapacidadesPersonales(int documento)
-        //{
-        //    var capacidades_personales = new List<CvCapacidadPersonal>()
-        //                       {
-        //                           new CvCapacidadPersonal(1, 1, "Simpatico")
-        //                       };
-
-        //    return capacidades_personales;
-        //}
 
         #endregion CvCapacidadesPersonales/OtrasCapacidades
 

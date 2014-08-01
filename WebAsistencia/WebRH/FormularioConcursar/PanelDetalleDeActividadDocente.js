@@ -16,9 +16,7 @@
             _this.cmb_nivel_educativo = new SuperCombo({
                 ui: _this.ui.find("#cmb_actividad_docente_nivel_educativo"),
                 nombre_repositorio: "NivelesDeDocencia",
-                str_val: "Id",
-                str_descripcion: "Descripcion",
-                id_item_seleccionado: docencia.NivelEducativo.Id
+                id_item_seleccionado: docencia.NivelEducativo
             });
 
             _this.tipo_actividad = _this.ui.find("#txt_actividad_docente_tipo_actividad");
@@ -50,8 +48,6 @@
             _this.cmb_actividad_docente_pais = new SuperCombo({
                 ui: _this.ui.find("#cmb_actividad_docente_pais"),
                 nombre_repositorio: "Paises",
-                str_val: "Id",
-                str_descripcion: "Descripcion",
                 id_item_seleccionado: docencia.Pais
             });
 
@@ -65,12 +61,12 @@
                 }
 
                 docencia.Asignatura = _this.txt_asignatura.val();
-                docencia.NivelEducativo = _this.cmb_nivel_educativo.itemSeleccionado();
+                docencia.NivelEducativo = _this.cmb_nivel_educativo.idItemSeleccionado();
                 docencia.TipoActividad = _this.tipo_actividad.val();
                 docencia.CategoriaDocente = _this.categoria_docente.val();
                 docencia.CaracterDesignacion = _this.caracter_designacion.val();
                 docencia.DedicacionDocente = _this.dedicacion_docente.val();
-                docencia.CargaHoraria = _this.dedicacion_docente.val();
+                docencia.CargaHoraria = _this.carga_horaria.val();
                 docencia.FechaInicio = _this.fecha_inicio.datepicker('getDate').toISOString();
                 docencia.FechaFinalizacion = _this.fecha_fin.datepicker('getDate').toISOString();
                 docencia.Establecimiento = _this.establecimiento.val();

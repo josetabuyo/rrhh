@@ -7,25 +7,23 @@
 		</div>
 		<div id="contenido_form_publicaciones" class="fondo_form">
 			<fieldset style="width:95%; padding-left:3%;">
-				<p>
-					<em>*</em> Campos Obligatorios
-				</p>
-				<legend>Ingresar Publicación o Trabajo de Investigación</legend>
-				<div class="grupo_campos">
+				<legend style="margin-bottom:20px;">Ingrese una publicación o trabajo de investigación realizado</legend>
+				 <h5><em>*</em>Campos Obligatorios</h5>
+                <div class="grupo_campos">
 					<label for="publicaciones_titulo">Título <em>*</em></label>
 					<input id="txt_publicaciones_titulo" type="text" style="width:250px;"/>
-				</div>
-				<div class="grupo_campos">
-					<label for="publicaciones_editorial">Datos de Editorial / Revista <em>*</em></label>
-					<input id="txt_publicaciones_editorial" type="text" style="width:250px;"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="publicaciones_fecha">Fecha <em>*</em></label>
 					<input id="txt_publicaciones_fecha" type="text" style="width:100px;"/>
 				</div>
-				<div class="grupo_campos nueva_linea">
+				<div class="grupo_campos">
 					<label for="publicaciones_paginas">Cantidad Páginas <em>*</em></label>
 					<input id="txt_publicaciones_paginas" type="text" style="width:120px;" name=""/>
+				</div>
+                <div class="grupo_campos nueva_linea">
+					<label for="publicaciones_editorial">Datos de Editorial / Revista <em>*</em></label>
+					<input id="txt_publicaciones_editorial" type="text" style="width:250px;"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="publicaciones_dispone_copia">Dispone Copia <em>*</em></label>
@@ -33,8 +31,7 @@
 				</div>
 				<div class="grupo_campos">
 					<label for="cmb_publicaciones_copias">Adjunta copia <em>*</em></label>
-					<select>
-					</select>
+					<select id="cmb_publicaciones_copias" style="width:130px;"></select>
 				</div>
 			</fieldset>
 			<div class="btn-fld">

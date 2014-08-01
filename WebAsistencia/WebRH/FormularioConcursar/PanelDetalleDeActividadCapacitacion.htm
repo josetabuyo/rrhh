@@ -7,54 +7,39 @@
 		</div>
 		<div id="contenido_form_capacitacion" class="fondo_form">
 			<fieldset style="width:95%; padding-left:3%;">
-				<p>
-					<em>*</em> Campos Obligatorios
-				</p>
-				<legend>Actividades de Capacitaci&oacute;n</legend>
-				<br/>
-				<legend>Ingresar Certificaci&oacute;n/Actividad de Capacitaci&oacute;n</legend>
+				<legend style="margin-bottom:20px;">Ingrese una capacitación certificada que haya finalizado</legend>
+                 <h5><em>*</em>Campos Obligatorios</h5>
 				<div class="grupo_campos">
 					<label for="txt_capacitacion_nombreDiploma">Diploma o Certificaci&oacute;n <em>*</em></label>
 					<input id="txt_actividad_capacitacion_nombreDiploma" type="text" style="width:350px;"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="txt_capacitacion_fechaInicio">Fecha Inicio <em>*</em></label>
-					<input id="txt_actividad_capacitacion_fechaInicio" type="text" style="width:100px;"/>
+					<input id="txt_actividad_capacitacion_fechaInicio" type="text" style="width:120px;"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="txt_capacitacion_fechaFin">Fecha Fin <em>*</em></label>
-					<input id="txt_actividad_capacitacion_fechaFin" type="text" style="width:100px;"/>
-				</div>
-				<div class="grupo_campos">
-					<label for="txt_capacitacion_duracion">Duraci&oacute;n (horas, d&iacute;as o meses) <em>*</em></label>
-					<input id="txt_actividad_capacitacion_duracion" type="text" style="width:150px;" name="txt_capacitacion_duracion"/>
-				</div>
-				<div style="float:left; clear:left;margin:4px 8px 4px 8px">
-					<label for="txt_capacitacion_especialidad">Nombre de Especialidad o Competencia <em>*</em></label>
-					<input id="txt_actividad_capacitacion_especialidad" type="text" style="width:350px;" name="txt_capacitacion_especialidad"/>
-					<input id="Capacitacion-AgregarEspecialidad" type="button" value="+"/>
-					<table class="table table-striped">
-					<thead>
-					<tr>
-						<th>
-							Especialidades
-						</th>
-					</tr>
-					</thead>
-					
-					</table>
+					<input id="txt_actividad_capacitacion_fechaFin" type="text" style="width:120px;"/>
 				</div>
 				<div class="grupo_campos nueva_linea">
+					<label for="txt_capacitacion_especialidad">Nombre de Especialidad o Competencia <em>*</em></label>
+					<input id="txt_actividad_capacitacion_especialidad" type="text" style="width:350px;" name="txt_capacitacion_especialidad"/>
+				</div>
+                <div class="grupo_campos">
+					<label for="txt_capacitacion_duracion">Duraci&oacute;n (horas, d&iacute;as o meses) <em>*</em></label>
+					<input id="txt_actividad_capacitacion_duracion" type="text" style="width:270px;" name="txt_capacitacion_duracion"/>
+				</div>
+                <div class="grupo_campos nueva_linea">
 					<label for="txt_capacitacion_establecimiento">Establecimiento <em>*</em></label>
-					<input id="txt_actividad_capacitacion_establecimiento" type="text" style="width:350px;"/>
+					<input id="txt_actividad_capacitacion_establecimiento" type="text" style="width:200px;"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="cmb_capacitacion_localidad">Localidad <em>*</em></label>
-					<input id="cmb_actividad_capacitacion_localidad" type="text" style="width:100px;"/>
+					<input id="cmb_actividad_capacitacion_localidad" type="text" style="width:200px;"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="cmb_actividad_capacitacion_pais">Pa&iacute;s <em>*</em></label>
-					<select id="cmb_actividad_capacitacion_pais" style="width:110px;">
+					<select id="cmb_actividad_capacitacion_pais" style="width:200px;">
 					</select>
 				</div>
 			</fieldset>
