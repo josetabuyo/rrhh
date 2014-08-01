@@ -5,7 +5,7 @@
         //_this.divListado = $('#listado_puestos');
         _this.divGrilla = $('#tabla_postulaciones');
 
-       /* var columnas = [];
+        /* var columnas = [];
 
         columnas.push(new Columna("Puesto", { generar: function (una_postulacion) { return una_postulacion.Puesto.Denominacion } }));
         columnas.push(new Columna("Fecha", { generar: function (una_postulacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_postulacion.FechaPostulacion) } }));
@@ -13,7 +13,7 @@
         this.GrillaDePostulaciones = new Grilla(columnas);
         this.GrillaDePostulaciones.AgregarEstilo("table table-striped");
         this.GrillaDePostulaciones.SetOnRowClickEventHandler(function (una_postulacion) {
-            window.location.href = 'FichaInscripcionCVDeclaJurada.aspx?id=' + una_postulacion.Id;
+        window.location.href = 'FichaInscripcionCVDeclaJurada.aspx?id=' + una_postulacion.Id;
         });
 
         this.GrillaDePostulaciones.CargarObjetos(postulaciones);
@@ -26,10 +26,11 @@
             var pastilla = $('<div>');
             pastilla.addClass("feedPostulacionesAplicadas pastilla_postulaciones");
 
-            var titulo = $('<h3>');
+            var titulo = $('<a>');
             titulo.addClass('subtitulo_postulaciones');
+            titulo.attr("href", 'FichaInscripcionCVDeclaJurada.aspx?id=' + postulaciones[i].Id)
             titulo[0].innerHTML = ConversorDeFechas.deIsoAFechaEnCriollo(postulaciones[i].FechaPostulacion);
-
+           
             var sub = $('<hr>');
             sub.addClass("SubrayadoPostulaciones degrade");
 

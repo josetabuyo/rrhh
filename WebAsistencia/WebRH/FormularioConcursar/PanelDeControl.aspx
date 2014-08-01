@@ -21,7 +21,7 @@
     <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
     
     <div class="panel panel-heading">
-        <div class="panel_izquierdo" style="height:auto;" >
+        <div class="panel_izquierdo" style="height:auto; width:50%" >
             <div class="panel panel-default">
                 <div class=" estilo_paneles  ">
                 
@@ -51,7 +51,7 @@
             
         </div>
 
-        <div class="panel_derecho">
+        <div style="float:right; " class="panel_derecho">
 
           <!--  <div class="panel panel-default">-->
               <div style="height: 435px;" class="panel-body estilo_paneles  ">
