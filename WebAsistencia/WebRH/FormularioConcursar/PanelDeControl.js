@@ -24,8 +24,8 @@
 
         for (var i = 0; i < postulaciones.length; i++) {
             var pastilla = $('<div>');
-            pastilla.addClass("feedPostulacionesAplicadas sombra_y_redondeado ");
-            
+            pastilla.addClass("feedPostulacionesAplicadas pastilla_postulaciones");
+
             var titulo = $('<h3>');
             titulo.addClass('subtitulo_postulaciones');
             titulo[0].innerHTML = ConversorDeFechas.deIsoAFechaEnCriollo(postulaciones[i].FechaPostulacion);
