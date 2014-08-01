@@ -142,7 +142,7 @@ var CvDatosPersonales = {
             datos_personales_nuevo.Sexo = _this.cmb_sexo.idItemSeleccionado();
             //datos_personales_nuevo.NivelEducat
             datos_personales_nuevo.EstadoCivil = _this.cmb_estadoCivil.idItemSeleccionado();
-            datos_personales_nuevo.Cuil = _this.txt_cuil.val();
+            datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
             datos_personales_nuevo.LugarDeNacimiento = _this.cmb_lugar_nac.val();
             datos_personales_nuevo.FechaNacimiento = _this.txt_fechaNac.val();
             datos_personales_nuevo.Nacionalidad = _this.cmb_nacionalidad.idItemSeleccionado();
