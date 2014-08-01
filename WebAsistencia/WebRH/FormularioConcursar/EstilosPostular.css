@@ -31,6 +31,13 @@ form.cmxform label {
   line-height: 1.8;
   vertical-align: top;
 }
+
+.control-invalido
+{
+    box-shadow: 0 0 5px rgba(219, 96, 0, 1) !important;
+    border: 1px solid rgba(233, 114, 68, 1) !important;
+}
+
 /*form.cmxform fieldset ol {
   margin: 0;
   padding: 0;
