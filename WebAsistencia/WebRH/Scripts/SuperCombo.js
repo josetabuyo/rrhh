@@ -6,7 +6,7 @@
         campo_id: "Id",
         campo_descripcion: "Descripcion"
     };
-    $.extend(true, this, opt, def);
+    $.extend(true, this, def, opt);
     this.start();
 };
 
