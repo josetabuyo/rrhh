@@ -1,4 +1,10 @@
-﻿var CvDatosPersonales = {
+﻿jQuery(function ($) {
+    $("#cuil").mask("99-99999999-9");
+
+});
+
+
+var CvDatosPersonales = {
     completarDatos: function (datos_personales) {
         var _this = this;
         this.ui = $("#contenedor_datosPersonales");

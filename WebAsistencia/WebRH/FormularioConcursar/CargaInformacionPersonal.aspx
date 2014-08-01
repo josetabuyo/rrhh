@@ -10,6 +10,9 @@
     <%= Referencias.Css("../")%>    
     
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
+
+   
 
     <link rel="stylesheet" href="EstilosPostular.css" />
 </head>
@@ -503,10 +506,12 @@
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 <script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
 
+
+
 <script type="text/javascript">
 
     $(document).ready(function () {
-
+       
         $(".collapse").collapse('show');
 
 
@@ -548,7 +553,11 @@
         $("tbody tr:even").css('background-color', '#fff');
         $("tbody tr:odd").css('background-color', 'transparent ');
     });
-    
+
+
+   
+
+
     
 
 </script>
