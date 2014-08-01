@@ -2,6 +2,7 @@
     completarDatos: function (datos_personales) {
         var _this = this;
         this.ui = $("#contenedor_datosPersonales");
+        var contenedor = $("#contenedor_datosPersonales");
 
         _this.txt_nombre = _this.ui.find("#nombre");
         _this.txt_apellido = _this.ui.find("#apellido");
@@ -140,6 +141,9 @@
         //Bt guardar
         _this.add_datosPersonales = _this.ui.find("#btn_guardar_datosPersonales");
         _this.add_datosPersonales.click(function () {
+
+            if (!contenedor.esValido()) return;
+
             var datos_personales_nuevo = {};
             var domicilioPersonal_nuevo = {};
             var domicilioLegal_nuevo = {};

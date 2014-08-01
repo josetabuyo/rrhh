@@ -503,11 +503,17 @@ namespace General.Repositorios
                 //update GEN_Domicilios del domicilio personal
                 parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario);
                 parametros.Add("@idDomicilio", datosPersonales.DomicilioPersonal.Id);
+                parametros.Add("@DomicilioTelefono", datosPersonales.Telefono);
+                parametros.Add("@DomicilioTelefono2", datosPersonales.Telefono2);
+                parametros.Add("@DomicilioCorreo_Electronico", datosPersonales.Email);
                 conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
 
                 //update en GEN_Domicilios del domicilio laboral
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario);
+                parametros = CompletarDatosDomicilios(datosPersonales, parametros, 2, usuario);
                 parametros.Add("@idDomicilio", datosPersonales.DomicilioLegal.Id);
+
+              
+
                 conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
 
             }
@@ -516,7 +522,7 @@ namespace General.Repositorios
             //this.lista_cv.Add(cv);
         }
 
-        private Dictionary<string, object> CompletarDatosDomicilios(CvDomicilio domicilio, Dictionary<string, object> parametros, int tipo, Usuario usuario)
+        private Dictionary<string, object> CompletarDatosDomicilios(CvDomicilio domicilio , Dictionary<string, object> parametros, int tipo, Usuario usuario)
         {
             parametros = new Dictionary<string, object>();
 
@@ -525,15 +531,13 @@ namespace General.Repositorios
             parametros.Add("@DomicilioPiso", domicilio.Piso);
             parametros.Add("@DomicilioDepto", domicilio.Depto);
             parametros.Add("@DomicilioCp", domicilio.Cp);
-            parametros.Add("@DomicilioLocalidad", 1);
+            parametros.Add("@DomicilioLocalidad", domicilio.Localidad);
             parametros.Add("@DomicilioProvincia", domicilio.Provincia);
-            parametros.Add("@DomicilioTelefono", "");
-            parametros.Add("@DomicilioCorreo_Electronico", "");
             parametros.Add("@Correo_Electronico_MDS", "");
-            parametros.Add("@DomicilioTelefono2", "");
             parametros.Add("@DomicilioTipo", tipo);
             parametros.Add("@Usuario", usuario.Id);
-
+           
+            
             return parametros;
         }
 
@@ -552,6 +556,7 @@ namespace General.Repositorios
             parametros.Add("@TipoDocumento", datosPersonales.TipoDocumento);
             parametros.Add("@Sexo", datosPersonales.Sexo);
             parametros.Add("@Usuario", usuario.Id);
+         
 
             return parametros;
         }

@@ -119,7 +119,7 @@
                       </div>
                       <div style="float:left; margin:8px">
                           <label class="etiqueta_campo" for="txt_documento">Nro documento <em>*</em></label>
-                          <input id="txt_documento" type="text" style="width:150px;" />
+                          <input id="txt_documento" type="text" style="width:150px;" data-validar="esNumeroNatural"/>
                       </div>
                        <div style="float:left; margin:8px">
                         <label class="etiqueta_campo" for="txt_calle1">Calle <em>*</em></label>
@@ -127,8 +127,8 @@
                       </div>
 
                        <div style="float:left; margin:8px; width:60px;">
-                        <label class="etiqueta_campo" for="txt_numero1">Número <em>*</em></label>
-                        <input type="text" id="txt_numero1" name="txt_numero1" style="width:50px"/>
+                        <label class="etiqueta_campo" for="txt_numero1" >Número <em>*</em></label>
+                        <input type="text" id="txt_numero1" name="txt_numero1" data-validar="esNumeroNatural" style="width:50px" />
                        </div>      
                        <div style="float:left; margin:8px; width:60px;">
                         <label class="etiqueta_campo" for="txt_piso1">Piso</label>
@@ -139,8 +139,8 @@
                           <input type="text" id="txt_dto1" name="txt_dto1" style="width:50px"/>
                       </div> 
                       <div style="float:left; margin:8px">
-                          <label class="etiqueta_campo_small" for="txt_cp1">Código postal <em>*</em></label>
-                          <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/><br/>
+                          <label class="etiqueta_campo_small" for="txt_cp1" >Código postal <em>*</em></label>
+                          <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px" data-validar="esNumeroNatural"/><br/>
                       </div>
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
@@ -162,7 +162,7 @@
 
                        <div style="float:left; margin:8px; width:60px;">
                             <label class="etiqueta_campo" for="txt_numero2">Número <em>*</em></label>
-                            <input type="text" id="txt_numero2" name="txt_numero2" style="width:50px"/>
+                            <input type="text" id="txt_numero2" name="txt_numero2" style="width:50px" data-validar="esNumeroNatural"/>
                        </div>
        
                        <div style="float:left; margin:8px; width:60px;">
@@ -177,7 +177,7 @@
 
                       <div style="float:left; margin:8px">
                             <label class="etiqueta_campo_small" for="txt_cp2">Código postal <em>*</em></label>
-                          <input type="text" id="txt_cp2" name="txt_cp2" style="width:50px"/><br/>
+                          <input type="text" id="txt_cp2" name="txt_cp2" style="width:50px" data-validar="esNumeroNatural"/><br/>
                       </div>
 
                       <div style="float:left; margin:8px">     
