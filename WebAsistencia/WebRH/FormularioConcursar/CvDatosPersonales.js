@@ -128,12 +128,9 @@
         //Bt guardar
         _this.add_datosPersonales = _this.ui.find("#btn_guardar_datosPersonales");
         _this.add_datosPersonales.click(function () {
-            var guardar = true;
-            if (!$("#contenedor_mails").esValido()) { guardar = false; alertify.error("El mail ingresado es inválido"); }
-            if (!$("#contenedor_datosPersonales").esValido()) { guardar = false; alertify.error("Complete todos los campos obligatorios (*)"); } 
 
 
-            if (guardar) {
+            if ($("#contenedor_datosPersonales").esValido()) {
                 var datos_personales_nuevo = {};
                 var domicilioPersonal_nuevo = {};
                 var domicilioLegal_nuevo = {};

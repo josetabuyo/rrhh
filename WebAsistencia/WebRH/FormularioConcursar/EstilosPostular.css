@@ -34,8 +34,8 @@ form.cmxform label {
 
 .control-invalido
 {
-    box-shadow: 0 0 5px rgba(219, 96, 0, 1) !important;
-    border: 1px solid rgba(233, 114, 68, 1) !important;
+    box-shadow: 0 0 5px rgba(154, 10, 14, 1) !important;
+    border: 1px solid rgba(160, 11, 14, 1) !important;
 }
 
 /*form.cmxform fieldset ol {
