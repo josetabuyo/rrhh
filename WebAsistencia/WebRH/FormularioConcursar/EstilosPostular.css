@@ -215,7 +215,7 @@ nav
         list-style-type: none; /* Elimino los estilos de lista */
         padding: 0; 
         vertical-align: middle;
-        font-size:medium; 
+        font-size:small; 
         cursor:pointer;
     }
     
