@@ -18,6 +18,7 @@ describe("Un ComboPopuladoConRepo", function() {
 	expect(mock_repo.buscar.calls.mostRecent().args[0]).toEqual("Localidades");
   });
   
+<<<<<<< HEAD
   it("no debe fallar si no existe ningun combo maracado con dataProvider", function() {
 	expect(false).toBeTruty();
   });
@@ -38,9 +39,17 @@ describe("Un ComboPopuladoConRepo", function() {
 	expect(false).toBeTruty();
   });
   
+=======
+>>>>>>> c2b5434a10f75edd0109aba599264be695c474b0
   it("xxx", function() {
 	var combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades"></select></div>'));
 	expect(mock_repo.buscar).toHaveBeenCalled();
 	expect(mock_repo.buscar.calls.mostRecent().args[0]).toEqual("Localidades");
+<<<<<<< HEAD
   });
+=======
+	
+  });
+  
+>>>>>>> c2b5434a10f75edd0109aba599264be695c474b0
 });

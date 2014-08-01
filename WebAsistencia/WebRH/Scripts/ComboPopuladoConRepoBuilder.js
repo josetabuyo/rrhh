@@ -2,6 +2,7 @@
 	this.repositorio = repositorio
 };
 
+<<<<<<< HEAD
 ComboPopuladoConRepoBuilder.prototype.include = function(arr,obj) {
     return (arr.indexOf(obj) != -1);
 }
@@ -31,5 +32,19 @@ ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom) {
 			});
 	};
 
+=======
+ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom) {
+	repo = this.repositorio;
+    combos = dom.find('[dataProvider]').each(function () {
+        var control = this;
+		
+		new SuperCombo({
+            ui: control,
+            nombre_repositorio: $(control).attr("dataProvider"),
+            repositorio: repo,
+        });
+		
+    });
+>>>>>>> c2b5434a10f75edd0109aba599264be695c474b0
 	return combos;
 };
