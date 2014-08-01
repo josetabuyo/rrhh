@@ -1,8 +1,7 @@
 ﻿var ComboPopuladoConRepoBuilder = function (repositorio) {
-	this.repositorio = repositorio
+	this.repositorio = repositorio;
 };
 
-<<<<<<< HEAD
 ComboPopuladoConRepoBuilder.prototype.include = function(arr,obj) {
     return (arr.indexOf(obj) != -1);
 }
@@ -23,28 +22,13 @@ ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom) {
 		combos.push(super_combo);
     });
 	
-	$.grep(combos, function(combo){ return combo.dependencia != undefined; }).each {
-		var comboFiltro = $.grep(combos, function(e){ return e.id == $(control).attr("dependeDe"); });
-			var filtro= { provincia: comboFiltro.idItemSeleccionado() };
-
-			comboFiltro.change(function() {
-				super_combo.cargarBusqueda($(control).attr("dataProvider"), filtro, comboFiltro.campo_id, comboFiltro.campo_descripcion);
-			});
-	};
-
-=======
-ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom) {
-	repo = this.repositorio;
-    combos = dom.find('[dataProvider]').each(function () {
-        var control = this;
-		
-		new SuperCombo({
-            ui: control,
-            nombre_repositorio: $(control).attr("dataProvider"),
-            repositorio: repo,
-        });
-		
-    });
->>>>>>> c2b5434a10f75edd0109aba599264be695c474b0
+	var combosDependientesDeOtro = $.grep(combos, function(combo){ return combo.dependencia != undefined; })
+	combosDependientesDeOtro.forEach(function(combo) {
+		var comboDelQueDepende = $.grep(combos, function(e){ return e.ui.attr("id") == combo.dependencia; })[0];
+		comboDelQueDepende.ui.change(function() {
+			var filtro= { provincia: comboDelQueDepende.idItemSeleccionado() };
+			combo.cargarBusqueda(combo.nombre_repositorio, filtro, comboDelQueDepende.campo_id, comboDelQueDepende.campo_descripcion);
+		});
+	});
 	return combos;
 };

@@ -128,7 +128,7 @@
                       </div> 
                       <div style="float:left; margin:8px">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
-                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:300px;" >
+                           <select id="cmb_localidad1" name="cmb_localidad1" dataProvider="Localidades" dependeDe="cmb_provincia1" style="width:300px;" >
                             </select>
                       </div>
                     </fieldset>
