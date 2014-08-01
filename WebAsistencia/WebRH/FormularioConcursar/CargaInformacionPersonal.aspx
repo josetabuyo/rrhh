@@ -24,7 +24,7 @@
       <uc3:BarraMenuConcursar runat="server" />
 
         <nav style="min-width: 900px;">
-            <ul class="ul_cv" style="width:100%; margin-left:1%; margin-top:15px; margin-bottom:3px;">    
+            <ul class="ul_cv" style="width:100%; margin-left:1%; margin-top:5px; margin-bottom:3px;">    
                 <li class="menu_lista_formularios"><a href="#ancla1">Información Personal</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla2">Antecedentes Académicos</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla3">Actividades de Capacitación</a></li>
@@ -54,7 +54,7 @@
                 <div id="contenedor_datosPersonales" class="accordion-inner fondo_form">
                     <fieldset style=" width:100%; min-width:500px;" >
                       <h5><em>*</em> Campos Obligatorios</h5>
-                      <p style="text-transform:uppercase; font-weight:bold;">EDICIÓN /VISUALIZACIÓN DE LA INFORMACIÓN PERSONAL</p>
+                      <p style="text-transform:uppercase; font-weight:bold;">VISUALIZACIÓN Y EDICIÓN DE LA INFORMACIÓN PERSONAL</p>
                         
                         <div class="grupo_campos nueva_linea" >
                           <label for="nombre">Nombre <em>*</em></label>
