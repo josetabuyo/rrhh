@@ -61,7 +61,8 @@
                         
                         <div class="grupo_campos nueva_linea" >
                           <label for="nombre">Nombre <em>*</em></label>
-                          <input id="nombre" type="text" style="width:160px;" data-validar="esNoBlanco" />
+                          <input id="nombre" type="text" style="width:160px;" data-validar="esNoBlanco" 
+                                maxlength="100" />
                         </div>
                         <div class="grupo_campos">
                           <label for="apellido">Apellido <em>*</em></label>
@@ -106,12 +107,14 @@
                       </div>
                        <div class="grupo_campos nueva_linea">
                         <label class="etiqueta_campo" for="txt_calle1">Calle <em>*</em></label>
-                        <input type="text" id="txt_calle1" name="txt_calle1" style="width:350px;"  data-validar="esNoBlanco"/>
+                        <input type="text" id="txt_calle1" name="txt_calle1" style="width:350px;"  
+                               data-validar="esNoBlanco" maxlength="100"/>
                       </div>
 
                        <div class="grupo_campos">
                         <label class="etiqueta_campo" for="txt_numero1">Número <em>*</em></label>
-                        <input type="text" id="txt_numero1" name="txt_numero1" style="width:50px"  data-validar="esNumeroNatural"/>
+                        <input type="text" id="txt_numero1" name="txt_numero1" style="width:50px"  
+                               data-validar="esNumeroNatural" maxlength="20"/>
                        </div>      
                        <div class="grupo_campos">
                         <label class="etiqueta_campo" for="txt_piso1">Piso</label>
@@ -123,7 +126,8 @@
                       </div> 
                       <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="txt_cp1">Código Postal <em>*</em></label>
-                          <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/  data-validar="esNumeroNatural">
+                          <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/  
+                              data-validar="esNumeroNatural" maxlength="10">
                       </div>
                       <div class="grupo_campos nueva_linea">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
@@ -141,27 +145,32 @@
 		                <p style="font-weight:bold; text-transform:uppercase;">Información Requerida Para Recibir Notificaciones y Avisos</p>
 	                    <div class="grupo_campos nueva_linea">
                             <label class="etiqueta_campo" for="text_calle2">Calle <em>*</em></label>
-                            <input type="text" id="text_calle2" name="text_calle2" style="width:350px;"  data-validar="esNoBlanco"/>
+                            <input type="text" id="text_calle2" name="text_calle2" style="width:350px;"  
+                                data-validar="esNoBlanco" maxlength="100"/>
                         </div>
 
                        <div class="grupo_campos">
                             <label class="etiqueta_campo" for="txt_numero2">Número <em>*</em></label>
-                            <input type="text" id="txt_numero2" name="txt_numero2" style="width:50px"  data-validar="esNumeroNatural"/>
+                            <input type="text" id="txt_numero2" name="txt_numero2" style="width:50px"  
+                                data-validar="esNumeroNatural" maxlength="10"/>
                        </div>
        
                        <div class="grupo_campos">
                             <label class="etiqueta_campo" for="txt_piso2">Piso</label>
-                            <input type="text" id="txt_piso2" name="txt_piso2" style="width:30px"/>
+                            <input type="text" id="txt_piso2" name="txt_piso2" style="width:30px" 
+                                maxlength="10"/>
                        </div>
 
                       <div class="grupo_campos">  
                           <label class="etiqueta_campo" for="txt_dto2">Dto</label>
-                          <input type="text" id="txt_dto2" name="txt_dto2" style="width:30px"/>
+                          <input type="text" id="txt_dto2" name="txt_dto2" style="width:30px" 
+                              maxlength="10"/>
                       </div>
 
                        <div class="grupo_campos">
                             <label class="etiqueta_campo_small" for="txt_cp2">Código Postal <em>*</em></label>
-                          <input type="text" id="txt_cp2" name="txt_cp2" style="width:80px"  data-validar="esNumeroNatural"/><br/>
+                          <input type="text" id="txt_cp2" name="txt_cp2" style="width:80px"  
+                                data-validar="esNumeroNatural" maxlength="20"/><br/>
                       </div>
 
                       <div class="grupo_campos nueva_linea"> 
