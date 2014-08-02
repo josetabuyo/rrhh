@@ -39,6 +39,7 @@
                         target: true,
                         style: "alert",
                         showOn: "creation",
+                        hideDelay: 0.2,
                         joint: "right"
                     });
                 }

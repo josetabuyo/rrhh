@@ -39,34 +39,38 @@
             if (opciones.actividad_capacitacion) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-                actividad_capacitacion.DiplomaDeCertificacion = _this.txt_actividad_capacitacion_nombreDiploma.val();
-                actividad_capacitacion.FechaInicio = _this.txt_actividad_capacitacion_fechaInicio.datepicker('getDate').toISOString();
-                actividad_capacitacion.FechaFinalizacion = _this.txt_actividad_capacitacion_fechaFin.datepicker('getDate').toISOString();
-                actividad_capacitacion.Duracion = _this.txt_actividad_capacitacion_duracion.val();
-                actividad_capacitacion.Especialidad = _this.txt_actividad_capacitacion_especialidad.val();
-                actividad_capacitacion.Establecimiento = _this.txt_actividad_capacitacion_establecimiento.val();
-                actividad_capacitacion.Localidad = _this.cmb_actividad_capacitacion_localidad.val();
-                actividad_capacitacion.Pais = _this.cmb_actividad_capacitacion_pais.idItemSeleccionado();
 
-                var proveedor_ajax = new ProveedorAjax();
+                if ($("#contenido_form_capacitacion").esValido()) {
 
-                if (opciones.actividad_capacitacion) {
+                    actividad_capacitacion.DiplomaDeCertificacion = _this.txt_actividad_capacitacion_nombreDiploma.val();
+                    actividad_capacitacion.FechaInicio = _this.txt_actividad_capacitacion_fechaInicio.datepicker('getDate').toISOString();
+                    actividad_capacitacion.FechaFinalizacion = _this.txt_actividad_capacitacion_fechaFin.datepicker('getDate').toISOString();
+                    actividad_capacitacion.Duracion = _this.txt_actividad_capacitacion_duracion.val();
+                    actividad_capacitacion.Especialidad = _this.txt_actividad_capacitacion_especialidad.val();
+                    actividad_capacitacion.Establecimiento = _this.txt_actividad_capacitacion_establecimiento.val();
+                    actividad_capacitacion.Localidad = _this.cmb_actividad_capacitacion_localidad.val();
+                    actividad_capacitacion.Pais = _this.cmb_actividad_capacitacion_pais.idItemSeleccionado();
 
-                    proveedor_ajax.postearAUrl({ url: "ActualizarCvActividadCapacitacion",
-                        data: {
-                            actividad_capacitacion: actividad_capacitacion
-                        },
-                        success: function (respuesta) {
-                            alertify.alert("La actividad fue actualizada correctamente");
-                            alModificar(respuesta);
-                            $(".modal_close_concursar").click();
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alertify.alert("Error al actualziar la actividad.");
-                        }
-                    });
+                    var proveedor_ajax = new ProveedorAjax();
 
-                    return;
+                    if (opciones.actividad_capacitacion) {
+
+                        proveedor_ajax.postearAUrl({ url: "ActualizarCvActividadCapacitacion",
+                            data: {
+                                actividad_capacitacion: actividad_capacitacion
+                            },
+                            success: function (respuesta) {
+                                alertify.alert("La actividad fue actualizada correctamente");
+                                alModificar(respuesta);
+                                $(".modal_close_concursar").click();
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alertify.alert("Error al actualziar la actividad.");
+                            }
+                        });
+
+                        return;
+                    } else { alertify.error("Los cambios no han sido guardados"); }
                 }
 
                 proveedor_ajax.postearAUrl({ url: "GuardarCvActividadCapacitacion",

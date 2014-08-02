@@ -191,7 +191,7 @@
                         alertify.alert(errorThrown);
                     }
                 });
-            } else { alertify.error("Los cambios no han sido guardados"); }
+            }//fin validador
         });
 
 
