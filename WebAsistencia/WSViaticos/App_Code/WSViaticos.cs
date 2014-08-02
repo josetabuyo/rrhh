@@ -2423,6 +2423,13 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoPostulaciones().PostularseA(postulacion, usuario);
     }
 
+    [WebMethod]
+    public Postulacion[] GetPostulaciones(Usuario usuario)
+    {
+        return RepoPostulaciones().GetPostulacionesDe(usuario.Owner.Id).ToArray();
+    }
+
+
     #region CVAntecedentesAcademicos
     [WebMethod]
     public CvEstudios GuardarCvAntecedenteAcademico(CvEstudios antecedentesAcademicos_nuevo,  Usuario usuario)

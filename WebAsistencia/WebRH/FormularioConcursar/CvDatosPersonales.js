@@ -134,68 +134,75 @@ var CvDatosPersonales = {
         //Bt guardar
         _this.add_datosPersonales = _this.ui.find("#btn_guardar_datosPersonales");
         _this.add_datosPersonales.click(function () {
-            var datos_personales_nuevo = {};
-            var domicilioPersonal_nuevo = {};
-            var domicilioLegal_nuevo = {};
-            datos_personales_nuevo.Nombre = _this.txt_nombre.val();
-            datos_personales_nuevo.Apellido = _this.txt_apellido.val();
-            datos_personales_nuevo.Sexo = _this.cmb_sexo.idItemSeleccionado();
-            //datos_personales_nuevo.NivelEducat
-            datos_personales_nuevo.EstadoCivil = _this.cmb_estadoCivil.idItemSeleccionado();
             datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
-            datos_personales_nuevo.LugarDeNacimiento = _this.cmb_lugar_nac.val();
-            datos_personales_nuevo.FechaNacimiento = _this.txt_fechaNac.val();
-            datos_personales_nuevo.Nacionalidad = _this.cmb_nacionalidad.idItemSeleccionado();
-            datos_personales_nuevo.TipoDocumento = _this.cmb_tipoDocumento.idItemSeleccionado();
-            datos_personales_nuevo.Dni = parseInt(_this.txt_dni.val());
 
-            domicilioPersonal_nuevo.Id = datos_personales.DomicilioPersonal.Id;
-            domicilioPersonal_nuevo.Calle = _this.txt_domicilio_personal_calle.val();
-            domicilioPersonal_nuevo.Numero = parseInt(_this.txt_domicilio_personal_numero.val());
-            domicilioPersonal_nuevo.Piso = parseInt(_this.txt_domicilio_personal_piso.val());
-            domicilioPersonal_nuevo.Depto = _this.txt_domicilio_personal_dto.val();
-            domicilioPersonal_nuevo.Cp = parseInt(_this.txt_domicilio_personal_cp.val());
-            domicilioPersonal_nuevo.Provincia = _this.cmb_domicilio_personal_provincia.idItemSeleccionado();
-            domicilioPersonal_nuevo.Localidad = _this.cmb_domicilio_personal_localidad.idItemSeleccionado();
 
-            domicilioLegal_nuevo.Id = datos_personales.DomicilioLegal.Id;
-            domicilioLegal_nuevo.Calle = _this.txt_domicilio_legal_calle.val();
-            domicilioLegal_nuevo.Numero = parseInt(_this.txt_domicilio_legal_numero.val());
-            domicilioLegal_nuevo.Piso = parseInt(_this.txt_domicilio_legal_piso.val());
-            domicilioLegal_nuevo.Depto = _this.txt_domicilio_legal_dto.val();
-            domicilioLegal_nuevo.Cp = parseInt(_this.txt_domicilio_legal_cp.val());
-            domicilioLegal_nuevo.Provincia = _this.cmb_domicilio_legal_provincia.idItemSeleccionado();
-            domicilioLegal_nuevo.Localidad = _this.cmb_domicilio_legal_localidad.idItemSeleccionado();
+            if ($("#contenedor_datosPersonales").esValido()) {
+                var datos_personales_nuevo = {};
+                var domicilioPersonal_nuevo = {};
+                var domicilioLegal_nuevo = {};
+                datos_personales_nuevo.Nombre = _this.txt_nombre.val();
+                datos_personales_nuevo.Apellido = _this.txt_apellido.val();
+                datos_personales_nuevo.Sexo = _this.cmb_sexo.idItemSeleccionado();
+                //datos_personales_nuevo.NivelEducat
+                datos_personales_nuevo.EstadoCivil = _this.cmb_estadoCivil.idItemSeleccionado();
+                datos_personales_nuevo.Cuil = _this.txt_cuil.val();
+                datos_personales_nuevo.LugarDeNacimiento = _this.cmb_lugar_nac.val();
+                datos_personales_nuevo.FechaNacimiento = _this.txt_fechaNac.val();
+                datos_personales_nuevo.Nacionalidad = _this.cmb_nacionalidad.idItemSeleccionado();
+                datos_personales_nuevo.TipoDocumento = _this.cmb_tipoDocumento.idItemSeleccionado();
+                datos_personales_nuevo.Dni = parseInt(_this.txt_dni.val());
 
-            //domicilioLegal_nuevo.TelefonoFijo = _this.txt_domicilio_legal_telefonoFijo.val();
-            //domicilioLegal_nuevo.TelefonoCelular = _this.txt_domicilio_legal_telefonoCelular.val();
-            //domicilioLegal_nuevo.Mail = _this.txt_domicilio_legal_mail.val();
+                domicilioPersonal_nuevo.Id = datos_personales.DomicilioPersonal.Id;
+                domicilioPersonal_nuevo.Calle = _this.txt_domicilio_personal_calle.val();
+                domicilioPersonal_nuevo.Numero = parseInt(_this.txt_domicilio_personal_numero.val());
+                domicilioPersonal_nuevo.Piso = parseInt(_this.txt_domicilio_personal_piso.val());
+                domicilioPersonal_nuevo.Depto = _this.txt_domicilio_personal_dto.val();
+                domicilioPersonal_nuevo.Cp = parseInt(_this.txt_domicilio_personal_cp.val());
+                domicilioPersonal_nuevo.Provincia = _this.cmb_domicilio_personal_provincia.idItemSeleccionado();
+                domicilioPersonal_nuevo.Localidad = _this.cmb_domicilio_personal_localidad.idItemSeleccionado();
 
-            datos_personales_nuevo.DomicilioPersonal = domicilioPersonal_nuevo;
-            datos_personales_nuevo.DomicilioLegal = domicilioLegal_nuevo;
+                domicilioLegal_nuevo.Id = datos_personales.DomicilioLegal.Id;
+                domicilioLegal_nuevo.Calle = _this.txt_domicilio_legal_calle.val();
+                domicilioLegal_nuevo.Numero = parseInt(_this.txt_domicilio_legal_numero.val());
+                domicilioLegal_nuevo.Piso = parseInt(_this.txt_domicilio_legal_piso.val());
+                domicilioLegal_nuevo.Depto = _this.txt_domicilio_legal_dto.val();
+                domicilioLegal_nuevo.Cp = parseInt(_this.txt_domicilio_legal_cp.val());
+                domicilioLegal_nuevo.Provincia = _this.cmb_domicilio_legal_provincia.idItemSeleccionado();
+                domicilioLegal_nuevo.Localidad = _this.cmb_domicilio_legal_localidad.idItemSeleccionado();
 
-            var data_post = JSON.stringify({
-                "datosPersonales_nuevos": datos_personales_nuevo,
-                "datosPersonales_originales": datos_personales
-            });
-            $.ajax({
-                url: "../AjaxWS.asmx/GuardarCVDatosPersonales",
-                type: "POST",
-                data: data_post,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (respuestaJson) {
-                    var respuesta = JSON.parse(respuestaJson.d);
-                    alertify.success("Datos Personales guardados correctamente");
-                    //alModificar(respuesta);
-                    $(".modal_close_concursar").click();
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alertify.alert(errorThrown);
-                }
-            });
+                //domicilioLegal_nuevo.TelefonoFijo = _this.txt_domicilio_legal_telefonoFijo.val();
+                //domicilioLegal_nuevo.TelefonoCelular = _this.txt_domicilio_legal_telefonoCelular.val();
+                //domicilioLegal_nuevo.Mail = _this.txt_domicilio_legal_mail.val();
+
+                datos_personales_nuevo.DomicilioPersonal = domicilioPersonal_nuevo;
+                datos_personales_nuevo.DomicilioLegal = domicilioLegal_nuevo;
+
+                var data_post = JSON.stringify({
+                    "datosPersonales_nuevos": datos_personales_nuevo,
+                    "datosPersonales_originales": datos_personales
+                });
+                $.ajax({
+                    url: "../AjaxWS.asmx/GuardarCVDatosPersonales",
+                    type: "POST",
+                    data: data_post,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (respuestaJson) {
+                        var respuesta = JSON.parse(respuestaJson.d);
+                        alertify.success("Datos Personales guardados correctamente");
+                        //alModificar(respuesta);
+                        $(".modal_close_concursar").click();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alertify.alert(errorThrown);
+                    }
+                });
+            } else { alertify.error("Los cambios no han sido guardados"); }
         });
 
+
     }
+
 
 }
