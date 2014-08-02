@@ -25,7 +25,8 @@ describe("DADO: Un ComboPopuladoConRepoBuilder y su repo que devuelve una locali
 		expect(combos[0].ui.children(0).text()).toEqual('NombreLocalidadBuenosAires');
 	});
   });
-
+  
+  
   describe("CUANDO: se construyen combos con dataprovider pero sin un label", function() {
 	beforeEach(function() {
 		combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades"></select></div>'));
@@ -54,7 +55,7 @@ describe("DADO: Un ComboPopuladoConRepoBuilder y su repo que devuelve una provin
 	beforeEach(function() {
 		mock_repo = { buscar: function (nombre_repositorio, criterio, onSuccess, onError) { 
 											if (nombre_repositorio == "Localidades") {
-												onSuccess( [{ Id: 1, Descripcion:'DescripcionLocalidadCABA'}]) ;
+												onSuccess( [{ Id: 1, Descripcion:'DescripcionLocalidadCABA'}, { Id: 6, Descripcion:'DescripcionLocalidadLaPlata'} ]) ;
 											} else {
 												onSuccess( [{ Id: 1, Descripcion:'DescripcionProvinciaBuenosAires'}]) ;
 											}
@@ -63,6 +64,16 @@ describe("DADO: Un ComboPopuladoConRepoBuilder y su repo que devuelve una provin
 		populador_combos = new ComboPopuladoConRepoBuilder(mock_repo);
 	});
 
+   describe("CUANDO: bindeo el valor del combo al modelo", function() {
+
+   it ("el combo debe tener el valor seleccionado", function() {
+  		var domicilio_empleado = { localidad: 6 };
+		var bindeado = { combo_localidades:  domicilio_empleado.localidad };
+		var combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades"></select></div>'), bindeado);
+		
+		expect(combos[0].idItemSeleccionado()).toEqual(6);
+	});
+  });
   
   describe("CUANDO: se construyen combos relacionados, y se selecciona un valor", function() {
     var combo_dependiente;
@@ -80,7 +91,9 @@ describe("DADO: Un ComboPopuladoConRepoBuilder y su repo que devuelve una provin
 		
 		expect(combo_dependiente.repositorio.buscar).toHaveBeenCalled();
 		expect(combo_dependiente.repositorio.buscar.calls.mostRecent().args[0]).toEqual("Localidades");
-	});
+
+
+		});
   });
 });  
   //it("deberia seleccionar el valor que le pase", function() {
