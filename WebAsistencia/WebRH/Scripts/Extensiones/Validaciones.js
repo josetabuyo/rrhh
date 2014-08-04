@@ -39,11 +39,12 @@
                         target: true,
                         style: "alert",
                         showOn: "creation",
+                        hideDelay: 0.2,
                         joint: "right"
                     });
                 }
             });
-            
+
             //$(control).attr("title", mensaje.substring(2));
 
         });
@@ -54,5 +55,6 @@
             var control = this;
             $(control).removeClass("control-invalido");
         });
+        for (var i = 0; i < Opentip.tips.length; i++) { Opentip.tips[i].hide(); }
     }
 });
