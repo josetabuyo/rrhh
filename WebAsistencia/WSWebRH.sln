@@ -50,7 +50,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebRH", "WebRH", "{A75712E4
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "54912"
+		VWDPort = "31385"
 	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 		{D1CFEFAB-1202-4294-A2C0-D8D7C6D91094} = {D1CFEFAB-1202-4294-A2C0-D8D7C6D91094}
