@@ -15,9 +15,8 @@ SuperCombo.prototype.start = function () {
     this.ui.change(function () {
         if (_this.ui.val() != "") _this.idItemSeleccionado(parseInt(_this.ui.val()));
     });
-    if (this.nombre_repositorio) {
-        this.cargarBusqueda(this.nombre_repositorio, this.filtro, this.campo_id, this.campo_descripcion);
-    };
+    
+    this.cargarBusqueda(this.nombre_repositorio, this.filtro, this.campo_id, this.campo_descripcion);
     this.idItemSeleccionado(this.id_item_seleccionado);
 };
 
@@ -55,10 +54,14 @@ SuperCombo.prototype.cargarCombo = function (objetos, campo_id, campo_descripcio
 
 SuperCombo.prototype.cargarBusqueda = function (nombre_repositorio, filtro, campo_id, campo_descripcion) {
     var _this = this;
-    _this.repositorio.buscar(nombre_repositorio, filtro, function (items) {
-        _this.cargarCombo(items, campo_id, campo_descripcion);
-        _this.idItemSeleccionado(_this.idItemSeleccionado());
-    });
+	if (this.nombre_repositorio) {
+		if(_this.dependencia == undefined || (_this.dependencia != undefined && filtro != undefined )) {
+			_this.repositorio.buscar(nombre_repositorio, filtro, function (items) {
+				_this.cargarCombo(items, campo_id, campo_descripcion);
+				_this.idItemSeleccionado(_this.idItemSeleccionado());
+			});
+		}
+	}
 };
 
 SuperCombo.prototype.cambiarFiltro = function (filtro) {
