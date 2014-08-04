@@ -57,7 +57,21 @@ namespace General.Repositorios
 
         public List<Localidad> Find(string criterio)
         {
-            return base.Find(criterio);    
+            var localidades = base.Find(criterio);
+
+            //atada con alambre para cuando la localidad es CABA
+            var criterio_deserializado = (JObject) JsonConvert.DeserializeObject(criterio);
+            if (criterio_deserializado["IdProvincia"] == null) return localidades;
+
+            int id_provincia = (int)((JValue)criterio_deserializado["IdProvincia"]);            
+            if (id_provincia == 0)
+            {
+                Localidad caba = new Localidad();
+                caba = localidades.Find(localidad => localidad.IdProvincia == 0);
+                localidades.Clear();
+                localidades.Add(caba);
+            }
+            return localidades;
         }
 
         public List<Localidad> GetLocalidadesDeLaProvincia(Provincia provincia)
