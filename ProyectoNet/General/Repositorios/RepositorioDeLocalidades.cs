@@ -30,51 +30,6 @@ namespace General.Repositorios
             return this.Obtener();
         }
 
-        public List<Localidad> Find(string criterio)
-        {
-            var criterio_deserializado = (JObject) JsonConvert.DeserializeObject(criterio);
-            bool filtrar_por_provincia = false;
-            int id_provincia = -1;
-
-            if (criterio_deserializado["provincia"]!= null) {
-                filtrar_por_provincia = true;
-                id_provincia = (int)((JValue)criterio_deserializado["provincia"]);
-            }
-
-
-
-            List<Localidad> localidades = new List<Localidad>();
-
-            localidades = All().FindAll(localidad =>
-            {
-                var pasa_todas_las_condiciones = true;
-                if (filtrar_por_provincia)
-                {
-                    if (localidad.IdProvincia != id_provincia) pasa_todas_las_condiciones = false;
-                }     
-          
-
-                return pasa_todas_las_condiciones;
-                                
-            });
-
-
-            if (id_provincia==0)
-            {
-                Localidad caba = new Localidad();
-                caba = localidades.Find(x => x.IdProvincia == 0);
-                localidades.Clear();
-                localidades.Add(caba);
-                return localidades;
-
-            }
-
-            return localidades;
-          
-
-
-        }
-
         protected override List<Localidad> ObtenerDesdeLaBase()
         {
             var tablaDatos = conexion.Ejecutar("dbo.WEB_GetLocalidades");
@@ -100,6 +55,10 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
+        public List<Localidad> Find(string criterio)
+        {
+            return base.Find(criterio);    
+        }
 
         public List<Localidad> GetLocalidadesDeLaProvincia(Provincia provincia)
         {

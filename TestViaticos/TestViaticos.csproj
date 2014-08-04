@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="AppConexionTest.cs" />
     <Compile Include="CodigoTareaTest.cs" />
+    <Compile Include="TestRepoLazy.cs" />
     <Compile Include="TestPostular.cs" />
     <Compile Include="TestAlertas.cs" />
     <Compile Include="TestMail.cs" />
