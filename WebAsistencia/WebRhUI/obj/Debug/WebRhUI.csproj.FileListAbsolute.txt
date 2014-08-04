@@ -23,8 +23,3 @@ C:\Documents and Settings\msaenz\Escritorio\Repositorio\master\WebAsistencia\Web
 C:\Documents and Settings\msaenz\Escritorio\Repositorio\master\WebAsistencia\WebRhUI\obj\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\msaenz\Escritorio\Repositorio\master\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.dll
 C:\Documents and Settings\msaenz\Escritorio\Repositorio\master\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.pdb
-C:\Repositorios\Belén\GitHub\rrhh\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.dll
-C:\Repositorios\Belén\GitHub\rrhh\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.pdb
-C:\Repositorios\Belén\GitHub\rrhh\WebAsistencia\WebRhUI\obj\Debug\ResolveAssemblyReference.cache
-C:\Repositorios\Belén\GitHub\rrhh\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.dll
-C:\Repositorios\Belén\GitHub\rrhh\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.pdb

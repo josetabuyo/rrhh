@@ -18,7 +18,8 @@ public class Referencias
             <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/Estilos.css"" type=""text/css""/>
             <link rel=""stylesheet"" href=""__RUTA_ORIGEN__SACC/Estilos/EstilosSACC.css"" type=""text/css""/>
             <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/alertify.core.css"" type=""text/css""/>
-            <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/alertify.default.css"" type=""text/css""/>";
+            <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/alertify.default.css"" type=""text/css""/>
+            <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Scripts/opentip/opentip.css"" type=""text/css""/>";
         refs = refs.Replace("__RUTA_ORIGEN__", ruta_origen);
         return refs;
     }
@@ -45,7 +46,8 @@ public class Referencias
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/ProveedorAjax.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Extensiones/Validaciones.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Extensiones/Colecciones.js""></script>
-            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Extensiones/Combos.js""></script>";
+            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Extensiones/Combos.js""></script>
+            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/opentip/opentip-jquery-excanvas.min.js""></script>";
         refs = refs.Replace("__RUTA_ORIGEN__", ruta_origen);
         return refs;
     }

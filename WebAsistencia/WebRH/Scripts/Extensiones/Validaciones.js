@@ -35,9 +35,16 @@
                     $(control).addClass("control-invalido");
                     mensaje += ", " + _this.validaciones[valor].mensaje;
                     esValido = res;
+                    $(control).opentip(mensaje.substring(2), {
+                        target: true,
+                        style: "alert",
+                        showOn: "creation",
+                        joint: "right"
+                    });
                 }
             });
-            $(control).attr("title", mensaje.substring(2));
+            
+            //$(control).attr("title", mensaje.substring(2));
 
         });
         return esValido;
