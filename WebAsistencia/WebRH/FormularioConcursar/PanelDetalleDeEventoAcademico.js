@@ -1,7 +1,9 @@
 ﻿var PanelDetalleDeEventoAcademico = {
     mostrar: function (opciones) {
         //valores default
-        var evento_academico = opciones.evento_academico || {};
+        var evento_academico = opciones.evento_academico || {
+            Pais: 9
+        };
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;

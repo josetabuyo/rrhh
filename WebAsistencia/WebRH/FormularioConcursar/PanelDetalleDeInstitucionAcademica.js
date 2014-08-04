@@ -1,7 +1,9 @@
 ﻿var PanelDetalleDeInstitucionAcademica = {
     mostrar: function (opciones) {
         //valores default
-        var institucion_academica = opciones.institucion_academica || {};
+        var institucion_academica = opciones.institucion_academica || {
+            Pais: 9
+        };
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
