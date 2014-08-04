@@ -5,7 +5,7 @@
         //_this.divListado = $('#listado_puestos');
         //_this.divGrilla = $('#tabla_puestos');
         //_this.ui = $("#fondo_form");
-        _this.Puesto = getVarsUrl();
+        _this.puesto = puesto;// getVarsUrl();
         _this.btn_postular = $("#btn_postularse");
          //_this.idPersona = _this.ui.find("#txt_matricula_fecha_inscripcion");
         
@@ -37,7 +37,7 @@
                 return;
             }
             var postulacion = {};
-                postulacion.IdPuesto = parseInt(_this.Puesto.id);
+                postulacion.Puesto = _this.puesto;// parseInt(_this.Puesto.id);
                 //postulacion.IdPersona = _this.txt_competencias_informaticas_establecimiento.val();
                 //postulacion.FechaPostulacion = _this.txt_competencias_informaticas_fecha_obtencion.datepicker('getDate').toISOString();
                 postulacion.Motivo =  _this.txt_motivo.val();
@@ -47,7 +47,7 @@
 
                 proveedor_ajax.postearAUrl({ url: "PostularseA",
                     data: {
-                        una_postulacion: postulacion,
+                        una_postulacion: postulacion
                     },
                     success: function (respuesta) {
                         alertify.alert("Usted se postuló correctamente. <br> Número de postulación: " + respuesta.Id );
@@ -95,45 +95,4 @@ jQuery(document).ready(function () {
     });
 
 });
-
-
-//DatePicker del formulario de DatosPersonales
-//$('#txt_fechaNac').datepicker({
-//    dateFormat: 'dd/mm/yy',
-//    onClose: function () {
-
-//    }
-//});
-
-
-//var ParsearFecha = function (fecha) {
-//    var day = parseInt(fecha.split("/")[0]);
-//    var month = parseInt(fecha.split("/")[1]);
-//    var year = parseInt(fecha.split("/")[2]);
-
-//    return new Date(year, month, day);
-//}
-
-
-
-
-//var AgregarEnTabla = function (tabla, datos) {
-
-//    var n = $('tr:last td', tabla).length;
-//    var valores = new Array();
-
-//    //FC: el map inspecciona cada key o cada valor del objeto o array que le pase
-//    jQuery.map(datos, function (value, key) {
-//        valores.push(value)
-//    });
-
-//    var tds = '<tr>';
-//    for (var i = 0; i < n; i++) {
-
-//        tds += '<td>' + valores[i] + '</td>';
-//    }
-//    tds += '</tr>';
-
-//    tabla.append(tds);
-//}
 
