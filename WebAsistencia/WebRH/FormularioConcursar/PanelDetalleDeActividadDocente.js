@@ -51,6 +51,12 @@
                 id_item_seleccionado: docencia.Pais
             });
 
+            //Bt cerrar
+            _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
+            _this.btn_cerrar.click(function () {
+                _this.ui.limpiarValidaciones();
+            });
+
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#add_actividadesDocentes");
             if (opciones.docencia) _this.btn_guardar.val("Guardar Cambios");
@@ -59,6 +65,8 @@
                 if (docencia.Id == "") {
                     docencia.Id = 0;
                 }
+
+                if (_this.ui.esValido()) {
 
                 docencia.Asignatura = _this.txt_asignatura.val();
                 docencia.NivelEducativo = _this.cmb_nivel_educativo.idItemSeleccionado();
@@ -76,25 +84,47 @@
                 var proveedor_ajax = new ProveedorAjax();
 
 
-                proveedor_ajax.postearAUrl({ url: "GuardarCvActividadesDocentes",
+
+                if (opciones.docencia) {
+
+                        proveedor_ajax.postearAUrl({ url: "ActualizarCvActividadDocente",
+                            data: {
+                                actividad_docente: actividad_docente
+                            },
+                            success: function (respuesta) {
+                                alertify.alert("La actividad fue actualizada correctamente");
+                                alModificar(respuesta);
+                                $(".modal_close_concursar").click();
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alertify.alert("Error al actualziar la actividad.");
+                            }
+                        });
+
+                        return;
+                    } else { alertify.error("Los cambios no han sido guardados"); }
+                }
+
+                proveedor_ajax.postearAUrl({ url: "GuardarCvActividadDocente",
                     data: {
-                        docencia_nueva: docencia,
-                        docencia_original: docencia
+                        actividad_docente: actividad_docente
                     },
                     success: function (respuesta) {
-                        alertify.alert("Los datos fueron guardados correctamente");
+                        alertify.alert("La actividad fue guardada correctamente");
                         alModificar(respuesta);
                         $(".modal_close_concursar").click();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error al guardar.");
+                        alertify.alert("Error al guardar la actividad de capacitación.");
                     }
                 });
             });
 
+
             var link_trucho = $("<a href='#un_div_modal'></a>");
             link_trucho.leanModal({ top: 300, closeButton: ".modal_close_concursar" });
             link_trucho.click();
+
         });
     }
 }

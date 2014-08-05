@@ -2472,22 +2472,22 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region CVActividadesDocentes
     [WebMethod]
-    public CvDocencia GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
+    public CvDocencia GuardarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvActividadesDocentes(docencia_nuevo, usuario);
+        return RepoCurriculum().GuardarCvActividadDocente(docencia_nuevo, usuario);
 
     }
 
     [WebMethod]
-    public CvDocencia ActualizarCvActividadesDocencia(CvDocencia docencia_nuevo, Usuario usuario)
+    public CvDocencia ActualizarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvActividadesDocencia(docencia_nuevo, usuario);
+        return RepoCurriculum().ActualizarCvActividadDocente(docencia_nuevo, usuario);
     }
 
     [WebMethod]
-    public CvDocencia EliminarCvActividadesDocentes(CvDocencia actividades_docentes_a_borrar, Usuario usuario)
+    public bool EliminarCvActividadesDocentes(int actividades_docentes_a_borrar, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvActividadesDocentes(actividades_docentes_a_borrar, usuario);
+        return RepoCurriculum().EliminarCvActividadDocente(actividades_docentes_a_borrar, usuario);
     }
 
     #endregion

@@ -34,6 +34,7 @@
                 id_item_seleccionado: actividad_capacitacion.Pais
             });
 
+            //Bt cerrar
             _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
             _this.btn_cerrar.click(function () {                
                _this.ui.limpiarValidaciones();
