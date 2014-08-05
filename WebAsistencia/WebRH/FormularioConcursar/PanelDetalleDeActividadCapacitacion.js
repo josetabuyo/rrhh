@@ -75,8 +75,7 @@
                             }
                         });
 
-                        return;
-                    } else { alertify.error("Los cambios no han sido guardados"); }
+                        return;  
                 }
 
                 proveedor_ajax.postearAUrl({ url: "GuardarCvActividadCapacitacion",
@@ -92,6 +91,7 @@
                         alertify.alert("Error al guardar la actividad de capacitación.");
                     }
                 });
+            }
             });
 
 

@@ -89,7 +89,7 @@
 
                         proveedor_ajax.postearAUrl({ url: "ActualizarCvActividadDocente",
                             data: {
-                                actividad_docente: actividad_docente
+                                actividad_docente: docencia
                             },
                             success: function (respuesta) {
                                 alertify.alert("La actividad fue actualizada correctamente");
@@ -102,12 +102,11 @@
                         });
 
                         return;
-                    } else { alertify.error("Los cambios no han sido guardados"); }
                 }
 
                 proveedor_ajax.postearAUrl({ url: "GuardarCvActividadDocente",
                     data: {
-                        actividad_docente: actividad_docente
+                        actividad_docente: docencia
                     },
                     success: function (respuesta) {
                         alertify.alert("La actividad fue guardada correctamente");
@@ -118,6 +117,7 @@
                         alertify.alert("Error al guardar la actividad de capacitación.");
                     }
                 });
+                }
             });
 
 
