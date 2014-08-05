@@ -186,7 +186,7 @@
 
                          <div class="grupo_campos nueva_linea">
                             <label class="etiqueta_campo" for="txt_telefonoFijo">Tel&eacute;fono Fijo <em>*</em></label>
-                            <input type="text" id="txt_telefonoFijo" name="txt_telefonoFijo" style="width:140px;"  data-validar="esNoBlanco"/>
+                            <input type="text" id="txt_telefonoFijo" name="txt_telefonoFijo" style="width:140px;"  data-validar="esNoBlanco,esNumeroNatural"/>
                         </div>
 
                         <div class="grupo_campos">
