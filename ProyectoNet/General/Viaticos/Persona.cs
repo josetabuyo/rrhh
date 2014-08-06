@@ -84,8 +84,7 @@ namespace General
             {_Inasistencias = new List<Inasistencia>();}
             if (!_Inasistencias.Contains(inasistencia))
                 _Inasistencias.Add(inasistencia);
-        }
-
+        }  
 
         public override bool Equals(object obj)
         {
@@ -98,7 +97,6 @@ namespace General
         public override int GetHashCode()
         {
             return this.Documento.GetHashCode();
-        }
-       
+        }        
     }
 }

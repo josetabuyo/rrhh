@@ -2,6 +2,7 @@
 var lista_DDJJ;
 var ContenedorGrilla = $("#ContenedorGrilla");
 
+
 $(document).ready(function () {
     var meses = $("#cmbMeses");
     completarComboMeses(meses);
@@ -168,6 +169,7 @@ var GenerarDDJJ = function (idArea) {
 
 var ImprimirDDJJ = function (idArea) {
     return function (e) {
+        var listaImprimir;
 
         var queryResult = Enumerable.From(lista_DDJJ)
                 .Where(function (x) { return x.Area.Id == idArea });
@@ -181,9 +183,8 @@ var ImprimirDDJJ = function (idArea) {
             data: JSON.stringify(data_post),
             contentType: "application/json; charset=utf-8",
             success: function (respuestaJson) {
-                if (respuestaJson.d == "OK") {
-                    alertify.alert("Se genero correctamente");
-                }
+                listaImprimir = JSON.parse(respuestaJson.d);
+                DibujarFormularioDDJJ104(listaImprimir);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alertify.alert(errorThrown);
@@ -193,8 +194,87 @@ var ImprimirDDJJ = function (idArea) {
 };
 
 
+var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
+    var grilla;
+    var ContenedorPlanilla = $("<div style='page-break-before: always;'>");
+
+    var area;
+    var mes;
+    var anio;
+    area = p_listaImprimir_DDJJ[0].Area.Nombre;
+    mes = p_listaImprimir_DDJJ[0].Mes;
+    anio = p_listaImprimir_DDJJ[0].Anio;
+
+    grilla = new Grilla(
+        [
+            new Columna("APELLIDO Y NOMBRE", { generar: function (una_fila) { return una_fila.Agente.Apellido + " " + una_fila.Agente.Nombre; } }),
+			new Columna("CUIL/CUIT", { generar: function (una_fila) { return una_fila.Agente.Cuit; } }),
+            new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_fila) { return una_fila.Agente.Categoria.split("#")[1]; } }),
+            new Columna("NIVEL O CATEGORIA", { generar: function (una_fila) { return una_fila.Agente.Categoria.split("#")[0]; } }),
+		]);
+
+    grilla.CargarObjetos(p_listaImprimir_DDJJ);
+    grilla.DibujarEn(ContenedorPlanilla);
+    grilla.SetOnRowClickEventHandler(function () {
+        return true;
+    });
+
+
+    var w = window.open("../DDJJ104/Impresion/ImpresionDDJJ104.aspx");
+
+    w.onload = function () {
+
+        var t = w.document.getElementById("PanelImpresion");
+        var mesddjj = w.document.getElementById("MesDDJJ104");
+        var anioddjj = w.document.getElementById("AnioDDJJ104");
+        var areaddjj = w.document.getElementById("AreaDDJJ104");
+
+        $(areaddjj).html(area);
+        $(mesddjj).html(NombreMes(mes));
+        $(anioddjj).html(anio);
+        $(t).html(ContenedorPlanilla.html());
+    }
+
+
+
+    // w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap.css' type='text/css' />");
+    // w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap-responsive.css' type='text/css' />");
+    // w.document.write("<link  rel='stylesheet' href='../Estilos/Estilos.css' type='text/css'  />");
+
+    //    w.document.write("<div class='div_print'><br/>Area: " + area + "<br/><br/></div>");
+
+    // w.document.write(ContenedorPlanilla.html());
+    // w.print();
+    // w.close();
+
+}
+
+
+
+
 $(function() {
     $( "#progressbar" ).progressbar({
       value: false
     })    
 });
+
+
+function NombreMes(num) {
+
+    switch (num) {
+        case 1: return "enero";
+        case 2: return "febrero";
+        case 3: return "marzo";
+        case 4: return "abril";
+        case 5: return "mayo";
+        case 6: return "junio";
+        case 7: return "julio";
+        case 8: return "agosto";
+        case 9: return "septiembre";
+        case 10: return "octubre";
+        case 11: return "noviembre";
+        case 12: return "diciembre";
+    }
+
+    return "";
+}

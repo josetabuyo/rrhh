@@ -67,7 +67,8 @@ namespace General
                         cn.AsignarParametro("@Id_DDJJ", id_ddjj_nuevo);
                         cn.AsignarParametro("@Id_Persona", personas.Id);
                         cn.AsignarParametro("@Orden", orden);
-                        cn.AsignarParametro("@Id_Area_Persona", personas.Area.Id);
+                        //cn.AsignarParametro("@Id_Area_Persona", personas.Area.Id);
+                        cn.AsignarParametro("@Id_Area_Persona", ddjj.First().Area.Id);
                         cn.AsignarParametro("@Mod_Contratacion", Cat_Mod[1].Trim());
                         cn.AsignarParametro("@Categoria", Cat_Mod[0].Trim());
 
@@ -93,7 +94,7 @@ namespace General
 
 
 
-        public void ImprimirDDJJ104(List<DDJJ104> ddjj)
+        public List<DDJJ104> ImprimirDDJJ104(List<DDJJ104> ddjj)
         {
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.PLA_GET_DDJJ104");
@@ -110,20 +111,23 @@ namespace General
             {
                 ddjj104 = new DDJJ104();
 
-                ddjj104.Area = new Area() {Id = dr.GetInt32(dr.GetOrdinal("Id_Area"))};
+                ddjj104.Area = new Area() { Id = dr.GetInt32(dr.GetOrdinal("Id_Area")), Nombre = dr.GetString(dr.GetOrdinal("Area")) };
                 ddjj104.Agente = new Persona()
                 {
                     Apellido = dr.GetString(dr.GetOrdinal("Apellido")),
                     Nombre = dr.GetString(dr.GetOrdinal("Nombre")),
                     Cuit = dr.GetString(dr.GetOrdinal("Cuil_Nro")),
-                    Categoria = dr.GetString(dr.GetOrdinal("Categoria")) + '#' + dr.GetString(dr.GetOrdinal("Mod_Contratacion"))
+                    Categoria = dr.GetString(dr.GetOrdinal("Categoria")) + '#' + dr.GetString(dr.GetOrdinal("Mod_Contratacion"))                    
                 };
-                
+                ddjj104.Mes = dr.GetInt16(dr.GetOrdinal("Mes"));
+                ddjj104.Anio = dr.GetInt16(dr.GetOrdinal("Año"));
+
                 listaddjj104.Add(ddjj104);
             }
 
             cn.Desconestar();
 
+            return listaddjj104;
         }
 
     }

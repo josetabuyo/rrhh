@@ -65,7 +65,9 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
         var mes_anio = valorCombo.Split('-');
-        return responsableDDJJ.GetAreasDDJJ(usuario, Convert.ToInt32(mes_anio[0]), Convert.ToInt32(mes_anio[1])).ToArray();
+        var a = responsableDDJJ.GetAreasDDJJ(usuario, Convert.ToInt32(mes_anio[0]), Convert.ToInt32(mes_anio[1])).ToArray();
+
+        return a;
     }
 
     [WebMethod]
@@ -76,10 +78,20 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void ImprimirDDJJ104(List<DDJJ104> lista)
+    public DDJJ104[] ImprimirDDJJ104(List<DDJJ104> lista)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
-        responsableDDJJ.ImprimirDDJJ104(lista);
+        List<DDJJ104> ddjj = responsableDDJJ.ImprimirDDJJ104(lista);
+
+
+        DDJJ104[] returnDDJJ = new DDJJ104[ddjj.Count];
+
+        for (int i = 0; i < ddjj.Count; i++)
+        {
+            returnDDJJ[i] = ddjj[i];
+        }
+        return returnDDJJ;
+
     }
 
     //FIN: DDJJ 104 ---------------
@@ -223,7 +235,13 @@ public class WSViaticos : System.Web.Services.WebService
         GrupoConceptosDeLicencia grupo = new GrupoConceptosDeLicencia();
         RepositorioConceptosDeLicencia repositorio = new RepositorioConceptosDeLicencia();
         List<GrupoConceptosDeLicencia> grupos = repositorio.GetGruposConceptosLicencia();
+       
+        
+
         GrupoConceptosDeLicencia[] returnGrupos = new GrupoConceptosDeLicencia[grupos.Count];
+
+
+
 
         for (int i = 0; i < grupos.Count; i++)
         {
@@ -270,6 +288,14 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
 
         return repositorio.GetAusentesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
+    }
+
+    [WebMethod]
+    public Persona[] GetPasesEntreFechasPara(Persona[] personas, DateTime desde, DateTime hasta)
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.GetPasesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
     }
 
     #endregion
@@ -1875,6 +1901,18 @@ public class WSViaticos : System.Web.Services.WebService
     public ImagenModi GetImagenPorId(int id_imagen)
     {
         return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
+    }
+
+    [WebMethod]
+    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
+    }
+
+    [WebMethod]
+    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
     }
 
     [WebMethod]

@@ -48,7 +48,8 @@ namespace General
 
                 //Cargo el areas Formal (ddjj = 1)
                 ddjj_dto.Area = un_area;
-                ddjj_dto.Area.Personas = un_area.Personas = repoPersonas.GetPersonasDelArea(un_area);
+                ddjj_dto.Area.Personas = un_area.Personas;
+                un_area.Personas = repoPersonas.GetPersonasDelAreaReducida(un_area);
                 contador_de_personas += ddjj_dto.Area.Personas.Count();
 
                 //Cargo el areas inferiores con ddjj = 0
@@ -56,7 +57,7 @@ namespace General
                 ddjj_dto.AreasInferiores = AreasSinDDJJInferioresA(un_area);
                 foreach (var item in ddjj_dto.AreasInferiores)
                 {
-                    item.Personas = repoPersonas.GetPersonasDelArea(item);
+                    item.Personas = repoPersonas.GetPersonasDelAreaReducida(item);
                     contador_de_personas += item.Personas.Count();
                 }
 
@@ -82,10 +83,10 @@ namespace General
             return ddjj.GenerarDDJJ104(usuario, lista);
         }
 
-        public void ImprimirDDJJ104(List<DDJJ104> lista)
+        public List<DDJJ104> ImprimirDDJJ104(List<DDJJ104> lista)
         {
             RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
-            ddjj.ImprimirDDJJ104(lista);
+            return ddjj.ImprimirDDJJ104(lista);
         }
 
 

@@ -185,3 +185,5 @@ _ReSharper.WSWebRH
 
 WSWebRH2.vsmdi
 WebAsistencia/WebRhUI/obj/Debug/WebRhUI.csproj.FileListAbsolute.txt
+/.idea
+/.idea/scopes/scope_settings.xml
