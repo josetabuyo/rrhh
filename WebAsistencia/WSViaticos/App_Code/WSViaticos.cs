@@ -235,7 +235,13 @@ public class WSViaticos : System.Web.Services.WebService
         GrupoConceptosDeLicencia grupo = new GrupoConceptosDeLicencia();
         RepositorioConceptosDeLicencia repositorio = new RepositorioConceptosDeLicencia();
         List<GrupoConceptosDeLicencia> grupos = repositorio.GetGruposConceptosLicencia();
+       
+        
+
         GrupoConceptosDeLicencia[] returnGrupos = new GrupoConceptosDeLicencia[grupos.Count];
+
+
+
 
         for (int i = 0; i < grupos.Count; i++)
         {
@@ -282,6 +288,14 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
 
         return repositorio.GetAusentesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
+    }
+
+    [WebMethod]
+    public Persona[] GetPasesEntreFechasPara(Persona[] personas, DateTime desde, DateTime hasta)
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.GetPasesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
     }
 
     #endregion
@@ -1887,6 +1901,18 @@ public class WSViaticos : System.Web.Services.WebService
     public ImagenModi GetImagenPorId(int id_imagen)
     {
         return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
+    }
+
+    [WebMethod]
+    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
+    }
+
+    [WebMethod]
+    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
     }
 
     [WebMethod]

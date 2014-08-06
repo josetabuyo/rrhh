@@ -86,3 +86,34 @@ ServicioDeDigitalizacionDeLegajos.prototype.desAsignarImagen = function (id_imag
         }
     });
 };
+
+ServicioDeDigitalizacionDeLegajos.prototype.agregarImagenSinAsignarAUnLegajo = function (id_interna, nombre_imagen, bytes_imagen, onSuccess) {
+    this.proveedor_ajax.postearAUrl({ url: "AgregarImagenSinAsignarAUnLegajo",
+        data: {
+            id_interna: id_interna,
+            nombre_imagen: nombre_imagen,
+            bytes_imagen: bytes_imagen
+        },
+        success: function (id_imagen) {
+            onSuccess(id_imagen);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+};
+
+ServicioDeDigitalizacionDeLegajos.prototype.agregarImagenAUnFolioDeUnLegajo = function (id_interna, numero_folio, nombre_imagen, bytes_imagen, onSuccess) {
+    this.proveedor_ajax.postearAUrl({ url: "AgregarImagenAUnFolioDeUnLegajo",
+        data: {
+            id_interna: id_interna,
+            nombre_imagen: nombre_imagen,
+            bytes_imagen: bytes_imagen,
+            numero_folio: numero_folio
+        },
+        success: function (id_imagen) {
+            onSuccess(id_imagen);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+};

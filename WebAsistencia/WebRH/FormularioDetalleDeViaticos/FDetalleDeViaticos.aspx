@@ -49,8 +49,12 @@
                         <asp:Label ID="LabelResumenViatico" runat="server">Texto Varible(User Name)</asp:Label> 
                     </div>                          
                 </div>
+
+                 
+
                 <div class="detalle_viatico_foto_viajante" >
-                    <img src="../Imagenes/fabi.jpg" alt="foto" width="105" height="105" />
+                       
+                          <asp:Image ID="img_perfil" runat="server" Width="95" Height="90" CssClass="imagen" />
                 </div>
             </div>
         </div>
@@ -200,17 +204,17 @@
 
 
 
-<script type="text/javascript" src="../bootstrap/js/jquery.js"> </script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 
-<script type="text/javascript" src="../bootstrap/js/bootstrap-transition.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-alert.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-modal.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-dropdown.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-tab.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-tooltip.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-popover.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-button.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap-typeahead.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-transition.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-alert.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-modal.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-dropdown.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tab.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-popover.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-button.js"></script>
+<script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-typeahead.js"></script>
 <script type="text/javascript">
 
 
@@ -244,7 +248,7 @@
 
 
 
-       <%= Referencias.Javascript("../")%>  
+     <%= Referencias.Javascript("../")%>  
 
      <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.validate.js"></script>
      <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tab.js"></script>

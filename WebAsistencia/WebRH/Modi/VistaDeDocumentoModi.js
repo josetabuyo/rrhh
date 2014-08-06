@@ -9,25 +9,13 @@ VistaDeDocumentoModi.prototype.start = function () {
     this.lbl_descripcion_en_RRHH.text(this.o.documento.descripcionEnRRHH);
 
     var _this = this;
-    //    this.panel_imagenes = new PanelDeImagenes({
-    //        servicioDeLegajos: this.o.servicioDeLegajos,
-    //        servicioDeDragAndDrop: this.o.servicioDeDragAndDrop,
-    //        mensajeParaCuandoEstaVacio: 'Este documento no tiene imágenes asignadas',
-    //        onImagenDropeada: function (imagen, orden) {
-    //            _this.o.servicioDeLegajos.asignarImagenADocumento(imagen.id,
-    //                                                                _this.o.documento.tabla,
-    //                                                                _this.o.documento.id,
-    //                                                                orden);
-    //        }
-    //    });
-    //    this.panel_imagenes.cargarImagenes(this.o.documento.imagenesAsignadas);
-    //    this.panel_imagenes.dibujarEn(this.div_imagenes);
 
     for (var i = 0; i < this.o.documento.folios.length; i++) {
         var vista_folio = new VistaDeFolioModi({
             folio: this.o.documento.folios[i],
             servicioDeLegajos: this.o.servicioDeLegajos,
-            servicioDeDragAndDrop: this.o.servicioDeDragAndDrop
+            servicioDeDragAndDrop: this.o.servicioDeDragAndDrop,
+            numero_legajo: this.o.numero_legajo
         });
         vista_folio.dibujarEn(this.panel_folios);
     }
