@@ -51,11 +51,12 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				});
 			}); 
 
-			describe("Y: se selecciona un valor segun el modelo", function() {
+			describe("Y: se bindea un valor del modelo", function() {
 				var domicilio_empleado;
 
 				beforeEach(function() {
 					domicilio_empleado = { localidad: 6 };
+					empleado = { domicilio: { domicilio_empleado: 6 } };
 					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" bindeadoCon="localidad"></select></div>'), domicilio_empleado);
 				});
 
@@ -74,6 +75,17 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					});
 				});
 			}); 			
+			
+			describe("Y: se bindea un valor de un modelo dentro de otro modelo", function() {
+				beforeEach(function() {
+					empleado = { hijo: { domicilio: { localidad: 6 } } };
+					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" bindeadoCon="hijo.domicilio.localidad"></select></div>'), empleado);
+				});
+
+				it("el valor debe estar seleccionado", function() {
+					expect(combos[0].ui.attr("value")).toEqual('6');
+				});
+			});
 		});
 	});
 
@@ -144,6 +156,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			});
 		});
 	});  
+
 	//it("deberia seleccionar el valor que le pase", function() {
 	// expect(false).toBe(true);
 	//});
