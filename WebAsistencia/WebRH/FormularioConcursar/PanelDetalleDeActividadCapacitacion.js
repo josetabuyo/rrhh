@@ -1,7 +1,9 @@
 ﻿var PanelDetalleDeActividadCapacitacion = {
     mostrar: function (opciones) {
         //valores default
-        var actividad_capacitacion = opciones.actividad_capacitacion || {};
+        var actividad_capacitacion = opciones.actividad_capacitacion || {
+            Pais: 9
+        };
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;

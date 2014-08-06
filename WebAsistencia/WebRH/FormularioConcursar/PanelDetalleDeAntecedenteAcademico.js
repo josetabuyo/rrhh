@@ -1,7 +1,9 @@
 ﻿var PanelDetalleDeAntecedenteAcademico = {
     mostrar: function (opciones) {
         //valores default
-        var estudio = opciones.estudio || {};
+        var estudio = opciones.estudio || {
+            Pais: 9
+        };
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;

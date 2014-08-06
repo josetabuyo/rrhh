@@ -1,7 +1,9 @@
 ﻿var PanelDetalleDeExperienciaLaboral = {
     mostrar: function (opciones) {
         //valores default
-        var experiencia = opciones.experiencia || {};
+        var experiencia = opciones.experiencia || {
+            Pais: 9
+        };
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
