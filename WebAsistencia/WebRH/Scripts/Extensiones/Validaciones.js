@@ -5,20 +5,29 @@
                 if (control.val() == "") return true;
                 return control.val().length > 0 && (/^([\w\-\.]+@([\w\-]+\.)+[\w\-]{2,6})?$/).test(control.val());
             },
-            mensaje: "No es un email válido"
+            mensaje: "Ingrese un mail válido"
         },
         esNumeroNatural: {
             evaluar: function (control) {
                 if (control.val() == "") return true;
                 return (/^\d+$/).test(control.val());
             },
-            mensaje: "No es un número natural"
+            mensaje: "Ingrese dato numérico"
         },
+
+        esUnCombo: {
+            evaluar: function (control) {
+                if (control.val() == "") return true;
+                return (/^\d+$/).test(control.val());
+            },
+            mensaje: "Seleccione una opción"
+        },
+
         esNoBlanco: {
             evaluar: function (control) {
                 return control.val().toString().length > 0;
             },
-            mensaje: "Es un campo vacío"
+            mensaje: "El campo es obligatorio"
         }
     },
     esValido: function () {
