@@ -53,12 +53,10 @@ describe("ComboPopuladoConRepoBuilder", function() {
 
 			describe("Y: se selecciona un valor segun el modelo", function() {
 				var domicilio_empleado;
-				var bindeado;
 
 				beforeEach(function() {
 					domicilio_empleado = { localidad: 6 };
-					bindeado = { combo_localidades:  domicilio_empleado.localidad };
-					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades"></select></div>'), bindeado);
+					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" bindeadoCon="localidad"></select></div>'), domicilio_empleado);
 				});
 
 				it("el valor debe estar seleccionado", function() {
@@ -67,7 +65,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				
 				describe("Y: cambia el valor del modelo", function() {
 					beforeEach(function() {
-						bindeado.combo_localidades = 1;
+						domicilio_empleado.localidad = 1;
 					});
 					
 					it("deberia reflejar el cambio", function() {
@@ -102,8 +100,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 	   describe("CUANDO: bindeo el valor del combo al modelo", function() {
 		   it ("debe tener el valor seleccionado", function() {
 				var domicilio_empleado = { localidad: 6 };
-				var bindeado = { combo_localidades:  domicilio_empleado.localidad };
-				var combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades"></select></div>'), bindeado);
+				var combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" bindeadoCon="localidad"></select></div>'), domicilio_empleado);
 				
 				expect(combos[0].idItemSeleccionado()).toEqual(6);
 			});

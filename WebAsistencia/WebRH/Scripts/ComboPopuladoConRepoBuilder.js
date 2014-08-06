@@ -55,16 +55,15 @@ if (!Object.prototype.unwatch) {
 	});
 }
 
-var ComboPopuladoConRepoBuilder = function (repositorio, bindings) {
+var ComboPopuladoConRepoBuilder = function (repositorio) {
 	this.repositorio = repositorio;
-	this.bindings = bindings;
 };
 
 ComboPopuladoConRepoBuilder.prototype.include = function(arr,obj) {
     return (arr.indexOf(obj) != -1);
 }
 
-ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom, bindings) {
+ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom, modelo_bindeo) {
 	var repo = this.repositorio;
 	var combos = [];
     dom.find('[dataProvider]').each(function () {
@@ -75,20 +74,34 @@ ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom, binding
             nombre_repositorio: $(control).attr("dataProvider"),
 			campo_descripcion: $(control).attr("label") || "Descripcion",
 			dependencia: $(control).attr("dependeDe"),
+			binding: modelo_bindeo,
             repositorio: repo
         };
 		
-		if (bindings != undefined) {
+		if (modelo_bindeo != undefined) {
+			var attr_name = $(control).attr("bindeadoCon");
+			if (attr_name != undefined) {
+				var attr_value = modelo_bindeo[attr_name];
+				parametros_constructor["id_item_seleccionado"] = attr_value;
+			}
+		}
+		
+		/*if (bindings != undefined) {
 			var attr_name = $(control).attr("Id")
 			var attr = bindings[attr_name];
 			if (typeof attr !== typeof undefined && attr !== false) {
 				parametros_constructor["id_item_seleccionado"] = attr;
-		
 			}
-		}
+		}*/
+		
 		
 		var super_combo = new SuperCombo(parametros_constructor);
-		if (bindings != undefined) {
+		if (modelo_bindeo != undefined) {
+			modelo_bindeo.watch(attr_name, function(prop, oldval, newval) {
+				super_combo.id_item_seleccionado = newval;
+			});
+		}
+		/*if (bindings != undefined) {
 			var attr_name = $(control).attr("Id")
 			var attr = bindings[attr_name];
 			if (typeof attr !== typeof undefined && attr !== false) {
@@ -96,7 +109,7 @@ ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom, binding
 					super_combo.id_item_seleccionado = val;
 				});
 			}
-		}
+		}*/
 		
 		combos.push(super_combo);
     });
