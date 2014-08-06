@@ -65,7 +65,9 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
         var mes_anio = valorCombo.Split('-');
-        return responsableDDJJ.GetAreasDDJJ(usuario, Convert.ToInt32(mes_anio[0]), Convert.ToInt32(mes_anio[1])).ToArray();
+        var a = responsableDDJJ.GetAreasDDJJ(usuario, Convert.ToInt32(mes_anio[0]), Convert.ToInt32(mes_anio[1])).ToArray();
+
+        return a;
     }
 
     [WebMethod]

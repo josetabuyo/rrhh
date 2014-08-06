@@ -225,6 +225,13 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
     w.onload = function () {
 
         var t = w.document.getElementById("PanelImpresion");
+        var mesddjj = w.document.getElementById("MesDDJJ104");
+        var anioddjj = w.document.getElementById("AnioDDJJ104");
+        var areaddjj = w.document.getElementById("AreaDDJJ104");
+
+        $(areaddjj).html(area);
+        $(mesddjj).html(NombreMes(mes));
+        $(anioddjj).html(anio);
         $(t).html(ContenedorPlanilla.html());
     }
 
@@ -250,3 +257,24 @@ $(function() {
       value: false
     })    
 });
+
+
+function NombreMes(num) {
+
+    switch (num) {
+        case 1: return "enero";
+        case 2: return "febrero";
+        case 3: return "marzo";
+        case 4: return "abril";
+        case 5: return "mayo";
+        case 6: return "junio";
+        case 7: return "julio";
+        case 8: return "agosto";
+        case 9: return "septiembre";
+        case 10: return "octubre";
+        case 11: return "noviembre";
+        case 12: return "diciembre";
+    }
+
+    return "";
+}
