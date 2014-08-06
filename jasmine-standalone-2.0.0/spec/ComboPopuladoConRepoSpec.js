@@ -71,7 +71,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					
 					it("deberia reflejar el cambio", function() {
 						//expect(combos[0].ui.attr("value")).toEqual('1'); //ver por que existe esta diferencia entre ui.attr("value") y idItemSeleccionado()
-						expect(combos[0].idItemSeleccionado()).toEqual(1);
+						expect(combos[0]["id_item_seleccionado"]).toEqual(1);
 					});
 				});
 			});
@@ -168,11 +168,12 @@ describe("ComboPopuladoConRepoBuilder", function() {
 		});
 	});  
 
-	//it("deberia seleccionar el valor que le pase", function() {
-	// expect(false).toBe(true);
-	//});
-
 	//it("si falla porque necesitaba filtro, debe mandar excepcion explicativa", function() {
 	//  expect(false).toBe(true);
 	//});
+	
+	//it("si falla porque no esta en el modelo el attributo que le quise bindear, deberia lanzar excepcion explicativa", function() {
+	//  expect(false).toBe(true);
+	//});
+
 });  
