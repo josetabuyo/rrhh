@@ -85,6 +85,17 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				it("el valor debe estar seleccionado", function() {
 					expect(combos[0].ui.attr("value")).toEqual('6');
 				});
+				
+				describe("Y: cambia el valor del modelo", function() {
+					beforeEach(function() {
+						empleado.hijo.domicilio.localidad = 1;
+					});
+					
+					it("deberia reflejar el cambio", function() {
+						//expect(combos[0].ui.attr("value")).toEqual('1'); //ver por que existe esta diferencia entre ui.attr("value") y idItemSeleccionado()
+						expect(combos[0].idItemSeleccionado()).toEqual(1);
+					});
+				});
 			});
 		});
 	});

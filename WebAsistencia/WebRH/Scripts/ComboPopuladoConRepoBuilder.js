@@ -92,8 +92,6 @@ ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom, modelo_
 			if (attr_name != undefined) {
 				var attr_path = attr_name.split('.');
 				var attr_value = builder.browseObject(modelo_bindeo, attr_path)
-				
-				//var attr_value = modelo_bindeo[attr_name];
 				parametros_constructor["id_item_seleccionado"] = attr_value;
 			}
 		}
@@ -116,6 +114,6 @@ ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom, modelo_
 			combo.cargarBusqueda(combo.nombre_repositorio, filtro, comboDelQueDepende.campo_id, comboDelQueDepende.campo_descripcion);
 		});
 	});
+	
 	return combos;
 };
-
