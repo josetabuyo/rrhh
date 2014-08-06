@@ -3,17 +3,17 @@
         var _this = this;
         this.ui = $("#contenedor_datosPersonales");
 
-        var bindings = { cmb_sexo: datos_personales.Sexo, 
-                        cmb_estadoCivil: datos_personales.EstadoCivil,
-                        cmb_nacionalidad: datos_personales.Nacionalidad, 
-                        cmb_tipoDocumento: datos_personales.TipoDocumento,
-                        cmb_localidad1: datos_personales.DomicilioPersonal.Localidad,
-                        cmb_provincia1: datos_personales.DomicilioPersonal.Provincia,
-                        cmb_localidad2: datos_personales.DomicilioLegal.Localidad,
-                        cmb_provincia2: datos_personales.DomicilioLegal.Provincia };
+//        var bindings = { cmb_sexo: datos_personales.Sexo, 
+//                        cmb_estadoCivil: datos_personales.EstadoCivil,
+//                        cmb_nacionalidad: datos_personales.Nacionalidad, 
+//                        cmb_tipoDocumento: datos_personales.TipoDocumento,
+//                        cmb_localidad1: datos_personales.DomicilioPersonal.Localidad,
+//                        cmb_provincia1: datos_personales.DomicilioPersonal.Provincia,
+//                        cmb_localidad2: datos_personales.DomicilioLegal.Localidad,
+//                        cmb_provincia2: datos_personales.DomicilioLegal.Provincia };
 
         var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
-        generador_combos.construirCombosEn(this.ui, bindings);
+        generador_combos.construirCombosEn(this.ui, datos_personales);
 
         _this.txt_nombre = _this.ui.find("#nombre");
         _this.txt_apellido = _this.ui.find("#apellido");

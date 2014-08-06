@@ -65,12 +65,12 @@
                         </div>
                         <div style="float:left; margin:8px">
                             <label for="cmb_sexo">Sexo <em>*</em></label>
-                            <select id="cmb_sexo" style="width:100px;" dataProvider="Sexos" name="cmb_sexo" >
+                            <select id="cmb_sexo" name="cmb_sexo" dataProvider="Sexos" modelo="Sexo" style="width:100px;">
                             </select>
                         </div>
                         <div style="float:left; margin:8px">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
-                         <select id="cmb_estadoCivil" style="width:100px;" dataProvider="EstadosCiviles" name="cmb_estadoCivil" >
+                         <select id="cmb_estadoCivil" name="cmb_estadoCivil" dataProvider="EstadosCiviles" modelo="EstadoCivil" style="width:100px;" >
                          </select>
                          </div>
                         <div style="float:left; margin:8px; width:130px;">
@@ -88,12 +88,12 @@
                         </div>
                       <div style="float:left; margin:8px">
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
-                         <select id="cmb_nacionalidad" style="width:250px;" dataProvider="Nacionalidades" name="cmb_nacionalidad">
+                         <select id="cmb_nacionalidad" name="cmb_nacionalidad" dataProvider="Nacionalidades" modelo="Nacionalidad" style="width:250px;">
                          </select>
                       </div>
                       <div style="float:left; margin:8px">
                        <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo documento <em>*</em></label>
-                        <select id="cmb_tipoDocumento" style="width:100px;" dataProvider="TiposDeDocumento" name="cmb_tipoDocumento">
+                        <select id="cmb_tipoDocumento" name="cmb_tipoDocumento" dataProvider="TiposDeDocumento" modelo="TipoDocumento" style="width:100px;" >
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
@@ -123,12 +123,12 @@
                       </div>
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
-                        <select id="cmb_provincia1" name="cmb_provincia1" dataProvider="Provincias" label="Nombre" style="width:200px;" >
+                        <select id="cmb_provincia1" name="cmb_provincia1" dataProvider="Provincias" modelo="DomicilioPersonal.Provincia" label="Nombre" style="width:200px;" >
                         </select>
                       </div> 
                       <div style="float:left; margin:8px">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
-                           <select id="cmb_localidad1" name="cmb_localidad1" dataProvider="Localidades" dependeDe="cmb_provincia1" style="width:300px;" >
+                           <select id="cmb_localidad1" name="cmb_localidad1" dataProvider="Localidades" dependeDe="cmb_provincia1" modelo="DomicilioPersonal.Localidad" style="width:300px;" >
                             </select>
                       </div>
                     </fieldset>
@@ -155,18 +155,18 @@
                       </div>
 
                       <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo_small" for="txt_cp2">Código postal <em>*</em></label>
+                          <label class="etiqueta_campo_small" for="txt_cp2">Código postal <em>*</em></label>
                           <input type="text" id="txt_cp2" name="txt_cp2" style="width:50px"/><br/>
                       </div>
 
                       <div style="float:left; margin:8px">     
                         <label class="etiqueta_campo" for="cmb_provincia2">Provincia <em>*</em></label>
-                        <select id="cmb_provincia2" name="cmb_provincia2" dataProvider="Provincias" label="Nombre" style="width:200px;" >
+                        <select id="cmb_provincia2" name="cmb_provincia2" dataProvider="Provincias" modelo="DomicilioLegal.Provincia" label="Nombre" style="width:200px;" >
                         </select>
                       </div>
                       <div style="float:left; margin:8px">
                           <label class="etiqueta_campo_small" for="cmb_localidad2">Localidad <em>*</em></label>
-                          <select id="cmb_localidad2" name="cmb_localidad2" dataProvider="Localidades" dependeDe="cmb_provincia2" style="width:300px;"></select>
+                          <select id="cmb_localidad2" name="cmb_localidad2" dataProvider="Localidades" dependeDe="cmb_provincia2" modelo="DomicilioLegal.Localidad" style="width:300px;"></select>
                       </div>
                         <div style="float:left; margin:8px">
                             <label class="etiqueta_campo" for="txt_telefonoFijo">Tel&eacute;fono fijo <em>*</em></label>
@@ -508,7 +508,6 @@
 
         $(".collapse").collapse('show');
 
-
         var curriculum = JSON.parse($('#curriculum').val());
 
         CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
@@ -541,14 +540,9 @@
         });
 
         $('a[rel*=leanModalConcursar]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
-
-
         //Estilos para ver coloreada la grilla en Internet Explorer
         $("tbody tr:even").css('background-color', '#fff');
         $("tbody tr:odd").css('background-color', 'transparent ');
     });
-    
-    
-
 </script>
 </html>

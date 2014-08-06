@@ -88,7 +88,7 @@ ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom, modelo_
         };
 		
 		if (modelo_bindeo != undefined) {
-			var attr_name = $(control).attr("bindeadoCon");
+			var attr_name = $(control).attr("modelo");
 			if (attr_name != undefined) {
 				var attr_path = attr_name.split('.');
 				var attr_value = builder.browseObject(modelo_bindeo, attr_path)

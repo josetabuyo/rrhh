@@ -57,7 +57,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				beforeEach(function() {
 					domicilio_empleado = { localidad: 6 };
 					empleado = { domicilio: { domicilio_empleado: 6 } };
-					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" bindeadoCon="localidad"></select></div>'), domicilio_empleado);
+					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="localidad"></select></div>'), domicilio_empleado);
 				});
 
 				it("el valor debe estar seleccionado", function() {
@@ -74,12 +74,12 @@ describe("ComboPopuladoConRepoBuilder", function() {
 						expect(combos[0].idItemSeleccionado()).toEqual(1);
 					});
 				});
-			}); 			
+			});
 			
 			describe("Y: se bindea un valor de un modelo dentro de otro modelo", function() {
 				beforeEach(function() {
 					empleado = { hijo: { domicilio: { localidad: 6 } } };
-					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" bindeadoCon="hijo.domicilio.localidad"></select></div>'), empleado);
+					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="hijo.domicilio.localidad"></select></div>'), empleado);
 				});
 
 				it("el valor debe estar seleccionado", function() {
@@ -123,7 +123,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 	   describe("CUANDO: bindeo el valor del combo al modelo", function() {
 		   it ("debe tener el valor seleccionado", function() {
 				var domicilio_empleado = { localidad: 6 };
-				var combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" bindeadoCon="localidad"></select></div>'), domicilio_empleado);
+				var combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="localidad"></select></div>'), domicilio_empleado);
 				
 				expect(combos[0].idItemSeleccionado()).toEqual(6);
 			});
