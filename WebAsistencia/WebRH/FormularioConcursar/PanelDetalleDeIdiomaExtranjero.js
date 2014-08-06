@@ -1,7 +1,9 @@
 ﻿var PanelDetalleDeIdiomaExtranjero = {
     mostrar: function (opciones) {
         //valores default
-        var idioma_extranjero = opciones.idioma_extranjero || {};
+        var idioma_extranjero = opciones.idioma_extranjero || {
+            Pais: 9
+        };
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
