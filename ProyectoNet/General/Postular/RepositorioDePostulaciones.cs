@@ -68,5 +68,11 @@ namespace General
                               row.GetString("Numero")
                 );
         }
+
+        public Postulacion GetPostulacionById(int idpersona, int idpostulacion)
+        {
+            return this.GetPostulacionesDe(idpersona).Find(p => p.Id.Equals(idpostulacion));
+        
+        }
     }
 }

@@ -765,6 +765,14 @@ public class AjaxWS : System.Web.Services.WebService {
     {
         return Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Session[ConstantesDeSesion.PUESTO]);
     }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetPostulacionById(int idpostulacion)
+    {
+        var postulacion = backEndService.GetPostulacionById(usuarioLogueado.Owner.Id, idpostulacion);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(postulacion);
+    }
     
     [WebMethod(EnableSession = true)]
     public string PostularseA(WSViaticos.Postulacion una_postulacion)
