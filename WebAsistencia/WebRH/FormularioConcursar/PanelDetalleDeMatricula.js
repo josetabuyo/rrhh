@@ -19,12 +19,20 @@
             _this.txt_situacion = _this.ui.find("#txt_matricula_situacion");
             _this.txt_situacion.val(matricula.SituacionActual);
 
+             //Bt cerrar
+            _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
+            _this.btn_cerrar.click(function () {                
+               _this.ui.limpiarValidaciones();
+            });
 
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#btn_guardar");
             if (opciones.matricula) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
+            
+             if (_this.ui.esValido()) {
+
                 matricula.Numero = _this.txt_numero.val();
                 matricula.ExpedidaPor = _this.txt_expedidaPor.val();
                 matricula.FechaInscripcion = _this.txt_fecha.datepicker('getDate').toISOString();
@@ -63,6 +71,7 @@
                         alertify.alert("Error al guardar la matrícula.");
                     }
                 });
+                }
             });
 
             var link_trucho = $("<a href='#un_div_modal'></a>");

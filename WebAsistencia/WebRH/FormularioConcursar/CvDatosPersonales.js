@@ -78,7 +78,7 @@ var CvDatosPersonales = {
         _this.cmb_domicilio_personal_localidad = new SuperCombo({
             ui: _this.ui.find("#cmb_localidad1"),
             nombre_repositorio: "Localidades",
-            filtro: { provincia: datos_personales.DomicilioPersonal.Provincia },
+            filtro: { IdProvincia: datos_personales.DomicilioPersonal.Provincia },
             campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioPersonal.Localidad
         });
@@ -89,7 +89,7 @@ var CvDatosPersonales = {
             campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioPersonal.Provincia,
             al_seleccionar: function (id_provincia) {
-                _this.cmb_domicilio_personal_localidad.cambiarFiltro({ provincia: id_provincia });
+                _this.cmb_domicilio_personal_localidad.cambiarFiltro({ IdProvincia: id_provincia });
             }
         });
 
@@ -116,7 +116,7 @@ var CvDatosPersonales = {
         _this.cmb_domicilio_legal_localidad = new SuperCombo({
             ui: _this.ui.find("#cmb_localidad2"),
             nombre_repositorio: "Localidades",
-            filtro: { provincia: datos_personales.DomicilioLegal.Provincia },
+            filtro: { IdProvincia: datos_personales.DomicilioLegal.Provincia },
             campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioLegal.Localidad
         });
@@ -127,7 +127,7 @@ var CvDatosPersonales = {
             campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioLegal.Provincia,
             al_seleccionar: function (id_provincia) {
-                _this.cmb_domicilio_legal_localidad.cambiarFiltro({ provincia: id_provincia });
+                _this.cmb_domicilio_legal_localidad.cambiarFiltro({ IdProvincia: id_provincia });
             }
         });
 
@@ -146,8 +146,8 @@ var CvDatosPersonales = {
                 datos_personales_nuevo.Sexo = _this.cmb_sexo.idItemSeleccionado();
                 //datos_personales_nuevo.NivelEducat
                 datos_personales_nuevo.EstadoCivil = _this.cmb_estadoCivil.idItemSeleccionado();
-//                datos_personales_nuevo.Cuil = _this.txt_cuil.val();
-
+                //datos_personales_nuevo.Cuil = _this.txt_cuil.val();
+                //Se agrega el replace para que saque los guiones 
                 datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
 
                 datos_personales_nuevo.LugarDeNacimiento = _this.cmb_lugar_nac.val();
@@ -201,7 +201,7 @@ var CvDatosPersonales = {
                         alertify.alert(errorThrown);
                     }
                 });
-            } else { alertify.error("Los cambios no han sido guardados"); }
+            }//fin validador
         });
 
 

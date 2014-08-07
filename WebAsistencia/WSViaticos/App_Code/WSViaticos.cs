@@ -2472,22 +2472,22 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region CVActividadesDocentes
     [WebMethod]
-    public CvDocencia GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
+    public CvDocencia GuardarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvActividadesDocentes(docencia_nuevo, usuario);
+        return RepoCurriculum().GuardarCvActividadDocente(docencia_nuevo, usuario);
 
     }
 
     [WebMethod]
-    public CvDocencia ActualizarCvActividadesDocencia(CvDocencia docencia_nuevo, Usuario usuario)
+    public CvDocencia ActualizarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvActividadesDocencia(docencia_nuevo, usuario);
+        return RepoCurriculum().ActualizarCvActividadDocente(docencia_nuevo, usuario);
     }
 
     [WebMethod]
-    public CvDocencia EliminarCvActividadesDocentes(CvDocencia actividades_docentes_a_borrar, Usuario usuario)
+    public bool EliminarCvActividadesDocentes(int actividades_docentes_a_borrar, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvActividadesDocentes(actividades_docentes_a_borrar, usuario);
+        return RepoCurriculum().EliminarCvActividadDocente(actividades_docentes_a_borrar, usuario);
     }
 
     #endregion
@@ -2669,13 +2669,13 @@ public class WSViaticos : System.Web.Services.WebService
      [WebMethod]
     public Provincia[] BuscarProvincias(string criterio)
     {
-        return RepositorioDeProvincias.Nuevo(Conexion()).All().ToArray();
+        return RepositorioDeProvincias.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
     [WebMethod]
      public Nacionalidad[] BuscarNacionalidades(string criterio)
     {
-        return RepositorioDeNacionalidades.Nuevo(Conexion()).All().ToArray();
+        return RepositorioDeNacionalidades.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
     [WebMethod]
@@ -2687,25 +2687,25 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Pais[] BuscarPaises(string criterio)
     {
-        return RepositorioDePaises.Nuevo(Conexion()).All().ToArray();
+        return RepositorioDePaises.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
     [WebMethod]
     public EstadoCivil[] BuscarEstadosCiviles(string criterio)
     {
-        return RepositorioDeEstadosCiviles.Nuevo(Conexion()).All().ToArray();
+        return RepositorioDeEstadosCiviles.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
     [WebMethod]
     public TipoDeDocumento[] BuscarTiposDeDocumento(string criterio)
     {
-        return RepositorioDeTiposdeDocumento.Nuevo(Conexion()).All().ToArray();
+        return RepositorioDeTiposdeDocumento.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
     [WebMethod]
     public Sexo[] BuscarSexos(string criterio)
     {
-        return RepositorioDeSexos.Nuevo(Conexion()).All().ToArray();
+        return RepositorioDeSexos.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
     [WebMethod]
