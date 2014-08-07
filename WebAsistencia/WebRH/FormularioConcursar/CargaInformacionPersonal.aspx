@@ -185,13 +185,13 @@
                       </div>
 
                          <div class="grupo_campos nueva_linea">
-                            <label class="etiqueta_campo" for="txt_telefonoFijo">Tel&eacute;fono Fijo <em>*</em></label>
-                            <input type="text" id="txt_telefonoFijo" name="txt_telefonoFijo" style="width:140px;"  data-validar="esNoBlanco"/>
+                            <label class="etiqueta_campo" for="txt_telefono">Tel&eacute;fono Fijo <em>*</em></label>
+                            <input type="text" id="txt_telefono" name="txt_telefonoFijo" style="width:140px;"  data-validar="esNoBlanco"/>
                         </div>
 
                         <div class="grupo_campos">
-                            <label class="etiqueta_campo" for="txt_telefonoCelular">Tel&eacute;fono Celular</label>
-                            <input type="text" id="txt_telefonoCelular" name="txt_telefonoCelular" style="width:140px;"/>
+                            <label class="etiqueta_campo" for="txt_telefono2">Tel&eacute;fono Celular</label>
+                            <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width:140px;"/>
                         </div>
 
                         <div id="contenedor_mails"class="grupo_campos">

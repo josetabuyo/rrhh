@@ -99,9 +99,9 @@ var CvDatosPersonales = {
         _this.txt_domicilio_legal_piso = _this.ui.find("#txt_piso2");
         _this.txt_domicilio_legal_dto = _this.ui.find("#txt_dto2");
         _this.txt_domicilio_legal_cp = _this.ui.find("#txt_cp2");
-        _this.txt_domicilio_legal_telefonoFijo = _this.ui.find("#txt_telefonoFijo");
-        _this.txt_domicilio_legal_telefonoCelular = _this.ui.find("#txt_telefonoCelular");
-        _this.txt_domicilio_legal_mail = _this.ui.find("#txt_email");
+        _this.txt_domicilio_legal_Telefono = _this.ui.find("#txt_telefono");
+        _this.txt_domicilio_legal_Telefono2 = _this.ui.find("#txt_telefono2");
+        _this.txt_domicilio_legal_Email = _this.ui.find("#txt_email");
 
 
         _this.txt_domicilio_legal_calle.val(datos_personales.DomicilioLegal.Calle);
@@ -109,9 +109,9 @@ var CvDatosPersonales = {
         _this.txt_domicilio_legal_piso.val((datos_personales.DomicilioLegal.Piso));
         _this.txt_domicilio_legal_dto.val(datos_personales.DomicilioLegal.Depto);
         _this.txt_domicilio_legal_cp.val(parseInt(datos_personales.DomicilioLegal.Cp));
-        _this.txt_domicilio_legal_telefonoFijo.val(datos_personales.DomicilioLegal.TelefonoFijo);
-        _this.txt_domicilio_legal_telefonoCelular.val(datos_personales.DomicilioLegal.TelefonoCelular);
-        _this.txt_domicilio_legal_mail.val(datos_personales.DomicilioLegal.Mail);
+        _this.txt_domicilio_legal_Telefono.val(datos_personales.DomicilioLegal.Telefono);
+        _this.txt_domicilio_legal_Telefono2.val(datos_personales.DomicilioLegal.Telefono2);
+        _this.txt_domicilio_legal_Email.val(datos_personales.DomicilioLegal.Email);
 
         _this.cmb_domicilio_legal_localidad = new SuperCombo({
             ui: _this.ui.find("#cmb_localidad2"),
@@ -174,9 +174,9 @@ var CvDatosPersonales = {
                 domicilioLegal_nuevo.Provincia = _this.cmb_domicilio_legal_provincia.idItemSeleccionado();
                 domicilioLegal_nuevo.Localidad = _this.cmb_domicilio_legal_localidad.idItemSeleccionado();
 
-                //domicilioLegal_nuevo.TelefonoFijo = _this.txt_domicilio_legal_telefonoFijo.val();
-                //domicilioLegal_nuevo.TelefonoCelular = _this.txt_domicilio_legal_telefonoCelular.val();
-                //domicilioLegal_nuevo.Mail = _this.txt_domicilio_legal_mail.val();
+                datos_personales_nuevo.Telefono = _this.txt_domicilio_legal_Telefono.val();
+                datos_personales_nuevo.Telefono2 = _this.txt_domicilio_legal_Telefono2.val();
+                datos_personales_nuevo.Email = _this.txt_domicilio_legal_Email.val();
 
                 datos_personales_nuevo.DomicilioPersonal = domicilioPersonal_nuevo;
                 datos_personales_nuevo.DomicilioLegal = domicilioLegal_nuevo;
