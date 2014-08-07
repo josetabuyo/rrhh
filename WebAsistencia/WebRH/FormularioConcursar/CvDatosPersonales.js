@@ -1,4 +1,10 @@
-﻿var CvDatosPersonales = {
+﻿jQuery(function ($) {
+    $("#cuil").mask("99-99999999-9");
+
+});
+
+
+var CvDatosPersonales = {
     completarDatos: function (datos_personales) {
         var _this = this;
         this.ui = $("#contenedor_datosPersonales");
@@ -72,7 +78,7 @@
         _this.cmb_domicilio_personal_localidad = new SuperCombo({
             ui: _this.ui.find("#cmb_localidad1"),
             nombre_repositorio: "Localidades",
-            filtro: { provincia: datos_personales.DomicilioPersonal.Provincia },
+            filtro: { IdProvincia: datos_personales.DomicilioPersonal.Provincia },
             campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioPersonal.Localidad
         });
@@ -83,7 +89,7 @@
             campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioPersonal.Provincia,
             al_seleccionar: function (id_provincia) {
-                _this.cmb_domicilio_personal_localidad.cambiarFiltro({ provincia: id_provincia });
+                _this.cmb_domicilio_personal_localidad.cambiarFiltro({ IdProvincia: id_provincia });
             }
         });
 
@@ -110,7 +116,7 @@
         _this.cmb_domicilio_legal_localidad = new SuperCombo({
             ui: _this.ui.find("#cmb_localidad2"),
             nombre_repositorio: "Localidades",
-            filtro: { provincia: datos_personales.DomicilioLegal.Provincia },
+            filtro: { IdProvincia: datos_personales.DomicilioLegal.Provincia },
             campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioLegal.Localidad
         });
@@ -121,19 +127,17 @@
             campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioLegal.Provincia,
             al_seleccionar: function (id_provincia) {
-                _this.cmb_domicilio_legal_localidad.cambiarFiltro({ provincia: id_provincia });
+                _this.cmb_domicilio_legal_localidad.cambiarFiltro({ IdProvincia: id_provincia });
             }
         });
 
         //Bt guardar
         _this.add_datosPersonales = _this.ui.find("#btn_guardar_datosPersonales");
         _this.add_datosPersonales.click(function () {
-            var guardar = true;
-            if (!$("#contenedor_mails").esValido()) { guardar = false; alertify.error("El mail ingresado es inválido"); }
-            if (!$("#contenedor_datosPersonales").esValido()) { guardar = false; alertify.error("Complete todos los campos obligatorios (*)"); } 
+//            datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
 
 
-            if (guardar) {
+            if ($("#contenedor_datosPersonales").esValido()) {
                 var datos_personales_nuevo = {};
                 var domicilioPersonal_nuevo = {};
                 var domicilioLegal_nuevo = {};
@@ -142,7 +146,10 @@
                 datos_personales_nuevo.Sexo = _this.cmb_sexo.idItemSeleccionado();
                 //datos_personales_nuevo.NivelEducat
                 datos_personales_nuevo.EstadoCivil = _this.cmb_estadoCivil.idItemSeleccionado();
-                datos_personales_nuevo.Cuil = _this.txt_cuil.val();
+                //datos_personales_nuevo.Cuil = _this.txt_cuil.val();
+                //Se agrega el replace para que saque los guiones 
+                datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
+
                 datos_personales_nuevo.LugarDeNacimiento = _this.cmb_lugar_nac.val();
                 datos_personales_nuevo.FechaNacimiento = _this.txt_fechaNac.val();
                 datos_personales_nuevo.Nacionalidad = _this.cmb_nacionalidad.idItemSeleccionado();
@@ -194,7 +201,7 @@
                         alertify.alert(errorThrown);
                     }
                 });
-            } else { alertify.error("Los cambios no han sido guardados"); }
+            }//fin validador
         });
 
 
