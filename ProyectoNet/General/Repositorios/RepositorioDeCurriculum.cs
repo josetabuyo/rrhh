@@ -470,6 +470,9 @@ namespace General.Repositorios
                 //insertar en GEN_Domicilios y CV_Domicilio el DomicilioLaboral
                 parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario);
                 parametros.Add("@Dni", datosPersonales.Dni);
+                parametros.Add("@DomicilioTelefono", datosPersonales.Telefono);
+                parametros.Add("@DomicilioTelefono2", datosPersonales.Telefono2);
+                parametros.Add("@DomicilioCorreo_Electronico", datosPersonales.Email);
                 conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
 
             }
