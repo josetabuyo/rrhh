@@ -93,7 +93,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					
 					it("deberia reflejar el cambio", function() {
 						//expect(combos[0].ui.attr("value")).toEqual('1'); //ver por que existe esta diferencia entre ui.attr("value") y idItemSeleccionado()
-						expect(combos[0].idItemSeleccionado()).toEqual(1);
+						expect(combos[0]["id_item_seleccionado"]).toEqual(1);
 					});
 				});
 			});

@@ -63,12 +63,12 @@ ComboPopuladoConRepoBuilder.prototype.include = function(arr,obj) {
     return (arr.indexOf(obj) != -1);
 }
 ComboPopuladoConRepoBuilder.prototype.browseObject = function (obj, path) {
-	var attr = path.shift();
-	var this_level = obj[attr];
+	var this_level_attr = path.shift();
+	var this_level_value = obj[this_level_attr];
 	if (path.length == 0) {
-		return this_level;
+		return { obj_bindeable: obj, attr_bindeable: this_level_attr, attr_value: this_level_value };
 	}
-	return this.browseObject(obj[attr], path);
+	return this.browseObject(obj[this_level_attr], path);
 }
 
 ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom, modelo_bindeo) {
@@ -91,14 +91,20 @@ ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom, modelo_
 			var attr_name = $(control).attr("modelo");
 			if (attr_name != undefined) {
 				var attr_path = attr_name.split('.');
-				var attr_value = builder.browseObject(modelo_bindeo, attr_path)
+				var attr_value = builder.browseObject(modelo_bindeo, attr_path).attr_value;
 				parametros_constructor["id_item_seleccionado"] = attr_value;
 			}
 		}
 		
 		var super_combo = new SuperCombo(parametros_constructor);
 		if (modelo_bindeo != undefined) {
-			modelo_bindeo.watch(attr_name, function(prop, oldval, newval) {
+			var attr_name = $(control).attr("modelo");
+			var attr_path = attr_name.split('.');
+			var binding_data = builder.browseObject(modelo_bindeo, attr_path);
+			var obj_bindeable = binding_data.obj_bindeable;
+			var attr_bindeable = binding_data.attr_bindeable;
+			
+			obj_bindeable.watch(attr_bindeable, function(prop, oldval, newval) {
 				super_combo.id_item_seleccionado = newval;
 			});
 		}
