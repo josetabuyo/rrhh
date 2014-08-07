@@ -83,7 +83,7 @@
 </body>
  <%= Referencias.Javascript("../") %>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
- <script type="text/javascript" src="CvDatosPersonales.js"></script>
+
   <script type="text/javascript" src="PanelDeControl.js"></script>
  <script type="text/javascript">
 
