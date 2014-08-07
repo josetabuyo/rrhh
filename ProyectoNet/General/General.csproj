@@ -110,6 +110,7 @@
     <Compile Include="Postular\Pais.cs" />
     <Compile Include="Postular\NivelDeIdioma.cs" />
     <Compile Include="Repositorios\FiltroDeObjetos.cs" />
+    <Compile Include="Repositorios\RepositorioDeNivelesCompetenciasInformaticas.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesDeIdioma.cs" />
     <Compile Include="Repositorios\RepositorioDePaises.cs" />
     <Compile Include="Postular\NivelDeDocencia.cs" />
