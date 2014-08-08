@@ -52,8 +52,6 @@
 
                     }
                 });
-            } else {
-                alertify.error("Hay campos inválidos");
             }
         });
     },
@@ -97,9 +95,6 @@
                         alertify.alert("Error al registrar el usuario, inténtelo nuevamente.");
                     }
                 });
-            }
-            else {
-                alertify.error("Hay campos inválidos");
             }
         });
     }
