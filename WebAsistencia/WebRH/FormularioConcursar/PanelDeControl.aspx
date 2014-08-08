@@ -26,7 +26,7 @@
                 <div class=" estilo_paneles  ">
                 
                 <a href="#" ><span><img alt="imprimir" width="22px" height="22px" src="../Imagenes/Botones/impresora.png" />&nbsp;Imprimir</span></a>    
-                <a href="#" ><span><img alt="descargar" width="22px" height="22px" src="../Imagenes/Botones/guardar.png" />&nbsp;Descargar</span></a>                 
+                <a href="VistaPreliminar.aspx" ><span><img alt="descargar" width="22px" height="22px" src="../Imagenes/Botones/guardar.png" />&nbsp;Descargar</span></a>                 
                 <hr class="lineas-subraya"/>
                 <div  class="panel-body estilo_paneles fondo_form ">
                     <h3 class="panel-title" style="text-align:center; font-size:12pt; font-weight: bold;">Mi CV</h3>
@@ -83,7 +83,7 @@
 </body>
  <%= Referencias.Javascript("../") %>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
- <script type="text/javascript" src="CvDatosPersonales.js"></script>
+
   <script type="text/javascript" src="PanelDeControl.js"></script>
  <script type="text/javascript">
 
