@@ -3,6 +3,7 @@ var CvDatosPersonales = {
     completarDatos: function (datos_personales) {
         var _this = this;
         this.ui = $("#contenedor_datosPersonales");
+        $("#cuil").mask("99-99999999-9");
 
         _this.txt_nombre = _this.ui.find("#nombre");
         _this.txt_apellido = _this.ui.find("#apellido");
