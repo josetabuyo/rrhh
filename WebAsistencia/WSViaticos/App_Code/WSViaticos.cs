@@ -2686,7 +2686,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public CvNivelCompetenciaInformatica[] BuscarNivelesDeCompetenciasInformaticas(string criterio)
+    public CvNivelCompetenciaInformatica[] BuscarNivelCompetenciaInformatica(string criterio)
     {
         return RepositorioDeNivelesCompetenciasInformaticas.Nuevo(Conexion()).Find(criterio).ToArray();
     }
