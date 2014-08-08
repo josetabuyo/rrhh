@@ -1,7 +1,7 @@
-﻿jQuery(function ($) {
-    $("#cuil").mask("99-99999999-9");
+﻿//jQuery(function ($) {
+//    $("#cuil").mask("99-99999999-9");
 
-});
+//});
 
 
 var CvDatosPersonales = {
