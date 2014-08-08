@@ -201,9 +201,13 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
     var area;
     var mes;
     var anio;
+    var direccion;
+    var dependencia;
     area = p_listaImprimir_DDJJ[0].Area.Nombre;
     mes = p_listaImprimir_DDJJ[0].Mes;
     anio = p_listaImprimir_DDJJ[0].Anio;
+    direccion = p_listaImprimir_DDJJ[0].Area.Direccion;
+    dependencia = p_listaImprimir_DDJJ[0].Area.Dependencias[0].Nombre;
 
     grilla = new Grilla(
         [
@@ -228,10 +232,14 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
         var mesddjj = w.document.getElementById("MesDDJJ104");
         var anioddjj = w.document.getElementById("AnioDDJJ104");
         var areaddjj = w.document.getElementById("AreaDDJJ104");
+        var areadireccionddjj = w.document.getElementById("AreaDireccionDDJJ104");
+        var areadependenciaddjj = w.document.getElementById("AreaDependenciaDDJJ104");
 
         $(areaddjj).html(area);
         $(mesddjj).html(NombreMes(mes));
         $(anioddjj).html(anio);
+        $(areadireccionddjj).html(direccion);
+        $(areadependenciaddjj).html(dependencia);
         $(t).html(ContenedorPlanilla.html());
     }
 

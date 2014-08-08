@@ -42,7 +42,7 @@
         <div align="center" style="font-size: small">DECISION ADMINISTRATIVA Nº 104/2001</div>
         <div align="center" style="font-size: small">(Resolución SME 34/01)<br/></div>
         <br />
-        <div style="font-size: medium">Por el presente, certifico con carácter de Declaración Jurada, en mi condición de titular de la a <b><a id="AreaDDJJ104" style="text-transform: uppercase"></a></b> dependiente de la DIRECCION NACIONAL DE GESTION DE LOS CENTROS DE REFERENCIA -SUBSECRETARIA DE ORGANIZACION COMUITARIA, SECRETARIA DE ORGANIZACION Y COMUNICACION COMUNITARIA ubicada en 9 DE JULIO 1925, que las personas citadas en el listado adjuntos han cumplimentado la prestación de servicios correspondiente al mes de <b><a id="MesDDJJ104" style="text-transform: uppercase"></a></b> del año<b><a id="AnioDDJJ104" style="text-transform: uppercase"></a></b>.</div>
+        <div style="font-size: medium">Por el presente, certifico con carácter de Declaración Jurada, en mi condición de titular de la a <b><a id="AreaDDJJ104" style="text-transform: uppercase"></a></b> dependiente de <b><a id="AreaDependenciaDDJJ104" style="text-transform: uppercase"></a></b> ubicada en <b><a id="AreaDireccionDDJJ104" style="text-transform: uppercase"></a></b>, que las personas citadas en el listado adjuntos han cumplimentado la prestación de servicios correspondiente al mes de <b><a id="MesDDJJ104" style="text-transform: uppercase"></a></b> del año<b><a id="AnioDDJJ104" style="text-transform: uppercase"></a></b>.</div>
 
         <br />
             <div ID="PanelImpresion" runat="server" align="center" style="width: 100% ; height:100%"></div>
