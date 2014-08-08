@@ -1,7 +1,9 @@
-﻿var CvDatosPersonales = {
+﻿
+var CvDatosPersonales = {
     completarDatos: function (datos_personales) {
         var _this = this;
         this.ui = $("#contenedor_datosPersonales");
+        $("#cuil").mask("99-99999999-9");
 
         _this.txt_nombre = _this.ui.find("#nombre");
         _this.txt_apellido = _this.ui.find("#apellido");
@@ -72,7 +74,7 @@
         _this.cmb_domicilio_personal_localidad = new SuperCombo({
             ui: _this.ui.find("#cmb_localidad1"),
             nombre_repositorio: "Localidades",
-            filtro: { provincia: datos_personales.DomicilioPersonal.Provincia },
+            filtro: { IdProvincia: datos_personales.DomicilioPersonal.Provincia },
             campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioPersonal.Localidad
         });
@@ -83,7 +85,7 @@
             campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioPersonal.Provincia,
             al_seleccionar: function (id_provincia) {
-                _this.cmb_domicilio_personal_localidad.cambiarFiltro({ provincia: id_provincia });
+                _this.cmb_domicilio_personal_localidad.cambiarFiltro({ IdProvincia: id_provincia });
             }
         });
 
@@ -93,9 +95,9 @@
         _this.txt_domicilio_legal_piso = _this.ui.find("#txt_piso2");
         _this.txt_domicilio_legal_dto = _this.ui.find("#txt_dto2");
         _this.txt_domicilio_legal_cp = _this.ui.find("#txt_cp2");
-        _this.txt_domicilio_legal_telefonoFijo = _this.ui.find("#txt_telefonoFijo");
-        _this.txt_domicilio_legal_telefonoCelular = _this.ui.find("#txt_telefonoCelular");
-        _this.txt_domicilio_legal_mail = _this.ui.find("#txt_email");
+        _this.txt_domicilio_legal_Telefono = _this.ui.find("#txt_telefono");
+        _this.txt_domicilio_legal_Telefono2 = _this.ui.find("#txt_telefono2");
+        _this.txt_domicilio_legal_Email = _this.ui.find("#txt_email");
 
 
         _this.txt_domicilio_legal_calle.val(datos_personales.DomicilioLegal.Calle);
@@ -103,14 +105,14 @@
         _this.txt_domicilio_legal_piso.val((datos_personales.DomicilioLegal.Piso));
         _this.txt_domicilio_legal_dto.val(datos_personales.DomicilioLegal.Depto);
         _this.txt_domicilio_legal_cp.val(parseInt(datos_personales.DomicilioLegal.Cp));
-        _this.txt_domicilio_legal_telefonoFijo.val(datos_personales.DomicilioLegal.TelefonoFijo);
-        _this.txt_domicilio_legal_telefonoCelular.val(datos_personales.DomicilioLegal.TelefonoCelular);
-        _this.txt_domicilio_legal_mail.val(datos_personales.DomicilioLegal.Mail);
+        _this.txt_domicilio_legal_Telefono.val(datos_personales.DomicilioLegal.Telefono);
+        _this.txt_domicilio_legal_Telefono2.val(datos_personales.DomicilioLegal.Telefono2);
+        _this.txt_domicilio_legal_Email.val(datos_personales.DomicilioLegal.Email);
 
         _this.cmb_domicilio_legal_localidad = new SuperCombo({
             ui: _this.ui.find("#cmb_localidad2"),
             nombre_repositorio: "Localidades",
-            filtro: { provincia: datos_personales.DomicilioLegal.Provincia },
+            filtro: { IdProvincia: datos_personales.DomicilioLegal.Provincia },
             campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioLegal.Localidad
         });
@@ -121,19 +123,17 @@
             campo_descripcion: "Nombre",
             id_item_seleccionado: datos_personales.DomicilioLegal.Provincia,
             al_seleccionar: function (id_provincia) {
-                _this.cmb_domicilio_legal_localidad.cambiarFiltro({ provincia: id_provincia });
+                _this.cmb_domicilio_legal_localidad.cambiarFiltro({ IdProvincia: id_provincia });
             }
         });
 
         //Bt guardar
         _this.add_datosPersonales = _this.ui.find("#btn_guardar_datosPersonales");
         _this.add_datosPersonales.click(function () {
-            var guardar = true;
-            if (!$("#contenedor_mails").esValido()) { guardar = false; alertify.error("El mail ingresado es inválido"); }
-            if (!$("#contenedor_datosPersonales").esValido()) { guardar = false; alertify.error("Complete todos los campos obligatorios (*)"); } 
+//            datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
 
 
-            if (guardar) {
+            if ($("#contenedor_datosPersonales").esValido()) {
                 var datos_personales_nuevo = {};
                 var domicilioPersonal_nuevo = {};
                 var domicilioLegal_nuevo = {};
@@ -142,7 +142,10 @@
                 datos_personales_nuevo.Sexo = _this.cmb_sexo.idItemSeleccionado();
                 //datos_personales_nuevo.NivelEducat
                 datos_personales_nuevo.EstadoCivil = _this.cmb_estadoCivil.idItemSeleccionado();
-                datos_personales_nuevo.Cuil = _this.txt_cuil.val();
+                //datos_personales_nuevo.Cuil = _this.txt_cuil.val();
+                //Se agrega el replace para que saque los guiones 
+                datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
+
                 datos_personales_nuevo.LugarDeNacimiento = _this.cmb_lugar_nac.val();
                 datos_personales_nuevo.FechaNacimiento = _this.txt_fechaNac.val();
                 datos_personales_nuevo.Nacionalidad = _this.cmb_nacionalidad.idItemSeleccionado();
@@ -167,9 +170,9 @@
                 domicilioLegal_nuevo.Provincia = _this.cmb_domicilio_legal_provincia.idItemSeleccionado();
                 domicilioLegal_nuevo.Localidad = _this.cmb_domicilio_legal_localidad.idItemSeleccionado();
 
-                //domicilioLegal_nuevo.TelefonoFijo = _this.txt_domicilio_legal_telefonoFijo.val();
-                //domicilioLegal_nuevo.TelefonoCelular = _this.txt_domicilio_legal_telefonoCelular.val();
-                //domicilioLegal_nuevo.Mail = _this.txt_domicilio_legal_mail.val();
+                datos_personales_nuevo.Telefono = _this.txt_domicilio_legal_Telefono.val();
+                datos_personales_nuevo.Telefono2 = _this.txt_domicilio_legal_Telefono2.val();
+                datos_personales_nuevo.Email = _this.txt_domicilio_legal_Email.val();
 
                 datos_personales_nuevo.DomicilioPersonal = domicilioPersonal_nuevo;
                 datos_personales_nuevo.DomicilioLegal = domicilioLegal_nuevo;
@@ -194,7 +197,7 @@
                         alertify.alert(errorThrown);
                     }
                 });
-            } else { alertify.error("Los cambios no han sido guardados"); }
+            }//fin validador
         });
 
 

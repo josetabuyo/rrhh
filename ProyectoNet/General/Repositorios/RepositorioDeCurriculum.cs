@@ -470,6 +470,9 @@ namespace General.Repositorios
                 //insertar en GEN_Domicilios y CV_Domicilio el DomicilioLaboral
                 parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario);
                 parametros.Add("@Dni", datosPersonales.Dni);
+                parametros.Add("@DomicilioTelefono", datosPersonales.Telefono);
+                parametros.Add("@DomicilioTelefono2", datosPersonales.Telefono2);
+                parametros.Add("@DomicilioCorreo_Electronico", datosPersonales.Email);
                 conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
 
             }
@@ -670,8 +673,8 @@ namespace General.Repositorios
         }
         #endregion CvCertificadosDeCapacitacion
 
-        #region CvAntecedentesDocentes
-        public CvDocencia GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
+        #region CvActividadDocente
+        public CvDocencia GuardarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
         {
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
@@ -682,7 +685,7 @@ namespace General.Repositorios
             return docencia_nuevo;
         }
 
-        public CvDocencia ActualizarCvActividadesDocencia(CvDocencia docencia_nuevo, Usuario usuario)
+        public CvDocencia ActualizarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
         {
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@IdDocencia", docencia_nuevo.Id);
@@ -692,17 +695,19 @@ namespace General.Repositorios
             return docencia_nuevo;
         }
 
-        public CvDocencia EliminarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
+        public bool EliminarCvActividadDocente(int docencia_nuevo, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
-
-            var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
-            parametros.Add("@IdDocencia", docencia_nuevo.Id);
+           
+            var parametros = new Dictionary<string, object>();
             parametros.Add("@IdBaja", baja);
+            parametros.Add("@IdDocencia", docencia_nuevo);
+            parametros.Add("@Usuario", usuario.Id);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_AntecedentesDeDocencia", parametros);
+            return true;
 
-            return docencia_nuevo;
+
         }
 
         private Dictionary<string, object> ParametrosDeAntecedentesDocencia(CvDocencia docencia_nuevo, Usuario usuario)

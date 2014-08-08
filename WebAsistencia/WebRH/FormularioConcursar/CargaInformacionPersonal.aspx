@@ -10,6 +10,9 @@
     <%= Referencias.Css("../")%>    
     
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+   
+
+   
 
     <link rel="stylesheet" href="EstilosPostular.css" />
 </head>
@@ -58,7 +61,8 @@
                         
                         <div class="grupo_campos nueva_linea" >
                           <label for="nombre">Nombre <em>*</em></label>
-                          <input id="nombre" type="text" style="width:160px;" data-validar="esNoBlanco" />
+                          <input id="nombre" type="text" style="width:160px;" data-validar="esNoBlanco" 
+                                maxlength="100" />
                         </div>
                         <div class="grupo_campos">
                           <label for="apellido">Apellido <em>*</em></label>
@@ -103,12 +107,14 @@
                       </div>
                        <div class="grupo_campos nueva_linea">
                         <label class="etiqueta_campo" for="txt_calle1">Calle <em>*</em></label>
-                        <input type="text" id="txt_calle1" name="txt_calle1" style="width:350px;"  data-validar="esNoBlanco"/>
+                        <input type="text" id="txt_calle1" name="txt_calle1" style="width:350px;"  
+                               data-validar="esNoBlanco" maxlength="100"/>
                       </div>
 
                        <div class="grupo_campos">
                         <label class="etiqueta_campo" for="txt_numero1">Número <em>*</em></label>
-                        <input type="text" id="txt_numero1" name="txt_numero1" style="width:50px"  data-validar="esNumeroNatural"/>
+                        <input type="text" id="txt_numero1" name="txt_numero1" style="width:50px"  
+                               data-validar="esNumeroNatural" maxlength="20"/>
                        </div>      
                        <div class="grupo_campos">
                         <label class="etiqueta_campo" for="txt_piso1">Piso</label>
@@ -120,7 +126,8 @@
                       </div> 
                       <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="txt_cp1">Código Postal <em>*</em></label>
-                          <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/  data-validar="esNumeroNatural">
+                          <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/  
+                              data-validar="esNumeroNatural" maxlength="10">
                       </div>
                       <div class="grupo_campos nueva_linea">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
@@ -138,27 +145,32 @@
 		                <p style="font-weight:bold; text-transform:uppercase;">Información Requerida Para Recibir Notificaciones y Avisos</p>
 	                    <div class="grupo_campos nueva_linea">
                             <label class="etiqueta_campo" for="text_calle2">Calle <em>*</em></label>
-                            <input type="text" id="text_calle2" name="text_calle2" style="width:350px;"  data-validar="esNoBlanco"/>
+                            <input type="text" id="text_calle2" name="text_calle2" style="width:350px;"  
+                                data-validar="esNoBlanco" maxlength="100"/>
                         </div>
 
                        <div class="grupo_campos">
                             <label class="etiqueta_campo" for="txt_numero2">Número <em>*</em></label>
-                            <input type="text" id="txt_numero2" name="txt_numero2" style="width:50px"  data-validar="esNumeroNatural"/>
+                            <input type="text" id="txt_numero2" name="txt_numero2" style="width:50px"  
+                                data-validar="esNumeroNatural" maxlength="10"/>
                        </div>
        
                        <div class="grupo_campos">
                             <label class="etiqueta_campo" for="txt_piso2">Piso</label>
-                            <input type="text" id="txt_piso2" name="txt_piso2" style="width:30px"/>
+                            <input type="text" id="txt_piso2" name="txt_piso2" style="width:30px" 
+                                maxlength="10"/>
                        </div>
 
                       <div class="grupo_campos">  
                           <label class="etiqueta_campo" for="txt_dto2">Dto</label>
-                          <input type="text" id="txt_dto2" name="txt_dto2" style="width:30px"/>
+                          <input type="text" id="txt_dto2" name="txt_dto2" style="width:30px" 
+                              maxlength="10"/>
                       </div>
 
                        <div class="grupo_campos">
                             <label class="etiqueta_campo_small" for="txt_cp2">Código Postal <em>*</em></label>
-                          <input type="text" id="txt_cp2" name="txt_cp2" style="width:80px"  data-validar="esNumeroNatural"/><br/>
+                          <input type="text" id="txt_cp2" name="txt_cp2" style="width:80px"  
+                                data-validar="esNumeroNatural" maxlength="20"/><br/>
                       </div>
 
                       <div class="grupo_campos nueva_linea"> 
@@ -173,13 +185,13 @@
                       </div>
 
                          <div class="grupo_campos nueva_linea">
-                            <label class="etiqueta_campo" for="txt_telefonoFijo">Tel&eacute;fono Fijo <em>*</em></label>
-                            <input type="text" id="txt_telefonoFijo" name="txt_telefonoFijo" style="width:140px;"  data-validar="esNoBlanco"/>
+                            <label class="etiqueta_campo" for="txt_telefono">Tel&eacute;fono Fijo <em>*</em></label>
+                            <input type="text" id="txt_telefono" name="txt_telefonoFijo" style="width:140px;"  data-validar="esNoBlanco"/>
                         </div>
 
                         <div class="grupo_campos">
-                            <label class="etiqueta_campo" for="txt_telefonoCelular">Tel&eacute;fono Celular</label>
-                            <input type="text" id="txt_telefonoCelular" name="txt_telefonoCelular" style="width:140px;"/>
+                            <label class="etiqueta_campo" for="txt_telefono2">Tel&eacute;fono Celular</label>
+                            <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width:140px;"/>
                         </div>
 
                         <div id="contenedor_mails"class="grupo_campos">
@@ -504,13 +516,16 @@
 <script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 <script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
+ <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
+
+
 
 <script type="text/javascript">
 
     $(document).ready(function () {
-
+       
         $(".collapse").collapse('show');
-
+        
 
         var curriculum = JSON.parse($('#curriculum').val());
 
@@ -549,9 +564,24 @@
         //Estilos para ver coloreada la grilla en Internet Explorer
         $("tbody tr:even").css('background-color', '#fff');
         $("tbody tr:odd").css('background-color', 'transparent ');
+
+        $("#IrArriba").hide();
+        $(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 200) {
+                    $('#IrArriba').fadeIn();
+                } else {
+                    $('#IrArriba').fadeOut();
+                }
+            });
+            $('#IrArriba a').click(function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
+            });
+        });
     });
-    
-    
 
 </script>
 </html>

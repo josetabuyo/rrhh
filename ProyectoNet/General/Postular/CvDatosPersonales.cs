@@ -38,7 +38,7 @@ namespace General
         public CvDomicilio DomicilioLegal { get { return _domicilioLegal; } set { _domicilioLegal = value; } }
         public string TieneLegajo { get { return _legajo; } set { _legajo = value; } }
         public string Telefono { get {return _telefono;} set { _telefono = value; } }
-        public string Telefono2 { get {return _telefono;} set { _telefono2 = value; } }
+        public string Telefono2 { get {return _telefono2;} set { _telefono2 = value; } }
         public string Email { get { return _email; } set { _email = value; } }
 
         public CvDatosPersonales(int dni, string nombre, string apellido, int sexo, int estadoCivil, string cuil, string lugarNacimiento, int nacionalidad, string fechaNacimiento, int tipoDocumento, CvDomicilio domicilio_personal, CvDomicilio domicilio_legal, string tiene_legajo, string telefono, string telefono2, string email)
