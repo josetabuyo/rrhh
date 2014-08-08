@@ -818,5 +818,37 @@ public class AjaxWS : System.Web.Services.WebService {
         var metodo = backEndService.GetType().GetMethods().ToList().Find(m => m.Name == "Buscar" + nombre_repositorio);
         return Newtonsoft.Json.JsonConvert.SerializeObject(metodo.Invoke(backEndService, new object[]{criterio}));
     }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string EjecutarEnBackend(string nombre_metodo, String[] argumentos_json)
+    {
+        System.Reflection.MethodInfo metodo = backEndService.GetType().GetMethods().ToList().Find(m => m.Name == nombre_metodo);
+        var argumentos_esperados = metodo.GetParameters();
+        
+        var argumentos_a_enviar = new List<Object>();
+
+        for (int i = 0; i < argumentos_json.Count(); i++)
+		{
+            var arg_esperado = argumentos_esperados[i];
+            var arg_json = argumentos_json[i];
+            argumentos_a_enviar.Add(Newtonsoft.Json.JsonConvert.DeserializeObject(arg_json, arg_esperado.ParameterType));
+		}
+
+        if (argumentos_esperados.Any(a => a.Name == "usuario"))
+        {
+            argumentos_a_enviar.Add(usuarioLogueado);
+        }
+        var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
+        return Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string MetodosDelBackend()
+    {
+        var metodos = backEndService.GetType().GetMethods().ToList().Select(m => new{nombre= m.Name});
+        return Newtonsoft.Json.JsonConvert.SerializeObject(metodos);
+    }
 }
 
