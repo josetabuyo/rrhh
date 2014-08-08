@@ -550,6 +550,8 @@ namespace General.Repositorios
         #region CvAntecedentesAcademicos
         public CvEstudios GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
         {
+            
+            validarDatos(antecedentesAcademicos_nuevo);
 
             var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
@@ -562,14 +564,12 @@ namespace General.Repositorios
 
         public CvEstudios ActualizarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
         {
-            //var baja = CrearBaja(usuario);
-
+            validarDatos(antecedentesAcademicos_nuevo);
+            
             var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
             parametros.Add("@idAntecedente", antecedentesAcademicos_nuevo.Id);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
-
-            //this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
 
             return antecedentesAcademicos_nuevo;
 
@@ -579,14 +579,12 @@ namespace General.Repositorios
         {
             var baja = CrearBaja(usuario);
 
-            //var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
-             var parametros = new Dictionary<string, object>();
+            var parametros = new Dictionary<string, object>();
             parametros.Add("@idBaja", baja);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@idAntecedente", antecedentesAcademicos_nuevo);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
-            //this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
             return true;
         }
 
@@ -673,6 +671,8 @@ namespace General.Repositorios
         #region CvActividadDocente
         public CvDocencia GuardarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
         {
+            validarDatos(docencia_nuevo);
+
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
@@ -682,8 +682,14 @@ namespace General.Repositorios
             return docencia_nuevo;
         }
 
+
         public CvDocencia ActualizarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
         {
+            validarDatos(docencia_nuevo);
+
+            
+
+
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@IdDocencia", docencia_nuevo.Id);
 
@@ -1178,6 +1184,70 @@ namespace General.Repositorios
 
             return id;
         }
+
+        #region Validaciones
+        private void validarDatos(CvEstudios objeto)
+        {
+            if (vacio(objeto.Titulo) ||
+                combo(objeto.Nivel) ||
+                vacio(objeto.Especialidad) ||
+                fecha(objeto.FechaIngreso) ||
+                fecha(objeto.FechaEgreso) ||
+                vacio(objeto.Establecimiento) ||
+                vacio(objeto.Localidad) ||
+                combo(objeto.Pais))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        private void validarDatos(CvDocencia objeto)
+        {
+           if (vacio(objeto.Asignatura) ||
+               combo(objeto.NivelEducativo) ||
+               vacio(objeto.CategoriaDocente) ||
+               vacio(objeto.CategoriaDocente) ||
+               vacio(objeto.DedicacionDocente) ||
+               vacio(objeto.CargaHoraria) ||
+               vacio(objeto.TipoActividad) ||
+               fecha(objeto.FechaInicio) ||
+               fecha(objeto.FechaFinalizacion) ||
+                vacio(objeto.Establecimiento) ||
+                vacio(objeto.Localidad) ||
+                combo(objeto.Pais))
+
+               throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        private bool combo(int seleccion)
+        {
+            //var validador = new ValidadorNumeroNatural();
+
+            //validador.SiEsValido(seleccion).Entonces(obj => return true).SiNo(return false);
+
+            if (seleccion < 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool fecha(DateTime fecha)
+        {
+            if (fecha.Equals(""))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool vacio(string campo)
+        {
+            if (campo.Equals("")) {
+                return true;
+            }
+            return false;
+        }
+
+        #endregion Validaciones
 
     }
 }
