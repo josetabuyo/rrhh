@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using General;
 
 namespace TestViaticos
 {
@@ -11,33 +12,138 @@ namespace TestViaticos
     {
 
         [TestMethod]
-        public void deberia_evaluar_el_bloque_ENTONCES_si_la_condicion_es_valida()
+        public void deberia_poder_validar_por_un_id_natural()
         {
-            var objeto_a_validar = 7;
-            int objeto_valido_recibido = 0;
-            
-            var validador = new ValidadorNumerNatural();
+            CvDocencia una_docencia = new CvDocencia() { Id = 7 };
+            var validador_docencias = new Validador();
 
-            ValidadorNumerNatural a = validador.SiEsValido(objeto_a_validar)
-                .Entonces(objeto_valido => { objeto_valido_recibido = objeto_valido; })
-                .SiNo(objeto_invalido => { Assert.Fail("El objeto deberia ser valido"); });
+            validador_docencias.DeberiaSer("Id", Validador.NumeroNatural);
 
-            Assert.AreEqual(objeto_a_validar, objeto_valido_recibido);
+            Assert.IsTrue(validador_docencias.EsValido(una_docencia));
         }
 
         [TestMethod]
-        public void deberia_evaluar_el_bloque_SiNo_si_la_condicion_es_invalida()
+        public void deberia_poder_validar_por_un_id_no_natural()
         {
-            var objeto_a_validar = -1;
-            int objeto_invalido_recibido = 0;
+            CvDocencia una_docencia = new CvDocencia() { Id = 0 };
+            var validador_docencias = new Validador();
 
-            var validador = new ValidadorNumerNatural();
+            validador_docencias.DeberiaSer("Id", Validador.NumeroNatural);
 
-            ValidadorNumerNatural a = validador.SiEsValido(objeto_a_validar)
-                .Entonces(objeto_valido => { Assert.Fail("El objeto deberia ser invalido"); })
-                .SiNo(objeto_invalido => { objeto_invalido_recibido = objeto_invalido; });
+            Assert.IsFalse(validador_docencias.EsValido(una_docencia));
+        }
 
-            Assert.AreEqual(objeto_a_validar, objeto_invalido_recibido);
+        [TestMethod]
+        public void deberia_poder_validar_por_un_id_natural_y_nivel_natural()
+        {
+            CvDocencia una_docencia = new CvDocencia() { Id = 7, NivelEducativo = 2 };
+            var validador_docencias = new Validador();
+
+            validador_docencias.DeberiaSer("Id", Validador.NumeroNatural)
+                .DeberiaSer("NivelEducativo", Validador.NumeroNatural);
+
+            Assert.IsTrue(validador_docencias.EsValido(una_docencia));
+        }
+
+        [TestMethod]
+        public void deberia_poder_validar_por_un_id_natural_y_nivel_natural_sin_repetir_ValidaSi()
+        {
+            CvDocencia una_docencia = new CvDocencia() { Id = 7, NivelEducativo = 2 };
+            var validador_docencias = new Validador();
+
+            var reglas = new Dictionary<string, Validador>() { { "Id", Validador.NumeroNatural }, { "NivelEducativo", Validador.NumeroNatural } };
+
+            validador_docencias.ValidaSi(reglas);
+
+            Assert.IsTrue(validador_docencias.EsValido(una_docencia));
+        }
+
+        [TestMethod]
+        public void deberia_poder_validar_por_un_id_natural_y_nivel_natural_sin_repetir_ValidaSi_ni_Validador()
+        {
+            CvDocencia una_docencia = new CvDocencia() { Id = 7, NivelEducativo = 2 };
+            var validador_docencias = new Validador();
+
+            validador_docencias.DeberianSerNaturales(new string[]{ "Id", "NivelEducativo" });
+
+            Assert.IsTrue(validador_docencias.EsValido(una_docencia));
+        }
+
+        [TestMethod]
+        public void deberia_poder_validar_por_una_asignatura_no_vacia_y_categiria_no_vacia_sin_repetir_ValidaSi_ni_Validador()
+        {
+            CvDocencia una_docencia = new CvDocencia() { Asignatura = "Asignatura", CategoriaDocente = "Categoria" };
+            var validador_docencias = new Validador();
+
+            validador_docencias.DeberianSerNoVacias(new string[] { "Asignatura", "CategoriaDocente" });
+
+            Assert.IsTrue(validador_docencias.EsValido(una_docencia));
+        }
+
+        [TestMethod]
+        public void deberia_poder_validar_por_un_id_natural_o_cero_y_nivel_natura_o_cero_sin_repetir_ValidaSi_ni_Validador()
+        {
+            CvDocencia una_docencia = new CvDocencia() { Id = 0, NivelEducativo = 0 };
+            var validador_docencias = new Validador();
+
+            validador_docencias.DeberianSerNaturalesOCero(new string[] { "Id", "NivelEducativo" });
+
+            Assert.IsTrue(validador_docencias.EsValido(una_docencia));
+        }
+
+        [TestMethod]
+        public void deberia_poder_validar_por_una_asignatura_no_nulo_y_categiria_no_nulo_sin_repetir_ValidaSi_ni_Validador()
+        {
+            CvDocencia una_docencia = new CvDocencia() { Asignatura = "Asignatura", CategoriaDocente = "Categoria" };
+            var validador_docencias = new Validador();
+
+            validador_docencias.DeberianSerNoNulls(new string[] { "Asignatura", "CategoriaDocente" });
+
+            Assert.IsTrue(validador_docencias.EsValido(una_docencia));
+        }
+
+        [TestMethod]
+        public void deberia_poder_validar_por_un_id_natural_y_nivel()
+        {
+            CvDocencia una_docencia = new CvDocencia() { Id = -7, NivelEducativo = 2 };
+            var validador_docencias = new Validador();
+
+            validador_docencias.DeberianSerNaturales(new string[] { "Id", "NivelEducativo" });
+
+            Assert.IsFalse(validador_docencias.EsValido(una_docencia));
+        }
+
+        [TestMethod]
+        public void deberia_poder_validar_por_una_asignatura_no_vacia_y_categiria()
+        {
+            CvDocencia una_docencia = new CvDocencia() { Asignatura = "", CategoriaDocente = "Categoria" };
+            var validador_docencias = new Validador();
+
+            validador_docencias.DeberianSerNoVacias(new string[] { "Asignatura", "CategoriaDocente" });
+
+            Assert.IsFalse(validador_docencias.EsValido(una_docencia));
+        }
+
+        [TestMethod]
+        public void deberia_poder_validar_por_un_id_natural_o_cero_y_nivel()
+        {
+            CvDocencia una_docencia = new CvDocencia() { Id = -1, NivelEducativo = 0 };
+            var validador_docencias = new Validador();
+
+            validador_docencias.DeberianSerNaturalesOCero(new string[] { "Id", "NivelEducativo" });
+
+            Assert.IsFalse(validador_docencias.EsValido(una_docencia));
+        }
+
+        [TestMethod]
+        public void deberia_poder_validar_por_una_asignatura_no_nulo_y_categiria()
+        {
+            CvDocencia una_docencia = new CvDocencia() { Asignatura = null, CategoriaDocente = "Categoria" };
+            var validador_docencias = new Validador();
+
+            validador_docencias.DeberianSerNoNulls(new string[] { "Asignatura", "CategoriaDocente" });
+
+            Assert.IsFalse(validador_docencias.EsValido(una_docencia));
         }
     }
 }

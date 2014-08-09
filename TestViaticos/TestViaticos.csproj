@@ -129,7 +129,6 @@
     <Compile Include="TestRepositorioZonas.cs" />
     <Compile Include="TestTablasFake.cs" />
     <Compile Include="TestViaticos.cs" />
-    <Compile Include="ValidadorNumerNatural.cs" />
     <Compile Include="ViaticosDataSet.cs">
       <DependentUpon>ViaticosDataSet.xsd</DependentUpon>
     </Compile>

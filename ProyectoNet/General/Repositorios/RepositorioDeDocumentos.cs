@@ -108,9 +108,9 @@ namespace General.Repositorios
             un_documento.Id = int.Parse(id.ToString());           
         }
 
-        private Validador Validador()
+        private ValidadorMICOI Validador()
         {
-            return new Validador();
+            return new ValidadorMICOI();
         }
 
         public List<TipoDeDocumentoSICOI> GetTiposDeDocumentos()

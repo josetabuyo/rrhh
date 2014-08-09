@@ -1199,22 +1199,16 @@ namespace General.Repositorios
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
         }
 
-        private void validarDatos(CvDocencia objeto)
+        private void validarDatos(CvDocencia una_docencia)
         {
-           if (vacio(objeto.Asignatura) ||
-               combo(objeto.NivelEducativo) ||
-               vacio(objeto.CategoriaDocente) ||
-               vacio(objeto.CategoriaDocente) ||
-               vacio(objeto.DedicacionDocente) ||
-               vacio(objeto.CargaHoraria) ||
-               vacio(objeto.TipoActividad) ||
-               fecha(objeto.FechaInicio) ||
-               fecha(objeto.FechaFinalizacion) ||
-                vacio(objeto.Establecimiento) ||
-                vacio(objeto.Localidad) ||
-                combo(objeto.Pais))
+            var validador_docencias = new Validador();
 
-               throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+            validador_docencias.DeberianSerNoVacias(new string[] { "Asignatura", "CategoriaDocente", "DedicacionDocente", "CargaHoraria", "TipoActividad", "FechaInicio", "FechaFinalizacion", "Establecimiento", "Localidad"});
+            validador_docencias.DeberianSerNaturales(new string[] { "NivelEducativo", "Pais" });
+            if(!validador_docencias.EsValido(una_docencia))
+
+            throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+                           
         }
 
         private bool combo(int seleccion)
