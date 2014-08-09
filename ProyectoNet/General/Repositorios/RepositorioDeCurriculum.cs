@@ -435,7 +435,7 @@ namespace General.Repositorios
         #region CvDatosPersonales
         public void GuardarCVDatosPersonales(CvDatosPersonales datosPersonales, Usuario usuario)
         {
-
+            //validarDatos(datosPersonales);
             var parametros = new Dictionary<string, object>();
             var cv = this.GetCV(usuario.Owner.Id);
 
@@ -686,9 +686,6 @@ namespace General.Repositorios
         public CvDocencia ActualizarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
         {
             validarDatos(docencia_nuevo);
-
-            
-
 
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@IdDocencia", docencia_nuevo.Id);
@@ -1186,17 +1183,27 @@ namespace General.Repositorios
         }
 
         #region Validaciones
-        private void validarDatos(CvEstudios objeto)
+
+        private void validarDatos(CvDatosPersonales datosPersonales)
         {
-            if (vacio(objeto.Titulo) ||
-                combo(objeto.Nivel) ||
-                vacio(objeto.Especialidad) ||
-                fecha(objeto.FechaIngreso) ||
-                fecha(objeto.FechaEgreso) ||
-                vacio(objeto.Establecimiento) ||
-                vacio(objeto.Localidad) ||
-                combo(objeto.Pais))
-                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+            var validador_datos = new Validador();
+
+            validador_datos.DeberianSerNoVacias(new string[] { "Nombre", "Apellido", "Cuil", "FechaNacimiento", "Telefono" });
+            validador_datos.DeberianSerNaturales(new string[] { "Dni", "Sexo", "EstadoCivil", "LugarDeNacimiento", "Nacionalidad", "TipoDocumento"});
+            if (!validador_datos.EsValido(datosPersonales))
+
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");  
+        }
+
+        private void validarDatos(CvEstudios un_estudio)
+        {
+            var validador_estudios = new Validador();
+
+            validador_estudios.DeberianSerNoVacias(new string[] { "Titulo", "Especialidad", "FechaIngreso", "FechaEgreso", "Establecimiento", "Localidad" });
+            validador_estudios.DeberianSerNaturales(new string[] { "Nivel", "Pais" });
+            if (!validador_estudios.EsValido(un_estudio))
+
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");              
         }
 
         private void validarDatos(CvDocencia una_docencia)
@@ -1209,36 +1216,6 @@ namespace General.Repositorios
 
             throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
                            
-        }
-
-        private bool combo(int seleccion)
-        {
-            //var validador = new ValidadorNumeroNatural();
-
-            //validador.SiEsValido(seleccion).Entonces(obj => return true).SiNo(return false);
-
-            if (seleccion < 0)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool fecha(DateTime fecha)
-        {
-            if (fecha.Equals(""))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool vacio(string campo)
-        {
-            if (campo.Equals("")) {
-                return true;
-            }
-            return false;
         }
 
         #endregion Validaciones
