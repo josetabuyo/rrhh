@@ -32,9 +32,15 @@
                 _this.txt_competencias_informaticas_nivel = new SuperCombo({
                 ui: _this.ui.find("#txt_competencias_informaticas_nivel"),
                 nombre_repositorio: "NivelCompetenciaInformatica",
-                id_item_seleccionado: competencia_informatica.Pais
+                id_item_seleccionado: competencia_informatica.Nivel
             });
 
+
+                  _this.txt_competencias_informaticas_conocimiento = new SuperCombo({
+                ui: _this.ui.find("#txt_competencias_informaticas_conocimiento"),
+                nombre_repositorio: "ConocimientoCompetenciaInformatica",
+                id_item_seleccionado: competencia_informatica.Conocimiento
+            });
 
 
 
@@ -42,9 +48,9 @@
 
             _this.txt_competencias_informaticas_tipo_informatica = _this.ui.find("#txt_competencias_informaticas_tipo_informatica");
             _this.txt_competencias_informaticas_tipo_informatica.val(competencia_informatica.TipoInformatica);
-            _this.txt_competencias_informaticas_conocimiento = _this.ui.find("#txt_competencias_informaticas_conocimiento");
-            _this.txt_competencias_informaticas_conocimiento.val(competencia_informatica.Conocimiento);
-//            _this.txt_competencias_informaticas_nivel = _this.ui.find("#txt_competencias_informaticas_nivel");
+          //  _this.txt_competencias_informaticas_conocimiento = _this.ui.find("#txt_competencias_informaticas_conocimiento");
+         //   _this.txt_competencias_informaticas_conocimiento.val(competencia_informatica.Conocimiento);
+   //            _this.txt_competencias_informaticas_nivel = _this.ui.find("#txt_competencias_informaticas_nivel");
            
            // _this.txt_competencias_informaticas_nivel.val(competencia_informatica.Nivel);
 
