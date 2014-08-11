@@ -10,7 +10,7 @@
     <%= Referencias.Css("../")%>    
     
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
+   
 
    
 
@@ -516,6 +516,7 @@
 <script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 <script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
+ <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
 
 
 
@@ -524,7 +525,7 @@
     $(document).ready(function () {
        
         $(".collapse").collapse('show');
-
+        
 
         var curriculum = JSON.parse($('#curriculum').val());
 
@@ -563,13 +564,24 @@
         //Estilos para ver coloreada la grilla en Internet Explorer
         $("tbody tr:even").css('background-color', '#fff');
         $("tbody tr:odd").css('background-color', 'transparent ');
+
+        $("#IrArriba").hide();
+        $(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 200) {
+                    $('#IrArriba').fadeIn();
+                } else {
+                    $('#IrArriba').fadeOut();
+                }
+            });
+            $('#IrArriba a').click(function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
+            });
+        });
     });
-
-
-   
-
-
-    
 
 </script>
 </html>

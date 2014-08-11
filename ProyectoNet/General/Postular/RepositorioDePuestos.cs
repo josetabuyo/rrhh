@@ -31,5 +31,10 @@ namespace General
 
         }
 
+
+        public Puesto GetPuestoById(int id)
+        {
+            return this.GetPuestos().Find(p => p.Id.Equals(id));
+        }
     }
 }
