@@ -33,9 +33,10 @@ namespace TestViaticos
         [TestMethod] 
         public void deberia_traer_puestos()
         {
+            var comite = new Comite(1,1,"Carlos Slim");
             var puestos = new List<Puesto>();
-            var un_puesto = new Puesto(1, "Abogacia", "Penal","aaffa","A", "Se busca un abogado...pero no el que tengo aca colgado", 5, "Abierto","A-132");
-            var otro_puesto = new Puesto(2, "Contador", "Discreto","","", "Experiencia en balances", 10, "Cerrado","A-123" );
+            var un_puesto = new Puesto(1, "Abogacia", "Penal", "aaffa", "A", "Se busca un abogado...pero no el que tengo aca colgado", 5, "Abierto", "A-132", comite);
+            var otro_puesto = new Puesto(2, "Contador", "Discreto", "", "", "Experiencia en balances", 10, "Cerrado", "A-123", comite);
 
             //repoCv.GuardarCVDatosPersonales(DatosPersonales(), TestObjects.UsuarioSACC());
 

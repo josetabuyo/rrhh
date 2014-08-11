@@ -763,6 +763,20 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void SetObjetoEnSesion(string nombre, string objeto)
+    {
+        HttpContext.Current.Session[nombre] = objeto;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetObjetoEnSesion(string nombre)
+    {
+        return Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Session[nombre]);
+    }
+    
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetPuestoEnSesion(WSViaticos.Puesto puesto)
     {
         return Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Session[ConstantesDeSesion.PUESTO]);
