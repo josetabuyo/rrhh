@@ -15,21 +15,25 @@
         });
     },
     agregarMetodo: function (nombre_metodo) {
+        var _this = this;
         this[nombre_metodo] = function (args, success, error) {
-            var argumentos_json = [];
-            for (var i = 0; i < args.length; i++) {
-                argumentos_json.push(JSON.stringify(args[i]));
-            }
-            this.proveedor.postearAUrl({
-                url: "EjecutarEnBackend",
-                data: {
-                    nombre_metodo: nombre_metodo,
-                    argumentos_json: argumentos_json
-                },
-                success: function (respuesta) { success(respuesta) },
-                error: error
-            });
+            _this.ejecutar(nombre_metodo, args, success, error);
         }
+    },
+    ejecutar: function (nombre_metodo, args, success, error) {
+        var argumentos_json = [];
+        for (var i = 0; i < args.length; i++) {
+            argumentos_json.push(JSON.stringify(args[i]));
+        }
+        this.proveedor.postearAUrl({
+            url: "EjecutarEnBackend",
+            data: {
+                nombre_metodo: nombre_metodo,
+                argumentos_json: argumentos_json
+            },
+            success: success,
+            error: error
+        });
     }
 };
 

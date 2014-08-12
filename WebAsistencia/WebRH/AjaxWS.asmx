@@ -813,14 +813,6 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string BuscarEnRepositorio(string nombre_repositorio, string criterio)
-    {
-        var metodo = backEndService.GetType().GetMethods().ToList().Find(m => m.Name == "Buscar" + nombre_repositorio);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(metodo.Invoke(backEndService, new object[]{criterio}));
-    }
-
-    [WebMethod(EnableSession = true)]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string EjecutarEnBackend(string nombre_metodo, String[] argumentos_json)
     {
         System.Reflection.MethodInfo metodo = backEndService.GetType().GetMethods().ToList().Find(m => m.Name == nombre_metodo);
@@ -832,7 +824,8 @@ public class AjaxWS : System.Web.Services.WebService {
 		{
             var arg_esperado = argumentos_esperados[i];
             var arg_json = argumentos_json[i];
-            argumentos_a_enviar.Add(Newtonsoft.Json.JsonConvert.DeserializeObject(arg_json, arg_esperado.ParameterType));
+            if (arg_esperado.ParameterType == typeof(String)) argumentos_a_enviar.Add(arg_json);
+            else argumentos_a_enviar.Add(Newtonsoft.Json.JsonConvert.DeserializeObject(arg_json, arg_esperado.ParameterType));
 		}
 
         if (argumentos_esperados.Any(a => a.Name == "usuario"))
