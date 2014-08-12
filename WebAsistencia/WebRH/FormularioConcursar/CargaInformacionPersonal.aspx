@@ -10,7 +10,7 @@
     <%= Referencias.Css("../")%>    
     
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
+   
 
    
 
@@ -85,7 +85,7 @@
                           </div>
                           <div class="grupo_campos">
                               <label class="etiqueta_campo" for="txt_documento">Nro Documento <em>*</em></label>
-                              <input id="txt_documento" type="text" style="width:160px;"  data-validar="esNoBlanco,esNumeroNatural" />
+                              <input id="txt_documento" type="text" style="width:160px;"  data-validar="esNumeroNatural" />
                           </div>
                         <div class="grupo_campos">
                           <label for="cuil">CUIL <em>*</em> <h5"> (Ej.:20-22114543-5)</h5></label>
@@ -114,7 +114,7 @@
                        <div class="grupo_campos">
                         <label class="etiqueta_campo" for="txt_numero1">Número <em>*</em></label>
                         <input type="text" id="txt_numero1" name="txt_numero1" style="width:50px"  
-                                data-validar="esNoBlanco,esNumeroNatural" maxlength="20"/>
+                               data-validar="esNumeroNatural" maxlength="20"/>
                        </div>      
                        <div class="grupo_campos">
                         <label class="etiqueta_campo" for="txt_piso1">Piso</label>
@@ -127,7 +127,7 @@
                       <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="txt_cp1">Código Postal <em>*</em></label>
                           <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/  
-                              data-validar="esNoBlanco,esNumeroNatural" maxlength="10">
+                              data-validar="esNumeroNatural" maxlength="10">
                       </div>
                       <div class="grupo_campos nueva_linea">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
@@ -185,13 +185,13 @@
                       </div>
 
                          <div class="grupo_campos nueva_linea">
-                            <label class="etiqueta_campo" for="txt_telefonoFijo">Tel&eacute;fono Fijo <em>*</em></label>
-                            <input type="text" id="txt_telefonoFijo" name="txt_telefonoFijo" style="width:140px;"  data-validar="esNoBlanco,esNumeroNatural"/>
+                            <label class="etiqueta_campo" for="txt_telefono">Tel&eacute;fono Fijo <em>*</em></label>
+                            <input type="text" id="txt_telefono" name="txt_telefonoFijo" style="width:140px;"  data-validar="esNoBlanco"/>
                         </div>
 
                         <div class="grupo_campos">
-                            <label class="etiqueta_campo" for="txt_telefonoCelular">Tel&eacute;fono Celular</label>
-                            <input type="text" id="txt_telefonoCelular" name="txt_telefonoCelular" style="width:140px;"/>
+                            <label class="etiqueta_campo" for="txt_telefono2">Tel&eacute;fono Celular</label>
+                            <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width:140px;"/>
                         </div>
 
                         <div id="contenedor_mails"class="grupo_campos">
@@ -517,6 +517,7 @@
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 <script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
 <script type="text/javascript" src="../Scripts/Backend.js" ></script>
+ <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
 
 
 
@@ -525,7 +526,7 @@
     $(document).ready(function () {
        
         $(".collapse").collapse('show');
-
+        
 
         var curriculum = JSON.parse($('#curriculum').val());
 
@@ -564,13 +565,24 @@
         //Estilos para ver coloreada la grilla en Internet Explorer
         $("tbody tr:even").css('background-color', '#fff');
         $("tbody tr:odd").css('background-color', 'transparent ');
+
+        $("#IrArriba").hide();
+        $(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 200) {
+                    $('#IrArriba').fadeIn();
+                } else {
+                    $('#IrArriba').fadeOut();
+                }
+            });
+            $('#IrArriba a').click(function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
+            });
+        });
     });
-
-
-   
-
-
-    
 
 </script>
 </html>

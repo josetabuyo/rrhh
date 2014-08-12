@@ -463,12 +463,12 @@ namespace General.Repositorios
                 conexion_bd.Ejecutar("dbo.CV_Ins_Curriculum", parametros);
 
                 //insertar en GEN_Domicilios y CV_Domicilio el DomicilioPersonal
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario);
+                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
                 parametros.Add("@Dni", datosPersonales.Dni);
                 conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
 
                 //insertar en GEN_Domicilios y CV_Domicilio el DomicilioLaboral
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario);
+                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
                 parametros.Add("@Dni", datosPersonales.Dni);
                 conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
 
@@ -485,15 +485,12 @@ namespace General.Repositorios
                 }
 
                 //update GEN_Domicilios del domicilio personal
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario);
+                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
                 parametros.Add("@idDomicilio", datosPersonales.DomicilioPersonal.Id);
-                parametros.Add("@DomicilioTelefono", datosPersonales.Telefono);
-                parametros.Add("@DomicilioTelefono2", datosPersonales.Telefono2);
-                parametros.Add("@DomicilioCorreo_Electronico", datosPersonales.Email);
                 conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
 
                 //update en GEN_Domicilios del domicilio laboral
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario);
+                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
                 parametros.Add("@idDomicilio", datosPersonales.DomicilioLegal.Id);
 
               
@@ -506,7 +503,7 @@ namespace General.Repositorios
             //this.lista_cv.Add(cv);
         }
 
-        private Dictionary<string, object> CompletarDatosDomicilios(CvDomicilio domicilio , Dictionary<string, object> parametros, int tipo, Usuario usuario)
+        private Dictionary<string, object> CompletarDatosDomicilios(CvDomicilio domicilio , Dictionary<string, object> parametros, int tipo, Usuario usuario, string telefono, string telefono2, string email)
         {
             parametros = new Dictionary<string, object>();
 
@@ -520,6 +517,10 @@ namespace General.Repositorios
             parametros.Add("@Correo_Electronico_MDS", "");
             parametros.Add("@DomicilioTipo", tipo);
             parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@DomicilioTelefono", telefono);
+            parametros.Add("@DomicilioTelefono2", telefono2);
+            parametros.Add("@DomicilioCorreo_Electronico", email);
+
            
             
             return parametros;

@@ -65,8 +65,17 @@ namespace General
                               row.GetString("Agrupamiento"),
                               row.GetInt("Vacantes"),
                               row.GetString("Tipo"),
-                              row.GetString("Numero")
+                              row.GetString("Numero"),
+                              new Comite(row.GetInt("IdComite"), 
+                                  row.GetInt("NumeroDeComite"), 
+                                  row.GetString("IntegrantesDelComite"))
                 );
+        }
+
+        public Postulacion GetPostulacionById(int idpersona, int idpostulacion)
+        {
+            return this.GetPostulacionesDe(idpersona).Find(p => p.Id.Equals(idpostulacion));
+        
         }
     }
 }
