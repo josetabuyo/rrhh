@@ -43,11 +43,20 @@
             });
 
 
+                _this.txt_competencias_informaticas_tipo_informatica = new SuperCombo({
+                ui: _this.ui.find("#txt_competencias_informaticas_tipo_informatica"),
+                nombre_repositorio: "TiposCompetenciaInformatica",
+                id_item_seleccionado: competencia_informatica.TipoInformatica
+            });
 
 
+            //TiposCompetenciaInformatica
 
-            _this.txt_competencias_informaticas_tipo_informatica = _this.ui.find("#txt_competencias_informaticas_tipo_informatica");
-            _this.txt_competencias_informaticas_tipo_informatica.val(competencia_informatica.TipoInformatica);
+
+         //   _this.txt_competencias_informaticas_tipo_informatica = _this.ui.find("#txt_competencias_informaticas_tipo_informatica");
+         //   _this.txt_competencias_informaticas_tipo_informatica.val(competencia_informatica.TipoInformatica);
+         
+         
           //  _this.txt_competencias_informaticas_conocimiento = _this.ui.find("#txt_competencias_informaticas_conocimiento");
          //   _this.txt_competencias_informaticas_conocimiento.val(competencia_informatica.Conocimiento);
    //            _this.txt_competencias_informaticas_nivel = _this.ui.find("#txt_competencias_informaticas_nivel");
