@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="MenuConcursar.ascx.cs" Inherits="FormularioConcursar_MenuConcursar" %>
 
 <div class="navbar" style="font-size: 15px;">
-            <div class="navbar-inner">
+            <div class="navbar-inner" >
                 <div class="container">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
                         <span class="icon-bar"></span>

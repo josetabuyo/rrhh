@@ -7,7 +7,7 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Id", { generar: function (un_puesto) { return un_puesto.Id } }));
+        /*columnas.push(new Columna("Id", { generar: function (un_puesto) { return un_puesto.Id } }));*/
         columnas.push(new Columna("Puesto", { generar: function (un_puesto) { return un_puesto.Denominacion } }));
         columnas.push(new Columna("Nivel", { generar: function (un_puesto) { return un_puesto.Nivel } }));
         columnas.push(new Columna("Agrupamiento", { generar: function (un_puesto) { return un_puesto.Agrupamiento } }));
@@ -25,7 +25,7 @@
             return linkPDF;
         }
         }));
-        columnas.push(new Columna("Comité", { generar: function (un_puesto) {
+    columnas.push(new Columna("Comité&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", { generar: function (un_puesto) {
             var linkComite = $('<a>');
             linkComite[0].innerText = "Comite: " + un_puesto.Comite.Numero;
 

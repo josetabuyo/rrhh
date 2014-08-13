@@ -54,4 +54,5 @@
         </div>
     </form>
 </body>
+ <%= Referencias.Javascript("../") %>
 </html>

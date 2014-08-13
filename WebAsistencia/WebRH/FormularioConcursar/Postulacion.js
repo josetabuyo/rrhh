@@ -53,6 +53,7 @@
                         alertify.alert("Usted se postuló correctamente. <br> Número de postulación: " + respuesta.Id );
                         //alModificar(respuesta);
                         //$(".modal_close_concursar").click();
+                        window.location.href = 'FichaInscripcionCVDeclaJurada.aspx?id=' + respuesta.Id;
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.alert("Error al postularse.");

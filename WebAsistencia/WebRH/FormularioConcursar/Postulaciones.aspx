@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Postulaciones.aspx.cs" Inherits="FormularioConcursar_Postulaciones" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="MenuConcursar.ascx" TagName="MenuConcursar" TagPrefix="uc3" %>
+<%@ Register Src="~/FormularioConcursar/Pasos.ascx" TagName="Pasos" TagPrefix="uc4" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -26,6 +27,14 @@
        width: 70%;
        margin-top:10px;    
       }
+      .titulo_postulaciones {
+        font-weight: 200;
+        font-size: 2em;
+        line-height: 1.1429;
+        color: #696969;
+        font-size: 2.3em;
+        text-align:center;
+      }
      
      </style>
 
@@ -33,15 +42,20 @@
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    
     <div id="contenido_inscripcion" class="contenedor_concursar">
     
     <uc3:MenuConcursar runat="server" />
-
+    
         <div>
-            <h2>CONCURSOS MINISTERIO DE DESARROLLO SOCIAL DE LA NACIÓN | Puestos, Cargos y Bases Puestos, Cargos y Bases</h2>
-            <p>Ud. puede acotar la búsqueda por cualquier criterio, escriba al menos 3 caracteres en el campo para buscar el puesto que deseé</p>
+            <h2 class="titulo_postulaciones">Proceso de Postulación => Puestos, Cargos y Bases</h2>
+            
         </div>
 
+        <uc4:Pasos ID="Pasos" runat="server" /> 
+        <div style="clear:both;"></div>
+        <p>Ud. puede acotar la búsqueda por cualquier criterio, escriba al menos 3 caracteres en el campo para buscar el puesto que deseé</p>           
+        
         <div id="ContenedorPlanilla">
          <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/><a class="btn_concursar btn-small" href="#">Buscar</a>
 
@@ -76,5 +90,7 @@
         var featureList = new List('ContenedorPlanilla', options);
 
     });
+
+    $('.actions').attr('style', 'display:none');
 </script>
 </html>
