@@ -12,31 +12,38 @@ describe("ComboPopuladoConRepoBuilder", function() {
 		//});
 
 		beforeEach(function() {
-			mock_repo = { buscar: function (nombre_repositorio, criterio, onSuccess, onError) { onSuccess( [{ Id: 1, Nombre:'NombreLocalidadBuenosAires', Descripcion:'DescripcionBuenosAires'}, { Id: 6, Descripcion:'DescripcionLocalidad6'}  ]) } };
-			populador_combos = new ComboPopuladoConRepoBuilder(mock_repo);
+			jasmine.Ajax.install();
+			//mock_repo = { buscar: function (nombre_repositorio, criterio, onSuccess, onError) { onSuccess( [{ Id: 1, Nombre:'NombreLocalidadBuenosAires', Descripcion:'DescripcionBuenosAires'}, { Id: 6, Descripcion:'DescripcionLocalidad6'}  ]) } };
+			populador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
+		});
+		
+		 afterEach(function() {
+			jasmine.Ajax.uninstall();
 		});
 
 		describe("CUANDO: se construye sin dataprovider", function() {
-			it("no debe fallar", function() {
+			it("ENTONCES: no debe fallar", function() {
 				combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades"></select></div>'));
 			});
 		});
 		
 		describe("CUANDO: se construye con dataprovider", function() {
 
-			it("debe invocar al dataProvider indicado", function() {
-					spyOn(mock_repo, 'buscar');
-					var combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades"></select></div>'));
-					expect(mock_repo.buscar).toHaveBeenCalled();
-					expect(mock_repo.buscar.calls.mostRecent().args[0]).toEqual("Localidades");
+			it("ENTONCES: debe invocar al dataProvider indicado", function() {
+				var combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades"></select></div>'));
+				expect(jasmine.Ajax.requests.mostRecent().url).toContain('BuscarEnRepositorio');
+				expect(jasmine.Ajax.requests.mostRecent().params).toContain('{"nombre_repositorio":"Localidades"');
 			});
 			
 			describe("Y: con un label", function() {
 				beforeEach(function() {
 					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" label="Nombre"></select></div>'));
+					jasmine.Ajax.requests.mostRecent().response({
+						"responseText": '{"d":"[{\"Id\":1,\"Nombre\":\"NombreLocalidadBuenosAires\",\"Descripcion\":\"DescripcionBuenosAires\"},{\"Id\":6,\"Descripcion\":\"DescripcionLocalidad6\"}]"}'
+					});
 				});
 
-				it("deben cargarse usando el label", function() {
+				it("ENTONCES: deben cargarse usando el label", function() {
 					expect(combos[0].ui.children(0)[0].label).toEqual('NombreLocalidadBuenosAires');
 				});
 			});
@@ -46,7 +53,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades"></select></div>'));
 				});
 
-				it("deben tomar el label 'Descripcion' por default", function() {
+				it("ENTONCES: deben tomar el label 'Descripcion' por default", function() {
 					expect(combos[0].ui.children(0)[0].label).toEqual('DescripcionBuenosAires');
 				});
 			}); 
@@ -59,19 +66,27 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					empleado = { domicilio: { domicilio_empleado: 6 } };
 					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="localidad"></select></div>'), domicilio_empleado);
 				});
-
-				it("el valor debe estar seleccionado", function() {
-					expect(combos[0].ui.attr("value")).toEqual('6');
-				});
 				
-				describe("Y: cambia el valor del modelo", function() {
-					beforeEach(function() {
-						domicilio_empleado.localidad = 1;
+				describe("Y: el dataprovider ya habia respondido", function() {
+					it("ENTONCES: el valor debe estar seleccionado", function() {
+						expect(combos[0].ui.attr("value")).toEqual('6');
 					});
 					
-					it("deberia reflejar el cambio", function() {
-						//expect(combos[0].ui.attr("value")).toEqual('1'); //ver por que existe esta diferencia entre ui.attr("value") y idItemSeleccionado()
-						expect(combos[0]["id_item_seleccionado"]).toEqual(1);
+					describe("Y: cambia el valor del modelo", function() {
+						beforeEach(function() {
+							domicilio_empleado.localidad = 1;
+						});
+						
+						it("ENTONCES: deberia reflejar el cambio", function() {
+							//expect(combos[0].ui.attr("value")).toEqual('1'); //ver por que existe esta diferencia entre ui.attr("value") y idItemSeleccionado()
+							expect(combos[0]["id_item_seleccionado"]).toEqual(1);
+						});
+					});
+				});
+				
+				describe("Y: El dataprovider responde despues del bindeo", function() {
+					it("ENTONCES: el valor debe estar seleccionado",function() {
+						
 					});
 				});
 			});
@@ -82,7 +97,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="hijo.domicilio.localidad"></select></div>'), empleado);
 				});
 
-				it("el valor debe estar seleccionado", function() {
+				it("ENTONCES: el valor debe estar seleccionado", function() {
 					expect(combos[0].ui.attr("value")).toEqual('6');
 				});
 				
@@ -91,7 +106,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 						empleado.hijo.domicilio.localidad = 1;
 					});
 					
-					it("deberia reflejar el cambio", function() {
+					it("ENTONCES: deberia reflejar el cambio", function() {
 						//expect(combos[0].ui.attr("value")).toEqual('1'); //ver por que existe esta diferencia entre ui.attr("value") y idItemSeleccionado()
 						expect(combos[0]["id_item_seleccionado"]).toEqual(1);
 					});
@@ -121,7 +136,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 		});
 
 	   describe("CUANDO: bindeo el valor del combo al modelo", function() {
-		   it ("debe tener el valor seleccionado", function() {
+		   it ("ENTONCES: debe tener el valor seleccionado", function() {
 				var domicilio_empleado = { localidad: 6 };
 				var combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="localidad"></select></div>'), domicilio_empleado);
 				
@@ -133,7 +148,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			var combo_dependiente;
 			var combo_independiente;
 
-			it("no deberia pedir el valor al backend si no se completo el filtro", function() {
+			it("ENTONCES: no deberia pedir el valor al backend si no se completo el filtro", function() {
 				mock_repo = { buscar: function (nombre_repositorio, criterio, onSuccess, onError) { 
 													if (nombre_repositorio == "Localidades") {
 														throw "no deberia haber invocado al repo";
@@ -158,7 +173,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				combo_dependiente = combos[1];
 			});
 
-			it("el dependiente debe pedir a su dataProvider los datos filtrados", function() {
+			it("ENTONCES: el dependiente debe pedir a su dataProvider los datos filtrados", function() {
 				spyOn(combo_dependiente.repositorio, 'buscar');
 				combo_independiente.ui.change();
 				
