@@ -23,8 +23,6 @@
     
 <p class="top-header">Recuerde firmar todas y cada una de las hojas que integran su Ficha de inscripción.<br>La ausencia de su firma invalida la valoración del antecedente declarado.</p>
 
-
-
 <hr class="linea-top"/>
 
 <div class="principal">
@@ -210,8 +208,9 @@
 <script type="text/javascript">
 
      $(document).ready(function () {
-        
+
          curriculum = JSON.parse($('#curriculum').val());
+
 
          FichaDeclaracionJurada.armarFicha();
 
