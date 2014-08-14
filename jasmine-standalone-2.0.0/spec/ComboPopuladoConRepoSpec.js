@@ -1,45 +1,88 @@
 describe("ComboPopuladoConRepoBuilder", function() {
-	describe("DADO: Un solo combo.", function() {
-		var populador_combos;
-		var combo;
-		var mock_repo;
-		var combos;
+	var populador_combos;
+	var dom;
+	
+	function crearDomCon(data_provider, label_combo, modelo) {
+		dom = $('<div><select id="combo_localidades"' + data_provider + label_combo + modelo + '></select></div>');
+	}
+	
+	
 
-		//describe("CUANDO: se especifica enabled false", function() {
-		//it("debe estar desactivado", function() {
-			//expect(true).toBe(false);
-		//});
-		//});
-		
-		//cuando hay una respuesta erronea del backend, deberia mostrarse un mensaje correcto.
-
-		beforeEach(function() {
-			jasmine.Ajax.install();
-			//mock_repo = { buscar: function (nombre_repositorio, criterio, onSuccess, onError) { onSuccess( [{ Id: 1, Nombre:'NombreLocalidadBuenosAires', Descripcion:'DescripcionBuenosAires'}, { Id: 6, Descripcion:'DescripcionLocalidad6'}  ]) } };
-			
-			populador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
-		});
-		
-		 afterEach(function() {
-			jasmine.Ajax.uninstall();
-		});
-
-		describe("CUANDO: se construye sin dataprovider", function() {
-			it("ENTONCES: no debe fallar", function() {
-				combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades"></select></div>'));
+	
+	Object.prototype.updateable = function(test, fn, bindeos) {
+		_this = test;
+		$.each(bindeos, function() { _this[this] = "" });
+		$.each(bindeos, function() {
+			_this.watch(this, function(prop, oldVal, newVal) {
+				var args = {};
+				$.each(bindeos, function() {
+					if(this.toString() == prop.toString()) {
+						args[this] = newVal;
+					} else {
+						args[this] = _this[this];
+					}
+				});
+				fn.call(_this, args);
+				return newVal;
 			});
 		});
+	}
+
+
+	beforeEach(function() {
+		jasmine.Ajax.install();
 		
-		describe("CUANDO: se construye con dataprovider", function() {
+		updateable(this, function(args) {
+			dom = $('<div><select id="combo_localidades"' + args.data_provider + args.label_combo + args.bindeo + '></select></div>');
+		}, ['data_provider', 'label_combo', 'bindeo']);
+		
+		//this.watch('data_provider', function(prop, oldVal, newVal) { 
+		//	crearDomCon(newVal, this.label_combo, this.modelo);
+		//	return newVal;
+		//});
+
+		//this.watch('label_combo', function(prop, oldVal, newVal) { 
+		//	crearDomCon(this.data_provider, newVal, this.modelo);
+		//	return newVal;
+		//});
+		
+		//this.watch('bindeo', function(prop, oldVal, newVal) { 
+		//	crearDomCon(this.data_provider, this.label_combo, newVal);
+		//	return newVal;
+		//});
+	});
+	
+	afterEach(function() {
+		jasmine.Ajax.uninstall();
+	});
+
+	describe("DADO: Un combo", function(){
+		describe("Y: sin dataProvider", function() {
+			beforeEach(function() {
+				this.data_provider = "";
+				populador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
+			});
+
+			it("ENTONCES: no debe fallar", function() {
+				populador_combos.construirCombosEn(dom);
+			});
+		});  
+	
+		describe("Y: con dataprovider", function() {
+			beforeEach(function() {
+				this.data_provider = ' dataProvider="Localidades"';
+				populador_combos.construirCombosEn(dom);
+			});
+
 			it("ENTONCES: debe invocar al dataProvider indicado", function() {
-				var combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades"></select></div>'));
 				expect(jasmine.Ajax.requests.mostRecent().url).toContain('BuscarEnRepositorio');
 				expect(jasmine.Ajax.requests.mostRecent().params).toContain('{"nombre_repositorio":"Localidades"');
 			});
 			
 			describe("Y: con un label", function() {
 				beforeEach(function() {
-					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" label="Nombre"></select></div>'));
+					this.label_combo = ' label="Nombre"';
+					combos = populador_combos.construirCombosEn(dom);
 					jasmine.Ajax.requests.mostRecent().response({
 						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
 					});
@@ -52,7 +95,8 @@ describe("ComboPopuladoConRepoBuilder", function() {
 		  
 			describe("Y: sin un label", function() {
 				beforeEach(function() {
-					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades"></select></div>'));
+					this.label_combo = "";
+					combos = populador_combos.construirCombosEn(dom);
 					jasmine.Ajax.requests.mostRecent().response({
 						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
 					});
@@ -69,33 +113,26 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				beforeEach(function() {
 					domicilio_empleado = { localidad: 6 };
 					empleado = { domicilio: { domicilio_empleado: 6 } };
+					this.bindeo = ' modelo="localidad"';
+					
 					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="localidad"></select></div>'), domicilio_empleado);
 					jasmine.Ajax.requests.mostRecent().response({
 						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
 					});
-
 				});
 				
-				describe("Y: el dataprovider ya habia respondido", function() {
-					it("ENTONCES: el valor debe estar seleccionado", function() {
-						expect(combos[0].ui.attr("value")).toEqual('6');
+				it("ENTONCES: el valor debe estar seleccionado", function() {
+					expect(combos[0].ui.attr("value")).toEqual('6');
+				});
+				
+				describe("Y: cambia el valor del modelo", function() {
+					beforeEach(function() {
+						domicilio_empleado.localidad = 1;
 					});
 					
-					describe("Y: cambia el valor del modelo", function() {
-						beforeEach(function() {
-							domicilio_empleado.localidad = 1;
-						});
-						
-						it("ENTONCES: deberia reflejar el cambio", function() {
-							//expect(combos[0].ui.attr("value")).toEqual('1'); //ver por que existe esta diferencia entre ui.attr("value") y idItemSeleccionado()
-							expect(combos[0]["id_item_seleccionado"]).toEqual(1);
-						});
-					});
-				});
-				
-				describe("Y: El dataprovider responde despues del bindeo", function() {
-					it("ENTONCES: el valor debe estar seleccionado",function() {
-						
+					it("ENTONCES: deberia reflejar el cambio", function() {
+						//expect(combos[0].ui.attr("value")).toEqual('1'); //ver por que existe esta diferencia entre ui.attr("value") y idItemSeleccionado()
+						expect(combos[0]["id_item_seleccionado"]).toEqual(1);
 					});
 				});
 			});
@@ -103,7 +140,9 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			describe("Y: se bindea un valor de un modelo dentro de otro modelo", function() {
 				beforeEach(function() {
 					empleado = { hijo: { domicilio: { localidad: 6 } } };
-					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="hijo.domicilio.localidad"></select></div>'), empleado);
+					//this.bindeo = "
+					this.bindeo = ' modelo="hijo.domicilio.localidad"';
+					combos = populador_combos.construirCombosEn(dom, empleado);
 					jasmine.Ajax.requests.mostRecent().response({
 						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
 					});
@@ -126,8 +165,10 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				});
 			});
 		});
+	
+	
 	});
-
+	
 	describe("DADO: dos combos dependientes", function() {
 		var populador_combos;
 		var mock_repo;
@@ -194,14 +235,22 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				expect(combo_dependiente.repositorio.buscar.calls.mostRecent().args[0]).toEqual("Localidades");
 			});
 		});
-	});  
+	});
+});  
 
-	//it("si falla porque necesitaba filtro, debe mandar excepcion explicativa", function() {
-	//  expect(false).toBe(true);
+//it("si falla porque necesitaba filtro, debe mandar excepcion explicativa", function() {
+//  expect(false).toBe(true);
+//});
+
+//it("si falla porque no esta en el modelo el attributo que le quise bindear, deberia lanzar excepcion explicativa", function() {
+//  expect(false).toBe(true);
+//});
+		//describe("CUANDO: se especifica enabled false", function() {
+	//it("debe estar desactivado", function() {
+		//expect(true).toBe(false);
+	//});
 	//});
 	
-	//it("si falla porque no esta en el modelo el attributo que le quise bindear, deberia lanzar excepcion explicativa", function() {
-	//  expect(false).toBe(true);
-	//});
+	//cuando hay una respuesta erronea del backend, deberia mostrarse un mensaje correcto.
+//el builder devuelve los combos javascript
 
-});  
