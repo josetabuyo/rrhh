@@ -10,10 +10,13 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			//expect(true).toBe(false);
 		//});
 		//});
+		
+		//cuando hay una respuesta erronea del backend, deberia mostrarse un mensaje correcto.
 
 		beforeEach(function() {
 			jasmine.Ajax.install();
 			//mock_repo = { buscar: function (nombre_repositorio, criterio, onSuccess, onError) { onSuccess( [{ Id: 1, Nombre:'NombreLocalidadBuenosAires', Descripcion:'DescripcionBuenosAires'}, { Id: 6, Descripcion:'DescripcionLocalidad6'}  ]) } };
+			
 			populador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
 		});
 		
@@ -28,7 +31,6 @@ describe("ComboPopuladoConRepoBuilder", function() {
 		});
 		
 		describe("CUANDO: se construye con dataprovider", function() {
-
 			it("ENTONCES: debe invocar al dataProvider indicado", function() {
 				var combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades"></select></div>'));
 				expect(jasmine.Ajax.requests.mostRecent().url).toContain('BuscarEnRepositorio');
@@ -39,7 +41,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				beforeEach(function() {
 					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" label="Nombre"></select></div>'));
 					jasmine.Ajax.requests.mostRecent().response({
-						"responseText": '{"d":"[{\"Id\":1,\"Nombre\":\"NombreLocalidadBuenosAires\",\"Descripcion\":\"DescripcionBuenosAires\"},{\"Id\":6,\"Descripcion\":\"DescripcionLocalidad6\"}]"}'
+						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
 					});
 				});
 
@@ -51,6 +53,9 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			describe("Y: sin un label", function() {
 				beforeEach(function() {
 					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades"></select></div>'));
+					jasmine.Ajax.requests.mostRecent().response({
+						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
+					});
 				});
 
 				it("ENTONCES: deben tomar el label 'Descripcion' por default", function() {
@@ -65,6 +70,10 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					domicilio_empleado = { localidad: 6 };
 					empleado = { domicilio: { domicilio_empleado: 6 } };
 					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="localidad"></select></div>'), domicilio_empleado);
+					jasmine.Ajax.requests.mostRecent().response({
+						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
+					});
+
 				});
 				
 				describe("Y: el dataprovider ya habia respondido", function() {
@@ -95,6 +104,10 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				beforeEach(function() {
 					empleado = { hijo: { domicilio: { localidad: 6 } } };
 					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="hijo.domicilio.localidad"></select></div>'), empleado);
+					jasmine.Ajax.requests.mostRecent().response({
+						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
+					});
+
 				});
 
 				it("ENTONCES: el valor debe estar seleccionado", function() {

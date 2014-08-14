@@ -18,7 +18,7 @@ ProveedorAjax.prototype.postearAUrl = function (datos_del_post) {
             datos_del_post.success(respuesta);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            datos_del_post.error(errorThrown);
+            datos_del_post.error(XMLHttpRequest, textStatus, errorThrown);
         }
     });  
 };
