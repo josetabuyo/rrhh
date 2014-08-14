@@ -39,6 +39,7 @@
                   _this.txt_competencias_informaticas_conocimiento = new SuperCombo({
                 ui: _this.ui.find("#txt_competencias_informaticas_conocimiento"),
                 nombre_repositorio: "ConocimientoCompetenciaInformatica",
+                   filtro: { Tipo: competencia_informatica.Tipo },
                 id_item_seleccionado: competencia_informatica.Conocimiento
             });
 
@@ -46,8 +47,16 @@
                 _this.txt_competencias_informaticas_tipo_informatica = new SuperCombo({
                 ui: _this.ui.find("#txt_competencias_informaticas_tipo_informatica"),
                 nombre_repositorio: "TiposCompetenciaInformatica",
-                id_item_seleccionado: competencia_informatica.TipoInformatica
+                id_item_seleccionado: competencia_informatica.TipoInformatica,
+                 al_seleccionar: function (id_tipo) {
+                _this.txt_competencias_informaticas_conocimiento.cambiarFiltro({ Tipo: id_tipo});
+                 }
             });
+
+
+                
+
+
 
 
             //TiposCompetenciaInformatica

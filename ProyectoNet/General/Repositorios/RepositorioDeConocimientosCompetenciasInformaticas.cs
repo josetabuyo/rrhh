@@ -35,7 +35,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    niveles.Add(new CvConocimientoCompetenciaInformatica(row.GetSmallintAsInt("Id"), row.GetString("Descripcion")));
+                    niveles.Add(new CvConocimientoCompetenciaInformatica(row.GetSmallintAsInt("Id"), row.GetString("Descripcion"), row.GetSmallintAsInt("IdTipo")));
                 });
             }
 
