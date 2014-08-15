@@ -36,6 +36,10 @@
             });
 
 
+            
+
+
+
                   _this.txt_competencias_informaticas_conocimiento = new SuperCombo({
                 ui: _this.ui.find("#txt_competencias_informaticas_conocimiento"),
                 nombre_repositorio: "ConocimientoCompetenciaInformatica",
@@ -52,7 +56,6 @@
                 _this.txt_competencias_informaticas_conocimiento.cambiarFiltro({ Tipo: id_tipo});
                  }
             });
-
 
                 
 
@@ -95,9 +98,18 @@
                 competencia_informatica.Establecimiento = _this.txt_competencias_informaticas_establecimiento.val();
                 competencia_informatica.Localidad = _this.cmb_competencias_informaticas_localidad.val();
                 competencia_informatica.Pais = _this.cmb_competencias_informaticas_pais.idItemSeleccionado();
-                competencia_informatica.TipoInformatica = _this.txt_competencias_informaticas_tipo_informatica.val();
-                competencia_informatica.Conocimiento = _this.txt_competencias_informaticas_conocimiento.val();
-                competencia_informatica.Nivel = _this.txt_competencias_informaticas_nivel.val();
+               // competencia_informatica.TipoInformatica = _this.txt_competencias_informaticas_tipo_informatica.val();
+                 competencia_informatica.TipoInformatica = _this.txt_competencias_informaticas_tipo_informatica.idItemSeleccionado();
+                  //  domicilioLegal_nuevo.Provincia = _this.cmb_domicilio_legal_provincia.idItemSeleccionado();
+
+              //  competencia_informatica.Conocimiento = _this.txt_competencias_informaticas_conocimiento.val();
+                competencia_informatica.Conocimiento = _this.txt_competencias_informaticas_conocimiento.idItemSeleccionado();
+
+
+
+
+               // competencia_informatica.Nivel = _this.txt_competencias_informaticas_nivel.val();
+                    competencia_informatica.Nivel = _this.txt_competencias_informaticas_nivel.idItemSeleccionado();
                 competencia_informatica.Detalle = _this.txt_competencias_informaticas_detalle.val();
 
                 var proveedor_ajax = new ProveedorAjax();
