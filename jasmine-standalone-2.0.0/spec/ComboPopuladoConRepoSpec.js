@@ -2,16 +2,8 @@ describe("ComboPopuladoConRepoBuilder", function() {
 	var populador_combos;
 	var dom;
 	
-	function crearDomCon(data_provider, label_combo, modelo) {
-		dom = $('<div><select id="combo_localidades"' + data_provider + label_combo + modelo + '></select></div>');
-	}
-
 	beforeEach(function() {
 		jasmine.Ajax.install();
-		
-		updateable(this, function(args) {
-			dom = $('<div><select id="combo_localidades"' + args.data_provider + args.label_combo + args.bindeo + '></select></div>');
-		}, ['data_provider', 'label_combo', 'bindeo']);
 	});
 	
 	afterEach(function() {
@@ -19,6 +11,13 @@ describe("ComboPopuladoConRepoBuilder", function() {
 	});
 
 	describe("DADO: Un combo", function(){
+	
+		beforeEach(function() {
+			updateable(this, function(args) {
+				dom = $('<div><select id="combo_localidades"' + args.data_provider + args.label_combo + args.bindeo + '></select></div>');
+			}, ['data_provider', 'label_combo', 'bindeo']);
+		});	
+		
 		describe("Y: sin dataProvider", function() {
 			beforeEach(function() {
 				this.data_provider = "";
@@ -45,9 +44,9 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				beforeEach(function() {
 					this.label_combo = ' label="Nombre"';
 					combos = populador_combos.construirCombosEn(dom);
-					jasmine.Ajax.requests.mostRecent().response({
-						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
-					});
+//					jasmine.Ajax.requests.mostRecent().response({
+//						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
+//					});
 				});
 
 				it("ENTONCES: deben cargarse usando el label", function() {
