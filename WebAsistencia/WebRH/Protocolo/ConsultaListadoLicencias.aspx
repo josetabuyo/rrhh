@@ -55,6 +55,7 @@
     <script type="text/javascript" src="AdministradorDePases.js"></script>
     <script type="text/javascript" src="Persona.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
+    <script src="../Scripts/ConversorDeFechas.js" type="text/javascript"></script>
 
 
 
