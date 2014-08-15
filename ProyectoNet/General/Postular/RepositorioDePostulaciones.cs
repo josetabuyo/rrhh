@@ -27,6 +27,9 @@ namespace General
             parametros.Add("@Motivo", postulacion.Motivo);
             parametros.Add("@Observacion", postulacion.Observaciones);
             parametros.Add("@Usuario", usuario.Id);
+            RepositorioDeTickets repoTicket = new RepositorioDeTickets(conexion_bd);
+            postulacion.Numero = repoTicket.GenerarTicket("POSTULAR");
+            parametros.Add("@Numero", postulacion.Numero);
 
             var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
             postulacion.Id = Convert.ToInt32(id);
@@ -47,7 +50,7 @@ namespace General
 
             tablaCVs.Rows.ForEach(row =>
             postulaciones.Add(new Postulacion(row.GetInt("IdPostulacion"), ArmarPuesto(row),row.GetInt("IdPersona"),row.GetDateTime("FechaInscripcion"),
-                                              row.GetString("Motivo"), row.GetString("Observaciones"))));
+                                              row.GetString("Motivo"), row.GetString("Observaciones"), row.GetString("Postulacion_Numero"))));
                       
 
             return postulaciones;
@@ -65,7 +68,7 @@ namespace General
                               row.GetString("Agrupamiento"),
                               row.GetInt("Vacantes"),
                               row.GetString("Tipo"),
-                              row.GetString("Numero"),
+                              row.GetString("Puesto_Numero"),
                               new Comite(row.GetInt("IdComite"), 
                                   row.GetInt("NumeroDeComite"), 
                                   row.GetString("IntegrantesDelComite"))

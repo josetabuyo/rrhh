@@ -27,7 +27,7 @@
         var _this = this;
         //var curriculum = JSON.parse($('#curriculum').val());
         _this.postulacion_numero = $("#num_postulacion");
-        _this.postulacion_numero.text(postulacion.Id);
+        _this.postulacion_numero.text(postulacion.Numero);
         _this.puesto_numero = $("#numero_puesto");
         _this.puesto_numero.text(postulacion.Puesto.Numero);
         _this.puesto_convocatoria = $("#puesto_tipo");
