@@ -27,14 +27,7 @@
        width: 70%;
        margin-top:10px;    
       }
-      .titulo_postulaciones {
-        font-weight: 200;
-        font-size: 2em;
-        line-height: 1.1429;
-        color: #696969;
-        font-size: 2.3em;
-        text-align:center;
-      }
+      
      
      </style>
 
