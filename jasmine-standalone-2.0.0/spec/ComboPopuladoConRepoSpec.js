@@ -5,29 +5,6 @@ describe("ComboPopuladoConRepoBuilder", function() {
 	function crearDomCon(data_provider, label_combo, modelo) {
 		dom = $('<div><select id="combo_localidades"' + data_provider + label_combo + modelo + '></select></div>');
 	}
-	
-	
-
-	
-	Object.prototype.updateable = function(test, fn, bindeos) {
-		_this = test;
-		$.each(bindeos, function() { _this[this] = "" });
-		$.each(bindeos, function() {
-			_this.watch(this, function(prop, oldVal, newVal) {
-				var args = {};
-				$.each(bindeos, function() {
-					if(this.toString() == prop.toString()) {
-						args[this] = newVal;
-					} else {
-						args[this] = _this[this];
-					}
-				});
-				fn.call(_this, args);
-				return newVal;
-			});
-		});
-	}
-
 
 	beforeEach(function() {
 		jasmine.Ajax.install();
@@ -35,21 +12,6 @@ describe("ComboPopuladoConRepoBuilder", function() {
 		updateable(this, function(args) {
 			dom = $('<div><select id="combo_localidades"' + args.data_provider + args.label_combo + args.bindeo + '></select></div>');
 		}, ['data_provider', 'label_combo', 'bindeo']);
-		
-		//this.watch('data_provider', function(prop, oldVal, newVal) { 
-		//	crearDomCon(newVal, this.label_combo, this.modelo);
-		//	return newVal;
-		//});
-
-		//this.watch('label_combo', function(prop, oldVal, newVal) { 
-		//	crearDomCon(this.data_provider, newVal, this.modelo);
-		//	return newVal;
-		//});
-		
-		//this.watch('bindeo', function(prop, oldVal, newVal) { 
-		//	crearDomCon(this.data_provider, this.label_combo, newVal);
-		//	return newVal;
-		//});
 	});
 	
 	afterEach(function() {
@@ -165,8 +127,6 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				});
 			});
 		});
-	
-	
 	});
 	
 	describe("DADO: dos combos dependientes", function() {
