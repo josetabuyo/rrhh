@@ -995,8 +995,16 @@ margin: 15px 0 15px 0;
     font-weight: 200;
     font-size: 2em;
     line-height: 1.1429;
-    color: #696969;
+    color: #000;
     font-size: 2.3em;
+    /*text-align:center;*/
+}
+
+.sub_etapas {
+    font-weight: 200;
+    font-size: 1.5em;
+    line-height: 1.1429;
+    color: #000;
     /*text-align:center;*/
 }
 
@@ -1073,7 +1081,7 @@ width: 100%;
     cursor:pointer;
 }
         
-.actions .disabled a  {
+.actions .disabled a {
     background: #eee;
     color: #aaa;
 }
@@ -1082,7 +1090,7 @@ width: 100%;
     background: #2184be;
     color: #fff;
     display: block;
-    padding: 0.5em 1em;
+    padding: 0.4em 0.4em;   
     text-decoration: none;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;

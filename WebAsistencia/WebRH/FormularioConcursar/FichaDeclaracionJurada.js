@@ -91,7 +91,7 @@
                 _this.p = _this.dibujarDatos('Año de egreso: ');
                 _this.span = $('<span>');
                 _this.span.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvEstudios[i].FechaEgreso) + ' - ' +
-                                curriculum.CvEstudios[i].Establecimiento + ' - ' + Repositorio.buscar("Nacionalidades", { Id: curriculum.CvEstudios[i].Nivel }, function (nivel) { nivel[0].Descripcion }) + ' - ' +
+                                curriculum.CvEstudios[i].Establecimiento + ' - ' +
                                 curriculum.CvEstudios[i].Titulo);
                 _this.p.append(_this.span);
                 _this.titulos_educativos.append(_this.p);
