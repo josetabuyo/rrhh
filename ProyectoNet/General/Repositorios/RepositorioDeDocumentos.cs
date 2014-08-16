@@ -91,7 +91,7 @@ namespace General.Repositorios
             Validador().EsValidoComoId(un_documento.categoriaDeDocumento.Id, "para la categoría de un documento");
             Validador().EsValidoComoId(un_documento.tipoDeDocumento.Id, "para el tipo de un documento");
             
-            un_documento.ticket = repoTicket.GenerarTicket();
+            un_documento.ticket = repoTicket.GenerarTicket("MODI");
 
             parametros.Add("@idTipoDeDocumento", un_documento.tipoDeDocumento.Id);
             parametros.Add("@numero", un_documento.numero);

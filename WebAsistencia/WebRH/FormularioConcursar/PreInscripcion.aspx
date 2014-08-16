@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="~/FormularioConcursar/MenuConcursar.ascx" TagName="BarraMenuConcursar" TagPrefix="uc3" %>
+<%@ Register Src="~/FormularioConcursar/Pasos.ascx" TagName="Pasos" TagPrefix="uc4" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -11,18 +12,23 @@
 
      <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
      <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
+
 </head>
 <body>
     <form id="form1" runat="server" class="cmxform">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="contenedor_concursar">
 
-   <uc3:BarraMenuConcursar runat="server" />
+    <uc3:BarraMenuConcursar runat="server" />
     
-        
+    <uc4:Pasos runat="server" />    
+    <p>Usted está por confirmar su postulación. Si desea revisar y modificar su curriculum puede hacerlo antes de postularse.<br />
+    Una vez que haya modificado su curriculum presione el botón de "Guardar Cambios".<br />
+    PARA SEGUIR EN EL PROCESO DE POSTULACION PRESIONE EL SIGUIENTE</p>
+
             <div id="contenedor_datosPersonales" class="fondo_form">
                 <a style="margin-right: 10px;" id="btn_guardar_datosPersonales" class="btn btn-primary" href="#">Guardar Cambios </a>
-                <a class="btn btn-primary" onclick="javascript:PasarAInscripcion()" href="#">Confirmar Postulación</a>
+                <%--<a class="btn btn-primary" onclick="javascript:PasarAInscripcion()" href="#">Confirmar Postulación</a>--%>
                 <fieldset style="width:100%; min-width:800px;" >
                     <p><em>*</em> Campos Obligatorios</p>
                     <p style="text-transform:uppercase; font-weight:bold;">I.- Editar información personal</p>
@@ -184,7 +190,7 @@
                 </div>	         
 		    </div>
         </div> 
-        <a id="modal_preinscripcion" rel="leanModal" style="display:none;" name="modal_mensaje" href="#modal_mensaje"></a>
+       <%-- <a id="modal_preinscripcion" rel="leanModal" style="display:none;" name="modal_mensaje" href="#modal_mensaje"></a>--%>
         <asp:HiddenField ID="curriculum" runat="server" />
         <asp:HiddenField ID="puesto" runat="server" />
     </form>
@@ -197,6 +203,8 @@
 <script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 <script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
+<script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
+
 <script type="text/javascript">
      var puesto;
      var curriculum;
@@ -211,9 +219,29 @@
 
          $('a[rel*=leanModal]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
 
-         $("#modal_preinscripcion").click();
+         // $("#siguiente").click();
+
+         $("#paso_2").attr('class', 'link_activado');
 
      });
+
+     function Siguiente() {
+         alertify.confirm("¿Está seguro que desea pasar al siguiente paso?", function (e) {
+             if (e) {
+                 // user clicked "ok"
+                 window.location.href = 'Inscripcion.aspx?id=' + puesto.id;
+
+             } else {
+                 // user clicked "cancel"
+                 //alertify.error("");
+             }
+         });
+
+     }
+
+     function Anterior() {
+                 window.location.href = 'Postulaciones.aspx?id=' + puesto.id;
+     }
 
      function getVarsUrl() {
          var url = location.search.replace("?", "");
@@ -228,7 +256,7 @@
 
      function PasarAInscripcion() {
 
-         window.location.href = 'Inscripcion.aspx?id=' + puesto.id;
+         //window.location.href = 'Inscripcion.aspx?id=' + puesto.id;
 
      }
        

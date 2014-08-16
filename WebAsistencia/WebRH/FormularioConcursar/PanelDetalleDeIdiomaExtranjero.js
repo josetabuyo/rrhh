@@ -73,40 +73,58 @@
                     idioma_extranjero.Escritura = _this.cmb_idioma_extranjero_escritura.idItemSeleccionado();
                     idioma_extranjero.Oral = _this.cmb_idioma_extranjero_oral.idItemSeleccionado();
 
-                    var proveedor_ajax = new ProveedorAjax();
-
                     if (opciones.idioma_extranjero) {
-
-                        proveedor_ajax.postearAUrl({ url: "ActualizarCvIdiomaExtranjero",
-                            data: {
-                                idioma_extranjero: idioma_extranjero
-                            },
-                            success: function (respuesta) {
+                        Backend.ActualizarCvIdiomaExtranjero([idioma_extranjero],
+                            function (respuesta) {
                                 alertify.alert("El idioma fue actualizado correctamente");
                                 alModificar(respuesta);
                                 $(".modal_close_concursar").click();
                             },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                alertify.alert("Error al actualziar el idioma.");
+                            function (XMLHttpRequest, textStatus, errorThrown) {
+                                alertify.alert("Error al actualizar el idioma.");
                             }
-                        });
+                        );
+
+//                        proveedor_ajax.postearAUrl({ url: "ActualizarCvIdiomaExtranjero",
+//                            data: {
+//                                idioma_extranjero: idioma_extranjero
+//                            },
+//                            success: function (respuesta) {
+//                                alertify.alert("El idioma fue actualizado correctamente");
+//                                alModificar(respuesta);
+//                                $(".modal_close_concursar").click();
+//                            },
+//                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+//                                alertify.alert("Error al actualziar el idioma.");
+//                            }
+//                        });
 
                         return;
                     }
-
-                    proveedor_ajax.postearAUrl({ url: "GuardarCvIdiomaExtranjero",
-                        data: {
-                            idioma_extranjero: idioma_extranjero
-                        },
-                        success: function (respuesta) {
-                            alertify.alert("El idioma fue guardado correctamente");
+                    Backend.GuardarCvIdiomaExtranjero([idioma_extranjero],
+                        function (respuesta) {
+                            alertify.alert("El idioma fue actualizado correctamente");
                             alModificar(respuesta);
                             $(".modal_close_concursar").click();
                         },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alertify.alert("Error al guardar el idioma extranjero.");
+                        function (XMLHttpRequest, textStatus, errorThrown) {
+                            alertify.alert("Error al guardar el idioma.");
                         }
-                    });
+                    );
+
+//                    proveedor_ajax.postearAUrl({ url: "GuardarCvIdiomaExtranjero",
+//                        data: {
+//                            idioma_extranjero: idioma_extranjero
+//                        },
+//                        success: function (respuesta) {
+//                            alertify.alert("El idioma fue guardado correctamente");
+//                            alModificar(respuesta);
+//                            $(".modal_close_concursar").click();
+//                        },
+//                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//                            alertify.alert("Error al guardar el idioma extranjero.");
+//                        }
+//                    });
                 }
             });
 
