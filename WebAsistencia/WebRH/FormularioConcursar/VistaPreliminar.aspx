@@ -75,7 +75,6 @@
 </body>
 <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="FichaDeclaracionJurada.js" ></script>
-<script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 
 <script type="text/javascript">
@@ -87,8 +86,6 @@
         FichaDeclaracionJurada.dibujarCV(curriculum);
 
     });
-
-
 
 </script>
 

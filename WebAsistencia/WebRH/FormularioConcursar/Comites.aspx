@@ -23,7 +23,6 @@
         </div>
     </form>
     <%= Referencias.Javascript("../") %>
-    <script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
     <script type="text/javascript" src="Comite.js" ></script>
 </body>
 <script type="text/javascript">
