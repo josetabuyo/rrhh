@@ -27,7 +27,7 @@
 <div class="principal">
 <p class="encabezado">PRESENTACIÓN CURRICULUM VITAE</p>
 
-    <div class="info-gral posicion degrade_modulo sombra_y_redondeado">
+    <div class="info-gral posicion fondo_form sombra_y_redondeado">
 	    <p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">I.</span> Información Personal</p>
 	    <p class="nombre-h"><span id="cv_apellido" class="atributo-apelido"></span><span id="cv_nombre"></span></p>
         <br>
@@ -41,7 +41,7 @@
 	
     </div>
 
-    <div class="info-notif-avisos posicion degrade_modulo sombra_y_redondeado">
+    <div class="info-notif-avisos posicion fondo_form sombra_y_redondeado">
 	    <p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">II.</span> Información Requerida para Recibir Notificaciones y Avisos</p>
 	    <p class="general"><span class="atributos">Domicilio: </span><span id="cv_domLegal">Italia 465 - Timbre 3 - Lomas de Zamora - C.P: 1832</span></p>
 	    <p class="general"><span class="atributos">Teléfonos: </span><span id="cv_telefono">4281-2685 / 15 5059 5930</span></p>
