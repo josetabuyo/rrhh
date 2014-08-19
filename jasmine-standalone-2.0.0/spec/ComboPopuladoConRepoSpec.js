@@ -9,7 +9,22 @@ describe("ComboPopuladoConRepoBuilder", function() {
 	afterEach(function() {
 		jasmine.Ajax.uninstall();
 	});
-
+	
+	
+	function fakeResponse(plain_response) {
+	//dado
+		//'[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]'
+	//yydevolver
+		//return {"responseText": '{\"d\":' + plain_response.split('"').join('\\\\\\\"')};
+		
+		jasmine.Ajax.requests.mostRecent().response(
+			{"responseText": '{\\\"d\\\":\\\"' + plain_response.split('"').join('\\\\\\\"') + "\\\"}"}
+		);
+		//return {"responseText": '{\\\"d\\\":\\\"' + plain_response.split('"').join('\\\\\\\"') + "\\\"}"};	
+		
+		//{"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'}
+	
+	};
 	describe("DADO: Un combo", function(){
 	
 		beforeEach(function() {
@@ -44,9 +59,13 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				beforeEach(function() {
 					this.label_combo = ' label="Nombre"';
 					combos = populador_combos.construirCombosEn(dom);
-//					jasmine.Ajax.requests.mostRecent().response({
-//						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
-//					});
+					
+
+					//fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
+					fakeResponse('[{"Id":1}]');
+					//jasmine.Ajax.requests.mostRecent().response({
+					//	"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
+					//});
 				});
 
 				it("ENTONCES: deben cargarse usando el label", function() {
