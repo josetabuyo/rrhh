@@ -153,13 +153,19 @@
           Postulacion.armarPostulacion(puesto);
 
           $("#paso_2").attr('class', 'link_activado');
-          $("#paso_3").attr('class','link_activado');
+          $("#paso_3").attr('class', 'link_activado');
 
-         
+          $("#siguiente").attr('style', 'background: #eee;color: #aaa; ');
+
+
       });
 
       function Anterior() {
           window.location.href = 'PreInscripcion.aspx?id=' + puesto.id;
+      }
+
+      function Siguiente() {
+         
       }
 
 
