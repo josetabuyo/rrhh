@@ -30,7 +30,13 @@
             titulo.addClass('subtitulo_postulaciones');
             titulo.attr("href", 'FichaInscripcionCVDeclaJurada.aspx?id=' + postulaciones[i].Id)
             titulo[0].innerHTML = ConversorDeFechas.deIsoAFechaEnCriollo(postulaciones[i].FechaPostulacion);
-           
+            //titulo[0].puesto = postulaciones[i].Puesto;
+
+
+            /*titulo.click(function (e) {
+            window.location.href = 'FichaInscripcionCVDeclaJurada.aspx?id=' + titulo[0].puesto.Id;
+                    
+            });*/
             var sub = $('<hr>');
             sub.addClass("SubrayadoPostulaciones degrade");
 

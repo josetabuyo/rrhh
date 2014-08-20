@@ -16,6 +16,15 @@
             mensaje: "Ingrese dato numérico"
         },
 
+        esNumeroNaturalSinCero: {
+            evaluar: function (control) {
+                if (control.val() == "") return true;
+                if (control.val() == 0) return false;
+                return (/^\d+$/).test(control.val());
+            },
+            mensaje: "Ingrese dato numérico"
+        },
+
         esUnCombo: {
             evaluar: function (control) {
                 if (control.val() == "") return true;

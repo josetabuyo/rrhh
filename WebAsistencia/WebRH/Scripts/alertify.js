@@ -268,7 +268,7 @@
 
 				switch (type) {
 				case "confirm":
-					html = html.replace("{{buttons}}", this.appendButtons(dialogs.buttons.cancel, dialogs.buttons.ok));
+					html = html.replace("{{buttons}}", this.appendButtons(dialogs.buttons.ok, dialogs.buttons.cancel ));
 					html = html.replace("{{ok}}", this.labels.ok).replace("{{cancel}}", this.labels.cancel);
 					break;
 				case "prompt":

@@ -12,6 +12,7 @@ namespace General
         public static Validador NoVacio { get { return new ValidadorNoVacio(); } }
         public static Validador NoNull { get { return new ValidadorNoNull(); } }
         public static Validador NumeroNaturalOCero { get { return new ValidadorNumeroNaturalOCero(); } }
+        public static Validador FechaNoVacia { get { return new ValidadorFechaNoVacia(); } }
 
         public Validador () {
             this.validaciones = new Dictionary<string,Validador>();
@@ -47,6 +48,10 @@ namespace General
             atributos.ToList().ForEach(attr => this.DeberiaSer(attr, Validador.NoVacio));
         }
 
+        public void DeberianSerFechasNoVacias(string[] atributos)
+        {
+            atributos.ToList().ForEach(attr => this.DeberiaSer(attr, Validador.FechaNoVacia));
+        }
 
         public void DeberianSerNaturalesOCero(string[] atributos)
         {
@@ -72,6 +77,14 @@ namespace General
         override public bool EsValido(object un_srting)
         {
             return (string)un_srting != "";
+        }
+    }
+
+    public class ValidadorFechaNoVacia : Validador
+    {
+        override public bool EsValido(object una_fecha)
+        {
+            return una_fecha.ToString() != "";
         }
     }
 
