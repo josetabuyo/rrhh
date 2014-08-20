@@ -23,91 +23,71 @@
     
 <p class="top-header">Recuerde firmar todas y cada una de las hojas que integran su Ficha de inscripción.<br>La ausencia de su firma invalida la valoración del antecedente declarado.</p>
 
-
-
 <hr class="linea-top"/>
 
 <div class="principal">
 <p class="encabezado">FICHA DE INSCRIPCIÓN<br>PRESENTACIÓN CURRICULUM VITAE<br>DECLARACIÓN JURADA</p>
 
-<p class="general oferta-empleo"><span class="atributos">Postulación Nº: </span>2233</p>
+<p class="general oferta-empleo"><span class="atributos">Postulación Nº: </span><span id="num_postulacion"></span></p>
 
 <div class="tabla sombra_y_redondeado">
     <table class="tabla-inscripcion">
         <tbody>
             <tr>
-                <td style="width: 60%"><p class="general p-tabla"><span class="atributos">Oferta de Empleo Nº: </span>32.267</p></td>
-                <td style="width: 40%"><p class="general p-tabla"><span class="atributos">Tipo de Convocatoria: </span>GENERAL</p></td>
+                <td style="width: 60%"><p class="general p-tabla"><span class="atributos">Oferta de Empleo Nº: </span><span id="numero_puesto"></span></p></td>
+                <td style="width: 40%"><p class="general p-tabla"><span class="atributos">Tipo de Convocatoria: </span><span id="puesto_tipo"></span></p></td>
             </tr>
             <tr>
-                <td colspan="2" class="tabla-inscripcion-td" ><p class="general p-tabla"><span class="atributos">Denominación del Cargo: </span>Abogado asesor especializado en Empleo Público</p></td>
+                <td colspan="2" class="tabla-inscripcion-td" ><p class="general p-tabla"><span class="atributos">Denominación del Cargo: </span><span id="puesto_denominacion"></span></p></td>
             </tr>
 	
             <tr>
-                <td colspan="2" class="tabla-inscripcion-td"><p class="general p-tabla"><span class="atributos">Agrupamiento: </span>GENERAL</p></td>
+                <td colspan="2" class="tabla-inscripcion-td"><p class="general p-tabla"><span class="atributos">Agrupamiento: </span><span id="puesto_agrupamiento"></span></p></td>
             </tr>
     
             <tr>
-                <td><p class="general p-tabla"><span class="atributos">Nivel Escalafonario: </span>A</p></td>
-                <td><p class="general p-tabla"><span class="atributos">Nivel de Jefatura: </span></p></td>
+                <td><p class="general p-tabla"><span class="atributos">Nivel Escalafonario: </span><span id="puesto_nivel"></span></p></td>
+                <td><p class="general p-tabla"><span class="atributos">Nivel de Jefatura: </span><span id="puesto_jefatura"></span></p></td>
             </tr>
         </tbody>
     </table>
 </div>
 
 
-<div class="info-gral posicion degrade_modulo sombra_y_redondeado">
+<div class="info-gral posicion fondo_form sombra_y_redondeado">
 	<p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">I.</span> Información Personal</p>
-	<p class="nombre-h"><span class="atributo-apelido">AYÁN, </span>Verónica</p>
+	<p class="nombre-h"><span id="cv_apellido" class="atributo-apelido"></span><span id="cv_nombre"></span></p>
     <br>
-	<p class="general"><span class="atributos">DNI: </span>32.267.529</p>
-	<p class="general"><span class="atributos">Estado Civil: </span>Soltera</p>
-	<p class="general"><span class="atributos">Fecha de Nacimiento: </span>22/03/1986</p>
-	<p class="general"><span class="atributos">Lugar de Nacimiento: </span>Buenos Aires</p>
-	<p class="general"><span class="atributos">Nacionalidad: </span>Argentina</p>
-	<p class="general"><span class="atributos">Domicilio Personal: </span>Italia 465 - Timbre 3 - Lomas de Zamora - C.P: 1832</p>
+	<p class="general"><span class="atributos">DNI: </span><span id="cv_dni"></span></p>
+	<p class="general"><span class="atributos">Estado Civil: </span><span id="cv_estadoCivil"></span></p>
+	<p class="general"><span class="atributos">Fecha de Nacimiento: </span><span id="cv_fechNac"></span></p>
+	<p class="general"><span class="atributos">Lugar de Nacimiento: </span><span id="cv_lugarNac"></span></p>
+	<p class="general"><span class="atributos">Nacionalidad: </span><span id="cv_nac"></span></p>
+	<p class="general"><span class="atributos">Domicilio Personal: </span><span id="cv_domPersonal"></span></p>
 	
 	
 </div>
 
-<div class="info-notif-avisos posicion degrade_modulo sombra_y_redondeado">
+<div class="info-notif-avisos posicion fondo_form sombra_y_redondeado">
 	<p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">II.</span> Información Requerida para Recibir Notificaciones y Avisos</p>
-	<p class="general"><span class="atributos">Domicilio: </span>Italia 465 - Timbre 3 - Lomas de Zamora - C.P: 1832</p>
-	<p class="general"><span class="atributos">Teléfonos: </span>4281-2685 / 15 5059 5930</p>
-	<p class="general"><span class="atributos">Corro Electrónico: </span>ayanvero@gmail.com</p>
+	<p class="general"><span class="atributos">Domicilio: </span><span id="cv_domLegal">Italia 465 - Timbre 3 - Lomas de Zamora - C.P: 1832</span></p>
+	<p class="general"><span class="atributos">Teléfonos: </span><span id="cv_telefono">4281-2685 / 15 5059 5930</span></p>
+	<p class="general"><span class="atributos">Corro Electrónico: </span><span id="cv_mail">ayanvero@gmail.com</span></p>
 	</div>
 
-<div class="antec-academ posicion degrade_modulo sombra_y_redondeado">
-	<p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">III.</span> Antecedentes Académicos</p>
-	
-	<div class="tit-pos">
-	<p class="sub-titulos">Títulos Educativos</p>
-	<hr class="lineas-subraya"/>
-	
-	<p class="general"><span class="atributos">- En Curso: </span>- Universitario - U.B.A. - F.A.D.U. - Dis. de Imágen y Sonido</p>
-	<p class="general"><span class="atributos">- Año de Egreso: 2004 </span>- Secundario Completo - Instituto Grilli - Bachillerato de Economía y Gestión de las Organizaciones</p>
-	</div>
-		
-	<div class="tit-pos">
-	<p class="sub-titulos">Otras Certificaciones / Actividades de Capacitación</p>
-	<hr class="lineas-subraya"/>
-	<p class="general"><span class="atributos">- Año de Egreso: 2014 </span>- Centro Cultural Matienzo - Curso Intensivo: Del Guión a la Actuación</p>
-	<p class="general"><span class="atributos">- Año de Egreso: 2010 </span>- Sindicato de Cinematografía Argentina - Centro de Formación Profesional - Curso Completo de Edición
-	</div>
-	
-	<div class="tit-pos">
-	<p class="sub-titulos">Actividad Docente</p>
-	<hr class="lineas-subraya"/>
-	<p class="no-hay-datos">No hay datos cargados</p>
-	</div>
-	
-	<div class="tit-pos">
-	<p class="sub-titulos">Eventos Académicos</p>
-	<hr class="lineas-subraya"/>
-	<p class="general"><span class="atributos">- Imágenes Forenses:</span>
-    Docente en el Curso de Aspirantes para Instructores Judiciales para la Provincia de Buenos Aires (“Imágenes Forenses”). Procuración General de la Provincia de Buenos Aires, año 2007.</p>
-	</div>
-	
+<div id="caja_antecedentes_academicos" ></div>
+<div id="caja_actividades_decentes" ></div>
+<div id="caja_eventos_academicos"></div>
+<div id="caja_publicaciones"></div>
+<div id="caja_matriculas"></div>
+<div id="caja_instituciones" ></div>
+<div id="caja_experiencias_laborales"></div>
+<div id="caja_otras_aptitudes" ></div>
+
+   
+	<!--
+    
+     <p class="titulos degrade sombra_y_redondeado"> Publicaciones</p>
 	<div class="tit-pos">
 	<p class="sub-titulos">Publicaciones o Trabajos de Investigación</p>
 	<hr class="lineas-subraya"/>
@@ -115,6 +95,7 @@
 	"Imágenes Forenses" - Instituto Universitarios de la Policía Federal Argentina, Inédito. Año 2007.</p>
 	</div>
 	
+     <p class="titulos degrade sombra_y_redondeado"> Matriculas</p>
 	<div class="tit-pos">
 	<p class="sub-titulos">Matrícula Profesional</p>
 	<hr class="lineas-subraya"/>
@@ -126,7 +107,7 @@
 	<hr class="lineas-subraya"/>
 	<p class="no-hay-datos">No hay datos cargados</p>	
 	</div>
-	</div>
+	
 
 <div class="exp-lab-rel posicion degrade_modulo sombra_y_redondeado">
 <p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">IV.</span> Experiencias Laborales Relevantes</p>
@@ -173,9 +154,9 @@
 	<hr class="lineas-subraya"/>
 	<p class="no-hay-datos">No hay datos cargados</p>
     </div>
-</div>
+</div>-->
 
-<div class="tit-pos posicion degrade_modulo sombra_y_redondeado">
+<div class="tit-pos posicion fondo_form sombra_y_redondeado">
 	<p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">VI.</span> Motivos por los que se Postula al Cargo</p>
 		<p class="motivos-cargo">Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.</p>
 	</div>
@@ -214,7 +195,23 @@
 
 </div>
 <a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>
+
+        <asp:HiddenField ID="curriculum" runat="server" />
+        
     </form>
 </body>
+<%= Referencias.Javascript("../") %>
+<script type="text/javascript" src="FichaDeclaracionJurada.js" ></script>
+<script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
+
+<script type="text/javascript">
+    Backend.start();
+
+    $(document).ready(function () {
+        curriculum = JSON.parse($('#curriculum').val());
+        FichaDeclaracionJurada.armarFicha();
+    });
+
+</script>
 
 </html>

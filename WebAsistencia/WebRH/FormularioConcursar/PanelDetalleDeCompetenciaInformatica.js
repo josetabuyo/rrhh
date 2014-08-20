@@ -1,7 +1,8 @@
 ﻿var PanelDetalleDeCompetenciaInformatica = {
     mostrar: function (opciones) {
         //valores default
-        var competencia_informatica = opciones.competencia_informatica || {};
+        var competencia_informatica = opciones.competencia_informatica || {
+         Pais: 9};
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
@@ -36,11 +37,21 @@
             _this.txt_competencias_informaticas_detalle = _this.ui.find("#txt_competencias_informaticas_detalle");
             _this.txt_competencias_informaticas_detalle.val(competencia_informatica.Detalle);
 
+             //Bt cerrar
+            _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
+            _this.btn_cerrar.click(function () {                
+               _this.ui.limpiarValidaciones();
+            });
+
+
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#btn_guardar");
             if (opciones.competencia_informatica) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
+
+             if (_this.ui.esValido()) {
+
                 competencia_informatica.Diploma = _this.txt_competencias_informaticas_diploma_certificacion.val();
                 competencia_informatica.FechaObtencion = _this.txt_competencias_informaticas_fecha_obtencion.datepicker('getDate').toISOString();
                 competencia_informatica.Establecimiento = _this.txt_competencias_informaticas_establecimiento.val();
@@ -85,6 +96,8 @@
                         alertify.alert("Error al guardar la competencia informática.");
                     }
                 });
+                }
+
             });
 
             var link_trucho = $("<a href='#un_div_modal'></a>");

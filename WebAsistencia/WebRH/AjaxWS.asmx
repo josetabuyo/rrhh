@@ -501,26 +501,28 @@ public class AjaxWS : System.Web.Services.WebService {
     #endregion
 
     #region CvActividadesDocentes
-    
+
+
     [WebMethod(EnableSession = true)]
-    public string GuardarCvActividadesDocentes(WSViaticos.CvDocencia docencia_nueva)
+    public string GuardarCVActividadDocente(WSViaticos.CvDocencia actividad_docente)
     {
-        if (docencia_nueva.Id != 0)
-        {
-            var actividadDocenciaActualizada = backEndService.ActualizarCvActividadesDocencia(docencia_nueva, usuarioLogueado);
-            return Newtonsoft.Json.JsonConvert.SerializeObject(actividadDocenciaActualizada);
-        }
 
-        var actividadDocenciaGuardada = backEndService.GuardarCvActividadesDocentes(docencia_nueva, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(actividadDocenciaGuardada);
-
+        var actividadDocente_guardada = backEndService.GuardarCvActividadDocente(actividad_docente, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(actividadDocente_guardada);
     }
 
     [WebMethod(EnableSession = true)]
-    public string EliminarCvActividadesDocentes(WSViaticos.CvDocencia actividadDocente_borrar)
+    public string ActualizarCvActividadDocente(WSViaticos.CvDocencia actividad_docente)
     {
-        var actividadesDocentes = backEndService.EliminarCvActividadesDocentes(actividadDocente_borrar, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(actividadesDocentes);
+        var un_estudio = backEndService.ActualizarCvActividadDocente(actividad_docente, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(un_estudio);
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string EliminarCVActividadDocente(int id_actividad_docente)
+    {
+        var antecedentesAcademicos = backEndService.EliminarCvAntecedenteAcademico(id_actividad_docente, usuarioLogueado);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicos);
     }
 
     #endregion
@@ -761,9 +763,31 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void SetObjetoEnSesion(string nombre, string objeto)
+    {
+        HttpContext.Current.Session[nombre] = objeto;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetObjetoEnSesion(string nombre)
+    {
+        return Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Session[nombre]);
+    }
+    
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetPuestoEnSesion(WSViaticos.Puesto puesto)
     {
         return Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Session[ConstantesDeSesion.PUESTO]);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetPostulacionById(int idpostulacion)
+    {
+        var postulacion = backEndService.GetPostulacionById(usuarioLogueado.Owner.Id, idpostulacion);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(postulacion);
     }
     
     [WebMethod(EnableSession = true)]
@@ -772,7 +796,15 @@ public class AjaxWS : System.Web.Services.WebService {
         var postulacion = backEndService.PostularseA(una_postulacion, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(postulacion);
         
-    } 
+    }
+
+    //[WebMethod(EnableSession = true)]
+    //public string GetPostulaciones()
+    //{
+    //    var postulaciones = backEndService.GetPostulaciones(usuarioLogueado);
+    //    return Newtonsoft.Json.JsonConvert.SerializeObject(postulaciones);
+
+    //} 
     
     #endregion
     
@@ -803,10 +835,35 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string BuscarEnRepositorio(string nombre_repositorio, string criterio)
+    public string EjecutarEnBackend(string nombre_metodo, String[] argumentos_json)
     {
-        var metodo = backEndService.GetType().GetMethods().ToList().Find(m => m.Name == "Buscar" + nombre_repositorio);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(metodo.Invoke(backEndService, new object[]{criterio}));
+        System.Reflection.MethodInfo metodo = backEndService.GetType().GetMethods().ToList().Find(m => m.Name == nombre_metodo);
+        var argumentos_esperados = metodo.GetParameters();
+        
+        var argumentos_a_enviar = new List<Object>();
+
+        for (int i = 0; i < argumentos_json.Count(); i++)
+		{
+            var arg_esperado = argumentos_esperados[i];
+            var arg_json = argumentos_json[i];
+            if (arg_esperado.ParameterType == typeof(String)) argumentos_a_enviar.Add(arg_json);
+            else argumentos_a_enviar.Add(Newtonsoft.Json.JsonConvert.DeserializeObject(arg_json, arg_esperado.ParameterType));
+		}
+
+        if (argumentos_esperados.Any(a => a.Name == "usuario"))
+        {
+            argumentos_a_enviar.Add(usuarioLogueado);
+        }
+        var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
+        return Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string MetodosDelBackend()
+    {
+        var metodos = backEndService.GetType().GetMethods().ToList().Select(m => new{nombre= m.Name});
+        return Newtonsoft.Json.JsonConvert.SerializeObject(metodos);
     }
 }
 

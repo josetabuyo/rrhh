@@ -24,12 +24,18 @@ namespace General
             List<Puesto> puestos = new List<Puesto>();
 
             tablaCVs.Rows.ForEach(row =>
-            puestos.Add(new Puesto(row.GetInt("Id"),row.GetString("Familia"),row.GetString("Profesion"),row.GetString("Denominacion"),
-                        row.GetString("Nivel"),row.GetString("Agrupamiento"),row.GetInt("Vacantes"), row.GetString("Tipo"),row.GetString("Numero"))));
+            puestos.Add(new Puesto(row.GetInt("IdPuesto"),row.GetString("Familia"),row.GetString("Profesion"),row.GetString("Denominacion"),
+                        row.GetString("Nivel"),row.GetString("Agrupamiento"),row.GetInt("Vacantes"), row.GetString("Tipo"),row.GetString("NumeroDePuesto"),
+                        new Comite(row.GetInt("IdComite"),row.GetInt("NumeroDeComite"),row.GetString("IntegrantesDelComite")))));
 
             return puestos;
 
         }
 
+
+        public Puesto GetPuestoById(int id)
+        {
+            return this.GetPuestos().Find(p => p.Id.Equals(id));
+        }
     }
 }

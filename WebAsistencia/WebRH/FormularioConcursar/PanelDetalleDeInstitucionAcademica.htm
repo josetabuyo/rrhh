@@ -7,21 +7,19 @@
 		</div>
 		<div id="contenido_form_instituciones_academicas" class="fondo_form">
 			<fieldset style="width:95%; padding-left:3%;">
-				<p>
-					<em>*</em> Campos Obligatorios
-				</p>
-				<legend>Ingrese pertenencia a institución académica o profesional relevante</legend>
+				<legend style="margin-bottom:20px;">Ingrese pertenencia a institución académica o profesional relevante</legend>
+                 <h5><em>*</em>Campos Obligatorios</h5>
 				<div class="grupo_campos">
 					<label for="institucion_academica_nombre">Nombre de la Institución <em>*</em></label>
-					<input id="txt_institucion_academica_nombre" type="text" style="width:285px;"/>
+					<input id="txt_institucion_academica_nombre" type="text" style="width:285px;" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="institucion_academica_caracter">Carácter de la Entidad <em>*</em></label>
-					<input id="txt_institucion_academica_caracter" type="text" style="width:270px;"/>
+					<input id="txt_institucion_academica_caracter" type="text" style="width:275px;" data-validar="esNoBlanco"/>
 				</div>
-				<div class="grupo_campos">
+				<div class="grupo_campos nueva_linea">
 					<label for="institucion_academica_cargo">Cargos Desempeñados <em>*</em></label>
-					<input id="txt_institucion_academica_cargo" type="text" style="width:285px;" name=""/>
+					<input id="txt_institucion_academica_cargo" type="text" style="width:285px;" name="" data-validar="esNoBlanco"/>
 				</div>
                 <div class="grupo_campos">
 					<label for="institucion_academica_fecha_inicio">Fecha Inicio <em>*</em></label>
@@ -29,33 +27,33 @@
 				</div>
 				<div class="grupo_campos">
 					<label for="institucion_academica_fecha_fin">Fecha Fin <em>*</em></label>
-					<input id="txt_institucion_academica_fechaFin" type="text" style="width:120px;" name=""/>
+					<input id="txt_institucion_academica_fechaFin" type="text" style="width:125px;" name=""/>
 				</div>
                	<div class="grupo_campos nueva_linea">
 					<label for="institucion_academica_numero_afiliado">Número Afiliado <em>*</em></label>
-					<input id="txt_institucion_academica_numero_afiliado" type="text" style="width:150px;"/>
+					<input id="txt_institucion_academica_numero_afiliado" type="text" style="width:160px;" data-validar="esNoBlanco"/>
 				</div>
 
 				<div class="grupo_campos">
-					<label for="institucion_academica_fecha_afiliacion">Fecha de Afiliación <em>*</em></label>
+					<label for="institucion_academica_fecha_afiliacion">Fecha Afiliación <em>*</em></label>
 					<input id="txt_institucion_academica_fecha_afiliacion" type="text" style="width:100px;"/>
 				</div>
 			
 				<div class="grupo_campos">
 					<label for="institucion_academica_categoria_actual">Categoría Actual <em>*</em></label>
-					<input id="txt_institucion_academica_categoria_actual" type="text" style="width:150px;"/>
+					<input id="txt_institucion_academica_categoria_actual" type="text" style="width:125px;" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="institucion_academica_fecha">Fecha <em>*</em></label>
-					<input id="txt_institucion_academica_fecha" type="text" style="width:100px;" name=""/>
+					<input id="txt_institucion_academica_fecha" type="text" style="width:125px;" name=""/>
 				</div>
 				<div class="grupo_campos nueva_linea">
 					<label for="institucion_academica_localidad">Localidad <em>*</em></label>
-					<input id="cmb_institucion_academica_localidad" type="text" style="width:250px;"/>
+					<input id="cmb_institucion_academica_localidad" type="text" style="width:285px;" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="institucion_academica_pais">País<em>*</em></label>
-					<select id="cmb_institucion_academica_pais" style="width:250px;">
+					<select id="cmb_institucion_academica_pais" style="width:285px;" data-validar="esNumeroNatural">
 					</select>
 				</div>
 			</fieldset>

@@ -46,11 +46,11 @@ namespace General.Repositorios
             tablaCVs.Rows.ForEach(row =>
             cv = new CurriculumVitae(
                 new CvDatosPersonales(row.GetInt("NroDocumento"), row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo", 1), row.GetSmallintAsInt("EstadoCivil", 0),
-                    row.GetString("Cuil", ""), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad", 0), row.GetDateTime("FechaNacimiento", DateTime.Today).ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento", 0),
+                    row.GetString("Cuil", ""), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad", 0), row.GetDateTime("FechaNacimiento", DateTime.Today).ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento", 0), 
                     new CvDomicilio(row.GetInt("DomPers_Id", 0), row.GetString("DomPers_Calle", ""), row.GetInt("DomPers_Numero", 0), row.GetString("DomPers_Piso", ""), row.GetString("DomPers_Depto", ""),
                         row.GetInt("DomPers_Localidad", 0), row.GetSmallintAsInt("DomPers_CodigoPostal", 0), row.GetSmallintAsInt("DomPers_IdProvincia", 0)),
                     new CvDomicilio(row.GetInt("DomLab_Id", 0), row.GetString("DomLab_Calle", ""), row.GetInt("DomLab_Numero", 0), row.GetString("DomLab_Piso", ""), row.GetString("DomLab_Depto", ""),
-                        row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0)), row.GetString("TieneLegajo"))));
+                        row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0)), row.GetString("TieneLegajo"), row.GetString("DomPers_Telefono", ""), row.GetString("DomPers_Telefono2", ""), row.GetString("DomPers_Email", ""))));
 
 
             //CORTE DE CONTROL PARA EVENTOS ACADEMICOS
@@ -281,13 +281,14 @@ namespace General.Repositorios
                                                Editorial = dRow.GetString("PublicacionEditorial", string.Empty),
                                                Hojas = dRow.GetString("PublicacionHojas", string.Empty),
                                                Copia = dRow.GetInt("PublicacionCopia", 0),
+                                               Adjunto = dRow.GetInt("PublicacionAdjunto", 0),
                                                Fecha = dRow.GetDateTime("PublicacionFecha", DateTime.Today)
 
                                            }).Distinct().ToList();
 
 
 
-                publicaciones_anonimos.Select(p => new CvPublicaciones(p.Id, p.Titulo,p.Editorial,p.Hojas,p.Copia,
+                publicaciones_anonimos.Select(p => new CvPublicaciones(p.Id, p.Titulo,p.Editorial,p.Hojas,p.Copia, p.Adjunto,
                                            p.Fecha)).ToList().ForEach(pub => cv.AgregarPublicacion(pub));
 
             }
@@ -462,12 +463,12 @@ namespace General.Repositorios
                 conexion_bd.Ejecutar("dbo.CV_Ins_Curriculum", parametros);
 
                 //insertar en GEN_Domicilios y CV_Domicilio el DomicilioPersonal
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario);
+                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
                 parametros.Add("@Dni", datosPersonales.Dni);
                 conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
 
                 //insertar en GEN_Domicilios y CV_Domicilio el DomicilioLaboral
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario);
+                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
                 parametros.Add("@Dni", datosPersonales.Dni);
                 conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
 
@@ -484,13 +485,16 @@ namespace General.Repositorios
                 }
 
                 //update GEN_Domicilios del domicilio personal
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario);
+                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
                 parametros.Add("@idDomicilio", datosPersonales.DomicilioPersonal.Id);
                 conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
 
                 //update en GEN_Domicilios del domicilio laboral
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario);
+                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
                 parametros.Add("@idDomicilio", datosPersonales.DomicilioLegal.Id);
+
+              
+
                 conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
 
             }
@@ -499,7 +503,7 @@ namespace General.Repositorios
             //this.lista_cv.Add(cv);
         }
 
-        private Dictionary<string, object> CompletarDatosDomicilios(CvDomicilio domicilio, Dictionary<string, object> parametros, int tipo, Usuario usuario)
+        private Dictionary<string, object> CompletarDatosDomicilios(CvDomicilio domicilio , Dictionary<string, object> parametros, int tipo, Usuario usuario, string telefono, string telefono2, string email)
         {
             parametros = new Dictionary<string, object>();
 
@@ -508,15 +512,17 @@ namespace General.Repositorios
             parametros.Add("@DomicilioPiso", domicilio.Piso);
             parametros.Add("@DomicilioDepto", domicilio.Depto);
             parametros.Add("@DomicilioCp", domicilio.Cp);
-            parametros.Add("@DomicilioLocalidad", 1);
+            parametros.Add("@DomicilioLocalidad", domicilio.Localidad);
             parametros.Add("@DomicilioProvincia", domicilio.Provincia);
-            parametros.Add("@DomicilioTelefono", "");
-            parametros.Add("@DomicilioCorreo_Electronico", "");
             parametros.Add("@Correo_Electronico_MDS", "");
-            parametros.Add("@DomicilioTelefono2", "");
             parametros.Add("@DomicilioTipo", tipo);
             parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@DomicilioTelefono", telefono);
+            parametros.Add("@DomicilioTelefono2", telefono2);
+            parametros.Add("@DomicilioCorreo_Electronico", email);
 
+           
+            
             return parametros;
         }
 
@@ -535,6 +541,7 @@ namespace General.Repositorios
             parametros.Add("@TipoDocumento", datosPersonales.TipoDocumento);
             parametros.Add("@Sexo", datosPersonales.Sexo);
             parametros.Add("@Usuario", usuario.Id);
+         
 
             return parametros;
         }
@@ -664,8 +671,8 @@ namespace General.Repositorios
         }
         #endregion CvCertificadosDeCapacitacion
 
-        #region CvAntecedentesDocentes
-        public CvDocencia GuardarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
+        #region CvActividadDocente
+        public CvDocencia GuardarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
         {
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
@@ -676,7 +683,7 @@ namespace General.Repositorios
             return docencia_nuevo;
         }
 
-        public CvDocencia ActualizarCvActividadesDocencia(CvDocencia docencia_nuevo, Usuario usuario)
+        public CvDocencia ActualizarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
         {
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@IdDocencia", docencia_nuevo.Id);
@@ -686,17 +693,19 @@ namespace General.Repositorios
             return docencia_nuevo;
         }
 
-        public CvDocencia EliminarCvActividadesDocentes(CvDocencia docencia_nuevo, Usuario usuario)
+        public bool EliminarCvActividadDocente(int docencia_nuevo, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
-
-            var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
-            parametros.Add("@IdDocencia", docencia_nuevo.Id);
+           
+            var parametros = new Dictionary<string, object>();
             parametros.Add("@IdBaja", baja);
+            parametros.Add("@IdDocencia", docencia_nuevo);
+            parametros.Add("@Usuario", usuario.Id);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_AntecedentesDeDocencia", parametros);
+            return true;
 
-            return docencia_nuevo;
+
         }
 
         private Dictionary<string, object> ParametrosDeAntecedentesDocencia(CvDocencia docencia_nuevo, Usuario usuario)
@@ -820,6 +829,7 @@ namespace General.Repositorios
             parametros.Add("@CantidadHojas", publicacion_nueva.CantidadHojas);
             parametros.Add("@DatosEditorial", publicacion_nueva.DatosEditorial);
             parametros.Add("@DisponeCopia", publicacion_nueva.DisponeCopia);
+            parametros.Add("@DisponeAdjunto", publicacion_nueva.DisponeAdjunto);
             parametros.Add("@Titulo", publicacion_nueva.Titulo);
             parametros.Add("@FechaPublicacion", publicacion_nueva.FechaPublicacion);
             parametros.Add("@Usuario", usuario.Id);

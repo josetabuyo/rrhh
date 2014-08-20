@@ -1,7 +1,9 @@
 ﻿var PanelDetalleDeAntecedenteAcademico = {
     mostrar: function (opciones) {
         //valores default
-        var estudio = opciones.estudio || {};
+        var estudio = opciones.estudio || {
+            Pais: 9
+        };
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
@@ -34,52 +36,63 @@
                 id_item_seleccionado: estudio.Pais
             });
 
+            //Bt cerrar
+            _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
+            _this.btn_cerrar.click(function () {
+                _this.ui.limpiarValidaciones();
+            });
+
+
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#add_antecedentesAcademicos");
             if (opciones.estudio) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-                estudio.Titulo = _this.txt_antecedentes_titulo.val();
-                estudio.Nivel = _this.cmb_antecedentes_nivel.val();
-                estudio.Establecimiento = _this.txt_establecimiento.val();
-                estudio.Especialidad = _this.txt_antecedentes_especialidad.val();
-                estudio.FechaIngreso = _this.txt_antecedentes_ingreso.datepicker('getDate').toISOString(); 
-                estudio.FechaEgreso = _this.txt_antecedentes_egreso.datepicker('getDate').toISOString();
-                estudio.Localidad = _this.txt_antecedentes_localidad.val();
-                estudio.Pais = _this.cmb_antecedentes_pais.idItemSeleccionado();
 
-                var proveedor_ajax = new ProveedorAjax();
-                if (opciones.estudio) {
-                    proveedor_ajax.postearAUrl({ url: "ActualizarCvAntecedenteAcademico",
+                if (_this.ui.esValido()) {
+
+                    estudio.Titulo = _this.txt_antecedentes_titulo.val();
+                    estudio.Nivel = _this.cmb_antecedentes_nivel.val();
+                    estudio.Establecimiento = _this.txt_establecimiento.val();
+                    estudio.Especialidad = _this.txt_antecedentes_especialidad.val();
+                    estudio.FechaIngreso = _this.txt_antecedentes_ingreso.datepicker('getDate').toISOString();
+                    estudio.FechaEgreso = _this.txt_antecedentes_egreso.datepicker('getDate').toISOString();
+                    estudio.Localidad = _this.txt_antecedentes_localidad.val();
+                    estudio.Pais = _this.cmb_antecedentes_pais.idItemSeleccionado();
+
+                    var proveedor_ajax = new ProveedorAjax();
+                    if (opciones.estudio) {
+                        proveedor_ajax.postearAUrl({ url: "ActualizarCvAntecedenteAcademico",
+                            data: {
+                                un_estudio: estudio
+                            },
+                            success: function (respuesta) {
+                                alertify.alert("Los capacidad fue creada correctamente");
+                                alModificar(respuesta);
+                                $(".modal_close_concursar").click();
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alertify.alert("Error al crear la capacidad.");
+                            }
+                        });
+
+                        return;
+                    }
+                    proveedor_ajax.postearAUrl({ url: "GuardarCVAntecedenteAcademico",
                         data: {
-                            un_estudio: estudio
+                            antecedentesAcademicos_nuevos: estudio
+
                         },
                         success: function (respuesta) {
-                            alertify.alert("Los capacidad fue creada correctamente");
+                            alertify.alert("Los datos fueron guardados correctamente");
                             alModificar(respuesta);
                             $(".modal_close_concursar").click();
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alertify.alert("Error al crear la capacidad.");
+                            alertify.alert("Error al guardar el antecedente.");
                         }
                     });
-
-                    return;
                 }
-                proveedor_ajax.postearAUrl({ url: "GuardarCVAntecedenteAcademico",
-                    data: {
-                        antecedentesAcademicos_nuevos: estudio
-                        
-                    },
-                    success: function (respuesta) {
-                        alertify.alert("Los datos fueron guardados correctamente");
-                        alModificar(respuesta);
-                        $(".modal_close_concursar").click();
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error al guardar el antecedente.");
-                    }
-                });
 
             });
 

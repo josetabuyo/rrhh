@@ -7,13 +7,11 @@
 		</div>
 		<div id="contenido_form_otras_capacidades" class="fondo_form">
 			<fieldset style="width:95%; padding-left:3%;">
-                <p>
-					<em>*</em> Campos Obligatorios
-			    </p>
-				<legend>Ingrese una capacidad que lo caracterice y descríbala</legend>
-				<div class="grupo_campos">
+				<legend style="margin-bottom:20px;">Ingrese una capacidad que lo caracterice y descríbala</legend>
+				 <h5><em>*</em>Campos Obligatorios</h5>
+                <div class="grupo_campos">
 					<label for="cmb_tipo">Tipo de Capacidad <em>*</em></label>
-					<select id="cmb_tipo" style="width:130px;">
+					<select id="cmb_tipo" style="width:130px;" data-validar="esNumeroNatural">
 						<option>Seleccione</option>
 						<option value="0">Social</option>
                         <option value="1">Organizativa</option>
@@ -23,7 +21,7 @@
 				</div>
                 <div class="grupo_campos">
 					<label for="txt_detalle">Detalle <em>*</em></label>
-					<input id="txt_detalle" type="text" style="width:400px;"/>
+					<input id="txt_detalle" type="text" style="width:400px;" data-validar="esNoBlanco"/>
 				</div>
 			</fieldset>
 			<div class="btn-fld">

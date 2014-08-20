@@ -10,6 +10,9 @@
     <%= Referencias.Css("../")%>    
     
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+   
+
+   
 
     <link rel="stylesheet" href="EstilosPostular.css" />
 </head>
@@ -24,7 +27,7 @@
       <uc3:BarraMenuConcursar runat="server" />
 
         <nav style="min-width: 900px;">
-            <ul class="ul_cv" style="width:100%; margin-left:1%; margin-top:15px; margin-bottom:3px;">    
+            <ul class="ul_cv" style="width:100%; margin-left:1%; margin-top:5px; margin-bottom:3px;">    
                 <li class="menu_lista_formularios"><a href="#ancla1">Información Personal</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla2">Antecedentes Académicos</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla3">Actividades de Capacitación</a></li>
@@ -41,148 +44,162 @@
             <ul class="ul_cv" style="width:60%; margin-left:20%;">
                 <li class="menu_lista_formularios"><a href="#ancla11">Competencias Informáticas</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla12">Otras Capacidades</a></li>
-                <li class="menu_lista_formularios no_borde"><a href="#ancla13">Vista Preliminar</a></li>
+                <li class="menu_lista_formularios no_borde"><a href="CAMBIAR!">Vista Preliminar</a></li>
             </ul>
         </nav>
 
         <hr style="clear:both; background-color:#0088cc;" />
             <div class="accordion-group">
               <div id="ancla1" class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">INFORMACION PERSONAL</a>
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">INFORMACIÓN PERSONAL</a>
               </div>
               <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
                 <div id="contenedor_datosPersonales" class="accordion-inner fondo_form">
                     <fieldset style=" width:100%; min-width:500px;" >
-                      <p><em>*</em> Campos Obligatorios</p>
-                      <p style="text-transform:uppercase; font-weight:bold;">I.- Editar información personal</p>
-                        <div style="float:left; margin:8px" >
+                      <h5><em>*</em> Campos Obligatorios</h5>
+                      <p style="text-transform:uppercase; font-weight:bold;">VISUALIZACIÓN Y EDICIÓN DE LA INFORMACIÓN PERSONAL</p>
+                        
+                        <div class="grupo_campos nueva_linea" >
                           <label for="nombre">Nombre <em>*</em></label>
-                          <input id="nombre" type="text" style="width:150px;"  />
+                          <input id="nombre" type="text" style="width:160px;" data-validar="esNoBlanco" 
+                                maxlength="100" />
                         </div>
-                        <div style="float:left; margin:8px">
+                        <div class="grupo_campos">
                           <label for="apellido">Apellido <em>*</em></label>
-                          <input id="apellido" type="text" style="width:150px;" />
+                          <input id="apellido" type="text" style="width:160px;" data-validar="esNoBlanco" />
                         </div>
-                        <div style="float:left; margin:8px">
+                        <div id="contenedor_cmb_sexo" class="grupo_campos">
                             <label for="cmb_sexo">Sexo <em>*</em></label>
-                            <select id="cmb_sexo" name="cmb_sexo" dataProvider="Sexos" modelo="Sexo" style="width:100px;">
+                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" data-validar="esNoBlanco">
                             </select>
                         </div>
-                        <div style="float:left; margin:8px">
+                        <div id="contenedor_cmb_estado_civil" class="grupo_campos">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
-                         <select id="cmb_estadoCivil" name="cmb_estadoCivil" dataProvider="EstadosCiviles" modelo="EstadoCivil" style="width:100px;" >
+                         <select id="cmb_estadoCivil" style="width:160px;" name="cmb_estadoCivil" data-validar="esNoBlanco" >
                          </select>
                          </div>
-                        <div style="float:left; margin:8px; width:130px;">
-                          <label for="cuil">Cuil / Cuit <em>*</em></label>
-                          <input id="cuil" type="text" style="width:120px;" />
-                          <span style="float:left;">Ej.:20-22114543-5</span>
+                         <div class="grupo_campos nueva_linea">
+                           <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo Documento <em>*</em></label>
+                            <select id="cmb_tipoDocumento" style="width:170px;" name="cmb_tipoDocumento"  data-validar="esNoBlanco">
+                            </select>
+                          </div>
+                          <div class="grupo_campos">
+                              <label class="etiqueta_campo" for="txt_documento">Nro Documento <em>*</em></label>
+                              <input id="txt_documento" type="text" style="width:160px;"  data-validar="esNumeroNatural" />
+                          </div>
+                        <div class="grupo_campos">
+                          <label for="cuil">CUIL <em>*</em> <h5"> (Ej.:20-22114543-5)</h5></label>
+                           <input id="cuil" type="text" style="width:270px;"  data-validar="esNoBlanco" />
+                          
                         </div>
-                        <div style="float:left; clear:left; margin:8px">
-                             <label class="etiqueta_campo" for="cmb_lugar_nacimiento">Lugar nacimiento <em>*</em></label>
-                             <input type="text" id="cmb_lugar_nacimiento" style="width:120px;" />
+                         <div class="grupo_campos nueva_linea">
+                            <label class="etiqueta_campo" for="txt_fechaNac">Fecha Nacimiento <em>*</em></label>
+                            <input type="text" id="txt_fechaNac" style="width:110px;" name="txt_fechaNac" data-validar="esNoBlanco"/>
                         </div>
-                        <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo" for="txt_fechaNac">Fecha Nac <em>*</em></label>
-                            <input type="text" id="txt_fechaNac" style="width:120px;" name="txt_fechaNac" size="10"/>
+                        <div class="grupo_campos">
+                             <label class="etiqueta_campo" for="cmb_lugar_nacimiento">Lugar Nacimiento <em>*</em></label>
+                             <input type="text" id="cmb_lugar_nacimiento" style="width:210px;"  data-validar="esNoBlanco" />
                         </div>
-                      <div style="float:left; margin:8px">
+                      <div class="grupo_campos">
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
-                         <select id="cmb_nacionalidad" name="cmb_nacionalidad" dataProvider="Nacionalidades" modelo="Nacionalidad" style="width:250px;">
+                         <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad"  data-validar="esNoBlanco">
                          </select>
                       </div>
-                      <div style="float:left; margin:8px">
-                       <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo documento <em>*</em></label>
-                        <select id="cmb_tipoDocumento" name="cmb_tipoDocumento" dataProvider="TiposDeDocumento" modelo="TipoDocumento" style="width:100px;" >
-                        </select>
-                      </div>
-                      <div style="float:left; margin:8px">
-                          <label class="etiqueta_campo" for="txt_documento">Nro documento <em>*</em></label>
-                          <input id="txt_documento" type="text" style="width:150px;" />
-                      </div>
-                       <div style="float:left; margin:8px">
+                       <div class="grupo_campos nueva_linea">
                         <label class="etiqueta_campo" for="txt_calle1">Calle <em>*</em></label>
-                        <input type="text" id="txt_calle1" name="txt_calle1" size="20"/>
+                        <input type="text" id="txt_calle1" name="txt_calle1" style="width:350px;"  
+                               data-validar="esNoBlanco" maxlength="100"/>
                       </div>
 
-                       <div style="float:left; margin:8px; width:60px;">
+                       <div class="grupo_campos">
                         <label class="etiqueta_campo" for="txt_numero1">Número <em>*</em></label>
-                        <input type="text" id="txt_numero1" name="txt_numero1" style="width:50px"/>
+                        <input type="text" id="txt_numero1" name="txt_numero1" style="width:50px"  
+                               data-validar="esNumeroNatural" maxlength="20"/>
                        </div>      
-                       <div style="float:left; margin:8px; width:60px;">
+                       <div class="grupo_campos">
                         <label class="etiqueta_campo" for="txt_piso1">Piso</label>
-                        <input type="text" id="txt_piso1" name="txt_piso1" style="width:50px"/>
+                        <input type="text" id="txt_piso1" name="txt_piso1" style="width:30px"/>
                        </div>
-                      <div style="float:left; margin:8px; width:80px;">     
+                      <div class="grupo_campos">     
                           <label class="etiqueta_campo" for="txt_dto1">Dto</label>
-                          <input type="text" id="txt_dto1" name="txt_dto1" style="width:50px"/>
+                          <input type="text" id="txt_dto1" name="txt_dto1" style="width:30px"/>
                       </div> 
-                      <div style="float:left; margin:8px">
-                          <label class="etiqueta_campo_small" for="txt_cp1">Código postal <em>*</em></label>
-                          <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/><br/>
+                      <div class="grupo_campos">
+                          <label class="etiqueta_campo_small" for="txt_cp1">Código Postal <em>*</em></label>
+                          <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/  
+                              data-validar="esNumeroNatural" maxlength="10">
                       </div>
-                      <div style="float:left; margin:8px">     
+                      <div class="grupo_campos nueva_linea">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
-                        <select id="cmb_provincia1" name="cmb_provincia1" dataProvider="Provincias" modelo="DomicilioPersonal.Provincia" label="Nombre" style="width:200px;" >
+                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;"  data-validar="esNoBlanco">
                         </select>
                       </div> 
-                      <div style="float:left; margin:8px">
+                      <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
-                           <select id="cmb_localidad1" name="cmb_localidad1" dataProvider="Localidades" dependeDe="cmb_provincia1" modelo="DomicilioPersonal.Localidad" style="width:300px;" >
+                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;"  data-validar="esNoBlanco">
                             </select>
                       </div>
                     </fieldset>
+                    <br />
                     <fieldset style="width:100%;" >
-		                <p style="font-weight:bold; text-transform:uppercase;">II.- Información Requerida Para Recibir Notificaciones y Avisos</p>
-	                    <div style="float:left; margin:8px">
+		                <p style="font-weight:bold; text-transform:uppercase;">Información Requerida Para Recibir Notificaciones y Avisos</p>
+	                    <div class="grupo_campos nueva_linea">
                             <label class="etiqueta_campo" for="text_calle2">Calle <em>*</em></label>
-                            <input type="text" id="text_calle2" name="text_calle2" size="20"/>
+                            <input type="text" id="text_calle2" name="text_calle2" style="width:350px;"  
+                                data-validar="esNoBlanco" maxlength="100"/>
                         </div>
 
-                       <div style="float:left; margin:8px; width:60px;">
+                       <div class="grupo_campos">
                             <label class="etiqueta_campo" for="txt_numero2">Número <em>*</em></label>
-                            <input type="text" id="txt_numero2" name="txt_numero2" style="width:50px"/>
+                            <input type="text" id="txt_numero2" name="txt_numero2" style="width:50px"  
+                                data-validar="esNumeroNatural" maxlength="10"/>
                        </div>
        
-                       <div style="float:left; margin:8px; width:60px;">
+                       <div class="grupo_campos">
                             <label class="etiqueta_campo" for="txt_piso2">Piso</label>
-                            <input type="text" id="txt_piso2" name="txt_piso2" style="width:50px"/>
+                            <input type="text" id="txt_piso2" name="txt_piso2" style="width:30px" 
+                                maxlength="10"/>
                        </div>
 
-                      <div style="float:left; margin:8px; width:80px;">     
+                      <div class="grupo_campos">  
                           <label class="etiqueta_campo" for="txt_dto2">Dto</label>
-                          <input type="text" id="txt_dto2" name="txt_dto2" style="width:50px"/>
+                          <input type="text" id="txt_dto2" name="txt_dto2" style="width:30px" 
+                              maxlength="10"/>
                       </div>
 
-                      <div style="float:left; margin:8px">
-                          <label class="etiqueta_campo_small" for="txt_cp2">Código postal <em>*</em></label>
-                          <input type="text" id="txt_cp2" name="txt_cp2" style="width:50px"/><br/>
+                       <div class="grupo_campos">
+                            <label class="etiqueta_campo_small" for="txt_cp2">Código Postal <em>*</em></label>
+                          <input type="text" id="txt_cp2" name="txt_cp2" style="width:80px"  
+                                data-validar="esNumeroNatural" maxlength="20"/><br/>
                       </div>
 
-                      <div style="float:left; margin:8px">     
+                      <div class="grupo_campos nueva_linea"> 
                         <label class="etiqueta_campo" for="cmb_provincia2">Provincia <em>*</em></label>
-                        <select id="cmb_provincia2" name="cmb_provincia2" dataProvider="Provincias" modelo="DomicilioLegal.Provincia" label="Nombre" style="width:200px;" >
+                        <select id="cmb_provincia2" name="cmb_provincia2" style="width:320px;"  data-validar="esNoBlanco">
                         </select>
                       </div>
-                      <div style="float:left; margin:8px">
+                       <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad2">Localidad <em>*</em></label>
-                          <select id="cmb_localidad2" name="cmb_localidad2" dataProvider="Localidades" dependeDe="cmb_provincia2" modelo="DomicilioLegal.Localidad" style="width:300px;"></select>
+                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:320px;"  data-validar="esNoBlanco">
+                            </select>
                       </div>
-                        <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo" for="txt_telefonoFijo">Tel&eacute;fono fijo <em>*</em></label>
-                            <input type="text" id="txt_telefonoFijo" name="txt_telefonoFijo" style="width:100px;"/>
+
+                         <div class="grupo_campos nueva_linea">
+                            <label class="etiqueta_campo" for="txt_telefono">Tel&eacute;fono Fijo <em>*</em></label>
+                            <input type="text" id="txt_telefono" name="txt_telefonoFijo" style="width:140px;"  data-validar="esNoBlanco"/>
                         </div>
 
-                        <div style="float:left; margin:8px">
-                            <label class="etiqueta_campo" for="txt_telefonoCelular">Tel&eacute;fono celular</label>
-                            <input type="text" id="txt_telefonoCelular" name="txt_telefonoCelular" style="width:100px;"/>
+                        <div class="grupo_campos">
+                            <label class="etiqueta_campo" for="txt_telefono2">Tel&eacute;fono Celular</label>
+                            <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width:140px;"/>
                         </div>
 
-                       <div style="float:left; margin:8px; ">
-                            <label class="etiqueta_campo" for="txt_email">Email alternativo</label>
-                            <input type="text" id="txt_email" name="txt_email" style="width:100px"/>
+                        <div id="contenedor_mails"class="grupo_campos">
+                            <label class="etiqueta_campo" for="txt_email">Correo Electrónico</label>
+                            <input type="text" id="txt_email" name="txt_email" style="width:320px" data-validar="esEmailValido"/>
                        </div>
                       </fieldset>
+                      <br />
                       <div style="text-align: center;">
                         <input type="button"  class="btn" id="btn_guardar_datosPersonales"  value="Guardar"/>
                       </div>
@@ -424,7 +441,7 @@
               </div>
             </div>
 
-            <div class="accordion-group">
+           <%-- <div class="accordion-group">
               <div id="ancla13" class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThirteen">
                   VISTA PRELIMINIAR
@@ -437,7 +454,7 @@
                   </fieldset>
                 </div>
               </div>
-            </div>
+            </div>--%>
           </div>
     </div>
 
@@ -468,7 +485,6 @@
 </body>
 
 <script type="text/javascript" src="CvDatosPersonales.js" ></script>
-
 <script type="text/javascript" src="PanelDetalleDeAntecedenteAcademico.js" ></script>
 <script type="text/javascript" src="PanelListaDeAntecedentesAcademicos.js" ></script>
 <script type="text/javascript" src="PanelDetalleDeOtraCapacidad.js" ></script>
@@ -494,24 +510,23 @@
 <script type="text/javascript" src="PanelListaDeExperienciasLaborales.js" ></script>
 
 
-
 <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postulacion.js" ></script>
-<script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
-<script type="text/javascript" src="../Scripts/ComboPopuladoConRepoBuilder.js" ></script>
 <script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
+<script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
+
 
 <script type="text/javascript">
+    Backend.start();
 
     $(document).ready(function () {
-
         $(".collapse").collapse('show');
 
         var curriculum = JSON.parse($('#curriculum').val());
 
         CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
-        
+
         PanelListaDeOtrasCapacidades.armarGrilla(curriculum.CvCapacidadesPersonales);
         PanelListaDeAntecedentesAcademicos.armarGrilla(curriculum.CvEstudios);
         PanelListaDeCompetenciasInformaticas.armarGrilla(curriculum.CvCompetenciasInformaticas);
@@ -522,8 +537,8 @@
         PanelListaDeActividadesCapacitacion.armarGrilla(curriculum.CvCertificadosDeCapacitacion);
         PanelListaDeInstitucionesAcademicas.armarGrilla(curriculum.CvInstitucionesAcademicas);
         PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciaLaboral);
-        PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);     
-       
+        PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
+
         //Activar leanModal
         $('a[rel*=leanModalConcursar]').click(function () {
             var _this = $(this);
@@ -540,9 +555,29 @@
         });
 
         $('a[rel*=leanModalConcursar]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
+
+
         //Estilos para ver coloreada la grilla en Internet Explorer
         $("tbody tr:even").css('background-color', '#fff');
         $("tbody tr:odd").css('background-color', 'transparent ');
+
+        $("#IrArriba").hide();
+        $(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 200) {
+                    $('#IrArriba').fadeIn();
+                } else {
+                    $('#IrArriba').fadeOut();
+                }
+            });
+            $('#IrArriba a').click(function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
+            });
+        });
     });
+
 </script>
 </html>

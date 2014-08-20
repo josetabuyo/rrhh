@@ -103,12 +103,15 @@
     <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
+    <Compile Include="Postular\Comite.cs" />
+    <Compile Include="Postular\RepositorioDeComites.cs" />
     <Compile Include="Postular\Postulacion.cs" />
     <Compile Include="Postular\RepositorioDePostulaciones.cs" />
     <Compile Include="Postular\CvCapacidadPersonal.cs" />
     <Compile Include="Postular\Puesto.cs" />
     <Compile Include="Postular\Pais.cs" />
     <Compile Include="Postular\NivelDeIdioma.cs" />
+    <Compile Include="Repositorios\FiltroDeObjetos.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesDeIdioma.cs" />
     <Compile Include="Repositorios\RepositorioDePaises.cs" />
     <Compile Include="Postular\NivelDeDocencia.cs" />

@@ -1,7 +1,9 @@
 ﻿var PanelDetalleDeIdiomaExtranjero = {
     mostrar: function (opciones) {
         //valores default
-        var idioma_extranjero = opciones.idioma_extranjero || {};
+        var idioma_extranjero = opciones.idioma_extranjero || {
+            Pais: 9
+        };
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
@@ -14,7 +16,7 @@
             _this.txt_idioma_extranjero_fecha_obtencion.datepicker();
             _this.txt_idioma_extranjero_fecha_obtencion.datepicker('option', 'dateFormat', 'dd/mm/yy');
             _this.txt_idioma_extranjero_fecha_obtencion.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(idioma_extranjero.FechaObtencion));
-            
+
             _this.txt_idioma_extranjero_establecimiento = _this.ui.find("#txt_idioma_extranjero_establecimiento");
             _this.txt_idioma_extranjero_establecimiento.val(idioma_extranjero.Establecimiento);
             _this.cmb_idioma_extranjero_localidad = _this.ui.find("#cmb_idioma_extranjero_localidad");
@@ -22,7 +24,7 @@
 
             _this.cmb_idioma_extranjero_pais = new SuperCombo({
                 ui: _this.ui.find("#cmb_idioma_extranjero_pais"),
-                nombre_repositorio: "Paises",                
+                nombre_repositorio: "Paises",
                 id_item_seleccionado: idioma_extranjero.Pais
             });
 
@@ -47,55 +49,83 @@
                 id_item_seleccionado: idioma_extranjero.Oral
             });
 
+            //Bt cerrar
+            _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
+            _this.btn_cerrar.click(function () {
+                _this.ui.limpiarValidaciones();
+            });
+
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#btn_guardar");
             if (opciones.idioma_extranjero) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-                idioma_extranjero.Diploma = _this.txt_idioma_extranjero_diploma_certificacion.val();
-                idioma_extranjero.FechaObtencion = _this.txt_idioma_extranjero_fecha_obtencion.datepicker('getDate').toISOString();
-                idioma_extranjero.Establecimiento = _this.txt_idioma_extranjero_establecimiento.val();
-                idioma_extranjero.Localidad = _this.cmb_idioma_extranjero_localidad.val();
-                idioma_extranjero.Pais = _this.cmb_idioma_extranjero_pais.idItemSeleccionado();
-                idioma_extranjero.Idioma = _this.txt_idioma_extranjero_idioma.val();
-                idioma_extranjero.Lectura = _this.cmb_idioma_extranjero_lectura.idItemSeleccionado();
-                idioma_extranjero.Escritura = _this.cmb_idioma_extranjero_escritura.idItemSeleccionado();
-                idioma_extranjero.Oral = _this.cmb_idioma_extranjero_oral.idItemSeleccionado();
 
-                var proveedor_ajax = new ProveedorAjax();
+                if (_this.ui.esValido()) {
 
-                if (opciones.idioma_extranjero) {
+                    idioma_extranjero.Diploma = _this.txt_idioma_extranjero_diploma_certificacion.val();
+                    idioma_extranjero.FechaObtencion = _this.txt_idioma_extranjero_fecha_obtencion.datepicker('getDate').toISOString();
+                    idioma_extranjero.Establecimiento = _this.txt_idioma_extranjero_establecimiento.val();
+                    idioma_extranjero.Localidad = _this.cmb_idioma_extranjero_localidad.val();
+                    idioma_extranjero.Pais = _this.cmb_idioma_extranjero_pais.idItemSeleccionado();
+                    idioma_extranjero.Idioma = _this.txt_idioma_extranjero_idioma.val();
+                    idioma_extranjero.Lectura = _this.cmb_idioma_extranjero_lectura.idItemSeleccionado();
+                    idioma_extranjero.Escritura = _this.cmb_idioma_extranjero_escritura.idItemSeleccionado();
+                    idioma_extranjero.Oral = _this.cmb_idioma_extranjero_oral.idItemSeleccionado();
 
-                    proveedor_ajax.postearAUrl({ url: "ActualizarCvIdiomaExtranjero",
-                        data: {
-                            idioma_extranjero: idioma_extranjero
-                        },
-                        success: function (respuesta) {
+                    if (opciones.idioma_extranjero) {
+                        Backend.ActualizarCvIdiomaExtranjero([idioma_extranjero],
+                            function (respuesta) {
+                                alertify.alert("El idioma fue actualizado correctamente");
+                                alModificar(respuesta);
+                                $(".modal_close_concursar").click();
+                            },
+                            function (XMLHttpRequest, textStatus, errorThrown) {
+                                alertify.alert("Error al actualizar el idioma.");
+                            }
+                        );
+
+//                        proveedor_ajax.postearAUrl({ url: "ActualizarCvIdiomaExtranjero",
+//                            data: {
+//                                idioma_extranjero: idioma_extranjero
+//                            },
+//                            success: function (respuesta) {
+//                                alertify.alert("El idioma fue actualizado correctamente");
+//                                alModificar(respuesta);
+//                                $(".modal_close_concursar").click();
+//                            },
+//                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+//                                alertify.alert("Error al actualziar el idioma.");
+//                            }
+//                        });
+
+                        return;
+                    }
+                    Backend.GuardarCvIdiomaExtranjero([idioma_extranjero],
+                        function (respuesta) {
                             alertify.alert("El idioma fue actualizado correctamente");
                             alModificar(respuesta);
                             $(".modal_close_concursar").click();
                         },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alertify.alert("Error al actualziar el idioma.");
+                        function (XMLHttpRequest, textStatus, errorThrown) {
+                            alertify.alert("Error al guardar el idioma.");
                         }
-                    });
+                    );
 
-                    return;
+//                    proveedor_ajax.postearAUrl({ url: "GuardarCvIdiomaExtranjero",
+//                        data: {
+//                            idioma_extranjero: idioma_extranjero
+//                        },
+//                        success: function (respuesta) {
+//                            alertify.alert("El idioma fue guardado correctamente");
+//                            alModificar(respuesta);
+//                            $(".modal_close_concursar").click();
+//                        },
+//                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//                            alertify.alert("Error al guardar el idioma extranjero.");
+//                        }
+//                    });
                 }
-
-                proveedor_ajax.postearAUrl({ url: "GuardarCvIdiomaExtranjero",
-                    data: {
-                        idioma_extranjero: idioma_extranjero
-                    },
-                    success: function (respuesta) {
-                        alertify.alert("El idioma fue guardado correctamente");
-                        alModificar(respuesta);
-                        $(".modal_close_concursar").click();
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error al guardar el idioma extranjero.");
-                    }
-                });
             });
 
             var link_trucho = $("<a href='#un_div_modal'></a>");

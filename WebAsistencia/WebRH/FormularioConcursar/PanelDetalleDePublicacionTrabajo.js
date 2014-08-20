@@ -21,52 +21,63 @@
             _this.publicaciones_paginas = _this.ui.find("#txt_publicaciones_paginas");
             _this.publicaciones_paginas.val(publicacion.CantidadHojas);
             _this.publicaciones_dispone_copia = _this.ui.find("#txt_publicaciones_dispone_copia");
-            _this.publicaciones_dispone_copia.val(publicacion.DisponeCopia); 
+            _this.publicaciones_dispone_copia.val(publicacion.DisponeCopia);
+
+            //Bt cerrar
+            _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
+            _this.btn_cerrar.click(function () {
+                _this.ui.limpiarValidaciones();
+            });
+
 
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#btn_guardar");
             if (opciones.publicacion) _this.btn_guardar.val("Guardar Cambios");
 
             _this.btn_guardar.click(function () {
-                publicacion.Titulo = _this.publicaciones_titulo.val();
-                publicacion.DatosEditorial = _this.publicaciones_editorial.val();
-                publicacion.FechaPublicacion = _this.publicaciones_fecha.datepicker('getDate').toISOString();
-                publicacion.CantidadHojas = _this.publicaciones_paginas.val();
-                publicacion.DisponeCopia = _this.publicaciones_dispone_copia.val();
 
-                var proveedor_ajax = new ProveedorAjax();
+                if (_this.ui.esValido()) {
 
-                if (opciones.publicacion) {
-                    proveedor_ajax.postearAUrl({ url: "ActualizarCVPublicacionesTrabajos",
+                    publicacion.Titulo = _this.publicaciones_titulo.val();
+                    publicacion.DatosEditorial = _this.publicaciones_editorial.val();
+                    publicacion.FechaPublicacion = _this.publicaciones_fecha.datepicker('getDate').toISOString();
+                    publicacion.CantidadHojas = _this.publicaciones_paginas.val();
+                    publicacion.DisponeCopia = _this.publicaciones_dispone_copia.val();
+
+                    var proveedor_ajax = new ProveedorAjax();
+
+                    if (opciones.publicacion) {
+                        proveedor_ajax.postearAUrl({ url: "ActualizarCVPublicacionesTrabajos",
+                            data: {
+                                publicacion: publicacion
+                            },
+                            success: function (respuesta) {
+                                alertify.alert("La publicación fue actualizada correctamente");
+                                alModificar(respuesta);
+                                $(".modal_close_concursar").click();
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alertify.alert("Error al actualizar la publicación.");
+                            }
+                        });
+
+                        return;
+                    }
+
+                    proveedor_ajax.postearAUrl({ url: "GuardarCvPublicacionesTrabajos",
                         data: {
                             publicacion: publicacion
                         },
                         success: function (respuesta) {
-                            alertify.alert("La publicación fue actualizada correctamente");
+                            alertify.alert("Los datos fueron guardados correctamente");
                             alModificar(respuesta);
                             $(".modal_close_concursar").click();
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alertify.alert("Error al actualizar la publicación.");
+                            alertify.alert("Error al guardar la publicación.");
                         }
                     });
-
-                    return;
                 }
-
-                proveedor_ajax.postearAUrl({ url: "GuardarCvPublicacionesTrabajos",
-                    data: {
-                        publicacion: publicacion
-                    },
-                    success: function (respuesta) {
-                        alertify.alert("Los datos fueron guardados correctamente");
-                        alModificar(respuesta);
-                        $(".modal_close_concursar").click();
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error al guardar la publicación.");
-                    }
-                });
             });
 
             var link_trucho = $("<a href='#un_div_modal'></a>");
