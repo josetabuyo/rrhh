@@ -152,7 +152,7 @@
                        <div class="grupo_campos">
                             <label class="etiqueta_campo" for="txt_numero2">Número <em>*</em></label>
                             <input type="text" id="txt_numero2" name="txt_numero2" style="width:50px"  
-                                data-validar="esNumeroNatural" maxlength="10"/>
+                                data-validar="esNoBlanco,esNumeroNatural" maxlength="10"/>
                        </div>
        
                        <div class="grupo_campos">
@@ -170,7 +170,7 @@
                        <div class="grupo_campos">
                             <label class="etiqueta_campo_small" for="txt_cp2">Código Postal <em>*</em></label>
                           <input type="text" id="txt_cp2" name="txt_cp2" style="width:80px"  
-                                data-validar="esNumeroNatural" maxlength="20"/><br/>
+                                data-validar="esNoBlanco,esNumeroNatural" maxlength="20"/><br/>
                       </div>
 
                       <div class="grupo_campos nueva_linea"> 
@@ -191,7 +191,7 @@
 
                         <div class="grupo_campos">
                             <label class="etiqueta_campo" for="txt_telefonoCelular">Tel&eacute;fono Celular</label>
-                            <input type="text" id="txt_telefonoCelular" name="txt_telefonoCelular" style="width:140px;"/>
+                            <input type="text" id="txt_telefonoCelular" name="txt_telefonoCelular" style="width:140px;" data-validar="esNumeroNatural"/>
                         </div>
 
                         <div id="contenedor_mails"class="grupo_campos">
