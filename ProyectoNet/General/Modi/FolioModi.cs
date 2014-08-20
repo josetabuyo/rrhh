@@ -8,14 +8,15 @@ namespace General.Modi
     public class FolioModi
     {
         public int numero_folio { get; set; }
-        public ImagenModi imagen { get; set; }
+        public List<ImagenModi> imagenes { get; set; }
 
         public FolioModi()
         {
-
+            this.imagenes = new List<ImagenModi>();
         }
         public FolioModi(int nro_folio)
         {
+            this.imagenes = new List<ImagenModi>();
             this.numero_folio = nro_folio;
         }
     }
