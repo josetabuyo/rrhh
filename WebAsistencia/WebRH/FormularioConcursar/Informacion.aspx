@@ -20,22 +20,25 @@
         
         <div class="entry-content">
 		    <div id="texto-central">
-                <div id="texto-central-titulo">¿QUÉ ES UN CONCURSO?</div>
+                <div id="texto-central-titulo" class="titulo_postulaciones">¿QUÉ ES UN CONCURSO?</div>
                 <p>Es un proceso de selección que brinda la oportunidad de promover y ascender al personal de carrera para su incorporación a Planta 
                 Permanente. También da la opción de regularizar diferentes modalidades de contrataciones existentes hoy dentro del SINEP. Comprende tres 
                 grandes etapas: la INSCRIPCIÓN, el PROCESO DE EVALUACIÓN y, finalmente, ORDEN DE MÉRITO Y DESIGNACIÓN.</p>
-                <div id="texto-central-titulo"><strong>Etapas</strong></div>
+
+                <div id="texto-central-titulo"><strong class="titulo_postulaciones">Etapas</strong></div>
                 <p><img alt="1" src="http://www.mecon.gov.ar/concursos/images/nro1.png" /></p>
-                <div id="texto-central-titulo">Inscripción</div>
+
+                <div id="texto-central-titulo" class="sub_etapas">Inscripción</div>
                 <p><b>1.1) <span style="text-decoration: underline;">Pre inscripción electrónica</span>:</b><br />
-                Deberás ingresar a la WEB (<a href="" target="_parent">www.ministeriodesarrollosocial.gov.ar/concursos</a>) y cargar tus datos a través 
+                Deberás ingresar a la WEB (<a href="" target="_parent">www.desarrollosocial.gov.ar/concursos</a>) y cargar tus datos a través 
                 del Sistema Concursar. De esa carga se crearán una serie de formularios que necesitarás tener para completar la inscripción documental.<br />
                 <b>1.2) <span style="text-decoration: underline;">Inscripción documental</span>:</b><br />
                 Deberás acercarte para presentar los formularios impresos obtenidos en la pre-inscripción electrónica y el Currículum Vitae actualizado 
                 junto a TODA la documentación de respaldo para certificar los datos consignados en dichos formularios. (se solicitarán copias y 
                 originales, para validar las mismas)<b></b></p>
                 <p><img alt="" src="http://www.mecon.gov.ar/concursos/images/nro2.png" /></p>
-                <div id="texto-central-titulo">Proceso de evaluación:</div>
+
+                <div id="texto-central-titulo" class="sub_etapas">Proceso de evaluación:</div>
                 <p><b>2.1)</b> <b>Evaluación de Antecedentes Curriculares y Laborales:</b> El Comité de selección evaluará los antecedentes de los 
                 postulantes de acuerdo a la información y documentación que hayan presentado en la etapa de inscripción.<br />
                 <b>2.2) Evaluación Técnica:</b> De carácter presencial. Se evaluarán los conocimientos y capacidades del postulante según los 
@@ -44,8 +47,9 @@
                 adecuación a los requerimientos del puesto.<br />
                 <b>2.4) Evaluación del Perfil Psicológico: </b>Será realizada por profesional matriculado para ponderar la adecuación de las características de personalidad vinculadas con el desempeño laboral efectivo de acuerdo al puesto al cual concursa.</p>
                 <p><img alt="" src="http://www.mecon.gov.ar/concursos/images/nro3.png" /></p>
-                <div id="texto-central-titulo">Orden de mérito y de designación:</div>
-                <p><b>3.1)</b> El  Orden de Mérito se publicará en los sitio<a href="" >www.mecon.gov.ar/concursos</a> y 
+
+                <div id="texto-central-titulo" class="sub_etapas">Orden de mérito y de designación:</div>
+                <p><b>3.1)</b> El  Orden de Mérito se publicará en los sitio<a href="" >www.desarrollosocial.gov.ar/concursos</a> y 
                 <a href="" >www.concursar.gob.ar</a>.<br />
                 <b>3.2)</b> Se inicia el proceso de designación del cargo en Planta Permanente, mediante acto administrativo, conforme al Orden de 
                 Mérito y en función de la elección que manifestarán en caso de haber ganado más de un puesto.</p>
