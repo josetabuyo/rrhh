@@ -211,7 +211,7 @@ namespace General.Modi
                 {
                     int nro_folio = row.GetInt("nro_folio");
                     var folio = legajo.GetFolio(nro_folio);
-                    folio.imagen = imagen;
+                    folio.imagenes.Add(imagen);
                 }
                 else {
                     legajo.imagenesSinAsignar.Add(imagen);                
