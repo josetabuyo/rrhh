@@ -105,13 +105,17 @@
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
     <Compile Include="Postular\Comite.cs" />
     <Compile Include="Postular\RepositorioDeComites.cs" />
-    <Compile Include="Postular\Postulacion.cs" />
+<Compile Include="Postular\CvConocimientoCompetenciaInformatica.cs" />
+    <Compile Include="Postular\CvNivelCompetenciaInformatica.cs" />
+    <Compile Include="Postular\CvTipoCompetenciaInformatica.cs" />    <Compile Include="Postular\Postulacion.cs" />
     <Compile Include="Postular\RepositorioDePostulaciones.cs" />
     <Compile Include="Postular\CvCapacidadPersonal.cs" />
     <Compile Include="Postular\Puesto.cs" />
     <Compile Include="Postular\Pais.cs" />
     <Compile Include="Postular\NivelDeIdioma.cs" />
     <Compile Include="Repositorios\FiltroDeObjetos.cs" />
+    <Compile Include="Repositorios\RepositorioDeConocimientosCompetenciasInformaticas.cs" />
+    <Compile Include="Repositorios\RepositorioDeNivelesCompetenciasInformaticas.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesDeIdioma.cs" />
     <Compile Include="Repositorios\RepositorioDePaises.cs" />
     <Compile Include="Postular\NivelDeDocencia.cs" />
@@ -134,6 +138,7 @@
     <Compile Include="Postular\CvInstitucionesAcademicas.cs" />
     <Compile Include="Postular\CvMatricula.cs" />
     <Compile Include="Postular\CvPublicaciones.cs" />
+    <Compile Include="Repositorios\RepositorioDeTiposCompetenciaInformatica.cs" />
     <Compile Include="Repositorios\RepositorioDeTiposDeDocumento.cs" />
     <Compile Include="Postular\EstadoCivil.cs" />
     <Compile Include="Repositorios\RepositorioDeEstadoCivil.cs" />

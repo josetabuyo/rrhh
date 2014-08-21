@@ -17,6 +17,7 @@ using AdministracionDeUsuarios;
 using General.Sacc;
 using General.Sacc.Seguridad;
 using General.MAU;
+using General.Postular;
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -2690,6 +2691,27 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeNivelesDeIdioma.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
+    [WebMethod]
+    public CvNivelCompetenciaInformatica[] BuscarNivelCompetenciaInformatica(string criterio)
+    {
+        return RepositorioDeNivelesCompetenciasInformaticas.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+
+    [WebMethod]
+    public CvTipoCompetenciaInformatica[] BuscarTiposCompetenciaInformatica(string criterio)
+    {
+        return RepositorioDeTiposCompetenciaInformatica.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+    [WebMethod]
+    public CvConocimientoCompetenciaInformatica[] BuscarConocimientoCompetenciaInformatica(string criterio)
+    {
+        return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+
+    
     [WebMethod]
     public Pais[] BuscarPaises(string criterio)
     {

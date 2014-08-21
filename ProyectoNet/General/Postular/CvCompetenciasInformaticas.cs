@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.Postular;
 
 namespace General
 {
@@ -14,6 +15,7 @@ namespace General
         protected string _tipoInformatica;
         protected string _conocimiento;
         protected string _nivel;
+     
         protected string _localidad;
         protected int _pais;
         protected string _detalle;
