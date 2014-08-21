@@ -14,11 +14,15 @@ ProveedorAjax.prototype.postearAUrl = function (datos_del_post) {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (respuestaJson) {
-            var respuesta = JSON.parse(respuestaJson.d);
-            datos_del_post.success(respuesta);
+
+            if (respuestaJson.hasOwnProperty('d')) {
+                datos_del_post.success(JSON.parse(respuestaJson.d));
+            } else {
+                datos_del_post.success(respuestaJson);
+            }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            datos_del_post.error(errorThrown);
+            datos_del_post.error(XMLHttpRequest, textStatus, errorThrown);
         }
-    });  
+    });
 };
