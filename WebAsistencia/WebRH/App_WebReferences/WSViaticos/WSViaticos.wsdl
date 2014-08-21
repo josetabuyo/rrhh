@@ -736,6 +736,82 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="BuscarNivelCompetenciaInformatica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarNivelCompetenciaInformaticaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarNivelCompetenciaInformaticaResult" type="tns:ArrayOfCvNivelCompetenciaInformatica" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCvNivelCompetenciaInformatica">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvNivelCompetenciaInformatica" nillable="true" type="tns:CvNivelCompetenciaInformatica" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CvNivelCompetenciaInformatica">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuscarTiposCompetenciaInformatica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarTiposCompetenciaInformaticaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarTiposCompetenciaInformaticaResult" type="tns:ArrayOfCvTipoCompetenciaInformatica" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCvTipoCompetenciaInformatica">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvTipoCompetenciaInformatica" nillable="true" type="tns:CvTipoCompetenciaInformatica" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CvTipoCompetenciaInformatica">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuscarConocimientoCompetenciaInformatica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarConocimientoCompetenciaInformaticaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarConocimientoCompetenciaInformaticaResult" type="tns:ArrayOfCvConocimientoCompetenciaInformatica" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCvConocimientoCompetenciaInformatica">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvConocimientoCompetenciaInformatica" nillable="true" type="tns:CvConocimientoCompetenciaInformatica" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CvConocimientoCompetenciaInformatica">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarPaises">
         <s:complexType>
           <s:sequence>
@@ -2195,7 +2271,12 @@
       <s:complexType name="FolioModi">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="numero_folio" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="imagen" type="tns:ImagenModi" />
+          <s:element minOccurs="0" maxOccurs="1" name="imagenes" type="tns:ArrayOfImagenModi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfImagenModi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ImagenModi" nillable="true" type="tns:ImagenModi" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ImagenModi">
@@ -2204,11 +2285,6 @@
           <s:element minOccurs="1" maxOccurs="1" name="orden" type="s:float" />
           <s:element minOccurs="0" maxOccurs="1" name="bytesImagen" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfImagenModi">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ImagenModi" nillable="true" type="tns:ImagenModi" />
         </s:sequence>
       </s:complexType>
       <s:element name="BuscarLegajosParaDigitalizacionResponse">
@@ -4036,6 +4112,24 @@
   <wsdl:message name="BuscarNivelesDeIdiomaSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarNivelesDeIdiomaResponse" />
   </wsdl:message>
+  <wsdl:message name="BuscarNivelCompetenciaInformaticaSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarNivelCompetenciaInformatica" />
+  </wsdl:message>
+  <wsdl:message name="BuscarNivelCompetenciaInformaticaSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarNivelCompetenciaInformaticaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarTiposCompetenciaInformaticaSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarTiposCompetenciaInformatica" />
+  </wsdl:message>
+  <wsdl:message name="BuscarTiposCompetenciaInformaticaSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarTiposCompetenciaInformaticaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarConocimientoCompetenciaInformaticaSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarConocimientoCompetenciaInformatica" />
+  </wsdl:message>
+  <wsdl:message name="BuscarConocimientoCompetenciaInformaticaSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarConocimientoCompetenciaInformaticaResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarPaisesSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarPaises" />
   </wsdl:message>
@@ -5105,6 +5199,18 @@
       <wsdl:input message="tns:BuscarNivelesDeIdiomaSoapIn" />
       <wsdl:output message="tns:BuscarNivelesDeIdiomaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="BuscarNivelCompetenciaInformatica">
+      <wsdl:input message="tns:BuscarNivelCompetenciaInformaticaSoapIn" />
+      <wsdl:output message="tns:BuscarNivelCompetenciaInformaticaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarTiposCompetenciaInformatica">
+      <wsdl:input message="tns:BuscarTiposCompetenciaInformaticaSoapIn" />
+      <wsdl:output message="tns:BuscarTiposCompetenciaInformaticaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarConocimientoCompetenciaInformatica">
+      <wsdl:input message="tns:BuscarConocimientoCompetenciaInformaticaSoapIn" />
+      <wsdl:output message="tns:BuscarConocimientoCompetenciaInformaticaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarPaises">
       <wsdl:input message="tns:BuscarPaisesSoapIn" />
       <wsdl:output message="tns:BuscarPaisesSoapOut" />
@@ -5984,6 +6090,33 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarNivelesDeIdioma">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeIdioma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarNivelCompetenciaInformatica">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelCompetenciaInformatica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarTiposCompetenciaInformatica">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarTiposCompetenciaInformatica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarConocimientoCompetenciaInformatica">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarConocimientoCompetenciaInformatica" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7670,6 +7803,33 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarNivelesDeIdioma">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeIdioma" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarNivelCompetenciaInformatica">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelCompetenciaInformatica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarTiposCompetenciaInformatica">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarTiposCompetenciaInformatica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarConocimientoCompetenciaInformatica">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarConocimientoCompetenciaInformatica" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
