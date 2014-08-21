@@ -74,57 +74,22 @@
                     idioma_extranjero.Oral = _this.cmb_idioma_extranjero_oral.idItemSeleccionado();
 
                     if (opciones.idioma_extranjero) {
-                        Backend.ActualizarCvIdiomaExtranjero([idioma_extranjero],
-                            function (respuesta) {
-                                alertify.alert("El idioma fue actualizado correctamente");
-                                alModificar(respuesta);
-                                $(".modal_close_concursar").click();
-                            },
-                            function (XMLHttpRequest, textStatus, errorThrown) {
-                                alertify.alert("Error al actualizar el idioma.");
-                            }
-                        );
-
-//                        proveedor_ajax.postearAUrl({ url: "ActualizarCvIdiomaExtranjero",
-//                            data: {
-//                                idioma_extranjero: idioma_extranjero
-//                            },
-//                            success: function (respuesta) {
-//                                alertify.alert("El idioma fue actualizado correctamente");
-//                                alModificar(respuesta);
-//                                $(".modal_close_concursar").click();
-//                            },
-//                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-//                                alertify.alert("Error al actualziar el idioma.");
-//                            }
-//                        });
-
-                        return;
-                    }
-                    Backend.GuardarCvIdiomaExtranjero([idioma_extranjero],
-                        function (respuesta) {
+                        Backend.ActualizarCvIdiomaExtranjero(idioma_extranjero).then(function (respuesta) {
                             alertify.alert("El idioma fue actualizado correctamente");
                             alModificar(respuesta);
                             $(".modal_close_concursar").click();
-                        },
-                        function (XMLHttpRequest, textStatus, errorThrown) {
-                            alertify.alert("Error al guardar el idioma.");
-                        }
-                    );
-
-//                    proveedor_ajax.postearAUrl({ url: "GuardarCvIdiomaExtranjero",
-//                        data: {
-//                            idioma_extranjero: idioma_extranjero
-//                        },
-//                        success: function (respuesta) {
-//                            alertify.alert("El idioma fue guardado correctamente");
-//                            alModificar(respuesta);
-//                            $(".modal_close_concursar").click();
-//                        },
-//                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-//                            alertify.alert("Error al guardar el idioma extranjero.");
-//                        }
-//                    });
+                        }, function (error) {
+                            alertify.alert("Error al actualizar el idioma.");
+                        });
+                        return;
+                    }
+                    Backend.GuardarCvIdiomaExtranjero(idioma_extranjero).then(function (respuesta) {
+                        alertify.alert("El idioma fue guardado correctamente");
+                        alModificar(respuesta);
+                        $(".modal_close_concursar").click();
+                    },function (error) {
+                        alertify.alert("Error al guardar el idioma.");
+                    });
                 }
             });
 
