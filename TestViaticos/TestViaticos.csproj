@@ -98,6 +98,7 @@
     <Compile Include="TestSACC\TestEvaluaciones.cs" />
     <Compile Include="TestSACC\TestRepositorioEspaciosFisicos.cs" />
     <Compile Include="TestSACC\TestRepositorioEvaluaciones.cs" />
+    <Compile Include="TestValidaciones.cs" />
     <Compile Include="TestValidador.cs" />
     <Compile Include="TestSACC\TestCalendarioDeCurso.cs" />
     <Compile Include="TestSACC\TestPlanillaMensual.cs" />

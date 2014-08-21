@@ -7,9 +7,19 @@
             },
             mensaje: "Ingrese un mail válido"
         },
+
         esNumeroNatural: {
             evaluar: function (control) {
                 if (control.val() == "") return true;
+                return (/^\d+$/).test(control.val());
+            },
+            mensaje: "Ingrese dato numérico"
+        },
+
+        esNumeroNaturalSinCero: {
+            evaluar: function (control) {
+                if (control.val() == "") return true;
+                if (control.val() == 0) return false;
                 return (/^\d+$/).test(control.val());
             },
             mensaje: "Ingrese dato numérico"
@@ -28,7 +38,16 @@
                 return control.val().toString().length > 0;
             },
             mensaje: "El campo es obligatorio"
-        }
+        },
+
+        longitudMaxima: {
+            evaluar: function (control, maxLong) {
+                if (control.val() == "") return true;
+                this.mensaje = "La longitud del texto ingresado debe ser menor a " + maxLong.toString();
+                return control.val().toString().length <= maxLong;
+            },
+            mensaje: ""
+        },
     },
     esValido: function () {
         var control = $(this);
@@ -52,9 +71,19 @@
 
         var v = control.attr("data-validar").split(",");
         var mensaje = "";
-        $.each(v, function (indice, valor) {
-            if (!control.validaciones[valor].evaluar(control)) {
-                mensaje += ", " + control.validaciones[valor].mensaje;
+        $.each(v, function (indice, validacion) {
+            var parseo = validacion.split("(");
+            var nombre_validacion = parseo[0].trim();
+            var argumento_validacion;
+            if(parseo.length>1){
+                argumento_validacion = parseo[1].split(")")[0];
+            }
+            if (!control.validaciones[nombre_validacion]) {
+                console.log("La validacion " + nombre_validacion + " no existe");
+                return;
+            }
+            if (!control.validaciones[nombre_validacion].evaluar(control, argumento_validacion)) {
+                mensaje += ", " + control.validaciones[nombre_validacion].mensaje;
                 es_valido = false;
             }
         });

@@ -16,6 +16,7 @@ namespace General
         protected int _vacantes;
         protected string _tipoConvocatoria;
         protected string _numero;
+        protected Comite _comite;
 
         public virtual int Id { get { return _id; } set { _id = value; } }
         public virtual string Familia { get { return _familia; } set { _familia = value; } }
@@ -26,8 +27,9 @@ namespace General
         public virtual int Vacantes { get { return _vacantes; } set { _vacantes = value; } }
         public virtual string Tipo { get { return _tipoConvocatoria; } set { _tipoConvocatoria = value; } }
         public virtual string Numero { get { return _numero; } set { _numero = value; } }
+        public virtual Comite Comite { get { return _comite; } set { _comite = value; } }
 
-        public Puesto(int id, string familia, string profesion, string denominacion,string nivel, string agrupamiento, int vacantes, string tipo, string numero)
+        public Puesto(int id, string familia, string profesion, string denominacion,string nivel, string agrupamiento, int vacantes, string tipo, string numero, Comite comite)
         {
             this._id = id;
             this._familia = familia;
@@ -38,6 +40,7 @@ namespace General
             this._vacantes = vacantes;
             this._tipoConvocatoria = tipo;
             this._numero = numero;
+            this._comite = comite;
         }
 
         public Puesto() { }
