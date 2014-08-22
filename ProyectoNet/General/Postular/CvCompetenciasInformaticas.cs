@@ -13,8 +13,8 @@ namespace General
         protected DateTime _fechaObtencion;
         protected string _establecimiento;
         protected int _tipoInformatica;
-        protected string _conocimiento;
-        protected string _nivel;
+        protected int _conocimiento;
+        protected int _nivel;
      
         protected string _localidad;
         protected int _pais;
@@ -24,14 +24,14 @@ namespace General
         public string Diploma { get { return _diploma; } set { _diploma = value; } }
         public string Establecimiento { get { return _establecimiento; } set { _establecimiento = value; } }
         public int TipoInformatica { get { return _tipoInformatica; } set { _tipoInformatica = value; } }
-        public string Conocimiento { get { return _conocimiento; } set { _conocimiento = value; } }
-        public string Nivel { get { return _nivel; } set { _nivel = value; } }
+        public int Conocimiento { get { return _conocimiento; } set { _conocimiento = value; } }
+        public int Nivel { get { return _nivel; } set { _nivel = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Pais { get { return _pais; } set { _pais = value; } }
         public DateTime FechaObtencion { get { return _fechaObtencion; } set { _fechaObtencion = value; } }
         public string Detalle { get { return _detalle; } set { _detalle = value; } }
 
-        public CvCompetenciasInformaticas(int id, string diploma, string establecimiento, int tipoInformatica, string conocimiento, string nivel, string localidad, int pais, DateTime fechaObtencion, string detalle)
+        public CvCompetenciasInformaticas(int id, string diploma, string establecimiento, int tipoInformatica, int conocimiento, int nivel, string localidad, int pais, DateTime fechaObtencion, string detalle)
         {
             this._id = id;
             this._diploma = diploma;
