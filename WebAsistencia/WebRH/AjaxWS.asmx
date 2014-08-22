@@ -521,7 +521,7 @@ public class AjaxWS : System.Web.Services.WebService {
     [WebMethod(EnableSession = true)]
     public string EliminarCVActividadDocente(int id_actividad_docente)
     {
-        var antecedentesAcademicos = backEndService.EliminarCvAntecedenteAcademico(id_actividad_docente, usuarioLogueado);
+        var antecedentesAcademicos = backEndService.EliminarCvActividadDocente(id_actividad_docente, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicos);
     }
 

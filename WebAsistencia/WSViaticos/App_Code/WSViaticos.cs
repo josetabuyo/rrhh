@@ -2485,7 +2485,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvActividadesDocentes(int actividades_docentes_a_borrar, Usuario usuario)
+    public bool EliminarCvActividadDocente(int actividades_docentes_a_borrar, Usuario usuario)
     {
         return RepoCurriculum().EliminarCvActividadDocente(actividades_docentes_a_borrar, usuario);
     }

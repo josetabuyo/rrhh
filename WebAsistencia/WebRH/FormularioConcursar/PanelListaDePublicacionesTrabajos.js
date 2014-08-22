@@ -16,12 +16,11 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Id", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.Id } }));
         columnas.push(new Columna("Título", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.Titulo } }));
         columnas.push(new Columna("Datos de Editorial/Revista", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.DatosEditorial } }));
         columnas.push(new Columna("Fecha", { generar: function (una_publicacion_trabajo) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_publicacion_trabajo.FechaPublicacion) } }));
-        columnas.push(new Columna("Páginas", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.CantidadHojas } }));
-        columnas.push(new Columna("Dispone Copias", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.DisponeCopia} }));
+        //columnas.push(new Columna("Páginas", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.CantidadHojas } }));
+        //columnas.push(new Columna("Dispone Copias", { generar: function (una_publicacion_trabajo) { return una_publicacion_trabajo.DisponeCopia} }));
         columnas.push(new Columna('Acciones', {
             generar: function (una_publicacion_trabajo) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
