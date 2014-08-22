@@ -31,10 +31,10 @@ VistaDeImagen.prototype.start = function () {
                             new Alerta("El folio ingresado no existe");
                             return;
                         }
-                        if (div_folio.find(".imagen_miniatura").length != 0) {
-                            new Alerta("Ya hay una imagen asignada al folio ingresado");
-                            return;
-                        }
+//                        if (div_folio.find(".imagen_miniatura").length != 0) {
+//                            new Alerta("Ya hay una imagen asignada al folio ingresado");
+//                            return;
+//                        }
                         _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
                             _this.id,
                             nro_folio,

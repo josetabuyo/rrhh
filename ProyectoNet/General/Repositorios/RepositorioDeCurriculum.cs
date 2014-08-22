@@ -401,7 +401,7 @@ namespace General.Repositorios
                                               Id = dRow.GetInt("IdCompetenciaInformatica", 0),
                                               Diploma = dRow.GetString("CompetenciaDiploma", string.Empty),
                                               Establecimiento = dRow.GetString("CompetenciaEstablecimiento", string.Empty),
-                                              TipoInformatica = dRow.GetString("CompetenciaTipoInformatica", string.Empty),
+                                              TipoInformatica = dRow.GetInt("CompetenciaTipoInformatica", 0),
                                               Conocimiento = dRow.GetString("CompetenciaConocimiento", string.Empty),
                                               Nivel = dRow.GetString("CompetenciaNivel", string.Empty),
                                               Localidad = dRow.GetString("CompetenciaLocalidad", string.Empty),
@@ -1350,9 +1350,9 @@ namespace General.Repositorios
         {
             var validador_competencia = new Validador();
                                     
-            validador_competencia.DeberianSerNoVacias(new string[]{ "Diploma", "TipoInformatica", "Detalle", "Establecimiento", "Localidad" });
+            validador_competencia.DeberianSerNoVacias(new string[]{ "Diploma", "Detalle", "Establecimiento", "Localidad" });
             validador_competencia.DeberianSerFechasNoVacias(new string[] { "FechaObtencion" });
-            validador_competencia.DeberianSerNaturales(new string[] { "Conocimiento", "Nivel", "Pais" });
+            validador_competencia.DeberianSerNaturales(new string[] { "TipoInformatica", "Conocimiento", "Nivel", "Pais" });
 
             if (!validador_competencia.EsValido(una_competencia))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");

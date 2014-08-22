@@ -202,22 +202,15 @@
 </body>
 <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="FichaDeclaracionJurada.js" ></script>
-<script type="text/javascript" src="../Scripts/Backend.js" ></script>
-<script type="text/javascript" src="../Scripts/Repositorio.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 
 <script type="text/javascript">
+    Backend.start();
 
-     $(document).ready(function () {
-
-         curriculum = JSON.parse($('#curriculum').val());
-
-
-         FichaDeclaracionJurada.armarFicha();
-
-     });
-
-
+    $(document).ready(function () {
+        curriculum = JSON.parse($('#curriculum').val());
+        FichaDeclaracionJurada.armarFicha();
+    });
 
 </script>
 
