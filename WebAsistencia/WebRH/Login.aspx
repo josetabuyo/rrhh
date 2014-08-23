@@ -33,15 +33,9 @@
         <div id="registrarse_dialog"></div>
     </div>
     </form>
-    <%= Referencias.Javascript("") %>
-    <script type="text/javascript" src="Scripts/vex-2.1.1/js/vex.combined.min.js"></script>
-    <script type="text/javascript" src="RegistroPostular/PantallaRegistro.js">  </script>
+    <%--<%= Referencias.Javascript("") %>--%>
+<%--    <script type="text/javascript" src="Scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+    <script type="text/javascript" src="RegistroPostular/PantallaRegistro.js">  </script>--%>
+    <script data-main="Login.js" src="Scripts/require.js">  </script>
 </body>
-<script>
-    vex.defaultOptions.className = 'vex-theme-os';
-    var lnk_registrarse = $("#lnk_registrarse");
-    lnk_registrarse.click(function () {
-        PantallaRegistro.abrir();
-    });
-</script>
 </html>

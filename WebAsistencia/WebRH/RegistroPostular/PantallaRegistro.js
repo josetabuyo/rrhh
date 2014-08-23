@@ -1,101 +1,103 @@
-﻿var PantallaRegistro = {
-    abrir: function () {
-        var _this = this;
-        this.ui = $("#registrarse_dialog");
+﻿define(["jquery", "ProveedorAjax", "alertify", "dialog", "vex",  "validaciones"], function ($, ProveedorAjax, alertify, dialog, vex) {
+    return {
+        abrir: function () {
+            var _this = this;
+            this.ui = $("#registrarse_dialog");
 
-        this.ui.load("RegistroPostular/PantallaRegistro.htm", function () {
-            _this.panel_paso_1 = $("#panel_paso_1");
-            _this.panel_paso_2 = $("#panel_paso_2");
-            _this.abrir = function () {
+            this.ui.load("RegistroPostular/PantallaRegistro.htm", function () {
+                _this.panel_paso_1 = $("#panel_paso_1");
+                _this.panel_paso_2 = $("#panel_paso_2");
+                _this.abrir = function () {
+                    _this.mostrar();
+                };
                 _this.mostrar();
-            };
-            _this.mostrar();
-        });
+            });
 
 
-        this.proveedor_ajax = new ProveedorAjax();
-    },
-    mostrar: function () {
-        vex.dialog.open({
-            message: "Ingrese su DNI",
-            input: this.ui,
-            buttons: [
+            this.proveedor_ajax = new ProveedorAjax();
+        },
+        mostrar: function () {
+            dialog.open({
+                message: "Ingrese su DNI",
+                input: this.ui,
+                buttons: [
                 ]
-        });
-        this.ui.limpiarValidaciones();
-        this.paso1();
-    },
-    paso1: function () {
-        var _this = this;
-        this.btn_validar = $("#btn_validar");
-        this.txt_numero_documento = $("#txt_numero_documento");
-        this.txt_numero_documento.val("");
-        this.panel_paso_1.show();
-        this.panel_paso_2.hide();
-        this.btn_validar.click(function () {
-            if (_this.panel_paso_1.esValido()) {
-                _this.proveedor_ajax.postearAUrl({ url: "BuscarPersonas",
-                    data: { 
-                        criterio: JSON.stringify({
-                                        Documento: parseInt(_this.txt_numero_documento.val()),
-                                        ConLegajo: true
-                                    })
-                    },
-                    success: function (personas) {
-                        if (personas.length > 0) {
-                            alertify.alert("El documento ingresado ya está registrado, inicie sesión o comuníquese con Recursos Humanos.");
-                            return;
+            });
+            this.ui.limpiarValidaciones();
+            this.paso1();
+        },
+        paso1: function () {
+            var _this = this;
+            this.btn_validar = $("#btn_validar");
+            this.txt_numero_documento = $("#txt_numero_documento");
+            this.txt_numero_documento.val("");
+            this.panel_paso_1.show();
+            this.panel_paso_2.hide();
+            this.btn_validar.click(function () {
+                if (_this.panel_paso_1.esValido()) {
+                    _this.proveedor_ajax.postearAUrl({ url: "BuscarPersonas",
+                        data: {
+                            criterio: JSON.stringify({
+                                Documento: parseInt(_this.txt_numero_documento.val()),
+                                ConLegajo: true
+                            })
+                        },
+                        success: function (personas) {
+                            if (personas.length > 0) {
+                                alertify.alert("El documento ingresado ya está registrado, inicie sesión o comuníquese con Recursos Humanos.");
+                                return;
+                            }
+                            _this.paso2();
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
                         }
-                        _this.paso2();
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    });
+                }
+            });
+        },
+        paso2: function () {
+            var _this = this;
+            this.panel_paso_1.hide();
+            this.panel_paso_2.show();
 
-                    }
-                });
-            }
-        });
-    },
-    paso2: function () {
-        var _this = this;
-        this.panel_paso_1.hide();
-        this.panel_paso_2.show();
+            $(".vex-dialog-message").text("Complete sus datos");
+            this.lbl_numero_documento = $("#lbl_numero_documento");
+            this.lbl_numero_documento.text("");
+            this.txt_nombre = $("#txt_nombre");
+            this.txt_nombre.val("");
+            this.txt_apellido = $("#txt_apellido");
+            this.txt_apellido.val("");
+            this.txt_email = $("#txt_email");
+            this.txt_email.val("");
+            this.btn_registrarse = $("#btn_registrarse");
 
-        $(".vex-dialog-message").text("Complete sus datos");
-        this.lbl_numero_documento = $("#lbl_numero_documento");
-        this.lbl_numero_documento.text("");
-        this.txt_nombre = $("#txt_nombre");
-        this.txt_nombre.val("");
-        this.txt_apellido = $("#txt_apellido");
-        this.txt_apellido.val("");
-        this.txt_email = $("#txt_email");
-        this.txt_email.val("");
-        this.btn_registrarse = $("#btn_registrarse");
+            this.lbl_numero_documento.text(this.txt_numero_documento.val());
 
-        this.lbl_numero_documento.text(this.txt_numero_documento.val());
+            this.btn_registrarse.click(function () {
+                var controles_ = true;
 
-        this.btn_registrarse.click(function () {
-            var controles_ = true;
-
-            if (_this.panel_paso_2.esValido()) {
-                _this.proveedor_ajax.postearAUrl({ url: "RegistrarNuevoUsuario",
-                    data: {
-                        aspirante: {
-                            Documento: _this.txt_numero_documento.val(),
-                            Nombre: _this.txt_nombre.val(),
-                            Apellido: _this.txt_apellido.val(),
-                            Email: _this.txt_email.val()
+                if (_this.panel_paso_2.esValido()) {
+                    _this.proveedor_ajax.postearAUrl({ url: "RegistrarNuevoUsuario",
+                        data: {
+                            aspirante: {
+                                Documento: _this.txt_numero_documento.val(),
+                                Nombre: _this.txt_nombre.val(),
+                                Apellido: _this.txt_apellido.val(),
+                                Email: _this.txt_email.val()
+                            }
+                        },
+                        success: function () {
+                            alertify.alert("Se le ha enviado un mail con su nombre de usuario y contraseña", function () {
+                                vex.closeAll();
+                            });
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alertify.alert("Error al registrar el usuario, inténtelo nuevamente.");
                         }
-                    },
-                    success: function () {
-                        alertify.alert("Se le ha enviado un mail con su nombre de usuario y contraseña", function(){
-                            vex.closeAll();
-                        });
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error al registrar el usuario, inténtelo nuevamente.");
-                    }
-                });
-            }
-        });
-    }
-};
+                    });
+                }
+            });
+        }
+    };
+});
