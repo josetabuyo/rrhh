@@ -62,7 +62,8 @@
         ));
 
         this.GrillaActividadesDocentes = new Grilla(columnas);
-        this.GrillaActividadesDocentes.AgregarEstilo("table table-striped");
+        this.GrillaActividadesDocentes.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaActividadesDocentes.CambiarEstiloCabecera("cabecera_tabla_postular");
         this.GrillaActividadesDocentes.SetOnRowClickEventHandler(function (una_actividad_docente) {
         });
 

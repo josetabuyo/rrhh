@@ -48,7 +48,8 @@
         ));
 
         this.GrillaPublicaciones = new Grilla(columnas);
-        this.GrillaPublicaciones.AgregarEstilo("table table-striped");
+        this.GrillaPublicaciones.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaPublicaciones.CambiarEstiloCabecera("cabecera_tabla_postular");
         this.GrillaPublicaciones.SetOnRowClickEventHandler(function (una_publicacion_trabajo) {
         });
 

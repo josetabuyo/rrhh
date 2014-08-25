@@ -25,9 +25,10 @@
             return linkPDF;
         }
         }));
-    columnas.push(new Columna("Comité&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", { generar: function (un_puesto) {
-            var linkComite = $('<a>');
-            linkComite[0].innerText = "Comite: " + un_puesto.Comite.Numero;
+        columnas.push(new Columna("Comité&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", { generar: function (un_puesto) {
+            var linkComite = $('<p>');
+            //linkComite.attr('href', '#');
+            linkComite[0].innerText = "Comite " + un_puesto.Comite.Numero;
 
             linkComite.click(function (e) {
                 var proveedor_ajax = new ProveedorAjax();
@@ -49,9 +50,11 @@
 
 
             return linkComite;
-            }}));
+        }
+        }));
         columnas.push(new Columna('Acciones', { generar: function (un_puesto) {
             var linkPostularse = $('<a>');
+            linkPostularse.attr('href', '#');
             linkPostularse[0].innerText = "Postularse";
 
             linkPostularse.click(function (e) {
@@ -71,11 +74,12 @@
             });
 
             return linkPostularse;
-        } 
+        }
         }));
 
         this.GrillaDePuestos = new Grilla(columnas);
-        this.GrillaDePuestos.AgregarEstilo("table table-striped");
+        this.GrillaDePuestos.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaDePuestos.CambiarEstiloCabecera("cabecera_tabla_pantalla_cargos");
         this.GrillaDePuestos.SetOnRowClickEventHandler(function (un_puesto) {
         });
 

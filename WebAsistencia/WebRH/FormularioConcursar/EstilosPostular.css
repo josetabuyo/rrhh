@@ -167,13 +167,13 @@ border-bottom: 1px solid #929292;
 }  
 
 #accordion .accordion-inner {  
-    background: -webkit-linear-gradient(top,  #fff 0%,#E1E5F1 100%); /* Chrome10+,Safari5.1+ */ 
-    background: -moz-linear-gradient(top,  #fff 0%,  #E1E5F1 100%); /* FF3.6+ */  
-    background: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#fff), color-stop(100%, #E1E5F1)); /* Chrome,Safari4+ */  
-    background: -webkit-linear-gradient(top,  #fff 0%,#E1E5F1 100%); /* Chrome10+,Safari5.1+ */  
-    background: -o-linear-gradient(top,  #fff 0%, #E1E5F1 100%); /* Opera 11.10+ */  
-    background: -ms-linear-gradient(top,  #fff 0%,#E1E5F1 100%); /* IE10+ */  
-    background: linear-gradient(to bottombottom,  #fff 0%,#E1E5F1 100%); /* W3C */   
+    background: -webkit-linear-gradient(top,  #fff 0%,#F8FAFD 100%); /* Chrome10+,Safari5.1+ */ 
+    background: -moz-linear-gradient(top,  #fff 0%,  #F8FAFD 100%); /* FF3.6+ */  
+    background: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#fff), color-stop(100%, #F8FAFD)); /* Chrome,Safari4+ */  
+    background: -webkit-linear-gradient(top,  #fff 0%,#F8FAFD 100%); /* Chrome10+,Safari5.1+ */  
+    background: -o-linear-gradient(top,  #fff 0%, #F8FAFD 100%); /* Opera 11.10+ */  
+    background: -ms-linear-gradient(top,  #fff 0%,#F8FAFD 100%); /* IE10+ */  
+    background: linear-gradient(to bottombottom,  #fff 0%,#F8FAFD 100%); /* W3C */   
 }  /*
 #accordion .accordion-inner:last-of-type {  
     box-shadow: inset 0px 1px 1px 0px rgba(0, 0, 0, .2),  
@@ -368,18 +368,18 @@ nav
     }
 
         .fondo_form {
-            background: -moz-linear-gradient(top,  #fff 0%,  #E1E5F1 100%); /* FF3.6+ */  
-            background: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#fff), color-stop(100%, #E1E5F1)); /* Chrome,Safari4+ */  
-            background: -webkit-linear-gradient(top,  #fff 0%,#E1E5F1 100%); /* Chrome10+,Safari5.1+ */  
-            background: -o-linear-gradient(top,  #fff 0%, #E1E5F1 100%); /* Opera 11.10+ */  
-            background: -ms-linear-gradient(top,  #fff 0%,# E1E5F1 100%); /* IE10+ */  
-            background: linear-gradient(to bottombottom,  #fff 0%,#E1E5F1 100%); /* W3C */  
+            background: -moz-linear-gradient(top,  #fff 0%,  #F8FAFD 100%); /* FF3.6+ */  
+            background: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#fff), color-stop(100%, #F8FAFD)); /* Chrome,Safari4+ */  
+            background: -webkit-linear-gradient(top,  #fff 0%,#F8FAFD 100%); /* Chrome10+,Safari5.1+ */  
+            background: -o-linear-gradient(top,  #fff 0%, #F8FAFD 100%); /* Opera 11.10+ */  
+            background: -ms-linear-gradient(top,  #fff 0%,#F8FAFD 100%); /* IE10+ */  
+            background: linear-gradient(to bottombottom,  #fff 0%,#F8FAFD 100%); /* W3C */  
            /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#87a7ad',GradientType=0 ); /* IE6-9   */
    
             /*PARA QUE SE VEA EN IE VIEJOS*/
      
             /* COMENTADO*/
-            -pie-background: linear-gradient(#fff 0%, #E1E5F1 100%, #fff) 0 / 50px #0ae;
+            -pie-background: linear-gradient(#fff 0%, #F8FAFD 100%, #fff) 0 / 50px #0ae;
             behavior: url(../Estilos/css3_for_ie/PIE.htc);
             /*background: #E1E5F1; */
         }
@@ -411,14 +411,14 @@ nav
         .pastilla_postulaciones 
         {
             border-radius: 10px;
-            background: #FAFAFA;
+            background: #F8FAFD;
             border: 1px outset #ccc;
-            background: -moz-linear-gradient(top,  #fff 0%,  #E1E5F1 100%); /* FF3.6+ */  
-            background: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#fff), color-stop(100%, #E1E5F1)); /* Chrome,Safari4+ */  
-            background: -webkit-linear-gradient(top,  #fff 0%,#E1E5F1 100%); /* Chrome10+,Safari5.1+ */  
-            background: -o-linear-gradient(top,  #fff 0%, #E1E5F1 100%); /* Opera 11.10+ */  
-            background: -ms-linear-gradient(top,  #fff 0%,# E1E5F1 100%); /* IE10+ */  
-            background: linear-gradient(to bottombottom,  #fff 0%,#E1E5F1 100%); /* W3C */  
+            background: -moz-linear-gradient(top,  #fff 0%,  #F8FAFD 100%); /* FF3.6+ */  
+            background: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#fff), color-stop(100%, #F8FAFD)); /* Chrome,Safari4+ */  
+            background: -webkit-linear-gradient(top,  #fff 0%,#F8FAFD 100%); /* Chrome10+,Safari5.1+ */  
+            background: -o-linear-gradient(top,  #fff 0%, #F8FAFD 100%); /* Opera 11.10+ */  
+            background: -ms-linear-gradient(top,  #fff 0%,# F8FAFD 100%); /* IE10+ */  
+            background: linear-gradient(to bottombottom,  #fff 0%,#F8FAFD 100%); /* W3C */  
            /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#87a7ad',GradientType=0 ); /* IE6-9   */
    
             /*PARA QUE SE VEA EN IE VIEJOS*/
@@ -426,6 +426,31 @@ nav
             /* COMENTADO*/
             -pie-background: linear-gradient(#fff 0%, #E1E5F1 100%, #fff) 0 / 50px #0ae;
             behavior: url(../Estilos/css3_for_ie/PIE.htc);
+        }
+        
+        .cabecera_tabla_postular {
+            font-family: Calibri,Verdana,Arial !important;
+            font-size: 15px !important;
+            background-color: #D9DCED !important;
+            /*color:#0088cc;*/
+            
+        }
+        
+        .cabecera_tabla_postular tr th 
+        {
+            text-align: center !important;
+            border-right:1px solid #91909E;
+        }
+            
+        .cabecera_tabla_pantalla_cargos 
+        {
+            color:#fff;
+            background-color: #2184be !important;
+        }
+        
+        .cuerpo_tabla_puesto tr td {
+            text-align: center;
+            vertical-align: middle;
         }
      
      
@@ -1012,10 +1037,12 @@ margin: 15px 0 15px 0;
 /*---------ESTILOS DE LOS PASOS EN LA INSCRIPCION ---------------*/
 
 .pasos {
-    position: relative;
+    position: absolute;
     display: block;
-    width: 100%;
-    margin-left: 15%;
+    width: 90%;
+    /*margin-left: 15%;*/
+    left: 25%;
+    top:10px;
 }
         
 .pasos ul {
@@ -1025,7 +1052,7 @@ margin: 15px 0 15px 0;
 }
         
 .pasos li {
-    width: 140px;
+    width: 160px;
     float: left;
     display: block;
     padding: 0;

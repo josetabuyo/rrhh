@@ -46,7 +46,8 @@
         ));
 
         this.GrillaCompetenciasInformaticas = new Grilla(columnas);
-        this.GrillaCompetenciasInformaticas.AgregarEstilo("table table-striped");
+        this.GrillaCompetenciasInformaticas.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaCompetenciasInformaticas.CambiarEstiloCabecera("cabecera_tabla_postular");
         this.GrillaCompetenciasInformaticas.SetOnRowClickEventHandler(function (una_competencia_informatica) {
         });
 
