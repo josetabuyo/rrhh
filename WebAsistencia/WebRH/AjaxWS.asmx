@@ -855,7 +855,8 @@ public class AjaxWS : System.Web.Services.WebService {
             argumentos_a_enviar.Add(usuarioLogueado);
         }
         var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
-        return Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        var respuesta_json = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuesta_json;
     }
 
     [WebMethod(EnableSession = true)]

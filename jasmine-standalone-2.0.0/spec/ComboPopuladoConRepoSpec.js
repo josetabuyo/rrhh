@@ -4,6 +4,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 	
 	beforeEach(function() {
 		jasmine.Ajax.install();
+		Backend.start()
 	});
 	
 	afterEach(function() {
@@ -51,8 +52,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			});
 
 			it("ENTONCES: debe invocar al dataProvider indicado", function() {
-				expect(jasmine.Ajax.requests.mostRecent().url).toContain('BuscarEnRepositorio');
-				expect(jasmine.Ajax.requests.mostRecent().params).toContain('{"nombre_repositorio":"Localidades"');
+				expect(jasmine.Ajax.requests.mostRecent().params).toContain('{"nombre_metodo":"BuscarLocalidades"');
 			});
 			
 			describe("Y: con un label", function() {
@@ -62,10 +62,10 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					
 
 					//fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
-					fakeResponse('[{"Id":1}]');
-					//jasmine.Ajax.requests.mostRecent().response({
-					//	"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
-					//});
+					//fakeResponse('[{"Id":1}]');
+					jasmine.Ajax.requests.mostRecent().response({
+						"responseText": '[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]'
+					});
 				});
 
 				it("ENTONCES: deben cargarse usando el label", function() {
