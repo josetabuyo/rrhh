@@ -26,7 +26,3 @@ ProveedorAjax.prototype.postearAUrl = function (datos_del_post) {
         }
     });
 };
-
-//define(["jquery"], function ($) {
-//    return ProveedorAjax;
-//});

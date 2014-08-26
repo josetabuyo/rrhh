@@ -36,6 +36,19 @@
     <%--<%= Referencias.Javascript("") %>--%>
 <%--    <script type="text/javascript" src="Scripts/vex-2.1.1/js/vex.combined.min.js"></script>
     <script type="text/javascript" src="RegistroPostular/PantallaRegistro.js">  </script>--%>
-    <script data-main="Login.js" src="Scripts/require.js">  </script>
+    <script src="Scripts/require.js">  </script>
+    <script>
+        require(["Scripts/ConfigRequire.js"], function () {
+            require(["jquery", "vex", "PantallaRegistro"], function ($, vex, PantallaRegistro) {
+                $(function () {
+                    vex.defaultOptions.className = 'vex-theme-os';
+                    var lnk_registrarse = $("#lnk_registrarse");
+                    lnk_registrarse.click(function () {
+                        PantallaRegistro.abrir();
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>

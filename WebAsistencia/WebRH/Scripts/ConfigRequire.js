@@ -1,22 +1,23 @@
 ﻿requirejs.config({
+    baseUrl: 'Scripts',
     paths: {
-        jquery: 'Scripts/jquery.min',
-        vex: 'Scripts/vex-2.1.1/js/vex.min',
-        dialog: 'Scripts/vex-2.1.1/js/vex.dialog.min',
-        PantallaRegistro: 'RegistroPostular/PantallaRegistro',
-        ProveedorAjax: 'Scripts/ProveedorAjax',
-        alertify: 'Scripts/alertify',
-        validaciones: 'Scripts/Extensiones/Validaciones',
-        Opentip: 'Scripts/opentip/opentip-jquery-excanvas.min'
+        jquery: 'jquery.min',
+        vex: 'vex-2.1.1/js/vex.min',
+        dialog: 'vex-2.1.1/js/vex.dialog.min',
+        ProveedorAjax: 'ProveedorAjax',
+        alertify: 'alertify',
+        validaciones: 'Extensiones/Validaciones',
+        Opentip: 'opentip/opentip-jquery-excanvas.min',
+        PantallaRegistro: '../RegistroPostular/PantallaRegistro'
     },
     shim: {
         vex: {
-            deps: ['jquery'],
+            deps:['jquery'],
             exports: 'vex'
         },
         dialog: {
             deps: ['vex'],
-            exports: 'vex'
+            exports: 'vex.dialog'
         },
         ProveedorAjax: {
             deps: ['jquery'],
@@ -24,9 +25,6 @@
         },
         validaciones: {
             deps: ['Opentip']
-        },
-        Opentip: {
-            deps: ['jquery']
         }
     }
 });

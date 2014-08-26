@@ -1,5 +1,5 @@
 ﻿define(["jquery", "ProveedorAjax", "alertify", "dialog", "vex",  "validaciones"], function ($, ProveedorAjax, alertify, dialog, vex) {
-    return {
+    return PantallaRegistro = {
         abrir: function () {
             var _this = this;
             this.ui = $("#registrarse_dialog");
