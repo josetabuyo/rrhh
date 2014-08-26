@@ -11,20 +11,9 @@ describe("ComboPopuladoConRepoBuilder", function() {
 		jasmine.Ajax.uninstall();
 	});
 	
-	
 	function fakeResponse(plain_response) {
-	//dado
-		//'[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]'
-	//yydevolver
-		//return {"responseText": '{\"d\":' + plain_response.split('"').join('\\\\\\\"')};
-		
-		jasmine.Ajax.requests.mostRecent().response(
-			{"responseText": '{\\\"d\\\":\\\"' + plain_response.split('"').join('\\\\\\\"') + "\\\"}"}
-		);
-		//return {"responseText": '{\\\"d\\\":\\\"' + plain_response.split('"').join('\\\\\\\"') + "\\\"}"};	
-		
-		//{"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'}
-	
+		var fake_response = {"responseText": '{\"d\":\"' + plain_response.split('"').join('\\\"') + "\"}"} 
+		jasmine.Ajax.requests.mostRecent().response(fake_response);
 	};
 	describe("DADO: Un combo", function(){
 	
@@ -59,13 +48,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				beforeEach(function() {
 					this.label_combo = ' label="Nombre"';
 					combos = populador_combos.construirCombosEn(dom);
-					
-
-					//fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
-					//fakeResponse('[{"Id":1}]');
-					jasmine.Ajax.requests.mostRecent().response({
-						"responseText": '[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]'
-					});
+					fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
 				});
 
 				it("ENTONCES: deben cargarse usando el label", function() {
@@ -77,9 +60,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				beforeEach(function() {
 					this.label_combo = "";
 					combos = populador_combos.construirCombosEn(dom);
-					jasmine.Ajax.requests.mostRecent().response({
-						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
-					});
+					fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
 				});
 
 				it("ENTONCES: deben tomar el label 'Descripcion' por default", function() {
@@ -96,9 +77,8 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					this.bindeo = ' modelo="localidad"';
 					
 					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="localidad"></select></div>'), domicilio_empleado);
-					jasmine.Ajax.requests.mostRecent().response({
-						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
-					});
+					fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
+					
 				});
 				
 				it("ENTONCES: el valor debe estar seleccionado", function() {
@@ -120,13 +100,9 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			describe("Y: se bindea un valor de un modelo dentro de otro modelo", function() {
 				beforeEach(function() {
 					empleado = { hijo: { domicilio: { localidad: 6 } } };
-					//this.bindeo = "
 					this.bindeo = ' modelo="hijo.domicilio.localidad"';
 					combos = populador_combos.construirCombosEn(dom, empleado);
-					jasmine.Ajax.requests.mostRecent().response({
-						"responseText": '{\"d\":\"[{\\\"Id\\\":1,\\\"Nombre\\\":\\\"NombreLocalidadBuenosAires\\\",\\\"Descripcion\\\":\\\"DescripcionBuenosAires\\\"},{\\\"Id\\\":6,\\\"Descripcion\\\":\\\"DescripcionLocalidad6\\\"}]\"}'
-					});
-
+					fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]')
 				});
 
 				it("ENTONCES: el valor debe estar seleccionado", function() {
@@ -139,7 +115,6 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					});
 					
 					it("ENTONCES: deberia reflejar el cambio", function() {
-						//expect(combos[0].ui.attr("value")).toEqual('1'); //ver por que existe esta diferencia entre ui.attr("value") y idItemSeleccionado()
 						expect(combos[0]["id_item_seleccionado"]).toEqual(1);
 					});
 				});
