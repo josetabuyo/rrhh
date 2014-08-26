@@ -1114,13 +1114,14 @@ width: 100%;
 }
         
 .actions a  {
-    background: #2184be;
-    color: #fff;
-   /*display: block; */
-    font-size: 13px;
-    padding: 0.4em 0.4em;   
+    /* background: #2184be; */
+    color: #3A9ABF;
+    /* display: block; */
+    font-size: 14px;
+    text-decoration: none;
+   /* padding: 0.4em 0.4em;   
     text-decoration: none;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px;
+    border-radius: 5px;*/
 }
