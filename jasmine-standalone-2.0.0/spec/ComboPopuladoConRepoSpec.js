@@ -68,7 +68,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				});
 			}); 
 
-			describe("Y: se bindea un valor del modelo", function() {
+			describe("Y: se bindea un valor localidad del modelo", function() {
 				var domicilio_empleado;
 
 				beforeEach(function() {
@@ -91,7 +91,6 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					});
 					
 					it("ENTONCES: deberia reflejar el cambio", function() {
-						//expect(combos[0].ui.attr("value")).toEqual('1'); //ver por que existe esta diferencia entre ui.attr("value") y idItemSeleccionado()
 						expect(combos[0]["id_item_seleccionado"]).toEqual(1);
 					});
 				});
@@ -105,10 +104,9 @@ describe("ComboPopuladoConRepoBuilder", function() {
 						expect(domicilio_empleado.localidad).toEqual('1');
 					});
 				});
-				
 			});
 			
-			describe("Y: se bindea un valor de un modelo dentro de otro modelo", function() {
+			describe("Y: se bindea un valor hijo.domicilio.localidad de un modelo (dentro de otro)", function() {
 				beforeEach(function() {
 					empleado = { hijo: { domicilio: { localidad: 6 } } };
 					this.bindeo = ' modelo="hijo.domicilio.localidad"';
@@ -127,6 +125,16 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					
 					it("ENTONCES: deberia reflejar el cambio", function() {
 						expect(combos[0]["id_item_seleccionado"]).toEqual(1);
+					});
+				});
+				
+				describe("Y: cambia el valor del combo", function() {
+					beforeEach(function() {
+						combos[0].ui.val('1').change();
+					});
+					
+					it("ENTONCES: deberia cambiar el valor del modelo", function() {
+						expect(empleado.hijo.domicilio.localidad).toEqual('1');
 					});
 				});
 			});

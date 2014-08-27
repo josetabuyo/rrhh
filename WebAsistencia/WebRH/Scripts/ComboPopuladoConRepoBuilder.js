@@ -62,7 +62,8 @@ var ComboPopuladoConRepoBuilder = function (repositorio) {
 ComboPopuladoConRepoBuilder.prototype.include = function(arr,obj) {
     return (arr.indexOf(obj) != -1);
 }
-ComboPopuladoConRepoBuilder.prototype.browseObject = function (obj, path) {
+ComboPopuladoConRepoBuilder.prototype.browseObject = function (obj, path_original) {
+	var path = path_original.slice(0);
 	var this_level_attr = path.shift();
 	var this_level_value = obj[this_level_attr];
 	if (path.length == 0) {
@@ -70,17 +71,20 @@ ComboPopuladoConRepoBuilder.prototype.browseObject = function (obj, path) {
 	}
 	return this.browseObject(obj[this_level_attr], path);
 }
-ComboPopuladoConRepoBuilder.prototype.setValorModeloBindeado = function(obj, path, attr_name, event) {
+ComboPopuladoConRepoBuilder.prototype.setValorModeloBindeado = function(obj, path_original, event) {
+	var path = path_original.slice(0);
 	var this_level_attr = path.shift();
 	//var this_level_value = obj[attr_name];
 	if (path.length == 0) {
 		
 		//evito referencia circular de a bindeado a b, y b bindeado a a.
-		obj.unwatch(attr_name);
-		obj[attr_name] = event.target.value;
-		obj.watch(attr_name, function(prop, oldval, newval) {
+		obj.unwatch(this_level_attr);
+		obj[this_level_attr] = event.target.value;
+		obj.watch(this_level_attr, function(prop, oldval, newval) {
 			super_combo.id_item_seleccionado = newval;
 		});
+	} else {
+		this.setValorModeloBindeado(obj[this_level_attr], path, event);
 	}
 }
 
@@ -106,7 +110,7 @@ ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom, modelo_
 				var attr_path = attr_name.split('.');
 				var attr_value = builder.browseObject(modelo_bindeo, attr_path).attr_value;
 				parametros_constructor["id_item_seleccionado"] = attr_value;
-				parametros_constructor["onchange_callback"] = function(event) { builder.setValorModeloBindeado(modelo_bindeo, attr_path, attr_name, event); };
+				parametros_constructor["onchange_callback"] = function(event) { builder.setValorModeloBindeado(modelo_bindeo, attr_path, event); };
 			}
 		}
 		
