@@ -2,6 +2,7 @@
     validaciones: {
         esEmailValido: {
             evaluar: function (control) {
+                if (control.prop("disabled")) return true;
                 if (control.val() == "") return true;
                 return control.val().length > 0 && (/^([\w\-\.]+@([\w\-]+\.)+[\w\-]{2,6})?$/).test(control.val());
             },
@@ -10,6 +11,7 @@
 
         esNumeroNatural: {
             evaluar: function (control) {
+                if (control.prop("disabled")) return true;
                 if (control.val() == "") return true;
                 return (/^\d+$/).test(control.val());
             },
@@ -18,6 +20,7 @@
 
         esNumeroNaturalSinCero: {
             evaluar: function (control) {
+                if (control.prop("disabled")) return true;
                 if (control.val() == "") return true;
                 if (control.val() == 0) return false;
                 return (/^\d+$/).test(control.val());
@@ -25,12 +28,23 @@
             mensaje: "Ingrese dato numérico"
         },
 
-        esUnCombo: {
+        esUnComboSinCero: {
             evaluar: function (control) {
+                if (control.prop("disabled")) return true;
+                if (control.val() == "") return true;
+                if (control.val() == 0) return false;
+                return (/^\d+$/).test(control.val());
+            },
+            mensaje: "Seleccione una opción válida"
+        },
+
+        esUnComboConCero: {
+            evaluar: function (control) {
+                if (control.prop("disabled")) return true;
                 if (control.val() == "") return true;
                 return (/^\d+$/).test(control.val());
             },
-            mensaje: "Seleccione una opción"
+            mensaje: "Seleccione una opción válida"
         },
 
         esNoBlanco: {
@@ -43,6 +57,7 @@
 
         longitudMaxima: {
             evaluar: function (control, maxLong) {
+                if (control.prop("disabled")) return true;
                 if (control.val() == "") return true;
                 this.mensaje = "La longitud del texto ingresado debe ser menor a " + maxLong.toString();
                 return control.val().toString().length <= maxLong;
