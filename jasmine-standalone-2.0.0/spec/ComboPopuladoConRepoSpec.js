@@ -78,7 +78,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					
 					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="localidad"></select></div>'), domicilio_empleado);
 					fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
-					
+		
 				});
 				
 				it("ENTONCES: el valor debe estar seleccionado", function() {
@@ -98,12 +98,11 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				
 				describe("Y: cambia el valor del combo", function() {
 					beforeEach(function() {
-						combos[0].ui.attr("value") = 7; //o este
-						combos[0]["id_item_seleccionado"] = 7; //o este
+						combos[0].ui.val('1').change();
 					});
 					
 					it("ENTONCES: deberia cambiar el valor del modelo", function() {
-						expect(domicilio_empleado.localidad).toEqual(7);
+						expect(domicilio_empleado.localidad).toEqual('1');
 					});
 				});
 				

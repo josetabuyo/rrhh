@@ -15,6 +15,8 @@ SuperCombo.prototype.start = function () {
     this.ui.change(function () {
         if (_this.ui.val() != "") _this.idItemSeleccionado(parseInt(_this.ui.val()));
     });
+	
+	this.ui.change(this.onchange_callback);
     
     this.cargarBusqueda(this.nombre_repositorio, this.filtro, this.campo_id, this.campo_descripcion);
     this.idItemSeleccionado(this.id_item_seleccionado);
