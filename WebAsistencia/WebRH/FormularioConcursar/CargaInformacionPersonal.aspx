@@ -66,17 +66,17 @@
                         </div>
                         <div id="contenedor_cmb_sexo" class="grupo_campos">
                             <label for="cmb_sexo">Sexo <em>*</em></label>
-                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" data-validar="esNoBlanco" dataProvider="Sexos" modelo="sexo">
+                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" data-validar="esNumeroNaturalSinCero" dataProvider="Sexos" modelo="sexo">
                             </select>
                         </div>
                         <div id="contenedor_cmb_estado_civil" class="grupo_campos">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
-                         <select id="cmb_estadoCivil" style="width:160px;" name="cmb_estadoCivil" data-validar="esNoBlanco" dataProvider="EstadosCiviles" modelo="estado_civil">
+                         <select id="cmb_estadoCivil" style="width:160px;" name="cmb_estadoCivil" data-validar="esNumeroNaturalSinCero" dataProvider="EstadosCiviles" modelo="estado_civil">
                          </select>
                          </div>
                          <div class="grupo_campos nueva_linea">
                            <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo Documento <em>*</em></label>
-                            <select id="cmb_tipoDocumento" style="width:170px;" name="cmb_tipoDocumento"  data-validar="esNoBlanco" dataProvider="TiposDeDocumento">
+                            <select id="cmb_tipoDocumento" style="width:170px;" name="cmb_tipoDocumento" modelo="TipoDocumento" data-validar="esNumeroNaturalSinCero" dataProvider="TiposDeDocumento">
                             </select>
                           </div>
                           <div class="grupo_campos">
@@ -94,11 +94,11 @@
                         </div>
                         <div class="grupo_campos">
                              <label class="etiqueta_campo" for="cmb_lugar_nacimiento">Lugar Nacimiento <em>*</em></label>
-                             <input type="text" id="cmb_lugar_nacimiento" style="width:210px;"  data-validar="esNoBlanco" />
+                             <input type="text" id="cmb_lugar_nacimiento" style="width:210px;" modelo="LugarDeNacimiento" data-validar="esNoBlanco" />
                         </div>
                       <div class="grupo_campos">
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
-                         <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad"  data-validar="esNoBlanco" dataProvider="Nacionalidades">
+                         <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad" modelo="Nacionalidad" data-validar="esNumeroNaturalSinCero" dataProvider="Nacionalidades">
                          </select>
                       </div>
                        <div class="grupo_campos nueva_linea">
@@ -127,12 +127,12 @@
                       </div>
                       <div class="grupo_campos nueva_linea">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
-                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;"  data-validar="esNoBlanco" dataProvider="Provincias">
+                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Provincia" data-validar="esNoBlanco" dataProvider="Provincias">
                         </select>
                       </div> 
                       <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
-                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;"  data-validar="esNoBlanco" dataProvider="Localidades">
+                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Localidad" data-validar="esNoBlanco" dataProvider="Localidades">
                             </select>
                       </div>
                     </fieldset>
@@ -171,12 +171,12 @@
 
                       <div class="grupo_campos nueva_linea"> 
                         <label class="etiqueta_campo" for="cmb_provincia2">Provincia <em>*</em></label>
-                        <select id="cmb_provincia2" name="cmb_provincia2" style="width:320px;"  data-validar="esNoBlanco" dataProvider="Provincias">
+                        <select id="cmb_provincia2" name="cmb_provincia2" style="width:320px;" label="Nombre" modelo="DomicilioLegal.Provincia" data-validar="esNoBlanco" dataProvider="Provincias">
                         </select>
                       </div>
                        <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad2">Localidad <em>*</em></label>
-                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:320px;"  data-validar="esNoBlanco" dataProvider="Localidades">
+                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:320px;" label="Nombre"  modelo="DomicilioLegal.Localidad" data-validar="esNoBlanco" dataProvider="Localidades">
                             </select>
                       </div>
 
@@ -186,8 +186,8 @@
                         </div>
 
                         <div class="grupo_campos">
-                            <label class="etiqueta_campo" for="txt_telefono2">Tel&eacute;fono Celular</label>
-                            <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width:140px;"/>
+                            <label class="etiqueta_campo" for="txt_telefono2">Tel&eacute;fono Celular<em>*</em></label>
+                            <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width:140px;" data-validar="esNoBlanco"/>
                         </div>
 
                         <div id="contenedor_mails"class="grupo_campos">

@@ -207,3 +207,6 @@ describe("ComboPopuladoConRepoBuilder", function() {
 	//cuando hay una respuesta erronea del backend, deberia mostrarse un mensaje correcto.
 //el builder devuelve los combos javascript
 
+//cuando no se especifica el modelo falla por el split (of undefined). Deberia indicar claramente que falta especificar el modelo del combo id="combo_blah".
+//cuando el bindeo anda mal, deberia tirarte exactamente qué atributo dentro de que atributo no fue encontrado.
+

@@ -126,7 +126,7 @@ namespace TestViaticos
 
         public CvCompetenciasInformaticas UnaCompetenciaInformatica()
         {
-            return new CvCompetenciasInformaticas(1, "Admnistrador de Base de Datos","UTN","Base de Datos","SQL","Avanzado","CABA",9,new DateTime(2012,12,01), "");
+            return new CvCompetenciasInformaticas(1, "Admnistrador de Base de Datos","UTN", 1 ,1,1,"CABA",9,new DateTime(2012,12,01), "");
         }
 
         public CvCertificadoDeCapacitacion UnCertificadoDeCapacitacion()

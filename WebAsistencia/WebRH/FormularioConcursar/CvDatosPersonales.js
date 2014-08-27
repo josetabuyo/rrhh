@@ -57,7 +57,12 @@ var CvDatosPersonales = {
         _this.txt_apellido.val(datos_personales.Apellido);
         _this.txt_cuil.val(datos_personales.Cuil);
         _this.cmb_lugar_nac.val(datos_personales.LugarDeNacimiento);
-        _this.txt_fechaNac.val(datos_personales.FechaNacimiento);
+
+        _this.txt_fechaNac.datepicker();
+        _this.txt_fechaNac.datepicker('option', 'dateFormat', 'dd/mm/yy');
+        _this.txt_fechaNac.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(datos_personales.FechaNacimiento));
+
+       
         _this.txt_dni.val(parseInt(datos_personales.Dni));
 
         if (datos_personales.TieneLegajo == "Tiene legajo") {

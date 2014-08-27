@@ -27,11 +27,19 @@
 				</div>
 				<div class="grupo_campos">
 					<label for="publicaciones_dispone_copia">Dispone Copia <em>*</em></label>
-					<input id="txt_publicaciones_dispone_copia" type="text" style="width:100px;" data-validar="esNoBlanco"/>
+                    <select id="txt_publicaciones_dispone_copia" style="width:120px;" data-validar="esNumeroNatural">
+                    <option>Seleccione</option>
+						<option value=0>NO</option>
+                        <option value=1>SI</option>
+                    </select>
 				</div>
 				<div class="grupo_campos">
 					<label for="cmb_publicaciones_copias">Adjunta copia <em>*</em></label>
-					<select id="cmb_publicaciones_copias" style="width:130px;" data-validar="esNumeroNatural"></select>
+					<select id="cmb_publicaciones_copias" style="width:120px;" data-validar="esNumeroNatural">
+                    <option>Seleccione</option>
+						<option value=0>NO</option>
+                        <option value=1>SI</option>
+                    </select>
 				</div>
 			</fieldset>
 			<div class="btn-fld">
