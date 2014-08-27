@@ -95,6 +95,18 @@ describe("ComboPopuladoConRepoBuilder", function() {
 						expect(combos[0]["id_item_seleccionado"]).toEqual(1);
 					});
 				});
+				
+				describe("Y: cambia el valor del combo", function() {
+					beforeEach(function() {
+						combos[0].ui.attr("value") = 7; //o este
+						combos[0]["id_item_seleccionado"] = 7; //o este
+					});
+					
+					it("ENTONCES: deberia cambiar el valor del modelo", function() {
+						expect(domicilio_empleado.localidad).toEqual(7);
+					});
+				});
+				
 			});
 			
 			describe("Y: se bindea un valor de un modelo dentro de otro modelo", function() {
