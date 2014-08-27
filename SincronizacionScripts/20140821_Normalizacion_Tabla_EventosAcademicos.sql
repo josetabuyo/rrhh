@@ -525,6 +525,22 @@ END
 GO
 
 
+GO
+
+Create Procedure dbo.CV_GetTiposDeEventoAcademico
+as
+
+Begin 
+
+select Id, Descripcion    
+from dbo.CV_TiposDeEventoAcademico     
+where Baja = 0 
+
+End
+
+
+
+
 
 
 

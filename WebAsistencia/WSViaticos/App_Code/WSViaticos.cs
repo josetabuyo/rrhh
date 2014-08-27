@@ -2511,6 +2511,18 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return RepoCurriculum().EliminarCvEventosAcademicos(id_evento, usuario);
     }
+
+
+    [WebMethod]
+    public CVTiposDeEventoAcademico[] BuscarTiposEventosAcademicos(string criterio)
+    {
+        return RepositorioDeTiposDeEventoAcademico.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+
+
+
+
     #endregion
 
     #region CvPublicaciones

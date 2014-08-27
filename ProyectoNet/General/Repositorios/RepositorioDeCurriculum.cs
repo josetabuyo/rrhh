@@ -205,12 +205,12 @@ namespace General.Repositorios
                                             {
                                                 Id = dRow.GetInt("EventosAcademicosId",0),
                                                 Denominacion = dRow.GetString("EventosAcademicosDenominacion", string.Empty),
-                                                TipoDeEvento = dRow.GetString("EventosAcademicosTipoDeEvento", string.Empty),
-                                                CaracterDeParticipacion = dRow.GetString("EventosAcademicosCaracterDeParticipacion", string.Empty),
+                                                TipoDeEvento = dRow.GetInt("EventosAcademicosTipoDeEvento", 0),
+                                                CaracterDeParticipacion = dRow.GetInt("EventosAcademicosCaracterDeParticipacion", 0),
                                                 FechaInicio = dRow.GetDateTime("EventosAcademicosFechaInicio", DateTime.Today),
                                                 FechaFinalizacion = dRow.GetDateTime("EventosAcademicosFechaFin", DateTime.Today),
                                                 Duracion = dRow.GetString("EventosAcademicosDuracion", string.Empty),
-                                                Institucion = dRow.GetString("EventosAcademicosInstitucion", string.Empty),
+                                                Institucion = dRow.GetInt("EventosAcademicosInstitucion",0),
                                                 Localidad = dRow.GetString("EventosAcademicosLocalidad", string.Empty),
                                                 Pais = dRow.GetInt("EventosAcademicosPais", 9)
                                             }).Distinct().ToList();

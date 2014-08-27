@@ -12,8 +12,17 @@
             _this.txt_evento_denominacion = _this.ui.find("#txt_evento_denominacion");
             _this.txt_evento_denominacion.val(evento_academico.Denominacion);
 
-            _this.txt_evento_academico_tipo_evento = _this.ui.find("#txt_evento_academico_tipo_evento");
-            _this.txt_evento_academico_tipo_evento.val(evento_academico.TipoDeEvento);
+      //      _this.txt_evento_academico_tipo_evento = _this.ui.find("#txt_evento_academico_tipo_evento");
+        //    _this.txt_evento_academico_tipo_evento.val(evento_academico.TipoDeEvento);
+
+
+            _this.txt_evento_academico_tipo_evento = new SuperCombo({
+                ui: _this.ui.find("#txt_evento_academico_tipo_evento"),
+                nombre_repositorio: "TiposEventosAcademicos",
+                id_item_seleccionado: evento_academico.Tipo
+            });
+
+
 
             _this.txt_evento_academico_caracter_participacion = _this.ui.find("#txt_evento_academico_caracter_participacion");
             _this.txt_evento_academico_caracter_participacion.val(evento_academico.CaracterDeParticipacion);
