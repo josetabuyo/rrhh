@@ -77,14 +77,15 @@ namespace General
                 var integrantes_anonimos = (from RowDeDatos dRow in lista
                                         select new 
                                         {
+                                            IdComite = dRow.GetInt("Id"),
                                             Id = dRow.GetInt("IdIntegrante", 0),
                                             NroDocumento = dRow.GetInt("NroDocumento", 0),
                                             Nombre = dRow.GetString("integranteNombre", string.Empty),
                                             Apellido = dRow.GetString("integranteApellido", string.Empty),
                                             EsTitular = dRow.GetBoolean("integranteTitular")
-                                        }).Distinct().ToList();
+                                        }).Where(c=>c.IdComite == comite.Id).Distinct().ToList();
 
-                integrantes_anonimos.Select(i => 
+                integrantes_anonimos.Select(i =>
                     new IntegranteComite() { 
                         Id = i.Id, 
                         NroDocumento = i.NroDocumento,
