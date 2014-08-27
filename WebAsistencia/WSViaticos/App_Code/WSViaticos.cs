@@ -2430,6 +2430,11 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoPostulaciones().GetPostulacionesDe(usuario.Owner.Id).ToArray();
     }
 
+    [WebMethod]
+    public Comite GetComite(int idComite)
+    {
+        return RepoComites().GetComiteById(idComite);
+    }
 
     #region CVAntecedentesAcademicos
     [WebMethod]
@@ -2857,6 +2862,9 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDePostulaciones(Conexion());
     }
 
-
+    private RepositorioDeComites RepoComites()
+    {
+        return new RepositorioDeComites(Conexion());
+    }
 
 }

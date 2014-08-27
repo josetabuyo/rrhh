@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using General;
 using General.Repositorios;
+using General.Postular;
 
 namespace General
 {
@@ -19,13 +20,18 @@ namespace General
         public List<Comite> GetComites()
         {
             var parametros = new Dictionary<string, object>();
-            var tablaCVs = conexion_bd.Ejecutar("dbo.CV_Get_Comites", parametros);
+            var tablaComites = conexion_bd.Ejecutar("dbo.CV_Get_Comites", parametros);
 
             List<Comite> comites = new List<Comite>();
 
-            tablaCVs.Rows.ForEach(row =>
-            comites.Add(new Comite(row.GetInt("Id"), row.GetInt("Numero"), row.GetString("Integrantes"))));
+            //tablaCVs.Rows.ForEach(row =>
+            //comites.Add(new Comite(){ Id = row.GetInt("Id"), Numero = row.GetInt("Numero")}));
 
+            comites = CorteDeControlComite(tablaComites);
+
+            comites.ForEach(c=>
+            CorteDeControlIntegrante(tablaComites, c)
+            );
             return comites;
 
         }
@@ -34,6 +40,73 @@ namespace General
         public Comite GetComiteById(int id)
         {
             return this.GetComites().Find(c => c.Id.Equals(id));
+        }
+
+
+
+        private List<Comite> CorteDeControlComite(TablaDeDatos tablaComite)
+        {
+            var lista = ArmarFilas(tablaComite, "Id");
+            var comites = new List<Comite>();
+            if (lista.Count > 0)
+            {
+                var comites_anonimos = (from RowDeDatos dRow in lista
+                                            select new
+                                            {
+                                                Id = dRow.GetInt("Id", 0),
+                                                Numero = dRow.GetInt("Numero", 0)
+                                            }).Distinct().ToList();
+
+                comites = comites_anonimos.Select(i =>
+                    new Comite()
+                    {
+                        Id = i.Id,
+                        Numero = i.Numero
+                    }).ToList();
+
+            }
+            return comites;
+        }
+
+        private void CorteDeControlIntegrante(TablaDeDatos tablaComite, Comite comite)
+        {
+            var lista = ArmarFilas(tablaComite, "IdIntegrante");
+
+            if (lista.Count > 0)
+            {
+                var integrantes_anonimos = (from RowDeDatos dRow in lista
+                                        select new 
+                                        {
+                                            Id = dRow.GetInt("IdIntegrante", 0),
+                                            NroDocumento = dRow.GetInt("NroDocumento", 0),
+                                            Nombre = dRow.GetString("integranteNombre", string.Empty),
+                                            Apellido = dRow.GetString("integranteApellido", string.Empty),
+                                            EsTitular = dRow.GetBoolean("integranteTitular")
+                                        }).Distinct().ToList();
+
+                integrantes_anonimos.Select(i => 
+                    new IntegranteComite() { 
+                        Id = i.Id, 
+                        NroDocumento = i.NroDocumento,
+                        Nombre = i.Nombre, 
+                        Apellido = i.Apellido, 
+                        EsTitular = i.EsTitular
+                    }).ToList().ForEach(idi => comite.Integrantes.Add(idi));
+
+            }
+
+        }
+
+        private List<RowDeDatos> ArmarFilas(TablaDeDatos tabla, string campo_id)
+        {
+            var lista = new List<RowDeDatos>();
+            tabla.Rows.ForEach(r =>
+            {
+                if (!(r.GetObject(campo_id) is DBNull))
+                    lista.Add(r);
+            });
+
+            return lista;
         }
     }
 }
