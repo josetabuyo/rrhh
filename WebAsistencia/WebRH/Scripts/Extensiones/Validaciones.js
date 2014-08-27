@@ -35,6 +35,7 @@
 
         esNoBlanco: {
             evaluar: function (control) {
+                if (control.prop("disabled")) return true;
                 return control.val().toString().length > 0;
             },
             mensaje: "El campo es obligatorio"
