@@ -277,27 +277,30 @@ nav
 /*---------    ESTILO PARA PANEL DE CONTROL ---------------------*/
 .navbar {
     margin-top: 30px;
+   
     }
 
-.navbar-inner, .fondo_gris_gradiente {  
-    background-color: #389abe;  
-    background-image: -moz-linear-gradient(top,  #EBEBEB 0%, #f9f9f9 100%); /* FF3.6+ */  
-    background-image: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#EBEBEB), color-stop(100%,#f9f9f9)); /* Chrome,Safari4+ */  
-    background-image: -webkit-linear-gradient(top,  #EBEBEB 0%,#f9f9f9 100%); /* Chrome10+,Safari5.1+ */  
-    background-image: -o-linear-gradient(top,  #EBEBEB 0%,#f9f9f9 100%); /* Opera 11.10+ */  
-    background-image: -ms-linear-gradient(top,  #EBEBEB 0%,#f9f9f9 100%); /* IE10+ */  
-    background-image: linear-gradient(to bottombottom,  #EBEBEB 0%,#f9f9f9 100%); /* W3C */  
+.navbar-inner, .fondo_gris_gradiente   
+{
+    background: url('../Imagenes/fondo_menu.png') repeat-x;
+    /*background-color: #389abe;  */
+   /* background-image: -moz-linear-gradient(top,  #EBEBEB 0%, #f9f9f9 100%); /* FF3.6+ */  
+  /*  background-image: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#EBEBEB), color-stop(100%,#f9f9f9)); /* Chrome,Safari4+ */  
+   /* background-image: -webkit-linear-gradient(top,  #EBEBEB 0%,#f9f9f9 100%); /* Chrome10+,Safari5.1+ */  
+   /* background-image: -o-linear-gradient(top,  #EBEBEB 0%,#f9f9f9 100%); /* Opera 11.10+ */  
+   /* background-image: -ms-linear-gradient(top,  #EBEBEB 0%,#f9f9f9 100%); /* IE10+ */  
+   /* background-image: linear-gradient(to bottombottom,  #EBEBEB 0%,#f9f9f9 100%); /* W3C */ 
     /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbdbdb', endColorstr='#f9f9f9',GradientType=0 ); /* IE6-9 */  
     
 } 
 
 .navbar .nav > li > a {
-  color: #00293d !important;
+  color: #0099CC !important;
 }
 
 .navbar .nav > li > a:hover 
 {
-    color: #0c3f59 !important;
+    color: #0099CC !important;
     }
     
 .navbar .nav > li > a:hover {
