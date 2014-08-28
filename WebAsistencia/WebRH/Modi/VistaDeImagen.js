@@ -9,6 +9,7 @@ VistaDeImagen.prototype.start = function () {
     this.img_thumbnail = this.ui.find('#img_thumbnail');
     this.img_estatica = this.ui.find('#img_estatica');
     this.nro_folio = this.o.numeroDeFolio || "";
+    this.orden = this.o.orden;
 
     var _this = this;
     this.ui.click(function () {
@@ -22,6 +23,7 @@ VistaDeImagen.prototype.start = function () {
                             _this.id,
                             function () {
                                 _this.nro_folio = nro_folio;
+                                _this.orden = "";
                                 _this.dibujarEn($("#panel_imagenes_no_asignadas .panel_de_imagenes"));
                             });
                     }
@@ -31,15 +33,17 @@ VistaDeImagen.prototype.start = function () {
                             new Alerta("El folio ingresado no existe");
                             return;
                         }
-//                        if (div_folio.find(".imagen_miniatura").length != 0) {
-//                            new Alerta("Ya hay una imagen asignada al folio ingresado");
-//                            return;
-//                        }
+                        //                        if (div_folio.find(".imagen_miniatura").length != 0) {
+                        //                            new Alerta("Ya hay una imagen asignada al folio ingresado");
+                        //                            return;
+                        //                        }
                         _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
+
                             _this.id,
                             nro_folio,
-                            function () {
+                            function (orden) {
                                 _this.nro_folio = nro_folio;
+                                _this.oden = orden;
                                 _this.dibujarEn(div_folio);
                             });
                     }

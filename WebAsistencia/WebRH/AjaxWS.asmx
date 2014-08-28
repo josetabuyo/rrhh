@@ -123,9 +123,9 @@ public class AjaxWS : System.Web.Services.WebService {
     
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public void AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio)
+    public int AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio)
     {
-        backEndService.AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuarioLogueado);
+        return backEndService.AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]

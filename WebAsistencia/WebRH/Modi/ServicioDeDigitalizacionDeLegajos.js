@@ -66,8 +66,8 @@ ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajo = functi
             id_imagen: id_imagen,
             nro_folio: nro_folio
         },
-        success: function () {
-            onSuccess();
+        success: function (orden) {
+            onSuccess(orden);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }

@@ -12,44 +12,22 @@ namespace General.Modi
     public class ImagenModi
     {
         public int id { get; set; }
-        public float orden { get; set; }
         public string bytesImagen { get; set; }
         public string nombre { get; set; }
+        public int nroFolio { get; set; }
+        public int orden { get; set; }
 
         public ImagenModi()
         {
 
         }
 
-        public ImagenModi(string un_nombre)
+        public void SetImagen(Image imagen)
         {
-            this.nombre = un_nombre;
-        }
-
-        public ImagenModi(string nombre_imagen, Image imagen)
-        {
-            this.nombre = nombre_imagen;
             var ms = new MemoryStream();
             imagen.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
             byte[] imageBytes = ms.ToArray();
             this.bytesImagen = Convert.ToBase64String(imageBytes);
-        }
-
-        public ImagenModi(string nombre_imagen, String bytecode)
-        {
-            this.nombre = nombre_imagen;
-            this.bytesImagen = bytecode;
-        }
-
-        public ImagenModi(int id, float orden)
-        {
-            this.id = id;
-            this.orden = orden;
-        }
-
-        public ImagenModi(int id)
-        {
-            this.id = id;
         }
 
         public ImagenModi GetThumbnail(int alto, int ancho)
@@ -61,7 +39,10 @@ namespace General.Modi
             ms.Write(imageBytes, 0, imageBytes.Length);
             Image image = Image.FromStream(ms, true);
 
-            return new ImagenModi(this.nombre, FixedSize(image, ancho, alto));
+            var imagen_ret = new ImagenModi();
+            imagen_ret.nombre = this.nombre;
+            imagen_ret.SetImagen(FixedSize(image, ancho, alto));
+            return imagen_ret;
         }
 
         static Image FixedSize(Image imgPhoto, int Width, int Height)
@@ -120,5 +101,8 @@ namespace General.Modi
             grPhoto.Dispose();
             return bmPhoto;
         }
+
+
+        public int idInterna { get; set; }
     }
 }

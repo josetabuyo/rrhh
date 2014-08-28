@@ -81,6 +81,8 @@
                     <div id="panel_folio">
                         <label> Folio:</label>
                         <input id="txt_folio" type="text" />
+                        <label> Pagina:</label>
+                        <input id="txt_pagina" type="text" />
                     </div>                  
                     <img alt="" src="" id="imagen" />
                 </div>

@@ -40,7 +40,24 @@ namespace General.Modi
             parametros.Add("@id_imagen", id_imagen);
             var tabla_imagen = this.conexion_db.Ejecutar("dbo.MODI_Get_Imagen", parametros);
             var primera_fila = tabla_imagen.Rows.First();
-            return new ImagenModi(primera_fila.GetString("nombre_imagen"), primera_fila.GetImage("bytes_imagen"));
+
+            var imagen = new ImagenModi();
+            imagen.id = primera_fila.GetInt("id_imagen");
+            imagen.idInterna = primera_fila.GetInt("id_interna");
+            imagen.nombre = primera_fila.GetString("nombre_imagen");
+            imagen.SetImagen(primera_fila.GetImage("bytes_imagen"));
+
+            if (!(primera_fila.GetObject("nro_folio") is DBNull))
+            {
+                imagen.nroFolio = primera_fila.GetInt("nro_folio");            
+            }
+
+            if (!(primera_fila.GetObject("orden") is DBNull))
+            {
+                imagen.orden = primera_fila.GetInt("orden");
+            }
+
+            return imagen;
         }
 
 
@@ -49,14 +66,21 @@ namespace General.Modi
             return this.GetImagenPorId(id_imagen).GetThumbnail(alto, ancho);
         }
 
-        public void AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
+        public int AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
         {
+            var imagen = GetImagenPorId(id_imagen);
+            var legajo = GetLegajoPorIdInterna(imagen.idInterna)[0];
+            var folio = legajo.GetFolio(nro_folio);
+            var orden = folio.imagenes.Count;
+
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_imagen", id_imagen);
             parametros.Add("@nro_folio", nro_folio);
             parametros.Add("@id_usuario", usuario.Id);
+            parametros.Add("@orden", orden);
 
             this.conexion_db.EjecutarSinResultado("dbo.MODI_Asignar_Imagen_A_Folio_De_Legajo", parametros);
+            return orden;
         }
 
         public void DesAsignarImagen(int id_imagen, Usuario usuario)
@@ -93,12 +117,16 @@ namespace General.Modi
 
         public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
         {
+            var legajo = GetLegajoPorIdInterna(id_interna)[0];
+            var folio = legajo.GetFolio(numero_folio);
+            
             byte[] imageBytes = Convert.FromBase64String(bytes_imagen);
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_interna", id_interna);
             parametros.Add("@nombre_imagen", nombre_imagen);
             parametros.Add("@bytes_imagen", imageBytes);
             parametros.Add("@numero_folio", numero_folio);
+            parametros.Add("@orden", folio.imagenes.Count);
 
             return int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_A_Un_Folio_De_Un_Legajo", parametros).ToString());
         }
@@ -203,14 +231,16 @@ namespace General.Modi
 
             tablaImagenes.Rows.ForEach(row =>
             {
-                var id_imagen = row.GetInt("id_imagen");
+                var imagen = new ImagenModi();
+                imagen.id = row.GetInt("id_imagen");
+                imagen.idInterna = row.GetInt("id_interna");
   
-                var imagen = new ImagenModi(row.GetInt("id_imagen"));
-
                 if (!(row.GetObject("nro_folio") is DBNull))
                 {
-                    int nro_folio = row.GetInt("nro_folio");
-                    var folio = legajo.GetFolio(nro_folio);
+                    imagen.nroFolio = row.GetInt("nro_folio");
+                    imagen.orden = row.GetInt("orden");
+
+                    var folio = legajo.GetFolio(imagen.nroFolio);
                     folio.imagenes.Add(imagen);
                 }
                 else {

@@ -8,6 +8,7 @@ VisualizadorDeImagenes.prototype.start = function () {
     this.panelImagen = this.ui.find('#imagen');
     this.panelContenedorImagen = this.ui.find('#contenedor_imagen');
     this.txtFolio = this.ui.find('#txt_folio');
+    this.txtPagina = this.ui.find('#txt_pagina');
     var _this = this;
 
     this.txtFolio.val(this.o.imagen.nro_folio);
@@ -17,6 +18,8 @@ VisualizadorDeImagenes.prototype.start = function () {
             _this.o.onNumeroDeFolioIngresado(_this.txtFolio.val());
         }
     });
+
+    this.txtPagina.val(this.o.imagen.orden);
 
     this.ui.dialog({
         title: "Cargando Imagen",
