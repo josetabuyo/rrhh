@@ -17,8 +17,10 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     	<div class="contenedor_concursar" >
             <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
-            <h2>COMITE</h2>
-            <span id="comite"></span>
+            <h2>COMITE TITULAR</h2>
+            <div id="comite_titular"></div>
+            <h2>COMITE SUPLENTE</h2>
+            <div id="comite_suplente"></div>
 
         </div>
     </form>
