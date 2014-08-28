@@ -56,6 +56,9 @@ if (!Object.prototype.unwatch) {
 }
 
 var ComboPopuladoConRepoBuilder = function (repositorio) {
+	if (repositorio == undefined) {
+		throw "No se ha especificado un repositorio al momento de construir el builder de combos";
+	};
 	this.repositorio = repositorio;
 };
 

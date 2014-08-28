@@ -33,12 +33,26 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				populador_combos.construirCombosEn(dom);
 			});
 		});  
+		
+
 	
 		describe("Y: con dataprovider", function() {
 			beforeEach(function() {
 				this.data_provider = ' dataProvider="Localidades"';
 				populador_combos.construirCombosEn(dom);
 			});
+			
+			it("ENTONCES: lanza excepcion descriptiva si el builder se construye sin repositorio.", function() {
+				expect(function() {
+					new ComboPopuladoConRepoBuilder();
+				}).toThrow("No se ha especificado un repositorio al momento de construir el builder de combos");
+			});		
+
+			it("ENTONCES: lanza excepcion descriptiva si el combo se construye sin repositorio.", function() {
+				expect(function() {
+					new SuperCombo();
+				}).toThrow("No se ha especificado un repositorio al momento de construir el combo \"combo_localidades\"");
+			});		
 
 			it("ENTONCES: debe invocar al dataProvider indicado", function() {
 				expect(jasmine.Ajax.requests.mostRecent().params).toContain('{"nombre_metodo":"BuscarLocalidades"');

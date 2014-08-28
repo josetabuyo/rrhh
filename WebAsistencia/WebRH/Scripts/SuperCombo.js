@@ -12,6 +12,9 @@
 
 SuperCombo.prototype.start = function () {
     var _this = this;
+	if (this.repositorio == undefined) {
+		throw 'No se ha especificado un repositorio al momento de construir el combo \"' + this.ui["id"] + '"';
+	}
     this.ui.change(function () {
         if (_this.ui.val() != "") _this.idItemSeleccionado(parseInt(_this.ui.val()));
     });
