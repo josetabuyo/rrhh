@@ -4,7 +4,13 @@
 
         var proveedor_ajax = new ProveedorAjax();
 
-        var span_comite = $('#comite');
+        this.div_comite_titular = $('#comite_titular');
+        this.div_comite_suplente = $('#comite_suplente');
+
+        var columnas = [];
+        columnas.push(new Columna("DNI", { generar: function (un_comite) { return un_comite.NroDocumento } }));
+        columnas.push(new Columna("Apellido", { generar: function (un_comite) { return un_comite.Apellido } }));
+        columnas.push(new Columna("Nombre", { generar: function (un_comite) { return un_comite.Nombre } }));
 
         proveedor_ajax.postearAUrl({ url: "GetObjetoEnSesion",
             data: {
@@ -12,17 +18,42 @@
             },
             success: function (respuesta) {
                 var comite = JSON.parse(respuesta);
-                //alertify.alert("Comite numero : " + comite.Numero);
-                span_comite.text("Datos del comité: Número " + comite.Numero + ". Integrantes: " + comite.Integrantes);
-                //alModificar(respuesta);
-                //$(".modal_close_concursar").click();
+                _this.armarTablasComite(comite);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alertify.alert("Error al querer ver el comite.");
             }
         });
 
+        this.armarTablasComite = function(comite){
 
+            var comite_titular = Enumerable.From(comite.Integrantes)
+                    .Select(function (x) { return x })
+                    .Where(function (x) { return x.EsTitular == 1 })
+                    .ToArray();
+
+            var comite_suplente = Enumerable.From(comite.Integrantes)
+                    .Select(function (x) { return x })
+                    .Where(function (x) { return x.EsTitular == 0 })
+                    .ToArray();
+
+
+            this.GrillaDeComiteTitular = new Grilla(columnas);
+            this.GrillaDeComiteTitular.AgregarEstilo("table table-striped");
+            this.GrillaDeComiteTitular.SetOnRowClickEventHandler(function (un_comite) {
+            });
+
+            this.GrillaDeComiteTitular.CargarObjetos(comite_titular);
+            this.GrillaDeComiteTitular.DibujarEn(_this.div_comite_titular);
+
+            this.GrillaDeComiteSuplente = new Grilla(columnas);
+            this.GrillaDeComiteSuplente.AgregarEstilo("table table-striped");
+            this.GrillaDeComiteSuplente.SetOnRowClickEventHandler(function (un_comite) {
+            });
+
+            this.GrillaDeComiteSuplente.CargarObjetos(comite_suplente);
+            this.GrillaDeComiteSuplente.DibujarEn(_this.div_comite_suplente);
+        }
 
     }
 }
