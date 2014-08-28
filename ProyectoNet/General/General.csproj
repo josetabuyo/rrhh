@@ -105,6 +105,7 @@
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
     <Compile Include="Postular\Comite.cs" />
     <Compile Include="Postular\CVCaracterDeParticipacionEvento.cs" />
+    <Compile Include="Postular\CVInstitucionesEventos.cs" />
     <Compile Include="Postular\CVTiposDeEventoAcademico.cs" />
     <Compile Include="Postular\RepositorioDeComites.cs" />
     <Compile Include="Postular\CvConocimientoCompetenciaInformatica.cs" />
@@ -118,7 +119,9 @@
     <Compile Include="Postular\NivelDeIdioma.cs" />
     <Compile Include="Postular\Validador.cs" />
     <Compile Include="Repositorios\FiltroDeObjetos.cs" />
+    <Compile Include="Repositorios\RepositorioDeCaracterDeEventoAcademico.cs" />
     <Compile Include="Repositorios\RepositorioDeConocimientosCompetenciasInformaticas.cs" />
+    <Compile Include="Repositorios\RepositorioDeInstitucionesEventosAcademicos.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesCompetenciasInformaticas.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesDeIdioma.cs" />
     <Compile Include="Repositorios\RepositorioDePaises.cs" />

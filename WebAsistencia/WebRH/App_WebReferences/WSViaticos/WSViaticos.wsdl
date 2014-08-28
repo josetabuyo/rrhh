@@ -199,6 +199,56 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="BuscarCaracterParticipacionEvento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarCaracterParticipacionEventoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarCaracterParticipacionEventoResult" type="tns:ArrayOfCVCaracterDeParticipacionEvento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCVCaracterDeParticipacionEvento">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CVCaracterDeParticipacionEvento" nillable="true" type="tns:CVCaracterDeParticipacionEvento" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CVCaracterDeParticipacionEvento">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuscarInstitucionesEvento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarInstitucionesEventoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarInstitucionesEventoResult" type="tns:ArrayOfCVInstitucionesEventos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCVInstitucionesEventos">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CVInstitucionesEventos" nillable="true" type="tns:CVInstitucionesEventos" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CVInstitucionesEventos">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GuardarCvPublicacionesTrabajos">
         <s:complexType>
           <s:sequence>
@@ -503,9 +553,9 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Diploma" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="TipoInformatica" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Conocimiento" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nivel" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoInformatica" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Conocimiento" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Nivel" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="FechaObtencion" type="s:dateTime" />
@@ -3987,6 +4037,18 @@
   <wsdl:message name="BuscarTiposEventosAcademicosSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarTiposEventosAcademicosResponse" />
   </wsdl:message>
+  <wsdl:message name="BuscarCaracterParticipacionEventoSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarCaracterParticipacionEvento" />
+  </wsdl:message>
+  <wsdl:message name="BuscarCaracterParticipacionEventoSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarCaracterParticipacionEventoResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarInstitucionesEventoSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarInstitucionesEvento" />
+  </wsdl:message>
+  <wsdl:message name="BuscarInstitucionesEventoSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarInstitucionesEventoResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarCvPublicacionesTrabajosSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCvPublicacionesTrabajos" />
   </wsdl:message>
@@ -5130,6 +5192,14 @@
       <wsdl:input message="tns:BuscarTiposEventosAcademicosSoapIn" />
       <wsdl:output message="tns:BuscarTiposEventosAcademicosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="BuscarCaracterParticipacionEvento">
+      <wsdl:input message="tns:BuscarCaracterParticipacionEventoSoapIn" />
+      <wsdl:output message="tns:BuscarCaracterParticipacionEventoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarInstitucionesEvento">
+      <wsdl:input message="tns:BuscarInstitucionesEventoSoapIn" />
+      <wsdl:output message="tns:BuscarInstitucionesEventoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarCvPublicacionesTrabajos">
       <wsdl:input message="tns:GuardarCvPublicacionesTrabajosSoapIn" />
       <wsdl:output message="tns:GuardarCvPublicacionesTrabajosSoapOut" />
@@ -5900,6 +5970,24 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarTiposEventosAcademicos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarTiposEventosAcademicos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarCaracterParticipacionEvento">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarCaracterParticipacionEvento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarInstitucionesEvento">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarInstitucionesEvento" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7629,6 +7717,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="BuscarCaracterParticipacionEvento">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarCaracterParticipacionEvento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarInstitucionesEvento">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarInstitucionesEvento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarCvPublicacionesTrabajos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvPublicacionesTrabajos" style="document" />
       <wsdl:input>
@@ -9333,10 +9439,10 @@
   </wsdl:binding>
   <wsdl:service name="WSViaticos">
     <wsdl:port name="WSViaticosSoap" binding="tns:WSViaticosSoap">
-      <soap:address location="http://localhost:38808/WSViaticos/WSViaticos.asmx" />
+      <soap:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
     </wsdl:port>
     <wsdl:port name="WSViaticosSoap12" binding="tns:WSViaticosSoap12">
-      <soap12:address location="http://localhost:38808/WSViaticos/WSViaticos.asmx" />
+      <soap12:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

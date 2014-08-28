@@ -539,10 +539,38 @@ where Baja = 0
 End
 
 
+GO
+
+Create Procedure dbo.CV_GetCaracterDeParticipacionEvento
+
+as
+
+
+Begin 
+
+select Id, Descripcion    
+from dbo.dbo.CV_CaracterDeParticipacionEvento     
+where Baja = 0 
+
+End
 
 
 
+GO
 
+
+create procedure dbo.CV_GetInstitucionesEvento
+as
+
+
+Begin 
+
+
+select Id, Descripcion    
+from dbo.CV_InstitucionesEventos      
+where Baja = 0 
+
+End
 
 
 

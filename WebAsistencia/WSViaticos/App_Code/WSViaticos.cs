@@ -2520,7 +2520,17 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+    [WebMethod]
+    public CVCaracterDeParticipacionEvento[] BuscarCaracterParticipacionEvento(string criterio)
+    {
+        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
 
+    [WebMethod]
+    public CVInstitucionesEventos[] BuscarInstitucionesEvento(string criterio)
+    {
+        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
 
 
     #endregion
