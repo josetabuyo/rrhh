@@ -18,39 +18,42 @@
             },
             success: function (respuesta) {
                 var comite = JSON.parse(respuesta);
-                var comite_titular = Enumerable.From(comite.Integrantes)
-                        .Select(function (x) { return x })
-                        .Where(function (x) { return x.EsTitular == 1 })
-                        .ToArray();
-
-                var comite_suplente = Enumerable.From(comite.Integrantes)
-                        .Select(function (x) { return x })
-                        .Where(function (x) { return x.EsTitular == 0 })
-                        .ToArray();
-
-
-                this.GrillaDeComiteTitular = new Grilla(columnas);
-                this.GrillaDeComiteTitular.AgregarEstilo("table table-striped");
-                this.GrillaDeComiteTitular.SetOnRowClickEventHandler(function (un_comite) {
-                });
-
-                this.GrillaDeComiteTitular.CargarObjetos(comite_titular);
-                this.GrillaDeComiteTitular.DibujarEn(_this.div_comite_titular);
-
-                this.GrillaDeComiteSuplente = new Grilla(columnas);
-                this.GrillaDeComiteSuplente.AgregarEstilo("table table-striped");
-                this.GrillaDeComiteSuplente.SetOnRowClickEventHandler(function (un_comite) {
-                });
-
-                this.GrillaDeComiteSuplente.CargarObjetos(comite_suplente);
-                this.GrillaDeComiteSuplente.DibujarEn(_this.div_comite_suplente);
+                _this.armarTablasComite(comite);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alertify.alert("Error al querer ver el comite.");
             }
         });
 
+        this.armarTablasComite = function(comite){
 
+            var comite_titular = Enumerable.From(comite.Integrantes)
+                    .Select(function (x) { return x })
+                    .Where(function (x) { return x.EsTitular == 1 })
+                    .ToArray();
+
+            var comite_suplente = Enumerable.From(comite.Integrantes)
+                    .Select(function (x) { return x })
+                    .Where(function (x) { return x.EsTitular == 0 })
+                    .ToArray();
+
+
+            this.GrillaDeComiteTitular = new Grilla(columnas);
+            this.GrillaDeComiteTitular.AgregarEstilo("table table-striped");
+            this.GrillaDeComiteTitular.SetOnRowClickEventHandler(function (un_comite) {
+            });
+
+            this.GrillaDeComiteTitular.CargarObjetos(comite_titular);
+            this.GrillaDeComiteTitular.DibujarEn(_this.div_comite_titular);
+
+            this.GrillaDeComiteSuplente = new Grilla(columnas);
+            this.GrillaDeComiteSuplente.AgregarEstilo("table table-striped");
+            this.GrillaDeComiteSuplente.SetOnRowClickEventHandler(function (un_comite) {
+            });
+
+            this.GrillaDeComiteSuplente.CargarObjetos(comite_suplente);
+            this.GrillaDeComiteSuplente.DibujarEn(_this.div_comite_suplente);
+        }
 
     }
 }
