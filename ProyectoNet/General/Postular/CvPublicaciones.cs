@@ -31,7 +31,7 @@ namespace General
             this._datosEditorial = datosEditorial;
             this._cantidadHojas = cantidadHojas;
             this._disponeCopia = disponeCopia;
-            this._disponeAdjunto = disponeCopia;
+            this._disponeAdjunto = disponeAdjunto;
             this._fechaPublicacion = fechaPublicacion;
 
         }
