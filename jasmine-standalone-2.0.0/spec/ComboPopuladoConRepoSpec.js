@@ -58,17 +58,17 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				expect(jasmine.Ajax.requests.mostRecent().params).toContain('{"nombre_metodo":"BuscarLocalidades"');
 			});
 			
-			describe("Y: con un label", function() {
-				beforeEach(function() {
-					this.label_combo = ' label="Nombre"';
-					combos = populador_combos.construirCombosEn(dom);
-					fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
-				});
-
-				it("ENTONCES: deben cargarse usando el label", function() {
-					expect(combos[0].ui.children(0)[0].label).toEqual('NombreLocalidadBuenosAires');
-				});
-			});
+			//describe("Y: con un label", function() {
+			//	beforeEach(function() {
+			//		this.label_combo = ' label="Nombre"';
+			//		combos = populador_combos.construirCombosEn(dom);
+			//		fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
+			//	});
+			//
+			//	it("ENTONCES: deben cargarse usando el label", function() {
+			//		expect(combos[0].ui.children(0)[0].label).toEqual('NombreLocalidadBuenosAires');
+			//	});
+			//});
 		  
 			describe("Y: sin un label", function() {
 				beforeEach(function() {
