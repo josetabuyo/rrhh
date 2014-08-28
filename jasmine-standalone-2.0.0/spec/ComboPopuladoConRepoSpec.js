@@ -106,35 +106,52 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				});
 			});
 			
+			
 			describe("Y: se bindea un valor hijo.domicilio.localidad de un modelo (dentro de otro)", function() {
 				beforeEach(function() {
 					empleado = { hijo: { domicilio: { localidad: 6 } } };
 					this.bindeo = ' modelo="hijo.domicilio.localidad"';
-					combos = populador_combos.construirCombosEn(dom, empleado);
-					fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]')
 				});
+				
+				describe("Y: el modelo especificado no es correcto", function() {
+				
+					it("ENTONCES: deberia lanzar excepcion explicando el error", function() {
+						this.bindeo = ' modelo="hijo.domicilio.atributo_inexistente"';
+						expect(function() {
+							combos = populador_combos.construirCombosEn(dom, empleado);
+						}).toThrow("Error al intentar bindear el modelo \"hijo.domicilio.atributo_inexistente\" al combo \"combo_localidades\"");
+					});			
+				});
+				
+				describe("Y: el modelo especificado es correcto", function() {
+					beforeEach(function() {
+						this.bindeo = ' modelo="hijo.domicilio.localidad"';
+						combos = populador_combos.construirCombosEn(dom, empleado);
+						fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]')
+					});
 
-				it("ENTONCES: el valor debe estar seleccionado", function() {
-					expect(combos[0].ui.attr("value")).toEqual('6');
-				});
-				
-				describe("Y: cambia el valor del modelo", function() {
-					beforeEach(function() {
-						empleado.hijo.domicilio.localidad = 1;
+					it("ENTONCES: el valor debe estar seleccionado", function() {
+						expect(combos[0].ui.attr("value")).toEqual('6');
 					});
 					
-					it("ENTONCES: deberia reflejar el cambio", function() {
-						expect(combos[0]["id_item_seleccionado"]).toEqual(1);
-					});
-				});
-				
-				describe("Y: cambia el valor del combo", function() {
-					beforeEach(function() {
-						combos[0].ui.val('1').change();
+					describe("Y: cambia el valor del modelo", function() {
+						beforeEach(function() {
+							empleado.hijo.domicilio.localidad = 1;
+						});
+						
+						it("ENTONCES: deberia reflejar el cambio", function() {
+							expect(combos[0]["id_item_seleccionado"]).toEqual(1);
+						});
 					});
 					
-					it("ENTONCES: deberia cambiar el valor del modelo", function() {
-						expect(empleado.hijo.domicilio.localidad).toEqual('1');
+					describe("Y: cambia el valor del combo", function() {
+						beforeEach(function() {
+							combos[0].ui.val('1').change();
+						});
+						
+						it("ENTONCES: deberia cambiar el valor del modelo", function() {
+							expect(empleado.hijo.domicilio.localidad).toEqual('1');
+						});
 					});
 				});
 			});

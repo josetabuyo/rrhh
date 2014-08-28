@@ -62,19 +62,21 @@ var ComboPopuladoConRepoBuilder = function (repositorio) {
 ComboPopuladoConRepoBuilder.prototype.include = function(arr,obj) {
     return (arr.indexOf(obj) != -1);
 }
-ComboPopuladoConRepoBuilder.prototype.browseObject = function (obj, path_original) {
+ComboPopuladoConRepoBuilder.prototype.browseObject = function (obj, path_original, path_completo, combo) {
 	var path = path_original.slice(0);
 	var this_level_attr = path.shift();
+	if (!obj.hasOwnProperty(this_level_attr)) {
+		throw 'Error al intentar bindear el modelo "' + path_completo.join(".") + '" al combo "' + combo[0]['id'] + '"';
+	}
 	var this_level_value = obj[this_level_attr];
 	if (path.length == 0) {
 		return { obj_bindeable: obj, attr_bindeable: this_level_attr, attr_value: this_level_value };
 	}
-	return this.browseObject(obj[this_level_attr], path);
+	return this.browseObject(obj[this_level_attr], path, path_completo, combo);
 }
 ComboPopuladoConRepoBuilder.prototype.setValorModeloBindeado = function(obj, path_original, event) {
 	var path = path_original.slice(0);
 	var this_level_attr = path.shift();
-	//var this_level_value = obj[attr_name];
 	if (path.length == 0) {
 		
 		//evito referencia circular de a bindeado a b, y b bindeado a a.
@@ -108,7 +110,7 @@ ComboPopuladoConRepoBuilder.prototype.construirCombosEn = function (dom, modelo_
 			var attr_name = $(control).attr("modelo");
 			if (attr_name != undefined) {
 				var attr_path = attr_name.split('.');
-				var attr_value = builder.browseObject(modelo_bindeo, attr_path).attr_value;
+				var attr_value = builder.browseObject(modelo_bindeo, attr_path, attr_path, control).attr_value;
 				parametros_constructor["id_item_seleccionado"] = attr_value;
 				parametros_constructor["onchange_callback"] = function(event) { builder.setValorModeloBindeado(modelo_bindeo, attr_path, event); };
 			}

@@ -66,12 +66,12 @@
                         </div>
                         <div id="contenedor_cmb_sexo" class="grupo_campos">
                             <label for="cmb_sexo">Sexo <em>*</em></label>
-                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" data-validar="esNumeroNaturalSinCero" dataProvider="Sexos" modelo="sexo">
+                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" data-validar="esNumeroNaturalSinCero" dataProvider="Sexos" modelo="Sexo">
                             </select>
                         </div>
                         <div id="contenedor_cmb_estado_civil" class="grupo_campos">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
-                         <select id="cmb_estadoCivil" style="width:160px;" name="cmb_estadoCivil" data-validar="esNumeroNaturalSinCero" dataProvider="EstadosCiviles" modelo="estado_civil">
+                         <select id="cmb_estadoCivil" style="width:160px;" name="cmb_estadoCivil" data-validar="esNumeroNaturalSinCero" dataProvider="EstadosCiviles" modelo="EstadoCivil">
                          </select>
                          </div>
                          <div class="grupo_campos nueva_linea">
