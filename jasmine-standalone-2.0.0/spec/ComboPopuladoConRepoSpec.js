@@ -42,15 +42,15 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				populador_combos.construirCombosEn(dom);
 			});
 			
-			it("ENTONCES: lanza excepcion descriptiva si el builder se construye sin repositorio.", function() {
+			it("ENTONCES: debe lanzar excepcion descriptiva si el builder se construye sin repositorio.", function() {
 				expect(function() {
 					new ComboPopuladoConRepoBuilder();
 				}).toThrow("No se ha especificado un repositorio al momento de construir el builder de combos");
 			});		
 
-			it("ENTONCES: lanza excepcion descriptiva si el combo se construye sin repositorio.", function() {
+			it("ENTONCES: debe lanzar excepcion descriptiva si el combo se construye sin repositorio.", function() {
 				expect(function() {
-					new SuperCombo();
+					new SuperCombo({ui: $('<select id="combo_localidades"></select>')});
 				}).toThrow("No se ha especificado un repositorio al momento de construir el combo \"combo_localidades\"");
 			});		
 

@@ -65,6 +65,7 @@ var ComboPopuladoConRepoBuilder = function (repositorio) {
 ComboPopuladoConRepoBuilder.prototype.include = function(arr,obj) {
     return (arr.indexOf(obj) != -1);
 }
+
 ComboPopuladoConRepoBuilder.prototype.browseObject = function (obj, path_original, path_completo, combo) {
 	var path = path_original.slice(0);
 	var this_level_attr = path.shift();
@@ -77,6 +78,7 @@ ComboPopuladoConRepoBuilder.prototype.browseObject = function (obj, path_origina
 	}
 	return this.browseObject(obj[this_level_attr], path, path_completo, combo);
 }
+
 ComboPopuladoConRepoBuilder.prototype.setValorModeloBindeado = function(obj, path_original, event) {
 	var path = path_original.slice(0);
 	var this_level_attr = path.shift();
