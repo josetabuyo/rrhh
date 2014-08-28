@@ -54,8 +54,8 @@
 </div>
 
 
-<div class="info-gral posicion fondo_form sombra_y_redondeado">
-	<p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">I.</span> Información Personal</p>
+<div class="info-gral posicion fondo_form">
+	<p class="titulos degrade"><span class="letra-bold">I.</span> Información Personal</p>
 	<p class="nombre-h"><span id="cv_apellido" class="atributo-apelido"></span><span id="cv_nombre"></span></p>
     <br>
 	<p class="general"><span class="atributos">DNI: </span><span id="cv_dni"></span></p>
@@ -68,7 +68,7 @@
 	
 </div>
 
-<div class="info-notif-avisos posicion fondo_form sombra_y_redondeado">
+<div class="info-notif-avisos posicion fondo_form">
 	<p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">II.</span> Información Requerida para Recibir Notificaciones y Avisos</p>
 	<p class="general"><span class="atributos">Domicilio: </span><span id="cv_domLegal">Italia 465 - Timbre 3 - Lomas de Zamora - C.P: 1832</span></p>
 	<p class="general"><span class="atributos">Teléfonos: </span><span id="cv_telefono">4281-2685 / 15 5059 5930</span></p>
@@ -156,7 +156,7 @@
     </div>
 </div>-->
 
-<div class="tit-pos posicion fondo_form sombra_y_redondeado">
+<div class="tit-pos posicion fondo_form">
 	<p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">VI.</span> Motivos por los que se Postula al Cargo</p>
 		<p class="motivos-cargo">Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.</p>
 	</div>
@@ -185,7 +185,7 @@
 </tr>
 </table>
 
-<p class="p-imprimir"><button onclick="ImprimirCVPostulado()">Imprimir Curriculum</button></p>
+<p class="p-imprimir"><button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir Curriculum</button></p>
 </div>	
 </div>
 

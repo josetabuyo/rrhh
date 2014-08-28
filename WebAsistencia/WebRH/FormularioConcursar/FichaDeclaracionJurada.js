@@ -81,7 +81,7 @@
         //CvEstudios
         if (curriculum.CvEstudios.length > 0) {
             _this.caja_antecedentes_academicos = $('#caja_antecedentes_academicos');
-            _this.caja_antecedentes_academicos.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_antecedentes_academicos.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_antecedentes_academicos, "Antecedentes Academicos");
@@ -120,7 +120,7 @@
         //CV DOCENCIAS
         if (curriculum.CvDocencias.length > 0) {
             _this.caja_actividades_docentes = $('#caja_actividades_decentes');
-            _this.caja_actividades_docentes.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_actividades_docentes.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_actividades_docentes, "Actividades Docentes");
@@ -142,7 +142,7 @@
         //CV EVENTOS ACADEMICOS
         if (curriculum.CvEventosAcademicos.length > 0) {
             _this.caja_eventos_academicos = $('#caja_eventos_academicos');
-            _this.caja_eventos_academicos.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_eventos_academicos.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_eventos_academicos, "Eventos Academicos");
@@ -164,7 +164,7 @@
         //CV PUBLICACIONES
         if (curriculum.CvPublicaciones.length > 0) {
             _this.caja_publicaciones = $('#caja_publicaciones');
-            _this.caja_publicaciones.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_publicaciones.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_publicaciones, "Publicaciones");
@@ -186,7 +186,7 @@
         //CV Matriculas
         if (curriculum.CvMatricula.length > 0) {
             _this.caja_matriculas = $('#caja_matriculas');
-            _this.caja_matriculas.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_matriculas.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_matriculas, "Matriculas");
@@ -208,7 +208,7 @@
         //CV Instituciones Academicas
         if (curriculum.CvInstitucionesAcademicas.length > 0) {
             _this.caja_instituciones = $('#caja_instituciones');
-            _this.caja_instituciones.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_instituciones.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_instituciones, "Instituciones Academicas");
@@ -230,7 +230,7 @@
         //CV EXPERIENCIAS LABORALES
         if (curriculum.CvExperienciaLaboral.length > 0) {
             _this.caja_experiencias_laborales = $('#caja_experiencias_laborales');
-            _this.caja_experiencias_laborales.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_experiencias_laborales.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_experiencias_laborales, "Experiencias Laborales");
@@ -251,7 +251,7 @@
         //CV OTRAS APTITUDES (IDIOMA + COMPET INFORMATICA + OTRAS CAPACIDADES)
         if (curriculum.CvIdiomas.length > 0 || curriculum.CvCompetenciasInformaticas.length > 0 || curriculum.CvCapacidadesPersonales.length > 0) {
             _this.caja_otras_aptitudes = $('#caja_otras_aptitudes');
-            _this.caja_otras_aptitudes.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_otras_aptitudes.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_otras_aptitudes, "Otras capacidades");
@@ -314,7 +314,7 @@
         var _this = this;
 
         _this.titulo = $('<p>');
-        _this.titulo.addClass("titulos degrade sombra_y_redondeado");
+        _this.titulo.addClass("titulos degrade ");
         _this.titulo.text(titulo);
 
         contenedor.append(_this.titulo);
