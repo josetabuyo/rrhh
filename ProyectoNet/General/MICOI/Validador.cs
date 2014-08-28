@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace General
 {
-    public class Validador
+    public class ValidadorMICOI
     {
         public void NoEsNulo(object algo, string descripcion)
         {
@@ -26,5 +26,9 @@ namespace General
                 throw new ExcepcionDeValidacion(item.ToString() + ", no pertenece a la coleccion de " + descripcion);
            
         }
+
+       
     }
+
+
 }

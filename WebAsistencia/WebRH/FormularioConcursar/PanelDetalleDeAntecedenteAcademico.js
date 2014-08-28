@@ -67,7 +67,7 @@
                                 un_estudio: estudio
                             },
                             success: function (respuesta) {
-                                alertify.alert("Los capacidad fue creada correctamente");
+                                alertify.alert("Los capacidad fue actualizada correctamente");
                                 alModificar(respuesta);
                                 $(".modal_close_concursar").click();
                             },

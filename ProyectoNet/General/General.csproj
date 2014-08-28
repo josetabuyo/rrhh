@@ -116,6 +116,7 @@
     <Compile Include="Postular\Puesto.cs" />
     <Compile Include="Postular\Pais.cs" />
     <Compile Include="Postular\NivelDeIdioma.cs" />
+    <Compile Include="Postular\Validador.cs" />
     <Compile Include="Repositorios\FiltroDeObjetos.cs" />
     <Compile Include="Repositorios\RepositorioDeConocimientosCompetenciasInformaticas.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesCompetenciasInformaticas.cs" />

@@ -70,17 +70,17 @@
                         </div>
                         <div id="contenedor_cmb_sexo" class="grupo_campos">
                             <label for="cmb_sexo">Sexo <em>*</em></label>
-                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" data-validar="esNoBlanco">
+                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" data-validar="esNumeroNaturalSinCero">
                             </select>
                         </div>
                         <div id="contenedor_cmb_estado_civil" class="grupo_campos">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
-                         <select id="cmb_estadoCivil" style="width:160px;" name="cmb_estadoCivil" data-validar="esNoBlanco" >
+                         <select id="cmb_estadoCivil" style="width:160px;" name="cmb_estadoCivil" data-validar="esNumeroNaturalSinCero" >
                          </select>
                          </div>
                          <div class="grupo_campos nueva_linea">
                            <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo Documento <em>*</em></label>
-                            <select id="cmb_tipoDocumento" style="width:170px;" name="cmb_tipoDocumento"  data-validar="esNoBlanco">
+                            <select id="cmb_tipoDocumento" style="width:170px;" name="cmb_tipoDocumento"  data-validar="esNumeroNaturalSinCero">
                             </select>
                           </div>
                           <div class="grupo_campos">
@@ -102,7 +102,7 @@
                         </div>
                       <div class="grupo_campos">
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
-                         <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad"  data-validar="esNoBlanco">
+                         <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad"  data-validar="esNumeroNaturalSinCero">
                          </select>
                       </div>
                        <div class="grupo_campos nueva_linea">
@@ -190,8 +190,8 @@
                         </div>
 
                         <div class="grupo_campos">
-                            <label class="etiqueta_campo" for="txt_telefono2">Tel&eacute;fono Celular</label>
-                            <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width:140px;"/>
+                            <label class="etiqueta_campo" for="txt_telefono2">Tel&eacute;fono Celular<em>*</em></label>
+                            <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width:140px;" data-validar="esNoBlanco"/>
                         </div>
 
                         <div id="contenedor_mails"class="grupo_campos">

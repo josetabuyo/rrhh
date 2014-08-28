@@ -78,9 +78,9 @@
                 // user clicked "ok"
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "EliminarCvActividadesDocentes",
+                proveedor_ajax.postearAUrl({ url: "EliminarCvActividadDocente",
                     data: {
-                        actividadDocente_borrar: una_actividad_docente
+                        id_actividad_docente: una_actividad_docente.Id
                     },
                     success: function (respuesta) {
                         alertify.success("Docencia eliminada correctamente");

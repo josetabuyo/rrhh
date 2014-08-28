@@ -49,9 +49,9 @@ namespace General
             _tipo = tipo;
         }
 
-        private Validador Validador()
+        private ValidadorMICOI Validador()
         {
-            return new Validador();
+            return new ValidadorMICOI();
         }
     }
 }

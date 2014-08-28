@@ -401,9 +401,9 @@ namespace General.Repositorios
                                               Id = dRow.GetInt("IdCompetenciaInformatica", 0),
                                               Diploma = dRow.GetString("CompetenciaDiploma", string.Empty),
                                               Establecimiento = dRow.GetString("CompetenciaEstablecimiento", string.Empty),
-                                              TipoInformatica = dRow.GetString("CompetenciaTipoInformatica", string.Empty),
-                                              Conocimiento = dRow.GetString("CompetenciaConocimiento", string.Empty),
-                                              Nivel = dRow.GetString("CompetenciaNivel", string.Empty),
+                                              TipoInformatica = dRow.GetInt("CompetenciaTipoInformatica", 0),
+                                              Conocimiento = dRow.GetInt("CompetenciaConocimiento", 0),
+                                              Nivel = dRow.GetInt("CompetenciaNivel", 0),
                                               Localidad = dRow.GetString("CompetenciaLocalidad", string.Empty),
                                               Pais = dRow.GetInt("CompetenciaPais", 9),
                                               FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today),
@@ -435,7 +435,7 @@ namespace General.Repositorios
         #region CvDatosPersonales
         public void GuardarCVDatosPersonales(CvDatosPersonales datosPersonales, Usuario usuario)
         {
-
+            validarDatos(datosPersonales);
             var parametros = new Dictionary<string, object>();
             var cv = this.GetCV(usuario.Owner.Id);
 
@@ -514,7 +514,7 @@ namespace General.Repositorios
             parametros.Add("@DomicilioCp", domicilio.Cp);
             parametros.Add("@DomicilioLocalidad", domicilio.Localidad);
             parametros.Add("@DomicilioProvincia", domicilio.Provincia);
-            parametros.Add("@Correo_Electronico_MDS", "");
+            parametros.Add("@Correo_Electronico_MDS", ""); //Esto no está blanqueando los mails de los empelados?
             parametros.Add("@DomicilioTipo", tipo);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@DomicilioTelefono", telefono);
@@ -551,6 +551,8 @@ namespace General.Repositorios
         #region CvAntecedentesAcademicos
         public CvEstudios GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
         {
+            
+            validarDatos(antecedentesAcademicos_nuevo);
 
             var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
@@ -563,31 +565,27 @@ namespace General.Repositorios
 
         public CvEstudios ActualizarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
         {
-            //var baja = CrearBaja(usuario);
-
+            validarDatos(antecedentesAcademicos_nuevo);
+            
             var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
             parametros.Add("@idAntecedente", antecedentesAcademicos_nuevo.Id);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
 
-            //this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
-
             return antecedentesAcademicos_nuevo;
 
         }
 
-        public bool EliminarCVAntecedentesAcademicos(int antecedentesAcademicos_nuevo, Usuario usuario)
+        public bool EliminarCVAntecedentesAcademicos(int id_antecedente_academico, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
 
-            //var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
-             var parametros = new Dictionary<string, object>();
+            var parametros = new Dictionary<string, object>();
             parametros.Add("@idBaja", baja);
             parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@idAntecedente", antecedentesAcademicos_nuevo);
+            parametros.Add("@idAntecedente", id_antecedente_academico);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
-            //this._cvAntecedentesAcademicos.Remove(antecedentesAcademicos_nuevo);
             return true;
         }
 
@@ -614,23 +612,26 @@ namespace General.Repositorios
         public CvCertificadoDeCapacitacion GuardarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
         {
         //deberia ser el mismo sp y tabla que antecedentes
+            validarDatos(actividad_nueva);
             var parametros = ParametrosDeActividadesDeCapacitacion(actividad_nueva, usuario);
-        parametros.Add("@idPersona", usuario.Owner.Id);
+            parametros.Add("@idPersona", usuario.Owner.Id);
 
-        var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ActividadesDeCapacitacion", parametros);
-        actividad_nueva.Id = int.Parse(id.ToString());
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ActividadesDeCapacitacion", parametros);
+            actividad_nueva.Id = int.Parse(id.ToString());
 
-        return actividad_nueva;
+            return actividad_nueva;
         }
+
 
         public CvCertificadoDeCapacitacion ActualizarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
         {
+            validarDatos(actividad_nueva);
             var parametros = ParametrosDeActividadesDeCapacitacion(actividad_nueva, usuario);
-        parametros.Add("@IdActividadDeCapacitacion", actividad_nueva.Id);
+            parametros.Add("@IdActividadDeCapacitacion", actividad_nueva.Id);
 
-        conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
+            conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
 
-        return actividad_nueva;
+            return actividad_nueva;
         }
 
         public bool EliminarCvActividadCapacitacion(int id_capacitacion_nuevo, Usuario usuario)
@@ -674,6 +675,8 @@ namespace General.Repositorios
         #region CvActividadDocente
         public CvDocencia GuardarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
         {
+            validarDatos(docencia_nuevo);
+
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
@@ -683,8 +686,11 @@ namespace General.Repositorios
             return docencia_nuevo;
         }
 
+
         public CvDocencia ActualizarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
         {
+            validarDatos(docencia_nuevo);
+
             var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
             parametros.Add("@IdDocencia", docencia_nuevo.Id);
 
@@ -735,6 +741,7 @@ namespace General.Repositorios
 
         public CvEventoAcademico GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)
         {
+            validarDatos(eventoAcademico_nuevo);
             var parametros = ParametrosDeEventosAcademicos(eventoAcademico_nuevo, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
@@ -745,6 +752,7 @@ namespace General.Repositorios
 
         public CvEventoAcademico ActualizarCvEventoAcademico(CvEventoAcademico evento_actualizado, Usuario usuario)
         {
+            validarDatos(evento_actualizado);
             var parametros = ParametrosDeEventosAcademicos(evento_actualizado, usuario);
             parametros.Add("@IdEvento", evento_actualizado.Id);
 
@@ -791,6 +799,7 @@ namespace General.Repositorios
         #region CvPublicaciones
         public CvPublicaciones GuardarCvPublicacionesTrabajos(CvPublicaciones publicacion_nueva, Usuario usuario)
         {
+            validarDatos(publicacion_nueva);
             var parametros = ParametrosDePublicaciones(publicacion_nueva, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
@@ -800,8 +809,10 @@ namespace General.Repositorios
             return publicacion_nueva;
         }
 
+
         public CvPublicaciones ActualizarCvPublicaciones(CvPublicaciones publicacion_nueva, Usuario usuario)
         {
+            validarDatos(publicacion_nueva);
             var parametros = ParametrosDePublicaciones(publicacion_nueva, usuario);
             parametros.Add("@IdPublicacion", publicacion_nueva.Id);
 
@@ -843,6 +854,7 @@ namespace General.Repositorios
         #region CvMatriculas
         public CvMatricula GuardarCvMatricula(CvMatricula matricula_nueva, Usuario usuario)
         {
+            validarDatos(matricula_nueva);
             var parametros = ParametrosDeMatricula(matricula_nueva, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
@@ -852,8 +864,10 @@ namespace General.Repositorios
             return matricula_nueva;
         }
 
+
         public CvMatricula ActualizarCvMatricula(CvMatricula matricula_nueva, Usuario usuario)
         {
+            validarDatos(matricula_nueva);
             var parametros = ParametrosDeMatricula(matricula_nueva, usuario);
             parametros.Add("@IdMatricula", matricula_nueva.Id);
 
@@ -894,6 +908,7 @@ namespace General.Repositorios
         #region CvInstituciones Academicas
         public CvInstitucionesAcademicas GuardarCvInstitucionAcademica(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
         {
+            validarDatos(institucion_nueva);
             var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
@@ -903,8 +918,10 @@ namespace General.Repositorios
             return institucion_nueva;
         }
 
+
         public CvInstitucionesAcademicas ActualizarCvInstitucionAcademica(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
         {
+            validarDatos(institucion_nueva);
             var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
             parametros.Add("@idInstitucion", institucion_nueva.Id);
             
@@ -953,6 +970,7 @@ namespace General.Repositorios
         #region CvExperiencias
         public CvExperienciaLaboral GuardarCvExperienciaLaboral(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
         {
+            validarDatos(experiencia_nueva);
             var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
@@ -962,8 +980,10 @@ namespace General.Repositorios
             return experiencia_nueva;
         }
 
+
         public CvExperienciaLaboral ActualizarCvExperienciaLaboral(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
         {
+            validarDatos(experiencia_nueva);
             var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
             parametros.Add("@IdExperienciaLaboral", experiencia_nueva.Id);
 
@@ -1011,7 +1031,7 @@ namespace General.Repositorios
 
         public CvIdiomas GuardarCvIdiomaExtranjero(CvIdiomas idioma_extranjero_nuevo, Usuario usuario)
         {
-
+            validarDatos(idioma_extranjero_nuevo);
             var parametros = ParametrosDelIdioma(idioma_extranjero_nuevo, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
@@ -1021,8 +1041,10 @@ namespace General.Repositorios
             return idioma_extranjero_nuevo;
         }
 
+
         public CvIdiomas ActualizarCvIdiomaExtranjero(CvIdiomas idioma_extranjero_modificado, Usuario usuario)
         {
+            validarDatos(idioma_extranjero_modificado);
             var parametros = ParametrosDelIdioma(idioma_extranjero_modificado, usuario);
             parametros.Add("@IdIdioma", idioma_extranjero_modificado.Id);
            
@@ -1070,6 +1092,7 @@ namespace General.Repositorios
 
         public CvCapacidadPersonal GuardarCvOtraCapacidad(CvCapacidadPersonal capacidad_personal_nueva, Usuario usuario)
         {
+            validarDatos(capacidad_personal_nueva);
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdPersona", usuario.Owner.Id);
             parametros.Add("@Tipo", capacidad_personal_nueva.Tipo);
@@ -1081,8 +1104,10 @@ namespace General.Repositorios
             return capacidad_personal_nueva;
         }
 
+
         public CvCapacidadPersonal ActualizarCvOtraCapacidad(CvCapacidadPersonal capacidad_personal_modificada, Usuario usuario)
         {
+            validarDatos(capacidad_personal_modificada);
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id", capacidad_personal_modificada.Id);
             parametros.Add("@Tipo", capacidad_personal_modificada.Tipo);
@@ -1113,6 +1138,7 @@ namespace General.Repositorios
         #region CvCompetenciasInformaticas
         public CvCompetenciasInformaticas GuardarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia_informatica, Usuario usuario)
         {
+            validarDatos(competencia_informatica);
             var parametros = ParametrosDeCompetenciasInformaticas(competencia_informatica, usuario);
             parametros.Add("@idPersona", usuario.Owner.Id);
 
@@ -1122,8 +1148,10 @@ namespace General.Repositorios
             return competencia_informatica;
         }
 
+
         public CvCompetenciasInformaticas ActualizarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia, Usuario usuario)
         {
+            validarDatos(competencia);
             var parametros = ParametrosDeCompetenciasInformaticas(competencia, usuario);
             parametros.Add("@IdCompetencia", competencia.Id);
 
@@ -1179,6 +1207,169 @@ namespace General.Repositorios
 
             return id;
         }
+
+        #region Validaciones
+
+        private void validarDatos(CvDatosPersonales datosPersonales)
+        {
+            var validador_datos = new Validador();
+
+            validador_datos.DeberianSerNoVacias(new string[] { "Nombre", "Apellido", "Cuil", "Telefono", "Telefono2" });
+            validador_datos.DeberianSerFechasNoVacias(new string[] { "FechaNacimiento"});
+            validador_datos.DeberianSerNaturalesOCero(new string[] { "Dni" }); 
+            validador_datos.DeberianSerNaturales(new string[] { "Sexo", "EstadoCivil", "Nacionalidad", "TipoDocumento"});
+            
+            if (!validador_datos.EsValido(datosPersonales))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+
+            validarDatos(datosPersonales.DomicilioLegal);
+            validarDatos(datosPersonales.DomicilioPersonal);
+        }
+
+        private void validarDatos(CvDomicilio un_domicilio)
+        {
+            var validador_domicilio = new Validador();
+            
+            validador_domicilio.DeberianSerNoVacias(new string[] { "Calle"});
+            validador_domicilio.DeberianSerNaturalesOCero(new string[] { "Numero", "Cp", "Provincia", "Localidad" });
+            
+            if (!validador_domicilio.EsValido(un_domicilio))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");   
+        }
+
+        private void validarDatos(CvEstudios un_estudio)
+        {
+            var validador_estudios = new Validador();
+
+            validador_estudios.DeberianSerNoVacias(new string[] { "Titulo", "Especialidad", "Establecimiento", "Localidad" });
+            validador_estudios.DeberianSerFechasNoVacias(new string[] { "FechaIngreso", "FechaEgreso"});
+            validador_estudios.DeberianSerNaturales(new string[] { "Nivel", "Pais" });
+            
+            if (!validador_estudios.EsValido(un_estudio))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");              
+        }
+
+        private void validarDatos(CvDocencia una_docencia)
+        {
+            var validador_docencias = new Validador();
+
+            validador_docencias.DeberianSerNoVacias(new string[] { "Asignatura", "CategoriaDocente", "DedicacionDocente", "CargaHoraria", "TipoActividad", "Establecimiento", "Localidad"});
+            validador_docencias.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
+            validador_docencias.DeberianSerNaturales(new string[] { "NivelEducativo", "Pais" });
+            
+            if(!validador_docencias.EsValido(una_docencia))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+                           
+        }
+
+        private void validarDatos(CvCertificadoDeCapacitacion una_actividad)
+        {
+            var validador_actividad = new Validador();       
+
+            validador_actividad.DeberianSerNoVacias(new string[]{ "DiplomaDeCertificacion", "Especialidad", "Duracion", "Establecimiento", "Localidad" });
+            validador_actividad.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
+            validador_actividad.DeberianSerNaturales(new string[] { "Pais" });
+
+            if (!validador_actividad.EsValido(una_actividad))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        private void validarDatos(CvEventoAcademico un_evento_academico)
+        {
+            var validador_evento = new Validador();       
+
+            validador_evento.DeberianSerNoVacias(new string[]{ "Denominacion", "CaracterDeParticipacion", "TipoDeEvento", "Duracion", "Institucion", "Localidad" });
+            validador_evento.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
+            validador_evento.DeberianSerNaturales(new string[] { "Pais" });
+
+            if (!validador_evento.EsValido(un_evento_academico))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        private void validarDatos(CvPublicaciones una_publicacion)
+        {
+            var validador_publicacion = new Validador();  
+
+            validador_publicacion.DeberianSerNoVacias(new string[]{ "Titulo", "CantidadHojas", "DatosEditorial", });
+            validador_publicacion.DeberianSerFechasNoVacias(new string[] { "FechaPublicacion" });
+            validador_publicacion.DeberianSerNaturalesOCero(new string[] { "DisponeAdjunto", "DisponeCopia" });
+
+            if (!validador_publicacion.EsValido(una_publicacion))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        private void validarDatos(CvMatricula una_matricula)
+        {
+            var validador_matricula = new Validador();  
+            
+            validador_matricula.DeberianSerNoVacias(new string[]{ "Numero", "ExpedidaPor", "SituacionActual" });
+            validador_matricula.DeberianSerFechasNoVacias(new string[] { "FechaInscripcion" });
+
+            if (!validador_matricula.EsValido(una_matricula))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        private void validarDatos(CvInstitucionesAcademicas una_institucion)
+        {
+            var validador_institucion = new Validador();  
+                        
+            validador_institucion.DeberianSerNoVacias(new string[]{ "Institucion", "CaracterEntidad", "CargosDesempeniados", "NumeroAfiliado", "CategoriaActual", "Localidad" });
+            validador_institucion.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFin", "FechaDeAfiliacion", "Fecha" });
+            validador_institucion.DeberianSerNaturales(new string[] { "Pais" });
+
+            if (!validador_institucion.EsValido(una_institucion))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        private void validarDatos(CvExperienciaLaboral una_experiencia)
+        {
+           var validador_experiencia = new Validador(); 
+                       
+            validador_experiencia.DeberianSerNoVacias(new string[]{ "PuestoOcupado", "Actividad", "NombreEmpleador", "TipoEmpresa", "Sector", "Localidad" });
+            validador_experiencia.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFin"});
+            validador_experiencia.DeberianSerNaturales(new string[] { "Pais" });
+            validador_experiencia.DeberianSerNaturalesOCero(new string[] { "PersonasACargo"});
+
+            if (!validador_experiencia.EsValido(una_experiencia))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        private void validarDatos(CvIdiomas un_idioma)
+        {
+            var validador_idioma = new Validador(); 
+                                    
+            validador_idioma.DeberianSerNoVacias(new string[]{ "Diploma", "Idioma", "Establecimiento", "Localidad" });
+            validador_idioma.DeberianSerFechasNoVacias(new string[] { "FechaObtencion" });
+            validador_idioma.DeberianSerNaturales(new string[] { "Lectura", "Escritura", "Oral", "Pais" });
+
+            if (!validador_idioma.EsValido(un_idioma))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        private void validarDatos(CvCompetenciasInformaticas una_competencia)
+        {
+            var validador_competencia = new Validador();
+                                    
+            validador_competencia.DeberianSerNoVacias(new string[]{ "Diploma", "Detalle", "Establecimiento", "Localidad" });
+            validador_competencia.DeberianSerFechasNoVacias(new string[] { "FechaObtencion" });
+            validador_competencia.DeberianSerNaturales(new string[] { "TipoInformatica", "Conocimiento", "Nivel", "Pais" });
+
+            if (!validador_competencia.EsValido(una_competencia))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        private void validarDatos(CvCapacidadPersonal una_capacidad)
+        {
+            var validador_capacidad = new Validador();
+                                    
+            validador_capacidad.DeberianSerNoVacias(new string[]{ "Detalle"});
+            validador_capacidad.DeberianSerNaturales(new string[] { "Tipo"});
+
+            if (!validador_capacidad.EsValido(una_capacidad))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        #endregion Validaciones
 
     }
 }

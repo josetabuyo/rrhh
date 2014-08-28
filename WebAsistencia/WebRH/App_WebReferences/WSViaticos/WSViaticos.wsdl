@@ -2598,7 +2598,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="EliminarCvActividadesDocentes">
+      <s:element name="EliminarCvActividadDocente">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="actividades_docentes_a_borrar" type="s:int" />
@@ -2606,10 +2606,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="EliminarCvActividadesDocentesResponse">
+      <s:element name="EliminarCvActividadDocenteResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="EliminarCvActividadesDocentesResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="EliminarCvActividadDocenteResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4665,11 +4665,11 @@
   <wsdl:message name="ActualizarCvActividadDocenteSoapOut">
     <wsdl:part name="parameters" element="tns:ActualizarCvActividadDocenteResponse" />
   </wsdl:message>
-  <wsdl:message name="EliminarCvActividadesDocentesSoapIn">
-    <wsdl:part name="parameters" element="tns:EliminarCvActividadesDocentes" />
+  <wsdl:message name="EliminarCvActividadDocenteSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarCvActividadDocente" />
   </wsdl:message>
-  <wsdl:message name="EliminarCvActividadesDocentesSoapOut">
-    <wsdl:part name="parameters" element="tns:EliminarCvActividadesDocentesResponse" />
+  <wsdl:message name="EliminarCvActividadDocenteSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarCvActividadDocenteResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarCvEventoAcademicoSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCvEventoAcademico" />
@@ -5582,9 +5582,9 @@
       <wsdl:input message="tns:ActualizarCvActividadDocenteSoapIn" />
       <wsdl:output message="tns:ActualizarCvActividadDocenteSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="EliminarCvActividadesDocentes">
-      <wsdl:input message="tns:EliminarCvActividadesDocentesSoapIn" />
-      <wsdl:output message="tns:EliminarCvActividadesDocentesSoapOut" />
+    <wsdl:operation name="EliminarCvActividadDocente">
+      <wsdl:input message="tns:EliminarCvActividadDocenteSoapIn" />
+      <wsdl:output message="tns:EliminarCvActividadDocenteSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarCvEventoAcademico">
       <wsdl:input message="tns:GuardarCvEventoAcademicoSoapIn" />
@@ -6924,8 +6924,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EliminarCvActividadesDocentes">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvActividadesDocentes" style="document" />
+    <wsdl:operation name="EliminarCvActividadDocente">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvActividadDocente" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8646,8 +8646,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EliminarCvActividadesDocentes">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvActividadesDocentes" style="document" />
+    <wsdl:operation name="EliminarCvActividadDocente">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvActividadDocente" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -9333,10 +9333,10 @@
   </wsdl:binding>
   <wsdl:service name="WSViaticos">
     <wsdl:port name="WSViaticosSoap" binding="tns:WSViaticosSoap">
-      <soap:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap:address location="http://localhost:38808/WSViaticos/WSViaticos.asmx" />
     </wsdl:port>
     <wsdl:port name="WSViaticosSoap12" binding="tns:WSViaticosSoap12">
-      <soap12:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap12:address location="http://localhost:38808/WSViaticos/WSViaticos.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
