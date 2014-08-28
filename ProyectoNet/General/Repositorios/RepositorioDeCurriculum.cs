@@ -435,7 +435,7 @@ namespace General.Repositorios
         #region CvDatosPersonales
         public void GuardarCVDatosPersonales(CvDatosPersonales datosPersonales, Usuario usuario)
         {
-            validarDatos(datosPersonales);
+            
             var parametros = new Dictionary<string, object>();
             var cv = this.GetCV(usuario.Owner.Id);
 
@@ -448,6 +448,7 @@ namespace General.Repositorios
                 //Si no es empleado
                 if (cv.DatosPersonales.TieneLegajo == "No tiene legajo")
                 {
+                    validarDatos(datosPersonales);
                     //insertar en CV_DatosPersonales
                     parametros = CompletarDatosPersonales(datosPersonales, parametros, usuario);
                     parametros.Add("@IdPersona", usuario.Owner.Id);
@@ -455,7 +456,7 @@ namespace General.Repositorios
                     conexion_bd.Ejecutar("dbo.CV_Ins_DatosPersonalesNoEmpleados1ravez", parametros);
                 }
                 //Si es empleado 
-
+                validarDatosEmpleado(datosPersonales);
                 //insert de CV
                 parametros = new Dictionary<string, object>();
                 parametros.Add("@Dni", datosPersonales.Dni);
@@ -1219,6 +1220,19 @@ namespace General.Repositorios
             validador_datos.DeberianSerNaturalesOCero(new string[] { "Dni" }); 
             validador_datos.DeberianSerNaturales(new string[] { "Sexo", "EstadoCivil", "Nacionalidad", "TipoDocumento"});
             
+            if (!validador_datos.EsValido(datosPersonales))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+
+            validarDatos(datosPersonales.DomicilioLegal);
+            validarDatos(datosPersonales.DomicilioPersonal);
+        }
+
+        private void validarDatosEmpleado(CvDatosPersonales datosPersonales)
+        {
+            var validador_datos = new Validador();
+
+            validador_datos.DeberianSerNoVacias(new string[] { "Telefono", "Telefono2" });
+
             if (!validador_datos.EsValido(datosPersonales))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
 

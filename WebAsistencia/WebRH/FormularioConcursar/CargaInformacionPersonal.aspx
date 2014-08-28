@@ -75,12 +75,12 @@
                         </div>
                         <div id="contenedor_cmb_estado_civil" class="grupo_campos">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
-                         <select id="cmb_estadoCivil" style="width:160px;" name="cmb_estadoCivil" data-validar="esNumeroNaturalSinCero" >
+                         <select id="cmb_estadoCivil" style="width:160px;" name="cmb_estadoCivil" data-validar="esUnComboSinCero" >
                          </select>
                          </div>
                          <div class="grupo_campos nueva_linea">
                            <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo Documento <em>*</em></label>
-                            <select id="cmb_tipoDocumento" style="width:170px;" name="cmb_tipoDocumento"  data-validar="esNumeroNaturalSinCero">
+                            <select id="cmb_tipoDocumento" style="width:170px;" name="cmb_tipoDocumento"  data-validar="esUnComboSinCero">
                             </select>
                           </div>
                           <div class="grupo_campos">
@@ -102,7 +102,7 @@
                         </div>
                       <div class="grupo_campos">
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
-                         <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad"  data-validar="esNumeroNaturalSinCero">
+                         <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad"  data-validar="esUnComboSinCero">
                          </select>
                       </div>
                        <div class="grupo_campos nueva_linea">
@@ -131,12 +131,12 @@
                       </div>
                       <div class="grupo_campos nueva_linea">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
-                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;"  data-validar="esNoBlanco">
+                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;"  data-validar="esUnComboConCero">
                         </select>
                       </div> 
                       <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
-                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;"  data-validar="esNoBlanco">
+                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;"  data-validar="esUnComboConCero">
                             </select>
                       </div>
                     </fieldset>
