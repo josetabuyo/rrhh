@@ -15,6 +15,16 @@
             _this.txt_antecedentes_titulo.val(estudio.Titulo);
             _this.cmb_antecedentes_nivel = _this.ui.find("#cmb_antecedentes_nivel");
             _this.cmb_antecedentes_nivel.val(estudio.Nivel);
+
+
+
+            _this.cmb_antecedentes_nivel = new SuperCombo({
+                ui: _this.ui.find("#cmb_antecedentes_nivel"),
+                nombre_repositorio: "NivelesDeEstudio",
+                id_item_seleccionado: estudio.Nivel
+            });
+
+
             _this.txt_establecimiento = _this.ui.find("#txt_antecedentes_establecimiento");
             _this.txt_establecimiento.val(estudio.Establecimiento);
             _this.txt_antecedentes_especialidad = _this.ui.find("#txt_antecedentes_especialidad");

@@ -478,9 +478,9 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Diploma" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="TipoInformatica" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Conocimiento" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nivel" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoInformatica" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Conocimiento" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Nivel" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="FechaObtencion" type="s:dateTime" />
@@ -932,6 +932,31 @@
         </s:sequence>
       </s:complexType>
       <s:complexType name="NivelDeDocencia">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuscarNivelesDeEstudio">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarNivelesDeEstudioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarNivelesDeEstudioResult" type="tns:ArrayOfNivelDeEstudio" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfNivelDeEstudio">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NivelDeEstudio" nillable="true" type="tns:NivelDeEstudio" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NivelDeEstudio">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
@@ -4160,6 +4185,12 @@
   <wsdl:message name="BuscarNivelesDeDocenciaSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarNivelesDeDocenciaResponse" />
   </wsdl:message>
+  <wsdl:message name="BuscarNivelesDeEstudioSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarNivelesDeEstudio" />
+  </wsdl:message>
+  <wsdl:message name="BuscarNivelesDeEstudioSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarNivelesDeEstudioResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarLocalidadesSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarLocalidades" />
   </wsdl:message>
@@ -5231,6 +5262,10 @@
       <wsdl:input message="tns:BuscarNivelesDeDocenciaSoapIn" />
       <wsdl:output message="tns:BuscarNivelesDeDocenciaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="BuscarNivelesDeEstudio">
+      <wsdl:input message="tns:BuscarNivelesDeEstudioSoapIn" />
+      <wsdl:output message="tns:BuscarNivelesDeEstudioSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarLocalidades">
       <wsdl:input message="tns:BuscarLocalidadesSoapIn" />
       <wsdl:output message="tns:BuscarLocalidadesSoapOut" />
@@ -6162,6 +6197,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarNivelesDeDocencia">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeDocencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarNivelesDeEstudio">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeEstudio" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7875,6 +7919,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarNivelesDeDocencia">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeDocencia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarNivelesDeEstudio">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeEstudio" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

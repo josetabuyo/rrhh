@@ -2743,6 +2743,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public NivelDeEstudio[] BuscarNivelesDeEstudio(string criterio)
+    {
+        return RepositorioDeNivelesDeEstudio.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+    [WebMethod]
     public Localidad[] BuscarLocalidades(string criterio)
     {
         return RepositorioDeLocalidades.Nuevo(Conexion()).Find(criterio).ToArray();
