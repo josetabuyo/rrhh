@@ -48,6 +48,8 @@ page.onConsoleMessage = function(msg) {
     console.log(msg);
 };
 
+var url =  "file:///" + system.args[1].split(/\\/g).join("/");
+
 page.open(system.args[1], function(status){
     if (status !== "success") {
         console.log("Unable to access network");
