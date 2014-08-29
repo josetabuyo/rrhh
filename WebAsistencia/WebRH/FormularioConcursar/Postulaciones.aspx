@@ -71,7 +71,6 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
         $(".collapse").collapse("show");
 
         var puestos = JSON.parse($('#puestos').val());

@@ -21,12 +21,12 @@
             _this.txt_evento_academico_fecha_inicio = _this.ui.find("#txt_evento_academico_fecha_inicio");
             _this.txt_evento_academico_fecha_inicio.datepicker();
             _this.txt_evento_academico_fecha_inicio.datepicker('option', 'dateFormat', 'dd/mm/yy');
-            _this.txt_evento_academico_fecha_inicio.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(txt_evento_academico_fecha_inicio.FechaInicio));
+            _this.txt_evento_academico_fecha_inicio.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(evento_academico.FechaInicio));
 
             _this.txt_evento_academico_fecha_fin = _this.ui.find("#txt_evento_academico_fecha_fin");
             _this.txt_evento_academico_fecha_fin.datepicker();
             _this.txt_evento_academico_fecha_fin.datepicker('option', 'dateFormat', 'dd/mm/yy');
-            _this.txt_evento_academico_fecha_fin.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(txt_evento_academico_fecha_fin.FechaFinalizacion));
+            _this.txt_evento_academico_fecha_fin.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(evento_academico.FechaFinalizacion));
 
             _this.txt_evento_academico_duracion = _this.ui.find("#txt_evento_academico_duracion");
             _this.txt_evento_academico_duracion.val(evento_academico.Duracion);

@@ -2430,6 +2430,11 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoPostulaciones().GetPostulacionesDe(usuario.Owner.Id).ToArray();
     }
 
+    [WebMethod]
+    public Comite GetComite(int idComite)
+    {
+        return RepoComites().GetComiteById(idComite);
+    }
 
     #region CVAntecedentesAcademicos
     [WebMethod]
@@ -2486,7 +2491,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvActividadesDocentes(int actividades_docentes_a_borrar, Usuario usuario)
+    public bool EliminarCvActividadDocente(int actividades_docentes_a_borrar, Usuario usuario)
     {
         return RepoCurriculum().EliminarCvActividadDocente(actividades_docentes_a_borrar, usuario);
     }
@@ -2743,6 +2748,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public NivelDeEstudio[] BuscarNivelesDeEstudio(string criterio)
+    {
+        return RepositorioDeNivelesDeEstudio.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+    [WebMethod]
     public Localidad[] BuscarLocalidades(string criterio)
     {
         return RepositorioDeLocalidades.Nuevo(Conexion()).Find(criterio).ToArray();
@@ -2857,6 +2868,9 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDePostulaciones(Conexion());
     }
 
-
+    private RepositorioDeComites RepoComites()
+    {
+        return new RepositorioDeComites(Conexion());
+    }
 
 }

@@ -20,13 +20,13 @@ namespace General
         {
             var parametros = new Dictionary<string, object>();
             var tablaCVs = conexion_bd.Ejecutar("dbo.CV_Get_Puestos", parametros);
-
+            var repoComite = new RepositorioDeComites(this.conexion_bd);
             List<Puesto> puestos = new List<Puesto>();
 
             tablaCVs.Rows.ForEach(row =>
             puestos.Add(new Puesto(row.GetInt("IdPuesto"),row.GetString("Familia"),row.GetString("Profesion"),row.GetString("Denominacion"),
                         row.GetString("Nivel"),row.GetString("Agrupamiento"),row.GetInt("Vacantes"), row.GetString("Tipo"),row.GetString("NumeroDePuesto"),
-                        new Comite(row.GetInt("IdComite"),row.GetInt("NumeroDeComite"),row.GetString("IntegrantesDelComite")))));
+                        repoComite.GetComiteById(row.GetInt("IdComite")))));
 
             return puestos;
 

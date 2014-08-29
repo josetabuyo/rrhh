@@ -22,6 +22,8 @@
             _this.publicaciones_paginas.val(publicacion.CantidadHojas);
             _this.publicaciones_dispone_copia = _this.ui.find("#txt_publicaciones_dispone_copia");
             _this.publicaciones_dispone_copia.val(publicacion.DisponeCopia);
+            _this.cmb_publicaciones_copias = _this.ui.find("#cmb_publicaciones_copias");
+            _this.cmb_publicaciones_copias.val(publicacion.DisponeAdjunto)
 
             //Bt cerrar
             _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
@@ -43,6 +45,7 @@
                     publicacion.FechaPublicacion = _this.publicaciones_fecha.datepicker('getDate').toISOString();
                     publicacion.CantidadHojas = _this.publicaciones_paginas.val();
                     publicacion.DisponeCopia = _this.publicaciones_dispone_copia.val();
+                    publicacion.DisponeAdjunto = _this.cmb_publicaciones_copias.val();
 
                     var proveedor_ajax = new ProveedorAjax();
 
