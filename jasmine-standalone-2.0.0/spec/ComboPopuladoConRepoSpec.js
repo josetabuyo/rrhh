@@ -51,24 +51,24 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			it("ENTONCES: debe lanzar excepcion descriptiva si el combo se construye sin repositorio.", function() {
 				expect(function() {
 					new SuperCombo({ui: $('<select id="combo_localidades"></select>')});
-				}).toThrow("No1 se ha especificado un repositorio al momento de construir el combo \"combo_localidades\"");
+				}).toThrow("No se ha especificado un repositorio al momento de construir el combo \"combo_localidades\"");
 			});		
 
 			it("ENTONCES: debe invocar al dataProvider indicado", function() {
 				expect(jasmine.Ajax.requests.mostRecent().params).toContain('{"nombre_metodo":"BuscarLocalidades"');
 			});
 			
-			//describe("Y: con un label", function() {
-			//	beforeEach(function() {
-			//		this.label_combo = ' label="Nombre"';
-			//		combos = populador_combos.construirCombosEn(dom);
-			//		fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
-			//	});
-			//
-			//	it("ENTONCES: deben cargarse usando el label", function() {
-			//		expect(combos[0].ui.children(0)[0].label).toEqual('NombreLocalidadBuenosAires');
-			//	});
-			//});
+			describe("Y: con un label", function() {
+				beforeEach(function() {
+					this.label_combo = ' label="Nombre"';
+					combos = populador_combos.construirCombosEn(dom);
+					fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
+				});
+			
+				it("ENTONCES: deben cargarse usando el label", function() {
+					expect(combos[0].ui.children(0)[0].label).toEqual('NombreLocalidadBuenosAires');
+				});
+			});
 		  
 			describe("Y: sin un label", function() {
 				beforeEach(function() {
