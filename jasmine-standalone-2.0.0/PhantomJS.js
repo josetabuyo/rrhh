@@ -32,7 +32,7 @@ page.open(url, function (status) {
     } else {
         //Using a delay to make sure the JavaScript is executed in the browser
         window.setTimeout(function () {
-           // page.render("output.png");
+            page.render("output.png");
             phantom.exit();
         }, 5000);
     }
