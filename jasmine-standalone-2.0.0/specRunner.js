@@ -1,6 +1,5 @@
 
-<!-- saved from url=(0094)https://raw.githubusercontent.com/EmberConsultingGroup/Testing-Automation/master/specRunner.js -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">
+
 (function() {
    'use strict';
     
@@ -11,8 +10,8 @@ require.config({
         'jasmine': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/jasmine',
 		'domReady': '../jasmine-standalone-2.0.0/lib/domReady',
         'jasmine_html': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/jasmine-html',
-        'jasmine_boot': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/jasmine-boot',
-        'teamcityreporter' : '../jasmine-standalone-2.0.0/lib/jasmine2.teamcityreporter'
+        'jasmine_boot': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/boot',
+        'teamcityreporter' : '../jasmine-standalone-2.0.0/lib/Jasmine2-teamcityreporter'
     },
     shim: {
         'jasmine': {           
@@ -50,4 +49,4 @@ require(['jasmine_boot', 'teamcityreporter'], function () {
         });
     });
     
-})();</pre></body></html>
+})();
