@@ -23,7 +23,7 @@ require.config({
     },
     shim: {
 		'specs1': {
-			deps: ['jasmine','mockAjax','jquery', 'backend', 'proveedorAjax', 'comboBuilder', 'repositorio', 'superCombo', 'teamcityreporter'],
+			deps: ['jasmine','mockAjax','jquery', 'backend', 'proveedorAjax', 'comboBuilder', 'repositorio', 'superCombo'],
 		},
         'jasmine': {           
             exports: 'jasmine'
@@ -49,11 +49,15 @@ require(['jasmine_boot', 'teamcityreporter'], function () {
     require(specList,  //From specList.js, todo:automate
         function () {
 
-           
+     
             var TeamcityReporter = jasmineRequire.TeamcityReporter();
             window.teamcityReporter = new TeamcityReporter();
             jasmine.getEnv().addReporter(window.teamcityReporter);
-
+			
+			if(window.teamcityReporter != undefined) {
+				console.log('teamcityReporter cargado correctamente');
+			}
+			
             window.onload();
 
 
