@@ -8,7 +8,7 @@ var page = new WebPage();
 
 console.log("Phantom Argument: " + phantom.args[0]);
 
-var url = phantom.args[0].replace('C:\\', 'file://localhost/');
+var url = phantom.args[0].replace('D:\\', 'file://localhost/');
 url = url.replace('\\', '/');
 url = url.replace('\\', '/');
 
@@ -31,6 +31,7 @@ page.open(url, function (status) {
         console.log('Unable to load the address!');
     } else {
         //Using a delay to make sure the JavaScript is executed in the browser
+		console.log('adress loaded');
         window.setTimeout(function () {
             //page.render("output.png");
             phantom.exit();
