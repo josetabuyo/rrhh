@@ -56,6 +56,8 @@ require(['jasmine_boot', 'teamcityreporter'], function () {
 			
 			if(window.teamcityReporter != undefined) {
 				console.log('teamcityReporter cargado correctamente');
+			} else {
+				console.log('teamcityReporter no fue cargado');
 			}
 			
             window.onload();
