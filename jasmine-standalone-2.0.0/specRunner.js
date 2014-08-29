@@ -23,7 +23,7 @@ require.config({
     },
     shim: {
 		'specs1': {
-			deps: ['jasmine','mockAjax','jquery', 'backend', 'proveedorAjax', 'comboBuilder', 'repositorio', 'superCombo'],
+			deps: ['jasmine','mockAjax','jquery', 'backend', 'proveedorAjax', 'comboBuilder', 'repositorio', 'superCombo', 'teamcityreporter'],
 		},
         'jasmine': {           
             exports: 'jasmine'
