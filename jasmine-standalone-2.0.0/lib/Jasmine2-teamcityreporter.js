@@ -16,6 +16,7 @@ function getJasmineRequireObj() {
 
 getJasmineRequireObj().teamcityReporter = function (jRequire, j$) {
     j$.TeamcityReporter = jRequire.TeamcityReporter();
+	print('teamcitiReporter instanciado');
 };
 
 

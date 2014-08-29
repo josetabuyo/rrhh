@@ -48,21 +48,12 @@ require(['jasmine_boot', 'teamcityreporter'], function () {
 
     require(specList,  //From specList.js, todo:automate
         function () {
-
-     
+			throw "err";
             var TeamcityReporter = jasmineRequire.TeamcityReporter();
             window.teamcityReporter = new TeamcityReporter();
             jasmine.getEnv().addReporter(window.teamcityReporter);
 			
-			if(window.teamcityReporter != undefined) {
-				console.log('teamcityReporter cargado correctamente');
-			} else {
-				console.log('teamcityReporter no fue cargado');
-			}
-			
             window.onload();
-
-
         });
     });
     
