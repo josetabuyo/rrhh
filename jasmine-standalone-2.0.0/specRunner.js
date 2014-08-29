@@ -48,7 +48,7 @@ require(['jasmine_boot', 'teamcityreporter'], function () {
 
     require(specList,  //From specList.js, todo:automate
         function () {
-			throw "err";
+
             var TeamcityReporter = jasmineRequire.TeamcityReporter();
             window.teamcityReporter = new TeamcityReporter();
             jasmine.getEnv().addReporter(window.teamcityReporter);

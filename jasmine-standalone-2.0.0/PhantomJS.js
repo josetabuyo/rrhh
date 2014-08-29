@@ -8,7 +8,7 @@ var page = new WebPage();
 
 console.log("Phantom Argument: " + phantom.args[0]);
 
-var url = phantom.args[0].replace('D:\\', 'file://localhost/');
+var url = phantom.args[0].replace('C:\\', 'file://localhost/');
 url = url.replace('\\', '/');
 url = url.replace('\\', '/');
 
@@ -32,7 +32,7 @@ page.open(url, function (status) {
     } else {
         //Using a delay to make sure the JavaScript is executed in the browser
         window.setTimeout(function () {
-            page.render("output.png");
+            //page.render("output.png");
             phantom.exit();
         }, 5000);
     }
