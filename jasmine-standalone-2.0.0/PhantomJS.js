@@ -33,7 +33,7 @@ page.open(url, function (status) {
         //Using a delay to make sure the JavaScript is executed in the browser
 		console.log('adress loaded');
         window.setTimeout(function () {
-            //page.render("output.png");
+            page.render("output.png");
             phantom.exit();
         }, 5000);
     }
