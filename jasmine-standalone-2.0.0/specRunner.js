@@ -9,6 +9,7 @@ require.config({
     paths: {
         'jquery': '../WebAsistencia/WebRH/Scripts/jquery.min',
         'jasmine': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/jasmine',
+		'domReady': '../jasmine-standalone-2.0.0/lib/domReady',
         'jasmine_html': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/jasmine-html',
         'jasmine_boot': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/jasmine-boot',
         'teamcityreporter' : '../jasmine-standalone-2.0.0/lib/jasmine2.teamcityreporter'
