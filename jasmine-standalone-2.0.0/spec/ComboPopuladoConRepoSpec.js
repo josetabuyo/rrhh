@@ -51,7 +51,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			it("ENTONCES: debe lanzar excepcion descriptiva si el combo se construye sin repositorio.", function() {
 				expect(function() {
 					new SuperCombo({ui: $('<select id="combo_localidades"></select>')});
-				}).toThrow("No se ha especificado un repositorio al momento de construir el combo \"combo_localidades\"");
+				}).toThrow("No1 se ha especificado un repositorio al momento de construir el combo \"combo_localidades\"");
 			});		
 
 			it("ENTONCES: debe invocar al dataProvider indicado", function() {
