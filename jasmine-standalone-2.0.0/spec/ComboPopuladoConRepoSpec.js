@@ -66,7 +66,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				});
 			
 				it("ENTONCES: deben cargarse usando el label", function() {
-					expect(combos[0].ui.children(0)[0].label).toEqual('NombreLocalidadBuenosAires');
+					expect(combos[0].ui.children(0)[0].childNodes[0].nodeValue).toEqual('NombreLocalidadBuenosAires');
 				});
 			});
 		  
@@ -78,7 +78,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				});
 
 				it("ENTONCES: deben tomar el label 'Descripcion' por default", function() {
-					expect(combos[0].ui.children(0)[0].label).toEqual('DescripcionBuenosAires');
+					expect(combos[0].ui.children(0)[0].childNodes[0].nodeValue).toEqual('DescripcionBuenosAires');
 				});
 			}); 
 
