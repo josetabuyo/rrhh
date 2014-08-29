@@ -50,7 +50,7 @@ page.onConsoleMessage = function(msg) {
 
 var url =  "file:///" + system.args[1].split(/\\/g).join("/");
 
-page.open(system.args[1], function(status){
+page.open(url, function(status){
     if (status !== "success") {
         console.log("Unable to access network");
         phantom.exit();
