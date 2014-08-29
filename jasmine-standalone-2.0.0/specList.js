@@ -3,5 +3,5 @@
 var specList = 
         [
             'domReady!',
-            'spec/ComboPopuladoConRepoSpec'
+            'specs1'
         ];
