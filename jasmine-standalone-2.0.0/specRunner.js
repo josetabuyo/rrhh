@@ -4,7 +4,7 @@
    'use strict';
     
 require.config({
-    urlArgs: "cb=" + Math.random(),
+    //urlArgs: "cb=" + Math.random(),
     paths: {
 		'jquery': '../WebAsistencia/WebRH/Scripts/bootstrap/js/jquery',
         'backend': '../WebAsistencia/WebRH/Scripts/Backend',
@@ -19,11 +19,12 @@ require.config({
         'teamcityreporter': '../jasmine-standalone-2.0.0/lib/Jasmine2-teamcityreporter',
 		'mockAjax': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/mock-ajax',
 		'specs1': '../jasmine-standalone-2.0.0/spec/ComboPopuladoConRepoSpec',
+		'bindings': '../WebAsistencia/WebRH/Scripts/Bindings'
 		
     },
     shim: {
 		'specs1': {
-			deps: ['jasmine','mockAjax','jquery', 'backend', 'proveedorAjax', 'comboBuilder', 'repositorio', 'superCombo'],
+			deps: ['jasmine','mockAjax','jquery', 'backend', 'proveedorAjax', 'comboBuilder', 'repositorio', 'superCombo', 'bindings'],
 		},
         'jasmine': {           
             exports: 'jasmine'
