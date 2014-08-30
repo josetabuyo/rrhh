@@ -20,17 +20,17 @@
                 <div class="grupo_campos">
 					<label for="nombre">Tipo Informática <em>*</em></label>
 					
-					<select id="txt_competencias_informaticas_tipo_informatica" style="width:200px; data-validar="esUnComboSinCero"">
+					<select id="txt_competencias_informaticas_tipo_informatica" style="width:200px; data-validar="esUnComboSinCero" dataProvider="TiposCompetenciaInformatica" modelo="TipoInformatica">
                     </select>
                 </div>
 				<div class="grupo_campos nueva_linea">
 					<label for="txt_ingreso">Conocimiento <em>*</em></label>
-					<select id="txt_competencias_informaticas_conocimiento" style="width:200px; data-validar="esUnComboSinCero"">
+					<select id="txt_competencias_informaticas_conocimiento" style="width:200px; data-validar="esUnComboSinCero" dataProvider="ConocimientoCompetenciaInformatica" modelo="Conocimiento" depende_de="txt_competencias_informaticas_tipo_informatica" depende_de="txt_competencias_informaticas_tipo_informatica">
 					</select>
 				</div>
 				<div class="grupo_campos">
 					<label for="txt_egreso">Nivel <em>*</em></label>
-					<select id="txt_competencias_informaticas_nivel" style="width:125px; data-validar="esUnComboSinCero"">
+					<select id="txt_competencias_informaticas_nivel" style="width:125px; data-validar="esUnComboSinCero" dataProvider="NivelCompetenciaInformatica" modelo="Nivel">
 					</select>
 				</div>
                  <div class="grupo_campos">
@@ -47,7 +47,7 @@
 				</div>
 				<div class="grupo_campos">
 					<label for="cmb_pais">País <em>*</em></label>
-					<select id="cmb_competencias_informaticas_pais" style="width:200px;" data-validar="esNumeroNaturalSinCero">
+					<select id="cmb_competencias_informaticas_pais" style="width:200px;" data-validar="esNumeroNaturalSinCero" dataProvider="Paises" modelo="Pais">
 					</select>
 				</div>             
 			</fieldset>

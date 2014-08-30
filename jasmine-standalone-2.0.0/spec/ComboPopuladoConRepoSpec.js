@@ -260,3 +260,4 @@ describe("ComboPopuladoConRepoBuilder", function() {
 //cuando no se especifica el modelo falla por el split (of undefined). Deberia indicar claramente que falta especificar el modelo del combo id="combo_blah".
 //cuando el bindeo anda mal, deberia tirarte exactamente qué atributo dentro de que atributo no fue encontrado.
 
+//deberia lanzar excepcion informativa cuando el dom que le paso al builder es undefined (actualmente tira que no encuentra find).

@@ -2,13 +2,20 @@
     mostrar: function (opciones) {
         //valores default
         var idioma_extranjero = opciones.idioma_extranjero || {
-            Pais: 9
+            Pais: 9,
+            Escritura: 1,
+            Lectura: 1,
+            Oral: 1
         };
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeIdiomaExtranjero.htm", function () {
+
+            var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
+            generador_combos.construirCombosEn(_this.ui, idioma_extranjero);
+
             _this.txt_idioma_extranjero_diploma_certificacion = _this.ui.find("#txt_idioma_extranjero_diploma_certificacion");
             _this.txt_idioma_extranjero_diploma_certificacion.val(idioma_extranjero.Diploma);
 
@@ -22,32 +29,8 @@
             _this.cmb_idioma_extranjero_localidad = _this.ui.find("#cmb_idioma_extranjero_localidad");
             _this.cmb_idioma_extranjero_localidad.val(idioma_extranjero.Localidad);
 
-            _this.cmb_idioma_extranjero_pais = new SuperCombo({
-                ui: _this.ui.find("#cmb_idioma_extranjero_pais"),
-                nombre_repositorio: "Paises",
-                id_item_seleccionado: idioma_extranjero.Pais
-            });
-
             _this.txt_idioma_extranjero_idioma = _this.ui.find("#txt_idioma_extranjero_idioma");
             _this.txt_idioma_extranjero_idioma.val(idioma_extranjero.Idioma);
-
-            _this.cmb_idioma_extranjero_lectura = new SuperCombo({
-                ui: _this.ui.find("#cmb_idioma_extranjero_lectura"),
-                nombre_repositorio: "NivelesDeIdioma",
-                id_item_seleccionado: idioma_extranjero.Lectura
-            });
-
-            _this.cmb_idioma_extranjero_escritura = new SuperCombo({
-                ui: _this.ui.find("#cmb_idioma_extranjero_escritura"),
-                nombre_repositorio: "NivelesDeIdioma",
-                id_item_seleccionado: idioma_extranjero.Escritura
-            });
-
-            _this.cmb_idioma_extranjero_oral = new SuperCombo({
-                ui: _this.ui.find("#cmb_idioma_extranjero_oral"),
-                nombre_repositorio: "NivelesDeIdioma",
-                id_item_seleccionado: idioma_extranjero.Oral
-            });
 
             //Bt cerrar
             _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
@@ -67,10 +50,7 @@
                     idioma_extranjero.FechaObtencion = _this.txt_idioma_extranjero_fecha_obtencion.datepicker('getDate').toISOString();
                     idioma_extranjero.Establecimiento = _this.txt_idioma_extranjero_establecimiento.val();
                     idioma_extranjero.Localidad = _this.cmb_idioma_extranjero_localidad.val();
-                    idioma_extranjero.Pais = _this.cmb_idioma_extranjero_pais.idItemSeleccionado();
                     idioma_extranjero.Idioma = _this.txt_idioma_extranjero_idioma.val();
-                    idioma_extranjero.Lectura = _this.cmb_idioma_extranjero_lectura.idItemSeleccionado();
-                    idioma_extranjero.Escritura = _this.cmb_idioma_extranjero_escritura.idItemSeleccionado();
                     idioma_extranjero.Oral = _this.cmb_idioma_extranjero_oral.idItemSeleccionado();
 
                     if (opciones.idioma_extranjero) {

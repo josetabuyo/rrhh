@@ -9,6 +9,10 @@
         var _this = this;
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeEventoAcademico.htm", function () {
+
+            var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
+            generador_combos.construirCombosEn(_this.ui, evento_academico);
+
             _this.txt_evento_denominacion = _this.ui.find("#txt_evento_denominacion");
             _this.txt_evento_denominacion.val(evento_academico.Denominacion);
 
@@ -37,12 +41,6 @@
             _this.txt_evento_academico_localidad = _this.ui.find("#txt_evento_academico_localidad");
             _this.txt_evento_academico_localidad.val(evento_academico.Localidad);
 
-            _this.cmb_evento_academico_pais = new SuperCombo({
-                ui: _this.ui.find("#cmb_evento_academico_pais"),
-                nombre_repositorio: "Paises",
-                id_item_seleccionado: evento_academico.Pais
-            });
-
             //Bt cerrar
             _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
             _this.btn_cerrar.click(function () {
@@ -65,7 +63,6 @@
                     evento_academico.Duracion = _this.txt_evento_academico_duracion.val();
                     evento_academico.Institucion = _this.txt_evento_academico_institucion.val();
                     evento_academico.Localidad = _this.txt_evento_academico_localidad.val();
-                    evento_academico.Pais = _this.cmb_evento_academico_pais.idItemSeleccionado();
 
                     var proveedor_ajax = new ProveedorAjax();
 

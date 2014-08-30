@@ -2,28 +2,22 @@
     mostrar: function (opciones) {
         //valores default
         var estudio = opciones.estudio || {
-            Pais: 9
+            Pais: 9,
+            Nivel: 1
         };
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeAntecedenteAcademico.htm", function () {
+
+            var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
+            generador_combos.construirCombosEn(_this.ui, estudio);
+
             //_this.txt_antecedentes_id = _this.ui.find("#txt_AntecedenteAcademico_id");
             //_this.txt_antecedentes_id.val(estudio.Id);
             _this.txt_antecedentes_titulo = _this.ui.find("#txt_antecedentes_titulo");
             _this.txt_antecedentes_titulo.val(estudio.Titulo);
-            _this.cmb_antecedentes_nivel = _this.ui.find("#cmb_antecedentes_nivel");
-            _this.cmb_antecedentes_nivel.val(estudio.Nivel);
-
-
-
-            _this.cmb_antecedentes_nivel = new SuperCombo({
-                ui: _this.ui.find("#cmb_antecedentes_nivel"),
-                nombre_repositorio: "NivelesDeEstudio",
-                id_item_seleccionado: estudio.Nivel
-            });
-
 
             _this.txt_establecimiento = _this.ui.find("#txt_antecedentes_establecimiento");
             _this.txt_establecimiento.val(estudio.Establecimiento);
@@ -40,18 +34,11 @@
             _this.txt_antecedentes_localidad = _this.ui.find("#txt_antecedentes_localidad");
             _this.txt_antecedentes_localidad.val(estudio.Localidad);
 
-            _this.cmb_antecedentes_pais = new SuperCombo({
-                ui: _this.ui.find("#cmb_antecedentes_pais"),
-                nombre_repositorio: "Paises",
-                id_item_seleccionado: estudio.Pais
-            });
-
             //Bt cerrar
             _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
             _this.btn_cerrar.click(function () {
                 _this.ui.limpiarValidaciones();
             });
-
 
             //Bt agregar
             _this.btn_guardar = _this.ui.find("#add_antecedentesAcademicos");
@@ -62,13 +49,11 @@
                 if (_this.ui.esValido()) {
 
                     estudio.Titulo = _this.txt_antecedentes_titulo.val();
-                    estudio.Nivel = _this.cmb_antecedentes_nivel.val();
                     estudio.Establecimiento = _this.txt_establecimiento.val();
                     estudio.Especialidad = _this.txt_antecedentes_especialidad.val();
                     estudio.FechaIngreso = _this.txt_antecedentes_ingreso.datepicker('getDate').toISOString();
                     estudio.FechaEgreso = _this.txt_antecedentes_egreso.datepicker('getDate').toISOString();
                     estudio.Localidad = _this.txt_antecedentes_localidad.val();
-                    estudio.Pais = _this.cmb_antecedentes_pais.idItemSeleccionado();
 
                     var proveedor_ajax = new ProveedorAjax();
                     if (opciones.estudio) {

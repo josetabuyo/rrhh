@@ -9,6 +9,10 @@
         var _this = this;
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeActividadCapacitacion.htm", function () {
+
+            var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
+            generador_combos.construirCombosEn(_this.ui, actividad_capacitacion);
+
             _this.txt_actividad_capacitacion_nombreDiploma = _this.ui.find("#txt_actividad_capacitacion_nombreDiploma");
             _this.txt_actividad_capacitacion_nombreDiploma.val(actividad_capacitacion.DiplomaDeCertificacion);
 
@@ -29,12 +33,6 @@
             _this.txt_actividad_capacitacion_establecimiento.val(actividad_capacitacion.Establecimiento);
             _this.cmb_actividad_capacitacion_localidad = _this.ui.find("#cmb_actividad_capacitacion_localidad");
             _this.cmb_actividad_capacitacion_localidad.val(actividad_capacitacion.Localidad);
-
-            _this.cmb_actividad_capacitacion_pais = new SuperCombo({
-                ui: _this.ui.find("#cmb_actividad_capacitacion_pais"),
-                nombre_repositorio: "Paises",
-                id_item_seleccionado: actividad_capacitacion.Pais
-            });
 
             //Bt cerrar
             _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
@@ -57,7 +55,6 @@
                     actividad_capacitacion.Especialidad = _this.txt_actividad_capacitacion_especialidad.val();
                     actividad_capacitacion.Establecimiento = _this.txt_actividad_capacitacion_establecimiento.val();
                     actividad_capacitacion.Localidad = _this.cmb_actividad_capacitacion_localidad.val();
-                    actividad_capacitacion.Pais = _this.cmb_actividad_capacitacion_pais.idItemSeleccionado();
 
                     var proveedor_ajax = new ProveedorAjax();
 

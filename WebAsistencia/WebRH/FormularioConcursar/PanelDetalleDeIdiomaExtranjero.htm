@@ -20,22 +20,21 @@
 				</div>
 				<div class="grupo_campos nueva_linea">
 					<label for="nombre">Idioma <em>*</em></label>
-					<input id="txt_idioma_extranjero_idioma" type="text" style="width:260px;" data-validar="esNoBlanco"
-/>
+					<input id="txt_idioma_extranjero_idioma" type="text" style="width:260px;" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="txt_ingreso">Lectura <em>*</em></label>
-					<select id="cmb_idioma_extranjero_lectura" style="width:110px;" data-validar="esNumeroNaturalSinCero">
+					<select id="cmb_idioma_extranjero_lectura" style="width:110px;" data-validar="esNumeroNaturalSinCero" dataProvider="NivelesDeIdioma" modelo="Lectura">
 					</select>
 				</div>
 				<div class="grupo_campos">
 					<label for="txt_egreso">Escritura <em>*</em></label>
-					<select id="cmb_idioma_extranjero_escritura" style="width:110px;" data-validar="esNumeroNaturalSinCero">
+					<select id="cmb_idioma_extranjero_escritura" style="width:110px;" data-validar="esNumeroNaturalSinCero" dataProvider="NivelesDeIdioma" modelo="Escritura">
 					</select>
 				</div>
 				<div class="grupo_campos">
 					<label for="txt_egreso">Oral <em>*</em></label>
-					<select id="cmb_idioma_extranjero_oral" style="width:110px;" data-validar="esNumeroNaturalSinCero">
+					<select id="cmb_idioma_extranjero_oral" style="width:110px;" data-validar="esNumeroNaturalSinCero" dataProvider="NivelesDeIdioma" modelo="Oral">
 					</select>
 				</div>
                 <div class="grupo_campos nueva_linea">
@@ -48,7 +47,7 @@
 				</div>
 				<div class="grupo_campos">
 					<label for="cmb_pais">País <em>*</em></label>
-					<select id="cmb_idioma_extranjero_pais" style="width:200px;" data-validar="esNumeroNaturalSinCero">
+					<select id="cmb_idioma_extranjero_pais" style="width:200px;" data-validar="esNumeroNaturalSinCero" dataProvider="Paises" modelo="Pais">
 					</select>
 				</div>
 				<!--<div class="grupo_campos nueva_linea">
