@@ -19,7 +19,7 @@
             _this.txt_evento_academico_tipo_evento = new SuperCombo({
                 ui: _this.ui.find("#txt_evento_academico_tipo_evento"),
                 nombre_repositorio: "TiposEventosAcademicos",
-                id_item_seleccionado: evento_academico.Tipo
+                id_item_seleccionado: evento_academico.TipoDeEvento
             });
 
 
@@ -30,7 +30,7 @@
             _this.txt_evento_academico_caracter_participacion = new SuperCombo({
                 ui: _this.ui.find("#txt_evento_academico_caracter_participacion"),
                 nombre_repositorio: "CaracterParticipacionEvento",
-                id_item_seleccionado: evento_academico.Caracter
+                id_item_seleccionado: evento_academico.CaracterDeParticipacion
             });
 
 
@@ -86,12 +86,24 @@
                 if (_this.ui.esValido()) {
 
                     evento_academico.Denominacion = _this.txt_evento_denominacion.val();
-                    evento_academico.TipoDeEvento = _this.txt_evento_academico_tipo_evento.val();
-                    evento_academico.CaracterDeParticipacion = _this.txt_evento_academico_caracter_participacion.val();
+                  //  evento_academico.TipoDeEvento = _this.txt_evento_academico_tipo_evento.val();
+
+                    evento_academico.TipoDeEvento = _this.txt_evento_academico_tipo_evento.idItemSeleccionado();
+              
+
+                    //evento_academico.CaracterDeParticipacion = _this.txt_evento_academico_caracter_participacion.val();
+
+                    evento_academico.CaracterDeParticipacion = _this.txt_evento_academico_caracter_participacion.idItemSeleccionado();
+              
+
                     evento_academico.FechaInicio = _this.txt_evento_academico_fecha_inicio.datepicker('getDate').toISOString();
                     evento_academico.FechaFinalizacion = _this.txt_evento_academico_fecha_fin.datepicker('getDate').toISOString();
                     evento_academico.Duracion = _this.txt_evento_academico_duracion.val();
-                    evento_academico.Institucion = _this.txt_evento_academico_institucion.val();
+                   // evento_academico.Institucion = _this.txt_evento_academico_institucion.val();
+
+                    evento_academico.Institucion = _this.txt_evento_academico_institucion.idItemSeleccionado();
+              
+
                     evento_academico.Localidad = _this.txt_evento_academico_localidad.val();
                     evento_academico.Pais = _this.cmb_evento_academico_pais.idItemSeleccionado();
 
