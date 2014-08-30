@@ -193,46 +193,45 @@ END
 GO
 
 
-
-Alter Procedure [dbo].[Cv_Upd_Del_EventosAcademicos]  
-@IdEvento int = null,  
-@Denominacion varchar(100)=null,  
-@TipoDeEvento int,  
-@CaracterDeParticipacion int,  
-@FechaInicio  datetime=null,  
-@FechaFin datetime=null,  
-@Duracion varchar(50)=null,  
-@Institucion int,  
-@Localidad varchar(100)=null,  
-@Pais int=null,  
-@Usuario int=null,  
-@Baja int=null  
-  
-AS  
-  
-Begin  
-  
-declare @NombreSp varchar(60)   
- set @NombreSp = (select OBJECT_NAME(@@PROCID))  
- exec dbo.Audit @NombreSp    
-  
-UPDATE [dbo].[CV_EventosAcademicos]  
-   SET Denominacion = isnull(@Denominacion, Denominacion),  
-      IdTipoDeEvento = isnull(@TipoDeEvento,TipoDeEvento),  
-      IdCaracterParticipacion = isnull(@CaracterDeParticipacion,CaracterDeParticipacion),  
-      FechaInicio = isnull(@FechaInicio,FechaInicio),   
-      FechaFin = isnull(@FechaFin,FechaFin),  
-      Duracion = isnull(@Duracion,Duracion),   
-      IdInstitucion = isnull(@Institucion,Institucion),   
-      Localidad = isnull(@Localidad,Localidad),  
-      Pais = isnull(@Pais,Pais),   
-      Usuario = isnull(@Usuario,Usuario),   
-      FechaOperacion =getdate(),  
-      Baja = isnull(@Baja,Baja)  
- WHERE id = @IdEvento  
-  
-  
-END  
+alter Procedure [dbo].[Cv_Upd_Del_EventosAcademicos]    
+@IdEvento int = null,    
+@Denominacion varchar(100)=null,    
+@TipoDeEvento int = null,    
+@CaracterDeParticipacion int=null,    
+@FechaInicio  datetime=null,    
+@FechaFin datetime=null,    
+@Duracion varchar(50)=null,    
+@Institucion int=null,    
+@Localidad varchar(100)=null,    
+@Pais int=null,    
+@Usuario int=null,    
+@Baja int=null    
+    
+AS    
+    
+Begin    
+    
+declare @NombreSp varchar(60)     
+ set @NombreSp = (select OBJECT_NAME(@@PROCID))    
+ exec dbo.Audit @NombreSp      
+    
+UPDATE [dbo].[CV_EventosAcademicos]    
+   SET Denominacion = isnull(@Denominacion, Denominacion),    
+      IdTipoDeEvento = isnull(@TipoDeEvento,IdTipoDeEvento),    
+      IdCaracterParticipacion = isnull(@CaracterDeParticipacion,IdCaracterParticipacion),    
+      FechaInicio = isnull(@FechaInicio,FechaInicio),     
+      FechaFin = isnull(@FechaFin,FechaFin),    
+      Duracion = isnull(@Duracion,Duracion),     
+      IdInstitucion = isnull(@Institucion,IdInstitucion),     
+      Localidad = isnull(@Localidad,Localidad),    
+      Pais = isnull(@Pais,Pais),     
+      Usuario = isnull(@Usuario,Usuario),     
+      FechaOperacion =getdate(),    
+      Baja = isnull(@Baja,Baja)    
+ WHERE id = @IdEvento    
+    
+    
+END    
   
 
 GO
