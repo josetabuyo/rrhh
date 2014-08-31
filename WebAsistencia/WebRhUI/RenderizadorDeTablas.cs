@@ -16,7 +16,7 @@ namespace WebRhUI
 
         public String EstiloCeldaCuerpo { get; set; }
 
-        public RenderizadorDeTablas(EntityToRowC2onverter<T> entity_converter)
+        public RenderizadorDeTablas(EntityToRowConverter<T> entity_converter)
         {
             this.converter = entity_converter;
         }

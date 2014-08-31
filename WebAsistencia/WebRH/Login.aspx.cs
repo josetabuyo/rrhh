@@ -14,7 +14,7 @@ public partial class _Default : System.Web.UI.Page
         this.loginAlertaInvalido.Visible = false;
         if (DebeValidar())
         {
-            Validar(UsuarioIngresado(), PasswordIngresado());
+            Validar(UsuarioIngresado(), Passwor2dIngresado());
         }
     }
 
