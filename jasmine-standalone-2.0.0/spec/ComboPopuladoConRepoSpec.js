@@ -225,11 +225,11 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			});
 
 			it("ENTONCES: el dependiente debe pedir a su dataProvider los datos filtrados", function() {
-				spyOn(combo_dependiente.repositorio, 'buscar');
+				spyOn(populador_combos.repositorio, 'buscar');
 				combo_independiente.change();
 				
-				expect(combo_dependiente.repositorio.buscar).toHaveBeenCalled();
-				expect(combo_dependiente.repositorio.buscar.calls.mostRecent().args[0]).toEqual("Localidades");
+				expect(populador_combos.repositorio.buscar).toHaveBeenCalled();
+				expect(populador_combos.repositorio.buscar.calls.mostRecent().args[0]).toEqual("Localidades");
 			});
 		});
 	});
