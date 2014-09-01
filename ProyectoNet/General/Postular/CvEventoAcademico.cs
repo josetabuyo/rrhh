@@ -9,9 +9,17 @@ namespace General
     {
         protected int _id;
         protected string _denominacion;
-        protected string _tipoEvento;
-        protected string _caracterDeParticipacion;
-        protected string _institucion;
+        //protected string _tipoEvento;
+        //protected string _caracterDeParticipacion;
+        //protected string _institucion;
+
+        protected int _tipoEvento;
+        protected int _caracterDeParticipacion;
+        protected int _institucion;
+
+
+
+
         protected DateTime _fechaInicio;
         protected DateTime _fechaFinalizacion;
         protected string _duracion;
@@ -20,16 +28,16 @@ namespace General
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Denominacion { get { return _denominacion; } set { _denominacion = value; } }
-        public string TipoDeEvento { get { return _tipoEvento; } set { _tipoEvento = value; } }
-        public string CaracterDeParticipacion { get { return _caracterDeParticipacion; } set { _caracterDeParticipacion = value; } }
-        public string Institucion { get { return _institucion; } set { _institucion = value; } }
+        public int TipoDeEvento { get { return _tipoEvento; } set { _tipoEvento = value; } }
+        public int CaracterDeParticipacion { get { return _caracterDeParticipacion; } set { _caracterDeParticipacion = value; } }
+        public int Institucion { get { return _institucion; } set { _institucion = value; } }
         public DateTime FechaInicio { get { return _fechaInicio; } set { _fechaInicio = value; } }
         public DateTime FechaFinalizacion { get { return _fechaFinalizacion; } set { _fechaFinalizacion = value; } }
         public string Duracion { get { return _duracion; } set { _duracion = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Pais { get { return _pais; } set { _pais = value; } }
 
-        public CvEventoAcademico(int id, string denominacion, string tipoDeEvento, string caracterDeParticipacion, DateTime fechaInicio, DateTime fechaFinalizacion, string duracion, string institucion, string localidad, int pais)
+        public CvEventoAcademico(int id, string denominacion, int tipoDeEvento, int caracterDeParticipacion, DateTime fechaInicio, DateTime fechaFinalizacion, string duracion, int institucion, string localidad, int pais)
         {
             this._id = id;
             this._denominacion = denominacion;

@@ -1,29 +1,34 @@
-
-
 (function() {
    'use strict';
     
 require.config({
-    urlArgs: "cb=" + Math.random(),
+    //urlArgs: "cb=" + Math.random(),
+	baseUrl: 'lib/jasmine-2.0.0/',
     paths: {
-		'jquery': '../WebAsistencia/WebRH/Scripts/bootstrap/js/jquery',
-        'backend': '../WebAsistencia/WebRH/Scripts/Backend',
-		'proveedorAjax': '../WebAsistencia/WebRH/Scripts/ProveedorAjax',
-		'comboBuilder':  '../WebAsistencia/WebRH/Scripts/ComboPopuladoConRepoBuilder',
-		'superCombo':  '../WebAsistencia/WebRH/Scripts/SuperCombo',
-		'repositorio': '../WebAsistencia/WebRH/Scripts/Repositorio',
-		'jasmine': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/jasmine',
-		'domReady': '../jasmine-standalone-2.0.0/lib/domReady',
-        'jasmine_html': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/jasmine-html',
-        'jasmine_boot': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/boot',
-        'teamcityreporter': '../jasmine-standalone-2.0.0/lib/Jasmine2-teamcityreporter',
-		'mockAjax': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/mock-ajax',
-		'specs1': '../jasmine-standalone-2.0.0/spec/ComboPopuladoConRepoSpec',
-		
+		'app': '../../../WebAsistencia/WebRH/Scripts/',
+		'domready': 'domready'
+        'jasmine_html': 'jasmine-html',
+		'jasmine_boot': 'boot',
+		'teamcityreporter': 'jasmine2-teamcityreporter',
+		'mockAjax': 'mock-ajax',
+        
+		'specs1': '../../spec/ComboPopuladoConRepoSpec'
     },
     shim: {
 		'specs1': {
-			deps: ['jasmine','mockAjax','jquery', 'backend', 'proveedorAjax', 'comboBuilder', 'repositorio', 'superCombo'],
+			deps: ['mockAjax', 'app/bootstrap/js/jquery', 'app/comboPopuladoConRepoBuilder'],
+		},
+		'app/comboPopuladoConRepoBuilder': {
+			deps: ['app/backend', 'app/bindings', 'app/string']
+		},
+		'app/backend': {
+			deps: ['app/repositorio']
+		},
+		'app/repositorio': {
+			deps: ['app/proveedorAjax']
+		},
+		'mockAjax': {
+			deps: ['jasmine']
 		},
         'jasmine': {           
             exports: 'jasmine'
