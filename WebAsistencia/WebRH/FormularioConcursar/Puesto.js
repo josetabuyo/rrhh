@@ -28,7 +28,7 @@
         }));
         columnas.push(new Columna("Comité&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", { generar: function (un_puesto) {
             var linkComite = $('<a>');
-            linkComite[0].innerText = "Comite: " + un_puesto.Comite.Numero;
+            linkComite[0].innerHTML = "Comite: " + un_puesto.Comite.Numero;
 
             linkComite.click(function (e) {
                 var proveedor_ajax = new ProveedorAjax();
@@ -67,7 +67,7 @@
                     linkPostularse.text("Postulado")
                 } else {
                     linkPostularse = $('<a>')
-                    linkPostularse[0].innerText = "Postularse";
+                    linkPostularse[0].innerHTML = "Postularse";
                     linkPostularse.attr('href', '#');
                     linkPostularse.click(function (e) {
                         var proveedor_ajax = new ProveedorAjax();
