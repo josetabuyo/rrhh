@@ -131,7 +131,7 @@
                       </div> 
                       <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
-                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Localidad" data-validar="esUnComboSinCero" dataProvider="Localidades">
+                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Localidad" data-validar="esUnComboSinCero" dataProvider="Localidades" dependeDe="cmb_provincia">
                             </select>
                       </div>
                     </fieldset>
@@ -175,7 +175,7 @@
                       </div>
                        <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad2">Localidad <em>*</em></label>
-                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:320px;" label="Nombre"  modelo="DomicilioLegal.Localidad" data-validar="esNoBlanco" dataProvider="Localidades">
+                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:320px;" label="Nombre"  modelo="DomicilioLegal.Localidad" data-validar="esNoBlanco" dataProvider="Localidades" dependeDe="cmb_provincia2">
                             </select>
                       </div>
 
