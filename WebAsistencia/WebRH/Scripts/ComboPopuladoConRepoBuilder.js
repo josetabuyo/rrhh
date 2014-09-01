@@ -106,9 +106,14 @@ ComboPopuladoConRepoBuilder.prototype.agregarDependenciasEntreCombos = function(
 		var comboDelQueDepende = $.grep(combos, function(each_combo){ 
 			return each_combo.attr("id") == _this.campoDependenciaDe(combo); 
 		})[0];
+
+		if(comboDelQueDepende.attr("modelo") == undefined) {
+			throw '"' + comboDelQueDepende.attr("id") + '" debe especificar el atributo modelo="ALGO", puesto que "' + combo.attr("id") + '" depende de él, y requiere dicho modelo para poder filtrar.';
+		}
 		
 		comboDelQueDepende.change(function() {
-			var filtro = { provincia: comboDelQueDepende.id_item_seleccionado };
+			var filtro = { };
+			filtro[comboDelQueDepende.attr("modelo").toUnderscoreCustom() ] = comboDelQueDepende.id_item_seleccionado;
 			_this.cargarBusqueda(combo, combo.attr("dataProvider"), filtro, comboDelQueDepende.campo_id, _this.campoDescripcionDe(comboDelQueDepende));
 		});
 	});

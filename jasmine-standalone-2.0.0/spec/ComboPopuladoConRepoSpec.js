@@ -186,20 +186,19 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			populador_combos = new ComboPopuladoConRepoBuilder(mock_repo);
 		});
 
-	   describe("CUANDO: bindeo el valor del combo al modelo", function() {
-		   it ("ENTONCES: debe tener el valor seleccionado", function() {
-				var domicilio_empleado = { localidad: 6 };
-				var combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="localidad"></select></div>'), domicilio_empleado);
-				
-				expect(combos[0].id_item_seleccionado).toEqual(6);
+		describe("CUANDO: no se especifico un modelo para el combo independiente", function() {
+			
+			
+			it("ENTONCES. debería fallar por no definir filtro", function() {
+				var dom = $('<div><select id="combo_provincias" dataProvider="Provincias"></select><select id="combo_localidades" dependeDe="combo_provincias" dataProvider="Localidades"></select></div>');				
+				expect(function() { 
+					populador_combos.construirCombosEn(dom)
+				}).toThrow("\"combo_provincias\" debe especificar el atributo modelo=\"ALGO\", puesto que \"combo_localidades\" depende de él, y requiere dicho modelo para poder filtrar.");
 			});
 		});
-	  
+		
 		describe("CUANDO: se construyen combos relacionados, y no se selecciona ningun valor", function() {
-			var combo_dependiente;
-			var combo_independiente;
-
-			it("ENTONCES: no deberia pedir el valor al backend si no se completo el filtro", function() {
+			it("ENTONCES: no deberia pedir el valor al backend por no especificar el filtro", function() {
 				mock_repo = { buscar: function (nombre_repositorio, criterio, onSuccess, onError) { 
 													if (nombre_repositorio == "Localidades") {
 														throw "no deberia haber invocado al repo";
@@ -209,7 +208,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 												}
 											};
 				populador_combos = new ComboPopuladoConRepoBuilder(mock_repo);
-				var dom = $('<div><select id="combo_provincias" dataProvider="Provincias"></select><select id="combo_localidades" dependeDe="combo_provincias" dataProvider="Localidades"></select></div>');
+				var dom = $('<div><select id="combo_provincias" modelo="Provincia" dataProvider="Provincias"></select><select id="combo_localidades" dependeDe="combo_provincias" dataProvider="Localidades"></select></div>');
 				combos = populador_combos.construirCombosEn(dom);
 			});
 		});
@@ -218,7 +217,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			var combo_dependiente;
 			var combo_independiente;
 			beforeEach(function() {
-				var dom = $('<div><select id="combo_provincias" dataProvider="Provincias"></select><select id="combo_localidades" dependeDe="combo_provincias" dataProvider="Localidades"></select></div>');
+				var dom = $('<div><select id="combo_provincias" modelo="Provincia" dataProvider="Provincias"></select><select id="combo_localidades" dependeDe="combo_provincias" dataProvider="Localidades"></select></div>');
 				combos = populador_combos.construirCombosEn(dom);
 				combo_independiente = combos[0];
 				combo_dependiente = combos[1];

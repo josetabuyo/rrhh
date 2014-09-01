@@ -11,6 +11,7 @@ require.config({
 		'proveedorAjax': '../WebAsistencia/WebRH/Scripts/ProveedorAjax',
 		'comboBuilder':  '../WebAsistencia/WebRH/Scripts/ComboPopuladoConRepoBuilder',
 		'superCombo':  '../WebAsistencia/WebRH/Scripts/SuperCombo',
+		'string':  '../WebAsistencia/WebRH/Scripts/String',
 		'repositorio': '../WebAsistencia/WebRH/Scripts/Repositorio',
 		'jasmine': '../jasmine-standalone-2.0.0/lib/jasmine-2.0.0/jasmine',
 		'domReady': '../jasmine-standalone-2.0.0/lib/domReady',
@@ -24,7 +25,7 @@ require.config({
     },
     shim: {
 		'specs1': {
-			deps: ['jasmine','mockAjax','jquery', 'backend', 'proveedorAjax', 'comboBuilder', 'repositorio', 'superCombo', 'bindings'],
+			deps: ['jasmine','mockAjax','jquery', 'backend', 'proveedorAjax', 'comboBuilder', 'repositorio', 'superCombo', 'bindings', 'string'],
 		},
         'jasmine': {           
             exports: 'jasmine'
