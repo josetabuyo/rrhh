@@ -234,6 +234,10 @@ describe("ComboPopuladoConRepoBuilder", function() {
 	});
 });  
 
+//agregar test que falle si devuelve un int en lugar de string para armar el filtro. e.g. {"IdProvincia":"1"} falla y {"IdProvincia":1} anda ok.
+
+//deberia fallar si pongo dependeDe="blah", y "blah" no existe.
+
 //it("si falla porque necesitaba filtro, debe mandar excepcion explicativa", function() {
 //  expect(false).toBe(true);
 //});

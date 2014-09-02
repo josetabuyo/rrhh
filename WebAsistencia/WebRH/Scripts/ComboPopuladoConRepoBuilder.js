@@ -70,7 +70,8 @@ ComboPopuladoConRepoBuilder.prototype.bindearComboAModelo = function(combo, mode
 		combo.id_item_seleccionado = attr_value;
 	}	
 	combo.change(function(event) { 
-		_this.setValorModeloBindeado(modelo, attr_path, event); 
+		combo.id_item_seleccionado =  event.target.value; //agregar un test que falle si remuevo esta linea
+		_this.setValorModeloBindeado(modelo, attr_path, event);
 	});
 
 	var binding_data = this.browseObject(modelo, attr_path);
@@ -80,7 +81,6 @@ ComboPopuladoConRepoBuilder.prototype.bindearComboAModelo = function(combo, mode
 	obj_bindeable.watch(attr_bindeable, function(prop, oldval, newval) {
 		combo.id_item_seleccionado = newval;
 	});
-
 };
 
 ComboPopuladoConRepoBuilder.prototype.bindearCombo = function(control, modelo_bindeo) {
@@ -113,7 +113,7 @@ ComboPopuladoConRepoBuilder.prototype.agregarDependenciasEntreCombos = function(
 		
 		comboDelQueDepende.change(function() {
 			var filtro = { };
-			filtro[comboDelQueDepende.attr("modelo").toUnderscoreCustom() ] = comboDelQueDepende.id_item_seleccionado;
+			filtro[combo.attr("filtradoPor")] = parseInt(comboDelQueDepende.id_item_seleccionado);
 			_this.cargarBusqueda(combo, combo.attr("dataProvider"), filtro, comboDelQueDepende.campo_id, _this.campoDescripcionDe(comboDelQueDepende));
 		});
 	});

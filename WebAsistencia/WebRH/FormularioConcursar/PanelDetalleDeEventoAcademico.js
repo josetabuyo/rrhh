@@ -2,7 +2,10 @@
     mostrar: function (opciones) {
         //valores default
         var evento_academico = opciones.evento_academico || {
-            Pais: 9
+            Pais: 9,
+            TipoDeEvento:1,
+            CaracterDeParticipacion:1,
+            Institucion:1
         };
         var alModificar = opciones.alModificar || function () { };
 
@@ -20,22 +23,22 @@
         //    _this.txt_evento_academico_tipo_evento.val(evento_academico.TipoDeEvento);
 
 
-            _this.txt_evento_academico_tipo_evento = new SuperCombo({
-                ui: _this.ui.find("#txt_evento_academico_tipo_evento"),
-                nombre_repositorio: "TiposEventosAcademicos",
-                id_item_seleccionado: evento_academico.TipoDeEvento
-            });
+//            _this.txt_evento_academico_tipo_evento = new SuperCombo({
+//                ui: _this.ui.find("#txt_evento_academico_tipo_evento"),
+//                nombre_repositorio: "TiposEventosAcademicos",
+//                id_item_seleccionado: evento_academico.TipoDeEvento
+//            });
 
 
        //     _this.txt_evento_academico_caracter_participacion = _this.ui.find("#txt_evento_academico_caracter_participacion");
        //     _this.txt_evento_academico_caracter_participacion.val(evento_academico.CaracterDeParticipacion);
 
 
-            _this.txt_evento_academico_caracter_participacion = new SuperCombo({
-                ui: _this.ui.find("#txt_evento_academico_caracter_participacion"),
-                nombre_repositorio: "CaracterParticipacionEvento",
-                id_item_seleccionado: evento_academico.CaracterDeParticipacion
-            });
+//            _this.txt_evento_academico_caracter_participacion = new SuperCombo({
+//                ui: _this.ui.find("#txt_evento_academico_caracter_participacion"),
+//                nombre_repositorio: "CaracterParticipacionEvento",
+//                id_item_seleccionado: evento_academico.CaracterDeParticipacion
+//            });
 
 
 
@@ -58,11 +61,11 @@
             _this.txt_evento_academico_institucion.val(evento_academico.Institucion);
 
 
-            _this.txt_evento_academico_institucion = new SuperCombo({
-                ui: _this.ui.find("#txt_evento_academico_institucion"),
-                nombre_repositorio: "InstitucionesEvento",
-                id_item_seleccionado: evento_academico.Institucion
-            });
+//            _this.txt_evento_academico_institucion = new SuperCombo({
+//                ui: _this.ui.find("#txt_evento_academico_institucion"),
+//                nombre_repositorio: "InstitucionesEvento",
+//                id_item_seleccionado: evento_academico.Institucion
+//            });
 
 
 
@@ -86,12 +89,12 @@
                     evento_academico.Denominacion = _this.txt_evento_denominacion.val();
                   //  evento_academico.TipoDeEvento = _this.txt_evento_academico_tipo_evento.val();
 
-                    evento_academico.TipoDeEvento = _this.txt_evento_academico_tipo_evento.idItemSeleccionado();
+                    //evento_academico.TipoDeEvento = _this.txt_evento_academico_tipo_evento.idItemSeleccionado();
               
 
                     //evento_academico.CaracterDeParticipacion = _this.txt_evento_academico_caracter_participacion.val();
 
-                    evento_academico.CaracterDeParticipacion = _this.txt_evento_academico_caracter_participacion.idItemSeleccionado();
+                    //evento_academico.CaracterDeParticipacion = _this.txt_evento_academico_caracter_participacion.idItemSeleccionado();
               
 
                     evento_academico.FechaInicio = _this.txt_evento_academico_fecha_inicio.datepicker('getDate').toISOString();
@@ -99,7 +102,7 @@
                     evento_academico.Duracion = _this.txt_evento_academico_duracion.val();
                    // evento_academico.Institucion = _this.txt_evento_academico_institucion.val();
 
-                    evento_academico.Institucion = _this.txt_evento_academico_institucion.idItemSeleccionado();
+                    //evento_academico.Institucion = _this.txt_evento_academico_institucion.idItemSeleccionado();
               
 
                     evento_academico.Localidad = _this.txt_evento_academico_localidad.val();

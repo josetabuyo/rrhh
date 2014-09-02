@@ -9,7 +9,9 @@
     <title></title>
     <%= Referencias.Css("../") %>
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="../Scripts/Bindings.js"> </script>
     <script type="text/javascript" src="../Scripts/ComboPopuladoConRepoBuilder.js"> </script>
+    <script type="text/javascript" src="../Scripts/String.js"> </script>
     <link rel="stylesheet" href="EstilosPostular.css" />
 </head>
 <body class="">
@@ -131,7 +133,7 @@
                       </div> 
                       <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
-                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Localidad" data-validar="esUnComboSinCero" dataProvider="Localidades" dependeDe="cmb_provincia">
+                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Localidad" data-validar="esUnComboSinCero" dataProvider="Localidades" dependeDe="cmb_provincia1" filtradoPor="IdProvincia">
                             </select>
                       </div>
                     </fieldset>
@@ -175,7 +177,7 @@
                       </div>
                        <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad2">Localidad <em>*</em></label>
-                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:320px;" label="Nombre"  modelo="DomicilioLegal.Localidad" data-validar="esNoBlanco" dataProvider="Localidades" dependeDe="cmb_provincia2">
+                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:320px;" label="Nombre"  modelo="DomicilioLegal.Localidad" data-validar="esNoBlanco" dataProvider="Localidades" dependeDe="cmb_provincia2" filtradoPor="IdProvincia">
                             </select>
                       </div>
 
@@ -508,7 +510,6 @@
 <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postulacion.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
-<script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
 <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
 
 
