@@ -14,11 +14,14 @@ public partial class FormularioConcursar_Postulaciones : System.Web.UI.Page
     {
          if (!IsPostBack)
         {
-             var puestos = Servicio().GetCvPuestos();
-
+            var usuarioLogueado = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+            var postulaciones = Servicio().GetPostulaciones(usuarioLogueado);
+            var puestos = Servicio().GetCvPuestos();
+             
              var puestoSerialize = JsonConvert.SerializeObject(puestos);
-
+             var postulacionSerialize = JsonConvert.SerializeObject(postulaciones);
             this.puestos.Value = puestoSerialize;
+            this.postulaciones.Value = postulacionSerialize;
         }
         
     }

@@ -484,20 +484,36 @@ namespace General.Repositorios
 
                     conexion_bd.Ejecutar("dbo.CV_Upd_DatosPersonalesNoEmpleados", parametros);
                 }
+ 
+                if (datosPersonales.DomicilioPersonal.Id > 0)
+                {
+                    //update GEN_Domicilios del domicilio personal
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros.Add("@idDomicilio", datosPersonales.DomicilioPersonal.Id);
+                    conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
+                }
+                else 
+                {
+                    //insertar en GEN_Domicilios y CV_Domicilio el DomicilioPersonal
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros.Add("@Dni", datosPersonales.Dni);
+                    conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
+                }
 
-                //update GEN_Domicilios del domicilio personal
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
-                parametros.Add("@idDomicilio", datosPersonales.DomicilioPersonal.Id);
-                conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
-
-                //update en GEN_Domicilios del domicilio laboral
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
-                parametros.Add("@idDomicilio", datosPersonales.DomicilioLegal.Id);
-
-              
-
-                conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
-
+                if (datosPersonales.DomicilioLegal.Id > 0)
+                {
+                    //update en GEN_Domicilios del domicilio laboral
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros.Add("@idDomicilio", datosPersonales.DomicilioLegal.Id);
+                    conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
+                }
+                else
+                {
+                    //insertar en GEN_Domicilios y CV_Domicilio el DomicilioLaboral
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros.Add("@Dni", datosPersonales.Dni);
+                    conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
+                }
             }
 
             //this._cvDatosPersonales = datosPersonales;

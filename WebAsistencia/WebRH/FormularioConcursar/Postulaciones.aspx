@@ -63,6 +63,7 @@
 
 
      <asp:HiddenField ID="puestos" runat="server" />
+      <asp:HiddenField ID="postulaciones" runat="server" />
     </form>
 </body>
     <%= Referencias.Javascript("../") %>
@@ -73,7 +74,8 @@
         $(".collapse").collapse("show");
 
         var puestos = JSON.parse($('#puestos').val());
-        Puesto.armarLista(puestos);
+        var postulaciones = JSON.parse($('#postulaciones').val());
+        Puesto.armarLista(puestos, postulaciones);
 
         var options = {
             valueNames: ['Puesto', 'Nivel', 'Agrupamiento', 'Vacantes']
