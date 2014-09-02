@@ -69,8 +69,58 @@ namespace TestViaticos
             Assert.AreEqual(1, repoCv.GetCV(29753914).CvDocencias.Count);
         }
 
+        /*
+         *dada una postulacion en la primer etapa, deberia devolverme el usuario y la fecha de esa etapa
+         *dada una postulacion en la segunda etapa, deberia devolverme que esta en esa segunda etapa a la fecha de hoy.
+         *dada una postulacion con que entro a primera etapa el dia 10, a segunda etapa el dia 12, y a una tercera etapa el dia 14, si pido la etapa en la que se encontraba al dia 11, deberia devolverme la primera.
+         */
+        [TestMethod]
+        public void dada_una_postulacion_en_la_primer_etapa_deberia_devolverme_el_usuario_y_la_fecha_de_la_etapa()
+        {
+            var una_postulacion = new Postulacion();
+            var etapas = new List<EtapaPostulacion>();
+            var fecha_etapa = DateTime.Now.AddMonths(-3);
+            etapas.Add(new EtapaPostulacion() { 
+                Fecha =  fecha_etapa,
+                Descripcion = "Etapa 1",
+                Usuario = "usuario1"
+            });
+            una_postulacion.Etapas = etapas;
+            Assert.IsTrue(una_postulacion.Etapas.Count.Equals(1));
+            Assert.IsNotNull(una_postulacion.Etapas.First().Fecha);
+            Assert.IsNotNull(una_postulacion.Etapas.First().Usuario);
+        }
 
-
+        [TestMethod]
+        public void dada_una_postulacion_con_mas_de_una_etapa_deberia_devolverme_la_etapa_en_una_fecha_dada()
+        {
+            var una_postulacion = new Postulacion();
+            var etapas = new List<EtapaPostulacion>();
+            var fecha_etapa1 = DateTime.Now.AddMonths(-9);
+            var fecha_etapa2 = DateTime.Now.AddMonths(-6);
+            var fecha_etapa3 = DateTime.Now.AddMonths(-3);
+            etapas.Add(new EtapaPostulacion()
+            {
+                Fecha = fecha_etapa1,
+                Descripcion = "Etapa 1",
+                Usuario = "usuario1"
+            });
+            etapas.Add(new EtapaPostulacion()
+            {
+                Fecha = fecha_etapa2,
+                Descripcion = "Etapa 2",
+                Usuario = "usuario2"
+            });
+            etapas.Add(new EtapaPostulacion()
+            {
+                Fecha = fecha_etapa3,
+                Descripcion = "Etapa 3",
+                Usuario = "usuario3"
+            });
+            una_postulacion.Etapas = etapas;
+            Assert.IsTrue(una_postulacion.Etapas.Count.Equals(3));
+            Assert.IsTrue(una_postulacion.EtapaEn(DateTime.Now.AddMonths(-4)).Descripcion.Equals("Etapa 2"));
+        }
 
         public RepositorioDeCurriculum RepoCV()
         {

@@ -22,6 +22,7 @@ namespace General
         public virtual string Motivo { get { return _motivo; } set { _motivo = value; } }
         public virtual string Observaciones { get { return _observaciones; } set { _observaciones = value; } }
         public virtual string Numero { get { return _numero; } set { _numero = value; } }
+        public virtual List<EtapaPostulacion> Etapas { get; set; }
 
         public Postulacion(int id, Puesto puesto, int idPersona, DateTime fecha, string motivo, string observaciones, string numero) {
             _id = id;
@@ -36,5 +37,10 @@ namespace General
         public Postulacion() { }
 
 
+
+        public EtapaPostulacion EtapaEn(DateTime fecha)
+        {
+            return this.Etapas.Find(e => e.Fecha <= fecha);
+        }
     }
 }
