@@ -6,7 +6,7 @@ require.config({
 	baseUrl: 'lib/jasmine-2.0.0/',
     paths: {
 		'app': '../../../WebAsistencia/WebRH/Scripts/',
-		'domready': 'domready'
+		'domready': 'domready',
         'jasmine_html': 'jasmine-html',
 		'jasmine_boot': 'boot',
 		'teamcityreporter': 'jasmine2-teamcityreporter',

@@ -19,31 +19,6 @@
             _this.txt_evento_denominacion = _this.ui.find("#txt_evento_denominacion");
             _this.txt_evento_denominacion.val(evento_academico.Denominacion);
 
-        //    _this.txt_evento_academico_tipo_evento = _this.ui.find("#txt_evento_academico_tipo_evento");
-        //    _this.txt_evento_academico_tipo_evento.val(evento_academico.TipoDeEvento);
-
-
-//            _this.txt_evento_academico_tipo_evento = new SuperCombo({
-//                ui: _this.ui.find("#txt_evento_academico_tipo_evento"),
-//                nombre_repositorio: "TiposEventosAcademicos",
-//                id_item_seleccionado: evento_academico.TipoDeEvento
-//            });
-
-
-       //     _this.txt_evento_academico_caracter_participacion = _this.ui.find("#txt_evento_academico_caracter_participacion");
-       //     _this.txt_evento_academico_caracter_participacion.val(evento_academico.CaracterDeParticipacion);
-
-
-//            _this.txt_evento_academico_caracter_participacion = new SuperCombo({
-//                ui: _this.ui.find("#txt_evento_academico_caracter_participacion"),
-//                nombre_repositorio: "CaracterParticipacionEvento",
-//                id_item_seleccionado: evento_academico.CaracterDeParticipacion
-//            });
-
-
-
-
-
             _this.txt_evento_academico_fecha_inicio = _this.ui.find("#txt_evento_academico_fecha_inicio");
             _this.txt_evento_academico_fecha_inicio.datepicker();
             _this.txt_evento_academico_fecha_inicio.datepicker('option', 'dateFormat', 'dd/mm/yy');
@@ -59,14 +34,6 @@
 
             _this.txt_evento_academico_institucion = _this.ui.find("#txt_evento_academico_institucion");
             _this.txt_evento_academico_institucion.val(evento_academico.Institucion);
-
-
-//            _this.txt_evento_academico_institucion = new SuperCombo({
-//                ui: _this.ui.find("#txt_evento_academico_institucion"),
-//                nombre_repositorio: "InstitucionesEvento",
-//                id_item_seleccionado: evento_academico.Institucion
-//            });
-
 
 
             _this.txt_evento_academico_localidad = _this.ui.find("#txt_evento_academico_localidad");
@@ -87,23 +54,9 @@
                 if (_this.ui.esValido()) {
 
                     evento_academico.Denominacion = _this.txt_evento_denominacion.val();
-                  //  evento_academico.TipoDeEvento = _this.txt_evento_academico_tipo_evento.val();
-
-                    //evento_academico.TipoDeEvento = _this.txt_evento_academico_tipo_evento.idItemSeleccionado();
-              
-
-                    //evento_academico.CaracterDeParticipacion = _this.txt_evento_academico_caracter_participacion.val();
-
-                    //evento_academico.CaracterDeParticipacion = _this.txt_evento_academico_caracter_participacion.idItemSeleccionado();
-              
-
                     evento_academico.FechaInicio = _this.txt_evento_academico_fecha_inicio.datepicker('getDate').toISOString();
                     evento_academico.FechaFinalizacion = _this.txt_evento_academico_fecha_fin.datepicker('getDate').toISOString();
                     evento_academico.Duracion = _this.txt_evento_academico_duracion.val();
-                   // evento_academico.Institucion = _this.txt_evento_academico_institucion.val();
-
-                    //evento_academico.Institucion = _this.txt_evento_academico_institucion.idItemSeleccionado();
-              
 
                     evento_academico.Localidad = _this.txt_evento_academico_localidad.val();
 
