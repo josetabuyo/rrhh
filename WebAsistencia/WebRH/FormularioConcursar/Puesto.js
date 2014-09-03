@@ -60,12 +60,13 @@
             linkPostularse.click(function (e) {
                 var proveedor_ajax = new ProveedorAjax();
 
-                proveedor_ajax.postearAUrl({ url: "SetPuestoEnSesion",
+                proveedor_ajax.postearAUrl({ url: "SetObjetoEnSesion",
                     data: {
-                        puesto: un_puesto
+                        nombre: 'puesto',
+                        objeto: JSON.stringify(un_puesto)
                     },
                     success: function (respuesta) {
-                        window.location.href = 'PreInscripcion.aspx?id=' + un_puesto.Id;
+                        window.location.href = 'PreInscripcion.aspx';
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.alert("Error");

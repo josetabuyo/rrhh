@@ -7,12 +7,6 @@
         <title></title>
      <%= Referencias.Css("../")%>    
 
-     <script type="text/javascript">
-         function ImprimirCVPostulado() {
-             window.print();
-         }
-     
-     </script>
      <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
 </head>
 <body>
@@ -206,6 +200,10 @@
 
 <script type="text/javascript">
     Backend.start();
+
+    function ImprimirCVPostulado() {
+        window.print();
+    }
 
     $(document).ready(function () {
         curriculum = JSON.parse($('#curriculum').val());

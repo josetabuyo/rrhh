@@ -49,22 +49,34 @@
                 data: {
                     una_postulacion: postulacion
                 },
-                success: function (respuesta) {
-                    alertify.alert("Usted se postuló correctamente. <br> Número de postulación: " + respuesta.Numero, function () {
-                        //alModificar(respuesta);
+                success: function (postulacion) {
+                    alertify.alert("Usted se postuló correctamente. <br> Número de postulación: " + postulacion.Numero, function () {
+                        proveedor_ajax.postearAUrl({ url: "SetObjetoEnSesion",
+                            data: {
+                                nombre: 'Postulacion',
+                                objeto: JSON.stringify(postulacion)
+                            },
+                            success: function (respuesta) {
+                                window.location.href = 'PostInscripcion.aspx';
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alertify.alert("Error");
+                            }
+                        }); //alModificar(respuesta);
                         //$(".modal_close_concursar").click();
-                        window.location.href = 'FichaInscripcionCVDeclaJurada.aspx?id=' + respuesta.Id;
+                        //window.location.href = 'PostInscripcion.aspx?id=' + respuesta.Id;
+                        //window.location.href = 'FichaInscripcionCVDeclaJurada.aspx?id=' + respuesta.Id;
                     });
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alertify.alert("Error al postularse.");
+                    alertify.alert(errorThrown);
                 }
             });
 
         });
 
     }
-}// Botón para Ir Arriba
+}
 
 
  function getVarsUrl() {

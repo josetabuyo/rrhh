@@ -210,7 +210,7 @@
      Backend.start();
 
      $(document).ready(function () {
-         puesto = getVarsUrl();
+         //puesto = getVarsUrl();
          curriculum = JSON.parse($('#curriculum').val());
          CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
 
@@ -229,7 +229,7 @@
          alertify.confirm("¿Está seguro que desea pasar al siguiente paso?", function (e) {
              if (e) {
                  // user clicked "ok"
-                 window.location.href = 'Inscripcion.aspx?id=' + puesto.id;
+                 window.location.href = 'Inscripcion.aspx';
 
              } else {
                  // user clicked "cancel"
@@ -240,10 +240,10 @@
      }
 
      function Anterior() {
-                 window.location.href = 'Postulaciones.aspx?id=' + puesto.id;
+                 window.location.href = 'Postulaciones.aspx';
      }
 
-     function getVarsUrl() {
+    /* function getVarsUrl() {
          var url = location.search.replace("?", "");
          var arrUrl = url.split("&");
          var urlObj = {};
@@ -252,7 +252,7 @@
              urlObj[x[0]] = x[1]
          }
          return urlObj;
-     }
+     }*/
 
      function PasarAInscripcion() {
 

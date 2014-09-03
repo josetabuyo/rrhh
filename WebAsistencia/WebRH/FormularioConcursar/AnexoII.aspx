@@ -10,7 +10,7 @@
      <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
 </head>
 <body>
-<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>
+
     <form id="form1" runat="server">
     
     <div style="width:80%; margin-left:10%;" class="">
@@ -57,7 +57,7 @@
             </tr>
             </table>
            
-            <p class="p-imprimir"><button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir</button></p>
+           <%-- <p class="p-imprimir"><button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir</button></p>--%>
         </div>	
 
 
@@ -77,11 +77,11 @@
     function ImprimirCVPostulado() {
         //var html = $('#form1').context.body.innerHTML;
         //$('#pagina').val(html);
-        window.print();
+        //window.print();
     }
 
     $(document).ready(function () {
-
+        window.print();
     });
 
 </script>

@@ -63,12 +63,12 @@
         _this.cv_nac.text(Repositorio.buscar("Nacionalidades", { Id: curriculum.DatosPersonales.Nacionalidad }, function (nacionalidad) { nacionalidad[0].Descripcion }));
         _this.cv_domPersonal = $("#cv_domPersonal");
         _this.cv_domPersonal.text(curriculum.DatosPersonales.DomicilioPersonal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioPersonal.Numero + ' - ' +
-                                 curriculum.DatosPersonales.DomicilioPersonal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioPersonal.Piso + ' ' +
+                                 curriculum.DatosPersonales.DomicilioPersonal.Piso + ' ' +
                                  curriculum.DatosPersonales.DomicilioPersonal.Depto + ' - ' + curriculum.DatosPersonales.DomicilioPersonal.Localidad +
                                  curriculum.DatosPersonales.DomicilioPersonal.Provincia);
         _this.cv_domLegal = $("#cv_domLegal");
         _this.cv_domLegal.text(curriculum.DatosPersonales.DomicilioLegal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioLegal.Numero + ' - ' +
-                                 curriculum.DatosPersonales.DomicilioLegal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioLegal.Piso + ' ' +
+                                 curriculum.DatosPersonales.DomicilioLegal.Piso + ' ' +
                                  curriculum.DatosPersonales.DomicilioLegal.Depto + ' - ' + curriculum.DatosPersonales.DomicilioLegal.Localidad +
                                  curriculum.DatosPersonales.DomicilioLegal.Provincia);
         _this.cv_telefono = $("#cv_telefono");
