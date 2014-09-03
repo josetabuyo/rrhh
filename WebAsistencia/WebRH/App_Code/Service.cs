@@ -793,6 +793,8 @@ public class AjaxWS : System.Web.Services.WebService
         return Newtonsoft.Json.JsonConvert.SerializeObject(postulacion);
     }
 
+    [WebMethod]
+
     [WebMethod(EnableSession = true)]
     public string PostularseA(WSViaticos.Postulacion una_postulacion)
     {

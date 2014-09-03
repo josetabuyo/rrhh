@@ -40,7 +40,7 @@ namespace General
 
         public EtapaPostulacion EtapaEn(DateTime fecha)
         {
-            return this.Etapas.Find(e => e.Fecha <= fecha);
+            return this.Etapas.FindLast(e => e.Fecha <= fecha);
         }
     }
 }
