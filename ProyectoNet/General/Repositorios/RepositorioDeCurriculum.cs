@@ -205,12 +205,12 @@ namespace General.Repositorios
                                             {
                                                 Id = dRow.GetInt("EventosAcademicosId",0),
                                                 Denominacion = dRow.GetString("EventosAcademicosDenominacion", string.Empty),
-                                                TipoDeEvento = dRow.GetString("EventosAcademicosTipoDeEvento", string.Empty),
-                                                CaracterDeParticipacion = dRow.GetString("EventosAcademicosCaracterDeParticipacion", string.Empty),
+                                                TipoDeEvento = dRow.GetInt("EventosAcademicosTipoDeEvento", 0),
+                                                CaracterDeParticipacion = dRow.GetInt("EventosAcademicosCaracterDeParticipacion",0),
                                                 FechaInicio = dRow.GetDateTime("EventosAcademicosFechaInicio", DateTime.Today),
                                                 FechaFinalizacion = dRow.GetDateTime("EventosAcademicosFechaFin", DateTime.Today),
                                                 Duracion = dRow.GetString("EventosAcademicosDuracion", string.Empty),
-                                                Institucion = dRow.GetString("EventosAcademicosInstitucion", string.Empty),
+                                                Institucion = dRow.GetInt("EventosAcademicosInstitucion",0),
                                                 Localidad = dRow.GetString("EventosAcademicosLocalidad", string.Empty),
                                                 Pais = dRow.GetInt("EventosAcademicosPais", 9)
                                             }).Distinct().ToList();
@@ -484,20 +484,36 @@ namespace General.Repositorios
 
                     conexion_bd.Ejecutar("dbo.CV_Upd_DatosPersonalesNoEmpleados", parametros);
                 }
+ 
+                if (datosPersonales.DomicilioPersonal.Id > 0)
+                {
+                    //update GEN_Domicilios del domicilio personal
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros.Add("@idDomicilio", datosPersonales.DomicilioPersonal.Id);
+                    conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
+                }
+                else 
+                {
+                    //insertar en GEN_Domicilios y CV_Domicilio el DomicilioPersonal
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros.Add("@Dni", datosPersonales.Dni);
+                    conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
+                }
 
-                //update GEN_Domicilios del domicilio personal
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
-                parametros.Add("@idDomicilio", datosPersonales.DomicilioPersonal.Id);
-                conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
-
-                //update en GEN_Domicilios del domicilio laboral
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
-                parametros.Add("@idDomicilio", datosPersonales.DomicilioLegal.Id);
-
-              
-
-                conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
-
+                if (datosPersonales.DomicilioLegal.Id > 0)
+                {
+                    //update en GEN_Domicilios del domicilio laboral
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros.Add("@idDomicilio", datosPersonales.DomicilioLegal.Id);
+                    conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
+                }
+                else
+                {
+                    //insertar en GEN_Domicilios y CV_Domicilio el DomicilioLaboral
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros.Add("@Dni", datosPersonales.Dni);
+                    conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
+                }
             }
 
             //this._cvDatosPersonales = datosPersonales;
@@ -1292,9 +1308,9 @@ namespace General.Repositorios
         {
             var validador_evento = new Validador();       
 
-            validador_evento.DeberianSerNoVacias(new string[]{ "Denominacion", "CaracterDeParticipacion", "TipoDeEvento", "Duracion", "Institucion", "Localidad" });
+            validador_evento.DeberianSerNoVacias(new string[]{ "Denominacion",  "Duracion", "Localidad" });
             validador_evento.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
-            validador_evento.DeberianSerNaturales(new string[] { "Pais" });
+            validador_evento.DeberianSerNaturales(new string[] { "Pais", "CaracterDeParticipacion", "TipoDeEvento", "Institucion" });
 
             if (!validador_evento.EsValido(un_evento_academico))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");

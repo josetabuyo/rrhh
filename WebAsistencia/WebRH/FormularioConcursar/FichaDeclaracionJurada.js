@@ -45,7 +45,7 @@
     },
     dibujarCV: function (curriculum) {
         var _this = this;
-       
+
         _this.cv_apellido = $("#cv_apellido");
         _this.cv_apellido.text(curriculum.DatosPersonales.Apellido + ', ');
         _this.cv_nombre = $("#cv_nombre");
@@ -62,15 +62,24 @@
         _this.cv_nac = $("#cv_nac");
         _this.cv_nac.text(Repositorio.buscar("Nacionalidades", { Id: curriculum.DatosPersonales.Nacionalidad }, function (nacionalidad) { nacionalidad[0].Descripcion }));
         _this.cv_domPersonal = $("#cv_domPersonal");
+
+        //var localidadPersonal = Backend.ejecutarSincronico("BuscarLocalidades", [{ Id: curriculum.DatosPersonales.DomicilioPersonal.Localidad}])[0];
+        var provinciaPersonal = Backend.ejecutarSincronico("BuscarProvincias", [{ Id: curriculum.DatosPersonales.DomicilioPersonal.Provincia}])[0];
+
         _this.cv_domPersonal.text(curriculum.DatosPersonales.DomicilioPersonal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioPersonal.Numero + ' - ' +
                                  curriculum.DatosPersonales.DomicilioPersonal.Piso + ' ' +
-                                 curriculum.DatosPersonales.DomicilioPersonal.Depto + ' - ' + curriculum.DatosPersonales.DomicilioPersonal.Localidad +
-                                 curriculum.DatosPersonales.DomicilioPersonal.Provincia);
+                                 curriculum.DatosPersonales.DomicilioPersonal.Depto + ' - ' +
+                                 provinciaPersonal.Nombre);
+
         _this.cv_domLegal = $("#cv_domLegal");
+
+        var localidadLegal = Backend.ejecutarSincronico("BuscarLocalidades", [{ Id: curriculum.DatosPersonales.DomicilioLegal.Localidad}])[0];
+        var provinciaLegal = Backend.ejecutarSincronico("BuscarProvincias", [{ Id: curriculum.DatosPersonales.DomicilioLegal.Provincia}])[0];
+
         _this.cv_domLegal.text(curriculum.DatosPersonales.DomicilioLegal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioLegal.Numero + ' - ' +
                                  curriculum.DatosPersonales.DomicilioLegal.Piso + ' ' +
-                                 curriculum.DatosPersonales.DomicilioLegal.Depto + ' - ' + curriculum.DatosPersonales.DomicilioLegal.Localidad +
-                                 curriculum.DatosPersonales.DomicilioLegal.Provincia);
+                                 curriculum.DatosPersonales.DomicilioLegal.Depto + ' - ' + localidadLegal.Nombre + ' ' +
+                                 provinciaLegal.Nombre);
         _this.cv_telefono = $("#cv_telefono");
         _this.cv_telefono.text(curriculum.DatosPersonales.Telefono);
         _this.cv_mail = $("#cv_mail");
@@ -151,8 +160,9 @@
             for (var i = 0; i < curriculum.CvEventosAcademicos.length; i++) {
                 _this.p = _this.dibujarDatos('Año: ');
                 _this.span = $('<span>');
+                var institucion = Backend.ejecutarSincronico("BuscarInstitucionesEventosAcademicos", [{ Id: curriculum.CvEventosAcademicos[i].Institucion}])[0]; 
                 _this.span.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvEventosAcademicos[i].FechaFinalizacion) + ' - ' +
-                                curriculum.CvEventosAcademicos[i].Institucion + ' - ' +
+                                institucion.Descripcion + ' - ' +
                                 curriculum.CvEventosAcademicos[i].Denominacion);
                 _this.p.append(_this.span);
                 _this.titulos_educativos.append(_this.p);
@@ -308,7 +318,7 @@
 
 
         } //FIN OTRAS APTITUDES
-    
+
     },
     dibujarTitulo: function (contenedor, titulo) {
         var _this = this;

@@ -80,6 +80,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        Backend.start();
 
         curriculum = JSON.parse($('#curriculum').val());
 

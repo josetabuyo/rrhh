@@ -2516,6 +2516,28 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return RepoCurriculum().EliminarCvEventosAcademicos(id_evento, usuario);
     }
+
+
+    [WebMethod]
+    public CVTiposDeEventoAcademico[] BuscarTiposEventosAcademicos(string criterio)
+    {
+        return RepositorioDeTiposDeEventoAcademico.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+
+    [WebMethod]
+    public CVCaracterDeParticipacionEvento[] BuscarCaracterParticipacionEvento(string criterio)
+    {
+        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+    [WebMethod]
+    public CVInstitucionesEventos[] BuscarInstitucionesEvento(string criterio)
+    {
+        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+
     #endregion
 
     #region CvPublicaciones
@@ -2713,6 +2735,12 @@ public class WSViaticos : System.Web.Services.WebService
     public CvConocimientoCompetenciaInformatica[] BuscarConocimientoCompetenciaInformatica(string criterio)
     {
         return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+    [WebMethod]
+    public CVInstitucionesEventos[] BuscarInstitucionesEventosAcademicos(string criterio)
+    {
+        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
 
