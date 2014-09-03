@@ -101,6 +101,10 @@
                 return each_combo.attr("id") == campoDependenciaDe(combo);
             })[0];
 
+			if (comboDelQueDepende == undefined) {
+				throw 'El combo "' + combo.attr("id") + '" depenDe el combo "' + campoDependenciaDe(combo) + '" que no existe o no fué encontrado.';
+			}
+			
             if (comboDelQueDepende.attr("modelo") == undefined) {
                 throw '"' + comboDelQueDepende.attr("id") + '" debe especificar el atributo modelo="ALGO", puesto que "' + combo.attr("id") + '" depende de él, y requiere dicho modelo para poder filtrar.';
             }

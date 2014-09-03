@@ -15,6 +15,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 		var fake_response = {"responseText": '{\"d\":\"' + plain_response.split('"').join('\\\"') + "\"}"} 
 		jasmine.Ajax.requests.mostRecent().response(fake_response);
 	};
+
 	describe("DADO: Un combo", function(){
 	
 		beforeEach(function() {
@@ -180,10 +181,18 @@ describe("ComboPopuladoConRepoBuilder", function() {
 										}
 									};
 		});
+		
+		describe("CUANDO: no existe el combo del que depende", function() {
+			it("ENTONCES: deberia lanzar excepcion explicativa al respecto", function() {
+				var dom = $('<div><select id="combo_localidades" dependeDe="combo_inexistente" dataProvider="Localidades"></select></div>');				
+				expect(function() {
+					combos = RH_FORMS.bindear(dom, Repositorio);
+				}).toThrow('El combo "combo_localidades" depenDe el combo "combo_inexistente" que no existe o no fué encontrado.')
+			});
+		});
 
 		describe("CUANDO: no se especifico un modelo para el combo independiente", function() {
-			
-			
+
 			it("ENTONCES. debería fallar por no definir filtro", function() {
 				var dom = $('<div><select id="combo_provincias" dataProvider="Provincias"></select><select id="combo_localidades" dependeDe="combo_provincias" dataProvider="Localidades"></select></div>');				
 				expect(function() { 
@@ -231,8 +240,6 @@ describe("ComboPopuladoConRepoBuilder", function() {
 });  
 
 //agregar test que falle si devuelve un int en lugar de string para armar el filtro. e.g. {"IdProvincia":"1"} falla y {"IdProvincia":1} anda ok.
-
-//deberia fallar si pongo dependeDe="blah", y "blah" no existe.
 
 //it("si falla porque necesitaba filtro, debe mandar excepcion explicativa", function() {
 //  expect(false).toBe(true);
