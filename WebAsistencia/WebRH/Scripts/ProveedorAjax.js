@@ -7,14 +7,16 @@
 };
 
 ProveedorAjax.prototype.postearAUrl = function (datos_del_post) {
+    var async = true;
+    if(!datos_del_post.async) async = false;
     $.ajax({
         url: this.raiz + "AjaxWS.asmx/" + datos_del_post.url,
         type: "POST",
         data: JSON.stringify(datos_del_post.data),
+        async: async,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (respuestaJson) {
-
             if (respuestaJson.hasOwnProperty('d')) {
                 datos_del_post.success(JSON.parse(respuestaJson.d));
             } else {

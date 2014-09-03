@@ -96,6 +96,9 @@ Grilla.prototype = {
     AgregarEstilo: function (clase) {
         this.tabla.addClass(clase);
     },
+    CambiarEstiloCabecera: function (clase) {
+        this.tabla[0].tHead.className = clase;
+    },
 
     SetOnRowClickEventHandler: function (metodo) {
         this.onRowClickEventHandler = metodo;

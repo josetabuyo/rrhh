@@ -48,7 +48,8 @@
         ));
 
         this.GrillaActividadesCapacitacion = new Grilla(columnas);
-        this.GrillaActividadesCapacitacion.AgregarEstilo("table table-striped");
+        this.GrillaActividadesCapacitacion.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaActividadesCapacitacion.CambiarEstiloCabecera("cabecera_tabla_postular");
         this.GrillaActividadesCapacitacion.SetOnRowClickEventHandler(function (una_actividad_capacitacion) {
         });
 

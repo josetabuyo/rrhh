@@ -78,7 +78,8 @@
         ));
 
         this.GrillaEventosAcademicos = new Grilla(columnas);
-        this.GrillaEventosAcademicos.AgregarEstilo("table table-striped");
+        this.GrillaEventosAcademicos.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaEventosAcademicos.CambiarEstiloCabecera("cabecera_tabla_postular");
         this.GrillaEventosAcademicos.SetOnRowClickEventHandler(function (un_evento_academico) {
         });
 
