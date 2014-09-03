@@ -7,13 +7,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title></title>
-    <%= Referencias.Css("../")%>    
-    
+    <%= Referencias.Css("../") %>
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
-   
-
-   
-
+    <script type="text/javascript" src="../Scripts/Bindings.js"> </script>
+    <script type="text/javascript" src="../Scripts/rhforms-combos.js"> </script>
+    <script type="text/javascript" src="../Scripts/String.js"> </script>
     <link rel="stylesheet" href="EstilosPostular.css" />
 </head>
 <body class="">
@@ -70,17 +68,17 @@
                         </div>
                         <div id="contenedor_cmb_sexo" class="grupo_campos">
                             <label for="cmb_sexo">Sexo <em>*</em></label>
-                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" data-validar="esNumeroNaturalSinCero">
+                            <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" data-validar="esNumeroNaturalSinCero" dataProvider="Sexos" modelo="Sexo">
                             </select>
                         </div>
                         <div id="contenedor_cmb_estado_civil" class="grupo_campos">
                          <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
-                         <select id="cmb_estadoCivil" style="width:160px;" name="cmb_estadoCivil" data-validar="esUnComboSinCero" >
+                         <select id="cmb_estadoCivil" style="width:160px;" name="cmb_estadoCivil" data-validar="esUnComboSinCero" dataProvider="EstadosCiviles" modelo="EstadoCivil">
                          </select>
                          </div>
                          <div class="grupo_campos nueva_linea">
                            <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo Documento <em>*</em></label>
-                            <select id="cmb_tipoDocumento" style="width:170px;" name="cmb_tipoDocumento"  data-validar="esUnComboSinCero">
+                            <select id="cmb_tipoDocumento" style="width:170px;" name="cmb_tipoDocumento" modelo="TipoDocumento" data-validar="esUnComboSinCero" dataProvider="TiposDeDocumento">
                             </select>
                           </div>
                           <div class="grupo_campos">
@@ -98,11 +96,10 @@
                         </div>
                         <div class="grupo_campos">
                              <label class="etiqueta_campo" for="cmb_lugar_nacimiento">Lugar Nacimiento <em>*</em></label>
-                             <input type="text" id="cmb_lugar_nacimiento" style="width:210px;"  data-validar="esNoBlanco" />
-                        </div>
+                             <input type="text" id="cmb_lugar_nacimiento" style="width:210px;" modelo="LugarDeNacimiento" data-validar="esNoBlanco" />                        </div>
                       <div class="grupo_campos">
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
-                         <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad"  data-validar="esUnComboSinCero">
+                         <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad" modelo="Nacionalidad" data-validar="esUnComboSinCero" dataProvider="Nacionalidades">
                          </select>
                       </div>
                        <div class="grupo_campos nueva_linea">
@@ -131,12 +128,12 @@
                       </div>
                       <div class="grupo_campos nueva_linea">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
-                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;"  data-validar="esUnComboConCero">
+                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Provincia" data-validar="esUnComboSinCero" dataProvider="Provincias">
                         </select>
                       </div> 
                       <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
-                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;"  data-validar="esUnComboConCero">
+                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Localidad" data-validar="esUnComboSinCero" dataProvider="Localidades" dependeDe="cmb_provincia1" filtradoPor="IdProvincia">
                             </select>
                       </div>
                     </fieldset>
@@ -175,12 +172,12 @@
 
                       <div class="grupo_campos nueva_linea"> 
                         <label class="etiqueta_campo" for="cmb_provincia2">Provincia <em>*</em></label>
-                        <select id="cmb_provincia2" name="cmb_provincia2" style="width:320px;"  data-validar="esNoBlanco">
+                        <select id="cmb_provincia2" name="cmb_provincia2" style="width:320px;" label="Nombre" modelo="DomicilioLegal.Provincia" data-validar="esNoBlanco" dataProvider="Provincias">
                         </select>
                       </div>
                        <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad2">Localidad <em>*</em></label>
-                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:320px;"  data-validar="esNoBlanco">
+                           <select id="cmb_localidad2" name="cmb_localidad2" style="width:320px;" label="Nombre"  modelo="DomicilioLegal.Localidad" data-validar="esNoBlanco" dataProvider="Localidades" dependeDe="cmb_provincia2" filtradoPor="IdProvincia">
                             </select>
                       </div>
 
@@ -513,7 +510,6 @@
 <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postulacion.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
-<script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
 <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
 
 
