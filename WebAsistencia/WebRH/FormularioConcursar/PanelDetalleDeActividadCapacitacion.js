@@ -10,8 +10,7 @@
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeActividadCapacitacion.htm", function () {
 
-            var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
-            generador_combos.construirCombosEn(_this.ui, actividad_capacitacion);
+            RH_FORMS.bindear(_this.ui, Repositorio, actividad_capacitacion);
 
             _this.txt_actividad_capacitacion_nombreDiploma = _this.ui.find("#txt_actividad_capacitacion_nombreDiploma");
             _this.txt_actividad_capacitacion_nombreDiploma.val(actividad_capacitacion.DiplomaDeCertificacion);

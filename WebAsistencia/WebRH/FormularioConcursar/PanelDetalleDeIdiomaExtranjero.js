@@ -13,8 +13,7 @@
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeIdiomaExtranjero.htm", function () {
 
-            var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
-            generador_combos.construirCombosEn(_this.ui, idioma_extranjero);
+            RH_FORMS.bindear(_this.ui, Repositorio, idioma_extranjero);
 
             _this.txt_idioma_extranjero_diploma_certificacion = _this.ui.find("#txt_idioma_extranjero_diploma_certificacion");
             _this.txt_idioma_extranjero_diploma_certificacion.val(idioma_extranjero.Diploma);

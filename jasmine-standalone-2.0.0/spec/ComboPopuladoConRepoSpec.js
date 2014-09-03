@@ -26,36 +26,33 @@ describe("ComboPopuladoConRepoBuilder", function() {
 		describe("Y: sin dataProvider", function() {
 			beforeEach(function() {
 				this.data_provider = "";
-				populador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
 			});
 
 			it("ENTONCES: no debe fallar", function() {
-				populador_combos.construirCombosEn(dom);
+				RH_FORMS.bindear(dom, Repositorio);
 			});
 		});  
-		
-
 	
 		describe("Y: con dataprovider", function() {
 			beforeEach(function() {
 				this.data_provider = ' dataProvider="Localidades"';
-				populador_combos.construirCombosEn(dom);
 			});
 			
 			it("ENTONCES: debe lanzar excepcion descriptiva si el builder se construye sin repositorio.", function() {
 				expect(function() {
-					new ComboPopuladoConRepoBuilder();
+					RH_FORMS.bindear(dom);
 				}).toThrow("No se ha especificado un repositorio al momento de construir el builder de combos");
 			});		
 
 			it("ENTONCES: debe invocar al dataProvider indicado", function() {
+				RH_FORMS.bindear(dom, Repositorio);
 				expect(jasmine.Ajax.requests.mostRecent().params).toContain('{"nombre_metodo":"BuscarLocalidades"');
 			});
 			
 			describe("Y: con un label", function() {
 				beforeEach(function() {
 					this.label_combo = ' label="Nombre"';
-					combos = populador_combos.construirCombosEn(dom);
+					combos = RH_FORMS.bindear(dom, Repositorio);
 					fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
 				});
 			
@@ -67,7 +64,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			describe("Y: sin un label", function() {
 				beforeEach(function() {
 					this.label_combo = "";
-					combos = populador_combos.construirCombosEn(dom);
+					combos = RH_FORMS.bindear(dom, Repositorio);
 					fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
 				});
 
@@ -83,10 +80,9 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					domicilio_empleado = { localidad: 6 };
 					empleado = { domicilio: { domicilio_empleado: 6 } };
 					this.bindeo = ' modelo="localidad"';
-					
-					combos = populador_combos.construirCombosEn($('<div><select id="combo_localidades" dataProvider="Localidades" modelo="localidad"></select></div>'), domicilio_empleado);
+					dom = $('<div><select id="combo_localidades" dataProvider="Localidades" modelo="localidad"></select></div>')
+					combos = RH_FORMS.bindear(dom, Repositorio, domicilio_empleado);
 					fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]');
-		
 				});
 				
 				it("ENTONCES: el valor debe estar seleccionado", function() {
@@ -126,7 +122,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					it("ENTONCES: deberia lanzar excepcion explicando el error", function() {
 						this.bindeo = ' modelo="hijo.domicilio.atributo_inexistente"';
 						expect(function() {
-							combos = populador_combos.construirCombosEn(dom, empleado);
+							combos = RH_FORMS.bindear(dom, Repositorio, empleado);
 						}).toThrow("Error al intentar bindear el modelo \"hijo.domicilio.atributo_inexistente\" al combo \"combo_localidades\"");
 					});			
 				});
@@ -134,7 +130,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				describe("Y: el modelo especificado es correcto", function() {
 					beforeEach(function() {
 						this.bindeo = ' modelo="hijo.domicilio.localidad"';
-						combos = populador_combos.construirCombosEn(dom, empleado);
+						combos = RH_FORMS.bindear(dom, Repositorio, empleado);
 						fakeResponse('[{"Id":1,"Nombre":"NombreLocalidadBuenosAires","Descripcion":"DescripcionBuenosAires"},{"Id":6,"Descripcion":"DescripcionLocalidad6"}]')
 					});
 
@@ -183,7 +179,6 @@ describe("ComboPopuladoConRepoBuilder", function() {
 												}
 										}
 									};
-			populador_combos = new ComboPopuladoConRepoBuilder(mock_repo);
 		});
 
 		describe("CUANDO: no se especifico un modelo para el combo independiente", function() {
@@ -192,7 +187,7 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			it("ENTONCES. debería fallar por no definir filtro", function() {
 				var dom = $('<div><select id="combo_provincias" dataProvider="Provincias"></select><select id="combo_localidades" dependeDe="combo_provincias" dataProvider="Localidades"></select></div>');				
 				expect(function() { 
-					populador_combos.construirCombosEn(dom)
+					combos = RH_FORMS.bindear(dom, Repositorio);
 				}).toThrow("\"combo_provincias\" debe especificar el atributo modelo=\"ALGO\", puesto que \"combo_localidades\" depende de él, y requiere dicho modelo para poder filtrar.");
 			});
 		});
@@ -207,28 +202,29 @@ describe("ComboPopuladoConRepoBuilder", function() {
 													}
 												}
 											};
-				populador_combos = new ComboPopuladoConRepoBuilder(mock_repo);
 				var dom = $('<div><select id="combo_provincias" modelo="Provincia" dataProvider="Provincias"></select><select id="combo_localidades" dependeDe="combo_provincias" dataProvider="Localidades"></select></div>');
-				combos = populador_combos.construirCombosEn(dom);
+				combos = RH_FORMS.bindear(dom, Repositorio);
 			});
 		});
 	  
 		describe("CUANDO: se construyen combos relacionados, y se selecciona un valor", function() {
 			var combo_dependiente;
 			var combo_independiente;
+			var repo;
 			beforeEach(function() {
 				var dom = $('<div><select id="combo_provincias" modelo="Provincia" dataProvider="Provincias"></select><select id="combo_localidades" dependeDe="combo_provincias" dataProvider="Localidades"></select></div>');
-				combos = populador_combos.construirCombosEn(dom);
+				repo = Repositorio;
+				combos = RH_FORMS.bindear(dom, repo);
 				combo_independiente = combos[0];
 				combo_dependiente = combos[1];
 			});
 
 			it("ENTONCES: el dependiente debe pedir a su dataProvider los datos filtrados", function() {
-				spyOn(populador_combos.repositorio, 'buscar');
+				spyOn(repo, 'buscar');
 				combo_independiente.change();
 				
-				expect(populador_combos.repositorio.buscar).toHaveBeenCalled();
-				expect(populador_combos.repositorio.buscar.calls.mostRecent().args[0]).toEqual("Localidades");
+				expect(repo.buscar).toHaveBeenCalled();
+				expect(repo.buscar.calls.mostRecent().args[0]).toEqual("Localidades");
 			});
 		});
 	});

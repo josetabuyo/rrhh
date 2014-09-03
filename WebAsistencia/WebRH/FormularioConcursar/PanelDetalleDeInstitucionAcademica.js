@@ -10,8 +10,7 @@
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeInstitucionAcademica.htm", function () {
 
-            var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
-            generador_combos.construirCombosEn(_this.ui, institucion_academica);
+            RH_FORMS.bindear(_this.ui, Repositorio, institucion_academica);
 
             _this.txt_institucion_academica_nombre = _this.ui.find("#txt_institucion_academica_nombre");
             _this.txt_institucion_academica_nombre.val(institucion_academica.Institucion);

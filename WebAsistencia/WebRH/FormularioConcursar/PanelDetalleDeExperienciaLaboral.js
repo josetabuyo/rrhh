@@ -10,8 +10,7 @@
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeExperiencialaboral.htm", function () {
 
-            var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
-            generador_combos.construirCombosEn(_this.ui, experiencia);
+            RH_FORMS.bindear(_this.ui, Repositorio, experiencia);
 
             _this.txt_experiencia_laboral_puesto = _this.ui.find("#experiencia-laboral_puesto");
             _this.txt_experiencia_laboral_puesto.val(experiencia.PuestoOcupado);

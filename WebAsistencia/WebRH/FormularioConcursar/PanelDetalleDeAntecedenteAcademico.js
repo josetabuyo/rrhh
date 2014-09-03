@@ -11,8 +11,7 @@
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeAntecedenteAcademico.htm", function () {
 
-            var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
-            generador_combos.construirCombosEn(_this.ui, estudio);
+            RH_FORMS.bindear(_this.ui, Repositorio, estudio);
 
             //_this.txt_antecedentes_id = _this.ui.find("#txt_AntecedenteAcademico_id");
             //_this.txt_antecedentes_id.val(estudio.Id);

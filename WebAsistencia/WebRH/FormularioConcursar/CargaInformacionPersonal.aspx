@@ -10,7 +10,7 @@
     <%= Referencias.Css("../") %>
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/Bindings.js"> </script>
-    <script type="text/javascript" src="../Scripts/ComboPopuladoConRepoBuilder.js"> </script>
+    <script type="text/javascript" src="../Scripts/rhforms-combos.js"> </script>
     <script type="text/javascript" src="../Scripts/String.js"> </script>
     <link rel="stylesheet" href="EstilosPostular.css" />
 </head>

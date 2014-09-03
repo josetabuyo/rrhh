@@ -5,8 +5,7 @@ var CvDatosPersonales = {
         this.ui = $("#contenedor_datosPersonales");
         $("#cuil").mask("99-99999999-9");
 
-        var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
-        generador_combos.construirCombosEn(this.ui, datos_personales);
+        RH_FORMS.bindear(this.ui, Repositorio, datos_personales)
 
         _this.txt_nombre = _this.ui.find("#nombre");
         _this.txt_apellido = _this.ui.find("#apellido");

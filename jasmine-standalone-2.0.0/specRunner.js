@@ -16,9 +16,9 @@ require.config({
     },
     shim: {
 		'specs1': {
-			deps: ['mockAjax', 'app/bootstrap/js/jquery', 'app/comboPopuladoConRepoBuilder'],
+			deps: ['mockAjax', 'app/bootstrap/js/jquery', 'app/rhforms-combos'],
 		},
-		'app/comboPopuladoConRepoBuilder': {
+		'app/rhforms-combos': {
 			deps: ['app/backend', 'app/bindings', 'app/string']
 		},
 		'app/backend': {
@@ -61,5 +61,4 @@ require(['jasmine_boot', 'teamcityreporter'], function () {
             window.onload();
         });
     });
-    
 })();

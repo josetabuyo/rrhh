@@ -11,8 +11,7 @@
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeActividadDocente.htm", function () {
 
-            var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
-            generador_combos.construirCombosEn(_this.ui, docencia);
+            RH_FORMS.bindear(_this.ui, Repositorio, docencia);
 
             _this.txt_asignatura = _this.ui.find("#txt_actividad_docente_asignatura");
             _this.txt_asignatura.val(docencia.Asignatura);

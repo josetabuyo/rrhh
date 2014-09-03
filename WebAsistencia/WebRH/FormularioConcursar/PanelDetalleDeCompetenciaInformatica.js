@@ -12,8 +12,8 @@
         var _this = this;
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeCompetenciaInformatica.htm", function () {
-            var generador_combos = new ComboPopuladoConRepoBuilder(Repositorio);
-            generador_combos.construirCombosEn(_this.ui, competencia_informatica);
+            
+            RH_FORMS.bindear(_this.ui, Repositorio, competencia_informatica);
 
             _this.txt_competencias_informaticas_diploma_certificacion = _this.ui.find("#txt_competencias_informaticas_diploma_certificacion");
             _this.txt_competencias_informaticas_diploma_certificacion.val(competencia_informatica.Diploma);
@@ -27,42 +27,6 @@
             _this.txt_competencias_informaticas_establecimiento.val(competencia_informatica.Establecimiento);
             _this.cmb_competencias_informaticas_localidad = _this.ui.find("#cmb_competencias_informaticas_localidad");
             _this.cmb_competencias_informaticas_localidad.val(competencia_informatica.Localidad);
-
-
-//            _this.txt_competencias_informaticas_conocimiento = new SuperCombo({
-//                ui: _this.ui.find("#txt_competencias_informaticas_conocimiento"),
-//                nombre_repositorio: "ConocimientoCompetenciaInformatica",
-//                   filtro: { Tipo: competencia_informatica.Tipo },
-//                id_item_seleccionado: competencia_informatica.Conocimiento
-//            });
-
-
-//            _this.txt_competencias_informaticas_tipo_informatica = new SuperCombo({
-//                ui: _this.ui.find("#txt_competencias_informaticas_tipo_informatica"),
-//                nombre_repositorio: "TiposCompetenciaInformatica",
-//                id_item_seleccionado: competencia_informatica.TipoInformatica,
-//                 al_seleccionar: function (id_tipo) {
-//                _this.txt_competencias_informaticas_conocimiento.cambiarFiltro({ Tipo: id_tipo});
-//                 }
-//            });
-
-                
-
-
-
-
-            //TiposCompetenciaInformatica
-
-
-         //   _this.txt_competencias_informaticas_tipo_informatica = _this.ui.find("#txt_competencias_informaticas_tipo_informatica");
-         //   _this.txt_competencias_informaticas_tipo_informatica.val(competencia_informatica.TipoInformatica);
-         
-         
-          //  _this.txt_competencias_informaticas_conocimiento = _this.ui.find("#txt_competencias_informaticas_conocimiento");
-         //   _this.txt_competencias_informaticas_conocimiento.val(competencia_informatica.Conocimiento);
-   //            _this.txt_competencias_informaticas_nivel = _this.ui.find("#txt_competencias_informaticas_nivel");
-           
-           // _this.txt_competencias_informaticas_nivel.val(competencia_informatica.Nivel);
 
             _this.txt_competencias_informaticas_detalle = _this.ui.find("#txt_competencias_informaticas_detalle");
             _this.txt_competencias_informaticas_detalle.val(competencia_informatica.Detalle);
@@ -87,13 +51,8 @@
                 competencia_informatica.Establecimiento = _this.txt_competencias_informaticas_establecimiento.val();
                 competencia_informatica.Localidad = _this.cmb_competencias_informaticas_localidad.val();
                 
-               // competencia_informatica.TipoInformatica = _this.txt_competencias_informaticas_tipo_informatica.val();
-                 competencia_informatica.TipoInformatica = _this.txt_competencias_informaticas_tipo_informatica.idItemSeleccionado();
-                  //  domicilioLegal_nuevo.Provincia = _this.cmb_domicilio_legal_provincia.idItemSeleccionado();
 
-              //  competencia_informatica.Conocimiento = _this.txt_competencias_informaticas_conocimiento.val();
-
-               // competencia_informatica.Nivel = _this.txt_competencias_informaticas_nivel.val();
+                competencia_informatica.TipoInformatica = _this.txt_competencias_informaticas_tipo_informatica.idItemSeleccionado();
                     
                 competencia_informatica.Detalle = _this.txt_competencias_informaticas_detalle.val();
 
