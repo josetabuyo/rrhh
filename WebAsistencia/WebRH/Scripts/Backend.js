@@ -39,5 +39,27 @@
             success: success,
             error: error
         });
+    },
+    ejecutarSincronico: function (nombre_metodo, args) {
+        var argumentos_json = [];
+        for (var i = 0; i < args.length; i++) {
+            argumentos_json.push(JSON.stringify(args[i]));
+        }
+        var respuesta;
+        this.proveedor().postearAUrl({
+            url: "EjecutarEnBackend",
+            data: {
+                nombre_metodo: nombre_metodo,
+                argumentos_json: argumentos_json
+            },
+            async: false,
+            success: function (r) {
+                respuesta = r;
+            },
+            error: function () {
+
+            }
+        });
+        return respuesta;
     }
 };

@@ -50,7 +50,8 @@
         <p>Ud. puede acotar la búsqueda por cualquier criterio, escriba al menos 3 caracteres en el campo para buscar el puesto que deseé</p>           
         
         <div id="ContenedorPlanilla">
-         <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/><a class="btn_concursar btn-small" href="#">Buscar</a>
+         <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
+         <!--<a class="btn_concursar btn-small" href="#">Buscar</a>-->
 
         <table id="tabla_puestos" style="width:100%;">
         

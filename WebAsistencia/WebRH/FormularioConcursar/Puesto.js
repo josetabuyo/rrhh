@@ -72,9 +72,10 @@
                     linkPostularse.click(function (e) {
                         var proveedor_ajax = new ProveedorAjax();
 
-                        proveedor_ajax.postearAUrl({ url: "SetPuestoEnSesion",
+                        proveedor_ajax.postearAUrl({ url: "SetObjetoEnSesion",
                             data: {
-                                puesto: un_puesto
+                                nombre: 'Puesto',
+                                objeto: JSON.stringify(un_puesto)
                             },
                             success: function (respuesta) {
                                 window.location.href = 'PreInscripcion.aspx?id=' + un_puesto.Id;
@@ -92,7 +93,8 @@
         columnas.push(new Columna('Acciones', generador_de_celda_acciones));
 
         this.GrillaDePuestos = new Grilla(columnas);
-        this.GrillaDePuestos.AgregarEstilo("table table-striped");
+        this.GrillaDePuestos.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaDePuestos.CambiarEstiloCabecera("cabecera_tabla_pantalla_cargos");
         this.GrillaDePuestos.SetOnRowClickEventHandler(function (un_puesto) {
         });
 

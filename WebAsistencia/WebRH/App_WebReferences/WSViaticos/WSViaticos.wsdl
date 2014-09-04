@@ -946,6 +946,20 @@
           <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="BuscarInstitucionesEventosAcademicos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarInstitucionesEventosAcademicosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarInstitucionesEventosAcademicosResult" type="tns:ArrayOfCVInstitucionesEventos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="BuscarPaises">
         <s:complexType>
           <s:sequence>
@@ -4304,6 +4318,12 @@
   <wsdl:message name="BuscarConocimientoCompetenciaInformaticaSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarConocimientoCompetenciaInformaticaResponse" />
   </wsdl:message>
+  <wsdl:message name="BuscarInstitucionesEventosAcademicosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarInstitucionesEventosAcademicos" />
+  </wsdl:message>
+  <wsdl:message name="BuscarInstitucionesEventosAcademicosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarInstitucionesEventosAcademicosResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarPaisesSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarPaises" />
   </wsdl:message>
@@ -5411,6 +5431,10 @@
       <wsdl:input message="tns:BuscarConocimientoCompetenciaInformaticaSoapIn" />
       <wsdl:output message="tns:BuscarConocimientoCompetenciaInformaticaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
+      <wsdl:input message="tns:BuscarInstitucionesEventosAcademicosSoapIn" />
+      <wsdl:output message="tns:BuscarInstitucionesEventosAcademicosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarPaises">
       <wsdl:input message="tns:BuscarPaisesSoapIn" />
       <wsdl:output message="tns:BuscarPaisesSoapOut" />
@@ -6366,6 +6390,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarConocimientoCompetenciaInformatica">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarConocimientoCompetenciaInformatica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarInstitucionesEventosAcademicos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8133,6 +8166,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarConocimientoCompetenciaInformatica">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarConocimientoCompetenciaInformatica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarInstitucionesEventosAcademicos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -33,7 +33,7 @@
                     <td>        
                         <label class ="titulo_cargo">N° Central de Oferta de empleo:</label>   
                         <td>
-                            <label id="puesto_numero" class = "detalle_cargo">2013-001234-MDS-G-SI-0-A</label>
+                            <label id="puesto_numero" class = "detalle_cargo"></label>
                         </td>  
                     </td>
                     <td>
@@ -113,10 +113,10 @@
             <hr />
             <div id="cont_aclaraciones">
                 <p class="aclaraciones">
-                        1) "Formulario de Solicitud y Ficha de Inscripci&oacute;n"-ANEXO I- debidamente completado, los datos all&iacute; volcados presentan car&aacute;cter de declaraci&oacute;n jurada. El formulario debe ser firmado en todas sus hojas. <span class="vista_preliminar">[vista preliminar]</span><br/>
+                        1) "Formulario de Solicitud y Ficha de Inscripci&oacute;n"-ANEXO I- debidamente completado, los datos all&iacute; volcados presentan car&aacute;cter de declaraci&oacute;n jurada. El formulario debe ser firmado en todas sus hojas. <a href="../Imagenes/AnexoI.pdf" class="vista_preliminar">[vista preliminar]</a><br/>
                         2) Se deber&aacute; adjuntar un curr&iacute;culum vitae actualizado, firmado en todas sus hojas. <br/>
-                        3) "Constancia de Recepción y Aceptación del Reglamento y Bases del Concurso". Declaración Jurada que obra como ANEXO II - <span class="vista_preliminar">[vista preliminar]</span><br/>
-                        4) "Constancia de Recepción de la Solicitud, Ficha de Inscripción y de la Documentación presentada.", que obra como ANEXO III - <span class="vista_preliminar">[vista preliminar]</span> <br/>
+                        3) "Constancia de Recepción y Aceptación del Reglamento y Bases del Concurso". Declaración Jurada que obra como ANEXO II - <a href="../Imagenes/AnexoII.pdf" class="vista_preliminar">[vista preliminar]</a><br/>
+                        4) "Constancia de Recepción de la Solicitud, Ficha de Inscripción y de la Documentación presentada.", que obra como ANEXO III - <a href="../Imagenes/AnexoIII.pdf" class="vista_preliminar">[vista preliminar]</a> <br/>
                         5) Certificados de estudios formales y de la documentación que respalde toda otra información volcada en el Formulario "Solicitud y Ficha de Inscripción". Original y fotocopia. Los postulantes que no estén encuadrados en el Sistema Nacional de Empleo Público deberán adjuntar, además: <br/>
                         6) DOS (2) fotografías recientes tipo carné, tamaño 4x4 cm. <br/>
                         7) Fotocopia de las DOS (2) primeras hojas del DNI y de la hoja donde figure el domicilio actualizado. <br/>
@@ -146,22 +146,23 @@
  <%= Referencias.Javascript("../") %>
 
   <script type="text/javascript">
+      Backend.start();
 
       $(document).ready(function () {
-          var puesto = JSON.parse($('#puesto').val());
+          var puesto =JSON.parse($('#puesto').val());
 
           Postulacion.armarPostulacion(puesto);
 
           $("#paso_2").attr('class', 'link_activado');
           $("#paso_3").attr('class', 'link_activado');
 
-          $("#siguiente").attr('style', 'background: #eee;color: #aaa; ');
+          $("#siguiente").attr('style', 'display: none;');
 
 
       });
 
       function Anterior() {
-          window.location.href = 'PreInscripcion.aspx?id=' + puesto.id;
+          window.location.href = 'PreInscripcion.aspx';
       }
 
       function Siguiente() {

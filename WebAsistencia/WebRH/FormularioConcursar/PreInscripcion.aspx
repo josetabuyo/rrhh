@@ -27,7 +27,7 @@
     PARA SEGUIR EN EL PROCESO DE POSTULACION PRESIONE EL SIGUIENTE</p>
 
             <div id="contenedor_datosPersonales" class="fondo_form">
-                <a style="margin-right: 10px;" id="btn_guardar_datosPersonales" class="btn btn-primary" href="#">Guardar Cambios </a>
+                <a style="margin-right: 10px;color: #3A9ABF; font-size: 14px;text-decoration: none;" id="btn_guardar_datosPersonales" href="#">Guardar Cambios </a>
                 <%--<a class="btn btn-primary" onclick="javascript:PasarAInscripcion()" href="#">Confirmar Postulación</a>--%>
                 <fieldset style="width:100%; min-width:800px;" >
                     <p><em>*</em> Campos Obligatorios</p>
@@ -201,7 +201,6 @@
 <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="CvDatosPersonales.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
-<script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
 <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
 
 <script type="text/javascript">
@@ -210,7 +209,7 @@
      Backend.start();
 
      $(document).ready(function () {
-         puesto = getVarsUrl();
+         //puesto = getVarsUrl();
          curriculum = JSON.parse($('#curriculum').val());
          CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
 
@@ -229,7 +228,7 @@
          alertify.confirm("¿Está seguro que desea pasar al siguiente paso?", function (e) {
              if (e) {
                  // user clicked "ok"
-                 window.location.href = 'Inscripcion.aspx?id=' + puesto.id;
+                 window.location.href = 'Inscripcion.aspx';
 
              } else {
                  // user clicked "cancel"
@@ -240,10 +239,10 @@
      }
 
      function Anterior() {
-                 window.location.href = 'Postulaciones.aspx?id=' + puesto.id;
+                 window.location.href = 'Postulaciones.aspx';
      }
 
-     function getVarsUrl() {
+    /* function getVarsUrl() {
          var url = location.search.replace("?", "");
          var arrUrl = url.split("&");
          var urlObj = {};
@@ -252,7 +251,7 @@
              urlObj[x[0]] = x[1]
          }
          return urlObj;
-     }
+     }*/
 
      function PasarAInscripcion() {
 

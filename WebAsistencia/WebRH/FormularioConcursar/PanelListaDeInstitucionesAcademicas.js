@@ -47,7 +47,8 @@
         ));
 
         this.GrillaInstitucionesAcademicas = new Grilla(columnas);
-        this.GrillaInstitucionesAcademicas.AgregarEstilo("table table-striped");
+        this.GrillaInstitucionesAcademicas.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaInstitucionesAcademicas.CambiarEstiloCabecera("cabecera_tabla_postular");
         this.GrillaInstitucionesAcademicas.SetOnRowClickEventHandler(function (una_institucion_academica) {
         });
 

@@ -55,7 +55,8 @@
         ));
 
         this.GrillaAntecedentesAcademicos = new Grilla(columnas);
-        this.GrillaAntecedentesAcademicos.AgregarEstilo("table table-striped");
+        this.GrillaAntecedentesAcademicos.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaAntecedentesAcademicos.CambiarEstiloCabecera("cabecera_tabla_postular");
         this.GrillaAntecedentesAcademicos.SetOnRowClickEventHandler(function (un_estudio) {
         });
 
