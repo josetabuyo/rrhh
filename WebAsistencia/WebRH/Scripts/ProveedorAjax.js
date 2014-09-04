@@ -8,7 +8,7 @@
 
 ProveedorAjax.prototype.postearAUrl = function (datos_del_post) {
     var async = true;
-    if(!datos_del_post.async) async = false;
+    //if(!datos_del_post.async) async = false;
     $.ajax({
         url: this.raiz + "AjaxWS.asmx/" + datos_del_post.url,
         type: "POST",
