@@ -49,26 +49,25 @@
   <script type="text/javascript">
 
       $(document).ready(function () {
-          var puesto = JSON.parse($('#puesto').val());
 
-          Postulacion.armarPostulacion(puesto);
+          var proveedor_ajax = new ProveedorAjax();
 
-          $("#paso_2").attr('class', 'link_activado');
-          $("#paso_3").attr('class', 'link_activado');
+          proveedor_ajax.postearAUrl({ url: "GetPostulaciones",
 
-          $("#siguiente").attr('style', 'background: #eee;color: #aaa; ');
+              success: function (respuesta) {
+                  alertify.alert(respuesta);
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  alertify.alert("Error al actualziar la actividad.");
+              }
+          });
+
+
 
 
       });
 
-      function Anterior() {
-          window.location.href = 'PreInscripcion.aspx?id=' + puesto.id;
-      }
-
-      function Siguiente() {
-         
-      }
-
+    
 
   </script>
 
