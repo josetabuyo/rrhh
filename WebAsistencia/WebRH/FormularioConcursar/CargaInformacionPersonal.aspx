@@ -78,7 +78,7 @@
                          </div>
                          <div class="grupo_campos nueva_linea">
                            <label class="etiqueta_campo" for="cmb_tipoDocumento">Tipo Documento <em>*</em></label>
-                            <select id="cmb_tipoDocumento" style="width:170px;" name="cmb_tipoDocumento" modelo="TipoDocumento" data-validar="esUnComboSinCero" dataProvider="TiposDeDocumento">
+                            <select id="cmb_tipoDocumento" style="width:170px;" name="cmb_tipoDocumento" modelo="TipoDocumento" data-validar="esUnComboSinCero" dataProvider="TiposDeDocumento" disabled="disabled">
                             </select>
                           </div>
                           <div class="grupo_campos">
@@ -96,10 +96,10 @@
                         </div>
                         <div class="grupo_campos">
                              <label class="etiqueta_campo" for="cmb_lugar_nacimiento">Lugar Nacimiento <em>*</em></label>
-                             <input type="text" id="cmb_lugar_nacimiento" style="width:210px;" modelo="LugarDeNacimiento" data-validar="esNoBlanco" />                        </div>
+                             <input type="text" id="cmb_lugar_nacimiento" style="width:210px;" modelo="LugarDeNacimiento" data-validar="esNoBlanco" /></div>
                       <div class="grupo_campos">
                         <label class="etiqueta_campo" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
-                         <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad" modelo="Nacionalidad" data-validar="esUnComboSinCero" dataProvider="Nacionalidades">
+                         <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad" modelo="Nacionalidad" data-validar="esUnComboSinCero" dataProvider="Nacionalidades" disabled="disabled">
                          </select>
                       </div>
                        <div class="grupo_campos nueva_linea">

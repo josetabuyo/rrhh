@@ -104,10 +104,6 @@
 			if (comboDelQueDepende == undefined) {
 				throw 'El combo "' + combo.attr("id") + '" depenDe el combo "' + campoDependenciaDe(combo) + '" que no existe o no fué encontrado.';
 			}
-			
-            if (comboDelQueDepende.attr("modelo") == undefined) {
-                throw '"' + comboDelQueDepende.attr("id") + '" debe especificar el atributo modelo="ALGO", puesto que "' + combo.attr("id") + '" depende de él, y requiere dicho modelo para poder filtrar.';
-            }
 
             comboDelQueDepende.change(function () {
                 var filtro = {};
@@ -120,7 +116,14 @@
 
     rh_forms.bindear = function (dom, repositorio, modelo_bindeo) {
         
-
+		if(dom == undefined) {
+			throw "No se ha especificado un DOM al intentar bindear con RH_FORMS"
+		}
+		
+		if(!(typeof dom.find === "function")) {
+			throw 'El dom especificado al bindear con RH_FORMS es inválido, no entiende el mensaje "find"';
+		};
+		
         if (repositorio == undefined) {
             throw "No se ha especificado un repositorio al momento de construir el builder de combos";
         };
@@ -129,6 +132,7 @@
         var combos = $.map(dom.find('[dataProvider]'), function (each_combo) {
             return bindearCombo($(each_combo), modelo_bindeo);
         });
+		
         agregarDependenciasEntreCombos(combos);
         return combos;
     };

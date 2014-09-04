@@ -15,6 +15,24 @@ describe("ComboPopuladoConRepoBuilder", function() {
 		var fake_response = {"responseText": '{\"d\":\"' + plain_response.split('"').join('\\\"') + "\"}"} 
 		jasmine.Ajax.requests.mostRecent().response(fake_response);
 	};
+	
+	describe("DADO: Un dom inválido", function() {
+		describe("CUANDO: es undefined", function() {
+			it("ENTONCES: debe lanzar excepcion explicativa al respecto", function() {
+				expect(function() {
+					RH_FORMS.bindear();
+				}).toThrow("No se ha especificado un DOM al intentar bindear con RH_FORMS");
+			});
+		});
+		
+		describe("CUANDO: el dom es un objeto invalido", function() {
+			it("ENTONCES: debe lanzar una excepcion explicativa al respecto", function() {
+				expect(function() {
+					RH_FORMS.bindear({});
+				}).toThrow('El dom especificado al bindear con RH_FORMS es inválido, no entiende el mensaje "find"');
+			});
+		});
+	});
 
 	describe("DADO: Un combo", function(){
 	
@@ -23,6 +41,14 @@ describe("ComboPopuladoConRepoBuilder", function() {
 				dom = $('<div><select id="combo_localidades"' + args.data_provider + args.label_combo + args.bindeo + '></select></div>');
 			}, ['data_provider', 'label_combo', 'bindeo']);
 		});	
+		
+		describe("Y: marcaado como enabled=false", function() {
+			it("deberia estar desactivado el combo", function() {
+				var dom = $('<div><select id="combo_provincias" enabled="false" dataProvider="Provincias"></select>');
+				repo = Repositorio;
+				combos = RH_FORMS.bindear(dom, repo);
+			});
+		});
 		
 		describe("Y: sin dataProvider", function() {
 			beforeEach(function() {
@@ -44,6 +70,12 @@ describe("ComboPopuladoConRepoBuilder", function() {
 					RH_FORMS.bindear(dom);
 				}).toThrow("No se ha especificado un repositorio al momento de construir el builder de combos");
 			});		
+			
+			it("ENTONCES: el builder devuelve los combos", function() {
+				combos = RH_FORMS.bindear(dom, Repositorio);
+				expect(combos.length).toEqual(1);
+				expect(combos[0].attr("id")).toEqual("combo_localidades");
+			});
 
 			it("ENTONCES: debe invocar al dataProvider indicado", function() {
 				RH_FORMS.bindear(dom, Repositorio);
@@ -182,6 +214,14 @@ describe("ComboPopuladoConRepoBuilder", function() {
 									};
 		});
 		
+		it("ENTONCES: el builder devuelve los combos", function() {
+			dom = $('<div><select id="combo_provincias" dataProvider="Provincias" modelo="Provincia"></select><select id="combo_localidades" dependeDe="combo_provincias" dataProvider="Localidades"></select></div>');
+			combos = RH_FORMS.bindear(dom, Repositorio);
+			expect(combos.length).toEqual(2);
+			expect(combos[0].attr("id")).toEqual("combo_provincias");
+			expect(combos[1].attr("id")).toEqual("combo_localidades");
+		});
+		
 		describe("CUANDO: no existe el combo del que depende", function() {
 			it("ENTONCES: deberia lanzar excepcion explicativa al respecto", function() {
 				var dom = $('<div><select id="combo_localidades" dependeDe="combo_inexistente" dataProvider="Localidades"></select></div>');				
@@ -191,16 +231,6 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			});
 		});
 
-		describe("CUANDO: no se especifico un modelo para el combo independiente", function() {
-
-			it("ENTONCES. debería fallar por no definir filtro", function() {
-				var dom = $('<div><select id="combo_provincias" dataProvider="Provincias"></select><select id="combo_localidades" dependeDe="combo_provincias" dataProvider="Localidades"></select></div>');				
-				expect(function() { 
-					combos = RH_FORMS.bindear(dom, Repositorio);
-				}).toThrow("\"combo_provincias\" debe especificar el atributo modelo=\"ALGO\", puesto que \"combo_localidades\" depende de él, y requiere dicho modelo para poder filtrar.");
-			});
-		});
-		
 		describe("CUANDO: se construyen combos relacionados, y no se selecciona ningun valor", function() {
 			it("ENTONCES: no deberia pedir el valor al backend por no especificar el filtro", function() {
 				mock_repo = { buscar: function (nombre_repositorio, criterio, onSuccess, onError) { 
@@ -239,25 +269,10 @@ describe("ComboPopuladoConRepoBuilder", function() {
 	});
 });  
 
-//agregar test que falle si devuelve un int en lugar de string para armar el filtro. e.g. {"IdProvincia":"1"} falla y {"IdProvincia":1} anda ok.
-
-//it("si falla porque necesitaba filtro, debe mandar excepcion explicativa", function() {
-//  expect(false).toBe(true);
-//});
-
-//it("si falla porque no esta en el modelo el attributo que le quise bindear, deberia lanzar excepcion explicativa", function() {
-//  expect(false).toBe(true);
-//});
-		//describe("CUANDO: se especifica enabled false", function() {
+//describe("CUANDO: se especifica enabled false", function() {
 	//it("debe estar desactivado", function() {
 		//expect(true).toBe(false);
 	//});
-	//});
+//});
 	
-	//cuando hay una respuesta erronea del backend, deberia mostrarse un mensaje correcto.
-//el builder devuelve los combos javascript
-
-//cuando no se especifica el modelo falla por el split (of undefined). Deberia indicar claramente que falta especificar el modelo del combo id="combo_blah".
-//cuando el bindeo anda mal, deberia tirarte exactamente qué atributo dentro de que atributo no fue encontrado.
-
-//deberia lanzar excepcion informativa cuando el dom que le paso al builder es undefined (actualmente tira que no encuentra find).
+//cuando hay una respuesta erronea del backend, deberia mostrarse un mensaje correcto.
