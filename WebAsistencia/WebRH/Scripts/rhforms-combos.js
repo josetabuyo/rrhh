@@ -14,7 +14,7 @@
         return browseObject(obj_modelo[this_level_attr], path, path_completo, combo);
     }
 
-    function setValorModeloBindeado(obj_modelo, path_original, event) {
+    function setValorModeloBindeado(obj_modelo, path_original, event, combo) {
         var path = path_original.slice(0);
         var this_level_attr = path.shift();
         if (path.length == 0) {
@@ -22,10 +22,10 @@
             obj_modelo.unwatch(this_level_attr);
             obj_modelo[this_level_attr] = event.target.value;
             obj_modelo.watch(this_level_attr, function (prop, oldval, newval) {
-                super_combo.id_item_seleccionado = newval;
+                combo.id_item_seleccionado = newval;
             });
         } else {
-            setValorModeloBindeado(obj_modelo[this_level_attr], path, event);
+            setValorModeloBindeado(obj_modelo[this_level_attr], path, event, combo);
         }
     }
 
@@ -67,7 +67,7 @@
         }
         combo.change(function (event) {
             combo.id_item_seleccionado = event.target.value; //agregar un test que falle si remuevo esta linea
-            setValorModeloBindeado(modelo, attr_path, event);
+            setValorModeloBindeado(modelo, attr_path, event, combo);
         });
 
         var binding_data = browseObject(modelo, attr_path);
