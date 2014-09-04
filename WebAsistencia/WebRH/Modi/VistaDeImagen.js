@@ -37,15 +37,28 @@ VistaDeImagen.prototype.start = function () {
                         //                            new Alerta("Ya hay una imagen asignada al folio ingresado");
                         //                            return;
                         //                        }
-                        _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajoPasandoPagina(
-                            _this.id,
-                            valores.nro_folio,
-                            valores.pagina,
-                            function () {
-                                _this.nro_folio = valores.nro_folio;
-                                _this.orden = valores.pagina;
-                                _this.dibujarEn(div_folio);
-                            });
+                        if (valores.pagina) {
+                            _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajoPasandoPagina(
+                                _this.id,
+                                valores.nro_folio,
+                                valores.pagina,
+                                function () {
+                                    _this.nro_folio = valores.nro_folio;
+                                    _this.orden = valores.pagina;
+                                    _this.dibujarEn(div_folio);
+                                }
+                            );
+                        } else {
+                            _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
+                                _this.id,
+                                valores.nro_folio,
+                                function (orden) {
+                                    _this.nro_folio = valores.nro_folio;
+                                    _this.orden = orden;
+                                    _this.dibujarEn(div_folio);
+                                }
+                            );
+                        }
                     }
                 }
             });

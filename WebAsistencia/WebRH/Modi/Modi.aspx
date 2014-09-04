@@ -81,7 +81,7 @@
                     <div id="panel_folio">
                         <label> Folio:</label>
                         <input id="txt_folio" type="text" />
-                        <label> Página:</label>
+                        <label> Faz:</label>
                         <input id="txt_pagina" type="text" />
                         <input id="btn_guardar" type="button" value = "Ok" class="btn btn-primary"/>
                     </div>                  

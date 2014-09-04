@@ -15,6 +15,18 @@ VisualizadorDeImagenes.prototype.start = function () {
     this.txtFolio.val(this.o.imagen.nro_folio);
     this.txtPagina.val(this.o.imagen.orden);
 
+    this.txtFolio.keypress(function (e) {
+        if (e.which == 13) {
+            _this.btnGuardar.click();
+        }
+    });
+
+    this.txtPagina.keypress(function (e) {
+        if (e.which == 13) {
+            _this.btnGuardar.click();
+        }
+    });
+
     this.btnGuardar.click(function () {
         _this.ui.dialog("close");
         _this.o.alGuardar({

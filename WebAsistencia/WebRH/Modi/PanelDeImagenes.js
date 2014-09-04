@@ -24,7 +24,7 @@ PanelDeImagenes.prototype.cargarImagenes = function (imagenes) {
     for (var i = 0; i < imagenes.length; i++) {
         var vista_imagen = new VistaDeImagen({
             idImagen: imagenes[i].id,
-            orden: imagenes[i].orden,
+            orden: '',
             servicioDeDragAndDrop: this.o.servicioDeDragAndDrop,
             servicioDeLegajos: this.o.servicioDeLegajos
         });
