@@ -45,7 +45,10 @@
                     cargarCombo(super_combo, items, campo_id, campo_descripcion);
                     super_combo.val(super_combo.id_item_seleccionado);
 					super_combo.change();
-                });
+                },
+				function(XMLHttpRequest, textStatus, errorThrown) {
+					throw 'Error "' + errorThrown + '" (' + textStatus + ') del backend al responder el request ' + XMLHttpRequest;
+				});
             }
         }
     }
