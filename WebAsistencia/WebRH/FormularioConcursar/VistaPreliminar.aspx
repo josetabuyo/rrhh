@@ -27,8 +27,8 @@
 <div class="principal">
 <p class="encabezado">PRESENTACIÓN CURRICULUM VITAE</p>
 
-    <div class="info-gral posicion fondo_form sombra_y_redondeado">
-	    <p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">I.</span> Información Personal</p>
+    <div class="info-gral posicion fondo_form">
+	    <p class="titulos degrade"><span class="letra-bold">I.</span> Información Personal</p>
 	    <p class="nombre-h"><span id="cv_apellido" class="atributo-apelido"></span><span id="cv_nombre"></span></p>
         <br>
 	    <p class="general"><span class="atributos">DNI: </span><span id="cv_dni"></span></p>
@@ -41,8 +41,8 @@
 	
     </div>
 
-    <div class="info-notif-avisos posicion fondo_form sombra_y_redondeado">
-	    <p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">II.</span> Información Requerida para Recibir Notificaciones y Avisos</p>
+    <div class="info-notif-avisos posicion fondo_form">
+	    <p class="titulos degrade"><span class="letra-bold">II.</span> Información Requerida para Recibir Notificaciones y Avisos</p>
 	    <p class="general"><span class="atributos">Domicilio: </span><span id="cv_domLegal">Italia 465 - Timbre 3 - Lomas de Zamora - C.P: 1832</span></p>
 	    <p class="general"><span class="atributos">Teléfonos: </span><span id="cv_telefono">4281-2685 / 15 5059 5930</span></p>
 	    <p class="general"><span class="atributos">Corro Electrónico: </span><span id="cv_mail">ayanvero@gmail.com</span></p>
@@ -59,7 +59,7 @@
 
 
     <div class="div-pie-tabla">
-        <p class="p-imprimir"><button onclick="ImprimirCVPostulado()">Imprimir Curriculum</button></p>
+        <p class="p-imprimir"><button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir Curriculum</button></p>
     </div>	
 </div>
 
@@ -80,6 +80,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        Backend.start();
 
         curriculum = JSON.parse($('#curriculum').val());
 

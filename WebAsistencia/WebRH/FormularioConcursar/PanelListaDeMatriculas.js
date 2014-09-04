@@ -48,7 +48,8 @@
         ));
 
         this.GrillaMatriculas = new Grilla(columnas);
-        this.GrillaMatriculas.AgregarEstilo("table table-striped");
+        this.GrillaMatriculas.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaMatriculas.CambiarEstiloCabecera("cabecera_tabla_postular");
         this.GrillaMatriculas.SetOnRowClickEventHandler(function (una_matricula) {
         });
 

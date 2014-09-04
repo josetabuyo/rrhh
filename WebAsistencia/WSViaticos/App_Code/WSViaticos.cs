@@ -2737,6 +2737,12 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
+    [WebMethod]
+    public CVInstitucionesEventos[] BuscarInstitucionesEventosAcademicos(string criterio)
+    {
+        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
 
     
     [WebMethod]

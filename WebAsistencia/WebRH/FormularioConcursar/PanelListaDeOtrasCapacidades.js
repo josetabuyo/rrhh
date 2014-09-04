@@ -45,7 +45,8 @@
         ));
 
         this.GrillaCapacidades = new Grilla(columnas);
-        this.GrillaCapacidades.AgregarEstilo("table table-striped");
+        this.GrillaCapacidades.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaCapacidades.CambiarEstiloCabecera("cabecera_tabla_postular");
         this.GrillaCapacidades.SetOnRowClickEventHandler(function (una_capacidad) {
         });
 
