@@ -1876,6 +1876,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public void AsignarImagenAFolioDeLegajoPasandoPagina(int id_imagen, int nro_folio, int pagina, Usuario usuario)
+    {
+        servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajoPasandoPagina(id_imagen, nro_folio, pagina, usuario);
+    }
+
+    [WebMethod]
     public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
     {
         servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);

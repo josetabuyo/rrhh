@@ -17,18 +17,18 @@ VistaDeImagen.prototype.start = function () {
             new VisualizadorDeImagenes({
                 imagen: _this,
                 servicioDeLegajos: _this.o.servicioDeLegajos,
-                onNumeroDeFolioIngresado: function (nro_folio) {
-                    if (nro_folio == "") {
+                alGuardar: function (valores) {
+                    if (valores.nro_folio == "") {
                         _this.o.servicioDeLegajos.desAsignarImagen(
                             _this.id,
                             function () {
-                                _this.nro_folio = nro_folio;
+                                _this.nro_folio = valores.nro_folio;
                                 _this.orden = "";
                                 _this.dibujarEn($("#panel_imagenes_no_asignadas .panel_de_imagenes"));
                             });
                     }
                     else {
-                        var div_folio = $("#folio_" + nro_folio);
+                        var div_folio = $("#folio_" + valores.nro_folio);
                         if (div_folio.length == 0) {
                             new Alerta("El folio ingresado no existe");
                             return;
@@ -37,13 +37,13 @@ VistaDeImagen.prototype.start = function () {
                         //                            new Alerta("Ya hay una imagen asignada al folio ingresado");
                         //                            return;
                         //                        }
-                        _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
-
+                        _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajoPasandoPagina(
                             _this.id,
-                            nro_folio,
-                            function (orden) {
-                                _this.nro_folio = nro_folio;
-                                _this.oden = orden;
+                            valores.nro_folio,
+                            valores.pagina,
+                            function () {
+                                _this.nro_folio = valores.nro_folio;
+                                _this.orden = valores.pagina;
                                 _this.dibujarEn(div_folio);
                             });
                     }

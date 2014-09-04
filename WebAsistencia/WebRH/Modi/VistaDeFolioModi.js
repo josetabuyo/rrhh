@@ -17,7 +17,7 @@ VistaDeFolioModi.prototype.start = function () {
             servicioDeDragAndDrop: _this.o.servicioDeDragAndDrop,
             servicioDeLegajos: _this.o.servicioDeLegajos,
             numeroDeFolio: _this.o.folio.numero_folio
-        });
+        });   
         vista_imagen.dibujarEn(_this.ui);
     }
 
@@ -55,7 +55,8 @@ VistaDeFolioModi.prototype.start = function () {
                             idImagen: id_imagen,
                             servicioDeDragAndDrop: _this.o.servicioDeDragAndDrop,
                             servicioDeLegajos: _this.o.servicioDeLegajos,
-                            numeroDeFolio: _this.o.folio.numero_folio
+                            numeroDeFolio: _this.o.folio.numero_folio,
+                            orden: 1
                         });
                         vista_imagen.dibujarEn(_this.ui);
                     });

@@ -71,7 +71,8 @@ namespace General.Modi
             var imagen = GetImagenPorId(id_imagen);
             var legajo = GetLegajoPorIdInterna(imagen.idInterna)[0];
             var folio = legajo.GetFolio(nro_folio);
-            var orden = folio.imagenes.Count;
+            int orden = 1;
+            if(folio.imagenes.Any())orden = folio.imagenes.Max(i => i.orden) + 1;
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_imagen", id_imagen);
@@ -81,6 +82,17 @@ namespace General.Modi
 
             this.conexion_db.EjecutarSinResultado("dbo.MODI_Asignar_Imagen_A_Folio_De_Legajo", parametros);
             return orden;
+        }
+
+        public void AsignarImagenAFolioDeLegajoPasandoPagina(int id_imagen, int nro_folio, int pagina, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_imagen", id_imagen);
+            parametros.Add("@nro_folio", nro_folio);
+            parametros.Add("@id_usuario", usuario.Id);
+            parametros.Add("@orden", pagina);
+
+            this.conexion_db.EjecutarSinResultado("dbo.MODI_Asignar_Imagen_A_Folio_De_Legajo", parametros);
         }
 
         public void DesAsignarImagen(int id_imagen, Usuario usuario)
@@ -119,14 +131,16 @@ namespace General.Modi
         {
             var legajo = GetLegajoPorIdInterna(id_interna)[0];
             var folio = legajo.GetFolio(numero_folio);
-            
+            int orden = 1;
+            if (folio.imagenes.Any()) orden = folio.imagenes.Max(i => i.orden) + 1;
+
             byte[] imageBytes = Convert.FromBase64String(bytes_imagen);
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_interna", id_interna);
             parametros.Add("@nombre_imagen", nombre_imagen);
             parametros.Add("@bytes_imagen", imageBytes);
             parametros.Add("@numero_folio", numero_folio);
-            parametros.Add("@orden", folio.imagenes.Count);
+            parametros.Add("@orden", orden);
 
             return int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_A_Un_Folio_De_Un_Legajo", parametros).ToString());
         }
@@ -247,6 +261,9 @@ namespace General.Modi
                     legajo.imagenesSinAsignar.Add(imagen);                
                 }
             });
+
+            legajo.imagenesSinAsignar = legajo.imagenesSinAsignar.OrderBy(i => i.orden).ToList();
+            legajo.documentos.ForEach(doc=>doc.folios.ForEach(f=>f.imagenes = f.imagenes.OrderBy(i=>i.orden).ToList()));
         }
        
         private int CategoriaDeUnDocumento(string tabla, int id_documento)

@@ -318,9 +318,15 @@
     vertical-align: super;
 }
 
-.visualizador_imagen #panel_folio #txt_folio
+.visualizador_imagen #panel_folio #txt_folio, 
+.visualizador_imagen #panel_folio #txt_pagina
 {
     width:30px;
+}
+
+.visualizador_imagen #panel_folio #btn_guardar
+{
+    margin-top: -8px;
 }
 
 .panel_con_estatica

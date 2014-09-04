@@ -887,6 +887,19 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="AsignarImagenAFolioDeLegajoPasandoPagina">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_folio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pagina" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AsignarImagenAFolioDeLegajoPasandoPaginaResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="AsignarCategoriaADocumento">
         <s:complexType>
           <s:sequence>
@@ -2977,6 +2990,12 @@
   <wsdl:message name="AsignarImagenAFolioDeLegajoSoapOut">
     <wsdl:part name="parameters" element="tns:AsignarImagenAFolioDeLegajoResponse" />
   </wsdl:message>
+  <wsdl:message name="AsignarImagenAFolioDeLegajoPasandoPaginaSoapIn">
+    <wsdl:part name="parameters" element="tns:AsignarImagenAFolioDeLegajoPasandoPagina" />
+  </wsdl:message>
+  <wsdl:message name="AsignarImagenAFolioDeLegajoPasandoPaginaSoapOut">
+    <wsdl:part name="parameters" element="tns:AsignarImagenAFolioDeLegajoPasandoPaginaResponse" />
+  </wsdl:message>
   <wsdl:message name="AsignarCategoriaADocumentoSoapIn">
     <wsdl:part name="parameters" element="tns:AsignarCategoriaADocumento" />
   </wsdl:message>
@@ -3732,6 +3751,10 @@
       <wsdl:input message="tns:AsignarImagenAFolioDeLegajoSoapIn" />
       <wsdl:output message="tns:AsignarImagenAFolioDeLegajoSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="AsignarImagenAFolioDeLegajoPasandoPagina">
+      <wsdl:input message="tns:AsignarImagenAFolioDeLegajoPasandoPaginaSoapIn" />
+      <wsdl:output message="tns:AsignarImagenAFolioDeLegajoPasandoPaginaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="AsignarCategoriaADocumento">
       <wsdl:input message="tns:AsignarCategoriaADocumentoSoapIn" />
       <wsdl:output message="tns:AsignarCategoriaADocumentoSoapOut" />
@@ -4446,6 +4469,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsignarImagenAFolioDeLegajo">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsignarImagenAFolioDeLegajoPasandoPagina">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajoPasandoPagina" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5682,6 +5714,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsignarImagenAFolioDeLegajo">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsignarImagenAFolioDeLegajoPasandoPagina">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajoPasandoPagina" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

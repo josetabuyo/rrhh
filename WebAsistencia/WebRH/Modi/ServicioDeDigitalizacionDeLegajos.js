@@ -74,6 +74,21 @@ ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajo = functi
     });
 };
 
+ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajoPasandoPagina = function (id_imagen, nro_folio, pagina, onSuccess) {
+    this.proveedor_ajax.postearAUrl({ url: "asignarImagenAFolioDeLegajoPasandoPagina",
+        data: {
+            id_imagen: id_imagen,
+            nro_folio: nro_folio,
+            pagina: pagina
+        },
+        success: function () {
+            onSuccess();
+        },
+        error: function (error) {
+        }
+    });
+};
+
 ServicioDeDigitalizacionDeLegajos.prototype.desAsignarImagen = function (id_imagen, onSuccess) {
     this.proveedor_ajax.postearAUrl({ url: "DesAsignarImagen",
         data: {
