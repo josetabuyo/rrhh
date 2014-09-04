@@ -44,6 +44,7 @@
                 _repositorio.buscar(nombre_repositorio, filtro, function (items) {
                     cargarCombo(super_combo, items, campo_id, campo_descripcion);
                     super_combo.val(super_combo.id_item_seleccionado);
+					super_combo.change();
                 });
             }
         }
@@ -127,6 +128,7 @@
         if (repositorio == undefined) {
             throw "No se ha especificado un repositorio al momento de construir el builder de combos";
         };
+		
         _repositorio = repositorio;
 
         var combos = $.map(dom.find('[dataProvider]'), function (each_combo) {

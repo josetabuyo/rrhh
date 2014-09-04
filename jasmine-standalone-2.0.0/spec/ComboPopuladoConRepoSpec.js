@@ -42,14 +42,6 @@ describe("ComboPopuladoConRepoBuilder", function() {
 			}, ['data_provider', 'label_combo', 'bindeo']);
 		});	
 		
-		describe("Y: marcaado como enabled=false", function() {
-			it("deberia estar desactivado el combo", function() {
-				var dom = $('<div><select id="combo_provincias" enabled="false" dataProvider="Provincias"></select>');
-				repo = Repositorio;
-				combos = RH_FORMS.bindear(dom, repo);
-			});
-		});
-		
 		describe("Y: sin dataProvider", function() {
 			beforeEach(function() {
 				this.data_provider = "";
