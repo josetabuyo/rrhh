@@ -14,7 +14,7 @@
         return browseObject(obj_modelo[this_level_attr], path, path_completo, combo);
     }
 
-    function setValorModeloBindeado(obj_modelo, path_original, event) {
+    function setValorModeloBindeado(obj_modelo, path_original, event, combo) {
         var path = path_original.slice(0);
         var this_level_attr = path.shift();
         if (path.length == 0) {
@@ -22,10 +22,10 @@
             obj_modelo.unwatch(this_level_attr);
             obj_modelo[this_level_attr] = event.target.value;
             obj_modelo.watch(this_level_attr, function (prop, oldval, newval) {
-                super_combo.id_item_seleccionado = newval;
+                combo.id_item_seleccionado = newval;
             });
         } else {
-            setValorModeloBindeado(obj_modelo[this_level_attr], path, event);
+            setValorModeloBindeado(obj_modelo[this_level_attr], path, event, combo);
         }
     }
 
@@ -44,6 +44,7 @@
                 _repositorio.buscar(nombre_repositorio, filtro, function (items) {
                     cargarCombo(super_combo, items, campo_id, campo_descripcion);
                     super_combo.val(super_combo.id_item_seleccionado);
+					super_combo.change();
                 });
             }
         }
@@ -66,7 +67,7 @@
         }
         combo.change(function (event) {
             combo.id_item_seleccionado = event.target.value; //agregar un test que falle si remuevo esta linea
-            setValorModeloBindeado(modelo, attr_path, event);
+            setValorModeloBindeado(modelo, attr_path, event, combo);
         });
 
         var binding_data = browseObject(modelo, attr_path);
@@ -101,9 +102,9 @@
                 return each_combo.attr("id") == campoDependenciaDe(combo);
             })[0];
 
-            if (comboDelQueDepende.attr("modelo") == undefined) {
-                throw '"' + comboDelQueDepende.attr("id") + '" debe especificar el atributo modelo="ALGO", puesto que "' + combo.attr("id") + '" depende de él, y requiere dicho modelo para poder filtrar.';
-            }
+			if (comboDelQueDepende == undefined) {
+				throw 'El combo "' + combo.attr("id") + '" depenDe el combo "' + campoDependenciaDe(combo) + '" que no existe o no fué encontrado.';
+			}
 
             comboDelQueDepende.change(function () {
                 var filtro = {};
@@ -116,15 +117,24 @@
 
     rh_forms.bindear = function (dom, repositorio, modelo_bindeo) {
         
-
+		if(dom == undefined) {
+			throw "No se ha especificado un DOM al intentar bindear con RH_FORMS"
+		}
+		
+		if(!(typeof dom.find === "function")) {
+			throw 'El dom especificado al bindear con RH_FORMS es inválido, no entiende el mensaje "find"';
+		};
+		
         if (repositorio == undefined) {
             throw "No se ha especificado un repositorio al momento de construir el builder de combos";
         };
+		
         _repositorio = repositorio;
 
         var combos = $.map(dom.find('[dataProvider]'), function (each_combo) {
             return bindearCombo($(each_combo), modelo_bindeo);
         });
+		
         agregarDependenciasEntreCombos(combos);
         return combos;
     };
