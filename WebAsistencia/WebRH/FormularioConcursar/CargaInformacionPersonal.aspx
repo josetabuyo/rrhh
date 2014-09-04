@@ -462,7 +462,7 @@
  <div id="plantillas">
     <div class="botonera_grilla">
         <img id="btn_editar" src="../Imagenes/edit.png"/>
-        <img id="btn_eliminar" src="../Imagenes/iconos_eliminar.jpg"/>
+        <img id="btn_eliminar" src="../Imagenes/icono_eliminar2.png"/>
     </div>
  </div>
 
