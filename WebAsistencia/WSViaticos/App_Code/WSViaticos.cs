@@ -2700,6 +2700,16 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoPostulaciones().GetPostulacionById(idpersona, idpostulacion);
     }
 
+
+    [WebMethod]
+    public bool EliminarPostulacionPorUsuario(Postulacion postulacion, Usuario usuario)
+    {
+        return RepoPostulaciones().EliminarPostulacionPorUsuario(postulacion, usuario);
+       
+    }
+
+    
+
      [WebMethod]
     public Provincia[] BuscarProvincias(string criterio)
     {

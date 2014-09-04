@@ -510,6 +510,13 @@ nav
         font-size:15px;
         text-decoration:none;
     }
+    
+    .delete_postulaciones
+    {
+        /*margin: 10px 10px 10px 10px;
+        text-decoration:none;*/
+        float: right;
+    }
         
     .feedPostulacionesAplicadas {
        /* border: 1px solid #00293d;*/

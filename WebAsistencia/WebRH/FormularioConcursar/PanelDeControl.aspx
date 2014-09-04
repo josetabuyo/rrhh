@@ -81,19 +81,16 @@
     <asp:HiddenField ID="postulaciones" runat="server" />
             </form>
 </body>
+
  <%= Referencias.Javascript("../") %>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
+ <script type="text/javascript" src="PanelDeControl.js"></script>
 
-  <script type="text/javascript" src="PanelDeControl.js"></script>
  <script type="text/javascript">
-
-     $(document).ready(function () {
-
-         var postulaciones = JSON.parse($('#postulaciones').val());
-         PanelDeControl.armarPostulaciones(postulaciones);
-
-
-    
- });
+    Backend.start();
+    $(document).ready(function () {
+        var postulaciones = JSON.parse($('#postulaciones').val());
+        PanelDeControl.armarPostulaciones(postulaciones);
+    });
  </script>
 </html>

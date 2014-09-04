@@ -758,6 +758,21 @@
           <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="EliminarPostulacionPorUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="tns:Postulacion" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarPostulacionPorUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EliminarPostulacionPorUsuarioResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="BuscarProvincias">
         <s:complexType>
           <s:sequence>
@@ -4247,6 +4262,12 @@
   <wsdl:message name="GetPostulacionByIdSoapOut">
     <wsdl:part name="parameters" element="tns:GetPostulacionByIdResponse" />
   </wsdl:message>
+  <wsdl:message name="EliminarPostulacionPorUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarPostulacionPorUsuario" />
+  </wsdl:message>
+  <wsdl:message name="EliminarPostulacionPorUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarPostulacionPorUsuarioResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarProvinciasSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarProvincias" />
   </wsdl:message>
@@ -5362,6 +5383,10 @@
       <wsdl:input message="tns:GetPostulacionByIdSoapIn" />
       <wsdl:output message="tns:GetPostulacionByIdSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="EliminarPostulacionPorUsuario">
+      <wsdl:input message="tns:EliminarPostulacionPorUsuarioSoapIn" />
+      <wsdl:output message="tns:EliminarPostulacionPorUsuarioSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarProvincias">
       <wsdl:input message="tns:BuscarProvinciasSoapIn" />
       <wsdl:output message="tns:BuscarProvinciasSoapOut" />
@@ -6278,6 +6303,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostulacionById">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetPostulacionById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarPostulacionPorUsuario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarPostulacionPorUsuario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8036,6 +8070,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostulacionById">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPostulacionById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarPostulacionPorUsuario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarPostulacionPorUsuario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
