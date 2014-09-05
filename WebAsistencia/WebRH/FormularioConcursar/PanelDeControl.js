@@ -44,7 +44,7 @@
             eliminar.addClass('delete_postulaciones');
 
             var img = $('<img>');
-            img.attr('src', '../Imagenes/delete.jpg');
+            img.attr('src', '../Imagenes/icono_eliminar2.png');
             img.attr('width', '20px');
             img.attr('height', '20px');
             eliminar.append(img);
