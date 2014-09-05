@@ -51,8 +51,8 @@
                 competencia_informatica.Establecimiento = _this.txt_competencias_informaticas_establecimiento.val();
                 competencia_informatica.Localidad = _this.cmb_competencias_informaticas_localidad.val();
                 
-
-                competencia_informatica.TipoInformatica = _this.txt_competencias_informaticas_tipo_informatica.idItemSeleccionado();
+                //No va más porque en ompetencia_informatica.TipoInformatica ya tiene el seleccionado
+               // competencia_informatica.TipoInformatica = _this.txt_competencias_informaticas_tipo_informatica.idItemSeleccionado();
                     
                 competencia_informatica.Detalle = _this.txt_competencias_informaticas_detalle.val();
 
