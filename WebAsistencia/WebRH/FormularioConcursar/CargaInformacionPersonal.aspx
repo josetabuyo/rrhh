@@ -32,17 +32,17 @@
                 <li class="menu_lista_formularios"><a href="#ancla4">Actividades Docentes</a></li>
                 <li class="menu_lista_formularios no_borde"><a href="#ancla5">Eventos Académicos</a></li>
              </ul>
-             <ul class="ul_cv" style="width:90%; margin-left:6%; margin-bottom:3px;">
+             <ul class="ul_cv" style="width:90%; margin-left:13%; margin-bottom:3px;">
                 <li class="menu_lista_formularios"><a href="#ancla6">Publicaciones o trabajos</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla7">Matr&iacute;culas</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla8">Instituciones Académicas</a></li>
-                <li class="menu_lista_formularios"><a href="#ancla9">Experiencia Laboral</a></li>
-                <li class="menu_lista_formularios no_borde"><a href="#ancla10">Idiomas Extranjeros</a></li>
+                <li class="menu_lista_formularios no_borde"><a href="#ancla9">Experiencia Laboral</a></li>
+                
             </ul>
-            <ul class="ul_cv" style="width:60%; margin-left:20%;">
+            <ul class="ul_cv" style="width:60%; margin-left:18%;">
+                <li class="menu_lista_formularios"><a href="#ancla10">Idiomas Extranjeros</a></li>
                 <li class="menu_lista_formularios"><a href="#ancla11">Competencias Informáticas</a></li>
-                <li class="menu_lista_formularios"><a href="#ancla12">Otras Capacidades</a></li>
-                <li class="menu_lista_formularios no_borde"><a href="CAMBIAR!">Vista Preliminar</a></li>
+                <li class="menu_lista_formularios no_borde"><a href="#ancla12">Otras Capacidades</a></li> 
             </ul>
         </nav>
 
