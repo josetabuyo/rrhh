@@ -41,6 +41,9 @@
         _this.puesto_secretaria = $("#puesto_jefatura");
         _this.puesto_secretaria.text("Secretaria");
 
+        _this.motivo_postulacion = $("#motivo_postulacion");
+        _this.motivo_postulacion.text(postulacion.Motivo);
+
 
     },
     dibujarCV: function (curriculum) {
@@ -54,17 +57,26 @@
         _this.cv_dni = $("#cv_dni");
         _this.cv_dni.text(curriculum.DatosPersonales.Dni);
         _this.cv_estadoCivil = $("#cv_estadoCivil");
-        _this.cv_estadoCivil.text(Repositorio.buscar("EstadosCiviles", { Id: curriculum.DatosPersonales.EstadoCivil }, function (estadoCivil) { estadoCivil[0].Descripcion }));
+        Backend.BuscarEstadosCiviles({ Id: curriculum.DatosPersonales.EstadoCivil })
+            .onSuccess(function (estadoCivil) {
+                _this.cv_estadoCivil.text(estadoCivil[0].Descripcion);
+            });
+
         _this.cv_fechaNac = $("#cv_fechNac");
         _this.cv_fechaNac.text(curriculum.DatosPersonales.FechaNacimiento);
         _this.cv_lugarNac = $("#cv_lugarNac");
         //_this.cv_lugarNac.text(Repositorio.buscar("LugarDeNacimiento", { Id: curriculum.DatosPersonales.LugarDeNacimiento }, function (lugarDeNacimiento) { lugarDeNacimiento[0].Descripcion }));
         _this.cv_nac = $("#cv_nac");
-        _this.cv_nac.text(Repositorio.buscar("Nacionalidades", { Id: curriculum.DatosPersonales.Nacionalidad }, function (nacionalidad) { nacionalidad[0].Descripcion }));
+        Backend.BuscarNacionalidades({ Id: curriculum.DatosPersonales.Nacionalidad })
+            .onSuccess(function (nacionalidad) {
+                _this.cv_nac.text(nacionalidad[0].Descripcion);
+            });
+        //_this.cv_nac.text(Repositorio.buscar("Nacionalidades", { Id: curriculum.DatosPersonales.Nacionalidad }, function (nacionalidad) { nacionalidad[0].Descripcion }));
         _this.cv_domPersonal = $("#cv_domPersonal");
 
         //var localidadPersonal = Backend.ejecutarSincronico("BuscarLocalidades", [{ Id: curriculum.DatosPersonales.DomicilioPersonal.Localidad}])[0];
-        var provinciaPersonal = Backend.ejecutarSincronico("BuscarProvincias", [{ Id: curriculum.DatosPersonales.DomicilioPersonal.Provincia}])[0];
+        var provinciaPersonal = Backend.sync.BuscarProvincias({ Id: curriculum.DatosPersonales.DomicilioPersonal.Provincia })[0];
+
 
         _this.cv_domPersonal.text(curriculum.DatosPersonales.DomicilioPersonal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioPersonal.Numero + ' - ' +
                                  curriculum.DatosPersonales.DomicilioPersonal.Piso + ' ' +
@@ -73,8 +85,8 @@
 
         _this.cv_domLegal = $("#cv_domLegal");
 
-        var localidadLegal = Backend.ejecutarSincronico("BuscarLocalidades", [{ Id: curriculum.DatosPersonales.DomicilioLegal.Localidad}])[0];
-        var provinciaLegal = Backend.ejecutarSincronico("BuscarProvincias", [{ Id: curriculum.DatosPersonales.DomicilioLegal.Provincia}])[0];
+        var localidadLegal = Backend.sync.BuscarLocalidades({ Id: curriculum.DatosPersonales.DomicilioLegal.Localidad })[0];
+        var provinciaLegal = Backend.sync.BuscarProvincias({ Id: curriculum.DatosPersonales.DomicilioLegal.Provincia })[0];
 
         _this.cv_domLegal.text(curriculum.DatosPersonales.DomicilioLegal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioLegal.Numero + ' - ' +
                                  curriculum.DatosPersonales.DomicilioLegal.Piso + ' ' +
@@ -160,7 +172,7 @@
             for (var i = 0; i < curriculum.CvEventosAcademicos.length; i++) {
                 _this.p = _this.dibujarDatos('Año: ');
                 _this.span = $('<span>');
-                var institucion = Backend.ejecutarSincronico("BuscarInstitucionesEventosAcademicos", [{ Id: curriculum.CvEventosAcademicos[i].Institucion}])[0]; 
+                var institucion = Backend.ejecutarSincronico("BuscarInstitucionesEventosAcademicos", [{ Id: curriculum.CvEventosAcademicos[i].Institucion}])[0];
                 _this.span.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvEventosAcademicos[i].FechaFinalizacion) + ' - ' +
                                 institucion.Descripcion + ' - ' +
                                 curriculum.CvEventosAcademicos[i].Denominacion);
