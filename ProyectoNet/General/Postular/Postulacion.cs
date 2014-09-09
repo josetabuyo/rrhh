@@ -14,6 +14,7 @@ namespace General
         protected string _motivo;
         protected string _observaciones;
         protected string _numero;
+        protected List<EtapaPostulacion> _etapas;
 
         public virtual int Id { get { return _id; } set { _id = value; } }
         public virtual Puesto Puesto { get { return _puesto; } set { _puesto = value; } }
@@ -22,7 +23,7 @@ namespace General
         public virtual string Motivo { get { return _motivo; } set { _motivo = value; } }
         public virtual string Observaciones { get { return _observaciones; } set { _observaciones = value; } }
         public virtual string Numero { get { return _numero; } set { _numero = value; } }
-        public virtual List<EtapaPostulacion> Etapas { get; set; }
+        public virtual List<EtapaPostulacion> Etapas { get { return _etapas; } set { _etapas = value;} }
 
         public Postulacion(int id, Puesto puesto, int idPersona, DateTime fecha, string motivo, string observaciones, string numero) {
             _id = id;
@@ -32,6 +33,18 @@ namespace General
             _motivo = motivo;
             _observaciones = observaciones;
             _numero = numero;
+        }
+
+        public Postulacion(int id, Puesto puesto, int idPersona, DateTime fecha, string motivo, string observaciones, string numero, List<EtapaPostulacion> etapas)
+        {
+            _id = id;
+            _puesto = puesto;
+            _idPersona = idPersona;
+            _fechaPostulacion = fecha;
+            _motivo = motivo;
+            _observaciones = observaciones;
+            _numero = numero;
+            _etapas = etapas;
         }
 
         public Postulacion() { }

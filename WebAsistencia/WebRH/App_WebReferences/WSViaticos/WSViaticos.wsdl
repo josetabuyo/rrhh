@@ -2,28 +2,14 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="ActualizarCvEventoAcademico">
+      <s:element name="EliminarCvActividadDocente">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="eventoAcademico_nuevo" type="tns:CvEventoAcademico" />
+            <s:element minOccurs="1" maxOccurs="1" name="actividades_docentes_a_borrar" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvEventoAcademico">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Denominacion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="TipoDeEvento" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="CaracterDeParticipacion" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Institucion" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaInicio" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaFinalizacion" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Duracion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="Usuario">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -181,6 +167,50 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="EliminarCvActividadDocenteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EliminarCvActividadDocenteResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCvEventoAcademico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="eventoAcademico_nuevo" type="tns:CvEventoAcademico" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CvEventoAcademico">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Denominacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoDeEvento" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CaracterDeParticipacion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Institucion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaInicio" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaFinalizacion" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Duracion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarCvEventoAcademicoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvEventoAcademicoResult" type="tns:CvEventoAcademico" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarCvEventoAcademico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="eventoAcademico_nuevo" type="tns:CvEventoAcademico" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ActualizarCvEventoAcademicoResponse">
         <s:complexType>
           <s:sequence>
@@ -756,6 +786,19 @@
           <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Etapas" type="tns:ArrayOfEtapaPostulacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEtapaPostulacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EtapaPostulacion" nillable="true" type="tns:EtapaPostulacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EtapaPostulacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="BuscarProvincias">
@@ -2583,6 +2626,41 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetPostulacionesPorCodigo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostulacionesPorCodigoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionesPorCodigoResult" type="tns:Postulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarEtapasConcurso">
+        <s:complexType />
+      </s:element>
+      <s:complexType name="EtapaConcurso">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEtapaConcurso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EtapaConcurso" nillable="true" type="tns:EtapaConcurso" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuscarEtapasConcursoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarEtapasConcursoResult" type="tns:ArrayOfEtapaConcurso" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetComite">
         <s:complexType>
           <s:sequence>
@@ -2714,36 +2792,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvActividadDocenteResult" type="tns:CvDocencia" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarCvActividadDocente">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="actividades_docentes_a_borrar" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarCvActividadDocenteResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="EliminarCvActividadDocenteResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvEventoAcademico">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="eventoAcademico_nuevo" type="tns:CvEventoAcademico" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvEventoAcademicoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvEventoAcademicoResult" type="tns:CvEventoAcademico" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4079,6 +4127,18 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="EliminarCvActividadDocenteSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarCvActividadDocente" />
+  </wsdl:message>
+  <wsdl:message name="EliminarCvActividadDocenteSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarCvActividadDocenteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCvEventoAcademicoSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCvEventoAcademico" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCvEventoAcademicoSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCvEventoAcademicoResponse" />
+  </wsdl:message>
   <wsdl:message name="ActualizarCvEventoAcademicoSoapIn">
     <wsdl:part name="parameters" element="tns:ActualizarCvEventoAcademico" />
   </wsdl:message>
@@ -4745,6 +4805,18 @@
   <wsdl:message name="GetPostulacionesSoapOut">
     <wsdl:part name="parameters" element="tns:GetPostulacionesResponse" />
   </wsdl:message>
+  <wsdl:message name="GetPostulacionesPorCodigoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostulacionesPorCodigo" />
+  </wsdl:message>
+  <wsdl:message name="GetPostulacionesPorCodigoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostulacionesPorCodigoResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarEtapasConcursoSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarEtapasConcurso" />
+  </wsdl:message>
+  <wsdl:message name="BuscarEtapasConcursoSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarEtapasConcursoResponse" />
+  </wsdl:message>
   <wsdl:message name="GetComiteSoapIn">
     <wsdl:part name="parameters" element="tns:GetComite" />
   </wsdl:message>
@@ -4798,18 +4870,6 @@
   </wsdl:message>
   <wsdl:message name="ActualizarCvActividadDocenteSoapOut">
     <wsdl:part name="parameters" element="tns:ActualizarCvActividadDocenteResponse" />
-  </wsdl:message>
-  <wsdl:message name="EliminarCvActividadDocenteSoapIn">
-    <wsdl:part name="parameters" element="tns:EliminarCvActividadDocente" />
-  </wsdl:message>
-  <wsdl:message name="EliminarCvActividadDocenteSoapOut">
-    <wsdl:part name="parameters" element="tns:EliminarCvActividadDocenteResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvEventoAcademicoSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarCvEventoAcademico" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvEventoAcademicoSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarCvEventoAcademicoResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
@@ -5250,6 +5310,14 @@
     <wsdl:part name="parameters" element="tns:InscribirAlumnosACursoResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="EliminarCvActividadDocente">
+      <wsdl:input message="tns:EliminarCvActividadDocenteSoapIn" />
+      <wsdl:output message="tns:EliminarCvActividadDocenteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvEventoAcademico">
+      <wsdl:input message="tns:GuardarCvEventoAcademicoSoapIn" />
+      <wsdl:output message="tns:GuardarCvEventoAcademicoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ActualizarCvEventoAcademico">
       <wsdl:input message="tns:ActualizarCvEventoAcademicoSoapIn" />
       <wsdl:output message="tns:ActualizarCvEventoAcademicoSoapOut" />
@@ -5694,6 +5762,14 @@
       <wsdl:input message="tns:GetPostulacionesSoapIn" />
       <wsdl:output message="tns:GetPostulacionesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetPostulacionesPorCodigo">
+      <wsdl:input message="tns:GetPostulacionesPorCodigoSoapIn" />
+      <wsdl:output message="tns:GetPostulacionesPorCodigoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarEtapasConcurso">
+      <wsdl:input message="tns:BuscarEtapasConcursoSoapIn" />
+      <wsdl:output message="tns:BuscarEtapasConcursoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetComite">
       <wsdl:input message="tns:GetComiteSoapIn" />
       <wsdl:output message="tns:GetComiteSoapOut" />
@@ -5729,14 +5805,6 @@
     <wsdl:operation name="ActualizarCvActividadDocente">
       <wsdl:input message="tns:ActualizarCvActividadDocenteSoapIn" />
       <wsdl:output message="tns:ActualizarCvActividadDocenteSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvActividadDocente">
-      <wsdl:input message="tns:EliminarCvActividadDocenteSoapIn" />
-      <wsdl:output message="tns:EliminarCvActividadDocenteSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvEventoAcademico">
-      <wsdl:input message="tns:GuardarCvEventoAcademicoSoapIn" />
-      <wsdl:output message="tns:GuardarCvEventoAcademicoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
@@ -6033,6 +6101,24 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EliminarCvActividadDocente">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvActividadDocente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvEventoAcademico">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvEventoAcademico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizarCvEventoAcademico">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvEventoAcademico" style="document" />
       <wsdl:input>
@@ -7032,6 +7118,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPostulacionesPorCodigo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPostulacionesPorCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarEtapasConcurso">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarEtapasConcurso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetComite">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetComite" style="document" />
       <wsdl:input>
@@ -7106,24 +7210,6 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarCvActividadDocente">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvActividadDocente" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvActividadDocente">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvActividadDocente" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvEventoAcademico">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvEventoAcademico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7791,6 +7877,24 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EliminarCvActividadDocente">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvActividadDocente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvEventoAcademico">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvEventoAcademico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizarCvEventoAcademico">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvEventoAcademico" style="document" />
       <wsdl:input>
@@ -8790,6 +8894,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPostulacionesPorCodigo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPostulacionesPorCodigo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarEtapasConcurso">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarEtapasConcurso" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetComite">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetComite" style="document" />
       <wsdl:input>
@@ -8864,24 +8986,6 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarCvActividadDocente">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvActividadDocente" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvActividadDocente">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvActividadDocente" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvEventoAcademico">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvEventoAcademico" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

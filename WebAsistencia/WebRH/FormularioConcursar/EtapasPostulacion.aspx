@@ -36,40 +36,64 @@
                 </div>
             </div>
             <div>
-                <h3>Historial</h3>
+                <div style="display:inline-block; margin-left:30px;">
+                    <h3>Historial</h3>
+                </div>
+                <div style="display:inline-block; margin-left:30px;">
+                    <select id="cmb_etapas_concurso"></select>
+                </div>
             </div>
         </div>
     </div>
     <asp:HiddenField ID="puesto" runat="server" />
     </form>
 </body>
- <script type="text/javascript" src="Postulacion.js" ></script>
  <%= Referencias.Javascript("../") %>
-
+ <script type="text/javascript" src="../Scripts/SuperCombo.js"></script>
   <script type="text/javascript">
 
       $(document).ready(function () {
 
-          var proveedor_ajax = new ProveedorAjax();
 
-          proveedor_ajax.postearAUrl({ url: "GetPostulaciones",
+          var btn_buscar_etapas = $("#btn_buscar_etapas");
+          btn_buscar_etapas.click(function () {
+              var codigo = $("#txt_codigo_postulacion").val();
+              BuscarPostulacionesPorCodigo(codigo);
 
-              success: function (respuesta) {
-                  alertify.alert(respuesta);
-              },
-              error: function (XMLHttpRequest, textStatus, errorThrown) {
-                  alertify.alert("Error al actualziar la actividad.");
-              }
           });
-
-
-
+          var cmb_tipo_documento = new SuperCombo({
+              ui: $("#cmb_etapas_concurso"),
+              nombre_repositorio: "EtapasConcurso"
+          });
 
       });
 
-    
 
+      var BuscarPostulacionesPorCodigo = function (codigo) {
+          var proveedor_ajax = new ProveedorAjax();
+          proveedor_ajax.postearAUrl({
+              url: "GetPostulacionesPorCodigo",
+              data: { "codigo": codigo },
+              success: function (respuesta) {
+                  alertify.alert(JSON.stringify(respuesta));
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  alertify.alert("Error.");
+              }
+          });
+      }
+
+      var BuscarEtapasConcurso = function () {
+          var proveedor_ajax = new ProveedorAjax();
+          proveedor_ajax.postearAUrl({
+              url: "GetEtapasConcurso",
+              success: function (respuesta) {
+                  alertify.alert(JSON.stringify(respuesta));
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  alertify.alert("Error.");
+              }
+          });
+      }
   </script>
-
-
 </html>

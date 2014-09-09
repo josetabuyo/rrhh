@@ -38,22 +38,76 @@ namespace General
             return postulacion;
         }
 
+        public List<Postulacion> GetPostulaciones()
+        {
+            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones");
+
+            return ArmarPostulaciones(tablaPostulaciones);
+
+        }
+
         public List<Postulacion> GetPostulacionesDe(int idpersona)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idPersona", idpersona);
-            var tablaCVs = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones", parametros);
+            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones", parametros);
 
+            return ArmarPostulaciones(tablaPostulaciones);
+
+        }
+
+        private List<Postulacion> ArmarPostulaciones(TablaDeDatos tablaCVs)
+        {
             List<Postulacion> postulaciones = new List<Postulacion>();
 
+            tablaCVs.Rows.ForEach(row =>
+            {
+                var postulacion = new Postulacion(row.GetInt("IdPostulacion"), ArmarPuesto(row), row.GetInt("IdPersona"), row.GetDateTime("FechaInscripcion"),
+                                                  row.GetString("Motivo"), row.GetString("Observaciones"), row.GetString("Postulacion_Numero", ""), GetEtapasPotulacion(row.GetInt("IdPostulacion")));
+                
+                postulaciones.Add(postulacion);
 
+            });
+            return postulaciones;
+        }
+
+        public List<EtapaPostulacion> GetEtapasPotulacion(int id)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPostulacion", id);
+
+            var tablaCVs = conexion_bd.Ejecutar("dbo.CV_Get_HistorialEtapasPostulacion", parametros);
+
+            var etapas = new List<EtapaPostulacion>();
 
             tablaCVs.Rows.ForEach(row =>
-            postulaciones.Add(new Postulacion(row.GetInt("IdPostulacion"), ArmarPuesto(row),row.GetInt("IdPersona"),row.GetDateTime("FechaInscripcion"),
-                                              row.GetString("Motivo"), row.GetString("Observaciones"), row.GetString("Postulacion_Numero",""))));
-                      
+            etapas.Add(new EtapaPostulacion()
+            {
+                Descripcion = row.GetString("Descripcion"),
+                Fecha = row.GetDateTime("Fecha"),
+                Usuario = row.GetString("Usuario")
+            }));
 
-            return postulaciones;
+
+            return etapas;
+
+        }
+
+        public List<EtapaConcurso> GetEtapasConcurso()
+        {
+            var tablaCVs = conexion_bd.Ejecutar("dbo.CV_Get_EtapasConcurso");
+
+            var etapas = new List<EtapaConcurso>();
+
+            tablaCVs.Rows.ForEach(row =>
+            etapas.Add(new EtapaConcurso()
+            {
+                Id = row.GetSmallintAsInt("Id"),
+                Descripcion = row.GetString("Descripcion")
+            }));
+
+
+            return etapas;
 
         }
 
@@ -79,6 +133,11 @@ namespace General
         {
             return this.GetPostulacionesDe(idpersona).Find(p => p.Id.Equals(idpostulacion));
         
+        }
+
+        public Postulacion GetPostulacionesPorCodigo(string codigo)
+        {
+            return this.GetPostulaciones().Find(p => p.Numero.Equals(codigo));
         }
     }
 }

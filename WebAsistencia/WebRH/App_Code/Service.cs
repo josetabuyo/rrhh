@@ -808,12 +808,19 @@ public class AjaxWS : System.Web.Services.WebService
     }
 
     [WebMethod(EnableSession = true)]
-    public string GetPostulaciones()
+    public string GetPostulacionesPorCodigo(string codigo)
     {
-        var postulaciones = backEndService.GetPostulaciones(null);
+        var postulaciones = backEndService.GetPostulacionesPorCodigo(codigo);
         return Newtonsoft.Json.JsonConvert.SerializeObject(postulaciones);
 
-    } 
+    }
+
+    //[WebMethod(EnableSession = true)]
+    //public string GetEtapasPostulacion()
+    //{
+    //    var etapas = backEndService.GetEtapasPostulacion();
+    //    return Newtonsoft.Json.JsonConvert.SerializeObject(etapas);
+    //}
 
     #endregion
 
