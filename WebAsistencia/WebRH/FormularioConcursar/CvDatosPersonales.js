@@ -34,6 +34,7 @@ var CvDatosPersonales = {
             _this.cmb_lugar_nac[0].disabled = true;
             _this.txt_fechaNac[0].disabled = true;
             _this.txt_dni[0].disabled = true;
+            $("#contenedor_datos_legajos").find('select').prop('disabled', true);
             //_this.cmb_tipoDocumento.desactivar();
             //_this.cmb_sexo.desactivar();
             //_this.cmb_estadoCivil.desactivar();
