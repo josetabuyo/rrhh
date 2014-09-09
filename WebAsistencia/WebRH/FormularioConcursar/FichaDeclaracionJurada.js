@@ -195,7 +195,7 @@
             for (var i = 0; i < curriculum.CvPublicaciones.length; i++) {
                 _this.p = _this.dibujarDatos('Año: ');
                 _this.span = $('<span>');
-                _this.span.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvPublicaciones[i].FechaFinalizacion) + ' - ' +
+                _this.span.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvPublicaciones[i].FechaPublicacion) + ' - ' +
                                 curriculum.CvPublicaciones[i].Institucion + ' - ' +
                                 curriculum.CvPublicaciones[i].Denominacion);
                 _this.p.append(_this.span);
