@@ -31,7 +31,7 @@
                 var titulo = $('<a>');
                 titulo.addClass('subtitulo_postulaciones');
                 titulo.attr("href", 'FichaInscripcionCVDeclaJurada.aspx?id=' + postulaciones[i].Id)
-                titulo[0].innerHTML = 'N°: ' + postulaciones[i].Numero + ' (' + ConversorDeFechas.deIsoAFechaEnCriollo(postulaciones[i].FechaPostulacion) + ')';
+                titulo[0].innerHTML = 'N°: ' + postulaciones[i].Numero + ' (' + ConversorDeFechas.deIsoAFechaEnCriollo(postulaciones[i].FechaPostulacion) + ')' + ' - Estado: ' + postulaciones[i].Estado;
                 // titulo[0].puesto = postulaciones[i].Puesto;
                 /*titulo.click(function (e) {
                 window.location.href = 'FichaInscripcionCVDeclaJurada.aspx?id=' + titulo[0].puesto.Id;

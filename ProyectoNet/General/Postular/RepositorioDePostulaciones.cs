@@ -50,8 +50,9 @@ namespace General
 
             tablaCVs.Rows.ForEach(row =>
             postulaciones.Add(new Postulacion(row.GetInt("IdPostulacion"), ArmarPuesto(row),row.GetInt("IdPersona"),row.GetDateTime("FechaInscripcion"),
-                                              row.GetString("Motivo"), row.GetString("Observaciones"), row.GetString("Postulacion_Numero",""))));
+                                              row.GetString("Motivo"), row.GetString("Observaciones"), row.GetString("Postulacion_Numero", ""), row.GetString("Estado", ""))));
                       
+
 
             return postulaciones;
 
