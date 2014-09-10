@@ -59,7 +59,8 @@
         ));
 
         this.GrillaIdiomasExtranjeros = new Grilla(columnas);
-        this.GrillaIdiomasExtranjeros.AgregarEstilo("table table-striped");
+        this.GrillaIdiomasExtranjeros.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaIdiomasExtranjeros.CambiarEstiloCabecera("cabecera_tabla_postular");
         this.GrillaIdiomasExtranjeros.SetOnRowClickEventHandler(function (un_idioma_extranjero) {
         });
 

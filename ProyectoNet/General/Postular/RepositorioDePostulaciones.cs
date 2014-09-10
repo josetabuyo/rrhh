@@ -85,7 +85,7 @@ namespace General
             {
                 Descripcion = row.GetString("Descripcion"),
                 Fecha = row.GetDateTime("Fecha"),
-                Usuario = row.GetString("Usuario")
+                Usuario = row.GetSmallintAsInt("IdUsuario").ToString()
             }));
 
 
@@ -138,6 +138,42 @@ namespace General
         public Postulacion GetPostulacionesPorCodigo(string codigo)
         {
             return this.GetPostulaciones().Find(p => p.Numero.Equals(codigo));
+        }
+
+
+        public bool EliminarPostulacionPorUsuario(Postulacion postulacion, Usuario usuario)
+        {
+            if (postulacion.IdPersona == usuario.Owner.Id)
+            {
+                var baja = CrearBaja(usuario);
+
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@IdPostulacion", postulacion.Id);
+                parametros.Add("@IdPuesto", postulacion.Puesto.Id);
+                parametros.Add("@IdPersona", postulacion.IdPersona);
+                parametros.Add("@FechaInscripcion", postulacion.FechaPostulacion);
+                parametros.Add("@Usuario", usuario.Id);
+                parametros.Add("@idBaja", baja);
+
+                conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Postulacion", parametros);
+
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        private int CrearBaja(Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@Motivo", "");
+            parametros.Add("@IdUsuario", usuario.Id);
+
+            int id = int.Parse(conexion_bd.EjecutarEscalar("dbo.CV_Ins_Bajas", parametros).ToString());
+
+            return id;
         }
     }
 }

@@ -11,6 +11,9 @@
      <%= Referencias.Css("../")%>    
 
      <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+     <script type="text/javascript" src="../Scripts/Bindings.js"> </script>
+     <script type="text/javascript" src="../Scripts/rhforms-combos.js"> </script>
+     <script type="text/javascript" src="../Scripts/String.js"> </script>
      <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
 
 </head>
@@ -27,7 +30,7 @@
     PARA SEGUIR EN EL PROCESO DE POSTULACION PRESIONE EL SIGUIENTE</p>
 
             <div id="contenedor_datosPersonales" class="fondo_form">
-                <a style="margin-right: 10px;" id="btn_guardar_datosPersonales" class="btn btn-primary" href="#">Guardar Cambios </a>
+                <a style="margin-right: 10px;color: #3A9ABF; font-size: 14px;text-decoration: none;" id="btn_guardar_datosPersonales" href="#">Guardar Cambios </a>
                 <%--<a class="btn btn-primary" onclick="javascript:PasarAInscripcion()" href="#">Confirmar Postulación</a>--%>
                 <fieldset style="width:100%; min-width:800px;" >
                     <p><em>*</em> Campos Obligatorios</p>
@@ -42,19 +45,13 @@
                     </div>
                     <div style="float:left; margin:8px;">
                         <label for="cmb_sexo">Sexo <em>*</em></label>
-                        <select id="cmb_sexo" style="width:100px;"  >
-                            <option value="-1">Sexo</option>
-                            <option value="1" selected="selected">Masculino</option>
-                            <option value="1">Femenino</option>
-                        </select>
+                        <select id="cmb_sexo" style="width:100px;" name="cmb_sexo" data-validar="esNumeroNaturalSinCero" dataProvider="Sexos" modelo="Sexo">
+                            </select>
                     </div>
                     <div style="float:left; margin:8px;">
                         <label for="cmb_estadoCivil">Estado Civil <em>*</em></label>
-                        <select id="cmb_estadoCivil" style="width:150px;" >
-                        <option value="-1">Estado Civil</option>
-                        <option value="1" selected="selected">Masculino</option>
-                        <option value="1">Femenino</option>
-                        </select>
+                        <select id="cmb_estadoCivil" style="width:160px;" name="cmb_estadoCivil" data-validar="esUnComboSinCero" dataProvider="EstadosCiviles" modelo="EstadoCivil">
+                         </select>
                         </div>
                     <div style="float:left; margin:8px; width:130px;">
                         <label for="cuil">Cuil / Cuit <em>*</em></label>
@@ -75,18 +72,12 @@
                     </div>
                     <div style="float:left; margin:8px">
                     <label class="" for="cmb_nacionalidad">Nacionalidad <em>*</em></label>
-                        <select id="cmb_nacionalidad" style="width:120px;" >
-                        <option value="-1">Seleccione</option>
-                        <option value="1" selected="selected">Argentina</option>
-                        <option value="1">Boliviano</option>
-                        </select>
+                       <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad" modelo="Nacionalidad" data-validar="esUnComboSinCero" dataProvider="Nacionalidades">
+                         </select>
                     </div>
                     <div style="float:left; margin:8px">
                     <label class="" for="cmb_tipoDocumento">Tipo documento <em>*</em></label>
-                    <select id="cmb_tipoDocumento" style="width:100px;"  >
-                        <option value="-1" selected="selected">DNI</option>
-                        <option value="1">LC</option>
-                        <option value="1">LE</option>
+                     <select id="cmb_tipoDocumento" style="width:170px;" name="cmb_tipoDocumento" modelo="TipoDocumento" data-validar="esUnComboSinCero" dataProvider="TiposDeDocumento">
                     </select>
                     </div>
                     <div style="float:left; margin:8px">
@@ -112,7 +103,8 @@
                     </div>
                     <div style="float:left; margin:8px">
                         <label class="" for="cmb_localidad1">Localidad <em>*</em></label>
-                        <input type="text" id="cmb_localidad1"  style="width:100px" /> 
+                        <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Localidad" data-validar="esUnComboSinCero" dataProvider="Localidades" dependeDe="cmb_provincia1" filtradoPor="IdProvincia">
+                            </select>
                     </div>
                     <div style="float:left; margin:8px">
                         <label class="" for="txt_cp1">Código postal <em>*</em></label>
@@ -120,11 +112,8 @@
                     </div>
                     <div style="float:left; margin:8px">     
                     <label class="" for="cmb_provincia1">Provincia <em>*</em></label>
-                    <select id="Select4" name="cmb_provincia1" style="width:130px;" >
-                        <option value="-1">Seleccione</option>
-                        <option value="1" selected="selected">Buenos Aires</option>
-                        <option value="1">Cordoba</option>
-                    </select>
+                    <select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Provincia" data-validar="esUnComboSinCero" dataProvider="Provincias">
+                        </select>
                     </div>
                 </fieldset>
                 <fieldset style="width:100%;" >
@@ -151,7 +140,8 @@
 
                     <div style="float:left; margin:8px">
                         <label class="" for="cmb_localidad2">Localidad <em>*</em></label>
-                        <input type="text" id="cmb_localidad2" style="width:100px" /> 
+                        <select id="cmb_localidad2" name="cmb_localidad2" style="width:320px;" label="Nombre"  modelo="DomicilioLegal.Localidad" data-validar="esNoBlanco" dataProvider="Localidades" dependeDe="cmb_provincia2" filtradoPor="IdProvincia">
+                            </select>
                     </div>
 
                     <div style="float:left; margin:8px">
@@ -161,11 +151,8 @@
 
                     <div style="float:left; margin:8px">     
                     <label class="" for="cmb_provincia2">Provincia <em>*</em></label>
-                    <select id="cmb_provincia2"  style="width:150px;" >
-                        <option value="-1">Seleccione</option>
-                        <option value="1" selected="selected">Buenos Aires</option>
-                        <option value="1">Cordoba</option>
-                    </select>
+                     <select id="cmb_provincia2" name="cmb_provincia2" style="width:320px;" label="Nombre" modelo="DomicilioLegal.Provincia" data-validar="esNoBlanco" dataProvider="Provincias">
+                        </select>
                     </div>
                     </fieldset>
             </div>
@@ -201,7 +188,6 @@
 <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="CvDatosPersonales.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
-<script type="text/javascript" src="../Scripts/SuperCombo.js" ></script>
 <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
 
 <script type="text/javascript">
@@ -210,7 +196,7 @@
      Backend.start();
 
      $(document).ready(function () {
-         puesto = getVarsUrl();
+         //puesto = getVarsUrl();
          curriculum = JSON.parse($('#curriculum').val());
          CvDatosPersonales.completarDatos(curriculum.DatosPersonales);
 
@@ -229,7 +215,7 @@
          alertify.confirm("¿Está seguro que desea pasar al siguiente paso?", function (e) {
              if (e) {
                  // user clicked "ok"
-                 window.location.href = 'Inscripcion.aspx?id=' + puesto.id;
+                 window.location.href = 'Inscripcion.aspx';
 
              } else {
                  // user clicked "cancel"
@@ -240,10 +226,10 @@
      }
 
      function Anterior() {
-                 window.location.href = 'Postulaciones.aspx?id=' + puesto.id;
+                 window.location.href = 'Postulaciones.aspx';
      }
 
-     function getVarsUrl() {
+    /* function getVarsUrl() {
          var url = location.search.replace("?", "");
          var arrUrl = url.split("&");
          var urlObj = {};
@@ -252,7 +238,7 @@
              urlObj[x[0]] = x[1]
          }
          return urlObj;
-     }
+     }*/
 
      function PasarAInscripcion() {
 

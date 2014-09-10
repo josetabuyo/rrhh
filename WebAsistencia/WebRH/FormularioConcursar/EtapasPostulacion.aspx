@@ -18,7 +18,7 @@
     <form id="form1" runat="server" class="cmxform">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="contenedor_concursar" >
-        <div class="fondo_form" style="padding: 10px;">
+        <div id="div_cambio_etapas" class="fondo_form" style="padding: 10px;">
             <h2>Cambio de Etapa</h2>
             <div>
                 <div style="display:inline-block; margin-left:30px;">
@@ -38,9 +38,15 @@
             <div>
                 <div style="display:inline-block; margin-left:30px;">
                     <h3>Historial</h3>
+                    <div id="div_tabla_historial"></div>
                 </div>
                 <div style="display:inline-block; margin-left:30px;">
-                    <select id="cmb_etapas_concurso"></select>
+                    <select id="cmb_etapas_concurso">
+                        <option value="0">Seleccione</option>
+                        <option value="1">Preinscripción</option>
+                        <option value="2">Inscripción Documental</option>
+                        <option value="3">Listado Admitidos y no Admitidos</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -49,7 +55,6 @@
     </form>
 </body>
  <%= Referencias.Javascript("../") %>
- <script type="text/javascript" src="../Scripts/SuperCombo.js"></script>
   <script type="text/javascript">
 
       $(document).ready(function () {
@@ -61,11 +66,7 @@
               BuscarPostulacionesPorCodigo(codigo);
 
           });
-          var cmb_tipo_documento = new SuperCombo({
-              ui: $("#cmb_etapas_concurso"),
-              nombre_repositorio: "EtapasConcurso"
-          });
-
+         
       });
 
 
@@ -76,6 +77,21 @@
               data: { "codigo": codigo },
               success: function (respuesta) {
                   alertify.alert(JSON.stringify(respuesta));
+
+                  var columnas = [];
+                  columnas.push(new Columna("Fecha", { generar: function (una_etapa) { return una_etapa.Fecha } }));
+                  columnas.push(new Columna("Descripción", { generar: function (una_etapa) { return una_etapa.Descripcion } }));
+                  columnas.push(new Columna("Usuario", { generar: function (una_etapa) { return una_etapa.Usuario } }));
+
+                  this.GrillaHistorial = new Grilla(columnas);
+                  this.GrillaHistorial.AgregarEstilo("table table-striped");
+                  this.GrillaHistorial.CambiarEstiloCabecera("cabecera_tabla_pantalla_cargos");
+                  this.GrillaHistorial.SetOnRowClickEventHandler(function (una_etapa) {
+                  });
+
+                  this.GrillaHistorial.CargarObjetos(respuesta.Etapas);
+                  this.GrillaHistorial.DibujarEn($("#div_tabla_historial"));
+
               },
               error: function (XMLHttpRequest, textStatus, errorThrown) {
                   alertify.alert("Error.");

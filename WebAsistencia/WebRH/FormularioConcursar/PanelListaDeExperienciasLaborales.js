@@ -48,7 +48,8 @@
         ));
 
         this.GrillaExperiencias = new Grilla(columnas);
-        this.GrillaExperiencias.AgregarEstilo("table table-striped");
+        this.GrillaExperiencias.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaExperiencias.CambiarEstiloCabecera("cabecera_tabla_postular");
         this.GrillaExperiencias.SetOnRowClickEventHandler(function (una_experiencia) {
         });
 

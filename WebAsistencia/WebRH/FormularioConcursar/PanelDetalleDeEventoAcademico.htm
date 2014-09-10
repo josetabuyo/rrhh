@@ -15,13 +15,13 @@
 				</div>
 				<div class="grupo_campos">
 					<label for="txt_evento_academico_caracter_participacion">Carácter de Participación <em>*</em></label>
-					   <select id="txt_evento_academico_caracter_participacion" style="width:130px; data-validar="esUnComboSinCero"">
+					   <select id="txt_evento_academico_caracter_participacion" style="width:130px; data-validar="esUnComboSinCero" dataProvider="CaracterParticipacionEvento" modelo="CaracterDeParticipacion">
 					</select>
 				</div>
                 <div class="grupo_campos nueva_linea">
 					<label for="txt_evento_academico_tipo_evento">Tipo Evento <em>*</em></label>
 				
-                    <select id="txt_evento_academico_tipo_evento" style="width:150px; data-validar="esUnComboSinCero"">
+                    <select id="txt_evento_academico_tipo_evento" style="width:150px; data-validar="esUnComboSinCero" dataProvider="TiposEventosAcademicos" modelo="TipoDeEvento">
 					</select>
 				</div>
                 
@@ -40,7 +40,7 @@
                 <div class="grupo_campos nueva_linea">
 					<label for="txt_evento_academico_institucion">Institución <em>*</em></label>
 					
-                     <select id="txt_evento_academico_institucion" style="width:150px; data-validar="esUnComboSinCero"">
+                     <select id="txt_evento_academico_institucion" style="width:150px; data-validar="esUnComboSinCero" dataProvider="InstitucionesEvento" modelo="Institucion">
 					</select>
 
 				</div>
@@ -50,7 +50,7 @@
 				</div>
 				<div class="grupo_campos">
 					<label for="cmb_evento_academico_pais">País <em>*</em></label>
-					<select id="cmb_evento_academico_pais" style="width:200px;" data-validar="esUnComboSinCero">
+					<select id="cmb_evento_academico_pais" style="width:200px;" data-validar="esUnComboSinCero" dataProvider="Paises" modelo="Pais">
 					</select>
 				</div>
 			</fieldset>

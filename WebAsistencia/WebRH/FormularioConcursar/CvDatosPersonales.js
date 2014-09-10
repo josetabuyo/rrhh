@@ -5,6 +5,8 @@ var CvDatosPersonales = {
         this.ui = $("#contenedor_datosPersonales");
         $("#cuil").mask("99-99999999-9");
 
+        RH_FORMS.bindear(this.ui, Repositorio, datos_personales)
+
         _this.txt_nombre = _this.ui.find("#nombre");
         _this.txt_apellido = _this.ui.find("#apellido");
         _this.txt_cuil = _this.ui.find("#cuil");
@@ -12,30 +14,6 @@ var CvDatosPersonales = {
         _this.txt_fechaNac = _this.ui.find("#txt_fechaNac");
         _this.txt_dni = _this.ui.find("#txt_documento");
         _this.cmb_tipoDocumento = _this.ui.find("#cmb_tipoDocumento");
-
-        _this.cmb_sexo = new SuperCombo({
-            ui: _this.ui.find("#cmb_sexo"),
-            nombre_repositorio: "Sexos",
-            id_item_seleccionado: datos_personales.Sexo
-        });
-
-        _this.cmb_estadoCivil = new SuperCombo({
-            ui: _this.ui.find("#cmb_estadoCivil"),
-            nombre_repositorio: "EstadosCiviles",
-            id_item_seleccionado: datos_personales.EstadoCivil
-        });
-
-        _this.cmb_nacionalidad = new SuperCombo({
-            ui: _this.ui.find("#cmb_nacionalidad"),
-            nombre_repositorio: "Nacionalidades",
-            id_item_seleccionado: datos_personales.Nacionalidad
-        });
-
-        _this.cmb_tipoDocumento = new SuperCombo({
-            ui: _this.ui.find("#cmb_tipoDocumento"),
-            nombre_repositorio: "TiposDeDocumento",
-            id_item_seleccionado: datos_personales.TipoDocumento
-        });
 
         _this.txt_nombre.val(datos_personales.Nombre);
         _this.txt_apellido.val(datos_personales.Apellido);
@@ -56,11 +34,12 @@ var CvDatosPersonales = {
             _this.cmb_lugar_nac[0].disabled = true;
             _this.txt_fechaNac[0].disabled = true;
             _this.txt_dni[0].disabled = true;
-            _this.cmb_tipoDocumento.desactivar();
-            _this.cmb_sexo.desactivar();
-            _this.cmb_estadoCivil.desactivar();
-            _this.cmb_nacionalidad.desactivar();
-            _this.cmb_tipoDocumento.desactivar();
+            $("#contenedor_datos_legajos").find('select').prop('disabled', true);
+            //_this.cmb_tipoDocumento.desactivar();
+            //_this.cmb_sexo.desactivar();
+            //_this.cmb_estadoCivil.desactivar();
+            //_this.cmb_nacionalidad.desactivar();
+            //_this.cmb_tipoDocumento.desactivar();
         }
 
         //DomicilioPersonal
@@ -76,24 +55,6 @@ var CvDatosPersonales = {
         _this.txt_domicilio_personal_dto.val(datos_personales.DomicilioPersonal.Depto);
         _this.txt_domicilio_personal_cp.val(parseInt(datos_personales.DomicilioPersonal.Cp));
 
-        _this.cmb_domicilio_personal_localidad = new SuperCombo({
-            ui: _this.ui.find("#cmb_localidad1"),
-            nombre_repositorio: "Localidades",
-            filtro: { IdProvincia: datos_personales.DomicilioPersonal.Provincia },
-            campo_descripcion: "Nombre",
-            id_item_seleccionado: datos_personales.DomicilioPersonal.Localidad
-        });
-
-        _this.cmb_domicilio_personal_provincia = new SuperCombo({
-            ui: _this.ui.find("#cmb_provincia1"),
-            nombre_repositorio: "Provincias",
-            campo_descripcion: "Nombre",
-            id_item_seleccionado: datos_personales.DomicilioPersonal.Provincia,
-            al_seleccionar: function (id_provincia) {
-                _this.cmb_domicilio_personal_localidad.cambiarFiltro({ IdProvincia: id_provincia });
-            }
-        });
-
         //DomicilioLaboral
         _this.txt_domicilio_legal_calle = _this.ui.find("#text_calle2");
         _this.txt_domicilio_legal_numero = _this.ui.find("#txt_numero2");
@@ -104,7 +65,6 @@ var CvDatosPersonales = {
         _this.txt_domicilio_legal_Telefono2 = _this.ui.find("#txt_telefono2");
         _this.txt_domicilio_legal_Email = _this.ui.find("#txt_email");
 
-
         _this.txt_domicilio_legal_calle.val(datos_personales.DomicilioLegal.Calle);
         _this.txt_domicilio_legal_numero.val(parseInt(datos_personales.DomicilioLegal.Numero));
         _this.txt_domicilio_legal_piso.val((datos_personales.DomicilioLegal.Piso));
@@ -113,24 +73,6 @@ var CvDatosPersonales = {
         _this.txt_domicilio_legal_Telefono.val(datos_personales.DomicilioLegal.Telefono);
         _this.txt_domicilio_legal_Telefono2.val(datos_personales.DomicilioLegal.Telefono2);
         _this.txt_domicilio_legal_Email.val(datos_personales.DomicilioLegal.Email);
-
-        _this.cmb_domicilio_legal_localidad = new SuperCombo({
-            ui: _this.ui.find("#cmb_localidad2"),
-            nombre_repositorio: "Localidades",
-            filtro: { IdProvincia: datos_personales.DomicilioLegal.Provincia },
-            campo_descripcion: "Nombre",
-            id_item_seleccionado: datos_personales.DomicilioLegal.Localidad
-        });
-
-        _this.cmb_domicilio_legal_provincia = new SuperCombo({
-            ui: _this.ui.find("#cmb_provincia2"),
-            nombre_repositorio: "Provincias",
-            campo_descripcion: "Nombre",
-            id_item_seleccionado: datos_personales.DomicilioLegal.Provincia,
-            al_seleccionar: function (id_provincia) {
-                _this.cmb_domicilio_legal_localidad.cambiarFiltro({ IdProvincia: id_provincia });
-            }
-        });
 
         //Bt guardar
         _this.add_datosPersonales = _this.ui.find("#btn_guardar_datosPersonales");
@@ -144,17 +86,10 @@ var CvDatosPersonales = {
                 var domicilioLegal_nuevo = {};
                 datos_personales_nuevo.Nombre = _this.txt_nombre.val();
                 datos_personales_nuevo.Apellido = _this.txt_apellido.val();
-                datos_personales_nuevo.Sexo = _this.cmb_sexo.idItemSeleccionado();
-                //datos_personales_nuevo.NivelEducat
-                datos_personales_nuevo.EstadoCivil = _this.cmb_estadoCivil.idItemSeleccionado();
-                //datos_personales_nuevo.Cuil = _this.txt_cuil.val();
-                //Se agrega el replace para que saque los guiones 
                 datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
 
                 datos_personales_nuevo.LugarDeNacimiento = _this.cmb_lugar_nac.val();
                 datos_personales_nuevo.FechaNacimiento = _this.txt_fechaNac.val();
-                datos_personales_nuevo.Nacionalidad = _this.cmb_nacionalidad.idItemSeleccionado();
-                datos_personales_nuevo.TipoDocumento = _this.cmb_tipoDocumento.idItemSeleccionado();
                 datos_personales_nuevo.Dni = parseInt(_this.txt_dni.val());
 
                 domicilioPersonal_nuevo.Id = datos_personales.DomicilioPersonal.Id;
@@ -163,8 +98,6 @@ var CvDatosPersonales = {
                 domicilioPersonal_nuevo.Piso = parseInt(_this.txt_domicilio_personal_piso.val());
                 domicilioPersonal_nuevo.Depto = _this.txt_domicilio_personal_dto.val();
                 domicilioPersonal_nuevo.Cp = parseInt(_this.txt_domicilio_personal_cp.val());
-                domicilioPersonal_nuevo.Provincia = _this.cmb_domicilio_personal_provincia.idItemSeleccionado();
-                domicilioPersonal_nuevo.Localidad = _this.cmb_domicilio_personal_localidad.idItemSeleccionado();
 
                 domicilioLegal_nuevo.Id = datos_personales.DomicilioLegal.Id;
                 domicilioLegal_nuevo.Calle = _this.txt_domicilio_legal_calle.val();
@@ -172,8 +105,6 @@ var CvDatosPersonales = {
                 domicilioLegal_nuevo.Piso = parseInt(_this.txt_domicilio_legal_piso.val());
                 domicilioLegal_nuevo.Depto = _this.txt_domicilio_legal_dto.val();
                 domicilioLegal_nuevo.Cp = parseInt(_this.txt_domicilio_legal_cp.val());
-                domicilioLegal_nuevo.Provincia = _this.cmb_domicilio_legal_provincia.idItemSeleccionado();
-                domicilioLegal_nuevo.Localidad = _this.cmb_domicilio_legal_localidad.idItemSeleccionado();
 
                 datos_personales_nuevo.Telefono = _this.txt_domicilio_legal_Telefono.val();
                 datos_personales_nuevo.Telefono2 = _this.txt_domicilio_legal_Telefono2.val();
@@ -205,8 +136,6 @@ var CvDatosPersonales = {
             }//fin validador
         });
 
-
     }
-
 
 }

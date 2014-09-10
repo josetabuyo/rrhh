@@ -41,11 +41,14 @@
         _this.puesto_secretaria = $("#puesto_jefatura");
         _this.puesto_secretaria.text("Secretaria");
 
+        _this.motivo_postulacion = $("#motivo_postulacion");
+        _this.motivo_postulacion.text(postulacion.Motivo);
+
 
     },
     dibujarCV: function (curriculum) {
         var _this = this;
-       
+
         _this.cv_apellido = $("#cv_apellido");
         _this.cv_apellido.text(curriculum.DatosPersonales.Apellido + ', ');
         _this.cv_nombre = $("#cv_nombre");
@@ -54,23 +57,41 @@
         _this.cv_dni = $("#cv_dni");
         _this.cv_dni.text(curriculum.DatosPersonales.Dni);
         _this.cv_estadoCivil = $("#cv_estadoCivil");
-        _this.cv_estadoCivil.text(Repositorio.buscar("EstadosCiviles", { Id: curriculum.DatosPersonales.EstadoCivil }, function (estadoCivil) { estadoCivil[0].Descripcion }));
+        Backend.BuscarEstadosCiviles({ Id: curriculum.DatosPersonales.EstadoCivil })
+            .onSuccess(function (estadoCivil) {
+                _this.cv_estadoCivil.text(estadoCivil[0].Descripcion);
+            });
+
         _this.cv_fechaNac = $("#cv_fechNac");
         _this.cv_fechaNac.text(curriculum.DatosPersonales.FechaNacimiento);
         _this.cv_lugarNac = $("#cv_lugarNac");
         //_this.cv_lugarNac.text(Repositorio.buscar("LugarDeNacimiento", { Id: curriculum.DatosPersonales.LugarDeNacimiento }, function (lugarDeNacimiento) { lugarDeNacimiento[0].Descripcion }));
         _this.cv_nac = $("#cv_nac");
-        _this.cv_nac.text(Repositorio.buscar("Nacionalidades", { Id: curriculum.DatosPersonales.Nacionalidad }, function (nacionalidad) { nacionalidad[0].Descripcion }));
+        Backend.BuscarNacionalidades({ Id: curriculum.DatosPersonales.Nacionalidad })
+            .onSuccess(function (nacionalidad) {
+                _this.cv_nac.text(nacionalidad[0].Descripcion);
+            });
+        //_this.cv_nac.text(Repositorio.buscar("Nacionalidades", { Id: curriculum.DatosPersonales.Nacionalidad }, function (nacionalidad) { nacionalidad[0].Descripcion }));
         _this.cv_domPersonal = $("#cv_domPersonal");
+
+        //var localidadPersonal = Backend.ejecutarSincronico("BuscarLocalidades", [{ Id: curriculum.DatosPersonales.DomicilioPersonal.Localidad}])[0];
+        var provinciaPersonal = Backend.sync.BuscarProvincias({ Id: curriculum.DatosPersonales.DomicilioPersonal.Provincia })[0];
+
+
         _this.cv_domPersonal.text(curriculum.DatosPersonales.DomicilioPersonal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioPersonal.Numero + ' - ' +
-                                 curriculum.DatosPersonales.DomicilioPersonal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioPersonal.Piso + ' ' +
-                                 curriculum.DatosPersonales.DomicilioPersonal.Depto + ' - ' + curriculum.DatosPersonales.DomicilioPersonal.Localidad +
-                                 curriculum.DatosPersonales.DomicilioPersonal.Provincia);
+                                 curriculum.DatosPersonales.DomicilioPersonal.Piso + ' ' +
+                                 curriculum.DatosPersonales.DomicilioPersonal.Depto + ' - ' +
+                                 provinciaPersonal.Nombre);
+
         _this.cv_domLegal = $("#cv_domLegal");
+
+        var localidadLegal = Backend.sync.BuscarLocalidades({ Id: curriculum.DatosPersonales.DomicilioLegal.Localidad })[0];
+        var provinciaLegal = Backend.sync.BuscarProvincias({ Id: curriculum.DatosPersonales.DomicilioLegal.Provincia })[0];
+
         _this.cv_domLegal.text(curriculum.DatosPersonales.DomicilioLegal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioLegal.Numero + ' - ' +
-                                 curriculum.DatosPersonales.DomicilioLegal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioLegal.Piso + ' ' +
-                                 curriculum.DatosPersonales.DomicilioLegal.Depto + ' - ' + curriculum.DatosPersonales.DomicilioLegal.Localidad +
-                                 curriculum.DatosPersonales.DomicilioLegal.Provincia);
+                                 curriculum.DatosPersonales.DomicilioLegal.Piso + ' ' +
+                                 curriculum.DatosPersonales.DomicilioLegal.Depto + ' - ' + localidadLegal.Nombre + ' ' +
+                                 provinciaLegal.Nombre);
         _this.cv_telefono = $("#cv_telefono");
         _this.cv_telefono.text(curriculum.DatosPersonales.Telefono);
         _this.cv_mail = $("#cv_mail");
@@ -81,7 +102,7 @@
         //CvEstudios
         if (curriculum.CvEstudios.length > 0) {
             _this.caja_antecedentes_academicos = $('#caja_antecedentes_academicos');
-            _this.caja_antecedentes_academicos.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_antecedentes_academicos.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_antecedentes_academicos, "Antecedentes Academicos");
@@ -120,7 +141,7 @@
         //CV DOCENCIAS
         if (curriculum.CvDocencias.length > 0) {
             _this.caja_actividades_docentes = $('#caja_actividades_decentes');
-            _this.caja_actividades_docentes.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_actividades_docentes.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_actividades_docentes, "Actividades Docentes");
@@ -142,7 +163,7 @@
         //CV EVENTOS ACADEMICOS
         if (curriculum.CvEventosAcademicos.length > 0) {
             _this.caja_eventos_academicos = $('#caja_eventos_academicos');
-            _this.caja_eventos_academicos.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_eventos_academicos.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_eventos_academicos, "Eventos Academicos");
@@ -151,8 +172,9 @@
             for (var i = 0; i < curriculum.CvEventosAcademicos.length; i++) {
                 _this.p = _this.dibujarDatos('Año: ');
                 _this.span = $('<span>');
+                var institucion = Backend.ejecutarSincronico("BuscarInstitucionesEventosAcademicos", [{ Id: curriculum.CvEventosAcademicos[i].Institucion}])[0];
                 _this.span.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvEventosAcademicos[i].FechaFinalizacion) + ' - ' +
-                                curriculum.CvEventosAcademicos[i].Institucion + ' - ' +
+                                institucion.Descripcion + ' - ' +
                                 curriculum.CvEventosAcademicos[i].Denominacion);
                 _this.p.append(_this.span);
                 _this.titulos_educativos.append(_this.p);
@@ -164,7 +186,7 @@
         //CV PUBLICACIONES
         if (curriculum.CvPublicaciones.length > 0) {
             _this.caja_publicaciones = $('#caja_publicaciones');
-            _this.caja_publicaciones.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_publicaciones.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_publicaciones, "Publicaciones");
@@ -186,7 +208,7 @@
         //CV Matriculas
         if (curriculum.CvMatricula.length > 0) {
             _this.caja_matriculas = $('#caja_matriculas');
-            _this.caja_matriculas.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_matriculas.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_matriculas, "Matriculas");
@@ -208,7 +230,7 @@
         //CV Instituciones Academicas
         if (curriculum.CvInstitucionesAcademicas.length > 0) {
             _this.caja_instituciones = $('#caja_instituciones');
-            _this.caja_instituciones.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_instituciones.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_instituciones, "Instituciones Academicas");
@@ -230,7 +252,7 @@
         //CV EXPERIENCIAS LABORALES
         if (curriculum.CvExperienciaLaboral.length > 0) {
             _this.caja_experiencias_laborales = $('#caja_experiencias_laborales');
-            _this.caja_experiencias_laborales.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_experiencias_laborales.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_experiencias_laborales, "Experiencias Laborales");
@@ -251,7 +273,7 @@
         //CV OTRAS APTITUDES (IDIOMA + COMPET INFORMATICA + OTRAS CAPACIDADES)
         if (curriculum.CvIdiomas.length > 0 || curriculum.CvCompetenciasInformaticas.length > 0 || curriculum.CvCapacidadesPersonales.length > 0) {
             _this.caja_otras_aptitudes = $('#caja_otras_aptitudes');
-            _this.caja_otras_aptitudes.addClass('antec-academ posicion fondo_form sombra_y_redondeado');
+            _this.caja_otras_aptitudes.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_otras_aptitudes, "Otras capacidades");
@@ -308,13 +330,13 @@
 
 
         } //FIN OTRAS APTITUDES
-    
+
     },
     dibujarTitulo: function (contenedor, titulo) {
         var _this = this;
 
         _this.titulo = $('<p>');
-        _this.titulo.addClass("titulos degrade sombra_y_redondeado");
+        _this.titulo.addClass("titulos degrade ");
         _this.titulo.text(titulo);
 
         contenedor.append(_this.titulo);

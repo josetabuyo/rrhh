@@ -10,14 +10,11 @@
         var _this = this;
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeActividadDocente.htm", function () {
+
+            RH_FORMS.bindear(_this.ui, Repositorio, docencia);
+
             _this.txt_asignatura = _this.ui.find("#txt_actividad_docente_asignatura");
             _this.txt_asignatura.val(docencia.Asignatura);
-
-            _this.cmb_nivel_educativo = new SuperCombo({
-                ui: _this.ui.find("#cmb_actividad_docente_nivel_educativo"),
-                nombre_repositorio: "NivelesDeDocencia",
-                id_item_seleccionado: docencia.NivelEducativo
-            });
 
             _this.tipo_actividad = _this.ui.find("#txt_actividad_docente_tipo_actividad");
             _this.tipo_actividad.val(docencia.TipoActividad);
@@ -44,12 +41,6 @@
             _this.establecimiento.val(docencia.Establecimiento);
             _this.cmb_actividad_docente_localidad = _this.ui.find("#cmb_actividad_docente_localidad");
             _this.cmb_actividad_docente_localidad.val(docencia.Localidad);
-
-            _this.cmb_actividad_docente_pais = new SuperCombo({
-                ui: _this.ui.find("#cmb_actividad_docente_pais"),
-                nombre_repositorio: "Paises",
-                id_item_seleccionado: docencia.Pais
-            });
 
             //Bt cerrar
             _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
@@ -79,11 +70,8 @@
                 docencia.FechaFinalizacion = _this.fecha_fin.datepicker('getDate').toISOString();
                 docencia.Establecimiento = _this.establecimiento.val();
                 docencia.Localidad = _this.cmb_actividad_docente_localidad.val();
-                docencia.Pais = _this.cmb_actividad_docente_pais.idItemSeleccionado();
 
                 var proveedor_ajax = new ProveedorAjax();
-
-
 
                 if (opciones.docencia) {
 

@@ -22,7 +22,8 @@
     
     <div class="panel panel-heading">
         <div class="panel_izquierdo" style="height:auto; width:50%" >
-            <div class="panel panel-default">
+           
+            <!--<div class="panel panel-default">
                 <div class=" estilo_paneles  ">
                 
                 <a href="#" ><span><img alt="imprimir" width="22px" height="22px" src="../Imagenes/Botones/impresora.png" />&nbsp;Imprimir</span></a>    
@@ -41,7 +42,7 @@
                     </div>
                 </div>
                 </div>
-            </div>
+            </div>-->
             <legend>Novedades</legend>
             <p>Se comunica a todos los postulantes que el concurso para ocupar las vacantes dará comienzo el día 25 de mayo del año corriente. <br/>
                 Para inscribirse deberan primero completar el CV de manera online a través de esta misma página, y luego deberán aplicar al puesto en el que tienen interés. <br />
@@ -52,7 +53,9 @@
         </div>
 
         <div style="float:right; " class="panel_derecho">
-
+            <a href="#" ><span><img alt="imprimir" width="22px" height="22px" src="../Imagenes/Botones/impresora.png" />&nbsp;Imprimir CV</span></a>    
+            <a href="VistaPreliminar.aspx" ><span><img alt="descargar" width="22px" height="22px" src="../Imagenes/Botones/guardar.png" />&nbsp;Descargar CV</span></a>                 
+           
           <!--  <div class="panel panel-default">-->
               <div style="height: 435px;" class="panel-body estilo_paneles  ">
                <h3 class="panel-title" >Mis Postulaciones</h3>
@@ -81,19 +84,16 @@
     <asp:HiddenField ID="postulaciones" runat="server" />
             </form>
 </body>
+
  <%= Referencias.Javascript("../") %>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
+ <script type="text/javascript" src="PanelDeControl.js"></script>
 
-  <script type="text/javascript" src="PanelDeControl.js"></script>
  <script type="text/javascript">
-
-     $(document).ready(function () {
-
-         var postulaciones = JSON.parse($('#postulaciones').val());
-         PanelDeControl.armarPostulaciones(postulaciones);
-
-
-    
- });
+    Backend.start();
+    $(document).ready(function () {
+        var postulaciones = JSON.parse($('#postulaciones').val());
+        PanelDeControl.armarPostulaciones(postulaciones);
+    });
  </script>
 </html>

@@ -2,12 +2,18 @@
     mostrar: function (opciones) {
         //valores default
         var competencia_informatica = opciones.competencia_informatica || {
-         Pais: 9};
+            Pais: 9,
+            Nivel: 1,
+            TipoInformatica:1,
+            Conocimiento:1
+         };
         var alModificar = opciones.alModificar || function () { };
 
         var _this = this;
         this.ui = $("#un_div_modal");
         this.ui.find("#contenido_modal").load("PanelDetalleDeCompetenciaInformatica.htm", function () {
+            
+            RH_FORMS.bindear(_this.ui, Repositorio, competencia_informatica);
 
             _this.txt_competencias_informaticas_diploma_certificacion = _this.ui.find("#txt_competencias_informaticas_diploma_certificacion");
             _this.txt_competencias_informaticas_diploma_certificacion.val(competencia_informatica.Diploma);
@@ -21,59 +27,6 @@
             _this.txt_competencias_informaticas_establecimiento.val(competencia_informatica.Establecimiento);
             _this.cmb_competencias_informaticas_localidad = _this.ui.find("#cmb_competencias_informaticas_localidad");
             _this.cmb_competencias_informaticas_localidad.val(competencia_informatica.Localidad);
-
-            _this.cmb_competencias_informaticas_pais = new SuperCombo({
-                ui: _this.ui.find("#cmb_competencias_informaticas_pais"),
-                nombre_repositorio: "Paises",
-                id_item_seleccionado: competencia_informatica.Pais
-            });
-
-
-                _this.txt_competencias_informaticas_nivel = new SuperCombo({
-                ui: _this.ui.find("#txt_competencias_informaticas_nivel"),
-                nombre_repositorio: "NivelCompetenciaInformatica",
-                id_item_seleccionado: competencia_informatica.Nivel
-            });
-
-
-            
-
-
-
-                  _this.txt_competencias_informaticas_conocimiento = new SuperCombo({
-                ui: _this.ui.find("#txt_competencias_informaticas_conocimiento"),
-                nombre_repositorio: "ConocimientoCompetenciaInformatica",
-                   filtro: { Tipo: competencia_informatica.Tipo },
-                id_item_seleccionado: competencia_informatica.Conocimiento
-            });
-
-
-                _this.txt_competencias_informaticas_tipo_informatica = new SuperCombo({
-                ui: _this.ui.find("#txt_competencias_informaticas_tipo_informatica"),
-                nombre_repositorio: "TiposCompetenciaInformatica",
-                id_item_seleccionado: competencia_informatica.TipoInformatica,
-                 al_seleccionar: function (id_tipo) {
-                _this.txt_competencias_informaticas_conocimiento.cambiarFiltro({ Tipo: id_tipo});
-                 }
-            });
-
-                
-
-
-
-
-            //TiposCompetenciaInformatica
-
-
-         //   _this.txt_competencias_informaticas_tipo_informatica = _this.ui.find("#txt_competencias_informaticas_tipo_informatica");
-         //   _this.txt_competencias_informaticas_tipo_informatica.val(competencia_informatica.TipoInformatica);
-         
-         
-          //  _this.txt_competencias_informaticas_conocimiento = _this.ui.find("#txt_competencias_informaticas_conocimiento");
-         //   _this.txt_competencias_informaticas_conocimiento.val(competencia_informatica.Conocimiento);
-   //            _this.txt_competencias_informaticas_nivel = _this.ui.find("#txt_competencias_informaticas_nivel");
-           
-           // _this.txt_competencias_informaticas_nivel.val(competencia_informatica.Nivel);
 
             _this.txt_competencias_informaticas_detalle = _this.ui.find("#txt_competencias_informaticas_detalle");
             _this.txt_competencias_informaticas_detalle.val(competencia_informatica.Detalle);
@@ -97,19 +50,10 @@
                 competencia_informatica.FechaObtencion = _this.txt_competencias_informaticas_fecha_obtencion.datepicker('getDate').toISOString();
                 competencia_informatica.Establecimiento = _this.txt_competencias_informaticas_establecimiento.val();
                 competencia_informatica.Localidad = _this.cmb_competencias_informaticas_localidad.val();
-                competencia_informatica.Pais = _this.cmb_competencias_informaticas_pais.idItemSeleccionado();
-               // competencia_informatica.TipoInformatica = _this.txt_competencias_informaticas_tipo_informatica.val();
-                 competencia_informatica.TipoInformatica = _this.txt_competencias_informaticas_tipo_informatica.idItemSeleccionado();
-                  //  domicilioLegal_nuevo.Provincia = _this.cmb_domicilio_legal_provincia.idItemSeleccionado();
-
-              //  competencia_informatica.Conocimiento = _this.txt_competencias_informaticas_conocimiento.val();
-                competencia_informatica.Conocimiento = _this.txt_competencias_informaticas_conocimiento.idItemSeleccionado();
-
-
-
-
-               // competencia_informatica.Nivel = _this.txt_competencias_informaticas_nivel.val();
-                    competencia_informatica.Nivel = _this.txt_competencias_informaticas_nivel.idItemSeleccionado();
+                
+                //No va más porque en ompetencia_informatica.TipoInformatica ya tiene el seleccionado
+               // competencia_informatica.TipoInformatica = _this.txt_competencias_informaticas_tipo_informatica.idItemSeleccionado();
+                    
                 competencia_informatica.Detalle = _this.txt_competencias_informaticas_detalle.val();
 
                 var proveedor_ajax = new ProveedorAjax();
