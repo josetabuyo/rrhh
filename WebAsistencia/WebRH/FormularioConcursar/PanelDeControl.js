@@ -54,7 +54,7 @@
                             // user clicked "ok"
                             Backend.EliminarPostulacionPorUsuario(postulaciones[0]).onSuccess(function () { })
                         } else {
-                            alertify.error("No se puedo Eliminar la Postulación");
+                            alertify.error("No se ha eliminado la Postulación");
                         }
                     });
 
