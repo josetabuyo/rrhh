@@ -22,7 +22,9 @@
                     <button id="fat-btn" data-loading-text="Iniciando..." class=" btn btn-primary"> 
                         Iniciar Sesión
                     </button>
-                    
+                    <div style="margin-left: 175px;margin-top: 10px;">
+                   <a id="lnk_recuperar">¿Olvidó sus datos?</a> 
+                   </div>
                 </div>
                 <div id="loginAlertaInvalido" class="alert  alert-error" runat="server">
                     <a class="close" data-dismiss="alert">×</a> <strong>Error</strong> El nombre de
@@ -31,6 +33,7 @@
            
         </div>
         <div id="registrarse_dialog"></div>
+         <div id="recuperar_dialog"></div>
     </div>
     </form>
     <%= Referencias.Javascript("") %>
@@ -42,6 +45,11 @@
     var lnk_registrarse = $("#lnk_registrarse");
     lnk_registrarse.click(function () {
         PantallaRegistro.abrir();
+    });
+
+    var lnk_recuperar = $("#lnk_recuperar");
+    lnk_recuperar.click(function () {
+        PantallaRegistro.recuperar();
     });
 </script>
 </html>

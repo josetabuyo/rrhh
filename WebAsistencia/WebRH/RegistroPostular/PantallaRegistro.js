@@ -12,9 +12,23 @@
             _this.mostrar();
         });
 
-
         this.proveedor_ajax = new ProveedorAjax();
     },
+
+     recuperar: function () {
+     var _this = this;
+     this.ui = $("#recuperar_dialog");
+
+        this.ui.load("RegistroPostular/PantallaRecupero.htm", function () {
+            _this.panel_paso_1 = $("#panel_paso_1");
+            _this.panel_paso_2 = $("#panel_paso_2");
+            _this.abrir = function () {
+                _this.mostrar();
+            };
+            _this.mostrarRecupero();
+        });
+    },
+
     mostrar: function () {
         vex.dialog.open({
             message: "Ingrese su DNI",
@@ -25,6 +39,18 @@
         this.ui.limpiarValidaciones();
         this.paso1();
     },
+
+    mostrarRecupero: function () {
+        vex.dialog.open({
+            message: "Ingrese su DNI",
+            input: this.ui,
+            buttons: [
+                ]
+        });
+        this.ui.limpiarValidaciones();
+        this.paso3();
+    },
+
     paso1: function () {
         var _this = this;
         this.btn_validar = $("#btn_validar");
@@ -98,4 +124,5 @@
             }
         });
     }
+
 };
