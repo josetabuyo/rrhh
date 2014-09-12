@@ -27,9 +27,9 @@
                     <input type="button" id="btn_buscar_etapas" value="Buscar" />
                 </div>
                 <div style="display:inline-block; margin-left:30px;">
-                    <div>Empleado:</div>
-                    <div>Código:</div>
-                    <div>Fecha de Postulación:</div>
+                    <div id="div_empleado">Empleado:&nbsp;</div>
+                    <div id="div_codigo">Código:&nbsp;</div>
+                    <div id="div_fecha">Fecha de Postulación:&nbsp;</div>
                 </div>
                 <div style="display:inline-block; margin-left:30px;">
                     Perfil:
@@ -55,6 +55,7 @@
     </form>
 </body>
  <%= Referencias.Javascript("../") %>
+ <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
   <script type="text/javascript">
 
       $(document).ready(function () {
@@ -76,10 +77,13 @@
               url: "GetPostulacionesPorCodigo",
               data: { "codigo": codigo },
               success: function (respuesta) {
-                  alertify.alert(JSON.stringify(respuesta));
+                  var div_tabla_historial = $("#div_tabla_historial");
+                  var div_empleado = $("#div_empleado");
+                  var div_codigo = $("#div_codigo");
+                  var div_fecha = $("#div_fecha");
 
                   var columnas = [];
-                  columnas.push(new Columna("Fecha", { generar: function (una_etapa) { return una_etapa.Fecha } }));
+                  columnas.push(new Columna("Fecha", { generar: function (una_etapa) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_etapa.Fecha) } }));
                   columnas.push(new Columna("Descripción", { generar: function (una_etapa) { return una_etapa.Descripcion } }));
                   columnas.push(new Columna("Usuario", { generar: function (una_etapa) { return una_etapa.Usuario } }));
 
@@ -90,12 +94,28 @@
                   });
 
                   this.GrillaHistorial.CargarObjetos(respuesta.Etapas);
-                  this.GrillaHistorial.DibujarEn($("#div_tabla_historial"));
+                  this.GrillaHistorial.DibujarEn(div_tabla_historial);
+
+                  div_empleado.append(respuesta.IdPersona);
+                  div_codigo.append(respuesta.Numero);
+                  div_fecha.append(ConversorDeFechas.deIsoAFechaEnCriollo(respuesta.FechaPostulacion));
 
               },
               error: function (XMLHttpRequest, textStatus, errorThrown) {
                   alertify.alert("Error.");
               }
+          });
+          var cmb_etapas_concurso = $("#cmb_etapas_concurso");
+          cmb_etapas_concurso.click(function () {
+              proveedor_ajax.postearAUrl({
+                  url: "InsEtapasConcurso",
+                  success: function (respuesta) {
+                      alertify.alert(JSON.stringify(respuesta));
+                  },
+                  error: function (XMLHttpRequest, textStatus, errorThrown) {
+                      alertify.alert("Error.");
+                  }
+              });
           });
       }
 

@@ -175,5 +175,17 @@ namespace General
 
             return id;
         }
+
+        public void InsEtapaPostulacion(int id_postulacion,EtapaPostulacion etapa_postulacion)
+        {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPostulacion", id_postulacion);
+            parametros.Add("@Descripcion", etapa_postulacion.Descripcion);
+            parametros.Add("@Usuario", etapa_postulacion.Usuario);
+
+            conexion_bd.EjecutarSinResultado("dbo.CV_Ins_Etapa_Postulacion", parametros);
+
+        }
     }
 }

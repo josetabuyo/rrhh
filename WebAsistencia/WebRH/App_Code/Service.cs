@@ -815,12 +815,13 @@ public class AjaxWS : System.Web.Services.WebService
 
     }
 
-    //[WebMethod(EnableSession = true)]
-    //public string GetEtapasPostulacion()
-    //{
-    //    var etapas = backEndService.GetEtapasPostulacion();
-    //    return Newtonsoft.Json.JsonConvert.SerializeObject(etapas);
-    //}
+    [WebMethod(EnableSession = true)]
+    public void InsEtapasConcurso(int id_postulacion ,WSViaticos.EtapaPostulacion etapa_postulacion)
+    {
+        backEndService.InsEtapasConcurso(id_postulacion, etapa_postulacion);
+
+    }
+    
 
     #endregion
 
