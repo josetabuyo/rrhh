@@ -27,16 +27,7 @@ namespace General
         public virtual List<EtapaPostulacion> Etapas { get { return _etapas; } set { _etapas = value;} }
         public virtual string Estado { get { return _estado; } set { _estado = value; } }
 
-        public Postulacion(int id, Puesto puesto, int idPersona, DateTime fecha, string motivo, string observaciones, string numero, string estado) {
-            _id = id;
-            _puesto = puesto;
-            _idPersona = idPersona;
-            _fechaPostulacion = fecha;
-            _motivo = motivo;
-            _observaciones = observaciones;
-            _numero = numero;
-        }
-
+       
         public Postulacion(int id, Puesto puesto, int idPersona, DateTime fecha, string motivo, string observaciones, string numero, List<EtapaPostulacion> etapas)
         {
             _id = id;
@@ -49,12 +40,19 @@ namespace General
             _etapas = etapas;
         }
 
-        public Postulacion() { }
+        public Postulacion() {
+            this._etapas = new List<EtapaPostulacion>();
+        }
 
 
         public EtapaPostulacion EtapaEn(DateTime fecha)
         {
             return this.Etapas.FindLast(e => e.Fecha <= fecha);
+        }
+
+        internal void AgregarPostulacion(EtapaPostulacion ep)
+        {
+            this._etapas.Add(ep);
         }
     }
 }

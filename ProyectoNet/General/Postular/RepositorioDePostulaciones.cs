@@ -62,14 +62,59 @@ namespace General
 
             tablaCVs.Rows.ForEach(row =>
             {
-                var postulacion = new Postulacion(row.GetInt("IdPostulacion"), ArmarPuesto(row), row.GetInt("IdPersona"), row.GetDateTime("FechaInscripcion"),
-                                                  row.GetString("Motivo"), row.GetString("Observaciones"), row.GetString("Postulacion_Numero", ""), GetEtapasPotulacion(row.GetInt("IdPostulacion")));
-                
+                var postulacion = new Postulacion(){
+                   Id= row.GetInt("IdPostulacion"), 
+                   Puesto=ArmarPuesto(row), 
+                   IdPersona=row.GetInt("IdPersona"), 
+                   FechaPostulacion=row.GetDateTime("FechaInscripcion"),
+                   Motivo=row.GetString("Motivo"), 
+                   Observaciones=row.GetString("Observaciones"), 
+                   Numero= row.GetString("Postulacion_Numero", "")
+                };
+                CorteDeControlEtapas(tablaCVs, postulacion);
                 postulaciones.Add(postulacion);
 
             });
             return postulaciones;
         }
+
+        private void CorteDeControlEtapas(TablaDeDatos tablaCVs, Postulacion postulacion)
+        {
+            //CORTE DE CONTROL PARA OTRAS CAPACIDADES
+            //1.- Controlo que haya al menos 1 resultado
+            var lista = ArmarFilas(tablaCVs, "IdUsuarioPostulacion"); 
+            new List<RowDeDatos>();
+
+            if (lista.Count > 0)
+            {
+                var etapas = (from RowDeDatos dRow in lista
+                                            select new //CvEventoAcademico ()
+                                            {
+                                                Descripcion = dRow.GetString("EtapaDescripcion", ""),
+                                                Fecha = dRow.GetDateTime("FechaPostulacion"),
+                                                IdUsuario = dRow.GetSmallintAsInt("IdUsuarioPostulacion").ToString(),
+                                                IdPostulacion = dRow.GetInt("IdPostulacion")
+                                            }).Where(r => r.IdPostulacion == postulacion.Id).Distinct().ToList();
+
+                etapas.Select(e => 
+                    new EtapaPostulacion(){
+                        Descripcion = e.Descripcion, Fecha = e.Fecha, Usuario = e.IdUsuario
+                    }).ToList().ForEach(ep => postulacion.AgregarPostulacion(ep));
+            }
+        }
+
+
+        private List<RowDeDatos> ArmarFilas(TablaDeDatos tabla, string id_usuario_postulacion)
+        {
+            var lista = new List<RowDeDatos>();
+            tabla.Rows.ForEach(r =>
+            {
+                if (!(r.GetObject(id_usuario_postulacion) is DBNull))
+                    lista.Add(r);
+            });
+            return lista;
+        }
+
 
         public List<EtapaPostulacion> GetEtapasPotulacion(int id)
         {
