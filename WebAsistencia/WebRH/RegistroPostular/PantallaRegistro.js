@@ -123,6 +123,38 @@
                 });
             }
         });
+    },
+
+    paso3: function () {
+        var _this = this;
+        this.btn_validar = $("#btn_validar");
+        this.txt_numero_documento = $("#txt_numero_documento");
+        this.txt_numero_documento.val("");
+        this.panel_paso_1.show();
+        this.panel_paso_2.hide();
+        this.btn_validar.click(function () {
+            if (_this.panel_paso_1.esValido()) {
+                _this.proveedor_ajax.postearAUrl({ url: "BuscarPersonas",
+                    data: { 
+                        criterio: JSON.stringify({
+                                        Documento: parseInt(_this.txt_numero_documento.val()),
+                                        ConLegajo: true
+                                    })
+                    },
+                    success: function (personas) {
+                        if (personas.length == 0) {
+                            alertify.alert("El documento ingresado ya está registrado, inicie sesión o comuníquese con Recursos Humanos.");
+                            return;
+                        }
+                        _this.paso4();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    }
+                });
+            }
+        });
     }
+
 
 };
