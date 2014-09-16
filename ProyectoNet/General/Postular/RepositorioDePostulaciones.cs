@@ -59,7 +59,8 @@ namespace General
         private List<Postulacion> ArmarPostulaciones(TablaDeDatos tablaCVs)
         {
             List<Postulacion> postulaciones = new List<Postulacion>();
-
+            
+            
             tablaCVs.Rows.ForEach(row =>
             {
                 var postulacion = new Postulacion(){
@@ -71,10 +72,16 @@ namespace General
                    Observaciones=row.GetString("Observaciones"), 
                    Numero= row.GetString("Postulacion_Numero", "")
                 };
-                CorteDeControlEtapas(tablaCVs, postulacion);
-                postulaciones.Add(postulacion);
+                
+
+                if(!postulaciones.Exists( p => p.Id == postulacion.Id))
+                    postulaciones.Add(postulacion);
 
             });
+
+            postulaciones.ForEach(p =>
+                CorteDeControlEtapas(tablaCVs, p)
+            );
             return postulaciones;
         }
 
