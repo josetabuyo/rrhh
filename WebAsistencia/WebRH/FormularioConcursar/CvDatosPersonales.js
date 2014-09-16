@@ -24,7 +24,7 @@ var CvDatosPersonales = {
         _this.txt_fechaNac.datepicker('option', 'dateFormat', 'dd/mm/yy');
         _this.txt_fechaNac.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(datos_personales.FechaNacimiento));
 
-       
+
         _this.txt_dni.val(parseInt(datos_personales.Dni));
 
         if (datos_personales.TieneLegajo == "Tiene legajo") {
@@ -60,29 +60,30 @@ var CvDatosPersonales = {
         _this.txt_domicilio_legal_piso = _this.ui.find("#txt_piso2");
         _this.txt_domicilio_legal_dto = _this.ui.find("#txt_dto2");
         _this.txt_domicilio_legal_cp = _this.ui.find("#txt_cp2");
-        _this.txt_domicilio_legal_Telefono = _this.ui.find("#txt_telefono");
-        _this.txt_domicilio_legal_Telefono2 = _this.ui.find("#txt_telefono2");
-        _this.txt_domicilio_legal_Email = _this.ui.find("#txt_email");
+        _this.txt_datos_de_contacto_Telefono = _this.ui.find("#txt_telefono");
+        _this.txt_datos_de_contacto_Telefono2 = _this.ui.find("#txt_telefono2");
+        _this.txt_datos_de_contacto_Email = _this.ui.find("#txt_email");
 
         _this.txt_domicilio_legal_calle.val(datos_personales.DomicilioLegal.Calle);
         _this.txt_domicilio_legal_numero.val(parseInt(datos_personales.DomicilioLegal.Numero));
         _this.txt_domicilio_legal_piso.val((datos_personales.DomicilioLegal.Piso));
         _this.txt_domicilio_legal_dto.val(datos_personales.DomicilioLegal.Depto);
         _this.txt_domicilio_legal_cp.val(parseInt(datos_personales.DomicilioLegal.Cp));
-        _this.txt_domicilio_legal_Telefono.val(datos_personales.DomicilioLegal.Telefono);
-        _this.txt_domicilio_legal_Telefono2.val(datos_personales.DomicilioLegal.Telefono2);
-        _this.txt_domicilio_legal_Email.val(datos_personales.DomicilioLegal.Email);
+        _this.txt_datos_de_contacto_Telefono.val(datos_personales.DatosDeContacto.Telefono);
+        _this.txt_datos_de_contacto_Telefono2.val(datos_personales.DatosDeContacto.Telefono2);
+        _this.txt_datos_de_contacto_Email.val(datos_personales.DatosDeContacto.Email);
 
         //Bt guardar
         _this.add_datosPersonales = _this.ui.find("#btn_guardar_datosPersonales");
         _this.add_datosPersonales.click(function () {
-//            datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
+            //            datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
 
 
             if ($("#contenedor_datosPersonales").esValido()) {
                 var datos_personales_nuevo = {};
                 var domicilioPersonal_nuevo = {};
                 var domicilioLegal_nuevo = {};
+                var datosDeContacto_nuevo = {};
                 datos_personales_nuevo.Nombre = _this.txt_nombre.val();
                 datos_personales_nuevo.Apellido = _this.txt_apellido.val();
                 datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
@@ -105,12 +106,13 @@ var CvDatosPersonales = {
                 domicilioLegal_nuevo.Depto = _this.txt_domicilio_legal_dto.val();
                 domicilioLegal_nuevo.Cp = parseInt(_this.txt_domicilio_legal_cp.val());
 
-                datos_personales_nuevo.Telefono = _this.txt_domicilio_legal_Telefono.val();
-                datos_personales_nuevo.Telefono2 = _this.txt_domicilio_legal_Telefono2.val();
-                datos_personales_nuevo.Email = _this.txt_domicilio_legal_Email.val();
+                datosDeContacto_nuevo.Telefono = _this.txt_datos_de_contacto_Telefono.val();
+                datosDeContacto_nuevo.Telefono2 = _this.txt_datos_de_contacto_Telefono2.val();
+                datosDeContacto_nuevo.Email = _this.txt_datos_de_contacto_Email.val();
 
                 datos_personales_nuevo.DomicilioPersonal = domicilioPersonal_nuevo;
                 datos_personales_nuevo.DomicilioLegal = domicilioLegal_nuevo;
+                datos_personales_nuevo.DatosDeContacto = datosDeContacto_nuevo;
 
                 var data_post = JSON.stringify({
                     "datosPersonales_nuevos": datos_personales_nuevo,
@@ -132,7 +134,7 @@ var CvDatosPersonales = {
                         alertify.alert(errorThrown);
                     }
                 });
-            }//fin validador
+            } //fin validador
         });
 
     }
