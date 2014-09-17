@@ -20,6 +20,12 @@
 
             _this.txt_establecimiento = _this.ui.find("#txt_antecedentes_establecimiento");
             _this.txt_establecimiento.val(estudio.Establecimiento);
+
+
+//            _this.txt_antecedentes_nivel = _this.ui.find("#txt_antecedentes_nivel");
+//            _this.txt_antecedentes_nivel.val(estudio.Nivel);
+
+
             _this.txt_antecedentes_especialidad = _this.ui.find("#txt_antecedentes_especialidad");
             _this.txt_antecedentes_especialidad.val(estudio.Especialidad);
             _this.txt_antecedentes_ingreso = _this.ui.find("#txt_antecedentes_ingreso");
@@ -49,6 +55,7 @@
 
                     estudio.Titulo = _this.txt_antecedentes_titulo.val();
                     estudio.Establecimiento = _this.txt_establecimiento.val();
+//                    estudio.Nivel = _this.txt_antecedentes_nivel.val();
                     estudio.Especialidad = _this.txt_antecedentes_especialidad.val();
                     estudio.FechaIngreso = _this.txt_antecedentes_ingreso.datepicker('getDate').toISOString();
                     estudio.FechaEgreso = _this.txt_antecedentes_egreso.datepicker('getDate').toISOString();
@@ -61,7 +68,7 @@
                                 un_estudio: estudio
                             },
                             success: function (respuesta) {
-                                alertify.alert("Los capacidad fue actualizada correctamente");
+                                alertify.alert("El Antecedente fue actualizado correctamente");
                                 alModificar(respuesta);
                                 $(".modal_close_concursar").click();
                             },

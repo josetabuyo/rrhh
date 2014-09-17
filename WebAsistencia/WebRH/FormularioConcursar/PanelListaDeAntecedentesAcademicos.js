@@ -1,6 +1,6 @@
 ﻿var PanelListaDeAntecedentesAcademicos = {
     armarGrilla: function (estudios) {
-
+        debugger;
         var _this = this;
 
         _this.divGrilla = $('#tabla_antecedentes_academicos');
@@ -22,7 +22,17 @@
 
         //columnas.push(new Columna("Id", { generar: function (un_estudio) { return un_estudio.Id } }));
         columnas.push(new Columna("Título", { generar: function (un_estudio) { return un_estudio.Titulo } }));
-        columnas.push(new Columna("Nivel", { generar: function (un_estudio) { return un_estudio.Nivel } }));
+        //   columnas.push(new Columna("Nivel", { generar: function (un_estudio) { return un_estudio.Nivel } }));
+
+
+
+        columnas.push(new Columna("Nivel", {
+            generar: function (un_estudio, callback) {
+                Repositorio.buscar("NivelesDeEstudio", { Id: un_estudio.Nivel }, function (niveles) { callback(niveles[0].Descripcion) });
+            }, asincronico: true
+        }));
+
+
         columnas.push(new Columna("Establecimiento", { generar: function (un_estudio) { return un_estudio.Establecimiento } }));
         //columnas.push(new Columna("Especialidad", { generar: function (un_estudio) { return un_estudio.Especialidad } }));
         //columnas.push(new Columna("FechaIngreso", { generar: function (un_estudio) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_estudio.FechaIngreso) } }));

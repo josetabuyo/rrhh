@@ -618,6 +618,8 @@ namespace General.Repositorios
             parametros.Add("@Localidad", antecedentesAcademicos_nuevo.Localidad);
             parametros.Add("@Pais", antecedentesAcademicos_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@Nivel", antecedentesAcademicos_nuevo.Nivel);
+
 
             return parametros;
 
@@ -1274,6 +1276,7 @@ namespace General.Repositorios
             validador_estudios.DeberianSerNoVacias(new string[] { "Titulo", "Especialidad", "Establecimiento", "Localidad" });
             validador_estudios.DeberianSerFechasNoVacias(new string[] { "FechaIngreso", "FechaEgreso"});
             validador_estudios.DeberianSerNaturales(new string[] { "Nivel", "Pais" });
+          //  validador_estudios.DeberianSerNaturales(new string[] {  "Pais" });
             
             if (!validador_estudios.EsValido(un_estudio))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");              
