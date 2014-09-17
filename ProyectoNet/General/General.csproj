@@ -104,9 +104,9 @@
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
     <Compile Include="Postular\Comite.cs" />
-<Compile Include="Postular\NivelDeEstudio.cs" />
+    <Compile Include="Postular\DatosDeContacto.cs" />
+    <Compile Include="Postular\NivelDeEstudio.cs" />
     <Compile Include="Postular\IntegranteComite.cs" />
-
     <Compile Include="Postular\CVCaracterDeParticipacionEvento.cs" />
     <Compile Include="Postular\CVInstitucionesEventos.cs" />
     <Compile Include="Postular\CVTiposDeEventoAcademico.cs" />
