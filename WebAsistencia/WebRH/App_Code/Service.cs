@@ -798,7 +798,6 @@ public class AjaxWS : System.Web.Services.WebService
     {
         var postulacion = backEndService.PostularseA(una_postulacion, usuarioLogueado);
         return Newtonsoft.Json.JsonConvert.SerializeObject(postulacion);
-
     }
 
     [WebMethod(EnableSession = true)]
@@ -808,13 +807,20 @@ public class AjaxWS : System.Web.Services.WebService
         return JsonConvert.SerializeObject(comite);
     }
 
-    //[WebMethod(EnableSession = true)]
-    //public string GetPostulaciones()
-    //{
-    //    var postulaciones = backEndService.GetPostulaciones(usuarioLogueado);
-    //    return Newtonsoft.Json.JsonConvert.SerializeObject(postulaciones);
+    [WebMethod(EnableSession = true)]
+    public string GetPostulacionesPorCodigo(string codigo)
+    {
+        var postulaciones = backEndService.GetPostulacionesPorCodigo(codigo);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(postulaciones);
 
-    //} 
+    }
+
+    //[WebMethod(EnableSession = true)]
+    //public string GetEtapasPostulacion()
+    //{
+    //    var etapas = backEndService.GetEtapasPostulacion();
+    //    return Newtonsoft.Json.JsonConvert.SerializeObject(etapas);
+    //}
 
     #endregion
 

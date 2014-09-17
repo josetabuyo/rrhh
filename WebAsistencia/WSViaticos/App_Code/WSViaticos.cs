@@ -2431,6 +2431,20 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Postulacion GetPostulacionesPorCodigo(string codigo)
+    {
+        var postulaciones = RepoPostulaciones().GetPostulacionesPorCodigo(codigo);
+        return postulaciones;
+    }
+
+    [WebMethod(EnableSession = true)]
+    public EtapaConcurso[] BuscarEtapasConcurso()
+    {
+        var etapas = RepoPostulaciones().GetEtapasConcurso().ToArray();
+        return etapas;
+    }
+
+    [WebMethod]
     public Comite GetComite(int idComite)
     {
         return RepoComites().GetComiteById(idComite);
