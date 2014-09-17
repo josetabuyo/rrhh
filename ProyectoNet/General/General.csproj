@@ -104,8 +104,12 @@
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
     <Compile Include="Postular\Comite.cs" />
+<<<<<<< HEAD
+    <Compile Include="Postular\DatosDeContacto.cs" />
+=======
     <Compile Include="Postular\EtapaConcurso.cs" />
     <Compile Include="Postular\EtapaPostulacion.cs" />
+>>>>>>> a6eb2c2667c55fd3ed34aa2dad4b148b15c17a3a
     <Compile Include="Postular\NivelDeEstudio.cs" />
     <Compile Include="Postular\IntegranteComite.cs" />
     <Compile Include="Postular\CVCaracterDeParticipacionEvento.cs" />
