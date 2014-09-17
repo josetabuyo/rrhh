@@ -31,7 +31,7 @@
                 var titulo = $('<a>');
                 titulo.addClass('subtitulo_postulaciones');
                 titulo.attr("href", 'FichaInscripcionCVDeclaJurada.aspx?id=' + postulaciones[i].Id)
-                titulo[0].innerHTML = 'N°: ' + postulaciones[i].Numero + ' (' + ConversorDeFechas.deIsoAFechaEnCriollo(postulaciones[i].FechaPostulacion) + ')';
+                titulo[0].innerHTML = 'N°: ' + postulaciones[i].Numero + ' (' + ConversorDeFechas.deIsoAFechaEnCriollo(postulaciones[i].FechaPostulacion) + ')' + ' - Estado: ' + obtenerEstado(postulaciones[i]);
                 // titulo[0].puesto = postulaciones[i].Puesto;
                 /*titulo.click(function (e) {
                 window.location.href = 'FichaInscripcionCVDeclaJurada.aspx?id=' + titulo[0].puesto.Id;
@@ -54,7 +54,7 @@
                             // user clicked "ok"
                             Backend.EliminarPostulacionPorUsuario(postulaciones[0]).onSuccess(function () { })
                         } else {
-                            alertify.error("No se puedo Eliminar la Postulación");
+                            alertify.error("No se ha eliminado la Postulación");
                         }
                     });
 
@@ -85,6 +85,29 @@
             pastilla.append(titulo);
             _this.divGrilla.append(pastilla);
         }
+
+
+        function obtenerEstado(postulacion) {
+            var fecha_comparacion;
+            var etapa_seleccionada;
+
+            if (postulacion.Etapas.length > 0) {
+                fecha_comparacion = postulacion.Etapas[0].Fecha;
+                etapa_seleccionada = postulacion.Etapas[0].Descripcion;
+                for (var i = 0; i < postulacion.Etapas.length; i++) {
+                    if (fecha_comparacion < postulacion.Etapas[i].Fecha) {
+                        etapa_seleccionada = postulacion.Etapas[i].Descripcion;
+                    }
+                }
+                return etapa_seleccionada;
+            } else {
+                return "Error";
+            }
+
+
+        }
+
+
     }
 }
 

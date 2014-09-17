@@ -56,7 +56,7 @@
                     <fieldset style=" width:100%; min-width:500px;" >
                       <h5><em>*</em> Campos Obligatorios</h5>
                       <p style="text-transform:uppercase; font-weight:bold;">VISUALIZACIÓN Y EDICIÓN DE LA INFORMACIÓN PERSONAL</p>
-                        
+                       <div id = "contenedor_datos_legajos">
                         <div class="grupo_campos nueva_linea" >
                           <label for="nombre">Nombre <em>*</em></label>
                           <input id="nombre" type="text" style="width:160px;" data-validar="esNoBlanco" 
@@ -102,6 +102,7 @@
                          <select id="cmb_nacionalidad" style="width:280px;" name="cmb_nacionalidad" modelo="Nacionalidad" data-validar="esUnComboSinCero" dataProvider="Nacionalidades">
                          </select>
                       </div>
+                      </div> 
                        <div class="grupo_campos nueva_linea">
                         <label class="etiqueta_campo" for="txt_calle1">Calle <em>*</em></label>
                         <input type="text" id="txt_calle1" name="txt_calle1" style="width:350px;"  
@@ -194,8 +195,8 @@
                         </div>
 
                         <div id="contenedor_mails"class="grupo_campos">
-                            <label class="etiqueta_campo" for="txt_email">Correo Electrónico</label>
-                            <input type="text" id="txt_email" name="txt_email" style="width:320px" data-validar="esEmailValido"/>
+                            <label class="etiqueta_campo" for="txt_email">Correo Electrónico<em>*</em></label>
+                            <input type="text" id="txt_email" name="txt_email" style="width:320px" data-validar="esEmailValido, esNoBlanco"/>
                        </div>
                       </fieldset>
                       <br />
