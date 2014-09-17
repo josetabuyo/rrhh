@@ -819,7 +819,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Etapas" type="tns:ArrayOfEtapaPostulacion" />
-          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfEtapaPostulacion">
@@ -830,8 +829,14 @@
       <s:complexType name="EtapaPostulacion">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Etapa" type="tns:EtapaConcurso" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdUsuario" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EtapaConcurso">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="EliminarPostulacionPorUsuario">
@@ -2688,12 +2693,6 @@
       <s:element name="BuscarEtapasConcurso">
         <s:complexType />
       </s:element>
-      <s:complexType name="EtapaConcurso">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="ArrayOfEtapaConcurso">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="EtapaConcurso" nillable="true" type="tns:EtapaConcurso" />
@@ -2720,7 +2719,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="InsEtapasConcurso">
+      <s:element name="InsEtapaPostulacion">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_postulacion" type="s:int" />
@@ -2728,7 +2727,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="InsEtapasConcursoResponse">
+      <s:element name="InsEtapaPostulacionResponse">
         <s:complexType />
       </s:element>
       <s:element name="GuardarCvAntecedenteAcademico">
@@ -4882,11 +4881,11 @@
   <wsdl:message name="GetComiteSoapOut">
     <wsdl:part name="parameters" element="tns:GetComiteResponse" />
   </wsdl:message>
-  <wsdl:message name="InsEtapasConcursoSoapIn">
-    <wsdl:part name="parameters" element="tns:InsEtapasConcurso" />
+  <wsdl:message name="InsEtapaPostulacionSoapIn">
+    <wsdl:part name="parameters" element="tns:InsEtapaPostulacion" />
   </wsdl:message>
-  <wsdl:message name="InsEtapasConcursoSoapOut">
-    <wsdl:part name="parameters" element="tns:InsEtapasConcursoResponse" />
+  <wsdl:message name="InsEtapaPostulacionSoapOut">
+    <wsdl:part name="parameters" element="tns:InsEtapaPostulacionResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarCvAntecedenteAcademicoSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCvAntecedenteAcademico" />
@@ -5845,9 +5844,9 @@
       <wsdl:input message="tns:GetComiteSoapIn" />
       <wsdl:output message="tns:GetComiteSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="InsEtapasConcurso">
-      <wsdl:input message="tns:InsEtapasConcursoSoapIn" />
-      <wsdl:output message="tns:InsEtapasConcursoSoapOut" />
+    <wsdl:operation name="InsEtapaPostulacion">
+      <wsdl:input message="tns:InsEtapaPostulacionSoapIn" />
+      <wsdl:output message="tns:InsEtapaPostulacionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarCvAntecedenteAcademico">
       <wsdl:input message="tns:GuardarCvAntecedenteAcademicoSoapIn" />
@@ -7243,8 +7242,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsEtapasConcurso">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/InsEtapasConcurso" style="document" />
+    <wsdl:operation name="InsEtapaPostulacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/InsEtapaPostulacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9046,8 +9045,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsEtapasConcurso">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/InsEtapasConcurso" style="document" />
+    <wsdl:operation name="InsEtapaPostulacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/InsEtapaPostulacion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

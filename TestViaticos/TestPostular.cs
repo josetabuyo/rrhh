@@ -84,13 +84,13 @@ namespace TestViaticos
             var fecha_etapa = DateTime.Now.AddMonths(-3);
             etapas.Add(new EtapaPostulacion() { 
                 Fecha =  fecha_etapa,
-                Descripcion = "Etapa 1",
-                Usuario = "usuario1"
+                Etapa = new EtapaConcurso(1,"Etapa 1"),
+                IdUsuario = 1
             });
             una_postulacion.Etapas = etapas;
             Assert.IsTrue(una_postulacion.Etapas.Count.Equals(1));
             Assert.IsNotNull(una_postulacion.Etapas.First().Fecha);
-            Assert.IsNotNull(una_postulacion.Etapas.First().Usuario);
+            Assert.IsNotNull(una_postulacion.Etapas.First().IdUsuario);
         }
 
         [TestMethod]
@@ -104,24 +104,24 @@ namespace TestViaticos
             etapas.Add(new EtapaPostulacion()
             {
                 Fecha = fecha_etapa1,
-                Descripcion = "Etapa 1",
-                Usuario = "usuario1"
+                Etapa = new EtapaConcurso(1,"Etapa 1"),
+                IdUsuario = 1
             });
             etapas.Add(new EtapaPostulacion()
             {
                 Fecha = fecha_etapa2,
-                Descripcion = "Etapa 2",
-                Usuario = "usuario2"
+                Etapa = new EtapaConcurso(2, "Etapa 2"),
+                IdUsuario = 2
             });
             etapas.Add(new EtapaPostulacion()
             {
                 Fecha = fecha_etapa3,
-                Descripcion = "Etapa 3",
-                Usuario = "usuario3"
+                Etapa = new EtapaConcurso(3, "Etapa 3"),
+                IdUsuario = 3
             });
             una_postulacion.Etapas = etapas;
             Assert.IsTrue(una_postulacion.Etapas.Count.Equals(3));
-            Assert.IsTrue(una_postulacion.EtapaEn(DateTime.Now.AddMonths(-4)).Descripcion.Equals("Etapa 2"));
+            Assert.IsTrue(una_postulacion.EtapaEn(DateTime.Now.AddMonths(-4)).Etapa.Descripcion.Equals("Etapa 2"));
         }
 
         public RepositorioDeCurriculum RepoCV()

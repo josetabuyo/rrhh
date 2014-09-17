@@ -98,14 +98,15 @@ namespace General
                                             select new //CvEventoAcademico ()
                                             {
                                                 Descripcion = dRow.GetString("EtapaDescripcion", ""),
+                                                IdEtapaConcurso = dRow.GetSmallintAsInt("IdEtapa"),
                                                 Fecha = dRow.GetDateTime("FechaPostulacion"),
-                                                IdUsuario = dRow.GetSmallintAsInt("IdUsuarioPostulacion").ToString(),
+                                                IdUsuario = dRow.GetSmallintAsInt("IdUsuarioPostulacion"),
                                                 IdPostulacion = dRow.GetInt("IdPostulacion")
                                             }).Where(r => r.IdPostulacion == postulacion.Id).Distinct().ToList();
 
                 etapas.Select(e => 
                     new EtapaPostulacion(){
-                        Descripcion = e.Descripcion, Fecha = e.Fecha, Usuario = e.IdUsuario
+                        Etapa = new EtapaConcurso(e.IdEtapaConcurso, e.Descripcion), Fecha = e.Fecha, IdUsuario = e.IdUsuario
                     }).ToList().ForEach(ep => postulacion.AgregarPostulacion(ep));
             }
         }
@@ -120,29 +121,6 @@ namespace General
                     lista.Add(r);
             });
             return lista;
-        }
-
-
-        public List<EtapaPostulacion> GetEtapasPotulacion(int id)
-        {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdPostulacion", id);
-
-            var tablaCVs = conexion_bd.Ejecutar("dbo.CV_Get_HistorialEtapasPostulacion", parametros);
-
-            var etapas = new List<EtapaPostulacion>();
-
-            tablaCVs.Rows.ForEach(row =>
-            etapas.Add(new EtapaPostulacion()
-            {
-                Descripcion = row.GetString("Descripcion"),
-                Fecha = row.GetDateTime("Fecha"),
-                Usuario = row.GetSmallintAsInt("IdUsuario").ToString()
-            }));
-
-
-            return etapas;
-
         }
 
         public List<EtapaConcurso> GetEtapasConcurso()
@@ -233,11 +211,10 @@ namespace General
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdPostulacion", id_postulacion);
-            parametros.Add("@Descripcion", etapa_postulacion.Descripcion);
-            parametros.Add("@Usuario", etapa_postulacion.Usuario);
+            parametros.Add("@Descripcion", etapa_postulacion.Etapa.Id);
+            parametros.Add("@Usuario", etapa_postulacion.IdUsuario);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Ins_Etapa_Postulacion", parametros);
-
+            conexion_bd.EjecutarSinResultado("dbo.CV_Ins_EtapaPostulación", parametros);
         }
     }
 }

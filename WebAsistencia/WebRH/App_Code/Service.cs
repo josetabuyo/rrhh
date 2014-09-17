@@ -810,15 +810,16 @@ public class AjaxWS : System.Web.Services.WebService
     [WebMethod(EnableSession = true)]
     public string GetPostulacionesPorCodigo(string codigo)
     {
-        var postulaciones = backEndService.GetPostulacionesPorCodigo(codigo);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(postulaciones);
-
+        var postulacion = backEndService.GetPostulacionesPorCodigo(codigo);
+        var usu = backEndService.GetUsuarioPorIdPersona(postulacion.Etapas[0].IdUsuario);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(postulacion);
     }
 
     [WebMethod(EnableSession = true)]
-    public void InsEtapasConcurso(int id_postulacion ,WSViaticos.EtapaPostulacion etapa_postulacion)
+    public void InsEtapaPostulacion(int id_postulacion ,WSViaticos.EtapaPostulacion etapa_postulacion)
     {
-        backEndService.InsEtapasConcurso(id_postulacion, etapa_postulacion);
+        etapa_postulacion.IdUsuario = usuarioLogueado.Id;
+        backEndService.InsEtapaPostulacion(id_postulacion, etapa_postulacion);
 
     }
     
