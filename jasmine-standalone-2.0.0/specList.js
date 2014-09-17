@@ -3,5 +3,6 @@
 var specList = 
         [
             'domReady!',
-            'specs1'
+            'ComboConBusquedaYAgregadoSpec',
+            'ComboPopuladoConRepoSpec'
         ];

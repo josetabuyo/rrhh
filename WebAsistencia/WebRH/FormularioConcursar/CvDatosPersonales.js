@@ -7,6 +7,16 @@ var CvDatosPersonales = {
 
         RH_FORMS.bindear(this.ui, Repositorio, datos_personales)
 
+
+
+        /// probando combos
+        _this.cmb_provincia1 = new ComboConBusquedaYAgregado({
+            select: _this.ui.find("#cmb_provincia1"),
+            dataProvider: "Provincias",
+            campoDescripcion: "Nombre"
+        });
+        
+        //
         _this.txt_nombre = _this.ui.find("#nombre");
         _this.txt_apellido = _this.ui.find("#apellido");
         _this.txt_cuil = _this.ui.find("#cuil");

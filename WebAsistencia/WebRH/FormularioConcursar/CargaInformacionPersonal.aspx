@@ -8,11 +8,12 @@
 <head id="Head1" runat="server">
     <title></title>
     <%= Referencias.Css("../") %>
+    <link rel="stylesheet" href="../scripts/select2-3.4.4/select2.css" type="text/css"/>
+    <link rel="stylesheet" href="EstilosPostular.css" />
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
     <script type="text/javascript" src="../Scripts/Bindings.js"> </script>
     <script type="text/javascript" src="../Scripts/rhforms-combos.js"> </script>
     <script type="text/javascript" src="../Scripts/String.js"> </script>
-    <link rel="stylesheet" href="EstilosPostular.css" />
 </head>
 <body class="">
 
@@ -130,14 +131,15 @@
                       <!-- MODIFICAR EL data-validar="esUnComboConCero" por data-validar="esUnComboSinCero" hasta que se modifique comportamiento del combo - chequear con Javi-->
                       <div class="grupo_campos nueva_linea">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
-                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Provincia" data-validar="esUnComboConCero" dataProvider="Provincias">
+                        <%--<select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Provincia" data-validar="esUnComboConCero" dataProvider="Provincias">--%>
+                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;" label="Nombre">
                         </select>
                       </div> 
                       <!-- MODIFICAR EL data-validar="esUnComboConCero" por data-validar="esUnComboSinCero" hasta que se modifique comportamiento del combo - chequear con Javi-->
                       <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
-                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Localidad" data-validar="esUnComboConCero" dataProvider="Localidades" dependeDe="cmb_provincia1" filtradoPor="IdProvincia">
-                            </select>
+<%--                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Localidad" data-validar="esUnComboConCero" dataProvider="Localidades" dependeDe="cmb_provincia1" filtradoPor="IdProvincia">
+                            </select>--%>
                       </div>
                     </fieldset>
                     <br />
@@ -513,7 +515,10 @@
 <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postulacion.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
+<script type="text/javascript" src="../Scripts/ComboConBusquedaYAgregado.js" ></script>
 <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
+<script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
+<script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
 
 
 <script type="text/javascript">
