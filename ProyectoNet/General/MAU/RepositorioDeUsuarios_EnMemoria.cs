@@ -37,6 +37,10 @@ namespace AdministracionDeUsuarios
             throw new NotImplementedException();
         }
 
+        public void AsociarUsuarioConMail(Usuario usuario, string mail)
+        {
+            throw new NotImplementedException();
+        }
 
         public bool CambiarPassword(Usuario usuario, string pass_actual, string pass_nueva)
         {

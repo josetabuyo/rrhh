@@ -165,9 +165,11 @@ namespace General.MAU
             persona.Apellido = aspirante.Apellido;
 
             repo_personas.GuardarPersona(persona);
+           
 
             var usuario = repositorio_usuarios.CrearUsuarioPara(persona.Id);
             var clave =  repositorio_usuarios.ResetearPassword(usuario.Id);
+            repositorio_usuarios.AsociarUsuarioConMail(usuario, aspirante.Email);
             //mandarla por mail
             var enviador = new EnviadorDeMails();
             enviador.EnviarMail(new NetworkCredential("no-reply@desarrollosocial.gov.ar", "1234"),

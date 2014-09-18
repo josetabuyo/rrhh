@@ -98,7 +98,7 @@ namespace General.MAU
             parametros.Add("@id_persona", id_persona);
             parametros.Add("@alias", alias);
             parametros.Add("@clave_encriptada", clave_encriptada);
-            int id_usuario = (int)conexion.EjecutarEscalar("dbo.MAU_CrearUsuario", parametros);
+            int id_usuario = (int)conexion.EjecutarEscalar("dbo.    ", parametros);
 
             var repo_funcionalidades_usuarios = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(this.conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(this.conexion));
 
@@ -107,6 +107,14 @@ namespace General.MAU
             repo_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 13); //Postular
 
             return new Usuario(id_usuario, alias, clave_encriptada, persona, true);
+        }
+
+        public void AsociarUsuarioConMail(Usuario usuario, string mail) {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_Usuario", usuario.Id);
+            parametros.Add("@Mail_Registro", mail);
+
+            conexion.Ejecutar("dbo.CV_AsociarUsuarioConMailRegistrado", parametros);
         }
 
         public bool CambiarPassword(int id_usuario, string clave_actual, string clave_nueva)
