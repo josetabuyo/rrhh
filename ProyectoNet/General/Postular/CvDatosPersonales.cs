@@ -20,9 +20,8 @@ namespace General
         protected CvDomicilio _domicilioPersonal;
         protected CvDomicilio _domicilioLegal;
         protected string _legajo;
-        protected string _telefono;
-        protected string _telefono2;
-        protected string _email;
+        protected DatosDeContacto _datosDeContacto;
+       
 
         public int Dni { get { return _dni; } set { _dni = value; } }
         public string Nombre { get { return _nombre; } set { _nombre = value; } }
@@ -37,11 +36,10 @@ namespace General
         public CvDomicilio DomicilioPersonal { get { return _domicilioPersonal; } set { _domicilioPersonal = value; } }
         public CvDomicilio DomicilioLegal { get { return _domicilioLegal; } set { _domicilioLegal = value; } }
         public string TieneLegajo { get { return _legajo; } set { _legajo = value; } }
-        public string Telefono { get {return _telefono;} set { _telefono = value; } }
-        public string Telefono2 { get {return _telefono2;} set { _telefono2 = value; } }
-        public string Email { get { return _email; } set { _email = value; } }
+        public DatosDeContacto DatosDeContacto { get { return _datosDeContacto; } set { _datosDeContacto = value; } }
 
-        public CvDatosPersonales(int dni, string nombre, string apellido, int sexo, int estadoCivil, string cuil, string lugarNacimiento, int nacionalidad, string fechaNacimiento, int tipoDocumento, CvDomicilio domicilio_personal, CvDomicilio domicilio_legal, string tiene_legajo, string telefono, string telefono2, string email)
+
+        public CvDatosPersonales(int dni, string nombre, string apellido, int sexo, int estadoCivil, string cuil, string lugarNacimiento, int nacionalidad, string fechaNacimiento, int tipoDocumento, CvDomicilio domicilio_personal, CvDomicilio domicilio_legal, string tiene_legajo, DatosDeContacto datos_de_contacto)
         {
             this._dni = dni;
             this._nombre = nombre;
@@ -53,14 +51,10 @@ namespace General
             this._nacionalidad = nacionalidad;
             this._fechaNacimiento = fechaNacimiento;
             this._tipoDocumento = tipoDocumento;
-
             this._domicilioPersonal = domicilio_personal;
             this._domicilioLegal = domicilio_legal;
-
             this._legajo = tiene_legajo;
-            this._telefono = telefono;
-            this._telefono2 = telefono2;
-            this._email = email;
+            this._datosDeContacto = datos_de_contacto;
         }
 
         public CvDatosPersonales()

@@ -11,5 +11,11 @@ namespace General
         {
 
         }
+
+        public EtapaConcurso(int id, string descripcion)
+        {
+            this.Id = id;
+            this.Descripcion = descripcion;
+        }
     }
 }

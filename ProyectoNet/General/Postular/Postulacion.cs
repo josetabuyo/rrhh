@@ -15,7 +15,6 @@ namespace General
         protected string _observaciones;
         protected string _numero;
         protected List<EtapaPostulacion> _etapas;
-//        protected string _estado;
 
         public virtual int Id { get { return _id; } set { _id = value; } }
         public virtual Puesto Puesto { get { return _puesto; } set { _puesto = value; } }
@@ -24,19 +23,9 @@ namespace General
         public virtual string Motivo { get { return _motivo; } set { _motivo = value; } }
         public virtual string Observaciones { get { return _observaciones; } set { _observaciones = value; } }
         public virtual string Numero { get { return _numero; } set { _numero = value; } }
-        public virtual List<EtapaPostulacion> Etapas { get { return _etapas; } set { _etapas = value;} }
-//        public virtual string Estado { get { return _estado; } set { _estado = value; } }
+        public virtual List<EtapaPostulacion> Etapas { get { return _etapas; } set { _etapas = value;} }  
 
-        //public Postulacion(int id, Puesto puesto, int idPersona, DateTime fecha, string motivo, string observaciones, string numero, string estado) {
-        //    _id = id;
-        //    _puesto = puesto;
-        //    _idPersona = idPersona;
-        //    _fechaPostulacion = fecha;
-        //    _motivo = motivo;
-        //    _observaciones = observaciones;
-        //    _numero = numero;
-        //}
-
+       
         public Postulacion(int id, Puesto puesto, int idPersona, DateTime fecha, string motivo, string observaciones, string numero, List<EtapaPostulacion> etapas)
         {
             _id = id;
@@ -49,12 +38,19 @@ namespace General
             _etapas = etapas;
         }
 
-        public Postulacion() { }
+        public Postulacion() {
+            this._etapas = new List<EtapaPostulacion>();
+        }
 
 
         public EtapaPostulacion EtapaEn(DateTime fecha)
         {
             return this.Etapas.FindLast(e => e.Fecha <= fecha);
+        }
+
+        internal void AgregarPostulacion(EtapaPostulacion ep)
+        {
+            this._etapas.Add(ep);
         }
     }
 }

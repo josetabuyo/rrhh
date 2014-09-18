@@ -50,7 +50,7 @@
                     idioma_extranjero.Establecimiento = _this.txt_idioma_extranjero_establecimiento.val();
                     idioma_extranjero.Localidad = _this.cmb_idioma_extranjero_localidad.val();
                     idioma_extranjero.Idioma = _this.txt_idioma_extranjero_idioma.val();
-                    idioma_extranjero.Oral = _this.cmb_idioma_extranjero_oral.idItemSeleccionado();
+                    //idioma_extranjero.Oral = _this.cmb_idioma_extranjero_oral.idItemSeleccionado();
 
                     if (opciones.idioma_extranjero) {
                         Backend.ActualizarCvIdiomaExtranjero(idioma_extranjero).then(function (respuesta) {
