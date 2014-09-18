@@ -36,11 +36,15 @@ describe("ComboConBusquedaYAgregado", function () {
     };
 
     describe("DADO: Un elemento select sin atributos", function () {
-        var ui = $('<div><select id="combo_provincias"></select>');
+        var select;
+
+        beforeEach(function () {
+            select = $('<select id="combo_provincias"></select>');
+        });
 
         it("ENTONCES: debería poder crear un combo de provincias pasandole un dataProvider y que no tire error", function () {
             var combo = new ComboConBusquedaYAgregado({
-                select: ui,
+                select: select,
                 dataProvider: "Provincias"
             });
         });
@@ -49,21 +53,23 @@ describe("ComboConBusquedaYAgregado", function () {
             var combo;
             beforeEach(function () {
                 combo = new ComboConBusquedaYAgregado({
-                    select: ui,
+                    select: select,
                     dataProvider: "Provincias"
                 });
-                fakeResponse(provincias);
             });
 
             it("ENTONCES: el combo debería cargarse con todas las provincias", function () {
+                fakeResponse(provincias);
                 expect(combo.objetosCargados.length).toEqual(provincias.length);
             });
 
             it("ENTONCES: el combo no debería tener ningún elemento seleccionado", function () {
+                fakeResponse(provincias);
                 expect(combo.idSeleccionado()).toEqual(undefined);
             });
 
             it("ENTONCES: si selecciono un item programáticamente debería seleccionarse ese item en el combo", function () {
+                fakeResponse(provincias);
                 combo.idSeleccionado(5);
                 expect(combo.idSeleccionado()).toEqual(5);
                 expect(combo.itemSeleccionado().Descripcion).toEqual("Santa Fe");
