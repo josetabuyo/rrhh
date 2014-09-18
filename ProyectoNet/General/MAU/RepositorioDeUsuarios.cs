@@ -98,7 +98,7 @@ namespace General.MAU
             parametros.Add("@id_persona", id_persona);
             parametros.Add("@alias", alias);
             parametros.Add("@clave_encriptada", clave_encriptada);
-            int id_usuario = (int)conexion.EjecutarEscalar("dbo.    ", parametros);
+            int id_usuario = (int)conexion.EjecutarEscalar("dbo.MAU_CrearUsuario", parametros);
 
             var repo_funcionalidades_usuarios = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(this.conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(this.conexion));
 
