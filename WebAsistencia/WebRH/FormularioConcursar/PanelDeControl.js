@@ -93,10 +93,10 @@
 
             if (postulacion.Etapas.length > 0) {
                 fecha_comparacion = postulacion.Etapas[0].Fecha;
-                etapa_seleccionada = postulacion.Etapas[0].Descripcion;
+                etapa_seleccionada = postulacion.Etapas[0].Etapa.Descripcion;
                 for (var i = 0; i < postulacion.Etapas.length; i++) {
                     if (fecha_comparacion < postulacion.Etapas[i].Fecha) {
-                        etapa_seleccionada = postulacion.Etapas[i].Descripcion;
+                        etapa_seleccionada = postulacion.Etapas[i].Etapa.Descripcion;
                     }
                 }
                 return etapa_seleccionada;

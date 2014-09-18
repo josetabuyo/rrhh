@@ -2450,6 +2450,12 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoComites().GetComiteById(idComite);
     }
 
+    [WebMethod]
+    public void InsEtapaPostulacion(int id_postulacion, EtapaPostulacion etapa_postulacion)
+    {
+        RepoPostulaciones().InsEtapaPostulacion(id_postulacion, etapa_postulacion);
+    }
+
     #region CVAntecedentesAcademicos
     [WebMethod]
     public CvEstudios GuardarCvAntecedenteAcademico(CvEstudios antecedentesAcademicos_nuevo,  Usuario usuario)

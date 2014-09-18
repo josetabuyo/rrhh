@@ -44,7 +44,7 @@ namespace General
         {
             this._titulo = titulo;
             this._establecimiento = establecimiento;
-            this._nivel = Nivel;
+            this._nivel = nivel;
             this._especialidad = especialidad;
             this._fechaIngreso = fechaIngeso;
             this._fechaEgreso = fechaEgreso;
