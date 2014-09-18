@@ -32,8 +32,8 @@ var EtapasPostulacion = {
         proveedor_ajax.postearAUrl({
             url: "InsEtapaPostulacion",
             data: {
-                id_postulacion: parseInt(id_postulacion, 10),
-                etapa_postulacion: {Id: etapa.Id, Descripcion:etapa.Descripcion}
+                id_postulacion: id_postulacion,
+                id_etapa_postulacion: etapa
             },
             success: function (respuesta) {
                 alertify.alert(JSON.stringify(respuesta));
@@ -54,12 +54,20 @@ var CompletarDatos = function (datos_postulacion) {
     var span_fecha = $("#span_fecha");
     var span_perfil = $("#span_perfil");
     var postulacion = $("#postulacion");
+
+    var usu_etapas = datos_postulacion.UsuEtapas;
+
     postulacion.val(JSON.stringify(datos_postulacion));
 
     var columnas = [];
     columnas.push(new Columna("Fecha", { generar: function (una_etapa) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_etapa.Fecha) } }));
     columnas.push(new Columna("Descripción", { generar: function (una_etapa) { return una_etapa.Etapa.Descripcion } }));
-    columnas.push(new Columna("Usuario", { generar: function (una_etapa) { return una_etapa.IdUsuario } }));
+    columnas.push(new Columna("Usuario", { generar: function (una_etapa) {
+        for (var i = 0; i < usu_etapas.length; i++) {
+            if (usu_etapas[i].IdUsuario = una_etapa.IdUsuario) return usu_etapas[i].UsuarioEtapa;
+        }
+    } 
+    }));
 
     this.GrillaHistorial = new Grilla(columnas);
     this.GrillaHistorial.AgregarEstilo("table table-striped");
@@ -68,13 +76,13 @@ var CompletarDatos = function (datos_postulacion) {
     });
 
     div_tabla_historial.html("");
-    this.GrillaHistorial.CargarObjetos(datos_postulacion.Etapas);
+    this.GrillaHistorial.CargarObjetos(datos_postulacion.Postulacion.Etapas);
     this.GrillaHistorial.DibujarEn(div_tabla_historial);
 
-    span_empleado.html(datos_postulacion.IdPersona);
-    span_codigo.html(datos_postulacion.Numero);
-    span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));
-    span_perfil.html(datos_postulacion.Puesto.Familia);
+    span_empleado.html(datos_postulacion.UsuarioPostulacion);
+    span_codigo.html(datos_postulacion.Postulacion.Numero);
+    span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.Postulacion.FechaPostulacion));
+    span_perfil.html(datos_postulacion.Postulacion.Puesto.Familia);
 }
     
 

@@ -811,8 +811,22 @@ public class AjaxWS : System.Web.Services.WebService
     public string GetPostulacionesPorCodigo(string codigo)
     {
         var postulacion = backEndService.GetPostulacionesPorCodigo(codigo);
+
+        var usu_etapas = (from etapa in postulacion.Etapas
+                          select new
+                          {
+                              IdUsuario = etapa.IdUsuario,
+                              UsuarioEtapa = backEndService.GetUsuarioPorIdPersona(postulacion.Etapas[0].IdUsuario).Alias,
+                              IdEtapa = etapa.Etapa.Id
+                          }).ToList();
+
         var usu = backEndService.GetUsuarioPorIdPersona(postulacion.Etapas[0].IdUsuario);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(postulacion);
+        object datos_postulacion = new  {
+            Postulacion = postulacion,
+            UsuarioPostulacion = usu.Alias,
+            UsuEtapas = usu_etapas
+        };
+        return Newtonsoft.Json.JsonConvert.SerializeObject(datos_postulacion);
     }
 
     [WebMethod(EnableSession = true)]

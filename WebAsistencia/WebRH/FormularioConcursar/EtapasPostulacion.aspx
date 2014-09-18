@@ -61,7 +61,8 @@
           var cmb_etapas_concurso = $("#cmb_etapas_concurso");
 
           cmb_etapas_concurso.change(function () {
-              var id_postulacion = JSON.parse($("#postulacion").val()).Id;
+              debugger;
+              var id_postulacion = JSON.parse($("#postulacion").val()).Postulacion.Id;
               var id_etapa = cmb_etapas_concurso.val();
               EtapasPostulacion.InsertarEtapa(id_postulacion, id_etapa);
           });
