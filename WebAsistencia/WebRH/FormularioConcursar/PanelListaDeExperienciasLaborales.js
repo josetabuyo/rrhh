@@ -56,6 +56,8 @@
         this.GrillaExperiencias.CargarObjetos(experiencias);
         this.GrillaExperiencias.DibujarEn(_this.divGrilla);
 
+        this.experiencias = experiencias;
+
     },
     eliminar: function (una_experiencia) {
         var _this = this;
@@ -72,7 +74,7 @@
                     success: function (respuesta) {
                         alertify.success("Experiencia eliminada correctamente");
                         _this.GrillaExperiencias.QuitarObjeto(_this.divGrilla, una_experiencia);
-                        var indice = _this.idiomas.indexOf(una_experiencia);
+                        var indice = _this.experiencias.indexOf(una_experiencia);
                         _this.experiencias.splice(indice, 1);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
