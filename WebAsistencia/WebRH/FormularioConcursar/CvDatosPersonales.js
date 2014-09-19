@@ -5,7 +5,7 @@ var CvDatosPersonales = {
         this.ui = $("#contenedor_datosPersonales");
         $("#cuil").mask("99-99999999-9");
 
-        RH_FORMS.bindear(this.ui, Repositorio, datos_personales)
+        RH_FORMS.bindear(this.ui, Repositorio, datos_personales);
 
 
 
@@ -13,10 +13,12 @@ var CvDatosPersonales = {
         _this.cmb_provincia1 = new ComboConBusquedaYAgregado({
             select: _this.ui.find("#cmb_provincia1"),
             dataProvider: "Provincias",
-            campoDescripcion: "Nombre"
+            campoDescripcion: "Nombre",
+            placeHolder: "Seleccione una provincia"
         });
-        
+
         //
+
         _this.txt_nombre = _this.ui.find("#nombre");
         _this.txt_apellido = _this.ui.find("#apellido");
         _this.txt_cuil = _this.ui.find("#cuil");
@@ -34,7 +36,7 @@ var CvDatosPersonales = {
         _this.txt_fechaNac.datepicker('option', 'dateFormat', 'dd/mm/yy');
         _this.txt_fechaNac.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(datos_personales.FechaNacimiento));
 
-       
+
         _this.txt_dni.val(parseInt(datos_personales.Dni));
 
         if (datos_personales.TieneLegajo == "Tiene legajo") {
@@ -87,7 +89,7 @@ var CvDatosPersonales = {
         //Bt guardar
         _this.add_datosPersonales = _this.ui.find("#btn_guardar_datosPersonales");
         _this.add_datosPersonales.click(function () {
-//            datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
+            //            datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
 
 
             if ($("#contenedor_datosPersonales").esValido()) {
@@ -143,7 +145,7 @@ var CvDatosPersonales = {
                         alertify.alert(errorThrown);
                     }
                 });
-            }//fin validador
+            } //fin validador
         });
 
     }
