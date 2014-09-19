@@ -63,13 +63,14 @@
                 _this.proveedor_ajax.postearAUrl({ url: "BuscarPersonas",
                     data: { 
                         criterio: JSON.stringify({
-                                        Documento: parseInt(_this.txt_numero_documento.val()),
-                                        ConLegajo: true
+                                        Documento: parseInt(_this.txt_numero_documento.val())
+                                        //se quita el buscar con legajo para que busque todos los inscriptos
+                                        //ConLegajo: true
                                     })
                     },
                     success: function (personas) {
                         if (personas.length > 0) {
-                            alertify.alert("El documento ingresado ya está registrado, inicie sesión o comuníquese con Recursos Humanos.");
+                            alertify.alert("El documento ingresado ya está registrado, inicie sesión con el usuario asignado. Si no los recuerda, utilice la opción: '¿Olvidó sus datos?' o comuníquese con <br/> Recursos Humanos.");
                             return;
                         }
                         _this.paso2();
