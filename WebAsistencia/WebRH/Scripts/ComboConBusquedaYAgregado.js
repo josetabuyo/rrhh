@@ -15,19 +15,22 @@
     });
 
     this.select.on("change", function (e) {
-        var nuevo_id = parseInt(e.val);
-        if (nuevo_id === NaN) nuevo_id = e.val;
+        var val_en_combo = _this.select.select2("val");
+        var nuevo_id = parseInt(val_en_combo);
+        if (nuevo_id === NaN) nuevo_id = val_en_combo;
         _this.idSeleccionado(nuevo_id);
     });
 
-    Repositorio.buscar(this.dataProvider, this.filtro, function (objetos) {
-        _this.objetosCargados = objetos;
-        objetos.forEach(function (objeto) {
-            var option = $("<option value='" + objeto[_this.campoId] + "'>" + objeto[_this.campoDescripcion] + "</option>");
-            _this.select.append(option);
+    if (this.dataProvider) {
+        Repositorio.buscar(this.dataProvider, this.filtro, function (objetos) {
+            _this.objetosCargados = objetos;
+            objetos.forEach(function (objeto) {
+                var option = $("<option value='" + objeto[_this.campoId] + "'>" + objeto[_this.campoDescripcion] + "</option>");
+                _this.select.append(option);
+            });
+            _this.select.select2("val", _this.idSeleccionado());
         });
-        _this.select.select2("val", _this.idSeleccionado());
-    });
+    }
 };
 
 ComboConBusquedaYAgregado.prototype.idSeleccionado = function (id_seleccionado) {
