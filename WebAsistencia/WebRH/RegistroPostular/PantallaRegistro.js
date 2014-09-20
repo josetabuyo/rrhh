@@ -42,7 +42,7 @@
 
     mostrarRecupero: function () {
         vex.dialog.open({
-            message: "Ingrese su DNI",
+            message: "Ingrese el Mail con el cual se ha registrado",
             input: this.ui,
             buttons: [
                 ]
