@@ -46,12 +46,13 @@ namespace General.Repositorios
             tablaCVs.Rows.ForEach(row =>
             cv = new CurriculumVitae(
                 new CvDatosPersonales(row.GetInt("NroDocumento"), row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo", 1), row.GetSmallintAsInt("EstadoCivil", 0),
-                    row.GetString("Cuil", ""), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad", 0), row.GetDateTime("FechaNacimiento", DateTime.Today).ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento", 0), 
+                    row.GetString("Cuil", ""), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad", 0), row.GetDateTime("FechaNacimiento", DateTime.Today).ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento", 0),
                     new CvDomicilio(row.GetInt("DomPers_Id", 0), row.GetString("DomPers_Calle", ""), row.GetInt("DomPers_Numero", 0), row.GetString("DomPers_Piso", ""), row.GetString("DomPers_Depto", ""),
                         row.GetInt("DomPers_Localidad", 0), row.GetSmallintAsInt("DomPers_CodigoPostal", 0), row.GetSmallintAsInt("DomPers_IdProvincia", 0)),
                     new CvDomicilio(row.GetInt("DomLab_Id", 0), row.GetString("DomLab_Calle", ""), row.GetInt("DomLab_Numero", 0), row.GetString("DomLab_Piso", ""), row.GetString("DomLab_Depto", ""),
-                        row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0)), row.GetString("TieneLegajo"), row.GetString("DomPers_Telefono", ""), row.GetString("DomPers_Telefono2", ""), row.GetString("DomPers_Email", ""))));
-
+                        row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0)), row.GetString("TieneLegajo"),
+                    new DatosDeContacto(row.GetString("DomPers_Telefono", ""), row.GetString("DomPers_Telefono2", ""), row.GetString("DomPers_Email", "")))));
+                   
 
             //CORTE DE CONTROL PARA EVENTOS ACADEMICOS
             CorteDeControlEventosAcademicos(tablaCVs, cv);
@@ -464,14 +465,16 @@ namespace General.Repositorios
                 conexion_bd.Ejecutar("dbo.CV_Ins_Curriculum", parametros);
 
                 //insertar en GEN_Domicilios y CV_Domicilio el DomicilioPersonal
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, null , null, null);
                 parametros.Add("@Dni", datosPersonales.Dni);
                 conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
 
+                //
+
                 //insertar en GEN_Domicilios y CV_Domicilio el DomicilioLaboral
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
                 parametros.Add("@Dni", datosPersonales.Dni);
-                conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
+                conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros); 
 
             }
             else
@@ -488,14 +491,14 @@ namespace General.Repositorios
                 if (datosPersonales.DomicilioPersonal.Id > 0)
                 {
                     //update GEN_Domicilios del domicilio personal
-                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
                     parametros.Add("@idDomicilio", datosPersonales.DomicilioPersonal.Id);
                     conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
                 }
                 else 
                 {
                     //insertar en GEN_Domicilios y CV_Domicilio el DomicilioPersonal
-                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, null, null, null);
                     parametros.Add("@Dni", datosPersonales.Dni);
                     conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
                 }
@@ -503,14 +506,14 @@ namespace General.Repositorios
                 if (datosPersonales.DomicilioLegal.Id > 0)
                 {
                     //update en GEN_Domicilios del domicilio laboral
-                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
                     parametros.Add("@idDomicilio", datosPersonales.DomicilioLegal.Id);
                     conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
                 }
                 else
                 {
                     //insertar en GEN_Domicilios y CV_Domicilio el DomicilioLaboral
-                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
                     parametros.Add("@Dni", datosPersonales.Dni);
                     conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
                 }
@@ -531,15 +534,13 @@ namespace General.Repositorios
             parametros.Add("@DomicilioCp", domicilio.Cp);
             parametros.Add("@DomicilioLocalidad", domicilio.Localidad);
             parametros.Add("@DomicilioProvincia", domicilio.Provincia);
-            parametros.Add("@Correo_Electronico_MDS", ""); //Esto no está blanqueando los mails de los empelados?
+            //parametros.Add("@Correo_Electronico_MDS", ""); // No se está utilizando el correo MDS. Ver correo - Email -
             parametros.Add("@DomicilioTipo", tipo);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@DomicilioTelefono", telefono);
             parametros.Add("@DomicilioTelefono2", telefono2);
             parametros.Add("@DomicilioCorreo_Electronico", email);
-
-           
-            
+                      
             return parametros;
         }
 
@@ -558,10 +559,9 @@ namespace General.Repositorios
             parametros.Add("@TipoDocumento", datosPersonales.TipoDocumento);
             parametros.Add("@Sexo", datosPersonales.Sexo);
             parametros.Add("@Usuario", usuario.Id);
-         
-
             return parametros;
         }
+
 
         #endregion CvDatosPersonales
 
@@ -618,6 +618,8 @@ namespace General.Repositorios
             parametros.Add("@Localidad", antecedentesAcademicos_nuevo.Localidad);
             parametros.Add("@Pais", antecedentesAcademicos_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@Nivel", antecedentesAcademicos_nuevo.Nivel);
+
 
             return parametros;
 
@@ -1241,13 +1243,14 @@ namespace General.Repositorios
 
             validarDatos(datosPersonales.DomicilioLegal);
             validarDatos(datosPersonales.DomicilioPersonal);
+
         }
 
         private void validarDatosEmpleado(CvDatosPersonales datosPersonales)
         {
             var validador_datos = new Validador();
 
-            validador_datos.DeberianSerNoVacias(new string[] { "Telefono", "Telefono2" });
+            validador_datos.DeberianSerNoVacias(new string[] { "Telefono", "Telefono2", "Email" });
 
             if (!validador_datos.EsValido(datosPersonales))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1274,6 +1277,7 @@ namespace General.Repositorios
             validador_estudios.DeberianSerNoVacias(new string[] { "Titulo", "Especialidad", "Establecimiento", "Localidad" });
             validador_estudios.DeberianSerFechasNoVacias(new string[] { "FechaIngreso", "FechaEgreso"});
             validador_estudios.DeberianSerNaturales(new string[] { "Nivel", "Pais" });
+          //  validador_estudios.DeberianSerNaturales(new string[] {  "Pais" });
             
             if (!validador_estudios.EsValido(un_estudio))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");              

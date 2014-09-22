@@ -104,6 +104,7 @@
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
     <Compile Include="Postular\Comite.cs" />
+    <Compile Include="Postular\DatosDeContacto.cs" />
     <Compile Include="Postular\EtapaConcurso.cs" />
     <Compile Include="Postular\EtapaPostulacion.cs" />
     <Compile Include="Postular\NivelDeEstudio.cs" />
