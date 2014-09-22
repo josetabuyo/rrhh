@@ -61,10 +61,10 @@
           var cmb_etapas_concurso = $("#cmb_etapas_concurso");
 
           cmb_etapas_concurso.change(function () {
-              debugger;
-              var id_postulacion = JSON.parse($("#postulacion").val()).Postulacion.Id;
+              var postulacion = JSON.parse($("#postulacion").val()).Postulacion;
               var id_etapa = cmb_etapas_concurso.val();
-              EtapasPostulacion.InsertarEtapa(id_postulacion, id_etapa);
+              EtapasPostulacion.InsertarEtapa(postulacion.Id, id_etapa);
+              EtapasPostulacion.BuscarPostulacionesPorCodigo(postulacion.Numero);
           });
 
           var btn_buscar_etapas = $("#btn_buscar_etapas");

@@ -2451,9 +2451,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void InsEtapaPostulacion(int id_postulacion, EtapaPostulacion etapa_postulacion)
+    public void InsEtapaPostulacion(int id_postulacion, int id_etapa_postulacion, int id_usuario)
     {
-        RepoPostulaciones().InsEtapaPostulacion(id_postulacion, etapa_postulacion);
+        RepoPostulaciones().InsEtapaPostulacion(id_postulacion, id_etapa_postulacion, id_usuario);
     }
 
     #region CVAntecedentesAcademicos

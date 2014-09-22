@@ -1,5 +1,6 @@
 ﻿
 var EtapasPostulacion = {
+    _this : this,
     BuscarEtapasConcurso: function () {
         var proveedor_ajax = new ProveedorAjax();
         proveedor_ajax.postearAUrl({
@@ -36,7 +37,7 @@ var EtapasPostulacion = {
                 id_etapa_postulacion: etapa
             },
             success: function (respuesta) {
-                alertify.alert(JSON.stringify(respuesta));
+                alertify.alert("Etapa Guardada");
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alertify.alert("Error.");
@@ -55,6 +56,8 @@ var CompletarDatos = function (datos_postulacion) {
     var span_perfil = $("#span_perfil");
     var postulacion = $("#postulacion");
 
+    var cmb_etapas_concurso = $("#cmb_etapas_concurso");
+
     var usu_etapas = datos_postulacion.UsuEtapas;
 
     postulacion.val(JSON.stringify(datos_postulacion));
@@ -66,7 +69,7 @@ var CompletarDatos = function (datos_postulacion) {
         for (var i = 0; i < usu_etapas.length; i++) {
             if (usu_etapas[i].IdUsuario = una_etapa.IdUsuario) return usu_etapas[i].UsuarioEtapa;
         }
-    } 
+    }
     }));
 
     this.GrillaHistorial = new Grilla(columnas);

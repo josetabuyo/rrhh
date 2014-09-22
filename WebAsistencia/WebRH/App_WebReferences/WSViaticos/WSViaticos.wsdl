@@ -2723,7 +2723,8 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_postulacion" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="etapa_postulacion" type="tns:EtapaPostulacion" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_etapa_postulacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
