@@ -122,7 +122,7 @@ namespace General
             return lista;
         }
 
-        public List<EtapaConcurso> GetEtapasConcurso()
+        public List<EtapaConcurso> BuscarEtapasConcurso()
         {
             var tablaCVs = conexion_bd.Ejecutar("dbo.CV_Get_EtapasConcurso");
 

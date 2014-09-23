@@ -836,7 +836,6 @@ public class AjaxWS : System.Web.Services.WebService
         backEndService.InsEtapaPostulacion(id_postulacion, id_etapa_postulacion, usuarioLogueado.Owner.Id);
 
     }
-    
 
     #endregion
 

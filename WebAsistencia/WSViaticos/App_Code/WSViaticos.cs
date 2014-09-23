@@ -2438,9 +2438,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod(EnableSession = true)]
-    public EtapaConcurso[] BuscarEtapasConcurso()
+    public EtapaConcurso[] BuscarEtapasConcurso(string criterio)
     {
-        var etapas = RepoPostulaciones().GetEtapasConcurso().ToArray();
+        var etapas = RepoPostulaciones().BuscarEtapasConcurso().ToArray();
         return etapas;
     }
 
