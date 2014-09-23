@@ -36,10 +36,13 @@ var localidades = [
             };
 
             describe("DADO: Un elemento select sin atributos", function () {
+                var pantalla;
                 var select;
 
                 beforeEach(function () {
+                    pantalla = $('<div>');
                     select = $('<select id="combo_provincias"></select>');
+                    pantalla.append(select);
                 });
 
                 it("ENTONCES: debería poder crear un combo de provincias pasandole un dataProvider y que no tire error", function () {
@@ -66,7 +69,7 @@ var localidades = [
                     it("ENTONCES: el combo no debería tener ningún elemento seleccionado", function () {
                         fakeResponse(provincias);
                         expect(combo.idSeleccionado()).toEqual(undefined);
-                        expect(combo.select.select2("val")).toEqual(null);
+                        expect(combo.select.select2("val")).toEqual("");
                     });
 
                     it("ENTONCES: si selecciono un item programáticamente antes o después de que se cargue el combo debería seleccionarse ese item en el combo", function () {
@@ -86,6 +89,14 @@ var localidades = [
                         expect(combo.idSeleccionado()).toEqual(5);
                         expect(combo.itemSeleccionado().Descripcion).toEqual("Santa Fe");
                         expect(combo.select.select2('data').text).toEqual("Santa Fe");
+                    });
+
+                    it("ENTONCES: si el usuario elimina la seleccion desde el combo, el item seleccionado debería ser ninguno", function () {
+                        combo.idSeleccionado(5);
+                        fakeResponse(provincias);
+                        pantalla.find(".select2-search-choice-close").mousedown();
+                        expect(combo.idSeleccionado()).toEqual(undefined);
+                        expect(combo.select.select2("val")).toEqual("");
                     });
                 });
             });

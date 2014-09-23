@@ -132,7 +132,7 @@
                       <div class="grupo_campos nueva_linea">     
                         <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
                         <%--<select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Provincia" data-validar="esUnComboConCero" dataProvider="Provincias">--%>
-                        <select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;">
+                        <select id="cmb_provincia1" style="width:320px;">
                         </select>
                       </div> 
                       <!-- MODIFICAR EL data-validar="esUnComboConCero" por data-validar="esUnComboSinCero" hasta que se modifique comportamiento del combo - chequear con Javi-->
