@@ -129,25 +129,24 @@
     paso3: function () {
         var _this = this;
         this.btn_validar = $("#btn_validar");
-        this.txt_numero_documento = $("#txt_numero_documento");
+        this.txt_mail_registro = $("#txt_email");
         this.txt_numero_documento.val("");
         this.panel_paso_1.show();
         this.panel_paso_2.hide();
         this.btn_validar.click(function () {
             if (_this.panel_paso_1.esValido()) {
-                _this.proveedor_ajax.postearAUrl({ url: "BuscarPersonas",
+                _this.proveedor_ajax.postearAUrl({ url: "RecuperarUsuario",
                     data: { 
                         criterio: JSON.stringify({
-                                        Documento: parseInt(_this.txt_numero_documento.val()),
-                                        ConLegajo: true
+                            Mail: _this.txt_mail_registro.val()
                                     })
                     },
-                    success: function (personas) {
-                        if (personas.length == 0) {
-                            alertify.alert("El documento ingresado ya está registrado, inicie sesión o comuníquese con Recursos Humanos.");
+                    success: function (ejeucion_ok) {
+                        if (!ejeucion_ok) {
+                            alertify.alert("Ya se ha solicitado la recuperación de datos. Revise su correo o contáctese con Recursos Humanos");
                             return;
                         }
-                        _this.paso4();
+                        alertify.alert("Se ha enviado un mail a dicho correo, para que pueda recuperar sus datos de acceso.");
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
 
@@ -155,7 +154,6 @@
                 });
             }
         });
-    }
-
+    } 
 
 };

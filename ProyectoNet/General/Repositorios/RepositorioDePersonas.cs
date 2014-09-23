@@ -33,6 +33,7 @@ namespace General.Repositorios
             return this.Obtener();
         }
 
+
         public List<Persona> BuscarPersonas(string criterio)
         {
             try
@@ -83,6 +84,25 @@ namespace General.Repositorios
                         )
                     );
             }            
+        }
+
+        public bool RecuperarUsuario(string criterio)
+        {
+            try
+            {
+                var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+                if (criterio_deserializado["Mail"] != null)
+                {
+
+                    string mail = (string)((JValue)criterio_deserializado["Mail"]);
+                }
+
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
         }
 
         public List<Persona> BuscarPersonasConLegajo(string criterio)
