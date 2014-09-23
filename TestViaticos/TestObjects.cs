@@ -1811,5 +1811,36 @@ namespace General
         {
             return new ConceptoLicenciaAnualOrdinaria();
         }
+
+        public static Puesto UnPerfil()
+        {
+            return new Puesto(1, "familia", "profesion", "denominacion", "nivel", "agrupamiento", 20, "tipo", "numero", UnComite());
+        }
+
+        public static Comite UnComite()
+        {
+            return new Comite(1, 1, new List<Postular.IntegranteComite>());
+        }
+
+        public static List<Foliable> Foliables()
+        {
+            return new List<Foliable> { new FoliableAntecedentesPenales() };
+        }
+
+        public static CurriculumVitae UnCV()
+        {
+            return new CurriculumVitae(new CvDatosPersonales());
+        }
+
+        public static CvEstudios UnEstudioUniversitario()
+        {
+            return new CvEstudios("Lic en Adm", 12, "", "", new DateTime(), new DateTime(), "", 0);
+        }
+
+        public static Postulacion UnaPostulacion()
+        {
+            return new Postulacion(1, UnPerfil(), 1, new DateTime(), "", "", "", new List<EtapaPostulacion>());
+        }
+
     }
 }

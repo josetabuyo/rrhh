@@ -144,6 +144,9 @@ namespace General
         private Puesto ArmarPuesto(RowDeDatos row)
         {
             var repo_comite = new RepositorioDeComites(this.conexion_bd);
+            //var repo_puesto = new RepositorioDePuestos(this.conexion_bd);
+            //return repo_puesto.GetPuestoById(row.GetInt("IdPuesto"));
+            //FC: por ahora lo dejo asi
             return new Puesto(
                               row.GetInt("IdPuesto"),
                               row.GetString("Familia"),
@@ -154,8 +157,7 @@ namespace General
                               row.GetInt("Vacantes"),
                               row.GetString("Tipo"),
                               row.GetString("Puesto_Numero"),
-                              repo_comite.GetComiteById(row.GetInt("IdComite")
-                              )
+                              repo_comite.GetComiteById(row.GetInt("IdComite"))                            
                 );
         }
 

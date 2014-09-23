@@ -2717,7 +2717,9 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Postulacion GetPostulacionById(int idpersona,int idpostulacion)
     {
-        return RepoPostulaciones().GetPostulacionById(idpersona, idpostulacion);
+        Postulacion postulacion = RepoPostulaciones().GetPostulacionById(idpersona, idpostulacion);
+        postulacion.Puesto.DocumentacionRequerida = RepoPuestos().GetFoliablesDelPerfil(postulacion.Puesto.Id);
+        return postulacion;
     }
 
 
