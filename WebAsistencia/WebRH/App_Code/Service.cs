@@ -817,7 +817,9 @@ public class AjaxWS : System.Web.Services.WebService
                           {
                               IdUsuario = etapa.IdUsuario,
                               UsuarioEtapa = backEndService.GetUsuarioPorIdPersona(etapa.IdUsuario).Owner.Nombre + " " + backEndService.GetUsuarioPorIdPersona(etapa.IdUsuario).Owner.Apellido,
-                              IdEtapa = etapa.Etapa.Id
+                              IdEtapa = etapa.Etapa.Id,
+                              Descripcion = etapa.Etapa.Descripcion,
+                              Fecha = etapa.Fecha
                           }).ToList();
 
 

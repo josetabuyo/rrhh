@@ -65,13 +65,8 @@
 
         var columnas = [];
         columnas.push(new Columna("Fecha", { generar: function (una_etapa) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_etapa.Fecha) } }));
-        columnas.push(new Columna("Descripción", { generar: function (una_etapa) { return una_etapa.Etapa.Descripcion } }));
-        columnas.push(new Columna("Usuario", { generar: function (una_etapa) {
-            for (var i = 0; i < usu_etapas.length; i++) {
-                if (usu_etapas[i].IdUsuario = una_etapa.IdUsuario) return usu_etapas[i].UsuarioEtapa;
-            }
-        }
-        }));
+        columnas.push(new Columna("Descripción", { generar: function (una_etapa) { return una_etapa.Descripcion } }));
+        columnas.push(new Columna("Usuario", { generar: function (una_etapa) { return una_etapa.UsuarioEtapa; } }));
 
         this.GrillaHistorial = new Grilla(columnas);
         this.GrillaHistorial.AgregarEstilo("table table-striped");
@@ -80,7 +75,7 @@
         });
 
         div_tabla_historial.html("");
-        this.GrillaHistorial.CargarObjetos(datos_postulacion.Postulacion.Etapas);
+        this.GrillaHistorial.CargarObjetos(usu_etapas);
         this.GrillaHistorial.DibujarEn(div_tabla_historial);
 
         span_empleado.html(datos_postulacion.UsuarioPostulacion);
