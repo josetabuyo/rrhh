@@ -6,6 +6,8 @@ using General.Repositorios;
 using System.Security.Cryptography;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System.Net;
+using System.Net.Mail;
 
 namespace General.MAU
 {
@@ -160,52 +162,48 @@ namespace General.MAU
         }
 
 
-
-
-
-        public bool RecuperarUsuario(string criterio)
+        public Usuario RecuperarUsuario(string mail)
         {
+
             try
             {
                 var validador_datos = new Validador();
-                var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-                if (criterio_deserializado["Mail"] != null)
-                {
-
-                    string mail = (string)((JValue)criterio_deserializado["Mail"]);
                     validador_datos.DeberiaSerMail(new string[] { "Mail" });
 
                     if (!validador_datos.EsValido(mail))
                         throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
 
                     var parametros = new Dictionary<string, object>();
-                    //var estudios = new List<CvEstudios>();
-                    //var docencias = new List<CvDocencia>();
-
                     parametros.Add("@mail", mail);
                     var tablaCVs = conexion.Ejecutar("dbo.CV_GetDatosRecupero", parametros);
-
-                    if (tablaCVs.Rows.Count > 0)
+                    Usuario usuario_a_recuperar = new Usuario();
+                    bool enviar_mail = false;
+                    if (tablaCVs.Rows.Count == 1)
                     {
-                        tablaCVs.Rows.ForEach(row => EnviarMailDeRecupero(row.GetBoolean("enviarMail"), row.GetString("Usuario")));
+                        var row = tablaCVs.Rows.First();
+
+                        if(!row.GetBoolean("Baja") && row.GetBoolean("enviarMail")){
+                        enviar_mail = true;
+                        }else{
+                            enviar_mail = false;
+                        }
+                        usuario_a_recuperar = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), enviar_mail);
 
                     }
-                }
 
-                return true;
+                return usuario_a_recuperar;
             }
             catch
             {
-                return false;
+                return new UsuarioNulo();
             }
         }
 
-        private void EnviarMailDeRecupero(bool enviar_mail, string usuario)
-        {
-            if (enviar_mail)
-            {
 
-            }
+
+        bool IRepositorioDeUsuarios.RecuperarUsuario(string criterio)
+        {
+            throw new NotImplementedException();
         }
     }
 }
