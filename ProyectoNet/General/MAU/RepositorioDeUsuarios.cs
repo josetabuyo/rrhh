@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using General.Repositorios;
 using System.Security.Cryptography;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace General.MAU
 {
@@ -155,6 +157,55 @@ namespace General.MAU
               .Select(s => s[random.Next(s.Length)])
               .ToArray());
             return clave_nueva;
+        }
+
+
+
+
+
+        public bool RecuperarUsuario(string criterio)
+        {
+            try
+            {
+                var validador_datos = new Validador();
+                var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+                if (criterio_deserializado["Mail"] != null)
+                {
+
+                    string mail = (string)((JValue)criterio_deserializado["Mail"]);
+                    validador_datos.DeberiaSerMail(new string[] { "Mail" });
+
+                    if (!validador_datos.EsValido(mail))
+                        throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+
+                    var parametros = new Dictionary<string, object>();
+                    //var estudios = new List<CvEstudios>();
+                    //var docencias = new List<CvDocencia>();
+
+                    parametros.Add("@mail", mail);
+                    var tablaCVs = conexion.Ejecutar("dbo.CV_GetDatosRecupero", parametros);
+
+                    if (tablaCVs.Rows.Count > 0)
+                    {
+                        tablaCVs.Rows.ForEach(row => EnviarMailDeRecupero(row.GetBoolean("enviarMail"), row.GetString("Usuario")));
+
+                    }
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void EnviarMailDeRecupero(bool enviar_mail, string usuario)
+        {
+            if (enviar_mail)
+            {
+
+            }
         }
     }
 }

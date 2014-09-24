@@ -6,6 +6,7 @@
         this.ui.load("RegistroPostular/PantallaRegistro.htm", function () {
             _this.panel_paso_1 = $("#panel_paso_1");
             _this.panel_paso_2 = $("#panel_paso_2");
+            _this.panel_paso_3 = $("#panel_paso_3");
             _this.abrir = function () {
                 _this.mostrar();
             };
@@ -19,14 +20,16 @@
      var _this = this;
      this.ui = $("#recuperar_dialog");
 
-        this.ui.load("RegistroPostular/PantallaRecupero.htm", function () {
+     this.ui.load("RegistroPostular/PantallaRegistro.htm", function () {
             _this.panel_paso_1 = $("#panel_paso_1");
             _this.panel_paso_2 = $("#panel_paso_2");
-            _this.abrir = function () {
-                _this.mostrar();
+            _this.panel_paso_3 = $("#panel_paso_3");
+            _this.recuperar = function () {
+                _this.mostrarRecupero();
             };
             _this.mostrarRecupero();
         });
+        this.proveedor_ajax = new ProveedorAjax();
     },
 
     mostrar: function () {
@@ -58,6 +61,7 @@
         this.txt_numero_documento.val("");
         this.panel_paso_1.show();
         this.panel_paso_2.hide();
+        this.panel_paso_3.hide();
         this.btn_validar.click(function () {
             if (_this.panel_paso_1.esValido()) {
                 _this.proveedor_ajax.postearAUrl({ url: "BuscarPersonas",
@@ -86,7 +90,7 @@
         var _this = this;
         this.panel_paso_1.hide();
         this.panel_paso_2.show();
-
+        this.panel_paso_3.hide();
         $(".vex-dialog-message").text("Complete sus datos");
         this.lbl_numero_documento = $("#lbl_numero_documento");
         this.lbl_numero_documento.text("");
@@ -128,13 +132,14 @@
 
     paso3: function () {
         var _this = this;
-        this.btn_validar = $("#btn_validar");
-        this.txt_mail_registro = $("#txt_email");
-        this.txt_numero_documento.val("");
-        this.panel_paso_1.show();
+        this.btn_recuperar = $("#btn_recuperar");
+        this.txt_mail_registro = $("#txt_mail_recupero");
+        this.txt_mail_registro.val("");
+        this.panel_paso_3.show();
+        this.panel_paso_1.hide();
         this.panel_paso_2.hide();
-        this.btn_validar.click(function () {
-            if (_this.panel_paso_1.esValido()) {
+        this.btn_recuperar.click(function () {
+            if (_this.panel_paso_3.esValido()) {
                 _this.proveedor_ajax.postearAUrl({ url: "RecuperarUsuario",
                     data: { 
                         criterio: JSON.stringify({

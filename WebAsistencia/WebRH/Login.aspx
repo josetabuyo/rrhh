@@ -42,12 +42,11 @@
 </body>
 <script>
     vex.defaultOptions.className = 'vex-theme-os';
+    var lnk_recuperar = $("#lnk_recuperar");
     var lnk_registrarse = $("#lnk_registrarse");
     lnk_registrarse.click(function () {
         PantallaRegistro.abrir();
-    });
-
-    var lnk_recuperar = $("#lnk_recuperar");
+    });   
     lnk_recuperar.click(function () {
         PantallaRegistro.recuperar();
     });

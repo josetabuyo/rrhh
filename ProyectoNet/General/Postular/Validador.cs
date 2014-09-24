@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.Postular;
 
 namespace General
 {
@@ -13,6 +14,7 @@ namespace General
         public static Validador NoNull { get { return new ValidadorNoNull(); } }
         public static Validador NumeroNaturalOCero { get { return new ValidadorNumeroNaturalOCero(); } }
         public static Validador FechaNoVacia { get { return new ValidadorFechaNoVacia(); } }
+        public static Validador Mail { get { return new ValidadorMail(); } }
 
         public Validador () {
             this.validaciones = new Dictionary<string,Validador>();
@@ -62,6 +64,11 @@ namespace General
         {
             atributos.ToList().ForEach(attr => this.DeberiaSer(attr, Validador.NoNull));
         }
+
+        public void DeberiaSerMail(string[] atributos)
+        {
+            atributos.ToList().ForEach(attr => this.DeberiaSer(attr, Validador.Mail));
+        }
     }
 
     public class ValidadorNumeroNatural:Validador
@@ -81,6 +88,14 @@ namespace General
     }
 
     public class ValidadorFechaNoVacia : Validador
+    {
+        override public bool EsValido(object una_fecha)
+        {
+            return una_fecha.ToString() != "";
+        }
+    }
+
+    public class ValidadorMail : Validador
     {
         override public bool EsValido(object una_fecha)
         {

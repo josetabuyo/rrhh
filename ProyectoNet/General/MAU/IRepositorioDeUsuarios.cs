@@ -17,5 +17,7 @@ namespace General.MAU
         int GetDniPorAlias(string alias);
 
         void AsociarUsuarioConMail(Usuario usuario, string mail);
+
+        bool RecuperarUsuario(string criterio);
     }
 }
