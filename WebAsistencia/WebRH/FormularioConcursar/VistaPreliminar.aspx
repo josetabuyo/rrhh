@@ -78,14 +78,11 @@
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 
 <script type="text/javascript">
-
-    $(document).ready(function () {
-        Backend.start();
-
-        curriculum = JSON.parse($('#curriculum').val());
-
-        FichaDeclaracionJurada.dibujarCV(curriculum);
-
+    Backend.start(function () {
+        $(document).ready(function () {
+            curriculum = JSON.parse($('#curriculum').val());
+            FichaDeclaracionJurada.dibujarCV(curriculum);
+        });
     });
 
 </script>

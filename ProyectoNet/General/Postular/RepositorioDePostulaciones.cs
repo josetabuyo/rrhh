@@ -59,38 +59,68 @@ namespace General
         private List<Postulacion> ArmarPostulaciones(TablaDeDatos tablaCVs)
         {
             List<Postulacion> postulaciones = new List<Postulacion>();
-
+            
+            
             tablaCVs.Rows.ForEach(row =>
             {
-                var postulacion = new Postulacion(row.GetInt("IdPostulacion"), ArmarPuesto(row), row.GetInt("IdPersona"), row.GetDateTime("FechaInscripcion"),
-                                                  row.GetString("Motivo"), row.GetString("Observaciones"), row.GetString("Postulacion_Numero", ""), GetEtapasPotulacion(row.GetInt("IdPostulacion")));
+                var postulacion = new Postulacion(){
+                   Id= row.GetInt("IdPostulacion"), 
+                   Puesto=ArmarPuesto(row), 
+                   IdPersona=row.GetInt("IdPersona"), 
+                   FechaPostulacion=row.GetDateTime("FechaInscripcion"),
+                   Motivo=row.GetString("Motivo"), 
+                   Observaciones=row.GetString("Observaciones"), 
+                   Numero= row.GetString("Postulacion_Numero", "")
+                };
                 
-                postulaciones.Add(postulacion);
+
+                if(!postulaciones.Exists( p => p.Id == postulacion.Id))
+                    postulaciones.Add(postulacion);
 
             });
+
+            postulaciones.ForEach(p =>
+                CorteDeControlEtapas(tablaCVs, p)
+            );
             return postulaciones;
         }
 
-        public List<EtapaPostulacion> GetEtapasPotulacion(int id)
+        private void CorteDeControlEtapas(TablaDeDatos tablaCVs, Postulacion postulacion)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdPostulacion", id);
+            //CORTE DE CONTROL PARA OTRAS CAPACIDADES
+            //1.- Controlo que haya al menos 1 resultado
+            var lista = ArmarFilas(tablaCVs, "IdUsuarioPostulacion"); 
+            new List<RowDeDatos>();
 
-            var tablaCVs = conexion_bd.Ejecutar("dbo.CV_Get_HistorialEtapasPostulacion", parametros);
-
-            var etapas = new List<EtapaPostulacion>();
-
-            tablaCVs.Rows.ForEach(row =>
-            etapas.Add(new EtapaPostulacion()
+            if (lista.Count > 0)
             {
-                Descripcion = row.GetString("Descripcion"),
-                Fecha = row.GetDateTime("Fecha"),
-                Usuario = row.GetSmallintAsInt("IdUsuario").ToString()
-            }));
+                var etapas = (from RowDeDatos dRow in lista
+                                            select new //CvEventoAcademico ()
+                                            {
+                                                Descripcion = dRow.GetString("EtapaDescripcion", ""),
+                                                IdEtapaConcurso = dRow.GetSmallintAsInt("IdEtapa"),
+                                                Fecha = dRow.GetDateTime("FechaPostulacion"),
+                                                IdUsuario = dRow.GetSmallintAsInt("IdUsuarioPostulacion"),
+                                                IdPostulacion = dRow.GetInt("IdPostulacion")
+                                            }).Where(r => r.IdPostulacion == postulacion.Id).Distinct().ToList();
+
+                etapas.Select(e => 
+                    new EtapaPostulacion(){
+                        Etapa = new EtapaConcurso(e.IdEtapaConcurso, e.Descripcion), Fecha = e.Fecha, IdUsuario = e.IdUsuario
+                    }).ToList().ForEach(ep => postulacion.AgregarPostulacion(ep));
+            }
+        }
 
 
-            return etapas;
-
+        private List<RowDeDatos> ArmarFilas(TablaDeDatos tabla, string id_usuario_postulacion)
+        {
+            var lista = new List<RowDeDatos>();
+            tabla.Rows.ForEach(r =>
+            {
+                if (!(r.GetObject(id_usuario_postulacion) is DBNull))
+                    lista.Add(r);
+            });
+            return lista;
         }
 
         public List<EtapaConcurso> GetEtapasConcurso()
@@ -174,6 +204,17 @@ namespace General
             int id = int.Parse(conexion_bd.EjecutarEscalar("dbo.CV_Ins_Bajas", parametros).ToString());
 
             return id;
+        }
+
+        public void InsEtapaPostulacion(int id_postulacion,EtapaPostulacion etapa_postulacion)
+        {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPostulacion", id_postulacion);
+            parametros.Add("@Descripcion", etapa_postulacion.Etapa.Id);
+            parametros.Add("@Usuario", etapa_postulacion.IdUsuario);
+
+            conexion_bd.EjecutarSinResultado("dbo.CV_Ins_EtapaPostulación", parametros);
         }
     }
 }
