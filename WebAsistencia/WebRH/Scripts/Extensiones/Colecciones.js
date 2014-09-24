@@ -7,7 +7,7 @@
 
 Array.prototype.find = function (filtro) {
     var _this = this;
-    var item_encontrado = {};
+    var item_encontrado = undefined;
     this.forEach(function (item) {
         var cumple_todas_las_condiciones = true;
         for (var key in filtro) {

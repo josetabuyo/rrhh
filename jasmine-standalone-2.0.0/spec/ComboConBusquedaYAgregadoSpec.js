@@ -98,6 +98,21 @@ var localidades = [
                         expect(combo.idSeleccionado()).toEqual(undefined);
                         expect(combo.select.select2("val")).toEqual("");
                     });
+
+                    it("ENTONCES: si se elimina la selección programaticamente, no debería haber ningún elemento seleccionado", function () {
+                        combo.idSeleccionado(5);
+                        fakeResponse(provincias);
+                        combo.limpiarSeleccion();
+                        expect(combo.idSeleccionado()).toEqual(undefined);
+                        expect(combo.select.select2("val")).toEqual("");
+                    });
+
+                    it("ENTONCES: si se selecciona programaticamente un elemento que no existe, debería informarse por consola y limpiar la seleccion", function () {
+                        combo.idSeleccionado(25);
+                        fakeResponse(provincias);
+                        expect(combo.idSeleccionado()).toEqual(undefined);
+                        expect(combo.select.select2("val")).toEqual("");
+                    });
                 });
             });
         });
