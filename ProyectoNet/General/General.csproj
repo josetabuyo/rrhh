@@ -103,6 +103,7 @@
     <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
+    <Compile Include="Postular\AmbitoLaboral.cs" />
     <Compile Include="Postular\Comite.cs" />
     <Compile Include="Postular\DatosDeContacto.cs" />
     <Compile Include="Postular\EtapaConcurso.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Postular\Pais.cs" />
     <Compile Include="Postular\NivelDeIdioma.cs" />
     <Compile Include="Postular\Validador.cs" />
+    <Compile Include="Repositorios\RepositorioDeAmbitoLaboral.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesDeEstudio.cs" />
     <Compile Include="Repositorios\FiltroDeObjetos.cs" />
     <Compile Include="Repositorios\RepositorioDeCaracterDeEventoAcademico.cs" />
@@ -399,6 +401,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

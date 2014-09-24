@@ -17,12 +17,9 @@
 					<label for="txt_especialidad">Nombre de la Principal Actividad o Responsabilidad <em>*</em></label>
 					<input id="txt_experiencia_laboral_actividad" type="text" style="width:305px;" name="txt_experiencia_laboral_actividad" data-validar="esNoBlanco"/>
 				</div>
-                <div class="grupo_campos nueva_linea">
-					<label for="experiencia-laboral_tipo_de_experiencia">Tipo de Experiencia <em>*</em></label>
-                    <select id="experiencia-laboral_tipo_de_experiencia" style="width:135px;" name = "txt_experiencia_tipo" data-validar="esNoBlanco">
-						<option>Seleccione</option>
-						<option value=0>Pública</option>
-                        <option value=1>Privada</option>
+              <div class="grupo_campos nueva_linea">
+					<label for="cmb_ambitolaboral">Ámbito Laboral <em>*</em></label>
+                    <select id="cmb_ambitolaboral" style="width:135px;" name="cmb_ambitolaboral" dataProvider="AmbitosLaborales" modelo="AmbitoLaboral" data-validar="esNoBlanco">
 					</select>
                   </div>
 				<div class="grupo_campos">

@@ -2794,6 +2794,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public AmbitoLaboral[] BuscarAmbitosLaborales(string criterio)
+    {
+        return RepositorioDeAmbitoLaboral.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+    [WebMethod]
     public NivelDeDocencia[] BuscarNivelesDeDocencia(string criterio)
     {
         return RepositorioDeNivelesDeDocencia.Nuevo(Conexion()).Find(criterio).ToArray();
