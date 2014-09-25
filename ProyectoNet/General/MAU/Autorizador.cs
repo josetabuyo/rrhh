@@ -194,8 +194,9 @@ namespace General.MAU
                     string mail = (string)((JValue)criterio_deserializado["Mail"]);
                     validador_datos.DeberiaSerMail(new string[] { "Mail" });
 
-                    if (!validador_datos.EsValido(mail))
-                        throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+                    //hacer un validador de string o un object
+                   // if (!validador_datos.EsValido(mail))
+                   //     throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
 
                     Usuario usuario_a_recuperar = repo_usuarios.RecuperarUsuario(mail);
    

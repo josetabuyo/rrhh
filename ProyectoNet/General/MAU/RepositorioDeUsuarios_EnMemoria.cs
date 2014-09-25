@@ -37,6 +37,11 @@ namespace AdministracionDeUsuarios
             throw new NotImplementedException();
         }
 
+        public Usuario RecuperarUsuario(string mail)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AsociarUsuarioConMail(Usuario usuario, string mail)
         {
             throw new NotImplementedException();
@@ -64,5 +69,6 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+      
     }
 }

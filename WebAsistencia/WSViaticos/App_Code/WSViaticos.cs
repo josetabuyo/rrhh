@@ -2278,7 +2278,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool RecuperarUsuario(string criterio)
     {
-        bool ejecucion_ok = RepositorioDeUsuarios().RecuperarUsuario(criterio);
+        bool ejecucion_ok = Autorizador().RecuperarUsuario(criterio);
         return ejecucion_ok;
     }
 

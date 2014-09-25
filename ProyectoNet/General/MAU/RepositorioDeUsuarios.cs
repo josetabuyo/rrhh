@@ -169,24 +169,24 @@ namespace General.MAU
             {
                 var validador_datos = new Validador();
                     validador_datos.DeberiaSerMail(new string[] { "Mail" });
-
-                    if (!validador_datos.EsValido(mail))
-                        throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+                //Hacer una validacion de objeto
+                    //if (!validador_datos.EsValido(mail))
+                    //    throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
 
                     var parametros = new Dictionary<string, object>();
-                    parametros.Add("@mail", mail);
+                    parametros.Add("@mail_recupero", mail);
                     var tablaCVs = conexion.Ejecutar("dbo.CV_GetDatosRecupero", parametros);
                     Usuario usuario_a_recuperar = new Usuario();
-                    bool enviar_mail = false;
-                    if (tablaCVs.Rows.Count == 1)
+                    bool enviar_mail = true;
+                    if (tablaCVs.Rows.Count > 0) //mejorar
                     {
                         var row = tablaCVs.Rows.First();
-
-                        if(!row.GetBoolean("Baja") && row.GetBoolean("enviarMail")){
-                        enviar_mail = true;
-                        }else{
-                            enviar_mail = false;
-                        }
+                        //lopear y obtener los no baja
+                      //  if(!(row.GetInt("Baja") == 0 && row.GetSmallintAsInt("enviarMail") == 0)){
+                        //enviar_mail = true;
+                        //}else{
+                        //    enviar_mail = false;
+                        //}
                         usuario_a_recuperar = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), enviar_mail);
 
                     }
@@ -198,12 +198,6 @@ namespace General.MAU
                 return new UsuarioNulo();
             }
         }
-
-
-
-        bool IRepositorioDeUsuarios.RecuperarUsuario(string criterio)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
