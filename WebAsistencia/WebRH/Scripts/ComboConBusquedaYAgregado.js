@@ -11,12 +11,7 @@
     this.select.select2({
         placeholder: this.placeHolder || 'seleccione',
         allowClear: true,
-        width: 'resolve'//,
-        //        minimumInputLength: 0,
-        //        query: function (query) {
-        //            var data = { results: [] };
-        //            query.callback(data);
-        //        }
+        width: 'resolve'
     });
 
     this.select.on("change", function (e) {
@@ -56,6 +51,7 @@ ComboConBusquedaYAgregado.prototype.idSeleccionado = function (id_seleccionado) 
                 console.log("No hay cargado en la colección ningun elemento con el id:" + id_seleccionado)
             }
         }
+        this.change();
     }
     return this._id_seleccionado;
 };
@@ -67,4 +63,12 @@ ComboConBusquedaYAgregado.prototype.itemSeleccionado = function () {
 ComboConBusquedaYAgregado.prototype.limpiarSeleccion = function () {
     this._id_seleccionado = undefined;
     this.select.select2("val", "");
+    this.change();
+};
+
+ComboConBusquedaYAgregado.prototype.change = function (callback) {
+    if (callback) this.callback_change = callback;
+    else {
+        if(this.callback_change) this.callback_change();
+    }
 };

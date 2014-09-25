@@ -16,13 +16,16 @@ require.config({
     },
     shim: {
     	'ComboConBusquedaYAgregadoSpec': {
-			deps: ['mockAjax', 'app/bootstrap/js/jquery', 'app/ComboConBusquedaYAgregado'],
+			deps: ['mockAjax', 'app/bootstrap/js/jquery', 'app/ComboConBusquedaYAgregado', 'app/FormularioBindeado'],
 		},
 		'ComboPopuladoConRepoSpec': {
 			deps: ['mockAjax', 'app/bootstrap/js/jquery', 'app/rhforms-combos'],
 		},
 		'app/rhforms-combos': {
 			deps: ['app/repositorio', 'app/bindings', 'app/string']
+		},
+        'app/FormularioBindeado': {
+			deps: ['app/ComboConBusquedaYAgregado']
 		},
         'app/ComboConBusquedaYAgregado': {
 			deps: ['app/repositorio', 'app/Extensiones/Colecciones', 'app/select2-3.4.4/select2_locale_es']
