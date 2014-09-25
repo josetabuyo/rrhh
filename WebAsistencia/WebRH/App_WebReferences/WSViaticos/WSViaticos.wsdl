@@ -533,6 +533,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Actividad" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Sector" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AmbitoLaboral" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GuardarCvExperienciaLaboralResponse">
@@ -1136,6 +1137,31 @@
         </s:sequence>
       </s:complexType>
       <s:complexType name="Sexo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuscarAmbitosLaborales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarAmbitosLaboralesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarAmbitosLaboralesResult" type="tns:ArrayOfAmbitoLaboral" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAmbitoLaboral">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AmbitoLaboral" nillable="true" type="tns:AmbitoLaboral" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AmbitoLaboral">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
@@ -4430,6 +4456,12 @@
   <wsdl:message name="BuscarSexosSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarSexosResponse" />
   </wsdl:message>
+  <wsdl:message name="BuscarAmbitosLaboralesSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarAmbitosLaborales" />
+  </wsdl:message>
+  <wsdl:message name="BuscarAmbitosLaboralesSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarAmbitosLaboralesResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarNivelesDeDocenciaSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarNivelesDeDocencia" />
   </wsdl:message>
@@ -5545,6 +5577,10 @@
       <wsdl:input message="tns:BuscarSexosSoapIn" />
       <wsdl:output message="tns:BuscarSexosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="BuscarAmbitosLaborales">
+      <wsdl:input message="tns:BuscarAmbitosLaboralesSoapIn" />
+      <wsdl:output message="tns:BuscarAmbitosLaboralesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarNivelesDeDocencia">
       <wsdl:input message="tns:BuscarNivelesDeDocenciaSoapIn" />
       <wsdl:output message="tns:BuscarNivelesDeDocenciaSoapOut" />
@@ -6556,6 +6592,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarSexos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarSexos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarAmbitosLaborales">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarAmbitosLaborales" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8359,6 +8404,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarSexos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarSexos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarAmbitosLaborales">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarAmbitosLaborales" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

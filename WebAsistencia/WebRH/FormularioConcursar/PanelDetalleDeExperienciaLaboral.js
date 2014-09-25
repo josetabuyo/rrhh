@@ -2,7 +2,8 @@
     mostrar: function (opciones) {
         //valores default
         var experiencia = opciones.experiencia || {
-            Pais: 9
+            Pais: 9,
+            AmbitoLaboral: 1
         };
         var alModificar = opciones.alModificar || function () { };
 
@@ -76,6 +77,7 @@
 
                     experiencia.Localidad = _this.txt_experiencia_laboral_localidad.val();
                     experiencia.Actividad = _this.txt_experiencia_laboral_actividad.val();
+ 
 
                     var proveedor_ajax = new ProveedorAjax();
 
