@@ -23,3 +23,22 @@ Array.prototype.find = function (filtro) {
     });
     return item_encontrado;
 };
+
+Array.prototype.findAll = function (filtro) {
+    var _this = this;
+    var items_encontrados = [];
+    this.forEach(function (item) {
+        var cumple_todas_las_condiciones = true;
+        for (var key in filtro) {
+            if (filtro.hasOwnProperty(key)) {
+                if (item[key] != filtro[key]) {
+                    cumple_todas_las_condiciones = false;
+                }
+            }
+        }
+        if (cumple_todas_las_condiciones) {
+            items_encontrados.push(item);
+        }
+    });
+    return items_encontrados;
+};

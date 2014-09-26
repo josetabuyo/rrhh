@@ -26,16 +26,7 @@
     });
 
     if (this.dataProvider) {
-        Repositorio.buscar(_this.dataProvider, _this.filtro, function (objetos) {
-            _this.objetosCargados = objetos;
-            _this.select.append($("<option>"));
-            objetos.forEach(function (objeto) {
-                var option = $("<option value='" + objeto[_this.campoId] + "'>" + objeto[_this.campoDescripcion] + "</option>");
-                _this.select.append(option);
-            });
-            if (_this.idSeleccionado() === undefined) _this.limpiarSeleccion();
-            else _this.idSeleccionado(_this.idSeleccionado());
-        });
+        this.cargarComboDesdeProveedor();
     }
 };
 
@@ -71,4 +62,24 @@ ComboConBusquedaYAgregado.prototype.change = function (callback) {
     else {
         if(this.callback_change) this.callback_change();
     }
+};
+
+ComboConBusquedaYAgregado.prototype.cargarComboDesdeProveedor = function () {
+    var _this = this;
+    Repositorio.buscar(this.dataProvider, this.filtro, function (objetos) {
+        _this.objetosCargados = objetos;
+        _this.select.empty();
+        _this.select.append($("<option>"));
+        objetos.forEach(function (objeto) {
+            var option = $("<option value='" + objeto[_this.campoId] + "'>" + objeto[_this.campoDescripcion] + "</option>");
+            _this.select.append(option);
+        });
+        if (_this.idSeleccionado() === undefined) _this.limpiarSeleccion();
+        else _this.idSeleccionado(_this.idSeleccionado());
+    });
+};
+
+ComboConBusquedaYAgregado.prototype.filtrarPor = function (filtro) {
+    this.filtro = filtro;
+    this.cargarComboDesdeProveedor();
 };

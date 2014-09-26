@@ -5,15 +5,16 @@ var provincias = [
     { Id: 8, Descripcion: "Mendoza" }
 ];
 var localidades = [
-    { Id: 10, Provincia: 1, Descripcion: "La Plata" },
-    { Id: 11, Provincia: 1, Descripcion: "Mar del Plata" },
-    { Id: 21, Provincia: 2, Descripcion: "Parana" },
-    { Id: 22, Provincia: 2, Descripcion: "Gualeguaychu" },
-    { Id: 31, Provincia: 5, Descripcion: "Rafaela" },
-    { Id: 32, Provincia: 5, Descripcion: "Rosario" },
-    { Id: 41, Provincia: 8, Descripcion: "Malargüe" },
-    { Id: 42, Provincia: 8, Descripcion: "Las leñas" },
-    { Id: 51, Provincia: 11, Descripcion: "Curucuacutuzú Cuatiá" }
+    { Id: 10, IdProvincia: 1, Descripcion: "La Plata" },
+    { Id: 11, IdProvincia: 1, Descripcion: "Mar del Plata" },
+    { Id: 21, IdProvincia: 2, Descripcion: "Parana" },
+    { Id: 22, IdProvincia: 2, Descripcion: "Gualeguaychu" },
+    { Id: 31, IdProvincia: 5, Descripcion: "Rafaela" },
+    { Id: 32, IdProvincia: 5, Descripcion: "Rosario" },
+    { Id: 41, IdProvincia: 8, Descripcion: "Malargüe" },
+    { Id: 42, IdProvincia: 8, Descripcion: "Las leñas" },
+    { Id: 42, IdProvincia: 8, Descripcion: "San Rafael" },
+    { Id: 51, IdProvincia: 11, Descripcion: "Curucuacutuzú Cuatiá" }
 ];
 
     describe("ComboConBusquedaYAgregado", function () {
@@ -40,95 +41,123 @@ var localidades = [
 
         describe("DADO: Un elemento <select> dentro de un <div>", function () {
             var formulario;
-            var select;
+            var select_provincias;
 
             beforeEach(function () {
                 formulario = $('<div>');
-                select = $('<select id="combo_provincias"></select>');
-                formulario.append(select);
+                select_provincias = $('<select id="combo_provincias"></select>');
+                formulario.append(select_provincias);
             });
 
             describe("DADO: un ComboConBusquedaYAgregado creado en base al <select> con un dataprovider de provincias", function () {
-                var combo;
+                var combo_provincias;
                 beforeEach(function () {
-                    combo = new ComboConBusquedaYAgregado({
-                        select: select,
+                    combo_provincias = new ComboConBusquedaYAgregado({
+                        select: select_provincias,
                         dataProvider: "Provincias"
                     });
                 });
 
                 it("ENTONCES: el combo debería cargarse con todas las provincias", function () {
                     fakeResponse(provincias);
-                    expect(combo.objetosCargados.length).toEqual(provincias.length);
+                    expect(combo_provincias.objetosCargados.length).toEqual(provincias.length);
                 });
 
                 it("ENTONCES: el combo no debería tener ningún elemento seleccionado", function () {
                     fakeResponse(provincias);
-                    expect(combo.idSeleccionado()).toEqual(undefined);
-                    expect(combo.select.select2("val")).toEqual("");
+                    expect(combo_provincias.idSeleccionado()).toEqual(undefined);
+                    expect(combo_provincias.select.select2("val")).toEqual("");
                 });
 
                 it("ENTONCES: si selecciono un item programáticamente antes o después de que se cargue el combo debería seleccionarse ese item en el combo", function () {
-                    combo.idSeleccionado(5);
-                    expect(combo.idSeleccionado()).toEqual(5);
+                    combo_provincias.idSeleccionado(5);
+                    expect(combo_provincias.idSeleccionado()).toEqual(5);
                     fakeResponse(provincias);
-                    expect(combo.idSeleccionado()).toEqual(5);
-                    expect(combo.itemSeleccionado().Descripcion).toEqual("Santa Fe");
-                    expect(combo.select.select2('data').text).toEqual("Santa Fe");
-                    expect(combo.select.select2('val')).toEqual("5");
+                    expect(combo_provincias.idSeleccionado()).toEqual(5);
+                    expect(combo_provincias.itemSeleccionado().Descripcion).toEqual("Santa Fe");
+                    expect(combo_provincias.select.select2('data').text).toEqual("Santa Fe");
+                    expect(combo_provincias.select.select2('val')).toEqual("5");
                 });
 
                 it("ENTONCES: si el usuario selecciona un item desde el combo, el item seleccionado debería ser el correcto", function () {
                     fakeResponse(provincias);
-                    combo.select.select2("val", 5);
-                    combo.select.trigger("change");
-                    expect(combo.idSeleccionado()).toEqual(5);
-                    expect(combo.itemSeleccionado().Descripcion).toEqual("Santa Fe");
-                    expect(combo.select.select2('data').text).toEqual("Santa Fe");
+                    combo_provincias.select.select2("val", 5);
+                    combo_provincias.select.trigger("change");
+                    expect(combo_provincias.idSeleccionado()).toEqual(5);
+                    expect(combo_provincias.itemSeleccionado().Descripcion).toEqual("Santa Fe");
+                    expect(combo_provincias.select.select2('data').text).toEqual("Santa Fe");
                 });
 
                 it("ENTONCES: si el usuario elimina la seleccion desde el combo, el item seleccionado debería ser ninguno", function () {
-                    combo.idSeleccionado(5);
+                    combo_provincias.idSeleccionado(5);
                     fakeResponse(provincias);
                     formulario.find(".select2-search-choice-close").mousedown();
-                    expect(combo.idSeleccionado()).toEqual(undefined);
-                    expect(combo.select.select2("val")).toEqual("");
+                    expect(combo_provincias.idSeleccionado()).toEqual(undefined);
+                    expect(combo_provincias.select.select2("val")).toEqual("");
                 });
 
                 it("ENTONCES: si se elimina la selección programaticamente, no debería haber ningún elemento seleccionado", function () {
-                    combo.idSeleccionado(5);
+                    combo_provincias.idSeleccionado(5);
                     fakeResponse(provincias);
-                    combo.limpiarSeleccion();
-                    expect(combo.idSeleccionado()).toEqual(undefined);
-                    expect(combo.select.select2("val")).toEqual("");
+                    combo_provincias.limpiarSeleccion();
+                    expect(combo_provincias.idSeleccionado()).toEqual(undefined);
+                    expect(combo_provincias.select.select2("val")).toEqual("");
                 });
 
                 it("ENTONCES: si se selecciona programaticamente un elemento que no existe, debería informarse por consola y limpiar la seleccion", function () {
-                    combo.idSeleccionado(25);
+                    combo_provincias.idSeleccionado(25);
                     fakeResponse(provincias);
-                    expect(combo.idSeleccionado()).toEqual(undefined);
-                    expect(combo.select.select2("val")).toEqual("");
+                    expect(combo_provincias.idSeleccionado()).toEqual(undefined);
+                    expect(combo_provincias.select.select2("val")).toEqual("");
                 });
 
                 it("ENTONCES: al cambiar el item seleccionado en el combo debería ejecutarse un callback", function () {
                     var valor_bindeado = -1;
-                    combo.change(function () {
-                        valor_bindeado = combo.idSeleccionado();
+                    combo_provincias.change(function () {
+                        valor_bindeado = combo_provincias.idSeleccionado();
                     });
-                    combo.idSeleccionado(5);
+                    combo_provincias.idSeleccionado(5);
                     expect(valor_bindeado).toEqual(5);
                     fakeResponse(provincias);
                     expect(valor_bindeado).toEqual(5);
-                    combo.idSeleccionado(52);
+                    combo_provincias.idSeleccionado(52);
                     expect(valor_bindeado).toEqual(undefined);
-                    combo.select.select2("val", 5);
-                    combo.select.trigger("change");
+                    combo_provincias.select.select2("val", 5);
+                    combo_provincias.select.trigger("change");
                     expect(valor_bindeado).toEqual(5);
                 });
 
-                it("ENTONCES: debería poder cambiar el filtro de un combo y este debería recargarse", function () {
-                    
-                }
+                describe("DADO: otro combo, de Localidades", function () {
+                    var select_localidades;
+                    var combo_localidades;
+                    beforeEach(function () {
+                        select_localidades = $('<select id="combo_localidades"></select>');
+                        formulario.append(select_localidades);
+                        combo_localidades = new ComboConBusquedaYAgregado({
+                            select: select_localidades,
+                            dataProvider: "Localidades",
+                            filtro: {
+                                IdProvincia: 5
+                            }
+                        });
+                    });
+
+                    it("ENTONCES: debería poder cambiar el filtro de un combo y este debería recargarse", function () {
+                        fakeResponse(localidades.findAll({
+                            IdProvincia: 5
+                        }));
+                        expect(combo_localidades.objetosCargados.length).toEqual(2);
+                        expect(combo_localidades.select.children().length).toEqual(3);
+                        combo_localidades.filtrarPor({
+                            IdProvincia: 8
+                        });
+                        fakeResponse(localidades.findAll({
+                            IdProvincia: 8
+                        }));
+                        expect(combo_localidades.objetosCargados.length).toEqual(3);
+                        expect(combo_localidades.select.children().length).toEqual(4);
+                    });
+                });
             });
         });
 
