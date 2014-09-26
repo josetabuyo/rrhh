@@ -349,16 +349,15 @@ namespace General.Repositorios
                                                   FechaFin = dRow.GetDateTime("ExperienciaLaboralFin", DateTime.Today),
                                                   Localidad = dRow.GetString("ExperienciaLaboralLocalidad", string.Empty),
                                                   Pais = dRow.GetInt("ExperienciaLaboralPais", 9),
-                                                  Sector = dRow.GetString("ExperienciaLaboralSector", string.Empty)
+                                                  Sector = dRow.GetString("ExperienciaLaboralSector", string.Empty),
+                                                  AmbitoLaboral = dRow.GetInt("ExperienciaAmbitoLaboral", 2)
                                               }).Distinct().ToList();
 
 
                 experiencias_anonimos.Select(e => new CvExperienciaLaboral(e.Id, e.PuestoOcupado, e.MotivoDesvinculacion, e.NombreEmpleador, e.PersonasACargo,
                                             e.TipoEmpresa, e.Actividad, e.FechaInicio, e.FechaFin, e.Localidad,
-                                            e.Pais,e.Sector)).ToList().ForEach(exp => cv.AgregarExperienciaLaboral(exp));
-
-            }
-            
+                                            e.Pais,e.Sector,e.AmbitoLaboral)).ToList().ForEach(exp => cv.AgregarExperienciaLaboral(exp));
+            }  
         }
 
         private void CorteDeControlIdioma(TablaDeDatos tablaCVs, CurriculumVitae cv)
@@ -414,7 +413,6 @@ namespace General.Repositorios
 
                 competencia_anonimos.Select(c => new CvCompetenciasInformaticas(c.Id, c.Diploma, c.Establecimiento, c.TipoInformatica, c.Conocimiento, c.Nivel,
                                                                     c.Localidad, c.Pais, c.FechaObtencion, c.Detalle)).ToList().ForEach(comp => cv.AgregarCompetenciaInformatica(comp));
-
             }
         }
 
@@ -1019,9 +1017,7 @@ namespace General.Repositorios
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@IdExperienciaLaboral", id_experiencia_nueva);
             parametros.Add("@Baja", baja);
-
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ExperienciasLaborales", parametros);
-
             return true;
         }
 
@@ -1040,6 +1036,7 @@ namespace General.Repositorios
             parametros.Add("@Pais", experiencia_nueva.Pais);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Sector", experiencia_nueva.Sector);
+            parametros.Add("@Ambito", experiencia_nueva.AmbitoLaboral);
             return parametros;
 
         }
