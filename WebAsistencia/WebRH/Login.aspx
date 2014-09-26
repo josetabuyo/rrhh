@@ -23,7 +23,7 @@
                         Iniciar Sesión
                     </button>
                     <div style="margin-left: 175px;margin-top: 10px;">
-                   <a id="lnk_recuperar">¿Olvidó sus datos?</a> 
+                   <a id="lnk_recuperar" style="cursor: pointer">¿Olvidó sus datos?</a> 
                    </div>
                 </div>
                 <div id="loginAlertaInvalido" class="alert  alert-error" runat="server">
@@ -33,7 +33,7 @@
            
         </div>
         <div id="registrarse_dialog"></div>
-         <div id="recuperar_dialog"></div>
+        <div id="recuperar_dialog"></div>
     </div>
     </form>
     <%= Referencias.Javascript("") %>

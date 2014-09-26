@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using General.Repositorios;
-using System.Security.Cryptography;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.Net;
-using System.Net.Mail;
 
 namespace General.MAU
 {
@@ -164,40 +158,30 @@ namespace General.MAU
 
         public Usuario RecuperarUsuario(string mail)
         {
-
-            try
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@mail_recupero", mail);
+            var tablaCVs = conexion.Ejecutar("dbo.CV_GetDatosRecupero", parametros);
+            Usuario usuario_a_recuperar = new Usuario();
+            bool enviar_mail = true;
+            if (tablaCVs.Rows.Count > 0)
             {
-                var validador_datos = new Validador();
-                    validador_datos.DeberiaSerMail(new string[] { "Mail" });
-                //Hacer una validacion de objeto
-                    //if (!validador_datos.EsValido(mail))
-                    //    throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+                var registros = tablaCVs.Rows.FindAll(row => row.GetInt("Baja", 0) == 0 && row.GetSmallintAsInt("enviarMail", 0) == 0);
 
-                    var parametros = new Dictionary<string, object>();
-                    parametros.Add("@mail_recupero", mail);
-                    var tablaCVs = conexion.Ejecutar("dbo.CV_GetDatosRecupero", parametros);
-                    Usuario usuario_a_recuperar = new Usuario();
-                    bool enviar_mail = true;
-                    if (tablaCVs.Rows.Count > 0) //mejorar
-                    {
-                        var row = tablaCVs.Rows.First();
-                        //lopear y obtener los no baja
-                      //  if(!(row.GetInt("Baja") == 0 && row.GetSmallintAsInt("enviarMail") == 0)){
-                        //enviar_mail = true;
-                        //}else{
-                        //    enviar_mail = false;
-                        //}
-                        usuario_a_recuperar = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), enviar_mail);
-
-                    }
-
-                return usuario_a_recuperar;
+                if (registros.Count > 0)
+                {
+                    var registro = registros.First();
+                    usuario_a_recuperar = new Usuario(registro.GetSmallintAsInt("Id"), registro.GetString("Alias"), registro.GetString("Clave_Encriptada"), enviar_mail);
+                    return usuario_a_recuperar;
+                }
+                else
+                {
+                    return new UsuarioNulo();
+                }
             }
-            catch
+            else
             {
                 return new UsuarioNulo();
             }
-        }
-       
+        }     
     }
 }

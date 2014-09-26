@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using ExtensionesDeLista;
-using General;
-using System;
-using System.Security.Cryptography;
-using System.Text;
-using General.Repositorios;
-using System.Net.Mail;
-using Newtonsoft.Json;
 using System.Net;
+using System.Net.Mail;
+using General.Repositorios;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace General.MAU
@@ -182,47 +178,38 @@ namespace General.MAU
         public bool RecuperarUsuario(string criterio)
         {
 
-            try
+            var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
+            var validador_datos = new Validador();
+            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            if (criterio_deserializado["Mail"] != null)
             {
-                 var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
-                 var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
-                 var validador_datos = new Validador();
-                var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-                if (criterio_deserializado["Mail"] != null)
-                {
-
-                    string mail = (string)((JValue)criterio_deserializado["Mail"]);
-                    validador_datos.DeberiaSerMail(new string[] { "Mail" });
-
-                    //hacer un validador de string o un object
-                   // if (!validador_datos.EsValido(mail))
-                   //     throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
-
-                    Usuario usuario_a_recuperar = repo_usuarios.RecuperarUsuario(mail);
-   
-                    EnviarMailDeRecupero(usuario_a_recuperar, mail);
-
-                }
-
-                return true;
+                string mail = (string)((JValue)criterio_deserializado["Mail"]);  
+                Usuario usuario_a_recuperar = repo_usuarios.RecuperarUsuario(mail);
+                if (usuario_a_recuperar.Id == 0)
+                    return false; 
+                    
+                EnviarMailDeRecupero(usuario_a_recuperar, mail);
+                return true; 
             }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
-
+           
+     
         private void EnviarMailDeRecupero(Usuario usuario, string mail)
         {
             if (usuario.Habilitado)
             {
                 var clave_nueva = repositorio_usuarios.ResetearPassword(usuario.Id);
-                var  titulo = "Recupero de Datos de SIGIRH"; 
-                var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Password: " + clave_nueva;
+                var  titulo = "Recupero de Datos de SIGIRH";
+                var cuerpo = "Nombre de Usuario: " + usuario.Alias +
+                              "<br/>" + 
+                              "Password: " + clave_nueva + 
+                              "<br/>" + 
+                              "Luego de ingresar al sistema con la nueva clave, podrá cambiarla desde " +
+                              "la opción 'Cambiar Password' en el menú superior derecho";
 
-                EnviarMail(mail, titulo, cuerpo);
-
-                
+                EnviarMail(mail, titulo, cuerpo);  
             }
         }
 

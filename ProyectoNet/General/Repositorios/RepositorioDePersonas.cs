@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using System.Text;
-using General;
 using System.Data.SqlClient;
-using General.Repositorios;
 using System.Linq;
-
 using Extensiones;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

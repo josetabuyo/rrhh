@@ -17,19 +17,20 @@
     },
 
      recuperar: function () {
-     var _this = this;
-     this.ui = $("#recuperar_dialog");
+         var _this = this;
+         this.ui = $("#recuperar_dialog");
 
-     this.ui.load("RegistroPostular/PantallaRegistro.htm", function () {
-            _this.panel_paso_1 = $("#panel_paso_1");
-            _this.panel_paso_2 = $("#panel_paso_2");
-            _this.panel_paso_3 = $("#panel_paso_3");
-            _this.recuperar = function () {
+         this.ui.load("RegistroPostular/PantallaRegistro.htm", function () {
+                _this.panel_paso_1 = $("#panel_paso_1");
+                _this.panel_paso_2 = $("#panel_paso_2");
+                _this.panel_paso_3 = $("#panel_paso_3");
+                _this.recuperar = function () {
+                    _this.mostrarRecupero();
+                };
                 _this.mostrarRecupero();
-            };
-            _this.mostrarRecupero();
-        });
-        this.proveedor_ajax = new ProveedorAjax();
+            });
+            
+            this.proveedor_ajax = new ProveedorAjax();
     },
 
     mostrar: function () {
@@ -88,8 +89,8 @@
     },
     paso2: function () {
         var _this = this;
-        this.panel_paso_1.hide();
         this.panel_paso_2.show();
+        this.panel_paso_1.hide();
         this.panel_paso_3.hide();
         $(".vex-dialog-message").text("Complete sus datos");
         this.lbl_numero_documento = $("#lbl_numero_documento");
@@ -132,12 +133,12 @@
 
     paso3: function () {
         var _this = this;
-        this.btn_recuperar = $("#btn_recuperar");
-        this.txt_mail_registro = $("#txt_mail_recupero");
-        this.txt_mail_registro.val("");
         this.panel_paso_3.show();
         this.panel_paso_1.hide();
         this.panel_paso_2.hide();
+        this.btn_recuperar = $("#btn_recuperar");
+        this.txt_mail_registro = $("#txt_mail_recupero");
+        this.txt_mail_registro.val("");
         this.btn_recuperar.click(function () {
             if (_this.panel_paso_3.esValido()) {
                 _this.proveedor_ajax.postearAUrl({ url: "RecuperarUsuario",
@@ -148,13 +149,13 @@
                     },
                     success: function (ejeucion_ok) {
                         if (!ejeucion_ok) {
-                            alertify.alert("Ya se ha solicitado la recuperación de datos. Revise su correo o contáctese con Recursos Humanos");
+                            alertify.alert("No es posible recuperar sus datos. Contáctese con Recursos Humanos");
                             return;
                         }
                         alertify.alert("Se ha enviado un mail a dicho correo, para que pueda recuperar sus datos de acceso.");
+                        vex.closeAll();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-
                     }
                 });
             }
