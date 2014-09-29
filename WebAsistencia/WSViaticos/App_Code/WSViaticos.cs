@@ -2431,10 +2431,28 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Postulacion GetPostulacionesPorCodigo(string codigo)
+    public string GetPostulacionesPorCodigo(string codigo)
     {
-        var postulaciones = RepoPostulaciones().GetPostulacionesPorCodigo(codigo);
-        return postulaciones;
+        var postulacion = RepoPostulaciones().GetPostulacionesPorCodigo(codigo);
+        var usu_etapas = (from etapa in postulacion.Etapas
+                          select new
+                          {
+                              IdUsuario = etapa.IdUsuario,
+                              UsuarioEtapa = RepositorioDeUsuarios().GetUsuarioPorIdPersona(etapa.IdUsuario).Owner.Nombre + " " + RepositorioDeUsuarios().GetUsuarioPorIdPersona(etapa.IdUsuario).Owner.Apellido,
+                              IdEtapa = etapa.Etapa.Id,
+                              Descripcion = etapa.Etapa.Descripcion,
+                              Fecha = etapa.Fecha
+                          }).ToList();
+
+
+        var usu = RepositorioDeUsuarios().GetUsuarioPorIdPersona(postulacion.Etapas[0].IdUsuario);
+        object datos_postulacion = new
+        {
+            Postulacion = postulacion,
+            UsuarioPostulacion = usu.Owner.Nombre + " " + usu.Owner.Apellido,
+            UsuEtapas = usu_etapas
+        };
+        return Newtonsoft.Json.JsonConvert.SerializeObject(datos_postulacion);
     }
 
     [WebMethod(EnableSession = true)]
@@ -2451,9 +2469,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void InsEtapaPostulacion(int id_postulacion, int id_etapa_postulacion, int id_usuario)
+    public void InsEtapaPostulacion(int id_postulacion, int id_etapa_postulacion, Usuario usuario)
     {
-        RepoPostulaciones().InsEtapaPostulacion(id_postulacion, id_etapa_postulacion, id_usuario);
+        RepoPostulaciones().InsEtapaPostulacion(id_postulacion, id_etapa_postulacion, usuario.Owner.Id);
     }
 
     #region CVAntecedentesAcademicos

@@ -807,38 +807,6 @@ public class AjaxWS : System.Web.Services.WebService
         return JsonConvert.SerializeObject(comite);
     }
 
-    [WebMethod(EnableSession = true)]
-    public string GetPostulacionesPorCodigo(string codigo)
-    {
-        var postulacion = backEndService.GetPostulacionesPorCodigo(codigo);
-
-        var usu_etapas = (from etapa in postulacion.Etapas
-                          select new
-                          {
-                              IdUsuario = etapa.IdUsuario,
-                              UsuarioEtapa = backEndService.GetUsuarioPorIdPersona(etapa.IdUsuario).Owner.Nombre + " " + backEndService.GetUsuarioPorIdPersona(etapa.IdUsuario).Owner.Apellido,
-                              IdEtapa = etapa.Etapa.Id,
-                              Descripcion = etapa.Etapa.Descripcion,
-                              Fecha = etapa.Fecha
-                          }).ToList();
-
-
-        var usu = backEndService.GetUsuarioPorIdPersona(postulacion.Etapas[0].IdUsuario);
-        object datos_postulacion = new  {
-            Postulacion = postulacion,
-            UsuarioPostulacion = usu.Owner.Nombre + " " + usu.Owner.Apellido,
-            UsuEtapas = usu_etapas
-        };
-        return Newtonsoft.Json.JsonConvert.SerializeObject(datos_postulacion);
-    }
-
-    [WebMethod(EnableSession = true)]
-    public void InsEtapaPostulacion(int id_postulacion ,int id_etapa_postulacion)
-    {
-        backEndService.InsEtapaPostulacion(id_postulacion, id_etapa_postulacion, usuarioLogueado.Owner.Id);
-
-    }
-
     #endregion
 
 
