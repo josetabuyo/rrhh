@@ -19,17 +19,15 @@
 
     _this.BuscarPostulaciones = function () {
         var codigo = $("#txt_codigo_postulacion").val();
-        var proveedor_ajax = new ProveedorAjax();
-        proveedor_ajax.postearAUrl({
-            url: "GetPostulacionesPorCodigo",
-            data: { "codigo": codigo },
-            success: function (respuesta) {
-                _this.CompletarDatos(respuesta);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert("Error.");
-            }
-        });
+        Backend.ejecutar("GetPostulacionesPorCodigo",
+                        [codigo],
+                        function (respuesta) {
+                            _this.CompletarDatos(JSON.parse(respuesta));
+                        },
+                        function (errorThrown) {
+                            alertify.alert(errorThrown);
+                        }
+        );
     }
 
     _this.InsEtapaPostulacion = function () {
