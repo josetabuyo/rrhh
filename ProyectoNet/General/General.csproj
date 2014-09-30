@@ -112,11 +112,13 @@
     <Compile Include="Postular\CVCaracterDeParticipacionEvento.cs" />
     <Compile Include="Postular\CVInstitucionesEventos.cs" />
     <Compile Include="Postular\CVTiposDeEventoAcademico.cs" />
+    <Compile Include="Postular\Perfil.cs" />
     <Compile Include="Postular\RepositorioDeComites.cs" />
     <Compile Include="Postular\CvConocimientoCompetenciaInformatica.cs" />
     <Compile Include="Postular\CvNivelCompetenciaInformatica.cs" />
     <Compile Include="Postular\CvTipoCompetenciaInformatica.cs" />
     <Compile Include="Postular\Postulacion.cs" />
+    <Compile Include="Postular\RepositorioDePerfiles.cs" />
     <Compile Include="Postular\RepositorioDePostulaciones.cs" />
     <Compile Include="Postular\CvCapacidadPersonal.cs" />
     <Compile Include="Postular\Puesto.cs" />

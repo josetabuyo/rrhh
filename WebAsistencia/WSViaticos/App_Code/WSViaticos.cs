@@ -2708,11 +2708,19 @@ public class WSViaticos : System.Web.Services.WebService
     }
     #endregion
 
+    //[WebMethod]
+    //public Puesto[] GetCvPuestos()
+    //{
+    //    return RepoPuestos().GetPuestos().ToArray();
+    //}
+
     [WebMethod]
-    public Puesto[] GetCvPuestos()
+    public Perfil[] GetCvPerfiles()
     {
-        return RepoPuestos().GetPuestos().ToArray();
+        return RepoPerfiles().GetPerfiles().ToArray();
     }
+
+
 
     [WebMethod]
     public Postulacion GetPostulacionById(int idpersona,int idpostulacion)
@@ -2919,6 +2927,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDePuestos RepoPuestos()
     {
         return new RepositorioDePuestos(Conexion());
+    }
+
+    private RepositorioDePerfiles RepoPerfiles()
+    {
+        return new RepositorioDePerfiles(Conexion());
     }
 
     private RepositorioDePostulaciones RepoPostulaciones()
