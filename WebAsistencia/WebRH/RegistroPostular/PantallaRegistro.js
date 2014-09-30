@@ -124,7 +124,7 @@
                         });
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error al registrar el usuario, inténtelo nuevamente.");
+                        alertify.alert("El mail con el que intenta registrarse ya existe. Si no recuerda sus datos, utilice la opción '¿Olvidó sus datos?' o comuníquese con <br/> Recursos Humanos.");
                     }
                 });
             }
