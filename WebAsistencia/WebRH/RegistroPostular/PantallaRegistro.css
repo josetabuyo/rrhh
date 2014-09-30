@@ -9,6 +9,11 @@
     float:right;
 }
 
+#btn_recuperar
+{
+    float:right;
+}
+
 #btn_registrarse
 {
     float:right;
@@ -34,6 +39,12 @@
 #panel_paso_1 .campo_a_completar
 {
     width: 300px;
+    margin: 2px;
+}
+
+#panel_paso_3 .campo_a_completar
+{
+    width: 250px;
     margin: 2px;
 }
 

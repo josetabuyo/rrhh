@@ -71,8 +71,58 @@ namespace TestViaticos
             Assert.AreEqual(1, repoCv.GetCV(29753914).CvDocencias.Count);
         }
 
+        /*
+         *dada una postulacion en la primer etapa, deberia devolverme el usuario y la fecha de esa etapa
+         *dada una postulacion en la segunda etapa, deberia devolverme que esta en esa segunda etapa a la fecha de hoy.
+         *dada una postulacion con que entro a primera etapa el dia 10, a segunda etapa el dia 12, y a una tercera etapa el dia 14, si pido la etapa en la que se encontraba al dia 11, deberia devolverme la primera.
+         */
+        [TestMethod]
+        public void dada_una_postulacion_en_la_primer_etapa_deberia_devolverme_el_usuario_y_la_fecha_de_la_etapa()
+        {
+            var una_postulacion = new Postulacion();
+            var etapas = new List<EtapaPostulacion>();
+            var fecha_etapa = DateTime.Now.AddMonths(-3);
+            etapas.Add(new EtapaPostulacion() { 
+                Fecha =  fecha_etapa,
+                Etapa = new EtapaConcurso(1,"Etapa 1"),
+                IdUsuario = 1
+            });
+            una_postulacion.Etapas = etapas;
+            Assert.IsTrue(una_postulacion.Etapas.Count.Equals(1));
+            Assert.IsNotNull(una_postulacion.Etapas.First().Fecha);
+            Assert.IsNotNull(una_postulacion.Etapas.First().IdUsuario);
+        }
 
-
+        [TestMethod]
+        public void dada_una_postulacion_con_mas_de_una_etapa_deberia_devolverme_la_etapa_en_una_fecha_dada()
+        {
+            var una_postulacion = new Postulacion();
+            var etapas = new List<EtapaPostulacion>();
+            var fecha_etapa1 = DateTime.Now.AddMonths(-9);
+            var fecha_etapa2 = DateTime.Now.AddMonths(-6);
+            var fecha_etapa3 = DateTime.Now.AddMonths(-3);
+            etapas.Add(new EtapaPostulacion()
+            {
+                Fecha = fecha_etapa1,
+                Etapa = new EtapaConcurso(1,"Etapa 1"),
+                IdUsuario = 1
+            });
+            etapas.Add(new EtapaPostulacion()
+            {
+                Fecha = fecha_etapa2,
+                Etapa = new EtapaConcurso(2, "Etapa 2"),
+                IdUsuario = 2
+            });
+            etapas.Add(new EtapaPostulacion()
+            {
+                Fecha = fecha_etapa3,
+                Etapa = new EtapaConcurso(3, "Etapa 3"),
+                IdUsuario = 3
+            });
+            una_postulacion.Etapas = etapas;
+            Assert.IsTrue(una_postulacion.Etapas.Count.Equals(3));
+            Assert.IsTrue(una_postulacion.EtapaEn(DateTime.Now.AddMonths(-4)).Etapa.Descripcion.Equals("Etapa 2"));
+        }
 
         public RepositorioDeCurriculum RepoCV()
         {
@@ -82,7 +132,7 @@ namespace TestViaticos
         public CvDatosPersonales DatosPersonales()
         {
             return new CvDatosPersonales(29753914, "Julian", "Dominguez", 1, 1, "20-29753456-5",
-                                         "Argentina", 1, new DateTime(1980, 01, 25).ToShortDateString(), 1, UnDomicilio(), UnDomicilio(),"Tiene legajo", "", "", "");
+                                         "Argentina", 1, new DateTime(1980, 01, 25).ToShortDateString(), 1, UnDomicilio(), UnDomicilio(),"Tiene legajo", new DatosDeContacto());
         }
 
         public CvDomicilio UnDomicilio()
@@ -103,7 +153,7 @@ namespace TestViaticos
         public CvExperienciaLaboral UnaExperienciaLaboral()
         {
             return new CvExperienciaLaboral(1,"Administrativo", "Renuncia", "Banco Macro", 1, "Empresa Financiera","No se",
-                                     new DateTime(2007, 09, 01), new DateTime(2010, 09, 01), "CABA", 9, "bla");
+                                     new DateTime(2007, 09, 01), new DateTime(2010, 09, 01), "CABA", 9, "bla", 1);
         }
 
         public CvIdiomas UnIdioma()

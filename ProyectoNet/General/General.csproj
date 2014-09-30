@@ -103,10 +103,13 @@
     <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
+    <Compile Include="Postular\AmbitoLaboral.cs" />
     <Compile Include="Postular\Comite.cs" />
-<Compile Include="Postular\NivelDeEstudio.cs" />
+    <Compile Include="Postular\DatosDeContacto.cs" />
+    <Compile Include="Postular\EtapaConcurso.cs" />
+    <Compile Include="Postular\EtapaPostulacion.cs" />
+    <Compile Include="Postular\NivelDeEstudio.cs" />
     <Compile Include="Postular\IntegranteComite.cs" />
-
     <Compile Include="Postular\CVCaracterDeParticipacionEvento.cs" />
     <Compile Include="Postular\CVInstitucionesEventos.cs" />
     <Compile Include="Postular\CVTiposDeEventoAcademico.cs" />
@@ -121,6 +124,7 @@
     <Compile Include="Postular\Pais.cs" />
     <Compile Include="Postular\NivelDeIdioma.cs" />
     <Compile Include="Postular\Validador.cs" />
+    <Compile Include="Repositorios\RepositorioDeAmbitoLaboral.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesDeEstudio.cs" />
     <Compile Include="Repositorios\FiltroDeObjetos.cs" />
     <Compile Include="Repositorios\RepositorioDeCaracterDeEventoAcademico.cs" />

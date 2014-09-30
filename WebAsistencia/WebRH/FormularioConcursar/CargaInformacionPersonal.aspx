@@ -190,8 +190,8 @@
                         </div>
 
                         <div id="contenedor_mails"class="grupo_campos">
-                            <label class="etiqueta_campo" for="txt_email">Correo Electrónico</label>
-                            <input type="text" id="txt_email" name="txt_email" style="width:320px" data-validar="esEmailValido"/>
+                            <label class="etiqueta_campo" for="txt_email">Correo Electrónico<em>*</em></label>
+                            <input type="text" id="txt_email" name="txt_email" style="width:320px" data-validar="esEmailValido, esNoBlanco"/>
                        </div>
                       </fieldset>
                       <br />

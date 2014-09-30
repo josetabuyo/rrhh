@@ -17,7 +17,12 @@
 					<label for="txt_especialidad">Nombre de la Principal Actividad o Responsabilidad <em>*</em></label>
 					<input id="txt_experiencia_laboral_actividad" type="text" style="width:305px;" name="txt_experiencia_laboral_actividad" data-validar="esNoBlanco"/>
 				</div>
-				<div class="grupo_campos nueva_linea">
+              <div class="grupo_campos nueva_linea">
+					<label for="cmb_ambitolaboral">Ámbito Laboral <em>*</em></label>
+                    <select id="cmb_ambitolaboral" style="width:135px;" name="cmb_ambitolaboral" dataProvider="AmbitosLaborales" modelo="AmbitoLaboral" data-validar="esNoBlanco">
+					</select>
+                  </div>
+				<div class="grupo_campos">
 					<label for="experiencia-laboral_personal_a_cargo">Personal a Cargo <em>*</em></label>
                     <select id="experiencia-laboral_personal_a_cargo" style="width:135px;" name = "txt_experiencia_personal_a_cargo" data-validar="esUnComboConCero">
 						<option>Seleccione</option>
@@ -25,17 +30,18 @@
                         <option value=1>SI</option>
 					</select>
                   </div>
+
                 <div class="grupo_campos">
 					<label for="txt_experiencia_laboral_fecha_inicio">Fecha Inicio <em>*</em></label>
-					<input id="txt_experiencia_laboral_fecha_inicio" type="text" style="width:100px;" name = "txt_experiencia_laboral_fecha_inicio" data-validar="esNoBlanco"/>
+					<input id="txt_experiencia_laboral_fecha_inicio" type="text" style="width:128px;" name = "txt_experiencia_laboral_fecha_inicio" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="txt_experiencia_laboral_fecha_fin">Fecha Fin</label>
-					<input id="txt_experiencia_laboral_fecha_fin" type="text" style="width:100px;"name = "txt_experiencia_laboral_fecha_fin"/>
+					<input id="txt_experiencia_laboral_fecha_fin" type="text" style="width:126px;"name = "txt_experiencia_laboral_fecha_fin"/>
 				</div>
-				<div class="grupo_campos">
+				<div class="grupo_campos nueva_linea">
 					<label for="experiencia-laboral_motivo_desvinculacion">Motivo de Desvinculación </label>
-					<input id="experiencia-laboral_motivo_desvinculacion" type="text" style="width:180px;" name="txt_motivo_desvinculacion"/>
+					<input id="experiencia-laboral_motivo_desvinculacion" type="text" style="width:582px;" name="txt_motivo_desvinculacion"/>
 				</div>
 				<div class="grupo_campos nueva_linea">
 					<label for="experiencia-laboral_empleador">Nombre del Empleador <em>*</em></label>

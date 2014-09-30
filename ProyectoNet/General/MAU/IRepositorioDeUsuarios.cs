@@ -13,7 +13,7 @@ namespace General.MAU
         Usuario CrearUsuarioPara(int id_persona);
         bool CambiarPassword(int id_usuario, string pass_actual, string pass_nueva);
         string ResetearPassword(int id_usuario);
-
         int GetDniPorAlias(string alias);
+        void AsociarUsuarioConMail(Usuario usuario, string mail);
     }
 }

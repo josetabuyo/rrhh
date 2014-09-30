@@ -2276,6 +2276,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public bool RecuperarUsuario(string criterio)
+    {
+        bool ejecucion_ok = Autorizador().RecuperarUsuario(criterio);
+        return ejecucion_ok;
+    }
+
+    [WebMethod]
     public Area[] BuscarAreas(string criterio)
     {
         var areas = RepositorioDeAreas().BuscarAreas(criterio).ToArray();
@@ -2431,9 +2438,29 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Postulacion GetPostulacionesPorCodigo(string codigo)
+    {
+        var postulaciones = RepoPostulaciones().GetPostulacionesPorCodigo(codigo);
+        return postulaciones;
+    }
+
+    [WebMethod(EnableSession = true)]
+    public EtapaConcurso[] BuscarEtapasConcurso()
+    {
+        var etapas = RepoPostulaciones().GetEtapasConcurso().ToArray();
+        return etapas;
+    }
+
+    [WebMethod]
     public Comite GetComite(int idComite)
     {
         return RepoComites().GetComiteById(idComite);
+    }
+
+    [WebMethod]
+    public void InsEtapaPostulacion(int id_postulacion, EtapaPostulacion etapa_postulacion)
+    {
+        RepoPostulaciones().InsEtapaPostulacion(id_postulacion, etapa_postulacion);
     }
 
     #region CVAntecedentesAcademicos
@@ -2777,6 +2804,12 @@ public class WSViaticos : System.Web.Services.WebService
     public Sexo[] BuscarSexos(string criterio)
     {
         return RepositorioDeSexos.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+    [WebMethod]
+    public AmbitoLaboral[] BuscarAmbitosLaborales(string criterio)
+    {
+        return RepositorioDeAmbitoLaboral.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
     [WebMethod]
