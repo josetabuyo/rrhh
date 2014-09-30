@@ -13,10 +13,14 @@
 };
 
 FormularioBindeado.prototype.crearYBindearCombo = function (select) {
-    var combo = new ComboConBusquedaYAgregado({
+    var opt_constructor = {
         select: select,
         dataProvider: select.attr('rh-data-provider')
-    });
+    };
+    var prop_label = select.attr("rh-propiedad-label");
+    if (prop_label) opt_constructor.propiedadLabel = prop_label;
+
+    var combo = new ComboConBusquedaYAgregado(opt_constructor);
     this[select.attr('Id')] = combo;
 
     var path_propiedad_modelo = select.attr('rh-model-property');

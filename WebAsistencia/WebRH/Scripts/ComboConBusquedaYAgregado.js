@@ -1,8 +1,8 @@
 ﻿var ComboConBusquedaYAgregado = function (opt) {
     var _this = this;
     var def = {
-        campoId: "Id",
-        campoDescripcion: "Descripcion",
+        propiedadId: "Id",
+        propiedadLabel: "Descripcion",
         filtro: {},
         objetosCargados: []
     }
@@ -35,7 +35,7 @@ ComboConBusquedaYAgregado.prototype.idSeleccionado = function (id_seleccionado) 
         this._id_seleccionado = id_seleccionado;
         if (this.objetosCargados.length > 0) {
             var criterio_busqueda = {};
-            criterio_busqueda[this.campoId] = id_seleccionado;
+            criterio_busqueda[this.propiedadId] = id_seleccionado;
             if (this.objetosCargados.find(criterio_busqueda)) this.select.select2("val", id_seleccionado);
             else {
                 this.limpiarSeleccion();
@@ -48,7 +48,7 @@ ComboConBusquedaYAgregado.prototype.idSeleccionado = function (id_seleccionado) 
 };
 
 ComboConBusquedaYAgregado.prototype.itemSeleccionado = function () {
-    return this.objetosCargados.find(JSON.parse("{\"" + this.campoId + "\":" + this.idSeleccionado() + "}"));
+    return this.objetosCargados.find(JSON.parse("{\"" + this.propiedadId + "\":" + this.idSeleccionado() + "}"));
 };
 
 ComboConBusquedaYAgregado.prototype.limpiarSeleccion = function () {
@@ -71,7 +71,7 @@ ComboConBusquedaYAgregado.prototype.cargarComboDesdeProveedor = function () {
         _this.select.empty();
         _this.select.append($("<option>"));
         objetos.forEach(function (objeto) {
-            var option = $("<option value='" + objeto[_this.campoId] + "'>" + objeto[_this.campoDescripcion] + "</option>");
+            var option = $("<option value='" + objeto[_this.propiedadId] + "'>" + objeto[_this.propiedadLabel] + "</option>");
             _this.select.append(option);
         });
         if (_this.idSeleccionado() === undefined) _this.limpiarSeleccion();

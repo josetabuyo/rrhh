@@ -5,16 +5,16 @@ var provincias = [
     { Id: 8, Descripcion: "Mendoza" }
 ];
 var localidades = [
-    { Id: 10, IdProvincia: 1, Descripcion: "La Plata" },
-    { Id: 11, IdProvincia: 1, Descripcion: "Mar del Plata" },
-    { Id: 21, IdProvincia: 2, Descripcion: "Parana" },
-    { Id: 22, IdProvincia: 2, Descripcion: "Gualeguaychu" },
-    { Id: 31, IdProvincia: 5, Descripcion: "Rafaela" },
-    { Id: 32, IdProvincia: 5, Descripcion: "Rosario" },
-    { Id: 41, IdProvincia: 8, Descripcion: "Malargüe" },
-    { Id: 42, IdProvincia: 8, Descripcion: "Las leñas" },
-    { Id: 42, IdProvincia: 8, Descripcion: "San Rafael" },
-    { Id: 51, IdProvincia: 11, Descripcion: "Curucuacutuzú Cuatiá" }
+    { Id: 10, IdProvincia: 1, Nombre: "La Plata" },
+    { Id: 11, IdProvincia: 1, Nombre: "Mar del Plata" },
+    { Id: 21, IdProvincia: 2, Nombre: "Parana" },
+    { Id: 22, IdProvincia: 2, Nombre: "Gualeguaychu" },
+    { Id: 31, IdProvincia: 5, Nombre: "Rafaela" },
+    { Id: 32, IdProvincia: 5, Nombre: "Rosario" },
+    { Id: 41, IdProvincia: 8, Nombre: "Malargüe" },
+    { Id: 42, IdProvincia: 8, Nombre: "Las leñas" },
+    { Id: 42, IdProvincia: 8, Nombre: "San Rafael" },
+    { Id: 51, IdProvincia: 11, Nombre: "Curucuacutuzú Cuatiá" }
 ];
 
     describe("ComboConBusquedaYAgregado", function () {
@@ -138,7 +138,8 @@ var localidades = [
                             dataProvider: "Localidades",
                             filtro: {
                                 IdProvincia: 5
-                            }
+                            },
+                            propiedadLabel: "Nombre"
                         });
                     });
 
@@ -188,7 +189,7 @@ var localidades = [
                 select_provincia_nacimiento = $('<select id="combo_provincia_nacimiento" rh-control-type="combo" rh-data-provider="Provincias" rh-model-property="ProvinciaNacimiento"></select>');
                 select_provincia_domicilio = $('<select id="combo_provincia_domicilio" rh-control-type="combo" rh-data-provider="Provincias" rh-model-property="Domicilio.Provincia"></select>');
                 select_provincia_madre = $('<select id="combo_provincia_madre" rh-control-type="combo" rh-data-provider="Provincias" rh-model-property="Madre.Domicilio.Provincia"></select>');
-                select_localidad_domicilio = $('<select id="combo_localidad_domicilio" rh-control-type="combo" rh-data-provider="Localidades" rh-model-property="Domicilio.Localidad" rh-filter-combo="combo_provincia_domicilio" rh-filter-prop="IdProvincia"></select>');
+                select_localidad_domicilio = $('<select id="combo_localidad_domicilio" rh-control-type="combo" rh-data-provider="Localidades" rh-propiedad-label="Nombre" rh-model-property="Domicilio.Localidad" rh-filter-combo="combo_provincia_domicilio" rh-filter-prop="IdProvincia"></select>');
                 formulario.append(select_provincia_nacimiento);
                 formulario.append(select_provincia_domicilio);
                 formulario.append(select_provincia_madre);
@@ -212,7 +213,7 @@ var localidades = [
                     expect(form_datos_personales.combo_provincia_nacimiento.itemSeleccionado().Descripcion).toEqual("Buenos Aires");
                     expect(form_datos_personales.combo_provincia_domicilio.itemSeleccionado().Descripcion).toEqual("Santa Fe");
                     expect(form_datos_personales.combo_provincia_madre.itemSeleccionado().Descripcion).toEqual("Mendoza");
-                    expect(form_datos_personales.combo_localidad_domicilio.itemSeleccionado().Descripcion).toEqual("Rafaela");
+                    expect(form_datos_personales.combo_localidad_domicilio.itemSeleccionado().Nombre).toEqual("Rafaela");
                 });
 
                 it("ENTONCES: un cambio en la opción seleccionada en un combo debería reflejarse en el modelo", function () {
@@ -227,6 +228,15 @@ var localidades = [
                 it("ENTONCES: un cambio en el modelo debería verse reflejado en el combo", function () {
                     datos_personales.Domicilio.Provincia = 2;
                     expect(form_datos_personales.combo_provincia_domicilio.itemSeleccionado().Descripcion).toEqual("Entre Rios");
+                });
+
+                it("ENTONCES: un cambio en la seleccion del combo de provincias debería recargar el combo localidades con el filtro correspondiente", function () {
+                    form_datos_personales.combo_provincia_domicilio.idSeleccionado(8);
+                    fakeResponse(localidades.findAll({
+                        IdProvincia: 8
+                    }));
+                    expect(form_datos_personales.combo_localidad_domicilio.idSeleccionado()).toEqual(undefined);
+                    expect(form_datos_personales.combo_localidad_domicilio.objetosCargados.length).toEqual(3);
                 });
             });
         });

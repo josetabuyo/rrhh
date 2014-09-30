@@ -5,7 +5,11 @@ var CvDatosPersonales = {
         this.ui = $("#contenedor_datosPersonales");
         $("#cuil").mask("99-99999999-9");
 
-        RH_FORMS.bindear(this.ui, Repositorio, datos_personales);
+        //RH_FORMS.bindear(this.ui, Repositorio, datos_personales);
+        var rh_form = new FormularioBindeado({
+            formulario: this.ui,
+            modelo: datos_personales
+        });
 
         _this.txt_nombre = _this.ui.find("#nombre");
         _this.txt_apellido = _this.ui.find("#apellido");
