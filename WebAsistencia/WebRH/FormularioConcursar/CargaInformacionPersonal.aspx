@@ -125,17 +125,14 @@
                           <input type="text" id="txt_cp1" name="txt_cp1" style="width:80px"/  
                               data-validar="esNumeroNatural" maxlength="10">
                       </div>
-                      <!-- MODIFICAR EL data-validar="esUnComboConCero" por data-validar="esUnComboSinCero" hasta que se modifique comportamiento del combo - chequear con Javi-->
                       <div class="grupo_campos nueva_linea">     
-                        <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>
-                        <%--<select id="cmb_provincia1" name="cmb_provincia1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Provincia" data-validar="esUnComboConCero" dataProvider="Provincias">--%>
-                        <select id="cmb_provincia1" style="width:320px;" label="Nombre" rh-control-type="combo" rh-propiedad-label="Nombre" rh-data-provider="Provincias" rh-model-property="DomicilioPersonal.Provincia" data-validar="esUnComboConCero">
+                        <label class="etiqueta_campo" for="cmb_provincia1">Provincia <em>*</em></label>                       
+                        <select id="cmb_provincia1" style="width:320px;" rh-control-type="combo" rh-propiedad-label="Nombre" rh-data-provider="Provincias" rh-model-property="DomicilioPersonal.Provincia" data-validar="esUnComboConCero"></select>
                       </div> 
-                      <!-- MODIFICAR EL data-validar="esUnComboConCero" por data-validar="esUnComboSinCero" hasta que se modifique comportamiento del combo - chequear con Javi-->
+
                       <div class="grupo_campos">
                           <label class="etiqueta_campo_small" for="cmb_localidad1">Localidad <em>*</em></label>
-<%--                           <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Localidad" data-validar="esUnComboConCero" dataProvider="Localidades" dependeDe="cmb_provincia1" filtradoPor="IdProvincia">--%>
-                           <select id="cmb_localidad1" style="width:320px;" label="Nombre" rh-control-type="combo" rh-propiedad-label="Nombre" rh-data-provider="Localidades" rh-model-property="DomicilioPersonal.Localidad" rh-filter-combo="cmb_provincia1" rh-filter-prop="IdProvincia" data-validar="esUnComboConCero">
+                           <select id="cmb_localidad1" style="width:320px;" rh-control-type="combo" rh-propiedad-label="Nombre" rh-data-provider="Localidades" rh-model-property="DomicilioPersonal.Localidad" data-validar="esUnComboConCero" rh-filter-combo="cmb_provincia1" rh-filter-prop="IdProvincia"></select>
                       </div>
                     </fieldset>
                     <br />
