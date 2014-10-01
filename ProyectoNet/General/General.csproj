@@ -93,6 +93,7 @@
     <Compile Include="Calendario\Periodo.cs" />
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
     <Compile Include="DictionaryExtension.cs" />
+    <Compile Include="Postular\IDescribeRequisito.cs" />
     <Compile Include="MAU\AccesoAURL.cs" />
     <Compile Include="Extensiones\ExtensionString.cs" />
     <Compile Include="MAU\AspiranteAUsuario.cs" />

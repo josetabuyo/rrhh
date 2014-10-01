@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    public class CvPublicaciones
+    public class CvPublicaciones: IDescribeRequisito
     {
         protected int _id;
         protected string _titulo;
@@ -40,5 +40,10 @@ namespace General
         {
         }
 
+
+        public string DescripcionRequisito()
+        {
+            return this.Titulo;
+        }
     }
 }

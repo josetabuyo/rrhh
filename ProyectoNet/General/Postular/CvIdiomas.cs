@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    public class CvIdiomas
+    public class CvIdiomas : IDescribeRequisito
     {
         protected int _id;
         protected string _diploma;
@@ -51,5 +51,10 @@ namespace General
         {
         }
 
+
+        public string DescripcionRequisito()
+        {
+            return this.Idioma;
+        }
     }
 }

@@ -9,9 +9,19 @@ namespace General
     {
 
         public string DescripcionRequisito { get ; set; }
-        public List<ItemCv> ItemsCv { get; set; }
+        public List<ItemCv> ItemsCv { get; protected set; }
 
+        public DocumentacionRequerida()
+        {
+            this.ItemsCv = new List<ItemCv>();
+        }
 
+        public ItemCv AddItemCV(string descripcion)
+        {
+            var item = new ItemCv(descripcion);
+            this.ItemsCv.Add(item);
+            return item;
+        }
 
     }
 }

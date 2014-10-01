@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace General
 {
@@ -14,9 +15,11 @@ namespace General
             var lista_docRequerida = new List<DocumentacionRequerida>();
             var documentacion = new DocumentacionRequerida();
 
-            CompletarIdiomas(curriculumVitae, documentacion);
-            CompletarPublicaciones(curriculumVitae, documentacion);
-            
+
+            xx(documentacion, curriculumVitae.CvIdiomas, "Idiomas");
+            xx(documentacion, curriculumVitae.CvPublicaciones, "Publicaciones");
+
+           
 
             lista_docRequerida.Add(documentacion);
 
@@ -25,34 +28,25 @@ namespace General
             return pantalla;
         }
 
-        private void CompletarPublicaciones(CurriculumVitae curriculumVitae, DocumentacionRequerida documentacion)
-        {
-            if (curriculumVitae.CvPublicaciones.Count > 0)
-            {
-                List<ItemCv> lista_items = new List<ItemCv>();
-                documentacion.DescripcionRequisito = "Publicaciones";
-                curriculumVitae.CvPublicaciones.ForEach(publicacion => lista_items.Add(new ItemCv(publicacion.Titulo)));
+        protected void xx(DocumentacionRequerida documentacion, IList lista, string descripcion_requisito) {
 
-                documentacion.ItemsCv = lista_items;
+            List<IDescribeRequisito> descriptores_requisitos = new List<IDescribeRequisito>();
+            foreach (var item in lista)
+            {
+                descriptores_requisitos.Add((IDescribeRequisito)item);
             }
 
-        }
-
-        protected void CompletarIdiomas(CurriculumVitae curriculumVitae, DocumentacionRequerida documentacion)
-        {
-
-            if (curriculumVitae.CvIdiomas.Count > 0)
-            {
-                List<ItemCv> lista_items = new List<ItemCv>();
-
-                documentacion.DescripcionRequisito = "Idiomas";
-                curriculumVitae.CvIdiomas.ForEach(idioma => lista_items.Add(new ItemCv(idioma.Idioma)));
-
-                documentacion.ItemsCv = lista_items;
-            }
             
+            if (lista.Count > 0)
+            {
+                documentacion.DescripcionRequisito = descripcion_requisito;
+                foreach (IDescribeRequisito item in lista)
+                {
+                    documentacion.AddItemCV(item.DescripcionRequisito());
+                }
+            }
         }
 
-
+ 
     }
 }
