@@ -478,13 +478,6 @@ public class AjaxWS : System.Web.Services.WebService
 
     #region POSTULAR
 
-    [WebMethod(EnableSession = true)]
-    public string GuardarCVDatosPersonales(WSViaticos.CvDatosPersonales datosPersonales_nuevos, WSViaticos.CvDatosPersonales datosPersonales_originales)
-    {
-        backEndService.GuardarCvDatosPersonales(datosPersonales_nuevos, datosPersonales_originales, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject("");
-    }
-
     #region CvAntecedentesAcademicos
 
     [WebMethod(EnableSession = true)]

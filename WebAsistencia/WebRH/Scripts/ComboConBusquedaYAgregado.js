@@ -3,10 +3,12 @@
     var def = {
         propiedadId: "Id",
         propiedadLabel: "Descripcion",
-        filtro: {},
-        objetosCargados: []
+        filtro: {}        
     }
     $.extend(true, this, def, opt);
+
+    this.objetosCargados = [];
+    this.callbacks_change = [];
 
     this.select.select2({
         placeholder: this.placeHolder || 'seleccione',
@@ -58,9 +60,11 @@ ComboConBusquedaYAgregado.prototype.limpiarSeleccion = function () {
 };
 
 ComboConBusquedaYAgregado.prototype.change = function (callback) {
-    if (callback) this.callback_change = callback;
+    if (callback) this.callbacks_change.push(callback);
     else {
-        if(this.callback_change) this.callback_change();
+        this.callbacks_change.forEach(function(cb){
+            cb();
+        });
     }
 };
 

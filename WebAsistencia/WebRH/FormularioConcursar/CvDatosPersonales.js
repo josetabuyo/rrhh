@@ -85,60 +85,69 @@ var CvDatosPersonales = {
 
 
             if ($("#contenedor_datosPersonales").esValido()) {
-                var datos_personales_nuevo = {};
-                var domicilioPersonal_nuevo = {};
-                var domicilioLegal_nuevo = {};
-                var datosDeContacto_nuevo = {};
-                datos_personales_nuevo.Nombre = _this.txt_nombre.val();
-                datos_personales_nuevo.Apellido = _this.txt_apellido.val();
-                datos_personales_nuevo.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
+//                var datos_personales_nuevo = {};
+//                var domicilioPersonal_nuevo = {};
+//                var domicilioLegal_nuevo = {};
+//                var datosDeContacto_nuevo = {};
+                datos_personales.Nombre = _this.txt_nombre.val();
+                datos_personales.Apellido = _this.txt_apellido.val();
+                datos_personales.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
 
-                datos_personales_nuevo.LugarDeNacimiento = _this.cmb_lugar_nac.val();
-                datos_personales_nuevo.FechaNacimiento = _this.txt_fechaNac.val();
-                datos_personales_nuevo.Dni = parseInt(_this.txt_dni.val());
+                datos_personales.LugarDeNacimiento = _this.cmb_lugar_nac.val();
+                datos_personales.FechaNacimiento = _this.txt_fechaNac.val();
+                datos_personales.Dni = parseInt(_this.txt_dni.val());
 
-                domicilioPersonal_nuevo.Id = datos_personales.DomicilioPersonal.Id;
-                domicilioPersonal_nuevo.Calle = _this.txt_domicilio_personal_calle.val();
-                domicilioPersonal_nuevo.Numero = parseInt(_this.txt_domicilio_personal_numero.val());
-                domicilioPersonal_nuevo.Piso = parseInt(_this.txt_domicilio_personal_piso.val());
-                domicilioPersonal_nuevo.Depto = _this.txt_domicilio_personal_dto.val();
-                domicilioPersonal_nuevo.Cp = parseInt(_this.txt_domicilio_personal_cp.val());
+                datos_personales.DomicilioPersonal.Calle = _this.txt_domicilio_personal_calle.val();
+                datos_personales.DomicilioPersonal.Numero = parseInt(_this.txt_domicilio_personal_numero.val());
+                datos_personales.DomicilioPersonal.Piso = parseInt(_this.txt_domicilio_personal_piso.val());
+                datos_personales.DomicilioPersonal.Depto = _this.txt_domicilio_personal_dto.val();
+                datos_personales.DomicilioPersonal.Cp = parseInt(_this.txt_domicilio_personal_cp.val());
 
-                domicilioLegal_nuevo.Id = datos_personales.DomicilioLegal.Id;
-                domicilioLegal_nuevo.Calle = _this.txt_domicilio_legal_calle.val();
-                domicilioLegal_nuevo.Numero = parseInt(_this.txt_domicilio_legal_numero.val());
-                domicilioLegal_nuevo.Piso = parseInt(_this.txt_domicilio_legal_piso.val());
-                domicilioLegal_nuevo.Depto = _this.txt_domicilio_legal_dto.val();
-                domicilioLegal_nuevo.Cp = parseInt(_this.txt_domicilio_legal_cp.val());
+                datos_personales.DomicilioLegal.Calle = _this.txt_domicilio_legal_calle.val();
+                datos_personales.DomicilioLegal.Numero = parseInt(_this.txt_domicilio_legal_numero.val());
+                datos_personales.DomicilioLegal.Piso = parseInt(_this.txt_domicilio_legal_piso.val());
+                datos_personales.DomicilioLegal.Depto = _this.txt_domicilio_legal_dto.val();
+                datos_personales.DomicilioLegal.Cp = parseInt(_this.txt_domicilio_legal_cp.val());
 
-                datosDeContacto_nuevo.Telefono = _this.txt_datos_de_contacto_Telefono.val();
-                datosDeContacto_nuevo.Telefono2 = _this.txt_datos_de_contacto_Telefono2.val();
-                datosDeContacto_nuevo.Email = _this.txt_datos_de_contacto_Email.val();
+                datos_personales.DatosDeContacto.Telefono = _this.txt_datos_de_contacto_Telefono.val();
+                datos_personales.DatosDeContacto.Telefono2 = _this.txt_datos_de_contacto_Telefono2.val();
+                datos_personales.DatosDeContacto.Email = _this.txt_datos_de_contacto_Email.val();
 
-                datos_personales_nuevo.DomicilioPersonal = domicilioPersonal_nuevo;
-                datos_personales_nuevo.DomicilioLegal = domicilioLegal_nuevo;
-                datos_personales_nuevo.DatosDeContacto = datosDeContacto_nuevo;
+//                datos_personales_nuevo.DomicilioPersonal = domicilioPersonal_nuevo;
+//                datos_personales_nuevo.DomicilioLegal = domicilioLegal_nuevo;
+//                datos_personales_nuevo.DatosDeContacto = datosDeContacto_nuevo;
 
-                var data_post = JSON.stringify({
-                    "datosPersonales_nuevos": datos_personales_nuevo,
-                    "datosPersonales_originales": datos_personales
-                });
-                $.ajax({
-                    url: "../AjaxWS.asmx/GuardarCVDatosPersonales",
-                    type: "POST",
-                    data: data_post,
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (respuestaJson) {
-                        var respuesta = JSON.parse(respuestaJson.d);
+//                var data_post = JSON.stringify({
+//                    "datosPersonales_nuevos": datos_personales_nuevo,
+//                    "datosPersonales_originales": datos_personales
+//                });
+
+                Backend.GuardarCvDatosPersonales(datos_personales)
+                    .onSuccess(function (respuesta) {
                         alertify.success("Datos Personales guardados correctamente");
-                        //alModificar(respuesta);
                         $(".modal_close_concursar").click();
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert(errorThrown);
-                    }
-                });
+                    })
+                    .onError(function (error) {
+                        alertify.alert(error);
+                    });
+                
+                
+//                $.ajax({
+//                    url: "../AjaxWS.asmx/GuardarCVDatosPersonales",
+//                    type: "POST",
+//                    data: data_post,
+//                    dataType: "json",
+//                    contentType: "application/json; charset=utf-8",
+//                    success: function (respuestaJson) {
+//                        var respuesta = JSON.parse(respuestaJson.d);
+//                        alertify.success("Datos Personales guardados correctamente");
+//                        //alModificar(respuesta);
+//                        $(".modal_close_concursar").click();
+//                    },
+//                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+//                        alertify.alert(errorThrown);
+//                    }
+//                });
             } //fin validador
         });
 

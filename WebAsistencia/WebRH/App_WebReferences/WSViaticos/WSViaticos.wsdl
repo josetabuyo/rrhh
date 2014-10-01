@@ -2693,8 +2693,7 @@
       <s:element name="GuardarCvDatosPersonales">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="datosPersonalesDTO_nueva" type="tns:CvDatosPersonales" />
-            <s:element minOccurs="0" maxOccurs="1" name="datosPersonalesDTO_original" type="tns:CvDatosPersonales" />
+            <s:element minOccurs="0" maxOccurs="1" name="datosPersonalesDTO" type="tns:CvDatosPersonales" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>

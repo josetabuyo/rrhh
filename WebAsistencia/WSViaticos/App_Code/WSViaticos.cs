@@ -2419,9 +2419,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO_nueva, CvDatosPersonales datosPersonalesDTO_original, Usuario usuario)
+    public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO, Usuario usuario)
     {
-        RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO_nueva, usuario);
+        RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO, usuario);
     }
 
     [WebMethod]

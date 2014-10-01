@@ -27,7 +27,11 @@
             },
             mensaje: "Ingrese dato numérico"
         },
-
+        haySeleccionEnCombo: function (control) {
+            if (control.prop("disabled")) return true;
+            if (control.val() == "") return false;
+            return true;
+        },
         esUnComboSinCero: {
             evaluar: function (control) {
                 if (control.prop("disabled")) return true;
@@ -103,9 +107,11 @@
                 es_valido = false;
             }
         });
+        if(control.hasClass("select2-offscreen")) control = $(control.prev());
         if (es_valido) {
             control.limpiarValidaciones();
         } else {
+            
             control.limpiarValidaciones();
             control.addClass("control-invalido");
             control.opentip(mensaje.substring(2), {
