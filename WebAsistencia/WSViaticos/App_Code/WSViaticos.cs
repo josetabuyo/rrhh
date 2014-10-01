@@ -2715,10 +2715,17 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    [System.Xml.Serialization.XmlInclude(typeof(FoliableEstudiosUniversitario))]
+    [System.Xml.Serialization.XmlInclude(typeof(FoliableAntecedentesPenales))]
+    [System.Xml.Serialization.XmlInclude(typeof(FoliableExperienciaLaboralPublica))]
+    [System.Xml.Serialization.XmlInclude(typeof(FoliableExperienciaLaboralPrivada))]
     public Postulacion GetPostulacionById(int idpersona,int idpostulacion)
     {
         Postulacion postulacion = RepoPostulaciones().GetPostulacionById(idpersona, idpostulacion);
         postulacion.Puesto.DocumentacionRequerida = RepoPuestos().GetFoliablesDelPerfil(postulacion.Puesto.Id);
+        CurriculumVitae cv = RepoCurriculum().GetCV(idpersona);
+        postulacion.CrearDocumentacionARecibir(postulacion.Puesto.DocumentacionRequerida, cv);
+
         return postulacion;
     }
 

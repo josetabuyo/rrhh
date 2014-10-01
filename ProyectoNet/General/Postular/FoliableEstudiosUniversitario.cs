@@ -9,16 +9,19 @@ namespace General
     {
         protected int _id;
         protected string _descripcion;
+        protected string _itemCV;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string Descripcion { get { return _descripcion; } set { _descripcion = value; } }
+        public string ItemCV { get { return _itemCV; } set { _itemCV = value; } }
 
         public FoliableEstudiosUniversitario()
         {
         }
 
-        public FoliableEstudiosUniversitario(string descripcion)
+        public FoliableEstudiosUniversitario(string descripcion, string item)
         {
+            _itemCV = item;
             _descripcion = descripcion;
         }
 

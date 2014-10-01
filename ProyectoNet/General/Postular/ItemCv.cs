@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace General
+{
+    public class ItemCv
+    {
+        public ItemCv(string descripcion) {
+
+            this.Descripcion = descripcion;
+        }
+
+        public string Descripcion { get; protected set; }
+    }
+}

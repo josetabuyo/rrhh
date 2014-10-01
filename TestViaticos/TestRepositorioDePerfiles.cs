@@ -71,22 +71,113 @@ namespace TestViaticos
         }
 
         [TestMethod]
+        public void deberia_crear_una_pantalla_mostrando_solo_ingles()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarIdioma(Idioma("Ingles"));
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv);
+
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida.Count);
+            Assert.AreEqual("Idiomas", pantalla.DocumentacionRequerida[0].DescripcionRequisito);
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida[0].ItemsCv.Count);
+            Assert.AreEqual("Ingles", pantalla.DocumentacionRequerida[0].ItemsCv[0].Descripcion);
+
+        }
+
+        [TestMethod]
+        public void deberia_crear_una_pantalla_mostrando_solo_aleman()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarIdioma(Idioma("Aleman"));
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv);
+
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida.Count);
+            Assert.AreEqual("Idiomas", pantalla.DocumentacionRequerida[0].DescripcionRequisito);
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida[0].ItemsCv.Count);
+            Assert.AreEqual("Aleman", pantalla.DocumentacionRequerida[0].ItemsCv[0].Descripcion);
+
+        }
+
+        [TestMethod]
+        public void deberia_crear_una_pantalla_mostrando_una_publicacion()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarPublicacion(new CvPublicaciones(1,"Informe sobre ciegos","","",1,1,new DateTime()));
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv);
+
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida.Count);
+            Assert.AreEqual("Publicaciones", pantalla.DocumentacionRequerida[0].DescripcionRequisito);
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida[0].ItemsCv.Count);
+            Assert.AreEqual("Informe sobre ciegos", pantalla.DocumentacionRequerida[0].ItemsCv[0].Descripcion);
+
+        }
+
+        [TestMethod]
+        public void deberia_crear_una_pantalla_mostrando_aleman_e_ingles()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarIdioma(Idioma("Aleman"));
+            cv.AgregarIdioma(Idioma("Ingles"));
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv);
+
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida.Count);
+            Assert.AreEqual("Idiomas", pantalla.DocumentacionRequerida[0].DescripcionRequisito);
+            Assert.AreEqual(2, pantalla.DocumentacionRequerida[0].ItemsCv.Count);
+            Assert.AreEqual("Aleman", pantalla.DocumentacionRequerida[0].ItemsCv[0].Descripcion);
+            Assert.AreEqual("Ingles", pantalla.DocumentacionRequerida[0].ItemsCv[1].Descripcion);
+
+        }
+
+        private static CvIdiomas Idioma(string idioma)
+        {
+            return new CvIdiomas(1, idioma, "", idioma, 1, 1, 1, new DateTime(), "", 1);
+        }
+
+       /* [TestMethod]
         public void la_postulacion_deberia_tener_la_lista_de_doc_recibida()
         {
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            
+            string source = @"  |DescripcionDocRequerida	                            |NombreClaseFoliable                   |  
+                                |Se requiere 5 años de experiencia en ambito publico	|FoliableExperienciaLaboralPublica     |
+                                |Se requiere 2 años de experiencia en ambito privado    |FoliableExperienciaLaboralPrivada     |
+                                |Titulo Universitario	 	                            |FoliableEstudiosUniversitario         | 
+                                |Antecedentes Penales	                                |FoliableAntecedentesPenales           |";
+
+
+           var resultado_sp = TablaDeDatos.From(source);
+           Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+           RepositorioDePuestos repo = new RepositorioDePuestos(conexion);
+
+           Puesto perfil = TestObjects.UnPerfil();
+
+           perfil.DocumentacionRequerida = repo.GetFoliablesDelPerfil(perfil.Id);
 
             Postulacion postulacion = TestObjects.UnaPostulacion();
             CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarExperienciaLaboral(TestObjects.UnaExpPrivada());
+            cv.AgregarExperienciaLaboral(TestObjects.UnaExpPublica());
+            cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
 
-
+            //List<DocumentacionRecibida> doc_recibidos = new List<DocumentacionRecibida>();
 
             FoliableEstudiosUniversitario foliable_universitario = new FoliableEstudiosUniversitario();
             FoliableEstudiosSecundario foliable_secundario = new FoliableEstudiosSecundario();
             //perfil.DocumentacionRequerida = repo.GetFoliablesDelPerfil(perfil.Id);
 
-            Assert.AreEqual(2, foliable_universitario.documentacion(cv).Count);
+            //perfil.DocumentacionRequerida.ForEach(dr => dr.documentacion(cv).ForEach(d => postulacion.AgregarDocumentacionRecibida(new DocumentacionRecibida(0,"",d,DateTime.Today))));
+            postulacion.CrearDocumentacionARecibir(perfil.DocumentacionRequerida, cv);
+            
+            Assert.AreEqual(4, postulacion.DocumentacionARecibir.Count);
+            Assert.AreEqual(1, foliable_universitario.documentacion(cv).Count);
             Assert.AreEqual(0, foliable_secundario.documentacion(cv).Count);
 
-        }
+        }*/
 
 
     }

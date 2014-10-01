@@ -104,7 +104,9 @@
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
     <Compile Include="Postular\Comite.cs" />
+    <Compile Include="Postular\CreadorDePantallas.cs" />
     <Compile Include="Postular\DocumentacionRecibida.cs" />
+    <Compile Include="Postular\DocumentacionRequerida.cs" />
     <Compile Include="Postular\FoliableEstudiosSecundario.cs" />
     <Compile Include="Postular\FoliableEstudiosUniversitario.cs" />
     <Compile Include="Postular\FoliableAntecedentesPenales.cs" />
@@ -114,11 +116,13 @@
     <Compile Include="Postular\EtapaConcurso.cs" />
     <Compile Include="Postular\EtapaPostulacion.cs" />
     <Compile Include="Postular\Foliable.cs" />
+    <Compile Include="Postular\ItemCv.cs" />
     <Compile Include="Postular\NivelDeEstudio.cs" />
     <Compile Include="Postular\IntegranteComite.cs" />
     <Compile Include="Postular\CVCaracterDeParticipacionEvento.cs" />
     <Compile Include="Postular\CVInstitucionesEventos.cs" />
     <Compile Include="Postular\CVTiposDeEventoAcademico.cs" />
+    <Compile Include="Postular\PatallaRecepcionDocumentacion.cs" />
     <Compile Include="Postular\RepositorioDeComites.cs" />
     <Compile Include="Postular\CvConocimientoCompetenciaInformatica.cs" />
     <Compile Include="Postular\CvNivelCompetenciaInformatica.cs" />

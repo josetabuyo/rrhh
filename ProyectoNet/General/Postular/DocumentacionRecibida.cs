@@ -19,5 +19,12 @@ namespace General
 
 
         public DocumentacionRecibida() { }
+
+        public DocumentacionRecibida(int id, string folio, Foliable foliable, DateTime fecha) {
+            _id = id;
+            _folio = folio;
+            _foliable = foliable;
+            _fecha = fecha;
+        }
     }
 }

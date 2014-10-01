@@ -769,6 +769,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Comite" type="tns:Comite" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionRequerida" type="tns:ArrayOfFoliable" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Comite">
@@ -793,6 +794,56 @@
           <s:element minOccurs="1" maxOccurs="1" name="NroDocumento" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="EsTitular" type="s:boolean" />
         </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFoliable">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Foliable" nillable="true" type="tns:Foliable" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Foliable" abstract="true" />
+      <s:complexType name="FoliableAntecedentesPenales">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Foliable">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ItemCV" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="FoliableEstudiosUniversitario">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Foliable">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ItemCV" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="FoliableExperienciaLaboralPrivada">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Foliable">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ItemCV" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="FoliableExperienciaLaboralPublica">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Foliable">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ItemCV" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
       </s:complexType>
       <s:element name="GetPostulacionById">
         <s:complexType>
@@ -819,6 +870,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Etapas" type="tns:ArrayOfEtapaPostulacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocRecibida" type="tns:ArrayOfDocumentacionRecibida" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfEtapaPostulacion">
@@ -837,6 +889,19 @@
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDocumentacionRecibida">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentacionRecibida" nillable="true" type="tns:DocumentacionRecibida" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentacionRecibida">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Folio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Foliable" type="tns:Foliable" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
         </s:sequence>
       </s:complexType>
       <s:element name="EliminarPostulacionPorUsuario">

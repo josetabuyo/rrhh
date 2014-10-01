@@ -59,7 +59,7 @@ namespace General
 
             //return (Foliable)Activator.CreateInstance(assembly.GetType(tipoFiltro));
             //Si deseo mandarle argumentos al contructor
-            return (Foliable)Activator.CreateInstance(assembly.GetType(tipoFiltro), new Object[] { descripcion });
+            return (Foliable)Activator.CreateInstance(assembly.GetType(tipoFiltro), new Object[] { descripcion, nombreClase });
 
             
         }

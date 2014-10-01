@@ -1837,6 +1837,16 @@ namespace General
             return new CvEstudios("Lic en Adm", 12, "", "", new DateTime(), new DateTime(), "", 0);
         }
 
+        public static CvExperienciaLaboral UnaExpPublica()
+        {
+            return new CvExperienciaLaboral(1, "", "", "", 1, "", "", new DateTime(), new DateTime(), "",1, "");
+        }
+
+        public static CvExperienciaLaboral UnaExpPrivada()
+        {
+            return new CvExperienciaLaboral(1, "", "", "", 1, "", "", new DateTime(), new DateTime(), "", 2, "");
+        }
+
         public static Postulacion UnaPostulacion()
         {
             return new Postulacion(1, UnPerfil(), 1, new DateTime(), "", "", "", new List<EtapaPostulacion>());
