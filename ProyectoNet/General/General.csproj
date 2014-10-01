@@ -134,6 +134,7 @@
     <Compile Include="Postular\Puesto.cs" />
     <Compile Include="Postular\Pais.cs" />
     <Compile Include="Postular\NivelDeIdioma.cs" />
+    <Compile Include="Postular\RequisitoIdioma.cs" />
     <Compile Include="Postular\Validador.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesDeEstudio.cs" />
     <Compile Include="Repositorios\FiltroDeObjetos.cs" />

@@ -3,50 +3,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections;
+using General.Postular;
 
 namespace General
 {
     public class CreadorDePantallas
     {
 
-        public PatallaRecepcionDocumentacion CrearPantalla(CurriculumVitae curriculumVitae)
+        public PatallaRecepcionDocumentacion CrearPantalla(CurriculumVitae curriculumVitae, Puesto puesto)
         {
             var pantalla = new PatallaRecepcionDocumentacion();
             var lista_docRequerida = new List<DocumentacionRequerida>();
-            var documentacion = new DocumentacionRequerida();
 
-
-            xx(documentacion, curriculumVitae.CvIdiomas, "Idiomas");
-            xx(documentacion, curriculumVitae.CvPublicaciones, "Publicaciones");
-
-           
-
-            lista_docRequerida.Add(documentacion);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvIdiomas, "Idiomas", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida ,curriculumVitae.CvPublicaciones, "Publicaciones", puesto);
 
             pantalla.DocumentacionRequerida = lista_docRequerida;
+
+            AgregarACuadroPerfil(curriculumVitae, puesto, pantalla);
 
             return pantalla;
         }
 
-        protected void xx(DocumentacionRequerida documentacion, IList lista, string descripcion_requisito) {
+        protected void AgregarACuadroPerfil(CurriculumVitae curriculumVitae, Puesto puesto, PatallaRecepcionDocumentacion pantalla)
+        {
+            if (curriculumVitae.CvIdiomas.Count <= 0) 
+                return;
 
-            List<IDescribeRequisito> descriptores_requisitos = new List<IDescribeRequisito>();
-            foreach (var item in lista)
+            List<RequisitoIdioma> requisitos_idiomas = new List<RequisitoIdioma>();
+            curriculumVitae.CvIdiomas.ForEach(i => requisitos_idiomas.Add(new RequisitoIdioma(i.DescripcionRequisito())));
+
+            var doc_req = new DocumentacionRequerida();
+            doc_req.DescripcionRequisito = "Idiomas";
+
+            requisitos_idiomas.ForEach((req) =>
             {
-                descriptores_requisitos.Add((IDescribeRequisito)item);
-            }
+                if (puesto.TieneRequisito(req))
+                {
+                    var ItemCV = new ItemCv(req.Idioma);
+                    doc_req.ItemsCv.Add(ItemCV);
+                    pantalla.CuadroPerfil.Add(doc_req);
+                }
+            });
+        }
 
+        protected void CargarDocumentacionRequerida(List<DocumentacionRequerida> lista_doc_requerida, IList lista, string descripcion_requisito, Puesto puesto) {
             
             if (lista.Count > 0)
             {
+                var documentacion = new DocumentacionRequerida();
                 documentacion.DescripcionRequisito = descripcion_requisito;
                 foreach (IDescribeRequisito item in lista)
                 {
-                    documentacion.AddItemCV(item.DescripcionRequisito());
+                    if (!puesto.TieneRequisito(new RequisitoIdioma(item.DescripcionRequisito())))
+                    {
+                        documentacion.AddItemCV(item.DescripcionRequisito());
+                    }
+                }
+                if (documentacion.ItemsCv.Count > 0)
+                {
+                    lista_doc_requerida.Add(documentacion);
                 }
             }
         }
-
- 
     }
 }

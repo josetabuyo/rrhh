@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.Postular;
 
 namespace General
 {
@@ -47,9 +48,17 @@ namespace General
 
         public Puesto() { }
 
-        //public List<Foliable> documentacionRequerida() { 
-        //    return 
-        //}
 
+
+        List<RequisitoIdioma> _requisito_idioma = new List<RequisitoIdioma>();
+        public void Requiere(RequisitoIdioma requisito_idioma)
+        {
+            _requisito_idioma.Add(requisito_idioma);
+        }
+
+        public bool TieneRequisito(RequisitoIdioma requisitoIdioma)
+        {
+            return _requisito_idioma.Any(i => i.Equals(requisitoIdioma));
+        }
     }
 }

@@ -9,6 +9,13 @@ namespace General
     {
 
         public List<DocumentacionRequerida> DocumentacionRequerida { get; set; }
+        public List<DocumentacionRequerida> CuadroPerfil { get; protected set; }
+
+
+        public PatallaRecepcionDocumentacion()
+        {
+            this.CuadroPerfil = new List<DocumentacionRequerida>();
+        }
 
     }
 }

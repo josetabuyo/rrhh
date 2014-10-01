@@ -10,6 +10,7 @@ using General;
 
 using NMock2;
 using General.MAU;
+using General.Postular;
 
 namespace TestViaticos
 {
@@ -76,13 +77,13 @@ namespace TestViaticos
             CreadorDePantallas creador = new CreadorDePantallas();
             CurriculumVitae cv = TestObjects.UnCV();
             cv.AgregarIdioma(Idioma("Ingles"));
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv);
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, TestObjects.UnPerfil());
 
             Assert.AreEqual(1, pantalla.DocumentacionRequerida.Count);
             Assert.AreEqual("Idiomas", pantalla.DocumentacionRequerida[0].DescripcionRequisito);
             Assert.AreEqual(1, pantalla.DocumentacionRequerida[0].ItemsCv.Count);
             Assert.AreEqual("Ingles", pantalla.DocumentacionRequerida[0].ItemsCv[0].Descripcion);
-
+            Assert.AreEqual(0, pantalla.CuadroPerfil.Count);
         }
 
         [TestMethod]
@@ -91,7 +92,7 @@ namespace TestViaticos
             CreadorDePantallas creador = new CreadorDePantallas();
             CurriculumVitae cv = TestObjects.UnCV();
             cv.AgregarIdioma(Idioma("Aleman"));
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv);
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, TestObjects.UnPerfil());
 
             Assert.AreEqual(1, pantalla.DocumentacionRequerida.Count);
             Assert.AreEqual("Idiomas", pantalla.DocumentacionRequerida[0].DescripcionRequisito);
@@ -106,7 +107,7 @@ namespace TestViaticos
             CreadorDePantallas creador = new CreadorDePantallas();
             CurriculumVitae cv = TestObjects.UnCV();
             cv.AgregarPublicacion(new CvPublicaciones(1,"Informe sobre ciegos","","",1,1,new DateTime()));
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv);
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, TestObjects.UnPerfil());
 
             Assert.AreEqual(1, pantalla.DocumentacionRequerida.Count);
             Assert.AreEqual("Publicaciones", pantalla.DocumentacionRequerida[0].DescripcionRequisito);
@@ -116,20 +117,137 @@ namespace TestViaticos
         }
 
         [TestMethod]
-        public void deberia_crear_una_pantalla_mostrando_aleman_e_ingles()
+        public void deberia_crear_una_pantalla_mostrando_aleman_e_ingles_y_una_publicacion()
         {
             CreadorDePantallas creador = new CreadorDePantallas();
             CurriculumVitae cv = TestObjects.UnCV();
             cv.AgregarIdioma(Idioma("Aleman"));
             cv.AgregarIdioma(Idioma("Ingles"));
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv);
+            cv.AgregarPublicacion(new CvPublicaciones(1, "Informe sobre ciegos", "", "", 1, 1, new DateTime()));
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, TestObjects.UnPerfil());
 
-            Assert.AreEqual(1, pantalla.DocumentacionRequerida.Count);
+            Assert.AreEqual(2, pantalla.DocumentacionRequerida.Count);
             Assert.AreEqual("Idiomas", pantalla.DocumentacionRequerida[0].DescripcionRequisito);
             Assert.AreEqual(2, pantalla.DocumentacionRequerida[0].ItemsCv.Count);
             Assert.AreEqual("Aleman", pantalla.DocumentacionRequerida[0].ItemsCv[0].Descripcion);
             Assert.AreEqual("Ingles", pantalla.DocumentacionRequerida[0].ItemsCv[1].Descripcion);
+            Assert.AreEqual("Publicaciones", pantalla.DocumentacionRequerida[1].DescripcionRequisito);
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida[1].ItemsCv.Count);
+            Assert.AreEqual("Informe sobre ciegos", pantalla.DocumentacionRequerida[1].ItemsCv[0].Descripcion);
+        }
 
+        [TestMethod]
+        public void deberia_ver_el_idioma_ingles_en_el_cuadro_del_perfil()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarIdioma(Idioma("Ingles"));
+
+            Puesto puesto = TestObjects.UnPerfil();
+            puesto.Requiere(new RequisitoIdioma("Ingles"));
+
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+
+            Assert.AreEqual(1, pantalla.CuadroPerfil.Count);
+            Assert.AreEqual("Idiomas", pantalla.CuadroPerfil[0].DescripcionRequisito);
+            Assert.AreEqual(1, pantalla.CuadroPerfil[0].ItemsCv.Count);
+            Assert.AreEqual("Ingles", pantalla.CuadroPerfil[0].ItemsCv[0].Descripcion);
+            Assert.AreEqual(0, pantalla.DocumentacionRequerida.Count);
+        }
+
+        [TestMethod]
+        public void deberia_ver_el_idioma_portugues_en_el_cuadro_del_perfil()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarIdioma(Idioma("Portugues"));
+
+            Puesto puesto = TestObjects.UnPerfil();
+            puesto.Requiere(new RequisitoIdioma("Portugues"));
+
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+
+            Assert.AreEqual(1, pantalla.CuadroPerfil.Count);
+            Assert.AreEqual("Idiomas", pantalla.CuadroPerfil[0].DescripcionRequisito);
+            Assert.AreEqual(1, pantalla.CuadroPerfil[0].ItemsCv.Count);
+            Assert.AreEqual("Portugues", pantalla.CuadroPerfil[0].ItemsCv[0].Descripcion);
+            Assert.AreEqual(0, pantalla.DocumentacionRequerida.Count);
+        }
+
+        [TestMethod]
+        public void deberia_ver_el_idioma_ingles_en_el_cuadro_del_perfil_y_portugues_fuera_de_el()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarIdioma(Idioma("Ingles"));
+            cv.AgregarIdioma(Idioma("Portugues"));
+
+            Puesto puesto = TestObjects.UnPerfil();
+            puesto.Requiere(new RequisitoIdioma("Ingles"));
+
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+
+            Assert.AreEqual(1, pantalla.CuadroPerfil.Count);
+            Assert.AreEqual("Idiomas", pantalla.CuadroPerfil[0].DescripcionRequisito);
+            Assert.AreEqual(1, pantalla.CuadroPerfil[0].ItemsCv.Count);
+            Assert.AreEqual("Ingles", pantalla.CuadroPerfil[0].ItemsCv[0].Descripcion);
+
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida[0].ItemsCv.Count);
+            Assert.AreEqual("Idiomas", pantalla.DocumentacionRequerida[0].DescripcionRequisito);
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida[0].ItemsCv.Count);
+            Assert.AreEqual("Portugues", pantalla.DocumentacionRequerida[0].ItemsCv[0].Descripcion);
+        }
+
+        [TestMethod]
+        public void deberia_ver_el_idioma_ingles_y_portugues_en_el_cuadro_del_perfil()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarIdioma(Idioma("Ingles"));
+            cv.AgregarIdioma(Idioma("Portugues"));
+
+            Puesto puesto = TestObjects.UnPerfil();
+            puesto.Requiere(new RequisitoIdioma("Ingles"));
+            puesto.Requiere(new RequisitoIdioma("Portugues"));
+
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+
+            Assert.AreEqual(2, pantalla.CuadroPerfil.Count);
+            Assert.AreEqual("Idiomas", pantalla.CuadroPerfil[0].DescripcionRequisito);
+            Assert.AreEqual(2, pantalla.CuadroPerfil[0].ItemsCv.Count);
+            Assert.AreEqual("Ingles", pantalla.CuadroPerfil[0].ItemsCv[0].Descripcion);
+            Assert.AreEqual("Portugues", pantalla.CuadroPerfil[0].ItemsCv[1].Descripcion);
+
+            Assert.AreEqual(0, pantalla.DocumentacionRequerida.Count);
+        }
+
+        //[TestMethod]
+        //public void deberia_ver_el_titulo_universitario_en_el_cuadro_del_perfil()
+        //{
+        //    CreadorDePantallas creador = new CreadorDePantallas();
+        //    CurriculumVitae cv = TestObjects.UnCV();
+        //    cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
+
+        //    Puesto puesto = TestObjects.UnPerfil();
+        //    puesto.Requiere(new RequisitoEstudioUniversitario());
+
+        //    PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+
+        //    Assert.AreEqual(1, pantalla.CuadroPerfil.Count);
+        //    Assert.AreEqual("Idiomas", pantalla.CuadroPerfil[0].DescripcionRequisito);
+        //    Assert.AreEqual(1, pantalla.CuadroPerfil[0].ItemsCv.Count);
+        //    Assert.AreEqual("Ingles", pantalla.CuadroPerfil[0].ItemsCv[0].Descripcion);
+        //}
+
+        [TestMethod]
+        public void no_deberia_tener_un_idioma_en_el_cuadro_perfil_cuando_el_perfil_no_lo_requiere()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarIdioma(Idioma("Ingles"));
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, TestObjects.UnPerfil());
+
+            Assert.AreEqual(0, pantalla.CuadroPerfil.Count);
         }
 
         private static CvIdiomas Idioma(string idioma)
