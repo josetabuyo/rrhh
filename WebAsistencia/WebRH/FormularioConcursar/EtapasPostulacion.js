@@ -3,19 +3,35 @@
     _this.ui = $("#div_cambio_etapas");
     _this.cmb_etapas_concurso = $("#cmb_etapas_concurso");
     _this.btn_buscar_etapas = $("#btn_buscar_etapas");
-    _this.btn_guardar_etapa = $("#btn_guardar_etapa");
-
-    var etapas = { Etapa: 1 };
-    RH_FORMS.bindear(_this.ui, Repositorio, etapas);
 
     _this.btn_buscar_etapas.click(function () {
         _this.BuscarPostulaciones();
     });
 
-    _this.btn_guardar_etapa.click(function () {
+    _this.cmb_etapas_concurso.change(function () {
         _this.InsEtapaPostulacion();
         _this.BuscarPostulaciones();
     });
+
+
+    _this.BuscarEtapas = function () {
+        
+        Backend.ejecutar("BuscarEtapasConcurso",
+                        [""],
+                        function (respuesta) {
+                            _this.cmb_etapas_concurso.append($("<option>").val(-1).text("Seleccione"));
+                            for (var i = 0; i < respuesta.length; i++) {
+                                var el = $("<option>");
+                                el.val(respuesta[i].Id);
+                                el.text(respuesta[i].Descripcion);
+                                _this.cmb_etapas_concurso.append(el);
+                            }
+                        },
+                        function (errorThrown) {
+                            alertify.alert(errorThrown);
+                        }
+        );
+    }
 
     _this.BuscarPostulaciones = function () {
         var codigo = $("#txt_codigo_postulacion").val();
@@ -34,19 +50,15 @@
         var postulacion = JSON.parse($("#postulacion").val()).Postulacion;
         var id_etapa = cmb_etapas_concurso.val();
         var proveedor_ajax = new ProveedorAjax();
-        proveedor_ajax.postearAUrl({
-            url: "InsEtapaPostulacion",
-            data: {
-                id_postulacion: postulacion.Id,
-                id_etapa_postulacion: id_etapa
-            },
-            success: function (respuesta) {
+        Backend.ejecutar("InsEtapaPostulacion",
+            [postulacion.Id, id_etapa],
+            function (respuesta) {
                 alertify.alert("Etapa Guardada");
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            function (XMLHttpRequest, textStatus, errorThrown) {
                 alertify.alert("Error.");
             }
-        });
+        );
     }
 
     _this.CompletarDatos = function (datos_postulacion) {
@@ -62,7 +74,7 @@
         postulacion.val(JSON.stringify(datos_postulacion));
 
         var columnas = [];
-        columnas.push(new Columna("Fecha", { generar: function (una_etapa) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_etapa.Fecha) } }));
+        columnas.push(new Columna("Fecha", { generar: function (una_etapa) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_etapa.Fecha) + "__" + una_etapa.Fecha } }));
         columnas.push(new Columna("Descripción", { generar: function (una_etapa) { return una_etapa.Descripcion } }));
         columnas.push(new Columna("Usuario", { generar: function (una_etapa) { return una_etapa.UsuarioEtapa; } }));
 
@@ -82,4 +94,6 @@
         span_perfil.html(datos_postulacion.Postulacion.Puesto.Familia);
         $("#seccion_historial").show();
     }
+
+    _this.BuscarEtapas();
 }

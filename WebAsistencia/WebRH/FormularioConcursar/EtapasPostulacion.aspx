@@ -35,13 +35,12 @@
             </div>
             <div id="seccion_historial" style="display:none">
                 <h3>Historial</h3>
-                <div style="display:inline-block; margin-left:30px; width: 60%; vertical-align: middle;">
+                <div style="display:block; margin-left:30px; min-width: 60%; vertical-align: middle;">
                     <div id="div_tabla_historial"></div>
                 </div>
-                <div style="display:inline-block; margin-left:30px; vertical-align: middle;">
+                <div style="display:block; margin-left:30px; vertical-align: middle;">
                     <select id="cmb_etapas_concurso" dataProvider="EtapasConcurso" modelo="Etapa">
-                    </select><br />
-                    <input type="button" id="btn_guardar_etapa" value="Guardar" />
+                    </select>
                 </div>
             </div>
         </div>
