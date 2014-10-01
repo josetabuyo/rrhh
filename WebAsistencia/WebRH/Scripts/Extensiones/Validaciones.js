@@ -3,7 +3,7 @@
         esEmailValido: {
             evaluar: function (control) {
                 if (control.prop("disabled")) return true;
-                if (control.val() == "") return true;
+                if (control.val() == "") return false;
                 return control.val().length > 0 && (/^([\w\-\.]+@([\w\-]+\.)+[\w\-]{2,6})?$/).test(control.val());
             },
             mensaje: "Ingrese un mail válido"

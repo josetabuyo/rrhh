@@ -2276,6 +2276,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public bool RecuperarUsuario(string criterio)
+    {
+        bool ejecucion_ok = Autorizador().RecuperarUsuario(criterio);
+        return ejecucion_ok;
+    }
+
+    [WebMethod]
     public Area[] BuscarAreas(string criterio)
     {
         var areas = RepositorioDeAreas().BuscarAreas(criterio).ToArray();
@@ -2815,6 +2822,12 @@ public class WSViaticos : System.Web.Services.WebService
     public Sexo[] BuscarSexos(string criterio)
     {
         return RepositorioDeSexos.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+    [WebMethod]
+    public AmbitoLaboral[] BuscarAmbitosLaborales(string criterio)
+    {
+        return RepositorioDeAmbitoLaboral.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
     [WebMethod]

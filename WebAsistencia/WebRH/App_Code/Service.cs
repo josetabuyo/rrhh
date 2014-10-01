@@ -214,6 +214,14 @@ public class AjaxWS : System.Web.Services.WebService
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public bool RecuperarUsuario(string criterio)
+    {
+        var respuesta = backEndService.RecuperarUsuario(criterio);
+        return respuesta;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string BuscarAreas(string criterio)
     {
         var respuesta = backEndService.BuscarAreas(criterio);

@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using ExtensionesDeLista;
-using General;
-using System;
-using System.Security.Cryptography;
-using System.Text;
-using General.Repositorios;
-using System.Net.Mail;
-using Newtonsoft.Json;
 using System.Net;
+using System.Net.Mail;
+using General.Repositorios;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace General.MAU
 {
@@ -155,7 +152,7 @@ namespace General.MAU
             {
                 throw new Exception("Ya hay alguien registrado con su documento.");
             }
-            MailAddress mail = new MailAddress(aspirante.Email);
+ 
             if(aspirante.Nombre.Trim() == "") throw new Exception("El nombre no puede ser vacío.");
             if(aspirante.Apellido.Trim() == "") throw new Exception("El apellido no puede ser vacío.");
 
@@ -165,15 +162,65 @@ namespace General.MAU
             persona.Apellido = aspirante.Apellido;
 
             repo_personas.GuardarPersona(persona);
+            
 
             var usuario = repositorio_usuarios.CrearUsuarioPara(persona.Id);
             var clave =  repositorio_usuarios.ResetearPassword(usuario.Id);
+            repositorio_usuarios.AsociarUsuarioConMail(usuario, aspirante.Email);
             //mandarla por mail
+            var titulo = "Bienvenido al SIGIRH";
+            var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Password: " + clave;
+
+            EnviarMail(aspirante.Email, titulo, cuerpo); 
+        }
+
+
+        public bool RecuperarUsuario(string criterio)
+        {
+
+            var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
+            var validador_datos = new Validador();
+            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            if (criterio_deserializado["Mail"] != null)
+            {
+                string mail = (string)((JValue)criterio_deserializado["Mail"]);  
+                Usuario usuario_a_recuperar = repo_usuarios.RecuperarUsuario(mail);
+                if (usuario_a_recuperar.Id == 0)
+                    return false; 
+                    
+                EnviarMailDeRecupero(usuario_a_recuperar, mail);
+                return true; 
+            }
+            return false;
+        }
+           
+     
+        private void EnviarMailDeRecupero(Usuario usuario, string mail)
+        {
+            if (usuario.Habilitado)
+            {
+                var clave_nueva = repositorio_usuarios.ResetearPassword(usuario.Id);
+                var  titulo = "Recupero de Datos de SIGIRH";
+                var cuerpo = "Nombre de Usuario: " + usuario.Alias +
+                              "<br/>" + 
+                              "Password: " + clave_nueva + 
+                              "<br/>" + 
+                              "Luego de ingresar al sistema con la nueva clave, podrá cambiarla desde " +
+                              "la opción 'Cambiar Password' en el menú superior derecho";
+
+                EnviarMail(mail, titulo, cuerpo);  
+            }
+        }
+
+        private void EnviarMail(string mail, string titulo, string cuerpo)
+        {
             var enviador = new EnviadorDeMails();
+            MailAddress mail_re_recupero = new MailAddress(mail);
             enviador.EnviarMail(new NetworkCredential("no-reply@desarrollosocial.gov.ar", "1234"),
-                    aspirante.Email,
-                    "Bienvenido al SIGIRH",
-                    "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Password: " + clave,
+                    mail,
+                   titulo,
+                    cuerpo,
                     () => { },
                     () => { throw new Exception("No se pudo enviar un mail con la clave"); }
                 );

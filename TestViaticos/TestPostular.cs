@@ -153,7 +153,7 @@ namespace TestViaticos
         public CvExperienciaLaboral UnaExperienciaLaboral()
         {
             return new CvExperienciaLaboral(1,"Administrativo", "Renuncia", "Banco Macro", 1, "Empresa Financiera","No se",
-                                     new DateTime(2007, 09, 01), new DateTime(2010, 09, 01), "CABA", 9, "bla");
+                                     new DateTime(2007, 09, 01), new DateTime(2010, 09, 01), "CABA", 9, "bla", 1);
         }
 
         public CvIdiomas UnIdioma()
