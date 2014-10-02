@@ -221,23 +221,24 @@ namespace TestViaticos
             Assert.AreEqual(0, pantalla.DocumentacionRequerida.Count);
         }
 
-        //[TestMethod]
-        //public void deberia_ver_el_titulo_universitario_en_el_cuadro_del_perfil()
-        //{
-        //    CreadorDePantallas creador = new CreadorDePantallas();
-        //    CurriculumVitae cv = TestObjects.UnCV();
-        //    cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
+        [TestMethod]
+        public void deberia_ver_el_titulo_universitario_en_el_cuadro_del_perfil()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
 
-        //    Puesto puesto = TestObjects.UnPerfil();
-        //    puesto.Requiere(new RequisitoEstudioUniversitario());
+            Puesto puesto = TestObjects.UnPerfil();
+            //puesto.Requiere(new RequisitoEstudio(new NivelDeEstudio(12, "Universitario")));
 
-        //    PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
 
-        //    Assert.AreEqual(1, pantalla.CuadroPerfil.Count);
-        //    Assert.AreEqual("Idiomas", pantalla.CuadroPerfil[0].DescripcionRequisito);
-        //    Assert.AreEqual(1, pantalla.CuadroPerfil[0].ItemsCv.Count);
-        //    Assert.AreEqual("Ingles", pantalla.CuadroPerfil[0].ItemsCv[0].Descripcion);
-        //}
+            Assert.AreEqual(0, pantalla.CuadroPerfil.Count);
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida.Count);
+            Assert.AreEqual("Estudios", pantalla.DocumentacionRequerida[0].DescripcionRequisito);
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida[0].ItemsCv.Count);
+            Assert.AreEqual("Lic en Adm", pantalla.DocumentacionRequerida[0].ItemsCv[0].Descripcion);
+        }
 
         [TestMethod]
         public void no_deberia_tener_un_idioma_en_el_cuadro_perfil_cuando_el_perfil_no_lo_requiere()
