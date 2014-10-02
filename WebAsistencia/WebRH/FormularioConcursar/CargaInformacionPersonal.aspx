@@ -101,7 +101,7 @@
                                 <div class="grupo_campos nueva_linea">
                                     <label class="etiqueta_campo" for="txt_fechaNac">
                                         Fecha Nacimiento <em>*</em></label>
-                                    <input type="text" id="txt_fechaNac" style="width: 110px;" name="txt_fechaNac" data-validar="esNoBlanco" />
+                                    <input type="text" id="txt_fechaNac" style="width: 110px;" rh-control-type="datepicker" rh-model-property="FechaNacimiento" data-validar="esNoBlanco" />
                                 </div>
                                 <div class="grupo_campos">
                                     <label class="etiqueta_campo" for="cmb_lugar_nacimiento">
@@ -185,7 +185,7 @@
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_dto2">
                                     Dto</label>
-                                <input type="text" id="txt_dto2" name="txt_dto2" style="width: 30px" maxlength="10"  rh-control-type="textbox" rh-model-property="DomicilioLegal.Dpto" />
+                                <input type="text" id="txt_dto2" name="txt_dto2" style="width: 30px" maxlength="10"  rh-control-type="textbox" rh-model-property="DomicilioLegal.Depto" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo_small" for="txt_cp2">

@@ -11,6 +11,10 @@
         _this.crearYBindearTextBox($(e));
     });
 
+    this.html_form.find("[rh-control-type='datepicker']").each(function (i, e) {
+        _this.crearYBindearDatePicker($(e));
+    });
+
     this.html_form.find("[rh-filter-combo]").each(function (i, e) {
         _this.asociarComboAOtro($(e));
     });
@@ -68,6 +72,42 @@ FormularioBindeado.prototype.crearYBindearTextBox = function (input) {
     input.val(objeto_a_bindear[propiedad_a_bindear]);
 };
 
+FormularioBindeado.prototype.crearYBindearDatePicker = function (input) {
+    this[input.attr('Id')] = input;
+
+    var path_propiedad_modelo = input.attr('rh-model-property');
+    var path_spliteado = path_propiedad_modelo.split('.');
+
+    var objeto_a_bindear;
+    var propiedad_a_bindear;
+    if (path_spliteado.length == 1) {
+        objeto_a_bindear = this.modelo;
+        propiedad_a_bindear = path_spliteado[0];
+    } else {
+        objeto_a_bindear = this.modelo;
+        for (var i = 0; i < path_spliteado.length - 1; i++) {
+            objeto_a_bindear = objeto_a_bindear[path_spliteado[i]];
+        }
+        propiedad_a_bindear = path_spliteado[path_spliteado.length - 1];
+    }
+
+    input.datepicker();
+    input.datepicker('option', 'dateFormat', 'dd/mm/yy');
+
+    input.change(function () {
+        objeto_a_bindear.unwatch(propiedad_a_bindear);
+        objeto_a_bindear[propiedad_a_bindear] = input.val();
+        objeto_a_bindear.watch(propiedad_a_bindear, function (prop, oldval, newval) {
+            input.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(newval));
+        });
+    });
+
+    objeto_a_bindear.watch(propiedad_a_bindear, function (prop, oldval, newval) {
+        input.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(newval));
+    });
+
+    input.val(objeto_a_bindear[propiedad_a_bindear]);
+};
 
 FormularioBindeado.prototype.crearYBindearCombo = function (select) {
     var opt_constructor = {
