@@ -57,38 +57,38 @@
                                 <div class="grupo_campos nueva_linea">
                                     <label for="nombre">
                                         Nombre <em>*</em></label>
-                                    <input id="nombre" type="text" style="width: 160px;" data-validar="esNoBlanco" maxlength="100" />
+                                    <input id="nombre" type="text" rh-control-type="textbox" rh-model-property="Nombre" style="width: 160px;" data-validar="esNoBlanco" maxlength="100" />
                                 </div>
                                 <div class="grupo_campos">
                                     <label for="apellido">
                                         Apellido <em>*</em></label>
-                                    <input id="apellido" type="text" style="width: 160px;" data-validar="esNoBlanco" />
+                                    <input id="apellido" type="text" style="width: 160px;" rh-control-type="textbox" rh-model-property="Apellido" data-validar="esNoBlanco" />
                                 </div>
                                 <div id="contenedor_cmb_sexo" class="grupo_campos">
                                     <label for="cmb_sexo">
                                         Sexo <em>*</em></label>
                                     <select id="cmb_sexo" style="width: 100px;" rh-control-type="combo" rh-data-provider="Sexos"
-                                        rh-model-property="Sexo" data-validar="esNumeroNaturalSinCero">
+                                        rh-model-property="Sexo" data-validar="haySeleccionEnCombo">
                                     </select>
                                 </div>
                                 <div id="contenedor_cmb_estado_civil" class="grupo_campos">
                                     <label for="cmb_estadoCivil">
                                         Estado Civil <em>*</em></label>
                                     <select id="cmb_estadoCivil" style="width: 160px;" rh-control-type="combo" rh-data-provider="EstadosCiviles"
-                                        rh-model-property="EstadoCivil" data-validar="esUnComboSinCero">
+                                        rh-model-property="EstadoCivil" data-validar="haySeleccionEnCombo">
                                     </select>
                                 </div>
                                 <div class="grupo_campos nueva_linea">
                                     <label class="etiqueta_campo" for="cmb_tipoDocumento">
                                         Tipo Documento <em>*</em></label>
                                     <select id="cmb_tipoDocumento" style="width: 170px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento"
-                                        rh-model-property="TipoDocumento" data-validar="esUnComboSinCero">
+                                        rh-model-property="TipoDocumento" data-validar="haySeleccionEnCombo">
                                     </select>
                                 </div>
                                 <div class="grupo_campos">
                                     <label class="etiqueta_campo" for="txt_documento">
                                         Nro Documento <em>*</em></label>
-                                    <input id="txt_documento" type="text" style="width: 160px;" data-validar="esNumeroNatural" />
+                                    <input id="txt_documento" type="text" style="width: 160px;" rh-control-type="textbox" rh-model-property="Dni" data-validar="esNumeroNatural" />
                                 </div>
                                 <div class="grupo_campos">
                                     <label for="cuil">
@@ -96,7 +96,7 @@
                                         <h5>
                                             (Ej.:20-22114543-5)</h5>
                                     </label>
-                                    <input id="cuil" type="text" style="width: 270px;" data-validar="esNoBlanco" />
+                                    <input id="cuil" type="text" style="width: 270px;" rh-control-type="textbox" rh-model-property="Cuil" data-validar="esNoBlanco" />
                                 </div>
                                 <div class="grupo_campos nueva_linea">
                                     <label class="etiqueta_campo" for="txt_fechaNac">
@@ -106,13 +106,13 @@
                                 <div class="grupo_campos">
                                     <label class="etiqueta_campo" for="cmb_lugar_nacimiento">
                                         Lugar Nacimiento <em>*</em></label>
-                                    <input type="text" id="cmb_lugar_nacimiento" style="width: 210px;" modelo="LugarDeNacimiento"
+                                    <input type="text" id="cmb_lugar_nacimiento" style="width: 210px;" rh-control-type="textbox" rh-model-property="LugarDeNacimiento"
                                         data-validar="esNoBlanco" /></div>
                                 <div class="grupo_campos">
                                     <label class="etiqueta_campo" for="cmb_nacionalidad">
                                         Nacionalidad <em>*</em></label>
                                     <select id="cmb_nacionalidad" style="width: 280px;" rh-control-type="combo" rh-data-provider="Nacionalidades"
-                                        rh-model-property="Nacionalidad" data-validar="esUnComboSinCero">
+                                        rh-model-property="Nacionalidad" data-validar="haySeleccionEnCombo">
                                     </select>
                                 </div>
                             </div>
@@ -120,28 +120,28 @@
                                 <label class="etiqueta_campo" for="txt_calle1">
                                     Calle <em>*</em></label>
                                 <input type="text" id="txt_calle1" name="txt_calle1" style="width: 350px;" data-validar="esNoBlanco"
-                                    maxlength="100" />
+                                    rh-control-type="textbox" rh-model-property="DomicilioPersonal.Calle" maxlength="100" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_numero1">
                                     Número <em>*</em></label>
                                 <input type="text" id="txt_numero1" name="txt_numero1" style="width: 50px" data-validar="esNumeroNatural"
-                                    maxlength="20" />
+                                    rh-control-type="textbox" rh-model-property="DomicilioPersonal.Numero" maxlength="20" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_piso1">
                                     Piso</label>
-                                <input type="text" id="txt_piso1" name="txt_piso1" style="width: 30px" />
+                                <input type="text" id="txt_piso1" name="txt_piso1" rh-control-type="textbox" rh-model-property="DomicilioPersonal.Piso" style="width: 30px" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_dto1">
                                     Dto</label>
-                                <input type="text" id="txt_dto1" name="txt_dto1" style="width: 30px" />
+                                <input type="text" id="txt_dto1" name="txt_dto1" rh-control-type="textbox" rh-model-property="DomicilioPersonal.Depto" style="width: 30px" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo_small" for="txt_cp1">
                                     Código Postal <em>*</em></label>
-                                <input type="text" id="txt_cp1" name="txt_cp1" style="width: 80px" data-validar="esNumeroNatural"
+                                <input type="text" id="txt_cp1" name="txt_cp1" style="width: 80px" rh-control-type="textbox" rh-model-property="DomicilioPersonal.Cp" data-validar="esNumeroNatural"
                                     maxlength="10">
                             </div>
                             <div class="grupo_campos nueva_linea">
@@ -149,7 +149,7 @@
                                     Provincia <em>*</em></label>
                                 <select id="cmb_provincia1" style="width: 320px;" rh-control-type="combo" rh-propiedad-label="Nombre"
                                     rh-data-provider="Provincias" rh-model-property="DomicilioPersonal.Provincia"
-                                    data-validar="esUnComboConCero">
+                                    data-validar="haySeleccionEnCombo">
                                 </select>
                             </div>
                             <div class="grupo_campos">
@@ -157,7 +157,7 @@
                                     Localidad <em>*</em></label>
                                 <select id="cmb_localidad1" style="width: 320px;" rh-control-type="combo" rh-propiedad-label="Nombre"
                                     rh-data-provider="Localidades" rh-model-property="DomicilioPersonal.Localidad"
-                                    rh-filter-combo="cmb_provincia1" rh-filter-prop="IdProvincia" data-validar="esUnComboConCero" >
+                                    rh-filter-combo="cmb_provincia1" rh-filter-prop="IdProvincia" data-validar="haySeleccionEnCombo" >
                                 </select>
                             </div>
                         </fieldset>
@@ -169,35 +169,35 @@
                                 <label class="etiqueta_campo" for="text_calle2">
                                     Calle <em>*</em></label>
                                 <input type="text" id="text_calle2" name="text_calle2" style="width: 350px;" data-validar="esNoBlanco"
-                                    maxlength="100" />
+                                    rh-control-type="textbox" rh-model-property="DomicilioLegal.Calle" maxlength="100" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_numero2">
                                     Número <em>*</em></label>
                                 <input type="text" id="txt_numero2" name="txt_numero2" style="width: 50px" data-validar="esNumeroNatural"
-                                    maxlength="10" />
+                                    rh-control-type="textbox" rh-model-property="DomicilioLegal.Numero" maxlength="10" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_piso2">
                                     Piso</label>
-                                <input type="text" id="txt_piso2" name="txt_piso2" style="width: 30px" maxlength="10" />
+                                <input type="text" id="txt_piso2" name="txt_piso2" style="width: 30px" maxlength="10"  rh-control-type="textbox" rh-model-property="DomicilioLegal.Piso" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_dto2">
                                     Dto</label>
-                                <input type="text" id="txt_dto2" name="txt_dto2" style="width: 30px" maxlength="10" />
+                                <input type="text" id="txt_dto2" name="txt_dto2" style="width: 30px" maxlength="10"  rh-control-type="textbox" rh-model-property="DomicilioLegal.Dpto" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo_small" for="txt_cp2">
                                     Código Postal <em>*</em></label>
-                                <input type="text" id="txt_cp2" name="txt_cp2" style="width: 80px" data-validar="esNumeroNatural"
+                                <input type="text" id="txt_cp2" name="txt_cp2" style="width: 80px" data-validar="esNumeroNatural"  rh-control-type="textbox" rh-model-property="DomicilioLegal.Cp" 
                                     maxlength="20" /><br />
                             </div>
                             <div class="grupo_campos nueva_linea">
                                 <label class="etiqueta_campo" for="cmb_provincia2">
                                     Provincia <em>*</em></label>
                                 <select id="cmb_provincia2" style="width: 320px;" rh-control-type="combo" rh-propiedad-label="Nombre"
-                                    rh-data-provider="Provincias" rh-model-property="DomicilioLegal.Provincia" data-validar="esNoBlanco">
+                                    rh-data-provider="Provincias" rh-model-property="DomicilioLegal.Provincia" data-validar="haySeleccionEnCombo">
                                 </select>
                             </div>
                             <div class="grupo_campos">
@@ -205,25 +205,25 @@
                                     Localidad <em>*</em></label>
                                 <select id="cmb_localidad2" style="width: 320px;" rh-control-type="combo" rh-propiedad-label="Nombre"
                                     rh-data-provider="Localidades" rh-model-property="DomicilioLegal.Localidad" rh-filter-combo="cmb_provincia2"
-                                    rh-filter-prop="IdProvincia" data-validar="esNoBlanco">
+                                    rh-filter-prop="IdProvincia" data-validar="haySeleccionEnCombo">
                                 </select>
                             </div>
                             <div class="grupo_campos nueva_linea">
                                 <label class="etiqueta_campo" for="txt_telefono">
                                     Tel&eacute;fono Fijo <em>*</em></label>
-                                <input type="text" id="txt_telefono" name="txt_telefonoFijo" style="width: 140px;"
-                                    data-validar="esNoBlanco" />
+                                <input type="text" id="txt_telefono" name="txt_telefonoFijo" style="width: 140px;"  rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono" 
+                                    data-validar="haySeleccionEnCombo" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_telefono2">
                                     Tel&eacute;fono Celular<em>*</em></label>
-                                <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width: 140px;"
-                                    data-validar="esNoBlanco" />
+                                <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width: 140px;" rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono2" 
+                                    data-validar="haySeleccionEnCombo" />
                             </div>
                             <div id="contenedor_mails" class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_email">
                                     Correo Electrónico<em>*</em></label>
-                                <input type="text" id="txt_email" name="txt_email" style="width: 320px" data-validar="esEmailValido, esNoBlanco" />
+                                <input type="text" id="txt_email" name="txt_email" style="width: 320px" data-validar="esEmailValido, esNoBlanco" rh-control-type="textbox" rh-model-property="DatosDeContacto.Email"  />
                             </div>
                         </fieldset>
                         <br />

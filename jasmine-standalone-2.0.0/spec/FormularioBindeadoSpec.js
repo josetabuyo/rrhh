@@ -162,16 +162,19 @@ var localidades = [
             });
         });
 
-        describe("DADO: Un elemento <select> con atributos, dentro de un <div>", function () {
+        describe("DADO: varios elementos con atributos, dentro de un <div>", function () {
             var formulario;
             var select_provincia_nacimiento;
             var select_provincia_domicilio;
             var select_localidad_domicilio;
+            var input_apellido;
             var datos_personales;
 
             beforeEach(function () {
                 datos_personales = {
-                    Nombre: 'javiScript',
+                    Nombre: 'Javi',
+                    Apellido: 'Script',
+                    Edad: 23,
                     ProvinciaNacimiento: 1,
                     Domicilio: {
                         Provincia: 5,
@@ -190,10 +193,15 @@ var localidades = [
                 select_provincia_domicilio = $('<select id="combo_provincia_domicilio" rh-control-type="combo" rh-data-provider="Provincias" rh-model-property="Domicilio.Provincia"></select>');
                 select_provincia_madre = $('<select id="combo_provincia_madre" rh-control-type="combo" rh-data-provider="Provincias" rh-model-property="Madre.Domicilio.Provincia"></select>');
                 select_localidad_domicilio = $('<select id="combo_localidad_domicilio" rh-control-type="combo" rh-data-provider="Localidades" rh-propiedad-label="Nombre" rh-model-property="Domicilio.Localidad" rh-filter-combo="combo_provincia_domicilio" rh-filter-prop="IdProvincia"></select>');
+                input_apellido = $('<input id="txt_apellido" rh-control-type="textbox" rh-model-property="Apellido"/>');
+                input_edad = $('<input id="txt_edad" rh-control-type="textbox" rh-model-property="Edad" data-validar="esNumeroNatural"/>');
+
                 formulario.append(select_provincia_nacimiento);
                 formulario.append(select_provincia_domicilio);
                 formulario.append(select_provincia_madre);
                 formulario.append(select_localidad_domicilio);
+                formulario.append(input_apellido);
+                formulario.append(input_edad);
             });
 
             describe("DADO: un FormularioBindeado creado en base al <div> y a un modelo", function () {
@@ -214,6 +222,9 @@ var localidades = [
                     expect(form_datos_personales.combo_provincia_domicilio.itemSeleccionado().Descripcion).toEqual("Santa Fe");
                     expect(form_datos_personales.combo_provincia_madre.itemSeleccionado().Descripcion).toEqual("Mendoza");
                     expect(form_datos_personales.combo_localidad_domicilio.itemSeleccionado().Nombre).toEqual("Rafaela");
+                    expect(form_datos_personales.combo_localidad_domicilio.itemSeleccionado().Nombre).toEqual("Rafaela");
+                    expect(form_datos_personales.txt_apellido.val()).toEqual("Script");
+                    expect(form_datos_personales.txt_edad.val()).toEqual("23");
                 });
 
                 it("ENTONCES: un cambio en la opción seleccionada en un combo debería reflejarse en el modelo", function () {
@@ -225,9 +236,31 @@ var localidades = [
                     expect(datos_personales.Domicilio.Localidad).toEqual(31);
                 });
 
+                it("ENTONCES: un cambio en el textbox debería verse reflejado en el modelo", function () {
+                    form_datos_personales.txt_apellido.val("Lurgo");
+                    form_datos_personales.txt_apellido.change();
+                    expect(datos_personales.Apellido).toEqual("Lurgo");
+
+                    form_datos_personales.txt_edad.val("32");
+                    form_datos_personales.txt_edad.change();
+                    expect(datos_personales.Edad).toEqual(32);
+
+                    form_datos_personales.txt_edad.val("");
+                    form_datos_personales.txt_edad.change();
+                    expect(datos_personales.Edad).toEqual(null);
+                });
+
                 it("ENTONCES: un cambio en el modelo debería verse reflejado en el combo", function () {
                     datos_personales.Domicilio.Provincia = 2;
                     expect(form_datos_personales.combo_provincia_domicilio.itemSeleccionado().Descripcion).toEqual("Entre Rios");
+                });
+
+                it("ENTONCES: un cambio en el modelo debería verse reflejado en el textbox", function () {
+                    datos_personales.Apellido = "Lurgo";
+                    expect(form_datos_personales.txt_apellido.val()).toEqual("Lurgo");
+
+                    datos_personales.Edad = 32;
+                    expect(form_datos_personales.txt_edad.val()).toEqual("32");
                 });
 
                 it("ENTONCES: un cambio en la seleccion del combo de provincias debería recargar el combo localidades con el filtro correspondiente", function () {

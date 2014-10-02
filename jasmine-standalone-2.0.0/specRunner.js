@@ -12,10 +12,10 @@ require.config({
 		'teamcityreporter': 'jasmine2-teamcityreporter',
 		'mockAjax': 'mock-ajax',
 		'ComboPopuladoConRepoSpec': '../../spec/ComboPopuladoConRepoSpec',
-		'ComboConBusquedaYAgregadoSpec': '../../spec/ComboConBusquedaYAgregadoSpec'
+		'FormularioBindeadoSpec': '../../spec/FormularioBindeadoSpec'
     },
     shim: {
-    	'ComboConBusquedaYAgregadoSpec': {
+    	'FormularioBindeadoSpec': {
 			deps: ['mockAjax', 'app/bootstrap/js/jquery', 'app/ComboConBusquedaYAgregado', 'app/FormularioBindeado'],
 		},
 		'ComboPopuladoConRepoSpec': {
