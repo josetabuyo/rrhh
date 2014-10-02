@@ -22,7 +22,7 @@ namespace General
         {
 
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@idPuesto", postulacion.Puesto.Id);
+            parametros.Add("@idPuesto", postulacion.Perfil.Id);
             parametros.Add("@idPersona", usuario.Owner.Id);
             //parametros.Add("@FechaPostulacion", postulacion.FechaPostulacion);
             parametros.Add("@Motivo", postulacion.Motivo);
@@ -41,7 +41,7 @@ namespace General
 
         public List<Postulacion> GetPostulaciones()
         {
-            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones");
+            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones2");
 
             return ArmarPostulaciones(tablaPostulaciones);
 
@@ -51,7 +51,7 @@ namespace General
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idPersona", idpersona);
-            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones", parametros);
+            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones2", parametros);
 
             return ArmarPostulaciones(tablaPostulaciones);
 
@@ -66,7 +66,7 @@ namespace General
             {
                 var postulacion = new Postulacion(){
                    Id= row.GetInt("IdPostulacion"), 
-                   Puesto=ArmarPuesto(row), 
+                   Perfil=ArmarPuesto(row), 
                    IdPersona=row.GetInt("IdPersona"), 
                    FechaPostulacion=row.GetDateTime("FechaInscripcion"),
                    Motivo=row.GetString("Motivo"), 
@@ -201,7 +201,7 @@ namespace General
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@IdPostulacion", postulacion.Id);
              //   parametros.Add("@IdPuesto", postulacion.Puesto.Id);
-                parametros.Add("@IdPerfil", postulacion.Puesto.Id);
+                parametros.Add("@IdPerfil", postulacion.Perfil.Id);
                 parametros.Add("@IdPersona", postulacion.IdPersona);
                 parametros.Add("@FechaInscripcion", postulacion.FechaPostulacion);
                 parametros.Add("@Usuario", usuario.Id);

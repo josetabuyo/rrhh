@@ -3,7 +3,7 @@
 --adm_buscar_string 'puesto'
 
 /*Resultado*/
-/*
+/* select * from cv_postulaciones select * from CV_EtapasPostulaciones
 Tipo||Nombre
 ----------------------------
 F 	fk_puesto_agrupamiento
@@ -326,7 +326,7 @@ AS
 BEGIN    
     
  SELECT     
-  per.Id IdPuesto,    
+  per.Id IdPerfil,    
 
   fp.Descripcion Familia,  
 

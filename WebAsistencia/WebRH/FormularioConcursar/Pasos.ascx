@@ -7,10 +7,10 @@
                         <a id="paso_1" class="link_activado"><span class="number">1. </span>Cargos</a>
                     </li>
                     <li class="" >
-                        <a id="paso_2" class="link_desactivado"><span class="number">2. </span>(I) Pre-Inscripcion</a>
+                        <a id="paso_2" class="link_desactivado"><span class="number">2. </span>(I) Pre-Inscripción</a>
                     </li>
                     <li  class="" >
-                        <a id="paso_3" class="link_desactivado"><span class="number">3. </span>(II) Pre-Inscripcion</a>
+                        <a id="paso_3" class="link_desactivado"><span class="number">3. </span>(II) Pre-Inscripción</a>
                     </li>
                 </ul>
             </div>

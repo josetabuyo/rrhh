@@ -20,7 +20,7 @@ namespace General
 
         public virtual int Id { get { return _id; } set { _id = value; } }
         //public virtual Puesto Puesto { get { return _perfil; } set { _perfil = value; } }
-        public virtual Perfil Puesto { get { return _perfil; } set { _perfil = value; } }
+        public virtual Perfil Perfil { get { return _perfil; } set { _perfil = value; } }
         public virtual int IdPersona { get { return _idPersona; } set { _idPersona = value; } }
         public virtual DateTime FechaPostulacion { get { return _fechaPostulacion; } set { _fechaPostulacion = value; } }
         public virtual string Motivo { get { return _motivo; } set { _motivo = value; } }
