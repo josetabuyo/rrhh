@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TestViaticos;
 
-namespace General.Repositorios
+namespace General
 {
     public class NivelDeEstudio:RequisitoPerfil
     {
@@ -37,6 +36,11 @@ namespace General.Repositorios
         public override int GetHashCode()
         {
             return  this.Id;
+        }
+
+        public override ItemCv ItemCV()
+        {
+            throw new NotImplementedException();
         }
     }
 }

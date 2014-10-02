@@ -56,5 +56,11 @@ namespace General
         {
             return this.Idioma;
         }
+
+
+        public RequisitoPerfil CrearRequisito(string descripcion)
+        {
+            return new RequisitoIdioma(descripcion);
+        }
     }
 }

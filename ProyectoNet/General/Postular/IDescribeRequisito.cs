@@ -8,5 +8,6 @@ namespace General
     public interface IDescribeRequisito
     {
         string DescripcionRequisito();
+        RequisitoPerfil CrearRequisito(string descripcion);
     }
 }

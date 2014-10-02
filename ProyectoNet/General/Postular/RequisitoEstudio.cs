@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using General.Repositorios;
 
-namespace TestViaticos
+namespace General
 {
     public class RequisitoEstudio: RequisitoPerfil
     {
         protected NivelDeEstudio nivel_de_estudio;
         protected string descripcion_requisito;
-        protected NivelDeEstudio nivelDeEstudio;
 
         public RequisitoEstudio(NivelDeEstudio nivelDeEstudio)
         {
@@ -20,7 +19,31 @@ namespace TestViaticos
         public RequisitoEstudio(string descripcion_requisito, NivelDeEstudio nivelDeEstudio)
         {
             this.descripcion_requisito = descripcion_requisito;
-            this.nivelDeEstudio = nivelDeEstudio;
+            this.nivel_de_estudio = nivelDeEstudio;
+        }
+
+        public override ItemCv ItemCV()
+        {
+            return new ItemCv(this.descripcion_requisito);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            return ((RequisitoEstudio)obj).nivel_de_estudio.Equals(this.nivel_de_estudio);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.nivel_de_estudio.GetHashCode();
+        }
+
+        public string Descripcion()
+        {
+            return descripcion_requisito;
         }
     }
 }

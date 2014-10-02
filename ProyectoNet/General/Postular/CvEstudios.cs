@@ -73,5 +73,11 @@ namespace General
         {
             return this.Titulo;
         }
+
+
+        public RequisitoPerfil CrearRequisito(string descripcion)
+        {
+            return new RequisitoEstudio(descripcion, new NivelDeEstudio(this.Nivel,"traer el nombre del nivel posta"));
+        }
     }
 }

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TestViaticos
+namespace General
 {
-    public class RequisitoPerfil
+    public abstract class RequisitoPerfil
     {
+        public string Descripcion { get; set; }
+        public abstract ItemCv ItemCV();
     }
 }

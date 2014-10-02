@@ -45,5 +45,11 @@ namespace General
         {
             return this.Titulo;
         }
+
+
+        public RequisitoPerfil CrearRequisito(string descripcion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

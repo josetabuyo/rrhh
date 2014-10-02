@@ -29,24 +29,25 @@ namespace General
 
         protected void AgregarACuadroPerfil(IList items, Puesto puesto, PatallaRecepcionDocumentacion pantalla, string descripcion_requisito)
         {
-            List<RequisitoIdioma> requisitos_idiomas = new List<RequisitoIdioma>();
+            List<RequisitoPerfil> requisitos = new List<RequisitoPerfil>();
+
             foreach (IDescribeRequisito item in items)
             {
-                requisitos_idiomas.Add(new RequisitoIdioma(item.DescripcionRequisito()));
+                requisitos.Add(item.CrearRequisito(item.DescripcionRequisito()));
             }
 
             var doc_req = new DocumentacionRequerida();
             doc_req.DescripcionRequisito = descripcion_requisito;
 
-            requisitos_idiomas.ForEach((req) =>
+            requisitos.ForEach((req) =>
             {
                 if (puesto.TieneRequisito(req))
                 {
-                    var ItemCV = new ItemCv(req.Idioma);
-                    doc_req.ItemsCv.Add(ItemCV);
+                    doc_req.ItemsCv.Add(req.ItemCV());
                     pantalla.CuadroPerfil.Add(doc_req);
                 }
             });
+          
         }
 
         protected void CargarDocumentacionRequerida(List<DocumentacionRequerida> lista_doc_requerida, IList lista, string descripcion_requisito, Puesto puesto) {

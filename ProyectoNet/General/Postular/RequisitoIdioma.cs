@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TestViaticos;
 
 namespace General
 {
@@ -18,7 +17,21 @@ namespace General
 
         public override bool Equals(object obj)
         {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
             return Idioma.Equals(((RequisitoIdioma)obj).Idioma);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Idioma.GetHashCode();
+        }
+
+        public override ItemCv ItemCV()
+        {
+            return new ItemCv(this.Idioma);
         }
     }
 }
