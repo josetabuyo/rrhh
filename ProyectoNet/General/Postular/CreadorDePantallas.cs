@@ -21,21 +21,22 @@ namespace General
 
             pantalla.DocumentacionRequerida = lista_docRequerida;
 
-            AgregarACuadroPerfil(curriculumVitae, puesto, pantalla);
+            AgregarACuadroPerfil(curriculumVitae.CvIdiomas, puesto, pantalla, "Idiomas");
+            AgregarACuadroPerfil(curriculumVitae.CvEstudios, puesto, pantalla, "Estudios");
 
             return pantalla;
         }
 
-        protected void AgregarACuadroPerfil(CurriculumVitae curriculumVitae, Puesto puesto, PatallaRecepcionDocumentacion pantalla)
+        protected void AgregarACuadroPerfil(IList items, Puesto puesto, PatallaRecepcionDocumentacion pantalla, string descripcion_requisito)
         {
-            if (curriculumVitae.CvIdiomas.Count <= 0) 
-                return;
-
             List<RequisitoIdioma> requisitos_idiomas = new List<RequisitoIdioma>();
-            curriculumVitae.CvIdiomas.ForEach(i => requisitos_idiomas.Add(new RequisitoIdioma(i.DescripcionRequisito())));
+            foreach (IDescribeRequisito item in items)
+            {
+                requisitos_idiomas.Add(new RequisitoIdioma(item.DescripcionRequisito()));
+            }
 
             var doc_req = new DocumentacionRequerida();
-            doc_req.DescripcionRequisito = "Idiomas";
+            doc_req.DescripcionRequisito = descripcion_requisito;
 
             requisitos_idiomas.ForEach((req) =>
             {
@@ -49,7 +50,6 @@ namespace General
         }
 
         protected void CargarDocumentacionRequerida(List<DocumentacionRequerida> lista_doc_requerida, IList lista, string descripcion_requisito, Puesto puesto) {
-            
             if (lista.Count > 0)
             {
                 var documentacion = new DocumentacionRequerida();

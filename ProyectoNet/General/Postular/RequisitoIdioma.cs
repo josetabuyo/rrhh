@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TestViaticos;
 
 namespace General
 {
-    public class RequisitoIdioma
+    public class RequisitoIdioma:RequisitoPerfil
     {
 
         public string Idioma { get; protected set; }

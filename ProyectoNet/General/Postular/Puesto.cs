@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using General.Postular;
+using TestViaticos;
 
 namespace General
 {
@@ -50,15 +51,16 @@ namespace General
 
 
 
-        List<RequisitoIdioma> _requisito_idioma = new List<RequisitoIdioma>();
-        public void Requiere(RequisitoIdioma requisito_idioma)
+        List<RequisitoPerfil> _requisito_idioma = new List<RequisitoPerfil>();
+        public void Requiere(RequisitoPerfil requisito_idioma)
         {
             _requisito_idioma.Add(requisito_idioma);
         }
 
-        public bool TieneRequisito(RequisitoIdioma requisitoIdioma)
+        public bool TieneRequisito(RequisitoPerfil requisitoIdioma)
         {
             return _requisito_idioma.Any(i => i.Equals(requisitoIdioma));
         }
+
     }
 }

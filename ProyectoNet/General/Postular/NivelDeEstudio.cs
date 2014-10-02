@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TestViaticos;
 
 namespace General.Repositorios
 {
-    public class NivelDeEstudio
+    public class NivelDeEstudio:RequisitoPerfil
     {
         public int Id;
         public string Descripcion;
