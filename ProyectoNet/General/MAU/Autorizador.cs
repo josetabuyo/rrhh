@@ -148,9 +148,16 @@ namespace General.MAU
         public void RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
         {            
             var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
             if (repo_personas.BuscarPersonas(JsonConvert.SerializeObject(new { Documento=aspirante.Documento, ConLegajo=true})).Count > 0)
             {
                 throw new Exception("Ya hay alguien registrado con su documento.");
+            }
+
+            //Se agrega la restricción del mail para que sea único
+            if (repo_usuarios.ValidarMailExistente(aspirante.Email))
+            {
+                throw new Exception("Ya hay alguien registrado con su Mail.");
             }
  
             if(aspirante.Nombre.Trim() == "") throw new Exception("El nombre no puede ser vacío.");

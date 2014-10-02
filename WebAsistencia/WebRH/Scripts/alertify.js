@@ -81,8 +81,8 @@
 			 * @type {Object}
 			 */
 			labels : {
-				ok     : "OK",
-				cancel : "Cancel"
+				ok     : "Si", //Cambio OK
+				cancel : "No"  // Cambio Cancel
 			},
 
 			/**

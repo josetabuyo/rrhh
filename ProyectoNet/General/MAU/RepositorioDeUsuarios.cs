@@ -182,6 +182,17 @@ namespace General.MAU
             {
                 return new UsuarioNulo();
             }
-        }     
+        }
+
+        internal bool ValidarMailExistente(string mail)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@mail_recupero", mail);
+            var tablaCVs = conexion.Ejecutar("dbo.CV_GetDatosRecupero", parametros);
+
+            if (tablaCVs.Rows.Count > 0) return true;
+            return false;
+            
+        }
     }
 }
