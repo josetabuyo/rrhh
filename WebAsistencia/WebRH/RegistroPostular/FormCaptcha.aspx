@@ -7,6 +7,12 @@
 <link href="PantallaRegistro.css" rel="stylesheet" type="text/css" />
 <%= Referencias.Css("../")%> 
     <title></title>
+   <script type="text/javascript" src="PantallaRegistro.js">  </script>
+    <script type="text/javascript">
+        function myFunction() {
+            PantallaRegistro.abrir();
+        }
+</script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -27,5 +33,15 @@
         <label Style="color:Olive; font-size: 12px; font-style: oblique"> Ingrese los dígitos de la imagen verificadora antes de enviar los datos</label>    
     </div>
     </form>
+     
+
 </body>
+<%--<script>
+    function paso4() {
+        //some code here
+
+        alertify.alert("Se ha enviado un mail a dicho correo, para que pueda recuperar sus datos de acceso.");
+        vex.closeAll();
+    }
+</script>--%>
 </html>
