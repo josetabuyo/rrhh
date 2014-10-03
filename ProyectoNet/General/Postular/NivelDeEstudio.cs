@@ -42,5 +42,10 @@ namespace General
         {
             throw new NotImplementedException();
         }
+
+        public override bool EsCumlidoPor(ItemCv item_cv)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

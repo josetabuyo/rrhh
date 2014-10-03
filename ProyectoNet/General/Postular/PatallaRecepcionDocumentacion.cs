@@ -8,13 +8,13 @@ namespace General
     public class PatallaRecepcionDocumentacion
     {
 
-        public List<DocumentacionRequerida> DocumentacionRequerida { get; set; }
-        public List<DocumentacionRequerida> CuadroPerfil { get; protected set; }
+        public List<DivDocumentacionRequerida> DocumentacionRequerida { get; set; }
+        public List<DivDocumentacionRequerida> CuadroPerfil { get; protected set; }
 
 
         public PatallaRecepcionDocumentacion()
         {
-            this.CuadroPerfil = new List<DocumentacionRequerida>();
+            this.CuadroPerfil = new List<DivDocumentacionRequerida>();
         }
 
     }

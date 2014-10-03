@@ -93,7 +93,6 @@
     <Compile Include="Calendario\Periodo.cs" />
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
     <Compile Include="DictionaryExtension.cs" />
-    <Compile Include="Postular\IDescribeRequisito.cs" />
     <Compile Include="MAU\AccesoAURL.cs" />
     <Compile Include="Extensiones\ExtensionString.cs" />
     <Compile Include="MAU\AspiranteAUsuario.cs" />
@@ -107,7 +106,7 @@
     <Compile Include="Postular\Comite.cs" />
     <Compile Include="Postular\CreadorDePantallas.cs" />
     <Compile Include="Postular\DocumentacionRecibida.cs" />
-    <Compile Include="Postular\DocumentacionRequerida.cs" />
+    <Compile Include="Postular\DivDocumentacionRequerida.cs" />
     <Compile Include="Postular\FoliableEstudiosSecundario.cs" />
     <Compile Include="Postular\FoliableEstudiosUniversitario.cs" />
     <Compile Include="Postular\FoliableAntecedentesPenales.cs" />

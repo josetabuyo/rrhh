@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    public class CvPublicaciones: IDescribeRequisito
+    public class CvPublicaciones: ItemCv
     {
         protected int _id;
         protected string _titulo;
@@ -24,7 +24,7 @@ namespace General
         public int DisponeAdjunto { get { return _disponeAdjunto; } set { _disponeAdjunto = value; } }
         public DateTime FechaPublicacion { get { return _fechaPublicacion; } set { _fechaPublicacion = value; } }
 
-        public CvPublicaciones(int id, string titulo, string datosEditorial, string cantidadHojas, int disponeCopia, int disponeAdjunto, DateTime fechaPublicacion)
+        public CvPublicaciones(int id, string titulo, string datosEditorial, string cantidadHojas, int disponeCopia, int disponeAdjunto, DateTime fechaPublicacion):base(titulo)
         {
             this._id = id;
             this._titulo = titulo;
@@ -36,16 +36,10 @@ namespace General
 
         }
 
-        public CvPublicaciones()
-        {
-        }
-
-
         public string DescripcionRequisito()
         {
             return this.Titulo;
         }
-
 
         public RequisitoPerfil CrearRequisito(string descripcion)
         {

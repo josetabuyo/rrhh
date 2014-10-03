@@ -13,10 +13,10 @@ namespace General
         public PatallaRecepcionDocumentacion CrearPantalla(CurriculumVitae curriculumVitae, Puesto puesto)
         {
             var pantalla = new PatallaRecepcionDocumentacion();
-            var lista_docRequerida = new List<DocumentacionRequerida>();
+            var lista_docRequerida = new List<DivDocumentacionRequerida>();
 
             CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvIdiomas, "Idiomas", puesto);
-            CargarDocumentacionRequerida(lista_docRequerida ,curriculumVitae.CvPublicaciones, "Publicaciones", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvPublicaciones, "Publicaciones", puesto);
             CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvEstudios, "Estudios", puesto);
 
             pantalla.DocumentacionRequerida = lista_docRequerida;
@@ -27,39 +27,50 @@ namespace General
             return pantalla;
         }
 
-        protected void AgregarACuadroPerfil(IList items, Puesto puesto, PatallaRecepcionDocumentacion pantalla, string descripcion_requisito)
+        protected void AgregarACuadroPerfil(IList items_del_cv, Puesto puesto, PatallaRecepcionDocumentacion pantalla, string descripcion_requisito)
         {
-            List<RequisitoPerfil> requisitos = new List<RequisitoPerfil>();
-
-            foreach (IDescribeRequisito item in items)
+            var documentacion_requerida = new DivDocumentacionRequerida();
+            documentacion_requerida.DescripcionRequisito = descripcion_requisito;
+            foreach (RequisitoPerfil requisito in puesto.Requisitos())
             {
-                requisitos.Add(item.CrearRequisito(item.DescripcionRequisito()));
+
+                foreach (ItemCv item_cv in items_del_cv)
+                {
+                    if (requisito.EsCumlidoPor(item_cv))
+                    {
+                        documentacion_requerida.AddItemCv(item_cv);
+                    }
+                }
+
+                if (documentacion_requerida.TieneItems())
+                {
+                    pantalla.CuadroPerfil.Add(documentacion_requerida);
+                }
+
             }
 
-            var doc_req = new DocumentacionRequerida();
-            doc_req.DescripcionRequisito = descripcion_requisito;
+            //requisitos.ForEach((req) =>
+            //{
+            //    if (puesto.TieneRequisito(req))
+            //    {
+            //        documentacion_requerida.ItemsCv.Add(req.ItemCV());
+            //        pantalla.CuadroPerfil.Add(documentacion_requerida);
+            //    }
+            //});
 
-            requisitos.ForEach((req) =>
-            {
-                if (puesto.TieneRequisito(req))
-                {
-                    doc_req.ItemsCv.Add(req.ItemCV());
-                    pantalla.CuadroPerfil.Add(doc_req);
-                }
-            });
-          
         }
 
-        protected void CargarDocumentacionRequerida(List<DocumentacionRequerida> lista_doc_requerida, IList lista, string descripcion_requisito, Puesto puesto) {
+        protected void CargarDocumentacionRequerida(List<DivDocumentacionRequerida> lista_doc_requerida, IList lista, string descripcion_requisito, Puesto puesto)
+        {
             if (lista.Count > 0)
             {
-                var documentacion = new DocumentacionRequerida();
+                var documentacion = new DivDocumentacionRequerida();
                 documentacion.DescripcionRequisito = descripcion_requisito;
-                foreach (IDescribeRequisito item in lista)
+                foreach (ItemCv item_cv in lista)
                 {
-                    if (!puesto.TieneRequisito(new RequisitoIdioma(item.DescripcionRequisito())))
+                    if (!puesto.Requisitos().Any(req => req.EsCumlidoPor(item_cv)))
                     {
-                        documentacion.AddItemCV(item.DescripcionRequisito());
+                        documentacion.AddItemCv(item_cv);
                     }
                 }
                 if (documentacion.ItemsCv.Count > 0)

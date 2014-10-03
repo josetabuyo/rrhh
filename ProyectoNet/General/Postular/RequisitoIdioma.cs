@@ -33,5 +33,10 @@ namespace General
         {
             return new ItemCv(this.Idioma);
         }
+
+        public override bool EsCumlidoPor(ItemCv item_cv)
+        {
+            return item_cv.Descripcion.Equals(this.Idioma);
+        }   
     }
 }

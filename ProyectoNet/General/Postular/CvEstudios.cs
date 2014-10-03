@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    public class CvEstudios:IDescribeRequisito
+    public class CvEstudios:ItemCv
     {
         protected int _id;
         protected string _titulo;
@@ -28,12 +28,12 @@ namespace General
         public int Pais { get { return _pais; } set { _pais = value; } }
 
 
-        public CvEstudios(string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais)
+        public CvEstudios(string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais):base(titulo)
         {
             SetearCampos(titulo, nivel, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);
         }
 
-        public CvEstudios(int id, string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais)
+        public CvEstudios(int id, string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais):base(titulo)
         {
             this._id = id;
             SetearCampos(titulo, nivel, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);
@@ -64,9 +64,6 @@ namespace General
             return this._id.GetHashCode();
         }
 
-        public CvEstudios()
-        {
-        }
 
 
         public string DescripcionRequisito()

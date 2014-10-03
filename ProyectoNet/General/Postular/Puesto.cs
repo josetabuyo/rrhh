@@ -50,16 +50,16 @@ namespace General
 
 
 
-        List<RequisitoPerfil> _requisito_idioma = new List<RequisitoPerfil>();
+        List<RequisitoPerfil> _requisitos = new List<RequisitoPerfil>();
         public void Requiere(RequisitoPerfil requisito_idioma)
         {
-            _requisito_idioma.Add(requisito_idioma);
+            _requisitos.Add(requisito_idioma);
         }
 
-        public bool TieneRequisito(RequisitoPerfil requisitoIdioma)
+        
+        public List<RequisitoPerfil> Requisitos()
         {
-            return _requisito_idioma.Any(i => i.Equals(requisitoIdioma));
+            return _requisitos;
         }
-
     }
 }

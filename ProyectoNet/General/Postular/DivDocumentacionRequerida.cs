@@ -5,23 +5,25 @@ using System.Text;
 
 namespace General
 {
-    public class DocumentacionRequerida
+    public class DivDocumentacionRequerida
     {
 
         public string DescripcionRequisito { get ; set; }
         public List<ItemCv> ItemsCv { get; protected set; }
 
-        public DocumentacionRequerida()
+        public DivDocumentacionRequerida()
         {
             this.ItemsCv = new List<ItemCv>();
         }
 
-        public ItemCv AddItemCV(string descripcion)
+        public void AddItemCv(ItemCv item_cv)
         {
-            var item = new ItemCv(descripcion);
-            this.ItemsCv.Add(item);
-            return item;
+            this.ItemsCv.Add(item_cv);
         }
 
+        public bool TieneItems()
+        {
+            return this.ItemsCv.Count > 0;
+        }
     }
 }

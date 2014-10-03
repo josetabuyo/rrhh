@@ -45,5 +45,10 @@ namespace General
         {
             return descripcion_requisito;
         }
+
+        public override bool EsCumlidoPor(ItemCv item_cv)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
