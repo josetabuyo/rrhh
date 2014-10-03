@@ -176,7 +176,7 @@ namespace General.MAU
             repositorio_usuarios.AsociarUsuarioConMail(usuario, aspirante.Email);
             //mandarla por mail
             var titulo = "Bienvenido al SIGIRH";
-            var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Password: " + clave;
+            var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave;
 
             EnviarMail(aspirante.Email, titulo, cuerpo); 
         }
@@ -211,10 +211,10 @@ namespace General.MAU
                 var  titulo = "Recupero de Datos de SIGIRH";
                 var cuerpo = "Nombre de Usuario: " + usuario.Alias +
                               "<br/>" + 
-                              "Password: " + clave_nueva + 
+                              "Contraseña: " + clave_nueva + 
                               "<br/>" + 
                               "Luego de ingresar al sistema con la nueva clave, podrá cambiarla desde " +
-                              "la opción 'Cambiar Password' en el menú superior derecho";
+                              "la opción 'Cambiar Contraseña en el menú superior derecho";
 
                 EnviarMail(mail, titulo, cuerpo);  
             }

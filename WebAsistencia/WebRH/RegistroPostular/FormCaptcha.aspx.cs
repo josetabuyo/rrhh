@@ -21,9 +21,21 @@ public partial class RegistroPostular_FormCaptcha : System.Web.UI.Page
         {
             var servicio = Servicio();
             bool ok = servicio.RecuperarUsuario(JsonConvert.SerializeObject(new { Mail = this.txt_mail_recupero.Text }));
-            if (ok) {
-                ScriptManager.RegisterStartupScript(this, GetType(), "myFunction", "myFunction();", true);
+            if (ok)
+            {
+                this.lb_mensajeError.Text = "Se ha enviado un mail a dicho correo, para que pueda recuperar sus datos de acceso.";
+
             }
+            else
+            {
+                this.lb_mensajeError.Text = "No es posible recuperar sus datos. Contáctese con Recursos Humanos.";
+
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "RecuperoOk", "RecuperoOk();", true);
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(this, GetType(), "RecuperoError", "RecuperoError();", true);
         }
                    
     }
@@ -45,7 +57,8 @@ public partial class RegistroPostular_FormCaptcha : System.Web.UI.Page
     {
         string mail = this.txt_mail_recupero.Text;
         if (mail.Equals("") || !mail.Contains("@") || !mail.Contains("."))
-        { 
+        {
+            this.lb_mensajeError.Text = "El formato del mail no es válido.";
             return false; 
         }
         else 
@@ -61,7 +74,8 @@ public partial class RegistroPostular_FormCaptcha : System.Web.UI.Page
             return true; 
         }
         else 
-        { 
+        {
+            this.lb_mensajeError.Text = "Los dígitos ingresados no coninciden con los de la Imagen.";
             return false; 
         }
     }
