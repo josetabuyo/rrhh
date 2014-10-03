@@ -9,7 +9,7 @@ namespace General
     public class RequisitoEstudio: RequisitoPerfil
     {
         protected NivelDeEstudio nivel_de_estudio;
-        protected string descripcion_requisito;
+        //protected string descripcion_requisito;
 
         public RequisitoEstudio(NivelDeEstudio nivelDeEstudio)
         {
@@ -18,13 +18,13 @@ namespace General
 
         public RequisitoEstudio(string descripcion_requisito, NivelDeEstudio nivelDeEstudio)
         {
-            this.descripcion_requisito = descripcion_requisito;
+            this.Descripcion = descripcion_requisito;
             this.nivel_de_estudio = nivelDeEstudio;
         }
 
         public override ItemCv ItemCV()
         {
-            return new ItemCv(this.descripcion_requisito);
+            return new ItemCv(this.Descripcion);
         }
 
         public override bool Equals(object obj)
@@ -41,14 +41,17 @@ namespace General
             return this.nivel_de_estudio.GetHashCode();
         }
 
-        public string Descripcion()
-        {
-            return descripcion_requisito;
-        }
-
         public override bool EsCumlidoPor(ItemCv item_cv)
         {
-            throw new NotImplementedException();
+            if (item_cv.GetType() != typeof(CvEstudios))
+            {
+                return false;
+            }
+            else
+            {
+                return ((CvEstudios)item_cv).Nivel.Equals(this.nivel_de_estudio.Id);
+            }
+
         }
     }
 }

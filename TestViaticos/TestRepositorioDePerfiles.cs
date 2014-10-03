@@ -145,7 +145,7 @@ namespace TestViaticos
             cv.AgregarIdioma(Idioma("Ingles"));
 
             Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(new RequisitoIdioma("Ingles"));
+            puesto.Requiere(new RequisitoIdioma("Idiomas", "Ingles"));
 
             PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
 
@@ -164,7 +164,7 @@ namespace TestViaticos
             cv.AgregarIdioma(Idioma("Portugues"));
 
             Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(new RequisitoIdioma("Portugues"));
+            puesto.Requiere(new RequisitoIdioma("Idiomas", "Portugues"));
 
             PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
 
@@ -184,7 +184,7 @@ namespace TestViaticos
             cv.AgregarIdioma(Idioma("Portugues"));
 
             Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(new RequisitoIdioma("Ingles"));
+            puesto.Requiere(new RequisitoIdioma("Idiomas", "Ingles"));
 
             PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
 
@@ -208,8 +208,8 @@ namespace TestViaticos
             cv.AgregarIdioma(Idioma("Portugues"));
 
             Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(new RequisitoIdioma("Ingles"));
-            puesto.Requiere(new RequisitoIdioma("Portugues"));
+            puesto.Requiere(new RequisitoIdioma("Idiomas", "Ingles"));
+            puesto.Requiere(new RequisitoIdioma("Idiomas", "Portugues"));
 
             PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
 
@@ -253,23 +253,23 @@ namespace TestViaticos
         }
 
 
-        //[TestMethod]
-        //public void deberia_ver_el_titulo_universitario_en_el_cuadro_del_perfil()
-        //{
-        //    CreadorDePantallas creador = new CreadorDePantallas();
-        //    CurriculumVitae cv = TestObjects.UnCV();
-        //    cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
+        [TestMethod]
+        public void deberia_ver_el_titulo_universitario_en_el_cuadro_del_perfil()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
 
-        //    Puesto puesto = TestObjects.UnPerfil();
-        //    puesto.Requiere(new RequisitoEstudio("Un Estudio Universitario", new NivelDeEstudio(12, "Universitario")));
+            Puesto puesto = TestObjects.UnPerfil();
+            puesto.Requiere(new RequisitoEstudio("Un Estudio Universitario", new NivelDeEstudio(12, "Universitario")));
 
-        //    PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
 
-        //    Assert.AreEqual(1, pantalla.CuadroPerfil.Count);
-        //    Assert.AreEqual("Un Estudio Universitario", pantalla.CuadroPerfil[0].DescripcionRequisito);
-        //    Assert.AreEqual("Lic en Adm", pantalla.CuadroPerfil[0].ItemsCv[0].Descripcion);
-        //    Assert.AreEqual(0, pantalla.DocumentacionRequerida.Count);
-        //}
+            Assert.AreEqual(1, pantalla.CuadroPerfil.Count);
+            Assert.AreEqual("Un Estudio Universitario", pantalla.CuadroPerfil[0].DescripcionRequisito);
+            Assert.AreEqual("Lic en Adm", pantalla.CuadroPerfil[0].ItemsCv[0].Descripcion);
+            Assert.AreEqual(0, pantalla.DocumentacionRequerida.Count);
+        }
 
 
         private static CvIdiomas Idioma(string idioma)

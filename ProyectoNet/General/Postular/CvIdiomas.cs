@@ -47,16 +47,5 @@ namespace General
             this._localidad = localidad;
             this._pais = pais;
         }
-
-        public string DescripcionRequisito()
-        {
-            return this.Idioma;
-        }
-
-
-        public RequisitoPerfil CrearRequisito(string descripcion)
-        {
-            return new RequisitoIdioma(descripcion);
-        }
     }
 }

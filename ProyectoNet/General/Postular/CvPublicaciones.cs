@@ -33,17 +33,6 @@ namespace General
             this._disponeCopia = disponeCopia;
             this._disponeAdjunto = disponeAdjunto;
             this._fechaPublicacion = fechaPublicacion;
-
-        }
-
-        public string DescripcionRequisito()
-        {
-            return this.Titulo;
-        }
-
-        public RequisitoPerfil CrearRequisito(string descripcion)
-        {
-            throw new NotImplementedException();
         }
     }
 }

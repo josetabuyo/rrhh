@@ -10,9 +10,10 @@ namespace General
 
         public string Idioma { get; protected set; }
 
-        public RequisitoIdioma(string idioma)
+        public RequisitoIdioma(string descripcion, string idioma)
         {
             this.Idioma = idioma;
+            this.Descripcion = descripcion;
         }
 
         public override bool Equals(object obj)
@@ -36,7 +37,7 @@ namespace General
 
         public override bool EsCumlidoPor(ItemCv item_cv)
         {
-            return item_cv.Descripcion.Equals(this.Idioma);
+            return ((CvIdiomas)item_cv).Idioma.Equals(this.Idioma);
         }   
     }
 }

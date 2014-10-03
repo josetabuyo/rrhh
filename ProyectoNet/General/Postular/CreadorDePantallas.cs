@@ -21,23 +21,22 @@ namespace General
 
             pantalla.DocumentacionRequerida = lista_docRequerida;
 
-            AgregarACuadroPerfil(curriculumVitae.CvIdiomas, puesto, pantalla, "Idiomas");
-            AgregarACuadroPerfil(curriculumVitae.CvEstudios, puesto, pantalla, "Estudios");
+            AgregarACuadroPerfil(curriculumVitae.CvIdiomas, puesto, pantalla);
+            AgregarACuadroPerfil(curriculumVitae.CvEstudios, puesto, pantalla);
 
             return pantalla;
         }
 
-        protected void AgregarACuadroPerfil(IList items_del_cv, Puesto puesto, PatallaRecepcionDocumentacion pantalla, string descripcion_requisito)
+        protected void AgregarACuadroPerfil(IList items_del_cv, Puesto puesto, PatallaRecepcionDocumentacion pantalla)
         {
             var documentacion_requerida = new DivDocumentacionRequerida();
-            documentacion_requerida.DescripcionRequisito = descripcion_requisito;
             foreach (RequisitoPerfil requisito in puesto.Requisitos())
             {
-
                 foreach (ItemCv item_cv in items_del_cv)
                 {
                     if (requisito.EsCumlidoPor(item_cv))
                     {
+                        documentacion_requerida.DescripcionRequisito = requisito.Descripcion;
                         documentacion_requerida.AddItemCv(item_cv);
                     }
                 }
@@ -48,16 +47,6 @@ namespace General
                 }
 
             }
-
-            //requisitos.ForEach((req) =>
-            //{
-            //    if (puesto.TieneRequisito(req))
-            //    {
-            //        documentacion_requerida.ItemsCv.Add(req.ItemCV());
-            //        pantalla.CuadroPerfil.Add(documentacion_requerida);
-            //    }
-            //});
-
         }
 
         protected void CargarDocumentacionRequerida(List<DivDocumentacionRequerida> lista_doc_requerida, IList lista, string descripcion_requisito, Puesto puesto)

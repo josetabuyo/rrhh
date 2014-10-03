@@ -63,18 +63,5 @@ namespace General
         {
             return this._id.GetHashCode();
         }
-
-
-
-        public string DescripcionRequisito()
-        {
-            return this.Titulo;
-        }
-
-
-        public RequisitoPerfil CrearRequisito(string descripcion)
-        {
-            return new RequisitoEstudio(descripcion, new NivelDeEstudio(this.Nivel,"traer el nombre del nivel posta"));
-        }
     }
 }
