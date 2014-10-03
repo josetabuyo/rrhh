@@ -7,7 +7,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Cambio de Etapas de Postulaciones</title>
      <%= Referencias.Css("../")%>    
 
      <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
@@ -23,8 +23,8 @@
             <div>
                 <div style="display:inline-block; margin-left:30px; width: 60%">
                     <label for="txt_codigo_postulacion">Postulación:&nbsp;</label>
-                    <input type="text" id="txt_codigo_postulacion" />
-                    <input type="button" id="btn_buscar_etapas" value="Buscar" />
+                    <input type="text" id="txt_codigo_postulacion" style="margin-bottom: 0px;" data-validar="esNoBlanco" />
+                    <input type="button" id="btn_buscar_etapas" value="Buscar" class="btn" />
                 </div>
                 <div style="display:inline-block; margin-left:30px;">
                     <div>Empleado:&nbsp;<span id="span_empleado"></span></div>
@@ -39,7 +39,7 @@
                     <div id="div_tabla_historial"></div>
                 </div>
                 <div style="display:block; margin-left:30px; vertical-align: middle;">
-                    <select id="cmb_etapas_concurso" dataProvider="EtapasConcurso" modelo="Etapa">
+                    <select id="cmb_etapas_concurso">
                     </select>
                 </div>
             </div>

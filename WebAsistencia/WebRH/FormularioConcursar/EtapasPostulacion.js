@@ -5,6 +5,7 @@
     _this.btn_buscar_etapas = $("#btn_buscar_etapas");
 
     _this.btn_buscar_etapas.click(function () {
+        if(_this.ui.esValido())
         _this.BuscarPostulaciones();
     });
 
@@ -35,13 +36,16 @@
 
     _this.BuscarPostulaciones = function () {
         var codigo = $("#txt_codigo_postulacion").val();
+        var div_tabla_historial = $("#div_tabla_historial");
+        div_tabla_historial.html("");
+        $("#seccion_historial").hide();
         Backend.ejecutar("GetPostulacionesPorCodigo",
                         [codigo],
                         function (respuesta) {
                             _this.CompletarDatos(JSON.parse(respuesta));
                         },
                         function (errorThrown) {
-                            alertify.alert(errorThrown);
+                            alertify.alert("Código no encontrado");
                         }
         );
     }
@@ -68,13 +72,14 @@
         var span_fecha = $("#span_fecha");
         var span_perfil = $("#span_perfil");
         var postulacion = $("#postulacion");
+        
 
         var usu_etapas = datos_postulacion.UsuEtapas;
 
         postulacion.val(JSON.stringify(datos_postulacion));
 
         var columnas = [];
-        columnas.push(new Columna("Fecha", { generar: function (una_etapa) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_etapa.Fecha) + "__" + una_etapa.Fecha } }));
+        columnas.push(new Columna("Fecha", { generar: function (una_etapa) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_etapa.Fecha) } }));
         columnas.push(new Columna("Descripción", { generar: function (una_etapa) { return una_etapa.Descripcion } }));
         columnas.push(new Columna("Usuario", { generar: function (una_etapa) { return una_etapa.UsuarioEtapa; } }));
 
@@ -84,7 +89,7 @@
         this.GrillaHistorial.SetOnRowClickEventHandler(function (una_etapa) {
         });
 
-        div_tabla_historial.html("");
+        
         this.GrillaHistorial.CargarObjetos(usu_etapas);
         this.GrillaHistorial.DibujarEn(div_tabla_historial);
 
