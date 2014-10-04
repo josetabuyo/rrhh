@@ -93,10 +93,9 @@
                                 <div class="grupo_campos">
                                     <label for="cuil">
                                         CUIL <em>*</em>
-                                        <h5>
-                                            (Ej.:20-22114543-5)</h5>
+                                        <h5 style="display: inline-block;">(Ej.:20-22114543-5)</h5>
                                     </label>
-                                    <input id="cuil" type="text" style="width: 270px;" rh-control-type="textbox" rh-model-property="Cuil" data-validar="esNoBlanco" />
+                                    <input id="cuil" type="text" style="width: 270px;" data-validar="esNoBlanco" />
                                 </div>
                                 <div class="grupo_campos nueva_linea">
                                     <label class="etiqueta_campo" for="txt_fechaNac">

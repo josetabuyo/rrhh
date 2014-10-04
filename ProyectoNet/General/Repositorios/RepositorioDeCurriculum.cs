@@ -447,7 +447,14 @@ namespace General.Repositorios
                 //Si no es empleado
                 if (cv.DatosPersonales.TieneLegajo == "No tiene legajo")
                 {
-                    validarDatos(datosPersonales);
+                    try
+                    {
+                        validarDatos(datosPersonales);
+                    }
+                    catch (Exception e)
+                    {                        
+                        throw e;
+                    }
                     //insertar en CV_DatosPersonales
                     parametros = CompletarDatosPersonales(datosPersonales, parametros, usuario);
                     parametros.Add("@IdPersona", usuario.Owner.Id);
@@ -1230,7 +1237,7 @@ namespace General.Repositorios
         {
             var validador_datos = new Validador();
 
-            validador_datos.DeberianSerNoVacias(new string[] { "Nombre", "Apellido", "Cuil", "Telefono", "Telefono2" });
+            validador_datos.DeberianSerNoVacias(new string[] { "Nombre", "Apellido", "Cuil" });
             validador_datos.DeberianSerFechasNoVacias(new string[] { "FechaNacimiento"});
             validador_datos.DeberianSerNaturalesOCero(new string[] { "Dni" }); 
             validador_datos.DeberianSerNaturales(new string[] { "Sexo", "EstadoCivil", "Nacionalidad", "TipoDocumento"});
@@ -1238,22 +1245,31 @@ namespace General.Repositorios
             if (!validador_datos.EsValido(datosPersonales))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
 
+            validarDatos(datosPersonales.DatosDeContacto);
             validarDatos(datosPersonales.DomicilioLegal);
             validarDatos(datosPersonales.DomicilioPersonal);
-
         }
 
         private void validarDatosEmpleado(CvDatosPersonales datosPersonales)
         {
             var validador_datos = new Validador();
 
-            validador_datos.DeberianSerNoVacias(new string[] { "Telefono", "Telefono2", "Email" });
-
             if (!validador_datos.EsValido(datosPersonales))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
 
+            validarDatos(datosPersonales.DatosDeContacto);
             validarDatos(datosPersonales.DomicilioLegal);
             validarDatos(datosPersonales.DomicilioPersonal);
+        }
+
+        private void validarDatos(DatosDeContacto datos_de_contacto)
+        {
+            var validador = new Validador();
+
+            validador.DeberianSerNoVacias(new string[] { "Telefono", "Telefono2", "Email" });
+
+            if (!validador.EsValido(datos_de_contacto))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
         }
 
         private void validarDatos(CvDomicilio un_domicilio)

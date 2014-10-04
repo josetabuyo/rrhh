@@ -19,12 +19,7 @@ var CvDatosPersonales = {
         _this.txt_dni = _this.ui.find("#txt_documento");
         _this.cmb_tipoDocumento = _this.ui.find("#cmb_tipoDocumento");
 
-//        _this.txt_fechaNac.datepicker();
-//        _this.txt_fechaNac.datepicker('option', 'dateFormat', 'dd/mm/yy');
-//        _this.txt_fechaNac.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(datos_personales.FechaNacimiento));
-
-
-        //_this.txt_dni.val(parseInt(datos_personales.Dni));
+        _this.txt_cuil.val(parseInt(datos_personales.Cuil));
 
         if (datos_personales.TieneLegajo == "Tiene legajo") {
             _this.txt_nombre[0].disabled = true;
@@ -42,7 +37,6 @@ var CvDatosPersonales = {
 
         if ($("#contenedor_datosPersonales").esValido()) {
             datos_personales.Cuil = _this.txt_cuil.val().replace(/\-/g, '');
-            //datos_personales.FechaNacimiento = _this.txt_fechaNac.val();
 
             Backend.GuardarCvDatosPersonales(datos_personales)
                 .onSuccess(function (respuesta) {
@@ -52,7 +46,7 @@ var CvDatosPersonales = {
                 .onError(function (error, as, asd) {
                     alertify.error(error.statusText);
                 });
-        } //fin validador
+        } 
     });
 
 }
