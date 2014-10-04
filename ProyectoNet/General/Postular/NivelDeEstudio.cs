@@ -38,11 +38,6 @@ namespace General
             return  this.Id;
         }
 
-        public override ItemCv ItemCV()
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool EsCumlidoPor(ItemCv item_cv)
         {
             throw new NotImplementedException();

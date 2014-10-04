@@ -9,7 +9,6 @@ namespace General
 {
     public class CreadorDePantallas
     {
-
         public PatallaRecepcionDocumentacion CrearPantalla(CurriculumVitae curriculumVitae, Puesto puesto)
         {
             var pantalla = new PatallaRecepcionDocumentacion();
@@ -45,7 +44,6 @@ namespace General
                 {
                     pantalla.CuadroPerfil.Add(documentacion_requerida);
                 }
-
             }
         }
 

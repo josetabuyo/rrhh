@@ -8,8 +8,6 @@ namespace General
     public abstract class RequisitoPerfil
     {
         public string Descripcion { get; set; }
-        public abstract ItemCv ItemCV();
-
         public abstract bool EsCumlidoPor(ItemCv item_cv);
     }
 }

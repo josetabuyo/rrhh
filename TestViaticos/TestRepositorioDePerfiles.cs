@@ -145,7 +145,7 @@ namespace TestViaticos
             cv.AgregarIdioma(Idioma("Ingles"));
 
             Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(new RequisitoIdioma("Idiomas", "Ingles"));
+            puesto.Requiere(RequisitoIdiomaIngles());
 
             PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
 
@@ -156,6 +156,24 @@ namespace TestViaticos
             Assert.AreEqual(0, pantalla.DocumentacionRequerida.Count);
         }
 
+        private static RequisitoIdioma RequisitoIdiomaIngles()
+        {
+            return RequisitoIdiomaUnIdioma("Ingles");
+        }
+
+        private static RequisitoIdioma RequisitoIdiomaPortugues()
+        {
+            return RequisitoIdiomaUnIdioma("Portugues");
+        }
+
+        private static RequisitoIdioma RequisitoIdiomaUnIdioma(string idioma)
+        {
+            var el_idioma = new List<string>() { idioma };
+            return new RequisitoIdioma("Idiomas", el_idioma);
+        }
+
+
+
         [TestMethod]
         public void deberia_ver_el_idioma_portugues_en_el_cuadro_del_perfil()
         {
@@ -164,7 +182,7 @@ namespace TestViaticos
             cv.AgregarIdioma(Idioma("Portugues"));
 
             Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(new RequisitoIdioma("Idiomas", "Portugues"));
+            puesto.Requiere(RequisitoIdiomaPortugues());
 
             PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
 
@@ -184,7 +202,7 @@ namespace TestViaticos
             cv.AgregarIdioma(Idioma("Portugues"));
 
             Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(new RequisitoIdioma("Idiomas", "Ingles"));
+            puesto.Requiere(RequisitoIdiomaIngles());
 
             PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
 
@@ -208,12 +226,12 @@ namespace TestViaticos
             cv.AgregarIdioma(Idioma("Portugues"));
 
             Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(new RequisitoIdioma("Idiomas", "Ingles"));
-            puesto.Requiere(new RequisitoIdioma("Idiomas", "Portugues"));
+            var idiomas_requeridos = new List<string>() { "Ingles", "Portugues" };
+            puesto.Requiere(new RequisitoIdioma("Idiomas", idiomas_requeridos));
 
             PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
 
-            Assert.AreEqual(2, pantalla.CuadroPerfil.Count);
+            Assert.AreEqual(1, pantalla.CuadroPerfil.Count);
             Assert.AreEqual("Idiomas", pantalla.CuadroPerfil[0].DescripcionRequisito);
             Assert.AreEqual(2, pantalla.CuadroPerfil[0].ItemsCv.Count);
             Assert.AreEqual("Ingles", pantalla.CuadroPerfil[0].ItemsCv[0].Descripcion);

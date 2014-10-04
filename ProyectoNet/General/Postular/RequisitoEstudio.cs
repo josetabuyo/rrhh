@@ -22,10 +22,6 @@ namespace General
             this.nivel_de_estudio = nivelDeEstudio;
         }
 
-        public override ItemCv ItemCV()
-        {
-            return new ItemCv(this.Descripcion);
-        }
 
         public override bool Equals(object obj)
         {
