@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormCaptcha.aspx.cs" Inherits="RegistroPostular_FormCaptcha" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormCaptchaRecupero.aspx.cs" Inherits="RegistroPostular_FormCaptchaRecupero" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 

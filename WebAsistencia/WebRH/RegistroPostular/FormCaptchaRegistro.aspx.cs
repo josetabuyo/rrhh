@@ -8,34 +8,34 @@ using WSViaticos;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-public partial class RegistroPostular_FormCaptcha : System.Web.UI.Page
+public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
 
-    protected void btn_recuperar_Click(object sender, EventArgs e)
+    protected void btn_registrar_Click(object sender, EventArgs e)
     {
         if (ValidarCampos())
         {
             var servicio = Servicio();
-            bool ok = servicio.RecuperarUsuario(JsonConvert.SerializeObject(new { Mail = this.txt_mail_recupero.Text }));
-            if (ok)
+            var personas = servicio.BuscarPersonas(JsonConvert.SerializeObject(new { Documento = this.txt_dni_registro.Text }));
+            if (personas.Length > 0)
             {
-                this.lb_mensajeError.Text = "Se ha enviado un mail a dicho correo, para que pueda recuperar sus datos de acceso.";
+                this.lb_mensajeError.Text = "El documento ingresado ya está registrado, inicie sesión con el usuario asignado. Si no los recuerda, utilice la opción: '¿Olvidó sus datos?' o comuníquese con <br/> Recursos Humanos.";
 
             }
             else
             {
-                this.lb_mensajeError.Text = "No es posible recuperar sus datos. Contáctese con Recursos Humanos.";
+                ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
 
             }
-            ScriptManager.RegisterStartupScript(this, GetType(), "RecuperoOk", "RecuperoOk();", true);
+            
         }
         else
         {
-            ScriptManager.RegisterStartupScript(this, GetType(), "RecuperoError", "RecuperoError();", true);
+            ScriptManager.RegisterStartupScript(this, GetType(), "RegistroError", "RegistroError();", true);
         }
                    
     }
@@ -55,10 +55,10 @@ public partial class RegistroPostular_FormCaptcha : System.Web.UI.Page
 
     private bool ValidarMail()
     {
-        string mail = this.txt_mail_recupero.Text;
-        if (mail.Equals("") || !mail.Contains("@") || !mail.Contains("."))
+        string dni = this.txt_dni_registro.Text;
+        if (dni.Contains("1")) //arreglar
         {
-            this.lb_mensajeError.Text = "El formato del mail no es válido.";
+            this.lb_mensajeError.Text = "El formato del DNI no es válido.";
             return false; 
         }
         else 
