@@ -28,9 +28,10 @@ namespace General
 
         protected void AgregarACuadroPerfil(IList items_del_cv, Puesto puesto, PatallaRecepcionDocumentacion pantalla)
         {
-            var documentacion_requerida = new DivDocumentacionRequerida();
+           
             foreach (RequisitoPerfil requisito in puesto.Requisitos())
             {
+                var documentacion_requerida = new DivDocumentacionRequerida();
                 foreach (ItemCv item_cv in items_del_cv)
                 {
                     if (requisito.EsCumlidoPor(item_cv))

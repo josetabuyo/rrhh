@@ -1832,6 +1832,11 @@ namespace General
             return new CurriculumVitae(new CvDatosPersonales());
         }
 
+        public static CvEstudios UnEstudioSecundario()
+        {
+            return new CvEstudios("Tecnico Electricista", 10, "", "", new DateTime(), new DateTime(), "", 0);
+        }
+
         public static CvEstudios UnEstudioUniversitario()
         {
             return new CvEstudios("Lic en Adm", 12, "", "", new DateTime(), new DateTime(), "", 0);

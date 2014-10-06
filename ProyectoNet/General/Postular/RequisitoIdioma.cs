@@ -33,7 +33,16 @@ namespace General
 
         public override bool EsCumlidoPor(ItemCv item_cv)
         {
-            return this.idiomas_requeridos.Any(i => i.Equals(((CvIdiomas)item_cv).Idioma));
+            if (item_cv.GetType() != typeof(CvIdiomas))
+            {
+                return false;
+            }
+            else
+            {
+                return this.idiomas_requeridos.Any(i => i.Equals(((CvIdiomas)item_cv).Idioma));
+            }
+
+            //return this.idiomas_requeridos.Any(i => i.Equals(((CvIdiomas)item_cv).Idioma));
         }   
     }
 }

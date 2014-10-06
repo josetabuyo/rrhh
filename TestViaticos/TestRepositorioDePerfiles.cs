@@ -156,24 +156,6 @@ namespace TestViaticos
             Assert.AreEqual(0, pantalla.DocumentacionRequerida.Count);
         }
 
-        private static RequisitoIdioma RequisitoIdiomaIngles()
-        {
-            return RequisitoIdiomaUnIdioma("Ingles");
-        }
-
-        private static RequisitoIdioma RequisitoIdiomaPortugues()
-        {
-            return RequisitoIdiomaUnIdioma("Portugues");
-        }
-
-        private static RequisitoIdioma RequisitoIdiomaUnIdioma(string idioma)
-        {
-            var el_idioma = new List<string>() { idioma };
-            return new RequisitoIdioma("Idiomas", el_idioma);
-        }
-
-
-
         [TestMethod]
         public void deberia_ver_el_idioma_portugues_en_el_cuadro_del_perfil()
         {
@@ -248,7 +230,6 @@ namespace TestViaticos
             cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
 
             Puesto puesto = TestObjects.UnPerfil();
-            //puesto.Requiere(new RequisitoEstudio(new NivelDeEstudio(12, "Universitario")));
 
             PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
 
@@ -290,9 +271,74 @@ namespace TestViaticos
         }
 
 
+        [TestMethod]
+        public void deberia_ver_el_universitario_en_el_perfil_y_el_secundario_fuera_de_el()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
+            cv.AgregarEstudio(TestObjects.UnEstudioSecundario());
+
+            Puesto puesto = TestObjects.UnPerfil();
+            puesto.Requiere(new RequisitoEstudio("Un Estudio Universitario", new NivelDeEstudio(12, "Universitario")));
+
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+
+            Assert.AreEqual(1, pantalla.CuadroPerfil.Count);
+            Assert.AreEqual("Un Estudio Universitario", pantalla.CuadroPerfil[0].DescripcionRequisito);
+            Assert.AreEqual("Lic en Adm", pantalla.CuadroPerfil[0].ItemsCv[0].Descripcion);
+            Assert.AreEqual(1, pantalla.DocumentacionRequerida.Count);
+            Assert.AreEqual("Estudios", pantalla.DocumentacionRequerida[0].DescripcionRequisito);
+        }
+
+        [TestMethod]
+        public void deberia_ver_el_universitario_e_ingles_en_el_perfil_y_el_secundario__y_portugues_fuera_de_el()
+        {
+            CreadorDePantallas creador = new CreadorDePantallas();
+            CurriculumVitae cv = TestObjects.UnCV();
+            cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
+            cv.AgregarEstudio(TestObjects.UnEstudioSecundario());
+            cv.AgregarIdioma(Idioma("Ingles"));
+            cv.AgregarIdioma(Idioma("Portugues"));
+
+            Puesto puesto = TestObjects.UnPerfil();
+            var idiomas_requeridos = new List<string>() { "Ingles" };
+            puesto.Requiere(new RequisitoIdioma("Idiomas", idiomas_requeridos));
+            puesto.Requiere(new RequisitoEstudio("Un Estudio Universitario", new NivelDeEstudio(12, "Universitario")));
+
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+
+            Assert.AreEqual(2, pantalla.CuadroPerfil.Count);
+            Assert.AreEqual("Idiomas", pantalla.CuadroPerfil[0].DescripcionRequisito);
+            Assert.AreEqual("Ingles", pantalla.CuadroPerfil[0].ItemsCv[0].Descripcion);
+            Assert.AreEqual("Un Estudio Universitario", pantalla.CuadroPerfil[1].DescripcionRequisito);
+            Assert.AreEqual("Lic en Adm", pantalla.CuadroPerfil[1].ItemsCv[0].Descripcion);
+            Assert.AreEqual(2, pantalla.DocumentacionRequerida.Count);
+            Assert.AreEqual("Idiomas", pantalla.DocumentacionRequerida[0].DescripcionRequisito);
+            Assert.AreEqual("Estudios", pantalla.DocumentacionRequerida[1].DescripcionRequisito);
+        }
+
+       
+
         private static CvIdiomas Idioma(string idioma)
         {
             return new CvIdiomas(1, idioma, "", idioma, 1, 1, 1, new DateTime(), "", 1);
+        }
+
+        private static RequisitoIdioma RequisitoIdiomaIngles()
+        {
+            return RequisitoIdiomaUnIdioma("Ingles");
+        }
+
+        private static RequisitoIdioma RequisitoIdiomaPortugues()
+        {
+            return RequisitoIdiomaUnIdioma("Portugues");
+        }
+
+        private static RequisitoIdioma RequisitoIdiomaUnIdioma(string idioma)
+        {
+            var el_idioma = new List<string>() { idioma };
+            return new RequisitoIdioma("Idiomas", el_idioma);
         }
 
        /* [TestMethod]
