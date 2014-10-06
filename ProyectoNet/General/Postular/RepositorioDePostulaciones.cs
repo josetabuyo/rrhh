@@ -41,7 +41,7 @@ namespace General
 
         public List<Postulacion> GetPostulaciones()
         {
-            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones2");
+            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones");
 
             return ArmarPostulaciones(tablaPostulaciones);
 
@@ -51,7 +51,7 @@ namespace General
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idPersona", idpersona);
-            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones2", parametros);
+            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones", parametros);
 
             return ArmarPostulaciones(tablaPostulaciones);
 
