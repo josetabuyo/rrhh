@@ -10,14 +10,15 @@ namespace General
     {
         protected int _id;
         protected List<IntegranteComite> _integrantes;
-        protected Puesto _puesto;
+        /*protected Puesto _puesto;*/
+        protected Perfil _perfil;
         protected int _numero;
        
 
 
         public int Id { get { return _id; } set { _id = value; } }
         public List<IntegranteComite> Integrantes { get { return _integrantes; } set { _integrantes = value; } }
-        public Puesto Puesto { get { return _puesto; } set { _puesto = value; } }
+        public Perfil Puesto { get { return _perfil; } set { _perfil = value; } }
         public int Numero { get { return _numero; } set { _numero = value; } }
 
 

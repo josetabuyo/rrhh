@@ -113,7 +113,7 @@
             </div>
         </div>
     </div>
-    <asp:HiddenField ID="puesto" runat="server" />
+    <asp:HiddenField ID="perfil" runat="server" />
     </form>
 </body>
  <script type="text/javascript" src="Postulacion.js" ></script>
