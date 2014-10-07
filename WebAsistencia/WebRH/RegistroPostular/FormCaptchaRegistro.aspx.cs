@@ -43,7 +43,7 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
     private bool ValidarCampos()
     {
         //Validar el formato de la pantalla
-        if (ValidarMail() && ValidarCaptcha())
+        if (ValidarDNI() && ValidarCaptcha())
         {
             return true;
         }
@@ -53,17 +53,28 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
         }
     }
 
-    private bool ValidarMail()
+    private bool ValidarDNI()
     {
         string dni = this.txt_dni_registro.Text;
-        if (dni.Contains("1")) //arreglar
+        var dni_array = dni.ToArray();
+        bool valido = true;
+        foreach (var numero in dni_array)
         {
-            this.lb_mensajeError.Text = "El formato del DNI no es válido.";
-            return false; 
+            if (!(numero.Equals('1') || numero.Equals('2') || numero.Equals('3') || numero.Equals('4') || numero.Equals('5') ||
+               numero.Equals('6') || numero.Equals('7') || numero.Equals('8') || numero.Equals('9') || numero.Equals('0')))
+            {
+                valido = false;
+                break;
+            }
+        }
+        if (valido) //arreglar
+        {
+            return true;
         }
         else 
         {
-            return true; 
+            this.lb_mensajeError.Text = "El formato del DNI no es válido.";
+            return false; 
         }
     }
 
