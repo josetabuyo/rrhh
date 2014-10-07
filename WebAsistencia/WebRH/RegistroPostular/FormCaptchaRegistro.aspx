@@ -11,10 +11,15 @@
     <script type="text/javascript">
         function RegistroOk() {
             PantallaRegistro.paso4();
+            PantallaRegistro.paso2();
+        }
+        function RegistroHecho() {
+            PantallaRegistro.paso4();
         }
         function RegistroError() {
             PantallaRegistro.paso5();
         }
+       
 </script>
 </head>
 <body>

@@ -20,15 +20,16 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
         if (ValidarCampos())
         {
             var servicio = Servicio();
-            var personas = servicio.BuscarPersonas(JsonConvert.SerializeObject(new { Documento = this.txt_dni_registro.Text }));
+            var personas = servicio.BuscarPersonas(JsonConvert.SerializeObject(new { Documento = Convert.ToInt32(this.txt_dni_registro.Text) }));
             if (personas.Length > 0)
             {
                 this.lb_mensajeError.Text = "El documento ingresado ya está registrado, inicie sesión con el usuario asignado. Si no los recuerda, utilice la opción: '¿Olvidó sus datos?' o comuníquese con <br/> Recursos Humanos.";
-
+                ScriptManager.RegisterStartupScript(this, GetType(), "RegistroHecho", "RegistroHecho();", true);
             }
             else
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
+                //hay que llamar a la otra pantalla
 
             }
             
@@ -55,19 +56,19 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
 
     private bool ValidarDNI()
     {
-        string dni = this.txt_dni_registro.Text;
-        var dni_array = dni.ToArray();
-        bool valido = true;
-        foreach (var numero in dni_array)
+        int dni = 0;
+        try
         {
-            if (!(numero.Equals('1') || numero.Equals('2') || numero.Equals('3') || numero.Equals('4') || numero.Equals('5') ||
-               numero.Equals('6') || numero.Equals('7') || numero.Equals('8') || numero.Equals('9') || numero.Equals('0')))
-            {
-                valido = false;
-                break;
-            }
+            dni = Convert.ToInt32(this.txt_dni_registro.Text);
         }
-        if (valido) //arreglar
+        catch (Exception)
+        {
+            this.lb_mensajeError.Text = "El formato del DNI no es válido.";
+            return false; 
+        }
+       
+
+        if (100000 < dni && dni < 99999999) //arreglar
         {
             return true;
         }
