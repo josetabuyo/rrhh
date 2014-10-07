@@ -122,9 +122,9 @@
   <script type="text/javascript">
 
       $(document).ready(function () {
-          var puesto = JSON.parse($('#puesto').val());
+          var perfil = JSON.parse($('#perfil').val());
 
-          Postulacion.armarPostulacion(puesto);
+          Postulacion.armarPostulacion(perfil);
 
           $('#anexo_1').click(function () {
               window.open('AnexoI.aspx');
