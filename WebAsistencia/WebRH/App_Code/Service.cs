@@ -765,12 +765,27 @@ public class AjaxWS : System.Web.Services.WebService
 
     #endregion
 
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public void SetPuestoEnSesion(WSViaticos.Puesto puesto)
+    //{
+    //    HttpContext.Current.Session[ConstantesDeSesion.PUESTO] = puesto;
+    //}
+
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public void SetPuestoEnSesion(WSViaticos.Puesto puesto)
+    public void SetPerfilEnSesion(WSViaticos.Perfil perfil)
     {
-        HttpContext.Current.Session[ConstantesDeSesion.PUESTO] = puesto;
+        HttpContext.Current.Session[ConstantesDeSesion.PERFIL] = perfil;
     }
+
+    //public void SetPuestoEnSesion(WSViaticos.Perfil perfil)
+    //{
+    //    HttpContext.Current.Session[ConstantesDeSesion.PERFIL] = perfil;
+    //}
+
+
+
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -788,10 +803,17 @@ public class AjaxWS : System.Web.Services.WebService
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetPuestoEnSesion(WSViaticos.Puesto puesto)
+    public string GetPerfilEnSesion(WSViaticos.Perfil perfil)
     {
-        return Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Session[ConstantesDeSesion.PUESTO]);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Session[ConstantesDeSesion.PERFIL]);
     }
+
+
+
+    //public string GetPuestoEnSesion(WSViaticos.Puesto puesto)
+    //{
+    //    return Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Session[ConstantesDeSesion.PUESTO]);
+    //}
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

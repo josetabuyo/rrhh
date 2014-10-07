@@ -139,7 +139,8 @@
             </div>
         </div>
     </div>
-    <asp:HiddenField ID="puesto" runat="server" />
+    <asp:HiddenField ID="perfil" runat="server" />
+ 
     </form>
 </body>
  <script type="text/javascript" src="Postulacion.js" ></script>
@@ -149,9 +150,9 @@
       Backend.start();
 
       $(document).ready(function () {
-          var puesto =JSON.parse($('#puesto').val());
-
-          Postulacion.armarPostulacion(puesto);
+          var perfil =JSON.parse($('#perfil').val());
+//          var puesto = JSON.parse($('#puesto').val());
+          Postulacion.armarPostulacion(perfil);
 
           $("#paso_2").attr('class', 'link_activado');
           $("#paso_3").attr('class', 'link_activado');
