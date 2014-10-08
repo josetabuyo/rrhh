@@ -156,7 +156,7 @@
                                     Localidad <em>*</em></label>
                                 <select id="cmb_localidad1" style="width: 320px;" rh-control-type="combo" rh-propiedad-label="Nombre"
                                     rh-data-provider="Localidades" rh-model-property="DomicilioPersonal.Localidad"
-                                    rh-filter-combo="cmb_provincia1" rh-filter-prop="IdProvincia" data-validar="haySeleccionEnCombo" >
+                                    rh-filter-key="IdProvincia" rh-filter-value="DomicilioPersonal.Provincia" data-validar="haySeleccionEnCombo" >
                                 </select>
                             </div>
                         </fieldset>
@@ -203,8 +203,8 @@
                                 <label class="etiqueta_campo_small" for="cmb_localidad2">
                                     Localidad <em>*</em></label>
                                 <select id="cmb_localidad2" style="width: 320px;" rh-control-type="combo" rh-propiedad-label="Nombre"
-                                    rh-data-provider="Localidades" rh-model-property="DomicilioLegal.Localidad" rh-filter-combo="cmb_provincia2"
-                                    rh-filter-prop="IdProvincia" data-validar="haySeleccionEnCombo">
+                                    rh-data-provider="Localidades" rh-model-property="DomicilioLegal.Localidad" rh-filter-key="IdProvincia"
+                                    rh-filter-value="DomicilioLegal.Provincia" data-validar="haySeleccionEnCombo">
                                 </select>
                             </div>
                             <div class="grupo_campos nueva_linea">

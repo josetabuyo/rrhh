@@ -50,6 +50,7 @@ ComboConBusquedaYAgregado.prototype.idSeleccionado = function (id_seleccionado) 
 };
 
 ComboConBusquedaYAgregado.prototype.itemSeleccionado = function () {
+    if (!this.idSeleccionado()) return undefined;
     return this.objetosCargados.find(JSON.parse("{\"" + this.propiedadId + "\":" + this.idSeleccionado() + "}"));
 };
 

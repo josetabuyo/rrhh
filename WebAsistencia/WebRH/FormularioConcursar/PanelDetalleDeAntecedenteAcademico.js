@@ -53,7 +53,7 @@
 
                         return;
                     }
-                    Backend.GuardarCVAntecedenteAcademico(estudio)
+                    Backend.GuardarCvAntecedenteAcademico(estudio)
                             .onSuccess(function (respuesta) {
                                 alertify.alert("Los datos fueron guardados correctamente");
                                 alModificar(respuesta);

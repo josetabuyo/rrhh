@@ -19,7 +19,6 @@
         var columnas = [];
 
         var columnas = [];
-        //columnas.push(new Columna("Id", { generar: function (un_estudio) { return un_estudio.Id } }));
         columnas.push(new Columna("Título", { generar: function (un_estudio) { return un_estudio.Titulo } }));
         columnas.push(new Columna("Nivel", {
             generar: function (un_estudio, callback) {
@@ -27,11 +26,6 @@
             }, asincronico: true
         }));
         columnas.push(new Columna("Establecimiento", { generar: function (un_estudio) { return un_estudio.Establecimiento } }));
-        //columnas.push(new Columna("Especialidad", { generar: function (un_estudio) { return un_estudio.Especialidad } }));
-        //columnas.push(new Columna("FechaIngreso", { generar: function (un_estudio) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_estudio.FechaIngreso) } }));
-        //columnas.push(new Columna("FechaEgreso", { generar: function (un_estudio) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_estudio.FechaEgreso) } }));
-        //columnas.push(new Columna("Localidad", { generar: function (un_estudio) { return un_estudio.Localidad } }));
-        //columnas.push(new Columna("Pais", { generar: function (un_estudio) { return un_estudio.Pais } }));
         columnas.push(new Columna('Acciones', {
             generar: function (un_estudio) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
@@ -73,23 +67,31 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la capacidad?", function (e) {
             if (e) {
-                // user clicked "ok"
-                var proveedor_ajax = new ProveedorAjax();
-
-                proveedor_ajax.postearAUrl({ url: "EliminarCVAntecedenteAcademico",
-                    data: {
-                        antecedentesAcademicos_borrar: un_estudio.Id
-                    },
-                    success: function (respuesta) {
+                Backend.EliminarCvAntecedenteAcademico(un_estudio.Id)
+                    .onSuccess(function (respuesta) {
                         alertify.success("Antecedente eliminado correctamente");
                         _this.GrillaAntecedentesAcademicos.QuitarObjeto(_this.divGrilla, un_estudio);
                         var indice = _this.estudios.indexOf(un_estudio);
                         _this.estudios.splice(indice, 1);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    })
+                    .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar el antecedente");
-                    }
-                });
+                    });   
+
+//                proveedor_ajax.postearAUrl({ url: "EliminarCVAntecedenteAcademico",
+//                    data: {
+//                        antecedentesAcademicos_borrar: un_estudio.Id
+//                    },
+//                    success: function (respuesta) {
+//                        alertify.success("Antecedente eliminado correctamente");
+//                        _this.GrillaAntecedentesAcademicos.QuitarObjeto(_this.divGrilla, un_estudio);
+//                        var indice = _this.estudios.indexOf(un_estudio);
+//                        _this.estudios.splice(indice, 1);
+//                    },
+//                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+//                        alertify.error("No se pudo eliminar el antecedente");
+//                    }
+//                });
             } else {
                 // user clicked "cancel"
                 //alertify.error("No se pudo eliminar la capacidad");

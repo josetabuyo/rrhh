@@ -1,22 +1,90 @@
-var provincias = [
-    { Id: 1, Descripcion: "Buenos Aires" },
-    { Id: 2, Descripcion: "Entre Rios" },
-    { Id: 5, Descripcion: "Santa Fe" },
-    { Id: 8, Descripcion: "Mendoza" }
-];
-var localidades = [
-    { Id: 10, IdProvincia: 1, Nombre: "La Plata" },
-    { Id: 11, IdProvincia: 1, Nombre: "Mar del Plata" },
-    { Id: 21, IdProvincia: 2, Nombre: "Parana" },
-    { Id: 22, IdProvincia: 2, Nombre: "Gualeguaychu" },
-    { Id: 31, IdProvincia: 5, Nombre: "Rafaela" },
-    { Id: 32, IdProvincia: 5, Nombre: "Rosario" },
-    { Id: 41, IdProvincia: 8, Nombre: "Malargüe" },
-    { Id: 42, IdProvincia: 8, Nombre: "Las leñas" },
-    { Id: 42, IdProvincia: 8, Nombre: "San Rafael" },
-    { Id: 51, IdProvincia: 11, Nombre: "Curucuacutuzú Cuatiá" }
-];
+    var provincias = [
+        { Id: 1, Descripcion: "Buenos Aires" },
+        { Id: 2, Descripcion: "Entre Rios" },
+        { Id: 5, Descripcion: "Santa Fe" },
+        { Id: 8, Descripcion: "Mendoza" }
+    ];
 
+    var localidades = [
+        { Id: 10, IdProvincia: 1, Nombre: "La Plata" },
+        { Id: 11, IdProvincia: 1, Nombre: "Mar del Plata" },
+        { Id: 21, IdProvincia: 2, Nombre: "Parana" },
+        { Id: 22, IdProvincia: 2, Nombre: "Gualeguaychu" },
+        { Id: 31, IdProvincia: 5, Nombre: "Rafaela" },
+        { Id: 32, IdProvincia: 5, Nombre: "Rosario" },
+        { Id: 41, IdProvincia: 8, Nombre: "Malargüe" },
+        { Id: 42, IdProvincia: 8, Nombre: "Las leñas" },
+        { Id: 42, IdProvincia: 8, Nombre: "San Rafael" },
+        { Id: 51, IdProvincia: 11, Nombre: "Curucuacutuzú Cuatiá" }
+    ];
+
+    describe("Bindeos, tengo un objeto", function () {
+        var persona;
+        beforeEach(function () {
+            persona = {
+                nombre: "pepe",
+                apellido: "pappo",
+                madre: {
+                    nombre: "porota"
+                }
+            };
+        });
+
+        it("ENTONCES: deberia poder observar cambios en sus variables", function () {
+            var nuevo_nombre;
+            var otro_nuevo_nombre;
+            persona.watch("nombre", function (prop, oldval, newval) {
+                nuevo_nombre = newval;
+            });
+            persona.watch("nombre", function (prop, oldval, newval) {
+                otro_nuevo_nombre = newval;
+            });
+            persona.nombre = "coco";
+            expect(nuevo_nombre).toEqual("coco");
+            expect(otro_nuevo_nombre).toEqual("coco");
+        });
+        it("ENTONCES: deberia poder dejar de observar cambios en sus variables", function () {
+            var nuevo_nombre;
+            var otro_nuevo_nombre;
+            var handler = function (prop, oldval, newval) {
+                nuevo_nombre = newval;
+            };
+            persona.watch("nombre", handler);
+            var otro_handler = function (prop, oldval, newval) {
+                otro_nuevo_nombre = newval;
+            };
+            persona.watch("nombre", otro_handler);
+            persona.nombre = "coco";
+            persona.unwatch("nombre", otro_handler);
+            persona.nombre = "lolo";
+
+            expect(nuevo_nombre).toEqual("lolo");
+            expect(otro_nuevo_nombre).toEqual("coco");
+        });
+
+        it("ENTONCES: se deberia poder observar una propiedad de un objeto anidado", function () {
+            var nuevo_nombre;
+            var handler = function (prop, oldval, newval) {
+                nuevo_nombre = newval;
+            };
+            persona.watch("madre.nombre", handler);
+            persona.madre.nombre = "pepa";
+            expect(nuevo_nombre).toEqual("pepa");
+        });
+
+        it("ENTONCES: se deberia poder dejar de observar una propiedad de un objeto anidado", function () {
+            var nuevo_nombre;
+            var handler = function (prop, oldval, newval) {
+                nuevo_nombre = newval;
+            };
+            persona.watch("madre.nombre", handler);
+            persona.madre.nombre = "pepa";
+            persona.unwatch("madre.nombre", handler);
+            persona.madre.nombre = "cuca";
+
+            expect(nuevo_nombre).toEqual("pepa");
+        });
+    });
     describe("ComboConBusquedaYAgregado", function () {
         beforeEach(function () {
             jasmine.Ajax.install();
@@ -192,7 +260,7 @@ var localidades = [
                 select_provincia_nacimiento = $('<select id="combo_provincia_nacimiento" rh-control-type="combo" rh-data-provider="Provincias" rh-model-property="ProvinciaNacimiento"></select>');
                 select_provincia_domicilio = $('<select id="combo_provincia_domicilio" rh-control-type="combo" rh-data-provider="Provincias" rh-model-property="Domicilio.Provincia"></select>');
                 select_provincia_madre = $('<select id="combo_provincia_madre" rh-control-type="combo" rh-data-provider="Provincias" rh-model-property="Madre.Domicilio.Provincia"></select>');
-                select_localidad_domicilio = $('<select id="combo_localidad_domicilio" rh-control-type="combo" rh-data-provider="Localidades" rh-propiedad-label="Nombre" rh-model-property="Domicilio.Localidad" rh-filter-combo="combo_provincia_domicilio" rh-filter-prop="IdProvincia"></select>');
+                select_localidad_domicilio = $('<select id="combo_localidad_domicilio" rh-control-type="combo" rh-data-provider="Localidades" rh-propiedad-label="Nombre" rh-model-property="Domicilio.Localidad" rh-filter-key="IdProvincia" rh-filter-value="Domicilio.Provincia"></select>');
                 input_apellido = $('<input id="txt_apellido" rh-control-type="textbox" rh-model-property="Apellido"/>');
                 input_edad = $('<input id="txt_edad" rh-control-type="textbox" rh-model-property="Edad" data-validar="esNumeroNatural"/>');
 
@@ -214,7 +282,9 @@ var localidades = [
                     fakeResponse(provincias, 1);
                     fakeResponse(provincias, 2);
                     fakeResponse(provincias, 3);
-                    fakeResponse(localidades, 4);
+                    fakeResponse(localidades.findAll({
+                        IdProvincia: 5
+                    }), 4);
                 });
 
                 it("ENTONCES: los combos deberían estar cargados correctamente y mostrando la opción correspondiente al modelo", function () {
