@@ -214,6 +214,14 @@ public class AjaxWS : System.Web.Services.WebService
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public bool RecuperarUsuario(string criterio)
+    {
+        var respuesta = backEndService.RecuperarUsuario(criterio);
+        return respuesta;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string BuscarAreas(string criterio)
     {
         var respuesta = backEndService.BuscarAreas(criterio);
@@ -806,37 +814,6 @@ public class AjaxWS : System.Web.Services.WebService
         var comite = backEndService.GetComite(idComite);
         return JsonConvert.SerializeObject(comite);
     }
-
-    [WebMethod(EnableSession = true)]
-    public string GetPostulacionesPorCodigo(string codigo)
-    {
-        var postulacion = backEndService.GetPostulacionesPorCodigo(codigo);
-
-        var usu_etapas = (from etapa in postulacion.Etapas
-                          select new
-                          {
-                              IdUsuario = etapa.IdUsuario,
-                              UsuarioEtapa = backEndService.GetUsuarioPorIdPersona(postulacion.Etapas[0].IdUsuario).Alias,
-                              IdEtapa = etapa.Etapa.Id
-                          }).ToList();
-
-        var usu = backEndService.GetUsuarioPorIdPersona(postulacion.Etapas[0].IdUsuario);
-        object datos_postulacion = new  {
-            Postulacion = postulacion,
-            UsuarioPostulacion = usu.Alias,
-            UsuEtapas = usu_etapas
-        };
-        return Newtonsoft.Json.JsonConvert.SerializeObject(datos_postulacion);
-    }
-
-    [WebMethod(EnableSession = true)]
-    public void InsEtapaPostulacion(int id_postulacion ,WSViaticos.EtapaPostulacion etapa_postulacion)
-    {
-        etapa_postulacion.IdUsuario = usuarioLogueado.Id;
-        backEndService.InsEtapaPostulacion(id_postulacion, etapa_postulacion);
-
-    }
-    
 
     #endregion
 

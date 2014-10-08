@@ -21,7 +21,7 @@
         <div id="div_cambio_etapas" class="fondo_form" style="padding: 10px;">
             <h2>Cambio de Etapa</h2>
             <div>
-                <div style="display:inline-block; margin-left:30px; width: 40%">
+                <div style="display:inline-block; margin-left:30px; width: 60%">
                     <label for="txt_codigo_postulacion">Postulación:&nbsp;</label>
                     <input type="text" id="txt_codigo_postulacion" />
                     <input type="button" id="btn_buscar_etapas" value="Buscar" />
@@ -30,20 +30,16 @@
                     <div>Empleado:&nbsp;<span id="span_empleado"></span></div>
                     <div>Código:&nbsp;<span id="span_codigo"></span></div>
                     <div>Fecha de Postulación:&nbsp;<span id="span_fecha"></span></div>
-                    <div>Perfil:<span id="span_perfil"></span></div>
+                    <div>Perfil:&nbsp;<span id="span_perfil"></span></div>
                 </div>
             </div>
-            <div>
-                <div style="display:inline-block; margin-left:30px; width: 40%">
-                    <h3>Historial</h3>
+            <div id="seccion_historial" style="display:none">
+                <h3>Historial</h3>
+                <div style="display:block; margin-left:30px; min-width: 60%; vertical-align: middle;">
                     <div id="div_tabla_historial"></div>
                 </div>
-                <div style="display:inline-block; margin-left:30px;">
-                    <select id="cmb_etapas_concurso">
-                        <option value="0">Seleccione</option>
-                        <option value="1">Preinscripción</option>
-                        <option value="2">Inscripción Documental</option>
-                        <option value="3">Listado Admitidos y no Admitidos</option>
+                <div style="display:block; margin-left:30px; vertical-align: middle;">
+                    <select id="cmb_etapas_concurso" dataProvider="EtapasConcurso" modelo="Etapa">
                     </select>
                 </div>
             </div>
@@ -54,24 +50,12 @@
 </body>
  <%= Referencias.Javascript("../") %>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
+ <script type="text/javascript" src="../Scripts/rhforms-combos.js" ></script>
+ 
  <script type="text/javascript" src="EtapasPostulacion.js" ></script>
   <script type="text/javascript">
       $(document).ready(function () {
-
-          var cmb_etapas_concurso = $("#cmb_etapas_concurso");
-
-          cmb_etapas_concurso.change(function () {
-              debugger;
-              var id_postulacion = JSON.parse($("#postulacion").val()).Postulacion.Id;
-              var id_etapa = cmb_etapas_concurso.val();
-              EtapasPostulacion.InsertarEtapa(id_postulacion, id_etapa);
-          });
-
-          var btn_buscar_etapas = $("#btn_buscar_etapas");
-          btn_buscar_etapas.click(function () {
-              var codigo = $("#txt_codigo_postulacion").val();
-              EtapasPostulacion.BuscarPostulacionesPorCodigo(codigo);
-          });
+          PanelEtapasPostulacion();
       });
   </script>
 </html>

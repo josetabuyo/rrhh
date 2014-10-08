@@ -14,14 +14,24 @@ namespace General
             var pantalla = new PatallaRecepcionDocumentacion();
             var lista_docRequerida = new List<DivDocumentacionRequerida>();
 
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvIdiomas, "Idiomas", puesto);
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvPublicaciones, "Publicaciones", puesto);
             CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvEstudios, "Estudios", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvCertificadosDeCapacitacion, "Actividades de Capacitacion", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvDocencias, "Actividades Docentes", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvEventosAcademicos, "Eventos Academicos", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvPublicaciones, "Publicaciones", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvMatricula, "Matriculas", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvInstitucionesAcademicas, "Instituciones Academicas", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvExperienciaLaboral, "Experiencia Laboral", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvIdiomas, "Idiomas", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvCompetenciasInformaticas, "Compentencias Informáticas", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvCapacidadesPersonales, "Capacidades Personales", puesto);
 
+            
             pantalla.DocumentacionRequerida = lista_docRequerida;
 
-            AgregarACuadroPerfil(curriculumVitae.CvIdiomas, puesto, pantalla);
             AgregarACuadroPerfil(curriculumVitae.CvEstudios, puesto, pantalla);
+            AgregarACuadroPerfil(curriculumVitae.CvIdiomas, puesto, pantalla);
+            AgregarACuadroPerfil(curriculumVitae.CvExperienciaLaboral, puesto, pantalla);
 
             return pantalla;
         }

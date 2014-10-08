@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.Repositorios;
+using General.Postular;
 
 namespace General
 {
-    public class CvExperienciaLaboral
+    public class CvExperienciaLaboral : ItemCv
     {
         protected int _id;
         protected string _puestoOcupado;
@@ -19,6 +21,7 @@ namespace General
         protected string _tipoEmpresa;
         protected string _actividad;
         protected string _sector;
+        protected int _ambitoLaboral;
 
         public int Id { get { return _id; } set { _id = value; } }
         public string PuestoOcupado { get { return _puestoOcupado; } set { _puestoOcupado = value; } }
@@ -32,9 +35,10 @@ namespace General
         public int Pais { get { return _pais; } set { _pais = value; } }
         public string Actividad { get { return _actividad; } set { _actividad = value; } }
         public string Sector { get { return _sector; } set { _sector = value; } }
+        public int AmbitoLaboral { get { return _ambitoLaboral; } set { _ambitoLaboral = value; } }
 
 
-        public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, int personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais, string sector)
+        public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, int personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais, string sector, int AmbitoLaboral):base(puestoOcupado)
         {
             this._id = id;
             this._puestoOcupado = puestoOcupado;
@@ -48,11 +52,9 @@ namespace General
             this._pais = pais;
             this._actividad = actividad;
             this._sector = sector;
+            this._ambitoLaboral = AmbitoLaboral;
         }
 
-        public CvExperienciaLaboral()
-        {
-        }
 
     }
 }

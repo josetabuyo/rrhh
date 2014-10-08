@@ -16,7 +16,7 @@
         <input id="btn_validar" type="button" class="btn btn-primary" value="Validar" />
     </div>
 </div>
-<div role="form" id="panel_paso_2" style="display: none">
+<div role="form" id="panel_paso_2">
     <div class="form-group">
         <label class="lbl_titulo_campo">
             DNI:
@@ -41,7 +41,23 @@
         </label>
         <input id="txt_email" data-validar="esEmailValido" class="form-control campo_a_completar" />
     </div>
+     <div class="form-group">
+        <label class="">
+            El mail de registro es necesario en caso de recupero de datos. Recuérdelo!
+        </label>
+        
+    </div>
     <div class="form-group">
         <input type="button" id="btn_registrarse" class="btn btn-primary" value="Registrarse" />
     </div>
+</div>
+<div role="form" id="panel_paso_3">
+    <div class="form-group" style="height:250px">
+       <!-- <label class="lbl_titulo_campo">E-mail:</label>
+        <input id="txt_mail_recupero" data-validar="esEmailValido" class="form-control campo_a_completar" />-->
+        <!--<input id="btn_recuperar" type="button" class="btn btn-primary" value="Recuperar"/> -->
+
+        <iframe id="imgCaptcha" frameborder="0" scroll="no" src="RegistroPostular/FormCaptcha.aspx" style="width:100%; height:100%"></iframe>
+    </div>
+     
 </div>
