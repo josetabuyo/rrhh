@@ -5,8 +5,8 @@
     _this.btn_buscar_etapas = $("#btn_buscar_etapas");
 
     _this.btn_buscar_etapas.click(function () {
-        if(_this.ui.esValido())
-        _this.BuscarPostulaciones();
+        if (_this.ui.esValido())
+            _this.BuscarPostulaciones();
     });
 
     _this.cmb_etapas_concurso.change(function () {
@@ -16,7 +16,7 @@
 
 
     _this.BuscarEtapas = function () {
-        
+
         Backend.ejecutar("BuscarEtapasConcurso",
                         [""],
                         function (respuesta) {
@@ -42,7 +42,7 @@
         Backend.ejecutar("GetPostulacionesPorCodigo",
                         [codigo],
                         function (respuesta) {
-                            _this.CompletarDatos(JSON.parse(respuesta));
+                            _this.CompletarDatos(respuesta);
                         },
                         function (errorThrown) {
                             alertify.alert("Código no encontrado");
@@ -72,15 +72,23 @@
         var span_fecha = $("#span_fecha");
         var span_perfil = $("#span_perfil");
         var postulacion = $("#postulacion");
-        
+        var id_usuarios = [];
+        var usuarios = [];
 
-        var usu_etapas = datos_postulacion.UsuEtapas;
+        for (var i = 0; i < datos_postulacion.Etapas.length; i++) {
+            if (id_usuarios.indexOf(datos_postulacion.Etapas[i].IdUsuario) < 0) id_usuarios.push(datos_postulacion.Etapas[i].IdUsuario);
+        }
+        for (var i = 0; i < id_usuarios.length; i++) {
+            usuarios.push(Backend.ejecutar("GetUsuarioPorIdPersona", [id_usuarios[i]]));
+        }
+        alert(usuarios);
+        var usu_etapas = datos_postulacion.Etapas;
 
         postulacion.val(JSON.stringify(datos_postulacion));
 
         var columnas = [];
         columnas.push(new Columna("Fecha", { generar: function (una_etapa) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_etapa.Fecha) } }));
-        columnas.push(new Columna("Descripción", { generar: function (una_etapa) { return una_etapa.Descripcion } }));
+        columnas.push(new Columna("Descripción", { generar: function (una_etapa) { return una_etapa.Etapa.Descripcion } }));
         columnas.push(new Columna("Usuario", { generar: function (una_etapa) { return una_etapa.UsuarioEtapa; } }));
 
         this.GrillaHistorial = new Grilla(columnas);
@@ -89,14 +97,14 @@
         this.GrillaHistorial.SetOnRowClickEventHandler(function (una_etapa) {
         });
 
-        
+
         this.GrillaHistorial.CargarObjetos(usu_etapas);
         this.GrillaHistorial.DibujarEn(div_tabla_historial);
 
         span_empleado.html(datos_postulacion.UsuarioPostulacion);
-        span_codigo.html(datos_postulacion.Postulacion.Numero);
-        span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.Postulacion.FechaPostulacion));
-        span_perfil.html(datos_postulacion.Postulacion.Puesto.Familia);
+        span_codigo.html(datos_postulacion.Numero);
+        span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));
+        span_perfil.html(datos_postulacion.Perfil.Denominacion);
         $("#seccion_historial").show();
     }
 
