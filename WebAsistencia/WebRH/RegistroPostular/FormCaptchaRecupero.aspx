@@ -28,7 +28,6 @@
                 <br />
                 <asp:Label ID="lbMail" CssClass="lbl_titulo_campo" Text="E-mail:"  runat="server" />
                 <asp:TextBox ID="txt_mail_recupero" runat="server" EnableViewState="False" Width= "200px"> </asp:TextBox>
-                <asp:Button ID="btn_recuperar" Text="Recuperar" runat="server" OnClick="btn_recuperar_Click" class="btn btn-primary" style="float:right;" />
             </div>     
             <div>
                 <asp:Label ID="lbIngreseLosDigitos" CssClass="lbl_titulo_campo" Text="Dígitos:" runat="server" />
@@ -36,6 +35,7 @@
                 <br />
                 <asp:Label ID="lbImagen" CssClass="lbl_titulo_campo" Text=" Imagen: " runat="server"/>
                 <asp:Image ID="imgCaptcha" ImageUrl="Captcha.ashx" runat="server" />
+                <asp:Button ID="btn_recuperar" Text="Recuperar" runat="server" OnClick="btn_recuperar_Click" class="btn btn-primary" style="float:right;" />
                 <br /><br />
                 <label Style="color:Olive; font-size: 12px; font-style: oblique"> Ingrese los dígitos de la imagen verificadora antes de enviar los datos</label>    
             </div>

@@ -12,7 +12,7 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+       
     }
 
     protected void btn_registrar_Click(object sender, EventArgs e)
@@ -24,13 +24,25 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
             if (personas.Length > 0)
             {
                 this.lb_mensajeError.Text = "El documento ingresado ya está registrado, inicie sesión con el usuario asignado. Si no los recuerda, utilice la opción: '¿Olvidó sus datos?' o comuníquese con <br/> Recursos Humanos.";
-                ScriptManager.RegisterStartupScript(this, GetType(), "RegistroHecho", "RegistroHecho();", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
-                //hay que llamar a la otra pantalla
+                AspiranteAUsuario aspirante = new AspiranteAUsuario();
+                aspirante.Apellido = this.txt_apellido_registro.Text;
+                aspirante.Documento = Convert.ToInt32(this.txt_dni_registro.Text);
+                aspirante.Email = this.txt_mail_registro.Text;
+                aspirante.Nombre = this.txt_nombre_registro.Text;
 
+                if (servicio.RegistrarNuevoUsuario(aspirante))
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
+                }
+                else
+                {
+                    this.lb_mensajeError.Text = "No se ha podido generar el usuario. Verifique si ya se ha registrado con el mail ingresado o caso contrario contáctese con Recursos Humanos";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
+                }
             }
             
         }
@@ -44,7 +56,10 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
     private bool ValidarCampos()
     {
         //Validar el formato de la pantalla
-        if (ValidarDNI() && ValidarCaptcha())
+        if (ValidarDNI() && 
+            ValidarString(this.txt_nombre_registro.Text) && 
+            ValidarString(this.txt_apellido_registro.Text) &&
+            ValidarMail() && ValidarCaptcha())
         {
             return true;
         }
@@ -63,12 +78,12 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
         }
         catch (Exception)
         {
-            this.lb_mensajeError.Text = "El formato del DNI no es válido.";
+            this.lb_mensajeError.Text = "El formato del DNI no es válido. Ingrese sólo Números";
             return false; 
         }
        
 
-        if (100000 < dni && dni < 99999999) //arreglar
+        if (100000 < dni && dni < 99999999)
         {
             return true;
         }
@@ -89,6 +104,29 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
         {
             this.lb_mensajeError.Text = "Los dígitos ingresados no coninciden con los de la Imagen.";
             return false; 
+        }
+    }
+
+    private bool ValidarString (string palabra)
+    {
+        if (palabra.Equals(""))
+	{
+		return false; 
+	}
+        return true;
+    }
+
+    private bool ValidarMail()
+    {
+        string mail = this.txt_mail_registro.Text;
+        if (mail.Equals("") || !mail.Contains("@") || !mail.Contains("."))
+        {
+            this.lb_mensajeError.Text = "El formato del mail no es válido.";
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 

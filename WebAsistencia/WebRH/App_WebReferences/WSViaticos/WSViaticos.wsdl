@@ -2498,7 +2498,11 @@
         </s:sequence>
       </s:complexType>
       <s:element name="RegistrarNuevoUsuarioResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RegistrarNuevoUsuarioResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="BuscarLegajosParaDigitalizacion">
         <s:complexType>

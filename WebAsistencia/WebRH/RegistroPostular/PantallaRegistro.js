@@ -134,12 +134,20 @@
     paso4: function () {
         document.getElementById("div_general_captcha").style.display = 'none';
         document.getElementById("div_error_captcha").style.display = 'block';
+        document.getElementById("div_general_captcha_2").style.display = 'none';
+        
         
     },
 
     paso5: function () {
         document.getElementById("div_general_captcha").style.display = 'block';
         document.getElementById("div_error_captcha").style.display = 'block';
+    },
+
+    paso6: function () {
+        document.getElementById("div_general_captcha").style.display = 'none';
+        document.getElementById("div_error_captcha").style.display = 'block';
+        document.getElementById("div_general_captcha_2").style.display = 'none';
     },
 
 
