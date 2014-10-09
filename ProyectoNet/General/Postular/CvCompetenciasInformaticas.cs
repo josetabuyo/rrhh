@@ -6,7 +6,7 @@ using General.Postular;
 
 namespace General
 {
-    public class CvCompetenciasInformaticas
+    public class CvCompetenciasInformaticas : ItemCv
     {
         protected int _id;
         protected string _diploma;
@@ -31,7 +31,7 @@ namespace General
         public DateTime FechaObtencion { get { return _fechaObtencion; } set { _fechaObtencion = value; } }
         public string Detalle { get { return _detalle; } set { _detalle = value; } }
 
-        public CvCompetenciasInformaticas(int id, string diploma, string establecimiento, int tipoInformatica, int conocimiento, int nivel, string localidad, int pais, DateTime fechaObtencion, string detalle)
+        public CvCompetenciasInformaticas(int id, string diploma, string establecimiento, int tipoInformatica, int conocimiento, int nivel, string localidad, int pais, DateTime fechaObtencion, string detalle):base(diploma)
         {
             this._id = id;
             this._diploma = diploma;

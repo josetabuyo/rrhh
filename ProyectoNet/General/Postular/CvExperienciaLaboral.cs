@@ -37,6 +37,9 @@ namespace General
         public string Sector { get { return _sector; } set { _sector = value; } }
         public int AmbitoLaboral { get { return _ambitoLaboral; } set { _ambitoLaboral = value; } }
 
+        public CvExperienciaLaboral()
+        {
+        }
 
         public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, int personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais, string sector, int AmbitoLaboral):base(puestoOcupado)
         {

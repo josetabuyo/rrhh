@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    public class CvInstitucionesAcademicas
+    public class CvInstitucionesAcademicas : ItemCv
     {
         protected int _id;
         protected string _institucion;
@@ -35,7 +35,7 @@ namespace General
 
 
 
-        public CvInstitucionesAcademicas(int id, string institucion, string caracterEntidad, string cargosDesempeniados, string numeroAfiliado, string categoriaActual, DateTime fechaAfiliacion, DateTime fecha, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais  )
+        public CvInstitucionesAcademicas(int id, string institucion, string caracterEntidad, string cargosDesempeniados, string numeroAfiliado, string categoriaActual, DateTime fechaAfiliacion, DateTime fecha, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais  ):base(institucion)
         {
             this._id = id;
             this._institucion = institucion;

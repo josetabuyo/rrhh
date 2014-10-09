@@ -6,7 +6,7 @@ using General.Repositorios;
 
 namespace General
 {
-    public class CvDocencia
+    public class CvDocencia : ItemCv
     {
         protected int _id;
         protected string _asignatura;
@@ -37,12 +37,13 @@ namespace General
         public int Pais { get { return _pais; } set { _pais = value; } }
 
 
-        public CvDocencia(string asignatura, int nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, int pais)
+        public CvDocencia(string asignatura, int nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, int pais):base(asignatura)
         {
             SetearCampos(asignatura, nivelEducativo, tipoActividad, categoriaDocente, caracterDesignacion, dedicacionDocente, cargaHoraria, fechaInicio, fechaFinalizacion, establecimiento, localidad, pais);
         }
 
-        public CvDocencia(int id, string asignatura, int nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, int pais)
+        public CvDocencia(int id, string asignatura, int nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, int pais):base(asignatura)
+           
         {
             this._id = id;
             SetearCampos(asignatura, nivelEducativo, tipoActividad, categoriaDocente, caracterDesignacion, dedicacionDocente, cargaHoraria, fechaInicio, fechaFinalizacion, establecimiento, localidad, pais);

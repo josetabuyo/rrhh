@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    public class CvCapacidadPersonal
+    public class CvCapacidadPersonal:ItemCv
     {
         protected int _id;
         protected int _tipo;
@@ -15,7 +15,7 @@ namespace General
         public int Tipo { get { return _tipo; } set { _tipo = value; } }
         public string Detalle { get { return _detalle; } set { _detalle = value; } }
 
-        public CvCapacidadPersonal(int id, int tipo, string detalle)
+        public CvCapacidadPersonal(int id, int tipo, string detalle):base(detalle)
         {
             this._id = id;
             this._tipo = tipo;

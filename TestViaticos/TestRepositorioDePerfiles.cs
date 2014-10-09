@@ -392,26 +392,37 @@ namespace TestViaticos
 
         }
 
-      /*  [TestMethod]
-        public void deberia_mostrar_matriculas_en_doc_no_requerida()
-        {
-            //perfil.Requiere(new RequisitoAntiguedad("Dos años de experiencia privada", new AmbitoLaboral(2, "Privada")));
+         [TestMethod]
+          public void deberia_mostrar_documentacion_no_requerida_de_cada_item()
+          {
+              //perfil.Requiere(new RequisitoAntiguedad("Dos años de experiencia privada", new AmbitoLaboral(2, "Privada")));
 
-            cv.AgregarMatricula(TestObjects.UnaExpPrivada());
-            cv.AgregarExperienciaLaboral(TestObjects.UnaExpPublica());
+                cv.AgregarMatricula(new CvMatricula(1,"ABC","","",new DateTime()));
+                cv.AgregarCapacidadPersonal(new CvCapacidadPersonal(1,1,"Poderes telepaticos"));
+                cv.AgregarCertificadoDeCapacitacion(new CvCertificadoDeCapacitacion(1,"Curso de PC","","","",new DateTime(),new DateTime(),"",1));
+                cv.AgregarCompetenciaInformatica(new CvCompetenciasInformaticas(1, "Programacion Orientada a Objetos", "", 1, 1, 1, "", 1, new DateTime(), ""));
+                cv.AgregarDocencia(new CvDocencia("Abogacia", 12, "", "", "", "", "", new DateTime(), new DateTime(), "", "", 1));
+                cv.AgregarEventoAcademico(new CvEventoAcademico(1, "Seminario", 1, 1, new DateTime(), new DateTime(), "", 1, "", 1));
+                cv.AgregarInstitucionAcademica(new CvInstitucionesAcademicas(1, "Universidad de Moron", "", "", "", "", new DateTime(), new DateTime(), new DateTime(), new DateTime(), "", 1));
 
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, perfil);
+              PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, perfil);
 
-            AssertDocRequerida(new Dictionary<string, List<string>>() {
-                { "Dos años de experiencia privada", new List<string>() { "Banco Macro" } } 
-                
+              AssertDocNoRequerida(new Dictionary<string, List<string>>() {
+                { "Actividades de Capacitacion", new List<string>() { "Curso de PC" } } ,    
+                { "Actividades Docentes", new List<string>() { "Abogacia" } },
+                { "Eventos Academicos", new List<string>() { "Seminario" } }, 
+                { "Matriculas", new List<string>() { "ABC" } },    
+                { "Instituciones Academicas", new List<string>() { "Universidad de Moron" } },
+                { "Compentencias Informáticas", new List<string>() { "Programacion Orientada a Objetos" } }, 
+                { "Capacidades Personales", new List<string>() { "Poderes telepaticos" } }
             }, pantalla);
 
-            AssertDocNoRequerida(new Dictionary<string, List<string>>() {
-                { "Experiencia Laboral", new List<string>() { "Trabajo MDS" } }
-                
-            }, pantalla);
-        }*/
+
+
+
+              AssertDocRequerida(new Dictionary<string, List<string>>()
+            {}, pantalla);
+          }
 
 
         private static CvIdiomas Idioma(string idioma)

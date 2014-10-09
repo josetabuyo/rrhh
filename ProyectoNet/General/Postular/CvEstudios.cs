@@ -28,6 +28,8 @@ namespace General
         public int Pais { get { return _pais; } set { _pais = value; } }
 
 
+		public CvEstudios() { }
+
         public CvEstudios(string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais):base(titulo)
         {
             SetearCampos(titulo, nivel, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);

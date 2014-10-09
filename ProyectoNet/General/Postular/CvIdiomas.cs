@@ -31,7 +31,10 @@ namespace General
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Pais { get { return _pais; } set { _pais = value; } }
 
-
+        public CvIdiomas()
+        {
+        }
+        
         public CvIdiomas(int id, string diploma, string establecimiento, string idioma, int lectura, int escritura, int oral, DateTime fechaObtencion, string localidad, int pais)
             : base(idioma)
         {

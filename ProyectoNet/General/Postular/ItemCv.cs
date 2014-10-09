@@ -9,8 +9,9 @@ namespace General
     {
         public string Descripcion { get; protected set; }
         public ItemCv(string descripcion) {
-
             this.Descripcion = descripcion;
         }
+
+        public ItemCv() { }
     }
 }

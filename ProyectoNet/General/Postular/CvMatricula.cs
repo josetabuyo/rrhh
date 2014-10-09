@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    public class CvMatricula
+    public class CvMatricula : ItemCv
     {
         protected int _id;
         protected string _numero;
@@ -19,7 +19,7 @@ namespace General
         public string SituacionActual { get { return _situacionActual; } set { _situacionActual = value; } }
         public DateTime FechaInscripcion { get { return _fechaInscripcion; } set { _fechaInscripcion = value; } }
         
-        public CvMatricula(int id, string numero, string expedidaPor, string situacionActual, DateTime fechaInscripcion)
+        public CvMatricula(int id, string numero, string expedidaPor, string situacionActual, DateTime fechaInscripcion):base(numero)
         {
             this._id = id;
             this._numero = numero;
