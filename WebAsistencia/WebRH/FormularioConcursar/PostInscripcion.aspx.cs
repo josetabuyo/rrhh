@@ -14,11 +14,11 @@ public partial class FormularioConcursar_Inscripcion : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            var puesto = HttpContext.Current.Session[ConstantesDeSesion.PUESTO];
-
+            //var puesto = HttpContext.Current.Session[ConstantesDeSesion.PUESTO];
+            var perfil = HttpContext.Current.Session[ConstantesDeSesion.PERFIL];
             //var puestoSerialize = JsonConvert.SerializeObject(puesto);
 
-            this.puesto.Value = puesto.ToString();
+            this.perfil.Value = perfil.ToString();
         }
     }
 }

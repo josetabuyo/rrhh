@@ -758,22 +758,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetCvPuestos">
+      <s:element name="GetCvPerfiles">
         <s:complexType />
       </s:element>
-      <s:element name="GetCvPuestosResponse">
+      <s:element name="GetCvPerfilesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCvPuestosResult" type="tns:ArrayOfPuesto" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetCvPerfilesResult" type="tns:ArrayOfPerfil" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfPuesto">
+      <s:complexType name="ArrayOfPerfil">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Puesto" nillable="true" type="tns:Puesto" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Perfil" nillable="true" type="tns:Perfil" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="Puesto">
+      <s:complexType name="Perfil">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Familia" type="s:string" />
@@ -791,7 +791,7 @@
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Integrantes" type="tns:ArrayOfIntegranteComite" />
-          <s:element minOccurs="0" maxOccurs="1" name="Puesto" type="tns:Puesto" />
+          <s:element minOccurs="0" maxOccurs="1" name="Puesto" type="tns:Perfil" />
           <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
         </s:sequence>
       </s:complexType>
@@ -828,7 +828,7 @@
       <s:complexType name="Postulacion">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Puesto" type="tns:Puesto" />
+          <s:element minOccurs="0" maxOccurs="1" name="Perfil" type="tns:Perfil" />
           <s:element minOccurs="1" maxOccurs="1" name="IdPersona" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="FechaPostulacion" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
@@ -4401,11 +4401,11 @@
   <wsdl:message name="EliminarCvOtraCapacidadSoapOut">
     <wsdl:part name="parameters" element="tns:EliminarCvOtraCapacidadResponse" />
   </wsdl:message>
-  <wsdl:message name="GetCvPuestosSoapIn">
-    <wsdl:part name="parameters" element="tns:GetCvPuestos" />
+  <wsdl:message name="GetCvPerfilesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCvPerfiles" />
   </wsdl:message>
-  <wsdl:message name="GetCvPuestosSoapOut">
-    <wsdl:part name="parameters" element="tns:GetCvPuestosResponse" />
+  <wsdl:message name="GetCvPerfilesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCvPerfilesResponse" />
   </wsdl:message>
   <wsdl:message name="GetPostulacionByIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetPostulacionById" />
@@ -5554,9 +5554,9 @@
       <wsdl:input message="tns:EliminarCvOtraCapacidadSoapIn" />
       <wsdl:output message="tns:EliminarCvOtraCapacidadSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetCvPuestos">
-      <wsdl:input message="tns:GetCvPuestosSoapIn" />
-      <wsdl:output message="tns:GetCvPuestosSoapOut" />
+    <wsdl:operation name="GetCvPerfiles">
+      <wsdl:input message="tns:GetCvPerfilesSoapIn" />
+      <wsdl:output message="tns:GetCvPerfilesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPostulacionById">
       <wsdl:input message="tns:GetPostulacionByIdSoapIn" />
@@ -6515,8 +6515,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCvPuestos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCvPuestos" style="document" />
+    <wsdl:operation name="GetCvPerfiles">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCvPerfiles" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8336,8 +8336,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCvPuestos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCvPuestos" style="document" />
+    <wsdl:operation name="GetCvPerfiles">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCvPerfiles" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
