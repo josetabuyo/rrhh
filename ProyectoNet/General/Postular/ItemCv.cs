@@ -7,7 +7,7 @@ namespace General
 {
     public class ItemCv
     {
-        public string Descripcion { get; protected set; }
+        public string Descripcion { get; set; }
         public ItemCv(string descripcion) {
             this.Descripcion = descripcion;
         }
