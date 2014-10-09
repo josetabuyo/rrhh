@@ -40,7 +40,6 @@
                 <label Style="color:Olive; font-size: 12px; font-style: oblique"> Ingrese los dígitos de la imagen verificadora antes de enviar los datos</label>    
             </div>
         </form>
-     
     </div>
 </body>
 </html>
