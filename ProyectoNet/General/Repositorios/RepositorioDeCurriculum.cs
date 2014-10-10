@@ -112,6 +112,7 @@ namespace General.Repositorios
                                             Id = dRow.GetInt("IdAntecedentesAcademicos", 0),
                                             Titulo = dRow.GetString("AntecedentesAcademicosTitulo", string.Empty),
                                             Nivel = dRow.GetInt("AntecedentesAcademicosNivel", 0),
+                                            Anios = dRow.GetInt("AntecedentesAcademicosAnios", 0),
                                             Establecimiento = dRow.GetString("AntecedentesAcademicosEstablecimiento", string.Empty),
                                             Especialidad = dRow.GetString("AntecedentesAcademicosEspecialidad", string.Empty),
                                             FechaIngreso = dRow.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today),
@@ -121,7 +122,7 @@ namespace General.Repositorios
                                         }).Distinct().ToList();
 
 
-                antecedentes_anonimos.Select(a => new CvEstudios(a.Id, a.Titulo, a.Nivel, a.Establecimiento,
+                antecedentes_anonimos.Select(a => new CvEstudios(a.Id, a.Titulo, a.Nivel, a.Anios, a.Establecimiento,
                                                                     a.Especialidad, a.FechaIngreso, a.FechaEgreso,
                                                                     a.Localidad, a.Pais)).ToList().ForEach(ev => cv.AgregarEstudio(ev));
 
@@ -617,7 +618,7 @@ namespace General.Repositorios
             parametros.Add("@Pais", antecedentesAcademicos_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Nivel", antecedentesAcademicos_nuevo.Nivel);
-
+            parametros.Add("@Anios", antecedentesAcademicos_nuevo.Anios);
 
             return parametros;
 
@@ -1273,7 +1274,7 @@ namespace General.Repositorios
 
             validador_estudios.DeberianSerNoVacias(new string[] { "Titulo", "Especialidad", "Establecimiento", "Localidad" });
             validador_estudios.DeberianSerFechasNoVacias(new string[] { "FechaIngreso", "FechaEgreso"});
-            validador_estudios.DeberianSerNaturales(new string[] { "Nivel", "Pais" });
+            validador_estudios.DeberianSerNaturales(new string[] { "Nivel", "Anios", "Pais" });
           //  validador_estudios.DeberianSerNaturales(new string[] {  "Pais" });
             
             if (!validador_estudios.EsValido(un_estudio))
