@@ -36,7 +36,8 @@
     display: inline-block;
     margin: 5px;
     text-align:center;
-    color: Purple;
+    color: Gray;
+    font-size:13px;
 }
 
 .lbl_titulo_campo_captcha

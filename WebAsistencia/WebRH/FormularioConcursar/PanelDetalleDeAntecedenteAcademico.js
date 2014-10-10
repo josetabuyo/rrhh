@@ -17,6 +17,8 @@
             //_this.txt_antecedentes_id.val(estudio.Id);
             _this.txt_antecedentes_titulo = _this.ui.find("#txt_antecedentes_titulo");
             _this.txt_antecedentes_titulo.val(estudio.Titulo);
+            _this.txt_antecedentes_anios = _this.ui.find("#txt_antecedentes_anios");
+            _this.txt_antecedentes_anios.val(estudio.Anios);
 
             _this.txt_establecimiento = _this.ui.find("#txt_antecedentes_establecimiento");
             _this.txt_establecimiento.val(estudio.Establecimiento);
@@ -54,6 +56,7 @@
                 if (_this.ui.esValido()) {
 
                     estudio.Titulo = _this.txt_antecedentes_titulo.val();
+                    estudio.Anios = _this.txt_antecedentes_anios.val();
                     estudio.Establecimiento = _this.txt_establecimiento.val();
 //                    estudio.Nivel = _this.txt_antecedentes_nivel.val();
                     estudio.Especialidad = _this.txt_antecedentes_especialidad.val();
