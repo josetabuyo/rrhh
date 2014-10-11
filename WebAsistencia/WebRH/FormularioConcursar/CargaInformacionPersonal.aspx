@@ -139,6 +139,13 @@
                            <select id="cmb_localidad1" name="cmb_localidad1" style="width:320px;" label="Nombre" modelo="DomicilioPersonal.Localidad" data-validar="esUnComboConCero" dataProvider="Localidades" dependeDe="cmb_provincia1" filtradoPor="IdProvincia">
                             </select>
                       </div>
+
+                      <div class="grupo_campos">
+                             <p class="aclaraciones"><input id="chk_replicar" type="checkbox" onchange="replicarDireccion()" />Usar esta dirección para notificaciones</p>
+                         
+                          
+                      </div>
+
                     </fieldset>
                     <br />
                     <fieldset style="width:100%;" >

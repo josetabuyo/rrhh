@@ -1,5 +1,44 @@
 ﻿
+function replicarDireccion () {
+    var _this = this;
+    this.ui = $("#contenedor_datosPersonales");
+
+
+
+    _this.txt_domicilio_personal_calle = _this.ui.find("#txt_calle1");
+    _this.txt_domicilio_personal_numero = _this.ui.find("#txt_numero1");
+    _this.txt_domicilio_personal_piso = _this.ui.find("#txt_piso1");
+    _this.txt_domicilio_personal_dto = _this.ui.find("#txt_dto1");
+    _this.txt_domicilio_personal_cp = _this.ui.find("#txt_cp1");
+
+
+    _this.txt_domicilio_personal_calle2 = _this.ui.find("#txt_calle2");
+    _this.txt_domicilio_personal_numero2 = _this.ui.find("#txt_numero2");
+    _this.txt_domicilio_personal_piso2 = _this.ui.find("#txt_piso2");
+    _this.txt_domicilio_personal_dto2 = _this.ui.find("#txt_dto2");
+    _this.txt_domicilio_personal_cp2 = _this.ui.find("#txt_cp2");
+
+   // _this.txt_domicilio_personal_calle2.val("333");
+//    _this.txt_domicilio_personal_numero2.val(parseInt(datos_personales.DomicilioPersonal.Numero));
+//    _this.txt_domicilio_personal_piso2.val((datos_personales.DomicilioPersonal.Piso));
+//    _this.txt_domicilio_personal_dto2.val(datos_personales.DomicilioPersonal.Depto);
+//    _this.txt_domicilio_personal_cp2.val(parseInt(datos_personales.DomicilioPersonal.Cp));
+
+
+
+
+
+
+
+
+    }
+
 var CvDatosPersonales = {
+
+   
+
+
+
     completarDatos: function (datos_personales) {
         var _this = this;
         this.ui = $("#contenedor_datosPersonales");
