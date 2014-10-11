@@ -1,4 +1,6 @@
-﻿var VistaDeItemDeMenuPrincipal = function (item) {
+﻿ 
+
+var VistaDeItemDeMenuPrincipal = function (item) {
     this.ui = $("#plantillas .item_de_menu_principal").clone();
     this.link = this.ui.find("a");
     this.link.attr("href", item.Acceso.Url);
@@ -6,7 +8,20 @@
     this.link.tooltip();
 
     this.descriptor = this.ui.find("#descripcion_item");
-    this.descriptor.text(item.Descripcion);
+   // this.descriptor.text(item.Descripcion);
+    var control = this.descriptor;
+
+    control.opentip(this.descriptor.text(item.Descripcion), {
+
+        removeElementsOnHide: true,
+        target: true,
+        style: "alert",
+        showOn: "creation",
+        hideDelay: 0.2,
+        joint: "right"
+
+    });
+
 
     var nombre_sin_espacios = item.NombreItem.split(' ').join('_');
     this.link.attr("id", nombre_sin_espacios);
