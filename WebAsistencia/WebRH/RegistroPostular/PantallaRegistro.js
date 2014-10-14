@@ -35,7 +35,7 @@
 
     mostrar: function () {
         vex.dialog.open({
-            message: "Ingrese su DNI",
+            message: "Registro al Sistema con DNI",
             input: this.ui,
             buttons: [
                 ]
@@ -63,29 +63,29 @@
         this.panel_paso_1.show();
         this.panel_paso_2.hide();
         this.panel_paso_3.hide();
-        this.btn_validar.click(function () {
-            if (_this.panel_paso_1.esValido()) {
-                _this.proveedor_ajax.postearAUrl({ url: "BuscarPersonas",
-                    data: {
-                        criterio: JSON.stringify({
-                            Documento: parseInt(_this.txt_numero_documento.val())
-                            //se quita el buscar con legajo para que busque todos los inscriptos
-                            //ConLegajo: true
-                        })
-                    },
-                    success: function (personas) {
-                        if (personas.length > 0) {
-                            alertify.alert("El documento ingresado ya está registrado, inicie sesión con el usuario asignado. Si no los recuerda, utilice la opción: '¿Olvidó sus datos?' o comuníquese con <br/> Recursos Humanos.");
-                            return;
-                        }
-                        _this.paso2();
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+//        this.btn_validar.click(function () {
+//            if (_this.panel_paso_1.esValido()) {
+//                _this.proveedor_ajax.postearAUrl({ url: "BuscarPersonas",
+//                    data: {
+//                        criterio: JSON.stringify({
+//                            Documento: parseInt(_this.txt_numero_documento.val())
+//                            //se quita el buscar con legajo para que busque todos los inscriptos
+//                            //ConLegajo: true
+//                        })
+//                    },
+//                    success: function (personas) {
+//                        if (personas.length > 0) {
+//                            alertify.alert("El documento ingresado ya está registrado, inicie sesión con el usuario asignado. Si no los recuerda, utilice la opción: '¿Olvidó sus datos?' o comuníquese con <br/> Recursos Humanos.");
+//                            return;
+//                        }
+//                        _this.paso2();
+//                    },
+//                    error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                    }
-                });
-            }
-        });
+//                    }
+//                });
+//            }
+//        });
     },
     paso2: function () {
         var _this = this;
@@ -133,7 +133,7 @@
 
     paso4: function () {
         document.getElementById("div_general_captcha").style.display = 'none';
-        document.getElementById("div_error_captcha").style.display = 'block';
+        document.getElementById("div_error_captcha").style.display = 'block';    
         
     },
 
@@ -141,7 +141,6 @@
         document.getElementById("div_general_captcha").style.display = 'block';
         document.getElementById("div_error_captcha").style.display = 'block';
     },
-
 
     paso3: function () {
         var _this = this;

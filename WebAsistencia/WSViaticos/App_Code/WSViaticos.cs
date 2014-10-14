@@ -2345,9 +2345,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
+    public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
     {
-        Autorizador().RegistrarNuevoUsuario(aspirante);
+        return Autorizador().RegistrarNuevoUsuario(aspirante);
     }
 
     private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()

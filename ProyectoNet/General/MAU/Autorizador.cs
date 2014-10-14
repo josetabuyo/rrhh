@@ -145,19 +145,20 @@ namespace General.MAU
             repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(id_usuario, id_area);
         }
 
-        public void RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
+        public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
         {            
             var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
             var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
             if (repo_personas.BuscarPersonas(JsonConvert.SerializeObject(new { Documento=aspirante.Documento, ConLegajo=true})).Count > 0)
             {
-                throw new Exception("Ya hay alguien registrado con su documento.");
+                throw new Exception("Ya hay alguien registrado con su documento."); 
             }
 
             //Se agrega la restricción del mail para que sea único
             if (repo_usuarios.ValidarMailExistente(aspirante.Email))
             {
-                throw new Exception("Ya hay alguien registrado con su Mail.");
+                //throw new Exception("Ya hay alguien registrado con su Mail.");
+                return false;
             }
  
             if(aspirante.Nombre.Trim() == "") throw new Exception("El nombre no puede ser vacío.");
@@ -178,7 +179,8 @@ namespace General.MAU
             var titulo = "Bienvenido al SIGIRH";
             var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave;
 
-            EnviarMail(aspirante.Email, titulo, cuerpo); 
+            EnviarMail(aspirante.Email, titulo, cuerpo);
+            return true;
         }
 
 
