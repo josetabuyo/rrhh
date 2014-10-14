@@ -51,7 +51,7 @@
     }
 
     _this.InsEtapaPostulacion = function () {
-        var postulacion = JSON.parse($("#postulacion").val()).Postulacion;
+        var postulacion = JSON.parse($("#postulacion").val());
         var id_etapa = cmb_etapas_concurso.val();
         var proveedor_ajax = new ProveedorAjax();
         Backend.ejecutar("InsEtapaPostulacion",
@@ -66,6 +66,12 @@
     }
 
     _this.CompletarDatos = function (datos_postulacion) {
+
+        var BuscarUsuario = function (id_usuario) {
+
+
+        }
+
         var div_tabla_historial = $("#div_tabla_historial");
         var span_empleado = $("#span_empleado");
         var span_codigo = $("#span_codigo");
@@ -79,9 +85,8 @@
             if (id_usuarios.indexOf(datos_postulacion.Etapas[i].IdUsuario) < 0) id_usuarios.push(datos_postulacion.Etapas[i].IdUsuario);
         }
         for (var i = 0; i < id_usuarios.length; i++) {
-            usuarios.push(Backend.ejecutar("GetUsuarioPorIdPersona", [id_usuarios[i]]));
+            usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorIdPersona", [id_usuarios[i]]));
         }
-        alert(usuarios);
         var usu_etapas = datos_postulacion.Etapas;
 
         postulacion.val(JSON.stringify(datos_postulacion));
@@ -89,7 +94,13 @@
         var columnas = [];
         columnas.push(new Columna("Fecha", { generar: function (una_etapa) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_etapa.Fecha) } }));
         columnas.push(new Columna("Descripción", { generar: function (una_etapa) { return una_etapa.Etapa.Descripcion } }));
-        columnas.push(new Columna("Usuario", { generar: function (una_etapa) { return una_etapa.UsuarioEtapa; } }));
+        columnas.push(new Columna("Usuario", { generar: function (una_etapa) {
+            for (var i = 0; i < usuarios.length; i++) {
+                if (parseInt(usuarios[i].Owner.Id, 10) == parseInt(una_etapa.IdUsuario, 10)) return usuarios[i].Owner.Nombre + " " + usuarios[i].Owner.Apellido;
+            }
+            return "";
+        }
+        }));
 
         this.GrillaHistorial = new Grilla(columnas);
         this.GrillaHistorial.AgregarEstilo("table table-striped");
