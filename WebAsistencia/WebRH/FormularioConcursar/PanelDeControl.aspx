@@ -93,6 +93,9 @@
     Backend.start();
     $(document).ready(function () {
         var postulaciones = JSON.parse($('#postulaciones').val());
+
+        
+
         PanelDeControl.armarPostulaciones(postulaciones);
     });
  </script>
