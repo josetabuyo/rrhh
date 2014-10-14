@@ -38,7 +38,7 @@
                     <!--<![endif]-->
                 </a>
                 <%--<div id="contenedor_descripcion_item">--%>
-                   <div id="descripcion_item"> Esta es una descripcion </div>
+                  <%-- <div id="descripcion_item"> Esta es una descripcion </div>--%>
 
                    
                 <%--</div>--%>

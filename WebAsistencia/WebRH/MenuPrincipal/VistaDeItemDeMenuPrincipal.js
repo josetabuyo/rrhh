@@ -9,14 +9,14 @@ var VistaDeItemDeMenuPrincipal = function (item) {
 
     this.descriptor = this.ui.find("#descripcion_item");
    // this.descriptor.text(item.Descripcion);
-    var control = this.descriptor;
+    var control = this.link;
 
-    control.opentip(this.descriptor.text(item.Descripcion), {
+    control.opentip(item.Descripcion, {
 
         removeElementsOnHide: true,
         target: true,
-        style: "alert",
-        showOn: "creation",
+        style: "dark",
+        showOn: "mouseover",
         hideDelay: 0.2,
         joint: "right"
 
