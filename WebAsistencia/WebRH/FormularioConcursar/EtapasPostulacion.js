@@ -89,14 +89,12 @@
         var span_fecha = $("#span_fecha");
         var span_perfil = $("#span_perfil");
         var postulacion = $("#postulacion");
-        var id_usuarios = [];
         var usuarios = [];
 
         for (var i = 0; i < datos_postulacion.Etapas.length; i++) {
-            if (id_usuarios.indexOf(datos_postulacion.Etapas[i].IdUsuario) < 0) id_usuarios.push(datos_postulacion.Etapas[i].IdUsuario);
-        }
-        for (var i = 0; i < id_usuarios.length; i++) {
-            usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorIdPersona", [id_usuarios[i]]));
+            if (id_usuarios.indexOf(datos_postulacion.Etapas[i].IdUsuario) < 0) {
+                usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorIdPersona", [datos_postulacion.Etapas[i].IdUsuario]));
+            } 
         }
         var usu_etapas = datos_postulacion.Etapas;
 
