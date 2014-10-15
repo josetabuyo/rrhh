@@ -467,6 +467,7 @@
 </body>
 <script type="text/javascript" src="CvDatosPersonales.js"></script>
 <script type="text/javascript" src="PanelDetalleDeAntecedenteAcademico.js"></script>
+<script type="text/javascript" src="PanelDetalleGenerico.js"></script>
 <script type="text/javascript" src="PanelListaDeAntecedentesAcademicos.js"></script>
 <script type="text/javascript" src="PanelDetalleDeOtraCapacidad.js"></script>
 <script type="text/javascript" src="PanelListaDeOtrasCapacidades.js"></script>

@@ -6,7 +6,12 @@
         _this.btn_agregar_actividad_capacitacion = $("#btn_agregar_actividad_capacitacion");
 
         _this.btn_agregar_actividad_capacitacion.click(function () {
-            PanelDetalleDeActividadCapacitacion.mostrar({
+            var panel_detalle = new PanelDetalleGenerico({
+                defaults: { Pais: 9},
+                path_html: "PanelDetalleDeActividadCapacitacion.htm",
+                metodoDeGuardado: "GuardarCvActividadCapacitacion",
+                mensajeDeGuardadoExitoso: "La actividad fue guardada correctamente",
+                mensajeDeGuardadoErroneo: "Error al guardar la actividad de capacitación",
                 alModificar: function (nueva_actividad_capacitacion) {
                     _this.GrillaActividadesCapacitacion.BorrarContenido();
                     actividades_capacitacion.push(nueva_actividad_capacitacion);
@@ -29,8 +34,12 @@
                 var btn_eliminar = contenedorBtnAcciones.find("#btn_eliminar");
 
                 btn_editar.click(function () {
-                    PanelDetalleDeActividadCapacitacion.mostrar({
-                        actividad_capacitacion: una_actividad_capacitacion,
+                    var panel_detalle = new PanelDetalleGenerico({
+                        modelo: una_actividad_capacitacion,
+                        path_html: "PanelDetalleDeActividadCapacitacion.htm",
+                        metodoDeGuardado: "ActualizarCvActividadCapacitacion",
+                        mensajeDeGuardadoExitoso: "La actividad fue actualizada correctamente",
+                        mensajeDeGuardadoErroneo: "Error al actualizar la actividad de capacitación",
                         alModificar: function (actividad_capacitacion_modificada) {
                             _this.GrillaActividadesCapacitacion.BorrarContenido();
                             _this.GrillaActividadesCapacitacion.CargarObjetos(actividades_capacitacion);
@@ -43,9 +52,7 @@
                 });
 
                 return contenedorBtnAcciones;
-            }
-        }
-        ));
+            }}));
 
         this.GrillaActividadesCapacitacion = new Grilla(columnas);
         this.GrillaActividadesCapacitacion.AgregarEstilo("cuerpo_tabla_puesto tr td");
@@ -63,30 +70,17 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la actividad?", function (e) {
             if (e) {
-                // user clicked "ok"
-                var proveedor_ajax = new ProveedorAjax();
-
-                proveedor_ajax.postearAUrl({ url: "EliminarCVActividadCapacitacion",
-                    data: {
-                        id_actividad_capacitacion: una_actividad_capacitacion.Id
-                    },
-                    success: function (respuesta) {
+                Backend.EliminarCvActividadCapacitacion(una_actividad_capacitacion.Id)
+                    .onSuccess(function (respuesta) {
                         alertify.success("Actividad eliminada correctamente");
                         _this.GrillaActividadesCapacitacion.QuitarObjeto(_this.divGrilla, una_actividad_capacitacion);
                         var indice = _this.actividades.indexOf(una_actividad_capacitacion);
                         _this.actividades.splice(indice, 1);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.error("No se pudo eliminar la actividad");
-                    }
-                });
-            } else {
-                // user clicked "cancel"
-                alertify.error("No se pudo eliminar la actividad");
-            }
+                    })
+                    .onError(function (error, as, asd) {
+                        alertify.error("No se pudo eliminar el antecedente");
+                    });   
+            } 
         });
-
-
-
     }
 }

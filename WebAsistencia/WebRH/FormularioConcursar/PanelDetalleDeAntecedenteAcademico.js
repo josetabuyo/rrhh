@@ -35,50 +35,20 @@
                                 $(".modal_close_concursar").click();
                             })
                             .onError(function (error, as, asd) {
-                                alertify.error("Error al crear la capacidad");
+                                alertify.error("Error al guardar la capacidad");
                             });   
-//                        proveedor_ajax.postearAUrl({ url: "ActualizarCvAntecedenteAcademico",
-//                            data: {
-//                                un_estudio: estudio
-//                            },
-//                            success: function (respuesta) {
-//                                alertify.alert("El Antecedente fue actualizado correctamente");
-//                                alModificar(respuesta);
-//                                $(".modal_close_concursar").click();
-//                            },
-//                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-//                                alertify.alert("Error al crear la capacidad.");
-//                            }
-//                        });
-
                         return;
                     }
                     Backend.GuardarCvAntecedenteAcademico(estudio)
-                            .onSuccess(function (respuesta) {
-                                alertify.alert("Los datos fueron guardados correctamente");
-                                alModificar(respuesta);
-                                $(".modal_close_concursar").click();
-                            })
-                            .onError(function (error, as, asd) {
-                                alertify.error("Error al guardar el antecedente");
-                            });   
-
-//                    proveedor_ajax.postearAUrl({ url: "GuardarCVAntecedenteAcademico",
-//                        data: {
-//                            antecedentesAcademicos_nuevos: estudio
-
-//                        },
-//                        success: function (respuesta) {
-//                            alertify.alert("Los datos fueron guardados correctamente");
-//                            alModificar(respuesta);
-//                            $(".modal_close_concursar").click();
-//                        },
-//                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-//                            alertify.alert("Error al guardar el antecedente.");
-//                        }
-//                    });
+                        .onSuccess(function (respuesta) {
+                            alertify.alert("Los datos fueron guardados correctamente");
+                            alModificar(respuesta);
+                            $(".modal_close_concursar").click();
+                        })
+                        .onError(function (error, as, asd) {
+                            alertify.error("Error al guardar el antecedente");
+                        });   
                 }
-
             });
 
             var link_trucho = $("<a href='#un_div_modal'></a>");
