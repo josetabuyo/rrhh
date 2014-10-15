@@ -7,18 +7,14 @@
 
         _this.btn_agregar_otro_antecedente.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
-                defaults: { Pais: 9 },
-                path_html: "PanelDetalleDeActividadCapacitacion.htm",
-                metodoDeGuardado: "GuardarCvActividadCapacitacion",
-                mensajeDeGuardadoExitoso: "La actividad fue guardada correctamente",
-                mensajeDeGuardadoErroneo: "Error al guardar la actividad de capacitación",
-                alModificar: function (nueva_actividad_capacitacion) {
-                    _this.GrillaActividadesCapacitacion.BorrarContenido();
-                    actividades_capacitacion.push(nueva_actividad_capacitacion);
-                    _this.GrillaActividadesCapacitacion.CargarObjetos(actividades_capacitacion);
-                }
-            });
-            PanelDetalleDeAntecedenteAcademico.mostrar({
+                defaults: { 
+                    Pais: 9,
+                    Nivel: 1
+                },
+                path_html: "PanelDetalleDeAntecedenteAcademico.htm",
+                metodoDeGuardado: "GuardarCvAntecedenteAcademico",
+                mensajeDeGuardadoExitoso: "El Antecedente académico fue creado correctamente",
+                mensajeDeGuardadoErroneo: "Error al crear el antecedente académico",
                 alModificar: function (nuevo_antecedente) {
                     _this.GrillaAntecedentesAcademicos.BorrarContenido();
                     estudios.push(nuevo_antecedente);
@@ -44,8 +40,12 @@
                 var btn_eliminar = contenedorBtnAcciones.find("#btn_eliminar");
 
                 btn_editar.click(function () {
-                    PanelDetalleDeAntecedenteAcademico.mostrar({
-                        estudio: un_estudio,
+                    var panel_detalle = new PanelDetalleGenerico({
+                        modelo: un_estudio,
+                        path_html: "PanelDetalleDeAntecedenteAcademico.htm",
+                        metodoDeGuardado: "ActualizarCvAntecedenteAcademico",
+                        mensajeDeGuardadoExitoso: "El antecedente fue actualizado correctamente",
+                        mensajeDeGuardadoErroneo: "Error al actualizar el antecedente académico",
                         alModificar: function (estudio_modificado) {
                             _this.GrillaAntecedentesAcademicos.BorrarContenido();
                             _this.GrillaAntecedentesAcademicos.CargarObjetos(estudios);

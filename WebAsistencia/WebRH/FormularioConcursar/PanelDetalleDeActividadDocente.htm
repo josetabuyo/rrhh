@@ -11,57 +11,59 @@
                  <h5><em>*</em>Campos Obligatorios</h5>
 				<div class="grupo_campos">
 					<label for="actividad_docente_asignatura">Asignatura <em>*</em></label>
-					<input id="txt_actividad_docente_asignatura" type="text" style="width:350px;"data-validar="esNoBlanco"/>
+					<input id="txt_actividad_docente_asignatura" type="text" style="width:350px;" rh-control-type="textbox" rh-model-property="Asignatura" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="actividad_docente_nivel_educativo">Nivel Educativo <em>*</em></label>
-					<select id="cmb_actividad_docente_nivel_educativo" style="width:270px;" data-validar="esUnComboSinCero" dataProvider="NivelesDeDocencia" modelo="NivelEducativo">
+					<select id="cmb_actividad_docente_nivel_educativo" style="width:270px;" data-validar="esUnComboSinCero" rh-control-type="combo" rh-data-provider="NivelesDeDocencia"
+                            rh-model-property="NivelEducativo">
 					</select>
 				</div>
                 <div class="grupo_campos nueva_linea">
 					<label for="actividad_docente_categoria">Categoría Docente <em>*</em></label>
-					<input id="txt_actividad_docente_categoria" type="text" style="width:175px;"data-validar="esNoBlanco"/>
+					<input id="txt_actividad_docente_categoria" type="text" style="width:175px;" rh-control-type="textbox" rh-model-property="CategoriaDocente" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="actividad_docente_caracter_designacion">Carácter Designación <em>*</em></label>
-					<input id="txt_actividad_docente_caracter_designacion" type="text" style="width:150px;" name=""data-validar="esNoBlanco"/>
+					<input id="txt_actividad_docente_caracter_designacion" type="text" style="width:150px;" rh-control-type="textbox" rh-model-property="CaracterDesignacion" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="actividad_docente_dedicacion">Dedicación Docente <em>*</em></label>
-					<input id="txt_actividad_docente_dedicacion" type="text" style="width:130px;"data-validar="esNoBlanco"/>
+					<input id="txt_actividad_docente_dedicacion" type="text" style="width:130px;" rh-control-type="textbox" rh-model-property="DedicacionDocente" data-validar="esNoBlanco"/>
 				</div>
                 <div class="grupo_campos">
 					<label for="actividad_docente_carga_horaria">Carga Horaria <em>*</em></label>
-					<input id="txt_actividad_docente_carga_horaria" type="text" style="width:110px;"data-validar="esNoBlanco"/>
+					<input id="txt_actividad_docente_carga_horaria" type="text" style="width:110px;" rh-control-type="textbox" rh-model-property="CargaHoraria" data-validar="esNoBlanco"/>
 				</div>
                 <div class="grupo_campos nueva_linea">
 					<label for="actividad_docente_tipo_actividad">Tipo de Actividad <em>*</em></label>
-					<input id="txt_actividad_docente_tipo_actividad" type="text" style="width:350px;"data-validar="esNoBlanco"/>
+					<input id="txt_actividad_docente_tipo_actividad" type="text" style="width:350px;" rh-control-type="textbox" rh-model-property="TipoActividad" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="actividad_docente_fecha_inicio">Fecha Inicio <em>*</em></label>
-					<input id="txt_actividad_docente_fecha_inicio" type="text" style="width:120px;"data-validar="esNoBlanco"/>
+					<input id="txt_actividad_docente_fecha_inicio" type="text" style="width:120px;" rh-control-type="datepicker" rh-model-property="FechaInicio" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="actividad_docente_fecha_fin">Fecha Fin <em>*</em></label>
-					<input id="txt_actividad_docente_fecha_fin" type="text" style="width:120px;"data-validar="esNoBlanco"/>
+					<input id="txt_actividad_docente_fecha_fin" type="text" style="width:120px;" rh-control-type="datepicker" rh-model-property="FechaFinalizacion" data-validar="esNoBlanco"/>
 				</div>
                 <div class="grupo_campos nueva_linea">
 					<label for="actividad_docente_establecimiento">Establecimiento <em>*</em></label>
-					<input id="txt_actividad_docente_establecimiento" type="text" style="width:200px;" name="txt_establecimiento" data-validar="esNoBlanco"/>
+					<input id="txt_actividad_docente_establecimiento" type="text" style="width:200px;" rh-control-type="textbox" rh-model-property="Establecimiento" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="actividad_docente_localidad">Localidad <em>*</em></label>
-					<input id="cmb_actividad_docente_localidad" type="text" style="width:200px;" data-validar="esNoBlanco"/>
+					<input id="cmb_actividad_docente_localidad" type="text" style="width:200px;" rh-control-type="textbox" rh-model-property="Localidad" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="actividad_docente_pais">País <em>*</em></label>
-					<select id="cmb_actividad_docente_pais" style="width:200px;"data-validar="esUnComboSinCero" dataProvider="Paises" modelo="Pais">
+					<select id="cmb_actividad_docente_pais" style="width:200px;" data-validar="esUnComboSinCero"  rh-control-type="combo" rh-data-provider="Paises"
+                            rh-model-property="Pais">
 					</select>
 				</div>
 			</fieldset>
 			<div class="btn-fld">
-                <input type="button" class="btn btn-primary" id="add_actividadesDocentes" value="Agregar" />
+                <input type="button" class="btn btn-primary" id="btn_guardar" value="Agregar" />
 			</div>
 		</div>
 	</div>

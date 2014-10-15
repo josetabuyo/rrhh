@@ -466,7 +466,6 @@
     </div>
 </body>
 <script type="text/javascript" src="CvDatosPersonales.js"></script>
-<script type="text/javascript" src="PanelDetalleDeAntecedenteAcademico.js"></script>
 <script type="text/javascript" src="PanelDetalleGenerico.js"></script>
 <script type="text/javascript" src="PanelListaDeAntecedentesAcademicos.js"></script>
 <script type="text/javascript" src="PanelDetalleDeOtraCapacidad.js"></script>
@@ -476,7 +475,6 @@
 <script type="text/javascript" src="PanelListaDeIdiomasExtranjeros.js"></script>
 <script type="text/javascript" src="PanelDetalleDeCompetenciaInformatica.js"></script>
 <script type="text/javascript" src="PanelListaDeCompetenciasInformaticas.js"></script>
-<script type="text/javascript" src="PanelDetalleDeActividadDocente.js"></script>
 <script type="text/javascript" src="PanelListaDeActividadesDocentes.js"></script>
 <script type="text/javascript" src="PanelDetalleDeMatricula.js"></script>
 <script type="text/javascript" src="PanelListaDeMatriculas.js"></script>
@@ -484,7 +482,6 @@
 <script type="text/javascript" src="PanelListaDePublicacionesTrabajos.js"></script>
 <script type="text/javascript" src="PanelDetalleDeEventoAcademico.js"></script>
 <script type="text/javascript" src="PanelListaDeEventosAcademicos.js"></script>
-<script type="text/javascript" src="PanelDetalleDeActividadCapacitacion.js"></script>
 <script type="text/javascript" src="PanelListaDeActividadesCapacitacion.js"></script>
 <script type="text/javascript" src="PanelDetalleDeInstitucionAcademica.js"></script>
 <script type="text/javascript" src="PanelListaDeInstitucionesAcademicas.js"></script>
