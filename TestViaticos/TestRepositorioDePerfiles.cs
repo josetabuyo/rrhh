@@ -19,9 +19,10 @@ namespace TestViaticos
     public class TestRepositorioDePerfiles
     {
 
-        Puesto perfil;
+        Perfil perfil;
         CurriculumVitae cv = TestObjects.UnCV();
         CreadorDePantallas creador;
+        
 
         [TestInitialize]
         public void Setup()
@@ -34,46 +35,47 @@ namespace TestViaticos
 
 
         [TestMethod]
-        public void deberia_poder_conocer_los_foliables_de_un_perfil()
+        public void deberia_poder_conocer_los_requisitos_de_un_perfil()
         {
             IConexionBD conexion = TestObjects.ConexionMockeada();
             
-            string source = @"  |DescripcionDocRequerida	                            |NombreClaseFoliable                   |  
-                                |Se requiere 5 años de experiencia en ambito publico	|FoliableExperienciaLaboralPublica     |
-                                |Se requiere 2 años de experiencia en ambito privado    |FoliableExperienciaLaboralPrivada     |
-                                |Titulo Universitario	 	                            |FoliableEstudiosUniversitario         | 
-                                |Antecedentes Penales	                                |FoliableAntecedentesPenales           |";
+            string source = @"  |DescripcionDocRequerida	                            |NombreClaseFoliable                   |Parametro   | 
+                                |Se requiere 5 años de experiencia en ambito publico	|RequisitoAntiguedad                   |1           |
+                                |Se requiere 2 años de experiencia en ambito privado    |RequisitoAntiguedad                   |2           |
+                                |Titulo Universitario	 	                            |RequisitoEstudio                      |12          | 
+                                |Antecedentes Penales	                                |RequisitoAntecedentesPenales          |0           |";
 
 
            var resultado_sp = TablaDeDatos.From(source);
            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
 
-           RepositorioDePuestos repo = new RepositorioDePuestos(conexion);
+           RepositorioDePerfiles repo = new RepositorioDePerfiles(conexion);
 
+           repo.GetRequisitosDelPerfil(perfil.Id).ForEach(r => perfil.Requiere(r));
 
-
-           perfil.DocumentacionRequerida = repo.GetFoliablesDelPerfil(perfil.Id);
-           Assert.AreEqual(4, perfil.DocumentacionRequerida.Count);
-
-        }
-
-        [TestMethod]
-        public void deberia_traer_los_estudios_universitarios_de_un_cv_a_partir_del_foliable()
-        {
-            cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
-            cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
-            //cv.AgregarEstudio(TestObjects.UnEstudioSecundario());
-            //tabla de niveles de estudio se llama tabla_codigo_escolaridad_nivel
-            //nivel universitario = 12  nivel secundario = 04
-
-            FoliableEstudiosUniversitario foliable_universitario = new FoliableEstudiosUniversitario();
-            FoliableEstudiosSecundario foliable_secundario = new FoliableEstudiosSecundario();
-            //perfil.DocumentacionRequerida = repo.GetFoliablesDelPerfil(perfil.Id);
-
-            Assert.AreEqual(2, foliable_universitario.documentacion(cv).Count);
-            Assert.AreEqual(0, foliable_secundario.documentacion(cv).Count);
+           //perfil.DocumentacionRequerida = repo.GetFoliablesDelPerfil(perfil.Id);
+           
+           Assert.AreEqual(4, perfil.Requisitos().Count);
 
         }
+
+        //[TestMethod]
+        //public void deberia_traer_los_estudios_universitarios_de_un_cv_a_partir_del_foliable()
+        //{
+        //    cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
+        //    cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
+        //    //cv.AgregarEstudio(TestObjects.UnEstudioSecundario());
+        //    //tabla de niveles de estudio se llama tabla_codigo_escolaridad_nivel
+        //    //nivel universitario = 12  nivel secundario = 04
+
+        //    FoliableEstudiosUniversitario foliable_universitario = new FoliableEstudiosUniversitario();
+        //    FoliableEstudiosSecundario foliable_secundario = new FoliableEstudiosSecundario();
+        //    //perfil.DocumentacionRequerida = repo.GetFoliablesDelPerfil(perfil.Id);
+
+        //    Assert.AreEqual(2, foliable_universitario.documentacion(cv).Count);
+        //    Assert.AreEqual(0, foliable_secundario.documentacion(cv).Count);
+
+        //}
 
         [TestMethod]
         public void deberia_crear_una_pantalla_mostrando_solo_ingles()
@@ -142,10 +144,9 @@ namespace TestViaticos
         {
             cv.AgregarIdioma(Idioma("Ingles"));
 
-            Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(RequisitoIdiomaIngles());
+            perfil.Requiere(RequisitoIdiomaIngles());
 
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, perfil);
 
             var no_requerido = new Dictionary<string, List<string>>();
             var requerido = new Dictionary<string, List<string>>()
@@ -162,10 +163,10 @@ namespace TestViaticos
         {
             cv.AgregarIdioma(Idioma("Portugues"));
 
-            Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(RequisitoIdiomaPortugues());
 
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+            perfil.Requiere(RequisitoIdiomaPortugues());
+
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, perfil);
 
             AssertDocNoRequerida(new Dictionary<string, List<string>>(), pantalla);
             AssertDocRequerida(new Dictionary<string, List<string>>() { 
@@ -180,10 +181,10 @@ namespace TestViaticos
             cv.AgregarIdioma(Idioma("Ingles"));
             cv.AgregarIdioma(Idioma("Portugues"));
 
-            Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(RequisitoIdiomaIngles());
 
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+            perfil.Requiere(RequisitoIdiomaIngles());
+
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, perfil);
 
             AssertDocRequerida(new Dictionary<string, List<string>>() { 
                 { "Idiomas", new List<string>(){ "Ingles" }}
@@ -200,11 +201,10 @@ namespace TestViaticos
             cv.AgregarIdioma(Idioma("Ingles"));
             cv.AgregarIdioma(Idioma("Portugues"));
 
-            Puesto puesto = TestObjects.UnPerfil();
             var idiomas_requeridos = new List<string>() { "Ingles", "Portugues" };
-            puesto.Requiere(new RequisitoIdioma("Idiomas", idiomas_requeridos));
+            perfil.Requiere(new RequisitoIdioma("Idiomas", idiomas_requeridos));
 
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, perfil);
 
             AssertDocRequerida(new Dictionary<string, List<string>>() { 
                 { "Idiomas", new List<string>(){ "Ingles", "Portugues" }}
@@ -218,9 +218,7 @@ namespace TestViaticos
         {
             cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
 
-            Puesto puesto = TestObjects.UnPerfil();
-
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, perfil);
 
             AssertDocNoRequerida(new Dictionary<string, List<string>>() { 
                 { "Estudios", new List<string>(){ "Lic en Adm" }}
@@ -233,7 +231,7 @@ namespace TestViaticos
         public void no_deberia_tener_un_idioma_en_el_cuadro_perfil_cuando_el_perfil_no_lo_requiere()
         {
             cv.AgregarIdioma(Idioma("Ingles"));
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, TestObjects.UnPerfil());
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, perfil);
 
             AssertDocRequerida(new Dictionary<string, List<string>>(), pantalla);
             AssertDocNoRequerida(new Dictionary<string, List<string>>() { 
@@ -247,10 +245,9 @@ namespace TestViaticos
         {
             cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
 
-            Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(new RequisitoEstudio("Un Estudio Universitario", new NivelDeEstudio(12, "Universitario")));
+            perfil.Requiere(new RequisitoEstudio("Un Estudio Universitario", new NivelDeEstudio(12, "Universitario")));
 
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, perfil);
 
             AssertDocNoRequerida(new Dictionary<string, List<string>>(), pantalla);
             AssertDocRequerida(new Dictionary<string, List<string>>() { 
@@ -267,10 +264,9 @@ namespace TestViaticos
             cv.AgregarEstudio(TestObjects.UnEstudioUniversitario());
             cv.AgregarEstudio(TestObjects.UnEstudioSecundario());
 
-            Puesto puesto = TestObjects.UnPerfil();
-            puesto.Requiere(new RequisitoEstudio("Un Estudio Universitario", new NivelDeEstudio(12, "Universitario")));
+            perfil.Requiere(new RequisitoEstudio("Un Estudio Universitario", new NivelDeEstudio(12, "Universitario")));
 
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, perfil);
 
             AssertDocRequerida(new Dictionary<string, List<string>>() {
                 { "Un Estudio Universitario", new List<string>() { "Lic en Adm" } },
@@ -289,13 +285,12 @@ namespace TestViaticos
             cv.AgregarIdioma(Idioma("Ingles"));
             cv.AgregarIdioma(Idioma("Portugues"));
 
-            Puesto puesto = TestObjects.UnPerfil();
             var idiomas_requeridos = new List<string>() { "Ingles" };
-           
-            puesto.Requiere(new RequisitoEstudio("Un Estudio Universitario", new NivelDeEstudio(12, "Universitario")));
-            puesto.Requiere(new RequisitoIdioma("Idiomas", idiomas_requeridos));
 
-            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, puesto);
+            perfil.Requiere(new RequisitoEstudio("Un Estudio Universitario", new NivelDeEstudio(12, "Universitario")));
+            perfil.Requiere(new RequisitoIdioma("Idiomas", idiomas_requeridos));
+
+            PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, perfil);
 
             AssertDocRequerida(new Dictionary<string, List<string>>() {
                 { "Un Estudio Universitario", new List<string>() { "Lic en Adm" } },
@@ -417,12 +412,28 @@ namespace TestViaticos
                 { "Capacidades Personales", new List<string>() { "Poderes telepaticos" } }
             }, pantalla);
 
-
-
-
               AssertDocRequerida(new Dictionary<string, List<string>>()
             {}, pantalla);
           }
+
+
+         [TestMethod]
+         public void xx()
+         {
+            //iditem
+             //idpostulacion
+             //folio
+             //idtabla
+             //iddocumentacion => lo hace el sp directamente
+             PatallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, TestObjects.UnPerfil());
+
+             Assert.AreEqual(TestObjects.UnEstudioUniversitario().Id, pantalla.DocumentacionRecibida[0].IdItemCV);
+             Assert.AreEqual(TestObjects.UnaPostulacion().Id, pantalla.IdPostulacion);
+             Assert.AreEqual("80", pantalla.DocumentacionRecibida[0].Folio);
+             Assert.AreEqual(1, pantalla.DocumentacionRecibida[0].IdTabla);
+
+
+         }
 
 
         private static CvIdiomas Idioma(string idioma)

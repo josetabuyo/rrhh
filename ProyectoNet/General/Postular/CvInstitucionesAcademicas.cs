@@ -35,7 +35,7 @@ namespace General
 
 
 
-        public CvInstitucionesAcademicas(int id, string institucion, string caracterEntidad, string cargosDesempeniados, string numeroAfiliado, string categoriaActual, DateTime fechaAfiliacion, DateTime fecha, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais  ):base(institucion)
+        public CvInstitucionesAcademicas(int id, string institucion, string caracterEntidad, string cargosDesempeniados, string numeroAfiliado, string categoriaActual, DateTime fechaAfiliacion, DateTime fecha, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais  ):base(id,institucion)
         {
             this._id = id;
             this._institucion = institucion;

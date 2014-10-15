@@ -7,8 +7,10 @@ namespace General
 {
     public class ItemCv
     {
+        public int Id { get; set; }
         public string Descripcion { get; set; }
-        public ItemCv(string descripcion) {
+        public ItemCv(int id_item, string descripcion) {
+            this.Id = id_item;
             this.Descripcion = descripcion;
         }
 

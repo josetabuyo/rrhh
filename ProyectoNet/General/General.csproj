@@ -105,6 +105,7 @@
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
     <Compile Include="Postular\AmbitoLaboral.cs" />
     <Compile Include="Postular\Comite.cs" />
+    <Compile Include="Postular\RequisitoAntecedentesPenales.cs" />
     <Compile Include="Postular\CreadorDePantallas.cs" />
     <Compile Include="Postular\DocumentacionRecibida.cs" />
     <Compile Include="Postular\DivDocumentacionRequerida.cs" />
@@ -124,14 +125,15 @@
     <Compile Include="Postular\CVInstitucionesEventos.cs" />
     <Compile Include="Postular\CVTiposDeEventoAcademico.cs" />
     <Compile Include="Postular\PatallaRecepcionDocumentacion.cs" />
+    <Compile Include="Postular\Perfil.cs" />
     <Compile Include="Postular\RepositorioDeComites.cs" />
     <Compile Include="Postular\CvConocimientoCompetenciaInformatica.cs" />
     <Compile Include="Postular\CvNivelCompetenciaInformatica.cs" />
     <Compile Include="Postular\CvTipoCompetenciaInformatica.cs" />
     <Compile Include="Postular\Postulacion.cs" />
+    <Compile Include="Postular\RepositorioDePerfiles.cs" />
     <Compile Include="Postular\RepositorioDePostulaciones.cs" />
     <Compile Include="Postular\CvCapacidadPersonal.cs" />
-    <Compile Include="Postular\Puesto.cs" />
     <Compile Include="Postular\Pais.cs" />
     <Compile Include="Postular\NivelDeIdioma.cs" />
     <Compile Include="Postular\RequisitoAntiguedad.cs" />
@@ -150,7 +152,6 @@
     <Compile Include="Repositorios\RepositorioDePaises.cs" />
     <Compile Include="Postular\NivelDeDocencia.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesDeDocencia.cs" />
-    <Compile Include="Postular\RepositorioDePuestos.cs" />
     <Compile Include="Repositorios\RepositorioDeSexos.cs" />
     <Compile Include="Postular\Nacionalidad.cs" />
     <Compile Include="Postular\CurriculumVitaeNull.cs" />

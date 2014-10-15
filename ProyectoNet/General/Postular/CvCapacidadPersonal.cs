@@ -15,7 +15,7 @@ namespace General
         public int Tipo { get { return _tipo; } set { _tipo = value; } }
         public string Detalle { get { return _detalle; } set { _detalle = value; } }
 
-        public CvCapacidadPersonal(int id, int tipo, string detalle):base(detalle)
+        public CvCapacidadPersonal(int id, int tipo, string detalle):base(id,detalle)
         {
             this._id = id;
             this._tipo = tipo;

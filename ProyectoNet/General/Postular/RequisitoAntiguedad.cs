@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace General.Postular
+namespace General
 {
     public class RequisitoAntiguedad:RequisitoPerfil
     {
@@ -13,6 +13,12 @@ namespace General.Postular
         {
             this.Descripcion = descripcion;
             this.ambitoLaboral = ambitoLaboral;
+        }
+
+        public RequisitoAntiguedad(string descripcion, int id_ambito_laboral)
+        {
+            this.Descripcion = descripcion;
+            this.ambitoLaboral = new AmbitoLaboral(id_ambito_laboral,"");
         }
 
         public override bool EsCumlidoPor(ItemCv item_cv)

@@ -113,7 +113,7 @@
             </div>
         </div>
     </div>
-    <asp:HiddenField ID="puesto" runat="server" />
+    <asp:HiddenField ID="perfil" runat="server" />
     </form>
 </body>
  <script type="text/javascript" src="Postulacion.js" ></script>
@@ -122,9 +122,9 @@
   <script type="text/javascript">
 
       $(document).ready(function () {
-          var puesto = JSON.parse($('#puesto').val());
+          var perfil = JSON.parse($('#perfil').val());
 
-          Postulacion.armarPostulacion(puesto);
+          Postulacion.armarPostulacion(perfil);
 
           $('#anexo_1').click(function () {
               window.open('AnexoI.aspx');

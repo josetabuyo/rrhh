@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    public class NivelDeEstudio:RequisitoPerfil
+    public class NivelDeEstudio
     {
         public int Id;
         public string Descripcion;
@@ -21,26 +21,26 @@ namespace General
             this.Descripcion = descripcion;
         }
 
-        // override object.Equals
-        public override bool Equals(object obj)
-        {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
+        //// override object.Equals
+        //public override bool Equals(object obj)
+        //{
+        //    if (obj == null || GetType() != obj.GetType())
+        //    {
+        //        return false;
+        //    }
 
-            return this.Id == ((NivelDeEstudio)obj).Id;
-        }
+        //    return this.Id == ((NivelDeEstudio)obj).Id;
+        //}
 
-        // override object.GetHashCode
-        public override int GetHashCode()
-        {
-            return  this.Id;
-        }
+        //// override object.GetHashCode
+        //public override int GetHashCode()
+        //{
+        //    return  this.Id;
+        //}
 
-        public override bool EsCumlidoPor(ItemCv item_cv)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool EsCumlidoPor(ItemCv item_cv)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

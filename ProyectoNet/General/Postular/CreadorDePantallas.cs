@@ -9,37 +9,37 @@ namespace General
 {
     public class CreadorDePantallas
     {
-        public PatallaRecepcionDocumentacion CrearPantalla(CurriculumVitae curriculumVitae, Puesto puesto)
+        public PatallaRecepcionDocumentacion CrearPantalla(CurriculumVitae curriculumVitae, Perfil perfil)
         {
             var pantalla = new PatallaRecepcionDocumentacion();
             var lista_docRequerida = new List<DivDocumentacionRequerida>();
 
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvEstudios, "Estudios", puesto);
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvCertificadosDeCapacitacion, "Actividades de Capacitacion", puesto);
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvDocencias, "Actividades Docentes", puesto);
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvEventosAcademicos, "Eventos Academicos", puesto);
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvPublicaciones, "Publicaciones", puesto);
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvMatricula, "Matriculas", puesto);
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvInstitucionesAcademicas, "Instituciones Academicas", puesto);
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvExperienciaLaboral, "Experiencia Laboral", puesto);
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvIdiomas, "Idiomas", puesto);
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvCompetenciasInformaticas, "Compentencias Informáticas", puesto);
-            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvCapacidadesPersonales, "Capacidades Personales", puesto);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvEstudios, "Estudios", perfil);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvCertificadosDeCapacitacion, "Actividades de Capacitacion", perfil);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvDocencias, "Actividades Docentes", perfil);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvEventosAcademicos, "Eventos Academicos", perfil);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvPublicaciones, "Publicaciones", perfil);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvMatricula, "Matriculas", perfil);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvInstitucionesAcademicas, "Instituciones Academicas", perfil);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvExperienciaLaboral, "Experiencia Laboral", perfil);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvIdiomas, "Idiomas", perfil);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvCompetenciasInformaticas, "Compentencias Informáticas", perfil);
+            CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvCapacidadesPersonales, "Capacidades Personales", perfil);
 
             
             pantalla.DocumentacionRequerida = lista_docRequerida;
 
-            AgregarACuadroPerfil(curriculumVitae.CvEstudios, puesto, pantalla);
-            AgregarACuadroPerfil(curriculumVitae.CvIdiomas, puesto, pantalla);
-            AgregarACuadroPerfil(curriculumVitae.CvExperienciaLaboral, puesto, pantalla);
+            AgregarACuadroPerfil(curriculumVitae.CvEstudios, perfil, pantalla);
+            AgregarACuadroPerfil(curriculumVitae.CvIdiomas, perfil, pantalla);
+            AgregarACuadroPerfil(curriculumVitae.CvExperienciaLaboral, perfil, pantalla);
 
             return pantalla;
         }
 
-        protected void AgregarACuadroPerfil(IList items_del_cv, Puesto puesto, PatallaRecepcionDocumentacion pantalla)
+        protected void AgregarACuadroPerfil(IList items_del_cv, Perfil perfil, PatallaRecepcionDocumentacion pantalla)
         {
            
-            foreach (RequisitoPerfil requisito in puesto.Requisitos())
+            foreach (RequisitoPerfil requisito in perfil.Requisitos())
             {
                 var documentacion_requerida = new DivDocumentacionRequerida();
                 foreach (ItemCv item_cv in items_del_cv)
@@ -58,7 +58,7 @@ namespace General
             }
         }
 
-        protected void CargarDocumentacionRequerida(List<DivDocumentacionRequerida> lista_doc_requerida, IList lista, string descripcion_requisito, Puesto puesto)
+        protected void CargarDocumentacionRequerida(List<DivDocumentacionRequerida> lista_doc_requerida, IList lista, string descripcion_requisito, Perfil perfil)
         {
             if (lista.Count > 0)
             {
@@ -66,7 +66,7 @@ namespace General
                 documentacion.DescripcionRequisito = descripcion_requisito;
                 foreach (ItemCv item_cv in lista)
                 {
-                    if (!puesto.Requisitos().Any(req => req.EsCumlidoPor(item_cv)))
+                    if (!perfil.Requisitos().Any(req => req.EsCumlidoPor(item_cv)))
                     {
                         documentacion.AddItemCv(item_cv);
                     }

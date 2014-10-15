@@ -2733,11 +2733,19 @@ public class WSViaticos : System.Web.Services.WebService
     }
     #endregion
 
+    //[WebMethod]
+    //public Puesto[] GetCvPuestos()
+    //{
+    //    return RepoPuestos().GetPuestos().ToArray();
+    //}
+
     [WebMethod]
-    public Puesto[] GetCvPuestos()
+    public Perfil[] GetCvPerfiles()
     {
-        return RepoPuestos().GetPuestos().ToArray();
+        return RepoPerfiles().GetPerfiles().ToArray();
     }
+
+
 
     [WebMethod]
     [System.Xml.Serialization.XmlInclude(typeof(FoliableEstudiosUniversitario))]
@@ -2747,9 +2755,9 @@ public class WSViaticos : System.Web.Services.WebService
     public Postulacion GetPostulacionById(int idpersona,int idpostulacion)
     {
         Postulacion postulacion = RepoPostulaciones().GetPostulacionById(idpersona, idpostulacion);
-        postulacion.Puesto.DocumentacionRequerida = RepoPuestos().GetFoliablesDelPerfil(postulacion.Puesto.Id);
+        postulacion.Perfil.DocumentacionRequerida = RepoPerfiles().GetFoliablesDelPerfil(postulacion.Perfil.Id);
         CurriculumVitae cv = RepoCurriculum().GetCV(idpersona);
-        postulacion.CrearDocumentacionARecibir(postulacion.Puesto.DocumentacionRequerida, cv);
+        postulacion.CrearDocumentacionARecibir(postulacion.Perfil.DocumentacionRequerida, cv);
 
         return postulacion;
     }
@@ -2956,9 +2964,9 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDeCurriculum(Conexion());
     }
 
-    private RepositorioDePuestos RepoPuestos()
+    private RepositorioDePerfiles RepoPerfiles()
     {
-        return new RepositorioDePuestos(Conexion());
+        return new RepositorioDePerfiles(Conexion());
     }
 
     private RepositorioDePostulaciones RepoPostulaciones()

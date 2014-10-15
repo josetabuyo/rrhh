@@ -48,11 +48,11 @@
                 eliminar.append(img);
 
                 eliminar.click(function () {
-                    var mensaje = "¿Está seguro que desea eliminar su postulación al puesto: " + postulaciones[0].Puesto.Denominacion + "?";
+                    var mensaje = "¿Está seguro que desea eliminar su postulación al puesto: " + postulaciones[0].Perfil.Denominacion + "?";
                     alertify.confirm(mensaje, function (e) {
                         if (e) {
                             // user clicked "ok"
-                            Backend.EliminarPostulacionPorUsuario(postulaciones[0]).onSuccess(function () { })
+                            Backend.EliminarPostulacionPorUsuario(postulaciones[0]);
                         } else {
                             alertify.error("No se ha eliminado la Postulación");
                         }
@@ -65,8 +65,8 @@
                 sub.addClass("SubrayadoPostulaciones degrade");
 
                 var contenido = $('<p>');
-                contenido[0].innerHTML = postulaciones[i].Puesto.Denominacion;
-
+                // contenido[0].innerHTML = postulaciones[i].Puesto.Denominacion;
+                contenido[0].innerHTML = postulaciones[i].Perfil.Denominacion;
                 pastilla.append(titulo);
                 pastilla.append(eliminar);
                 pastilla.append(sub);

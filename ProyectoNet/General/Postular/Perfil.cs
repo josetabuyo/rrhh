@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using General.Postular;
 
 namespace General
 {
-    public class Puesto
+  public class Perfil
     {
         protected int _id;
         protected string _familia;
@@ -32,7 +31,7 @@ namespace General
         public virtual Comite Comite { get { return _comite; } set { _comite = value; } }
         public virtual List<Foliable> DocumentacionRequerida { get { return _documentacionRequerida; } set { _documentacionRequerida = value; } }
 
-        public Puesto(int id, string familia, string profesion, string denominacion,string nivel, string agrupamiento, int vacantes, string tipo, string numero, Comite comite)
+        public Perfil(int id, string familia, string profesion, string denominacion,string nivel, string agrupamiento, int vacantes, string tipo, string numero, Comite comite)
         {
             this._id = id;
             this._familia = familia;
@@ -46,20 +45,22 @@ namespace General
             this._comite = comite;
         }
 
-        public Puesto() { }
+      public Perfil() { }
+
+      List<RequisitoPerfil> _requisitos = new List<RequisitoPerfil>();
+      public void Requiere(RequisitoPerfil requisito_idioma)
+      {
+          _requisitos.Add(requisito_idioma);
+      }
 
 
+      public List<RequisitoPerfil> Requisitos()
+      {
+          return _requisitos;
+      }
 
-        List<RequisitoPerfil> _requisitos = new List<RequisitoPerfil>();
-        public void Requiere(RequisitoPerfil requisito_idioma)
-        {
-            _requisitos.Add(requisito_idioma);
-        }
 
-        
-        public List<RequisitoPerfil> Requisitos()
-        {
-            return _requisitos;
-        }
+      
+
     }
 }

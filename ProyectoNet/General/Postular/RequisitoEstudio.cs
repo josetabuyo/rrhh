@@ -22,6 +22,12 @@ namespace General
             this.nivel_de_estudio = nivelDeEstudio;
         }
 
+        public RequisitoEstudio(string descripcion_requisito, int id_nivel_de_estudio)
+        {
+            this.Descripcion = descripcion_requisito;
+            this.nivel_de_estudio = new NivelDeEstudio(id_nivel_de_estudio,"");
+        }
+
 
         public override bool Equals(object obj)
         {

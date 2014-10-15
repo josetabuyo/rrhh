@@ -10,6 +10,8 @@ namespace General
 
         public List<DivDocumentacionRequerida> DocumentacionRequerida { get; set; }
         public List<DivDocumentacionRequerida> CuadroPerfil { get; protected set; }
+        public List<DocumentacionRecibida> DocumentacionRecibida { get; set; }
+        public Postulacion Postulacion { get; set; }
 
 
         public PatallaRecepcionDocumentacion()
@@ -17,5 +19,6 @@ namespace General
             this.CuadroPerfil = new List<DivDocumentacionRequerida>();
         }
 
+        public int IdPostulacion { get { return Postulacion.Id; } set { } }
     }
 }

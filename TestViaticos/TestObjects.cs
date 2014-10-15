@@ -1812,9 +1812,9 @@ namespace General
             return new ConceptoLicenciaAnualOrdinaria();
         }
 
-        public static Puesto UnPerfil()
+        public static Perfil UnPerfil()
         {
-            return new Puesto(1, "familia", "profesion", "denominacion", "nivel", "agrupamiento", 20, "tipo", "numero", UnComite());
+            return new Perfil(1, "familia", "profesion", "denominacion", "nivel", "agrupamiento", 20, "tipo", "numero", UnComite());
         }
 
         public static Comite UnComite()

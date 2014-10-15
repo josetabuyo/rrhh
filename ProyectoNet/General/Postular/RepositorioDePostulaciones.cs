@@ -5,6 +5,7 @@ using System.Text;
 using General;
 using General.Repositorios;
 using General.MAU;
+using General.Postular;
 
 namespace General
 {
@@ -21,7 +22,7 @@ namespace General
         {
 
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@idPuesto", postulacion.Puesto.Id);
+            parametros.Add("@idPuesto", postulacion.Perfil.Id);
             parametros.Add("@idPersona", usuario.Owner.Id);
             parametros.Add("@Motivo", postulacion.Motivo);
             parametros.Add("@Observacion", postulacion.Observaciones);
@@ -64,7 +65,7 @@ namespace General
             {
                 var postulacion = new Postulacion(){
                    Id= row.GetInt("IdPostulacion"), 
-                   Puesto=ArmarPuesto(row), 
+                   Perfil=ArmarPuesto(row), 
                    IdPersona=row.GetInt("IdPersona"), 
                    FechaPostulacion=row.GetDateTime("FechaInscripcion"),
                    Motivo=row.GetString("Motivo"), 
@@ -140,14 +141,29 @@ namespace General
 
         }
 
-        private Puesto ArmarPuesto(RowDeDatos row)
+        //private Puesto ArmarPuesto(RowDeDatos row)
+        //{
+        //    var repo_comite = new RepositorioDeComites(this.conexion_bd);
+        //    return new Puesto(
+        //                      row.GetInt("IdPuesto"),
+        //                      row.GetString("Familia"),
+        //                      row.GetString("Profesion"),
+        //                      row.GetString("Denominacion"),
+        //                      row.GetString("Nivel"),
+        //                      row.GetString("Agrupamiento"),
+        //                      row.GetInt("Vacantes"),
+        //                      row.GetString("Tipo"),
+        //                      row.GetString("Puesto_Numero"),
+        //                      repo_comite.GetComiteById(row.GetInt("IdComite")
+        //                      )
+        //        );
+        //}
+
+        private Perfil ArmarPuesto(RowDeDatos row)
         {
             var repo_comite = new RepositorioDeComites(this.conexion_bd);
-            //var repo_puesto = new RepositorioDePuestos(this.conexion_bd);
-            //return repo_puesto.GetPuestoById(row.GetInt("IdPuesto"));
-            //FC: por ahora lo dejo asi
-            return new Puesto(
-                              row.GetInt("IdPuesto"),
+            return new Perfil(
+                              row.GetInt("IdPerfil"),
                               row.GetString("Familia"),
                               row.GetString("Profesion"),
                               row.GetString("Denominacion"),
@@ -159,6 +175,8 @@ namespace General
                               repo_comite.GetComiteById(row.GetInt("IdComite"))                            
                 );
         }
+        
+
 
         public Postulacion GetPostulacionById(int idpersona, int idpostulacion)
         {
@@ -180,7 +198,8 @@ namespace General
 
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@IdPostulacion", postulacion.Id);
-                parametros.Add("@IdPuesto", postulacion.Puesto.Id);
+             //   parametros.Add("@IdPuesto", postulacion.Puesto.Id);
+                parametros.Add("@IdPerfil", postulacion.Perfil.Id);
                 parametros.Add("@IdPersona", postulacion.IdPersona);
                 parametros.Add("@FechaInscripcion", postulacion.FechaPostulacion);
                 parametros.Add("@Usuario", usuario.Id);

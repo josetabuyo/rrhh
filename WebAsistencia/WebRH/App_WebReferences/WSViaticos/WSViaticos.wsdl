@@ -11,21 +11,198 @@
         </s:complexType>
       </s:element>
       <s:complexType name="CvDocencia">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Asignatura" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="NivelEducativo" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TipoActividad" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CategoriaDocente" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CaracterDesignacion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DedicacionDocente" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CargaHoraria" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaInicio" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaFinalizacion" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ItemCv">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Asignatura" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="NivelEducativo" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="TipoActividad" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="CategoriaDocente" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="CaracterDesignacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="DedicacionDocente" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="CargaHoraria" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaInicio" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaFinalizacion" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
+      </s:complexType>
+      <s:complexType name="CvCapacidadPersonal">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Detalle" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CvCertificadoDeCapacitacion">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="DiplomaDeCertificacion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Especialidad" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Duracion" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaInicio" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaFinalizacion" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CvCompetenciasInformaticas">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Diploma" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TipoInformatica" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Conocimiento" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Nivel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaObtencion" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Detalle" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CvPublicaciones">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DatosEditorial" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CantidadHojas" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="DisponeCopia" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DisponeAdjunto" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaPublicacion" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CvMatricula">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExpedidaPor" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SituacionActual" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaInscripcion" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CvInstitucionesAcademicas">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Institucion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CaracterEntidad" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CargosDesempeniados" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="NumeroAfiliado" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CategoriaActual" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaDeAfiliacion" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaInicio" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaFin" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CvIdiomas">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Diploma" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Idioma" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Lectura" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Escritura" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Oral" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaObtencion" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CvExperienciaLaboral">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="PuestoOcupado" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="MotivoDesvinculacion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="NombreEmpleador" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="PersonasACargo" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TipoEmpresa" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaInicio" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaFin" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Actividad" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Sector" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="AmbitoLaboral" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CvEventoAcademico">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Denominacion" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TipoDeEvento" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="CaracterDeParticipacion" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Institucion" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaInicio" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaFinalizacion" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Duracion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CvEstudios">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Nivel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Especialidad" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaIngreso" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaEgreso" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
       </s:complexType>
       <s:complexType name="Usuario">
         <s:sequence>
@@ -229,20 +406,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvEventoAcademico">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Denominacion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="TipoDeEvento" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="CaracterDeParticipacion" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Institucion" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaInicio" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaFinalizacion" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Duracion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarCvEventoAcademicoResponse">
         <s:complexType>
           <s:sequence>
@@ -363,17 +526,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvPublicaciones">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="DatosEditorial" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="CantidadHojas" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="DisponeCopia" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="DisponeAdjunto" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaPublicacion" type="s:dateTime" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarCvPublicacionesTrabajosResponse">
         <s:complexType>
           <s:sequence>
@@ -419,15 +571,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvMatricula">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="ExpedidaPor" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="SituacionActual" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaInscripcion" type="s:dateTime" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarCvMatriculaResponse">
         <s:complexType>
           <s:sequence>
@@ -473,22 +616,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvInstitucionesAcademicas">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Institucion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="CaracterEntidad" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="CargosDesempeniados" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="NumeroAfiliado" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="CategoriaActual" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaDeAfiliacion" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaInicio" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaFin" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarCvInstitucionAcademicaResponse">
         <s:complexType>
           <s:sequence>
@@ -534,23 +661,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvExperienciaLaboral">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="PuestoOcupado" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="MotivoDesvinculacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="NombreEmpleador" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="PersonasACargo" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="TipoEmpresa" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaInicio" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaFin" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Actividad" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Sector" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="AmbitoLaboral" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarCvExperienciaLaboralResponse">
         <s:complexType>
           <s:sequence>
@@ -596,20 +706,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvIdiomas">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Diploma" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Idioma" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Lectura" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Escritura" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Oral" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaObtencion" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarCvIdiomaExtranjeroResponse">
         <s:complexType>
           <s:sequence>
@@ -655,20 +751,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvCompetenciasInformaticas">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Diploma" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="TipoInformatica" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Conocimiento" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Nivel" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaObtencion" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Detalle" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarCvCompetenciaInformaticaResponse">
         <s:complexType>
           <s:sequence>
@@ -714,13 +796,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvCapacidadPersonal">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Detalle" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarCvOtraCapacidadResponse">
         <s:complexType>
           <s:sequence>
@@ -758,22 +833,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetCvPuestos">
+      <s:element name="GetCvPerfiles">
         <s:complexType />
       </s:element>
-      <s:element name="GetCvPuestosResponse">
+      <s:element name="GetCvPerfilesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCvPuestosResult" type="tns:ArrayOfPuesto" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetCvPerfilesResult" type="tns:ArrayOfPerfil" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfPuesto">
+      <s:complexType name="ArrayOfPerfil">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Puesto" nillable="true" type="tns:Puesto" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Perfil" nillable="true" type="tns:Perfil" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="Puesto">
+      <s:complexType name="Perfil">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Familia" type="s:string" />
@@ -792,7 +867,7 @@
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Integrantes" type="tns:ArrayOfIntegranteComite" />
-          <s:element minOccurs="0" maxOccurs="1" name="Puesto" type="tns:Puesto" />
+          <s:element minOccurs="0" maxOccurs="1" name="Puesto" type="tns:Perfil" />
           <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
         </s:sequence>
       </s:complexType>
@@ -817,7 +892,7 @@
         </s:sequence>
       </s:complexType>
       <s:complexType name="Foliable" abstract="true" />
-      <s:complexType name="FoliableAntecedentesPenales">
+      <s:complexType name="FoliableEstudiosUniversitario">
         <s:complexContent mixed="false">
           <s:extension base="tns:Foliable">
             <s:sequence>
@@ -828,7 +903,7 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
-      <s:complexType name="FoliableEstudiosUniversitario">
+      <s:complexType name="FoliableAntecedentesPenales">
         <s:complexContent mixed="false">
           <s:extension base="tns:Foliable">
             <s:sequence>
@@ -879,14 +954,15 @@
       <s:complexType name="Postulacion">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Puesto" type="tns:Puesto" />
+          <s:element minOccurs="0" maxOccurs="1" name="Perfil" type="tns:Perfil" />
           <s:element minOccurs="1" maxOccurs="1" name="IdPersona" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="FechaPostulacion" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Etapas" type="tns:ArrayOfEtapaPostulacion" />
-          <s:element minOccurs="0" maxOccurs="1" name="DocRecibida" type="tns:ArrayOfDocumentacionRecibida" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionRecibida" type="tns:ArrayOfDocumentacionRecibida" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionARecibir" type="tns:ArrayOfDocumentacionRecibida" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfEtapaPostulacion">
@@ -1292,8 +1368,16 @@
         </s:sequence>
       </s:complexType>
       <s:complexType name="NivelDeEstudio">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RequisitoPerfil">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="RequisitoPerfil" abstract="true">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
@@ -1649,19 +1733,6 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="CvEstudios" nillable="true" type="tns:CvEstudios" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="CvEstudios">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Nivel" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Especialidad" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaIngreso" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaEgreso" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="ArrayOfCvEventoAcademico">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="CvEventoAcademico" nillable="true" type="tns:CvEventoAcademico" />
@@ -1705,19 +1776,6 @@
       <s:complexType name="ArrayOfCvCertificadoDeCapacitacion">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="CvCertificadoDeCapacitacion" nillable="true" type="tns:CvCertificadoDeCapacitacion" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CvCertificadoDeCapacitacion">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="DiplomaDeCertificacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Especialidad" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Duracion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaInicio" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaFinalizacion" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfCvCapacidadPersonal">
@@ -4462,11 +4520,11 @@
   <wsdl:message name="EliminarCvOtraCapacidadSoapOut">
     <wsdl:part name="parameters" element="tns:EliminarCvOtraCapacidadResponse" />
   </wsdl:message>
-  <wsdl:message name="GetCvPuestosSoapIn">
-    <wsdl:part name="parameters" element="tns:GetCvPuestos" />
+  <wsdl:message name="GetCvPerfilesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCvPerfiles" />
   </wsdl:message>
-  <wsdl:message name="GetCvPuestosSoapOut">
-    <wsdl:part name="parameters" element="tns:GetCvPuestosResponse" />
+  <wsdl:message name="GetCvPerfilesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCvPerfilesResponse" />
   </wsdl:message>
   <wsdl:message name="GetPostulacionByIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetPostulacionById" />
@@ -5615,9 +5673,9 @@
       <wsdl:input message="tns:EliminarCvOtraCapacidadSoapIn" />
       <wsdl:output message="tns:EliminarCvOtraCapacidadSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetCvPuestos">
-      <wsdl:input message="tns:GetCvPuestosSoapIn" />
-      <wsdl:output message="tns:GetCvPuestosSoapOut" />
+    <wsdl:operation name="GetCvPerfiles">
+      <wsdl:input message="tns:GetCvPerfilesSoapIn" />
+      <wsdl:output message="tns:GetCvPerfilesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPostulacionById">
       <wsdl:input message="tns:GetPostulacionByIdSoapIn" />
@@ -6576,8 +6634,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCvPuestos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCvPuestos" style="document" />
+    <wsdl:operation name="GetCvPerfiles">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCvPerfiles" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8397,8 +8455,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCvPuestos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCvPuestos" style="document" />
+    <wsdl:operation name="GetCvPerfiles">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCvPerfiles" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

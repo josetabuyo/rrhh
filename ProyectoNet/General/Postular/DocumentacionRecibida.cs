@@ -7,24 +7,26 @@ namespace General
 {
     public class DocumentacionRecibida
     {
-        protected int _id;
-        protected string _folio;
-        protected Foliable _foliable;
-        protected DateTime _fecha;
 
-        public int Id { get { return _id; } set { _id = value; } }
-        public string Folio { get { return _folio; } set { _folio = value; } }
-        public Foliable Foliable { get { return _foliable; } set { _foliable = value; } }
-        public DateTime Fecha { get { return _fecha; } set { _fecha = value; } }
+
+        public int Id { get; set; }
+        public ItemCv ItemCv { get; set; }
+        public string Folio { get; set; }
+        public int IdTabla { get; set; }
+        //public Foliable Foliable { get { return _foliable; } set { _foliable = value; } }
+        public DateTime Fecha { get; set; }
 
 
         public DocumentacionRecibida() { }
 
         public DocumentacionRecibida(int id, string folio, Foliable foliable, DateTime fecha) {
-            _id = id;
-            _folio = folio;
-            _foliable = foliable;
-            _fecha = fecha;
+           // Id = id;
+           // ItemCv = folio;
+            //_foliable = foliable;
+            //Fecha = fecha;
         }
+
+        public int IdItemCV { get { return ItemCv.Id; } set { } }
+       
     }
 }
