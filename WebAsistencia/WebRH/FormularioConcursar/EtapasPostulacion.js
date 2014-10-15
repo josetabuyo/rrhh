@@ -37,15 +37,22 @@
     _this.BuscarPostulaciones = function () {
         var codigo = $("#txt_codigo_postulacion").val();
         var div_tabla_historial = $("#div_tabla_historial");
+        $("#span_empleado").html("");
+        $("#span_codigo").html("");
+        $("#span_fecha").html("");
+        $("#span_perfil").html("");
         div_tabla_historial.html("");
         $("#seccion_historial").hide();
         Backend.ejecutar("GetPostulacionesPorCodigo",
                         [codigo],
                         function (respuesta) {
-                            _this.CompletarDatos(respuesta);
+                            if (respuesta != null) _this.CompletarDatos(respuesta);
+                            else {
+                                alertify.alert("Código no encontrado");
+                            }
                         },
                         function (errorThrown) {
-                            alertify.alert("Código no encontrado");
+                            alertify.alert(errorThrown);
                         }
         );
     }
@@ -67,9 +74,13 @@
 
     _this.CompletarDatos = function (datos_postulacion) {
 
-        var BuscarUsuario = function (id_usuario) {
-
-
+        var BuscarUsuario = function () {
+            this.generar = function (una_etapa) {
+                for (var i = 0; i < usuarios.length; i++) {
+                    if (parseInt(usuarios[i].Owner.Id, 10) == parseInt(una_etapa.IdUsuario, 10)) return usuarios[i].Owner.Nombre + " " + usuarios[i].Owner.Apellido;
+                }
+                return "";
+            }
         }
 
         var div_tabla_historial = $("#div_tabla_historial");
@@ -94,13 +105,7 @@
         var columnas = [];
         columnas.push(new Columna("Fecha", { generar: function (una_etapa) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_etapa.Fecha) } }));
         columnas.push(new Columna("Descripción", { generar: function (una_etapa) { return una_etapa.Etapa.Descripcion } }));
-        columnas.push(new Columna("Usuario", { generar: function (una_etapa) {
-            for (var i = 0; i < usuarios.length; i++) {
-                if (parseInt(usuarios[i].Owner.Id, 10) == parseInt(una_etapa.IdUsuario, 10)) return usuarios[i].Owner.Nombre + " " + usuarios[i].Owner.Apellido;
-            }
-            return "";
-        }
-        }));
+        columnas.push(new Columna("Usuario", new BuscarUsuario()));
 
         this.GrillaHistorial = new Grilla(columnas);
         this.GrillaHistorial.AgregarEstilo("table table-striped");
@@ -112,7 +117,7 @@
         this.GrillaHistorial.CargarObjetos(usu_etapas);
         this.GrillaHistorial.DibujarEn(div_tabla_historial);
 
-        span_empleado.html(datos_postulacion.UsuarioPostulacion);
+        span_empleado.html(new BuscarUsuario().generar(datos_postulacion.Etapas[0]));
         span_codigo.html(datos_postulacion.Numero);
         span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));
         span_perfil.html(datos_postulacion.Perfil.Denominacion);
