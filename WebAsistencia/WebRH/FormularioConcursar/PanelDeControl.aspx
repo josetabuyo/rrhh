@@ -57,7 +57,7 @@
             <a href="VistaPreliminar.aspx" ><span><img alt="descargar" width="22px" height="22px" src="../Imagenes/Botones/guardar.png" />&nbsp;Descargar CV</span></a>                 
            
           <!--  <div class="panel panel-default">-->
-              <div style="height: 435px;" class="panel-body estilo_paneles  ">
+              <div style="height: 435px;"   ">
                <h3 class="panel-title" >Mis Postulaciones</h3>
                
                  <hr class="lineas-subraya"/>
