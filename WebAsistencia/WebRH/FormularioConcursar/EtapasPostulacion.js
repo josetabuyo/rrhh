@@ -91,10 +91,14 @@
         var postulacion = $("#postulacion");
         var usuarios = [];
 
+        _this.cmb_etapas_concurso.val(-1);
+
         for (var i = 0; i < datos_postulacion.Etapas.length; i++) {
-            if (id_usuarios.indexOf(datos_postulacion.Etapas[i].IdUsuario) < 0) {
-                usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorIdPersona", [datos_postulacion.Etapas[i].IdUsuario]));
-            } 
+            var agregado = false;
+            for (var j = 0; j < usuarios.length; j++) {
+                if (usuarios[j].Owner.Id == datos_postulacion.Etapas[i].IdUsuario) agregado = true;
+            }
+            if (!agregado) usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorIdPersona", [datos_postulacion.Etapas[i].IdUsuario]));
         }
         var usu_etapas = datos_postulacion.Etapas;
 

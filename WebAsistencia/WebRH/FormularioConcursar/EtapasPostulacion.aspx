@@ -18,8 +18,10 @@
     <form id="form1" runat="server" class="cmxform">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="contenedor_concursar" >
+    
+    <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
         <div id="div_cambio_etapas" class="fondo_form" style="padding: 10px;">
-            <h2>Cambio de Etapa</h2>
+            <h2>Cambio de Etapa de Postulaciones</h2>
             <div>
                 <div style="display:inline-block; margin-left:30px; width: 50%; vertical-align:middle;">
                     <label for="txt_codigo_postulacion">Postulación:&nbsp;</label>
@@ -39,6 +41,7 @@
                     <div id="div_tabla_historial"></div>
                 </div>
                 <div style="display:block; margin-left:30px; vertical-align: middle;">
+                Cambiar a:&nbsp;
                     <select id="cmb_etapas_concurso">
                     </select>
                 </div>
