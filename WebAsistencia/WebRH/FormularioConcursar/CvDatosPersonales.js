@@ -1,5 +1,27 @@
 ﻿
+function replicarDireccion () {
+    var _this = this;
+    this.ui = $("#contenedor_datosPersonales");
+      
+
+    if ($('#chk_replicar').prop('checked') == true)
+     
+    {
+            $('#text_calle2').val($('#txt_calle1').val());
+            $('#txt_numero2').val($('#txt_numero1').val());
+            $('#txt_numero2').val($('#txt_numero1').val());
+            $('#txt_piso2').val($('#txt_piso1').val());
+            $('#txt_dto2').val($('#txt_dto1').val());
+            $('#txt_cp2').val($('#txt_cp1').val());
+            $('#cmb_provincia2').val($('#cmb_provincia1').val());
+            $('#cmb_localidad2').val($('#cmb_localidad1').val());
+            $('#cmb_localidad2').html($('#cmb_localidad1').html());
+    }
+
+ }
+
 var CvDatosPersonales = {
+
     completarDatos: function (datos_personales) {
         var _this = this;
         this.ui = $("#contenedor_datosPersonales");
