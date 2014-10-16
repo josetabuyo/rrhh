@@ -31,6 +31,18 @@
         return una_persona.estado();
     }
     }));
+    columnas.push(new Columna("Eliminar", { generar: function (una_persona) {
+        var contenedorBtnAcciones = $('<div>');
+        var botonEliminar = $('<img>');
+        botonEliminar.addClass('remove-item-btn');
+        botonEliminar.attr('src', '../Imagenes/eliminar.png');
+        botonEliminar.attr('width', '35px');
+        botonEliminar.attr('height', '35px');
+        contenedorBtnAcciones.append(botonEliminar);
+
+        return contenedorBtnAcciones;
+    }
+    }));
 
     
 
