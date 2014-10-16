@@ -39,7 +39,38 @@
         botonEliminar.attr('width', '35px');
         botonEliminar.attr('height', '35px');
         contenedorBtnAcciones.append(botonEliminar);
+        botonEliminar.click(function () {
 
+            var data_post = JSON.stringify({
+//                "observaciones_nuevas": JSON.stringify(PlanillaObservaciones.Objetos),
+//                "observaciones_originales": JSON.stringify(observaciones)
+            });
+            $.ajax({
+                url: "../AjaxWS.asmx/EliminarLicenciaPendienteAprobacion",
+                type: "POST",
+                data: data_post,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (respuestaJson) {
+                    var respuesta = JSON.parse(respuestaJson.d);
+                    if (respuesta.length == 0)
+                    // _this.MostrarDetalleErrores(respuesta);
+
+                        location.href = "FormPlanillaObservaciones.aspx";
+                    //alertify.alert("Las observaciones se guardaron correctamente");
+                    //_this.CargarObservacionesDTO();
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alertify.alert(errorThrown);
+                }
+            });
+
+
+
+
+
+        });
         return contenedorBtnAcciones;
     }
     }));
