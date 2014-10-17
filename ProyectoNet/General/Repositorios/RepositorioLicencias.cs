@@ -222,6 +222,16 @@ namespace General.Repositorios
            // return vacaciones_permitidas;
         }
 
+        public void EliminarLicenciaPendienteAprobacion(int documento, DateTime desde, DateTime hasta) 
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@documento", documento);
+            parametros.Add("@desde", desde);
+            parametros.Add("@hasta", hasta);
+
+            this.conexion.EjecutarSinResultado("LIC_GEN_DelDiasPendientesDeAprobacion", parametros);
+            
+        }
         
         public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona)
         {

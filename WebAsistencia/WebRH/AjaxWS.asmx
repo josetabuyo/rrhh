@@ -282,6 +282,19 @@ public class AjaxWS : System.Web.Services.WebService {
         return backEndService.InscribirAlumnosACurso(lista_alumnos_para_inscribir.ToArray(), id_curso, usuarioLogueado);
     }
 
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void EliminarLicenciaPendienteAprobacion(int documento, string desde, string hasta)
+    {
+        string desde_r = desde.Substring(1, 10);
+        string hasta_r = hasta.Substring(1, 10);
+        DateTime fecha_desde = DateTime.Parse(desde_r);
+        DateTime fecha_hasta = DateTime.Parse(hasta_r);
+        backEndService.EliminarLicenciaPendienteAprobacion(documento, fecha_desde, fecha_hasta);
+    }
+    
+    
+    
     //[WebMethod(EnableSession = true)]
     //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     //public string ReporteAlumnosDeCursosConFecha(string fecha_desde, string fecha_hasta)

@@ -2,14 +2,20 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="QuitarAlumno">
+      <s:element name="InscribirAlumnosACurso">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="alumno" type="tns:Alumno" />
+            <s:element minOccurs="0" maxOccurs="1" name="alumnos_a_inscribir" type="tns:ArrayOfAlumno" />
+            <s:element minOccurs="1" maxOccurs="1" name="idCurso" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="ArrayOfAlumno">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Alumno" nillable="true" type="tns:Alumno" />
+        </s:sequence>
+      </s:complexType>
       <s:complexType name="Alumno">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -218,6 +224,21 @@
           <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="InscribirAlumnosACursoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InscribirAlumnosACursoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuitarAlumno">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="alumno" type="tns:Alumno" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="QuitarAlumnoResponse">
         <s:complexType>
           <s:sequence>
@@ -308,11 +329,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="HoraDeFin" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="HorasCatedra" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="IdCurso" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfAlumno">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Alumno" nillable="true" type="tns:Alumno" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="EspacioFisico">
@@ -1822,6 +1838,18 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="EliminarLicenciaPendienteAprobacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documento" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="desde" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="hasta" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarLicenciaPendienteAprobacionResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetPasesEntreFechasPara">
         <s:complexType>
           <s:sequence>
@@ -2768,24 +2796,14 @@
       <s:element name="ActualizarAlumnoResponse">
         <s:complexType />
       </s:element>
-      <s:element name="InscribirAlumnosACurso">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="alumnos_a_inscribir" type="tns:ArrayOfAlumno" />
-            <s:element minOccurs="1" maxOccurs="1" name="idCurso" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="InscribirAlumnosACursoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="InscribirAlumnosACursoResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="InscribirAlumnosACursoSoapIn">
+    <wsdl:part name="parameters" element="tns:InscribirAlumnosACurso" />
+  </wsdl:message>
+  <wsdl:message name="InscribirAlumnosACursoSoapOut">
+    <wsdl:part name="parameters" element="tns:InscribirAlumnosACursoResponse" />
+  </wsdl:message>
   <wsdl:message name="QuitarAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:QuitarAlumno" />
   </wsdl:message>
@@ -3272,6 +3290,12 @@
   <wsdl:message name="GetAusentesEntreFechasParaSoapOut">
     <wsdl:part name="parameters" element="tns:GetAusentesEntreFechasParaResponse" />
   </wsdl:message>
+  <wsdl:message name="EliminarLicenciaPendienteAprobacionSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarLicenciaPendienteAprobacion" />
+  </wsdl:message>
+  <wsdl:message name="EliminarLicenciaPendienteAprobacionSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarLicenciaPendienteAprobacionResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPasesEntreFechasParaSoapIn">
     <wsdl:part name="parameters" element="tns:GetPasesEntreFechasPara" />
   </wsdl:message>
@@ -3608,13 +3632,11 @@
   <wsdl:message name="ActualizarAlumnoSoapOut">
     <wsdl:part name="parameters" element="tns:ActualizarAlumnoResponse" />
   </wsdl:message>
-  <wsdl:message name="InscribirAlumnosACursoSoapIn">
-    <wsdl:part name="parameters" element="tns:InscribirAlumnosACurso" />
-  </wsdl:message>
-  <wsdl:message name="InscribirAlumnosACursoSoapOut">
-    <wsdl:part name="parameters" element="tns:InscribirAlumnosACursoResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="InscribirAlumnosACurso">
+      <wsdl:input message="tns:InscribirAlumnosACursoSoapIn" />
+      <wsdl:output message="tns:InscribirAlumnosACursoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="QuitarAlumno">
       <wsdl:input message="tns:QuitarAlumnoSoapIn" />
       <wsdl:output message="tns:QuitarAlumnoSoapOut" />
@@ -3939,6 +3961,10 @@
       <wsdl:input message="tns:GetAusentesEntreFechasParaSoapIn" />
       <wsdl:output message="tns:GetAusentesEntreFechasParaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="EliminarLicenciaPendienteAprobacion">
+      <wsdl:input message="tns:EliminarLicenciaPendienteAprobacionSoapIn" />
+      <wsdl:output message="tns:EliminarLicenciaPendienteAprobacionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPasesEntreFechasPara">
       <wsdl:input message="tns:GetPasesEntreFechasParaSoapIn" />
       <wsdl:output message="tns:GetPasesEntreFechasParaSoapOut" />
@@ -4163,13 +4189,18 @@
       <wsdl:input message="tns:ActualizarAlumnoSoapIn" />
       <wsdl:output message="tns:ActualizarAlumnoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="InscribirAlumnosACurso">
-      <wsdl:input message="tns:InscribirAlumnosACursoSoapIn" />
-      <wsdl:output message="tns:InscribirAlumnosACursoSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InscribirAlumnosACurso">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/InscribirAlumnosACurso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="QuitarAlumno">
       <soap:operation soapAction="http://wsviaticos.gov.ar/QuitarAlumno" style="document" />
       <wsdl:input>
@@ -4899,6 +4930,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EliminarLicenciaPendienteAprobacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarLicenciaPendienteAprobacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPasesEntreFechasPara">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetPasesEntreFechasPara" style="document" />
       <wsdl:input>
@@ -5403,18 +5443,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InscribirAlumnosACurso">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/InscribirAlumnosACurso" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InscribirAlumnosACurso">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/InscribirAlumnosACurso" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="QuitarAlumno">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/QuitarAlumno" style="document" />
       <wsdl:input>
@@ -6144,6 +6184,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EliminarLicenciaPendienteAprobacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarLicenciaPendienteAprobacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPasesEntreFechasPara">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPasesEntreFechasPara" style="document" />
       <wsdl:input>
@@ -6641,15 +6690,6 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarAlumno">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarAlumno" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InscribirAlumnosACurso">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/InscribirAlumnosACurso" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

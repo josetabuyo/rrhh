@@ -32,46 +32,50 @@
     }
     }));
     columnas.push(new Columna("Eliminar", { generar: function (una_persona) {
-        var contenedorBtnAcciones = $('<div>');
-        var botonEliminar = $('<img>');
-        botonEliminar.addClass('remove-item-btn');
-        botonEliminar.attr('src', '../Imagenes/eliminar.png');
-        botonEliminar.attr('width', '35px');
-        botonEliminar.attr('height', '35px');
-        contenedorBtnAcciones.append(botonEliminar);
-        botonEliminar.click(function () {
 
-            var data_post = JSON.stringify({
-//                "observaciones_nuevas": JSON.stringify(PlanillaObservaciones.Objetos),
-//                "observaciones_originales": JSON.stringify(observaciones)
+        if (una_persona.estado() == "En Trámite"){
+            var contenedorBtnAcciones = $('<div>');
+            var botonEliminar = $('<img>');
+            botonEliminar.addClass('remove-item-btn');
+            botonEliminar.attr('src', '../Imagenes/eliminar.png');
+            botonEliminar.attr('width', '35px');
+            botonEliminar.attr('height', '35px');
+            contenedorBtnAcciones.append(botonEliminar);
+            botonEliminar.click(function () {
+
+                var data_post = JSON.stringify({
+                    documento: JSON.stringify(una_persona.documento()),
+                    desde: JSON.stringify(ParsearFecha(una_persona.desde())),
+                    hasta: JSON.stringify(ParsearFecha(una_persona.hasta()))
+                });
+                $.ajax({
+                    url: "../AjaxWS.asmx/EliminarLicenciaPendienteAprobacion",
+                    type: "POST",
+                    data: data_post,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (respuestaJson) {
+                        var respuesta = JSON.parse(respuestaJson.d);
+                        if (respuesta.length == 0)
+                        // _this.MostrarDetalleErrores(respuesta);
+
+                            location.href = "FormPlanillaObservaciones.aspx";
+                        //alertify.alert("Las observaciones se guardaron correctamente");
+                        //_this.CargarObservacionesDTO();
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alertify.alert(errorThrown);
+                    }
+                });
+
+
+
+
+
             });
-            $.ajax({
-                url: "../AjaxWS.asmx/EliminarLicenciaPendienteAprobacion",
-                type: "POST",
-                data: data_post,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (respuestaJson) {
-                    var respuesta = JSON.parse(respuestaJson.d);
-                    if (respuesta.length == 0)
-                    // _this.MostrarDetalleErrores(respuesta);
-
-                        location.href = "FormPlanillaObservaciones.aspx";
-                    //alertify.alert("Las observaciones se guardaron correctamente");
-                    //_this.CargarObservacionesDTO();
-
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alertify.alert(errorThrown);
-                }
-            });
-
-
-
-
-
-        });
-        return contenedorBtnAcciones;
+            return contenedorBtnAcciones;
+        }
     }
     }));
 
@@ -95,4 +99,13 @@
     };
 
     var featureList = new List('ContenedorPrincipal', options);
+
+    var ParsearFecha = function (fecha) {
+        var day = parseInt(fecha.split("/")[0]);
+        var month = parseInt(fecha.split("/")[1]);
+        var year = parseInt(fecha.split("/")[2]);
+
+        return new Date(year, month, day);
+
+    }
 }

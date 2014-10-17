@@ -238,6 +238,18 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetAusentesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
     }
 
+
+    [WebMethod]
+    public void EliminarLicenciaPendienteAprobacion(int documento, DateTime desde, DateTime hasta) 
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        repositorio.EliminarLicenciaPendienteAprobacion(documento, desde, hasta);
+    }
+    
+
+
+
     [WebMethod]
     public Persona[] GetPasesEntreFechasPara(Persona[] personas, DateTime desde, DateTime hasta)
     {
