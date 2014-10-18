@@ -222,13 +222,10 @@ namespace General.Repositorios
            // return vacaciones_permitidas;
         }
 
-        public void EliminarLicenciaPendienteAprobacion(int documento, DateTime desde, DateTime hasta) 
+        public void EliminarLicenciaPendienteAprobacion(int id) 
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@documento", documento);
-            parametros.Add("@desde", desde);
-            parametros.Add("@hasta", hasta);
-
+            parametros.Add("@id", id);
             this.conexion.EjecutarSinResultado("LIC_GEN_DelDiasPendientesDeAprobacion", parametros);
             
         }
@@ -441,6 +438,7 @@ namespace General.Repositorios
                             Inasistencia inasistencia = new Inasistencia();
                             Persona persona_con_inasistencia = new Persona();
                             inasistencia.Aprobada = true;
+                            inasistencia.Id = row.GetInt("Id");
                             inasistencia.Descripcion = row.GetSmallintAsInt("Concepto") + " - " + row.GetString("Descripcion");
                             inasistencia.Desde = row.GetDateTime("Desde");
                             inasistencia.Hasta = row.GetDateTime("Hasta");

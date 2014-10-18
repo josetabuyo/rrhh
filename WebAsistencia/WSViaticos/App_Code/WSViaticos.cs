@@ -240,11 +240,11 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public void EliminarLicenciaPendienteAprobacion(int documento, DateTime desde, DateTime hasta) 
+    public void EliminarLicenciaPendienteAprobacion(int id) 
     {
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
 
-        repositorio.EliminarLicenciaPendienteAprobacion(documento, desde, hasta);
+        repositorio.EliminarLicenciaPendienteAprobacion(id);
     }
     
 

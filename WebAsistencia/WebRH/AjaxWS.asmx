@@ -284,13 +284,9 @@ public class AjaxWS : System.Web.Services.WebService {
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public void EliminarLicenciaPendienteAprobacion(int documento, string desde, string hasta)
+    public void EliminarLicenciaPendienteAprobacion(int id)
     {
-        string desde_r = desde.Substring(1, 10);
-        string hasta_r = hasta.Substring(1, 10);
-        DateTime fecha_desde = DateTime.Parse(desde_r);
-        DateTime fecha_hasta = DateTime.Parse(hasta_r);
-        backEndService.EliminarLicenciaPendienteAprobacion(documento, fecha_desde, fecha_hasta);
+        backEndService.EliminarLicenciaPendienteAprobacion(id);
     }
     
     

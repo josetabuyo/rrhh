@@ -33,7 +33,7 @@
     }));
     columnas.push(new Columna("Eliminar", { generar: function (una_persona) {
 
-        if (una_persona.estado() == "En Trámite"){
+        if (una_persona.estado() == "En Trámite") {
             var contenedorBtnAcciones = $('<div>');
             var botonEliminar = $('<img>');
             botonEliminar.addClass('remove-item-btn');
@@ -44,9 +44,7 @@
             botonEliminar.click(function () {
 
                 var data_post = JSON.stringify({
-                    documento: JSON.stringify(una_persona.documento()),
-                    desde: JSON.stringify(ParsearFecha(una_persona.desde())),
-                    hasta: JSON.stringify(ParsearFecha(una_persona.hasta()))
+                    id: JSON.stringify(una_persona.idInasistencias())
                 });
                 $.ajax({
                     url: "../AjaxWS.asmx/EliminarLicenciaPendienteAprobacion",
@@ -55,14 +53,9 @@
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     success: function (respuestaJson) {
-                        var respuesta = JSON.parse(respuestaJson.d);
-                        if (respuesta.length == 0)
-                        // _this.MostrarDetalleErrores(respuesta);
-
-                            location.href = "FormPlanillaObservaciones.aspx";
-                        //alertify.alert("Las observaciones se guardaron correctamente");
-                        //_this.CargarObservacionesDTO();
-
+                        PlanillaPersonas.BorrarContenido();
+                        PlanillaPersonas.CargarObjetos(personas);
+                        PlanillaPersonas.DibujarEn(contenedorPlanilla);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.alert(errorThrown);
@@ -79,17 +72,17 @@
     }
     }));
 
-    
+
 
     PlanillaPersonas = new Grilla(columnas);
 
     PlanillaPersonas.AgregarEstilo("tabla_macc");
     PlanillaPersonas.AgregarEstilo("tabla_protocolo");
 
-//    PlanillaPersonas.SetOnRowClickEventHandler(function (un_area) {
-//        var vista = new VistaDeArea({ area: un_area });
-//        vista.mostrarModal();
-//    });
+    //    PlanillaPersonas.SetOnRowClickEventHandler(function (un_area) {
+    //        var vista = new VistaDeArea({ area: un_area });
+    //        vista.mostrarModal();
+    //    });
 
     PlanillaPersonas.CargarObjetos(personas);
     PlanillaPersonas.DibujarEn(contenedorPlanilla);
