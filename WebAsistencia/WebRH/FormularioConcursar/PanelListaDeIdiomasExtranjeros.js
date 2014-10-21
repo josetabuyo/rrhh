@@ -6,7 +6,16 @@
         _this.btn_agregar_idioma_extranjero = $("#btn_agregar_idioma_extranjero");
 
         _this.btn_agregar_idioma_extranjero.click(function () {
-            PanelDetalleDeIdiomaExtranjero.mostrar({
+            var panel_detalle = new PanelDetalleGenerico({
+                defaults: { Pais: 9,
+                    Escritura: 1,
+                    Lectura: 1,
+                    Oral: 1
+                },
+                path_html: "PanelDetalleDeIdiomaExtranjero.htm",
+                metodoDeGuardado: "GuardarCvIdiomaExtranjero",
+                mensajeDeGuardadoExitoso: "El idioma extranjero fue guardado correctamente",
+                mensajeDeGuardadoErroneo: "Error al guardar el idioma extranjero",
                 alModificar: function (nuevo_idioma_extranjero) {
                     _this.GrillaIdiomasExtranjeros.BorrarContenido();
                     idiomas_extranjeros.push(nuevo_idioma_extranjero);
@@ -40,8 +49,12 @@
                 var btn_eliminar = contenedorBtnAcciones.find("#btn_eliminar");
 
                 btn_editar.click(function () {
-                    PanelDetalleDeIdiomaExtranjero.mostrar({
-                        idioma_extranjero: un_idioma_extranjero,
+                    var panel_detalle = new PanelDetalleGenerico({
+                        modelo: un_idioma_extranjero,
+                        path_html: "PanelDetalleDeIdiomaExtranjero.htm",
+                        metodoDeGuardado: "ActualizarCvIdiomaExtranjero",
+                        mensajeDeGuardadoExitoso: "El idioma extranjero fue actualizado correctamente",
+                        mensajeDeGuardadoErroneo: "Error al actualizar el idioma extranjero",
                         alModificar: function (idioma_extranjero_modificado) {
                             _this.GrillaIdiomasExtranjeros.BorrarContenido();
                             _this.GrillaIdiomasExtranjeros.CargarObjetos(idiomas_extranjeros);
@@ -74,30 +87,17 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar el idioma?", function (e) {
             if (e) {
-                // user clicked "ok"
-                var proveedor_ajax = new ProveedorAjax();
-
-                proveedor_ajax.postearAUrl({ url: "EliminarCVIdiomaExtranjero",
-                    data: {
-                        id_idioma_extranjero: un_idioma_extranjero.Id
-                    },
-                    success: function (respuesta) {
+                Backend.EliminarCvIdiomaExtranjero(un_idioma_extranjero.Id)
+                    .onSuccess(function (respuesta) {
                         alertify.success("Idioma eliminado correctamente");
                         _this.GrillaIdiomasExtranjeros.QuitarObjeto(_this.divGrilla, un_idioma_extranjero);
                         var indice = _this.idiomas.indexOf(un_idioma_extranjero);
                         _this.idiomas.splice(indice, 1);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    })
+                    .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar el idioma");
-                    }
-                });
-            } else {
-                // user clicked "cancel"
-                alertify.error("No se pudo eliminar el idioma");
+                    });   
             }
         });
-
-
-
     }
 }

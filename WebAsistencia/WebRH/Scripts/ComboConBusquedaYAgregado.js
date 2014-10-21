@@ -3,7 +3,7 @@
     var def = {
         propiedadId: "Id",
         propiedadLabel: "Descripcion",
-        filtro: {}        
+        filtro: {}
     }
     $.extend(true, this, def, opt);
 
@@ -29,6 +29,8 @@
 
     if (this.dataProvider) {
         this.cargarComboDesdeProveedor();
+    } else {
+        this.cargarComboDesdeOpciones();
     }
 };
 
@@ -82,6 +84,19 @@ ComboConBusquedaYAgregado.prototype.cargarComboDesdeProveedor = function () {
         if (_this.idSeleccionado() === undefined) _this.limpiarSeleccion();
         else _this.idSeleccionado(_this.idSeleccionado());
     });
+};
+
+ComboConBusquedaYAgregado.prototype.cargarComboDesdeOpciones = function () {
+    var _this = this;
+    this.objetosCargados = [];
+    this.select.find("option").each(function (i, opt) {
+        var obj = {};
+        obj[_this.propiedadId] = $(opt).val();
+        obj[_this.propiedadLabel] = $(opt).text();
+        _this.objetosCargados.push(obj);
+    });
+    if (_this.idSeleccionado() === undefined) _this.limpiarSeleccion();
+    else _this.idSeleccionado(_this.idSeleccionado());
 };
 
 ComboConBusquedaYAgregado.prototype.filtrarPor = function (filtro) {

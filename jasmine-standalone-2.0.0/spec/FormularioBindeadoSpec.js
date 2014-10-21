@@ -230,6 +230,35 @@
             });
         });
 
+        describe("DADO: Un elemento <select> con elementos, dentro de un <div>", function () {
+            var formulario;
+            var select_si_no;
+
+            beforeEach(function () {
+                formulario = $('<div>');
+                select_si_no = $('<select id="combo_provincias"></select>');
+                select_si_no.append($('<option value=0>NO</option>'));
+                select_si_no.append($('<option value=1>SI</option>'));
+
+                formulario.append(select_si_no);
+            });
+
+            describe("DADO: un ComboConBusquedaYAgregado creado en base al <select>", function () {
+                var combo_provincias;
+                beforeEach(function () {
+                    combo_si_no = new ComboConBusquedaYAgregado({
+                        select: select_si_no
+                    });
+                });
+
+                it("ENTONCES: el combo debería cargarse con todas las opciones", function () {
+                    expect(combo_si_no.objetosCargados.length).toEqual(2);
+                    expect(combo_si_no.objetosCargados[0].Id).toEqual('0');
+                    expect(combo_si_no.objetosCargados[0].Descripcion).toEqual("NO");
+                });
+            });
+        });
+
         describe("DADO: varios elementos con atributos, dentro de un <div>", function () {
             var formulario;
             var select_provincia_nacimiento;

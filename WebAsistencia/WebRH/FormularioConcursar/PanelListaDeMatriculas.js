@@ -6,7 +6,12 @@
         _this.btn_agregar_otra_matricula = $("#btn_agregar_matricula");
 
         _this.btn_agregar_otra_matricula.click(function () {
-            PanelDetalleDeMatriculas.mostrar({
+            var panel_detalle = new PanelDetalleGenerico({
+                defaults: {},
+                path_html: "PanelDetalleDeMatricula.htm",
+                metodoDeGuardado: "GuardarCvMatricula",
+                mensajeDeGuardadoExitoso: "La matrícula fue guardada correctamente",
+                mensajeDeGuardadoErroneo: "Error al guardar la matrícula",
                 alModificar: function (nueva_matricula) {
                     _this.GrillaMatriculas.BorrarContenido();
                     matriculas.push(nueva_matricula);
@@ -29,8 +34,12 @@
                 var btn_eliminar = contenedorBtnAcciones.find("#btn_eliminar");
 
                 btn_editar.click(function () {
-                    PanelDetalleDeMatriculas.mostrar({
-                        matricula: una_matricula,
+                    var panel_detalle = new PanelDetalleGenerico({
+                        modelo: una_matricula,
+                        path_html: "PanelDetalleDeMatricula.htm",
+                        metodoDeGuardado: "ActualizarCvMatricula",
+                        mensajeDeGuardadoExitoso: "La matrícula fue actualizada correctamente",
+                        mensajeDeGuardadoErroneo: "Error al actualizar la matrícula",
                         alModificar: function (matricula_modificada) {
                             _this.GrillaMatriculas.BorrarContenido();
                             _this.GrillaMatriculas.CargarObjetos(matriculas);
@@ -63,27 +72,17 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la matrícula?", function (e) {
             if (e) {
-                // user clicked "ok"
-                var proveedor_ajax = new ProveedorAjax();
-
-                proveedor_ajax.postearAUrl({ url: "EliminarCvMatricula",
-                    data: {
-                        id_matricula: una_matricula.Id
-                    },
-                    success: function (respuesta) {
+                Backend.EliminarCvMatricula(una_matricula.Id)
+                    .onSuccess(function (respuesta) {
                         alertify.success("Matrícula eliminada correctamente");
                         _this.GrillaMatriculas.QuitarObjeto(_this.divGrilla, una_matricula);
                         var indice = _this.matriculas.indexOf(una_matricula);
                         _this.matriculas.splice(indice, 1);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    })
+                    .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la matrícula");
-                    }
-                });
-            } else {
-                // user clicked "cancel"
-                //alertify.error("No se pudo eliminar la capacidad");
-            }
+                    });   
+            } 
         });
 
 

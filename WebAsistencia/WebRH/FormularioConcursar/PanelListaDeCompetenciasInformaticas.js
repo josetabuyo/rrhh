@@ -6,7 +6,17 @@
         _this.btn_agregar_competencia_informatica = $("#btn_agregar_competencia_informatica");
 
         _this.btn_agregar_competencia_informatica.click(function () {
-            PanelDetalleDeCompetenciaInformatica.mostrar({
+            var panel_detalle = new PanelDetalleGenerico({
+                defaults: { 
+                    Pais: 9,
+                    Nivel: 1,
+                    TipoInformatica: 1,
+                    Conocimiento: 1
+                },
+                path_html: "PanelDetalleDeCompetenciaInformatica.htm",
+                metodoDeGuardado: "GuardarCvCompetenciaInformatica",
+                mensajeDeGuardadoExitoso: "La competencia informática fue guardada correctamente",
+                mensajeDeGuardadoErroneo: "Error al guardar la competencia informática",
                 alModificar: function (nueva_competencia_informatica) {
                     _this.GrillaCompetenciasInformaticas.BorrarContenido();
                     competencias_informaticas.push(nueva_competencia_informatica);
@@ -27,8 +37,12 @@
                 var btn_eliminar = contenedorBtnAcciones.find("#btn_eliminar");
 
                 btn_editar.click(function () {
-                    PanelDetalleDeCompetenciaInformatica.mostrar({
-                        competencia_informatica: una_competencia_informatica,
+                    var panel_detalle = new PanelDetalleGenerico({
+                        modelo: una_competencia_informatica,
+                        path_html: "PanelDetalleDeCompetenciaInformatica.htm",
+                        metodoDeGuardado: "ActualizarCvCompetenciaInformatica",
+                        mensajeDeGuardadoExitoso: "La competencia informática fue actualizada correctamente",
+                        mensajeDeGuardadoErroneo: "Error al actualizar la competencia informática",
                         alModificar: function (competencia_informatica_modificada) {
                             _this.GrillaCompetenciasInformaticas.BorrarContenido();
                             _this.GrillaCompetenciasInformaticas.CargarObjetos(competencias_informaticas);
@@ -61,28 +75,17 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la competencia informática?", function (e) {
             if (e) {
-                // user clicked "ok"
-                var proveedor_ajax = new ProveedorAjax();
-
-                proveedor_ajax.postearAUrl({ url: "EliminarCVCompetenciaInformatica",
-                    data: {
-                        id_competencia_informatica: una_competencia_informatica.Id
-                    },
-                    success: function (respuesta) {
+                Backend.EliminarCvCompetenciaInformatica(una_competencia_informatica.Id)
+                    .onSuccess(function (respuesta) {
                         alertify.success("Competencia informática eliminada correctamente");
                         _this.GrillaCompetenciasInformaticas.QuitarObjeto(_this.divGrilla, una_competencia_informatica);
                         var indice = _this.competencias.indexOf(una_competencia_informatica);
                         _this.competencias.splice(indice, 1);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    })
+                    .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la competencia informática");
-                    }
-                });
-            } else {
-                // user clicked "cancel"
-                alertify.error("No se pudo eliminar la competencia informática");
-            }
+                    }); 
+            } 
         });
-
     }
 }

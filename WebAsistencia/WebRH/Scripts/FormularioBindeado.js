@@ -67,7 +67,7 @@ FormularioBindeado.prototype.crearYBindearDatePicker = function (input) {
     };
     input.change(function () {
         _this.modelo.unwatch(path_propiedad_modelo, handler);
-        _this.modelo.setValorEnPath(path_propiedad_modelo, input.val());
+        _this.modelo.setValorEnPath(path_propiedad_modelo, input.datepicker('getDate').toISOString());
         _this.modelo.watch(path_propiedad_modelo, handler);
     });
     this.modelo.watch(path_propiedad_modelo, handler);
