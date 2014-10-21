@@ -4,7 +4,8 @@
     for (var i = 0; i < json_personas.length; i++) {
         personas.push(new Persona(json_personas[i]));
     }
-    contenedorPlanilla = $('#ContenedorPlanilla');
+
+    var contenedorPlanilla = $('#ContenedorPlanilla');
     var columnas = [];
 
     columnas.push(new Columna("Documento", { generar: function (una_persona) {
@@ -37,9 +38,9 @@
             var contenedorBtnAcciones = $('<div>');
             var botonEliminar = $('<img>');
             botonEliminar.addClass('remove-item-btn');
-            botonEliminar.attr('src', '../Imagenes/eliminar.png');
-            botonEliminar.attr('width', '35px');
-            botonEliminar.attr('height', '35px');
+            botonEliminar.attr('src', '../Imagenes/btnEliminar.gif');
+            botonEliminar.attr('width', '25px');
+            botonEliminar.attr('height', '25px');
             contenedorBtnAcciones.append(botonEliminar);
             botonEliminar.click(function () {
 
@@ -53,18 +54,12 @@
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     success: function (respuestaJson) {
-                        PlanillaPersonas.BorrarContenido();
-                        PlanillaPersonas.CargarObjetos(personas);
-                        PlanillaPersonas.DibujarEn(contenedorPlanilla);
+                        PlanillaPersonas.EliminarObjeto(una_persona);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alertify.alert(errorThrown);
                     }
                 });
-
-
-
-
 
             });
             return contenedorBtnAcciones;
@@ -74,15 +69,15 @@
 
 
 
-    PlanillaPersonas = new Grilla(columnas);
+    var PlanillaPersonas = new Grilla(columnas);
 
     PlanillaPersonas.AgregarEstilo("tabla_macc");
     PlanillaPersonas.AgregarEstilo("tabla_protocolo");
 
-    //    PlanillaPersonas.SetOnRowClickEventHandler(function (un_area) {
-    //        var vista = new VistaDeArea({ area: un_area });
-    //        vista.mostrarModal();
-    //    });
+    PlanillaPersonas.SetOnRowClickEventHandler(function (una_persona) {
+        //        var vista = new VistaDeArea({ area: un_area });
+        //        vista.mostrarModal();
+    });
 
     PlanillaPersonas.CargarObjetos(personas);
     PlanillaPersonas.DibujarEn(contenedorPlanilla);
