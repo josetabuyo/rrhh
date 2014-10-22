@@ -10,7 +10,7 @@
                     </a>
                     <a class="brand" href="#"></a>
                     <div class="nav-collapse navbar-responsive-collapse">
-                    <ul id="Ul1" class="nav"  runat="server">
+                    <ul id="MenuNavegacion" class="nav"  runat="server">
                         <li><a href="PanelDeControl.aspx" >Panel de Control</a></li>
                         <li><a href="Informacion.aspx" >Información</a></li>
                         <li><a href="Postulaciones.aspx" >Cargos</a></li>

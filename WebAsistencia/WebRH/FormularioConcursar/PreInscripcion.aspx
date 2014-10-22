@@ -179,7 +179,7 @@
         </div> 
        <%-- <a id="modal_preinscripcion" rel="leanModal" style="display:none;" name="modal_mensaje" href="#modal_mensaje"></a>--%>
         <asp:HiddenField ID="curriculum" runat="server" />
-        <asp:HiddenField ID="puesto" runat="server" />
+        <asp:HiddenField ID="perfil" runat="server" />
     </form>
 
 
@@ -191,7 +191,8 @@
 <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
 
 <script type="text/javascript">
-     var puesto;
+   // var puesto;
+    var perfil;
      var curriculum;
      Backend.start();
 

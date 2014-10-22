@@ -743,12 +743,27 @@ public class AjaxWS : System.Web.Services.WebService
 
     //#endregion
 
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public void SetPuestoEnSesion(WSViaticos.Puesto puesto)
+    //{
+    //    HttpContext.Current.Session[ConstantesDeSesion.PUESTO] = puesto;
+    //}
+
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public void SetPuestoEnSesion(WSViaticos.Puesto puesto)
+    public void SetPerfilEnSesion(WSViaticos.Perfil perfil)
     {
-        HttpContext.Current.Session[ConstantesDeSesion.PUESTO] = puesto;
+        HttpContext.Current.Session[ConstantesDeSesion.PERFIL] = perfil;
     }
+
+    //public void SetPuestoEnSesion(WSViaticos.Perfil perfil)
+    //{
+    //    HttpContext.Current.Session[ConstantesDeSesion.PERFIL] = perfil;
+    //}
+
+
+
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -766,10 +781,17 @@ public class AjaxWS : System.Web.Services.WebService
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetPuestoEnSesion(WSViaticos.Puesto puesto)
+    public string GetPerfilEnSesion(WSViaticos.Perfil perfil)
     {
-        return Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Session[ConstantesDeSesion.PUESTO]);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Session[ConstantesDeSesion.PERFIL]);
     }
+
+
+
+    //public string GetPuestoEnSesion(WSViaticos.Puesto puesto)
+    //{
+    //    return Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Session[ConstantesDeSesion.PUESTO]);
+    //}
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -792,37 +814,6 @@ public class AjaxWS : System.Web.Services.WebService
         var comite = backEndService.GetComite(idComite);
         return JsonConvert.SerializeObject(comite);
     }
-
-    [WebMethod(EnableSession = true)]
-    public string GetPostulacionesPorCodigo(string codigo)
-    {
-        var postulacion = backEndService.GetPostulacionesPorCodigo(codigo);
-
-        var usu_etapas = (from etapa in postulacion.Etapas
-                          select new
-                          {
-                              IdUsuario = etapa.IdUsuario,
-                              UsuarioEtapa = backEndService.GetUsuarioPorIdPersona(postulacion.Etapas[0].IdUsuario).Alias,
-                              IdEtapa = etapa.Etapa.Id
-                          }).ToList();
-
-        var usu = backEndService.GetUsuarioPorIdPersona(postulacion.Etapas[0].IdUsuario);
-        object datos_postulacion = new  {
-            Postulacion = postulacion,
-            UsuarioPostulacion = usu.Alias,
-            UsuEtapas = usu_etapas
-        };
-        return Newtonsoft.Json.JsonConvert.SerializeObject(datos_postulacion);
-    }
-
-    [WebMethod(EnableSession = true)]
-    public void InsEtapaPostulacion(int id_postulacion ,WSViaticos.EtapaPostulacion etapa_postulacion)
-    {
-        etapa_postulacion.IdUsuario = usuarioLogueado.Id;
-        backEndService.InsEtapaPostulacion(id_postulacion, etapa_postulacion);
-
-    }
-    
 
     #endregion
 

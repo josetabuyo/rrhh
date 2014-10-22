@@ -2345,9 +2345,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
+    public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
     {
-        Autorizador().RegistrarNuevoUsuario(aspirante);
+        return Autorizador().RegistrarNuevoUsuario(aspirante);
     }
 
     private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
@@ -2440,14 +2440,33 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Postulacion GetPostulacionesPorCodigo(string codigo)
     {
-        var postulaciones = RepoPostulaciones().GetPostulacionesPorCodigo(codigo);
-        return postulaciones;
+        var postulacion = RepoPostulaciones().GetPostulacionesPorCodigo(codigo);
+        /*var usu_etapas = (from etapa in postulacion.Etapas
+                          select new
+                          {
+                              IdUsuario = etapa.IdUsuario,
+                              UsuarioEtapa = RepositorioDeUsuarios().GetUsuarioPorIdPersona(etapa.IdUsuario).Owner.Nombre + " " + RepositorioDeUsuarios().GetUsuarioPorIdPersona(etapa.IdUsuario).Owner.Apellido,
+                              IdEtapa = etapa.Etapa.Id,
+                              Descripcion = etapa.Etapa.Descripcion,
+                              Fecha = etapa.Fecha
+                          }).ToList();
+
+
+        var usu = RepositorioDeUsuarios().GetUsuarioPorIdPersona(postulacion.Etapas[0].IdUsuario);
+        object datos_postulacion = new
+        {
+            Postulacion = postulacion,
+            UsuarioPostulacion = usu.Owner.Nombre + " " + usu.Owner.Apellido,
+            UsuEtapas = usu_etapas
+        };
+        return Newtonsoft.Json.JsonConvert.SerializeObject(datos_postulacion);*/
+        return postulacion;
     }
 
     [WebMethod(EnableSession = true)]
-    public EtapaConcurso[] BuscarEtapasConcurso()
+    public EtapaConcurso[] BuscarEtapasConcurso(string criterio)
     {
-        var etapas = RepoPostulaciones().GetEtapasConcurso().ToArray();
+        var etapas = RepoPostulaciones().BuscarEtapasConcurso().ToArray();
         return etapas;
     }
 
@@ -2458,9 +2477,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void InsEtapaPostulacion(int id_postulacion, EtapaPostulacion etapa_postulacion)
+    public void InsEtapaPostulacion(int id_postulacion, int id_etapa_postulacion, Usuario usuario)
     {
-        RepoPostulaciones().InsEtapaPostulacion(id_postulacion, etapa_postulacion);
+        RepoPostulaciones().InsEtapaPostulacion(id_postulacion, id_etapa_postulacion, usuario.Owner.Id);
     }
 
     #region CVAntecedentesAcademicos
@@ -2715,11 +2734,19 @@ public class WSViaticos : System.Web.Services.WebService
     }
     #endregion
 
+    //[WebMethod]
+    //public Puesto[] GetCvPuestos()
+    //{
+    //    return RepoPuestos().GetPuestos().ToArray();
+    //}
+
     [WebMethod]
-    public Puesto[] GetCvPuestos()
+    public Perfil[] GetCvPerfiles()
     {
-        return RepoPuestos().GetPuestos().ToArray();
+        return RepoPerfiles().GetPerfiles().ToArray();
     }
+
+
 
     [WebMethod]
     public Postulacion GetPostulacionById(int idpersona,int idpostulacion)
@@ -2932,6 +2959,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDePuestos RepoPuestos()
     {
         return new RepositorioDePuestos(Conexion());
+    }
+
+    private RepositorioDePerfiles RepoPerfiles()
+    {
+        return new RepositorioDePerfiles(Conexion());
     }
 
     private RepositorioDePostulaciones RepoPostulaciones()

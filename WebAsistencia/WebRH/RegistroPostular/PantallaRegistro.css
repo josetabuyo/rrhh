@@ -30,6 +30,28 @@
     text-align:right;
 }
 
+.lbl_mensaje_campo
+{
+    font-weight: bold;
+    display: inline-block;
+    margin: 5px;
+    text-align:center;
+    color: Gray;
+    font-size:13px;
+}
+
+.lbl_titulo_campo_captcha
+{
+    font-weight: bold;
+    width: 150px;
+    display: inline-block;
+    margin-left: 5px;
+    text-align:right;
+    color: Gray;
+    font-size: 12px;
+   
+}
+
 .campo_a_completar
 {
     width: 350px;

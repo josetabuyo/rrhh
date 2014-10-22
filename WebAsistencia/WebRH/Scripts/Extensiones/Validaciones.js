@@ -21,7 +21,7 @@
         esNumeroNaturalSinCero: {
             evaluar: function (control) {
                 if (control.prop("disabled")) return true;
-                if (control.val() == "") return true;
+                if (control.val() == "") return false;
                 if (control.val() == 0) return false;
                 return (/^\d+$/).test(control.val());
             },

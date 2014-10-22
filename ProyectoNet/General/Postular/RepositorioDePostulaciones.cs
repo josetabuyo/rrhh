@@ -5,6 +5,7 @@ using System.Text;
 using General;
 using General.Repositorios;
 using General.MAU;
+using General.Postular;
 
 namespace General
 {
@@ -21,9 +22,8 @@ namespace General
         {
 
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@idPuesto", postulacion.Puesto.Id);
+            parametros.Add("@idPuesto", postulacion.Perfil.Id);
             parametros.Add("@idPersona", usuario.Owner.Id);
-            //parametros.Add("@FechaPostulacion", postulacion.FechaPostulacion);
             parametros.Add("@Motivo", postulacion.Motivo);
             parametros.Add("@Observacion", postulacion.Observaciones);
             parametros.Add("@Usuario", usuario.Id);
@@ -65,7 +65,7 @@ namespace General
             {
                 var postulacion = new Postulacion(){
                    Id= row.GetInt("IdPostulacion"), 
-                   Puesto=ArmarPuesto(row), 
+                   Perfil=ArmarPuesto(row), 
                    IdPersona=row.GetInt("IdPersona"), 
                    FechaPostulacion=row.GetDateTime("FechaInscripcion"),
                    Motivo=row.GetString("Motivo"), 
@@ -123,7 +123,7 @@ namespace General
             return lista;
         }
 
-        public List<EtapaConcurso> GetEtapasConcurso()
+        public List<EtapaConcurso> BuscarEtapasConcurso()
         {
             var tablaCVs = conexion_bd.Ejecutar("dbo.CV_Get_EtapasConcurso");
 
@@ -141,11 +141,29 @@ namespace General
 
         }
 
-        private Puesto ArmarPuesto(RowDeDatos row)
+        //private Puesto ArmarPuesto(RowDeDatos row)
+        //{
+        //    var repo_comite = new RepositorioDeComites(this.conexion_bd);
+        //    return new Puesto(
+        //                      row.GetInt("IdPuesto"),
+        //                      row.GetString("Familia"),
+        //                      row.GetString("Profesion"),
+        //                      row.GetString("Denominacion"),
+        //                      row.GetString("Nivel"),
+        //                      row.GetString("Agrupamiento"),
+        //                      row.GetInt("Vacantes"),
+        //                      row.GetString("Tipo"),
+        //                      row.GetString("Puesto_Numero"),
+        //                      repo_comite.GetComiteById(row.GetInt("IdComite")
+        //                      )
+        //        );
+        //}
+
+        private Perfil ArmarPuesto(RowDeDatos row)
         {
             var repo_comite = new RepositorioDeComites(this.conexion_bd);
-            return new Puesto(
-                              row.GetInt("IdPuesto"),
+            return new Perfil(
+                              row.GetInt("IdPerfil"),
                               row.GetString("Familia"),
                               row.GetString("Profesion"),
                               row.GetString("Denominacion"),
@@ -158,6 +176,8 @@ namespace General
                               )
                 );
         }
+        
+
 
         public Postulacion GetPostulacionById(int idpersona, int idpostulacion)
         {
@@ -179,7 +199,8 @@ namespace General
 
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@IdPostulacion", postulacion.Id);
-                parametros.Add("@IdPuesto", postulacion.Puesto.Id);
+             //   parametros.Add("@IdPuesto", postulacion.Puesto.Id);
+                parametros.Add("@IdPerfil", postulacion.Perfil.Id);
                 parametros.Add("@IdPersona", postulacion.IdPersona);
                 parametros.Add("@FechaInscripcion", postulacion.FechaPostulacion);
                 parametros.Add("@Usuario", usuario.Id);
@@ -206,13 +227,13 @@ namespace General
             return id;
         }
 
-        public void InsEtapaPostulacion(int id_postulacion,EtapaPostulacion etapa_postulacion)
+        public void InsEtapaPostulacion(int id_postulacion,int id_etapa_postulacion, int id_usuario)
         {
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdPostulacion", id_postulacion);
-            parametros.Add("@Descripcion", etapa_postulacion.Etapa.Id);
-            parametros.Add("@Usuario", etapa_postulacion.IdUsuario);
+            parametros.Add("@IdEtapa", id_etapa_postulacion);
+            parametros.Add("@IdUsuario", id_usuario);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Ins_EtapaPostulación", parametros);
         }

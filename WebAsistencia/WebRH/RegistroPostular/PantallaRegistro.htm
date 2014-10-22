@@ -2,18 +2,19 @@
     <link id="link1" rel="stylesheet" href="RegistroPostular/PantallaRegistro.css" type="text/css" />
 </head>
 <div role="form" id="panel_paso_1">
-    <div class="form-group">
+    <div class="form-group" style="height:350px">
         <!--        <label>tipo de documento:&nbsp;</label>
         <select id="cmb_tipo_documento" class="form-control">
             <option value="dni">DNI</option>
             <option value="le">LE</option>
             <option value="lc">LC</option>
         </select>-->
-        <label class="lbl_titulo_campo">
+        <iframe id="imgCaptchaRegistro" frameborder="0" scroll="no" src="RegistroPostular/FormCaptchaRegistro.aspx" style="width:100%; height:100%"></iframe>
+        <!--<label class="lbl_titulo_campo">
             DNI:
         </label>
         <input id="txt_numero_documento" data-validar="esNoBlanco, esNumeroNatural, longitudMaxima(8)" class="form-control campo_a_completar" />
-        <input id="btn_validar" type="button" class="btn btn-primary" value="Validar" />
+        <input id="btn_validar" type="button" class="btn btn-primary" value="Validar" />-->
     </div>
 </div>
 <div role="form" id="panel_paso_2">
@@ -52,9 +53,12 @@
     </div>
 </div>
 <div role="form" id="panel_paso_3">
-    <div class="form-group">
-        <label class="lbl_titulo_campo">E-mail:</label>
-        <input id="txt_mail_recupero" data-validar="esEmailValido" class="form-control campo_a_completar" />
-        <input id="btn_recuperar" type="button" class="btn btn-primary" value="Recuperar"/> 
+    <div class="form-group" style="height:250px">
+       <!-- <label class="lbl_titulo_campo">E-mail:</label>
+        <input id="txt_mail_recupero" data-validar="esEmailValido" class="form-control campo_a_completar" />-->
+        <!--<input id="btn_recuperar" type="button" class="btn btn-primary" value="Recuperar"/> -->
+
+        <iframe id="imgCaptchaRecupero" frameborder="0" scroll="no" src="RegistroPostular/FormCaptchaRecupero.aspx" style="width:100%; height:100%"></iframe>
     </div>
+     
 </div>

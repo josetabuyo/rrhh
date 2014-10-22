@@ -57,12 +57,14 @@
                                 <div class="grupo_campos nueva_linea">
                                     <label for="nombre">
                                         Nombre <em>*</em></label>
-                                    <input id="nombre" type="text" rh-control-type="textbox" rh-model-property="Nombre" style="width: 160px;" data-validar="esNoBlanco" maxlength="100" />
+                                    <input id="nombre" type="text" rh-control-type="textbox" rh-model-property="Nombre"
+                                        style="width: 160px;" data-validar="esNoBlanco" maxlength="100" />
                                 </div>
                                 <div class="grupo_campos">
                                     <label for="apellido">
                                         Apellido <em>*</em></label>
-                                    <input id="apellido" type="text" style="width: 160px;" rh-control-type="textbox" rh-model-property="Apellido" data-validar="esNoBlanco" />
+                                    <input id="apellido" type="text" style="width: 160px;" rh-control-type="textbox"
+                                        rh-model-property="Apellido" data-validar="esNoBlanco" />
                                 </div>
                                 <div id="contenedor_cmb_sexo" class="grupo_campos">
                                     <label for="cmb_sexo">
@@ -88,25 +90,28 @@
                                 <div class="grupo_campos">
                                     <label class="etiqueta_campo" for="txt_documento">
                                         Nro Documento <em>*</em></label>
-                                    <input id="txt_documento" type="text" style="width: 160px;" rh-control-type="textbox" rh-model-property="Dni" data-validar="esNumeroNatural" />
+                                    <input id="txt_documento" type="text" style="width: 160px;" rh-control-type="textbox"
+                                        rh-model-property="Dni" data-validar="esNumeroNatural" />
                                 </div>
                                 <div class="grupo_campos">
                                     <label for="cuil">
                                         CUIL <em>*</em>
-                                        <h5 style="display: inline-block;">(Ej.:20-22114543-5)</h5>
+                                        <h5 style="display: inline-block;">
+                                            (Ej.:20-22114543-5)</h5>
                                     </label>
                                     <input id="cuil" type="text" style="width: 270px;" data-validar="esNoBlanco" />
                                 </div>
                                 <div class="grupo_campos nueva_linea">
                                     <label class="etiqueta_campo" for="txt_fechaNac">
                                         Fecha Nacimiento <em>*</em></label>
-                                    <input type="text" id="txt_fechaNac" style="width: 110px;" rh-control-type="datepicker" rh-model-property="FechaNacimiento" data-validar="esNoBlanco" />
+                                    <input type="text" id="txt_fechaNac" style="width: 110px;" rh-control-type="datepicker"
+                                        rh-model-property="FechaNacimiento" data-validar="esNoBlanco" />
                                 </div>
                                 <div class="grupo_campos">
                                     <label class="etiqueta_campo" for="cmb_lugar_nacimiento">
                                         Lugar Nacimiento <em>*</em></label>
-                                    <input type="text" id="cmb_lugar_nacimiento" style="width: 210px;" rh-control-type="textbox" rh-model-property="LugarDeNacimiento"
-                                        data-validar="esNoBlanco" /></div>
+                                    <input type="text" id="cmb_lugar_nacimiento" style="width: 210px;" rh-control-type="textbox"
+                                        rh-model-property="LugarDeNacimiento" data-validar="esNoBlanco" /></div>
                                 <div class="grupo_campos">
                                     <label class="etiqueta_campo" for="cmb_nacionalidad">
                                         Nacionalidad <em>*</em></label>
@@ -130,18 +135,20 @@
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_piso1">
                                     Piso</label>
-                                <input type="text" id="txt_piso1" name="txt_piso1" rh-control-type="textbox" rh-model-property="DomicilioPersonal.Piso" style="width: 30px" />
+                                <input type="text" id="txt_piso1" name="txt_piso1" rh-control-type="textbox" rh-model-property="DomicilioPersonal.Piso"
+                                    style="width: 30px" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_dto1">
                                     Dto</label>
-                                <input type="text" id="txt_dto1" name="txt_dto1" rh-control-type="textbox" rh-model-property="DomicilioPersonal.Depto" style="width: 30px" />
+                                <input type="text" id="txt_dto1" name="txt_dto1" rh-control-type="textbox" rh-model-property="DomicilioPersonal.Depto"
+                                    style="width: 30px" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo_small" for="txt_cp1">
                                     Código Postal <em>*</em></label>
-                                <input type="text" id="txt_cp1" name="txt_cp1" style="width: 80px" rh-control-type="textbox" rh-model-property="DomicilioPersonal.Cp" data-validar="esNumeroNatural"
-                                    maxlength="10">
+                                <input type="text" id="txt_cp1" name="txt_cp1" style="width: 80px" rh-control-type="textbox"
+                                    rh-model-property="DomicilioPersonal.Cp" data-validar="esNumeroNatural" maxlength="10">
                             </div>
                             <div class="grupo_campos nueva_linea">
                                 <label class="etiqueta_campo" for="cmb_provincia1">
@@ -156,8 +163,13 @@
                                     Localidad <em>*</em></label>
                                 <select id="cmb_localidad1" style="width: 320px;" rh-control-type="combo" rh-propiedad-label="Nombre"
                                     rh-data-provider="Localidades" rh-model-property="DomicilioPersonal.Localidad"
-                                    rh-filter-key="IdProvincia" rh-filter-value="DomicilioPersonal.Provincia" data-validar="haySeleccionEnCombo" >
+                                    rh-filter-key="IdProvincia" rh-filter-value="DomicilioPersonal.Provincia" data-validar="haySeleccionEnCombo">
                                 </select>
+                            </div>
+                            <div class="grupo_campos">
+                                <p class="aclaraciones">
+                                    <input id="chk_replicar" type="checkbox" onchange="replicarDireccion()" />Usar esta
+                                    dirección para notificaciones</p>
                             </div>
                         </fieldset>
                         <br />
@@ -179,18 +191,20 @@
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_piso2">
                                     Piso</label>
-                                <input type="text" id="txt_piso2" name="txt_piso2" style="width: 30px" maxlength="10"  rh-control-type="textbox" rh-model-property="DomicilioLegal.Piso" />
+                                <input type="text" id="txt_piso2" name="txt_piso2" style="width: 30px" maxlength="10"
+                                    rh-control-type="textbox" rh-model-property="DomicilioLegal.Piso" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_dto2">
                                     Dto</label>
-                                <input type="text" id="txt_dto2" name="txt_dto2" style="width: 30px" maxlength="10"  rh-control-type="textbox" rh-model-property="DomicilioLegal.Depto" />
+                                <input type="text" id="txt_dto2" name="txt_dto2" style="width: 30px" maxlength="10"
+                                    rh-control-type="textbox" rh-model-property="DomicilioLegal.Depto" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo_small" for="txt_cp2">
                                     Código Postal <em>*</em></label>
-                                <input type="text" id="txt_cp2" name="txt_cp2" style="width: 80px" data-validar="esNumeroNatural"  rh-control-type="textbox" rh-model-property="DomicilioLegal.Cp" 
-                                    maxlength="20" /><br />
+                                <input type="text" id="txt_cp2" name="txt_cp2" style="width: 80px" data-validar="esNumeroNatural"
+                                    rh-control-type="textbox" rh-model-property="DomicilioLegal.Cp" maxlength="20" /><br />
                             </div>
                             <div class="grupo_campos nueva_linea">
                                 <label class="etiqueta_campo" for="cmb_provincia2">
@@ -210,19 +224,20 @@
                             <div class="grupo_campos nueva_linea">
                                 <label class="etiqueta_campo" for="txt_telefono">
                                     Tel&eacute;fono Fijo <em>*</em></label>
-                                <input type="text" id="txt_telefono" name="txt_telefonoFijo" style="width: 140px;"  rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono" 
-                                    data-validar="haySeleccionEnCombo" />
+                                <input type="text" id="txt_telefono" name="txt_telefonoFijo" style="width: 140px;"
+                                    rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono" data-validar="haySeleccionEnCombo" />
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_telefono2">
                                     Tel&eacute;fono Celular<em>*</em></label>
-                                <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width: 140px;" rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono2" 
-                                    data-validar="haySeleccionEnCombo" />
+                                <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width: 140px;"
+                                    rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono2" data-validar="haySeleccionEnCombo" />
                             </div>
                             <div id="contenedor_mails" class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_email">
                                     Correo Electrónico<em>*</em></label>
-                                <input type="text" id="txt_email" name="txt_email" style="width: 320px" data-validar="esEmailValido, esNoBlanco" rh-control-type="textbox" rh-model-property="DatosDeContacto.Email"  />
+                                <input type="text" id="txt_email" name="txt_email" style="width: 320px" data-validar="esEmailValido, esNoBlanco"
+                                    rh-control-type="textbox" rh-model-property="DatosDeContacto.Email" />
                             </div>
                         </fieldset>
                         <br />
@@ -234,8 +249,9 @@
             </div>
             <div class="accordion-group">
                 <div id="ancla2" class="accordion-heading ">
-                    <a class="accordion-toggle titulo_acordion" style="" data-toggle="collapse" data-parent="#accordion"
-                        href="#collapseTwo">ANTECEDENTES ACADÉMICOS </a>
+                    <a class="accordion-toggle
+    titulo_acordion" style="" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">ANTECEDENTES
+                        ACADÉMICOS </a>
                 </div>
                 <div id="collapseTwo" class="accordion-body collapse">
                     <div class="accordion-inner fondo_form">
@@ -253,10 +269,12 @@
             </div>
             <div class="accordion-group">
                 <div id="ancla3" class="accordion-heading">
-                    <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion"
-                        href="#collapseThree">ACTIVIDADES DE CAPACITACI&Oacute;N </a>
+                    <a class="accordion-toggle
+    titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">ACTIVIDADES DE
+                        CAPACITACI&Oacute;N </a>
                 </div>
-                <div id="collapseThree" class="accordion-body collapse">
+                <div id="collapseThree" class="accordion-body
+    collapse">
                     <div class="accordion-inner fondo_form">
                         <fieldset style="width: 100%;">
                             <legend><a id="btn_agregar_actividad_capacitacion" class="link">Cargar actividad de
@@ -296,7 +314,8 @@
                         EVENTOS ACAD&Eacute;MICOS </a>
                 </div>
                 <div id="collapseFive" class="accordion-body collapse">
-                    <div class="accordion-inner fondo_form">
+                    <div class="accordion-inner
+    fondo_form">
                         <fieldset style="width: 100%;">
                             <legend><a id="btn_agregar_evento_academico" class="link">Cargar evento académico</a></legend>
                             <h4>
@@ -333,7 +352,8 @@
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
                         MATR&Iacute;CULAS </a>
                 </div>
-                <div id="collapseSeven" class="accordion-body collapse">
+                <div id="collapseSeven" class="accordion-body
+    collapse">
                     <div class="accordion-inner fondo_form">
                         <fieldset style="width: 100%;">
                             <legend><a id="btn_agregar_matricula" class="link">Cargar matrícula</a></legend>
@@ -352,7 +372,8 @@
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
                         INSTITUCIONES ACAD&Eacute;MICAS </a>
                 </div>
-                <div id="collapseEight" class="accordion-body collapse">
+                <div id="collapseEight" class="accordion-body
+    collapse">
                     <div class="accordion-inner fondo_form">
                         <fieldset style="width: 100%;">
                             <legend><a id="btn_agregar_institucion_academica" class="link">Cargar institución académica</a></legend>
@@ -391,7 +412,8 @@
                         IDIOMAS EXTRANJEROS </a>
                 </div>
                 <div id="collapseTen" class="accordion-body collapse">
-                    <div class="accordion-inner fondo_form">
+                    <div class="accordion-inner
+    fondo_form">
                         <fieldset style="width: 100%;">
                             <legend><a id="btn_agregar_idioma_extranjero" class="link">Cargar idioma extranjero</a></legend>
                             <h4>
@@ -430,7 +452,8 @@
                         OTRAS CAPACIDADES </a>
                 </div>
                 <div id="collapseTwelve" class="accordion-body collapse">
-                    <div class="accordion-inner fondo_form">
+                    <div class="accordion-inner
+    fondo_form">
                         <fieldset style="width: 100%;">
                             <legend><a id="btn_agregar_otra_capacidad" class="link">Cargar otra capacidad</a></legend>
                             <h4>
@@ -445,7 +468,7 @@
             </div>
         </div>
     </div>
-    <%-----------------    MODAL DE VISTA PRELIMINAR ---------------------%>
+    <%----------------- MODAL DE VISTA PRELIMINAR ---------------------%>
     <input type="text" id="urlAjax" value="" style="display: none;" />
     <div id="plantillas">
         <div class="botonera_grilla">
@@ -477,11 +500,8 @@
 <script type="text/javascript" src="PanelListaDeExperienciasLaborales.js"></script>
 <script type="text/javascript" src="PanelListaDeIdiomasExtranjeros.js"></script>
 <script type="text/javascript" src="PanelListaDeCompetenciasInformaticas.js"></script>
-
 <script type="text/javascript" src="PanelListaDeOtrasCapacidades.js"></script>
-
 <script type="text/javascript" src="RepositorioDeTiposDeCapacidadPersonal.js"></script>
-
 <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Postulacion.js"></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js"></script>

@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PanelDeControl.aspx.cs" Inherits="FormularioConcursar_PanelDeControl" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="~/FormularioConcursar/MenuConcursar.ascx" TagName="BarraMenuConcursar" TagPrefix="uc3" %>
+<%@ Register Src="~/FormularioConcursar/Pasos.ascx" TagName="Pasos" TagPrefix="uc4" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -57,7 +58,7 @@
             <a href="VistaPreliminar.aspx" ><span><img alt="descargar" width="22px" height="22px" src="../Imagenes/Botones/guardar.png" />&nbsp;Descargar CV</span></a>                 
            
           <!--  <div class="panel panel-default">-->
-              <div style="height: 435px;" class="panel-body estilo_paneles  ">
+              <div style="height: 435px;"   ">
                <h3 class="panel-title" >Mis Postulaciones</h3>
                
                  <hr class="lineas-subraya"/>
@@ -93,6 +94,9 @@
     Backend.start();
     $(document).ready(function () {
         var postulaciones = JSON.parse($('#postulaciones').val());
+
+        
+
         PanelDeControl.armarPostulaciones(postulaciones);
     });
  </script>
