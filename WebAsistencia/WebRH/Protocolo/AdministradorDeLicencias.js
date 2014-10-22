@@ -51,7 +51,7 @@
 
                 if (eliminacionok) {
 
-                    var mensaje = "¿Está seguro que desea eliminar Licencia de " + una_persona.nombre() + "?";
+                    var mensaje = "¿Está seguro que desea eliminar Licencia de " + una_persona.nombre() + " solicitada desde: " + una_persona.desde() + " hasta: " + una_persona.hasta() + "?";
                         alertify.confirm(mensaje, function (e) {
                             if (e) {
                                 // user clicked "ok"
@@ -78,7 +78,7 @@
                     
                 }
                 else {
-                    alertify.alert("Esta licencia se encuentra vigente. Para eliminarla, por favor, contáctese con Recursos Humanos");
+                    alertify.alert("Esta Licencia se encuentra en proceso. Para eliminarla, por favor, contáctese con Recursos Humanos");
                 }
             });
             return contenedorBtnAcciones;
