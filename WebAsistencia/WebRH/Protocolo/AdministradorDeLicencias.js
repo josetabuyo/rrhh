@@ -33,34 +33,43 @@
     }
     }));
     columnas.push(new Columna("Eliminar", { generar: function (una_persona) {
-
         if (una_persona.estado() == "En Trámite") {
+            var fecha_actual = ConversorDeFechas.deIsoAFechaEnCriollo(new Date());
+            var eliminacionok = ConversorDeFechas.PrimeraFechaCriolloMayor(una_persona.desde(), fecha_actual);
             var contenedorBtnAcciones = $('<div>');
             var botonEliminar = $('<img>');
             botonEliminar.addClass('remove-item-btn');
-            botonEliminar.attr('src', '../Imagenes/btnEliminar.gif');
+            if (eliminacionok) {
+                botonEliminar.attr('src', '../Imagenes/btnEliminar.gif');
+            } else {
+                botonEliminar.attr('src', '../Imagenes/btnAviso.png'); 
+            }
             botonEliminar.attr('width', '25px');
             botonEliminar.attr('height', '25px');
             contenedorBtnAcciones.append(botonEliminar);
             botonEliminar.click(function () {
-
-                var data_post = JSON.stringify({
-                    id: JSON.stringify(una_persona.idInasistencias())
-                });
-                $.ajax({
-                    url: "../AjaxWS.asmx/EliminarLicenciaPendienteAprobacion",
-                    type: "POST",
-                    data: data_post,
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (respuestaJson) {
-                        PlanillaPersonas.EliminarObjeto(una_persona);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert(errorThrown);
-                    }
-                });
-
+                
+                if (eliminacionok) {
+                    var data_post = JSON.stringify({
+                        id: JSON.stringify(una_persona.idInasistencias())
+                    });
+                    $.ajax({
+                        url: "../AjaxWS.asmx/EliminarLicenciaPendienteAprobacion",
+                        type: "POST",
+                        data: data_post,
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (respuestaJson) {
+                            PlanillaPersonas.EliminarObjeto(una_persona);
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alertify.alert(errorThrown);
+                        }
+                    });
+                }
+                else {
+                    alertify.alert("Esta licencia se encuentra vigente. Para eliminarla, por favor, contáctese con Recursos Humanos");
+                }
             });
             return contenedorBtnAcciones;
         }
