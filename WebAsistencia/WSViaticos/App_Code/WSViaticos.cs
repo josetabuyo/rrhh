@@ -428,7 +428,7 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioDeOrganigrama repo = new RepositorioDeOrganigrama(Conexion());
         var organigrama = repo.GetOrganigrama();
         var excepciones = repo.ExcepcionesDeCircuitoViaticos();
-        var area_de_viaticos = new Area(1073, "Área de Viáticos y Pasajes", "010100100300100000001073", true);
+        var area_de_viaticos = new Area(1073, "Área de Viáticos y Pasajes", true);
         var circuito = new CircuitoDeAprobacionDeViatico(organigrama, excepciones, area_de_viaticos);
         return circuito.SiguienteAreaDe(area_actual);
     }

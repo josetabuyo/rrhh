@@ -50,6 +50,10 @@ namespace General
         {
             List<Area> areas_inferiores_inmediatas = new List<Area>();
 
+            if (nodo_padre == null)
+            {
+                var a = 1;
+            }
             if (nodo_padre.Area().Equals(un_area)){
             
                 areas_inferiores_inmediatas.Add(area);
