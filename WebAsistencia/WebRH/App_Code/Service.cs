@@ -478,16 +478,16 @@ public class AjaxWS : System.Web.Services.WebService
 
     #region POSTULAR
 
-    #region CvAntecedentesAcademicos
+    //#region CvAntecedentesAcademicos
 
-    [WebMethod(EnableSession = true)]
-    public string EliminarCVAntecedenteAcademico(int antecedentesAcademicos_borrar)
-    {
-        var antecedentesAcademicos = backEndService.EliminarCvAntecedenteAcademico(antecedentesAcademicos_borrar, usuarioLogueado);
-        return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicos);
-    }
+    //[WebMethod(EnableSession = true)]
+    //public string EliminarCVAntecedenteAcademico(int antecedentesAcademicos_borrar)
+    //{
+    //    var antecedentesAcademicos = backEndService.EliminarCvAntecedenteAcademico(antecedentesAcademicos_borrar, usuarioLogueado);
+    //    return Newtonsoft.Json.JsonConvert.SerializeObject(antecedentesAcademicos);
+    //}
 
-    #endregion
+    //#endregion
 
     //#region CvActividadesDocentes
 
