@@ -48,24 +48,34 @@
             botonEliminar.attr('height', '25px');
             contenedorBtnAcciones.append(botonEliminar);
             botonEliminar.click(function () {
-                
+
                 if (eliminacionok) {
-                    var data_post = JSON.stringify({
-                        id: JSON.stringify(una_persona.idInasistencias())
-                    });
-                    $.ajax({
-                        url: "../AjaxWS.asmx/EliminarLicenciaPendienteAprobacion",
-                        type: "POST",
-                        data: data_post,
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        success: function (respuestaJson) {
-                            PlanillaPersonas.EliminarObjeto(una_persona);
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alertify.alert(errorThrown);
-                        }
-                    });
+
+                    var mensaje = "¿Está seguro que desea eliminar Licencia de " + una_persona.nombre() + "?";
+                        alertify.confirm(mensaje, function (e) {
+                            if (e) {
+                                // user clicked "ok"
+                                var data_post = JSON.stringify({
+                                    id: JSON.stringify(una_persona.idInasistencias())
+                                });
+                                $.ajax({
+                                    url: "../AjaxWS.asmx/EliminarLicenciaPendienteAprobacion",
+                                    type: "POST",
+                                    data: data_post,
+                                    dataType: "json",
+                                    contentType: "application/json; charset=utf-8",
+                                    success: function (respuestaJson) {
+                                        PlanillaPersonas.EliminarObjeto(una_persona);
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        alertify.alert(errorThrown);
+                                    }
+                                });
+                            } else {
+                                alertify.error("No se ha eliminado la Licencia");
+                            }
+                        });
+                    
                 }
                 else {
                     alertify.alert("Esta licencia se encuentra vigente. Para eliminarla, por favor, contáctese con Recursos Humanos");
