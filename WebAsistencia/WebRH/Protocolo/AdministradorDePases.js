@@ -35,7 +35,7 @@
 
     
 
-    PlanillaPersonas = new Grilla(columnas);
+    var PlanillaPersonas = new Grilla(columnas);
 
     PlanillaPersonas.AgregarEstilo("tabla_macc");
     PlanillaPersonas.AgregarEstilo("tabla_protocolo");

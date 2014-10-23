@@ -7,6 +7,13 @@ namespace General
 {
     public class Inasistencia
     {
+        private int _Id;
+        public int Id
+        {
+            get { return _Id; }
+            set { _Id = value; }
+        }
+        
         private string _PathFormularioWeb;
         public string PathFormularioWeb
         {

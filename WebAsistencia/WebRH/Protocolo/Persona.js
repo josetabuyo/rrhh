@@ -28,6 +28,10 @@ Persona.prototype.inasistencias = function () {
     return this._persona.Inasistencias[0].Descripcion;
 };
 
+Persona.prototype.idInasistencias = function () {
+    return this._persona.Inasistencias[0].Id;
+};
+
 Persona.prototype.desde = function () {
     return ConversorDeFechas.deIsoAFechaEnCriollo(this._persona.Inasistencias[0].Desde)
 };

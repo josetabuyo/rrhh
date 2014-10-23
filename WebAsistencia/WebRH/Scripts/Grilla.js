@@ -15,6 +15,7 @@ Grilla.prototype = {
         this.tabla.css("cursor", "pointer");
 
         this.Objetos = [];
+        this.filas = [];
 
         this.crearEncabezado();
         this.crearCuerpo();
@@ -35,7 +36,7 @@ Grilla.prototype = {
             th.addClass("sort");
             th.attr("data-sort", col.titulo);
             if (col.titulo == 'id') {
-                th.css("display","none")
+                th.css("display", "none")
             }
             encabezado.append(th);
         }
@@ -132,9 +133,9 @@ Grilla.prototype = {
             this.CargarFilaSinDatos();
         }
     },
-    CargarObjetoSinDibujar: function(obj) {
-         this.Objetos.push(obj);
-     },
+    CargarObjetoSinDibujar: function (obj) {
+        this.Objetos.push(obj);
+    },
     CargarFilaSinDatos: function () {
         var tr = $('<tr>');
         var td = $('<td>');
@@ -161,17 +162,20 @@ Grilla.prototype = {
 
         this.tabla.append(tr);
         this.Objetos.push(obj);
+        this.filas.push({
+            fila: tr,
+            objeto: obj
+        });
     },
-    buscarObjetoPorId: function (id){
+    buscarObjetoPorId: function (id) {
         var ind, pos;
-        for(ind=0; ind< this.Objetos.length; ind++)
-           {
-               if (this.Objetos[ind].id == id)
-              break;
-            }
-           valor_indice = (ind < this.Objetos.length) ? ind : -1;
-           return (this.Objetos[valor_indice]);
-        }, 
+        for (ind = 0; ind < this.Objetos.length; ind++) {
+            if (this.Objetos[ind].id == id)
+                break;
+        }
+        valor_indice = (ind < this.Objetos.length) ? ind : -1;
+        return (this.Objetos[valor_indice]);
+    },
 
     QuitarObjetosExistentes: function (objetos) {
         for (var i = 0; i < objetos.length; i++) {
@@ -188,6 +192,17 @@ Grilla.prototype = {
         this.tabla.find(".celda_seleccionada").remove();
         var indice = this.Objetos.indexOf(obj);
         this.Objetos.splice(indice, 1);
+    },
+    EliminarObjeto: function (obj) {
+        var indice = this.Objetos.indexOf(obj);
+        this.Objetos.splice(indice, 1);
+        for (var i = 0; i < this.filas.length; i++) {
+            if (this.filas[i].objeto === obj) {
+                indice = i;
+            }
+        }
+        $(this.filas[indice].fila).remove();
+        this.filas.splice(indice, 1);
     },
     QuitarObjetoSinDibujar: function (obj) {
         var indice = this.Objetos.indexOf(obj);
