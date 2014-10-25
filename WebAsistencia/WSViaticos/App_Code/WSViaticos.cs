@@ -154,6 +154,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public int DiasHabilesEntreFechas(DateTime desde, DateTime hasta)
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.DiasHabilesEntreFechas(desde, hasta);
+
+    }
+
+    [WebMethod]
     public SaldoLicencia GetSaldoLicenciaPlano(int documento, int idConcepto)
     {
         Persona persona = new Persona();
@@ -426,6 +435,8 @@ public class WSViaticos : System.Web.Services.WebService
         return calculadorDeDias.CalcularDiasDe(estadia);
 
     }
+
+   
 
     [WebMethod]
     public Persona CompletarDatosDeContratacion(Persona persona)

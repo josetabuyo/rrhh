@@ -185,6 +185,58 @@ namespace TestViaticos
             Assert.AreEqual(2005, tipo_planta_general.Prorroga(fecha_calculo).UsufructoDesde);   
         }
 
+        [TestMethod]
+        public void deberia_obtener_los_feriados_del_2014_que_son_3_mas_1_fijos()
+        {
+            string source = @"     |id		|fecha	                |año	   |periodico	           
+                                   |1	    |2014-10-26 00:00:00	|2014 	   |false
+                                   |2	    |2014-07-14 00:00:00	|2014 	   |false
+                                   |3	    |2010-01-01 00:00:00	|2014 	   |true
+                                   |4	    |2012-01-23 00:00:00	|2012 	   |false
+                                   |5	    |2014-03-01 00:00:00	|2014 	   |false";
+
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            var repo_licencia = new RepositorioLicencias(conexion);
+
+
+            Assert.AreEqual(4, repo_licencia.ObtenerFeriados(2014).Count());
+        }
+
+        [TestMethod]
+        public void es_sabado_por_lo_tanto_es_fin_de_semana()
+        {
+            DateTime sabado_25_de_octubre_de_2014 = new DateTime(2014, 10, 25);
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var repo_licencia = new RepositorioLicencias(conexion);
+
+            Assert.IsTrue(repo_licencia.EsFinDeSemana(sabado_25_de_octubre_de_2014));
+        }
+
+        [TestMethod]
+        public void es_domingo_por_lo_tanto_es_fin_de_semana()
+        {
+            DateTime sabado_26_de_octubre_de_2014 = new DateTime(2014, 10, 26);
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var repo_licencia = new RepositorioLicencias(conexion);
+
+            Assert.IsTrue(repo_licencia.EsFinDeSemana(sabado_26_de_octubre_de_2014));
+        }
+
+        [TestMethod]
+        public void es_miercoles_y_no_es_fin_de_semana()
+        {
+            DateTime miercoles_22_de_octubre_de_2014 = new DateTime(2014, 10, 22);
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var repo_licencia = new RepositorioLicencias(conexion);
+
+            Assert.IsFalse(repo_licencia.EsFinDeSemana(miercoles_22_de_octubre_de_2014));
+        }
+
 
         //        [TestMethod]
         //        public void deberia_saber_cuantas_vacaciones_permitidas_tiene_agus_para_el_2012_para_el_concepto_1()

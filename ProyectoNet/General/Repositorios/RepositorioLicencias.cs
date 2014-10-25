@@ -503,8 +503,72 @@ namespace General.Repositorios
         }
 
 
+        public int DiasHabilesEntreFechas(DateTime desde, DateTime hasta)
+        {
+            int dias_habiles = 0;
+            if (desde.Year == hasta.Year)
+            {
+                DateTime hoy = new DateTime();
+                List<DateTime> Feriados = ObtenerFeriados(hoy.Year);
+                TimeSpan diff = desde - hasta;
+                int total = diff.Days + 1;
+                
+                DateTime fecha_a_evaluar = desde;
+                for (int i = 0; i < total; i++)
+                {
+                    if (!Feriados.Contains(fecha_a_evaluar))
+                    {
+                        if (!EsFinDeSemana(fecha_a_evaluar))
+                        {
+                            dias_habiles = dias_habiles + 1;
+                        }
+                    }
+                    fecha_a_evaluar = fecha_a_evaluar.AddDays(1);
+                }
+            }
+            else
+            { 
+                int dias_habiles_anio_vigente = DiasHabilesEntreFechas(desde, new DateTime(desde.Year, 12, 31));
+                int dias_habiles_anio_siguiente = DiasHabilesEntreFechas(new DateTime(desde.Year + 1, 01, 01), hasta);
+                dias_habiles = dias_habiles_anio_vigente + dias_habiles_anio_siguiente;
+            }
 
+                return dias_habiles;
+        }
 
+        public List<DateTime> ObtenerFeriados(int anio)
+        {
+            List<DateTime> Feriados = new List<DateTime>();
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasFeraidos");
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                DateTime dia = new DateTime();
+                dia = row.GetDateTime("fecha");
+                if (row.GetBoolean("periodico"))
+                {
+                    Feriados.Add(dia);
+                }
+                else
+                {
+                    if (anio == dia.Year)
+                    {
+                        Feriados.Add(dia);
+                    }
+                }
+
+            });
+            return Feriados;
+        }
+
+        public bool EsFinDeSemana(DateTime fecha)
+        {
+            if (fecha.DayOfWeek.Equals(DayOfWeek.Saturday) || fecha.DayOfWeek.Equals(DayOfWeek.Sunday))
+            {
+                return true;
+            }
+            return false;
+        }
 
         protected List<VacacionesPendientesDeAprobacion> ConstruirVacacionesPendientes(TablaDeDatos tablaDatos)
         {
