@@ -506,12 +506,12 @@
 <script type="text/javascript" src="Postulacion.js"></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js"></script>
 <script type="text/javascript" src="../Scripts/FormularioBindeado.js"></script>
+<script type="text/javascript" src="../Scripts/FormularioBindeado.js"></script>
 <script type="text/javascript" src="../Scripts/ComboConBusquedaYAgregado.js"></script>
 <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
-<script type="text/javascript" src="../Scripts/Bindings.js"> </script>
-<script type="text/javascript" src="../Scripts/rhforms-combos.js"> </script>
+<script type="text/javascript" src="../Scripts/ObjectObserver.js"> </script>
 <script type="text/javascript" src="../Scripts/String.js"> </script>
 <script type="text/javascript">
     Backend.start();
