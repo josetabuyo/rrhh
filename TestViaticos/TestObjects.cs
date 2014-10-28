@@ -29,24 +29,24 @@ namespace General
 
         public static Area AreaDeCastagneto()
         {
-            return new Area(16, AREA_DE_CASTAGNETO, "010100100000000000000000", true);
+            return new Area(16, AREA_DE_CASTAGNETO, true);
         }
 
         public static Area AreaDeMarta()
         {
-            return new Area(54, AREA_DE_MARTA, "010100100000400000000000", true);
+            return new Area(54, AREA_DE_MARTA, true);
         }
 
         public static Area AreaDeFabi()
         {
-            var area = new Area(939, AREA_DE_FABI, "010100100000400200000000", true);
+            var area = new Area(939, AREA_DE_FABI, true);
             area.SetAlias(new Alias(1, 939, "fabiiiii"));
             return area;
         }
 
         public static Area AreaCenard()
         {
-            var area = new Area(621, AREA_DE_CENARD, "010100100000400400000000", true);
+            var area = new Area(621, AREA_DE_CENARD, true);
             area.SetAlias(new Alias(2, 621, "cenard"));
             return area;
         }
@@ -1434,8 +1434,8 @@ namespace General
             area_de_marta = AreaDeMarta();//id 54
             area_de_faby = AreaDeFabi();//id 939
             area_de_castagneto = AreaDeCastagneto(); //id 16
-            unidad_ministro = new Area(1, AREA_UNIDAD_MINISTRO, "1", true);
-            area_de_fabyB = new Area(621, AREA_DE_CENARD, "939B", true);
+            unidad_ministro = new Area(1, AREA_UNIDAD_MINISTRO, true);
+            area_de_fabyB = new Area(621, AREA_DE_CENARD, true);
 
             dependencia_faby_marta = DependenciaEntreFabyYMarta();
             dependencia_carlos_unidad_ministro = new List<Area>() { area_de_castagneto, unidad_ministro };

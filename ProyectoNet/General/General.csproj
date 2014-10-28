@@ -172,7 +172,6 @@
     <Compile Include="Organigrama\BuscadorDeAreas.cs" />
     <Compile Include="Organigrama\ContactoArea.cs" />
     <Compile Include="Organigrama\FiltroDeAreas.cs" />
-    <Compile Include="Organigrama\InterpretadorDeCodigosDeArea.cs" />
     <Compile Include="Organigrama\Nodo.cs" />
     <Compile Include="Organigrama\NodoRoot.cs" />
     <Compile Include="Organigrama\Organigrama.cs" />
