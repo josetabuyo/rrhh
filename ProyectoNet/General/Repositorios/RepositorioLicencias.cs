@@ -505,35 +505,43 @@ namespace General.Repositorios
 
         public int DiasHabilesEntreFechas(DateTime desde, DateTime hasta)
         {
-            int dias_habiles = 0;
-            if (desde.Year == hasta.Year)
+            if (desde <= hasta)
             {
-                DateTime hoy = new DateTime();
-                List<DateTime> Feriados = ObtenerFeriados(hoy.Year);
-                TimeSpan diff = desde - hasta;
-                int total = diff.Days + 1;
-                
-                DateTime fecha_a_evaluar = desde;
-                for (int i = 0; i < total; i++)
-                {
-                    if (!Feriados.Contains(fecha_a_evaluar))
-                    {
-                        if (!EsFinDeSemana(fecha_a_evaluar))
-                        {
-                            dias_habiles = dias_habiles + 1;
-                        }
-                    }
-                    fecha_a_evaluar = fecha_a_evaluar.AddDays(1);
-                }
-            }
-            else
-            { 
-                int dias_habiles_anio_vigente = DiasHabilesEntreFechas(desde, new DateTime(desde.Year, 12, 31));
-                int dias_habiles_anio_siguiente = DiasHabilesEntreFechas(new DateTime(desde.Year + 1, 01, 01), hasta);
-                dias_habiles = dias_habiles_anio_vigente + dias_habiles_anio_siguiente;
-            }
 
+                int dias_habiles = 0;
+                if (desde.Year == hasta.Year)
+                {
+                    List<DateTime> Feriados = ObtenerFeriados(desde.Year);
+                    TimeSpan diff = hasta - desde;
+                    int total = diff.Days + 1;
+
+                    DateTime fecha_a_evaluar = desde;
+                    for (int i = 0; i < total; i++)
+                    {
+                        if (!Feriados.Contains(fecha_a_evaluar))
+                        {
+                            if (!EsFinDeSemana(fecha_a_evaluar))
+                            {
+                                dias_habiles = dias_habiles + 1;
+                            }
+                        }
+                        fecha_a_evaluar = fecha_a_evaluar.AddDays(1);
+                    }
+                }
+                else
+                {
+                    int dias_habiles_anio_vigente = DiasHabilesEntreFechas(desde, new DateTime(desde.Year, 12, 31));
+                    int dias_habiles_anio_siguiente = DiasHabilesEntreFechas(new DateTime(desde.Year + 1, 01, 01), hasta);
+                    dias_habiles = dias_habiles_anio_vigente + dias_habiles_anio_siguiente;
+                }
                 return dias_habiles;
+            }
+            else 
+            {
+                Exception e = new Exception("la fecha desde no puede ser menor a la fecha hasta");
+                throw e;
+            }
+                
         }
 
         public List<DateTime> ObtenerFeriados(int anio)
@@ -547,7 +555,7 @@ namespace General.Repositorios
                 dia = row.GetDateTime("fecha");
                 if (row.GetBoolean("periodico"))
                 {
-                    Feriados.Add(dia);
+                    Feriados.Add(new DateTime(anio, dia.Month, dia.Day));
                 }
                 else
                 {

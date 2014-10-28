@@ -162,7 +162,7 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
 
         if (this.rbMatrimonioPropio.Checked)
         {
-            if (this.DesdeHasta1.DiasEntreFechas() > 10)
+            if (this.DesdeHasta1.DiasHabilesEntreFechas() > 10)
             {
                 DatosValidos = false;
             }
@@ -174,8 +174,8 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
             {
                     DatosValidos = false;
             }
-            
-            if (this.DesdeHasta1.DiasEntreFechas() > 3)
+
+            if (this.DesdeHasta1.DiasHabilesEntreFechas() > 3)
             {
                 DatosValidos = false;
             }

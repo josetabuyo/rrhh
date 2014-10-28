@@ -208,6 +208,55 @@ namespace TestViaticos
         }
 
         [TestMethod]
+        public void deberia_obtener_los_dias_habiles_entre_el_01_10_y_15_10_que_son_10_porque_hay_un_feriado()
+        {
+            DateTime desde = new DateTime(2014, 10, 01);
+            DateTime hasta = new DateTime(2014, 10, 15);
+            string source = @"     |id		|fecha	                |año	   |periodico	           
+                                   |1	    |2014-10-26 00:00:00	|2014 	   |false
+                                   |2	    |2014-10-14 00:00:00	|2014 	   |false
+                                   |3	    |2010-01-01 00:00:00	|2014 	   |true
+                                   |4	    |2012-01-23 00:00:00	|2012 	   |false
+                                   |5	    |2014-03-01 00:00:00	|2014 	   |false";
+
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            var repo_licencia = new RepositorioLicencias(conexion);
+
+
+            Assert.AreEqual(10, repo_licencia.DiasHabilesEntreFechas(desde, hasta));
+        }
+
+        [TestMethod]
+        public void deberia_obtener_los_dias_habiles_entre_el_20_12_y_15_01_que_son_16_porque_hay_un_feriado()
+        {
+            DateTime desde = new DateTime(2014, 12, 20);
+            DateTime hasta = new DateTime(2015, 01, 15);
+            string source = @"     |id		|fecha	                |año	   |periodico	           
+                                   |1	    |2014-10-26 00:00:00	|2014 	   |false
+                                   |2	    |2014-10-14 00:00:00	|2014 	   |false
+                                   |3	    |2010-01-01 00:00:00	|2010 	   |true
+                                   |4	    |2012-01-23 00:00:00	|2012 	   |false
+                                   |5	    |2001-12-24 00:00:00	|2001 	   |true
+                                   |5	    |2001-12-25 00:00:00	|2001 	   |true";
+
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            var repo_licencia = new RepositorioLicencias(conexion);
+
+
+            Assert.AreEqual(16, repo_licencia.DiasHabilesEntreFechas(desde, hasta));
+        }
+
+        [TestMethod]
         public void es_sabado_por_lo_tanto_es_fin_de_semana()
         {
             DateTime sabado_25_de_octubre_de_2014 = new DateTime(2014, 10, 25);

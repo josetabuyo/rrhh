@@ -87,7 +87,7 @@ public partial class FormulariosDeLicencia_Partes_DesdeHasta : System.Web.UI.Use
         if (this.TBDesde.Text == "" || this.TBHasta.Text == "")
             return 0;
         var servicio = new WSViaticos.WSViaticosSoapClient();
-        int dias = servicio.DiasHabilesEntreFechas(DateTime.Parse(this.TBHasta.Text), DateTime.Parse(this.TBDesde.Text));
+        int dias = servicio.DiasHabilesEntreFechas(DateTime.Parse(this.TBDesde.Text), DateTime.Parse(this.TBHasta.Text));
         
         return dias;
     }
