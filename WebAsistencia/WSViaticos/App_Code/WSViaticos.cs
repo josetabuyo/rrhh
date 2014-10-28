@@ -154,6 +154,16 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public SaldoLicencia GetSaldoLicencia14F(Persona unaPersona, ConceptoDeLicencia concepto)
+    {
+
+        DateTime fecha_de_consulta = DateTime.Today;
+
+        return RepoLicencias().CargarSaldoLicenciaGeneralDe(concepto, unaPersona);
+
+    }
+
+    [WebMethod]
     public int DiasHabilesEntreFechas(DateTime desde, DateTime hasta)
     {
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());

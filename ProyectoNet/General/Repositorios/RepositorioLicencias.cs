@@ -87,7 +87,6 @@ namespace General.Repositorios
             return retu;
         }
 
-
         public SaldoLicencia CargarSaldoLicenciaGeneralDe(ConceptoDeLicencia concepto, Persona unaPersona)
         {
             SaldoLicencia saldo = new SaldoLicencia();
