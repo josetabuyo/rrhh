@@ -226,9 +226,19 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id", id);
-            this.conexion.EjecutarSinResultado("LIC_GEN_DelDiasPendientesDeAprobacion", parametros);
+            this.conexion.EjecutarSinResultado("LIC_GEN_DelDiasPendientesDeAprobacion", parametros);   
+        }
+
+        public void EliminarPasePendienteAprobacion(int id, string area_origen, string area_destino) 
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_interna", id);
+            parametros.Add("@area_actual", area_origen);
+            parametros.Add("@area_nueva", area_destino);
+            this.conexion.EjecutarSinResultado("LIC_GEN_DelPasePendienteDeAprobacion", parametros);
             
         }
+  
         
         public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona)
         {

@@ -257,6 +257,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
     
 
+    [WebMethod]
+    public void EliminarPasePendienteAprobacion(int id, string area_origen, string area_destino) 
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        repositorio.EliminarPasePendienteAprobacion(id, area_origen, area_destino);
+    }
+
 
 
     [WebMethod]
