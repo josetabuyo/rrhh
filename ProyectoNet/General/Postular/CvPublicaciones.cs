@@ -27,7 +27,7 @@ namespace General
         {
         }
 
-        public CvPublicaciones(int id, string titulo, string datosEditorial, string cantidadHojas, int disponeCopia, int disponeAdjunto, DateTime fechaPublicacion):base(id,titulo)
+        public CvPublicaciones(int id, string titulo, string datosEditorial, string cantidadHojas, int disponeCopia, int disponeAdjunto, DateTime fechaPublicacion):base(id,titulo,5)
         {
             this._id = id;
             this._titulo = titulo;

@@ -14,7 +14,6 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Asignatura" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="NivelEducativo" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="TipoActividad" type="s:string" />
@@ -33,14 +32,15 @@
       </s:complexType>
       <s:complexType name="ItemCv">
         <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTabla" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="CvCapacidadPersonal">
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Detalle" type="s:string" />
             </s:sequence>
@@ -51,7 +51,6 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="DiplomaDeCertificacion" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Especialidad" type="s:string" />
@@ -68,7 +67,6 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Diploma" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="TipoInformatica" type="s:int" />
@@ -86,7 +84,6 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="DatosEditorial" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="CantidadHojas" type="s:string" />
@@ -101,7 +98,6 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="ExpedidaPor" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SituacionActual" type="s:string" />
@@ -114,7 +110,6 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Institucion" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="CaracterEntidad" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="CargosDesempeniados" type="s:string" />
@@ -134,7 +129,6 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Diploma" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Idioma" type="s:string" />
@@ -152,7 +146,6 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="PuestoOcupado" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="MotivoDesvinculacion" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="NombreEmpleador" type="s:string" />
@@ -173,7 +166,6 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Denominacion" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="TipoDeEvento" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="CaracterDeParticipacion" type="s:int" />
@@ -191,7 +183,6 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="Nivel" type="s:int" />
@@ -860,7 +851,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Comite" type="tns:Comite" />
-          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionRequerida" type="tns:ArrayOfFoliable" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Comite">
@@ -885,56 +875,6 @@
           <s:element minOccurs="1" maxOccurs="1" name="NroDocumento" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="EsTitular" type="s:boolean" />
         </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfFoliable">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Foliable" nillable="true" type="tns:Foliable" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Foliable" abstract="true" />
-      <s:complexType name="FoliableEstudiosUniversitario">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:Foliable">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="ItemCV" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="FoliableAntecedentesPenales">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:Foliable">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="ItemCV" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="FoliableExperienciaLaboralPrivada">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:Foliable">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="ItemCV" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="FoliableExperienciaLaboralPublica">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:Foliable">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="ItemCV" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
       </s:complexType>
       <s:element name="GetPostulacionById">
         <s:complexType>
@@ -991,11 +931,74 @@
       <s:complexType name="DocumentacionRecibida">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemCV" type="tns:ItemCv" />
           <s:element minOccurs="0" maxOccurs="1" name="Folio" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Foliable" type="tns:Foliable" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPostulacion" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdItemCV" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTabla" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetPantallaRecepcionDocumentacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="tns:Postulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPantallaRecepcionDocumentacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPantallaRecepcionDocumentacionResult" type="tns:PantallaRecepcionDocumentacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PantallaRecepcionDocumentacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionRequerida" type="tns:ArrayOfDivDocumentacionRequerida" />
+          <s:element minOccurs="0" maxOccurs="1" name="CuadroPerfil" type="tns:ArrayOfDivDocumentacionRequerida" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionRecibida" type="tns:ArrayOfDocumentacionRecibida" />
+          <s:element minOccurs="0" maxOccurs="1" name="RequisitosPerfil" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Postulacion" type="tns:Postulacion" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPostulacion" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDivDocumentacionRequerida">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DivDocumentacionRequerida" nillable="true" type="tns:DivDocumentacionRequerida" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DivDocumentacionRequerida">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionRequisito" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemsCv" type="tns:ArrayOfItemCv" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfItemCv">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ItemCv" nillable="true" type="tns:ItemCv" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarDocumentacionRecibida">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="lista_doc_recibida" type="tns:ArrayOfDocumentacionRecibida" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDocumentacionRecibidaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GuardarDocumentacionRecibidaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="EliminarPostulacionPorUsuario">
         <s:complexType>
           <s:sequence>
@@ -1368,16 +1371,8 @@
         </s:sequence>
       </s:complexType>
       <s:complexType name="NivelDeEstudio">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:RequisitoPerfil">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="RequisitoPerfil" abstract="true">
         <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
@@ -3639,11 +3634,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="ArrayOfArrayOfString">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
@@ -4531,6 +4521,18 @@
   </wsdl:message>
   <wsdl:message name="GetPostulacionByIdSoapOut">
     <wsdl:part name="parameters" element="tns:GetPostulacionByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPantallaRecepcionDocumentacionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPantallaRecepcionDocumentacion" />
+  </wsdl:message>
+  <wsdl:message name="GetPantallaRecepcionDocumentacionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPantallaRecepcionDocumentacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDocumentacionRecibidaSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarDocumentacionRecibida" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDocumentacionRecibidaSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarDocumentacionRecibidaResponse" />
   </wsdl:message>
   <wsdl:message name="EliminarPostulacionPorUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:EliminarPostulacionPorUsuario" />
@@ -5681,6 +5683,14 @@
       <wsdl:input message="tns:GetPostulacionByIdSoapIn" />
       <wsdl:output message="tns:GetPostulacionByIdSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetPantallaRecepcionDocumentacion">
+      <wsdl:input message="tns:GetPantallaRecepcionDocumentacionSoapIn" />
+      <wsdl:output message="tns:GetPantallaRecepcionDocumentacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDocumentacionRecibida">
+      <wsdl:input message="tns:GuardarDocumentacionRecibidaSoapIn" />
+      <wsdl:output message="tns:GuardarDocumentacionRecibidaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="EliminarPostulacionPorUsuario">
       <wsdl:input message="tns:EliminarPostulacionPorUsuarioSoapIn" />
       <wsdl:output message="tns:EliminarPostulacionPorUsuarioSoapOut" />
@@ -6645,6 +6655,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostulacionById">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetPostulacionById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPantallaRecepcionDocumentacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPantallaRecepcionDocumentacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDocumentacionRecibida">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDocumentacionRecibida" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8466,6 +8494,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostulacionById">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPostulacionById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPantallaRecepcionDocumentacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPantallaRecepcionDocumentacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDocumentacionRecibida">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDocumentacionRecibida" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

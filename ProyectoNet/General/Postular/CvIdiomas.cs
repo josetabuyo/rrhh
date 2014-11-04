@@ -36,7 +36,7 @@ namespace General
         }
         
         public CvIdiomas(int id, string diploma, string establecimiento, string idioma, int lectura, int escritura, int oral, DateTime fechaObtencion, string localidad, int pais)
-            : base(id,idioma)
+            : base(id,idioma,9)
         {
             this._id = id;
             this._diploma = diploma;

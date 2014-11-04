@@ -17,7 +17,7 @@ namespace General
         protected string _tipoConvocatoria;
         protected string _numero;
         protected Comite _comite;
-        protected List<Foliable> _documentacionRequerida;
+        //protected List<Foliable> _documentacionRequerida;
 
         public virtual int Id { get { return _id; } set { _id = value; } }
         public virtual string Familia { get { return _familia; } set { _familia = value; } }
@@ -29,7 +29,7 @@ namespace General
         public virtual string Tipo { get { return _tipoConvocatoria; } set { _tipoConvocatoria = value; } }
         public virtual string Numero { get { return _numero; } set { _numero = value; } }
         public virtual Comite Comite { get { return _comite; } set { _comite = value; } }
-        public virtual List<Foliable> DocumentacionRequerida { get { return _documentacionRequerida; } set { _documentacionRequerida = value; } }
+        //public virtual List<Foliable> DocumentacionRequerida { get { return _documentacionRequerida; } set { _documentacionRequerida = value; } }
 
         public Perfil(int id, string familia, string profesion, string denominacion,string nivel, string agrupamiento, int vacantes, string tipo, string numero, Comite comite)
         {
@@ -48,9 +48,9 @@ namespace General
       public Perfil() { }
 
       List<RequisitoPerfil> _requisitos = new List<RequisitoPerfil>();
-      public void Requiere(RequisitoPerfil requisito_idioma)
+      public void Requiere(RequisitoPerfil requisito)
       {
-          _requisitos.Add(requisito_idioma);
+          _requisitos.Add(requisito);
       }
 
 

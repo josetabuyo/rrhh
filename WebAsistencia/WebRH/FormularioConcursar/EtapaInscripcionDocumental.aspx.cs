@@ -15,7 +15,7 @@ public partial class FormularioConcursar_EtapaInscripcionDocumental : System.Web
         var usuario = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
         if (!IsPostBack)
         {
-            var postul = Servicio().GetPostulacionById(usuario.Owner.Id, 44);
+            var postul = Servicio().GetPostulacionById(usuario.Owner.Id, 86);
 
             var postulacion = JsonConvert.SerializeObject(postul);
 

@@ -1822,10 +1822,6 @@ namespace General
             return new Comite(1, 1, new List<Postular.IntegranteComite>());
         }
 
-        public static List<Foliable> Foliables()
-        {
-            return new List<Foliable> { new FoliableAntecedentesPenales() };
-        }
 
         public static CurriculumVitae UnCV()
         {
@@ -1839,7 +1835,7 @@ namespace General
 
         public static CvEstudios UnEstudioUniversitario()
         {
-            return new CvEstudios("Lic en Adm", 12, "", "", new DateTime(), new DateTime(), "", 0);
+            return new CvEstudios(1,"Lic en Adm", 12, "", "", new DateTime(), new DateTime(), "", 0);
         }
 
         public static CvExperienciaLaboral UnaExpPublica()

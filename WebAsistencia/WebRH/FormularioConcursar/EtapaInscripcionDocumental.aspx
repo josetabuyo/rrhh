@@ -17,10 +17,16 @@
     <div class="contenedor_concursar">
         <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
         <p>Documentación necesaria para <span style="font-weight:bold;" id="nombre_perfil"></span></p>
+        <div id="requisitos_perfil"></div>
         <fieldset>
-            <legend>Documentacion Obligatoria del perfil</legend>
-            <div id="detalle_foliables"></div>
+            <legend>Documentación Obligatoria del perfil</legend>
+            <div id="detalle_perfil"></div>
         </fieldset>
+        <fieldset>
+            <legend>Documentación del Curriculum</legend>
+            <div id="detalle_documentos"></div>
+        </fieldset>
+        <input type="button" class="btn btn-primary" id="btn_guardar" value="Guardar" />
     </div>
     <asp:HiddenField ID="postulacion" runat="server" />
     </form>
@@ -29,12 +35,12 @@
 <%= Referencias.Javascript("../") %>
 
 <script type="text/javascript">
-    //Backend.start();
+    Backend.start(function () {
+        $(document).ready(function () {
+            var postulacion = JSON.parse($('#postulacion').val());
 
-    $(document).ready(function () {
-        var postulacion = JSON.parse($('#postulacion').val());
-
-        EtapaInscripcionDocumental.mostrarPostulacion(postulacion);
+            EtapaInscripcionDocumental.mostrarPostulacion(postulacion);
+        });
     });
 
 </script>

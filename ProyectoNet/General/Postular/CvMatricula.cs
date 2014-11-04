@@ -19,7 +19,7 @@ namespace General
         public string SituacionActual { get { return _situacionActual; } set { _situacionActual = value; } }
         public DateTime FechaInscripcion { get { return _fechaInscripcion; } set { _fechaInscripcion = value; } }
         
-        public CvMatricula(int id, string numero, string expedidaPor, string situacionActual, DateTime fechaInscripcion):base(id,numero)
+        public CvMatricula(int id, string numero, string expedidaPor, string situacionActual, DateTime fechaInscripcion):base(id,numero,6)
         {
             this._id = id;
             this._numero = numero;

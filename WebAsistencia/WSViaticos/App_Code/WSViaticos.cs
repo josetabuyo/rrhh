@@ -2748,18 +2748,43 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    [System.Xml.Serialization.XmlInclude(typeof(FoliableEstudiosUniversitario))]
-    [System.Xml.Serialization.XmlInclude(typeof(FoliableAntecedentesPenales))]
-    [System.Xml.Serialization.XmlInclude(typeof(FoliableExperienciaLaboralPublica))]
-    [System.Xml.Serialization.XmlInclude(typeof(FoliableExperienciaLaboralPrivada))]
     public Postulacion GetPostulacionById(int idpersona,int idpostulacion)
     {
         Postulacion postulacion = RepoPostulaciones().GetPostulacionById(idpersona, idpostulacion);
-        postulacion.Perfil.DocumentacionRequerida = RepoPerfiles().GetFoliablesDelPerfil(postulacion.Perfil.Id);
+       // postulacion.Perfil.DocumentacionRequerida = RepoPerfiles().GetFoliablesDelPerfil(postulacion.Perfil.Id);
         CurriculumVitae cv = RepoCurriculum().GetCV(idpersona);
-        postulacion.CrearDocumentacionARecibir(postulacion.Perfil.DocumentacionRequerida, cv);
+       // postulacion.CrearDocumentacionARecibir(postulacion.Perfil.DocumentacionRequerida, cv);
 
         return postulacion;
+    }
+
+    [WebMethod]
+    public PantallaRecepcionDocumentacion GetPantallaRecepcionDocumentacion(Postulacion postulacion)
+    {
+        CurriculumVitae cv = RepoCurriculum().GetCV(postulacion.IdPersona);
+        RepositorioDePerfiles repoPerfiles = new RepositorioDePerfiles(Conexion());
+        repoPerfiles.GetRequisitosDelPerfil(postulacion.Perfil.Id).ForEach(r => postulacion.Perfil.Requiere(r));
+
+        RepositorioDeFoliados repo = new RepositorioDeFoliados(Conexion());
+        CreadorDePantallas creador = new CreadorDePantallas();
+        List<DocumentacionRecibida> listaDocRecibida = repo.GetDocumentacionRecibidaByPostulacion(postulacion);
+
+        PantallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, postulacion.Perfil, postulacion, listaDocRecibida);
+
+        return pantalla;
+    }
+
+    [WebMethod]
+    public bool GuardarDocumentacionRecibida(DocumentacionRecibida[] lista_doc_recibida, Usuario usuario)
+    {
+        RepositorioDeFoliados repo = new RepositorioDeFoliados(Conexion());
+
+        //List<DocumentacionRecibida> listaDocRecibida = repo.GetDocumentacionRecibidaByPostulacion(postulacion);
+
+        repo.GuardarDocumentacionRecibida(lista_doc_recibida.ToList(), usuario);
+
+        return true;
+
     }
 
 

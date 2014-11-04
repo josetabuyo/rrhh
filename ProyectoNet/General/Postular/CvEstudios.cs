@@ -26,16 +26,17 @@ namespace General
         public DateTime FechaEgreso { get { return _fechaEgreso; } set { _fechaEgreso = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Pais { get { return _pais; } set { _pais = value; } }
+        //public const int IdTabla = 1;// { get { return 1; } set { } }
 
 
 		public CvEstudios() { }
 
-        public CvEstudios(string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais):base(0,titulo)
+        public CvEstudios(string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais):base(0,titulo,1)
         {
             SetearCampos(titulo, nivel, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);
         }
 
-        public CvEstudios(int id, string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais):base(id, titulo)
+        public CvEstudios(int id, string titulo, int nivel, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais):base(id, titulo,1)
         {
             this._id = id;
             SetearCampos(titulo, nivel, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);

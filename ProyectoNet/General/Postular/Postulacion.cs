@@ -64,16 +64,16 @@ namespace General
             this._etapas.Add(ep);
         }
 
-        public void AgregarDocumentacionARecibida(DocumentacionRecibida doc)
-        {
-            this._docARecibir.Add(doc);
-        }
+        //public void AgregarDocumentacionARecibida(DocumentacionRecibida doc)
+        //{
+        //    this._docARecibir.Add(doc);
+        //}
 
-        public void CrearDocumentacionARecibir(List<Foliable> foliables, CurriculumVitae cv)
-        { 
-            foliables.ForEach(f => f.documentacion(cv).ForEach(d => this.AgregarDocumentacionARecibida(new DocumentacionRecibida(0, "", f, DateTime.Today))));
+        //public void CrearDocumentacionARecibir(List<Foliable> foliables, CurriculumVitae cv)
+        //{ 
+        //    foliables.ForEach(f => f.documentacion(cv).ForEach(d => this.AgregarDocumentacionARecibida(new DocumentacionRecibida(0, "", f, DateTime.Today))));
 
                 
-        }
+        //}
     }
 }

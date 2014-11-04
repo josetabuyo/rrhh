@@ -9,9 +9,9 @@ namespace General
 {
     public class CreadorDePantallas
     {
-        public PatallaRecepcionDocumentacion CrearPantalla(CurriculumVitae curriculumVitae, Perfil perfil)
+        public PantallaRecepcionDocumentacion CrearPantalla(CurriculumVitae curriculumVitae, Perfil perfil, Postulacion postulacion, List<DocumentacionRecibida> lista_docRecibida)
         {
-            var pantalla = new PatallaRecepcionDocumentacion();
+            var pantalla = new PantallaRecepcionDocumentacion();
             var lista_docRequerida = new List<DivDocumentacionRequerida>();
 
             CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvEstudios, "Estudios", perfil);
@@ -26,8 +26,11 @@ namespace General
             CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvCompetenciasInformaticas, "Compentencias Informáticas", perfil);
             CargarDocumentacionRequerida(lista_docRequerida, curriculumVitae.CvCapacidadesPersonales, "Capacidades Personales", perfil);
 
+            AgragarRequisitosObligatorios(perfil, pantalla);
             
             pantalla.DocumentacionRequerida = lista_docRequerida;
+            pantalla.Postulacion = postulacion;
+            pantalla.DocumentacionRecibida = lista_docRecibida;
 
             AgregarACuadroPerfil(curriculumVitae.CvEstudios, perfil, pantalla);
             AgregarACuadroPerfil(curriculumVitae.CvIdiomas, perfil, pantalla);
@@ -36,12 +39,24 @@ namespace General
             return pantalla;
         }
 
-        protected void AgregarACuadroPerfil(IList items_del_cv, Perfil perfil, PatallaRecepcionDocumentacion pantalla)
+        private void AgragarRequisitosObligatorios(Perfil perfil, PantallaRecepcionDocumentacion pantalla)
+        {
+            foreach (var requisito in perfil.Requisitos())
+            {
+                pantalla.RequisitosPerfil.Add(requisito.Descripcion);
+                
+            }
+        }
+
+
+
+        protected void AgregarACuadroPerfil(IList items_del_cv, Perfil perfil, PantallaRecepcionDocumentacion pantalla)
         {
            
             foreach (RequisitoPerfil requisito in perfil.Requisitos())
             {
                 var documentacion_requerida = new DivDocumentacionRequerida();
+                    //documentacion_requerida.DescripcionRequisito = requisito.Descripcion;
                 foreach (ItemCv item_cv in items_del_cv)
                 {
                     if (requisito.EsCumlidoPor(item_cv))
