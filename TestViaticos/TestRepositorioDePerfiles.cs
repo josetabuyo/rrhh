@@ -468,11 +468,11 @@ namespace TestViaticos
          [TestMethod]
          public void deberia_poder_armar_la_documentacion_recibida_de_una_postulacion()
          {
-             string source = @" |IdDocRecibida       |Folio      |IdItem    |DescripcionItem     |IdTabla     |Fecha
-                                |1                   |1-12       |1         |Lic en Adm          |1           |2012-12-12 21:36:35.077
-                                |2                   |12-15      |1         |Curso de PHP        |2           |2012-12-12 21:36:35.077
-                                |3 	                 |15-17      |1         |Banco Macro         |3           |2012-12-12 21:36:35.077
-                                |4	                 |17-19      |2         |MDS                 |3           |2012-12-12 21:36:35.077 ";
+             string source = @" |IdDocRecibida       |Folio      |IdItem    |DescripcionItem     |IdPostulacion     |IdTabla     |Fecha
+                                |1                   |1-12       |1         |Lic en Adm          |1                 |1           |2012-12-12 21:36:35.077
+                                |2                   |12-15      |1         |Curso de PHP        |2                 |2           |2012-12-12 21:36:35.077
+                                |3 	                 |15-17      |1         |Banco Macro         |3                 |3           |2012-12-12 21:36:35.077
+                                |4	                 |17-19      |2         |MDS                 |3                 |3           |2012-12-12 21:36:35.077 ";
 
 
              var resultado_sp = TablaDeDatos.From(source);
