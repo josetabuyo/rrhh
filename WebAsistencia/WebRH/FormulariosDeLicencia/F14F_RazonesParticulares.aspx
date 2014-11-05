@@ -3,7 +3,7 @@
     Title="Untitled Page" %>
 
 <%@ Register Src="Partes/NotificacionAgente.ascx" TagName="NotificacionAgente" TagPrefix="uc5" %>
-
+<%@ Register Src="Partes/Saldo14F.ascx" TagName="Saldo14F" TagPrefix="uc6" %>
 <%@ Register Src="Partes/FirmaRecepcion.ascx" TagName="FirmaRecepcion" TagPrefix="uc3" %>
 <%@ Register Src="Partes/FirmaAutorizante.ascx" TagName="FirmaAutorizante" TagPrefix="uc2" %>
 <%@ Register Src="Partes/AceptarCancelar.ascx" TagName="AceptarCancelar" TagPrefix="uc4" %>
@@ -61,6 +61,17 @@
                 <asp:Label ID="Label6" runat="server" Font-Bold="True" Text="Autorización del Funcionario inmediato superior"></asp:Label></td>
         </tr>
         <tr>
+
+
+            <td style="width: 303px; height: 127px;">
+                <uc6:Saldo14F ID="Saldo14F" runat="server" EnableViewState="true" />
+                <br />
+                 <asp:Label ID="Label4" runat="server" Text="_____/______/______"></asp:Label><br />
+                <asp:Label ID="Label5" runat="server" Font-Names="Tahoma" Font-Size="12px" Text="Fecha"></asp:Label>&nbsp;</td>
+            </td>   
+
+
+
             <td align="center"  valign="bottom">
                 <table width="100%" style="text-align: left;">
                     <tr>
@@ -69,15 +80,15 @@
                             <asp:RadioButton ID="RBSinGoce" runat="server" Text="Justificada sin goce de haberes (suma a los límites del Art. 14h)"
                                 GroupName="Otorgada"  Font-Names="Tahoma" Font-Size="12px" OnCheckedChanged="RBSinGoce_CheckedChanged" AutoPostBack="True" /><br />
                             <asp:RadioButton ID="RBNoJustificada" runat="server" Text="No justificada (Dará lugar a sanciones previstas)"
-                                GroupName="Otorgada" Font-Names="Tahoma" Font-Size="12px" OnCheckedChanged="RBNoJustificada_CheckedChanged" AutoPostBack="True" /></td>
+                                GroupName="Otorgada" Font-Names="Tahoma" Font-Size="12px" OnCheckedChanged="RBNoJustificada_CheckedChanged" AutoPostBack="True" />
+                        </td>
                     </tr>
                 </table>
                 <br />
-                <asp:Label ID="Label4" runat="server" Text="_____/______/______"></asp:Label><br />
-                <asp:Label ID="Label5" runat="server" Font-Names="Tahoma" Font-Size="12px" Text="Fecha"></asp:Label>&nbsp;</td>
-            <td align="center" valign="bottom">
+                <br />
+                <br />
                 <uc2:FirmaAutorizante ID="FirmaAutorizante1" runat="server"></uc2:FirmaAutorizante>
-            </td>
+           
         </tr>
         <tr>
             <td colspan="2">

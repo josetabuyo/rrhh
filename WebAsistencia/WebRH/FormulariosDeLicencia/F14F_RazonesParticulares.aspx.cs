@@ -9,7 +9,7 @@ using WSViaticos;
 
 public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
 {
-    private ConceptoDeLicencia _Concepto;
+    ConceptoDeLicencia _Concepto;
 
     #region CargaContenidos
     protected void Page_Load(object sender, EventArgs e)
@@ -22,6 +22,7 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
         this.AceptarCancelar1.Acepto += new EventHandler(AceptarCancelar1_Acepto);
         _Concepto = new ConceptoDeLicencia();
         _Concepto.Id = 32;
+        this.Saldo14F.Concepto = _Concepto;
     }
 
     private string Titulo()

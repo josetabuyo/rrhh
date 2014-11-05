@@ -159,7 +159,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         DateTime fecha_de_consulta = DateTime.Today;
 
-        SaldoLicencia saldo_aprobado = RepoLicencias().CargarSaldoLicencia14F(concepto, unaPersona);
+        return RepoLicencias().CargarSaldoLicencia14FDe(concepto, unaPersona);
 
 
     }

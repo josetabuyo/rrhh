@@ -31,8 +31,8 @@ namespace General
 
         internal SaldoLicencia Restar(SaldoLicencia licencia_en_tramite)
         {
-            this._SaldoMensual = this._SaldoMensual - licencia_en_tramite._SaldoMensual;
-            this._SaldoAnual = this._SaldoAnual - licencia_en_tramite._SaldoAnual;
+            this._SaldoMensual = this._SaldoMensual + licencia_en_tramite._SaldoMensual;
+            this._SaldoAnual = this._SaldoAnual + licencia_en_tramite._SaldoAnual;
             return this;
         }
     }
