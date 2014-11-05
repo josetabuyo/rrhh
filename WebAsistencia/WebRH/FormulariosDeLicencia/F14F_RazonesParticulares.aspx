@@ -63,7 +63,7 @@
         <tr>
 
 
-            <td style="width: 303px; height: 127px;">
+            <td style="width: 250px; height: 127px;">
                 <uc6:Saldo14F ID="Saldo14F" runat="server" EnableViewState="true" />
                 <br />
                  <asp:Label ID="Label4" runat="server" Text="_____/______/______"></asp:Label><br />

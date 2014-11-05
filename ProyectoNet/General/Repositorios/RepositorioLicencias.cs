@@ -92,7 +92,14 @@ namespace General.Repositorios
             SaldoLicencia licencias_tomadas = CargarSaldoLicenciaGeneralDe(concepto, unaPersona);
             SaldoLicencia licencia_en_tramite = GetLicenciasPendientesPara(concepto, unaPersona);
 
-            return licencias_tomadas.Restar(licencia_en_tramite);
+            SaldoLicencia restadas = licencias_tomadas.Restar(licencia_en_tramite);
+
+            if (restadas.SaldoAnual <= 0)
+            {
+                restadas.SaldoMensual = 0;
+            }
+
+            return restadas;
         }
 
         public SaldoLicencia CargarSaldoLicenciaGeneralDe(ConceptoDeLicencia concepto, Persona unaPersona)
@@ -123,15 +130,12 @@ namespace General.Repositorios
             int RestarDiasMensual = 0;
             while (dr.Read())
             {
-                RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()) - DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()))).Days;
+                RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()) - DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()))).Days + 1 + RestarDiasAnual;
+                
                 if (DateTime.Today.Month == DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()).Month)
                 {
-                    RestarDiasMensual++;
-                }
-                if (DateTime.Today.Month == DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()).Month && DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()) != DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()))
-                {
-                    RestarDiasMensual++;
-                }
+                    RestarDiasMensual = ((TimeSpan)(DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()) - DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()))).Days + 1 + RestarDiasMensual;
+                }   
             }
             cn.Desconestar();
             saldo.SaldoAnual -= RestarDiasAnual;

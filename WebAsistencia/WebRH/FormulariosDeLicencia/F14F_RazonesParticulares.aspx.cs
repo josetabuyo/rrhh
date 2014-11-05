@@ -27,7 +27,7 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
 
     private string Titulo()
     {
-        return @"Solicitud de Justificación de Inasistencia por Razones Particulares (Decreto 3.413/79 - Anexo I - Cap. III - Art. 14 f) Solicitud FUERA DE TERMINO (menos de 48 hs. hábiles de anticipación)";
+        return @"Solicitud de Justificación de Inasistencia por Razones Particulares (Decreto 3.413/79 - Anexo I - Cap. III - Art. 14 f) ";
     }
 
     private string Procedimiento()
@@ -142,6 +142,11 @@ La resolución deberá ser comunicada al agente y al servicio de personal dentro
 
         if (!this.RBJustificada.Checked && !this.RBNoJustificada.Checked && !this.RBSinGoce.Checked)
             DatosValidos = false;
+
+        SaldoLicencia saldo = (SaldoLicencia)Session["saldoLicencia"];
+        if (saldo.SaldoMensual <= 0)
+            DatosValidos = false;
+
 
         this.AceptarCancelar1.PuedeAceptar = DatosValidos;
     }

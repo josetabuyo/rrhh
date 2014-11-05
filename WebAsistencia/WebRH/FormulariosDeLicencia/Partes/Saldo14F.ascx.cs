@@ -43,41 +43,15 @@ public partial class FormulariosDeLicencia_Partes_Saldo14F : System.Web.UI.UserC
             saldo = s.GetSaldoLicencia14F((Persona)Session["persona"], this.Concepto);
             Session["saldoLicencia"] = saldo;
             this.LDiasAnual.Text = saldo.SaldoAnual.ToString();
-            this.LDiasMes.Text = saldo.SaldoMensual.ToString();
-
-            //foreach (SaldoLicenciaDetalle d in saldo.Detalle)
-            //{
-            //    InsertarDetalleDeSaldo(d);
-            //}
+            this.LDiasMes.Text = saldo.SaldoMensual.ToString();  
         }
         else
         {
             SaldoLicencia saldo = (SaldoLicencia)Session["saldoLicencia"];
             this.LDiasAnual.Text = saldo.SaldoAnual.ToString();
             this.LDiasMes.Text = saldo.SaldoMensual.ToString();
-            //foreach (SaldoLicenciaDetalle d in saldo.Detalle)
-            //{
-            //    InsertarDetalleDeSaldo(d);
-            //}
+
         }
     }
 
-    //private void InsertarDetalleDeSaldo(SaldoLicenciaDetalle detalle)
-    //{
-    //    TableRow tr = new TableRow();
-    //    TableCell tc = new TableCell();
-    //    string[] fuentes = { "Tahoma" };
-    //    tc.Text = "&nbsp;&nbsp;&nbsp;&nbsp;Periodo " + detalle.Periodo.ToString() + ": ";
-    //    tc.Font.Size = FontUnit.Small;
-    //    tc.Font.Names = fuentes;
-    //    tr.Cells.Add(tc);
-
-    //    tc = new TableCell();
-    //    tc.Text = detalle.Disponible.ToString() + " Días";
-    //    this.DiasDisponibles += detalle.Disponible;
-    //    tc.Font.Size = FontUnit.Small;
-    //    tc.Font.Names = fuentes;
-    //    tr.Cells.Add(tc);
-    //    this.TDiasDisponibles.Rows.Add(tr);
-    //}
 }
