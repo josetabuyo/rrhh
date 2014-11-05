@@ -138,11 +138,18 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
     private void ValidarDatos()
     {
         bool DatosValidos = true;
-        if (this.TBDesde.Text == null)
+        if (!this.DesdeHasta1.ValidarFechas())
+        {
             DatosValidos = false;
-        else
-            if (this.TBDesde.Text == "")
+        }
+        if (this.TBDesde.Text == null)
+        {
+            DatosValidos = false;
+        }
+        else if (this.TBDesde.Text == "")
+        {
                 DatosValidos = false;
+        }
 
         if (!this.rbMatrimonioPropio.Checked && !this.rbMatrimonioDeHijo.Checked)
         {
