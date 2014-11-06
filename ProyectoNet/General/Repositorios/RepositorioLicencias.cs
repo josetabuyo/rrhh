@@ -87,10 +87,10 @@ namespace General.Repositorios
             return retu;
         }
 
-        public SaldoLicencia CargarSaldoLicencia14FDe(ConceptoDeLicencia concepto, Persona unaPersona) 
+        public SaldoLicencia CargarSaldoLicencia14FDe(ConceptoDeLicencia concepto, Persona unaPersona, DateTime fecha) 
         {
-            SaldoLicencia licencias_tomadas = CargarSaldoLicenciaGeneralDe(concepto, unaPersona);
-            SaldoLicencia licencia_en_tramite = GetLicenciasPendientesPara(concepto, unaPersona);
+            SaldoLicencia licencias_tomadas = CargarSaldoLicenciaTomada14FDe(concepto, unaPersona, fecha);
+            SaldoLicencia licencia_en_tramite = GetLicenciasPendientes14FPara(concepto, unaPersona, fecha);
 
             SaldoLicencia restadas = licencias_tomadas.Restar(licencia_en_tramite);
 
@@ -102,7 +102,7 @@ namespace General.Repositorios
             return restadas;
         }
 
-        public SaldoLicencia CargarSaldoLicenciaGeneralDe(ConceptoDeLicencia concepto, Persona unaPersona)
+        public SaldoLicencia CargarSaldoLicenciaTomada14FDe(ConceptoDeLicencia concepto, Persona unaPersona, DateTime fecha)
         {
             SaldoLicencia saldo = new SaldoLicencia();
             SqlDataReader dr;
@@ -132,7 +132,7 @@ namespace General.Repositorios
             {
                 RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()) - DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()))).Days + 1 + RestarDiasAnual;
                 
-                if (DateTime.Today.Month == DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()).Month)
+                if (fecha.Month == DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()).Month)
                 {
                     RestarDiasMensual = ((TimeSpan)(DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()) - DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()))).Days + 1 + RestarDiasMensual;
                 }   
@@ -142,6 +142,39 @@ namespace General.Repositorios
             saldo.SaldoMensual -= RestarDiasMensual;
             return saldo;
         }
+
+        public SaldoLicencia GetLicenciasPendientes14FPara(ConceptoDeLicencia concepto, Persona persona, DateTime fecha)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            SaldoLicencia saldo = new SaldoLicencia();
+            parametros.Add("@nro_documento", persona.Documento);
+            parametros.Add("@id_concepto_licencia", concepto.Id);
+
+
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
+
+            int RestarDiasAnual = 0;
+            int RestarDiasMensual = 0;
+            tablaDatos.Rows.ForEach(dr =>
+            {
+                RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetDateTime("hasta").ToString()) - DateTime.Parse(dr.GetDateTime("desde").ToString()))).Days;
+                if (fecha.Month == DateTime.Parse(dr.GetDateTime("desde").ToString()).Month)
+                {
+                    RestarDiasMensual++;
+                }
+                //if (DateTime.Today.Month == DateTime.Parse(dr.GetDateTime("hasta").ToString()).Month && DateTime.Parse(dr.GetDateTime("desde").ToString()) != DateTime.Parse(dr.GetDateTime("hasta").ToString()))
+                //{
+                //    RestarDiasMensual++;
+                //}
+            });
+
+            saldo.SaldoAnual -= RestarDiasAnual;
+            saldo.SaldoMensual -= RestarDiasMensual;
+            return saldo;
+
+        }
+
 
         public SaldoLicencia CargarSaldoLicenciaOrdinariaDe(ConceptoDeLicencia concepto, ProrrogaLicenciaOrdinaria prorroga, Persona unaPersona)
         {
@@ -395,43 +428,6 @@ namespace General.Repositorios
             return ConstruirVacacionesPendientes(tablaDatos);
 
         }
-
-
-        public SaldoLicencia GetLicenciasPendientesPara(ConceptoDeLicencia concepto, Persona persona)
-        {
-            var parametros = new Dictionary<string, object>();
-
-            SaldoLicencia saldo = new SaldoLicencia();
-            parametros.Add("@nro_documento", persona.Documento);
-            parametros.Add("@id_concepto_licencia", concepto.Id);
-
-
-            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
-
-
-
-            int RestarDiasAnual = 0;
-            int RestarDiasMensual = 0;
-            tablaDatos.Rows.ForEach(dr =>
-            {
-                RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetDateTime("hasta").ToString()) - DateTime.Parse(dr.GetDateTime("desde").ToString()))).Days;
-                if (DateTime.Today.Month == DateTime.Parse(dr.GetDateTime("desde").ToString()).Month)
-                {
-                    RestarDiasMensual++;
-                }
-                if (DateTime.Today.Month == DateTime.Parse(dr.GetDateTime("hasta").ToString()).Month && DateTime.Parse(dr.GetDateTime("desde").ToString()) != DateTime.Parse(dr.GetDateTime("hasta").ToString()))
-                {
-                    RestarDiasMensual++;
-                }
-            });
-            
-            saldo.SaldoAnual -= RestarDiasAnual;
-            saldo.SaldoMensual -= RestarDiasMensual;
-            return saldo;
-
-
-        }
-
 
         public List<Persona> GetAusentesEntreFechasPara(List<Persona> personas, DateTime fecha_desde, DateTime fecha_hasta)
         {

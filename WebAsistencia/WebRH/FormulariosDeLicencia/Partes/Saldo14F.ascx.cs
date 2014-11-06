@@ -8,24 +8,9 @@ using WSViaticos;
 
 public partial class FormulariosDeLicencia_Partes_Saldo14F : System.Web.UI.UserControl
 {
-    //private int _DiasDisponibles;
-    //public int DiasDisponibles
-    //{
-    //    get { return _DiasDisponibles; }
-    //    set { _DiasDisponibles = value; }
-    //}
-
-    //private int _DiasSolicitados;
-    //public int DiasSolicitados
-    //{
-    //    get { return _DiasSolicitados; }
-    //    set { 
-    //        _DiasSolicitados = value;
-    //        this.LSolicitadas.Text = value.ToString() + " Días";
-    //    }
-    //}
 
     private ConceptoDeLicencia _Concepto;
+    private DateTime _Fecha;
 
     public ConceptoDeLicencia Concepto
     {
@@ -33,6 +18,11 @@ public partial class FormulariosDeLicencia_Partes_Saldo14F : System.Web.UI.UserC
         set { _Concepto = value; }
     }
 
+    public DateTime Fecha
+    {
+        get { return _Fecha; }
+        set { _Fecha = value; }
+    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -40,7 +30,7 @@ public partial class FormulariosDeLicencia_Partes_Saldo14F : System.Web.UI.UserC
         {
             WSViaticosSoapClient s = new WSViaticosSoapClient();
             SaldoLicencia saldo;
-            saldo = s.GetSaldoLicencia14F((Persona)Session["persona"], this.Concepto);
+            saldo = s.GetSaldoLicencia14F((Persona)Session["persona"], this.Concepto, this.Fecha);
             Session["saldoLicencia"] = saldo;
             this.LDiasAnual.Text = saldo.SaldoAnual.ToString();
             this.LDiasMes.Text = saldo.SaldoMensual.ToString();  

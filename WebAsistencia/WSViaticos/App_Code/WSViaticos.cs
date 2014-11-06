@@ -154,12 +154,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public SaldoLicencia GetSaldoLicencia14F(Persona unaPersona, ConceptoDeLicencia concepto)
+    public SaldoLicencia GetSaldoLicencia14F(Persona unaPersona, ConceptoDeLicencia concepto, DateTime fecha)
     {
 
-        DateTime fecha_de_consulta = DateTime.Today;
-
-        return RepoLicencias().CargarSaldoLicencia14FDe(concepto, unaPersona);
+        return RepoLicencias().CargarSaldoLicencia14FDe(concepto, unaPersona, fecha);
 
 
     }
