@@ -15,6 +15,7 @@ namespace General
         public int IdPostulacion { get; set; }
         //public Foliable Foliable { get { return _foliable; } set { _foliable = value; } }
         public DateTime Fecha { get; set; }
+        public string FolioPersistido { get; set; }
 
 
         public DocumentacionRecibida() { }
@@ -25,6 +26,7 @@ namespace General
             Folio = folio;
             Fecha = fecha;
             IdPostulacion = id_postulacion;
+            FolioPersistido = folio;
             //_foliable = foliable;
         }
 
