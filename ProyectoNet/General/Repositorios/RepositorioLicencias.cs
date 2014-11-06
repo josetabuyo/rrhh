@@ -87,6 +87,52 @@ namespace General.Repositorios
             return retu;
         }
 
+
+        public SaldoLicencia CargarSaldoLicenciaGeneralDe(ConceptoDeLicencia concepto, Persona unaPersona)
+        {
+            SaldoLicencia saldo = new SaldoLicencia();
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("[dbo].[Web_GetSaldoSegunConceptoDeLicencia]");
+            cn.AsignarParametro("@idConcepto", concepto.Id);
+
+            dr = cn.EjecutarConsulta();
+
+            if (dr.Read())
+            {
+                saldo.SaldoAnual = dr.GetInt16(dr.GetOrdinal("SaldoAnual"));
+                saldo.SaldoMensual = dr.GetInt16(dr.GetOrdinal("SaldoMensual"));
+            }
+
+            cn.Desconestar();
+
+            cn = new ConexionDB("[dbo].[Web_GetLicenciasTomadasEnElAnio]");
+            cn.AsignarParametro("@idConcepto", concepto.Id);
+            cn.AsignarParametro("@documento", unaPersona.Documento);
+            cn.AsignarParametro("@periodo", DateTime.Today.Year);
+
+            dr = cn.EjecutarConsulta();
+
+            int RestarDiasAnual = 0;
+            int RestarDiasMensual = 0;
+            while (dr.Read())
+            {
+                RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()) - DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()))).Days;
+                if (DateTime.Today.Month == DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()).Month)
+                {
+                    RestarDiasMensual++;
+                }
+                if (DateTime.Today.Month == DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()).Month && DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()) != DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()))
+                {
+                    RestarDiasMensual++;
+                }
+            }
+            cn.Desconestar();
+            saldo.SaldoAnual -= RestarDiasAnual;
+            saldo.SaldoMensual -= RestarDiasMensual;
+            return saldo;
+        }
+
+
         public SaldoLicencia CargarSaldoLicencia14FDe(ConceptoDeLicencia concepto, Persona unaPersona, DateTime fecha) 
         {
             SaldoLicencia licencias_tomadas = CargarSaldoLicenciaTomada14FDe(concepto, unaPersona, fecha);

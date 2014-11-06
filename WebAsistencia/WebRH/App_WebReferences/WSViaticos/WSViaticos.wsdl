@@ -1759,6 +1759,7 @@
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="unaPersona" type="tns:Persona" />
             <s:element minOccurs="0" maxOccurs="1" name="concepto" type="tns:ConceptoDeLicencia" />
+            <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
           </s:sequence>
         </s:complexType>
       </s:element>
