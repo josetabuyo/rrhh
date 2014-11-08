@@ -13,7 +13,12 @@
     this.select.select2({
         placeholder: this.placeHolder || 'seleccione',
         allowClear: true,
-        width: 'resolve'
+        width: 'resolve',
+        formatNoMatches: function (str_ingresado) {
+            //TO-DO... Agregar botón + cuando corresponda       
+                 
+            return "No se encontraron resultados para: " + str_ingresado;
+        }
     });
 
     this.select.on("change", function (e) {
