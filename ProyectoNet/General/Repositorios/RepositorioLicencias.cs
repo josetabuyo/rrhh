@@ -32,6 +32,11 @@ namespace General.Repositorios
                 return "Error, ya existe una solicitud cargada en ese periodo.";
             }
 
+            if (this.PoseeSaldosPara14F(unaLicencia))
+            {
+                return "Error, No cuenta con los días suficientes para solicitar esta licencia. <br/> Seleccione en el Calendario el mes correspondiente para visualizar los días disponibles";
+            }
+
             ConexionDB cn = new ConexionDB("dbo.WEB_AltaSolicitudLicencia");
             cn.AsignarParametro("@documento", unaLicencia.Persona.Documento);
             cn.AsignarParametro("@idConcepto", unaLicencia.Concepto.Id);
@@ -43,6 +48,22 @@ namespace General.Repositorios
             cn.EjecutarSinResultado();
             cn.Desconestar();
             return null;
+        }
+
+        private bool PoseeSaldosPara14F(Licencia unaLicencia)
+        {
+            if (unaLicencia.IdConcepto == 32)
+            {
+                ConceptoDeLicencia concepto = new ConceptoDeLicencia();
+                concepto.Id = 32;
+                SaldoLicencia saldo = CargarSaldoLicencia14FDe(concepto, unaLicencia.Persona, unaLicencia.Desde);
+                if (saldo.SaldoAnual <= 0 || saldo.SaldoMensual <= 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return true;
         }
 
         public bool GetLicenciasQueSePisanCon(Licencia unaLicencia)

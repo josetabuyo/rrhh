@@ -23,14 +23,9 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
         _Concepto = new ConceptoDeLicencia();
         _Concepto.Id = 32;
         this.Saldo14F.Concepto = _Concepto;
-        if (this.TBDesde.Text.ToString() == "")
-        {
-            this.Saldo14F.Fecha = DateTime.Today;
-        }
-        else 
-        {
-            this.Saldo14F.Fecha = DateTime.Parse(this.TBDesde.Text.ToString());
-        }
+
+            this.Saldo14F.Fecha = this.Calendar1.VisibleDate;
+
        
     }
 
@@ -74,7 +69,6 @@ La resolución deberá ser comunicada al agente y al servicio de personal dentro
         try
         {
             WSViaticosSoapClient s = new WSViaticosSoapClient();
-            //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
             string error = s.CargarLicencia(l);
             if (error == null)
             {
@@ -115,13 +109,6 @@ La resolución deberá ser comunicada al agente y al servicio de personal dentro
         this.TBDesde.Text = this.Calendar1.SelectedDate.ToShortDateString();
         this.Calendar1.Visible = false;
         ValidarDatos();
-        
-        //WSViaticosSoapClient s = new WSViaticosSoapClient();
-        //SaldoLicencia saldo;
-        //saldo = s.GetSaldoLicencia14F((Persona)Session["persona"], this.Saldo14F.Concepto, this.Saldo14F.Fecha);
-        //Session["saldoLicencia"] = saldo;
-        //this.Saldo14F.LDiasAnual.Text = saldo.SaldoAnual.ToString();
-        //this.Saldo14F.LDiasMes.Text = saldo.SaldoMensual.ToString(); 
     }
 
     protected void RBJustificada_CheckedChanged(object sender, EventArgs e)
@@ -149,7 +136,7 @@ La resolución deberá ser comunicada al agente y al servicio de personal dentro
 
     private void ValidarDatos()
     {
-        this.Saldo14F.Fecha = DateTime.Parse(this.TBDesde.Text.ToString());
+        this.Saldo14F.Fecha = this.Calendar1.VisibleDate;
         bool DatosValidos = true;
         if (this.TBDesde.Text == null)
             DatosValidos = false;
