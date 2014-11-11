@@ -35,6 +35,7 @@ namespace General
             AgregarACuadroPerfil(curriculumVitae.CvEstudios, perfil, pantalla);
             AgregarACuadroPerfil(curriculumVitae.CvIdiomas, perfil, pantalla);
             AgregarACuadroPerfil(curriculumVitae.CvExperienciaLaboral, perfil, pantalla);
+            //AgregarACuadroPerfil(new List<AntecedentePenal> { new AntecedentePenal() }, perfil, pantalla);
 
             return pantalla;
         }

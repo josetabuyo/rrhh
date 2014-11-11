@@ -935,6 +935,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Folio" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="IdPostulacion" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="FolioPersistido" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="IdItemCV" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="IdTabla" type="s:int" />
         </s:sequence>

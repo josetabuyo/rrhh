@@ -14,7 +14,7 @@
                         _this.armarPantallaPerfil(mi_pantalla, $('#requisitos_perfil'));
                         _this.armarPantalla(mi_pantalla.CuadroPerfil, $('#detalle_perfil'));
                         _this.armarPantalla(mi_pantalla.DocumentacionRequerida, $('#detalle_documentos'));
-                        _this.completarFoliosRecepecionados(mi_pantalla.DocumentacionRecibida, $('#detalle_documentos'));
+                        _this.completarFoliosRecepcionados(mi_pantalla.DocumentacionRecibida, $('#detalle_documentos'));
                     });
 
         _this.btn_guardar.click(function () {
@@ -30,11 +30,17 @@
                 item.Id = parseInt(res[1]);
                 item.IdTabla = parseInt(res[0]);
                 item.Descripcion = "";
-                documentacionRecibida.Id = 0;
+                documentacionRecibida.Id = lista_foliables[i].lastChild.id;
                 //documentacionRecibida.Fecha = new Date(2014,04,01);
                 documentacionRecibida.ItemCV = item;
                 documentacionRecibida.IdPostulacion = postulacion.Id;
                 documentacionRecibida.Folio = lista_foliables[i].firstElementChild.value;
+                //var folio = lista_foliables[i].lastChild.value;
+
+                if (lista_foliables[i].lastChild.value != "") {
+                    documentacionRecibida.FolioPersistido = lista_foliables[i].lastChild.value;
+                    //$("#" + id)[0].data("folio", elementos[i].FolioPersistido);
+                };
 
                 lista_documentacion_recibida.push(documentacionRecibida);
             }
@@ -43,18 +49,23 @@
 
             Backend.GuardarDocumentacionRecibida(lista_documentacion_recibida)
              .onSuccess(function (resultado) {
-                 alert(resultado);
-
+                 alertify.alert('Se han guardado los folios con exito');
+                 location.reload();
              });
 
         });
 
     },
-    completarFoliosRecepecionados: function (elementos, div_caja_foliables) {
+    completarFoliosRecepcionados: function (elementos, div_caja_foliables) {
         if (elementos.length > 0) {
             for (var i = 0; i < elementos.length; i++) {
                 var id = elementos[i].IdTabla + "_" + elementos[i].IdItemCV;
-                $("#" + id)[0].firstElementChild.value = elementos[i].Folio;
+
+                var elemento = $("#" + id)[0];
+                elemento.firstElementChild.value = elementos[i].Folio;
+                elemento.lastChild.value = elementos[i].FolioPersistido;
+                elemento.lastChild.id = elementos[i].Id;
+
             }
         }
 
@@ -65,6 +76,7 @@
             var div_foliable = $('<div>');
             var descripcion_foliable = $('<p>');
             div_caja_foliables.attr("style", "margin:5px; background-color:#F3F5FF; ");
+
 
             descripcion_foliable.text(pantalla.RequisitosPerfil[i]);
             div_caja_foliables.append(descripcion_foliable);
@@ -79,6 +91,8 @@
             for (var i = 0; i < elementos.length; i++) {
                 var div_foliable = $('<div>');
                 var descripcion_foliable = $('<p>');
+
+
                 descripcion_foliable.attr("style", "font-size:13px; font-weight:bold;");
 
                 descripcion_foliable.text(elementos[i].DescripcionRequisito);
@@ -87,7 +101,13 @@
 
                 for (var j = 0; j < elementos[i].ItemsCv.length; j++) {
                     var descripcion_item = $('<p>');
-                    descripcion_item.attr("id", elementos[i].ItemsCv[j].IdTabla + "_" + elementos[i].ItemsCv[j].Id);
+                    var hidden = $("<input>");
+                    hidden.attr("type", "hidden");
+                    hidden.attr("id", 0);
+
+                    var id = elementos[i].ItemsCv[j].IdTabla + "_" + elementos[i].ItemsCv[j].Id;
+                    descripcion_item.attr("id", id);
+
                     descripcion_item.attr("class", "foliables");
                     descripcion_item.attr("style", "padding-bottom: 10px;");
                     var textbox_folio = $('<input>');
@@ -97,6 +117,7 @@
 
                     descripcion_item.text(elementos[i].ItemsCv[j].Descripcion);
                     descripcion_item.append(textbox_folio);
+                    descripcion_item.append(hidden);
                     div_caja_foliables.append(descripcion_item);
 
                 }
