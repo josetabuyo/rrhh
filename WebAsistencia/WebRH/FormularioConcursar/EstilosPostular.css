@@ -468,19 +468,26 @@ nav
 
 
 .titulo_cargo{
-    font-size:12px;
+    font-size:13px;
     font-weight:bold;
 }
 
 .detalle_cargo{
-    font-size:12px;
+    font-size:13px;
 }
 
 .aclaraciones{
-    font-size:12px;
+    font-size:13px;
 
     line-height:22px;
 }
+  
+  
+.aclaraciones2{
+    font-size:14px;
+    font-weight:bold;
+    line-height:22px;
+}  
   
 .subtitulo_incripcion 
 {
