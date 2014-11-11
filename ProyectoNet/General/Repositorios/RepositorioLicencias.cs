@@ -612,8 +612,8 @@ namespace General.Repositorios
         public bool DiasHabilitadosEntreFechas(DateTime desde, DateTime hasta, int idconcepto) 
         {
             int dias_pedidos = 0;
-            var tablaDatos = this.conexion.Ejecutar("dbo.Web_GetConceptosLicenciaAgrupados");
-            var parametro = tablaDatos.Rows.Find(row => row.GetSmallintAsInt("id_concepto") == idconcepto);
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetConceptosDeLicencia");
+            var parametro = tablaDatos.Rows.Find(row => row.GetSmallintAsInt("id_Concepto") == idconcepto);
 
             int dias_autorizados = parametro.GetSmallintAsInt("Dias_Autorizados");
             bool solo_habiles = parametro.GetBoolean("Dias_Habiles");
