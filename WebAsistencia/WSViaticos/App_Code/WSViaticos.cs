@@ -163,11 +163,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public int DiasHabilesEntreFechas(DateTime desde, DateTime hasta)
+    public bool DiasHabilitadosEntreFechas(DateTime desde, DateTime hasta, int idconcepto)
     {
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
 
-        return repositorio.DiasHabilesEntreFechas(desde, hasta);
+        return repositorio.DiasHabilitadosEntreFechas(desde, hasta, idconcepto);
 
     }
 

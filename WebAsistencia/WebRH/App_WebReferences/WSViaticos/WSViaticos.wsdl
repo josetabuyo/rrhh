@@ -1770,18 +1770,19 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="DiasHabilesEntreFechas">
+      <s:element name="DiasHabilitadosEntreFechas">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="desde" type="s:dateTime" />
             <s:element minOccurs="1" maxOccurs="1" name="hasta" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="idconcepto" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="DiasHabilesEntreFechasResponse">
+      <s:element name="DiasHabilitadosEntreFechasResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="DiasHabilesEntreFechasResult" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DiasHabilitadosEntreFechasResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -3302,11 +3303,11 @@
   <wsdl:message name="GetSaldoLicencia14FSoapOut">
     <wsdl:part name="parameters" element="tns:GetSaldoLicencia14FResponse" />
   </wsdl:message>
-  <wsdl:message name="DiasHabilesEntreFechasSoapIn">
-    <wsdl:part name="parameters" element="tns:DiasHabilesEntreFechas" />
+  <wsdl:message name="DiasHabilitadosEntreFechasSoapIn">
+    <wsdl:part name="parameters" element="tns:DiasHabilitadosEntreFechas" />
   </wsdl:message>
-  <wsdl:message name="DiasHabilesEntreFechasSoapOut">
-    <wsdl:part name="parameters" element="tns:DiasHabilesEntreFechasResponse" />
+  <wsdl:message name="DiasHabilitadosEntreFechasSoapOut">
+    <wsdl:part name="parameters" element="tns:DiasHabilitadosEntreFechasResponse" />
   </wsdl:message>
   <wsdl:message name="GetSaldoLicenciaPlanoSoapIn">
     <wsdl:part name="parameters" element="tns:GetSaldoLicenciaPlano" />
@@ -3991,9 +3992,9 @@
       <wsdl:input message="tns:GetSaldoLicencia14FSoapIn" />
       <wsdl:output message="tns:GetSaldoLicencia14FSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="DiasHabilesEntreFechas">
-      <wsdl:input message="tns:DiasHabilesEntreFechasSoapIn" />
-      <wsdl:output message="tns:DiasHabilesEntreFechasSoapOut" />
+    <wsdl:operation name="DiasHabilitadosEntreFechas">
+      <wsdl:input message="tns:DiasHabilitadosEntreFechasSoapIn" />
+      <wsdl:output message="tns:DiasHabilitadosEntreFechasSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetSaldoLicenciaPlano">
       <wsdl:input message="tns:GetSaldoLicenciaPlanoSoapIn" />
@@ -4953,8 +4954,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DiasHabilesEntreFechas">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/DiasHabilesEntreFechas" style="document" />
+    <wsdl:operation name="DiasHabilitadosEntreFechas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/DiasHabilitadosEntreFechas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6225,8 +6226,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DiasHabilesEntreFechas">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/DiasHabilesEntreFechas" style="document" />
+    <wsdl:operation name="DiasHabilitadosEntreFechas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/DiasHabilitadosEntreFechas" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

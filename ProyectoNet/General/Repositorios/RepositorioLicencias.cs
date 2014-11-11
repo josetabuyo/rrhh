@@ -609,6 +609,35 @@ namespace General.Repositorios
         }
 
 
+        public bool DiasHabilitadosEntreFechas(DateTime desde, DateTime hasta, int idconcepto) 
+        {
+            int dias_pedidos = 0;
+            var tablaDatos = this.conexion.Ejecutar("dbo.Web_GetConceptosLicenciaAgrupados");
+            var parametro = tablaDatos.Rows.Find(row => row.GetSmallintAsInt("id_concepto") == idconcepto);
+
+            int dias_autorizados = parametro.GetSmallintAsInt("Dias_Autorizados");
+            bool solo_habiles = parametro.GetBoolean("Dias_Habiles");
+
+            if (solo_habiles)
+            {
+                dias_pedidos = DiasHabilesEntreFechas(desde, hasta);
+            }
+            else 
+            {
+                TimeSpan diff = hasta - desde;
+                dias_pedidos = diff.Days + 1;
+            }
+
+            if (dias_pedidos > dias_autorizados)
+            {
+                return false;
+            }
+            else 
+            {
+                return true;
+            }
+        }
+
         public int DiasHabilesEntreFechas(DateTime desde, DateTime hasta)
         {
             if (desde <= hasta)

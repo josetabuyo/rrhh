@@ -288,6 +288,115 @@ namespace TestViaticos
             Assert.IsFalse(repo_licencia.EsFinDeSemana(miercoles_22_de_octubre_de_2014));
         }
 
+        [TestMethod]
+        public void quiero_pedirme_4_dias_habiles_para_matrimonio_de_mi_hijo_y_no_puedo_porque_son_3()
+        {
+            DateTime desde = new DateTime(2014, 11, 11);
+            DateTime hasta = new DateTime(2014, 11, 14);
+            int id_matrimonio = 19;
+            string source = @"     |Dias_Autorizados	|id_Concepto	|Dias_Habiles  |id		|fecha	                |año	   |periodico      
+                                   |3	                |19	            |True          |1	    |2014-11-24 00:00:00	|2014 	   |false
+                                   |3	                |19	            |True          |2	    |2014-12-08 00:00:00	|2014 	   |true
+                                   |3	                |19	            |True          |3	    |2010-01-01 00:00:00	|2010 	   |true
+                                   |3	                |19	            |True          |4	    |2012-12-26 00:00:00	|2014 	   |false
+                                   |3	                |19	            |True          |5	    |2001-12-24 00:00:00	|2001 	   |true
+                                   |3	                |19	            |True          |5	    |2001-12-25 00:00:00	|2001 	   |true";
+
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            var repo_licencia = new RepositorioLicencias(conexion);
+
+
+            Assert.IsFalse(repo_licencia.DiasHabilitadosEntreFechas(desde, hasta, id_matrimonio));
+            Assert.AreEqual(4, repo_licencia.DiasHabilesEntreFechas(desde, hasta));
+        }
+
+        [TestMethod]
+        public void quiero_pedirme_3_dias_habiles_para_matrimonio_de_mi_hijo_y_puedo_porque_son_3()
+        {
+            DateTime desde = new DateTime(2014, 11, 14);
+            DateTime hasta = new DateTime(2014, 11, 18);
+            int id_matrimonio = 19;
+            string source = @"     |Dias_Autorizados	|id_Concepto	|Dias_Habiles  |id		|fecha	                |año	   |periodico      
+                                   |3	                |19	            |True          |1	    |2014-11-24 00:00:00	|2014 	   |false
+                                   |3	                |19	            |True          |2	    |2014-12-08 00:00:00	|2014 	   |true
+                                   |3	                |19	            |True          |3	    |2010-01-01 00:00:00	|2010 	   |true
+                                   |3	                |19	            |True          |4	    |2012-12-26 00:00:00	|2014 	   |false
+                                   |3	                |19	            |True          |5	    |2001-12-24 00:00:00	|2001 	   |true
+                                   |3	                |19	            |True          |5	    |2001-12-25 00:00:00	|2001 	   |true";
+
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            var repo_licencia = new RepositorioLicencias(conexion);
+
+
+            Assert.IsTrue(repo_licencia.DiasHabilitadosEntreFechas(desde, hasta, id_matrimonio));
+            Assert.AreEqual(3, repo_licencia.DiasHabilesEntreFechas(desde, hasta));
+        }
+
+
+        [TestMethod]
+        public void quiero_pedirme_20_dias_habiles_para_mi_matrimonio__y_no_puedo_porque_son_10()
+        {
+            DateTime desde = new DateTime(2014, 11, 21);
+            DateTime hasta = new DateTime(2014, 12, 22);
+            int id_matrimonio = 18;
+            string source = @"     |Dias_Autorizados	|id_Concepto	|Dias_Habiles  |id		|fecha	                |año	   |periodico      
+                                   |10	                |18	            |True          |1	    |2014-11-24 00:00:00	|2014 	   |false
+                                   |10                  |18	            |True          |2	    |2014-12-08 00:00:00	|2014 	   |true
+                                   |10	                |18	            |True          |3	    |2010-01-01 00:00:00	|2010 	   |true
+                                   |10	                |18	            |True          |4	    |2012-12-26 00:00:00	|2014 	   |false
+                                   |10	                |18	            |True          |5	    |2001-12-24 00:00:00	|2001 	   |true
+                                   |10	                |18	            |True          |5	    |2001-12-25 00:00:00	|2001 	   |true";
+
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            var repo_licencia = new RepositorioLicencias(conexion);
+
+
+            Assert.IsFalse(repo_licencia.DiasHabilitadosEntreFechas(desde, hasta, id_matrimonio));
+            Assert.AreEqual(20, repo_licencia.DiasHabilesEntreFechas(desde, hasta));
+        }
+
+        [TestMethod]
+        public void quiero_pedirme_10_dias_habiles_para_mi_matrimonio__y_puedo_porque_son_10()
+        {
+            DateTime desde = new DateTime(2014, 11, 21);
+            DateTime hasta = new DateTime(2014, 12, 05);
+            int id_matrimonio = 18;
+            string source = @"     |Dias_Autorizados	|id_Concepto	|Dias_Habiles  |id		|fecha	                |año	   |periodico      
+                                   |10	                |18	            |True          |1	    |2014-11-24 00:00:00	|2014 	   |false
+                                   |10                  |18	            |True          |2	    |2014-12-08 00:00:00	|2014 	   |true
+                                   |10	                |18	            |True          |3	    |2010-01-01 00:00:00	|2010 	   |true
+                                   |10	                |18	            |True          |4	    |2012-12-26 00:00:00	|2014 	   |false
+                                   |10	                |18	            |True          |5	    |2001-12-24 00:00:00	|2001 	   |true
+                                   |10	                |18	            |True          |5	    |2001-12-25 00:00:00	|2001 	   |true";
+
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            var repo_licencia = new RepositorioLicencias(conexion);
+
+
+            Assert.IsTrue(repo_licencia.DiasHabilitadosEntreFechas(desde, hasta, id_matrimonio));
+            Assert.AreEqual(10, repo_licencia.DiasHabilesEntreFechas(desde, hasta));
+        }
+
 
         //        [TestMethod]
         //        public void deberia_saber_cuantas_vacaciones_permitidas_tiene_agus_para_el_2012_para_el_concepto_1()

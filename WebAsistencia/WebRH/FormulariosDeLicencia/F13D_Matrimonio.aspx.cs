@@ -169,7 +169,8 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
 
         if (this.rbMatrimonioPropio.Checked)
         {
-            if (this.DesdeHasta1.DiasHabilesEntreFechas() > 10)
+            // 17 = id Matrimonio Agente en tabla Tabla_Conceptos_Licencias
+            if (this.DesdeHasta1.DiasHabilitadosEntreFechas(17))
             {
                 DatosValidos = false;
             }
@@ -181,8 +182,8 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
             {
                     DatosValidos = false;
             }
-
-            if (this.DesdeHasta1.DiasHabilesEntreFechas() > 3)
+            // 27 = id Matrimonio Hijo en tabla Tabla_Conceptos_Licencias
+            if (this.DesdeHasta1.DiasHabilitadosEntreFechas(19) )
             {
                 DatosValidos = false;
             }
