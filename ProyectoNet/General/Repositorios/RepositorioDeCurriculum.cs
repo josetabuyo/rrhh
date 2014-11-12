@@ -112,6 +112,7 @@ namespace General.Repositorios
                                             Id = dRow.GetInt("IdAntecedentesAcademicos", 0),
                                             Titulo = dRow.GetString("AntecedentesAcademicosTitulo", string.Empty),
                                             Nivel = dRow.GetInt("AntecedentesAcademicosNivel", 0),
+                                            Anios = dRow.GetInt("AntecedentesAcademicosAnios", 0),
                                             Establecimiento = dRow.GetString("AntecedentesAcademicosEstablecimiento", string.Empty),
                                             Especialidad = dRow.GetString("AntecedentesAcademicosEspecialidad", string.Empty),
                                             FechaIngreso = dRow.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today),
@@ -121,7 +122,7 @@ namespace General.Repositorios
                                         }).Distinct().ToList();
 
 
-                antecedentes_anonimos.Select(a => new CvEstudios(a.Id, a.Titulo, a.Nivel, a.Establecimiento,
+                antecedentes_anonimos.Select(a => new CvEstudios(a.Id, a.Titulo, a.Nivel, a.Anios, a.Establecimiento,
                                                                     a.Especialidad, a.FechaIngreso, a.FechaEgreso,
                                                                     a.Localidad, a.Pais)).ToList().ForEach(ev => cv.AgregarEstudio(ev));
 
@@ -447,7 +448,14 @@ namespace General.Repositorios
                 //Si no es empleado
                 if (cv.DatosPersonales.TieneLegajo == "No tiene legajo")
                 {
-                    validarDatos(datosPersonales);
+                    try
+                    {
+                        validarDatos(datosPersonales);
+                    }
+                    catch (Exception e)
+                    {                        
+                        throw e;
+                    }
                     //insertar en CV_DatosPersonales
                     parametros = CompletarDatosPersonales(datosPersonales, parametros, usuario);
                     parametros.Add("@IdPersona", usuario.Owner.Id);
@@ -617,7 +625,7 @@ namespace General.Repositorios
             parametros.Add("@Pais", antecedentesAcademicos_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Nivel", antecedentesAcademicos_nuevo.Nivel);
-
+            parametros.Add("@Anios", antecedentesAcademicos_nuevo.Anios);
 
             return parametros;
 
@@ -1230,7 +1238,7 @@ namespace General.Repositorios
         {
             var validador_datos = new Validador();
 
-            validador_datos.DeberianSerNoVacias(new string[] { "Nombre", "Apellido", "Cuil", "Telefono", "Telefono2" });
+            validador_datos.DeberianSerNoVacias(new string[] { "Nombre", "Apellido", "Cuil" });
             validador_datos.DeberianSerFechasNoVacias(new string[] { "FechaNacimiento"});
             validador_datos.DeberianSerNaturalesOCero(new string[] { "Dni" }); 
             validador_datos.DeberianSerNaturales(new string[] { "Sexo", "EstadoCivil", "Nacionalidad", "TipoDocumento"});
@@ -1238,22 +1246,31 @@ namespace General.Repositorios
             if (!validador_datos.EsValido(datosPersonales))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
 
+            validarDatos(datosPersonales.DatosDeContacto);
             validarDatos(datosPersonales.DomicilioLegal);
             validarDatos(datosPersonales.DomicilioPersonal);
-
         }
 
         private void validarDatosEmpleado(CvDatosPersonales datosPersonales)
         {
             var validador_datos = new Validador();
 
-            validador_datos.DeberianSerNoVacias(new string[] { "Telefono", "Telefono2", "Email" });
-
             if (!validador_datos.EsValido(datosPersonales))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
 
+            validarDatos(datosPersonales.DatosDeContacto);
             validarDatos(datosPersonales.DomicilioLegal);
             validarDatos(datosPersonales.DomicilioPersonal);
+        }
+
+        private void validarDatos(DatosDeContacto datos_de_contacto)
+        {
+            var validador = new Validador();
+
+            validador.DeberianSerNoVacias(new string[] { "Telefono", "Telefono2", "Email" });
+
+            if (!validador.EsValido(datos_de_contacto))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
         }
 
         private void validarDatos(CvDomicilio un_domicilio)
@@ -1273,7 +1290,7 @@ namespace General.Repositorios
 
             validador_estudios.DeberianSerNoVacias(new string[] { "Titulo", "Especialidad", "Establecimiento", "Localidad" });
             validador_estudios.DeberianSerFechasNoVacias(new string[] { "FechaIngreso", "FechaEgreso"});
-            validador_estudios.DeberianSerNaturales(new string[] { "Nivel", "Pais" });
+            validador_estudios.DeberianSerNaturales(new string[] { "Nivel", "Anios", "Pais" });
           //  validador_estudios.DeberianSerNaturales(new string[] {  "Pais" });
             
             if (!validador_estudios.EsValido(un_estudio))

@@ -8,7 +8,7 @@ using WSViaticos;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-public partial class RegistroPostular_FormCaptcha : System.Web.UI.Page
+public partial class RegistroPostular_FormCaptchaRecupero : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {

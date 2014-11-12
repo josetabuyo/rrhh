@@ -49,8 +49,9 @@ namespace General.Repositorios
 
         protected override List<Provincia> ObtenerDesdeLaBase()
         {
-            var tablaDatos = conexion.Ejecutar("dbo.WEB_GetProvincias");
             var provincias = new List<Provincia>();
+
+            var tablaDatos = conexion.Ejecutar("dbo.WEB_GetProvincias");
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
@@ -58,6 +59,11 @@ namespace General.Repositorios
                     provincias.Add(new Provincia(row.GetSmallintAsInt("id"), row.GetString("nombre")));
                 });
             }
+
+            //provincias.Add(new Provincia(1, "Buenos Aires"));
+            //provincias.Add(new Provincia(2, "Entre Rios"));
+            //provincias.Add(new Provincia(5, "Santa Fe"));
+            //provincias.Add(new Provincia(8, "Mendoza"));
 
             return provincias;
         }

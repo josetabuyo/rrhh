@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" type="text/css" href="MenuPrincipal.css" />
 
-    <body>
+    <body style="background-color:#031427">
         <form runat="server">
             <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
             <div id="set-8" class="container">
@@ -27,20 +27,21 @@
         <div id="plantillas">
             <div class="item_de_menu_principal">
                 <!--[if !IE]><!-->
-                <div class="linea_gradiente"></div>
+<%--                <div class="linea_gradiente"></div>--%>
                 <!--<![endif]-->
-              	<a class="hi-icon" data-toggle="tooltip" data-placement="right" title="" >
+              	<a class="hi-icon" data-toggle="tooltip" data-placement="right" title="" id="aaaa">
                     <!--[if !IE]><!-->
                     <div class="circulo circulo1"></div>
                     <div class="circulo circulo2"></div>
                     <div class="circulo circulo3"></div>
+                    
                     <!--<![endif]-->
                 </a>
-                <div id="contenedor_descripcion_item">
-                    <div id="descripcion_item"> Esta es una descripcion </div>
+                <%--<div id="contenedor_descripcion_item">--%>
+                  <%-- <div id="descripcion_item"> Esta es una descripcion </div>--%>
 
-                    
-                </div>
+                   
+                <%--</div>--%>
             </div>
         </div>
         
@@ -55,7 +56,7 @@
                 var menu = new MenuPrincipal({ ui: $("#menu_principal"), autorizador: new Autorizador(new ProveedorAjax("../")) });
             });
         </script> 
-	</script>
+	
     </body>    
 </html>
 

@@ -1,9 +1,9 @@
 ﻿var RepositorioDeTiposDeCapacidadPersonal = {
     tipos_de_capacidad:[
-        { id: 0, descripcion: "Social" },
-        { id: 1, descripcion: "Organizativa" },
-        { id: 2, descripcion: "Técnica" },
-        { id: 3, descripcion: "Otra" }
+        { id: 1, descripcion: "Social" },
+        { id: 2, descripcion: "Organizativa" },
+        { id: 3, descripcion: "Técnica" },
+        { id: 4, descripcion: "Otra" }
     ],
     buscar: function (criterio) {
         if (criterio === undefined) return this.tipos_de_capacidad;

@@ -2345,9 +2345,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
+    public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
     {
-        Autorizador().RegistrarNuevoUsuario(aspirante);
+        return Autorizador().RegistrarNuevoUsuario(aspirante);
     }
 
     private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
@@ -2419,9 +2419,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO_nueva, CvDatosPersonales datosPersonalesDTO_original, Usuario usuario)
+    public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO, Usuario usuario)
     {
-        RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO_nueva, usuario);
+        RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO, usuario);
     }
 
     [WebMethod]
@@ -2438,10 +2438,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetPostulacionesPorCodigo(string codigo)
+    public Postulacion GetPostulacionesPorCodigo(string codigo)
     {
         var postulacion = RepoPostulaciones().GetPostulacionesPorCodigo(codigo);
-        var usu_etapas = (from etapa in postulacion.Etapas
+        /*var usu_etapas = (from etapa in postulacion.Etapas
                           select new
                           {
                               IdUsuario = etapa.IdUsuario,
@@ -2459,7 +2459,8 @@ public class WSViaticos : System.Web.Services.WebService
             UsuarioPostulacion = usu.Owner.Nombre + " " + usu.Owner.Apellido,
             UsuEtapas = usu_etapas
         };
-        return Newtonsoft.Json.JsonConvert.SerializeObject(datos_postulacion);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(datos_postulacion);*/
+        return postulacion;
     }
 
     [WebMethod(EnableSession = true)]

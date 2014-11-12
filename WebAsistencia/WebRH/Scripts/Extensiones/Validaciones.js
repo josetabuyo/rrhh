@@ -21,13 +21,20 @@
         esNumeroNaturalSinCero: {
             evaluar: function (control) {
                 if (control.prop("disabled")) return true;
-                if (control.val() == "") return true;
+                if (control.val() == "") return false;
                 if (control.val() == 0) return false;
                 return (/^\d+$/).test(control.val());
             },
             mensaje: "Ingrese dato numérico"
         },
-
+        haySeleccionEnCombo:{
+            evaluar: function (control) {
+                if (control.prop("disabled")) return true;
+                if (control.val() == "") return false;
+                return true;
+            },
+            mensaje: "Seleccione una opción"       
+        },
         esUnComboSinCero: {
             evaluar: function (control) {
                 if (control.prop("disabled")) return true;
@@ -103,9 +110,10 @@
                 es_valido = false;
             }
         });
+        if(control.hasClass("select2-offscreen")) control = $(control.prev());
         if (es_valido) {
             control.limpiarValidaciones();
-        } else {
+        } else {            
             control.limpiarValidaciones();
             control.addClass("control-invalido");
             control.opentip(mensaje.substring(2), {
@@ -122,20 +130,17 @@
     limpiarValidaciones: function () {
         var control = $(this);
         var str_validaciones = control.attr("data-validar");
-        if (typeof str_validaciones !== typeof undefined && str_validaciones !== false) {
-            control.removeClass("control-invalido");
+        control.removeClass("control-invalido");
+        for (var i = 0; i < Opentip.tips.length; i++) {
+            var tip = Opentip.tips[i];
+            if (tip.triggerElement.attr("id") == control.attr("id")) tip.hide();
+        }
+        this.find(".control-invalido").each(function (i, sub_control) {
+            $(sub_control).removeClass("control-invalido");
             for (var i = 0; i < Opentip.tips.length; i++) {
                 var tip = Opentip.tips[i];
-                if (tip.triggerElement.attr("id") == control.attr("id")) tip.hide();
+                if (tip.triggerElement.attr("id") == $(sub_control).attr("id")) tip.hide();
             }
-        } else {
-            this.find("[data-validar]").each(function (i, sub_control) {
-                $(sub_control).removeClass("control-invalido");
-                for (var i = 0; i < Opentip.tips.length; i++) {
-                    var tip = Opentip.tips[i];
-                    if (tip.triggerElement.attr("id") == $(sub_control).attr("id")) tip.hide();
-                }
-            });
-        }
+        });
     }
 });

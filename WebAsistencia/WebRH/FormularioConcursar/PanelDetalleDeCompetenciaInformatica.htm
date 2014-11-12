@@ -11,43 +11,46 @@
                 <h5><em>*</em>Campos Obligatorios</h5>
 				<div class="grupo_campos">
 					<label for="nombre">Diploma / Certificación <em>*</em></label>
-					<input id="txt_competencias_informaticas_diploma_certificacion" type="text" style="width:330px;"data-validar="esNoBlanco"/>
+					<input id="txt_competencias_informaticas_diploma_certificacion" type="text" style="width:330px;" rh-control-type="textbox" rh-model-property="Diploma" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="txt_ingreso">Fecha Obtención <em>*</em></label>
-					<input id="txt_competencias_informaticas_fecha_obtencion" type="text" style="width:100px;"/>
+					<input id="txt_competencias_informaticas_fecha_obtencion" type="text" style="width:100px;" rh-control-type="datepicker" rh-model-property="FechaObtencion"/>
 				</div>
                 <div class="grupo_campos">
-					<label for="nombre">Tipo Informática <em>*</em></label>
-					
-					<select id="txt_competencias_informaticas_tipo_informatica" style="width:200px; data-validar="esUnComboSinCero" dataProvider="TiposCompetenciaInformatica" modelo="TipoInformatica">
+					<label for="nombre">Tipo Informática <em>*</em></label>					
+					<select id="txt_competencias_informaticas_tipo_informatica" style="width:200px; data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="TiposCompetenciaInformatica"
+                            rh-model-property="TipoInformatica">
                     </select>
                 </div>
 				<div class="grupo_campos nueva_linea">
 					<label for="txt_ingreso">Conocimiento <em>*</em></label>
-					<select id="txt_competencias_informaticas_conocimiento" style="width:200px; data-validar="esUnComboSinCero" dataProvider="ConocimientoCompetenciaInformatica" modelo="Conocimiento" depende_de="txt_competencias_informaticas_tipo_informatica" dependeDe="txt_competencias_informaticas_tipo_informatica" filtradoPor="Tipo">
+					<select id="txt_competencias_informaticas_conocimiento" style="width:200px; data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="ConocimientoCompetenciaInformatica"
+                            rh-model-property="Conocimiento" rh-filter-key="Tipo" rh-filter-value="TipoInformatica">
 					</select>
 				</div>
 				<div class="grupo_campos">
 					<label for="txt_egreso">Nivel <em>*</em></label>
-					<select id="txt_competencias_informaticas_nivel" style="width:125px; data-validar="esUnComboSinCero" dataProvider="NivelCompetenciaInformatica" modelo="Nivel">
+					<select id="txt_competencias_informaticas_nivel" style="width:125px; data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="NivelCompetenciaInformatica"
+                            rh-model-property="Nivel">
 					</select>
 				</div>
                  <div class="grupo_campos">
 					<label for="txt_detalle">Detalle <em>*</em></label>
-					<input id="txt_competencias_informaticas_detalle" type="text" style="width:285px;" data-validar="esNoBlanco"/>
+					<input id="txt_competencias_informaticas_detalle" type="text" style="width:285px;" rh-control-type="textbox" rh-model-property="Detalle" data-validar="esNoBlanco"/>
 				</div>
                 <div class="grupo_campos nueva_linea">
 					<label for="txt_egreso">Establecimiento <em>*</em></label>
-					<input id="txt_competencias_informaticas_establecimiento" type="text" style="width:200px;" data-validar="esNoBlanco"/>
+					<input id="txt_competencias_informaticas_establecimiento" type="text" style="width:200px;" rh-control-type="textbox" rh-model-property="Establecimiento" data-validar="esNoBlanco"/>
 				</div>
                 <div class="grupo_campos">
 					<label for="txt_localidad">Localidad <em>*</em></label>
-					<input id="cmb_competencias_informaticas_localidad" type="text" style="width:200px;" data-validar="esNoBlanco"/>
+					<input id="cmb_competencias_informaticas_localidad" type="text" style="width:200px;" rh-control-type="textbox" rh-model-property="Localidad" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="cmb_pais">País <em>*</em></label>
-					<select id="cmb_competencias_informaticas_pais" style="width:200px;" data-validar="esNumeroNaturalSinCero" dataProvider="Paises" modelo="Pais">
+					<select id="cmb_competencias_informaticas_pais" style="width:200px;" data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="Paises"
+                            rh-model-property="Pais">
 					</select>
 				</div>             
 			</fieldset>

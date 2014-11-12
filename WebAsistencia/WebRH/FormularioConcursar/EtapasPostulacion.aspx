@@ -7,7 +7,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Cambio de Etapas de Postulaciones</title>
      <%= Referencias.Css("../")%>    
 
      <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
@@ -18,15 +18,17 @@
     <form id="form1" runat="server" class="cmxform">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="contenedor_concursar" >
+    
+    <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
         <div id="div_cambio_etapas" class="fondo_form" style="padding: 10px;">
-            <h2>Cambio de Etapa</h2>
+            <h2>Cambio de Etapa de Postulaciones</h2>
             <div>
-                <div style="display:inline-block; margin-left:30px; width: 60%">
+                <div style="display:inline-block; margin-left:30px; width: 50%; vertical-align:middle;">
                     <label for="txt_codigo_postulacion">Postulación:&nbsp;</label>
-                    <input type="text" id="txt_codigo_postulacion" />
-                    <input type="button" id="btn_buscar_etapas" value="Buscar" />
+                    <input type="text" id="txt_codigo_postulacion" style="margin-bottom: 0px;" data-validar="esNoBlanco" />
+                    <input type="button" id="btn_buscar_etapas" value="Buscar" class="btn" />
                 </div>
-                <div style="display:inline-block; margin-left:30px;">
+                <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
                     <div>Empleado:&nbsp;<span id="span_empleado"></span></div>
                     <div>Código:&nbsp;<span id="span_codigo"></span></div>
                     <div>Fecha de Postulación:&nbsp;<span id="span_fecha"></span></div>
@@ -35,11 +37,12 @@
             </div>
             <div id="seccion_historial" style="display:none">
                 <h3>Historial</h3>
-                <div style="display:block; margin-left:30px; min-width: 60%; vertical-align: middle;">
+                <div style="display:block; margin-left:30px; vertical-align: middle;">
                     <div id="div_tabla_historial"></div>
                 </div>
                 <div style="display:block; margin-left:30px; vertical-align: middle;">
-                    <select id="cmb_etapas_concurso" dataProvider="EtapasConcurso" modelo="Etapa">
+                Cambiar a:&nbsp;
+                    <select id="cmb_etapas_concurso">
                     </select>
                 </div>
             </div>

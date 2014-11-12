@@ -130,6 +130,7 @@ namespace General.MAU
 
         public Boolean ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
         {
+            //return true;
             var funcionalidades_que_permiten_acceder_a_la_url = this.repositorio_accesos_a_url.TodosLosAccesos().FindAll(a => a.Url.ToUpper() == url.ToUpper()).Select(a => a.Funcionalidad);
             if (funcionalidades_que_permiten_acceder_a_la_url.Count() == 0) return true;
             return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f => funcionalidades_que_permiten_acceder_a_la_url.Contains(f));
@@ -145,19 +146,20 @@ namespace General.MAU
             repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(id_usuario, id_area);
         }
 
-        public void RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
+        public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
         {            
             var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
             var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
             if (repo_personas.BuscarPersonas(JsonConvert.SerializeObject(new { Documento=aspirante.Documento, ConLegajo=true})).Count > 0)
             {
-                throw new Exception("Ya hay alguien registrado con su documento.");
+                throw new Exception("Ya hay alguien registrado con su documento."); 
             }
 
             //Se agrega la restricción del mail para que sea único
             if (repo_usuarios.ValidarMailExistente(aspirante.Email))
             {
-                throw new Exception("Ya hay alguien registrado con su Mail.");
+                //throw new Exception("Ya hay alguien registrado con su Mail.");
+                return false;
             }
  
             if(aspirante.Nombre.Trim() == "") throw new Exception("El nombre no puede ser vacío.");
@@ -178,7 +180,8 @@ namespace General.MAU
             var titulo = "Bienvenido al SIGIRH";
             var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave;
 
-            EnviarMail(aspirante.Email, titulo, cuerpo); 
+            EnviarMail(aspirante.Email, titulo, cuerpo);
+            return true;
         }
 
 

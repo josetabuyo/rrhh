@@ -16,6 +16,20 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="contenedor_concursar">
         <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
+            <h2>Presentación de documentación</h2>
+            <div>
+                <div style="display:inline-block; margin-left:30px; width: 50%; vertical-align:middle;">
+                    <label for="txt_codigo_postulacion">Postulación:&nbsp;</label>
+                    <input type="text" id="txt_codigo_postulacion" style="margin-bottom: 0px;" data-validar="esNoBlanco" />
+                    <input type="button" id="btn_buscar_etapas" value="Buscar" class="btn" />
+                </div>
+                <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
+                    <div>Empleado:&nbsp;<span id="span_empleado"></span></div>
+                    <div>Código:&nbsp;<span id="span_codigo"></span></div>
+                    <div>Fecha de Postulación:&nbsp;<span id="span_fecha"></span></div>
+                    <div>Perfil:&nbsp;<span id="span_perfil"></span></div>
+                </div>
+            </div>
         <p>Documentación necesaria para <span style="font-weight:bold;" id="nombre_perfil"></span></p>
         <div id="requisitos_perfil"></div>
         <fieldset>

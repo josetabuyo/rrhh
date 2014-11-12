@@ -143,7 +143,7 @@ namespace TestViaticos
 
         public CvEstudios UnEstudio()
         {
-            return new CvEstudios("Lic. en Administracion",1 , "Universidad de Buenos Aires", "", new DateTime(2003,03,01),new DateTime(2007,12,20),"CABA",9);
+            return new CvEstudios("Lic. en Administracion",1 , 1, "Universidad de Buenos Aires", "", new DateTime(2003,03,01),new DateTime(2007,12,20),"CABA",9);
         }
 
         public CvEventoAcademico UnEventoAcademico()

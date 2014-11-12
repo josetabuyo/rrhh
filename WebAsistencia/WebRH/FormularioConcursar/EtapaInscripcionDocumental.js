@@ -17,6 +17,29 @@
                         _this.completarFoliosRecepcionados(mi_pantalla.DocumentacionRecibida, $('#detalle_documentos'));
                     });
 
+        _this.BuscarPostulaciones = function () {
+            var codigo = $("#txt_codigo_postulacion").val();
+            var div_tabla_historial = $("#div_tabla_historial");
+            $("#span_empleado").html("");
+            $("#span_codigo").html("");
+            $("#span_fecha").html("");
+            $("#span_perfil").html("");
+            div_tabla_historial.html("");
+            $("#seccion_historial").hide();
+            Backend.ejecutar("GetPostulacionesPorCodigo",
+            [codigo],
+            function (respuesta) {
+                if (respuesta != null) _this.CompletarDatos(respuesta);
+                else {
+                    alertify.alert("Código no encontrado");
+                }
+            },
+            function (errorThrown) {
+                alertify.alert(errorThrown);
+            }
+            );
+        }
+
         _this.btn_guardar.click(function () {
 
             var lista_foliables = $(".foliables");
