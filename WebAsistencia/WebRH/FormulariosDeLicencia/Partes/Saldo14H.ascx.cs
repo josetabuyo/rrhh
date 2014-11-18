@@ -17,7 +17,7 @@ public partial class FormulariosDeLicencia_Partes_Saldo14H : System.Web.UI.UserC
     }
 
 
-    protected void Page_Load(object sender, EventArgs e)
+    public void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {

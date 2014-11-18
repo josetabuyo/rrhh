@@ -79,17 +79,15 @@ public partial class FormulariosDeLicencia_Partes_DesdeHasta : System.Web.UI.Use
         return diff.Days + 1;
     }
 
-    public int DiasHabilesEntreFechas()
+    public bool DiasHabilitadosEntreFechas(int concepto)
     {
         if (this.TBDesde.Text == null || this.TBHasta.Text == null)
-            return 0;
+            return false;
 
         if (this.TBDesde.Text == "" || this.TBHasta.Text == "")
-            return 0;
+            return false;
         var servicio = new WSViaticos.WSViaticosSoapClient();
-        int dias = servicio.DiasHabilesEntreFechas(DateTime.Parse(this.TBDesde.Text), DateTime.Parse(this.TBHasta.Text));
-        
-        return dias;
+        return servicio.DiasHabilitadosEntreFechas(DateTime.Parse(this.TBDesde.Text), DateTime.Parse(this.TBHasta.Text), concepto);
     }
 
     public bool EsAnteriorA(DateTime Fecha)

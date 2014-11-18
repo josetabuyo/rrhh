@@ -32,6 +32,11 @@ namespace General.Repositorios
                 return "Error, ya existe una solicitud cargada en ese periodo.";
             }
 
+            if (!this.PoseeSaldosPara14F(unaLicencia))
+            {
+                return "Error, No cuenta con los días suficientes para solicitar esta licencia. <br/> Seleccione en el Calendario el mes correspondiente para visualizar los días disponibles";
+            }
+
             ConexionDB cn = new ConexionDB("dbo.WEB_AltaSolicitudLicencia");
             cn.AsignarParametro("@documento", unaLicencia.Persona.Documento);
             cn.AsignarParametro("@idConcepto", unaLicencia.Concepto.Id);
@@ -43,6 +48,20 @@ namespace General.Repositorios
             cn.EjecutarSinResultado();
             cn.Desconestar();
             return null;
+        }
+
+        private bool PoseeSaldosPara14F(Licencia unaLicencia)
+        {
+            if (unaLicencia.Concepto.Id == 32)
+            {
+                SaldoLicencia saldo = CargarSaldoLicencia14FDe(unaLicencia.Concepto, unaLicencia.Persona, unaLicencia.Desde);
+                if (saldo.SaldoAnual <= 0 || saldo.SaldoMensual <= 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return true;
         }
 
         public bool GetLicenciasQueSePisanCon(Licencia unaLicencia)
@@ -131,6 +150,96 @@ namespace General.Repositorios
             saldo.SaldoMensual -= RestarDiasMensual;
             return saldo;
         }
+
+
+        public SaldoLicencia CargarSaldoLicencia14FDe(ConceptoDeLicencia concepto, Persona unaPersona, DateTime fecha) 
+        {
+            SaldoLicencia licencias_tomadas = CargarSaldoLicenciaTomada14FDe(concepto, unaPersona, fecha);
+            SaldoLicencia licencia_en_tramite = GetLicenciasPendientes14FPara(concepto, unaPersona, fecha);
+
+            SaldoLicencia restadas = licencias_tomadas.Restar(licencia_en_tramite);
+
+            if (restadas.SaldoAnual <= 0)
+            {
+                restadas.SaldoMensual = 0;
+            }
+
+            return restadas;
+        }
+
+        public SaldoLicencia CargarSaldoLicenciaTomada14FDe(ConceptoDeLicencia concepto, Persona unaPersona, DateTime fecha)
+        {
+            SaldoLicencia saldo = new SaldoLicencia();
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("[dbo].[Web_GetSaldoSegunConceptoDeLicencia]");
+            cn.AsignarParametro("@idConcepto", concepto.Id);
+
+            dr = cn.EjecutarConsulta();
+
+            if (dr.Read())
+            {
+                saldo.SaldoAnual = dr.GetInt16(dr.GetOrdinal("SaldoAnual"));
+                saldo.SaldoMensual = dr.GetInt16(dr.GetOrdinal("SaldoMensual"));
+            }
+
+            cn.Desconestar();
+
+            cn = new ConexionDB("[dbo].[Web_GetLicenciasTomadasEnElAnio]");
+            cn.AsignarParametro("@idConcepto", concepto.Id);
+            cn.AsignarParametro("@documento", unaPersona.Documento);
+            cn.AsignarParametro("@periodo", DateTime.Today.Year);
+
+            dr = cn.EjecutarConsulta();
+
+            int RestarDiasAnual = 0;
+            int RestarDiasMensual = 0;
+            while (dr.Read())
+            {
+                RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()) - DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()))).Days + 1 + RestarDiasAnual;
+                
+                if (fecha.Month == DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()).Month)
+                {
+                    RestarDiasMensual = ((TimeSpan)(DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()) - DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()))).Days + 1 + RestarDiasMensual;
+                }   
+            }
+            cn.Desconestar();
+            saldo.SaldoAnual -= RestarDiasAnual;
+            saldo.SaldoMensual -= RestarDiasMensual;
+            return saldo;
+        }
+
+        public SaldoLicencia GetLicenciasPendientes14FPara(ConceptoDeLicencia concepto, Persona persona, DateTime fecha)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            SaldoLicencia saldo = new SaldoLicencia();
+            parametros.Add("@nro_documento", persona.Documento);
+            parametros.Add("@id_concepto_licencia", concepto.Id);
+
+
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
+
+            int RestarDiasAnual = 0;
+            int RestarDiasMensual = 0;
+            tablaDatos.Rows.ForEach(dr =>
+            {
+                RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetDateTime("hasta").ToString()) - DateTime.Parse(dr.GetDateTime("desde").ToString()))).Days;
+                if (fecha.Month == DateTime.Parse(dr.GetDateTime("desde").ToString()).Month)
+                {
+                    RestarDiasMensual++;
+                }
+                //if (DateTime.Today.Month == DateTime.Parse(dr.GetDateTime("hasta").ToString()).Month && DateTime.Parse(dr.GetDateTime("desde").ToString()) != DateTime.Parse(dr.GetDateTime("hasta").ToString()))
+                //{
+                //    RestarDiasMensual++;
+                //}
+            });
+
+            saldo.SaldoAnual -= RestarDiasAnual;
+            saldo.SaldoMensual -= RestarDiasMensual;
+            return saldo;
+
+        }
+
 
         public SaldoLicencia CargarSaldoLicenciaOrdinariaDe(ConceptoDeLicencia concepto, ProrrogaLicenciaOrdinaria prorroga, Persona unaPersona)
         {
@@ -247,7 +356,6 @@ namespace General.Repositorios
 
         }
 
-
         public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, ConceptoDeLicencia concepto)
         {
             var parametros = new Dictionary<string, object>();
@@ -290,8 +398,6 @@ namespace General.Repositorios
            return vacaciones_aprobadas_ordenadas;
         }
 
-
-
         protected List<VacacionesPermitidas> ConstruirVacacionesPermitidas(TablaDeDatos tablaDatos)
         {
             List<VacacionesPermitidas> vacaciones_permitidas = new List<VacacionesPermitidas>();
@@ -316,7 +422,6 @@ namespace General.Repositorios
             List<VacacionesPermitidas> vacaciones_permitidas_ordenadas = (from vacacion in vacaciones_permitidas orderby vacacion.Periodo select vacacion).ToList();
             return vacaciones_permitidas_ordenadas;
         }
-
 
         public List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, Periodo periodo, Licencia licencia)
         {
@@ -387,7 +492,6 @@ namespace General.Repositorios
             return ConstruirVacacionesPendientes(tablaDatos);
 
         }
-
 
         public List<Persona> GetAusentesEntreFechasPara(List<Persona> personas, DateTime fecha_desde, DateTime fecha_hasta)
         {
@@ -502,6 +606,35 @@ namespace General.Repositorios
             if (estado == 0){return "Pendiente";}else if(estado == 1){return "Aprobado";}else{return "Rechazado";}
         }
 
+
+        public bool DiasHabilitadosEntreFechas(DateTime desde, DateTime hasta, int idconcepto) 
+        {
+            int dias_pedidos = 0;
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetConceptosDeLicencia");
+            var parametro = tablaDatos.Rows.Find(row => row.GetSmallintAsInt("id_Concepto") == idconcepto);
+
+            int dias_autorizados = parametro.GetSmallintAsInt("Dias_Autorizados");
+            bool solo_habiles = parametro.GetBoolean("Dias_Habiles");
+
+            if (solo_habiles)
+            {
+                dias_pedidos = DiasHabilesEntreFechas(desde, hasta);
+            }
+            else 
+            {
+                TimeSpan diff = hasta - desde;
+                dias_pedidos = diff.Days + 1;
+            }
+
+            if (dias_pedidos > dias_autorizados)
+            {
+                return false;
+            }
+            else 
+            {
+                return true;
+            }
+        }
 
         public int DiasHabilesEntreFechas(DateTime desde, DateTime hasta)
         {
