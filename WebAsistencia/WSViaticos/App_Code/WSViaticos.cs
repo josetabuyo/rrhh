@@ -51,6 +51,15 @@ public class WSViaticos : System.Web.Services.WebService
         repoPersonas.EliminarInasistenciaActual(unaPersona);
     }
 
+    
+    [WebMethod]
+    public void EliminarPasePendienteAprobacion(int id_pase)
+    {
+        PaseDeArea un_pase = new PaseDeArea();
+        un_pase.Id = id_pase;
+        this.EliminarPase(un_pase);
+    }
+
     [WebMethod]
     public void EliminarPase(PaseDeArea unPase)
     {
@@ -256,15 +265,6 @@ public class WSViaticos : System.Web.Services.WebService
         repositorio.EliminarLicenciaPendienteAprobacion(id);
     }
     
-
-    [WebMethod]
-    public void EliminarPasePendienteAprobacion(int id, string area_origen, string area_destino) 
-    {
-        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
-
-        repositorio.EliminarPasePendienteAprobacion(id, area_origen, area_destino);
-    }
-
 
 
     [WebMethod]

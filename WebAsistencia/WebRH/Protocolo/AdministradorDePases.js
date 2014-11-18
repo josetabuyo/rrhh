@@ -36,7 +36,7 @@
 
 
     columnas.push(new Columna("Eliminar", { generar: function (una_persona) {
-        if (una_persona.estadoPase() == "En Trámite") {
+        if (una_persona.estadoPase() == "Pendiente") {
             var contenedorBtnAcciones = $('<div>');
             var botonEliminar = $('<img>');
             botonEliminar.attr('src', '../Imagenes/btnEliminar.gif');
@@ -44,14 +44,13 @@
             botonEliminar.attr('height', '25px');
             contenedorBtnAcciones.append(botonEliminar);
             botonEliminar.click(function () {
-                var mensaje = "¿Está seguro que desea eliminar Licencia de " + una_persona.nombre() + " solicitada desde: " + una_persona.desde() + " hasta: " + una_persona.hasta() + "?";
+                var mensaje = "¿Está seguro que desea eliminar el Pase de " + una_persona.nombre() + " desde el Área: " + una_persona.areaOrigen() + " hacía el Área: " + una_persona.areaDestino() + "?";
                 alertify.confirm(mensaje, function (e) {
                     if (e) {
                         // user clicked "ok"
                         var data_post = JSON.stringify({
-                            id: JSON.stringify(una_persona.id()),
-                            area_origen: JSON.stringify(una_persona.areaOrigen()),
-                            area_destino: JSON.stringify(una_persona.areaDestino())
+                            id_pase: JSON.stringify(una_persona.idPase()),
+                           
                         });
                         $.ajax({
                             url: "../AjaxWS.asmx/EliminarPasePendienteAprobacion",
@@ -67,7 +66,7 @@
                             }
                         });
                     } else {
-                        alertify.error("No se ha eliminado la Licencia");
+                        alertify.error("No se ha eliminado el Pase");
                     }
                 });
 

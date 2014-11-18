@@ -1490,6 +1490,16 @@
       <s:element name="EliminarInasistenciaActualResponse">
         <s:complexType />
       </s:element>
+      <s:element name="EliminarPasePendienteAprobacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_pase" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarPasePendienteAprobacionResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="EliminarPase">
         <s:complexType>
           <s:sequence>
@@ -1888,18 +1898,6 @@
         </s:complexType>
       </s:element>
       <s:element name="EliminarLicenciaPendienteAprobacionResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="EliminarPasePendienteAprobacion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="area_origen" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="area_destino" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarPasePendienteAprobacionResponse">
         <s:complexType />
       </s:element>
       <s:element name="GetPasesEntreFechasPara">
@@ -3244,6 +3242,12 @@
   <wsdl:message name="EliminarInasistenciaActualSoapOut">
     <wsdl:part name="parameters" element="tns:EliminarInasistenciaActualResponse" />
   </wsdl:message>
+  <wsdl:message name="EliminarPasePendienteAprobacionSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarPasePendienteAprobacion" />
+  </wsdl:message>
+  <wsdl:message name="EliminarPasePendienteAprobacionSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarPasePendienteAprobacionResponse" />
+  </wsdl:message>
   <wsdl:message name="EliminarPaseSoapIn">
     <wsdl:part name="parameters" element="tns:EliminarPase" />
   </wsdl:message>
@@ -3339,12 +3343,6 @@
   </wsdl:message>
   <wsdl:message name="EliminarLicenciaPendienteAprobacionSoapOut">
     <wsdl:part name="parameters" element="tns:EliminarLicenciaPendienteAprobacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="EliminarPasePendienteAprobacionSoapIn">
-    <wsdl:part name="parameters" element="tns:EliminarPasePendienteAprobacion" />
-  </wsdl:message>
-  <wsdl:message name="EliminarPasePendienteAprobacionSoapOut">
-    <wsdl:part name="parameters" element="tns:EliminarPasePendienteAprobacionResponse" />
   </wsdl:message>
   <wsdl:message name="GetPasesEntreFechasParaSoapIn">
     <wsdl:part name="parameters" element="tns:GetPasesEntreFechasPara" />
@@ -3951,6 +3949,10 @@
       <wsdl:input message="tns:EliminarInasistenciaActualSoapIn" />
       <wsdl:output message="tns:EliminarInasistenciaActualSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="EliminarPasePendienteAprobacion">
+      <wsdl:input message="tns:EliminarPasePendienteAprobacionSoapIn" />
+      <wsdl:output message="tns:EliminarPasePendienteAprobacionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="EliminarPase">
       <wsdl:input message="tns:EliminarPaseSoapIn" />
       <wsdl:output message="tns:EliminarPaseSoapOut" />
@@ -4014,10 +4016,6 @@
     <wsdl:operation name="EliminarLicenciaPendienteAprobacion">
       <wsdl:input message="tns:EliminarLicenciaPendienteAprobacionSoapIn" />
       <wsdl:output message="tns:EliminarLicenciaPendienteAprobacionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="EliminarPasePendienteAprobacion">
-      <wsdl:input message="tns:EliminarPasePendienteAprobacionSoapIn" />
-      <wsdl:output message="tns:EliminarPasePendienteAprobacionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPasesEntreFechasPara">
       <wsdl:input message="tns:GetPasesEntreFechasParaSoapIn" />
@@ -4868,6 +4866,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EliminarPasePendienteAprobacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarPasePendienteAprobacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EliminarPase">
       <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarPase" style="document" />
       <wsdl:input>
@@ -5005,15 +5012,6 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarLicenciaPendienteAprobacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarLicenciaPendienteAprobacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarPasePendienteAprobacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarPasePendienteAprobacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6140,6 +6138,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EliminarPasePendienteAprobacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarPasePendienteAprobacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EliminarPase">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarPase" style="document" />
       <wsdl:input>
@@ -6277,15 +6284,6 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarLicenciaPendienteAprobacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarLicenciaPendienteAprobacion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarPasePendienteAprobacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarPasePendienteAprobacion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

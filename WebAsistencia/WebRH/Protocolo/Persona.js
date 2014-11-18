@@ -44,6 +44,10 @@ Persona.prototype.estado = function () {
     return this._persona.Inasistencias[0].Estado;
 };
 
+Persona.prototype.idPase = function () {
+    return this._persona.PasePendiente.Id;
+}
+
 Persona.prototype.areaOrigen = function () {
     return this._persona.PasePendiente.AreaOrigen.Nombre;
 };

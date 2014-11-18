@@ -292,9 +292,9 @@ public class AjaxWS : System.Web.Services.WebService {
     
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public void EliminarPasePendienteAprobacion(int id, string area_origen, string area_destino)
+    public void EliminarPasePendienteAprobacion(int id_pase)
     {
-        backEndService.EliminarPasePendienteAprobacion(id, area_origen, area_destino);
+        backEndService.EliminarPasePendienteAprobacion(id_pase);
     }
     
     
