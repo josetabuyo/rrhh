@@ -1,44 +1,15 @@
 ﻿var EtapaInscripcionDocumental = {
-    mostrarPostulacion: function (postulacion) {
+    mostrarPostulacion: function () {
         var _this = this;
         _this.btn_guardar = $("#btn_guardar");
+        _this.btn_buscar_postulacion = $("#btn_buscar_postulacion");
+
         var pantalla;
 
+        _this.btn_buscar_postulacion.click(function () {
+            _this.BuscarPostulaciones();
+        });
 
-        Backend.GetPantallaRecepcionDocumentacion(postulacion)
-                    .onSuccess(function (mi_pantalla) {
-                        pantalla = mi_pantalla;
-                        var nombre_perfil = $("#nombre_perfil");
-                        nombre_perfil[0].innerHTML = mi_pantalla.Postulacion.Perfil.Denominacion;
-
-                        _this.armarPantallaPerfil(mi_pantalla, $('#requisitos_perfil'));
-                        _this.armarPantalla(mi_pantalla.CuadroPerfil, $('#detalle_perfil'));
-                        _this.armarPantalla(mi_pantalla.DocumentacionRequerida, $('#detalle_documentos'));
-                        _this.completarFoliosRecepcionados(mi_pantalla.DocumentacionRecibida, $('#detalle_documentos'));
-                    });
-
-        _this.BuscarPostulaciones = function () {
-            var codigo = $("#txt_codigo_postulacion").val();
-            var div_tabla_historial = $("#div_tabla_historial");
-            $("#span_empleado").html("");
-            $("#span_codigo").html("");
-            $("#span_fecha").html("");
-            $("#span_perfil").html("");
-            div_tabla_historial.html("");
-            $("#seccion_historial").hide();
-            Backend.ejecutar("GetPostulacionesPorCodigo",
-            [codigo],
-            function (respuesta) {
-                if (respuesta != null) _this.CompletarDatos(respuesta);
-                else {
-                    alertify.alert("Código no encontrado");
-                }
-            },
-            function (errorThrown) {
-                alertify.alert(errorThrown);
-            }
-            );
-        }
 
         _this.btn_guardar.click(function () {
 
@@ -79,6 +50,30 @@
         });
 
     },
+    BuscarPostulaciones: function () {
+        var _this = this;
+        var codigo = $("#txt_codigo_postulacion").val();
+        var div_tabla_historial = $("#div_tabla_historial");
+        $("#span_empleado").html("");
+        $("#span_codigo").html("");
+        $("#span_fecha").html("");
+        $("#span_perfil").html("");
+
+        Backend.ejecutar("GetPostulacionesPorCodigo",
+            [codigo],
+            function (respuesta) {
+                if (respuesta != null) _this.CompletarDatos(respuesta);
+                else {
+                    alertify.alert("Código no encontrado");
+                }
+            },
+            function (errorThrown) {
+                alertify.alert(errorThrown);
+            }
+        );
+
+
+    },
     completarFoliosRecepcionados: function (elementos, div_caja_foliables) {
         if (elementos.length > 0) {
             for (var i = 0; i < elementos.length; i++) {
@@ -93,12 +88,73 @@
         }
 
     },
+    CompletarDatos: function (datos_postulacion) {
+        var _this = this;
+
+        var BuscarUsuario = function () {
+            this.generar = function (una_etapa) {
+                for (var i = 0; i < usuarios.length; i++) {
+                    if (parseInt(usuarios[i].Owner.Id, 10) == parseInt(una_etapa.IdUsuario, 10)) return usuarios[i].Owner.Nombre + " " + usuarios[i].Owner.Apellido;
+                }
+                return "";
+            }
+        }
+
+        var div_tabla_historial = $("#div_tabla_historial");
+        var span_empleado = $("#span_empleado");
+        var span_codigo = $("#span_codigo");
+        var span_fecha = $("#span_fecha");
+        var span_perfil = $("#span_perfil");
+        var postulacion = $("#postulacion");
+        var usuarios = [];
+
+        for (var i = 0; i < datos_postulacion.Etapas.length; i++) {
+            var agregado = false;
+            for (var j = 0; j < usuarios.length; j++) {
+                if (usuarios[j].Owner.Id == datos_postulacion.Etapas[i].IdUsuario) agregado = true;
+            }
+            if (!agregado) usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorIdPersona", [datos_postulacion.Etapas[i].IdUsuario]));
+        }
+
+        postulacion.val(JSON.stringify(datos_postulacion));
+
+        span_empleado.html(new BuscarUsuario().generar(datos_postulacion.Etapas[0]));
+        span_codigo.html(datos_postulacion.Numero);
+        span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));
+        span_perfil.html(datos_postulacion.Perfil.Denominacion);
+
+        var fieldset_titulo_perfil = $("#cuadro_perfil");
+        var fieldset_titulo_documentos = $("#cuadro_documentos");
+
+        var legend_perfil = $("<legend>");
+        var legend_documentos = $("<legend>");
+
+        legend_perfil.html("Documentación Obligatoria del perfil");
+        legend_documentos.html("Documentación del Curriculum");
+
+        fieldset_titulo_perfil.append(legend_perfil);
+        fieldset_titulo_documentos.append(legend_documentos);
+
+        $("#btn_guardar").attr("style", "display:inline");
+
+        Backend.GetPantallaRecepcionDocumentacion(datos_postulacion)
+                    .onSuccess(function (mi_pantalla) {
+                        pantalla = mi_pantalla;
+                        //var nombre_perfil = $("#nombre_perfil");
+                        //nombre_perfil[0].innerHTML = mi_pantalla.Postulacion.Perfil.Denominacion;
+
+                        _this.armarPantallaPerfil(mi_pantalla, $('#requisitos_perfil'));
+                        _this.armarPantalla(mi_pantalla.CuadroPerfil, $('#detalle_perfil'));
+                        _this.armarPantalla(mi_pantalla.DocumentacionRequerida, $('#detalle_documentos'));
+                        _this.completarFoliosRecepcionados(mi_pantalla.DocumentacionRecibida, $('#detalle_documentos'));
+                    });
+    },
     armarPantallaPerfil: function (pantalla, div_caja_foliables) {
 
         for (var i = 0; i < pantalla.RequisitosPerfil.length; i++) {
             var div_foliable = $('<div>');
             var descripcion_foliable = $('<p>');
-            div_caja_foliables.attr("style", "margin:5px; background-color:#F3F5FF; ");
+            div_caja_foliables.attr("style", "margin: 5px; padding: 5px; background-color: #FBFBFB; border: dotted 1px; ");
 
 
             descripcion_foliable.text(pantalla.RequisitosPerfil[i]);

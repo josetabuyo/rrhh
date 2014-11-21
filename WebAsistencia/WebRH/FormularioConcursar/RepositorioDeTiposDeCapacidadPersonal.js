@@ -1,5 +1,5 @@
 ﻿var RepositorioDeTiposDeCapacidadPersonal = {
-    tipos_de_capacidad:[
+    tipos_de_capacidad: [
         { id: 1, descripcion: "Social" },
         { id: 2, descripcion: "Organizativa" },
         { id: 3, descripcion: "Técnica" },
