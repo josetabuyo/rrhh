@@ -398,32 +398,33 @@ namespace TestViaticos
         }
 
 
-        [TestMethod]
-        public void quiero_pedirme_un_14f_y_como_me_tome_los_6_del_anio_no_puedo()
-        {
-            DateTime desde = new DateTime(2014, 11, 14);
-            DateTime hasta = new DateTime(2014, 11, 18);
-            int id_matrimonio = 19;
-            string source = @"     |SaldoAnual	|SaldoMensual |Concepto   |NroDocumento    |desde               |hasta	    	        |Apellido   |Nombre	   |Id_Interna      |fecha_solicitud                  
-                                   |6	        |2	          |32	      |31507315        |2014-11-24 00:00:00	|2014-11-24 00:00:00	|Cevey 	    |Belén     |31507315        |2014-11-24 00:00:00
-                                   |6	        |2	          |32	      |31507315        |2014-12-08 00:00:00	|2014-12-08 00:00:00	|Cevey 	    |Belén     |31507315        |2014-12-08 00:00:00
-                                   |6	        |2	          |32	      |31507315        |2010-01-01 00:00:00	|2010-01-01 00:00:00	|Cevey 	    |Belén     |31507315        |2010-01-01 00:00:00
-                                   |6	        |2	          |32	      |31507315        |2012-12-26 00:00:00	|2012-12-26 00:00:00	|Cevey 	    |Belén     |31507315        |2012-12-26 00:00:00
-                                   |6	        |2	          |32	      |31507315        |2001-12-24 00:00:00	|2001-12-24 00:00:00	|Cevey 	    |Belén     |31507315        |2001-12-24 00:00:00
-                                   |6	        |2	          |32	      |31507315        |2001-12-25 00:00:00	|2001-12-25 00:00:00	|Cevey 	    |Belén     |31507315        |2001-12-25 00:00:00  ";
-
-            //TERMINARRRRRR
-            IConexionBD conexion = TestObjects.ConexionMockeada();
-            var resultado_sp = TablaDeDatos.From(source);
-
-            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
-
-            var repo_licencia = new RepositorioLicencias(conexion);
+//        [TestMethod]
+//        public void quiero_pedirme_un_14f_y_como_me_tome_los_6_del_anio_no_puedo()
+//        {
+//            DateTime dia_licencia = new DateTime(2014, 11, 14);
+//            ConceptoDeLicencia concepto = new ConceptoDeLicencia();
+//            concepto.Id = 32;
+//            Persona persona = TestObjects.UnaPersona();
+            
+//            string source = @"     |SaldoAnual	|SaldoMensual |Concepto   |NroDocumento    |desde               |hasta	    	        |Apellido   |Nombre	   |Id_Interna      |fecha_solicitud                  
+//                                   |6	        |2	          |32	      |31507315        |2014-11-24 00:00:00	|2014-11-24 00:00:00	|Cevey 	    |Belén     |31507315        |2014-11-24 00:00:00
+//                                   |6	        |2	          |32	      |31507315        |2014-12-08 00:00:00	|2014-12-08 00:00:00	|Cevey 	    |Belén     |31507315        |2014-12-08 00:00:00
+//                                   |6	        |2	          |32	      |31507315        |2010-01-01 00:00:00	|2010-01-01 00:00:00	|Cevey 	    |Belén     |31507315        |2010-01-01 00:00:00
+//                                   |6	        |2	          |32	      |31507315        |2012-12-26 00:00:00	|2012-12-26 00:00:00	|Cevey 	    |Belén     |31507315        |2012-12-26 00:00:00
+//                                   |6	        |2	          |32	      |31507315        |2001-12-24 00:00:00	|2001-12-24 00:00:00	|Cevey 	    |Belén     |31507315        |2001-12-24 00:00:00
+//                                   |6	        |2	          |32	      |31507315        |2001-12-25 00:00:00	|2001-12-25 00:00:00	|Cevey 	    |Belén     |31507315        |2001-12-25 00:00:00  ";
 
 
-            Assert.IsTrue(repo_licencia.DiasHabilitadosEntreFechas(desde, hasta, id_matrimonio));
-            Assert.AreEqual(3, repo_licencia.DiasHabilesEntreFechas(desde, hasta));
-        }
+//            IConexionBD conexion = TestObjects.ConexionMockeada();
+//            var resultado_sp = TablaDeDatos.From(source);
+
+//            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+//            var repo_licencia = new RepositorioLicencias(conexion);
+
+//            Assert.AreEqual(0, repo_licencia.CargarSaldoLicencia14FoHDe(concepto, persona, dia_licencia).SaldoAnual);
+//            Assert.AreEqual(0, repo_licencia.CargarSaldoLicencia14FoHDe(concepto, persona, dia_licencia).SaldoMensual);
+//        }
 
 
         //        [TestMethod]
