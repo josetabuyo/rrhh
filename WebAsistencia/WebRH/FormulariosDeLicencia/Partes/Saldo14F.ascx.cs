@@ -28,7 +28,7 @@ public partial class FormulariosDeLicencia_Partes_Saldo14F : System.Web.UI.UserC
     {
             WSViaticosSoapClient s = new WSViaticosSoapClient();
             SaldoLicencia saldo;
-            saldo = s.GetSaldoLicencia14F((Persona)Session["persona"], this.Concepto, this.Fecha);
+            saldo = s.GetSaldoLicencia14FoH((Persona)Session["persona"], this.Concepto, this.Fecha);
             Session["saldoLicencia"] = saldo;
             this.LDiasAnual.Text = saldo.SaldoAnual.ToString();
             this.LDiasMes.Text = saldo.SaldoMensual.ToString();    

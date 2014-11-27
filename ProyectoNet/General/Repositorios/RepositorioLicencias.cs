@@ -32,7 +32,7 @@ namespace General.Repositorios
                 return "Error, ya existe una solicitud cargada en ese periodo.";
             }
 
-            if (!this.PoseeSaldosPara14F(unaLicencia))
+            if (!this.PoseeSaldosPara14FoH(unaLicencia))
             {
                 return "Error, No cuenta con los días suficientes para solicitar esta licencia. <br/> Seleccione en el Calendario el mes correspondiente para visualizar los días disponibles";
             }
@@ -50,11 +50,11 @@ namespace General.Repositorios
             return null;
         }
 
-        private bool PoseeSaldosPara14F(Licencia unaLicencia)
+        private bool PoseeSaldosPara14FoH(Licencia unaLicencia)
         {
             if (unaLicencia.Concepto.Id == 32)
             {
-                SaldoLicencia saldo = CargarSaldoLicencia14FDe(unaLicencia.Concepto, unaLicencia.Persona, unaLicencia.Desde);
+                SaldoLicencia saldo = CargarSaldoLicencia14FoHDe(unaLicencia.Concepto, unaLicencia.Persona, unaLicencia.Desde);
                 if (saldo.SaldoAnual <= 0 || saldo.SaldoMensual <= 0)
                 {
                     return false;
@@ -152,10 +152,10 @@ namespace General.Repositorios
         }
 
 
-        public SaldoLicencia CargarSaldoLicencia14FDe(ConceptoDeLicencia concepto, Persona unaPersona, DateTime fecha) 
+        public SaldoLicencia CargarSaldoLicencia14FoHDe(ConceptoDeLicencia concepto, Persona unaPersona, DateTime fecha) 
         {
-            SaldoLicencia licencias_tomadas = CargarSaldoLicenciaTomada14FDe(concepto, unaPersona, fecha);
-            SaldoLicencia licencia_en_tramite = GetLicenciasPendientes14FPara(concepto, unaPersona, fecha);
+            SaldoLicencia licencias_tomadas = CargarSaldoLicenciaTomada14FoHDe(concepto, unaPersona, fecha);
+            SaldoLicencia licencia_en_tramite = GetLicenciasPendientes14FoHPara(concepto, unaPersona, fecha);
 
             SaldoLicencia restadas = licencias_tomadas.Restar(licencia_en_tramite);
 
@@ -167,7 +167,7 @@ namespace General.Repositorios
             return restadas;
         }
 
-        public SaldoLicencia CargarSaldoLicenciaTomada14FDe(ConceptoDeLicencia concepto, Persona unaPersona, DateTime fecha)
+        public SaldoLicencia CargarSaldoLicenciaTomada14FoHDe(ConceptoDeLicencia concepto, Persona unaPersona, DateTime fecha)
         {
             SaldoLicencia saldo = new SaldoLicencia();
             SqlDataReader dr;
@@ -208,7 +208,7 @@ namespace General.Repositorios
             return saldo;
         }
 
-        public SaldoLicencia GetLicenciasPendientes14FPara(ConceptoDeLicencia concepto, Persona persona, DateTime fecha)
+        public SaldoLicencia GetLicenciasPendientes14FoHPara(ConceptoDeLicencia concepto, Persona persona, DateTime fecha)
         {
             var parametros = new Dictionary<string, object>();
 
@@ -223,7 +223,7 @@ namespace General.Repositorios
             int RestarDiasMensual = 0;
             tablaDatos.Rows.ForEach(dr =>
             {
-                RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetDateTime("hasta").ToString()) - DateTime.Parse(dr.GetDateTime("desde").ToString()))).Days;
+                RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetDateTime("hasta").ToString()) - DateTime.Parse(dr.GetDateTime("desde").ToString()))).Days + 1 + RestarDiasAnual; ;
                 if (fecha.Month == DateTime.Parse(dr.GetDateTime("desde").ToString()).Month)
                 {
                     RestarDiasMensual++;

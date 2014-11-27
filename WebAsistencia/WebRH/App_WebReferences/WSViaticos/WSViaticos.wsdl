@@ -2,10 +2,10 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="QuitarDocente">
+      <s:element name="GuardarDocente">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="docente" type="tns:Docente" />
+            <s:element minOccurs="0" maxOccurs="1" name="un_docente" type="tns:Docente" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -185,6 +185,21 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GuardarDocenteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarDocenteResult" type="tns:Docente" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuitarDocente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="docente" type="tns:Docente" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="QuitarDocenteResponse">
         <s:complexType>
           <s:sequence>
@@ -1764,7 +1779,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetSaldoLicencia14F">
+      <s:element name="GetSaldoLicencia14FoH">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="unaPersona" type="tns:Persona" />
@@ -1773,10 +1788,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetSaldoLicencia14FResponse">
+      <s:element name="GetSaldoLicencia14FoHResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetSaldoLicencia14FResult" type="tns:SaldoLicencia" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetSaldoLicencia14FoHResult" type="tns:SaldoLicencia" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2822,23 +2837,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarDocente">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="un_docente" type="tns:Docente" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarDocenteResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarDocenteResult" type="tns:Docente" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GuardarDocenteSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarDocente" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDocenteSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarDocenteResponse" />
+  </wsdl:message>
   <wsdl:message name="QuitarDocenteSoapIn">
     <wsdl:part name="parameters" element="tns:QuitarDocente" />
   </wsdl:message>
@@ -3313,11 +3319,11 @@
   <wsdl:message name="GetSaldoLicenciaSoapOut">
     <wsdl:part name="parameters" element="tns:GetSaldoLicenciaResponse" />
   </wsdl:message>
-  <wsdl:message name="GetSaldoLicencia14FSoapIn">
-    <wsdl:part name="parameters" element="tns:GetSaldoLicencia14F" />
+  <wsdl:message name="GetSaldoLicencia14FoHSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSaldoLicencia14FoH" />
   </wsdl:message>
-  <wsdl:message name="GetSaldoLicencia14FSoapOut">
-    <wsdl:part name="parameters" element="tns:GetSaldoLicencia14FResponse" />
+  <wsdl:message name="GetSaldoLicencia14FoHSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSaldoLicencia14FoHResponse" />
   </wsdl:message>
   <wsdl:message name="DiasHabilitadosEntreFechasSoapIn">
     <wsdl:part name="parameters" element="tns:DiasHabilitadosEntreFechas" />
@@ -3685,13 +3691,11 @@
   <wsdl:message name="QuitarMateriaSoapOut">
     <wsdl:part name="parameters" element="tns:QuitarMateriaResponse" />
   </wsdl:message>
-  <wsdl:message name="GuardarDocenteSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarDocente" />
-  </wsdl:message>
-  <wsdl:message name="GuardarDocenteSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarDocenteResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GuardarDocente">
+      <wsdl:input message="tns:GuardarDocenteSoapIn" />
+      <wsdl:output message="tns:GuardarDocenteSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="QuitarDocente">
       <wsdl:input message="tns:QuitarDocenteSoapIn" />
       <wsdl:output message="tns:QuitarDocenteSoapOut" />
@@ -4008,9 +4012,9 @@
       <wsdl:input message="tns:GetSaldoLicenciaSoapIn" />
       <wsdl:output message="tns:GetSaldoLicenciaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetSaldoLicencia14F">
-      <wsdl:input message="tns:GetSaldoLicencia14FSoapIn" />
-      <wsdl:output message="tns:GetSaldoLicencia14FSoapOut" />
+    <wsdl:operation name="GetSaldoLicencia14FoH">
+      <wsdl:input message="tns:GetSaldoLicencia14FoHSoapIn" />
+      <wsdl:output message="tns:GetSaldoLicencia14FoHSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="DiasHabilitadosEntreFechas">
       <wsdl:input message="tns:DiasHabilitadosEntreFechasSoapIn" />
@@ -4256,13 +4260,18 @@
       <wsdl:input message="tns:QuitarMateriaSoapIn" />
       <wsdl:output message="tns:QuitarMateriaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GuardarDocente">
-      <wsdl:input message="tns:GuardarDocenteSoapIn" />
-      <wsdl:output message="tns:GuardarDocenteSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GuardarDocente">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDocente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="QuitarDocente">
       <soap:operation soapAction="http://wsviaticos.gov.ar/QuitarDocente" style="document" />
       <wsdl:input>
@@ -4974,8 +4983,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetSaldoLicencia14F">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetSaldoLicencia14F" style="document" />
+    <wsdl:operation name="GetSaldoLicencia14FoH">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetSaldoLicencia14FoH" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5532,18 +5541,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GuardarDocente">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDocente" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GuardarDocente">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDocente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="QuitarDocente">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/QuitarDocente" style="document" />
       <wsdl:input>
@@ -6255,8 +6264,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetSaldoLicencia14F">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetSaldoLicencia14F" style="document" />
+    <wsdl:operation name="GetSaldoLicencia14FoH">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetSaldoLicencia14FoH" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -6806,15 +6815,6 @@
     </wsdl:operation>
     <wsdl:operation name="QuitarMateria">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/QuitarMateria" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarDocente">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDocente" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
