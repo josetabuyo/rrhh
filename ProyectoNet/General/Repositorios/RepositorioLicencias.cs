@@ -223,15 +223,14 @@ namespace General.Repositorios
             int RestarDiasMensual = 0;
             tablaDatos.Rows.ForEach(dr =>
             {
-                RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetDateTime("hasta").ToString()) - DateTime.Parse(dr.GetDateTime("desde").ToString()))).Days + 1 + RestarDiasAnual; ;
-                if (fecha.Month == DateTime.Parse(dr.GetDateTime("desde").ToString()).Month)
+                if (dr.GetDateTime("desde").Year == fecha.Year)
                 {
-                    RestarDiasMensual++;
-                }
-                //if (DateTime.Today.Month == DateTime.Parse(dr.GetDateTime("hasta").ToString()).Month && DateTime.Parse(dr.GetDateTime("desde").ToString()) != DateTime.Parse(dr.GetDateTime("hasta").ToString()))
-                //{
-                //    RestarDiasMensual++;
-                //}
+                    RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetDateTime("hasta").ToString()) - DateTime.Parse(dr.GetDateTime("desde").ToString()))).Days + 1 + RestarDiasAnual; ;
+                    if (fecha.Month == DateTime.Parse(dr.GetDateTime("desde").ToString()).Month)
+                    {
+                        RestarDiasMensual++;
+                    } 
+                }     
             });
 
             saldo.SaldoAnual -= RestarDiasAnual;
