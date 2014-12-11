@@ -1241,7 +1241,7 @@ namespace General.Repositorios
             validador_datos.DeberianSerNoVacias(new string[] { "Nombre", "Apellido", "Cuil" });
             validador_datos.DeberianSerFechasNoVacias(new string[] { "FechaNacimiento"});
             validador_datos.DeberianSerNaturalesOCero(new string[] { "Dni" }); 
-            validador_datos.DeberianSerNaturales(new string[] { "Sexo", "EstadoCivil", "Nacionalidad", "TipoDocumento"});
+            validador_datos.DeberianSerNaturalesOCero(new string[] { "Sexo", "EstadoCivil", "Nacionalidad", "TipoDocumento"});
             
             if (!validador_datos.EsValido(datosPersonales))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1290,7 +1290,7 @@ namespace General.Repositorios
 
             validador_estudios.DeberianSerNoVacias(new string[] { "Titulo", "Especialidad", "Establecimiento", "Localidad" });
             validador_estudios.DeberianSerFechasNoVacias(new string[] { "FechaIngreso", "FechaEgreso"});
-            validador_estudios.DeberianSerNaturales(new string[] { "Nivel", "Anios", "Pais" });
+            validador_estudios.DeberianSerNaturalesOCero(new string[] { "Nivel", "Anios", "Pais" });
           //  validador_estudios.DeberianSerNaturales(new string[] {  "Pais" });
             
             if (!validador_estudios.EsValido(un_estudio))
@@ -1303,7 +1303,7 @@ namespace General.Repositorios
 
             validador_docencias.DeberianSerNoVacias(new string[] { "Asignatura", "CategoriaDocente", "DedicacionDocente", "CargaHoraria", "TipoActividad", "Establecimiento", "Localidad"});
             validador_docencias.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
-            validador_docencias.DeberianSerNaturales(new string[] { "NivelEducativo", "Pais" });
+            validador_docencias.DeberianSerNaturalesOCero(new string[] { "NivelEducativo", "Pais" });
             
             if(!validador_docencias.EsValido(una_docencia))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1316,7 +1316,7 @@ namespace General.Repositorios
 
             validador_actividad.DeberianSerNoVacias(new string[]{ "DiplomaDeCertificacion", "Especialidad", "Duracion", "Establecimiento", "Localidad" });
             validador_actividad.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
-            validador_actividad.DeberianSerNaturales(new string[] { "Pais" });
+            validador_actividad.DeberianSerNaturalesOCero(new string[] { "Pais" });
 
             if (!validador_actividad.EsValido(una_actividad))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1328,7 +1328,7 @@ namespace General.Repositorios
 
             validador_evento.DeberianSerNoVacias(new string[]{ "Denominacion",  "Duracion", "Localidad" });
             validador_evento.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
-            validador_evento.DeberianSerNaturales(new string[] { "Pais", "CaracterDeParticipacion", "TipoDeEvento", "Institucion" });
+            validador_evento.DeberianSerNaturalesOCero(new string[] { "Pais", "CaracterDeParticipacion", "TipoDeEvento", "Institucion" });
 
             if (!validador_evento.EsValido(un_evento_academico))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1363,7 +1363,7 @@ namespace General.Repositorios
                         
             validador_institucion.DeberianSerNoVacias(new string[]{ "Institucion", "CaracterEntidad", "CargosDesempeniados", "NumeroAfiliado", "CategoriaActual", "Localidad" });
             validador_institucion.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFin", "FechaDeAfiliacion", "Fecha" });
-            validador_institucion.DeberianSerNaturales(new string[] { "Pais" });
+            validador_institucion.DeberianSerNaturalesOCero(new string[] { "Pais" });
 
             if (!validador_institucion.EsValido(una_institucion))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1375,7 +1375,7 @@ namespace General.Repositorios
                        
             validador_experiencia.DeberianSerNoVacias(new string[]{ "PuestoOcupado", "Actividad", "NombreEmpleador", "TipoEmpresa", "Sector", "Localidad" });
             validador_experiencia.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFin"});
-            validador_experiencia.DeberianSerNaturales(new string[] { "Pais" });
+            validador_experiencia.DeberianSerNaturalesOCero(new string[] { "Pais" });
             validador_experiencia.DeberianSerNaturalesOCero(new string[] { "PersonasACargo"});
 
             if (!validador_experiencia.EsValido(una_experiencia))
@@ -1388,7 +1388,7 @@ namespace General.Repositorios
                                     
             validador_idioma.DeberianSerNoVacias(new string[]{ "Diploma", "Idioma", "Establecimiento", "Localidad" });
             validador_idioma.DeberianSerFechasNoVacias(new string[] { "FechaObtencion" });
-            validador_idioma.DeberianSerNaturales(new string[] { "Lectura", "Escritura", "Oral", "Pais" });
+            validador_idioma.DeberianSerNaturalesOCero(new string[] { "Lectura", "Escritura", "Oral", "Pais" });
 
             if (!validador_idioma.EsValido(un_idioma))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1400,7 +1400,7 @@ namespace General.Repositorios
                                     
             validador_competencia.DeberianSerNoVacias(new string[]{ "Diploma", "Detalle", "Establecimiento", "Localidad" });
             validador_competencia.DeberianSerFechasNoVacias(new string[] { "FechaObtencion" });
-            validador_competencia.DeberianSerNaturales(new string[] { "TipoInformatica", "Conocimiento", "Nivel", "Pais" });
+            validador_competencia.DeberianSerNaturalesOCero(new string[] { "TipoInformatica", "Conocimiento", "Nivel", "Pais" });
 
             if (!validador_competencia.EsValido(una_competencia))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1411,7 +1411,7 @@ namespace General.Repositorios
             var validador_capacidad = new Validador();
                                     
             validador_capacidad.DeberianSerNoVacias(new string[]{ "Detalle"});
-            validador_capacidad.DeberianSerNaturales(new string[] { "Tipo"});
+            validador_capacidad.DeberianSerNaturalesOCero(new string[] { "Tipo"});
 
             if (!validador_capacidad.EsValido(una_capacidad))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
