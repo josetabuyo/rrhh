@@ -187,7 +187,7 @@ namespace General.Repositorios
             cn = new ConexionDB("[dbo].[Web_GetLicenciasTomadasEnElAnio]");
             cn.AsignarParametro("@idConcepto", concepto.Id);
             cn.AsignarParametro("@documento", unaPersona.Documento);
-            cn.AsignarParametro("@periodo", DateTime.Today.Year);
+            cn.AsignarParametro("@periodo", fecha.Year);
 
             dr = cn.EjecutarConsulta();
 
