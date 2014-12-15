@@ -15,6 +15,13 @@
                         <li><a href="Informacion.aspx" >Información</a></li>
                         <li><a href="Postulaciones.aspx" >Cargos</a></li>
                         <li><a href="CargaInformacionPersonal.aspx" >MI CV</a></li>
+                        <li RequiereFuncionalidad="14" style="cursor:pointer;" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" runat="server">Administración</a>
+                            <ul id="subMenu_administracion" runat="server" class="dropdown-menu">
+                                <li RequiereFuncionalidad="14" class="dropdown"><a  href="EtapasPostulacion.aspx" runat="server">Cambiar Etapas de Postulaciones</a></li>
+                                <li RequiereFuncionalidad="15" class="dropdown"><a  href="EtapaInscripcionDocumental.aspx"  runat="server">Foliar Postulacion</a></li>
+                            </ul>
+                        
+                        </li>
                     </ul>
        
                     <ul id="Ul2" class="nav pull-right"  runat="server">
@@ -23,3 +30,4 @@
                 </div>
             </div><!-- /navbar-inner -->
         </div><!-- /navbar -->
+        <script type="text/javascript" src="../MAU/HabilitadorDeControles.js"></script>
