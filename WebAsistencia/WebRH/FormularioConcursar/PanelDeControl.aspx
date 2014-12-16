@@ -44,12 +44,8 @@
                 </div>
                 </div>
             </div>-->
-            <legend>Novedades</legend>
-            <p>Se comunica a todos los postulantes que el concurso para ocupar las vacantes dará comienzo el día 25 de mayo del año corriente. <br/>
-                Para inscribirse deberan primero completar el CV de manera online a través de esta misma página, y luego deberán aplicar al puesto en el que tienen interés. <br />
-                En caso de no cumplir los requisitos para un determinado puesto, el sistema les avisará sobre la imposibilidad de inscripción para ese en particular. <br/>
-                Ante cualquier duda, por favor comunicarse con la oficina de RRHH.
-            </p> 
+            <legend>VERSION DE PRUEBA</legend>
+            <p>ESTE SISTEMA SE ENCUENTRA EN ETAPA DE DESARROLLO. NINGUNO DE LOS DATOS Y FUNCIONES TIENE ALGUNA VALIDEZ CONCURSAR</p> 
             
         </div>
 
