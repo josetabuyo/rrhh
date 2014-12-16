@@ -15,6 +15,7 @@
 
             var lista_foliables = $(".foliables");
             var lista_documentacion_recibida = [];
+            var postulacion = $("#postulacion");
 
             for (var i = 0; i < lista_foliables.length; i++) {
                 var documentacionRecibida = {};
@@ -27,7 +28,7 @@
                 documentacionRecibida.Id = lista_foliables[i].lastChild.id;
                 //documentacionRecibida.Fecha = new Date(2014,04,01);
                 documentacionRecibida.ItemCV = item;
-                documentacionRecibida.IdPostulacion = postulacion.Id;
+                documentacionRecibida.IdPostulacion = postulacion[0].value;
                 documentacionRecibida.Folio = lista_foliables[i].firstElementChild.value;
                 //var folio = lista_foliables[i].lastChild.value;
 
@@ -106,6 +107,7 @@
         var span_fecha = $("#span_fecha");
         var span_perfil = $("#span_perfil");
         var postulacion = $("#postulacion");
+        var idPostulacion = $("#idPostulacion");
         var usuarios = [];
 
         for (var i = 0; i < datos_postulacion.Etapas.length; i++) {
@@ -116,8 +118,8 @@
             if (!agregado) usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorIdPersona", [datos_postulacion.Etapas[i].IdUsuario]));
         }
 
-        postulacion.val(JSON.stringify(datos_postulacion));
-
+        postulacion.val(JSON.stringify(datos_postulacion.Id));
+       
         span_empleado.html(new BuscarUsuario().generar(datos_postulacion.Etapas[0]));
         span_codigo.html(datos_postulacion.Numero);
         span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));

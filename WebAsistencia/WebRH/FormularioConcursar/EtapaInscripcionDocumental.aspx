@@ -42,7 +42,8 @@
         </fieldset>
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Guardar" />
     </div>
-    
+    <asp:HiddenField ID="postulacion" runat="server" />
+    <asp:HiddenField ID="idPostulacion" runat="server" />
     </form>
 </body>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
