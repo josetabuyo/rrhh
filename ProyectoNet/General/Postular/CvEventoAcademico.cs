@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    public class CvEventoAcademico
+    public class CvEventoAcademico : ItemCv
     {
         protected int _id;
         protected string _denominacion;
@@ -37,7 +37,7 @@ namespace General
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Pais { get { return _pais; } set { _pais = value; } }
 
-        public CvEventoAcademico(int id, string denominacion, int tipoDeEvento, int caracterDeParticipacion, DateTime fechaInicio, DateTime fechaFinalizacion, string duracion, int institucion, string localidad, int pais)
+        public CvEventoAcademico(int id, string denominacion, int tipoDeEvento, int caracterDeParticipacion, DateTime fechaInicio, DateTime fechaFinalizacion, string duracion, int institucion, string localidad, int pais):base(id,denominacion,4)
         {
             this._id = id;
             this._denominacion = denominacion;

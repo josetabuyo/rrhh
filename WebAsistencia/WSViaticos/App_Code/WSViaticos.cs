@@ -2751,7 +2751,41 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Postulacion GetPostulacionById(int idpersona,int idpostulacion)
     {
-        return RepoPostulaciones().GetPostulacionById(idpersona, idpostulacion);
+        Postulacion postulacion = RepoPostulaciones().GetPostulacionById(idpersona, idpostulacion);
+       // postulacion.Perfil.DocumentacionRequerida = RepoPerfiles().GetFoliablesDelPerfil(postulacion.Perfil.Id);
+        CurriculumVitae cv = RepoCurriculum().GetCV(idpersona);
+       // postulacion.CrearDocumentacionARecibir(postulacion.Perfil.DocumentacionRequerida, cv);
+
+        return postulacion;
+    }
+
+    [WebMethod]
+    public PantallaRecepcionDocumentacion GetPantallaRecepcionDocumentacion(Postulacion postulacion)
+    {
+        CurriculumVitae cv = RepoCurriculum().GetCV(postulacion.IdPersona);
+        RepositorioDePerfiles repoPerfiles = new RepositorioDePerfiles(Conexion());
+        repoPerfiles.GetRequisitosDelPerfil(postulacion.Perfil.Id).ForEach(r => postulacion.Perfil.Requiere(r));
+
+        RepositorioDeFoliados repo = new RepositorioDeFoliados(Conexion());
+        CreadorDePantallas creador = new CreadorDePantallas();
+        List<DocumentacionRecibida> listaDocRecibida = repo.GetDocumentacionRecibidaByPostulacion(postulacion);
+
+        PantallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, postulacion.Perfil, postulacion, listaDocRecibida);
+
+        return pantalla;
+    }
+
+    [WebMethod]
+    public bool GuardarDocumentacionRecibida(DocumentacionRecibida[] lista_doc_recibida, Usuario usuario)
+    {
+        RepositorioDeFoliados repo = new RepositorioDeFoliados(Conexion());
+
+        //List<DocumentacionRecibida> listaDocRecibida = repo.GetDocumentacionRecibidaByPostulacion(postulacion);
+
+        repo.GuardarDocumentacionRecibida(lista_doc_recibida.ToList(), usuario);
+
+        return true;
+
     }
 
 
@@ -2954,11 +2988,6 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeCurriculum RepoCurriculum()
     {
         return new RepositorioDeCurriculum(Conexion());
-    }
-
-    private RepositorioDePuestos RepoPuestos()
-    {
-        return new RepositorioDePuestos(Conexion());
     }
 
     private RepositorioDePerfiles RepoPerfiles()

@@ -172,8 +172,7 @@ namespace General
                               row.GetInt("Vacantes"),
                               row.GetString("Tipo"),
                               row.GetString("Puesto_Numero"),
-                              repo_comite.GetComiteById(row.GetInt("IdComite")
-                              )
+                              repo_comite.GetComiteById(row.GetInt("IdComite"))                            
                 );
         }
         

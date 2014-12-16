@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    public class CvPublicaciones
+    public class CvPublicaciones: ItemCv
     {
         protected int _id;
         protected string _titulo;
@@ -15,7 +15,6 @@ namespace General
         protected int _disponeAdjunto;
         protected DateTime _fechaPublicacion;
 
-
         public int Id { get { return _id; } set { _id = value; } }
         public string Titulo { get { return _titulo; } set { _titulo = value; } }
         public string DatosEditorial { get { return _datosEditorial; } set { _datosEditorial = value; } }
@@ -24,7 +23,11 @@ namespace General
         public int DisponeAdjunto { get { return _disponeAdjunto; } set { _disponeAdjunto = value; } }
         public DateTime FechaPublicacion { get { return _fechaPublicacion; } set { _fechaPublicacion = value; } }
 
-        public CvPublicaciones(int id, string titulo, string datosEditorial, string cantidadHojas, int disponeCopia, int disponeAdjunto, DateTime fechaPublicacion)
+        public CvPublicaciones()
+        {
+        }
+
+        public CvPublicaciones(int id, string titulo, string datosEditorial, string cantidadHojas, int disponeCopia, int disponeAdjunto, DateTime fechaPublicacion):base(id,titulo,5)
         {
             this._id = id;
             this._titulo = titulo;
@@ -33,12 +36,6 @@ namespace General
             this._disponeCopia = disponeCopia;
             this._disponeAdjunto = disponeAdjunto;
             this._fechaPublicacion = fechaPublicacion;
-
         }
-
-        public CvPublicaciones()
-        {
-        }
-
     }
 }

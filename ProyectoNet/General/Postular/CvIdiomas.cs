@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    public class CvIdiomas
+    public class CvIdiomas : ItemCv
     {
         protected int _id;
         protected string _diploma;
@@ -31,8 +31,12 @@ namespace General
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Pais { get { return _pais; } set { _pais = value; } }
 
-
+        public CvIdiomas()
+        {
+        }
+        
         public CvIdiomas(int id, string diploma, string establecimiento, string idioma, int lectura, int escritura, int oral, DateTime fechaObtencion, string localidad, int pais)
+            : base(id,idioma,9)
         {
             this._id = id;
             this._diploma = diploma;
@@ -46,10 +50,5 @@ namespace General
             this._localidad = localidad;
             this._pais = pais;
         }
-
-        public CvIdiomas()
-        {
-        }
-
     }
 }

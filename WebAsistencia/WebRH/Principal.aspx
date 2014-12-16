@@ -45,6 +45,7 @@
             </td>
         </tr>
     </table>
-    </form>
+    </form>    
+    <script type="text/javascript" src="MAU/HabilitadorDeControles.js"></script>
 </body>
 </html>

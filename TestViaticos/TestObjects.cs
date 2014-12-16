@@ -1811,5 +1811,48 @@ namespace General
         {
             return new ConceptoLicenciaAnualOrdinaria();
         }
+
+        public static Perfil UnPerfil()
+        {
+            return new Perfil(1, "familia", "profesion", "denominacion", "nivel", "agrupamiento", 20, "tipo", "numero", UnComite());
+        }
+
+        public static Comite UnComite()
+        {
+            return new Comite(1, 1, new List<Postular.IntegranteComite>());
+        }
+
+
+        public static CurriculumVitae UnCV()
+        {
+            return new CurriculumVitae(new CvDatosPersonales());
+        }
+
+        public static CvEstudios UnEstudioSecundario()
+        {
+            return new CvEstudios("Tecnico Electricista", 10,1, "", "", new DateTime(), new DateTime(), "", 0);
+        }
+
+        public static CvEstudios UnEstudioUniversitario()
+        {
+            return new CvEstudios(1,"Lic en Adm", 12,1, "", "", new DateTime(), new DateTime(), "", 0);
+        }
+
+        public static CvExperienciaLaboral UnaExpPublica()
+        {
+            return new CvExperienciaLaboral(1, "Trabajo MDS", "", "", 1, "", "", new DateTime(), new DateTime(), "", 1, "", 1);
+        }
+
+        public static CvExperienciaLaboral UnaExpPrivada()
+        {
+            return new CvExperienciaLaboral(1, "Banco Macro", "", "", 1, "", "", new DateTime(), new DateTime(), "", 2, "",2);
+        }
+
+        public static Postulacion UnaPostulacion()
+        {
+            return new Postulacion(1, UnPerfil(), 1, new DateTime(), "", "", "", new List<EtapaPostulacion>());
+        }
+
+
     }
 }

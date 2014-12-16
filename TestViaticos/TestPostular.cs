@@ -38,9 +38,10 @@ namespace TestViaticos
             var integrantes = new List<IntegranteComite>();
             integrantes.Add(new IntegranteComite() { Nombre = "Carlos Slim" });
             var comite = new Comite(1, 1,  integrantes);
-            var puestos = new List<Puesto>();
-            var un_puesto = new Puesto(1, "Abogacia", "Penal", "aaffa", "A", "Se busca un abogado...pero no el que tengo aca colgado", 5, "Abierto", "A-132", comite);
-            var otro_puesto = new Puesto(2, "Contador", "Discreto", "", "", "Experiencia en balances", 10, "Cerrado", "A-123", comite);
+            var puestos = new List<Perfil>();
+            //var foliables = new List<Foliable>();
+            var un_puesto = new Perfil(1, "Abogacia", "Penal", "aaffa", "A", "Se busca un abogado...pero no el que tengo aca colgado", 5, "Abierto", "A-132", comite);
+            var otro_puesto = new Perfil(2, "Contador", "Discreto", "", "", "Experiencia en balances", 10, "Cerrado", "A-123", comite);
 
             //repoCv.GuardarCVDatosPersonales(DatosPersonales(), TestObjects.UsuarioSACC());
 

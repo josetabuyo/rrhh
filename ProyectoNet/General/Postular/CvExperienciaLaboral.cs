@@ -7,7 +7,7 @@ using General.Postular;
 
 namespace General
 {
-    public class CvExperienciaLaboral
+    public class CvExperienciaLaboral : ItemCv
     {
         protected int _id;
         protected string _puestoOcupado;
@@ -37,8 +37,11 @@ namespace General
         public string Sector { get { return _sector; } set { _sector = value; } }
         public int AmbitoLaboral { get { return _ambitoLaboral; } set { _ambitoLaboral = value; } }
 
+        public CvExperienciaLaboral()
+        {
+        }
 
-        public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, int personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais, string sector, int AmbitoLaboral)
+        public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, int personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais, string sector, int AmbitoLaboral):base(id, puestoOcupado,8)
         {
             this._id = id;
             this._puestoOcupado = puestoOcupado;
@@ -55,9 +58,6 @@ namespace General
             this._ambitoLaboral = AmbitoLaboral;
         }
 
-        public CvExperienciaLaboral()
-        {
-        }
 
     }
 }
