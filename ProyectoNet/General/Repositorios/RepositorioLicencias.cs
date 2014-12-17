@@ -759,5 +759,33 @@ namespace General.Repositorios
             return unaProrroga;
         }
 
+        public void LoguearError(List<VacacionesPermitidas> permitidas_log, SolicitudesDeVacaciones aprobadas, Persona persona, DateTime fecha_calculo)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            //Persona a loguear
+            parametros.Add("@apellido", persona.Apellido);
+            parametros.Add("@nombre", persona.Nombre);
+            parametros.Add("@documento", persona.Documento);
+            
+            //Licencia con Conflicto
+            parametros.Add("@anio_maximo_imputable", aprobadas.AnioMaximoImputable().First().Periodo());
+            parametros.Add("@anio_minimo_imputable", aprobadas.AnioMinimoImputable(persona));
+            parametros.Add("@fecha_desde", aprobadas.Desde());
+            parametros.Add("@fecha_hasta", aprobadas.Hasta());
+            parametros.Add("@cantidad_de_dias", aprobadas.CantidadDeDias());
+
+            //Próxima Licencia sin calcular
+            //if (permitidas_log.Count > 0)
+            //{
+            //    parametros.Add("@periodo_", permitidas_log.First().Periodo);
+            //    parametros.Add("@cantidad_dias", permitidas_log.First().CantidadDeDias());
+            //}
+
+            parametros.Add("@fecha_calculo", fecha_calculo);
+
+            this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);   
+        }
+
     }
 }
