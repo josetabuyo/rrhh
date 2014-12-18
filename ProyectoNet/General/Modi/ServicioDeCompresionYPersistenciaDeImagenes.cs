@@ -33,7 +33,9 @@ namespace General.Modi
             }
             paths_imagenes.ForEach(pathImagen =>
             {
-                var imagen = new ImagenModi(Path.GetFileNameWithoutExtension(pathImagen), this.file_system.getImagenFromPath(pathImagen));
+                var imagen = new ImagenModi();
+                imagen.nombre = Path.GetFileNameWithoutExtension(pathImagen);
+                imagen.SetImagen(this.file_system.getImagenFromPath(pathImagen));
                 this.AgregarImagenSinAsignarALaBase(id_interna, imagen);
                 this.file_system.moverArchivo(pathImagen, path_imagenes + "/IncorporadasAlSistema/" + id_interna.ToString());
             });
@@ -45,6 +47,7 @@ namespace General.Modi
             parametros.Add("@id_interna", id_interna);
             parametros.Add("@nombre_imagen", imagen.nombre);
             parametros.Add("@bytes_imagen", imagen.bytesImagen);
+            parametros.Add("@orden", 0);
 
             this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros);
         }

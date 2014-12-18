@@ -23,7 +23,7 @@
 {
     display:inline-block;
     height: 90px;
-    width: 90px;
+    min-width: 90px;
     border: 1px dashed black;
     margin:5px;  
     -moz-border-radius: 5px;
@@ -31,6 +31,7 @@
     -khtml-border-radius: 5px;
     border-radius: 5px;    
     cursor: pointer;
+    overflow: hidden;
 }
 
 .folio .contenedor_lbl_folio
@@ -43,7 +44,8 @@
     position:absolute;
     top: 72px;
     font-weight: bold;
-    width: 90px;
+    left:0px;
+    right:0px;
     text-align: center;
 }
 
@@ -51,22 +53,18 @@
 {
     position:absolute;
     top: 72px;
-    background-color: gray;    
-    opacity: 0.5;
-    width: 90px;
+    left:0px;
+    right:0px;
+    background-color: rgb(112, 218, 245);    
+    opacity: 0.9;
     height: 18px;
     border-radius: 0px 0px 5px 5px;
-}
-
-
-.folio .imagen_miniatura
-{
-    display:block;
 }
 
 .folio_drop_hover
 {
     background-color:White;
+    border: 1px solid orange;
 }
 
 .vista_legajo_fila
@@ -320,9 +318,15 @@
     vertical-align: super;
 }
 
-.visualizador_imagen #panel_folio #txt_folio
+.visualizador_imagen #panel_folio #txt_folio, 
+.visualizador_imagen #panel_folio #txt_pagina
 {
     width:30px;
+}
+
+.visualizador_imagen #panel_folio #btn_guardar
+{
+    margin-top: -8px;
 }
 
 .panel_con_estatica

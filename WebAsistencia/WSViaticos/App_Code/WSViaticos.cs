@@ -103,6 +103,15 @@ public class WSViaticos : System.Web.Services.WebService
         repoPersonas.EliminarInasistenciaActual(unaPersona);
     }
 
+    
+    [WebMethod]
+    public void EliminarPasePendienteAprobacion(int id_pase)
+    {
+        PaseDeArea un_pase = new PaseDeArea();
+        un_pase.Id = id_pase;
+        this.EliminarPase(un_pase);
+    }
+
     [WebMethod]
     public void EliminarPase(PaseDeArea unPase)
     {
@@ -206,6 +215,24 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public SaldoLicencia GetSaldoLicencia14FoH(Persona unaPersona, ConceptoDeLicencia concepto, DateTime fecha)
+    {
+
+        return RepoLicencias().CargarSaldoLicencia14FoHDe(concepto, unaPersona, fecha);
+
+
+    }
+
+    [WebMethod]
+    public bool DiasHabilitadosEntreFechas(DateTime desde, DateTime hasta, int idconcepto)
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.DiasHabilitadosEntreFechas(desde, hasta, idconcepto);
+
+    }
+
+    [WebMethod]
     public SaldoLicencia GetSaldoLicenciaPlano(int documento, int idConcepto)
     {
         Persona persona = new Persona();
@@ -289,6 +316,17 @@ public class WSViaticos : System.Web.Services.WebService
 
         return repositorio.GetAusentesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
     }
+
+
+    [WebMethod]
+    public void EliminarLicenciaPendienteAprobacion(int id) 
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        repositorio.EliminarLicenciaPendienteAprobacion(id);
+    }
+    
+
 
     [WebMethod]
     public Persona[] GetPasesEntreFechasPara(Persona[] personas, DateTime desde, DateTime hasta)
@@ -467,6 +505,8 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+   
+
     [WebMethod]
     public Persona CompletarDatosDeContratacion(Persona persona)
     {
@@ -480,7 +520,7 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioDeOrganigrama repo = new RepositorioDeOrganigrama(Conexion());
         var organigrama = repo.GetOrganigrama();
         var excepciones = repo.ExcepcionesDeCircuitoViaticos();
-        var area_de_viaticos = new Area(1073, "Área de Viáticos y Pasajes", "010100100300100000001073", true);
+        var area_de_viaticos = new Area(1073, "Área de Viáticos y Pasajes", true);
         var circuito = new CircuitoDeAprobacionDeViatico(organigrama, excepciones, area_de_viaticos);
         return circuito.SiguienteAreaDe(area_actual);
     }
@@ -1922,9 +1962,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
+    public int AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
     {
-        servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
+        return servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
+    }
+
+    [WebMethod]
+    public void AsignarImagenAFolioDeLegajoPasandoPagina(int id_imagen, int nro_folio, int pagina, Usuario usuario)
+    {
+        servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajoPasandoPagina(id_imagen, nro_folio, pagina, usuario);
     }
 
     [WebMethod]

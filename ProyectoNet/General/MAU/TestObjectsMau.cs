@@ -150,12 +150,12 @@ namespace AdministracionDeUsuarios
 
         public static Area AreaDeLegajos()
         {
-            return new Area(1, "Legajos", "", true);
+            return new Area(1, "Legajos", true);
         }
 
         public static Area AreaDeContratos()
         {
-            return new Area(2, "Contratos","",false);
+            return new Area(2, "Contratos", false);
         }
 
         //public static Autorizador AutorizadorCon(IRepositorioDePermisosSobreAreas repo)

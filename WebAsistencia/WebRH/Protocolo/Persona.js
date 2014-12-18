@@ -28,19 +28,25 @@ Persona.prototype.inasistencias = function () {
     return this._persona.Inasistencias[0].Descripcion;
 };
 
+Persona.prototype.idInasistencias = function () {
+    return this._persona.Inasistencias[0].Id;
+};
+
 Persona.prototype.desde = function () {
-    var fecha = new Date(this._persona.Inasistencias[0].Desde);
-    return (fecha.getDate()+1) + "/" + (fecha.getMonth()+1) + "/" + fecha.getFullYear();
+    return ConversorDeFechas.deIsoAFechaEnCriollo(this._persona.Inasistencias[0].Desde)
 };
 
 Persona.prototype.hasta = function () {
-    var fecha = new Date(this._persona.Inasistencias[0].Hasta);
-    return (fecha.getDate()+1) + "/" + (fecha.getMonth()+1) + "/" + fecha.getFullYear();
+    return ConversorDeFechas.deIsoAFechaEnCriollo(this._persona.Inasistencias[0].Hasta)
 };
 
 Persona.prototype.estado = function () {
     return this._persona.Inasistencias[0].Estado;
 };
+
+Persona.prototype.idPase = function () {
+    return this._persona.PasePendiente.Id;
+}
 
 Persona.prototype.areaOrigen = function () {
     return this._persona.PasePendiente.AreaOrigen.Nombre;
@@ -51,8 +57,7 @@ Persona.prototype.areaDestino = function () {
 };
 
 Persona.prototype.fechaPase = function () {
-   var fecha = new Date(this._persona.PasePendiente.Fecha);
-    return (fecha.getDate()+1) + "/" + (fecha.getMonth()+1) + "/" + fecha.getFullYear();
+   return ConversorDeFechas.deIsoAFechaEnCriollo(this._persona.PasePendiente.Fecha)
 };
 
 Persona.prototype.estadoPase = function () {
