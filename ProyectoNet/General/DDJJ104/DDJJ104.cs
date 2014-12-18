@@ -19,7 +19,7 @@ namespace General
         public int Mes { get; set; }
         public int Anio { get; set; }
         public Persona Agente { get; set; }
-
+        public string LeyendaPorAnio { get; set; }
 
         public DDJJ104()
         { 

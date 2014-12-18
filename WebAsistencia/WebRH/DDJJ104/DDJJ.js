@@ -71,6 +71,12 @@ var DibujarGrillaDDJJ = function (p_lista_DDJJ) {
 var getAreasDDJJ = function () {
     var meses = $("#cmbMeses");
     var data_post = { valorCombo: meses.val() };
+
+    if (meses.val() == "") {
+        $("#progressbar").hide();
+        return;
+    }
+
     $.ajax({
         url: "../AjaxWS.asmx/GetAreasParaDDJJDelMes",
         type: "POST",
@@ -80,7 +86,7 @@ var getAreasDDJJ = function () {
         contentType: "application/json; charset=utf-8",
         success: function (respuestaJson) {
             lista_DDJJ = JSON.parse(respuestaJson.d);
-            DibujarGrillaDDJJ(lista_DDJJ);            
+            DibujarGrillaDDJJ(lista_DDJJ);
             $("#progressbar").hide();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -203,11 +209,14 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
     var anio;
     var direccion;
     var dependencia;
+    var leyenda;
+
     area = p_listaImprimir_DDJJ[0].Area.Nombre;
     mes = p_listaImprimir_DDJJ[0].Mes;
     anio = p_listaImprimir_DDJJ[0].Anio;
     direccion = p_listaImprimir_DDJJ[0].Area.Direccion;
     dependencia = p_listaImprimir_DDJJ[0].Area.Dependencias[0].Nombre;
+    leyenda = p_listaImprimir_DDJJ[0].LeyendaPorAnio;
 
     grilla = new Grilla(
         [
@@ -234,12 +243,15 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
         var areaddjj = w.document.getElementById("AreaDDJJ104");
         var areadireccionddjj = w.document.getElementById("AreaDireccionDDJJ104");
         var areadependenciaddjj = w.document.getElementById("AreaDependenciaDDJJ104");
+        var leyendaporanioddjj = w.document.getElementById("LeyendaPorAnioDDJJ104");
 
         $(areaddjj).html(area);
         $(mesddjj).html(NombreMes(mes));
         $(anioddjj).html(anio);
         $(areadireccionddjj).html(direccion);
         $(areadependenciaddjj).html(dependencia);
+        $(leyendaporanioddjj).html(leyenda);
+
         $(t).html(ContenedorPlanilla.html());
     }
 

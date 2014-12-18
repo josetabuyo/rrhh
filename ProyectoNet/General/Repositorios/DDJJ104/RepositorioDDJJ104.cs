@@ -111,7 +111,12 @@ namespace General
             {
                 ddjj104 = new DDJJ104();
 
-                ddjj104.Area = new Area() { Id = dr.GetInt32(dr.GetOrdinal("Id_Area")), Nombre = dr.GetString(dr.GetOrdinal("Area")), Direccion = dr.GetString(dr.GetOrdinal("Direccion")), Dependencias = new List<Area>() { new Area() { Nombre = dr.GetString(dr.GetOrdinal("Dependencia")) }} };
+                ddjj104.Area = new Area() { 
+                    Id = dr.GetInt32(dr.GetOrdinal("Id_Area")), 
+                    Nombre = dr.GetString(dr.GetOrdinal("Area")), 
+                    Direccion = dr.GetString(dr.GetOrdinal("Direccion")), 
+                    Dependencias = new List<Area>() { new Area() { Nombre = dr.GetString(dr.GetOrdinal("Dependencia")) }} 
+                };
                 ddjj104.Agente = new Persona()
                 {
                     Apellido = dr.GetString(dr.GetOrdinal("Apellido")),
@@ -121,6 +126,7 @@ namespace General
                 };
                 ddjj104.Mes = dr.GetInt16(dr.GetOrdinal("Mes"));
                 ddjj104.Anio = dr.GetInt16(dr.GetOrdinal("Año"));
+                ddjj104.LeyendaPorAnio = dr.GetString(dr.GetOrdinal("Leyenda"));
 
                 listaddjj104.Add(ddjj104);
             }
