@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using System.Text;
-using General;
 using System.Data.SqlClient;
-using General.Repositorios;
 using System.Linq;
-
 using Extensiones;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace General.Repositorios
 {
@@ -31,20 +28,58 @@ namespace General.Repositorios
             return this.Obtener();
         }
 
+
         public List<Persona> BuscarPersonas(string criterio)
         {
-            var palabras_busqueda = criterio.Split(' ').Select(p => p.ToUpper().Trim());
+            try
+            {
+                var criterio_deserializado = (JObject) JsonConvert.DeserializeObject(criterio);
+                bool filtrar_por_documento = false;
+                int documento = -1;
+                bool filtrar_por_tiene_legajo = false;
+                bool con_legajo = false;
 
-            return TodasLasPersonas().FindAll(persona => 
-                palabras_busqueda.All(palabra =>
-                        persona.Apellido.ToUpper().QuitarTildes().Contains(palabra.QuitarTildes()) ||
-                        persona.Nombre.ToUpper().QuitarTildes().Contains(palabra.QuitarTildes()) ||
-                        persona.Documento.ToString().Contains(palabra)||
-                        persona.Legajo.Contains(palabra)
-                    )
-                );
+                if (criterio_deserializado["Documento"]!= null) {
+                    filtrar_por_documento = true;
+                    documento = (int)((JValue)criterio_deserializado["Documento"]);
+                }
+
+                if (criterio_deserializado["ConLegajo"] != null) {
+                    filtrar_por_tiene_legajo = true;
+                    con_legajo = (bool)((JValue)criterio_deserializado["ConLegajo"]);
+                }
+
+                return TodasLasPersonas().FindAll(persona =>
+                {
+                    var pasan_todas_las_condiciones = true;
+                    if (filtrar_por_documento)
+                    {
+                        if (persona.Documento != documento) pasan_todas_las_condiciones = false;
+                    }
+                    if (filtrar_por_tiene_legajo)
+                    {
+                        if (con_legajo)
+                        {
+                            if (persona.Legajo.Trim() == "") pasan_todas_las_condiciones = false;
+                        }
+                    }
+                    return pasan_todas_las_condiciones;
+                });
+
+            }
+            catch (Exception e)
+            {
+                var palabras_busqueda = criterio.Split(' ').Select(p => p.ToUpper().Trim());
+                return TodasLasPersonas().FindAll(persona =>
+                    palabras_busqueda.All(palabra =>
+                            persona.Apellido.ToUpper().QuitarTildes().Contains(palabra.QuitarTildes()) ||
+                            persona.Nombre.ToUpper().QuitarTildes().Contains(palabra.QuitarTildes()) ||
+                            persona.Documento.ToString().Contains(palabra) ||
+                            persona.Legajo.Contains(palabra)
+                        )
+                    );
+            }            
         }
-
 
         public List<Persona> BuscarPersonasConLegajo(string criterio)
         {
@@ -53,10 +88,11 @@ namespace General.Repositorios
 
         public Persona GetPersonaPorId(int id_persona)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_persona", id_persona);
-            var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Personas", parametros);
-            return GetPersonasDeTablaDeDatos(tablaDatos).First();
+            return TodasLasPersonas().Find(persona => persona.Id == id_persona);
+            //var parametros = new Dictionary<string, object>();
+            //parametros.Add("@id_persona", id_persona);
+            //var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Personas", parametros);
+            //return GetPersonasDeTablaDeDatos(tablaDatos).First();
         }
 
         private static List<Persona> GetPersonasDeTablaDeDatos(TablaDeDatos tablaDatos)
@@ -91,9 +127,19 @@ namespace General.Repositorios
             return GetPersonasDeTablaDeDatos(tablaDatos);
         }
 
-        protected override void GuardarEnLaBase(Persona objeto)
+        public void GuardarPersona(Persona persona)
         {
-            throw new NotImplementedException();
+            this.Guardar(persona);
+        }
+
+        protected override void GuardarEnLaBase(Persona persona)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@tipoDocumento", 1);
+            parametros.Add("@documento", persona.Documento);
+            parametros.Add("@nombre", persona.Nombre);
+            parametros.Add("@apellido", persona.Apellido);
+            persona.Id = Convert.ToInt32(conexion.EjecutarEscalar("dbo.MAU_CrearPersona", parametros));
         }
 
         protected override void QuitarDeLaBase(Persona objeto)

@@ -1,0 +1,62 @@
+﻿<div id="form_eventosAcademicos">
+	<div id="form_eventosAcademicos-ct">
+		<div id="form_eventosAcademicos-header" class="form_concursar_header">
+			<h2>Eventos Académicos</h2>
+			<p>
+			</p>
+		</div>
+		<div id="contenido_form_eventos_academicos" class="fondo_form">
+			<fieldset style="width:95%; padding-left:3%;">
+				<legend style="margin-bottom:20px;">Ingrese un evento académico en el cual haya participado</legend>
+                 <h5><em>*</em>Campos Obligatorios</h5>
+				<div class="grupo_campos">
+					<label for="txt_evento_denominacion">Denominación <em>*</em></label>
+					<input id="txt_evento_denominacion" type="text" style="width:310px;" rh-control-type="textbox" rh-model-property="Denominacion" data-validar="esNoBlanco"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="cmb_evento_academico_caracter_participacion">Carácter de Participación <em>*</em></label>
+					   <select id="cmb_evento_academico_caracter_participacion" style="width:130px; data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="CaracterParticipacionEvento"
+                            rh-model-property="CaracterDeParticipacion">
+					</select>
+				</div>
+                <div class="grupo_campos nueva_linea">
+					<label for="cmb_evento_academico_tipo_evento">Tipo Evento <em>*</em></label>				
+                    <select id="cmb_evento_academico_tipo_evento" style="width:150px; data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="TiposEventosAcademicos"
+                            rh-model-property="TipoDeEvento">
+					</select>
+				</div>                
+				<div class="grupo_campos">
+					<label for="txt_evento_academico_fecha_inicio">Fecha Inicio <em>*</em></label>
+					<input id="txt_evento_academico_fecha_inicio" type="text" style="width:100px;" rh-control-type="datepicker" rh-model-property="FechaInicio" data-validar="esNoBlanco"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_evento_academico_fecha_fin">Fecha Fin <em>*</em></label>
+					<input id="txt_evento_academico_fecha_fin" type="text" style="width:100px;" rh-control-type="datepicker" rh-model-property="FechaFinalizacion" data-validar="esNoBlanco"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_evento_academico_duracion">Duración (horas, días, meses) <em>*</em></label>
+					<input id="txt_evento_academico_duracion" type="text" style="width:180px;" rh-control-type="textbox" rh-model-property="Duracion" data-validar="esNoBlanco"/>
+				</div>
+                <div class="grupo_campos nueva_linea">
+					<label for="cmb_evento_academico_institucion">Institución <em>*</em></label>					
+                     <select id="cmb_evento_academico_institucion" style="width:150px; data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="InstitucionesEvento"
+                            rh-model-property="Institucion">
+					</select>
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_evento_academico_localidad">Localidad <em>*</em></label>
+					<input id="txt_evento_academico_localidad" type="text" style="width:200px;" rh-control-type="textbox" rh-model-property="Localidad" data-validar="esNoBlanco"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="cmb_evento_academico_pais">País <em>*</em></label>
+					<select id="cmb_evento_academico_pais" style="width:200px;" data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="Paises"
+                            rh-model-property="Pais">
+					</select>
+				</div>
+			</fieldset>
+			<div class="btn-fld">
+				<input type="button" class="btn btn-primary" id="btn_guardar" value="Agregar"/>
+			</div>
+		</div>
+	</div>
+</div>

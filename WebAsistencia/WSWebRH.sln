@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "General", "..\ProyectoNet\General\General.csproj", "{D6802AD2-A6E1-4612-8F01-811E926A1D2E}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WSViaticos", "WSViaticos\", "{D1CFEFAB-1202-4294-A2C0-D8D7C6D91094}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WSViaticos", "WSViaticos", "{D1CFEFAB-1202-4294-A2C0-D8D7C6D91094}"
 	ProjectSection(WebsiteProperties) = preProject
 		SccProjectName = ""
 		SccAuxPath = ""
@@ -28,7 +28,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WSViaticos", "WSViaticos\",
 		VWDPort = "43412"
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebRH", "WebRH\", "{A75712E4-258D-405D-A2F3-082E5C1C0E7F}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebRH", "WebRH", "{A75712E4-258D-405D-A2F3-082E5C1C0E7F}"
 	ProjectSection(WebsiteProperties) = preProject
 		SccProjectName = ""
 		SccAuxPath = ""
@@ -62,16 +62,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Local.testsettings = Local.testsettings
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
-		WSWebRH4.vsmdi = WSWebRH4.vsmdi
+		WSWebRH3.vsmdi = WSWebRH3.vsmdi
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebRhUI", "WebRhUI\WebRhUI.csproj", "{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAdministracionDeUsuarios", "..\TestAdministracionDeUsuarios\TestAdministracionDeUsuarios.csproj", "{D6CD50CE-0196-4F04-A51A-9590E3D7174D}"
-EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = WSWebRH4.vsmdi
+		CategoryFile = WSWebRH3.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -144,18 +142,6 @@ Global
 		{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}.Release|x86.ActiveCfg = Release|Any CPU
-		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|.NET.ActiveCfg = Release|Any CPU
-		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{D6CD50CE-0196-4F04-A51A-9590E3D7174D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

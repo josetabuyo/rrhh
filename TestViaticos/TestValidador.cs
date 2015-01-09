@@ -90,9 +90,9 @@ namespace TestViaticos
             Assert.IsTrue(una_coleccion.Contains(1));
         }
 
-        private Validador Validador()
+        private ValidadorMICOI Validador()
         {
-            return new Validador();
+            return new ValidadorMICOI();
         }
 
     }

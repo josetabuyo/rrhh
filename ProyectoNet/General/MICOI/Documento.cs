@@ -71,9 +71,9 @@
         }
 
         /**/
-        private Validador Validador()
+        private ValidadorMICOI Validador()
         {
-            return new Validador();
+            return new ValidadorMICOI();
         }
 
         public Documento(TipoDeDocumentoSICOI tipoDeDocumento, string numero, CategoriaDeDocumentoSICOI categoria, Area areaOrigen, string extracto, string comentarios)

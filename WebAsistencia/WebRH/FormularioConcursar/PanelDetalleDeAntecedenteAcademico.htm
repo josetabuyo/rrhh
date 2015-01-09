@@ -1,0 +1,57 @@
+﻿<div id="form_antecedentesAcademicos">
+	<div id="form_antecedentesAcademicos-ct">
+		<div id="form_antecedentesAcademicos-header" class="form_concursar_header">
+			<h2>Antecedentes Académicos</h2>
+			<p>
+			</p>
+		</div>
+		<div id="contenido_form_antecedentes" class="fondo_form">
+			<fieldset style="width:95%; padding-left:3%;">
+				<legend style="margin-bottom:20px;">Ingrese únicamente los estudios que acredite título, indicando el nivel del mismo</legend>
+                 <h5><em>*</em>Campos Obligatorios</h5>
+				<div class="grupo_campos">
+					<label for="txt_antecedentes_titulo">Título <em>*</em></label>
+					<input id="txt_antecedentes_titulo" type="text" rh-control-type="textbox" rh-model-property="Titulo" style="width:350px;"data-validar="esNoBlanco"/>
+				</div>
+                <div class="grupo_campos">
+					<label for="txt_antecedentes_nivel">Nivel <em>*</em></label>
+					<select id="txt_antecedentes_nivel" style="width:270px;" data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="NivelesDeEstudio"
+                            rh-model-property="Nivel">
+					</select>
+				</div>
+                <div class="grupo_campos nueva_linea">
+					<label for="txt_antecedentes_especialidad">Nombre de Especialidad o Competencia <em>*</em></label>
+					<input id="txt_antecedentes_especialidad" type="text" style="width:350px;" rh-control-type="textbox" rh-model-property="Especialidad" data-validar="esNoBlanco"/>
+				</div>
+                <div class="grupo_campos">
+					<label for="txt_antecedentes_ingreso">Fecha Inicio <em>*</em></label>
+					<input id="txt_antecedentes_ingreso" type="text" style="width:120px;" rh-control-type="datepicker" rh-model-property="FechaIngreso" />
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_antecedentes_egreso">Fecha Fin <em>*</em></label>
+					<input id="txt_antecedentes_egreso" type="text" style="width:120px;" rh-control-type="datepicker" rh-model-property="FechaEgreso"/>
+				</div>
+                <div class="grupo_campos nueva_linea">
+					<label for="txt_antecedentes_establecimiento">Establecimiento <em>*</em></label>
+					<input id="txt_antecedentes_establecimiento" type="text" style="width:200px;" rh-control-type="textbox" rh-model-property="Establecimiento" data-validar="esNoBlanco"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="txt_antecedentes_localidad">Localidad <em>*</em></label>
+					<input id="txt_antecedentes_localidad" type="text" style="width:200px;" rh-control-type="textbox" rh-model-property="Localidad" data-validar="esNoBlanco"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="cmb_antecedentes_pais">País <em>*</em></label>
+					<select id="cmb_antecedentes_pais" style="width:200px;" data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="Paises"
+                            rh-model-property="Pais">
+					</select>
+				</div>
+			</fieldset>
+			<div class="btn-fld">
+				<input type="button" class="btn btn-primary" id="btn_guardar" value="Agregar" />
+				
+			</div>
+            <input type="hidden" id="txt_AntecedenteAcademico_id" />
+            
+		</div>
+	</div>
+</div>

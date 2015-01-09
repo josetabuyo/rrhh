@@ -39,9 +39,9 @@ namespace General
             this._un_calendario = un_calendario;
         }
 
-        private Validador Validador()
+        private ValidadorMICOI Validador()
         {
-            return new Validador();
+            return new ValidadorMICOI();
         }
 
         private bool AlumnoPerteneceAlcurso(Alumno un_alumno)

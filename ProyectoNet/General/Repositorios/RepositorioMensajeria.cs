@@ -28,6 +28,7 @@ namespace General.Repositorios
             var areas = repo_organigrama.GetOrganigrama().ObtenerAreas(true);
 
             Area area_destino;
+            Area area_origen;
             DateTime fecha_transicion;
 
 
@@ -39,8 +40,38 @@ namespace General.Repositorios
                 }
                 else
                 {
-                    area_destino = areas.First(a => a.Id == r.GetInt("IdAreaDestino"));
+                    try
+                    {
+                        area_destino = areas.First(a => a.Id == r.GetInt("IdAreaDestino"));
+                    }
+                    catch (Exception)
+                    {
+
+                        area_destino = new Area(r.GetInt("IdAreaDestino"), "Area no existente");
+                    }
+                    
                 }
+
+                if (r.GetObject("IdAreaOrigen") is DBNull)
+                {
+                    area_origen = null;
+                }
+                else
+                {
+                    try
+                    {
+                        area_origen = areas.First(a => a.Id == r.GetInt("IdAreaOrigen"));
+                    }
+                    catch (Exception)
+                    {
+
+                        area_origen = new Area(r.GetInt("IdAreaOrigen"), "Area no existente");
+                    }
+                    
+                }
+
+
+               
 
                 if (r.GetObject("Fecha") is DBNull)
                 {
@@ -54,7 +85,7 @@ namespace General.Repositorios
                 transiciones.Add(
                 new TransicionDeDocumento(
                     r.GetInt("Id"),
-                    areas.First(a => a.Id == r.GetInt("IdAreaOrigen")),
+                    area_origen,
                     area_destino,
                     fecha_transicion,
                     documentos.Find(d => d.Id == r.GetInt("IdDocumento")),

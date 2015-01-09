@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using General.Repositorios;
-using System.Security.Cryptography;
 
 namespace General.MAU
 {
@@ -36,6 +34,16 @@ namespace General.MAU
             return GetUsuarioDeTablaDeDatos(tablaDatos);
         }
 
+        public int GetDniPorAlias(string alias)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@alias", alias);
+            var tablaDatos = conexion.Ejecutar("dbo.Web_Get_UsuarioPorAlias", parametros);
+            return GetDNIUsuarioDeTablaDeDatos(tablaDatos);
+        }
+
+
+
         public Usuario GetUsuarioPorIdPersona(int id_persona)
         {
             var parametros = new Dictionary<string, object>();
@@ -57,6 +65,19 @@ namespace General.MAU
             }
             return new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja"));            
         }
+
+
+        private int GetDNIUsuarioDeTablaDeDatos(TablaDeDatos tablaDatos)
+        {
+            if (tablaDatos.Rows.Count == 0) return 0;
+            var row = tablaDatos.Rows.First();
+            if ((row.GetObject("NroDocumento") is DBNull))
+            {
+                return 0;
+            }
+            return row.GetSmallintAsInt("NroDocumento");
+        }
+
         
         public Usuario CrearUsuarioPara(int id_persona)
         {
@@ -77,7 +98,21 @@ namespace General.MAU
             parametros.Add("@clave_encriptada", clave_encriptada);
             int id_usuario = (int)conexion.EjecutarEscalar("dbo.MAU_CrearUsuario", parametros);
 
+            var repo_funcionalidades_usuarios = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(this.conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(this.conexion));
+
+            //Permisos básicos
+            repo_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 3); //Menu principal
+            repo_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 13); //Postular
+
             return new Usuario(id_usuario, alias, clave_encriptada, persona, true);
+        }
+
+        public void AsociarUsuarioConMail(Usuario usuario, string mail) {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_Usuario", usuario.Id);
+            parametros.Add("@Mail_Registro", mail);
+
+            conexion.Ejecutar("dbo.CV_AsociarUsuarioConMailRegistrado", parametros);
         }
 
         public bool CambiarPassword(int id_usuario, string clave_actual, string clave_nueva)
@@ -118,6 +153,46 @@ namespace General.MAU
               .Select(s => s[random.Next(s.Length)])
               .ToArray());
             return clave_nueva;
+        }
+
+
+        public Usuario RecuperarUsuario(string mail)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@mail_recupero", mail);
+            var tablaCVs = conexion.Ejecutar("dbo.CV_GetDatosRecupero", parametros);
+            Usuario usuario_a_recuperar = new Usuario();
+            bool enviar_mail = true;
+            if (tablaCVs.Rows.Count > 0)
+            {
+                var registros = tablaCVs.Rows.FindAll(row => row.GetInt("Baja", 0) == 0 && row.GetSmallintAsInt("enviarMail", 0) == 0);
+
+                if (registros.Count > 0)
+                {
+                    var registro = registros.First();
+                    usuario_a_recuperar = new Usuario(registro.GetSmallintAsInt("Id"), registro.GetString("Alias"), registro.GetString("Clave_Encriptada"), enviar_mail);
+                    return usuario_a_recuperar;
+                }
+                else
+                {
+                    return new UsuarioNulo();
+                }
+            }
+            else
+            {
+                return new UsuarioNulo();
+            }
+        }
+
+        internal bool ValidarMailExistente(string mail)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@mail_recupero", mail);
+            var tablaCVs = conexion.Ejecutar("dbo.CV_GetDatosRecupero", parametros);
+
+            if (tablaCVs.Rows.Count > 0) return true;
+            return false;
+            
         }
     }
 }
