@@ -24,7 +24,7 @@ namespace TestViaticos
             
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
+        [Ignore] //para que ande el teamcity
         public void deberia_poder_saber_cuantos_alumnos_estan_inscriptos_en_cens()
         {
             Reportes reportes = new Reportes();
@@ -39,7 +39,6 @@ namespace TestViaticos
         }
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
         public void deberia_poder_saber_cuantos_alumnos_estan_inscriptos_en_fines_puro()
         {
             Reportes reportes = new Reportes();
@@ -53,7 +52,6 @@ namespace TestViaticos
         }
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
         public void deberia_poder_saber_cuantos_alumnos_estan_inscriptos_en_fines_cens_en_el_primer_ciclo()
         {
             Reportes reportes = new Reportes();

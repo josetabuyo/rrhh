@@ -21,6 +21,7 @@ VistaDeLegajoModi.prototype.start = function () {
             _this.o.servicioDeLegajos.desAsignarImagen(imagen.id,
                                                         function () {
                                                             imagen.nro_folio = "";
+                                                            imagen.orden = "";
                                                             _this.panel_imagenes_no_asignadas.agregarVistaImagen(imagen);
                                                         });
         }

@@ -95,7 +95,7 @@
         var BuscarUsuario = function () {
             this.generar = function (una_etapa) {
                 for (var i = 0; i < usuarios.length; i++) {
-                    if (parseInt(usuarios[i].Owner.Id, 10) == parseInt(una_etapa.IdUsuario, 10)) return usuarios[i].Owner.Nombre + " " + usuarios[i].Owner.Apellido;
+                    if (parseInt(usuarios[i].Id, 10) == parseInt(una_etapa.IdUsuario, 10)) return usuarios[i].Owner.Nombre + " " + usuarios[i].Owner.Apellido;
                 }
                 return "";
             }

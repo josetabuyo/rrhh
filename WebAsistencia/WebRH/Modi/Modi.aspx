@@ -9,6 +9,7 @@
     <title>MODI</title>
     <link rel="stylesheet" href="EstilosModi.css" type="text/css"/>
     <%= Referencias.Css("../")%>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
@@ -81,6 +82,9 @@
                     <div id="panel_folio">
                         <label> Folio:</label>
                         <input id="txt_folio" type="text" />
+                        <label> Faz:</label>
+                        <input id="txt_pagina" type="text" />
+                        <input id="btn_guardar" type="button" value = "Ok" class="btn btn-primary"/>
                     </div>                  
                     <img alt="" src="" id="imagen" />
                 </div>
@@ -130,7 +134,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var proveedor_ajax = new ProveedorAjax();
+            var proveedor_ajax = new ProveedorAjax("../");
             var servicio_de_legajos = new ServicioDeDigitalizacionDeLegajos(proveedor_ajax);
             var servicio_de_categorias = new ServicioDeCategoriasDeDocumentos(proveedor_ajax);
 

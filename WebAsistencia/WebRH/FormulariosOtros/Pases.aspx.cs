@@ -11,7 +11,7 @@ public partial class FormulariosOtros_Pases : System.Web.UI.Page
     {
         WSViaticosSoapClient ws = new WSViaticosSoapClient();
         //WSViaticos.WSViaticos ws = new WSViaticos.WSViaticos();
-        Area[] areas = ws.GetAreas();
+            Area[] areas = ws.GetAreas();
         this.ControlSeleccionDeArea1.Areas = areas;
     }
 }

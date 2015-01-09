@@ -25,9 +25,9 @@ namespace General
             List<Perfil> perfiles = new List<Perfil>();
 
             tablaCVs.Rows.ForEach(row =>
-            perfiles.Add(new Perfil(row.GetInt("IdPerfil"), row.GetString("Familia"), row.GetString("Profesion"), row.GetString("Denominacion"),
-                        row.GetString("Nivel"),row.GetString("Agrupamiento"),row.GetInt("Vacantes"), row.GetString("Tipo"),row.GetString("NumeroDePuesto"),
-                        repoComite.GetComiteById(row.GetInt("IdComite")))));
+            perfiles.Add(new Perfil(row.GetSmallintAsInt("IdPerfil"), row.GetString("Familia"), row.GetString("Profesion"), row.GetString("Denominacion"),
+                        row.GetString("Nivel"),row.GetString("Agrupamiento"),row.GetSmallintAsInt("Vacantes"), row.GetString("Tipo"),row.GetString("NumeroDePuesto"),
+                        repoComite.GetComiteById(row.GetSmallintAsInt("IdComite")))));
 
             return perfiles;
 

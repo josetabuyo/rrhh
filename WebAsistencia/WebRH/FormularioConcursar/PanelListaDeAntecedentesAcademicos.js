@@ -9,7 +9,9 @@
             var panel_detalle = new PanelDetalleGenerico({
                 defaults: { 
                     Pais: 9,
-                    Nivel: 1
+                    Nivel: 1,
+                    FechaIngreso: Date.now(),
+                    FechaEgreso: Date.now()
                 },
                 path_html: "PanelDetalleDeAntecedenteAcademico.htm",
                 metodoDeGuardado: "GuardarCvAntecedenteAcademico",

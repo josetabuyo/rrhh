@@ -58,7 +58,21 @@
  <script type="text/javascript" src="EtapasPostulacion.js" ></script>
   <script type="text/javascript">
       $(document).ready(function () {
+
+          var btn = $("#btn_buscar_etapas");
+          var busqueda = $("#txt_codigo_postulacion");
+
+          busqueda.keyup(function (event) {
+              if (event.keyCode == 13) {
+                  btn.click();
+              }
+          });
+
           PanelEtapasPostulacion();
+
+
+		
+
       });
   </script>
 </html>

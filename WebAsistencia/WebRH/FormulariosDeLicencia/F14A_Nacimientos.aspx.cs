@@ -130,6 +130,11 @@ Al agente varón, por nacimiento de hijo, tres (3) días laborables.";
         {
             DatosValidos = false;
         }
+        // 27 = id Nacimiento en tabla Tabla_Conceptos_Licencias
+        if (!this.DesdeHasta1.DiasHabilitadosEntreFechas(27))
+        {
+            DatosValidos = false;
+        }
 
         this.AceptarCancelar1.PuedeAceptar = DatosValidos;
     }
