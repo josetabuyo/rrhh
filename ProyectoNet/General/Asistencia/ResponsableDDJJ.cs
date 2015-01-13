@@ -30,7 +30,8 @@ namespace General
         public List<Area> AreasSinDDJJInferioresA(Area area)
         {
             var repositorio = new RepositorioDeOrganigrama(Conexion());
-            return repositorio.GetOrganigrama().AreasInferioresInmediatasDe(area).FindAll(a => !a.PresentaDDJJ);
+            //return repositorio.GetOrganigrama().AreasInferioresInmediatasDe(area).FindAll(a => !a.PresentaDDJJ);
+            return repositorio.GetAreaInferiorById(area.Id, false);
         }
 
         public List<DDJJ104> GetAreasDDJJ(Usuario usuario , int mes, int anio)
@@ -46,20 +47,20 @@ namespace General
             {
                 ddjj_dto = new DDJJ104();
 
-                //Cargo el areas Formal (ddjj = 1)
+                //Cargo el areas Formal (ddjj = 1) y Obtengo las personas de esa Area
                 ddjj_dto.Area = un_area;
                 ddjj_dto.Area.Personas = un_area.Personas;
-                un_area.Personas = repoPersonas.GetPersonasDelAreaReducida(un_area);
+                un_area.Personas = repoPersonas.GetPersonasDelAreaReducida(un_area,2);
                 contador_de_personas += ddjj_dto.Area.Personas.Count();
 
-                //Cargo el areas inferiores con ddjj = 0
+                //Cargo el areas inferiores con ddjj = 0 y Obtengo las personas de esa Area
                 ddjj_dto.AreasInferiores = new List<Area>();
-                ddjj_dto.AreasInferiores = AreasSinDDJJInferioresA(un_area);
-                foreach (var item in ddjj_dto.AreasInferiores)
-                {
-                    item.Personas = repoPersonas.GetPersonasDelAreaReducida(item);
-                    contador_de_personas += item.Personas.Count();
-                }
+                //ddjj_dto.AreasInferiores = AreasSinDDJJInferioresA(un_area);
+                //foreach (var item in ddjj_dto.AreasInferiores)
+                //{
+                un_area.Personas = repoPersonas.GetPersonasDelAreaReducida(un_area, 0);
+                contador_de_personas += un_area.Personas.Count();
+                //}
 
                 ddjj_dto.CantidadPersonas = contador_de_personas;
 

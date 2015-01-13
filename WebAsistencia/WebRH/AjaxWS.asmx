@@ -68,8 +68,7 @@ public class AjaxWS : System.Web.Services.WebService {
         var ddjj = backEndService.ImprimirDDJJ104(lista.ToArray());
         var ddjj_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(ddjj);
         return ddjj_serializados;
-    }
-        
+    }  
     //FIN: DDJJ//
     
     [WebMethod(EnableSession = true)]

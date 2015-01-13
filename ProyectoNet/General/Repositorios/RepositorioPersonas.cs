@@ -133,7 +133,7 @@ namespace General
         }
 
 
-        public List<Persona> GetPersonasDelAreaReducida(Area unArea)
+        public List<Persona> GetPersonasDelAreaReducida(Area unArea, int presenta_ddjj )
         {
             SqlDataReader dr;
             //Inasistencia InasistenciaActual;
@@ -141,6 +141,12 @@ namespace General
 
             ConexionDB cn = new ConexionDB("dbo.Web_GetAgentesDelArea");
             cn.AsignarParametro("@idArea", unArea.Id);
+            //@buscarInferiores = 0 -> buscar dependencias informales
+            //@buscarInferiores = 1 -> buscar dependencias formales
+            //@buscarInferiores = 2 -> Le pongo 2 porque no acepta null, entonces si es 2 va solo el area enviada.
+            if (presenta_ddjj != 2)
+                cn.AsignarParametro("@buscarInferiores", presenta_ddjj);    
+            
             unArea.Personas = new List<Persona>();
             dr = cn.EjecutarConsulta();
 
