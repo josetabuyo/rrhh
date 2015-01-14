@@ -147,7 +147,7 @@ namespace General
             if (presenta_ddjj != 2)
                 cn.AsignarParametro("@buscarInferiores", presenta_ddjj);    
             
-            unArea.Personas = new List<Persona>();
+            List<Persona> ListaPersonas = new List<Persona>();
             dr = cn.EjecutarConsulta();
 
             Persona persona;
@@ -175,10 +175,10 @@ namespace General
                         Descripcion = dr.GetValue(dr.GetOrdinal("planta")).ToString()
                     }
                 };
-                unArea.Personas.Add(persona);
+                ListaPersonas.Add(persona);
             }
             cn.Desconestar();
-            return unArea.Personas;
+            return ListaPersonas;
         }
 
 

@@ -47,23 +47,21 @@ namespace General
             {
                 ddjj_dto = new DDJJ104();
 
-                //Cargo el areas Formal (ddjj = 1) y Obtengo las personas de esa Area
+                //--- Cargo el areas Formal (ddjj = 1) y Obtengo las personas de esa Area
                 ddjj_dto.Area = un_area;
-                ddjj_dto.Area.Personas = un_area.Personas;
                 un_area.Personas = repoPersonas.GetPersonasDelAreaReducida(un_area,2);
-                contador_de_personas += ddjj_dto.Area.Personas.Count();
-
-                //Cargo el areas inferiores con ddjj = 0 y Obtengo las personas de esa Area
-                ddjj_dto.AreasInferiores = new List<Area>();
-                //ddjj_dto.AreasInferiores = AreasSinDDJJInferioresA(un_area);
-                //foreach (var item in ddjj_dto.AreasInferiores)
-                //{
-                un_area.Personas = repoPersonas.GetPersonasDelAreaReducida(un_area, 0);
                 contador_de_personas += un_area.Personas.Count();
-                //}
+
+                //--- Cargo el areas inferiores (ddjj = 0) y Obtengo las personas de esas Areas
+                List<Persona> personasAreaInformales = new List<Persona>();
+                personasAreaInformales = repoPersonas.GetPersonasDelAreaReducida(un_area, 0);
+                if (personasAreaInformales.Count != 0)
+                {
+                    un_area.Personas.AddRange(personasAreaInformales);
+                    contador_de_personas += personasAreaInformales.Count();
+                }
 
                 ddjj_dto.CantidadPersonas = contador_de_personas;
-
                 ddjj_dto.Mes = mes;
                 ddjj_dto.Anio = anio;
                 ddjj_dto.Estado = new RepositorioDDJJ104().GetEstadoDDJJ(ddjj_dto);
