@@ -98,7 +98,7 @@
             for (var j = 0; j < usuarios.length; j++) {
                 if (usuarios[j].Id == datos_postulacion.Etapas[i].IdUsuario) agregado = true;
             }
-            if (!agregado) usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorIdPersona", [datos_postulacion.Etapas[i].IdUsuario]));
+            if (!agregado) usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorId", [datos_postulacion.Etapas[i].IdUsuario])); //
         }
         var usu_etapas = datos_postulacion.Etapas;
 

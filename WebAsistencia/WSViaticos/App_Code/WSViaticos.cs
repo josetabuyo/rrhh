@@ -1980,6 +1980,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Usuario GetUsuarioPorId(int id_usuario)
+    {
+        return RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+    }
+
+    [WebMethod]
     public Usuario GetUsuarioPorIdPersona(int id_persona)
     {
         return RepositorioDeUsuarios().GetUsuarioPorIdPersona(id_persona);
@@ -2537,7 +2543,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void InsEtapaPostulacion(int id_postulacion, int id_etapa_postulacion, Usuario usuario)
     {
-        RepoPostulaciones().InsEtapaPostulacion(id_postulacion, id_etapa_postulacion, usuario.Owner.Id);
+        RepoPostulaciones().InsEtapaPostulacion(id_postulacion, id_etapa_postulacion, usuario.Id);
     }
 
     #region CVAntecedentesAcademicos

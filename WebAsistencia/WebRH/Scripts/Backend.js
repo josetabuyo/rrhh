@@ -7,7 +7,7 @@
                 for (var i = 0; i < objetos.length; i++) {
                     _this.agregarMetodo(objetos[i].nombre);
                 }
-                if(on_ready) on_ready();
+                if (on_ready) on_ready();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log("error al obtener métodos del backend")
