@@ -13,7 +13,6 @@ namespace General
     public class DDJJ104
     {
         public Area Area { get; set; }
-        public List<Area> AreasInferiores { get; set; }
         public int CantidadPersonas { get; set; }
         public int Estado { get; set; }
         public int Mes { get; set; }

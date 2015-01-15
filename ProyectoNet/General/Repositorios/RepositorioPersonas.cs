@@ -168,7 +168,7 @@ namespace General
                     Cuit = dr.GetValue(dr.GetOrdinal("cuit")).ToString(),
                     Id = dr.GetInt32(dr.GetOrdinal("idpersona")),                    
                     Categoria = ObtenerCategoria(dr),
-                    //Area = new Area() { Id = dr.GetInt32(dr.GetOrdinal("id_area")) },
+                    IdArea = dr.GetInt32(dr.GetOrdinal("id_area")),
 
                     TipoDePlanta = new TipoDePlanta
                     {

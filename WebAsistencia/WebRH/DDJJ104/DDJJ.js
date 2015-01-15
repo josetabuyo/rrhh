@@ -91,6 +91,8 @@ var getAreasDDJJ = function () {
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alertify.alert(errorThrown);
+            $("#progressbar").hide();
+            meses.val("");
         }
     });
 

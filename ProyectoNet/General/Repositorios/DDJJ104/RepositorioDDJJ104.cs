@@ -67,8 +67,7 @@ namespace General
                         cn.AsignarParametro("@Id_DDJJ", id_ddjj_nuevo);
                         cn.AsignarParametro("@Id_Persona", personas.Id);
                         cn.AsignarParametro("@Orden", orden);
-                        //cn.AsignarParametro("@Id_Area_Persona", personas.Area.Id);
-                        cn.AsignarParametro("@Id_Area_Persona", ddjj.First().Area.Id);
+                        cn.AsignarParametro("@Id_Area_Persona", personas.IdArea);
                         cn.AsignarParametro("@Mod_Contratacion", Cat_Mod[1].Trim());
                         cn.AsignarParametro("@Categoria", Cat_Mod[0].Trim());
 
