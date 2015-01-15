@@ -10,8 +10,8 @@
                 defaults: { 
                     Pais: 9,
                     Nivel: 1,
-                    FechaIngreso: Date.now(),
-                    FechaEgreso: Date.now()
+                    FechaIngreso: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
+                    FechaEgreso: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
                 },
                 path_html: "PanelDetalleDeAntecedenteAcademico.htm",
                 metodoDeGuardado: "GuardarCvAntecedenteAcademico",
