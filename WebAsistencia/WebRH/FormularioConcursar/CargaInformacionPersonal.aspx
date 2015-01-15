@@ -53,6 +53,7 @@
                                 <em>*</em> Campos Obligatorios</h5>
                             <p style="text-transform: uppercase; font-weight: bold;">
                                 VISUALIZACIÓN Y EDICIÓN DE LA INFORMACIÓN PERSONAL</p>
+                                <p id="lema_para_empleados"></p>
                             <div id="contenedor_datos_legajos">
                                 <div class="grupo_campos nueva_linea">
                                     <label for="nombre">

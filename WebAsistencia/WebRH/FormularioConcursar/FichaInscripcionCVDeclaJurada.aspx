@@ -179,7 +179,12 @@
 </tr>
 </table>
 
-<p class="p-imprimir"><button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir Curriculum</button></p>
+<p class="p-imprimir">
+    <button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir Curriculum</button>
+    <input style="width: 50px;" id="anexo_1" class="btn btn-primary" value="Anexo I" />
+    <input style="width: 50px;" id="anexo_2" class="btn btn-primary"  value="Anexo II" />
+    <input style="width: 50px;" id="anexo_3" class="btn btn-primary" value="Anexo III" />
+</p>
 </div>	
 </div>
 
@@ -202,6 +207,22 @@
     function ImprimirCVPostulado() {
         window.print();
     }
+
+    $('#anexo_1').click(function () {
+        window.open('AnexoI.aspx');
+        //window.location.href = 'AnexoI.aspx';
+
+    });
+
+    $('#anexo_2').click(function () {
+        window.open('AnexoII.aspx');
+        //window.location.href = 'AnexoII.aspx';
+    });
+
+    $('#anexo_3').click(function () {
+        window.open('AnexoIII.aspx');
+        //window.location.href = 'AnexoIII.aspx';
+    });
 
     Backend.start(function () {
         $(document).ready(function () {
