@@ -59,6 +59,11 @@
         $("#span_codigo").html("");
         $("#span_fecha").html("");
         $("#span_perfil").html("");
+        $("#requisitos_perfil").html("");
+        $("#detalle_perfil").html("");
+        $("#detalle_documentos").html("");
+        $("#titulo_doc_oblig").remove();
+        $("#titulo_doc_curric").remove();
 
         Backend.ejecutar("GetPostulacionesPorCodigo",
             [codigo],
@@ -119,7 +124,7 @@
         }
 
         postulacion.val(JSON.stringify(datos_postulacion.Id));
-       
+
         span_empleado.html(new BuscarUsuario().generar(datos_postulacion.Etapas[0]));
         span_codigo.html(datos_postulacion.Numero);
         span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));
@@ -129,7 +134,9 @@
         var fieldset_titulo_documentos = $("#cuadro_documentos");
 
         var legend_perfil = $("<legend>");
+        legend_perfil.attr("id", "titulo_doc_oblig");
         var legend_documentos = $("<legend>");
+        legend_documentos.attr("id", "titulo_doc_curric");
 
         legend_perfil.html("Documentación Obligatoria del perfil");
         legend_documentos.html("Documentación del Curriculum");
