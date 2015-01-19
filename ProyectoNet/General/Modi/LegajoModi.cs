@@ -14,19 +14,17 @@ namespace General.Modi
         public int numeroDeDocumento { get; protected set; }
         public string nombre { get; protected set; }
         public string apellido { get; protected set; }
-        public string cuil { get; set; }
     
         public LegajoModi()
         {
         }
 
-        public LegajoModi(int un_id, int documento, string un_nombre, string un_apellido, string un_cuil)
+        public LegajoModi(int un_id, int documento, string un_nombre, string un_apellido)
         {
             this.idInterna = un_id;
             this.numeroDeDocumento = documento;
             this.nombre = un_nombre;
             this.apellido = un_apellido;
-            this.cuil = un_cuil;
         }
 
         public int cantidadDeDocumentos()
@@ -44,9 +42,14 @@ namespace General.Modi
             this.imagenesSinAsignar.AddRange(imagenes);
         }
 
-        public FolioModi GetFolio(int nro_folio)
+        public FolioModi GetFolio(int nro_folio) 
         {
-            return this.documentos.SelectMany(d => d.folios).First(f => f.numero_folio == nro_folio);
+            return this.documentos.SelectMany(d => d.folios).First(f => f.folioLegajo == nro_folio);
+        }
+
+        public FolioModi GetFolio(string tabla, int id_documento, int folio_documento)
+        {
+            return this.documentos.Find(d => d.tabla == tabla && d.id == id_documento).folios[folio_documento-1];
         }
     }
 }

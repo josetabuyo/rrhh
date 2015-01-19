@@ -679,7 +679,13 @@ public class WSViaticos : System.Web.Services.WebService
     public CategoriaDeDocumentoSICOI[] CategoriasDocumentosSICOI()
     {
         var repositorio = new RepositorioDeDocumentos(Conexion());
-        return repositorio.GetCategoriasDeDocumentos().ToArray();
+        var categorias_ordenadas = repositorio.GetCategoriasDeDocumentos();
+        categorias_ordenadas.Sort(delegate(CategoriaDeDocumentoSICOI c1, CategoriaDeDocumentoSICOI c2) 
+            { 
+            return c1.descripcion.CompareTo(c2.descripcion); 
+            }
+        );
+        return categorias_ordenadas.ToArray();
     }
 
     [WebMethod]
