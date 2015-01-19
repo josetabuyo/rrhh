@@ -81,6 +81,10 @@
   <ItemGroup>
     <Compile Include="AppConexionTest.cs" />
     <Compile Include="CodigoTareaTest.cs" />
+    <Compile Include="TestPermisos.cs" />
+    <Compile Include="TestRepositorioDePerfiles.cs" />
+    <Compile Include="TestRepoLazy.cs" />
+    <Compile Include="TestPostular.cs" />
     <Compile Include="TestAlertas.cs" />
     <Compile Include="TestMail.cs" />
     <Compile Include="TestRepositorioLicencias.cs" />
@@ -96,6 +100,7 @@
     <Compile Include="TestSACC\TestEvaluaciones.cs" />
     <Compile Include="TestSACC\TestRepositorioEspaciosFisicos.cs" />
     <Compile Include="TestSACC\TestRepositorioEvaluaciones.cs" />
+    <Compile Include="TestValidaciones.cs" />
     <Compile Include="TestValidador.cs" />
     <Compile Include="TestSACC\TestCalendarioDeCurso.cs" />
     <Compile Include="TestSACC\TestPlanillaMensual.cs" />

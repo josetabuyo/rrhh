@@ -14,12 +14,12 @@ namespace General
         private static DateTime _fecha_creacion;
         private Organigrama organigrama;
         private IConexionBD conexion_bd;
-        private InterpretadorDeCodigosDeArea interpretador_de_codigos;
+        //private InterpretadorDeCodigosDeArea interpretador_de_codigos;
 
         public RepositorioDeOrganigrama(IConexionBD conexion)
         {
             this.conexion_bd = conexion;
-            this.interpretador_de_codigos = new InterpretadorDeCodigosDeArea();
+            //this.interpretador_de_codigos = new InterpretadorDeCodigosDeArea();
         }
 
         public static RepositorioDeOrganigrama NuevoRepositorioOrganigrama(IConexionBD conexion)
@@ -64,12 +64,14 @@ namespace General
                 {
                     var area_repetida = AreaRepetida(row, areas);
                     if (area_repetida == null)
+                    {
                         AgregarAreaCreadaDesdeRow(row, areas);
-                    else
-                        interpretador_de_codigos.PonerleCerosAlFinalDelCodigoDelArea(area_repetida);
+                    }
+                    //else
+                    //    interpretador_de_codigos.PonerleCerosAlFinalDelCodigoDelArea(area_repetida);
                 }
 
-                areas.ForEach(a => AsignarPadreEn(a, dependencias, areas));
+                areas.ForEach(a => AsignarPadreEn(a, dependencias, estructura, areas));
 
 
                 var aliases = ObtenerTodosLosAliasDeAreas();
@@ -101,7 +103,7 @@ namespace General
         private static void AgregarAreaCreadaDesdeRow(RowDeDatos row, List<Area> areas_del_organigrama)
         {
             if (!row.GetBoolean("Baja"))
-                areas_del_organigrama.Add(new Area(row.GetInt("Id_Area"), row.GetString("Descripcion"), row.GetString("Codigo"), row.GetBoolean("Presenta_DDJJ")));
+                areas_del_organigrama.Add(new Area(row.GetInt("Id_Area"), row.GetString("Descripcion"), row.GetBoolean("Presenta_DDJJ")));
         }
 
         private static Area AreaRepetida(RowDeDatos row, List<Area> areas_del_organigrama)
@@ -109,13 +111,17 @@ namespace General
             return areas_del_organigrama.Find(a => a.Id.Equals(row.GetInt("Id_Area")));
         }
 
-        private void AsignarPadreEn(Area area_hija, List<List<Area>> dependencias, List<Area> areas)
+        private void AsignarPadreEn(Area area_hija, List<List<Area>> dependencias, TablaDeDatos estructura, List<Area> areas)
         {
-            var codigo_buscado = interpretador_de_codigos.CodigoDelAreaPadreDe(area_hija.Codigo, areas);
-            var padres = areas.FindAll(a => a.Codigo == codigo_buscado);
-            if (padres.Count > 1) throw new Exception("Un area tiene mas de un padre");
-            if (padres.Count.Equals(0)) return;
-            dependencias.Add(new List<Area>() { area_hija, padres[0] });
+            //var codigo_buscado = interpretador_de_codigos.CodigoDelAreaPadreDe(area_hija.Codigo, areas);
+            var row_hija = estructura.Rows.Find(r => r.GetInt("Id_Area") == area_hija.Id);
+            var id_madre = row_hija.GetInt("Id_Area_Madre");
+            if (id_madre == area_hija.Id) return;
+            dependencias.Add(new List<Area>() { area_hija, areas.Find(a => a.Id == id_madre) });
+            
+            //if (padres.Count > 1) throw new Exception("Un area tiene mas de un padre");
+            //if (padres.Count.Equals(0)) return;
+            //dependencias.Add(new List<Area>() { area_hija, padres[0] });
         }
 
         public List<List<int>> ExcepcionesDeCircuitoViaticos()
@@ -139,7 +145,7 @@ namespace General
             List<Area> areas = new List<Area>();
             tablaDatos.Rows.ForEach(row =>
             {
-                areas.Add(new Area { Id = row.GetInt("id_area"), Nombre = row.GetString("descripcion"), Codigo = row.GetString("codigo") });
+                areas.Add(new Area { Id = row.GetInt("id_area"), Nombre = row.GetString("descripcion") });
             });
             //Se puede mejorar creando un SP porque se traen todos los los Alias cuando sólo se está necesitando uno.
             var aliases = ObtenerTodosLosAliasDeAreas();

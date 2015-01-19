@@ -8,7 +8,7 @@ namespace General.Modi
     public class RespuestaABusquedaDeLegajos
     {
         public List<LegajoModi> legajos;
-        public string codigoDeResultado { get; protected set; }
+        public string codigoDeResultado { get; set; }
 
         public RespuestaABusquedaDeLegajos()
         {

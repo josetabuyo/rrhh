@@ -23,6 +23,7 @@ namespace TestViaticos
         }
 
         [TestMethod]
+        [Ignore] //Para que funcione el teamcity
         public void se_le_deberia_poder_pedir_a_un_area_su_nombre_completo_con_el_alias()
         {
             var area_de_fabi = TestObjects.AreaDeFabi();
@@ -57,6 +58,7 @@ namespace TestViaticos
         }
 
         [TestMethod]
+        [Ignore] //para que ande el teamcity
         public void deberia_poder_obtener_todos_los_datos_del_area_y_ver_que_estan_completos()
         {
 

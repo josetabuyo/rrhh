@@ -26,8 +26,20 @@ namespace General.Repositorios
             return (int)dataRow[campo];
         }
 
+        public int GetInt(String campo, int default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull || this.GetSmallintAsInt(campo) == 0) return default_if_null;
+            return (int)dataRow[campo];
+        }
+
         public int GetSmallintAsInt(String campo)
         {
+            return int.Parse(dataRow[campo].ToString());
+        }
+
+        public int GetSmallintAsInt(String campo, int default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull || this.GetSmallintAsInt(campo) == 0) return default_if_null;
             return int.Parse(dataRow[campo].ToString());
         }
 
@@ -36,8 +48,20 @@ namespace General.Repositorios
             return (string)dataRow[campo];
         }
 
+        public string GetString(String campo, String default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull) return default_if_null;
+            return (string)dataRow[campo];
+        }
+
         public DateTime GetDateTime(String campo)
         {
+            return (DateTime)dataRow[campo];
+        }
+
+        public DateTime GetDateTime(String campo, DateTime default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull) return default_if_null;
             return (DateTime)dataRow[campo];
         }
 

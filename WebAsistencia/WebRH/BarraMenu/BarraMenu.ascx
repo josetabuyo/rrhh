@@ -36,7 +36,7 @@
                                     Text="Inicio" >
                     </asp:Button>
                     
-                    <a id="go" rel="leanModal" class="btn barra_menu_botones" name="signup" href="#signup">Cambiar Password</a>
+                    <a id="go" rel="leanModal" class="btn barra_menu_botones" name="signup" href="#signup">Cambiar Contraseña</a>
                     
                     <asp:Button ID="CerrarSessionLinkButton" 
                                     CssClass="barra_menu_botones"

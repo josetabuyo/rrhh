@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using ExtensionesDeLista;
-using General;
-using System;
-using System.Security.Cryptography;
-using System.Text;
+using System.Net;
+using System.Net.Mail;
 using General.Repositorios;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace General.MAU
 {
@@ -130,6 +130,7 @@ namespace General.MAU
 
         public Boolean ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
         {
+            //return true;
             var funcionalidades_que_permiten_acceder_a_la_url = this.repositorio_accesos_a_url.TodosLosAccesos().FindAll(a => a.Url.ToUpper() == url.ToUpper()).Select(a => a.Funcionalidad);
             if (funcionalidades_que_permiten_acceder_a_la_url.Count() == 0) return true;
             return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f => funcionalidades_que_permiten_acceder_a_la_url.Contains(f));
@@ -145,5 +146,94 @@ namespace General.MAU
             repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(id_usuario, id_area);
         }
 
+        public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
+        {            
+            var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
+            if (repo_personas.BuscarPersonas(JsonConvert.SerializeObject(new { Documento=aspirante.Documento, ConLegajo=true})).Count > 0)
+            {
+                throw new Exception("Ya hay alguien registrado con su documento."); 
+            }
+
+            //Se agrega la restricción del mail para que sea único
+            if (repo_usuarios.ValidarMailExistente(aspirante.Email))
+            {
+                //throw new Exception("Ya hay alguien registrado con su Mail.");
+                return false;
+            }
+ 
+            if(aspirante.Nombre.Trim() == "") throw new Exception("El nombre no puede ser vacío.");
+            if(aspirante.Apellido.Trim() == "") throw new Exception("El apellido no puede ser vacío.");
+
+            var persona = new Persona();
+            persona.Documento = aspirante.Documento;
+            persona.Nombre = aspirante.Nombre;
+            persona.Apellido = aspirante.Apellido;
+
+            repo_personas.GuardarPersona(persona);
+            
+
+            var usuario = repositorio_usuarios.CrearUsuarioPara(persona.Id);
+            var clave =  repositorio_usuarios.ResetearPassword(usuario.Id);
+            repositorio_usuarios.AsociarUsuarioConMail(usuario, aspirante.Email);
+            //mandarla por mail
+            var titulo = "Bienvenido al SIGIRH";
+            var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave;
+
+            EnviarMail(aspirante.Email, titulo, cuerpo);
+            return true;
+        }
+
+
+        public bool RecuperarUsuario(string criterio)
+        {
+
+            var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
+            var validador_datos = new Validador();
+            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            if (criterio_deserializado["Mail"] != null)
+            {
+                string mail = (string)((JValue)criterio_deserializado["Mail"]);  
+                Usuario usuario_a_recuperar = repo_usuarios.RecuperarUsuario(mail);
+                if (usuario_a_recuperar.Id == 0)
+                    return false; 
+                    
+                EnviarMailDeRecupero(usuario_a_recuperar, mail);
+                return true; 
+            }
+            return false;
+        }
+           
+     
+        private void EnviarMailDeRecupero(Usuario usuario, string mail)
+        {
+            if (usuario.Habilitado)
+            {
+                var clave_nueva = repositorio_usuarios.ResetearPassword(usuario.Id);
+                var  titulo = "Recupero de Datos de SIGIRH";
+                var cuerpo = "Nombre de Usuario: " + usuario.Alias +
+                              "<br/>" + 
+                              "Contraseña: " + clave_nueva + 
+                              "<br/>" + 
+                              "Luego de ingresar al sistema con la nueva clave, podrá cambiarla desde " +
+                              "la opción 'Cambiar Contraseña en el menú superior derecho";
+
+                EnviarMail(mail, titulo, cuerpo);  
+            }
+        }
+
+        private void EnviarMail(string mail, string titulo, string cuerpo)
+        {
+            var enviador = new EnviadorDeMails();
+            MailAddress mail_re_recupero = new MailAddress(mail);
+            enviador.EnviarMail(new NetworkCredential("no-reply@desarrollosocial.gov.ar", "1234"),
+                    mail,
+                   titulo,
+                    cuerpo,
+                    () => { },
+                    () => { throw new Exception("No se pudo enviar un mail con la clave"); }
+                );
+        }
     }
 }

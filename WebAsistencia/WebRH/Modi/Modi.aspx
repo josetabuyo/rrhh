@@ -9,6 +9,7 @@
     <title>MODI</title>
     <link rel="stylesheet" href="EstilosModi.css" type="text/css"/>
     <%= Referencias.Css("../")%>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
@@ -134,7 +135,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var proveedor_ajax = new ProveedorAjax();
+            var proveedor_ajax = new ProveedorAjax("../");
             var servicio_de_legajos = new ServicioDeDigitalizacionDeLegajos(proveedor_ajax);
             var servicio_de_categorias = new ServicioDeCategoriasDeDocumentos(proveedor_ajax);
 

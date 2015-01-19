@@ -78,7 +78,17 @@ namespace General.Repositorios
         {
             AbrirBD();
             var un_comando = CrearComando(nombreProcedimiento, parametros);
-            object resultado = un_comando.ExecuteScalar();
+            object resultado = new object();
+            try
+            {
+                resultado = un_comando.ExecuteScalar();
+            }
+            catch (Exception e)
+            {
+                
+                throw;
+            }
+           
             CerrarBD();
             return resultado;
         }
