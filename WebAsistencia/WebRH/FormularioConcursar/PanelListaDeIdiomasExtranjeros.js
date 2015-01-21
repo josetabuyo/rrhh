@@ -10,7 +10,8 @@
                 defaults: { Pais: 9,
                     Escritura: 1,
                     Lectura: 1,
-                    Oral: 1
+                    Oral: 1,
+                    FechaObtencion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
                 },
                 path_html: "PanelDetalleDeIdiomaExtranjero.htm",
                 metodoDeGuardado: "GuardarCvIdiomaExtranjero",

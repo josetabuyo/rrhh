@@ -52,6 +52,15 @@ public class WSViaticos : System.Web.Services.WebService
         repoPersonas.EliminarInasistenciaActual(unaPersona);
     }
 
+    
+    [WebMethod]
+    public void EliminarPasePendienteAprobacion(int id_pase)
+    {
+        PaseDeArea un_pase = new PaseDeArea();
+        un_pase.Id = id_pase;
+        this.EliminarPase(un_pase);
+    }
+
     [WebMethod]
     public void EliminarPase(PaseDeArea unPase)
     {
@@ -155,6 +164,24 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public SaldoLicencia GetSaldoLicencia14FoH(Persona unaPersona, ConceptoDeLicencia concepto, DateTime fecha)
+    {
+
+        return RepoLicencias().CargarSaldoLicencia14FoHDe(concepto, unaPersona, fecha);
+
+
+    }
+
+    [WebMethod]
+    public bool DiasHabilitadosEntreFechas(DateTime desde, DateTime hasta, int idconcepto)
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.DiasHabilitadosEntreFechas(desde, hasta, idconcepto);
+
+    }
+
+    [WebMethod]
     public SaldoLicencia GetSaldoLicenciaPlano(int documento, int idConcepto)
     {
         Persona persona = new Persona();
@@ -238,6 +265,17 @@ public class WSViaticos : System.Web.Services.WebService
 
         return repositorio.GetAusentesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
     }
+
+
+    [WebMethod]
+    public void EliminarLicenciaPendienteAprobacion(int id) 
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        repositorio.EliminarLicenciaPendienteAprobacion(id);
+    }
+    
+
 
     [WebMethod]
     public Persona[] GetPasesEntreFechasPara(Persona[] personas, DateTime desde, DateTime hasta)
@@ -416,6 +454,8 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+   
+
     [WebMethod]
     public Persona CompletarDatosDeContratacion(Persona persona)
     {
@@ -429,7 +469,7 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioDeOrganigrama repo = new RepositorioDeOrganigrama(Conexion());
         var organigrama = repo.GetOrganigrama();
         var excepciones = repo.ExcepcionesDeCircuitoViaticos();
-        var area_de_viaticos = new Area(1073, "Área de Viáticos y Pasajes", "010100100300100000001073", true);
+        var area_de_viaticos = new Area(1073, "Área de Viáticos y Pasajes", true);
         var circuito = new CircuitoDeAprobacionDeViatico(organigrama, excepciones, area_de_viaticos);
         return circuito.SiguienteAreaDe(area_actual);
     }
@@ -680,7 +720,13 @@ public class WSViaticos : System.Web.Services.WebService
     public CategoriaDeDocumentoSICOI[] CategoriasDocumentosSICOI()
     {
         var repositorio = new RepositorioDeDocumentos(Conexion());
-        return repositorio.GetCategoriasDeDocumentos().ToArray();
+        var categorias_ordenadas = repositorio.GetCategoriasDeDocumentos();
+        categorias_ordenadas.Sort(delegate(CategoriaDeDocumentoSICOI c1, CategoriaDeDocumentoSICOI c2) 
+            { 
+            return c1.descripcion.CompareTo(c2.descripcion); 
+            }
+        );
+        return categorias_ordenadas.ToArray();
     }
 
     [WebMethod]
@@ -1835,6 +1881,236 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio)
+    {
+        return servicioDeDigitalizacionDeLegajos().BuscarLegajos(criterio);
+    }
+
+    [WebMethod]
+    public ImagenModi GetImagenPorId(int id_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
+    }
+
+    [WebMethod]
+    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
+    }
+
+    [WebMethod]
+    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
+    {
+        return servicioDeDigitalizacionDeLegajos().AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
+    }
+
+    [WebMethod]
+    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
+    {
+        return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);
+    }
+
+    [WebMethod]
+    public int AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
+    {
+        return servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
+    }
+
+    [WebMethod]
+    public void AsignarImagenAFolioDeLegajoPasandoPagina(int id_imagen, int nro_folio, int pagina, Usuario usuario)
+    {
+        servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajoPasandoPagina(id_imagen, nro_folio, pagina, usuario);
+    }
+
+    [WebMethod]
+    public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
+    {
+        servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
+    }
+
+    [WebMethod]
+    public void DesAsignarImagen(int id_imagen, Usuario usuario)
+    {        
+        servicioDeDigitalizacionDeLegajos().DesAsignarImagen(id_imagen, usuario);
+    }
+
+    private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
+    {
+        return new ServicioDeDigitalizacionDeLegajos(Conexion());
+    }
+
+#endregion
+
+    #region mau
+
+
+    [WebMethod]
+    public bool Login(string alias, string clave)
+    {
+        return Autorizador().Login(alias, clave);
+    }
+
+    [WebMethod]
+    public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
+    {
+        var repoUsuarios = RepositorioDeUsuarios();
+
+        if (repoUsuarios.CambiarPassword(usuario.Id, PasswordActual, PasswordNuevo))
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "cambioPassword.ok"
+            });
+        }
+        else
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "cambioPassword.error"
+                //error = e.Message
+            });
+        }
+    }
+
+    [WebMethod]
+    public string ResetearPassword(int id_usuario)
+    {
+        var repoUsuarios = RepositorioDeUsuarios();
+        return repoUsuarios.ResetearPassword(id_usuario);
+    }
+
+    [WebMethod]
+    public Usuario GetUsuarioPorAlias(string alias)
+    {
+        return RepositorioDeUsuarios().GetUsuarioPorAlias(alias);
+    }
+
+    [WebMethod]
+    public Usuario GetUsuarioPorId(int id_usuario)
+    {
+        return RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+    }
+
+    [WebMethod]
+    public Usuario GetUsuarioPorIdPersona(int id_persona)
+    {
+        return RepositorioDeUsuarios().GetUsuarioPorIdPersona(id_persona);
+    }
+
+    [WebMethod]
+    public Usuario CrearUsuarioPara(int id_persona)
+    {
+        return RepositorioDeUsuarios().CrearUsuarioPara(id_persona);
+    }
+
+    [WebMethod]
+    public UsuarioNulo GetUsuarioNulo()
+    {
+        return new UsuarioNulo();
+    }
+
+    [WebMethod]
+    public bool ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
+    {
+        return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
+    }
+
+    [WebMethod]
+    public Funcionalidad[] TodasLasFuncionalidades()
+    {
+        var funcionalidades = RepositorioDeFuncionalidades().TodasLasFuncionalidades().ToArray();
+        return funcionalidades;
+    }
+
+
+    [WebMethod]
+    public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
+    {
+        return Autorizador().ElUsuarioTienePermisosPara(id_usuario, id_funcionalidad);
+        
+    }
+
+    
+
+    [WebMethod]
+    public Funcionalidad[] FuncionalidadesPara(int id_usuario)
+    {
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(id_usuario).ToArray();
+        return funcionalidades;
+    }
+
+    [WebMethod]
+    public Persona[] BuscarPersonas(string criterio)
+    {
+        var personas = RepositorioDePersonas().BuscarPersonas(criterio).ToArray();
+        return personas;
+    }
+
+    [WebMethod]
+    public Area[] BuscarAreas(string criterio)
+    {
+        var areas = RepositorioDeAreas().BuscarAreas(criterio).ToArray();
+        return areas;
+    }
+
+    [WebMethod]
+    public Persona[] BuscarPersonasConLegajo(string criterio)
+    {
+        var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
+        return personas;
+    }
+
+    [WebMethod]
+    public Area[] AreasAdministradasPor(Usuario usuario)
+    {
+        return Autorizador().AreasAdministradasPor(usuario).ToArray();
+    }
+
+    [WebMethod]
+    public Area[] AreasAdministradasPorIdUsuario(int id_usuario)
+    {
+        return Autorizador().AreasAdministradasPor(id_usuario).ToArray();
+    }
+
+    [WebMethod]
+    public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
+    {
+        Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area);
+    }
+
+    [WebMethod]
+    public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
+    {
+        Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area);
+    }
+
+   // [WebMethod]
+    //public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
+    //{
+    //    return Autorizador().ElUsuarioTienePermisosPara(usuario, nombre_funcionalidad);
+    //}
+
+    [WebMethod]
+    public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+    {
+        Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+    }
+
+    [WebMethod]
+    public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+    {
+        Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+    }
+
+    [WebMethod]
+    public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
+    {
+        return Autorizador().GetMenuPara(nombre_menu, usuario);
+    }
+
+    #endregion
+
+    [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
     {
         var instancias = RepositorioDeCursos().GetInstanciasDeEvaluacion(id_curso).ToArray();
@@ -2170,57 +2446,10 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-#endregion
+
 
     #region mau
 
-
-    [WebMethod]
-    public bool Login(string alias, string clave)
-    {
-        return Autorizador().Login(alias, clave);
-    }
-
-    [WebMethod]
-    public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
-    {
-        var repoUsuarios = RepositorioDeUsuarios();
-
-        if (repoUsuarios.CambiarPassword(usuario.Id, PasswordActual, PasswordNuevo))
-        {
-            return JsonConvert.SerializeObject(new
-            {
-                tipoDeRespuesta = "cambioPassword.ok"
-            });
-        }
-        else
-        {
-            return JsonConvert.SerializeObject(new
-            {
-                tipoDeRespuesta = "cambioPassword.error"
-                //error = e.Message
-            });
-        }
-    }
-
-    [WebMethod]
-    public string ResetearPassword(int id_usuario)
-    {
-        var repoUsuarios = RepositorioDeUsuarios();
-        return repoUsuarios.ResetearPassword(id_usuario);
-    }
-
-    [WebMethod]
-    public Usuario GetUsuarioPorAlias(string alias)
-    {
-        return RepositorioDeUsuarios().GetUsuarioPorAlias(alias);
-    }
-
-    [WebMethod]
-    public Usuario GetUsuarioPorIdPersona(int id_persona)
-    {
-        return RepositorioDeUsuarios().GetUsuarioPorIdPersona(id_persona);
-    }
 
     [WebMethod]
     public int GetDniPorAlias(string alias)
@@ -2229,51 +2458,6 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
-    [WebMethod]
-    public Usuario CrearUsuarioPara(int id_persona)
-    {
-        return RepositorioDeUsuarios().CrearUsuarioPara(id_persona);
-    }
-
-    [WebMethod]
-    public UsuarioNulo GetUsuarioNulo()
-    {
-        return new UsuarioNulo();
-    }
-
-    [WebMethod]
-    public bool ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
-    {
-        return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
-    }
-
-    [WebMethod]
-    public Funcionalidad[] TodasLasFuncionalidades()
-    {
-        var funcionalidades = RepositorioDeFuncionalidades().TodasLasFuncionalidades().ToArray();
-        return funcionalidades;
-    }
-
-    [WebMethod]
-    public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
-    {
-        return Autorizador().ElUsuarioTienePermisosPara(id_usuario, id_funcionalidad);
-        
-    }
-
-    [WebMethod]
-    public Funcionalidad[] FuncionalidadesPara(int id_usuario)
-    {
-        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(id_usuario).ToArray();
-        return funcionalidades;
-    }
-
-    [WebMethod]
-    public Persona[] BuscarPersonas(string criterio)
-    {
-        var personas = RepositorioDePersonas().BuscarPersonas(criterio).ToArray();
-        return personas;
-    }
 
     [WebMethod]
     public bool RecuperarUsuario(string criterio)
@@ -2282,67 +2466,6 @@ public class WSViaticos : System.Web.Services.WebService
         return ejecucion_ok;
     }
 
-    [WebMethod]
-    public Area[] BuscarAreas(string criterio)
-    {
-        var areas = RepositorioDeAreas().BuscarAreas(criterio).ToArray();
-        return areas;
-    }
-
-    [WebMethod]
-    public Persona[] BuscarPersonasConLegajo(string criterio)
-    {
-        var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
-        return personas;
-    }
-
-    [WebMethod]
-    public Area[] AreasAdministradasPor(Usuario usuario)
-    {
-        return Autorizador().AreasAdministradasPor(usuario).ToArray();
-    }
-
-    [WebMethod]
-    public Area[] AreasAdministradasPorIdUsuario(int id_usuario)
-    {
-        return Autorizador().AreasAdministradasPor(id_usuario).ToArray();
-    }
-
-    [WebMethod]
-    public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
-    {
-        Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area);
-    }
-
-    [WebMethod]
-    public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
-    {
-        Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area);
-    }
-
-   // [WebMethod]
-    //public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
-    //{
-    //    return Autorizador().ElUsuarioTienePermisosPara(usuario, nombre_funcionalidad);
-    //}
-
-    [WebMethod]
-    public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
-    {
-        Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
-    }
-
-    [WebMethod]
-    public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
-    {
-        Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad);
-    }
-
-    [WebMethod]
-    public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
-    {
-        return Autorizador().GetMenuPara(nombre_menu, usuario);
-    }
 
     [WebMethod]
     public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
@@ -2350,62 +2473,9 @@ public class WSViaticos : System.Web.Services.WebService
         return Autorizador().RegistrarNuevoUsuario(aspirante);
     }
 
-    private ServicioDeDigitalizacionDeLegajos servicioDeDigitalizacionDeLegajos()
-    {
-        return new ServicioDeDigitalizacionDeLegajos(Conexion());
-    }
+   
     #endregion
 
-    #region modi
-
-    [WebMethod]
-    public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio)
-    {
-        return servicioDeDigitalizacionDeLegajos().BuscarLegajos(criterio);
-    }
-
-    [WebMethod]
-    public ImagenModi GetImagenPorId(int id_imagen)
-    {
-        return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
-    }
-
-    [WebMethod]
-    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
-    {
-        return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);
-    }
-
-    [WebMethod]
-    public void AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
-    {
-        servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
-    }
-
-    [WebMethod]
-    public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
-    {
-        servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
-    }
-
-    [WebMethod]
-    public void DesAsignarImagen(int id_imagen, Usuario usuario)
-    {        
-        servicioDeDigitalizacionDeLegajos().DesAsignarImagen(id_imagen, usuario);
-    }
-
-    [WebMethod]
-    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
-    {
-        return servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
-    }
-
-    [WebMethod]
-    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
-    {
-        return servicioDeDigitalizacionDeLegajos().AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
-    }    
-#endregion
 
     #region CV
 
@@ -2479,7 +2549,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void InsEtapaPostulacion(int id_postulacion, int id_etapa_postulacion, Usuario usuario)
     {
-        RepoPostulaciones().InsEtapaPostulacion(id_postulacion, id_etapa_postulacion, usuario.Owner.Id);
+        RepoPostulaciones().InsEtapaPostulacion(id_postulacion, id_etapa_postulacion, usuario.Id);
     }
 
     #region CVAntecedentesAcademicos
@@ -2601,7 +2671,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public CvPublicaciones EliminarCvPublicacionesTrabajos(CvPublicaciones publicaciones_trabajos_a_borrar, Usuario usuario)
+    public bool EliminarCvPublicacionesTrabajos(int publicaciones_trabajos_a_borrar, Usuario usuario)
     {
         return RepoCurriculum().EliminarCvPublicacionesTrabajos(publicaciones_trabajos_a_borrar, usuario);
     }
@@ -2751,7 +2821,41 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Postulacion GetPostulacionById(int idpersona,int idpostulacion)
     {
-        return RepoPostulaciones().GetPostulacionById(idpersona, idpostulacion);
+        Postulacion postulacion = RepoPostulaciones().GetPostulacionById(idpersona, idpostulacion);
+       // postulacion.Perfil.DocumentacionRequerida = RepoPerfiles().GetFoliablesDelPerfil(postulacion.Perfil.Id);
+        CurriculumVitae cv = RepoCurriculum().GetCV(idpersona);
+       // postulacion.CrearDocumentacionARecibir(postulacion.Perfil.DocumentacionRequerida, cv);
+
+        return postulacion;
+    }
+
+    [WebMethod]
+    public PantallaRecepcionDocumentacion GetPantallaRecepcionDocumentacion(Postulacion postulacion)
+    {
+        CurriculumVitae cv = RepoCurriculum().GetCV(postulacion.IdPersona);
+        RepositorioDePerfiles repoPerfiles = new RepositorioDePerfiles(Conexion());
+        repoPerfiles.GetRequisitosDelPerfil(postulacion.Perfil.Id).ForEach(r => postulacion.Perfil.Requiere(r));
+
+        RepositorioDeFoliados repo = new RepositorioDeFoliados(Conexion());
+        CreadorDePantallas creador = new CreadorDePantallas();
+        List<DocumentacionRecibida> listaDocRecibida = repo.GetDocumentacionRecibidaByPostulacion(postulacion);
+
+        PantallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, postulacion.Perfil, postulacion, listaDocRecibida);
+
+        return pantalla;
+    }
+
+    [WebMethod]
+    public bool GuardarDocumentacionRecibida(DocumentacionRecibida[] lista_doc_recibida, Usuario usuario)
+    {
+        RepositorioDeFoliados repo = new RepositorioDeFoliados(Conexion());
+
+        //List<DocumentacionRecibida> listaDocRecibida = repo.GetDocumentacionRecibidaByPostulacion(postulacion);
+
+        repo.GuardarDocumentacionRecibida(lista_doc_recibida.ToList(), usuario);
+
+        return true;
+
     }
 
 
@@ -2954,11 +3058,6 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeCurriculum RepoCurriculum()
     {
         return new RepositorioDeCurriculum(Conexion());
-    }
-
-    private RepositorioDePuestos RepoPuestos()
-    {
-        return new RepositorioDePuestos(Conexion());
     }
 
     private RepositorioDePerfiles RepoPerfiles()

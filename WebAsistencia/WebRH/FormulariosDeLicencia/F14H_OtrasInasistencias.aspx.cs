@@ -25,6 +25,15 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
         _Concepto.Id = 34;
         this.Saldo14H1.Concepto = _Concepto;
 
+        if (this.Calendar1.VisibleDate == new DateTime(0001, 01, 01))
+        {
+            this.Saldo14H1.Fecha = DateTime.Today;
+        }
+        else
+        {
+            this.Saldo14H1.Fecha = this.Calendar1.VisibleDate;
+        }
+
     }
     private string Titulo()
     {

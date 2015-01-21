@@ -60,8 +60,8 @@ namespace TestViaticos
             area_de_marta = TestObjects.AreaDeMarta();
             area_de_faby = TestObjects.AreaDeFabi();
             area_de_castagneto = TestObjects.AreaDeCastagneto();
-            unidad_ministro = new Area(1, AREA_UNIDAD_MINISTRO, "1", true);
-            area_de_fabyB = new Area(0938, AREA_DE_FABIB, "939B", true);
+            unidad_ministro = new Area(1, AREA_UNIDAD_MINISTRO, true);
+            area_de_fabyB = new Area(0938, AREA_DE_FABIB, true);
 
             areas_de_faby_y_marta = TestObjects.AreasDeFabiYMarta();
             areas_de_faby_y_marta_y_carlos = TestObjects.AreasDeFabiMartaYCarlos(); 

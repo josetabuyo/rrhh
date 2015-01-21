@@ -111,14 +111,14 @@ namespace General.Repositorios
                                         {
                                             Id = dRow.GetInt("IdAntecedentesAcademicos", 0),
                                             Titulo = dRow.GetString("AntecedentesAcademicosTitulo", string.Empty),
-                                            Nivel = dRow.GetInt("AntecedentesAcademicosNivel", 0),
-                                            Anios = dRow.GetInt("AntecedentesAcademicosAnios", 0),
+                                            Nivel = dRow.GetSmallintAsInt("AntecedentesAcademicosNivel", 0),
+                                            Anios = dRow.GetSmallintAsInt("AntecedentesAcademicosAnios", 0),
                                             Establecimiento = dRow.GetString("AntecedentesAcademicosEstablecimiento", string.Empty),
                                             Especialidad = dRow.GetString("AntecedentesAcademicosEspecialidad", string.Empty),
                                             FechaIngreso = dRow.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today),
                                             FechaEgreso = dRow.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today),
                                             Localidad = dRow.GetString("AntecedentesAcademicosLocalidad", string.Empty),
-                                            Pais = dRow.GetInt("AntecedentesAcademicosPais", 9)
+                                            Pais = dRow.GetSmallintAsInt("AntecedentesAcademicosPais", 9)
                                         }).Distinct().ToList();
 
 
@@ -148,7 +148,7 @@ namespace General.Repositorios
                                                   FechaInicio = dRow.GetDateTime("CertificadoFechaInicio", DateTime.Today),
                                                   FechaFinalizacion = dRow.GetDateTime("CertificadoFechaFinalizacion", DateTime.Today),
                                                   Localidad = dRow.GetString("CertificadoLocalidad", string.Empty),
-                                                  Pais = dRow.GetInt("CertificadoPais", 9)
+                                                  Pais = dRow.GetSmallintAsInt("CertificadoPais", 9)
 
                                               }).Distinct().ToList();
 
@@ -171,7 +171,7 @@ namespace General.Repositorios
                                              {
                                                  Id = dRow.GetInt("IdAntecedentesDeDocencia", 0),
                                                  Asignatura = dRow.GetString("AntecedentesDeDocenciaAsignatura", string.Empty),
-                                                 NivelEducativo = dRow.GetInt("AntecedentesDeDocenciaNivelEducativo", 0),
+                                                 NivelEducativo = dRow.GetSmallintAsInt("AntecedentesDeDocenciaNivelEducativo", 0),
                                                  TipoActividad = dRow.GetString("AntecedentesDeDocenciaTipoActividad", string.Empty),
                                                  CategoriaDocente = dRow.GetString("AntecedentesDeDocenciaCategoriaDocente", string.Empty),
                                                  CaracterDesignacion = dRow.GetString("AntecedentesDeDocenciaCaracterDesignacion", string.Empty),
@@ -181,7 +181,7 @@ namespace General.Repositorios
                                                  FechaInicio = dRow.GetDateTime("AntecedentesDeDocenciaFechaInicio", DateTime.Today),
                                                  FechaFinalizacion = dRow.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", DateTime.Today),
                                                  Localidad = dRow.GetString("AntecedentesDeDocenciaLocalidad", string.Empty),
-                                                 Pais = dRow.GetInt("AntecedentesDeDocenciaPais", 9)
+                                                 Pais = dRow.GetSmallintAsInt("AntecedentesDeDocenciaPais", 9)
                                              }).Distinct().ToList();
 
 
@@ -208,13 +208,13 @@ namespace General.Repositorios
                                                 Id = dRow.GetInt("EventosAcademicosId",0),
                                                 Denominacion = dRow.GetString("EventosAcademicosDenominacion", string.Empty),
                                                 TipoDeEvento = dRow.GetInt("EventosAcademicosTipoDeEvento", 0),
-                                                CaracterDeParticipacion = dRow.GetInt("EventosAcademicosCaracterDeParticipacion",0),
+                                                CaracterDeParticipacion = dRow.GetInt("EventosAcademicosCaracterDeParticipacion", 0),
                                                 FechaInicio = dRow.GetDateTime("EventosAcademicosFechaInicio", DateTime.Today),
                                                 FechaFinalizacion = dRow.GetDateTime("EventosAcademicosFechaFin", DateTime.Today),
                                                 Duracion = dRow.GetString("EventosAcademicosDuracion", string.Empty),
-                                                Institucion = dRow.GetInt("EventosAcademicosInstitucion",0),
+                                                Institucion = dRow.GetInt("EventosAcademicosInstitucion", 0),
                                                 Localidad = dRow.GetString("EventosAcademicosLocalidad", string.Empty),
-                                                Pais = dRow.GetInt("EventosAcademicosPais", 9)
+                                                Pais = dRow.GetSmallintAsInt("EventosAcademicosPais", 9)
                                             }).Distinct().ToList();
 
                 eventos_anonimos.Select(e => new CvEventoAcademico(e.Id, e.Denominacion, e.TipoDeEvento, e.CaracterDeParticipacion,
@@ -236,7 +236,7 @@ namespace General.Repositorios
                                         select new //CvEventoAcademico ()
                                         {
                                             Id = dRow.GetInt("CapacidadesPersonalesId", 0),
-                                            Tipo =  dRow.GetInt("CapacidadesPersonalesTipo", 0),
+                                            Tipo = dRow.GetSmallintAsInt("CapacidadesPersonalesTipo", 0),
                                             Detalle = dRow.GetString("CapacidadesPersonalesDetalle", "")
                                         }).Distinct().ToList();
 
@@ -281,9 +281,9 @@ namespace General.Repositorios
                                                Id = dRow.GetInt("IdPublicacion", 0),
                                                Titulo = dRow.GetString("PublicacionTitulo", string.Empty),
                                                Editorial = dRow.GetString("PublicacionEditorial", string.Empty),
-                                               Hojas = dRow.GetString("PublicacionHojas", string.Empty),
-                                               Copia = dRow.GetInt("PublicacionCopia", 0),
-                                               Adjunto = dRow.GetInt("PublicacionAdjunto", 0),
+                                               Hojas = dRow.GetSmallintAsInt("PublicacionHojas", 0).ToString(),
+                                               Copia = ArmarIntDeBooleano(dRow.GetBoolean("PublicacionCopia")),
+                                               Adjunto = ArmarIntDeBooleano(dRow.GetBoolean("PublicacionAdjunto")),
                                                Fecha = dRow.GetDateTime("PublicacionFecha", DateTime.Today)
 
                                            }).Distinct().ToList();
@@ -295,6 +295,13 @@ namespace General.Repositorios
 
             }
 
+        }
+
+        private int ArmarIntDeBooleano(bool valor)
+        {
+            if (valor == true)
+                return 1;
+            return 0;
         }
 
         private void CorteDeControlInstituciones(TablaDeDatos tablaCVs, CurriculumVitae cv)
@@ -318,7 +325,7 @@ namespace General.Repositorios
                                                   FechaInicio = dRow.GetDateTime("InstitucionFechaInicio", DateTime.Today),
                                                   FechaFin = dRow.GetDateTime("InstitucionFechaFin", DateTime.Today),
                                                   Localidad = dRow.GetString("InstitucionLocalidad", string.Empty),
-                                                  Pais = dRow.GetInt("InstitucionPais", 9)
+                                                  Pais = dRow.GetSmallintAsInt("InstitucionPais", 9)
 
                                               }).Distinct().ToList();
 
@@ -343,15 +350,15 @@ namespace General.Repositorios
                                                   PuestoOcupado = dRow.GetString("ExperienciaLaboralPuestoOcupado", string.Empty),
                                                   MotivoDesvinculacion = dRow.GetString("ExperienciaLaboralMotivoDesvinculacion", string.Empty),
                                                   NombreEmpleador = dRow.GetString("ExperienciaLaboralNombreEmpleador", string.Empty),
-                                                  PersonasACargo = dRow.GetInt("ExperienciaLaboralPersonasACargo", 0),
+                                                  PersonasACargo = dRow.GetSmallintAsInt("ExperienciaLaboralPersonasACargo", 0),
                                                   TipoEmpresa = dRow.GetString("ExperienciaLaboralTipoEmpresa", string.Empty),
                                                   Actividad = dRow.GetString("ExperienciaLaboralActividad", string.Empty),
                                                   FechaInicio = dRow.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
                                                   FechaFin = dRow.GetDateTime("ExperienciaLaboralFin", DateTime.Today),
                                                   Localidad = dRow.GetString("ExperienciaLaboralLocalidad", string.Empty),
-                                                  Pais = dRow.GetInt("ExperienciaLaboralPais", 9),
+                                                  Pais = dRow.GetSmallintAsInt("ExperienciaLaboralPais", 9),
                                                   Sector = dRow.GetString("ExperienciaLaboralSector", string.Empty),
-                                                  AmbitoLaboral = dRow.GetInt("ExperienciaAmbitoLaboral", 2)
+                                                  AmbitoLaboral = dRow.GetSmallintAsInt("ExperienciaAmbitoLaboral", 2)
                                               }).Distinct().ToList();
 
 
@@ -374,12 +381,12 @@ namespace General.Repositorios
                                                  Diploma = dRow.GetString("IdiomaDiploma", string.Empty),
                                                  Establecimiento = dRow.GetString("IdiomaEstablecimiento", string.Empty),
                                                  Idioma = dRow.GetString("IdiomaIdioma", string.Empty),
-                                                 Lectura = dRow.GetInt("IdiomaLectura", 3),
-                                                 Escritura = dRow.GetInt("IdiomaEscritura", 3),
-                                                 Oral = dRow.GetInt("IdiomaOral", 3),
+                                                 Lectura = dRow.GetSmallintAsInt("IdiomaLectura", 3),
+                                                 Escritura = dRow.GetSmallintAsInt("IdiomaEscritura", 3),
+                                                 Oral = dRow.GetSmallintAsInt("IdiomaOral", 3),
                                                  FechaObtencion = dRow.GetDateTime("IdiomaFechaObtencion", DateTime.Today),
                                                  Localidad = dRow.GetString("IdiomaLocalidad", string.Empty),
-                                                 Pais = dRow.GetInt("IdiomaPais", 9)
+                                                 Pais = dRow.GetSmallintAsInt("IdiomaPais", 9)
                                              }).Distinct().ToList();
 
 
@@ -406,7 +413,7 @@ namespace General.Repositorios
                                               Conocimiento = dRow.GetInt("CompetenciaConocimiento", 0),
                                               Nivel = dRow.GetInt("CompetenciaNivel", 0),
                                               Localidad = dRow.GetString("CompetenciaLocalidad", string.Empty),
-                                              Pais = dRow.GetInt("CompetenciaPais", 9),
+                                              Pais = dRow.GetSmallintAsInt("CompetenciaPais", 9),
                                               FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today),
                                               Detalle = dRow.GetString("Detalle", string.Empty)
                                           }).Distinct().ToList();
@@ -504,7 +511,7 @@ namespace General.Repositorios
                 else 
                 {
                     //insertar en GEN_Domicilios y CV_Domicilio el DomicilioPersonal
-                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, null, null, null);
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
                     parametros.Add("@Dni", datosPersonales.Dni);
                     conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
                 }
@@ -846,17 +853,18 @@ namespace General.Repositorios
             return publicacion_nueva;
         }
 
-        public CvPublicaciones EliminarCvPublicacionesTrabajos(CvPublicaciones publicacion_nueva, Usuario usuario)
+        public bool EliminarCvPublicacionesTrabajos(int publicacion_nueva, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
 
-            var parametros = ParametrosDePublicaciones(publicacion_nueva, usuario);
-            parametros.Add("@IdPublicacion", publicacion_nueva.Id);
+            var parametros = new Dictionary<string, object>(); //var parametros = ParametrosDePublicaciones(publicacion_nueva, usuario);
+            parametros.Add("@IdPublicacion", publicacion_nueva);
+            parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Baja", baja);
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Publicaciones", parametros);
 
-            return publicacion_nueva;
+            return true;
         }
 
         private Dictionary<string, object> ParametrosDePublicaciones(CvPublicaciones publicacion_nueva, Usuario usuario)
@@ -1241,7 +1249,7 @@ namespace General.Repositorios
             validador_datos.DeberianSerNoVacias(new string[] { "Nombre", "Apellido", "Cuil" });
             validador_datos.DeberianSerFechasNoVacias(new string[] { "FechaNacimiento"});
             validador_datos.DeberianSerNaturalesOCero(new string[] { "Dni" }); 
-            validador_datos.DeberianSerNaturales(new string[] { "Sexo", "EstadoCivil", "Nacionalidad", "TipoDocumento"});
+            validador_datos.DeberianSerNaturalesOCero(new string[] { "Sexo", "EstadoCivil", "Nacionalidad", "TipoDocumento"});
             
             if (!validador_datos.EsValido(datosPersonales))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1290,7 +1298,7 @@ namespace General.Repositorios
 
             validador_estudios.DeberianSerNoVacias(new string[] { "Titulo", "Especialidad", "Establecimiento", "Localidad" });
             validador_estudios.DeberianSerFechasNoVacias(new string[] { "FechaIngreso", "FechaEgreso"});
-            validador_estudios.DeberianSerNaturales(new string[] { "Nivel", "Anios", "Pais" });
+            validador_estudios.DeberianSerNaturalesOCero(new string[] { "Nivel", "Anios", "Pais" });
           //  validador_estudios.DeberianSerNaturales(new string[] {  "Pais" });
             
             if (!validador_estudios.EsValido(un_estudio))
@@ -1303,7 +1311,7 @@ namespace General.Repositorios
 
             validador_docencias.DeberianSerNoVacias(new string[] { "Asignatura", "CategoriaDocente", "DedicacionDocente", "CargaHoraria", "TipoActividad", "Establecimiento", "Localidad"});
             validador_docencias.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
-            validador_docencias.DeberianSerNaturales(new string[] { "NivelEducativo", "Pais" });
+            validador_docencias.DeberianSerNaturalesOCero(new string[] { "NivelEducativo", "Pais" });
             
             if(!validador_docencias.EsValido(una_docencia))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1316,7 +1324,7 @@ namespace General.Repositorios
 
             validador_actividad.DeberianSerNoVacias(new string[]{ "DiplomaDeCertificacion", "Especialidad", "Duracion", "Establecimiento", "Localidad" });
             validador_actividad.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
-            validador_actividad.DeberianSerNaturales(new string[] { "Pais" });
+            validador_actividad.DeberianSerNaturalesOCero(new string[] { "Pais" });
 
             if (!validador_actividad.EsValido(una_actividad))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1328,7 +1336,7 @@ namespace General.Repositorios
 
             validador_evento.DeberianSerNoVacias(new string[]{ "Denominacion",  "Duracion", "Localidad" });
             validador_evento.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
-            validador_evento.DeberianSerNaturales(new string[] { "Pais", "CaracterDeParticipacion", "TipoDeEvento", "Institucion" });
+            validador_evento.DeberianSerNaturalesOCero(new string[] { "Pais", "CaracterDeParticipacion", "TipoDeEvento", "Institucion" });
 
             if (!validador_evento.EsValido(un_evento_academico))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1363,7 +1371,7 @@ namespace General.Repositorios
                         
             validador_institucion.DeberianSerNoVacias(new string[]{ "Institucion", "CaracterEntidad", "CargosDesempeniados", "NumeroAfiliado", "CategoriaActual", "Localidad" });
             validador_institucion.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFin", "FechaDeAfiliacion", "Fecha" });
-            validador_institucion.DeberianSerNaturales(new string[] { "Pais" });
+            validador_institucion.DeberianSerNaturalesOCero(new string[] { "Pais" });
 
             if (!validador_institucion.EsValido(una_institucion))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1375,7 +1383,7 @@ namespace General.Repositorios
                        
             validador_experiencia.DeberianSerNoVacias(new string[]{ "PuestoOcupado", "Actividad", "NombreEmpleador", "TipoEmpresa", "Sector", "Localidad" });
             validador_experiencia.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFin"});
-            validador_experiencia.DeberianSerNaturales(new string[] { "Pais" });
+            validador_experiencia.DeberianSerNaturalesOCero(new string[] { "Pais" });
             validador_experiencia.DeberianSerNaturalesOCero(new string[] { "PersonasACargo"});
 
             if (!validador_experiencia.EsValido(una_experiencia))
@@ -1388,7 +1396,7 @@ namespace General.Repositorios
                                     
             validador_idioma.DeberianSerNoVacias(new string[]{ "Diploma", "Idioma", "Establecimiento", "Localidad" });
             validador_idioma.DeberianSerFechasNoVacias(new string[] { "FechaObtencion" });
-            validador_idioma.DeberianSerNaturales(new string[] { "Lectura", "Escritura", "Oral", "Pais" });
+            validador_idioma.DeberianSerNaturalesOCero(new string[] { "Lectura", "Escritura", "Oral", "Pais" });
 
             if (!validador_idioma.EsValido(un_idioma))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1400,7 +1408,7 @@ namespace General.Repositorios
                                     
             validador_competencia.DeberianSerNoVacias(new string[]{ "Diploma", "Detalle", "Establecimiento", "Localidad" });
             validador_competencia.DeberianSerFechasNoVacias(new string[] { "FechaObtencion" });
-            validador_competencia.DeberianSerNaturales(new string[] { "TipoInformatica", "Conocimiento", "Nivel", "Pais" });
+            validador_competencia.DeberianSerNaturalesOCero(new string[] { "TipoInformatica", "Conocimiento", "Nivel", "Pais" });
 
             if (!validador_competencia.EsValido(una_competencia))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
@@ -1411,7 +1419,7 @@ namespace General.Repositorios
             var validador_capacidad = new Validador();
                                     
             validador_capacidad.DeberianSerNoVacias(new string[]{ "Detalle"});
-            validador_capacidad.DeberianSerNaturales(new string[] { "Tipo"});
+            validador_capacidad.DeberianSerNaturalesOCero(new string[] { "Tipo"});
 
             if (!validador_capacidad.EsValido(una_capacidad))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");

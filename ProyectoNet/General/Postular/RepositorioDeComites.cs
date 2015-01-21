@@ -53,8 +53,8 @@ namespace General
                 var comites_anonimos = (from RowDeDatos dRow in lista
                                             select new
                                             {
-                                                Id = dRow.GetInt("Id", 0),
-                                                Numero = dRow.GetInt("Numero", 0)
+                                                Id = dRow.GetSmallintAsInt("Id", 0),
+                                                Numero = dRow.GetSmallintAsInt("Numero", 0)
                                             }).Distinct().ToList();
 
                 comites = comites_anonimos.Select(i =>
@@ -77,8 +77,8 @@ namespace General
                 var integrantes_anonimos = (from RowDeDatos dRow in lista
                                         select new 
                                         {
-                                            IdComite = dRow.GetInt("Id"),
-                                            Id = dRow.GetInt("IdIntegrante", 0),
+                                            IdComite = dRow.GetSmallintAsInt("Id"),
+                                            Id = dRow.GetSmallintAsInt("IdIntegrante", 0),
                                             NroDocumento = dRow.GetInt("NroDocumento", 0),
                                             Nombre = dRow.GetString("integranteNombre", string.Empty),
                                             Apellido = dRow.GetString("integranteApellido", string.Empty),

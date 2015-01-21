@@ -184,7 +184,7 @@ Los términos previstos en este inciso comenzarán a contarse a partir del día 
 
         if (_Concepto.Id == 28)
         {
-            if (DesdeHasta1.DiasEntreFechas() > 5)
+            if (!DesdeHasta1.DiasHabilitadosEntreFechas(_Concepto.Id))
             {
                DatosValidos = false;
             }
@@ -192,7 +192,7 @@ Los términos previstos en este inciso comenzarán a contarse a partir del día 
 
         if (_Concepto.Id == 29)
         {
-            if (DesdeHasta1.DiasEntreFechas() > 3)
+            if (!DesdeHasta1.DiasHabilitadosEntreFechas(_Concepto .Id))
             {
                 DatosValidos = false;
             }

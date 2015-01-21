@@ -12,25 +12,39 @@ namespace General.Modi
     public class ServicioDeDigitalizacionDeLegajos: IServicioDeDigitalizacionDeLegajos
     {
         private IConexionBD conexion_db;
-
+        
         public ServicioDeDigitalizacionDeLegajos(IConexionBD una_conexion)
         {
             this.conexion_db = una_conexion;
         }
 
         public RespuestaABusquedaDeLegajos BuscarLegajos(string criterio)
-        {
+        {          
+            //int numero;
+            //if (int.TryParse(criterio, out numero))
+            //{
+            //    legajos.AddRange(this.GetLegajoPorDocumento(numero));
+            //    legajos.AddRange(this.GetLegajoPorIdInterna(numero));
+            //}
+            //else
+            //{
+            //    legajos.AddRange(this.GetLegajosPorApellidoYNombre(criterio));
+            //}
             var legajos = new List<LegajoModi>();
-            int numero;
-            if (int.TryParse(criterio, out numero))
+            var repo_pers = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion_db);
+            var personas = repo_pers.BuscarPersonasConLegajo(criterio);
+
+            personas.ForEach(p =>
             {
-                legajos.AddRange(this.GetLegajoPorDocumento(numero));
-                legajos.AddRange(this.GetLegajoPorIdInterna(numero));
-            }
-            else
-            {
-                legajos.AddRange(this.GetLegajosPorApellidoYNombre(criterio));
-            }
+                var legajo = new LegajoModi(int.Parse(p.Legajo),
+                                       p.Documento,
+                                       p.Nombre,
+                                       p.Apellido);
+
+                legajo.agregarDocumentos(this.DocumentosPara(legajo));
+                this.SetearEsqueletoDeImagenesAUnLegajo(legajo);
+                legajos.Add(legajo);
+            });
             return new RespuestaABusquedaDeLegajos(legajos);
         }
 
@@ -40,7 +54,23 @@ namespace General.Modi
             parametros.Add("@id_imagen", id_imagen);
             var tabla_imagen = this.conexion_db.Ejecutar("dbo.MODI_Get_Imagen", parametros);
             var primera_fila = tabla_imagen.Rows.First();
-            return new ImagenModi(primera_fila.GetString("nombre_imagen"), primera_fila.GetImage("bytes_imagen"));
+
+            var imagen = new ImagenModi();
+            imagen.id = primera_fila.GetInt("id_imagen");
+            imagen.idInterna = primera_fila.GetInt("id_interna");
+            imagen.nombre = primera_fila.GetString("nombre_imagen");
+            imagen.SetImagen(primera_fila.GetImage("bytes_imagen"));
+
+            if (!(primera_fila.GetObject("folio_doc") is DBNull))
+            {
+                imagen.folioDocumento = primera_fila.GetInt("folio_doc");
+                imagen.orden = primera_fila.GetInt("faz");
+                imagen.tabla = primera_fila.GetString("tabla");
+                imagen.idDocumento = primera_fila.GetInt("id_documento");
+                var legajo = GetLegajoPorIdInterna(imagen.idInterna)[0];
+                var folio = legajo.GetFolio(imagen.tabla, imagen.idDocumento, imagen.folioDocumento);
+            }
+            return imagen;
         }
 
 
@@ -49,11 +79,38 @@ namespace General.Modi
             return this.GetImagenPorId(id_imagen).GetThumbnail(alto, ancho);
         }
 
-        public void AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
+        public int AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
         {
+            var imagen = GetImagenPorId(id_imagen);
+            var legajo = GetLegajoPorIdInterna(imagen.idInterna)[0];
+            var folio = legajo.GetFolio(nro_folio);
+            int orden = 1;
+            if(folio.imagenes.Any())orden = folio.imagenes.Max(i => i.orden) + 1;
+
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_imagen", id_imagen);
-            parametros.Add("@nro_folio", nro_folio);
+            parametros.Add("@folio_doc", folio.folioDocumento);
+            parametros.Add("@faz", orden);
+            parametros.Add("@tabla", folio.tabla);
+            parametros.Add("@id_documento", folio.idDocumento);
+            parametros.Add("@id_usuario", usuario.Id);
+
+            this.conexion_db.EjecutarSinResultado("dbo.MODI_Asignar_Imagen_A_Folio_De_Legajo", parametros);
+            return orden;
+        }
+
+        public void AsignarImagenAFolioDeLegajoPasandoPagina(int id_imagen, int nro_folio, int pagina, Usuario usuario)
+        {
+            var imagen = GetImagenPorId(id_imagen);
+            var legajo = GetLegajoPorIdInterna(imagen.idInterna)[0];
+            var folio = legajo.GetFolio(nro_folio);
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_imagen", id_imagen);
+            parametros.Add("@folio_doc", folio.folioDocumento);
+            parametros.Add("@faz", pagina);
+            parametros.Add("@tabla", folio.tabla);
+            parametros.Add("@id_documento", folio.idDocumento);
             parametros.Add("@id_usuario", usuario.Id);
 
             this.conexion_db.EjecutarSinResultado("dbo.MODI_Asignar_Imagen_A_Folio_De_Legajo", parametros);
@@ -93,26 +150,34 @@ namespace General.Modi
 
         public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
         {
+            var legajo = GetLegajoPorIdInterna(id_interna)[0];
+            var folio = legajo.GetFolio(numero_folio);
+            int orden = 1;
+            if (folio.imagenes.Any()) orden = folio.imagenes.Max(i => i.orden) + 1;
+
             byte[] imageBytes = Convert.FromBase64String(bytes_imagen);
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_interna", id_interna);
             parametros.Add("@nombre_imagen", nombre_imagen);
             parametros.Add("@bytes_imagen", imageBytes);
-            parametros.Add("@numero_folio", numero_folio);
+            parametros.Add("@folio_doc", folio.folioDocumento);
+            parametros.Add("@faz", orden);
+            parametros.Add("@tabla", folio.tabla);
+            parametros.Add("@id_documento", folio.idDocumento);
 
             return int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_A_Un_Folio_De_Un_Legajo", parametros).ToString());
         }
         
-        private List<LegajoModi> GetLegajoPorDocumento(int numero_de_documento)
-        {
-            var legajos = new List<LegajoModi>();
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@doc", numero_de_documento);
-            var tablaLegajos = conexion_db.Ejecutar("dbo.LEG_GET_Datos_Personales", parametros);
+        //private List<LegajoModi> GetLegajoPorDocumento(int numero_de_documento)
+        //{
+        //    var legajos = new List<LegajoModi>();
+        //    var parametros = new Dictionary<string, object>();
+        //    parametros.Add("@doc", numero_de_documento);
+        //    var tablaLegajos = conexion_db.Ejecutar("dbo.MODI_GET_Datos_Personales_Por_Documento", parametros);
 
-            if (tablaLegajos.Rows.Count > 0) legajos.AddRange(GetLegajosFromTabla(tablaLegajos));
-            return legajos;
-        }
+        //    if (tablaLegajos.Rows.Count > 0) legajos.AddRange(GetLegajosFromTabla(tablaLegajos));
+        //    return legajos;
+        //}
 
         private List<LegajoModi> GetLegajoPorIdInterna(int id_interna)
         {
@@ -126,17 +191,17 @@ namespace General.Modi
             return legajos;
         }
 
-        private List<LegajoModi> GetLegajosPorApellidoYNombre(string criterio)
-        {
-            var legajos = new List<LegajoModi>();
+        //private List<LegajoModi> GetLegajosPorApellidoYNombre(string criterio)
+        //{
+        //    var legajos = new List<LegajoModi>();
 
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@criterio", criterio);
-            var tablaLegajos = conexion_db.Ejecutar("dbo.MODI_GET_Datos_Personales_Por_Apellido_Y_Nombre", parametros);
+        //    var parametros = new Dictionary<string, object>();
+        //    parametros.Add("@criterio", criterio);
+        //    var tablaLegajos = conexion_db.Ejecutar("dbo.MODI_GET_Datos_Personales_Por_Apellido_Y_Nombre", parametros);
 
-            if (tablaLegajos.Rows.Count > 0) legajos.AddRange(GetLegajosFromTabla(tablaLegajos));
-            return legajos;
-        }
+        //    if (tablaLegajos.Rows.Count > 0) legajos.AddRange(GetLegajosFromTabla(tablaLegajos));
+        //    return legajos;
+        //}
 
         private List<LegajoModi> GetLegajosFromTabla(TablaDeDatos tablaLegajos)
         {
@@ -146,8 +211,7 @@ namespace General.Modi
                 var legajo = new LegajoModi(row.GetInt("id_interna"),
                                     row.GetInt("Nro_Documento"),
                                     row.GetString("Nombre"),
-                                    row.GetString("Apellido"),
-                                    row.GetString("Cuil_Nro"));
+                                    row.GetString("Apellido"));
 
                 legajo.agregarDocumentos(this.DocumentosPara(legajo));
                 this.SetearEsqueletoDeImagenesAUnLegajo(legajo);
@@ -188,7 +252,7 @@ namespace General.Modi
                                                             row.GetString("ORG"),
                                                             row.GetString("FOLIO"),
                                                             row.GetDateTime("fecha_comunicacion"));
-                    if (!(documentos.SelectMany(d => d.folios).Select(f => f.numero_folio).Any(num_folio => nuevoDocumento.folios.Select(f => f.numero_folio).Contains(num_folio)))) documentos.Add(nuevoDocumento);
+                    if (!(documentos.SelectMany(d => d.folios).Select(f => f.folioLegajo).Any(num_folio => nuevoDocumento.folios.Select(f => f.folioLegajo).Contains(num_folio)))) documentos.Add(nuevoDocumento);
                 });
             }
 
@@ -203,20 +267,28 @@ namespace General.Modi
 
             tablaImagenes.Rows.ForEach(row =>
             {
-                var id_imagen = row.GetInt("id_imagen");
+                var imagen = new ImagenModi();
+                imagen.id = row.GetInt("id_imagen");
+                imagen.idInterna = row.GetInt("id_interna");
   
-                var imagen = new ImagenModi(row.GetInt("id_imagen"));
-
-                if (!(row.GetObject("nro_folio") is DBNull))
+                if (!(row.GetObject("folio_doc") is DBNull))
                 {
-                    int nro_folio = row.GetInt("nro_folio");
-                    var folio = legajo.GetFolio(nro_folio);
+                    imagen.folioDocumento = row.GetInt("folio_doc");
+                    imagen.tabla = row.GetString("tabla");
+                    imagen.idDocumento = row.GetInt("id_documento");
+                    imagen.orden = row.GetInt("faz");
+
+                    var folio = legajo.GetFolio(imagen.tabla, imagen.idDocumento, imagen.folioDocumento);
+                    imagen.folioLegajo = folio.folioLegajo;
                     folio.imagenes.Add(imagen);
                 }
                 else {
                     legajo.imagenesSinAsignar.Add(imagen);                
                 }
             });
+
+            legajo.imagenesSinAsignar = legajo.imagenesSinAsignar.OrderBy(i => i.orden).ToList();
+            legajo.documentos.ForEach(doc=>doc.folios.ForEach(f=>f.imagenes = f.imagenes.OrderBy(i=>i.orden).ToList()));
         }
        
         private int CategoriaDeUnDocumento(string tabla, int id_documento)
@@ -234,6 +306,7 @@ namespace General.Modi
             }
             return id_categoria;
         }
+
     }
 }
 

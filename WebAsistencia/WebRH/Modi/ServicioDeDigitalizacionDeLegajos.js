@@ -66,10 +66,25 @@ ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajo = functi
             id_imagen: id_imagen,
             nro_folio: nro_folio
         },
+        success: function (orden) {
+            onSuccess(orden);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+};
+
+ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajoPasandoPagina = function (id_imagen, nro_folio, pagina, onSuccess) {
+    this.proveedor_ajax.postearAUrl({ url: "asignarImagenAFolioDeLegajoPasandoPagina",
+        data: {
+            id_imagen: id_imagen,
+            nro_folio: nro_folio,
+            pagina: pagina
+        },
         success: function () {
             onSuccess();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        error: function (error) {
         }
     });
 };

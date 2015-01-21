@@ -36,7 +36,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    niveles.Add(new CVCaracterDeParticipacionEvento(row.GetSmallintAsInt("Id"), row.GetString("Descripcion")));
+                    niveles.Add(new CVCaracterDeParticipacionEvento(row.GetInt("Id"), row.GetString("Descripcion")));
                 });
             }
 

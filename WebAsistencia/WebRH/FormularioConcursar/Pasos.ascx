@@ -16,10 +16,10 @@
             </div>
            
         </div>
-         <div class="actions clearfix">
+       <%--  <div class="actions clearfix">
             <ul>
                 <li class="" ><a href="javascript:Anterior();" id="anterior">Anterior</a></li>
                 <li ><a id="siguiente" onclick="javascript:Siguiente();" >Siguiente</a></li>
                 <li style="display: none;"><a href="#finish" >Finalizar</a></li>
             </ul>
-        </div>
+        </div>--%>

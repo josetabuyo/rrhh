@@ -9,7 +9,7 @@ using WSViaticos;
 
 public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
 {
-    private ConceptoDeLicencia _Concepto;
+    ConceptoDeLicencia _Concepto;
 
     #region CargaContenidos
     protected void Page_Load(object sender, EventArgs e)
@@ -22,11 +22,24 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
         this.AceptarCancelar1.Acepto += new EventHandler(AceptarCancelar1_Acepto);
         _Concepto = new ConceptoDeLicencia();
         _Concepto.Id = 32;
+        this.Saldo14F.Concepto = _Concepto;
+
+        if (this.Calendar1.VisibleDate == new DateTime(0001, 01, 01))
+        {
+            this.Saldo14F.Fecha = DateTime.Today;
+        }
+        else 
+        {
+            this.Saldo14F.Fecha = this.Calendar1.VisibleDate;
+        }
+            
+
+       
     }
 
     private string Titulo()
     {
-        return @"Solicitud de Justificación de Inasistencia por Razones Particulares (Decreto 3.413/79 - Anexo I - Cap. III - Art. 14 f) Solicitud FUERA DE TERMINO (menos de 48 hs. hábiles de anticipación)";
+        return @"Solicitud de Justificación de Inasistencia por Razones Particulares (Decreto 3.413/79 - Anexo I - Cap. III - Art. 14 f) ";
     }
 
     private string Procedimiento()
@@ -64,7 +77,6 @@ La resolución deberá ser comunicada al agente y al servicio de personal dentro
         try
         {
             WSViaticosSoapClient s = new WSViaticosSoapClient();
-            //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
             string error = s.CargarLicencia(l);
             if (error == null)
             {
@@ -123,15 +135,16 @@ La resolución deberá ser comunicada al agente y al servicio de personal dentro
     }
 
 
-    protected void Calendar1_SelectionChanged1(object sender, EventArgs e)
-    {
-        this.TBDesde.Text = Calendar1.SelectedDate.ToShortDateString();
-        this.Calendar1.Visible = false;
-        this.ValidarDatos();
-    }
+    //protected void Calendar1_SelectionChanged1(object sender, EventArgs e)
+    //{
+    //    this.TBDesde.Text = Calendar1.SelectedDate.ToShortDateString();
+    //    this.Calendar1.Visible = false;
+    //    this.ValidarDatos();
+    //}
 
     private void ValidarDatos()
     {
+        this.Saldo14F.Fecha = this.Calendar1.VisibleDate;
         bool DatosValidos = true;
         if (this.TBDesde.Text == null)
             DatosValidos = false;
@@ -141,6 +154,11 @@ La resolución deberá ser comunicada al agente y al servicio de personal dentro
 
         if (!this.RBJustificada.Checked && !this.RBNoJustificada.Checked && !this.RBSinGoce.Checked)
             DatosValidos = false;
+
+        SaldoLicencia saldo = (SaldoLicencia)Session["saldoLicencia"];
+        if (saldo.SaldoMensual <= 0)
+            DatosValidos = false;
+
 
         this.AceptarCancelar1.PuedeAceptar = DatosValidos;
     }

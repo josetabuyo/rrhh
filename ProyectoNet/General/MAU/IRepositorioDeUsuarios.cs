@@ -15,5 +15,6 @@ namespace General.MAU
         string ResetearPassword(int id_usuario);
         int GetDniPorAlias(string alias);
         void AsociarUsuarioConMail(Usuario usuario, string mail);
+        Usuario GetUsuarioPorId(int id_usuario);
     }
 }

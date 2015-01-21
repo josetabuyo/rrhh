@@ -7,7 +7,11 @@
 
         _this.btn_agregar_actividad_capacitacion.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
-                defaults: { Pais: 9},
+                defaults: { 
+                    Pais: 9,
+                    FechaInicio: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
+                    FechaFinalizacion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                },
                 path_html: "PanelDetalleDeActividadCapacitacion.htm",
                 metodoDeGuardado: "GuardarCvActividadCapacitacion",
                 mensajeDeGuardadoExitoso: "La actividad fue guardada correctamente",

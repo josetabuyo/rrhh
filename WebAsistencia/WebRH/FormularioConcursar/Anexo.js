@@ -13,13 +13,13 @@
         _this.postulacion_numero = $("#num_postulacion");
         _this.postulacion_numero.text(postulacion.Numero);
         _this.puesto_convocatoria = $("#puesto_tipo");
-        _this.puesto_convocatoria.text(postulacion.Puesto.Tipo);
+        _this.puesto_convocatoria.text(postulacion.Perfil.Tipo);
         _this.puesto_denominacion = $("#puesto_denominacion");
-        _this.puesto_denominacion.text(postulacion.Puesto.Denominacion);
+        _this.puesto_denominacion.text(postulacion.Perfil.Denominacion);
         _this.puesto_agrupamiento = $("#puesto_agrupamiento");
-        _this.puesto_agrupamiento.text(postulacion.Puesto.Agrupamiento);
+        _this.puesto_agrupamiento.text(postulacion.Perfil.Agrupamiento);
         _this.puesto_nivel = $("#nivel_escalafonario");
-        _this.puesto_nivel.text(postulacion.Puesto.Nivel);
+        _this.puesto_nivel.text(postulacion.Perfil.Nivel);
         _this.puesto_secretaria = $("#nivel_jefatura");
         _this.puesto_secretaria.text("");
 

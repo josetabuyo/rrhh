@@ -27,6 +27,7 @@
                     <label for="txt_codigo_postulacion">Postulación:&nbsp;</label>
                     <input type="text" id="txt_codigo_postulacion" style="margin-bottom: 0px;" data-validar="esNoBlanco" />
                     <input type="button" id="btn_buscar_etapas" value="Buscar" class="btn" />
+                    <p style="font-size:smaller;">(respete mayusculas y minisculas del c&oacute;digo)</p>
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
                     <div>Empleado:&nbsp;<span id="span_empleado"></span></div>
@@ -58,7 +59,20 @@
  <script type="text/javascript" src="EtapasPostulacion.js" ></script>
   <script type="text/javascript">
       $(document).ready(function () {
+
+          var btn = $("#btn_buscar_etapas");
+          var busqueda = $("#txt_codigo_postulacion");
+
+          //HACIENDO EL KEYDOWN EN VEZ DEL KEY UP Y CON EL PREVENT DEFAULT EL ENTER NO ACTUALIZA TODA LA PAGINA
+          busqueda.keydown(function (event) {
+                if (event.which == 13) {
+                    btn.click();
+                    event.preventDefault();
+                }
+            });
+
           PanelEtapasPostulacion();
+
       });
   </script>
 </html>
