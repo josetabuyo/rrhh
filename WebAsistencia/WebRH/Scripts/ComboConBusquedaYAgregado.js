@@ -15,9 +15,9 @@
         allowClear: true,
         width: 'resolve',
         formatNoMatches: function (str_ingresado) {
-            //TO-DO... Agregar botón + cuando corresponda       
-                 
-            return "No se encontraron resultados para: " + str_ingresado;
+
+            return "No se encontraron coincidencias para: <b>" + str_ingresado +
+            "<button style='float:right' class='btn btn-primary' onclick=> Agregar</button>";
         }
     });
 
