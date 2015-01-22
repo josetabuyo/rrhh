@@ -8,7 +8,7 @@ VistaDeImagen.prototype.start = function () {
     this.ui = $("#plantilla_ui_imagen").clone();
     this.img_thumbnail = this.ui.find('#img_thumbnail');
     this.img_estatica = this.ui.find('#img_estatica');
-    this.nro_folio = this.o.numeroDeFolio || "";
+    this.folioLegajo = this.o.numeroDeFolio || "";
     this.orden = this.o.orden;
 
     var _this = this;
@@ -18,17 +18,17 @@ VistaDeImagen.prototype.start = function () {
                 imagen: _this,
                 servicioDeLegajos: _this.o.servicioDeLegajos,
                 alGuardar: function (valores) {
-                    if (valores.nro_folio == "") {
+                    if (valores.folioLegajo == "") {
                         _this.o.servicioDeLegajos.desAsignarImagen(
                             _this.id,
                             function () {
-                                _this.nro_folio = valores.nro_folio;
+                                _this.folioLegajo = valores.folioLegajo;
                                 _this.orden = "";
                                 _this.dibujarEn($("#panel_imagenes_no_asignadas .panel_de_imagenes"));
                             });
                     }
                     else {
-                        var div_folio = $("#folio_" + valores.nro_folio);
+                        var div_folio = $("#folio_" + valores.folioLegajo);
                         if (div_folio.length == 0) {
                             new Alerta("El folio ingresado no existe");
                             return;
@@ -40,10 +40,10 @@ VistaDeImagen.prototype.start = function () {
                         if (valores.pagina) {
                             _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajoPasandoPagina(
                                 _this.id,
-                                valores.nro_folio,
+                                valores.folioLegajo,
                                 valores.pagina,
                                 function () {
-                                    _this.nro_folio = valores.nro_folio;
+                                    _this.folioLegajo = valores.folioLegajo;
                                     _this.orden = valores.pagina;
                                     _this.dibujarEn(div_folio);
                                 }
@@ -51,9 +51,9 @@ VistaDeImagen.prototype.start = function () {
                         } else {
                             _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
                                 _this.id,
-                                valores.nro_folio,
+                                valores.folioLegajo,
                                 function (orden) {
-                                    _this.nro_folio = valores.nro_folio;
+                                    _this.folioLegajo = valores.folioLegajo;
                                     _this.orden = orden;
                                     _this.dibujarEn(div_folio);
                                 }

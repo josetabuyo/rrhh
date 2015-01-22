@@ -12,7 +12,7 @@ VistaLegajoFila.prototype.start = function () {
 
     this.lbl_nombre.text(this.o.legajo.nombre);
     this.lbl_apellido.text(this.o.legajo.apellido);
-    this.lbl_cuil.text(this.o.legajo.cuil);
+    //this.lbl_cuil.text(this.o.legajo.cuil);
     this.lbl_id_interna.text(this.o.legajo.id_interna);
 
     var _this = this;

@@ -12,7 +12,7 @@ VisualizadorDeImagenes.prototype.start = function () {
     this.btnGuardar = this.ui.find('#btn_guardar');
     var _this = this;
 
-    this.txtFolio.val(this.o.imagen.nro_folio);
+    this.txtFolio.val(this.o.imagen.folioLegajo);
     this.txtPagina.val(this.o.imagen.orden);
 
     this.txtFolio.keypress(function (e) {
@@ -30,7 +30,7 @@ VisualizadorDeImagenes.prototype.start = function () {
     this.btnGuardar.click(function () {
         _this.ui.dialog("close");
         _this.o.alGuardar({
-            nro_folio: _this.txtFolio.val(),
+            folioLegajo: _this.txtFolio.val(),
             pagina: _this.txtPagina.val()
         });
     });

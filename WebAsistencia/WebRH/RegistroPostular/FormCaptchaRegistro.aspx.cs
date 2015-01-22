@@ -36,6 +36,7 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
 
                 if (servicio.RegistrarNuevoUsuario(aspirante))
                 {
+                    this.lb_mensajeError.Text = "Registración finalizada correctamente. Se le ha enviado un mail con su nombre de usuario y contraseña";
                     ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
                 }
                 else
