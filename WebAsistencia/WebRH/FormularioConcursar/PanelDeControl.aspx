@@ -45,7 +45,7 @@
                 </div>
             </div>-->
             <legend>VERSION DE PRUEBA</legend>
-            <p>ESTE SISTEMA SE ENCUENTRA EN ETAPA DE DESARROLLO. NINGUNO DE LOS DATOS Y FUNCIONES TIENE ALGUNA VALIDEZ CONCURSAR</p> 
+            <p>ESTE SISTEMA SE ENCUENTRA EN ETAPA DE DESARROLLO. NINGUNO DE LOS DATOS Y FUNCIONES TIENE ALGUNA VALIDEZ PARA CONCURSAR</p> 
             <p>PARA TENER ACCESO A OTROS MÓDULOS CONTACTESE CON LA DIRECCIÓN DE DISEÑO Y DESARROLLO ORGANIZACIONAL PARA LA GESTIÓN DE PERSONAS (INT 3871)</p>
             
         </div>
@@ -92,7 +92,9 @@
     $(document).ready(function () {
         var postulaciones = JSON.parse($('#postulaciones').val());
 
-        
+        if ($.browser.msie) {
+            alert("PARA UNA MEJOR EXPERIENCIA LE RECOMENDAMOS QUE POR FAVOR UTILICE NAVEGADORES MODERNOS COMO CHROME O FIREFOX " + $.browser.version);
+        }
 
         PanelDeControl.armarPostulaciones(postulaciones);
     });
