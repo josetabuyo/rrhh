@@ -43,7 +43,7 @@
            
             <div id="detalle_documentos"></div>
         </fieldset>
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Guardar" />
+        <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Finalizar Inscripción" />
        </div>
     </div>
     <asp:HiddenField ID="postulacion" runat="server" />

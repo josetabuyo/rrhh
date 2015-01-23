@@ -2846,7 +2846,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool GuardarDocumentacionRecibida(DocumentacionRecibida[] lista_doc_recibida, Usuario usuario)
+    public bool GuardarDocumentacionRecibida(int id_postulacion, DocumentacionRecibida[] lista_doc_recibida, Usuario usuario)
     {
         RepositorioDeFoliados repo = new RepositorioDeFoliados(Conexion());
 
@@ -2854,12 +2854,15 @@ public class WSViaticos : System.Web.Services.WebService
 
         repo.GuardarDocumentacionRecibida(lista_doc_recibida.ToList(), usuario);
 
+        var etapas = RepoPostulaciones().GetPostulaciones().Find(p => p.Id.Equals(id_postulacion)).Etapas;//.Find(e => e.Etapa.Id.Equals(2));
+
+        //VALIDO que hayan documentos para guardar y que la postulacion tenga solo la etapa de preinscripcion
         //Le paso ETAPA 2 que es la de INSCRIPCION DOCUMENTAL
-       // if (lista_doc_recibida.Count() > 0 && )
-       // {
-            
-       // }
-       // RepoPostulaciones().InsEtapaPostulacion(lista_doc_recibida[0].IdPostulacion, 2, usuario.Id);
+        if (lista_doc_recibida.Count() > 0 && etapas.Count() == 1 && etapas[0].Etapa.Id.Equals(1))
+        {
+            RepoPostulaciones().InsEtapaPostulacion(id_postulacion, 2, usuario.Id);
+        }
+        
 
         return true;
 

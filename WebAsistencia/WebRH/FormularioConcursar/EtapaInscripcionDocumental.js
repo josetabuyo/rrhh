@@ -42,7 +42,7 @@
 
             //pantalla.DocumentacionRecibida = lista_documentacion_recibida;
 
-            Backend.GuardarDocumentacionRecibida(lista_documentacion_recibida)
+            Backend.GuardarDocumentacionRecibida(postulacion[0].value, lista_documentacion_recibida)
              .onSuccess(function (resultado) {
                  alertify.alert('Se han guardado los folios con exito');
                  location.reload();
