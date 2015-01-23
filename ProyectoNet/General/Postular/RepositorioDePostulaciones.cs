@@ -38,22 +38,18 @@ namespace General
             return postulacion;
         }
 
-        public List<Postulacion> GetPostulaciones()
-        {
-            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones");
-
-            return ArmarPostulaciones(tablaPostulaciones);
-
-        }
-
         public List<Postulacion> GetPostulacionesDe(int idpersona)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idPersona", idpersona);
+            return GetPostulaciones(parametros);
+        }
+
+        public List<Postulacion> GetPostulaciones(Dictionary<string, object> parametros)
+        {
             var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones", parametros);
 
             return ArmarPostulaciones(tablaPostulaciones);
-
         }
 
         private List<Postulacion> ArmarPostulaciones(TablaDeDatos tablaCVs)
@@ -175,18 +171,29 @@ namespace General
                               repo_comite.GetComiteById(row.GetSmallintAsInt("IdComite"))                            
                 );
         }
-        
 
+        public List<Postulacion> GetPostulacionesPorComiteYPerfil(int id_comite, int id_perfil)
+        {
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@idPerfil", id_perfil);
+            parametros.Add("@IdComite", id_comite);
+            return this.GetPostulaciones(parametros);
+        }
 
         public Postulacion GetPostulacionById(int idpersona, int idpostulacion)
         {
-            return this.GetPostulacionesDe(idpersona).Find(p => p.Id.Equals(idpostulacion));
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPostulacion", idpostulacion);
+            parametros.Add("@IdPersona", idpersona);
+            return this.GetPostulaciones(parametros).First();
         
         }
 
         public Postulacion GetPostulacionesPorCodigo(string codigo)
         {
-            return this.GetPostulaciones().Find(p => p.Numero.Equals(codigo));
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@NumeroPostulacion", codigo);
+            return this.GetPostulaciones(parametros).First();
         }
 
 

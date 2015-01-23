@@ -2830,6 +2830,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Postulacion[] GetPostulacionesPorComiteYPerfil(int id_comite, int id_perfil)
+    {
+        return RepoPostulaciones().GetPostulacionesPorComiteYPerfil(id_comite, id_perfil).ToArray();
+    }
+    
+
+    [WebMethod]
     public PantallaRecepcionDocumentacion GetPantallaRecepcionDocumentacion(Postulacion postulacion)
     {
         CurriculumVitae cv = RepoCurriculum().GetCV(postulacion.IdPersona);
