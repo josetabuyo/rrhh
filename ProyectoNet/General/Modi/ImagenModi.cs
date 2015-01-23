@@ -14,8 +14,11 @@ namespace General.Modi
         public int id { get; set; }
         public string bytesImagen { get; set; }
         public string nombre { get; set; }
-        public int nroFolio { get; set; }
+        public int folioDocumento { get; set; }
+        public int folioLegajo { get; set; }
         public int orden { get; set; }
+        public string tabla { get; set; }
+        public int idDocumento { get; set; }
 
         public ImagenModi()
         {

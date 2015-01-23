@@ -133,7 +133,7 @@
 
     paso4: function () {
         document.getElementById("div_general_captcha").style.display = 'none';
-        document.getElementById("div_error_captcha").style.display = 'block';    
+        document.getElementById("div_error_captcha").style.display = 'block';
         
     },
 

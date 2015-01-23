@@ -16,12 +16,15 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="contenedor_concursar">
         <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
+            <div id="div_foliacion" class="fondo_form" style="padding: 10px;">
             <h2>Presentación de documentación</h2>
+            <br />
             <div>
                 <div style="display:inline-block; margin-left:30px; width: 50%; vertical-align:middle;">
                     <label for="txt_codigo_postulacion">Postulación:&nbsp;</label>
                     <input type="text" id="txt_codigo_postulacion" style="margin-bottom: 0px;" data-validar="esNoBlanco" />
                     <input type="button" id="btn_buscar_postulacion" value="Buscar" class="btn" />
+                    <p style="font-size:smaller;">(respete mayusculas y minisculas del c&oacute;digo)</p>
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
                     <div>Empleado:&nbsp;<span id="span_empleado"></span></div>
@@ -41,6 +44,7 @@
             <div id="detalle_documentos"></div>
         </fieldset>
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Guardar" />
+       </div>
     </div>
     <asp:HiddenField ID="postulacion" runat="server" />
     <asp:HiddenField ID="idPostulacion" runat="server" />
@@ -54,6 +58,17 @@
     Backend.start(function () {
         $(document).ready(function () {
             //var postulacion = JSON.parse($('#postulacion').val());
+
+            var btn = $("#btn_buscar_postulacion");
+            var busqueda = $("#txt_codigo_postulacion");
+
+            //HACIENDO EL KEYDOWN EN VEZ DEL KEY UP Y CON EL PREVENT DEFAULT EL ENTER NO ACTUALIZA TODA LA PAGINA
+            busqueda.keydown(function (event) {
+                if (event.which == 13) {
+                    btn.click();
+                    event.preventDefault();
+                }
+            });
 
             EtapaInscripcionDocumental.mostrarPostulacion();
         });
