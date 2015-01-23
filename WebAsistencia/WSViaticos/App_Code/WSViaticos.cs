@@ -2854,6 +2854,13 @@ public class WSViaticos : System.Web.Services.WebService
 
         repo.GuardarDocumentacionRecibida(lista_doc_recibida.ToList(), usuario);
 
+        //Le paso ETAPA 2 que es la de INSCRIPCION DOCUMENTAL
+       // if (lista_doc_recibida.Count() > 0 && )
+       // {
+            
+       // }
+       // RepoPostulaciones().InsEtapaPostulacion(lista_doc_recibida[0].IdPostulacion, 2, usuario.Id);
+
         return true;
 
     }

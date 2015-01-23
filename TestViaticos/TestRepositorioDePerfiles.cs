@@ -500,6 +500,19 @@ namespace TestViaticos
          }
 
 
+         [TestMethod]
+         public void deberia_poder_pasar_etapa_cuando_se_recepciona_la_documentacion()
+         {
+             listaDocRecibida.Add(new DocumentacionRecibida(1, un_item_estudio, "80", 1, DateTime.Today));
+             listaDocRecibida.Add(new DocumentacionRecibida(1, un_item_experiencia_publica, "90", 1, DateTime.Today));
+
+             PantallaRecepcionDocumentacion pantalla = creador.CrearPantalla(cv, TestObjects.UnPerfil(), postulacion, listaDocRecibida);
+             RepositorioDeFoliados repo = new RepositorioDeFoliados(conexion);
+
+             Assert.AreEqual(2, pantalla.DocumentacionRecibida.Count);
+         }
+
+
         private static CvIdiomas Idioma(string idioma)
         {
             return new CvIdiomas(1, idioma, "", idioma, 1, 1, 1, new DateTime(), "", 1);
