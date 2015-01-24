@@ -1032,6 +1032,27 @@
           <s:element minOccurs="1" maxOccurs="1" name="IdTabla" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetPostulacionesPorComiteYPerfil">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_comite" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_perfil" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostulacionesPorComiteYPerfilResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionesPorComiteYPerfilResult" type="tns:ArrayOfPostulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPostulacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetPantallaRecepcionDocumentacion">
         <s:complexType>
           <s:sequence>
@@ -3033,11 +3054,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfPostulacion">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetPostulacionesResponse">
         <s:complexType>
           <s:sequence>
@@ -4654,6 +4670,12 @@
   <wsdl:message name="GetPostulacionByIdSoapOut">
     <wsdl:part name="parameters" element="tns:GetPostulacionByIdResponse" />
   </wsdl:message>
+  <wsdl:message name="GetPostulacionesPorComiteYPerfilSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostulacionesPorComiteYPerfil" />
+  </wsdl:message>
+  <wsdl:message name="GetPostulacionesPorComiteYPerfilSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostulacionesPorComiteYPerfilResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPantallaRecepcionDocumentacionSoapIn">
     <wsdl:part name="parameters" element="tns:GetPantallaRecepcionDocumentacion" />
   </wsdl:message>
@@ -5839,6 +5861,10 @@
       <wsdl:input message="tns:GetPostulacionByIdSoapIn" />
       <wsdl:output message="tns:GetPostulacionByIdSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetPostulacionesPorComiteYPerfil">
+      <wsdl:input message="tns:GetPostulacionesPorComiteYPerfilSoapIn" />
+      <wsdl:output message="tns:GetPostulacionesPorComiteYPerfilSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPantallaRecepcionDocumentacion">
       <wsdl:input message="tns:GetPantallaRecepcionDocumentacionSoapIn" />
       <wsdl:output message="tns:GetPantallaRecepcionDocumentacionSoapOut" />
@@ -6865,6 +6891,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostulacionById">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetPostulacionById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostulacionesPorComiteYPerfil">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPostulacionesPorComiteYPerfil" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8758,6 +8793,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostulacionById">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPostulacionById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostulacionesPorComiteYPerfil">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPostulacionesPorComiteYPerfil" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

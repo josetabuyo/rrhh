@@ -2830,7 +2830,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Postulacion[] GetPostulacionesPorComiteYPerfil(int id_comite, int id_perfil)
+    public Postulacion[] GetPostulacionesPorComiteYPerfil(int id_comite, int id_perfil, Usuario usuario)
     {
         return RepoPostulaciones().GetPostulacionesPorComiteYPerfil(id_comite, id_perfil).ToArray();
     }
