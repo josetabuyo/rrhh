@@ -172,10 +172,10 @@ namespace General
                 );
         }
 
-        public List<Postulacion> GetPostulacionesPorComiteYPerfil(int id_comite, int id_perfil)
+        public List<Postulacion> GetPostulacionesPorComite(int id_comite)
         {
             Dictionary<string, object> parametros = new Dictionary<string, object>();
-            parametros.Add("@idPerfil", id_perfil);
+            //parametros.Add("@idPerfil", id_perfil);
             parametros.Add("@IdComite", id_comite);
             return this.GetPostulaciones(parametros);
         }
@@ -243,5 +243,21 @@ namespace General
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Ins_EtapaPostulación", parametros);
         }
+
+        public List<Postulacion> BuscarPostulacionesDePreinscriptos(int id_comite)
+        {
+            List<Postulacion> postulaciones_buscadas = new List<Postulacion>();
+            List<Postulacion> postulaciones = GetPostulacionesPorComite(id_comite);
+            postulaciones_buscadas = FiltrarPostulacionesPorEstado(ConstantesConcursar.EtapaPreinscripcion, postulaciones);
+            return postulaciones_buscadas;
+        }
+
+
+        public List<Postulacion> FiltrarPostulacionesPorEstado(EtapaConcurso etapa_buscada, List<Postulacion> postulaciones)
+        {
+            List<Postulacion> postulaciones_buscadas = new List<Postulacion>();
+            postulaciones_buscadas = postulaciones.FindAll(p => p.EtapaEn(DateTime.Today).Etapa.Id == etapa_buscada.Id);
+            return postulaciones_buscadas;
+        }      
     }
 }
