@@ -90,12 +90,12 @@
 
         _this.cv_domLegal.text(curriculum.DatosPersonales.DomicilioLegal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioLegal.Numero + ' - ' +
                                  curriculum.DatosPersonales.DomicilioLegal.Piso + ' ' +
-                                 curriculum.DatosPersonales.DomicilioLegal.Depto + ' - ' + localidadLegal.Nombre + ' ' +
+                                 curriculum.DatosPersonales.DomicilioLegal.Depto + ' - ' +
                                  provinciaLegal.Nombre);
         _this.cv_telefono = $("#cv_telefono");
-        _this.cv_telefono.text(curriculum.DatosPersonales.Telefono);
+        _this.cv_telefono.text(curriculum.DatosPersonales.DatosDeContacto.Telefono);
         _this.cv_mail = $("#cv_mail");
-        _this.cv_mail.text(curriculum.DatosPersonales.Email);
+        _this.cv_mail.text(curriculum.DatosPersonales.DatosDeContacto.Email);
 
 
         //DIBUJAR CUERPO DEL CV

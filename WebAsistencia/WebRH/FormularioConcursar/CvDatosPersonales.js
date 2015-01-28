@@ -41,6 +41,7 @@ function replicarDireccion () {
          _this.cmb_tipoDocumento = _this.ui.find("#cmb_tipoDocumento");
 
          _this.txt_cuil.val(parseInt(datos_personales.Cuil));
+         _this.txt_fechaNac.val(datos_personales.FechaNacimiento);
 
          if (datos_personales.TieneLegajo == "Tiene legajo") {
              _this.txt_nombre[0].disabled = true;
