@@ -1099,6 +1099,7 @@
       <s:element name="GuardarDocumentacionRecibida">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_postulacion" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="lista_doc_recibida" type="tns:ArrayOfDocumentacionRecibida" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
