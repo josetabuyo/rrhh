@@ -35,8 +35,8 @@
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
                     <h4>Detalle del Comité Seleccionado</h4>
-                    <div class="grupo_campos nueva_linea">Comité Titular:&nbsp;<span id="span_fecha"></div>
-                    <div class="grupo_campos nueva_linea">Comité Suplente:&nbsp;<span id="span_perfil"></div>
+                    <div class="grupo_campos nueva_linea">Comité Titular:&nbsp;</div><span id="comite_titular"></span>
+                    <div class="grupo_campos nueva_linea">Comité Suplente:&nbsp;</div><span id="comite_suplente"></span>
                 </div>
             </div>
             <div>
