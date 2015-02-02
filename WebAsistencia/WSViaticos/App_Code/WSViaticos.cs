@@ -2830,11 +2830,19 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Postulacion[] BuscarPostulacionesDePreinscriptos(int id_comite)
+    {
+
+        return RepoPostulaciones().BuscarPostulacionesDePreinscriptos(id_comite).ToArray();
+    }
+    
+
+    [WebMethod]
     public PantallaRecepcionDocumentacion GetPantallaRecepcionDocumentacion(Postulacion postulacion)
     {
         CurriculumVitae cv = RepoCurriculum().GetCV(postulacion.IdPersona);
-        RepositorioDePerfiles repoPerfiles = new RepositorioDePerfiles(Conexion());
-        repoPerfiles.GetRequisitosDelPerfil(postulacion.Perfil.Id).ForEach(r => postulacion.Perfil.Requiere(r));
+        //RepositorioDePerfiles repoPerfiles = new RepositorioDePerfiles(Conexion());
+        //repoPerfiles.GetRequisitosDelPerfil(postulacion.Perfil.Id).ForEach(r => postulacion.Perfil.Requiere(r));
 
         RepositorioDeFoliados repo = new RepositorioDeFoliados(Conexion());
         CreadorDePantallas creador = new CreadorDePantallas();
@@ -2846,13 +2854,25 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool GuardarDocumentacionRecibida(DocumentacionRecibida[] lista_doc_recibida, Usuario usuario)
+    public bool GuardarDocumentacionRecibida(int id_postulacion, DocumentacionRecibida[] lista_doc_recibida, Usuario usuario)
     {
         RepositorioDeFoliados repo = new RepositorioDeFoliados(Conexion());
 
         //List<DocumentacionRecibida> listaDocRecibida = repo.GetDocumentacionRecibidaByPostulacion(postulacion);
 
         repo.GuardarDocumentacionRecibida(lista_doc_recibida.ToList(), usuario);
+
+        Dictionary<string, object> parametros = new Dictionary<string, object>();
+        parametros.Add("@idPostulacion", id_postulacion);
+        var etapas = RepoPostulaciones().GetPostulaciones(parametros).First().Etapas;
+
+        //VALIDO que hayan documentos para guardar y que la postulacion tenga solo la etapa de preinscripcion
+        //Le paso ETAPA 2 que es la de PREINSCRIPCION DOCUMENTAL
+        if (lista_doc_recibida.Count() > 0 && etapas.Last().Etapa.Id.Equals(ConstantesConcursar.EtapaPreinscripcionWeb.Id))
+        {
+            RepoPostulaciones().InsEtapaPostulacion(id_postulacion, 2, usuario.Id);
+        }
+        
 
         return true;
 

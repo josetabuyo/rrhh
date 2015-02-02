@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EtapaInscripcionDocumental.aspx.cs" Inherits="FormularioConcursar_EtapaInscripcionDocumental" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EtapaPreInscripcionDocumental.aspx.cs" Inherits="FormularioConcursar_EtapaInscripcionDocumental" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="~/FormularioConcursar/MenuConcursar.ascx" TagName="BarraMenuConcursar" TagPrefix="uc3" %>
 
@@ -35,15 +35,14 @@
             </div>
        
         <div id="requisitos_perfil"></div>
-        <fieldset id="cuadro_perfil">
-           
-            <div id="detalle_perfil"></div>
-        </fieldset>
+
         <fieldset id="cuadro_documentos">
            
             <div id="detalle_documentos"></div>
         </fieldset>
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Finalizar Inscripción" />
+        <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Finalizar Preinscripción" />
+        <input type="button" style="display:none;" class="btn btn-primary" id="btn_comprobantes" value="Imprimir comprobantes" />
+        <input type="button" style="display:none;" class="btn btn-primary" id="btn_caratula" value="Imprimir caratula" />
        </div>
     </div>
     <asp:HiddenField ID="postulacion" runat="server" />
@@ -51,7 +50,7 @@
     </form>
 </body>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
-<script type="text/javascript" src="EtapaInscripcionDocumental.js" />
+<script type="text/javascript" src="EtapaPreInscripcionDocumental.js" />
 <%= Referencias.Javascript("../") %>
 
 <script type="text/javascript">
@@ -70,7 +69,7 @@
                 }
             });
 
-            EtapaInscripcionDocumental.mostrarPostulacion();
+            EtapaPreInscripcionDocumental.mostrarPostulacion();
         });
     });
 
