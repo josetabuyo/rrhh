@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EtapaPreInscripcionDocumental.aspx.cs" Inherits="FormularioConcursar_EtapaInscripcionDocumental" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EtapaInscripcionDocumental.aspx.cs" Inherits="FormularioConcursar_EtapaInscripcionDocumental" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="~/FormularioConcursar/MenuConcursar.ascx" TagName="BarraMenuConcursar" TagPrefix="uc3" %>
 
@@ -18,8 +18,6 @@
         <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
             <div id="div_foliacion" class="fondo_form" style="padding: 10px;">
             <h2>Presentación de documentación</h2>
-            <p>Ingrese la cantidad de documentos que el postulante entrega por cada item del CV cargado.</p>
-            <p>Importante: al guardar los documentos presentados, la postulación pasará automáticamente como disponible para la etapa Inscripción Documental</p>
             <br />
             <div>
                 <div style="display:inline-block; margin-left:30px; width: 50%; vertical-align:middle;">
@@ -33,19 +31,19 @@
                     <div>Código:&nbsp;<span id="span_codigo"></span></div>
                     <div>Fecha de Postulación:&nbsp;<span id="span_fecha"></span></div>
                     <div>Perfil:&nbsp;<span id="span_perfil"></span></div>
-                    <div>Estado:&nbsp;<span id="span_etapa"></span></div>
                 </div>
             </div>
        
         <div id="requisitos_perfil"></div>
-
+        <fieldset id="cuadro_perfil">
+           
+            <div id="detalle_perfil"></div>
+        </fieldset>
         <fieldset id="cuadro_documentos">
            
             <div id="detalle_documentos"></div>
         </fieldset>
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Guardar Documentos" />
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_comprobantes" value="Imprimir comprobantes" />
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_caratula" value="Imprimir caratula" />
+        <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Finalizar Inscripción" />
        </div>
     </div>
     <asp:HiddenField ID="postulacion" runat="server" />
@@ -53,7 +51,7 @@
     </form>
 </body>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
-<script type="text/javascript" src="EtapaPreInscripcionDocumental.js" />
+<script type="text/javascript" src="EtapaInscripcionDocumental.js" />
 <%= Referencias.Javascript("../") %>
 
 <script type="text/javascript">
@@ -72,7 +70,7 @@
                 }
             });
 
-            EtapaPreInscripcionDocumental.mostrarPostulacion();
+            EtapaInscripcionDocumental.mostrarPostulacion();
         });
     });
 

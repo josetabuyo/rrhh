@@ -2830,10 +2830,17 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Postulacion[] BuscarPostulacionesDePreinscriptos(int id_comite)
+    public Postulacion[] BuscarPostulacionesDeInscriptos(int id_comite)
     {
 
-        return RepoPostulaciones().BuscarPostulacionesDePreinscriptos(id_comite).ToArray();
+        return RepoPostulaciones().BuscarPostulacionesPorEtapas(id_comite, ConstantesConcursar.EtapaInscripcionDocumental).ToArray();
+    }
+
+    [WebMethod]
+    public Postulacion[] BuscarPostulacionesDePreInscriptos(int id_comite)
+    {
+
+        return RepoPostulaciones().BuscarPostulacionesPorEtapas(id_comite, ConstantesConcursar.EtapaPreinscripcionDocumental).ToArray();
     }
     
 
@@ -2868,13 +2875,14 @@ public class WSViaticos : System.Web.Services.WebService
 
         //VALIDO que hayan documentos para guardar y que la postulacion tenga solo la etapa de preinscripcion
         //Le paso ETAPA 2 que es la de PREINSCRIPCION DOCUMENTAL
-        if (lista_doc_recibida.Count() > 0 && etapas.Last().Etapa.Id.Equals(ConstantesConcursar.EtapaPreinscripcionWeb.Id))
+        if (etapas.Last().Etapa.Id.Equals(ConstantesConcursar.EtapaPreinscripcionWeb.Id))
         {
             RepoPostulaciones().InsEtapaPostulacion(id_postulacion, 2, usuario.Id);
+            return true;
         }
-        
-
-        return true;
+        else {
+            return false;
+        }
 
     }
 
