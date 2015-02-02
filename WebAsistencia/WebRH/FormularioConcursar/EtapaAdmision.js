@@ -13,11 +13,15 @@
 function BuscarPreinscriptos() {
     var id_comite = $('#id_comite').val();
 
-    Backend.BuscarPostulacionesDePreinscriptos(id_comite)
+    Backend.BuscarPostulacionesDeInscriptos(id_comite)
     .onSuccess(function (resultado) {
-//        buscar todos los titulares y seplentes del comité y listarlos - Continuar
-        $('#comite_titular').text(resultado[0].Perfil.Comite.Integrantes[0].Apellido);
-        DibujarTabla(resultado);
+        //        buscar todos los titulares y seplentes del comité y listarlos - Continuar
+        if (resultado.length == 0) {
+            alertify.alert('No se encontraron resultados');
+        } else {
+            $('#comite_titular').text(resultado[0].Perfil.Comite.Integrantes[0].Apellido);
+            DibujarTabla(resultado);
+        }
     });
 };
 
