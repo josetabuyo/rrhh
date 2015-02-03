@@ -118,9 +118,14 @@ namespace General.Repositorios
                                             FechaIngreso = dRow.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today),
                                             FechaEgreso = dRow.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today),
                                             Localidad = dRow.GetString("AntecedentesAcademicosLocalidad", string.Empty),
-                                            Pais = dRow.GetSmallintAsInt("AntecedentesAcademicosPais", 9)
+                                            Pais = dRow.GetSmallintAsInt("AntecedentesAcademicosPais", 9),
+                                            AntAcadPrecedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                            Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
                                         }).Distinct().ToList();
 
+                //2. Por versionado, remuevo todos los items que fueron pisados luego por otro
+                antecedentes_anonimos.RemoveAll(e => antecedentes_anonimos.Any(prev => prev.AntAcadPrecedente == e.Id));
+                antecedentes_anonimos.RemoveAll(e => e.Baja != 0);
 
                 antecedentes_anonimos.Select(a => new CvEstudios(a.Id, a.Titulo, a.Nivel, a.Anios, a.Establecimiento,
                                                                     a.Especialidad, a.FechaIngreso, a.FechaEgreso,
@@ -220,6 +225,7 @@ namespace General.Repositorios
                 eventos_anonimos.Select(e => new CvEventoAcademico(e.Id, e.Denominacion, e.TipoDeEvento, e.CaracterDeParticipacion,
                                                                     e.FechaInicio, e.FechaFinalizacion, e.Duracion, e.Institucion,
                                                                     e.Localidad, e.Pais)).ToList().ForEach(ev => cv.AgregarEventoAcademico(ev));
+                
 
             }
         }
@@ -239,6 +245,7 @@ namespace General.Repositorios
                                             Tipo = dRow.GetSmallintAsInt("CapacidadesPersonalesTipo", 0),
                                             Detalle = dRow.GetString("CapacidadesPersonalesDetalle", "")
                                         }).Distinct().ToList();
+
 
                 capacidades_anonimos.Select(e => new CvCapacidadPersonal(e.Id, e.Tipo, e.Detalle)).ToList().ForEach(ev => cv.AgregarCapacidadPersonal(ev));
             }
@@ -430,7 +437,7 @@ namespace General.Repositorios
             var lista = new List<RowDeDatos>();
             tabla.Rows.ForEach(r =>
             {
-                if (!(r.GetObject(campo_id) is DBNull) && (r.GetObject(campo_baja) is DBNull))
+                if (!(r.GetObject(campo_id) is DBNull))
                     lista.Add(r);
             });
 
@@ -579,43 +586,61 @@ namespace General.Repositorios
         #endregion CvDatosPersonales
 
         #region CvAntecedentesAcademicos
+
+        private CvEstudios GuardarCVAntecedentesAcademicosParam(Dictionary<string, object> parametros, CvEstudios antecedentes)
+        {
+            try
+            {
+                var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_AntecedentesAcademicos", parametros);
+                antecedentes.Id = int.Parse(id.ToString());
+                return antecedentes;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+
         public CvEstudios GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
         {
-            
+            return GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario, new Dictionary<string, object>());
+        }
+        
+        private CvEstudios GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario, Dictionary<string, object> param_iniciales)
+        {
             validarDatos(antecedentesAcademicos_nuevo);
 
             var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+
+            param_iniciales.Keys.ToList().ForEach(k => parametros[k] = param_iniciales[k]);
+
             parametros.Add("@idPersona", usuario.Owner.Id);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_AntecedentesAcademicos", parametros);
-            antecedentesAcademicos_nuevo.Id = int.Parse(id.ToString());
-
-            return antecedentesAcademicos_nuevo;
+            return GuardarCVAntecedentesAcademicosParam(parametros, antecedentesAcademicos_nuevo);
         }
 
         public CvEstudios ActualizarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
         {
-            validarDatos(antecedentesAcademicos_nuevo);
-            
-            var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
-            parametros.Add("@idAntecedente", antecedentesAcademicos_nuevo.Id);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
-
-            return antecedentesAcademicos_nuevo;
-
+            return ActualizarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario, new Dictionary<string, object>());
         }
 
-        public bool EliminarCVAntecedentesAcademicos(int id_antecedente_academico, Usuario usuario)
+
+        private CvEstudios ActualizarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario, Dictionary<string, object> param_iniciales)
+        {
+            param_iniciales.Add("@idRegistroAnterior", antecedentesAcademicos_nuevo.Id);
+            return GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario, param_iniciales);
+        }
+
+        public bool EliminarCVAntecedentesAcademicos(CvEstudios antecedente, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
 
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@idBaja", baja);
+            parametros.Add("@Baja", baja);
             parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@idAntecedente", id_antecedente_academico);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
+            ActualizarCvAntecedentesAcademicos(antecedente, usuario, parametros);
             return true;
         }
 

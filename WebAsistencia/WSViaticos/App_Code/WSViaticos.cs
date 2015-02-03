@@ -2566,7 +2566,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvAntecedenteAcademico(int antecedente_a_borrar, Usuario usuario)
+    public bool EliminarCvAntecedenteAcademico(CvEstudios antecedente_a_borrar, Usuario usuario)
     {
         return RepoCurriculum().EliminarCVAntecedentesAcademicos(antecedente_a_borrar, usuario);
     }
