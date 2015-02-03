@@ -27,7 +27,7 @@
                     </div>
                     <div class="grupo_campos">
                         <label for="txt_perfil">Perfil:&nbsp;</label>
-                        <input type="text" id="id_perfil" style="margin-bottom: 0px;" data-validar="esNoBlanco" disabled="disabled" />
+                        <select id="id_perfil" style="margin-bottom: 0px;"  disabled="disabled"> </select>
                     </div>
                     <div class="grupo_campos">
                         <input type="button" id="btn_filtrar" value="Filtrar" class="btn" disabled="disabled" onclick="FiltarPorComite()" />
@@ -39,7 +39,8 @@
                     <div class="grupo_campos nueva_linea">Comité Suplente:&nbsp;</div><span id="comite_suplente"></span>
                 </div>
             </div>
-            <div>
+            <div id="contenedorTabla">
+             <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
              <table id="tabla_postulaciones" style="width:100%;"></table>
             </div>
        
@@ -66,7 +67,7 @@
 <script type="text/javascript">
     Backend.start(function () {
         $(document).ready(function () {
-            
+            $('#search').hide();
             //var postulacion = JSON.parse($('#postulacion').val());
 
             //            var btn = $("#btn_buscar_postulacion");
@@ -81,6 +82,7 @@
             //            });
 
             //            EtapaAdmision.mostrarPostulacion();
+
         });
     });
 
