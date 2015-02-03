@@ -18,6 +18,8 @@
         <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
         <div id="div_admision" class="fondo_form" style="padding: 10px;">
                 <h2>Etapa de Inscripción documental</h2>
+                <p>Ingrese el comité correspondiente para ver las postulaciones de todos los perfiles que tienen asignados.</p>
+                <p>Luego ingrese el perfil para filtrar solo las postulaciones del mismo</p>
             <br />
             <div>
                 <div class="grupo_campos nueva_linea">
@@ -40,23 +42,11 @@
                 </div>
             </div>
             <div>
+            <p id="txt_marcar_todos" ></p>
              <table id="tabla_postulaciones" style="width:100%;"></table>
             </div>
        
-        <%--<div id="requisitos_perfil"></div>
-        <fieldset id="cuadro_perfil">
-           
-            <div id="detalle_perfil"></div>
-        </fieldset>
-        <fieldset id="cuadro_documentos">
-           
-            <div id="detalle_documentos"></div>
-        </fieldset>
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Guardar" />--%>
-       </div>
-    </div>
-    <%--<asp:HiddenField ID="postulacion" runat="server" />
-    <asp:HiddenField ID="idPostulacion" runat="server" />--%>
+
     </form>
 </body>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
@@ -67,20 +57,7 @@
     Backend.start(function () {
         $(document).ready(function () {
             
-            //var postulacion = JSON.parse($('#postulacion').val());
-
-            //            var btn = $("#btn_buscar_postulacion");
-            //            var busqueda = $("#txt_codigo_postulacion");
-
-            //            //HACIENDO EL KEYDOWN EN VEZ DEL KEY UP Y CON EL PREVENT DEFAULT EL ENTER NO ACTUALIZA TODA LA PAGINA
-            //            busqueda.keydown(function (event) {
-            //                if (event.which == 13) {
-            //                    btn.click();
-            //                    event.preventDefault();
-            //                }
-            //            });
-
-            //            EtapaAdmision.mostrarPostulacion();
+         
         });
     });
 

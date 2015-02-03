@@ -12,8 +12,9 @@
 
 function BuscarPreinscriptos() {
     var id_comite = $('#id_comite').val();
+    $("#txt_marcar_todos").html("");
 
-    Backend.BuscarPostulacionesDePreinscriptos(id_comite)
+    Backend.BuscarPostulacionesDePreInscriptos(id_comite)
     .onSuccess(function (resultado) {
         //        buscar todos los titulares y seplentes del comité y listarlos - Continuar
         if (resultado.length == 0) {
@@ -37,24 +38,30 @@ function DibujarTabla(postulaciones) {
     columnas.push(new Columna("Nivel", { generar: function (una_postulacion) { return una_postulacion.Perfil.Nivel } }));
     columnas.push(new Columna("Tipo", { generar: function (una_postulacion) { return una_postulacion.Perfil.Tipo } }));
     columnas.push(new Columna("Perfil", { generar: function (una_postulacion) { return una_postulacion.Perfil.Denominacion } }));
-    // hay que agregarle un estado a la postulacion - Ver con Fer
-    columnas.push(new Columna("Estado", { generar: function (una_postulacion) { return "Sin Dictamen" } }));
+    columnas.push(new Columna("Estado", { generar: function (una_postulacion) {
+        var ultima_posicion = una_postulacion.Etapas.length - 1;
+        return una_postulacion.Etapas[ultima_posicion].Etapa.Descripcion;
+    }
+    }));
 
 
-    columnas.push(new Columna('Cambiar', {
+    columnas.push(new Columna('Inscribir', {
         generar: function (una_postulacion) {
-            var btn_accion = $('<a>');
-            var img = $('<img>');
-                img.attr('src', '../Imagenes/cambiar.png');
-                img.attr('width', '35px');
-                img.attr('height', '35px');
-            btn_accion.append(img);
-            btn_accion.click(function () {
-                CambiarEstadoPostulacion(una_postulacion);
-            });
+            var input = $('<input>');
+            input.attr('type', 'checkbox');
+            input.attr('class', 'check');
+            //            var btn_accion = $('<a>');
+            //            var img = $('<img>');
+            //            img.attr('src', '../Imagenes/cambiar.png');
+            //            img.attr('width', '35px');
+            //            img.attr('height', '35px');
+            //            btn_accion.append(img);
+            //btn_accion.click(function () {
+            //CambiarEstadoPostulacion(una_postulacion);
+            //});
 
-            return btn_accion;
-        } 
+            return input;
+        }
     }));
 
     this.GrillaDePostulaciones = new Grilla(columnas);
@@ -65,10 +72,33 @@ function DibujarTabla(postulaciones) {
 
     this.GrillaDePostulaciones.CargarObjetos(postulaciones);
     this.GrillaDePostulaciones.DibujarEn(divGrilla);
+
+
+    var check_gral = $('<input>');
+    check_gral.attr('id', 'check_gral');
+    check_gral.attr('type', 'checkbox');
+    check_gral.attr('onclick', 'checkTodos();');
+
+    $("#txt_marcar_todos").html('Marcar todos: ');
+    $("#txt_marcar_todos").append(check_gral);
+
 };
 
 
 function FiltarPorComite() { };
+
+
+function checkTodos() {
+    if ($('#check_gral')[0].checked == true) {
+        $(".check").each(function () {
+            $(this).prop('checked', true);
+        });
+    } else {
+        $(".check").each(function () {
+            $(this).prop('checked', false);
+        });
+    }
+}
 
 function CambiarEstadoPostulacion(una_postulacion) { 
 
