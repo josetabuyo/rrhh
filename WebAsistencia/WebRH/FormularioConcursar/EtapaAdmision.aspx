@@ -23,7 +23,7 @@
                 <div class="grupo_campos nueva_linea">
                     <div class="grupo_campos">
                         <label for="txt_comite">Comité:&nbsp;</label>
-                        <input type="text" id="id_comite" style="width: 50px;" data-validar="esNumeroNatural" onblur="HabilitarBuscarComite()" />
+                        <input type="text" id="id_comite" style="width: 50px;" data-validar="esNumeroNatural" />
                     </div>
                     <div class="grupo_campos">
                         <label for="txt_perfil">Perfil:&nbsp;</label>
@@ -68,6 +68,11 @@
     Backend.start(function () {
         $(document).ready(function () {
             $('#search').hide();
+
+            $('#id_comite').change(function () {
+                PantallaEtapaDeAdmision.HabilitarBuscarComite();
+            });
+
             //var postulacion = JSON.parse($('#postulacion').val());
 
             //            var btn = $("#btn_buscar_postulacion");
