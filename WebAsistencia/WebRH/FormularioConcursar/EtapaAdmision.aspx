@@ -23,15 +23,15 @@
                 <div class="grupo_campos nueva_linea">
                     <div class="grupo_campos">
                         <label for="txt_comite">Comité:&nbsp;</label>
-                        <input type="text" id="id_comite" style="width: 50px;" data-validar="esNumeroNatural" onblur="HabilitarBuscarComite()" />
+                        <input type="text" id="id_comite" style="width: 50px;" data-validar="esNumeroNatural" />
                     </div>
                     <div class="grupo_campos">
                         <label for="txt_perfil">Perfil:&nbsp;</label>
-                        <input type="text" id="id_perfil" style="margin-bottom: 0px;" data-validar="esNoBlanco" disabled="disabled" />
+                        <select id="id_perfil" style="margin-bottom: 0px;"  disabled="disabled"> </select>
                     </div>
-                    <div class="grupo_campos">
+                    <%--<div class="grupo_campos">
                         <input type="button" id="btn_filtrar" value="Filtrar" class="btn" disabled="disabled" onclick="FiltarPorComite()" />
-                    </div>
+                    </div>--%>
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
                     <h4>Detalle del Comité Seleccionado</h4>
@@ -39,7 +39,8 @@
                     <div class="grupo_campos nueva_linea">Comité Suplente:&nbsp;</div><span id="comite_suplente"></span>
                 </div>
             </div>
-            <div>
+            <div id="contenedorTabla">
+             <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
              <table id="tabla_postulaciones" style="width:100%;"></table>
             </div>
        
@@ -66,7 +67,16 @@
 <script type="text/javascript">
     Backend.start(function () {
         $(document).ready(function () {
-            
+            $('#search').hide();
+
+            $('#id_comite').change(function () {
+                PantallaEtapaDeAdmision.HabilitarBuscarComite();
+            });
+
+            $('#id_perfil').change(function () {
+                PantallaEtapaDeAdmision.FiltrarPorPerfil();
+            });
+
             //var postulacion = JSON.parse($('#postulacion').val());
 
             //            var btn = $("#btn_buscar_postulacion");
@@ -81,6 +91,7 @@
             //            });
 
             //            EtapaAdmision.mostrarPostulacion();
+
         });
     });
 
