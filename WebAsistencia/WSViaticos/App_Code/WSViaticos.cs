@@ -2842,6 +2842,23 @@ public class WSViaticos : System.Web.Services.WebService
 
         return RepoPostulaciones().BuscarPostulacionesPorEtapas(id_comite, ConstantesConcursar.EtapaPreinscripcionDocumental).ToArray();
     }
+
+    [WebMethod]
+    public bool PasarEtapaAPostulaciones(Postulacion[] postulaciones, int id_etapa_postulacion, Usuario usuario)
+    {
+        try
+        {
+            postulaciones.ToList().ForEach(p => RepoPostulaciones().InsEtapaPostulacion(p.Id, id_etapa_postulacion, usuario.Id));
+        }
+        catch (Exception e)
+        {
+                
+            throw e;
+        }
+        
+        return true;
+        
+    }
     
 
     [WebMethod]

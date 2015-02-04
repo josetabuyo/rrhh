@@ -29,9 +29,6 @@
                         <label for="txt_perfil">Perfil:&nbsp;</label>
                         <select id="id_perfil" style="margin-bottom: 0px;"  disabled="disabled"> </select>
                     </div>
-                    <%--<div class="grupo_campos">
-                        <input type="button" id="btn_filtrar" value="Filtrar" class="btn" disabled="disabled" onclick="FiltarPorComite()" />
-                    </div>--%>
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
                     <h4>Detalle del Comité Seleccionado</h4>
@@ -42,6 +39,7 @@
             <div id="contenedorTabla">
              <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
              <table id="tabla_postulaciones" style="width:100%;"></table>
+             <input type="button" style="display:none;" class="btn btn-primary" id="btn_generar_anexo" value="Generar Anexo" />
             </div>
        
         <%--<div id="requisitos_perfil"></div>
@@ -69,6 +67,16 @@
         $(document).ready(function () {
             $('#search').hide();
 
+            var busqueda = $("#id_comite");
+
+            //HACIENDO EL KEYDOWN EN VEZ DEL KEY UP Y CON EL PREVENT DEFAULT EL ENTER NO ACTUALIZA TODA LA PAGINA
+            busqueda.keydown(function (event) {
+                if (event.which == 13) {
+                    PantallaEtapaDeAdmision.HabilitarBuscarComite();
+                    event.preventDefault();
+                }
+            });
+
             $('#id_comite').change(function () {
                 PantallaEtapaDeAdmision.HabilitarBuscarComite();
             });
@@ -77,20 +85,6 @@
                 PantallaEtapaDeAdmision.FiltrarPorPerfil();
             });
 
-            //var postulacion = JSON.parse($('#postulacion').val());
-
-            //            var btn = $("#btn_buscar_postulacion");
-            //            var busqueda = $("#txt_codigo_postulacion");
-
-            //            //HACIENDO EL KEYDOWN EN VEZ DEL KEY UP Y CON EL PREVENT DEFAULT EL ENTER NO ACTUALIZA TODA LA PAGINA
-            //            busqueda.keydown(function (event) {
-            //                if (event.which == 13) {
-            //                    btn.click();
-            //                    event.preventDefault();
-            //                }
-            //            });
-
-            //            EtapaAdmision.mostrarPostulacion();
 
         });
     });

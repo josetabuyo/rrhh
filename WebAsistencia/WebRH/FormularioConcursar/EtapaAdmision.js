@@ -73,6 +73,8 @@
         this.GrillaDePostulaciones.CargarObjetos(postulaciones);
         this.GrillaDePostulaciones.DibujarEn(divGrilla);
 
+        $("#btn_generar_anexo").attr("style", "display:inline");
+
     },
 
 

@@ -1065,6 +1065,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="PasarEtapaAPostulaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postulaciones" type="tns:ArrayOfPostulacion" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_etapa_postulacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PasarEtapaAPostulacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PasarEtapaAPostulacionesResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetPantallaRecepcionDocumentacion">
         <s:complexType>
           <s:sequence>
@@ -4695,6 +4711,12 @@
   <wsdl:message name="BuscarPostulacionesDePreInscriptosSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarPostulacionesDePreInscriptosResponse" />
   </wsdl:message>
+  <wsdl:message name="PasarEtapaAPostulacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:PasarEtapaAPostulaciones" />
+  </wsdl:message>
+  <wsdl:message name="PasarEtapaAPostulacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:PasarEtapaAPostulacionesResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPantallaRecepcionDocumentacionSoapIn">
     <wsdl:part name="parameters" element="tns:GetPantallaRecepcionDocumentacion" />
   </wsdl:message>
@@ -5888,6 +5910,10 @@
       <wsdl:input message="tns:BuscarPostulacionesDePreInscriptosSoapIn" />
       <wsdl:output message="tns:BuscarPostulacionesDePreInscriptosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="PasarEtapaAPostulaciones">
+      <wsdl:input message="tns:PasarEtapaAPostulacionesSoapIn" />
+      <wsdl:output message="tns:PasarEtapaAPostulacionesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPantallaRecepcionDocumentacion">
       <wsdl:input message="tns:GetPantallaRecepcionDocumentacionSoapIn" />
       <wsdl:output message="tns:GetPantallaRecepcionDocumentacionSoapOut" />
@@ -6932,6 +6958,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreInscriptos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PasarEtapaAPostulaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/PasarEtapaAPostulaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8843,6 +8878,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreInscriptos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PasarEtapaAPostulaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/PasarEtapaAPostulaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
