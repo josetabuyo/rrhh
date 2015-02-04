@@ -7,7 +7,7 @@
         } else {
             $('#id_perfil').prop("disabled", false);
             $('#btn_filtrar').prop("disabled", false);
-            this.BuscarPreinscriptos();
+            this.BuscarInscriptos();
         }
 
     },
@@ -15,15 +15,20 @@
     BuscarInscriptos: function () {
         var id_comite = $('#id_comite').val();
         var _this = this;
-        Backend.BuscarPostulacionesInscriptos(id_comite)
-        .onSuccess(function (resultado) {
-            //        buscar todos los titulares y seplentes del comité y listarlos - Continuar
-            $('#comite_titular').text(resultado[0].Perfil.Comite.Integrantes[0].Apellido);
+        Backend.BuscarPostulacionesDeInscriptos(id_comite)
+        .onSuccess(function (postulaciones) {
+            if (postulaciones.length == 0) {
+                alertify.alert('No se encontraron resultados');
+            } else {
+                //        buscar todos los titulares y seplentes del comité y listarlos - Continuar
+                $('#comite_titular').text(postulaciones[0].Perfil.Comite.Integrantes[0].Apellido);
 
-            _this.DibujarTabla(resultado);
-            _this.BuscadorDeTabla();
-            _this.CargarComboPerfiles(resultado);
+                _this.DibujarTabla(postulaciones);
+                _this.BuscadorDeTabla();
+                _this.CargarComboPerfiles(postulaciones);
 
+            }
+            _this.postulaciones = postulaciones;
         });
     },
 
@@ -71,7 +76,20 @@
     },
 
 
-    FiltarPorComite: function () {
+    FiltrarPorPerfil: function () {
+        var postulaciones = this.postulaciones;
+        var postulaciones_filtradas = [];
+        if ($('#id_perfil').val() === "Todos") {
+            postulaciones_filtradas = this.postulaciones;
+        } else {
+            for (var i = 0; i < postulaciones.length; i++) {
+                if ((postulaciones[i].Perfil.Numero + " - " + postulaciones[i].Perfil.Denominacion).replace(/\s/g, '') === $('#id_perfil').val().replace(/\s/g, '')) {
+                    postulaciones_filtradas.push(postulaciones[i]);
+                }
+            }
+        }
+
+        this.DibujarTabla(postulaciones_filtradas);
 
     },
 

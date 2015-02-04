@@ -29,9 +29,9 @@
                         <label for="txt_perfil">Perfil:&nbsp;</label>
                         <select id="id_perfil" style="margin-bottom: 0px;"  disabled="disabled"> </select>
                     </div>
-                    <div class="grupo_campos">
+                    <%--<div class="grupo_campos">
                         <input type="button" id="btn_filtrar" value="Filtrar" class="btn" disabled="disabled" onclick="FiltarPorComite()" />
-                    </div>
+                    </div>--%>
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
                     <h4>Detalle del Comité Seleccionado</h4>
@@ -71,6 +71,10 @@
 
             $('#id_comite').change(function () {
                 PantallaEtapaDeAdmision.HabilitarBuscarComite();
+            });
+
+            $('#id_perfil').change(function () {
+                PantallaEtapaDeAdmision.FiltrarPorPerfil();
             });
 
             //var postulacion = JSON.parse($('#postulacion').val());

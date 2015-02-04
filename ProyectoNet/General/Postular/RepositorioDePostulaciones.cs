@@ -244,20 +244,12 @@ namespace General
             conexion_bd.EjecutarSinResultado("dbo.CV_Ins_EtapaPostulación", parametros);
         }
 
-        public List<Postulacion> BuscarPostulacionesDePreinscriptos(int id_comite)
+        public List<Postulacion> BuscarPostulacionesPorEtapas(int id_comite, EtapaConcurso etapa)
         {
             List<Postulacion> postulaciones_buscadas = new List<Postulacion>();
-            List<Postulacion> postulaciones = GetPostulacionesPorComite(id_comite);
-            postulaciones_buscadas = FiltrarPostulacionesPorEstado(ConstantesConcursar.EtapaPreinscripcion, postulaciones);
+            postulaciones_buscadas = GetPostulacionesPorComite(id_comite).FindAll(p => p.EtapaEn(DateTime.Today).Etapa.Id == etapa.Id);
             return postulaciones_buscadas;
         }
 
-
-        public List<Postulacion> FiltrarPostulacionesPorEstado(EtapaConcurso etapa_buscada, List<Postulacion> postulaciones)
-        {
-            List<Postulacion> postulaciones_buscadas = new List<Postulacion>();
-            postulaciones_buscadas = postulaciones.FindAll(p => p.EtapaEn(DateTime.Today).Etapa.Id == etapa_buscada.Id);
-            return postulaciones_buscadas;
-        }      
     }
 }

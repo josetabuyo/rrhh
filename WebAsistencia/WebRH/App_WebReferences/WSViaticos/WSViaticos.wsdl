@@ -1032,17 +1032,17 @@
           <s:element minOccurs="1" maxOccurs="1" name="IdTabla" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:element name="BuscarPostulacionesDePreinscriptos">
+      <s:element name="BuscarPostulacionesDeInscriptos">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_comite" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="BuscarPostulacionesDePreinscriptosResponse">
+      <s:element name="BuscarPostulacionesDeInscriptosResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarPostulacionesDePreinscriptosResult" type="tns:ArrayOfPostulacion" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarPostulacionesDeInscriptosResult" type="tns:ArrayOfPostulacion" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1051,6 +1051,20 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
         </s:sequence>
       </s:complexType>
+      <s:element name="BuscarPostulacionesDePreInscriptos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_comite" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarPostulacionesDePreInscriptosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarPostulacionesDePreInscriptosResult" type="tns:ArrayOfPostulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetPantallaRecepcionDocumentacion">
         <s:complexType>
           <s:sequence>
@@ -1099,6 +1113,7 @@
       <s:element name="GuardarDocumentacionRecibida">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_postulacion" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="lista_doc_recibida" type="tns:ArrayOfDocumentacionRecibida" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
@@ -4668,11 +4683,17 @@
   <wsdl:message name="GetPostulacionByIdSoapOut">
     <wsdl:part name="parameters" element="tns:GetPostulacionByIdResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarPostulacionesDePreinscriptosSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDePreinscriptos" />
+  <wsdl:message name="BuscarPostulacionesDeInscriptosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDeInscriptos" />
   </wsdl:message>
-  <wsdl:message name="BuscarPostulacionesDePreinscriptosSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDePreinscriptosResponse" />
+  <wsdl:message name="BuscarPostulacionesDeInscriptosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDeInscriptosResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarPostulacionesDePreInscriptosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDePreInscriptos" />
+  </wsdl:message>
+  <wsdl:message name="BuscarPostulacionesDePreInscriptosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDePreInscriptosResponse" />
   </wsdl:message>
   <wsdl:message name="GetPantallaRecepcionDocumentacionSoapIn">
     <wsdl:part name="parameters" element="tns:GetPantallaRecepcionDocumentacion" />
@@ -5859,9 +5880,13 @@
       <wsdl:input message="tns:GetPostulacionByIdSoapIn" />
       <wsdl:output message="tns:GetPostulacionByIdSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarPostulacionesDePreinscriptos">
-      <wsdl:input message="tns:BuscarPostulacionesDePreinscriptosSoapIn" />
-      <wsdl:output message="tns:BuscarPostulacionesDePreinscriptosSoapOut" />
+    <wsdl:operation name="BuscarPostulacionesDeInscriptos">
+      <wsdl:input message="tns:BuscarPostulacionesDeInscriptosSoapIn" />
+      <wsdl:output message="tns:BuscarPostulacionesDeInscriptosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
+      <wsdl:input message="tns:BuscarPostulacionesDePreInscriptosSoapIn" />
+      <wsdl:output message="tns:BuscarPostulacionesDePreInscriptosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPantallaRecepcionDocumentacion">
       <wsdl:input message="tns:GetPantallaRecepcionDocumentacionSoapIn" />
@@ -6896,8 +6921,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarPostulacionesDePreinscriptos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreinscriptos" style="document" />
+    <wsdl:operation name="BuscarPostulacionesDeInscriptos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDeInscriptos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreInscriptos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8798,8 +8832,17 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarPostulacionesDePreinscriptos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreinscriptos" style="document" />
+    <wsdl:operation name="BuscarPostulacionesDeInscriptos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDeInscriptos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreInscriptos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

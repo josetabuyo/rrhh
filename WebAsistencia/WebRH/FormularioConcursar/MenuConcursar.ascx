@@ -18,8 +18,9 @@
                         <li RequiereFuncionalidad="14" style="cursor:pointer;" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" runat="server">Administración</a>
                             <ul id="subMenu_administracion" runat="server" class="dropdown-menu">
                                 <li RequiereFuncionalidad="14" class="dropdown"><a  href="EtapasPostulacion.aspx" runat="server">Cambiar Etapas de Postulaciones</a></li>
-                                <li RequiereFuncionalidad="15" class="dropdown"><a  href="EtapaInscripcionDocumental.aspx"  runat="server">Foliar Postulacion</a></li>
-                                <li RequiereFuncionalidad="16" class="dropdown"><a  href="EtapaAdmision.aspx" runat="server">Etapa de Admisión</a></li>
+                                <li RequiereFuncionalidad="15" class="dropdown"><a  href="EtapaPreInscripcionDocumental.aspx"  runat="server">Preinscripción documental</a></li>
+                                <li RequiereFuncionalidad="16" class="dropdown"><a  href="EtapaInscripcionDocumental.aspx"  runat="server">Inscripción documental</a></li>
+                                <li RequiereFuncionalidad="17" class="dropdown"><a  href="EtapaAdmision.aspx" runat="server">Etapa de Admisión</a></li>
                             </ul>
                         
                         </li>
