@@ -10,16 +10,40 @@
     this.objetosCargados = [];
     this.callbacks_change = [];
 
-    this.select.select2({
+    var opciones_select2 = {
         placeholder: this.placeHolder || 'seleccione',
         allowClear: true,
-        width: 'resolve',
-        formatNoMatches: function (str_ingresado) {
+        width: 'resolve'
+    };
 
+    if (this.permiteAgregar) {
+        opciones_select2.formatNoMatches = function (str_ingresado) {
+            if (!_this.nombre_funcion_global_agregado) _this.nombre_funcion_global_agregado = _this.nombreFuncionRandom();
+            window[_this.nombre_funcion_global_agregado] = function () {
+                alertify.confirm("¿Está seguro que desea agregar el elemento: " + str_ingresado + "?",
+                    function (respuesta) {
+                        Repositorio.agregar(_this.dataProvider, str_ingresado, function (objeto) {
+                            _this.objetosCargados.push(objeto);
+                            var option = $("<option value='" + objeto[_this.propiedadId] + "'>" + objeto[_this.propiedadLabel] + "</option>");
+                            _this.select.append(option);
+                            _this.idSeleccionado(objeto.Id);
+                            window[_this.nombre_funcion_global_agregado] = undefined;
+                            _this.select.select2("close");
+                        });
+                        alertify.success('Elemento agregado');
+                    },
+                    function () {
+                        _this.select.select2("close");
+                    }
+                );
+                
+            };
             return "No se encontraron coincidencias para: <b>" + str_ingresado +
-            "<button style='float:right' class='btn btn-primary' onclick=> Agregar</button>";
+            "<button style='float:right' class='btn btn-primary' onclick='" + _this.nombre_funcion_global_agregado + "();'> Agregar</button>";
         }
-    });
+    }
+
+    this.select.select2(opciones_select2);
 
     this.select.on("change", function (e) {
         var val_en_combo = _this.select.select2("val");
@@ -37,6 +61,16 @@
     } else {
         this.cargarComboDesdeOpciones();
     }
+};
+
+ComboConBusquedaYAgregado.prototype.nombreFuncionRandom = function () {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 10; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
 };
 
 ComboConBusquedaYAgregado.prototype.idSeleccionado = function (id_seleccionado) {

@@ -36,7 +36,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    niveles.Add(new CVInstitucionesEventos(row.GetSmallintAsInt("Id"), row.GetString("Descripcion")));
+                    niveles.Add(new CVInstitucionesEventos(row.GetSmallintAsInt("Id"), row.GetString("Descripcion"), row.GetInt("SoloVisiblePara", -1)));
                 });
             }
 
@@ -45,8 +45,12 @@ namespace General.Repositorios
 
         protected override void GuardarEnLaBase(CVInstitucionesEventos objeto)
         {
-            throw new NotImplementedException();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@descripcion", objeto.Descripcion);
+            parametros.Add("@solo_visible_para", objeto.SoloVisiblePara);
+            objeto.Id =Convert.ToInt32(conexion.EjecutarEscalar("dbo.CV_AgregarInstitucionEvento", parametros));
         }
+
 
         protected override void QuitarDeLaBase(CVInstitucionesEventos objeto)
         {
