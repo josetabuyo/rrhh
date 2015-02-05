@@ -424,7 +424,7 @@
       <s:element name="EliminarCvActividadCapacitacion">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_actividad" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="actividad" type="tns:CvCertificadoDeCapacitacion" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -469,7 +469,7 @@
       <s:element name="EliminarCvActividadDocente">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="actividades_docentes_a_borrar" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="actividades_docentes_a_borrar" type="tns:CvDocencia" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -514,7 +514,7 @@
       <s:element name="EliminarCvEventosAcademicos">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_evento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="evento" type="tns:CvEventoAcademico" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -634,7 +634,7 @@
       <s:element name="EliminarCvPublicacionesTrabajos">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="publicaciones_trabajos_a_borrar" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="publicaciones_trabajos_a_borrar" type="tns:CvPublicaciones" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -679,7 +679,7 @@
       <s:element name="EliminarCvMatricula">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_matricula" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_matricula" type="tns:CvMatricula" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -724,7 +724,7 @@
       <s:element name="EliminarCvInstitucionAcademica">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_competencia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_competencia" type="tns:CvInstitucionesAcademicas" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -769,7 +769,7 @@
       <s:element name="EliminarCvExperienciaLaboral">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_experiencia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_experiencia" type="tns:CvExperienciaLaboral" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -814,7 +814,7 @@
       <s:element name="EliminarCvIdiomaExtranjero">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_capacidad" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_capacidad" type="tns:CvIdiomas" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -859,7 +859,7 @@
       <s:element name="EliminarCvCompetenciaInformatica">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_competencia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_competencia" type="tns:CvCompetenciasInformaticas" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -904,7 +904,7 @@
       <s:element name="EliminarCvOtraCapacidad">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_capacidad" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_capacidad" type="tns:CvCapacidadPersonal" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>

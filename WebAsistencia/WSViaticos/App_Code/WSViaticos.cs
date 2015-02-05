@@ -2586,9 +2586,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvActividadCapacitacion(int id_actividad, Usuario usuario)
+    public bool EliminarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvActividadCapacitacion(id_actividad, usuario);
+        return RepoCurriculum().EliminarCV(actividad, usuario);
     }
     #endregion
 
@@ -2606,9 +2606,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvActividadDocente(int actividades_docentes_a_borrar, Usuario usuario)
+    public bool EliminarCvActividadDocente(CvDocencia actividades_docentes_a_borrar, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvActividadDocente(actividades_docentes_a_borrar, usuario);
+        return RepoCurriculum().EliminarCV(actividades_docentes_a_borrar, usuario);
     }
 
     #endregion
@@ -2627,9 +2627,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvEventosAcademicos(int id_evento, Usuario usuario)
+    public bool EliminarCvEventosAcademicos(CvEventoAcademico evento, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvEventosAcademicos(id_evento, usuario);
+        return RepoCurriculum().EliminarCV(evento, usuario);
     }
 
 
@@ -2670,9 +2670,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvPublicacionesTrabajos(int publicaciones_trabajos_a_borrar, Usuario usuario)
+    public bool EliminarCvPublicacionesTrabajos(CvPublicaciones publicaciones_trabajos_a_borrar, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvPublicacionesTrabajos(publicaciones_trabajos_a_borrar, usuario);
+        return RepoCurriculum().EliminarCV(publicaciones_trabajos_a_borrar, usuario);
     }
 
     #endregion
@@ -2691,9 +2691,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvMatricula(int id_matricula, Usuario usuario)
+    public bool EliminarCvMatricula(CvMatricula id_matricula, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvMatricula(id_matricula, usuario);
+        return RepoCurriculum().EliminarCV(id_matricula, usuario);
     }
     #endregion
 
@@ -2711,9 +2711,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvInstitucionAcademica(int id_competencia, Usuario usuario)
+    public bool EliminarCvInstitucionAcademica(CvInstitucionesAcademicas id_competencia, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvInstitucionAcademica(id_competencia, usuario);
+        return RepoCurriculum().EliminarCV(id_competencia, usuario);
     }
     #endregion
 
@@ -2731,9 +2731,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvExperienciaLaboral(int id_experiencia, Usuario usuario)
+    public bool EliminarCvExperienciaLaboral(CvExperienciaLaboral id_experiencia, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvExperienciaLaboral(id_experiencia, usuario);
+        return RepoCurriculum().EliminarCV(id_experiencia, usuario);
     }
 
     #endregion
@@ -2753,9 +2753,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvIdiomaExtranjero(int id_capacidad, Usuario usuario)
+    public bool EliminarCvIdiomaExtranjero(CvIdiomas id_capacidad, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvIdiomaExtranjero(id_capacidad, usuario);
+        return RepoCurriculum().EliminarCV(id_capacidad, usuario);
     }
 
 
@@ -2775,9 +2775,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvCompetenciaInformatica(int id_competencia, Usuario usuario)
+    public bool EliminarCvCompetenciaInformatica(CvCompetenciasInformaticas id_competencia, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvCompetenciaInformatica(id_competencia, usuario);
+        return RepoCurriculum().EliminarCV(id_competencia, usuario);
     }
 
     #endregion
@@ -2797,9 +2797,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool EliminarCvOtraCapacidad(int id_capacidad, Usuario usuario)
+    public bool EliminarCvOtraCapacidad(CvCapacidadPersonal id_capacidad, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCvOtraCapacidad(id_capacidad, usuario);
+        return RepoCurriculum().EliminarCV(id_capacidad, usuario);
     }
     #endregion
 

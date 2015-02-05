@@ -77,7 +77,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la experiencia laboral?", function (e) {
             if (e) {
-                Backend.EliminarCvExperienciaLaboral(una_experiencia.Id)
+                Backend.EliminarCvExperienciaLaboral(una_experiencia)
                     .onSuccess(function (respuesta) {
                         alertify.success("Experiencia eliminada correctamente");
                         _this.GrillaExperiencias.QuitarObjeto(_this.divGrilla, una_experiencia);

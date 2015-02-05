@@ -668,7 +668,7 @@ namespace General.Repositorios
             return GuardarItemCV(item_nuevo, usuario, param_iniciales);
         }
 
-        public bool EliminarCV(CvEstudios antecedente, Usuario usuario)
+        public bool EliminarCV(ItemCv antecedente, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
 
