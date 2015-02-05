@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.MAU;
+using General.Repositorios;
 
 namespace General
 {
@@ -36,6 +38,28 @@ namespace General
             this._disponeCopia = disponeCopia;
             this._disponeAdjunto = disponeAdjunto;
             this._fechaPublicacion = fechaPublicacion;
+        }
+
+        override public void validarDatos()
+        {
+            var validador_publicacion = new Validador();
+
+            validador_publicacion.DeberianSerNoVacias(new string[] { "Titulo", "CantidadHojas", "DatosEditorial", });
+            validador_publicacion.DeberianSerFechasNoVacias(new string[] { "FechaPublicacion" });
+            validador_publicacion.DeberianSerNaturalesOCero(new string[] { "DisponeAdjunto", "DisponeCopia" });
+
+            if (!validador_publicacion.EsValido(this))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        override public Dictionary<string, object> Parametros(Usuario usuario, RepositorioDeCurriculum repo)
+        {
+            return repo.ParametrosDePublicaciones(this, usuario);
+        }
+
+        override public string SpInsercion(RepositorioDeCurriculum repo)
+        {
+            return repo.SPPubliaciones();
         }
     }
 }

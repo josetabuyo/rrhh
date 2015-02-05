@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.MAU;
+using General.Repositorios;
 
 namespace General
 {
@@ -49,6 +51,28 @@ namespace General
             //this._fechaFin = fechaFin;
             this._localidad = localidad;
             this._pais = pais;
+        }
+
+        override public void validarDatos()
+        {
+            var validador_idioma = new Validador();
+
+            validador_idioma.DeberianSerNoVacias(new string[] { "Diploma", "Idioma", "Establecimiento", "Localidad" });
+            validador_idioma.DeberianSerFechasNoVacias(new string[] { "FechaObtencion" });
+            validador_idioma.DeberianSerNaturalesOCero(new string[] { "Lectura", "Escritura", "Oral", "Pais" });
+
+            if (!validador_idioma.EsValido(this))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        override public Dictionary<string, object> Parametros(Usuario usuario, RepositorioDeCurriculum repo)
+        {
+            return repo.ParametrosDelIdioma(this, usuario);
+        }
+
+        override public string SpInsercion(RepositorioDeCurriculum repo)
+        {
+            return repo.SPIdiomas();
         }
     }
 }

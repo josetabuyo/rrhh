@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using General.Postular;
+using General.MAU;
+using General.Repositorios;
 
 namespace General
 {
@@ -47,6 +49,28 @@ namespace General
 
         public CvCompetenciasInformaticas()
         {
+        }
+
+        override public void validarDatos()
+        {
+            var validador_competencia = new Validador();
+
+            validador_competencia.DeberianSerNoVacias(new string[] { "Diploma", "Detalle", "Establecimiento", "Localidad" });
+            validador_competencia.DeberianSerFechasNoVacias(new string[] { "FechaObtencion" });
+            validador_competencia.DeberianSerNaturalesOCero(new string[] { "TipoInformatica", "Conocimiento", "Nivel", "Pais" });
+
+            if (!validador_competencia.EsValido(this))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        override public Dictionary<string, object> Parametros(Usuario usuario, RepositorioDeCurriculum repo)
+        {
+            return repo.ParametrosDeCompetenciasInformaticas(this, usuario);
+        }
+
+        override public string SpInsercion(RepositorioDeCurriculum repo)
+        {
+            return repo.SPCompetenciasInformaticas();
         }
     }
 }

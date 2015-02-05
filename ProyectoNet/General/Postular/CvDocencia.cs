@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using General.Repositorios;
+using General.MAU;
 
 namespace General
 {
@@ -87,5 +88,26 @@ namespace General
             return this._id.GetHashCode();
         }
 
+        override public void validarDatos()
+        {
+            var validador_docencias = new Validador();
+
+            validador_docencias.DeberianSerNoVacias(new string[] { "Asignatura", "CategoriaDocente", "DedicacionDocente", "CargaHoraria", "TipoActividad", "Establecimiento", "Localidad" });
+            validador_docencias.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
+            validador_docencias.DeberianSerNaturalesOCero(new string[] { "NivelEducativo", "Pais" });
+
+            if (!validador_docencias.EsValido(this))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        override public Dictionary<string, object> Parametros(Usuario usuario, RepositorioDeCurriculum repo)
+        {
+            return repo.ParametrosDeAntecedentesDocencia(this, usuario);
+        }
+
+        override public string SpInsercion(RepositorioDeCurriculum repo)
+        {
+            return repo.SpDocencia();
+        }
     }
 }

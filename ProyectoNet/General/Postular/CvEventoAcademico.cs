@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.MAU;
+using General.Repositorios;
 
 namespace General
 {
@@ -53,6 +55,28 @@ namespace General
 
         public CvEventoAcademico()
         {
+        }
+
+        override public void validarDatos()
+        {
+            var validador_evento = new Validador();
+
+            validador_evento.DeberianSerNoVacias(new string[] { "Denominacion", "Duracion", "Localidad" });
+            validador_evento.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
+            validador_evento.DeberianSerNaturalesOCero(new string[] { "Pais", "CaracterDeParticipacion", "TipoDeEvento", "Institucion" });
+
+            if (!validador_evento.EsValido(this))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        override public Dictionary<string, object> Parametros(Usuario usuario, RepositorioDeCurriculum repo)
+        {
+            return repo.ParametrosDeEventosAcademicos(this, usuario);
+        }
+
+        override public string SpInsercion(RepositorioDeCurriculum repo)
+        {
+            return repo.SPEventosAcademicos();
         }
     }
 

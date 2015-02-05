@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.MAU;
+using General.Repositorios;
 
 namespace General
 {
@@ -53,6 +55,28 @@ namespace General
 
         public CvInstitucionesAcademicas()
         {
+        }
+
+        override public void validarDatos()
+        {
+            var validador_institucion = new Validador();
+
+            validador_institucion.DeberianSerNoVacias(new string[] { "Institucion", "CaracterEntidad", "CargosDesempeniados", "NumeroAfiliado", "CategoriaActual", "Localidad" });
+            validador_institucion.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFin", "FechaDeAfiliacion", "Fecha" });
+            validador_institucion.DeberianSerNaturalesOCero(new string[] { "Pais" });
+
+            if (!validador_institucion.EsValido(this))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        override public Dictionary<string, object> Parametros(Usuario usuario, RepositorioDeCurriculum repo)
+        {
+            return repo.ParametrosDeInstituciones(this, usuario);
+        }
+
+        override public string SpInsercion(RepositorioDeCurriculum repo)
+        {
+            return repo.SPInstituciones();
         }
     }
 }

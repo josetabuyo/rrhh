@@ -2556,19 +2556,19 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvEstudios GuardarCvAntecedenteAcademico(CvEstudios antecedentesAcademicos_nuevo,  Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+        return (CvEstudios)RepoCurriculum().GuardarItemCV(antecedentesAcademicos_nuevo, usuario);
     }
 
     [WebMethod]
     public CvEstudios ActualizarCvAntecedenteAcademico(CvEstudios antecedentesAcademicos_nuevo,  Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+        return (CvEstudios)RepoCurriculum().ActualizarCv(antecedentesAcademicos_nuevo, usuario);
     }
 
     [WebMethod]
     public bool EliminarCvAntecedenteAcademico(CvEstudios antecedente_a_borrar, Usuario usuario)
     {
-        return RepoCurriculum().EliminarCVAntecedentesAcademicos(antecedente_a_borrar, usuario);
+        return RepoCurriculum().EliminarCV(antecedente_a_borrar, usuario);
     }
     #endregion
 
@@ -2576,13 +2576,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvCertificadoDeCapacitacion GuardarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_capacitacion, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvActividadCapacitacion(actividad_capacitacion, usuario);
+        return (CvCertificadoDeCapacitacion)RepoCurriculum().GuardarItemCV(actividad_capacitacion, usuario);
     }
 
     [WebMethod]
     public CvCertificadoDeCapacitacion ActualizarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_capacitacion, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvActividadCapacitacion(actividad_capacitacion, usuario);
+        return (CvCertificadoDeCapacitacion)RepoCurriculum().ActualizarCv(actividad_capacitacion, usuario);
     }
 
     [WebMethod]
@@ -2596,14 +2596,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvDocencia GuardarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvActividadDocente(docencia_nuevo, usuario);
-
+        return (CvDocencia)RepoCurriculum().GuardarItemCV(docencia_nuevo, usuario);
     }
 
     [WebMethod]
     public CvDocencia ActualizarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvActividadDocente(docencia_nuevo, usuario);
+        return (CvDocencia)RepoCurriculum().ActualizarCv(docencia_nuevo, usuario);
     }
 
     [WebMethod]
@@ -2618,13 +2617,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvEventoAcademico GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvEventoAcademico(eventoAcademico_nuevo, usuario);
+        return (CvEventoAcademico)RepoCurriculum().GuardarItemCV(eventoAcademico_nuevo, usuario);
     }
 
     [WebMethod]
     public CvEventoAcademico ActualizarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvEventoAcademico(eventoAcademico_nuevo, usuario);
+        return (CvEventoAcademico)RepoCurriculum().ActualizarCv(eventoAcademico_nuevo, usuario);
     }
 
     [WebMethod]
@@ -2661,13 +2660,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvPublicaciones GuardarCvPublicacionesTrabajos(CvPublicaciones publicaciones_nuevas, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvPublicacionesTrabajos(publicaciones_nuevas, usuario);
+        return (CvPublicaciones)RepoCurriculum().GuardarItemCV(publicaciones_nuevas, usuario);
     }
 
     [WebMethod]
     public CvPublicaciones ActualizarCvPublicaciones(CvPublicaciones publicacion_nueva, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvPublicaciones(publicacion_nueva, usuario);
+        return (CvPublicaciones)RepoCurriculum().ActualizarCv(publicacion_nueva, usuario);
     }
 
     [WebMethod]
@@ -2682,13 +2681,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvMatricula GuardarCvMatricula(CvMatricula matricula, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvMatricula(matricula, usuario);
+        return (CvMatricula)RepoCurriculum().GuardarItemCV(matricula, usuario);
     }
 
     [WebMethod]
     public CvMatricula ActualizarCvMatricula(CvMatricula matricula, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvMatricula(matricula, usuario);
+        return (CvMatricula)RepoCurriculum().ActualizarCv(matricula, usuario);
     }
 
     [WebMethod]
@@ -2702,13 +2701,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvInstitucionesAcademicas GuardarCvInstitucionAcademica(CvInstitucionesAcademicas competencia_informatica, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvInstitucionAcademica(competencia_informatica, usuario);
+        return (CvInstitucionesAcademicas)RepoCurriculum().GuardarItemCV(competencia_informatica, usuario);
     }
 
     [WebMethod]
     public CvInstitucionesAcademicas ActualizarCvInstitucionAcademica(CvInstitucionesAcademicas competencia_informatica, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvInstitucionAcademica(competencia_informatica, usuario);
+        return (CvInstitucionesAcademicas)RepoCurriculum().ActualizarCv(competencia_informatica, usuario);
     }
 
     [WebMethod]
@@ -2722,13 +2721,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvExperienciaLaboral GuardarCvExperienciaLaboral(CvExperienciaLaboral experiencia, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvExperienciaLaboral(experiencia, usuario);
+        return (CvExperienciaLaboral)RepoCurriculum().GuardarItemCV(experiencia, usuario);
     }
 
     [WebMethod]
     public CvExperienciaLaboral ActualizarCvExperienciaLaboral(CvExperienciaLaboral experiencia, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvExperienciaLaboral(experiencia, usuario);
+        return (CvExperienciaLaboral)RepoCurriculum().ActualizarCv(experiencia, usuario);
     }
 
     [WebMethod]
@@ -2744,13 +2743,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvIdiomas GuardarCvIdiomaExtranjero(CvIdiomas idioma_extranjero, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvIdiomaExtranjero(idioma_extranjero, usuario);
+        return (CvIdiomas)RepoCurriculum().GuardarItemCV(idioma_extranjero, usuario);
     }
 
     [WebMethod]
     public CvIdiomas ActualizarCvIdiomaExtranjero(CvIdiomas idioma_extranjero, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvIdiomaExtranjero(idioma_extranjero, usuario);
+        return (CvIdiomas)RepoCurriculum().ActualizarCv(idioma_extranjero, usuario);
     }
 
     [WebMethod]
@@ -2766,13 +2765,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvCompetenciasInformaticas GuardarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia_informatica, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvCompetenciaInformatica(competencia_informatica, usuario);
+        return (CvCompetenciasInformaticas)RepoCurriculum().GuardarItemCV(competencia_informatica, usuario);
     }
 
     [WebMethod]
     public CvCompetenciasInformaticas ActualizarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia_informatica, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvCompetenciaInformatica(competencia_informatica, usuario);
+        return (CvCompetenciasInformaticas)RepoCurriculum().ActualizarCv(competencia_informatica, usuario);
     }
 
     [WebMethod]
@@ -2788,13 +2787,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvCapacidadPersonal GuardarCvOtraCapacidad(CvCapacidadPersonal capacidad_personal, Usuario usuario)
     {
-        return RepoCurriculum().GuardarCvOtraCapacidad(capacidad_personal, usuario);
+        return (CvCapacidadPersonal)RepoCurriculum().GuardarItemCV(capacidad_personal, usuario);
     }
 
     [WebMethod]
     public CvCapacidadPersonal ActualizarCvOtraCapacidad(CvCapacidadPersonal capacidad_personal, Usuario usuario)
     {
-        return RepoCurriculum().ActualizarCvOtraCapacidad(capacidad_personal, usuario);
+        return (CvCapacidadPersonal)RepoCurriculum().ActualizarCv(capacidad_personal, usuario);
     }
 
     [WebMethod]

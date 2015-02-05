@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.MAU;
+using General.Repositorios;
 
 namespace General.Postular
 {
@@ -21,10 +23,5 @@ namespace General.Postular
             this.Descripcion = descripcion;
             this.Tipo = tipo;
         }
-
-
-
-
-
     }
 }

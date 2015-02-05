@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.Repositorios;
+using General.MAU;
 
 namespace General
 {
@@ -30,6 +32,27 @@ namespace General
 
         public CvMatricula()
         {
+        }
+
+        override public void validarDatos()
+        {
+            var validador_matricula = new Validador();
+
+            validador_matricula.DeberianSerNoVacias(new string[] { "Numero", "ExpedidaPor", "SituacionActual" });
+            validador_matricula.DeberianSerFechasNoVacias(new string[] { "FechaInscripcion" });
+
+            if (!validador_matricula.EsValido(this))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        override public Dictionary<string, object> Parametros(Usuario usuario, RepositorioDeCurriculum repo)
+        {
+            return repo.ParametrosDeMatricula(this, usuario);
+        }
+
+        override public string SpInsercion(RepositorioDeCurriculum repo)
+        {
+            return repo.SPMatriculas();
         }
     }
 }

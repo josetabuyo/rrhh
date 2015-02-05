@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.MAU;
+using General.Repositorios;
 
 namespace General
 {
@@ -18,5 +20,20 @@ namespace General
         }
 
         public ItemCv() { }
+
+        public virtual Dictionary<string, object> Parametros(Usuario usuario, RepositorioDeCurriculum repo) {
+            
+            throw new Exception("Responsabilidad de la subclase");
+        }
+
+        public virtual void validarDatos()
+        {
+            throw new Exception("Responsabilidad de la subclase");
+        }
+
+        public virtual string SpInsercion(RepositorioDeCurriculum repo)
+        {
+            throw new Exception("Responsabilidad de la subclase");
+        }
     }
 }

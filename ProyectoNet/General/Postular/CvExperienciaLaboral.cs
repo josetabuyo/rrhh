@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using General.Repositorios;
 using General.Postular;
+using General.MAU;
 
 namespace General
 {
@@ -58,6 +59,27 @@ namespace General
             this._ambitoLaboral = AmbitoLaboral;
         }
 
+        override public void validarDatos()
+        {
+            var validador_experiencia = new Validador();
 
+            validador_experiencia.DeberianSerNoVacias(new string[] { "PuestoOcupado", "Actividad", "NombreEmpleador", "TipoEmpresa", "Sector", "Localidad" });
+            validador_experiencia.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFin" });
+            validador_experiencia.DeberianSerNaturalesOCero(new string[] { "Pais" });
+            validador_experiencia.DeberianSerNaturalesOCero(new string[] { "PersonasACargo" });
+
+            if (!validador_experiencia.EsValido(this))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        override public Dictionary<string, object> Parametros(Usuario usuario, RepositorioDeCurriculum repo)
+        {
+            return repo.ParametrosDeExperiencias(this, usuario);
+        }
+
+        override public string SpInsercion(RepositorioDeCurriculum repo)
+        {
+            return repo.SPExperienciasLaborales();
+        }
     }
 }

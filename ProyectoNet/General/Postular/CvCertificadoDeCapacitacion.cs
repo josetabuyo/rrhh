@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.Repositorios;
+using General.MAU;
 
 namespace General
 {
@@ -42,6 +44,28 @@ namespace General
 
         public CvCertificadoDeCapacitacion()
         {
+        }
+
+        override public void validarDatos()
+        {
+            var validador_actividad = new Validador();
+
+            validador_actividad.DeberianSerNoVacias(new string[] { "DiplomaDeCertificacion", "Especialidad", "Duracion", "Establecimiento", "Localidad" });
+            validador_actividad.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
+            validador_actividad.DeberianSerNaturalesOCero(new string[] { "Pais" });
+
+            if (!validador_actividad.EsValido(this))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        override public Dictionary<string, object> Parametros(Usuario usuario, RepositorioDeCurriculum repo)
+        {
+            return repo.ParametrosDeActividadesDeCapacitacion(this, usuario);
+        }
+
+        override public string SpInsercion(RepositorioDeCurriculum repo)
+        {
+            return repo.SpActividadesCapacitacion();
         }
     }
 }
