@@ -139,7 +139,7 @@
         span_codigo.html(datos_postulacion.Numero);
         span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));
         span_perfil.html(datos_postulacion.Perfil.Denominacion);
-
+        
         var ultima_etapa = datos_postulacion.Etapas.pop();
         span_etapa.html(ultima_etapa.Etapa.Descripcion)
 

@@ -24,15 +24,15 @@
         </div>
     
     <div>
-        <label class="label_caratula">LLAMADO: </label>
+        <label class="label_caratula" >LLAMADO: <span id ="span_llamado"></span> </label>
         <br /><br />
-        <label class="label_caratula">PERFIL: </label>
+        <label class="label_caratula">PERFIL: <span id ="span_perfil"></span></label>
          <br /><br />
-        <label class="label_caratula">COMITÉ: </label>
+        <label class="label_caratula">COMITÉ: <span id ="span_comite"></span></label>
          <br /><br />
-        <label class="label_caratula">POSTULANTE: </label>
+        <label class="label_caratula">POSTULANTE: <span id ="span_postulante"></span></label>
          <br /><br />
-        <label class="label_caratula">RECEPCIONÓ: </label>
+        <label class="label_caratula">RECEPCIONÓ: <span id ="span_recepcion"></span></label>
     </div>
 
       <br /><br />
@@ -162,13 +162,19 @@
 <script type="text/javascript">
     Backend.start();
 
-    function ImprimirCVPostulado() {
-        //var html = $('#form1').context.body.innerHTML;
-        //$('#pagina').val(html);
-        //window.print();
-    }
+//    function ImprimirCVPostulado() {
+//        //var html = $('#form1').context.body.innerHTML;
+//        //$('#pagina').val(html);
+//        //window.print();
+//    }
 
     $(document).ready(function () {
+
+
+        document.getElementById("span_postulante").innerHTML = localStorage.getItem("empleado");
+        document.getElementById("span_perfil").innerHTML = localStorage.getItem("perfil");
+        document.getElementById("span_perfil").innerHTML = localStorage.getItem("perfil");
+
         window.print();
     });
 

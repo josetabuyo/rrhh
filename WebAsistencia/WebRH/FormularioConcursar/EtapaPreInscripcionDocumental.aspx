@@ -26,7 +26,7 @@
                     <label for="txt_codigo_postulacion">Postulación:&nbsp;</label>
                     <input type="text" id="txt_codigo_postulacion" style="margin-bottom: 0px;" data-validar="esNoBlanco" />
                     <input type="button" id="btn_buscar_postulacion" value="Buscar" class="btn" />
-                    <p style="font-size:smaller;">(respete mayusculas y minisculas del c&oacute;digo)</p>
+                    <p style="font-size:smaller;">(respete may&uacute;sculas y min&uacute;sculas del c&oacute;digo)</p>
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
                     <div>Empleado:&nbsp;<span id="span_empleado"></span></div>
@@ -45,7 +45,7 @@
         </fieldset>
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Guardar Documentos" />
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_comprobantes" value="Imprimir comprobantes" />
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_caratula" value="Imprimir caratula" />
+        <input type="button" style="display:none;" class="btn btn-primary" id="btn_caratula" onclick = "ImprimirCaratula()" value="Imprimir caratula" />
        </div>
     </div>
     <asp:HiddenField ID="postulacion" runat="server" />
@@ -73,8 +73,47 @@
             });
 
             EtapaPreInscripcionDocumental.mostrarPostulacion();
+                               
+
         });
+
+        
+             
+
+
     });
+
+
+    function ImprimirCaratula() {
+        alertify.confirm("¿Está seguro que desea imprimir la carátula?", function (e) {
+            if (e) {
+                // user clicked "ok"
+
+                // Store
+                localStorage.setItem("empleado", $("#span_empleado").text());
+                localStorage.setItem("perfil", $("#span_perfil").text());
+                // Retrieve
+
+
+//                Empleado: Fernando Raul CAINO
+//                Código: AAA072
+//                Fecha de Postulación: 13/1/2015
+//                Perfil: Contador Público experto en Programación y Control Presupuestario
+//                Estado: Preinscripción Documental
+
+
+
+             
+
+                window.location.href = 'Caratula.aspx';
+
+            } else {
+                // user clicked "cancel"
+                //alertify.error("");
+            }
+        });
+
+    }
 
 </script>
 
