@@ -119,11 +119,11 @@ namespace General.Repositorios
                                             FechaEgreso = dRow.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today),
                                             Localidad = dRow.GetString("AntecedentesAcademicosLocalidad", string.Empty),
                                             Pais = dRow.GetSmallintAsInt("AntecedentesAcademicosPais", 9),
-                                            AntAcadPrecedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                            Precedente = dRow.GetInt("AntAcadPrecedente", 0),
                                             Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
                                         }).Distinct().ToList();
 
-                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.AntAcadPrecedente == e.Id));
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
                 items_anonimos.RemoveAll(e => e.Baja != 0);
 
                 items_anonimos.Select(a => new CvEstudios(a.Id, a.Titulo, a.Nivel, a.Anios, a.Establecimiento,
@@ -151,12 +151,12 @@ namespace General.Repositorios
                                                   FechaFinalizacion = dRow.GetDateTime("CertificadoFechaFinalizacion", DateTime.Today),
                                                   Localidad = dRow.GetString("CertificadoLocalidad", string.Empty),
                                                   Pais = dRow.GetSmallintAsInt("CertificadoPais", 9),
-                                                  AntAcadPrecedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                                  Precedente = dRow.GetInt("CertificadoPrecedente", 0),
                                                   Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
 
                                               }).Distinct().ToList();
 
-                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.AntAcadPrecedente == e.Id));
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
                 items_anonimos.RemoveAll(e => e.Baja != 0);
 
                 items_anonimos.Select(c => new CvCertificadoDeCapacitacion(c.Id, c.Diploma, c.Establecimiento, c.Especialidad, c.Duracion,
@@ -188,11 +188,11 @@ namespace General.Repositorios
                                                  FechaFinalizacion = dRow.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", DateTime.Today),
                                                  Localidad = dRow.GetString("AntecedentesDeDocenciaLocalidad", string.Empty),
                                                  Pais = dRow.GetSmallintAsInt("AntecedentesDeDocenciaPais", 9),
-                                                 AntAcadPrecedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                                 Precedente = dRow.GetInt("AntecedentesDeDocenciaPrecedente", 0),
                                                  Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
                                              }).Distinct().ToList();
 
-                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.AntAcadPrecedente == e.Id));
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
                 items_anonimos.RemoveAll(e => e.Baja != 0);
 
                 items_anonimos.Select(d => new CvDocencia(d.Id, d.Asignatura, d.NivelEducativo, d.TipoActividad,d.CategoriaDocente,d.CaracterDesignacion,
@@ -225,11 +225,11 @@ namespace General.Repositorios
                                                 Institucion = dRow.GetInt("EventosAcademicosInstitucion", 0),
                                                 Localidad = dRow.GetString("EventosAcademicosLocalidad", string.Empty),
                                                 Pais = dRow.GetSmallintAsInt("EventosAcademicosPais", 9),
-                                                AntAcadPrecedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                                Precedente = dRow.GetInt("EventosAcademicosPrecedente", 0),
                                                 Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
                                             }).Distinct().ToList();
 
-                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.AntAcadPrecedente == e.Id));
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
                 items_anonimos.RemoveAll(e => e.Baja != 0);
 
                 items_anonimos.Select(e => new CvEventoAcademico(e.Id, e.Denominacion, e.TipoDeEvento, e.CaracterDeParticipacion,
@@ -254,10 +254,12 @@ namespace General.Repositorios
                                             Id = dRow.GetInt("CapacidadesPersonalesId", 0),
                                             Tipo = dRow.GetSmallintAsInt("CapacidadesPersonalesTipo", 0),
                                             Detalle = dRow.GetString("CapacidadesPersonalesDetalle", ""),
-                                            AntAcadPrecedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                            Precedente = dRow.GetInt("Precedente", 0),
                                             Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
                                         }).Distinct().ToList();
 
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
+                items_anonimos.RemoveAll(e => e.Baja != 0);
 
                 items_anonimos.Select(e => new CvCapacidadPersonal(e.Id, e.Tipo, e.Detalle)).ToList().ForEach(ev => cv.AgregarCapacidadPersonal(ev));
             }
@@ -277,12 +279,12 @@ namespace General.Repositorios
                                             ExpedidaPor = dRow.GetString("MatriculaExpedidoPor", string.Empty),
                                             SituacionActual = dRow.GetString("MatriculaSituacionActual", string.Empty),
                                             FechaObtencion = dRow.GetDateTime("MatriculaFechaObtencion", DateTime.Today),
-                                            AntAcadPrecedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                            Precedente = dRow.GetInt("MatriculaPrecedente", 0),
                                             Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
                                             
                                         }).Distinct().ToList();
 
-                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.AntAcadPrecedente == e.Id));
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
                 items_anonimos.RemoveAll(e => e.Baja != 0);
 
                 items_anonimos.Select(m => new CvMatricula(m.Id, m.Numero, m.ExpedidaPor, m.SituacionActual, 
@@ -309,12 +311,12 @@ namespace General.Repositorios
                                                Copia = ArmarIntDeBooleano(dRow.GetBoolean("PublicacionCopia")),
                                                Adjunto = ArmarIntDeBooleano(dRow.GetBoolean("PublicacionAdjunto")),
                                                Fecha = dRow.GetDateTime("PublicacionFecha", DateTime.Today),
-                                               AntAcadPrecedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                               Precedente = dRow.GetInt("PublicacionPrecedente", 0),
                                                Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
 
                                            }).Distinct().ToList();
 
-                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.AntAcadPrecedente == e.Id));
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
                 items_anonimos.RemoveAll(e => e.Baja != 0);
 
                 items_anonimos.Select(p => new CvPublicaciones(p.Id, p.Titulo,p.Editorial,p.Hojas,p.Copia, p.Adjunto,
@@ -353,12 +355,12 @@ namespace General.Repositorios
                                                   FechaFin = dRow.GetDateTime("InstitucionFechaFin", DateTime.Today),
                                                   Localidad = dRow.GetString("InstitucionLocalidad", string.Empty),
                                                   Pais = dRow.GetSmallintAsInt("InstitucionPais", 9),
-                                                  AntAcadPrecedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                                  Precedente = dRow.GetInt("InstitucionPrecedente", 0),
                                                   Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
 
                                               }).Distinct().ToList();
 
-                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.AntAcadPrecedente == e.Id));
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
                 items_anonimos.RemoveAll(e => e.Baja != 0);
 
                 items_anonimos.Select(i => new CvInstitucionesAcademicas(i.Id, i.Institucion, i.CaracterEntidad, i.Cargos, i.Afiliados,
@@ -390,11 +392,11 @@ namespace General.Repositorios
                                                   Pais = dRow.GetSmallintAsInt("ExperienciaLaboralPais", 9),
                                                   Sector = dRow.GetString("ExperienciaLaboralSector", string.Empty),
                                                   AmbitoLaboral = dRow.GetSmallintAsInt("ExperienciaAmbitoLaboral", 2),
-                                                  AntAcadPrecedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                                  Precedente = dRow.GetInt("ExperienciaLaboralPrecedente", 0),
                                                   Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
                                               }).Distinct().ToList();
 
-                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.AntAcadPrecedente == e.Id));
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
                 items_anonimos.RemoveAll(e => e.Baja != 0);
 
                 items_anonimos.Select(e => new CvExperienciaLaboral(e.Id, e.PuestoOcupado, e.MotivoDesvinculacion, e.NombreEmpleador, e.PersonasACargo,
@@ -422,11 +424,11 @@ namespace General.Repositorios
                                                  FechaObtencion = dRow.GetDateTime("IdiomaFechaObtencion", DateTime.Today),
                                                  Localidad = dRow.GetString("IdiomaLocalidad", string.Empty),
                                                  Pais = dRow.GetSmallintAsInt("IdiomaPais", 9),
-                                                 AntAcadPrecedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                                 Precedente = dRow.GetInt("IdiomaPrecedente", 0),
                                                  Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
                                              }).Distinct().ToList();
 
-                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.AntAcadPrecedente == e.Id));
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
                 items_anonimos.RemoveAll(e => e.Baja != 0);
 
                 items_anonimos.Select(i => new CvIdiomas(i.Id, i.Diploma, i.Establecimiento,i.Idioma, i.Lectura, i.Escritura, 
@@ -455,11 +457,11 @@ namespace General.Repositorios
                                               Pais = dRow.GetSmallintAsInt("CompetenciaPais", 9),
                                               FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today),
                                               Detalle = dRow.GetString("Detalle", string.Empty),
-                                              AntAcadPrecedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                              Precedente = dRow.GetInt("CompetenciaPrecedente", 0),
                                               Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
                                           }).Distinct().ToList();
 
-                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.AntAcadPrecedente == e.Id));
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
                 items_anonimos.RemoveAll(e => e.Baja != 0);
 
                 items_anonimos.Select(c => new CvCompetenciasInformaticas(c.Id, c.Diploma, c.Establecimiento, c.TipoInformatica, c.Conocimiento, c.Nivel,
@@ -924,204 +926,6 @@ namespace General.Repositorios
         }
         #endregion
 
-        #region CvActividadesCapacitacion/CvCertificadosDeCapacitacion
-
-
-        public bool EliminarCvActividadCapacitacion(int id_capacitacion_nuevo, Usuario usuario)
-        {
-            var baja = CrearBaja(usuario);
-
-            //var parametros = ParametrosDeAntecedentesDocencia(capacitacion_nuevo, usuario, baja);
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@Baja", baja);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@IdActividadDeCapacitacion", id_capacitacion_nuevo);
-
-            conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
-
-            return true;
-        }
-
-
-
-
-        
-
-        #endregion CvCertificadosDeCapacitacion
-
-        #region CvActividadDocente
-        public bool EliminarCvActividadDocente(int docencia_nuevo, Usuario usuario)
-        {
-            var baja = CrearBaja(usuario);
-           
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdBaja", baja);
-            parametros.Add("@IdDocencia", docencia_nuevo);
-            parametros.Add("@Usuario", usuario.Id);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_AntecedentesDeDocencia", parametros);
-            return true;
-
-
-        }
-
-        
-        #endregion
-
-        #region CvEventosAcademicos
-
-        public bool EliminarCvEventosAcademicos(int id_evento_academico, Usuario usuario)
-        {
-
-            var id_baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdEvento", id_evento_academico);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", id_baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_EventosAcademicos", parametros);
-
-            return true;
-        }
-
-        
-
-        #endregion CvEventosAcademicos
-
-        #region CvPublicaciones
-        
-        public bool EliminarCvPublicacionesTrabajos(int publicacion_nueva, Usuario usuario)
-        {
-            var baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>(); //var parametros = ParametrosDePublicaciones(publicacion_nueva, usuario);
-            parametros.Add("@IdPublicacion", publicacion_nueva);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Publicaciones", parametros);
-
-            return true;
-        }
-
-        
-        #endregion
-
-        #region CvMatriculas
-        
-        public bool EliminarCvMatricula(int id_matricula, Usuario usuario)
-        {
-            var baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>(); //ParametrosDeMatricula(matricula_nueva, usuario);
-            parametros.Add("@IdMatricula", id_matricula);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@idBaja", baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Matriculas", parametros);
-
-            return true;
-        }
-
-
-        #endregion
-
-        #region CvInstituciones Academicas
-        
-        public bool EliminarCvInstitucionAcademica(int id_institucion_nueva, Usuario usuario)
-        {
-            var baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>();
-
-            parametros.Add("@idInstitucion", id_institucion_nueva);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Instituciones", parametros);
-
-            return true;
-        }
-
-        
-        #endregion
-
-        #region CvExperiencias
-        
-        public bool EliminarCvExperienciaLaboral(int id_experiencia_nueva, Usuario usuario)
-        {
-            var baja = CrearBaja(usuario);
-            var parametros = new Dictionary<string, object>();
-           
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@IdExperienciaLaboral", id_experiencia_nueva);
-            parametros.Add("@Baja", baja);
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ExperienciasLaborales", parametros);
-            return true;
-        }
-
-        
-        #endregion
-
-        #region CvIdiomasExtranjeros
-        
-        public bool EliminarCvIdiomaExtranjero(int id_idioma, Usuario usuario)
-        {
-            var id_baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdIdioma", id_idioma);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@IdBaja", id_baja);
-           
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idiomas", parametros);
-
-            return true;
-        }
-
-
-
-        # endregion
-
-        #region CvCapacidadesPersonales/OtrasCapacidades
-
-        public bool EliminarCvOtraCapacidad(int id_capacidad, Usuario usuario)
-        {
-            var id_baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@Id", id_capacidad);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", id_baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CapacidadesPersonales", parametros);
-
-            return true;
-        }
-
-
-        #endregion CvCapacidadesPersonales/OtrasCapacidades
-
-        #region CvCompetenciasInformaticas
-
-        public bool EliminarCvCompetenciaInformatica(int id_competencia, Usuario usuario)
-        {
-            var id_baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdCompetencia", id_competencia);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", id_baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CompetenciasInformaticas", parametros);
-
-            return true;            
-        }
-
-        #endregion CvCompetenciasInformaticas
-
-              
         private int CrearBaja(Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
