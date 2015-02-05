@@ -125,6 +125,16 @@ namespace TestViaticos
             Assert.IsTrue(una_postulacion.EtapaEn(DateTime.Now.AddMonths(-4)).Etapa.Descripcion.Equals("Etapa 2"));
         }
 
+
+        [TestMethod]
+        public void deberia_traerme_las_3_postulaciones_que_son_admitidos_y_no_admitidos()
+        { 
+            List<EtapaConcurso> etapas = new List<EtapaConcurso>{ ConstantesConcursar.EtapaAdmitidos, ConstantesConcursar.EtapaNoAdmitidos};
+            List<Postulacion> resultado = new List<Postulacion>();
+            //TERMINAR!
+            //resultado = BuscarPostulacionesPorEtapas(6, etapas);
+        }
+
         public RepositorioDeCurriculum RepoCV()
         {
             return new RepositorioDeCurriculum(conexion);

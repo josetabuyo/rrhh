@@ -2833,14 +2833,19 @@ public class WSViaticos : System.Web.Services.WebService
     public Postulacion[] BuscarPostulacionesDeInscriptos(int id_comite)
     {
 
-        return RepoPostulaciones().BuscarPostulacionesPorEtapas(id_comite, ConstantesConcursar.EtapaInscripcionDocumental).ToArray();
+        List<EtapaConcurso> etapas = new List<EtapaConcurso> { ConstantesConcursar.EtapaInscripcionDocumental ,
+                                                               ConstantesConcursar.EtapaAdmitidos,
+                                                               ConstantesConcursar.EtapaNoAdmitidos
+                                                                };
+
+        return RepoPostulaciones().BuscarPostulacionesPorEtapas(id_comite, etapas).ToArray();
     }
 
     [WebMethod]
     public Postulacion[] BuscarPostulacionesDePreInscriptos(int id_comite)
     {
-
-        return RepoPostulaciones().BuscarPostulacionesPorEtapas(id_comite, ConstantesConcursar.EtapaPreinscripcionDocumental).ToArray();
+        List<EtapaConcurso> etapas = new List<EtapaConcurso> { ConstantesConcursar.EtapaPreinscripcionDocumental };
+        return RepoPostulaciones().BuscarPostulacionesPorEtapas(id_comite, etapas).ToArray();
     }
 
     [WebMethod]

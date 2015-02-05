@@ -244,10 +244,10 @@ namespace General
             conexion_bd.EjecutarSinResultado("dbo.CV_Ins_EtapaPostulación", parametros);
         }
 
-        public List<Postulacion> BuscarPostulacionesPorEtapas(int id_comite, EtapaConcurso etapa)
+        public List<Postulacion> BuscarPostulacionesPorEtapas(int id_comite, List<EtapaConcurso> etapas)
         {
             List<Postulacion> postulaciones_buscadas = new List<Postulacion>();
-            postulaciones_buscadas = GetPostulacionesPorComite(id_comite).FindAll(p => p.EtapaEn(DateTime.Today).Etapa.Id == etapa.Id);
+            postulaciones_buscadas = GetPostulacionesPorComite(id_comite).FindAll(p => etapas.Exists(e => e.Id == p.EtapaEn(DateTime.Today).Etapa.Id));
             return postulaciones_buscadas;
         }
 

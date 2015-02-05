@@ -20,9 +20,7 @@
             if (postulaciones.length == 0) {
                 alertify.alert('No se encontraron resultados');
             } else {
-                //        buscar todos los titulares y seplentes del comité y listarlos - Continuar
-                $('#comite_titular').text(postulaciones[0].Perfil.Comite.Integrantes[0].Apellido);
-
+                _this.CargarIntegrantesComite(postulaciones[0]);
                 _this.DibujarTabla(postulaciones);
                 _this.BuscadorDeTabla();
                 _this.CargarComboPerfiles(postulaciones);
@@ -30,6 +28,23 @@
             }
             _this.postulaciones = postulaciones;
         });
+    },
+
+    CargarIntegrantesComite: function (postulacion) {
+        var integrantes = postulacion.Perfil.Comite.Integrantes;
+        var titulares = "";
+        var suplentes = "";
+        for (var i = 0; i < integrantes.length; i++) {
+            if (integrantes[i].EsTitular) {
+                titulares = titulares + integrantes[i].Apellido + ", " + integrantes[i].Nombre + " - ";
+            } else {
+                suplentes = titulares + integrantes[i].Apellido + ", " + integrantes[i].Nombre + " - ";
+            }
+        };
+
+        $('#comite_titular').text(titulares.substring(0, titulares.length - 2));
+        $('#comite_suplente').text(suplentes.substring(0, suplentes.length - 2));
+
     },
 
     DibujarTabla: function (postulaciones) {
@@ -57,7 +72,7 @@
                 img.attr('height', '25px');
                 btn_accion.append(img);
                 btn_accion.click(function () {
-                    CambiarEstadoPostulacion(una_postulacion);
+                    _this.CambiarEstadoPostulacion(una_postulacion);
                 });
 
                 return btn_accion;
@@ -67,6 +82,7 @@
         this.GrillaDePostulaciones = new Grilla(columnas);
         this.GrillaDePostulaciones.AgregarEstilo("cuerpo_tabla_perfil tr td");
         this.GrillaDePostulaciones.CambiarEstiloCabecera("cabecera_tabla_pantalla_cargos");
+        this.AgregarEstilosEstado();
         this.GrillaDePostulaciones.SetOnRowClickEventHandler(function (un_perfil) { });
 
 
@@ -99,6 +115,10 @@
 
     },
 
+    AgregarEstilosEstado: function (){
+    
+    },
+
     BuscadorDeTabla: function () {
         var options = {
             valueNames: ['NroPostulación', 'NroPerfil', 'Nivel', 'Tipo', 'Perfil', 'Estado']
@@ -109,7 +129,16 @@
 
     EstadoDeLaEtapa: function (una_postulacion) {
 
-        return "Sin Dictamen";
+        //This will sort your array
+        function OrdenarPorFechas(etapa1, etapa2) {
+            var etapa1 = etapa1.Fecha;
+            var etapa2 = etapa2.Fecha;
+            return ((etapa1 < etapa2) ? -1 : ((etapa1 > etapa2) ? 1 : 0));
+        }
+
+        una_postulacion.Etapas.sort(OrdenarPorFechas);
+
+        return una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Descripcion
     },
 
     CargarComboPerfiles: function (postulaciones) {
