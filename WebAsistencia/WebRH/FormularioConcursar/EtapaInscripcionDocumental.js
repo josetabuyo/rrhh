@@ -54,19 +54,29 @@
             return una_postulacion.Etapas[ultima_posicion].Etapa.Descripcion;
         }
         }));
+
+
+
         columnas.push(new Columna('Inscribir', {
             generar: function (una_postulacion) {
+                var div = $('<div>');
                 var input = $('<input>');
                 input.attr('type', 'checkbox');
                 input.attr('class', 'check');
-                return input;
+                var input_oculto = $('<input>');
+                input_oculto.attr('type', 'hidden');
+                input_oculto.attr('value',una_postulacion.Id);
+
+                div.append(input);
+                div.append(input_oculto);
+                return div;
             }
         }));
 
         this.GrillaDePostulaciones = new Grilla(columnas);
         this.GrillaDePostulaciones.AgregarEstilo("cuerpo_tabla_perfil tr td");
         this.GrillaDePostulaciones.CambiarEstiloCabecera("cabecera_tabla_pantalla_cargos");
-        this.GrillaDePostulaciones.SetOnRowClickEventHandler(function (un_perfil) { });
+        this.GrillaDePostulaciones.SetOnRowClickEventHandler(function (una_postulacion) { });
 
 
         this.GrillaDePostulaciones.CargarObjetos(postulaciones);
@@ -111,19 +121,20 @@
     },
 
     CambiarEstadoPostulacion: function (id_etapa) {
-        var postulaciones = [];
+        var idpostulaciones = [];
 
         $(".check").each(function () {
             if ($(this)[0].checked == true) {
-                var postulacion = {};
-                postulacion.Id = $(this).parent().parent()[0].cells[0].innerHTML;
+                //var postulacion = {};
+                var id_postulacion = $(this).parent().parent().parent()[0].cells[0].innerHTML;
+                var id = $(this).siblings('input')[0].value;
 
-                postulaciones.push(postulacion);
+                idpostulaciones.push(id_postulacion);
             }
         });
 
-        if (postulaciones.length > 0) {
-            Backend.PasarEtapaAPostulaciones(postulaciones, id_etapa)
+        if (idpostulaciones.length > 0) {
+            Backend.GuardarEtapaAPostulaciones(idpostulaciones, id_etapa)
              .onSuccess(function (resultado) {
                  if (resultado == true) {
                      alertify.alert('Las postulaciones pasaron a la etapa de Admisión');

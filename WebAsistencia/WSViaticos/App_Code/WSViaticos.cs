@@ -2844,11 +2844,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool PasarEtapaAPostulaciones(Postulacion[] postulaciones, int id_etapa_postulacion, Usuario usuario)
+    public bool GuardarEtapaAPostulaciones(string[] idpostulaciones, int id_etapa_postulacion, Usuario usuario)
     {
         try
         {
-            postulaciones.ToList().ForEach(p => RepoPostulaciones().InsEtapaPostulacion(p.Id, id_etapa_postulacion, usuario.Id));
+         //   idpostulaciones.ToList().ForEach(id => RepoPostulaciones().InsEtapaPostulacion(id, id_etapa_postulacion, usuario.Id));
         }
         catch (Exception e)
         {
