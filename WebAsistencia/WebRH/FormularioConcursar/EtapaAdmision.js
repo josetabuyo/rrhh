@@ -82,12 +82,12 @@
         this.GrillaDePostulaciones = new Grilla(columnas);
         this.GrillaDePostulaciones.AgregarEstilo("cuerpo_tabla_perfil tr td");
         this.GrillaDePostulaciones.CambiarEstiloCabecera("cabecera_tabla_pantalla_cargos");
-        this.AgregarEstilosEstado();
+        
         this.GrillaDePostulaciones.SetOnRowClickEventHandler(function (un_perfil) { });
-
 
         this.GrillaDePostulaciones.CargarObjetos(postulaciones);
         this.GrillaDePostulaciones.DibujarEn(divGrilla);
+        this.AgregarEstilosEstado();
 
         $("#btn_generar_anexo").attr("style", "display:inline");
 
@@ -115,8 +115,10 @@
 
     },
 
-    AgregarEstilosEstado: function (){
-    
+    AgregarEstilosEstado: function () {
+
+        $(".Estado").attr("style", "color:green");
+
     },
 
     BuscadorDeTabla: function () {
@@ -134,10 +136,9 @@
             var etapa1 = etapa1.Fecha;
             var etapa2 = etapa2.Fecha;
             return ((etapa1 < etapa2) ? -1 : ((etapa1 > etapa2) ? 1 : 0));
-        }
+        };
 
         una_postulacion.Etapas.sort(OrdenarPorFechas);
-
         return una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Descripcion
     },
 
