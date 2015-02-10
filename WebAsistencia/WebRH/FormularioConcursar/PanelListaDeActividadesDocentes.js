@@ -76,7 +76,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar este registro?", function (e) {
             if (e) {
-                Backend.EliminarCvActividadDocente(una_actividad_docente.Id)
+                Backend.EliminarCvActividadDocente(una_actividad_docente)
                     .onSuccess(function (respuesta) {
                         alertify.success("Docencia eliminada correctamente");
                         _this.GrillaActividadesDocentes.QuitarObjeto(_this.divGrilla, una_actividad_docente);

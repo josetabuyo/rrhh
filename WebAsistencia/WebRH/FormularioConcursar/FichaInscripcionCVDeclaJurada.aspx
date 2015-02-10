@@ -228,18 +228,18 @@
     }
 
     $('#anexo_1').click(function () {
-        window.open('AnexoI.aspx');
+        window.open('AnexoI.aspx?fh=<%=Request.QueryString["fh"] %>');
         //window.location.href = 'AnexoI.aspx';
 
     });
 
     $('#anexo_2').click(function () {
-        window.open('AnexoII.aspx');
+        window.open('AnexoII.aspx?fh=<%=Request.QueryString["fh"] %>');
         //window.location.href = 'AnexoII.aspx';
     });
 
     $('#anexo_3').click(function () {
-        window.open('AnexoIII.aspx');
+        window.open('AnexoIII.aspx?fh=<%=Request.QueryString["fh"] %>');
         //window.location.href = 'AnexoIII.aspx';
     });
 

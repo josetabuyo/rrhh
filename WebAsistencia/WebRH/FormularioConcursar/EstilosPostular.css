@@ -1168,3 +1168,23 @@ width: 100%;
     -moz-border-radius: 5px;
     border-radius: 5px;*/
 }
+
+.label_caratula 
+{
+    /*text-decoration:underline;*/
+    font-size:22px;
+    font-family: Verdana;
+   
+}
+
+.td-caratula
+{
+/*text-align: center;*/
+font-size: 22px;
+width: 70%;
+padding-bottom: 5px;
+
+height: 20px;
+vertical-align: bottom;
+/*border-style: dashed;*/
+}

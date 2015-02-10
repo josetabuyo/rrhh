@@ -88,7 +88,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar el idioma?", function (e) {
             if (e) {
-                Backend.EliminarCvIdiomaExtranjero(un_idioma_extranjero.Id)
+                Backend.EliminarCvIdiomaExtranjero(un_idioma_extranjero)
                     .onSuccess(function (respuesta) {
                         alertify.success("Idioma eliminado correctamente");
                         _this.GrillaIdiomasExtranjeros.QuitarObjeto(_this.divGrilla, un_idioma_extranjero);

@@ -22,7 +22,6 @@ public partial class FormularioConcursar_Pantalla1 : System.Web.UI.Page
 
             this.curriculum.Value = curriculum;
         }
-
     }
 
 
