@@ -10,7 +10,6 @@ namespace General
 {
     public class CvCompetenciasInformaticas : ItemCv
     {
-        protected int _id;
         protected string _diploma;
         protected DateTime _fechaObtencion;
         protected string _establecimiento;
@@ -22,7 +21,6 @@ namespace General
         protected int _pais;
         protected string _detalle;
 
-        public int Id { get { return _id; } set { _id = value; } }
         public string Diploma { get { return _diploma; } set { _diploma = value; } }
         public string Establecimiento { get { return _establecimiento; } set { _establecimiento = value; } }
         public int TipoInformatica { get { return _tipoInformatica; } set { _tipoInformatica = value; } }
@@ -35,7 +33,7 @@ namespace General
 
         public CvCompetenciasInformaticas(int id, string diploma, string establecimiento, int tipoInformatica, int conocimiento, int nivel, string localidad, int pais, DateTime fechaObtencion, string detalle):base(id,diploma,10)
         {
-            this._id = id;
+            this.Id = id;
             this._diploma = diploma;
             this._establecimiento = establecimiento;
             this._tipoInformatica = tipoInformatica;

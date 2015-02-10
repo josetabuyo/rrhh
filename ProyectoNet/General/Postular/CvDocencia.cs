@@ -9,7 +9,6 @@ namespace General
 {
     public class CvDocencia : ItemCv
     {
-        protected int _id;
         protected string _asignatura;
         protected int _nivelEducativo;
         protected string _tipoActividad;
@@ -23,7 +22,6 @@ namespace General
         protected string _localidad;
         protected int _pais;
 
-        public int Id { get { return _id; } set { _id = value; } }
         public string Asignatura { get { return _asignatura; } set { _asignatura = value; } }
         public int NivelEducativo { get { return _nivelEducativo; } set { _nivelEducativo = value; } }
         public string TipoActividad { get { return _tipoActividad; } set { _tipoActividad = value; } }
@@ -46,7 +44,7 @@ namespace General
         public CvDocencia(int id, string asignatura, int nivelEducativo, string tipoActividad, string categoriaDocente, string caracterDesignacion, string dedicacionDocente, string cargaHoraria, DateTime fechaInicio, DateTime fechaFinalizacion, string establecimiento, string localidad, int pais):base(id, asignatura,3)
            
         {
-            this._id = id;
+            this.Id = id;
             SetearCampos(asignatura, nivelEducativo, tipoActividad, categoriaDocente, caracterDesignacion, dedicacionDocente, cargaHoraria, fechaInicio, fechaFinalizacion, establecimiento, localidad, pais);
         }
 
@@ -85,7 +83,7 @@ namespace General
 
         public override int GetHashCode()
         {
-            return this._id.GetHashCode();
+            return this.Id.GetHashCode();
         }
 
         override public void validarDatos()

@@ -9,9 +9,9 @@ namespace General.Postular
 {
     public class CvConocimientoCompetenciaInformatica
     {
-        public int Id;
         public string Descripcion;
         public int Tipo;
+        public int Id;
         public CvConocimientoCompetenciaInformatica()
         {
 

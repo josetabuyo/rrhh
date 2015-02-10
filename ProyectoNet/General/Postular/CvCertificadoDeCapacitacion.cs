@@ -9,7 +9,6 @@ namespace General
 {
     public class CvCertificadoDeCapacitacion : ItemCv
     {
-        protected int _id;
         protected string _diplomaDeCertificacion;
         protected string _establecimiento;
         protected DateTime _fechaInicio;
@@ -19,7 +18,6 @@ namespace General
         protected string _localidad;
         protected int _pais;
 
-        public int Id { get { return _id; } set { _id = value; } }
         public string DiplomaDeCertificacion { get { return _diplomaDeCertificacion; } set { _diplomaDeCertificacion = value; } }
         public string Establecimiento { get { return _establecimiento; } set { _establecimiento = value; } }
         public string Especialidad { get { return _especialidad; } set { _especialidad = value; } }
@@ -31,7 +29,7 @@ namespace General
 
         public CvCertificadoDeCapacitacion(int id, string diplomaDeCertificacion, string establecimiento, string especialidad, string duracion, DateTime fechaInicio, DateTime fechaFinalizacion, string localidad, int pais):base(id,diplomaDeCertificacion,2)
         {
-            this._id = id;
+            this.Id = id;
             this._diplomaDeCertificacion = diplomaDeCertificacion;
             this._establecimiento = establecimiento;
             this._especialidad = especialidad;

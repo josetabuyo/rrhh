@@ -10,7 +10,6 @@ namespace General
 {
     public class CvExperienciaLaboral : ItemCv
     {
-        protected int _id;
         protected string _puestoOcupado;
         protected string _motivoDesvinculacion;
         protected string _nombreEmpleador;     
@@ -24,7 +23,6 @@ namespace General
         protected string _sector;
         protected int _ambitoLaboral;
 
-        public int Id { get { return _id; } set { _id = value; } }
         public string PuestoOcupado { get { return _puestoOcupado; } set { _puestoOcupado = value; } }
         public string MotivoDesvinculacion { get { return _motivoDesvinculacion; } set { _motivoDesvinculacion = value; } }
         public string NombreEmpleador { get { return _nombreEmpleador; } set { _nombreEmpleador = value; } }
@@ -44,7 +42,7 @@ namespace General
 
         public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, int personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais, string sector, int AmbitoLaboral):base(id, puestoOcupado,8)
         {
-            this._id = id;
+            this.Id = id;
             this._puestoOcupado = puestoOcupado;
             this._motivoDesvinculacion = motivoDesvinculacion;
             this._nombreEmpleador = nombreEmpleador;

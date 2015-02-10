@@ -30,26 +30,52 @@ namespace General.Repositorios
         {
         }
 
-        public CurriculumVitae GetCV(int id)
+        public CurriculumVitae GetCV(int idPersona, DateTime fechaDeVersion)
         {
             var parametros = new Dictionary<string, object>();
-            //var estudios = new List<CvEstudios>();
-            //var docencias = new List<CvDocencia>();
+            parametros.Add("@idPersona", idPersona);
+            parametros.Add("@fechaDeVersion", fechaDeVersion);
+            return GetCV(parametros);
+        }
 
-            parametros.Add("@idPersona", id);
+        public CurriculumVitae GetCV(int idPersona)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idPersona", idPersona);
+            return GetCV(parametros);
+        }
+
+        private CurriculumVitae GetCV(Dictionary<string, object> parametros)
+        {
             var tablaCVs = conexion_bd.Ejecutar("dbo.CV_GetCurriculumVitae", parametros);
 
             CurriculumVitae cv = new CurriculumVitaeNull();
 
-            tablaCVs.Rows.ForEach(row =>
-            cv = new CurriculumVitae(
-                new CvDatosPersonales(row.GetInt("NroDocumento"), row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo", 1), row.GetSmallintAsInt("EstadoCivil", 0),
-                    row.GetString("Cuil", ""), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad", 0), row.GetDateTime("FechaNacimiento", DateTime.Today).ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento", 0),
-                    new CvDomicilio(row.GetInt("DomPers_Id", 0), row.GetString("DomPers_Calle", ""), row.GetInt("DomPers_Numero", 0), row.GetString("DomPers_Piso", ""), row.GetString("DomPers_Depto", ""),
-                        row.GetInt("DomPers_Localidad", 0), row.GetSmallintAsInt("DomPers_CodigoPostal", 0), row.GetSmallintAsInt("DomPers_IdProvincia", 0)),
-                    new CvDomicilio(row.GetInt("DomLab_Id", 0), row.GetString("DomLab_Calle", ""), row.GetInt("DomLab_Numero", 0), row.GetString("DomLab_Piso", ""), row.GetString("DomLab_Depto", ""),
-                        row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0)), row.GetString("TieneLegajo"),
-                    new DatosDeContacto(row.GetString("DomPers_Telefono", ""), row.GetString("DomPers_Telefono2", ""), row.GetString("DomPers_Email", "")))));
+            tablaCVs.Rows.ForEach((row) => {
+                var domi = new CvDomicilio(row.GetInt("DomPers_Id", 0), row.GetString("DomPers_Calle", ""), row.GetInt("DomPers_Numero", 0), row.GetString("DomPers_Piso", ""), row.GetString("DomPers_Depto", ""),
+                            row.GetInt("DomPers_Localidad", 0), row.GetSmallintAsInt("DomPers_CodigoPostal", 0), row.GetSmallintAsInt("DomPers_IdProvincia", 0));
+                var domi2 = new CvDomicilio(row.GetInt("DomLab_Id", 0), row.GetString("DomLab_Calle", ""), row.GetInt("DomLab_Numero", 0), row.GetString("DomLab_Piso", ""), row.GetString("DomLab_Depto", ""),
+                            row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0));
+                var contacto = new DatosDeContacto(row.GetString("DomPers_Telefono", ""), row.GetString("DomPers_Telefono2", ""), row.GetString("DomPers_Email", ""));
+
+                var cuil = row.GetString("Cuil", "00");
+                var lugar_nacimiento = row.GetString("LugarNacimiento", "");
+                var nac = row.GetSmallintAsInt("Nacionalidad", 0);
+                var fecha_nac = row.GetDateTime("FechaNacimiento", DateTime.Today).ToString("dd/MM/yyyy");
+                var tipo_doc = row.GetSmallintAsInt("TipoDocumento", 0);
+                var nro_documento = row.GetInt("NroDocumento", 0);
+                var nombre = row.GetString("Nombre", "");
+                var apellido = row.GetString("Apellido", "");
+                var sexo = row.GetSmallintAsInt("Sexo", 1);
+                var estado_civil = row.GetSmallintAsInt("EstadoCivil", 0);
+                
+                cv = new CurriculumVitae(
+                    new CvDatosPersonales(nro_documento, nombre, apellido, sexo, estado_civil,
+                        cuil, lugar_nacimiento, nac, fecha_nac, tipo_doc,
+                        domi,
+                        domi2, row.GetString("TieneLegajo", ""),
+                        contacto));
+            });
                    
 
             //CORTE DE CONTROL PARA EVENTOS ACADEMICOS
@@ -85,7 +111,7 @@ namespace General.Repositorios
             //CORTE DE CONTROL PARA OTRAS CAPACIDADES
             CorteDeControlOtrasCapacidades(tablaCVs, cv);
 
-            if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
+            if (tablaCVs.Rows.Any(row => row.GetString("TieneCurriculum", "") == "Tiene curriculum"))
             {
                 cv.TieneCv = true;
             }
@@ -152,7 +178,7 @@ namespace General.Repositorios
                                                   Localidad = dRow.GetString("CertificadoLocalidad", string.Empty),
                                                   Pais = dRow.GetSmallintAsInt("CertificadoPais", 9),
                                                   Precedente = dRow.GetInt("CertificadoPrecedente", 0),
-                                                  Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
+                                                  Baja = dRow.GetInt("CertificadoBaja", 0)
 
                                               }).Distinct().ToList();
 
@@ -189,7 +215,7 @@ namespace General.Repositorios
                                                  Localidad = dRow.GetString("AntecedentesDeDocenciaLocalidad", string.Empty),
                                                  Pais = dRow.GetSmallintAsInt("AntecedentesDeDocenciaPais", 9),
                                                  Precedente = dRow.GetInt("AntecedentesDeDocenciaPrecedente", 0),
-                                                 Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
+                                                 Baja = dRow.GetInt("AntecedentesDeDocenciaBaja", 0)
                                              }).Distinct().ToList();
 
                 items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
@@ -226,7 +252,7 @@ namespace General.Repositorios
                                                 Localidad = dRow.GetString("EventosAcademicosLocalidad", string.Empty),
                                                 Pais = dRow.GetSmallintAsInt("EventosAcademicosPais", 9),
                                                 Precedente = dRow.GetInt("EventosAcademicosPrecedente", 0),
-                                                Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
+                                                Baja = dRow.GetInt("EventosAcademicosBaja", 0)
                                             }).Distinct().ToList();
 
                 items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
@@ -254,8 +280,8 @@ namespace General.Repositorios
                                             Id = dRow.GetInt("CapacidadesPersonalesId", 0),
                                             Tipo = dRow.GetSmallintAsInt("CapacidadesPersonalesTipo", 0),
                                             Detalle = dRow.GetString("CapacidadesPersonalesDetalle", ""),
-                                            Precedente = dRow.GetInt("Precedente", 0),
-                                            Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
+                                            Precedente = dRow.GetInt("CapacidadesPersonalesPrecedente", 0),
+                                            Baja = dRow.GetInt("CapacidadesPersonalesBaja", 0)
                                         }).Distinct().ToList();
 
                 items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
@@ -280,7 +306,7 @@ namespace General.Repositorios
                                             SituacionActual = dRow.GetString("MatriculaSituacionActual", string.Empty),
                                             FechaObtencion = dRow.GetDateTime("MatriculaFechaObtencion", DateTime.Today),
                                             Precedente = dRow.GetInt("MatriculaPrecedente", 0),
-                                            Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
+                                            Baja = dRow.GetInt("MatriculaBaja", 0)
                                             
                                         }).Distinct().ToList();
 
@@ -312,7 +338,7 @@ namespace General.Repositorios
                                                Adjunto = ArmarIntDeBooleano(dRow.GetBoolean("PublicacionAdjunto")),
                                                Fecha = dRow.GetDateTime("PublicacionFecha", DateTime.Today),
                                                Precedente = dRow.GetInt("PublicacionPrecedente", 0),
-                                               Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
+                                               Baja = dRow.GetInt("PublicacionBaja", 0)
 
                                            }).Distinct().ToList();
 
@@ -356,7 +382,7 @@ namespace General.Repositorios
                                                   Localidad = dRow.GetString("InstitucionLocalidad", string.Empty),
                                                   Pais = dRow.GetSmallintAsInt("InstitucionPais", 9),
                                                   Precedente = dRow.GetInt("InstitucionPrecedente", 0),
-                                                  Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
+                                                  Baja = dRow.GetInt("InstitucionBaja", 0)
 
                                               }).Distinct().ToList();
 
@@ -393,7 +419,7 @@ namespace General.Repositorios
                                                   Sector = dRow.GetString("ExperienciaLaboralSector", string.Empty),
                                                   AmbitoLaboral = dRow.GetSmallintAsInt("ExperienciaAmbitoLaboral", 2),
                                                   Precedente = dRow.GetInt("ExperienciaLaboralPrecedente", 0),
-                                                  Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
+                                                  Baja = dRow.GetInt("ExperienciaLaboralBaja", 0)
                                               }).Distinct().ToList();
 
                 items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
@@ -425,7 +451,7 @@ namespace General.Repositorios
                                                  Localidad = dRow.GetString("IdiomaLocalidad", string.Empty),
                                                  Pais = dRow.GetSmallintAsInt("IdiomaPais", 9),
                                                  Precedente = dRow.GetInt("IdiomaPrecedente", 0),
-                                                 Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
+                                                 Baja = dRow.GetInt("IdiomaBaja", 0)
                                              }).Distinct().ToList();
 
                 items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
@@ -458,7 +484,7 @@ namespace General.Repositorios
                                               FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today),
                                               Detalle = dRow.GetString("Detalle", string.Empty),
                                               Precedente = dRow.GetInt("CompetenciaPrecedente", 0),
-                                              Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
+                                              Baja = dRow.GetInt("CompetenciaBaja", 0)
                                           }).Distinct().ToList();
 
                 items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
@@ -670,7 +696,7 @@ namespace General.Repositorios
             return GuardarItemCV(item_nuevo, usuario, param_iniciales);
         }
 
-        public bool EliminarCV(ItemCv antecedente, Usuario usuario)
+        public bool EliminarCV(ItemCv item, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
 
@@ -678,7 +704,7 @@ namespace General.Repositorios
             parametros.Add("@Baja", baja);
             parametros.Add("@Usuario", usuario.Id);
 
-            ActualizarCv(antecedente, usuario, parametros);
+            ActualizarCv(item, usuario, parametros);
             return true;
         }
 
@@ -918,7 +944,6 @@ namespace General.Repositorios
         public Dictionary<string, object> ParametrosDeCapacidadPersonal(CvCapacidadPersonal capacidad, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdPersona", usuario.Owner.Id);
             parametros.Add("@Tipo", capacidad.Tipo);
             parametros.Add("@Detalle", capacidad.Detalle);
             parametros.Add("@Usuario", usuario.Id);

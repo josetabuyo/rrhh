@@ -2489,6 +2489,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    [XmlInclude(typeof(CurriculumVitaeNull))]
+    public CurriculumVitae GetCurriculumVersion(int id, DateTime fechaDeLaVersion)
+    {
+        CurriculumVitae curriculum = RepoCurriculum().GetCV(id, fechaDeLaVersion);
+
+        return curriculum;
+    }
+
+    [WebMethod]
     public void GuardarCvDatosPersonales(CvDatosPersonales datosPersonalesDTO, Usuario usuario)
     {
         RepoCurriculum().GuardarCVDatosPersonales(datosPersonalesDTO, usuario);

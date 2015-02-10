@@ -9,7 +9,6 @@ namespace General
 {
     public class CvInstitucionesAcademicas : ItemCv
     {
-        protected int _id;
         protected string _institucion;
         protected string _caracterEntidad;
         protected string _cargosDesempeniados;
@@ -22,7 +21,6 @@ namespace General
         protected string _localidad;
         protected int _pais;
 
-        public int Id { get { return _id; } set { _id = value; } }
         public string Institucion { get { return _institucion; } set { _institucion = value; } }
         public string CaracterEntidad { get { return _caracterEntidad; } set { _caracterEntidad = value; } }
         public string CargosDesempeniados { get { return _cargosDesempeniados; } set { _cargosDesempeniados = value; } }
@@ -39,7 +37,7 @@ namespace General
 
         public CvInstitucionesAcademicas(int id, string institucion, string caracterEntidad, string cargosDesempeniados, string numeroAfiliado, string categoriaActual, DateTime fechaAfiliacion, DateTime fecha, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais  ):base(id,institucion,7)
         {
-            this._id = id;
+            this.Id = id;
             this._institucion = institucion;
             this._caracterEntidad = caracterEntidad;
             this._cargosDesempeniados = cargosDesempeniados;

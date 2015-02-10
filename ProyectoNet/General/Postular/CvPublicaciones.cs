@@ -9,7 +9,6 @@ namespace General
 {
     public class CvPublicaciones: ItemCv
     {
-        protected int _id;
         protected string _titulo;
         protected string _datosEditorial;
         protected string _cantidadHojas;
@@ -17,7 +16,6 @@ namespace General
         protected int _disponeAdjunto;
         protected DateTime _fechaPublicacion;
 
-        public int Id { get { return _id; } set { _id = value; } }
         public string Titulo { get { return _titulo; } set { _titulo = value; } }
         public string DatosEditorial { get { return _datosEditorial; } set { _datosEditorial = value; } }
         public string CantidadHojas { get { return _cantidadHojas; } set { _cantidadHojas = value; } }
@@ -31,7 +29,7 @@ namespace General
 
         public CvPublicaciones(int id, string titulo, string datosEditorial, string cantidadHojas, int disponeCopia, int disponeAdjunto, DateTime fechaPublicacion):base(id,titulo,5)
         {
-            this._id = id;
+            this.Id = id;
             this._titulo = titulo;
             this._datosEditorial = datosEditorial;
             this._cantidadHojas = cantidadHojas;

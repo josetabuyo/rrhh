@@ -9,7 +9,6 @@ namespace General
 {
     public class CvEstudios:ItemCv
     {
-        protected int _id;
         protected string _titulo;
         protected int _anios;
         protected string _establecimiento;
@@ -20,7 +19,6 @@ namespace General
         protected int _pais;
         protected string _especialidad;
 
-        //public int Id { get { return _id; } set { _id = value; } }
         public string Titulo { get { return _titulo; } set { _titulo = value; } }
         public int Anios { get { return _anios; } set { _anios = value; } }
         public string Establecimiento { get { return _establecimiento; } set { _establecimiento = value; } }
@@ -41,7 +39,7 @@ namespace General
 
         public CvEstudios(int id, string titulo, int nivel, int anios, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais):base(id, titulo,1)
         {
-            this._id = id;
+            this.Id = id;
             SetearCampos(titulo, nivel, anios, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);
 
         }
@@ -68,7 +66,7 @@ namespace General
 
         public override int GetHashCode()
         {
-            return this._id.GetHashCode();
+            return this.Id.GetHashCode();
         }
 
         override public void validarDatos()
