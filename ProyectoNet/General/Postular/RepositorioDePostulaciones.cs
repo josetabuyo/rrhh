@@ -65,8 +65,12 @@ namespace General
             {
                 var postulacion = new Postulacion(){
                    Id= row.GetInt("IdPostulacion"), 
-                   Perfil=ArmarPuesto(row), 
-                   IdPersona=row.GetInt("IdPersona"), 
+                   Perfil=ArmarPuesto(row),
+                   Postulante = new Persona() {
+                       Id = row.GetInt("IdPostulante"),
+                       Nombre = row.GetString("NombrePostulante"),
+                       Apellido = row.GetString("ApellidoPostulante")
+                   }, 
                    FechaPostulacion=row.GetDateTime("FechaInscripcion"),
                    Motivo=row.GetString("Motivo"), 
                    Observaciones=row.GetString("Observaciones"), 
