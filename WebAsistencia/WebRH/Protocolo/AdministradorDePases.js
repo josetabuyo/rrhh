@@ -33,9 +33,55 @@
     }
     }));
 
-    
 
-    PlanillaPersonas = new Grilla(columnas);
+
+    columnas.push(new Columna("Eliminar", { generar: function (una_persona) {
+        if (una_persona.estadoPase() == "Pendiente") {
+            var contenedorBtnAcciones = $('<div>');
+            var botonEliminar = $('<img>');
+            botonEliminar.attr('src', '../Imagenes/btnEliminar.gif');
+            botonEliminar.attr('width', '25px');
+            botonEliminar.attr('height', '25px');
+            contenedorBtnAcciones.append(botonEliminar);
+            botonEliminar.click(function () {
+                var mensaje = "¿Está seguro que desea eliminar el Pase de " + una_persona.nombre() + " desde el Área: " + una_persona.areaOrigen() + " hacía el Área: " + una_persona.areaDestino() + "?";
+                alertify.confirm(mensaje, function (e) {
+                    if (e) {
+                        // user clicked "ok"
+                        var data_post = JSON.stringify({
+                            id_pase: JSON.stringify(una_persona.idPase()),
+                           
+                        });
+                        $.ajax({
+                            url: "../AjaxWS.asmx/EliminarPasePendienteAprobacion",
+                            type: "POST",
+                            data: data_post,
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            success: function (respuestaJson) {
+                                PlanillaPersonas.EliminarObjeto(una_persona);
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alertify.alert(errorThrown);
+                            }
+                        });
+                    } else {
+                        alertify.error("No se ha eliminado el Pase");
+                    }
+                });
+
+                
+            });
+            return contenedorBtnAcciones;
+        }
+    }
+    }));
+
+
+
+
+
+    var PlanillaPersonas = new Grilla(columnas);
 
     PlanillaPersonas.AgregarEstilo("tabla_macc");
     PlanillaPersonas.AgregarEstilo("tabla_protocolo");

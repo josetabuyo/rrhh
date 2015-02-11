@@ -30,13 +30,13 @@
             <div id="puesto_cuadro" class = "cont_detalles_cargo">
             <table>
                 <tr>
-                    <td>        
+                    <td width="20%">        
                         <label class ="titulo_cargo">N° Central de Oferta de empleo:</label>   
                         <td>
                             <label id="puesto_numero" class = "detalle_cargo"></label>
                         </td>  
                     </td>
-                    <td>
+                    <td  width="18%">
                         <label class="titulo_cargo">Entidad Convocante:</label>        
                         <td>
                             <label id="puesto_convocante" class = "detalle_cargo"></label>
@@ -133,7 +133,7 @@
                     g) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
                     h) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
                 </p>
-                <p class="aclaraciones"><input id="chk_bases" type="checkbox" />He leído y acepto las Bases y Condiciones del Concurso al que me postulo</p>
+                <p class="aclaraciones2"><input id="chk_bases" type="checkbox" />He leído y acepto las Bases y Condiciones del Concurso al que me postulo</p>
                 <a style="margin-right: 10px;" class="btn btn-primary" href="#">Cancelar</a>
                 <input type="button" class="btn btn-primary" id="btn_postularse" value="Confirmar Postulación" />
             </div>

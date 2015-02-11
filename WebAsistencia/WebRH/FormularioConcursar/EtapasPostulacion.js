@@ -77,7 +77,7 @@
         var BuscarUsuario = function () {
             this.generar = function (una_etapa) {
                 for (var i = 0; i < usuarios.length; i++) {
-                    if (parseInt(usuarios[i].Owner.Id, 10) == parseInt(una_etapa.IdUsuario, 10)) return usuarios[i].Owner.Nombre + " " + usuarios[i].Owner.Apellido;
+                    if (parseInt(usuarios[i].Id, 10) == parseInt(una_etapa.IdUsuario, 10)) return usuarios[i].Owner.Nombre + " " + usuarios[i].Owner.Apellido;
                 }
                 return "";
             }
@@ -96,9 +96,9 @@
         for (var i = 0; i < datos_postulacion.Etapas.length; i++) {
             var agregado = false;
             for (var j = 0; j < usuarios.length; j++) {
-                if (usuarios[j].Owner.Id == datos_postulacion.Etapas[i].IdUsuario) agregado = true;
+                if (usuarios[j].Id == datos_postulacion.Etapas[i].IdUsuario) agregado = true;
             }
-            if (!agregado) usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorIdPersona", [datos_postulacion.Etapas[i].IdUsuario]));
+            if (!agregado) usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorId", [datos_postulacion.Etapas[i].IdUsuario])); //
         }
         var usu_etapas = datos_postulacion.Etapas;
 

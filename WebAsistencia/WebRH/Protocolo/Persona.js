@@ -28,6 +28,10 @@ Persona.prototype.inasistencias = function () {
     return this._persona.Inasistencias[0].Descripcion;
 };
 
+Persona.prototype.idInasistencias = function () {
+    return this._persona.Inasistencias[0].Id;
+};
+
 Persona.prototype.desde = function () {
     return ConversorDeFechas.deIsoAFechaEnCriollo(this._persona.Inasistencias[0].Desde)
 };
@@ -39,6 +43,10 @@ Persona.prototype.hasta = function () {
 Persona.prototype.estado = function () {
     return this._persona.Inasistencias[0].Estado;
 };
+
+Persona.prototype.idPase = function () {
+    return this._persona.PasePendiente.Id;
+}
 
 Persona.prototype.areaOrigen = function () {
     return this._persona.PasePendiente.AreaOrigen.Nombre;

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.MAU;
+using General.Repositorios;
 
 namespace General
 {
-    public class CvEstudios
+    public class CvEstudios:ItemCv
     {
-        protected int _id;
         protected string _titulo;
         protected int _anios;
         protected string _establecimiento;
@@ -18,7 +19,6 @@ namespace General
         protected int _pais;
         protected string _especialidad;
 
-        public int Id { get { return _id; } set { _id = value; } }
         public string Titulo { get { return _titulo; } set { _titulo = value; } }
         public int Anios { get { return _anios; } set { _anios = value; } }
         public string Establecimiento { get { return _establecimiento; } set { _establecimiento = value; } }
@@ -28,16 +28,18 @@ namespace General
         public DateTime FechaEgreso { get { return _fechaEgreso; } set { _fechaEgreso = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Pais { get { return _pais; } set { _pais = value; } }
+        //public const int IdTabla = 1;// { get { return 1; } set { } }
 
 
-        public CvEstudios(string titulo, int nivel, int anios, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais)
+		public CvEstudios() { }
+        public CvEstudios(string titulo, int nivel, int anios, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais):base(0,titulo,1)
         {
             SetearCampos(titulo, nivel, anios, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);
         }
 
-        public CvEstudios(int id, string titulo, int nivel, int anios, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais)
+        public CvEstudios(int id, string titulo, int nivel, int anios, string establecimiento, string especialidad, DateTime fechaIngeso, DateTime fechaEgreso, string localidad, int pais):base(id, titulo,1)
         {
-            this._id = id;
+            this.Id = id;
             SetearCampos(titulo, nivel, anios, establecimiento, especialidad, fechaIngeso, fechaEgreso, localidad, pais);
 
         }
@@ -64,11 +66,30 @@ namespace General
 
         public override int GetHashCode()
         {
-            return this._id.GetHashCode();
+            return this.Id.GetHashCode();
         }
 
-        public CvEstudios()
+        override public void validarDatos()
         {
+            var validador_estudios = new Validador();
+
+            validador_estudios.DeberianSerNoVacias(new string[] { "Titulo", "Especialidad", "Establecimiento", "Localidad" });
+            validador_estudios.DeberianSerFechasNoVacias(new string[] { "FechaIngreso", "FechaEgreso" });
+            validador_estudios.DeberianSerNaturalesOCero(new string[] { "Nivel", "Anios", "Pais" });
+            //  validador_estudios.DeberianSerNaturales(new string[] {  "Pais" });
+
+            if (!validador_estudios.EsValido(this))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
+        }
+
+        override public Dictionary<string, object> Parametros(Usuario usuario, RepositorioDeCurriculum repo)
+        {
+            return repo.ParametrosEstudios(this, usuario);
+        }
+
+        override public string SpInsercion(RepositorioDeCurriculum repo)
+        {
+            return repo.SpEstudios();
         }
     }
 }

@@ -98,7 +98,7 @@ namespace General
                                             select new //CvEventoAcademico ()
                                             {
                                                 Descripcion = dRow.GetString("EtapaDescripcion", ""),
-                                                IdEtapaConcurso = dRow.GetSmallintAsInt("IdEtapa"),
+                                                IdEtapaConcurso = dRow.GetInt("IdEtapa"),
                                                 Fecha = dRow.GetDateTime("FechaPostulacion"),
                                                 IdUsuario = dRow.GetSmallintAsInt("IdUsuarioPostulacion"),
                                                 IdPostulacion = dRow.GetInt("IdPostulacion")
@@ -132,7 +132,7 @@ namespace General
             tablaCVs.Rows.ForEach(row =>
             etapas.Add(new EtapaConcurso()
             {
-                Id = row.GetSmallintAsInt("Id"),
+                Id = row.GetInt("Id"),
                 Descripcion = row.GetString("Descripcion")
             }));
 
@@ -163,17 +163,16 @@ namespace General
         {
             var repo_comite = new RepositorioDeComites(this.conexion_bd);
             return new Perfil(
-                              row.GetInt("IdPerfil"),
+                              row.GetSmallintAsInt("IdPerfil"),
                               row.GetString("Familia"),
                               row.GetString("Profesion"),
                               row.GetString("Denominacion"),
                               row.GetString("Nivel"),
                               row.GetString("Agrupamiento"),
-                              row.GetInt("Vacantes"),
+                              row.GetSmallintAsInt("Vacantes"),
                               row.GetString("Tipo"),
                               row.GetString("Puesto_Numero"),
-                              repo_comite.GetComiteById(row.GetInt("IdComite")
-                              )
+                              repo_comite.GetComiteById(row.GetSmallintAsInt("IdComite"))                            
                 );
         }
         

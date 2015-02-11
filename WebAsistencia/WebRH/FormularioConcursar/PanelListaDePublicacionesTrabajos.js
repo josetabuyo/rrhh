@@ -6,7 +6,9 @@
 
         _this.btn_agregar_publicacion_trabajo.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
-                defaults: {},
+                defaults: {
+                    FechaPublicacion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                },
                 path_html: "PanelDetalleDePublicacionTrabajo.htm",
                 metodoDeGuardado: "GuardarCvPublicacionesTrabajos",
                 mensajeDeGuardadoExitoso: "La publicacion fue creada correctamente",
@@ -68,7 +70,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la publicación?", function (e) {
             if (e) {
-                Backend.EliminarCvPublicacionesTrabajos(una_publicacion_trabajo.Id)
+                Backend.EliminarCvPublicacionesTrabajos(una_publicacion_trabajo)
                     .onSuccess(function (respuesta) {
                         alertify.success("Publicación eliminada correctamente");
                         _this.GrillaPublicaciones.QuitarObjeto(_this.divGrilla, una_publicacion_trabajo);

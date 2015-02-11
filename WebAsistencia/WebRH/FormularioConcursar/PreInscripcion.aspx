@@ -211,10 +211,24 @@
                     <p>
                         PARA POSTULARSE PRESIONE EL BOTON "Confirmar Postulación"</p>
                 </fieldset>
+
+
+       
+
+
             </div>
         </div>
     </div>
     <%-- <a id="modal_preinscripcion" rel="leanModal" style="display:none;" name="modal_mensaje" href="#modal_mensaje"></a>--%>
+   
+            <div class="actions clearfix " style="margin:20px 5px 20px -25px;  position: relative; width:100%; height: 60px; text-align:center; ">
+            <ul>
+                <li ><a  id="pasosanterior"href="javascript:Anterior();" >Anterior</a></li>
+                <li ><a  id="pasossiguiente" onclick="javascript:Siguiente();" >Siguiente</a></li>
+               
+            </ul>
+        </div>
+    
     <asp:HiddenField ID="curriculum" runat="server" />
     <asp:HiddenField ID="perfil" runat="server" />
     </form>

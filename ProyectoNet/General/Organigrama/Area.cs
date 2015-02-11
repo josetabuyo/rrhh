@@ -47,11 +47,11 @@
             this.SetAlias(new AliasNull());
         }
 
-        public Area(int IdArea, string Nombre, string Codigo, bool presenta_ddjj)
+        public Area(int IdArea, string Nombre, bool presenta_ddjj)
         {
             this.Id = IdArea;
             this.Nombre = Nombre;
-            this.Codigo = Codigo;
+            
             this.Dependencias = new List<Area>();
             this.presenta_ddjj = presenta_ddjj;
             this.SetAlias(new AliasNull());

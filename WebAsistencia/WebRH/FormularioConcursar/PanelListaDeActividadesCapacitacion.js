@@ -7,7 +7,11 @@
 
         _this.btn_agregar_actividad_capacitacion.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
-                defaults: { Pais: 9},
+                defaults: { 
+                    Pais: 9,
+                    FechaInicio: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
+                    FechaFinalizacion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                },
                 path_html: "PanelDetalleDeActividadCapacitacion.htm",
                 metodoDeGuardado: "GuardarCvActividadCapacitacion",
                 mensajeDeGuardadoExitoso: "La actividad fue guardada correctamente",
@@ -70,7 +74,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la actividad?", function (e) {
             if (e) {
-                Backend.EliminarCvActividadCapacitacion(una_actividad_capacitacion.Id)
+                Backend.EliminarCvActividadCapacitacion(una_actividad_capacitacion)
                     .onSuccess(function (respuesta) {
                         alertify.success("Actividad eliminada correctamente");
                         _this.GrillaActividadesCapacitacion.QuitarObjeto(_this.divGrilla, una_actividad_capacitacion);

@@ -7,7 +7,13 @@
 
         _this.btn_agregar_institucion_academica.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
-                defaults: { Pais: 9 },
+                defaults: {
+                    Pais: 9, 
+                    FechaDeAfiliacion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
+                    Fecha: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
+                    FechaInicio: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
+                    FechaFin: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                },
                 path_html: "PanelDetalleDeInstitucionAcademica.htm",
                 metodoDeGuardado: "GuardarCvInstitucionAcademica",
                 mensajeDeGuardadoExitoso: "La institución fue guardada correctamente",
@@ -71,7 +77,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la institución?", function (e) {
             if (e) {
-                Backend.EliminarCvInstitucionAcademica(una_institucion_academica.Id)
+                Backend.EliminarCvInstitucionAcademica(una_institucion_academica)
                     .onSuccess(function (respuesta) {
                         alertify.success("Institución eliminada correctamente");
                         _this.GrillaInstitucionesAcademicas.QuitarObjeto(_this.divGrilla, una_institucion_academica);

@@ -13,11 +13,12 @@ public partial class FormularioConcursar_Default : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         var usuario = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
-        var postulacion = HttpContext.Current.Session[ConstantesDeSesion.POSTULACION];
+        string fh_postulacion_ansi = Request.QueryString["fh"];
+        var fh_postulacion = DateTime.Parse(fh_postulacion_ansi);
 
         if (!IsPostBack)
         {
-            var cv = Servicio().GetCurriculum(usuario.Owner.Id);
+            var cv = Servicio().GetCurriculumVersion(usuario.Owner.Id, fh_postulacion);
 
             var curriculum = JsonConvert.SerializeObject(cv);
 

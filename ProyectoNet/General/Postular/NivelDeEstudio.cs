@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace General.Repositorios
+namespace General
 {
     public class NivelDeEstudio
     {
@@ -21,21 +21,26 @@ namespace General.Repositorios
             this.Descripcion = descripcion;
         }
 
-        // override object.Equals
-        public override bool Equals(object obj)
-        {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
+        //// override object.Equals
+        //public override bool Equals(object obj)
+        //{
+        //    if (obj == null || GetType() != obj.GetType())
+        //    {
+        //        return false;
+        //    }
 
-            return this.Id == ((NivelDeEstudio)obj).Id;
-        }
+        //    return this.Id == ((NivelDeEstudio)obj).Id;
+        //}
 
-        // override object.GetHashCode
-        public override int GetHashCode()
-        {
-            return  this.Id;
-        }
+        //// override object.GetHashCode
+        //public override int GetHashCode()
+        //{
+        //    return  this.Id;
+        //}
+
+        //public override bool EsCumlidoPor(ItemCv item_cv)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

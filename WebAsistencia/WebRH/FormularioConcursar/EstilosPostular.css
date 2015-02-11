@@ -468,19 +468,26 @@ nav
 
 
 .titulo_cargo{
-    font-size:12px;
+    font-size:13px;
     font-weight:bold;
 }
 
 .detalle_cargo{
-    font-size:12px;
+    font-size:13px;
 }
 
 .aclaraciones{
-    font-size:12px;
+    font-size:13px;
 
     line-height:22px;
 }
+  
+  
+.aclaraciones2{
+    font-size:14px;
+    font-weight:bold;
+    line-height:22px;
+}  
   
 .subtitulo_incripcion 
 {
@@ -1090,6 +1097,24 @@ margin: 15px 0 15px 0;
     cursor: pointer;
 }
 
+#pasosanterior {
+background-color: #2184be;
+color: #ffffff !important;
+padding: 2px 6px 3px 6px;
+border-radius: 10px 0px 0px 10px;
+font-size: 16px;
+}
+
+
+#pasossiguiente {
+background-color: #2184be;
+color: #ffffff !important;
+padding: 2px 6px 3px 6px;
+border-radius: 0px 10px 10px 0px;
+font-size: 16px;
+}
+
+
   
 .link_activado, .link_activado:hover {
     background: #2184be;
@@ -1142,4 +1167,24 @@ width: 100%;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;*/
+}
+
+.label_caratula 
+{
+    /*text-decoration:underline;*/
+    font-size:22px;
+    font-family: Verdana;
+   
+}
+
+.td-caratula
+{
+/*text-align: center;*/
+font-size: 22px;
+width: 70%;
+padding-bottom: 5px;
+
+height: 20px;
+vertical-align: bottom;
+/*border-style: dashed;*/
 }

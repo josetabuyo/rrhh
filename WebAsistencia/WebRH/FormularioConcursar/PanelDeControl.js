@@ -23,7 +23,7 @@
 
         var titulo = $('<a>');
         titulo.addClass('subtitulo_postulaciones');
-        titulo.attr("href", 'FichaInscripcionCVDeclaJurada.aspx?id=' + postulacion.Id)
+        titulo.attr("href", 'FichaInscripcionCVDeclaJurada.aspx?id=' + postulacion.Id + "&fh=" + postulacion.FechaPostulacion)
         titulo[0].innerHTML = 'N°: ' + postulacion.Numero + ' (' + ConversorDeFechas.deIsoAFechaEnCriollo(postulacion.FechaPostulacion) + ')' + ' - Estado: ' + this.obtenerEstado(postulacion);
         // titulo[0].puesto = postulaciones[i].Puesto;
         /*titulo.click(function (e) {

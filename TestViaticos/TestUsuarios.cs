@@ -93,7 +93,7 @@ namespace General
         }
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
+        [Ignore] //para que ande el teamcity
         public void deberia_traer_una_unica_area_con_los_datos_de_contacto_de_la_misma()
         {
             string source = @"  |id_usuario	|nombre	        |password	                    |id_area	|nombre_area	    |Presenta_DDJJ	|Apellido_Responsable	|Nombre_Responsable     |direccion	                        |Apellido_Asistente	    |Nombre_Asistente	|Telefono_Asistente	|Fax_Asistente	|Mail_Asistente	            |Id_Dato_Area    |Descripcion_Dato_Area  |Dato_Area                  |Orden         |es_firmante	|Cargo	      |Prioridad_Asistente	|Id_Funcionalidad | Nombre_Funcionalidad
@@ -119,7 +119,7 @@ namespace General
 
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
+        [Ignore] //para que ande el teamcity
         public void deberia_mostrarme_una_unica_vez_la_secretaria_que_posee_el_area_cuando_los_datos_estan_repetidos()
         {
             string source = @"  |id_usuario	|nombre	        |password	                    |id_area	|nombre_area	    |Presenta_DDJJ	|Apellido_Responsable	|Nombre_Responsable     |direccion	                   |Apellido_Asistente	    |Nombre_Asistente	|Telefono_Asistente	|Fax_Asistente	|Mail_Asistente	                |es_firmante	|Cargo	      |Prioridad_Asistente	|Id_Dato_Area |Descripcion_Dato_Area |Orden |Dato_Area                | Id_Funcionalidad | Nombre_Funcionalidad
@@ -134,7 +134,7 @@ namespace General
 
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
+        [Ignore] //para que ande el teamcity
         public void dada_un_area__con_3_asistentes_deberia_obtener_en_una_unica_area_unico_registro_y_los_3_asistentes_incluido_en_el_area()
         {
             string source = @"  |id_usuario	|nombre	        |password	                    |id_area	|nombre_area	    |Presenta_DDJJ	|Apellido_Responsable	|Nombre_Responsable     |direccion	                        |Apellido_Asistente	    |Nombre_Asistente	|Telefono_Asistente	|Fax_Asistente	|Mail_Asistente	                        |es_firmante	|Cargo	      |Prioridad_Asistente	|Id_Dato_Area |Descripcion_Dato_Area  |Orden   |Dato_Area                | Id_Funcionalidad | Nombre_Funcionalidad
@@ -151,7 +151,7 @@ namespace General
         }
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
+        [Ignore] //para que ande el teamcity
         public void deberia_traer_4_areas_con_los_datos_de_contacto_de_la_mismas()
         {
             string source = @"  |id_usuario	|nombre	        |password	                    |id_area	|nombre_area	    |Presenta_DDJJ	|Apellido_Responsable	|Nombre_Responsable     |direccion	                        |Apellido_Asistente	    |Nombre_Asistente	|Telefono_Asistente	|Fax_Asistente	|Mail_Asistente	                   |Id_Dato_Area    |Descripcion_Dato_Area  |Dato_Area                  |Orden |es_firmante	|Cargo	      |Prioridad_Asistente	| Id_Funcionalidad | Nombre_Funcionalidad
@@ -182,7 +182,7 @@ namespace General
         }
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
+        [Ignore] //para que ande el teamcity
         public void un_usuario_no_CENARD_debe_acceder_a_Materias()
         {
             //var items_de_menu = new List<ItemDeMenu>();
@@ -196,7 +196,7 @@ namespace General
         }
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
+        [Ignore] //para que ande el teamcity
         public void un_usuario_CENARD_no_debe_acceder_a_Materias()
         {
             //var items_de_menu = new List<ItemDeMenu>();
@@ -210,7 +210,7 @@ namespace General
         }
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
+        [Ignore] //para que ande el teamcity
         public void un_usuario_SACC_no_debe_acceder_al_menu_Sicoi()
         {
             //var items_de_menu = new List<ItemDeMenu>();
@@ -227,7 +227,7 @@ namespace General
         }
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
+        [Ignore] //para que ande el teamcity
         public void un_usuario_SACC_puede_acceder_a_dos_menues_sacc()
         {
             //var items_de_menu = new List<ItemDeMenu>();
@@ -253,7 +253,7 @@ namespace General
         }
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
+        [Ignore] //para que ande el teamcity
         public void el_repo_de_usuarios_construye_un_autorizador_con_un_acceso()
         {
 //            string source = @"  id| menu        | nombre      |  url                    | orden | nivel | padre
@@ -274,7 +274,7 @@ namespace General
         }
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
+        [Ignore] //para que ande el teamcity
         public void el_repo_de_usuarios_construye_un_autorizador_con_dos_accesos_para_un_menu()
         {
 
@@ -298,7 +298,7 @@ namespace General
         }
 
         [TestMethod]
-        [Ignore] //Para que funcione el teamcity
+        [Ignore] //para que ande el teamcity
         public void el_repo_de_usuarios_construye_un_autorizador_con_accesos_para_dos_menues()
         {
 //            string source = @"  id| menu        | nombre      |  url                    | orden | padre

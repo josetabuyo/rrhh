@@ -44,12 +44,9 @@
                 </div>
                 </div>
             </div>-->
-            <legend>Novedades</legend>
-            <p>Se comunica a todos los postulantes que el concurso para ocupar las vacantes dará comienzo el día 25 de mayo del año corriente. <br/>
-                Para inscribirse deberan primero completar el CV de manera online a través de esta misma página, y luego deberán aplicar al puesto en el que tienen interés. <br />
-                En caso de no cumplir los requisitos para un determinado puesto, el sistema les avisará sobre la imposibilidad de inscripción para ese en particular. <br/>
-                Ante cualquier duda, por favor comunicarse con la oficina de RRHH.
-            </p> 
+            <legend>VERSION DE PRUEBA</legend>
+            <p>ESTE SISTEMA SE ENCUENTRA EN ETAPA DE DESARROLLO. NINGUNO DE LOS DATOS Y FUNCIONES TIENE ALGUNA VALIDEZ PARA CONCURSAR</p> 
+            <p>PARA TENER ACCESO A OTROS MÓDULOS CONTACTESE CON LA DIRECCIÓN DE DISEÑO Y DESARROLLO ORGANIZACIONAL PARA LA GESTIÓN DE PERSONAS (INT 3871)</p>
             
         </div>
 
@@ -95,7 +92,9 @@
     $(document).ready(function () {
         var postulaciones = JSON.parse($('#postulaciones').val());
 
-        
+        if ($.browser.msie) {
+            alert("PARA UNA MEJOR EXPERIENCIA LE RECOMENDAMOS QUE POR FAVOR UTILICE NAVEGADORES MODERNOS COMO CHROME O FIREFOX " + $.browser.version);
+        }
 
         PanelDeControl.armarPostulaciones(postulaciones);
     });

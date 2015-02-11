@@ -29,15 +29,15 @@
         _this.postulacion_numero = $("#num_postulacion");
         _this.postulacion_numero.text(postulacion.Numero);
         _this.puesto_numero = $("#numero_puesto");
-        _this.puesto_numero.text(postulacion.Puesto.Numero);
+        _this.puesto_numero.text(postulacion.Perfil.Numero);
         _this.puesto_convocatoria = $("#puesto_tipo");
-        _this.puesto_convocatoria.text(postulacion.Puesto.Tipo);
+        _this.puesto_convocatoria.text(postulacion.Perfil.Tipo);
         _this.puesto_denominacion = $("#puesto_denominacion");
-        _this.puesto_denominacion.text(postulacion.Puesto.Denominacion);
+        _this.puesto_denominacion.text(postulacion.Perfil.Denominacion);
         _this.puesto_agrupamiento = $("#puesto_agrupamiento");
-        _this.puesto_agrupamiento.text(postulacion.Puesto.Agrupamiento);
+        _this.puesto_agrupamiento.text(postulacion.Perfil.Agrupamiento);
         _this.puesto_nivel = $("#puesto_nivel");
-        _this.puesto_nivel.text(postulacion.Puesto.Nivel);
+        _this.puesto_nivel.text(postulacion.Perfil.Nivel);
         _this.puesto_secretaria = $("#puesto_jefatura");
         _this.puesto_secretaria.text("Secretaria");
 
@@ -196,8 +196,8 @@
                 _this.p = _this.dibujarDatos('Año: ');
                 _this.span = $('<span>');
                 _this.span.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvPublicaciones[i].FechaPublicacion) + ' - ' +
-                                curriculum.CvPublicaciones[i].Institucion + ' - ' +
-                                curriculum.CvPublicaciones[i].Denominacion);
+                                curriculum.CvPublicaciones[i].Titulo + ' - ' +
+                                curriculum.CvPublicaciones[i].DatosEditorial);
                 _this.p.append(_this.span);
                 _this.titulos_educativos.append(_this.p);
             }

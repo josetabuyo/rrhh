@@ -7,7 +7,9 @@
 
         _this.btn_agregar_otra_matricula.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
-                defaults: {},
+                defaults: {
+                    FechaInscripcion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                },
                 path_html: "PanelDetalleDeMatricula.htm",
                 metodoDeGuardado: "GuardarCvMatricula",
                 mensajeDeGuardadoExitoso: "La matrícula fue guardada correctamente",
@@ -72,7 +74,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la matrícula?", function (e) {
             if (e) {
-                Backend.EliminarCvMatricula(una_matricula.Id)
+                Backend.EliminarCvMatricula(una_matricula)
                     .onSuccess(function (respuesta) {
                         alertify.success("Matrícula eliminada correctamente");
                         _this.GrillaMatriculas.QuitarObjeto(_this.divGrilla, una_matricula);

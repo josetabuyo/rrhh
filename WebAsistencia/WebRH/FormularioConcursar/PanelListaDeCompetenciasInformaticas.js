@@ -11,7 +11,8 @@
                     Pais: 9,
                     Nivel: 1,
                     TipoInformatica: 1,
-                    Conocimiento: 1
+                    Conocimiento: 1,
+                    FechaObtencion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
                 },
                 path_html: "PanelDetalleDeCompetenciaInformatica.htm",
                 metodoDeGuardado: "GuardarCvCompetenciaInformatica",
@@ -75,7 +76,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la competencia informática?", function (e) {
             if (e) {
-                Backend.EliminarCvCompetenciaInformatica(una_competencia_informatica.Id)
+                Backend.EliminarCvCompetenciaInformatica(una_competencia_informatica)
                     .onSuccess(function (respuesta) {
                         alertify.success("Competencia informática eliminada correctamente");
                         _this.GrillaCompetenciasInformaticas.QuitarObjeto(_this.divGrilla, una_competencia_informatica);

@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" type="text/css" href="MenuPrincipal.css" />
 
-    <body>
+    <body style="background-color:#031427">
         <form runat="server">
             <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
             <div id="set-8" class="container">

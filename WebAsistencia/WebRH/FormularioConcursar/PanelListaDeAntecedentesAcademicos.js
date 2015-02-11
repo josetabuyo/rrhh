@@ -9,7 +9,9 @@
             var panel_detalle = new PanelDetalleGenerico({
                 defaults: { 
                     Pais: 9,
-                    Nivel: 1
+                    Nivel: 1,
+                    FechaIngreso: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
+                    FechaEgreso: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
                 },
                 path_html: "PanelDetalleDeAntecedenteAcademico.htm",
                 metodoDeGuardado: "GuardarCvAntecedenteAcademico",
@@ -78,7 +80,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la capacidad?", function (e) {
             if (e) {
-                Backend.EliminarCvAntecedenteAcademico(un_estudio.Id)
+                Backend.EliminarCvAntecedenteAcademico(un_estudio)
                     .onSuccess(function (respuesta) {
                         alertify.success("Antecedente eliminado correctamente");
                         _this.GrillaAntecedentesAcademicos.QuitarObjeto(_this.divGrilla, un_estudio);
