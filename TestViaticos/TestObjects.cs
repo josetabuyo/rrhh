@@ -1850,7 +1850,7 @@ namespace General
 
         public static Postulacion UnaPostulacion()
         {
-            return new Postulacion(1, UnPerfil(), 1, new DateTime(), "", "", "", new List<EtapaPostulacion>());
+            return new Postulacion(1, UnPerfil(),new DateTime(), "", "", "", new List<EtapaPostulacion>());
         }
 
 

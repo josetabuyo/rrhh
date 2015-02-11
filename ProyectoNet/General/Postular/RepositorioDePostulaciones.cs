@@ -33,7 +33,7 @@ namespace General
 
             var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
             postulacion.Id = Convert.ToInt32(id);
-            postulacion.IdPersona = usuario.Owner.Id;
+            postulacion.Postulante = usuario.Owner;
 
             return postulacion;
         }
@@ -203,7 +203,7 @@ namespace General
 
         public bool EliminarPostulacionPorUsuario(Postulacion postulacion, Usuario usuario)
         {
-            if (postulacion.IdPersona == usuario.Owner.Id)
+            if (postulacion.Postulante.Id == usuario.Owner.Id)
             {
                 var baja = CrearBaja(usuario);
 
@@ -211,7 +211,7 @@ namespace General
                 parametros.Add("@IdPostulacion", postulacion.Id);
              //   parametros.Add("@IdPuesto", postulacion.Puesto.Id);
                 parametros.Add("@IdPerfil", postulacion.Perfil.Id);
-                parametros.Add("@IdPersona", postulacion.IdPersona);
+                parametros.Add("@IdPersona", postulacion.Postulante.Id);
                 parametros.Add("@FechaInscripcion", postulacion.FechaPostulacion);
                 parametros.Add("@Usuario", usuario.Id);
                 parametros.Add("@idBaja", baja);

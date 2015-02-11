@@ -11,7 +11,6 @@ namespace General
         protected int _id;
       /*  protected Puesto _puesto;*/
         protected Perfil _perfil;
-        protected int _idPersona;
         protected Persona _postulante;
         protected DateTime _fechaPostulacion;
         protected string _motivo;
@@ -24,7 +23,6 @@ namespace General
         public virtual int Id { get { return _id; } set { _id = value; } }
         //public virtual Puesto Puesto { get { return _perfil; } set { _perfil = value; } }
         public virtual Perfil Perfil { get { return _perfil; } set { _perfil = value; } }
-        public virtual int IdPersona { get { return _idPersona; } set { _idPersona = value; } }
         public virtual Persona Postulante { get { return _postulante; } set { _postulante = value; } }
         public virtual DateTime FechaPostulacion { get { return _fechaPostulacion; } set { _fechaPostulacion = value; } }
         public virtual string Motivo { get { return _motivo; } set { _motivo = value; } }
