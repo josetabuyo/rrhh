@@ -41,6 +41,8 @@ function DibujarTabla(postulaciones) {
     columnas.push(new Columna("Estado", { generar: function (una_postulacion) { return "Sin Dictamen" } }));
 
 
+
+
     columnas.push(new Columna('Cambiar', {
         generar: function (una_postulacion) {
             var btn_accion = $('<a>');

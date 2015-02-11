@@ -170,13 +170,42 @@
 
     $(document).ready(function () {
 
+        var usuario = "";
+        $.ajax({
+            url: "../AjaxWS.asmx/GetUsuario",
+            type: "POST",
+            //data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (respuestaJson) {
+                document.getElementById("span_recepcion").innerHTML = respuestaJson.d;
 
+                usuario = respuestaJson.d;
+
+
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alertify.alert(errorThrown);
+            }
+        });
+
+
+
+
+        document.getElementById("span_recepcion").innerHTML = usuario;
         document.getElementById("span_postulante").innerHTML = localStorage.getItem("empleado");
         document.getElementById("span_perfil").innerHTML = localStorage.getItem("perfil");
-        document.getElementById("span_perfil").innerHTML = localStorage.getItem("perfil");
+        document.getElementById("span_comite").innerHTML = localStorage.getItem("comite");
 
-        window.print();
+
+        setTimeout(
+  function () {
+      window.print();
+  }, 100);
+       
     });
+
 
 </script>
 

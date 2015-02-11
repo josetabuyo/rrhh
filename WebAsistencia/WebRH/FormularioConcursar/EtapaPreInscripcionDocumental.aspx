@@ -12,6 +12,7 @@
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 </head>
 <body>
+
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="contenedor_concursar">
@@ -45,7 +46,7 @@
         </fieldset>
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Guardar Documentos" />
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_comprobantes" value="Imprimir comprobantes" />
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_caratula" onclick = "ImprimirCaratula()" value="Imprimir caratula" />
+        <input type="button" style="display:none;" class="btn btn-primary" id="btn_caratula" onclick = "ImprimirCaratula()" value="Imprimir carátula" />
        </div>
     </div>
     <asp:HiddenField ID="postulacion" runat="server" />
@@ -92,6 +93,8 @@
                 // Store
                 localStorage.setItem("empleado", $("#span_empleado").text());
                 localStorage.setItem("perfil", $("#span_perfil").text());
+
+
                 // Retrieve
 
 
