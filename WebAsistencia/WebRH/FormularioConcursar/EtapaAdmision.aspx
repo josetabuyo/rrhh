@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EtapaInscripcionDocumental.aspx.cs" Inherits="FormularioConcursar_EtapaInscripcionDocumental" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EtapaAdmision.aspx.cs" Inherits="FormularioConcursar_EtapaAdmision" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="~/FormularioConcursar/MenuConcursar.ascx" TagName="BarraMenuConcursar" TagPrefix="uc3" %>
 
@@ -17,19 +17,17 @@
     <div class="contenedor_concursar">
         <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
         <div id="div_admision" class="fondo_form" style="padding: 10px;">
-                <h2>Etapa de Inscripción documental</h2>
-                <p>Ingrese el comité correspondiente para ver las postulaciones de todos los perfiles que tienen asignados.</p>
-                <p>Luego ingrese el perfil para filtrar las postulaciones correspondientes al mismo con estado de PRE-INSCRIPCIÓN</p>
+                <h2>Selección de Admitidos y No Admitidos</h2>
             <br />
             <div>
                 <div class="grupo_campos nueva_linea">
                     <div class="grupo_campos">
                         <label for="txt_comite">Comité:&nbsp;</label>
-                        <input type="text" id="id_comite" style="width: 50px;" data-validar="esNumeroNatural"  />
+                        <input type="text" id="id_comite" style="width: 50px;" data-validar="esNumeroNatural" />
                     </div>
                     <div class="grupo_campos">
                         <label for="txt_perfil">Perfil:&nbsp;</label>
-                       <select id="id_perfil" style="margin-bottom: 0px;"  disabled="disabled"> </select>
+                        <select id="id_perfil" style="margin-bottom: 0px;"  disabled="disabled"> </select>
                     </div>
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
@@ -40,39 +38,51 @@
             </div>
             <div id="contenedorTabla">
              <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
-             <span style="float:right; margin-right: 4%;" id="txt_marcar_todos" ></span>
              <table id="tabla_postulaciones" style="width:100%;"></table>
              <input type="button" style="display:none;" class="btn btn-primary" id="btn_generar_anexo" value="Generar Anexo" />
             </div>
        
+        <%--<div id="requisitos_perfil"></div>
+        <fieldset id="cuadro_perfil">
+           
+            <div id="detalle_perfil"></div>
+        </fieldset>
+        <fieldset id="cuadro_documentos">
+           
+            <div id="detalle_documentos"></div>
+        </fieldset>
+        <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Guardar" />--%>
+       </div>
+    </div>
+    <%--<asp:HiddenField ID="postulacion" runat="server" />
+    <asp:HiddenField ID="idPostulacion" runat="server" />--%>
     </form>
 </body>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
- <script type="text/javascript" src="EtapaInscripcionDocumental.js" />
+ <script type="text/javascript" src="EtapaAdmision.js" />
 <%= Referencias.Javascript("../") %>
 
 <script type="text/javascript">
     Backend.start(function () {
         $(document).ready(function () {
+            $('#search').hide();
+
             var busqueda = $("#id_comite");
 
             //HACIENDO EL KEYDOWN EN VEZ DEL KEY UP Y CON EL PREVENT DEFAULT EL ENTER NO ACTUALIZA TODA LA PAGINA
             busqueda.keydown(function (event) {
                 if (event.which == 13) {
-                    PantallaEtapaDeInscripcion.HabilitarBuscarComite();
+                    PantallaEtapaDeAdmision.HabilitarBuscarComite();
                     event.preventDefault();
                 }
             });
 
-
-            $('#search').hide();
-
             $('#id_comite').change(function () {
-                PantallaEtapaDeInscripcion.HabilitarBuscarComite();
+                PantallaEtapaDeAdmision.HabilitarBuscarComite();
             });
 
             $('#id_perfil').change(function () {
-                PantallaEtapaDeInscripcion.FiltrarPorPerfil();
+                PantallaEtapaDeAdmision.FiltrarPorPerfil();
             });
 
 

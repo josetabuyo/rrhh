@@ -1,4 +1,4 @@
-﻿var PantallaEtapaDeInscripcion = {
+﻿var PantallaEtapaDeAdmision = {
 
     HabilitarBuscarComite: function () {
         if ($('#id_comite').val() == "") {
@@ -7,22 +7,20 @@
         } else {
             $('#id_perfil').prop("disabled", false);
             $('#btn_filtrar').prop("disabled", false);
-            this.BuscarPreInscriptos();
+            this.BuscarInscriptos();
         }
 
     },
 
-    BuscarPreInscriptos: function () {
+    BuscarInscriptos: function () {
         var id_comite = $('#id_comite').val();
         var _this = this;
-        Backend.BuscarPostulacionesDePreInscriptos(id_comite)
+        Backend.BuscarPostulacionesDeInscriptos(id_comite)
         .onSuccess(function (postulaciones) {
             if (postulaciones.length == 0) {
                 alertify.alert('No se encontraron resultados');
             } else {
-                //        buscar todos los titulares y seplentes del comité y listarlos - Continuar
-                $('#comite_titular').text(postulaciones[0].Perfil.Comite.Integrantes[0].Apellido);
-
+                _this.CargarIntegrantesComite(postulaciones[0]);
                 _this.DibujarTabla(postulaciones);
                 _this.BuscadorDeTabla();
                 _this.CargarComboPerfiles(postulaciones);
@@ -32,12 +30,25 @@
         });
     },
 
+    CargarIntegrantesComite: function (postulacion) {
+        var integrantes = postulacion.Perfil.Comite.Integrantes;
+        var titulares = "";
+        var suplentes = "";
+        for (var i = 0; i < integrantes.length; i++) {
+            if (integrantes[i].EsTitular) {
+                titulares = titulares + integrantes[i].Apellido + ", " + integrantes[i].Nombre + " - ";
+            } else {
+                suplentes = titulares + integrantes[i].Apellido + ", " + integrantes[i].Nombre + " - ";
+            }
+        };
+
+        $('#comite_titular').text(titulares.substring(0, titulares.length - 2));
+        $('#comite_suplente').text(suplentes.substring(0, suplentes.length - 2));
+
+    },
+
     DibujarTabla: function (postulaciones) {
         var _this = this;
-
-        var ultima_posicion = postulaciones[0].Etapas.length - 1;
-        var id_etapa_actual = postulaciones[0].Etapas[ultima_posicion].Etapa.Id;
-
         $("#search").show();
         $("#tabla_postulaciones").empty();
         var divGrilla = $('#tabla_postulaciones');
@@ -49,44 +60,34 @@
         columnas.push(new Columna("Nivel", { generar: function (una_postulacion) { return una_postulacion.Perfil.Nivel } }));
         columnas.push(new Columna("Tipo", { generar: function (una_postulacion) { return una_postulacion.Perfil.Tipo } }));
         columnas.push(new Columna("Perfil", { generar: function (una_postulacion) { return una_postulacion.Perfil.Denominacion } }));
-        columnas.push(new Columna("Estado", { generar: function (una_postulacion) {
-            var ultima_posicion = una_postulacion.Etapas.length - 1;
-            return una_postulacion.Etapas[ultima_posicion].Etapa.Descripcion;
-        }
-        }));
-        columnas.push(new Columna('Inscribir', {
+        columnas.push(new Columna("Estado", { generar: function (una_postulacion) { return _this.EstadoDeLaEtapa(una_postulacion) } }));
+
+
+        columnas.push(new Columna('Cambiar', {
             generar: function (una_postulacion) {
-                var input = $('<input>');
-                input.attr('type', 'checkbox');
-                input.attr('class', 'check');
-                return input;
+                var btn_accion = $('<a>');
+                var img = $('<img>');
+                img.attr('src', '../Imagenes/cambiar.png');
+                img.attr('width', '25px');
+                img.attr('height', '25px');
+                btn_accion.append(img);
+                btn_accion.click(function () {
+                    _this.CambiarEstadoPostulacion(una_postulacion);
+                });
+
+                return btn_accion;
             }
         }));
 
         this.GrillaDePostulaciones = new Grilla(columnas);
         this.GrillaDePostulaciones.AgregarEstilo("cuerpo_tabla_perfil tr td");
         this.GrillaDePostulaciones.CambiarEstiloCabecera("cabecera_tabla_pantalla_cargos");
+        this.AgregarEstilosEstado();
         this.GrillaDePostulaciones.SetOnRowClickEventHandler(function (un_perfil) { });
 
 
         this.GrillaDePostulaciones.CargarObjetos(postulaciones);
         this.GrillaDePostulaciones.DibujarEn(divGrilla);
-
-        var check_gral = $('<input>');
-        check_gral.attr('id', 'check_gral');
-        check_gral.attr('type', 'checkbox');
-        //check_gral.attr('onclick', 'checkTodos();');
-
-        check_gral.click(function () {
-            _this.MarcarCheckboxGral();
-        });
-
-        $('#btn_generar_anexo').click(function () {
-            _this.CambiarEstadoPostulacion(id_etapa_actual);
-        })
-
-        $("#txt_marcar_todos").html('Marcar todos: ');
-        $("#txt_marcar_todos").append(check_gral);
 
         $("#btn_generar_anexo").attr("style", "display:inline");
 
@@ -110,39 +111,12 @@
 
     },
 
-    CambiarEstadoPostulacion: function (id_etapa) {
-        var postulaciones = [];
+    CambiarEstadoPostulacion: function (una_postulacion) {
 
-        $(".check").each(function () {
-            if ($(this)[0].checked == true) {
-                var postulacion = {};
-                postulacion.Id = $(this).parent().parent()[0].cells[0].innerHTML;
+    },
 
-                postulaciones.push(postulacion);
-            }
-        });
-
-        if (postulaciones.length > 0) {
-            Backend.PasarEtapaAPostulaciones(postulaciones, id_etapa)
-             .onSuccess(function (resultado) {
-                 if (resultado == true) {
-                     alertify.alert('Las postulaciones pasaron a la etapa de Admisión');
-                 } else {
-                     alertify.alert('Hubo un error en el guardado. ');
-                 }
-
-                 //location.reload();
-             })
-            .onError(function (error) {
-                alertify.error(error.statusText);
-            });
-        } else {
-            alertify.alert('No ha seleccionado a nadie del listado.');
-        }
-
-
-
-
+    AgregarEstilosEstado: function (){
+    
     },
 
     BuscadorDeTabla: function () {
@@ -151,6 +125,20 @@
         };
 
         var featureList = new List('contenedorTabla', options);
+    },
+
+    EstadoDeLaEtapa: function (una_postulacion) {
+
+        //This will sort your array
+        function OrdenarPorFechas(etapa1, etapa2) {
+            var etapa1 = etapa1.Fecha;
+            var etapa2 = etapa2.Fecha;
+            return ((etapa1 < etapa2) ? -1 : ((etapa1 > etapa2) ? 1 : 0));
+        }
+
+        una_postulacion.Etapas.sort(OrdenarPorFechas);
+
+        return una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Descripcion
     },
 
     CargarComboPerfiles: function (postulaciones) {
@@ -165,18 +153,6 @@
                 $("#id_perfil").append("<option>" + texto_perfil + "</option>");
             }
 
-        }
-    },
-
-    MarcarCheckboxGral: function () {
-        if ($('#check_gral')[0].checked == true) {
-            $(".check").each(function () {
-                $(this).prop('checked', true);
-            });
-        } else {
-            $(".check").each(function () {
-                $(this).prop('checked', false);
-            });
         }
     }
 

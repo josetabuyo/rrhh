@@ -2838,11 +2838,48 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Postulacion[] BuscarPostulacionesDeInscriptos(int id_comite)
+    {
+
+        List<EtapaConcurso> etapas = new List<EtapaConcurso> { ConstantesConcursar.EtapaInscripcionDocumental ,
+                                                               ConstantesConcursar.EtapaAdmitidos,
+                                                               ConstantesConcursar.EtapaNoAdmitidos
+                                                                };
+
+        return RepoPostulaciones().BuscarPostulacionesPorEtapas(id_comite, etapas).ToArray();
+    }
+
+    [WebMethod]
+    public Postulacion[] BuscarPostulacionesDePreInscriptos(int id_comite)
+    {
+        List<EtapaConcurso> etapas = new List<EtapaConcurso> { ConstantesConcursar.EtapaPreinscripcionDocumental };
+        return RepoPostulaciones().BuscarPostulacionesPorEtapas(id_comite, etapas).ToArray();
+    }
+
+    [WebMethod]
+    public bool PasarEtapaAPostulaciones(Postulacion[] postulaciones, int id_etapa_postulacion, Usuario usuario)
+    {
+        try
+        {
+            postulaciones.ToList().ForEach(p => RepoPostulaciones().InsEtapaPostulacion(p.Id, id_etapa_postulacion, usuario.Id));
+        }
+        catch (Exception e)
+        {
+                
+            throw e;
+        }
+        
+        return true;
+        
+    }
+    
+
+    [WebMethod]
     public PantallaRecepcionDocumentacion GetPantallaRecepcionDocumentacion(Postulacion postulacion)
     {
         CurriculumVitae cv = RepoCurriculum().GetCV(postulacion.IdPersona);
-        RepositorioDePerfiles repoPerfiles = new RepositorioDePerfiles(Conexion());
-        repoPerfiles.GetRequisitosDelPerfil(postulacion.Perfil.Id).ForEach(r => postulacion.Perfil.Requiere(r));
+        //RepositorioDePerfiles repoPerfiles = new RepositorioDePerfiles(Conexion());
+        //repoPerfiles.GetRequisitosDelPerfil(postulacion.Perfil.Id).ForEach(r => postulacion.Perfil.Requiere(r));
 
         RepositorioDeFoliados repo = new RepositorioDeFoliados(Conexion());
         CreadorDePantallas creador = new CreadorDePantallas();
@@ -2854,7 +2891,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool GuardarDocumentacionRecibida(DocumentacionRecibida[] lista_doc_recibida, Usuario usuario)
+    public bool GuardarDocumentacionRecibida(int id_postulacion, DocumentacionRecibida[] lista_doc_recibida, Usuario usuario)
     {
         RepositorioDeFoliados repo = new RepositorioDeFoliados(Conexion());
 
@@ -2862,7 +2899,20 @@ public class WSViaticos : System.Web.Services.WebService
 
         repo.GuardarDocumentacionRecibida(lista_doc_recibida.ToList(), usuario);
 
-        return true;
+        Dictionary<string, object> parametros = new Dictionary<string, object>();
+        parametros.Add("@idPostulacion", id_postulacion);
+        var etapas = RepoPostulaciones().GetPostulaciones(parametros).First().Etapas;
+
+        //VALIDO que hayan documentos para guardar y que la postulacion tenga solo la etapa de preinscripcion
+        //Le paso ETAPA 2 que es la de PREINSCRIPCION DOCUMENTAL
+        if (etapas.Last().Etapa.Id.Equals(ConstantesConcursar.EtapaPreinscripcionWeb.Id))
+        {
+            RepoPostulaciones().InsEtapaPostulacion(id_postulacion, 2, usuario.Id);
+            return true;
+        }
+        else {
+            return false;
+        }
 
     }
 
