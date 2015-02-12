@@ -117,7 +117,7 @@
 
     AgregarEstilosEstado: function () {
 
-        $(".Estado").attr("style", "color:green");
+        $(".Estado").attr("style", "color: #ffffff; background-color: #0074cc; background-repeat: repeat-x; border-left-color: #0055cc;border-right-color: #0055cc;border-top-color: #0055cc;border-bottom-color: #003580;border-right: 0 none #e6e6e6;border-top: 0 none #e6e6e6;border-bottom: 0 none #b3b3b3;padding: 4px 10px 4px;margin-bottom: 0;font-size: 13px;line-height: 18px;text-align: center;border-radius: 4px;");
 
     },
 

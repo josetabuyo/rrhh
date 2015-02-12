@@ -247,7 +247,15 @@ namespace General
         public List<Postulacion> BuscarPostulacionesPorEtapas(int id_comite, List<EtapaConcurso> etapas)
         {
             List<Postulacion> postulaciones_buscadas = new List<Postulacion>();
-            postulaciones_buscadas = GetPostulacionesPorComite(id_comite).FindAll(p => etapas.Exists(e => e.Id == p.EtapaEn(DateTime.Today).Etapa.Id));
+            try
+            {
+                postulaciones_buscadas = GetPostulacionesPorComite(id_comite).FindAll(p => etapas.Exists(e => e.Id == p.EtapaEn(DateTime.Today).Etapa.Id));
+            }
+            catch (Exception)
+            {
+            
+            }
+            
             return postulaciones_buscadas;
         }
 
