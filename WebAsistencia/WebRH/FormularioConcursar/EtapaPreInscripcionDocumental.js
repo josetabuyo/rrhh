@@ -135,7 +135,7 @@
 
         postulacion.val(JSON.stringify(datos_postulacion.Id));
 
-        span_empleado.html(new BuscarUsuario().generar(datos_postulacion.Etapas[0]));
+        span_empleado.html(datos_postulacion.Postulante.Apellido + ", " + datos_postulacion.Postulante.Nombre); // new BuscarUsuario().generar(datos_postulacion.Etapas[0]));
         span_codigo.html(datos_postulacion.Numero);
         span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));
         span_perfil.html(datos_postulacion.Perfil.Denominacion);

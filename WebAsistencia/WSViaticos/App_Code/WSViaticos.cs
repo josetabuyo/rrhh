@@ -2877,7 +2877,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public PantallaRecepcionDocumentacion GetPantallaRecepcionDocumentacion(Postulacion postulacion)
     {
-        CurriculumVitae cv = RepoCurriculum().GetCV(postulacion.IdPersona);
+        CurriculumVitae cv = RepoCurriculum().GetCV(postulacion.Postulante.Id);
         //RepositorioDePerfiles repoPerfiles = new RepositorioDePerfiles(Conexion());
         //repoPerfiles.GetRequisitosDelPerfil(postulacion.Perfil.Id).ForEach(r => postulacion.Perfil.Requiere(r));
 

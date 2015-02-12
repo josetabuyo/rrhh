@@ -44,7 +44,7 @@
 
         var columnas = [];
         columnas.push(new Columna("NroPostulación", { generar: function (una_postulacion) { return una_postulacion.Numero } }));
-        columnas.push(new Columna("Postulante", { generar: function (una_postulacion) { return una_postulacion.IdPersona } }));
+        columnas.push(new Columna("Postulante", { generar: function (una_postulacion) { return una_postulacion.Postulante.Apellido + ", " + una_postulacion.Postulante.Nombre } }));
         columnas.push(new Columna("NroPerfil", { generar: function (una_postulacion) { return una_postulacion.Perfil.Numero } }));
         columnas.push(new Columna("Nivel", { generar: function (una_postulacion) { return una_postulacion.Perfil.Nivel } }));
         columnas.push(new Columna("Tipo", { generar: function (una_postulacion) { return una_postulacion.Perfil.Tipo } }));

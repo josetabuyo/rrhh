@@ -1,9 +1,11 @@
-﻿Array.prototype.forEach = function (iterador) {
-    var _this = this;
-    for (var i = 0; i < this.length; i++) {
-        iterador(_this[i]);
-    }
-};
+﻿if (!Array.prototype.forEach) {
+    Array.prototype.forEach = function (iterador) {
+        var _this = this;
+        for (var i = 0; i < this.length; i++) {
+            iterador(_this[i]);
+        }
+    };
+}
 
 Array.prototype.find = function (filtro) {
     var _this = this;
@@ -42,3 +44,9 @@ Array.prototype.findAll = function (filtro) {
     });
     return items_encontrados;
 };
+
+if (typeof String.prototype.trim !== 'function') {
+    String.prototype.trim = function () {
+        return this.replace(/^\s+|\s+$/g, '');
+    }
+}
