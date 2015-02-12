@@ -76,7 +76,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la competencia informática?", function (e) {
             if (e) {
-                Backend.EliminarCvCompetenciaInformatica(una_competencia_informatica.Id)
+                Backend.EliminarCvCompetenciaInformatica(una_competencia_informatica)
                     .onSuccess(function (respuesta) {
                         alertify.success("Competencia informática eliminada correctamente");
                         _this.GrillaCompetenciasInformaticas.QuitarObjeto(_this.divGrilla, una_competencia_informatica);

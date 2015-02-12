@@ -1172,10 +1172,60 @@ width: 100%;
 .label_caratula 
 {
     /*text-decoration:underline;*/
-    font-size:22px;
+    font-size:19;
     font-family: Verdana;
+     display:inline-table;
    
 }
+
+
+.span_caratula 
+{
+    display:inline-table;
+   /* text-decoration:underline;*/
+    font-size:18px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+#span_perfil 
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:18px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+#span_comite 
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:20px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+#span_postulante
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:18px;
+  /*  font-family: Verdana;*/
+   
+}
+#span_recepcion
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:18px;
+  /*  font-family: Verdana;*/
+   
+}
+
 
 .td-caratula
 {

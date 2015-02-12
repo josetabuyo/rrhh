@@ -23,14 +23,11 @@
                 <div class="grupo_campos nueva_linea">
                     <div class="grupo_campos">
                         <label for="txt_comite">Comité:&nbsp;</label>
-                        <input type="text" id="id_comite" style="width: 50px;" data-validar="esNumeroNatural" onblur="HabilitarBuscarComite()" />
+                        <input type="text" id="id_comite" style="width: 50px;" data-validar="esNumeroNatural" />
                     </div>
                     <div class="grupo_campos">
                         <label for="txt_perfil">Perfil:&nbsp;</label>
-                        <input type="text" id="id_perfil" style="margin-bottom: 0px;" data-validar="esNoBlanco" disabled="disabled" />
-                    </div>
-                    <div class="grupo_campos">
-                        <input type="button" id="btn_filtrar" value="Filtrar" class="btn" disabled="disabled" onclick="FiltarPorComite()" />
+                        <select id="id_perfil" style="margin-bottom: 0px;"  disabled="disabled"> </select>
                     </div>
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
@@ -39,8 +36,10 @@
                     <div class="grupo_campos nueva_linea">Comité Suplente:&nbsp;</div><span id="comite_suplente"></span>
                 </div>
             </div>
-            <div>
+            <div id="contenedorTabla">
+             <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
              <table id="tabla_postulaciones" style="width:100%;"></table>
+             <input type="button" style="display:none;" class="btn btn-primary" id="btn_generar_anexo" value="Generar Anexo" />
             </div>
        
         <%--<div id="requisitos_perfil"></div>
@@ -66,21 +65,27 @@
 <script type="text/javascript">
     Backend.start(function () {
         $(document).ready(function () {
-            
-            //var postulacion = JSON.parse($('#postulacion').val());
+            $('#search').hide();
 
-            //            var btn = $("#btn_buscar_postulacion");
-            //            var busqueda = $("#txt_codigo_postulacion");
+            var busqueda = $("#id_comite");
 
-            //            //HACIENDO EL KEYDOWN EN VEZ DEL KEY UP Y CON EL PREVENT DEFAULT EL ENTER NO ACTUALIZA TODA LA PAGINA
-            //            busqueda.keydown(function (event) {
-            //                if (event.which == 13) {
-            //                    btn.click();
-            //                    event.preventDefault();
-            //                }
-            //            });
+            //HACIENDO EL KEYDOWN EN VEZ DEL KEY UP Y CON EL PREVENT DEFAULT EL ENTER NO ACTUALIZA TODA LA PAGINA
+            busqueda.keydown(function (event) {
+                if (event.which == 13) {
+                    PantallaEtapaDeAdmision.HabilitarBuscarComite();
+                    event.preventDefault();
+                }
+            });
 
-            //            EtapaAdmision.mostrarPostulacion();
+            $('#id_comite').change(function () {
+                PantallaEtapaDeAdmision.HabilitarBuscarComite();
+            });
+
+            $('#id_perfil').change(function () {
+                PantallaEtapaDeAdmision.FiltrarPorPerfil();
+            });
+
+
         });
     });
 

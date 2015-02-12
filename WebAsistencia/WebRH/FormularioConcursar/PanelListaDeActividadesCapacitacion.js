@@ -74,7 +74,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la actividad?", function (e) {
             if (e) {
-                Backend.EliminarCvActividadCapacitacion(una_actividad_capacitacion.Id)
+                Backend.EliminarCvActividadCapacitacion(una_actividad_capacitacion)
                     .onSuccess(function (respuesta) {
                         alertify.success("Actividad eliminada correctamente");
                         _this.GrillaActividadesCapacitacion.QuitarObjeto(_this.divGrilla, una_actividad_capacitacion);

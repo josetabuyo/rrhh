@@ -74,7 +74,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la matrícula?", function (e) {
             if (e) {
-                Backend.EliminarCvMatricula(una_matricula.Id)
+                Backend.EliminarCvMatricula(una_matricula)
                     .onSuccess(function (respuesta) {
                         alertify.success("Matrícula eliminada correctamente");
                         _this.GrillaMatriculas.QuitarObjeto(_this.divGrilla, una_matricula);

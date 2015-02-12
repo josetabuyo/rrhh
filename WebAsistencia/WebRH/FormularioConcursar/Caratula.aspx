@@ -24,15 +24,15 @@
         </div>
     
     <div>
-        <label class="label_caratula" >LLAMADO: <span id ="span_llamado"></span> </label>
+        <label class="label_caratula" >LLAMADO:</label> <span id ="span_llamado"></span> 
         <br /><br />
-        <label class="label_caratula">PERFIL: <span id ="span_perfil"></span></label>
+        <label class="label_caratula">PERFIL:</label> <span id ="span_perfil"></span>
          <br /><br />
-        <label class="label_caratula">COMITÉ: <span id ="span_comite"></span></label>
+        <label class="label_caratula">COMITÉ: </label><span " id ="span_comite"></span>
          <br /><br />
-        <label class="label_caratula">POSTULANTE: <span id ="span_postulante"></span></label>
+        <label class="label_caratula">POSTULANTE: </label><span id ="span_postulante"></span>
          <br /><br />
-        <label class="label_caratula">RECEPCIONÓ: <span id ="span_recepcion"></span></label>
+        <label class="label_caratula">RECEPCIONÓ:</label> <span id ="span_recepcion"></span>
     </div>
 
       <br /><br />
@@ -50,7 +50,7 @@
                 <td class="td-caratula"></td>
                 <td class="td-caratula"></td>
             </tr>
-              <tr>
+            <tr>
                 <td class="td-caratula"></td>
                 <td class="td-caratula"></td>
                 <td class="td-caratula"></td>
@@ -105,7 +105,7 @@
                 <td class="td-caratula"></td>
                 <td class="td-caratula"></td>
             </tr>
-             <tr>
+            <tr>
                 <td class="td-caratula"></td>
                 <td class="td-caratula"></td>
                 <td class="td-caratula"></td>
@@ -115,7 +115,7 @@
                 <td class="td-caratula"></td>
                 <td class="td-caratula"></td>
             </tr>
-             <tr>
+            <tr>
                 <td class="td-caratula"></td>
                 <td class="td-caratula"></td>
                 <td class="td-caratula"></td>
@@ -125,7 +125,7 @@
                 <td class="td-caratula"></td>
                 <td class="td-caratula"></td>
             </tr>
-             <tr>
+            <tr>
                 <td class="td-caratula"></td>
                 <td class="td-caratula"></td>
                 <td class="td-caratula"></td>
@@ -144,12 +144,7 @@
            
            <%-- <p class="p-imprimir"><button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir</button></p>--%>
     </div>	
-
-
-
-    </div>
-
-        
+    </div>       
 
     </div>
     </form>
@@ -170,7 +165,7 @@
 
     $(document).ready(function () {
 
-        var usuario = "";
+        //var usuario = "";
         $.ajax({
             url: "../AjaxWS.asmx/GetUsuario",
             type: "POST",
@@ -178,11 +173,17 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (respuestaJson) {
-                document.getElementById("span_recepcion").innerHTML = respuestaJson.d;
-
+              
                 usuario = respuestaJson.d;
 
 
+
+                var fullName = usuario.split(' ');
+                var nombre = fullName[0];
+                var apellido = fullName[fullName.length - 1];
+
+              //  document.getElementById("span_recepcion").innerHTML = respuestaJson.d;
+                document.getElementById("span_recepcion").innerHTML = nombre.toUpperCase() +" " + apellido; // localStorage.getItem("usuario"); // usuario;
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -191,19 +192,35 @@
         });
 
 
+        //   setTimeout(
 
 
-        document.getElementById("span_recepcion").innerHTML = usuario;
+        //var usuario = localStorage.getItem("usuario");
+     
+//        var fullName = usuario.split(' ');
+//        var nombre = fullName[0];
+//        var apellido = fullName[fullName.length - 1];
+
+
+        //        var fullName = "Paul Steve Panakkal".split(' '),
+        //    firstName = fullName[0],
+        //    lastName = fullName[fullName.length - 1];
+
+
+
         document.getElementById("span_postulante").innerHTML = localStorage.getItem("empleado");
         document.getElementById("span_perfil").innerHTML = localStorage.getItem("perfil");
         document.getElementById("span_comite").innerHTML = localStorage.getItem("comite");
+       // document.getElementById("span_recepcion").innerHTML = nombre + " " + apellido; // localStorage.getItem("usuario"); // usuario;
+
+
 
 
         setTimeout(
   function () {
       window.print();
-  }, 100);
-       
+  }, 500);
+
     });
 
 

@@ -60,8 +60,6 @@
 <script type="text/javascript">
     Backend.start(function () {
         $(document).ready(function () {
-            //var postulacion = JSON.parse($('#postulacion').val());
-
             var btn = $("#btn_buscar_postulacion");
             var busqueda = $("#txt_codigo_postulacion");
 

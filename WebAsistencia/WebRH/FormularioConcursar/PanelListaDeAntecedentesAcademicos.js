@@ -80,7 +80,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la capacidad?", function (e) {
             if (e) {
-                Backend.EliminarCvAntecedenteAcademico(un_estudio.Id)
+                Backend.EliminarCvAntecedenteAcademico(un_estudio)
                     .onSuccess(function (respuesta) {
                         alertify.success("Antecedente eliminado correctamente");
                         _this.GrillaAntecedentesAcademicos.QuitarObjeto(_this.divGrilla, un_estudio);
