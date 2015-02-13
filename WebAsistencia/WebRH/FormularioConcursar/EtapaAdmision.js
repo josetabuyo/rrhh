@@ -1,5 +1,4 @@
 ﻿var PantallaEtapaDeAdmision = {
-
     HabilitarBuscarComite: function () {
         if ($('#id_comite').val() == "") {
             $('#id_perfil').prop("disabled", true);
@@ -82,12 +81,12 @@
         this.GrillaDePostulaciones = new Grilla(columnas);
         this.GrillaDePostulaciones.AgregarEstilo("cuerpo_tabla_perfil tr td");
         this.GrillaDePostulaciones.CambiarEstiloCabecera("cabecera_tabla_pantalla_cargos");
-        
+
         this.GrillaDePostulaciones.SetOnRowClickEventHandler(function (un_perfil) { });
 
         this.GrillaDePostulaciones.CargarObjetos(postulaciones);
         this.GrillaDePostulaciones.DibujarEn(divGrilla);
-        this.AgregarEstilosEstado();
+        //this.AgregarEstilosEstado();
 
         $("#btn_generar_anexo").attr("style", "display:inline");
 
@@ -112,12 +111,33 @@
     },
 
     CambiarEstadoPostulacion: function (una_postulacion) {
+        var estado_actual = "";
+        estado_actual = una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Descripcion;
+        if (estado_actual == "Admitido") {
+            estado_actual = "No Admitido";
+        } else if (estado_actual == "No Admitido") {
+            estado_actual = "Inscripción documental";
+        } else {
+            estado_actual = "Admitido";
+        }
+        una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Descripcion = estado_actual;
+
+        var label = $("<label>").text(estado_actual);
+        this.AgregarEstilosEstado(label)
 
     },
 
-    AgregarEstilosEstado: function () {
+    AgregarEstilosEstado: function (linea) {
 
-        $(".Estado").attr("style", "color: #ffffff; background-color: #0074cc; background-repeat: repeat-x; border-left-color: #0055cc;border-right-color: #0055cc;border-top-color: #0055cc;border-bottom-color: #003580;border-right: 0 none #e6e6e6;border-top: 0 none #e6e6e6;border-bottom: 0 none #b3b3b3;padding: 4px 10px 4px;margin-bottom: 0;font-size: 13px;line-height: 18px;text-align: center;border-radius: 4px;");
+        if (linea.text() == "Inscripción documental") {
+            linea.addClass('pendiente');
+        } else if (linea.text() == "Admitido") {
+            linea.addClass('admitido');
+        } else {
+            linea.addClass('no_admitido');
+        }
+        // $(".Estado").addClass('admitido');
+        //attr("style", "color: #ffffff; background-color: #0074cc; background-repeat: repeat-x; border-left-color: #0055cc;border-right-color: #0055cc;border-top-color: #0055cc;border-bottom-color: #003580;border-right: 0 none #e6e6e6;border-top: 0 none #e6e6e6;border-bottom: 0 none #b3b3b3;padding: 4px 10px 4px;margin-bottom: 0;font-size: 13px;line-height: 18px;text-align: center;border-radius: 4px;");
 
     },
 
@@ -139,7 +159,9 @@
         };
 
         una_postulacion.Etapas.sort(OrdenarPorFechas);
-        return una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Descripcion
+        var label = $("<label>").text(una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Descripcion);
+        PantallaEtapaDeAdmision.AgregarEstilosEstado(label);
+        return label;
     },
 
     CargarComboPerfiles: function (postulaciones) {

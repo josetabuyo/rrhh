@@ -1188,3 +1188,122 @@ height: 20px;
 vertical-align: bottom;
 /*border-style: dashed;*/
 }
+
+
+.admitido
+{
+color: #fff;
+background-color: #5cb85c !important;
+margin-top: 10px !important;
+margin-left: 10px !important;
+margin-bottom: 5px;
+border-color: #4cae4c;
+display: inline-block;
+padding: 6px 12px;
+font-size: 14px;
+font-weight: 400;
+line-height: 1.42857143;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+touch-action: manipulation;
+cursor: pointer;
+-webkit-user-select: none;
+background-image: none;
+border: 1px solid transparent;
+border-radius: 4px;
+font-family: inherit;
+-webkit-appearance: button;
+text-transform: none;
+margin: 0;
+font: inherit;
+box-sizing: border-box;
+align-items: flex-start;
+text-rendering: auto;
+letter-spacing: normal;
+word-spacing: normal;
+text-indent: 0px;
+text-shadow: none;
+-webkit-writing-mode: horizontal-tb;
+box-sizing: border-box;
+
+}
+
+.no_admitido
+{
+color: #fff;
+background-color: #c9302c !important;
+border-color: #ac2925;
+margin-top: 10px !important;
+margin-left: 10px !important;
+margin-bottom: 5px;
+display: inline-block;
+padding: 6px 12px;
+font-size: 14px;
+font-weight: 400;
+line-height: 1.42857143;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+touch-action: manipulation;
+cursor: pointer;
+-webkit-user-select: none;
+background-image: none;
+border: 1px solid transparent;
+border-radius: 4px;
+font-family: inherit;
+-webkit-appearance: button;
+text-transform: none;
+margin: 0;
+font: inherit;
+box-sizing: border-box;
+align-items: flex-start;
+text-rendering: auto;
+letter-spacing: normal;
+word-spacing: normal;
+text-indent: 0px;
+text-shadow: none;
+-webkit-writing-mode: horizontal-tb;
+box-sizing: border-box;
+
+}
+
+
+.pendiente
+{
+color: #fff;
+background-color: #31b0d5 !important;
+border-color: #269abc;
+margin-top: 10px !important;
+margin-left: 10px !important;
+margin-bottom: 5px;
+display: inline-block;
+padding: 6px 12px;
+font-size: 14px;
+font-weight: 400;
+line-height: 1.42857143;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+touch-action: manipulation;
+cursor: pointer;
+-webkit-user-select: none;
+background-image: none;
+border: 1px solid transparent;
+border-radius: 4px;
+font-family: inherit;
+-webkit-appearance: button;
+text-transform: none;
+margin: 0;
+font: inherit;
+box-sizing: border-box;
+align-items: flex-start;
+text-rendering: auto;
+letter-spacing: normal;
+word-spacing: normal;
+text-indent: 0px;
+text-shadow: none;
+-webkit-writing-mode: horizontal-tb;
+box-sizing: border-box;
+
+}
