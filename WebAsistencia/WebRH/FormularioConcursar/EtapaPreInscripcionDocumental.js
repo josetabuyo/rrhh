@@ -140,6 +140,12 @@
         span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));
         span_perfil.html(datos_postulacion.Perfil.Denominacion);
 
+
+     
+        localStorage.setItem("comite", datos_postulacion.Perfil.Comite.Numero);
+
+
+
         var ultima_etapa = datos_postulacion.Etapas.pop();
         span_etapa.html(ultima_etapa.Etapa.Descripcion)
 

@@ -116,6 +116,9 @@ namespace General.MAU
             return true;
         }
 
+
+       
+
         private void loguearIngresoDe(Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
