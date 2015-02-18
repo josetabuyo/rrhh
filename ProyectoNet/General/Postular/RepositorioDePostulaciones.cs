@@ -247,8 +247,46 @@ namespace General
         public List<Postulacion> BuscarPostulacionesPorEtapas(int id_comite, List<EtapaConcurso> etapas)
         {
             List<Postulacion> postulaciones_buscadas = new List<Postulacion>();
-            postulaciones_buscadas = GetPostulacionesPorComite(id_comite).FindAll(p => etapas.Exists(e => e.Id == p.EtapaEn(DateTime.Today).Etapa.Id));
+            postulaciones_buscadas = GetPostulacionesPorComite(id_comite).FindAll(p => etapas.Exists(e => e.Id == p.EtapaEn(DateTime.Today).Etapa.Id) );
             return postulaciones_buscadas;
+        }
+
+
+        public AnexosDeEtapas GenerarAnexosPara(int id_etapa, Postulacion una_postulacion, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdEtapa", id_etapa);
+            parametros.Add("@IdComite", una_postulacion.Perfil.Comite.Id);
+            parametros.Add("@Fecha", DateTime.Today);
+            parametros.Add("@IdPostualcion", una_postulacion.Id);
+            parametros.Add("@Usuario", usuario.Id);
+            
+            var tablaAnexo = conexion_bd.Ejecutar("dbo.CV_Ins_Anexos", parametros);
+           
+            return new AnexosDeEtapas();
+        }
+
+        public AnexosDeEtapas GetAnexoById(int id)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdAnexo", id);
+
+            return GetAnexo(parametros);
+        }
+
+        public AnexosDeEtapas GetAnexo(Dictionary<string, object> parametros)
+        {
+
+            var tablaAnexo = conexion_bd.Ejecutar("dbo.CV_Get_Anexo", parametros);
+            var repo_comite = new RepositorioDeComites(this.conexion_bd);
+            var etapa = new EtapaConcurso(tablaAnexo.Rows[0].GetSmallintAsInt("IdEtapa"),tablaAnexo.Rows[0].GetString("DescripcionEtapa"));
+            List<Postulacion> postulaciones = new List<Postulacion>();
+
+            tablaAnexo.Rows.ForEach(row => postulaciones.Add(GetPostulacionById(0, row.GetInt("IdPostulacion"))));
+ 
+            AnexosDeEtapas anexo = new AnexosDeEtapas(tablaAnexo.Rows[0].GetSmallintAsInt("IdAnexo"), repo_comite.GetComiteById(tablaAnexo.Rows[0].GetSmallintAsInt("IdComite")), postulaciones, etapa, tablaAnexo.Rows[0].GetDateTime("Fecha"));
+
+            return anexo;
         }
 
     }

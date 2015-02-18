@@ -1854,5 +1854,11 @@ namespace General
         }
 
 
+
+        public static AnexosDeEtapas UnAnexo()
+        {
+            return new AnexosDeEtapas(1, UnComite(), new List<Postulacion> { UnaPostulacion() }, new EtapaConcurso(1,"Inscripctos"), DateTime.Today);
+
+        }
     }
 }

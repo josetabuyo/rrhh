@@ -18,8 +18,9 @@
         Backend.BuscarPostulacionesDePreInscriptos(id_comite)
         .onSuccess(function (postulaciones) {
             if (postulaciones.length == 0) {
+                $("#contenedorTabla").empty();
                 alertify.alert('No se encontraron resultados');
-            } else {
+               } else {
                 //        buscar todos los titulares y seplentes del comité y listarlos - Continuar
                 $('#comite_titular').text(postulaciones[0].Perfil.Comite.Integrantes[0].Apellido);
 
@@ -126,15 +127,15 @@
         $(".check").each(function () {
             if ($(this)[0].checked == true) {
                 //var postulacion = {};
-                var id_postulacion = $(this).parent().parent().parent()[0].cells[0].innerHTML;
+                //var id_postulacion = $(this).parent().parent().parent()[0].cells[0].innerHTML;
                 var id = $(this).siblings('input')[0].value;
 
-                idpostulaciones.push(id_postulacion);
+                idpostulaciones.push(id);
             }
         });
 
         if (idpostulaciones.length > 0) {
-            Backend.GuardarEtapaAPostulaciones(idpostulaciones, id_etapa)
+            Backend.GuardarEtapaAPostulaciones(idpostulaciones, 3)
              .onSuccess(function (resultado) {
                  if (resultado == true) {
                      alertify.alert('Las postulaciones pasaron a la etapa de Admisión');

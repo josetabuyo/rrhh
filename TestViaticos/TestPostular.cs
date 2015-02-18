@@ -135,9 +135,48 @@ namespace TestViaticos
             //resultado = BuscarPostulacionesPorEtapas(6, etapas);
         }
 
+        [TestMethod]
+        public void deberia_generar_un_anexo_para_los_inscriptos()
+        {
+            //List<EtapaConcurso> etapas = new List<EtapaConcurso> { ConstantesConcursar.EtapaPreinscripcionDocumental };
+            EtapaConcurso una_etapa = ConstantesConcursar.EtapaPreinscripcionDocumental;
+            Postulacion una_postulacion = TestObjects.UnaPostulacion();
+            List<Postulacion> resultado = new List<Postulacion>();
+
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+            AnexosDeEtapas anexo = RepoPostular().GenerarAnexosPara(una_etapa.Id, una_postulacion, TestObjects.UsuarioMesaEntrada());
+
+            //FC TERMINAR LOS ANEXOS!!!!! EL GET DESDE EL REPO y EL GUARDAR
+            Assert.AreEqual(1, RepoPostular().GetAnexoById(1).Id);
+
+        }
+
+        [TestMethod]
+        public void deberia_traer_un_anexo()
+        {
+
+            string source = @"  |IdAnexo    |IdEtapa   |IdComite   |Fecha                        |IdPostulacion  |EtapaDescripcion   |ComiteNumero   |
+                                |1	        |1         |1          |2015-02-12 21:36:35.077      |1              |Inscripcion        |1              |";
+
+
+            var resultado_sp = TablaDeDatos.From(source);
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            AnexosDeEtapas anexo = TestObjects.UnAnexo();
+            //FC TERMINAR LOS ANEXOS!!!!! EL GET DESDE EL REPO y EL GUARDAR
+            Assert.AreEqual(anexo.Id, RepoPostular().GetAnexoById(1).Id);
+
+        }
+
         public RepositorioDeCurriculum RepoCV()
         {
             return new RepositorioDeCurriculum(conexion);
+        }
+
+        public RepositorioDePostulaciones RepoPostular()
+        {
+            return new RepositorioDePostulaciones(conexion);
         }
 
         public CvDatosPersonales DatosPersonales()
