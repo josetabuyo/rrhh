@@ -397,6 +397,28 @@ namespace TestViaticos
             Assert.AreEqual(10, repo_licencia.DiasHabilesEntreFechas(desde, hasta));
         }
 
+        [TestMethod]
+        public void deberia_obtener_las_prorrogas_del_2014()
+        {
+            string source = @"     |id		|fecha	                |año	   |periodico	           
+                                   |1	    |2014-10-26 00:00:00	|2014 	   |false
+                                   |2	    |2014-07-14 00:00:00	|2014 	   |false
+                                   |3	    |2010-01-01 00:00:00	|2014 	   |true
+                                   |4	    |2012-01-23 00:00:00	|2012 	   |false
+                                   |5	    |2014-03-01 00:00:00	|2014 	   |false";
+
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            var repo_licencia = new RepositorioLicencias(conexion);
+
+
+            Assert.AreEqual(4, repo_licencia.ObtenerFeriados(2014).Count());
+        }
+
 
 //        [TestMethod]
 //        public void quiero_pedirme_un_14f_y_como_me_tome_los_6_del_anio_no_puedo()
