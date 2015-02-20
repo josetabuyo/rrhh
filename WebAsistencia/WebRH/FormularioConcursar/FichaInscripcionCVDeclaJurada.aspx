@@ -64,9 +64,9 @@
 
 <div class="info-notif-avisos posicion fondo_form">
 	<p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">II.</span> Información Requerida para Recibir Notificaciones y Avisos</p>
-	<p class="general"><span class="atributos">Domicilio: </span><span id="cv_domLegal">Italia 465 - Timbre 3 - Lomas de Zamora - C.P: 1832</span></p>
-	<p class="general"><span class="atributos">Teléfonos: </span><span id="cv_telefono">4281-2685 / 15 5059 5930</span></p>
-	<p class="general"><span class="atributos">Corro Electrónico: </span><span id="cv_mail">ayanvero@gmail.com</span></p>
+	<p class="general"><span class="atributos">Domicilio: </span><span id="cv_domLegal"></span></p>
+	<p class="general"><span class="atributos">Teléfonos: </span><span id="cv_telefono"></span></p>
+	<p class="general"><span class="atributos">Corro Electrónico: </span><span id="cv_mail"></span></p>
 	</div>
 
 <div id="caja_antecedentes_academicos" style="page-break-before:always"></div>
