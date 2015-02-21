@@ -28,68 +28,86 @@
             </div>
             <hr />
             <div id="puesto_cuadro" class = "cont_detalles_cargo">
-            <table>
-                <tr>
-                    <td width="20%">        
+            <table border="0" cellpadding="1" cellspacing="1">
+                <tr style="border-right-style: none">
+                    <td width="20%"   id="td-border" style="border-top-style: solid; border-left-style: solid;border-width: 1px;" >        
                         <label class ="titulo_cargo">N° Central de Oferta de empleo:</label>   
-                        <td>
+                        </td>
+                        <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
                             <label id="puesto_numero" class = "detalle_cargo"></label>
                         </td>  
-                    </td>
-                    <td  width="18%">
-                        <label class="titulo_cargo">Entidad Convocante:</label>        
-                        <td>
+                    
+                    <td width="18%" style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
+                        <label class="titulo_cargo">Entidad Convocante:</label>   
+                         </td>     
+                        <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
                             <label id="puesto_convocante" class = "detalle_cargo"></label>
-                        </td>
+                      
                     </td>
                 </tr>
-                <tr>
-                  <td>
-                        <label class = "titulo_cargo">Denominaci&oacute;n del puesto:</label>          
-                        <td>
+                <tr style="border-right-style: none">
+                  <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
+                        <label class = "titulo_cargo"> Denominaci&oacute;n <br /> del puesto: </label>   
+                            </td>   
+                        <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
                             <label id="puesto_denominacion" class="detalle_cargo"></label>
                         </td>
-                        <td>
-                            <label class="titulo_cargo">Secretar&iacute;a/SubSecretar&iacute;a:</label>     
+                        <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
+                            <label class="titulo_cargo">Secretar&iacute;a/SubSecretar&iacute;a:</label> 
+                             </td>
+                             <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">    
                             <label id="puesto_secretaria" class="detalle_cargo"> </label>
-                         </td>
-                  </td>
+                              </td>
+                         
+                 
                 </tr>
-                <tr>
-                    <td>
+                <tr style="border-right-style: none">
+                    <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
                         <label class ="titulo_cargo">Agrupamiento:</label> 
-                        <td>
+                        </td>
+                        <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
                             <label id="puesto_agrupamiento" class="detalle_cargo"></label>
                         </td>
-                    </td>
-                    <td>                      
+                    
+                    <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;">                      
                         <label class="titulo_cargo">Direcci&oacute;n Nacional/General o Equivalente:</label>  
-                        <td>
-                            <label id="puesto_cargo" class="detalle_cargo"></label>   
                         </td>
+                        <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
+                            <label id="puesto_cargo" class="detalle_cargo"></label>   
+                       
                     </td>
                 </tr>
-                <tr>
-                    <td>
+                <tr  style="border-right-style: none">
+                    <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
                         <label class="titulo_cargo">Tipo de convocatoria:</label> 
-                        <td>
+                        </td>
+                        <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
                             <label id="puesto_convocatoria" class="detalle_cargo"></label>
                         </td>
-                    </td>
-                    <td>
-                        <label class = "titulo_cargo">Unidad Destino:</label>    
-                        <td>  
+                   
+                    <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;border-width: 1px;">
+                        <label class = "titulo_cargo">Unidad Destino:</label>   
+                         </td> 
+                        <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;border-width: 1px;">  
                             <label id="puesto_destino" class="detalle_cargo"></label>       
                         </td>
-                    </td>
+                  
                 </tr>
-                <tr>
-                    <td>  
+                <tr style="border-right-style: none">
+                    <td style="border-top-style: solid; border-left-style: solid;border-bottom-style: solid;border-width: 1px;">  
                         <label class = "titulo_cargo">Nivel escalafonario:</label>  
-                        <td>
+                        </td>
+                        <td style="border-top-style: solid; border-right-style: solid;border-bottom-style: solid;border-width: 1px;">
                             <label id="puesto_nivel" class="detalle_cargo"></label>
                         </td>
-                  </td>
+
+                         <td style="border-top-style: solid; border-left-style: solid;border-bottom-style: solid;border-width: 1px;">  
+                        <label class = "titulo_cargo"></label>  
+                        </td>
+                        <td style="border-top-style: solid; border-right-style: solid;border-bottom-style: solid;border-width: 1px;">
+                            <label id="Label1" class="detalle_cargo"></label>
+                        </td>
+
               </tr>
             </table>
             </div>
