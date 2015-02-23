@@ -320,15 +320,74 @@
             _this.dibujarTitulo(_this.caja_eventos_academicos, "Eventos Academicos");
             _this.dibujarSubtitulo(_this.caja_eventos_academicos, "Eventos Academicos");
 
+
             for (var i = 0; i < curriculum.CvEventosAcademicos.length; i++) {
-                _this.p = _this.dibujarDatos('Año: ');
-                _this.span = $('<span>');
+
+                _this.p_participacion = _this.dibujarDatos('Caracter de Participación: ');
+                _this.span_participacion = $('<span>');
+                _this.span_participacion.text(curriculum.CvEventosAcademicos[i].CaracterDeParticipacion);
+
+                _this.p_tipo = _this.dibujarDatos('Tipo de Evento: ');
+                _this.span_tipo = $('<span>');
+                _this.span_tipo.text(curriculum.CvEventosAcademicos[i].TipoDeEvento);
+
+                _this.p_denominacion = _this.dibujarDatos('Denominación: ');
+                _this.span_denominacion = $('<span>');
+                _this.span_denominacion.text(curriculum.CvEventosAcademicos[i].Denominacion);
+
+                _this.p_descripcion = _this.dibujarDatos('Descripción: ');
+                _this.span_descripcion = $('<span>');
+                _this.span_descripcion.text(curriculum.CvEventosAcademicos[i].Descripcion);
+
+                _this.p_duracion = _this.dibujarDatos('Duración: ');
+                _this.span_duracion = $('<span>');
+                _this.span_duracion.text(curriculum.CvEventosAcademicos[i].Duracion);
+
+                _this.p_institucion = _this.dibujarDatos('Institución: ');
+                _this.span_institucion = $('<span>');
                 var institucion = Backend.ejecutarSincronico("BuscarInstitucionesEventosAcademicos", [{ Id: curriculum.CvEventosAcademicos[i].Institucion}])[0];
-                _this.span.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvEventosAcademicos[i].FechaFinalizacion) + ' - ' +
-                                institucion.Descripcion + ' - ' +
-                                curriculum.CvEventosAcademicos[i].Denominacion);
-                _this.p.append(_this.span);
-                _this.titulos_educativos.append(_this.p);
+                _this.span_institucion.text(institucion.Descripcion);
+
+                _this.p_inicio = _this.dibujarDatos('Fecha Inicio: ');
+                _this.span_inicio = $('<span>');
+                _this.span_inicio.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvEventosAcademicos[i].FechaInicio));
+
+                _this.p_finalizacion = _this.dibujarDatos('Fecha Finalización: ');
+                _this.span_finalizacion = $('<span>');
+                _this.span_finalizacion.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvEventosAcademicos[i].FechaFinalizacion));
+
+                _this.p_localidad = _this.dibujarDatos('Localidad: ');
+                _this.span_localidad = $('<span>');
+                _this.span_localidad.text(curriculum.CvEventosAcademicos[i].Localidad);
+
+                _this.p_pais = _this.dibujarDatos('País: ');
+                _this.span_pais = $('<span>');
+                _this.span_pais.text(curriculum.CvEventosAcademicos[i].Pais);
+
+
+
+                _this.p_participacion.append(_this.span_participacion);
+                _this.p_tipo.append(_this.span_tipo);
+                _this.p_denominacion.append(_this.span_denominacion);
+                _this.p_descripcion.append(_this.span_descripcion);
+                _this.p_duracion.append(_this.span_duracion);
+                _this.p_institucion.append(_this.span_institucion);
+                _this.p_inicio.append(_this.span_inicio);
+                _this.p_finalizacion.append(_this.span_finalizacion);
+                _this.p_localidad.append(_this.span_localidad);
+                _this.p_pais.append(_this.span_pais);
+
+
+                _this.titulos_educativos.append(_this.p_participacion);
+                _this.titulos_educativos.append(_this.p_tipo);
+                _this.titulos_educativos.append(_this.p_denominacion);
+                _this.titulos_educativos.append(_this.p_descripcion);
+                _this.titulos_educativos.append(_this.p_duracion);
+                _this.titulos_educativos.append(_this.p_institucion);
+                _this.titulos_educativos.append(_this.p_inicio);
+                _this.titulos_educativos.append(_this.p_finalizacion);
+                _this.titulos_educativos.append(_this.p_localidad);
+                _this.titulos_educativos.append(_this.p_pais);
             }
 
             _this.caja_eventos_academicos.append(_this.titulos_educativos);
@@ -344,12 +403,40 @@
             _this.dibujarSubtitulo(_this.caja_publicaciones, "Publicaciones o Trabajos de Investigación");
 
             for (var i = 0; i < curriculum.CvPublicaciones.length; i++) {
-                _this.p_anio = _this.dibujarDatos('Año: ');
-                _this.span = $('<span>');
-                _this.span.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvPublicaciones[i].FechaPublicacion) + ' - ' +
-                                curriculum.CvPublicaciones[i].Titulo + ' - ' +
-                                curriculum.CvPublicaciones[i].DatosEditorial);
-                _this.p_anio.append(_this.span);
+
+                _this.p_titulo = _this.dibujarDatos('Titulo: ');
+                _this.span_titulo = $('<span>');
+                _this.span_titulo.text(curriculum.CvPublicaciones[i].Titulo);
+
+                _this.p_descripcion = _this.dibujarDatos('Descripción: ');
+                _this.span_descripcion = $('<span>');
+                _this.span_descripcion.text(curriculum.CvPublicaciones[i].Descripcion);
+
+                _this.p_editorial = _this.dibujarDatos('Datos de Editorial: ');
+                _this.span_editorial = $('<span>');
+                _this.span_editorial.text(curriculum.CvPublicaciones[i].DatosEditorial);
+
+                _this.p_hojas = _this.dibujarDatos('Cantidad de hojas: ');
+                _this.span_hojas = $('<span>');
+                _this.span_hojas.text(curriculum.CvPublicaciones[i].CantidadHojas);
+
+                _this.p_anio = _this.dibujarDatos('Fecha Publicación: ');
+                _this.span_anio = $('<span>');
+                _this.span_anio.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvPublicaciones[i].FechaPublicacion));
+
+
+
+
+                _this.p_titulo.append(_this.span_titulo);
+                _this.p_descripcion.append(_this.span_descripcion);
+                _this.p_editorial.append(_this.span_editorial);
+                _this.p_hojas.append(_this.span_hojas);
+                _this.p_anio.append(_this.span_anio);
+
+                _this.titulos_educativos.append(_this.p_titulo);
+                _this.titulos_educativos.append(_this.p_descripcion);
+                _this.titulos_educativos.append(_this.p_editorial);
+                _this.titulos_educativos.append(_this.p_hojas);
                 _this.titulos_educativos.append(_this.p_anio);
             }
 
@@ -366,13 +453,38 @@
             _this.dibujarSubtitulo(_this.caja_matriculas, "Matricula Profesional");
 
             for (var i = 0; i < curriculum.CvMatricula.length; i++) {
-                _this.p = _this.dibujarDatos('Numero: ');
-                _this.span = $('<span>');
-                _this.span.text(curriculum.CvMatricula[i].Numero + ' - ' +
-                                curriculum.CvMatricula[i].ExpedidaPor + ' - ' +
-                                curriculum.CvMatricula[i].SituacionActual);
-                _this.p.append(_this.span);
-                _this.titulos_educativos.append(_this.p);
+
+                _this.p_descripcion = _this.dibujarDatos('Descripción: ');
+                _this.span_descripcion = $('<span>');
+                _this.span_descripcion.text(curriculum.CvMatricula[i].Descripcion);
+
+                _this.p_expedida = _this.dibujarDatos('Expedida por: ');
+                _this.span_expedida = $('<span>');
+                _this.span_expedida.text(curriculum.CvMatricula[i].ExpedidaPor);
+
+                _this.p_numero = _this.dibujarDatos('Numero: ');
+                _this.span_numero = $('<span>');
+                _this.span_numero.text(curriculum.CvMatricula[i].Numero);
+
+                _this.p_situacion = _this.dibujarDatos('Situación actual: ');
+                _this.span_situacion = $('<span>');
+                _this.span_situacion.text(curriculum.CvMatricula[i].SituacionActual);
+
+                _this.p_fecha = _this.dibujarDatos('Fecha De Incripción: ');
+                _this.span_fecha = $('<span>');
+                _this.span_fecha.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvMatricula[i].FechaInscripcion));
+
+                _this.p_descripcion.append(_this.span_descripcion);
+                _this.p_expedida.append(_this.span_expedida);
+                _this.p_numero.append(_this.span_numero);
+                _this.p_situacion.append(_this.span_situacion);
+                _this.p_fecha.append(_this.span_fecha);
+
+                _this.titulos_educativos.append(_this.p_descripcion);
+                _this.titulos_educativos.append(_this.p_expedida);
+                _this.titulos_educativos.append(_this.p_numero);
+                _this.titulos_educativos.append(_this.p_situacion);
+                _this.titulos_educativos.append(_this.p_fecha);
             }
 
             _this.caja_matriculas.append(_this.titulos_educativos);
@@ -388,13 +500,81 @@
             _this.dibujarSubtitulo(_this.caja_instituciones, "Pertenencia a Instituciones Académicas o Profesionales Relevantes");
 
             for (var i = 0; i < curriculum.CvInstitucionesAcademicas.length; i++) {
-                _this.p = _this.dibujarDatos('Detalle: ');
-                _this.span = $('<span>');
-                _this.span.text(curriculum.CvInstitucionesAcademicas[i].Institucion + ' - ' +
-                                curriculum.CvInstitucionesAcademicas[i].CaracterEntidad + ' - ' +
-                                curriculum.CvInstitucionesAcademicas[i].CargosDesempeniados);
-                _this.p.append(_this.span);
-                _this.titulos_educativos.append(_this.p);
+
+
+                _this.p_institucion = _this.dibujarDatos('Institución: ');
+                _this.span_institucion = $('<span>');
+                _this.span_institucion.text(curriculum.CvInstitucionesAcademicas[i].Institucion);
+
+                _this.p_caracter = _this.dibujarDatos('Caracter de Entidad: ');
+                _this.span_caracter = $('<span>');
+                _this.span_caracter.text(curriculum.CvInstitucionesAcademicas[i].CaracterEntidad);
+
+                _this.p_cargos = _this.dibujarDatos('Cargos Desempaños: ');
+                _this.span_cargos = $('<span>');
+                _this.span_cargos.text(curriculum.CvInstitucionesAcademicas[i].CargosDesempeniados);
+
+                _this.p_categoria = _this.dibujarDatos('Categoria Actual: ');
+                _this.span_categoria = $('<span>');
+                _this.span_categoria.text(curriculum.CvInstitucionesAcademicas[i].CategoriaActual);
+
+                _this.p_descricpion = _this.dibujarDatos('Descripción: ');
+                _this.span_descripcion = $('<span>');
+                _this.span_descripcion.text(curriculum.CvInstitucionesAcademicas[i].Descripcion);
+
+                _this.p_fecha = _this.dibujarDatos('Fecha: ');
+                _this.span_fecha = $('<span>');
+                _this.span_fecha.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvInstitucionesAcademicas[i].Fecha));
+
+                _this.p_numero = _this.dibujarDatos('Número de afiliado: ');
+                _this.span_numero = $('<span>');
+                _this.span_numero.text(curriculum.CvInstitucionesAcademicas[i].NumeroAfiliado);
+
+                _this.p_fecha_afiliacion = _this.dibujarDatos('Fecha de Afiliación: ');
+                _this.span_fecha_afiliacion = $('<span>');
+                _this.span_fecha_afiliacion.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvInstitucionesAcademicas[i].FechaDeAfiliacion));
+
+                _this.p_fecha_inicio = _this.dibujarDatos('Fecha Inicio: ');
+                _this.span_fecha_inicio = $('<span>');
+                _this.span_fecha_inicio.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvInstitucionesAcademicas[i].FechaInicio));
+
+                _this.p_fecha_fin = _this.dibujarDatos('Fecha Finalización: ');
+                _this.span_fecha_fin = $('<span>');
+                _this.span_fecha_fin.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvInstitucionesAcademicas[i].FechaFin));
+
+                _this.p_localidad = _this.dibujarDatos('Localidad: ');
+                _this.span_localidad = $('<span>');
+                _this.span_localidad.text(curriculum.CvInstitucionesAcademicas[i].Localidad);
+
+                _this.p_pais = _this.dibujarDatos('País: ');
+                _this.span_pais = $('<span>');
+                _this.span_pais.text(curriculum.CvInstitucionesAcademicas[i].Pais);
+
+                _this.p_institucion.append(_this.span_institucion);
+                _this.p_caracter.append(_this.span_caracter);
+                _this.p_cargos.append(_this.span_cargos);
+                _this.p_categoria.append(_this.span_categoria);
+                _this.p_descricpion.append(_this.span_descripcion);
+                _this.p_fecha.append(_this.span_fecha);
+                _this.p_numero.append(_this.span_numero);
+                _this.p_fecha_afiliacion.append(_this.span_fecha_afiliacion);
+                _this.p_fecha_inicio.append(_this.span_fecha_inicio);
+                _this.p_fecha_fin.append(_this.span_fecha_fin);
+                _this.p_localidad.append(_this.span_localidad);
+                _this.p_pais.append(_this.span_pais);
+
+                _this.titulos_educativos.append(_this.p_institucion);
+                _this.titulos_educativos.append(_this.p_caracter);
+                _this.titulos_educativos.append(_this.p_cargos);
+                _this.titulos_educativos.append(_this.p_categoria);
+                _this.titulos_educativos.append(_this.p_descricpion);
+                _this.titulos_educativos.append(_this.p_fecha);
+                _this.titulos_educativos.append(_this.p_numero);
+                _this.titulos_educativos.append(_this.p_fecha_afiliacion);
+                _this.titulos_educativos.append(_this.p_fecha_inicio);
+                _this.titulos_educativos.append(_this.p_fecha_fin);
+                _this.titulos_educativos.append(_this.p_localidad);
+                _this.titulos_educativos.append(_this.p_pais);
             }
 
             _this.caja_instituciones.append(_this.titulos_educativos);
@@ -409,13 +589,88 @@
             _this.dibujarTitulo(_this.caja_experiencias_laborales, "Experiencias Laborales");
             _this.dibujarSubtitulo(_this.caja_experiencias_laborales, "Ocupaciones");
 
+
             for (var i = 0; i < curriculum.CvExperienciaLaboral.length; i++) {
-                _this.p = _this.dibujarDatos(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvExperienciaLaboral[i].FechaInicio) + ' al ' + ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvExperienciaLaboral[i].FechaFin) + ': ');
-                _this.span = $('<span>');
-                _this.span.text(curriculum.CvExperienciaLaboral[i].PuestoOcupado + ' - ' +
-                                curriculum.CvExperienciaLaboral[i].NombreEmpleador);
-                _this.p.append(_this.span);
-                _this.titulos_educativos.append(_this.p);
+
+                _this.p_actividad = _this.dibujarDatos('Actividad: ');
+                _this.span_actividad = $('<span>');
+                _this.span_actividad.text(curriculum.CvExperienciaLaboral[i].Actividad);
+
+                _this.p_ambito = _this.dibujarDatos('Ambito Laboral: ');
+                _this.span_ambito = $('<span>');
+                _this.span_ambito.text(curriculum.CvExperienciaLaboral[i].AmbitoLaboral);
+
+                _this.p_descripcion = _this.dibujarDatos('Descripción: ');
+                _this.span_descripcion = $('<span>');
+                _this.span_descripcion.text(curriculum.CvExperienciaLaboral[i].Descripcion);
+
+                _this.p_puesto = _this.dibujarDatos('Puesto Ocupado: ');
+                _this.span_puesto = $('<span>');
+                _this.span_puesto.text(curriculum.CvExperienciaLaboral[i].PuestoOcupado);
+
+                _this.p_empleador = _this.dibujarDatos('Nombre del Empleador: ');
+                _this.span_empleador = $('<span>');
+                _this.span_empleador.text(curriculum.CvExperienciaLaboral[i].NombreEmpleador);
+
+                _this.p_sector = _this.dibujarDatos('Sector: ');
+                _this.span_sector = $('<span>');
+                _this.span_sector.text(curriculum.CvExperienciaLaboral[i].Sector);
+
+                _this.p_tipo_empresa = _this.dibujarDatos('Tipo de Empresa: ');
+                _this.span_tipo_empresa = $('<span>');
+                _this.span_tipo_empresa.text(curriculum.CvExperienciaLaboral[i].TipoEmpresa);
+
+                _this.p_desvinculacion = _this.dibujarDatos('Motivo de Desvinculación: ');
+                _this.span_desvinculacion = $('<span>');
+                _this.span_desvinculacion.text(curriculum.CvExperienciaLaboral[i].MotivoDesvinculacion);
+
+                _this.p_cargo = _this.dibujarDatos('Personas a cargo: ');
+                _this.span_cargo = $('<span>');
+                _this.span_cargo.text(curriculum.CvExperienciaLaboral[i].PersonasACargo);
+
+                _this.p_inicio = _this.dibujarDatos('Fecha de Inicio: '); 
+                _this.span_inicio = $('<span>');
+                _this.span_inicio.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvExperienciaLaboral[i].FechaInicio));
+
+                _this.p_fin = _this.dibujarDatos('Fecha de Finaliación: '); 
+                _this.span_fin = $('<span>');
+                _this.span_fin.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvExperienciaLaboral[i].FechaFin));
+
+                _this.p_localidad = _this.dibujarDatos('Localidad: ');
+                _this.span_localidad = $('<span>');
+                _this.span_localidad.text(curriculum.CvExperienciaLaboral[i].Localidad);
+
+                _this.p_pais = _this.dibujarDatos('País: ');
+                _this.span_pais = $('<span>');
+                _this.span_pais.text(curriculum.CvExperienciaLaboral[i].Pais);
+
+                _this.p_actividad.append(_this.span_actividad);
+                _this.p_ambito.append(_this.span_ambito);
+                _this.p_descripcion.append(_this.span_descripcion);
+                _this.p_puesto.append(_this.span_puesto);
+                _this.p_empleador.append(_this.span_empleador);
+                _this.p_sector.append(_this.span_sector);
+                _this.p_tipo_empresa.append(_this.span_tipo_empresa);
+                _this.p_desvinculacion.append(_this.span_desvinculacion);
+                _this.p_cargo.append(_this.span_cargo);
+                _this.p_inicio.append(_this.span_inicio);
+                _this.p_fin.append(_this.span_fin);
+                _this.p_localidad.append(_this.span_localidad);
+                _this.p_pais.append(_this.span_pais);
+
+                _this.titulos_educativos.append(_this.p_actividad);
+                _this.titulos_educativos.append(_this.p_ambito);
+                _this.titulos_educativos.append(_this.p_descripcion);
+                _this.titulos_educativos.append(_this.p_puesto);
+                _this.titulos_educativos.append(_this.p_empleador);
+                _this.titulos_educativos.append(_this.p_sector);
+                _this.titulos_educativos.append(_this.p_tipo_empresa);
+                _this.titulos_educativos.append(_this.p_desvinculacion);
+                _this.titulos_educativos.append(_this.p_cargo);
+                _this.titulos_educativos.append(_this.p_inicio);
+                _this.titulos_educativos.append(_this.p_fin);
+                _this.titulos_educativos.append(_this.p_localidad);
+                _this.titulos_educativos.append(_this.p_pais);
             }
 
             _this.caja_experiencias_laborales.append(_this.titulos_educativos);
@@ -431,12 +686,71 @@
             if (curriculum.CvIdiomas.length > 0) {
                 _this.dibujarSubtitulo(_this.caja_otras_aptitudes, "Idiomas Extranjeros");
 
+
                 for (var i = 0; i < curriculum.CvIdiomas.length; i++) {
-                    _this.p = _this.dibujarDatos(curriculum.CvIdiomas[i].Idioma + ': ');
-                    _this.span = $('<span>');
-                    _this.span.text(curriculum.CvIdiomas[i].Diploma);
-                    _this.p.append(_this.span);
-                    _this.titulos_educativos.append(_this.p);
+
+                    _this.p_idioma = _this.dibujarDatos('Idioma: ');
+                    _this.span_idioma = $('<span>');
+                    _this.span_idioma.text(curriculum.CvIdiomas[i].Idioma);
+
+                    _this.p_diploma = _this.dibujarDatos('Diploma: ');
+                    _this.span_diploma = $('<span>');
+                    _this.span_diploma.text(curriculum.CvIdiomas[i].Diploma);
+
+                    _this.p_descripcion = _this.dibujarDatos('Descripción: ');
+                    _this.span_descripcion = $('<span>');
+                    _this.span_descripcion.text(curriculum.CvIdiomas[i].Descripcion);
+
+                    _this.p_establecimiento = _this.dibujarDatos('Establecimiento: ');
+                    _this.span_establecimiento = $('<span>');
+                    _this.span_establecimiento.text(curriculum.CvIdiomas[i].Establecimiento);
+
+                    _this.p_fecha = _this.dibujarDatos('Fecha Obtención: ');
+                    _this.span_fecha = $('<span>');
+                    _this.span_fecha.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvIdiomas[i].FechaObtencion));
+
+                    _this.p_escritura = _this.dibujarDatos('Escritura: ');
+                    _this.span_escritura = $('<span>');
+                    _this.span_escritura.text(curriculum.CvIdiomas[i].Escritura);
+
+                    _this.p_lectura = _this.dibujarDatos('Lectura: ');
+                    _this.span_lectura = $('<span>');
+                    _this.span_lectura.text(curriculum.CvIdiomas[i].Lectura);
+
+                    _this.p_oral = _this.dibujarDatos('Oral: ');
+                    _this.span_oral = $('<span>');
+                    _this.span_oral.text(curriculum.CvIdiomas[i].Oral);
+
+                    _this.p_localidad = _this.dibujarDatos('Localidad: ');
+                    _this.span_localidad = $('<span>');
+                    _this.span_localidad.text(curriculum.CvIdiomas[i].Localidad);
+
+                    _this.p_pais = _this.dibujarDatos('País: ');
+                    _this.span_pais = $('<span>');
+                    _this.span_pais.text(curriculum.CvIdiomas[i].Pais);
+
+
+                    _this.p_idioma.append(_this.span_idioma);
+                    _this.p_diploma.append(_this.span_diploma);
+                    _this.p_descripcion.append(_this.span_descripcion);
+                    _this.p_establecimiento.append(_this.span_establecimiento);
+                    _this.p_fecha.append(_this.span_fecha);
+                    _this.p_escritura.append(_this.span_escritura);
+                    _this.p_lectura.append(_this.span_lectura);
+                    _this.p_oral.append(_this.span_oral);
+                    _this.p_localidad.append(_this.span_localidad);
+                    _this.p_pais.append(_this.span_pais);
+
+                    _this.titulos_educativos.append(_this.p_idioma);
+                    _this.titulos_educativos.append(_this.p_diploma);
+                    _this.titulos_educativos.append(_this.p_descripcion);
+                    _this.titulos_educativos.append(_this.p_establecimiento);
+                    _this.titulos_educativos.append(_this.p_fecha);
+                    _this.titulos_educativos.append(_this.p_escritura);
+                    _this.titulos_educativos.append(_this.p_lectura);
+                    _this.titulos_educativos.append(_this.p_oral);
+                    _this.titulos_educativos.append(_this.p_localidad);
+                    _this.titulos_educativos.append(_this.p_pais);
                 }
 
                 _this.caja_otras_aptitudes.append(_this.titulos_educativos);
@@ -450,12 +764,68 @@
                 _this.dibujarSubtitulo(_this.caja_otras_aptitudes, "Competencias Informáticas");
 
                 for (var i = 0; i < curriculum.CvCompetenciasInformaticas.length; i++) {
-                    _this.p = _this.dibujarDatos(curriculum.CvCompetenciasInformaticas[i].Conocimiento + ': ');
-                    _this.span = $('<span>');
-                    _this.span.text(curriculum.CvCompetenciasInformaticas[i].Diploma + ' - ' + curriculum.CvCompetenciasInformaticas[i].Detalle + ' - ' +
-                                curriculum.CvCompetenciasInformaticas[i].Establecimiento);
-                    _this.p.append(_this.span);
-                    _this.titulos_educativos.append(_this.p);
+
+                    _this.p_conocimiento = _this.dibujarDatos('Conocimiento: ');
+                    _this.span_conocimiento = $('<span>');
+                    _this.span_conocimiento.text(curriculum.CvCompetenciasInformaticas[i].Conocimiento);
+
+                    _this.p_descripcion = _this.dibujarDatos('Descripción: ');
+                    _this.span_descripcion = $('<span>');
+                    _this.span_descripcion.text(curriculum.CvCompetenciasInformaticas[i].Descripcion);
+
+                    _this.p_detalle = _this.dibujarDatos('Detalle: ');
+                    _this.span_detalle = $('<span>');
+                    _this.span_detalle.text(curriculum.CvCompetenciasInformaticas[i].Detalle);
+
+                    _this.p_diploma = _this.dibujarDatos('Diploma: ');
+                    _this.span_diploma = $('<span>');
+                    _this.span_diploma.text(curriculum.CvCompetenciasInformaticas[i].Diploma);
+
+                    _this.p_tipo = _this.dibujarDatos('Tipo de Informatica: ');
+                    _this.span_tipo = $('<span>');
+                    _this.span_tipo.text(curriculum.CvCompetenciasInformaticas[i].TipoInformatica);
+
+                    _this.p_nivel = _this.dibujarDatos('Nivel: ');
+                    _this.span_nivel = $('<span>');
+                    _this.span_nivel.text(curriculum.CvCompetenciasInformaticas[i].Nivel);
+
+                    _this.p_fecha = _this.dibujarDatos('Fecha de Obtención: ');
+                    _this.span_fecha = $('<span>');
+                    _this.span_fecha.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvCompetenciasInformaticas[i].FechaObtencion));
+
+                    _this.p_establecimiento = _this.dibujarDatos('Establecimiento: ');
+                    _this.span_establecimiento = $('<span>');
+                    _this.span_establecimiento.text(curriculum.CvCompetenciasInformaticas[i].Establecimiento);
+
+                    _this.p_localidad = _this.dibujarDatos('Localidad: ');
+                    _this.span_localidad = $('<span>');
+                    _this.span_localidad.text(curriculum.CvCompetenciasInformaticas[i].Localidad);
+
+                    _this.p_pais = _this.dibujarDatos('País: ');
+                    _this.span_pais = $('<span>');
+                    _this.span_pais.text(curriculum.CvCompetenciasInformaticas[i].Pais);
+
+                    _this.p_conocimiento.append(_this.span_conocimiento);
+                    _this.p_descripcion.append(_this.span_descripcion);
+                    _this.p_detalle.append(_this.span_detalle);
+                    _this.p_diploma.append(_this.span_diploma);
+                    _this.p_tipo.append(_this.span_tipo);
+                    _this.p_nivel.append(_this.span_nivel);
+                    _this.p_fecha.append(_this.span_fecha);
+                    _this.p_establecimiento.append(_this.span_establecimiento);
+                    _this.p_localidad.append(_this.span_localidad);
+                    _this.p_pais.append(_this.span_pais);
+
+                    _this.titulos_educativos.append(_this.p_conocimiento);
+                    _this.titulos_educativos.append(_this.p_descripcion);
+                    _this.titulos_educativos.append(_this.p_detalle);
+                    _this.titulos_educativos.append(_this.p_diploma);
+                    _this.titulos_educativos.append(_this.p_tipo);
+                    _this.titulos_educativos.append(_this.p_nivel);
+                    _this.titulos_educativos.append(_this.p_fecha);
+                    _this.titulos_educativos.append(_this.p_establecimiento);
+                    _this.titulos_educativos.append(_this.p_localidad);
+                    _this.titulos_educativos.append(_this.p_pais);
                 }
 
                 _this.caja_otras_aptitudes.append(_this.titulos_educativos);
