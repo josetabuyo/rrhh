@@ -6,6 +6,7 @@
             fecha_en_iso = (regexp_fecha_iso.exec(fecha_en_iso)[1]).replace(/-/g, "/");
         }
         var fecha = new Date(fecha_en_iso);
+        if (fecha.getUTCDate().toString() == "NaN") return "";
         return fecha.getUTCDate().toString() + "/" + (fecha.getUTCMonth() + 1).toString() + "/" + fecha.getUTCFullYear();
     },
     PrimeraFechaCriolloMayor: function (fechaMayor, fechaMenor) {
@@ -59,7 +60,7 @@
         if (mm < 10) {
             mm = '0' + mm
         }
-        return today =  yyyy + '-' + mm + '-' + dd + 'T03:00:00.000Z';
+        return today = yyyy + '-' + mm + '-' + dd + 'T03:00:00.000Z';
 
     }
 }
