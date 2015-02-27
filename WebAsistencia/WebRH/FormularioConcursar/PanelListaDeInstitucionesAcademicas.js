@@ -10,9 +10,7 @@
                 defaults: {
                     Pais: 9, 
                     FechaDeAfiliacion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    Fecha: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    FechaInicio: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    FechaFin: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                    Fecha: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
                 },
                 path_html: "PanelDetalleDeInstitucionAcademica.htm",
                 metodoDeGuardado: "GuardarCvInstitucionAcademica",

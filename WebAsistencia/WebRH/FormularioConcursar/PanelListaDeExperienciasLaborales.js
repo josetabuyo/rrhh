@@ -9,9 +9,7 @@
             var panel_detalle = new PanelDetalleGenerico({
                 defaults: {
                     Pais: 9,
-                    AmbitoLaboral: 1,
-                    FechaInicio: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    FechaFin: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                    AmbitoLaboral: 1
                 },
                 path_html: "PanelDetalleDeExperiencialaboral.htm",
                 metodoDeGuardado: "GuardarCvExperienciaLaboral",
