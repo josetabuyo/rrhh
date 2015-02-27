@@ -59,6 +59,7 @@ FormularioBindeado.prototype.crearYBindearDatePicker = function (input) {
 
     var path_propiedad_modelo = input.attr('rh-model-property');
 
+    input.mask("99/99/9999");
     input.datepicker();
     input.datepicker('option', 'dateFormat', 'dd/mm/yy');
 
