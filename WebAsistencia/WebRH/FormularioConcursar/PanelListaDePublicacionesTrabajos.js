@@ -7,7 +7,6 @@
         _this.btn_agregar_publicacion_trabajo.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
                 defaults: {
-                    FechaPublicacion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
                 },
                 path_html: "PanelDetalleDePublicacionTrabajo.htm",
                 metodoDeGuardado: "GuardarCvPublicacionesTrabajos",

@@ -8,7 +8,6 @@
         _this.btn_agregar_otra_matricula.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
                 defaults: {
-                    FechaInscripcion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
                 },
                 path_html: "PanelDetalleDeMatricula.htm",
                 metodoDeGuardado: "GuardarCvMatricula",

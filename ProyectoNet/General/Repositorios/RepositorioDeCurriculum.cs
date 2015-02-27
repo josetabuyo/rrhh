@@ -481,7 +481,7 @@ namespace General.Repositorios
                                               Nivel = dRow.GetInt("CompetenciaNivel", 0),
                                               Localidad = dRow.GetString("CompetenciaLocalidad", string.Empty),
                                               Pais = dRow.GetSmallintAsInt("CompetenciaPais", 9),
-                                              FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today),
+                                              FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion"),
                                               Detalle = dRow.GetString("Detalle", string.Empty),
                                               Precedente = dRow.GetInt("CompetenciaPrecedente", 0),
                                               Baja = dRow.GetInt("CompetenciaBaja", 0)
