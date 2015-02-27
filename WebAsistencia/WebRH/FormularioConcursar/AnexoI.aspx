@@ -16,7 +16,7 @@
         
         .tabla_anexo_1 
         {
-            font-size:1.2em;
+            font-size:1.1em;
             width:100%;
             }
      
@@ -52,7 +52,7 @@
             </tr>
             <tr>
                 <td class="celda">NIVEL ESCALAFONARIO</td>
-                <td id="nivel_escalafonario" class="celda">C</td>
+                <td id="nivel_escalafonario" class="celda"></td>
                 <td class="celda">NIVEL DE JEFATURA</td>
                 <td id="nivel_jefatura" class="celda"></td>
             </tr>
@@ -95,7 +95,7 @@
                 <td id="telefono" colspan="2" class="celda"></td>
             </tr>
             <tr >
-                <td colspan="4" class="celda">CORREO ELECTRONICO:</td>
+                <td id="correo_electronico" colspan="4" class="celda">CORREO ELECTRONICO:</td>
             </tr>
             <tr>
                 <td id="mail" colspan="4" class="celda"></td>
@@ -116,12 +116,50 @@
                 <td colspan="3" class="celda">FOTOCOPIA DEL DNI (con domicilio actualizado)</td>
                 <td colspan="1" class="celda"></td>
             </tr>
-                <tr>
+            <tr>
                 <td colspan="3" class="celda">FOTOCOPIA DEL TITULO ACADEMICO EXIGIDO</td>
+                <td colspan="1" class="celda"></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="celda">CURRICULUM VITAE OPCIONAL</td>
+                <td colspan="1" class="celda"></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="celda">DOCUMENTACIÓN DE RESPALDO</td>
                 <td colspan="1" class="celda"></td>
             </tr>
         </table>
     </div>
+
+    <div class="info-gral posicion fondo_form">
+	<p class="titulos"><span class="letra-bold">I.</span> Información Personal</p>
+	<p class="nombre-h"><span id="cv_apellido" class="atributo-apelido"></span><span id="cv_nombre"></span></p>
+    <br>
+	<p class="general"><span class="atributos">DNI: </span><span id="cv_dni"></span></p>
+	<p class="general"><span class="atributos">Estado Civil: </span><span id="cv_estadoCivil"></span></p>
+	<p class="general"><span class="atributos">Fecha de Nacimiento: </span><span id="cv_fechNac"></span></p>
+	<p class="general"><span class="atributos">Lugar de Nacimiento: </span><span id="cv_lugarNac"></span></p>
+	<p class="general"><span class="atributos">Nacionalidad: </span><span id="cv_nac"></span></p>
+	<p class="general"><span class="atributos">Domicilio Personal: </span><span id="cv_domPersonal"></span></p>
+	
+	
+</div>
+
+<div class="info-notif-avisos posicion fondo_form">
+	<p class="titulos "><span class="letra-bold">II.</span> Información Requerida para Recibir Notificaciones y Avisos</p>
+	<p class="general"><span class="atributos">Domicilio: </span><span id="cv_domLegal"></span></p>
+	<p class="general"><span class="atributos">Teléfonos: </span><span id="cv_telefono"></span></p>
+	<p class="general"><span class="atributos">Corro Electrónico: </span><span id="cv_mail"></span></p>
+	</div>
+
+    <div id="caja_antecedentes_academicos"  style="page-break-before:always" ></div>
+    <div id="caja_actividades_decentes"  style="page-break-before:always"></div>
+    <div id="caja_eventos_academicos"  style="page-break-before:always"></div>
+    <div id="caja_publicaciones"  style="page-break-before:always"></div>
+    <div id="caja_matriculas"  style="page-break-before:always"></div>
+    <div id="caja_instituciones"  style="page-break-before:always" ></div>
+    <div id="caja_experiencias_laborales"  style="page-break-before:always"></div>
+    <div id="caja_otras_aptitudes" style="page-break-before:always" ></div>
 
 <asp:HiddenField ID="postulacion" runat="server" />
 <asp:HiddenField ID="curriculum" runat="server" />
@@ -133,15 +171,16 @@
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 
 <script type="text/javascript">
-    Backend.start();
+    //Backend.start();
 
     function ImprimirCVPostulado() {
         window.print();
     }
-
-    $(document).ready(function () {
-        Anexo.armarAnexo();
-        window.print();
+    Backend.start(function () {
+        $(document).ready(function () {
+            Anexo.armarAnexo();
+            window.print();
+        });
     });
 
 </script>

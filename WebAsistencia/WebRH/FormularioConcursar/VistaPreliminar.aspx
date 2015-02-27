@@ -10,7 +10,7 @@
      <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
 </head>
 <body>
-<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>
+<%--<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>--%>
     <form id="form1" runat="server">
     
     <div class="contenedor_concursar">
@@ -37,19 +37,19 @@
 
         <div class="info-notif-avisos posicion fondo_form">
 	        <p class="titulos degrade"><span class="letra-bold">II.</span> Información Requerida para Recibir Notificaciones y Avisos</p>
-	        <p class="general"><span class="atributos">Domicilio: </span><span id="cv_domLegal">Italia 465 - Timbre 3 - Lomas de Zamora - C.P: 1832</span></p>
-	        <p class="general"><span class="atributos">Teléfonos: </span><span id="cv_telefono">4281-2685 / 15 5059 5930</span></p>
-	        <p class="general"><span class="atributos">Corro Electrónico: </span><span id="cv_mail">ayanvero@gmail.com</span></p>
+	        <p class="general"><span class="atributos">Domicilio: </span><span id="cv_domLegal"></span></p>
+	        <p class="general"><span class="atributos">Teléfonos: </span><span id="cv_telefono"></span></p>
+	        <p class="general"><span class="atributos">Correo Electrónico: </span><span id="cv_mail"></span></p>
 	    </div>
 
         <div id="caja_antecedentes_academicos" style="page-break-before:always"></div>
-        <div id="caja_actividades_decentes" ></div>
-        <div id="caja_eventos_academicos"></div>
-        <div id="caja_publicaciones"></div>
-        <div id="caja_matriculas"></div>
-        <div id="caja_instituciones" ></div>
-        <div id="caja_experiencias_laborales"></div>
-        <div id="caja_otras_aptitudes" ></div>
+        <div id="caja_actividades_decentes" style="page-break-before:always" ></div>
+        <div id="caja_eventos_academicos" style="page-break-before:always"></div>
+        <div id="caja_publicaciones" style="page-break-before:always"></div>
+        <div id="caja_matriculas" style="page-break-before:always"></div>
+        <div id="caja_instituciones" style="page-break-before:always" ></div>
+        <div id="caja_experiencias_laborales" style="page-break-before:always"></div>
+        <div id="caja_otras_aptitudes" style="page-break-before:always" ></div>
 
         </div>
 

@@ -57,20 +57,19 @@
         _this.cv_dni = $("#cv_dni");
         _this.cv_dni.text(curriculum.DatosPersonales.Dni);
         _this.cv_estadoCivil = $("#cv_estadoCivil");
-        Backend.BuscarEstadosCiviles({ Id: curriculum.DatosPersonales.EstadoCivil })
-            .onSuccess(function (estadoCivil) {
-                _this.cv_estadoCivil.text(estadoCivil[0].Descripcion);
-            });
+        var estadoCivil = Backend.ejecutarSincronico("BuscarEstadosCiviles", [{ Id: curriculum.DatosPersonales.EstadoCivil}])[0];
+        _this.cv_estadoCivil.text(estadoCivil.Descripcion);
 
         _this.cv_fechaNac = $("#cv_fechNac");
         _this.cv_fechaNac.text(curriculum.DatosPersonales.FechaNacimiento);
         _this.cv_lugarNac = $("#cv_lugarNac");
-        //_this.cv_lugarNac.text(Repositorio.buscar("LugarDeNacimiento", { Id: curriculum.DatosPersonales.LugarDeNacimiento }, function (lugarDeNacimiento) { lugarDeNacimiento[0].Descripcion }));
+        var lugarNacimiento = Backend.ejecutarSincronico("BuscarNacionalidades", [{ Id: curriculum.DatosPersonales.Nacionalidad}])[0];
+        _this.cv_lugarNac.text(lugarNacimiento.Descripcion);
+
         _this.cv_nac = $("#cv_nac");
-        Backend.BuscarNacionalidades({ Id: curriculum.DatosPersonales.Nacionalidad })
-            .onSuccess(function (nacionalidad) {
-                _this.cv_nac.text(nacionalidad[0].Descripcion);
-            });
+        var nacionalidad = Backend.ejecutarSincronico("BuscarNacionalidades", [{ Id: curriculum.DatosPersonales.Nacionalidad}])[0];
+        _this.cv_nac.text(nacionalidad.Descripcion);
+
         //_this.cv_nac.text(Repositorio.buscar("Nacionalidades", { Id: curriculum.DatosPersonales.Nacionalidad }, function (nacionalidad) { nacionalidad[0].Descripcion }));
         _this.cv_domPersonal = $("#cv_domPersonal");
 
@@ -105,8 +104,8 @@
             _this.caja_antecedentes_academicos.addClass('antec-academ posicion fondo_form');
 
             //Construyo los datos
-            _this.dibujarTitulo(_this.caja_antecedentes_academicos, "Antecedentes Academicos");
-            _this.dibujarSubtitulo(_this.caja_antecedentes_academicos, "TITULOS EDUCATIVOS - Comience con el Título del mas alto nivel alcanzado hasta el título secundario obtenido. Para cada uno repita el siguiente esquema:");
+            _this.dibujarTitulo(_this.caja_antecedentes_academicos, "Antecedentes Académicos");
+            _this.dibujarSubtitulo(_this.caja_antecedentes_academicos, "TÍTULOS EDUCATIVOS - ", "Comience con el Título del mas alto nivel alcanzado hasta el título secundario obtenido. Para cada uno repita el siguiente esquema.");
 
             for (var i = 0; i < curriculum.CvEstudios.length; i++) {
 
@@ -132,7 +131,8 @@
 
                 _this.p_pais = _this.dibujarDatos('País: ');
                 _this.span_pais = $('<span>');
-                _this.span_pais.text(curriculum.CvEstudios[i].Pais);
+                var pais = Backend.ejecutarSincronico("BuscarPaises", [{ Id: curriculum.CvEstudios[i].Pais}])[0];
+                _this.span_pais.text(pais.Descripcion);
 
                 _this.p_especialidad = _this.dibujarDatos('Especialidad: ');
                 _this.span_especialidad = $('<span>');
@@ -156,13 +156,19 @@
                 _this.titulos_educativos.append(_this.p_pais);
                 _this.titulos_educativos.append(_this.p_especialidad);
 
+                //var espaciado = $("<br />");
+                //_this.titulos_educativos.append(espaciado);
+
             }
 
             _this.caja_antecedentes_academicos.append(_this.titulos_educativos);
+            
+            var espaciado = $("<br />");
+            _this.caja_antecedentes_academicos.append(espaciado);
 
             //CV Certificados de Capacitacion
             if (curriculum.CvCertificadosDeCapacitacion.length > 0) {
-                _this.dibujarSubtitulo(_this.caja_antecedentes_academicos, "Otras Certificaciones / Actividades de Capacitación (incluye becas, pasantías o similares). Ordénelos de acuerdo con el grado de mayor a menor relevancia que Ud. le asigne con relación al cargo postulado. Para uno repita el siguiente esquema:");
+                _this.dibujarSubtitulo(_this.caja_antecedentes_academicos, "Otras Certificaciones / Actividades de Capacitación ", "(incluye becas, pasantías o similares). Ordénelos de acuerdo con el grado de mayor a menor relevancia que Ud. le asigne con relación al cargo postulado. Para uno repita el siguiente esquema.");
 
                 for (var i = 0; i < curriculum.CvCertificadosDeCapacitacion.length; i++) {
                     _this.p_diploma = _this.dibujarDatos('Diploma/Certificación: ');
@@ -191,7 +197,8 @@
 
                     _this.p_pais = _this.dibujarDatos('País: ');
                     _this.span_pais = $('<span>');
-                    _this.span_pais.text(curriculum.CvCertificadosDeCapacitacion[i].Pais);
+                    var pais = Backend.ejecutarSincronico("BuscarPaises", [{ Id: curriculum.CvCertificadosDeCapacitacion[i].Pais}])[0];
+                    _this.span_pais.text(pais.Descripcion);
 
                     _this.p_especialidad = _this.dibujarDatos('Especialidad: ');
                     _this.span_especialidad = $('<span>');
@@ -214,6 +221,9 @@
                     _this.titulos_educativos.append(_this.p_localidad);
                     _this.titulos_educativos.append(_this.p_pais);
                     _this.titulos_educativos.append(_this.p_especialidad);
+
+                    //var espaciado = $("<br />");
+                    //_this.titulos_educativos.append(espaciado);
                 }
 
                 _this.caja_antecedentes_academicos.append(_this.titulos_educativos);
@@ -228,7 +238,7 @@
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_actividades_docentes, "Actividades Docentes");
-            _this.dibujarSubtitulo(_this.caja_actividades_docentes, "Actividad Docente - ordénelos según el grado de mayor o menor relevancia respecto al perfil del cargo postulado. Para cada uno consigne los datos del siguiente esquema");
+            _this.dibujarSubtitulo(_this.caja_actividades_docentes, "Actividad Docente ", "- ordénelos según el grado de mayor o menor relevancia respecto al perfil del cargo postulado. Para cada uno consigne los datos del siguiente esquema.");
 
             for (var i = 0; i < curriculum.CvDocencias.length; i++) {
                 _this.p_asignatura = _this.dibujarDatos('Asignatura: ');
@@ -237,7 +247,8 @@
 
                 _this.p_nivel = _this.dibujarDatos('Nivel Educativo: ');
                 _this.span_nivel = $('<span>');
-                _this.span_nivel.text(curriculum.CvDocencias[i].NivelEducativo);
+                var nivel_docencia = Backend.ejecutarSincronico("BuscarNivelesDeDocencia", [{ Id: curriculum.CvDocencias[i].NivelEducativo}])[0];
+                _this.span_nivel.text(nivel_docencia.Descripcion);
 
                 _this.p_actividad = _this.dibujarDatos('Tipo de Actividad: ');
                 _this.span_actividad = $('<span>');
@@ -269,7 +280,8 @@
 
                 _this.p_pais = _this.dibujarDatos('País: ');
                 _this.span_pais = $('<span>');
-                _this.span_pais.text(curriculum.CvDocencias[i].Pais);
+                var pais = Backend.ejecutarSincronico("BuscarPaises", [{ Id: curriculum.CvDocencias[i].Pais}])[0];
+                _this.span_pais.text(pais.Descripcion);
 
                 _this.p_anio_inicio = _this.dibujarDatos('Fecha de Inicio: ');
                 _this.span_inicio = $('<span>');
@@ -306,6 +318,9 @@
                 _this.titulos_educativos.append(_this.p_pais);
                 _this.titulos_educativos.append(_this.p_anio_inicio);
                 _this.titulos_educativos.append(_this.p_anio_finalizacion);
+
+                var espaciado = $("<br />");
+                _this.titulos_educativos.append(espaciado);
             }
 
             _this.caja_actividades_docentes.append(_this.titulos_educativos);
@@ -318,18 +333,20 @@
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_eventos_academicos, "Eventos Academicos");
-            _this.dibujarSubtitulo(_this.caja_eventos_academicos, "Eventos Academicos");
+            _this.dibujarSubtitulo(_this.caja_eventos_academicos, "Eventos Academicos ", "(Participación en conferencias, paneles o mesas redondas, congresos, jornadas, simposios, seminarios u otros cientificos o técnicos): Ordenelos según el grado de mayor o menor relevancia respecto al perfil del cargo postulado. Para cada uno consigne los datos del siguiente esquema.");
 
 
             for (var i = 0; i < curriculum.CvEventosAcademicos.length; i++) {
 
                 _this.p_participacion = _this.dibujarDatos('Caracter de Participación: ');
                 _this.span_participacion = $('<span>');
-                _this.span_participacion.text(curriculum.CvEventosAcademicos[i].CaracterDeParticipacion);
+                var participacion = Backend.ejecutarSincronico("BuscarCaracterParticipacionEvento", [{ Id: curriculum.CvEventosAcademicos[i].CaracterDeParticipacion}])[0];
+                _this.span_participacion.text(participacion.Descripcion);
 
                 _this.p_tipo = _this.dibujarDatos('Tipo de Evento: ');
                 _this.span_tipo = $('<span>');
-                _this.span_tipo.text(curriculum.CvEventosAcademicos[i].TipoDeEvento);
+                var tipo_evento = Backend.ejecutarSincronico("BuscarTiposEventosAcademicos", [{ Id: curriculum.CvEventosAcademicos[i].TipoDeEvento}])[0];
+                _this.span_tipo.text(tipo_evento.Descripcion);
 
                 _this.p_denominacion = _this.dibujarDatos('Denominación: ');
                 _this.span_denominacion = $('<span>');
@@ -362,7 +379,8 @@
 
                 _this.p_pais = _this.dibujarDatos('País: ');
                 _this.span_pais = $('<span>');
-                _this.span_pais.text(curriculum.CvEventosAcademicos[i].Pais);
+                var pais = Backend.ejecutarSincronico("BuscarPaises", [{ Id: curriculum.CvEventosAcademicos[i].Pais}])[0];
+                _this.span_pais.text(pais.Descripcion);
 
 
 
@@ -388,6 +406,9 @@
                 _this.titulos_educativos.append(_this.p_finalizacion);
                 _this.titulos_educativos.append(_this.p_localidad);
                 _this.titulos_educativos.append(_this.p_pais);
+
+                var espaciado = $("<br />");
+                _this.titulos_educativos.append(espaciado);
             }
 
             _this.caja_eventos_academicos.append(_this.titulos_educativos);
@@ -400,7 +421,7 @@
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_publicaciones, "Publicaciones");
-            _this.dibujarSubtitulo(_this.caja_publicaciones, "Publicaciones o Trabajos de Investigación");
+            _this.dibujarSubtitulo(_this.caja_publicaciones, "Publicaciones o Trabajos de Investigación: ", "Ordénelos según el grado de mayor o menor relevancia respecto al perfil del cargo postulado. Para cada uno consigne los datos del siguiente esquema.");
 
             for (var i = 0; i < curriculum.CvPublicaciones.length; i++) {
 
@@ -438,6 +459,9 @@
                 _this.titulos_educativos.append(_this.p_editorial);
                 _this.titulos_educativos.append(_this.p_hojas);
                 _this.titulos_educativos.append(_this.p_anio);
+
+                var espaciado = $("<br />");
+                _this.titulos_educativos.append(espaciado);
             }
 
             _this.caja_publicaciones.append(_this.titulos_educativos);
@@ -485,6 +509,9 @@
                 _this.titulos_educativos.append(_this.p_numero);
                 _this.titulos_educativos.append(_this.p_situacion);
                 _this.titulos_educativos.append(_this.p_fecha);
+
+                var espaciado = $("<br />");
+                _this.titulos_educativos.append(espaciado);
             }
 
             _this.caja_matriculas.append(_this.titulos_educativos);
@@ -497,7 +524,7 @@
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_instituciones, "Instituciones Academicas");
-            _this.dibujarSubtitulo(_this.caja_instituciones, "Pertenencia a Instituciones Académicas o Profesionales Relevantes");
+            _this.dibujarSubtitulo(_this.caja_instituciones, "Pertenencia a Instituciones Académicas o Profesionales Relevantes: ", "Ordénelos según el grado de mayor o menor relevancia respecto al perfil del cargo postulado. Para cada uno de los datos del siguiente esquema.");
 
             for (var i = 0; i < curriculum.CvInstitucionesAcademicas.length; i++) {
 
@@ -548,7 +575,8 @@
 
                 _this.p_pais = _this.dibujarDatos('País: ');
                 _this.span_pais = $('<span>');
-                _this.span_pais.text(curriculum.CvInstitucionesAcademicas[i].Pais);
+                var pais = Backend.ejecutarSincronico("BuscarPaises", [{ Id: curriculum.CvInstitucionesAcademicas[i].Pais}])[0];
+                _this.span_pais.text(pais.Descripcion);
 
                 _this.p_institucion.append(_this.span_institucion);
                 _this.p_caracter.append(_this.span_caracter);
@@ -575,6 +603,9 @@
                 _this.titulos_educativos.append(_this.p_fecha_fin);
                 _this.titulos_educativos.append(_this.p_localidad);
                 _this.titulos_educativos.append(_this.p_pais);
+
+                var espaciado = $("<br />");
+                _this.titulos_educativos.append(espaciado);
             }
 
             _this.caja_instituciones.append(_this.titulos_educativos);
@@ -587,7 +618,7 @@
 
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_experiencias_laborales, "Experiencias Laborales");
-            _this.dibujarSubtitulo(_this.caja_experiencias_laborales, "Ocupaciones");
+            _this.dibujarSubtitulo(_this.caja_experiencias_laborales, "Ocupaciones: ", "Consignar las experiencias laborales relevantes a las ocupaciones, comenzando por la mas reciente. Para cada una de ellas registre los datos del siguiente esquema.");
 
 
             for (var i = 0; i < curriculum.CvExperienciaLaboral.length; i++) {
@@ -598,7 +629,8 @@
 
                 _this.p_ambito = _this.dibujarDatos('Ambito Laboral: ');
                 _this.span_ambito = $('<span>');
-                _this.span_ambito.text(curriculum.CvExperienciaLaboral[i].AmbitoLaboral);
+                var ambito = Backend.ejecutarSincronico("BuscarAmbitosLaborales", [{ Id: curriculum.CvExperienciaLaboral[i].AmbitoLaboral}])[0];
+                _this.span_ambito.text(ambito.Descripcion);
 
                 _this.p_descripcion = _this.dibujarDatos('Descripción: ');
                 _this.span_descripcion = $('<span>');
@@ -628,11 +660,11 @@
                 _this.span_cargo = $('<span>');
                 _this.span_cargo.text(curriculum.CvExperienciaLaboral[i].PersonasACargo);
 
-                _this.p_inicio = _this.dibujarDatos('Fecha de Inicio: '); 
+                _this.p_inicio = _this.dibujarDatos('Fecha de Inicio: ');
                 _this.span_inicio = $('<span>');
                 _this.span_inicio.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvExperienciaLaboral[i].FechaInicio));
 
-                _this.p_fin = _this.dibujarDatos('Fecha de Finaliación: '); 
+                _this.p_fin = _this.dibujarDatos('Fecha de Finaliación: ');
                 _this.span_fin = $('<span>');
                 _this.span_fin.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvExperienciaLaboral[i].FechaFin));
 
@@ -642,7 +674,8 @@
 
                 _this.p_pais = _this.dibujarDatos('País: ');
                 _this.span_pais = $('<span>');
-                _this.span_pais.text(curriculum.CvExperienciaLaboral[i].Pais);
+                var pais = Backend.ejecutarSincronico("BuscarPaises", [{ Id: curriculum.CvExperienciaLaboral[i].Pais}])[0];
+                _this.span_pais.text(pais.Descripcion);
 
                 _this.p_actividad.append(_this.span_actividad);
                 _this.p_ambito.append(_this.span_ambito);
@@ -671,6 +704,9 @@
                 _this.titulos_educativos.append(_this.p_fin);
                 _this.titulos_educativos.append(_this.p_localidad);
                 _this.titulos_educativos.append(_this.p_pais);
+
+                var espaciado = $("<br />");
+                _this.titulos_educativos.append(espaciado);
             }
 
             _this.caja_experiencias_laborales.append(_this.titulos_educativos);
@@ -684,7 +720,7 @@
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_otras_aptitudes, "Otras capacidades");
             if (curriculum.CvIdiomas.length > 0) {
-                _this.dibujarSubtitulo(_this.caja_otras_aptitudes, "Idiomas Extranjeros");
+                _this.dibujarSubtitulo(_this.caja_otras_aptitudes, "Idiomas Extranjeros: ", "Consigne su nivel de competencia para cada idioma declarado. Si tiene certificación de Institución habilitada indíquela y consigne el certificado obtenido y la fecha de obtención.");
 
 
                 for (var i = 0; i < curriculum.CvIdiomas.length; i++) {
@@ -711,15 +747,18 @@
 
                     _this.p_escritura = _this.dibujarDatos('Escritura: ');
                     _this.span_escritura = $('<span>');
-                    _this.span_escritura.text(curriculum.CvIdiomas[i].Escritura);
+                    var escritura = Backend.ejecutarSincronico("BuscarNivelesDeIdioma", [{ Id: curriculum.CvIdiomas[i].Escritura}])[0];
+                    _this.span_escritura.text(escritura.Descripcion);
 
                     _this.p_lectura = _this.dibujarDatos('Lectura: ');
                     _this.span_lectura = $('<span>');
-                    _this.span_lectura.text(curriculum.CvIdiomas[i].Lectura);
+                    var lectura = Backend.ejecutarSincronico("BuscarNivelesDeIdioma", [{ Id: curriculum.CvIdiomas[i].Lectura}])[0];
+                    _this.span_lectura.text(lectura.Descripcion);
 
                     _this.p_oral = _this.dibujarDatos('Oral: ');
                     _this.span_oral = $('<span>');
-                    _this.span_oral.text(curriculum.CvIdiomas[i].Oral);
+                    var oral = Backend.ejecutarSincronico("BuscarNivelesDeIdioma", [{ Id: curriculum.CvIdiomas[i].Oral}])[0];
+                    _this.span_oral.text(oral.Descripcion);
 
                     _this.p_localidad = _this.dibujarDatos('Localidad: ');
                     _this.span_localidad = $('<span>');
@@ -727,7 +766,8 @@
 
                     _this.p_pais = _this.dibujarDatos('País: ');
                     _this.span_pais = $('<span>');
-                    _this.span_pais.text(curriculum.CvIdiomas[i].Pais);
+                    var pais = Backend.ejecutarSincronico("BuscarPaises", [{ Id: curriculum.CvIdiomas[i].Pais}])[0];
+                    _this.span_pais.text(pais.Descripcion);
 
 
                     _this.p_idioma.append(_this.span_idioma);
@@ -751,6 +791,9 @@
                     _this.titulos_educativos.append(_this.p_oral);
                     _this.titulos_educativos.append(_this.p_localidad);
                     _this.titulos_educativos.append(_this.p_pais);
+
+                    var espaciado = $("<br />");
+                    _this.titulos_educativos.append(espaciado);
                 }
 
                 _this.caja_otras_aptitudes.append(_this.titulos_educativos);
@@ -761,13 +804,14 @@
 
                 //Construyo los datos
                 //_this.dibujarTitulo(_this.caja_competencias_informaticas, "Competencias Informáticas");
-                _this.dibujarSubtitulo(_this.caja_otras_aptitudes, "Competencias Informáticas");
+                _this.dibujarSubtitulo(_this.caja_otras_aptitudes, "Competencias Informáticas: ", "Consigne aquellas que pueda hacer un uso normal o superior. Si tiene certificación de institución, identifiquela y consigne el certificado obtenido y la fecha de obtención.");
 
                 for (var i = 0; i < curriculum.CvCompetenciasInformaticas.length; i++) {
 
                     _this.p_conocimiento = _this.dibujarDatos('Conocimiento: ');
                     _this.span_conocimiento = $('<span>');
-                    _this.span_conocimiento.text(curriculum.CvCompetenciasInformaticas[i].Conocimiento);
+                    var conocimiento = Backend.ejecutarSincronico("BuscarConocimientoCompetenciaInformatica", [{ Id: curriculum.CvCompetenciasInformaticas[i].Conocimiento}])[0];
+                    _this.span_conocimiento.text(conocimiento.Descripcion);
 
                     _this.p_descripcion = _this.dibujarDatos('Descripción: ');
                     _this.span_descripcion = $('<span>');
@@ -783,11 +827,13 @@
 
                     _this.p_tipo = _this.dibujarDatos('Tipo de Informatica: ');
                     _this.span_tipo = $('<span>');
-                    _this.span_tipo.text(curriculum.CvCompetenciasInformaticas[i].TipoInformatica);
+                    var tipo = Backend.ejecutarSincronico("BuscarTiposCompetenciaInformatica", [{ Id: curriculum.CvCompetenciasInformaticas[i].TipoInformatica}])[0];
+                    _this.span_tipo.text(tipo.Descripcion);
 
                     _this.p_nivel = _this.dibujarDatos('Nivel: ');
                     _this.span_nivel = $('<span>');
-                    _this.span_nivel.text(curriculum.CvCompetenciasInformaticas[i].Nivel);
+                    var nivel = Backend.ejecutarSincronico("BuscarNivelCompetenciaInformatica", [{ Id: curriculum.CvCompetenciasInformaticas[i].Nivel}])[0];
+                    _this.span_nivel.text(nivel.Descripcion);
 
                     _this.p_fecha = _this.dibujarDatos('Fecha de Obtención: ');
                     _this.span_fecha = $('<span>');
@@ -803,7 +849,8 @@
 
                     _this.p_pais = _this.dibujarDatos('País: ');
                     _this.span_pais = $('<span>');
-                    _this.span_pais.text(curriculum.CvCompetenciasInformaticas[i].Pais);
+                    var pais = Backend.ejecutarSincronico("BuscarPaises", [{ Id: curriculum.CvCompetenciasInformaticas[i].Pais}])[0];
+                    _this.span_pais.text(pais.Descripcion);
 
                     _this.p_conocimiento.append(_this.span_conocimiento);
                     _this.p_descripcion.append(_this.span_descripcion);
@@ -826,6 +873,9 @@
                     _this.titulos_educativos.append(_this.p_establecimiento);
                     _this.titulos_educativos.append(_this.p_localidad);
                     _this.titulos_educativos.append(_this.p_pais);
+
+                    var espaciado = $("<br />");
+                    _this.titulos_educativos.append(espaciado);
                 }
 
                 _this.caja_otras_aptitudes.append(_this.titulos_educativos);
@@ -836,14 +886,26 @@
 
                 //Construyo los datos
                 //_this.dibujarTitulo(_this.caja_otras_capacidades, "Capacidades Personales");
-                _this.dibujarSubtitulo(_this.caja_otras_aptitudes, "Otras capacidades");
+                _this.dibujarSubtitulo(_this.caja_otras_aptitudes, "Otras capacidades: ", "para cada uno de los tipos de capacidades citadas a continuación, indique el ámbito laboral o académico en el que las ha usado.");
 
                 for (var i = 0; i < curriculum.CvCapacidadesPersonales.length; i++) {
-                    _this.p = _this.dibujarDatos('Detalle: ');
-                    _this.span = $('<span>');
-                    _this.span.text(curriculum.CvCapacidadesPersonales[i].Detalle);
-                    _this.p.append(_this.span);
-                    _this.titulos_educativos.append(_this.p);
+
+                    _this.p_detalle = _this.dibujarDatos('Detalle: ');
+                    _this.span_detalle = $('<span>');
+                    _this.span_detalle.text(curriculum.CvCapacidadesPersonales[i].Detalle);
+
+                    _this.p_descripcion = _this.dibujarDatos('Descripción: ');
+                    _this.span_descripcion = $('<span>');
+                    _this.span_descripcion.text(curriculum.CvCapacidadesPersonales[i].Descripcion);
+
+                    _this.p_detalle.append(_this.span_detalle);
+                    _this.p_descripcion.append(_this.span_descripcion);
+
+                    _this.titulos_educativos.append(_this.p_detalle);
+                    _this.titulos_educativos.append(_this.p_descripcion);
+
+                    var espaciado = $("<br />");
+                    _this.titulos_educativos.append(espaciado);
                 }
 
                 _this.caja_otras_aptitudes.append(_this.titulos_educativos);
@@ -863,7 +925,7 @@
         contenedor.append(_this.titulo);
 
     },
-    dibujarSubtitulo: function (contenedor, subtitulo) {
+    dibujarSubtitulo: function (contenedor, subtitulo, descripcion) {
         var _this = this;
         _this.titulos_educativos = $('<div>');
         _this.titulos_educativos.addClass("tit-pos");
@@ -872,7 +934,13 @@
         _this.subtitulo.addClass("sub-titulos");
         _this.subtitulo.text(subtitulo);
 
+        _this.descripcion = $('<span>');
+        _this.descripcion.addClass("sub-titulos-descripcion");
+        _this.descripcion.text(descripcion);
+
+        _this.subtitulo.append(_this.descripcion);
         _this.titulos_educativos.append(_this.subtitulo);
+
 
         _this.linea = $('<hr>');
         _this.linea.addClass("lineas-subraya");
@@ -886,7 +954,7 @@
         _this.p = $('<p>');
         _this.p.addClass("general");
         _this.span = $('<span>');
-        _this.span.addClass("atributos");
+        //_this.span.addClass("atributos");
         _this.span.text(label);
         _this.p.append(_this.span);
 

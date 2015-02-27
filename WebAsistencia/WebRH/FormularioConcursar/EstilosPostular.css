@@ -771,6 +771,7 @@ font-size: 14px;
 .general
 {
 font-size:14px;
+/*border:1px outset #000;*/
 }
 
 .lineas-subraya
@@ -825,6 +826,12 @@ font-weight: bold;
 font-family: Arial;
 }
 
+.sub-titulos-descripcion 
+{
+    font-size: 14px;
+    font-weight:normal;
+}
+
 .letra-bold
 {
 font-weight: bold;
@@ -873,8 +880,8 @@ margin-bottom: 35px;
 
 .tit-pos
 {
-margin-top: 25px;
-margin-bottom: 70px;
+margin-top: 5px;
+margin-bottom: 10px;
 }
 
 

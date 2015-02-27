@@ -34,6 +34,7 @@ namespace General
             var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
             postulacion.Id = Convert.ToInt32(id);
             postulacion.Postulante = usuario.Owner;
+            postulacion.FechaPostulacion = DateTime.Today;
 
             return postulacion;
         }

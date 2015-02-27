@@ -183,8 +183,13 @@
 
 </div>
 
+</div>
 
 
+<p class="top-header posicion">Recuerde firmar todas y cada una de las hojas que integran su Ficha de inscripción.<br>La ausencia de su firma invalida la valoración del antecedente declarado.</p>
+
+
+</div>
 <div>
 <p class="p-imprimir">
     <button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir Curriculum</button>
@@ -193,13 +198,7 @@
     <input style="width: 50px;" id="anexo_3" class="btn btn-primary" value="Anexo III" />
 </p>
 </div>	
-</div>
 
-
-<p class="top-header posicion">Recuerde firmar todas y cada una de las hojas que integran su Ficha de inscripción.<br>La ausencia de su firma invalida la valoración del antecedente declarado.</p>
-
-
-</div>
 <a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>
 
         <asp:HiddenField ID="curriculum" runat="server" />
@@ -228,18 +227,18 @@
     }
 
     $('#anexo_1').click(function () {
-        window.open('AnexoI.aspx?fh=<%=Request.QueryString["fh"] %>');
+        window.open('AnexoI.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
         //window.location.href = 'AnexoI.aspx';
 
     });
 
     $('#anexo_2').click(function () {
-        window.open('AnexoII.aspx?fh=<%=Request.QueryString["fh"] %>');
+        window.open('AnexoII.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
         //window.location.href = 'AnexoII.aspx';
     });
 
     $('#anexo_3').click(function () {
-        window.open('AnexoIII.aspx?fh=<%=Request.QueryString["fh"] %>');
+        window.open('AnexoIII.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
         //window.location.href = 'AnexoIII.aspx';
     });
 
