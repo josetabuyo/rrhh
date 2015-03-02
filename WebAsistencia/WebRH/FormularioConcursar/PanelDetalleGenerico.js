@@ -13,7 +13,7 @@
 
         //Bt cerrar
         _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
-        _this.btn_cerrar.click(function () {                
+        _this.btn_cerrar.click(function () {
             _this.ui.limpiarValidaciones();
         });
 
@@ -26,12 +26,13 @@
                 Backend.ejecutar(opciones.metodoDeGuardado, [modelo],
                     function (respuesta) {
                         alertify.alert(opciones.mensajeDeGuardadoExitoso);
+                        $.extend(opciones.modelo, respuesta);
                         alModificar(respuesta);
                         $(".modal_close_concursar").click();
                     },
                     function (error, as, asd) {
                         alertify.alert(opciones.mensajeDeGuardadoErroneo);
-                    });    
+                    });
             }
         });
 
