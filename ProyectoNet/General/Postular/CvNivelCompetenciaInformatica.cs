@@ -21,8 +21,5 @@ namespace General.Postular
             this.Id = id;
             this.Descripcion = descripcion;
         }
-
-
-
     }
 }

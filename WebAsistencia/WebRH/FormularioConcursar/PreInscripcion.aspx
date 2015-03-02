@@ -24,11 +24,11 @@
         <p>
             Usted está por confirmar su postulación. Si desea revisar y modificar su curriculum
             puede hacerlo antes de postularse.<br />
-            Una vez que haya modificado su curriculum presione el botón de "Guardar Cambios".<br />
-            PARA SEGUIR EN EL PROCESO DE POSTULACION PRESIONE EL SIGUIENTE</p>
+            <%--Una vez que haya modificado su curriculum presione el botón de "Guardar Cambios".<br />
+            PARA SEGUIR EN EL PROCESO DE POSTULACION PRESIONE EL SIGUIENTE--%></p>
         <div id="contenedor_datosPersonales" class="fondo_form">
-            <a style="margin-right: 10px; color: #3A9ABF; font-size: 14px; text-decoration: none;"
-                id="btn_guardar_datosPersonales" href="#">Guardar Cambios </a>
+            <%--<a style="margin-right: 10px; color: #3A9ABF; font-size: 14px; text-decoration: none;"
+                id="btn_guardar_datosPersonales" href="#">Guardar Cambios </a>--%>
             <%--<a class="btn btn-primary" onclick="javascript:PasarAInscripcion()" href="#">Confirmar Postulación</a>--%>
             <fieldset style="width: 100%; min-width: 800px;">
                 <p>
@@ -246,7 +246,7 @@
 <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
-<script type="text/javascript" src="../Scripts/Bindings.js"> </script>
+<script type="text/javascript" src="../Scripts/ObjectObserver.js"> </script>
 <script type="text/javascript" src="../Scripts/rhforms-combos.js"> </script>
 <script type="text/javascript" src="../Scripts/String.js"> </script>
 

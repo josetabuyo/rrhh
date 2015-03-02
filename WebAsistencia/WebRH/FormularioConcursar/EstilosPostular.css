@@ -1119,18 +1119,20 @@ font-size: 16px;
 .link_activado, .link_activado:hover {
     background: #2184be;
     color: #fff;
+    cursor: default !important;
     }
             
     .link_desactivado, .link_desactivado:hover
     {
     background: #eee;
     color: #aaa;
+    cursor: default !important;
     }
          
     .number 
     {
-        font-size: 1.429em;
-        }
+       font-size: 1.429em;
+    }
              
 .actions {
 position: relative;
@@ -1168,3 +1170,97 @@ width: 100%;
     -moz-border-radius: 5px;
     border-radius: 5px;*/
 }
+
+.label_caratula 
+{
+    /*text-decoration:underline;*/
+    font-size:19;
+    font-family: Verdana;
+    display:inline-table;
+   
+}
+
+
+.span_caratula 
+{
+    display:inline-table;
+   /* text-decoration:underline;*/
+    font-size:18px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+#span_perfil 
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:17px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+#span_comite 
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:17px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+#span_postulante
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:17px;
+  /*  font-family: Verdana;*/
+   
+}
+#span_recepcion
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:17px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+.td-caratula
+{
+/*text-align: center;*/
+font-size: 22px;
+width: 70%;
+padding-bottom: 5px;
+
+height: 20px;
+vertical-align: bottom;
+/*border-style: dashed;*/
+}
+
+
+/*Estilo tabla inscripcion*/
+.noborder
+{
+/*text-align: center;*/
+
+vertical-align: bottom;
+/*border-style: dashed;*/
+}
+
+
+#tr-border
+ {
+    border-right-style: none !important;
+    /*border: 1px solid black;*/
+}
+#td-border {
+    border-right-style: none !important;
+    width: 100px;
+}
+
+
+

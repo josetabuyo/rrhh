@@ -33,27 +33,23 @@ namespace General
 
             var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
             postulacion.Id = Convert.ToInt32(id);
-            postulacion.IdPersona = usuario.Owner.Id;
+            postulacion.Postulante = usuario.Owner;
 
             return postulacion;
-        }
-
-        public List<Postulacion> GetPostulaciones()
-        {
-            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones");
-
-            return ArmarPostulaciones(tablaPostulaciones);
-
         }
 
         public List<Postulacion> GetPostulacionesDe(int idpersona)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idPersona", idpersona);
+            return GetPostulaciones(parametros);
+        }
+
+        public List<Postulacion> GetPostulaciones(Dictionary<string, object> parametros)
+        {
             var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_Postulaciones", parametros);
 
             return ArmarPostulaciones(tablaPostulaciones);
-
         }
 
         private List<Postulacion> ArmarPostulaciones(TablaDeDatos tablaCVs)
@@ -65,8 +61,12 @@ namespace General
             {
                 var postulacion = new Postulacion(){
                    Id= row.GetInt("IdPostulacion"), 
-                   Perfil=ArmarPuesto(row), 
-                   IdPersona=row.GetInt("IdPersona"), 
+                   Perfil=ArmarPuesto(row),
+                   Postulante = new Persona() {
+                       Id = row.GetInt("IdPostulante"),
+                       Nombre = row.GetString("NombrePostulante"),
+                       Apellido = row.GetString("ApellidoPostulante")
+                   }, 
                    FechaPostulacion=row.GetDateTime("FechaInscripcion"),
                    Motivo=row.GetString("Motivo"), 
                    Observaciones=row.GetString("Observaciones"), 
@@ -175,24 +175,35 @@ namespace General
                               repo_comite.GetComiteById(row.GetSmallintAsInt("IdComite"))                            
                 );
         }
-        
 
+        public List<Postulacion> GetPostulacionesPorComite(int id_comite)
+        {
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            //parametros.Add("@idPerfil", id_perfil);
+            parametros.Add("@IdComite", id_comite);
+            return this.GetPostulaciones(parametros);
+        }
 
         public Postulacion GetPostulacionById(int idpersona, int idpostulacion)
         {
-            return this.GetPostulacionesDe(idpersona).Find(p => p.Id.Equals(idpostulacion));
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPostulacion", idpostulacion);
+            parametros.Add("@IdPersona", idpersona);
+            return this.GetPostulaciones(parametros).First();
         
         }
 
         public Postulacion GetPostulacionesPorCodigo(string codigo)
         {
-            return this.GetPostulaciones().Find(p => p.Numero.Equals(codigo));
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("@NumeroPostulacion", codigo);
+            return this.GetPostulaciones(parametros).First();
         }
 
 
         public bool EliminarPostulacionPorUsuario(Postulacion postulacion, Usuario usuario)
         {
-            if (postulacion.IdPersona == usuario.Owner.Id)
+            if (postulacion.Postulante.Id == usuario.Owner.Id)
             {
                 var baja = CrearBaja(usuario);
 
@@ -200,7 +211,7 @@ namespace General
                 parametros.Add("@IdPostulacion", postulacion.Id);
              //   parametros.Add("@IdPuesto", postulacion.Puesto.Id);
                 parametros.Add("@IdPerfil", postulacion.Perfil.Id);
-                parametros.Add("@IdPersona", postulacion.IdPersona);
+                parametros.Add("@IdPersona", postulacion.Postulante.Id);
                 parametros.Add("@FechaInscripcion", postulacion.FechaPostulacion);
                 parametros.Add("@Usuario", usuario.Id);
                 parametros.Add("@idBaja", baja);
@@ -236,5 +247,13 @@ namespace General
 
             conexion_bd.EjecutarSinResultado("dbo.CV_Ins_EtapaPostulación", parametros);
         }
+
+        public List<Postulacion> BuscarPostulacionesPorEtapas(int id_comite, List<EtapaConcurso> etapas)
+        {
+            List<Postulacion> postulaciones_buscadas = new List<Postulacion>();
+            postulaciones_buscadas = GetPostulacionesPorComite(id_comite).FindAll(p => etapas.Exists(e => e.Id == p.EtapaEn(DateTime.Today).Etapa.Id));
+            return postulaciones_buscadas;
+        }
+
     }
 }

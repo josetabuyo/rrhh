@@ -5,27 +5,21 @@ using System.Text;
 
 namespace General.Postular
 {
-  public class CVCaracterDeParticipacionEvento
+    public class CVCaracterDeParticipacionEvento
     {
 
-       public int Id;
-       public string Descripcion;
+        public int Id;
+        public string Descripcion;
 
-       public CVCaracterDeParticipacionEvento()
-       {
+        public CVCaracterDeParticipacionEvento()
+        {
 
-       }
+        }
 
-       public CVCaracterDeParticipacionEvento(int id, string descripcion)
-       {
+        public CVCaracterDeParticipacionEvento(int id, string descripcion)
+        {
             this.Id = id;
             this.Descripcion = descripcion;
-       }
-
-
-
-
-
-
+        }
     }
 }

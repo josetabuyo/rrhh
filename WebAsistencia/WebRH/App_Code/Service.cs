@@ -28,6 +28,15 @@ public class AjaxWS : System.Web.Services.WebService
         //InitializeComponent(); 
     }
 
+
+    [WebMethod(EnableSession = true)]
+    public string GetUsuario()
+    {
+        var usuario = usuarioLogueado.Owner.Nombre + " " + usuarioLogueado.Owner.Apellido;
+        return usuario;
+    }
+
+
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string CrearDocumento(string documento_dto)

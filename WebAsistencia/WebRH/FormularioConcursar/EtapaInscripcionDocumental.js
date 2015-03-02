@@ -1,222 +1,185 @@
-﻿var EtapaInscripcionDocumental = {
-    mostrarPostulacion: function () {
+﻿var PantallaEtapaDeInscripcion = {
+
+    HabilitarBuscarComite: function () {
+        if ($('#id_comite').val() == "") {
+            $('#id_perfil').prop("disabled", true);
+            $('#btn_filtrar').prop("disabled", true);
+        } else {
+            $('#id_perfil').prop("disabled", false);
+            $('#btn_filtrar').prop("disabled", false);
+            this.BuscarPreInscriptos();
+        }
+
+    },
+
+    BuscarPreInscriptos: function () {
+        var id_comite = $('#id_comite').val();
         var _this = this;
-        _this.btn_guardar = $("#btn_guardar");
-        _this.btn_buscar_postulacion = $("#btn_buscar_postulacion");
+        Backend.BuscarPostulacionesDePreInscriptos(id_comite)
+        .onSuccess(function (postulaciones) {
+            if (postulaciones.length == 0) {
+                alertify.alert('No se encontraron resultados');
+            } else {
+                //        buscar todos los titulares y seplentes del comité y listarlos - Continuar
+                $('#comite_titular').text(postulaciones[0].Perfil.Comite.Integrantes[0].Apellido);
 
-        var pantalla;
+                _this.DibujarTabla(postulaciones);
+                _this.BuscadorDeTabla();
+                _this.CargarComboPerfiles(postulaciones);
 
-        _this.btn_buscar_postulacion.click(function () {
-            _this.BuscarPostulaciones();
+            }
+            _this.postulaciones = postulaciones;
+        });
+    },
+
+    DibujarTabla: function (postulaciones) {
+        var _this = this;
+
+        var ultima_posicion = postulaciones[0].Etapas.length - 1;
+        var id_etapa_actual = postulaciones[0].Etapas[ultima_posicion].Etapa.Id;
+
+        $("#search").show();
+        $("#tabla_postulaciones").empty();
+        var divGrilla = $('#tabla_postulaciones');
+
+        var columnas = [];
+        columnas.push(new Columna("NroPostulación", { generar: function (una_postulacion) { return una_postulacion.Numero } }));
+        columnas.push(new Columna("Postulante", { generar: function (una_postulacion) { return una_postulacion.Postulante.Apellido + ", " + una_postulacion.Postulante.Nombre } }));
+        columnas.push(new Columna("NroPerfil", { generar: function (una_postulacion) { return una_postulacion.Perfil.Numero } }));
+        columnas.push(new Columna("Nivel", { generar: function (una_postulacion) { return una_postulacion.Perfil.Nivel } }));
+        columnas.push(new Columna("Tipo", { generar: function (una_postulacion) { return una_postulacion.Perfil.Tipo } }));
+        columnas.push(new Columna("Perfil", { generar: function (una_postulacion) { return una_postulacion.Perfil.Denominacion } }));
+        columnas.push(new Columna("Estado", { generar: function (una_postulacion) {
+            var ultima_posicion = una_postulacion.Etapas.length - 1;
+            return una_postulacion.Etapas[ultima_posicion].Etapa.Descripcion;
+        }
+        }));
+        columnas.push(new Columna('Inscribir', {
+            generar: function (una_postulacion) {
+                var input = $('<input>');
+                input.attr('type', 'checkbox');
+                input.attr('class', 'check');
+                return input;
+            }
+        }));
+
+        this.GrillaDePostulaciones = new Grilla(columnas);
+        this.GrillaDePostulaciones.AgregarEstilo("cuerpo_tabla_perfil tr td");
+        this.GrillaDePostulaciones.CambiarEstiloCabecera("cabecera_tabla_pantalla_cargos");
+        this.GrillaDePostulaciones.SetOnRowClickEventHandler(function (un_perfil) { });
+
+
+        this.GrillaDePostulaciones.CargarObjetos(postulaciones);
+        this.GrillaDePostulaciones.DibujarEn(divGrilla);
+
+        var check_gral = $('<input>');
+        check_gral.attr('id', 'check_gral');
+        check_gral.attr('type', 'checkbox');
+        //check_gral.attr('onclick', 'checkTodos();');
+
+        check_gral.click(function () {
+            _this.MarcarCheckboxGral();
         });
 
+        $('#btn_generar_anexo').click(function () {
+            _this.CambiarEstadoPostulacion(id_etapa_actual);
+        })
 
-        _this.btn_guardar.click(function () {
+        $("#txt_marcar_todos").html('Marcar todos: ');
+        $("#txt_marcar_todos").append(check_gral);
 
-            var lista_foliables = $(".foliables");
-            var lista_documentacion_recibida = [];
-            var postulacion = $("#postulacion");
+        $("#btn_generar_anexo").attr("style", "display:inline");
 
-            for (var i = 0; i < lista_foliables.length; i++) {
-                var documentacionRecibida = {};
-                var item = {};
-                var id = lista_foliables[i].id;
-                var res = id.split("_");
-                item.Id = parseInt(res[1]);
-                item.IdTabla = parseInt(res[0]);
-                item.Descripcion = "";
-                documentacionRecibida.Id = lista_foliables[i].lastChild.id;
-                //documentacionRecibida.Fecha = new Date(2014,04,01);
-                documentacionRecibida.ItemCV = item;
-                documentacionRecibida.IdPostulacion = postulacion[0].value;
-                documentacionRecibida.Folio = lista_foliables[i].firstElementChild.value;
-                //var folio = lista_foliables[i].lastChild.value;
+    },
 
-                if (lista_foliables[i].lastChild.value != "") {
-                    documentacionRecibida.FolioPersistido = lista_foliables[i].lastChild.value;
-                    //$("#" + id)[0].data("folio", elementos[i].FolioPersistido);
-                };
 
-                lista_documentacion_recibida.push(documentacionRecibida);
+    FiltrarPorPerfil: function () {
+        var postulaciones = this.postulaciones;
+        var postulaciones_filtradas = [];
+        if ($('#id_perfil').val() === "Todos") {
+            postulaciones_filtradas = this.postulaciones;
+        } else {
+            for (var i = 0; i < postulaciones.length; i++) {
+                if ((postulaciones[i].Perfil.Numero + " - " + postulaciones[i].Perfil.Denominacion).replace(/\s/g, '') === $('#id_perfil').val().replace(/\s/g, '')) {
+                    postulaciones_filtradas.push(postulaciones[i]);
+                }
             }
+        }
 
-            //pantalla.DocumentacionRecibida = lista_documentacion_recibida;
+        this.DibujarTabla(postulaciones_filtradas);
 
-            Backend.GuardarDocumentacionRecibida(lista_documentacion_recibida)
+    },
+
+    CambiarEstadoPostulacion: function (id_etapa) {
+        var postulaciones = [];
+
+        $(".check").each(function () {
+            if ($(this)[0].checked == true) {
+                var postulacion = {};
+                postulacion.Id = $(this).parent().parent()[0].cells[0].innerHTML;
+
+                postulaciones.push(postulacion);
+            }
+        });
+
+        if (postulaciones.length > 0) {
+            Backend.PasarEtapaAPostulaciones(postulaciones, id_etapa)
              .onSuccess(function (resultado) {
-                 alertify.alert('Se han guardado los folios con exito');
-                 location.reload();
-             });
+                 if (resultado == true) {
+                     alertify.alert('Las postulaciones pasaron a la etapa de Admisión');
+                 } else {
+                     alertify.alert('Hubo un error en el guardado. ');
+                 }
 
-        });
-
-    },
-    BuscarPostulaciones: function () {
-        var _this = this;
-        var codigo = $("#txt_codigo_postulacion").val();
-        var div_tabla_historial = $("#div_tabla_historial");
-        $("#span_empleado").html("");
-        $("#span_codigo").html("");
-        $("#span_fecha").html("");
-        $("#span_perfil").html("");
-        $("#requisitos_perfil").html("");
-        $("#detalle_perfil").html("");
-        $("#detalle_documentos").html("");
-        $("#titulo_doc_oblig").remove();
-        $("#titulo_doc_curric").remove();
-
-        Backend.ejecutar("GetPostulacionesPorCodigo",
-            [codigo],
-            function (respuesta) {
-                if (respuesta != null) _this.CompletarDatos(respuesta);
-                else {
-                    alertify.alert("Código no encontrado");
-                }
-            },
-            function (errorThrown) {
-                alertify.alert(errorThrown);
-            }
-        );
-
-
-    },
-    completarFoliosRecepcionados: function (elementos, div_caja_foliables) {
-        if (elementos.length > 0) {
-            for (var i = 0; i < elementos.length; i++) {
-                var id = elementos[i].IdTabla + "_" + elementos[i].IdItemCV;
-
-                var elemento = $("#" + id)[0];
-                elemento.firstElementChild.value = elementos[i].Folio;
-                elemento.lastChild.value = elementos[i].FolioPersistido;
-                elemento.lastChild.id = elementos[i].Id;
-
-            }
+                 //location.reload();
+             })
+            .onError(function (error) {
+                alertify.error(error.statusText);
+            });
+        } else {
+            alertify.alert('No ha seleccionado a nadie del listado.');
         }
 
+
+
+
     },
-    CompletarDatos: function (datos_postulacion) {
-        var _this = this;
 
-        var BuscarUsuario = function () {
-            this.generar = function (una_etapa) {
-                for (var i = 0; i < usuarios.length; i++) {
-                    if (parseInt(usuarios[i].Id, 10) == parseInt(una_etapa.IdUsuario, 10)) return usuarios[i].Owner.Nombre + " " + usuarios[i].Owner.Apellido;
-                }
-                return "";
-            }
-        }
+    BuscadorDeTabla: function () {
+        var options = {
+            valueNames: ['NroPostulación', 'NroPerfil', 'Nivel', 'Tipo', 'Perfil', 'Estado']
+        };
 
-        var div_tabla_historial = $("#div_tabla_historial");
-        var span_empleado = $("#span_empleado");
-        var span_codigo = $("#span_codigo");
-        var span_fecha = $("#span_fecha");
-        var span_perfil = $("#span_perfil");
-        var postulacion = $("#postulacion");
-        var idPostulacion = $("#idPostulacion");
-        var usuarios = [];
-
-        for (var i = 0; i < datos_postulacion.Etapas.length; i++) {
-            var agregado = false;
-            for (var j = 0; j < usuarios.length; j++) {
-                if (usuarios[j].Owner.Id == datos_postulacion.Etapas[i].IdUsuario) agregado = true;
-            }
-            if (!agregado) usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorId", [datos_postulacion.Etapas[i].IdUsuario]));
-        }
-
-        postulacion.val(JSON.stringify(datos_postulacion.Id));
-
-        span_empleado.html(new BuscarUsuario().generar(datos_postulacion.Etapas[0]));
-        span_codigo.html(datos_postulacion.Numero);
-        span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));
-        span_perfil.html(datos_postulacion.Perfil.Denominacion);
-
-        var fieldset_titulo_perfil = $("#cuadro_perfil");
-        var fieldset_titulo_documentos = $("#cuadro_documentos");
-
-        var legend_perfil = $("<legend>");
-        legend_perfil.attr("id", "titulo_doc_oblig");
-        var legend_documentos = $("<legend>");
-        legend_documentos.attr("id", "titulo_doc_curric");
-
-        legend_perfil.html("Documentación Obligatoria del perfil");
-        legend_documentos.html("Documentación del Curriculum");
-
-        fieldset_titulo_perfil.append(legend_perfil);
-        fieldset_titulo_documentos.append(legend_documentos);
-
-        $("#btn_guardar").attr("style", "display:inline");
-
-        Backend.GetPantallaRecepcionDocumentacion(datos_postulacion)
-                    .onSuccess(function (mi_pantalla) {
-                        pantalla = mi_pantalla;
-                        //var nombre_perfil = $("#nombre_perfil");
-                        //nombre_perfil[0].innerHTML = mi_pantalla.Postulacion.Perfil.Denominacion;
-
-                        _this.armarPantallaPerfil(mi_pantalla, $('#requisitos_perfil'));
-                        _this.armarPantalla(mi_pantalla.CuadroPerfil, $('#detalle_perfil'));
-                        _this.armarPantalla(mi_pantalla.DocumentacionRequerida, $('#detalle_documentos'));
-                        _this.completarFoliosRecepcionados(mi_pantalla.DocumentacionRecibida, $('#detalle_documentos'));
-                    });
+        var featureList = new List('contenedorTabla', options);
     },
-    armarPantallaPerfil: function (pantalla, div_caja_foliables) {
 
-        for (var i = 0; i < pantalla.RequisitosPerfil.length; i++) {
-            var div_foliable = $('<div>');
-            var descripcion_foliable = $('<p>');
-            div_caja_foliables.attr("style", "margin: 5px; padding: 5px; background-color: #FBFBFB; border: dotted 1px; ");
+    CargarComboPerfiles: function (postulaciones) {
 
+        $("#id_perfil").append("<option>Todos</option>")
+        var perfiles = [];
 
-            descripcion_foliable.text(pantalla.RequisitosPerfil[i]);
-            div_caja_foliables.append(descripcion_foliable);
-
-            div_caja_foliables.append(descripcion_foliable);
-        }
-    },
-    armarPantalla: function (elementos, div_caja_foliables) {
-
-        if (elementos.length > 0) {
-            // var div_caja_foliables = $('#detalle_perfil');
-            for (var i = 0; i < elementos.length; i++) {
-                var div_foliable = $('<div>');
-                var descripcion_foliable = $('<p>');
-
-
-                descripcion_foliable.attr("style", "font-size:13px; font-weight:bold;");
-
-                descripcion_foliable.text(elementos[i].DescripcionRequisito);
-
-                div_caja_foliables.append(descripcion_foliable);
-
-                for (var j = 0; j < elementos[i].ItemsCv.length; j++) {
-                    var descripcion_item = $('<p>');
-                    var hidden = $("<input>");
-                    hidden.attr("type", "hidden");
-                    hidden.attr("id", 0);
-
-                    var id = elementos[i].ItemsCv[j].IdTabla + "_" + elementos[i].ItemsCv[j].Id;
-                    descripcion_item.attr("id", id);
-
-                    descripcion_item.attr("class", "foliables");
-                    descripcion_item.attr("style", "padding-bottom: 10px;");
-                    var textbox_folio = $('<input>');
-                    textbox_folio.attr("type", "textbox");
-                    textbox_folio.attr("style", " width:40px; float: right; margin-right: 40%;");
-                    textbox_folio.attr("placeholder", "Folio");
-
-                    descripcion_item.text(elementos[i].ItemsCv[j].Descripcion);
-                    descripcion_item.append(textbox_folio);
-                    descripcion_item.append(hidden);
-                    div_caja_foliables.append(descripcion_item);
-
-                }
-
+        for (var i = 0; i < postulaciones.length; i++) {
+            var texto_perfil = postulaciones[i].Perfil.Numero + " - " + postulaciones[i].Perfil.Denominacion;
+            perfiles.push(texto_perfil);
+            if (jQuery.inArray(texto_perfil, perfiles) !== -1) {
+                $("#id_perfil").append("<option>" + texto_perfil + "</option>");
             }
 
+        }
+    },
+
+    MarcarCheckboxGral: function () {
+        if ($('#check_gral')[0].checked == true) {
+            $(".check").each(function () {
+                $(this).prop('checked', true);
+            });
+        } else {
+            $(".check").each(function () {
+                $(this).prop('checked', false);
+            });
         }
     }
+
 }
-
-
-
 
 

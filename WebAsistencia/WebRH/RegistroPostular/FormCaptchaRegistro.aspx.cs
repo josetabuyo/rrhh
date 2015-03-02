@@ -23,7 +23,7 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
             var personas = servicio.BuscarPersonas(JsonConvert.SerializeObject(new { Documento = Convert.ToInt32(this.txt_dni_registro.Text) }));
             if (personas.Length > 0)
             {
-                this.lb_mensajeError.Text = "El documento ingresado ya está registrado, inicie sesión con el usuario asignado. Si no los recuerda, utilice la opción: '¿Olvidó sus datos?' o comuníquese con <br/> Recursos Humanos.";
+                this.lb_mensajeError.Text = "Si bien tenemos sus datos personales registrados en nuestra base de RRHH, los mismos no se encuentran asociados a un correo electrónico de referencia. Este paso es FUNDAMENTAL para establecer una vía de comunicación estable. Por favor tenga a bien comunicarse por mail a la casilla concursos@desarrollosocial.gov.ar, enviando un mensaje con el asunto \"Solicito Alta al Sistema POSTULAR\". En el cuerpo del mensaje por favor especifique un teléfono y horario de contacto. Nos comunicaremos con usted a la mayor brevedad posible.";
                 ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
             }
             else
@@ -36,6 +36,7 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
 
                 if (servicio.RegistrarNuevoUsuario(aspirante))
                 {
+                    this.lb_mensajeError.Text = "Registración finalizada correctamente. Se le ha enviado un mail con su nombre de usuario y contraseña";
                     ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
                 }
                 else
