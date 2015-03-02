@@ -14,7 +14,7 @@
         columnas.push(new Columna("Agrupamiento", { generar: function (un_perfil) { return un_perfil.Agrupamiento } }));
         columnas.push(new Columna("Vacantes", { generar: function (un_perfil) { return un_perfil.Vacantes } }));
         columnas.push(new Columna("Convocatoria", { generar: function (un_perfil) { return un_perfil.Tipo } }));
-        columnas.push(new Columna('Nombre PDF', { generar: function (un_perfil) {
+        columnas.push(new Columna('Bases del Puesto', { generar: function (un_perfil) {
             var linkPDF = $('<a>');
             linkPDF.attr('href', '../Imagenes/' + un_perfil.Id + '.pdf');
             var img = $('<img>');
@@ -26,9 +26,9 @@
             return linkPDF;
         }
         }));
-        columnas.push(new Columna("Comité&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", { generar: function (un_perfil) {
+        columnas.push(new Columna("Comité&nbsp;", { generar: function (un_perfil) {
             var linkComite = $('<a>');
-            linkComite[0].innerHTML = "Comite: " + un_perfil.Comite.Numero;
+            linkComite[0].innerHTML = un_perfil.Comite.Numero;
 
             linkComite.click(function (e) {
                 var proveedor_ajax = new ProveedorAjax();

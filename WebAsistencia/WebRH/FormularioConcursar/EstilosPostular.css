@@ -1126,18 +1126,20 @@ font-size: 16px;
 .link_activado, .link_activado:hover {
     background: #2184be;
     color: #fff;
+    cursor: default !important;
     }
             
     .link_desactivado, .link_desactivado:hover
     {
     background: #eee;
     color: #aaa;
+    cursor: default !important;
     }
          
     .number 
     {
-        font-size: 1.429em;
-        }
+       font-size: 1.429em;
+    }
              
 .actions {
 position: relative;
@@ -1181,7 +1183,7 @@ width: 100%;
     /*text-decoration:underline;*/
     font-size:19;
     font-family: Verdana;
-     display:inline-table;
+    display:inline-table;
    
 }
 
@@ -1245,3 +1247,27 @@ height: 20px;
 vertical-align: bottom;
 /*border-style: dashed;*/
 }
+
+
+/*Estilo tabla inscripcion*/
+.noborder
+{
+/*text-align: center;*/
+
+vertical-align: bottom;
+/*border-style: dashed;*/
+}
+
+
+#tr-border
+ {
+    border-right-style: none !important;
+    /*border: 1px solid black;*/
+}
+#td-border {
+    border-right-style: none !important;
+    width: 100px;
+}
+
+
+

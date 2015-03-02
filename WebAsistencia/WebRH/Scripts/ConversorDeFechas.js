@@ -1,11 +1,12 @@
 ﻿var ConversorDeFechas = {
     deIsoAFechaEnCriollo: function (fecha_en_iso) {
-
+        if (fecha_en_iso == "0001-01-01T00:00:00") return "";
         var regexp_fecha_iso = /(\d{1,4}\-\d{1,2}\-\d{1,2})T(\d{1,2}\:\d{1,2}\:\d{1,2})/;
         if (regexp_fecha_iso.test(fecha_en_iso)) {
             fecha_en_iso = (regexp_fecha_iso.exec(fecha_en_iso)[1]).replace(/-/g, "/");
         }
         var fecha = new Date(fecha_en_iso);
+        if (fecha.getUTCDate().toString() == "NaN") return "";
         return fecha.getUTCDate().toString() + "/" + (fecha.getUTCMonth() + 1).toString() + "/" + fecha.getUTCFullYear();
     },
     PrimeraFechaCriolloMayor: function (fechaMayor, fechaMenor) {
@@ -59,7 +60,7 @@
         if (mm < 10) {
             mm = '0' + mm
         }
-        return today =  yyyy + '-' + mm + '-' + dd + 'T03:00:00.000Z';
+        return today = yyyy + '-' + mm + '-' + dd + 'T03:00:00.000Z';
 
     }
 }

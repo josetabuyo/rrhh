@@ -9,9 +9,7 @@
             var panel_detalle = new PanelDetalleGenerico({
                 defaults: { 
                     Pais: 9,
-                    Nivel: 1,
-                    FechaIngreso: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    FechaEgreso: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                    Nivel: 1
                 },
                 path_html: "PanelDetalleDeAntecedenteAcademico.htm",
                 metodoDeGuardado: "GuardarCvAntecedenteAcademico",

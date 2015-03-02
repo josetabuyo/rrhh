@@ -11,9 +11,7 @@
                     Pais: 9,
                     TipoDeEvento: 1,
                     CaracterDeParticipacion: 1,
-                    Institucion: 1,
-                    FechaInicio: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    FechaFinalizacion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                    Institucion: 1
                 },
                 path_html: "PanelDetalleDeEventoAcademico.htm",
                 metodoDeGuardado: "GuardarCvEventoAcademico",

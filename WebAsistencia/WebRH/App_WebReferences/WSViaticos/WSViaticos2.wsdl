@@ -1545,30 +1545,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="SetObjetoEnSesion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SetObjetoEnSesionResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetObjetoEnSesion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetObjetoEnSesionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetObjetoEnSesionResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GuardarDocente">
         <s:complexType>
           <s:sequence>
@@ -4870,18 +4846,6 @@
   <wsdl:message name="BuscarLocalidadesSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarLocalidadesResponse" />
   </wsdl:message>
-  <wsdl:message name="SetObjetoEnSesionSoapIn">
-    <wsdl:part name="parameters" element="tns:SetObjetoEnSesion" />
-  </wsdl:message>
-  <wsdl:message name="SetObjetoEnSesionSoapOut">
-    <wsdl:part name="parameters" element="tns:SetObjetoEnSesionResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetObjetoEnSesionSoapIn">
-    <wsdl:part name="parameters" element="tns:GetObjetoEnSesion" />
-  </wsdl:message>
-  <wsdl:message name="GetObjetoEnSesionSoapOut">
-    <wsdl:part name="parameters" element="tns:GetObjetoEnSesionResponse" />
-  </wsdl:message>
   <wsdl:message name="GuardarDocenteSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarDocente" />
   </wsdl:message>
@@ -6047,14 +6011,6 @@
       <wsdl:input message="tns:BuscarLocalidadesSoapIn" />
       <wsdl:output message="tns:BuscarLocalidadesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="SetObjetoEnSesion">
-      <wsdl:input message="tns:SetObjetoEnSesionSoapIn" />
-      <wsdl:output message="tns:SetObjetoEnSesionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetObjetoEnSesion">
-      <wsdl:input message="tns:GetObjetoEnSesionSoapIn" />
-      <wsdl:output message="tns:GetObjetoEnSesionSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GuardarDocente">
       <wsdl:input message="tns:GuardarDocenteSoapIn" />
       <wsdl:output message="tns:GuardarDocenteSoapOut" />
@@ -7207,24 +7163,6 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarLocalidades">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetObjetoEnSesion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/SetObjetoEnSesion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetObjetoEnSesion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetObjetoEnSesion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9154,24 +9092,6 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarLocalidades">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetObjetoEnSesion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/SetObjetoEnSesion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetObjetoEnSesion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetObjetoEnSesion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

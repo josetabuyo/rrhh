@@ -59,6 +59,7 @@ FormularioBindeado.prototype.crearYBindearDatePicker = function (input) {
 
     var path_propiedad_modelo = input.attr('rh-model-property');
 
+    input.mask("99/99/9999");
     input.datepicker();
     input.datepicker('option', 'dateFormat', 'dd/mm/yy');
 
@@ -67,7 +68,8 @@ FormularioBindeado.prototype.crearYBindearDatePicker = function (input) {
     };
     input.change(function () {
         O_O.desWatchear(_this.modelo, path_propiedad_modelo, handler);
-        O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, input.datepicker('getDate').toISOString());
+        if (input.datepicker('getDate')) O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, input.datepicker('getDate').toISOString());
+        else O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, "0001-01-01T00:00:00");
         O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
     });
     O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
