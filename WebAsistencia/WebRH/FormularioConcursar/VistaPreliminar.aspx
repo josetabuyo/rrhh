@@ -91,7 +91,7 @@
         texto_de_impresion = texto_de_impresion.replace("motivos-cargo", "");
 
         ventana_impresion.document.open();
-        ventana_impresion.document.write('<html><title>::Previsualización::</title><link rel="stylesheet" type="text/css" href="EstilosPostular.css" /></head><body onload="window.print()">')
+        ventana_impresion.document.write('<html><title>::Previsualización::</title><link rel="stylesheet" type="text/css" href="print.css" media="print" /><link rel="stylesheet" type="text/css" href="EstilosPostular.css" /></head><body onload="window.print()">')
         ventana_impresion.document.write(texto_de_impresion);
         ventana_impresion.document.write('</html>');
         ventana_impresion.document.close();

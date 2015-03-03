@@ -6,10 +6,13 @@
 <head runat="server">
         <title></title>
      <%= Referencias.Css("../")%>    
-     <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
+     
+     <link rel="stylesheet" type="text/css" href="EstilosPostular.css" media="screen" />
+    <%-- <link rel="stylesheet" type="text/css" href="print.css" media="print" />--%>
+
 </head>
 <body>
-<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>
+<%--<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>--%>
     <form id="form1" runat="server">
     
 <div class="contenedor_concursar">
@@ -70,13 +73,13 @@
 	</div>
 
 <div id="caja_antecedentes_academicos" style="page-break-before:always"></div>
-<div id="caja_actividades_decentes" ></div>
-<div id="caja_eventos_academicos"></div>
-<div id="caja_publicaciones"></div>
-<div id="caja_matriculas"></div>
-<div id="caja_instituciones" ></div>
-<div id="caja_experiencias_laborales"></div>
-<div id="caja_otras_aptitudes" ></div>
+<div id="caja_actividades_decentes" style="page-break-before:always" ></div>
+<div id="caja_eventos_academicos" style="page-break-before:always"></div>
+<div id="caja_publicaciones" style="page-break-before:always"></div>
+<div id="caja_matriculas" style="page-break-before:always"></div>
+<div id="caja_instituciones" style="page-break-before:always" ></div>
+<div id="caja_experiencias_laborales" style="page-break-before:always"></div>
+<div id="caja_otras_aptitudes" style="page-break-before:always"></div>
 
    
 	<!--
@@ -155,7 +158,7 @@
 		<p id="motivo_postulacion" class="motivos-cargo"></p>
 	</div>
 
-<div class="posicion" style="page-break-before:always">
+<div class="posicion" >
 		<div class="decla-jurada"><p style="text-align:center; font-size:12px; font-weight:bold;"><span style="font-size: 13px">DECLARACIÓN JURADA Y CONSTANCIA DE RECEPCIÓN Y ACEPTACIÓN DEL REGLAMENTO Y BASES DEL CONCURSO</span></p>
 		    Declaro bajo juramento que:<br/>
 		    <span class="letra-bold">a)</span> Los datos consignados en la siguiente Solicitud y Ficha de Inscripción son completos, verdaderos y atinentes al perfil del puesto de trabajo o función a concursar;<br>
@@ -188,7 +191,6 @@
 
 <p class="top-header posicion">Recuerde firmar todas y cada una de las hojas que integran su Ficha de inscripción.<br>La ausencia de su firma invalida la valoración del antecedente declarado.</p>
 
-
 </div>
 <div>
 <p class="p-imprimir">
@@ -199,7 +201,7 @@
 </p>
 </div>	
 
-<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>
+<%--<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>--%>
 
         <asp:HiddenField ID="curriculum" runat="server" />
         
@@ -209,9 +211,9 @@
 <script type="text/javascript" src="FichaDeclaracionJurada.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 
-<script type="text/javascript">    
+<script type="text/javascript">
     function ImprimirCVPostulado() {
-        
+
         var ventana_impresion = window.open();
         var div_para_imprimir = document.getElementById('imprimir');
         var texto_de_impresion = div_para_imprimir.innerHTML;
@@ -220,7 +222,7 @@
         texto_de_impresion = texto_de_impresion.replace("motivos-cargo", "");
 
         ventana_impresion.document.open();
-        ventana_impresion.document.write('<html><title>::Previsualización::</title><link rel="stylesheet" type="text/css" href="EstilosPostular.css" /></head><body onload="window.print()">')
+        ventana_impresion.document.write('<html><title>::Previsualización::</title><link rel="stylesheet" type="text/css" href="print.css" media="print" /><link rel="stylesheet" type="text/css" href="EstilosPostular.css" /></head><body onload="window.print()">')
         ventana_impresion.document.write(texto_de_impresion);
         ventana_impresion.document.write('</html>');
         ventana_impresion.document.close();
