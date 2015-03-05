@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using General.Repositorios;
 using General.MAU;
+using General.Postular;
 
 namespace General
 {
@@ -15,6 +16,8 @@ namespace General
         protected DateTime _fechaFinalizacion;
         protected string _duracion;
         protected string _especialidad;
+        protected int _unidadTiempo;
+
         protected string _localidad;
         protected int _pais;
 
@@ -26,8 +29,9 @@ namespace General
         public DateTime FechaFinalizacion { get { return _fechaFinalizacion; } set { _fechaFinalizacion = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Pais { get { return _pais; } set { _pais = value; } }
+        public int UnidadTiempo { get { return _unidadTiempo; } set { _unidadTiempo = value; } }
 
-        public CvCertificadoDeCapacitacion(int id, string diplomaDeCertificacion, string establecimiento, string especialidad, string duracion, DateTime fechaInicio, DateTime fechaFinalizacion, string localidad, int pais):base(id,diplomaDeCertificacion,2)
+        public CvCertificadoDeCapacitacion(int id, string diplomaDeCertificacion, string establecimiento, string especialidad, string duracion, DateTime fechaInicio, DateTime fechaFinalizacion, string localidad, int pais,int unidad_tiempo):base(id,diplomaDeCertificacion,2)
         {
             this.Id = id;
             this._diplomaDeCertificacion = diplomaDeCertificacion;
@@ -38,7 +42,12 @@ namespace General
             this._duracion = duracion;
             this._localidad = localidad;
             this._pais = pais;
+            this._unidadTiempo = unidad_tiempo;
         }
+
+
+
+
 
         public CvCertificadoDeCapacitacion()
         {

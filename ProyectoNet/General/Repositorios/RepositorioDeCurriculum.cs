@@ -47,7 +47,7 @@ namespace General.Repositorios
 
         private CurriculumVitae GetCV(Dictionary<string, object> parametros)
         {
-            var tablaCVs = conexion_bd.Ejecutar("dbo.CV_GetCurriculumVitae", parametros);
+            var tablaCVs = conexion_bd.Ejecutar("dbo.CV_GetCurriculumVitae_aza", parametros);
 
             CurriculumVitae cv = new CurriculumVitaeNull();
 
@@ -178,7 +178,8 @@ namespace General.Repositorios
                                                   Localidad = dRow.GetString("CertificadoLocalidad", string.Empty),
                                                   Pais = dRow.GetSmallintAsInt("CertificadoPais", 9),
                                                   Precedente = dRow.GetInt("CertificadoPrecedente", 0),
-                                                  Baja = dRow.GetInt("CertificadoBaja", 0)
+                                                  Baja = dRow.GetInt("CertificadoBaja", 0),
+                                                  unidadTiempo = dRow.GetSmallintAsInt("UnidadTiempo", 0)
 
                                               }).Distinct().ToList();
 
@@ -186,7 +187,7 @@ namespace General.Repositorios
                 items_anonimos.RemoveAll(e => e.Baja != 0);
 
                 items_anonimos.Select(c => new CvCertificadoDeCapacitacion(c.Id, c.Diploma, c.Establecimiento, c.Especialidad, c.Duracion,
-                                                c.FechaInicio, c.FechaFinalizacion, c.Localidad, c.Pais)).ToList().ForEach(cert => cv.AgregarCertificadoDeCapacitacion(cert));
+                                                c.FechaInicio, c.FechaFinalizacion, c.Localidad, c.Pais, c.unidadTiempo)).ToList().ForEach(cert => cv.AgregarCertificadoDeCapacitacion(cert));
 
             }
             

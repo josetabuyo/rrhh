@@ -197,7 +197,7 @@ namespace TestViaticos
 
         public CvCertificadoDeCapacitacion UnCertificadoDeCapacitacion()
         {
-            return new CvCertificadoDeCapacitacion(1,"No se", "UBA", "Plomero", "5 años", new DateTime(2012, 10, 01), new DateTime(2012, 12, 01),"CABA",9);
+            return new CvCertificadoDeCapacitacion(1,"No se", "UBA", "Plomero", "5 años", new DateTime(2012, 10, 01), new DateTime(2012, 12, 01),"CABA",9,1);
         }
 
         public CvPublicaciones UnaPublicacion()

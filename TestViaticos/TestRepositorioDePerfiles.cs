@@ -403,7 +403,7 @@ namespace TestViaticos
 
                 cv.AgregarMatricula(new CvMatricula(1,"ABC","","",new DateTime()));
                 cv.AgregarCapacidadPersonal(new CvCapacidadPersonal(1,1,"Poderes telepaticos"));
-                cv.AgregarCertificadoDeCapacitacion(new CvCertificadoDeCapacitacion(1,"Curso de PC","","","",new DateTime(),new DateTime(),"",1));
+                cv.AgregarCertificadoDeCapacitacion(new CvCertificadoDeCapacitacion(1,"Curso de PC","","","",new DateTime(),new DateTime(),"",1,1));
                 cv.AgregarCompetenciaInformatica(new CvCompetenciasInformaticas(1, "Programacion Orientada a Objetos", "", 1, 1, 1, "", 1, new DateTime(), ""));
                 cv.AgregarDocencia(new CvDocencia("Abogacia", 12, "", "", "", "", "", new DateTime(), new DateTime(), "", "", 1));
                 cv.AgregarEventoAcademico(new CvEventoAcademico(1, "Seminario", 1, 1, new DateTime(), new DateTime(), "", 1, "", 1));
