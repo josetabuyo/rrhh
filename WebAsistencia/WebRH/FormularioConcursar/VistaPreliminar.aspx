@@ -25,21 +25,21 @@
 	        <p class="titulos degrade"><span class="letra-bold">I.</span> Información Personal</p>
 	        <p class="nombre-h"><span id="cv_apellido" class="atributo-apelido"></span><span id="cv_nombre"></span></p>
             <br>
-	        <p class="general"><span class="atributos">DNI: </span><span id="cv_dni"></span></p>
-	        <p class="general"><span class="atributos">Estado Civil: </span><span id="cv_estadoCivil"></span></p>
-	        <p class="general"><span class="atributos">Fecha de Nacimiento: </span><span id="cv_fechNac"></span></p>
-	        <p class="general"><span class="atributos">Lugar de Nacimiento: </span><span id="cv_lugarNac"></span></p>
-	        <p class="general"><span class="atributos">Nacionalidad: </span><span id="cv_nac"></span></p>
-	        <p class="general"><span class="atributos">Domicilio Personal: </span><span id="cv_domPersonal"></span></p>
+	        <p class="general_info_personal"><span class="atributos">DNI: </span><span id="cv_dni"></span></p>
+	        <p class="general_info_personal"><span class="atributos">Estado Civil: </span><span id="cv_estadoCivil"></span></p>
+	        <p class="general_info_personal"><span class="atributos">Fecha de Nacimiento: </span><span id="cv_fechNac"></span></p>
+	        <p class="general_info_personal"><span class="atributos">Lugar de Nacimiento: </span><span id="cv_lugarNac"></span></p>
+	        <p class="general_info_personal"><span class="atributos">Nacionalidad: </span><span id="cv_nac"></span></p>
+	        <p class="general_info_personal"><span class="atributos">Domicilio Personal: </span><span id="cv_domPersonal"></span></p>
 	
 	
         </div>
 
         <div class="info-notif-avisos posicion fondo_form">
 	        <p class="titulos degrade"><span class="letra-bold">II.</span> Información Requerida para Recibir Notificaciones y Avisos</p>
-	        <p class="general"><span class="atributos">Domicilio: </span><span id="cv_domLegal"></span></p>
-	        <p class="general"><span class="atributos">Teléfonos: </span><span id="cv_telefono"></span></p>
-	        <p class="general"><span class="atributos">Correo Electrónico: </span><span id="cv_mail"></span></p>
+	        <p class="general_info_personal"><span class="atributos">Domicilio: </span><span id="cv_domLegal"></span></p>
+	        <p class="general_info_personal"><span class="atributos">Teléfonos: </span><span id="cv_telefono"></span></p>
+	        <p class="general_info_personal"><span class="atributos">Correo Electrónico: </span><span id="cv_mail"></span></p>
 	    </div>
 
         <div id="caja_antecedentes_academicos" style="page-break-before:always"></div>
@@ -70,14 +70,14 @@
     </form>
 </body>
 <%= Referencias.Javascript("../") %>
-<script type="text/javascript" src="FichaDeclaracionJurada.js" ></script>
+<script type="text/javascript" src="curriculum.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 
 <script type="text/javascript">
     Backend.start(function () {
         $(document).ready(function () {
             curriculum = JSON.parse($('#curriculum').val());
-            FichaDeclaracionJurada.dibujarCV(curriculum);
+            Curriculum.dibujarCV(curriculum);
         });
     });
 
