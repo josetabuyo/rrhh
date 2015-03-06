@@ -53,11 +53,11 @@
          <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
          <!--<a class="btn_concursar btn-small" href="#">Buscar</a>-->
 
-        <table id="tabla_perfiles" style="width:100%;">
-        
-        
-        </table>
-
+        <table id="tabla_perfiles" style="width:100%;"></table>
+        <p><div style="font-weight:bold; float:left">Convocatorias Generales: &nbsp</div> Sólo pueden postularse quienes al momento de hacerlo se encuentren trabajando en el marco del Convenio Colectivo de Trabajo Sectorial del Sistema Nacional de Empleo Público (SINEP)*, 
+        sea en Planta Permanente, Planta Transitoria o designado de conformidad con el artículo 9° del Anexo de la Ley 25164. Se recomienda consultar en el área de Recursos Humanos de su organismo si usted está encuadrado en el SINEP</p>
+        <p> <div style="font-weight:bold; float:left">Convocatorias Abiertas:&nbsp</div> Pueden postularse todas las personas que acrediten la idoneidad y los requisitos establecidos en las bases de cada concurso. </p>
+        <p style="font-weight:bold; font-style:italic">En todos los casos se recomienda tener en cuenta los requisitos excluyentes de cada cargo.</p>
         </div>
           
     </div>

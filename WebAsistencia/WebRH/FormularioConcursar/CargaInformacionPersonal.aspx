@@ -98,7 +98,7 @@
                                     <label for="cuil">
                                         CUIL <em>*</em>
                                         <h5 style="display: inline-block;">
-                                            (Ej.:20-22114543-5)</h5>
+                                            (Ej.:99-99999999-9)</h5>
                                     </label>
                                     <input id="cuil" type="text" style="width: 270px;" data-validar="esNoBlanco" />
                                 </div>

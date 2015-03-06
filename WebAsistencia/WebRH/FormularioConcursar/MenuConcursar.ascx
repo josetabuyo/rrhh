@@ -11,10 +11,11 @@
                     <a class="brand" href="#"></a>
                     <div class="nav-collapse navbar-responsive-collapse">
                     <ul id="MenuNavegacion" class="nav"  runat="server">
-                        <li><a href="PanelDeControl.aspx" >Panel de Control</a></li>
-                        <li><a href="Informacion.aspx" >Información</a></li>
-                        <li><a href="Postulaciones.aspx" >Cargos</a></li>
-                        <li><a href="CargaInformacionPersonal.aspx" >MI CV</a></li>
+                        <li><a href="PanelDeControl.aspx" >Inicio</a></li>
+                        <li><a href="CargaInformacionPersonal.aspx" >Cargar/Editar Mi Currículum </a></li>
+                        <li><a href="Postulaciones.aspx" >Postularme/Cargos Disponibles</a></li>
+                        <li><a href="Informacion.aspx" >Más Información</a></li>
+
                         <li RequiereFuncionalidad="14" style="cursor:pointer;" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" runat="server">Administración</a>
                             <ul id="subMenu_administracion" runat="server" class="dropdown-menu">
                                 <li RequiereFuncionalidad="14" class="dropdown"><a  href="EtapasPostulacion.aspx" runat="server">Cambiar Etapas de Postulaciones</a></li>
