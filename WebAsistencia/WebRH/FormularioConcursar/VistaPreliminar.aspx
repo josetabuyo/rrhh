@@ -24,7 +24,7 @@
         <div class="info-gral posicion fondo_form">
 	        <p class="titulos degrade"><span class="letra-bold">I.</span> Información Personal</p>
 	        <p class="nombre-h"><span id="cv_apellido" class="atributo-apelido"></span><span id="cv_nombre"></span></p>
-            <br>
+            <br />
 	        <p class="general_info_personal"><span class="atributos">DNI: </span><span id="cv_dni"></span></p>
 	        <p class="general_info_personal"><span class="atributos">Estado Civil: </span><span id="cv_estadoCivil"></span></p>
 	        <p class="general_info_personal"><span class="atributos">Fecha de Nacimiento: </span><span id="cv_fechNac"></span></p>

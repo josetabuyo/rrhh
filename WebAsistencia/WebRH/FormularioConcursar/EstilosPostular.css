@@ -886,6 +886,7 @@ clear:both;
 font-size:12px;
 float: left;
 width: 50%;
+/*border-bottom:1px dotted #000;*/
 }
 
 .general_info_personal 

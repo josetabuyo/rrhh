@@ -51,8 +51,8 @@
 </div>
 
 
-<div class="info-gral posicion fondo_form">
-	<p class="titulos degrade"><span class="letra-bold">I.</span> Información Personal</p>
+<div class="info-gral  fondo_form">
+	<p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">I.</span> Información Personal</p>
 	<p class="nombre-h"><span id="cv_apellido" class="atributo-apelido"></span><span id="cv_nombre"></span></p>
     <br>
 	<p class="general_info_personal"><span class="atributos">DNI: </span><span id="cv_dni"></span></p>
@@ -61,18 +61,16 @@
 	<p class="general_info_personal"><span class="atributos">Lugar de Nacimiento: </span><span id="cv_lugarNac"></span></p>
 	<p class="general_info_personal"><span class="atributos">Nacionalidad: </span><span id="cv_nac"></span></p>
 	<p class="general_info_personal"><span class="atributos">Domicilio Personal: </span><span id="cv_domPersonal"></span></p>
-	
-	
 </div>
-
-<div class="info-notif-avisos posicion fondo_form">
+<br />
+<div class="info-notif-avisos  fondo_form">
 	<p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">II.</span> Información Requerida para Recibir Notificaciones y Avisos</p>
 	<p class="general_info_personal"><span class="atributos">Domicilio: </span><span id="cv_domLegal"></span></p>
 	<p class="general_info_personal"><span class="atributos">Teléfonos: </span><span id="cv_telefono"></span></p>
 	<p class="general_info_personal"><span class="atributos">Corro Electrónico: </span><span id="cv_mail"></span></p>
 	</div>
-
-<div id="caja_antecedentes_academicos" style="page-break-before:always"></div>
+<br />
+<div id="caja_antecedentes_academicos" ></div>
 <div id="caja_actividades_decentes" style="page-break-before:always" ></div>
 <div id="caja_eventos_academicos" style="page-break-before:always"></div>
 <div id="caja_publicaciones" style="page-break-before:always"></div>
