@@ -139,15 +139,17 @@
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 
 <script type="text/javascript">
-    Backend.start();
+    //Backend.start();
 
     function ImprimirCVPostulado() {
         //window.print();
     }
 
-    $(document).ready(function () {
-        Anexo.armarAnexo();
-        window.print();
+    Backend.start(function () {
+        $(document).ready(function () {
+            Anexo.armarAnexo();
+            window.print();
+        });
     });
 
 </script>

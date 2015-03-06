@@ -15,7 +15,7 @@
     
     <div style="width:80%; margin-left:10%;" class="">
         <div style=" text-align:left;" class="">
-            <p style="float:left;" class="">Postulación Nº: <span id="num_postulacion"></span></p>
+            <p style="float:left;" class="">Postulación Nº: <span id="num_postulacion" ></span> </p>
             <p style="float:right;">ANEXO II</p>
             <div style="clear:both;"></div>
             <p class="encabezado">DECLARACIÓN JURADA Y CONSTANCIA DE RECEPCIÓN Y ACEPTACIÓN DEL REGLAMENTO Y BASES DEL CONCURSO</p>
@@ -45,8 +45,8 @@
         ser efectuadas en las direcciones domiciliarias y electrónicas así como del teléfono y/o fax que he comunicado en la presente
         solicitud.</p>
         <br />
-        <p>Dirección electrónica: bla@</p>
-        <p>Ubicación de la cartelera: http.......</p>
+        <p>Dirección electrónica: concursos@desarrollosocial.gov.ar</p>
+        <p>Ubicación de la cartelera: www.desarrollosocial.gov.ar/concursos</p>
 
 
         <div class="div-pie-tabla">
@@ -60,7 +60,7 @@
            <%-- <p class="p-imprimir"><button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir</button></p>--%>
         </div>	
 
-
+        <asp:HiddenField ID="postulacion" runat="server" />
 
     </div>
 
@@ -81,6 +81,7 @@
     }
 
     $(document).ready(function () {
+        $("#num_postulacion")[0].innerHTML = $("#postulacion")[0].value;
         window.print();
     });
 

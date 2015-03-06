@@ -93,7 +93,7 @@
             </table>
             </div>
             <div id = "cont_titulo_completar_informacion">
-                <p>Documentación a presentar: Por favor ...............</p>
+                <p>Documentación a presentar</p>
             </div>
             <hr />
             <div id="cont_aclaraciones">
@@ -127,18 +127,18 @@
           Postulacion.armarPostulacion(perfil);
 
           $('#anexo_1').click(function () {
-              window.open('AnexoI.aspx');
+              window.open('AnexoI.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
               //window.location.href = 'AnexoI.aspx';
 
           });
 
           $('#anexo_2').click(function () {
-              window.open('AnexoII.aspx');
+              window.open('AnexoII.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
               //window.location.href = 'AnexoII.aspx';
           });
 
           $('#anexo_3').click(function () {
-              window.open('AnexoIII.aspx');
+              window.open('AnexoIII.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
               //window.location.href = 'AnexoIII.aspx';
           });
 
