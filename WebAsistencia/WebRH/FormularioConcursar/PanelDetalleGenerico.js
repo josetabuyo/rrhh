@@ -19,10 +19,12 @@
 
         //Bt agregar
         _this.btn_guardar = _this.ui.find("#btn_guardar");
+        _this.btn_guardar[0].disabled = false;
         if (opciones.modelo) _this.btn_guardar.val("Guardar Cambios");
 
         _this.btn_guardar.click(function () {
             if (_this.ui.esValido()) {
+                _this.btn_guardar[0].disabled = true;
                 Backend.ejecutar(opciones.metodoDeGuardado, [modelo],
                     function (respuesta) {
                         alertify.alert(opciones.mensajeDeGuardadoExitoso);
@@ -33,6 +35,7 @@
                     function (error, as, asd) {
                         alertify.alert(opciones.mensajeDeGuardadoErroneo);
                     });
+                } else {  
             }
         });
 
