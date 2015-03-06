@@ -168,7 +168,7 @@
             //Construyo los datos
             _this.dibujarTitulo(_this.caja_eventos_academicos, "Eventos Academicos");
             _this.dibujarSubtitulo(_this.caja_eventos_academicos, "Eventos Academicos");
-
+          
             for (var i = 0; i < curriculum.CvEventosAcademicos.length; i++) {
                 _this.p = _this.dibujarDatos('Año: ');
                 _this.span = $('<span>');
