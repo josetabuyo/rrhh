@@ -152,7 +152,7 @@
                     h) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
                 </p>
                 <p class="aclaraciones2"><input id="chk_bases" type="checkbox" />He leído y acepto las Bases y Condiciones del Concurso al que me postulo</p>
-                <a style="margin-right: 10px;" class="btn btn-primary" href="#">Cancelar</a>
+                <a style="margin-right: 10px;" class="btn btn-primary" href="Postulaciones.aspx">Cancelar</a>
                 <input type="button" class="btn btn-primary" id="btn_postularse" value="Confirmar Postulación" />
             </div>
         </div>

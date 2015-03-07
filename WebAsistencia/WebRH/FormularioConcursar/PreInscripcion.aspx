@@ -34,70 +34,72 @@
                     <em>*</em> Campos Obligatorios</h5>
                 <p style="text-transform: uppercase; font-weight: bold;">
                     I.- Editar información personal</p>
-                <div class="grupo_campos nueva_linea">
-                    <label for="nombre">
-                        Nombre <em>*</em></label>
-                    <input id="nombre" type="text" rh-control-type="textbox" rh-model-property="Nombre"
-                        style="width: 160px;" data-validar="esNoBlanco" maxlength="100" />
-                </div>
-                <div class="grupo_campos">
-                    <label for="apellido">
-                        Apellido <em>*</em></label>
-                    <input id="apellido" type="text" style="width: 160px;" rh-control-type="textbox"
-                        rh-model-property="Apellido" data-validar="esNoBlanco" />
-                </div>
-                <div id="contenedor_cmb_sexo" class="grupo_campos">
-                    <label for="cmb_sexo">
-                        Sexo <em>*</em></label>
-                    <select id="cmb_sexo" style="width: 100px;" rh-control-type="combo" rh-data-provider="Sexos"
-                        rh-model-property="Sexo" data-validar="haySeleccionEnCombo">
-                    </select>
-                </div>
-                <div id="contenedor_cmb_estado_civil" class="grupo_campos">
-                    <label for="cmb_estadoCivil">
-                        Estado Civil <em>*</em></label>
-                    <select id="cmb_estadoCivil" style="width: 160px;" rh-control-type="combo" rh-data-provider="EstadosCiviles"
-                        rh-model-property="EstadoCivil" data-validar="haySeleccionEnCombo">
-                    </select>
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <label class="etiqueta_campo" for="cmb_tipoDocumento">
-                        Tipo Documento <em>*</em></label>
-                    <select id="cmb_tipoDocumento" style="width: 170px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento"
-                        rh-model-property="TipoDocumento" data-validar="haySeleccionEnCombo">
-                    </select>
-                </div>
-                <div class="grupo_campos">
-                    <label class="etiqueta_campo" for="txt_documento">
-                        Nro Documento <em>*</em></label>
-                    <input id="txt_documento" type="text" style="width: 160px;" rh-control-type="textbox"
-                        rh-model-property="Dni" data-validar="esNumeroNatural" />
-                </div>
-                <div class="grupo_campos">
-                    <label for="cuil">
-                        CUIL <em>*</em>
-                        <h5 style="display: inline-block;">
-                            (Ej.:99-99999999-9)</h5>
-                    </label>
-                    <input id="cuil" type="text" style="width: 270px;" data-validar="esNoBlanco" />
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <label class="etiqueta_campo" for="txt_fechaNac">
-                        Fecha Nacimiento <em>*</em></label>
-                    <input type="text" id="txt_fechaNac" style="width: 110px;" rh-control-type="datepicker"
-                        rh-model-property="FechaNacimiento" data-validar="esNoBlanco" />
-                </div>
-                <div class="grupo_campos">
-                    <label class="etiqueta_campo" for="cmb_lugar_nacimiento">
-                        Lugar Nacimiento <em>*</em></label>
-                    <input type="text" id="cmb_lugar_nacimiento" style="width: 210px;" rh-control-type="textbox"
-                        rh-model-property="LugarDeNacimiento" data-validar="esNoBlanco" /></div>
-                <div class="grupo_campos">
-                    <label class="etiqueta_campo" for="cmb_nacionalidad">
-                        Nacionalidad <em>*</em></label>
-                    <select id="cmb_nacionalidad" style="width: 280px;" rh-control-type="combo" rh-data-provider="Nacionalidades"
-                        rh-model-property="Nacionalidad" data-validar="haySeleccionEnCombo">
-                    </select>
+                <div id="contenedor_datos_legajos">
+                    <div class="grupo_campos nueva_linea">
+                        <label for="nombre">
+                            Nombre <em>*</em></label>
+                        <input id="nombre" type="text" rh-control-type="textbox" rh-model-property="Nombre"
+                            style="width: 160px;" data-validar="esNoBlanco" maxlength="100" />
+                    </div>
+                    <div class="grupo_campos">
+                        <label for="apellido">
+                            Apellido <em>*</em></label>
+                        <input id="apellido" type="text" style="width: 160px;" rh-control-type="textbox"
+                            rh-model-property="Apellido" data-validar="esNoBlanco" />
+                    </div>
+                    <div id="contenedor_cmb_sexo" class="grupo_campos">
+                        <label for="cmb_sexo">
+                            Sexo <em>*</em></label>
+                        <select id="cmb_sexo" style="width: 100px;" rh-control-type="combo" rh-data-provider="Sexos"
+                            rh-model-property="Sexo" data-validar="haySeleccionEnCombo">
+                        </select>
+                    </div>
+                    <div id="contenedor_cmb_estado_civil" class="grupo_campos">
+                        <label for="cmb_estadoCivil">
+                            Estado Civil <em>*</em></label>
+                        <select id="cmb_estadoCivil" style="width: 160px;" rh-control-type="combo" rh-data-provider="EstadosCiviles"
+                            rh-model-property="EstadoCivil" data-validar="haySeleccionEnCombo">
+                        </select>
+                    </div>
+                    <div class="grupo_campos nueva_linea">
+                        <label class="etiqueta_campo" for="cmb_tipoDocumento">
+                            Tipo Documento <em>*</em></label>
+                        <select id="cmb_tipoDocumento" style="width: 170px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento"
+                            rh-model-property="TipoDocumento" data-validar="haySeleccionEnCombo">
+                        </select>
+                    </div>
+                    <div class="grupo_campos">
+                        <label class="etiqueta_campo" for="txt_documento">
+                            Nro Documento <em>*</em></label>
+                        <input id="txt_documento" type="text" style="width: 160px;" rh-control-type="textbox"
+                            rh-model-property="Dni" data-validar="esNumeroNatural" />
+                    </div>
+                    <div class="grupo_campos">
+                        <label for="cuil">
+                            CUIL <em>*</em>
+                            <h5 style="display: inline-block;">
+                                (Ej.:99-99999999-9)</h5>
+                        </label>
+                        <input id="cuil" type="text" style="width: 270px;" data-validar="esNoBlanco" />
+                    </div>
+                    <div class="grupo_campos nueva_linea">
+                        <label class="etiqueta_campo" for="txt_fechaNac">
+                            Fecha Nacimiento <em>*</em></label>
+                        <input type="text" id="txt_fechaNac" style="width: 110px;" rh-control-type="datepicker"
+                            rh-model-property="FechaNacimiento" data-validar="esNoBlanco" />
+                    </div>
+                    <div class="grupo_campos">
+                        <label class="etiqueta_campo" for="cmb_lugar_nacimiento">
+                            Lugar Nacimiento <em>*</em></label>
+                        <input type="text" id="cmb_lugar_nacimiento" style="width: 210px;" rh-control-type="textbox"
+                            rh-model-property="LugarDeNacimiento" data-validar="esNoBlanco" /></div>
+                    <div class="grupo_campos">
+                        <label class="etiqueta_campo" for="cmb_nacionalidad">
+                            Nacionalidad <em>*</em></label>
+                        <select id="cmb_nacionalidad" style="width: 280px;" rh-control-type="combo" rh-data-provider="Nacionalidades"
+                            rh-model-property="Nacionalidad" data-validar="haySeleccionEnCombo">
+                        </select>
+                    </div>
                 </div>
             </fieldset>
             <fieldset style="width: 100%;">
@@ -171,10 +173,8 @@
                 width: 100%; height: 60px; text-align: center;">
                 <ul>
                     <li><a id="pasosanterior" href="javascript:Anterior();">Volver</a></li>
-                    <li><a id="pasossiguienteconcambios" onclick="javascript:SiguienteConCambios();">Guardar
-                        y Continuar </a></li>
                     <li><a id="pasossiguiente" onclick="javascript:Siguiente();">Continuar</a></li>
-                    <input type="button" class="btn" id="btn_guardar_datosPersonales" value="Guardar" />
+                    <input type="button" class="btn" id="btn_guardar_datosPersonales" value="" style="visibility: hidden;" />
                 </ul>
             </div>
         </div>
@@ -203,7 +203,6 @@
         </div>
     </div>
     <%-- <a id="modal_preinscripcion" rel="leanModal" style="display:none;" name="modal_mensaje" href="#modal_mensaje"></a>--%>
-    
     <asp:HiddenField ID="curriculum" runat="server" />
     <asp:HiddenField ID="perfil" runat="server" />
     </form>
@@ -247,21 +246,6 @@
         alertify.confirm("¿Está seguro que desea pasar al siguiente paso?", function (e) {
             if (e) {
                 // user clicked "ok"
-                window.location.href = 'Inscripcion.aspx';
-
-            } else {
-                // user clicked "cancel"
-                //alertify.error("");
-            }
-        });
-
-    }
-
-    function SiguienteConCambios() {
-        alertify.confirm("¿Está seguro que desea pasar al siguiente paso?", function (e) {
-            if (e) {
-                // user clicked "ok"
-                //$('#btn_guardar_datosPersonales').trigger('click');
                 $("#btn_guardar_datosPersonales").click();
                 window.location.href = 'Inscripcion.aspx';
 
