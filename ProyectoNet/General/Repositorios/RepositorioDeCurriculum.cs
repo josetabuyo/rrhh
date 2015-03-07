@@ -800,7 +800,7 @@ namespace General.Repositorios
             parametros.Add("@Localidad", actividad_nueva.Localidad);
             parametros.Add("@Pais", actividad_nueva.Pais);
             parametros.Add("@Usuario", usuario.Id);
-            
+            parametros.Add("@unidadtiempo", actividad_nueva.UnidadTiempo);
             return parametros;
         }
 
