@@ -71,6 +71,7 @@
    
       <script type="text/javascript" src="Perfil.js" ></script>
 <script type="text/javascript">
+    $('#tab_cargos').addClass('active');
 
     $(document).ready(function () {
         $(".collapse").collapse("show");

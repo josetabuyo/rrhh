@@ -516,6 +516,8 @@
 <script type="text/javascript">
     Backend.start();
 
+    $('#tab_cv').addClass('active');
+
     $(document).ready(function () {
         $(".collapse").collapse('show');
 

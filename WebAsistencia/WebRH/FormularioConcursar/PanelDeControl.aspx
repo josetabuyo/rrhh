@@ -88,6 +88,8 @@
  <script type="text/javascript" src="PanelDeControl.js"></script>
 
  <script type="text/javascript">
+     $('#tab_panel').addClass('active');
+
     Backend.start();
     $(document).ready(function () {
         var postulaciones = JSON.parse($('#postulaciones').val());
