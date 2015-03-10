@@ -67,6 +67,11 @@
                 _this.span_titulo = $('<span>');
                 _this.span_titulo.text(curriculum.CvEstudios[i].Titulo);
 
+                _this.p_nivel = _this.dibujarDatos('Nivel: ');
+                _this.span_nivel = $('<span>');
+                var estudio = Backend.ejecutarSincronico("BuscarNivelesDeEstudio", [{ Id: curriculum.CvEstudios[i].Nivel}])[0];
+                _this.span_nivel.text(estudio.Descripcion);
+
                 _this.p_anio_ingreso = _this.dibujarDatos('Año de ingreso: ');
                 _this.span_anio_ingreso = $('<span>');
                 _this.span_anio_ingreso.text(ConversorDeFechas.deIsoAFechaEnCriollo(curriculum.CvEstudios[i].FechaIngreso));
@@ -94,6 +99,7 @@
 
 
                 _this.p_titulo.append(_this.span_titulo);
+                _this.p_nivel.append(_this.span_nivel);
                 _this.p_anio_ingreso.append(_this.span_anio_ingreso);
                 _this.p_anio.append(_this.span_anio);
                 _this.p_establecimiento.append(_this.span_establecimiento);
@@ -103,6 +109,7 @@
 
 
                 _this.titulos_educativos.append(_this.p_titulo);
+                _this.titulos_educativos.append(_this.p_nivel);
                 _this.titulos_educativos.append(_this.p_anio_ingreso);
                 _this.titulos_educativos.append(_this.p_anio);
                 _this.titulos_educativos.append(_this.p_establecimiento);
