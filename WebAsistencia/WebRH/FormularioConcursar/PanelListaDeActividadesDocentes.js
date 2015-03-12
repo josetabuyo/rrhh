@@ -10,9 +10,7 @@
             var panel_detalle = new PanelDetalleGenerico({
                 defaults: {
                     NivelEducativo: { Id: 0 },
-                    Pais: 9,
-                    FechaInicio: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    FechaFinalizacion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                    Pais: 9
                 },
                 path_html: "PanelDetalleDeActividadDocente.htm",
                 metodoDeGuardado: "GuardarCvActividadDocente",

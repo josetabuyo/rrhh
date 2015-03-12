@@ -768,10 +768,7 @@ font-weight: bold;
 font-size: 14px;
 }
 
-.general
-{
-font-size:14px;
-}
+
 
 .lineas-subraya
 {
@@ -825,6 +822,12 @@ font-weight: bold;
 font-family: Arial;
 }
 
+.sub-titulos-descripcion 
+{
+    font-size: 14px;
+    font-weight:normal;
+}
+
 .letra-bold
 {
 font-weight: bold;
@@ -873,8 +876,43 @@ margin-bottom: 35px;
 
 .tit-pos
 {
-margin-top: 25px;
-margin-bottom: 70px;
+margin-top: 5px;
+margin-bottom: 10px;
+clear:both;
+}
+
+.general
+{
+font-size:12px;
+float: left;
+width: 50%;
+/*border-bottom:1px dotted #000;*/
+}
+
+.general_info_personal 
+{
+    font-size:12px;
+    }
+
+.contenedor_cv 
+{
+    
+    height:150px;
+    float:left;
+    
+    
+    }
+
+.labels_cv
+{
+    width:100px; 
+    text-align:left; 
+    font-weight:bold;
+    /*padding-right:1%; */
+    float:left; 
+    
+    font-size:12px;   
+    /*margin-top: 8px;*/
 }
 
 

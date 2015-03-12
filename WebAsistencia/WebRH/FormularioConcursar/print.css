@@ -1,0 +1,9 @@
+﻿@page {
+        counter-increment: page;
+        content: "Page " counter(page);
+        @bottom-right {
+            padding-right:20px;
+            content: "Page " counter(page);
+        }
+    }
+

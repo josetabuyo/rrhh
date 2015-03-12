@@ -8,11 +8,7 @@
         _this.btn_agregar_institucion_academica.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
                 defaults: {
-                    Pais: 9, 
-                    FechaDeAfiliacion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    Fecha: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    FechaInicio: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    FechaFin: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                    Pais: 9
                 },
                 path_html: "PanelDetalleDeInstitucionAcademica.htm",
                 metodoDeGuardado: "GuardarCvInstitucionAcademica",

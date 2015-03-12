@@ -6,6 +6,8 @@
         var postulacion = JSON.parse($('#postulacion').val()); // getVarsUrl();
 
         _this.completar(postulacion, curriculum);
+        Curriculum.dibujarCV(curriculum);
+        //_this.dibujarCV(curriculum);
 
     },
     completar: function (postulacion, curriculum) {
@@ -45,16 +47,17 @@
         _this.domicilio_legal = $("#domicilio_legal");
 
 
-        var localidadLegal = Backend.ejecutarSincronico("BuscarLocalidades", [{Id:curriculum.DatosPersonales.DomicilioLegal.Localidad}])[0];
+        var localidadLegal = Backend.ejecutarSincronico("BuscarLocalidades", [{ Id: curriculum.DatosPersonales.DomicilioLegal.Localidad}])[0];
         var provinciaLegal = Backend.ejecutarSincronico("BuscarProvincias", [{ Id: curriculum.DatosPersonales.DomicilioLegal.Provincia}])[0];
 
-        _this.domicilio_legal.text("DOMICILIO: " + curriculum.DatosPersonales.DomicilioLegal.Calle + ' ' + curriculum.DatosPersonales.DomicilioLegal.Numero + '. C(' + curriculum.DatosPersonales.DomicilioLegal.Cp + ') ' +
-                                    localidadLegal.Nombre + provinciaLegal.Nombre);
+        _this.domicilio_legal.text("DOMICILIO: " + curriculum.DatosPersonales.DomicilioLegal.Calle + ' ' + curriculum.DatosPersonales.DomicilioLegal.Numero + '. C (' + curriculum.DatosPersonales.DomicilioLegal.Cp + ') ' +
+                                    localidadLegal.Nombre + ' ' + provinciaLegal.Nombre);
 
         _this.telefono = $("#telefono");
-        _this.telefono.text(curriculum.DatosPersonales.Telefono);
+        _this.telefono.text(curriculum.DatosPersonales.DatosDeContacto.Telefono);
         _this.mail = $("#mail");
-        _this.mail.text(curriculum.DatosPersonales.Email);
+        $("#correo_electronico").append(' ' + curriculum.DatosPersonales.DatosDeContacto.Email);
+        //_this.mail.text(curriculum.DatosPersonales.DatosDeContacto.Email);
     }
 }
 

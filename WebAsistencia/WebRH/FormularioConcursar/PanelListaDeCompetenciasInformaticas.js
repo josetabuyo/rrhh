@@ -11,8 +11,7 @@
                     Pais: 9,
                     Nivel: 1,
                     TipoInformatica: 1,
-                    Conocimiento: 1,
-                    FechaObtencion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                    Conocimiento: 1
                 },
                 path_html: "PanelDetalleDeCompetenciaInformatica.htm",
                 metodoDeGuardado: "GuardarCvCompetenciaInformatica",

@@ -44,7 +44,7 @@
             <div class="accordion-group">
                 <div id="ancla1" class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                        INFORMACIÓN PERSONAL</a>
+                        I. INFORMACIÓN PERSONAL</a>
                 </div>
                 <div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
                     <div id="contenedor_datosPersonales" class="accordion-inner fondo_form">
@@ -141,7 +141,7 @@
                             </div>
                             <div class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_dto1">
-                                    Dto</label>
+                                    Dpto</label>
                                 <input type="text" id="txt_dto1" name="txt_dto1" rh-control-type="textbox" rh-model-property="DomicilioPersonal.Depto"
                                     style="width: 30px" />
                             </div>
@@ -167,9 +167,28 @@
                                     rh-filter-key="IdProvincia" rh-filter-value="DomicilioPersonal.Provincia" data-validar="haySeleccionEnCombo">
                                 </select>
                             </div>
+                            <div class="grupo_campos nueva_linea">
+                                <label class="etiqueta_campo" for="txt_telefono">
+                                    Tel&eacute;fono Fijo <em>*</em></label>
+                                <input type="text" id="txt_telefono" name="txt_telefonoFijo" style="width: 140px;"
+                                    rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono" data-validar="haySeleccionEnCombo" />
+                            </div>
+                            <div class="grupo_campos">
+                                <label class="etiqueta_campo" for="txt_telefono2">
+                                    Tel&eacute;fono Celular<em>*</em></label>
+                                <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width: 140px;"
+                                    rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono2" data-validar="haySeleccionEnCombo" />
+                            </div>
+                            <div id="contenedor_mails" class="grupo_campos">
+                                <label class="etiqueta_campo" for="txt_email">
+                                    Correo Electrónico<em>*</em></label>
+                                <input type="text" id="txt_email" name="txt_email" style="width: 320px" data-validar="esEmailValido, esNoBlanco"
+                                    rh-control-type="textbox" rh-model-property="DatosDeContacto.Email" />
+                            </div>
+
                             <div class="grupo_campos">
                                 <p class="aclaraciones">
-                                    <input id="chk_replicar" type="checkbox" onchange="replicarDireccion()" />Usar esta
+                                    <input id="chk_replicar" type="checkbox" onchange="replicarDireccion()" /> Usar esta
                                     dirección para notificaciones</p>
                             </div>
                         </fieldset>
@@ -222,24 +241,6 @@
                                     rh-filter-value="DomicilioLegal.Provincia" data-validar="haySeleccionEnCombo">
                                 </select>
                             </div>
-                            <div class="grupo_campos nueva_linea">
-                                <label class="etiqueta_campo" for="txt_telefono">
-                                    Tel&eacute;fono Fijo <em>*</em></label>
-                                <input type="text" id="txt_telefono" name="txt_telefonoFijo" style="width: 140px;"
-                                    rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono" data-validar="haySeleccionEnCombo" />
-                            </div>
-                            <div class="grupo_campos">
-                                <label class="etiqueta_campo" for="txt_telefono2">
-                                    Tel&eacute;fono Celular<em>*</em></label>
-                                <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width: 140px;"
-                                    rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono2" data-validar="haySeleccionEnCombo" />
-                            </div>
-                            <div id="contenedor_mails" class="grupo_campos">
-                                <label class="etiqueta_campo" for="txt_email">
-                                    Correo Electrónico<em>*</em></label>
-                                <input type="text" id="txt_email" name="txt_email" style="width: 320px" data-validar="esEmailValido, esNoBlanco"
-                                    rh-control-type="textbox" rh-model-property="DatosDeContacto.Email" />
-                            </div>
                         </fieldset>
                         <br />
                         <div style="text-align: center;">
@@ -251,7 +252,7 @@
             <div class="accordion-group">
                 <div id="ancla2" class="accordion-heading ">
                     <a class="accordion-toggle
-    titulo_acordion" style="" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">ANTECEDENTES
+    titulo_acordion" style="" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">II. ANTECEDENTES
                         ACADÉMICOS </a>
                 </div>
                 <div id="collapseTwo" class="accordion-body collapse">
@@ -271,21 +272,20 @@
             <div class="accordion-group">
                 <div id="ancla3" class="accordion-heading">
                     <a class="accordion-toggle
-    titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">ACTIVIDADES DE
+    titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">III. ACTIVIDADES DE
                         CAPACITACI&Oacute;N </a>
                 </div>
                 <div id="collapseThree" class="accordion-body
     collapse">
                     <div class="accordion-inner fondo_form">
                         <fieldset style="width: 100%;">
-                            <legend><a id="btn_agregar_actividad_capacitacion" class="link">Cargar actividad de
-                                capacitación</a></legend>
-                            <h4>
-                                Actividades de Capacitación Agregadas</h4>
+                            <legend><a id="btn_agregar_actividad_capacitacion" class="link">Cargar actividad de capacitación</a></legend>
+                            <h4>Actividades de Capacitación Agregadas</h4>
                             <div id="ContenedorPlanillaActividadesCapacitacion" runat="server">
                                 <table id="tabla_actividades_capacitacion" class="table table-striped">
                                 </table>
                             </div>
+                            
                         </fieldset>
                     </div>
                 </div>
@@ -293,7 +293,7 @@
             <div class="accordion-group">
                 <div id="ancla4" class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-                        ACTIVIDADES DOCENTES </a>
+                        IV. ACTIVIDADES DOCENTES </a>
                 </div>
                 <div id="collapseFour" class="accordion-body collapse">
                     <div class="accordion-inner fondo_form">
@@ -312,7 +312,7 @@
             <div class="accordion-group">
                 <div id="ancla5" class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-                        EVENTOS ACAD&Eacute;MICOS </a>
+                        V. EVENTOS ACAD&Eacute;MICOS </a>
                 </div>
                 <div id="collapseFive" class="accordion-body collapse">
                     <div class="accordion-inner
@@ -332,7 +332,7 @@
             <div class="accordion-group">
                 <div id="ancla6" class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
-                        PUBLICACIONES O TRABAJOS </a>
+                        VI. PUBLICACIONES O TRABAJOS </a>
                 </div>
                 <div id="collapseSix" class="accordion-body collapse">
                     <div class="accordion-inner fondo_form">
@@ -351,7 +351,7 @@
             <div class="accordion-group">
                 <div id="ancla7" class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
-                        MATR&Iacute;CULAS </a>
+                        VII. MATR&Iacute;CULAS </a>
                 </div>
                 <div id="collapseSeven" class="accordion-body
     collapse">
@@ -371,7 +371,7 @@
             <div class="accordion-group">
                 <div id="ancla8" class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
-                        INSTITUCIONES ACAD&Eacute;MICAS </a>
+                        VIII. INSTITUCIONES ACAD&Eacute;MICAS </a>
                 </div>
                 <div id="collapseEight" class="accordion-body
     collapse">
@@ -391,7 +391,7 @@
             <div class="accordion-group">
                 <div id="ancla9" class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">
-                        EXPERIENCIA LABORAL </a>
+                        IX. EXPERIENCIA LABORAL </a>
                 </div>
                 <div id="collapseNine" class="accordion-body collapse">
                     <div class="accordion-inner fondo_form">
@@ -410,7 +410,7 @@
             <div class="accordion-group">
                 <div id="ancla10" class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">
-                        IDIOMAS EXTRANJEROS </a>
+                        X. IDIOMAS EXTRANJEROS </a>
                 </div>
                 <div id="collapseTen" class="accordion-body collapse">
                     <div class="accordion-inner
@@ -430,7 +430,7 @@
             <div class="accordion-group">
                 <div id="ancla11" class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">
-                        COMPETENCIAS INFORM&Aacute;TICAS </a>
+                        XI. COMPETENCIAS INFORM&Aacute;TICAS </a>
                 </div>
                 <div id="collapseEleven" class="accordion-body collapse">
                     <div class="accordion-inner fondo_form">
@@ -450,7 +450,7 @@
             <div class="accordion-group">
                 <div id="ancla12" class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve">
-                        OTRAS CAPACIDADES </a>
+                        XII. OTRAS CAPACIDADES </a>
                 </div>
                 <div id="collapseTwelve" class="accordion-body collapse">
                     <div class="accordion-inner
@@ -515,6 +515,8 @@
 <script type="text/javascript" src="../Scripts/String.js"> </script>
 <script type="text/javascript">
     Backend.start();
+
+    $('#tab_cv').addClass('active');
 
     $(document).ready(function () {
         $(".collapse").collapse('show');

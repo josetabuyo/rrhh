@@ -141,8 +141,8 @@ namespace General.Repositorios
                                             Anios = dRow.GetSmallintAsInt("AntecedentesAcademicosAnios", 0),
                                             Establecimiento = dRow.GetString("AntecedentesAcademicosEstablecimiento", string.Empty),
                                             Especialidad = dRow.GetString("AntecedentesAcademicosEspecialidad", string.Empty),
-                                            FechaIngreso = dRow.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today),
-                                            FechaEgreso = dRow.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today),
+                                            FechaIngreso = dRow.GetDateTime("AntecedentesAcademicosFechaIngreso"),
+                                            FechaEgreso = dRow.GetDateTime("AntecedentesAcademicosFechaEgreso", new DateTime(1,1,1,0,0,0)),
                                             Localidad = dRow.GetString("AntecedentesAcademicosLocalidad", string.Empty),
                                             Pais = dRow.GetSmallintAsInt("AntecedentesAcademicosPais", 9),
                                             Precedente = dRow.GetInt("AntAcadPrecedente", 0),
@@ -173,8 +173,8 @@ namespace General.Repositorios
                                                   Establecimiento = dRow.GetString("CertificadoEstablecimiento", string.Empty),
                                                   Especialidad = dRow.GetString("CertificadoEspecialidad", string.Empty),
                                                   Duracion = dRow.GetString("CertificadoDuracion", string.Empty),
-                                                  FechaInicio = dRow.GetDateTime("CertificadoFechaInicio", DateTime.Today),
-                                                  FechaFinalizacion = dRow.GetDateTime("CertificadoFechaFinalizacion", DateTime.Today),
+                                                  FechaInicio = dRow.GetDateTime("CertificadoFechaInicio"),
+                                                  FechaFinalizacion = dRow.GetDateTime("CertificadoFechaFinalizacion", new DateTime(1, 1, 1, 0, 0, 0)),
                                                   Localidad = dRow.GetString("CertificadoLocalidad", string.Empty),
                                                   Pais = dRow.GetSmallintAsInt("CertificadoPais", 9),
                                                   Precedente = dRow.GetInt("CertificadoPrecedente", 0),
@@ -210,8 +210,8 @@ namespace General.Repositorios
                                                  DedicacionDocente = dRow.GetString("AntecedentesDeDocenciaDedicacionDocente", string.Empty),
                                                  CargaHoraria = dRow.GetString("AntecedentesDeDocenciaCargaHoraria", string.Empty),
                                                  Establecimiento = dRow.GetString("AntecedentesDeDocenciaEstablecimiento", string.Empty),
-                                                 FechaInicio = dRow.GetDateTime("AntecedentesDeDocenciaFechaInicio", DateTime.Today),
-                                                 FechaFinalizacion = dRow.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", DateTime.Today),
+                                                 FechaInicio = dRow.GetDateTime("AntecedentesDeDocenciaFechaInicio"),
+                                                 FechaFinalizacion = dRow.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", new DateTime(1, 1, 1, 0, 0, 0)),
                                                  Localidad = dRow.GetString("AntecedentesDeDocenciaLocalidad", string.Empty),
                                                  Pais = dRow.GetSmallintAsInt("AntecedentesDeDocenciaPais", 9),
                                                  Precedente = dRow.GetInt("AntecedentesDeDocenciaPrecedente", 0),
@@ -245,8 +245,8 @@ namespace General.Repositorios
                                                 Denominacion = dRow.GetString("EventosAcademicosDenominacion", string.Empty),
                                                 TipoDeEvento = dRow.GetInt("EventosAcademicosTipoDeEvento", 0),
                                                 CaracterDeParticipacion = dRow.GetInt("EventosAcademicosCaracterDeParticipacion", 0),
-                                                FechaInicio = dRow.GetDateTime("EventosAcademicosFechaInicio", DateTime.Today),
-                                                FechaFinalizacion = dRow.GetDateTime("EventosAcademicosFechaFin", DateTime.Today),
+                                                FechaInicio = dRow.GetDateTime("EventosAcademicosFechaInicio"),
+                                                FechaFinalizacion = dRow.GetDateTime("EventosAcademicosFechaFin", new DateTime(1, 1, 1, 0, 0, 0)),
                                                 Duracion = dRow.GetString("EventosAcademicosDuracion", string.Empty),
                                                 Institucion = dRow.GetInt("EventosAcademicosInstitucion", 0),
                                                 Localidad = dRow.GetString("EventosAcademicosLocalidad", string.Empty),
@@ -377,8 +377,8 @@ namespace General.Repositorios
                                                   CategoriaActual = dRow.GetString("InstitucionCategoriaActual", string.Empty),
                                                   FechaAfiliacion = dRow.GetDateTime("InstitucionFechaAfiliacion", DateTime.Today),
                                                   Fecha = dRow.GetDateTime("InstitucionFecha", DateTime.Today),
-                                                  FechaInicio = dRow.GetDateTime("InstitucionFechaInicio", DateTime.Today),
-                                                  FechaFin = dRow.GetDateTime("InstitucionFechaFin", DateTime.Today),
+                                                  FechaInicio = dRow.GetDateTime("InstitucionFechaInicio"),
+                                                  FechaFin = dRow.GetDateTime("InstitucionFechaFin", new DateTime(1, 1, 1, 0, 0, 0)),
                                                   Localidad = dRow.GetString("InstitucionLocalidad", string.Empty),
                                                   Pais = dRow.GetSmallintAsInt("InstitucionPais", 9),
                                                   Precedente = dRow.GetInt("InstitucionPrecedente", 0),
@@ -412,8 +412,8 @@ namespace General.Repositorios
                                                   PersonasACargo = dRow.GetSmallintAsInt("ExperienciaLaboralPersonasACargo", 0),
                                                   TipoEmpresa = dRow.GetString("ExperienciaLaboralTipoEmpresa", string.Empty),
                                                   Actividad = dRow.GetString("ExperienciaLaboralActividad", string.Empty),
-                                                  FechaInicio = dRow.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
-                                                  FechaFin = dRow.GetDateTime("ExperienciaLaboralFin", DateTime.Today),
+                                                  FechaInicio = dRow.GetDateTime("ExperienciaLaboralInicio"),
+                                                  FechaFin = dRow.GetDateTime("ExperienciaLaboralFin", new DateTime(1, 1, 1, 0, 0, 0)),
                                                   Localidad = dRow.GetString("ExperienciaLaboralLocalidad", string.Empty),
                                                   Pais = dRow.GetSmallintAsInt("ExperienciaLaboralPais", 9),
                                                   Sector = dRow.GetString("ExperienciaLaboralSector", string.Empty),
@@ -481,7 +481,7 @@ namespace General.Repositorios
                                               Nivel = dRow.GetInt("CompetenciaNivel", 0),
                                               Localidad = dRow.GetString("CompetenciaLocalidad", string.Empty),
                                               Pais = dRow.GetSmallintAsInt("CompetenciaPais", 9),
-                                              FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today),
+                                              FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion"),
                                               Detalle = dRow.GetString("Detalle", string.Empty),
                                               Precedente = dRow.GetInt("CompetenciaPrecedente", 0),
                                               Baja = dRow.GetInt("CompetenciaBaja", 0)
@@ -655,6 +655,16 @@ namespace General.Repositorios
         {
             try
             {
+                parametros.Keys.ToList().ForEach(k =>
+                {
+                    var v = parametros[k];
+                    if (v is DateTime) {
+                        if (v.Equals(new DateTime(1, 1, 1, 0, 0, 0)))
+                        {
+                            parametros.Remove(k);
+                        }
+                    }
+                });
                 var id = conexion_bd.EjecutarEscalar(item.SpInsercion(this), parametros);
                 item.Id = int.Parse(id.ToString());
                 return item;

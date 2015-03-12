@@ -8,9 +8,7 @@
         _this.btn_agregar_actividad_capacitacion.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
                 defaults: { 
-                    Pais: 9,
-                    FechaInicio: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    FechaFinalizacion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                    Pais: 9
                 },
                 path_html: "PanelDetalleDeActividadCapacitacion.htm",
                 metodoDeGuardado: "GuardarCvActividadCapacitacion",
@@ -28,8 +26,8 @@
 
         columnas.push(new Columna("Diploma/Certificación", { generar: function (una_actividad_capacitacion) { return una_actividad_capacitacion.DiplomaDeCertificacion } }));
         columnas.push(new Columna("Duración", { generar: function (una_actividad_capacitacion) { return una_actividad_capacitacion.Duracion } }));
-        //columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_capacitacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_capacitacion.FechaInicio) } }));
-        //columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_capacitacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_capacitacion.FechaFinalizacion) } }));
+        columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_capacitacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_capacitacion.FechaInicio) } }));
+        columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_capacitacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_capacitacion.FechaFinalizacion) } }));
         columnas.push(new Columna("Especialidad", { generar: function (una_actividad_capacitacion) { return una_actividad_capacitacion.Especialidad } }));
         columnas.push(new Columna('Acciones', {
             generar: function (una_actividad_capacitacion) {
