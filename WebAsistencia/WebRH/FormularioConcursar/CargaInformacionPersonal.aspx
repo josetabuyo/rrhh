@@ -477,7 +477,7 @@
             <img id="btn_eliminar" src="../Imagenes/icono_eliminar2.png" />
         </div>
     </div>
-    <div id="un_div_modal" style="width: 65%;" class="form_concursar">
+    <div id="un_div_modal" style="width: 65%; height:500px; overflow:scroll;" class="form_concursar">
         <div class="modal_close_concursar">
         </div>
         <div id="contenido_modal">
