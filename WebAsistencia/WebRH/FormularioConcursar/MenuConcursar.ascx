@@ -40,10 +40,10 @@ color:#fff !important;
                     <div class="nav-collapse navbar-responsive-collapse">
                    
                     <ul id="MenuNavegacion" class="nav"  runat="server">
-                        <li id="tab_panel" ><a href="PanelDeControl.aspx"  >Panel de Control</a></li>
-                        <li id="tab_info"><a href="Informacion.aspx" >Información</a></li>
-                        <li id="tab_cargos"><a href="Postulaciones.aspx" >Cargos</a></li>
-                        <li id="tab_cv"><a href="CargaInformacionPersonal.aspx" >MI CV</a></li>
+                        <li id="tab_panel" ><a href="PanelDeControl.aspx"  >Inicio</a></li>
+                        <li id="tab_cv"><a href="CargaInformacionPersonal.aspx" >Cargar/Editar Mi Currículum</a></li>
+                        <li id="tab_cargos"><a href="Postulaciones.aspx" >Postularme/Cargos Disponibles</a></li>
+                        <li id="tab_info"><a href="Informacion.aspx" >Más Información</a></li>
                         <li id="tab_adm" RequiereFuncionalidad="14" style="cursor:pointer;" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" runat="server">Administración</a>
                             <ul id="subMenu_administracion" runat="server" class="dropdown-menu">
                                 <li RequiereFuncionalidad="14" class="dropdown"><a  href="EtapasPostulacion.aspx" runat="server">Cambiar Etapas de Postulaciones</a></li>
