@@ -193,9 +193,9 @@
 <div>
 <p class="p-imprimir">
     <button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir Curriculum</button>
-    <input style="width: 50px;" id="anexo_1" class="btn btn-primary" value="Anexo I" />
-    <input style="width: 50px;" id="anexo_2" class="btn btn-primary"  value="Anexo II" />
-    <input style="width: 50px;" id="anexo_3" class="btn btn-primary" value="Anexo III" />
+    <input style="width: 50px;" id="anexo_1" class="btn btn-primary" value="Anexo 1" />
+    <input style="width: 50px;" id="anexo_2" class="btn btn-primary"  value="Anexo 2" />
+    <input style="width: 50px;" id="anexo_3" class="btn btn-primary" value="Anexo 3" />
 </p>
 </div>	
 

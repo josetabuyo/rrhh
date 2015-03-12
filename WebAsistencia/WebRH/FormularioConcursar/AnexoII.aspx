@@ -13,7 +13,7 @@
 
     <form id="form1" runat="server">
     
-    <div style="width:80%; margin-left:10%;" class="">
+    <div style="width:80%; font-size:1.1em; margin-left:10%;" class="">
         <div style=" text-align:left;" class="">
             <p style="float:left;" class="">Postulación Nº: <span id="num_postulacion" ></span> </p>
             <p style="float:right;">ANEXO II</p>
