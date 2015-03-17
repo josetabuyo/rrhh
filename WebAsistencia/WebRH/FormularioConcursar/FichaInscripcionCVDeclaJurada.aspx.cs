@@ -17,6 +17,7 @@ public partial class FormularioConcursar_Default : System.Web.UI.Page
         if (!IsPostBack)
         {
             //var cv = Servicio().GetCurriculumVersion(usuario.Owner.Id, new DateTime());
+            string id_postulacion = Request.QueryString["id"];
             string fh_postulacion_ansi = Request.QueryString["fh"];
             var fh_postulacion = DateTime.Parse(fh_postulacion_ansi);
             var cv = Servicio().GetCurriculumVersion(usuario.Owner.Id, fh_postulacion);

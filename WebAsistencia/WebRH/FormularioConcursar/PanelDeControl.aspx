@@ -44,15 +44,18 @@
                 </div>
                 </div>
             </div>-->
-            <legend>VERSION DE PRUEBA</legend>
-            <p>ESTE SISTEMA SE ENCUENTRA EN ETAPA DE DESARROLLO. NINGUNO DE LOS DATOS Y FUNCIONES TIENE ALGUNA VALIDEZ PARA CONCURSAR</p> 
-            <p>PARA TENER ACCESO A OTROS MÓDULOS CONTACTESE CON LA DIRECCIÓN DE DISEÑO Y DESARROLLO ORGANIZACIONAL PARA LA GESTIÓN DE PERSONAS (INT 3871)</p>
-            
+            <legend><q>¿QUÉ ES CONCURSAR?</q></legend>
+            <p>CONCURSAR es una política del Gobierno Nacional que apunta a consolidar el proceso de fortalecimiento y modernización del Estado a través de la selección de su personal mediante el sistema de concursos.</p>
+            <p>Un Estado nuevamente activo, protagonista del proceso de crecimiento con inclusión social que atraviesa nuestro país desde mayo de 2003, y que aborda desafíos cada vez más complejos, requiere contar con un personal competente, debidamente capacitado y seleccionado mediante mecanismos transparentes que garanticen la igualdad de oportunidades, en los que el mérito y la idoneidad sean valorados como el principal capital de los postulantes.</p>
+            <p>En definitiva, a través de CONCURSAR se busca optimizar las capacidades de gestión de las distintas áreas y organismos estatales y consolidar un cuerpo de funcionarios y trabajadores cada vez más especializado, cuyos integrantes cuenten con la certeza de formar parte de un Estado que los contiene, valora y proyecta hacia el futuro, y que a la vez exige de ellos el compromiso permanente de brindar lo mejor de sus habilidades en el desempeño cotidiano.</p>
+            <p>Por ello invitamos a todos los interesados a participar de las convocatorias que realizan los organismos públicos para ingresar a formar parte de la planta permanente de la Administración Pública Nacional: porque estamos convencidos de que este es el camino para construir un mejor Estado.</p>
+            <p>En este sitio web usted encontrará toda la información relevante sobre convocatorias vigentes, perfiles de los cargos concursados, requisitos, cronogramas y mecanismos de inscripción, guías de  orientación, preguntas frecuentes, y toda la normativa vigente sobre los concursos.</p>
+           
         </div>
 
         <div style="float:right; " class="panel_derecho">
-            <a href="#" ><span><img alt="imprimir" width="22px" height="22px" src="../Imagenes/Botones/impresora.png" />&nbsp;Imprimir CV</span></a>    
-            <a href="VistaPreliminar.aspx" ><span><img alt="descargar" width="22px" height="22px" src="../Imagenes/Botones/guardar.png" />&nbsp;Descargar CV</span></a>                 
+           <%-- <a href="#" ><span><img alt="imprimir" width="22px" height="22px" src="../Imagenes/Botones/impresora.png" />&nbsp;Imprimir CV</span></a>    --%>
+            <a href="VistaPreliminar.aspx" target="_blank" ><span><img alt="descargar" width="22px" height="22px" src="../Imagenes/Botones/guardar.png" />&nbsp;Descargar CV</span></a>                 
            
           <!--  <div class="panel panel-default">-->
               <div style="height: 435px;"   ">
@@ -88,6 +91,8 @@
  <script type="text/javascript" src="PanelDeControl.js"></script>
 
  <script type="text/javascript">
+     $('#tab_panel').addClass('active');
+
     Backend.start();
     $(document).ready(function () {
         var postulaciones = JSON.parse($('#postulaciones').val());

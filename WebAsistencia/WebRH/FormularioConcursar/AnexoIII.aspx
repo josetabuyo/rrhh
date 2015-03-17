@@ -22,7 +22,7 @@
         
         .tabla_anexo_1 
         {
-            font-size:1.2em;
+            font-size:1.1em;
             width:100%;
             }
      
@@ -136,18 +136,21 @@
 </body>
 <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Anexo.js" ></script>
+<script type="text/javascript" src="curriculum.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 
 <script type="text/javascript">
-    Backend.start();
+    //Backend.start();
 
     function ImprimirCVPostulado() {
         //window.print();
     }
 
-    $(document).ready(function () {
-        Anexo.armarAnexo();
-        window.print();
+    Backend.start(function () {
+        $(document).ready(function () {
+            Anexo.armarAnexo();
+            window.print();
+        });
     });
 
 </script>

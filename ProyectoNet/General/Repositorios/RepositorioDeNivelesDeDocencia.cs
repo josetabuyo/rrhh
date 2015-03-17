@@ -30,7 +30,7 @@ namespace General.Repositorios
 
         protected override List<NivelDeDocencia> ObtenerDesdeLaBase()
         {
-            var tablaDatos = conexion.Ejecutar("dbo.WEB_GetNivelesDeDocencia");
+            var tablaDatos = conexion.Ejecutar("dbo.CV_Get_NivelesDeDocencias");
             var niveles = new List<NivelDeDocencia>();
             if (tablaDatos.Rows.Count > 0)
             {

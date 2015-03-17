@@ -61,7 +61,7 @@
                                 objeto: JSON.stringify(postulacion)
                             },
                             success: function (respuesta) {
-                                window.location.href = 'PostInscripcion.aspx';
+                                window.location.href = "PostInscripcion.aspx?id=" + postulacion.Id + "&fh=" + postulacion.FechaPostulacion;
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 alertify.alert("Error");

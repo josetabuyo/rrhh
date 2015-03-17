@@ -42,7 +42,7 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
             WSViaticosSoapClient s = new WSViaticosSoapClient();
             //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
 
-            //WSAsistencia s = new WSAsistencia();
+            //WSAsistencia s = new WSAsistencia();  
             SaldoLicencia saldo;
             saldo = s.GetSaldoLicencia((Persona)Session["persona"], this.Concepto);
             Session["saldoLicencia"] = saldo;

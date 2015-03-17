@@ -23,7 +23,8 @@
 
         var titulo = $('<a>');
         titulo.addClass('subtitulo_postulaciones');
-        titulo.attr("href", 'FichaInscripcionCVDeclaJurada.aspx?id=' + postulacion.Id + "&fh=" + postulacion.FechaPostulacion)
+        titulo.attr("href", 'FichaInscripcionCVDeclaJurada.aspx?id=' + postulacion.Id + "&fh=" + postulacion.FechaPostulacion);
+        titulo.attr("target", "_blank");
         titulo[0].innerHTML = 'N°: ' + postulacion.Numero + ' (' + ConversorDeFechas.deIsoAFechaEnCriollo(postulacion.FechaPostulacion) + ')' + ' - Estado: ' + this.obtenerEstado(postulacion);
         // titulo[0].puesto = postulaciones[i].Puesto;
         /*titulo.click(function (e) {
@@ -46,8 +47,8 @@
                 if (e) {
                     // user clicked "ok"
                     Backend.EliminarPostulacionPorUsuario(postulacion).onSuccess(function () {
-                        _this.armarPostulaciones($.grep(_this.postulaciones, function(p){
-                            return p!==postulacion;
+                        _this.armarPostulaciones($.grep(_this.postulaciones, function (p) {
+                            return p !== postulacion;
                         }));
                     });
                 } else {

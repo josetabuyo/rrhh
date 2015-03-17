@@ -285,6 +285,8 @@
 </body>
  <%= Referencias.Javascript("../") %>
     <script type="text/javascript">
+        $('#tab_info').addClass('active');
+
         $(document).ready(function () {
 
             $('.disparador').click(function () {
