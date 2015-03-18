@@ -31,8 +31,8 @@
             <p style="float:left;" class="">Postulación Nº: <span id="num_postulacion"></span></p>
             <p style="float:right;">ANEXO I</p>
             <div style="clear:both;"></div>
-            <p class="encabezado">SISTEMA NACIONAL DE EMPLEO PUBLICO (Decreto N° 2098/08)</p>
-            <p class="encabezado">FORMULARIO DE SOLICITUD Y FICHA DE INSCRIPCION N°</p>
+            <p class="encabezado" style="font-size:20px; margin-bottom:1%">SISTEMA NACIONAL DE EMPLEO PUBLICO (Decreto N° 2098/08)</p>
+            <p class="encabezado"style="font-size:20px; margin-bottom:1%">FORMULARIO DE SOLICITUD Y FICHA DE INSCRIPCION N°</p>
             <p class="">Quien suscribe la presente, solicita ser inscripto para concursar el cargo cuyos datos figuran en el presente Formulario</p>
         </div>
         <table class="tabla_anexo_1">

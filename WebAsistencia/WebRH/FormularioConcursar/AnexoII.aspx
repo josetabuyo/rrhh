@@ -18,7 +18,7 @@
             <p style="float:left;" class="">Postulación Nº: <span id="num_postulacion" ></span> </p>
             <p style="float:right;">ANEXO II</p>
             <div style="clear:both;"></div>
-            <p class="encabezado">DECLARACIÓN JURADA Y CONSTANCIA DE RECEPCIÓN Y ACEPTACIÓN DEL REGLAMENTO Y BASES DEL CONCURSO</p>
+            <p class="encabezado" style="font-size:20px; margin-bottom:1%">DECLARACIÓN JURADA Y CONSTANCIA DE RECEPCIÓN Y ACEPTACIÓN DEL REGLAMENTO Y BASES DEL CONCURSO</p>
 
             <p class="">Declaro bajo juramento que:</p>
         </div>

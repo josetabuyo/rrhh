@@ -698,7 +698,7 @@ text-align: right;
 .principal
 {
 width: 92%;
-background-color: fff;
+background-color: #fff;
 margin-left: 4%;
 margin-right: 4%;
 font-family: Arial;
@@ -937,7 +937,7 @@ font-size: 15px;
 width: 50%;
 padding-bottom: 5px;
 colspan: 2;
-height: 130px;
+height: 100px;
 vertical-align: bottom;
 border-style: dashed;
 }
