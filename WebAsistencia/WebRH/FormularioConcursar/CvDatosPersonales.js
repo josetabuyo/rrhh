@@ -42,6 +42,7 @@ function replicarDireccion () {
 
          _this.txt_cuil.val(parseInt(datos_personales.Cuil));
          $("#cuil").mask("99-99999999-9");
+         _this.txt_fechaNac.val(datos_personales.FechaNacimiento);
 
          if (datos_personales.TieneLegajo == "Tiene legajo") {
              _this.txt_nombre[0].disabled = true;

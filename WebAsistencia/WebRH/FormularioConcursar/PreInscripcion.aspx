@@ -246,9 +246,12 @@
         alertify.confirm("¿Está seguro que desea pasar al siguiente paso?", function (e) {
             if (e) {
                 // user clicked "ok"
-                $("#btn_guardar_datosPersonales").click();
-                window.location.href = 'Inscripcion.aspx';
-
+                if ($("#contenedor_datosPersonales").esValido()) {
+                    $("#btn_guardar_datosPersonales").click();
+                    window.location.href = 'Inscripcion.aspx';
+                } else { 
+                
+                }
             } else {
                 // user clicked "cancel"
                 //alertify.error("");
