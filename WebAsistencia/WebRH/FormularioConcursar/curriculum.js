@@ -39,6 +39,10 @@
         _this.cv_domLegal = $("#cv_domLegal");
 
         var localidadLegal = Backend.sync.BuscarLocalidades({ Id: curriculum.DatosPersonales.DomicilioLegal.Localidad })[0];
+        if (localidadLegal == undefined) {
+            localidadLegal = {};
+            localidadLegal.Nombre = "No específico";
+        }
         var provinciaLegal = Backend.sync.BuscarProvincias({ Id: curriculum.DatosPersonales.DomicilioLegal.Provincia })[0];
 
         _this.cv_domLegal.text(curriculum.DatosPersonales.DomicilioLegal.Calle + ' - ' + curriculum.DatosPersonales.DomicilioLegal.Numero + ' - ' +
@@ -798,10 +802,10 @@
 
                 for (var i = 0; i < curriculum.CvCompetenciasInformaticas.length; i++) {
 
-                   // _this.contenedor1 = $('<div>');
-                   // _this.contenedor1.addClass('contenedor_cv');
-                   // _this.contenedor2 = $('<div>');
-                   // _this.contenedor2.addClass('contenedor_cv');
+                    // _this.contenedor1 = $('<div>');
+                    // _this.contenedor1.addClass('contenedor_cv');
+                    // _this.contenedor2 = $('<div>');
+                    // _this.contenedor2.addClass('contenedor_cv');
 
                     _this.p_conocimiento = _this.dibujarDatos('Conocimiento: ');
                     _this.span_conocimiento = $('<span>');
