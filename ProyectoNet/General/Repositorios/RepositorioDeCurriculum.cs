@@ -47,7 +47,7 @@ namespace General.Repositorios
 
         private CurriculumVitae GetCV(Dictionary<string, object> parametros)
         {
-            var tablaCVs = conexion_bd.Ejecutar("dbo.CV_GetCurriculumVitae_aza", parametros);
+            var tablaCVs = conexion_bd.Ejecutar("dbo.CV_GetCurriculumVitae", parametros);
 
             CurriculumVitae cv = new CurriculumVitaeNull();
 
