@@ -29,10 +29,32 @@
 					<input id="txt_actividad_capacitacion_especialidad" type="text" rh-control-type="textbox" rh-model-property="Especialidad" 
                         style="width:350px;"/>
 				</div>
+
+                
+
                 <div class="grupo_campos">
-					<label for="txt_capacitacion_duracion">Duraci&oacute;n (horas, d&iacute;as o meses) <em>*</em></label>
+					<label for="txt_capacitacion_duracion">Duraci&oacute;n <em>*</em></label>
 					<input id="txt_actividad_capacitacion_duracion" type="text" rh-control-type="textbox" rh-model-property="Duracion" 
-                        style="width:270px;" data-validar="esNoBlanco"/>
+                        style="width:100px;" data-validar="esNoBlanco"/>
+                          </div>
+                        
+
+                <div class="grupo_campos">
+                    <label for="cmb_tiempo"> Indique (Horas/Días/Meses) </label>
+					<select id="cmb_tiempo" style="width:150px;" rh-control-type="combo" rh-data-provider="UnidadesTiempo" rh-model-property="UnidadTiempo"></select>
+
+
+                     
+
+                </div>
+
+
+             <!--   <div class="grupo_campos">
+                    <select id="cmb_actividad_capacitacion_tiempo" style="width:80px;" rh-control-type="combo" rh-data-provider="Paises"
+                            rh-model-property="Pais">
+					</select>
+                        </div>-->
+
 				</div>
                 <div class="grupo_campos nueva_linea">
 					<label name="establecimiento" for="txt_capacitacion_establecimiento">Establecimiento <em>*</em></label>
@@ -57,3 +79,6 @@
 		</div>
 	</div>
 </div>
+
+
+<!--Esta página tiene uno de los campos duración a modificar-->

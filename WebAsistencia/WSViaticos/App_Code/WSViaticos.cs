@@ -2979,6 +2979,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public UnidadDeTiempo[] BuscarUnidadesTiempo(string criterio)
+    {
+        return RepositorioDeUnidadesDeTiempo.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+
+    [WebMethod]
     public EstadoCivil[] BuscarEstadosCiviles(string criterio)
     {
         return RepositorioDeEstadosCiviles.Nuevo(Conexion()).Find(criterio).ToArray();

@@ -226,6 +226,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="FechaFinalizacion" type="s:dateTime" />
               <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="UnidadTiempo" type="s:int" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -362,6 +363,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="Duracion" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="UnidadTiempo" type="s:int" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -1376,6 +1378,31 @@
         </s:sequence>
       </s:complexType>
       <s:complexType name="Pais">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuscarUnidadesTiempo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarUnidadesTiempoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarUnidadesTiempoResult" type="tns:ArrayOfUnidadDeTiempo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUnidadDeTiempo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UnidadDeTiempo" nillable="true" type="tns:UnidadDeTiempo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UnidadDeTiempo">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
@@ -4804,6 +4831,12 @@
   <wsdl:message name="BuscarPaisesSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarPaisesResponse" />
   </wsdl:message>
+  <wsdl:message name="BuscarUnidadesTiempoSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarUnidadesTiempo" />
+  </wsdl:message>
+  <wsdl:message name="BuscarUnidadesTiempoSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarUnidadesTiempoResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarEstadosCivilesSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarEstadosCiviles" />
   </wsdl:message>
@@ -5983,6 +6016,10 @@
       <wsdl:input message="tns:BuscarPaisesSoapIn" />
       <wsdl:output message="tns:BuscarPaisesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="BuscarUnidadesTiempo">
+      <wsdl:input message="tns:BuscarUnidadesTiempoSoapIn" />
+      <wsdl:output message="tns:BuscarUnidadesTiempoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarEstadosCiviles">
       <wsdl:input message="tns:BuscarEstadosCivilesSoapIn" />
       <wsdl:output message="tns:BuscarEstadosCivilesSoapOut" />
@@ -7100,6 +7137,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarPaises">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPaises" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarUnidadesTiempo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarUnidadesTiempo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9029,6 +9075,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarPaises">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPaises" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarUnidadesTiempo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarUnidadesTiempo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
