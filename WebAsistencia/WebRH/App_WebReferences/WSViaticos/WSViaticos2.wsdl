@@ -363,6 +363,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="Duracion" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="UnidadTiempo" type="s:int" />
             </s:sequence>
           </s:extension>
         </s:complexContent>

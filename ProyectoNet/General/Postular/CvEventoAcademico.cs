@@ -21,6 +21,9 @@ namespace General
         protected string _localidad;
         protected int _pais;
 
+        protected int _unidadTiempo;
+
+
         public string Denominacion { get { return _denominacion; } set { _denominacion = value; } }
         public int TipoDeEvento { get { return _tipoEvento; } set { _tipoEvento = value; } }
         public int CaracterDeParticipacion { get { return _caracterDeParticipacion; } set { _caracterDeParticipacion = value; } }
@@ -30,8 +33,9 @@ namespace General
         public string Duracion { get { return _duracion; } set { _duracion = value; } }
         public string Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Pais { get { return _pais; } set { _pais = value; } }
+        public int UnidadTiempo { get { return _unidadTiempo; } set { _unidadTiempo = value; } }
 
-        public CvEventoAcademico(int id, string denominacion, int tipoDeEvento, int caracterDeParticipacion, DateTime fechaInicio, DateTime fechaFinalizacion, string duracion, int institucion, string localidad, int pais):base(id,denominacion,4)
+        public CvEventoAcademico(int id, string denominacion, int tipoDeEvento, int caracterDeParticipacion, DateTime fechaInicio, DateTime fechaFinalizacion, string duracion, int institucion, string localidad, int pais, int unidadtiempo):base(id,denominacion,4)
         {
             this.Id = id;
             this._denominacion = denominacion;
@@ -43,6 +47,7 @@ namespace General
             this._duracion = duracion;
             this._localidad = localidad;
             this._pais = pais;
+            this._unidadTiempo = unidadtiempo;
         }
 
         public CvEventoAcademico()

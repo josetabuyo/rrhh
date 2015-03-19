@@ -33,10 +33,20 @@
 					<label for="txt_evento_academico_fecha_fin">Fecha Fin <em>*</em></label>
 					<input id="txt_evento_academico_fecha_fin" type="text" style="width:100px;" rh-control-type="datepicker" rh-model-property="FechaFinalizacion" data-validar="esNoBlanco"/>
 				</div>
+
 				<div class="grupo_campos">
-					<label for="txt_evento_academico_duracion">Duración (horas, días, meses) <em>*</em></label>
+					<label for="txt_evento_academico_duracion">Duración<em>*</em></label>
 					<input id="txt_evento_academico_duracion" type="text" style="width:180px;" rh-control-type="textbox" rh-model-property="Duracion" data-validar="esNoBlanco"/>
 				</div>
+
+                 <div class="grupo_campos">
+                    <label for="cmb_tiempo"> Indique (Horas/Días/Meses) </label>
+					<select id="cmb_tiempo" style="width:150px;" rh-control-type="combo" rh-data-provider="UnidadesTiempo" rh-model-property="UnidadTiempo"></select>
+          
+                </div>
+
+
+
                 <div class="grupo_campos nueva_linea">
 					<label for="cmb_evento_academico_institucion">Institución <em>*</em></label>					
                      <select id="cmb_evento_academico_institucion" style="width:150px; data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="InstitucionesEvento"

@@ -253,7 +253,8 @@ namespace General.Repositorios
                                                 Localidad = dRow.GetString("EventosAcademicosLocalidad", string.Empty),
                                                 Pais = dRow.GetSmallintAsInt("EventosAcademicosPais", 9),
                                                 Precedente = dRow.GetInt("EventosAcademicosPrecedente", 0),
-                                                Baja = dRow.GetInt("EventosAcademicosBaja", 0)
+                                                Baja = dRow.GetInt("EventosAcademicosBaja", 0),
+                                                UnidadTiempo = dRow.GetInt("EventosAcademicosUnidadTiempo", 0),
                                             }).Distinct().ToList();
 
                 items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
@@ -261,7 +262,7 @@ namespace General.Repositorios
 
                 items_anonimos.Select(e => new CvEventoAcademico(e.Id, e.Denominacion, e.TipoDeEvento, e.CaracterDeParticipacion,
                                                                     e.FechaInicio, e.FechaFinalizacion, e.Duracion, e.Institucion,
-                                                                    e.Localidad, e.Pais)).ToList().ForEach(ev => cv.AgregarEventoAcademico(ev));
+                                                                    e.Localidad, e.Pais, e.UnidadTiempo)).ToList().ForEach(ev => cv.AgregarEventoAcademico(ev));
                 
 
             }
@@ -684,7 +685,7 @@ namespace General.Repositorios
 
             return GuardarItemCVParam(parametros, item_cv);
         }
-
+        
         public ItemCv ActualizarCv(ItemCv antecedentesAcademicos_nuevo, Usuario usuario)
         {
             return ActualizarCv(antecedentesAcademicos_nuevo, usuario, new Dictionary<string, object>());
@@ -837,6 +838,7 @@ namespace General.Repositorios
             parametros.Add("@Localidad", evento_academico_nuevo.Localidad);
             parametros.Add("@Pais", evento_academico_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@IdUnidadTiempo", evento_academico_nuevo.UnidadTiempo);
 
             return parametros;
         }
