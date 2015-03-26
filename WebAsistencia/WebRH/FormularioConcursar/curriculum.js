@@ -153,7 +153,8 @@
 
                     _this.p_duracion = _this.dibujarDatos('Duración: ');
                     _this.span_duracion = $('<span>');
-                    _this.span_duracion.text(curriculum.CvCertificadosDeCapacitacion[i].Duracion);
+                    var unidadTiempo = Backend.ejecutarSincronico("BuscarUnidadesTiempo", [{ Id: curriculum.CvCertificadosDeCapacitacion[i].UnidadTiempo}])[0];
+                    _this.span_duracion.text(curriculum.CvCertificadosDeCapacitacion[i].Duracion + ' ' + unidadTiempo.Descripcion);
 
                     _this.p_establecimiento = _this.dibujarDatos('Establecimiento: ');
                     _this.span_establecimiento = $('<span>');
@@ -333,7 +334,8 @@
 
                 _this.p_duracion = _this.dibujarDatos('Duración: ');
                 _this.span_duracion = $('<span>');
-                _this.span_duracion.text(curriculum.CvEventosAcademicos[i].Duracion);
+                var unidadTiempo = Backend.ejecutarSincronico("BuscarUnidadesTiempo", [{ Id: curriculum.CvEventosAcademicos[i].UnidadTiempo}])[0];
+                _this.span_duracion.text(curriculum.CvEventosAcademicos[i].Duracion + ' ' + unidadTiempo.Descripcion);
 
                 _this.p_institucion = _this.dibujarDatos('Institución: ');
                 _this.span_institucion = $('<span>');
