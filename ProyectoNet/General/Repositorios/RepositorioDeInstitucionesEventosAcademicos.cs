@@ -13,7 +13,7 @@ namespace General.Repositorios
         private static RepositorioDeInstitucionesEventosAcademicos _instancia;
 
         private RepositorioDeInstitucionesEventosAcademicos(IConexionBD conexion)
-            :base(conexion, 10)
+            :base(conexion, 1)
         {
         }
 

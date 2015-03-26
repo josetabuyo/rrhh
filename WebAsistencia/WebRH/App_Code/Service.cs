@@ -870,6 +870,7 @@ public class AjaxWS : System.Web.Services.WebService
 
         if (argumentos_esperados.Any(a => a.Name == "usuario"))
         {
+            if (usuarioLogueado.GetType().Name == "UsuarioNulo") throw new Exception("Error: Debe estar logueado para acceder a esta funcionalidad");
             argumentos_a_enviar.Add(usuarioLogueado);
         }
         var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
