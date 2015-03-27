@@ -206,8 +206,9 @@
     </form>
 </body>
 <%= Referencias.Javascript("../") %>
-<script type="text/javascript" src="FichaDeclaracionJurada.js" ></script>
+
 <script type="text/javascript" src="curriculum.js" ></script>
+<script type="text/javascript" src="FichaDeclaracionJurada.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 
 <script type="text/javascript">
