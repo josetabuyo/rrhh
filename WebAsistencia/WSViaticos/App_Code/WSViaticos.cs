@@ -2657,11 +2657,19 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public CVInstitucionesEventos[] BuscarInstitucionesEvento(string criterio)
+    public CVInstitucionesEventos[] BuscarInstitucionesEvento(string criterio, Usuario usuario)
     {
-        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Find(criterio).ToArray();
+        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Find(criterio).FindAll(i => i.SoloVisiblePara == usuario.Id || i.SoloVisiblePara == -1).ToArray();
     }
 
+    [WebMethod]
+    public CVInstitucionesEventos AgregarInstitucionesEvento(string descripcion, Usuario usuario)
+    {
+        var inst = new CVInstitucionesEventos();
+        inst.Descripcion = descripcion;
+        inst.SoloVisiblePara = usuario.Id;
+        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Guardar(inst);
+    }
 
     #endregion
 
@@ -2959,7 +2967,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public CvConocimientoCompetenciaInformatica[] BuscarConocimientoCompetenciaInformatica(string criterio)
+    public CvConocimientoCompetenciaInformatica[] BuscarConocimientoCompetenciaInformatica(string criterio, Usuario usuario)
     {
         return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Find(criterio).ToArray();
     }
@@ -2969,7 +2977,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Find(criterio).ToArray();
     }
-
 
     
     [WebMethod]

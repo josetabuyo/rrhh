@@ -80,7 +80,8 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
     var _this = this;
     var opt_constructor = {
         select: select,
-        dataProvider: select.attr('rh-data-provider')
+        dataProvider: select.attr('rh-data-provider'),
+        permiteAgregar: select.attr('rh-permite-agregar')||false
     };
     var prop_label = select.attr("rh-propiedad-label");
     if (prop_label) opt_constructor.propiedadLabel = prop_label;
