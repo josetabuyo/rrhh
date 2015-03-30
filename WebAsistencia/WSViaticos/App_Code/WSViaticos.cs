@@ -2651,9 +2651,18 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public CVCaracterDeParticipacionEvento[] BuscarCaracterParticipacionEvento(string criterio)
+    public CVCaracterDeParticipacionEvento[] BuscarCaracterParticipacionEvento(string criterio, Usuario usuario)
     {
-        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Find(criterio).ToArray();
+        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Find(criterio).FindAll(i => i.SoloVisiblePara == usuario.Id || i.SoloVisiblePara == -1).ToArray();
+    }
+
+    [WebMethod]
+    public CVCaracterDeParticipacionEvento AgregarCaracterParticipacionEvento(string descripcion, Usuario usuario)
+    {
+        var obj = new CVCaracterDeParticipacionEvento();
+        obj.Descripcion = descripcion;
+        obj.SoloVisiblePara = usuario.Id;
+        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Guardar(obj);
     }
 
     [WebMethod]
@@ -2665,10 +2674,10 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CVInstitucionesEventos AgregarInstitucionesEvento(string descripcion, Usuario usuario)
     {
-        var inst = new CVInstitucionesEventos();
-        inst.Descripcion = descripcion;
-        inst.SoloVisiblePara = usuario.Id;
-        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Guardar(inst);
+        var obj = new CVInstitucionesEventos();
+        obj.Descripcion = descripcion;
+        obj.SoloVisiblePara = usuario.Id;
+        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Guardar(obj);
     }
 
     #endregion
