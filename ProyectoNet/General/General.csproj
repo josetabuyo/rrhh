@@ -138,6 +138,7 @@
     <Compile Include="Postular\RequisitoEstudio.cs" />
     <Compile Include="Postular\RequisitoIdioma.cs" />
     <Compile Include="Postular\RequisitoPerfil.cs" />
+    <Compile Include="Postular\UnidadDeTiempo.cs" />
     <Compile Include="Postular\Validador.cs" />
     <Compile Include="Repositorios\RepositorioDeAmbitoLaboral.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesDeEstudio.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Repositorios\RepositorioDeCurriculum.cs" />
     <Compile Include="Repositorios\RepositorioDeNacionalidades.cs" />
     <Compile Include="Repositorios\RepositorioDeTiposDeEventoAcademico.cs" />
+    <Compile Include="Repositorios\RepositorioDeUnidadesDeTiempo.cs" />
     <Compile Include="Repositorios\RepositorioLazySingleton.cs" />
     <Compile Include="Postular\Sexo.cs" />
     <Compile Include="Postular\TipoDeDocumento.cs" />

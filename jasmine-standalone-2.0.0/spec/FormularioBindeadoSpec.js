@@ -33,10 +33,10 @@
         it("ENTONCES: deberia poder observar cambios en sus variables", function () {
             var nuevo_nombre;
             var otro_nuevo_nombre;
-            persona.watch("nombre", function (prop, oldval, newval) {
+            O_O.watchear(persona, "nombre", function (prop, oldval, newval) {
                 nuevo_nombre = newval;
             });
-            persona.watch("nombre", function (prop, oldval, newval) {
+            O_O.watchear(persona, "nombre", function (prop, oldval, newval) {
                 otro_nuevo_nombre = newval;
             });
             persona.nombre = "coco";
@@ -49,13 +49,14 @@
             var handler = function (prop, oldval, newval) {
                 nuevo_nombre = newval;
             };
-            persona.watch("nombre", handler);
+            O_O.watchear(persona, "nombre", handler);
+
             var otro_handler = function (prop, oldval, newval) {
                 otro_nuevo_nombre = newval;
             };
-            persona.watch("nombre", otro_handler);
+            O_O.watchear(persona, "nombre", otro_handler);
             persona.nombre = "coco";
-            persona.unwatch("nombre", otro_handler);
+            O_O.desWatchear(persona, "nombre", otro_handler);
             persona.nombre = "lolo";
 
             expect(nuevo_nombre).toEqual("lolo");
@@ -67,7 +68,7 @@
             var handler = function (prop, oldval, newval) {
                 nuevo_nombre = newval;
             };
-            persona.watch("madre.nombre", handler);
+            O_O.watchear(persona, "madre.nombre", handler);
             persona.madre.nombre = "pepa";
             expect(nuevo_nombre).toEqual("pepa");
         });
@@ -77,9 +78,9 @@
             var handler = function (prop, oldval, newval) {
                 nuevo_nombre = newval;
             };
-            persona.watch("madre.nombre", handler);
+            O_O.watchear(persona, "madre.nombre", handler);
             persona.madre.nombre = "pepa";
-            persona.unwatch("madre.nombre", handler);
+            O_O.desWatchear(persona, "madre.nombre", handler);
             persona.madre.nombre = "cuca";
 
             expect(nuevo_nombre).toEqual("pepa");

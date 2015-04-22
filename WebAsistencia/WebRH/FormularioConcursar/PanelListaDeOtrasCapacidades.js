@@ -68,7 +68,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la capacidad?", function (e) {
             if (e) {
-                Backend.EliminarCvOtraCapacidad(una_capacidad.Id)
+                Backend.EliminarCvOtraCapacidad(una_capacidad)
                     .onSuccess(function (respuesta) {
                         alertify.success("Capacidad eliminada correctamente");
                         _this.GrillaCapacidades.QuitarObjeto(_this.divGrilla, una_capacidad);

@@ -6,10 +6,13 @@
 <head runat="server">
         <title></title>
      <%= Referencias.Css("../")%>    
-     <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
+     
+     <link rel="stylesheet" type="text/css" href="EstilosPostular.css" media="screen" />
+    <%-- <link rel="stylesheet" type="text/css" href="print.css" media="print" />--%>
+
 </head>
 <body>
-<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>
+<%--<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>--%>
     <form id="form1" runat="server">
     
 <div class="contenedor_concursar">
@@ -48,35 +51,33 @@
 </div>
 
 
-<div class="info-gral posicion fondo_form">
-	<p class="titulos degrade"><span class="letra-bold">I.</span> Información Personal</p>
+<div class="info-gral  fondo_form">
+	<p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">I.</span> Información Personal</p>
 	<p class="nombre-h"><span id="cv_apellido" class="atributo-apelido"></span><span id="cv_nombre"></span></p>
     <br>
-	<p class="general"><span class="atributos">DNI: </span><span id="cv_dni"></span></p>
-	<p class="general"><span class="atributos">Estado Civil: </span><span id="cv_estadoCivil"></span></p>
-	<p class="general"><span class="atributos">Fecha de Nacimiento: </span><span id="cv_fechNac"></span></p>
-	<p class="general"><span class="atributos">Lugar de Nacimiento: </span><span id="cv_lugarNac"></span></p>
-	<p class="general"><span class="atributos">Nacionalidad: </span><span id="cv_nac"></span></p>
-	<p class="general"><span class="atributos">Domicilio Personal: </span><span id="cv_domPersonal"></span></p>
-	
-	
+	<p class="general_info_personal"><span class="atributos">DNI: </span><span id="cv_dni"></span></p>
+	<p class="general_info_personal"><span class="atributos">Estado Civil: </span><span id="cv_estadoCivil"></span></p>
+	<p class="general_info_personal"><span class="atributos">Fecha de Nacimiento: </span><span id="cv_fechNac"></span></p>
+	<p class="general_info_personal"><span class="atributos">Lugar de Nacimiento: </span><span id="cv_lugarNac"></span></p>
+	<p class="general_info_personal"><span class="atributos">Nacionalidad: </span><span id="cv_nac"></span></p>
+	<p class="general_info_personal"><span class="atributos">Domicilio Personal: </span><span id="cv_domPersonal"></span></p>
 </div>
-
-<div class="info-notif-avisos posicion fondo_form">
+<br />
+<div class="info-notif-avisos  fondo_form">
 	<p class="titulos degrade sombra_y_redondeado"><span class="letra-bold">II.</span> Información Requerida para Recibir Notificaciones y Avisos</p>
-	<p class="general"><span class="atributos">Domicilio: </span><span id="cv_domLegal">Italia 465 - Timbre 3 - Lomas de Zamora - C.P: 1832</span></p>
-	<p class="general"><span class="atributos">Teléfonos: </span><span id="cv_telefono">4281-2685 / 15 5059 5930</span></p>
-	<p class="general"><span class="atributos">Corro Electrónico: </span><span id="cv_mail">ayanvero@gmail.com</span></p>
+	<p class="general_info_personal"><span class="atributos">Domicilio: </span><span id="cv_domLegal"></span></p>
+	<p class="general_info_personal"><span class="atributos">Teléfonos: </span><span id="cv_telefono"></span></p>
+	<p class="general_info_personal"><span class="atributos">Corro Electrónico: </span><span id="cv_mail"></span></p>
 	</div>
-
-<div id="caja_antecedentes_academicos" style="page-break-before:always"></div>
-<div id="caja_actividades_decentes" ></div>
-<div id="caja_eventos_academicos"></div>
-<div id="caja_publicaciones"></div>
-<div id="caja_matriculas"></div>
-<div id="caja_instituciones" ></div>
-<div id="caja_experiencias_laborales"></div>
-<div id="caja_otras_aptitudes" ></div>
+<br />
+<div id="caja_antecedentes_academicos" ></div>
+<div id="caja_actividades_decentes" style="page-break-before:always" ></div>
+<div id="caja_eventos_academicos" style="page-break-before:always"></div>
+<div id="caja_publicaciones" style="page-break-before:always"></div>
+<div id="caja_matriculas" style="page-break-before:always"></div>
+<div id="caja_instituciones" style="page-break-before:always" ></div>
+<div id="caja_experiencias_laborales" style="page-break-before:always"></div>
+<div id="caja_otras_aptitudes" style="page-break-before:always"></div>
 
    
 	<!--
@@ -155,7 +156,7 @@
 		<p id="motivo_postulacion" class="motivos-cargo"></p>
 	</div>
 
-<div class="posicion" style="page-break-before:always">
+<div class="posicion" >
 		<div class="decla-jurada"><p style="text-align:center; font-size:12px; font-weight:bold;"><span style="font-size: 13px">DECLARACIÓN JURADA Y CONSTANCIA DE RECEPCIÓN Y ACEPTACIÓN DEL REGLAMENTO Y BASES DEL CONCURSO</span></p>
 		    Declaro bajo juramento que:<br/>
 		    <span class="letra-bold">a)</span> Los datos consignados en la siguiente Solicitud y Ficha de Inscripción son completos, verdaderos y atinentes al perfil del puesto de trabajo o función a concursar;<br>
@@ -183,36 +184,36 @@
 
 </div>
 
-
-
-<div>
-<p class="p-imprimir">
-    <button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir Curriculum</button>
-    <input style="width: 50px;" id="anexo_1" class="btn btn-primary" value="Anexo I" />
-    <input style="width: 50px;" id="anexo_2" class="btn btn-primary"  value="Anexo II" />
-    <input style="width: 50px;" id="anexo_3" class="btn btn-primary" value="Anexo III" />
-</p>
-</div>	
 </div>
 
 
 <p class="top-header posicion">Recuerde firmar todas y cada una de las hojas que integran su Ficha de inscripción.<br>La ausencia de su firma invalida la valoración del antecedente declarado.</p>
 
-
 </div>
-<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>
+<div>
+<p class="p-imprimir">
+    <button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir Curriculum</button>
+    <input style="width: 50px;" id="anexo_1" class="btn btn-primary" value="Anexo 1" />
+    <input style="width: 50px;" id="anexo_2" class="btn btn-primary"  value="Anexo 2" />
+    <input style="width: 50px;" id="anexo_3" class="btn btn-primary" value="Anexo 3" />
+</p>
+</div>	
+
+<%--<a class="general atributos" style="float: right; margin: 20px; font-size:25px;" href="PanelDeControl.aspx" >Volver</a>--%>
 
         <asp:HiddenField ID="curriculum" runat="server" />
         
     </form>
 </body>
 <%= Referencias.Javascript("../") %>
+
+<script type="text/javascript" src="curriculum.js" ></script>
 <script type="text/javascript" src="FichaDeclaracionJurada.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 
-<script type="text/javascript">    
+<script type="text/javascript">
     function ImprimirCVPostulado() {
-        
+
         var ventana_impresion = window.open();
         var div_para_imprimir = document.getElementById('imprimir');
         var texto_de_impresion = div_para_imprimir.innerHTML;
@@ -221,25 +222,25 @@
         texto_de_impresion = texto_de_impresion.replace("motivos-cargo", "");
 
         ventana_impresion.document.open();
-        ventana_impresion.document.write('<html><title>::Previsualización::</title><link rel="stylesheet" type="text/css" href="EstilosPostular.css" /></head><body onload="window.print()">')
+        ventana_impresion.document.write('<html><title>::Previsualización::</title><link rel="stylesheet" type="text/css" href="print.css" media="print" /><link rel="stylesheet" type="text/css" href="EstilosPostular.css" /></head><body onload="window.print()">')
         ventana_impresion.document.write(texto_de_impresion);
         ventana_impresion.document.write('</html>');
         ventana_impresion.document.close();
     }
 
     $('#anexo_1').click(function () {
-        window.open('AnexoI.aspx');
+        window.open('AnexoI.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
         //window.location.href = 'AnexoI.aspx';
 
     });
 
     $('#anexo_2').click(function () {
-        window.open('AnexoII.aspx');
+        window.open('AnexoII.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
         //window.location.href = 'AnexoII.aspx';
     });
 
     $('#anexo_3').click(function () {
-        window.open('AnexoIII.aspx');
+        window.open('AnexoIII.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
         //window.location.href = 'AnexoIII.aspx';
     });
 

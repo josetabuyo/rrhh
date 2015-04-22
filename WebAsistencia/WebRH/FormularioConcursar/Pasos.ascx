@@ -7,7 +7,7 @@
                         <a id="paso_1" class="link_activado"><span class="number">1. </span>Cargos</a>
                     </li>
                     <li class="" >
-                        <a id="paso_2" class="link_desactivado"><span class="number">2. </span>(I) Pre-Inscripción</a>
+                        <a id="paso_2" class="link_desactivado"><span class="number">2. </span>Confirmación de Datos de notificación</a>
                     </li>
                     <li  class="" >
                         <a id="paso_3" class="link_desactivado"><span class="number">3. </span>(II) Pre-Inscripción</a>

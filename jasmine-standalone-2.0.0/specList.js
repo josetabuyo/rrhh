@@ -3,6 +3,6 @@
 var specList = 
         [
             'domReady!',
-            'FormularioBindeadoSpec',
-            'ComboPopuladoConRepoSpec'
+            'FormularioBindeadoSpec'//,
+            //'ComboPopuladoConRepoSpec'
         ];

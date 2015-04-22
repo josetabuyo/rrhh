@@ -93,19 +93,19 @@
             </table>
             </div>
             <div id = "cont_titulo_completar_informacion">
-                <p>Documentación a presentar: Por favor ...............</p>
+                <p>Documentación a presentar</p>
             </div>
             <hr />
             <div id="cont_aclaraciones">
                 <p class="aclaraciones">
                         1) "Formulario de Solicitud y Ficha de Inscripci&oacute;n"-ANEXO I- debidamente completado, los datos all&iacute; 
                         volcados presentan car&aacute;cter de declaraci&oacute;n jurada. El formulario debe ser firmado en todas sus 
-                        hojas. <input style="width: 50px;" id="anexo_1" class="btn btn-primary" value="Imprimir" /><br/><br/>
+                        hojas. <input style="width: 100px;" id="anexo_1" class="btn btn-primary" value="Imprimir Anexo I" /><br/><br/>
                         2) Se deber&aacute; adjuntar un curr&iacute;culum vitae actualizado, firmado en todas sus hojas. <br/><br/>
                         3) "Constancia de Recepción y Aceptación del Reglamento y Bases del Concurso". Declaración Jurada que obra como 
-                        ANEXO II - <input style="width: 50px;" id="anexo_2" class="btn btn-primary"  value="Imprimir" /><br/><br/>
+                        ANEXO II - <input style="width: 100px;" id="anexo_2" class="btn btn-primary"  value="Imprimir Anexo II" /><br/><br/>
                         4) "Constancia de Recepción de la Solicitud, Ficha de Inscripción y de la Documentación presentada.", que obra como 
-                        ANEXO III - <input style="width: 50px;" id="anexo_3" class="btn btn-primary" value="Imprimir" /> <br/>
+                        ANEXO III - <input style="width: 100px;" id="anexo_3" class="btn btn-primary" value="Imprimir Anexo III" /> <br/>
                        
                 </p>
                
@@ -127,18 +127,18 @@
           Postulacion.armarPostulacion(perfil);
 
           $('#anexo_1').click(function () {
-              window.open('AnexoI.aspx');
+              window.open('AnexoI.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
               //window.location.href = 'AnexoI.aspx';
 
           });
 
           $('#anexo_2').click(function () {
-              window.open('AnexoII.aspx');
+              window.open('AnexoII.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
               //window.location.href = 'AnexoII.aspx';
           });
 
           $('#anexo_3').click(function () {
-              window.open('AnexoIII.aspx');
+              window.open('AnexoIII.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
               //window.location.href = 'AnexoIII.aspx';
           });
 

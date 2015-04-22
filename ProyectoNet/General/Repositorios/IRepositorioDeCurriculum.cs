@@ -9,7 +9,7 @@ namespace General.Repositorios
     {
         void GuardarCVDatosPersonales(CvDatosPersonales cv, Usuario usuario);
         void ActualizarCV(CurriculumVitae cv);
-        CurriculumVitae GetCV(int documento);
+        CurriculumVitae GetCV(int idPersona, DateTime fechaDeVersion);
         /*
         List<CvEstudios> GetCvEstudios(int documento);
         List<CvCertificadoDeCapacitacion> GetCvCertificadoDeCapacitacion(int documento);

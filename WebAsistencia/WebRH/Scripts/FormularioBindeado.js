@@ -35,22 +35,22 @@ FormularioBindeado.prototype.crearYBindearTextBox = function (input) {
         input.val(newval);
     };
     input.change(function () {
-        _this.modelo.unwatch(path_propiedad_modelo, handler);
+        O_O.desWatchear(_this.modelo, path_propiedad_modelo, handler);
         if (tipo_del_dato == "texto") {
-            _this.modelo.setValorEnPath(path_propiedad_modelo, input.val());
+            O_O.desWatchear(_this.modelo, path_propiedad_modelo, handler);
+            O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, input.val());
         }
         if (tipo_del_dato == "numero_entero") {
             if (input.val()) {
-                _this.modelo.setValorEnPath(path_propiedad_modelo, parseInt(input.val()));
+                O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, parseInt(input.val()));
             } else {
-                _this.modelo.setValorEnPath(path_propiedad_modelo, null);
+                O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, null);
             }
         }
-        _this.modelo.watch(path_propiedad_modelo, handler);
+        O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
     });
-
-    this.modelo.watch(path_propiedad_modelo, handler);
-    input.val(this.modelo.getValorDePath(path_propiedad_modelo));
+    O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
+    input.val(O_O.getValorDePath(_this.modelo, path_propiedad_modelo));
 };
 
 FormularioBindeado.prototype.crearYBindearDatePicker = function (input) {
@@ -59,6 +59,7 @@ FormularioBindeado.prototype.crearYBindearDatePicker = function (input) {
 
     var path_propiedad_modelo = input.attr('rh-model-property');
 
+    input.mask("99/99/9999");
     input.datepicker();
     input.datepicker('option', 'dateFormat', 'dd/mm/yy');
 
@@ -66,19 +67,21 @@ FormularioBindeado.prototype.crearYBindearDatePicker = function (input) {
         input.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(newval));
     };
     input.change(function () {
-        _this.modelo.unwatch(path_propiedad_modelo, handler);
-        _this.modelo.setValorEnPath(path_propiedad_modelo, input.datepicker('getDate').toISOString());
-        _this.modelo.watch(path_propiedad_modelo, handler);
+        O_O.desWatchear(_this.modelo, path_propiedad_modelo, handler);
+        if (input.datepicker('getDate')) O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, input.datepicker('getDate').toISOString());
+        else O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, "0001-01-01T00:00:00");
+        O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
     });
-    this.modelo.watch(path_propiedad_modelo, handler);
-    input.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(this.modelo.getValorDePath(path_propiedad_modelo)));
+    O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
+    input.datepicker('setDate', ConversorDeFechas.deIsoAFechaEnCriollo(O_O.getValorDePath(_this.modelo, path_propiedad_modelo)));
 };
 
 FormularioBindeado.prototype.crearYBindearCombo = function (select) {
     var _this = this;
     var opt_constructor = {
         select: select,
-        dataProvider: select.attr('rh-data-provider')
+        dataProvider: select.attr('rh-data-provider'),
+        permiteAgregar: select.attr('rh-permite-agregar')||false
     };
     var prop_label = select.attr("rh-propiedad-label");
     if (prop_label) opt_constructor.propiedadLabel = prop_label;
@@ -87,7 +90,7 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
     var filter_path = select.attr('rh-filter-value');
     if (filter_key && filter_path) {
         opt_constructor.filtro = {};
-        opt_constructor.filtro[filter_key] = this.modelo.getValorDePath(filter_path)
+        opt_constructor.filtro[filter_key] = O_O.getValorDePath(_this.modelo, filter_path);
     }
 
     var combo = new ComboConBusquedaYAgregado(opt_constructor);
@@ -99,18 +102,18 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
     };
 
     combo.change(function () {
-        _this.modelo.unwatch(path_propiedad_modelo, handler);
-        _this.modelo.setValorEnPath(path_propiedad_modelo, combo.idSeleccionado());
-        _this.modelo.watch(path_propiedad_modelo, handler);
+        O_O.desWatchear(_this.modelo, path_propiedad_modelo, handler);
+        O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, combo.idSeleccionado());
+        O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
     });
-    this.modelo.watch(path_propiedad_modelo, handler);
-    combo.idSeleccionado(this.modelo.getValorDePath(path_propiedad_modelo));
+    O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
+    combo.idSeleccionado(O_O.getValorDePath(_this.modelo, path_propiedad_modelo));
 
     if (filter_key && filter_path) {
-        this.modelo.watch(filter_path, function (prop, oldval, newval) {
+        O_O.watchear(_this.modelo, filter_path, function (prop, oldval, newval) {
             var filtro = {};
             filtro[filter_key] = newval
             combo.filtrarPor(filtro);
-        });        
+        });
     }
 };

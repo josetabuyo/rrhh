@@ -8,9 +8,7 @@
         _this.btn_agregar_actividad_capacitacion.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
                 defaults: { 
-                    Pais: 9,
-                    FechaInicio: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    FechaFinalizacion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                    Pais: 9
                 },
                 path_html: "PanelDetalleDeActividadCapacitacion.htm",
                 metodoDeGuardado: "GuardarCvActividadCapacitacion",
@@ -28,8 +26,8 @@
 
         columnas.push(new Columna("Diploma/Certificación", { generar: function (una_actividad_capacitacion) { return una_actividad_capacitacion.DiplomaDeCertificacion } }));
         columnas.push(new Columna("Duración", { generar: function (una_actividad_capacitacion) { return una_actividad_capacitacion.Duracion } }));
-        //columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_capacitacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_capacitacion.FechaInicio) } }));
-        //columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_capacitacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_capacitacion.FechaFinalizacion) } }));
+        columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_capacitacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_capacitacion.FechaInicio) } }));
+        columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_capacitacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_capacitacion.FechaFinalizacion) } }));
         columnas.push(new Columna("Especialidad", { generar: function (una_actividad_capacitacion) { return una_actividad_capacitacion.Especialidad } }));
         columnas.push(new Columna('Acciones', {
             generar: function (una_actividad_capacitacion) {
@@ -74,7 +72,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la actividad?", function (e) {
             if (e) {
-                Backend.EliminarCvActividadCapacitacion(una_actividad_capacitacion.Id)
+                Backend.EliminarCvActividadCapacitacion(una_actividad_capacitacion)
                     .onSuccess(function (respuesta) {
                         alertify.success("Actividad eliminada correctamente");
                         _this.GrillaActividadesCapacitacion.QuitarObjeto(_this.divGrilla, una_actividad_capacitacion);

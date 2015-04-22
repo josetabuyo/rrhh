@@ -11,9 +11,7 @@
                     Pais: 9,
                     TipoDeEvento: 1,
                     CaracterDeParticipacion: 1,
-                    Institucion: 1,
-                    FechaInicio: ConversorDeFechas.ConvertirDateNowDeJS(Date.now()),
-                    FechaFinalizacion: ConversorDeFechas.ConvertirDateNowDeJS(Date.now())
+                    Institucion: 1
                 },
                 path_html: "PanelDetalleDeEventoAcademico.htm",
                 metodoDeGuardado: "GuardarCvEventoAcademico",
@@ -94,7 +92,7 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la el evento académico?", function (e) {
             if (e) {
-                Backend.EliminarCvEventosAcademicos(un_evento_academico.Id)
+                Backend.EliminarCvEventosAcademicos(un_evento_academico)
                     .onSuccess(function (respuesta) {
                         alertify.success("Evento académico eliminado correctamente");
                         _this.GrillaEventosAcademicos.QuitarObjeto(_this.divGrilla, un_evento_academico);

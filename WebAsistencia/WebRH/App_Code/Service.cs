@@ -28,6 +28,15 @@ public class AjaxWS : System.Web.Services.WebService
         //InitializeComponent(); 
     }
 
+
+    [WebMethod(EnableSession = true)]
+    public string GetUsuario()
+    {
+        var usuario = usuarioLogueado.Owner.Nombre + " " + usuarioLogueado.Owner.Apellido;
+        return usuario;
+    }
+
+
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string CrearDocumento(string documento_dto)
@@ -284,6 +293,21 @@ public class AjaxWS : System.Web.Services.WebService
     {
         var lista_alumnos_para_inscribir = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WSViaticos.Alumno>>(alumnos);
         return backEndService.InscribirAlumnosACurso(lista_alumnos_para_inscribir.ToArray(), id_curso, usuarioLogueado);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void EliminarLicenciaPendienteAprobacion(int id)
+    {
+        backEndService.EliminarLicenciaPendienteAprobacion(id);
+    }
+    
+    
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void EliminarPasePendienteAprobacion(int id_pase)
+    {
+        backEndService.EliminarPasePendienteAprobacion(id_pase);
     }
 
     //[WebMethod(EnableSession = true)]
@@ -861,6 +885,7 @@ public class AjaxWS : System.Web.Services.WebService
 
         if (argumentos_esperados.Any(a => a.Name == "usuario"))
         {
+            if (usuarioLogueado.GetType().Name == "UsuarioNulo") throw new Exception("Error: Debe estar logueado para acceder a esta funcionalidad");
             argumentos_a_enviar.Add(usuarioLogueado);
         }
         var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());

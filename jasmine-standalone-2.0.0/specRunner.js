@@ -11,21 +11,21 @@ require.config({
 		'jasmine_boot': 'boot',
 		'teamcityreporter': 'jasmine2-teamcityreporter',
 		'mockAjax': 'mock-ajax',
-		'ComboPopuladoConRepoSpec': '../../spec/ComboPopuladoConRepoSpec',
+		//'ComboPopuladoConRepoSpec': '../../spec/ComboPopuladoConRepoSpec',
 		'FormularioBindeadoSpec': '../../spec/FormularioBindeadoSpec'
     },
     shim: {
     	'FormularioBindeadoSpec': {
 			deps: ['mockAjax', 'app/bootstrap/js/jquery', 'app/ComboConBusquedaYAgregado', 'app/FormularioBindeado'],
 		},
-		'ComboPopuladoConRepoSpec': {
-			deps: ['mockAjax', 'app/bootstrap/js/jquery', 'app/rhforms-combos'],
-		},
-		'app/rhforms-combos': {
-			deps: ['app/repositorio', 'app/bindings', 'app/string']
-		},
+//		'ComboPopuladoConRepoSpec': {
+//			deps: ['mockAjax', 'app/bootstrap/js/jquery', 'app/rhforms-combos'],
+//		},
+//		'app/rhforms-combos': {
+//			deps: ['app/repositorio', 'app/bindeos', 'app/string']
+//		},
         'app/FormularioBindeado': {
-			deps: ['app/ComboConBusquedaYAgregado']
+			deps: ['app/ComboConBusquedaYAgregado', 'app/ObjectObserver']
 		},
         'app/ComboConBusquedaYAgregado': {
 			deps: ['app/repositorio', 'app/Extensiones/Colecciones', 'app/select2-3.4.4/select2_locale_es']

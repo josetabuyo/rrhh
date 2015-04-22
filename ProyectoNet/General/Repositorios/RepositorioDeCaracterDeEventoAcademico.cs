@@ -36,7 +36,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    niveles.Add(new CVCaracterDeParticipacionEvento(row.GetInt("Id"), row.GetString("Descripcion")));
+                    niveles.Add(new CVCaracterDeParticipacionEvento(row.GetInt("Id"), row.GetString("Descripcion"), row.GetInt("SoloVisiblePara", -1)));
                 });
             }
 
@@ -45,7 +45,10 @@ namespace General.Repositorios
 
         protected override void GuardarEnLaBase(CVCaracterDeParticipacionEvento objeto)
         {
-            throw new NotImplementedException();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@descripcion", objeto.Descripcion);
+            parametros.Add("@solo_visible_para", objeto.SoloVisiblePara);
+            objeto.Id = Convert.ToInt32(conexion.EjecutarEscalar("dbo.CV_AgregarCaracterParticipacionEvento", parametros));
         }
 
         protected override void QuitarDeLaBase(CVCaracterDeParticipacionEvento objeto)
