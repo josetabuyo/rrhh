@@ -50,6 +50,7 @@ color:#fff !important;
                                 <li RequiereFuncionalidad="15" class="dropdown"><a  href="EtapaPreInscripcionDocumental.aspx"  runat="server">Preinscripción documental</a></li>
                                 <li RequiereFuncionalidad="16" class="dropdown"><a  href="EtapaInscripcionDocumental.aspx"  runat="server">Inscripción documental</a></li>
                                 <li RequiereFuncionalidad="17" class="dropdown"><a  href="EtapaAdmision.aspx" runat="server">Etapa de Admisión</a></li>
+                                <li RequiereFuncionalidad="19" class="dropdown"><a  href="TableroControl.aspx" runat="server">Tablero de Control</a></li>
                             </ul>
                         
                         </li>
