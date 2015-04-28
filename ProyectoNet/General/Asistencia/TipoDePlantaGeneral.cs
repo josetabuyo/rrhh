@@ -22,14 +22,16 @@ namespace General
             this._descripcion = descripcion;
         }
 
+        protected static int anios = 0;
+
         public override ProrrogaLicenciaOrdinaria Prorroga(DateTime fecha_calculo)
         {
-
             var prorroga = new ProrrogaLicenciaOrdinaria();
-
-            RepositorioLicencias repo = new RepositorioLicencias(Conexion());
-
-            int anios = repo.GetProrrogaPlantaGeneral(fecha_calculo.Year);
+            if (anios == 0)
+            {
+                RepositorioLicencias repo = new RepositorioLicencias(Conexion());
+                anios = repo.GetProrrogaPlantaGeneral(fecha_calculo.Year);
+            }          
 
             if (fecha_calculo.Month == 12)
             {
