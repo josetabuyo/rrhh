@@ -320,7 +320,7 @@ namespace General
 
             foreach (var row in tablaReporte.Rows)
             {
-                var registro = new ResumenDePostulaciones(row.GetSmallintAsInt("IdPerfil"), row.GetString("PerfilDescripcion"), row.GetSmallintAsInt("NumeroComite"), row.GetInt("Postulados"), row.GetInt("Inscriptos"));
+                var registro = new ResumenDePostulaciones(row.GetSmallintAsInt("IdPerfil",0), row.GetString("PerfilDescripcion",""), row.GetSmallintAsInt("NumeroComite",0), row.GetInt("Postulados",0), row.GetInt("Inscriptos",0));
 
                 lista_reportes.Add(registro);
 

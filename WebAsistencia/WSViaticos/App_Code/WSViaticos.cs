@@ -2892,7 +2892,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public ResumenDePostulaciones[] GetTableroDeControlDePostulaciones()
+    public ResumenDePostulaciones[] GetTableroDeControlDePostulaciones(int id_usuario)
     {
 
         return RepoPostulaciones().TableroDeControlPostulaciones().ToArray();

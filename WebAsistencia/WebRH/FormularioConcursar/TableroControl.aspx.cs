@@ -15,11 +15,11 @@ public partial class FormularioConcursar_TableroControl : System.Web.UI.Page
         var usuario = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
         if (!IsPostBack)
         {
-           // var postul = Servicio().GetPostulacionById(usuario.Owner.Id, 86);
+            var tablero = Servicio().GetTableroDeControlDePostulaciones(usuario.Owner.Id);
 
-           // var postulacion = JsonConvert.SerializeObject(postul);
+            var tablero_serializado = JsonConvert.SerializeObject(tablero);
 
-           // this.postulacion.Value = postulacion;
+            this.tablero.Value = tablero_serializado;
         }
     }
 

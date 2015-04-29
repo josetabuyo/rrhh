@@ -1,25 +1,25 @@
 ﻿var PantallaEtapaDeTableroControl = {
 
-    DibujarTabla: function (postulaciones) {
+    DibujarTabla: function (tablero) {
         var _this = this;
         $("#search").show();
         $("#tabla_postulaciones").empty();
         var divGrilla = $('#tabla_postulaciones');
 
         var columnas = [];
-        columnas.push(new Columna("Perfil", { generar: function (una_postulacion) { return una_postulacion.Numero } }));
-        columnas.push(new Columna("Descripción de Perfil", { generar: function (una_postulacion) { return una_postulacion.Postulante.Apellido + ", " + una_postulacion.Postulante.Nombre } }));
-        columnas.push(new Columna("Comité", { generar: function (una_postulacion) { return una_postulacion.Perfil.Numero } }));
-        columnas.push(new Columna("A. Postulados", { generar: function (una_postulacion) { return una_postulacion.Perfil.Nivel } }));
-        columnas.push(new Columna("B. Inscriptos", { generar: function (una_postulacion) { return una_postulacion.Perfil.Tipo } }));
+        //columnas.push(new Columna("Perfil", { generar: function (un_tablero) { return un_tablero.IdPerfil } }));
+        columnas.push(new Columna("DescDePerfil", { generar: function (un_tablero) { return un_tablero.DescripcionPerfil } }));
+        columnas.push(new Columna("Comite", { generar: function (un_tablero) { return un_tablero.NumeroComite } }));
+        columnas.push(new Columna("A. Postulados", { generar: function (un_tablero) { return un_tablero.Postulados } }));
+        columnas.push(new Columna("B. Inscriptos", { generar: function (un_tablero) { return un_tablero.Inscriptos } }));
         
         this.GrillaDePostulaciones = new Grilla(columnas);
         this.GrillaDePostulaciones.AgregarEstilo("cuerpo_tabla_perfil tr td");
         this.GrillaDePostulaciones.CambiarEstiloCabecera("cabecera_tabla_pantalla_cargos");
-        this.GrillaDePostulaciones.SetOnRowClickEventHandler(function (un_perfil) { });
+        this.GrillaDePostulaciones.SetOnRowClickEventHandler(function (un_tablero) { });
 
 
-        this.GrillaDePostulaciones.CargarObjetos(postulaciones);
+        this.GrillaDePostulaciones.CargarObjetos(tablero);
         this.GrillaDePostulaciones.DibujarEn(divGrilla);
 
         $("#btn_generar_anexo").attr("style", "display:inline");
@@ -28,7 +28,7 @@
 
     BuscadorDeTabla: function () {
         var options = {
-            valueNames: ['NroPostulación', 'NroPerfil', 'Nivel', 'Tipo', 'Perfil', 'Estado']
+            valueNames: ['DescDePerfil', 'Comite']
         };
 
         var featureList = new List('contenedorTabla', options);

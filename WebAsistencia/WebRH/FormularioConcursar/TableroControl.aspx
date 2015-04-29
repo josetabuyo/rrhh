@@ -23,6 +23,7 @@
              <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
              <table id="tabla_postulaciones" style="width:100%;"></table>
             </div>
+             <asp:HiddenField ID="tablero" runat="server" />
     </form>
 </body>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
@@ -33,8 +34,9 @@
     Backend.start(function () {
         $(document).ready(function () {
             $('#search').hide();
-            var postulaciones_filtradas = [];
-            PantallaEtapaDeTableroControl.DibujarTabla(postulaciones_filtradas);
+
+            var tablero = JSON.parse($('#tablero').val());
+            PantallaEtapaDeTableroControl.DibujarTabla(tablero);
 
         });
     });

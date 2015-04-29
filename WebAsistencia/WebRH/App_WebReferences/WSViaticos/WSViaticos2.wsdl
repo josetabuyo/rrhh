@@ -1134,6 +1134,34 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetTableroDeControlDePostulaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTableroDeControlDePostulacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTableroDeControlDePostulacionesResult" type="tns:ArrayOfResumenDePostulaciones" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfResumenDePostulaciones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ResumenDePostulaciones" nillable="true" type="tns:ResumenDePostulaciones" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ResumenDePostulaciones">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdPerfil" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionPerfil" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroComite" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Postulados" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Inscriptos" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetPantallaRecepcionDocumentacion">
         <s:complexType>
           <s:sequence>
@@ -4832,6 +4860,12 @@
   <wsdl:message name="GuardarEtapaAPostulacionesSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarEtapaAPostulacionesResponse" />
   </wsdl:message>
+  <wsdl:message name="GetTableroDeControlDePostulacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTableroDeControlDePostulaciones" />
+  </wsdl:message>
+  <wsdl:message name="GetTableroDeControlDePostulacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTableroDeControlDePostulacionesResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPantallaRecepcionDocumentacionSoapIn">
     <wsdl:part name="parameters" element="tns:GetPantallaRecepcionDocumentacion" />
   </wsdl:message>
@@ -6053,6 +6087,10 @@
       <wsdl:input message="tns:GuardarEtapaAPostulacionesSoapIn" />
       <wsdl:output message="tns:GuardarEtapaAPostulacionesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetTableroDeControlDePostulaciones">
+      <wsdl:input message="tns:GetTableroDeControlDePostulacionesSoapIn" />
+      <wsdl:output message="tns:GetTableroDeControlDePostulacionesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPantallaRecepcionDocumentacion">
       <wsdl:input message="tns:GetPantallaRecepcionDocumentacionSoapIn" />
       <wsdl:output message="tns:GetPantallaRecepcionDocumentacionSoapOut" />
@@ -7141,6 +7179,15 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarEtapaAPostulaciones">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarEtapaAPostulaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTableroDeControlDePostulaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetTableroDeControlDePostulaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9106,6 +9153,15 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarEtapaAPostulaciones">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarEtapaAPostulaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTableroDeControlDePostulaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetTableroDeControlDePostulaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
