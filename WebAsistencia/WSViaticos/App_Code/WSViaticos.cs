@@ -2890,6 +2890,14 @@ public class WSViaticos : System.Web.Services.WebService
         return true;
         
     }
+
+    [WebMethod]
+    public ResumenDePostulaciones[] GetTableroDeControlDePostulaciones()
+    {
+
+        return RepoPostulaciones().TableroDeControlPostulaciones().ToArray();
+       
+    }
     
 
     [WebMethod]
@@ -2929,6 +2937,28 @@ public class WSViaticos : System.Web.Services.WebService
             return true;
         }
         else {
+            return false;
+        }
+
+    }
+
+    [WebMethod]
+    public bool PasarAEtapaInscripto(int id_postulacion, Usuario usuario)
+    {
+        
+        Dictionary<string, object> parametros = new Dictionary<string, object>();
+        parametros.Add("@idPostulacion", id_postulacion);
+        var etapas = RepoPostulaciones().GetPostulaciones(parametros).First().Etapas;
+
+        //VALIDO que hayan documentos para guardar y que la postulacion tenga solo la etapa de preinscripcion
+        //Le paso ETAPA 2 que es la de PREINSCRIPCION DOCUMENTAL
+        if (etapas.Last().Etapa.Id.Equals(ConstantesConcursar.EtapaPreinscripcionWeb.Id))
+        {
+            RepoPostulaciones().InsEtapaPostulacion(id_postulacion, ConstantesConcursar.EtapaInscripcionDocumental.Id, usuario.Id);
+            return true;
+        }
+        else
+        {
             return false;
         }
 

@@ -41,13 +41,27 @@
             }
 
             //pantalla.DocumentacionRecibida = lista_documentacion_recibida;
-
+/*
             Backend.GuardarDocumentacionRecibida(postulacion[0].value, lista_documentacion_recibida)
              .onSuccess(function (resultado) {
                  if (resultado == true) {
                      alertify.alert('Se guardaron las fojas con éxito y ha pasado al estado de Preincripción Documental');
                  } else {
                      alertify.alert('Esta postulación ya estaba con el estado Preinscripción Documental. Se guardaron las fojas con éxito. ');
+                 }
+
+                 //location.reload();
+             })
+            .onError(function (error) {
+                alertify.error(error.statusText);
+            });*/
+
+            Backend.PasarAEtapaInscripto(postulacion[0].value)
+             .onSuccess(function (resultado) {
+                 if (resultado == true) {
+                     alertify.alert('La postulación ha pasado al estado de Inscripción Documental');
+                 } else {
+                     alertify.alert('Esta postulación ya poseé el estado Inscripción Documental.');
                  }
 
                  //location.reload();
@@ -158,16 +172,16 @@
         legend_documentos.attr("id", "titulo_doc_curric");
 
         //legend_perfil.html("Documentación Obligatoria del perfil");
-        legend_documentos.html("Documentación del Curriculum");
+        //legend_documentos.html("Documentación del Curriculum");
 
         //fieldset_titulo_perfil.append(legend_perfil);
-        fieldset_titulo_documentos.append(legend_documentos);
+        //fieldset_titulo_documentos.append(legend_documentos);
 
         $("#btn_guardar").attr("style", "display:inline");
         $("#btn_comprobantes").attr("style", "display:inline");
         $("#btn_caratula").attr("style", "display:inline");
 
-        Backend.GetPantallaRecepcionDocumentacion(datos_postulacion)
+        /*Backend.GetPantallaRecepcionDocumentacion(datos_postulacion)
                     .onSuccess(function (mi_pantalla) {
                         pantalla = mi_pantalla;
                         //var nombre_perfil = $("#nombre_perfil");
@@ -177,7 +191,7 @@
                         _this.armarPantalla(mi_pantalla.CuadroPerfil, $('#detalle_documentos'));
                         _this.armarPantalla(mi_pantalla.DocumentacionRequerida, $('#detalle_documentos'));
                         _this.completarFoliosRecepcionados(mi_pantalla.DocumentacionRecibida, $('#detalle_documentos'));
-                    });
+                    });*/
     },
     //    armarPantallaPerfil: function (pantalla, div_caja_foliables) {
 

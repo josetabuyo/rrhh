@@ -44,7 +44,7 @@
            
             <div id="detalle_documentos"></div>
         </fieldset>
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Guardar Documentos" />
+        <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="INSCRIBIR" />
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_comprobantes" value="Imprimir comprobantes" />
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_caratula" onclick = "ImprimirCaratula()" value="Imprimir carátula" />
        </div>

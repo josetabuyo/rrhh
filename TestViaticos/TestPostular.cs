@@ -169,6 +169,27 @@ namespace TestViaticos
 
         }
 
+        [TestMethod]
+        public void deberia_generar_un_reporte_con_2_postulados_y_1_inscripto()
+        {
+
+            string source = @"  |IdPerfil       |PerfilDescripcion                  |NumeroComite    |Postulados     |Inscriptos |
+                                |2	            |Profesional del Trabajo Social     |1               |11             |6          |
+                                |3	            |Abogado                            |2               |9              |1          |";
+
+
+            var resultado_sp = TablaDeDatos.From(source);
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            //Assert.AreEqual("Profesional del Trabajo Social", RepoPostular().GenerarReporte());
+            //Assert.AreEqual(2, RepoPostular().GenerarReporte())
+            Assert.AreEqual(2, RepoPostular().TableroDeControlPostulaciones()[0].IdPerfil);
+            Assert.AreEqual(11, RepoPostular().TableroDeControlPostulaciones()[0].Postulados);
+            Assert.AreEqual(6, RepoPostular().TableroDeControlPostulaciones()[0].Inscriptos);
+            Assert.AreEqual(9, RepoPostular().TableroDeControlPostulaciones()[1].Postulados);
+
+        }
+
         public RepositorioDeCurriculum RepoCV()
         {
             return new RepositorioDeCurriculum(conexion);

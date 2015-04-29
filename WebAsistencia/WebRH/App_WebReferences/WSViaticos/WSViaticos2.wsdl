@@ -1195,6 +1195,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="PasarAEtapaInscripto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_postulacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PasarAEtapaInscriptoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PasarAEtapaInscriptoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="EliminarPostulacionPorUsuario">
         <s:complexType>
           <s:sequence>
@@ -4829,6 +4844,12 @@
   <wsdl:message name="GuardarDocumentacionRecibidaSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarDocumentacionRecibidaResponse" />
   </wsdl:message>
+  <wsdl:message name="PasarAEtapaInscriptoSoapIn">
+    <wsdl:part name="parameters" element="tns:PasarAEtapaInscripto" />
+  </wsdl:message>
+  <wsdl:message name="PasarAEtapaInscriptoSoapOut">
+    <wsdl:part name="parameters" element="tns:PasarAEtapaInscriptoResponse" />
+  </wsdl:message>
   <wsdl:message name="EliminarPostulacionPorUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:EliminarPostulacionPorUsuario" />
   </wsdl:message>
@@ -6040,6 +6061,10 @@
       <wsdl:input message="tns:GuardarDocumentacionRecibidaSoapIn" />
       <wsdl:output message="tns:GuardarDocumentacionRecibidaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="PasarAEtapaInscripto">
+      <wsdl:input message="tns:PasarAEtapaInscriptoSoapIn" />
+      <wsdl:output message="tns:PasarAEtapaInscriptoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="EliminarPostulacionPorUsuario">
       <wsdl:input message="tns:EliminarPostulacionPorUsuarioSoapIn" />
       <wsdl:output message="tns:EliminarPostulacionPorUsuarioSoapOut" />
@@ -7134,6 +7159,15 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarDocumentacionRecibida">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDocumentacionRecibida" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PasarAEtapaInscripto">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/PasarAEtapaInscripto" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9090,6 +9124,15 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarDocumentacionRecibida">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDocumentacionRecibida" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PasarAEtapaInscripto">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/PasarAEtapaInscripto" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

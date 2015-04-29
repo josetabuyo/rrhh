@@ -6,6 +6,7 @@ using General;
 using General.Repositorios;
 using General.MAU;
 using General.Postular;
+using System.Data;
 
 namespace General
 {
@@ -294,5 +295,57 @@ namespace General
             return anexo;
         }
 
+
+        public List<ResumenDePostulaciones> TableroDeControlPostulaciones()
+        {
+            var parametros = new Dictionary<string, object>();
+            var tablaReporte = conexion_bd.Ejecutar("dbo.CV_Get_Reporte", parametros);
+
+            List<ResumenDePostulaciones> lista_reportes = new List<ResumenDePostulaciones>();
+
+            //var valores = tablaReporte.Rows.ToList();
+            //valores.GroupBy(
+            //var valores_unicos = tablaReporte.Rows.g.GroupBy(r => r.GetSmallintAsInt("IdPerfil"));
+
+            //agrupo x perfil y x etapa. cuento postulaciones. 
+
+           // var postulados = tablaReporte.Rows.GroupBy(r => r.GetSmallintAsInt("IdPerfil")).FindAll(r => r.GetSmallintAsInt("IdEtapa") == 1).Count();
+           
+
+            /*var resultado = from a in tablaReporte.Rows.AsEnumerable()
+                            //where a.GetSmallintAsInt("IdEtapa") == 1// && a.GetSmallintAsInt("IdEtapa") == 3
+                            group a by new { columna1 = a.GetSmallintAsInt("IdPerfil"), columna4 = a.GetSmallintAsInt("IdEtapa") } into g
+                            select new { Perfil = g.Key.columna1,  Postulados = g.Key.columna4 };*/
+
+
+            foreach (var row in tablaReporte.Rows)
+            {
+                var registro = new ResumenDePostulaciones(row.GetSmallintAsInt("IdPerfil"), row.GetString("PerfilDescripcion"), row.GetSmallintAsInt("NumeroComite"), row.GetInt("Postulados"), row.GetInt("Inscriptos"));
+
+                lista_reportes.Add(registro);
+
+            }
+
+/*
+            foreach (var res in tablaReporte.Rows )
+	        {
+                if (res.GetInt("IdEtapa") == 1)
+                {
+                    
+                }
+                ReportePostular reporte = new ReportePostular();
+                reporte.DescripcionPerfil = res.GetString("PerfilDescripcion");
+                reporte.NumeroComite = res.GetSmallintAsInt("NumeroComite");
+                if (res.GetInt("IdEtapa"))
+                {
+                    
+                }
+                reporte.Postulados = res.GetInt("Postulados");
+
+                lista_reportes.Add(reporte);
+	        }*/
+
+            return lista_reportes;
+        }
     }
 }
