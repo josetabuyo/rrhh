@@ -2,7 +2,6 @@
 
     DibujarTabla: function (tablero) {
         var _this = this;
-        $("#search").show();
         $("#tabla_postulaciones").empty();
         var divGrilla = $('#tabla_postulaciones');
 
@@ -21,7 +20,7 @@
 
         this.GrillaDePostulaciones.CargarObjetos(tablero);
         this.GrillaDePostulaciones.DibujarEn(divGrilla);
-
+        _this.BuscadorDeTabla();
         $("#btn_generar_anexo").attr("style", "display:inline");
 
     },
@@ -33,7 +32,6 @@
 
         var featureList = new List('contenedorTabla', options);
     }
-
 
 }
 

@@ -33,8 +33,6 @@
 <script type="text/javascript">
     Backend.start(function () {
         $(document).ready(function () {
-            $('#search').hide();
-
             var tablero = JSON.parse($('#tablero').val());
             PantallaEtapaDeTableroControl.DibujarTabla(tablero);
 
