@@ -199,7 +199,18 @@ namespace General
         {
             Dictionary<string, object> parametros = new Dictionary<string, object>();
             parametros.Add("@NumeroPostulacion", codigo);
-            return this.GetPostulaciones(parametros).First();
+            try
+            {
+                 return this.GetPostulaciones(parametros).First();
+            }
+            catch (Exception e)
+            {
+
+                return null;
+                //throw e;
+            }
+          
+            //return this.GetPostulaciones(parametros).First();
         }
 
 
@@ -320,7 +331,7 @@ namespace General
 
             foreach (var row in tablaReporte.Rows)
             {
-                var registro = new ResumenDePostulaciones(row.GetSmallintAsInt("IdPerfil",0), row.GetString("PerfilDescripcion",""), row.GetSmallintAsInt("NumeroComite",0), row.GetInt("Postulados",0), row.GetInt("Inscriptos",0));
+                var registro = new ResumenDePostulaciones(row.GetSmallintAsInt("IdPerfil",0), row.GetString("PerfilDescripcion",""), row.GetString("PerfilNivel"), row.GetString("PerfilNumero"), row.GetString("PerfilAgrupamiento"), row.GetSmallintAsInt("NumeroComite",0), row.GetInt("Postulados",0), row.GetInt("Inscriptos",0));
 
                 lista_reportes.Add(registro);
 

@@ -173,9 +173,9 @@ namespace TestViaticos
         public void deberia_generar_un_reporte_con_2_postulados_y_1_inscripto()
         {
 
-            string source = @"  |IdPerfil       |PerfilDescripcion                  |NumeroComite    |Postulados     |Inscriptos |
-                                |2	            |Profesional del Trabajo Social     |1               |11             |6          |
-                                |3	            |Abogado                            |2               |9              |1          |";
+            string source = @"  |IdPerfil       |PerfilDescripcion                  |PerfilNivel    |PerfilNumero     |PerfilAgrupamiento   |NumeroComite    |Postulados     |Inscriptos |
+                                |2	            |Profesional del Trabajo Social     |A              |A-123            |General              |1               |11             |6          |
+                                |3	            |Abogado                            |B              |A-456            |Profesional          |2               |9              |1          |";
 
 
             var resultado_sp = TablaDeDatos.From(source);

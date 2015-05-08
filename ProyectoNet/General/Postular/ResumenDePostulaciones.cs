@@ -15,11 +15,11 @@ namespace General
 
         public ResumenDePostulaciones() { }
 
-        public ResumenDePostulaciones(int id_perfil, string descripcion_perfil, int numero_comite, int postulados, int inscriptos)
+        public ResumenDePostulaciones(int id_perfil, string descripcion_perfil,string perfil_nivel, string perfil_numero, string perfil_agrupamiento, int numero_comite, int postulados, int inscriptos)
         {
             // TODO: Complete member initialization
             this._idPerfil = id_perfil;
-            this._descPerfil = descripcion_perfil;
+            this._descPerfil = descripcion_perfil + " - Nivel " + perfil_nivel + " - " + perfil_agrupamiento + " - " + perfil_numero;
             this._numComite = numero_comite;
             this._postulados = postulados;
             this._inscriptos = inscriptos;
