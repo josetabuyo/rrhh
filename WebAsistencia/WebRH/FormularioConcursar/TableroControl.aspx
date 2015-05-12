@@ -20,6 +20,7 @@
                 <h2>Tablero de Control</h2>
             <br />
             <div id="contenedorTabla">
+             <input type="text" id="filtrar_comite" class="buscador" style="width:100px;" placeholder="Filtrar Comité"/>
              <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
              <table id="tabla_postulaciones" style="width:100%;"></table>
             </div>
@@ -34,8 +35,11 @@
     Backend.start(function () {
         $(document).ready(function () {
             var tablero = JSON.parse($('#tablero').val());
-            PantallaEtapaDeTableroControl.DibujarTabla(tablero);
+            PantallaEtapaDeTableroControl.InicializarPantalla(tablero);
 
+            $('#filtrar_comite').change(function () {
+                PantallaEtapaDeTableroControl.FiltrarPorComite();
+            });
         });
     });
 
