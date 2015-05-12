@@ -34,6 +34,16 @@
 <script type="text/javascript">
     Backend.start(function () {
         $(document).ready(function () {
+
+            //HACIENDO EL KEYDOWN EN VEZ DEL KEY UP Y CON EL PREVENT DEFAULT EL ENTER NO ACTUALIZA TODA LA PAGINA
+            var busqueda = $("#filtrar_comite");
+            busqueda.keydown(function (event) {
+                if (event.which == 13) {
+                    PantallaEtapaDeTableroControl.FiltrarPorComite();
+                    event.preventDefault();
+                }
+            });
+
             var tablero = JSON.parse($('#tablero').val());
             PantallaEtapaDeTableroControl.InicializarPantalla(tablero);
 
