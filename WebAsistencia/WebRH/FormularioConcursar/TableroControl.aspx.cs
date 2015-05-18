@@ -7,6 +7,10 @@ using System.Web.UI.WebControls;
 using Newtonsoft.Json;
 using WSViaticos;
 using Newtonsoft.Json.Linq;
+using ClosedXML.Excel;
+using System.IO;
+using System.Data;
+using System.Text;
 
 public partial class FormularioConcursar_TableroControl : System.Web.UI.Page
 {
@@ -20,11 +24,12 @@ public partial class FormularioConcursar_TableroControl : System.Web.UI.Page
             var tablero_serializado = JsonConvert.SerializeObject(tablero);
 
             this.tablero.Value = tablero_serializado;
-        }
+        }     
     }
 
     private WSViaticosSoapClient Servicio()
     {
         return new WSViaticosSoapClient();
     }
+
 }

@@ -19,12 +19,15 @@
         <div id="div_tablerocontrol" class="fondo_form" style="padding: 10px;">
                 <h2>Tablero de Control</h2>
             <br />
+            <iframe id="txtArea1" style="display:none"></iframe>
             <div id="contenedorTabla">
              <input type="text" id="filtrar_comite" class="buscador" style="width:100px;" placeholder="Filtrar Comité"/>
              <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
+             <button class="btn btn-primary" id="btnExport" style="float:right"> Exportar a Excel </button>
              <table id="tabla_postulaciones" style="width:100%;"></table>
             </div>
              <asp:HiddenField ID="tablero" runat="server" />
+                
     </form>
 </body>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
@@ -49,6 +52,9 @@
 
             $('#filtrar_comite').change(function () {
                 PantallaEtapaDeTableroControl.FiltrarPorComite();
+            });
+            $('#btnExport').click(function () {
+                PantallaEtapaDeTableroControl.fnExcelReport();
             });
         });
     });
