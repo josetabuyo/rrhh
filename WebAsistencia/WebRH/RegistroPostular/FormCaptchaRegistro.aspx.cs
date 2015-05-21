@@ -20,14 +20,15 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
         if (ValidarCampos())
         {
             var servicio = Servicio();
-            var personas = servicio.BuscarPersonas(JsonConvert.SerializeObject(new { Documento = Convert.ToInt32(this.txt_dni_registro.Text) }));
-            if (personas.Length > 0)
-            {
-                this.lb_mensajeError.Text = "Si bien tenemos sus datos personales registrados en nuestra base de RRHH, los mismos no se encuentran asociados a un correo electrónico de referencia. Este paso es FUNDAMENTAL para establecer una vía de comunicación estable. Por favor tenga a bien comunicarse por mail a la casilla concursos@desarrollosocial.gov.ar, enviando un mensaje con el asunto \"Solicito Alta al Sistema POSTULAR\". En el cuerpo del mensaje por favor especifique un teléfono y horario de contacto. Nos comunicaremos con usted a la mayor brevedad posible.";
-                ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
-            }
-            else
-            {
+            //Se habilita el registro de empleados del ministerio por pedido de Marta
+            //var personas = servicio.BuscarPersonas(JsonConvert.SerializeObject(new { Documento = Convert.ToInt32(this.txt_dni_registro.Text) }));
+            //if (personas.Length > 0)
+            //{
+            //    this.lb_mensajeError.Text = "Si bien tenemos sus datos personales registrados en nuestra base de RRHH, los mismos no se encuentran asociados a un correo electrónico de referencia. Este paso es FUNDAMENTAL para establecer una vía de comunicación estable. Por favor tenga a bien comunicarse por mail a la casilla concursos@desarrollosocial.gov.ar, enviando un mensaje con el asunto \"Solicito Alta al Sistema POSTULAR\". En el cuerpo del mensaje por favor especifique un teléfono y horario de contacto. Nos comunicaremos con usted a la mayor brevedad posible.";
+            //    ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
+            //}
+            //else
+            //{
                 AspiranteAUsuario aspirante = new AspiranteAUsuario();
                 aspirante.Apellido = this.txt_apellido_registro.Text;
                 aspirante.Documento = Convert.ToInt32(this.txt_dni_registro.Text);
@@ -44,7 +45,7 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
                     this.lb_mensajeError.Text = "No se ha podido generar el usuario. Verifique si ya se ha registrado con el mail ingresado o caso contrario contáctese con Recursos Humanos";
                     ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
                 }
-            }
+            //}
             
         }
         else
