@@ -19,6 +19,8 @@
         .onSuccess(function (postulaciones) {
             if (postulaciones.length == 0) {
                 alertify.alert('No se encontraron resultados');
+                $("#contenedorTabla").hide();
+                $("#detalle_de_comite").hide();
             } else {
                 _this.CargarIntegrantesComite(postulaciones[0]);
                 _this.DibujarTabla(postulaciones);
@@ -31,6 +33,7 @@
     },
 
     CargarIntegrantesComite: function (postulacion) {
+        $("#detalle_de_comite").show();
         var integrantes = postulacion.Perfil.Comite.Integrantes;
         var titulares = "";
         var suplentes = "";
@@ -49,6 +52,7 @@
 
     DibujarTabla: function (postulaciones) {
         var _this = this;
+        $("#contenedorTabla").show();
         $("#search").show();
         $("#tabla_postulaciones").empty();
         var divGrilla = $('#tabla_postulaciones');

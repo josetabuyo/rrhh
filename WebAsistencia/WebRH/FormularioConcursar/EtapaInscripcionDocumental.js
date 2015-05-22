@@ -18,12 +18,13 @@
         Backend.BuscarPostulacionesDePreInscriptos(id_comite)
         .onSuccess(function (postulaciones) {
             if (postulaciones.length == 0) {
-                $("#contenedorTabla").empty();
+               // $("#contenedorTabla").empty();
                 alertify.alert('No se encontraron resultados');
+                $("#contenedorTabla").hide();
+                $("#detalle_de_comite").hide();
                } else {
-                //        buscar todos los titulares y seplentes del comité y listarlos - Continuar
-                $('#comite_titular').text(postulaciones[0].Perfil.Comite.Integrantes[0].Apellido);
-
+                _this.CargarIntegrantesComite(postulaciones[0]);
+               
                 _this.DibujarTabla(postulaciones);
                 _this.BuscadorDeTabla();
                 _this.CargarComboPerfiles(postulaciones);
@@ -33,9 +34,27 @@
         });
     },
 
-    DibujarTabla: function (postulaciones) {
-        var _this = this;
+    CargarIntegrantesComite: function (postulacion) {
+        $("#detalle_de_comite").show();
+        var integrantes = postulacion.Perfil.Comite.Integrantes;
+        var titulares = "";
+        var suplentes = "";
+        for (var i = 0; i < integrantes.length; i++) {
+            if (integrantes[i].EsTitular) {
+                titulares = titulares + integrantes[i].Apellido + ", " + integrantes[i].Nombre + " - ";
+            } else {
+                suplentes = titulares + integrantes[i].Apellido + ", " + integrantes[i].Nombre + " - ";
+            }
+        };
 
+        $('#comite_titular').text(titulares.substring(0, titulares.length - 2));
+        $('#comite_suplente').text(suplentes.substring(0, suplentes.length - 2));
+
+    },
+
+    DibujarTabla: function (postulaciones) {
+        $("#contenedorTabla").show();
+        var _this = this;
         var ultima_posicion = postulaciones[0].Etapas.length - 1;
         var id_etapa_actual = postulaciones[0].Etapas[ultima_posicion].Etapa.Id;
 
