@@ -45,7 +45,7 @@
             <div id="detalle_documentos"></div>
         </fieldset>
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="INSCRIBIR" />
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_comprobantes" value="Imprimir comprobantes" />
+        <input type="button" style="display:none;" class="btn btn-primary" id="btn_comprobantes"  value="Imprimir anexo" />
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_caratula" onclick = "ImprimirCaratula()" value="Imprimir carátula" />
        </div>
     </div>
@@ -83,34 +83,53 @@
     });
 
 
+    $('#btn_comprobantes').click(function () {
+
+        var codigo = $("#span_codigo").text();
+        var fecha = $("#span_fecha").text();
+        alert(codigo);
+        //  localStorage.setItem("codigo_postu", codigo);
+        //  localStorage.setItem("fecha", fecha);
+
+
+        //    window.open('AnexoIIICantHojas.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
+
+        window.open("AnexoIIICantHojas.aspx?id=" + codigo + "&fh=" + fecha + "");
+
+        //window.location.href = 'AnexoIII.aspx';
+    });
+
+
+    function ImprimirAnexo3Modificado() {
+
+        alertify.confirm("¿Está seguro que desea imprimir el anexo de documentación?", function (e) {
+            if (e) {
+
+                localStorage.setItem("empleado", $("#span_empleado").text());
+
+
+                window.location.href = 'AnexoIIICantHojas.aspx';
+
+            } else {
+
+            }
+        });
+    
+    
+    }
+
+
     function ImprimirCaratula() {
         alertify.confirm("¿Está seguro que desea imprimir la carátula?", function (e) {
             if (e) {
-                // user clicked "ok"
-
-                // Store
+              
                 localStorage.setItem("empleado", $("#span_empleado").text());
                 localStorage.setItem("perfil", $("#span_perfil").text());
-
-
-                // Retrieve
-
-
-//                Empleado: Fernando Raul CAINO
-//                Código: AAA072
-//                Fecha de Postulación: 13/1/2015
-//                Perfil: Contador Público experto en Programación y Control Presupuestario
-//                Estado: Preinscripción Documental
-
-
-
-             
 
                 window.location.href = 'Caratula.aspx';
 
             } else {
-                // user clicked "cancel"
-                //alertify.error("");
+               
             }
         });
 
