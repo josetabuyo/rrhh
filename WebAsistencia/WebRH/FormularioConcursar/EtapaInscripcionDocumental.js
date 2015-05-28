@@ -59,6 +59,7 @@
         var id_etapa_actual = postulaciones[0].Etapas[ultima_posicion].Etapa.Id;
 
         $("#search").show();
+        $("#btnExport").show();
         $("#tabla_postulaciones").empty();
         var divGrilla = $('#tabla_postulaciones');
 

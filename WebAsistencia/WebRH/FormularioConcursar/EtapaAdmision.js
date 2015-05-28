@@ -4,6 +4,7 @@
         if ($('#id_comite').val() == "") {
             $('#id_perfil').prop("disabled", true);
             $('#btn_filtrar').prop("disabled", true);
+
         } else {
             $('#id_perfil').prop("disabled", false);
             $('#btn_filtrar').prop("disabled", false);
@@ -54,6 +55,7 @@
         var _this = this;
         $("#contenedorTabla").show();
         $("#search").show();
+        $("#btnExport").show();
         $("#tabla_postulaciones").empty();
         var divGrilla = $('#tabla_postulaciones');
 

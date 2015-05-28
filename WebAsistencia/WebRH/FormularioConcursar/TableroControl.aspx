@@ -31,7 +31,9 @@
     </form>
 </body>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
+  <script type="text/javascript" src="../Scripts/ExportarAExcel.js" ></script>
  <script type="text/javascript" src="TableroControl.js" />
+
 <%= Referencias.Javascript("../") %>
 
 <script type="text/javascript">
@@ -54,7 +56,7 @@
                 PantallaEtapaDeTableroControl.FiltrarPorComite();
             });
             $('#btnExport').click(function () {
-                PantallaEtapaDeTableroControl.fnExcelReport();
+                ExportarAExcel.fnExcelReport(document.getElementById('tabla_postulaciones'));
             });
         });
     });

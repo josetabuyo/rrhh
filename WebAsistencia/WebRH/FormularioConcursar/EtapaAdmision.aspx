@@ -38,6 +38,8 @@
             </div>
             <div id="contenedorTabla">
              <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
+             <button class="btn btn-primary" id="btnExport" style="float:right;"> Exportar a Excel </button>
+             <br />
              <table id="tabla_postulaciones" style="width:100%;"></table>
              <input type="button" style="display:none;" class="btn btn-primary" id="btn_generar_anexo" value="Generar Anexo" />
             </div>
@@ -59,6 +61,7 @@
     </form>
 </body>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
+  <script type="text/javascript" src="../Scripts/ExportarAExcel.js" ></script>
  <script type="text/javascript" src="EtapaAdmision.js" />
 <%= Referencias.Javascript("../") %>
 
@@ -66,7 +69,7 @@
     Backend.start(function () {
         $(document).ready(function () {
             $('#search').hide();
-
+            $('#btnExport').hide();
             var busqueda = $("#id_comite");
 
             //HACIENDO EL KEYDOWN EN VEZ DEL KEY UP Y CON EL PREVENT DEFAULT EL ENTER NO ACTUALIZA TODA LA PAGINA
@@ -84,7 +87,9 @@
             $('#id_perfil').change(function () {
                 PantallaEtapaDeAdmision.FiltrarPorPerfil();
             });
-
+            $('#btnExport').click(function () {
+                ExportarAExcel.fnExcelReport(document.getElementById('tabla_postulaciones'));
+            });
 
         });
     });

@@ -40,7 +40,11 @@
             </div>
             <div id="contenedorTabla">
              <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
-             <span style="float:right; margin-right: 4%;" id="txt_marcar_todos" ></span>
+             <div style="float:right; ">
+             <span id="txt_marcar_todos" style="margin-right: 10px;"></span>
+              <button class="btn btn-primary" id="btnExport" > Exportar a Excel </button>
+              </div>
+              <br />
              <table id="tabla_postulaciones" style="width:100%;"></table>
              <input type="button" style="display:none;" class="btn btn-primary" id="btn_generar_anexo" value="Generar Anexo" />
             </div>
@@ -48,6 +52,7 @@
     </form>
 </body>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
+ <script type="text/javascript" src="../Scripts/ExportarAExcel.js" ></script>
  <script type="text/javascript" src="EtapaInscripcionDocumental.js" />
 <%= Referencias.Javascript("../") %>
 
@@ -66,6 +71,7 @@
 
 
             $('#search').hide();
+            $('#btnExport').hide();
 
             $('#id_comite').change(function () {
                 PantallaEtapaDeInscripcion.HabilitarBuscarComite();
@@ -74,7 +80,9 @@
             $('#id_perfil').change(function () {
                 PantallaEtapaDeInscripcion.FiltrarPorPerfil();
             });
-
+            $('#btnExport').click(function () {
+                ExportarAExcel.fnExcelReport(document.getElementById('tabla_postulaciones'));
+            });
 
         });
     });
