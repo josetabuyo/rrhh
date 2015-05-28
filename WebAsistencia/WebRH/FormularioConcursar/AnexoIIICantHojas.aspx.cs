@@ -25,7 +25,7 @@ public partial class FormularioConcursar_Default : System.Web.UI.Page
         if (!IsPostBack)
         {
             var cv = Servicio().GetCurriculumVersion(usuario.Owner.Id, fh_postulacion);
-            var postulacion = Servicio().GetPostulacionById(usuario.Owner.Id, int.Parse(id_postulacion));
+            var postulacion = Servicio().GetPostulacionesPorCodigo(id_postulacion);
 
             var curriculum = JsonConvert.SerializeObject(cv);
 
