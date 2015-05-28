@@ -105,6 +105,8 @@ label, input, button, select, textarea {
     font-size: 14px;
     font-weight: normal;
     line-height: 20px;
+    width: 76px;
+    margin-left: 0px;
 }
 
 .table th, .table td {
