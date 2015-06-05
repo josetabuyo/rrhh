@@ -87,7 +87,7 @@
 
         var codigo = $("#span_codigo").text();
         var fecha = $("#span_fecha").text();
-        alert(codigo);
+        //alert(codigo);
         //  localStorage.setItem("codigo_postu", codigo);
         //  localStorage.setItem("fecha", fecha);
 
