@@ -56,6 +56,7 @@
         $("#contenedorTabla").show();
         $("#search").show();
         $("#btnExport").show();
+        $("#id_estado").show();
         $("#tabla_postulaciones").empty();
         var divGrilla = $('#tabla_postulaciones');
 
@@ -78,7 +79,7 @@
                 img.attr('height', '25px');
                 btn_accion.append(img);
                 btn_accion.click(function () {
-                    _this.CambiarEstadoPostulacion(una_postulacion);
+                    _this.CambiarEstadoPostulacion(una_postulacion, postulaciones);
                 });
 
                 return btn_accion;
@@ -88,7 +89,6 @@
         this.GrillaDePostulaciones = new Grilla(columnas);
         this.GrillaDePostulaciones.AgregarEstilo("cuerpo_tabla_perfil tr td");
         this.GrillaDePostulaciones.CambiarEstiloCabecera("cabecera_tabla_pantalla_cargos");
-        this.AgregarEstilosEstado();
         this.GrillaDePostulaciones.SetOnRowClickEventHandler(function (un_perfil) { });
 
 
@@ -117,13 +117,73 @@
 
     },
 
-    CambiarEstadoPostulacion: function (una_postulacion) {
+    FiltrarPorEstado: function () {
+        var postulaciones = this.postulaciones;
+        var postulaciones_filtradas = [];
+        var id_estado = $('#id_estado').val()
+        if (id_estado == 0) {
+            postulaciones_filtradas = this.postulaciones;
+        } else {
+            for (var i = 0; i < postulaciones.length; i++) {
+                if (postulaciones[i].Etapas[postulaciones[i].Etapas.length - 1].Etapa.Id == id_estado) {
+                    postulaciones_filtradas.push(postulaciones[i]);
+                }
+            }
+        }
+
+        this.DibujarTabla(postulaciones_filtradas);
 
     },
 
-    AgregarEstilosEstado: function (){
-    
+    CambiarEstadoPostulacion: function (una_postulacion, postulaciones) {
+        //**************************************************************************************//
+        //***CONSTANTES QUE TIENEN QUE SER IDÉNTICAS A LAS PUESTAS EN CONSTANTESCONCURSAR.CS***//
+        //*************************************************************************************//
+        var constante_id_admitido = 4;
+        var constante_id_no_admitido = 5;
+        var constante_id_inscripcion_documental = 3;
+
+        var constante_desc_admitido = "Admitido".fontcolor("green");
+        var constante_desc_no_admitido = "No Admitido".fontcolor("red");
+        var constante_desc_inscripcion_documental = "Inscripción Documental"
+        //**************************************************************************************//
+        //**************************************************************************************//
+        //**************************************************************************************//
+        var estado_actual = this.EstadoDeLaEtapa(una_postulacion);
+
+        if (this.EtapaOriginal(estado_actual, constante_desc_inscripcion_documental)) {
+
+            this.CambiarEtapaSiguiente(constante_id_admitido, constante_desc_admitido, una_postulacion, postulaciones);
+        }
+        if (this.EtapaOriginal(estado_actual, constante_desc_admitido)) {
+
+            this.CambiarEtapaSiguiente(constante_id_no_admitido, constante_desc_no_admitido, una_postulacion, postulaciones);
+        }
+        if (this.EtapaOriginal(estado_actual, constante_desc_no_admitido)) {
+
+            this.CambiarEtapaSiguiente(constante_id_inscripcion_documental, constante_desc_inscripcion_documental, una_postulacion, postulaciones);
+        }
+
+        this.DibujarTabla(postulaciones);
     },
+
+    EtapaOriginal: function (estado_actual, etapa) {
+        if (estado_actual == etapa) {
+            return true;
+        }
+        return false;
+    },
+   
+    CambiarEtapaSiguiente: function (id_nueva_etapa, descripcion_nueva_etapa, una_postulacion, postulaciones) {
+        
+        for (var i = 0; i < postulaciones.length; i++) {
+            if (postulaciones[i].Etapas[una_postulacion.Etapas.length - 1].Etapa.Id == una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Id) {
+                postulaciones[i].Etapas[una_postulacion.Etapas.length - 1].Etapa.Id = id_nueva_etapa;
+                postulaciones[i].Etapas[una_postulacion.Etapas.length - 1].Etapa.Descripcion = descripcion_nueva_etapa;
+            }
+        }
+    },
+
 
     BuscadorDeTabla: function () {
         var options = {

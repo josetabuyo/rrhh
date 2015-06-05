@@ -10,6 +10,12 @@
     <%= Referencias.Css("../") %>
     <link rel="stylesheet" href="EstilosPostular.css" />
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+    <style type="text/css">
+    .Estado
+    {
+        width:170px;
+    }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -36,28 +42,20 @@
                     <div class="grupo_campos nueva_linea">Comité Suplente:&nbsp;</div><span id="comite_suplente"></span>
                 </div>
             </div>
+            <br />
             <div id="contenedorTabla">
-             <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
-             <button class="btn btn-primary" id="btnExport" style="float:right;"> Exportar a Excel </button>
+             <input type="text" id="search" class="search" class="buscador" placeholder="Buscar" style="display:none;" />
+              <select id="id_estado" style="margin-left: 10px; width: 170px; display:none;"> 
+                  <option value="0">Todos</option>
+                  <option value="3">Inscripcion Documental</option>
+                  <option value="4">Admitidos</option>
+                  <option value="5">No Admitidos</option>
+              </select>
+             <button class="btn btn-primary" id="btnExport" style="float:right; display:none;"> Exportar a Excel </button>
              <br />
              <table id="tabla_postulaciones" style="width:100%;"></table>
              <input type="button" style="display:none;" class="btn btn-primary" id="btn_generar_anexo" value="Generar Anexo" />
             </div>
-       
-        <%--<div id="requisitos_perfil"></div>
-        <fieldset id="cuadro_perfil">
-           
-            <div id="detalle_perfil"></div>
-        </fieldset>
-        <fieldset id="cuadro_documentos">
-           
-            <div id="detalle_documentos"></div>
-        </fieldset>
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Guardar" />--%>
-       </div>
-    </div>
-    <%--<asp:HiddenField ID="postulacion" runat="server" />
-    <asp:HiddenField ID="idPostulacion" runat="server" />--%>
     </form>
 </body>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
@@ -68,8 +66,6 @@
 <script type="text/javascript">
     Backend.start(function () {
         $(document).ready(function () {
-            $('#search').hide();
-            $('#btnExport').hide();
             var busqueda = $("#id_comite");
 
             //HACIENDO EL KEYDOWN EN VEZ DEL KEY UP Y CON EL PREVENT DEFAULT EL ENTER NO ACTUALIZA TODA LA PAGINA
@@ -87,6 +83,10 @@
             $('#id_perfil').change(function () {
                 PantallaEtapaDeAdmision.FiltrarPorPerfil();
             });
+            $('#id_estado').change(function () {
+                PantallaEtapaDeAdmision.FiltrarPorEstado();
+            });
+
             $('#btnExport').click(function () {
                 ExportarAExcel.fnExcelReport(document.getElementById('tabla_postulaciones'));
             });
