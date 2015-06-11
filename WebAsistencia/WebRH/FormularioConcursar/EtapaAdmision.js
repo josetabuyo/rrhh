@@ -37,8 +37,8 @@
 
         Backend.GuardarCambiosEnAdmitidos(this.postulaciones)
         .onSuccess(function () {
-           
-                alertify.alert('Datos Guardados Correctamente');
+
+            alertify.alert('Datos Guardados Correctamente');
 
         });
     },
@@ -100,12 +100,13 @@
         this.GrillaDePostulaciones.AgregarEstilo("cuerpo_tabla_perfil tr td");
         this.GrillaDePostulaciones.CambiarEstiloCabecera("cabecera_tabla_pantalla_cargos");
         this.GrillaDePostulaciones.SetOnRowClickEventHandler(function (un_perfil) { });
-
+        this.EstiloTextos(postulaciones);
 
         this.GrillaDePostulaciones.CargarObjetos(postulaciones);
         this.GrillaDePostulaciones.DibujarEn(divGrilla);
 
         $("#btn_generar_anexo").attr("style", "display:inline");
+        $("#btn_guardar").attr("style", "display:inline");
 
     },
 
@@ -143,6 +144,16 @@
 
         this.DibujarTabla(postulaciones_filtradas);
 
+    },
+    EstiloTextos: function (postulaciones) {
+        for (var i = 0; i < postulaciones.length; i++) {
+            if (postulaciones[i].Etapas[postulaciones[i].Etapas.length - 1].Etapa.Descripcion == "Admitido") {
+                postulaciones[i].Etapas[postulaciones[i].Etapas.length - 1].Etapa.Descripcion = "Admitido".fontcolor("green");
+            }
+            if (postulaciones[i].Etapas[postulaciones[i].Etapas.length - 1].Etapa.Descripcion == "No Admitido") {
+                postulaciones[i].Etapas[postulaciones[i].Etapas.length - 1].Etapa.Descripcion = "No Admitido".fontcolor("red");
+            } 
+        }
     },
 
     CambiarEstadoPostulacion: function (una_postulacion, postulaciones) {
@@ -183,9 +194,9 @@
         }
         return false;
     },
-   
+
     CambiarEtapaSiguiente: function (id_nueva_etapa, descripcion_nueva_etapa, una_postulacion, postulaciones) {
-        
+
         for (var i = 0; i < postulaciones.length; i++) {
             if (postulaciones[i].Id == una_postulacion.Id) {//(postulaciones[i].Etapas[una_postulacion.Etapas.length - 1].Etapa.Id == una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Id) {
                 postulaciones[i].Etapas[una_postulacion.Etapas.length - 1].Etapa.Id = id_nueva_etapa;
@@ -216,7 +227,7 @@
 
         return una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Descripcion
     },
-   
+
     CargarComboPerfiles: function (postulaciones) {
 
         $("#id_perfil").append("<option>Todos</option>")

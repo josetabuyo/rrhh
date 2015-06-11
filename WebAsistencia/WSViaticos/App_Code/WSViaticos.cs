@@ -2868,10 +2868,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones)
-    {
+    public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones, Usuario usuario)
+    {   
 
-        RepoPostulaciones().GuardarCambiosEnAdmitidos(postulaciones);
+        RepoPostulaciones().GuardarCambiosEnAdmitidos(postulaciones, usuario.Id);
     }
 
     [WebMethod]

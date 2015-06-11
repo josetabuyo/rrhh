@@ -261,25 +261,32 @@ namespace General
             conexion_bd.EjecutarSinResultado("dbo.CV_Ins_EtapaPostulación", parametros);
         }
 
+        protected static List<Postulacion> postulaciones_en_pantalla;
         public List<Postulacion> BuscarPostulacionesPorEtapas(int id_comite, List<EtapaConcurso> etapas)
         {
             List<Postulacion> postulaciones_buscadas = new List<Postulacion>();
             postulaciones_buscadas = GetPostulacionesPorComite(id_comite);
-            postulaciones_buscadas = postulaciones_buscadas.FindAll(p => PerteneceA(p, etapas) );
-            return postulaciones_buscadas;
+            postulaciones_en_pantalla = postulaciones_buscadas.FindAll(p => PerteneceA(p, etapas));
+            return postulaciones_en_pantalla;
         }
 
-        public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones)
+        public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones, int id_usuario)
         {
-            string hola = "";
-            
+            Postulacion postulacion_original;
+            postulaciones.ForEach(postulacion => {
+
+                postulacion_original = postulaciones_en_pantalla.Find(p => p.Id == postulacion.Id);
+                if (postulacion.EtapaActual().Etapa.Id != postulacion_original.EtapaActual().Etapa.Id)
+                {
+                    InsEtapaPostulacion(postulacion.Id, postulacion.EtapaActual().Etapa.Id, id_usuario);
+                }
+            });
+  
         }
 
         private bool PerteneceA(Postulacion postulacion, List<EtapaConcurso> etapas)
         {
-           List<EtapaPostulacion> etapas_postulacion = postulacion.Etapas;
-           etapas_postulacion = etapas_postulacion.OrderByDescending(e => e.Fecha).ToList();
-           if (etapas.Exists(e => e.Id == etapas_postulacion.First().Etapa.Id))
+           if (etapas.Exists(e => e.Id == postulacion.EtapaActual().Etapa.Id))
            {
                return true;
            }
