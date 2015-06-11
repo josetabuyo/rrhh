@@ -2868,6 +2868,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones)
+    {
+
+        RepoPostulaciones().GuardarCambiosEnAdmitidos(postulaciones);
+    }
+
+    [WebMethod]
     public Postulacion[] BuscarPostulacionesDePreInscriptos(int id_comite)
     {
         List<EtapaConcurso> etapas = new List<EtapaConcurso> { ConstantesConcursar.EtapaPreinscripcionDocumental };
@@ -2954,7 +2961,7 @@ public class WSViaticos : System.Web.Services.WebService
         //Le paso ETAPA 2 que es la de PREINSCRIPCION DOCUMENTAL
         if (etapas.Last().Etapa.Id.Equals(ConstantesConcursar.EtapaPreinscripcionWeb.Id))
         {
-            RepoPostulaciones().InsEtapaPostulacion(id_postulacion, ConstantesConcursar.EtapaInscripcionDocumental.Id, usuario.Id);
+            RepoPostulaciones().InsEtapaPostulacion(id_postulacion, ConstantesConcursar.EtapaPreinscripcionDocumental.Id, usuario.Id);
             return true;
         }
         else

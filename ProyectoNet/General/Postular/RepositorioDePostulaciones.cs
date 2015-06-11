@@ -264,8 +264,26 @@ namespace General
         public List<Postulacion> BuscarPostulacionesPorEtapas(int id_comite, List<EtapaConcurso> etapas)
         {
             List<Postulacion> postulaciones_buscadas = new List<Postulacion>();
-            postulaciones_buscadas = GetPostulacionesPorComite(id_comite).FindAll(p => etapas.Exists(e => e.Id == p.EtapaEn(DateTime.Today).Etapa.Id) );
+            postulaciones_buscadas = GetPostulacionesPorComite(id_comite);
+            postulaciones_buscadas = postulaciones_buscadas.FindAll(p => PerteneceA(p, etapas) );
             return postulaciones_buscadas;
+        }
+
+        public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones)
+        {
+            string hola = "";
+            
+        }
+
+        private bool PerteneceA(Postulacion postulacion, List<EtapaConcurso> etapas)
+        {
+           List<EtapaPostulacion> etapas_postulacion = postulacion.Etapas;
+           etapas_postulacion = etapas_postulacion.OrderByDescending(e => e.Fecha).ToList();
+           if (etapas.Exists(e => e.Id == etapas_postulacion.First().Etapa.Id))
+           {
+               return true;
+           }
+            return false;
         }
 
 

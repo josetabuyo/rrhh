@@ -54,6 +54,7 @@
              <button class="btn btn-primary" id="btnExport" style="float:right; display:none;"> Exportar a Excel </button>
              <br />
              <table id="tabla_postulaciones" style="width:100%;"></table>
+             <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="Guardar Cambios" />
              <input type="button" style="display:none;" class="btn btn-primary" id="btn_generar_anexo" value="Generar Anexo" />
             </div>
     </form>
@@ -89,6 +90,9 @@
 
             $('#btnExport').click(function () {
                 ExportarAExcel.fnExcelReport(document.getElementById('tabla_postulaciones'));
+            });
+            $('#btn_guardar').click(function () {
+                PantallaEtapaDeAdmision.GuardarCambios();
             });
 
         });

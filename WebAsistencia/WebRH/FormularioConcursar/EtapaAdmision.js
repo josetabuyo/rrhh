@@ -33,6 +33,16 @@
         });
     },
 
+    GuardarCambios: function () {
+
+        Backend.GuardarCambiosEnAdmitidos(this.postulaciones)
+        .onSuccess(function () {
+           
+                alertify.alert('Datos Guardados Correctamente');
+
+        });
+    },
+
     CargarIntegrantesComite: function (postulacion) {
         $("#detalle_de_comite").show();
         var integrantes = postulacion.Perfil.Comite.Integrantes;
@@ -177,7 +187,7 @@
     CambiarEtapaSiguiente: function (id_nueva_etapa, descripcion_nueva_etapa, una_postulacion, postulaciones) {
         
         for (var i = 0; i < postulaciones.length; i++) {
-            if (postulaciones[i].Etapas[una_postulacion.Etapas.length - 1].Etapa.Id == una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Id) {
+            if (postulaciones[i].Id == una_postulacion.Id) {//(postulaciones[i].Etapas[una_postulacion.Etapas.length - 1].Etapa.Id == una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Id) {
                 postulaciones[i].Etapas[una_postulacion.Etapas.length - 1].Etapa.Id = id_nueva_etapa;
                 postulaciones[i].Etapas[una_postulacion.Etapas.length - 1].Etapa.Descripcion = descripcion_nueva_etapa;
             }
@@ -206,7 +216,7 @@
 
         return una_postulacion.Etapas[una_postulacion.Etapas.length - 1].Etapa.Descripcion
     },
-
+   
     CargarComboPerfiles: function (postulaciones) {
 
         $("#id_perfil").append("<option>Todos</option>")
