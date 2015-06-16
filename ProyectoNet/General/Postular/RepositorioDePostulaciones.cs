@@ -267,7 +267,18 @@ namespace General
             List<Postulacion> postulaciones_buscadas = new List<Postulacion>();
             postulaciones_buscadas = GetPostulacionesPorComite(id_comite);
             postulaciones_en_pantalla = postulaciones_buscadas.FindAll(p => PerteneceA(p, etapas));
+            postulaciones_en_pantalla = SoloPostulacionvigente(postulaciones_en_pantalla);
             return postulaciones_en_pantalla;
+        }
+
+        private List<Postulacion> SoloPostulacionvigente(List<Postulacion> postulaciones_en_pantalla)
+        {
+            List<Postulacion> postulaciones_con_etapas_vigentes = new List<Postulacion>();
+            postulaciones_en_pantalla.ForEach(p => {
+                postulaciones_con_etapas_vigentes.Add(p.SoloEtapaVigente());
+            });
+
+            return postulaciones_con_etapas_vigentes;
         }
 
         public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones, int id_usuario)
