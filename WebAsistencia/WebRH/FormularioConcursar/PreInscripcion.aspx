@@ -38,40 +38,40 @@
                     <div class="grupo_campos nueva_linea">
                         <label for="nombre">
                             Nombre <em>*</em></label>
-                        <input id="nombre" type="text" rh-control-type="textbox" rh-model-property="Nombre"
+                        <input id="nombre" type="text" rh-control-type="textbox" rh-model-property="Nombre" disabled="true"
                             style="width: 160px;" data-validar="esNoBlanco" maxlength="100" />
                     </div>
                     <div class="grupo_campos">
                         <label for="apellido">
                             Apellido <em>*</em></label>
-                        <input id="apellido" type="text" style="width: 160px;" rh-control-type="textbox"
+                        <input id="apellido" type="text" style="width: 160px;" rh-control-type="textbox" disabled="true"
                             rh-model-property="Apellido" data-validar="esNoBlanco" />
                     </div>
                     <div id="contenedor_cmb_sexo" class="grupo_campos">
                         <label for="cmb_sexo">
                             Sexo <em>*</em></label>
-                        <select id="cmb_sexo" style="width: 100px;" rh-control-type="combo" rh-data-provider="Sexos"
+                        <select id="cmb_sexo" style="width: 100px;" rh-control-type="combo" rh-data-provider="Sexos" disabled="true"
                             rh-model-property="Sexo" data-validar="haySeleccionEnCombo">
                         </select>
                     </div>
                     <div id="contenedor_cmb_estado_civil" class="grupo_campos">
                         <label for="cmb_estadoCivil">
                             Estado Civil <em>*</em></label>
-                        <select id="cmb_estadoCivil" style="width: 160px;" rh-control-type="combo" rh-data-provider="EstadosCiviles"
+                        <select id="cmb_estadoCivil" style="width: 160px;" rh-control-type="combo" rh-data-provider="EstadosCiviles" disabled="true"
                             rh-model-property="EstadoCivil" data-validar="haySeleccionEnCombo">
                         </select>
                     </div>
                     <div class="grupo_campos nueva_linea">
                         <label class="etiqueta_campo" for="cmb_tipoDocumento">
                             Tipo Documento <em>*</em></label>
-                        <select id="cmb_tipoDocumento" style="width: 170px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento"
+                        <select id="cmb_tipoDocumento" style="width: 170px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento" disabled="true"
                             rh-model-property="TipoDocumento" data-validar="haySeleccionEnCombo">
                         </select>
                     </div>
                     <div class="grupo_campos">
                         <label class="etiqueta_campo" for="txt_documento">
                             Nro Documento <em>*</em></label>
-                        <input id="txt_documento" type="text" style="width: 160px;" rh-control-type="textbox"
+                        <input id="txt_documento" type="text" style="width: 160px;" rh-control-type="textbox" disabled="true"
                             rh-model-property="Dni" data-validar="esNumeroNatural" />
                     </div>
                     <div class="grupo_campos">
@@ -80,23 +80,23 @@
                             <h5 style="display: inline-block;">
                                 (Ej.:99-99999999-9)</h5>
                         </label>
-                        <input id="cuil" type="text" style="width: 270px;" data-validar="esNoBlanco" />
+                        <input id="cuil" type="text" style="width: 270px;" data-validar="esNoBlanco" disabled="true" /> 
                     </div>
                     <div class="grupo_campos nueva_linea">
                         <label class="etiqueta_campo" for="txt_fechaNac">
                             Fecha Nacimiento <em>*</em></label>
-                        <input type="text" id="txt_fechaNac" style="width: 110px;" rh-control-type="datepicker"
+                        <input type="text" id="txt_fechaNac" style="width: 110px;" rh-control-type="datepicker" disabled="true"
                             rh-model-property="FechaNacimiento" data-validar="esNoBlanco" />
                     </div>
                     <div class="grupo_campos">
                         <label class="etiqueta_campo" for="cmb_lugar_nacimiento">
                             Lugar Nacimiento <em>*</em></label>
-                        <input type="text" id="cmb_lugar_nacimiento" style="width: 210px;" rh-control-type="textbox"
+                        <input type="text" id="cmb_lugar_nacimiento" style="width: 210px;" rh-control-type="textbox" disabled="true"
                             rh-model-property="LugarDeNacimiento" data-validar="esNoBlanco" /></div>
                     <div class="grupo_campos">
                         <label class="etiqueta_campo" for="cmb_nacionalidad">
                             Nacionalidad <em>*</em></label>
-                        <select id="cmb_nacionalidad" style="width: 280px;" rh-control-type="combo" rh-data-provider="Nacionalidades"
+                        <select id="cmb_nacionalidad" style="width: 280px;" rh-control-type="combo" rh-data-provider="Nacionalidades" disabled="true"
                             rh-model-property="Nacionalidad" data-validar="haySeleccionEnCombo">
                         </select>
                     </div>

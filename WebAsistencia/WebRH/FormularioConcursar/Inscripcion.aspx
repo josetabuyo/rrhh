@@ -111,6 +111,8 @@
               </tr>
             </table>
             </div>
+
+            <!-- SACAR A PEDIDO DE FABY
             <div id = "cont_titulo_completar_informacion">
                 <p>Es deseable que complete la siguiente informaci&oacute;n:</p>
             </div>
@@ -122,9 +124,10 @@
             <div id="cont_info_a_completar_2">
                 <label>Observaciones</label>
                 <textarea id="txt_observaciones" rows="2" cols="80"></textarea>
-            </div>
+            </div> 
             <hr />
-
+            -->
+            <br />
             <div>
                 <p class="subtitulo_incripcion" >Documentaci&oacute;n a presentar: Verifique que la misma est&eacute; completa, podr&aacute; imprimirla una vez confirmada la postulaci&oacute;n:</p>
             </div>
@@ -151,7 +154,7 @@
                     g) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
                     h) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
                 </p>
-                <p class="aclaraciones2"><input id="chk_bases" type="checkbox" />He leído y acepto las Bases y Condiciones del Concurso al que me postulo</p>
+                <p style="font-size:larger;" class="aclaraciones2"><input id="chk_bases" type="checkbox" />&nbsp;He leído y acepto las Bases y Condiciones del Concurso al que me postulo</p>
                 <a style="margin-right: 10px;" class="btn btn-primary" href="Postulaciones.aspx">Cancelar</a>
                 <input type="button" class="btn btn-primary" id="btn_postularse" value="Confirmar Postulación" />
             </div>
