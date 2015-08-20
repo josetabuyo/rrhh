@@ -12,6 +12,7 @@ namespace General
 
     public class DDJJ104
     {
+        public int IdDDJJ { get; set; }
         public Area Area { get; set; }
         public int CantidadPersonas { get; set; }
         public int Estado { get; set; }

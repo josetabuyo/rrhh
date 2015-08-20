@@ -76,12 +76,12 @@ namespace General
 
         private string ObtenerCategoria(SqlDataReader dr)
         {
-            if (dr.GetValue(dr.GetOrdinal("grado")).ToString() == "-")
+            if (dr.GetValue(dr.GetOrdinal("Grado")).ToString() == "-")
             {
-                return dr.GetValue(dr.GetOrdinal("nivel")).ToString() + '-' + dr.GetValue(dr.GetOrdinal("grado")).ToString() + '#' + dr.GetString(dr.GetOrdinal("mod_contratacion"));
+                return dr.GetValue(dr.GetOrdinal("Nivel")).ToString() + '-' + dr.GetValue(dr.GetOrdinal("Grado")).ToString() + '#' + dr.GetString(dr.GetOrdinal("mod_contratacion"));
             }
             
-            return dr.GetValue(dr.GetOrdinal("nivel")).ToString() + '-' + int.Parse(dr.GetValue(dr.GetOrdinal("grado")).ToString()).ToString("D2") + '#' + dr.GetString(dr.GetOrdinal("mod_contratacion"));
+            return dr.GetValue(dr.GetOrdinal("Nivel")).ToString() + '-' + int.Parse(dr.GetValue(dr.GetOrdinal("Grado")).ToString()).ToString("D2") + '#' + dr.GetString(dr.GetOrdinal("mod_contratacion"));
         }
 
 
@@ -139,7 +139,7 @@ namespace General
             //Inasistencia InasistenciaActual;
             //PaseDeArea PasePendiente;
 
-            ConexionDB cn = new ConexionDB("dbo.Web_GetAgentesDelArea");
+            ConexionDB cn = new ConexionDB("dbo.PLA_GetAgentesDDJJ104");
             cn.AsignarParametro("@idArea", unArea.Id);
             //@buscarInferiores = 0 -> buscar dependencias informales
             //@buscarInferiores = 1 -> buscar dependencias formales
@@ -159,12 +159,12 @@ namespace General
                 persona = new Persona
                 {
                     Documento = dr.GetInt32(dr.GetOrdinal("nro_documento")),
-                    Es1184 = dr.GetInt32(dr.GetOrdinal("Es1184")) == 1,
+                    //Es1184 = dr.GetInt32(dr.GetOrdinal("Es1184")) == 1,
                     Nombre = dr.GetString(dr.GetOrdinal("nombre")),
                     Apellido = dr.GetString(dr.GetOrdinal("apellido")),
-                    Legajo = dr.GetValue(dr.GetOrdinal("legajo")).ToString(),                    
-                    Nivel = dr.GetValue(dr.GetOrdinal("nivel")).ToString(),
-                    Grado = dr.GetValue(dr.GetOrdinal("grado")).ToString(),
+                    Legajo = dr.GetValue(dr.GetOrdinal("id_interna")).ToString(),                    
+                    Nivel = dr.GetValue(dr.GetOrdinal("Nivel")).ToString(),
+                    Grado = dr.GetValue(dr.GetOrdinal("Grado")).ToString(),
                     Cuit = dr.GetValue(dr.GetOrdinal("cuit")).ToString(),
                     Id = dr.GetInt32(dr.GetOrdinal("idpersona")),                    
                     Categoria = ObtenerCategoria(dr),
@@ -172,7 +172,7 @@ namespace General
 
                     TipoDePlanta = new TipoDePlanta
                     {
-                        Descripcion = dr.GetValue(dr.GetOrdinal("planta")).ToString()
+                        Descripcion = dr.GetValue(dr.GetOrdinal("Tipo_Planta")).ToString()
                     }
                 };
                 ListaPersonas.Add(persona);

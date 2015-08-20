@@ -126,6 +126,7 @@ namespace General
                 ddjj104.Mes = dr.GetInt16(dr.GetOrdinal("Mes"));
                 ddjj104.Anio = dr.GetInt16(dr.GetOrdinal("Año"));
                 ddjj104.LeyendaPorAnio = dr.GetString(dr.GetOrdinal("Leyenda"));
+                ddjj104.IdDDJJ = dr.GetInt32(dr.GetOrdinal("Id_DDJJ"));
 
                 listaddjj104.Add(ddjj104);
             }

@@ -1,11 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FAreasConDDJJ.aspx.cs" Inherits="DDJJ104_FAreasConDDJJ" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReImprimirDDJJ.aspx.cs" Inherits="DDJJ104_ReImprimirDDJJ" %>
+
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="MenuDDJJ.ascx" TagName="BotonesMenu" TagPrefix="uc3" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <title></title>
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../") %>
@@ -20,23 +21,13 @@
     <uc3:BotonesMenu ID="BotonesMenu" runat="server"  />
 
     <fieldset>
-        <legend>Generar DDJJ</legend>
+        <legend>ReImpresion de DDJJ</legend>
     </fieldset>
+  
+    <label runat="server" id="lblDDJJ"> Numero de DDJJ </label>
+    <input type="text" id="txtIdArea" />
+    <input type="button" value="Imprimir" onclick="ImprimirDDJJ(1024)" />
 
-    <div>    
-        <select runat="server" title="Seleccione un mes" id="cmbMeses" name="Meses" enableviewstate="false"
-            style="text-transform: capitalize;">
-        </select>
-    </div>
-    <div id="ContenedorGrilla" runat="server">
-    </div>
-    
-    <div id="progressbar">
-        <div class="ui-progressbar-overlay" " > Cargando... </div>    
-    </div>
-    
-    <asp:HiddenField ID="AreasJSON" runat="server" EnableViewState="true" />
-      
     </form>
 </body>
 
