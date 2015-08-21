@@ -108,6 +108,7 @@
     <Compile Include="Postular\AmbitoLaboral.cs" />
     <Compile Include="Postular\AntecedentePenal.cs" />
     <Compile Include="Postular\Comite.cs" />
+    <Compile Include="Postular\CVTitulosAntecedentesAcademicos.cs" />
     <Compile Include="Postular\ResumenDePostulaciones.cs" />
     <Compile Include="Postular\RepositorioDeFoliados.cs" />
     <Compile Include="Postular\RequisitoAntecedentesPenales.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Repositorios\RepositorioDeCurriculum.cs" />
     <Compile Include="Repositorios\RepositorioDeNacionalidades.cs" />
     <Compile Include="Repositorios\RepositorioDeTiposDeEventoAcademico.cs" />
+    <Compile Include="Repositorios\RepositorioDeTitulosAntecedentesAcademicos.cs" />
     <Compile Include="Repositorios\RepositorioDeUnidadesDeTiempo.cs" />
     <Compile Include="Repositorios\RepositorioLazySingleton.cs" />
     <Compile Include="Postular\Sexo.cs" />

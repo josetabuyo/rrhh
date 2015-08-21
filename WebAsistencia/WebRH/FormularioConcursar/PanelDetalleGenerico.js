@@ -1,4 +1,4 @@
-﻿var PanelDetalleGenerico = function (opciones) {
+var PanelDetalleGenerico = function (opciones) {
     //valores default
     var modelo = opciones.modelo || opciones.defaults;
     var alModificar = opciones.alModificar || function () { };
@@ -15,6 +15,7 @@
         _this.btn_cerrar = _this.ui.find(".modal_close_concursar");
         _this.btn_cerrar.click(function () {
             _this.ui.limpiarValidaciones();
+            rh_form.cerrarCombosAbiertos();
         });
 
         //Bt agregar
@@ -35,7 +36,7 @@
                     function (error, as, asd) {
                         alertify.alert(opciones.mensajeDeGuardadoErroneo);
                     });
-                } else {  
+            } else {
             }
         });
 

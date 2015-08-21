@@ -1,4 +1,4 @@
-﻿var FormularioBindeado = function (opt) {
+var FormularioBindeado = function (opt) {
     var _this = this;
     this.html_form = opt.formulario;
     this.modelo = opt.modelo;
@@ -81,7 +81,7 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
     var opt_constructor = {
         select: select,
         dataProvider: select.attr('rh-data-provider'),
-        permiteAgregar: select.attr('rh-permite-agregar')||false
+        permiteAgregar: select.attr('rh-permite-agregar') || false
     };
     var prop_label = select.attr("rh-propiedad-label");
     if (prop_label) opt_constructor.propiedadLabel = prop_label;
@@ -116,4 +116,9 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
             combo.filtrarPor(filtro);
         });
     }
+};
+
+FormularioBindeado.prototype.cerrarCombosAbiertos = function () {
+    $(".select2-drop-mask").hide()
+    $(".select2-drop").hide()
 };
