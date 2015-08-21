@@ -11,35 +11,65 @@
                  <h5><em>*</em>Campos Obligatorios</h5>
 				<div class="grupo_campos">
 					<label for="txt_capacitacion_nombreDiploma">Diploma o Certificaci&oacute;n <em>*</em></label>
-					<input id="txt_actividad_capacitacion_nombreDiploma" type="text" style="width:350px;"data-validar="esNoBlanco"/>
+					<input id="txt_actividad_capacitacion_nombreDiploma" type="text" rh-control-type="textbox" rh-model-property="DiplomaDeCertificacion" 
+                        style="width:350px;"data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
-					<label for="txt_capacitacion_fechaInicio">Fecha Inicio <em>*</em></label>
-					<input id="txt_actividad_capacitacion_fechaInicio" type="text" style="width:120px;"data-validar="esNoBlanco"/>
+					<label for="txt_capacitacion_fechaInicio">Fecha Inicio </label>
+					<input id="txt_actividad_capacitacion_fechaInicio" type="text" rh-control-type="datepicker" rh-model-property="FechaInicio" 
+                        style="width:120px;" />
 				</div>
 				<div class="grupo_campos">
-					<label for="txt_capacitacion_fechaFin">Fecha Fin <em>*</em></label>
-					<input id="txt_actividad_capacitacion_fechaFin" type="text" style="width:120px;"data-validar="esNoBlanco"/>
+					<label for="txt_capacitacion_fechaFin">Fecha Fin <em>*</em> </label>
+					<input id="txt_actividad_capacitacion_fechaFin" type="text" rh-control-type="datepicker" rh-model-property="FechaFinalizacion" data-validar="esNoBlanco"
+                        style="width:120px;"/>
 				</div>
 				<div class="grupo_campos nueva_linea">
-					<label for="txt_capacitacion_especialidad">Nombre de Especialidad o Competencia <em>*</em></label>
-					<input id="txt_actividad_capacitacion_especialidad" type="text" style="width:350px;" name="txt_capacitacion_especialidad"data-validar="esNoBlanco"/>
+					<label for="txt_capacitacion_especialidad">Nombre de Especialidad o Competencia</label>
+					<input id="txt_actividad_capacitacion_especialidad" type="text" rh-control-type="textbox" rh-model-property="Especialidad" 
+                        style="width:350px;"/>
 				</div>
+
+                
+
                 <div class="grupo_campos">
-					<label for="txt_capacitacion_duracion">Duraci&oacute;n (horas, d&iacute;as o meses) <em>*</em></label>
-					<input id="txt_actividad_capacitacion_duracion" type="text" style="width:270px;" name="txt_capacitacion_duracion"data-validar="esNoBlanco"/>
-				</div>
+					<label for="txt_capacitacion_duracion">Duraci&oacute;n <em>*</em></label>
+					<input id="txt_actividad_capacitacion_duracion" type="text" rh-control-type="textbox" rh-model-property="Duracion" 
+                        style="width:100px;" data-validar="esNoBlanco"/>
+                          </div>
+                        
+
+                <div class="grupo_campos">
+                    <label for="cmb_tiempo"> Indique (Horas/Días/Meses) </label>
+					<select id="cmb_tiempo" style="width:150px;" rh-control-type="combo" rh-data-provider="UnidadesTiempo" rh-model-property="UnidadTiempo"></select>
+
+
+                     
+
+                </div>
+
+
+             <!--   <div class="grupo_campos">
+                    <select id="cmb_actividad_capacitacion_tiempo" style="width:80px;" rh-control-type="combo" rh-data-provider="Paises"
+                            rh-model-property="Pais">
+					</select>
+                        </div>-->
+
+				
                 <div class="grupo_campos nueva_linea">
-					<label for="txt_capacitacion_establecimiento">Establecimiento <em>*</em></label>
-					<input id="txt_actividad_capacitacion_establecimiento" type="text" style="width:200px;"data-validar="esNoBlanco"/>
+					<label name="establecimiento" for="txt_capacitacion_establecimiento">Establecimiento <em>*</em></label>
+					<input id="txt_actividad_capacitacion_establecimiento" name="establecimiento" type="text" rh-control-type="textbox" rh-model-property="Establecimiento" 
+                        style="width:200px;" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="cmb_capacitacion_localidad">Localidad <em>*</em></label>
-					<input id="cmb_actividad_capacitacion_localidad" type="text" style="width:200px;"data-validar="esNoBlanco"/>
+					<input id="cmb_actividad_capacitacion_localidad" name="localidad" type="text" rh-control-type="textbox" rh-model-property="Localidad" 
+                        style="width:200px;" data-validar="esNoBlanco"/>
 				</div>
 				<div class="grupo_campos">
 					<label for="cmb_actividad_capacitacion_pais">Pa&iacute;s <em>*</em></label>
-					<select id="cmb_actividad_capacitacion_pais" style="width:200px;"data-validar="esUnComboSinCero" dataProvider="Paises" modelo="Pais">
+					<select id="cmb_actividad_capacitacion_pais" style="width:200px;" rh-control-type="combo" rh-data-provider="Paises"
+                            rh-model-property="Pais">
 					</select>
 				</div>
 			</fieldset>
@@ -49,3 +79,6 @@
 		</div>
 	</div>
 </div>
+
+
+<!--Esta página tiene uno de los campos duración a modificar-->

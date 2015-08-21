@@ -3,5 +3,6 @@
 var specList = 
         [
             'domReady!',
-            'specs1'
+            'FormularioBindeadoSpec'//,
+            //'ComboPopuladoConRepoSpec'
         ];

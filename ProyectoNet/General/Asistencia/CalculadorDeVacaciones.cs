@@ -61,14 +61,20 @@ namespace General
         {
 
             //permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable() > consumible.Periodo && aprobadas.AnioMaximoImputable().Last().Periodo() <= consumible.Periodo);
+            var permitidas_consumibles_log = new List<VacacionesPermitidas>(permitidas_consumibles);
             permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable(persona) > consumible.Periodo);
             var permitidas_consumibles2 = new List<VacacionesPermitidas>(permitidas_consumibles);
+            var permitidas_log = new List<VacacionesPermitidas>(permitidas_consumibles2);
             permitidas_consumibles2.RemoveAll(consumible => aprobadas.AnioMaximoImputable().Last().Periodo() < consumible.Periodo);
 
 
             var permitidas_aplicables = permitidas_consumibles2.FindAll(consumible => consumible.CantidadDeDias() > 0);
             var primera_permitida_aplicable = new VacacionesPermitidas();
-            if (permitidas_aplicables.Count() == 0) throw new SolicitudInvalidaException();
+            if (permitidas_aplicables.Count() == 0)
+            {
+                _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo);
+                throw new SolicitudInvalidaException(); 
+            }
             primera_permitida_aplicable = permitidas_aplicables.First();
       
             if (primera_permitida_aplicable.CantidadDeDias() > aprobadas.CantidadDeDias())

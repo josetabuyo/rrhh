@@ -21,6 +21,11 @@ namespace AdministracionDeUsuarios
             return usuarios.FirstOrDefault(u => u.Alias == alias) ?? new UsuarioNulo();
         }
 
+        public Usuario GetUsuarioPorId(int id_usuario)
+        {
+            return usuarios.FirstOrDefault(u => u.Id == id_usuario) ?? new UsuarioNulo();
+        }
+
         public Usuario GetUsuarioPorIdPersona(int id_persona)
         {
             try{
@@ -37,6 +42,15 @@ namespace AdministracionDeUsuarios
             throw new NotImplementedException();
         }
 
+        public Usuario RecuperarUsuario(string mail)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AsociarUsuarioConMail(Usuario usuario, string mail)
+        {
+            throw new NotImplementedException();
+        }
 
         public bool CambiarPassword(Usuario usuario, string pass_actual, string pass_nueva)
         {
@@ -60,5 +74,6 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+      
     }
 }

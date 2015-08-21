@@ -41,45 +41,47 @@
     <uc3:MenuConcursar runat="server" />
     
         <div>
-            <h2 class="titulo_postulaciones">Proceso de Postulación => Puestos, Cargos y Bases</h2>
+            <h2 class="titulo_postulaciones">Proceso de Postulación => Perfiles, Cargos y Bases</h2>
             
         </div>
 
         <uc4:Pasos ID="Pasos" runat="server" /> 
         <div style="clear:both;"></div>
-        <p>Ud. puede acotar la búsqueda por cualquier criterio, escriba al menos 3 caracteres en el campo para buscar el puesto que deseé</p>           
+        <p>Ud. puede acotar la búsqueda por cualquier criterio, escriba al menos 3 caracteres en el campo para buscar el puesto que desee</p>           
         
         <div id="ContenedorPlanilla">
          <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
          <!--<a class="btn_concursar btn-small" href="#">Buscar</a>-->
 
-        <table id="tabla_puestos" style="width:100%;">
-        
-        
-        </table>
-
+        <table id="tabla_perfiles" style="width:100%;"></table>
+        <p><div style="font-weight:bold; float:left">Convocatorias Generales: &nbsp</div> Sólo pueden postularse quienes al momento de hacerlo se encuentren trabajando en el marco del Convenio Colectivo de Trabajo Sectorial del Sistema Nacional de Empleo Público (SINEP)*, 
+        sea en Planta Permanente, Planta Transitoria o designado de conformidad con el artículo 9° del Anexo de la Ley 25164. Se recomienda consultar en el área de Recursos Humanos de su organismo si usted está encuadrado en el SINEP</p>
+        <p> <div style="font-weight:bold; float:left">Convocatorias Abiertas:&nbsp</div> Pueden postularse todas las personas que acrediten la idoneidad y los requisitos establecidos en las bases de cada concurso. </p>
+        <p style="font-weight:bold; font-style:italic">En todos los casos se recomienda tener en cuenta los requisitos excluyentes de cada cargo.</p>
         </div>
           
     </div>
 
 
-     <asp:HiddenField ID="puestos" runat="server" />
+     <asp:HiddenField ID="perfiles" runat="server" />
       <asp:HiddenField ID="postulaciones" runat="server" />
     </form>
 </body>
     <%= Referencias.Javascript("../") %>
-    <script type="text/javascript" src="Puesto.js" ></script>
+   
+      <script type="text/javascript" src="Perfil.js" ></script>
 <script type="text/javascript">
+    $('#tab_cargos').addClass('active');
 
     $(document).ready(function () {
         $(".collapse").collapse("show");
 
-        var puestos = JSON.parse($('#puestos').val());
+        var perfiles = JSON.parse($('#perfiles').val());
         var postulaciones = JSON.parse($('#postulaciones').val());
-        Puesto.armarLista(puestos, postulaciones);
+        Perfil.armarLista(perfiles, postulaciones);
 
         var options = {
-            valueNames: ['Puesto', 'Nivel', 'Agrupamiento', 'Vacantes']
+            valueNames: ['Perfil', 'Nivel', 'Agrupamiento', 'Vacantes']
         };
 
         var featureList = new List('ContenedorPlanilla', options);

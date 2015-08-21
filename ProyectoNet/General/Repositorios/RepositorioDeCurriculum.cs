@@ -19,7 +19,6 @@ namespace General.Repositorios
         protected CvInstitucionesAcademicas _cvInstitucion;
         protected CvExperienciaLaboral _cvExperiencia;
 
-
         public RepositorioDeCurriculum(IConexionBD conexion)
         {
             this.conexion_bd = conexion;
@@ -31,27 +30,53 @@ namespace General.Repositorios
         {
         }
 
-
-        public CurriculumVitae GetCV(int id)
+        public CurriculumVitae GetCV(int idPersona, DateTime fechaDeVersion)
         {
             var parametros = new Dictionary<string, object>();
-            //var estudios = new List<CvEstudios>();
-            //var docencias = new List<CvDocencia>();
+            parametros.Add("@idPersona", idPersona);
+            parametros.Add("@fechaDeVersion", fechaDeVersion);
+            return GetCV(parametros);
+        }
 
-            parametros.Add("@idPersona", id);
+        public CurriculumVitae GetCV(int idPersona)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idPersona", idPersona);
+            return GetCV(parametros);
+        }
+
+        private CurriculumVitae GetCV(Dictionary<string, object> parametros)
+        {
             var tablaCVs = conexion_bd.Ejecutar("dbo.CV_GetCurriculumVitae", parametros);
 
             CurriculumVitae cv = new CurriculumVitaeNull();
 
-            tablaCVs.Rows.ForEach(row =>
-            cv = new CurriculumVitae(
-                new CvDatosPersonales(row.GetInt("NroDocumento"), row.GetString("Nombre"), row.GetString("Apellido"), row.GetSmallintAsInt("Sexo", 1), row.GetSmallintAsInt("EstadoCivil", 0),
-                    row.GetString("Cuil", ""), row.GetString("LugarNacimiento", ""), row.GetSmallintAsInt("Nacionalidad", 0), row.GetDateTime("FechaNacimiento", DateTime.Today).ToString("dd/MM/yyyy"), row.GetSmallintAsInt("TipoDocumento", 0), 
-                    new CvDomicilio(row.GetInt("DomPers_Id", 0), row.GetString("DomPers_Calle", ""), row.GetInt("DomPers_Numero", 0), row.GetString("DomPers_Piso", ""), row.GetString("DomPers_Depto", ""),
-                        row.GetInt("DomPers_Localidad", 0), row.GetSmallintAsInt("DomPers_CodigoPostal", 0), row.GetSmallintAsInt("DomPers_IdProvincia", 0)),
-                    new CvDomicilio(row.GetInt("DomLab_Id", 0), row.GetString("DomLab_Calle", ""), row.GetInt("DomLab_Numero", 0), row.GetString("DomLab_Piso", ""), row.GetString("DomLab_Depto", ""),
-                        row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0)), row.GetString("TieneLegajo"), row.GetString("DomPers_Telefono", ""), row.GetString("DomPers_Telefono2", ""), row.GetString("DomPers_Email", ""))));
+            tablaCVs.Rows.ForEach((row) => {
+                var domi = new CvDomicilio(row.GetInt("DomPers_Id", 0), row.GetString("DomPers_Calle", ""), row.GetInt("DomPers_Numero", 0), row.GetString("DomPers_Piso", ""), row.GetString("DomPers_Depto", ""),
+                            row.GetInt("DomPers_Localidad", 0), row.GetSmallintAsInt("DomPers_CodigoPostal", 0), row.GetSmallintAsInt("DomPers_IdProvincia", 0));
+                var domi2 = new CvDomicilio(row.GetInt("DomLab_Id", 0), row.GetString("DomLab_Calle", ""), row.GetInt("DomLab_Numero", 0), row.GetString("DomLab_Piso", ""), row.GetString("DomLab_Depto", ""),
+                            row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0));
+                var contacto = new DatosDeContacto(row.GetString("DomPers_Telefono", ""), row.GetString("DomPers_Telefono2", ""), row.GetString("DomPers_Email", ""));
 
+                var cuil = row.GetString("Cuil", "00");
+                var lugar_nacimiento = row.GetString("LugarNacimiento", "");
+                var nac = row.GetSmallintAsInt("Nacionalidad", 0);
+                var fecha_nac = row.GetDateTime("FechaNacimiento", DateTime.Today).ToString("dd/MM/yyyy");
+                var tipo_doc = row.GetSmallintAsInt("TipoDocumento", 0);
+                var nro_documento = row.GetInt("NroDocumento", 0);
+                var nombre = row.GetString("Nombre", "");
+                var apellido = row.GetString("Apellido", "");
+                var sexo = row.GetSmallintAsInt("Sexo", 1);
+                var estado_civil = row.GetSmallintAsInt("EstadoCivil", 0);
+                
+                cv = new CurriculumVitae(
+                    new CvDatosPersonales(nro_documento, nombre, apellido, sexo, estado_civil,
+                        cuil, lugar_nacimiento, nac, fecha_nac, tipo_doc,
+                        domi,
+                        domi2, row.GetString("TieneLegajo", ""),
+                        contacto));
+            });
+                   
 
             //CORTE DE CONTROL PARA EVENTOS ACADEMICOS
             CorteDeControlEventosAcademicos(tablaCVs, cv);
@@ -86,7 +111,7 @@ namespace General.Repositorios
             //CORTE DE CONTROL PARA OTRAS CAPACIDADES
             CorteDeControlOtrasCapacidades(tablaCVs, cv);
 
-            if (tablaCVs.Rows.First().GetString("TieneCurriculum") == "Tiene curriculum")
+            if (tablaCVs.Rows.Any(row => row.GetString("TieneCurriculum", "") == "Tiene curriculum"))
             {
                 cv.TieneCv = true;
             }
@@ -99,34 +124,39 @@ namespace General.Repositorios
         }
 
         #region CortesDeControl
+
+
         private void CorteDeControlAntecedentesAcademicos(TablaDeDatos tablaCVs, CurriculumVitae cv)
         {
             var lista = ArmarFilas(tablaCVs, "IdAntecedentesAcademicos", "AntecedentesAcademicosBaja");
 
             if (lista.Count > 0)
             {
-                var antecedentes_anonimos = (from RowDeDatos dRow in lista
+                var items_anonimos = (from RowDeDatos dRow in lista
                                         select new //CvAntecedentesAcademicos ()
                                         {
                                             Id = dRow.GetInt("IdAntecedentesAcademicos", 0),
                                             Titulo = dRow.GetString("AntecedentesAcademicosTitulo", string.Empty),
-                                            Nivel = dRow.GetInt("AntecedentesAcademicosNivel", 0),
+                                            Nivel = dRow.GetSmallintAsInt("AntecedentesAcademicosNivel", 0),
+                                            Anios = dRow.GetSmallintAsInt("AntecedentesAcademicosAnios", 0),
                                             Establecimiento = dRow.GetString("AntecedentesAcademicosEstablecimiento", string.Empty),
                                             Especialidad = dRow.GetString("AntecedentesAcademicosEspecialidad", string.Empty),
-                                            FechaIngreso = dRow.GetDateTime("AntecedentesAcademicosFechaIngreso", DateTime.Today),
-                                            FechaEgreso = dRow.GetDateTime("AntecedentesAcademicosFechaEgreso", DateTime.Today),
+                                            FechaIngreso = dRow.GetDateTime("AntecedentesAcademicosFechaIngreso", new DateTime(1, 1, 1, 0, 0, 0)),
+                                            FechaEgreso = dRow.GetDateTime("AntecedentesAcademicosFechaEgreso", new DateTime(1,1,1,0,0,0)),
                                             Localidad = dRow.GetString("AntecedentesAcademicosLocalidad", string.Empty),
-                                            Pais = dRow.GetInt("AntecedentesAcademicosPais", 9)
+                                            Pais = dRow.GetSmallintAsInt("AntecedentesAcademicosPais", 9),
+                                            Precedente = dRow.GetInt("AntAcadPrecedente", 0),
+                                            Baja = dRow.GetInt("AntecedentesAcademicosBaja", 0)
                                         }).Distinct().ToList();
 
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
+                items_anonimos.RemoveAll(e => e.Baja != 0);
 
-                antecedentes_anonimos.Select(a => new CvEstudios(a.Id, a.Titulo, a.Nivel, a.Establecimiento,
+                items_anonimos.Select(a => new CvEstudios(a.Id, a.Titulo, a.Nivel, a.Anios, a.Establecimiento,
                                                                     a.Especialidad, a.FechaIngreso, a.FechaEgreso,
                                                                     a.Localidad, a.Pais)).ToList().ForEach(ev => cv.AgregarEstudio(ev));
 
             }
-
-
         }
 
         private void CorteDeControlCertificadosDeCapacitacion(TablaDeDatos tablaCVs, CurriculumVitae cv)
@@ -135,7 +165,7 @@ namespace General.Repositorios
 
             if (lista.Count > 0)
             {
-                var certificados_anonimos = (from RowDeDatos dRow in lista
+                var items_anonimos = (from RowDeDatos dRow in lista
                                               select new 
                                               {
                                                   Id = dRow.GetInt("IdCertificadoCapacitacion", 0),
@@ -143,16 +173,21 @@ namespace General.Repositorios
                                                   Establecimiento = dRow.GetString("CertificadoEstablecimiento", string.Empty),
                                                   Especialidad = dRow.GetString("CertificadoEspecialidad", string.Empty),
                                                   Duracion = dRow.GetString("CertificadoDuracion", string.Empty),
-                                                  FechaInicio = dRow.GetDateTime("CertificadoFechaInicio", DateTime.Today),
-                                                  FechaFinalizacion = dRow.GetDateTime("CertificadoFechaFinalizacion", DateTime.Today),
+                                                  FechaInicio = dRow.GetDateTime("CertificadoFechaInicio", new DateTime(1, 1, 1, 0, 0, 0)),
+                                                  FechaFinalizacion = dRow.GetDateTime("CertificadoFechaFinalizacion", new DateTime(1, 1, 1, 0, 0, 0)),
                                                   Localidad = dRow.GetString("CertificadoLocalidad", string.Empty),
-                                                  Pais = dRow.GetInt("CertificadoPais", 9)
+                                                  Pais = dRow.GetSmallintAsInt("CertificadoPais", 9),
+                                                  Precedente = dRow.GetInt("CertificadoPrecedente", 0),
+                                                  Baja = dRow.GetInt("CertificadoBaja", 0),
+                                                  unidadTiempo = dRow.GetSmallintAsInt("UnidadTiempo", 0)
 
                                               }).Distinct().ToList();
 
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
+                items_anonimos.RemoveAll(e => e.Baja != 0);
 
-                certificados_anonimos.Select(c => new CvCertificadoDeCapacitacion(c.Id, c.Diploma, c.Establecimiento, c.Especialidad, c.Duracion,
-                                                c.FechaInicio, c.FechaFinalizacion, c.Localidad, c.Pais)).ToList().ForEach(cert => cv.AgregarCertificadoDeCapacitacion(cert));
+                items_anonimos.Select(c => new CvCertificadoDeCapacitacion(c.Id, c.Diploma, c.Establecimiento, c.Especialidad, c.Duracion,
+                                                c.FechaInicio, c.FechaFinalizacion, c.Localidad, c.Pais, c.unidadTiempo)).ToList().ForEach(cert => cv.AgregarCertificadoDeCapacitacion(cert));
 
             }
             
@@ -164,26 +199,30 @@ namespace General.Repositorios
 
             if (lista.Count > 0)
             {
-                var docencias_anonimos = (from RowDeDatos dRow in lista
+                var items_anonimos = (from RowDeDatos dRow in lista
                                              select new //CvAntecedentesAcademicos ()
                                              {
                                                  Id = dRow.GetInt("IdAntecedentesDeDocencia", 0),
                                                  Asignatura = dRow.GetString("AntecedentesDeDocenciaAsignatura", string.Empty),
-                                                 NivelEducativo = dRow.GetInt("AntecedentesDeDocenciaNivelEducativo", 0),
+                                                 NivelEducativo = dRow.GetSmallintAsInt("AntecedentesDeDocenciaNivelEducativo", 0),
                                                  TipoActividad = dRow.GetString("AntecedentesDeDocenciaTipoActividad", string.Empty),
                                                  CategoriaDocente = dRow.GetString("AntecedentesDeDocenciaCategoriaDocente", string.Empty),
                                                  CaracterDesignacion = dRow.GetString("AntecedentesDeDocenciaCaracterDesignacion", string.Empty),
                                                  DedicacionDocente = dRow.GetString("AntecedentesDeDocenciaDedicacionDocente", string.Empty),
                                                  CargaHoraria = dRow.GetString("AntecedentesDeDocenciaCargaHoraria", string.Empty),
                                                  Establecimiento = dRow.GetString("AntecedentesDeDocenciaEstablecimiento", string.Empty),
-                                                 FechaInicio = dRow.GetDateTime("AntecedentesDeDocenciaFechaInicio", DateTime.Today),
-                                                 FechaFinalizacion = dRow.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", DateTime.Today),
+                                                 FechaInicio = dRow.GetDateTime("AntecedentesDeDocenciaFechaInicio"),
+                                                 FechaFinalizacion = dRow.GetDateTime("AntecedentesDeDocenciaFechaFinalizacion", new DateTime(1, 1, 1, 0, 0, 0)),
                                                  Localidad = dRow.GetString("AntecedentesDeDocenciaLocalidad", string.Empty),
-                                                 Pais = dRow.GetInt("AntecedentesDeDocenciaPais", 9)
+                                                 Pais = dRow.GetSmallintAsInt("AntecedentesDeDocenciaPais", 9),
+                                                 Precedente = dRow.GetInt("AntecedentesDeDocenciaPrecedente", 0),
+                                                 Baja = dRow.GetInt("AntecedentesDeDocenciaBaja", 0)
                                              }).Distinct().ToList();
 
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
+                items_anonimos.RemoveAll(e => e.Baja != 0);
 
-                docencias_anonimos.Select(d => new CvDocencia(d.Id, d.Asignatura, d.NivelEducativo, d.TipoActividad,d.CategoriaDocente,d.CaracterDesignacion,
+                items_anonimos.Select(d => new CvDocencia(d.Id, d.Asignatura, d.NivelEducativo, d.TipoActividad,d.CategoriaDocente,d.CaracterDesignacion,
                                                                     d.DedicacionDocente, d.CargaHoraria, d.FechaInicio,d.FechaFinalizacion,d.Establecimiento,
                                                                     d.Localidad, d.Pais)).ToList().ForEach(doc => cv.AgregarDocencia(doc));
 
@@ -200,24 +239,31 @@ namespace General.Repositorios
            
             if (lista.Count > 0)
             {
-                var eventos_anonimos = (from RowDeDatos dRow in lista
+                var items_anonimos = (from RowDeDatos dRow in lista
                                             select new //CvEventoAcademico ()
                                             {
                                                 Id = dRow.GetInt("EventosAcademicosId",0),
                                                 Denominacion = dRow.GetString("EventosAcademicosDenominacion", string.Empty),
                                                 TipoDeEvento = dRow.GetInt("EventosAcademicosTipoDeEvento", 0),
-                                                CaracterDeParticipacion = dRow.GetInt("EventosAcademicosCaracterDeParticipacion",0),
-                                                FechaInicio = dRow.GetDateTime("EventosAcademicosFechaInicio", DateTime.Today),
-                                                FechaFinalizacion = dRow.GetDateTime("EventosAcademicosFechaFin", DateTime.Today),
+                                                CaracterDeParticipacion = dRow.GetInt("EventosAcademicosCaracterDeParticipacion", 0),
+                                                FechaInicio = dRow.GetDateTime("EventosAcademicosFechaInicio", new DateTime(1, 1, 1, 0, 0, 0)),
+                                                FechaFinalizacion = dRow.GetDateTime("EventosAcademicosFechaFin", new DateTime(1, 1, 1, 0, 0, 0)),
                                                 Duracion = dRow.GetString("EventosAcademicosDuracion", string.Empty),
-                                                Institucion = dRow.GetInt("EventosAcademicosInstitucion",0),
+                                                Institucion = dRow.GetInt("EventosAcademicosInstitucion", 0),
                                                 Localidad = dRow.GetString("EventosAcademicosLocalidad", string.Empty),
-                                                Pais = dRow.GetInt("EventosAcademicosPais", 9)
+                                                Pais = dRow.GetSmallintAsInt("EventosAcademicosPais", 9),
+                                                Precedente = dRow.GetInt("EventosAcademicosPrecedente", 0),
+                                                Baja = dRow.GetInt("EventosAcademicosBaja", 0),
+                                                UnidadTiempo = dRow.GetSmallintAsInt("EventosAcademicosUnidadTiempo", 0),
                                             }).Distinct().ToList();
 
-                eventos_anonimos.Select(e => new CvEventoAcademico(e.Id, e.Denominacion, e.TipoDeEvento, e.CaracterDeParticipacion,
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
+                items_anonimos.RemoveAll(e => e.Baja != 0);
+
+                items_anonimos.Select(e => new CvEventoAcademico(e.Id, e.Denominacion, e.TipoDeEvento, e.CaracterDeParticipacion,
                                                                     e.FechaInicio, e.FechaFinalizacion, e.Duracion, e.Institucion,
-                                                                    e.Localidad, e.Pais)).ToList().ForEach(ev => cv.AgregarEventoAcademico(ev));
+                                                                    e.Localidad, e.Pais, e.UnidadTiempo)).ToList().ForEach(ev => cv.AgregarEventoAcademico(ev));
+                
 
             }
         }
@@ -230,15 +276,20 @@ namespace General.Repositorios
 
             if (lista.Count > 0)
             {
-                var capacidades_anonimos = (from RowDeDatos dRow in lista
+                var items_anonimos = (from RowDeDatos dRow in lista
                                         select new //CvEventoAcademico ()
                                         {
                                             Id = dRow.GetInt("CapacidadesPersonalesId", 0),
-                                            Tipo =  dRow.GetInt("CapacidadesPersonalesTipo", 0),
-                                            Detalle = dRow.GetString("CapacidadesPersonalesDetalle", "")
+                                            Tipo = dRow.GetSmallintAsInt("CapacidadesPersonalesTipo", 0),
+                                            Detalle = dRow.GetString("CapacidadesPersonalesDetalle", ""),
+                                            Precedente = dRow.GetInt("CapacidadesPersonalesPrecedente", 0),
+                                            Baja = dRow.GetInt("CapacidadesPersonalesBaja", 0)
                                         }).Distinct().ToList();
 
-                capacidades_anonimos.Select(e => new CvCapacidadPersonal(e.Id, e.Tipo, e.Detalle)).ToList().ForEach(ev => cv.AgregarCapacidadPersonal(ev));
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
+                items_anonimos.RemoveAll(e => e.Baja != 0);
+
+                items_anonimos.Select(e => new CvCapacidadPersonal(e.Id, e.Tipo, e.Detalle)).ToList().ForEach(ev => cv.AgregarCapacidadPersonal(ev));
             }
         }
 
@@ -248,18 +299,23 @@ namespace General.Repositorios
 
             if (lista.Count > 0)
             {
-                var matriculas_anonimos = (from RowDeDatos dRow in lista
+                var items_anonimos = (from RowDeDatos dRow in lista
                                         select new //CvIdioma ()
                                         {
                                             Id = dRow.GetInt("IdMatricula", 0),
                                             Numero = dRow.GetString("MatriculaNumero", string.Empty),
                                             ExpedidaPor = dRow.GetString("MatriculaExpedidoPor", string.Empty),
                                             SituacionActual = dRow.GetString("MatriculaSituacionActual", string.Empty),
-                                            FechaObtencion = dRow.GetDateTime("MatriculaFechaObtencion", DateTime.Today)
+                                            FechaObtencion = dRow.GetDateTime("MatriculaFechaObtencion", DateTime.Today),
+                                            Precedente = dRow.GetInt("MatriculaPrecedente", 0),
+                                            Baja = dRow.GetInt("MatriculaBaja", 0)
                                             
                                         }).Distinct().ToList();
 
-                matriculas_anonimos.Select(m => new CvMatricula(m.Id, m.Numero, m.ExpedidaPor, m.SituacionActual, 
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
+                items_anonimos.RemoveAll(e => e.Baja != 0);
+
+                items_anonimos.Select(m => new CvMatricula(m.Id, m.Numero, m.ExpedidaPor, m.SituacionActual, 
                                            m.FechaObtencion)).ToList().ForEach(mat => cv.AgregarMatricula(mat));
 
             }
@@ -273,26 +329,36 @@ namespace General.Repositorios
 
             if (lista.Count > 0)
             {
-                var publicaciones_anonimos = (from RowDeDatos dRow in lista
+                var items_anonimos = (from RowDeDatos dRow in lista
                                            select new //CvIdioma ()
                                            {
                                                Id = dRow.GetInt("IdPublicacion", 0),
                                                Titulo = dRow.GetString("PublicacionTitulo", string.Empty),
                                                Editorial = dRow.GetString("PublicacionEditorial", string.Empty),
-                                               Hojas = dRow.GetString("PublicacionHojas", string.Empty),
-                                               Copia = dRow.GetInt("PublicacionCopia", 0),
-                                               Adjunto = dRow.GetInt("PublicacionAdjunto", 0),
-                                               Fecha = dRow.GetDateTime("PublicacionFecha", DateTime.Today)
+                                               Hojas = dRow.GetSmallintAsInt("PublicacionHojas", 0).ToString(),
+                                               Copia = ArmarIntDeBooleano(dRow.GetBoolean("PublicacionCopia")),
+                                               Adjunto = ArmarIntDeBooleano(dRow.GetBoolean("PublicacionAdjunto")),
+                                               Fecha = dRow.GetDateTime("PublicacionFecha", DateTime.Today),
+                                               Precedente = dRow.GetInt("PublicacionPrecedente", 0),
+                                               Baja = dRow.GetInt("PublicacionBaja", 0)
 
                                            }).Distinct().ToList();
 
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
+                items_anonimos.RemoveAll(e => e.Baja != 0);
 
-
-                publicaciones_anonimos.Select(p => new CvPublicaciones(p.Id, p.Titulo,p.Editorial,p.Hojas,p.Copia, p.Adjunto,
+                items_anonimos.Select(p => new CvPublicaciones(p.Id, p.Titulo,p.Editorial,p.Hojas,p.Copia, p.Adjunto,
                                            p.Fecha)).ToList().ForEach(pub => cv.AgregarPublicacion(pub));
 
             }
 
+        }
+
+        private int ArmarIntDeBooleano(bool valor)
+        {
+            if (valor == true)
+                return 1;
+            return 0;
         }
 
         private void CorteDeControlInstituciones(TablaDeDatos tablaCVs, CurriculumVitae cv)
@@ -302,7 +368,7 @@ namespace General.Repositorios
 
             if (lista.Count > 0)
             {
-                var instituciones_anonimos = (from RowDeDatos dRow in lista
+                var items_anonimos = (from RowDeDatos dRow in lista
                                               select new
                                               {
                                                   Id = dRow.GetInt("IdInstitucion", 0),
@@ -313,15 +379,19 @@ namespace General.Repositorios
                                                   CategoriaActual = dRow.GetString("InstitucionCategoriaActual", string.Empty),
                                                   FechaAfiliacion = dRow.GetDateTime("InstitucionFechaAfiliacion", DateTime.Today),
                                                   Fecha = dRow.GetDateTime("InstitucionFecha", DateTime.Today),
-                                                  FechaInicio = dRow.GetDateTime("InstitucionFechaInicio", DateTime.Today),
-                                                  FechaFin = dRow.GetDateTime("InstitucionFechaFin", DateTime.Today),
+                                                  FechaInicio = dRow.GetDateTime("InstitucionFechaInicio"),
+                                                  FechaFin = dRow.GetDateTime("InstitucionFechaFin", new DateTime(1, 1, 1, 0, 0, 0)),
                                                   Localidad = dRow.GetString("InstitucionLocalidad", string.Empty),
-                                                  Pais = dRow.GetInt("InstitucionPais", 9)
+                                                  Pais = dRow.GetSmallintAsInt("InstitucionPais", 9),
+                                                  Precedente = dRow.GetInt("InstitucionPrecedente", 0),
+                                                  Baja = dRow.GetInt("InstitucionBaja", 0)
 
                                               }).Distinct().ToList();
 
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
+                items_anonimos.RemoveAll(e => e.Baja != 0);
 
-                instituciones_anonimos.Select(i => new CvInstitucionesAcademicas(i.Id, i.Institucion, i.CaracterEntidad, i.Cargos, i.Afiliados,
+                items_anonimos.Select(i => new CvInstitucionesAcademicas(i.Id, i.Institucion, i.CaracterEntidad, i.Cargos, i.Afiliados,
                                             i.CategoriaActual, i.FechaAfiliacion, i.Fecha, i.FechaInicio, i.FechaFin,i.Localidad,
                                             i.Pais)).ToList().ForEach(inst => cv.AgregarInstitucionAcademica(inst));
 
@@ -334,30 +404,33 @@ namespace General.Repositorios
 
             if (lista.Count > 0)
             {
-                var experiencias_anonimos = (from RowDeDatos dRow in lista
+                var items_anonimos = (from RowDeDatos dRow in lista
                                               select new
                                               {
                                                   Id = dRow.GetInt("IdExperienciaLaboral", 0),
                                                   PuestoOcupado = dRow.GetString("ExperienciaLaboralPuestoOcupado", string.Empty),
                                                   MotivoDesvinculacion = dRow.GetString("ExperienciaLaboralMotivoDesvinculacion", string.Empty),
                                                   NombreEmpleador = dRow.GetString("ExperienciaLaboralNombreEmpleador", string.Empty),
-                                                  PersonasACargo = dRow.GetInt("ExperienciaLaboralPersonasACargo", 0),
+                                                  PersonasACargo = dRow.GetSmallintAsInt("ExperienciaLaboralPersonasACargo", 0),
                                                   TipoEmpresa = dRow.GetString("ExperienciaLaboralTipoEmpresa", string.Empty),
                                                   Actividad = dRow.GetString("ExperienciaLaboralActividad", string.Empty),
-                                                  FechaInicio = dRow.GetDateTime("ExperienciaLaboralInicio", DateTime.Today),
-                                                  FechaFin = dRow.GetDateTime("ExperienciaLaboralFin", DateTime.Today),
+                                                  FechaInicio = dRow.GetDateTime("ExperienciaLaboralInicio"),
+                                                  FechaFin = dRow.GetDateTime("ExperienciaLaboralFin", new DateTime(1, 1, 1, 0, 0, 0)),
                                                   Localidad = dRow.GetString("ExperienciaLaboralLocalidad", string.Empty),
-                                                  Pais = dRow.GetInt("ExperienciaLaboralPais", 9),
-                                                  Sector = dRow.GetString("ExperienciaLaboralSector", string.Empty)
+                                                  Pais = dRow.GetSmallintAsInt("ExperienciaLaboralPais", 9),
+                                                  Sector = dRow.GetString("ExperienciaLaboralSector", string.Empty),
+                                                  AmbitoLaboral = dRow.GetSmallintAsInt("ExperienciaAmbitoLaboral", 2),
+                                                  Precedente = dRow.GetInt("ExperienciaLaboralPrecedente", 0),
+                                                  Baja = dRow.GetInt("ExperienciaLaboralBaja", 0)
                                               }).Distinct().ToList();
 
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
+                items_anonimos.RemoveAll(e => e.Baja != 0);
 
-                experiencias_anonimos.Select(e => new CvExperienciaLaboral(e.Id, e.PuestoOcupado, e.MotivoDesvinculacion, e.NombreEmpleador, e.PersonasACargo,
+                items_anonimos.Select(e => new CvExperienciaLaboral(e.Id, e.PuestoOcupado, e.MotivoDesvinculacion, e.NombreEmpleador, e.PersonasACargo,
                                             e.TipoEmpresa, e.Actividad, e.FechaInicio, e.FechaFin, e.Localidad,
-                                            e.Pais,e.Sector)).ToList().ForEach(exp => cv.AgregarExperienciaLaboral(exp));
-
-            }
-            
+                                            e.Pais,e.Sector,e.AmbitoLaboral)).ToList().ForEach(exp => cv.AgregarExperienciaLaboral(exp));
+            }  
         }
 
         private void CorteDeControlIdioma(TablaDeDatos tablaCVs, CurriculumVitae cv)
@@ -366,23 +439,27 @@ namespace General.Repositorios
 
             if (lista.Count > 0)
             {
-                var idiomas_anonimos = (from RowDeDatos dRow in lista
+                var items_anonimos = (from RowDeDatos dRow in lista
                                              select new //CvIdioma ()
                                              {
                                                  Id = dRow.GetInt("IdIdioma", 0),
                                                  Diploma = dRow.GetString("IdiomaDiploma", string.Empty),
                                                  Establecimiento = dRow.GetString("IdiomaEstablecimiento", string.Empty),
                                                  Idioma = dRow.GetString("IdiomaIdioma", string.Empty),
-                                                 Lectura = dRow.GetInt("IdiomaLectura", 3),
-                                                 Escritura = dRow.GetInt("IdiomaEscritura", 3),
-                                                 Oral = dRow.GetInt("IdiomaOral", 3),
+                                                 Lectura = dRow.GetSmallintAsInt("IdiomaLectura", 3),
+                                                 Escritura = dRow.GetSmallintAsInt("IdiomaEscritura", 3),
+                                                 Oral = dRow.GetSmallintAsInt("IdiomaOral", 3),
                                                  FechaObtencion = dRow.GetDateTime("IdiomaFechaObtencion", DateTime.Today),
                                                  Localidad = dRow.GetString("IdiomaLocalidad", string.Empty),
-                                                 Pais = dRow.GetInt("IdiomaPais", 9)
+                                                 Pais = dRow.GetSmallintAsInt("IdiomaPais", 9),
+                                                 Precedente = dRow.GetInt("IdiomaPrecedente", 0),
+                                                 Baja = dRow.GetInt("IdiomaBaja", 0)
                                              }).Distinct().ToList();
 
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
+                items_anonimos.RemoveAll(e => e.Baja != 0);
 
-                idiomas_anonimos.Select(i => new CvIdiomas(i.Id, i.Diploma, i.Establecimiento,i.Idioma, i.Lectura, i.Escritura, 
+                items_anonimos.Select(i => new CvIdiomas(i.Id, i.Diploma, i.Establecimiento,i.Idioma, i.Lectura, i.Escritura, 
                                                            i.Oral,i.FechaObtencion,i.Localidad,i.Pais)).ToList().ForEach(idi => cv.AgregarIdioma(idi));
 
             }
@@ -395,7 +472,7 @@ namespace General.Repositorios
 
             if (lista.Count > 0)
             {
-                var competencia_anonimos = (from RowDeDatos dRow in lista
+                var items_anonimos = (from RowDeDatos dRow in lista
                                           select new 
                                           {
                                               Id = dRow.GetInt("IdCompetenciaInformatica", 0),
@@ -405,15 +482,18 @@ namespace General.Repositorios
                                               Conocimiento = dRow.GetInt("CompetenciaConocimiento", 0),
                                               Nivel = dRow.GetInt("CompetenciaNivel", 0),
                                               Localidad = dRow.GetString("CompetenciaLocalidad", string.Empty),
-                                              Pais = dRow.GetInt("CompetenciaPais", 9),
-                                              FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", DateTime.Today),
-                                              Detalle = dRow.GetString("Detalle", string.Empty)
+                                              Pais = dRow.GetSmallintAsInt("CompetenciaPais", 9),
+                                              FechaObtencion = dRow.GetDateTime("CompetenciaFechaObtencion", new DateTime(1, 1, 1, 0, 0, 0)),
+                                              Detalle = dRow.GetString("Detalle", string.Empty),
+                                              Precedente = dRow.GetInt("CompetenciaPrecedente", 0),
+                                              Baja = dRow.GetInt("CompetenciaBaja", 0)
                                           }).Distinct().ToList();
 
+                items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
+                items_anonimos.RemoveAll(e => e.Baja != 0);
 
-                competencia_anonimos.Select(c => new CvCompetenciasInformaticas(c.Id, c.Diploma, c.Establecimiento, c.TipoInformatica, c.Conocimiento, c.Nivel,
+                items_anonimos.Select(c => new CvCompetenciasInformaticas(c.Id, c.Diploma, c.Establecimiento, c.TipoInformatica, c.Conocimiento, c.Nivel,
                                                                     c.Localidad, c.Pais, c.FechaObtencion, c.Detalle)).ToList().ForEach(comp => cv.AgregarCompetenciaInformatica(comp));
-
             }
         }
 
@@ -423,7 +503,7 @@ namespace General.Repositorios
             var lista = new List<RowDeDatos>();
             tabla.Rows.ForEach(r =>
             {
-                if (!(r.GetObject(campo_id) is DBNull) && (r.GetObject(campo_baja) is DBNull))
+                if (!(r.GetObject(campo_id) is DBNull))
                     lista.Add(r);
             });
 
@@ -448,7 +528,14 @@ namespace General.Repositorios
                 //Si no es empleado
                 if (cv.DatosPersonales.TieneLegajo == "No tiene legajo")
                 {
-                    validarDatos(datosPersonales);
+                    try
+                    {
+                        validarDatos(datosPersonales);
+                    }
+                    catch (Exception e)
+                    {                        
+                        throw e;
+                    }
                     //insertar en CV_DatosPersonales
                     parametros = CompletarDatosPersonales(datosPersonales, parametros, usuario);
                     parametros.Add("@IdPersona", usuario.Owner.Id);
@@ -464,14 +551,16 @@ namespace General.Repositorios
                 conexion_bd.Ejecutar("dbo.CV_Ins_Curriculum", parametros);
 
                 //insertar en GEN_Domicilios y CV_Domicilio el DomicilioPersonal
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, null , null, null);
                 parametros.Add("@Dni", datosPersonales.Dni);
                 conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
 
+                //
+
                 //insertar en GEN_Domicilios y CV_Domicilio el DomicilioLaboral
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
                 parametros.Add("@Dni", datosPersonales.Dni);
-                conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
+                conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros); 
 
             }
             else
@@ -488,14 +577,14 @@ namespace General.Repositorios
                 if (datosPersonales.DomicilioPersonal.Id > 0)
                 {
                     //update GEN_Domicilios del domicilio personal
-                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
                     parametros.Add("@idDomicilio", datosPersonales.DomicilioPersonal.Id);
                     conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
                 }
                 else 
                 {
                     //insertar en GEN_Domicilios y CV_Domicilio el DomicilioPersonal
-                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioPersonal, parametros, 1, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
                     parametros.Add("@Dni", datosPersonales.Dni);
                     conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
                 }
@@ -503,14 +592,14 @@ namespace General.Repositorios
                 if (datosPersonales.DomicilioLegal.Id > 0)
                 {
                     //update en GEN_Domicilios del domicilio laboral
-                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
                     parametros.Add("@idDomicilio", datosPersonales.DomicilioLegal.Id);
                     conexion_bd.Ejecutar("dbo.CV_Upd_Domicilio", parametros);
                 }
                 else
                 {
                     //insertar en GEN_Domicilios y CV_Domicilio el DomicilioLaboral
-                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.Telefono, datosPersonales.Telefono2, datosPersonales.Email);
+                    parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
                     parametros.Add("@Dni", datosPersonales.Dni);
                     conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
                 }
@@ -531,15 +620,13 @@ namespace General.Repositorios
             parametros.Add("@DomicilioCp", domicilio.Cp);
             parametros.Add("@DomicilioLocalidad", domicilio.Localidad);
             parametros.Add("@DomicilioProvincia", domicilio.Provincia);
-            parametros.Add("@Correo_Electronico_MDS", ""); //Esto no está blanqueando los mails de los empelados?
+            //parametros.Add("@Correo_Electronico_MDS", ""); // No se está utilizando el correo MDS. Ver correo - Email -
             parametros.Add("@DomicilioTipo", tipo);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@DomicilioTelefono", telefono);
             parametros.Add("@DomicilioTelefono2", telefono2);
             parametros.Add("@DomicilioCorreo_Electronico", email);
-
-           
-            
+                      
             return parametros;
         }
 
@@ -558,119 +645,161 @@ namespace General.Repositorios
             parametros.Add("@TipoDocumento", datosPersonales.TipoDocumento);
             parametros.Add("@Sexo", datosPersonales.Sexo);
             parametros.Add("@Usuario", usuario.Id);
-         
-
             return parametros;
         }
 
+
         #endregion CvDatosPersonales
 
-        #region CvAntecedentesAcademicos
-        public CvEstudios GuardarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
-        {
-            
-            validarDatos(antecedentesAcademicos_nuevo);
+        #region GuardadoDeItemCv
 
-            var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
+        private ItemCv GuardarItemCVParam(Dictionary<string, object> parametros, ItemCv item)
+        {
+            try
+            {
+                parametros.Keys.ToList().ForEach(k =>
+                {
+                    var v = parametros[k];
+                    if (v is DateTime) {
+                        if (v.Equals(new DateTime(1, 1, 1, 0, 0, 0)))
+                        {
+                            parametros.Remove(k);
+                        }
+                    }
+                });
+                var id = conexion_bd.EjecutarEscalar(item.SpInsercion(this), parametros);
+                item.Id = int.Parse(id.ToString());
+                return item;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+
+        public ItemCv GuardarItemCV(ItemCv item_nuevo, Usuario usuario)
+        {
+            return GuardarItemCV(item_nuevo, usuario, new Dictionary<string, object>());
+        }
+        
+        private ItemCv GuardarItemCV(ItemCv item_cv, Usuario usuario, Dictionary<string, object> param_iniciales)
+        {
+            item_cv.validarDatos();
+
+            var parametros = item_cv.Parametros(usuario, this);
+
+            param_iniciales.Keys.ToList().ForEach(k => parametros[k] = param_iniciales[k]);
+
             parametros.Add("@idPersona", usuario.Owner.Id);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_AntecedentesAcademicos", parametros);
-            antecedentesAcademicos_nuevo.Id = int.Parse(id.ToString());
-
-            return antecedentesAcademicos_nuevo;
+            return GuardarItemCVParam(parametros, item_cv);
         }
-
-        public CvEstudios ActualizarCvAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
+        
+        public ItemCv ActualizarCv(ItemCv antecedentesAcademicos_nuevo, Usuario usuario)
         {
-            validarDatos(antecedentesAcademicos_nuevo);
-            
-            var parametros = ParametrosDeAntecedentesAcademicos(antecedentesAcademicos_nuevo, usuario);
-            parametros.Add("@idAntecedente", antecedentesAcademicos_nuevo.Id);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
-
-            return antecedentesAcademicos_nuevo;
-
+            return ActualizarCv(antecedentesAcademicos_nuevo, usuario, new Dictionary<string, object>());
         }
 
-        public bool EliminarCVAntecedentesAcademicos(int id_antecedente_academico, Usuario usuario)
+
+        private ItemCv ActualizarCv(ItemCv item_nuevo, Usuario usuario, Dictionary<string, object> param_iniciales)
+        {
+            param_iniciales.Add("@idRegistroAnterior", item_nuevo.Id);
+            return GuardarItemCV(item_nuevo, usuario, param_iniciales);
+        }
+
+        public bool EliminarCV(ItemCv item, Usuario usuario)
         {
             var baja = CrearBaja(usuario);
 
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@idBaja", baja);
+            parametros.Add("@Baja", baja);
             parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@idAntecedente", id_antecedente_academico);
 
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ActividadesAcademicas", parametros);
+            ActualizarCv(item, usuario, parametros);
             return true;
         }
 
-        private Dictionary<string, object> ParametrosDeAntecedentesAcademicos(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
-        {
-            var parametros = new Dictionary<string, object>();
-
-            parametros.Add("@Titulo", antecedentesAcademicos_nuevo.Titulo);
-            parametros.Add("@Establecimiento", antecedentesAcademicos_nuevo.Establecimiento);
-            parametros.Add("@Especialidad", antecedentesAcademicos_nuevo.Especialidad);
-            parametros.Add("@FechaIngreso", antecedentesAcademicos_nuevo.FechaIngreso);
-            parametros.Add("@FechaEgreso", antecedentesAcademicos_nuevo.FechaEgreso);
-            parametros.Add("@Localidad", antecedentesAcademicos_nuevo.Localidad);
-            parametros.Add("@Pais", antecedentesAcademicos_nuevo.Pais);
-            parametros.Add("@Usuario", usuario.Id);
-
-            return parametros;
-
-        }
         #endregion
 
-        #region CvActividadesCapacitacion/CvCertificadosDeCapacitacion
+        #region nombresSps
 
-        public CvCertificadoDeCapacitacion GuardarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
+        public string SpActividadesCapacitacion()
         {
-        //deberia ser el mismo sp y tabla que antecedentes
-            validarDatos(actividad_nueva);
-            var parametros = ParametrosDeActividadesDeCapacitacion(actividad_nueva, usuario);
-            parametros.Add("@idPersona", usuario.Owner.Id);
-
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ActividadesDeCapacitacion", parametros);
-            actividad_nueva.Id = int.Parse(id.ToString());
-
-            return actividad_nueva;
+            return "dbo.CV_Ins_ActividadesDeCapacitacion";
         }
-
-
-        public CvCertificadoDeCapacitacion ActualizarCvActividadCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
-        {
-            validarDatos(actividad_nueva);
-            var parametros = ParametrosDeActividadesDeCapacitacion(actividad_nueva, usuario);
-            parametros.Add("@IdActividadDeCapacitacion", actividad_nueva.Id);
-
-            conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
-
-            return actividad_nueva;
-        }
-
-        public bool EliminarCvActividadCapacitacion(int id_capacitacion_nuevo, Usuario usuario)
-        {
-        var baja = CrearBaja(usuario);
-
-        //var parametros = ParametrosDeAntecedentesDocencia(capacitacion_nuevo, usuario, baja);
-        var parametros = new Dictionary<string, object>();
-        parametros.Add("@Baja", baja);
-        parametros.Add("@Usuario", usuario.Id);
-        parametros.Add("@IdActividadDeCapacitacion", id_capacitacion_nuevo);
-
-        conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_ActividadesDeCapacitacion", parametros);
-
-        return true;
-        }
-
-
-
-
         
-        private Dictionary<string, object> ParametrosDeActividadesDeCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
+        public string SpEstudios()
+        {
+            return "dbo.CV_Ins_AntecedentesAcademicos";
+        }
+
+        public string SpDocencia() {
+            return "dbo.CV_Ins_AntecedentesDeDocencia";
+        }
+
+        public string SpCapacidadPersonal() {
+            return "dbo.CV_Ins_CapacidadesPersonales";
+        }
+
+        public string SPCompetenciasInformaticas() {
+            return "dbo.CV_Ins_CompetenciasInformaticas";
+        }
+
+        public string SPEventosAcademicos() {
+            return "dbo.CV_Ins_EventosAcademicos";
+        }
+
+        public string SPExperienciasLaborales() {
+            return "dbo.CV_Ins_ExperienciasLaborales";
+        }
+
+        public string SPIdiomas() {
+            return "dbo.CV_Ins_Idiomas";
+        }
+
+        public string SPInstituciones()
+        {
+            return "dbo.CV_Ins_Instituciones";
+        }
+
+        public string SPMatriculas()
+        {
+            return "dbo.CV_Ins_Matriculas";
+        }
+
+        public string SPPostulaciones()
+        {
+            return "dbo.CV_Ins_Postulaciones";
+        }
+
+        public string SPPubliaciones()
+        {
+            return "dbo.CV_Ins_Publicaciones";
+        }
+
+        #endregion
+
+        #region parametros
+
+        public Dictionary<string, object> ParametrosEstudios(CvEstudios estudios, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Titulo", estudios.Titulo);
+            parametros.Add("@Establecimiento", estudios.Establecimiento);
+            parametros.Add("@Especialidad", estudios.Especialidad);
+            parametros.Add("@FechaIngreso", estudios.FechaIngreso);
+            parametros.Add("@FechaEgreso", estudios.FechaEgreso);
+            parametros.Add("@Localidad", estudios.Localidad);
+            parametros.Add("@Pais", estudios.Pais);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@Nivel", estudios.Nivel);
+            parametros.Add("@Anios", estudios.Anios);
+            
+            return parametros;
+        }
+
+        public Dictionary<string, object> ParametrosDeActividadesDeCapacitacion(CvCertificadoDeCapacitacion actividad_nueva, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Titulo", actividad_nueva.DiplomaDeCertificacion);
@@ -682,56 +811,11 @@ namespace General.Repositorios
             parametros.Add("@Localidad", actividad_nueva.Localidad);
             parametros.Add("@Pais", actividad_nueva.Pais);
             parametros.Add("@Usuario", usuario.Id);
-           
-
+            parametros.Add("@unidadtiempo", actividad_nueva.UnidadTiempo);
             return parametros;
-
-        }
-        #endregion CvCertificadosDeCapacitacion
-
-        #region CvActividadDocente
-        public CvDocencia GuardarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
-        {
-            validarDatos(docencia_nuevo);
-
-            var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
-            parametros.Add("@idPersona", usuario.Owner.Id);
-
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_AntecedentesDeDocencia", parametros);
-            docencia_nuevo.Id = int.Parse(id.ToString());
-
-            return docencia_nuevo;
         }
 
-
-        public CvDocencia ActualizarCvActividadDocente(CvDocencia docencia_nuevo, Usuario usuario)
-        {
-            validarDatos(docencia_nuevo);
-
-            var parametros = ParametrosDeAntecedentesDocencia(docencia_nuevo, usuario);
-            parametros.Add("@IdDocencia", docencia_nuevo.Id);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_AntecedentesDeDocencia", parametros);
-
-            return docencia_nuevo;
-        }
-
-        public bool EliminarCvActividadDocente(int docencia_nuevo, Usuario usuario)
-        {
-            var baja = CrearBaja(usuario);
-           
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdBaja", baja);
-            parametros.Add("@IdDocencia", docencia_nuevo);
-            parametros.Add("@Usuario", usuario.Id);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_AntecedentesDeDocencia", parametros);
-            return true;
-
-
-        }
-
-        private Dictionary<string, object> ParametrosDeAntecedentesDocencia(CvDocencia docencia_nuevo, Usuario usuario)
+        public Dictionary<string, object> ParametrosDeAntecedentesDocencia(CvDocencia docencia_nuevo, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Asignatura", docencia_nuevo.Asignatura);
@@ -747,54 +831,11 @@ namespace General.Repositorios
             parametros.Add("@Localidad", docencia_nuevo.Localidad);
             parametros.Add("@Pais", docencia_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
-
-
-            return parametros;
-
-        }
-        #endregion
-
-        #region CvEventosAcademicos
-
-        public CvEventoAcademico GuardarCvEventoAcademico(CvEventoAcademico eventoAcademico_nuevo, Usuario usuario)
-        {
-            validarDatos(eventoAcademico_nuevo);
-            var parametros = ParametrosDeEventosAcademicos(eventoAcademico_nuevo, usuario);
-            parametros.Add("@idPersona", usuario.Owner.Id);
-
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_EventosAcademicos", parametros);
-            eventoAcademico_nuevo.Id = int.Parse(id.ToString());
-            return eventoAcademico_nuevo;
-        }
-
-        public CvEventoAcademico ActualizarCvEventoAcademico(CvEventoAcademico evento_actualizado, Usuario usuario)
-        {
-            validarDatos(evento_actualizado);
-            var parametros = ParametrosDeEventosAcademicos(evento_actualizado, usuario);
-            parametros.Add("@IdEvento", evento_actualizado.Id);
-
-            conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_EventosAcademicos", parametros);
-
-            return evento_actualizado;
             
+            return parametros;
         }
 
-        public bool EliminarCvEventosAcademicos(int id_evento_academico, Usuario usuario)
-        {
-
-            var id_baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdEvento", id_evento_academico);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", id_baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.Cv_Upd_Del_EventosAcademicos", parametros);
-
-            return true;
-        }
-
-        private Dictionary<string, object> ParametrosDeEventosAcademicos(CvEventoAcademico evento_academico_nuevo, Usuario usuario)
+        public Dictionary<string, object> ParametrosDeEventosAcademicos(CvEventoAcademico evento_academico_nuevo, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Denominacion", evento_academico_nuevo.Denominacion);
@@ -807,51 +848,12 @@ namespace General.Repositorios
             parametros.Add("@Localidad", evento_academico_nuevo.Localidad);
             parametros.Add("@Pais", evento_academico_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@IdUnidadTiempo", evento_academico_nuevo.UnidadTiempo);
 
             return parametros;
         }
 
-        #endregion CvEventosAcademicos
-
-        #region CvPublicaciones
-        public CvPublicaciones GuardarCvPublicacionesTrabajos(CvPublicaciones publicacion_nueva, Usuario usuario)
-        {
-            validarDatos(publicacion_nueva);
-            var parametros = ParametrosDePublicaciones(publicacion_nueva, usuario);
-            parametros.Add("@idPersona", usuario.Owner.Id);
-
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Publicaciones", parametros);
-            publicacion_nueva.Id = int.Parse(id.ToString());
-
-            return publicacion_nueva;
-        }
-
-
-        public CvPublicaciones ActualizarCvPublicaciones(CvPublicaciones publicacion_nueva, Usuario usuario)
-        {
-            validarDatos(publicacion_nueva);
-            var parametros = ParametrosDePublicaciones(publicacion_nueva, usuario);
-            parametros.Add("@IdPublicacion", publicacion_nueva.Id);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Publicaciones", parametros);
-
-            return publicacion_nueva;
-        }
-
-        public CvPublicaciones EliminarCvPublicacionesTrabajos(CvPublicaciones publicacion_nueva, Usuario usuario)
-        {
-            var baja = CrearBaja(usuario);
-
-            var parametros = ParametrosDePublicaciones(publicacion_nueva, usuario);
-            parametros.Add("@IdPublicacion", publicacion_nueva.Id);
-            parametros.Add("@Baja", baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Publicaciones", parametros);
-
-            return publicacion_nueva;
-        }
-
-        private Dictionary<string, object> ParametrosDePublicaciones(CvPublicaciones publicacion_nueva, Usuario usuario)
+        public Dictionary<string, object> ParametrosDePublicaciones(CvPublicaciones publicacion_nueva, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@CantidadHojas", publicacion_nueva.CantidadHojas);
@@ -866,48 +868,8 @@ namespace General.Repositorios
             return parametros;
 
         }
-        #endregion
 
-        #region CvMatriculas
-        public CvMatricula GuardarCvMatricula(CvMatricula matricula_nueva, Usuario usuario)
-        {
-            validarDatos(matricula_nueva);
-            var parametros = ParametrosDeMatricula(matricula_nueva, usuario);
-            parametros.Add("@idPersona", usuario.Owner.Id);
-
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Matriculas", parametros);
-            matricula_nueva.Id = int.Parse(id.ToString());
-
-            return matricula_nueva;
-        }
-
-
-        public CvMatricula ActualizarCvMatricula(CvMatricula matricula_nueva, Usuario usuario)
-        {
-            validarDatos(matricula_nueva);
-            var parametros = ParametrosDeMatricula(matricula_nueva, usuario);
-            parametros.Add("@IdMatricula", matricula_nueva.Id);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Matriculas", parametros);
-
-            return matricula_nueva;
-        }
-
-        public bool EliminarCvMatricula(int id_matricula, Usuario usuario)
-        {
-            var baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>(); //ParametrosDeMatricula(matricula_nueva, usuario);
-            parametros.Add("@IdMatricula", id_matricula);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@idBaja", baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Matriculas", parametros);
-
-            return true;
-        }
-
-        private Dictionary<string, object> ParametrosDeMatricula(CvMatricula matricula_nueva, Usuario usuario)
+        public Dictionary<string, object> ParametrosDeMatricula(CvMatricula matricula_nueva, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@ExpedidoPor", matricula_nueva.ExpedidaPor);
@@ -916,53 +878,10 @@ namespace General.Repositorios
             parametros.Add("@FechaInscripcion", matricula_nueva.FechaInscripcion);
             parametros.Add("@Usuario", usuario.Id);
 
-
             return parametros;
-
-        }
-        #endregion
-
-        #region CvInstituciones Academicas
-        public CvInstitucionesAcademicas GuardarCvInstitucionAcademica(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
-        {
-            validarDatos(institucion_nueva);
-            var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
-            parametros.Add("@idPersona", usuario.Owner.Id);
-
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Instituciones", parametros);
-            institucion_nueva.Id = int.Parse(id.ToString());
-
-            return institucion_nueva;
         }
 
-
-        public CvInstitucionesAcademicas ActualizarCvInstitucionAcademica(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
-        {
-            validarDatos(institucion_nueva);
-            var parametros = ParametrosDeInstituciones(institucion_nueva, usuario);
-            parametros.Add("@idInstitucion", institucion_nueva.Id);
-            
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Instituciones", parametros);
-
-            return institucion_nueva;
-        }
-
-        public bool EliminarCvInstitucionAcademica(int id_institucion_nueva, Usuario usuario)
-        {
-            var baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>();
-
-            parametros.Add("@idInstitucion", id_institucion_nueva);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Instituciones", parametros);
-
-            return true;
-        }
-
-        private Dictionary<string, object> ParametrosDeInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
+        public Dictionary<string, object> ParametrosDeInstituciones(CvInstitucionesAcademicas institucion_nueva, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@CaracterEntidad", institucion_nueva.CaracterEntidad);
@@ -978,52 +897,10 @@ namespace General.Repositorios
             parametros.Add("@Pais", institucion_nueva.Pais);
             parametros.Add("@Usuario", usuario.Id);
 
-
             return parametros;
-
-        }
-        #endregion
-
-        #region CvExperiencias
-        public CvExperienciaLaboral GuardarCvExperienciaLaboral(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
-        {
-            validarDatos(experiencia_nueva);
-            var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
-            parametros.Add("@idPersona", usuario.Owner.Id);
-
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_ExperienciasLaborales", parametros);
-            experiencia_nueva.Id = int.Parse(id.ToString());
-
-            return experiencia_nueva;
         }
 
-
-        public CvExperienciaLaboral ActualizarCvExperienciaLaboral(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
-        {
-            validarDatos(experiencia_nueva);
-            var parametros = ParametrosDeExperiencias(experiencia_nueva, usuario);
-            parametros.Add("@IdExperienciaLaboral", experiencia_nueva.Id);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ExperienciasLaborales", parametros);
-
-            return experiencia_nueva;
-        }
-
-        public bool EliminarCvExperienciaLaboral(int id_experiencia_nueva, Usuario usuario)
-        {
-            var baja = CrearBaja(usuario);
-            var parametros = new Dictionary<string, object>();
-           
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@IdExperienciaLaboral", id_experiencia_nueva);
-            parametros.Add("@Baja", baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_ExperienciasLaborales", parametros);
-
-            return true;
-        }
-
-        private Dictionary<string, object> ParametrosDeExperiencias(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
+        public Dictionary<string, object> ParametrosDeExperiencias(CvExperienciaLaboral experiencia_nueva, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Actividad", experiencia_nueva.Actividad);
@@ -1038,54 +915,12 @@ namespace General.Repositorios
             parametros.Add("@Pais", experiencia_nueva.Pais);
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Sector", experiencia_nueva.Sector);
+            parametros.Add("@Ambito", experiencia_nueva.AmbitoLaboral);
+         
             return parametros;
-
-        }
-        #endregion
-
-        #region CvIdiomasExtranjeros
-
-
-        public CvIdiomas GuardarCvIdiomaExtranjero(CvIdiomas idioma_extranjero_nuevo, Usuario usuario)
-        {
-            validarDatos(idioma_extranjero_nuevo);
-            var parametros = ParametrosDelIdioma(idioma_extranjero_nuevo, usuario);
-            parametros.Add("@idPersona", usuario.Owner.Id);
-
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Idiomas", parametros);
-            idioma_extranjero_nuevo.Id = int.Parse(id.ToString());
-
-            return idioma_extranjero_nuevo;
         }
 
-
-        public CvIdiomas ActualizarCvIdiomaExtranjero(CvIdiomas idioma_extranjero_modificado, Usuario usuario)
-        {
-            validarDatos(idioma_extranjero_modificado);
-            var parametros = ParametrosDelIdioma(idioma_extranjero_modificado, usuario);
-            parametros.Add("@IdIdioma", idioma_extranjero_modificado.Id);
-           
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idiomas", parametros);
-
-            return idioma_extranjero_modificado;
-        }
-
-        public bool EliminarCvIdiomaExtranjero(int id_idioma, Usuario usuario)
-        {
-            var id_baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdIdioma", id_idioma);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@IdBaja", id_baja);
-           
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_Idiomas", parametros);
-
-            return true;
-        }
-
-
-        private Dictionary<string, object> ParametrosDelIdioma(CvIdiomas idioma_nuevo, Usuario usuario)
+        public Dictionary<string, object> ParametrosDelIdioma(CvIdiomas idioma_nuevo, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Diploma", idioma_nuevo.Diploma);
@@ -1099,100 +934,10 @@ namespace General.Repositorios
             parametros.Add("@Pais", idioma_nuevo.Pais);
             parametros.Add("@Usuario", usuario.Id);
 
-
             return parametros;
-
-        }
-        # endregion
-
-        #region CvCapacidadesPersonales/OtrasCapacidades
-
-        public CvCapacidadPersonal GuardarCvOtraCapacidad(CvCapacidadPersonal capacidad_personal_nueva, Usuario usuario)
-        {
-            validarDatos(capacidad_personal_nueva);
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdPersona", usuario.Owner.Id);
-            parametros.Add("@Tipo", capacidad_personal_nueva.Tipo);
-            parametros.Add("@Detalle", capacidad_personal_nueva.Detalle);
-            parametros.Add("@Usuario", usuario.Id);
-
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_CapacidadesPersonales", parametros);
-            capacidad_personal_nueva.Id = int.Parse(id.ToString());
-            return capacidad_personal_nueva;
         }
 
-
-        public CvCapacidadPersonal ActualizarCvOtraCapacidad(CvCapacidadPersonal capacidad_personal_modificada, Usuario usuario)
-        {
-            validarDatos(capacidad_personal_modificada);
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@Id", capacidad_personal_modificada.Id);
-            parametros.Add("@Tipo", capacidad_personal_modificada.Tipo);
-            parametros.Add("@Detalle", capacidad_personal_modificada.Detalle);
-            parametros.Add("@Usuario", usuario.Id);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CapacidadesPersonales", parametros);
-            return capacidad_personal_modificada;
-        }
-
-        public bool EliminarCvOtraCapacidad(int id_capacidad, Usuario usuario)
-        {
-            var id_baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@Id", id_capacidad);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", id_baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CapacidadesPersonales", parametros);
-
-            return true;
-        }
-
-
-        #endregion CvCapacidadesPersonales/OtrasCapacidades
-
-        #region CvCompetenciasInformaticas
-        public CvCompetenciasInformaticas GuardarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia_informatica, Usuario usuario)
-        {
-            validarDatos(competencia_informatica);
-            var parametros = ParametrosDeCompetenciasInformaticas(competencia_informatica, usuario);
-            parametros.Add("@idPersona", usuario.Owner.Id);
-
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_CompetenciasInformaticas", parametros);
-            competencia_informatica.Id = int.Parse(id.ToString());
-
-            return competencia_informatica;
-        }
-
-
-        public CvCompetenciasInformaticas ActualizarCvCompetenciaInformatica(CvCompetenciasInformaticas competencia, Usuario usuario)
-        {
-            validarDatos(competencia);
-            var parametros = ParametrosDeCompetenciasInformaticas(competencia, usuario);
-            parametros.Add("@IdCompetencia", competencia.Id);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CompetenciasInformaticas", parametros);
-
-            return competencia;
-        }
-
-        public bool EliminarCvCompetenciaInformatica(int id_competencia, Usuario usuario)
-        {
-            var id_baja = CrearBaja(usuario);
-
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdCompetencia", id_competencia);
-            parametros.Add("@Usuario", usuario.Id);
-            parametros.Add("@Baja", id_baja);
-
-            conexion_bd.EjecutarSinResultado("dbo.CV_Upd_Del_CompetenciasInformaticas", parametros);
-
-            return true;            
-        }
-
-
-        private Dictionary<string, object> ParametrosDeCompetenciasInformaticas(CvCompetenciasInformaticas competencia, Usuario usuario)
+        public Dictionary<string, object> ParametrosDeCompetenciasInformaticas(CvCompetenciasInformaticas competencia, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Conocimiento", competencia.Conocimiento);
@@ -1209,10 +954,16 @@ namespace General.Repositorios
             return parametros;
         }
 
+        public Dictionary<string, object> ParametrosDeCapacidadPersonal(CvCapacidadPersonal capacidad, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Tipo", capacidad.Tipo);
+            parametros.Add("@Detalle", capacidad.Detalle);
+            parametros.Add("@Usuario", usuario.Id);
+            return parametros;
+        }
+        #endregion
 
-        #endregion CvCompetenciasInformaticas
-
-              
         private int CrearBaja(Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
@@ -1231,14 +982,15 @@ namespace General.Repositorios
         {
             var validador_datos = new Validador();
 
-            validador_datos.DeberianSerNoVacias(new string[] { "Nombre", "Apellido", "Cuil", "Telefono", "Telefono2" });
+            validador_datos.DeberianSerNoVacias(new string[] { "Nombre", "Apellido", "Cuil" });
             validador_datos.DeberianSerFechasNoVacias(new string[] { "FechaNacimiento"});
             validador_datos.DeberianSerNaturalesOCero(new string[] { "Dni" }); 
-            validador_datos.DeberianSerNaturales(new string[] { "Sexo", "EstadoCivil", "Nacionalidad", "TipoDocumento"});
+            validador_datos.DeberianSerNaturalesOCero(new string[] { "Sexo", "EstadoCivil", "Nacionalidad", "TipoDocumento"});
             
             if (!validador_datos.EsValido(datosPersonales))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
 
+            validarDatos(datosPersonales.DatosDeContacto);
             validarDatos(datosPersonales.DomicilioLegal);
             validarDatos(datosPersonales.DomicilioPersonal);
         }
@@ -1247,13 +999,22 @@ namespace General.Repositorios
         {
             var validador_datos = new Validador();
 
-            validador_datos.DeberianSerNoVacias(new string[] { "Telefono", "Telefono2" });
-
             if (!validador_datos.EsValido(datosPersonales))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
 
+            validarDatos(datosPersonales.DatosDeContacto);
             validarDatos(datosPersonales.DomicilioLegal);
             validarDatos(datosPersonales.DomicilioPersonal);
+        }
+
+        private void validarDatos(DatosDeContacto datos_de_contacto)
+        {
+            var validador = new Validador();
+
+            validador.DeberianSerNoVacias(new string[] { "Telefono", "Telefono2", "Email" });
+
+            if (!validador.EsValido(datos_de_contacto))
+                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
         }
 
         private void validarDatos(CvDomicilio un_domicilio)
@@ -1266,140 +1027,6 @@ namespace General.Repositorios
             if (!validador_domicilio.EsValido(un_domicilio))
                 throw new ExcepcionDeValidacion("El tipo de dato no es correcto");   
         }
-
-        private void validarDatos(CvEstudios un_estudio)
-        {
-            var validador_estudios = new Validador();
-
-            validador_estudios.DeberianSerNoVacias(new string[] { "Titulo", "Especialidad", "Establecimiento", "Localidad" });
-            validador_estudios.DeberianSerFechasNoVacias(new string[] { "FechaIngreso", "FechaEgreso"});
-            validador_estudios.DeberianSerNaturales(new string[] { "Nivel", "Pais" });
-            
-            if (!validador_estudios.EsValido(un_estudio))
-                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");              
-        }
-
-        private void validarDatos(CvDocencia una_docencia)
-        {
-            var validador_docencias = new Validador();
-
-            validador_docencias.DeberianSerNoVacias(new string[] { "Asignatura", "CategoriaDocente", "DedicacionDocente", "CargaHoraria", "TipoActividad", "Establecimiento", "Localidad"});
-            validador_docencias.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
-            validador_docencias.DeberianSerNaturales(new string[] { "NivelEducativo", "Pais" });
-            
-            if(!validador_docencias.EsValido(una_docencia))
-                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
-                           
-        }
-
-        private void validarDatos(CvCertificadoDeCapacitacion una_actividad)
-        {
-            var validador_actividad = new Validador();       
-
-            validador_actividad.DeberianSerNoVacias(new string[]{ "DiplomaDeCertificacion", "Especialidad", "Duracion", "Establecimiento", "Localidad" });
-            validador_actividad.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
-            validador_actividad.DeberianSerNaturales(new string[] { "Pais" });
-
-            if (!validador_actividad.EsValido(una_actividad))
-                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
-        }
-
-        private void validarDatos(CvEventoAcademico un_evento_academico)
-        {
-            var validador_evento = new Validador();       
-
-            validador_evento.DeberianSerNoVacias(new string[]{ "Denominacion",  "Duracion", "Localidad" });
-            validador_evento.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
-            validador_evento.DeberianSerNaturales(new string[] { "Pais", "CaracterDeParticipacion", "TipoDeEvento", "Institucion" });
-
-            if (!validador_evento.EsValido(un_evento_academico))
-                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
-        }
-
-        private void validarDatos(CvPublicaciones una_publicacion)
-        {
-            var validador_publicacion = new Validador();  
-
-            validador_publicacion.DeberianSerNoVacias(new string[]{ "Titulo", "CantidadHojas", "DatosEditorial", });
-            validador_publicacion.DeberianSerFechasNoVacias(new string[] { "FechaPublicacion" });
-            validador_publicacion.DeberianSerNaturalesOCero(new string[] { "DisponeAdjunto", "DisponeCopia" });
-
-            if (!validador_publicacion.EsValido(una_publicacion))
-                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
-        }
-
-        private void validarDatos(CvMatricula una_matricula)
-        {
-            var validador_matricula = new Validador();  
-            
-            validador_matricula.DeberianSerNoVacias(new string[]{ "Numero", "ExpedidaPor", "SituacionActual" });
-            validador_matricula.DeberianSerFechasNoVacias(new string[] { "FechaInscripcion" });
-
-            if (!validador_matricula.EsValido(una_matricula))
-                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
-        }
-
-        private void validarDatos(CvInstitucionesAcademicas una_institucion)
-        {
-            var validador_institucion = new Validador();  
-                        
-            validador_institucion.DeberianSerNoVacias(new string[]{ "Institucion", "CaracterEntidad", "CargosDesempeniados", "NumeroAfiliado", "CategoriaActual", "Localidad" });
-            validador_institucion.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFin", "FechaDeAfiliacion", "Fecha" });
-            validador_institucion.DeberianSerNaturales(new string[] { "Pais" });
-
-            if (!validador_institucion.EsValido(una_institucion))
-                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
-        }
-
-        private void validarDatos(CvExperienciaLaboral una_experiencia)
-        {
-           var validador_experiencia = new Validador(); 
-                       
-            validador_experiencia.DeberianSerNoVacias(new string[]{ "PuestoOcupado", "Actividad", "NombreEmpleador", "TipoEmpresa", "Sector", "Localidad" });
-            validador_experiencia.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFin"});
-            validador_experiencia.DeberianSerNaturales(new string[] { "Pais" });
-            validador_experiencia.DeberianSerNaturalesOCero(new string[] { "PersonasACargo"});
-
-            if (!validador_experiencia.EsValido(una_experiencia))
-                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
-        }
-
-        private void validarDatos(CvIdiomas un_idioma)
-        {
-            var validador_idioma = new Validador(); 
-                                    
-            validador_idioma.DeberianSerNoVacias(new string[]{ "Diploma", "Idioma", "Establecimiento", "Localidad" });
-            validador_idioma.DeberianSerFechasNoVacias(new string[] { "FechaObtencion" });
-            validador_idioma.DeberianSerNaturales(new string[] { "Lectura", "Escritura", "Oral", "Pais" });
-
-            if (!validador_idioma.EsValido(un_idioma))
-                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
-        }
-
-        private void validarDatos(CvCompetenciasInformaticas una_competencia)
-        {
-            var validador_competencia = new Validador();
-                                    
-            validador_competencia.DeberianSerNoVacias(new string[]{ "Diploma", "Detalle", "Establecimiento", "Localidad" });
-            validador_competencia.DeberianSerFechasNoVacias(new string[] { "FechaObtencion" });
-            validador_competencia.DeberianSerNaturales(new string[] { "TipoInformatica", "Conocimiento", "Nivel", "Pais" });
-
-            if (!validador_competencia.EsValido(una_competencia))
-                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
-        }
-
-        private void validarDatos(CvCapacidadPersonal una_capacidad)
-        {
-            var validador_capacidad = new Validador();
-                                    
-            validador_capacidad.DeberianSerNoVacias(new string[]{ "Detalle"});
-            validador_capacidad.DeberianSerNaturales(new string[] { "Tipo"});
-
-            if (!validador_capacidad.EsValido(una_capacidad))
-                throw new ExcepcionDeValidacion("El tipo de dato no es correcto");
-        }
-
         #endregion Validaciones
-
     }
 }

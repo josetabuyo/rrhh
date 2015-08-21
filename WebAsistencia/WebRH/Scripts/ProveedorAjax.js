@@ -1,9 +1,7 @@
 ﻿var ProveedorAjax = function (raiz) {
-    var raiz_detectada = "";
-    for (var i = 0; i < window.location.pathname.split('/').length - 3; i++) {
-        raiz_detectada += "../";
-    };
-    this.raiz = raiz || raiz_detectada;
+    this.raiz = "http://localhost:43414/WebRH/"; //LOCAL
+    //this.raiz = "http://www.cltservwebrh.des/"; //LUNA
+    //this.raiz = "https://rrhh.desarrollosocial.gov.ar/"; //PRODUCCION
 };
 
 ProveedorAjax.prototype.postearAUrl = function (datos_del_post) {

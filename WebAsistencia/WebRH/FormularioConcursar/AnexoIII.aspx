@@ -22,7 +22,7 @@
         
         .tabla_anexo_1 
         {
-            font-size:1.2em;
+            font-size:0.9em;
             width:100%;
             }
      
@@ -37,8 +37,10 @@
             <p style="float:left;" class="">Postulación Nº: <span id="num_postulacion"></span></p>
             <p style="float:right;">ANEXO III</p>
             <div style="clear:both;"></div>
-            <p class="encabezado">CONSTANCIA DE RECEPCIÓN DE LA SOLICITUD.</p>
-            <p class="encabezado">FICHA DE INSCRIPCIÓN Y DE LA DOCUMENTACIÓN PRESENTADA</p>
+            <p class="encabezado"style="font-size:20px; margin-bottom:1%;margin-top:1%">CONSTANCIA DE RECEPCIÓN DE LA SOLICITUD.
+             <br />
+             FICHA DE INSCRIPCIÓN Y DE LA DOCUMENTACIÓN PRESENTADA</p>
+            <%--<p class="encabezado"style="font-size:20px; margin-bottom:1%;margin-top:1%"></p>--%>
         </div>
         <table class="tabla_anexo_1">
             <tr >
@@ -117,11 +119,11 @@
         <p style="border: 1px solid #000; padding:5px; padding-bottom:50px;">OBSERVACIONES (consignar si la inscripción fue efectuada por apoderado debidamente acreditado) Consignar
         entrega de las Bases del Concurso y cualquier otra documentación</p>
 
-        <div class="div-pie-tabla">
-            <table border="border-collapse: collapse" style="border-collapse: collapse" class="pie-tabla">
+        <div class="div-pie-tabla" style="height:50px;">
+            <table border="border-collapse: collapse" style="border-collapse: collapse; height:50px;" class="pie-tabla" >
             <tr>
-                <td class="td-pie-tabla"><span class="letra-bold">Fecha de Inscripción</span></td>
-                <td class="td-pie-tabla"><span class="letra-bold">Firma y Aclaración del Inscripto o Apoderado</span></td>
+                <td class="td-pie-tabla"><span class="letra-bold" style="height:50px;">Fecha de Inscripción</span></td>
+                <td class="td-pie-tabla"><span class="letra-bold" style="height:50px;">Firma y Aclaración del Inscripto o Apoderado</span></td>
             </tr>
             </table>
            
@@ -136,18 +138,21 @@
 </body>
 <%= Referencias.Javascript("../") %>
 <script type="text/javascript" src="Anexo.js" ></script>
+<script type="text/javascript" src="curriculum.js" ></script>
 <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
 
 <script type="text/javascript">
-    Backend.start();
+    //Backend.start();
 
     function ImprimirCVPostulado() {
         //window.print();
     }
 
-    $(document).ready(function () {
-        Anexo.armarAnexo();
-        window.print();
+    Backend.start(function () {
+        $(document).ready(function () {
+            Anexo.armarAnexo();
+            window.print();
+        });
     });
 
 </script>

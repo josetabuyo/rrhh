@@ -39,9 +39,11 @@ namespace General.Modi
             var folio_desde = int.Parse(rango_folios.Split('/')[0].Split('-')[1]);
             var folio_hasta = int.Parse(rango_folios.Split('/')[1]);
 
-            for (var i = folio_desde; i <= folio_hasta; i++)
+            var folio_documento = 1;
+            for (var folio_legajo = folio_desde; folio_legajo <= folio_hasta; folio_legajo++)
             {
-                this.folios.Add(new FolioModi(i));
+                this.folios.Add(new FolioModi(folio_legajo, folio_documento, una_tabla, un_id));
+                folio_documento++;
             }
         }
     }

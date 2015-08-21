@@ -20,7 +20,8 @@ VistaDeLegajoModi.prototype.start = function () {
         onImagenDropeada: function (imagen) {
             _this.o.servicioDeLegajos.desAsignarImagen(imagen.id,
                                                         function () {
-                                                            imagen.nro_folio = "";
+                                                            imagen.folioLegajo = "";
+                                                            imagen.orden = "";
                                                             _this.panel_imagenes_no_asignadas.agregarVistaImagen(imagen);
                                                         });
         }

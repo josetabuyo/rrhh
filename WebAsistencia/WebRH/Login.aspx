@@ -17,20 +17,19 @@
             <div id="loginControles">
                 <input type="text" id="usuario" class="span3" nullValue="usuario" runat="server"/><br />
                 <input type="password" id="password" class="span3" nullValue="contraseña" runat="server"/><br />
-                <div id="loginBoton">
-                    <a id="lnk_registrarse">Registrarse</a>
-                    <button id="fat-btn" data-loading-text="Iniciando..." class=" btn btn-primary"> 
-                        Iniciar Sesión
-                    </button>
-                    
-                </div>
+                <div style="position: relative; display: inline-block; width: 260px;">
+                    <a id="lnk_registrarse" style="margin-left: 25px; margin-right: 20px;">Registrarse </a>
+                    <button id="fat-btn" data-loading-text="Iniciando..." class=" btn btn-primary" style="margin-bottom: 15px;"> 
+                        Iniciar Sesión </button><br />
+                    <a id="lnk_recuperar" style="cursor: pointer; margin-left: 125px;">¿Olvidó sus datos?</a> 
+                 </div>
                 <div id="loginAlertaInvalido" class="alert  alert-error" runat="server">
-                    <a class="close" data-dismiss="alert">×</a> <strong>Error</strong> El nombre de
-                        usuario o la contraseña ingresados no son v&aacute;lidos o el usuario está dado de baja.
+                     <a class="close" data-dismiss="alert">×</a> <strong>Error</strong> El nombre de
+                                usuario o la contraseña ingresados no son v&aacute;lidos o el usuario está dado de baja.
+                </div>  
             </div>
-           
-        </div>
         <div id="registrarse_dialog"></div>
+        <div id="recuperar_dialog"></div>
     </div>
     </form>
     <%= Referencias.Javascript("") %>
@@ -39,9 +38,13 @@
 </body>
 <script>
     vex.defaultOptions.className = 'vex-theme-os';
+    var lnk_recuperar = $("#lnk_recuperar");
     var lnk_registrarse = $("#lnk_registrarse");
-    lnk_registrarse.click(function () {
+    lnk_registrarse.click(function () { 
         PantallaRegistro.abrir();
+    });
+    lnk_recuperar.click(function () {
+        PantallaRegistro.recuperar();
     });
 </script>
 </html>

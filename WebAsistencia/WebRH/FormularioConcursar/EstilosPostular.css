@@ -468,19 +468,26 @@ nav
 
 
 .titulo_cargo{
-    font-size:12px;
+    font-size:13px;
     font-weight:bold;
 }
 
 .detalle_cargo{
-    font-size:12px;
+    font-size:13px;
 }
 
 .aclaraciones{
-    font-size:12px;
+    font-size:15px;
 
     line-height:22px;
 }
+  
+  
+.aclaraciones2{
+    font-size:14px;
+    font-weight:bold;
+    line-height:22px;
+}  
   
 .subtitulo_incripcion 
 {
@@ -691,7 +698,7 @@ text-align: right;
 .principal
 {
 width: 92%;
-background-color: fff;
+background-color: #fff;
 margin-left: 4%;
 margin-right: 4%;
 font-family: Arial;
@@ -761,10 +768,7 @@ font-weight: bold;
 font-size: 14px;
 }
 
-.general
-{
-font-size:14px;
-}
+
 
 .lineas-subraya
 {
@@ -818,6 +822,12 @@ font-weight: bold;
 font-family: Arial;
 }
 
+.sub-titulos-descripcion 
+{
+    font-size: 14px;
+    font-weight:normal;
+}
+
 .letra-bold
 {
 font-weight: bold;
@@ -866,8 +876,43 @@ margin-bottom: 35px;
 
 .tit-pos
 {
-margin-top: 25px;
-margin-bottom: 70px;
+margin-top: 5px;
+margin-bottom: 10px;
+clear:both;
+}
+
+.general
+{
+font-size:12px;
+float: left;
+width: 50%;
+/*border-bottom:1px dotted #000;*/
+}
+
+.general_info_personal 
+{
+    font-size:12px;
+    }
+
+.contenedor_cv 
+{
+    
+    height:150px;
+    float:left;
+    
+    
+    }
+
+.labels_cv
+{
+    width:100px; 
+    text-align:left; 
+    font-weight:bold;
+    /*padding-right:1%; */
+    float:left; 
+    
+    font-size:12px;   
+    /*margin-top: 8px;*/
 }
 
 
@@ -892,7 +937,7 @@ font-size: 15px;
 width: 50%;
 padding-bottom: 5px;
 colspan: 2;
-height: 130px;
+height: 100px;
 vertical-align: bottom;
 border-style: dashed;
 }
@@ -1090,22 +1135,42 @@ margin: 15px 0 15px 0;
     cursor: pointer;
 }
 
+#pasosanterior {
+background-color: #2184be;
+color: #ffffff !important;
+padding: 2px 6px 3px 6px;
+border-radius: 10px 0px 0px 10px;
+font-size: 16px;
+}
+
+
+#pasossiguiente {
+background-color: #2184be;
+color: #ffffff !important;
+padding: 2px 6px 3px 6px;
+border-radius: 0px 10px 10px 0px;
+font-size: 16px;
+}
+
+
   
 .link_activado, .link_activado:hover {
     background: #2184be;
     color: #fff;
+    cursor: default !important;
     }
             
     .link_desactivado, .link_desactivado:hover
     {
     background: #eee;
     color: #aaa;
+    cursor: default !important;
     }
          
     .number 
     {
-        font-size: 1.429em;
-        }
+       font-size: 1.429em;
+    }
              
 .actions {
 position: relative;
@@ -1143,3 +1208,97 @@ width: 100%;
     -moz-border-radius: 5px;
     border-radius: 5px;*/
 }
+
+.label_caratula 
+{
+    /*text-decoration:underline;*/
+    font-size:19;
+    font-family: Verdana;
+    display:inline-table;
+   
+}
+
+
+.span_caratula 
+{
+    display:inline-table;
+   /* text-decoration:underline;*/
+    font-size:18px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+#span_perfil 
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:13px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+#span_comite 
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:17px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+#span_postulante
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:17px;
+  /*  font-family: Verdana;*/
+   
+}
+#span_recepcion
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:17px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+.td-caratula
+{
+/*text-align: center;*/
+font-size: 22px;
+width: 70%;
+padding-bottom: 5px;
+
+height: 20px;
+vertical-align: bottom;
+/*border-style: dashed;*/
+}
+
+
+/*Estilo tabla inscripcion*/
+.noborder
+{
+/*text-align: center;*/
+
+vertical-align: bottom;
+/*border-style: dashed;*/
+}
+
+
+#tr-border
+ {
+    border-right-style: none !important;
+    /*border: 1px solid black;*/
+}
+#td-border {
+    border-right-style: none !important;
+    width: 100px;
+}
+
+
+

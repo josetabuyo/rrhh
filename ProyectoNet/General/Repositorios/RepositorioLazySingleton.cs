@@ -40,10 +40,11 @@ namespace General.Repositorios
         }
 
         abstract protected void GuardarEnLaBase(T objeto);
-        protected void Guardar(T objeto)
+        public T Guardar(T objeto)
         {
             GuardarEnLaBase(objeto);
             if (objetos != null) objetos.Add(objeto);
+            return objeto;
         }
 
         abstract protected void QuitarDeLaBase(T objeto);

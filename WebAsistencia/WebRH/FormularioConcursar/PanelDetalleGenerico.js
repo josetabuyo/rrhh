@@ -1,4 +1,4 @@
-﻿var PanelDetalleGenerico = function (opciones) {
+var PanelDetalleGenerico = function (opciones) {
     //valores default
     var modelo = opciones.modelo || opciones.defaults;
     var alModificar = opciones.alModificar || function () { };

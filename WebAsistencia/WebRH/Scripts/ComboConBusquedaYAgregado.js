@@ -1,4 +1,4 @@
-﻿var ComboConBusquedaYAgregado = function (opt) {
+var ComboConBusquedaYAgregado = function (opt) {
     var _this = this;
     var def = {
         propiedadId: "Id",
@@ -53,7 +53,6 @@
                         _this.select.select2("close");
                     }
                 );
-
             };
             return "No se encontraron coincidencias para: <b>" + str_ingresado +
             "<button style='float:right' class='btn btn-primary' onclick='" + _this.nombre_funcion_global_agregado + "();'> Agregar</button>";

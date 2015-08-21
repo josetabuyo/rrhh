@@ -6,7 +6,14 @@
         _this.btn_agregar_institucion_academica = $("#btn_agregar_institucion_academica");
 
         _this.btn_agregar_institucion_academica.click(function () {
-            PanelDetalleDeInstitucionAcademica.mostrar({
+            var panel_detalle = new PanelDetalleGenerico({
+                defaults: {
+                    Pais: 9
+                },
+                path_html: "PanelDetalleDeInstitucionAcademica.htm",
+                metodoDeGuardado: "GuardarCvInstitucionAcademica",
+                mensajeDeGuardadoExitoso: "La institución fue guardada correctamente",
+                mensajeDeGuardadoErroneo: "Error al guardar la institución",
                 alModificar: function (nueva_institucion_academica) {
                     _this.GrillaInstitucionesAcademicas.BorrarContenido();
                     instituciones_academicas.push(nueva_institucion_academica);
@@ -28,8 +35,12 @@
                 var btn_eliminar = contenedorBtnAcciones.find("#btn_eliminar");
 
                 btn_editar.click(function () {
-                    PanelDetalleDeInstitucionAcademica.mostrar({
-                        institucion_academica: una_institucion_academica,
+                    var panel_detalle = new PanelDetalleGenerico({
+                        modelo: una_institucion_academica,
+                        path_html: "PanelDetalleDeInstitucionAcademica.htm",
+                        metodoDeGuardado: "ActualizarCvInstitucionAcademica",
+                        mensajeDeGuardadoExitoso: "La institución fue actualizada correctamente",
+                        mensajeDeGuardadoErroneo: "Error al actualizar la institución",
                         alModificar: function (institucion_academica_modificada) {
                             _this.GrillaInstitucionesAcademicas.BorrarContenido();
                             _this.GrillaInstitucionesAcademicas.CargarObjetos(instituciones_academicas);
@@ -62,30 +73,17 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la institución?", function (e) {
             if (e) {
-                // user clicked "ok"
-                var proveedor_ajax = new ProveedorAjax();
-
-                proveedor_ajax.postearAUrl({ url: "EliminarCVInstitucionAcademica",
-                    data: {
-                        id_institucion_academica: una_institucion_academica.Id
-                    },
-                    success: function (respuesta) {
+                Backend.EliminarCvInstitucionAcademica(una_institucion_academica)
+                    .onSuccess(function (respuesta) {
                         alertify.success("Institución eliminada correctamente");
                         _this.GrillaInstitucionesAcademicas.QuitarObjeto(_this.divGrilla, una_institucion_academica);
                         var indice = _this.instituciones.indexOf(una_institucion_academica);
                         _this.instituciones.splice(indice, 1);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    })
+                    .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la institución");
-                    }
-                });
-            } else {
-                // user clicked "cancel"
-                alertify.error("No se pudo eliminar la institución");
+                    });   
             }
         });
-
-
-
     }
 }

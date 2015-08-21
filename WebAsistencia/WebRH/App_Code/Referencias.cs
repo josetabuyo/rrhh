@@ -46,6 +46,7 @@ public class Referencias
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/ProveedorAjax.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Extensiones/Validaciones.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Extensiones/Colecciones.js""></script>
+            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Extensiones/PolyfillsIE.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Extensiones/Combos.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/opentip/opentip-jquery-excanvas.min.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Promesa.js""></script>

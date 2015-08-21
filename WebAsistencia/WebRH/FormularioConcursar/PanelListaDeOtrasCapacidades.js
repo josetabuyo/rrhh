@@ -1,12 +1,17 @@
 ﻿var PanelListaDeOtrasCapacidades = {
     armarGrilla: function (capacidades) {
         var _this = this;
-
+        _this.capacidades = capacidades;
         _this.divGrilla = $('#tabla_otras_capacidades');
         _this.btn_agregar_otra_capacidad = $("#btn_agregar_otra_capacidad");
 
         _this.btn_agregar_otra_capacidad.click(function () {
-            PanelDetalleDeOtraCapacidad.mostrar({
+            var panel_detalle = new PanelDetalleGenerico({
+                defaults: {Tipo:1},
+                path_html: "PanelDetalleDeOtraCapacidad.htm",
+                metodoDeGuardado: "GuardarCvOtraCapacidad",
+                mensajeDeGuardadoExitoso: "La capacidad fue guardada correctamente",
+                mensajeDeGuardadoErroneo: "Error al guardar la capacidad",
                 alModificar: function (nueva_capacidad) {
                     _this.GrillaCapacidades.BorrarContenido();
                     capacidades.push(nueva_capacidad);
@@ -17,7 +22,7 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Tipo", { generar: function (una_capacidad) { return RepositorioDeTiposDeCapacidadPersonal.buscar({ id: una_capacidad.Tipo }).descripcion;}}));
+        columnas.push(new Columna("Tipo", { generar: function (una_capacidad) { return RepositorioDeTiposDeCapacidadPersonal.buscar({ id: una_capacidad.Tipo }).descripcion; } }));
         columnas.push(new Columna("Detalle", { generar: function (una_capacidad) { return una_capacidad.Detalle } }));
         columnas.push(new Columna('Acciones', {
             generar: function (una_capacidad) {
@@ -26,8 +31,12 @@
                 var btn_eliminar = contenedorBtnAcciones.find("#btn_eliminar");
 
                 btn_editar.click(function () {
-                    PanelDetalleDeOtraCapacidad.mostrar({
-                        capacidad: una_capacidad,
+                    var panel_detalle = new PanelDetalleGenerico({
+                        modelo: una_capacidad,
+                        path_html: "PanelDetalleDeOtraCapacidad.htm",
+                        metodoDeGuardado: "ActualizarCvOtraCapacidad",
+                        mensajeDeGuardadoExitoso: "La capacidad fue actualizada correctamente",
+                        mensajeDeGuardadoErroneo: "Error al actualizar la capacidad",
                         alModificar: function (capacidad_modificada) {
                             _this.GrillaCapacidades.BorrarContenido();
                             _this.GrillaCapacidades.CargarObjetos(capacidades);
@@ -59,27 +68,17 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar la capacidad?", function (e) {
             if (e) {
-                // user clicked "ok"
-                var proveedor_ajax = new ProveedorAjax();
-
-                proveedor_ajax.postearAUrl({ url: "EliminarCVOtraCapacidad",
-                    data: {
-                        id_capacidad: una_capacidad.Id
-                    },
-                    success: function (respuesta) {
+                Backend.EliminarCvOtraCapacidad(una_capacidad)
+                    .onSuccess(function (respuesta) {
                         alertify.success("Capacidad eliminada correctamente");
-                        _this.GrillaCapacidades.QuitarObjeto(_this.divGrilla, una_capacidad);  
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        _this.GrillaCapacidades.QuitarObjeto(_this.divGrilla, una_capacidad);
+                        var indice = _this.capacidades.indexOf(una_capacidad);
+                        _this.capacidades.splice(indice, 1);
+                    })
+                    .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la capacidad");
-                    }
-                });
-            } else {
-                // user clicked "cancel"
+                    });
             }
         });
-
-
-
     }
 }

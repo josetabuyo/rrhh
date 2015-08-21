@@ -64,7 +64,7 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 303px; height: 127px;">
+            <td style="width: 250px; height: 127px;">
                 &nbsp;<uc7:Saldo14H ID="Saldo14H1" runat="server" />
                 <br />
                 <br />

@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using System.Text;
-using General;
 using System.Data.SqlClient;
-using General.Repositorios;
 using System.Linq;
-
 using Extensiones;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -32,6 +27,7 @@ namespace General.Repositorios
         {
             return this.Obtener();
         }
+
 
         public List<Persona> BuscarPersonas(string criterio)
         {
@@ -138,12 +134,24 @@ namespace General.Repositorios
 
         protected override void GuardarEnLaBase(Persona persona)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@tipoDocumento", 1);
-            parametros.Add("@documento", persona.Documento);
-            parametros.Add("@nombre", persona.Nombre);
-            parametros.Add("@apellido", persona.Apellido);
-            persona.Id = Convert.ToInt32(conexion.EjecutarEscalar("dbo.MAU_CrearPersona", parametros));
+            //si existe entonces se obtiene el ese
+            var personas = this.BuscarPersonas(JsonConvert.SerializeObject(new { Documento = persona.Documento, ConLegajo = true }));
+            if (personas.Count > 0)
+            {
+                persona.Documento = personas.First().Documento;
+                persona.Nombre = personas.First().Nombre;
+                persona.Apellido = personas.First().Apellido;
+                persona.Id = personas.First().Id;
+            }
+            else
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@tipoDocumento", 1);
+                parametros.Add("@documento", persona.Documento);
+                parametros.Add("@nombre", persona.Nombre);
+                parametros.Add("@apellido", persona.Apellido);
+                persona.Id = Convert.ToInt32(conexion.EjecutarEscalar("dbo.MAU_CrearPersona", parametros));
+            }
         }
 
         protected override void QuitarDeLaBase(Persona objeto)

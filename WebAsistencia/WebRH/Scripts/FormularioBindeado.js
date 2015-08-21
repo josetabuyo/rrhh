@@ -1,4 +1,4 @@
-﻿var FormularioBindeado = function (opt) {
+var FormularioBindeado = function (opt) {
     var _this = this;
     this.html_form = opt.formulario;
     this.modelo = opt.modelo;
@@ -117,7 +117,6 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
         });
     }
 };
-
 
 FormularioBindeado.prototype.cerrarCombosAbiertos = function () {
     $(".select2-drop-mask").hide()

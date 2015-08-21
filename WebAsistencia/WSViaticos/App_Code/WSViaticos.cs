@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
@@ -2458,8 +2458,6 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeUsuarios().GetDniPorAlias(alias);
     }
 
-
-
     [WebMethod]
     public bool RecuperarUsuario(string criterio)
     {
@@ -2473,7 +2471,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return Autorizador().RegistrarNuevoUsuario(aspirante);
     }
-
    
     #endregion
 

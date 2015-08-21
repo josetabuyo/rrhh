@@ -7,7 +7,15 @@
         _this.btn_agregar_otra_actividad_docente = $("#btn_agregar_actividad_docente");
 
         _this.btn_agregar_otra_actividad_docente.click(function () {
-            PanelDetalleDeActividadDocente.mostrar({
+            var panel_detalle = new PanelDetalleGenerico({
+                defaults: {
+                    NivelEducativo: { Id: 0 },
+                    Pais: 9
+                },
+                path_html: "PanelDetalleDeActividadDocente.htm",
+                metodoDeGuardado: "GuardarCvActividadDocente",
+                mensajeDeGuardadoExitoso: "La actividad docente fue creada correctamente",
+                mensajeDeGuardadoErroneo: "Error al crear la actividad docente",
                 alModificar: function (nueva_actividad) {
                     _this.GrillaActividadesDocentes.BorrarContenido();
                     _this.actividades_docentes.push(nueva_actividad);
@@ -18,21 +26,7 @@
 
         var columnas = [];
 
-//        columnas.push(new Columna("Asignatura", { generar: function (una_actividad_docente) { return una_actividad_docente.Asignatura } }));
-//        columnas.push(new Columna("Nivel Educativo", {
-//            generar: function (una_actividad_docente, callback) {
-//                Repositorio.buscar( "NivelesDeDocencia",
-//                                    { Id: una_actividad_docente.NivelEducativo },
-//                                    function (niveles) {
-//                                        callback(niveles[0].Descripcion);
-//                                    }
-//                );
-//            }, 
-//            asincronico: true
-//        }));
         columnas.push(new Columna("Asignatura", { generar: function (una_actividad_docente) { return una_actividad_docente.Asignatura } }));
-       // columnas.push(new Columna("Tipo de Actividad", { generar: function (una_actividad_docente) { return una_actividad_docente.TipoActividad } }));
-       // columnas.push(new Columna("Categoría Docente", { generar: function (una_actividad_docente) { return una_actividad_docente.CategoriaDocente } }));
         columnas.push(new Columna("Fecha Inicio", { generar: function (una_actividad_docente) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_docente.FechaInicio); } }));
         columnas.push(new Columna("Fecha Fin", { generar: function (una_actividad_docente) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_actividad_docente.FechaFinalizacion); } }));
         columnas.push(new Columna("Establecimiento", { generar: function (una_actividad_docente) { return una_actividad_docente.Establecimiento } }));
@@ -43,8 +37,12 @@
                 var btn_eliminar = contenedorBtnAcciones.find("#btn_eliminar");
 
                 btn_editar.click(function () {
-                    PanelDetalleDeActividadDocente.mostrar({
-                        docencia: una_actividad_docente,
+                    var panel_detalle = new PanelDetalleGenerico({
+                        modelo: una_actividad_docente,
+                        path_html: "PanelDetalleDeActividadDocente.htm",
+                        metodoDeGuardado: "ActualizarCvActividadDocente",
+                        mensajeDeGuardadoExitoso: "La actividad docente fue actualizado correctamente",
+                        mensajeDeGuardadoErroneo: "Error al actualizar la actividad docente",
                         alModificar: function (docencia_modificada) {
                             _this.GrillaActividadesDocentes.BorrarContenido();
                             _this.GrillaActividadesDocentes.CargarObjetos(_this.actividades_docentes);
@@ -76,26 +74,17 @@
         // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar este registro?", function (e) {
             if (e) {
-                // user clicked "ok"
-                var proveedor_ajax = new ProveedorAjax();
-
-                proveedor_ajax.postearAUrl({ url: "EliminarCvActividadDocente",
-                    data: {
-                        id_actividad_docente: una_actividad_docente.Id
-                    },
-                    success: function (respuesta) {
+                Backend.EliminarCvActividadDocente(una_actividad_docente)
+                    .onSuccess(function (respuesta) {
                         alertify.success("Docencia eliminada correctamente");
                         _this.GrillaActividadesDocentes.QuitarObjeto(_this.divGrilla, una_actividad_docente);
                         var indice = _this.actividades_docentes.indexOf(una_actividad_docente);
                         _this.actividades_docentes.splice(indice, 1);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    })
+                    .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la docencia");
-                    }
-                });
-            } else {
-                // user clicked "cancel"
-            }
+                    });   
+            } 
         });
 
 

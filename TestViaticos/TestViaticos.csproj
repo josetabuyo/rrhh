@@ -81,6 +81,8 @@
   <ItemGroup>
     <Compile Include="AppConexionTest.cs" />
     <Compile Include="CodigoTareaTest.cs" />
+    <Compile Include="TestPermisos.cs" />
+    <Compile Include="TestRepositorioDePerfiles.cs" />
     <Compile Include="TestRepoLazy.cs" />
     <Compile Include="TestPostular.cs" />
     <Compile Include="TestAlertas.cs" />

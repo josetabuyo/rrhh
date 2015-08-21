@@ -30,7 +30,7 @@ namespace General.Repositorios
 
         protected override List<NivelDeEstudio> ObtenerDesdeLaBase()
         {
-            var tablaDatos = conexion.Ejecutar("dbo.GEN_GET_NivelesDeEstudio");
+            var tablaDatos = conexion.Ejecutar("dbo.CV_GET_NivelesDeEstudio");
             var niveles = new List<NivelDeEstudio>();
             if (tablaDatos.Rows.Count > 0)
             {

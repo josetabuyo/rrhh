@@ -8,14 +8,31 @@ VisualizadorDeImagenes.prototype.start = function () {
     this.panelImagen = this.ui.find('#imagen');
     this.panelContenedorImagen = this.ui.find('#contenedor_imagen');
     this.txtFolio = this.ui.find('#txt_folio');
+    this.txtPagina = this.ui.find('#txt_pagina');
+    this.btnGuardar = this.ui.find('#btn_guardar');
     var _this = this;
 
-    this.txtFolio.val(this.o.imagen.nro_folio);
-    this.txtFolio.keypress(function (event) {
-        if (event.which == 13) {
-            _this.ui.dialog("close");
-            _this.o.onNumeroDeFolioIngresado(_this.txtFolio.val());
+    this.txtFolio.val(this.o.imagen.folioLegajo);
+    this.txtPagina.val(this.o.imagen.orden);
+
+    this.txtFolio.keypress(function (e) {
+        if (e.which == 13) {
+            _this.btnGuardar.click();
         }
+    });
+
+    this.txtPagina.keypress(function (e) {
+        if (e.which == 13) {
+            _this.btnGuardar.click();
+        }
+    });
+
+    this.btnGuardar.click(function () {
+        _this.ui.dialog("close");
+        _this.o.alGuardar({
+            folioLegajo: _this.txtFolio.val(),
+            pagina: _this.txtPagina.val()
+        });
     });
 
     this.ui.dialog({
