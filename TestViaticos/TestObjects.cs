@@ -1830,12 +1830,12 @@ namespace General
 
         public static CvEstudios UnEstudioSecundario()
         {
-            return new CvEstudios("Tecnico Electricista", 10,1, "", "", new DateTime(), new DateTime(), "", 0);
+            return new CvEstudios("Tecnico Electricista",1, 10,1, "", "", new DateTime(), new DateTime(), "", 0);
         }
 
         public static CvEstudios UnEstudioUniversitario()
         {
-            return new CvEstudios(1,"Lic en Adm", 12,1, "", "", new DateTime(), new DateTime(), "", 0);
+            return new CvEstudios(1,"Lic en Adm",1,  12,1, "", "", new DateTime(), new DateTime(), "", 0);
         }
 
         public static CvExperienciaLaboral UnaExpPublica()

@@ -137,6 +137,7 @@ namespace General.Repositorios
                                         {
                                             Id = dRow.GetInt("IdAntecedentesAcademicos", 0),
                                             Titulo = dRow.GetString("AntecedentesAcademicosTitulo", string.Empty),
+                                            IdTitulo = dRow.GetInt("AntecedentesAcademicosIdTitulo", 0),
                                             Nivel = dRow.GetSmallintAsInt("AntecedentesAcademicosNivel", 0),
                                             Anios = dRow.GetSmallintAsInt("AntecedentesAcademicosAnios", 0),
                                             Establecimiento = dRow.GetString("AntecedentesAcademicosEstablecimiento", string.Empty),
@@ -152,7 +153,7 @@ namespace General.Repositorios
                 items_anonimos.RemoveAll(e => items_anonimos.Any(prev => prev.Precedente == e.Id));
                 items_anonimos.RemoveAll(e => e.Baja != 0);
 
-                items_anonimos.Select(a => new CvEstudios(a.Id, a.Titulo, a.Nivel, a.Anios, a.Establecimiento,
+                items_anonimos.Select(a => new CvEstudios(a.Id, a.Titulo, a.IdTitulo, a.Nivel, a.Anios, a.Establecimiento,
                                                                     a.Especialidad, a.FechaIngreso, a.FechaEgreso,
                                                                     a.Localidad, a.Pais)).ToList().ForEach(ev => cv.AgregarEstudio(ev));
 
@@ -785,7 +786,7 @@ namespace General.Repositorios
         public Dictionary<string, object> ParametrosEstudios(CvEstudios estudios, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@Titulo", estudios.Titulo);
+            parametros.Add("@IdTitulo", estudios.IdTitulo);
             parametros.Add("@Establecimiento", estudios.Establecimiento);
             parametros.Add("@Especialidad", estudios.Especialidad);
             parametros.Add("@FechaIngreso", estudios.FechaIngreso);

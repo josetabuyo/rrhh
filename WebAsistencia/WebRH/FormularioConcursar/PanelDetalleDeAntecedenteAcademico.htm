@@ -12,7 +12,7 @@
 				<div class="grupo_campos">
 					<label for="txt_antecedentes_titulo">Título <em>*</em></label>
                     <select id="cmb_antecedentes_titulo" style="width:150px;" data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="TitulosAntecedentesAcademicos"
-                            rh-model-property="Titulo" rh-permite-agregar=true>
+                            rh-model-property="IdTitulo" rh-permite-agregar=true>
 					</select>
 					<!--<input id="txt_antecedentes_titulo" type="text" rh-control-type="textbox" rh-model-property="Titulo" style="width:350px;" data-validar="esNoBlanco"/>-->
 				</div>
@@ -27,12 +27,12 @@
 					<input id="txt_antecedentes_especialidad" type="text" style="width:350px;" rh-control-type="textbox" rh-model-property="Especialidad" />
 				</div>
                 <div class="grupo_campos">
-					<label for="txt_antecedentes_ingreso">Fecha Inicio <em>*</em></label>
-					<input id="txt_antecedentes_ingreso" type="text" style="width:120px;" rh-control-type="datepicker" rh-model-property="FechaIngreso" data-validar="esNoBlanco"/>
+					<label for="txt_antecedentes_ingreso">Fecha Inicio</label>
+					<input id="txt_antecedentes_ingreso" type="text" style="width:120px;" rh-control-type="datepicker" rh-model-property="FechaIngreso" />
 				</div>
 				<div class="grupo_campos">
-					<label for="txt_antecedentes_egreso">Fecha Fin </label>
-					<input id="txt_antecedentes_egreso" type="text" style="width:120px;" rh-control-type="datepicker" rh-model-property="FechaEgreso"/>
+					<label for="txt_antecedentes_egreso">Fecha Fin  <em>*</em></label>
+					<input id="txt_antecedentes_egreso" type="text" style="width:120px;" rh-control-type="datepicker" rh-model-property="FechaEgreso" data-validar="esNoBlanco"/>
 				</div>
                 <div class="grupo_campos nueva_linea">
 					<label for="txt_antecedentes_establecimiento">Establecimiento <em>*</em></label>
