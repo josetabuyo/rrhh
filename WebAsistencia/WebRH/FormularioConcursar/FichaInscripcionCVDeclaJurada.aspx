@@ -22,8 +22,16 @@
 <hr class="linea-top"/>
 
 <div class="principal">
+<p class="p-imprimir">
+    <button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir Curriculum</button>
+    <input style="width: 50px;" class="anexo_1 btn btn-primary" value="Anexo 1" />
+    <input style="width: 50px;" class="anexo_2 btn btn-primary"  value="Anexo 2" />
+    <input style="width: 50px;" class="anexo_3 btn btn-primary" value="Anexo 3" />
+</p>
 <div id="imprimir">
-<p class="encabezado">FICHA DE INSCRIPCIÓN<br>PRESENTACIÓN CURRICULUM VITAE<br>DECLARACIÓN JURADA</p>
+<p class="encabezado">FICHA DE INSCRIPCIÓN<br />PRESENTACIÓN CURRICULUM VITAE<br>DECLARACIÓN JURADA</p>
+
+
 
 <p class="general oferta-empleo"><span class="atributos">Postulación Nº: </span><span id="num_postulacion"></span></p>
 
@@ -193,9 +201,9 @@
 <div>
 <p class="p-imprimir">
     <button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir Curriculum</button>
-    <input style="width: 50px;" id="anexo_1" class="btn btn-primary" value="Anexo 1" />
-    <input style="width: 50px;" id="anexo_2" class="btn btn-primary"  value="Anexo 2" />
-    <input style="width: 50px;" id="anexo_3" class="btn btn-primary" value="Anexo 3" />
+    <input style="width: 50px;" id="anexo_1" class="anexo_1 btn btn-primary" value="Anexo 1" />
+    <input style="width: 50px;" id="anexo_2" class="anexo_2 btn btn-primary"  value="Anexo 2" />
+    <input style="width: 50px;" id="anexo_3" class="anexo_3 btn btn-primary" value="Anexo 3" />
 </p>
 </div>	
 
@@ -228,18 +236,18 @@
         ventana_impresion.document.close();
     }
 
-    $('#anexo_1').click(function () {
+    $('.anexo_1').click(function () {
         window.open('AnexoI.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
         //window.location.href = 'AnexoI.aspx';
 
     });
 
-    $('#anexo_2').click(function () {
+    $('.anexo_2').click(function () {
         window.open('AnexoII.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
         //window.location.href = 'AnexoII.aspx';
     });
 
-    $('#anexo_3').click(function () {
+    $('.anexo_3').click(function () {
         window.open('AnexoIII.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
         //window.location.href = 'AnexoIII.aspx';
     });
