@@ -97,6 +97,7 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
     this[select.attr('Id')] = combo;
 
     var path_propiedad_modelo = select.attr('rh-model-property');
+    //var path_propiedad_modelo_texto = select.attr('rh-model-property-text');
     var handler = function (prop, oldval, newval) {
         combo.idSeleccionado(newval);
     };
@@ -104,6 +105,10 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
     combo.change(function () {
         O_O.desWatchear(_this.modelo, path_propiedad_modelo, handler);
         O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, combo.idSeleccionado());
+//        if (path_propiedad_modelo_texto && combo.itemSeleccionado()) {
+//            if (prop_label) O_O.setValorEnPath(_this.modelo, path_propiedad_modelo_texto, combo.itemSeleccionado()[prop_label]);
+//            else O_O.setValorEnPath(_this.modelo, path_propiedad_modelo_texto, combo.itemSeleccionado()["Descripcion"]);
+//        }
         O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
     });
     O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
