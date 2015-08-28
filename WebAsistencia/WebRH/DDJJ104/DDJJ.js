@@ -213,6 +213,11 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
     var dependencia;
     var leyenda;
     var nroDDJJ104;
+    // var botonImprimir;
+
+    //    botonImprimir = $("<input type='button'>");
+    //    botonImprimir.val("Imprimir");
+    //    botonImprimir.click(ImprimirPorImpresora());
 
     area = p_listaImprimir_DDJJ[0].Area.Nombre;
     mes = p_listaImprimir_DDJJ[0].Mes;
@@ -221,7 +226,8 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
     dependencia = p_listaImprimir_DDJJ[0].Area.Dependencias[0].Nombre;
     leyenda = p_listaImprimir_DDJJ[0].LeyendaPorAnio;
     nroDDJJ = "NRO DDJJ: " + p_listaImprimir_DDJJ[0].IdDDJJ;
-    
+
+
 
     grilla = new Grilla(
         [
@@ -241,25 +247,28 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
     var w = window.open("../DDJJ104/Impresion/ImpresionDDJJ104.aspx");
 
     w.onload = function () {
+        var pantalla_impresion = $(w.document);
+                var t = w.document.getElementById("PanelImpresion");
+                var mesddjj = w.document.getElementById("MesDDJJ104");
+                var anioddjj = w.document.getElementById("AnioDDJJ104");
+                var areaddjj = w.document.getElementById("AreaDDJJ104");
+                var areadireccionddjj = w.document.getElementById("AreaDireccionDDJJ104");
+                var areadependenciaddjj = w.document.getElementById("AreaDependenciaDDJJ104");
+                var leyendaporanioddjj = w.document.getElementById("LeyendaPorAnioDDJJ104");
+                var nroDDJJ104 = w.document.getElementById("NroDDJJ104");
+                //var botonImp = w.document.getElementById("divBotonImprimir");
 
-        var t = w.document.getElementById("PanelImpresion");
-        var mesddjj = w.document.getElementById("MesDDJJ104");
-        var anioddjj = w.document.getElementById("AnioDDJJ104");
-        var areaddjj = w.document.getElementById("AreaDDJJ104");
-        var areadireccionddjj = w.document.getElementById("AreaDireccionDDJJ104");
-        var areadependenciaddjj = w.document.getElementById("AreaDependenciaDDJJ104");
-        var leyendaporanioddjj = w.document.getElementById("LeyendaPorAnioDDJJ104");
-        var nroDDJJ104 = w.document.getElementById("NroDDJJ104");
-        
-        $(areaddjj).html(area);
-        $(mesddjj).html(NombreMes(mes));
-        $(anioddjj).html(anio);
-        $(areadireccionddjj).html(direccion);
-        $(areadependenciaddjj).html(dependencia);
-        $(leyendaporanioddjj).html(leyenda);
-        $(nroDDJJ104).html(nroDDJJ);
+                $(areaddjj).html(area);
+                $(mesddjj).html(NombreMes(mes));
+                $(anioddjj).html(anio);
+                $(areadireccionddjj).html(direccion);
+                $(areadependenciaddjj).html(dependencia);
+                $(leyendaporanioddjj).html(leyenda);
+               // $(botonImp).html(botonImprimir);
 
-        $(t).html(ContenedorPlanilla.html());
+                $(nroDDJJ104).html(nroDDJJ);
+
+                $(t).html(ContenedorPlanilla.html());
     }
 
 
@@ -272,7 +281,7 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
 
     // w.document.write(ContenedorPlanilla.html());
     // w.print();
-    // w.close();
+     //w.close();
 
 }
 
@@ -305,3 +314,9 @@ function NombreMes(num) {
 
     return "";
 }
+
+
+//var ImprimirPorImpresora = function () {
+//    //    window.print();
+//    alert("imp");
+//}

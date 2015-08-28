@@ -2,9 +2,14 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">    
     <title>Impresión Declaración Jurada DDJJ104</title>
+
+    <%= Referencias.Css("../../")%>
+    <%= Referencias.Javascript("../../") %>
+
     <style>
         .SaltoDePagina
         {
@@ -69,7 +74,7 @@
         <br />
         <img src="../../Imagenes/EscudoMDS.png" width="200px" height="80px" alt="" />
         
-        <div runat="server" align="center">
+        <div runat="server" align="right">
             <b><a id="NroDDJJ104" style="text-transform: uppercase"></a></b>
         </div>
 
@@ -95,10 +100,35 @@
                     style="width: 90%; height:100%; font-size:small" ></div>
             </div>
         <br />
-        <input type="button" onclick="window.print();" value="Imprimir" id="ocultar"  />
-
+        <input type="button"  value="Imprimir" id="ocultar"  />
+        <%--<input type="button" onclick="ImprimirPorImpresora();" value="Imprimir" id="ocultar"  />--%>
+        <%--<div id="divBotonImprimir">
+            <input id="boton_imprimir" type=button value="imprimir"/>
+        </div>
+        <div id="nro_DDJJ" style="display:none"></div>--%>
     </div>
     </form>
 </body>
+<script type="text/javascript">
+    $("#ocultar").click(function () {        
+        window.print();        
+        var data_post = { 3 };
+        $.ajax({
+            url: "../AjaxWS.asmx/ImprimirDDJJ104",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(data_post),
+            contentType: "application/json; charset=utf-8",
+            success: function (respuestaJson) {
+                listaImprimir = JSON.parse(respuestaJson.d);
+                DibujarFormularioDDJJ104(listaImprimir);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alertify.alert(errorThrown);
+            }
+        });
+    });
+</script>
 </html>
 
