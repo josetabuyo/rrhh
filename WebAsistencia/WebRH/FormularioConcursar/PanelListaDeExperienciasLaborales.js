@@ -19,9 +19,27 @@
                     _this.GrillaExperiencias.BorrarContenido();
                     experiencias.push(nueva_experiencia);
                     _this.GrillaExperiencias.CargarObjetos(experiencias);
+                },
+                alCargar: function (ui) {
+                    ui.find('#cmb_ambitolaboral').on('change', function () {
+                        if (this.value == 1) {
+                            //alert(this.value);
+                            $("#cmb_modalidad").prop('disabled', false);
+                            
+                        }
+                        else {
+                            //alert(this.value);
+                            //$("#cmb_modalidad").val("3");
+                            $("#cmb_modalidad").prop('disabled', true);
+                           
+                        }
+
+                        //alert(this.value); // or $(this).val()
+                    });
                 }
-            });          
+            });
         });
+
 
         var columnas = [];
 
@@ -84,8 +102,8 @@
                     })
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la experiencia");
-                    });   
-            } 
+                    });
+            }
         });
     }
 }

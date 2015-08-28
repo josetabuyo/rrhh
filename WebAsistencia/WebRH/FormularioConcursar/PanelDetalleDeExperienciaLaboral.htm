@@ -17,13 +17,20 @@
 					<label for="txt_especialidad">Nombre de la Principal Actividad o Responsabilidad <em>*</em></label>
 					<input id="txt_experiencia_laboral_actividad" type="text" style="width:305px;" rh-control-type="textbox" rh-model-property="Actividad" data-validar="esNoBlanco"/>
 				</div>
-              <div class="grupo_campos nueva_linea">
+                <div class="grupo_campos nueva_linea">
 					<label for="cmb_ambitolaboral">Ámbito Laboral <em>*</em></label>
                     <select id="cmb_ambitolaboral" style="width:135px;" rh-control-type="combo" rh-data-provider="AmbitosLaborales"
                             rh-model-property="AmbitoLaboral" data-validar="haySeleccionEnCombo">
 					</select>
-                  </div>
-				<div class="grupo_campos">
+                </div>
+                <div class="grupo_campos" >
+					<label for="cmb_modalidad">Modalidad</label>
+                    <select id="cmb_modalidad" style="width:135px;" rh-control-type="combo" rh-data-provider="ModalidadContratacion"
+                            rh-model-property="CvModalidadContratacion" data-validar="haySeleccionEnCombo" >
+					</select>
+                </div>
+
+				<div class="grupo_campos nueva_linea">
 					<label for="experiencia-laboral_personal_a_cargo">Personal a Cargo <em>*</em></label>
                     <select id="experiencia-laboral_personal_a_cargo" style="width:135px;" rh-control-type="combo" rh-model-property="PersonasACargo" data-validar="haySeleccionEnCombo">
 						<option value=0>NO</option>

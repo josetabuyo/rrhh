@@ -22,6 +22,7 @@ namespace General
         protected string _actividad;
         protected string _sector;
         protected int _ambitoLaboral;
+        protected int _modalidadContratacion;
 
         public string PuestoOcupado { get { return _puestoOcupado; } set { _puestoOcupado = value; } }
         public string MotivoDesvinculacion { get { return _motivoDesvinculacion; } set { _motivoDesvinculacion = value; } }
@@ -35,12 +36,13 @@ namespace General
         public string Actividad { get { return _actividad; } set { _actividad = value; } }
         public string Sector { get { return _sector; } set { _sector = value; } }
         public int AmbitoLaboral { get { return _ambitoLaboral; } set { _ambitoLaboral = value; } }
+        public int ModalidadContratacion { get { return _modalidadContratacion; } set { _modalidadContratacion = value; } }
 
         public CvExperienciaLaboral()
         {
         }
 
-        public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, int personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais, string sector, int AmbitoLaboral):base(id, puestoOcupado,8)
+        public CvExperienciaLaboral(int id, string puestoOcupado, string motivoDesvinculacion, string nombreEmpleador, int personasACargo, string tipoEmpresa, string actividad, DateTime fechaInicio, DateTime fechaFin, string localidad, int pais, string sector, int AmbitoLaboral, int ModalidadContratacion):base(id, puestoOcupado,8)
         {
             this.Id = id;
             this._puestoOcupado = puestoOcupado;
@@ -55,6 +57,7 @@ namespace General
             this._actividad = actividad;
             this._sector = sector;
             this._ambitoLaboral = AmbitoLaboral;
+            this._modalidadContratacion = ModalidadContratacion;
         }
 
         override public void validarDatos()

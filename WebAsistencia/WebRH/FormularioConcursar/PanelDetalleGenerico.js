@@ -40,6 +40,10 @@ var PanelDetalleGenerico = function (opciones) {
             }
         });
 
+        if (opciones.alCargar) {
+            opciones.alCargar(_this.ui);
+        }
+
         var link_trucho = $("<a href='#un_div_modal'></a>");
         link_trucho.leanModal({ top: 300, closeButton: ".modal_close_concursar" });
         link_trucho.click();
