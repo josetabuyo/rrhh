@@ -81,6 +81,10 @@
   <ItemGroup>
     <Compile Include="AppConexionTest.cs" />
     <Compile Include="CodigoTareaTest.cs" />
+    <Compile Include="TestPermisos.cs" />
+    <Compile Include="TestRepositorioDePerfiles.cs" />
+    <Compile Include="TestRepoLazy.cs" />
+    <Compile Include="TestPostular.cs" />
     <Compile Include="TestAlertas.cs" />
     <Compile Include="TestMail.cs" />
     <Compile Include="TestRepositorioLicencias.cs" />
@@ -96,6 +100,7 @@
     <Compile Include="TestSACC\TestEvaluaciones.cs" />
     <Compile Include="TestSACC\TestRepositorioEspaciosFisicos.cs" />
     <Compile Include="TestSACC\TestRepositorioEvaluaciones.cs" />
+    <Compile Include="TestValidaciones.cs" />
     <Compile Include="TestValidador.cs" />
     <Compile Include="TestSACC\TestCalendarioDeCurso.cs" />
     <Compile Include="TestSACC\TestPlanillaMensual.cs" />
@@ -129,12 +134,6 @@
     <Compile Include="ViaticosDataSet.cs">
       <DependentUpon>ViaticosDataSet.xsd</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProyectoNet\General\General.csproj">
-      <Project>{D6802AD2-A6E1-4612-8F01-811E926A1D2E}</Project>
-      <Name>General</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -212,6 +211,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProyectoNet\General\General.csproj">
+      <Project>{D6802AD2-A6E1-4612-8F01-811E926A1D2E}</Project>
+      <Name>General</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

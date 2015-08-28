@@ -97,6 +97,9 @@ Grilla.prototype = {
     AgregarEstilo: function (clase) {
         this.tabla.addClass(clase);
     },
+    CambiarEstiloCabecera: function (clase) {
+        this.tabla[0].tHead.className = clase;
+    },
 
     SetOnRowClickEventHandler: function (metodo) {
         this.onRowClickEventHandler = metodo;
@@ -143,14 +146,22 @@ Grilla.prototype = {
         tr.append(td);
         this.tabla.append(tr);
     },
+    CrearCelda: function (col, obj) {
+        var td = $('<td>');
+        if (col.generadorDeContenido.asincronico) {
+            col.generadorDeContenido.generar(obj, function (contenido) {
+                td.append(contenido);
+            });
+        } else {
+            td.append(col.generadorDeContenido.generar(obj));
+        }
+        td.addClass(col.titulo);
+        return td;
+    },
     CargarObjeto: function (obj) {
         var tr = $('<tr>');
         for (var i = 0; i < this.columnas.length; i++) {
-            var col = this.columnas[i];
-            var td = $('<td>');
-            td.append(col.generadorDeContenido.generar(obj));
-            td.addClass(col.titulo);
-            tr.append(td);
+            tr.append(this.CrearCelda(this.columnas[i], obj));
         }
         //seteo el evento click para la fila
         var self = this;

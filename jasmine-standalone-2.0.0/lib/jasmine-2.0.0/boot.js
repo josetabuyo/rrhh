@@ -68,6 +68,25 @@
     spyOn: function(obj, methodName) {
       return env.spyOn(obj, methodName);
     },
+	
+	updateable: function updateable(test, fn, bindeos) {
+		_this = test;
+		$.each(bindeos, function() { _this[this] = undefined });
+		$.each(bindeos, function() {
+			_this.watch(this, function(prop, oldVal, newVal) {
+				var args = {};
+				$.each(bindeos, function() {
+					if(this.toString() == prop.toString()) {
+						args[this] = newVal;
+					} else {
+						args[this] = _this[this];
+					}
+				});
+				fn.call(_this, args);
+				return newVal;
+			});
+		});
+	},
 
     jsApiReporter: new jasmine.JsApiReporter({
       timer: new jasmine.Timer()

@@ -56,7 +56,18 @@ namespace General.Repositorios
         public List<Evaluacion> GetEvaluacionesPorCurso(Curso curso)
         {
             GetEvaluaciones();
-            return  this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Id.Equals(curso.Id));
+            var evaluaciones_del_curso = new List<Evaluacion>();
+            try
+            {
+                evaluaciones_del_curso = this.evaluaciones.FindAll(evaluaciones => evaluaciones.Curso.Id.Equals(curso.Id));
+            }
+            catch (Exception e)
+            {
+                
+                throw;
+            }
+            
+            return evaluaciones_del_curso;
         }
 
         public List<Evaluacion> GetEvaluacionesPorCursoEInstancia(Curso un_curso, InstanciaDeEvaluacion una_instancia_del_curso)

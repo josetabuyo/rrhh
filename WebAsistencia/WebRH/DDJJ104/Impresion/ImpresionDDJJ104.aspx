@@ -110,25 +110,14 @@
     </form>
 </body>
 <script type="text/javascript">
-    $("#ocultar").click(function () {        
+Backend.start(function () {
+    $(document).ready(function () {
+        $("#ocultar").click(function () {        
         window.print();        
-        var data_post = { 3 };
-        $.ajax({
-            url: "../AjaxWS.asmx/ImprimirDDJJ104",
-            type: "POST",
-            async: false,
-            dataType: "json",
-            data: JSON.stringify(data_post),
-            contentType: "application/json; charset=utf-8",
-            success: function (respuestaJson) {
-                listaImprimir = JSON.parse(respuestaJson.d);
-                DibujarFormularioDDJJ104(listaImprimir);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert(errorThrown);
-            }
-        });
+
     });
+});
+   
 </script>
 </html>
 

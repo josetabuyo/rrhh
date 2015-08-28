@@ -9,6 +9,7 @@
     <title>MODI</title>
     <link rel="stylesheet" href="EstilosModi.css" type="text/css"/>
     <%= Referencias.Css("../")%>
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
 </head>
 <body class="body-detalle">
     <form id="form1" runat="server">
@@ -110,6 +111,7 @@
         </div>       
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
+
     </form>
 </body>
     <%= Referencias.Javascript("../") %>

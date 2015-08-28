@@ -1,38 +1,53 @@
 ﻿
 var lista_DDJJ;
 var ContenedorGrilla = $("#ContenedorGrilla");
+Backend.start(function () {
+    $(document).ready(function () {
+        var meses = $("#cmbMeses");
+        completarComboMeses(meses);
+        $("#progressbar").hide();
 
-
-$(document).ready(function () {
-    var meses = $("#cmbMeses");
-    completarComboMeses(meses);
-    $("#progressbar").hide();
-    
+    });
 });
+
 
 
 var completarComboMeses = function (meses) {
     meses.html("");
-    $.ajax({
-        url: "../AjaxWS.asmx/GetMeses",
-        type: "POST",
-        async: false,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            var item = new Option('Seleccione', '');
+    Backend.GetMeses()
+    .onSuccess(function (respuesta) {
+        var item = new Option('Seleccione', '');
+        meses.append(item);
+        for (var i = 0; i < respuesta.length; i++) {
+            item = new Option(respuesta[i].NombreMes + ' - ' + respuesta[i].Anio, respuesta[i].Mes + '-' + respuesta[i].Anio);
+            $(item).html(respuesta[i].NombreMes + ' - ' + respuesta[i].Anio);
             meses.append(item);
-            var respuesta = JSON.parse(respuestaJson.d);
-            for (var i = 0; i < respuesta.length; i++) {
-                item = new Option(respuesta[i].NombreMes + ' - ' + respuesta[i].Anio, respuesta[i].Mes + '-' + respuesta[i].Anio);
-                $(item).html(respuesta[i].NombreMes + ' - ' + respuesta[i].Anio);
-                meses.append(item);
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
         }
+    })
+    .onError(function (error, as, asd) {
+        alertify.alert(error);
     });
+
+//    $.ajax({
+//        url: "../AjaxWS.asmx/GetMeses",
+//        type: "POST",
+//        async: false,
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        success: function (respuestaJson) {
+//            var item = new Option('Seleccione', '');
+//            meses.append(item);
+//            var respuesta = JSON.parse(respuestaJson.d);
+//            for (var i = 0; i < respuesta.length; i++) {
+//                item = new Option(respuesta[i].NombreMes + ' - ' + respuesta[i].Anio, respuesta[i].Mes + '-' + respuesta[i].Anio);
+//                $(item).html(respuesta[i].NombreMes + ' - ' + respuesta[i].Anio);
+//                meses.append(item);
+//            }
+//        },
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alertify.alert(errorThrown);
+//        }
+//    });
 }
 
 

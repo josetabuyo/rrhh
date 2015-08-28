@@ -7,16 +7,16 @@ VistaDeFolioModi.prototype.start = function () {
     var _this = this;
     this.id = this.o.idImagen;
     this.ui = $("#plantilla_ui_folio").clone();
-    this.ui.attr("id", "folio_" + this.o.folio.numero_folio.toString())
+    this.ui.attr("id", "folio_" + this.o.folio.folioLegajo.toString())
     this.lbl_folio = this.ui.find("#lbl_folio");
-    this.lbl_folio.text("Folio " + this.o.folio.numero_folio.toString());
+    this.lbl_folio.text("Folio " + this.o.folio.folioLegajo.toString());
     for (var i = 0; i < this.o.folio.imagenes.length; i++) {
         var vista_imagen = new VistaDeImagen({
             idImagen: _this.o.folio.imagenes[i].id,
             orden: _this.o.folio.imagenes[i].orden,
             servicioDeDragAndDrop: _this.o.servicioDeDragAndDrop,
             servicioDeLegajos: _this.o.servicioDeLegajos,
-            numeroDeFolio: _this.o.folio.numero_folio
+            numeroDeFolio: _this.o.folio.folioLegajo
         });   
         vista_imagen.dibujarEn(_this.ui);
     }
@@ -31,9 +31,9 @@ VistaDeFolioModi.prototype.start = function () {
 //            }
             _this.o.servicioDeLegajos.asignarImagenAFolioDeLegajo(
                 _this.o.servicioDeDragAndDrop.imagenOnDrag.id,
-                _this.o.folio.numero_folio,
+                _this.o.folio.folioLegajo,
                 function (orden) {
-                    _this.o.servicioDeDragAndDrop.imagenOnDrag.nro_folio = _this.o.folio.numero_folio;
+                    _this.o.servicioDeDragAndDrop.imagenOnDrag.folioLegajo = _this.o.folio.folioLegajo;
                     _this.o.servicioDeDragAndDrop.imagenOnDrag.orden = orden;
                     _this.o.servicioDeDragAndDrop.imagenOnDrag.dibujarEn(_this.ui);
                 });
@@ -46,7 +46,7 @@ VistaDeFolioModi.prototype.start = function () {
         var subidor = new SubidorDeImagenes();
         subidor.subirImagen(function (bytes_imagen) {
             _this.o.servicioDeLegajos.agregarImagenAUnFolioDeUnLegajo(_this.o.numero_legajo,
-                    _this.o.folio.numero_folio,
+                    _this.o.folio.folioLegajo,
                     "un_nombre",
                     bytes_imagen,
                     function (id_imagen) {
@@ -55,7 +55,7 @@ VistaDeFolioModi.prototype.start = function () {
                             idImagen: id_imagen,
                             servicioDeDragAndDrop: _this.o.servicioDeDragAndDrop,
                             servicioDeLegajos: _this.o.servicioDeLegajos,
-                            numeroDeFolio: _this.o.folio.numero_folio,
+                            numeroDeFolio: _this.o.folio.folioLegajo,
                             orden: 1
                         });
                         vista_imagen.dibujarEn(_this.ui);

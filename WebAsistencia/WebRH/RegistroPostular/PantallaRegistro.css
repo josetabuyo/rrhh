@@ -1,0 +1,76 @@
+﻿.control-invalido
+{
+    box-shadow: 0 0 5px rgba(219, 96, 0, 1);
+    border: 1px solid rgba(233, 114, 68, 1);
+}
+
+#btn_validar
+{
+    float:right;
+}
+
+#btn_recuperar
+{
+    float:right;
+}
+
+#btn_registrarse
+{
+    float:right;
+    margin-right:2px;
+    margin-top: 13px;    
+}
+
+.lbl_titulo_campo
+{
+    font-weight: bold;
+    width: 58px;
+    display: inline-block;
+    margin-left: 5px;
+    text-align:right;
+}
+
+.lbl_mensaje_campo
+{
+    font-weight: bold;
+    display: inline-block;
+    margin: 5px;
+    text-align:center;
+    color: Gray;
+    font-size:13px;
+}
+
+.lbl_titulo_campo_captcha
+{
+    font-weight: bold;
+    width: 150px;
+    display: inline-block;
+    margin-left: 5px;
+    text-align:right;
+    color: Gray;
+    font-size: 12px;
+   
+}
+
+.campo_a_completar
+{
+    width: 350px;
+    margin: 2px;
+}
+
+#panel_paso_1 .campo_a_completar
+{
+    width: 300px;
+    margin: 2px;
+}
+
+#panel_paso_3 .campo_a_completar
+{
+    width: 250px;
+    margin: 2px;
+}
+
+#panel_paso_1 .lbl_titulo_campo
+{
+    width: 30px;
+}

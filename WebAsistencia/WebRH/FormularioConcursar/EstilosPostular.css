@@ -1,0 +1,1304 @@
+﻿/*-------------- ESTILO DE EL CV   -----------------*/
+
+body {
+	padding: 0 10px;
+	font: normal 62.5%;
+	font-family: Calibri,Verdana,Arial;
+}
+	
+p { margin: 10px 0; }
+	
+.sr {
+	position: absolute;
+	left: -9999em;
+	top: 0;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	}
+       
+       
+form.cmxform fieldset {
+  /*margin-bottom: 10px;*/
+}
+form.cmxform legend {
+  padding: 0 2px;
+  font-weight: bold;
+  font-size:14px;
+}
+form.cmxform label {
+ 
+  line-height: 1.8;
+  vertical-align: top;
+}
+
+.control-invalido
+{
+    box-shadow: 0 0 5px rgba(154, 10, 14, 1) !important;
+    border: 1px solid rgba(160, 11, 14, 1) !important;
+}
+
+/*form.cmxform fieldset ol {
+  margin: 0;
+  padding: 0;
+}
+form.cmxform fieldset li {
+  list-style: none;
+  padding: 5px;
+  margin: 0;
+}*/
+form.cmxform fieldset fieldset {
+  border: none;
+  margin: 3px 0 0;
+}
+form.cmxform fieldset fieldset legend {
+  padding: 0 0 5px;
+  font-weight: normal;
+}
+form.cmxform fieldset fieldset label {
+  display: block;
+  width: auto;
+}
+form.cmxform em {
+  font-weight: bold;
+  font-style: normal;
+  color: #f00;
+}
+form.cmxform label {
+  /*width: auto; /* Width of labels */
+  display: block;
+  margin-bottom: 5px;
+}
+form.cmxform fieldset fieldset label {
+  margin-left: 123px; /* Width plus 3 (html space) */
+}
+   
+
+form.cmxform {
+	width: 100%;
+	font-size: 15px;
+	color: #333;
+	}
+	
+form.cmxform legend { padding-left: 0; }
+	
+form.cmxform legend,
+form.cmxform label { color: #333; }
+
+form.cmxform fieldset {
+	border: none;
+	/*border-top: 1px solid #d1edff;*/
+	
+	}
+	
+form.cmxform fieldset fieldset { background: none; }
+	
+form.cmxform fieldset li {
+	padding: 5px 10px 7px;
+	background: url(../images/cmxform-divider.gif) left bottom repeat-x;
+	}   
+/*del bootstrap*/
+label {
+
+}
+label, input, button, select, textarea {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+.table th, .table td {
+    padding: 2px;
+}
+
+/*de estilos sacc*/
+.table-striped tbody tr:nth-child(odd) td {
+background-color: #fff;
+border-top: 1px solid #929292;
+border-bottom: 1px solid #929292;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: transparent;/* #f5f5f5;*/
+}
+
+/*ESTILO ACORDION*/
+
+#accordion 
+{
+   
+    
+}
+
+#accordion .accordion-heading a {  
+    color: #fff;  
+    line-height: 20px;  
+    /*display: block;  */
+    font-size: 12pt;  
+    /*width: 100%;  */
+    
+    text-indent: 10px;  
+    text-decoration:none;    
+} 
+    
+
+
+#accordion .accordion-heading:first-of-type {  
+    background-color: #0088cc;  
+    background-image: linear-gradient(to bottombottom,  #dbdbdb 0%,#f9f9f9 100%); /* FF3.6+ */  
+    /* Chrome,Safari4+ */  
+    /* Chrome10+,Safari5.1+ */  
+    /* Opera 11.10+ */  
+    /* IE10+ */  
+    } 
+
+#accordion .accordion-heading a   
+{
+    /*color: #00293d;*/
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: inherit;
+   /*text-shadow: 1px 1px 0px rgba(0,0,0,0.2);  
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.2);  
+    border-right: 1px solid rgba(0, 0, 0, .2);  
+    border-left: 1px solid rgba(0, 0, 0, .2);  
+    border-bottom: 1px solid rgba(0, 0, 0, .2);  
+    border-top: 1px solid rgba(250, 250, 250, .2);  */
+}  
+
+#accordion .accordion-inner {  
+    background: -webkit-linear-gradient(top,  #fff 0%,#F8FAFD 100%); /* Chrome10+,Safari5.1+ */ 
+    background: -moz-linear-gradient(top,  #fff 0%,  #F8FAFD 100%); /* FF3.6+ */  
+    background: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#fff), color-stop(100%, #F8FAFD)); /* Chrome,Safari4+ */  
+    background: -webkit-linear-gradient(top,  #fff 0%,#F8FAFD 100%); /* Chrome10+,Safari5.1+ */  
+    background: -o-linear-gradient(top,  #fff 0%, #F8FAFD 100%); /* Opera 11.10+ */  
+    background: -ms-linear-gradient(top,  #fff 0%,#F8FAFD 100%); /* IE10+ */  
+    background: linear-gradient(to bottombottom,  #fff 0%,#F8FAFD 100%); /* W3C */   
+}  /*
+#accordion .accordion-inner:last-of-type {  
+    box-shadow: inset 0px 1px 1px 0px rgba(0, 0, 0, .2),  
+                inset 0px 0 0px 0px rgba(0, 0, 0, .5);  
+}  
+
+.menu 
+{
+    float:left; 
+    width:15%;
+    padding:0px 5px;
+    border:solid 1px #0088cc;
+    
+    
+}
+.menu a:hover 
+{
+    text-decoration:none;
+    }*/
+    
+    /* Botón para Ir Arriba CSS de Aizum Blog
+----------------------------------------------- */
+#IrArriba {
+position: fixed;
+bottom: 30px; /* Distancia desde abajo */
+right: 30px; /* Distancia desde la derecha */
+}
+
+#IrArriba span {
+width: 50px; /* Ancho del botón */
+height: 50px; /* Alto del botón */
+display: block;
+background: url('../Imagenes/Botones/boton-subir1.png') no-repeat center center;
+}
+
+nav
+    {
+        height: auto; /*Junto a overflow: hidden; aplicará a nuestro elemento nav el mismo alto que el más alto de sus elementos hijos */ 
+        margin: 0 auto; /* Centro el contenedor */
+        overflow: hidden;
+        /*text-align: left;*/
+        width: 100%; /* Defino el ancho de mi página */
+        vertical-align: middle;
+       
+        
+    }
+    
+.ul_cv
+    {
+        margin: 0 auto; 
+        float: left;
+        list-style-type: none; /* Elimino los estilos de lista */
+        padding: 0; 
+        vertical-align: middle;
+        font-size:small; 
+        cursor:pointer;
+    }
+    
+.menu_lista_formularios
+    {
+        /*width: 25%;*/
+        float: left; /* Floto los li para que se dispongan horizontalmente */
+        border-right: solid 1.5px #0088cc  ;
+        
+    }
+    
+.menu_lista_formularios a
+    {
+        padding: 10px; /* El padding añadirá separación entre los elementos */  
+    }
+    
+.menu_lista_formularios a:hover 
+{
+     text-decoration:none !important;
+}
+
+.no_borde 
+{
+    border-right:none;
+    }
+    
+       
+.link
+{
+    text-decoration:none !important;
+    cursor:pointer;
+}
+
+.grupo_campos
+{
+    float:left; 
+    margin:4px 8px;
+}
+
+.nueva_linea
+{
+    clear:left; 
+}
+
+
+/*---------    ESTILO PARA PANEL DE CONTROL ---------------------*/
+.navbar {
+    margin-top: 30px;
+   
+    }
+
+.navbar-inner, .fondo_gris_gradiente   
+{
+    background: url('../Imagenes/fondo_menu.png') repeat-x;
+    /*background-color: #389abe;  */
+   /* background-image: -moz-linear-gradient(top,  #EBEBEB 0%, #f9f9f9 100%); /* FF3.6+ */  
+  /*  background-image: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#EBEBEB), color-stop(100%,#f9f9f9)); /* Chrome,Safari4+ */  
+   /* background-image: -webkit-linear-gradient(top,  #EBEBEB 0%,#f9f9f9 100%); /* Chrome10+,Safari5.1+ */  
+   /* background-image: -o-linear-gradient(top,  #EBEBEB 0%,#f9f9f9 100%); /* Opera 11.10+ */  
+   /* background-image: -ms-linear-gradient(top,  #EBEBEB 0%,#f9f9f9 100%); /* IE10+ */  
+   /* background-image: linear-gradient(to bottombottom,  #EBEBEB 0%,#f9f9f9 100%); /* W3C */ 
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbdbdb', endColorstr='#f9f9f9',GradientType=0 ); /* IE6-9 */  
+    
+} 
+
+.navbar .nav > li > a {
+  color: #0099CC !important;
+}
+
+.navbar .nav > li > a:hover 
+{
+    color: #0099CC !important;
+    }
+    
+.navbar .nav > li > a:hover {
+  color: #0c3f59;
+  text-decoration: none;
+  /*background-color: #0074cc;*/
+}
+
+.navbar .nav .active > a,
+.navbar .nav .active > a:hover {
+  color: #999;
+  text-decoration: none;
+  /*background-color: #0074cc;*/
+}
+
+
+  .contenedor_concursar 
+    {
+        width: 59%;
+        margin-left:19%;
+    }
+        
+    .panel_izquierdo {
+        display: inline;
+        float: left;
+	    left: 5%;
+	    width: 58%;
+	    margin-left: 10px;
+	    margin-right:10px;
+	    margin-top: 10px;
+        overflow: auto;
+        height: 550px;
+        /*background-color:rgb(232, 232, 232);*/
+            
+    }
+        
+    .panel_derecho {
+	    /*right: 5%;*/
+	    width: 39%;
+	    margin-right: 0px;
+        display: inline;
+        float: left;
+	    margin-top: 5px;
+	    overflow: auto;
+        height: 100%;
+        /*background-color:rgb(232, 232, 232);*/
+    }
+        
+    .estilo_paneles 
+    {
+        min-height:150px;
+        margin:0; 
+        padding:0;   
+        -webkit-box-shadow: 2px 2px 19px rgba(0,0,0,0.2);
+        -moz-box-shadow: 2px 2px 19px rgba(0,0,0,0.2);
+        box-shadow: 2px 2px 19px rgba(0,0,0,0.2);
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+
+        /*ESTO ES PARA VER EL SOMBREADO EN IE*/
+   
+   /* COMENTADO*/
+       /* background:#fff;*/
+        position: relative;
+	    z-index:99;
+        behavior: url(../Estilos/css3_for_ie/PIE.htc);
+    }
+
+        .fondo_form {
+            background: -moz-linear-gradient(top,  #fff 0%,  #F8FAFD 100%); /* FF3.6+ */  
+            background: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#fff), color-stop(100%, #F8FAFD)); /* Chrome,Safari4+ */  
+            background: -webkit-linear-gradient(top,  #fff 0%,#F8FAFD 100%); /* Chrome10+,Safari5.1+ */  
+            background: -o-linear-gradient(top,  #fff 0%, #F8FAFD 100%); /* Opera 11.10+ */  
+            background: -ms-linear-gradient(top,  #fff 0%,#F8FAFD 100%); /* IE10+ */  
+            background: linear-gradient(to bottombottom,  #fff 0%,#F8FAFD 100%); /* W3C */  
+           /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#87a7ad',GradientType=0 ); /* IE6-9   */
+   
+            /*PARA QUE SE VEA EN IE VIEJOS*/
+     
+            /* COMENTADO*/
+            -pie-background: linear-gradient(#fff 0%, #F8FAFD 100%, #fff) 0 / 50px #0ae;
+            behavior: url(../Estilos/css3_for_ie/PIE.htc);
+            /*background: #E1E5F1; */
+        }
+        
+        .btn_concursar {
+
+            display: inline-block;
+            margin: -5px 5px 0 5px;
+            font-size: 13px;
+            line-height: 18px;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+            background: #2184be;
+            color: #fff;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+        
+         .btn_concursar:hover 
+         {
+              color: #fff;
+              text-decoration:none;
+         }
+        .pastilla_postulaciones 
+        {
+            border-radius: 10px;
+            background: #F8FAFD;
+            border: 1px outset #ccc;
+            background: -moz-linear-gradient(top,  #fff 0%,  #F8FAFD 100%); /* FF3.6+ */  
+            background: -webkit-gradient(linear, left top, left bottombottom, color-stop(0%,#fff), color-stop(100%, #F8FAFD)); /* Chrome,Safari4+ */  
+            background: -webkit-linear-gradient(top,  #fff 0%,#F8FAFD 100%); /* Chrome10+,Safari5.1+ */  
+            background: -o-linear-gradient(top,  #fff 0%, #F8FAFD 100%); /* Opera 11.10+ */  
+            background: -ms-linear-gradient(top,  #fff 0%,# F8FAFD 100%); /* IE10+ */  
+            background: linear-gradient(to bottombottom,  #fff 0%,#F8FAFD 100%); /* W3C */  
+           /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#87a7ad',GradientType=0 ); /* IE6-9   */
+   
+            /*PARA QUE SE VEA EN IE VIEJOS*/
+     
+            /* COMENTADO*/
+            -pie-background: linear-gradient(#fff 0%, #E1E5F1 100%, #fff) 0 / 50px #0ae;
+            behavior: url(../Estilos/css3_for_ie/PIE.htc);
+        }
+        
+        .cabecera_tabla_postular {
+            font-family: Calibri,Verdana,Arial !important;
+            font-size: 15px !important;
+            background-color: #D9DCED !important;
+            /*color:#0088cc;*/
+            
+        }
+        
+        .cabecera_tabla_postular tr th 
+        {
+            text-align: center !important;
+            border-right:1px solid #91909E;
+        }
+            
+        .cabecera_tabla_pantalla_cargos 
+        {
+            color:#fff;
+            background-color: #2184be !important;
+        }
+        
+        .cuerpo_tabla_puesto tr td {
+            text-align: center;
+            vertical-align: middle;
+        }
+     
+     
+     /*-------------     Inscripcion     -----------------*/
+     
+     
+.vista_preliminar{
+   display: inline; 
+   color:gray;
+   font-size:10px;
+}
+
+
+.titulo_cargo{
+    font-size:13px;
+    font-weight:bold;
+}
+
+.detalle_cargo{
+    font-size:13px;
+}
+
+.aclaraciones{
+    font-size:13px;
+
+    line-height:22px;
+}
+  
+  
+.aclaraciones2{
+    font-size:14px;
+    font-weight:bold;
+    line-height:22px;
+}  
+  
+.subtitulo_incripcion 
+{
+    font-weight:bold;
+}   
+
+
+/* --------------  PANEL DE CONTROL   ------------- */
+
+  .cvFotoUsuario {
+        float: left;
+        margin: 0 10px 10px 0;
+        border: 1px solid #ddd;
+    }
+    
+    .cvOverview {
+        margin-left: 78px;
+    }
+    
+    .cvNombrePostulante {
+        font-size: 18px;
+        font-weight: bold;
+        color: #00293d;
+    }
+    
+    .titulo_panel 
+    {
+        width: 100%;       
+        color: #00293d;
+        padding:0 0 0 10px;   
+        font-size:25px;  
+        height:40px;
+        margin: 0;
+                
+        -webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+
+        /*ESTO ES PARA VER EL SOMBREADO EN IE*/
+        /*background:#fff;*/
+   
+    /* COMENTADO PARA IE VIEJO **
+     position: relative;
+	    z-index:99;
+        behavior: url(../Estilos/css3_for_ie/PIE.htc);
+    */
+       
+    }
+        
+    .subtitulo_postulaciones a
+    {
+        font-size:15px;
+        text-decoration:none;
+    }
+    
+    .mensaje_postulaciones
+    {
+        font-size:12px;
+        color: #00293d;
+        padding:0px 0px 0px 20px;
+    }
+    
+    .delete_postulaciones
+    {
+        /*margin: 10px 10px 10px 10px;
+        text-decoration:none;*/
+        float: right;
+        cursor:pointer;
+    }
+        
+    .feedPostulacionesAplicadas {
+       /* border: 1px solid #00293d;*/
+        padding: 5px 12px;
+        font-size:12px;    
+        margin: 10px 0px 10px 0px;
+    }
+    
+    .sombra_y_redondeado 
+    {
+        -webkit-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        -moz-box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        box-shadow: 3px 3px 19px rgba(0,0,0,0.2);
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+
+        /*ESTO ES PARA VER EL SOMBREADO EN IE*/
+        /*background:#fff;*/
+  /* COMENTADO
+        position: relative;
+	    z-index:99;
+        behavior: url(../Estilos/css3_for_ie/PIE.htc);*/
+
+  }
+    
+    .feedPostulaciones
+    {
+        background-color:#f8f8f8;
+        margin-bottom:30px;
+        background: url(../Imagenes/cmxform-fieldset.png);
+        padding:10px;
+    }
+    
+    
+    
+.panel-default {
+    /*border-color: #ddd;*/
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    /*border: 1px solid transparent;*/
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.panel-default > .panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    /*border-color: #ddd;*/
+}
+
+.panel-heading {
+    /*padding: 10px 15px;*/
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: inherit;
+    font-family: Calibri,Verdana,Arial;
+    line-height:20px; 
+    font-weight:normal;
+    text-align: left !important;
+    font-size: 15pt !important;
+    font-weight: bold;
+    padding-left: 1% !important;
+}
+
+.panel-body {
+    padding: 15px;
+}
+
+.SubrayadoPostulaciones
+{
+    
+color: #87A7AD;
+background-color: #87A7AD;
+height: 1px;
+    margin-top: auto;
+    border-style: none;
+}
+
+.link-cv
+{
+text-align: right;
+    margin-left: auto;    
+}
+
+/*-------  ESTILO LOGIN ----------*/
+
+.cuerpo_claro
+{
+    padding: 15px 0;
+    text-shadow: 0 1px 0 #fff;
+    border-bottom: 1px solid #e5e5e5;
+    min-width: 1000px;
+}
+
+.cuerpo_oscuro
+{
+    text-shadow: 0 1px 3px #222;
+    background: #202021 url('../Imagenes/octicons-bg.png') center repeat;
+    position: relative;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    border-bottom: 1px solid #e5e5e5;
+    box-sizing: border-box;
+}
+/*
+.panel_izquierdo
+{
+    float: right;
+    width: 320px;
+    margin-left: 40px;    
+}
+
+.label_login
+{
+    width: 100%;
+    margin-right: 0;
+    border-color: #fff;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}*/
+
+/*---ESTILO FichaInscripciónCVDeclaJurada ---*/
+
+.principal
+{
+width: 92%;
+background-color: #fff;
+margin-left: 4%;
+margin-right: 4%;
+font-family: Arial;
+text-rendering: optimizelegibility;
+}
+
+.encabezado
+{
+margin-top: 2%;
+text-align: center;
+font-size: 26px;
+font-weight: bold;
+margin-bottom: 5%;
+line-height: 30px;
+}
+
+.top-header
+{
+text-align:center;
+width: 92%;
+background-color: #fff;
+margin-left: 4%;
+margin-right: 4%;
+font-family: Arial;
+font-size: 12px;
+}
+
+.orden
+{
+text-align: center;
+margin-left: 5%;
+margin-right: 5%;
+}
+
+.tabla-inscripcion
+{
+width: 100%;
+margin-bottom: 40px;
+border-collapse: collapse;
+border: 2px solid black;
+
+}
+
+.tabla-inscripcion tr
+{
+    border-collapse: collapse;
+    border: 2px solid black;
+    }
+
+.tabla-inscripcion tr td
+{
+    border-collapse: collapse;
+    border: 2px solid black;
+    }    
+    
+
+.tabla-inscripcion-td
+{
+    width: 100%;
+    border: 2px solid black;
+    }
+   
+
+.atributos
+{
+font-weight: bold;
+font-size: 14px;
+}
+
+
+
+.lineas-subraya
+{
+margin:5px; 
+padding-bottom:0; 
+color: #9cbbc0; 
+background-color: #9cbbc0; 
+height: 1px;
+border-right: 0px none;
+border-left: 0px none;
+-moz-border-top-colors: none;
+-moz-border-right-colors: none;
+-moz-border-bottom-colors: none;
+-moz-border-left-colors: none;
+border-image: none;
+border-width: 1px 0px;
+/*border-style: solid none;*/
+/*border-color: #87a7ad;*/
+}
+
+.linea-top
+{
+color: #87a7ad;
+background-color: #87a7ad;
+height: 5px;
+width: 100%;
+margin-left: 2%;
+margin-right: 2%;
+font-family: Arial;
+}
+
+.titulos
+{
+text-align: left;
+height: 30px;
+margin-top: 10px;
+margin-bottom: 30px;
+font-size: 20px;
+font-family: Arial;
+padding-top: 9px;
+padding-left:10px;
+}
+
+.sub-titulos
+{
+text-align: left;
+margin-top: 10px;
+margin-bottom: 0px;
+font-size: 16px;
+font-weight: bold;
+font-family: Arial;
+}
+
+.sub-titulos-descripcion 
+{
+    font-size: 14px;
+    font-weight:normal;
+}
+
+.letra-bold
+{
+font-weight: bold;
+}
+
+.degrade
+{
+	background: -moz-linear-gradient(right,  #fff 0%,  #E1E5F1 100%); /* FF3.6+ */  
+    background: -webkit-gradient(linear, left right, left bottombottom, color-stop(0%,#fff), color-stop(100%, #E1E5F1)); /* Chrome,Safari4+ */  
+    background: -webkit-linear-gradient(right,  #fff 0%,#E1E5F1 100%); /* Chrome10+,Safari5.1+ */  
+    background: -o-linear-gradient(right,  #fff 0%, #E1E5F1 100%); /* Opera 11.10+ */  
+    background: -ms-linear-gradient(right,  #fff 0%, #E1E5F1 100%); /* IE10+ */  
+    background: linear-gradient(to bottombottom,  #fff 0%,#E1E5F1 100%); /* W3C */  
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#87a7ad',GradientType=0 ); /* IE6-9   */
+	
+	/*PARA QUE SE VEA EN IE VIEJOS*/
+/*    -pie-background: linear-gradient(#fff 0%, #87a7ad 100%, #fff) 0 / 50px #0ae;
+    behavior: url(../Estilos/css3_for_ie/PIE.htc);*/
+}
+
+.no-hay-datos
+{
+margin-top: 20px;
+margin-bottom: 20px;
+text-align: center;
+font-size: 15px;
+}
+
+.p-tabla
+{
+margin: 5px 10px 5px 10px !important;
+vertical-align: middle !important;
+}
+
+.nombre-h
+{
+font-size: 20px;
+}
+
+.posicion
+{
+margin-top: 35px;
+margin-bottom: 35px;
+    padding: 15px;
+}
+
+.tit-pos
+{
+margin-top: 5px;
+margin-bottom: 10px;
+clear:both;
+}
+
+.general
+{
+font-size:12px;
+float: left;
+width: 50%;
+/*border-bottom:1px dotted #000;*/
+}
+
+.general_info_personal 
+{
+    font-size:12px;
+    }
+
+.contenedor_cv 
+{
+    
+    height:150px;
+    float:left;
+    
+    
+    }
+
+.labels_cv
+{
+    width:100px; 
+    text-align:left; 
+    font-weight:bold;
+    /*padding-right:1%; */
+    float:left; 
+    
+    font-size:12px;   
+    /*margin-top: 8px;*/
+}
+
+
+.pie-tabla
+{
+width: 100%;
+height: 100px;
+border: 1 solid black;
+text-align: bottom;
+}
+
+.div-pie-tabla
+{
+margin-left: auto;
+width:100%;
+}
+
+.td-pie-tabla
+{
+text-align: center;
+font-size: 15px;
+width: 50%;
+padding-bottom: 5px;
+colspan: 2;
+height: 100px;
+vertical-align: bottom;
+border-style: dashed;
+}
+
+.motivo-encajado
+{
+margin: 1% 5% 1% 5%;
+}
+
+.motivos-cargo
+{
+display: block;
+text-align: left;
+padding: 30px 60px 30px 60px;
+border: 1px solid black;
+border-top: 1;
+color: Black;
+margin-bottom: 25px;
+margin-left:2%;
+margin-right:2%;
+-webkit-border-radius:10px;
+-moz-border-radius:10px;
+-ms-border-radius:10px;
+-o-border-radius:10px;
+border-radius:10px;
+
+behavior: url(../Estilos/css3_for_ie/PIE.htc);
+}
+
+.decla-jurada
+{
+display: block;
+text-align: left;
+padding: 15px 12px 15px 12px;
+border: 1px solid black;
+border-top: 1;
+color: Black;
+font-size: 12px;
+}
+
+.resaltado
+{
+font-size: 12px;
+font-weight: bold;
+}
+
+.link-pagina
+{
+text-align:center;
+
+}
+
+.atributo-apelido
+{
+ font-weight: bold;
+}
+
+.oferta-empleo
+{
+text-align: right;
+margin: 15px 0 15px 0;
+    }
+
+.p-imprimir
+{
+    text-align: center; 
+    margin-top:30px;
+}
+    
+.degrade_modulo
+{
+    background: -moz-linear-gradient(top,  #fff 0%,  #BDCED2 100%); /* FF3.6+ */  
+    background: -webkit-gradient(linear, top right, left bottombottom, color-stop(0%,#fff), color-stop(100%, #BDCED2)); /* Chrome,Safari4+ */  
+    background: -webkit-linear-gradient(top,  #fff 0%,#BDCED2 100%); /* Chrome10+,Safari5.1+ */  
+    background: -o-linear-gradient(top,  #fff 0%, #BDCED2 100%); /* Opera 11.10+ */  
+    background: -ms-linear-gradient(top,  #fff 0%, #BDCED2 100%); /* IE10+ */  
+    background: linear-gradient(to bottombottom,  #fff 0%,#BDCED2 100%); /* W3C */  
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#87a7ad',GradientType=0 ); /* IE6-9   */
+}
+
+
+/* POSTULACIONES */
+
+
+.fondo-accordion
+{
+        color:  #0088cc !important;  
+        line-height: 15px;  
+        font-size: 13pt; 
+        display: block;
+        padding: 5px 0px 5px 10px;
+       /*text-indent: 10px;    */
+       /* text-decoration:none;*/
+}
+
+.listado-accordion
+{
+ font-size: 11pt;
+ padding: 18px 5px 18px 5px;
+ margin: 1% 0% 0% 0% !important;
+    }
+    
+.posicion-btn
+{
+ float: right;
+ margin-bottom: -1px !important; 
+    }
+    
+    
+.caja-postulacion
+{
+    margin: 1% -3% 3% 11%;
+}
+
+.titulos-paneles
+{
+ font-size: 12pt;
+ text-align: center;
+    }
+    
+.botonera_grilla #btn_editar
+{
+    padding-right: 3px;
+    width: 20px;
+    height: 20px;
+}
+
+.botonera_grilla #btn_eliminar
+{
+    width: 25px;
+    height: 25px;
+}
+
+.resultado-busqueda
+{
+    float:left;
+    height:auto;
+    width: 65%;
+    padding: 45px 0px 10px 25px;
+}
+
+.titulo_postulaciones {
+    font-weight: 200;
+    font-size: 2em;
+    line-height: 1.1429;
+    color: #000;
+    font-size: 2.3em;
+    /*text-align:center;*/
+}
+
+.sub_etapas {
+    font-weight: 200;
+    font-size: 1.5em;
+    line-height: 1.1429;
+    color: #000;
+    /*text-align:center;*/
+}
+
+
+/*---------ESTILOS DE LOS PASOS EN LA INSCRIPCION ---------------*/
+
+.pasos {
+    position: absolute;
+    display: block;
+    width: 90%;
+    /*margin-left: 15%;*/
+    left: 25%;
+    top:10px;
+}
+        
+.pasos ul {
+    list-style: none !important;
+    padding: 0;
+    margin: 0;
+}
+        
+.pasos li {
+    width: 160px;
+    float: left;
+    display: block;
+    padding: 0;
+    line-height: 18px !important;
+}
+        
+.pasos li a {
+    display: block;
+    width: auto;
+    margin: 0 0.5em 0.5em;
+    padding: 0.8em 0.8em;
+    font-size: 13px;
+    text-decoration: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#pasosanterior {
+background-color: #2184be;
+color: #ffffff !important;
+padding: 2px 6px 3px 6px;
+border-radius: 10px 0px 0px 10px;
+font-size: 16px;
+}
+
+
+#pasossiguiente {
+background-color: #2184be;
+color: #ffffff !important;
+padding: 2px 6px 3px 6px;
+border-radius: 0px 10px 10px 0px;
+font-size: 16px;
+}
+
+
+  
+.link_activado, .link_activado:hover {
+    background: #2184be;
+    color: #fff;
+    cursor: default !important;
+    }
+            
+    .link_desactivado, .link_desactivado:hover
+    {
+    background: #eee;
+    color: #aaa;
+    cursor: default !important;
+    }
+         
+    .number 
+    {
+       font-size: 1.429em;
+    }
+             
+.actions {
+position: relative;
+display: block;
+text-align: right;
+width: 100%;
+}
+        
+.actions   ul {
+    display: inline-block;
+    text-align: right;
+}
+            
+.actions > ul > li {
+    margin: 0 0.5em;
+    float: left;
+    list-style:none;
+    cursor:pointer;
+}
+        
+.actions .disabled a {
+    background: #eee;
+    color: #aaa;
+}
+        
+.actions a  {
+    /* background: #2184be; */
+    color: #3A9ABF;
+    /* display: block; */
+    font-size: 14px;
+    text-decoration: none;
+   /* padding: 0.4em 0.4em;   
+    text-decoration: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;*/
+}
+
+.label_caratula 
+{
+    /*text-decoration:underline;*/
+    font-size:19;
+    font-family: Verdana;
+    display:inline-table;
+   
+}
+
+
+.span_caratula 
+{
+    display:inline-table;
+   /* text-decoration:underline;*/
+    font-size:18px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+#span_perfil 
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:13px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+#span_comite 
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:17px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+#span_postulante
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:17px;
+  /*  font-family: Verdana;*/
+   
+}
+#span_recepcion
+{
+   /* display:inline-table;*/
+   /* text-decoration:underline;*/
+    font-size:17px;
+  /*  font-family: Verdana;*/
+   
+}
+
+
+.td-caratula
+{
+/*text-align: center;*/
+font-size: 22px;
+width: 70%;
+padding-bottom: 5px;
+
+height: 20px;
+vertical-align: bottom;
+/*border-style: dashed;*/
+}
+
+
+/*Estilo tabla inscripcion*/
+.noborder
+{
+/*text-align: center;*/
+
+vertical-align: bottom;
+/*border-style: dashed;*/
+}
+
+
+#tr-border
+ {
+    border-right-style: none !important;
+    /*border: 1px solid black;*/
+}
+#td-border {
+    border-right-style: none !important;
+    width: 100px;
+}
+
+
+

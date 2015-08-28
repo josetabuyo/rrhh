@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace General.Repositorios
 {
@@ -38,10 +40,11 @@ namespace General.Repositorios
         }
 
         abstract protected void GuardarEnLaBase(T objeto);
-        protected void Guardar(T objeto)
+        public T Guardar(T objeto)
         {
             GuardarEnLaBase(objeto);
             if (objetos != null) objetos.Add(objeto);
+            return objeto;
         }
 
         abstract protected void QuitarDeLaBase(T objeto);
@@ -49,6 +52,19 @@ namespace General.Repositorios
         {
             QuitarDeLaBase(objeto);
             if (objetos != null) objetos.Remove(objeto);
+        }
+
+        public List<T> Find(string criterio)
+        {
+            var resultados = new List<T>();
+
+            var filtro = new FiltroDeObjetos(criterio);
+
+            resultados = this.Obtener().FindAll(objeto =>
+            {
+                return filtro.Evaluar(objeto);
+            });
+            return resultados;
         }
     }
 }

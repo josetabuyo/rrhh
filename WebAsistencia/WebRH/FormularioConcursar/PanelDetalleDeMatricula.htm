@@ -1,0 +1,34 @@
+﻿<div id="form_matriculas">
+	<div id="form_matriculas-ct">
+		<div id="form_matriculas-header" class="form_concursar_header">
+			<h2>Matr&iacute;culas</h2>
+			<p>
+			</p>
+		</div>
+		<div id="contenido_form_matriculas" class="fondo_form">
+			<fieldset style="width:95%; padding-left:3%;">
+				<legend style="margin-bottom:20px;">Ingrese una matrícula profesiona y el estado actual de la misma</legend>
+				 <h5><em>*</em>Campos Obligatorios</h5>
+                <div class="grupo_campos">
+					<label for="matricula_numero">N&uacute;mero <em>*</em></label>
+					<input id="txt_matricula_numero" type="text" style="width:130px;" rh-control-type="textbox" rh-model-property="Numero" data-validar="esNoBlanco"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="matricula_expedida_por">Expedida por <em>*</em></label>
+					<input id="txt_matricula_expedida_por" type="text" style="width:300px;" rh-control-type="textbox" rh-model-property="ExpedidaPor" data-validar="esNoBlanco"/>
+				</div>
+				<div class="grupo_campos nueva_linea">
+					<label for="matricula_fecha_inscripcion">Fecha de Inscripci&oacute;n <em>*</em></label>
+					<input id="txt_matricula_fecha_inscripcion" type="text" style="width:130px;" rh-control-type="datepicker" rh-model-property="FechaInscripcion"/>
+				</div>
+				<div class="grupo_campos">
+					<label for="matricula_situacion">Situaci&oacute;n Actual <em>*</em></label>
+					<input id="txt_matricula_situacion" type="text" style="width:300px;" rh-control-type="textbox" rh-model-property="SituacionActual" data-validar="esNoBlanco"/>
+				</div>
+			</fieldset>
+			<div class="btn-fld">
+				<input type="button" class="btn btn-primary" id="btn_guardar" value="Agregar"/>
+			</div>
+		</div>
+	</div>
+</div>

@@ -32,6 +32,7 @@ RepositorioDeUsuarios.prototype.crearUsuarioPara = function (id_persona, onSucce
     });
 };
 
+
 RepositorioDeUsuarios.prototype.resetearPassword = function (id_usuario, onSuccess, onError) {
     this.proveedor_ajax.postearAUrl({ url: "ResetearPassword",
         data: {
