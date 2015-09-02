@@ -918,7 +918,13 @@ namespace General.Repositorios
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Sector", experiencia_nueva.Sector);
             parametros.Add("@Ambito", experiencia_nueva.AmbitoLaboral);
-            parametros.Add("@ModalidadContratacion", experiencia_nueva.ModalidadContratacion);
+            if (experiencia_nueva.AmbitoLaboral == 1)
+            {
+                parametros.Add("@ModalidadContratacion", experiencia_nueva.ModalidadContratacion);
+            } else {
+                parametros.Add("@ModalidadContratacion", 0);
+            }
+            
          
             return parametros;
         }
