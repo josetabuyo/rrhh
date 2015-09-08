@@ -1814,7 +1814,7 @@ namespace General
 
         public static Perfil UnPerfil()
         {
-            return new Perfil(1, "familia", "profesion", "denominacion", "nivel", "agrupamiento", 20, "tipo", "numero", UnComite());
+            return new Perfil(1, "familia", "profesion", "denominacion", "nivel", "agrupamiento", 20, "tipo", "numero", UnComite(), new DateTime(), new DateTime(), false);
         }
 
         public static Comite UnComite()
@@ -1840,12 +1840,12 @@ namespace General
 
         public static CvExperienciaLaboral UnaExpPublica()
         {
-            return new CvExperienciaLaboral(1, "Trabajo MDS", "", "", 1, "", "", new DateTime(), new DateTime(), "", 1, "", 1,1);
+            return new CvExperienciaLaboral(1, "Trabajo MDS", "", "", 1, "", "", new DateTime(), new DateTime(), "", 1, "", 1,1, false);
         }
 
         public static CvExperienciaLaboral UnaExpPrivada() 
         {
-            return new CvExperienciaLaboral(1, "Banco Macro", "", "", 1, "", "", new DateTime(), new DateTime(), "", 2, "",2,1);
+            return new CvExperienciaLaboral(1, "Banco Macro", "", "", 1, "", "", new DateTime(), new DateTime(), "", 2, "",2,1, false);
         }
 
         public static Postulacion UnaPostulacion()

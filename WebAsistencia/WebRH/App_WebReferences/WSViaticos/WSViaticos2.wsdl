@@ -348,6 +348,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="Sector" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="AmbitoLaboral" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="ModalidadContratacion" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Vigente" type="s:boolean" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -1035,6 +1036,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Comite" type="tns:Comite" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaDesde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaHasta" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Comite">

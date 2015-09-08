@@ -40,8 +40,8 @@ namespace TestViaticos
             var comite = new Comite(1, 1,  integrantes);
             var puestos = new List<Perfil>();
             //var foliables = new List<Foliable>();
-            var un_puesto = new Perfil(1, "Abogacia", "Penal", "aaffa", "A", "Se busca un abogado...pero no el que tengo aca colgado", 5, "Abierto", "A-132", comite);
-            var otro_puesto = new Perfil(2, "Contador", "Discreto", "", "", "Experiencia en balances", 10, "Cerrado", "A-123", comite);
+            var un_puesto = new Perfil(1, "Abogacia", "Penal", "aaffa", "A", "Se busca un abogado...pero no el que tengo aca colgado", 5, "Abierto", "A-132", comite,new DateTime(),new DateTime(),false);
+            var otro_puesto = new Perfil(2, "Contador", "Discreto", "", "", "Experiencia en balances", 10, "Cerrado", "A-123", comite,new DateTime(),new DateTime(),false);
 
             //repoCv.GuardarCVDatosPersonales(DatosPersonales(), TestObjects.UsuarioSACC());
 
@@ -224,7 +224,7 @@ namespace TestViaticos
         public CvExperienciaLaboral UnaExperienciaLaboral()
         {
             return new CvExperienciaLaboral(1,"Administrativo", "Renuncia", "Banco Macro", 1, "Empresa Financiera","No se",
-                                     new DateTime(2007, 09, 01), new DateTime(2010, 09, 01), "CABA", 9, "bla", 1,1);
+                                     new DateTime(2007, 09, 01), new DateTime(2010, 09, 01), "CABA", 9, "bla", 1,1, false);
         }
 
         public CvIdiomas UnIdioma()

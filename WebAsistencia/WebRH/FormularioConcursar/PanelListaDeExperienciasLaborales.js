@@ -21,23 +21,8 @@
                     _this.GrillaExperiencias.CargarObjetos(experiencias);
                 },
                 alCargar: function (ui) {
-                    ui.find('#cmb_ambitolaboral').on('change', function () {
-                        if (this.value == 1) {
-                            //alert(this.value);
-                            $("#cmb_modalidad").prop('disabled', false);
-                            $("#div_vigencia").attr("style", "display:inline");
-
-                        }
-                        else {
-                            //alert(this.value);
-                            //$("#cmb_modalidad").val("3");
-                            $("#cmb_modalidad").prop('disabled', true);
-                            $("#div_vigencia").attr("style", "display:none");
-
-                        }
-
-                        //alert(this.value); // or $(this).val()
-                    });
+                    _this.completarComboSinep(ui);
+                  
                 }
             });
         });
@@ -67,25 +52,9 @@
                             _this.GrillaExperiencias.CargarObjetos(experiencias);
                         },
                         alCargar: function (ui) {
-                            ui.find('#cmb_ambitolaboral').on('change', function () {
-                                if (this.value == 1) {
-                                    //alert(this.value);
-                                    $("#cmb_modalidad").prop('disabled', false);
-                                    $("#div_vigencia").attr("style", "display:inline");
-
-                                }
-                                else {
-                                    //alert(this.value);
-                                    //$("#cmb_modalidad").val("3");
-                                    $("#cmb_modalidad").val('');
-                                    $("#cmb_modalidad").prop('disabled', true);
-                                    $("#div_vigencia").attr("style", "display:none");
-
-
-                                }
-
-                                //alert(this.value); // or $(this).val()
-                            });
+                            _this.completarComboSinep(ui);
+                           
+                   
                         }
                     });
                 });
@@ -128,5 +97,27 @@
                     });
             }
         });
+    },
+    completarComboSinep: function (ui) {
+        ui.find('#cmb_ambitolaboral').on('change', function () {
+            if (this.value == 1) {
+                //alert(this.value);
+                $("#cmb_modalidad").prop('disabled', false);
+                $("#div_vigencia").attr("style", "display:inline");
+
+            }
+            else {
+                //alert(this.value);
+                //$("#cmb_modalidad").val("3");
+                $("#cmb_modalidad").val('');
+                $("#cmb_modalidad").prop('disabled', true);
+                $("#div_vigencia").attr("style", "display:none");
+
+
+            }
+
+            //alert(this.value); // or $(this).val()
+        });
+
     }
 }
