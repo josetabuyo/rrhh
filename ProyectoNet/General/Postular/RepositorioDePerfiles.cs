@@ -27,7 +27,7 @@ namespace General
             tablaCVs.Rows.ForEach(row =>
             perfiles.Add(new Perfil(row.GetSmallintAsInt("IdPerfil"), row.GetString("Familia"), row.GetString("Profesion"), row.GetString("Denominacion"),
                         row.GetString("Nivel"),row.GetString("Agrupamiento"),row.GetSmallintAsInt("Vacantes"), row.GetString("Tipo"),row.GetString("NumeroDePuesto"),
-                        repoComite.GetComiteById(row.GetSmallintAsInt("IdComite")))));
+                        repoComite.GetComiteById(row.GetSmallintAsInt("IdComite")), row.GetDateTime("FechaDesde", DateTime.Today), row.GetDateTime("FechaHasta", DateTime.Today), row.GetBoolean("Baja",false))));
 
             return perfiles;
 

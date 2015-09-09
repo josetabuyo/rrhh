@@ -17,6 +17,9 @@ namespace General
         protected string _tipoConvocatoria;
         protected string _numero;
         protected Comite _comite;
+        protected DateTime _fechaDesde;
+        protected DateTime _fechaHasta;
+        protected bool _baja;
         //protected List<Foliable> _documentacionRequerida;
 
         public virtual int Id { get { return _id; } set { _id = value; } }
@@ -29,9 +32,12 @@ namespace General
         public virtual string Tipo { get { return _tipoConvocatoria; } set { _tipoConvocatoria = value; } }
         public virtual string Numero { get { return _numero; } set { _numero = value; } }
         public virtual Comite Comite { get { return _comite; } set { _comite = value; } }
+        public virtual DateTime FechaDesde { get { return _fechaDesde; } set { _fechaDesde = value; } }
+        public virtual DateTime FechaHasta { get { return _fechaHasta; } set { _fechaHasta = value; } }
+        public virtual bool Baja { get { return _baja; } set { _baja = value; } }
         //public virtual List<Foliable> DocumentacionRequerida { get { return _documentacionRequerida; } set { _documentacionRequerida = value; } }
 
-        public Perfil(int id, string familia, string profesion, string denominacion,string nivel, string agrupamiento, int vacantes, string tipo, string numero, Comite comite)
+        public Perfil(int id, string familia, string profesion, string denominacion,string nivel, string agrupamiento, int vacantes, string tipo, string numero, Comite comite, DateTime fechaDesde, DateTime fechaHasta, bool baja)
         {
             this._id = id;
             this._familia = familia;
@@ -43,6 +49,9 @@ namespace General
             this._tipoConvocatoria = tipo;
             this._numero = numero;
             this._comite = comite;
+            this._fechaDesde = fechaDesde;
+            this._fechaHasta = fechaHasta;
+            this._baja = baja;
         }
 
       public Perfil() { }

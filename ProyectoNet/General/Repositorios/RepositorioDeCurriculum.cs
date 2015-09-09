@@ -421,6 +421,8 @@ namespace General.Repositorios
                                                   Pais = dRow.GetSmallintAsInt("ExperienciaLaboralPais", 9),
                                                   Sector = dRow.GetString("ExperienciaLaboralSector", string.Empty),
                                                   AmbitoLaboral = dRow.GetSmallintAsInt("ExperienciaAmbitoLaboral", 2),
+                                                  ModalidadContratacion = dRow.GetSmallintAsInt("ExperienciaModalidadContratacion",0),
+                                                  Vigente = dRow.GetBoolean("ExperienciaVigente"),  
                                                   Precedente = dRow.GetInt("ExperienciaLaboralPrecedente", 0),
                                                   Baja = dRow.GetInt("ExperienciaLaboralBaja", 0)
                                               }).Distinct().ToList();
@@ -430,7 +432,7 @@ namespace General.Repositorios
 
                 items_anonimos.Select(e => new CvExperienciaLaboral(e.Id, e.PuestoOcupado, e.MotivoDesvinculacion, e.NombreEmpleador, e.PersonasACargo,
                                             e.TipoEmpresa, e.Actividad, e.FechaInicio, e.FechaFin, e.Localidad,
-                                            e.Pais,e.Sector,e.AmbitoLaboral)).ToList().ForEach(exp => cv.AgregarExperienciaLaboral(exp));
+                                            e.Pais,e.Sector,e.AmbitoLaboral, e.ModalidadContratacion, e.Vigente)).ToList().ForEach(exp => cv.AgregarExperienciaLaboral(exp));
             }  
         }
 
@@ -917,6 +919,16 @@ namespace General.Repositorios
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@Sector", experiencia_nueva.Sector);
             parametros.Add("@Ambito", experiencia_nueva.AmbitoLaboral);
+            //Si es de AMBITO PUBLICO
+            if (experiencia_nueva.AmbitoLaboral == 1)
+            {
+                parametros.Add("@ModalidadContratacion", experiencia_nueva.ModalidadContratacion);
+                parametros.Add("@Vigente", experiencia_nueva.Vigente);
+            } else {
+                parametros.Add("@ModalidadContratacion", 0);
+                parametros.Add("@Vigente", 0);
+            }
+            
          
             return parametros;
         }

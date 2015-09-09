@@ -14,6 +14,10 @@ var FormularioBindeado = function (opt) {
     this.html_form.find("[rh-control-type='datepicker']").each(function (i, e) {
         _this.crearYBindearDatePicker($(e));
     });
+
+    this.html_form.find("[rh-control-type='checkbox']").each(function (i, e) {
+        _this.crearYBindearCheckbox($(e));
+    });
 };
 
 FormularioBindeado.prototype.crearYBindearTextBox = function (input) {
@@ -121,6 +125,31 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
             combo.filtrarPor(filtro);
         });
     }
+};
+
+FormularioBindeado.prototype.crearYBindearCheckbox = function (input) {
+    var _this = this;
+    this[input.attr('Id')] = input;
+
+    var path_propiedad_modelo = input.attr('rh-model-property');
+
+
+
+    var handler = function (prop, oldval, newval) {
+        //if (una_experiencia.Vigente == true) {
+        input.attr("checked", newval);
+
+        //}
+        input.val(newval);
+    };
+    input.change(function () {
+        O_O.desWatchear(_this.modelo, path_propiedad_modelo, handler);
+        O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, input.prop( "checked" ));
+   
+        O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
+    });
+    O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
+    input.attr("checked", O_O.getValorDePath(_this.modelo, path_propiedad_modelo));
 };
 
 FormularioBindeado.prototype.cerrarCombosAbiertos = function () {

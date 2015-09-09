@@ -174,7 +174,10 @@ namespace General
                               row.GetSmallintAsInt("Vacantes"),
                               row.GetString("Tipo"),
                               row.GetString("Puesto_Numero"),
-                              repo_comite.GetComiteById(row.GetSmallintAsInt("IdComite"))                            
+                              repo_comite.GetComiteById(row.GetSmallintAsInt("IdComite")),
+                              row.GetDateTime("PerfilFechaDesde",DateTime.Today),
+                              row.GetDateTime("PerfilFechaHasta", DateTime.Today),
+                              row.GetBoolean("PerfilBaja",false)
                 );
         }
 

@@ -3041,6 +3041,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public CvModalidadContratacion[] BuscarModalidadContratacion(string criterio)
+    {
+        return RepositorioDeModalidadContratacion.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+    [WebMethod]
     public CVInstitucionesEventos[] BuscarInstitucionesEventosAcademicos(string criterio)
     {
         return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Find(criterio).ToArray();
