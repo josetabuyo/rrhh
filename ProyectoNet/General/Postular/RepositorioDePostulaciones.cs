@@ -174,7 +174,10 @@ namespace General
                               row.GetSmallintAsInt("Vacantes"),
                               row.GetString("Tipo"),
                               row.GetString("Puesto_Numero"),
-                              repo_comite.GetComiteById(row.GetSmallintAsInt("IdComite"))                            
+                              repo_comite.GetComiteById(row.GetSmallintAsInt("IdComite")),
+                              row.GetDateTime("PerfilFechaDesde",DateTime.Today),
+                              row.GetDateTime("PerfilFechaHasta", DateTime.Today),
+                              row.GetBoolean("PerfilBaja",false)
                 );
         }
 
@@ -261,11 +264,47 @@ namespace General
             conexion_bd.EjecutarSinResultado("dbo.CV_Ins_EtapaPostulación", parametros);
         }
 
+        protected static List<Postulacion> postulaciones_en_pantalla;
         public List<Postulacion> BuscarPostulacionesPorEtapas(int id_comite, List<EtapaConcurso> etapas)
         {
             List<Postulacion> postulaciones_buscadas = new List<Postulacion>();
-            postulaciones_buscadas = GetPostulacionesPorComite(id_comite).FindAll(p => etapas.Exists(e => e.Id == p.EtapaEn(DateTime.Today).Etapa.Id) );
-            return postulaciones_buscadas;
+            postulaciones_buscadas = GetPostulacionesPorComite(id_comite);
+            postulaciones_en_pantalla = postulaciones_buscadas.FindAll(p => PerteneceA(p, etapas));
+            postulaciones_en_pantalla = SoloPostulacionvigente(postulaciones_en_pantalla);
+            return postulaciones_en_pantalla;
+        }
+
+        private List<Postulacion> SoloPostulacionvigente(List<Postulacion> postulaciones_en_pantalla)
+        {
+            List<Postulacion> postulaciones_con_etapas_vigentes = new List<Postulacion>();
+            postulaciones_en_pantalla.ForEach(p => {
+                postulaciones_con_etapas_vigentes.Add(p.SoloEtapaVigente());
+            });
+
+            return postulaciones_con_etapas_vigentes;
+        }
+
+        public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones, int id_usuario)
+        {
+            Postulacion postulacion_original;
+            postulaciones.ForEach(postulacion => {
+
+                postulacion_original = postulaciones_en_pantalla.Find(p => p.Id == postulacion.Id);
+                if (postulacion.EtapaActual().Etapa.Id != postulacion_original.EtapaActual().Etapa.Id)
+                {
+                    InsEtapaPostulacion(postulacion.Id, postulacion.EtapaActual().Etapa.Id, id_usuario);
+                }
+            });
+  
+        }
+
+        private bool PerteneceA(Postulacion postulacion, List<EtapaConcurso> etapas)
+        {
+           if (etapas.Exists(e => e.Id == postulacion.EtapaActual().Etapa.Id))
+           {
+               return true;
+           }
+            return false;
         }
 
 

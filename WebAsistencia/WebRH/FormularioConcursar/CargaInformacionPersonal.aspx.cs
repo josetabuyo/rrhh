@@ -16,7 +16,18 @@ public partial class FormularioConcursar_Pantalla1 : System.Web.UI.Page
         var  usuario = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
         if (!IsPostBack)
         {
-            var cv = Servicio().GetCurriculum(usuario.Owner.Id);
+            CurriculumVitae cv;
+
+            try
+            {
+                cv = Servicio().GetCurriculum(usuario.Owner.Id);
+            }
+            catch (Exception excepcion)
+            {
+                
+                throw new Exception("No se pudo traer el curriculum. Mensaje: " + excepcion.Message);
+            }
+            
 
             var curriculum = JsonConvert.SerializeObject(cv);
 

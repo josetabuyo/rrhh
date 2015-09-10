@@ -185,6 +185,7 @@
           <s:extension base="tns:ItemCv">
             <s:sequence>
               <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="IdTitulo" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="Anios" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="Nivel" type="s:int" />
@@ -346,6 +347,8 @@
               <s:element minOccurs="0" maxOccurs="1" name="Actividad" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Sector" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="AmbitoLaboral" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ModalidadContratacion" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Vigente" type="s:boolean" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -646,6 +649,48 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="AgregarInstitucionesEventoResult" type="tns:CVInstitucionesEventos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarTitulosAntecedentesAcademicos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarTitulosAntecedentesAcademicosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarTitulosAntecedentesAcademicosResult" type="tns:ArrayOfCVTitulosAntecedentesAcademicos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCVTitulosAntecedentesAcademicos">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CVTitulosAntecedentesAcademicos" nillable="true" type="tns:CVTitulosAntecedentesAcademicos" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CVTitulosAntecedentesAcademicos">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SoloVisiblePara" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AgregarTitulosAntecedentesAcademicos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgregarTitulosAntecedentesAcademicosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AgregarTitulosAntecedentesAcademicosResult" type="tns:CVTitulosAntecedentesAcademicos" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -991,6 +1036,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Comite" type="tns:Comite" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaDesde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaHasta" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Comite">
@@ -1099,6 +1147,17 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GuardarCambiosEnAdmitidos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postulaciones" type="tns:ArrayOfPostulacion" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCambiosEnAdmitidosResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="BuscarPostulacionesDePreInscriptos">
         <s:complexType>
           <s:sequence>
@@ -1425,6 +1484,48 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SoloVisiblePara" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AgregarConocimientoCompetenciaInformatica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgregarConocimientoCompetenciaInformaticaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AgregarConocimientoCompetenciaInformaticaResult" type="tns:CvConocimientoCompetenciaInformatica" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarModalidadContratacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarModalidadContratacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarModalidadContratacionResult" type="tns:ArrayOfCvModalidadContratacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCvModalidadContratacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvModalidadContratacion" nillable="true" type="tns:CvModalidadContratacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CvModalidadContratacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="BuscarInstitucionesEventosAcademicos">
@@ -4704,6 +4805,18 @@
   <wsdl:message name="AgregarInstitucionesEventoSoapOut">
     <wsdl:part name="parameters" element="tns:AgregarInstitucionesEventoResponse" />
   </wsdl:message>
+  <wsdl:message name="BuscarTitulosAntecedentesAcademicosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarTitulosAntecedentesAcademicos" />
+  </wsdl:message>
+  <wsdl:message name="BuscarTitulosAntecedentesAcademicosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarTitulosAntecedentesAcademicosResponse" />
+  </wsdl:message>
+  <wsdl:message name="AgregarTitulosAntecedentesAcademicosSoapIn">
+    <wsdl:part name="parameters" element="tns:AgregarTitulosAntecedentesAcademicos" />
+  </wsdl:message>
+  <wsdl:message name="AgregarTitulosAntecedentesAcademicosSoapOut">
+    <wsdl:part name="parameters" element="tns:AgregarTitulosAntecedentesAcademicosResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarCvPublicacionesTrabajosSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCvPublicacionesTrabajos" />
   </wsdl:message>
@@ -4848,6 +4961,12 @@
   <wsdl:message name="BuscarPostulacionesDeInscriptosSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarPostulacionesDeInscriptosResponse" />
   </wsdl:message>
+  <wsdl:message name="GuardarCambiosEnAdmitidosSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCambiosEnAdmitidos" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCambiosEnAdmitidosSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCambiosEnAdmitidosResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarPostulacionesDePreInscriptosSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarPostulacionesDePreInscriptos" />
   </wsdl:message>
@@ -4925,6 +5044,18 @@
   </wsdl:message>
   <wsdl:message name="BuscarConocimientoCompetenciaInformaticaSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarConocimientoCompetenciaInformaticaResponse" />
+  </wsdl:message>
+  <wsdl:message name="AgregarConocimientoCompetenciaInformaticaSoapIn">
+    <wsdl:part name="parameters" element="tns:AgregarConocimientoCompetenciaInformatica" />
+  </wsdl:message>
+  <wsdl:message name="AgregarConocimientoCompetenciaInformaticaSoapOut">
+    <wsdl:part name="parameters" element="tns:AgregarConocimientoCompetenciaInformaticaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarModalidadContratacionSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarModalidadContratacion" />
+  </wsdl:message>
+  <wsdl:message name="BuscarModalidadContratacionSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarModalidadContratacionResponse" />
   </wsdl:message>
   <wsdl:message name="BuscarInstitucionesEventosAcademicosSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarInstitucionesEventosAcademicos" />
@@ -5983,6 +6114,14 @@
       <wsdl:input message="tns:AgregarInstitucionesEventoSoapIn" />
       <wsdl:output message="tns:AgregarInstitucionesEventoSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
+      <wsdl:input message="tns:BuscarTitulosAntecedentesAcademicosSoapIn" />
+      <wsdl:output message="tns:BuscarTitulosAntecedentesAcademicosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AgregarTitulosAntecedentesAcademicos">
+      <wsdl:input message="tns:AgregarTitulosAntecedentesAcademicosSoapIn" />
+      <wsdl:output message="tns:AgregarTitulosAntecedentesAcademicosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarCvPublicacionesTrabajos">
       <wsdl:input message="tns:GuardarCvPublicacionesTrabajosSoapIn" />
       <wsdl:output message="tns:GuardarCvPublicacionesTrabajosSoapOut" />
@@ -6079,6 +6218,10 @@
       <wsdl:input message="tns:BuscarPostulacionesDeInscriptosSoapIn" />
       <wsdl:output message="tns:BuscarPostulacionesDeInscriptosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnAdmitidos">
+      <wsdl:input message="tns:GuardarCambiosEnAdmitidosSoapIn" />
+      <wsdl:output message="tns:GuardarCambiosEnAdmitidosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
       <wsdl:input message="tns:BuscarPostulacionesDePreInscriptosSoapIn" />
       <wsdl:output message="tns:BuscarPostulacionesDePreInscriptosSoapOut" />
@@ -6130,6 +6273,14 @@
     <wsdl:operation name="BuscarConocimientoCompetenciaInformatica">
       <wsdl:input message="tns:BuscarConocimientoCompetenciaInformaticaSoapIn" />
       <wsdl:output message="tns:BuscarConocimientoCompetenciaInformaticaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AgregarConocimientoCompetenciaInformatica">
+      <wsdl:input message="tns:AgregarConocimientoCompetenciaInformaticaSoapIn" />
+      <wsdl:output message="tns:AgregarConocimientoCompetenciaInformaticaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarModalidadContratacion">
+      <wsdl:input message="tns:BuscarModalidadContratacionSoapIn" />
+      <wsdl:output message="tns:BuscarModalidadContratacionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
       <wsdl:input message="tns:BuscarInstitucionesEventosAcademicosSoapIn" />
@@ -6952,6 +7103,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarTitulosAntecedentesAcademicos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarTitulosAntecedentesAcademicos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AgregarTitulosAntecedentesAcademicos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarCvPublicacionesTrabajos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvPublicacionesTrabajos" style="document" />
       <wsdl:input>
@@ -7168,6 +7337,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnAdmitidos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnAdmitidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreInscriptos" style="document" />
       <wsdl:input>
@@ -7278,6 +7456,24 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarConocimientoCompetenciaInformatica">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarConocimientoCompetenciaInformatica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarConocimientoCompetenciaInformatica">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AgregarConocimientoCompetenciaInformatica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarModalidadContratacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarModalidadContratacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8926,6 +9122,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarTitulosAntecedentesAcademicos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarTitulosAntecedentesAcademicos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AgregarTitulosAntecedentesAcademicos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarCvPublicacionesTrabajos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvPublicacionesTrabajos" style="document" />
       <wsdl:input>
@@ -9142,6 +9356,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnAdmitidos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnAdmitidos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreInscriptos" style="document" />
       <wsdl:input>
@@ -9252,6 +9475,24 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarConocimientoCompetenciaInformatica">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarConocimientoCompetenciaInformatica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarConocimientoCompetenciaInformatica">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AgregarConocimientoCompetenciaInformatica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarModalidadContratacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarModalidadContratacion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

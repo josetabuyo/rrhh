@@ -81,6 +81,20 @@ namespace General.Repositorios
             }            
         }
 
+        public bool BuscarPersonasConUsuario(string criterio)
+        {
+            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            int documento = (int)((JValue)criterio_deserializado["Documento"]);
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@documento", documento);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetPersonaConUsuario", parametros);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public List<Persona> BuscarPersonasConLegajo(string criterio)
         {
             return this.BuscarPersonas(criterio).FindAll(p => p.Legajo.Trim() != "");

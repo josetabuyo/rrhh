@@ -449,6 +449,7 @@ nav
         {
             color:#fff;
             background-color: #2184be !important;
+            
         }
         
         .cuerpo_tabla_puesto tr td {
@@ -477,7 +478,7 @@ nav
 }
 
 .aclaraciones{
-    font-size:13px;
+    font-size:15px;
 
     line-height:22px;
 }
@@ -1299,6 +1300,11 @@ vertical-align: bottom;
     border-right-style: none !important;
     width: 100px;
 }
+
+.cuerpo_tabla_perfil tr td
+{
+    text-align:center;
+    }
 
 
 

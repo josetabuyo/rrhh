@@ -74,5 +74,22 @@ namespace General
 
                 
         //}
+        public EtapaPostulacion EtapaActual()
+        {
+            var etapas = this.Etapas.OrderByDescending(e => e.Fecha).ToList();
+            return etapas.First();
+        }
+
+
+        internal Postulacion SoloEtapaVigente()
+        {
+            EtapaPostulacion etapa_vigente = new EtapaPostulacion();
+
+            etapa_vigente = this.EtapaActual();
+            this.Etapas = new List<EtapaPostulacion>();
+            this.Etapas.Add(etapa_vigente);
+
+            return this;
+        }
     }
 }

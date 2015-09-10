@@ -75,6 +75,12 @@ namespace General.Repositorios
             return (bool)dataRow[campo];
         }
 
+        public bool GetBoolean(string campo, bool default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull) return default_if_null;
+            return (bool)dataRow[campo];
+        }
+
         public float getFloat(string campo)
         {
             var valor_double = (double)dataRow[campo];

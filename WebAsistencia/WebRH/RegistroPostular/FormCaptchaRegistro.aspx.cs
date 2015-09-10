@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using WSViaticos;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
 {
@@ -120,15 +121,25 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
 
     private bool ValidarMail()
     {
-        string mail = this.txt_mail_registro.Text;
-        if (mail.Equals("") || !mail.Contains("@") || !mail.Contains("."))
+        string email = this.txt_mail_registro.Text;
+        String expresion;
+        expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+        if (Regex.IsMatch(email, expresion))
         {
-            this.lb_mensajeError.Text = "El formato del mail no es válido.";
-            return false;
+            if (Regex.Replace(email, expresion, String.Empty).Length == 0)
+            {
+                return true;
+            }
+            else
+            {
+                this.lb_mensajeError.Text = "El formato del mail no es válido.";
+                return false;
+            }
         }
         else
         {
-            return true;
+            this.lb_mensajeError.Text = "El formato del mail no es válido.";
+            return false;
         }
     }
 
