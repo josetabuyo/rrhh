@@ -20,8 +20,8 @@
                     experiencias.push(nueva_experiencia);
                     _this.GrillaExperiencias.CargarObjetos(experiencias);
                 },
-                alCargar: function (ui) {
-                    _this.completarComboSinep(ui);
+                alCargar: function (ui,modelo) {
+                    _this.completarComboSinep(ui,modelo);
                   
                 }
             });
@@ -51,8 +51,8 @@
                             _this.GrillaExperiencias.BorrarContenido();
                             _this.GrillaExperiencias.CargarObjetos(experiencias);
                         },
-                        alCargar: function (ui) {
-                            _this.completarComboSinep(ui);
+                        alCargar: function (ui, modelo) {
+                            _this.completarComboSinep(ui,modelo);
                            
                    
                         }
@@ -98,7 +98,12 @@
             }
         });
     },
-    completarComboSinep: function (ui) {
+        completarComboSinep: function (ui,una_experiencia) {
+            if (una_experiencia.AmbitoLaboral == 2) {
+                $("#cmb_modalidad").prop('disabled', true);
+                $("#div_vigencia").attr("style", "display:none");
+            }
+
         ui.find('#cmb_ambitolaboral').on('change', function () {
             if (this.value == 1) {
                 //alert(this.value);

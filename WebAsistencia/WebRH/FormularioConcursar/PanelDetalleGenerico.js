@@ -41,7 +41,7 @@ var PanelDetalleGenerico = function (opciones) {
         });
 
         if (opciones.alCargar) {
-            opciones.alCargar(_this.ui);
+            opciones.alCargar(_this.ui, modelo);
         }
 
         var link_trucho = $("<a href='#un_div_modal'></a>");

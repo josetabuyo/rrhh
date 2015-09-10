@@ -164,6 +164,12 @@ namespace General.MAU
                 //throw new Exception("Ya hay alguien registrado con su Mail.");
                 return false;
             }
+
+            //VALIDA QUE SI TIENE UN DOCUMENTO YA EN LA BASE Y TIENE UN USUARIO ASIGNADO NO PUEDE.
+            if (repo_personas.BuscarPersonasConUsuario(JsonConvert.SerializeObject(new { Documento = aspirante.Documento })))
+            {
+                return false;
+            }
  
             if(aspirante.Nombre.Trim() == "") throw new Exception("El nombre no puede ser vacío.");
             if(aspirante.Apellido.Trim() == "") throw new Exception("El apellido no puede ser vacío.");
