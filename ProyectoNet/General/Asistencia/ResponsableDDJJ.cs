@@ -88,6 +88,11 @@ namespace General
             return ddjj.ImprimirDDJJ104(lista);
         }
 
+        public void MarcarDDJJ104Impresa(int nroDDJJ, int estado)
+        {
+            RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+            ddjj.MarcarDDJJ104Impresa(nroDDJJ, estado);
+        }
 
     }
 }

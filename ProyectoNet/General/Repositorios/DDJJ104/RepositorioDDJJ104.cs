@@ -136,6 +136,21 @@ namespace General
             return listaddjj104;
         }
 
+
+        public void MarcarDDJJ104Impresa(int nroDDJJ, int estado)
+        {
+
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PLA_UPD_DDJJ104_Cabecera");
+            cn.AsignarParametro("@id_ddjj", nroDDJJ);
+            cn.AsignarParametro("@id_estado", estado);
+
+            dr = cn.EjecutarConsulta();
+
+            cn.Desconestar();
+
+        }
+
     }
 
 }

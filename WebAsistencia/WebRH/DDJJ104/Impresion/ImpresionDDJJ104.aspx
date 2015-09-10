@@ -77,6 +77,7 @@
         <div runat="server" align="right">
             <b><a id="NroDDJJ104" style="text-transform: uppercase"></a></b>
         </div>
+        <asp:HiddenField ID="IdDDJJ104" runat="server" />
 
         <br />
         <br />
@@ -101,6 +102,7 @@
             </div>
         <br />
         <input type="button"  value="Imprimir" id="ocultar"  />
+        
         <%--<input type="button" onclick="ImprimirPorImpresora();" value="Imprimir" id="ocultar"  />--%>
         <%--<div id="divBotonImprimir">
             <input id="boton_imprimir" type=button value="imprimir"/>
@@ -109,14 +111,28 @@
     </div>
     </form>
 </body>
-<script type="text/javascript">
-Backend.start(function () {
-    $(document).ready(function () {
-        $("#ocultar").click(function () {        
-        window.print();        
 
+<script type="text/javascript">
+    Backend.start(function () {
+        $(document).ready(function () {
+            $("#ocultar").click(function () {
+                window.print();        
+
+                var idDDJJ = $("#IdDDJJ104");
+
+                Backend.MarcarDDJJ104Impresa(IdDDJJ104.innerText, 3)
+                .onSuccess(function (respuesta) {
+                if (respuesta) {            
+                }
+                })
+                .onError(function (error, as, asd) {
+                alertify.alert(error);
+                });
+               
+
+            });
+        });
     });
-});
    
 </script>
 </html>

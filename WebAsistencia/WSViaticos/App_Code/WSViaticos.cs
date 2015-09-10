@@ -63,7 +63,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public DDJJ104[] GetAreasParaDDJJDelMes(Usuario usuario, string valorCombo)
+    public DDJJ104[] GetAreasParaDDJJDelMes(string valorCombo, Usuario usuario)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
         var mes_anio = valorCombo.Split('-');
@@ -73,7 +73,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool GenerarDDJJ104(Usuario usuario, List<DDJJ104> lista)
+    public bool GenerarDDJJ104(List<DDJJ104> lista, Usuario usuario)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
         return responsableDDJJ.GenerarDDJJ104(usuario, lista);
@@ -92,6 +92,13 @@ public class WSViaticos : System.Web.Services.WebService
             returnDDJJ[i] = ddjj[i];
         }
         return returnDDJJ;
+    }
+
+    [WebMethod]
+    public void MarcarDDJJ104Impresa(int nroDDJJ, int estado)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
+        responsableDDJJ.MarcarDDJJ104Impresa(nroDDJJ, estado);
     }
     //FIN: DDJJ 104 ---------------
 

@@ -52,13 +52,9 @@ var completarComboMeses = function (meses) {
 
 
 $('#cmbMeses').change(function () {
-
     $("#progressbar").show();
-
     ContenedorGrilla.html("");
-    
     getAreasDDJJ();
-
 });
 
 
@@ -84,6 +80,7 @@ var DibujarGrillaDDJJ = function (p_lista_DDJJ) {
 
 
 var getAreasDDJJ = function () {
+
     var meses = $("#cmbMeses");
     var data_post = { valorCombo: meses.val() };
 
@@ -92,24 +89,37 @@ var getAreasDDJJ = function () {
         return;
     }
 
-    $.ajax({
-        url: "../AjaxWS.asmx/GetAreasParaDDJJDelMes",
-        type: "POST",
-        async: true,
-        dataType: "json",
-        data: JSON.stringify(data_post),
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            lista_DDJJ = JSON.parse(respuestaJson.d);
+    Backend.GetAreasParaDDJJDelMes(meses.val())
+    .onSuccess(function (respuesta) {
+            lista_DDJJ = respuesta;
             DibujarGrillaDDJJ(lista_DDJJ);
             $("#progressbar").hide();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
-            $("#progressbar").hide();
-            meses.val("");
-        }
+    })
+    .onError(function (error, as, asd) {
+        $("#progressbar").hide();
+        meses.val("");
+        alertify.alert(error);
     });
+
+    
+//    $.ajax({
+//        url: "../AjaxWS.asmx/GetAreasParaDDJJDelMes",
+//        type: "POST",
+//        async: true,
+//        dataType: "json",
+//        data: JSON.stringify(data_post),
+//        contentType: "application/json; charset=utf-8",
+//        success: function (respuestaJson) {
+//            lista_DDJJ = JSON.parse(respuestaJson.d);
+//            DibujarGrillaDDJJ(lista_DDJJ);
+//            $("#progressbar").hide();
+//        },
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alertify.alert(errorThrown);
+//            $("#progressbar").hide();
+//            meses.val("");
+//        }
+//    });
 
     //return areas;
 }
@@ -161,58 +171,79 @@ var GetDescripcionEstado = function (estado) {
 
 var GenerarDDJJ = function (idArea) {
     return function (e) {
-       
+
         var queryResult = Enumerable.From(lista_DDJJ)
                 .Where(function (x) { return x.Area.Id == idArea });
 
-        var data_post = { lista: queryResult.ToArray() };
-        $.ajax({
-        url: "../AjaxWS.asmx/GenerarDDJJ104",
-        type: "POST",
-        async: false,
-        dataType: "json",
-        data: JSON.stringify(data_post),
-        contentType: "application/json; charset=utf-8",
-        success: function (respuestaJson) {
-            if (respuestaJson.d == "OK") {
-                alertify.alert("Se genero correctamente");
-
-                $("#progressbar").show();
-                ContenedorGrilla.html("");
-                getAreasDDJJ();
+        Backend.GenerarDDJJ104(queryResult.ToArray())
+        .onSuccess(function (respuesta) {
+        if (respuesta) {
+            alertify.alert("Se genero correctamente");
+            $("#progressbar").show();
+            ContenedorGrilla.html("");
+            getAreasDDJJ();
             }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
-        }
+        })
+        .onError(function (error, as, asd) {
+            alertify.alert(error);
         });
+
+
+        //        var data_post = { lista: queryResult.ToArray() };
+        //        $.ajax({
+        //        url: "../AjaxWS.asmx/GenerarDDJJ104",
+        //        type: "POST",
+        //        async: false,
+        //        dataType: "json",
+        //        data: JSON.stringify(data_post),
+        //        contentType: "application/json; charset=utf-8",
+        //        success: function (respuestaJson) {
+        //            if (respuestaJson.d == "OK") {
+        //                alertify.alert("Se genero correctamente");
+
+        //                $("#progressbar").show();
+        //                ContenedorGrilla.html("");
+        //                getAreasDDJJ();
+        //            }
+        //        },
+        //        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //            alertify.alert(errorThrown);
+        //        }
+        //        });
     }
 };
 
 
 var ImprimirDDJJ = function (idArea) {
     return function (e) {
-        var listaImprimir;
-
+        
         var queryResult = Enumerable.From(lista_DDJJ)
                 .Where(function (x) { return x.Area.Id == idArea });
 
-        var data_post = { lista: queryResult.ToArray() };
-        $.ajax({
-            url: "../AjaxWS.asmx/ImprimirDDJJ104",
-            type: "POST",
-            async: false,
-            dataType: "json",
-            data: JSON.stringify(data_post),
-            contentType: "application/json; charset=utf-8",
-            success: function (respuestaJson) {
-                listaImprimir = JSON.parse(respuestaJson.d);
-                DibujarFormularioDDJJ104(listaImprimir);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert(errorThrown);
-            }
+        Backend.ImprimirDDJJ104(queryResult.ToArray())
+        .onSuccess(function (respuesta) {
+            DibujarFormularioDDJJ104(respuesta);
+        })
+        .onError(function (error, as, asd) {
+            alertify.alert(error);
         });
+
+//        var data_post = { lista: queryResult.ToArray() };
+//        $.ajax({
+//            url: "../AjaxWS.asmx/ImprimirDDJJ104",
+//            type: "POST",
+//            async: false,
+//            dataType: "json",
+//            data: JSON.stringify(data_post),
+//            contentType: "application/json; charset=utf-8",
+//            success: function (respuestaJson) {
+//                listaImprimir = JSON.parse(respuestaJson.d);
+//                DibujarFormularioDDJJ104(listaImprimir);
+//            },
+//            error: function (XMLHttpRequest, textStatus, errorThrown) {
+//                alertify.alert(errorThrown);
+//            }
+//        });
     }
 };
 
@@ -228,7 +259,7 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
     var dependencia;
     var leyenda;
     var nroDDJJ104;
-    // var botonImprimir;
+    var nroidDDJJ;
 
     //    botonImprimir = $("<input type='button'>");
     //    botonImprimir.val("Imprimir");
@@ -241,7 +272,7 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
     dependencia = p_listaImprimir_DDJJ[0].Area.Dependencias[0].Nombre;
     leyenda = p_listaImprimir_DDJJ[0].LeyendaPorAnio;
     nroDDJJ = "NRO DDJJ: " + p_listaImprimir_DDJJ[0].IdDDJJ;
-
+    idDDJJ = p_listaImprimir_DDJJ[0].IdDDJJ;
 
 
     grilla = new Grilla(
@@ -263,27 +294,27 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
 
     w.onload = function () {
         var pantalla_impresion = $(w.document);
-                var t = w.document.getElementById("PanelImpresion");
-                var mesddjj = w.document.getElementById("MesDDJJ104");
-                var anioddjj = w.document.getElementById("AnioDDJJ104");
-                var areaddjj = w.document.getElementById("AreaDDJJ104");
-                var areadireccionddjj = w.document.getElementById("AreaDireccionDDJJ104");
-                var areadependenciaddjj = w.document.getElementById("AreaDependenciaDDJJ104");
-                var leyendaporanioddjj = w.document.getElementById("LeyendaPorAnioDDJJ104");
-                var nroDDJJ104 = w.document.getElementById("NroDDJJ104");
-                //var botonImp = w.document.getElementById("divBotonImprimir");
+        var t = w.document.getElementById("PanelImpresion");
+        var mesddjj = w.document.getElementById("MesDDJJ104");
+        var anioddjj = w.document.getElementById("AnioDDJJ104");
+        var areaddjj = w.document.getElementById("AreaDDJJ104");
+        var areadireccionddjj = w.document.getElementById("AreaDireccionDDJJ104");
+        var areadependenciaddjj = w.document.getElementById("AreaDependenciaDDJJ104");
+        var leyendaporanioddjj = w.document.getElementById("LeyendaPorAnioDDJJ104");
+        var nroDDJJ104 = w.document.getElementById("NroDDJJ104");
+        var nroidDDJJ = w.document.getElementById("IdDDJJ104");
 
-                $(areaddjj).html(area);
-                $(mesddjj).html(NombreMes(mes));
-                $(anioddjj).html(anio);
-                $(areadireccionddjj).html(direccion);
-                $(areadependenciaddjj).html(dependencia);
-                $(leyendaporanioddjj).html(leyenda);
-               // $(botonImp).html(botonImprimir);
+        $(areaddjj).html(area);
+        $(mesddjj).html(NombreMes(mes));
+        $(anioddjj).html(anio);
+        $(areadireccionddjj).html(direccion);
+        $(areadependenciaddjj).html(dependencia);
+        $(leyendaporanioddjj).html(leyenda);
+        
+        $(nroDDJJ104).html(nroDDJJ);
+        $(nroidDDJJ).html(idDDJJ);
 
-                $(nroDDJJ104).html(nroDDJJ);
-
-                $(t).html(ContenedorPlanilla.html());
+        $(t).html(ContenedorPlanilla.html());
     }
 
 
@@ -296,7 +327,7 @@ var DibujarFormularioDDJJ104 = function (p_listaImprimir_DDJJ) {
 
     // w.document.write(ContenedorPlanilla.html());
     // w.print();
-     //w.close();
+    //w.close();
 
 }
 

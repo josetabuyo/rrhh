@@ -900,50 +900,50 @@ public class AjaxWS : System.Web.Services.WebService
         return Newtonsoft.Json.JsonConvert.SerializeObject(metodos);
     }
 
-    //INICIO: DDJJ//
-    [WebMethod(EnableSession = true)]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string AreasConDDJJAdministradasPor()
-    {
-        var areas = backEndService.AreasConDDJJAdministradasPor(usuarioLogueado);
-        var areas_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(areas);
-        return areas_serializados;
-    }
+    ////INICIO: DDJJ//
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string AreasConDDJJAdministradasPor()
+    //{
+    //    var areas = backEndService.AreasConDDJJAdministradasPor(usuarioLogueado);
+    //    var areas_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(areas);
+    //    return areas_serializados;
+    //}
 
-    [WebMethod(EnableSession = true)]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetAreasParaDDJJDelMes(string valorCombo)
-    {
-        var areas = backEndService.GetAreasParaDDJJDelMes(usuarioLogueado, valorCombo);
-        var areas_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(areas);
-        return areas_serializados;
-    }
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string GetAreasParaDDJJDelMes(string valorCombo)
+    //{
+    //    var areas = backEndService.GetAreasParaDDJJDelMes(valorCombo, usuarioLogueado);
+    //    var areas_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(areas);
+    //    return areas_serializados;
+    //}
 
-    [WebMethod(EnableSession = true)]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GenerarDDJJ104(List<WSViaticos.DDJJ104> lista)
-    {
-        var resp = backEndService.GenerarDDJJ104(usuarioLogueado, lista.ToArray());
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string GenerarDDJJ104(List<WSViaticos.DDJJ104> lista)
+    //{
+    //    var resp = backEndService.GenerarDDJJ104(lista.ToArray(), usuarioLogueado);
 
-        if (resp)
-        {
-            return "OK";
-        }
-        else
-        {
-            return "ERROR";
-        }
-    }
+    //    if (resp)
+    //    {
+    //        return "OK";
+    //    }
+    //    else
+    //    {
+    //        return "ERROR";
+    //    }
+    //}
 
-    [WebMethod(EnableSession = true)]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string ImprimirDDJJ104(List<WSViaticos.DDJJ104> lista)
-    {
-        var ddjj = backEndService.ImprimirDDJJ104(lista.ToArray());
-        var ddjj_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(ddjj);
-        return ddjj_serializados;
-    }
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string ImprimirDDJJ104(List<WSViaticos.DDJJ104> lista)
+    //{
+    //    var ddjj = backEndService.ImprimirDDJJ104(lista.ToArray());
+    //    var ddjj_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(ddjj);
+    //    return ddjj_serializados;
+    //}
 
-    //FIN: DDJJ//
+    ////FIN: DDJJ//
 }
 
