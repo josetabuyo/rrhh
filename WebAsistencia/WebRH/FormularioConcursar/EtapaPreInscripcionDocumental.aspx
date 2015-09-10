@@ -45,12 +45,15 @@
             <div id="detalle_documentos"></div>
         </fieldset>
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="INSCRIBIR" />
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_comprobantes"  value="Imprimir anexo" />
+       <%-- <input type="button" style="display:none;" class="btn btn-primary" id="btn_comprobantes" visible="false" value="Imprimir anexo" />--%>
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_caratula" onclick = "ImprimirCaratula()" value="Imprimir carátula" />
        </div>
     </div>
     <asp:HiddenField ID="postulacion" runat="server" />
     <asp:HiddenField ID="idPostulacion" runat="server" />
+
+    <div id = "somediv"  style="width:400px; height:300px;"></div>
+
     </form>
 </body>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
@@ -72,12 +75,13 @@
             });
 
             EtapaPreInscripcionDocumental.mostrarPostulacion();
-                               
+
+          
 
         });
 
-        
-             
+
+
 
 
     });
@@ -87,16 +91,17 @@
 
         var codigo = $("#span_codigo").text();
         var fecha = $("#span_fecha").text();
+
+
+
         //alert(codigo);
-        //  localStorage.setItem("codigo_postu", codigo);
-        //  localStorage.setItem("fecha", fecha);
+          localStorage.setItem("codigo_postu", codigo);
+          localStorage.setItem("fecha", fecha);
 
+             
 
-        //    window.open('AnexoIIICantHojas.aspx?id=<%=Request.QueryString["id"] %>&fh=<%=Request.QueryString["fh"] %>');
+      //  $("#somediv").load("PanelDetalleDeFoliosAnexo.htm").dialog({ modal: true,resizable: false,title: 'Documentación', width: 360 }); 
 
-        window.open("AnexoIIICantHojas.aspx?id=" + codigo + "&fh=" + fecha + "");
-
-        //window.location.href = 'AnexoIII.aspx';
     });
 
 
@@ -107,8 +112,8 @@
 
                 localStorage.setItem("empleado", $("#span_empleado").text());
 
-
-                window.location.href = 'AnexoIIICantHojas.aspx';
+                window.showModalDialog("PanelDetalleDeFoliosAnexo.htm", "", "dialogHeight: " + 150 + "px;");
+          //      window.location.href = 'AnexoIIICantHojas.aspx';
 
             } else {
 

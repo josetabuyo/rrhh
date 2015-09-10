@@ -41,27 +41,32 @@
             }
 
             //pantalla.DocumentacionRecibida = lista_documentacion_recibida;
-/*
+            /*
             Backend.GuardarDocumentacionRecibida(postulacion[0].value, lista_documentacion_recibida)
-             .onSuccess(function (resultado) {
-                 if (resultado == true) {
-                     alertify.alert('Se guardaron las fojas con éxito y ha pasado al estado de Preincripción Documental');
-                 } else {
-                     alertify.alert('Esta postulación ya estaba con el estado Preinscripción Documental. Se guardaron las fojas con éxito. ');
-                 }
+            .onSuccess(function (resultado) {
+            if (resultado == true) {
+            alertify.alert('Se guardaron las fojas con éxito y ha pasado al estado de Preincripción Documental');
+            } else {
+            alertify.alert('Esta postulación ya estaba con el estado Preinscripción Documental. Se guardaron las fojas con éxito. ');
+            }
 
-                 //location.reload();
-             })
+            //location.reload();
+            })
             .onError(function (error) {
-                alertify.error(error.statusText);
+            alertify.error(error.statusText);
             });*/
 
             Backend.PasarAEtapaInscripto(postulacion[0].value)
              .onSuccess(function (resultado) {
                  if (resultado == true) {
-                     alertify.alert('La postulación ha pasado al estado de Inscripción Documental');
+                     alertify.alert('La postulación ha pasado al estado de Inscripción Documental.');
+
+                     _this.AbrirPopUpFolios();
+                    
+
                  } else {
                      alertify.alert('Esta postulación ya poseé el estado Inscripción Documental.');
+                  
                  }
 
                  //location.reload();
@@ -73,6 +78,23 @@
         });
 
     },
+    ///
+    AbrirPopUpFolios: function () {
+        $("#somediv").load("PanelDetalleDeFoliosAnexo.htm").dialog({ modal: true, resizable: false, title: 'Documentación', width: 360 });
+        
+    },
+
+
+    ///
+
+
+
+
+
+
+
+
+
     BuscarPostulaciones: function () {
         var _this = this;
         var codigo = $("#txt_codigo_postulacion").val();
@@ -155,7 +177,7 @@
         span_perfil.html(datos_postulacion.Perfil.Denominacion);
 
 
-     
+
         localStorage.setItem("comite", datos_postulacion.Perfil.Comite.Numero);
 
 
@@ -182,16 +204,16 @@
         $("#btn_caratula").attr("style", "display:inline");
 
         /*Backend.GetPantallaRecepcionDocumentacion(datos_postulacion)
-                    .onSuccess(function (mi_pantalla) {
-                        pantalla = mi_pantalla;
-                        //var nombre_perfil = $("#nombre_perfil");
-                        //nombre_perfil[0].innerHTML = mi_pantalla.Postulacion.Perfil.Denominacion;
+        .onSuccess(function (mi_pantalla) {
+        pantalla = mi_pantalla;
+        //var nombre_perfil = $("#nombre_perfil");
+        //nombre_perfil[0].innerHTML = mi_pantalla.Postulacion.Perfil.Denominacion;
 
-                        // _this.armarPantallaPerfil(mi_pantalla, $('#requisitos_perfil'));
-                        _this.armarPantalla(mi_pantalla.CuadroPerfil, $('#detalle_documentos'));
-                        _this.armarPantalla(mi_pantalla.DocumentacionRequerida, $('#detalle_documentos'));
-                        _this.completarFoliosRecepcionados(mi_pantalla.DocumentacionRecibida, $('#detalle_documentos'));
-                    });*/
+        // _this.armarPantallaPerfil(mi_pantalla, $('#requisitos_perfil'));
+        _this.armarPantalla(mi_pantalla.CuadroPerfil, $('#detalle_documentos'));
+        _this.armarPantalla(mi_pantalla.DocumentacionRequerida, $('#detalle_documentos'));
+        _this.completarFoliosRecepcionados(mi_pantalla.DocumentacionRecibida, $('#detalle_documentos'));
+        });*/
     },
     //    armarPantallaPerfil: function (pantalla, div_caja_foliables) {
 
