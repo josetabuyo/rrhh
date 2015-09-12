@@ -43,6 +43,14 @@ namespace General.Modi
             return Image.FromStream(ms);
         }
 
+        public bool guardarImagenEnPath(string pathImagen, string bytes_imagen)
+        {
+            byte[] imageBytes = Convert.FromBase64String(bytes_imagen);
+            FileStream fs = new FileStream(pathImagen, FileMode.Create);
+            fs.Write(imageBytes, 0, imageBytes.Count());
+            fs.Close();
+            return true;
+        }
 
         public void moverArchivo(string pathArchivo, string pathCarpetaDestino)
         {
