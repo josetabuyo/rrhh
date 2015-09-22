@@ -23,7 +23,8 @@ ProveedorAjax.prototype.postearAUrl = function (datos_del_post) {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            datos_del_post.error(XMLHttpRequest, textStatus, errorThrown);
+            console.log("error al postear a url:", XMLHttpRequest, textStatus, errorThrown);
+            if (datos_del_post.error) datos_del_post.error(XMLHttpRequest, textStatus, errorThrown);
         }
     });
 };
