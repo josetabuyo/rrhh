@@ -13,7 +13,14 @@ var ComboConBusquedaYAgregado = function (opt) {
     var opciones_select2 = {
         placeholder: this.placeHolder || 'seleccione',
         allowClear: true,
-        width: 'resolve'
+        width: 'resolve',
+//        matcher: function (params, data) {
+//            if ($.trim(params) === '') {
+//                return data;
+//            }
+//            if (data.toUpperCase().indexOf(params.toUpperCase()) == -1) return null;
+//            return data;
+//        }
     };
 
     if (this.permiteAgregar) {
