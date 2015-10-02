@@ -24,15 +24,26 @@
         <legend>ReImpresion de DDJJ</legend>
     </fieldset>
   
-    <label runat="server" id="lblDDJJ"> Numero de DDJJ </label>
-    <input type="text" id="txtIdArea" />
-    <input type="button" value="Imprimir" onclick="ImprimirDDJJ(1024)" />
-
+    
+    <div>    
+        <select runat="server" title="Seleccione un mes" id="cmbMeses" name="Meses" enableviewstate="false"
+            style="text-transform: capitalize;">
+        </select>
+    </div>
+    <div id="ContenedorGrilla" runat="server">
+    </div>
+    
+    <div id="progressbar">
+        <div class="ui-progressbar-overlay" " > Cargando... </div>    
+    </div>
+    
+    <asp:HiddenField ID="AreasJSON" runat="server" EnableViewState="true" />
+      
     </form>
 </body>
 
 
-<script src="DDJJ.js" type="text/javascript"></script>
+<script src="DDJJ_Reimpresion.js" type="text/javascript"></script>
 
 
 </html>

@@ -139,11 +139,11 @@ var GeneradorBotones = function () {
                 boton.val("Imprimir");
                 boton.click(ImprimirDDJJ(row.Area.Id));
                 break;
-            case '3':
-                boton = $("<input type='button'>");
-                boton.val("ReImprimir");
-                boton.click();
-                break;
+//            case '3':
+//                boton = $("<input type='button'>");
+//                boton.val("ReImprimir");
+//                boton.click();
+//                break;
         }
 
         return boton;

@@ -94,5 +94,7 @@ namespace General
             ddjj.MarcarDDJJ104Impresa(nroDDJJ, estado);
         }
 
+
+
     }
 }

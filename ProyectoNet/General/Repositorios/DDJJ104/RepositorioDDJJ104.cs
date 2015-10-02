@@ -139,7 +139,6 @@ namespace General
 
         public void MarcarDDJJ104Impresa(int nroDDJJ, int estado)
         {
-
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.PLA_UPD_DDJJ104_Cabecera");
             cn.AsignarParametro("@id_ddjj", nroDDJJ);
@@ -148,8 +147,37 @@ namespace General
             dr = cn.EjecutarConsulta();
 
             cn.Desconestar();
-
         }
+
+
+        public List<DDJJ104> GetMesesGenerados(DDJJ104 ddjj)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PLA_GET_Meses_Generados");
+            cn.AsignarParametro("@Usuario_Generacion", ddjj.Agente.Id);
+            cn.AsignarParametro("@Mes", ddjj.Mes);
+            cn.AsignarParametro("@Año", ddjj.Anio);
+
+            dr = cn.EjecutarConsulta();
+
+            DDJJ104 ddjj104;
+            List<DDJJ104> listaddjj104 = new List<DDJJ104>();
+
+            while (dr.Read())
+            {
+                ddjj104 = new DDJJ104();                
+                ddjj104.Mes = dr.GetInt16(dr.GetOrdinal("Mes"));
+                ddjj104.Anio = dr.GetInt16(dr.GetOrdinal("Año"));
+               // ddjj104.IdDDJJ = dr.GetInt32(dr.GetOrdinal("Id_DDJJ"));
+
+                listaddjj104.Add(ddjj104);
+            }
+
+            cn.Desconestar();
+
+            return listaddjj104;
+        }
+
 
     }
 

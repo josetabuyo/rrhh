@@ -100,6 +100,47 @@ public class WSViaticos : System.Web.Services.WebService
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
         responsableDDJJ.MarcarDDJJ104Impresa(nroDDJJ, estado);
     }
+
+    [WebMethod]
+    public MesDto[] GetMeses()
+    {
+        List<MesDto> meses = new List<MesDto>();
+
+        DateTime fechaAnterior = DateTime.Now.AddMonths(-1);
+        DateTime fechaActual = DateTime.Now;
+
+        meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });
+        meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });
+
+        return meses.ToArray();
+    }
+
+    [WebMethod]
+    public MesDto[] GetMesesGenerados(DDJJ104 ddjj, Usuario usuario)
+    {
+        var RepositorioDDJJ = new RepositorioDDJJ104();
+
+        if (ddjj == null)
+        {
+            ddjj = new DDJJ104();
+            ddjj.Mes = 0;
+            ddjj.Anio = 0;
+        }
+        ddjj.Agente = new Persona() { Id = usuario.Id };
+
+        List<DDJJ104> ListDDJJ = RepositorioDDJJ.GetMesesGenerados(ddjj);
+
+        List<MesDto> meses = new List<MesDto>();
+
+        foreach (var item in ListDDJJ)
+        {
+            meses.Add(new MesDto() { Mes = item.Mes, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(item.Mes), Anio = item.Anio });
+        }
+
+        return meses.ToArray();
+    }
+
+
     //FIN: DDJJ 104 ---------------
 
     [WebMethod]
@@ -2503,20 +2544,6 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-
-    [WebMethod]
-    public MesDto[] GetMeses()
-    {
-        List<MesDto> meses = new List<MesDto>();
-        
-        DateTime fechaAnterior = DateTime.Now.AddMonths(-1);
-        DateTime fechaActual = DateTime.Now;
-
-        meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });
-        meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });
-
-        return meses.ToArray();
-    }
 
 
 
