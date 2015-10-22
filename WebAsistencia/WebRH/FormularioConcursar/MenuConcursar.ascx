@@ -22,6 +22,16 @@ color:#fff !important;
     background-color:#0088cc !important;
 }
 
+.navbar .nav 
+{
+    float:none;
+}
+            
+.navbar-inner 
+{
+    padding:0px !important;
+}
+
 
 
 </style>

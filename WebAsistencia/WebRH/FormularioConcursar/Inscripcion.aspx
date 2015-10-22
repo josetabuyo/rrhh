@@ -145,14 +145,18 @@
                 <br />
                 <p class="subtitulo_incripcion" >Declaro bajo juramento que:</p>
                 <p class="aclaraciones">
-                    a) los datos consignados en la presente Solicitud y Ficha de Inscripción son completos, verdaderos y atinentes al perfil del puesto de trabajo o función a concursar; <br />
-                    b) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
-                    c) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
-                    d) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
-                    e) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
-                    f) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
-                    g) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
-                    h) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br />
+                    a) los datos consignados en la presente Solicitud y Ficha de Inscripción son completos, verdaderos y atinentes al perfil del puesto de trabajo o función a concursar; <br /> <br />
+                    b) que los certificados, fotocopias y demás documentación entregada es autentica o copia fiel de sus respectivos originales; <br /> <br />
+                    c) reúno los requisitos previstos en los Artículos 4º y 5º del Anexo de la Ley Nº 25.164, y su Decreto reglamentado Nº 1.421/2002, y artículos concordantes del Convenio Colectivo de Trabajo General de la Administración Pública Nacional (Decreto Nº 214/06), a los que acepto conocer y aceptar; <br /> <br />
+                    d) reúno los requisitos para acceder al Agrupamiento y Nivel Escalafonario del cargo a concursar, previstos por el Sistema Nacional de Empleo Público (2.098/08); <br /> <br />
+                    e) conozco y acepto los términos de la presente Resolución de la SECRETARIA DE LA GESTIÓN PÚBLICA de la JEFATURA DE GABINETE DE MINISTROS que aprueba este Formulario de Solicitud y Ficha de Inscripción; <br /> <br />
+                    f) conozco y acepto las Bases del Concurso en el que solicito inscribirme, cuya copia he recibido en este acto de inscripción; tomando conocimiento del 
+                       cronograma y metodología de las etapas del proceso, de las materias o temáticas a abordar en la(s) prueba(s) y entrevista(s) fijadas o de 
+                       las asignaturas del Curso de Selección si fuera aplicable, de los puntajes a asignar a las diversas características a considerar, con los 
+                       cambios que pudiera resolver el Comité de Selección a los efectos de mejor preveer, y que serán comunicados con la antelación suficiente;  <br /> <br />
+                    g) he sido notificado de la ubicación de la cartelera y de la dirección de la página WEB en la que se notificarán las diversas incidencias y resultados del presente proceso de selección; <br /> <br />
+                    h) acepto que las notificaciones a que dé lugar el desarrollo del proceso en el que solicito ser inscripto puedan ser efectuadas en las direcciones domiciliarias y electrónicas así como del teléfono y/o fax que he comunicado en la presente
+                       solicitud. <br /> <br />
                 </p>
                 <p style="font-size:larger;" class="aclaraciones2"><input id="chk_bases" type="checkbox" />&nbsp;He leído y acepto las Bases y Condiciones del Concurso al que me postulo</p>
                 <a style="margin-right: 10px;" class="btn btn-primary" href="Postulaciones.aspx">Cancelar</a>
