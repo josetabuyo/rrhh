@@ -26,38 +26,36 @@
         titulo.attr("href", 'FichaInscripcionCVDeclaJurada.aspx?id=' + postulacion.Id + "&fh=" + postulacion.FechaPostulacion);
         titulo.attr("target", "_blank");
         titulo[0].innerHTML = 'N°: ' + postulacion.Numero + ' (' + ConversorDeFechas.deIsoAFechaEnCriollo(postulacion.FechaPostulacion) + ')' + ' - Estado: ' + this.obtenerEstado(postulacion);
-        // titulo[0].puesto = postulaciones[i].Puesto;
-        /*titulo.click(function (e) {
-        window.location.href = 'FichaInscripcionCVDeclaJurada.aspx?id=' + titulo[0].puesto.Id;
-                    
-        });*/
+
 
         var eliminar = $('<a>');
-        eliminar.addClass('delete_postulaciones');
+        //Sólo se puede eliminar si está en estado Preinscripcion Web
+        if (this.obtenerEstado(postulacion) == "Preinscripción web") {
+            eliminar.addClass('delete_postulaciones');
 
-        var img = $('<img>');
-        img.attr('src', '../Imagenes/icono_eliminar2.png');
-        img.attr('width', '20px');
-        img.attr('height', '20px');
-        eliminar.append(img);
+            var img = $('<img>');
+            img.attr('src', '../Imagenes/icono_eliminar2.png');
+            img.attr('width', '20px');
+            img.attr('height', '20px');
+            eliminar.append(img);
 
-        eliminar.click(function () {
-            var mensaje = "¿Está seguro que desea eliminar su postulación al puesto: " + postulacion.Perfil.Denominacion + "?";
-            alertify.confirm(mensaje, function (e) {
-                if (e) {
-                    // user clicked "ok"
-                    Backend.EliminarPostulacionPorUsuario(postulacion).onSuccess(function () {
-                        _this.armarPostulaciones($.grep(_this.postulaciones, function (p) {
-                            return p !== postulacion;
-                        }));
-                    });
-                } else {
-                    alertify.error("No se ha eliminado la Postulación");
-                }
+            eliminar.click(function () {
+                var mensaje = "¿Está seguro que desea eliminar su postulación al puesto: " + postulacion.Perfil.Denominacion + "?";
+                alertify.confirm(mensaje, function (e) {
+                    if (e) {
+                        // user clicked "ok"
+                        Backend.EliminarPostulacionPorUsuario(postulacion).onSuccess(function () {
+                            _this.armarPostulaciones($.grep(_this.postulaciones, function (p) {
+                                return p !== postulacion;
+                            }));
+                        });
+                    } else {
+                        alertify.error("No se ha eliminado la Postulación");
+                    }
+                });
+
             });
-
-        });
-
+        };
 
         var sub = $('<hr>');
         sub.addClass("SubrayadoPostulaciones degrade");
