@@ -34,65 +34,95 @@ namespace General
             return repositorio.GetAreaInferiorById(area.Id, false);
         }
 
-        public List<DDJJ104> GetAreasDDJJ(Usuario usuario , int mes, int anio)
+        public List<AreaParaDDJJ104> GetAreasParaDDJJ104(Usuario usuario)
         {
             RepositorioPersonas repoPersonas = new RepositorioPersonas();
-            DDJJ104 ddjj_dto;
-            int contador_de_personas = 0;
+            RepositorioDeOrganigrama repoOrganigrama = new RepositorioDeOrganigrama(Conexion());
+            var un_Organigrama = repoOrganigrama.GetOrganigrama();
 
-            var areas_con_ddjj = AreasConDDJJAdministradasPor(usuario);
-
-            List<DDJJ104> lista_ddjj = new List<DDJJ104>();
-            foreach (var un_area in areas_con_ddjj)
-            {
-                ddjj_dto = new DDJJ104();
-
-                //--- Cargo el areas Formal (ddjj = 1) y Obtengo las personas de esa Area
-                ddjj_dto.Area = un_area;
-                un_area.Personas = repoPersonas.GetPersonasDelAreaReducida(un_area,2);
-                contador_de_personas += un_area.Personas.Count();
-
-                //--- Cargo el areas inferiores (ddjj = 0) y Obtengo las personas de esas Areas
-                List<Persona> personasAreaInformales = new List<Persona>();
-                personasAreaInformales = repoPersonas.GetPersonasDelAreaReducida(un_area, 0);
-                if (personasAreaInformales.Count != 0)
+            List<AreaParaDDJJ104> areas = new List<AreaParaDDJJ104>();
+            
+            AreasConDDJJAdministradasPor(usuario).ForEach(a => {
+                var area = new AreaParaDDJJ104();
+                area.Id = a.Id;
+                area.Nombre = a.Nombre;
+                area.Personas.AddRange(repoPersonas.GetPersonasDelArea(a));
+                //AreasSinDDJJInferioresA(a).ForEach(area_dependiente =>
+                un_Organigrama.GetAreasInferioresDelArea(a).ForEach(area_dependiente =>
                 {
-                    un_area.Personas.AddRange(personasAreaInformales);
-                    contador_de_personas += personasAreaInformales.Count();
-                }
+                    if (!area_dependiente.PresentaDDJJ)
+                    {
+                        var area_informal = new AreaParaDDJJ104();
+                        area_informal.Id = area_dependiente.Id;
+                        area_informal.Nombre = area_dependiente.Nombre;
+                        area_informal.Personas = repoPersonas.GetPersonasDelArea(area_dependiente);
+                        area.AreasInformalesDependientes.Add(area_informal);    
+                    }
+                });
+                area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a);
+                
+                var area_superior = un_Organigrama.AreaSuperiorDe(a);
+                area.AreaSuperior = new AreaParaDDJJ104();
+                area.AreaSuperior.Id = area_superior.Id;
+                area.AreaSuperior.Nombre = area_superior.Nombre;
 
-                ddjj_dto.CantidadPersonas = contador_de_personas;
-                ddjj_dto.Mes = mes;
-                ddjj_dto.Anio = anio;
-                ddjj_dto.Estado = new RepositorioDDJJ104().GetEstadoDDJJ(ddjj_dto);
+                area.Direccion = a.Direccion;
 
-                lista_ddjj.Add(ddjj_dto);
+                areas.Add(area);
+            });
 
-                contador_de_personas = 0;
-            }
+            return areas;
+            //List<AreaParaDDJJ104> lista_ddjj = new List<AreaParaDDJJ104>();
+            //foreach (var un_area in areas_con_ddjj)
+            //{
+            //    ddjj_dto = new AreaParaDDJJ104();
+
+            //    //--- Cargo el areas Formal (ddjj = 1) y Obtengo las personas de esa Area
+            //    ddjj_dto.Area = un_area;
+            //    un_area.Personas = repoPersonas.GetPersonasDelAreaReducida(un_area,2);
+            //    contador_de_personas += un_area.Personas.Count();
+
+            //    //--- Cargo el areas inferiores (ddjj = 0) y Obtengo las personas de esas Areas
+            //    List<Persona> personasAreaInformales = new List<Persona>();
+            //    personasAreaInformales = repoPersonas.GetPersonasDelAreaReducida(un_area, 0);
+            //    if (personasAreaInformales.Count != 0)
+            //    {
+            //        un_area.Personas.AddRange(personasAreaInformales);
+            //        contador_de_personas += personasAreaInformales.Count();
+            //    }
+
+            //    ddjj_dto.CantidadPersonas = contador_de_personas;
+            //    ddjj_dto.Mes = mes;
+            //    ddjj_dto.Anio = anio;
+            //    ddjj_dto.Estado = new RepositorioDDJJ104().GetEstadoDDJJ(ddjj_dto);
+
+            //    lista_ddjj.Add(ddjj_dto);
+
+            //    contador_de_personas = 0;
+            //}
 
 
-            return lista_ddjj;
+            //return lista_ddjj;
         }
 
 
-        public bool GenerarDDJJ104(Usuario usuario, List<DDJJ104> lista)
-        {
-            RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
-            return ddjj.GenerarDDJJ104(usuario, lista);
-        }
+        //public bool GenerarDDJJ104(Usuario usuario, List<AreaParaDDJJ104> lista)
+        //{
+        //    RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+        //    return ddjj.GenerarDDJJ104(usuario, lista);
+        //}
 
-        public List<DDJJ104> ImprimirDDJJ104(List<DDJJ104> lista)
-        {
-            RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
-            return ddjj.ImprimirDDJJ104(lista);
-        }
+        //public List<AreaParaDDJJ104> ImprimirDDJJ104(List<AreaParaDDJJ104> lista)
+        //{
+        //    RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+        //    return ddjj.ImprimirDDJJ104(lista);
+        //}
 
-        public void MarcarDDJJ104Impresa(int nroDDJJ, int estado)
-        {
-            RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
-            ddjj.MarcarDDJJ104Impresa(nroDDJJ, estado);
-        }
+        //public void MarcarDDJJ104Impresa(int nroDDJJ, int estado)
+        //{
+        //    RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+        //    ddjj.MarcarDDJJ104Impresa(nroDDJJ, estado);
+        //}
 
 
 

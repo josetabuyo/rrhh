@@ -155,7 +155,7 @@ Grilla.prototype = {
         } else {
             td.append(col.generadorDeContenido.generar(obj));
         }
-        td.addClass(col.titulo);
+        td.addClass(col.titulo.replace(/ /g, "_").replace(/\//g, "_"));
         return td;
     },
     CargarObjeto: function (obj) {

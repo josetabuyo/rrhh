@@ -139,7 +139,7 @@ namespace General
             //Inasistencia InasistenciaActual;
             //PaseDeArea PasePendiente;
 
-            ConexionDB cn = new ConexionDB("dbo.PLA_GetAgentesDDJJ104");
+            ConexionDB cn = new ConexionDB("dbo.Web_GetAgentesDelArea");
             cn.AsignarParametro("@idArea", unArea.Id);
             //@buscarInferiores = 0 -> buscar dependencias informales
             //@buscarInferiores = 1 -> buscar dependencias formales

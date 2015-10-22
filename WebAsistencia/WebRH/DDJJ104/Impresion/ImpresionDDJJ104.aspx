@@ -7,53 +7,94 @@
 <head id="Head1" runat="server">    
     <title>Impresión Declaración Jurada DDJJ104</title>
 
-    <%= Referencias.Css("../../")%>
+    <%--<%= Referencias.Css("../../")%>--%>
     <%= Referencias.Javascript("../../") %>
-
+    
     <style>
-        .SaltoDePagina
+        <%--table { page-break-after:auto }
+          tr    { page-break-inside:avoid; page-break-after:auto }
+          td    { page-break-inside:avoid; page-break-after:auto }
+          thead { display:table-header-group }
+          tfoot { display:table-footer-group }
+  --%>
+        #PanelImpresion>table
         {
-            page-break-after: always;
+            border-spacing:0px;  
+            border-collapse:collapse;  
         }
         
-        #PanelImpresion>table
-            {
-                border-spacing:0px;  
-                border-collapse:collapse;  
-            }
-        
         #PanelImpresion>table th, #PanelImpresion>table td
-            {
-                border:1px solid;    
-            }
+        {
+            border:1px solid;    
+        }        
             
-          
-             
+        #fecha
+        {
+            text-align:right; 
+            margin-right:100px;
+            margin-top:20px;
+        }
+        
+        #nroddjj104
+        {
+            float:right;
+            margin-right: 60px;
+        }
+        
+        .APELLIDO_Y_NOMBRE
+        {
+            width: 40%;
+        }          
+        
+        .CUIL_CUIT
+        {
+            width: 20%;
+        }
+            
+        .ESCALAFON_O_MODALIDAD_DE_CONTRATACION
+        {
+            width: 20%;
+        }
+            
+        .NIVEL_O_CATEGORIA
+        {
+            width: 20%;
+        }          
+        
         @media print
         {
+            #fecha
+            {
+                margin-right: 0px;
+            }
+        
+            #nroddjj104
+            {
+                margin-right: 0px;
+            }
+        
             #ocultar
             {
                 display: none;
             }
-            
-            .APELLIDO
+            .APELLIDO_Y_NOMBRE
             {
-              width: 400px;
+                width: 40%;
+            }          
+        
+            .CUIL_CUIT
+            {
+                width: 20%;
             }
             
-            .CUIL/CUIT
+            .ESCALAFON_O_MODALIDAD_DE_CONTRATACION
             {
-              width: 400px;
+                width: 20%;
             }
             
-            .ESCALAFON
+            .NIVEL_O_CATEGORIA
             {
-              width: 300px;
-            }
-            
-            .NIVEL
-            {
-              width: 100px;
+                width: 20%;
             }
             
         }      
@@ -68,31 +109,29 @@
     <div>
         
         <div align="right" 
-            style="font-size: small; font-family: 'ShelleyAllegro BT';"> 
+            style="font-size: x-small; font-family: 'ShelleyAllegro BT';"> 
                 <b><a id="LeyendaPorAnioDDJJ104"></a></b>
             </div>
         <br />
-        <img src="../../Imagenes/EscudoMDS.png" width="200px" height="80px" alt="" />
+        <img src="../../Imagenes/EscudoMDS.png" width="150px" height="60px" alt="" />
         
-        <div runat="server" align="right">
+        <%--<div align="right">
             <b><a id="NroDDJJ104" style="text-transform: uppercase"></a></b>
+        </div>--%>
+        <div id="nroddjj104"></div>
+        <div id="fecha">
         </div>
-        <asp:HiddenField ID="IdDDJJ104" runat="server" />
-
+<%--        <asp:HiddenField ID="IdDDJJ104" runat="server" />
+        <br />--%>
+        <div align="center" style="font-size: x-small"><b>FORMULARIO DE DECLARACION JURADA</b></div>
+        <div align="center" style="font-size: x-small">CERTIFICACION DE SERVICIOS</div>
         <br />
-        <br />
-        <br />
-        <br />
-
-        <div align="center" style="font-size: smaller"><b>FORMULARIO DE DECLARACION JURADA</b></div>
-        <div align="center" style="font-size: smaller">CERTIFICACION DE SERVICIOS</div>
-        <br />
-        <div align="center" style="font-size: smaller"><b>DECISION ADMINISTRATIVA Nº 104/2001</b></div>
-        <div align="center" style="font-size: smaller">(Resolución SME 34/01)<br/></div>
+        <div align="center" style="font-size: x-small"><b>DECISION ADMINISTRATIVA Nº 104/2001</b></div>
+        <div align="center" style="font-size: x-small">(Resolución SME 34/01)<br/></div>
         <br />
         
         <div runat="server" align="center">
-            <div style="width: 90%; font-size: small; text-align: justify;">Por el presente, certifico con carácter de Declaración Jurada, en mi condición de titular de la a <b><a id="AreaDDJJ104" style="text-transform: uppercase"></a></b> dependiente de <b><a id="AreaDependenciaDDJJ104" style="text-transform: uppercase"></a></b> ubicada en <b><a id="AreaDireccionDDJJ104" style="text-transform: uppercase"></a></b>, que las personas citadas en el listado adjuntos han cumplimentado la prestación de servicios correspondiente al mes de <b><a id="MesDDJJ104" style="text-transform: uppercase"></a></b> del año <b><a id="AnioDDJJ104" style="text-transform: uppercase"></a></b>.</div>
+            <div style="width: 90%; font-size: small; text-align: justify;">Por el presente, certifico con carácter de Declaración Jurada, en mi condición de titular de la <b><a id="AreaDDJJ104"></a></b> dependiente de <b><a id="AreaDependenciaDDJJ104"></a></b> ubicada en <b><a id="AreaDireccionDDJJ104"></a></b>, que las personas citadas en el listado adjuntos han cumplimentado la prestación de servicios correspondiente al mes de <b><a id="MesDDJJ104"></a></b> del año <b><a id="AnioDDJJ104"></a></b>.</div>
         </div>
 
         <br />
@@ -118,18 +157,15 @@
             $("#ocultar").click(function () {
                 window.print();        
 
-                var idDDJJ = $("#IdDDJJ104");
-
-                Backend.MarcarDDJJ104Impresa(IdDDJJ104.innerText, 3)
-                .onSuccess(function (respuesta) {
-                if (respuesta) {            
-                }
-                })
-                .onError(function (error, as, asd) {
-                alertify.alert(error);
-                });
-               
-
+                //var idDDJJ = $("#IdDDJJ104");
+                //Backend.MarcarDDJJ104Impresa(IdDDJJ104.innerText, 3)
+//                .onSuccess(function (respuesta) {
+//                if (respuesta) {            
+//                }
+//                })
+//                .onError(function (error, as, asd) {
+//                    alertify.alert(error);
+//                });
             });
         });
     });

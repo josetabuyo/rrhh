@@ -63,43 +63,40 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public DDJJ104[] GetAreasParaDDJJDelMes(string valorCombo, Usuario usuario)
+    public AreaParaDDJJ104[] GetAreasParaDDJJ104(Usuario usuario)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
-        var mes_anio = valorCombo.Split('-');
-        var a = responsableDDJJ.GetAreasDDJJ(usuario, Convert.ToInt32(mes_anio[0]), Convert.ToInt32(mes_anio[1])).ToArray();
+        var a = responsableDDJJ.GetAreasParaDDJJ104(usuario).ToArray();
 
         return a;
     }
 
     [WebMethod]
-    public bool GenerarDDJJ104(List<DDJJ104> lista, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Usuario usuario)
     {
-        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
-        return responsableDDJJ.GenerarDDJJ104(usuario, lista);
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+        return ddjj.GenerarDDJJ104(usuario, id_area, mes, anio);
     }
 
     [WebMethod]
-    public DDJJ104[] ImprimirDDJJ104(List<DDJJ104> lista)
+    public string GetLeyendaAnio(int anio)
     {
-        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
-        List<DDJJ104> ddjj = responsableDDJJ.ImprimirDDJJ104(lista);
-
-        DDJJ104[] returnDDJJ = new DDJJ104[ddjj.Count];
-
-        for (int i = 0; i < ddjj.Count; i++)
-        {
-            returnDDJJ[i] = ddjj[i];
-        }
-        return returnDDJJ;
+        return new RepositorioDeParametrosGenerales(Conexion()).GetLeyendaAnio(anio);
     }
 
-    [WebMethod]
-    public void MarcarDDJJ104Impresa(int nroDDJJ, int estado)
-    {
-        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
-        responsableDDJJ.MarcarDDJJ104Impresa(nroDDJJ, estado);
-    }
+    //[WebMethod]
+    //public AreaParaDDJJ104[] ImprimirDDJJ104(List<AreaParaDDJJ104> lista)
+    //{
+    //    RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+    //    return ddjj.ImprimirDDJJ104(lista);
+    //}
+
+    //[WebMethod]
+    //public void MarcarDDJJ104Impresa(int nroDDJJ, int estado)
+    //{
+    //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
+    //    responsableDDJJ.MarcarDDJJ104Impresa(nroDDJJ, estado);
+    //}
 
     [WebMethod]
     public MesDto[] GetMeses()
@@ -107,38 +104,38 @@ public class WSViaticos : System.Web.Services.WebService
         List<MesDto> meses = new List<MesDto>();
 
         DateTime fechaAnterior = DateTime.Now.AddMonths(-1);
-        DateTime fechaActual = DateTime.Now;
+        //DateTime fechaActual = DateTime.Now;
 
         meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });
-        meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });
+        //meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });
 
         return meses.ToArray();
     }
 
-    [WebMethod]
-    public MesDto[] GetMesesGenerados(DDJJ104 ddjj, Usuario usuario)
-    {
-        var RepositorioDDJJ = new RepositorioDDJJ104();
+    //[WebMethod]
+    //public MesDto[] GetMesesGenerados(AreaParaDDJJ104 ddjj, Usuario usuario)
+    //{
+    //    var RepositorioDDJJ = new RepositorioDDJJ104();
 
-        if (ddjj == null)
-        {
-            ddjj = new DDJJ104();
-            ddjj.Mes = 0;
-            ddjj.Anio = 0;
-        }
-        ddjj.Agente = new Persona() { Id = usuario.Id };
+    //    if (ddjj == null)
+    //    {
+    //        ddjj = new AreaParaDDJJ104();
+    //        ddjj.Mes = 0;
+    //        ddjj.Anio = 0;
+    //    }
+    //    ddjj.Agente = new Persona() { Id = usuario.Id };
 
-        List<DDJJ104> ListDDJJ = RepositorioDDJJ.GetMesesGenerados(ddjj);
+    //    List<AreaParaDDJJ104> ListDDJJ = RepositorioDDJJ.GetMesesGenerados(ddjj);
 
-        List<MesDto> meses = new List<MesDto>();
+    //    List<MesDto> meses = new List<MesDto>();
 
-        foreach (var item in ListDDJJ)
-        {
-            meses.Add(new MesDto() { Mes = item.Mes, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(item.Mes), Anio = item.Anio });
-        }
+    //    foreach (var item in ListDDJJ)
+    //    {
+    //        meses.Add(new MesDto() { Mes = item.Mes, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(item.Mes), Anio = item.Anio });
+    //    }
 
-        return meses.ToArray();
-    }
+    //    return meses.ToArray();
+    //}
 
 
     //FIN: DDJJ 104 ---------------

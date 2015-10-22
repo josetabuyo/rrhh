@@ -10,10 +10,10 @@ public partial class DDJJ104_FAreasConDDJJ : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        WSViaticosSoapClient ws = new WSViaticosSoapClient();
-        var meses = ws.GetMeses();
+        //WSViaticosSoapClient ws = new WSViaticosSoapClient();
+        //var meses = ws.GetMeses();
 
-        cmbMeses.DataSource = ws.GetMeses();
-        cmbMeses.DataBind();
+        //cmbMeses.DataSource = ws.GetMeses();
+        //cmbMeses.DataBind();
     }
 }

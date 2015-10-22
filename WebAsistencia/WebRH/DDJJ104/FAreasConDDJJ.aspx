@@ -17,10 +17,9 @@
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <uc3:BotonesMenu ID="BotonesMenu" runat="server"  />
 
-    <fieldset>
-        <legend>Generar DDJJ</legend>
+    <fieldset style="text-align: center">
+        <legend>Certificación de Servicios segun Decisión Administrativa N° 104/2001</legend>
     </fieldset>
 
     <div>    
@@ -28,19 +27,29 @@
             style="text-transform: capitalize;">
         </select>
     </div>
-    <div id="ContenedorGrilla" runat="server">
+
+    <div id="grilla" runat="server" style="width: 100%" align="center">
+        <div id="ContenedorGrilla" runat="server" style="width: 90%"></div>
     </div>
-    
-    <div id="progressbar">
+<%--    
+    <div id="progressbar" style="width: 20%">
         <div class="ui-progressbar-overlay" " > Cargando... </div>    
-    </div>
+    </div>--%>
     
+    <div id="grillaPersonas" runat="server" style="width: 100%" align="center">
+        <div id="ContenedorPersona" runat="server" style="width: 90%"></div>
+    </div>
+
+
     <asp:HiddenField ID="AreasJSON" runat="server" EnableViewState="true" />
       
     </form>
 </body>
 
-
+<script src="../scripts/underscore-min.js" type="text/javascript"></script>
+<script src="../scripts/ConversorDeFechas.js" type="text/javascript"></script>
+<script src="../scripts/jquery-barcode.js" type="text/javascript"></script>
+<script src="../scripts/Spin.js" type="text/javascript"></script>
 <script src="DDJJ.js" type="text/javascript"></script>
 
 

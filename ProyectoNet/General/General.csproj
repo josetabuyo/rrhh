@@ -93,7 +93,8 @@
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
-    <Compile Include="DDJJ104\DDJJ104.cs" />
+    <Compile Include="DDJJ104\AreaParaDDJJ104.cs" />
+    <Compile Include="DDJJ104\DDJJ104_2001.cs" />
     <Compile Include="Postular\AnexosDeEtapas.cs" />
     <Compile Include="Postular\ConstantesConcursar.cs" />
     <Compile Include="DictionaryExtension.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
+    <Compile Include="Repositorios\RepositorioDeParametrosGenerales.cs" />
     <Compile Include="Repositorios\DDJJ104\RepositorioDDJJ104.cs" />
     <Compile Include="Postular\AmbitoLaboral.cs" />
     <Compile Include="Postular\AntecedentePenal.cs" />
