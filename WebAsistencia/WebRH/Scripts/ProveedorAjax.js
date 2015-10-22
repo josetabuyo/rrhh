@@ -1,7 +1,7 @@
 ﻿var ProveedorAjax = function (raiz) {
     this.raiz = "http://localhost:43414/WebRH/"; //LOCAL
     //this.raiz = "http://www.cltservwebrh.des/"; //LUNA
-    //this.raiz = "https://rrhh.desarrollosocial.gov.ar/"; //PRODUCCION
+    //this.raiz = "https://rrhh.desarrollosocial.gob.ar/"; //PRODUCCION
 };
 
 ProveedorAjax.prototype.postearAUrl = function (datos_del_post) {
@@ -23,7 +23,8 @@ ProveedorAjax.prototype.postearAUrl = function (datos_del_post) {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            datos_del_post.error(XMLHttpRequest, textStatus, errorThrown);
+            console.log("error al postear a url:", XMLHttpRequest, textStatus, errorThrown);
+            if (datos_del_post.error) datos_del_post.error(XMLHttpRequest, textStatus, errorThrown);
         }
     });
 };

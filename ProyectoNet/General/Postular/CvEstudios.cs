@@ -76,7 +76,7 @@ namespace General
         {
             var validador_estudios = new Validador();
 
-            validador_estudios.DeberianSerNoVacias(new string[] { "Titulo", "Especialidad", "Establecimiento", "Localidad" });
+            validador_estudios.DeberianSerNoVacias(new string[] { "Titulo", "Establecimiento", "Localidad" });
             validador_estudios.DeberianSerFechasNoVacias(new string[] { "FechaIngreso", "FechaEgreso" });
             validador_estudios.DeberianSerNaturalesOCero(new string[] { "Nivel", "Anios", "Pais" });
             //  validador_estudios.DeberianSerNaturales(new string[] {  "Pais" });

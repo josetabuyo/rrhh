@@ -75,19 +75,14 @@
             });
 
             EtapaPreInscripcionDocumental.mostrarPostulacion();
-
-          
+                    
 
         });
-
-
-
-
-
+        
     });
 
 
-    $('#btn_comprobantes').click(function () {
+    $('#btn_guardar').click(function () {
 
         var codigo = $("#span_codigo").text();
         var fecha = $("#span_fecha").text();

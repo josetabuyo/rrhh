@@ -44,13 +44,14 @@
                 </div>
                 </div>
             </div>-->
-            <legend><q>¿QUÉ ES CONCURSAR?</q></legend>
-            <p>CONCURSAR es una política del Gobierno Nacional que apunta a consolidar el proceso de fortalecimiento y modernización del Estado a través de la selección de su personal mediante el sistema de concursos.</p>
-            <p>Un Estado nuevamente activo, protagonista del proceso de crecimiento con inclusión social que atraviesa nuestro país desde mayo de 2003, y que aborda desafíos cada vez más complejos, requiere contar con un personal competente, debidamente capacitado y seleccionado mediante mecanismos transparentes que garanticen la igualdad de oportunidades, en los que el mérito y la idoneidad sean valorados como el principal capital de los postulantes.</p>
-            <p>En definitiva, a través de CONCURSAR se busca optimizar las capacidades de gestión de las distintas áreas y organismos estatales y consolidar un cuerpo de funcionarios y trabajadores cada vez más especializado, cuyos integrantes cuenten con la certeza de formar parte de un Estado que los contiene, valora y proyecta hacia el futuro, y que a la vez exige de ellos el compromiso permanente de brindar lo mejor de sus habilidades en el desempeño cotidiano.</p>
-            <p>Por ello invitamos a todos los interesados a participar de las convocatorias que realizan los organismos públicos para ingresar a formar parte de la planta permanente de la Administración Pública Nacional: porque estamos convencidos de que este es el camino para construir un mejor Estado.</p>
-            <p>En este sitio web usted encontrará toda la información relevante sobre convocatorias vigentes, perfiles de los cargos concursados, requisitos, cronogramas y mecanismos de inscripción, guías de  orientación, preguntas frecuentes, y toda la normativa vigente sobre los concursos.</p>
-           
+            <legend><q>Bienvenid@</q></legend>
+            <p>El Ministerio de Desarrollo Social de la Nación tiene el gran placer de darte la bienvenida a este sitio web donde esperamos poder brindarte una ágil y cómoda experiencia para la gestión de tu información personal en forma de un Currículum Vitae electrónico.</p>
+            <p>En este sitio podrás ingresar tus datos personales, tu historial académico y laboral, así como toda otra información que pudiera resultar de interés para las búsquedas laborales que oportunamente ponga en vigencia el Ministerio.</p>
+            <p>Una vez que hayas ingresado tu información, podrás volver y actualizarla cuanta veces lo desees, siempre teniendo en cuenta que los datos aquí consignados deberán ser factibles de verificación documental, es decir deberás contar con los comprobantes respectivos de toda la información volcada en tu Currículum Vitae.</p>
+            <p>Asimismo, desde esta página, te será posible realizar tus postulaciones a las convocatorias que el Ministerio de Desarrollo Social habilite oportunamente, realizando la preinscripción electrónica que implica adjuntar este Currículum Vitae digital al perfil que selecciones.</p>
+            <p>Para ello, encontrarás publicadas las bases y condiciones de cada Perfil de Puesto de Trabajo que integre las distintas convocatorias, las cuales deberás leer con atención a fin de encontrar aquellas que resulten más adecuadas a tu historial, potencialidades y aspiraciones personales y laborales.</p>
+            <p>También podrás encontrar en esta página toda la información relativa al desarrollo y evolución de tus postulaciones en los distintos llamados en los que participes, pudiendo consultar las Actas de los Comités y toda otra información que pudiera resultar de interés.</p>
+            <p>Esperamos transformar este lugar en un instrumento dinámico de comunicación, el cual irá creciendo y evolucionando de acuerdo a la experiencia mutua de quienes integramos el Ministerio y, principalmente de quienes, como vos, nos aporten nuevas ideas y nos acerquen sus necesidades informativas para mejorar cada día en este gran desafío de gestionar personas y crear nuevas capacidades para un Estado moderno, inteligente y comprometido con la realidad actual.</p>
         </div>
 
         <div style="float:right; " class="panel_derecho">
