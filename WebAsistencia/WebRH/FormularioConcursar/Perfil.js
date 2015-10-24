@@ -16,7 +16,8 @@
         columnas.push(new Columna("Convocatoria", { generar: function (un_perfil) { return un_perfil.Tipo } }));
         columnas.push(new Columna('Bases del Puesto', { generar: function (un_perfil) {
             var linkPDF = $('<a>');
-            linkPDF.attr('href', '../Imagenes/' + un_perfil.Id + '.pdf');
+            linkPDF.attr('href', '../FormularioConcursar/bases/' + un_perfil.Id + '.pdf');
+            linkPDF.attr('target', '_blank');
             var img = $('<img>');
             img.attr('src', '../Imagenes/archivo.png');
             img.attr('width', '35px');
