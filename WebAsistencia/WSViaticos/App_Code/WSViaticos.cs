@@ -31,6 +31,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+
     [WebMethod]
     public Usuario[] GetUsuarios()
     {
@@ -104,10 +105,14 @@ public class WSViaticos : System.Web.Services.WebService
         List<MesDto> meses = new List<MesDto>();
 
         DateTime fechaAnterior = DateTime.Now.AddMonths(-1);
-        //DateTime fechaActual = DateTime.Now;
+        meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });        
 
-        meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });
-        //meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });
+        DateTime fechaActual = DateTime.Now;
+        if (fechaActual.Day > 25)
+        {
+            meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });    
+        }
+        
 
         return meses.ToArray();
     }

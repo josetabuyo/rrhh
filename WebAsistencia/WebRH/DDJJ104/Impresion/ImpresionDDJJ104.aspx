@@ -16,7 +16,7 @@
           td    { page-break-inside:avoid; page-break-after:auto }
           thead { display:table-header-group }
           tfoot { display:table-footer-group }
-  --%>
+        --%>
         #PanelImpresion>table
         {
             border-spacing:0px;  
@@ -49,16 +49,19 @@
         .CUIL_CUIT
         {
             width: 20%;
+            text-align:center;
         }
             
         .ESCALAFON_O_MODALIDAD_DE_CONTRATACION
         {
-            width: 20%;
+            width: 3    0%;
+            text-align:center;
         }
             
         .NIVEL_O_CATEGORIA
         {
-            width: 20%;
+            width: 10%;
+            text-align:center;
         }          
         
         @media print
@@ -85,16 +88,19 @@
             .CUIL_CUIT
             {
                 width: 20%;
+                text-align:center;
             }
             
             .ESCALAFON_O_MODALIDAD_DE_CONTRATACION
             {
-                width: 20%;
+                width: 30%;
+                text-align:center;
             }
             
             .NIVEL_O_CATEGORIA
             {
-                width: 20%;
+                width: 10%;
+                text-align:center;
             }
             
         }      

@@ -53,8 +53,8 @@ var getAreasDDJJ = function () {
 
 var DibujarGrillaDDJJ = function () {
     var grilla;
-    
-    $("#grillaPersonas").empty();
+
+    $("#ContenedorPersona").empty();
     grilla = new Grilla(
         [
             new Columna("Area", { generar: function (un_area) { return un_area.Nombre; } }),
@@ -98,32 +98,33 @@ var GeneradorBotones = function () {
         else estado = dec_jurada.Estado;
 
         var ContenedorBotones = $("<div>");
-
-        var botonConsultar;
-        botonConsultar = $("<input type='button'>");
-        botonConsultar.val("Consultar");
-        botonConsultar.click(function () { ConsultarDDJJ(un_area.Id, $("#grillaPersonas")) });
-
-        ContenedorBotones.append(botonConsultar);
-
-        un_area
-
         var boton;
-        switch (estado) {
-            case 0:
-                boton = $("<input type='button'>");
-                boton.val("Imprimir");
-                boton.click(function () {
-                    Generar_e_ImprimirDDJJ(un_area.Id);
-                });
-                break;
-            case 1:
-                boton = $("<input type='button'>");
-                boton.val("Imprimir");
-                boton.click(function () {
-                    ImprimirDDJJ(un_area.Id);
-                });
-                break;
+
+        if (un_area.Personas.length > 0) {
+
+            var botonConsultar;
+            botonConsultar = $("<input type='button'>");
+            botonConsultar.val("Consultar");
+            botonConsultar.click(function () { ConsultarDDJJ(un_area.Id, $("#ContenedorPersona")) });
+
+            ContenedorBotones.append(botonConsultar);
+        
+                switch (estado) {
+                    case 0:
+                        boton = $("<input type='button'>");
+                        boton.val("Imprimir");
+                        boton.click(function () {
+                            Generar_e_ImprimirDDJJ(un_area.Id);
+                        });
+                        break;
+                    case 1:
+                        boton = $("<input type='button'>");
+                        boton.val("Imprimir");
+                        boton.click(function () {
+                            ImprimirDDJJ(un_area.Id);
+                        });
+                        break;
+                }
         }
 
         ContenedorBotones.append(boton);
@@ -239,7 +240,7 @@ var DibujarFormularioDDJJ104 = function (un_area) {
 var ConsultarDDJJ = function (idArea) {
     var un_area = _.find(lista_areas_del_usuario, function (a) { return a.Id == idArea; });
 
-    DibujarGrillaPersonas(un_area, $("#grillaPersonas"));
+    DibujarGrillaPersonas(un_area, $("#ContenedorPersona"));
 };
 
 //var GenerarDDJJ = function (idArea) {
