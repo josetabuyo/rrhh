@@ -131,7 +131,7 @@
             <table border="border-collapse: collapse" style="border-collapse: collapse; height:50px;" class="pie-tabla" >
             <tr>
                 <td class="td-pie-tabla" ><span class="letra-bold" ">Fecha de Inscripción</span></td>
-                <td class="td-pie-tabla" ><span class="letra-bold" ">Firma y Aclaración del Inscripto o Apoderado</span></td>
+                <td class="td-pie-tabla" ><span class="letra-bold" ">Firma y Aclaración del Inscriptor o Apoderado</span></td>
             </tr>
             </table>
            

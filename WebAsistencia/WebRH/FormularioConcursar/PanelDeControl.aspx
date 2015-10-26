@@ -36,7 +36,7 @@
                     <a class="cvFotoUsuario " href="#"><img src="../Imagenes/silueta.gif" alt="Avatar Usuario" width="125" /></a>
                     <div class="cvOverview"> 
                 	    <p class=""><a class="cvNombrePostulante" href="#"><%=nombre +" "+ apellido  %></a></p>
-                        <p class="cvEstadoCv">Tu CV está al  <span id="Span1">85</span>%</p>
+                        <p class="cvEstadoCv">Tu CV est&aacute; al  <span id="Span1">85</span>%</p>
                         <div class="cvProgress">
                             <div class="cvProgressBar cvProgressBarAlta" style="width: 85%"></div>
                         </div>
@@ -45,13 +45,14 @@
                 </div>
             </div>-->
             <legend><q>Bienvenid@</q></legend>
-            <p>El Ministerio de Desarrollo Social de la Nación tiene el gran placer de darte la bienvenida a este sitio web donde esperamos poder brindarte una ágil y cómoda experiencia para la gestión de tu información personal en forma de un Currículum Vitae electrónico.</p>
-            <p>En este sitio podrás ingresar tus datos personales, tu historial académico y laboral, así como toda otra información que pudiera resultar de interés para las búsquedas laborales que oportunamente ponga en vigencia el Ministerio.</p>
-            <p>Una vez que hayas ingresado tu información, podrás volver y actualizarla cuanta veces lo desees, siempre teniendo en cuenta que los datos aquí consignados deberán ser factibles de verificación documental, es decir deberás contar con los comprobantes respectivos de toda la información volcada en tu Currículum Vitae.</p>
-            <p>Asimismo, desde esta página, te será posible realizar tus postulaciones a las convocatorias que el Ministerio de Desarrollo Social habilite oportunamente, realizando la preinscripción electrónica que implica adjuntar este Currículum Vitae digital al perfil que selecciones.</p>
-            <p>Para ello, encontrarás publicadas las bases y condiciones de cada Perfil de Puesto de Trabajo que integre las distintas convocatorias, las cuales deberás leer con atención a fin de encontrar aquellas que resulten más adecuadas a tu historial, potencialidades y aspiraciones personales y laborales.</p>
-            <p>También podrás encontrar en esta página toda la información relativa al desarrollo y evolución de tus postulaciones en los distintos llamados en los que participes, pudiendo consultar las Actas de los Comités y toda otra información que pudiera resultar de interés.</p>
-            <p>Esperamos transformar este lugar en un instrumento dinámico de comunicación, el cual irá creciendo y evolucionando de acuerdo a la experiencia mutua de quienes integramos el Ministerio y, principalmente de quienes, como vos, nos aporten nuevas ideas y nos acerquen sus necesidades informativas para mejorar cada día en este gran desafío de gestionar personas y crear nuevas capacidades para un Estado moderno, inteligente y comprometido con la realidad actual.</p>
+            <p>El Ministerio de Desarrollo Social de la Naci&oacute;n tiene el gran placer de darte la bienvenida a este sitio web donde esperamos poder brindarte una &aacute;gil y c&oacute;moda experiencia para la gesti&oacute;n de tu informaci&oacute;n personal en forma de un Curr&iacute;culum Vitae electr&oacute;nico.</p>
+            <p>En este sitio podr&aacute;s ingresar tus datos personales, tu historial acad&eacute;mico y laboral, as&iacute; como toda otra informaci&oacute;n que pudiera resultar de inter&eacute;s para las b&uacute;squedas laborales que oportunamente ponga en vigencia el Ministerio.</p>
+            <p>Una vez que hayas ingresado tu informaci&oacute;n, podr&aacute;s volver y actualizarla cuanta veces lo desees, siempre teniendo en cuenta que los datos aqu&iacute; consignados deber&aacute;n ser factibles de verificaci&oacute;n documental, es decir deber&aacute;s contar con los comprobantes respectivos de toda la informaci&oacute;n volcada en tu Curr&iacute;culum Vitae.</p>
+            <p>Asimismo, desde esta p&aacute;gina, te ser&aacute; posible realizar tus postulaciones a las convocatorias que el Ministerio de Desarrollo Social habilite oportunamente, realizando la preinscripci&oacute;n electr&oacute;nica que implica adjuntar este Curr&iacute;culum Vitae digital al perfil que selecciones.</p>
+            <p>Para ello, encontrar&aacute;s publicadas las bases y condiciones de cada Perfil de Puesto de Trabajo que integre las distintas convocatorias, las cuales deber&aacute;s leer con atenci&oacute;n a fin de encontrar aquellas que resulten m&aacute;s adecuadas a tu historial, potencialidades y aspiraciones personales y laborales.</p>
+            <p>Tambi&eacute;n podr&aacute;s encontrar en esta p&aacute;gina toda la informaci&oacute;n relativa al desarrollo y evoluci&oacute;n de tus postulaciones en los distintos llamados en los que participes, pudiendo consultar las Actas de los Comit&eacute;s y toda otra informaci&oacute;n que pudiera resultar de inter&eacute;s.</p>
+            <p>Esperamos transformar este lugar en un instrumento din&aacute;mico de comunicaci&oacute;n, el cual ir&aacute; creciendo y evolucionando de acuerdo a la experiencia mutua de quienes integramos el Ministerio y, principalmente de quienes, como vos, nos aporten nuevas ideas y nos acerquen sus necesidades informativas para mejorar cada d&iacute;a en este gran desaf&iacute;o de gestionar personas y crear nuevas capacidades para un Estado moderno, inteligente y comprometido con la realidad actual.</p>
+            <p>Por &uacute;ltimo, en el siguiente link podr&aacute;n encontrar el manual de introducci&oacute;n al sistema POSTULAR. En el encontrar&aacute;n toda la informaci&oacute;n necesaria para aprender a usar el m&oacute;dulo con todas sus opciones. <a href="bases/introduccionDelSistemaPostular.pdf" target="_blank">Abrir Gu&iacute;a</a></p>
         </div>
 
         <div style="float:right; " class="panel_derecho">
