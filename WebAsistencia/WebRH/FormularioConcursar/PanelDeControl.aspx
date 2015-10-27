@@ -12,7 +12,7 @@
 
      <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
      <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
-     
+     <link rel="stylesheet" href="../scripts/select2-3.5.4/select2.css" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -44,6 +44,10 @@
                 </div>
                 </div>
             </div>-->
+            <div id="prueba">
+                <input id="cmb_provincia" style="width: 320px;" rh-control-type="combo" rh-propiedad-label="Nombre"
+                    rh-data-provider="Provincias" rh-model-property="Provincia" data-validar="haySeleccionEnCombo">
+            </div>
             <legend><q>Bienvenid@</q></legend>
             <p>El Ministerio de Desarrollo Social de la Nación tiene el gran placer de darte la bienvenida a este sitio web donde esperamos poder brindarte una ágil y cómoda experiencia para la gestión de tu información personal en forma de un Currículum Vitae electrónico.</p>
             <p>En este sitio podrás ingresar tus datos personales, tu historial académico y laboral, así como toda otra información que pudiera resultar de interés para las búsquedas laborales que oportunamente ponga en vigencia el Ministerio.</p>
@@ -90,10 +94,18 @@
  <%= Referencias.Javascript("../") %>
  <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
  <script type="text/javascript" src="PanelDeControl.js"></script>
-
+ <script type="text/javascript" src="../Scripts/FormularioBindeado.js"></script>
+<script type="text/javascript" src="../Scripts/NuevoComboConBusquedaYAgregado.js"></script>
+<script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
+<script type="text/javascript" src="../Scripts/select2-3.5.4/Select2.min.js"></script>
+<script type="text/javascript" src="../Scripts/select2-3.5.4/select2_locale_es.js"></script>
+<script type="text/javascript" src="../Scripts/ObjectObserver.js"> </script>
+<script type="text/javascript" src="../Scripts/String.js"> </script>
  <script type="text/javascript">
      $('#tab_panel').addClass('active');
-
+     var prueba = {
+         Provincia: 1
+     };
     Backend.start();
     $(document).ready(function () {
         var postulaciones = JSON.parse($('#postulaciones').val());
@@ -103,6 +115,15 @@
         }
 
         PanelDeControl.armarPostulaciones(postulaciones);
+
+
+        //DEBUG
+        var rh_form = new FormularioBindeado({
+            formulario: $("#prueba"),
+            modelo: prueba
+        });
+
+
     });
  </script>
 </html>

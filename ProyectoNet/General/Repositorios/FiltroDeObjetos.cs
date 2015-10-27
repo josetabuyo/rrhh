@@ -24,7 +24,14 @@ namespace General.Repositorios
                 var propiedad_a_filtrar = obj.GetType().GetProperty(filtro_propiedad.Key);
                 if (propiedad_a_filtrar != null)
                 {
-                    if (propiedad_a_filtrar.GetValue(obj, null).GetHashCode() != filtro_propiedad.Value.GetHashCode()) pasa_todas_las_condiciones = false;
+                    if (filtro_propiedad.Value.ToString().Contains("*"))
+                    {
+                        if (propiedad_a_filtrar.GetValue(obj, null).GetHashCode() != filtro_propiedad.Value.GetHashCode()) pasa_todas_las_condiciones = false;
+                    }
+                    else
+                    {
+                        if (propiedad_a_filtrar.GetValue(obj, null).GetHashCode() != filtro_propiedad.Value.GetHashCode()) pasa_todas_las_condiciones = false;
+                    }                
                 }
                 else
                 {
