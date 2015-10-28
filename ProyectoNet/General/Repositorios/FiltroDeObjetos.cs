@@ -26,7 +26,7 @@ namespace General.Repositorios
                 {
                     if (filtro_propiedad.Value.ToString().Contains("*"))
                     {
-                        if (propiedad_a_filtrar.GetValue(obj, null).GetHashCode() != filtro_propiedad.Value.GetHashCode()) pasa_todas_las_condiciones = false;
+                        if (!(propiedad_a_filtrar.GetValue(obj, null).ToString().ToLower().Contains(filtro_propiedad.Value.ToString().ToLower().Replace("*", "")))) pasa_todas_las_condiciones = false;
                     }
                     else
                     {

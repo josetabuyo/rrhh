@@ -46,7 +46,9 @@
             </div>-->
             <div id="prueba">
                 <input id="cmb_provincia" style="width: 320px;" rh-control-type="combo" rh-propiedad-label="Nombre"
-                    rh-data-provider="Provincias" rh-model-property="Provincia" data-validar="haySeleccionEnCombo">
+                    rh-data-provider="Provincias" rh-model-property="Provincia" data-validar="haySeleccionEnCombo"/>
+                <input id="cmb_antecedentes_titulo" style="width:150px;" data-validar="haySeleccionEnCombo" rh-control-type="combo" rh-data-provider="TitulosAntecedentesAcademicos"
+                    rh-model-property="IdTitulo" rh-permite-agregar=true/>
             </div>
             <legend><q>Bienvenid@</q></legend>
             <p>El Ministerio de Desarrollo Social de la Nación tiene el gran placer de darte la bienvenida a este sitio web donde esperamos poder brindarte una ágil y cómoda experiencia para la gestión de tu información personal en forma de un Currículum Vitae electrónico.</p>
@@ -104,7 +106,8 @@
  <script type="text/javascript">
      $('#tab_panel').addClass('active');
      var prueba = {
-         Provincia: 1
+         Provincia: 1,
+         IdTitulo: 5
      };
     Backend.start();
     $(document).ready(function () {
