@@ -21,45 +21,32 @@ namespace General.Repositorios
             var pasa_todas_las_condiciones = true;
             foreach (var filtro_propiedad in criterio)
             {
+                String valor_propiedad = "";
+                String valor_filtro = filtro_propiedad.Value.ToString().ToLower();
+
                 var propiedad_a_filtrar = obj.GetType().GetProperty(filtro_propiedad.Key);
                 if (propiedad_a_filtrar != null)
                 {
-                    if (filtro_propiedad.Value.ToString().Contains("*"))
-                    {
-                        if (!propiedad_a_filtrar.GetValue(obj, null).ToString().ToLower().Contains(filtro_propiedad.Value.ToString().ToLower().Replace("*", ""))) pasa_todas_las_condiciones = false;
-                    }
-                    else
-                    {
-                        if (propiedad_a_filtrar.GetValue(obj, null).GetHashCode() != filtro_propiedad.Value.GetHashCode()) pasa_todas_las_condiciones = false;
-                    }                
+                    valor_propiedad = propiedad_a_filtrar.GetValue(obj, null).ToString().ToLower();
                 }
                 else
                 {
                     var campo_a_filtrar = obj.GetType().GetField(filtro_propiedad.Key);
                     if (campo_a_filtrar != null)
                     {
-                        if (campo_a_filtrar.GetValue(obj).GetHashCode() != filtro_propiedad.Value.GetHashCode()) pasa_todas_las_condiciones = false;
+                        valor_propiedad = campo_a_filtrar.GetValue(obj).ToString().ToLower();
                     }
                 }
+                if (valor_filtro.Contains("*"))
+                {
+                    if (!valor_propiedad.Contains(valor_filtro.Replace("*", ""))) pasa_todas_las_condiciones = false;
+                }
+                else
+                {
+                    if (valor_propiedad != valor_filtro) pasa_todas_las_condiciones = false;
+                }            
             }
 
-
-            //bool filtrar_por_provincia = false;
-            //int id_provincia = -1;
-
-            //if (criterio["provincia"] != null)
-            //{
-            //    filtrar_por_provincia = true;
-            //    id_provincia = (int)((JValue)criterio_deserializado["provincia"]);
-            //}
-
-            //var pasa_todas_las_condiciones = true;
-            //if (filtrar_por_provincia)
-            //{
-            //    if (localidad.IdProvincia != id_provincia) pasa_todas_las_condiciones = false;
-            //}
-
-            //return pasa_todas_las_condiciones;
             return pasa_todas_las_condiciones;
         }
     }

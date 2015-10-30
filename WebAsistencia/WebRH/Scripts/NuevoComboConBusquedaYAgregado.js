@@ -97,7 +97,10 @@
         this.select.on("select2-selecting", function (e) {
             _this.change();
         });
-
+        this.select.select2('open');
+        var $search = this.select.data('select2').dropdown.$search || this.select.data('select2').selection.$search;
+        $search.val(term);
+        $search.trigger('keyup');
 }
 
 ComboConBusquedaYAgregado.prototype.nombreFuncionRandom = function () {

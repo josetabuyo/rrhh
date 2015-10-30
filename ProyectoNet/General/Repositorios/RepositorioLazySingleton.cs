@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using General.MAU;
 
 namespace General.Repositorios
 {
@@ -65,6 +66,20 @@ namespace General.Repositorios
                 return filtro.Evaluar(objeto);
             });
             return resultados;
+        }
+
+        public List<T> Find(string criterio, Usuario usuario)
+        {
+            return this.Find(criterio).FindAll(obj =>
+            {
+                var propiedad_a_filtrar = obj.GetType().GetProperty("SoloVisiblePara");
+                if (propiedad_a_filtrar != null)
+                {
+                    int valor_propiedad = int.Parse(propiedad_a_filtrar.GetValue(obj, null).ToString());
+                    return valor_propiedad == usuario.Id || valor_propiedad == -1;
+                }
+                return false;
+            });
         }
     }
 }

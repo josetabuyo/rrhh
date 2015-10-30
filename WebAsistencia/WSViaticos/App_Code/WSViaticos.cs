@@ -2650,7 +2650,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CVCaracterDeParticipacionEvento[] BuscarCaracterParticipacionEvento(string criterio, Usuario usuario)
     {
-        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Find(criterio).FindAll(i => i.SoloVisiblePara == usuario.Id || i.SoloVisiblePara == -1).ToArray();
+        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Find(criterio, usuario).ToArray();
     }
 
     [WebMethod]
@@ -2665,7 +2665,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CVInstitucionesEventos[] BuscarInstitucionesEvento(string criterio, Usuario usuario)
     {
-        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Find(criterio).FindAll(i => i.SoloVisiblePara == usuario.Id || i.SoloVisiblePara == -1).ToArray();
+        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Find(criterio, usuario).ToArray();
     }
 
     [WebMethod]
@@ -2680,7 +2680,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CVTitulosAntecedentesAcademicos[] BuscarTitulosAntecedentesAcademicos(string criterio, Usuario usuario)
     {
-        return RepositorioDeTitulosAntecedentesAcademicos.Nuevo(Conexion()).Find(criterio).FindAll(i => i.SoloVisiblePara == usuario.Id || i.SoloVisiblePara == -1).ToArray();
+        return RepositorioDeTitulosAntecedentesAcademicos.Nuevo(Conexion()).Find(criterio, usuario).ToArray();
     }
 
     [WebMethod]
