@@ -16,7 +16,7 @@
         columnas.push(new Columna("Convocatoria", { generar: function (un_perfil) { return un_perfil.Tipo } }));
         columnas.push(new Columna('Bases del Puesto', { generar: function (un_perfil) {
             var linkPDF = $('<a>');
-            linkPDF.attr('href', '../FormularioConcursar/bases/' + un_perfil.Id + '.pdf');
+            linkPDF.attr('href', 'http://www.plataformapersonas.com.ar/bases022015/Conv02_2015_Perfil_' + un_perfil.Numero + '.pdf');
             linkPDF.attr('target', '_blank');
             var img = $('<img>');
             img.attr('src', '../Imagenes/archivo.png');
@@ -69,36 +69,66 @@
                     if (experienciasLaborales[i].AmbitoLaboral == 1 && experienciasLaborales[i].Vigente == true) pertenezco_a_SINEP = true;
                 }
 
-                if ((un_perfil.Tipo == 'General' && pertenezco_a_SINEP) || un_perfil.Tipo == 'Abierta') {
 
-                    if (estoy_postulado) {
+                /*A HACER CUANTO ANTES COMPARAR FECHAS */
+                var d = new Date();
+
+                var month = d.getMonth() + 1;
+                var day = d.getDate();
+                var hour = d.getHours();
+                var minute = d.getMinutes();
+                var second = d.getSeconds();
+
+                var hoy = d.getFullYear() + '-' +
+                (('' + month).length < 2 ? '0' : '') + month + '-' +
+                (('' + day).length < 2 ? '0' : '') + day + 'T' +
+                (('' + hour).length < 2 ? '0' : '') + hour + ':' +
+                (('' + minute).length < 2 ? '0' : '') + minute + ':' +
+                (('' + second).length < 2 ? '0' : '') + second;
+
+                if (hoy >= un_perfil.FechaDesde && hoy <= un_perfil.FechaHasta) {
+                    if ((un_perfil.Tipo == 'General' && pertenezco_a_SINEP) || un_perfil.Tipo == 'Abierta') {
+
+                        if (estoy_postulado) {
+                            linkPostularse = $('<div>');
+                            linkPostularse.text("Postulado");
+                        } else {
+                            linkPostularse = $('<a>')
+                            linkPostularse[0].innerHTML = "Postularse";
+                            linkPostularse.attr('href', '#');
+                            linkPostularse.click(function (e) {
+                                var proveedor_ajax = new ProveedorAjax();
+
+                                proveedor_ajax.postearAUrl({ url: "SetObjetoEnSesion",
+                                    data: {
+                                        nombre: 'Perfil',
+                                        objeto: JSON.stringify(un_perfil)
+                                    },
+                                    success: function (respuesta) {
+                                        window.location.href = 'PreInscripcion.aspx?id=' + un_perfil.Id;
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        alertify.alert("Error");
+                                    }
+                                }); //termina el ajax
+                            }); //termina el click
+                        } //termina el if
+                    } else if (un_perfil.Tipo == 'General' && !(pertenezco_a_SINEP)) {
                         linkPostularse = $('<div>');
-                        linkPostularse.text("Postulado");
-                    } else {
-                        linkPostularse = $('<a>')
-                        linkPostularse[0].innerHTML = "Postularse";
-                        linkPostularse.attr('href', '#');
-                        linkPostularse.click(function (e) {
-                            var proveedor_ajax = new ProveedorAjax();
+                        linkPostularse.text("Usted no puede postularse por no estar trabajando actualmente bajo el marco del SINEP (ver aclaración abajo)");
+                    }
 
-                            proveedor_ajax.postearAUrl({ url: "SetObjetoEnSesion",
-                                data: {
-                                    nombre: 'Perfil',
-                                    objeto: JSON.stringify(un_perfil)
-                                },
-                                success: function (respuesta) {
-                                    window.location.href = 'PreInscripcion.aspx?id=' + un_perfil.Id;
-                                },
-                                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                    alertify.alert("Error");
-                                }
-                            }); //termina el ajax
-                        }); //termina el click
-                    } //termina el if
-                } else if (un_perfil.Tipo == 'General' && !(pertenezco_a_SINEP)) {
+                } else if (hoy < un_perfil.FechaDesde) {
                     linkPostularse = $('<div>');
-                    linkPostularse.text("Usted no puede postularse por no estar trabajando actualmente bajo el marco del SINEP (ver aclaración abajo)");
+                    linkPostularse.text("Aun no se abrieron las inscripciones");
+                    //alert("Aun no se abrieron las inscripciones");
+                } else if (hoy > un_perfil.FechaHasta) {
+                    linkPostularse = $('<div>');
+                    linkPostularse.text("Ya finalizó la inscripción");
+                    //alert('Ya finalizó la inscripción');
                 }
+
+                
 
                 return linkPostularse;
             }
