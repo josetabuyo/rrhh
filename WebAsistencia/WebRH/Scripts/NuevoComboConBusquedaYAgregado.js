@@ -44,63 +44,64 @@
     };
 
     if (this.permiteAgregar) {
-//        opciones_select2.formatNoMatches = function (str_ingresado) {
-//            if (!_this.nombre_funcion_global_agregado) _this.nombre_funcion_global_agregado = _this.nombreFuncionRandom();
-//            window[_this.nombre_funcion_global_agregado] = function () {
-//                alertify.confirm("¿Está seguro que desea agregar el elemento: " + str_ingresado + "?",
-//                    function (respuesta) {
-//                        if (!respuesta) {
-//                            _this.select.select2("close");
-//                            return;
-//                        }
-//                        if (_this.filtro) {
-//                            var parametros = [str_ingresado];
-//                            for (var key in _this.filtro) {
-//                                parametros.push(_this.filtro[key]);
-//                            }
 
-//                            Repositorio.agregarConMasDatos(_this.dataProvider, parametros, function (objeto) {
-//                                _this.objetosCargados.push(objeto);
-//                                var option = $("<option value='" + objeto[_this.propiedadId] + "'>" + objeto[_this.propiedadLabel] + "</option>");
-//                                _this.select.append(option);
-//                                _this.idSeleccionado(objeto.Id);
-//                                window[_this.nombre_funcion_global_agregado] = undefined;
-//                                _this.select.select2("close");
-//                                alertify.success('Elemento agregado');
-//                            }, function () {
-//                                alertify.error('Error al agregar elemento');
-//                                _this.select.select2("close");
-//                            });
-//                        }
-//                        else {
-//                            Repositorio.agregar(_this.dataProvider, str_ingresado, function (objeto) {
-//                                _this.objetosCargados.push(objeto);
-//                                var option = $("<option value='" + objeto[_this.propiedadId] + "'>" + objeto[_this.propiedadLabel] + "</option>");
-//                                _this.select.append(option);
-//                                _this.idSeleccionado(objeto.Id);
-//                                window[_this.nombre_funcion_global_agregado] = undefined;
-//                                _this.select.select2("close");
-//                                alertify.success('Elemento agregado');
-//                            }, function () {
-//                                alertify.error('Error al agregar elemento');
-//                                _this.select.select2("close");
-//                            });
-//                        }
-//                    },
-//                    function () {
-//                        _this.select.select2("close");
-//                    }
-//                );
-//            };
+        opciones_select2.formatNoMatches = function (str_ingresado) {
+            if (!_this.nombre_funcion_global_agregado) _this.nombre_funcion_global_agregado = _this.nombreFuncionRandom();
+            window[_this.nombre_funcion_global_agregado] = function () {
+                alertify.confirm("¿Está seguro que desea agregar el elemento: " + str_ingresado + "?",
+                    function (respuesta) {
+                        if (!respuesta) {
+                            _this.select.select2("close");
+                            return;
+                        }
+                        if (_this.filtro) {
+                            var parametros = [str_ingresado];
+                            for (var key in _this.filtro) {
+                                parametros.push(_this.filtro[key]);
+                            }
+
+                            Repositorio.agregarConMasDatos(_this.dataProvider, parametros, function (objeto) {
+                                _this.objetosCargados.push(objeto);
+                                var option = $("<option value='" + objeto[_this.propiedadId] + "'>" + objeto[_this.propiedadLabel] + "</option>");
+                                _this.select.append(option);
+                                _this.idSeleccionado(objeto.Id);
+                                window[_this.nombre_funcion_global_agregado] = undefined;
+                                _this.select.select2("close");
+                                alertify.success('Elemento agregado');
+                            }, function () {
+                                alertify.error('Error al agregar elemento');
+                                _this.select.select2("close");
+                            });
+                        }
+                        else {
+                            Repositorio.agregar(_this.dataProvider, str_ingresado, function (objeto) {
+                                _this.objetosCargados.push(objeto);
+                                var option = $("<option value='" + objeto[_this.propiedadId] + "'>" + objeto[_this.propiedadLabel] + "</option>");
+                                _this.select.append(option);
+                                _this.idSeleccionado(objeto.Id);
+                                window[_this.nombre_funcion_global_agregado] = undefined;
+                                _this.select.select2("close");
+                                alertify.success('Elemento agregado');
+                            }, function () {
+                                alertify.error('Error al agregar elemento');
+                                _this.select.select2("close");
+                            });
+                        }
+                    },
+                    function () {
+                        _this.select.select2("close");
+                    }
+                );
+            };
         }
         this.select.select2(opciones_select2);
         this.select.on("select2-selecting", function (e) {
             _this.change();
         });
-        this.select.select2('open');
-        var $search = this.select.data('select2').dropdown.$search || this.select.data('select2').selection.$search;
-        $search.val(term);
-        $search.trigger('keyup');
+//        this.select.select2('open');
+//        var $search = this.select.data('select2').dropdown.$search || this.select.data('select2').selection.$search;
+//        $search.val(term);
+//        $search.trigger('keyup');
 }
 
 ComboConBusquedaYAgregado.prototype.nombreFuncionRandom = function () {
