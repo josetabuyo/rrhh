@@ -3217,7 +3217,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDeComites RepoComites()
     {
-        return new RepositorioDeComites(Conexion());
+        return RepositorioDeComites.Nuevo(Conexion());
     }
 
 }

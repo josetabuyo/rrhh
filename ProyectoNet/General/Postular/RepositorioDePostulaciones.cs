@@ -163,7 +163,7 @@ namespace General
 
         private Perfil ArmarPuesto(RowDeDatos row)
         {
-            var repo_comite = new RepositorioDeComites(this.conexion_bd);
+            var repo_comite = RepositorioDeComites.Nuevo(this.conexion_bd);
             return new Perfil(
                               row.GetSmallintAsInt("IdPerfil"),
                               row.GetString("Familia"),
@@ -334,7 +334,7 @@ namespace General
         {
 
             var tablaAnexo = conexion_bd.Ejecutar("dbo.CV_Get_Anexo", parametros);
-            var repo_comite = new RepositorioDeComites(this.conexion_bd);
+            var repo_comite = RepositorioDeComites.Nuevo(this.conexion_bd);
             var etapa = new EtapaConcurso(tablaAnexo.Rows[0].GetSmallintAsInt("IdEtapa"),tablaAnexo.Rows[0].GetString("DescripcionEtapa"));
             List<Postulacion> postulaciones = new List<Postulacion>();
 

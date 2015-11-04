@@ -69,22 +69,7 @@
                     if (experienciasLaborales[i].AmbitoLaboral == 1 && experienciasLaborales[i].Vigente == true) pertenezco_a_SINEP = true;
                 }
 
-
-                /*A HACER CUANTO ANTES COMPARAR FECHAS */
-                var d = new Date();
-
-                var month = d.getMonth() + 1;
-                var day = d.getDate();
-                var hour = d.getHours();
-                var minute = d.getMinutes();
-                var second = d.getSeconds();
-
-                var hoy = d.getFullYear() + '-' +
-                (('' + month).length < 2 ? '0' : '') + month + '-' +
-                (('' + day).length < 2 ? '0' : '') + day + 'T' +
-                (('' + hour).length < 2 ? '0' : '') + hour + ':' +
-                (('' + minute).length < 2 ? '0' : '') + minute + ':' +
-                (('' + second).length < 2 ? '0' : '') + second;
+                var hoy = _this.armarFechaDeHoy();
 
                 if (hoy >= un_perfil.FechaDesde && hoy <= un_perfil.FechaHasta) {
                     if ((un_perfil.Tipo == 'General' && pertenezco_a_SINEP) || un_perfil.Tipo == 'Abierta') {
@@ -128,7 +113,7 @@
                     //alert('Ya finalizó la inscripción');
                 }
 
-                
+
 
                 return linkPostularse;
             }
@@ -145,6 +130,24 @@
         this.GrillaDePerfiles.CargarObjetos(perfiles);
         this.GrillaDePerfiles.DibujarEn(_this.divGrilla);
 
+    },
+    armarFechaDeHoy: function () {
+        var d = new Date();
+
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var hour = d.getHours();
+        var minute = d.getMinutes();
+        var second = d.getSeconds();
+
+        var hoy = d.getFullYear() + '-' +
+                (('' + month).length < 2 ? '0' : '') + month + '-' +
+                (('' + day).length < 2 ? '0' : '') + day + 'T' +
+                (('' + hour).length < 2 ? '0' : '') + hour + ':' +
+                (('' + minute).length < 2 ? '0' : '') + minute + ':' +
+                (('' + second).length < 2 ? '0' : '') + second;
+
+        return hoy;
     }
 }
 
