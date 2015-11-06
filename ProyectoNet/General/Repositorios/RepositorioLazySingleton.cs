@@ -55,7 +55,7 @@ namespace General.Repositorios
             if (objetos != null) objetos.Remove(objeto);
         }
 
-        public List<T> Find(string criterio)
+        public List<T> Find(string criterio, Usuario usuario=null, int max_resultados=-1)
         {
             var resultados = new List<T>();
 
@@ -65,21 +65,24 @@ namespace General.Repositorios
             {
                 return filtro.Evaluar(objeto);
             });
-            return resultados;
-        }
 
-        public List<T> Find(string criterio, Usuario usuario)
-        {
-            return this.Find(criterio).FindAll(obj =>
-            {
-                var propiedad_a_filtrar = obj.GetType().GetProperty("SoloVisiblePara");
-                if (propiedad_a_filtrar != null)
+            if(usuario!=null)
+                resultados = resultados.FindAll(obj =>
                 {
-                    int valor_propiedad = int.Parse(propiedad_a_filtrar.GetValue(obj, null).ToString());
-                    return valor_propiedad == usuario.Id || valor_propiedad == -1;
-                }
-                return false;
-            });
+                    var propiedad_a_filtrar = obj.GetType().GetProperty("SoloVisiblePara");
+                    if (propiedad_a_filtrar != null)
+                    {
+                        int valor_propiedad = int.Parse(propiedad_a_filtrar.GetValue(obj, null).ToString());
+                        return valor_propiedad == usuario.Id || valor_propiedad == -1;
+                    }
+                    return false;
+                });
+
+            if (max_resultados > -1 && resultados.Count > max_resultados)
+            {
+                resultados = new List<T>();
+            }
+            return resultados;
         }
     }
 }

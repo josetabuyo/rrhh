@@ -13,7 +13,7 @@
     var _this = this;
 
     var opciones_select2 = {
-        minimumInputLength: 3,
+        minimumInputLength: 0,
         width: 'resolve',
         allowClear: true,
         placeholder: this.placeholder || 'seleccione',
@@ -54,38 +54,31 @@
                             _this.select.select2("close");
                             return;
                         }
+                        var al_agregar = function (objeto) {
+//                                _this.objetosCargados.push(objeto);
+//                                var option = $("<option value='" + objeto[_this.propiedadId] + "'>" + objeto[_this.propiedadLabel] + "</option>");
+//                                _this.select.append(option);
+//                                _this.idSeleccionado(objeto.Id);
+                            //                                window[_this.nombre_funcion_global_agregado] = undefined;
+                            //_this.select.select2("val", objeto[_this.propiedadId]);
+                            _this.select.select2("close");
+                            alertify.success('Elemento agregado');
+                        };
+                        var on_error = function () {
+                            alertify.error('Error al agregar elemento');
+                            _this.select.select2("close");
+                        };
+
                         if (_this.filtro) {
                             var parametros = [str_ingresado];
                             for (var key in _this.filtro) {
                                 parametros.push(_this.filtro[key]);
                             }
 
-                            Repositorio.agregarConMasDatos(_this.dataProvider, parametros, function (objeto) {
-                                _this.objetosCargados.push(objeto);
-                                var option = $("<option value='" + objeto[_this.propiedadId] + "'>" + objeto[_this.propiedadLabel] + "</option>");
-                                _this.select.append(option);
-                                _this.idSeleccionado(objeto.Id);
-                                window[_this.nombre_funcion_global_agregado] = undefined;
-                                _this.select.select2("close");
-                                alertify.success('Elemento agregado');
-                            }, function () {
-                                alertify.error('Error al agregar elemento');
-                                _this.select.select2("close");
-                            });
+                            Repositorio.agregarConMasDatos(_this.dataProvider, parametros, al_agregar, on_error);
                         }
                         else {
-                            Repositorio.agregar(_this.dataProvider, str_ingresado, function (objeto) {
-                                _this.objetosCargados.push(objeto);
-                                var option = $("<option value='" + objeto[_this.propiedadId] + "'>" + objeto[_this.propiedadLabel] + "</option>");
-                                _this.select.append(option);
-                                _this.idSeleccionado(objeto.Id);
-                                window[_this.nombre_funcion_global_agregado] = undefined;
-                                _this.select.select2("close");
-                                alertify.success('Elemento agregado');
-                            }, function () {
-                                alertify.error('Error al agregar elemento');
-                                _this.select.select2("close");
-                            });
+                            Repositorio.agregar(_this.dataProvider, str_ingresado, al_agregar, on_error);
                         }
                     },
                     function () {
@@ -93,20 +86,23 @@
                     }
                 );
             };
+            return "No se encontraron coincidencias para: <b>" + str_ingresado +
+            "<button style='float:right' class='btn btn-primary' onclick='" + _this.nombre_funcion_global_agregado + "();'> Agregar</button>";
         }
-        this.select.select2(opciones_select2);
-        this.select.on("select2-selecting", function (e) {
-            _this.change();
-        });
-//        this.select.select2('open');
-//        var $search = this.select.data('select2').dropdown.$search || this.select.data('select2').selection.$search;
-//        $search.val(term);
-//        $search.trigger('keyup');
+    }
+    this.select.select2(opciones_select2);
+    this.select.on("select2-selecting", function (e) {
+        _this.change();
+    });
+    //        this.select.select2('open');
+    //        var $search = this.select.data('select2').dropdown.$search || this.select.data('select2').selection.$search;
+    //        $search.val(term);
+    //        $search.trigger('keyup');
 }
 
 ComboConBusquedaYAgregado.prototype.nombreFuncionRandom = function () {
     var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     for (var i = 0; i < 10; i++)
         text += possible.charAt(Math.floor(Math.random() * possible.length));

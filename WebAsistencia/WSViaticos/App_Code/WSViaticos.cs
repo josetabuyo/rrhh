@@ -2680,7 +2680,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CVTitulosAntecedentesAcademicos[] BuscarTitulosAntecedentesAcademicos(string criterio, Usuario usuario)
     {
-        return RepositorioDeTitulosAntecedentesAcademicos.Nuevo(Conexion()).Find(criterio, usuario).ToArray();
+        return RepositorioDeTitulosAntecedentesAcademicos.Nuevo(Conexion()).Find(criterio, usuario, 50).ToArray();
     }
 
     [WebMethod]
