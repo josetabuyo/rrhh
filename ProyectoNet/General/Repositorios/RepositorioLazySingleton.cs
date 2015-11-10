@@ -75,7 +75,7 @@ namespace General.Repositorios
                         int valor_propiedad = int.Parse(propiedad_a_filtrar.GetValue(obj, null).ToString());
                         return valor_propiedad == usuario.Id || valor_propiedad == -1;
                     }
-                    return false;
+                    return true;
                 });
 
             if (max_resultados > -1 && resultados.Count > max_resultados)
