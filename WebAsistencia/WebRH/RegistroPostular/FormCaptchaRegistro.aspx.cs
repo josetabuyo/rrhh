@@ -72,7 +72,7 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
         if (ValidarDNI() && 
             ValidarString(this.txt_nombre_registro.Text) && 
             ValidarString(this.txt_apellido_registro.Text) &&
-            ValidarMail() && ValidarCaptcha())
+            ValidarMail() && ValidarMailRepetido() && ValidarCaptcha())
         {
             return true;
         }
@@ -151,6 +151,14 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
             this.lb_mensajeError.Text = "El formato del mail no es válido.";
             return false;
         }
+    }
+
+    private bool ValidarMailRepetido() {
+
+        if (this.txt_mail_registro_repetido.Text == this.txt_mail_registro.Text)
+            return true;
+        this.lb_mensajeError.Text = "Los email no coinciden.";
+        return false;
     }
 
     private WSViaticosSoapClient Servicio()
