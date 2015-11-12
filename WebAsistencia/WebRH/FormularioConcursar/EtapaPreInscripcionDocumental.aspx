@@ -125,7 +125,8 @@
               
                 localStorage.setItem("empleado", $("#span_empleado").text());
                 localStorage.setItem("perfil", $("#span_perfil").text());
-
+                localStorage.setItem("codigo_postu", $("#span_codigo").text());
+             
                 window.location.href = 'Caratula.aspx';
 
             } else {
