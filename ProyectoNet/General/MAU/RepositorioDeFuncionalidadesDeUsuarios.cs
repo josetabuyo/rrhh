@@ -75,5 +75,10 @@ namespace General.MAU
             parametros.Add("@id_funcionalidad", objeto.Value);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_DenegarFuncionalidadA", parametros);
         }
+
+        public void Refresh()
+        {
+            objetos = ObtenerDesdeLaBase();
+        }
     }
 }

@@ -2112,6 +2112,15 @@ public class WSViaticos : System.Web.Services.WebService
     #endregion
 
     [WebMethod]
+    public bool RefrescarCacheMAU(Usuario usuario)
+    {
+        RepositorioDeFuncionalidades().Refresh();
+        RepositorioDeFuncionalidadesDeUsuarios().Refresh();
+        RepositorioDeAccesosAURL.NuevoRepositorioDeAccesosAURL(Conexion(), RepositorioDeFuncionalidades()).Refresh();
+        return true;
+    }
+
+    [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
     {
         var instancias = RepositorioDeCursos().GetInstanciasDeEvaluacion(id_curso).ToArray();

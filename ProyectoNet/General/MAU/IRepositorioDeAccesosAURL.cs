@@ -8,5 +8,6 @@ namespace General.MAU
     public interface IRepositorioDeAccesosAURL
     {
         List<AccesoAURL> TodosLosAccesos();
+        void Refresh();
     }
 }
