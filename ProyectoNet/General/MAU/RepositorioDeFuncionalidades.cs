@@ -64,7 +64,9 @@ namespace General.MAU
         protected override List<Funcionalidad> ObtenerDesdeLaBase()
         {
             var tablaDatos = conexion.Ejecutar("dbo.MAU_GetFuncionalidades");
-            return GetFuncionalidadesDeTablaDeDatos(tablaDatos);
+            var funcionalidades = GetFuncionalidadesDeTablaDeDatos(tablaDatos);
+            if (funcionalidades.Count() == 0) throw new Exception("La lista de funcionalidades está vacía");
+            return funcionalidades;
         }
 
         protected override void GuardarEnLaBase(Funcionalidad objeto)
