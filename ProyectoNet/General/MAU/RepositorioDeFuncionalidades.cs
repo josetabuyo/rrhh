@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using General.Repositorios;
+using System.IO;
 
 namespace General.MAU
 {
@@ -31,8 +32,26 @@ namespace General.MAU
             var funcionalidades = new List<Funcionalidad>();
             tablaDatos.Rows.ForEach(row =>
             {
-                var func = new Funcionalidad(row.GetInt("Id"), row.GetString("Nombre"));
-                funcionalidades.Add(func);
+                Funcionalidad func;
+                try
+                {
+                    func = new Funcionalidad(row.GetInt("Id"), row.GetString("Nombre"));
+                    funcionalidades.Add(func);
+                }catch(Exception e){
+                    Logger.EscribirLog("---------------------------------------------");
+                    Logger.EscribirLog(e);
+                    Logger.EscribirLog("cant filas:");
+                    Logger.EscribirLog(tablaDatos.Rows.Count.ToString());
+                    Logger.EscribirLog("cant columnas:");
+                    Logger.EscribirLog(tablaDatos.Columns.Count.ToString());
+                    Logger.EscribirLog("nombres columnas:");
+                    string nombres_cols = "";
+                    foreach(var col in tablaDatos.Columns){
+                        nombres_cols += " " + col.ToString();
+                    }
+                    Logger.EscribirLog(nombres_cols);
+                    Logger.EscribirLog("---------------------------------------------");
+                }                
             });
             return funcionalidades;
         }

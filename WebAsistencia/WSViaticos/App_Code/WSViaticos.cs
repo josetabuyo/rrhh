@@ -19,6 +19,7 @@ using General.Sacc.Seguridad;
 using General.MAU;
 using General.Postular;
 using System.Web;
+
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -27,7 +28,6 @@ public class WSViaticos : System.Web.Services.WebService
 {
     public WSViaticos()
     {
-
     }
 
     [WebMethod]
