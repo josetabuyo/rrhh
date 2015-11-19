@@ -195,6 +195,8 @@
             ///
             Anexo.armarAnexo();
 
+            $("#apellido_y_nombre").text(localStorage.getItem("empleado"));
+
             $.ajax({
                 url: "../AjaxWS.asmx/GetUsuario",
                 type: "POST",

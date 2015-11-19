@@ -13,7 +13,7 @@ namespace General.MAU
         private static RepositorioDeAccesosAURL _instancia;
 
         private RepositorioDeAccesosAURL(IConexionBD conexion, IRepositorioDeFuncionalidades repo_funcionalidades)
-            : base(conexion, 10)
+            : base(conexion, 1440)
         {
             this.repositorio_funcionalidades = repo_funcionalidades;
         }

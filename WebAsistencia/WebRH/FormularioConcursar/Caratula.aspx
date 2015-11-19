@@ -24,13 +24,13 @@
         </div>
     
     <div>
-        <label class="label_caratula" >LLAMADO:</label> <span id ="span_llamado"></span> 
+        <label class="label_caratula" >LLAMADO:</label> <span id ="span_llamado">2da Convocatoria 2015</span> 
         <br /><br />
         <label class="label_caratula">PERFIL:</label> <span id ="span_perfil"></span>
          <br /><br />
         <label class="label_caratula">COMITÉ: </label><span " id ="span_comite"></span>
          <br /><br />
-        <label class="label_caratula">POSTULANTE: </label><span id ="span_postulante"></span>
+        <label class="label_caratula">POSTULANTE: </label><span id ="span_postulante"></span> (N° Postulación: <span id="span_codigo"></span>)
          <br /><br />
         <label class="label_caratula">RECEPCIONÓ:</label> <span id ="span_recepcion"></span>
     </div>
@@ -211,6 +211,7 @@
         document.getElementById("span_postulante").innerHTML = localStorage.getItem("empleado");
         document.getElementById("span_perfil").innerHTML = localStorage.getItem("perfil");
         document.getElementById("span_comite").innerHTML = localStorage.getItem("comite");
+        document.getElementById("span_codigo").innerHTML = localStorage.getItem("codigo_postu");
        // document.getElementById("span_recepcion").innerHTML = nombre + " " + apellido; // localStorage.getItem("usuario"); // usuario;
 
 

@@ -12,7 +12,7 @@ namespace General.MAU
         private static RepositorioDeFuncionalidades _instancia;
 
         private RepositorioDeFuncionalidades(IConexionBD conexion)
-            : base(conexion, 10)
+            : base(conexion, 1440)
         {
         }
 
@@ -37,20 +37,8 @@ namespace General.MAU
                 {
                     func = new Funcionalidad(row.GetInt("Id"), row.GetString("Nombre"));
                     funcionalidades.Add(func);
-                }catch(Exception e){
-                    Logger.EscribirLog("---------------------------------------------");
-                    Logger.EscribirLog(e);
-                    Logger.EscribirLog("cant filas:");
-                    Logger.EscribirLog(tablaDatos.Rows.Count.ToString());
-                    Logger.EscribirLog("cant columnas:");
-                    Logger.EscribirLog(tablaDatos.Columns.Count.ToString());
-                    Logger.EscribirLog("nombres columnas:");
-                    string nombres_cols = "";
-                    foreach(var col in tablaDatos.Columns){
-                        nombres_cols += " " + col.ToString();
-                    }
-                    Logger.EscribirLog(nombres_cols);
-                    Logger.EscribirLog("---------------------------------------------");
+                }catch(Exception){
+                    throw;
                 }                
             });
             return funcionalidades;
