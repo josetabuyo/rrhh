@@ -30,7 +30,7 @@
                     <p style="font-size:smaller;">(respete may&uacute;sculas y min&uacute;sculas del c&oacute;digo)</p>
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
-                    <div>Empleado:&nbsp;<span id="span_empleado"></span></div>
+                    <div>Empleado:&nbsp;<span id="span_empleado"></span>. DNI: <span id="span_dni_postulante"></span></div>
                     <div>Código:&nbsp;<span id="span_codigo"></span></div>
                     <div>Fecha de Postulación:&nbsp;<span id="span_fecha"></span></div>
                     <div>Perfil:&nbsp;<span id="span_perfil"></span></div>
@@ -51,6 +51,8 @@
     </div>
     <asp:HiddenField ID="postulacion" runat="server" />
     <asp:HiddenField ID="idPostulacion" runat="server" />
+    <asp:HiddenField ID="idPostulante" runat="server" />
+   
 
     <div id = "somediv"  style="width:400px; height:300px;"></div>
 
@@ -86,12 +88,12 @@
 
         var codigo = $("#span_codigo").text();
         var fecha = $("#span_fecha").text();
-
-
+       
 
         //alert(codigo);
           localStorage.setItem("codigo_postu", codigo);
           localStorage.setItem("fecha", fecha);
+          localStorage.setItem("idPostulante", idPostulante);
 
              
 
@@ -105,9 +107,11 @@
         alertify.confirm("¿Está seguro que desea imprimir el anexo de documentación?", function (e) {
             if (e) {
 
-                localStorage.setItem("empleado", $("#span_empleado").text());
+                /*localStorage.setItem("empleado", $("#span_empleado").text());
+                localStorage.setItem("dni", $("#span_dni_postulante").text());
+                localStorage.setItem("idPostulante", $("#idPostulante").val());
 
-                window.showModalDialog("PanelDetalleDeFoliosAnexo.htm", "", "dialogHeight: " + 150 + "px;");
+                window.showModalDialog("PanelDetalleDeFoliosAnexo.htm", "", "dialogHeight: " + 150 + "px;");*/
           //      window.location.href = 'AnexoIIICantHojas.aspx';
 
             } else {

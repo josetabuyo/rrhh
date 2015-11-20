@@ -11,9 +11,10 @@ using System.Web;
         {
             try
             {
-                var path = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
-                //using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("") + "\\Log.txt"))
-                using (StreamWriter w = File.AppendText(path + "\\Log.txt"))
+                //var path = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+                //using (StreamWriter w = File.AppendText(path + "\\Log.txt"))
+                using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("") + "\\Log.txt"))
+               
                 {
                     w.WriteLine(DateTime.Now.ToString() + " - " + logText);
                 }
@@ -23,11 +24,12 @@ using System.Web;
 
         public static void EscribirLog(Exception ex)
         {
-            var path = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+            //var path = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+            //using (StreamWriter w = File.AppendText(path + "\\Log.txt"))
             try
             {
-                //using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("") + "\\Log.txt"))
-                using (StreamWriter w = File.AppendText(path + "\\Log.txt"))
+                using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("") + "\\Log.txt"))
+               
                 {
                     //w.WriteLine("--------------------------------------------------------------------------------");
                     w.WriteLine(DateTime.Now.ToString() + " - EXCEPCION");

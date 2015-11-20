@@ -13,32 +13,63 @@
 
         _this.btn_guardar.click(function () {
 
-            var lista_foliables = $(".foliables");
-            var lista_documentacion_recibida = [];
-            var postulacion = $("#postulacion");
+            alertify.confirm("¿Está seguro que desea imprimir el anexo de documentación?", function (e) {
+                if (e) {
+                    var lista_foliables = $(".foliables");
+                    var lista_documentacion_recibida = [];
+                    var postulacion = $("#postulacion");
 
-            for (var i = 0; i < lista_foliables.length; i++) {
-                var documentacionRecibida = {};
-                var item = {};
-                var id = lista_foliables[i].id;
-                var res = id.split("_");
-                item.Id = parseInt(res[1]);
-                item.IdTabla = parseInt(res[0]);
-                item.Descripcion = "";
-                documentacionRecibida.Id = lista_foliables[i].lastChild.id;
-                //documentacionRecibida.Fecha = new Date(2014,04,01);
-                documentacionRecibida.ItemCV = item;
-                documentacionRecibida.IdPostulacion = postulacion[0].value;
-                documentacionRecibida.Folio = lista_foliables[i].firstElementChild.value;
-                //var folio = lista_foliables[i].lastChild.value;
+                    localStorage.setItem("empleado", $("#span_empleado").text());
+                    localStorage.setItem("dni", $("#span_dni_postulante").text());
+                    localStorage.setItem("idPostulante", $("#idPostulante").val());
 
-                if (lista_foliables[i].lastChild.value != "") {
+                    /*for (var i = 0; i < lista_foliables.length; i++) {
+                    var documentacionRecibida = {};
+                    var item = {};
+                    var id = lista_foliables[i].id;
+                    var res = id.split("_");
+                    item.Id = parseInt(res[1]);
+                    item.IdTabla = parseInt(res[0]);
+                    item.Descripcion = "";
+                    documentacionRecibida.Id = lista_foliables[i].lastChild.id;
+                    //documentacionRecibida.Fecha = new Date(2014,04,01);
+                    documentacionRecibida.ItemCV = item;
+                    documentacionRecibida.IdPostulacion = postulacion[0].value;
+                    documentacionRecibida.Folio = lista_foliables[i].firstElementChild.value;
+                    //var folio = lista_foliables[i].lastChild.value;
+
+                    if (lista_foliables[i].lastChild.value != "") {
                     documentacionRecibida.FolioPersistido = lista_foliables[i].lastChild.value;
                     //$("#" + id)[0].data("folio", elementos[i].FolioPersistido);
-                };
+                    };
 
-                lista_documentacion_recibida.push(documentacionRecibida);
-            }
+                    lista_documentacion_recibida.push(documentacionRecibida);
+                        
+                    };*/
+
+                    Backend.PasarAEtapaInscripto(postulacion[0].value).onSuccess(function (resultado) {
+                        if (resultado == true) {
+                            alertify.alert('La postulación ha pasado al estado de Inscripción Documental.');
+
+                            _this.AbrirPopUpFolios();
+                        } else {
+                            alertify.alert('Esta postulación ya poseé el estado Inscripción Documental.');
+
+                        }
+
+                    })
+                       .onError(function (error) {
+                           alertify.error(error.statusText);
+                       });
+
+
+
+                } else {
+                    alertify.error("Se ha cancelado la operación");
+                }
+            });
+
+
 
             //pantalla.DocumentacionRecibida = lista_documentacion_recibida;
             /*
@@ -56,24 +87,7 @@
             alertify.error(error.statusText);
             });*/
 
-            Backend.PasarAEtapaInscripto(postulacion[0].value)
-             .onSuccess(function (resultado) {
-                 if (resultado == true) {
-                     alertify.alert('La postulación ha pasado al estado de Inscripción Documental.');
 
-                     _this.AbrirPopUpFolios();
-                    
-
-                 } else {
-                     alertify.alert('Esta postulación ya poseé el estado Inscripción Documental.');
-                  
-                 }
-
-                 //location.reload();
-             })
-            .onError(function (error) {
-                alertify.error(error.statusText);
-            });
 
         });
 
@@ -81,7 +95,7 @@
     ///
     AbrirPopUpFolios: function () {
         $("#somediv").load("PanelDetalleDeFoliosAnexo.htm").dialog({ modal: true, resizable: false, title: 'Documentación', width: 360 });
-        
+
     },
 
 
@@ -100,15 +114,19 @@
         var codigo = $("#txt_codigo_postulacion").val();
         var div_tabla_historial = $("#div_tabla_historial");
         $("#span_empleado").html("");
+        $("#span_dni_postulante").html("");
         $("#span_codigo").html("");
         $("#span_fecha").html("");
         $("#span_perfil").html("");
         $("#span_estado").html("");
+        $("#idPostulante").html("");
+
         $("#requisitos_perfil").html("");
         $("#detalle_perfil").html("");
         $("#detalle_documentos").html("");
         $("#titulo_doc_oblig").remove();
         $("#titulo_doc_curric").remove();
+
 
         Backend.ejecutar("GetPostulacionesPorCodigo",
             [codigo],
@@ -153,12 +171,14 @@
 
         var div_tabla_historial = $("#div_tabla_historial");
         var span_empleado = $("#span_empleado");
+        var span_dni_postulante = $("#span_dni_postulante");
         var span_codigo = $("#span_codigo");
         var span_fecha = $("#span_fecha");
         var span_perfil = $("#span_perfil");
         var span_etapa = $("#span_etapa");
         var postulacion = $("#postulacion");
         var idPostulacion = $("#idPostulacion");
+        var idPostulante = $("#idPostulante");
         var usuarios = [];
 
         for (var i = 0; i < datos_postulacion.Etapas.length; i++) {
@@ -170,8 +190,15 @@
         }
 
         postulacion.val(JSON.stringify(datos_postulacion.Id));
+        var criterio = {}
+        criterio.Id = datos_postulacion.Postulante.Id;
+        //var Id = datos_postulacion.Postulante.Id.toString(); ;
+        var persona = Backend.ejecutarSincronico("BuscarPersonas", [JSON.stringify(criterio)]);
+
 
         span_empleado.html(datos_postulacion.Postulante.Apellido + ", " + datos_postulacion.Postulante.Nombre); // new BuscarUsuario().generar(datos_postulacion.Etapas[0]));
+        span_dni_postulante.html(persona[0].Documento);
+        idPostulante.val(datos_postulacion.Postulante.Id);
         span_codigo.html(datos_postulacion.Numero);
         span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));
         span_perfil.html(datos_postulacion.Perfil.Denominacion);

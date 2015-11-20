@@ -157,6 +157,7 @@
 
 <asp:HiddenField ID="postulacion" runat="server" />
 <asp:HiddenField ID="curriculum" runat="server" />
+<asp:HiddenField ID="idPostulante" runat="server" />
         
     </form>
 </body>
@@ -180,15 +181,17 @@
     Backend.start(function () {
         $(document).ready(function () {
             ///
-            document.getElementById("codigo_postu").innerHTML = localStorage.getItem("nro_inscripcion");
-            document.getElementById("fecha_postu").innerHTML = localStorage.getItem("fecha_inscripcion");
+            $("#codigo_postu")[0].innerHTML = localStorage.getItem("nro_inscripcion");
+            $("#fecha_postu")[0].innerHTML = localStorage.getItem("fecha_inscripcion");
 
-            document.getElementById("Ficha_inscripcion").innerHTML = localStorage.getItem("ficha_inscripcion");
-            document.getElementById("Foto_carnet").innerHTML = localStorage.getItem("foto_carnet");
-            document.getElementById("Fotocopia_dni").innerHTML = localStorage.getItem("fotocopia_dni");
-            document.getElementById("Fotocopia_titulo").innerHTML = localStorage.getItem("fotocopia_titulo");
-            document.getElementById("Cv").innerHTML = localStorage.getItem("Curri");
-            document.getElementById("Documentacion").innerHTML = localStorage.getItem("Docum_respaldo");
+            $("#Ficha_inscripcion")[0].innerHTML = localStorage.getItem("ficha_inscripcion");
+            $("#Foto_carnet")[0].innerHTML = localStorage.getItem("foto_carnet");
+            $("#Fotocopia_dni")[0].innerHTML = localStorage.getItem("fotocopia_dni");
+            $("#Fotocopia_titulo")[0].innerHTML = localStorage.getItem("fotocopia_titulo");
+            $("#Cv")[0].innerHTML = localStorage.getItem("Curri");
+            $("#Documentacion")[0].innerHTML = localStorage.getItem("Docum_respaldo");
+            //$("#idPostulante")[0].val(localStorage.getItem("idPostulante"));
+
 
 
 
@@ -196,6 +199,7 @@
             Anexo.armarAnexo();
 
             $("#apellido_y_nombre").text(localStorage.getItem("empleado"));
+            $("#documento").text(localStorage.getItem("dni"));
 
             $.ajax({
                 url: "../AjaxWS.asmx/GetUsuario",

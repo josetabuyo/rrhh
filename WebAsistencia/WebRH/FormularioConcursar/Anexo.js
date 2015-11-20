@@ -50,6 +50,16 @@
         var localidadLegal = Backend.ejecutarSincronico("BuscarLocalidades", [{ Id: curriculum.DatosPersonales.DomicilioLegal.Localidad}])[0];
         var provinciaLegal = Backend.ejecutarSincronico("BuscarProvincias", [{ Id: curriculum.DatosPersonales.DomicilioLegal.Provincia}])[0];
 
+        if (!localidadLegal) {
+            localidadLegal = {};
+            localidadLegal.Nombre =  'Sin Localidad';
+        }
+
+        if (!provinciaLegal) {
+            provinciaLegal = {};
+            provinciaLegal.Nombre = 'Sin Provincia';
+        }
+
         _this.domicilio_legal.text("DOMICILIO: " + curriculum.DatosPersonales.DomicilioLegal.Calle + ' ' + curriculum.DatosPersonales.DomicilioLegal.Numero + '. C (' + curriculum.DatosPersonales.DomicilioLegal.Cp + ') ' +
                                     localidadLegal.Nombre + ' ' + provinciaLegal.Nombre);
 
