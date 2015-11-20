@@ -12,7 +12,7 @@ namespace General.MAU
         private static RepositorioDeFuncionalidades _instancia;
 
         private RepositorioDeFuncionalidades(IConexionBD conexion)
-            : base(conexion, 1440)
+            : base(conexion, 10)
         {
         }
 

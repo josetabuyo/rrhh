@@ -13,7 +13,7 @@ namespace General.MAU
         private static RepositorioDeFuncionalidadesDeUsuarios _instancia;
 
         private RepositorioDeFuncionalidadesDeUsuarios(IConexionBD conexion, IRepositorioDeFuncionalidades repo_funcionalidades)
-            :base(conexion, 1440)
+            :base(conexion, 10)
         {
             repositorioDeFuncionalidades = repo_funcionalidades;
         }
