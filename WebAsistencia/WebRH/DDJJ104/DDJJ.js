@@ -8,9 +8,10 @@ var spinner;
 Backend.start(function () {
     $(document).ready(function () {
         $('#cmbMeses').hide();
-        spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+       // spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
         ContenedorGrilla = $("#ContenedorGrilla");
-        getAreasDDJJ();
+        completarComboMeses();
+        //getAreasDDJJ();
     });
 });
 
@@ -25,14 +26,22 @@ var completarComboMeses = function () {
             meses.append(item);
         }
         meses.change(function () {
+            ContenedorGrilla.html("");
+            spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+
             mesSeleccionado = parseInt($("#cmbMeses").val().split("-")[0]);
             anioSeleccionado = parseInt($("#cmbMeses").val().split("-")[1]);
-            ContenedorGrilla.html("");
-            DibujarGrillaDDJJ();
+            
+            getAreasDDJJ(function () {
+                ContenedorGrilla.html("");
+                DibujarGrillaDDJJ();
+                spinner.stop();                 
+            });            
         });
+
         meses.change();
         meses.show();
-        spinner.stop();
+        
     })
     .onError(function (error, as, asd) {
         alertify.alert(error);
@@ -40,11 +49,12 @@ var completarComboMeses = function () {
 }
 
 
-var getAreasDDJJ = function () {
-    Backend.GetAreasParaDDJJ104()
+var getAreasDDJJ = function (callback) {
+    Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado)
     .onSuccess(function (respuesta) {
         lista_areas_del_usuario = respuesta;
-        completarComboMeses();
+        callback();
+        //completarComboMeses();
     })
     .onError(function (error, as, asd) {
         alertify.alert(error);
@@ -65,7 +75,7 @@ var DibujarGrillaDDJJ = function () {
 			}),
             new Columna("Estado", {
                 generar: function (un_area) {
-                    var dec_jurada = _.findWhere(un_area.DDJJ, { Mes: mesSeleccionado, Anio: anioSeleccionado });
+                    var dec_jurada = un_area.DDJJ; //_.findWhere(un_area.DDJJ, { Mes: mesSeleccionado, Anio: anioSeleccionado });
                     var estado;
                     if (!dec_jurada) estado = 0;
                     else estado = dec_jurada.Estado;
@@ -84,7 +94,7 @@ var DibujarGrillaDDJJ = function () {
 
 var contarPersonasDelArea = function (un_area) {
     var cant_personas = un_area.Personas.length;
-    _.forEach(un_area.AreasInfomalesDependientes, function (area_informal) {
+    _.forEach(un_area.AreasInformalesDependientes, function (area_informal) {
         cant_personas += area_informal.Personas.length;
     })
     return cant_personas;
@@ -92,7 +102,7 @@ var contarPersonasDelArea = function (un_area) {
 
 var GeneradorBotones = function () {
     this.generar = function (un_area) {
-        var dec_jurada = _.findWhere(un_area.DDJJ, { Mes: mesSeleccionado, Anio: anioSeleccionado });
+        var dec_jurada = un_area.DDJJ; //_.findWhere(un_area.DDJJ, { Mes: mesSeleccionado, Anio: anioSeleccionado });
         var estado;
         if (!dec_jurada) estado = 0;
         else estado = dec_jurada.Estado;
@@ -108,23 +118,23 @@ var GeneradorBotones = function () {
             botonConsultar.click(function () { ConsultarDDJJ(un_area.Id, $("#ContenedorPersona")) });
 
             ContenedorBotones.append(botonConsultar);
-        
-                switch (estado) {
-                    case 0:
-                        boton = $("<input type='button'>");
-                        boton.val("Imprimir");
-                        boton.click(function () {
-                            Generar_e_ImprimirDDJJ(un_area.Id);
-                        });
-                        break;
-                    case 1:
-                        boton = $("<input type='button'>");
-                        boton.val("Imprimir");
-                        boton.click(function () {
-                            ImprimirDDJJ(un_area.Id);
-                        });
-                        break;
-                }
+
+            switch (estado) {
+                case 0:
+                    boton = $("<input type='button'>");
+                    boton.val("Imprimir");
+                    boton.click(function () {
+                        Generar_e_ImprimirDDJJ(un_area.Id);
+                    });
+                    break;
+                case 1:
+                    boton = $("<input type='button'>");
+                    boton.val("Imprimir");
+                    boton.click(function () {
+                        ImprimirDDJJ(un_area.Id);
+                    });
+                    break;
+            }
         }
 
         ContenedorBotones.append(boton);
@@ -207,11 +217,12 @@ var DibujarFormularioDDJJ104 = function (un_area) {
         $(areadireccionddjj).html(un_area.Direccion);
         $(areadependenciaddjj).html(un_area.AreaSuperior.Nombre);
         $(areadireccionddjj).html(un_area.Direccion);
-        var ddjj = _.findWhere(un_area.DDJJ, { Anio: anioSeleccionado, Mes: mesSeleccionado });
+        var ddjj = un_area.DDJJ; //_.findWhere(un_area.DDJJ, { Anio: anioSeleccionado, Mes: mesSeleccionado });
         // pantalla_impresion.find("#nroddjj104").html("DDJJ Nro " + ddjj.Id);
         //pantalla_impresion.find("#nroddjj104").JsBarcode(ddjj.Id, { width: 1, height: 25 });
-        pantalla_impresion.find("#nroddjj104").barcode(ddjj.Id.toString(), "code128", {
-            showHRI: false,
+        //pantalla_impresion.find("#nroddjj104").barcode("DDJJ," + leftPad(ddjj.Id, 4) + anioSeleccionado, "code128", {
+        pantalla_impresion.find("#nroddjj104").barcode("FRHDDJJ104," + ddjj.Id, "code128", {
+            showHRI: true,
             height: 30,
             width: 100
         });
@@ -222,20 +233,23 @@ var DibujarFormularioDDJJ104 = function (un_area) {
         $(t).html(vista_ddjj_imprimir.html());
     }
 
-
-
     // w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap.css' type='text/css' />");
     // w.document.write("<link  rel='stylesheet' href='../bootstrap/css/bootstrap-responsive.css' type='text/css' />");
     // w.document.write("<link  rel='stylesheet' href='../Estilos/Estilos.css' type='text/css'  />");
-
     //    w.document.write("<div class='div_print'><br/>Area: " + area + "<br/><br/></div>");
-
     // w.document.write(ContenedorPlanilla.html());
     // w.print();
     //w.close();
-
 }
 
+//FUNCION QUE COMPLETAS CON 0 A LA IZQUIERDA
+//function leftPad(number, targetLength) {
+//    var output = number + '';
+//    while (output.length < targetLength) {
+//        output = '0' + output;
+//    }
+//    return output;
+//}
 
 var ConsultarDDJJ = function (idArea) {
     var un_area = _.find(lista_areas_del_usuario, function (a) { return a.Id == idArea; });
@@ -260,7 +274,7 @@ var ConsultarDDJJ = function (idArea) {
 var Generar_e_ImprimirDDJJ = function (idArea) {
     var un_area = _.find(lista_areas_del_usuario, function (a) { return a.Id == idArea; });
 
-    Backend.GenerarDDJJ104(idArea, mesSeleccionado, anioSeleccionado)
+    Backend.GenerarDDJJ104(un_area, mesSeleccionado, anioSeleccionado)
     .onSuccess(function (ddjj) {
         if (ddjj) {
             un_area.DDJJ.push(ddjj);
@@ -286,6 +300,8 @@ var ImprimirDDJJ = function (idArea) {
 var DibujarGrillaPersonas = function (un_area, contenedor_grilla) {
     var grilla;
     contenedor_grilla.empty();
+    contenedor_grilla.append($("<br/>"));
+    contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + un_area.Nombre + "<b/></div>"));
     grilla = new Grilla(
         [
             new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
@@ -300,7 +316,8 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla) {
         return true;
     });
     un_area.AreasInformalesDependientes.forEach(function (area_informal) {
-        contenedor_grilla.append($("<div class='nombre_area_informal'>"+ area_informal.Nombre +"</div>"));
+        contenedor_grilla.append($("<br/>"));
+        contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + area_informal.Nombre + "<b/></div>"));
         var grilla_area_informal = new Grilla(
         [
             new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),

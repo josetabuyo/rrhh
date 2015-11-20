@@ -34,7 +34,7 @@ namespace General
             return repositorio.GetAreaInferiorById(area.Id, false);
         }
 
-        public List<AreaParaDDJJ104> GetAreasParaDDJJ104(Usuario usuario)
+        public List<AreaParaDDJJ104> GetAreasParaDDJJ104(int mes, int anio, Usuario usuario)
         {
             RepositorioPersonas repoPersonas = new RepositorioPersonas();
             RepositorioDeOrganigrama repoOrganigrama = new RepositorioDeOrganigrama(Conexion());
@@ -46,7 +46,7 @@ namespace General
                 var area = new AreaParaDDJJ104();
                 area.Id = a.Id;
                 area.Nombre = a.Nombre;
-                area.Personas.AddRange(repoPersonas.GetPersonasDelArea(a));
+                area.Personas.AddRange(repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, a));
                 //AreasSinDDJJInferioresA(a).ForEach(area_dependiente =>
                 un_Organigrama.GetAreasInferioresDelArea(a).ForEach(area_dependiente =>
                 {
@@ -55,11 +55,11 @@ namespace General
                         var area_informal = new AreaParaDDJJ104();
                         area_informal.Id = area_dependiente.Id;
                         area_informal.Nombre = area_dependiente.Nombre;
-                        area_informal.Personas = repoPersonas.GetPersonasDelArea(area_dependiente);
+                        area_informal.Personas = repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, area_dependiente);
                         area.AreasInformalesDependientes.Add(area_informal);    
                     }
                 });
-                area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a);
+                area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a).Find(x=> x.Mes == mes && x.Anio == anio) ;
                 
                 var area_superior = un_Organigrama.AreaSuperiorDe(a);
                 area.AreaSuperior = new AreaParaDDJJ104();

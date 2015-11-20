@@ -133,21 +133,17 @@ namespace General
         }
 
 
-        public List<Persona> GetPersonasDelAreaReducida(Area unArea, int presenta_ddjj )
+        public List<Persona> GetPersonasDelAreaParaDDJJ104(int mes, int anio, Area unArea)
         {
             SqlDataReader dr;
             //Inasistencia InasistenciaActual;
             //PaseDeArea PasePendiente;
 
-            ConexionDB cn = new ConexionDB("dbo.Web_GetAgentesDelArea");
+            ConexionDB cn = new ConexionDB("dbo.PLA_GET_Personas_Del_Area_Para_DDJJ104");
             cn.AsignarParametro("@idArea", unArea.Id);
-            //@buscarInferiores = 0 -> buscar dependencias informales
-            //@buscarInferiores = 1 -> buscar dependencias formales
-            //@buscarInferiores = 2 -> Le pongo 2 porque no acepta null, entonces si es 2 va solo el area enviada.
-            if (presenta_ddjj != 2)
-                cn.AsignarParametro("@buscarInferiores", presenta_ddjj);    
-            
-            List<Persona> ListaPersonas = new List<Persona>();
+            cn.AsignarParametro("@mes", mes);
+            cn.AsignarParametro("@anio", anio); 
+            unArea.Personas = new List<Persona>();
             dr = cn.EjecutarConsulta();
 
             Persona persona;
@@ -155,30 +151,46 @@ namespace General
             {
                 //InasistenciaActual = null;
                 //PasePendiente = null;
-                
+                //if (dr.GetValue(dr.GetOrdinal("nro_articulo")) != DBNull.Value)
+                //{
+                //    InasistenciaActual = new Inasistencia { Descripcion = dr.GetString(dr.GetOrdinal("nro_articulo")) + dr.GetString(dr.GetOrdinal("concepto")), Aprobada = dr.GetInt32(dr.GetOrdinal("aprobada")) == 1 };
+                //    if (dr.GetValue(dr.GetOrdinal("desde")) != DBNull.Value)
+                //        InasistenciaActual.Desde = dr.GetDateTime(dr.GetOrdinal("desde"));
+                //    if (dr.GetValue(dr.GetOrdinal("hasta")) != DBNull.Value)
+                //        InasistenciaActual.Hasta = dr.GetDateTime(dr.GetOrdinal("hasta"));
+                //}
+
+                //if (dr.GetValue(dr.GetOrdinal("idPasePendiente")) != DBNull.Value)
+                //    PasePendiente = new PaseDeArea { Id = dr.GetInt32(dr.GetOrdinal("idPasePendiente")) };
+
+
                 persona = new Persona
                 {
                     Documento = dr.GetInt32(dr.GetOrdinal("nro_documento")),
                     //Es1184 = dr.GetInt32(dr.GetOrdinal("Es1184")) == 1,
                     Nombre = dr.GetString(dr.GetOrdinal("nombre")),
                     Apellido = dr.GetString(dr.GetOrdinal("apellido")),
-                    Legajo = dr.GetValue(dr.GetOrdinal("id_interna")).ToString(),                    
-                    Nivel = dr.GetValue(dr.GetOrdinal("Nivel")).ToString(),
-                    Grado = dr.GetValue(dr.GetOrdinal("Grado")).ToString(),
+                    Legajo = dr.GetValue(dr.GetOrdinal("legajo")).ToString(),
+                    //InasistenciaActual = InasistenciaActual,
+                    //PasePendiente = PasePendiente,
+                    Nivel = dr.GetValue(dr.GetOrdinal("nivel")).ToString(),
+                    Grado = dr.GetValue(dr.GetOrdinal("grado")).ToString(),
+                    //Telefono = dr.GetValue(dr.GetOrdinal("telefono")).ToString(),
                     Cuit = dr.GetValue(dr.GetOrdinal("cuit")).ToString(),
-                    Id = dr.GetInt32(dr.GetOrdinal("idpersona")),                    
+                    Id = dr.GetInt32(dr.GetOrdinal("idpersona")),
+                    Area = new Area() { Id = dr.GetInt32(dr.GetOrdinal("id_area")) },
                     Categoria = ObtenerCategoria(dr),
-                    IdArea = dr.GetInt32(dr.GetOrdinal("id_area")),
 
+                    //Area = unArea,
                     TipoDePlanta = new TipoDePlanta
                     {
-                        Descripcion = dr.GetValue(dr.GetOrdinal("Tipo_Planta")).ToString()
+                        Descripcion = dr.GetValue(dr.GetOrdinal("planta")).ToString()
                     }
                 };
-                ListaPersonas.Add(persona);
+                unArea.Personas.Add(persona);
             }
             cn.Desconestar();
-            return ListaPersonas;
+            return unArea.Personas;
         }
 
 

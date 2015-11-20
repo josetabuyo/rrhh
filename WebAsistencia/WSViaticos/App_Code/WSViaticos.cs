@@ -64,19 +64,19 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public AreaParaDDJJ104[] GetAreasParaDDJJ104(Usuario usuario)
+    public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, Usuario usuario)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
-        var a = responsableDDJJ.GetAreasParaDDJJ104(usuario).ToArray();
+        var a = responsableDDJJ.GetAreasParaDDJJ104(mes, anio, usuario).ToArray();
 
         return a;
     }
 
     [WebMethod]
-    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(Area area, int mes, int anio, Usuario usuario)
     {
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
-        return ddjj.GenerarDDJJ104(usuario, id_area, mes, anio);
+        return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
     }
 
     [WebMethod]
@@ -108,7 +108,7 @@ public class WSViaticos : System.Web.Services.WebService
         meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });        
 
         DateTime fechaActual = DateTime.Now;
-        if (fechaActual.Day > 25)
+        if (fechaActual.Day > 10)
         {
             meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });    
         }

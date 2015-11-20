@@ -3377,6 +3377,8 @@
       <s:element name="GetAreasParaDDJJ104">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -3387,7 +3389,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Personas" type="tns:ArrayOfPersona" />
           <s:element minOccurs="0" maxOccurs="1" name="AreasInformalesDependientes" type="tns:ArrayOfAreaParaDDJJ104" />
-          <s:element minOccurs="0" maxOccurs="1" name="DDJJ" type="tns:ArrayOfDDJJ104_2001" />
+          <s:element minOccurs="0" maxOccurs="1" name="DDJJ" type="tns:DDJJ104_2001" />
           <s:element minOccurs="0" maxOccurs="1" name="AreaSuperior" type="tns:AreaParaDDJJ104" />
           <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
         </s:sequence>
@@ -3395,11 +3397,6 @@
       <s:complexType name="ArrayOfAreaParaDDJJ104">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="AreaParaDDJJ104" nillable="true" type="tns:AreaParaDDJJ104" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfDDJJ104_2001">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="DDJJ104_2001" nillable="true" type="tns:DDJJ104_2001" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="DDJJ104_2001">
@@ -3421,7 +3418,7 @@
       <s:element name="GenerarDDJJ104">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="area" type="tns:Area" />
             <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
@@ -11021,10 +11018,10 @@
   </wsdl:binding>
   <wsdl:service name="WSViaticos">
     <wsdl:port name="WSViaticosSoap" binding="tns:WSViaticosSoap">
-      <soap:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap:address location="http://localhost:32349/WSViaticos/WSViaticos.asmx" />
     </wsdl:port>
     <wsdl:port name="WSViaticosSoap12" binding="tns:WSViaticosSoap12">
-      <soap12:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap12:address location="http://localhost:32349/WSViaticos/WSViaticos.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

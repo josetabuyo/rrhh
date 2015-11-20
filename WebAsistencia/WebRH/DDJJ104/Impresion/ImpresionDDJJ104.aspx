@@ -10,24 +10,54 @@
     <%--<%= Referencias.Css("../../")%>--%>
     <%= Referencias.Javascript("../../") %>
     
-    <style>
-        <%--table { page-break-after:auto }
+    <%--table { page-break-after:auto }
           tr    { page-break-inside:avoid; page-break-after:auto }
           td    { page-break-inside:avoid; page-break-after:auto }
           thead { display:table-header-group }
           tfoot { display:table-footer-group }
-        --%>
+          
+        .saltodepagina
+        {
+            page-break-after: auto;
+        }
+
+        #PanelImpresion>table tr
+        {
+            page-break-inside:auto;
+            page-break-before:auto;
+            display: block;
+        }
+
+    --%>
+
+    <style type="text/css"  >
+        
+         
         #PanelImpresion>table
         {
             border-spacing:0px;  
-            border-collapse:collapse;  
-        }
+            border-collapse:collapse; 
+            position:relative; 
+        }   
+        
+        #PanelImpresion>table tr
+        {
+            page-break-inside:avoid;
+            page-break-after:auto;
+            
+        }        
         
         #PanelImpresion>table th, #PanelImpresion>table td
         {
-            border:1px solid;    
+            border:1px solid;               
         }        
-            
+           
+        .celda
+        {
+             page-break-inside:avoid;
+             page-break-after:auto;
+        }
+         
         #fecha
         {
             text-align:right; 
@@ -43,7 +73,7 @@
         
         .APELLIDO_Y_NOMBRE
         {
-            width: 40%;
+            width: 40%; 
         }          
         
         .CUIL_CUIT
@@ -54,7 +84,7 @@
             
         .ESCALAFON_O_MODALIDAD_DE_CONTRATACION
         {
-            width: 3    0%;
+            width: 30%;
             text-align:center;
         }
             
@@ -142,8 +172,7 @@
 
         <br />
             <div runat="server" align="center" style="width: 100%">
-                <div ID="PanelImpresion" runat="server" align="center" 
-                    style="width: 90%; height:100%; font-size:small" ></div>
+                <div ID="PanelImpresion" runat="server" align="center" style="width: 90%; height:100%; font-size:small" ></div>
             </div>
         <br />
         <input type="button"  value="Imprimir" id="ocultar"  />

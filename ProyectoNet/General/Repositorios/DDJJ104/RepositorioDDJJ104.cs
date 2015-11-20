@@ -62,10 +62,10 @@ namespace General
         //}
 
 
-        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, int id_area, int mes, int anio)
+        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, Area area, int mes, int anio)
         {
             ConexionDB cn = new ConexionDB("dbo.PLA_ADD_DDJJ104_Cabecera");
-            cn.AsignarParametro("@Id_Area", id_area);
+            cn.AsignarParametro("@Id_Area", area.Id);
             cn.AsignarParametro("@Mes", mes);
             cn.AsignarParametro("@Año", anio);
             cn.AsignarParametro("@Usuario_Generacion", usuario.Id);
@@ -81,16 +81,16 @@ namespace General
                 if (id_ddjj_nuevo > 0)
                 {
                     int orden = 1;
-                    foreach (var personas in new RepositorioPersonas().GetPersonasDelArea(new Area(id_area)))
+                    //foreach (var personas in new RepositorioPersonas().GetPersonasDelAreaParaDDJJ104(mes, anio, area )) //new Area(id_area)
+                    foreach (var personas in area.Personas)
                     {
-
                         string[] Cat_Mod = personas.Categoria.ToString().Split('#');
 
                         cn.CrearComandoConTransaccionIniciada("dbo.PLA_ADD_DDJJ104_Detalle");
                         cn.AsignarParametro("@Id_DDJJ", id_ddjj_nuevo);
                         cn.AsignarParametro("@Id_Persona", personas.Id);
                         cn.AsignarParametro("@Orden", orden);
-                        cn.AsignarParametro("@Id_Area_Persona", personas.IdArea);
+                        cn.AsignarParametro("@Id_Area_Persona", personas.Area.Id);
                         cn.AsignarParametro("@Mod_Contratacion", Cat_Mod[1].Trim());
                         cn.AsignarParametro("@Categoria", Cat_Mod[0].Trim());
 
