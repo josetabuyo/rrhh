@@ -19,8 +19,8 @@
         <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
             <div id="div_foliacion" class="fondo_form" style="padding: 10px;">
             <h2>Presentación de documentación</h2>
-            <p>Ingrese la cantidad de documentos que el postulante entrega por cada item del CV cargado.</p>
-            <p>Importante: al guardar los documentos presentados, la postulación pasará automáticamente como disponible para la etapa Inscripción Documental</p>
+            <p>Busque la postulación por su número. Cuando la encuentre, podrá imprimir una caratula y pasar al estado Inscripto Documental.</p>
+            <p>Importante: al presionar inscribir, saldra una ventana para completar la cantidad de folios presentados. Una vez completados, persione inscribir para pasar de etapa y generar el anexo para su impresión</p>
             <br />
             <div>
                 <div style="display:inline-block; margin-left:30px; width: 50%; vertical-align:middle;">
@@ -130,8 +130,9 @@
                 localStorage.setItem("empleado", $("#span_empleado").text());
                 localStorage.setItem("perfil", $("#span_perfil").text());
                 localStorage.setItem("codigo_postu", $("#span_codigo").text());
-             
-                window.location.href = 'Caratula.aspx';
+
+                window.open('Caratula.aspx', '_blank');
+                //window.location.href = 'Caratula.aspx';
 
             } else {
                
