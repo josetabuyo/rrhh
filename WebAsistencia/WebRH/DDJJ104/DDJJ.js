@@ -27,6 +27,8 @@ var completarComboMeses = function () {
         }
         meses.change(function () {
             ContenedorGrilla.html("");
+            $("#ContenedorPersona").empty();
+
             spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
             mesSeleccionado = parseInt($("#cmbMeses").val().split("-")[0]);
@@ -277,11 +279,20 @@ var Generar_e_ImprimirDDJJ = function (idArea) {
     Backend.GenerarDDJJ104(un_area, mesSeleccionado, anioSeleccionado)
     .onSuccess(function (ddjj) {
         if (ddjj) {
-            un_area.DDJJ.push(ddjj);
+            //un_area.DDJJ.push(ddjj);
+            un_area.DDJJ = ddjj;
             ImprimirDDJJ(idArea);
 
             ContenedorGrilla.html("");
-            getAreasDDJJ();
+            $("#ContenedorPersona").empty();
+
+            spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+
+            getAreasDDJJ(function () {
+                ContenedorGrilla.html("");
+                DibujarGrillaDDJJ();
+                spinner.stop();
+            });            
         }
     })
     .onError(function (error, as, asd) {
