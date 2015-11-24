@@ -57,26 +57,28 @@ namespace General
         private List<Postulacion> ArmarPostulaciones(TablaDeDatos tablaCVs)
         {
             List<Postulacion> postulaciones = new List<Postulacion>();
-            
-            
+
+
             tablaCVs.Rows.ForEach(row =>
             {
-                var postulacion = new Postulacion(){
-                   Id= row.GetInt("IdPostulacion"), 
-                   Perfil=ArmarPuesto(row),
-                   Postulante = new Persona() {
-                       Id = row.GetInt("IdPostulante"),
-                       Nombre = row.GetString("NombrePostulante"),
-                       Apellido = row.GetString("ApellidoPostulante")
-                   }, 
-                   FechaPostulacion=row.GetDateTime("FechaInscripcion"),
-                   Motivo=row.GetString("Motivo"), 
-                   Observaciones=row.GetString("Observaciones"), 
-                   Numero= row.GetString("Postulacion_Numero", "")
+                var postulacion = new Postulacion()
+                {
+                    Id = row.GetInt("IdPostulacion"),
+                    Perfil = ArmarPuesto(row),
+                    Postulante = new Persona()
+                    {
+                        Id = row.GetInt("IdPostulante"),
+                        Nombre = row.GetString("NombrePostulante"),
+                        Apellido = row.GetString("ApellidoPostulante")
+                    },
+                    FechaPostulacion = row.GetDateTime("FechaInscripcion"),
+                    Motivo = row.GetString("Motivo"),
+                    Observaciones = row.GetString("Observaciones"),
+                    Numero = row.GetString("Postulacion_Numero", "")
                 };
-                
 
-                if(!postulaciones.Exists( p => p.Id == postulacion.Id))
+
+                if (!postulaciones.Exists(p => p.Id == postulacion.Id))
                     postulaciones.Add(postulacion);
 
             });
@@ -91,24 +93,27 @@ namespace General
         {
             //CORTE DE CONTROL PARA OTRAS CAPACIDADES
             //1.- Controlo que haya al menos 1 resultado
-            var lista = ArmarFilas(tablaCVs, "IdUsuarioPostulacion"); 
+            var lista = ArmarFilas(tablaCVs, "IdUsuarioPostulacion");
             new List<RowDeDatos>();
 
             if (lista.Count > 0)
             {
                 var etapas = (from RowDeDatos dRow in lista
-                                            select new //CvEventoAcademico ()
-                                            {
-                                                Descripcion = dRow.GetString("EtapaDescripcion", ""),
-                                                IdEtapaConcurso = dRow.GetInt("IdEtapa"),
-                                                Fecha = dRow.GetDateTime("FechaPostulacion"),
-                                                IdUsuario = dRow.GetSmallintAsInt("IdUsuarioPostulacion"),
-                                                IdPostulacion = dRow.GetInt("IdPostulacion")
-                                            }).Where(r => r.IdPostulacion == postulacion.Id).Distinct().ToList();
+                              select new //CvEventoAcademico ()
+                              {
+                                  Descripcion = dRow.GetString("EtapaDescripcion", ""),
+                                  IdEtapaConcurso = dRow.GetInt("IdEtapa"),
+                                  Fecha = dRow.GetDateTime("FechaPostulacion"),
+                                  IdUsuario = dRow.GetSmallintAsInt("IdUsuarioPostulacion"),
+                                  IdPostulacion = dRow.GetInt("IdPostulacion")
+                              }).Where(r => r.IdPostulacion == postulacion.Id).Distinct().ToList();
 
-                etapas.Select(e => 
-                    new EtapaPostulacion(){
-                        Etapa = new EtapaConcurso(e.IdEtapaConcurso, e.Descripcion), Fecha = e.Fecha, IdUsuario = e.IdUsuario
+                etapas.Select(e =>
+                    new EtapaPostulacion()
+                    {
+                        Etapa = new EtapaConcurso(e.IdEtapaConcurso, e.Descripcion),
+                        Fecha = e.Fecha,
+                        IdUsuario = e.IdUsuario
                     }).ToList().ForEach(ep => postulacion.AgregarPostulacion(ep));
             }
         }
@@ -175,9 +180,9 @@ namespace General
                               row.GetString("Tipo"),
                               row.GetString("Puesto_Numero"),
                               repo_comite.GetComiteById(row.GetSmallintAsInt("IdComite")),
-                              row.GetDateTime("PerfilFechaDesde",DateTime.Today),
+                              row.GetDateTime("PerfilFechaDesde", DateTime.Today),
                               row.GetDateTime("PerfilFechaHasta", DateTime.Today),
-                              row.GetBoolean("PerfilBaja",false)
+                              row.GetBoolean("PerfilBaja", false)
                 );
         }
 
@@ -195,7 +200,7 @@ namespace General
             parametros.Add("@IdPostulacion", idpostulacion);
             parametros.Add("@IdPersona", idpersona);
             return this.GetPostulaciones(parametros).First();
-        
+
         }
 
         public Postulacion GetPostulacionesPorCodigo(string codigo)
@@ -204,7 +209,7 @@ namespace General
             parametros.Add("@NumeroPostulacion", codigo);
             try
             {
-                 return this.GetPostulaciones(parametros).First();
+                return this.GetPostulaciones(parametros).First();
             }
             catch (Exception e)
             {
@@ -212,7 +217,7 @@ namespace General
                 return null;
                 //throw e;
             }
-          
+
             //return this.GetPostulaciones(parametros).First();
         }
 
@@ -225,7 +230,7 @@ namespace General
 
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@IdPostulacion", postulacion.Id);
-             //   parametros.Add("@IdPuesto", postulacion.Puesto.Id);
+                //   parametros.Add("@IdPuesto", postulacion.Puesto.Id);
                 parametros.Add("@IdPerfil", postulacion.Perfil.Id);
                 parametros.Add("@IdPersona", postulacion.Postulante.Id);
                 parametros.Add("@FechaInscripcion", postulacion.FechaPostulacion);
@@ -236,7 +241,8 @@ namespace General
 
                 return true;
             }
-            else {
+            else
+            {
                 return false;
             }
         }
@@ -253,7 +259,7 @@ namespace General
             return id;
         }
 
-        public void InsEtapaPostulacion(int id_postulacion,int id_etapa_postulacion, int id_usuario)
+        public void InsEtapaPostulacion(int id_postulacion, int id_etapa_postulacion, int id_usuario)
         {
 
             var parametros = new Dictionary<string, object>();
@@ -274,10 +280,28 @@ namespace General
             return postulaciones_en_pantalla;
         }
 
+        public void GuardarFolios(int nro_inscripcion, DateTime fecha, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, int id_usuario)
+        {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@nro_inscripcion", nro_inscripcion);
+            parametros.Add("@fecha", fecha);
+            parametros.Add("@nro_ficha_inscripcion", nro_ficha_inscripcion);
+            parametros.Add("@nro_foto", nro_foto);
+            parametros.Add("@nro_foto_dni", nro_foto_dni);
+            parametros.Add("@nro_foto_titulo", nro_foto_titulo);
+            parametros.Add("@nro_cv", nro_cv);
+            parametros.Add("@nro_doc_respaldo", nro_doc_respaldo);
+            parametros.Add("@id_usuario", id_usuario);
+
+            conexion_bd.EjecutarSinResultado("dbo.CV_Ins_FoliosPostulacion", parametros);
+        }
+
         private List<Postulacion> SoloPostulacionvigente(List<Postulacion> postulaciones_en_pantalla)
         {
             List<Postulacion> postulaciones_con_etapas_vigentes = new List<Postulacion>();
-            postulaciones_en_pantalla.ForEach(p => {
+            postulaciones_en_pantalla.ForEach(p =>
+            {
                 postulaciones_con_etapas_vigentes.Add(p.SoloEtapaVigente());
             });
 
@@ -287,7 +311,8 @@ namespace General
         public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones, int id_usuario)
         {
             Postulacion postulacion_original;
-            postulaciones.ForEach(postulacion => {
+            postulaciones.ForEach(postulacion =>
+            {
 
                 postulacion_original = postulaciones_en_pantalla.Find(p => p.Id == postulacion.Id);
                 if (postulacion.EtapaActual().Etapa.Id != postulacion_original.EtapaActual().Etapa.Id)
@@ -295,15 +320,15 @@ namespace General
                     InsEtapaPostulacion(postulacion.Id, postulacion.EtapaActual().Etapa.Id, id_usuario);
                 }
             });
-  
+
         }
 
         private bool PerteneceA(Postulacion postulacion, List<EtapaConcurso> etapas)
         {
-           if (etapas.Exists(e => e.Id == postulacion.EtapaActual().Etapa.Id))
-           {
-               return true;
-           }
+            if (etapas.Exists(e => e.Id == postulacion.EtapaActual().Etapa.Id))
+            {
+                return true;
+            }
             return false;
         }
 
@@ -316,9 +341,9 @@ namespace General
             parametros.Add("@Fecha", DateTime.Today);
             parametros.Add("@IdPostualcion", una_postulacion.Id);
             parametros.Add("@Usuario", usuario.Id);
-            
+
             var tablaAnexo = conexion_bd.Ejecutar("dbo.CV_Ins_Anexos", parametros);
-           
+
             return new AnexosDeEtapas();
         }
 
@@ -335,11 +360,11 @@ namespace General
 
             var tablaAnexo = conexion_bd.Ejecutar("dbo.CV_Get_Anexo", parametros);
             var repo_comite = RepositorioDeComites.Nuevo(this.conexion_bd);
-            var etapa = new EtapaConcurso(tablaAnexo.Rows[0].GetSmallintAsInt("IdEtapa"),tablaAnexo.Rows[0].GetString("DescripcionEtapa"));
+            var etapa = new EtapaConcurso(tablaAnexo.Rows[0].GetSmallintAsInt("IdEtapa"), tablaAnexo.Rows[0].GetString("DescripcionEtapa"));
             List<Postulacion> postulaciones = new List<Postulacion>();
 
             tablaAnexo.Rows.ForEach(row => postulaciones.Add(GetPostulacionById(0, row.GetInt("IdPostulacion"))));
- 
+
             AnexosDeEtapas anexo = new AnexosDeEtapas(tablaAnexo.Rows[0].GetSmallintAsInt("IdAnexo"), repo_comite.GetComiteById(tablaAnexo.Rows[0].GetSmallintAsInt("IdComite")), postulaciones, etapa, tablaAnexo.Rows[0].GetDateTime("Fecha"));
 
             return anexo;
@@ -359,8 +384,8 @@ namespace General
 
             //agrupo x perfil y x etapa. cuento postulaciones. 
 
-           // var postulados = tablaReporte.Rows.GroupBy(r => r.GetSmallintAsInt("IdPerfil")).FindAll(r => r.GetSmallintAsInt("IdEtapa") == 1).Count();
-           
+            // var postulados = tablaReporte.Rows.GroupBy(r => r.GetSmallintAsInt("IdPerfil")).FindAll(r => r.GetSmallintAsInt("IdEtapa") == 1).Count();
+
 
             /*var resultado = from a in tablaReporte.Rows.AsEnumerable()
                             //where a.GetSmallintAsInt("IdEtapa") == 1// && a.GetSmallintAsInt("IdEtapa") == 3
@@ -370,30 +395,30 @@ namespace General
 
             foreach (var row in tablaReporte.Rows)
             {
-                var registro = new ResumenDePostulaciones(row.GetSmallintAsInt("IdPerfil",0), row.GetString("PerfilDescripcion",""), row.GetString("PerfilNivel"), row.GetString("PerfilNumero"), row.GetString("PerfilAgrupamiento"), row.GetSmallintAsInt("NumeroComite",0), row.GetInt("Postulados",0), row.GetInt("Inscriptos",0));
+                var registro = new ResumenDePostulaciones(row.GetSmallintAsInt("IdPerfil", 0), row.GetString("PerfilDescripcion", ""), row.GetString("PerfilNivel"), row.GetString("PerfilNumero"), row.GetString("PerfilAgrupamiento"), row.GetSmallintAsInt("NumeroComite", 0), row.GetInt("Postulados", 0), row.GetInt("Inscriptos", 0));
 
                 lista_reportes.Add(registro);
 
             }
 
-/*
-            foreach (var res in tablaReporte.Rows )
-	        {
-                if (res.GetInt("IdEtapa") == 1)
-                {
+            /*
+                        foreach (var res in tablaReporte.Rows )
+                        {
+                            if (res.GetInt("IdEtapa") == 1)
+                            {
                     
-                }
-                ReportePostular reporte = new ReportePostular();
-                reporte.DescripcionPerfil = res.GetString("PerfilDescripcion");
-                reporte.NumeroComite = res.GetSmallintAsInt("NumeroComite");
-                if (res.GetInt("IdEtapa"))
-                {
+                            }
+                            ReportePostular reporte = new ReportePostular();
+                            reporte.DescripcionPerfil = res.GetString("PerfilDescripcion");
+                            reporte.NumeroComite = res.GetSmallintAsInt("NumeroComite");
+                            if (res.GetInt("IdEtapa"))
+                            {
                     
-                }
-                reporte.Postulados = res.GetInt("Postulados");
+                            }
+                            reporte.Postulados = res.GetInt("Postulados");
 
-                lista_reportes.Add(reporte);
-	        }*/
+                            lista_reportes.Add(reporte);
+                        }*/
 
             return lista_reportes;
         }
