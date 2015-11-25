@@ -32,7 +32,6 @@
 
     <style type="text/css"  >
         
-         
         #PanelImpresion>table
         {
             border-spacing:0px;  
@@ -43,7 +42,7 @@
         #PanelImpresion>table tr
         {
             page-break-inside:avoid;
-            page-break-after:auto;
+            page-break-after:always;
             
         }        
         
@@ -55,7 +54,7 @@
         .celda
         {
              page-break-inside:avoid;
-             page-break-after:auto;
+             page-break-after:always;
         }
          
         #fecha
@@ -73,26 +72,35 @@
         
         .APELLIDO_Y_NOMBRE
         {
-            width: 40%; 
+            width: 40%;
+            font-size:10px;
         }          
         
         .CUIL_CUIT
         {
             width: 20%;
             text-align:center;
+            font-size:10px;
         }
-            
+
         .ESCALAFON_O_MODALIDAD_DE_CONTRATACION
         {
             width: 30%;
             text-align:center;
+            font-size:10px;
         }
-            
+
         .NIVEL_O_CATEGORIA
         {
             width: 10%;
             text-align:center;
+            font-size:10px;
         }          
+
+        .sort
+		{
+			font-size:11px;
+		}
         
         @media print
         {
@@ -110,28 +118,38 @@
             {
                 display: none;
             }
+            
             .APELLIDO_Y_NOMBRE
             {
                 width: 40%;
+                font-size:10px;
             }          
         
             .CUIL_CUIT
             {
                 width: 20%;
                 text-align:center;
+                font-size:10px;
             }
             
             .ESCALAFON_O_MODALIDAD_DE_CONTRATACION
             {
                 width: 30%;
                 text-align:center;
+                font-size:10px;
             }
             
             .NIVEL_O_CATEGORIA
             {
                 width: 10%;
                 text-align:center;
-            }
+                font-size:10px;
+            }          
+        
+            .sort
+		    {
+			    font-size:11px;
+		    }
             
         }      
         
