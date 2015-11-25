@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using General.Repositorios;
+using System.IO;
 
 namespace General.MAU
 {
@@ -31,8 +32,14 @@ namespace General.MAU
             var funcionalidades = new List<Funcionalidad>();
             tablaDatos.Rows.ForEach(row =>
             {
-                var func = new Funcionalidad(row.GetInt("Id"), row.GetString("Nombre"));
-                funcionalidades.Add(func);
+                Funcionalidad func;
+                try
+                {
+                    func = new Funcionalidad(row.GetInt("Id"), row.GetString("Nombre"));
+                    funcionalidades.Add(func);
+                }catch(Exception){
+                    throw;
+                }                
             });
             return funcionalidades;
         }
@@ -45,7 +52,9 @@ namespace General.MAU
         protected override List<Funcionalidad> ObtenerDesdeLaBase()
         {
             var tablaDatos = conexion.Ejecutar("dbo.MAU_GetFuncionalidades");
-            return GetFuncionalidadesDeTablaDeDatos(tablaDatos);
+            var funcionalidades = GetFuncionalidadesDeTablaDeDatos(tablaDatos);
+            if (funcionalidades.Count() == 0) throw new Exception("La lista de funcionalidades está vacía");
+            return funcionalidades;
         }
 
         protected override void GuardarEnLaBase(Funcionalidad objeto)
@@ -56,6 +65,11 @@ namespace General.MAU
         protected override void QuitarDeLaBase(Funcionalidad objeto)
         {
             throw new NotImplementedException();
+        }
+
+        public void Refresh()
+        {
+            objetos = ObtenerDesdeLaBase();
         }
     }
 }

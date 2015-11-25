@@ -1,4 +1,4 @@
-﻿var FormularioBindeado = function (opt) {
+var FormularioBindeado = function (opt) {
     var _this = this;
     this.html_form = opt.formulario;
     this.modelo = opt.modelo;
@@ -13,6 +13,10 @@
 
     this.html_form.find("[rh-control-type='datepicker']").each(function (i, e) {
         _this.crearYBindearDatePicker($(e));
+    });
+
+    this.html_form.find("[rh-control-type='checkbox']").each(function (i, e) {
+        _this.crearYBindearCheckbox($(e));
     });
 };
 
@@ -81,7 +85,7 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
     var opt_constructor = {
         select: select,
         dataProvider: select.attr('rh-data-provider'),
-        permiteAgregar: select.attr('rh-permite-agregar')||false
+        permiteAgregar: select.attr('rh-permite-agregar') || false
     };
     var prop_label = select.attr("rh-propiedad-label");
     if (prop_label) opt_constructor.propiedadLabel = prop_label;
@@ -97,6 +101,7 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
     this[select.attr('Id')] = combo;
 
     var path_propiedad_modelo = select.attr('rh-model-property');
+    //var path_propiedad_modelo_texto = select.attr('rh-model-property-text');
     var handler = function (prop, oldval, newval) {
         combo.idSeleccionado(newval);
     };
@@ -104,6 +109,10 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
     combo.change(function () {
         O_O.desWatchear(_this.modelo, path_propiedad_modelo, handler);
         O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, combo.idSeleccionado());
+//        if (path_propiedad_modelo_texto && combo.itemSeleccionado()) {
+//            if (prop_label) O_O.setValorEnPath(_this.modelo, path_propiedad_modelo_texto, combo.itemSeleccionado()[prop_label]);
+//            else O_O.setValorEnPath(_this.modelo, path_propiedad_modelo_texto, combo.itemSeleccionado()["Descripcion"]);
+//        }
         O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
     });
     O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
@@ -116,4 +125,34 @@ FormularioBindeado.prototype.crearYBindearCombo = function (select) {
             combo.filtrarPor(filtro);
         });
     }
+};
+
+FormularioBindeado.prototype.crearYBindearCheckbox = function (input) {
+    var _this = this;
+    this[input.attr('Id')] = input;
+
+    var path_propiedad_modelo = input.attr('rh-model-property');
+
+
+
+    var handler = function (prop, oldval, newval) {
+        //if (una_experiencia.Vigente == true) {
+        input.attr("checked", newval);
+
+        //}
+        input.val(newval);
+    };
+    input.change(function () {
+        O_O.desWatchear(_this.modelo, path_propiedad_modelo, handler);
+        O_O.setValorEnPath(_this.modelo, path_propiedad_modelo, input.prop( "checked" ));
+   
+        O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
+    });
+    O_O.watchear(_this.modelo, path_propiedad_modelo, handler);
+    input.attr("checked", O_O.getValorDePath(_this.modelo, path_propiedad_modelo));
+};
+
+FormularioBindeado.prototype.cerrarCombosAbiertos = function () {
+    $(".select2-drop-mask").hide()
+    $(".select2-drop").hide()
 };

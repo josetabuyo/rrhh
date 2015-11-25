@@ -31,7 +31,11 @@ namespace General.MAU
 
         public List<Funcionalidad> FuncionalidadesPara(int id_usuario)
         {
-            return this.Obtener().FindAll(p => p.Key == id_usuario).Select(p => this.repositorioDeFuncionalidades.GetFuncionalidadPorId(p.Value)).ToList();
+            var funcionalidades = this.Obtener().FindAll(p => p.Key == id_usuario)
+                .Select(p => this.repositorioDeFuncionalidades.GetFuncionalidadPorId(p.Value))
+                .ToList();
+            if (funcionalidades.Any(f => f == null)) throw new Exception("El usuario tiene permisos para funcionalidades que no existen");
+            return funcionalidades;           
         }
 
         public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
@@ -70,6 +74,11 @@ namespace General.MAU
             parametros.Add("@id_usuario", objeto.Key);
             parametros.Add("@id_funcionalidad", objeto.Value);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_DenegarFuncionalidadA", parametros);
+        }
+
+        public void Refresh()
+        {
+            objetos = ObtenerDesdeLaBase();
         }
     }
 }

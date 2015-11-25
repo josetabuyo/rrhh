@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using WSViaticos;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
 {
@@ -17,18 +18,20 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
 
     protected void btn_registrar_Click(object sender, EventArgs e)
     {
-        if (ValidarCampos())
+        try
         {
-            var servicio = Servicio();
-            //Se habilita el registro de empleados del ministerio por pedido de Marta
-            //var personas = servicio.BuscarPersonas(JsonConvert.SerializeObject(new { Documento = Convert.ToInt32(this.txt_dni_registro.Text) }));
-            //if (personas.Length > 0)
-            //{
-            //    this.lb_mensajeError.Text = "Si bien tenemos sus datos personales registrados en nuestra base de RRHH, los mismos no se encuentran asociados a un correo electrónico de referencia. Este paso es FUNDAMENTAL para establecer una vía de comunicación estable. Por favor tenga a bien comunicarse por mail a la casilla concursos@desarrollosocial.gov.ar, enviando un mensaje con el asunto \"Solicito Alta al Sistema POSTULAR\". En el cuerpo del mensaje por favor especifique un teléfono y horario de contacto. Nos comunicaremos con usted a la mayor brevedad posible.";
-            //    ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
-            //}
-            //else
-            //{
+            if (ValidarCampos())
+            {
+                var servicio = Servicio();
+                //Se habilita el registro de empleados del ministerio por pedido de Marta
+                //var personas = servicio.BuscarPersonas(JsonConvert.SerializeObject(new { Documento = Convert.ToInt32(this.txt_dni_registro.Text) }));
+                //if (personas.Length > 0)
+                //{
+                //    this.lb_mensajeError.Text = "Si bien tenemos sus datos personales registrados en nuestra base de RRHH, los mismos no se encuentran asociados a un correo electrónico de referencia. Este paso es FUNDAMENTAL para establecer una vía de comunicación estable. Por favor tenga a bien comunicarse por mail a la casilla concursos@desarrollosocial.gov.ar, enviando un mensaje con el asunto \"Solicito Alta al Sistema POSTULAR\". En el cuerpo del mensaje por favor especifique un teléfono y horario de contacto. Nos comunicaremos con usted a la mayor brevedad posible.";
+                //    ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
+                //}
+                //else
+                //{
                 AspiranteAUsuario aspirante = new AspiranteAUsuario();
                 aspirante.Apellido = this.txt_apellido_registro.Text;
                 aspirante.Documento = Convert.ToInt32(this.txt_dni_registro.Text);
@@ -45,13 +48,21 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
                     this.lb_mensajeError.Text = "No se ha podido generar el usuario. Verifique si ya se ha registrado con el mail ingresado o caso contrario contáctese con Recursos Humanos";
                     ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
                 }
-            //}
-            
+                //}
+
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "RegistroError", "RegistroError();", true);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            ScriptManager.RegisterStartupScript(this, GetType(), "RegistroError", "RegistroError();", true);
+
+            this.lb_mensajeError.Text = "Error en el Sistema. Por favor realice una captura de pantalla de este error y envíelo a Recursos Humanos: " + ex.Message;
+            ScriptManager.RegisterStartupScript(this, GetType(), "RegistroOk", "RegistroOk();", true);
         }
+
                    
     }
 
@@ -61,7 +72,7 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
         if (ValidarDNI() && 
             ValidarString(this.txt_nombre_registro.Text) && 
             ValidarString(this.txt_apellido_registro.Text) &&
-            ValidarMail() && ValidarCaptcha())
+            ValidarMail() && ValidarMailRepetido() && ValidarCaptcha())
         {
             return true;
         }
@@ -120,16 +131,34 @@ public partial class RegistroPostular_FormCaptchaRegistro : System.Web.UI.Page
 
     private bool ValidarMail()
     {
-        string mail = this.txt_mail_registro.Text;
-        if (mail.Equals("") || !mail.Contains("@") || !mail.Contains("."))
+        string email = this.txt_mail_registro.Text;
+        String expresion;
+        expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+        if (Regex.IsMatch(email, expresion))
+        {
+            if (Regex.Replace(email, expresion, String.Empty).Length == 0)
+            {
+                return true;
+            }
+            else
+            {
+                this.lb_mensajeError.Text = "El formato del mail no es válido.";
+                return false;
+            }
+        }
+        else
         {
             this.lb_mensajeError.Text = "El formato del mail no es válido.";
             return false;
         }
-        else
-        {
+    }
+
+    private bool ValidarMailRepetido() {
+
+        if (this.txt_mail_registro_repetido.Text == this.txt_mail_registro.Text)
             return true;
-        }
+        this.lb_mensajeError.Text = "Los email no coinciden.";
+        return false;
     }
 
     private WSViaticosSoapClient Servicio()

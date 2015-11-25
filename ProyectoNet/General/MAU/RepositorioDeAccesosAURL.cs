@@ -31,8 +31,12 @@ namespace General.MAU
             var accesos = new List<AccesoAURL>();
             tablaDatos.Rows.ForEach(row =>
             {
-                var acceso = new AccesoAURL(row.GetInt("Id"), funcionalidades.Find(f => f.Id == row.GetInt("IdFuncionalidad")), row.GetString("Url"));
-                accesos.Add(acceso);
+                var func = funcionalidades.Find(f => f.Id == row.GetInt("IdFuncionalidad"));
+                if (func != null)
+                {
+                    var acceso = new AccesoAURL(row.GetInt("Id"), func, row.GetString("Url"));
+                    accesos.Add(acceso);
+                }
             });
             return accesos;
         }
@@ -50,8 +54,10 @@ namespace General.MAU
             tablaDatos.Rows.ForEach(row =>
             {
                 var acceso = new AccesoAURL(row.GetInt("Id"), funcionalidades.Find(f => f.Id == row.GetInt("IdFuncionalidad")), row.GetString("Url"));
+                if (acceso.Funcionalidad == null) throw new Exception("Se hace referencia a una funcionalidad que no existe. Funcionalidad:" + row.GetInt("IdFuncionalidad"));
                 accesos.Add(acceso);
             });
+            if (accesos.Count() == 0) throw new Exception("La lista de accesos a URL está vacía");
             return accesos;
         }
 
@@ -63,6 +69,11 @@ namespace General.MAU
         protected override void QuitarDeLaBase(AccesoAURL objeto)
         {
             throw new NotImplementedException();
+        }
+
+        public void Refresh()
+        {
+            objetos = ObtenerDesdeLaBase();
         }
     }
 }

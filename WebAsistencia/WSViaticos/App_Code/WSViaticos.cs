@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
@@ -20,6 +20,7 @@ using General.MAU;
 
 using General.Postular;
 using System.Web;
+
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -28,7 +29,6 @@ public class WSViaticos : System.Web.Services.WebService
 {
     public WSViaticos()
     {
-
     }
 
 
@@ -2211,6 +2211,15 @@ public class WSViaticos : System.Web.Services.WebService
     #endregion
 
     [WebMethod]
+    public bool RefrescarCacheMAU(Usuario usuario)
+    {
+        RepositorioDeFuncionalidades().Refresh();
+        RepositorioDeFuncionalidadesDeUsuarios().Refresh();
+        RepositorioDeAccesosAURL.NuevoRepositorioDeAccesosAURL(Conexion(), RepositorioDeFuncionalidades()).Refresh();
+        return true;
+    }
+
+    [WebMethod]
     public InstanciaDeEvaluacion[] GetInstanciasDeEvaluacion(int id_curso)
     {
         var instancias = RepositorioDeCursos().GetInstanciasDeEvaluacion(id_curso).ToArray();
@@ -2559,8 +2568,6 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeUsuarios().GetDniPorAlias(alias);
     }
 
-
-
     [WebMethod]
     public bool RecuperarUsuario(string criterio)
     {
@@ -2574,7 +2581,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return Autorizador().RegistrarNuevoUsuario(aspirante);
     }
-
    
     #endregion
 
@@ -2781,6 +2787,21 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Guardar(obj);
     }
 
+    [WebMethod]
+    public CVTitulosAntecedentesAcademicos[] BuscarTitulosAntecedentesAcademicos(string criterio, Usuario usuario)
+    {
+        return RepositorioDeTitulosAntecedentesAcademicos.Nuevo(Conexion()).Find(criterio).FindAll(i => i.SoloVisiblePara == usuario.Id || i.SoloVisiblePara == -1).ToArray();
+    }
+
+    [WebMethod]
+    public CVTitulosAntecedentesAcademicos AgregarTitulosAntecedentesAcademicos(string descripcion, Usuario usuario)
+    {
+        var obj = new CVTitulosAntecedentesAcademicos();
+        obj.Descripcion = descripcion;
+        obj.SoloVisiblePara = usuario.Id;
+        return RepositorioDeTitulosAntecedentesAcademicos.Nuevo(Conexion()).Guardar(obj);
+    }
+
     #endregion
 
     #region CvPublicaciones
@@ -2969,6 +2990,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones, Usuario usuario)
+    {   
+
+        RepoPostulaciones().GuardarCambiosEnAdmitidos(postulaciones, usuario.Id);
+    }
+
+    [WebMethod]
     public Postulacion[] BuscarPostulacionesDePreInscriptos(int id_comite)
     {
         List<EtapaConcurso> etapas = new List<EtapaConcurso> { ConstantesConcursar.EtapaPreinscripcionDocumental };
@@ -3055,7 +3083,7 @@ public class WSViaticos : System.Web.Services.WebService
         //Le paso ETAPA 2 que es la de PREINSCRIPCION DOCUMENTAL
         if (etapas.Last().Etapa.Id.Equals(ConstantesConcursar.EtapaPreinscripcionWeb.Id))
         {
-            RepoPostulaciones().InsEtapaPostulacion(id_postulacion, ConstantesConcursar.EtapaInscripcionDocumental.Id, usuario.Id);
+            RepoPostulaciones().InsEtapaPostulacion(id_postulacion, ConstantesConcursar.EtapaPreinscripcionDocumental.Id, usuario.Id);
             return true;
         }
         else
@@ -3110,6 +3138,22 @@ public class WSViaticos : System.Web.Services.WebService
     public CvConocimientoCompetenciaInformatica[] BuscarConocimientoCompetenciaInformatica(string criterio, Usuario usuario)
     {
         return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Find(criterio).ToArray();
+    }
+
+    [WebMethod]
+    public CvConocimientoCompetenciaInformatica AgregarConocimientoCompetenciaInformatica(string descripcion, int tipo, Usuario usuario)
+    {
+        var obj = new CvConocimientoCompetenciaInformatica();
+        obj.Descripcion = descripcion;
+        obj.SoloVisiblePara = usuario.Id;
+        obj.Tipo = tipo;
+        return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Guardar(obj);
+    }
+
+    [WebMethod]
+    public CvModalidadContratacion[] BuscarModalidadContratacion(string criterio)
+    {
+        return RepositorioDeModalidadContratacion.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
     [WebMethod]
@@ -3288,7 +3332,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private RepositorioDeComites RepoComites()
     {
-        return new RepositorioDeComites(Conexion());
+        return RepositorioDeComites.Nuevo(Conexion());
     }
 
 }

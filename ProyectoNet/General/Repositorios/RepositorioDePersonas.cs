@@ -36,8 +36,12 @@ namespace General.Repositorios
                 var criterio_deserializado = (JObject) JsonConvert.DeserializeObject(criterio);
                 bool filtrar_por_documento = false;
                 int documento = -1;
+
                 bool filtrar_por_tiene_legajo = false;
                 bool con_legajo = false;
+
+                bool filtrar_por_id = false;
+                int id = -1;
 
                 if (criterio_deserializado["Documento"]!= null) {
                     filtrar_por_documento = true;
@@ -47,6 +51,12 @@ namespace General.Repositorios
                 if (criterio_deserializado["ConLegajo"] != null) {
                     filtrar_por_tiene_legajo = true;
                     con_legajo = (bool)((JValue)criterio_deserializado["ConLegajo"]);
+                }
+
+                if (criterio_deserializado["Id"] != null)
+                {
+                    filtrar_por_id = true;
+                    id = (int)((JValue)criterio_deserializado["Id"]);
                 }
 
                 return TodasLasPersonas().FindAll(persona =>
@@ -62,6 +72,10 @@ namespace General.Repositorios
                         {
                             if (persona.Legajo.Trim() == "") pasan_todas_las_condiciones = false;
                         }
+                    }
+                    if (filtrar_por_id)
+                    {
+                        if (persona.Id != id) pasan_todas_las_condiciones = false;
                     }
                     return pasan_todas_las_condiciones;
                 });
@@ -79,6 +93,20 @@ namespace General.Repositorios
                         )
                     );
             }            
+        }
+
+        public bool BuscarPersonasConUsuario(string criterio)
+        {
+            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            int documento = (int)((JValue)criterio_deserializado["Documento"]);
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@documento", documento);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetPersonaConUsuario", parametros);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         public List<Persona> BuscarPersonasConLegajo(string criterio)

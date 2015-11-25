@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>General</RootNamespace>
     <AssemblyName>General</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -92,6 +92,7 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
     <Compile Include="DDJJ104\AreaParaDDJJ104.cs" />
     <Compile Include="DDJJ104\DDJJ104_2001.cs" />
@@ -113,6 +114,8 @@
     <Compile Include="Postular\AmbitoLaboral.cs" />
     <Compile Include="Postular\AntecedentePenal.cs" />
     <Compile Include="Postular\Comite.cs" />
+    <Compile Include="Postular\CvModalidadContratacion.cs" />
+    <Compile Include="Postular\CVTitulosAntecedentesAcademicos.cs" />
     <Compile Include="Postular\ResumenDePostulaciones.cs" />
     <Compile Include="Postular\RepositorioDeFoliados.cs" />
     <Compile Include="Postular\RequisitoAntecedentesPenales.cs" />
@@ -146,6 +149,7 @@
     <Compile Include="Postular\RequisitoPerfil.cs" />
     <Compile Include="Postular\UnidadDeTiempo.cs" />
     <Compile Include="Postular\Validador.cs" />
+    <Compile Include="Postular\RepositorioDeModalidadContratacion.cs" />
     <Compile Include="Repositorios\RepositorioDeAmbitoLaboral.cs" />
     <Compile Include="Repositorios\RepositorioDeNivelesDeEstudio.cs" />
     <Compile Include="Repositorios\FiltroDeObjetos.cs" />
@@ -183,6 +187,7 @@
     <Compile Include="Repositorios\RepositorioDeCurriculum.cs" />
     <Compile Include="Repositorios\RepositorioDeNacionalidades.cs" />
     <Compile Include="Repositorios\RepositorioDeTiposDeEventoAcademico.cs" />
+    <Compile Include="Repositorios\RepositorioDeTitulosAntecedentesAcademicos.cs" />
     <Compile Include="Repositorios\RepositorioDeUnidadesDeTiempo.cs" />
     <Compile Include="Repositorios\RepositorioLazySingleton.cs" />
     <Compile Include="Postular\Sexo.cs" />

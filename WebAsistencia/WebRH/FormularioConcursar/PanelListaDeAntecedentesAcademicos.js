@@ -22,11 +22,12 @@
                 }
             });
         });
-
         var columnas = [];
-
-        var columnas = [];
-        columnas.push(new Columna("Título", { generar: function (un_estudio) { return un_estudio.Titulo } }));
+        columnas.push(new Columna("Título", {
+            generar: function (un_estudio, callback) {
+                Repositorio.buscar("TitulosAntecedentesAcademicos", { Id: un_estudio.IdTitulo }, function (titulos) { callback(titulos[0].Descripcion) });
+            }, asincronico: true
+        }));
         columnas.push(new Columna("Nivel", {
             generar: function (un_estudio, callback) {
                 Repositorio.buscar("NivelesDeEstudio", { Id: un_estudio.Nivel }, function (niveles) { callback(niveles[0].Descripcion) });

@@ -1,4 +1,4 @@
-﻿var ComboConBusquedaYAgregado = function (opt) {
+var ComboConBusquedaYAgregado = function (opt) {
     var _this = this;
     var def = {
         propiedadId: "Id",
@@ -22,21 +22,48 @@
             window[_this.nombre_funcion_global_agregado] = function () {
                 alertify.confirm("¿Está seguro que desea agregar el elemento: " + str_ingresado + "?",
                     function (respuesta) {
-                        Repositorio.agregar(_this.dataProvider, str_ingresado, function (objeto) {
-                            _this.objetosCargados.push(objeto);
-                            var option = $("<option value='" + objeto[_this.propiedadId] + "'>" + objeto[_this.propiedadLabel] + "</option>");
-                            _this.select.append(option);
-                            _this.idSeleccionado(objeto.Id);
-                            window[_this.nombre_funcion_global_agregado] = undefined;
+                        if (!respuesta) {
                             _this.select.select2("close");
-                        });
-                        alertify.success('Elemento agregado');
+                            return;
+                        }
+                        if (_this.filtro) {
+                            var parametros = [str_ingresado];
+                            for (var key in _this.filtro) {
+                                parametros.push(_this.filtro[key]);
+                            }
+
+                            Repositorio.agregarConMasDatos(_this.dataProvider, parametros, function (objeto) {
+                                _this.objetosCargados.push(objeto);
+                                var option = $("<option value='" + objeto[_this.propiedadId] + "'>" + objeto[_this.propiedadLabel] + "</option>");
+                                _this.select.append(option);
+                                _this.idSeleccionado(objeto.Id);
+                                window[_this.nombre_funcion_global_agregado] = undefined;
+                                _this.select.select2("close");
+                                alertify.success('Elemento agregado');
+                            }, function () {
+                                alertify.error('Error al agregar elemento');
+                                _this.select.select2("close");
+                            });
+                        }
+                        else {
+                            Repositorio.agregar(_this.dataProvider, str_ingresado, function (objeto) {
+                                _this.objetosCargados.push(objeto);
+                                var option = $("<option value='" + objeto[_this.propiedadId] + "'>" + objeto[_this.propiedadLabel] + "</option>");
+                                _this.select.append(option);
+                                _this.idSeleccionado(objeto.Id);
+                                window[_this.nombre_funcion_global_agregado] = undefined;
+                                _this.select.select2("close");
+                                alertify.success('Elemento agregado');
+                            }, function () {
+                                alertify.error('Error al agregar elemento');
+                                _this.select.select2("close");
+                            });
+                        }
                     },
                     function () {
                         _this.select.select2("close");
                     }
                 );
-                
             };
             return "No se encontraron coincidencias para: <b>" + str_ingresado +
             "<button style='float:right' class='btn btn-primary' onclick='" + _this.nombre_funcion_global_agregado + "();'> Agregar</button>";

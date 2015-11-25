@@ -15,8 +15,7 @@
         function RegistroError() {
             PantallaRegistro.paso5();
         }
-
-       
+   
 </script>
 </head>
 <body>
@@ -40,6 +39,9 @@
                 <br />
                 <asp:Label ID="lbMail" CssClass="lbl_titulo_campo" Text="E-mail:"  runat="server" />
                 <asp:TextBox ID="txt_mail_registro" runat="server" EnableViewState="False" Width= "200px"> </asp:TextBox>
+                <br />
+                <asp:Label ID="lbMailRepetido" CssClass="lbl_titulo_campo" Text="Repetir E-mail:"  runat="server" />
+                <asp:TextBox ID="txt_mail_registro_repetido" oncopy="return false" onpaste="return false" runat="server" EnableViewState="False" Width= "200px"> </asp:TextBox>
                 
             </div>     
             <div>

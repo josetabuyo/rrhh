@@ -8,16 +8,60 @@ using General.Postular;
 
 namespace General
 {
-    public class RepositorioDeComites
+    public class RepositorioDeComites : RepositorioLazySingleton<Comite>
     {
         protected IConexionBD conexion_bd;
+        private static RepositorioDeComites _instancia;
 
-        public RepositorioDeComites(IConexionBD conexion)
+        private RepositorioDeComites(IConexionBD conexion) :base(conexion, 10)
         {
-            this.conexion_bd = conexion;
         }
 
-        public List<Comite> GetComites()
+        public static RepositorioDeComites Nuevo(IConexionBD conexion)
+        {
+            if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeComites(conexion);
+            return _instancia;
+        }
+
+        /*public RepositorioDeComites(IConexionBD conexion)
+        {
+            this.conexion_bd = conexion;
+        }*/
+
+        public List<Comite> All()
+        {
+            return this.Obtener();
+        }    
+
+        protected override List<Comite> ObtenerDesdeLaBase()
+        {
+            var parametros = new Dictionary<string, object>();
+            var tablaComites = conexion.Ejecutar("dbo.CV_Get_Comites", parametros);
+
+            List<Comite> comites = new List<Comite>();
+
+            //tablaCVs.Rows.ForEach(row =>
+            //comites.Add(new Comite(){ Id = row.GetInt("Id"), Numero = row.GetInt("Numero")}));
+
+            comites = CorteDeControlComite(tablaComites);
+
+            comites.ForEach(c =>
+            CorteDeControlIntegrante(tablaComites, c)
+            );
+            return comites;
+        }
+
+        protected override void GuardarEnLaBase(Comite objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void QuitarDeLaBase(Comite objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        /*public List<Comite> GetComites()
         {
             var parametros = new Dictionary<string, object>();
             var tablaComites = conexion_bd.Ejecutar("dbo.CV_Get_Comites", parametros);
@@ -34,12 +78,12 @@ namespace General
             );
             return comites;
 
-        }
+        }*/
 
 
         public Comite GetComiteById(int id)
         {
-            return this.GetComites().Find(c => c.Id.Equals(id));
+            return this.ObtenerDesdeLaBase().Find(c => c.Id.Equals(id));
         }
 
 

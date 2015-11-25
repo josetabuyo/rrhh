@@ -18,6 +18,8 @@ public class ConstantesDeSesion
   // public static string PUESTO = "Puesto";
     public static string PERFIL = "Perfil";
     public static string POSTULACION = "Postulacion";
+    public static string ID_POSTULANTE = "IdPostulante";
+
 	public ConstantesDeSesion()
 	{
 		

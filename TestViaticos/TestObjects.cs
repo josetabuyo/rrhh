@@ -1814,7 +1814,7 @@ namespace General
 
         public static Perfil UnPerfil()
         {
-            return new Perfil(1, "familia", "profesion", "denominacion", "nivel", "agrupamiento", 20, "tipo", "numero", UnComite());
+            return new Perfil(1, "familia", "profesion", "denominacion", "nivel", "agrupamiento", 20, "tipo", "numero", UnComite(), new DateTime(), new DateTime(), false);
         }
 
         public static Comite UnComite()
@@ -1830,22 +1830,22 @@ namespace General
 
         public static CvEstudios UnEstudioSecundario()
         {
-            return new CvEstudios("Tecnico Electricista", 10,1, "", "", new DateTime(), new DateTime(), "", 0);
+            return new CvEstudios("Tecnico Electricista",1, 10,1, "", "", new DateTime(), new DateTime(), "", 0);
         }
 
         public static CvEstudios UnEstudioUniversitario()
         {
-            return new CvEstudios(1,"Lic en Adm", 12,1, "", "", new DateTime(), new DateTime(), "", 0);
+            return new CvEstudios(1,"Lic en Adm",1,  12,1, "", "", new DateTime(), new DateTime(), "", 0);
         }
 
         public static CvExperienciaLaboral UnaExpPublica()
         {
-            return new CvExperienciaLaboral(1, "Trabajo MDS", "", "", 1, "", "", new DateTime(), new DateTime(), "", 1, "", 1);
+            return new CvExperienciaLaboral(1, "Trabajo MDS", "", "", 1, "", "", new DateTime(), new DateTime(), "", 1, "", 1,1, false);
         }
 
-        public static CvExperienciaLaboral UnaExpPrivada()
+        public static CvExperienciaLaboral UnaExpPrivada() 
         {
-            return new CvExperienciaLaboral(1, "Banco Macro", "", "", 1, "", "", new DateTime(), new DateTime(), "", 2, "",2);
+            return new CvExperienciaLaboral(1, "Banco Macro", "", "", 1, "", "", new DateTime(), new DateTime(), "", 2, "",2,1, false);
         }
 
         public static Postulacion UnaPostulacion()

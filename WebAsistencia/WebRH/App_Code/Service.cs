@@ -871,6 +871,8 @@ public class AjaxWS : System.Web.Services.WebService
     public string EjecutarEnBackend(string nombre_metodo, String[] argumentos_json)
     {
         System.Reflection.MethodInfo metodo = backEndService.GetType().GetMethods().ToList().Find(m => m.Name == nombre_metodo);
+        if(metodo==null) throw new Exception("Error: No se encontró el método " + nombre_metodo + " en el WEB SERVICE" );
+
         var argumentos_esperados = metodo.GetParameters();
 
         var argumentos_a_enviar = new List<Object>();

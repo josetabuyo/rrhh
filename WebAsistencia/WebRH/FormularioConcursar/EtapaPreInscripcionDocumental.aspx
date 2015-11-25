@@ -19,8 +19,8 @@
         <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
             <div id="div_foliacion" class="fondo_form" style="padding: 10px;">
             <h2>Presentación de documentación</h2>
-            <p>Ingrese la cantidad de documentos que el postulante entrega por cada item del CV cargado.</p>
-            <p>Importante: al guardar los documentos presentados, la postulación pasará automáticamente como disponible para la etapa Inscripción Documental</p>
+            <p>Busque la postulación por su número. Cuando la encuentre, podrá imprimir una caratula y pasar al estado Inscripto Documental.</p>
+            <p>Importante: al presionar inscribir, saldra una ventana para completar la cantidad de folios presentados. Una vez completados, persione inscribir para pasar de etapa y generar el anexo para su impresión</p>
             <br />
             <div>
                 <div style="display:inline-block; margin-left:30px; width: 50%; vertical-align:middle;">
@@ -30,7 +30,7 @@
                     <p style="font-size:smaller;">(respete may&uacute;sculas y min&uacute;sculas del c&oacute;digo)</p>
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
-                    <div>Empleado:&nbsp;<span id="span_empleado"></span></div>
+                    <div>Empleado:&nbsp;<span id="span_empleado"></span>. DNI: <span id="span_dni_postulante"></span></div>
                     <div>Código:&nbsp;<span id="span_codigo"></span></div>
                     <div>Fecha de Postulación:&nbsp;<span id="span_fecha"></span></div>
                     <div>Perfil:&nbsp;<span id="span_perfil"></span></div>
@@ -51,6 +51,8 @@
     </div>
     <asp:HiddenField ID="postulacion" runat="server" />
     <asp:HiddenField ID="idPostulacion" runat="server" />
+    <asp:HiddenField ID="idPostulante" runat="server" />
+   
 
     <div id = "somediv"  style="width:400px; height:300px;"></div>
 
@@ -75,28 +77,23 @@
             });
 
             EtapaPreInscripcionDocumental.mostrarPostulacion();
-
-          
+                    
 
         });
-
-
-
-
-
+        
     });
 
 
-    $('#btn_comprobantes').click(function () {
+    $('#btn_guardar').click(function () {
 
         var codigo = $("#span_codigo").text();
         var fecha = $("#span_fecha").text();
-
-
+       
 
         //alert(codigo);
           localStorage.setItem("codigo_postu", codigo);
           localStorage.setItem("fecha", fecha);
+          localStorage.setItem("idPostulante", idPostulante);
 
              
 
@@ -110,9 +107,11 @@
         alertify.confirm("¿Está seguro que desea imprimir el anexo de documentación?", function (e) {
             if (e) {
 
-                localStorage.setItem("empleado", $("#span_empleado").text());
+                /*localStorage.setItem("empleado", $("#span_empleado").text());
+                localStorage.setItem("dni", $("#span_dni_postulante").text());
+                localStorage.setItem("idPostulante", $("#idPostulante").val());
 
-                window.showModalDialog("PanelDetalleDeFoliosAnexo.htm", "", "dialogHeight: " + 150 + "px;");
+                window.showModalDialog("PanelDetalleDeFoliosAnexo.htm", "", "dialogHeight: " + 150 + "px;");*/
           //      window.location.href = 'AnexoIIICantHojas.aspx';
 
             } else {
@@ -130,8 +129,10 @@
               
                 localStorage.setItem("empleado", $("#span_empleado").text());
                 localStorage.setItem("perfil", $("#span_perfil").text());
+                localStorage.setItem("codigo_postu", $("#span_codigo").text());
 
-                window.location.href = 'Caratula.aspx';
+                window.open('Caratula.aspx', '_blank');
+                //window.location.href = 'Caratula.aspx';
 
             } else {
                

@@ -35,7 +35,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    niveles.Add(new CvConocimientoCompetenciaInformatica(row.GetSmallintAsInt("Id"), row.GetString("Descripcion"), row.GetSmallintAsInt("IdTipo")));
+                    niveles.Add(new CvConocimientoCompetenciaInformatica(row.GetSmallintAsInt("Id"), row.GetString("Descripcion"), row.GetSmallintAsInt("IdTipo"), row.GetInt("SoloVisiblePara", -1)));
                 });
             }
 
@@ -44,7 +44,11 @@ namespace General.Repositorios
 
         protected override void GuardarEnLaBase(CvConocimientoCompetenciaInformatica objeto)
         {
-            throw new NotImplementedException();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@descripcion", objeto.Descripcion);
+            parametros.Add("@tipo", objeto.Tipo);
+            parametros.Add("@solo_visible_para", objeto.SoloVisiblePara);
+            objeto.Id = Convert.ToInt32(conexion.EjecutarEscalar("dbo.CV_AgregarConocimientosCompetenciasInformaticas", parametros));
         }
 
         protected override void QuitarDeLaBase(CvConocimientoCompetenciaInformatica objeto)

@@ -16,7 +16,7 @@ public partial class FormularioConcursar_EtapaInscripcionDocumental : System.Web
         if (!IsPostBack)
         {
            // var postul = Servicio().GetPostulacionById(usuario.Owner.Id, 86);
-
+           
            // var postulacion = JsonConvert.SerializeObject(postul);
 
            // this.postulacion.Value = postulacion;
@@ -27,4 +27,5 @@ public partial class FormularioConcursar_EtapaInscripcionDocumental : System.Web
     {
         return new WSViaticosSoapClient();
     }
+
 }
