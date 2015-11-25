@@ -1165,7 +1165,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="nro_inscripcion" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
             <s:element minOccurs="1" maxOccurs="1" name="nro_ficha_inscripcion" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="nro_foto" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="nro_foto_dni" type="s:int" />

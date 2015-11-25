@@ -125,7 +125,7 @@
             var nro_cv = $("#txt_CV").val();
             var nro_doc_respaldo = $("#txt_docu_respaldo").val();
 
-            Backend.GuardarFolios(nro_inscripcion, fecha, nro_ficha_inscripcion, nro_foto, nro_foto_dni, nro_foto_titulo, nro_cv, nro_doc_respaldo)
+            Backend.GuardarFolios(nro_inscripcion, nro_ficha_inscripcion, nro_foto, nro_foto_dni, nro_foto_titulo, nro_cv, nro_doc_respaldo)
         .onSuccess(function () {
 
             localStorage.setItem("nro_inscripcion", codigo);
