@@ -49,7 +49,7 @@
 
                     Backend.PasarAEtapaInscripto(postulacion[0].value).onSuccess(function (resultado) {
                         if (resultado == true) {
-                            alertify.alert('La postulación ha pasado al estado de Inscripción Documental.');
+                           // alertify.alert('La postulación ha pasado al estado de Inscripción Documental.');
 
                             _this.AbrirPopUpFolios();
                         } else {

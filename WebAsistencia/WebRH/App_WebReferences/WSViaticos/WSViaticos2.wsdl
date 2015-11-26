@@ -1161,6 +1161,23 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GuardarFolios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nro_inscripcion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_ficha_inscripcion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_foto" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_foto_dni" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_foto_titulo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_cv" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_doc_respaldo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarFoliosResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GuardarCambiosEnAdmitidos">
         <s:complexType>
           <s:sequence>
@@ -4981,6 +4998,12 @@
   <wsdl:message name="BuscarPostulacionesDeInscriptosSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarPostulacionesDeInscriptosResponse" />
   </wsdl:message>
+  <wsdl:message name="GuardarFoliosSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarFolios" />
+  </wsdl:message>
+  <wsdl:message name="GuardarFoliosSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarFoliosResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarCambiosEnAdmitidosSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCambiosEnAdmitidos" />
   </wsdl:message>
@@ -6242,6 +6265,10 @@
       <wsdl:input message="tns:BuscarPostulacionesDeInscriptosSoapIn" />
       <wsdl:output message="tns:BuscarPostulacionesDeInscriptosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GuardarFolios">
+      <wsdl:input message="tns:GuardarFoliosSoapIn" />
+      <wsdl:output message="tns:GuardarFoliosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarCambiosEnAdmitidos">
       <wsdl:input message="tns:GuardarCambiosEnAdmitidosSoapIn" />
       <wsdl:output message="tns:GuardarCambiosEnAdmitidosSoapOut" />
@@ -7363,6 +7390,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarPostulacionesDeInscriptos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDeInscriptos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarFolios">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarFolios" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9391,6 +9427,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarPostulacionesDeInscriptos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDeInscriptos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarFolios">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarFolios" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

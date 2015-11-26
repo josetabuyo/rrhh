@@ -7,91 +7,99 @@
     </style>
 </head>
 <div id="form_matriculas">
-	<div id="form_matriculas-ct">
-	<!--	<div id="form_matriculas-header" class="form_concursar_header">
+    <div id="form_matriculas-ct">
+        <!--	<div id="form_matriculas-header" class="form_concursar_header">
 		</div>-->
-
-
-        <input type="hidden" id="nro_inscripcion"/> 
-        <input type="hidden" id="fecha_inscripcion"/> 
-
-
-		<div id="contenido_form_matriculas" class="fondo_form">
-			<fieldset style="width:95%; padding-left:3%;">
-				<legend style="margin-bottom:5px; font-size:14px">Ingrese nro de folios por item</legend>
-				 <h5><em>*</em>Campos Obligatorios</h5>
-               
-               <div></div>
-
-               <table id = "tabla">
-               <tr>
-               <td>
-              
-					<label for="txt_ficha">Ficha de Inscripci&oacute;n <em>*</em></label>
-                    </td>
-				<td>	
-                <input id="txt_ficha" type="text" style="width:30px;"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' rh-control-type="textbox" rh-model-property="Numero" data-validar="esNoBlanco" maxlength="3" />
-				</td>
-
-               
-                </tr>
-                 <tr>
-               <td>
-			
-					<label for="txt_foto">Foto tipo carnet <em>*</em></label></td>
-				<td>	<input id="txt_foto"  maxlength="3" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'  style="width:30px;" rh-control-type="textbox" rh-model-property="ExpedidaPor" data-validar="esNoBlanco"/>
-				</td>
-          </tr>
-			<tr>
-               <td>
-					<label for="txt_foto_dni">Fotocopia de DNI <em>*</em></label></td>
-					 <td><input id="txt_foto_dni" maxlength="3" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="width:30px;" rh-control-type="datepicker" rh-model-property="FechaInscripcion"/></td>
-				
-
-                 </tr>
-                 <tr>
-               <td>
-				
-					<label for="txt_foto_titulo">Fotocopia de t&iacute;tulo acad&eacute;mico<em>*</em></label></td>
-					<td><input id="txt_foto_titulo" maxlength="3" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="width:30px;" rh-control-type="textbox" rh-model-property="SituacionActual" data-validar="esNoBlanco"/></td>
-				
-              </tr>
-		
-              <tr>
-               <td>
-
-					<label for="txt_CV">Curr&iacute;culum Vitae<em>*</em></label></td>
-					<td><input id="txt_CV" type="text" maxlength="3" style="width:30px;" onkeypress='return event.charCode >= 48 && event.charCode <= 57' rh-control-type="textbox" rh-model-property="SituacionActual" data-validar="esNoBlanco"/></td>
-			
-            </tr>
-			
-            <tr>
-               <td>
-              
-					<label for="txt_docu_respaldo">Documentaci&oacute;n de respaldo <em>*</em></label></td>
-					<td><input id="txt_docu_respaldo"  maxlength="3" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' style="width:30px;" rh-control-type="textbox" rh-model-property="SituacionActual" data-validar="esNoBlanco"/></td>
-				
-                </tr>
-		
-            </table>
-			</fieldset>
-          
-			<div class="btn-fld">
-				<input type="button" class="btn btn-primary" id="btn_guardar" value="Imprimir" onclick="Imprimir();"/>
-			</div>
-           
-		</div>
-	</div>
+        <input type="hidden" id="nro_inscripcion" />
+        <input type="hidden" id="fecha_inscripcion" />
+        <div id="contenido_form_matriculas" class="fondo_form">
+            <fieldset style="width: 95%; padding-left: 3%;">
+                <legend style="margin-bottom: 5px; font-size: 14px">Ingrese nro de folios por item</legend>
+                <h5>
+                    <em>*</em>Campos Obligatorios</h5>
+                <div>
+                </div>
+                <table id="tabla">
+                    <tr>
+                        <td>
+                            <label for="txt_ficha">
+                                Ficha de Inscripci&oacute;n <em>*</em></label>
+                        </td>
+                        <td>
+                            <input id="txt_ficha" type="text" style="width: 30px;" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                rh-control-type="textbox" rh-model-property="Numero" data-validar="esNoBlanco"
+                                maxlength="3" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="txt_foto">
+                                Foto tipo carnet <em>*</em></label>
+                        </td>
+                        <td>
+                            <input id="txt_foto" maxlength="3" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                style="width: 30px;" rh-control-type="textbox" rh-model-property="ExpedidaPor"
+                                data-validar="esNoBlanco" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="txt_foto_dni">
+                                Fotocopia de DNI <em>*</em></label>
+                        </td>
+                        <td>
+                            <input id="txt_foto_dni" maxlength="3" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                style="width: 30px;" rh-control-type="datepicker" rh-model-property="FechaInscripcion" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="txt_foto_titulo">
+                                Fotocopia de t&iacute;tulo acad&eacute;mico<em>*</em></label>
+                        </td>
+                        <td>
+                            <input id="txt_foto_titulo" maxlength="3" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                style="width: 30px;" rh-control-type="textbox" rh-model-property="SituacionActual"
+                                data-validar="esNoBlanco" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="txt_CV">
+                                Curr&iacute;culum Vitae<em>*</em></label>
+                        </td>
+                        <td>
+                            <input id="txt_CV" type="text" maxlength="3" style="width: 30px;" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                rh-control-type="textbox" rh-model-property="SituacionActual" data-validar="esNoBlanco" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="txt_docu_respaldo">
+                                Documentaci&oacute;n de respaldo <em>*</em></label>
+                        </td>
+                        <td>
+                            <input id="txt_docu_respaldo" maxlength="3" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                style="width: 30px;" rh-control-type="textbox" rh-model-property="SituacionActual"
+                                data-validar="esNoBlanco" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <div class="btn-fld">
+                <input type="button" class="btn btn-primary" id="btn_guardar" value="Imprimir" onclick="Imprimir();" />
+            </div>
+        </div>
+    </div>
 </div>
-
 <script type="text/javascript">
 
-  $(document).ready(function () {
+    $(document).ready(function () {
 
 
-      $("#nro_inscripcion").val(localStorage.getItem("codigo_postu"));
-      $("#fecha_inscripcion").val(localStorage.getItem("fecha"));
-    //    document.getElementById("span_comite").innerHTML = localStorage.getItem("comite");
+        $("#nro_inscripcion").val(localStorage.getItem("codigo_postu"));
+        $("#fecha_inscripcion").val(localStorage.getItem("fecha"));
+        //    document.getElementById("span_comite").innerHTML = localStorage.getItem("comite");
 
 
 
@@ -103,34 +111,37 @@
 
 
         if (FaltaInformarHojas()) {
-        
             return;
         }
         else {
+            var codigo = $("#nro_inscripcion").val();
+            var nro_inscripcion = $("#nro_inscripcion").val(); 
+            var fecha = $("#fecha_inscripcion").val();
+            var dni = localStorage.getItem("dni");
+            var nro_ficha_inscripcion = $("#txt_ficha").val();
+            var nro_foto = $("#txt_foto").val();
+            var nro_foto_dni = $("#txt_foto_dni").val();
+            var nro_foto_titulo = $("#txt_foto_titulo").val();
+            var nro_cv = $("#txt_CV").val();
+            var nro_doc_respaldo = $("#txt_docu_respaldo").val();
 
-        
+            Backend.GuardarFolios(nro_inscripcion, nro_ficha_inscripcion, nro_foto, nro_foto_dni, nro_foto_titulo, nro_cv, nro_doc_respaldo)
+        .onSuccess(function () {
 
+            localStorage.setItem("nro_inscripcion", codigo);
+            localStorage.setItem("fecha_inscripcion", fecha);
+            localStorage.setItem("ficha_inscripcion", nro_ficha_inscripcion);
+            localStorage.setItem("foto_carnet", nro_foto);
+            localStorage.setItem("fotocopia_dni", nro_foto_dni);
+            localStorage.setItem("fotocopia_titulo", nro_foto_titulo);
+            localStorage.setItem("Curri", nro_cv);
+            localStorage.setItem("Docum_respaldo", nro_doc_respaldo);
 
-        localStorage.setItem("nro_inscripcion", $("#nro_inscripcion").val());
-        localStorage.setItem("fecha_inscripcion", $("#fecha_inscripcion").val());
+            window.open("AnexoIIICantHojas.aspx?id=" + codigo + "&fh=" + fecha + "&dni=" + dni + "");
+            $("#somediv").dialog("close");
+        });
 
-        localStorage.setItem("ficha_inscripcion", $("#txt_ficha").val());
-        localStorage.setItem("foto_carnet", $("#txt_foto").val());
-        localStorage.setItem("fotocopia_dni", $("#txt_foto_dni").val());
-        localStorage.setItem("fotocopia_titulo", $("#txt_foto_titulo").val());
-        localStorage.setItem("Curri", $("#txt_CV").val());
-        localStorage.setItem("Docum_respaldo", $("#txt_docu_respaldo").val());
-
-
-        var codigo = $("#nro_inscripcion").val();
-        var fecha = $("#fecha_inscripcion").val();
-        var dni = localStorage.getItem("dni");
-
-        window.open("AnexoIIICantHojas.aspx?id=" + codigo + "&fh=" + fecha + "&dni=" + dni + "");
-
-        $("#somediv").dialog("close");
-
-    }
+        }
     }
 
 
@@ -156,9 +167,9 @@
         if ($("#txt_docu_respaldo").val().trim() == "") {
             return true;
         }
-        
+
         return false;
-        
+
     }
 
 </script>

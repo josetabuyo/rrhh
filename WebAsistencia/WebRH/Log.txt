@@ -17252,3 +17252,13 @@ Exception rethrown at [0]:
    en System.Web.SessionState.SessionStateModule.BeginAcquireState(Object source, EventArgs e, AsyncCallback cb, Object extraData)
    en System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+24/11/2015 07:41:16 p.m. - ---------------------------------------------
+24/11/2015 07:41:16 p.m. - System.Web.HttpException (0x80004005): El estado de sesión ha creado un identificador de sesión, pero no lo puede guardar porque la aplicación ya había volcado la respuesta.
+   en System.Web.SessionState.SessionIDManager.SaveSessionID(HttpContext context, String id, Boolean& redirected, Boolean& cookieAdded)
+   en System.Web.SessionState.SessionStateModule.CreateSessionId()
+   en System.Web.SessionState.SessionStateModule.DelayedGetSessionId()
+   en System.Web.SessionState.SessionStateModule.ReleaseStateGetSessionID()
+   en System.Web.SessionState.SessionStateModule.OnReleaseState(Object source, EventArgs eventArgs)
+   en System.Web.SessionState.SessionStateModule.OnEndRequest(Object source, EventArgs eventArgs)
+   en System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
