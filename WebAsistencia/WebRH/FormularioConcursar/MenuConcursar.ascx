@@ -60,6 +60,7 @@ color:#fff !important;
                                 <li RequiereFuncionalidad="15" class="dropdown"><a  href="EtapaPreInscripcionDocumental.aspx"  runat="server">Inscripción documental (operador)</a></li>
                                 <li RequiereFuncionalidad="16" class="dropdown"><a  href="EtapaInscripcionDocumental.aspx"  runat="server">Inscripción documental (comité)</a></li>
                                 <li RequiereFuncionalidad="17" class="dropdown"><a  href="EtapaAdmision.aspx" runat="server">Etapa de Admisión</a></li>
+                                <li RequiereFuncionalidad="20" class="dropdown"><a  href="InscripcionManual.aspx" runat="server">Inscripción Manual</a></li>
                                 <li RequiereFuncionalidad="19" class="dropdown"><a  href="TableroControl.aspx" runat="server">Tablero de Control</a></li>
                             </ul>
                         
