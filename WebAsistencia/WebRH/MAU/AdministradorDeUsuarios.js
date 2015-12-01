@@ -79,6 +79,10 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
     this.lbl_apellido.text(usuario.Owner.Apellido);
     this.lbl_documento.text(usuario.Owner.Documento);
     this.lbl_legajo.text(usuario.Owner.Legajo);
+    $("#usuario_verificado").hide();
+    $("#usuario_no_verificado").hide();
+    if (usuario.Verificado) $("#usuario_verificado").show();
+    else $("#usuario_no_verificado").show();
     this.txt_nombre_usuario.text(usuario.Alias);
     this.vista_areas.setUsuario(usuario);
 };

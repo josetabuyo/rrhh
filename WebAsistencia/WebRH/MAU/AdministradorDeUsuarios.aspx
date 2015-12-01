@@ -39,7 +39,7 @@
                         <div class="linea dato_personal">
                             <div>Legajo:</div>
                             <div id="legajo"></div>    
-                        </div>                
+                        </div>                 
                     </div>
                     <div id="panel_password">
                         <div class="linea linea_nombre_usuario">
@@ -49,6 +49,11 @@
                         <div class="linea linea_passwrd">
                             <div class="titulo">Contraseña:</div>
                             <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear"/>
+                        </div>
+                        <div class="seccion_verificacion_usuario">
+                            <div id="usuario_verificado">DNI Verificado</div>    
+                            <div id="usuario_no_verificado">DNI No Verificado</div>    
+                            <input id="btn_verificar_usuario" type="button" class="btn btn-warning" value="Verificar"  RequiereFuncionalidad = "21"/>
                         </div>
                     </div>
                 </div> 

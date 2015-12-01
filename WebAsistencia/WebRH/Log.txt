@@ -17262,3 +17262,27 @@ Exception rethrown at [0]:
    en System.Web.SessionState.SessionStateModule.OnEndRequest(Object source, EventArgs eventArgs)
    en System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+30/11/2015 08:38:24 p.m. - ---------------------------------------------
+30/11/2015 08:38:24 p.m. - System.Web.HttpException (0x80004005): El archivo no existe.
+   en System.Web.StaticFileHandler.GetFileInfo(String virtualPathWithPathInfo, String physicalPath, HttpResponse response)
+   en System.Web.StaticFileHandler.ProcessRequestInternal(HttpContext context, String overrideVirtualPath)
+   en System.Web.DefaultHttpHandler.BeginProcessRequest(HttpContext context, AsyncCallback callback, Object state)
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+30/11/2015 08:38:50 p.m. - ---------------------------------------------
+30/11/2015 08:38:50 p.m. - System.Web.HttpException (0x80004005): El estado de sesión ha creado un identificador de sesión, pero no lo puede guardar porque la aplicación ya había volcado la respuesta.
+   en System.Web.SessionState.SessionIDManager.SaveSessionID(HttpContext context, String id, Boolean& redirected, Boolean& cookieAdded)
+   en System.Web.SessionState.SessionStateModule.CreateSessionId()
+   en System.Web.SessionState.SessionStateModule.DelayedGetSessionId()
+   en System.Web.SessionState.SessionStateModule.ReleaseStateGetSessionID()
+   en System.Web.SessionState.SessionStateModule.OnReleaseState(Object source, EventArgs eventArgs)
+   en System.Web.SessionState.SessionStateModule.OnEndRequest(Object source, EventArgs eventArgs)
+   en System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+30/11/2015 09:28:19 p.m. - ---------------------------------------------
+30/11/2015 09:28:19 p.m. - System.Web.HttpException (0x80004005): El archivo no existe.
+   en System.Web.StaticFileHandler.GetFileInfo(String virtualPathWithPathInfo, String physicalPath, HttpResponse response)
+   en System.Web.StaticFileHandler.ProcessRequestInternal(HttpContext context, String overrideVirtualPath)
+   en System.Web.DefaultHttpHandler.BeginProcessRequest(HttpContext context, AsyncCallback callback, Object state)
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
