@@ -2897,7 +2897,12 @@ public class WSViaticos : System.Web.Services.WebService
         RepoPostulaciones().GuardarFolios(nro_inscripcion, DateTime.Today, nro_ficha_inscripcion, nro_foto, nro_foto_dni, nro_foto_titulo, nro_cv, nro_doc_respaldo, usuario.Id);
     }
 
+    [WebMethod]
+    public Folios ObtenerFolios(int nro_inscripcion)
+    {
 
+        RepoPostulaciones().ObtenerFolios(nro_inscripcion);
+    }
 
     [WebMethod]
     public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones, Usuario usuario)

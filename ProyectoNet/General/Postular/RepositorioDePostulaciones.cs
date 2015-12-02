@@ -297,6 +297,20 @@ namespace General
             conexion_bd.EjecutarSinResultado("dbo.CV_Ins_FoliosPostulacion", parametros);
         }
 
+        public Folios ObtenerFolios(int nro_inscripcion)
+        {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@nro_inscripcion", nro_inscripcion);
+
+            var TablaFolios = conexion_bd.Ejecutar("dbo.CV_Get_ObtenerFolios", parametros);
+
+            var folio = TablaFolios.Rows.First();
+            return new Folios();
+
+        }
+
+
         private List<Postulacion> SoloPostulacionvigente(List<Postulacion> postulaciones_en_pantalla)
         {
             List<Postulacion> postulaciones_con_etapas_vigentes = new List<Postulacion>();
