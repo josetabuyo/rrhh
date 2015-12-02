@@ -177,15 +177,45 @@
       $(document).ready(function () {
           Perfil.traerPerfiles();
 
-          //$('#text_fecha_inscripcion').mask("99/99/9999");
           $('#text_fecha_inscripcion').datepicker();
           $('#text_fecha_inscripcion').datepicker('option', 'dateFormat', 'dd/mm/yy');
 
           $('#btn_inscripcion_manual').click(function () {
 
-              if (validar()) {
-                  console.log('pas');
-              }
+             // if (validar()) {
+
+                  //var anonimoPerfil = {};
+                  //anonimoPerfil.Id = $('#combo_perfiles').val();
+
+                  var postulacionManual = {};
+                  postulacionManual.Perfil = $('#combo_perfiles').val();
+                  postulacionManual.FechaInscripcion = $('#text_fecha_inscripcion').val();
+                  postulacionManual.DNIInscriptor = $('#text_dni_inscriptor').val();
+
+
+                  var datosPersonales = {};
+                  datosPersonales.Nombre = $('#text_nombre').val();
+                  datosPersonales.Apellido = $('#text_nombre').val();
+                  datosPersonales.DNI = $('#text_dni').val();
+                  datosPersonales.DomicilioPersonal = $('#text_domicilio').val();
+                  datosPersonales.DomicilioNotificacion = $('#text_domicilio_notificacion').val();
+                  datosPersonales.Telefono = $('#text_telefono').val();
+                  datosPersonales.Mail = $('#text_mail').val();
+
+                  var folio = {};
+                  folio.FichaInscripcion = $('#text_folio_ficha_inscripcion').val();
+                  folio.FotografiaCarnet = $('#text_folio_foto_carnet').val();
+                  folio.FotocopiaDNI = $('#text_folio_dni').val();
+                  folio.Titulo = $('#text_folio_titulo').val();
+                  folio.CV = $('#text_folio_cv').val();
+                  folio.DocumentacionRespaldo = $('#text_folio_respaldo').val();
+
+                  var postulacionJSON = JSON.stringify(postulacionManual);
+                  var datosPersonalesJSON = JSON.stringify(datosPersonales);
+                  var folioJSON = JSON.stringify(folio);
+
+                  Backend.ejecutar("GuardarPostulacionManual", [{ postulacion: postulacionJSON}, {datosPersonales: datosPersonalesJSON}, {folio: folioJSON}]);
+             // }
           });
 
           function validar() {
@@ -217,11 +247,7 @@
                   }
               });
 
-
-
-
               return true;
-
           }
 
 

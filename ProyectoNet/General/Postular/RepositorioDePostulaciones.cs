@@ -7,6 +7,8 @@ using General.Repositorios;
 using General.MAU;
 using General.Postular;
 using System.Data;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace General
 {
@@ -421,6 +423,19 @@ namespace General
                         }*/
 
             return lista_reportes;
+        }
+
+        public int InscripcionManual(string postulacion, string datosPersonales, string folio, Usuario usuario) {
+
+            var postulacion_deserializada = (JObject)JsonConvert.DeserializeObject(postulacion);
+            var datosPersonales_deserializada = (JObject)JsonConvert.DeserializeObject(datosPersonales);
+            var folio_deserializada = (JObject)JsonConvert.DeserializeObject(folio);
+
+            var idPerfil = postulacion_deserializada["Perfil"];
+            var dniInscriptor = postulacion_deserializada["DNIInscriptor"];
+            var fechaInscripcion = postulacion_deserializada["FechaInscripcion"]; 
+
+            return 1;
         }
     }
 }

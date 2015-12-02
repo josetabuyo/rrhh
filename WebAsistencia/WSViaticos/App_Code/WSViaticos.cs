@@ -2519,6 +2519,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public int GuardarPostulacionManual(string postulacion, string datosPersonales, string folio, Usuario usuario)
+    {
+        // var postulaciones = new Postulacion();
+        return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
+    }
+
+    
+
+    [WebMethod]
     public Postulacion[] GetPostulaciones(Usuario usuario)
     {
         return RepoPostulaciones().GetPostulacionesDe(usuario.Owner.Id).ToArray();
