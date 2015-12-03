@@ -214,7 +214,7 @@
                   var datosPersonalesJSON = JSON.stringify(datosPersonales);
                   var folioJSON = JSON.stringify(folio);
 
-                  Backend.ejecutar("GuardarPostulacionManual", [{ postulacion: postulacionJSON}, {datosPersonales: datosPersonalesJSON}, {folio: folioJSON}]);
+                  Backend.ejecutar("GuardarPostulacionManual", [{ postulacion: postulacionManual }, { datosPersonales: datosPersonales }, { folio: folio}]);
              // }
           });
 

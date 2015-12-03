@@ -282,7 +282,7 @@ namespace General
             return postulaciones_en_pantalla;
         }
 
-        public void GuardarFolios(int nro_inscripcion, DateTime fecha, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, int id_usuario)
+        public void GuardarFolios(string nro_inscripcion, DateTime fecha, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, int id_usuario)
         {
 
             var parametros = new Dictionary<string, object>();
@@ -431,9 +431,24 @@ namespace General
             var datosPersonales_deserializada = (JObject)JsonConvert.DeserializeObject(datosPersonales);
             var folio_deserializada = (JObject)JsonConvert.DeserializeObject(folio);
 
-            var idPerfil = postulacion_deserializada["Perfil"];
-            var dniInscriptor = postulacion_deserializada["DNIInscriptor"];
-            var fechaInscripcion = postulacion_deserializada["FechaInscripcion"]; 
+            var idPerfil = postulacion_deserializada["postulacion"]["Perfil"];
+            var dniInscriptor = postulacion_deserializada["postulacion"]["DNIInscriptor"];
+            var nombre = datosPersonales_deserializada["datosPersonales"]["Nombre"];
+            var apellido = datosPersonales_deserializada["datosPersonales"]["Apellido"];
+            var dni = datosPersonales_deserializada["datosPersonales"]["DNI"];
+            var domicilioPersonal = datosPersonales_deserializada["datosPersonales"]["DomicilioPersonal"];
+            var domicilioNotificacion = datosPersonales_deserializada["datosPersonales"]["DomicilioNotificacion"];
+            var telefono = datosPersonales_deserializada["datosPersonales"]["Telefono"];
+            var mail = datosPersonales_deserializada["datosPersonales"]["Mail"];
+
+            var folioFicha = folio_deserializada["folio"]["FichaInscripcion"];
+            var folioCarnet = folio_deserializada["folio"]["FotografiaCarnet"];
+            var folioDNI = folio_deserializada["folio"]["FotocopiaDNI"];
+            var folioTitulo = folio_deserializada["folio"]["Titulo"];
+            var folioCV = folio_deserializada["folio"]["CV"];
+            var folioRespaldo = folio_deserializada["folio"]["DocumentacionRespaldo"];
+
+                
 
             return 1;
         }
