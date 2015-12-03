@@ -25,8 +25,8 @@
         if (tiene_permisos) {
             _this.vista_permisos = new VistaDePermisosDeUnUsuario({
                 ui: $('#vista_permisos'),
-                repositorioDeFuncionalidades: this.repositorioDeFuncionalidades,
-                autorizador: this.autorizador
+                repositorioDeFuncionalidades: _this.repositorioDeFuncionalidades,
+                autorizador: _this.autorizador
             });
         }
     });
@@ -68,16 +68,18 @@
     };
 
     this.btn_reset_password.click(function () {
-        _this.repositorioDeUsuarios.resetearPassword(_this.usuario.Id, function (nueva_clave) {
+        Backend.ResetearPassword(_this.usuario.Id).onSuccess(function (nueva_clave) {
             alertify.alert("El nuevo password para el usuario: " + _this.usuario.Alias + " es: " + nueva_clave);
         });
     });
 
     $("#btn_verificar_usuario").click(function () {
-        Backend.VerificarUsuario(_this.usuario.Id).onSuccess(function () {
-            $("#usuario_no_verificado").hide();
-            $("#usuario_verificado").show();
-            $("#btn_verificar_usuario").hide();
+        Backend.VerificarUsuario(_this.usuario.Id).onSuccess(function (verifico_ok) {
+            if (verifico_ok) {
+                $("#usuario_no_verificado").hide();
+                $("#usuario_verificado").show();
+                $("#btn_verificar_usuario").hide();
+            }
         });
     });
 };

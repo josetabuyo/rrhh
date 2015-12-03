@@ -247,6 +247,7 @@ namespace General.MAU
 
         public bool VerificarUsuario(int id_usuario, Usuario usuario)
         {
+            if (!ElUsuarioTienePermisosPara(usuario.Id, 21)) return false;
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", id_usuario);
             parametros.Add("@id_usuario_verificador", usuario.Id);
