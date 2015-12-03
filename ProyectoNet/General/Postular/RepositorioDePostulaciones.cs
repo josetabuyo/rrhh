@@ -280,7 +280,7 @@ namespace General
             return postulaciones_en_pantalla;
         }
 
-        public void GuardarFolios(int nro_inscripcion, DateTime fecha, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, int id_usuario)
+        public void GuardarFolios(string nro_inscripcion, DateTime fecha, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, int id_usuario)
         {
 
             var parametros = new Dictionary<string, object>();

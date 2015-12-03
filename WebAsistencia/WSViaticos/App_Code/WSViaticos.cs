@@ -2891,7 +2891,7 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public void GuardarFolios(int nro_inscripcion, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, Usuario usuario)
+    public void GuardarFolios(string nro_inscripcion, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, Usuario usuario)
     {
         
         RepoPostulaciones().GuardarFolios(nro_inscripcion, DateTime.Today, nro_ficha_inscripcion, nro_foto, nro_foto_dni, nro_foto_titulo, nro_cv, nro_doc_respaldo, usuario.Id);
