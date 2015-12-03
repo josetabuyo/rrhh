@@ -20,13 +20,16 @@
         repositorioDePersonas: this.repositorioDePersonas,
         placeholder: "nombre, apellido, documento o legajo"
     });
-      
-    this.vista_permisos = new VistaDePermisosDeUnUsuario({
-        ui: $('#vista_permisos'),
-        repositorioDeFuncionalidades: this.repositorioDeFuncionalidades,
-        autorizador: this.autorizador
-    });
 
+    Backend.ElUsuarioLogueadoTienePermisosPara(24).onSuccess(function (tiene_permisos) {
+        if (tiene_permisos) {
+            _this.vista_permisos = new VistaDePermisosDeUnUsuario({
+                ui: $('#vista_permisos'),
+                repositorioDeFuncionalidades: this.repositorioDeFuncionalidades,
+                autorizador: this.autorizador
+            });
+        }
+    });
     this.vista_areas = new VistaDeAreasAdministradas({
         ui: $('#panel_areas_administradas'),
         autorizador: this.autorizador,
@@ -69,20 +72,38 @@
             alertify.alert("El nuevo password para el usuario: " + _this.usuario.Alias + " es: " + nueva_clave);
         });
     });
+
+    $("#btn_verificar_usuario").click(function () {
+        Backend.VerificarUsuario(_this.usuario.Id).onSuccess(function () {
+            $("#usuario_no_verificado").hide();
+            $("#usuario_verificado").show();
+            $("#btn_verificar_usuario").hide();
+        });
+    });
 };
 
 AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
+    var _this = this;
     this.usuario = usuario;
     this.panel_datos_usuario.show();
-    this.vista_permisos.setUsuario(usuario);
+    Backend.ElUsuarioLogueadoTienePermisosPara(24).onSuccess(function (tiene_permisos) {
+        if (tiene_permisos) {
+            _this.vista_permisos.setUsuario(usuario);
+            _this.vista_areas.setUsuario(usuario);
+        }
+    });
     this.lbl_nombre.text(usuario.Owner.Nombre);
     this.lbl_apellido.text(usuario.Owner.Apellido);
     this.lbl_documento.text(usuario.Owner.Documento);
     this.lbl_legajo.text(usuario.Owner.Legajo);
     $("#usuario_verificado").hide();
     $("#usuario_no_verificado").hide();
+    $("#btn_verificar_usuario").hide();
     if (usuario.Verificado) $("#usuario_verificado").show();
-    else $("#usuario_no_verificado").show();
+    else {
+        $("#usuario_no_verificado").show();
+        $("#btn_verificar_usuario").show();
+    }
     this.txt_nombre_usuario.text(usuario.Alias);
-    this.vista_areas.setUsuario(usuario);
+
 };

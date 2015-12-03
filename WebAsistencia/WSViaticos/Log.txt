@@ -22,3 +22,44 @@
    en System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
    en System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02/12/2015 08:27:39 p.m. - ---------------------------------------------
+02/12/2015 08:27:40 p.m. - System.InvalidOperationException: Formato de solicitud no reconocido para la dirección URL, finaliza de manera inesperada en '/$metadata'.
+   en System.Web.Services.Protocols.WebServiceHandlerFactory.CoreGetHandler(Type type, HttpContext context, HttpRequest request, HttpResponse response)
+   en System.Web.Services.Protocols.WebServiceHandlerFactory.GetHandler(HttpContext context, String verb, String url, String filePath)
+   en System.Web.Script.Services.ScriptHandlerFactory.GetHandler(HttpContext context, String requestType, String url, String pathTranslated)
+   en System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   en System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02/12/2015 09:02:04 p.m. - ---------------------------------------------
+02/12/2015 09:02:04 p.m. - System.InvalidOperationException: Formato de solicitud no reconocido para la dirección URL, finaliza de manera inesperada en '/$metadata'.
+   en System.Web.Services.Protocols.WebServiceHandlerFactory.CoreGetHandler(Type type, HttpContext context, HttpRequest request, HttpResponse response)
+   en System.Web.Services.Protocols.WebServiceHandlerFactory.GetHandler(HttpContext context, String verb, String url, String filePath)
+   en System.Web.Script.Services.ScriptHandlerFactory.GetHandler(HttpContext context, String requestType, String url, String pathTranslated)
+   en System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   en System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02/12/2015 09:02:05 p.m. - ---------------------------------------------
+02/12/2015 09:02:05 p.m. - System.InvalidOperationException: No se pudo administrar la solicitud. ---> System.InvalidOperationException: No se puede administrar la solicitud. ---> System.InvalidOperationException: Tanto Boolean ElUsuarioTienePermisosPara(Int32, General.MAU.Usuario) como Boolean ElUsuarioTienePermisosPara(Int32, Int32) utilizan el nombre de mensaje 'ElUsuarioTienePermisosPara'. Utilice la propiedad MessageName del atributo personalizado WebMethod para especificar nombres de mensaje únicos para los métodos.
+   en System.Web.Services.Description.ServiceDescriptionReflector.CheckForDuplicateMethods(LogicalMethodInfo[] methods)
+   en System.Web.Services.Description.ServiceDescriptionReflector.Reflect(Type type, String url)
+   en System.Web.Services.Protocols.DocumentationServerType..ctor(Type type, String uri)
+   en System.Web.Services.Protocols.DocumentationServerProtocol.Initialize()
+   en System.Web.Services.Protocols.ServerProtocolFactory.Create(Type type, HttpContext context, HttpRequest request, HttpResponse response, Boolean& abortProcessing)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Web.Services.Protocols.ServerProtocolFactory.Create(Type type, HttpContext context, HttpRequest request, HttpResponse response, Boolean& abortProcessing)
+   en System.Web.Services.Protocols.WebServiceHandlerFactory.CoreGetHandler(Type type, HttpContext context, HttpRequest request, HttpResponse response)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Web.Services.Protocols.WebServiceHandlerFactory.CoreGetHandler(Type type, HttpContext context, HttpRequest request, HttpResponse response)
+   en System.Web.Services.Protocols.WebServiceHandlerFactory.GetHandler(HttpContext context, String verb, String url, String filePath)
+   en System.Web.Script.Services.ScriptHandlerFactory.GetHandler(HttpContext context, String requestType, String url, String pathTranslated)
+   en System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   en System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02/12/2015 09:02:46 p.m. - ---------------------------------------------
+02/12/2015 09:02:46 p.m. - System.InvalidOperationException: Formato de solicitud no reconocido para la dirección URL, finaliza de manera inesperada en '/$metadata'.
+   en System.Web.Services.Protocols.WebServiceHandlerFactory.CoreGetHandler(Type type, HttpContext context, HttpRequest request, HttpResponse response)
+   en System.Web.Services.Protocols.WebServiceHandlerFactory.GetHandler(HttpContext context, String verb, String url, String filePath)
+   en System.Web.Script.Services.ScriptHandlerFactory.GetHandler(HttpContext context, String requestType, String url, String pathTranslated)
+   en System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   en System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)

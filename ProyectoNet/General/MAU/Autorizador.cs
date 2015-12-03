@@ -244,5 +244,14 @@ namespace General.MAU
                     () => { throw new Exception("No se pudo enviar un mail con la clave"); }
                 );
         }
+
+        public bool VerificarUsuario(int id_usuario, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_usuario_verificador", usuario.Id);
+            this.conexion.EjecutarSinResultado("MAU_Verificar_usuario", parametros);
+            return true;
+        }
     }
 }

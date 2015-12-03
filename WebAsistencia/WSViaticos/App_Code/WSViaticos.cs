@@ -2032,7 +2032,12 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public bool ElUsuarioLogueadoTienePermisosPara(int id_funcionalidad, Usuario usuario)
+    {
+        return Autorizador().ElUsuarioTienePermisosPara(usuario.Id, id_funcionalidad);
 
+    }
 
     [WebMethod]
     public Funcionalidad[] FuncionalidadesPara(int id_usuario)
@@ -2480,6 +2485,12 @@ public class WSViaticos : System.Web.Services.WebService
     public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
     {
         return Autorizador().RegistrarNuevoUsuario(aspirante);
+    }
+
+    [WebMethod]
+    public bool VerificarUsuario(int id_usuario, Usuario usuario)
+    {
+        return Autorizador().VerificarUsuario(id_usuario, usuario);
     }
 
     #endregion

@@ -48,7 +48,7 @@
                         </div>
                         <div class="linea linea_passwrd">
                             <div class="titulo">Contraseña:</div>
-                            <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear"/>
+                            <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear" RequiereFuncionalidad = "25"/>
                         </div>
                         <div class="seccion_verificacion_usuario">
                             <div id="usuario_verificado">DNI Verificado</div>    
@@ -59,7 +59,7 @@
                 </div> 
                 <div id="panel_inferior_izquierdo" class="estilo_formulario">
                     <legend class="subtitulos"> Areas </legend>
-                    <div id="panel_areas_administradas">
+                    <div id="panel_areas_administradas" RequiereFuncionalidad = "24">
                         <div id="lista_areas_administradas">
                         
                         </div>
@@ -125,7 +125,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var adm_usuarios = new AdministradorDeUsuarios();
+        Backend.start(function () {
+            var adm_usuarios = new AdministradorDeUsuarios();
+        });
     });
 </script>
 </html>
