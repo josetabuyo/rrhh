@@ -49,6 +49,10 @@
                 <p>Seleccione el perfil a inscribirse: <select id="combo_perfiles" style="width:70%;">
                     
                 </select></p>
+                <p>Elija la Modalidad de Inscripción: <select id="combo_modalidad">
+                    <option value="1">Correo</option>
+                    <option value="2">Formulario</option>
+                </select></p>
             </div>
 
         <table class="tabla_anexo_1">
@@ -191,6 +195,7 @@
                   postulacionManual.Perfil = $('#combo_perfiles').val();
                   postulacionManual.FechaInscripcion = $('#text_fecha_inscripcion').val();
                   postulacionManual.DNIInscriptor = $('#text_dni_inscriptor').val();
+                  postulacionManual.Modalidad = $('#combo_modalidad').val();
 
 
                   var datosPersonales = {};

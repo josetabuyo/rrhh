@@ -150,24 +150,6 @@ namespace General
 
         }
 
-        //private Puesto ArmarPuesto(RowDeDatos row)
-        //{
-        //    var repo_comite = new RepositorioDeComites(this.conexion_bd);
-        //    return new Puesto(
-        //                      row.GetInt("IdPuesto"),
-        //                      row.GetString("Familia"),
-        //                      row.GetString("Profesion"),
-        //                      row.GetString("Denominacion"),
-        //                      row.GetString("Nivel"),
-        //                      row.GetString("Agrupamiento"),
-        //                      row.GetInt("Vacantes"),
-        //                      row.GetString("Tipo"),
-        //                      row.GetString("Puesto_Numero"),
-        //                      repo_comite.GetComiteById(row.GetInt("IdComite")
-        //                      )
-        //        );
-        //}
-
         private Perfil ArmarPuesto(RowDeDatos row)
         {
             var repo_comite = RepositorioDeComites.Nuevo(this.conexion_bd);
@@ -431,26 +413,124 @@ namespace General
             var datosPersonales_deserializada = (JObject)JsonConvert.DeserializeObject(datosPersonales);
             var folio_deserializada = (JObject)JsonConvert.DeserializeObject(folio);
 
-            var idPerfil = postulacion_deserializada["postulacion"]["Perfil"];
-            var dniInscriptor = postulacion_deserializada["postulacion"]["DNIInscriptor"];
-            var nombre = datosPersonales_deserializada["datosPersonales"]["Nombre"];
-            var apellido = datosPersonales_deserializada["datosPersonales"]["Apellido"];
-            var dni = datosPersonales_deserializada["datosPersonales"]["DNI"];
+            var idPerfil = postulacion_deserializada["postulacion"]["Perfil"].ToString();
+            var fechaInscripcion = postulacion_deserializada["postulacion"]["FechaInscripcion"].ToString();
+            string[] fechas = fechaInscripcion.Split('/');
+            DateTime fechaFormateada = new DateTime(int.Parse(fechas[2]), int.Parse(fechas[1]), int.Parse(fechas[0])); 
+
+            var dniInscriptor = postulacion_deserializada["postulacion"]["DNIInscriptor"].ToString();
+            var nombre = datosPersonales_deserializada["datosPersonales"]["Nombre"].ToString();
+            var apellido = datosPersonales_deserializada["datosPersonales"]["Apellido"].ToString();
+            var dni = datosPersonales_deserializada["datosPersonales"]["DNI"].ToString();
             var domicilioPersonal = datosPersonales_deserializada["datosPersonales"]["DomicilioPersonal"];
             var domicilioNotificacion = datosPersonales_deserializada["datosPersonales"]["DomicilioNotificacion"];
             var telefono = datosPersonales_deserializada["datosPersonales"]["Telefono"];
             var mail = datosPersonales_deserializada["datosPersonales"]["Mail"];
 
-            var folioFicha = folio_deserializada["folio"]["FichaInscripcion"];
-            var folioCarnet = folio_deserializada["folio"]["FotografiaCarnet"];
-            var folioDNI = folio_deserializada["folio"]["FotocopiaDNI"];
-            var folioTitulo = folio_deserializada["folio"]["Titulo"];
-            var folioCV = folio_deserializada["folio"]["CV"];
-            var folioRespaldo = folio_deserializada["folio"]["DocumentacionRespaldo"];
+            var folioFicha = folio_deserializada["folio"]["FichaInscripcion"].ToString();
+            var folioCarnet = folio_deserializada["folio"]["FotografiaCarnet"].ToString();
+            var folioDNI = folio_deserializada["folio"]["FotocopiaDNI"].ToString();
+            var folioTitulo = folio_deserializada["folio"]["Titulo"].ToString();
+            var folioCV = folio_deserializada["folio"]["CV"].ToString();
+            var folioRespaldo = folio_deserializada["folio"]["DocumentacionRespaldo"].ToString();
 
-                
+            //mockeado el tipo
+            var modalidad = postulacion_deserializada["postulacion"]["Modalidad"].ToString();
+
+            //busco o creo la persona que se va a postular
+            RepositorioDePersonas repoPersonas = RepositorioDePersonas.NuevoRepositorioDePersonas(conexion_bd);
+            Persona personaAInscribir = TraerPersonaPorDNI(repoPersonas, dni, nombre, apellido);
+            
+            //busco el usuario de la persona que se va postular
+            RepositorioDeUsuarios repoUsuarios = new RepositorioDeUsuarios(conexion_bd,repoPersonas);
+            Usuario usuarioAInscribir = TraerUsuarioPorIdPersona(repoUsuarios, personaAInscribir.Id);
+
+            //busco la persona que fue el inscriptor
+             Persona personaInscriptor = TraerPersonaPorDNI(repoPersonas, dniInscriptor, "","");
+             //busco el usuario del inscriptor 
+             Usuario usuarioInscriptor = TraerUsuarioPorIdPersona(repoUsuarios, personaInscriptor.Id);
+
+             //creo la postulacion
+             var numeroPostulacion = CrearPostulacionManual(int.Parse(idPerfil), personaAInscribir.Id, usuarioAInscribir.Id); 
+
+            //guardo los folios de la postulacion
+            //OJO CAMBIAR LA FECHA
+             GuardarFolios(numeroPostulacion, fechaFormateada, int.Parse(folioFicha), int.Parse(folioCarnet), int.Parse(folioDNI), int.Parse(folioTitulo), int.Parse(folioCV), int.Parse(folioRespaldo), usuarioInscriptor.Id);
+
+            //guardo en la nueva tabla de postulacion manual
+            GuardarDatosExtrasPostulacionManual(numeroPostulacion, DateTime.Now, usuario.Id, int.Parse(modalidad)); 
 
             return 1;
+        }
+
+        private bool GuardarDatosExtrasPostulacionManual(string codigoPostulacion, DateTime fechaInscripcionManual, int idUsuario, int modalidad)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@numeroPostulacion", codigoPostulacion);
+            parametros.Add("@FechaInscripcionManual", fechaInscripcionManual);
+            parametros.Add("@IdUsuario", idUsuario);
+            parametros.Add("@ModalidadInscripcion", modalidad);
+
+            conexion_bd.Ejecutar("dbo.CV_Ins_InscripcionManual", parametros);
+
+            return true;
+        }
+
+        private Usuario TraerUsuarioPorIdPersona(RepositorioDeUsuarios repoUsuarios, int idPersona)
+        {
+
+            try
+            {
+                Usuario usuario = repoUsuarios.GetUsuarioPorIdPersona(idPersona);
+                if (usuario.Id == 0)
+                    return repoUsuarios.CrearUsuarioPara(idPersona);
+                return usuario;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+           
+        }
+
+        private Persona TraerPersonaPorDNI(RepositorioDePersonas repoPersonas, string dni, string nombre, string apellido)
+        {
+            try 
+	        {	        
+		        List<Persona> personaAInscribir = repoPersonas.BuscarPersonas(dni);
+                //si no encuentra a la persona la creo
+                if (personaAInscribir.Count == 0)
+                {
+                    repoPersonas.GuardarPersona(new Persona(0,int.Parse(dni),nombre,apellido, null));
+                    personaAInscribir = repoPersonas.BuscarPersonas(dni);
+                }
+                   
+                             
+                return personaAInscribir.First();
+
+	        }
+	        catch (Exception)
+	        {
+		        throw new Exception("No se encontró a la persona.");
+	        }
+          
+        }
+
+        public string CrearPostulacionManual(int idPerfil, int idPersona, int idUsuario) {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idPuesto", idPerfil);
+            parametros.Add("@idPersona", idPersona);
+            parametros.Add("@Motivo", "");
+            parametros.Add("@Observacion", "");
+            parametros.Add("@Usuario", idUsuario);
+            RepositorioDeTickets repoTicket = new RepositorioDeTickets(conexion_bd);
+            var numeroPostulacion = repoTicket.GenerarTicket("POSTULAR");
+            parametros.Add("@Numero", numeroPostulacion);
+
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
+
+            return numeroPostulacion;
         }
     }
 }
