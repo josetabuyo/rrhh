@@ -69,6 +69,7 @@ namespace General.Repositorios
             _Comando.Connection = _Coneccion;
             _Comando.CommandType = CommandType.StoredProcedure;
             _Comando.CommandText = nombreStoredProcedure;
+            _Comando.CommandTimeout = 100;
             SqlCommandBuilder.DeriveParameters(_Comando);
             return true;
         }
