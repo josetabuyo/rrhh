@@ -45,9 +45,11 @@
             },
             function (error) {
                 if (error == "LA_PERSONA_NO_TIENE_USUARIO") {
-                    alertify.confirm(la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario, desea crear uno?", function (usuario_acepto) {
-                        if (usuario_acepto) {
-                            _this.repositorioDeUsuarios.crearUsuarioPara(la_persona_seleccionada.id,
+                    Backend.ElUsuarioLogueadoTienePermisosPara(26).onSuccess(function (tiene_permisos) {
+                        if (tiene_permisos) {
+                            alertify.confirm(la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario, desea crear uno?", function (usuario_acepto) {
+                                if (usuario_acepto) {
+                                    _this.repositorioDeUsuarios.crearUsuarioPara(la_persona_seleccionada.id,
                                 function (usuario) {
                                     alertify.success("Se ha creado un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
                                     _this.repositorioDeUsuarios.resetearPassword(usuario.Id, function (nueva_clave) {
@@ -59,10 +61,15 @@
                                     alertify.error("Error al crear un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
                                 }
                             );
+                                } else {
+                                    alertify.error("No se creó un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
+                                }
+                            });
                         } else {
-                            alertify.error("No se creó un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
+                            alertify.alert(la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario.");
                         }
                     });
+
                 }
             });
     };
