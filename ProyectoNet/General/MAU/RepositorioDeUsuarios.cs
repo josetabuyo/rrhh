@@ -58,12 +58,13 @@ namespace General.MAU
         {
             if (tablaDatos.Rows.Count == 0) return new UsuarioNulo();
             var row = tablaDatos.Rows.First();
+            Usuario usuario = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja")); 
             if (!(row.GetObject("Id_Persona") is DBNull))
             {
-                var persona = repositorio_de_personas.GetPersonaPorId(row.GetInt("Id_Persona"));
-                return new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), persona, !row.GetBoolean("Baja"));
+                usuario.Owner = repositorio_de_personas.GetPersonaPorId(row.GetInt("Id_Persona"));
             }
-            return new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja"));            
+            usuario.Verificado = row.GetBoolean("Verificado", false);
+            return usuario;     
         }
 
 

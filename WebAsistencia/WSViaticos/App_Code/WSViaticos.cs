@@ -1975,10 +1975,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string ResetearPassword(int id_usuario)
+    public string ResetearPassword(int id_usuario, Usuario usuario)
     {
-        var repoUsuarios = RepositorioDeUsuarios();
-        return repoUsuarios.ResetearPassword(id_usuario);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 25)) return RepositorioDeUsuarios().ResetearPassword(id_usuario);
+        else throw new Exception("El usuario no tiene permisos para resetear contraseñas");
     }
 
     [WebMethod]
@@ -2032,7 +2032,12 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public bool ElUsuarioLogueadoTienePermisosPara(int id_funcionalidad, Usuario usuario)
+    {
+        return Autorizador().ElUsuarioTienePermisosPara(usuario.Id, id_funcionalidad);
 
+    }
 
     [WebMethod]
     public Funcionalidad[] FuncionalidadesPara(int id_usuario)
@@ -2075,15 +2080,17 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
+    public void AsignarAreaAUnUsuario(int id_usuario, int id_area, Usuario usuario)
     {
-        Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area);
+        else throw new Exception("No está habilitado para modificar permisos");
     }
 
     [WebMethod]
-    public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
+    public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area, Usuario usuario)
     {
-        Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area);
+        else throw new Exception("No está habilitado para modificar permisos");
     }
 
     // [WebMethod]
@@ -2093,15 +2100,17 @@ public class WSViaticos : System.Web.Services.WebService
     //}
 
     [WebMethod]
-    public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+    public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
     {
-        Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+        else throw new Exception("No está habilitado para modificar permisos");
     }
 
     [WebMethod]
-    public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+    public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
     {
-        Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+        else throw new Exception("No está habilitado para modificar permisos");
     }
 
     [WebMethod]
@@ -2480,6 +2489,12 @@ public class WSViaticos : System.Web.Services.WebService
     public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
     {
         return Autorizador().RegistrarNuevoUsuario(aspirante);
+    }
+
+    [WebMethod]
+    public bool VerificarUsuario(int id_usuario, Usuario usuario)
+    {
+        return Autorizador().VerificarUsuario(id_usuario, usuario);
     }
 
     #endregion

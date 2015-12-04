@@ -20,13 +20,16 @@
         repositorioDePersonas: this.repositorioDePersonas,
         placeholder: "nombre, apellido, documento o legajo"
     });
-      
-    this.vista_permisos = new VistaDePermisosDeUnUsuario({
-        ui: $('#vista_permisos'),
-        repositorioDeFuncionalidades: this.repositorioDeFuncionalidades,
-        autorizador: this.autorizador
-    });
 
+    Backend.ElUsuarioLogueadoTienePermisosPara(24).onSuccess(function (tiene_permisos) {
+        if (tiene_permisos) {
+            _this.vista_permisos = new VistaDePermisosDeUnUsuario({
+                ui: $('#vista_permisos'),
+                repositorioDeFuncionalidades: _this.repositorioDeFuncionalidades,
+                autorizador: _this.autorizador
+            });
+        }
+    });
     this.vista_areas = new VistaDeAreasAdministradas({
         ui: $('#panel_areas_administradas'),
         autorizador: this.autorizador,
@@ -42,9 +45,11 @@
             },
             function (error) {
                 if (error == "LA_PERSONA_NO_TIENE_USUARIO") {
-                    alertify.confirm(la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario, desea crear uno?", function (usuario_acepto) {
-                        if (usuario_acepto) {
-                            _this.repositorioDeUsuarios.crearUsuarioPara(la_persona_seleccionada.id,
+                    Backend.ElUsuarioLogueadoTienePermisosPara(26).onSuccess(function (tiene_permisos) {
+                        if (tiene_permisos) {
+                            alertify.confirm(la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario, desea crear uno?", function (usuario_acepto) {
+                                if (usuario_acepto) {
+                                    _this.repositorioDeUsuarios.crearUsuarioPara(la_persona_seleccionada.id,
                                 function (usuario) {
                                     alertify.success("Se ha creado un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
                                     _this.repositorioDeUsuarios.resetearPassword(usuario.Id, function (nueva_clave) {
@@ -56,29 +61,58 @@
                                     alertify.error("Error al crear un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
                                 }
                             );
+                                } else {
+                                    alertify.error("No se creó un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
+                                }
+                            });
                         } else {
-                            alertify.error("No se creó un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
+                            alertify.alert(la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario.");
                         }
                     });
+
                 }
             });
     };
 
     this.btn_reset_password.click(function () {
-        _this.repositorioDeUsuarios.resetearPassword(_this.usuario.Id, function (nueva_clave) {
+        Backend.ResetearPassword(_this.usuario.Id).onSuccess(function (nueva_clave) {
             alertify.alert("El nuevo password para el usuario: " + _this.usuario.Alias + " es: " + nueva_clave);
+        });
+    });
+
+    $("#btn_verificar_usuario").click(function () {
+        Backend.VerificarUsuario(_this.usuario.Id).onSuccess(function (verifico_ok) {
+            if (verifico_ok) {
+                $("#usuario_no_verificado").hide();
+                $("#usuario_verificado").show();
+                $("#btn_verificar_usuario").hide();
+            }
         });
     });
 };
 
 AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
+    var _this = this;
     this.usuario = usuario;
     this.panel_datos_usuario.show();
-    this.vista_permisos.setUsuario(usuario);
+    Backend.ElUsuarioLogueadoTienePermisosPara(24).onSuccess(function (tiene_permisos) {
+        if (tiene_permisos) {
+            _this.vista_permisos.setUsuario(usuario);
+            _this.vista_areas.setUsuario(usuario);
+        }
+    });
     this.lbl_nombre.text(usuario.Owner.Nombre);
     this.lbl_apellido.text(usuario.Owner.Apellido);
     this.lbl_documento.text(usuario.Owner.Documento);
     this.lbl_legajo.text(usuario.Owner.Legajo);
+    $("#usuario_verificado").hide();
+    $("#usuario_no_verificado").hide();
+    $("#btn_verificar_usuario").hide();
+    if (usuario.Verificado) $("#usuario_verificado").show();
+    else {
+        $("#usuario_no_verificado").show();
+        $("#btn_verificar_usuario").show();
+    }
     this.txt_nombre_usuario.text(usuario.Alias);
-    this.vista_areas.setUsuario(usuario);
+
 };
