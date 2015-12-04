@@ -32,7 +32,7 @@
         _this.direccion = $("#direccion");
         _this.direccion.text("");
         _this.domicilio_lugar_de_trabajo = $("#domicilio_lugar_de_trabajo");
-        _this.domicilio_lugar_de_trabajo.text("Av 9 de Julio");
+        _this.domicilio_lugar_de_trabajo.text("");
         _this.apellido_y_nombre = $("#apellido_y_nombre");
         _this.apellido_y_nombre.text(curriculum.DatosPersonales.Nombre + ' ' + curriculum.DatosPersonales.Apellido);
         _this.documento = $("#documento");
