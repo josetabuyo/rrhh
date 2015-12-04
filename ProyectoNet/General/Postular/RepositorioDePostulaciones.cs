@@ -297,16 +297,24 @@ namespace General
             conexion_bd.EjecutarSinResultado("dbo.CV_Ins_FoliosPostulacion", parametros);
         }
 
-        public Folios ObtenerFolios(int nro_inscripcion)
+        public Folios ObtenerFolios(string nro_inscripcion)
         {
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@nro_inscripcion", nro_inscripcion);
 
-            var TablaFolios = conexion_bd.Ejecutar("dbo.CV_Get_ObtenerFolios", parametros);
+            var TablaFolios = conexion_bd.Ejecutar("dbo.CV_Get_Folios", parametros);
 
             var folio = TablaFolios.Rows.First();
-            return new Folios();
+            return new Folios(  folio.GetString("nro_postulacion"), 
+                                folio.GetDateTime("fecha_carga"),
+                                folio.GetSmallintAsInt("nro_ficha_inscripcion"),
+                                folio.GetSmallintAsInt("nro_foto"),
+                                folio.GetSmallintAsInt("nro_foto_dni"),
+                                folio.GetSmallintAsInt("nro_foto_titulo"),
+                                folio.GetSmallintAsInt("nro_cv"),
+                                folio.GetSmallintAsInt("nro_doc_respaldo"), 
+                                folio.GetInt("dni"));
 
         }
 

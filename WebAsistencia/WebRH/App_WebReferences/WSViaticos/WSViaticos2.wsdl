@@ -1178,6 +1178,33 @@
       <s:element name="GuardarFoliosResponse">
         <s:complexType />
       </s:element>
+      <s:element name="ObtenerFolios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nro_inscripcion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerFoliosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerFoliosResult" type="tns:Folios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Folios">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="codigo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ficha_inscripcion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="foto_carnet" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fotocopia_dni" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fotocopia_titulo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Curri" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Docum_respaldo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="dni" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GuardarCambiosEnAdmitidos">
         <s:complexType>
           <s:sequence>
@@ -5004,6 +5031,12 @@
   <wsdl:message name="GuardarFoliosSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarFoliosResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerFoliosSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerFolios" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerFoliosSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerFoliosResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarCambiosEnAdmitidosSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCambiosEnAdmitidos" />
   </wsdl:message>
@@ -6269,6 +6302,10 @@
       <wsdl:input message="tns:GuardarFoliosSoapIn" />
       <wsdl:output message="tns:GuardarFoliosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerFolios">
+      <wsdl:input message="tns:ObtenerFoliosSoapIn" />
+      <wsdl:output message="tns:ObtenerFoliosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarCambiosEnAdmitidos">
       <wsdl:input message="tns:GuardarCambiosEnAdmitidosSoapIn" />
       <wsdl:output message="tns:GuardarCambiosEnAdmitidosSoapOut" />
@@ -7399,6 +7436,15 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarFolios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarFolios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerFolios">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerFolios" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9436,6 +9482,15 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarFolios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarFolios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerFolios">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerFolios" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

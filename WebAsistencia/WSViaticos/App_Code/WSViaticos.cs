@@ -2898,10 +2898,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Folios ObtenerFolios(int nro_inscripcion)
+    public Folios ObtenerFolios(string nro_inscripcion)
     {
 
-        RepoPostulaciones().ObtenerFolios(nro_inscripcion);
+        return RepoPostulaciones().ObtenerFolios(nro_inscripcion);
     }
 
     [WebMethod]

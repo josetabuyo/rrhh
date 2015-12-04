@@ -3,11 +3,31 @@
         var _this = this;
         _this.btn_guardar = $("#btn_guardar");
         _this.btn_buscar_postulacion = $("#btn_buscar_postulacion");
+        _this.btn_comprobantes = $("#btn_comprobantes");
 
         var pantalla;
 
         _this.btn_buscar_postulacion.click(function () {
             _this.BuscarPostulaciones();
+        });
+
+        _this.btn_comprobantes.click(function () {
+            var nro_postulacion = $("#txt_codigo_postulacion").val();
+            Backend.ObtenerFolios(nro_postulacion)
+             .onSuccess(function (respuesta) {
+
+                 localStorage.setItem("nro_inscripcion", respuesta.codigo);
+                 localStorage.setItem("fecha_inscripcion", respuesta.fecha);
+                 localStorage.setItem("ficha_inscripcion", respuesta.ficha_inscripcion);
+                 localStorage.setItem("foto_carnet", respuesta.foto_carnet);
+                 localStorage.setItem("fotocopia_dni", respuesta.fotocopia_dni);
+                 localStorage.setItem("fotocopia_titulo", respuesta.fotocopia_titulo);
+                 localStorage.setItem("Curri", respuesta.Curri);
+                 localStorage.setItem("Docum_respaldo", respuesta.Docum_respaldo);
+
+                 window.open("AnexoIIICantHojas.aspx?id=" + respuesta.codigo + "&fh=" + respuesta.fecha + "&dni=" + respuesta.dni + "");
+                 $("#somediv").dialog("close");
+             });
         });
 
 
@@ -38,25 +58,6 @@
                 }
             });
 
-        });
-
-        _this.btn_comprobantes.click(function () {
-            var nro_postulacion = $("#span_codigo").text();
-            Backend.ObtenerFolios(nro_postulacion)
-             .onSuccess(function (respuesta) {
-
-                 localStorage.setItem("nro_inscripcion", respuesta.codigo);
-                 localStorage.setItem("fecha_inscripcion", respuesta.fecha);
-                 localStorage.setItem("ficha_inscripcion", respuesta.nro_ficha_inscripcion);
-                 localStorage.setItem("foto_carnet", respuesta.nro_foto);
-                 localStorage.setItem("fotocopia_dni", respuesta.nro_foto_dni);
-                 localStorage.setItem("fotocopia_titulo", respuesta.nro_foto_titulo);
-                 localStorage.setItem("Curri", respuesta.nro_cv);
-                 localStorage.setItem("Docum_respaldo", respuesta.nro_doc_respaldo);
-
-                 window.open("AnexoIIICantHojas.aspx?id=" + respuesta.codigo + "&fh=" + respuesta.fecha + "&dni=" + respuesta.dni + "");
-                 $("#somediv").dialog("close");
-             });
         });
 
     },
