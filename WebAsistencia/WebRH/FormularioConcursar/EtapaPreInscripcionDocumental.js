@@ -13,7 +13,9 @@
 
         _this.btn_comprobantes.click(function () {
             var nro_postulacion = $("#txt_codigo_postulacion").val();
-            Backend.ObtenerFolios(nro_postulacion)
+            var dni_postulante = $("#span_dni_postulante").text();
+            var fecha_postulacion = $("#span_fecha").text();
+            Backend.ObtenerFolios(nro_postulacion, dni_postulante, fecha_postulacion)
              .onSuccess(function (respuesta) {
 
                  localStorage.setItem("nro_inscripcion", respuesta.codigo);

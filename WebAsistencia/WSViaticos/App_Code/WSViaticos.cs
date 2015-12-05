@@ -2913,10 +2913,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Folios ObtenerFolios(string nro_inscripcion)
+    public Folios ObtenerFolios(string nro_inscripcion, string dni_postulante, string fecha_postulacion)
     {
 
-        return RepoPostulaciones().ObtenerFolios(nro_inscripcion);
+        return RepoPostulaciones().ObtenerFolios(nro_inscripcion, dni_postulante, fecha_postulacion);
     }
 
     [WebMethod]

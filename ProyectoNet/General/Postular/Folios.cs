@@ -18,6 +18,7 @@ namespace General
         protected int _Curri;
         protected int _Docum_respaldo;
         protected int _dni;
+       
 
         public string codigo { get { return _codigo; } set { _codigo = value; } }
         public DateTime fecha { get { return _fecha; } set { _fecha = value; } }
@@ -44,6 +45,14 @@ namespace General
             this._Curri = Curri;
             this._Docum_respaldo = Docum_respaldo;
             this._dni = dni;
+        }
+
+        public Folios(string nro_inscripcion, string dni_postulante, string fecha_postulacion)
+        {
+            // TODO: Complete member initialization
+            this._codigo = nro_inscripcion;
+            this._dni = Convert.ToInt32(dni_postulante);
+            this._fecha = new DateTime(Convert.ToInt16(fecha_postulacion.Substring(6,4)), Convert.ToInt16(fecha_postulacion.Substring(4,2)), Convert.ToInt16(fecha_postulacion.Substring(1,2)));
         }
 
     }
