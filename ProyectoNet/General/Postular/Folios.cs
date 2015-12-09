@@ -52,7 +52,7 @@ namespace General
             // TODO: Complete member initialization
             this._codigo = nro_inscripcion;
             this._dni = Convert.ToInt32(dni_postulante);
-            this._fecha = new DateTime(Convert.ToInt16(fecha_postulacion.Substring(6,4)), Convert.ToInt16(fecha_postulacion.Substring(4,2)), Convert.ToInt16(fecha_postulacion.Substring(1,2)));
+            this._fecha = new DateTime(Convert.ToInt16(fecha_postulacion.Substring(6,4)), Convert.ToInt32(fecha_postulacion.Substring(3,2)), Convert.ToInt32(fecha_postulacion.Substring(0,2)));
         }
 
     }

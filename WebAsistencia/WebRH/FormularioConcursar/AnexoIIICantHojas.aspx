@@ -198,8 +198,8 @@
             ///
             Anexo.armarAnexo();
 
-            $("#apellido_y_nombre").text(localStorage.getItem("empleado"));
-            $("#documento").text(localStorage.getItem("dni"));
+            //$("#apellido_y_nombre").text(localStorage.getItem("empleado"));
+            //$("#documento").text(localStorage.getItem("dni"));
 
             $.ajax({
                 url: "../AjaxWS.asmx/GetUsuario",
