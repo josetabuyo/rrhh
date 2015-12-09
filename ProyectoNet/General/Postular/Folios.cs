@@ -18,6 +18,7 @@ namespace General
         protected int _Curri;
         protected int _Docum_respaldo;
         protected int _dni;
+        protected bool _en_base;
        
 
         public string codigo { get { return _codigo; } set { _codigo = value; } }
@@ -29,12 +30,13 @@ namespace General
         public int Curri { get { return _Curri; } set { _Curri = value; } }
         public int Docum_respaldo { get { return _Docum_respaldo; } set { _Docum_respaldo = value; } }
         public int dni { get { return _dni; } set { _dni = value; } }
+        public bool en_base { get { return _en_base; } set { _en_base = value; } }
 
         public Folios()
         {
         }
 
-        public Folios(string codigo, DateTime fecha, int ficha_inscripcion, int foto_carnet, int fotocopia_dni, int fotocopia_titulo, int Curri, int Docum_respaldo, int dni)
+        public Folios(string codigo, DateTime fecha, int ficha_inscripcion, int foto_carnet, int fotocopia_dni, int fotocopia_titulo, int Curri, int Docum_respaldo, int dni, bool en_base)
         {
             this._codigo = codigo;
             this._fecha = fecha;
@@ -45,14 +47,16 @@ namespace General
             this._Curri = Curri;
             this._Docum_respaldo = Docum_respaldo;
             this._dni = dni;
+            this._en_base = en_base;
         }
 
-        public Folios(string nro_inscripcion, string dni_postulante, string fecha_postulacion)
+        public Folios(string nro_inscripcion, string dni_postulante, string fecha_postulacion, bool en_base)
         {
             // TODO: Complete member initialization
             this._codigo = nro_inscripcion;
             this._dni = Convert.ToInt32(dni_postulante);
             this._fecha = new DateTime(Convert.ToInt16(fecha_postulacion.Substring(6,4)), Convert.ToInt32(fecha_postulacion.Substring(3,2)), Convert.ToInt32(fecha_postulacion.Substring(0,2)));
+            this._en_base = en_base;
         }
 
     }

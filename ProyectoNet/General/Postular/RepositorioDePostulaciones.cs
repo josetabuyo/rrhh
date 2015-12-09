@@ -316,10 +316,11 @@ namespace General
                                     folio.GetSmallintAsInt("nro_foto_titulo"),
                                     folio.GetSmallintAsInt("nro_cv"),
                                     folio.GetSmallintAsInt("nro_doc_respaldo"),
-                                    folio.GetInt("dni"));
+                                    folio.GetInt("dni"), 
+                                    true);
             }
             else {
-                return new Folios(nro_inscripcion, dni_postulante, fecha_postulacion);
+                return new Folios(nro_inscripcion, dni_postulante, fecha_postulacion, false);
             }
             
 

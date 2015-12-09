@@ -20,12 +20,22 @@
 
                  localStorage.setItem("nro_inscripcion", respuesta.codigo);
                  localStorage.setItem("fecha_inscripcion", respuesta.fecha);
-                 localStorage.setItem("ficha_inscripcion", respuesta.ficha_inscripcion);
-                 localStorage.setItem("foto_carnet", respuesta.foto_carnet);
-                 localStorage.setItem("fotocopia_dni", respuesta.fotocopia_dni);
-                 localStorage.setItem("fotocopia_titulo", respuesta.fotocopia_titulo);
-                 localStorage.setItem("Curri", respuesta.Curri);
-                 localStorage.setItem("Docum_respaldo", respuesta.Docum_respaldo);
+                 if (respuesta.en_base) {
+                     localStorage.setItem("ficha_inscripcion", respuesta.ficha_inscripcion);
+                     localStorage.setItem("foto_carnet", respuesta.foto_carnet);
+                     localStorage.setItem("fotocopia_dni", respuesta.fotocopia_dni);
+                     localStorage.setItem("fotocopia_titulo", respuesta.fotocopia_titulo);
+                     localStorage.setItem("Curri", respuesta.Curri);
+                     localStorage.setItem("Docum_respaldo", respuesta.Docum_respaldo);
+                 } else {
+                     localStorage.setItem("ficha_inscripcion", "");
+                     localStorage.setItem("foto_carnet", "");
+                     localStorage.setItem("fotocopia_dni", "");
+                     localStorage.setItem("fotocopia_titulo", "");
+                     localStorage.setItem("Curri", "");
+                     localStorage.setItem("Docum_respaldo", "");
+                 }
+
 
                  window.open("AnexoIIICantHojas.aspx?id=" + respuesta.codigo + "&fh=" + respuesta.fecha + "&dni=" + respuesta.dni + "");
                  $("#somediv").dialog("close");
