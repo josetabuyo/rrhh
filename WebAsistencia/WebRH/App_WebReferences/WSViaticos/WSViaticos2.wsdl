@@ -1239,6 +1239,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="Curri" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Docum_respaldo" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="dni" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="en_base" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:element name="GuardarCambiosEnAdmitidos">
