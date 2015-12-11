@@ -1,0 +1,43 @@
+10/12/2015 09:56:55 p.m. - ---------------------------------------------
+10/12/2015 09:56:55 p.m. - System.Web.HttpUnhandledException (0x80004005): Se produjo una excepción de tipo 'System.Web.HttpUnhandledException'. ---> System.TimeoutException: El canal de solicitud agotó el tiempo de espera mientras esperaba una respuesta después de 00:00:59.9989999. Aumente el valor de tiempo de espera pasado a la llamada a Request, o bien aumente el valor de SendTimeout en el enlace. El tiempo asignado a esta operación puede haber sido una parte de un tiempo de espera mayor. ---> System.TimeoutException: La solicitud HTTP a 'http://localhost:43412/WSViaticos/WSViaticos.asmx' superó el tiempo de espera asignado de 00:01:00. El tiempo asignado a esta operación puede haber sido una parte de un tiempo de espera mayor. ---> System.Net.WebException: Se excedió el tiempo de espera de la operación
+   en System.Net.HttpWebRequest.GetResponse()
+   en System.ServiceModel.Channels.HttpChannelFactory.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.ServiceModel.Channels.HttpChannelUtilities.ProcessGetResponseWebException(WebException webException, HttpWebRequest request, HttpAbortReason abortReason)
+   en System.ServiceModel.Channels.HttpChannelFactory.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en WSViaticos.WSViaticosSoap.GetSaldoLicencia(Persona unaPersona, ConceptoDeLicencia concepto)
+   en WSViaticos.WSViaticosSoapClient.GetSaldoLicencia(Persona unaPersona, ConceptoDeLicencia concepto) en c:\Users\bcevey\AppData\Local\Temp\Temporary ASP.NET Files\webrh\7e8fb9be\91ea5da0\App_WebReferences.j-tjsfbf.0.cs:línea 13175
+   en FormulariosDeLicencia_Partes_SaldoOrdinaria.<>c__DisplayClass1.<Page_Load>b__0(Persona p) en c:\Repositorios\Belén\Github\rrhh\WebAsistencia\WebRH\FormulariosDeLicencia\Partes\SaldoOrdinaria.ascx.cs:línea 87
+   en System.Collections.Generic.List`1.ForEach(Action`1 action)
+   en FormulariosDeLicencia_Partes_SaldoOrdinaria.Page_Load(Object sender, EventArgs e) en c:\Repositorios\Belén\Github\rrhh\WebAsistencia\WebRH\FormulariosDeLicencia\Partes\SaldoOrdinaria.ascx.cs:línea 85
+   en System.Web.Util.CalliHelper.EventArgFunctionCaller(IntPtr fp, Object o, Object t, EventArgs e)
+   en System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   en System.Web.UI.Control.OnLoad(EventArgs e)
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.HandleError(Exception e)
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest()
+   en System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   en System.Web.UI.Page.ProcessRequest(HttpContext context)
+   en ASP.formulariosdelicencia_f09a_anualordinaria_aspx.ProcessRequest(HttpContext context) en c:\Users\bcevey\AppData\Local\Temp\Temporary ASP.NET Files\webrh\7e8fb9be\91ea5da0\App_Web_iksvifmu.0.cs:línea 0
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)

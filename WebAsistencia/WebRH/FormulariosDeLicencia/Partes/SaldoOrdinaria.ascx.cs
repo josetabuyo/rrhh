@@ -3,6 +3,7 @@
 using System;
 using System.Web.UI.WebControls;
 using WSViaticos;
+using System.Collections.Generic;
 
 #endregion
 
@@ -19,7 +20,8 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
     public int DiasSolicitados
     {
         get { return _DiasSolicitados; }
-        set { 
+        set
+        {
             _DiasSolicitados = value;
             this.LSolicitadas.Text = value.ToString() + " Días";
         }
@@ -44,12 +46,56 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
 
             //WSAsistencia s = new WSAsistencia();  
             SaldoLicencia saldo;
-            saldo = s.GetSaldoLicencia((Persona)Session["persona"], this.Concepto);
-            Session["saldoLicencia"] = saldo;
-            foreach (SaldoLicenciaDetalle d in saldo.Detalle)
+
+            //se hace el cálculo a partir de una lista de DNIs
+            var persona0 = new Persona();
+            var persona1 = new Persona();
+            var persona2 = new Persona();
+            var persona3 = new Persona();
+            var persona4 = new Persona();
+            var persona5 = new Persona();
+            var persona6 = new Persona();
+            var persona7 = new Persona();
+            var persona8 = new Persona();
+            var persona9 = new Persona();
+
+            persona0.Documento = 24068918;
+            persona1.Documento = 22302255;
+            persona2.Documento = 27227139;
+            persona3.Documento = 11361763;
+            persona4.Documento = 28351923;
+            persona5.Documento = 28991731;
+            persona6.Documento = 17086768;
+            persona7.Documento = 29646177;
+            persona8.Documento = 25612213;
+            persona9.Documento = 20007869;
+
+            List<Persona> personas_list = new List<Persona>();
+            personas_list.Add(persona0);
+            personas_list.Add(persona1);
+            personas_list.Add(persona2);
+            personas_list.Add(persona3);
+            personas_list.Add(persona4);
+            personas_list.Add(persona5);
+            personas_list.Add(persona6);
+            personas_list.Add(persona7);
+            personas_list.Add(persona8);
+            personas_list.Add(persona9);
+            List<SaldoLicencia> saldos = new List<SaldoLicencia>();
+            personas_list.ForEach(p =>
             {
-                InsertarDetalleDeSaldo(d);
+                saldos.Add(s.GetSaldoLicencia(p, this.Concepto));
+      
             }
+                );
+
+            var hola = "hola";
+            //saldo = s.GetSaldoLicencia((Persona)Session["persona"], this.Concepto);
+           
+            //foreach (SaldoLicenciaDetalle d in saldo.Detalle)
+            //{
+            //    InsertarDetalleDeSaldo(d);
+            //}
         }
         else
         {
