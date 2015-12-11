@@ -798,5 +798,22 @@ namespace General.Repositorios
             return prorroga_aplicable.UsufructoHasta - prorroga_aplicable.UsufructoDesde;
             
         }
+
+        public void GuardarLicenciaPasePermanente(Persona persona, SaldoLicencia licencia, ConceptoDeLicencia concepto)
+        {
+
+            licencia.Detalle.ForEach(l => {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@apellido", "");
+                parametros.Add("@nombre", "");
+                parametros.Add("@documento", persona.Documento);
+                parametros.Add("@disponible", l.Disponible);
+                parametros.Add("@periodo", l.Periodo);
+                parametros.Add("@tipo_licencia", concepto.Id);
+
+                this.conexion.EjecutarSinResultado("LIC_GEN_Ins_PasePlantaPermanente", parametros); 
+            });    
+           
+        }
     }
 }

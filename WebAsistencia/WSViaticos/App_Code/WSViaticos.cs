@@ -195,6 +195,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public void GuardarLicenciaPasePermanente(Persona persona, SaldoLicencia licencia, ConceptoDeLicencia concepto) {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+        repositorio.GuardarLicenciaPasePermanente(persona, licencia, concepto);
+    }
+
+    [WebMethod]
     public string CargarLicencia(Licencia unaLicencia)
     {
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
