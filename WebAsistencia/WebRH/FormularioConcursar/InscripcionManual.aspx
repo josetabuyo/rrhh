@@ -40,8 +40,7 @@
             <hr />
         <div style="width:80%; margin-left:10%;" class="">
             <div style="width: 100%; text-align:left;" class="">
-                <p style="float:left;" class="">Postulación Nº: <span id="num_postulacion"></span></p>
-                <p style="float:right;">ANEXO I</p>
+              
                 <div style="clear:both;"></div>
                 <p class="encabezado" style="font-size:20px; margin-bottom:1%">SISTEMA NACIONAL DE EMPLEO PUBLICO (Decreto N° 2098/08)</p>
                 <p class="encabezado"style="font-size:20px; margin-bottom:1%">FORMULARIO DE SOLICITUD Y FICHA DE INSCRIPCION N°</p>
@@ -50,8 +49,7 @@
                     
                 </select></p>
                 <p>Elija la Modalidad de Inscripción: <select id="combo_modalidad">
-                    <option value="1">Correo</option>
-                    <option value="2">Formulario</option>
+                   
                 </select></p>
             </div>
 
@@ -102,14 +100,31 @@
             </tr>    
             <tr >
                 <td colspan="2" class="celda">DOMICILIO DE RESIDENCIA PERSONAL</td>
-                <td id="domicilio_personal" colspan="2" class="celda"><input id="text_domicilio" type="text" placeholder="Domicilio" class="validar" /></td>
+                <td id="domicilio_personal" colspan="2" class="celda">
+                    <input id="text_domicilio_calle_personal" type="text" placeholder="Calle" class="validar" />
+                    <input id="text_domicilio_nro_personal" type="number" placeholder="Nro" style="width: 40px;" class="validar validarNumero" />
+                    <input id="text_domicilio_piso_personal" type="number" placeholder="Piso" style="width: 40px;" class="validar validarNumero" />
+                    <input id="text_domicilio_depto_personal" type="text" placeholder="Depto" style="width: 40px;" class="validar" />
+                    <input id="text_domicilio_cp_personal" type="text" placeholder="C.P." style="width: 40px;" class="validar" />
+                    <select id="cmb_provincia_personal" class="cmb_provincia" ></select>
+                    <select id="cmb_localidad_personal" class="cmb_localidad" > </select>
+                
+                </td>
             </tr>
             <tr >
                 <td style="text-align:center;" colspan="4" class="celda">INFORMACION REQUERIDA PARA RECIBIR NOTIFICACIONES Y AVISOS</td>
             </tr>
             <tr >
                 <td id="domicilio_legal" colspan="2" class="celda">DOMICILIO: </td>
-                <td colspan="2" class="celda"><input id="text_domicilio_notificacion" type="text" placeholder="Domicilio" class="validar" /></td>
+                <td colspan="2" class="celda">
+                    <input id="text_domicilio_calle_legal" type="text" placeholder="Calle" class="validar" />
+                    <input id="text_domicilio_nro_legal" type="number" placeholder="Nro" style="width: 40px;" class="validar validarNumero" />
+                    <input id="text_domicilio_piso_legal" type="number" placeholder="Piso" style="width: 40px;" class="validar validarNumero" />
+                    <input id="text_domicilio_depto_legal" type="text" placeholder="Depto" style="width: 40px;" class="validar" />
+                    <input id="text_domicilio_cp_legal" type="text" placeholder="C.P." style="width: 40px;" class="validar" />     
+                    <select id="cmb_provincia_legal" class="cmb_provincia" ></select>
+                    <select id="cmb_localidad_legal" class="cmb_localidad"> </select>
+                </td>
             </tr>
             <tr >
                 <td colspan="2" class="celda">TELEFONO/FAX:</td>
@@ -128,27 +143,27 @@
             </tr>
             <tr>
                 <td colspan="3" class="celda">FICHA DE INSCRIPCION</td>
-                <td colspan="1" class="celda"><input id="text_folio_ficha_inscripcion" type="text" placeholder="Folio Ficha" maxlength="3" class="validar validarNumero" /></td>
+                <td colspan="1" class="celda"><input id="text_folio_ficha_inscripcion" type="number" placeholder="Folio Ficha" maxlength="3" class="validar validarNumero" /></td>
             </tr>
             <tr>
                 <td colspan="3" class="celda">FOTOGRAFIA TIPO CARNET</td>
-                <td colspan="1" class="celda"><input id="text_folio_foto_carnet" type="text" placeholder="Folio Foto" maxlength="1" class="validar validarNumero" /></td>
+                <td colspan="1" class="celda"><input id="text_folio_foto_carnet" type="number" placeholder="Folio Foto" maxlength="1" class="validar validarNumero" /></td>
             </tr>
             <tr>
                 <td colspan="3" class="celda">FOTOCOPIA DEL DNI (con domicilio actualizado)</td>
-                <td colspan="1" class="celda"><input id="text_folio_dni" type="text" placeholder="Folio DNI" maxlength="1" class="validar validarNumero"/></td>
+                <td colspan="1" class="celda"><input id="text_folio_dni" type="number" placeholder="Folio DNI" maxlength="1" class="validar validarNumero"/></td>
             </tr>
             <tr>
                 <td colspan="3" class="celda">FOTOCOPIA DEL TITULO ACADEMICO EXIGIDO</td>
-                <td colspan="1" class="celda"><input id="text_folio_titulo" type="text" placeholder="Folio Título" maxlength="2" class="validar validarNumero" /></td>
+                <td colspan="1" class="celda"><input id="text_folio_titulo" type="number" placeholder="Folio Título" maxlength="2" class="validar validarNumero" /></td>
             </tr>
             <tr>
                 <td colspan="3" class="celda">CURRICULUM VITAE OPCIONAL</td>
-                <td colspan="1" class="celda"><input id="text_folio_cv" type="text" placeholder="Folio CV" maxlength="3" class="validar validarNumero" /></td>
+                <td colspan="1" class="celda"><input id="text_folio_cv" type="number" placeholder="Folio CV" maxlength="3" class="validar validarNumero" /></td>
             </tr>
             <tr>
                 <td colspan="3" class="celda">DOCUMENTACIÓN DE RESPALDO</td>
-                <td colspan="1" class="celda"><input id="text_folio_respaldo" type="text" placeholder="Folio Respaldo" maxlength="3" class="validar validarNumero" /></td>
+                <td colspan="1" class="celda"><input id="text_folio_respaldo" type="number" placeholder="Folio Respaldo" maxlength="3" class="validar validarNumero" /></td>
             </tr>
         </table>
 
@@ -176,17 +191,58 @@
  <%= Referencias.Javascript("../") %>
 
   <script type="text/javascript">
-      Backend.start();
+
 
       $(document).ready(function () {
-          Perfil.traerPerfiles();
+          Backend.start(function () {
+              var _this = this;
+              Perfil.traerPerfiles();
 
-          $('#text_fecha_inscripcion').datepicker();
-          $('#text_fecha_inscripcion').datepicker('option', 'dateFormat', 'dd/mm/yy');
+              $('#text_fecha_inscripcion').datepicker();
+              $('#text_fecha_inscripcion').datepicker('option', 'dateFormat', 'dd/mm/yy');
 
-          $('#btn_inscripcion_manual').click(function () {
+              var provincias = Backend.sync.BuscarProvincias('{}');
 
-             // if (validar()) {
+              var modalidadesDeInscripcion = Backend.sync.BuscarModalidadDeInscripcion('{}');
+
+              $.each(provincias, function () {
+                  $('.cmb_provincia').append('<option value="' + this.Id + '">' + this.Nombre + '</option>');
+              });
+
+              var localidades = Backend.sync.BuscarLocalidades('{IdProvincia:0}');
+              $.each(localidades, function () {
+                  $('.cmb_localidad').append('<option value="' + this.Id + '">' + this.Nombre + '</option>');
+              });
+
+              $.each(modalidadesDeInscripcion, function () {
+                  $('#combo_modalidad').append('<option value="' + this.Id + '">' + this.Descripcion + '</option>');
+              });
+
+              $('#cmb_provincia_personal').change(function () {
+                  var localidades = Backend.sync.BuscarLocalidades('{IdProvincia: ' + this.selectedIndex + '}');
+                  $('#cmb_localidad_personal').empty();
+                  $.each(localidades, function () {
+                      $('#cmb_localidad_personal').append('<option value=' + this.id + '>' + this.Nombre + '</option>');
+                  });
+              });
+
+              $('#cmb_provincia_legal').change(function () {
+                  var localidades = Backend.sync.BuscarLocalidades('{IdProvincia: ' + this.selectedIndex + '}');
+                  $('#cmb_localidad_legal').empty();
+                  $.each(localidades, function () {
+                      $('#cmb_localidad_legal').append('<option value=' + this.id + '>' + this.Nombre + '</option>');
+                  });
+              });
+
+              $('#btn_inscripcion_manual').click(function () {
+
+                  // if (validar()) {
+
+                  if (!validateEmail($('#text_mail').val())) {
+                      alertify.error('Formato del mail invalido.');
+                      return false;
+                  }
+
 
                   //var anonimoPerfil = {};
                   //anonimoPerfil.Id = $('#combo_perfiles').val();
@@ -199,11 +255,30 @@
 
 
                   var datosPersonales = {};
+                  //var DomicilioPersonal = {};
+                  //var DomicilioLegal = {};
+
+
                   datosPersonales.Nombre = $('#text_nombre').val();
-                  datosPersonales.Apellido = $('#text_nombre').val();
+                  datosPersonales.Apellido = $('#text_apellido').val();
                   datosPersonales.DNI = $('#text_dni').val();
-                  datosPersonales.DomicilioPersonal = $('#text_domicilio').val();
-                  datosPersonales.DomicilioNotificacion = $('#text_domicilio_notificacion').val();
+
+                  datosPersonales.DomicilioCallePersonal = $('#text_domicilio_calle_personal').val();
+                  datosPersonales.DomicilioNroPersonal = $('#text_domicilio_nro_personal').val();
+                  datosPersonales.DomicilioPisoPersonal = $('#text_domicilio_piso_personal').val();
+                  datosPersonales.DomicilioDeptoPersonal = $('#text_domicilio_depto_personal').val();
+                  datosPersonales.DomicilioCpPersonal = $('#text_domicilio_cp_personal').val();
+                  datosPersonales.DomicilioProvinciaPersonal = $('#cmb_provincia_personal').val();
+                  datosPersonales.DomicilioLocalidadPersonal = $('#cmb_localidad_personal').val();
+
+                  datosPersonales.DomicilioCalleLegal = $('#text_domicilio_calle_legal').val();
+                  datosPersonales.DomicilioNroLegal = $('#text_domicilio_nro_legal').val();
+                  datosPersonales.DomicilioPisoLegal = $('#text_domicilio_piso_legal').val();
+                  datosPersonales.DomicilioDeptoLegal = $('#text_domicilio_depto_legal').val();
+                  datosPersonales.DomicilioCpLegal = $('#text_domicilio_cp_legal').val();
+                  datosPersonales.DomicilioProvinciaLegal = $('#cmb_provincia_legal').val();
+                  datosPersonales.DomicilioLocalidadLegal = $('#cmb_localidad_personal').val();
+
                   datosPersonales.Telefono = $('#text_telefono').val();
                   datosPersonales.Mail = $('#text_mail').val();
 
@@ -219,41 +294,60 @@
                   var datosPersonalesJSON = JSON.stringify(datosPersonales);
                   var folioJSON = JSON.stringify(folio);
 
-                  Backend.ejecutar("GuardarPostulacionManual", [{ postulacion: postulacionManual }, { datosPersonales: datosPersonales }, { folio: folio}]);
-             // }
+                  //Backend.ejecutarSincronico("GuardarPostulacionManual", [{ postulacion: postulacionManual, datosPersonales: datosPersonales, folio: folio }]);
+                  var nroPostulacion = Backend.sync.GuardarPostulacionManual({ postulacion: postulacionManual }, { datosPersonales: datosPersonales }, { folio: folio });
+                  if (isNaN(nroPostulacion)) {
+                      alertify.error(nroPostulacion);
+                  } else {
+                      alertify.alert('Se ha inscripto correctamente. El número de postulación es: ' + nroPostulacion);
+                      
+                  }
+
+                  
+                  // }
+              });
+
+              function validar() {
+                  $('.validarTexto').each(function () {
+                      if (this.textContent == '') {
+                          alertify.error('Complete ' + this.previousElementSibling.textContent);
+                          return false;
+                      }
+                  });
+
+                  $('.validar').each(function () {
+                      if (this.value == '') {
+                          alertify.error('Complete ' + this.parentNode.previousElementSibling.textContent);
+                          return false;
+                      }
+                  });
+
+                  $('.validarNumero').each(function () {
+                      if (isNaN(this.value)) {
+                          alertify.error('El folio de ' + this.parentNode.previousElementSibling.textContent + ' debe ser un número.');
+                          return false;
+                      }
+                  });
+
+                  $('.validarPie').each(function () {
+                      if (this.value == '') {
+                          alertify.error('Complete ' + this.parentNode.textContent);
+                          return false;
+                      }
+                  });
+
+                  return true;
+              }
+
+              function validateEmail(email) {
+                  var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                  return re.test(email);
+              }
+
+
           });
 
-          function validar() {
-              $('.validarTexto').each(function () {
-                  if (this.textContent == '') {
-                      alertify.error('Complete ' + this.previousElementSibling.textContent);
-                      return false;
-                  }
-              });
 
-              $('.validar').each(function () {
-                  if (this.value == '') {
-                      alertify.error('Complete ' + this.parentNode.previousElementSibling.textContent);
-                      return false;
-                  }
-              });
-
-              $('.validarNumero').each(function () {
-                  if (isNaN(this.value)) {
-                      alertify.error('El folio de ' + this.parentNode.previousElementSibling.textContent + ' debe ser un número.');
-                      return false;
-                  }
-              });
-
-              $('.validarPie').each(function () {
-                  if (this.value == '') {
-                      alertify.error('Complete ' + this.parentNode.textContent);
-                      return false;
-                  }
-              });
-
-              return true;
-          }
 
 
       });
