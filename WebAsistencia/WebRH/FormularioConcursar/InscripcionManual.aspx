@@ -38,19 +38,16 @@
             <h1>Inscripción Manual</h1>
         </div>
             <hr />
-        <div style="width:80%; margin-left:10%;" class="">
+        <div id="contenedor_inscripcion_manual" style="width:80%; margin-left:10%;" class="">
             <div style="width: 100%; text-align:left;" class="">
-              
+                <p style="float:left;">Número Postulación: <span id="numero_postulacion"></span></p>
+                <p style="float:right;"><input class="btn_concursar btn-primary" type="button" value="Imprimir" onclick="PrintElem()" /></p>
                 <div style="clear:both;"></div>
-                <p class="encabezado" style="font-size:20px; margin-bottom:1%">SISTEMA NACIONAL DE EMPLEO PUBLICO (Decreto N° 2098/08)</p>
-                <p class="encabezado"style="font-size:20px; margin-bottom:1%">FORMULARIO DE SOLICITUD Y FICHA DE INSCRIPCION N°</p>
-                <p class="">Quien suscribe la presente, solicita ser inscripto para concursar el cargo cuyos datos figuran en el presente Formulario</p>
-                <p>Seleccione el perfil a inscribirse: <select id="combo_perfiles" style="width:70%;">
-                    
-                </select></p>
-                <p>Elija la Modalidad de Inscripción: <select id="combo_modalidad">
-                   
-                </select></p>
+                <%--<p class="encabezado" style="font-size:20px; margin-bottom:1%">SISTEMA NACIONAL DE EMPLEO PUBLICO (Decreto N° 2098/08)</p>--%>
+                <%--<p class="encabezado"style="font-size:20px; margin-bottom:1%">FORMULARIO DE INSCRIPCION MANUAL</p>--%>
+                <%--<p class="">Quien suscribe la presente, solicita ser inscripto para concursar el cargo cuyos datos figuran en el presente Formulario</p>--%>
+                <p>Seleccione el perfil a inscribirse: <select id="combo_perfiles" style="width:100%; font-size:0.8em;"></select></p>
+                <p>Elija la Modalidad de Inscripción: <br /> <select id="combo_modalidad"></select></p>
             </div>
 
         <table class="tabla_anexo_1">
@@ -179,7 +176,6 @@
             <input type="button" value="Inscribir" id="btn_inscripcion_manual" class="btn btn-primary" />
         </div>
     </div>
-
     </div>
    
    
@@ -191,6 +187,56 @@
  <%= Referencias.Javascript("../") %>
 
   <script type="text/javascript">
+
+      function PrintElem() {
+          var mywindow = window.open('', 'Formulario', 'height=600,width=800');
+          mywindow.document.write('<html><head><title>Formulario Inscripción Manual</title><style type="text/css">.celda { border: 2px double #000; padding:3px; }.tabla_anexo_1 {font-size:0.6em;width:100%;}</style>');
+          /*mywindow.document.write('<link rel="stylesheet" href="EstilosPostular.css" type="text/css" />');*/
+          mywindow.document.write('</head><body >');
+          mywindow.document.write($('#contenedor_inscripcion_manual').html());
+
+          mywindow.document.getElementById('combo_perfiles').value = $('#combo_perfiles').val();
+          mywindow.document.getElementById('text_fecha_inscripcion').value = $('#text_fecha_inscripcion').val();
+          mywindow.document.getElementById('text_dni_inscriptor').value = $('#text_dni_inscriptor').val();
+          mywindow.document.getElementById('combo_modalidad').value = $('#combo_modalidad').val();
+
+          mywindow.document.getElementById('text_nombre').value = $('#text_nombre').val();
+          mywindow.document.getElementById('text_apellido').value = $('#text_apellido').val();
+          mywindow.document.getElementById('text_dni').value = $('#text_dni').val();
+          mywindow.document.getElementById('text_domicilio_calle_personal').value = $('#text_domicilio_calle_personal').val();
+          mywindow.document.getElementById('text_domicilio_nro_personal').value = $('#text_domicilio_nro_personal').val();
+          mywindow.document.getElementById('text_domicilio_piso_personal').value = $('#text_domicilio_piso_personal').val();
+          mywindow.document.getElementById('text_domicilio_depto_personal').value = $('#text_domicilio_depto_personal').val();
+          mywindow.document.getElementById('text_domicilio_cp_personal').value = $('#text_domicilio_cp_personal').val();
+          mywindow.document.getElementById('cmb_provincia_personal').value = $('#cmb_provincia_personal').val();
+          mywindow.document.getElementById('cmb_localidad_personal').value = $('#cmb_localidad_personal').val();
+          mywindow.document.getElementById('text_domicilio_calle_legal').value = $('#text_domicilio_calle_legal').val();
+          mywindow.document.getElementById('text_domicilio_nro_legal').value = $('#text_domicilio_nro_legal').val();
+          mywindow.document.getElementById('text_domicilio_piso_legal').value = $('#text_domicilio_piso_legal').val();
+          mywindow.document.getElementById('text_domicilio_depto_legal').value = $('#text_domicilio_depto_legal').val();
+          mywindow.document.getElementById('text_domicilio_cp_legal').value = $('#text_domicilio_cp_legal').val();
+          mywindow.document.getElementById('cmb_localidad_personal').value = $('#cmb_localidad_personal').val();
+          mywindow.document.getElementById('cmb_provincia_legal').value = $('#cmb_provincia_legal').val();
+
+          mywindow.document.getElementById('text_telefono').value = $('#text_telefono').val();
+          mywindow.document.getElementById('text_mail').value = $('#text_mail').val();
+          mywindow.document.getElementById('text_folio_ficha_inscripcion').value = $('#text_folio_ficha_inscripcion').val();
+          mywindow.document.getElementById('text_folio_foto_carnet').value = $('#text_folio_foto_carnet').val();
+          mywindow.document.getElementById('text_folio_dni').value = $('#text_folio_dni').val();
+          mywindow.document.getElementById('text_folio_titulo').value = $('#text_folio_titulo').val();
+          mywindow.document.getElementById('text_folio_cv').value = $('#text_folio_cv').val();
+          mywindow.document.getElementById('text_folio_respaldo').value = $('#text_folio_respaldo').val();
+
+          mywindow.document.write('</body></html>');
+
+          mywindow.document.close(); // necessary for IE >= 10
+          mywindow.focus(); // necessary for IE >= 10
+
+          mywindow.print();
+          mywindow.close();
+
+          return true;
+      }
 
 
       $(document).ready(function () {
@@ -222,7 +268,7 @@
                   var localidades = Backend.sync.BuscarLocalidades('{IdProvincia: ' + this.selectedIndex + '}');
                   $('#cmb_localidad_personal').empty();
                   $.each(localidades, function () {
-                      $('#cmb_localidad_personal').append('<option value=' + this.id + '>' + this.Nombre + '</option>');
+                      $('#cmb_localidad_personal').append('<option value=' + this.Id + '>' + this.Nombre + '</option>');
                   });
               });
 
@@ -230,13 +276,13 @@
                   var localidades = Backend.sync.BuscarLocalidades('{IdProvincia: ' + this.selectedIndex + '}');
                   $('#cmb_localidad_legal').empty();
                   $.each(localidades, function () {
-                      $('#cmb_localidad_legal').append('<option value=' + this.id + '>' + this.Nombre + '</option>');
+                      $('#cmb_localidad_legal').append('<option value=' + this.Id + '>' + this.Nombre + '</option>');
                   });
               });
 
               $('#btn_inscripcion_manual').click(function () {
 
-                  // if (validar()) {
+                   if (validar()) {
 
                   if (!validateEmail($('#text_mail').val())) {
                       alertify.error('Formato del mail invalido.');
@@ -294,17 +340,17 @@
                   var datosPersonalesJSON = JSON.stringify(datosPersonales);
                   var folioJSON = JSON.stringify(folio);
 
-                  //Backend.ejecutarSincronico("GuardarPostulacionManual", [{ postulacion: postulacionManual, datosPersonales: datosPersonales, folio: folio }]);
                   var nroPostulacion = Backend.sync.GuardarPostulacionManual({ postulacion: postulacionManual }, { datosPersonales: datosPersonales }, { folio: folio });
                   if (isNaN(nroPostulacion)) {
                       alertify.error(nroPostulacion);
                   } else {
+                      $('#numero_postulacion').html(nroPostulacion);
                       alertify.alert('Se ha inscripto correctamente. El número de postulación es: ' + nroPostulacion);
-                      
+                      PrintElem();
                   }
 
-                  
-                  // }
+
+                   }
               });
 
               function validar() {
