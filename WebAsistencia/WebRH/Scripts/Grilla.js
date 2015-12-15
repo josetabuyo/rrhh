@@ -136,6 +136,11 @@ Grilla.prototype = {
             this.CargarFilaSinDatos();
         }
     },
+
+    CargarUnRegistro: function (objetos) {       
+        this.CargarObjeto(objetos);       
+    },
+
     CargarObjetoSinDibujar: function (obj) {
         this.Objetos.push(obj);
     },
