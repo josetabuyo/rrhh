@@ -308,8 +308,14 @@ var ImprimirDDJJ = function (idArea) {
 };
 
 
+
 var DibujarGrillaPersonas = function (un_area, contenedor_grilla) {
     var grilla;
+    var maximoporhoja = 41;
+    var maximoporhojasrestantes = 63;
+    var filasporcabecera = 4;
+    var contador = 0;
+
     contenedor_grilla.empty();
     contenedor_grilla.append($("<br/>"));
     contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + un_area.Nombre + "<b/></div>"));
@@ -320,8 +326,42 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla) {
             new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
             new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
 		]);
+    contador = contador + filasporcabecera;
 
-    grilla.CargarObjetos(un_area.Personas);
+
+    if (un_area.Personas.length > 0) {
+        for (var i = 0; i < un_area.Personas.length; i++) {
+
+            //CONTROLO PARA HACER LE SALTO DE PAGINA
+            if (contador >= maximoporhoja) {
+                maximoporhoja = maximoporhojasrestantes;
+                
+                grilla.DibujarEn(contenedor_grilla);
+                contenedor_grilla.append($("<br id='SaltoDePagina' class='SaltoDePagina' />"));
+                contenedor_grilla.append($("<br id='SaltoDePagina' class='SaltoDePagina' />"));
+
+                contenedor_grilla.append($("<br/>"));
+                contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + un_area.Nombre + " (continuación)" + "<b/></div>"));
+                grilla = new Grilla(
+                [
+                    new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
+			        new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
+                    new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
+                    new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
+		        ]);
+
+                contador = filasporcabecera;
+            }
+            //FIN SALTO DE PAGINA
+
+            var obj = un_area.Personas[i];
+            grilla.CargarObjeto(obj);
+
+            contador = contador + 1;
+        }
+    }
+
+    //    grilla.CargarObjetos(un_area.Personas);
     grilla.DibujarEn(contenedor_grilla);
     grilla.SetOnRowClickEventHandler(function () {
         return true;
@@ -336,10 +376,42 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla) {
             new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
             new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
 		]);
+        contador = contador + filasporcabecera;
 
-        grilla_area_informal.CargarObjetos(area_informal.Personas);
+        if (area_informal.Personas.length > 0) {
+            for (var i = 0; i < area_informal.Personas.length; i++) {
+                
+                //CONTROLO PARA HACER LE SALTO DE PAGINA
+                if (contador >= maximoporhoja) {
+                    maximoporhoja = maximoporhojasrestantes;
+
+                    grilla_area_informal.DibujarEn(contenedor_grilla);
+                    contenedor_grilla.append($("<br id='SaltoDePagina' class='SaltoDePagina' />"));
+                    contenedor_grilla.append($("<br id='SaltoDePagina' class='SaltoDePagina' />"));
+
+                    contenedor_grilla.append($("<br/>"));
+                    contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + area_informal.Nombre + " (continuación)" + "<b/></div>"));
+                    var grilla_area_informal = new Grilla(
+                    [
+                        new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
+			            new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
+                        new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
+                        new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
+		            ]);
+                    contador = filasporcabecera;
+                }
+                //FIN SALTO DE PAGINA
+
+                var obj = area_informal.Personas[i];
+                grilla_area_informal.CargarObjeto(obj);
+                contador = contador + 1;
+            }
+        }
+
+        //grilla_area_informal.CargarObjetos(area_informal.Personas);
         grilla_area_informal.DibujarEn(contenedor_grilla);
         grilla_area_informal.SetOnRowClickEventHandler(function () {
+
             return true;
         });
     });

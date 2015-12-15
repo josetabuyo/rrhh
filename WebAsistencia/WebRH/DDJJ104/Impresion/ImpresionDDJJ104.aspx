@@ -32,6 +32,11 @@
 
     <style type="text/css"  >
         
+        .SaltoDePagina
+        {
+            PAGE-BREAK-AFTER: always;
+        }
+        
         #PanelImpresion>table
         {
             border-spacing:0px;  
@@ -43,7 +48,7 @@
         {
             page-break-inside:avoid;
             page-break-after:always;
-            
+            height:15px;
         }        
         
         #PanelImpresion>table th, #PanelImpresion>table td
@@ -150,6 +155,31 @@
 		    {
 			    font-size:11px;
 		    }
+            
+            #PanelImpresion>table
+        {
+            border-spacing:0px;  
+            border-collapse:collapse; 
+            position:relative; 
+        }   
+        
+        #PanelImpresion>table tr
+        {
+            page-break-inside:avoid;
+            page-break-after:always;
+            
+        }        
+        
+        #PanelImpresion>table th, #PanelImpresion>table td
+        {
+            border:1px solid;               
+        }        
+           
+        .celda
+        {
+             page-break-inside:avoid;
+             page-break-after:always;
+        }
             
         }      
         
