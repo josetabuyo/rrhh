@@ -211,5 +211,11 @@ namespace General.Repositorios
             }
             return planta;
         }
+
+        public List<Persona> GetTodosLosEmpleados()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Personas");
+            return GetPersonasDeTablaDeDatos(tablaDatos);
+        }
     }
 }

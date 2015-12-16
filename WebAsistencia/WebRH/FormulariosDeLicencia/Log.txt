@@ -166,3 +166,70 @@ Exception rethrown at [0]:
    en ASP.formulariosdelicencia_f09a_anualordinaria_aspx.ProcessRequest(HttpContext context) en c:\Users\bcevey\AppData\Local\Temp\Temporary ASP.NET Files\webrh\9fa81700\e8bb1e05\App_Web_kxycp315.0.cs:línea 0
    en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+15/12/2015 10:25:59 p.m. - ---------------------------------------------
+15/12/2015 10:25:59 p.m. - System.Web.HttpUnhandledException (0x80004005): Se produjo una excepción de tipo 'System.Web.HttpUnhandledException'. ---> System.ServiceModel.CommunicationException: Se ha excedido la cuota de tamaño máximo de los mensajes entrantes (1048576). Para aumentar la cuota, use la propiedad MaxReceivedMessageSize en el elemento de enlace correspondiente. ---> System.ServiceModel.QuotaExceededException: Se ha excedido la cuota de tamaño máximo de los mensajes entrantes (1048576). Para aumentar la cuota, use la propiedad MaxReceivedMessageSize en el elemento de enlace correspondiente.
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.HttpInput.ThrowMaxReceivedMessageSizeExceeded()
+   en System.ServiceModel.Channels.HttpInput.GetMessageBuffer()
+   en System.ServiceModel.Channels.HttpInput.ReadBufferedMessage(Stream inputStream)
+   en System.ServiceModel.Channels.HttpInput.ParseIncomingMessage(Exception& requestException)
+   en System.ServiceModel.Channels.HttpChannelFactory.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en WSViaticos.WSViaticosSoap.GetTodosLosEmpleados()
+   en WSViaticos.WSViaticosSoapClient.GetTodosLosEmpleados() en c:\Users\bcevey\AppData\Local\Temp\Temporary ASP.NET Files\webrh\9fa81700\e8bb1e05\App_WebReferences.wuwnf7n8.0.cs:línea 13193
+   en FormulariosDeLicencia_Partes_SaldoOrdinaria.Page_Load(Object sender, EventArgs e) en c:\Repositorios\Belén\rrhh\WebAsistencia\WebRH\FormulariosDeLicencia\Partes\SaldoOrdinaria.ascx.cs:línea 46
+   en System.Web.Util.CalliHelper.EventArgFunctionCaller(IntPtr fp, Object o, Object t, EventArgs e)
+   en System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   en System.Web.UI.Control.OnLoad(EventArgs e)
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.HandleError(Exception e)
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest()
+   en System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   en System.Web.UI.Page.ProcessRequest(HttpContext context)
+   en ASP.formulariosdelicencia_f09a_anualordinaria_aspx.ProcessRequest(HttpContext context) en c:\Users\bcevey\AppData\Local\Temp\Temporary ASP.NET Files\webrh\9fa81700\e8bb1e05\App_Web_igexvcz3.0.cs:línea 0
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+15/12/2015 10:26:12 p.m. - ---------------------------------------------
+15/12/2015 10:26:12 p.m. - System.ArgumentException: Para TransferMode.Buffered, MaxReceivedMessageSize y MaxBufferSize deben tener el mismo valor.
+Nombre del parámetro: bindingElement
+   en System.ServiceModel.Channels.HttpChannelFactory..ctor(HttpTransportBindingElement bindingElement, BindingContext context)
+   en System.ServiceModel.Channels.HttpTransportBindingElement.BuildChannelFactory[TChannel](BindingContext context)
+   en System.ServiceModel.Channels.BindingContext.BuildInnerChannelFactory[TChannel]()
+   en System.ServiceModel.Channels.MessageEncodingBindingElement.InternalBuildChannelFactory[TChannel](BindingContext context)
+   en System.ServiceModel.Channels.TextMessageEncodingBindingElement.BuildChannelFactory[TChannel](BindingContext context)
+   en System.ServiceModel.Channels.BindingContext.BuildInnerChannelFactory[TChannel]()
+   en System.ServiceModel.Channels.Binding.BuildChannelFactory[TChannel](BindingParameterCollection parameters)
+   en System.ServiceModel.Channels.ServiceChannelFactory.BuildChannelFactory(ServiceEndpoint serviceEndpoint, Boolean useActiveAutoClose)
+   en System.ServiceModel.ChannelFactory.CreateFactory()
+   en System.ServiceModel.ChannelFactory.OnOpening()
+   en System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   en System.ServiceModel.ChannelFactory.EnsureOpened()
+   en System.ServiceModel.ChannelFactory`1.CreateChannel(EndpointAddress address, Uri via)
+   en System.ServiceModel.ChannelFactory`1.CreateChannel()
+   en System.ServiceModel.ClientBase`1.CreateChannel()
+   en System.ServiceModel.ClientBase`1.CreateChannelInternal()
+   en System.ServiceModel.ClientBase`1.get_Channel()
+   en WSViaticos.WSViaticosSoapClient.GetUsuarioNulo() en c:\Users\bcevey\AppData\Local\Temp\Temporary ASP.NET Files\webrh\9fa81700\e8bb1e05\App_WebReferences.wuwnf7n8.0.cs:línea 13029
+   en ASP.global_asax.Session_Start(Object sender, EventArgs e) en c:\Repositorios\Belén\rrhh\WebAsistencia\WebRH\Global.asax:línea 7
+   en System.Web.SessionState.SessionStateModule.RaiseOnStart(EventArgs e)
+   en System.Web.SessionState.SessionStateModule.CompleteAcquireState()
+   en System.Web.SessionState.SessionStateModule.BeginAcquireState(Object source, EventArgs e, AsyncCallback cb, Object extraData)
+   en System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)

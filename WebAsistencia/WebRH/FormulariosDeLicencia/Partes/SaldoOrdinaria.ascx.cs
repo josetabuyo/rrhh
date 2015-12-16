@@ -4,6 +4,7 @@ using System;
 using System.Web.UI.WebControls;
 using WSViaticos;
 using System.Collections.Generic;
+using System.Linq;
 
 #endregion
 
@@ -42,77 +43,79 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
         {
 
             WSViaticosSoapClient s = new WSViaticosSoapClient();
+            List<Persona> personas_list = s.GetTodosLosEmpleados().ToList();
+
             //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
 
             //WSAsistencia s = new WSAsistencia();  
-            SaldoLicencia saldo;
+            //SaldoLicencia saldo;
 
             //se hace el cálculo a partir de una lista de DNIs
-            var persona0 = new Persona();
-            var persona1 = new Persona();
-            var persona2 = new Persona();
-            var persona3 = new Persona();
-            var persona4 = new Persona();
-            var persona5 = new Persona();
-            var persona6 = new Persona();
-            var persona7 = new Persona();
-            var persona8 = new Persona();
-            var persona9 = new Persona();
-            var persona10 = new Persona();
-            var persona11 = new Persona();
-            var persona12 = new Persona();
-            var persona13 = new Persona();
-            var persona14 = new Persona();
-            var persona15 = new Persona();
-            var persona16 = new Persona();
-            var persona17 = new Persona();
-            var persona18 = new Persona();
-            var persona19 = new Persona();
-            var persona20 = new Persona();
-            var persona21 = new Persona();
-            var persona22 = new Persona();
-            var persona23 = new Persona();
-            var persona24 = new Persona();
-            var persona25 = new Persona();
-            var persona26 = new Persona();
-            var persona27 = new Persona();
-            var persona28 = new Persona();
-            var persona29 = new Persona();
-            var persona30 = new Persona();
-            var persona31 = new Persona();
-            var persona32 = new Persona();
-            var persona33 = new Persona();
-            var persona34 = new Persona();
-            var persona35 = new Persona();
-            var persona36 = new Persona();
-            var persona37 = new Persona();
-            var persona38 = new Persona();
-            var persona39 = new Persona();
-            var persona40 = new Persona();
-            var persona41 = new Persona();
-            var persona42 = new Persona();
-            var persona43 = new Persona();
-            var persona44 = new Persona();
-            var persona45 = new Persona();
-            var persona46 = new Persona();
-            var persona47 = new Persona();
-            var persona48 = new Persona();
-            var persona49 = new Persona();
+            //var persona0 = new Persona();
+            //var persona1 = new Persona();
+            //var persona2 = new Persona();
+            //var persona3 = new Persona();
+            //var persona4 = new Persona();
+            //var persona5 = new Persona();
+            //var persona6 = new Persona();
+            //var persona7 = new Persona();
+            //var persona8 = new Persona();
+            //var persona9 = new Persona();
+            //var persona10 = new Persona();
+            //var persona11 = new Persona();
+            //var persona12 = new Persona();
+            //var persona13 = new Persona();
+            //var persona14 = new Persona();
+            //var persona15 = new Persona();
+            //var persona16 = new Persona();
+            //var persona17 = new Persona();
+            //var persona18 = new Persona();
+            //var persona19 = new Persona();
+            //var persona20 = new Persona();
+            //var persona21 = new Persona();
+            //var persona22 = new Persona();
+            //var persona23 = new Persona();
+            //var persona24 = new Persona();
+            //var persona25 = new Persona();
+            //var persona26 = new Persona();
+            //var persona27 = new Persona();
+            //var persona28 = new Persona();
+            //var persona29 = new Persona();
+            //var persona30 = new Persona();
+            //var persona31 = new Persona();
+            //var persona32 = new Persona();
+            //var persona33 = new Persona();
+            //var persona34 = new Persona();
+            //var persona35 = new Persona();
+            //var persona36 = new Persona();
+            //var persona37 = new Persona();
+            //var persona38 = new Persona();
+            //var persona39 = new Persona();
+            //var persona40 = new Persona();
+            //var persona41 = new Persona();
+            //var persona42 = new Persona();
+            //var persona43 = new Persona();
+            //var persona44 = new Persona();
+            //var persona45 = new Persona();
+            //var persona46 = new Persona();
+            //var persona47 = new Persona();
+            //var persona48 = new Persona();
+            //var persona49 = new Persona();
 
-            persona0.Documento = 27820956;
-            persona1.Documento = 14101330;
-            persona2.Documento = 12888410;
-            persona3.Documento = 33004079;
-
-
+            //persona0.Documento = 27820956;
+            //persona1.Documento = 14101330;
+            //persona2.Documento = 12888410;
+            //persona3.Documento = 33004079;
 
 
 
-            List<Persona> personas_list = new List<Persona>();
-            personas_list.Add(persona0);
-            personas_list.Add(persona1);
-            personas_list.Add(persona2);
-            personas_list.Add(persona3);
+
+
+           
+            //personas_list.Add(persona0);
+            //personas_list.Add(persona1);
+            //personas_list.Add(persona2);
+            //personas_list.Add(persona3);
             //personas_list.Add(persona4);
             //personas_list.Add(persona5);
             //personas_list.Add(persona6);
@@ -159,16 +162,16 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
             //personas_list.Add(persona47);
             //personas_list.Add(persona48);
             //personas_list.Add(persona49);
-            List<SaldoLicencia> saldos = new List<SaldoLicencia>();
+            //List<SaldoLicencia> saldos = new List<SaldoLicencia>();
             personas_list.ForEach(p =>
             {
                 SaldoLicencia licencia = s.GetSaldoLicencia(p, this.Concepto);
                 s.GuardarLicenciaPasePermanente(p, licencia, this.Concepto);
-                saldos.Add(licencia);
+                //saldos.Add(licencia);
             }
                 );
 
-            var hola = "hola";
+            //var hola = "hola";
             //saldo = s.GetSaldoLicencia((Persona)Session["persona"], this.Concepto);
            
             //foreach (SaldoLicenciaDetalle d in saldo.Detalle)

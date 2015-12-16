@@ -150,6 +150,16 @@ public class WSViaticos : System.Web.Services.WebService
         return unArea;
     }
 
+
+    [WebMethod]
+    public List<Persona> GetTodosLosEmpleados()
+    {
+        ServicioDeLicencias servicioLicencias = new ServicioDeLicencias(RepoLicencias());
+
+        var repositorio = RepositorioDePersonas();
+        return repositorio.GetTodosLosEmpleados();
+    }
+
     [WebMethod]
     public SaldoLicencia GetSaldoLicencia(Persona unaPersona, ConceptoDeLicencia concepto)
     {
@@ -195,7 +205,8 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void GuardarLicenciaPasePermanente(Persona persona, SaldoLicencia licencia, ConceptoDeLicencia concepto) {
+    public void GuardarLicenciaPasePermanente(Persona persona, SaldoLicencia licencia, ConceptoDeLicencia concepto)
+    {
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
         repositorio.GuardarLicenciaPasePermanente(persona, licencia, concepto);
     }
@@ -2914,7 +2925,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarFolios(string nro_inscripcion, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, Usuario usuario)
     {
-        
+
         RepoPostulaciones().GuardarFolios(nro_inscripcion, DateTime.Today, nro_ficha_inscripcion, nro_foto, nro_foto_dni, nro_foto_titulo, nro_cv, nro_doc_respaldo, usuario.Id);
     }
 
