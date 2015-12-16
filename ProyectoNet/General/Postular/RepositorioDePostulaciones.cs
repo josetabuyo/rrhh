@@ -501,17 +501,16 @@ namespace General
              //creo la postulacion
              var numeroPostulacion = CrearPostulacionManual(int.Parse(idPerfil), personaAInscribir.Id, usuarioAInscribir.Id);
 
-            //busco la postulacion para pasarla de etapa
-            Postulacion mi_postul = this.GetPostulacionesPorCodigo(numeroPostulacion);
-            InsEtapaPostulacion(mi_postul.Id, 2, usuarioInscriptor.Id);
-
-
             //guardo los folios de la postulacion
             //OJO CAMBIAR LA FECHA
              GuardarFolios(numeroPostulacion, fechaFormateada, int.Parse(folioFicha), int.Parse(folioCarnet), int.Parse(folioDNI), int.Parse(folioTitulo), int.Parse(folioCV), int.Parse(folioRespaldo), usuarioInscriptor.Id);
 
             //guardo en la nueva tabla de postulacion manual
             GuardarDatosExtrasPostulacionManual(numeroPostulacion, DateTime.Now, usuario.Id, int.Parse(modalidad));
+
+            //busco la postulacion para pasarla de etapa
+            Postulacion mi_postul = this.GetPostulacionesPorCodigo(numeroPostulacion);
+            InsEtapaPostulacion(mi_postul.Id, 2, usuarioInscriptor.Id);
 
             return numeroPostulacion;
         }
