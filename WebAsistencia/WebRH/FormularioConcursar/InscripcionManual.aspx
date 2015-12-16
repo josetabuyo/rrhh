@@ -41,7 +41,7 @@
         <div id="contenedor_inscripcion_manual" style="width:80%; margin-left:10%;" class="">
             <div style="width: 100%; text-align:left;" class="">
                 <p style="float:left;">Número Postulación: <span id="numero_postulacion"></span></p>
-                <p style="float:right;"><input class="btn_concursar btn-primary" type="button" value="Imprimir" onclick="PrintElem()" /></p>
+                <p style="float:right;"><input id="btn_imprimir" class="btn_concursar btn-primary" type="button" value="Imprimir" onclick="PrintElem()" /></p>
                 <div style="clear:both;"></div>
                 <%--<p class="encabezado" style="font-size:20px; margin-bottom:1%">SISTEMA NACIONAL DE EMPLEO PUBLICO (Decreto N° 2098/08)</p>--%>
                 <%--<p class="encabezado"style="font-size:20px; margin-bottom:1%">FORMULARIO DE INSCRIPCION MANUAL</p>--%>
@@ -99,8 +99,8 @@
                 <td colspan="2" class="celda">DOMICILIO DE RESIDENCIA PERSONAL</td>
                 <td id="domicilio_personal" colspan="2" class="celda">
                     <input id="text_domicilio_calle_personal" type="text" placeholder="Calle" class="validar" />
-                    <input id="text_domicilio_nro_personal" type="number" placeholder="Nro" style="width: 40px;" class="validar validarNumero" />
-                    <input id="text_domicilio_piso_personal" type="number" placeholder="Piso" style="width: 40px;" class="validar validarNumero" />
+                    <input id="text_domicilio_nro_personal" type="number" placeholder="Nro" style="width: 40px;" class="validarNumero" />
+                    <input id="text_domicilio_piso_personal" type="number" placeholder="Piso" style="width: 40px;" class="validarNumero" />
                     <input id="text_domicilio_depto_personal" type="text" placeholder="Depto" style="width: 40px;" class="validar" />
                     <input id="text_domicilio_cp_personal" type="text" placeholder="C.P." style="width: 40px;" class="validar" />
                     <select id="cmb_provincia_personal" class="cmb_provincia" ></select>
@@ -115,8 +115,8 @@
                 <td id="domicilio_legal" colspan="2" class="celda">DOMICILIO: </td>
                 <td colspan="2" class="celda">
                     <input id="text_domicilio_calle_legal" type="text" placeholder="Calle" class="validar" />
-                    <input id="text_domicilio_nro_legal" type="number" placeholder="Nro" style="width: 40px;" class="validar validarNumero" />
-                    <input id="text_domicilio_piso_legal" type="number" placeholder="Piso" style="width: 40px;" class="validar validarNumero" />
+                    <input id="text_domicilio_nro_legal" type="number" placeholder="Nro" style="width: 40px;" class="validarNumero" />
+                    <input id="text_domicilio_piso_legal" type="number" placeholder="Piso" style="width: 40px;" class="validarNumero" />
                     <input id="text_domicilio_depto_legal" type="text" placeholder="Depto" style="width: 40px;" class="validar" />
                     <input id="text_domicilio_cp_legal" type="text" placeholder="C.P." style="width: 40px;" class="validar" />     
                     <select id="cmb_provincia_legal" class="cmb_provincia" ></select>
@@ -140,27 +140,27 @@
             </tr>
             <tr>
                 <td colspan="3" class="celda">FICHA DE INSCRIPCION</td>
-                <td colspan="1" class="celda"><input id="text_folio_ficha_inscripcion" type="number" placeholder="Folio Ficha" maxlength="3" class="validar validarNumero" /></td>
+                <td colspan="1" class="celda"><input id="text_folio_ficha_inscripcion" type="number" placeholder="Folio Ficha" maxlength="3" class="validarNumero" /></td>
             </tr>
             <tr>
                 <td colspan="3" class="celda">FOTOGRAFIA TIPO CARNET</td>
-                <td colspan="1" class="celda"><input id="text_folio_foto_carnet" type="number" placeholder="Folio Foto" maxlength="1" class="validar validarNumero" /></td>
+                <td colspan="1" class="celda"><input id="text_folio_foto_carnet" type="number" placeholder="Folio Foto" maxlength="1" class="validarNumero" /></td>
             </tr>
             <tr>
                 <td colspan="3" class="celda">FOTOCOPIA DEL DNI (con domicilio actualizado)</td>
-                <td colspan="1" class="celda"><input id="text_folio_dni" type="number" placeholder="Folio DNI" maxlength="1" class="validar validarNumero"/></td>
+                <td colspan="1" class="celda"><input id="text_folio_dni" type="number" placeholder="Folio DNI" maxlength="1" class="validarNumero"/></td>
             </tr>
             <tr>
                 <td colspan="3" class="celda">FOTOCOPIA DEL TITULO ACADEMICO EXIGIDO</td>
-                <td colspan="1" class="celda"><input id="text_folio_titulo" type="number" placeholder="Folio Título" maxlength="2" class="validar validarNumero" /></td>
+                <td colspan="1" class="celda"><input id="text_folio_titulo" type="number" placeholder="Folio Título" maxlength="2" class="validarNumero" /></td>
             </tr>
             <tr>
                 <td colspan="3" class="celda">CURRICULUM VITAE OPCIONAL</td>
-                <td colspan="1" class="celda"><input id="text_folio_cv" type="number" placeholder="Folio CV" maxlength="3" class="validar validarNumero" /></td>
+                <td colspan="1" class="celda"><input id="text_folio_cv" type="number" placeholder="Folio CV" maxlength="3" class="validarNumero" /></td>
             </tr>
             <tr>
                 <td colspan="3" class="celda">DOCUMENTACIÓN DE RESPALDO</td>
-                <td colspan="1" class="celda"><input id="text_folio_respaldo" type="number" placeholder="Folio Respaldo" maxlength="3" class="validar validarNumero" /></td>
+                <td colspan="1" class="celda"><input id="text_folio_respaldo" type="number" placeholder="Folio Respaldo" maxlength="3" class="validarNumero" /></td>
             </tr>
         </table>
 
@@ -195,6 +195,8 @@
           mywindow.document.write('</head><body >');
           mywindow.document.write($('#contenedor_inscripcion_manual').html());
 
+          mywindow.document.getElementById('btn_imprimir').style.display = 'none';
+          mywindow.document.getElementById('btn_inscripcion_manual').style.display = 'none';
           mywindow.document.getElementById('combo_perfiles').value = $('#combo_perfiles').val();
           mywindow.document.getElementById('text_fecha_inscripcion').value = $('#text_fecha_inscripcion').val();
           mywindow.document.getElementById('text_dni_inscriptor').value = $('#text_dni_inscriptor').val();
@@ -282,107 +284,108 @@
 
               $('#btn_inscripcion_manual').click(function () {
 
-                   if (validar()) {
+                  if (validar()) {
 
-                  if (!validateEmail($('#text_mail').val())) {
-                      alertify.error('Formato del mail invalido.');
-                      return false;
+                      if (!validateEmail($('#text_mail').val())) {
+                          alertify.error('Formato del mail invalido.');
+                          return false;
+                      }
+
+
+                      //var anonimoPerfil = {};
+                      //anonimoPerfil.Id = $('#combo_perfiles').val();
+
+                      var postulacionManual = {};
+                      postulacionManual.Perfil = $('#combo_perfiles').val();
+                      postulacionManual.FechaInscripcion = $('#text_fecha_inscripcion').val();
+                      postulacionManual.DNIInscriptor = $('#text_dni_inscriptor').val();
+                      postulacionManual.Modalidad = $('#combo_modalidad').val();
+
+
+                      var datosPersonales = {};
+                      //var DomicilioPersonal = {};
+                      //var DomicilioLegal = {};
+
+
+                      datosPersonales.Nombre = $('#text_nombre').val();
+                      datosPersonales.Apellido = $('#text_apellido').val();
+                      datosPersonales.DNI = $('#text_dni').val();
+
+                      datosPersonales.DomicilioCallePersonal = $('#text_domicilio_calle_personal').val();
+                      datosPersonales.DomicilioNroPersonal = $('#text_domicilio_nro_personal').val();
+                      datosPersonales.DomicilioPisoPersonal = $('#text_domicilio_piso_personal').val();
+                      datosPersonales.DomicilioDeptoPersonal = $('#text_domicilio_depto_personal').val();
+                      datosPersonales.DomicilioCpPersonal = $('#text_domicilio_cp_personal').val();
+                      datosPersonales.DomicilioProvinciaPersonal = $('#cmb_provincia_personal').val();
+                      datosPersonales.DomicilioLocalidadPersonal = $('#cmb_localidad_personal').val();
+
+                      datosPersonales.DomicilioCalleLegal = $('#text_domicilio_calle_legal').val();
+                      datosPersonales.DomicilioNroLegal = $('#text_domicilio_nro_legal').val();
+                      datosPersonales.DomicilioPisoLegal = $('#text_domicilio_piso_legal').val();
+                      datosPersonales.DomicilioDeptoLegal = $('#text_domicilio_depto_legal').val();
+                      datosPersonales.DomicilioCpLegal = $('#text_domicilio_cp_legal').val();
+                      datosPersonales.DomicilioProvinciaLegal = $('#cmb_provincia_legal').val();
+                      datosPersonales.DomicilioLocalidadLegal = $('#cmb_localidad_personal').val();
+
+                      datosPersonales.Telefono = $('#text_telefono').val();
+                      datosPersonales.Mail = $('#text_mail').val();
+
+                      var folio = {};
+                      folio.FichaInscripcion = $('#text_folio_ficha_inscripcion').val();
+                      folio.FotografiaCarnet = $('#text_folio_foto_carnet').val();
+                      folio.FotocopiaDNI = $('#text_folio_dni').val();
+                      folio.Titulo = $('#text_folio_titulo').val();
+                      folio.CV = $('#text_folio_cv').val();
+                      folio.DocumentacionRespaldo = $('#text_folio_respaldo').val();
+
+                      var postulacionJSON = JSON.stringify(postulacionManual);
+                      var datosPersonalesJSON = JSON.stringify(datosPersonales);
+                      var folioJSON = JSON.stringify(folio);
+
+                      var nroPostulacion = Backend.sync.GuardarPostulacionManual({ postulacion: postulacionManual }, { datosPersonales: datosPersonales }, { folio: folio });
+                      if (isNaN(nroPostulacion)) {
+                          alertify.error(nroPostulacion);
+                      } else {
+                          $('#numero_postulacion').html(nroPostulacion);
+                          alertify.alert('Se ha inscripto correctamente. El número de postulación es: ' + nroPostulacion);
+                          PrintElem();
+                      }
+
+
                   }
-
-
-                  //var anonimoPerfil = {};
-                  //anonimoPerfil.Id = $('#combo_perfiles').val();
-
-                  var postulacionManual = {};
-                  postulacionManual.Perfil = $('#combo_perfiles').val();
-                  postulacionManual.FechaInscripcion = $('#text_fecha_inscripcion').val();
-                  postulacionManual.DNIInscriptor = $('#text_dni_inscriptor').val();
-                  postulacionManual.Modalidad = $('#combo_modalidad').val();
-
-
-                  var datosPersonales = {};
-                  //var DomicilioPersonal = {};
-                  //var DomicilioLegal = {};
-
-
-                  datosPersonales.Nombre = $('#text_nombre').val();
-                  datosPersonales.Apellido = $('#text_apellido').val();
-                  datosPersonales.DNI = $('#text_dni').val();
-
-                  datosPersonales.DomicilioCallePersonal = $('#text_domicilio_calle_personal').val();
-                  datosPersonales.DomicilioNroPersonal = $('#text_domicilio_nro_personal').val();
-                  datosPersonales.DomicilioPisoPersonal = $('#text_domicilio_piso_personal').val();
-                  datosPersonales.DomicilioDeptoPersonal = $('#text_domicilio_depto_personal').val();
-                  datosPersonales.DomicilioCpPersonal = $('#text_domicilio_cp_personal').val();
-                  datosPersonales.DomicilioProvinciaPersonal = $('#cmb_provincia_personal').val();
-                  datosPersonales.DomicilioLocalidadPersonal = $('#cmb_localidad_personal').val();
-
-                  datosPersonales.DomicilioCalleLegal = $('#text_domicilio_calle_legal').val();
-                  datosPersonales.DomicilioNroLegal = $('#text_domicilio_nro_legal').val();
-                  datosPersonales.DomicilioPisoLegal = $('#text_domicilio_piso_legal').val();
-                  datosPersonales.DomicilioDeptoLegal = $('#text_domicilio_depto_legal').val();
-                  datosPersonales.DomicilioCpLegal = $('#text_domicilio_cp_legal').val();
-                  datosPersonales.DomicilioProvinciaLegal = $('#cmb_provincia_legal').val();
-                  datosPersonales.DomicilioLocalidadLegal = $('#cmb_localidad_personal').val();
-
-                  datosPersonales.Telefono = $('#text_telefono').val();
-                  datosPersonales.Mail = $('#text_mail').val();
-
-                  var folio = {};
-                  folio.FichaInscripcion = $('#text_folio_ficha_inscripcion').val();
-                  folio.FotografiaCarnet = $('#text_folio_foto_carnet').val();
-                  folio.FotocopiaDNI = $('#text_folio_dni').val();
-                  folio.Titulo = $('#text_folio_titulo').val();
-                  folio.CV = $('#text_folio_cv').val();
-                  folio.DocumentacionRespaldo = $('#text_folio_respaldo').val();
-
-                  var postulacionJSON = JSON.stringify(postulacionManual);
-                  var datosPersonalesJSON = JSON.stringify(datosPersonales);
-                  var folioJSON = JSON.stringify(folio);
-
-                  var nroPostulacion = Backend.sync.GuardarPostulacionManual({ postulacion: postulacionManual }, { datosPersonales: datosPersonales }, { folio: folio });
-                  if (isNaN(nroPostulacion)) {
-                      alertify.error(nroPostulacion);
-                  } else {
-                      $('#numero_postulacion').html(nroPostulacion);
-                      alertify.alert('Se ha inscripto correctamente. El número de postulación es: ' + nroPostulacion);
-                      PrintElem();
-                  }
-
-
-                   }
               });
 
               function validar() {
+                  var resultado = true;
                   $('.validarTexto').each(function () {
                       if (this.textContent == '') {
                           alertify.error('Complete ' + this.previousElementSibling.textContent);
-                          return false;
+                          resultado = false;
                       }
                   });
 
                   $('.validar').each(function () {
                       if (this.value == '') {
                           alertify.error('Complete ' + this.parentNode.previousElementSibling.textContent);
-                          return false;
+                          resultado = false;
                       }
                   });
 
                   $('.validarNumero').each(function () {
-                      if (isNaN(this.value)) {
+                      if (isNaN(this.value) || this.value == '') {
                           alertify.error('El folio de ' + this.parentNode.previousElementSibling.textContent + ' debe ser un número.');
-                          return false;
+                          resultado = false;
                       }
                   });
 
                   $('.validarPie').each(function () {
                       if (this.value == '') {
                           alertify.error('Complete ' + this.parentNode.textContent);
-                          return false;
+                          resultado = false;
                       }
                   });
 
-                  return true;
+                  return resultado;
               }
 
               function validateEmail(email) {
