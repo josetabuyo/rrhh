@@ -10,11 +10,13 @@ namespace General
 {
     public class ResponsableDDJJ
     {
-        IRepositorioDePermisosSobreAreas repositorio;
+        IRepositorioDePermisosSobreAreas repositorio_permisos_areas;
+        Autorizador autorizador;
 
-        public ResponsableDDJJ(IRepositorioDePermisosSobreAreas un_repo)
+        public ResponsableDDJJ(IRepositorioDePermisosSobreAreas un_repo, Autorizador auto)
         {
-            repositorio = un_repo;
+            repositorio_permisos_areas = un_repo;
+            autorizador = auto;
         }
 
         public ConexionBDSQL Conexion()
@@ -24,7 +26,7 @@ namespace General
 
         public List<Area> AreasConDDJJAdministradasPor(Usuario usuario)
         {
-            return repositorio.AreasAdministradasPor(usuario).FindAll(area => area.PresentaDDJJ);
+            return repositorio_permisos_areas.AreasAdministradasPor(usuario).FindAll(area => area.PresentaDDJJ);
         }
 
         public List<Area> AreasSinDDJJInferioresA(Area area)
@@ -41,13 +43,26 @@ namespace General
             var un_Organigrama = repoOrganigrama.GetOrganigrama();
 
             List<AreaParaDDJJ104> areas = new List<AreaParaDDJJ104>();
+            List<Area> areas_completas;
+            if (autorizador.ElUsuarioTienePermisosPara(usuario.Id, 23))
+            {
+                areas_completas = un_Organigrama.ObtenerAreas(false);
+            }
+            else
+            {
+                areas_completas = AreasConDDJJAdministradasPor(usuario);
+            }
             
-            AreasConDDJJAdministradasPor(usuario).ForEach(a => {
+            areas_completas.ForEach(a =>
+            {
+                if (a.Id == 0)
+                    return;
+
                 var area = new AreaParaDDJJ104();
                 area.Id = a.Id;
                 area.Nombre = a.Nombre;
                 area.Personas.AddRange(repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, a));
-                //AreasSinDDJJInferioresA(a).ForEach(area_dependiente =>
+                ////AreasSinDDJJInferioresA(a).ForEach(area_dependiente =>
                 un_Organigrama.GetAreasInferioresDelArea(a).ForEach(area_dependiente =>
                 {
                     if (!area_dependiente.PresentaDDJJ)
@@ -70,6 +85,7 @@ namespace General
 
                 areas.Add(area);
             });
+
 
             return areas;
             //List<AreaParaDDJJ104> lista_ddjj = new List<AreaParaDDJJ104>();
