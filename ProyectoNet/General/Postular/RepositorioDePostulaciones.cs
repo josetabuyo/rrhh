@@ -281,6 +281,36 @@ namespace General
             conexion_bd.EjecutarSinResultado("dbo.CV_Ins_FoliosPostulacion", parametros);
         }
 
+        public Folios ObtenerFolios(string nro_inscripcion, string dni_postulante, string fecha_postulacion)
+        {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@nro_inscripcion", nro_inscripcion);
+
+            var TablaFolios = conexion_bd.Ejecutar("dbo.CV_Get_Folios", parametros);
+
+            if (TablaFolios.Rows.Count > 0)
+            {
+                var folio = TablaFolios.Rows.First();
+                return new Folios(folio.GetString("nro_postulacion"),
+                                    folio.GetDateTime("fecha_carga"),
+                                    folio.GetSmallintAsInt("nro_ficha_inscripcion"),
+                                    folio.GetSmallintAsInt("nro_foto"),
+                                    folio.GetSmallintAsInt("nro_foto_dni"),
+                                    folio.GetSmallintAsInt("nro_foto_titulo"),
+                                    folio.GetSmallintAsInt("nro_cv"),
+                                    folio.GetSmallintAsInt("nro_doc_respaldo"),
+                                    folio.GetInt("dni"), 
+                                    true);
+            }
+            else {
+                return new Folios(nro_inscripcion, dni_postulante, fecha_postulacion, false);
+            }
+            
+
+        }
+
+
         private List<Postulacion> SoloPostulacionvigente(List<Postulacion> postulaciones_en_pantalla)
         {
             List<Postulacion> postulaciones_con_etapas_vigentes = new List<Postulacion>();

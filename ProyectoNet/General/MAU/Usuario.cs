@@ -19,6 +19,7 @@ namespace General.MAU
         public string Alias { get; set; }
         public Persona Owner { get; set; }
         public bool Habilitado { get; set; }
+        public bool Verificado { get; set; }
 
         protected string clave_encriptada { get; set; }
 

@@ -10,16 +10,16 @@ namespace General.Repositorios
 {
     public class RepositorioLicencias : RepositorioLazy<List<VacacionesPermitidas>>, IRepositorioLicencia
     {
-        
+
         public RepositorioLicencias(IConexionBD conexion)
             : base(conexion)
-        { 
+        {
         }
 
 
         #region IRepositorioLicencias Members
 
-        
+
         public string Guardar(Licencia unaLicencia)
         {
             if (this.GetLicenciasQueSePisanCon(unaLicencia))
@@ -76,7 +76,7 @@ namespace General.Repositorios
             dr = cn.EjecutarConsulta();
             while (dr.Read())
             {
-                if (dr.GetString(dr.GetOrdinal("Aprobada"))== "Aprobada")
+                if (dr.GetString(dr.GetOrdinal("Aprobada")) == "Aprobada")
                 {
                     retu = true;
                 }
@@ -152,7 +152,7 @@ namespace General.Repositorios
         }
 
 
-        public SaldoLicencia CargarSaldoLicencia14FoHDe(ConceptoDeLicencia concepto, Persona unaPersona, DateTime fecha) 
+        public SaldoLicencia CargarSaldoLicencia14FoHDe(ConceptoDeLicencia concepto, Persona unaPersona, DateTime fecha)
         {
             SaldoLicencia licencias_tomadas = CargarSaldoLicenciaTomada14FoHDe(concepto, unaPersona, fecha);
             SaldoLicencia licencia_en_tramite = GetLicenciasPendientes14FoHPara(concepto, unaPersona, fecha);
@@ -196,11 +196,11 @@ namespace General.Repositorios
             while (dr.Read())
             {
                 RestarDiasAnual = ((TimeSpan)(DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()) - DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()))).Days + 1 + RestarDiasAnual;
-                
+
                 if (fecha.Month == DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()).Month)
                 {
                     RestarDiasMensual = ((TimeSpan)(DateTime.Parse(dr.GetValue(dr.GetOrdinal("hasta")).ToString()) - DateTime.Parse(dr.GetValue(dr.GetOrdinal("desde")).ToString()))).Days + 1 + RestarDiasMensual;
-                }   
+                }
             }
             cn.Desconestar();
             saldo.SaldoAnual -= RestarDiasAnual;
@@ -229,8 +229,8 @@ namespace General.Repositorios
                     if (fecha.Month == DateTime.Parse(dr.GetDateTime("desde").ToString()).Month)
                     {
                         RestarDiasMensual++;
-                    } 
-                }     
+                    }
+                }
             });
 
             saldo.SaldoAnual -= RestarDiasAnual;
@@ -264,20 +264,20 @@ namespace General.Repositorios
                     //si la prorroga esta vacía solo se puede tomar las de este año, o el año pasado
 
                     //TODO: GER: Solo funciona bien para el mes de Diciembre.
-                     if (DateTime.Today.Month == 12)
+                    if (DateTime.Today.Month == 12)
                     {
-                    if (detalle.Periodo == DateTime.Today.Year || detalle.Periodo == DateTime.Today.Year - 1)
+                        if (detalle.Periodo == DateTime.Today.Year || detalle.Periodo == DateTime.Today.Year - 1)
+                        {
+                            saldo.Detalle.Add(detalle);
+                        }
+                    }
+                    else
                     {
-                        saldo.Detalle.Add(detalle);
+                        if (detalle.Periodo == DateTime.Today.Year - 1 || detalle.Periodo == DateTime.Today.Year - 2)
+                        {
+                            saldo.Detalle.Add(detalle);
+                        }
                     }
-                    }
-                     else
-                     {
-                         if (detalle.Periodo == DateTime.Today.Year - 1 || detalle.Periodo == DateTime.Today.Year - 2)
-                         {
-                             saldo.Detalle.Add(detalle);
-                         }
-                     }
                 }
                 else
                 {
@@ -295,8 +295,8 @@ namespace General.Repositorios
         #endregion
 
 
-        public List<VacacionesPermitidas> GetVacacionesPermitidas()        
-        {
+        public List<VacacionesPermitidas> GetVacacionesPermitidas()
+        {// CREO QUE SE PUEDE BOTTAR
             //List<Persona> personas, List<Periodo> periodos
 
             //var parametros = new Dictionary<string, object>();
@@ -327,29 +327,29 @@ namespace General.Repositorios
             //    vacaciones_permitidas.Add(vacaciones);
             //});
 
-           // return vacaciones_permitidas;
+            // return vacaciones_permitidas;
         }
 
-        public void EliminarLicenciaPendienteAprobacion(int id) 
+        public void EliminarLicenciaPendienteAprobacion(int id)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id", id);
-            this.conexion.EjecutarSinResultado("LIC_GEN_DelDiasPendientesDeAprobacion", parametros);   
+            this.conexion.EjecutarSinResultado("LIC_GEN_DelDiasPendientesDeAprobacion", parametros);
         }
-      
+
         public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona)
         {
             var parametros = new Dictionary<string, object>();
 
-           
-                parametros.Add("@nro_documento", persona.Documento);
 
-                //parametros.Add("@periodo", periodo.anio);
-           
-                //parametros.Add("@id_concepto_licencia", licencia.Concepto);
+            parametros.Add("@nro_documento", persona.Documento);
+
+            //parametros.Add("@periodo", periodo.anio);
+
+            //parametros.Add("@id_concepto_licencia", licencia.Concepto);
 
 
-                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesAprobadas(tablaDatos);
 
@@ -391,10 +391,10 @@ namespace General.Repositorios
 
                 vacaciones_aprobadas.Add(vacaciones);
             });
-           
+
             List<VacacionesAprobadas> vacaciones_aprobadas_ordenadas = (from vacacion in vacaciones_aprobadas orderby vacacion.Desde() select vacacion).ToList();
 
-           return vacaciones_aprobadas_ordenadas;
+            return vacaciones_aprobadas_ordenadas;
         }
 
         protected List<VacacionesPermitidas> ConstruirVacacionesPermitidas(TablaDeDatos tablaDatos)
@@ -422,15 +422,40 @@ namespace General.Repositorios
             return vacaciones_permitidas_ordenadas;
         }
 
+        protected List<VacacionesPermitidas> ConstruirVacacionesPerdidas(TablaDeDatos tablaDatos)
+        {
+            List<VacacionesPermitidas> vacaciones_perdidas = new List<VacacionesPermitidas>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Persona persona = new Persona();
+                persona.Documento = row.GetInt("NroDocumento");
+                persona.Apellido = row.GetString("Apellido");
+                persona.Nombre = row.GetString("Nombre");
+
+                int periodo = row.GetSmallintAsInt("Periodo");
+
+                int dias = row.GetSmallintAsInt("Dias_Perdidos");
+                int concepto = 1;
+
+                VacacionesPermitidas vacaciones = new VacacionesPermitidas(persona, periodo, dias);
+
+                vacaciones_perdidas.Add(vacaciones);
+            });
+
+            List<VacacionesPermitidas> vacaciones_permitidas_ordenadas = (from vacacion in vacaciones_perdidas orderby vacacion.Periodo select vacacion).ToList();
+            return vacaciones_permitidas_ordenadas;
+        }
+
         public List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, Periodo periodo, Licencia licencia)
         {
             var parametros = new Dictionary<string, object>();
-                parametros.Add("@nro_documento", persona.Documento);
-                parametros.Add("@periodo", periodo.anio);
-                parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
+            parametros.Add("@nro_documento", persona.Documento);
+            parametros.Add("@periodo", periodo.anio);
+            parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
 
 
-                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
 
             return ConstruirVacacionesPermitidas(tablaDatos);
 
@@ -438,24 +463,46 @@ namespace General.Repositorios
 
         public List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, ConceptoDeLicencia concepto)
         {
+            //HCER LA LÓGICA DE FABY    
             var parametros = new Dictionary<string, object>();
-                parametros.Add("@nro_documento", persona.Documento);
-                parametros.Add("@id_concepto_licencia", concepto.Id);
+            parametros.Add("@nro_documento", persona.Documento);
 
-                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
+            var tablaDatosPerdidas = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPerdidos", parametros);
 
-            return ConstruirVacacionesPermitidas(tablaDatos);
+            parametros.Add("@id_concepto_licencia", concepto.Id);
 
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
 
+            List<VacacionesPermitidas> vaca_permitidas = ConstruirVacacionesPermitidas(tablaDatos);
+            List<VacacionesPermitidas> vaca_perdidas = ConstruirVacacionesPerdidas(tablaDatosPerdidas);
+
+            return CalcularVacacionesPermitidasNoPerdidas(vaca_permitidas, vaca_perdidas);
         }
+
+        private List<VacacionesPermitidas> CalcularVacacionesPermitidasNoPerdidas(List<VacacionesPermitidas> vaca_permitidas, List<VacacionesPermitidas> vaca_perdidas)
+        {
+            List<VacacionesPermitidas> vacaciones_reales = new List<VacacionesPermitidas>();
+            vaca_permitidas.ForEach(permitida => {
+
+                if (vaca_perdidas.Exists(perdida => perdida.Periodo == permitida.Periodo && perdida.CantidadDeDias() <= permitida.CantidadDeDias())) {
+                    var perdido = vaca_perdidas.Find(perdida => perdida.Periodo == permitida.Periodo && perdida.CantidadDeDias() <= permitida.CantidadDeDias());
+                    permitida.RestarDias(perdido.CantidadDeDias());
+                }
+                vacaciones_reales.Add(permitida);
+
+            });
+            return vacaciones_reales;
+        }
+
+       
 
         public List<VacacionesPermitidas> GetVacacionPermitidaPara(Periodo periodo, Licencia licencia)
         {
             var parametros = new Dictionary<string, object>();
-                parametros.Add("@periodo", periodo.anio);
-                parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
+            parametros.Add("@periodo", periodo.anio);
+            parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
 
-                var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesPermitidas(tablaDatos);
 
@@ -504,57 +551,57 @@ namespace General.Repositorios
             var tablaDatos1 = this.conexion.Ejecutar("dbo.LIC_GEN_GetAusenciasEntreFechas", parametros);
 
 
-                foreach (var persona in personas)
+            foreach (var persona in personas)
+            {
+                if (tablaDatos1.Rows.Exists(row => row.GetInt("NroDocumento") == persona.Documento))
                 {
-                    if (tablaDatos1.Rows.Exists(row => row.GetInt("NroDocumento") == persona.Documento))
+                    tablaDatos1.Rows.FindAll(row => row.GetInt("NroDocumento") == persona.Documento).ForEach(row =>
                     {
-                        tablaDatos1.Rows.FindAll(row => row.GetInt("NroDocumento") == persona.Documento).ForEach(row =>
-                        {
-                            Inasistencia inasistencia = new Inasistencia();
-                            Persona persona_con_inasistencia = new Persona();
-                            inasistencia.Aprobada = true;
-                            inasistencia.Descripcion = row.GetSmallintAsInt("Concepto") + " - " + row.GetString("Descripcion");
-                            inasistencia.Desde = row.GetDateTime("Desde");
-                            inasistencia.Hasta = row.GetDateTime("Hasta");
-                            inasistencia.Estado = "Recepcionada en DGRHyO";
-                            persona_con_inasistencia.Apellido = persona.Apellido;
-                            persona_con_inasistencia.Nombre = persona.Nombre;
-                            persona_con_inasistencia.Documento = persona.Documento;
-                            persona_con_inasistencia.PasePendiente = persona.PasePendiente;
-                            persona_con_inasistencia.AgregarInasistencia(inasistencia);
-                            personas_con_inasistencias.Add(persona_con_inasistencia);
-                        });
-                    }
+                        Inasistencia inasistencia = new Inasistencia();
+                        Persona persona_con_inasistencia = new Persona();
+                        inasistencia.Aprobada = true;
+                        inasistencia.Descripcion = row.GetSmallintAsInt("Concepto") + " - " + row.GetString("Descripcion");
+                        inasistencia.Desde = row.GetDateTime("Desde");
+                        inasistencia.Hasta = row.GetDateTime("Hasta");
+                        inasistencia.Estado = "Recepcionada en DGRHyO";
+                        persona_con_inasistencia.Apellido = persona.Apellido;
+                        persona_con_inasistencia.Nombre = persona.Nombre;
+                        persona_con_inasistencia.Documento = persona.Documento;
+                        persona_con_inasistencia.PasePendiente = persona.PasePendiente;
+                        persona_con_inasistencia.AgregarInasistencia(inasistencia);
+                        personas_con_inasistencias.Add(persona_con_inasistencia);
+                    });
                 }
+            }
 
             //Licencias pendientes de Aprobación por RRHH (solicitadas por la Web)
-                var tablaDatos2 = this.conexion.Ejecutar("dbo.LIC_GEN_GetAusenciasPendientesEntreFechas", parametros);
+            var tablaDatos2 = this.conexion.Ejecutar("dbo.LIC_GEN_GetAusenciasPendientesEntreFechas", parametros);
 
 
-                foreach (var persona in personas)
+            foreach (var persona in personas)
+            {
+                if (tablaDatos2.Rows.Exists(row => row.GetInt("NroDocumento") == persona.Documento))
                 {
-                    if (tablaDatos2.Rows.Exists(row => row.GetInt("NroDocumento") == persona.Documento))
+                    tablaDatos2.Rows.FindAll(row => row.GetInt("NroDocumento") == persona.Documento).ForEach(row =>
                     {
-                        tablaDatos2.Rows.FindAll(row => row.GetInt("NroDocumento") == persona.Documento).ForEach(row =>
-                        {
-                            Inasistencia inasistencia = new Inasistencia();
-                            Persona persona_con_inasistencia = new Persona();
-                            inasistencia.Aprobada = true;
-                            inasistencia.Id = row.GetInt("Id");
-                            inasistencia.Descripcion = row.GetSmallintAsInt("Concepto") + " - " + row.GetString("Descripcion");
-                            inasistencia.Desde = row.GetDateTime("Desde");
-                            inasistencia.Hasta = row.GetDateTime("Hasta");
-                            inasistencia.Estado = "En Trámite";
-                            persona_con_inasistencia.Apellido = persona.Apellido;
-                            persona_con_inasistencia.Nombre = persona.Nombre;
-                            persona_con_inasistencia.Documento = persona.Documento;
-                            persona_con_inasistencia.AgregarInasistencia(inasistencia);
-                            personas_con_inasistencias.Add(persona_con_inasistencia);
-                        });
-                    }
+                        Inasistencia inasistencia = new Inasistencia();
+                        Persona persona_con_inasistencia = new Persona();
+                        inasistencia.Aprobada = true;
+                        inasistencia.Id = row.GetInt("Id");
+                        inasistencia.Descripcion = row.GetSmallintAsInt("Concepto") + " - " + row.GetString("Descripcion");
+                        inasistencia.Desde = row.GetDateTime("Desde");
+                        inasistencia.Hasta = row.GetDateTime("Hasta");
+                        inasistencia.Estado = "En Trámite";
+                        persona_con_inasistencia.Apellido = persona.Apellido;
+                        persona_con_inasistencia.Nombre = persona.Nombre;
+                        persona_con_inasistencia.Documento = persona.Documento;
+                        persona_con_inasistencia.AgregarInasistencia(inasistencia);
+                        personas_con_inasistencias.Add(persona_con_inasistencia);
+                    });
                 }
+            }
 
-                return personas_con_inasistencias;
+            return personas_con_inasistencias;
         }
 
 
@@ -602,11 +649,11 @@ namespace General.Repositorios
 
         private string determinarEstado(int estado)
         {
-            if (estado == 0){return "Pendiente";}else if(estado == 1){return "Aprobado";}else{return "Rechazado";}
+            if (estado == 0) { return "Pendiente"; } else if (estado == 1) { return "Aprobado"; } else { return "Rechazado"; }
         }
 
 
-        public bool DiasHabilitadosEntreFechas(DateTime desde, DateTime hasta, int idconcepto) 
+        public bool DiasHabilitadosEntreFechas(DateTime desde, DateTime hasta, int idconcepto)
         {
             int dias_pedidos = 0;
             var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetConceptosDeLicencia");
@@ -619,7 +666,7 @@ namespace General.Repositorios
             {
                 dias_pedidos = DiasHabilesEntreFechas(desde, hasta);
             }
-            else 
+            else
             {
                 TimeSpan diff = hasta - desde;
                 dias_pedidos = diff.Days + 1;
@@ -629,7 +676,7 @@ namespace General.Repositorios
             {
                 return false;
             }
-            else 
+            else
             {
                 return true;
             }
@@ -668,12 +715,12 @@ namespace General.Repositorios
                 }
                 return dias_habiles;
             }
-            else 
+            else
             {
                 Exception e = new Exception("la fecha desde no puede ser menor a la fecha hasta");
                 throw e;
             }
-                
+
         }
 
         public List<DateTime> ObtenerFeriados(int anio)
@@ -767,7 +814,7 @@ namespace General.Repositorios
             parametros.Add("@apellido", persona.Apellido);
             parametros.Add("@nombre", persona.Nombre);
             parametros.Add("@documento", persona.Documento);
-            
+
             //Licencia con Conflicto
             parametros.Add("@anio_maximo_imputable", aprobadas.AnioMaximoImputable().First().Periodo());
             parametros.Add("@anio_minimo_imputable", aprobadas.AnioMinimoImputable(persona));
@@ -784,7 +831,7 @@ namespace General.Repositorios
 
             parametros.Add("@fecha_calculo", fecha_calculo);
 
-            this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);   
+            this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
         }
 
 
@@ -796,7 +843,7 @@ namespace General.Repositorios
             prorroga_aplicable = CargarDatos(prorroga_del_anio);
 
             return prorroga_aplicable.UsufructoHasta - prorroga_aplicable.UsufructoDesde;
-            
+
         }
     }
 }
