@@ -7,29 +7,8 @@
 <head id="Head1" runat="server">    
     <title>Impresión Declaración Jurada DDJJ104</title>
 
-    <%--<%= Referencias.Css("../../")%>--%>
     <%= Referencias.Javascript("../../") %>
-    
-    <%--table { page-break-after:auto }
-          tr    { page-break-inside:avoid; page-break-after:auto }
-          td    { page-break-inside:avoid; page-break-after:auto }
-          thead { display:table-header-group }
-          tfoot { display:table-footer-group }
-          
-        .saltodepagina
-        {
-            page-break-after: auto;
-        }
-
-        #PanelImpresion>table tr
-        {
-            page-break-inside:auto;
-            page-break-before:auto;
-            display: block;
-        }
-
-    --%>
-
+   
     <style type="text/css"  >
         
         .SaltoDePagina

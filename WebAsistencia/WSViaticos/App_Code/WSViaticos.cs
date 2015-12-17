@@ -49,24 +49,24 @@ public class WSViaticos : System.Web.Services.WebService
     #region asistencia
 
     //INICIO: DDJJ 104 ---------------
-    [WebMethod]
-    public Area[] AreasConDDJJAdministradasPor(Usuario usuario)
-    {
-        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
-        return responsableDDJJ.AreasConDDJJAdministradasPor(usuario).ToArray();
-    }
+    //[WebMethod]
+    //public Area[] AreasConDDJJAdministradasPor(Usuario usuario)
+    //{
+    //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+    //    return responsableDDJJ.AreasConDDJJAdministradasPor(usuario).ToArray();
+    //}
 
-    [WebMethod]
-    public Area[] AreasSinDDJJInferioresA(Area area)
-    {
-        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
-        return responsableDDJJ.AreasSinDDJJInferioresA(area).ToArray(); 
-    }
+    //[WebMethod]
+    //public Area[] AreasSinDDJJInferioresA(Area area)
+    //{
+    //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+    //    return responsableDDJJ.AreasSinDDJJInferioresA(area).ToArray(); 
+    //}
 
     [WebMethod]
     public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, Usuario usuario)
     {
-        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
         var a = responsableDDJJ.GetAreasParaDDJJ104(mes, anio, usuario).ToArray();
 
         return a;
@@ -108,7 +108,7 @@ public class WSViaticos : System.Web.Services.WebService
         meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });        
 
         DateTime fechaActual = DateTime.Now;
-        if (fechaActual.Day > 10)
+        if (fechaActual.Day > 25)
         {
             meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });    
         }
@@ -2163,7 +2163,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Area[] AreasAdministradasPor(Usuario usuario)
     {
-        return Autorizador().AreasAdministradasPor(usuario).ToArray();
+         return Autorizador().AreasAdministradasPor(usuario).ToArray();
     }
 
     [WebMethod]

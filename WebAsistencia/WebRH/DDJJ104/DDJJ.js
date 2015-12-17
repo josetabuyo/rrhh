@@ -165,7 +165,7 @@ var DibujarFormularioDDJJ104 = function (un_area) {
 
     var vista_ddjj_imprimir = $("<div style='page-break-before: always;'>");
 
-    DibujarGrillaPersonas(un_area, vista_ddjj_imprimir);
+    DibujarGrillaPersonas(un_area, vista_ddjj_imprimir, true);
 
     //    var area;
     //    var mes;
@@ -256,7 +256,7 @@ var DibujarFormularioDDJJ104 = function (un_area) {
 var ConsultarDDJJ = function (idArea) {
     var un_area = _.find(lista_areas_del_usuario, function (a) { return a.Id == idArea; });
 
-    DibujarGrillaPersonas(un_area, $("#ContenedorPersona"));
+    DibujarGrillaPersonas(un_area, $("#ContenedorPersona", false));
 };
 
 //var GenerarDDJJ = function (idArea) {
@@ -309,16 +309,29 @@ var ImprimirDDJJ = function (idArea) {
 
 
 
-var DibujarGrillaPersonas = function (un_area, contenedor_grilla) {
+var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) {
     var grilla;
-    var maximoporhoja = 41;
-    var maximoporhojasrestantes = 63;
-    var filasporcabecera = 4;
-    var contador = 0;
+    var personas_pagina_1 = 40;
+    var personas_pagina_mayor_que_1 = 60;
+    var cantidad_de_persona_por_hoja = personas_pagina_1;
+    var cantidad_de_filas_por_cabecera = 4;
+    var contador_de_registros_por_pagina = 0;
+    var contador_de_paginas = 1;
 
+    var cantidad_total_de_personas = contarPersonasDelArea(un_area);
+    var cantidad_restantes_de_personas = cantidad_total_de_personas - cantidad_de_persona_por_hoja;
+    var cantidad_total_de_hojas = Math.ceil(cantidad_restantes_de_personas / personas_pagina_mayor_que_1) + 1;
+
+    //IMPRIMIR AREAS FORMALES
     contenedor_grilla.empty();
     contenedor_grilla.append($("<br/>"));
-    contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + un_area.Nombre + "<b/></div>"));
+
+    if (es_impresion) {
+        contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + un_area.Nombre + "<b/>" + " (Pag: " + contador_de_paginas + "/" + cantidad_total_de_hojas + ")</div>"));
+    } else {
+        contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + un_area.Nombre + "<b/></div>"));
+    }
+
     grilla = new Grilla(
         [
             new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
@@ -326,46 +339,51 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla) {
             new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
             new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
 		]);
-    contador = contador + filasporcabecera;
 
+    if (es_impresion) {
+        contador_de_registros_por_pagina = contador_de_registros_por_pagina + cantidad_de_filas_por_cabecera;
+        if (un_area.Personas.length > 0) {
+            for (var i = 0; i < un_area.Personas.length; i++) {
 
-    if (un_area.Personas.length > 0) {
-        for (var i = 0; i < un_area.Personas.length; i++) {
+                //CONTROLO PARA HACER LE SALTO DE PAGINA
+                if (contador_de_registros_por_pagina >= cantidad_de_persona_por_hoja) {
+                    cantidad_de_persona_por_hoja = personas_pagina_mayor_que_1;
+                    contador_de_paginas = contador_de_paginas + 1;
+                    grilla.DibujarEn(contenedor_grilla);
 
-            //CONTROLO PARA HACER LE SALTO DE PAGINA
-            if (contador >= maximoporhoja) {
-                maximoporhoja = maximoporhojasrestantes;
-                
-                grilla.DibujarEn(contenedor_grilla);
-                contenedor_grilla.append($("<br id='SaltoDePagina' class='SaltoDePagina' />"));
-                contenedor_grilla.append($("<br id='SaltoDePagina' class='SaltoDePagina' />"));
+                    contenedor_grilla.append($("<br/>"));
+                    contenedor_grilla.append($("<br/>"));
+                    contenedor_grilla.append($("<br/>"));
 
-                contenedor_grilla.append($("<br/>"));
-                contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + un_area.Nombre + " (continuación)" + "<b/></div>"));
-                grilla = new Grilla(
+                    contenedor_grilla.append($("<br/>"));
+                    contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + un_area.Nombre + " (continuación)" + "<b/>" + "(Pag: " + contador_de_paginas + "/" + cantidad_total_de_hojas + ")</div>"));
+                    grilla = new Grilla(
                 [
                     new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
 			        new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
                     new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
                     new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
 		        ]);
+                    contador_de_registros_por_pagina = cantidad_de_filas_por_cabecera;
+                }
+                //FIN SALTO DE PAGINA
 
-                contador = filasporcabecera;
+                var obj = un_area.Personas[i];
+                grilla.CargarObjeto(obj);
+                contador_de_registros_por_pagina = contador_de_registros_por_pagina + 1;
             }
-            //FIN SALTO DE PAGINA
-
-            var obj = un_area.Personas[i];
-            grilla.CargarObjeto(obj);
-
-            contador = contador + 1;
         }
     }
+    else {
+        grilla.CargarObjetos(un_area.Personas);
+    }
 
-    //    grilla.CargarObjetos(un_area.Personas);
     grilla.DibujarEn(contenedor_grilla);
     grilla.SetOnRowClickEventHandler(function () {
         return true;
     });
+
+    //IMPRIMIR AREAS INFORMALES
     un_area.AreasInformalesDependientes.forEach(function (area_informal) {
         contenedor_grilla.append($("<br/>"));
         contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + area_informal.Nombre + "<b/></div>"));
@@ -376,42 +394,48 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla) {
             new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
             new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
 		]);
-        contador = contador + filasporcabecera;
 
-        if (area_informal.Personas.length > 0) {
-            for (var i = 0; i < area_informal.Personas.length; i++) {
-                
-                //CONTROLO PARA HACER LE SALTO DE PAGINA
-                if (contador >= maximoporhoja) {
-                    maximoporhoja = maximoporhojasrestantes;
+        if (es_impresion) {
+            contador_de_registros_por_pagina = contador_de_registros_por_pagina + cantidad_de_filas_por_cabecera;
+            if (area_informal.Personas.length > 0) {
+                for (var i = 0; i < area_informal.Personas.length; i++) {
 
-                    grilla_area_informal.DibujarEn(contenedor_grilla);
-                    contenedor_grilla.append($("<br id='SaltoDePagina' class='SaltoDePagina' />"));
-                    contenedor_grilla.append($("<br id='SaltoDePagina' class='SaltoDePagina' />"));
+                    //CONTROLO PARA HACER LE SALTO DE PAGINA
+                    if (contador_de_registros_por_pagina >= cantidad_de_persona_por_hoja) {
+                        cantidad_de_persona_por_hoja = personas_pagina_mayor_que_1;
+                        contador_de_paginas = contador_de_paginas + 1;
+                        grilla_area_informal.DibujarEn(contenedor_grilla);
 
-                    contenedor_grilla.append($("<br/>"));
-                    contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + area_informal.Nombre + " (continuación)" + "<b/></div>"));
-                    var grilla_area_informal = new Grilla(
+                        contenedor_grilla.append($("<br />"));
+                        contenedor_grilla.append($("<br />"));
+                        contenedor_grilla.append($("<br />"));
+                        contenedor_grilla.append($("<br />"));
+                        contenedor_grilla.append($("<br />"));
+
+                        contenedor_grilla.append($("<br/>"));
+                        contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + area_informal.Nombre + " (continuación)" + "<b/>" + "(Pag: " + contador_de_paginas + "/" + cantidad_total_de_hojas + ")</div>"));
+                        var grilla_area_informal = new Grilla(
                     [
                         new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
 			            new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
                         new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
                         new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
 		            ]);
-                    contador = filasporcabecera;
-                }
-                //FIN SALTO DE PAGINA
+                        contador_de_registros_por_pagina = cantidad_de_filas_por_cabecera;
+                    }
+                    //FIN SALTO DE PAGINA
 
-                var obj = area_informal.Personas[i];
-                grilla_area_informal.CargarObjeto(obj);
-                contador = contador + 1;
+                    var obj = area_informal.Personas[i];
+                    grilla_area_informal.CargarObjeto(obj);
+                    contador_de_registros_por_pagina = contador_de_registros_por_pagina + 1;
+                }
             }
         }
-
-        //grilla_area_informal.CargarObjetos(area_informal.Personas);
+        else {
+            grilla_area_informal.CargarObjetos(area_informal.Personas);
+        }
         grilla_area_informal.DibujarEn(contenedor_grilla);
         grilla_area_informal.SetOnRowClickEventHandler(function () {
-
             return true;
         });
     });

@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FAreasConDDJJ.aspx.cs" Inherits="DDJJ104_FAreasConDDJJ" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
-<%@ Register Src="MenuDDJJ.ascx" TagName="BotonesMenu" TagPrefix="uc3" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -9,9 +8,6 @@
     <title></title>
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../") %>
-
-    <%--<link rel="stylesheet" type="text/css" href="Style.css" />--%>
-
 </head>
 
 
@@ -32,10 +28,6 @@
     <div id="grilla" runat="server" style="width: 100%" align="center">
         <div id="ContenedorGrilla" runat="server" style="width: 90%"></div>
     </div>
-<%--    
-    <div id="progressbar" style="width: 20%">
-        <div class="ui-progressbar-overlay" " > Cargando... </div>    
-    </div>--%>
     
     <div id="grillaPersonas" runat="server" style="width: 100%" align="center">
         <div id="ContenedorPersona" runat="server" style="width: 90%"></div>
