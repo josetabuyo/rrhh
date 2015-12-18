@@ -112,6 +112,7 @@
     <Compile Include="Postular\Folios.cs" />
     <Compile Include="Postular\CvModalidadContratacion.cs" />
     <Compile Include="Postular\CVTitulosAntecedentesAcademicos.cs" />
+    <Compile Include="Postular\ModalidadDeInscripcion.cs" />
     <Compile Include="Postular\ResumenDePostulaciones.cs" />
     <Compile Include="Postular\RepositorioDeFoliados.cs" />
     <Compile Include="Postular\RequisitoAntecedentesPenales.cs" />

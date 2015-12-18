@@ -148,6 +148,29 @@
                 (('' + second).length < 2 ? '0' : '') + second;
 
         return hoy;
+    },
+    traerPerfiles: function () {
+        var _this = this;
+
+        var perfiles = Backend.ejecutarSincronico("GetCvPerfiles", []);
+
+        for (i = 0; i < perfiles.length; i++) {
+            $('#combo_perfiles').append('<option value=' + perfiles[i].Id + ' data-agrupamiento=' + perfiles[i].Agrupamiento + ' data-nivel=' + perfiles[i].Nivel +
+            'data-tipo=' + perfiles[i].Tipo + '>' + perfiles[i].Denominacion + '</option>');
+        }
+
+        $('#combo_perfiles').change(function () {
+            var idPerfil = this.selectedOptions[0].value;
+            $('#puesto_denominacion').html(this.selectedOptions[0].text);
+            $('#puesto_agrupamiento').html(this.selectedOptions[0].dataset.agrupamiento);
+            $('#nivel_escalafonario').html(this.selectedOptions[0].dataset.nivel);
+            $('#puesto_tipo').html(this.selectedOptions[0].dataset.tipo);
+            $('#jurisdiccion').html('Ministerio de Desarrollo Social');
+
+
+        });
+
+
     }
 }
 

@@ -2534,6 +2534,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GuardarPostulacionManual(string postulacion, string datosPersonales, string folio, Usuario usuario)
+    {
+        // var postulaciones = new Postulacion();
+        return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
+    }
+
+    
+
+    [WebMethod]
     public Postulacion[] GetPostulaciones(Usuario usuario)
     {
         return RepoPostulaciones().GetPostulacionesDe(usuario.Owner.Id).ToArray();
@@ -3032,7 +3041,12 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-
+    [WebMethod]
+    public ModalidadDeInscripcion[] BuscarModalidadDeInscripcion(string criterio)
+    {
+        var repo = new RepositorioDePostulaciones(Conexion());
+        return repo.BuscarModalidadesDeInscripcion().ToArray();
+    }
 
     [WebMethod]
     public Provincia[] BuscarProvincias(string criterio)
