@@ -73,24 +73,29 @@ namespace General
             if (permitidas_aplicables.Count() == 0)
             {
                 _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo);
-                throw new SolicitudInvalidaException(); 
-            }
-            primera_permitida_aplicable = permitidas_aplicables.First();
-      
-            if (primera_permitida_aplicable.CantidadDeDias() > aprobadas.CantidadDeDias())
-            {
-                primera_permitida_aplicable.RestarDias(aprobadas.CantidadDeDias());
+
+
             }
             else
             {
-                aprobadas.DiasYaImputados(primera_permitida_aplicable.CantidadDeDias());
-                primera_permitida_aplicable.RestarDias(primera_permitida_aplicable.CantidadDeDias());
-                if (primera_permitida_aplicable.CantidadDeDias() == 0) {
-                    permitidas_consumibles.Remove(primera_permitida_aplicable);
-                }
-                if (aprobadas.CantidadDeDias() > 0)
+                primera_permitida_aplicable = permitidas_aplicables.First();
+
+                if (primera_permitida_aplicable.CantidadDeDias() > aprobadas.CantidadDeDias())
                 {
-                    ImputarA(aprobadas, permitidas_consumibles, persona, fecha_calculo);
+                    primera_permitida_aplicable.RestarDias(aprobadas.CantidadDeDias());
+                }
+                else
+                {
+                    aprobadas.DiasYaImputados(primera_permitida_aplicable.CantidadDeDias());
+                    primera_permitida_aplicable.RestarDias(primera_permitida_aplicable.CantidadDeDias());
+                    if (primera_permitida_aplicable.CantidadDeDias() == 0)
+                    {
+                        permitidas_consumibles.Remove(primera_permitida_aplicable);
+                    }
+                    if (aprobadas.CantidadDeDias() > 0)
+                    {
+                        ImputarA(aprobadas, permitidas_consumibles, persona, fecha_calculo);
+                    }
                 }
             }
         }
