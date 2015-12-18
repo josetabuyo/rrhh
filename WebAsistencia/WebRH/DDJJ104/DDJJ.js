@@ -310,9 +310,11 @@ var ImprimirDDJJ = function (idArea) {
 
 
 var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) {
-    var grilla;
+    //Maximo por hoja solo con el 1er encabezado entran 56 personas.
+    //Si hay otra area entran 52 personas porque el encabezado cuenta 4 personas mas.
     var personas_pagina_1 = 40;
     var personas_pagina_mayor_que_1 = 60;
+    var personas_calulo_por_hoja = 54;
     var cantidad_de_persona_por_hoja = personas_pagina_1;
     var cantidad_de_filas_por_cabecera = 4;
     var contador_de_registros_por_pagina = 0;
@@ -320,7 +322,7 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
 
     var cantidad_total_de_personas = contarPersonasDelArea(un_area);
     var cantidad_restantes_de_personas = cantidad_total_de_personas - cantidad_de_persona_por_hoja;
-    var cantidad_total_de_hojas = Math.ceil(cantidad_restantes_de_personas / personas_pagina_mayor_que_1) + 1;
+    var cantidad_total_de_hojas = Math.ceil(cantidad_restantes_de_personas / personas_calulo_por_hoja) + 1;
 
     //IMPRIMIR AREAS FORMALES
     contenedor_grilla.empty();
