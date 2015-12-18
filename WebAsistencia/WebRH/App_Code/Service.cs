@@ -185,13 +185,13 @@ public class AjaxWS : System.Web.Services.WebService
     [WebMethod(EnableSession = true)]
     public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
     {
-        backEndService.ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+        backEndService.ConcederFuncionalidadA(id_usuario, id_funcionalidad, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
     public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
     {
-        backEndService.DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+        backEndService.DenegarFuncionalidadA(id_usuario, id_funcionalidad, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
@@ -277,13 +277,13 @@ public class AjaxWS : System.Web.Services.WebService
     [WebMethod(EnableSession = true)]
     public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
     {
-        backEndService.AsignarAreaAUnUsuario(id_usuario, id_area);
+        backEndService.AsignarAreaAUnUsuario(id_usuario, id_area, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
     public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
     {
-        backEndService.DesAsignarAreaAUnUsuario(id_usuario, id_area);
+        backEndService.DesAsignarAreaAUnUsuario(id_usuario, id_area, usuarioLogueado);
     }
     /////////////////////FIN MAU
 
@@ -339,7 +339,7 @@ public class AjaxWS : System.Web.Services.WebService
     [WebMethod(EnableSession = true)]
     public string ResetearPassword(int id_usuario)
     {
-        return Newtonsoft.Json.JsonConvert.SerializeObject(new { nueva_clave = backEndService.ResetearPassword(id_usuario) });
+        return Newtonsoft.Json.JsonConvert.SerializeObject(new { nueva_clave = backEndService.ResetearPassword(id_usuario, usuarioLogueado) });
     }
 
     [WebMethod(EnableSession = true)]

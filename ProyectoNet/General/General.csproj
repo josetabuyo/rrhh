@@ -114,6 +114,7 @@
     <Compile Include="Postular\AmbitoLaboral.cs" />
     <Compile Include="Postular\AntecedentePenal.cs" />
     <Compile Include="Postular\Comite.cs" />
+    <Compile Include="Postular\Folios.cs" />
     <Compile Include="Postular\CvModalidadContratacion.cs" />
     <Compile Include="Postular\CVTitulosAntecedentesAcademicos.cs" />
     <Compile Include="Postular\ResumenDePostulaciones.cs" />
