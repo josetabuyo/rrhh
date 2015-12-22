@@ -54,9 +54,10 @@
                         para que vuelva a funcionar lo tuyo, se tiene que llamar: btn_solicitar_modificacion
                         Bel :)--%>
 
-                    <a id="btn_mod" onclick="Modal()" > Solicitar Modificación De Datos </a>          
+                    <%--<a id="btn_mod" onclick="Modal()" > Solicitar Modificación De Datos </a> --%> 
+                    <a id="btn_modificar_area" href="Protocolo/ModificarArea.aspx">Solicitar Modificación De Datos</a>        
                 </div>
-            </div>
+            </div>  
         </div>
         <div id="plantilla_vista_asistente" class="vista_asistente">
             <div><div id="cargo" class="titulo"></div> <div id="resumen" class="valor"></div></div>                 
