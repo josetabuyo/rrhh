@@ -1,5 +1,5 @@
 ﻿var ProveedorAjax = function (raiz) {
-    this.raiz = "http://localhost:14556/WebRH/"; //LOCAL
+    this.raiz = "http://localhost:43414/WebRH/"; //LOCAL
     //this.raiz = "http://www.cltservwebrh.des/"; //LUNA
     //this.raiz = "https://rrhh.desarrollosocial.gob.ar/"; //PRODUCCION
 };

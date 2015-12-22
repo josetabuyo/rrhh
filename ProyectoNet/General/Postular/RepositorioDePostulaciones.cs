@@ -7,6 +7,8 @@ using General.Repositorios;
 using General.MAU;
 using General.Postular;
 using System.Data;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace General
 {
@@ -147,24 +149,6 @@ namespace General
             return etapas;
 
         }
-
-        //private Puesto ArmarPuesto(RowDeDatos row)
-        //{
-        //    var repo_comite = new RepositorioDeComites(this.conexion_bd);
-        //    return new Puesto(
-        //                      row.GetInt("IdPuesto"),
-        //                      row.GetString("Familia"),
-        //                      row.GetString("Profesion"),
-        //                      row.GetString("Denominacion"),
-        //                      row.GetString("Nivel"),
-        //                      row.GetString("Agrupamiento"),
-        //                      row.GetInt("Vacantes"),
-        //                      row.GetString("Tipo"),
-        //                      row.GetString("Puesto_Numero"),
-        //                      repo_comite.GetComiteById(row.GetInt("IdComite")
-        //                      )
-        //        );
-        //}
 
         private Perfil ArmarPuesto(RowDeDatos row)
         {
@@ -451,6 +435,223 @@ namespace General
                         }*/
 
             return lista_reportes;
+        }
+
+        public string InscripcionManual(string postulacion, string datosPersonales, string folio, Usuario usuario) {
+
+            var postulacion_deserializada = (JObject)JsonConvert.DeserializeObject(postulacion);
+            var datosPersonales_deserializada = (JObject)JsonConvert.DeserializeObject(datosPersonales);
+            var folio_deserializada = (JObject)JsonConvert.DeserializeObject(folio);
+
+            var idPerfil = postulacion_deserializada["postulacion"]["Perfil"].ToString();
+            var fechaInscripcion = postulacion_deserializada["postulacion"]["FechaInscripcion"].ToString();
+            string[] fechas = fechaInscripcion.Split('/');
+            DateTime fechaFormateada = new DateTime(int.Parse(fechas[2]), int.Parse(fechas[1]), int.Parse(fechas[0])); 
+
+            var dniInscriptor = postulacion_deserializada["postulacion"]["DNIInscriptor"].ToString();
+            var nombre = datosPersonales_deserializada["datosPersonales"]["Nombre"].ToString();
+            var apellido = datosPersonales_deserializada["datosPersonales"]["Apellido"].ToString();
+            var dni = datosPersonales_deserializada["datosPersonales"]["DNI"].ToString();
+            var telefono = datosPersonales_deserializada["datosPersonales"]["Telefono"].ToString();
+            var mail = datosPersonales_deserializada["datosPersonales"]["Mail"].ToString();
+
+            var folioFicha = folio_deserializada["folio"]["FichaInscripcion"].ToString();
+            var folioCarnet = folio_deserializada["folio"]["FotografiaCarnet"].ToString();
+            var folioDNI = folio_deserializada["folio"]["FotocopiaDNI"].ToString();
+            var folioTitulo = folio_deserializada["folio"]["Titulo"].ToString();
+            var folioCV = folio_deserializada["folio"]["CV"].ToString();
+            var folioRespaldo = folio_deserializada["folio"]["DocumentacionRespaldo"].ToString();
+
+            var domicilio_personal_calle = datosPersonales_deserializada["datosPersonales"]["DomicilioCallePersonal"].ToString();
+            var domicilio_personal_nro = int.Parse(datosPersonales_deserializada["datosPersonales"]["DomicilioNroPersonal"].ToString());
+            var domicilio_personal_piso = int.Parse(datosPersonales_deserializada["datosPersonales"]["DomicilioPisoPersonal"].ToString());
+            var domicilio_personal_depto = datosPersonales_deserializada["datosPersonales"]["DomicilioDeptoPersonal"].ToString();
+            var domicilio_personal_cp = int.Parse(datosPersonales_deserializada["datosPersonales"]["DomicilioCpPersonal"].ToString());
+            var domicilio_personal_prov = int.Parse(datosPersonales_deserializada["datosPersonales"]["DomicilioProvinciaPersonal"].ToString());
+            var domicilio_personal_localidad = int.Parse(datosPersonales_deserializada["datosPersonales"]["DomicilioLocalidadPersonal"].ToString());
+
+            var domicilio_legal_calle = datosPersonales_deserializada["datosPersonales"]["DomicilioCalleLegal"].ToString();
+            var domicilio_legal_nro = int.Parse(datosPersonales_deserializada["datosPersonales"]["DomicilioNroLegal"].ToString());
+            var domicilio_legal_piso = int.Parse(datosPersonales_deserializada["datosPersonales"]["DomicilioPisoLegal"].ToString());
+            var domicilio_legal_depto = datosPersonales_deserializada["datosPersonales"]["DomicilioDeptoLegal"].ToString();
+            var domicilio_legal_cp = int.Parse(datosPersonales_deserializada["datosPersonales"]["DomicilioCpLegal"].ToString());
+            var domicilio_legal_prov = int.Parse(datosPersonales_deserializada["datosPersonales"]["DomicilioProvinciaLegal"].ToString());
+            var domicilio_legal_localidad = int.Parse(datosPersonales_deserializada["datosPersonales"]["DomicilioLocalidadLegal"].ToString());
+
+
+            //mockeado el tipo
+            var modalidad = postulacion_deserializada["postulacion"]["Modalidad"].ToString();
+
+           
+            RepositorioDePersonas repoPersonas = RepositorioDePersonas.NuevoRepositorioDePersonas(conexion_bd);
+            Persona personaAInscribir;
+            try {
+                //busco o creo la persona que se va a postular
+                personaAInscribir = TraerPersonaPorDNI(repoPersonas, dni, nombre, apellido);
+            }
+            catch (Exception e) {
+                return e.Message;
+            }
+           
+            RepositorioDeUsuarios repoUsuarios = new RepositorioDeUsuarios(conexion_bd,repoPersonas);
+            Usuario usuarioAInscribir;
+            try {
+                //busco el usuario de la persona que se va postular
+                usuarioAInscribir = TraerUsuarioPorIdPersona(repoUsuarios, personaAInscribir.Id);
+            }
+            catch (Exception e ) {
+                return e.Message;
+            }
+           
+            Persona personaInscriptor;
+          
+            try {
+                //busco la persona que fue el inscriptor
+                personaInscriptor = TraerPersonaPorDNI(repoPersonas, dniInscriptor, "", "");
+            }
+            catch (Exception e) {
+                return e.Message;
+            }
+            
+            
+             Usuario usuarioInscriptor;
+             try {
+                 //busco el usuario del inscriptor 
+                 usuarioInscriptor = TraerUsuarioPorIdPersona(repoUsuarios, personaInscriptor.Id);
+             }
+             catch (Exception e) {
+                 return e.Message;
+             }
+
+             //guardo el domicilio personal
+             GuardarDomicilioInscripcionManual(int.Parse(dni), domicilio_personal_calle, domicilio_personal_nro, domicilio_personal_piso, domicilio_personal_depto, domicilio_personal_cp, domicilio_personal_prov, domicilio_personal_localidad, telefono, mail, 1, usuarioInscriptor.Id);
+            //guardo el domicilio legal
+             GuardarDomicilioInscripcionManual(int.Parse(dni), domicilio_legal_calle, domicilio_legal_nro, domicilio_legal_piso, domicilio_legal_depto, domicilio_legal_cp, domicilio_legal_prov, domicilio_legal_localidad, telefono, mail, 2, usuarioInscriptor.Id);
+
+             //creo la postulacion
+             var numeroPostulacion = CrearPostulacionManual(int.Parse(idPerfil), personaAInscribir.Id, usuarioAInscribir.Id);
+
+            //guardo los folios de la postulacion
+            //OJO CAMBIAR LA FECHA
+             GuardarFolios(numeroPostulacion, fechaFormateada, int.Parse(folioFicha), int.Parse(folioCarnet), int.Parse(folioDNI), int.Parse(folioTitulo), int.Parse(folioCV), int.Parse(folioRespaldo), usuarioInscriptor.Id);
+
+            //guardo en la nueva tabla de postulacion manual
+            GuardarDatosExtrasPostulacionManual(numeroPostulacion, DateTime.Now, usuario.Id, int.Parse(modalidad));
+
+            //busco la postulacion para pasarla de etapa
+            Postulacion mi_postul = this.GetPostulacionesPorCodigo(numeroPostulacion);
+            InsEtapaPostulacion(mi_postul.Id, 2, usuarioInscriptor.Id);
+
+            return numeroPostulacion;
+        }
+
+        private void GuardarDomicilioInscripcionManual(int dni, string domicilio_calle, int domicilio_nro, int domicilio_piso, string domicilio_depto, int domicilio_cod_postal, int domicilio_prov, int domicilio_localidad, string telefono, string mail, int tipo, int idUsuarioInscriptor)
+        {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Dni", dni);
+            parametros.Add("@DomicilioCalle", domicilio_calle);
+            parametros.Add("@DomicilioNumero", domicilio_nro);
+            parametros.Add("@DomicilioPiso", domicilio_piso);
+            parametros.Add("@DomicilioDepto", domicilio_depto);
+            parametros.Add("@DomicilioCp", domicilio_cod_postal);
+            parametros.Add("@DomicilioLocalidad", domicilio_localidad);
+            parametros.Add("@DomicilioProvincia", domicilio_prov);
+            parametros.Add("@DomicilioTipo", tipo);
+            parametros.Add("@DomicilioTelefono", telefono);
+            parametros.Add("@DomicilioCorreo_Electronico",mail );
+            parametros.Add("@Usuario", idUsuarioInscriptor);
+            parametros.Add("@Correo_Electronico_MDS", mail );
+            parametros.Add("@DomicilioTelefono2", telefono);
+
+            conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
+        }
+
+        private bool GuardarDatosExtrasPostulacionManual(string codigoPostulacion, DateTime fechaInscripcionManual, int idUsuario, int modalidad)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@numeroPostulacion", codigoPostulacion);
+            parametros.Add("@FechaInscripcionManual", fechaInscripcionManual);
+            parametros.Add("@IdUsuario", idUsuario);
+            parametros.Add("@ModalidadInscripcion", modalidad);
+
+            conexion_bd.Ejecutar("dbo.CV_Ins_InscripcionManual", parametros);
+
+            return true;
+        }
+
+        private Usuario TraerUsuarioPorIdPersona(RepositorioDeUsuarios repoUsuarios, int idPersona)
+        {
+
+            try
+            {
+                Usuario usuario = repoUsuarios.GetUsuarioPorIdPersona(idPersona);
+                if (usuario.Id == 0)
+                    return repoUsuarios.CrearUsuarioPara(idPersona);
+                return usuario;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+           
+        }
+
+        private Persona TraerPersonaPorDNI(RepositorioDePersonas repoPersonas, string dni, string nombre, string apellido)
+        {
+            try 
+	        {	        
+		        List<Persona> personaAInscribir = repoPersonas.BuscarPersonas("{Documento:" + dni + "}");
+                //si no encuentra a la persona la creo
+                if (personaAInscribir.Count == 0 && nombre != "")
+                {
+                    repoPersonas.GuardarPersona(new Persona(0, int.Parse(dni), nombre, apellido, null));
+                    personaAInscribir = repoPersonas.BuscarPersonas("{Documento:" + dni + "}");
+                }
+                                   
+                             
+                return personaAInscribir.First();
+
+	        }
+	        catch (Exception e)
+	        {
+                throw new Exception("No se encontró a la persona con el DNI: " + dni);
+	        }
+          
+        }
+
+        public string CrearPostulacionManual(int idPerfil, int idPersona, int idUsuario) {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idPuesto", idPerfil);
+            parametros.Add("@idPersona", idPersona);
+            parametros.Add("@Motivo", "");
+            parametros.Add("@Observacion", "");
+            parametros.Add("@Usuario", idUsuario);
+            RepositorioDeTickets repoTicket = new RepositorioDeTickets(conexion_bd);
+            var numeroPostulacion = repoTicket.GenerarTicket("POSTULAR");
+            parametros.Add("@Numero", numeroPostulacion);
+
+            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
+
+            //var datosPostulacion = new { numero = numeroPostulacion, idPostulacion = "Hello" };
+
+            return numeroPostulacion;
+        }
+
+        public List<ModalidadDeInscripcion> BuscarModalidadesDeInscripcion()
+        {
+            var tablaModalidades = conexion_bd.Ejecutar("dbo.CV_Get_ModalidadDeInscripcion");
+
+            var modalidades = new List<ModalidadDeInscripcion>();
+
+            tablaModalidades.Rows.ForEach(row =>
+            modalidades.Add(new ModalidadDeInscripcion(row.GetSmallintAsInt("Id"), row.GetString("Descripcion")))
+            );
+
+
+            return modalidades;
+
         }
     }
 }

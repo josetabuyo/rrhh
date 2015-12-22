@@ -597,6 +597,23 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GuardarPostulacionManual">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="datosPersonales" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarPostulacionManualResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarPostulacionManualResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetPostulaciones">
         <s:complexType>
           <s:sequence>
@@ -1577,6 +1594,31 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="BuscarModalidadDeInscripcion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarModalidadDeInscripcionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarModalidadDeInscripcionResult" type="tns:ArrayOfModalidadDeInscripcion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfModalidadDeInscripcion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ModalidadDeInscripcion" nillable="true" type="tns:ModalidadDeInscripcion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ModalidadDeInscripcion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarProvincias">
         <s:complexType>
           <s:sequence>
@@ -4896,6 +4938,12 @@
   <wsdl:message name="PostularseASoapOut">
     <wsdl:part name="parameters" element="tns:PostularseAResponse" />
   </wsdl:message>
+  <wsdl:message name="GuardarPostulacionManualSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarPostulacionManual" />
+  </wsdl:message>
+  <wsdl:message name="GuardarPostulacionManualSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarPostulacionManualResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPostulacionesSoapIn">
     <wsdl:part name="parameters" element="tns:GetPostulaciones" />
   </wsdl:message>
@@ -5243,6 +5291,12 @@
   </wsdl:message>
   <wsdl:message name="EliminarPostulacionPorUsuarioSoapOut">
     <wsdl:part name="parameters" element="tns:EliminarPostulacionPorUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarModalidadDeInscripcionSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarModalidadDeInscripcion" />
+  </wsdl:message>
+  <wsdl:message name="BuscarModalidadDeInscripcionSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarModalidadDeInscripcionResponse" />
   </wsdl:message>
   <wsdl:message name="BuscarProvinciasSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarProvincias" />
@@ -6289,6 +6343,10 @@
       <wsdl:input message="tns:PostularseASoapIn" />
       <wsdl:output message="tns:PostularseASoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GuardarPostulacionManual">
+      <wsdl:input message="tns:GuardarPostulacionManualSoapIn" />
+      <wsdl:output message="tns:GuardarPostulacionManualSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPostulaciones">
       <wsdl:input message="tns:GetPostulacionesSoapIn" />
       <wsdl:output message="tns:GetPostulacionesSoapOut" />
@@ -6520,6 +6578,10 @@
     <wsdl:operation name="EliminarPostulacionPorUsuario">
       <wsdl:input message="tns:EliminarPostulacionPorUsuarioSoapIn" />
       <wsdl:output message="tns:EliminarPostulacionPorUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarModalidadDeInscripcion">
+      <wsdl:input message="tns:BuscarModalidadDeInscripcionSoapIn" />
+      <wsdl:output message="tns:BuscarModalidadDeInscripcionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="BuscarProvincias">
       <wsdl:input message="tns:BuscarProvinciasSoapIn" />
@@ -7239,6 +7301,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GuardarPostulacionManual">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarPostulacionManual" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPostulaciones">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetPostulaciones" style="document" />
       <wsdl:input>
@@ -7754,6 +7825,15 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarPostulacionPorUsuario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarPostulacionPorUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarModalidadDeInscripcion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarModalidadDeInscripcion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9339,6 +9419,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GuardarPostulacionManual">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarPostulacionManual" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPostulaciones">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPostulaciones" style="document" />
       <wsdl:input>
@@ -9854,6 +9943,15 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarPostulacionPorUsuario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarPostulacionPorUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarModalidadDeInscripcion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarModalidadDeInscripcion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
