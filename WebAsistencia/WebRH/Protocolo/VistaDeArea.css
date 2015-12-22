@@ -10,7 +10,6 @@
 .dialog_vista_area .ui-dialog-titlebar
 {    
     background-color:#0088cc !important;
-    font-weight: bolder;
     height:35px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -29,7 +28,7 @@
     text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);
     font-size: 19.5px;
     line-height: 36px;
-    color: #333333;
+    color: #FFF;
     margin-left:5px;
 }
 .dialog_vista_area
