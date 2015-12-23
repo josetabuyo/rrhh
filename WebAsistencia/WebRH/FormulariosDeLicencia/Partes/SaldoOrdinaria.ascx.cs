@@ -166,7 +166,7 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
             personas_list.ForEach(p =>
             {
                 SaldoLicencia licencia = s.GetSaldoLicencia(p, this.Concepto);
-                s.GuardarLicenciaPasePermanente(p, licencia, this.Concepto);
+               // s.GuardarLicenciaPasePermanente(p, licencia, this.Concepto);
                 //saldos.Add(licencia);
             }
                 );
