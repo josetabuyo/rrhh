@@ -2166,11 +2166,30 @@ public class WSViaticos : System.Web.Services.WebService
         return personas;
     }
 
+    
     [WebMethod]
     public Area[] AreasAdministradasPor(Usuario usuario)
     {
-         return Autorizador().AreasAdministradasPor(usuario).ToArray();
+        //GRANI 20151228: Se cambia por un error de referencia circular.
+        //return Autorizador().AreasAdministradasPor(usuario).ToArray();
+
+        JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+
+        var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
+        var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+        
+        Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
+        return areas;
     }
+
+    //[WebMethod]
+    //public string AreasAdministradasPor2(Usuario usuario)
+    //{
+    //    //return JsonConvert.SerializeObject(blah,settings);
+    //    JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+    //    var blah = Autorizador().AreasAdministradasPor(usuario).ToArray();
+    //    return JsonConvert.SerializeObject(blah, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+    //}
 
     [WebMethod]
     public Area[] AreasAdministradasPorIdUsuario(int id_usuario)
