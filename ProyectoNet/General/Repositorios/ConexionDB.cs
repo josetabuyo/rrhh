@@ -13,6 +13,7 @@ namespace General.Repositorios
     {
         private SqlConnection _Coneccion = new SqlConnection();
         private SqlCommand _Comando;
+        private SqlTransaction _Transaccion;
 
         #region Conexion
 
@@ -69,13 +70,27 @@ namespace General.Repositorios
             _Comando.Connection = _Coneccion;
             _Comando.CommandType = CommandType.StoredProcedure;
             _Comando.CommandText = nombreStoredProcedure;
+            _Comando.CommandTimeout = 100;
             SqlCommandBuilder.DeriveParameters(_Comando);
             return true;
         }
 
+
+        public bool CrearComandoConTransaccionIniciada(string nombreStoredProcedure)
+        {
+            _Comando = new SqlCommand();
+            _Comando.Connection = _Coneccion;
+            _Comando.Transaction = _Transaccion;
+            _Comando.CommandType = CommandType.StoredProcedure;
+            _Comando.CommandText = nombreStoredProcedure;
+            SqlCommandBuilder.DeriveParameters(_Comando);
+            return true;
+        }
+
+        
+
         public SqlDataReader EjecutarConsulta()
         {
-
             try
             {
                 return _Comando.ExecuteReader();
@@ -257,9 +272,28 @@ namespace General.Repositorios
             }
         }
 
+
+        public void BeginTransaction()
+        {
+            _Transaccion = _Coneccion.BeginTransaction();
+            _Comando.Transaction = _Transaccion;
+        }
+
+        public void RollbackTransaction()
+        {
+            _Transaccion.Rollback();
+            Desconestar();
+        }
+
+        public void CommitTransaction()
+        {
+            _Transaccion.Commit();
+            Desconestar();
+        }
+
         #endregion
 
-
+        
     }
 }
 

@@ -52,5 +52,10 @@ namespace General.MAU
         {
             throw new NotImplementedException();
         }
+
+        public void Refresh()
+        {
+
+        }
     }
 }

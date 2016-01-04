@@ -39,7 +39,7 @@
                         <div class="linea dato_personal">
                             <div>Legajo:</div>
                             <div id="legajo"></div>    
-                        </div>                
+                        </div>                 
                     </div>
                     <div id="panel_password">
                         <div class="linea linea_nombre_usuario">
@@ -48,13 +48,18 @@
                         </div>
                         <div class="linea linea_passwrd">
                             <div class="titulo">Contraseña:</div>
-                            <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear"/>
+                            <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear" RequiereFuncionalidad = "25"/>
+                        </div>
+                        <div class="seccion_verificacion_usuario">
+                            <div id="usuario_verificado">DNI Verificado</div>    
+                            <div id="usuario_no_verificado">DNI No Verificado</div>    
+                            <input id="btn_verificar_usuario" type="button" class="btn btn-warning" value="Verificar"  RequiereFuncionalidad = "21"/>
                         </div>
                     </div>
                 </div> 
                 <div id="panel_inferior_izquierdo" class="estilo_formulario">
                     <legend class="subtitulos"> Areas </legend>
-                    <div id="panel_areas_administradas">
+                    <div id="panel_areas_administradas" RequiereFuncionalidad = "24">
                         <div id="lista_areas_administradas">
                         
                         </div>
@@ -120,7 +125,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var adm_usuarios = new AdministradorDeUsuarios();
+        Backend.start(function () {
+            var adm_usuarios = new AdministradorDeUsuarios();
+        });
     });
 </script>
 </html>

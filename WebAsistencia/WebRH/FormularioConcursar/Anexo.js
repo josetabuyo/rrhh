@@ -32,7 +32,7 @@
         _this.direccion = $("#direccion");
         _this.direccion.text("");
         _this.domicilio_lugar_de_trabajo = $("#domicilio_lugar_de_trabajo");
-        _this.domicilio_lugar_de_trabajo.text("Av 9 de Julio");
+        _this.domicilio_lugar_de_trabajo.text("");
         _this.apellido_y_nombre = $("#apellido_y_nombre");
         _this.apellido_y_nombre.text(curriculum.DatosPersonales.Nombre + ' ' + curriculum.DatosPersonales.Apellido);
         _this.documento = $("#documento");
@@ -49,6 +49,16 @@
 
         var localidadLegal = Backend.ejecutarSincronico("BuscarLocalidades", [{ Id: curriculum.DatosPersonales.DomicilioLegal.Localidad}])[0];
         var provinciaLegal = Backend.ejecutarSincronico("BuscarProvincias", [{ Id: curriculum.DatosPersonales.DomicilioLegal.Provincia}])[0];
+
+        if (!localidadLegal) {
+            localidadLegal = {};
+            localidadLegal.Nombre =  'Sin Localidad';
+        }
+
+        if (!provinciaLegal) {
+            provinciaLegal = {};
+            provinciaLegal.Nombre = 'Sin Provincia';
+        }
 
         _this.domicilio_legal.text("DOMICILIO: " + curriculum.DatosPersonales.DomicilioLegal.Calle + ' ' + curriculum.DatosPersonales.DomicilioLegal.Numero + '. C (' + curriculum.DatosPersonales.DomicilioLegal.Cp + ') ' +
                                     localidadLegal.Nombre + ' ' + provinciaLegal.Nombre);

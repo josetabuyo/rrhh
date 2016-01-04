@@ -57,7 +57,7 @@ namespace General
         {
             var validador_actividad = new Validador();
 
-            validador_actividad.DeberianSerNoVacias(new string[] { "DiplomaDeCertificacion", "Especialidad", "Duracion", "Establecimiento", "Localidad" });
+            validador_actividad.DeberianSerNoVacias(new string[] { "DiplomaDeCertificacion", "Duracion", "Establecimiento", "Localidad" });
             validador_actividad.DeberianSerFechasNoVacias(new string[] { "FechaInicio", "FechaFinalizacion" });
             validador_actividad.DeberianSerNaturalesOCero(new string[] { "Pais" });
 

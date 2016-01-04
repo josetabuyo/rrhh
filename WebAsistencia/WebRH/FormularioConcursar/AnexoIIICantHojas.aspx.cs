@@ -15,16 +15,21 @@ public partial class FormularioConcursar_Default : System.Web.UI.Page
         var usuario = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
 
         string codigo_postulacion = codigo_postu.Value;
-
+        
         string id_postulacion = Request.QueryString["id"];  
         string fh_postulacion_ansi = Request.QueryString["fh"];
         var fh_postulacion = DateTime.Parse(fh_postulacion_ansi);
-
+        string dni = Request.QueryString["dni"];  
         
 
         if (!IsPostBack)
         {
-            var cv = Servicio().GetCurriculumVersion(usuario.Owner.Id, fh_postulacion);
+            var idPersona = usuario.Owner.Id;
+            var persona = Servicio().BuscarPersonas(dni);
+            if (persona.Count() > 0)
+                idPersona = persona.First().Id;
+
+            var cv = Servicio().GetCurriculumVersion(idPersona, fh_postulacion);
             var postulacion = Servicio().GetPostulacionesPorCodigo(id_postulacion);
 
             var curriculum = JsonConvert.SerializeObject(cv);

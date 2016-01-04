@@ -22,9 +22,13 @@ var ComboConBusquedaYAgregado = function (opt) {
             window[_this.nombre_funcion_global_agregado] = function () {
                 alertify.confirm("¿Está seguro que desea agregar el elemento: " + str_ingresado + "?",
                     function (respuesta) {
+                        if (!respuesta) {
+                            _this.select.select2("close");
+                            return;
+                        }
                         if (_this.filtro) {
                             var parametros = [str_ingresado];
-                            for(var key in _this.filtro){
+                            for (var key in _this.filtro) {
                                 parametros.push(_this.filtro[key]);
                             }
 
@@ -34,6 +38,10 @@ var ComboConBusquedaYAgregado = function (opt) {
                                 _this.select.append(option);
                                 _this.idSeleccionado(objeto.Id);
                                 window[_this.nombre_funcion_global_agregado] = undefined;
+                                _this.select.select2("close");
+                                alertify.success('Elemento agregado');
+                            }, function () {
+                                alertify.error('Error al agregar elemento');
                                 _this.select.select2("close");
                             });
                         }
@@ -45,9 +53,12 @@ var ComboConBusquedaYAgregado = function (opt) {
                                 _this.idSeleccionado(objeto.Id);
                                 window[_this.nombre_funcion_global_agregado] = undefined;
                                 _this.select.select2("close");
+                                alertify.success('Elemento agregado');
+                            }, function () {
+                                alertify.error('Error al agregar elemento');
+                                _this.select.select2("close");
                             });
                         }
-                        alertify.success('Elemento agregado');
                     },
                     function () {
                         _this.select.select2("close");

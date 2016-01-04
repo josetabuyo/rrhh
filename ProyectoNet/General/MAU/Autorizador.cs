@@ -164,6 +164,12 @@ namespace General.MAU
                 //throw new Exception("Ya hay alguien registrado con su Mail.");
                 return false;
             }
+
+            //VALIDA QUE SI TIENE UN DOCUMENTO YA EN LA BASE Y TIENE UN USUARIO ASIGNADO NO PUEDE.
+            if (repo_personas.BuscarPersonasConUsuario(JsonConvert.SerializeObject(new { Documento = aspirante.Documento })))
+            {
+                return false;
+            }
  
             if(aspirante.Nombre.Trim() == "") throw new Exception("El nombre no puede ser vacío.");
             if(aspirante.Apellido.Trim() == "") throw new Exception("El apellido no puede ser vacío.");
@@ -237,6 +243,16 @@ namespace General.MAU
                     () => { },
                     () => { throw new Exception("No se pudo enviar un mail con la clave"); }
                 );
+        }
+
+        public bool VerificarUsuario(int id_usuario, Usuario usuario)
+        {
+            if (!ElUsuarioTienePermisosPara(usuario.Id, 21)) return false;
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_usuario_verificador", usuario.Id);
+            this.conexion.EjecutarSinResultado("MAU_Verificar_usuario", parametros);
+            return true;
         }
     }
 }

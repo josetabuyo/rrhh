@@ -102,6 +102,8 @@
         this.txt_apellido.val("");
         this.txt_email = $("#txt_email");
         this.txt_email.val("");
+        this.txt_email_repetido = $("#txt_mail_registro_repetido");
+        this.txt_email_repetido.val("");
         this.btn_registrarse = $("#btn_registrarse");
 
         this.lbl_numero_documento.text(this.txt_numero_documento.val());

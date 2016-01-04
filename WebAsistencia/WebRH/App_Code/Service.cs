@@ -185,13 +185,13 @@ public class AjaxWS : System.Web.Services.WebService
     [WebMethod(EnableSession = true)]
     public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
     {
-        backEndService.ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+        backEndService.ConcederFuncionalidadA(id_usuario, id_funcionalidad, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
     public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
     {
-        backEndService.DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+        backEndService.DenegarFuncionalidadA(id_usuario, id_funcionalidad, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
@@ -277,13 +277,13 @@ public class AjaxWS : System.Web.Services.WebService
     [WebMethod(EnableSession = true)]
     public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
     {
-        backEndService.AsignarAreaAUnUsuario(id_usuario, id_area);
+        backEndService.AsignarAreaAUnUsuario(id_usuario, id_area, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
     public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
     {
-        backEndService.DesAsignarAreaAUnUsuario(id_usuario, id_area);
+        backEndService.DesAsignarAreaAUnUsuario(id_usuario, id_area, usuarioLogueado);
     }
     /////////////////////FIN MAU
 
@@ -339,7 +339,7 @@ public class AjaxWS : System.Web.Services.WebService
     [WebMethod(EnableSession = true)]
     public string ResetearPassword(int id_usuario)
     {
-        return Newtonsoft.Json.JsonConvert.SerializeObject(new { nueva_clave = backEndService.ResetearPassword(id_usuario) });
+        return Newtonsoft.Json.JsonConvert.SerializeObject(new { nueva_clave = backEndService.ResetearPassword(id_usuario, usuarioLogueado) });
     }
 
     [WebMethod(EnableSession = true)]
@@ -871,6 +871,8 @@ public class AjaxWS : System.Web.Services.WebService
     public string EjecutarEnBackend(string nombre_metodo, String[] argumentos_json)
     {
         System.Reflection.MethodInfo metodo = backEndService.GetType().GetMethods().ToList().Find(m => m.Name == nombre_metodo);
+        if(metodo==null) throw new Exception("Error: No se encontró el método " + nombre_metodo + " en el WEB SERVICE" );
+
         var argumentos_esperados = metodo.GetParameters();
 
         var argumentos_a_enviar = new List<Object>();
@@ -899,5 +901,51 @@ public class AjaxWS : System.Web.Services.WebService
         var metodos = backEndService.GetType().GetMethods().ToList().Select(m => new { nombre = m.Name });
         return Newtonsoft.Json.JsonConvert.SerializeObject(metodos);
     }
+
+    ////INICIO: DDJJ//
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string AreasConDDJJAdministradasPor()
+    //{
+    //    var areas = backEndService.AreasConDDJJAdministradasPor(usuarioLogueado);
+    //    var areas_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(areas);
+    //    return areas_serializados;
+    //}
+
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string GetAreasParaDDJJDelMes(string valorCombo)
+    //{
+    //    var areas = backEndService.GetAreasParaDDJJDelMes(valorCombo, usuarioLogueado);
+    //    var areas_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(areas);
+    //    return areas_serializados;
+    //}
+
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string GenerarDDJJ104(List<WSViaticos.DDJJ104> lista)
+    //{
+    //    var resp = backEndService.GenerarDDJJ104(lista.ToArray(), usuarioLogueado);
+
+    //    if (resp)
+    //    {
+    //        return "OK";
+    //    }
+    //    else
+    //    {
+    //        return "ERROR";
+    //    }
+    //}
+
+    //[WebMethod(EnableSession = true)]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string ImprimirDDJJ104(List<WSViaticos.DDJJ104> lista)
+    //{
+    //    var ddjj = backEndService.ImprimirDDJJ104(lista.ToArray());
+    //    var ddjj_serializados = Newtonsoft.Json.JsonConvert.SerializeObject(ddjj);
+    //    return ddjj_serializados;
+    //}
+
+    ////FIN: DDJJ//
 }
 

@@ -157,5 +157,34 @@ namespace General
 
             return areas.Distinct(new AreaEquals()).ToList()[0];
         }
+
+
+        public List<Area> GetAreaInferiorById(int id, bool presenta_ddjj)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_area", id);
+            parametros.Add("@presenta_ddjj", presenta_ddjj);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.ESTR_GET_Areas_Dependencias_Activas", parametros);
+            List<Area> areas = new List<Area>();
+            tablaDatos.Rows.ForEach(row =>
+            {
+                areas.Add(new Area { 
+                                Id = row.GetInt("id_area"), 
+                                Nombre = row.GetString("descripcion"),
+                                PresentaDDJJ = row.GetBoolean("presenta_DDJJ")
+                                });
+            });
+            
+            //var aliases = ObtenerTodosLosAliasDeAreas();
+            //aliases.ForEach((alias) =>
+            //{
+            //    var area_del_alias = areas.Find(area => area.Id == alias.IdArea);
+            //    if (area_del_alias != null) { area_del_alias.SetAlias(alias); }
+            //});
+
+            return areas; //areas.Distinct(new AreaEquals()).ToList()[0];
+        }
+            
+
     }
 }

@@ -42,56 +42,77 @@
                 Permanente. También da la opción de regularizar diferentes modalidades de contrataciones existentes hoy dentro del SINEP. Comprende tres 
                 grandes etapas: la INSCRIPCIÓN, el PROCESO DE EVALUACIÓN y, finalmente, ORDEN DE MÉRITO Y DESIGNACIÓN.</p>
 
+                <div style="text-align:center;" ><img alt="etapas" src="../Imagenes/etapasPostular.jpg" width="550" height="500px" /></div>
+
                 <div id="texto-central-titulo"><strong style="font-size:2.2em;" class="titulo_postulaciones">Etapas </strong></div>
                 <br />
                 <div id="texto-central-titulo" class="sub_etapas">Inscripción</div>
                 <p><img alt="2" src="../Imagenes/iconos/001.jpg" />
                 <b>1) <span style="text-decoration: underline;">Pre inscripción electrónica</span>:</b><br />
-                Deberás ingresar a la WEB (<a href="" target="_parent">www.desarrollosocial.gov.ar/concursos</a>) y cargar tus datos a través 
-                del Sistema Concursar. De esa carga se crearán una serie de formularios que necesitarás tener para completar la inscripción documental.</p>
+                Comienza con la carga (o actualización) de tu Currículum Vitae (historial personal, académico, laboral y profesional) que puedes realizar en esta misma página.</p>
+                <p>Se completa con la postulación que realices en uno o más Puestos de un Llamado datos a través del Sistema Concursar. De esa carga se crearán una serie de formularios que necesitarás tener para completar la inscripción documental.</p>
                 <p><img alt="2" src="../Imagenes/iconos/002.jpg" />
+                
                 <b>2) <span style="text-decoration: underline;">Inscripción documental</span>:</b><br />
-                Deberás acercarte para presentar los formularios impresos obtenidos en la pre-inscripción electrónica y el Currículum Vitae actualizado 
-                junto a TODA la documentación de respaldo para certificar los datos consignados en dichos formularios. (se solicitarán copias y 
-                originales, para validar las mismas)<b></b></p>
+                Deberás acercarte para presentar los formularios impresos obtenidos en la pre-inscripción electrónica y el Currículum Vitae actualizado junto a TODA la documentación de respaldo para certificar los datos consignados en dichos formularios. Los formularios, que se imprimen cuando realices cada postulación son:<b></b></p>
+                <ul>
+                    <li>FORMULARIO DE SOLICITUD Y FICHA DE INSCRIPCIÓN (Anexo I)</li>
+                    <li>DECLARACIÓN JURADA Y CONSTANCIA DE RECEPCIÓN Y ACEPTACIÓN DEL REGLAMENTO Y BASES DEL CONCURSO (Anexo II)</li>
+                    <li>CONSTANCIA DE RECEPCIÓN DE LA SOLICITUD, FICHA DE INSCRIPCIÓN Y DE LA DOCUMENTACIÓN PRESENTADA (Anexo III)</li>
+                </ul>
+                <p>Con respecto al resto de la documentación, se debe recordar que se solicitarán copias y originales, para validar las primeras.</p>
+
                 <p><img alt="2" src="../Imagenes/iconos/003.jpg" />
+                
+                <div id="Div2" class="sub_etapas">Admisión</div>
+                <br />
                 <b>3) <span style="text-decoration: underline;">Listado Admitidos y No Admitidos</span>:</b><br />
-                 Deberás consultar las carteleras en PLANTA BAJA del Ministerio de Desarrollo Social o a través del siguiente link: ........<b></b></p>
+                 Una vez culminada la Etapa de Inscripción Documental, cada Comité se abocará a analizar la documentación presentada y evaluar el cumplimiento de los requisitos excluyentes especificados en cada perfil convocado.<b></b></p>
+                 <p>Como resultado de este trabajo se elaborarán las Actas de Admitidos y No admitidos al Concurso, las cuales serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
               
                 <br />
                 <div id="texto-central-titulo" class="sub_etapas">Proceso de evaluación:</div>
                 <p><img alt="2" src="../Imagenes/iconos/004.jpg" />
-                <b>4.1)</b> <b>Evaluación de Antecedentes Curriculares y Laborales:</b><br /> El Comité de selección evaluará los antecedentes de los 
-                postulantes de acuerdo a la información y documentación que hayan presentado en la etapa de inscripción.</p>
+                <b>4.1)</b> <b>Evaluación de Antecedentes Curriculares y Laborales:</b><br /> El Comité de selección evaluará los antecedentes de los postulantes de acuerdo a la información y documentación que hayan presentado en la etapa de inscripción, ponderándolos equitativamente en función de instrumentos previamente elaborados.</p>
+                <p>Como resultado de esta ponderación se elaborarán las Actas de Ponderación de Antecedentes, las cuales serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
                 <p><img alt="2" src="../Imagenes/iconos/005.jpg" />
                 <b>4.2) Evaluación Técnica:</b><br /> De carácter presencial. Se evaluarán los conocimientos y capacidades del postulante según los 
                 requerimientos típicos del puesto de trabajo en cuestión.</p>
+                <p>Al igual que en las etapas anteriores las Actas con los resultados de esta etapa serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
                 <p><img alt="2" src="../Imagenes/iconos/006.jpg" />
                 <b>4.3) Evaluación Mediante Entrevista Laboral: </b><br />Se realizará al menos un encuentro del postulante con el Comité para evaluar su 
                 adecuación a los requerimientos del puesto.</p>
+                <p>Al igual que en las etapas anteriores las Actas con los resultados de esta etapa serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
                 <p><img alt="2" src="../Imagenes/iconos/007.jpg" />
                 <b>4.4) Evaluación del Perfil Psicológico: </b><br />Será realizada por profesional matriculado para ponderar la adecuación de las características de personalidad vinculadas con el desempeño laboral efectivo de acuerdo al puesto al cual concursa.</p>
+                <p>Al igual que en las etapas anteriores las Actas con los resultados de esta etapa serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
 
                 <br />
                 <div id="Div1" class="sub_etapas">Etapa Final:</div>
                 <p><img alt="2" src="../Imagenes/iconos/008.jpg" />
-                <b>5) Calificacion final: </b><br />Alguna descripcion de esta tarea.</p>
+                <b>5) Calificacion final: </b><br />Los puntajes obtenidos por cada participante en todas y cada una de las etapas, serán ponderados en función de la relevancia porcentual respectiva asignada en las Bases del Concursos.</p>
+                <p>De esta manera se obtendrá la Puntuación final del candidato para cada uno de los perfiles a los que se haya postulado.</p>
                 <p><img alt="2" src="../Imagenes/iconos/009.jpg" />
-                <b>6)</b> El  Orden de Mérito se publicará en los sitio<a href="" > www.desarrollosocial.gov.ar/concursos</a> y 
-                <a href="" >www.concursar.gob.ar</a>.</p>
+                <b>6) Elaboración y Publicación del Orden de Mérito:</b></p>
+                <p>Las nóminas de candidatos que alcanzaron satisfactoriamente la última etapa del Concurso, se ordenan decrecientemente de acuerdo al puntaje ponderado alcanzado en la Calificación Final, conformando ello el Orden de Mérito para ese perfil.</p>
+                <p>El Orden de Mérito así elaborado se incluye en la correspondiente Acta de Comité y se eleva para aprobación de la máxima autoridad del Organismo.</p>
+                <p>Tanto el Acta como la posterior Resolución Ministerial también serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
                 <p><img alt="2" src="../Imagenes/iconos/010.jpg" />
-                <b>7)</b> Se inicia el proceso de designación del cargo en Planta Permanente, mediante acto administrativo, conforme al Orden de 
-                Mérito y en función de la elección que manifestarán en caso de haber ganado más de un puesto.</p>
+                <b>7) Designación</b></p>
+                <p>Oportunamente, se inicia el proceso de designación del cargo en Planta Permanente, mediante acto administrativo, conforme al Orden de Mérito y en función de la elección que manifestarán en caso de haber ganado más de un puesto.</p>
             </div>
 		</div><!-- .entry-content -->
         <div>
         <br />
             <div class="preguntas_frecuentes">
                 <div style="font-size:2.2em;" class="titulo_postulaciones">Preguntas Frecuentes</div>
+                <p>(Elaborado en base a material relacionado publicado en la página www.concursar.gob.ar)<br />
+                    (Para ver la respuesta a cada pregunta, hacer click con el mouse sobre la misma)
+                </p>
         	        <p name="faq_1" class="disparador">1) ¿Cuándo comienza la inscripción?</p>
                     <div id="faq_1" class="texto_escondido">
-                        <p style="text-align: left;">El proceso de inscripción comienza con la preinscripción electrónica y&nbsp; se completa con la inscripción documental, momento en el que se entrega toda la documentación obligatoria&nbsp; para finalizar el proceso de inscripción.</p>
-                        <p style="text-align: left;">Podrá consultar las fechas de cada concurso en el sitio <a href="http://www.concursar.gob.ar" target="_blank">www.concursar.gob.ar</a> en la pestaña de Convocatorias&nbsp;en inscripción.</p>
+                        <p style="text-align: left;">El proceso de inscripción comienza con la preinscripción electrónica y  se completa con la inscripción documental, momento en el que se entrega toda la documentación obligatoria  para finalizar el proceso de inscripción.</p>
+                        <p style="text-align: left;">Podrá consultar las fechas de cada concurso en este mismo sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
                         <p style="text-align: left;">&nbsp;&nbsp;</p>
                     </div>
                     <p name="faq_2" class="disparador">2) ¿Quiénes se pueden presentar a la convocatoria?</p>
@@ -106,7 +127,7 @@
 
                     <p name="faq_3" class="disparador">3) ¿Qué es el SINEP?</p>
                     <div id="faq_3" class="texto_escondido">
-                        <p style="text-align: left;">Es el Convenio Colectivo de Trabajo Sectorial que rige para la mayoría de los trabajadores que se desempeñan en distintos organismos de la administración pública central y descentralizada (Jefatura de Gabinete, Ministerios, organismos descentralizados), en cargos de Planta Permanente, Planta Transitoria y en el régimen de contrataciones de conformidad con el artículo 9º del Anexo de la Ley 25164.</p>
+                        <p style="text-align: left;">El Convenio Colectivo de Trabajo Sectorial del personal del Sistema Nacional de Empleo Público (SINEP) fue homologado oportunamente por Decreto del Poder Ejecutivo Nacional N° 2.098 del 03 de diciembre de 2008 y rige para la mayoría de los trabajadores que se desempeñan en distintos organismos de la Administración Pública Nacional Central y Descentralizada (Jefatura de Gabinete, Ministerios, organismos descentralizados), en cargos de Planta Permanente, Planta Transitoria y en el régimen de contrataciones de conformidad con el artículo 9º del Anexo de la Ley 25164.</p>
                         <p style="text-align: left;">&nbsp;&nbsp;</p>
                     </div>
 
@@ -125,20 +146,20 @@
 
                     <p name="faq_6" class="disparador">6) ¿Dónde se realiza la inscripción?</p>
                     <div id="faq_6" class="texto_escondido"  >
-                        <p style="text-align: left;">Primero deberá realizar la preinscripción electrónica a través del sitio web <a href="http://www.concursar.gob.ar" target="_blank">www.concursar.gob.ar</a></p>
-                        <p style="text-align: left;">Luego, deberá presentar los formularios impresos y la documentación debidamente certificada que corresponda a los datos ingresados en la preinscripción, en el &nbsp;lugar indicado por cada organismo para la inscripción documental.<span style="font-size: 1em;">&nbsp;</span></p>
+                        <p style="text-align: left;">Primero deberá realizar la preinscripción electrónica a través de este mismo sitio web.</p>
+                        <p style="text-align: left;">Luego, deberá presentar los formularios impresos y la documentación debidamente certificada que corresponda a los datos ingresados en la preinscripción, en el  lugar que se indique en cada llamado respectivo para la inscripción documental.</p>
                         <p style="text-align: left;">&nbsp;&nbsp;</p>
                     </div>
 
                     <p name="faq_7" class="disparador">7) ¿Cómo hago para inscribirme?</p>
                     <div id="faq_7" class="texto_escondido">
                         <p style="text-align: left;">El proceso de inscripción está conformado por dos instancias:</p>
-                        <p style="text-align: left;"> Pre-inscripción electrónica:  se realiza vía Internet a través del sitio <a href="http://www.concursar.gob.ar" target="_blank">http://www.concursar.gob.ar</a>. Allí deberá volcar todos sus datos personales, académicos y laborales, e imprimir los formularios obligatorios para entregar el día de la inscripción documental (Anexos I, II y III).</p>
-                        <p style="text-align: left;"> Inscripción documental:  una vez realizada la pre-inscripción electrónica, deberá concurrir personalmente en los días y horarios previstos en la convocatoria y con la documentación requerida para cada cargo (ver Pregunta 11. ¿Qué debo presentar el día de la inscripción documental?), al lugar que corresponda según la convocatoria elegida.</p>
-                        <p style="text-align: left;">Si usted ya es empleado de algún organismo público se aconseja concurrir con original y una copia fiel (fotocopia certificada por un funcionario habilitado a tal efecto) de la documentación, con el objetivo de agilizar la inscripción.</p>
-                        <p style="text-align: left;">Si usted no es empleado de algún organismo público, en el caso de no poseer copia certificada ante escribano público, se deberá concurrir con original y fotocopia de la documentación a presentar.</p>
-                        <p style="text-align: left;">En caso de no poder asistir, podrá ser reemplazado por un apoderado debidamente acreditado.</p>
-                        <p style="text-align: left;">Si usted reside a más de 50 kilómetros del lugar de inscripción o acredita certificado de discapacidad, podrá enviar la documentación por correo postal (en cuyo caso deberá adjuntar certificado de domicilio o copia del certificado de discapacidad, respectivamente).</p>
+                        <p style="text-align: left;"> 1.	Pre-inscripción electrónica: se realiza vía Internet a través de este sitio web volcando todos sus datos personales, académicos y laborales, realizando la postulación e imprimiendo los formularios obligatorios para entregar el día de la inscripción documental (Anexos I, II y III).</p>
+                        <p style="text-align: left;"> 2.	Inscripción documental: una vez realizada la pre-inscripción electrónica, deberá concurrir personalmente en los días y horarios previstos en la convocatoria y con la documentación requerida para cada cargo (ver Pregunta 11. ¿Qué debo presentar el día de la inscripción documental?), al lugar que corresponda según la convocatoria elegida.</p>
+                        <p style="text-align: left;">En el caso de no poseer copia certificada ante escribano público, se deberá concurrir con original y fotocopia de la documentación a presentar.</p>
+                        <p style="text-align: left;">En caso de no poder asistir, podrá ser reemplazado por un apoderado debidamente acreditado.(ver pregunta 9).</p>
+                        <p style="text-align: left;">Si usted reside a más de 50 kilómetros del lugar de inscripción o acredita certificado de discapacidad, podrá enviar la documentación debidamente certificada por correo postal (en cuyo caso deberá adjuntar certificado de domicilio o copia del certificado de discapacidad, respectivamente).</p>
+                       
                         <p style="text-align: left;">&nbsp;&nbsp;</p>
                     </div>
 
@@ -162,7 +183,7 @@
                             <li>DECLARACIÓN JURADA Y CONSTANCIA DE RECEPCIÓN Y ACEPTACIÓN DEL REGLAMENTO Y BASES DEL CONCURSO (Anexo II)</li>
                             <li>CONSTANCIA DE RECEPCIÓN DE LA SOLICITUD, FICHA DE INSCRIPCIÓN Y DE LA DOCUMENTACIÓN PRESENTADA (Anexo III)</li>
                         </ul>
-                        <p style="text-align: left;">Estos tres anexos se obtienen al momento de realizar la preinscripción electrónica (<a href="http://test-www.concursar.gob.ar/inscripcion" target="_self">www.concursar.gob.ar/ Preinscripcion</a>).</p>
+                        <p style="text-align: left;">Estos tres anexos se obtienen al momento de realizar la preinscripción electrónica.</p>
                         <ul>
                             <li>Fotocopia de los certificados de estudios formales y de la documentación que respalde toda otra información volcada en el Anexo I, Formulario de Solicitud y Ficha de Inscripción. Se deberá concurrir con una copia fiel de la documentación que avale los antecedentes consignados. En caso de no contar con copias autenticadas, deberá concurrir a la inscripción con la documentación original y fotocopia. En el lugar de la inscripción documental se realizará la correspondiente constatación y certificación. La ausencia de lo requerido o la falta de presentación de la documentación original llevará a no considerar el antecedente declarado</li>
                             <li>&nbsp;Si usted no fuera personal comprendido en el Sistema Nacional de Empleo Público (SINEP) deberá adjuntar, además, DOS (2) fotografías recientes tipo carné, tamaño CUATRO POR CUATRO (4X4) cm. y fotocopia de las DOS (2) primeras hojas del Documento Nacional de Identidad así como de aquella hoja en la que figure el domicilio actualizado.</li>
@@ -189,7 +210,7 @@
 
                     <p name="faq_13" class="disparador"> 13) ¿Cómo y cuándo me entero si fui admitido? </p>
                     <div id="faq_13" class="texto_escondido" >
-                        <p style="text-align: left;">Cada organismo informará la nómina de inscriptos y la lista de admitidos y no admitidos en sus carteleras públicas y/o sitios web. La misma información podrá ser consultada en www.concursar.gob.ar. El cronograma tentativo se encuentra consignado en las bases de cada concurso.</p>
+                        <p style="text-align: left;">En este sitio, y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a> se informará la nómina de inscriptos y la lista de admitidos y no admitidos. El cronograma tentativo se encontrará consignado en las bases de cada concurso.</p>
                         <p style="text-align: left;">&nbsp;&nbsp;</p>
                     </div>
 

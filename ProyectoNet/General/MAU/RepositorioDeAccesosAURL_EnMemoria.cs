@@ -17,5 +17,10 @@ namespace General.MAU
         {
             return this.accesos;
         }
+
+        public void Refresh()
+        {
+           
+        }
     }
 }

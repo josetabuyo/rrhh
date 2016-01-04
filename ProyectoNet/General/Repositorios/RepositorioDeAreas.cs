@@ -151,7 +151,7 @@ namespace General.Repositorios
                                                             row.GetSmallintAsInt("Prioridad_Asistente"),
                                                             row.GetString("Telefono_Asistente"),
                                                             row.GetString("Telefono_Asistente"),//Falta cambiar por Fax!!!
-                                                            row.GetString("Mail_Asistente"));
+                                                            row.GetString("Mail_Asistente"));                                                            
                         if (asistente.Descripcion_Cargo.Trim() != "" && asistente.Apellido.Trim() != "") Asistentes.Add(asistente);
 
                         Responsable datos_responsable = new Responsable(row.GetString("Nombre_Responsable"),
@@ -171,6 +171,7 @@ namespace General.Repositorios
                             datos_del_responsable = datos_responsable,
                             Asistentes = Asistentes,
                             DatosDeContacto = DatosDeContacto,
+                            PresentaDDJJ = row.GetBoolean("presenta_DDJJ"),
                         });
                     }
                     else

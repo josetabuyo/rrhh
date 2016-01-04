@@ -10,5 +10,6 @@ namespace General.MAU
     {
         List<Funcionalidad> TodasLasFuncionalidades();
         Funcionalidad GetFuncionalidadPorId(int p);
+        void Refresh();
     }
 }

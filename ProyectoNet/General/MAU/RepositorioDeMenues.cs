@@ -54,6 +54,7 @@ namespace General.MAU
                         item.Descripcion = row.GetString("DescripcionItemMenu");
                         item.Orden = row.GetInt("OrdenItemMenu");
                         item.Acceso = accesos.Find(a=> a.Id==row.GetInt("IdAccesoAURL"));
+                        if (item.Acceso == null) throw new Exception("Se hace referencia a un acceso a URL que no existe. Acceso:" + row.GetInt("IdAccesoAURL"));
                         menu_actual.Items.Add(item);
                     };                
                 }

@@ -109,37 +109,37 @@
                     <label class="etiqueta_campo" for="text_calle2">
                         Calle <em>*</em></label>
                     <input type="text" id="text_calle2" name="text_calle2" style="width: 350px;" data-validar="esNoBlanco"
-                        rh-control-type="textbox" rh-model-property="DomicilioLegal.Calle" maxlength="100" />
+                        rh-control-type="textbox" rh-model-property="DomicilioLegal.Calle" maxlength="100" disabled="true" />
                 </div>
                 <div class="grupo_campos">
                     <label class="etiqueta_campo" for="txt_numero2">
                         Número <em>*</em></label>
                     <input type="text" id="txt_numero2" name="txt_numero2" style="width: 50px" data-validar="esNumeroNatural"
-                        rh-control-type="textbox" rh-model-property="DomicilioLegal.Numero" maxlength="10" />
+                        rh-control-type="textbox" rh-model-property="DomicilioLegal.Numero" maxlength="10" disabled="true" />
                 </div>
                 <div class="grupo_campos">
                     <label class="etiqueta_campo" for="txt_piso2">
                         Piso</label>
                     <input type="text" id="txt_piso2" name="txt_piso2" style="width: 30px" maxlength="10"
-                        rh-control-type="textbox" rh-model-property="DomicilioLegal.Piso" />
+                        rh-control-type="textbox" rh-model-property="DomicilioLegal.Piso" disabled="true" />
                 </div>
                 <div class="grupo_campos">
                     <label class="etiqueta_campo" for="txt_dto2">
                         Dto</label>
                     <input type="text" id="txt_dto2" name="txt_dto2" style="width: 30px" maxlength="10"
-                        rh-control-type="textbox" rh-model-property="DomicilioLegal.Depto" />
+                        rh-control-type="textbox" rh-model-property="DomicilioLegal.Depto" disabled="true" />
                 </div>
                 <div class="grupo_campos">
                     <label class="etiqueta_campo_small" for="txt_cp2">
                         Código Postal <em>*</em></label>
                     <input type="text" id="txt_cp2" name="txt_cp2" style="width: 80px" data-validar="esNumeroNatural"
-                        rh-control-type="textbox" rh-model-property="DomicilioLegal.Cp" maxlength="20" /><br />
+                        rh-control-type="textbox" rh-model-property="DomicilioLegal.Cp" maxlength="20" disabled="true" /><br />
                 </div>
                 <div class="grupo_campos nueva_linea">
                     <label class="etiqueta_campo" for="cmb_provincia2">
                         Provincia <em>*</em></label>
                     <select id="cmb_provincia2" style="width: 320px;" rh-control-type="combo" rh-propiedad-label="Nombre"
-                        rh-data-provider="Provincias" rh-model-property="DomicilioLegal.Provincia" data-validar="haySeleccionEnCombo">
+                        rh-data-provider="Provincias" rh-model-property="DomicilioLegal.Provincia" data-validar="haySeleccionEnCombo" disabled="true">
                     </select>
                 </div>
                 <div class="grupo_campos">
@@ -147,26 +147,26 @@
                         Localidad <em>*</em></label>
                     <select id="cmb_localidad2" style="width: 320px;" rh-control-type="combo" rh-propiedad-label="Nombre"
                         rh-data-provider="Localidades" rh-model-property="DomicilioLegal.Localidad" rh-filter-key="IdProvincia"
-                        rh-filter-value="DomicilioLegal.Provincia" data-validar="haySeleccionEnCombo">
+                        rh-filter-value="DomicilioLegal.Provincia" data-validar="haySeleccionEnCombo" disabled="true">
                     </select>
                 </div>
                 <div class="grupo_campos nueva_linea">
                     <label class="etiqueta_campo" for="txt_telefono">
                         Tel&eacute;fono Fijo <em>*</em></label>
                     <input type="text" id="txt_telefono" name="txt_telefonoFijo" style="width: 140px;"
-                        rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono" data-validar="haySeleccionEnCombo" />
+                        rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono" data-validar="haySeleccionEnCombo" disabled="true" />
                 </div>
                 <div class="grupo_campos">
                     <label class="etiqueta_campo" for="txt_telefono2">
                         Tel&eacute;fono Celular<em>*</em></label>
                     <input type="text" id="txt_telefono2" name="txt_telefonoCelular" style="width: 140px;"
-                        rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono2" data-validar="haySeleccionEnCombo" />
+                        rh-control-type="textbox" rh-model-property="DatosDeContacto.Telefono2" data-validar="haySeleccionEnCombo" disabled="true" />
                 </div>
                 <div id="contenedor_mails" class="grupo_campos">
                     <label class="etiqueta_campo" for="txt_email">
                         Correo Electrónico<em>*</em></label>
                     <input type="text" id="txt_email" name="txt_email" style="width: 320px" data-validar="esEmailValido, esNoBlanco"
-                        rh-control-type="textbox" rh-model-property="DatosDeContacto.Email" />
+                        rh-control-type="textbox" rh-model-property="DatosDeContacto.Email" disabled="true" />
                 </div>
             </fieldset>
             <div class="actions clearfix " style="margin: 20px 5px 20px -25px; position: relative;
@@ -193,7 +193,7 @@
                     <p>
                         Usted está por confirmar su postulación.</p>
                     <p>
-                        Si desea revisar y modificar su curriculum puede hacerlo antes de postularse.</p>
+                        Si desea modificar su curriculum debe volver a la pantalla de "Carga/Editar Mi Curriculum".</p>
                     <p>
                         Una vez que haya modificado su curriculum presione el botón de "Guardar Cambios".</p>
                     <p>

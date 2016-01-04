@@ -15,13 +15,16 @@
     <form id="formLogin" runat="server">
         <div id="contenidosLogin">        
             <div id="loginControles">
+           
                 <input type="text" id="usuario" class="span3" nullValue="usuario" runat="server"/><br />
                 <input type="password" id="password" class="span3" nullValue="contraseña" runat="server"/><br />
                 <div style="position: relative; display: inline-block; width: 260px;">
                     <a id="lnk_registrarse" style="margin-left: 25px; margin-right: 20px;">Registrarse </a>
                     <button id="fat-btn" data-loading-text="Iniciando..." class=" btn btn-primary" style="margin-bottom: 15px;"> 
                         Iniciar Sesión </button><br />
-                    <a id="lnk_recuperar" style="cursor: pointer; margin-left: 125px;">¿Olvidó sus datos?</a> 
+                    <a href="http://www.plataformapersonas.com.ar/archivos/instructivo.pdf" target="_blank">Instructivo del Sistema</a>
+                    <a id="lnk_recuperar" style="cursor: pointer; ">¿Olvidó sus datos?</a>
+                     
                  </div>
                 <div id="loginAlertaInvalido" class="alert  alert-error" runat="server">
                      <a class="close" data-dismiss="alert">×</a> <strong>Error</strong> El nombre de

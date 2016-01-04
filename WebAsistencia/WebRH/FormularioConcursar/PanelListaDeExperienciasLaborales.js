@@ -19,9 +19,14 @@
                     _this.GrillaExperiencias.BorrarContenido();
                     experiencias.push(nueva_experiencia);
                     _this.GrillaExperiencias.CargarObjetos(experiencias);
+                },
+                alCargar: function (ui,modelo) {
+                    _this.completarComboSinep(ui,modelo);
+                  
                 }
-            });          
+            });
         });
+
 
         var columnas = [];
 
@@ -45,6 +50,11 @@
                         alModificar: function (experiencia_modificada) {
                             _this.GrillaExperiencias.BorrarContenido();
                             _this.GrillaExperiencias.CargarObjetos(experiencias);
+                        },
+                        alCargar: function (ui, modelo) {
+                            _this.completarComboSinep(ui,modelo);
+                           
+                   
                         }
                     });
                 });
@@ -84,8 +94,35 @@
                     })
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la experiencia");
-                    });   
-            } 
+                    });
+            }
         });
+    },
+        completarComboSinep: function (ui,una_experiencia) {
+            if (una_experiencia.AmbitoLaboral == 2) {
+                $("#cmb_modalidad").prop('disabled', true);
+                $("#div_vigencia").attr("style", "display:none");
+            }
+
+        ui.find('#cmb_ambitolaboral').on('change', function () {
+            if (this.value == 1) {
+                //alert(this.value);
+                $("#cmb_modalidad").prop('disabled', false);
+                $("#div_vigencia").attr("style", "display:inline");
+
+            }
+            else {
+                //alert(this.value);
+                //$("#cmb_modalidad").val("3");
+                $("#cmb_modalidad").val('');
+                $("#cmb_modalidad").prop('disabled', true);
+                $("#div_vigencia").attr("style", "display:none");
+
+
+            }
+
+            //alert(this.value); // or $(this).val()
+        });
+
     }
 }

@@ -65,6 +65,7 @@
 
      <asp:HiddenField ID="perfiles" runat="server" />
       <asp:HiddenField ID="postulaciones" runat="server" />
+      <asp:HiddenField ID="curriculum" runat="server" />
     </form>
 </body>
     <%= Referencias.Javascript("../") %>
@@ -78,7 +79,9 @@
 
         var perfiles = JSON.parse($('#perfiles').val());
         var postulaciones = JSON.parse($('#postulaciones').val());
-        Perfil.armarLista(perfiles, postulaciones);
+        var curriculum = JSON.parse($('#curriculum').val());
+
+        Perfil.armarLista(perfiles, postulaciones, curriculum);
 
         var options = {
             valueNames: ['Perfil', 'Nivel', 'Agrupamiento', 'Vacantes']

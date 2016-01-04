@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
         <title></title>
      <%= Referencias.Css("../")%>    
 
@@ -11,103 +11,45 @@
      <style type="text/css">
         .celda {
             border: 3px double #000;
-            padding:1px;
+            padding:3px;
         }
         
         .celda_vacia 
         {
-            padding:10px 0px;
+            padding:15px 0px;
             border: 3px double #000;
-             text-align: right;
-         }
+            }
         
         .tabla_anexo_1 
         {
             font-size:0.9em;
             width:100%;
             }
-     
-         .style1
-         {
-             border: 3px double #000;
-             padding: 1px;
-             width: 389px;
-         }
-     
-         .style2
-         {
-             border: 3px double #000;
-             padding: 3px;
-             height: 39px;
-         }
-         .style3
-         {
-             padding: 15px 0px;
-             border: 3px double #000;
-             text-align: right;
-             height: 39px;
-         }
-         .style4
-         {
-             border: 3px double #000;
-             padding: 3px;
-             height: 29px;
-         }
-         .style5
-         {
-             padding: 15px 0px;
-             border: 3px double #000;
-             text-align: right;
-             height: 29px;
-         }
-         .style6
-         {
-             border: 3px double #000;
-             padding: 3px;
-             height: 31px;
-         }
-         .style7
-         {
-             padding: 15px 0px;
-             border: 3px double #000;
-             text-align: right;
-             height: 31px;
-         }
-         .style8
-         {
-             border: 3px double #000;
-             padding: 3px;
-             height: 24px;
-         }
-         .style9
-         {
-             padding: 15px 0px;
-             border: 3px double #000;
-             text-align: right;
-             height: 24px;
-         }
-         .style10
-         {
-             border: 3px double #000;
-             padding: 3px;
-             width: 47px;
-         }
+
+
+ @media print
+        {    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+
      
      </style>
 </head>
 <body>
 
     <form id="form1" runat="server">
-
-<input type="hidden" id = "codigo_postu" runat = "server"/>
     
-    <div style="width: 80%; margin-left:10%; height: 949px;" class="">
+<input type="hidden" id = "codigo_postu" runat = "server"/>
+<input type="hidden" id = "fecha_postu" runat = "server"/>
+    
+    <div style="width: 75%; margin-left:10%; height: 949px;" class="">
         <div style=" text-align:left;" class="">
-            <p style="float:left;" class="">Postulación Nº:     <span id="num_postulacion"></span> <label class="">    RECEPCIONÓ:</label> <span id ="span_recepcion"></span> </p>
+            <p style="float:left;" class="">Postulación Nº:     <span id="num_postulacion"></span> <label class="">     Recepcionó:</label> <span id ="span_recepcion"></span> </p>
             <p style="float:right;">ANEXO III</p>
-            <div style="clear:both; height: 5px;">
-           <p style="float:left;" class=""></p></div>
-            <p class="encabezado"style="font-size:18px; margin-bottom:1%;margin-top:1%">CONSTANCIA DE RECEPCIÓN DE LA SOLICITUD.
+            <div style="clear:both;"></div>
+            <p class="encabezado"style="font-size:20px; margin-bottom:1%;margin-top:1%">CONSTANCIA DE RECEPCIÓN DE LA SOLICITUD.
              <br />
              FICHA DE INSCRIPCIÓN Y DE LA DOCUMENTACIÓN PRESENTADA</p>
             <%--<p class="encabezado"style="font-size:20px; margin-bottom:1%;margin-top:1%"></p>--%>
@@ -135,8 +77,8 @@
             </tr>
             <tr>
                 <td class="celda">NIVEL ESCALAFONARIO</td>
-                <td id="nivel_escalafonario" class="style10"></td>
-                <td class="style1">NIVEL DE JEFATURA</td>
+                <td id="nivel_escalafonario" class="celda"></td>
+                <td class="celda">NIVEL DE JEFATURA</td>
                 <td id="nivel_jefatura" class="celda"></td>
             </tr>
             <tr >
@@ -165,54 +107,57 @@
             </tr>    
             <tr><td colspan="4" class="celda"></td></tr>
             <tr>
-                <td style="text-align:center;font-size:17px;" colspan="3" class="celda">LISTADO DOCUMENTACION PRESENTADA</td>
-                <td style="text-align:center;font-size:17px;" colspan="1" class="celda"style="font-size:17px;">FOLIOS</td>
+                <td style="text-align:center;" colspan="3" class="celda">LISTADO DOCUMENTACION PRESENTADA</td>
+                <td style="text-align:center;" colspan="1" class="celda">FOLIOS</td>
             </tr>
             <tr>
-                <td colspan="3" class="style2" style="font-size:16px;">Ficha de Inscripci&oacute;n</td>
-                <td colspan="1" class="style3"> <input type = "text" /></td>
+                <td colspan="3" class="celda" style="font-size:16px;">Ficha de Inscripci&oacute;n</td>
+                <td colspan="1" class="celda"> <span id ="Ficha_inscripcion" 
+                       style="display:block;margin:0px auto;padding-left: 35px"></span> </td>
             </tr>
             <tr>
-                <td colspan="3" class="style4"style="font-size:16px;">Foto tipo carnet</td>
-                <td colspan="1" class="style5"> <input type = "text" /></td>
+                <td colspan="3" class="celda"style="font-size:16px;">Foto tipo carnet</td>
+                <td colspan="1" class="celda">   <span id ="Foto_carnet"  style="display:block;margin:0px auto;padding-left: 35px"></span> </td>
             </tr>
             <tr>
-                <td colspan="3" class="style6"style="font-size:16px;">Fotocopia de DNI</td>
-                <td colspan="1" class="style7"> <input type = "text" /></td>
+                <td colspan="3" class="celda"style="font-size:16px;">Fotocopia de DNI</td>
+                <td colspan="1" class="celda"> <span id ="Fotocopia_dni"  style="display:block;margin:0px auto;padding-left: 35px"></span> </td>
             </tr>
                 <tr>
-                <td colspan="3"  class="style8"style="font-size:16px;">Fotocopia del t&iacute;tulo acad&eacute;mico</td>
-                <td colspan="1"  class="style9"> <input type = "text" /></td>
+                <td colspan="3"  class="celda"style="font-size:16px;">Fotocopia del t&iacute;tulo acad&eacute;mico</td>
+                <td colspan="1"  class="celda"><span id ="Fotocopia_titulo"  style="display:block;margin:0px auto;padding-left: 35px"></span></td>
             </tr>
              <tr>
                 <td colspan="3"  class="celda"style="font-size:16px;">Curr&iacute;culum Vitae</td>
-                <td colspan="1"  class="celda_vacia"> <input type = "text" /></td>
+                <td colspan="1"  class="celda"><span id ="Cv"  style="display:block;margin:0px auto;padding-left: 35px"></span></td>
             </tr>
              <tr>
                 <td colspan="3"  class="celda"style="font-size:16px;">Documentaci&oacute;n de respaldo</td>
-                <td colspan="1"  class="celda_vacia"> <input type = "text" /></td>
+                <td colspan="1"  class="celda"> <span id ="Documentacion"  style="display:block;margin:0px auto;padding-left: 35px"></span></td>
             </tr>
 
 
         </table>        
-<%--
+
         <p style="border: 1px solid #000; padding:5px; padding-bottom:50px;">OBSERVACIONES (consignar si la inscripción fue efectuada por apoderado debidamente acreditado) Consignar
-        entrega de las Bases del Concurso y cualquier otra documentación</p>--%>
+        entrega de las Bases del Concurso y cualquier otra documentación</p>
 
         <div class="div-pie-tabla" style="height:50px;">
             <table border="border-collapse: collapse" style="border-collapse: collapse; height:50px;" class="pie-tabla" >
-          <%--  <tr>
+            <tr>
                 <td class="td-pie-tabla"><span class="letra-bold" style="height:50px;">Fecha de Inscripción</span></td>
-                <td class="td-pie-tabla"><span class="letra-bold" style="height:50px;">Firma y Aclaración del Inscripto o Apoderado</span></td>
-            </tr>--%>
+                <td class="td-pie-tabla"><span class="letra-bold" style="height:50px;">Firma y Aclaración del Inscriptor o Apoderado</span></td>
+            </tr>
             </table>
-           <input type ="button" class="btn btn-primary" value="Imprimir" onclick="Imprimir();" />
+            <br />
+           <input type ="button" value="Imprimir" onclick="Imprimir();" class="no-print" />
            <%-- <p class="p-imprimir"><button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir</button></p>--%>
         </div>	
     </div>
 
 <asp:HiddenField ID="postulacion" runat="server" />
 <asp:HiddenField ID="curriculum" runat="server" />
+<asp:HiddenField ID="idPostulante" runat="server" />
         
     </form>
 </body>
@@ -235,17 +180,26 @@
 
     Backend.start(function () {
         $(document).ready(function () {
-        ///
-            document.getElementById("codigo_postu").innerHTML = localStorage.getItem("codigo");
-           // document.getElementById("span_perfil").innerHTML = localStorage.getItem("perfil");
-           // document.getElementById("span_comite").innerHTML = localStorage.getItem("comite");
+            ///
+            $("#codigo_postu")[0].innerHTML = localStorage.getItem("nro_inscripcion");
+            $("#fecha_postu")[0].innerHTML = localStorage.getItem("fecha_inscripcion");
+
+            $("#Ficha_inscripcion")[0].innerHTML = localStorage.getItem("ficha_inscripcion");
+            $("#Foto_carnet")[0].innerHTML = localStorage.getItem("foto_carnet");
+            $("#Fotocopia_dni")[0].innerHTML = localStorage.getItem("fotocopia_dni");
+            $("#Fotocopia_titulo")[0].innerHTML = localStorage.getItem("fotocopia_titulo");
+            $("#Cv")[0].innerHTML = localStorage.getItem("Curri");
+            $("#Documentacion")[0].innerHTML = localStorage.getItem("Docum_respaldo");
+            //$("#idPostulante")[0].val(localStorage.getItem("idPostulante"));
+
+
+
 
             ///
             Anexo.armarAnexo();
 
-
-
-
+            //$("#apellido_y_nombre").text(localStorage.getItem("empleado"));
+            //$("#documento").text(localStorage.getItem("dni"));
 
             $.ajax({
                 url: "../AjaxWS.asmx/GetUsuario",
@@ -276,7 +230,7 @@
 
 
 
-         //   window.print();
+            //   window.print();
         });
     });
 

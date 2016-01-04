@@ -15,6 +15,7 @@ namespace General
         private string _Nombre;
         private string _Apellido;
         private Area _Area;
+        private int _idArea;
         private PaseDeArea _PasePendiente;
         private Inasistencia _InasistenciaActual;
         private List<Inasistencia> _Inasistencias;
@@ -35,6 +36,7 @@ namespace General
         public string Nombre { get { return _Nombre; } set { _Nombre = value;  } }  
         public string Apellido { get { return _Apellido; } set { _Apellido = value;  } }
         public Area Area { get { return _Area; } set { _Area = value;  } }
+        public int IdArea { get { return _idArea; } set { _idArea = value; } }
         public PaseDeArea PasePendiente { get { return _PasePendiente; } set { _PasePendiente = value;  } }
         public Inasistencia InasistenciaActual { get { return _InasistenciaActual; } set { _InasistenciaActual = value;  } }
         public List<Inasistencia> Inasistencias { get { return _Inasistencias; } set { _Inasistencias = value; } }

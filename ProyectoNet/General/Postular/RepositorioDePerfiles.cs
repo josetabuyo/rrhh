@@ -21,13 +21,15 @@ namespace General
         {
             var parametros = new Dictionary<string, object>();
             var tablaCVs = conexion_bd.Ejecutar("dbo.CV_Get_Perfiles", parametros);
-            var repoComite = new RepositorioDeComites(this.conexion_bd);
+            var repoComite = RepositorioDeComites.Nuevo(this.conexion_bd);// new RepositorioDeComites(this.conexion_bd);
             List<Perfil> perfiles = new List<Perfil>();
+            List<Comite> comites = repoComite.All();
 
             tablaCVs.Rows.ForEach(row =>
-            perfiles.Add(new Perfil(row.GetSmallintAsInt("IdPerfil"), row.GetString("Familia"), row.GetString("Profesion"), row.GetString("Denominacion"),
+                perfiles.Add(new Perfil(row.GetSmallintAsInt("IdPerfil"), row.GetString("Familia"), row.GetString("Profesion"), row.GetString("Denominacion"),
                         row.GetString("Nivel"),row.GetString("Agrupamiento"),row.GetSmallintAsInt("Vacantes"), row.GetString("Tipo"),row.GetString("NumeroDePuesto"),
-                        repoComite.GetComiteById(row.GetSmallintAsInt("IdComite")))));
+                        comites.Find(com => com.Id == row.GetSmallintAsInt("IdComite")), row.GetDateTime("FechaDesde", DateTime.Today), row.GetDateTime("FechaHasta", DateTime.Today), row.GetBoolean("Baja", false)))
+                        );
 
             return perfiles;
 

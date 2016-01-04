@@ -99,31 +99,39 @@
                 <td style="text-align:center;" colspan="1" class="celda">FOLIOS</td>
             </tr>
             <tr>
-                <td colspan="3" class="celda_vacia"></td>
-                <td colspan="1" class="celda_vacia"></td>
+                <td colspan="3" style="padding: 5px;" class="celda_vacia">FICHA DE INSCRIPCION</td>
+                <td colspan="1" style="padding: 5px;" class="celda_vacia"></td>
             </tr>
             <tr>
-                <td colspan="3" class="celda_vacia"></td>
-                <td colspan="1" class="celda_vacia"></td>
+                <td colspan="3" style="padding: 5px;" class="celda_vacia">FOTOGRAFIA TIPO CARNET</td>
+                <td colspan="1" style="padding: 5px;" class="celda_vacia"></td>
             </tr>
             <tr>
-                <td colspan="3" class="celda_vacia"></td>
-                <td colspan="1" class="celda_vacia"></td>
+                <td colspan="3" style="padding: 5px;" class="celda_vacia">FOTOCOPIA DEL DNI (con domicilio actualizado)</td>
+                <td colspan="1" style="padding: 5px;" class="celda_vacia"></td>
             </tr>
-                <tr>
-                <td colspan="3"  class="celda_vacia"></td>
-                <td colspan="1"  class="celda_vacia"></td>
+               
+                <td colspan="3"  style="padding: 5px;" class="celda_vacia">FOTOCOPIA DEL TITULO ACADEMICO EXIGIDO</td>
+                <td colspan="1"  style="padding: 5px;" class="celda_vacia"></td>
+             <tr>
+                <td colspan="3" style="padding: 5px;" class="celda">CURRICULUM VITAE OPCIONAL</td>
+                <td colspan="1" style="padding: 5px;" class="celda"></td>
             </tr>
+            <tr>
+                <td colspan="3" class="celda">DOCUMENTACIÓN DE RESPALDO</td>
+                <td colspan="1" class="celda"></td>
+            </tr>
+           
         </table>        
 
-        <p style="border: 1px solid #000; padding:5px; padding-bottom:50px;">OBSERVACIONES (consignar si la inscripción fue efectuada por apoderado debidamente acreditado) Consignar
+        <p style="border: 1px solid #000; padding:5px; padding-bottom:10px;">OBSERVACIONES (consignar si la inscripción fue efectuada por apoderado debidamente acreditado) Consignar
         entrega de las Bases del Concurso y cualquier otra documentación</p>
 
         <div class="div-pie-tabla" style="height:50px;">
             <table border="border-collapse: collapse" style="border-collapse: collapse; height:50px;" class="pie-tabla" >
             <tr>
-                <td class="td-pie-tabla"><span class="letra-bold" style="height:50px;">Fecha de Inscripción</span></td>
-                <td class="td-pie-tabla"><span class="letra-bold" style="height:50px;">Firma y Aclaración del Inscripto o Apoderado</span></td>
+                <td class="td-pie-tabla" ><span class="letra-bold" ">Fecha de Inscripción</span></td>
+                <td class="td-pie-tabla" ><span class="letra-bold" ">Firma y Aclaración del Inscriptor o Apoderado</span></td>
             </tr>
             </table>
            

@@ -10,6 +10,8 @@ public class MesDto
 {
 	public int Mes { get; set; }
     public string NombreMes { get; set; }
+    public int Anio { get; set; }
+
 	public MesDto()
 	{
 	}
