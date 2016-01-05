@@ -6,6 +6,7 @@ using General.Repositorios;
 using System.IO;
 using General.MAU;
 using System.Drawing;
+using System.Configuration;
 
 namespace General.Modi
 {
@@ -63,7 +64,7 @@ namespace General.Modi
             imagen.nombre = primera_fila.GetString("nombre_imagen");
             Image img;
             if (primera_fila.GetObject("bytes_imagen") is DBNull){
-                img = file_system.getImagenFromPath("C:/imagenes_modi/" + id_imagen + ".jpg");
+                img = file_system.getImagenFromPath(ConfigurationManager.AppSettings["CarpetaDigitalizacion"] +id_imagen + ".jpg");
             }else{
                 img = primera_fila.GetImage("bytes_imagen");
             }
@@ -155,7 +156,7 @@ namespace General.Modi
             //parametros.Add("@bytes_imagen", imageBytes);
 
             int id_imagen = int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros).ToString());
-            this.file_system.guardarImagenEnPath("C:/imagenes_modi/" + id_imagen + ".jpg", bytes_imagen);
+            this.file_system.guardarImagenEnPath(ConfigurationManager.AppSettings["CarpetaDigitalizacion"] +id_imagen + ".jpg", bytes_imagen);
             return id_imagen;
         }
 
@@ -177,7 +178,7 @@ namespace General.Modi
             parametros.Add("@id_documento", folio.idDocumento);
 
             int id_imagen = int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_A_Un_Folio_De_Un_Legajo", parametros).ToString());
-            this.file_system.guardarImagenEnPath("C:/imagenes_modi/" + id_imagen + ".jpg", bytes_imagen);
+            this.file_system.guardarImagenEnPath(ConfigurationManager.AppSettings["CarpetaDigitalizacion"] + id_imagen + ".jpg", bytes_imagen);
             return id_imagen;
         }
         
