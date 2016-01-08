@@ -8,10 +8,11 @@
     <title>Áreas</title>
     <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
     <%= Referencias.Css("../")%>
-    <%= Referencias.Javascript("../")%>
     <link id="link1" rel="stylesheet" href="ConsultaProtocolo.css" type="text/css" runat="server" />
     <link id="link5" rel="stylesheet" href="VistaDeArea.css" type="text/css" runat="server" />
     <link href="../FormularioConcursar/EstilosPostular.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="../scripts/select2-3.4.4/select2.css" type="text/css" />
+        <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
     <%--<script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>--%>
 </head>
 <body>
@@ -24,126 +25,139 @@
         <div id="ModificarArea">
             <div id="ModificarArea-ct">
                 <div id="ModificarArea-header" class="form_concursar_header">
-                     <label for="institucion_academica_nombre" style="color: green;font-size: small;">
-                               * Recuerde realizar las modificaciones pertinentes y luego enviarlas para que el cambio sea aprobado </label>
+                    <label for="ModificarArea" style="color: green; font-size: small;">
+                        * Recuerde realizar las modificaciones pertinentes y luego enviarlas para que el
+                        cambio sea aprobado
+                    </label>
                     <h2>
                         Modificación de Datos del Área</h2>
                     <p>
-                     <div class="btn-fld" style="float:right;">
-                        <input type="button" class="btn btn-primary" id="btn_guardar" value="Enviar Cambios para su Aprobación" />
-                    </div>
+                        <div class="btn-fld" style="float: right;">
+                            <input type="button" class="btn btn-primary" id="btn_enviar" value="Enviar Cambios para su Aprobación" />
+                        </div>
                     </p>
                 </div>
                 <div id="contenido_form_ModificarArea" class="fondo_form">
-               
                     <fieldset style="width: 95%; padding-left: 3%;">
                         <legend style="margin-bottom: 20px;">Responsable</legend>
-                        
                         <div class="grupo_campos">
-                            <label for="institucion_academica_nombre">
-                               Nombre y Apellido: </label>
-                            <input id="txt_institucion_academica_nombre" type="text" style="width: 285px;" rh-control-type="textbox"
-                                rh-model-property="Institucion" data-validar="esNoBlanco" disabled/>
+                            <label for="btn_enviar">
+                                Nombre y Apellido:
+                            </label>
+                            <input id="txt_btn_enviar" type="text" style="width: 285px;" rh-control-type="textbox"
+                                data-validar="esNoBlanco" disabled />
                         </div>
                         <div class="grupo_campos nueva_linea">
-                            <label for="institucion_academica_caracter" style="margin-right: 15px;">
-                                Nro Documento: </label>
-                            <input id="txt_institucion_academica_caracter" type="text" style="width: 100px;"
-                                rh-control-type="textbox" rh-model-property="CaracterEntidad" data-validar="esNoBlanco" disabled/>
+                            <label for="NroDocumento" style="margin-right: 15px;">
+                                Nro Documento:
+                            </label>
+                            <input id="txt_NroDocumento" type="text" style="width: 100px;" rh-control-type="textbox"
+                                data-validar="esNoBlanco" disabled />
                         </div>
                         <div class="grupo_campos">
-                            <label for="institucion_academica_caracter">
-                                Id Interna: </label>
-                            <input id="Text1" type="text" style="width: 96px;"
-                                rh-control-type="textbox" rh-model-property="CaracterEntidad" data-validar="esNoBlanco" disabled/>
+                            <label for="IdInterna">
+                                Id Interna:
+                            </label>
+                            <input id="txt_IdInterna" type="text" style="width: 96px;" rh-control-type="textbox"
+                                data-validar="esNoBlanco" disabled />
                         </div>
                         <div class="btn-fld">
-                        <input type="button" class="btn btn-primary" style="margin-top: 4px;" id="Button1" value="Modificar" />
-                    </div>
-                          <legend style="margin-bottom: 20px;">Dirección</legend>
+                            <input type="button" class="btn btn-primary" style="margin: 4px 143px;" id="    "
+                                value="Modificar" />
+                        </div>
+                        <legend style="margin-bottom: 20px;">Dirección</legend>
                         <div class="grupo_campos nueva_linea">
-                            <label for="institucion_academica_cargo" style="margin-left: 38px;">
-                                Calle: </label>
-                            <input id="txt_institucion_academica_cargo" type="text" style="width: 285px;" rh-control-type="textbox"
-                                rh-model-property="CargosDesempeniados" data-validar="esNoBlanco" disabled/>
+                            <label for="Calle" style="margin-left: 38px;">
+                                Calle:
+                            </label>
+                            <input id="txt_Calle" type="text" style="width: 285px;" rh-control-type="textbox"
+                                data-validar="esNoBlanco" disabled />
                         </div>
                         <div class="grupo_campos">
-                            <label for="institucion_academica_fecha_inicio">
-                                Nro: </label>
-                            <input id="txt_institucion_academica_fechaInicio" type="text" style="width: 50px;"
-                                rh-control-type="datepicker" data-validar="esNoBlanco" disabled/>
+                            <label for="Nro">
+                                Nro:
+                            </label>
+                            <input id="txt_Nro" type="text" style="width: 50px;" disabled />
                         </div>
                         <div class="grupo_campos">
-                            <label for="institucion_academica_fecha_fin">
-                                Piso: </label>
-                            <input id="txt_institucion_academica_fechaFin" type="text" style="width: 25px;"
-                                 disabled />
-                        </div>
-                        <div class="grupo_campos nueva_linea">
-                            <label for="institucion_academica_fecha_fin" style="margin-left: 27px;">
-                                Oficina: </label>
-                            <input id="Text2" type="text" style="width: 285px;"
-                                rh-control-type="datepicker" rh-model-property="FechaFin" disabled />
-                        </div>
-                        <div class="grupo_campos">
-                            <label for="institucion_academica_fecha_fin" style="margin-left: 5px;">
-                                UF: </label>
-                            <input id="Text3" type="text" style="width: 132px;"
-                                rh-control-type="datepicker" rh-model-property="FechaFin" disabled />
+                            <label for="Piso">
+                                Piso:
+                            </label>
+                            <input id="txt_Piso" type="text" style="width: 25px;" disabled />
                         </div>
                         <div class="grupo_campos nueva_linea">
-                            <label for="institucion_academica_fecha_fin" style="margin-left: 14px;">
-                                Localidad: </label>
-                            <input id="Text4" type="text" style="width: 285px;"
-                                rh-control-type="datepicker" rh-model-property="FechaFin" disabled/>
+                            <label for="Oficina" style="margin-left: 27px;">
+                                Oficina:
+                            </label>
+                            <input id="txt_Oficina" type="text" style="width: 285px;" disabled />
                         </div>
                         <div class="grupo_campos">
-                            <label for="institucion_academica_fecha_fin">
+                            <label for="UF" style="margin-left: 5px;">
+                                UF:
+                            </label>
+                            <input id="txt_UF" type="text" style="width: 132px;" disabled />
+                        </div>
+                        <div class="grupo_campos nueva_linea">
+                            <label for="Localidad" style="margin-left: 14px;">
+                                Localidad:
+                            </label>
+                            <input id="txt_Localidad" type="text" style="width: 285px;" disabled />
+                        </div>
+                        <div class="grupo_campos">
+                            <label for="CodigoPostal">
                                 Código Postal:</label>
-                            <input id="Text5" type="text" style="width: 75px;"
-                                rh-control-type="datepicker" rh-model-property="FechaFin" disabled/>
+                            <input id="txt_CodigoPostal" type="text" style="width: 75px;" disabled />
                         </div>
                         <div class="grupo_campos nueva_linea">
-                            <label for="institucion_academica_fecha_fin" style="margin-left: 2px;">
-                               Partido/Dto: </label>
-                            <input id="Text6" type="text" style="width: 192px;"
-                                rh-control-type="datepicker" rh-model-property="FechaFin" disabled/>
+                            <label for="Partido" style="margin-left: 2px;">
+                                Partido/Dto:
+                            </label>
+                            <input id="txt_Partido" type="text" style="width: 192px;" disabled />
                         </div>
                         <div class="grupo_campos">
-                            <label for="institucion_academica_fecha_fin">
+                            <label for="Provincia">
                                 Provincia:</label>
-                            <input id="Text7" type="text" style="width: 192px;"
-                                rh-control-type="datepicker" rh-model-property="FechaFin" disabled/>
+                            <input id="txt_Provincia" type="text" style="width: 192px;" disabled />
                         </div>
-                         <div class="btn-fld">
-                        <input type="button" class="btn btn-primary"  style="margin-top: 4px;" id="Button2" value="Modificar" />
-                    </div>
-                         <legend style="margin-bottom: 20px;">Información de Contacto</legend>
-                        <div class="accordion-inner fondo_form">
+                        <div class="btn-fld">
+                            <input type="button" class="btn btn-primary" style="margin-top: 4px;" id="btn_modificar_direccion"
+                                value="Modificar" />
+                        </div>
+                        <legend style="margin-bottom: 20px;">Información de Contacto</legend>
                         <fieldset style="width: 100%;">
-                            <legend><a id="btn_agregar_antecedente_academico" class="btn btn-primary">Agregar Contacto</a></legend>
+                            <legend><a id="btn_agregar_contacto" class="btn btn-primary">Agregar Contacto</a></legend>
                             <h4>
                                 Contactos Agregados</h4>
-                            <div id="ContenedorPlanillaAntecendentesAcademicos" runat="server">
-                                <table id="tabla_antecedentes_academicos" class="table table-striped">
+                            <div id="ContenedorPlanillaContactos" runat="server">
+                                <table id="tabla_contactos" class="table table-striped">
                                 </table>
                             </div>
                         </fieldset>
-
-                         <fieldset style="width: 100%;">
-                            <legend><a id="A1" class="btn btn-primary">Agregar Asistente</a></legend>
+                        <fieldset style="width: 100%;">
+                            <legend><a id="btn_agregar_asistente" class="btn btn-primary">Agregar Asistente</a></legend>
                             <h4>
                                 Asistentes Agregados</h4>
-                            <div id="Div1" runat="server">
-                                <table id="Table1" class="table table-striped">
+                            <div id="ContenedorPlanillaAsistentes" runat="server">
+                                <table id="tabla_asistentes" class="table table-striped">
                                 </table>
                             </div>
                         </fieldset>
-                    </div>
-              
-   
                     </fieldset>
                 </div>
+            </div>
+        </div>
+        <%----------------- MODAL DE VISTA PRELIMINAR ---------------------%>
+        <input type="text" id="urlAjax" value="" style="display: none;" />
+        <div id="plantillas">
+            <div class="botonera_grilla">
+                <img id="btn_editar" src="../Imagenes/edit2.png" />
+                <img id="btn_eliminar" src="../Imagenes/icono_eliminar2.png" />
+            </div>
+        </div>
+        <div id="un_div_modal" style="width: 65%; height: 500px; overflow: scroll;" class="form_concursar">
+            <div class="modal_close_concursar">
+            </div>
+            <div id="contenido_modal">
             </div>
         </div>
         <asp:HiddenField ID="texto_mensaje_exito" runat="server" />
@@ -155,15 +169,42 @@
     </div>
     </form>
 </body>
-<script type="text/javascript" src="AdministradorDeLicencias.js"></script>
-<script type="text/javascript" src="AdministradorDePases.js"></script>
-<script type="text/javascript" src="Persona.js"></script>
+<%= Referencias.Javascript("../") %>
+<script src="../FormularioConcursar/PanelDetalleGenerico.js" type="text/javascript"></script>
 <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
-<script src="../Scripts/ConversorDeFechas.js" type="text/javascript"></script>
+<script src="ModificarAreas.js" type="text/javascript"></script>
+<script type="text/javascript" src="../Scripts/FormularioBindeado.js"></script>
+<script type="text/javascript" src="../Scripts/ComboConBusquedaYAgregado.js"></script>
+<script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
+<script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
+<script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
+<script type="text/javascript" src="../Scripts/ObjectObserver.js"> </script>
+<script type="text/javascript" src="../Scripts/String.js"> </script>
+
 <script type="text/javascript">
     $(document).ready(function () {
-        var admin_lic = new AdministradorDeLicencias();
-        var admin_pases = new AdministradorDePases();
+        contactos = ""; //JSON.parse($('#curriculum').val());
+        ModificarAreas.armarGrillaContacto(contactos);
+        asistentes = ""; //JSON.parse($('#curriculum').val());
+        ModificarAreas.armarGrillaAsistente(asistentes);
+
+        //Activar leanModal
+        $('a[rel*=leanModalConcursar]').click(function () {
+            var _this = $(this);
+            if (_this.attr("data-url") !== undefined) {
+                var div = $("#contenido_modal");
+                div.html("");
+                $.ajax({
+                    url: _this.attr("data-url"),
+                    success: function (r) {
+                        div.append(r);
+                    }
+                });
+            }
+        });
+
+        $('a[rel*=leanModalConcursar]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
+
         //Estilos para ver coloreada la grilla en Internet Explorer
         $("tbody tr:even").css('background-color', '#E6E6FA');
         $("tbody tr:odd").css('background-color', '#9CB3D6 ');
