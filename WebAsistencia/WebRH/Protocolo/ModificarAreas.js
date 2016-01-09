@@ -1,7 +1,4 @@
 ﻿var ModificarAreas = {
-    //******************************************************//
-    //********************CONTACTOS************************//
-    //******************************************************//
     //TABLA PARA LOS CONTACTOS
     armarGrillaContacto: function (contactos) {
         var _this = this;
@@ -69,7 +66,6 @@
     },
     eliminarContacto: function (un_contacto) {
         var _this = this;
-        // confirm dialog
         alertify.confirm("¿Está seguro que desea eliminar este registro?", function (e) {
             if (e) {
                 Backend.EliminarContactoArea(un_contacto)
@@ -84,9 +80,6 @@
                     });
             }
         });
-
-
-
     },
         //TABLA PARA LOS ASISTENTES
         armarGrillaAsistente: function (asistentes) {
@@ -158,7 +151,6 @@
         },
         eliminarAsistente: function (un_asistente) {
             var _this = this;
-            // confirm dialog
             alertify.confirm("¿Está seguro que desea eliminar este registro?", function (e) {
                 if (e) {
                     Backend.EliminarAsistenteArea(un_asistente)
@@ -173,8 +165,24 @@
                     });
                 }
             });
+        },
+//Configuracion Inicial
+
+ Inicio: function () {
+            var _this = this;
+
+            _this.btn_modificar_responsable = $("#btn_modificar_responsable");
+            _this.btn_modificar_direccion = $("#btn_modificar_direccion");
 
 
+            _this.btn_modificar_responsable.click(function () {
+                var panel_detalle = new PanelDetalleGenerico({
+                    path_html: "PanelDetalleDeResponsable.htm",
+                    metodoDeGuardado: "ModificarResponsable",
+                    mensajeDeGuardadoExitoso: "El Responsable ha sido guardado exitosamente",
+                    mensajeDeGuardadoErroneo: "Error al agregar el Responsable",
+                });
+            });
+  }
 
-        }
 }

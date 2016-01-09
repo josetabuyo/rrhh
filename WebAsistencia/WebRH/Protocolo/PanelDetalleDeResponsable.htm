@@ -2,7 +2,7 @@
     <div id="form_form_AgregarAsistente-ct">
         <div id="form_form_AgregarAsistente-header" class="form_concursar_header">
             <h2>
-                Asistente</h2>
+                Responsable</h2>
             <p>
             </p>
         </div>
@@ -38,38 +38,35 @@
                     <input type="button" class="btn btn-primary" style="float: left; margin-top: -8px;"
                         id="btn_buscar_asistente" value="Buscar" />
                 </div>
-                <legend style="margin-bottom: 20px;">Datos de Contacto</legend>
+                <legend style="margin-bottom: 20px;">Datos de Cargo</legend>
                 <div class="grupo_campos">
                     <label for="txt_Asistente">
-                        Teléfono:
+                        Trat. Persona:
                     </label>
-                    <input id="Text9" type="text" style="width: 150px;" data-validar="esNoBlanco" />
-                </div>
-                <div class="grupo_campos">
-                    <label for="txt_Asistente">
-                        Fax:
-                    </label>
-                    <input id="Text5" type="text" style="width: 150px;" data-validar="esNoBlanco" />
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="txt_Asistente" style="margin-left: 24px;">
-                        Mail:
-                    </label>
-                    <input id="Text6" type="text" style="width: 353px;" data-validar="esNoBlanco" />
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="txt_Asistente" style="margin-left: 16px;">
-                        Cargo:
-                    </label>
-                    <select id="cmb_TipoContacto" style="width: 239px;" data-validar="esNoBlanco">
+                    <select id="Select1" style="width: 90px;" data-validar="esNoBlanco">
                     </select>
                 </div>
                 <div class="grupo_campos">
                     <label for="txt_Asistente">
-                        Orden:
+                        Trat. Título:
                     </label>
-                    <input id="Text4" type="text" style="width: 45px;" data-validar="esNoBlanco" />
+                    <select id="Select2" style="width: 90px;" data-validar="esNoBlanco">
+                    </select>
                 </div>
+                 <div class="grupo_campos" style="margin-left: 35px;">
+                    <input type="checkbox" name="vehicle" value="Bike">Acto Adm.<br>
+                    <input type="checkbox" name="vehicle" value="Car">Contratos<br>
+                    <input type="checkbox" name="vehicle" value="Car">Facturas<br>
+                    <input type="checkbox" name="vehicle" value="Car">DDJJ/Recibo
+                </div>
+                <div class="grupo_campos nueva_linea" style="margin-top: -34px;">
+                    <label for="txt_Asistente">
+                        Cargo/Función o Equiv.:
+                    </label>
+                    <select id="Select3" style="width: 210px;" data-validar="esNoBlanco">
+                    </select>
+                </div>
+               
             </fieldset>
             <div class="btn-fld">
                 <input type="button" class="btn btn-primary" id="btn_guardar" value="Agregar" />

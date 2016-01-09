@@ -48,7 +48,7 @@
                                 data-validar="esNoBlanco" disabled />
                         </div>
                         <div class="grupo_campos nueva_linea">
-                            <label for="NroDocumento" style="margin-right: 15px;">
+                            <label for="NroDocumento" style="margin-left: 15px;">
                                 Nro Documento:
                             </label>
                             <input id="txt_NroDocumento" type="text" style="width: 100px;" rh-control-type="textbox"
@@ -62,7 +62,7 @@
                                 data-validar="esNoBlanco" disabled />
                         </div>
                         <div class="btn-fld">
-                            <input type="button" class="btn btn-primary" style="margin: 4px 143px;" id="    "
+                            <input type="button" class="btn btn-primary" style="margin: 4px 143px;" id="btn_modificar_responsable"
                                 value="Modificar" />
                         </div>
                         <legend style="margin-bottom: 20px;">Dirección</legend>
@@ -205,6 +205,7 @@
 
         $('a[rel*=leanModalConcursar]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
 
+        ModificarAreas.Inicio();
         //Estilos para ver coloreada la grilla en Internet Explorer
         $("tbody tr:even").css('background-color', '#E6E6FA');
         $("tbody tr:odd").css('background-color', '#9CB3D6 ');
