@@ -1,0 +1,128 @@
+﻿/*-------------- ESTILO DE EL CV   -----------------*/
+
+body {
+	padding: 0 10px;
+	font: normal 62.5%;
+	font-family: Calibri,Verdana,Arial;
+	color: Black;
+}
+	
+p { margin: 10px 0; }
+	
+.contenedor_formulario {
+    width:80%; 
+    margin:0 40px;  
+}
+
+.bloque {
+    display:block;
+}
+       
+       
+form.cmxform fieldset {
+  /*margin-bottom: 10px;*/
+}
+form.cmxform legend {
+  padding: 0 2px;
+  font-weight: bold;
+  font-size:14px;
+}
+form.cmxform label {
+ 
+  line-height: 1.8;
+  vertical-align: top;
+}
+
+.control-invalido
+{
+    box-shadow: 0 0 5px rgba(154, 10, 14, 1) !important;
+    border: 1px solid rgba(160, 11, 14, 1) !important;
+}
+
+/*form.cmxform fieldset ol {
+  margin: 0;
+  padding: 0;
+}
+form.cmxform fieldset li {
+  list-style: none;
+  padding: 5px;
+  margin: 0;
+}*/
+form.cmxform fieldset fieldset {
+  border: none;
+  margin: 3px 0 0;
+}
+form.cmxform fieldset fieldset legend {
+  padding: 0 0 5px;
+  font-weight: normal;
+}
+form.cmxform fieldset fieldset label {
+  display: block;
+  width: auto;
+}
+form.cmxform em {
+  font-weight: bold;
+  font-style: normal;
+  color: #f00;
+}
+form.cmxform label {
+  /*width: auto; /* Width of labels */
+  display: block;
+  margin-bottom: 5px;
+}
+form.cmxform fieldset fieldset label {
+  margin-left: 123px; /* Width plus 3 (html space) */
+}
+   
+
+form.cmxform {
+	width: 100%;
+	font-size: 15px;
+	color: #333;
+	}
+	
+form.cmxform legend { padding-left: 0; }
+	
+form.cmxform legend,
+form.cmxform label { color: #333; }
+
+form.cmxform fieldset {
+	border: none;
+	/*border-top: 1px solid #d1edff;*/
+	
+	}
+	
+form.cmxform fieldset fieldset { background: none; }
+	
+form.cmxform fieldset li {
+	padding: 5px 10px 7px;
+	background: url(../images/cmxform-divider.gif) left bottom repeat-x;
+	}   
+/*del bootstrap*/
+label {
+
+}
+label, input, button, select, textarea {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+.table th, .table td {
+    padding: 2px;
+}
+
+/*de estilos sacc*/
+.table-striped tbody tr:nth-child(odd) td {
+background-color: #fff;
+border-top: 1px solid #929292;
+border-bottom: 1px solid #929292;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: transparent;/* #f5f5f5;*/
+}
+
+
+
+
