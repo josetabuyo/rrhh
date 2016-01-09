@@ -180,7 +180,15 @@
                     path_html: "PanelDetalleDeResponsable.htm",
                     metodoDeGuardado: "ModificarResponsable",
                     mensajeDeGuardadoExitoso: "El Responsable ha sido guardado exitosamente",
-                    mensajeDeGuardadoErroneo: "Error al agregar el Responsable",
+                    mensajeDeGuardadoErroneo: "Error al modificar el Responsable"
+                });
+            });
+            _this.btn_modificar_direccion.click(function () {
+                var panel_detalle = new PanelDetalleGenerico({
+                    path_html: "PanelDetalleDeDireccion.htm",
+                    metodoDeGuardado: "ModificarDireccion",
+                    mensajeDeGuardadoExitoso: "La Dirección ha sido guardado exitosamente",
+                    mensajeDeGuardadoErroneo: "Error al modificar la Dirección"
                 });
             });
   }

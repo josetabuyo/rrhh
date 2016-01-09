@@ -1,53 +1,51 @@
-﻿<div id="form_AgregarAsistente">
-    <div id="form_form_AgregarAsistente-ct">
-        <div id="form_form_AgregarAsistente-header" class="form_concursar_header">
+﻿<div id="form_AgregarResponsable">
+    <div id="form_form_AgregarResponsable-ct">
+        <div id="form_form_AgregarResponsable-header" class="form_concursar_header">
             <h2>
                 Responsable</h2>
             <p>
             </p>
         </div>
-        <div id="contenido_form_agregar_Asistentes" class="fondo_form">
+        <div id="contenido_form_agregar_Responsables" class="fondo_form">
             <fieldset style="width: 95%; padding-left: 3%;">
                 <legend style="margin-bottom: 20px;">Datos Personales</legend>
                 <div class="grupo_campos">
-                    <label for="cmb_TipoAsistente">
+                    <label for="cmb_TipoResponsable">
                         Documento:</label>
                     <input id="Text2" type="text" style="width: 100px;" data-validar="esNoBlanco" />
                     </select>
                 </div>
                 <div class="grupo_campos">
-                    <label for="cmb_TipoAsistente">
+                    <label for="cmb_TipoResponsable">
                         Id Interna:</label>
                     <input id="Text3" type="text" style="width: 96px;" data-validar="esNoBlanco" disabled />
-                    </select>
+                    <input type="button" class="btn btn-primary" style="margin: -10px 0px 0px 14px;"
+                        id="btn_buscar_Responsable" value="Buscar" />
                 </div>
                 <div class="grupo_campos nueva_linea">
-                    <label for="txt_Asistente" style="margin-left: 19px;">
+                    <label for="txt_Responsable" style="margin-left: 19px;">
                         Nombre:
                     </label>
-                    <input id="txt_Asistente" type="text" style="width: 285px;" data-validar="esNoBlanco"
+                    <input id="txt_Responsable" type="text" style="width: 285px;" data-validar="esNoBlanco"
                         disabled />
                 </div>
                 <div class="grupo_campos nueva_linea">
-                    <label for="txt_Asistente" style="margin-left: 19px;">
+                    <label for="txt_Responsable" style="margin-left: 19px;">
                         Apellido:
                     </label>
                     <input id="Text1" type="text" style="width: 285px;" data-validar="esNoBlanco" disabled />
                 </div>
-                <div class="btn-fld">
-                    <input type="button" class="btn btn-primary" style="float: left; margin-top: -8px;"
-                        id="btn_buscar_asistente" value="Buscar" />
-                </div>
+               
                 <legend style="margin-bottom: 20px;">Datos de Cargo</legend>
                 <div class="grupo_campos">
-                    <label for="txt_Asistente">
+                    <label for="txt_Responsable">
                         Trat. Persona:
                     </label>
                     <select id="Select1" style="width: 90px;" data-validar="esNoBlanco">
                     </select>
                 </div>
                 <div class="grupo_campos">
-                    <label for="txt_Asistente">
+                    <label for="txt_Responsable">
                         Trat. Título:
                     </label>
                     <select id="Select2" style="width: 90px;" data-validar="esNoBlanco">
@@ -60,7 +58,7 @@
                     <input type="checkbox" name="vehicle" value="Car">DDJJ/Recibo
                 </div>
                 <div class="grupo_campos nueva_linea" style="margin-top: -34px;">
-                    <label for="txt_Asistente">
+                    <label for="txt_Responsable">
                         Cargo/Función o Equiv.:
                     </label>
                     <select id="Select3" style="width: 210px;" data-validar="esNoBlanco">
@@ -69,7 +67,7 @@
                
             </fieldset>
             <div class="btn-fld">
-                <input type="button" class="btn btn-primary" id="btn_guardar" value="Agregar" />
+                <input type="button" class="btn btn-primary" id="btn_guardar" value="Guardar Cambios" />
             </div>
         </div>
     </div>
