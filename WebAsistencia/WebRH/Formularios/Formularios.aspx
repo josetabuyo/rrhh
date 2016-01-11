@@ -6,9 +6,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
        <title>Formularios</title>
-        <%= Referencias.Css("../")%>   
-         <link rel="stylesheet" type="text/css" href="EstilosFormularios.css" />
-       
+       <%= Referencias.Css("../")%>                  
+       <link rel="stylesheet" type="text/css" href="EstilosFormularios.css" />
         
         <%= Referencias.Javascript("../")%>
 </head>
@@ -17,7 +16,9 @@
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
     <div>
         <p>Buscar persona:</p>
-        <input type="text" />
+        <div id="selector_usuario" class="selector_personas">
+            <input id="buscador" type=hidden />
+        </div>
         <input type="button" value="Buscar" />
     </div>
     <h1 style="text-align:center;">Relevamiento de Contratos</h1>
@@ -107,4 +108,8 @@
         </div>
     </form>
 </body>
+<script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
+<script type="text/javascript" src="../Scripts/Persona.js"></script>
+<script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
+<script type="text/javascript" src=Formularios.js/>
 </html>
