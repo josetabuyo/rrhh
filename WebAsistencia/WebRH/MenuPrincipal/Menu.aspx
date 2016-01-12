@@ -47,7 +47,6 @@
                 <%--</div>--%>
             </div>
         </div>
-         <a href="../Formularios/Formularios.aspx" >Formulario</a>
         
         <script type="text/javascript" src="MenuPrincipal.js"></script>
         <script type="text/javascript" src="VistaDeItemDeMenuPrincipal.js"></script>
