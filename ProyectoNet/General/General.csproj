@@ -109,6 +109,9 @@
     <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
+    <Compile Include="Campo.cs" />
+    <Compile Include="Formulario.cs" />
+    <Compile Include="Repositorios\RepositorioDeFormularios.cs" />
     <Compile Include="Repositorios\RepositorioDeParametrosGenerales.cs" />
     <Compile Include="Repositorios\DDJJ104\RepositorioDDJJ104.cs" />
     <Compile Include="Postular\AmbitoLaboral.cs" />
