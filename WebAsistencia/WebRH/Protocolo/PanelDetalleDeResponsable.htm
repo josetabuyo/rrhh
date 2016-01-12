@@ -9,34 +9,39 @@
         <div id="contenido_form_agregar_Responsables" class="fondo_form">
             <fieldset style="width: 95%; padding-left: 3%;">
                 <legend style="margin-bottom: 20px;">Datos Personales</legend>
-                <div class="grupo_campos">
+                <div id="div_documento" class="grupo_campos">
                     <label for="cmb_TipoResponsable">
                         Documento:</label>
-                    <input id="Text2" type="text" style="width: 100px;" data-validar="esNoBlanco" />
-                    </select>
+                    <input id="txt_documento" type="text" style="width: 100px;" data-validar="esNumeroNaturalSinCero" />
                 </div>
                 <div class="grupo_campos">
                     <label for="cmb_TipoResponsable">
                         Id Interna:</label>
-                    <input id="Text3" type="text" style="width: 96px;" data-validar="esNoBlanco" disabled />
+                    <input id="txt_id_interna" type="text" style="width: 96px;" data-validar="esNoBlanco"
+                        disabled />
                     <input type="button" class="btn btn-primary" style="margin: -10px 0px 0px 14px;"
-                        id="btn_buscar_Responsable" value="Buscar" />
+                        id="btn_buscar_responsable" value="Buscar" />
+                </div>
+                <div id="div_mensaje" style="display: none;">
+                    <p style="color: Red;">
+                        El D.N.I no se encuentra registrado. Complete los datos manualmente o vuelva a ingresar
+                        otro número.</p>
                 </div>
                 <div class="grupo_campos nueva_linea">
                     <label for="txt_Responsable" style="margin-left: 19px;">
                         Nombre:
                     </label>
-                    <input id="txt_Responsable" type="text" style="width: 285px;" data-validar="esNoBlanco"
+                    <input id="txt_nombre" type="text" style="width: 285px;" data-validar="esNoBlanco"
                         disabled />
                 </div>
                 <div class="grupo_campos nueva_linea">
                     <label for="txt_Responsable" style="margin-left: 19px;">
                         Apellido:
                     </label>
-                    <input id="Text1" type="text" style="width: 285px;" data-validar="esNoBlanco" disabled />
+                    <input id="txt_apellido" type="text" style="width: 285px;" data-validar="esNoBlanco"
+                        disabled />
                 </div>
-               
-                <legend style="margin-bottom: 20px;">Datos de Cargo</legend>
+                <legend style="margin-bottom: 20px;">Datos del Cargo</legend>
                 <div class="grupo_campos">
                     <label for="txt_Responsable">
                         Trat. Persona:
@@ -51,7 +56,7 @@
                     <select id="Select2" style="width: 90px;" data-validar="esNoBlanco">
                     </select>
                 </div>
-                 <div class="grupo_campos" style="margin-left: 35px;">
+                <div class="grupo_campos" style="margin-left: 35px;">
                     <input type="checkbox" name="vehicle" value="Bike">Acto Adm.<br>
                     <input type="checkbox" name="vehicle" value="Car">Contratos<br>
                     <input type="checkbox" name="vehicle" value="Car">Facturas<br>
@@ -64,7 +69,6 @@
                     <select id="Select3" style="width: 210px;" data-validar="esNoBlanco">
                     </select>
                 </div>
-               
             </fieldset>
             <div class="btn-fld">
                 <input type="button" class="btn btn-primary" id="btn_guardar" value="Guardar Cambios" />
@@ -72,3 +76,33 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#btn_buscar_responsable').click(function () {
+            if ($("#div_documento").esValido()) {
+                var criterio = {}
+                criterio.Documento = parseInt($("#txt_documento").val());
+                var persona = Backend.ejecutarSincronico("BuscarPersonas", [JSON.stringify(criterio)]);
+                if (persona.length > 0) {
+                    $("#txt_id_interna").val(persona[0].Legajo);
+                    $("#txt_nombre").val(persona[0].Nombre);
+                    $("#txt_apellido").val(persona[0].Apellido)
+                    $("#div_mensaje").hide();
+                    $("#txt_id_interna").prop('disabled', true);
+                    $("#txt_nombre").prop('disabled', true);
+                    $("#txt_apellido").prop('disabled', true);
+                } else {
+                    $("#div_mensaje").show();
+                    $("#txt_id_interna").prop('disabled', false);
+                    $("#txt_nombre").prop('disabled', false);
+                    $("#txt_apellido").prop('disabled', false);
+                    //Habilitar todo
+                }
+            }
+
+        });
+    });
+
+</script>
