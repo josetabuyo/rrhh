@@ -30,32 +30,32 @@
                 if (cambios.hasOwnProperty(campo_cambio)) {
                     form_cambios.Campos.push({
                         campo: campo_cambio,
-                        valor: cambios[campo_cambio]                   
+                        valor: cambios[campo_cambio]
                     });
                 }
             }
 
             console.log(form_cambios);
-            //Backend.GuardarFormulario(form_cambios);
+            Backend.GuardarCambiosEnFormulario(form_cambios);
         });
         selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-            //Backend.GetFormulario(1, la_persona_seleccionada.id).onSuccess(function (formulario) {
-            formulario = {
-                Id: 1,
-                Nombre: "Relevamiento de contrato",
-                IdPersona: 111,
-                Campos: [
-                        { campo: "nombre", valor: "agustin" },
-                        { campo: "apellido", valor: "calcagno" }
-                    ]
-            };
+            Backend.GetFormulario(JSON.Stringify({ Documento: la_persona_seleccionada.documento })).onSuccess(function (formulario) {
+                //            formulario = {
+                //                Id: 1,
+                //                Nombre: "Relevamiento de contrato",
+                //                IdPersona: 111,
+                //                Campos: [
+                //                        { campo: "nombre", valor: "agustin" },
+                //                        { campo: "apellido", valor: "calcagno" }
+                //                    ]
+                //            };
 
-            $("[campo]").each(function () {
-                var campo = _.findWhere(formulario.Campos, { campo: $(this).attr("campo") });
-                if (campo) $(this).val(campo.valor);
+                $("[campo]").each(function () {
+                    var campo = _.findWhere(formulario.Campos, { campo: $(this).attr("campo") });
+                    if (campo) $(this).val(campo.valor);
+                });
+
             });
-
-            //});
         };
     });
 });

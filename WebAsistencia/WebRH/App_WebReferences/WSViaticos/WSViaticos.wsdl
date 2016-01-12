@@ -2063,6 +2063,51 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetFormulario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFormularioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioResult" type="tns:Formulario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Formulario">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="idFormulario" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="nroDocumento" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="campos" type="tns:ArrayOfCampo" />
+          <s:element minOccurs="1" maxOccurs="1" name="idUsuario" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCampo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Campo" nillable="true" type="tns:Campo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Campo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="valor" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarCambiosEnFormulario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCambiosEnFormularioResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GuardarAlumno">
         <s:complexType>
           <s:sequence>
@@ -5406,6 +5451,18 @@
   <wsdl:message name="BuscarLocalidadesSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarLocalidadesResponse" />
   </wsdl:message>
+  <wsdl:message name="GetFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GetFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFormularioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCambiosEnFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCambiosEnFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormularioResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarAlumno" />
   </wsdl:message>
@@ -6654,6 +6711,14 @@
     <wsdl:operation name="BuscarLocalidades">
       <wsdl:input message="tns:BuscarLocalidadesSoapIn" />
       <wsdl:output message="tns:BuscarLocalidadesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFormulario">
+      <wsdl:input message="tns:GetFormularioSoapIn" />
+      <wsdl:output message="tns:GetFormularioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnFormulario">
+      <wsdl:input message="tns:GuardarCambiosEnFormularioSoapIn" />
+      <wsdl:output message="tns:GuardarCambiosEnFormularioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <wsdl:input message="tns:GuardarAlumnoSoapIn" />
@@ -7996,6 +8061,24 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarLocalidades">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnFormulario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10114,6 +10197,24 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarLocalidades">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnFormulario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
