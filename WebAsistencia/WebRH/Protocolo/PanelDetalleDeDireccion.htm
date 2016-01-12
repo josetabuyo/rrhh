@@ -1,87 +1,214 @@
-﻿<div id="form_AgregarContacto">
-    <div id="form_form_AgregarContacto-ct">
-        <div id="form_form_AgregarContacto-header" class="form_concursar_header">
+﻿<div id="form_AgregarDetalleDireccion">
+    <div id="form_form_AgregarDetalleDireccion-ct">
+        <div id="form_form_AgregarDetalleDireccion-header" class="form_concursar_header">
             <h2>
-                Direcicón</h2>
+                Dirección</h2>
             <p>
             </p>
         </div>
-        <div id="contenido_form_agregar_contactos" class="fondo_form">
+        <div id="contenido_form_agregar_DetalleDireccion" class="fondo_form">
             <fieldset style="width: 95%; padding-left: 3%;">
-                <legend style="margin-bottom: 20px;">Oficina</legend>
-                <div class="grupo_campos nueva_linea">
+                <legend id="lgn_edificio" style="margin-bottom: 20px;">Oficina</legend>
+                <div id="div_a_localidad" class="grupo_campos nueva_linea">
                     <label for="Localidad" style="margin-left: 14px;">
                         Localidad:
                     </label>
-                    <select id="Select2" style="width: 160px;" data-validar="esNoBlanco">
+                    <select id="cmb_localidad" style="width: 285px;" data-validar="esNoBlanco">
                     </select>
                 </div>
-                <div class="grupo_campos">
+                <div id="div_a_codigo_postal" class="grupo_campos">
                     <label for="CodigoPostal">
                         Código Postal:</label>
-                    <input id="txt_CodigoPostal" type="text" style="width: 75px;"  />
+                    <input id="txt_CodigoPostal" type="text" style="width: 75px;" />
                 </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="Partido" style="margin-left: 2px;">
+                <div id="div_a_partido" class="grupo_campos nueva_linea">
+                    <label for="Partido">
                         Partido/Dto:
                     </label>
                     <input id="txt_Partido" type="text" style="width: 192px;" disabled />
                 </div>
-                <div class="grupo_campos">
+                <div id="div_a_provincia" class="grupo_campos">
                     <label for="Provincia">
                         Provincia:</label>
                     <input id="txt_Provincia" type="text" style="width: 192px;" disabled />
                 </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="Provincia">
+                <div id="div_x_edificio" class="grupo_campos nueva_linea">
+                    <label for="Provincia" style="margin-left: 27px;">
                         Edificio:</label>
-                    <select id="cmb_TipoContacto" style="width: 160px;" data-validar="esNoBlanco">
+                    <select id="cmb_TipoDetalleDireccion" style="width: 201px;" data-validar="esNoBlanco">
                     </select>
-                    <input type="button" class="btn btn-primary" id="Button1" value="Agregar nuevo Edificio" />
+                   <!-- <input type="button" class="btn btn-primary" style="margin: 0px 10px 10px;" id="btn_nuevo_edificio"
+                        value="Agregar nuevo Edificio" />-->
                 </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="Provincia">
+                <div id="div_x_oficina" class="grupo_campos nueva_linea">
+                    <label for="Provincia" style="margin-left: 29px;">
                         Oficina:</label>
-                    <select id="Select1" style="width: 160px;" data-validar="esNoBlanco">
+                    <select id="Select1" style="width: 201px;" data-validar="esNoBlanco">
                     </select>
-                    
-                    <input type="button" class="btn btn-primary" id="Button2" value="Agregar nueva Oficina" />
+                    <input type="button" class="btn btn-primary" style="margin: -44px 73px 10px;" id="btn_nueva_oficina_edificio"
+                        value="Agregar nueva Oficina / Edificio" />
                 </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="Calle" style="margin-left: 38px;">
+                <div id="div_a_calle" class="grupo_campos nueva_linea">
+                    <label for="Calle" style="margin-left: 40px;">
                         Calle:
                     </label>
-                    <input id="txt_Calle" type="text" style="width: 285px;" 
-                        data-validar="esNoBlanco" disabled />
+                    <input id="txt_Calle" type="text" style="width: 285px;" data-validar="esNoBlanco"
+                        disabled />
                 </div>
-                <div class="grupo_campos">
+                <div id="div_a_nro" class="grupo_campos">
                     <label for="Nro">
                         Nro:
                     </label>
                     <input id="txt_Nro" type="text" style="width: 50px;" disabled />
                 </div>
-                <div class="grupo_campos">
+                <div id="div_a_piso" class="grupo_campos">
                     <label for="Piso">
                         Piso:
                     </label>
                     <input id="txt_Piso" type="text" style="width: 25px;" disabled />
                 </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="Oficina" style="margin-left: 27px;">
+                <div id="div_a_oficina" class="grupo_campos nueva_linea">
+                    <label for="Oficina" style="margin-left: 29px;">
                         Oficina:
                     </label>
                     <input id="txt_Oficina" type="text" style="width: 285px;" disabled />
                 </div>
-                <div class="grupo_campos">
+                <div id="div_a_uf" class="grupo_campos">
                     <label for="UF" style="margin-left: 5px;">
                         UF:
                     </label>
                     <input id="txt_UF" type="text" style="width: 132px;" disabled />
                 </div>
             </fieldset>
-            <div class="btn-fld">
+            <div id="div_btn_guardar"class="btn-fld">
                 <input type="button" class="btn btn-primary" id="btn_guardar" value="Guardar Cambios" />
             </div>
         </div>
+         <div id="div_agregar_oficina" class="fondo_form">
+            <fieldset style="width: 95%; padding-left: 3%;">
+                <legend style="margin-bottom: 20px;">Nueva Oficina</legend>
+                <div id="div1" class="grupo_campos nueva_linea">
+                    <label for="Localidad">
+                        Localidad:
+                    </label>
+                    <select id="Select2" style="width: 285px;" data-validar="esNoBlanco">
+                    </select>
+                </div>
+                <div id="div2" class="grupo_campos">
+                    <label for="CodigoPostal">
+                        Código Postal:</label>
+                    <input id="Text3" type="text" style="width: 75px;" />
+                </div>
+                <div id="div3" class="grupo_campos nueva_linea">
+                    <label for="Provincia" style="margin-left: 13px;">
+                        Edificio:</label>
+                    <select id="Select3" style="width: 284px;" data-validar="esNoBlanco">
+                    </select>
+                    <input type="button" class="btn btn-primary" style="margin: 0px 30px 10px;" id="btn_nuevo_edificio"
+                        value="Agregar nuevo Edificio" />
+                </div>
+                <div id="div4" class="grupo_campos nueva_linea">
+                    <label for="Piso" style="margin-left: 32px;">
+                        Piso:
+                    </label>
+                    <input id="Text4" type="text" style="width: 25px;" />
+                </div>
+                <div id="div5" class="grupo_campos">
+                    <label for="Oficina">
+                        Oficina:
+                    </label>
+                    <input id="Text5" type="text" style="width: 176px;"  />
+                </div>
+                <div id="div6" class="grupo_campos">
+                    <label for="UF" style="margin-left: 5px;">
+                        UF:
+                    </label>
+                    <input id="Text6" type="text" style="width: 132px;"  />
+                </div>
+                <div class="btn-fld nueva_linea">
+                    <input type="button" class="btn btn-primary" id="Button1" value="Guardar Oficina" />
+                    <input type="button" class="btn btn-primary" id="volver_oficina" value="Volver" />
+                </div>
+            </fieldset>
+        </div>
+         <div id="div_agregar_edificio" class="fondo_form">
+            <fieldset style="width: 95%; padding-left: 3%;">
+                <legend style="margin-bottom: 20px;">Nuevo Edificio</legend>
+                <div class="grupo_campos nueva_linea">
+                    <label for="Calle" style="margin-left: 40px;">
+                        Calle:
+                    </label>
+                    <input id="Text1" type="text" style="width: 285px;" data-validar="esNoBlanco" />
+                </div>
+                <div class="grupo_campos">
+                    <label for="Nro">
+                        Nro:
+                    </label>
+                    <input id="Text2" type="text" style="width: 50px;" />
+                </div>
+                <div class="btn-fld nueva_linea">
+                    <input type="button" class="btn btn-primary" id="btn_guardar_edificio" value="Guardar Edificio" />
+                    <input type="button" class="btn btn-primary" id="volver_edificio" value="Volver" />
+                </div>
+            </fieldset>
+        </div>
+
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        $('#btn_nuevo_edificio').click(function () {
+            $("#div_agregar_edificio").show();
+            $("#div_agregar_oficina").hide();
+           
+        });
+
+        $('#btn_nueva_oficina_edificio').click(function () {
+            $("#div_agregar_oficina").show();
+            $("#div_agregar_edificio").hide();
+            $("#div_a_localidad").hide();
+            $("#div_a_codigo_postal").hide();
+            $("#div_a_partido").hide();
+            $("#txt_Partido").hide();
+            $("#div_x_edificio").hide();
+            $("#div_a_calle").hide();
+            $("#div_a_nro").hide();
+            $("#div_a_piso").hide();
+            $("#div_a_oficina").hide();
+            $("#div_a_uf").hide();
+            $("#div_btn_guardar").hide();
+            $("#div_a_provincia").hide();
+            $("#div_x_oficina").hide();
+            $("#lgn_edificio").hide();
+
+        });
+
+        $('#volver_edificio').click(function () {
+            $("#div_agregar_oficina").show();
+            $("#div_agregar_edificio").hide();
+        });
+
+        $('#volver_oficina').click(function () {
+            $("#div_agregar_oficina").hide();
+            $("#div_agregar_edificio").hide();
+            $("#div_a_localidad").show();
+            $("#div_a_codigo_postal").show();
+            $("#div_a_partido").show();
+            $("#txt_Partido").show();
+            $("#div_x_edificio").show();
+            $("#btn_nuevo_edificio").show();
+            $("#btn_nueva_oficina").show();
+            $("#div_a_calle").show();
+            $("#div_a_nro").show();
+            $("#div_a_piso").show();
+            $("#div_a_oficina").show();
+            $("#div_a_uf").show();
+            $("#div_btn_guardar").show();
+            $("#div_a_provincia").show();
+            $("#div_x_oficina").show();
+            $("#lgn_edificio").show();
+        });
+    });
+   
+</script>
