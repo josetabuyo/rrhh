@@ -39,7 +39,7 @@
             Backend.GuardarCambiosEnFormulario(form_cambios);
         });
         selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-            Backend.GetFormulario(JSON.Stringify({ Documento: la_persona_seleccionada.documento })).onSuccess(function (formulario) {
+            Backend.GetFormulario(JSON.stringify({ Documento: la_persona_seleccionada.documento })).onSuccess(function (formulario) {
                 //            formulario = {
                 //                Id: 1,
                 //                Nombre: "Relevamiento de contrato",
