@@ -80,7 +80,14 @@
 
     $(document).ready(function () {
 
-        $('#btn_buscar_responsable').click(function () {
+        $('#btn_buscar_responsable').focus(function () {
+            BuscarPersonal();
+        });
+
+        CargarCombosResponsable();
+
+        BuscarPersonal = function () {
+
             if ($("#div_documento").esValido()) {
                 var criterio = {}
                 criterio.Documento = parseInt($("#txt_documento").val());
@@ -98,11 +105,15 @@
                     $("#txt_id_interna").prop('disabled', false);
                     $("#txt_nombre").prop('disabled', false);
                     $("#txt_apellido").prop('disabled', false);
+                    $("#txt_id_interna").val("");
+                    $("#txt_nombre").val("");
+                    $("#txt_apellido").val("")
                     //Habilitar todo
                 }
             }
+        };
 
-        });
+        CargarCombosResponsable = function () { };
     });
 
 </script>

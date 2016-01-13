@@ -23,7 +23,7 @@ VistaDeArea.prototype.start = function () {
     });
     this.ui.find("#btn_solicitar_modificacion").click(function () {
         _this.o.sesion.setAreaActual(_this.o.area.id(), function () {
-            window.location.href = "FormulariosDatosDeContacto/FModificacionDatosDeContacto.aspx";
+            window.location.href = "Protocolo/ModificarArea.aspx";
         });
     });
 };

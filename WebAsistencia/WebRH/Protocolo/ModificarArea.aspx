@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ModificarArea.aspx.cs" Inherits="FormularioProtocolo_ConsultaListadoLicencias" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ModificarArea.aspx.cs" Inherits="FormularioProtocolo_ModificarArea" %>
 
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -160,12 +160,8 @@
             <div id="contenido_modal">
             </div>
         </div>
-        <asp:HiddenField ID="texto_mensaje_exito" runat="server" />
-        <asp:HiddenField ID="texto_mensaje_error" runat="server" />
-        <asp:HiddenField ID="personasJSON" runat="server" EnableViewState="true" />
-        <asp:HiddenField ID="pasesJSON" runat="server" EnableViewState="true" />
-        <asp:HiddenField ID="txtIdArea" runat="server" />
-        <asp:HiddenField ID="idArea" runat="server" />
+        <asp:HiddenField ID="AreaSeleccionada" runat="server" />
+        
     </div>
     </form>
 </body>
