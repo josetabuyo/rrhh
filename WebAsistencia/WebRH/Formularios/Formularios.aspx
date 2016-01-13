@@ -84,9 +84,11 @@
                     <div class="bloque">
                       
                         <label for="provincia">Provincia: <em>*</em></label>
-                        <select id="cmb_provincia_personal" campo="domicilio_provincia" class="cmb_provincia" style="width:273px;" ></select>
+                        <select id="cmb_provincia_personal" campo="domicilio_provincia" rh-control-type="combo" rh-data-provider="Provincias" class="cmb_provincia" style="width:203px;" ></select>
                         <label for="Localidad" style="margin-left:40px;">Localidad: <em>*</em></label>
-                        <select id="cmb_localidad_personal" campo="domicilio_localidad" class="cmb_localidad" style="width:285px;"> </select>
+                        <select id="cmb_localidad_personal" campo="domicilio_localidad" rh-control-type="combo" rh-data-provider="Localidades" class="cmb_localidad" style="width:205px;"> </select>
+                        <label for="domicilio_telefono" style="display:inline-block; width:40px; margin-left:50px;">C.P: <em>*</em></label>
+                        <input id="domicilio_telefono" campo="domicilio_telefono" type="text" placeholder="Telefono" style="width: 200px;" class="validar" />
                     </div>
 
                 <p>Consignar nuevo domicilio particular solo en el caso que fuera pertinente:</p>
@@ -107,9 +109,11 @@
                     </div>
                     <div class="bloque">
                         <label for="provincia">Provincia: <em>*</em></label>
-                        <select id="provincia_nuevo" campo="domicilio_provincia_nuevo" class="cmb_provincia" style="width:273px;" ></select>
+                        <select id="provincia_nuevo" campo="domicilio_provincia_nuevo" rh-control-type="combo" rh-data-provider="Provincias"  class="cmb_provincia" style="width:203px;" ></select>
                         <label for="Localidad" style="margin-left:40px;">Localidad: <em>*</em></label>
-                        <select id="localidad_nuevo" campo="domicilio_localidad_nuevo" class="cmb_localidad" style="width:285px;" > </select>
+                        <select id="localidad_nuevo" campo="domicilio_localidad_nuevo" rh-control-type="combo"  rh-data-provider="Localidades" class="cmb_localidad" style="width:205px;" > </select>
+                        <label for="domicilio_telefono_nuevo" style="display:inline-block; width:40px; margin-left:50px;">C.P: <em>*</em></label>
+                        <input id="domicilio_telefono_nuevo" campo="domicilio_telefono_nuevo" type="text" placeholder="Telefono" style="width: 200px;" class="validar" />
                     </div>
             </div>
             <hr />
