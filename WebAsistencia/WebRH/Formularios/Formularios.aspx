@@ -120,22 +120,82 @@
             <p>Estudio Completo:</p>
             <div style="margin-left:50px;">
                 <p style="font-weight:bold;">a. Titulo declarado en su legajo:</p>
-                <div style="margin-left:50px;">
+                <a style="cursor:pointer;" id="cargar_mas_estudios">Cargar otro estudio (max 5)</a>
+                <div class="caja_estudios">
                      <div class="bloque">
-                        <label for="nivel_estudio" style="display:inline-block; width:150px;">Nivel de estudio:</label>
-                        <input id="nivel_estudio" campo="nivel_estudio" type="text" placeholder="Nivel" style="width:480px;" />
+                        <label for="nivel_estudio_1" style="display:inline-block; width:150px;">Nivel de estudio:</label>
+                        <input id="nivel_estudio_1" campo="nivel_estudio_1" type="text" placeholder="Nivel" style="width:480px;" />
                     </div>
                      <div class="bloque">
-                        <label for="titulo_obtenido" style="display:inline-block; width:150px;">Titulo obtenido:</label>
-                        <input id="titulo_obtenido" campo="titulo_obtenido" type="text" placeholder="Título" style="width:480px;" />
+                        <label for="titulo_obtenido_1" style="display:inline-block; width:150px;">Titulo obtenido:</label>
+                        <input id="titulo_obtenido_1" campo="titulo_obtenido_1" type="text" placeholder="Título" style="width:480px;" />
                     </div>
                      <div class="bloque">
-                        <label for="institucion" style="display:inline-block; width:150px;">Institución otorgante:</label>
-                        <input id="institucion" campo="institucion" type="text" placeholder="Institución" style="width:480px;" />
+                        <label for="institucion_1" style="display:inline-block; width:150px;">Institución otorgante:</label>
+                        <input id="institucion_1" campo="institucion_1" type="text" placeholder="Institución" style="width:480px;" />
                     </div>
                 </div>
+
+             
+                   <div id="caja_estudio_2" class="caja_estudios caja_extra">
+                         <div class="bloque">
+                            <label for="nivel_estudio_2" style="display:inline-block; width:150px;">Nivel de estudio:</label>
+                            <input id="nivel_estudio_2" campo="nivel_estudio_2" type="text" placeholder="Nivel" style="width:480px;" />
+                        </div>
+                         <div class="bloque">
+                            <label for="titulo_obtenido_2" style="display:inline-block; width:150px;">Titulo obtenido:</label>
+                        <input id="titulo_obtenido_2" campo="titulo_obtenido_2" type="text" placeholder="Título" style="width:480px;" />
+                    </div>
+                     <div class="bloque">
+                        <label for="institucion_2" style="display:inline-block; width:150px;">Institución otorgante:</label>
+                        <input id="institucion_2" campo="institucion_2" type="text" placeholder="Institución" style="width:480px;" />
+                    </div>
+                    </div>
+                    <div id="caja_estudio_3" class="caja_estudios caja_extra">
+                     <div class="bloque">
+                        <label for="nivel_estudio_3" style="display:inline-block; width:150px;">Nivel de estudio:</label>
+                        <input id="nivel_estudio_3" campo="nivel_estudio_3" type="text" placeholder="Nivel" style="width:480px;" />
+                    </div>
+                     <div class="bloque">
+                        <label for="titulo_obtenido_3" style="display:inline-block; width:150px;">Titulo obtenido:</label>
+                        <input id="titulo_obtenido_3" campo="titulo_obtenido_3" type="text" placeholder="Título" style="width:480px;" />
+                    </div>
+                     <div class="bloque">
+                        <label for="institucion_3" style="display:inline-block; width:150px;">Institución otorgante:</label>
+                        <input id="institucion_3" campo="institucion_3" type="text" placeholder="Institución" style="width:480px;" />
+                    </div>
+                    </div>
+                    <div id="caja_estudio_4" class="caja_estudios caja_extra">
+                     <div class="bloque">
+                        <label for="nivel_estudio_4" style="display:inline-block; width:150px;">Nivel de estudio:</label>
+                        <input id="nivel_estudio_4" campo="nivel_estudio_4" type="text" placeholder="Nivel" style="width:480px;" />
+                    </div>
+                     <div class="bloque">
+                        <label for="titulo_obtenido_4" style="display:inline-block; width:150px;">Titulo obtenido:</label>
+                        <input id="titulo_obtenido_4" campo="titulo_obtenido_4" type="text" placeholder="Título" style="width:480px;" />
+                    </div>
+                     <div class="bloque">
+                        <label for="institucion_4" style="display:inline-block; width:150px;">Institución otorgante:</label>
+                        <input id="institucion_4" campo="institucion_4" type="text" placeholder="Institución" style="width:480px;" />
+                    </div>
+                    </div>
+                    <div id="caja_estudio_5" class="caja_estudios caja_extra">
+                     <div class="bloque">
+                        <label for="nivel_estudio_5" style="display:inline-block; width:150px;">Nivel de estudio:</label>
+                        <input id="nivel_estudio_5" campo="nivel_estudio_5" type="text" placeholder="Nivel" style="width:480px;" />
+                    </div>
+                     <div class="bloque">
+                        <label for="titulo_obtenido_5" style="display:inline-block; width:150px;">Titulo obtenido:</label>
+                        <input id="titulo_obtenido_5" campo="titulo_obtenido_5" type="text" placeholder="Título" style="width:480px;" />
+                    </div>
+                     <div class="bloque">
+                        <label for="institucion_5" style="display:inline-block; width:150px;">Institución otorgante:</label>
+                        <input id="institucion_5" campo="institucion_5" type="text" placeholder="Institución" style="width:480px;" />
+                    </div>
+                    </div>
+                
           
-            <p style="font-weight:bold;">b. Registre nuevo título: (solo completar en el caso de haber obtenido un título de igual o mayor nivel que el registrado)</p>
+            <!--<p style="font-weight:bold;">b. Registre nuevo título: (solo completar en el caso de haber obtenido un título de igual o mayor nivel que el registrado)</p>
              <div style="margin-left:50px;">
                      <div class="bloque">
                         <label for="nivel_estudio_nuevo" style="display:inline-block; width:150px;">Nivel de estudio:</label>
@@ -150,21 +210,22 @@
                         <input id="institucion_nuevo" campo="institucion_nuevo" type="text" placeholder="Institución" style="width:480px;" />
                     </div>
                 </div>
+                -->
             </div>
               <hr />
                <p class="subtitulo">3) Registre la experiencia laboral en este Ministerio:</p>
                 <div style="margin-left:50px;" >
                     <div class="bloque">
                         <label for="fecha_ingreso_apn" style="display:inline-block; width:150px;">Ingreso a la Administración Pública:</label>
-                        <input id="fecha_ingreso_apn" campo="fecha_ingreso_apn" type="text" placeholder="Fecha Ingreso APN"  />
+                        <input id="fecha_ingreso_apn" campo="fecha_ingreso_apn" type="text" placeholder="dd/mm/aaaa"  />
                     </div>
                    <div class="bloque">
                         <label for="fecha_ingreso_minis" style="display:inline-block; width:150px;">Ingreso al Ministerio:</label>
-                        <input id="fecha_ingreso_minis" campo="fecha_ingreso_minis" type="text" placeholder="Fecha Ingreso Ministerio"  />
+                        <input id="fecha_ingreso_minis" campo="fecha_ingreso_minis" type="text" placeholder="dd/mm/aaaa"  />
                     </div>
                   <div class="bloque">
                     <label for="fecha_ingreso_oficina" style="display:inline-block; width:150px;">Ingreso a su lugar de trabajo actual:</label>
-                     <input id="fecha_ingreso_oficina" campo="fecha_ingreso_oficina" type="text" placeholder="Fecha Lugar actual"  />
+                     <input id="fecha_ingreso_oficina" campo="fecha_ingreso_oficina" type="text" placeholder="dd/mm/aaaa"  />
                   </div>
                 </div>
               <hr />
@@ -188,8 +249,8 @@
                   </div>
                 </div>
 
-                <input type=button id="btn_guardar_cambios" class="btn btn-primary" value="Guardar Cambios" />
-        </div>
+                <input type="button" id="btn_guardar_cambios" class="btn btn-primary" value="Guardar Cambios" />
+        
 
         <div id="plantillas">
             <div class="vista_persona_en_selector">
@@ -206,6 +267,23 @@
             </div>
         </div>
     </form>
+   
 </body>
+ <script type="text/javascript">
+     $(document).ready(function () {
+         var div_estudios_extras = $(".caja_extra");
+
+         div_estudios_extras.each(function () {
+             if (this.children[0].children[1].value == "") div_estudios_extras.attr("style", "display:none;");
+         })
+      
+
+         $("#cargar_mas_estudios").click(function () {
+             div_estudios_extras.attr("style", "display:block;");
+
+         })
+     });
+    
+    </script>
 
 </html>

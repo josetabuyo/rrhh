@@ -115,14 +115,17 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@NroDocumento", documento);
             var tablaDatos = conexion_bd.Ejecutar("dbo.LEG_GET_Estudios_Realizados", parametros);
+            var contador = 1;
 
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    campos.Add(new Campo("nivel_estudio", row.GetString("Nivel")));
-                    campos.Add(new Campo("titulo_obtenido", row.GetString("Titulo")));
-                    campos.Add(new Campo("institucion", "No declarado"));
+                    campos.Add(new Campo("nivel_estudio_"+contador, row.GetString("Nivel")));
+                    campos.Add(new Campo("titulo_obtenido_" + contador, row.GetString("Titulo")));
+                    campos.Add(new Campo("institucion_" + contador, "No declarado"));
+
+                    contador++;
                 });
 
             }

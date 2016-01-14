@@ -136,6 +136,13 @@ border-bottom: 1px solid #929292;
     font-size:1.1em;
     }
 
+.caja_estudios {
+    margin: 20px 50px;
+    padding-bottom: 20px;
+    border-bottom: 1px dotted#ccc;
+    width: 650px;
+}
+
 
 
 
