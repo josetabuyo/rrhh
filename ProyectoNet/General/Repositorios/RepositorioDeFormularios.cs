@@ -3,6 +3,7 @@ using Dominio;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using General.MAU;
 
 namespace General.Repositorios
 {
@@ -15,35 +16,39 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
         }
 
-        public int GuardarDatos(Formulario formulario)
+        public void GuardarDatos(Formulario formulario, Usuario usuario)
         {
 
             //var personas = RepositorioDePersonas.NuevoRepositorioDePersonas(conexion_bd).BuscarPersonas("{Documento:" + formulario.nroDocumento + "}");
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@idFormulario", formulario.idFormulario);
-            parametros.Add("@idPersona", formulario.idPersona);
-            parametros.Add("@idUsuario", formulario.idUsuario);
+           
 
             foreach (var unCampo in formulario.campos)
             {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@idFormulario", formulario.idFormulario);
+                parametros.Add("@idPersona", formulario.idPersona);
+                parametros.Add("@idUsuario", usuario.Id);
                 parametros.Add("@clave", unCampo.clave);
                 parametros.Add("@valor", unCampo.valor);
+                conexion_bd.EjecutarSinResultado("dbo.FORM_Ins_Generico", parametros).ToString();            
             }
-
-            var id = conexion_bd.EjecutarEscalar("dbo.FORM_Ins_Generico", parametros).ToString();
-
-            return Int32.Parse(id);
         }
 
         public Formulario GetFormulario(string criterio)
         {
-
+          
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
             int id_persona = (int)((JValue)criterio_deserializado["idPersona"]);
-            int documento = 123;
+            int id_form = (int)((JValue)criterio_deserializado["idFormulario"]);
+
+            var persona = RepositorioDePersonas.NuevoRepositorioDePersonas(conexion_bd).BuscarPersonas("{Id:" + id_persona+"}");
+            if (persona.Count == 0) throw new Exception("Persona No encontrada");
+
+            int documento = persona[0].Documento;
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idPersona", id_persona);
+            parametros.Add("@idFormulario", id_persona);
             var tablaDatos = conexion_bd.Ejecutar("dbo.Form_Get_Generico", parametros);
             List<Campo> campos = new List<Campo>();
             Formulario formulario = new Formulario();
@@ -57,8 +62,7 @@ namespace General.Repositorios
 
                 var fila = tablaDatos.Rows[0];
 
-                formulario = new Formulario(fila.GetSmallintAsInt("idFormulario"), fila.GetInt("idPersona"), campos, fila.GetInt("idUsuario"));
-
+                formulario = new Formulario(fila.GetSmallintAsInt("idFormulario"), fila.GetInt("idPersona"), campos);               
             }
             else
             {
@@ -69,6 +73,8 @@ namespace General.Repositorios
                 campos.AddRange(traer_estudios(documento));
 
                 campos.AddRange(traer_domicilio(documento));
+
+                formulario = new Formulario(id_form, id_persona, campos);       
 
             }
 
@@ -87,12 +93,12 @@ namespace General.Repositorios
             {
                 var primer_fila = tablaDatos.Rows[0];
                 campos.Add(new Campo("domicilio_calle", primer_fila.GetString("Calle")));
-                campos.Add(new Campo("domicilio_numero", primer_fila.GetString("Número")));
+                campos.Add(new Campo("domicilio_numero", primer_fila.GetSmallintAsInt("Número").ToString()));
                 campos.Add(new Campo("domicilio_piso", primer_fila.GetString("Piso")));
                 campos.Add(new Campo("domicilio_depto", primer_fila.GetString("Dpto")));
-                campos.Add(new Campo("domicilio_cp", primer_fila.GetString("Codigo_Postal")));
-                campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("Provincia")));
-                campos.Add(new Campo("domicilio_localidad", primer_fila.GetString("Localidad")));
+                campos.Add(new Campo("domicilio_cp", primer_fila.GetSmallintAsInt("Codigo_Postal").ToString()));
+                campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("Provincia_DESC","No hay dato").ToString()));
+                campos.Add(new Campo("domicilio_localidad", primer_fila.GetString("nombrelocalidad", "No hay dato").ToString()));
                 campos.Add(new Campo("domicilio_telefono", ""));
              
 
@@ -126,16 +132,16 @@ namespace General.Repositorios
         {
             List<Campo> campos = new List<Campo>();
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@Doc", documento);
+            parametros.Add("@Documento", documento);
             var tablaDatos = conexion_bd.Ejecutar("dbo.CON_CONSULTA_RAPIDA_Contratos", parametros);
 
             if (tablaDatos.Rows.Count > 0)
             {
                 var nivel = tablaDatos.Rows[0].GetString("NivelGrado").Substring(0,1);
-                var grado = tablaDatos.Rows[0].GetString("NivelGrado").Substring(1, 2);
+                var grado = tablaDatos.Rows[0].GetString("NivelGrado").Substring(1, 1);
 
-                campos.Add(new Campo("apellido", nivel));
-                campos.Add(new Campo("nombre", grado));
+                campos.Add(new Campo("nivel", nivel));
+                campos.Add(new Campo("grado", grado));
 
             }
 
@@ -157,6 +163,7 @@ namespace General.Repositorios
                   campos.Add(new Campo("nombre", row.GetString("Nombre")));
                   campos.Add(new Campo("tipo_documento", row.GetSmallintAsInt("Tipo_Documento").ToString()));
                   campos.Add(new Campo("documento", row.GetSmallintAsInt("Nro_Documento").ToString()));
+                  campos.Add(new Campo("modalidad", row.GetString("Tipo_planta_Desc").ToString()));
               });
 
             }

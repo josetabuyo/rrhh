@@ -21,15 +21,15 @@
         });
         $("#btn_guardar_cambios").click(function () {
             var form_cambios = {
-                Id: formulario.Id,
-                IdPersona: formulario.IdPersona,
-                Campos: []
+                idFormulario: formulario.idFormulario,
+                idPersona: formulario.idPersona,
+                campos: []
             }
 
             for (var campo_cambio in cambios) {
                 if (cambios.hasOwnProperty(campo_cambio)) {
-                    form_cambios.Campos.push({
-                        campo: campo_cambio,
+                    form_cambios.campos.push({
+                        clave: campo_cambio,
                         valor: cambios[campo_cambio]
                     });
                 }
@@ -39,19 +39,22 @@
             Backend.GuardarCambiosEnFormulario(form_cambios);
         });
         selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-            Backend.GetFormulario(JSON.stringify({ Documento: la_persona_seleccionada.documento })).onSuccess(function (formulario) {
+            Backend.GetFormulario(JSON.stringify({ idFormulario: 1, idPersona: la_persona_seleccionada.id })).onSuccess(function (form) {
                 //            formulario = {
-                //                Id: 1,
-                //                Nombre: "Relevamiento de contrato",
-                //                IdPersona: 111,
-                //                Campos: [
+                //                id: 1,
+                //                nombre: "Relevamiento de contrato",
+                //                idPersona: 111,
+                //                campos: [
                 //                        { campo: "nombre", valor: "agustin" },
                 //                        { campo: "apellido", valor: "calcagno" }
                 //                    ]
                 //            };
 
+                formulario = form;
+                form.idPersona = la_persona_seleccionada.id;
+                form.idFormulario = 1;
                 $("[campo]").each(function () {
-                    var campo = _.findWhere(formulario.Campos, { campo: $(this).attr("campo") });
+                    var campo = _.findWhere(formulario.campos, { clave: $(this).attr("campo") });
                     if (campo) $(this).val(campo.valor);
                 });
 

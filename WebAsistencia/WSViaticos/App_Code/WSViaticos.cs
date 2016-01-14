@@ -3295,7 +3295,7 @@ public class WSViaticos : System.Web.Services.WebService
         [WebMethod]
         public void GuardarCambiosEnFormulario(Formulario form, Usuario usuario)
         {
-            new RepositorioDeFormularios(Conexion()).GuardarDatos(form);
+            new RepositorioDeFormularios(Conexion()).GuardarDatos(form, usuario);
         }
     #endregion
 

@@ -38,82 +38,81 @@
             <div class="bloque">  
                   
                 <label class="etiqueta_campo" for="cmb_tipoDocumento" style="width:50px;" >
-                    Tipo y Número de Documento <em>*</em></label>
+                    Tipo y Número de Documento:</label>
                 <select id="cmb_tipoDocumento" campo="tipo_documento" style="width: 50px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento"
-                    rh-model-property="TipoDocumento" data-validar="haySeleccionEnCombo">
+                    rh-model-property="TipoDocumento" data-validar="haySeleccionEnCombo" disabled="disabled">
                 </select>
                 <input id="txt_documento" campo="documento" type="text" style="width: 500px;" rh-control-type="textbox"
-                     data-validar="esNumeroNatural" />
+                     data-validar="esNumeroNatural" disabled="disabled" />
             </div>
             <div class="bloque">
-                <label for="nombre">Nombre <em>*</em></label>
-                <input id="nombre" type="text" campo="nombre" rh-control-type="textbox" 
+                <label for="nombre">Nombre: </label>
+                <input id="nombre" type="text" campo="nombre" rh-control-type="textbox" disabled="disabled"
                     style="width: 295px;" data-validar="esNoBlanco" maxlength="100" />
 
-                <label for="apellido" style="margin-left:15px;">Apellido <em>*</em></label>
-                <input id="apellido" type="text" campo="apellido" style="width: 295px;" rh-control-type="textbox"
+                <label for="apellido" style="margin-left:15px;">Apellido: </label>
+                <input id="apellido" type="text" campo="apellido" style="width: 300px;" rh-control-type="textbox" disabled="disabled"
                      data-validar="esNoBlanco" />
             </div>
             <div class="bloque">
-                <label for="nivel">Nivel <em>*</em></label>
-                <input id="nivel" type="text" campo="nivel" rh-control-type="textbox" rh-model-property="Nivel"
+                <label for="nivel">Nivel:</label>
+                <input id="nivel" type="text" campo="nivel" rh-control-type="textbox" rh-model-property="Nivel" disabled="disabled"
                     style="width: 50px;" data-validar="esNoBlanco" maxlength="2" />
-                <label for="grado" style="margin-left:15px;">Grado <em>*</em></label>
-                <input id="grado" type="text" campo="grado" style="width: 50px;" rh-control-type="textbox"
+                <label for="grado" style="margin-left:15px;">Grado:</label>
+                <input id="grado" type="text" campo="grado" style="width: 50px;" rh-control-type="textbox" disabled="disabled"
                     rh-model-property="Grado" data-validar="esNoBlanco" />
-                <label class="etiqueta_campo" style="margin-left:15px;" for="cmb_modalidadContratacion">Modalidad de Contratación <em>*</em></label>
-                <select id="modalidad" style="width: 332px" campo="modalidad" rh-control-type="combo" rh-data-provider="xxxxxxx"
-                    rh-model-property="Modalidad" data-validar="haySeleccionEnCombo"></select>
+                <label class="etiqueta_campo" style="margin-left:15px;" for="cmb_modalidadContratacion">Modalidad de Contratación: </label>
+                <input id="modalidad" style="width: 345px" campo="modalidad" rh-control-type="textbox" disabled="disabled"  />
             </div>
             <div class="bloque">
                 <p>Domicilio Particular</p>
                     <div class="bloque">
-                        <label for="calle" style="display:inline-block; width:50px;">Calle: <em>*</em></label>
-                        <input id="text_domicilio_calle_personal" campo="domicilio_calle" type="text" placeholder="Calle" style="width:680px;" class="validar" />
+                        <label for="calle" style="display:inline-block; width:50px;">Calle:</label>
+                        <input id="text_domicilio_calle_personal" campo="domicilio_calle" type="text" disabled="disabled" placeholder="Calle" style="width:680px;" class="validar" />
                     </div>
                     <div class="bloque">
-                        <label for="nro" style="display:inline-block; width:50px;">Nro: <em>*</em></label>
-                        <input id="text_domicilio_nro_personal" campo="domicilio_numero" type="number" placeholder="Nro" style="width: 100px;" class="validarNumero" />
-                        <label for="piso" style="display:inline-block; width:40px; margin-left:50px;">Piso: <em>*</em></label>
-                        <input id="text_domicilio_piso_personal" campo="domicilio_piso" type="number" placeholder="Piso" style="width: 80px;" class="validarNumero" />
-                        <label for="dto" style="display:inline-block; width:40px; margin-left:50px;">Dto: <em>*</em></label>
-                        <input id="text_domicilio_depto_personal" campo="domicilio_depto" type="text" placeholder="Depto" style="width: 80px;" class="validar" />
-                        <label for="cp" style="display:inline-block; width:40px; margin-left:50px;">C.P: <em>*</em></label>
-                        <input id="text_domicilio_cp_personal" campo="domicilio_cp" type="text" placeholder="C.P." style="width: 100px;" class="validar" />
+                        <label for="nro" style="display:inline-block; width:50px;">Nro:</label>
+                        <input id="text_domicilio_nro_personal" campo="domicilio_numero" type="number" disabled="disabled" placeholder="Nro" style="width: 100px;" class="validarNumero" />
+                        <label for="piso" style="display:inline-block; width:40px; margin-left:50px;">Piso: </label>
+                        <input id="text_domicilio_piso_personal" campo="domicilio_piso" type="number" disabled="disabled" placeholder="Piso" style="width: 80px;" class="validarNumero" />
+                        <label for="dto" style="display:inline-block; width:40px; margin-left:50px;">Dto: </label>
+                        <input id="text_domicilio_depto_personal" campo="domicilio_depto" type="text" disabled="disabled" placeholder="Depto" style="width: 80px;" class="validar" />
+                        <label for="cp" style="display:inline-block; width:40px; margin-left:50px;">C.P: </label>
+                        <input id="text_domicilio_cp_personal" campo="domicilio_cp" type="text" disabled="disabled" placeholder="C.P." style="width: 100px;" class="validar" />
                     </div>
                     <div class="bloque">
                       
-                        <label for="provincia">Provincia: <em>*</em></label>
-                        <select id="cmb_provincia_personal" campo="domicilio_provincia" rh-control-type="combo" rh-data-provider="Provincias" class="cmb_provincia" style="width:203px;" ></select>
-                        <label for="Localidad" style="margin-left:40px;">Localidad: <em>*</em></label>
-                        <select id="cmb_localidad_personal" campo="domicilio_localidad" rh-control-type="combo" rh-data-provider="Localidades" class="cmb_localidad" style="width:205px;"> </select>
-                        <label for="domicilio_telefono" style="display:inline-block; width:40px; margin-left:50px;">C.P: <em>*</em></label>
-                        <input id="domicilio_telefono" campo="domicilio_telefono" type="text" placeholder="Telefono" style="width: 200px;" class="validar" />
+                        <label for="provincia">Provincia: </label>
+                        <input id="cmb_provincia_personal" campo="domicilio_provincia" rh-control-type="textbox" disabled="disabled" style="width:130px;" />
+                        <label for="Localidad" style="margin-left:40px;">Localidad: </label>
+                        <input id="cmb_localidad_personal" campo="domicilio_localidad" rh-control-type="textbox" disabled="disabled"  style="width:180px;" />
+                        <label for="domicilio_telefono" style="display:inline-block; margin-left:20px;">T.E:</label>
+                        <input id="domicilio_telefono" campo="domicilio_telefono" type="text" placeholder="Telefono" disabled="disabled" style="width: 192px;" class="validar" />
                     </div>
 
                 <p>Consignar nuevo domicilio particular solo en el caso que fuera pertinente:</p>
                     <br />
                    <div class="bloque">
-                        <label for="calle" style="display:inline-block; width:50px;">Calle: <em>*</em></label>
+                        <label for="calle" style="display:inline-block; width:50px;">Calle: </label>
                         <input id="calle_nueva" campo="domicilio_calle_nuevo" type="text" placeholder="Calle" style="width:680px;" class="validar" />
                     </div>
                     <div class="bloque">
-                        <label for="nro_nuevo" style="display:inline-block; width:50px;">Nro: <em>*</em></label>
+                        <label for="nro_nuevo" style="display:inline-block; width:50px;">Nro:</label>
                         <input id="nro_nuevo" campo="domicilio_numero_nuevo" type="number" placeholder="Nro" style="width: 100px;" class="validarNumero" />
-                        <label for="piso" style="display:inline-block; width:40px; margin-left:50px;">Piso: <em>*</em></label>
+                        <label for="piso" style="display:inline-block; width:40px; margin-left:50px;">Piso: </label>
                         <input id="piso_nuevo" campo="domicilio_piso_nuevo" type="number" placeholder="Piso" style="width: 80px;" class="validarNumero" />
-                        <label for="dto" style="display:inline-block; width:40px; margin-left:50px;">Dto: <em>*</em></label>
+                        <label for="dto" style="display:inline-block; width:40px; margin-left:50px;">Dto: </label>
                         <input id="dto_nuevo" campo="domicilio_depto_nuevo" type="text" placeholder="Depto" style="width: 80px;" class="validar" />
-                        <label for="cp" style="display:inline-block; width:40px; margin-left:50px;">C.P: <em>*</em></label>
+                        <label for="cp" style="display:inline-block; width:40px; margin-left:50px;">C.P: </label>
                         <input id="cp_nuevo" campo="domicilio_cp_nuevo" type="text" placeholder="C.P." style="width: 100px;" class="validar" />
                     </div>
                     <div class="bloque">
-                        <label for="provincia">Provincia: <em>*</em></label>
-                        <select id="provincia_nuevo" campo="domicilio_provincia_nuevo" rh-control-type="combo" rh-data-provider="Provincias"  class="cmb_provincia" style="width:203px;" ></select>
-                        <label for="Localidad" style="margin-left:40px;">Localidad: <em>*</em></label>
-                        <select id="localidad_nuevo" campo="domicilio_localidad_nuevo" rh-control-type="combo"  rh-data-provider="Localidades" class="cmb_localidad" style="width:205px;" > </select>
-                        <label for="domicilio_telefono_nuevo" style="display:inline-block; width:40px; margin-left:50px;">C.P: <em>*</em></label>
-                        <input id="domicilio_telefono_nuevo" campo="domicilio_telefono_nuevo" type="text" placeholder="Telefono" style="width: 200px;" class="validar" />
+                        <label for="provincia">Provincia: </label>
+                        <select id="provincia_nuevo" campo="domicilio_provincia_nuevo" rh-control-type="combo" rh-data-provider="Provincias"  class="cmb_provincia" style="width:130px;" ></select>
+                        <label for="Localidad" style="margin-left:40px;">Localidad:</label>
+                        <select id="localidad_nuevo" campo="domicilio_localidad_nuevo" rh-control-type="combo"  rh-data-provider="Localidades" class="cmb_localidad" style="width:150px;" > </select>
+                        <label for="domicilio_telefono_nuevo" style="display:inline-block; width:40px; margin-left:50px;">T.E:</label>
+                        <input id="domicilio_telefono_nuevo" campo="domicilio_telefono_nuevo" type="text" placeholder="Telefono" style="width: 192px;" class="validar" />
                     </div>
             </div>
             <hr />
@@ -189,7 +188,7 @@
                   </div>
                 </div>
 
-                <input type=button id="btn_guardar_cambios" value="Guardar Cambios" />
+                <input type=button id="btn_guardar_cambios" class="btn btn-primary" value="Guardar Cambios" />
         </div>
 
         <div id="plantillas">
