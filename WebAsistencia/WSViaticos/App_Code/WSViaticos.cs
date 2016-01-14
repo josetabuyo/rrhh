@@ -3289,7 +3289,7 @@ public class WSViaticos : System.Web.Services.WebService
         [WebMethod]
         public Formulario GetFormulario(string criterio, Usuario usuario)
         {
-            return new RepositorioDeFormularios(Conexion()).GetFormulario(criterio);
+            return new RepositorioDeFormularios(Conexion()).GetFormulario(criterio, usuario);
         }
 
         [WebMethod]

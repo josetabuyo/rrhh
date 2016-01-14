@@ -1,5 +1,12 @@
 ﻿$(document).ready(function () {
     Backend.start(function () {
+        VistaFormulario.start();        
+    });
+});
+
+var VistaFormulario = {
+    start: function () {
+        var _this = this;
         $('#fecha_ingreso_apn').datepicker();
         $('#fecha_ingreso_apn').datepicker('option', 'dateFormat', 'dd/mm/yy');
         $('#fecha_ingreso_minis').datepicker();
@@ -39,6 +46,8 @@
             Backend.GuardarCambiosEnFormulario(form_cambios);
         });
         selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
+            $(".contenedor_formulario").hide()
+            _this.limpiarPantalla();
             Backend.GetFormulario(JSON.stringify({ idFormulario: 1, idPersona: la_persona_seleccionada.id })).onSuccess(function (form) {
                 //            formulario = {
                 //                id: 1,
@@ -58,8 +67,13 @@
                     if (campo) $(this).val(campo.valor);
                 });
 
-
+                $(".contenedor_formulario").show()
             });
         };
-    });
-});
+    },
+    limpiarPantalla: function () {
+        $("[campo]").each(function () {
+            $(this).val("");
+        });
+    }
+}

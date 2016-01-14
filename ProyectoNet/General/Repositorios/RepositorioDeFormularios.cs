@@ -34,7 +34,7 @@ namespace General.Repositorios
             }
         }
 
-        public Formulario GetFormulario(string criterio)
+        public Formulario GetFormulario(string criterio, Usuario usuario)
         {
           
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -48,7 +48,7 @@ namespace General.Repositorios
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idPersona", id_persona);
-            parametros.Add("@idFormulario", id_persona);
+            parametros.Add("@idFormulario", id_form);
             var tablaDatos = conexion_bd.Ejecutar("dbo.Form_Get_Generico", parametros);
             List<Campo> campos = new List<Campo>();
             Formulario formulario = new Formulario();
@@ -62,7 +62,7 @@ namespace General.Repositorios
 
                 var fila = tablaDatos.Rows[0];
 
-                formulario = new Formulario(fila.GetSmallintAsInt("idFormulario"), fila.GetInt("idPersona"), campos);               
+                formulario = new Formulario(id_form, id_persona, campos);               
             }
             else
             {
@@ -74,7 +74,9 @@ namespace General.Repositorios
 
                 campos.AddRange(traer_domicilio(documento));
 
-                formulario = new Formulario(id_form, id_persona, campos);       
+                formulario = new Formulario(id_form, id_persona, campos);
+
+                this.GuardarDatos(formulario, usuario);
 
             }
 
