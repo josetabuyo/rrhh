@@ -33,7 +33,7 @@
     </div>
    
         <hr />
-        <div class="contenedor_formulario">
+        <div class="contenedor_formulario" style="display: none">
             <p class="subtitulo">1) Datos Personales:</p>
             <div class="bloque">  
                   

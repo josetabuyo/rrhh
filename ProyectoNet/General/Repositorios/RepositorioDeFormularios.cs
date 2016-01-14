@@ -41,7 +41,7 @@ namespace General.Repositorios
             int id_form = (int)((JValue)criterio_deserializado["idFormulario"]);
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idPersona", id_persona);
-            parametros.Add("@idFormulario", id_persona);
+            parametros.Add("@idFormulario", id_form);
             var tablaDatos = conexion_bd.Ejecutar("dbo.Form_Get_Generico", parametros);
             List<Campo> campos = new List<Campo>();
             Formulario formulario = new Formulario();
@@ -55,7 +55,7 @@ namespace General.Repositorios
 
                 var fila = tablaDatos.Rows[0];
 
-                formulario = new Formulario(fila.GetSmallintAsInt("idFormulario"), fila.GetInt("idPersona"), campos);               
+                formulario = new Formulario(id_form, id_persona, campos);               
             }
 
             return formulario;
