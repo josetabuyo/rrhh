@@ -213,6 +213,32 @@ namespace General.Repositorios
         {
             return this.GetTodasLasAreasCompletas().Find(a => a.Id == id_area);
         }
+
+        public Area GetAreaCompletaPorId(int id_area)
+        {
+            Area area = new Area();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Operacion", 'S');
+            parametros.Add("@Area", id_area);
+            var tablaDatos = conexion.Ejecutar("dbo.GABM_Tabla_Firmantes", parametros);
+            var responsable_base = tablaDatos.Rows[0];
+            Responsable responsable = new Responsable();
+            responsable.NombreApellido = responsable_base.GetString("Apellido");
+            responsable.Documento = responsable_base.GetInt("Documento");
+            responsable.IdInterna = responsable_base.GetInt("Id_Interna");
+            responsable.TratamientoPersona = new Combo(responsable_base.GetInt("Id_Tratamiento"), responsable_base.GetString("Tratamiento"));
+            responsable.TratamientoTitulo = new Combo(responsable_base.GetInt("Id_Titulo"), responsable_base.GetString("Titulo"));
+            responsable.CargoFuncion = new Combo (responsable_base.GetInt("id_cargo"), responsable_base.GetString("Cargo"));
+            responsable.ActoAdministrativo = responsable_base.GetString("FirmaActosAdm");
+            responsable.Contratos = responsable_base.GetString("FirmaContratos");
+            responsable.Facturas = responsable_base.GetString("FirmaFacturas");
+            responsable.DDJJRecibos = responsable_base.GetString("FirmaddjjRecibo");
+
+            area.//Hacer el objeto para soportar el responsable
+            area.DireccionCompleta = new Direccion();
+
+
+        }
         
         private FiltroDeAreas DeterminarFiltro(int idCombo, string dato_ingresado_en_filtro)
         {

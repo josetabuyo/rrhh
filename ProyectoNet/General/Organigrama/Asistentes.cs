@@ -7,6 +7,17 @@
 
     public class Asistente
     {
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string Descripcion_Cargo { get; set; }
+        public int Prioridad_Cargo { get; set; }
+        public string Telefono { get; set; }
+        public string Fax { get; set; }
+        public string Mail { get; set; }
+        public int Documento { get; set; }
+        public int IdInterna { get; set; }
+        public Combo Cargo { get; set; }
+        
         public Asistente(string nombre, string apellido, string descripcion_cargo, int prioridad_cargo, string telefono, string fax, string mail)
         {
             // TODO: Complete member initialization
@@ -25,13 +36,7 @@
             // TODO: Complete member initialization
         }
        
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Descripcion_Cargo { get; set; }
-        public int Prioridad_Cargo { get; set; }
-        public string Telefono { get; set; }
-        public string Fax { get; set; }
-        public string Mail { get; set; }
+        
         
         
     }

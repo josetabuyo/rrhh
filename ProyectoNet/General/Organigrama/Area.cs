@@ -29,7 +29,7 @@
         public Responsable datos_del_responsable;
         public List<ContactoArea> Contacto { get { return _Contacto; } set { _Contacto = value; }}
         public List<DatoDeContacto> DatosDeContacto;
-
+        public Direccion DireccionCompleta { get; set; }
 
         public Area(int IdArea)
         {

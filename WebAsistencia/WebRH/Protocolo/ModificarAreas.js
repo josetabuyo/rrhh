@@ -23,8 +23,8 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Tipo de Contacto", { generar: function (un_contacto) { return un_contacto.Tipo } }));
-        columnas.push(new Columna("Contacto", { generar: function (un_contacto) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_contacto.Contacto); } }));
+        columnas.push(new Columna("Tipo de Contacto", { generar: function (un_contacto) { return un_contacto.Descripcion } }));
+        columnas.push(new Columna("Contacto", { generar: function (un_contacto) { return un_contacto.Dato } }));
         columnas.push(new Columna('Acciones', {
             generar: function (un_contacto) {
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
@@ -81,79 +81,79 @@
             }
         });
     },
-        //TABLA PARA LOS ASISTENTES
-        armarGrillaAsistente: function (asistentes) {
-            var _this = this;
+    //TABLA PARA LOS ASISTENTES
+    armarGrillaAsistente: function (asistentes) {
+        var _this = this;
 
-            _this.asistentes = asistentes;
-            _this.divGrillaAsistente = $('#tabla_asistentes');
-            _this.btn_agregar_asistente = $("#btn_agregar_asistente");
+        _this.asistentes = asistentes;
+        _this.divGrillaAsistente = $('#tabla_asistentes');
+        _this.btn_agregar_asistente = $("#btn_agregar_asistente");
 
-            _this.btn_agregar_asistente.click(function () {
-                var panel_detalle = new PanelDetalleGenerico({
-                    path_html: "PanelDetalleDeAsistente.htm",
-                    metodoDeGuardado: "GuardarAsistenteArea",
-                    mensajeDeGuardadoExitoso: "El Asistente ha sido guardado exitosamente",
-                    mensajeDeGuardadoErroneo: "Error al agregar el Asistente",
-                    alModificar: function (nuevo_asistente) {
-                        _this.GrillaAsistentes.BorrarContenido();
-                        _this.asistentes.push(nuevo_asistente);
-                        _this.GrillaAsistentes.CargarObjetos(_this.asistentes);
-                    }
-                });
-            });
-
-            var columnas = [];
-
-            columnas.push(new Columna("Documento", { generar: function (un_asistente) { return un_asistente.Documento } }));
-            columnas.push(new Columna("Apellido", { generar: function (un_asistente) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_asistente.Apellido); } }));
-            columnas.push(new Columna("Nombre", { generar: function (un_asistente) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_asistente.Nombre); } }));
-            columnas.push(new Columna("Orden", { generar: function (un_asistente) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_asistente.Orden); } }));
-            columnas.push(new Columna("Cargo", { generar: function (un_asistente) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_asistente.Cargo); } }));
-            columnas.push(new Columna('Acciones', {
-                generar: function (un_asistente) {
-                    var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
-                    var btn_editar = contenedorBtnAcciones.find("#btn_editar");
-                    var btn_eliminarAsistente = contenedorBtnAcciones.find("#btn_eliminarAsistente");
-
-                    btn_editar.click(function () {
-                        var panel_detalle = new PanelDetalleGenerico({
-                            modelo: un_asistente,
-                            path_html: "PanelDetalleDeAsistente.htm",
-                            metodoDeGuardado: "ActualizarAsistenteArea",
-                            mensajeDeGuardadoExitoso: "El Asistente del Área fue actualizado correctamente",
-                            mensajeDeGuardadoErroneo: "Error al actualizar el Asistente del Área",
-                            alModificar: function (asistente_modificado) {
-                                _this.GrillaAsistentes.BorrarContenido();
-                                _this.GrillaAsistentes.CargarObjetos(_this.asistentes);
-                            }
-                        });
-                    });
-
-                    btn_eliminarAsistente.click(function () {
-                        _this.eliminarAsistente(un_asistente);
-                    });
-
-                    return contenedorBtnAcciones;
+        _this.btn_agregar_asistente.click(function () {
+            var panel_detalle = new PanelDetalleGenerico({
+                path_html: "PanelDetalleDeAsistente.htm",
+                metodoDeGuardado: "GuardarAsistenteArea",
+                mensajeDeGuardadoExitoso: "El Asistente ha sido guardado exitosamente",
+                mensajeDeGuardadoErroneo: "Error al agregar el Asistente",
+                alModificar: function (nuevo_asistente) {
+                    _this.GrillaAsistentes.BorrarContenido();
+                    _this.asistentes.push(nuevo_asistente);
+                    _this.GrillaAsistentes.CargarObjetos(_this.asistentes);
                 }
+            });
+        });
+
+        var columnas = [];
+
+        columnas.push(new Columna("Documento", { generar: function (un_asistente) { return un_asistente.Documento } }));
+        columnas.push(new Columna("Apellido", { generar: function (un_asistente) { return un_asistente.Apellido } }));
+        columnas.push(new Columna("Nombre", { generar: function (un_asistente) { return un_asistente.Nombre } }));
+        columnas.push(new Columna("Orden", { generar: function (un_asistente) { return un_asistente.Prioridad_Cargo } }));
+        columnas.push(new Columna("Cargo", { generar: function (un_asistente) { return un_asistente.Descripcion_Cargo } }));
+        columnas.push(new Columna('Acciones', {
+            generar: function (un_asistente) {
+                var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
+                var btn_editar = contenedorBtnAcciones.find("#btn_editar");
+                var btn_eliminarAsistente = contenedorBtnAcciones.find("#btn_eliminarAsistente");
+
+                btn_editar.click(function () {
+                    var panel_detalle = new PanelDetalleGenerico({
+                        modelo: un_asistente,
+                        path_html: "PanelDetalleDeAsistente.htm",
+                        metodoDeGuardado: "ActualizarAsistenteArea",
+                        mensajeDeGuardadoExitoso: "El Asistente del Área fue actualizado correctamente",
+                        mensajeDeGuardadoErroneo: "Error al actualizar el Asistente del Área",
+                        alModificar: function (asistente_modificado) {
+                            _this.GrillaAsistentes.BorrarContenido();
+                            _this.GrillaAsistentes.CargarObjetos(_this.asistentes);
+                        }
+                    });
+                });
+
+                btn_eliminarAsistente.click(function () {
+                    _this.eliminarAsistente(un_asistente);
+                });
+
+                return contenedorBtnAcciones;
             }
+        }
         ));
 
-            this.GrillaAsistentes = new Grilla(columnas);
-            this.GrillaAsistentes.AgregarEstilo("cuerpo_tabla_puesto tr td");
-            this.GrillaAsistentes.CambiarEstiloCabecera("cabecera_tabla_postular");
-            this.GrillaAsistentes.SetOnRowClickEventHandler(function (un_asistente) {
-            });
+        this.GrillaAsistentes = new Grilla(columnas);
+        this.GrillaAsistentes.AgregarEstilo("cuerpo_tabla_puesto tr td");
+        this.GrillaAsistentes.CambiarEstiloCabecera("cabecera_tabla_postular");
+        this.GrillaAsistentes.SetOnRowClickEventHandler(function (un_asistente) {
+        });
 
-            this.GrillaAsistentes.CargarObjetos(_this.asistentes);
-            this.GrillaAsistentes.DibujarEn(_this.divGrillaAsistente);
+        this.GrillaAsistentes.CargarObjetos(_this.asistentes);
+        this.GrillaAsistentes.DibujarEn(_this.divGrillaAsistente);
 
-        },
-        eliminarAsistente: function (un_asistente) {
-            var _this = this;
-            alertify.confirm("¿Está seguro que desea eliminar este registro?", function (e) {
-                if (e) {
-                    Backend.EliminarAsistenteArea(un_asistente)
+    },
+    eliminarAsistente: function (un_asistente) {
+        var _this = this;
+        alertify.confirm("¿Está seguro que desea eliminar este registro?", function (e) {
+            if (e) {
+                Backend.EliminarAsistenteArea(un_asistente)
                     .onSuccess(function (respuesta) {
                         alertify.success("Asistente eliminado correctamente");
                         _this.GrillaAsistentes.QuitarObjeto(_this.divGrillaAsistente, un_asistente);
@@ -163,34 +163,40 @@
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar el Asistente");
                     });
-                }
+            }
+        });
+    },
+    //Configuracion Inicial
+
+        CompletarDatosArea: function (area) {
+        var nombre_apellido = area.datos_del_responsable.Nombre + " " + area.datos_del_responsable.Apellido;
+        $("#txt_nombre_apellido").val(nombre_apellido);
+
+    },
+
+    Inicio: function () {
+        var _this = this;
+
+        _this.btn_modificar_responsable = $("#btn_modificar_responsable");
+        _this.btn_modificar_direccion = $("#btn_modificar_direccion");
+
+
+        _this.btn_modificar_responsable.click(function () {
+            var panel_detalle = new PanelDetalleGenerico({
+                path_html: "PanelDetalleDeResponsable.htm",
+                metodoDeGuardado: "ModificarResponsable",
+                mensajeDeGuardadoExitoso: "El Responsable ha sido guardado exitosamente",
+                mensajeDeGuardadoErroneo: "Error al modificar el Responsable"
             });
-        },
-//Configuracion Inicial
-
- Inicio: function () {
-            var _this = this;
-
-            _this.btn_modificar_responsable = $("#btn_modificar_responsable");
-            _this.btn_modificar_direccion = $("#btn_modificar_direccion");
-
-
-            _this.btn_modificar_responsable.click(function () {
-                var panel_detalle = new PanelDetalleGenerico({
-                    path_html: "PanelDetalleDeResponsable.htm",
-                    metodoDeGuardado: "ModificarResponsable",
-                    mensajeDeGuardadoExitoso: "El Responsable ha sido guardado exitosamente",
-                    mensajeDeGuardadoErroneo: "Error al modificar el Responsable"
-                });
+        });
+        _this.btn_modificar_direccion.click(function () {
+            var panel_detalle = new PanelDetalleGenerico({
+                path_html: "PanelDetalleDeDireccion.htm",
+                metodoDeGuardado: "ModificarDireccion",
+                mensajeDeGuardadoExitoso: "La Dirección ha sido guardado exitosamente",
+                mensajeDeGuardadoErroneo: "Error al modificar la Dirección"
             });
-            _this.btn_modificar_direccion.click(function () {
-                var panel_detalle = new PanelDetalleGenerico({
-                    path_html: "PanelDetalleDeDireccion.htm",
-                    metodoDeGuardado: "ModificarDireccion",
-                    mensajeDeGuardadoExitoso: "La Dirección ha sido guardado exitosamente",
-                    mensajeDeGuardadoErroneo: "Error al modificar la Dirección"
-                });
-            });
-  }
+        });
+    }
 
 }

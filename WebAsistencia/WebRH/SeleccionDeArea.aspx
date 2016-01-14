@@ -55,7 +55,7 @@
                         Bel :)--%>
 
                     <%--<a id="btn_mod" onclick="Modal()" > Solicitar Modificación De Datos </a> --%> 
-                    <a id="btn_modificar_area" href="Protocolo/ModificarArea.aspx">Solicitar Modificación De Datos</a>        
+                    <a id="btn_solicitar_modificacion">Solicitar Modificación De Datos</a>        
                 </div>
             </div>  
         </div>

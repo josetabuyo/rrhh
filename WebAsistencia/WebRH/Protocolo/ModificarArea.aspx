@@ -44,7 +44,7 @@
                             <label for="btn_enviar">
                                 Nombre y Apellido:
                             </label>
-                            <input id="txt_btn_enviar" type="text" style="width: 285px;" rh-control-type="textbox"
+                            <input id="txt_nombre_apellido" type="text" style="width: 285px;" rh-control-type="textbox"
                                 data-validar="esNoBlanco" disabled />
                         </div>
                         <div class="grupo_campos nueva_linea">
@@ -179,10 +179,11 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        contactos = ""; //JSON.parse($('#curriculum').val());
-        ModificarAreas.armarGrillaContacto(contactos);
+        area = JSON.parse($('#AreaSeleccionada').val());
+        ModificarAreas.CompletarDatosArea(area);
+        ModificarAreas.armarGrillaContacto(area.DatosDeContacto);
         asistentes = ""; //JSON.parse($('#curriculum').val());
-        ModificarAreas.armarGrillaAsistente(asistentes);
+        ModificarAreas.armarGrillaAsistente(area.Asistentes);
 
         //Activar leanModal
         $('a[rel*=leanModalConcursar]').click(function () {

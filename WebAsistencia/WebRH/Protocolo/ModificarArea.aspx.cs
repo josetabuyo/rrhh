@@ -12,7 +12,8 @@ public partial class FormularioProtocolo_ModificarArea : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         Area area = (Area)Session["areaActual"];
-        this.AreaSeleccionada.Value = JsonConvert.SerializeObject(area);
+        var ws = new WSViaticosSoapClient();
+        this.AreaSeleccionada.Value = JsonConvert.SerializeObject(ws.AreaCompleta(area.Id));
     }
 
 

@@ -2067,6 +2067,13 @@ public class WSViaticos : System.Web.Services.WebService
         return personas;
     }
 
+    
+[WebMethod]
+    public Area AreaCompleta(int id_area)
+    {
+        return RepositorioDeAreas().GetAreaCompletaPorId(id_area);
+    }
+
     [WebMethod]
     public Area[] AreasAdministradasPor(Usuario usuario)
     {

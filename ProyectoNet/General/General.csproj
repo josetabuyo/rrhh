@@ -70,6 +70,8 @@
   <ItemGroup>
     <Compile Include="Asistencia\ConceptoLicenciaAnualOrdinaria.cs" />
     <Compile Include="Asistencia\ConceptoLicenciaGeneral.cs" />
+    <Compile Include="Asistencia\Combo.cs" />
+    <Compile Include="Asistencia\Direccion.cs" />
     <Compile Include="Asistencia\SolicitudesDeVacaciones.cs" />
     <Compile Include="Asistencia\TipoDePlantaGeneral.cs" />
     <Compile Include="Asistencia\ServicioDeLicencias.cs" />
