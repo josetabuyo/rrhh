@@ -68,6 +68,8 @@ var VistaFormulario = {
                 });
 
                 $(".contenedor_formulario").show()
+
+                _this.dibujarEstudios();
             });
         };
     },
@@ -75,5 +77,29 @@ var VistaFormulario = {
         $("[campo]").each(function () {
             $(this).val("");
         });
+    },
+    dibujarEstudios: function () {
+        var div_estudios_extras = $(".caja_extra");
+        div_estudios_extras.each(function () {
+            if (this.children[0].children[1].value == "") {
+                this.className = this.className + " ocultarEstudio";
+            }
+        })
+
+        $('.input_estudio_extra').change(function () {
+            var caja = this.parentNode.parentNode;
+            if (this.value != "") {
+                caja.className = caja.className.replace(/(?:^|\s)ocultarEstudio(?!\S)/g, '');
+            } else {
+                caja.className = caja.className + ' ocultarEstudio';
+            }
+        })
+
+        $('.hidden').removeClass('hidden').hide();
+        $("#cargar_mas_estudios").click(function () {
+            $('.ocultarEstudio').toggleClass("mostrarEstudio");
+            $(this).find('span').each(function () { $(this).toggle(); });
+            return;
+        })
     }
 }

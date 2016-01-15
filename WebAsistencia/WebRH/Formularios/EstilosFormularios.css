@@ -143,6 +143,18 @@ border-bottom: 1px solid #929292;
     width: 650px;
 }
 
+.ocultarEstudio 
+{
+    display:none;
+}
+
+.mostrarEstudio 
+{
+    display:block;
+}
+    
+    
+
 
 
 

@@ -124,6 +124,7 @@ namespace General.Repositorios
                     campos.Add(new Campo("nivel_estudio_"+contador, row.GetString("Nivel")));
                     campos.Add(new Campo("titulo_obtenido_" + contador, row.GetString("Titulo")));
                     campos.Add(new Campo("institucion_" + contador, "No declarado"));
+                    campos.Add(new Campo("fecha_egreso_" + contador, row.GetDateTime("Fecha_Egreso").ToShortDateString().ToString()));
 
                     contador++;
                 });

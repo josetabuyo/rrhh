@@ -22,7 +22,7 @@
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
-     <h1 style="text-align:center; margin-top:50px;">Relevamiento de Contratos</h1>
+     <h1 style="text-align: center; margin-top: 30px;font-size: 2.9em;">Relevamiento de Contratos</h1>
     
     <div>
         <p class="buscarPersona">Buscar persona:
@@ -120,19 +120,24 @@
             <p>Estudio Completo:</p>
             <div style="margin-left:50px;">
                 <p style="font-weight:bold;">a. Titulo declarado en su legajo:</p>
-                <a style="cursor:pointer;" id="cargar_mas_estudios">Cargar otro estudio (max 5)</a>
-                <div class="caja_estudios">
+                <a style="cursor:pointer; font-size:1.2em;" class="toggle-text" data-toggle="collapse" id="cargar_mas_estudios">
+                    <span>Cargar</span><span class="hidden">Ocultar</span> otros estudios (max 5)</a>
+                <div class="caja_estudios caja_extra">
                      <div class="bloque">
                         <label for="nivel_estudio_1" style="display:inline-block; width:150px;">Nivel de estudio:</label>
                         <input id="nivel_estudio_1" campo="nivel_estudio_1" type="text" placeholder="Nivel" style="width:480px;" />
                     </div>
                      <div class="bloque">
                         <label for="titulo_obtenido_1" style="display:inline-block; width:150px;">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_1" campo="titulo_obtenido_1" type="text" placeholder="Título" style="width:480px;" />
+                        <input id="titulo_obtenido_1" class="input_estudio_extra" campo="titulo_obtenido_1" type="text" placeholder="Título" style="width:480px;" />
                     </div>
                      <div class="bloque">
                         <label for="institucion_1" style="display:inline-block; width:150px;">Institución otorgante:</label>
                         <input id="institucion_1" campo="institucion_1" type="text" placeholder="Institución" style="width:480px;" />
+                    </div>
+                    <div class="bloque">
+                        <label for="fecha_egreso_1" style="display:inline-block; width:150px;">Fecha Egreso:</label>
+                        <input id="fecha_egreso_1" campo="fecha_egreso_1" type="text" placeholder="Fecha Egreso" style="width:480px;" />
                     </div>
                 </div>
 
@@ -140,15 +145,19 @@
                    <div id="caja_estudio_2" class="caja_estudios caja_extra">
                          <div class="bloque">
                             <label for="nivel_estudio_2" style="display:inline-block; width:150px;">Nivel de estudio:</label>
-                            <input id="nivel_estudio_2" campo="nivel_estudio_2" type="text" placeholder="Nivel" style="width:480px;" />
+                            <input id="nivel_estudio_2"  campo="nivel_estudio_2" type="text" placeholder="Nivel" style="width:480px;" />
                         </div>
                          <div class="bloque">
                             <label for="titulo_obtenido_2" style="display:inline-block; width:150px;">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_2" campo="titulo_obtenido_2" type="text" placeholder="Título" style="width:480px;" />
+                        <input id="titulo_obtenido_2" class="input_estudio_extra" campo="titulo_obtenido_2" type="text" placeholder="Título" style="width:480px;" />
                     </div>
                      <div class="bloque">
                         <label for="institucion_2" style="display:inline-block; width:150px;">Institución otorgante:</label>
                         <input id="institucion_2" campo="institucion_2" type="text" placeholder="Institución" style="width:480px;" />
+                    </div>
+                    <div class="bloque">
+                        <label for="fecha_egreso_2" style="display:inline-block; width:150px;">Fecha Egreso:</label>
+                        <input id="fecha_egreso_2" campo="fecha_egreso_2" type="text" placeholder="Fecha Egreso" style="width:480px;" />
                     </div>
                     </div>
                     <div id="caja_estudio_3" class="caja_estudios caja_extra">
@@ -158,11 +167,15 @@
                     </div>
                      <div class="bloque">
                         <label for="titulo_obtenido_3" style="display:inline-block; width:150px;">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_3" campo="titulo_obtenido_3" type="text" placeholder="Título" style="width:480px;" />
+                        <input id="titulo_obtenido_3" class="input_estudio_extra" campo="titulo_obtenido_3" type="text" placeholder="Título" style="width:480px;" />
                     </div>
                      <div class="bloque">
                         <label for="institucion_3" style="display:inline-block; width:150px;">Institución otorgante:</label>
                         <input id="institucion_3" campo="institucion_3" type="text" placeholder="Institución" style="width:480px;" />
+                    </div>
+                     <div class="bloque">
+                        <label for="fecha_egreso_3" style="display:inline-block; width:150px;">Fecha Egreso:</label>
+                        <input id="fecha_egreso_3" campo="fecha_egreso_3" type="text" placeholder="Fecha Egreso" style="width:480px;" />
                     </div>
                     </div>
                     <div id="caja_estudio_4" class="caja_estudios caja_extra">
@@ -172,11 +185,15 @@
                     </div>
                      <div class="bloque">
                         <label for="titulo_obtenido_4" style="display:inline-block; width:150px;">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_4" campo="titulo_obtenido_4" type="text" placeholder="Título" style="width:480px;" />
+                        <input id="titulo_obtenido_4" class="input_estudio_extra" campo="titulo_obtenido_4" type="text" placeholder="Título" style="width:480px;" />
                     </div>
                      <div class="bloque">
                         <label for="institucion_4" style="display:inline-block; width:150px;">Institución otorgante:</label>
                         <input id="institucion_4" campo="institucion_4" type="text" placeholder="Institución" style="width:480px;" />
+                    </div>
+                     <div class="bloque">
+                        <label for="fecha_egreso_4" style="display:inline-block; width:150px;">Fecha Egreso:</label>
+                        <input id="fecha_egreso_4" campo="fecha_egreso_4" type="text" placeholder="Fecha Egreso" style="width:480px;" />
                     </div>
                     </div>
                     <div id="caja_estudio_5" class="caja_estudios caja_extra">
@@ -186,11 +203,15 @@
                     </div>
                      <div class="bloque">
                         <label for="titulo_obtenido_5" style="display:inline-block; width:150px;">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_5" campo="titulo_obtenido_5" type="text" placeholder="Título" style="width:480px;" />
+                        <input id="titulo_obtenido_5" class="input_estudio_extra" campo="titulo_obtenido_5" type="text" placeholder="Título" style="width:480px;" />
                     </div>
                      <div class="bloque">
                         <label for="institucion_5" style="display:inline-block; width:150px;">Institución otorgante:</label>
                         <input id="institucion_5" campo="institucion_5" type="text" placeholder="Institución" style="width:480px;" />
+                    </div>
+                     <div class="bloque">
+                        <label for="fecha_egreso_5" style="display:inline-block; width:150px;">Fecha Egreso:</label>
+                        <input id="fecha_egreso_5" campo="fecha_egreso_5" type="text" placeholder="Fecha Egreso" style="width:480px;" />
                     </div>
                     </div>
                 
@@ -270,7 +291,7 @@
    
 </body>
  <script type="text/javascript">
-     $(document).ready(function () {
+     /*$(document).ready(function () {
          var div_estudios_extras = $(".caja_extra");
 
          div_estudios_extras.each(function () {
@@ -282,7 +303,7 @@
              div_estudios_extras.attr("style", "display:block;");
 
          })
-     });
+     });*/
     
     </script>
 
