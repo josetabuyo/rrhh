@@ -43,7 +43,13 @@ var VistaFormulario = {
             }
 
             console.log(form_cambios);
-            Backend.GuardarCambiosEnFormulario(form_cambios);
+            Backend.GuardarCambiosEnFormulario(form_cambios)
+            .onSuccess(function () {
+                alertify.success("Formulario guardado correctamente");
+            })
+            .onError(function () {
+                alertify.error("Error al guardar formulario");
+            });
         });
         selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
             $(".contenedor_formulario").hide()
