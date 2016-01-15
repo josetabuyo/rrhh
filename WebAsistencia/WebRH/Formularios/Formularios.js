@@ -23,8 +23,45 @@ var VistaFormulario = {
 
         var cambios = {};
 
+        $("[rh-control-type='combo']").each(function (i, e) {
+            var _this = this;
+            var select = $(this);
+            var opt_constructor = {
+                select: select,
+                dataProvider: select.attr('rh-data-provider'),
+                permiteAgregar: select.attr('rh-permite-agregar') || false
+            };
+            var prop_label = select.attr("rh-propiedad-label");
+            if (prop_label) opt_constructor.propiedadLabel = prop_label;
+
+
+            var filter_key = select.attr('rh-filter-key');
+            var id_filter_combo = select.attr('rh-id-filter-combo');
+            if (filter_key && id_filter_combo) {
+                var filter_combo = $("#" + id_filter_combo);
+                opt_constructor.filtro = {};
+                var valor_filtro = parseInt(filter_combo.val());
+                if (isNaN(valor_filtro)) valor_filtro = -1;
+                opt_constructor.filtro[filter_key] = valor_filtro;
+            }
+
+            var combo = new ComboConBusquedaYAgregado(opt_constructor);
+
+            if (filter_key && id_filter_combo) {
+                var filter_combo = $("#" + id_filter_combo);
+                filter_combo.change(function () {
+                    var filtro = {};
+                    var valor_filtro = parseInt(filter_combo.val());
+                    if (isNaN(valor_filtro)) valor_filtro = -1;
+                    filtro[filter_key] = valor_filtro;
+                    combo.filtrarPor(filtro);
+                });
+            }
+        });
+
+        _this.habilitar_registro_cambios = true;
         $("[campo]").change(function () {
-            cambios[$(this).attr("campo")] = $(this).val();
+            if (_this.habilitar_registro_cambios) cambios[$(this).attr("campo")] = $(this).val();
         });
         $("#btn_guardar_cambios").click(function () {
             var form_cambios = {
@@ -68,10 +105,16 @@ var VistaFormulario = {
                 formulario = form;
                 form.idPersona = la_persona_seleccionada.id;
                 form.idFormulario = 1;
+                _this.habilitar_registro_cambios = false;
                 $("[campo]").each(function () {
                     var campo = _.findWhere(formulario.campos, { clave: $(this).attr("campo") });
-                    if (campo) $(this).val(campo.valor);
+                    if (campo) {
+                        $(this).val(campo.valor);
+                        $(this).attr("valor_para_carga_async", campo.valor);
+                        $(this).change();
+                    }
                 });
+                _this.habilitar_registro_cambios = true;
 
                 $(".contenedor_formulario").show()
 
@@ -80,9 +123,12 @@ var VistaFormulario = {
         };
     },
     limpiarPantalla: function () {
+        this.habilitar_registro_cambios = false;
         $("[campo]").each(function () {
             $(this).val("");
+            $(this).change();
         });
+        this.habilitar_registro_cambios = true;
     },
     dibujarEstudios: function () {
         var div_estudios_extras = $(".caja_extra");

@@ -17,6 +17,7 @@
         <script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
         <script type="text/javascript" src="../Scripts/Persona.js"></script>
         <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
+        <script type="text/javascript" src="../Scripts/ComboConBusquedaYAgregado.js"></script>
         <script type="text/javascript" src="Formularios.js"></script>
     </head>
 <body>
@@ -40,8 +41,8 @@
                   
                 <label class="etiqueta_campo" for="cmb_tipoDocumento" style="width:50px;" >
                     Tipo y Número de Documento:</label>
-                <select id="cmb_tipoDocumento" campo="tipo_documento" style="width: 50px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento"
-                    rh-model-property="TipoDocumento" data-validar="haySeleccionEnCombo" disabled="disabled">
+                <select id="cmb_tipoDocumento" campo="tipo_documento" style="width: 100px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento"
+                    rh-model-property="tipo_documento" data-validar="haySeleccionEnCombo" disabled="disabled">
                 </select>
                 <input id="txt_documento" campo="documento" type="text" style="width: 500px;" rh-control-type="textbox"
                      data-validar="esNumeroNatural" disabled="disabled" />
@@ -109,9 +110,10 @@
                     </div>
                     <div class="bloque">
                         <label for="provincia">Provincia: </label>
-                        <select id="provincia_nuevo" campo="domicilio_provincia_nuevo" rh-control-type="combo" rh-data-provider="Provincias"  class="cmb_provincia" style="width:130px;" ></select>
+                        <select id="provincia_nuevo" campo="domicilio_provincia_nuevo" rh-control-type="combo" rh-data-provider="Provincias" rh-propiedad-label= "Nombre" class="cmb_provincia" style="width:130px;" ></select>
                         <label for="Localidad" style="margin-left:40px;">Localidad:</label>
-                        <select id="localidad_nuevo" campo="domicilio_localidad_nuevo" rh-control-type="combo"  rh-data-provider="Localidades" class="cmb_localidad" style="width:150px;" > </select>
+                        <select id="localidad_nuevo" campo="domicilio_localidad_nuevo" rh-control-type="combo"  rh-data-provider="Localidades" rh-filter-key="IdProvincia" rh-propiedad-label= "Nombre" 
+                                    rh-id-filter-combo="provincia_nuevo" class="cmb_localidad" style="width:150px;" > </select>
                         <label for="domicilio_telefono_nuevo" style="display:inline-block; width:40px; margin-left:50px;">T.E:</label>
                         <input id="domicilio_telefono_nuevo" campo="domicilio_telefono_nuevo" type="text" placeholder="Telefono" style="width: 192px;" class="validar" />
                     </div>
@@ -1261,15 +1263,15 @@
             <div style="margin-left: 50px;">
                 <div class="bloque">
                     <label style="display: inline-block; width: 150px;">Herramienta</label>
-                    <select id="cboHerramientas" style="width: 200px" campo="cboHerramientas" rh-control-type="combo"
+<%--                    <select id="cboHerramientas" style="width: 200px" campo="cboHerramientas" rh-control-type="combo"
                         rh-data-provider="xxxxxxx" rh-model-property="cboHerramientas" data-validar="haySeleccionEnCombo">
-                    </select>
+                    </select>--%>
                 </div>
                 <div class="bloque">
                     <label style="display: inline-block; width: 150px;">Conocimiento</label>
-                     <select id="cboConocimiento" style="width: 200px" campo="cboConocimiento" rh-control-type="combo"
+<%--                     <select id="cboConocimiento" style="width: 200px" campo="cboConocimiento" rh-control-type="combo"
                         rh-data-provider="xxxxxxx" rh-model-property="cboConocimiento" data-validar="haySeleccionEnCombo">
-                    </select>
+                    </select>--%>
                 </div>
                 <div class="bloque">
                     <label style="display: inline-block; width: 150px;">Utiliza en sus funciones</label>

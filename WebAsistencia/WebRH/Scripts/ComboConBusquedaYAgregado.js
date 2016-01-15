@@ -73,7 +73,7 @@ var ComboConBusquedaYAgregado = function (opt) {
     this.select.select2(opciones_select2);
 
     this.select.on("change", function (e) {
-        var val_en_combo = _this.select.select2("val");
+        var val_en_combo = _this.select.select2("val");        
         if (val_en_combo == "") {
             _this.limpiarSeleccion();
             return;
@@ -149,6 +149,14 @@ ComboConBusquedaYAgregado.prototype.cargarComboDesdeProveedor = function () {
         });
         if (_this.idSeleccionado() === undefined) _this.limpiarSeleccion();
         else _this.idSeleccionado(_this.idSeleccionado());
+        var val_async = $(_this.select).attr("valor_para_carga_async");
+        if (val_async) {
+            $(_this.select).removeAttr("valor_para_carga_async");
+            var id_as_number = parseInt(val_async);
+            if (isNaN(id_as_number)) _this.idSeleccionado(val_async);
+            else _this.idSeleccionado(id_as_number);
+        }
+
     });
 };
 
