@@ -25,7 +25,7 @@
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
      <h1 style="text-align: center; margin-top: 30px;font-size: 2.9em;">Formulario <br />Relevamiento de Contratos</h1>
     
-    <div>
+    <div id="buscador_de_personas">
         <p class="buscarPersona">Buscar persona:
             <div id="selector_usuario" class="selector_personas" style="margin-bottom: 0px;">
                 <input id="buscador" type=hidden />
@@ -35,7 +35,7 @@
    
         <hr />
         <div class="contenedor_formulario" style="display: none">
-            <input type="button" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
+            <input id="btn_imprimir" type="button" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
             <p class="subtitulo">1) Datos Personales:</p>
             <div class="bloque">  
                   
@@ -56,16 +56,24 @@
                 <input id="apellido" type="text" campo="apellido" style="width: 300px;" rh-control-type="textbox" disabled="disabled"
                      data-validar="esNoBlanco" />
             </div>
+
             <div class="bloque">
                 <label for="nivel">Nivel:</label>
                 <input id="nivel" type="text" campo="nivel" rh-control-type="textbox" rh-model-property="Nivel" disabled="disabled"
                     style="width: 50px;" data-validar="esNoBlanco" maxlength="2" />
+
                 <label for="grado" style="margin-left:15px;">Grado:</label>
-                <input id="grado" type="text" campo="grado" style="width: 50px;" rh-control-type="textbox" disabled="disabled"
-                    rh-model-property="Grado" data-validar="esNoBlanco" />
-                <label class="etiqueta_campo" style="margin-left:15px;" for="cmb_modalidadContratacion">Modalidad de Contratación: </label>
-                <input id="modalidad" style="width: 345px" campo="modalidad" rh-control-type="textbox" disabled="disabled"  />
+                <input id="grado" type="text" campo="grado" style="width: 50px;" rh-control-type="textbox" disabled="disabled"/>              
+
+                <label for="funcion"> Caracter del Servicio:</label>
+                <input id="funcion" type="text" campo="funcion" style="width: 300px;" rh-control-type="textbox" disabled="disabled"/>
             </div>
+
+            <div class="bloque">
+                <label class="etiqueta_campo" for="cmb_modalidadContratacion">Modalidad de Contratación: </label>
+                <input id="modalidad" style="width: 345px" campo="modalidad" rh-control-type="textbox" disabled="disabled" />            
+            </div>
+
             <div class="bloque">
                 <p>Domicilio Particular</p>
                     <div class="bloque">
@@ -1362,21 +1370,22 @@
  <script type="text/javascript">
      function Imprimir() {
 
-         var data = $('.contenedor_formulario');
-         var mywindow = window.open('', 'my div', 'height=600,width=800');
-         mywindow.document.write('<html><head><title>Formulario</title>');
-         /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-         mywindow.document.write('</head><body >');
-         mywindow.document.write(data);
-         mywindow.document.write('</body></html>');
+         window.print();
+//         var data = $('.contenedor_formulario');
+//         var mywindow = window.open('', 'my div', 'height=600,width=800');
+//         mywindow.document.write('<html><head><title>Formulario</title>');
+//         /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+//         mywindow.document.write('</head><body >');
+//         mywindow.document.write(data.html());
+//         mywindow.document.write('</body></html>');
 
-         mywindow.document.close(); // necessary for IE >= 10
-         mywindow.focus(); // necessary for IE >= 10
+//         mywindow.document.close(); // necessary for IE >= 10
+//         mywindow.focus(); // necessary for IE >= 10
 
-         mywindow.print();
-         mywindow.close();
+//         mywindow.print();
+//         mywindow.close();
 
-         return true;
+//         return true;
      }
     
     </script>

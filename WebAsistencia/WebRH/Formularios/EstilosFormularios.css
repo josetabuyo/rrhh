@@ -154,6 +154,26 @@ border-bottom: 1px solid #929292;
 }
     
     
+@media print {
+   #barra_menu_contenedor, #buscador_de_personas, #btn_imprimir, #btn_guardar_cambios, #btn_Agregar_Conocimientos, #cargar_mas_estudios, #Header, #Footer, .no_imprimir
+   {
+        display: none !important;
+   }
+   ::-webkit-input-placeholder { /* WebKit browsers */
+      color: transparent;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color: transparent;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color: transparent;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10+ */
+      color: transparent;
+  }
+}
+
+    
 
 
 

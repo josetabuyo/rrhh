@@ -145,11 +145,12 @@ namespace General.Repositorios
             {
                 var nivel = tablaDatos.Rows[0].GetString("NivelGrado").Substring(0,1);
                 var grado = tablaDatos.Rows[0].GetString("NivelGrado").Substring(1, 1);
+                var funcion = tablaDatos.Rows[0].GetString("FuncionAntiguedadCertificados");
 
                 campos.Add(new Campo("nivel", nivel));
                 campos.Add(new Campo("grado", grado));
-
-            }
+                campos.Add(new Campo("funcion", funcion));
+            }     
 
             return campos;
         }
