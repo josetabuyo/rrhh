@@ -44,16 +44,16 @@
                 <select id="cmb_tipoDocumento" campo="tipo_documento" style="width: 100px; margin-bottom: 10px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento"
                     rh-model-property="tipo_documento" data-validar="haySeleccionEnCombo" disabled="disabled">
                 </select>
-                <input id="txt_documento" campo="documento" type="text" style="width: 500px;" rh-control-type="textbox"
+                <input id="txt_documento" campo="documento" type="text" style="width: 380px;" rh-control-type="textbox"
                      data-validar="esNumeroNatural" disabled="disabled" />
             </div>
             <div class="bloque">
                 <label for="nombre">Nombre: </label>
                 <input id="nombre" type="text" campo="nombre" rh-control-type="textbox" disabled="disabled"
-                    style="width: 295px;" data-validar="esNoBlanco" maxlength="100" />
+                    style="width: 215px;" data-validar="esNoBlanco" maxlength="100" />
 
                 <label for="apellido" style="margin-left:15px;">Apellido: </label>
-                <input id="apellido" type="text" campo="apellido" style="width: 350px;" rh-control-type="textbox" disabled="disabled"
+                <input id="apellido" type="text" campo="apellido" style="width: 310px;" rh-control-type="textbox" disabled="disabled"
                      data-validar="esNoBlanco" />
             </div>
 
@@ -66,19 +66,19 @@
                 <input id="grado" type="text" campo="grado" style="width: 50px;" rh-control-type="textbox" disabled="disabled"/>              
 
                 <label for="funcion" style="margin-left:15px;"> Caracter del Servicio:</label>
-                <input id="funcion" type="text" campo="funcion" style="width: 425px;" rh-control-type="textbox" disabled="disabled"/>
+                <input id="funcion" type="text" campo="funcion" style="width: 385px;" rh-control-type="textbox" disabled="disabled"/>
             </div>
 
             <div class="bloque">
                 <label class="etiqueta_campo" for="cmb_modalidadContratacion">Modalidad de Contratación: </label>
-                <input id="modalidad" style="width: 625px;" campo="modalidad" rh-control-type="textbox" disabled="disabled" />            
+                <input id="modalidad" style="width: 500px;" campo="modalidad" rh-control-type="textbox" disabled="disabled" />            
             </div>
 
             <div class="bloque">
                 <p>Domicilio Particular</p>
                     <div class="bloque">
                         <label for="calle" style="display:inline-block; width:50px;">Calle:</label>
-                        <input id="text_domicilio_calle_personal" campo="domicilio_calle" type="text" disabled="disabled" placeholder="Calle" style="width:680px;" class="validar" />
+                        <input id="text_domicilio_calle_personal" campo="domicilio_calle" type="text" disabled="disabled" placeholder="Calle" style="width:605px;" class="validar" />
                     </div>
                     <div class="bloque">
                         <label for="nro" style="display:inline-block; width:50px;">Nro:</label>
@@ -97,7 +97,7 @@
                         <label for="Localidad" style="margin-left:40px;">Localidad: </label>
                         <input id="cmb_localidad_personal" campo="domicilio_localidad" rh-control-type="textbox" disabled="disabled"  style="width:180px;" />
                         <label for="domicilio_telefono" style="display:inline-block; margin-left:20px;">T.E:</label>
-                        <input id="domicilio_telefono" campo="domicilio_telefono" type="text" placeholder="Telefono" disabled="disabled" style="width: 192px;" class="validar" />
+                        <input id="domicilio_telefono" campo="domicilio_telefono" type="text" placeholder="Telefono" disabled="disabled" style="width: 205px; margin-bottom: 0px;" class="validar" />
                     </div>
 
                 <p>Consignar nuevo domicilio particular solo en el caso que fuera pertinente:</p>
@@ -1318,13 +1318,13 @@
     <br />
     <div style="margin-left: 80px;">
         <div class="bloque">
-            <label style="display: inline-block; width: 300px; text-align:center"">_______________________</label>
-            <label style="display: inline-block; width: 300px; text-align:center">__________________________________________</label> 
+            <label class="espacio_firma">_______________________</label>
             <label style="display: inline-block; width: 300px; text-align:center">________________________</label> 
+            <label class="espacio_firma">________________________</label> 
         </div>
-        <label style="display: inline-block; width: 300px; text-align:center">Firma</label>   
+        <label class="espacio_firma">Firma</label>   
         <label style="display: inline-block; width: 300px; text-align:center">Aclaración</label>   
-        <label style="display: inline-block; width: 300px; text-align:center">Fecha</label>   
+        <label class="espacio_firma">Fecha</label>   
     </div>
     <hr />                
     <div style="margin-left: 50px;">
@@ -1337,13 +1337,13 @@
     <br />
     <div style="margin-left: 80px;">
         <div class="bloque">
-            <label style="display: inline-block; width: 300px; text-align:center"">_______________________</label>
-            <label style="display: inline-block; width: 300px; text-align:center">__________________________________________</label> 
+            <label class="espacio_firma">_______________________</label>
             <label style="display: inline-block; width: 300px; text-align:center">________________________</label> 
+            <label class="espacio_firma" >________________________</label> 
         </div>
-        <label style="display: inline-block; width: 300px; text-align:center">Firma</label>   
+        <label class="espacio_firma" >Firma</label>   
         <label style="display: inline-block; width: 300px; text-align:center">Aclaración</label>   
-        <label style="display: inline-block; width: 300px; text-align:center">Fecha</label>   
+        <label class="espacio_firma" >Fecha</label>   
     </div>
 
 

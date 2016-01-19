@@ -152,6 +152,13 @@ border-bottom: 1px solid #929292;
 {
     display:block;
 }
+
+.espacio_firma 
+{
+    display: inline-block; 
+    width: 200px; 
+    text-align:center;
+    }
     
     
 @media print {
