@@ -6,7 +6,7 @@
             <p>
             </p>
         </div>
-        <div id="contenido_form_agregar_DetalleDireccion" class="fondo_form">
+        <div id="div_contenido_direccion" class="fondo_form">
             <fieldset style="width: 95%; padding-left: 3%;">
                 <legend id="lgn_edificio" style="margin-bottom: 20px;">Oficina</legend>
                 <div id="div_a_localidad" class="grupo_campos nueva_linea">
@@ -84,7 +84,7 @@
                 <input type="button" class="btn btn-primary" id="btn_guardar" value="Guardar Cambios" />
             </div>
         </div>
-         <div id="div_agregar_oficina" class="fondo_form">
+         <div id="div_agregar_oficina" class="fondo_form" style="display:none">
             <fieldset style="width: 95%; padding-left: 3%;">
                 <legend style="margin-bottom: 20px;">Nueva Oficina</legend>
                 <div id="div1" class="grupo_campos nueva_linea">
@@ -131,7 +131,7 @@
                 </div>
             </fieldset>
         </div>
-         <div id="div_agregar_edificio" class="fondo_form">
+         <div id="div_agregar_edificio" class="fondo_form" style="display:none">>
             <fieldset style="width: 95%; padding-left: 3%;">
                 <legend style="margin-bottom: 20px;">Nuevo Edificio</legend>
                 <div class="grupo_campos nueva_linea">
@@ -167,47 +167,20 @@
         $('#btn_nueva_oficina_edificio').click(function () {
             $("#div_agregar_oficina").show();
             $("#div_agregar_edificio").hide();
-            $("#div_a_localidad").hide();
-            $("#div_a_codigo_postal").hide();
-            $("#div_a_partido").hide();
-            $("#txt_Partido").hide();
-            $("#div_x_edificio").hide();
-            $("#div_a_calle").hide();
-            $("#div_a_nro").hide();
-            $("#div_a_piso").hide();
-            $("#div_a_oficina").hide();
-            $("#div_a_uf").hide();
-            $("#div_btn_guardar").hide();
-            $("#div_a_provincia").hide();
-            $("#div_x_oficina").hide();
-            $("#lgn_edificio").hide();
-
+            $("#div_contenido_direccion").hide();
         });
 
         $('#volver_edificio').click(function () {
             $("#div_agregar_oficina").show();
             $("#div_agregar_edificio").hide();
+            $("#div_contenido_direccion").hide();
+            
         });
 
         $('#volver_oficina').click(function () {
             $("#div_agregar_oficina").hide();
             $("#div_agregar_edificio").hide();
-            $("#div_a_localidad").show();
-            $("#div_a_codigo_postal").show();
-            $("#div_a_partido").show();
-            $("#txt_Partido").show();
-            $("#div_x_edificio").show();
-            $("#btn_nuevo_edificio").show();
-            $("#btn_nueva_oficina").show();
-            $("#div_a_calle").show();
-            $("#div_a_nro").show();
-            $("#div_a_piso").show();
-            $("#div_a_oficina").show();
-            $("#div_a_uf").show();
-            $("#div_btn_guardar").show();
-            $("#div_a_provincia").show();
-            $("#div_x_oficina").show();
-            $("#lgn_edificio").show();
+            $("#div_contenido_direccion").show();
         });
     });
    

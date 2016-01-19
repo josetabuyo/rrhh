@@ -233,6 +233,15 @@ namespace General.Repositorios
                 var responsable_base = tablaDatos.Rows[0];
                 Responsable responsable = new Responsable();
                 responsable.NombreApellido = responsable_base.GetString("Apellido");
+                string[] nombre_y_apellido = responsable.NombreApellido.Split(',');
+                if (nombre_y_apellido.Length > 0)
+                {
+                    responsable.Apellido = nombre_y_apellido[0];
+                    if (nombre_y_apellido.Length > 1)
+                    {
+                        responsable.Nombre = nombre_y_apellido[1];
+                    }
+                }
                 responsable.Documento = responsable_base.GetInt("Documento");
                 responsable.IdInterna = responsable_base.GetInt("Id_Interna");
                 responsable.TratamientoPersona = new Combo(responsable_base.GetSmallintAsInt("Id_Tratamiento"), responsable_base.GetString("Tratamiento"));
@@ -245,6 +254,10 @@ namespace General.Repositorios
 
                 area.Responsable = responsable;
             }
+            else
+            {
+                area.Responsable = new Responsable();
+            }
 
             //BUSCO LOS DATOS DE DIRECCIÓN DEL ÁREA
             parametros.Clear();
@@ -252,20 +265,33 @@ namespace General.Repositorios
             parametros.Add("@Id_Edificio", 0);
             parametros.Add("@id_area", id_area);
             tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Area_Por_Id", parametros);
-            var direccion_base = tablaDatos.Rows[0];
-            Localidad localidad = new Localidad(direccion_base.GetInt("Localidad"), direccion_base.GetString("nombrelocalidad"));
-            area.DireccionCompleta = new Direccion(direccion_base.GetInt("Id_Edificio"), direccion_base.GetString("Edificio"), direccion_base.GetString("Calle"), direccion_base.GetInt("Numero"), localidad, direccion_base.GetInt("Id_Oficina"), direccion_base.GetString("Piso"), direccion_base.GetString("Dpto"), direccion_base.GetString("UF"), direccion_base.GetString("descripcion"), direccion_base.GetInt("codigopostal"));
-            //BUSCO LOCALIDAD
-            parametros.Clear();
-            tablaDatos.Clear();
-            parametros.Add("@localidad", localidad.Id);
-            tablaDatos = conexion.Ejecutar("dbo.GetLocalidad", parametros);
-            var localidad_base = tablaDatos.Rows[0];
-            localidad.CodigoPostal = localidad_base.GetInt("codigopostal");
-            localidad.IdProvincia = localidad_base.GetInt("Id_Provincia");
-            localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
-            localidad.IdPartido = localidad_base.GetSmallintAsInt("partido");
-            localidad.NombrePartido = localidad_base.GetString("DescPartido");
+            if (tablaDatos.Rows.Count > 0)
+            {
+                var direccion_base = tablaDatos.Rows[0];
+                Localidad localidad = new Localidad(direccion_base.GetInt("Localidad"), direccion_base.GetString("nombrelocalidad"));
+                area.DireccionCompleta = new Direccion(direccion_base.GetInt("Id_Edificio"), direccion_base.GetString("Edificio"), direccion_base.GetString("Calle"), direccion_base.GetInt("Numero"), localidad, direccion_base.GetInt("Id_Oficina"), direccion_base.GetString("Piso"), direccion_base.GetString("Dpto"), direccion_base.GetString("UF"), direccion_base.GetString("descripcion"), direccion_base.GetInt("codigopostal"));
+
+                //BUSCO LOCALIDAD
+                parametros.Clear();
+                tablaDatos.Clear();
+                parametros.Add("@localidad", localidad.Id);
+                tablaDatos = conexion.Ejecutar("dbo.GetLocalidad", parametros);
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    var localidad_base = tablaDatos.Rows[0];
+                    localidad.CodigoPostal = localidad_base.GetInt("codigopostal");
+                    localidad.IdProvincia = localidad_base.GetInt("Id_Provincia");
+                    localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
+                    localidad.IdPartido = localidad_base.GetSmallintAsInt("partido");
+                    localidad.NombrePartido = localidad_base.GetString("DescPartido");
+                }
+
+            }
+            else
+            {
+                area.DireccionCompleta = new Direccion();
+            }
+
 
             //BUSCO LOS DATOS DE CONTACTO DEL ÁREA (n)
             parametros.Clear();
