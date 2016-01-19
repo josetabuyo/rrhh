@@ -41,7 +41,7 @@
                   
                 <label class="etiqueta_campo" for="cmb_tipoDocumento" style="width:50px;" >
                     Tipo y Número de Documento:</label>
-                <select id="cmb_tipoDocumento" campo="tipo_documento" style="width: 100px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento"
+                <select id="cmb_tipoDocumento" campo="tipo_documento" style="width: 100px; margin-bottom: 10px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento"
                     rh-model-property="tipo_documento" data-validar="haySeleccionEnCombo" disabled="disabled">
                 </select>
                 <input id="txt_documento" campo="documento" type="text" style="width: 500px;" rh-control-type="textbox"
@@ -53,7 +53,7 @@
                     style="width: 295px;" data-validar="esNoBlanco" maxlength="100" />
 
                 <label for="apellido" style="margin-left:15px;">Apellido: </label>
-                <input id="apellido" type="text" campo="apellido" style="width: 300px;" rh-control-type="textbox" disabled="disabled"
+                <input id="apellido" type="text" campo="apellido" style="width: 350px;" rh-control-type="textbox" disabled="disabled"
                      data-validar="esNoBlanco" />
             </div>
 
@@ -65,13 +65,13 @@
                 <label for="grado" style="margin-left:15px;">Grado:</label>
                 <input id="grado" type="text" campo="grado" style="width: 50px;" rh-control-type="textbox" disabled="disabled"/>              
 
-                <label for="funcion"> Caracter del Servicio:</label>
-                <input id="funcion" type="text" campo="funcion" style="width: 300px;" rh-control-type="textbox" disabled="disabled"/>
+                <label for="funcion" style="margin-left:15px;"> Caracter del Servicio:</label>
+                <input id="funcion" type="text" campo="funcion" style="width: 425px;" rh-control-type="textbox" disabled="disabled"/>
             </div>
 
             <div class="bloque">
                 <label class="etiqueta_campo" for="cmb_modalidadContratacion">Modalidad de Contratación: </label>
-                <input id="modalidad" style="width: 345px" campo="modalidad" rh-control-type="textbox" disabled="disabled" />            
+                <input id="modalidad" style="width: 625px;" campo="modalidad" rh-control-type="textbox" disabled="disabled" />            
             </div>
 
             <div class="bloque">
@@ -297,14 +297,14 @@
                 2 -> Tarea menos importante</label>
         </div>
         <%--Tareas Generales--%>
-        <div style="margin-left: 50px;">
+        <div style="margin-left: 50px;" id="contenedor_tarea_generales">
             <p style="font-weight: bold;">
                 I. Tareas Generales: (D-E-F) (Asistente en oficios - Auxiliar - Ayudante)</p>
             <div style="margin-left: 50px;">
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         1</label>
-                    <input id="Tarea_Gral_Mant_Edificio" campo="Tarea_Gral_Mant_Edificio" type="text"
+                    <input id="Tarea_Gral_Mant_Edificio" campo="Tarea_Gral_Mant_Edificio" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Mantenimiento edificio (plomería, limpieza, electricidad)</label>
@@ -312,7 +312,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         2</label>
-                    <input id="Tarea_Gral_Ascensorista" campo="Tarea_Gral_Ascensorista" type="text" style="width: 30px;"
+                    <input id="Tarea_Gral_Ascensorista" campo="Tarea_Gral_Ascensorista" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Ascensorista</label>
@@ -320,7 +320,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         3</label>
-                    <input id="Tarea_Gral_Chofer" campo="Tarea_Gral_Chofer" type="text" style="width: 30px;"
+                    <input id="Tarea_Gral_Chofer" campo="Tarea_Gral_Chofer" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Chofer</label>
@@ -328,7 +328,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         4</label>
-                    <input id="Tarea_Gral_Mozo" campo="Tarea_Gral_Mozo" type="text" style="width: 30px;"
+                    <input id="Tarea_Gral_Mozo" campo="Tarea_Gral_Mozo"  style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Mozo / Conserje</label>
@@ -336,7 +336,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         5</label>
-                    <input id="Tarea_Gral_Seguridad" campo="Tarea_Gral_Seguridad" type="text" style="width: 30px;"
+                    <input id="Tarea_Gral_Seguridad" campo="Tarea_Gral_Seguridad" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Seguridad / Control de Acceso</label>
@@ -344,7 +344,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         6</label>
-                    <input id="Tarea_Gral_Deposito" campo="Tarea_Gral_Deposito" type="text" style="width: 30px;"
+                    <input id="Tarea_Gral_Deposito" campo="Tarea_Gral_Deposito"  style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Depósito / Logística de Mercaderías</label>
@@ -352,19 +352,19 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         7</label>
-                    <input id="Tarea_Gral_Otros" campo="Tarea_Gral_Otros" type="text" style="width: 30px;"
+                    <input id="Tarea_Gral_Otros" campo="Tarea_Gral_Otros" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 60px;">
                         Otros</label>
                     <label style="display: inline-block; width: 60px;">
                         Detalle</label>
-                    <input id="Tarea_Gral_Detalle" campo="Tarea_Gral_Detalle" type="text" style="width: 350px;"
+                    <input id="Tarea_Gral_Detalle" campo="Tarea_Gral_Detalle" type="text" style="width: 350px;" 
                         placeholder="Tarea que desempeña" />
                 </div>
             </div>
         </div>
         <%--Tareas Administrativas--%>
-        <div style="margin-left: 50px;">
+        <div style="margin-left: 50px;" id="contenedor_tarea_administrativa">
             <p style="font-weight: bold;">
                 II. Tareas Administrativas: (C-D-E-F) (Asistente técnico o experimentado - Auxiliar
                 - Ayudante)</p>
@@ -372,7 +372,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         1</label>
-                    <input id="Tarea_Adm_Cadete" campo="Tarea_Adm_Cadete" type="text" style="width: 30px;"
+                    <input id="Tarea_Adm_Cadete" campo="Tarea_Adm_Cadete"  style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Cadete</label>
@@ -380,7 +380,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         2</label>
-                    <input id="Tarea_Adm_Recepcionista" campo="Tarea_Adm_Recepcionista" type="text" style="width: 30px;"
+                    <input id="Tarea_Adm_Recepcionista" campo="Tarea_Adm_Recepcionista"  style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Recepcionista</label>
@@ -388,7 +388,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         3</label>
-                    <input id="Tarea_Adm_Telefonista" campo="Tarea_Adm_Telefonista" type="text" style="width: 30px;"
+                    <input id="Tarea_Adm_Telefonista" campo="Tarea_Adm_Telefonista" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Telefonista</label>
@@ -396,7 +396,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         4</label>
-                    <input id="Tarea_Adm_Logistica" campo="Tarea_Adm_Logistica" type="text" style="width: 30px;"
+                    <input id="Tarea_Adm_Logistica" campo="Tarea_Adm_Logistica"  style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Logística de documentación (mesa de entradas, archivo, notas)</label>
@@ -404,7 +404,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         5</label>
-                    <input id="Tarea_Adm_Atencion_Publico" campo="Tarea_Adm_Atencion_Publico" type="text"
+                    <input id="Tarea_Adm_Atencion_Publico" campo="Tarea_Adm_Atencion_Publico"  type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Atención al público (recepción, orientación y eventual derivación)</label>
@@ -412,7 +412,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         6</label>
-                    <input id="Tarea_Adm_Reg_info" campo="Tarea_Adm_Reg_info" type="text" style="width: 30px;"
+                    <input id="Tarea_Adm_Reg_info" campo="Tarea_Adm_Reg_info" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Registro de información (data entry, carga de registros)</label>
@@ -420,7 +420,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         7</label>
-                    <input id="Tarea_Adm_Elaboracion" campo="Tarea_Adm_Elaboracion" type="text" style="width: 30px;"
+                    <input id="Tarea_Adm_Elaboracion" campo="Tarea_Adm_Elaboracion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Elaboración de notas, memos, informes</label>
@@ -428,7 +428,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         8</label>
-                    <input id="Tarea_Adm_Secretaria_Adm" campo="Tarea_Adm_Secretaria_Adm" type="text"
+                    <input id="Tarea_Adm_Secretaria_Adm" campo="Tarea_Adm_Secretaria_Adm" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Secretaria administrativa</label>
@@ -436,7 +436,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         9</label>
-                    <input id="Tarea_Adm_Secretaria_Priv" campo="Tarea_Adm_Secretaria_Priv" type="text"
+                    <input id="Tarea_Adm_Secretaria_Priv" campo="Tarea_Adm_Secretaria_Priv" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Secretaria privada (asistencia directa a funcionario)</label>
@@ -444,7 +444,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         10</label>
-                    <input id="Tarea_Adm_Rendiciones" campo="Tarea_Adm_Rendiciones" type="text" style="width: 30px;"
+                    <input id="Tarea_Adm_Rendiciones" campo="Tarea_Adm_Rendiciones" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Rendiciones y Pagos</label>
@@ -452,7 +452,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         11</label>
-                    <input id="Tarea_Adm_Compras" campo="Tarea_Adm_Compras" type="text" style="width: 30px;"
+                    <input id="Tarea_Adm_Compras" campo="Tarea_Adm_Compras" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Compras</label>
@@ -460,7 +460,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         12</label>
-                    <input id="Tarea_Adm_Contrataciones" campo="Tarea_Adm_Contrataciones" type="text"
+                    <input id="Tarea_Adm_Contrataciones" campo="Tarea_Adm_Contrataciones" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Contrataciones</label>
@@ -468,7 +468,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         13</label>
-                    <input id="Tarea_Adm_Elaboracion" campo="Tarea_Adm_Elaboracion" type="text" style="width: 30px;"
+                    <input id="Tarea_Adm_Elaboracion" campo="Tarea_Adm_Elaboracion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Elaboración de Presupuestos</label>
@@ -476,7 +476,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         14</label>
-                    <input id="Tarea_Adm_Recepcion" campo="Tarea_Adm_Recepcion" type="text" style="width: 30px;"
+                    <input id="Tarea_Adm_Recepcion" campo="Tarea_Adm_Recepcion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Recepción y seguimiento de tramites
@@ -485,7 +485,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         15</label>
-                    <input id="Tarea_Adm_Otros" campo="Tarea_Adm_Otros" type="text" style="width: 30px;"
+                    <input id="Tarea_Adm_Otros" campo="Tarea_Adm_Otros" type="text" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 60px;">
                         Otros</label>
@@ -497,14 +497,14 @@
             </div>
         </div>
         <%--Tareas Tecnicas--%>
-        <div style="margin-left: 50px;">
+        <div style="margin-left: 50px;" id="contendor_tarea_tecnica">
             <p style="font-weight: bold;">
                 III. Tareas Técnicas: ( C-D ) (Asistente técnico o experimentado)</p>
             <div style="margin-left: 50px;">
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         1</label>
-                    <input id="Tarea_Tec_Soporte_Tec" campo="Tarea_Tec_Soporte_Tec" type="text" style="width: 30px;"
+                    <input id="Tarea_Tec_Soporte_Tec" campo="Tarea_Tec_Soporte_Tec" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Soporte técnico / Reparación de equipos</label>
@@ -512,7 +512,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         2</label>
-                    <input id="Tarea_Tec_Programacion" campo="Tarea_Tec_Programacion" type="text" style="width: 30px;"
+                    <input id="Tarea_Tec_Programacion" campo="Tarea_Tec_Programacion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Programación informática</label>
@@ -520,7 +520,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         3</label>
-                    <input id="Tarea_Tec_Procesamiento" campo="Tarea_Tec_Procesamiento" type="text" style="width: 30px;"
+                    <input id="Tarea_Tec_Procesamiento" campo="Tarea_Tec_Procesamiento"  style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Procesamiento de información</label>
@@ -528,7 +528,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         4</label>
-                    <input id="Tarea_Tec_Manejo_BD" campo="Tarea_Tec_Manejo_BD" type="text" style="width: 30px;"
+                    <input id="Tarea_Tec_Manejo_BD" campo="Tarea_Tec_Manejo_BD" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Manejo de bases de datos</label>
@@ -536,7 +536,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         5</label>
-                    <input id="Tarea_Tec_Elab_Materiales" campo="Tarea_Tec_Elab_Materiales" type="text"
+                    <input id="Tarea_Tec_Elab_Materiales" campo="Tarea_Tec_Elab_Materiales" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Elaboración de Materiales para difusión
@@ -545,7 +545,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         6</label>
-                    <input id="Tarea_Tec_Comunicacion" campo="Tarea_Tec_Comunicacion" type="text" style="width: 30px;"
+                    <input id="Tarea_Tec_Comunicacion" campo="Tarea_Tec_Comunicacion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Comunicación y Prensa</label>
@@ -553,7 +553,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         7</label>
-                    <input id="Tarea_Tec_Promocion" campo="Tarea_Tec_Promocion" type="text" style="width: 30px;"
+                    <input id="Tarea_Tec_Promocion" campo="Tarea_Tec_Promocion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Promoción de políticas públicas</label>
@@ -561,7 +561,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         8</label>
-                    <input id="Tarea_Tec_Apoyo" campo="Tarea_Tec_Apoyo" type="text" style="width: 30px;"
+                    <input id="Tarea_Tec_Apoyo" campo="Tarea_Tec_Apoyo" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Apoyo a emprendedores de la Economía Social
@@ -570,7 +570,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         9</label>
-                    <input id="Tarea_Tec_Fortalecimiento" campo="Tarea_Tec_Fortalecimiento" type="text"
+                    <input id="Tarea_Tec_Fortalecimiento" campo="Tarea_Tec_Fortalecimiento" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Fortalecimiento de Cooperativas</label>
@@ -578,15 +578,15 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         10</label>
-                    <input id="Tarea_Tec_Tareas_Territoriales" campo="Tarea_Tec_Tareas_Territoriales"
-                        type="text" style="width: 30px;" placeholder="" />
+                    <input id="Tarea_Tec_Tareas_Territoriales" campo="Tarea_Tec_Tareas_Territoriales" type="number" min="1" max="5" 
+                        style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Tareas territoriales</label>
                 </div>
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         11</label>
-                    <input id="Tarea_Tec_Diseño" campo="Tarea_Tec_Diseño" type="text" style="width: 30px;"
+                    <input id="Tarea_Tec_Diseño" campo="Tarea_Tec_Diseño" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Diseño y dictado de talleres</label>
@@ -594,7 +594,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         12</label>
-                    <input id="Tarea_Tec_Org_Eventos" campo="Tarea_Tec_Org_Eventos" type="text" style="width: 30px;"
+                    <input id="Tarea_Tec_Org_Eventos" campo="Tarea_Tec_Org_Eventos" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Organización de ferias y eventos</label>
@@ -602,7 +602,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         13</label>
-                    <input id="Tarea_Tec_Act_Capacitacion" campo="Tarea_Tec_Act_Capacitacion" type="text"
+                    <input id="Tarea_Tec_Act_Capacitacion" campo="Tarea_Tec_Act_Capacitacion" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Actividades de capacitación</label>
@@ -610,7 +610,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         14</label>
-                    <input id="Tarea_Tec_Asis_Emerg" campo="Tarea_Tec_Asis_Emerg" type="text" style="width: 30px;"
+                    <input id="Tarea_Tec_Asis_Emerg" campo="Tarea_Tec_Asis_Emerg" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Asistencia en emergencias</label>
@@ -618,7 +618,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         15</label>
-                    <input id="Tarea_Tec_Seg_Alim" campo="Tarea_Tec_Seg_Alim" type="text" style="width: 30px;"
+                    <input id="Tarea_Tec_Seg_Alim" campo="Tarea_Tec_Seg_Alim" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Tareas inherentes a la Seguridad Alimentaria
@@ -627,7 +627,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         16</label>
-                    <input id="Tarea_Tec_Otros" campo="Tarea_Tec_Otros" type="text" style="width: 30px;"
+                    <input id="Tarea_Tec_Otros" campo="Tarea_Tec_Otros" style="width: 30px;"  type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 60px;">
                         Otros</label>
@@ -639,7 +639,7 @@
             </div>
         </div>
         <%--Asistencia Tecnicas--%>
-        <div style="margin-left: 50px;">
+        <div style="margin-left: 50px;" id="contenedor_asistencia_tecnica">
             <p style="font-weight: bold;">
                 IV. Asistencia Técnica: ( B-C-D de nivel terciario) (Técnico - Analista - Asistente
                 técnico - Asistente experimentado - Profesional Inicial)</p>
@@ -647,7 +647,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         1</label>
-                    <input id="Asist_Tec_Form_Terc" campo="Asist_Tec_Form_Terc" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Form_Terc" campo="Asist_Tec_Form_Terc" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Tareas específicas de su formación terciaria</label>
@@ -655,7 +655,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         2</label>
-                    <input id="Asist_Tec_Relevamiento" campo="Asist_Tec_Relevamiento" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Relevamiento" campo="Asist_Tec_Relevamiento"  style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Relevamiento</label>
@@ -663,7 +663,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         3</label>
-                    <input id="Asist_Tec_Analisis_Info" campo="Asist_Tec_Analisis_Info" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Analisis_Info" campo="Asist_Tec_Analisis_Info" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 450px;">
                         Análisis de información (análisis, elaboración de informes y propuestas)</label>
@@ -671,7 +671,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         4</label>
-                    <input id="Asist_Tec_Planificacion" campo="Asist_Tec_Planificacion" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Planificacion" campo="Asist_Tec_Planificacion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Planificación de tareas</label>
@@ -679,7 +679,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         5</label>
-                    <input id="Asist_Tec_Ejecucion" campo="Asist_Tec_Ejecucion" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Ejecucion" campo="Asist_Tec_Ejecucion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Ejecución</label>
@@ -687,7 +687,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         6</label>
-                    <input id="Asist_Tec_Elaboracion_Notas" campo="Asist_Tec_Elaboracion_Notas" type="text"
+                    <input id="Asist_Tec_Elaboracion_Notas" campo="Asist_Tec_Elaboracion_Notas" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Elaboración de notas, memos, informes</label>
@@ -695,7 +695,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         7</label>
-                    <input id="Asist_Tec_Soporte_Tec" campo="Asist_Tec_Soporte_Tec" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Soporte_Tec" campo="Asist_Tec_Soporte_Tec" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Soporte técnico / Reparación de equipos</label>
@@ -703,7 +703,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         8</label>
-                    <input id="Asist_Tec_Infraestructura" campo="Asist_Tec_Infraestructura" type="text"
+                    <input id="Asist_Tec_Infraestructura" campo="Asist_Tec_Infraestructura" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Infraestructura edilicia</label>
@@ -711,7 +711,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         9</label>
-                    <input id="Asist_Tec_Programacion" campo="Asist_Tec_Programacion" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Programacion" campo="Asist_Tec_Programacion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Programación informática</label>
@@ -719,7 +719,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         10</label>
-                    <input id="Asist_Tec_Procesamiento" campo="Asist_Tec_Procesamiento" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Procesamiento" campo="Asist_Tec_Procesamiento" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Procesamiento de información</label>
@@ -727,7 +727,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         11</label>
-                    <input id="Asist_Tec_Manejo_DB" campo="Asist_Tec_Manejo_DB" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Manejo_DB" campo="Asist_Tec_Manejo_DB" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Manejo de bases de datos</label>
@@ -735,7 +735,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         12</label>
-                    <input id="Asist_Tec_Diseño_Grafico" campo="Asist_Tec_Diseño_Grafico" type="text"
+                    <input id="Asist_Tec_Diseño_Grafico" campo="Asist_Tec_Diseño_Grafico" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Diseño gráfico</label>
@@ -743,7 +743,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         13</label>
-                    <input id="Asist_Tec_Diseño_Imag_Son" campo="Asist_Tec_Diseño_Imag_Son" type="text"
+                    <input id="Asist_Tec_Diseño_Imag_Son" campo="Asist_Tec_Diseño_Imag_Son" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Diseño de imagen y sonido</label>
@@ -751,7 +751,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         14</label>
-                    <input id="Asist_Tec_Elab_Mat" campo="Asist_Tec_Elab_Mat" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Elab_Mat" campo="Asist_Tec_Elab_Mat" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Elaboración de materiales para difusión
@@ -760,7 +760,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         15</label>
-                    <input id="Asist_Tec_Comunicacion" campo="Asist_Tec_Comunicacion" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Comunicacion" campo="Asist_Tec_Comunicacion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Comunicación y prensa</label>
@@ -768,7 +768,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         16</label>
-                    <input id="Asist_Tec_Ceremonial" campo="Asist_Tec_Ceremonial" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Ceremonial" campo="Asist_Tec_Ceremonial" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Ceremonial y protocolo</label>
@@ -776,7 +776,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         17</label>
-                    <input id="Asist_Tec_Prom_Pol_Pub" campo="Asist_Tec_Prom_Pol_Pub" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Prom_Pol_Pub" campo="Asist_Tec_Prom_Pol_Pub" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Promoción de políticas públicas</label>
@@ -784,7 +784,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         18</label>
-                    <input id="Asist_Tec_Apoyo_Econom_Soc" campo="Asist_Tec_Apoyo_Econom_Soc" type="text"
+                    <input id="Asist_Tec_Apoyo_Econom_Soc" campo="Asist_Tec_Apoyo_Econom_Soc" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Apoyo a emprendedores de la Economía Social
@@ -793,23 +793,23 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         19</label>
-                    <input id="Asist_Tec_Fortalecimiento_Coop" campo="Asist_Tec_Fortalecimiento_Coop"
-                        type="text" style="width: 30px;" placeholder="" />
+                    <input id="Asist_Tec_Fortalecimiento_Coop" campo="Asist_Tec_Fortalecimiento_Coop" type="number" min="1" max="5" 
+                        style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Fortalecimiento de cooperativas</label>
                 </div>
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         20</label>
-                    <input id="Asist_Tec_Tareas_Territoriales" campo="Asist_Tec_Tareas_Territoriales"
-                        type="text" style="width: 30px;" placeholder="" />
+                    <input id="Asist_Tec_Tareas_Territoriales" campo="Asist_Tec_Tareas_Territoriales" type="number" min="1" max="5" 
+                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Tareas territoriales</label>
                 </div>
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         21</label>
-                    <input id="Asist_Tec_Diseño_Taller" campo="Asist_Tec_Diseño_Taller" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Diseño_Taller" campo="Asist_Tec_Diseño_Taller" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Diseño y dictado de talleres</label>
@@ -817,7 +817,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         22</label>
-                    <input id="Asist_Tec_Org_Eventos" campo="Asist_Tec_Org_Eventos" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Org_Eventos" campo="Asist_Tec_Org_Eventos" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Organización de ferias y eventos</label>
@@ -825,7 +825,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         23</label>
-                    <input id="Asist_Tec_Act_Capa" campo="Asist_Tec_Act_Capa" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Act_Capa" campo="Asist_Tec_Act_Capa" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Actividades de capacitación</label>
@@ -833,7 +833,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         24</label>
-                    <input id="Asist_Tec_Asist_Emerg" campo="Asist_Tec_Asist_Emerg" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Asist_Emerg" campo="Asist_Tec_Asist_Emerg" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Asistencia en emergencias</label>
@@ -841,7 +841,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         25</label>
-                    <input id="Asist_Tec_Seg_Alim" campo="Asist_Tec_Seg_Alim" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Seg_Alim" campo="Asist_Tec_Seg_Alim" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Tareas inherentes a la Seguridad Alimentaria</label>
@@ -849,7 +849,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         26</label>
-                    <input id="Asist_Tec_Articulacion" campo="Asist_Tec_Articulacion" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Articulacion" campo="Asist_Tec_Articulacion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Articulación con otras intituciones y/o organismos</label>
@@ -857,7 +857,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         27</label>
-                    <input id="Asist_Tec_Elaboracion_Mat_Dif" campo="Asist_Tec_Elaboracion_Mat_Dif" type="text"
+                    <input id="Asist_Tec_Elaboracion_Mat_Dif" campo="Asist_Tec_Elaboracion_Mat_Dif" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Elaboración, seguimiento y/o control de convenios con intituciones</label>
@@ -873,7 +873,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         29</label>
-                    <input id="Asist_Tec_Compras" campo="Asist_Tec_Compras" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Compras" campo="Asist_Tec_Compras" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Compras</label>
@@ -881,7 +881,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         30</label>
-                    <input id="Asist_Tec_Contrataciones" campo="Asist_Tec_Contrataciones" type="text"
+                    <input id="Asist_Tec_Contrataciones" campo="Asist_Tec_Contrataciones" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Contrataciones</label>
@@ -889,7 +889,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         31</label>
-                    <input id="Asist_Tec_Elab_Presup" campo="Asist_Tec_Elab_Presup" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Elab_Presup" campo="Asist_Tec_Elab_Presup" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Elaboración de presupuestos</label>
@@ -897,7 +897,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         32</label>
-                    <input id="Asist_Tec_Reg_Contables" campo="Asist_Tec_Reg_Contables" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Reg_Contables" campo="Asist_Tec_Reg_Contables" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Registros contables</label>
@@ -905,7 +905,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         33</label>
-                    <input id="Asist_Tec_Recep_Seg_Tram" campo="Asist_Tec_Recep_Seg_Tram" type="text"
+                    <input id="Asist_Tec_Recep_Seg_Tram" campo="Asist_Tec_Recep_Seg_Tram" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Recepción y seguimiento de trámites
@@ -914,7 +914,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         34</label>
-                    <input id="Asist_Tec_Otros" campo="Asist_Tec_Otros" type="text" style="width: 30px;"
+                    <input id="Asist_Tec_Otros" campo="Asist_Tec_Otros" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 60px;">
                         Otros</label>
@@ -926,7 +926,7 @@
             </div>
         </div>
         <%--Servicios Profesionales--%>
-        <div style="margin-left: 50px;">
+        <div style="margin-left: 50px;" id="contenedor_servicios_profesionales">
             <p style="font-weight: bold;">
                 V. Servicios Profesionales: (preferentemente Niveles B-C-D nivel Universitario)
                 (Analista - Dictaminante - Responsable - Matriculados)</p>
@@ -934,7 +934,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         1</label>
-                    <input id="Serv_Prof_Form_Univ" campo="Serv_Prof_Form_Univ" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Form_Univ" campo="Serv_Prof_Form_Univ" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Tareas específicas de su formación universitaria</label>
@@ -942,7 +942,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         2</label>
-                    <input id="Serv_Prof_Relevamiento" campo="Serv_Prof_Relevamiento" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Relevamiento" campo="Serv_Prof_Relevamiento" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Relevamiento</label>
@@ -950,7 +950,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         3</label>
-                    <input id="Serv_Prof_Planificacion" campo="Serv_Prof_Planificacion" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Planificacion" campo="Serv_Prof_Planificacion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 450px;">
                         Planificación (Análisis, diseño, elaboración de propuestas)</label>
@@ -958,7 +958,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         4</label>
-                    <input id="Serv_Prof_Ejecucion" campo="Serv_Prof_Ejecucion" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Ejecucion" campo="Serv_Prof_Ejecucion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Ejecución</label>
@@ -966,7 +966,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         5</label>
-                    <input id="Serv_Prof_Eval_Monit" campo="Serv_Prof_Eval_Monit" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Eval_Monit" campo="Serv_Prof_Eval_Monit" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Evaluación y Monitoreo (Controles, seguimiento y detección de problemas)</label>
@@ -974,7 +974,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         6</label>
-                    <input id="Serv_Prof_Elab_Dict" campo="Serv_Prof_Elab_Dict" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Elab_Dict" campo="Serv_Prof_Elab_Dict" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Elaboración de informes y/o dictámines</label>
@@ -982,7 +982,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         7</label>
-                    <input id="Serv_Prof_Soporte_Tec" campo="Serv_Prof_Soporte_Tec" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Soporte_Tec" campo="Serv_Prof_Soporte_Tec" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Soporte técnico / Reparación de equipos</label>
@@ -990,7 +990,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         8</label>
-                    <input id="Serv_Prof_Infraestructura" campo="Serv_Prof_Infraestructura" type="text"
+                    <input id="Serv_Prof_Infraestructura" campo="Serv_Prof_Infraestructura" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Infraestructura edilicia</label>
@@ -998,7 +998,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         9</label>
-                    <input id="Serv_Prof_Programacion" campo="Serv_Prof_Programacion" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Programacion" campo="Serv_Prof_Programacion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Programación informática</label>
@@ -1006,7 +1006,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         10</label>
-                    <input id="Serv_Prof_Procesamiento" campo="Serv_Prof_Procesamiento" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Procesamiento" campo="Serv_Prof_Procesamiento" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Procesamiento de información</label>
@@ -1014,7 +1014,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         11</label>
-                    <input id="Serv_Prof_Manejo_DB" campo="Serv_Prof_Manejo_DB" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Manejo_DB" campo="Serv_Prof_Manejo_DB" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Manejo de bases de datos</label>
@@ -1022,7 +1022,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         12</label>
-                    <input id="Serv_Prof_Diseño_Grafico" campo="Serv_Prof_Diseño_Grafico" type="text"
+                    <input id="Serv_Prof_Diseño_Grafico" campo="Serv_Prof_Diseño_Grafico" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Diseño gráfico</label>
@@ -1030,7 +1030,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         13</label>
-                    <input id="Serv_Prof_Diseño_Imag_Son" campo="Serv_Prof_Diseño_Imag_Son" type="text"
+                    <input id="Serv_Prof_Diseño_Imag_Son" campo="Serv_Prof_Diseño_Imag_Son" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Diseño de imagen y sonido</label>
@@ -1038,7 +1038,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         14</label>
-                    <input id="Serv_Prof_Elab_Mat" campo="Serv_Prof_Elab_Mat" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Elab_Mat" campo="Serv_Prof_Elab_Mat" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Elaboración de materiales para difusión
@@ -1047,7 +1047,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         15</label>
-                    <input id="Serv_Prof_Comunicacion" campo="Serv_Prof_Comunicacion" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Comunicacion" campo="Serv_Prof_Comunicacion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Comunicación y prensa</label>
@@ -1055,7 +1055,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         16</label>
-                    <input id="Serv_Prof_Ceremonial" campo="Serv_Prof_Ceremonial" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Ceremonial" campo="Serv_Prof_Ceremonial" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Ceremonial y protocolo</label>
@@ -1063,7 +1063,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         17</label>
-                    <input id="Serv_Prof_Prom_Pol_Pub" campo="Serv_Prof_Prom_Pol_Pub" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Prom_Pol_Pub" campo="Serv_Prof_Prom_Pol_Pub" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Promoción de políticas públicas</label>
@@ -1071,7 +1071,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         18</label>
-                    <input id="Serv_Prof_Apoyo_Econom_Soc" campo="Serv_Prof_Apoyo_Econom_Soc" type="text"
+                    <input id="Serv_Prof_Apoyo_Econom_Soc" campo="Serv_Prof_Apoyo_Econom_Soc" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Apoyo a emprendedores de la Economía Social
@@ -1080,23 +1080,23 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         19</label>
-                    <input id="Serv_Prof_Fortalecimiento_Coop" campo="Serv_Prof_Fortalecimiento_Coop"
-                        type="text" style="width: 30px;" placeholder="" />
+                    <input id="Serv_Prof_Fortalecimiento_Coop" campo="Serv_Prof_Fortalecimiento_Coop" type="number" min="1" max="5" 
+                        style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Fortalecimiento de cooperativas</label>
                 </div>
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         20</label>
-                    <input id="Serv_Prof_Tareas_Territoriales" campo="Serv_Prof_Tareas_Territoriales"
-                        type="text" style="width: 30px;" placeholder="" />
+                    <input id="Serv_Prof_Tareas_Territoriales" campo="Serv_Prof_Tareas_Territoriales" type="number" min="1" max="5" 
+                        style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Tareas territoriales</label>
                 </div>
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         21</label>
-                    <input id="Serv_Prof_Diseño_Taller" campo="Serv_Prof_Diseño_Taller" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Diseño_Taller" campo="Serv_Prof_Diseño_Taller" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Diseño y dictado de talleres</label>
@@ -1104,7 +1104,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         22</label>
-                    <input id="Serv_Prof_Org_Eventos" campo="Serv_Prof_Org_Eventos" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Org_Eventos" campo="Serv_Prof_Org_Eventos" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Organización de ferias y eventos</label>
@@ -1112,7 +1112,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         23</label>
-                    <input id="Serv_Prof_Elab_Inf_Soc" campo="Serv_Prof_Elab_Inf_Soc" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Elab_Inf_Soc" campo="Serv_Prof_Elab_Inf_Soc"  style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Elaboración de Informes Sociales</label>
@@ -1120,7 +1120,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         24</label>
-                    <input id="Serv_Prof_Act_Capa" campo="Serv_Prof_Act_Capa" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Act_Capa" campo="Serv_Prof_Act_Capa"  style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Actividades de capacitación</label>
@@ -1128,7 +1128,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         25</label>
-                    <input id="Serv_Prof_Asist_Emerg" campo="Serv_Prof_Asist_Emerg" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Asist_Emerg" campo="Serv_Prof_Asist_Emerg" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Asistencia en emergencias</label>
@@ -1136,7 +1136,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         26</label>
-                    <input id="Serv_Prof_Seg_Alim" campo="Serv_Prof_Seg_Alim" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Seg_Alim" campo="Serv_Prof_Seg_Alim"  style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Tareas inherentes a la Seguridad Alimentaria</label>
@@ -1144,7 +1144,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         27</label>
-                    <input id="Serv_Prof_Articulacion" campo="Serv_Prof_Articulacion" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Articulacion" campo="Serv_Prof_Articulacion"  style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Articulación con otras intituciones y/o organismos</label>
@@ -1152,7 +1152,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         28</label>
-                    <input id="Serv_Prof_Elaboracion_Mat_Dif" campo="Serv_Prof_Elaboracion_Mat_Dif" type="text"
+                    <input id="Serv_Prof_Elaboracion_Mat_Dif" campo="Serv_Prof_Elaboracion_Mat_Dif"type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Elaboración, seguimiento y/o control de convenios con intituciones</label>
@@ -1160,7 +1160,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         29</label>
-                    <input id="Serv_Prof_Rendiciones" campo="Serv_Prof_Rendiciones" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Rendiciones" campo="Serv_Prof_Rendiciones" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Rendiciones y pagos</label>
@@ -1168,7 +1168,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         30</label>
-                    <input id="Serv_Prof_Compras" campo="Serv_Prof_Compras" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Compras" campo="Serv_Prof_Compras" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Compras</label>
@@ -1176,7 +1176,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         31</label>
-                    <input id="Serv_Prof_Contrataciones" campo="Serv_Prof_Contrataciones" type="text"
+                    <input id="Serv_Prof_Contrataciones" campo="Serv_Prof_Contrataciones" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Contrataciones</label>
@@ -1184,7 +1184,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         32</label>
-                    <input id="Serv_Prof_Elab_Presup" campo="Serv_Prof_Elab_Presup" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Elab_Presup" campo="Serv_Prof_Elab_Presup" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Elaboración de presupuestos</label>
@@ -1192,7 +1192,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         33</label>
-                    <input id="Serv_Prof_Reg_Contables" campo="Serv_Prof_Reg_Contables" type="text" style="width: 30px;"
+                    <input id="Serv_Prof_Reg_Contables" campo="Serv_Prof_Reg_Contables" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Registros contables</label>
@@ -1200,7 +1200,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         34</label>
-                    <input id="Text34" campo="Serv_Prof_Otros" type="text" style="width: 30px;" placeholder="" />
+                    <input id="Text34" campo="Serv_Prof_Otros" type="number" min="1" max="5"  style="width: 30px;" placeholder="" /> 
                     <label style="display: inline-block; width: 60px;">
                         Otros</label>
                     <label style="display: inline-block; width: 60px;">
@@ -1210,7 +1210,7 @@
             </div>
         </div>
         <%--Tareas Adicionales--%>
-        <div style="margin-left: 50px;">
+        <div style="margin-left: 50px;" id="contenedor_tareas_adicionales">
             <p style="font-weight: bold;">
                 VI. Tareas adicionales sólo Profesionales Avanzados: (preferentemente Niveles A-B-C
                 nivel universit/posgr)</p>
@@ -1220,7 +1220,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         1</label>
-                    <input id="Tarea_Adic_Asesoramiento" campo="Tarea_Adic_Asesoramiento" type="text"
+                    <input id="Tarea_Adic_Asesoramiento" campo="Tarea_Adic_Asesoramiento" type="number" min="1" max="5" 
                         style="width: 30px;" placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Asesoramiento</label>
@@ -1228,7 +1228,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         2</label>
-                    <input id="Tarea_Adic_Resol_Prob" campo="Tarea_Adic_Resol_Prob" type="text" style="width: 30px;"
+                    <input id="Tarea_Adic_Resol_Prob" campo="Tarea_Adic_Resol_Prob" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 400px;">
                         Resolución de problemas (Toma de decisiones y solución de situaciones críticas)</label>
@@ -1236,7 +1236,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         3</label>
-                    <input id="Tarea_Adic_Coord_Equipo" campo="Tarea_Adic_Coord_Equipo" type="text" style="width: 30px;"
+                    <input id="Tarea_Adic_Coord_Equipo" campo="Tarea_Adic_Coord_Equipo" type="number" min="1" max="5"  style="width: 30px;"
                         placeholder="" />
                     <label style="display: inline-block; width: 250px;">
                         Coordinación de equipos de trabajo</label>
@@ -1248,7 +1248,7 @@
                 <div class="bloque">
                     <label style="display: inline-block; width: 20px;">
                         4</label>
-                    <input id="Tarea_Adic_Otros" campo="Tarea_Adic_Otros" type="text" style="width: 30px;"
+                    <input id="Tarea_Adic_Otros" campo="Tarea_Adic_Otros" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label style="display: inline-block; width: 60px;">
                         Otros</label>
@@ -1286,7 +1286,7 @@
                     <label style="display: inline-block; width: 10px;">Si</label>
                     <input id="chkUtilizaFuncion_SI" style="width: 50px" />
                 </div>
-                <input type="button" id="btn_Agregar_Conocimientos" value="Agregar conocimiento" style="width:200px" />
+                <input type="button" id="btn_Agregar_Conocimientos" class="btn btn-primary" value="Agregar conocimiento" style="width:200px" />
             </div> 
     </div>
     <div style="margin-left: 50px;">

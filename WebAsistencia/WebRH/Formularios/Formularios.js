@@ -119,6 +119,7 @@ var VistaFormulario = {
                 $(".contenedor_formulario").show()
 
                 _this.dibujarEstudios();
+                _this.ocultarTareas();
             });
         };
     },
@@ -153,5 +154,104 @@ var VistaFormulario = {
             $(this).find('span').each(function () { $(this).toggle(); });
             return;
         })
+    },
+    ocultarTareas: function () {
+        var _this = this;
+        $('#contenedor_tarea_generales').show();
+        $('#contenedor_tarea_administrativa').show();
+        $('#contendor_tarea_tecnica').show();
+        $('#contenedor_asistencia_tecnica').show();
+        $('#contenedor_servicios_profesionales').show();
+        $('#contenedor_tareas_adicionales').show();
+
+        var esA = false;
+        var esB = false;
+        var esC = false;
+        var esD = false;
+        var esE = false;
+        var esF = false;
+        var esProfesional = false;
+        var esTecnico = false;
+        var esAdministrativo = false;
+
+
+        var separador1 = "(";
+        var separador2 = "-";
+        var cadena = $('#funcion').val();
+        var arregloDeSubCadenas = cadena.split(separador1);
+        if (arregloDeSubCadenas.length > 0) {
+            //me fijo que letra es en el primer caracter del segundo item
+            switch (arregloDeSubCadenas[1].charAt(0)) {
+                case 'A':
+                    console.log('A');
+                    esA = true;
+
+                    break;
+                case 'B':
+                    esB = true;
+                    console.log('B');
+                    break;
+                case 'C':
+                    esC = true;
+                    console.log('C');
+                    break;
+                case 'D':
+                    esD = true;
+                    console.log('D');
+                    break;
+                case 'E':
+                    esE = true;
+                    console.log('E');
+                    break;
+                case 'F':
+                    esF = true;
+                    console.log('F');
+                    break;
+                default:
+                    console.log('Sin Letra');
+                    break;
+            } //end switch
+            //divido el segundo item por el -, para detectar si es profesional o tec
+            var arregloDeSubSubCadenas = arregloDeSubCadenas[1].split(separador2);
+            if (arregloDeSubSubCadenas.length > 1) {
+                //si es profesional o tecnico o administrativo
+                switch (arregloDeSubSubCadenas[1].charAt(0)) {
+                    case 'u':
+                        esProfesional = true;
+                        console.log('u');
+                        break;
+                    case 't':
+                        esTecnico = true;
+                        console.log('t');
+                        break;
+                    default:
+                        esAdministrativo = true;
+                        console.log('Administrativo');
+                        break;
+                } //end switch
+            } else {
+                esAdministrativo = true;
+            } //end if
+
+            if (!(esF || esE || (esD && esAdministrativo))) {
+                $('#contenedor_tarea_generales').hide();
+            }
+            if (!((esC && esAdministrativo) || (esD && esAdministrativo) || esE || esF)) {
+                $('#contenedor_tarea_administrativa').hide();
+            }
+            if (!((esC && esAdministrativo) || (esD && esAdministrativo))) {
+                $('#contendor_tarea_tecnica').hide();
+            }
+            if (!((esB && esAdministrativo) || (esB && esTecnico) || (esC && esTecnico) || (esD && esTecnico))) {
+                $('#contenedor_asistencia_tecnica').hide();
+            }
+            if (!((esB && esProfesional) || (esC && esProfesional) || (esD && esProfesional))) {
+                $('#contenedor_servicios_profesionales').hide();
+            }
+            if (!(esA || (esB && esProfesional) || (esC && esProfesional))) {
+                $('#contenedor_tareas_adicionales').hide();
+            }
+
+        } // end if
     }
 }
