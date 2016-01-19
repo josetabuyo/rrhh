@@ -62,7 +62,7 @@
 
             <div class="bloque">
                 <label class="etiqueta_campo" for="cmb_modalidadContratacion" style="margin-right: 10px;">Modalidad de Contratación: </label>
-                <input id="modalidad" style="flex-grow:100" campo="modalidad" rh-control-type="textbox" disabled="disabled" />            
+                <input id="modalidad" type="text" style="flex-grow:100" campo="modalidad" rh-control-type="textbox" disabled="disabled" />            
             </div>
 
             <div style="width:800px">
@@ -83,9 +83,9 @@
                 </div>
                 <div class="bloque">                      
                     <label for="provincia" style="margin-right: 10px">Provincia: </label>
-                    <input id="cmb_provincia_personal" campo="domicilio_provincia" rh-control-type="textbox" disabled="disabled" style="margin-right: 10px; width:130px;" />
+                    <input id="cmb_provincia_personal" type="text" campo="domicilio_provincia" rh-control-type="textbox" disabled="disabled" style="margin-right: 10px; width:130px;" />
                     <label for="Localidad" style="margin-right: 10px">Localidad: </label>
-                    <input id="cmb_localidad_personal" campo="domicilio_localidad" rh-control-type="textbox" disabled="disabled"  style="margin-right: 10px; width:180px;" />
+                    <input id="cmb_localidad_personal" type="text" campo="domicilio_localidad" rh-control-type="textbox" disabled="disabled"  style="margin-right: 10px; width:180px;" />
                     <label for="domicilio_telefono" style="display:inline-block; margin-right: 10px">T.E:</label>
                     <input id="domicilio_telefono" campo="domicilio_telefono" type="text" placeholder="Telefono" disabled="disabled" style="flex-grow:100;" class="validar" />
                 </div>
