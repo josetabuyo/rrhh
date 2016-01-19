@@ -27,13 +27,13 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_Area", unArea.Id);
-            var tablaDatos = conexion.Ejecutar("dbo.Web_GetArea", parametros);            
+            var tablaDatos = conexion.Ejecutar("dbo.Web_GetArea", parametros);
             var primeraFila = tablaDatos.Rows[0];
             unArea.Id = primeraFila.GetInt("id_area");
             unArea.Nombre = primeraFila.GetString("descripcion");
             unArea.Direccion = primeraFila.GetString("direccion_area");
 
-            tablaDatos = conexion.Ejecutar("dbo.Web_GetContactoArea", parametros);      
+            tablaDatos = conexion.Ejecutar("dbo.Web_GetContactoArea", parametros);
             var contacArea = new List<ContactoArea>();
             tablaDatos.Rows.ForEach(row =>
             {
@@ -49,7 +49,7 @@ namespace General.Repositorios
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_Area", area.Id);
-            
+
             List<Alias> alias = new List<Alias>();
             tablaDatos.Rows.ForEach(row =>
             {
@@ -59,7 +59,7 @@ namespace General.Repositorios
 
         }
 
-         public List<Area> GetAreasParaProtocolo()
+        public List<Area> GetAreasParaProtocolo()
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@FechaVigencia", DateTime.Today);
@@ -79,7 +79,7 @@ namespace General.Repositorios
                         Id = id_area,
                         Nombre = row.GetString("Descripcion"),
                         Direccion = area_completa.Direccion,
-                        DatosDeContacto = area_completa.DatosDeContacto,     
+                        DatosDeContacto = area_completa.DatosDeContacto,
                         datos_del_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", ""),
                         Asistentes = area_completa.Asistentes
                     });
@@ -87,49 +87,49 @@ namespace General.Repositorios
             }
 
             return areas;
-         }
+        }
 
-         public List<Area> BuscarAreas(string criterio)
-         {
-             var palabras_busqueda = criterio.Split(' ').Select(p => p.ToUpper().Trim());
-             return GetTodasLasAreasCompletas().FindAll(area =>
-                 palabras_busqueda.All(palabra => area.Nombre.ToUpper().Contains(palabra.ToUpper())));
-         }
+        public List<Area> BuscarAreas(string criterio)
+        {
+            var palabras_busqueda = criterio.Split(' ').Select(p => p.ToUpper().Trim());
+            return GetTodasLasAreasCompletas().FindAll(area =>
+                palabras_busqueda.All(palabra => area.Nombre.ToUpper().Contains(palabra.ToUpper())));
+        }
 
-         public List<Area> GetAreasParaLugaresDeTrabajo()
-         {
-             var parametros = new Dictionary<string, object>();
-             parametros.Add("@FechaVigencia", DateTime.Today);
-             var tablaDatos = this.conexion.Ejecutar("dbo.VIA_Get_AreasParaLugaresDeTrabajo", parametros);
-             List<Area> areas_completas = GetTodasLasAreasCompletas();
-             List<Area> areas = new List<Area>();
+        public List<Area> GetAreasParaLugaresDeTrabajo()
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@FechaVigencia", DateTime.Today);
+            var tablaDatos = this.conexion.Ejecutar("dbo.VIA_Get_AreasParaLugaresDeTrabajo", parametros);
+            List<Area> areas_completas = GetTodasLasAreasCompletas();
+            List<Area> areas = new List<Area>();
 
-             if (tablaDatos.Rows.Count > 0)
-             {
-                 tablaDatos.Rows.ForEach(row =>
-                 {
-                     var id_area = row.GetSmallintAsInt("Id_area");
-                     var area_completa = areas_completas.Find(ar => ar.Id == id_area);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    var id_area = row.GetSmallintAsInt("Id_area");
+                    var area_completa = areas_completas.Find(ar => ar.Id == id_area);
 
-                     areas.Add(new Area
-                     {
-                         Id = id_area,
-                         Nombre = row.GetString("Descripcion"),
-                         Direccion = area_completa.Direccion,
-                         DatosDeContacto = area_completa.DatosDeContacto,
-                         datos_del_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", ""),
-                         Asistentes = area_completa.Asistentes
-                     });
-                 });
-             }
+                    areas.Add(new Area
+                    {
+                        Id = id_area,
+                        Nombre = row.GetString("Descripcion"),
+                        Direccion = area_completa.Direccion,
+                        DatosDeContacto = area_completa.DatosDeContacto,
+                        datos_del_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", ""),
+                        Asistentes = area_completa.Asistentes
+                    });
+                });
+            }
 
-             return areas;
-         }
+            return areas;
+        }
 
 
         public List<Area> GetTodasLasAreasCompletas()
         {
-            return this.Obtener(); 
+            return this.Obtener();
         }
 
         public static List<Area> GetAreasDeTablaDeDatos(TablaDeDatos tablaDatos)
@@ -217,32 +217,116 @@ namespace General.Repositorios
         public Area GetAreaCompletaPorId(int id_area)
         {
             Area area = new Area();
+            List<DatoDeContacto> datos_de_contacto = new List<DatoDeContacto>();
+            List<Asistente> asistentes = new List<Asistente>();
+            area.DatosDeContacto = datos_de_contacto;
+            area.Asistentes = asistentes;
             var parametros = new Dictionary<string, object>();
+
+            //BUSCO LOS DATOS DEL RESPONSABLE
             parametros.Add("@Operacion", 'S');
+            parametros.Add("@Id", null);
             parametros.Add("@Area", id_area);
             var tablaDatos = conexion.Ejecutar("dbo.GABM_Tabla_Firmantes", parametros);
-            var responsable_base = tablaDatos.Rows[0];
-            Responsable responsable = new Responsable();
-            responsable.NombreApellido = responsable_base.GetString("Apellido");
-            responsable.Documento = responsable_base.GetInt("Documento");
-            responsable.IdInterna = responsable_base.GetInt("Id_Interna");
-            responsable.TratamientoPersona = new Combo(responsable_base.GetInt("Id_Tratamiento"), responsable_base.GetString("Tratamiento"));
-            responsable.TratamientoTitulo = new Combo(responsable_base.GetInt("Id_Titulo"), responsable_base.GetString("Titulo"));
-            responsable.CargoFuncion = new Combo (responsable_base.GetInt("id_cargo"), responsable_base.GetString("Cargo"));
-            responsable.ActoAdministrativo = responsable_base.GetString("FirmaActosAdm");
-            responsable.Contratos = responsable_base.GetString("FirmaContratos");
-            responsable.Facturas = responsable_base.GetString("FirmaFacturas");
-            responsable.DDJJRecibos = responsable_base.GetString("FirmaddjjRecibo");
+            if (tablaDatos.Rows.Count > 0)
+            {
+                var responsable_base = tablaDatos.Rows[0];
+                Responsable responsable = new Responsable();
+                responsable.NombreApellido = responsable_base.GetString("Apellido");
+                responsable.Documento = responsable_base.GetInt("Documento");
+                responsable.IdInterna = responsable_base.GetInt("Id_Interna");
+                responsable.TratamientoPersona = new Combo(responsable_base.GetSmallintAsInt("Id_Tratamiento"), responsable_base.GetString("Tratamiento"));
+                responsable.TratamientoTitulo = new Combo(responsable_base.GetSmallintAsInt("Id_Titulo"), responsable_base.GetString("Titulo"));
+                responsable.CargoFuncion = new Combo(responsable_base.GetSmallintAsInt("id_cargo"), responsable_base.GetString("Cargo"));
+                responsable.ActoAdministrativo = responsable_base.GetString("FirmaActosAdm");
+                responsable.Contratos = responsable_base.GetString("FirmaContratos");
+                responsable.Facturas = responsable_base.GetString("FirmaFacturas");
+                responsable.DDJJRecibos = responsable_base.GetString("FirmaddjjRecibo");
 
-            area.//Hacer el objeto para soportar el responsable
-            area.DireccionCompleta = new Direccion();
+                area.Responsable = responsable;
+            }
 
+            //BUSCO LOS DATOS DE DIRECCIÓN DEL ÁREA
+            parametros.Clear();
+            tablaDatos.Clear();
+            parametros.Add("@Id_Edificio", 0);
+            parametros.Add("@id_area", id_area);
+            tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Area_Por_Id", parametros);
+            var direccion_base = tablaDatos.Rows[0];
+            Localidad localidad = new Localidad(direccion_base.GetInt("Localidad"), direccion_base.GetString("nombrelocalidad"));
+            area.DireccionCompleta = new Direccion(direccion_base.GetInt("Id_Edificio"), direccion_base.GetString("Edificio"), direccion_base.GetString("Calle"), direccion_base.GetInt("Numero"), localidad, direccion_base.GetInt("Id_Oficina"), direccion_base.GetString("Piso"), direccion_base.GetString("Dpto"), direccion_base.GetString("UF"), direccion_base.GetString("descripcion"), direccion_base.GetInt("codigopostal"));
+            //BUSCO LOCALIDAD
+            parametros.Clear();
+            tablaDatos.Clear();
+            parametros.Add("@localidad", localidad.Id);
+            tablaDatos = conexion.Ejecutar("dbo.GetLocalidad", parametros);
+            var localidad_base = tablaDatos.Rows[0];
+            localidad.CodigoPostal = localidad_base.GetInt("codigopostal");
+            localidad.IdProvincia = localidad_base.GetInt("Id_Provincia");
+            localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
+            localidad.IdPartido = localidad_base.GetSmallintAsInt("partido");
+            localidad.NombrePartido = localidad_base.GetString("DescPartido");
+
+            //BUSCO LOS DATOS DE CONTACTO DEL ÁREA (n)
+            parametros.Clear();
+            tablaDatos.Clear();
+            parametros.Add("@IdArea", id_area);
+            tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Tabla_Areas_DatosContacto", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    var orden = 99;
+                    if (!(row.GetObject("Orden") is DBNull))
+                    {
+                        orden = row.GetSmallintAsInt("Orden");
+                    }
+                    DatoDeContacto nuevo_dato = new DatoDeContacto(row.GetSmallintAsInt("Id"),
+                                                                                      row.GetString("Descrip_Tipo_Dato"),
+                                                                                      row.GetString("Dato"),
+                                                                                      orden);
+                    nuevo_dato.IdContacto = row.GetSmallintAsInt("Tipo_Dato");
+                    area.DatosDeContacto.Add(nuevo_dato);
+                });
+            }
+
+            //BUSCO LOS DATOS DE ASISTENTES DEL ÁREA (n)
+            parametros.Clear();
+            tablaDatos.Clear();
+            parametros.Add("@IdArea", id_area);
+            tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Tabla_Areas_Asistentes ", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    var telefono = "";
+                    if (!(row.GetObject("Telefono") is DBNull)) telefono = row.GetString("Telefono");
+                    var fax = "";
+                    if (!(row.GetObject("Fax") is DBNull)) fax = row.GetString("Fax");
+
+                    Asistente asistente = new Asistente(row.GetString("nombre"),
+                                                               row.GetString("apellido"),
+                                                               row.GetString("Descripcargo"),
+                                                               row.GetSmallintAsInt("Nro_Orden"),
+                                                               telefono,
+                                                               fax,
+                                                               row.GetString("Mail"));
+                    asistente.Id = row.GetInt("Id");
+                    asistente.Documento = row.GetInt("DNI");
+                    asistente.IdCargo = row.GetInt("Indicador_Cargo");
+                    area.Asistentes.Add(asistente);
+                });
+            }
+
+            return area;
 
         }
-        
+
         private FiltroDeAreas DeterminarFiltro(int idCombo, string dato_ingresado_en_filtro)
         {
-            switch (idCombo )
+            switch (idCombo)
             {
                 case 1:
                     return new FiltroDeAreas(FiltroDeAreas.PredicadoPorDireccion, dato_ingresado_en_filtro);

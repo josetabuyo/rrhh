@@ -8,11 +8,13 @@ namespace General
     public class DatoDeContacto
     {
         private int _id;
+        private int _id_contacto;
         private string _tipo_contacto;
         private string _dato;
         private int _orden;
 
         public int Id { get { return _id; } set { _id = value; } }
+        public int IdContacto { get { return _id_contacto; } set { _id_contacto = value; } }
         public string Descripcion { get { return _tipo_contacto; } set { _tipo_contacto = value; } }
         public string Dato { get { return _dato; } set { _dato = value; } }
         public int Orden { get { return _orden; } set { _orden = value; } }

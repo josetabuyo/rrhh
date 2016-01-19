@@ -15,6 +15,7 @@
         private string _Direccion;
         private List<ContactoArea> _Contacto = new List<ContactoArea>();
         private Alias _alias;
+        private Responsable _responsable;
 
         public int Id { get { return _Id; } set { _Id = value; }}
         public string Alias { get { return NombreConAlias(); } set { } }       
@@ -30,6 +31,7 @@
         public List<ContactoArea> Contacto { get { return _Contacto; } set { _Contacto = value; }}
         public List<DatoDeContacto> DatosDeContacto;
         public Direccion DireccionCompleta { get; set; }
+        public Responsable Responsable { get; set; }
 
         public Area(int IdArea)
         {

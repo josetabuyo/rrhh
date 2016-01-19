@@ -168,9 +168,21 @@
     },
     //Configuracion Inicial
 
-        CompletarDatosArea: function (area) {
-        var nombre_apellido = area.datos_del_responsable.Nombre + " " + area.datos_del_responsable.Apellido;
-        $("#txt_nombre_apellido").val(nombre_apellido);
+    CompletarDatosArea: function (area) {
+        $("#txt_nombre_apellido").val(area.Responsable.NombreApellido);
+        $("#txt_NroDocumento").val(area.Responsable.Documento);
+        $("#txt_IdInterna").val(area.Responsable.IdInterna);
+
+        $("#txt_Calle").val(area.DireccionCompleta.Calle);
+        $("#txt_Nro").val(area.DireccionCompleta.Numero);
+        $("#txt_Piso").val(area.DireccionCompleta.Piso);
+        $("#txt_Oficina").val(area.DireccionCompleta.Dto);
+        $("#txt_UF").val(area.DireccionCompleta.UF);
+        $("#txt_Localidad").val(area.DireccionCompleta.Localidad.Nombre);
+        $("#txt_CodigoPostal").val(area.DireccionCompleta.Localidad.CodigoPostal);
+        $("#txt_Partido").val(area.DireccionCompleta.Localidad.NombrePartido);
+        $("#txt_Provincia").val(area.DireccionCompleta.Localidad.NombreProvincia);
+        
 
     },
 

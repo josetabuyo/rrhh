@@ -17,6 +17,8 @@
         public int Documento { get; set; }
         public int IdInterna { get; set; }
         public Combo Cargo { get; set; }
+        public int Id { get; set; }
+        public int IdCargo { get; set; }
         
         public Asistente(string nombre, string apellido, string descripcion_cargo, int prioridad_cargo, string telefono, string fax, string mail)
         {
