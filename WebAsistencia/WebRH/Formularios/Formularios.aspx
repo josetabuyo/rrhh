@@ -37,94 +37,83 @@
         <div class="contenedor_formulario" style="display: none">
             <input id="btn_imprimir" type="button" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
             <p class="subtitulo">1) Datos Personales:</p>
-            <div class="bloque">  
-                  
-                <label class="etiqueta_campo" for="cmb_tipoDocumento" style="width:50px;" >
-                    Tipo y Número de Documento:</label>
-                <select id="cmb_tipoDocumento" campo="tipo_documento" style="width: 100px; margin-bottom: 10px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento"
-                    rh-model-property="tipo_documento" data-validar="haySeleccionEnCombo" disabled="disabled">
-                </select>
-                <input id="txt_documento" campo="documento" type="text" style="width: 380px;" rh-control-type="textbox"
-                     data-validar="esNumeroNatural" disabled="disabled" />
-            </div>
-            <div class="bloque">
-                <label for="nombre">Nombre: </label>
-                <input id="nombre" type="text" campo="nombre" rh-control-type="textbox" disabled="disabled"
-                    style="width: 215px;" data-validar="esNoBlanco" maxlength="100" />
 
-                <label for="apellido" style="margin-left:15px;">Apellido: </label>
-                <input id="apellido" type="text" campo="apellido" style="width: 310px;" rh-control-type="textbox" disabled="disabled"
-                     data-validar="esNoBlanco" />
+            <div class="bloque">                    
+                <label class="etiqueta_campo" for="cmb_tipoDocumento" style="margin-right: 10px" >  Tipo y Número de Documento:</label>
+                <select id="cmb_tipoDocumento" campo="tipo_documento" style="margin-right: 10px;  margin-bottom: 10px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento" rh-model-property="tipo_documento" disabled="disabled"> </select>
+                <input id="txt_documento" campo="documento" type="text" style="flex-grow:100" disabled="disabled" />
+            </div>
+
+            <div class="bloque">
+                <label for="nombre" style="margin-right: 10px">Nombre: </label>
+                <input id="nombre" type="text" campo="nombre" rh-control-type="textbox" disabled="disabled" style="margin-right: 10px" maxlength="100" />
+                <label for="apellido" style="margin-right: 10px">Apellido: </label>
+                <input id="apellido" type="text" campo="apellido" style="flex-grow:100" rh-control-type="textbox" disabled="disabled" />
             </div>
 
             <div class="bloque">
                 <label for="nivel">Nivel:</label>
-                <input id="nivel" type="text" campo="nivel" rh-control-type="textbox" rh-model-property="Nivel" disabled="disabled"
-                    style="width: 50px;" data-validar="esNoBlanco" maxlength="2" />
-
-                <label for="grado" style="margin-left:15px;">Grado:</label>
-                <input id="grado" type="text" campo="grado" style="width: 50px;" rh-control-type="textbox" disabled="disabled"/>              
-
-                <label for="funcion" style="margin-left:15px;"> Caracter del Servicio:</label>
-                <input id="funcion" type="text" campo="funcion" style="width: 385px;" rh-control-type="textbox" disabled="disabled"/>
+                <input id="nivel" type="text" campo="nivel" rh-control-type="textbox" rh-model-property="Nivel" disabled="disabled" style="margin-right: 10px; width: 30px;" maxlength="2" />
+                <label for="grado" style="margin-right: 10px;">Grado:</label>
+                <input id="grado" type="text" campo="grado" style="margin-right: 10px; width: 30px;" rh-control-type="textbox" disabled="disabled"/>            
+                <label for="funcion" style="margin-right: 10px"> Caracter del Servicio:</label>
+                <input id="funcion" type="text" campo="funcion" style="flex-grow:100" rh-control-type="textbox" disabled="disabled"/>
             </div>
 
             <div class="bloque">
-                <label class="etiqueta_campo" for="cmb_modalidadContratacion">Modalidad de Contratación: </label>
-                <input id="modalidad" style="width: 500px;" campo="modalidad" rh-control-type="textbox" disabled="disabled" />            
+                <label class="etiqueta_campo" for="cmb_modalidadContratacion" style="margin-right: 10px;">Modalidad de Contratación: </label>
+                <input id="modalidad" type="text" style="flex-grow:100" campo="modalidad" rh-control-type="textbox" disabled="disabled" />            
             </div>
 
-            <div class="bloque">
+            <div style="width:800px">
                 <p>Domicilio Particular</p>
-                    <div class="bloque">
-                        <label for="calle" style="display:inline-block; width:50px;">Calle:</label>
-                        <input id="text_domicilio_calle_personal" campo="domicilio_calle" type="text" disabled="disabled" placeholder="Calle" style="width:605px;" class="validar" />
-                    </div>
-                    <div class="bloque">
-                        <label for="nro" style="display:inline-block; width:50px;">Nro:</label>
-                        <input id="text_domicilio_nro_personal" campo="domicilio_numero" type="number" disabled="disabled" placeholder="Nro" style="width: 100px;" class="validarNumero" />
-                        <label for="piso" style="display:inline-block; width:40px; margin-left:50px;">Piso: </label>
-                        <input id="text_domicilio_piso_personal" campo="domicilio_piso" type="number" disabled="disabled" placeholder="Piso" style="width: 80px;" class="validarNumero" />
-                        <label for="dto" style="display:inline-block; width:40px; margin-left:50px;">Dto: </label>
-                        <input id="text_domicilio_depto_personal" campo="domicilio_depto" type="text" disabled="disabled" placeholder="Depto" style="width: 80px;" class="validar" />
-                        <label for="cp" style="display:inline-block; width:40px; margin-left:50px;">C.P: </label>
-                        <input id="text_domicilio_cp_personal" campo="domicilio_cp" type="text" disabled="disabled" placeholder="C.P." style="width: 100px;" class="validar" />
-                    </div>
-                    <div class="bloque">
-                      
-                        <label for="provincia">Provincia: </label>
-                        <input id="cmb_provincia_personal" campo="domicilio_provincia" rh-control-type="textbox" disabled="disabled" style="width:130px;" />
-                        <label for="Localidad" style="margin-left:40px;">Localidad: </label>
-                        <input id="cmb_localidad_personal" campo="domicilio_localidad" rh-control-type="textbox" disabled="disabled"  style="width:180px;" />
-                        <label for="domicilio_telefono" style="display:inline-block; margin-left:20px;">T.E:</label>
-                        <input id="domicilio_telefono" campo="domicilio_telefono" type="text" placeholder="Telefono" disabled="disabled" style="width: 205px; margin-bottom: 0px;" class="validar" />
-                    </div>
+                <div class="bloque">
+                    <label for="calle" style="margin-right: 10px">Calle:</label>
+                    <input id="text_domicilio_calle_personal" campo="domicilio_calle" type="text" disabled="disabled" placeholder="Calle" style="flex-grow:100;" class="validar" />
+                </div>
+                <div class="bloque">
+                    <label for="nro" style="display:inline-block; margin-right: 10px">Nro:</label>
+                    <input id="text_domicilio_nro_personal" campo="domicilio_numero" type="number" disabled="disabled" placeholder="Nro" style="margin-right: 10px; width: 100px;" class="validarNumero" />
+                    <label for="piso" style="display:inline-block; margin-right: 10px">Piso: </label>
+                    <input id="text_domicilio_piso_personal" campo="domicilio_piso" type="number" disabled="disabled" placeholder="Piso" style="margin-right: 10px; width: 80px;" class="validarNumero" />
+                    <label for="dto" style="display:inline-block; margin-right: 10px">Dto: </label>
+                    <input id="text_domicilio_depto_personal" campo="domicilio_depto" type="text" disabled="disabled" placeholder="Depto" style="margin-right: 10px; width: 80px;" class="validar" />
+                    <label for="cp" style="display:inline-block; margin-right: 10px">C.P: </label>
+                    <input id="text_domicilio_cp_personal" campo="domicilio_cp" type="text" disabled="disabled" placeholder="C.P." style="flex-grow:100;" class="validar" />
+                </div>
+                <div class="bloque">                      
+                    <label for="provincia" style="margin-right: 10px">Provincia: </label>
+                    <input id="cmb_provincia_personal" type="text" campo="domicilio_provincia" rh-control-type="textbox" disabled="disabled" style="margin-right: 10px; width:130px;" />
+                    <label for="Localidad" style="margin-right: 10px">Localidad: </label>
+                    <input id="cmb_localidad_personal" type="text" campo="domicilio_localidad" rh-control-type="textbox" disabled="disabled"  style="margin-right: 10px; width:180px;" />
+                    <label for="domicilio_telefono" style="display:inline-block; margin-right: 10px">T.E:</label>
+                    <input id="domicilio_telefono" campo="domicilio_telefono" type="text" placeholder="Telefono" disabled="disabled" style="flex-grow:100;" class="validar" />
+                </div>
 
                 <p>Consignar nuevo domicilio particular solo en el caso que fuera pertinente:</p>
-                    <br />
-                   <div class="bloque">
-                        <label for="calle" style="display:inline-block; width:50px;">Calle: </label>
-                        <input id="calle_nueva" campo="domicilio_calle_nuevo" type="text" placeholder="Calle" style="width:680px;" class="validar" />
-                    </div>
-                    <div class="bloque">
-                        <label for="nro_nuevo" style="display:inline-block; width:50px;">Nro:</label>
-                        <input id="nro_nuevo" campo="domicilio_numero_nuevo" type="number" placeholder="Nro" style="width: 100px;" class="validarNumero" />
-                        <label for="piso" style="display:inline-block; width:40px; margin-left:50px;">Piso: </label>
-                        <input id="piso_nuevo" campo="domicilio_piso_nuevo" type="number" placeholder="Piso" style="width: 80px;" class="validarNumero" />
-                        <label for="dto" style="display:inline-block; width:40px; margin-left:50px;">Dto: </label>
-                        <input id="dto_nuevo" campo="domicilio_depto_nuevo" type="text" placeholder="Depto" style="width: 80px;" class="validar" />
-                        <label for="cp" style="display:inline-block; width:40px; margin-left:50px;">C.P: </label>
-                        <input id="cp_nuevo" campo="domicilio_cp_nuevo" type="text" placeholder="C.P." style="width: 100px;" class="validar" />
-                    </div>
-                    <div class="bloque">
-                        <label for="provincia">Provincia: </label>
-                        <select id="provincia_nuevo" campo="domicilio_provincia_nuevo" rh-control-type="combo" rh-data-provider="Provincias" rh-propiedad-label= "Nombre" class="cmb_provincia" style="width:130px;" ></select>
-                        <label for="Localidad" style="margin-left:40px;">Localidad:</label>
-                        <select id="localidad_nuevo" campo="domicilio_localidad_nuevo" rh-control-type="combo"  rh-data-provider="Localidades" rh-filter-key="IdProvincia" rh-propiedad-label= "Nombre" 
-                                    rh-id-filter-combo="provincia_nuevo" class="cmb_localidad" style="width:150px;" > </select>
-                        <label for="domicilio_telefono_nuevo" style="display:inline-block; width:40px; margin-left:50px;">T.E:</label>
-                        <input id="domicilio_telefono_nuevo" campo="domicilio_telefono_nuevo" type="text" placeholder="Telefono" style="width: 192px;" class="validar" />
-                    </div>
+                <br />
+                <div class="bloque">
+                    <label for="calle" style="display:inline-block; margin-right: 10px">Calle: </label>
+                    <input id="calle_nueva" campo="domicilio_calle_nuevo" type="text" placeholder="Calle" style="flex-grow:100;" class="validar" />
+                </div>
+                <div class="bloque">
+                    <label for="nro_nuevo" style="display:inline-block; margin-right: 10px">Nro:</label>
+                    <input id="nro_nuevo" campo="domicilio_numero_nuevo" type="number" placeholder="Nro" style="width: 100px; margin-right: 10px;" class="validarNumero" />
+                    <label for="piso" style="display:inline-block; width:40px; margin-right: 10px">Piso: </label>
+                    <input id="piso_nuevo" campo="domicilio_piso_nuevo" type="number" placeholder="Piso" style="width: 80px; margin-right: 10px;" class="validarNumero" />
+                    <label for="dto" style="display:inline-block; width:40px; margin-right: 10px">Dto: </label>
+                    <input id="dto_nuevo" campo="domicilio_depto_nuevo" type="text" placeholder="Depto" style="margin-right: 10px;width: 80px;" class="validar" />
+                    <label for="cp" style="display:inline-block; width:40px; margin-right: 10px;">C.P: </label>
+                    <input id="cp_nuevo" campo="domicilio_cp_nuevo" type="text" placeholder="C.P." style="flex-grow:100;" class="validar" />
+                </div>
+                <div class="bloque">
+                    <label for="provincia" style="display:inline-block; margin-right: 10px">Provincia: </label>
+                    <select id="provincia_nuevo" campo="domicilio_provincia_nuevo" rh-control-type="combo" rh-data-provider="Provincias" rh-propiedad-label= "Nombre" class="cmb_provincia" style="width:130px;margin-right: 10px;" ></select>
+                    <label for="Localidad" style="margin-right: 10px">Localidad:</label>
+                    <select id="localidad_nuevo" campo="domicilio_localidad_nuevo" rh-control-type="combo"  rh-data-provider="Localidades" rh-filter-key="IdProvincia" rh-propiedad-label= "Nombre" rh-id-filter-combo="provincia_nuevo" class="cmb_localidad" style="width:150px;margin-right: 10px" > </select>
+                    <label for="domicilio_telefono_nuevo" style="display:inline-block; width:40px; margin-right: 10px">T.E:</label>
+                    <input id="domicilio_telefono_nuevo" campo="domicilio_telefono_nuevo" type="text" placeholder="Telefono" style="flex-grow:100;" class="validar" />
+                </div>
             </div>
             <hr />
             <p class="subtitulo">2) Estudios Formales:</p>
@@ -134,97 +123,100 @@
                 <a style="cursor:pointer; font-size:1.2em;" class="toggle-text" data-toggle="collapse" id="cargar_mas_estudios">
                     <span>Cargar</span><span class="hidden">Ocultar</span> otros estudios (max 5)</a>
                 <div class="caja_estudios caja_extra">
-                     <div class="bloque">
-                        <label for="nivel_estudio_1" style="display:inline-block; width:150px;">Nivel de estudio:</label>
-                        <input id="nivel_estudio_1" campo="nivel_estudio_1" type="text" placeholder="Nivel" style="width:480px;" />
+                     <div class="bloque_estudios">
+                        <label for="nivel_estudio_1" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
+                        <input id="nivel_estudio_1" campo="nivel_estudio_1" type="text" placeholder="Nivel" style="flex-grow:100;" />
+                     </div>
+                     <div class="bloque_estudios">
+                        <label for="titulo_obtenido_1" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
+                        <input id="titulo_obtenido_1" class="input_estudio_extra" campo="titulo_obtenido_1" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
-                     <div class="bloque">
-                        <label for="titulo_obtenido_1" style="display:inline-block; width:150px;">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_1" class="input_estudio_extra" campo="titulo_obtenido_1" type="text" placeholder="Título" style="width:480px;" />
+                     <div class="bloque_estudios">
+                        <label for="institucion_1" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
+                        <input id="institucion_1" campo="institucion_1" type="text" placeholder="Institución" style="flex-grow:100;" />
                     </div>
-                     <div class="bloque">
-                        <label for="institucion_1" style="display:inline-block; width:150px;">Institución otorgante:</label>
-                        <input id="institucion_1" campo="institucion_1" type="text" placeholder="Institución" style="width:480px;" />
-                    </div>
-                    <div class="bloque">
-                        <label for="fecha_egreso_1" style="display:inline-block; width:150px;">Fecha Egreso:</label>
-                        <input id="fecha_egreso_1" campo="fecha_egreso_1" type="text" placeholder="dd/mm/aaaa" style="width:480px;" />
+                    <div class="bloque_estudios">
+                        <label for="fecha_egreso_1" style="display:inline-block; width:150px;margin-right: 10px">Fecha Egreso:</label>
+                        <input id="fecha_egreso_1" campo="fecha_egreso_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100;" />
                     </div>
                 </div>
 
              
-                   <div id="caja_estudio_2" class="caja_estudios caja_extra">
-                         <div class="bloque">
-                            <label for="nivel_estudio_2" style="display:inline-block; width:150px;">Nivel de estudio:</label>
-                            <input id="nivel_estudio_2"  campo="nivel_estudio_2" type="text" placeholder="Nivel" style="width:480px;" />
-                        </div>
-                         <div class="bloque">
-                            <label for="titulo_obtenido_2" style="display:inline-block; width:150px;">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_2" class="input_estudio_extra" campo="titulo_obtenido_2" type="text" placeholder="Título" style="width:480px;" />
+                <div id="caja_estudio_2" class="caja_estudios caja_extra">
+                    <div class="bloque_estudios">
+                        <label for="nivel_estudio_2" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
+                        <input id="nivel_estudio_2" campo="nivel_estudio_2" type="text" placeholder="Nivel" style="flex-grow:100;" />
                     </div>
-                     <div class="bloque">
-                        <label for="institucion_2" style="display:inline-block; width:150px;">Institución otorgante:</label>
-                        <input id="institucion_2" campo="institucion_2" type="text" placeholder="Institución" style="width:480px;" />
+                    <div class="bloque_estudios">
+                        <label for="titulo_obtenido_2" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
+                        <input id="titulo_obtenido_2" class="input_estudio_extra" campo="titulo_obtenido_2" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
-                    <div class="bloque">
-                        <label for="fecha_egreso_2" style="display:inline-block; width:150px;">Fecha Egreso:</label>
-                        <input id="fecha_egreso_2" campo="fecha_egreso_2" type="text" placeholder="dd/mm/aaaa" style="width:480px;" />
+                    <div class="bloque_estudios">
+                        <label for="institucion_2" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
+                        <input id="institucion_2" campo="institucion_2" type="text" placeholder="Institución" style="flex-grow:100;" />
                     </div>
+                    <div class="bloque_estudios">
+                        <label for="fecha_egreso_2" style="display:inline-block; width:150px;margin-right: 10px">Fecha Egreso:</label>
+                        <input id="fecha_egreso_2" campo="fecha_egreso_2" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100;" />
                     </div>
-                    <div id="caja_estudio_3" class="caja_estudios caja_extra">
-                     <div class="bloque">
-                        <label for="nivel_estudio_3" style="display:inline-block; width:150px;">Nivel de estudio:</label>
-                        <input id="nivel_estudio_3" campo="nivel_estudio_3" type="text" placeholder="Nivel" style="width:480px;" />
+                </div>
+
+                <div id="caja_estudio_3" class="caja_estudios caja_extra">
+                    <div class="bloque_estudios">
+                        <label for="nivel_estudio_3" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
+                        <input id="nivel_estudio_3" campo="nivel_estudio_3" type="text" placeholder="Nivel" style="flex-grow:100;" />
                     </div>
-                     <div class="bloque">
-                        <label for="titulo_obtenido_3" style="display:inline-block; width:150px;">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_3" class="input_estudio_extra" campo="titulo_obtenido_3" type="text" placeholder="Título" style="width:480px;" />
+                    <div class="bloque_estudios">
+                        <label for="titulo_obtenido_3" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
+                        <input id="titulo_obtenido_3" class="input_estudio_extra" campo="titulo_obtenido_3" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
-                     <div class="bloque">
-                        <label for="institucion_3" style="display:inline-block; width:150px;">Institución otorgante:</label>
-                        <input id="institucion_3" campo="institucion_3" type="text" placeholder="Institución" style="width:480px;" />
+                    <div class="bloque_estudios">
+                        <label for="institucion_3" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
+                        <input id="institucion_3" campo="institucion_3" type="text" placeholder="Institución" style="flex-grow:100;" />
                     </div>
-                     <div class="bloque">
-                        <label for="fecha_egreso_3" style="display:inline-block; width:150px;">Fecha Egreso:</label>
-                        <input id="fecha_egreso_3" campo="fecha_egreso_3" type="text" placeholder="dd/mm/aaaa" style="width:480px;" />
+                    <div class="bloque_estudios">
+                        <label for="fecha_egreso_3" style="display:inline-block; width:150px;margin-right: 10px">Fecha Egreso:</label>
+                        <input id="fecha_egreso_3" campo="fecha_egreso_3" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100;" />
                     </div>
+                </div>
+
+                <div id="caja_estudio_4" class="caja_estudios caja_extra">
+                    <div class="bloque_estudios">
+                        <label for="nivel_estudio_4" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
+                        <input id="nivel_estudio_4" campo="nivel_estudio_4" type="text" placeholder="Nivel" style="flex-grow:100;" />
                     </div>
-                    <div id="caja_estudio_4" class="caja_estudios caja_extra">
-                     <div class="bloque">
-                        <label for="nivel_estudio_4" style="display:inline-block; width:150px;">Nivel de estudio:</label>
-                        <input id="nivel_estudio_4" campo="nivel_estudio_4" type="text" placeholder="Nivel" style="width:480px;" />
+                    <div class="bloque_estudios">
+                        <label for="titulo_obtenido_4" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
+                        <input id="titulo_obtenido_4" class="input_estudio_extra" campo="titulo_obtenido_4" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
-                     <div class="bloque">
-                        <label for="titulo_obtenido_4" style="display:inline-block; width:150px;">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_4" class="input_estudio_extra" campo="titulo_obtenido_4" type="text" placeholder="Título" style="width:480px;" />
+                    <div class="bloque_estudios">
+                        <label for="institucion_4" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
+                        <input id="institucion_4" campo="institucion_4" type="text" placeholder="Institución" style="flex-grow:100;" />
                     </div>
-                     <div class="bloque">
-                        <label for="institucion_4" style="display:inline-block; width:150px;">Institución otorgante:</label>
-                        <input id="institucion_4" campo="institucion_4" type="text" placeholder="Institución" style="width:480px;" />
+                    <div class="bloque_estudios">
+                        <label for="fecha_egreso_4" style="display:inline-block; width:150px;margin-right: 10px">Fecha Egreso:</label>
+                        <input id="fecha_egreso_4" campo="fecha_egreso_4" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100;" />
                     </div>
-                     <div class="bloque">
-                        <label for="fecha_egreso_4" style="display:inline-block; width:150px;">Fecha Egreso:</label>
-                        <input id="fecha_egreso_4" campo="fecha_egreso_4" type="text" placeholder="dd/mm/aaaa" style="width:480px;" />
+                </div>
+
+                <div id="caja_estudio_5" class="caja_estudios caja_extra">
+                    <div class="bloque_estudios">
+                        <label for="nivel_estudio_5" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
+                        <input id="nivel_estudio_5" campo="nivel_estudio_5" type="text" placeholder="Nivel" style="flex-grow:100;" />
                     </div>
+                    <div class="bloque_estudios">
+                        <label for="titulo_obtenido_5" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
+                        <input id="titulo_obtenido_5" class="input_estudio_extra" campo="titulo_obtenido_5" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
-                    <div id="caja_estudio_5" class="caja_estudios caja_extra">
-                     <div class="bloque">
-                        <label for="nivel_estudio_5" style="display:inline-block; width:150px;">Nivel de estudio:</label>
-                        <input id="nivel_estudio_5" campo="nivel_estudio_5" type="text" placeholder="Nivel" style="width:480px;" />
+                    <div class="bloque_estudios">
+                        <label for="institucion_5" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
+                        <input id="institucion_5" campo="institucion_5" type="text" placeholder="Institución" style="flex-grow:100;" />
                     </div>
-                     <div class="bloque">
-                        <label for="titulo_obtenido_5" style="display:inline-block; width:150px;">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_5" class="input_estudio_extra" campo="titulo_obtenido_5" type="text" placeholder="Título" style="width:480px;" />
+                    <div class="bloque_estudios">
+                        <label for="fecha_egreso_5" style="display:inline-block; width:150px;margin-right: 10px">Fecha Egreso:</label>
+                        <input id="fecha_egreso_5" campo="fecha_egreso_5" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100;" />
                     </div>
-                     <div class="bloque">
-                        <label for="institucion_5" style="display:inline-block; width:150px;">Institución otorgante:</label>
-                        <input id="institucion_5" campo="institucion_5" type="text" placeholder="Institución" style="width:480px;" />
-                    </div>
-                     <div class="bloque">
-                        <label for="fecha_egreso_5" style="display:inline-block; width:150px;">Fecha Egreso:</label>
-                        <input id="fecha_egreso_5" campo="fecha_egreso_5" type="text" placeholder="dd/mm/aaaa" style="width:480px;" />
-                    </div>
-                    </div>
+                </div>
                 
           
             <!--<p style="font-weight:bold;">b. Registre nuevo título: (solo completar en el caso de haber obtenido un título de igual o mayor nivel que el registrado)</p>
@@ -1269,23 +1261,24 @@
             </div>
             <br />
             <div style="margin-left: 50px;">
-                <div class="bloque">
-                    <label style="display: inline-block; width: 150px;">Herramienta</label>
-<%--                    <select id="cboHerramientas" style="width: 200px" campo="cboHerramientas" rh-control-type="combo"
-                        rh-data-provider="xxxxxxx" rh-model-property="cboHerramientas" data-validar="haySeleccionEnCombo">
-                    </select>--%>
-                </div>
-                <div class="bloque">
-                    <label style="display: inline-block; width: 150px;">Conocimiento</label>
-<%--                     <select id="cboConocimiento" style="width: 200px" campo="cboConocimiento" rh-control-type="combo"
-                        rh-data-provider="xxxxxxx" rh-model-property="cboConocimiento" data-validar="haySeleccionEnCombo">
-                    </select>--%>
+                <div class="bloque" style="margin-bottom: 15px;">
+                    <label style="display: inline-block; width: 100px;">Herramienta</label>
+                    <select id="cboHerramientas" style="width: 200px" campo="cboHerramientas" rh-control-type="combo"
+                        rh-data-provider="TiposCompetenciaInformatica" rh-model-property="TipoInformatica" data-validar="haySeleccionEnCombo">
+                    </select>
+            
+                    <label style="display: inline-block; width: 100px; margin-left: 30px;">Conocimiento</label>
+                     <select id="cboConocimiento" style="width: 200px" campo="cboConocimiento" rh-control-type="combo"
+                        rh-data-provider="ConocimientoCompetenciaInformatica" rh-model-property="Conocimiento" data-validar="haySeleccionEnCombo" 
+                        rh-permite-agregar=true rh-filter-key="Tipo" rh-filter-value="TipoInformatica">
+                    </select>
                 </div>
                 <div class="bloque">
                     <label style="display: inline-block; width: 150px;">Utiliza en sus funciones</label>
                     <label style="display: inline-block; width: 10px;">Si</label>
                     <input id="chkUtilizaFuncion_SI" style="width: 50px" />
                 </div>
+                <div id="listadoConocimientos" style="margin: 10px; width: 660px;"></div>
                 <input type="button" id="btn_Agregar_Conocimientos" class="btn btn-primary" value="Agregar conocimiento" style="width:200px" />
             </div> 
     </div>
@@ -1318,13 +1311,13 @@
     <br />
     <div style="margin-left: 80px;">
         <div class="bloque">
-            <label class="espacio_firma">_______________________</label>
+            <label style="display: inline-block; width: 300px; text-align:center"">_______________________</label>
+            <label style="display: inline-block; width: 300px; text-align:center">__________________________________________</label> 
             <label style="display: inline-block; width: 300px; text-align:center">________________________</label> 
-            <label class="espacio_firma">________________________</label> 
         </div>
-        <label class="espacio_firma">Firma</label>   
+        <label style="display: inline-block; width: 300px; text-align:center">Firma</label>   
         <label style="display: inline-block; width: 300px; text-align:center">Aclaración</label>   
-        <label class="espacio_firma">Fecha</label>   
+        <label style="display: inline-block; width: 300px; text-align:center">Fecha</label>   
     </div>
     <hr />                
     <div style="margin-left: 50px;">
@@ -1337,13 +1330,13 @@
     <br />
     <div style="margin-left: 80px;">
         <div class="bloque">
-            <label class="espacio_firma">_______________________</label>
+            <label style="display: inline-block; width: 300px; text-align:center"">_______________________</label>
+            <label style="display: inline-block; width: 300px; text-align:center">__________________________________________</label> 
             <label style="display: inline-block; width: 300px; text-align:center">________________________</label> 
-            <label class="espacio_firma" >________________________</label> 
         </div>
-        <label class="espacio_firma" >Firma</label>   
+        <label style="display: inline-block; width: 300px; text-align:center">Firma</label>   
         <label style="display: inline-block; width: 300px; text-align:center">Aclaración</label>   
-        <label class="espacio_firma" >Fecha</label>   
+        <label style="display: inline-block; width: 300px; text-align:center">Fecha</label>   
     </div>
 
 

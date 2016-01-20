@@ -120,6 +120,7 @@ var VistaFormulario = {
 
                 _this.dibujarEstudios();
                 _this.ocultarTareas();
+                _this.bindearBtnAgregarConocimiento();
             });
         };
     },
@@ -253,5 +254,40 @@ var VistaFormulario = {
             }
 
         } // end if
+    },
+    bindearBtnAgregarConocimiento: function () {
+        var btn = $('#btn_Agregar_Conocimientos');
+
+        btn.click(function () {
+            var herramienta = $('#cboHerramientas').find('option:selected').text();
+            var conocimiento = $('#cboConocimiento').find('option:selected').text();
+            var texto = herramienta + ' - ' + conocimiento;
+
+            var div = $('<div>');
+            div.addClass('caja_estilo_conocimiento');
+
+            var input = $('<input>');
+            input.attr('campo', 'conocimiento');
+            input.attr('disabled', 'disabled');
+            input.attr('size', texto.length);
+            input.addClass('estilo_conocimientos');
+            input.val(texto);
+
+            var eliminar = $('<img>');
+            eliminar.attr('src', '../Imagenes/iconos/icono-eliminar.png');
+            eliminar.addClass('icono_eliminar');
+
+            eliminar.click(function () {
+                this.parentElement.remove();
+            })
+
+            div.append(input);
+            div.append(eliminar);
+
+            $('#listadoConocimientos').append(div);
+
+
+        })
+
     }
 }

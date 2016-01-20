@@ -15,9 +15,15 @@ p { margin: 10px 0; }
 }
 
 .bloque {
-    display:block;
+    display: flex;
+    width: 800px;
 }
-       
+
+.bloque_estudios
+{
+    display: flex;
+    width: 700px;
+}
        
 form.cmxform fieldset {
   /*margin-bottom: 10px;*/
@@ -153,6 +159,23 @@ border-bottom: 1px solid #929292;
     display:block;
 }
 
+@media print {
+    #barra_menu_contenedor, 
+    #buscador_de_personas, 
+    #btn_imprimir, 
+    #btn_guardar_cambios, 
+    #btn_Agregar_Conocimientos, 
+    #cargar_mas_estudios, 
+    #Header, 
+    #Footer, 
+    .no_imprimir,
+    .select2-arrow,
+    .select2-chosen,
+    .icono_eliminar
+    {
+        display: none !important;
+    }
+
 .espacio_firma 
 {
     display: inline-block; 
@@ -160,25 +183,52 @@ border-bottom: 1px solid #929292;
     text-align:center;
     }
     
+    .select2-allowclear .select2-chosen
+    {
+        display: block !important;
+    }
     
-@media print {
-   #barra_menu_contenedor, #buscador_de_personas, #btn_imprimir, #btn_guardar_cambios, #btn_Agregar_Conocimientos, #cargar_mas_estudios, #Header, #Footer, .no_imprimir
-   {
-        display: none !important;
-   }
-   ::-webkit-input-placeholder { /* WebKit browsers */
-      color: transparent;
-  }
-  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-      color: transparent;
-  }
-  ::-moz-placeholder { /* Mozilla Firefox 19+ */
-      color: transparent;
-  }
-  :-ms-input-placeholder { /* Internet Explorer 10+ */
-      color: transparent;
-  }
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color: transparent;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: transparent;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: transparent;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: transparent;
+    }
+    
 }
+
+.estilo_conocimientos 
+{
+    border: none;
+    
+    color: black !important;
+    background-color: #F3A227 !important;
+    text-align: center;
+    font-size: 0.9em;
+    }
+    
+.caja_estilo_conocimiento 
+{
+    color: black !important;
+    background-color: #F3A227 !important;
+    border-radius: 5px !important;
+    display: inline-block;
+    padding: 5px;
+    margin: 10px;
+}
+    
+.icono_eliminar 
+{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    }
 
     
 
