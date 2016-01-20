@@ -1261,23 +1261,24 @@
             </div>
             <br />
             <div style="margin-left: 50px;">
-                <div class="bloque">
-                    <label style="display: inline-block; width: 150px;">Herramienta</label>
-<%--                    <select id="cboHerramientas" style="width: 200px" campo="cboHerramientas" rh-control-type="combo"
-                        rh-data-provider="xxxxxxx" rh-model-property="cboHerramientas" data-validar="haySeleccionEnCombo">
-                    </select>--%>
-                </div>
-                <div class="bloque">
-                    <label style="display: inline-block; width: 150px;">Conocimiento</label>
-<%--                     <select id="cboConocimiento" style="width: 200px" campo="cboConocimiento" rh-control-type="combo"
-                        rh-data-provider="xxxxxxx" rh-model-property="cboConocimiento" data-validar="haySeleccionEnCombo">
-                    </select>--%>
+                <div class="bloque" style="margin-bottom: 15px;">
+                    <label style="display: inline-block; width: 100px;">Herramienta</label>
+                    <select id="cboHerramientas" style="width: 200px" campo="cboHerramientas" rh-control-type="combo"
+                        rh-data-provider="TiposCompetenciaInformatica" rh-model-property="TipoInformatica" data-validar="haySeleccionEnCombo">
+                    </select>
+            
+                    <label style="display: inline-block; width: 100px; margin-left: 30px;">Conocimiento</label>
+                     <select id="cboConocimiento" style="width: 200px" campo="cboConocimiento" rh-control-type="combo"
+                        rh-data-provider="ConocimientoCompetenciaInformatica" rh-model-property="Conocimiento" data-validar="haySeleccionEnCombo" 
+                        rh-permite-agregar=true rh-filter-key="Tipo" rh-filter-value="TipoInformatica">
+                    </select>
                 </div>
                 <div class="bloque">
                     <label style="display: inline-block; width: 150px;">Utiliza en sus funciones</label>
                     <label style="display: inline-block; width: 10px;">Si</label>
                     <input id="chkUtilizaFuncion_SI" style="width: 50px" />
                 </div>
+                <div id="listadoConocimientos" style="margin: 10px; width: 660px;"></div>
                 <input type="button" id="btn_Agregar_Conocimientos" class="btn btn-primary" value="Agregar conocimiento" style="width:200px" />
             </div> 
     </div>

@@ -196,9 +196,17 @@ border-bottom: 1px solid #929292;
     #Footer, 
     .no_imprimir,
     .select2-arrow,
-    .select2-chosen
+    .select2-chosen,
+    .icono_eliminar
     {
         display: none !important;
+    }
+
+.espacio_firma 
+{
+    display: inline-block; 
+    width: 200px; 
+    text-align:center;
     }
     
     .select2-allowclear .select2-chosen
@@ -220,6 +228,33 @@ border-bottom: 1px solid #929292;
     }
     
 }
+
+.estilo_conocimientos 
+{
+    border: none;
+    
+    color: black !important;
+    background-color: #F3A227 !important;
+    text-align: center;
+    font-size: 0.9em;
+    }
+    
+.caja_estilo_conocimiento 
+{
+    color: black !important;
+    background-color: #F3A227 !important;
+    border-radius: 5px !important;
+    display: inline-block;
+    padding: 5px;
+    margin: 10px;
+}
+    
+.icono_eliminar 
+{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    }
 
     
 
