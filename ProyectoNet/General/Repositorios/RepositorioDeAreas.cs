@@ -377,5 +377,17 @@ namespace General.Repositorios
         {
             throw new NotImplementedException();
         }
+
+        public List<Combo> ObtenerTratamientoPersonas()
+        {
+            List<Combo> combo = new List<Combo>();
+            var tablaDatos = conexion.Ejecutar("dbo.VIA_GetTratamientos_Personas");
+            tablaDatos.Rows.ForEach(row =>
+                {
+                    Combo opcion = new Combo(row.GetSmallintAsInt("id"), row.GetString("descripcion"));
+                    combo.Add(opcion);
+                });
+            return combo;
+        }
     }
 }

@@ -12,12 +12,12 @@
                 <div id="div_documento" class="grupo_campos">
                     <label for="cmb_TipoResponsable">
                         Documento:</label>
-                    <input id="txt_documento" type="text" style="width: 100px;" data-validar="esNumeroNaturalSinCero" />
+                    <input id="txt_responsable_documento" type="text" style="width: 100px;" data-validar="esNumeroNaturalSinCero" />
                 </div>
                 <div class="grupo_campos">
                     <label for="cmb_TipoResponsable">
                         Id Interna:</label>
-                    <input id="txt_id_interna" type="text" style="width: 96px;" data-validar="esNoBlanco"
+                    <input id="txt_responsable_id_interna" type="text" style="width: 96px;" data-validar="esNoBlanco"
                         disabled />
                     <input type="button" class="btn btn-primary" style="margin: -10px 0px 0px 14px;"
                         id="btn_buscar_responsable" value="Buscar" />
@@ -31,14 +31,14 @@
                     <label for="txt_Responsable" style="margin-left: 19px;">
                         Nombre:
                     </label>
-                    <input id="txt_nombre" type="text" style="width: 285px;" data-validar="esNoBlanco"
+                    <input id="txt_responsable_nombre" type="text" style="width: 285px;" data-validar="esNoBlanco"
                         disabled />
                 </div>
                 <div class="grupo_campos nueva_linea">
                     <label for="txt_Responsable" style="margin-left: 19px;">
                         Apellido:
                     </label>
-                    <input id="txt_apellido" type="text" style="width: 285px;" data-validar="esNoBlanco"
+                    <input id="txt_responsable_apellido" type="text" style="width: 285px;" data-validar="esNoBlanco"
                         disabled />
                 </div>
                 <legend style="margin-bottom: 20px;">Datos del Cargo</legend>
@@ -46,7 +46,7 @@
                     <label for="txt_Responsable">
                         Trat. Persona:
                     </label>
-                    <select id="Select1" style="width: 90px;" data-validar="esNoBlanco">
+                    <select id="cmb_responsable_tratamiento_persona" style="width: 90px;" data-validar="esNoBlanco">
                     </select>
                 </div>
                 <div class="grupo_campos">
@@ -80,40 +80,7 @@
 
     $(document).ready(function () {
 
-        $('#btn_buscar_responsable').focus(function () {
-            BuscarPersonal();
-        });
-
-        CargarCombosResponsable();
-
-        BuscarPersonal = function () {
-
-            if ($("#div_documento").esValido()) {
-                var criterio = {}
-                criterio.Documento = parseInt($("#txt_documento").val());
-                var persona = Backend.ejecutarSincronico("BuscarPersonas", [JSON.stringify(criterio)]);
-                if (persona.length > 0) {
-                    $("#txt_id_interna").val(persona[0].Legajo);
-                    $("#txt_nombre").val(persona[0].Nombre);
-                    $("#txt_apellido").val(persona[0].Apellido)
-                    $("#div_mensaje").hide();
-                    $("#txt_id_interna").prop('disabled', true);
-                    $("#txt_nombre").prop('disabled', true);
-                    $("#txt_apellido").prop('disabled', true);
-                } else {
-                    $("#div_mensaje").show();
-                    $("#txt_id_interna").prop('disabled', false);
-                    $("#txt_nombre").prop('disabled', false);
-                    $("#txt_apellido").prop('disabled', false);
-                    $("#txt_id_interna").val("");
-                    $("#txt_nombre").val("");
-                    $("#txt_apellido").val("")
-                    //Habilitar todo
-                }
-            }
-        };
-
-        CargarCombosResponsable = function () { };
+        ModificarAreas_Responsable.Iniciar();
     });
 
 </script>

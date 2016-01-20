@@ -2046,6 +2046,14 @@ public class WSViaticos : System.Web.Services.WebService
         return funcionalidades;
     }
 
+    
+         [WebMethod]
+    public Combo[] ObtenerTratamientoPersonas()
+    {
+        Combo[] combo = RepositorioDeAreas().ObtenerTratamientoPersonas().ToArray();
+        return combo;
+    }
+
     [WebMethod]
     public Persona[] BuscarPersonas(string criterio)
     {
