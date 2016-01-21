@@ -381,12 +381,36 @@ namespace General.Repositorios
         public List<Combo> ObtenerTratamientoPersonas()
         {
             List<Combo> combo = new List<Combo>();
-            var tablaDatos = conexion.Ejecutar("dbo.VIA_GetTratamientos_Personas");
+            var tablaDatos = conexion.Ejecutar("dbo.VIA_GetTratamientosPersonas");
             tablaDatos.Rows.ForEach(row =>
                 {
                     Combo opcion = new Combo(row.GetSmallintAsInt("id"), row.GetString("descripcion"));
                     combo.Add(opcion);
                 });
+            return combo;
+        }
+
+        public List<Combo> ObtenerTratamientoTitulos()
+        {
+            List<Combo> combo = new List<Combo>();
+            var tablaDatos = conexion.Ejecutar("dbo.VIA_GetTratamientosTitulos");
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Combo opcion = new Combo(row.GetSmallintAsInt("id"), row.GetString("Descripcion"));
+                combo.Add(opcion);
+            });
+            return combo;
+        }
+
+        public List<Combo> ObtenerCargosFunciones()
+        {
+            List<Combo> combo = new List<Combo>();
+            var tablaDatos = conexion.Ejecutar("dbo.VIA_GetCargosFunciones");
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Combo opcion = new Combo(row.GetSmallintAsInt("id"), row.GetString("descripcion"));
+                combo.Add(opcion);
+            });
             return combo;
         }
     }
