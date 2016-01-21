@@ -1264,15 +1264,11 @@
             <div style="margin-left: 50px;">
                 <div class="bloque" style="margin-bottom: 15px;">
                     <label style="display: inline-block; width: 100px;">Herramienta</label>
-                    <select id="cboHerramientas" style="width: 200px" campo="cboHerramientas" rh-control-type="combo"
-                        rh-data-provider="TiposCompetenciaInformatica" rh-model-property="TipoInformatica" data-validar="haySeleccionEnCombo">
-                    </select>
+
+                    <select id="cboHerramientas" style="width: 200px" rh-control-type="combo" rh-data-provider="TiposCompetenciaInformatica" > </select>
             
                     <label style="display: inline-block; width: 100px; margin-left: 30px;">Conocimiento</label>
-                     <select id="cboConocimiento" style="width: 200px" campo="cboConocimiento" rh-control-type="combo"
-                        rh-data-provider="ConocimientoCompetenciaInformatica" rh-model-property="Conocimiento" data-validar="haySeleccionEnCombo" 
-                        rh-permite-agregar=true rh-filter-key="Tipo" rh-filter-value="TipoInformatica">
-                    </select>
+                    <select id="cboConocimiento" style="width: 200px" rh-control-type="combo" rh-data-provider="ConocimientoCompetenciaInformatica" rh-permite-agregar=true rh-id-filter-combo="cboHerramientas" rh-filter-key="Tipo" ></select>
                 </div>
                 <div class="bloque">
                     <label style="display: inline-block; width: 150px;">Utiliza en sus funciones</label>
