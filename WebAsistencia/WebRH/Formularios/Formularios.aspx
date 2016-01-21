@@ -34,8 +34,7 @@
     </div>
    
         <hr />
-        <%--<div class="contenedor_formulario" style="display: none"> --%>
-        <div class="contenedor_formulario"  > 
+        <div class="contenedor_formulario" style="display: none"> 
             <input id="btn_imprimir" type="button" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
             <p class="subtitulo">1) Datos Personales:</p>
 
@@ -1270,12 +1269,14 @@
                     <label style="display: inline-block; width: 100px; margin-left: 30px;">Conocimiento</label>
                     <select id="cboConocimiento" style="width: 200px" rh-control-type="combo" rh-data-provider="ConocimientoCompetenciaInformatica" rh-permite-agregar=true rh-id-filter-combo="cboHerramientas" rh-filter-key="Tipo" ></select>
                 </div>
-                <div class="bloque">
+ <%--               <div class="bloque">
                     <label style="display: inline-block; width: 150px;">Utiliza en sus funciones</label>
                     <label style="display: inline-block; width: 10px;">Si</label>
-                    <input id="chkUtilizaFuncion_SI" style="width: 50px" />
+                    <input id="chkUtilizaFuncion_SI" type="checkbox" style="width: 50px" />
+                </div>--%>
+                <div id="listadoConocimientos" style="margin: 10px; width: 660px;">
+                    
                 </div>
-                <div id="listadoConocimientos" style="margin: 10px; width: 660px;"></div>
                 <input type="button" id="btn_Agregar_Conocimientos" class="btn btn-primary" value="Agregar conocimiento" style="width:200px" />
             </div> 
     </div>
@@ -1356,6 +1357,13 @@
                     <div id="titulo_doc">Doc:</div>
                     <div id="documento"></div>         
                 </div>   
+            </div>
+
+            <div class="caja_estilo_conocimiento"> 
+                <input type=text class="conocimiento" disabled=disabled/> 
+                <label style="margin-right: 10px;">Utiliza</label> 
+                <input class="utiliza_conocimiento" type="checkbox" />
+                <img src="../Imagenes/iconos/icono-eliminar.png" class="icono_eliminar"/>
             </div>
         </div>
     </form>

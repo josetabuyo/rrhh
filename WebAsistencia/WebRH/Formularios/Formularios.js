@@ -20,6 +20,15 @@ var VistaFormulario = {
             placeholder: "nombre, apellido, documento o legajo"
         });
 
+        for (var i = 1; i < 21; i++) {
+            var conocimiento = $("#plantillas .caja_estilo_conocimiento").clone();
+            conocimiento.find(".conocimiento").attr("campo", "conocimiento_" + i);
+            conocimiento.find(".utiliza_conocimiento").attr("campo", "utiliza_conocimiento_" + i);
+            conocimiento.hide();
+
+            conocimiento.appendTo($("#listadoConocimientos"));
+        }
+
         var formulario = {};
 
         var cambios = {};
@@ -117,6 +126,14 @@ var VistaFormulario = {
                 });
                 _this.habilitar_registro_cambios = true;
 
+                $("#listadoConocimientos .caja_estilo_conocimiento").each(function () {
+                    var input_conocimiento = $(this).find(".conocimiento");
+
+                    if (input_conocimiento.val() != "") {
+                        $(this).show();
+                    }
+                });
+
                 $(".contenedor_formulario").show()
 
                 _this.dibujarEstudios();
@@ -132,6 +149,7 @@ var VistaFormulario = {
             $(this).val("");
             $(this).change();
         });
+        $("#listadoConocimientos .caja_estilo_conocimiento").hide();
         this.habilitar_registro_cambios = true;
     },
     dibujarEstudios: function () {
@@ -265,23 +283,37 @@ var VistaFormulario = {
             var conocimiento = $('#cboConocimiento').find('option:selected').text();
             var texto = herramienta + ' - ' + conocimiento;
 
-            var div = $('<div>');
-            div.addClass('caja_estilo_conocimiento');
+            var listo = false;
+            $("#listadoConocimientos .caja_estilo_conocimiento").each(function () {
+                if (!listo) {
+                    var input_conocimiento = $(this).find(".conocimiento");
 
-            var input = $('<input>');
-            input.attr('campo', 'conocimiento');
-            input.attr('disabled', 'disabled');
-            input.attr('size', texto.length);
-            input.addClass('estilo_conocimientos');
-            input.val(texto);
+                    if (input_conocimiento.val() == "") {
+                        input_conocimiento.val(texto);
+                        input_conocimiento.change();
+                        $(this).show();
+                        listo = true;
+                    }
+                }
+            });
 
-            var eliminar = $('<img>');
-            eliminar.attr('src', '../Imagenes/iconos/icono-eliminar.png');
-            eliminar.addClass('icono_eliminar');
+            //            var div = $('<div>');
+            //            div.addClass('caja_estilo_conocimiento');
 
-            eliminar.click(function () {
-                this.parentElement.remove();
-            })
+            //            var input = $('<input>');
+            //            input.attr('campo', 'conocimiento');
+            //            input.attr('disabled', 'disabled');
+            //            input.attr('size', texto.length);
+            //            input.addClass('estilo_conocimientos');
+            //            input.val(texto);
+
+            //            var eliminar = $('<img>');
+            //            eliminar.attr('src', '../Imagenes/iconos/icono-eliminar.png');
+            //            eliminar.addClass('icono_eliminar');
+
+            //            eliminar.click(function () {
+            //                this.parentElement.remove();
+            //            })
 
             //TODO: agregar a los cambios  el nuevo conocimiento
             /*form_cambios.campos.push({
@@ -289,10 +321,10 @@ var VistaFormulario = {
             valor: 'texto'
             });*/
 
-            div.append(input);
-            div.append(eliminar);
+            //            div.append(input);
+            //            div.append(eliminar);
 
-            $('#listadoConocimientos').append(div);
+            //$('#listadoConocimientos').append(div);
 
 
         })
@@ -305,7 +337,7 @@ var VistaFormulario = {
             };
             var afterPrint = function () {
                 console.log('Functionality to run after printing');
-                    Backend.GuardarCabeceraFormulario(form)
+                Backend.GuardarCabeceraFormulario(form)
                     .onSuccess(function () {
                         alertify.success("Formulario versionado correctamente");
                     })
