@@ -36,6 +36,7 @@
         <hr />
         <div class="contenedor_formulario" style="display: none"> 
             <input id="btn_imprimir" type="button" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
+            <p id="codigo_barra"></p>
             <p class="subtitulo">1) Datos Personales:</p>
 
             <div class="bloque">                    

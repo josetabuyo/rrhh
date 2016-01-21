@@ -93,6 +93,7 @@ var VistaFormulario = {
             Backend.GuardarCambiosEnFormulario(form_cambios)
             .onSuccess(function () {
                 alertify.success("Formulario guardado correctamente");
+                _this.mostrarIdUltimoFormulario(form_cambios);
             })
             .onError(function () {
                 alertify.error("Error al guardar formulario");
@@ -140,6 +141,7 @@ var VistaFormulario = {
                 _this.ocultarTareas();
                 _this.bindearBtnAgregarConocimiento();
                 _this.bidearEventosImprimir(form);
+                _this.mostrarIdUltimoFormulario(form);
             });
         };
     },
@@ -333,7 +335,7 @@ var VistaFormulario = {
     bidearEventosImprimir: function (form) {
         (function () {
             var beforePrint = function () {
-                console.log('Functionality to run before printing.');
+                //console.log('Functionality to run before printing.');
             };
             var afterPrint = function () {
                 console.log('Functionality to run after printing');
@@ -360,5 +362,17 @@ var VistaFormulario = {
             window.onbeforeprint = beforePrint;
             window.onafterprint = afterPrint;
         } ());
+    },
+    mostrarIdUltimoFormulario: function (form) {
+        Backend.GetIdCabeceraFormulario(form)
+                    .onSuccess(function (id) {
+                        //alertify.success("Se consiguio el id n° " + id);
+                        $('#codigo_barra').html(id);
+                    })
+                    .onError(function () {
+                        //alertify.error("Error al versionar el formulario");
+                        $('#codigo_barra').html('Sin datos');
+                    });
+
     }
 }

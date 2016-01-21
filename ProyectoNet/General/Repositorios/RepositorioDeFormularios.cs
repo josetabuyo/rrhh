@@ -202,5 +202,21 @@ namespace General.Repositorios
             var tablaDatos = conexion_bd.Ejecutar("dbo.FORM_UPD_Cabecera", parametros);
 
         }
+
+        public int GetUltimaCabeceraFormulario(Formulario form, Usuario usuario)
+        {
+            var id = 0;
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idTipoFormulario", form.idFormulario);
+            parametros.Add("@idPersona", form.idPersona);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.FORM_GET_Cabecera", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+                id = Int32.Parse(tablaDatos.Rows[0].GetInt("id").ToString());
+
+            
+            return id;
+
+        }
     }
 }

@@ -3304,6 +3304,13 @@ public class WSViaticos : System.Web.Services.WebService
             //el true es para poner en impreso
             new RepositorioDeFormularios(Conexion()).GuardarVersion(form, usuario,true);
         }
+
+        [WebMethod]
+        public int GetIdCabeceraFormulario(Formulario form, Usuario usuario)
+        {
+            //el true es para poner en impreso
+            return new RepositorioDeFormularios(Conexion()).GetUltimaCabeceraFormulario(form, usuario);
+        }
     #endregion
 
 
