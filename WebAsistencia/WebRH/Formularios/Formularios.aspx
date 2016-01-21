@@ -34,7 +34,8 @@
     </div>
    
         <hr />
-        <div class="contenedor_formulario" style="display: none">
+        <%--<div class="contenedor_formulario" style="display: none"> --%>
+        <div class="contenedor_formulario"  > 
             <input id="btn_imprimir" type="button" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
             <p class="subtitulo">1) Datos Personales:</p>
 
@@ -1257,7 +1258,7 @@
             <p style="font-weight: bold;">
                 Función actual: (Describa las tres tareas principales que desarrolla)</p>
             <div style="margin-left: 50px;">
-                <textarea id="Funcion_Actual" rows="7" cols="1" style="width:700px"></textarea>
+                <textarea id="Funcion_Actual" rows="7" cols="1" style="width:100%"></textarea>
             </div>
             <br />
             <div style="margin-left: 50px;">
@@ -1286,7 +1287,7 @@
         
             <div style="margin-left: 50px;">
             <p>Otros Conocimientos:</p>
-                <textarea id="Otros_Conocimientos" rows="4" cols="1" style="width:700px"></textarea>
+                <textarea id="Otros_Conocimientos" rows="4" cols="1" style="width:100%"></textarea>
             </div>
     </div>
     <hr />
@@ -1295,7 +1296,7 @@
             6) Observaciones:</p>
         <div style="margin-left: 50px;">
             <p>Indique una observación relevante por renglón</p>
-            <textarea id="Observaciones" rows="4" cols="1" style="width:700px"></textarea>
+            <textarea id="Observaciones" rows="4" cols="1" style="width:100%"></textarea>
         </div>
     </div>
     <hr />                
@@ -1309,15 +1310,17 @@
     <br />
     <br />
     <br />
-    <div style="margin-left: 50px;">
-        <div class="bloque">
-            <label style="display: inline-block; width: 200px; text-align:center; margin-left: 50px;"">_______________________</label>
+    <div>
+        <div style="text-align:center";>
+            <label style="display: inline-block; width: 200px; text-align:center; "">_______________________</label>
             <label style="display: inline-block; width: 300px; text-align:center">_____________________________________</label> 
             <label style="display: inline-block; width: 200px; text-align:center">________________________</label> 
         </div>
-        <label style="display: inline-block; width: 200px; text-align:center; margin-left: 50px;">Firma</label>   
-        <label style="display: inline-block; width: 300px; text-align:center">Aclaración</label>   
-        <label style="display: inline-block; width: 150px; text-align:center">Fecha</label>   
+        <div style="text-align:center";>
+            <label style="display: inline-block; width: 200px; text-align:center; ">Firma</label>   
+            <label style="display: inline-block; width: 300px; text-align:center">Aclaración</label>   
+            <label style="display: inline-block; width: 200px; text-align:center">Fecha</label>   
+        </div>
     </div>
     <hr />                
     <div style="margin-left: 50px;">
@@ -1328,21 +1331,22 @@
     <br />
     <br />
     <br />
-    <div style="margin-left: 50px;">
-        <div class="bloque">
-            <label style="display: inline-block; width: 200px; text-align:center; margin-left: 50px;">_______________________</label>
+    <div>
+        <div style="text-align:center";>
+            <label style="display: inline-block; width: 200px; text-align:center; "">_______________________</label>
             <label style="display: inline-block; width: 300px; text-align:center">_____________________________________</label> 
             <label style="display: inline-block; width: 200px; text-align:center">________________________</label> 
         </div>
-        <label style="display: inline-block; width: 200px; text-align:center; margin-left: 50px;">Firma</label>   
-        <label style="display: inline-block; width: 300px; text-align:center">Aclaración</label>   
-        <label style="display: inline-block; width: 150px; text-align:center">Fecha</label>   
-    </div>
-
-
-
-                <input type="button" id="btn_guardar_cambios" class="btn btn-primary" value="Guardar Cambios" />
+        <div style="text-align:center";>
+            <label style="display: inline-block; width: 200px; text-align:center; ">Firma</label>   
+            <label style="display: inline-block; width: 300px; text-align:center">Aclaración</label>   
+            <label style="display: inline-block; width: 200px; text-align:center">Fecha</label>   
         </div>
+    </div>
+    <br />
+    <br />
+    <input type="button" id="btn_guardar_cambios" class="btn btn-primary" value="Guardar Cambios" />
+    </div>
        
         <div id="plantillas">
             <div class="vista_persona_en_selector">

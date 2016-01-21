@@ -11,13 +11,21 @@ p { margin: 10px 0; }
 
 	
 .contenedor_formulario {
-    width:80%; 
+    /*width:80%;
     margin:0 10%;
+    */
+    width:800px; 
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
 }
+
 
 .bloque {
     display: flex;
-    width: 800px;
+    width: 100%;
+    /*width: 800px;*/
 }
 
 .bloque_estudios
