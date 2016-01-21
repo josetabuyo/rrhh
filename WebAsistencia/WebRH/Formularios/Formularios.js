@@ -1,8 +1,9 @@
 ﻿$(document).ready(function () {
     Backend.start(function () {
-        VistaFormulario.start();        
+        VistaFormulario.start();
     });
 });
+
 
 var VistaFormulario = {
     start: function () {
@@ -64,7 +65,7 @@ var VistaFormulario = {
             if (_this.habilitar_registro_cambios) cambios[$(this).attr("campo")] = $(this).val();
         });
         $("#btn_guardar_cambios").click(function () {
-            var form_cambios = {
+            form_cambios = {
                 idFormulario: formulario.idFormulario,
                 idPersona: formulario.idPersona,
                 campos: []
@@ -121,6 +122,7 @@ var VistaFormulario = {
                 _this.dibujarEstudios();
                 _this.ocultarTareas();
                 _this.bindearBtnAgregarConocimiento();
+                _this.bidearEventosImprimir(form);
             });
         };
     },
@@ -281,6 +283,12 @@ var VistaFormulario = {
                 this.parentElement.remove();
             })
 
+            //TODO: agregar a los cambios  el nuevo conocimiento
+            /*form_cambios.campos.push({
+            clave: 'conocimiento',
+            valor: 'texto'
+            });*/
+
             div.append(input);
             div.append(eliminar);
 
@@ -289,5 +297,36 @@ var VistaFormulario = {
 
         })
 
+    },
+    bidearEventosImprimir: function (form) {
+        (function () {
+            var beforePrint = function () {
+                console.log('Functionality to run before printing.');
+            };
+            var afterPrint = function () {
+                console.log('Functionality to run after printing');
+                    Backend.GuardarCabeceraFormulario(form)
+                    .onSuccess(function () {
+                        alertify.success("Formulario versionado correctamente");
+                    })
+                    .onError(function () {
+                        alertify.error("Error al versionar el formulario");
+                    });
+            };
+
+            if (window.matchMedia) {
+                var mediaQueryList = window.matchMedia('print');
+                mediaQueryList.addListener(function (mql) {
+                    if (mql.matches) {
+                        beforePrint();
+                    } else {
+                        afterPrint();
+                    }
+                });
+            }
+
+            window.onbeforeprint = beforePrint;
+            window.onafterprint = afterPrint;
+        } ());
     }
 }
