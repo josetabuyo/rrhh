@@ -121,6 +121,13 @@ var VistaFormulario = {
                 _this.dibujarEstudios();
                 _this.ocultarTareas();
                 _this.bindearBtnAgregarConocimiento();
+
+                $("#CodigoBarra").barcode("FRH000," + "Para Tu Mama", "code128", {
+                    showHRI: true,
+                    height: 30,
+                    width: 100
+                });
+
             });
         };
     },

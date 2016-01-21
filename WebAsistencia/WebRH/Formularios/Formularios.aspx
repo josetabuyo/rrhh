@@ -18,10 +18,12 @@
         <script type="text/javascript" src="../Scripts/Persona.js"></script>
         <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
         <script type="text/javascript" src="../Scripts/ComboConBusquedaYAgregado.js"></script>
+        <script type="text/javascript" src="../Scripts/jquery-barcode.js"></script>
         <script type="text/javascript" src="Formularios.js"></script>
+        
     </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server">-
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
      <h1 style="text-align: center; margin-top: 30px;font-size: 2.9em;">Formulario <br />Relevamiento de Contratos</h1>
     
@@ -34,8 +36,12 @@
     </div>
    
         <hr />
+        
         <%--<div class="contenedor_formulario" style="display: none"> --%>
         <div class="contenedor_formulario"  > 
+            
+            <div id="CodigoBarra"></div>
+            
             <input id="btn_imprimir" type="button" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
             <p class="subtitulo">1) Datos Personales:</p>
 
