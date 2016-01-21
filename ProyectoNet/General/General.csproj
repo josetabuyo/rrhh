@@ -71,6 +71,7 @@
     <Compile Include="Asistencia\ConceptoLicenciaAnualOrdinaria.cs" />
     <Compile Include="Asistencia\ConceptoLicenciaGeneral.cs" />
     <Compile Include="Asistencia\Combo.cs" />
+    <Compile Include="Asistencia\ResponsableDDJJ.cs" />
     <Compile Include="Asistencia\Direccion.cs" />
     <Compile Include="Asistencia\SolicitudesDeVacaciones.cs" />
     <Compile Include="Asistencia\TipoDePlantaGeneral.cs" />
@@ -95,6 +96,8 @@
     <Compile Include="Calendario\Periodo.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
+    <Compile Include="DDJJ104\AreaParaDDJJ104.cs" />
+    <Compile Include="DDJJ104\DDJJ104_2001.cs" />
     <Compile Include="Postular\AnexosDeEtapas.cs" />
     <Compile Include="Postular\ConstantesConcursar.cs" />
     <Compile Include="DictionaryExtension.cs" />
@@ -108,12 +111,15 @@
     <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
+    <Compile Include="Repositorios\RepositorioDeParametrosGenerales.cs" />
+    <Compile Include="Repositorios\DDJJ104\RepositorioDDJJ104.cs" />
     <Compile Include="Postular\AmbitoLaboral.cs" />
     <Compile Include="Postular\AntecedentePenal.cs" />
     <Compile Include="Postular\Comite.cs" />
     <Compile Include="Postular\Folios.cs" />
     <Compile Include="Postular\CvModalidadContratacion.cs" />
     <Compile Include="Postular\CVTitulosAntecedentesAcademicos.cs" />
+    <Compile Include="Postular\ModalidadDeInscripcion.cs" />
     <Compile Include="Postular\ResumenDePostulaciones.cs" />
     <Compile Include="Postular\RepositorioDeFoliados.cs" />
     <Compile Include="Postular\RequisitoAntecedentesPenales.cs" />

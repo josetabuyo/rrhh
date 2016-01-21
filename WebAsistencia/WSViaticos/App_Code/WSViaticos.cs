@@ -17,6 +17,7 @@ using AdministracionDeUsuarios;
 using General.Sacc;
 using General.Sacc.Seguridad;
 using General.MAU;
+
 using General.Postular;
 using System.Web;
 
@@ -29,6 +30,7 @@ public class WSViaticos : System.Web.Services.WebService
     public WSViaticos()
     {
     }
+
 
     [WebMethod]
     public Usuario[] GetUsuarios()
@@ -45,6 +47,103 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     #region asistencia
+
+    //INICIO: DDJJ 104 ---------------
+    //[WebMethod]
+    //public Area[] AreasConDDJJAdministradasPor(Usuario usuario)
+    //{
+    //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+    //    return responsableDDJJ.AreasConDDJJAdministradasPor(usuario).ToArray();
+    //}
+
+    //[WebMethod]
+    //public Area[] AreasSinDDJJInferioresA(Area area)
+    //{
+    //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+    //    return responsableDDJJ.AreasSinDDJJInferioresA(area).ToArray(); 
+    //}
+
+    [WebMethod]
+    public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, Usuario usuario)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+        var a = responsableDDJJ.GetAreasParaDDJJ104(mes, anio, usuario).ToArray();
+
+        return a;
+    }
+
+    [WebMethod]
+    public DDJJ104_2001 GenerarDDJJ104(Area area, int mes, int anio, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+        return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
+    }
+
+    [WebMethod]
+    public string GetLeyendaAnio(int anio)
+    {
+        return new RepositorioDeParametrosGenerales(Conexion()).GetLeyendaAnio(anio);
+    }
+
+    //[WebMethod]
+    //public AreaParaDDJJ104[] ImprimirDDJJ104(List<AreaParaDDJJ104> lista)
+    //{
+    //    RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+    //    return ddjj.ImprimirDDJJ104(lista);
+    //}
+
+    //[WebMethod]
+    //public void MarcarDDJJ104Impresa(int nroDDJJ, int estado)
+    //{
+    //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas());
+    //    responsableDDJJ.MarcarDDJJ104Impresa(nroDDJJ, estado);
+    //}
+
+    [WebMethod]
+    public MesDto[] GetMeses()
+    {
+        List<MesDto> meses = new List<MesDto>();
+
+        DateTime fechaAnterior = DateTime.Now.AddMonths(-1);
+        meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });        
+
+        DateTime fechaActual = DateTime.Now;
+        if (fechaActual.Day > 25)
+        {
+            meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });    
+        }
+        
+
+        return meses.ToArray();
+    }
+
+    //[WebMethod]
+    //public MesDto[] GetMesesGenerados(AreaParaDDJJ104 ddjj, Usuario usuario)
+    //{
+    //    var RepositorioDDJJ = new RepositorioDDJJ104();
+
+    //    if (ddjj == null)
+    //    {
+    //        ddjj = new AreaParaDDJJ104();
+    //        ddjj.Mes = 0;
+    //        ddjj.Anio = 0;
+    //    }
+    //    ddjj.Agente = new Persona() { Id = usuario.Id };
+
+    //    List<AreaParaDDJJ104> ListDDJJ = RepositorioDDJJ.GetMesesGenerados(ddjj);
+
+    //    List<MesDto> meses = new List<MesDto>();
+
+    //    foreach (var item in ListDDJJ)
+    //    {
+    //        meses.Add(new MesDto() { Mes = item.Mes, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(item.Mes), Anio = item.Anio });
+    //    }
+
+    //    return meses.ToArray();
+    //}
+
+
+    //FIN: DDJJ 104 ---------------
 
     [WebMethod]
     public void EliminarInasistenciaActual(Persona unaPersona)
@@ -2047,27 +2146,6 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Combo[] ObtenerCargosFunciones()
-    {
-        Combo[] combo = RepositorioDeAreas().ObtenerCargosFunciones().ToArray();
-        return combo;
-    }
-
-    [WebMethod]
-    public Combo[] ObtenerTratamientoPersonas()
-    {
-        Combo[] combo = RepositorioDeAreas().ObtenerTratamientoPersonas().ToArray();
-        return combo;
-    }
-
-    [WebMethod]
-    public Combo[] ObtenerTratamientoTitulos()
-    {
-        Combo[] combo = RepositorioDeAreas().ObtenerTratamientoTitulos().ToArray();
-        return combo;
-    }
-
-    [WebMethod]
     public Persona[] BuscarPersonas(string criterio)
     {
         var personas = RepositorioDePersonas().BuscarPersonas(criterio).ToArray();
@@ -2088,7 +2166,7 @@ public class WSViaticos : System.Web.Services.WebService
         return personas;
     }
 
-
+    
     [WebMethod]
     public Area AreaCompleta(int id_area)
     {
@@ -2098,8 +2176,26 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Area[] AreasAdministradasPor(Usuario usuario)
     {
-        return Autorizador().AreasAdministradasPor(usuario).ToArray();
+        //GRANI 20151228: Se cambia por un error de referencia circular.
+        //return Autorizador().AreasAdministradasPor(usuario).ToArray();
+
+        JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+
+        var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
+        var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+        
+        Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
+        return areas;
     }
+
+    //[WebMethod]
+    //public string AreasAdministradasPor2(Usuario usuario)
+    //{
+    //    //return JsonConvert.SerializeObject(blah,settings);
+    //    JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+    //    var blah = Autorizador().AreasAdministradasPor(usuario).ToArray();
+    //    return JsonConvert.SerializeObject(blah, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+    //}
 
     [WebMethod]
     public Area[] AreasAdministradasPorIdUsuario(int id_usuario)
@@ -2146,6 +2242,38 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return Autorizador().GetMenuPara(nombre_menu, usuario);
     }
+
+    #endregion
+
+    #region protocolo
+
+    [WebMethod]
+    public Combo[] ObtenerCargosFunciones()
+    {
+        Combo[] combo = RepositorioDeAreas().ObtenerCargosFunciones().ToArray();
+        return combo;
+    }
+
+    [WebMethod]
+    public Combo[] ObtenerTratamientoPersonas()
+    {
+        Combo[] combo = RepositorioDeAreas().ObtenerTratamientoPersonas().ToArray();
+        return combo;
+    }
+
+    [WebMethod]
+    public Combo[] ObtenerTratamientoTitulos()
+    {
+        Combo[] combo = RepositorioDeAreas().ObtenerTratamientoTitulos().ToArray();
+        return combo;
+    }
+
+    [WebMethod]
+    public void ModificarResponsable( Area area, Usuario usuario)
+    {
+        RepositorioDeAreas().ModificarResponsable(area, usuario.Id);
+    }
+
 
     #endregion
 
@@ -2496,6 +2624,8 @@ public class WSViaticos : System.Web.Services.WebService
 
 
 
+
+
     #region mau
 
 
@@ -2560,6 +2690,15 @@ public class WSViaticos : System.Web.Services.WebService
         // var postulaciones = new Postulacion();
         return RepoPostulaciones().PostularseA(postulacion, usuario);
     }
+
+    [WebMethod]
+    public string GuardarPostulacionManual(string postulacion, string datosPersonales, string folio, Usuario usuario)
+    {
+        // var postulaciones = new Postulacion();
+        return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
+    }
+
+    
 
     [WebMethod]
     public Postulacion[] GetPostulaciones(Usuario usuario)
@@ -3060,7 +3199,12 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-
+    [WebMethod]
+    public ModalidadDeInscripcion[] BuscarModalidadDeInscripcion(string criterio)
+    {
+        var repo = new RepositorioDePostulaciones(Conexion());
+        return repo.BuscarModalidadesDeInscripcion().ToArray();
+    }
 
     [WebMethod]
     public Provincia[] BuscarProvincias(string criterio)
@@ -3244,9 +3388,14 @@ public class WSViaticos : System.Web.Services.WebService
         return new Autorizador(repo_funcionalidades_de_usuarios,
             RepositorioDeMenues.NuevoRepositorioDeMenues(Conexion(), repo_accesos),
             RepositorioDeUsuarios(),
-            RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(Conexion(), RepositorioDeAreas()),
+            RepoPermisosSobreAreas(),
             repo_accesos,
             Conexion());
+    }
+
+    private RepositorioDePermisosSobreAreas RepoPermisosSobreAreas()
+    {
+        return RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(Conexion(), RepositorioDeAreas());
     }
 
     private RepositorioDeDocentes RepositorioDeDocentes()

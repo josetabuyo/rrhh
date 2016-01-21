@@ -7,7 +7,7 @@
             switch (menu.Items.length) {
                 case 0: break;
                 case 1:
-                    window.location.href = menu.Items[0].Acceso.Url;
+                    window.location.href = menu.Items[0].Acceso.url;
                     break;
                 default:
                     for (var i = 0; i < menu.Items.length; i++) {

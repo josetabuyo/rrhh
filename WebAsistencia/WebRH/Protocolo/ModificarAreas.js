@@ -197,8 +197,12 @@
             var panel_detalle = new PanelDetalleGenerico({
                 path_html: "PanelDetalleDeResponsable.htm",
                 metodoDeGuardado: "ModificarResponsable",
+                modelo: area,
                 mensajeDeGuardadoExitoso: "El Responsable ha sido guardado exitosamente",
-                mensajeDeGuardadoErroneo: "Error al modificar el Responsable"
+                mensajeDeGuardadoErroneo: "Error al modificar el Responsable",
+                alModificar: function (area) {
+                   
+                }
             });
         });
         _this.btn_modificar_direccion.click(function () {

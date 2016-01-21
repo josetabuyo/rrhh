@@ -136,6 +136,11 @@ Grilla.prototype = {
             this.CargarFilaSinDatos();
         }
     },
+
+    CargarUnRegistro: function (objetos) {       
+        this.CargarObjeto(objetos);       
+    },
+
     CargarObjetoSinDibujar: function (obj) {
         this.Objetos.push(obj);
     },
@@ -155,7 +160,7 @@ Grilla.prototype = {
         } else {
             td.append(col.generadorDeContenido.generar(obj));
         }
-        td.addClass(col.titulo);
+        td.addClass(col.titulo.replace(/ /g, "_").replace(/\//g, "_"));
         return td;
     },
     CargarObjeto: function (obj) {
