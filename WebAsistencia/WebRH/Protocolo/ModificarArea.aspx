@@ -182,6 +182,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         area = JSON.parse($('#AreaSeleccionada').val());
+        area_original = JSON.parse($('#AreaSeleccionada').val());
         ModificarAreas.CompletarDatosArea(area);
         ModificarAreas.armarGrillaContacto(area.DatosDeContacto);
         asistentes = ""; //JSON.parse($('#curriculum').val());
