@@ -20,28 +20,37 @@ namespace General.Repositorios
         {
 
             //var personas = RepositorioDePersonas.NuevoRepositorioDePersonas(conexion_bd).BuscarPersonas("{Documento:" + formulario.nroDocumento + "}");
-           
+            var parametros = new Dictionary<string, object>();
 
             foreach (var unCampo in formulario.campos)
             {
-                var parametros = new Dictionary<string, object>();
+                parametros = new Dictionary<string, object>();
                 parametros.Add("@idFormulario", formulario.idFormulario);
                 parametros.Add("@idPersona", formulario.idPersona);
                 parametros.Add("@idUsuario", usuario.Id);
                 parametros.Add("@clave", unCampo.clave);
                 parametros.Add("@valor", unCampo.valor);
-                conexion_bd.EjecutarSinResultado("dbo.FORM_Ins_Generico", parametros).ToString();            
+                conexion_bd.EjecutarSinResultado("dbo.FORM_Ins_Generico", parametros).ToString();
             }
+
+            //INSERTO EN LA TABLA FORM_Cabecera la version de ese formulario para saber luego si fue impreso y/o recibido
+            //GuardarVersion(formulario, usuario, false);
+            parametros = new Dictionary<string, object>();
+            parametros.Add("@idTipoFormulario", formulario.idFormulario);
+            parametros.Add("@idPersona", formulario.idPersona);
+            parametros.Add("@idUsuario", usuario.Id);
+
+            var idFormularioCabecera = conexion_bd.EjecutarEscalar("dbo.FORM_Ins_Cabecera", parametros).ToString();
         }
 
         public Formulario GetFormulario(string criterio, Usuario usuario)
         {
-          
+
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
             int id_persona = (int)((JValue)criterio_deserializado["idPersona"]);
             int id_form = (int)((JValue)criterio_deserializado["idFormulario"]);
 
-            var persona = RepositorioDePersonas.NuevoRepositorioDePersonas(conexion_bd).BuscarPersonas("{Id:" + id_persona+"}");
+            var persona = RepositorioDePersonas.NuevoRepositorioDePersonas(conexion_bd).BuscarPersonas("{Id:" + id_persona + "}");
             if (persona.Count == 0) throw new Exception("Persona No encontrada");
 
             int documento = persona[0].Documento;
@@ -62,7 +71,7 @@ namespace General.Repositorios
 
                 var fila = tablaDatos.Rows[0];
 
-                formulario = new Formulario(id_form, id_persona, campos);               
+                formulario = new Formulario(id_form, id_persona, campos);
             }
             else
             {
@@ -99,10 +108,10 @@ namespace General.Repositorios
                 campos.Add(new Campo("domicilio_piso", primer_fila.GetString("Piso")));
                 campos.Add(new Campo("domicilio_depto", primer_fila.GetString("Dpto")));
                 campos.Add(new Campo("domicilio_cp", primer_fila.GetSmallintAsInt("Codigo_Postal").ToString()));
-                campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("Provincia_DESC","No hay dato").ToString()));
+                campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("Provincia_DESC", "No hay dato").ToString()));
                 campos.Add(new Campo("domicilio_localidad", primer_fila.GetString("nombrelocalidad", "No hay dato").ToString()));
                 campos.Add(new Campo("domicilio_telefono", ""));
-             
+
 
             }
 
@@ -121,7 +130,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    campos.Add(new Campo("nivel_estudio_"+contador, row.GetString("Nivel")));
+                    campos.Add(new Campo("nivel_estudio_" + contador, row.GetString("Nivel")));
                     campos.Add(new Campo("titulo_obtenido_" + contador, row.GetString("Titulo")));
                     campos.Add(new Campo("institucion_" + contador, "No declarado"));
                     campos.Add(new Campo("fecha_egreso_" + contador, row.GetDateTime("Fecha_Egreso").ToShortDateString().ToString()));
@@ -143,14 +152,14 @@ namespace General.Repositorios
 
             if (tablaDatos.Rows.Count > 0)
             {
-                var nivel = tablaDatos.Rows[0].GetString("NivelGrado").Substring(0,1);
+                var nivel = tablaDatos.Rows[0].GetString("NivelGrado").Substring(0, 1);
                 var grado = tablaDatos.Rows[0].GetString("NivelGrado").Substring(1, 1);
                 var funcion = tablaDatos.Rows[0].GetString("FuncionAntiguedadCertificados");
 
                 campos.Add(new Campo("nivel", nivel));
                 campos.Add(new Campo("grado", grado));
                 campos.Add(new Campo("funcion", funcion));
-            }     
+            }
 
             return campos;
         }
@@ -176,6 +185,38 @@ namespace General.Repositorios
             }
 
             return campos;
+        }
+
+        public void GuardarVersion(Formulario form, Usuario usuario, bool impreso)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idTipoFormulario", form.idFormulario);
+            parametros.Add("@idPersona", form.idPersona);
+            //parametros.Add("@idUsuario", usuario.Id);
+            if (impreso) {
+                parametros.Add("@impreso", impreso);
+                parametros.Add("@fechaImpreso", DateTime.Today);
+            }
+                
+
+            var tablaDatos = conexion_bd.Ejecutar("dbo.FORM_UPD_Cabecera", parametros);
+
+        }
+
+        public int GetUltimaCabeceraFormulario(Formulario form, Usuario usuario)
+        {
+            var id = 0;
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idTipoFormulario", form.idFormulario);
+            parametros.Add("@idPersona", form.idPersona);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.FORM_GET_Cabecera", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+                id = Int32.Parse(tablaDatos.Rows[0].GetInt("id").ToString());
+
+            
+            return id;
+
         }
     }
 }

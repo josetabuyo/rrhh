@@ -36,15 +36,13 @@
     </div>
    
         <hr />
-        
-        <%--<div class="contenedor_formulario" style="display: none"> --%>
-        <div class="contenedor_formulario"  > 
-            
-            <div id="CodigoBarra"></div>
-            
+        <div class="contenedor_formulario" style="display: none"> 
+           
             <input id="btn_imprimir" type="button" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
-            <p class="subtitulo">1) Datos Personales:</p>
-
+           
+            <div id="CodigoBarra" style="float:right;"></div>
+            
+            <p class="subtitulo" style="clear: both;">1) Datos Personales:</p>
             <div class="bloque">                    
                 <label class="etiqueta_campo" for="cmb_tipoDocumento" style="margin-right: 10px" >  Tipo y Número de Documento:</label>
                 <select id="cmb_tipoDocumento" campo="tipo_documento" style="margin-right: 10px;  margin-bottom: 10px;" rh-control-type="combo" rh-data-provider="TiposDeDocumento" rh-model-property="tipo_documento" disabled="disabled"> </select>
@@ -264,19 +262,19 @@
                <div style="margin-left:50px;" >
                   <div class="bloque">
                     <label for="lugar_actual" style="display:inline-block; width:150px;">Área:</label>
-                     <input id="lugar_actual" campo="lugar_actual" type="text" style="width:480px;" placeholder="Área"  />
+                     <input id="lugar_actual" campo="lugar_actual" type="text" style="flex-grow:100;" placeholder="Área"  />
                   </div>
                   <div class="bloque">
                     <label for="lugar_dependiente" style="display:inline-block; width:150px;">Unidad Organizativa de donde depende:</label>
-                     <input id="lugar_dependiente" campo="lugar_dependiente" type="text" style="width:480px;" placeholder="Unidad dependiente"  />
+                     <input id="lugar_dependiente" campo="lugar_dependiente" type="text" style="flex-grow:100;" placeholder="Unidad dependiente"  />
                   </div>
                   <div class="bloque">
                     <label for="domicilio_area" style="display:inline-block; width:150px;">Domicilio:</label>
-                     <input id="domicilio_area" campo="domicilio_area" type="text" style="width:480px;" placeholder="Domicilio del Area"  />
+                     <input id="domicilio_area" campo="domicilio_area" type="text" style="flex-grow:100;" placeholder="Domicilio del Area"  />
                   </div>
                   <div class="bloque">
                     <label for="telefono_area" style="display:inline-block; width:150px;">Teléfono:</label>
-                     <input id="telefono_area" campo="telefono_area" type="text" style="width:480px;" placeholder="Telefono del area"  />
+                     <input id="telefono_area" campo="telefono_area" type="text" style="flex-grow:100;" placeholder="Telefono del area"  />
                   </div>
                 </div>
 
@@ -357,7 +355,7 @@
                         Otros</label>
                     <label class="tareas_otras">
                         Detalle</label>
-                    <input id="Tarea_Gral_Detalle" campo="Tarea_Gral_Detalle" type="text" style="width: 350px;" 
+                    <input id="Tarea_Gral_Detalle" campo="Tarea_Gral_Detalle" type="text" style="flex-grow:100;" 
                         placeholder="Tarea que desempeña" />
                 </div>
             </div>
@@ -490,7 +488,7 @@
                         Otros</label>
                     <label class="tareas_otras">
                         Detalle</label>
-                    <input id="Tarea_Adm_Detalle" campo="Tarea_Adm_Detalle" type="text" style="width: 350px;"
+                    <input id="Tarea_Adm_Detalle" campo="Tarea_Adm_Detalle" type="text" style="flex-grow:100;"
                         placeholder="Tarea que desempeña" />
                 </div>
             </div>
@@ -632,7 +630,7 @@
                         Otros</label>
                     <label class="tareas_otras">
                         Detalle</label>
-                    <input id="Tarea_Tec_Detalle" campo="Tarea_Tec_Detalle" type="text" style="width: 350px;"
+                    <input id="Tarea_Tec_Detalle" campo="Tarea_Tec_Detalle" type="text" style="flex-grow:100;"
                         placeholder="Tarea que desempeña" />
                 </div>
             </div>
@@ -919,7 +917,7 @@
                         Otros</label>
                     <label class="tareas_otras">
                         Detalle</label>
-                    <input id="Asist_Tec_Detalle" campo="Asist_Tec_Detalle" type="text" style="width: 350px;"
+                    <input id="Asist_Tec_Detalle" campo="Asist_Tec_Detalle" type="text" style="flex-grow:100;"
                         placeholder="Tarea que desempeña" />
                 </div>
             </div>
@@ -1204,7 +1202,7 @@
                         Otros</label>
                     <label class="tareas_otras">
                         Detalle</label>
-                    <input id="Text35" campo="Serv_Prof_Detalle" type="text" style="width: 350px;" placeholder="Tarea que desempeña" />
+                    <input id="Text35" campo="Serv_Prof_Detalle" type="text" style="flex-grow:100;" placeholder="Tarea que desempeña" />
                 </div>
             </div>
         </div>
@@ -1253,7 +1251,7 @@
                         Otros</label>
                     <label class="tareas_otras">
                         Detalle</label>
-                    <input id="Tarea_Adic_Detalle" campo="Tarea_Adic_Detalle" type="text" style="width: 350px;"
+                    <input id="Tarea_Adic_Detalle" campo="Tarea_Adic_Detalle" type="text" style="flex-grow:100;"
                         placeholder="Tarea que desempeña" />
                 </div>
             </div>
@@ -1276,12 +1274,14 @@
                     <label style="display: inline-block; width: 100px; margin-left: 30px;">Conocimiento</label>
                     <select id="cboConocimiento" style="width: 200px" rh-control-type="combo" rh-data-provider="ConocimientoCompetenciaInformatica" rh-permite-agregar=true rh-id-filter-combo="cboHerramientas" rh-filter-key="Tipo" ></select>
                 </div>
-                <div class="bloque">
+ <%--               <div class="bloque">
                     <label style="display: inline-block; width: 150px;">Utiliza en sus funciones</label>
                     <label style="display: inline-block; width: 10px;">Si</label>
-                    <input id="chkUtilizaFuncion_SI" style="width: 50px" />
+                    <input id="chkUtilizaFuncion_SI" type="checkbox" style="width: 50px" />
+                </div>--%>
+                <div id="listadoConocimientos" style="margin: 10px; width: 660px;">
+                    
                 </div>
-                <div id="listadoConocimientos" style="margin: 10px; width: 660px;"></div>
                 <input type="button" id="btn_Agregar_Conocimientos" class="btn btn-primary" value="Agregar conocimiento" style="width:200px" />
             </div> 
     </div>
@@ -1362,6 +1362,13 @@
                     <div id="titulo_doc">Doc:</div>
                     <div id="documento"></div>         
                 </div>   
+            </div>
+
+            <div class="caja_estilo_conocimiento"> 
+                <input type=text class="conocimiento" disabled=disabled/> 
+                <label style="margin-right: 10px;">Utiliza</label> 
+                <input class="utiliza_conocimiento" type="checkbox" />
+                <img src="../Imagenes/iconos/icono-eliminar.png" class="icono_eliminar"/>
             </div>
         </div>
     </form>

@@ -2107,6 +2107,32 @@
       <s:element name="GuardarCambiosEnFormularioResponse">
         <s:complexType />
       </s:element>
+      <s:element name="GuardarCabeceraFormulario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCabeceraFormularioResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetIdCabeceraFormulario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIdCabeceraFormularioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetIdCabeceraFormularioResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarAlumno">
         <s:complexType>
           <s:sequence>
@@ -5462,6 +5488,18 @@
   <wsdl:message name="GuardarCambiosEnFormularioSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormularioResponse" />
   </wsdl:message>
+  <wsdl:message name="GuardarCabeceraFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCabeceraFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCabeceraFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCabeceraFormularioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIdCabeceraFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIdCabeceraFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GetIdCabeceraFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIdCabeceraFormularioResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarAlumno" />
   </wsdl:message>
@@ -6718,6 +6756,14 @@
     <wsdl:operation name="GuardarCambiosEnFormulario">
       <wsdl:input message="tns:GuardarCambiosEnFormularioSoapIn" />
       <wsdl:output message="tns:GuardarCambiosEnFormularioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCabeceraFormulario">
+      <wsdl:input message="tns:GuardarCabeceraFormularioSoapIn" />
+      <wsdl:output message="tns:GuardarCabeceraFormularioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIdCabeceraFormulario">
+      <wsdl:input message="tns:GetIdCabeceraFormularioSoapIn" />
+      <wsdl:output message="tns:GetIdCabeceraFormularioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <wsdl:input message="tns:GuardarAlumnoSoapIn" />
@@ -8078,6 +8124,24 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarCambiosEnFormulario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCabeceraFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdCabeceraFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10214,6 +10278,24 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarCambiosEnFormulario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCabeceraFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdCabeceraFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

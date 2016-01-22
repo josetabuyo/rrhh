@@ -1,8 +1,9 @@
 ﻿$(document).ready(function () {
     Backend.start(function () {
-        VistaFormulario.start();        
+        VistaFormulario.start();
     });
 });
+
 
 var VistaFormulario = {
     start: function () {
@@ -18,6 +19,15 @@ var VistaFormulario = {
             repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
             placeholder: "nombre, apellido, documento o legajo"
         });
+
+        for (var i = 1; i < 21; i++) {
+            var conocimiento = $("#plantillas .caja_estilo_conocimiento").clone();
+            conocimiento.find(".conocimiento").attr("campo", "conocimiento_" + i);
+            conocimiento.find(".utiliza_conocimiento").attr("campo", "utiliza_conocimiento_" + i);
+            conocimiento.hide();
+
+            conocimiento.appendTo($("#listadoConocimientos"));
+        }
 
         var formulario = {};
 
@@ -64,7 +74,7 @@ var VistaFormulario = {
             if (_this.habilitar_registro_cambios) cambios[$(this).attr("campo")] = $(this).val();
         });
         $("#btn_guardar_cambios").click(function () {
-            var form_cambios = {
+            form_cambios = {
                 idFormulario: formulario.idFormulario,
                 idPersona: formulario.idPersona,
                 campos: []
@@ -83,6 +93,7 @@ var VistaFormulario = {
             Backend.GuardarCambiosEnFormulario(form_cambios)
             .onSuccess(function () {
                 alertify.success("Formulario guardado correctamente");
+                _this.mostrarIdUltimoFormulario(form_cambios);
             })
             .onError(function () {
                 alertify.error("Error al guardar formulario");
@@ -116,17 +127,23 @@ var VistaFormulario = {
                 });
                 _this.habilitar_registro_cambios = true;
 
+                $("#listadoConocimientos .caja_estilo_conocimiento").each(function () {
+                    var input_conocimiento = $(this).find(".conocimiento");
+
+                    if (input_conocimiento.val() != "") {
+                        $(this).show();
+                    }
+                });
+
                 $(".contenedor_formulario").show()
 
                 _this.dibujarEstudios();
                 _this.ocultarTareas();
                 _this.bindearBtnAgregarConocimiento();
+                _this.bidearEventosImprimir(form);
+                _this.mostrarIdUltimoFormulario(form);
 
-                $("#CodigoBarra").barcode("FRH000," + "Para Tu Mama", "code128", {
-                    showHRI: true,
-                    height: 30,
-                    width: 100
-                });
+                
 
             });
         };
@@ -137,6 +154,7 @@ var VistaFormulario = {
             $(this).val("");
             $(this).change();
         });
+        $("#listadoConocimientos .caja_estilo_conocimiento").hide();
         this.habilitar_registro_cambios = true;
     },
     dibujarEstudios: function () {
@@ -270,31 +288,95 @@ var VistaFormulario = {
             var conocimiento = $('#cboConocimiento').find('option:selected').text();
             var texto = herramienta + ' - ' + conocimiento;
 
-            var div = $('<div>');
-            div.addClass('caja_estilo_conocimiento');
+            var listo = false;
+            $("#listadoConocimientos .caja_estilo_conocimiento").each(function () {
+                if (!listo) {
+                    var input_conocimiento = $(this).find(".conocimiento");
 
-            var input = $('<input>');
-            input.attr('campo', 'conocimiento');
-            input.attr('disabled', 'disabled');
-            input.attr('size', texto.length);
-            input.addClass('estilo_conocimientos');
-            input.val(texto);
+                    if (input_conocimiento.val() == "") {
+                        input_conocimiento.val(texto);
+                        input_conocimiento.change();
+                        $(this).show();
+                        listo = true;
+                    }
+                }
+            });
 
-            var eliminar = $('<img>');
-            eliminar.attr('src', '../Imagenes/iconos/icono-eliminar.png');
-            eliminar.addClass('icono_eliminar');
+            //            var div = $('<div>');
+            //            div.addClass('caja_estilo_conocimiento');
 
-            eliminar.click(function () {
-                this.parentElement.remove();
-            })
+            //            var input = $('<input>');
+            //            input.attr('campo', 'conocimiento');
+            //            input.attr('disabled', 'disabled');
+            //            input.attr('size', texto.length);
+            //            input.addClass('estilo_conocimientos');
+            //            input.val(texto);
 
-            div.append(input);
-            div.append(eliminar);
+            //            var eliminar = $('<img>');
+            //            eliminar.attr('src', '../Imagenes/iconos/icono-eliminar.png');
+            //            eliminar.addClass('icono_eliminar');
 
-            $('#listadoConocimientos').append(div);
+            //            eliminar.click(function () {
+            //                this.parentElement.remove();
+            //            })
+
+            //TODO: agregar a los cambios  el nuevo conocimiento
+            /*form_cambios.campos.push({
+            clave: 'conocimiento',
+            valor: 'texto'
+            });*/
+
+            //            div.append(input);
+            //            div.append(eliminar);
+
+            //$('#listadoConocimientos').append(div);
 
 
         })
 
+    },
+    bidearEventosImprimir: function (form) {
+        (function () {
+            var beforePrint = function () {
+                //console.log('Functionality to run before printing.');
+            };
+            var afterPrint = function () {
+                console.log('Functionality to run after printing');
+                Backend.GuardarCabeceraFormulario(form)
+                    .onSuccess(function () {
+                        alertify.success("Formulario versionado correctamente");
+                    })
+                    .onError(function () {
+                        alertify.error("Error al versionar el formulario");
+                    });
+            };
+
+            if (window.matchMedia) {
+                var mediaQueryList = window.matchMedia('print');
+                mediaQueryList.addListener(function (mql) {
+                    if (mql.matches) {
+                        beforePrint();
+                    } else {
+                        afterPrint();
+                    }
+                });
+            }
+
+            window.onbeforeprint = beforePrint;
+            window.onafterprint = afterPrint;
+        } ());
+    },
+    mostrarIdUltimoFormulario: function (form) {
+        Backend.GetIdCabeceraFormulario(form)
+                    .onSuccess(function (id) {
+                        $("#CodigoBarra").barcode("FRH000," + id, "code128", {
+                            showHRI: true,
+                            height: 30,
+                            width: 100
+                        });
+                    })
+                    .onError(function () {
+                        alertify.error("Error al obtener el ID del formulario");
+                    });
     }
 }
