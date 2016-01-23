@@ -20,10 +20,10 @@
             _this.CambiarAreaCombo($('#cmb_responsable_tratamiento_persona'), 1);
         });
         $('#cmb_responsable_tratamiento_titulo').change(function () {
-            _this.CambiarAreaCombo($('#cmb_responsable_tratamiento_titulo'), 2);         
+            _this.CambiarAreaCombo($('#cmb_responsable_tratamiento_titulo'), 2);
         });
         $('#cmb_responsable_cargo_funcion').change(function () {
-            _this.CambiarAreaCombo($('#cmb_responsable_cargo_funcion'), 3);   
+            _this.CambiarAreaCombo($('#cmb_responsable_cargo_funcion'), 3);
         });
     },
 
@@ -43,25 +43,18 @@
     },
 
     DatosDelResponsable: function (persona) {
-        area = area_original;
+        _this = this;
         $("#div_mensaje").hide();
         $('#txt_responsable_documento').val(persona.Documento);
         $('#txt_responsable_id_interna').val(persona.IdInterna);
         $('#txt_responsable_nombre').val(persona.Nombre);
         $('#txt_responsable_apellido').val(persona.Apellido);
 
-        if (persona.ActoAdministrativo == "Si") {
-            $('#check_acto_administrativo').attr('checked', true);
-        }
-        if (persona.Contratos == "Si") {
-            $('#check_contratos').attr('checked', true);
-        }
-        if (persona.Facturas == "Si") {
-            $('#check_facturas').attr('checked', true);
-        }
-        if (persona.DDJJRecibos == "Si") {
-            $('#check_ddjj_recibo').attr('checked', true);
-        }
+        _this.CheckearDatosResponsable(persona.ActoAdministrativo, $('#check_acto_administrativo'));
+        _this.CheckearDatosResponsable(persona.Contratos, $('#check_contratos'));
+        _this.CheckearDatosResponsable(persona.Facturas, $('#check_facturas'));
+        _this.CheckearDatosResponsable(persona.DDJJRecibos, $('#check_ddjj_recibo'));
+
 
         $('#cmb_responsable_tratamiento_persona').val(persona.TratamientoPersona.Id);
         $('#cmb_responsable_tratamiento_titulo').val(persona.TratamientoTitulo.Id);
@@ -70,6 +63,14 @@
         $("#txt_responsable_id_interna").prop('disabled', true);
         $("#txt_responsable_nombre").prop('disabled', true);
         $("#txt_responsable_apellido").prop('disabled', true);
+    },
+
+    CheckearDatosResponsable: function (dato, check) {
+        if (dato == "Si") {
+            check.attr('checked', true);
+        } else {
+            check.attr('checked', false);
+        }
     },
 
     BuscarPersonal: function () {
@@ -85,16 +86,15 @@
                 if (persona.length > 0) {
                     _this.LimpiarDatos();
                     $("#div_mensaje").hide();
-                    $("#txt_responsable_id_interna").val(persona[0].Legajo);
-                    $("#txt_responsable_nombre").val(persona[0].Nombre);
-                    $("#txt_responsable_apellido").val(persona[0].Apellido)
-
                     area.Responsable.IdInterna = persona[0].Legajo;
                     area.Responsable.Nombre = persona[0].Nombre;
                     area.Responsable.Apellido = persona[0].Apellido;
                     area.Responsable.Documento = persona[0].Documento;
                     area.Responsable.NombreApellido = persona[0].Apellido + ", " + persona[0].Nombre;
-
+                    persona.ActoAdministrativo = "No";
+//                    _this.CheckearDatosResponsable(persona.Contratos, $('#check_contratos'));
+//                    _this.CheckearDatosResponsable(persona.Facturas, $('#check_facturas'));
+//                    _this.CheckearDatosResponsable(persona.DDJJRecibos, $('#check_ddjj_recibo'));
 
 
                     $("#txt_responsable_id_interna").prop('disabled', true);
