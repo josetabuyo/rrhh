@@ -419,5 +419,19 @@ namespace General.Repositorios
         {
             throw new NotImplementedException();
         }
+
+        public List<Combo> ObtenerEdificiosPorLocalidad(int id_localidad, int p)
+        {
+            List<Combo> combo = new List<Combo>();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Localidad", id_localidad);
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Edificios_Por_Localidad");
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Combo opcion = new Combo(row.GetSmallintAsInt("id"), row.GetString("descripcion"));
+                combo.Add(opcion);
+            });
+            return combo;
+        }
     }
 }

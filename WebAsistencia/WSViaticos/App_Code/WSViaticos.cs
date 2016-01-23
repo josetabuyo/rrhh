@@ -2274,6 +2274,12 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioDeAreas().ModificarResponsable(area, usuario.Id);
     }
 
+    [WebMethod]
+    public Combo[] ObtenerEdificiosPorLocalidad(int id_localidad, Usuario usuario)
+    {
+        return RepositorioDeAreas().ObtenerEdificiosPorLocalidad(id_localidad, usuario.Id).ToArray();
+    }
+
 
     #endregion
 
