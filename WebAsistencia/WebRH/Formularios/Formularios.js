@@ -20,14 +20,25 @@ var VistaFormulario = {
             placeholder: "nombre, apellido, documento o legajo"
         });
 
-        for (var i = 1; i < 21; i++) {
+        var crear_vista_conocimiento = function (id) {
             var conocimiento = $("#plantillas .caja_estilo_conocimiento").clone();
             conocimiento.find(".conocimiento").attr("campo", "conocimiento_" + i);
             conocimiento.find(".utiliza_conocimiento").attr("campo", "utiliza_conocimiento_" + i);
+            conocimiento.find(".icono_eliminar").click(function () {
+                conocimiento.find(".conocimiento").val("");
+                conocimiento.find(".conocimiento").change();
+                conocimiento.find(".utiliza_conocimiento").prop("checked", false);
+                conocimiento.find(".utiliza_conocimiento").change();
+                conocimiento.hide();
+            });
             conocimiento.hide();
 
             conocimiento.appendTo($("#listadoConocimientos"));
+        };
+        for (var i = 1; i < 21; i++) {
+            crear_vista_conocimiento(i);
         }
+        this.bindearBtnAgregarConocimiento();
 
         var formulario = {};
 
@@ -71,7 +82,13 @@ var VistaFormulario = {
 
         _this.habilitar_registro_cambios = true;
         $("[campo]").change(function () {
-            if (_this.habilitar_registro_cambios) cambios[$(this).attr("campo")] = $(this).val();
+            if (_this.habilitar_registro_cambios) {
+                if ($(this).attr("type") == "checkbox") {
+                    cambios[$(this).attr("campo")] = $(this).is(":checked");
+                } else {
+                    cambios[$(this).attr("campo")] = $(this).val();
+                }
+            }
         });
         $("#btn_guardar_cambios").click(function () {
             form_cambios = {
@@ -94,14 +111,27 @@ var VistaFormulario = {
             .onSuccess(function () {
                 alertify.success("Formulario guardado correctamente");
                 _this.mostrarIdUltimoFormulario(form_cambios);
+                cambios = [];
             })
             .onError(function () {
                 alertify.error("Error al guardar formulario");
             });
         });
+
+        $("#cargar_mas_estudios").click(function () {
+            var listo = false;
+            $('.caja_estudios').each(function () {
+                if ($(this).find(".nivel_estudio").val() == "" && !listo) {
+                    $(this).show();
+                    listo = true;
+                }
+            });
+        });
+
         selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
             $(".contenedor_formulario").hide()
             _this.limpiarPantalla();
+            cambios = [];
             Backend.GetFormulario(JSON.stringify({ idFormulario: 1, idPersona: la_persona_seleccionada.id })).onSuccess(function (form) {
                 //            formulario = {
                 //                id: 1,
@@ -120,8 +150,13 @@ var VistaFormulario = {
                 $("[campo]").each(function () {
                     var campo = _.findWhere(formulario.campos, { clave: $(this).attr("campo") });
                     if (campo) {
-                        $(this).val(campo.valor);
-                        $(this).attr("valor_para_carga_async", campo.valor);
+                        if ($(this).attr("type") == "checkbox") {
+                            $(this).prop('checked', (campo.valor.toLowerCase() === 'true'));
+                        }
+                        else {
+                            $(this).val(campo.valor);
+                            $(this).attr("valor_para_carga_async", campo.valor);
+                        }
                         $(this).change();
                     }
                 });
@@ -139,47 +174,49 @@ var VistaFormulario = {
 
                 _this.dibujarEstudios();
                 _this.ocultarTareas();
-                _this.bindearBtnAgregarConocimiento();
                 _this.bidearEventosImprimir(form);
                 _this.mostrarIdUltimoFormulario(form);
-
-                
-
             });
         };
     },
     limpiarPantalla: function () {
         this.habilitar_registro_cambios = false;
         $("[campo]").each(function () {
-            $(this).val("");
+            if ($(this).attr("type") == "checkbox") {
+                $(this).prop("checked", false);
+            }
+            else $(this).val("");
             $(this).change();
         });
         $("#listadoConocimientos .caja_estilo_conocimiento").hide();
         this.habilitar_registro_cambios = true;
     },
     dibujarEstudios: function () {
-        var div_estudios_extras = $(".caja_extra");
-        div_estudios_extras.each(function () {
-            if (this.children[0].children[1].value == "") {
-                this.className = this.className + " ocultarEstudio";
-            }
-        })
+        $('.caja_estudios').each(function () {
+            if ($(this).find(".nivel_estudio").val() == "") $(this).hide();
+        });
+        //        var div_estudios_extras = $(".caja_extra");
+        //        div_estudios_extras.each(function () {
+        //            if (this.children[0].children[1].value == "") {
+        //                this.className = this.className + " ocultarEstudio";
+        //            }
+        //        })
 
-        $('.input_estudio_extra').change(function () {
-            var caja = this.parentNode.parentNode;
-            if (this.value != "") {
-                caja.className = caja.className.replace(/(?:^|\s)ocultarEstudio(?!\S)/g, '');
-            } else {
-                caja.className = caja.className + ' ocultarEstudio';
-            }
-        })
+        //        $('.input_estudio_extra').change(function () {
+        //            var caja = this.parentNode.parentNode;
+        //            if (this.value != "") {
+        //                caja.className = caja.className.replace(/(?:^|\s)ocultarEstudio(?!\S)/g, '');
+        //            } else {
+        //                caja.className = caja.className + ' ocultarEstudio';
+        //            }
+        //        })
 
-        $('.hidden').removeClass('hidden').hide();
-        $("#cargar_mas_estudios").click(function () {
-            $('.ocultarEstudio').toggleClass("mostrarEstudio");
-            $(this).find('span').each(function () { $(this).toggle(); });
-            return;
-        })
+        //        $('.hidden').removeClass('hidden').hide();
+        //        $("#cargar_mas_estudios").click(function () {
+        //            $('.ocultarEstudio').toggleClass("mostrarEstudio");
+        //            $(this).find('span').each(function () { $(this).toggle(); });
+        //            return;
+        //        })
     },
     ocultarTareas: function () {
         var _this = this;

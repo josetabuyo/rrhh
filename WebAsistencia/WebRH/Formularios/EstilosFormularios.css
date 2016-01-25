@@ -208,11 +208,11 @@ border-bottom: 1px solid #929292;
         display: none !important;
     }
 
-.espacio_firma 
-{
-    display: inline-block; 
-    width: 200px; 
-    text-align:center;
+    .espacio_firma 
+    {
+        display: inline-block; 
+        width: 200px; 
+        text-align:center;
     }
     
     .select2-allowclear .select2-chosen
@@ -243,7 +243,7 @@ border-bottom: 1px solid #929292;
     background-color: #F3A227 !important;
     text-align: center;
     font-size: 0.9em;
-    }
+}
     
 .caja_estilo_conocimiento 
 {
@@ -260,10 +260,21 @@ border-bottom: 1px solid #929292;
     width: 20px;
     height: 20px;
     cursor: pointer;
-    }
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
-    
-
+.caja_estilo_conocimiento .conocimiento
+{
+    width: 300px;
+    margin-right: 10px;
+    background-color: #F3A227;
+    border-width: 0px;
+    border-color: #F3A227;
+    color: black;
+    border-style: solid;
+    margin-bottom: 0px;
+}
 
 
 

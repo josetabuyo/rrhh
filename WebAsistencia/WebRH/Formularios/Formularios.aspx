@@ -130,7 +130,7 @@
                 <div class="caja_estudios caja_extra">
                      <div class="bloque_estudios">
                         <label for="nivel_estudio_1" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
-                        <input id="nivel_estudio_1" campo="nivel_estudio_1" type="text" placeholder="Nivel" style="flex-grow:100;" />
+                        <input id="nivel_estudio_1" class="nivel_estudio" campo="nivel_estudio_1" type="text" placeholder="Nivel" style="flex-grow:100;" />
                      </div>
                      <div class="bloque_estudios">
                         <label for="titulo_obtenido_1" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
@@ -150,7 +150,7 @@
                 <div id="caja_estudio_2" class="caja_estudios caja_extra">
                     <div class="bloque_estudios">
                         <label for="nivel_estudio_2" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
-                        <input id="nivel_estudio_2" campo="nivel_estudio_2" type="text" placeholder="Nivel" style="flex-grow:100;" />
+                        <input id="nivel_estudio_2" class="nivel_estudio" campo="nivel_estudio_2" type="text" placeholder="Nivel" style="flex-grow:100;" />
                     </div>
                     <div class="bloque_estudios">
                         <label for="titulo_obtenido_2" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
@@ -169,7 +169,7 @@
                 <div id="caja_estudio_3" class="caja_estudios caja_extra">
                     <div class="bloque_estudios">
                         <label for="nivel_estudio_3" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
-                        <input id="nivel_estudio_3" campo="nivel_estudio_3" type="text" placeholder="Nivel" style="flex-grow:100;" />
+                        <input id="nivel_estudio_3" class="nivel_estudio" campo="nivel_estudio_3" type="text" placeholder="Nivel" style="flex-grow:100;" />
                     </div>
                     <div class="bloque_estudios">
                         <label for="titulo_obtenido_3" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
@@ -188,7 +188,7 @@
                 <div id="caja_estudio_4" class="caja_estudios caja_extra">
                     <div class="bloque_estudios">
                         <label for="nivel_estudio_4" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
-                        <input id="nivel_estudio_4" campo="nivel_estudio_4" type="text" placeholder="Nivel" style="flex-grow:100;" />
+                        <input id="nivel_estudio_4" class="nivel_estudio" campo="nivel_estudio_4" type="text" placeholder="Nivel" style="flex-grow:100;" />
                     </div>
                     <div class="bloque_estudios">
                         <label for="titulo_obtenido_4" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
@@ -207,7 +207,7 @@
                 <div id="caja_estudio_5" class="caja_estudios caja_extra">
                     <div class="bloque_estudios">
                         <label for="nivel_estudio_5" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
-                        <input id="nivel_estudio_5" campo="nivel_estudio_5" type="text" placeholder="Nivel" style="flex-grow:100;" />
+                        <input id="nivel_estudio_5" class="nivel_estudio" campo="nivel_estudio_5" type="text" placeholder="Nivel" style="flex-grow:100;" />
                     </div>
                     <div class="bloque_estudios">
                         <label for="titulo_obtenido_5" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
@@ -291,7 +291,7 @@
             <label style="display: inline-block; width: 200px;">
                 1 -> Tarea mas importante</label>
             <label style="display: inline-block; width: 200px;">
-                2 -> Tarea menos importante</label>
+                5 -> Tarea menos importante</label>
         </div>
         <%--Tareas Generales--%>
         <div style="margin-left: 50px;" id="contenedor_tarea_generales">
@@ -1266,23 +1266,17 @@
             </div>
             <br />
             <div style="margin-left: 50px;">
+                <p style="font-weight: bold;">Competencias Informáticas:</p>
                 <div class="bloque" style="margin-bottom: 15px;">
                     <label style="display: inline-block; width: 100px;">Herramienta</label>
-
-                    <select id="cboHerramientas" style="width: 200px" rh-control-type="combo" rh-data-provider="TiposCompetenciaInformatica" > </select>
-            
-                    <label style="display: inline-block; width: 100px; margin-left: 30px;">Conocimiento</label>
-                    <select id="cboConocimiento" style="width: 200px" rh-control-type="combo" rh-data-provider="ConocimientoCompetenciaInformatica" rh-permite-agregar=true rh-id-filter-combo="cboHerramientas" rh-filter-key="Tipo" ></select>
+                    <select id="cboHerramientas" style="width: 200px" rh-control-type="combo" rh-data-provider="TiposCompetenciaInformatica" > </select>        
+                    <label style="display: inline-block; width: 100px; margin-left: 10px;">Conocimiento</label>
+                    <select id="cboConocimiento" style="width: 200px; margin-right: 10px" rh-control-type="combo" rh-data-provider="ConocimientoCompetenciaInformatica" rh-permite-agregar=true rh-id-filter-combo="cboHerramientas" rh-filter-key="Tipo" ></select>
+                    <input type="button" id="btn_Agregar_Conocimientos" class="btn btn-primary" value="Agregar conocimiento" style="width:200px" />
                 </div>
- <%--               <div class="bloque">
-                    <label style="display: inline-block; width: 150px;">Utiliza en sus funciones</label>
-                    <label style="display: inline-block; width: 10px;">Si</label>
-                    <input id="chkUtilizaFuncion_SI" type="checkbox" style="width: 50px" />
-                </div>--%>
                 <div id="listadoConocimientos" style="margin: 10px; width: 660px;">
                     
                 </div>
-                <input type="button" id="btn_Agregar_Conocimientos" class="btn btn-primary" value="Agregar conocimiento" style="width:200px" />
             </div> 
     </div>
     <div style="margin-left: 50px;">
@@ -1366,7 +1360,7 @@
 
             <div class="caja_estilo_conocimiento"> 
                 <input type=text class="conocimiento" disabled=disabled/> 
-                <label style="margin-right: 10px;">Utiliza</label> 
+                <label style="margin-right: 10px;">Utiliza en sus funciones</label> 
                 <input class="utiliza_conocimiento" type="checkbox" />
                 <img src="../Imagenes/iconos/icono-eliminar.png" class="icono_eliminar"/>
             </div>
