@@ -2275,9 +2275,20 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Combo[] ObtenerEdificiosPorLocalidad(int id_localidad, Usuario usuario)
+    public Combo[] ObtenerEdificiosPorLocalidad(string criterio)
     {
-        return RepositorioDeAreas().ObtenerEdificiosPorLocalidad(id_localidad, usuario.Id).ToArray();
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        int id_localidad = (int)((JValue)criterio_deserializado["IdLocalidad"]);
+        return RepositorioDeAreas().ObtenerEdificiosPorLocalidad(id_localidad).ToArray();
+    }
+
+    [WebMethod]
+    public Combo[] ObtenerOficinaPorEdificio(string criterio)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        int id_edificio = (int)((JValue)criterio_deserializado["IdEdificio"]);
+        int id_area = (int)((JValue)criterio_deserializado["IdArea"]);  
+        return RepositorioDeAreas().ObtenerOficinaPorEdificio(id_edificio, id_area).ToArray();
     }
 
 

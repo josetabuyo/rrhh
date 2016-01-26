@@ -218,6 +218,7 @@ namespace General.Repositorios
         public Area GetAreaCompletaPorId(int id_area)
         {
             Area area = new Area();
+            area.Id = id_area;
             List<DatoDeContacto> datos_de_contacto = new List<DatoDeContacto>();
             List<Asistente> asistentes = new List<Asistente>();
             area.DatosDeContacto = datos_de_contacto;
@@ -420,15 +421,30 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
-        public List<Combo> ObtenerEdificiosPorLocalidad(int id_localidad, int p)
+        public List<Combo> ObtenerEdificiosPorLocalidad(int id_localidad)
         {
             List<Combo> combo = new List<Combo>();
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Localidad", id_localidad);
-            var tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Edificios_Por_Localidad");
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Edificios_Por_Localidad", parametros);
             tablaDatos.Rows.ForEach(row =>
             {
                 Combo opcion = new Combo(row.GetSmallintAsInt("id"), row.GetString("descripcion"));
+                combo.Add(opcion);
+            });
+            return combo;
+        }
+
+        public List<Combo> ObtenerOficinaPorEdificio(int id_edificio, int id_area)
+        {
+            List<Combo> combo = new List<Combo>();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_Edificio", id_edificio);
+             parametros.Add("@id_area", id_area);
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Oficinas", parametros);
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Combo opcion = new Combo(row.GetSmallintAsInt("Id_Oficina"), row.GetString("Oficina"));
                 combo.Add(opcion);
             });
             return combo;
