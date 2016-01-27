@@ -27,7 +27,7 @@
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
      <h1 style="text-align: center; margin-top: 30px;font-size: 2.9em;">Formulario <br />Relevamiento de Contratos</h1>
     
-    <div id="buscador_de_personas">
+    <div id="buscador_de_personas" RequiereFuncionalidad=28>
         <p class="buscarPersona">Buscar persona:
             <div id="selector_usuario" class="selector_personas" style="margin-bottom: 0px;">
                 <input id="buscador" type=hidden />

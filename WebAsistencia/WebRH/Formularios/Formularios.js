@@ -14,11 +14,6 @@ var VistaFormulario = {
         $('#fecha_ingreso_minis').datepicker('option', 'dateFormat', 'dd/mm/yy');
         $('#fecha_ingreso_oficina').datepicker();
         $('#fecha_ingreso_oficina').datepicker('option', 'dateFormat', 'dd/mm/yy');
-        var selector_personas = new SelectorDePersonas({
-            ui: $('#selector_usuario'),
-            repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
-            placeholder: "nombre, apellido, documento o legajo"
-        });
 
         var crear_vista_conocimiento = function (id) {
             var conocimiento = $("#plantillas .caja_estilo_conocimiento").clone();
@@ -42,7 +37,7 @@ var VistaFormulario = {
 
         var formulario = {};
 
-        var cambios = {};
+        _this.cambios = {};
 
         $("[rh-control-type='combo']").each(function (i, e) {
             var _this = this;
@@ -84,9 +79,9 @@ var VistaFormulario = {
         $("[campo]").change(function () {
             if (_this.habilitar_registro_cambios) {
                 if ($(this).attr("type") == "checkbox") {
-                    cambios[$(this).attr("campo")] = $(this).is(":checked");
+                    _this.cambios[$(this).attr("campo")] = $(this).is(":checked");
                 } else {
-                    cambios[$(this).attr("campo")] = $(this).val();
+                    _this.cambios[$(this).attr("campo")] = $(this).val();
                 }
             }
         });
@@ -97,11 +92,11 @@ var VistaFormulario = {
                 campos: []
             }
 
-            for (var campo_cambio in cambios) {
-                if (cambios.hasOwnProperty(campo_cambio)) {
+            for (var campo_cambio in _this.cambios) {
+                if (_this.cambios.hasOwnProperty(campo_cambio)) {
                     form_cambios.campos.push({
                         clave: campo_cambio,
-                        valor: cambios[campo_cambio]
+                        valor: _this.cambios[campo_cambio]
                     });
                 }
             }
@@ -111,7 +106,7 @@ var VistaFormulario = {
             .onSuccess(function () {
                 alertify.success("Formulario guardado correctamente");
                 _this.mostrarIdUltimoFormulario(form_cambios);
-                cambios = [];
+                _this.cambios = [];
             })
             .onError(function () {
                 alertify.error("Error al guardar formulario");
@@ -128,56 +123,73 @@ var VistaFormulario = {
             });
         });
 
-        selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-            $(".contenedor_formulario").hide()
-            _this.limpiarPantalla();
-            cambios = [];
-            Backend.GetFormulario(JSON.stringify({ idFormulario: 1, idPersona: la_persona_seleccionada.id })).onSuccess(function (form) {
-                //            formulario = {
-                //                id: 1,
-                //                nombre: "Relevamiento de contrato",
-                //                idPersona: 111,
-                //                campos: [
-                //                        { campo: "nombre", valor: "agustin" },
-                //                        { campo: "apellido", valor: "calcagno" }
-                //                    ]
-                //            };
-
-                formulario = form;
-                form.idPersona = la_persona_seleccionada.id;
-                form.idFormulario = 1;
-                _this.habilitar_registro_cambios = false;
-                $("[campo]").each(function () {
-                    var campo = _.findWhere(formulario.campos, { clave: $(this).attr("campo") });
-                    if (campo) {
-                        if ($(this).attr("type") == "checkbox") {
-                            $(this).prop('checked', (campo.valor.toLowerCase() === 'true'));
-                        }
-                        else {
-                            $(this).val(campo.valor);
-                            $(this).attr("valor_para_carga_async", campo.valor);
-                        }
-                        $(this).change();
-                    }
+        Backend.ElUsuarioLogueadoTienePermisosPara(28).onSuccess(function (tiene_funcionalidad) {
+            if (tiene_funcionalidad) {
+                var selector_personas = new SelectorDePersonas({
+                    ui: $('#selector_usuario'),
+                    repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
+                    placeholder: "nombre, apellido, documento o legajo"
                 });
-                _this.habilitar_registro_cambios = true;
-
-                $("#listadoConocimientos .caja_estilo_conocimiento").each(function () {
-                    var input_conocimiento = $(this).find(".conocimiento");
-
-                    if (input_conocimiento.val() != "") {
-                        $(this).show();
-                    }
+                selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
+                    _this.mostrarPersona(la_persona_seleccionada.id);
+                };
+            } else {
+                Backend.GetPersonaUsuarioLogueado().onSuccess(function (persona) {
+                    _this.mostrarPersona(persona.Id);
                 });
+            }
+        });
+    },
+    mostrarPersona: function (id_persona) {
+        var _this = this;
+        $(".contenedor_formulario").hide()
+        _this.limpiarPantalla();
+        _this.cambios = [];
+        Backend.GetFormulario(JSON.stringify({ idFormulario: 1, idPersona: id_persona })).onSuccess(function (form) {
+            //            formulario = {
+            //                id: 1,
+            //                nombre: "Relevamiento de contrato",
+            //                idPersona: 111,
+            //                campos: [
+            //                        { campo: "nombre", valor: "agustin" },
+            //                        { campo: "apellido", valor: "calcagno" }
+            //                    ]
+            //            };
 
-                $(".contenedor_formulario").show()
-
-                _this.dibujarEstudios();
-                _this.ocultarTareas();
-                _this.bidearEventosImprimir(form);
-                _this.mostrarIdUltimoFormulario(form);
+            formulario = form;
+            form.idPersona = id_persona;
+            form.idFormulario = 1;
+            _this.habilitar_registro_cambios = false;
+            $("[campo]").each(function () {
+                var campo = _.findWhere(formulario.campos, { clave: $(this).attr("campo") });
+                if (campo) {
+                    if ($(this).attr("type") == "checkbox") {
+                        $(this).prop('checked', (campo.valor.toLowerCase() === 'true'));
+                    }
+                    else {
+                        $(this).val(campo.valor);
+                        $(this).attr("valor_para_carga_async", campo.valor);
+                    }
+                    $(this).change();
+                }
             });
-        };
+            _this.habilitar_registro_cambios = true;
+
+            $("#listadoConocimientos .caja_estilo_conocimiento").each(function () {
+                var input_conocimiento = $(this).find(".conocimiento");
+
+                if (input_conocimiento.val() != "") {
+                    $(this).show();
+                }
+            });
+
+            $(".contenedor_formulario").show()
+
+            _this.dibujarEstudios();
+            _this.ocultarTareas();
+            _this.bidearEventosImprimir(form);
+            _this.mostrarIdUltimoFormulario(form);
+        });
     },
     limpiarPantalla: function () {
         this.habilitar_registro_cambios = false;

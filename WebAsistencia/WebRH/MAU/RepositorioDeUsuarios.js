@@ -46,3 +46,17 @@ RepositorioDeUsuarios.prototype.resetearPassword = function (id_usuario, onSucce
         }
     });
 };
+
+RepositorioDeUsuarios.prototype.ElUsuarioLogueadoTieneLaFuncionalidad = function ( id_funcionalidad, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "ElUsuarioLogueadoTieneLaFuncionalidad",
+        data: {
+            id_funcionalidad: id_funcionalidad
+        },
+        success: function (tiene_funcionalidad) {
+            onSuccess(tiene_funcionalidad);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            onError();
+        }
+    });
+};
