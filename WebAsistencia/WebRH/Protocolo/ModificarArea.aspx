@@ -62,8 +62,8 @@
                                 data-validar="esNoBlanco" disabled />
                         </div>
                         <div class="btn-fld">
-                            <input type="button" class="btn btn-primary" style="margin: 4px 143px; display: none;" id="btn_modificar_responsable"
-                                value="Modificar" />
+                            <input type="button" class="btn btn-primary" style="margin: 4px 143px;" id="btn_modificar_responsable"
+                                value="Visualizar" />
                         </div>
                         <legend style="margin-bottom: 20px;">Dirección</legend>
                         <div class="grupo_campos nueva_linea">

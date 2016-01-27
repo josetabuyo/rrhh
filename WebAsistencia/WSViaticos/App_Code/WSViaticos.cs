@@ -2271,7 +2271,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void ModificarResponsable( Area area, Usuario usuario)
     {
-        RepositorioDeAreas().ModificarResponsable(area, usuario.Id);
+        //RepositorioDeAreas().ModificarResponsable(area, usuario.Id);
     }
 
     [WebMethod]

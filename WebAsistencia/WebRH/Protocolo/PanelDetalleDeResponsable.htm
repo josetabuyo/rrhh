@@ -12,15 +12,15 @@
                 <div id="div_documento" class="grupo_campos">
                     <label for="cmb_TipoResponsable">
                         Documento:</label>
-                    <input id="txt_responsable_documento" type="text" style="width: 100px;" data-validar="esNumeroNaturalSinCero" />
+                    <input id="txt_responsable_documento" type="text" style="width: 100px;" data-validar="esNumeroNaturalSinCero" disabled/>
                 </div>
                 <div class="grupo_campos">
                     <label for="cmb_TipoResponsable">
                         Id Interna:</label>
                     <input id="txt_responsable_id_interna" type="text" style="width: 96px;" data-validar="esNoBlanco"
                         disabled />
-                    <input type="button" class="btn btn-primary" style="margin: -10px 0px 0px 14px;"
-                        id="btn_buscar_responsable" value="Buscar" />
+                    <!--<input type="button" class="btn btn-primary" style="margin: -10px 0px 0px 14px;"
+                        id="btn_buscar_responsable" value="Buscar" />-->
                 </div>
                 <div id="div_mensaje" style="display: none;">
                     <p style="color: Red;">
@@ -46,27 +46,27 @@
                     <label for="txt_Responsable">
                         Trat. Persona:
                     </label>
-                    <select id="cmb_responsable_tratamiento_persona" style="width: 90px;" data-validar="esNoBlanco">
+                    <select id="cmb_responsable_tratamiento_persona" style="width: 90px;" data-validar="esNoBlanco" disabled>
                     </select>
                 </div>
                 <div class="grupo_campos">
                     <label for="txt_Responsable">
                         Trat. Título:
                     </label>
-                    <select id="cmb_responsable_tratamiento_titulo" style="width: 90px;" data-validar="esNoBlanco">
+                    <select id="cmb_responsable_tratamiento_titulo" style="width: 90px;" data-validar="esNoBlanco" disabled>
                     </select>
                 </div>
                 <div class="grupo_campos" style="margin-left: 35px;">
-                    <input type="checkbox" name="vehicle" id="check_acto_administrativo">Acto Adm.<br>
-                    <input type="checkbox" name="vehicle" id="check_contratos">Contratos<br>
-                    <input type="checkbox" name="vehicle" id="check_facturas">Facturas<br>
-                    <input type="checkbox" name="vehicle" id="check_ddjj_recibo">DDJJ/Recibo
+                    <input type="checkbox" name="vehicle" id="check_acto_administrativo" disabled>Acto Adm.<br>
+                    <input type="checkbox" name="vehicle" id="check_contratos" disabled>Contratos<br>
+                    <input type="checkbox" name="vehicle" id="check_facturas" disabled>Facturas<br>
+                    <input type="checkbox" name="vehicle" id="check_ddjj_recibo" disabled>DDJJ/Recibo
                 </div>
                 <div class="grupo_campos nueva_linea" style="margin-top: -34px;">
                     <label for="txt_Responsable">
                         Cargo/Función o Equiv.:
                     </label>
-                    <select id="cmb_responsable_cargo_funcion" style="width: 210px;" data-validar="esNoBlanco">
+                    <select id="cmb_responsable_cargo_funcion" style="width: 210px;" data-validar="esNoBlanco" disabled>
                     </select>
                 </div>
             </fieldset>

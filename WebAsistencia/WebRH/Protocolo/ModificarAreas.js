@@ -198,8 +198,8 @@
                 path_html: "PanelDetalleDeResponsable.htm",
                 metodoDeGuardado: "ModificarResponsable",
                 modelo: area,
-                mensajeDeGuardadoExitoso: "El Responsable ha sido guardado exitosamente",
-                mensajeDeGuardadoErroneo: "Error al modificar el Responsable",
+                mensajeDeGuardadoExitoso: "Para modificar los datos del Repsonsable, por favor comuníquese con Recursos Humanos",
+                mensajeDeGuardadoErroneo: "Para modificar los datos del Repsonsable, por favor comuníquese con Recursos Humanos",
                 alModificar: function (area) {
                    
                 }
