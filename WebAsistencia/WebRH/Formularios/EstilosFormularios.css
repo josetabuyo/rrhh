@@ -1,0 +1,280 @@
+﻿/*-------------- ESTILO DE EL CV   -----------------*/
+
+body {
+	padding: 0 10px;
+	font: normal 62.5%;
+	font-family: Calibri,Verdana,Arial;
+	color: Black;
+}
+	
+p { margin: 10px 0; }
+
+	
+.contenedor_formulario {
+    /*width:80%;
+    margin:0 10%;
+    */
+    width:800px; 
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+}
+
+
+.bloque {
+    display: flex;
+    width: 100%;
+    /*width: 800px;*/
+}
+
+.bloque_estudios
+{
+    display: flex;
+    width: 700px;
+}
+       
+form.cmxform fieldset {
+  /*margin-bottom: 10px;*/
+}
+form.cmxform legend {
+  padding: 0 2px;
+  font-weight: bold;
+  font-size:14px;
+}
+form.cmxform label {
+ 
+  line-height: 1.8;
+  vertical-align: top;
+}
+
+.control-invalido
+{
+    box-shadow: 0 0 5px rgba(154, 10, 14, 1) !important;
+    border: 1px solid rgba(160, 11, 14, 1) !important;
+}
+
+/*form.cmxform fieldset ol {
+  margin: 0;
+  padding: 0;
+}
+form.cmxform fieldset li {
+  list-style: none;
+  padding: 5px;
+  margin: 0;
+}*/
+form.cmxform fieldset fieldset {
+  border: none;
+  margin: 3px 0 0;
+}
+form.cmxform fieldset fieldset legend {
+  padding: 0 0 5px;
+  font-weight: normal;
+}
+form.cmxform fieldset fieldset label {
+  display: block;
+  width: auto;
+}
+form.cmxform em {
+  font-weight: bold;
+  font-style: normal;
+  color: #f00;
+}
+form.cmxform label {
+  /*width: auto; /* Width of labels */
+  display: block;
+  margin-bottom: 5px;
+}
+form.cmxform fieldset fieldset label {
+  margin-left: 123px; /* Width plus 3 (html space) */
+}
+   
+
+form.cmxform {
+	width: 100%;
+	font-size: 15px;
+	color: #333;
+	}
+	
+form.cmxform legend { padding-left: 0; }
+	
+form.cmxform legend,
+form.cmxform label { color: #333; }
+
+form.cmxform fieldset {
+	border: none;
+	/*border-top: 1px solid #d1edff;*/
+	
+	}
+	
+form.cmxform fieldset fieldset { background: none; }
+	
+form.cmxform fieldset li {
+	padding: 5px 10px 7px;
+	background: url(../images/cmxform-divider.gif) left bottom repeat-x;
+	}   
+/*del bootstrap*/
+label {
+
+}
+label, input, button, select, textarea {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+.table th, .table td {
+    padding: 2px;
+}
+
+/*de estilos sacc*/
+.table-striped tbody tr:nth-child(odd) td {
+background-color: #fff;
+border-top: 1px solid #929292;
+border-bottom: 1px solid #929292;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: transparent;/* #f5f5f5;*/
+}
+
+.buscarPersona 
+{
+    font-size:1.3em; 
+    margin-top:30px; 
+    margin-left:10px;
+}
+
+.subtitulo 
+{
+    font-weight:bold;
+    font-size:1.1em;
+    }
+
+.caja_estudios {
+    margin: 20px 50px;
+    padding-bottom: 20px;
+    border-bottom: 1px dotted#ccc;
+    width: 650px;
+}
+
+.ocultarEstudio 
+{
+    display:none;
+}
+
+.mostrarEstudio 
+{
+    display:block;
+}
+
+.tareas
+{
+    display:inline-block;
+    width: 460px;
+    margin-left:10px; 
+    margin-top:5px;  
+}
+
+.tareas_otras
+{
+    display:inline-block;
+    width: 60px;
+    margin-left:10px; 
+    margin-top:5px;  
+}
+
+.tareas_nro
+{
+    display:inline-block;
+    width: 20px;
+    margin-top:5px;  
+}
+
+@media print {
+    #barra_menu_contenedor, 
+    #buscador_de_personas, 
+    #btn_imprimir, 
+    #btn_guardar_cambios, 
+    #btn_Agregar_Conocimientos, 
+    #cargar_mas_estudios, 
+    #Header, 
+    #Footer, 
+    .no_imprimir,
+    .select2-arrow,
+    .select2-chosen,
+    .icono_eliminar
+    {
+        display: none !important;
+    }
+
+    .espacio_firma 
+    {
+        display: inline-block; 
+        width: 200px; 
+        text-align:center;
+    }
+    
+    .select2-allowclear .select2-chosen
+    {
+        display: block !important;
+    }
+    
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color: transparent;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: transparent;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: transparent;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: transparent;
+    }
+    
+}
+
+.estilo_conocimientos 
+{
+    border: none;
+    
+    color: black !important;
+    background-color: #F3A227 !important;
+    text-align: center;
+    font-size: 0.9em;
+}
+    
+.caja_estilo_conocimiento 
+{
+    color: black !important;
+    background-color: #F3A227 !important;
+    border-radius: 5px !important;
+    display: inline-block;
+    padding: 5px;
+    margin: 10px;
+}
+    
+.icono_eliminar 
+{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.caja_estilo_conocimiento .conocimiento
+{
+    width: 300px;
+    margin-right: 10px;
+    background-color: #F3A227;
+    border-width: 0px;
+    border-color: #F3A227;
+    color: black;
+    border-style: solid;
+    margin-bottom: 0px;
+}
+
+
+

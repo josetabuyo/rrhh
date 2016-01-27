@@ -3340,6 +3340,35 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
+    #region Formularios
+        [WebMethod]
+        public Formulario GetFormulario(string criterio, Usuario usuario)
+        {
+            return new RepositorioDeFormularios(Conexion()).GetFormulario(criterio, usuario);
+        }
+
+        [WebMethod]
+        public void GuardarCambiosEnFormulario(Formulario form, Usuario usuario)
+        {
+            new RepositorioDeFormularios(Conexion()).GuardarDatos(form, usuario);
+        }
+
+        [WebMethod]
+        public void GuardarCabeceraFormulario(Formulario form, Usuario usuario)
+        {
+            //el true es para poner en impreso
+            new RepositorioDeFormularios(Conexion()).GuardarVersion(form, usuario,true);
+        }
+
+        [WebMethod]
+        public int GetIdCabeceraFormulario(Formulario form, Usuario usuario)
+        {
+            //el true es para poner en impreso
+            return new RepositorioDeFormularios(Conexion()).GetUltimaCabeceraFormulario(form, usuario);
+        }
+    #endregion
+
+
     private RepositorioLicencias RepoLicencias()
     {
         return new RepositorioLicencias(Conexion());

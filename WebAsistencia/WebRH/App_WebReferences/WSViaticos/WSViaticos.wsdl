@@ -82,41 +82,10 @@
           <s:element minOccurs="0" maxOccurs="1" name="NombrePartido" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="GetObservaciones">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetObservacionesResponse">
+      <s:element name="GetFormulario">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetObservacionesResult" type="tns:ArrayOfObservacionDTO" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfObservacionDTO">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ObservacionDTO" nillable="true" type="tns:ObservacionDTO" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ObservacionDTO">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="FechaCarga" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Relacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="PersonaCarga" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Pertenece" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Asunto" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="ReferenteMDS" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Seguimiento" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="FechaResultado" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="ReferenteRespuestaMDS" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GuardarObservaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="observaciones_nuevas_dto" type="tns:ArrayOfObservacionDTO" />
-            <s:element minOccurs="0" maxOccurs="1" name="observaciones_originales_dto" type="tns:ArrayOfObservacionDTO" />
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -320,6 +289,107 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetFormularioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioResult" type="tns:Formulario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Formulario">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="idFormulario" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="idPersona" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="campos" type="tns:ArrayOfCampo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCampo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Campo" nillable="true" type="tns:Campo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Campo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="valor" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarCambiosEnFormulario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCambiosEnFormularioResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GuardarCabeceraFormulario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCabeceraFormularioResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetIdCabeceraFormulario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIdCabeceraFormularioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetIdCabeceraFormularioResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetObservaciones">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetObservacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetObservacionesResult" type="tns:ArrayOfObservacionDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfObservacionDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ObservacionDTO" nillable="true" type="tns:ObservacionDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ObservacionDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaCarga" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Relacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PersonaCarga" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pertenece" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Asunto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenteMDS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Seguimiento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaResultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenteRespuestaMDS" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarObservaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="observaciones_nuevas_dto" type="tns:ArrayOfObservacionDTO" />
+            <s:element minOccurs="0" maxOccurs="1" name="observaciones_originales_dto" type="tns:ArrayOfObservacionDTO" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarObservacionesResponse">
         <s:complexType>
           <s:sequence>
@@ -5069,6 +5139,30 @@
   <wsdl:message name="BuscarLocalidadesSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarLocalidadesResponse" />
   </wsdl:message>
+  <wsdl:message name="GetFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GetFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFormularioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCambiosEnFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCambiosEnFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormularioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCabeceraFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCabeceraFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCabeceraFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCabeceraFormularioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIdCabeceraFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIdCabeceraFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GetIdCabeceraFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIdCabeceraFormularioResponse" />
+  </wsdl:message>
   <wsdl:message name="GetObservacionesSoapIn">
     <wsdl:part name="parameters" element="tns:GetObservaciones" />
   </wsdl:message>
@@ -6516,6 +6610,22 @@
       <wsdl:input message="tns:BuscarLocalidadesSoapIn" />
       <wsdl:output message="tns:BuscarLocalidadesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetFormulario">
+      <wsdl:input message="tns:GetFormularioSoapIn" />
+      <wsdl:output message="tns:GetFormularioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnFormulario">
+      <wsdl:input message="tns:GuardarCambiosEnFormularioSoapIn" />
+      <wsdl:output message="tns:GuardarCambiosEnFormularioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCabeceraFormulario">
+      <wsdl:input message="tns:GuardarCabeceraFormularioSoapIn" />
+      <wsdl:output message="tns:GuardarCabeceraFormularioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIdCabeceraFormulario">
+      <wsdl:input message="tns:GetIdCabeceraFormularioSoapIn" />
+      <wsdl:output message="tns:GetIdCabeceraFormularioSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetObservaciones">
       <wsdl:input message="tns:GetObservacionesSoapIn" />
       <wsdl:output message="tns:GetObservacionesSoapOut" />
@@ -7495,6 +7605,42 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarLocalidades">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCabeceraFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdCabeceraFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9676,6 +9822,42 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarLocalidades">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCabeceraFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdCabeceraFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
