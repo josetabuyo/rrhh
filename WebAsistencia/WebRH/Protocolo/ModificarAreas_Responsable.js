@@ -43,26 +43,27 @@
     },
 
     DatosDelResponsable: function (persona) {
-        _this = this;
-        $("#div_mensaje").hide();
-        $('#txt_responsable_documento').val(persona.Documento);
-        $('#txt_responsable_id_interna').val(persona.IdInterna);
-        $('#txt_responsable_nombre').val(persona.Nombre);
-        $('#txt_responsable_apellido').val(persona.Apellido);
+        if (persona.Documento != 0) {
+            _this = this;
+            $("#div_mensaje").hide();
+            $('#txt_responsable_documento').val(persona.Documento);0
+            $('#txt_responsable_id_interna').val(persona.IdInterna);
+            $('#txt_responsable_nombre').val(persona.Nombre);
+            $('#txt_responsable_apellido').val(persona.Apellido);
 
-        _this.CheckearDatosResponsable(persona.ActoAdministrativo, $('#check_acto_administrativo'));
-        _this.CheckearDatosResponsable(persona.Contratos, $('#check_contratos'));
-        _this.CheckearDatosResponsable(persona.Facturas, $('#check_facturas'));
-        _this.CheckearDatosResponsable(persona.DDJJRecibos, $('#check_ddjj_recibo'));
+            _this.CheckearDatosResponsable(persona.ActoAdministrativo, $('#check_acto_administrativo'));
+            _this.CheckearDatosResponsable(persona.Contratos, $('#check_contratos'));
+            _this.CheckearDatosResponsable(persona.Facturas, $('#check_facturas'));
+            _this.CheckearDatosResponsable(persona.DDJJRecibos, $('#check_ddjj_recibo'));
 
+            $('#cmb_responsable_tratamiento_persona').val(persona.TratamientoPersona.Id);
+            $('#cmb_responsable_tratamiento_titulo').val(persona.TratamientoTitulo.Id);
+            $('#cmb_responsable_cargo_funcion').val(persona.CargoFuncion.Id);
 
-        $('#cmb_responsable_tratamiento_persona').val(persona.TratamientoPersona.Id);
-        $('#cmb_responsable_tratamiento_titulo').val(persona.TratamientoTitulo.Id);
-        $('#cmb_responsable_cargo_funcion').val(persona.CargoFuncion.Id);
-
-        $("#txt_responsable_id_interna").prop('disabled', true);
-        $("#txt_responsable_nombre").prop('disabled', true);
-        $("#txt_responsable_apellido").prop('disabled', true);
+            $("#txt_responsable_id_interna").prop('disabled', true);
+            $("#txt_responsable_nombre").prop('disabled', true);
+            $("#txt_responsable_apellido").prop('disabled', true);
+        }
     },
 
     CheckearDatosResponsable: function (dato, check) {
@@ -92,9 +93,9 @@
                     area.Responsable.Documento = persona[0].Documento;
                     area.Responsable.NombreApellido = persona[0].Apellido + ", " + persona[0].Nombre;
                     persona.ActoAdministrativo = "No";
-//                    _this.CheckearDatosResponsable(persona.Contratos, $('#check_contratos'));
-//                    _this.CheckearDatosResponsable(persona.Facturas, $('#check_facturas'));
-//                    _this.CheckearDatosResponsable(persona.DDJJRecibos, $('#check_ddjj_recibo'));
+                    //                    _this.CheckearDatosResponsable(persona.Contratos, $('#check_contratos'));
+                    //                    _this.CheckearDatosResponsable(persona.Facturas, $('#check_facturas'));
+                    //                    _this.CheckearDatosResponsable(persona.DDJJRecibos, $('#check_ddjj_recibo'));
 
 
                     $("#txt_responsable_id_interna").prop('disabled', true);
