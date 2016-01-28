@@ -242,7 +242,7 @@ var VistaFormulario = {
         var separador2 = "-";
         var cadena = $('#funcion').val();
         var arregloDeSubCadenas = cadena.split(separador1);
-        if (arregloDeSubCadenas.length > 0) {
+        if (arregloDeSubCadenas.length > 1) {
             //me fijo que letra es en el primer caracter del segundo item
             switch (arregloDeSubCadenas[1].charAt(0)) {
                 case 'A':
