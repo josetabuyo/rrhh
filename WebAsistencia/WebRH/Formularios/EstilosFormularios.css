@@ -191,6 +191,19 @@ border-bottom: 1px solid #929292;
     margin-top:5px;  
 }
 
+#btn_imprimir
+{
+    position:fixed;
+    bottom:50px;
+    right: 50px;
+}
+#btn_guardar_cambios
+{
+    position:fixed;
+    bottom:50px;
+    right: 150px;
+}
+
 @media print {
     #barra_menu_contenedor, 
     #buscador_de_personas, 

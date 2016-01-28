@@ -15,6 +15,17 @@ var VistaFormulario = {
         $('#fecha_ingreso_oficina').datepicker();
         $('#fecha_ingreso_oficina').datepicker('option', 'dateFormat', 'dd/mm/yy');
 
+        $('#fecha_egreso_1').datepicker();
+        $('#fecha_egreso_1').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#fecha_egreso_2').datepicker();
+        $('#fecha_egreso_2').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#fecha_egreso_3').datepicker();
+        $('#fecha_egreso_3').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#fecha_egreso_4').datepicker();
+        $('#fecha_egreso_4').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#fecha_egreso_5').datepicker();
+        $('#fecha_egreso_5').datepicker('option', 'dateFormat', 'dd/mm/yy');
+
         var crear_vista_conocimiento = function (id) {
             var conocimiento = $("#plantillas .caja_estilo_conocimiento").clone();
             conocimiento.find(".conocimiento").attr("campo", "conocimiento_" + i);
@@ -35,7 +46,7 @@ var VistaFormulario = {
         }
         this.bindearBtnAgregarConocimiento();
 
-        var formulario = {};
+        _this.formulario = {};
 
         _this.cambios = {};
 
@@ -86,9 +97,14 @@ var VistaFormulario = {
             }
         });
         $("#btn_guardar_cambios").click(function () {
+            var validacion = _this.validar();
+            if (!validacion.valido) {
+                alertify.error(validacion.mensaje)
+                return;
+            }
             form_cambios = {
-                idFormulario: formulario.idFormulario,
-                idPersona: formulario.idPersona,
+                idFormulario: _this.formulario.idFormulario,
+                idPersona: _this.formulario.idPersona,
                 campos: []
             }
 
@@ -116,7 +132,7 @@ var VistaFormulario = {
         $("#cargar_mas_estudios").click(function () {
             var listo = false;
             $('.caja_estudios').each(function () {
-                if ($(this).find(".nivel_estudio").val() == "" && !listo) {
+                if (($(this).find(".titulo_obtenido").val() == "" && !$(this).is(":visible"))&&!listo) {
                     $(this).show();
                     listo = true;
                 }
@@ -140,6 +156,27 @@ var VistaFormulario = {
             }
         });
     },
+    validar: function () {
+        var respuesta = {
+            valido: true
+        };
+
+        var ingreso_apn = $('#fecha_ingreso_apn').val();
+        var ingreso_minis = $('#fecha_ingreso_minis').val();
+        var ingreso_of = $('#fecha_ingreso_oficina').val();
+        if (ConversorDeFechas.PrimeraFechaCriolloMayor(ingreso_apn, ingreso_minis)) {
+            respuesta.valido = false;
+            respuesta.mensaje = "la fecha de ingreso al ministerio debe ser posterior a la fecha de ingreso a la APN";
+            return respuesta;
+        }
+        if (ConversorDeFechas.PrimeraFechaCriolloMayor(ingreso_minis, ingreso_of)) {
+            respuesta.valido = false;
+            respuesta.mensaje = "la fecha de ingreso a la oficina debe ser posterior a la fecha de ingreso al ministerio";
+            return respuesta;
+        }
+
+        return respuesta;
+    },
     mostrarPersona: function (id_persona) {
         var _this = this;
         $(".contenedor_formulario").hide()
@@ -156,12 +193,12 @@ var VistaFormulario = {
             //                    ]
             //            };
 
-            formulario = form;
+            _this.formulario = form;
             form.idPersona = id_persona;
             form.idFormulario = 1;
             _this.habilitar_registro_cambios = false;
             $("[campo]").each(function () {
-                var campo = _.findWhere(formulario.campos, { clave: $(this).attr("campo") });
+                var campo = _.findWhere(_this.formulario.campos, { clave: $(this).attr("campo") });
                 if (campo) {
                     if ($(this).attr("type") == "checkbox") {
                         $(this).prop('checked', (campo.valor.toLowerCase() === 'true'));
@@ -204,9 +241,16 @@ var VistaFormulario = {
         this.habilitar_registro_cambios = true;
     },
     dibujarEstudios: function () {
+        var ocultos = 0;
         $('.caja_estudios').each(function () {
-            if ($(this).find(".nivel_estudio").val() == "") $(this).hide();
+            if ($(this).find(".titulo_obtenido").val() == "") {
+                $(this).hide();
+                ocultos++;
+            }
         });
+        if (ocultos == 5) {
+            $("#caja_estudio_1").show();
+        }
         //        var div_estudios_extras = $(".caja_extra");
         //        div_estudios_extras.each(function () {
         //            if (this.children[0].children[1].value == "") {
