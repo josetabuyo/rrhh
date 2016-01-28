@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using General.MAU;
 using AdministracionDeUsuarios;
+using General;
 
 namespace AdministracionDeUsuarios
 {
@@ -74,6 +75,10 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
-      
+
+        public Persona GetPersonaPorIdUsuario(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

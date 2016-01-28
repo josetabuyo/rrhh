@@ -2111,6 +2111,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Persona GetPersonaUsuarioLogueado(Usuario usuario)
+    {
+        return RepositorioDeUsuarios().GetPersonaPorIdUsuario(usuario.Id);
+    }
+
+    [WebMethod]
     public bool ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
     {
         return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);

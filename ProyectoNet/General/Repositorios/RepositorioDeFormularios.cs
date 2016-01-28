@@ -97,24 +97,32 @@ namespace General.Repositorios
             List<Campo> campos = new List<Campo>();
 
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@Doc", documento);
-            var tablaDatos = conexion_bd.Ejecutar("dbo.LEG_GET_Domicilios", parametros);
-
-            if (tablaDatos.Rows.Count > 0)
+            try
             {
-                var primer_fila = tablaDatos.Rows[0];
-                campos.Add(new Campo("domicilio_calle", primer_fila.GetString("Calle")));
-                campos.Add(new Campo("domicilio_numero", primer_fila.GetSmallintAsInt("Número").ToString()));
-                campos.Add(new Campo("domicilio_piso", primer_fila.GetString("Piso")));
-                campos.Add(new Campo("domicilio_depto", primer_fila.GetString("Dpto")));
-                campos.Add(new Campo("domicilio_cp", primer_fila.GetSmallintAsInt("Codigo_Postal").ToString()));
-                campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("Provincia_DESC", "No hay dato").ToString()));
-                campos.Add(new Campo("domicilio_localidad", primer_fila.GetString("nombrelocalidad", "No hay dato").ToString()));
-                campos.Add(new Campo("domicilio_telefono", ""));
+                parametros.Add("@Doc", documento);
+
+                var tablaDatos = conexion_bd.Ejecutar("dbo.LEG_GET_Domicilios", parametros);
+
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    var primer_fila = tablaDatos.Rows[0];
+                    campos.Add(new Campo("domicilio_calle", primer_fila.GetString("Calle")));
+                    campos.Add(new Campo("domicilio_numero", primer_fila.GetSmallintAsInt("Número").ToString()));
+                    campos.Add(new Campo("domicilio_piso", primer_fila.GetString("Piso")));
+                    campos.Add(new Campo("domicilio_depto", primer_fila.GetString("Dpto")));
+                    campos.Add(new Campo("domicilio_cp", primer_fila.GetSmallintAsInt("Codigo_Postal").ToString()));
+                    campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("Provincia_DESC", "No hay dato").ToString()));
+                    campos.Add(new Campo("domicilio_localidad", primer_fila.GetString("nombrelocalidad", "No hay dato").ToString()));
+                    campos.Add(new Campo("domicilio_telefono", ""));
 
 
+                }
             }
+            catch (Exception e)
+            {
 
+                throw e;
+            }
             return campos;
         }
 
