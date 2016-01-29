@@ -5,6 +5,7 @@
 });
 
 
+
 var VistaFormulario = {
     start: function () {
         var _this = this;
@@ -14,6 +15,10 @@ var VistaFormulario = {
         $('#fecha_ingreso_minis').datepicker('option', 'dateFormat', 'dd/mm/yy');
         $('#fecha_ingreso_oficina').datepicker();
         $('#fecha_ingreso_oficina').datepicker('option', 'dateFormat', 'dd/mm/yy');
+
+        $("#telefono_area").mask("(99) 9999-9999");
+        $("#domicilio_telefono_nuevo").mask("(99) 9999-9999");
+        
 
         var crear_vista_conocimiento = function (id) {
             var conocimiento = $("#plantillas .caja_estilo_conocimiento").clone();
@@ -182,6 +187,32 @@ var VistaFormulario = {
                     $(this).show();
                 }
             });
+
+
+            //GER: Controlo que se ingrese solo 1 y un numero menor a 5 para las tareas
+            $(".CantMaximaCaracteres").keypress(function(){                
+                var campo = $(this);
+                var maxLength = 1;
+                var numMaximo = 5;
+
+                var evento = window.event;
+                var numIngresado = String.fromCharCode(evento.keyCode);
+                
+                if (numIngresado > numMaximo) {
+                    campo.val("");
+                }
+                else {
+                    if (campo.length = maxLength) {
+                      campo.val(numIngresado);
+                    }
+                    else {
+                        campo.val(campo.substring(1, maxLength));
+                    }
+                    
+                    
+                }
+            });
+            
 
             $(".contenedor_formulario").show()
 
@@ -418,7 +449,7 @@ var VistaFormulario = {
     mostrarIdUltimoFormulario: function (form) {
         Backend.GetIdCabeceraFormulario(form)
                     .onSuccess(function (id) {
-                        $("#CodigoBarra").barcode("FRH000," + id, "code128", {
+                        $("#CodigoBarra").barcode("FRH0313," + id, "code128", {
                             showHRI: true,
                             height: 30,
                             width: 100
@@ -428,4 +459,19 @@ var VistaFormulario = {
                         alertify.error("Error al obtener el ID del formulario");
                     });
     }
+
 }
+
+
+
+
+    
+
+
+
+
+
+            
+
+
+-->

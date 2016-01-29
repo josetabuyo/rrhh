@@ -18,8 +18,10 @@
         <script type="text/javascript" src="../Scripts/Persona.js"></script>
         <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
         <script type="text/javascript" src="../Scripts/ComboConBusquedaYAgregado.js"></script>
-        <script type="text/javascript" src="../Scripts/jquery-barcode.js"></script>
+        <script type="text/javascript" src="../Scripts/jquery-barcode.js"></script>       
+        <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
         <script type="text/javascript" src="Formularios.js"></script>
+
         
     </head>
 <body>
@@ -117,7 +119,7 @@
                     <label for="Localidad" style="margin-right: 10px">Localidad:</label>
                     <select id="localidad_nuevo" campo="domicilio_localidad_nuevo" rh-control-type="combo"  rh-data-provider="Localidades" rh-filter-key="IdProvincia" rh-propiedad-label= "Nombre" rh-id-filter-combo="provincia_nuevo" class="cmb_localidad" style="width:150px;margin-right: 10px" > </select>
                     <label for="domicilio_telefono_nuevo" style="display:inline-block; width:40px; margin-right: 10px">T.E:</label>
-                    <input id="domicilio_telefono_nuevo" campo="domicilio_telefono_nuevo" type="text" placeholder="Telefono" style="flex-grow:100;" class="validar" />
+                    <input id="domicilio_telefono_nuevo" campo="domicilio_telefono_nuevo" type="text" placeholder="(99) 9999-9999" style="flex-grow:100;" class="validar" />
                 </div>
             </div>
             <hr />
@@ -125,8 +127,6 @@
             <p>Estudio Completo:</p>
             <div style="margin-left:50px;">
                 <p style="font-weight:bold;">a. Titulo declarado en su legajo:</p>
-                <a style="cursor:pointer; font-size:1.2em;" class="toggle-text" data-toggle="collapse" id="cargar_mas_estudios">
-                    <span>Cargar</span><span class="hidden">Ocultar</span> otros estudios (max 5)</a>
                 <div class="caja_estudios caja_extra">
                      <div class="bloque_estudios">
                         <label for="nivel_estudio_1" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
@@ -223,6 +223,8 @@
                     </div>
                 </div>
                 
+                <a style="cursor:pointer; font-size:1.2em;" class="toggle-text" data-toggle="collapse" id="cargar_mas_estudios">
+                    <span>Cargar</span><span class="hidden">Ocultar</span> otros estudios (max 5)</a>
           
             <!--<p style="font-weight:bold;">b. Registre nuevo título: (solo completar en el caso de haber obtenido un título de igual o mayor nivel que el registrado)</p>
              <div style="margin-left:50px;">
@@ -240,6 +242,7 @@
                     </div>
                 </div>
                 -->
+
             </div>
               <hr />
                <p class="subtitulo">3) Registre la experiencia laboral en este Ministerio:</p>
@@ -274,15 +277,14 @@
                   </div>
                   <div class="bloque">
                     <label for="telefono_area" style="display:inline-block; width:150px;">Teléfono:</label>
-                     <input id="telefono_area" campo="telefono_area" type="text" style="flex-grow:100;" placeholder="Telefono del area"  />
+                     <input id="telefono_area" campo="telefono_area" type="text" style="flex-grow:100;" placeholder="(99) 9999-9999" />
                   </div>
                 </div>
 
                 <hr />
         <div class="bloque">
             <p class="subtitulo">
-                5) Tareas que desempeña: Numere por orden de importancia SOLAMENTE las 5 tareas
-                fundamentales
+                5) Tareas que desempeña: Numere por orden de importancia SOLAMENTE las 5 tareas fundamentales
             </p>
         </div>
         <div class="bloque">
@@ -296,13 +298,14 @@
         <%--Tareas Generales--%>
         <div style="margin-left: 50px;" id="contenedor_tarea_generales">
             <p style="font-weight: bold;">
-                I. Tareas Generales: (D-E-F) (Asistente en oficios - Auxiliar - Ayudante)</p>
+                Tareas Generales: (Asistente en oficios - Auxiliar - Ayudante)</p>
             <div style="margin-left: 50px;">
                 <div class="bloque">
                     <label class="tareas_nro">
                         1</label>
                     <input id="Tarea_Gral_Mant_Edificio" campo="Tarea_Gral_Mant_Edificio" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" />
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/> 
+                        <%--onkeydown="CantMaximaCaracteres(this, 1, 5);" onkeyup="CantMaximaCaracteres(this, 1, 5);--%>
                     <label class="tareas">
                         Mantenimiento edificio (plomería, limpieza, electricidad)</label>
                 </div>
@@ -350,7 +353,7 @@
                     <label class="tareas_nro">
                         7</label>
                     <input id="Tarea_Gral_Otros" campo="Tarea_Gral_Otros" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" />
+                        placeholder="" onkeypress="HabilitarCampo(this)" />
                     <label class="tareas_otras">
                         Otros</label>
                     <label class="tareas_otras">
@@ -363,8 +366,7 @@
         <%--Tareas Administrativas--%>
         <div style="margin-left: 50px;" id="contenedor_tarea_administrativa">
             <p style="font-weight: bold;">
-                II. Tareas Administrativas: (C-D-E-F) (Asistente técnico o experimentado - Auxiliar
-                - Ayudante)</p>
+                Tareas Administrativas: (Asistente técnico o experimentado - Auxiliar - Ayudante)</p>
             <div style="margin-left: 50px;">
                 <div class="bloque">
                     <label class="tareas_nro">
@@ -496,7 +498,7 @@
         <%--Tareas Tecnicas--%>
         <div style="margin-left: 50px;" id="contendor_tarea_tecnica">
             <p style="font-weight: bold;">
-                III. Tareas Técnicas: ( C-D ) (Asistente técnico o experimentado)</p>
+                Tareas Técnicas: (Asistente técnico o experimentado)</p>
             <div style="margin-left: 50px;">
                 <div class="bloque">
                     <label class="tareas_nro">
@@ -638,8 +640,7 @@
         <%--Asistencia Tecnicas--%>
         <div style="margin-left: 50px;" id="contenedor_asistencia_tecnica">
             <p style="font-weight: bold;">
-                IV. Asistencia Técnica: ( B-C-D de nivel terciario) (Técnico - Analista - Asistente
-                técnico - Asistente experimentado - Profesional Inicial)</p>
+                Asistencia Técnica: (nivel terciario) (Técnico - Analista - Asistente técnico - Asistente experimentado - Profesional Inicial)</p>
             <div style="margin-left: 50px;">
                 <div class="bloque">
                     <label class="tareas_nro">
@@ -925,7 +926,7 @@
         <%--Servicios Profesionales--%>
         <div style="margin-left: 50px;" id="contenedor_servicios_profesionales">
             <p style="font-weight: bold;">
-                V. Servicios Profesionales: (preferentemente Niveles B-C-D nivel Universitario)
+                Servicios Profesionales: (preferentemente nivel Universitario)
                 (Analista - Dictaminante - Responsable - Matriculados)</p>
             <div style="margin-left: 50px;">
                 <div class="bloque">
@@ -958,7 +959,7 @@
                     <input id="Serv_Prof_Ejecucion" campo="Serv_Prof_Ejecucion" style="width: 30px;" type="number" min="1" max="5" 
                         placeholder="" />
                     <label class="tareas">
-                        Ejecución</label>
+                        Ejecución de programas y/o proyectos</label>
                 </div>
                 <div class="bloque">
                     <label class="tareas_nro">
@@ -1209,8 +1210,7 @@
         <%--Tareas Adicionales--%>
         <div style="margin-left: 50px;" id="contenedor_tareas_adicionales">
             <p style="font-weight: bold;">
-                VI. Tareas adicionales sólo Profesionales Avanzados: (preferentemente Niveles A-B-C
-                nivel universit/posgr)</p>
+                Tareas adicionales sólo Profesionales Avanzados: (preferentemente nivel universitario/posgrado)</p>
             <p style="font-weight: bold;">
                 (Responsable - Experto - Asesor o Especializado)</p>
             <div style="margin-left: 50px;">
@@ -1342,6 +1342,7 @@
     <br />
     <br />
     <input type="button" id="btn_guardar_cambios" class="btn btn-primary" value="Guardar Cambios" />
+    <input type="button" id="btn_imprimir_abajo" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
     </div>
        
         <div id="plantillas">
@@ -1388,7 +1389,26 @@
 
 //         return true;
      }
+
+//     function CantMaximaCaracteres(campo, maxLength, numMaximo) {
+//         var evento = window.event;
+//         var numIngresado = String.fromCharCode(evento.keyCode);
+
+//         if (numIngresado > numMaximo) {
+//             campo.value = "";
+//         }
+//         else {
+//             var max_length_campo = maxLength;
+//             if (campo.value.length > max_length_campo) {
+//                 campo.value = campo.value.substr(0, max_length_campo);
+//             }
+//         }
+//         
+//    }
+
     
-    </script>
+
+
+ </script>
 
 </html>
