@@ -93,7 +93,7 @@
                     <label for="provincia" style="margin-right: 10px">Provincia: </label>
                     <input id="cmb_provincia_personal" type="text" campo="domicilio_provincia" rh-control-type="textbox" disabled="disabled" style="margin-right: 10px; width:130px;" />
                     <label for="Localidad" style="margin-right: 10px">Localidad: </label>
-                    <input id="cmb_localidad_personal" type="text" campo="domicilio_localidad" rh-control-type="textbox" disabled="disabled"  style="margin-right: 10px; width:180px;" />
+                    <input id="cmb_localidad_personal" type="text" campo="domicilio_localidad" rh-control-type="textbox" disabled="disabled"  style="margin-right: 10px; width:202px;" />
                     <label for="domicilio_telefono" style="display:inline-block; margin-right: 10px">T.E:</label>
                     <input id="domicilio_telefono" campo="domicilio_telefono" type="text" placeholder="Telefono" disabled="disabled" style="flex-grow:100;" class="validar" />
                 </div>
@@ -116,9 +116,9 @@
                 </div>
                 <div class="bloque">
                     <label for="provincia" style="display:inline-block; margin-right: 10px">Provincia: </label>
-                    <select id="provincia_nuevo" campo="domicilio_provincia_nuevo" rh-control-type="combo" rh-data-provider="Provincias" rh-propiedad-label= "Nombre" class="cmb_provincia" style="width:130px;margin-right: 10px;" ></select>
+                    <select id="provincia_nuevo" campo="domicilio_provincia_nuevo" rh-control-type="combo" rh-data-provider="Provincias" rh-propiedad-label= "Nombre" class="cmb_provincia" style="width:180px;margin-right: 10px;" ></select>
                     <label for="Localidad" style="margin-right: 10px">Localidad:</label>
-                    <select id="localidad_nuevo" campo="domicilio_localidad_nuevo" rh-control-type="combo"  rh-data-provider="Localidades" rh-filter-key="IdProvincia" rh-propiedad-label= "Nombre" rh-id-filter-combo="provincia_nuevo" class="cmb_localidad" style="width:150px;margin-right: 10px" > </select>
+                    <select id="localidad_nuevo" campo="domicilio_localidad_nuevo" rh-control-type="combo"  rh-data-provider="Localidades" rh-filter-key="IdProvincia" rh-propiedad-label= "Nombre" rh-id-filter-combo="provincia_nuevo" class="cmb_localidad" style="width:221px;margin-right: 10px" > </select>
                     <label for="domicilio_telefono_nuevo" style="display:inline-block; width:40px; margin-right: 10px">T.E:</label>
                     <input id="domicilio_telefono_nuevo" campo="domicilio_telefono_nuevo" type="text" placeholder="(99) 9999-9999" style="flex-grow:100;" class="validar" />
                 </div>

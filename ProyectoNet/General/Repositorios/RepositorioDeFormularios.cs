@@ -30,6 +30,7 @@ namespace General.Repositorios
                 parametros.Add("@idUsuario", usuario.Id);
                 parametros.Add("@clave", unCampo.clave);
                 parametros.Add("@valor", unCampo.valor);
+                parametros.Add("@fijo", unCampo.fijo);
                 conexion_bd.EjecutarSinResultado("dbo.FORM_Ins_Generico", parametros).ToString();
             }
 
@@ -66,7 +67,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    campos.Add(new Campo(row.GetString("clave"), row.GetString("valor")));
+                    campos.Add(new Campo(row.GetString("clave"), row.GetString("valor"), row.GetBoolean("fijo")));
                 });
 
                 var fila = tablaDatos.Rows[0];
@@ -103,23 +104,23 @@ namespace General.Repositorios
                 //var tablaDatos = conexion_bd.Ejecutar("dbo.LEG_GET_Domicilios", parametros);
 
                 parametros.Add("@DNI", documento);
-                parametros.Add("@fecha_corte", documento);
+                parametros.Add("@fecha_corte", DateTime.Now);
                
                 var tablaDatos = conexion_bd.Ejecutar("dbo.Get_Domicilio_Vigente", parametros);
 
                 if (tablaDatos.Rows.Count > 0)
                 {
                     var primer_fila = tablaDatos.Rows[0];
-                    campos.Add(new Campo("domicilio_calle", primer_fila.GetString("Calle")));
-                    campos.Add(new Campo("domicilio_numero", primer_fila.GetSmallintAsInt("Número").ToString()));
-                    campos.Add(new Campo("domicilio_piso", primer_fila.GetString("Piso")));
-                    campos.Add(new Campo("domicilio_depto", primer_fila.GetString("Dpto")));
-                    campos.Add(new Campo("domicilio_cp", primer_fila.GetSmallintAsInt("Codigo_Postal").ToString()));
-                    campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("Provincia", "No hay dato").ToString()));
-                    campos.Add(new Campo("domicilio_localidad", primer_fila.GetString("Localidad", "No hay dato").ToString()));
-                    //campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("Provincia_DESC", "No hay dato").ToString()));
-                    //campos.Add(new Campo("domicilio_localidad", primer_fila.GetString("nombrelocalidad", "No hay dato").ToString()));
-                    campos.Add(new Campo("domicilio_telefono", ""));
+                    campos.Add(new Campo("domicilio_calle", primer_fila.GetString("Calle"), true));
+                    campos.Add(new Campo("domicilio_numero", primer_fila.GetSmallintAsInt("Número").ToString(), true));
+                    campos.Add(new Campo("domicilio_piso", primer_fila.GetString("Piso"), true));
+                    campos.Add(new Campo("domicilio_depto", primer_fila.GetString("Dpto"), true));
+                    campos.Add(new Campo("domicilio_cp", primer_fila.GetSmallintAsInt("Codigo_Postal").ToString(), true));
+                    //campos.Add(new Campo("domicilio_provincia", primer_fila.GetSmallintAsInt("Provincia").ToString()));
+                    //campos.Add(new Campo("domicilio_localidad", primer_fila.GetSmallintAsInt("Localidad").ToString()));
+                    campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("nombreProvincia", "No hay dato").ToString(), true));
+                    campos.Add(new Campo("domicilio_localidad", primer_fila.GetString("nombrelocalidad", "No hay dato").ToString(), true));
+                    campos.Add(new Campo("domicilio_telefono", "", true));
 
 
                 }
@@ -144,10 +145,10 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    campos.Add(new Campo("nivel_estudio_" + contador, row.GetString("Nivel")));
-                    campos.Add(new Campo("titulo_obtenido_" + contador, row.GetString("Titulo")));
-                    campos.Add(new Campo("institucion_" + contador, "No declarado"));
-                    campos.Add(new Campo("fecha_egreso_" + contador, row.GetDateTime("Fecha_Egreso").ToShortDateString().ToString()));
+                    campos.Add(new Campo("nivel_estudio_" + contador, row.GetSmallintAsInt("idNivel").ToString(), true));
+                    campos.Add(new Campo("titulo_obtenido_" + contador, row.GetString("Titulo"), true));
+                    campos.Add(new Campo("institucion_" + contador, "No declarado", true));
+                    campos.Add(new Campo("fecha_egreso_" + contador, row.GetDateTime("Fecha_Egreso").ToShortDateString().ToString(), true));
 
                     contador++;
                 });
@@ -170,9 +171,9 @@ namespace General.Repositorios
                 var grado = tablaDatos.Rows[0].GetString("NivelGrado").Substring(1, 1);
                 var funcion = tablaDatos.Rows[0].GetString("FuncionAntiguedadCertificados");
 
-                campos.Add(new Campo("nivel", nivel));
-                campos.Add(new Campo("grado", grado));
-                campos.Add(new Campo("funcion", funcion));
+                campos.Add(new Campo("nivel", nivel, true));
+                campos.Add(new Campo("grado", grado, true));
+                campos.Add(new Campo("funcion", funcion, true));
             }
 
             return campos;
@@ -189,11 +190,11 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
               {
-                  campos.Add(new Campo("apellido", row.GetString("Apellido")));
-                  campos.Add(new Campo("nombre", row.GetString("Nombre")));
-                  campos.Add(new Campo("tipo_documento", row.GetSmallintAsInt("Tipo_Documento").ToString()));
-                  campos.Add(new Campo("documento", row.GetSmallintAsInt("Nro_Documento").ToString()));
-                  campos.Add(new Campo("modalidad", row.GetString("Tipo_planta_Desc").ToString()));
+                  campos.Add(new Campo("apellido", row.GetString("Apellido"), true));
+                  campos.Add(new Campo("nombre", row.GetString("Nombre"), true));
+                  campos.Add(new Campo("tipo_documento", row.GetSmallintAsInt("Tipo_Documento").ToString(), true));
+                  campos.Add(new Campo("documento", row.GetSmallintAsInt("Nro_Documento").ToString(), true));
+                  campos.Add(new Campo("modalidad", row.GetString("Tipo_planta_Desc").ToString(), true));
               });
 
             }

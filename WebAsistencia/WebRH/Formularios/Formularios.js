@@ -117,7 +117,8 @@ var VistaFormulario = {
                 if (_this.cambios.hasOwnProperty(campo_cambio)) {
                     form_cambios.campos.push({
                         clave: campo_cambio,
-                        valor: _this.cambios[campo_cambio]
+                        valor: _this.cambios[campo_cambio],
+                        fijo: false
                     });
                 }
             }
@@ -212,6 +213,7 @@ var VistaFormulario = {
                         $(this).val(campo.valor);
                         $(this).attr("valor_para_carga_async", campo.valor);
                     }
+                    $(this).prop('disabled', campo.fijo);
                     $(this).change();
                 }
             });
@@ -266,6 +268,7 @@ var VistaFormulario = {
                 $(this).prop("checked", false);
             }
             else $(this).val("");
+            $(this).prop("disabled", false);
             $(this).change();
         });
         $("#listadoConocimientos .caja_estilo_conocimiento").hide();
