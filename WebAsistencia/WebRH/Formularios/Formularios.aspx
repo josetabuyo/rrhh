@@ -122,6 +122,7 @@
                 </div>
             </div>
             <hr />
+            <div class="saltopagina"></div>
             <p class="subtitulo">2) Estudios Formales:</p>
             <p>Estudio Completo:</p>
             <div style="margin-left:50px;">
@@ -132,7 +133,7 @@
                      <div class="bloque_estudios">
                         <label for="nivel_estudio_1" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
                         <%--<input id="nivel_estudio_1" class="nivel_estudio" campo="nivel_estudio_1" type="text" placeholder="Nivel" style="flex-grow:100;" />--%>
-                        <select id="nivel_estudio_1" class="nivel_estudio" style="flex-grow:100;" campo="nivel_estudio_1" rh-control-type="combo" rh-data-provider="NivelesDeEstudio">
+                        <select id="nivel_estudio_1" class="nivel_estudio" style="flex-grow:50;" campo="nivel_estudio_1" rh-control-type="combo" rh-data-provider="NivelesDeEstudio">
                      </div>
                      <div class="bloque_estudios">
                         <label for="titulo_obtenido_1" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
@@ -285,6 +286,7 @@
                 </div>
 
                 <hr />
+                 <div class="saltopagina"></div>
         <div class="bloque">
             <p class="subtitulo">
                 5) Tareas que desempeña: Numere por orden de importancia SOLAMENTE las 5 tareas
@@ -1293,6 +1295,7 @@
             </div>
     </div>
     <hr />
+     <div class="saltopagina"></div>
     <div style="margin-left: 50px;">
         <p style="font-weight: bold;">
             6) Observaciones:</p>

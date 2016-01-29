@@ -204,7 +204,7 @@ border-bottom: 1px solid #929292;
     right: 150px;
 }
 
-@media print {
+@media print{
     #barra_menu_contenedor, 
     #buscador_de_personas, 
     #btn_imprimir, 
@@ -220,6 +220,7 @@ border-bottom: 1px solid #929292;
     {
         display: none !important;
     }
+        
 
     .espacio_firma 
     {
@@ -246,6 +247,20 @@ border-bottom: 1px solid #929292;
         color: transparent;
     }
     
+}
+
+
+@media all {
+   div.saltopagina{
+      display: none;
+   }
+}
+   
+@media print{
+   div.saltopagina{ 
+      display:block; 
+      page-break-before:always;
+   }
 }
 
 .estilo_conocimientos 

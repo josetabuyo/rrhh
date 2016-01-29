@@ -132,7 +132,7 @@ var VistaFormulario = {
         $("#cargar_mas_estudios").click(function () {
             var listo = false;
             $('.caja_estudios').each(function () {
-                if (($(this).find(".titulo_obtenido").val() == "" && !$(this).is(":visible"))&&!listo) {
+                if (($(this).find(".titulo_obtenido").val() == "" && !$(this).is(":visible")) && !listo) {
                     $(this).show();
                     listo = true;
                 }
@@ -246,7 +246,11 @@ var VistaFormulario = {
             if ($(this).find(".titulo_obtenido").val() == "") {
                 $(this).hide();
                 ocultos++;
+            } else {
+                //$(this).find(".bloque_estudios :input").prop("disabled", true);
             }
+
+
         });
         if (ocultos == 5) {
             $("#caja_estudio_1").show();
@@ -437,7 +441,7 @@ var VistaFormulario = {
                 console.log('Functionality to run after printing');
                 Backend.GuardarCabeceraFormulario(form)
                     .onSuccess(function () {
-                        alertify.success("Formulario versionado correctamente");
+                        //alertify.success("Formulario versionado correctamente");
                     })
                     .onError(function () {
                         alertify.error("Error al versionar el formulario");
