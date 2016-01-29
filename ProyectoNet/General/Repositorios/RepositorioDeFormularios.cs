@@ -99,9 +99,13 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             try
             {
-                parametros.Add("@Doc", documento);
+                //parametros.Add("@Doc", documento);
+                //var tablaDatos = conexion_bd.Ejecutar("dbo.LEG_GET_Domicilios", parametros);
 
-                var tablaDatos = conexion_bd.Ejecutar("dbo.LEG_GET_Domicilios", parametros);
+                parametros.Add("@DNI", documento);
+                parametros.Add("@fecha_corte", documento);
+               
+                var tablaDatos = conexion_bd.Ejecutar("dbo.Get_Domicilio_Vigente", parametros);
 
                 if (tablaDatos.Rows.Count > 0)
                 {
@@ -111,8 +115,10 @@ namespace General.Repositorios
                     campos.Add(new Campo("domicilio_piso", primer_fila.GetString("Piso")));
                     campos.Add(new Campo("domicilio_depto", primer_fila.GetString("Dpto")));
                     campos.Add(new Campo("domicilio_cp", primer_fila.GetSmallintAsInt("Codigo_Postal").ToString()));
-                    campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("Provincia_DESC", "No hay dato").ToString()));
-                    campos.Add(new Campo("domicilio_localidad", primer_fila.GetString("nombrelocalidad", "No hay dato").ToString()));
+                    campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("Provincia", "No hay dato").ToString()));
+                    campos.Add(new Campo("domicilio_localidad", primer_fila.GetString("Localidad", "No hay dato").ToString()));
+                    //campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("Provincia_DESC", "No hay dato").ToString()));
+                    //campos.Add(new Campo("domicilio_localidad", primer_fila.GetString("nombrelocalidad", "No hay dato").ToString()));
                     campos.Add(new Campo("domicilio_telefono", ""));
 
 
