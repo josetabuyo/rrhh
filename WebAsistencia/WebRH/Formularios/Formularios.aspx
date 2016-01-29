@@ -20,6 +20,7 @@
         <script type="text/javascript" src="../Scripts/ComboConBusquedaYAgregado.js"></script>
         <script type="text/javascript" src="../Scripts/jquery-barcode.js"></script>       
         <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
+        <script type="text/javascript" src="../Scripts/ConversorDeFechas.js"></script>
         <script type="text/javascript" src="Formularios.js"></script>
 
         
@@ -123,18 +124,20 @@
                 </div>
             </div>
             <hr />
+            <div class="saltopagina"></div>
             <p class="subtitulo">2) Estudios Formales:</p>
             <p>Estudio Completo:</p>
             <div style="margin-left:50px;">
                 <p style="font-weight:bold;">a. Titulo declarado en su legajo:</p>
-                <div class="caja_estudios caja_extra">
+                <div id="caja_estudio_1" class="caja_estudios caja_extra">
                      <div class="bloque_estudios">
                         <label for="nivel_estudio_1" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
-                        <input id="nivel_estudio_1" class="nivel_estudio" campo="nivel_estudio_1" type="text" placeholder="Nivel" style="flex-grow:100;" />
+                        <%--<input id="nivel_estudio_1" class="nivel_estudio" campo="nivel_estudio_1" type="text" placeholder="Nivel" style="flex-grow:100;" />--%>
+                        <select id="nivel_estudio_1" class="nivel_estudio" style="flex-grow:50;" campo="nivel_estudio_1" rh-control-type="combo" rh-data-provider="NivelesDeEstudio">
                      </div>
                      <div class="bloque_estudios">
                         <label for="titulo_obtenido_1" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_1" class="input_estudio_extra" campo="titulo_obtenido_1" type="text" placeholder="Título" style="flex-grow:100;" />
+                        <input id="titulo_obtenido_1" class="titulo_obtenido" campo="titulo_obtenido_1" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
                      <div class="bloque_estudios">
                         <label for="institucion_1" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
@@ -150,11 +153,12 @@
                 <div id="caja_estudio_2" class="caja_estudios caja_extra">
                     <div class="bloque_estudios">
                         <label for="nivel_estudio_2" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
-                        <input id="nivel_estudio_2" class="nivel_estudio" campo="nivel_estudio_2" type="text" placeholder="Nivel" style="flex-grow:100;" />
+                        <%--<input id="nivel_estudio_2" class="nivel_estudio" campo="nivel_estudio_2" type="text" placeholder="Nivel" style="flex-grow:100;" />--%>
+                        <select id="nivel_estudio_2" class="nivel_estudio" style="flex-grow:100;" campo="nivel_estudio_2" rh-control-type="combo" rh-data-provider="NivelesDeEstudio">
                     </div>
                     <div class="bloque_estudios">
                         <label for="titulo_obtenido_2" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_2" class="input_estudio_extra" campo="titulo_obtenido_2" type="text" placeholder="Título" style="flex-grow:100;" />
+                        <input id="titulo_obtenido_2" class="titulo_obtenido" campo="titulo_obtenido_2" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
                     <div class="bloque_estudios">
                         <label for="institucion_2" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
@@ -169,11 +173,12 @@
                 <div id="caja_estudio_3" class="caja_estudios caja_extra">
                     <div class="bloque_estudios">
                         <label for="nivel_estudio_3" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
-                        <input id="nivel_estudio_3" class="nivel_estudio" campo="nivel_estudio_3" type="text" placeholder="Nivel" style="flex-grow:100;" />
+                        <%--<input id="nivel_estudio_3" class="nivel_estudio" campo="nivel_estudio_3" type="text" placeholder="Nivel" style="flex-grow:100;" />--%>
+                        <select id="nivel_estudio_3" class="nivel_estudio" style="flex-grow:100;" campo="nivel_estudio_3" rh-control-type="combo" rh-data-provider="NivelesDeEstudio">
                     </div>
                     <div class="bloque_estudios">
                         <label for="titulo_obtenido_3" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_3" class="input_estudio_extra" campo="titulo_obtenido_3" type="text" placeholder="Título" style="flex-grow:100;" />
+                        <input id="titulo_obtenido_3" class="titulo_obtenido" campo="titulo_obtenido_3" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
                     <div class="bloque_estudios">
                         <label for="institucion_3" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
@@ -188,11 +193,12 @@
                 <div id="caja_estudio_4" class="caja_estudios caja_extra">
                     <div class="bloque_estudios">
                         <label for="nivel_estudio_4" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
-                        <input id="nivel_estudio_4" class="nivel_estudio" campo="nivel_estudio_4" type="text" placeholder="Nivel" style="flex-grow:100;" />
+                        <%--<input id="nivel_estudio_4" class="nivel_estudio" campo="nivel_estudio_4" type="text" placeholder="Nivel" style="flex-grow:100;" />--%>
+                        <select id="nivel_estudio_4" class="nivel_estudio" style="flex-grow:100;" campo="nivel_estudio_4" rh-control-type="combo" rh-data-provider="NivelesDeEstudio">
                     </div>
                     <div class="bloque_estudios">
                         <label for="titulo_obtenido_4" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_4" class="input_estudio_extra" campo="titulo_obtenido_4" type="text" placeholder="Título" style="flex-grow:100;" />
+                        <input id="titulo_obtenido_4" class="titulo_obtenido" campo="titulo_obtenido_4" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
                     <div class="bloque_estudios">
                         <label for="institucion_4" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
@@ -207,11 +213,12 @@
                 <div id="caja_estudio_5" class="caja_estudios caja_extra">
                     <div class="bloque_estudios">
                         <label for="nivel_estudio_5" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
-                        <input id="nivel_estudio_5" class="nivel_estudio" campo="nivel_estudio_5" type="text" placeholder="Nivel" style="flex-grow:100;" />
+                        <%--<input id="nivel_estudio_5" class="nivel_estudio" campo="nivel_estudio_5" type="text" placeholder="Nivel" style="flex-grow:100;" />--%>
+                        <select id="nivel_estudio_5" class="nivel_estudio" style="flex-grow:100;" campo="nivel_estudio_5" rh-control-type="combo" rh-data-provider="NivelesDeEstudio">
                     </div>
                     <div class="bloque_estudios">
                         <label for="titulo_obtenido_5" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
-                        <input id="titulo_obtenido_5" class="input_estudio_extra" campo="titulo_obtenido_5" type="text" placeholder="Título" style="flex-grow:100;" />
+                        <input id="titulo_obtenido_5" class="titulo_obtenido" campo="titulo_obtenido_5" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
                     <div class="bloque_estudios">
                         <label for="institucion_5" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
@@ -282,6 +289,7 @@
                 </div>
 
                 <hr />
+                 <div class="saltopagina"></div>
         <div class="bloque">
             <p class="subtitulo">
                 5) Tareas que desempeña: Numere por orden de importancia SOLAMENTE las 5 tareas fundamentales
@@ -1287,6 +1295,7 @@
             </div>
     </div>
     <hr />
+     <div class="saltopagina"></div>
     <div style="margin-left: 50px;">
         <p style="font-weight: bold;">
             6) Observaciones:</p>
