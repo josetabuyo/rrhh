@@ -114,8 +114,8 @@
                     <input id="txt_oficina_uf" type="text" style="width: 132px;"  />
                 </div>
                 <div class="btn-fld nueva_linea">
-                    <input type="button" class="btn btn-primary" id="Button1" value="Guardar Oficina" />
-                    <input type="button" class="btn btn-primary" id="volver_oficina" value="Volver" />
+                    <input type="button" class="btn btn-primary" id="btn_guardar_oficina" value="Guardar Oficina" />
+                    <input type="button" class="btn btn-primary" id="btn_volver_oficina" value="Volver" />
                 </div>
             </fieldset>
         </div>
@@ -140,7 +140,7 @@
                 <div id="div2" class="grupo_campos">
                     <label for="CodigoPostal">
                         Código Postal:</label>
-                    <input id="txt_oficina_codigopostal" type="text" style="width: 75px;" />
+                    <input id="txt_oficina_codigopostal" type="text" style="width: 75px;" data-validar="esNumeroNatural"/>
                 </div>
                 
                 <div class="grupo_campos nueva_linea">
@@ -153,11 +153,11 @@
                     <label for="Nro">
                         Nro:
                     </label>
-                    <input id="txt_edificio_numero" type="text" style="width: 50px; margin-left: 56px;" />
+                    <input id="txt_edificio_numero" type="text" style="width: 50px; margin-left: 56px;" data-validar="esNumeroNatural" />
                 </div>
                 <div class="btn-fld nueva_linea">
                     <input type="button" class="btn btn-primary" id="btn_guardar_edificio" value="Guardar Edificio" />
-                    <input type="button" class="btn btn-primary" id="volver_edificio" value="Volver" />
+                    <input type="button" class="btn btn-primary" id="btn_volver_edificio" value="Volver" />
                 </div>
             </fieldset>
         </div>
