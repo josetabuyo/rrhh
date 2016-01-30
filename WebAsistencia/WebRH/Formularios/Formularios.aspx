@@ -1359,7 +1359,6 @@
             <label style="display: inline-block; width: 200px; text-align:center">Fecha</label>   
         </div>
     </div>
-    <div class="divFooter">UNCLASSIFIED</div>
     <br />
     <br />
     <input type="button" id="btn_guardar_cambios" class="btn btn-primary" value="Guardar Cambios" />

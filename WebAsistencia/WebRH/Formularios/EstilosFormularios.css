@@ -255,10 +255,6 @@ border-bottom: 1px solid #929292;
       display: none;
    }
    
-   div.divFooter {
-            position: fixed;
-            bottom: 0;
-        }
 }
    
 @media print{
@@ -266,10 +262,6 @@ border-bottom: 1px solid #929292;
       display:block; 
       page-break-before:always;
    }
-   div.divFooter {
-            position: fixed;
-            bottom: 0;
-        }
 }
 
 .estilo_conocimientos 
