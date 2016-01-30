@@ -22,8 +22,7 @@
         <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
         <script type="text/javascript" src="../Scripts/ConversorDeFechas.js"></script>
         <script type="text/javascript" src="Formularios.js"></script>
-
-        
+       
     </head>
 <body>
     <form id="form1" runat="server">-
@@ -39,7 +38,7 @@
     </div>
    
         <hr />
-        <div class="contenedor_formulario" style="display: none"> 
+        <div id="print-container" class="contenedor_formulario" style="display: none"> 
            
             <input id="btn_imprimir" type="button" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
            
@@ -1276,12 +1275,24 @@
             <div style="margin-left: 50px;">
                 <p style="font-weight: bold;">Competencias Informáticas:</p>
                 <div class="bloque" style="margin-bottom: 15px;">
-                    <label style="display: inline-block; width: 100px;">Herramienta</label>
-                    <select id="cboHerramientas" style="width: 200px" rh-control-type="combo" rh-data-provider="TiposCompetenciaInformatica" > </select>        
-                    <label style="display: inline-block; width: 100px; margin-left: 10px;">Conocimiento</label>
-                    <select id="cboConocimiento" style="width: 200px; margin-right: 10px" rh-control-type="combo" rh-data-provider="ConocimientoCompetenciaInformatica" rh-permite-agregar=true rh-id-filter-combo="cboHerramientas" rh-filter-key="Tipo" ></select>
-                    <input type="button" id="btn_Agregar_Conocimientos" class="btn btn-primary" value="Agregar conocimiento" style="width:200px" />
+                    <div style="width: 200px;">
+                        <label style="display: inline-block; ">Grupo de herramientas</label>
+                        <select id="cboHerramientas" style="width: 150px" rh-control-type="combo" rh-data-provider="TiposCompetenciaInformatica" > </select>  
+                    </div>  
+                    <div style="width: 200px;">
+                        <label style="display: inline-block; margin-left: 10px;">Herramienta: </label>
+                        <select id="cboConocimiento" style="width: 150px; margin-right: 10px" rh-control-type="combo" rh-data-provider="ConocimientoCompetenciaInformatica" rh-permite-agregar=true rh-id-filter-combo="cboHerramientas" rh-filter-key="Tipo" ></select>
+                    </div> 
+                    <div style="width: 200px;">
+                        <label style="display: inline-block; margin-left: 10px;">Nivel: </label>
+                        <select id="cboNivelCompetencia" style="width: 150px; margin-right: 10px" rh-control-type="combo" rh-data-provider="NivelCompetenciaInformatica"   ></select>
+                    </div> 
+                    <div style="width: 200px;">
+                        <p style="margin: 5px;"><label style="margin-right: 10px;">Utiliza en sus funciones</label> </p>
+                        <input type="checkbox" style="margin-left: 55px;" class="utiliza_conocimiento"  />
+                   </div>  
                 </div>
+                <input type="button" id="btn_Agregar_Conocimientos" class="btn btn-primary" value="Agregar conocimiento" style="width:200px; display:block;" />
                 <div id="listadoConocimientos" style="margin: 10px; width: 660px;">
                     
                 </div>
@@ -1348,6 +1359,7 @@
             <label style="display: inline-block; width: 200px; text-align:center">Fecha</label>   
         </div>
     </div>
+    <div class="divFooter">UNCLASSIFIED</div>
     <br />
     <br />
     <input type="button" id="btn_guardar_cambios" class="btn btn-primary" value="Guardar Cambios" />
@@ -1379,6 +1391,8 @@
    
 </body>
  <script type="text/javascript">
+
+    
      function Imprimir() {
 
          window.print();

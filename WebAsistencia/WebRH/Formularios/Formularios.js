@@ -417,7 +417,8 @@ var VistaFormulario = {
         btn.click(function () {
             var herramienta = $('#cboHerramientas').find('option:selected').text();
             var conocimiento = $('#cboConocimiento').find('option:selected').text();
-            var texto = herramienta + ' - ' + conocimiento;
+            var nivel = $('#cboNivelCompetencia').find('option:selected').text();
+            var texto = herramienta + ' - ' + conocimiento + ' - ' + nivel;
 
             var listo = false;
             $("#listadoConocimientos .caja_estilo_conocimiento").each(function () {
