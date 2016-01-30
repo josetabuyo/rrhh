@@ -25,7 +25,13 @@
        
     </head>
 <body>
-    <form id="form1" runat="server">-
+    <form id="form1" runat="server">
+
+           <div class="logo_encabezado" id = "logo_encabezado1"> 
+                <img src="../Imagenes/logo_encabezado_form.PNG" id="img1" alt="" width = "800" />                 
+
+           </div>
+
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
      <h1 style="text-align: center; margin-top: 30px;font-size: 2.9em;">Formulario <br />Relevamiento de Contratos</h1>
     
@@ -124,6 +130,12 @@
             </div>
             <hr />
             <div class="saltopagina"></div>
+
+            <div class="logo_encabezado" id = "logo_encabezado2"> 
+                <img src="../Imagenes/logo_encabezado_form.PNG" id="img_logo_encabezado" alt="" width = "800" />                 
+                  <hr />
+            </div>
+          
             <p class="subtitulo">2) Estudios Formales:</p>
             <p>Estudio Completo:</p>
             <div style="margin-left:50px;">
@@ -288,7 +300,16 @@
                 </div>
 
                 <hr />
-                 <div class="saltopagina"></div>
+
+             <div class="saltopagina"></div>
+
+
+           <div class="logo_encabezado" id = "logo_encabezado3"> 
+                <img src="../Imagenes/logo_encabezado_form.PNG" id="img2" alt="" width = "800" />                 
+
+           </div>
+
+
         <div class="bloque">
             <p class="subtitulo">
                 5) Tareas que desempeña: Numere por orden de importancia SOLAMENTE las 5 tareas fundamentales
@@ -1307,6 +1328,15 @@
     </div>
     <hr />
      <div class="saltopagina"></div>
+
+
+        <div class="logo_encabezado" id = "logo_encabezado4"> 
+                <img src="../Imagenes/logo_encabezado_form.PNG" id="img3" alt="" width = "800" />                 
+
+           </div>
+
+
+
     <div style="margin-left: 50px;">
         <p style="font-weight: bold;">
             6) Observaciones:</p>
