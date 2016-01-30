@@ -3208,7 +3208,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvConocimientoCompetenciaInformatica[] BuscarConocimientoCompetenciaInformatica(string criterio, Usuario usuario)
     {
-        return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Find(criterio).ToArray();
+        return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Find(criterio).FindAll(i => i.SoloVisiblePara == usuario.Id || i.SoloVisiblePara == -1).ToArray();
     }
 
     [WebMethod]

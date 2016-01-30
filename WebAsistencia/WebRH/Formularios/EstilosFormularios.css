@@ -274,6 +274,7 @@ border-bottom: 1px solid #929292;
    div.saltopagina{
       display: none;
    }
+   
 }
    
 @media print{
@@ -296,7 +297,7 @@ border-bottom: 1px solid #929292;
 .caja_estilo_conocimiento 
 {
     color: black !important;
-    background-color: #F3A227 !important;
+    background-color: #F3F3F3 !important;
     border-radius: 5px !important;
     display: inline-block;
     padding: 5px;
@@ -316,9 +317,9 @@ border-bottom: 1px solid #929292;
 {
     width: 300px;
     margin-right: 10px;
-    background-color: #F3A227;
+    background-color: #F3F3F3;
     border-width: 0px;
-    border-color: #F3A227;
+    border-color: #F3F3F3;
     color: black;
     border-style: solid;
     margin-bottom: 0px;
