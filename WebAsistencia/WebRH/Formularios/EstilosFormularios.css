@@ -204,6 +204,15 @@ border-bottom: 1px solid #929292;
     right: 150px;
 }
 
+
+  .logo_encabezado
+     {
+        display:none !important;     
+    }
+    
+ 
+  
+
 @media print{
     #barra_menu_contenedor, 
     #buscador_de_personas, 
@@ -217,10 +226,21 @@ border-bottom: 1px solid #929292;
     .select2-arrow,
     .select2-chosen,
     .icono_eliminar
+   
     {
         display: none !important;
     }
         
+    .logo_encabezado
+     {
+      display:inline-block  !important;        
+     }
+   
+    
+    
+    
+        
+  
 
     .espacio_firma 
     {
