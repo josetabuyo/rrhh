@@ -18,7 +18,7 @@ var VistaFormulario = {
 
         $("#telefono_area").mask("(99) 9999-9999");
         $("#domicilio_telefono_nuevo").mask("(99) 9999-9999");
-        
+
 
         $('#fecha_egreso_1').datepicker();
         $('#fecha_egreso_1').datepicker('option', 'dateFormat', 'dd/mm/yy');
@@ -227,31 +227,25 @@ var VistaFormulario = {
                 }
             });
 
-
-            //GER: Controlo que se ingrese solo 1 y un numero menor a 5 para las tareas
-            $(".CantMaximaCaracteres").keypress(function(){                
-                var campo = $(this);
-                var maxLength = 1;
-                var numMaximo = 5;
-
-                var evento = window.event;
-                var numIngresado = String.fromCharCode(evento.keyCode);
-                
-                if (numIngresado > numMaximo) {
-                    campo.val("");
-                }
-                else {
-                    if (campo.length = maxLength) {
-                      campo.val(numIngresado);
+            $(".CantMaximaCaracteres").bind({
+                keypress: function () {
+                    var campo = $(this);
+                    var numero = String.fromCharCode(event.keyCode);
+                    if (numero <= 5) {
+                        if (campo.length = 1) campo.val("");
+                    } else {
+                        return false;
                     }
-                    else {
-                        campo.val(campo.substring(1, maxLength));
-                    }
-                    
-                    
                 }
+                //Si se quiere que cuando se escribe mal dejar vacío en vez del último número. Descomentar esto:
+                //              ,
+                //              keydown: function(){
+                //               var campo = $(this);
+                //               campo.val("");
+                //              }
             });
-            
+
+
 
             $(".contenedor_formulario").show()
 
@@ -517,12 +511,3 @@ var VistaFormulario = {
 
 
     
-
-
-
-
-
-            
-
-
--->
