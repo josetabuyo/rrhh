@@ -33,7 +33,7 @@
            </div>
 
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
-     <h1 style="text-align: center; margin-top: 30px;font-size: 2.9em;">Formulario <br />Relevamiento de Contratos</h1>
+     <h1 style="text-align: center; margin-top: 30px;font-size: 2.5em;">Formulario <br />Relevamiento de Tareas</h1>
     
     <div id="buscador_de_personas" RequiereFuncionalidad=28>
         <p class="buscarPersona">Buscar persona:
@@ -142,102 +142,92 @@
                 <p style="font-weight:bold;">a. Titulo declarado en su legajo:</p>
                 <div id="caja_estudio_1" class="caja_estudios caja_extra">
                      <div class="bloque_estudios">
-                        <label for="nivel_estudio_1" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
+                        <label for="nivel_estudio_1" style="display:inline-block; flex-grow:200; margin-right: 35px; ">Nivel de estudio:</label>
                         <%--<input id="nivel_estudio_1" class="nivel_estudio" campo="nivel_estudio_1" type="text" placeholder="Nivel" style="flex-grow:100;" />--%>
-                        <select id="nivel_estudio_1" class="nivel_estudio" style="flex-grow:50;" campo="nivel_estudio_1" rh-control-type="combo" rh-data-provider="NivelesDeEstudio">
-                     </div>
-                     <div class="bloque_estudios">
-                        <label for="titulo_obtenido_1" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
+                        <select id="nivel_estudio_1" class="nivel_estudio" style="flex-grow:100; width:210px;" campo="nivel_estudio_1 " rh-control-type="combo" rh-data-provider="NivelesDeEstudio"></select>
+                    
+                        <label for="titulo_obtenido_1" style="display:inline-block; flex-grow:200; margin-right: 10px; margin-left: 10px;">Titulo obtenido:</label>
                         <input id="titulo_obtenido_1" class="titulo_obtenido" campo="titulo_obtenido_1" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
                      <div class="bloque_estudios">
-                        <label for="institucion_1" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
+                        <label for="institucion_1" style="display:inline-block; flex-grow:200; margin-right: 10px">Institución otorgante:</label>
                         <input id="institucion_1" campo="institucion_1" type="text" placeholder="Institución" style="flex-grow:100;" />
-                    </div>
-                    <div class="bloque_estudios">
-                        <label for="fecha_egreso_1" style="display:inline-block; width:150px;margin-right: 10px">Fecha Egreso:</label>
-                        <input id="fecha_egreso_1" campo="fecha_egreso_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100;" />
+                   
+                        <label for="fecha_egreso_1" style="display:inline-block; flex-grow:200; margin-right: 10px; margin-left: 10px;">Fecha Egreso:</label>
+                        <input id="fecha_egreso_1" campo="fecha_egreso_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100; margin-left: 20px;" />
                     </div>
                 </div>
 
              
                 <div id="caja_estudio_2" class="caja_estudios caja_extra">
                     <div class="bloque_estudios">
-                        <label for="nivel_estudio_2" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
+                        <label for="nivel_estudio_2" style="display:inline-block; flex-grow:200; margin-right: 35px;">Nivel de estudio:</label>
                         <%--<input id="nivel_estudio_2" class="nivel_estudio" campo="nivel_estudio_2" type="text" placeholder="Nivel" style="flex-grow:100;" />--%>
-                        <select id="nivel_estudio_2" class="nivel_estudio" style="flex-grow:100;" campo="nivel_estudio_2" rh-control-type="combo" rh-data-provider="NivelesDeEstudio">
-                    </div>
-                    <div class="bloque_estudios">
-                        <label for="titulo_obtenido_2" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
+                        <select id="nivel_estudio_2" class="nivel_estudio" style="flex-grow:100; width:210px;" campo="nivel_estudio_2" rh-control-type="combo" rh-data-provider="NivelesDeEstudio"></select>
+
+                        <label for="titulo_obtenido_2" style="display:inline-block; flex-grow:200; margin-right: 10px; margin-left: 10px;">Titulo obtenido:</label>
                         <input id="titulo_obtenido_2" class="titulo_obtenido" campo="titulo_obtenido_2" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
                     <div class="bloque_estudios">
-                        <label for="institucion_2" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
+                        <label for="institucion_2" style="display:inline-block; flex-grow:200; margin-right: 10px">Institución otorgante:</label>
                         <input id="institucion_2" campo="institucion_2" type="text" placeholder="Institución" style="flex-grow:100;" />
-                    </div>
-                    <div class="bloque_estudios">
-                        <label for="fecha_egreso_2" style="display:inline-block; width:150px;margin-right: 10px">Fecha Egreso:</label>
-                        <input id="fecha_egreso_2" campo="fecha_egreso_2" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100;" />
+
+                        <label for="fecha_egreso_2" style="display:inline-block; flex-grow:200; margin-right: 10px; margin-left: 10px;">Fecha Egreso:</label>
+                        <input id="fecha_egreso_2" campo="fecha_egreso_2" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100; margin-left: 20px;" />
                     </div>
                 </div>
 
                 <div id="caja_estudio_3" class="caja_estudios caja_extra">
                     <div class="bloque_estudios">
-                        <label for="nivel_estudio_3" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
+                        <label for="nivel_estudio_3" style="display:inline-block; flex-grow:200; margin-right: 35px;">Nivel de estudio:</label>
                         <%--<input id="nivel_estudio_3" class="nivel_estudio" campo="nivel_estudio_3" type="text" placeholder="Nivel" style="flex-grow:100;" />--%>
-                        <select id="nivel_estudio_3" class="nivel_estudio" style="flex-grow:100;" campo="nivel_estudio_3" rh-control-type="combo" rh-data-provider="NivelesDeEstudio">
-                    </div>
-                    <div class="bloque_estudios">
-                        <label for="titulo_obtenido_3" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
+                        <select id="nivel_estudio_3" class="nivel_estudio" style="flex-grow:100; width:210px;" campo="nivel_estudio_3" rh-control-type="combo" rh-data-provider="NivelesDeEstudio"></select>
+
+                        <label for="titulo_obtenido_3" style="display:inline-block;  flex-grow:200; margin-right: 10px;  margin-left: 10px;">Titulo obtenido:</label>
                         <input id="titulo_obtenido_3" class="titulo_obtenido" campo="titulo_obtenido_3" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
                     <div class="bloque_estudios">
-                        <label for="institucion_3" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
+                        <label for="institucion_3" style="display:inline-block; flex-grow:200; margin-right: 10px">Institución otorgante:</label>
                         <input id="institucion_3" campo="institucion_3" type="text" placeholder="Institución" style="flex-grow:100;" />
-                    </div>
-                    <div class="bloque_estudios">
-                        <label for="fecha_egreso_3" style="display:inline-block; width:150px;margin-right: 10px">Fecha Egreso:</label>
-                        <input id="fecha_egreso_3" campo="fecha_egreso_3" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100;" />
+
+                        <label for="fecha_egreso_3" style="display:inline-block; flex-grow:200; margin-right: 10px; margin-left: 10px;">Fecha Egreso:</label>
+                        <input id="fecha_egreso_3" campo="fecha_egreso_3" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100; margin-left: 20px;" />
                     </div>
                 </div>
 
                 <div id="caja_estudio_4" class="caja_estudios caja_extra">
                     <div class="bloque_estudios">
-                        <label for="nivel_estudio_4" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
+                        <label for="nivel_estudio_4" style="display:inline-block; flex-grow:200; margin-right: 35px;">Nivel de estudio:</label>
                         <%--<input id="nivel_estudio_4" class="nivel_estudio" campo="nivel_estudio_4" type="text" placeholder="Nivel" style="flex-grow:100;" />--%>
-                        <select id="nivel_estudio_4" class="nivel_estudio" style="flex-grow:100;" campo="nivel_estudio_4" rh-control-type="combo" rh-data-provider="NivelesDeEstudio">
-                    </div>
-                    <div class="bloque_estudios">
-                        <label for="titulo_obtenido_4" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
+                        <select id="nivel_estudio_4" class="nivel_estudio" style="flex-grow:100; width:210px;" campo="nivel_estudio_4" rh-control-type="combo" rh-data-provider="NivelesDeEstudio"></select>
+
+                        <label for="titulo_obtenido_4" style="display:inline-block; flex-grow:200; margin-right: 10px;  margin-left: 10px;">Titulo obtenido:</label>
                         <input id="titulo_obtenido_4" class="titulo_obtenido" campo="titulo_obtenido_4" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
                     <div class="bloque_estudios">
-                        <label for="institucion_4" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
+                        <label for="institucion_4" style="display:inline-block; flex-grow:200; margin-right: 10px">Institución otorgante:</label>
                         <input id="institucion_4" campo="institucion_4" type="text" placeholder="Institución" style="flex-grow:100;" />
-                    </div>
-                    <div class="bloque_estudios">
-                        <label for="fecha_egreso_4" style="display:inline-block; width:150px;margin-right: 10px">Fecha Egreso:</label>
-                        <input id="fecha_egreso_4" campo="fecha_egreso_4" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100;" />
+
+                        <label for="fecha_egreso_4" style="display:inline-block; flex-grow:200; margin-right: 10px; margin-left: 10px;">Fecha Egreso:</label>
+                        <input id="fecha_egreso_4" campo="fecha_egreso_4" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100; margin-left: 20px;" />
                     </div>
                 </div>
 
                 <div id="caja_estudio_5" class="caja_estudios caja_extra">
                     <div class="bloque_estudios">
-                        <label for="nivel_estudio_5" style="display:inline-block; width:150px;margin-right: 10px">Nivel de estudio:</label>
+                        <label for="nivel_estudio_5" style="display:inline-block; flex-grow:200; margin-right: 35px;">Nivel de estudio:</label>
                         <%--<input id="nivel_estudio_5" class="nivel_estudio" campo="nivel_estudio_5" type="text" placeholder="Nivel" style="flex-grow:100;" />--%>
-                        <select id="nivel_estudio_5" class="nivel_estudio" style="flex-grow:100;" campo="nivel_estudio_5" rh-control-type="combo" rh-data-provider="NivelesDeEstudio">
-                    </div>
-                    <div class="bloque_estudios">
-                        <label for="titulo_obtenido_5" style="display:inline-block; width:150px;margin-right: 10px">Titulo obtenido:</label>
+                        <select id="nivel_estudio_5" class="nivel_estudio" style="flex-grow:100; width:210px;" campo="nivel_estudio_5" rh-control-type="combo" rh-data-provider="NivelesDeEstudio"></select>
+
+                        <label for="titulo_obtenido_5" style="display:inline-block; flex-grow:200; margin-right: 10px;  margin-left: 10px;">Titulo obtenido:</label>
                         <input id="titulo_obtenido_5" class="titulo_obtenido" campo="titulo_obtenido_5" type="text" placeholder="Título" style="flex-grow:100;" />
                     </div>
                     <div class="bloque_estudios">
-                        <label for="institucion_5" style="display:inline-block; width:150px;margin-right: 10px">Institución otorgante:</label>
+                        <label for="institucion_5" style="display:inline-block; flex-grow:200; margin-right: 10px">Institución otorgante:</label>
                         <input id="institucion_5" campo="institucion_5" type="text" placeholder="Institución" style="flex-grow:100;" />
-                    </div>
-                    <div class="bloque_estudios">
-                        <label for="fecha_egreso_5" style="display:inline-block; width:150px;margin-right: 10px">Fecha Egreso:</label>
-                        <input id="fecha_egreso_5" campo="fecha_egreso_5" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100;" />
+
+                        <label for="fecha_egreso_5" style="display:inline-block; flex-grow:200; margin-right: 10px; margin-left: 10px;">Fecha Egreso:</label>
+                        <input id="fecha_egreso_5" campo="fecha_egreso_5" type="text" placeholder="dd/mm/aaaa" style="flex-grow:100; margin-left: 20px;" />
                     </div>
                 </div>
                 
@@ -1295,7 +1285,7 @@
             <br />
             <div style="margin-left: 50px;">
                 <p style="font-weight: bold;">Competencias Informáticas:</p>
-                <div class="bloque" style="margin-bottom: 15px;">
+                <div class="bloque no_imprimir" style="margin-bottom: 15px;">
                     <div style="width: 200px;">
                         <label style="display: inline-block; ">Grupo de herramientas</label>
                         <select id="cboHerramientas" style="width: 150px" rh-control-type="combo" rh-data-provider="TiposCompetenciaInformatica" > </select>  
@@ -1313,7 +1303,7 @@
                         <input type="checkbox" style="margin-left: 55px;" id="utiliza_conocimiento"  />
                    </div>  
                 </div>
-                <input type="button" id="btn_Agregar_Conocimientos" class="btn btn-primary" value="Agregar conocimiento" style="width:200px; display:block;" />
+                <input type="button" id="btn_Agregar_Conocimientos" class="btn btn-primary no_imprimir" value="Agregar conocimiento" style="width:200px; display:block;" />
                 <div id="listadoConocimientos" style="margin: 10px; width: 660px;">
                     
                 </div>
@@ -1392,7 +1382,7 @@
     <br />
     <br />
     <input type="button" id="btn_guardar_cambios" class="btn btn-primary" value="Guardar Cambios" />
-    <input type="button" id="btn_imprimir_abajo" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
+    <input type="button" id="btn_imprimir_abajo" class="btn btn-primary no_imprimir"  value="Imprimir" onclick="Imprimir()" />
     </div>
        
         <div id="plantillas">
