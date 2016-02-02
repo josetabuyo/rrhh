@@ -231,18 +231,25 @@ var VistaFormulario = {
                 keypress: function () {
                     var campo = $(this);
                     var numero = String.fromCharCode(event.keyCode);
-                    if (numero <= 5) {
+                    if (0 < numero && numero <= 5) {
                         if (campo.length = 1) campo.val("");
                     } else {
                         return false;
                     }
+                    _this.VerificarMaximoDeAsignaciones();
+                },
+                blur: function () {
+                    _this.VerificarMaximoDeAsignaciones();
+                },
+                keyup: function () {
+                    _this.VerificarMaximoDeAsignaciones();
+                },
+                click: function () {
+                    _this.VerificarMaximoDeAsignaciones();
+                },
+                change: function () {
+                    _this.VerificarMaximoDeAsignaciones();
                 }
-                //Si se quiere que cuando se escribe mal dejar vacío en vez del último número. Descomentar esto:
-                //              ,
-                //              keydown: function(){
-                //               var campo = $(this);
-                //               campo.val("");
-                //              }
             });
 
 
@@ -255,6 +262,53 @@ var VistaFormulario = {
             _this.mostrarIdUltimoFormulario(form);
         });
     },
+    VerificarMaximoDeAsignaciones: function () {
+        _this = this;
+        var clases = [$(".TareasGenerales"),
+                      $(".TareasAdministrativas"),
+                      $(".TareasTecnicas"),
+                      $(".AsistenciaTecnica"),
+                      $(".ServiciosProfesionales"), 
+                      $(".ProfesionalesAvanzados")]
+
+        for (var i = 0; i < clases.length; i++) {
+            _this.MaximoDeAsignaciones(clases[i]);
+        }
+    },
+
+    MaximoDeAsignaciones: function (clase) {
+        var contador = _this.ContarCantidadDeItemsCalificados(clase);
+        _this.LimitarLaCantidadDeCalificacionesPorClase(clase, contador);
+    },
+
+    LimitarLaCantidadDeCalificacionesPorClase: function (clase, contador) {
+        if (contador >= 5) {
+            clase.each(function () {
+                var campo = $(this);
+                if (campo.val() == "") {
+                    campo.val("");
+                    campo.prop('disabled', true);
+                }
+            });
+        } else {
+            clase.each(function () {
+                var campo = $(this);
+                campo.prop('disabled', false);
+            });
+        }
+    },
+
+    ContarCantidadDeItemsCalificados: function (clase) {
+        var contador = 0;
+        clase.each(function () {
+            var campo = $(this);
+            if (campo.val() != "") {
+                contador = contador + 1;
+            }
+        });
+        return contador;
+    },
+
     limpiarPantalla: function () {
         this.habilitar_registro_cambios = false;
         $("[campo]").each(function () {

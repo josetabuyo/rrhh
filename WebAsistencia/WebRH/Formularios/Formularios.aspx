@@ -322,7 +322,7 @@
                     <label class="tareas_nro">
                         1</label>
                     <input id="Tarea_Gral_Mant_Edificio" campo="Tarea_Gral_Mant_Edificio" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/> 
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres TareasGenerales"/> 
                         <%--onkeydown="CantMaximaCaracteres(this, 1, 5);" onkeyup="CantMaximaCaracteres(this, 1, 5);--%>
                     <label class="tareas">
                         Mantenimiento edificio (plomería, limpieza, electricidad)</label>
@@ -331,7 +331,7 @@
                     <label class="tareas_nro">
                         2</label>
                     <input id="Tarea_Gral_Ascensorista" campo="Tarea_Gral_Ascensorista" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasGenerales"/>
                     <label class="tareas">
                         Ascensorista</label>
                 </div>
@@ -339,7 +339,7 @@
                     <label class="tareas_nro">
                         3</label>
                     <input id="Tarea_Gral_Chofer" campo="Tarea_Gral_Chofer" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasGenerales"/>
                     <label class="tareas">
                         Chofer</label>
                 </div>
@@ -347,7 +347,7 @@
                     <label class="tareas_nro">
                         4</label>
                     <input id="Tarea_Gral_Mozo" campo="Tarea_Gral_Mozo"  style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasGenerales"/>
                     <label class="tareas">
                         Mozo / Conserje</label>
                 </div>
@@ -355,7 +355,7 @@
                     <label class="tareas_nro">
                         5</label>
                     <input id="Tarea_Gral_Seguridad" campo="Tarea_Gral_Seguridad" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasGenerales"/>
                     <label class="tareas">
                         Seguridad / Control de Acceso</label>
                 </div>
@@ -363,7 +363,7 @@
                     <label class="tareas_nro">
                         6</label>
                     <input id="Tarea_Gral_Deposito" campo="Tarea_Gral_Deposito"  style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasGenerales"/>
                     <label class="tareas">
                         Depósito / Logística de Mercaderías</label>
                 </div>
@@ -371,12 +371,12 @@
                     <label class="tareas_nro">
                         7</label>
                     <input id="Tarea_Gral_Otros" campo="Tarea_Gral_Otros" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" onkeypress="HabilitarCampo(this)" class="CantMaximaCaracteres"/>
+                        placeholder="" onkeypress="HabilitarCampo(this)" class="CantMaximaCaracteres TareasGenerales"/>
                     <label class="tareas_otras">
                         Otros</label>
                     <label class="tareas_otras">
                         Detalle</label>
-                    <input id="Tarea_Gral_Detalle" campo="Tarea_Gral_Detalle" type="text" style="flex-grow:100;" 
+                    <input id="Tarea_Gral_Detalle" campo="Tarea_Gral_Detalle TareasGenerales" type="text" style="flex-grow:100;" 
                         placeholder="Tarea que desempeña" />
                 </div>
             </div>
@@ -390,7 +390,7 @@
                     <label class="tareas_nro">
                         1</label>
                     <input id="Tarea_Adm_Cadete" campo="Tarea_Adm_Cadete"  style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Cadete</label>
                 </div>
@@ -398,7 +398,7 @@
                     <label class="tareas_nro">
                         2</label>
                     <input id="Tarea_Adm_Recepcionista" campo="Tarea_Adm_Recepcionista"  style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Recepcionista</label>
                 </div>
@@ -406,7 +406,7 @@
                     <label class="tareas_nro">
                         3</label>
                     <input id="Tarea_Adm_Telefonista" campo="Tarea_Adm_Telefonista" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Telefonista</label>
                 </div>
@@ -414,7 +414,7 @@
                     <label class="tareas_nro">
                         4</label>
                     <input id="Tarea_Adm_Logistica" campo="Tarea_Adm_Logistica"  style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Logística de documentación (mesa de entradas, archivo, notas)</label>
                 </div>
@@ -422,7 +422,7 @@
                     <label class="tareas_nro">
                         5</label>
                     <input id="Tarea_Adm_Atencion_Publico" campo="Tarea_Adm_Atencion_Publico"  type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Atención al público (recepción, orientación y eventual derivación)</label>
                 </div>
@@ -430,7 +430,7 @@
                     <label class="tareas_nro">
                         6</label>
                     <input id="Tarea_Adm_Reg_info" campo="Tarea_Adm_Reg_info" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Registro de información (data entry, carga de registros)</label>
                 </div>
@@ -438,7 +438,7 @@
                     <label class="tareas_nro">
                         7</label>
                     <input id="Tarea_Adm_Elaboracion" campo="Tarea_Adm_Elaboracion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Elaboración de notas, memos, informes</label>
                 </div>
@@ -446,7 +446,7 @@
                     <label class="tareas_nro">
                         8</label>
                     <input id="Tarea_Adm_Secretaria_Adm" campo="Tarea_Adm_Secretaria_Adm" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Secretaria administrativa</label>
                 </div>
@@ -454,7 +454,7 @@
                     <label class="tareas_nro">
                         9</label>
                     <input id="Tarea_Adm_Secretaria_Priv" campo="Tarea_Adm_Secretaria_Priv" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Secretaria privada (asistencia directa a funcionario)</label>
                 </div>
@@ -462,7 +462,7 @@
                     <label class="tareas_nro">
                         10</label>
                     <input id="Tarea_Adm_Rendiciones" campo="Tarea_Adm_Rendiciones" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Rendiciones y Pagos</label>
                 </div>
@@ -470,7 +470,7 @@
                     <label class="tareas_nro">
                         11</label>
                     <input id="Tarea_Adm_Compras" campo="Tarea_Adm_Compras" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Compras</label>
                 </div>
@@ -478,7 +478,7 @@
                     <label class="tareas_nro">
                         12</label>
                     <input id="Tarea_Adm_Contrataciones" campo="Tarea_Adm_Contrataciones" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Contrataciones</label>
                 </div>
@@ -486,7 +486,7 @@
                     <label class="tareas_nro">
                         13</label>
                     <input id="Tarea_Adm_Elaboracion" campo="Tarea_Adm_Elaboracion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Elaboración de Presupuestos</label>
                 </div>
@@ -494,7 +494,7 @@
                     <label class="tareas_nro">
                         14</label>
                     <input id="Tarea_Adm_Recepcion" campo="Tarea_Adm_Recepcion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas">
                         Recepción y seguimiento de tramites
                     </label>
@@ -503,7 +503,7 @@
                     <label class="tareas_nro">
                         15</label>
                     <input id="Tarea_Adm_Otros" campo="Tarea_Adm_Otros" type="text" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasAdministrativas"/>
                     <label class="tareas_otras">
                         Otros</label>
                     <label class="tareas_otras">
@@ -522,7 +522,7 @@
                     <label class="tareas_nro">
                         1</label>
                     <input id="Tarea_Tec_Soporte_Tec" campo="Tarea_Tec_Soporte_Tec" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Soporte técnico / Reparación de equipos</label>
                 </div>
@@ -530,7 +530,7 @@
                     <label class="tareas_nro">
                         2</label>
                     <input id="Tarea_Tec_Programacion" campo="Tarea_Tec_Programacion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Programación informática</label>
                 </div>
@@ -538,7 +538,7 @@
                     <label class="tareas_nro">
                         3</label>
                     <input id="Tarea_Tec_Procesamiento" campo="Tarea_Tec_Procesamiento"  style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Procesamiento de información</label>
                 </div>
@@ -546,7 +546,7 @@
                     <label class="tareas_nro">
                         4</label>
                     <input id="Tarea_Tec_Manejo_BD" campo="Tarea_Tec_Manejo_BD" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Manejo de bases de datos</label>
                 </div>
@@ -554,7 +554,7 @@
                     <label class="tareas_nro">
                         5</label>
                     <input id="Tarea_Tec_Elab_Materiales" campo="Tarea_Tec_Elab_Materiales" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Elaboración de Materiales para difusión
                     </label>
@@ -563,7 +563,7 @@
                     <label class="tareas_nro">
                         6</label>
                     <input id="Tarea_Tec_Comunicacion" campo="Tarea_Tec_Comunicacion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Comunicación y Prensa</label>
                 </div>
@@ -571,7 +571,7 @@
                     <label class="tareas_nro">
                         7</label>
                     <input id="Tarea_Tec_Promocion" campo="Tarea_Tec_Promocion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Promoción de políticas públicas</label>
                 </div>
@@ -579,7 +579,7 @@
                     <label class="tareas_nro">
                         8</label>
                     <input id="Tarea_Tec_Apoyo" campo="Tarea_Tec_Apoyo" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Apoyo a emprendedores de la Economía Social
                     </label>
@@ -588,7 +588,7 @@
                     <label class="tareas_nro">
                         9</label>
                     <input id="Tarea_Tec_Fortalecimiento" campo="Tarea_Tec_Fortalecimiento" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Fortalecimiento de Cooperativas</label>
                 </div>
@@ -596,7 +596,7 @@
                     <label class="tareas_nro">
                         10</label>
                     <input id="Tarea_Tec_Tareas_Territoriales" campo="Tarea_Tec_Tareas_Territoriales" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Tareas territoriales</label>
                 </div>
@@ -604,7 +604,7 @@
                     <label class="tareas_nro">
                         11</label>
                     <input id="Tarea_Tec_Diseño" campo="Tarea_Tec_Diseño" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Diseño y dictado de talleres</label>
                 </div>
@@ -612,7 +612,7 @@
                     <label class="tareas_nro">
                         12</label>
                     <input id="Tarea_Tec_Org_Eventos" campo="Tarea_Tec_Org_Eventos" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Organización de ferias y eventos</label>
                 </div>
@@ -620,7 +620,7 @@
                     <label class="tareas_nro">
                         13</label>
                     <input id="Tarea_Tec_Act_Capacitacion" campo="Tarea_Tec_Act_Capacitacion" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Actividades de capacitación</label>
                 </div>
@@ -628,7 +628,7 @@
                     <label class="tareas_nro">
                         14</label>
                     <input id="Tarea_Tec_Asis_Emerg" campo="Tarea_Tec_Asis_Emerg" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Asistencia en emergencias</label>
                 </div>
@@ -636,7 +636,7 @@
                     <label class="tareas_nro">
                         15</label>
                     <input id="Tarea_Tec_Seg_Alim" campo="Tarea_Tec_Seg_Alim" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas">
                         Tareas inherentes a la Seguridad Alimentaria
                     </label>
@@ -645,7 +645,7 @@
                     <label class="tareas_nro">
                         16</label>
                     <input id="Tarea_Tec_Otros" campo="Tarea_Tec_Otros" style="width: 30px;"  type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres TareasTecnicas"/>
                     <label class="tareas_otras">
                         Otros</label>
                     <label class="tareas_otras">
@@ -664,7 +664,7 @@
                     <label class="tareas_nro">
                         1</label>
                     <input id="Asist_Tec_Form_Terc" campo="Asist_Tec_Form_Terc" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Tareas específicas de su formación terciaria</label>
                 </div>
@@ -672,7 +672,7 @@
                     <label class="tareas_nro">
                         2</label>
                     <input id="Asist_Tec_Relevamiento" campo="Asist_Tec_Relevamiento"  style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Relevamiento</label>
                 </div>
@@ -680,7 +680,7 @@
                     <label class="tareas_nro">
                         3</label>
                     <input id="Asist_Tec_Analisis_Info" campo="Asist_Tec_Analisis_Info" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Análisis de información (análisis, elaboración de informes y propuestas)</label>
                 </div>
@@ -688,7 +688,7 @@
                     <label class="tareas_nro">
                         4</label>
                     <input id="Asist_Tec_Planificacion" campo="Asist_Tec_Planificacion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Planificación de tareas</label>
                 </div>
@@ -696,7 +696,7 @@
                     <label class="tareas_nro">
                         5</label>
                     <input id="Asist_Tec_Ejecucion" campo="Asist_Tec_Ejecucion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Ejecución</label>
                 </div>
@@ -704,7 +704,7 @@
                     <label class="tareas_nro">
                         6</label>
                     <input id="Asist_Tec_Elaboracion_Notas" campo="Asist_Tec_Elaboracion_Notas" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Elaboración de notas, memos, informes</label>
                 </div>
@@ -712,7 +712,7 @@
                     <label class="tareas_nro">
                         7</label>
                     <input id="Asist_Tec_Soporte_Tec" campo="Asist_Tec_Soporte_Tec" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Soporte técnico / Reparación de equipos</label>
                 </div>
@@ -720,7 +720,7 @@
                     <label class="tareas_nro">
                         8</label>
                     <input id="Asist_Tec_Infraestructura" campo="Asist_Tec_Infraestructura" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Infraestructura edilicia</label>
                 </div>
@@ -728,7 +728,7 @@
                     <label class="tareas_nro">
                         9</label>
                     <input id="Asist_Tec_Programacion" campo="Asist_Tec_Programacion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Programación informática</label>
                 </div>
@@ -736,7 +736,7 @@
                     <label class="tareas_nro">
                         10</label>
                     <input id="Asist_Tec_Procesamiento" campo="Asist_Tec_Procesamiento" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Procesamiento de información</label>
                 </div>
@@ -744,7 +744,7 @@
                     <label class="tareas_nro">
                         11</label>
                     <input id="Asist_Tec_Manejo_DB" campo="Asist_Tec_Manejo_DB" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Manejo de bases de datos</label>
                 </div>
@@ -752,7 +752,7 @@
                     <label class="tareas_nro">
                         12</label>
                     <input id="Asist_Tec_Diseño_Grafico" campo="Asist_Tec_Diseño_Grafico" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Diseño gráfico</label>
                 </div>
@@ -760,7 +760,7 @@
                     <label class="tareas_nro">
                         13</label>
                     <input id="Asist_Tec_Diseño_Imag_Son" campo="Asist_Tec_Diseño_Imag_Son" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Diseño de imagen y sonido</label>
                 </div>
@@ -768,7 +768,7 @@
                     <label class="tareas_nro">
                         14</label>
                     <input id="Asist_Tec_Elab_Mat" campo="Asist_Tec_Elab_Mat" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Elaboración de materiales para difusión
                     </label>
@@ -777,7 +777,7 @@
                     <label class="tareas_nro">
                         15</label>
                     <input id="Asist_Tec_Comunicacion" campo="Asist_Tec_Comunicacion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Comunicación y prensa</label>
                 </div>
@@ -785,7 +785,7 @@
                     <label class="tareas_nro">
                         16</label>
                     <input id="Asist_Tec_Ceremonial" campo="Asist_Tec_Ceremonial" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Ceremonial y protocolo</label>
                 </div>
@@ -793,7 +793,7 @@
                     <label class="tareas_nro">
                         17</label>
                     <input id="Asist_Tec_Prom_Pol_Pub" campo="Asist_Tec_Prom_Pol_Pub" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Promoción de políticas públicas</label>
                 </div>
@@ -801,7 +801,7 @@
                     <label class="tareas_nro">
                         18</label>
                     <input id="Asist_Tec_Apoyo_Econom_Soc" campo="Asist_Tec_Apoyo_Econom_Soc" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Apoyo a emprendedores de la Economía Social
                     </label>
@@ -810,7 +810,7 @@
                     <label class="tareas_nro">
                         19</label>
                     <input id="Asist_Tec_Fortalecimiento_Coop" campo="Asist_Tec_Fortalecimiento_Coop" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Fortalecimiento de cooperativas</label>
                 </div>
@@ -818,7 +818,7 @@
                     <label class="tareas_nro">
                         20</label>
                     <input id="Asist_Tec_Tareas_Territoriales" campo="Asist_Tec_Tareas_Territoriales" type="number" min="1" max="5" 
-                         style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                         style="width: 30px;" placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Tareas territoriales</label>
                 </div>
@@ -826,7 +826,7 @@
                     <label class="tareas_nro">
                         21</label>
                     <input id="Asist_Tec_Diseño_Taller" campo="Asist_Tec_Diseño_Taller" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Diseño y dictado de talleres</label>
                 </div>
@@ -834,7 +834,7 @@
                     <label class="tareas_nro">
                         22</label>
                     <input id="Asist_Tec_Org_Eventos" campo="Asist_Tec_Org_Eventos" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Organización de ferias y eventos</label>
                 </div>
@@ -842,7 +842,7 @@
                     <label class="tareas_nro">
                         23</label>
                     <input id="Asist_Tec_Act_Capa" campo="Asist_Tec_Act_Capa" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Actividades de capacitación</label>
                 </div>
@@ -850,7 +850,7 @@
                     <label class="tareas_nro">
                         24</label>
                     <input id="Asist_Tec_Asist_Emerg" campo="Asist_Tec_Asist_Emerg" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Asistencia en emergencias</label>
                 </div>
@@ -858,7 +858,7 @@
                     <label class="tareas_nro">
                         25</label>
                     <input id="Asist_Tec_Seg_Alim" campo="Asist_Tec_Seg_Alim" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Tareas inherentes a la Seguridad Alimentaria</label>
                 </div>
@@ -866,7 +866,7 @@
                     <label class="tareas_nro">
                         26</label>
                     <input id="Asist_Tec_Articulacion" campo="Asist_Tec_Articulacion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Articulación con otras intituciones y/o organismos</label>
                 </div>
@@ -874,7 +874,7 @@
                     <label class="tareas_nro">
                         27</label>
                     <input id="Asist_Tec_Elaboracion_Mat_Dif" campo="Asist_Tec_Elaboracion_Mat_Dif" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Elaboración, seguimiento y/o control de convenios con intituciones</label>
                 </div>
@@ -882,7 +882,7 @@
                     <label class="tareas_nro">
                         28</label>
                     <input id="Asist_Tec_Rendiciones" campo="Asist_Tec_Rendiciones" type="text" style="width: 30px;"
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Rendiciones y pagos</label>
                 </div>
@@ -890,7 +890,7 @@
                     <label class="tareas_nro">
                         29</label>
                     <input id="Asist_Tec_Compras" campo="Asist_Tec_Compras" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Compras</label>
                 </div>
@@ -898,7 +898,7 @@
                     <label class="tareas_nro">
                         30</label>
                     <input id="Asist_Tec_Contrataciones" campo="Asist_Tec_Contrataciones" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Contrataciones</label>
                 </div>
@@ -906,7 +906,7 @@
                     <label class="tareas_nro">
                         31</label>
                     <input id="Asist_Tec_Elab_Presup" campo="Asist_Tec_Elab_Presup" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Elaboración de presupuestos</label>
                 </div>
@@ -914,7 +914,7 @@
                     <label class="tareas_nro">
                         32</label>
                     <input id="Asist_Tec_Reg_Contables" campo="Asist_Tec_Reg_Contables" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Registros contables</label>
                 </div>
@@ -922,7 +922,7 @@
                     <label class="tareas_nro">
                         33</label>
                     <input id="Asist_Tec_Recep_Seg_Tram" campo="Asist_Tec_Recep_Seg_Tram" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas">
                         Recepción y seguimiento de trámites
                     </label>
@@ -931,7 +931,7 @@
                     <label class="tareas_nro">
                         34</label>
                     <input id="Asist_Tec_Otros" campo="Asist_Tec_Otros" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres AsistenciaTecnica"/>
                     <label class="tareas_otras">
                         Otros</label>
                     <label class="tareas_otras">
@@ -951,7 +951,7 @@
                     <label class="tareas_nro">
                         1</label>
                     <input id="Serv_Prof_Form_Univ" campo="Serv_Prof_Form_Univ" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Tareas específicas de su formación universitaria</label>
                 </div>
@@ -959,7 +959,7 @@
                     <label class="tareas_nro">
                         2</label>
                     <input id="Serv_Prof_Relevamiento" campo="Serv_Prof_Relevamiento" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Relevamiento</label>
                 </div>
@@ -967,7 +967,7 @@
                     <label class="tareas_nro">
                         3</label>
                     <input id="Serv_Prof_Planificacion" campo="Serv_Prof_Planificacion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Planificación (Análisis, diseño, elaboración de propuestas)</label>
                 </div>
@@ -975,7 +975,7 @@
                     <label class="tareas_nro">
                         4</label>
                     <input id="Serv_Prof_Ejecucion" campo="Serv_Prof_Ejecucion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Ejecución de programas y/o proyectos</label>
                 </div>
@@ -983,7 +983,7 @@
                     <label class="tareas_nro">
                         5</label>
                     <input id="Serv_Prof_Eval_Monit" campo="Serv_Prof_Eval_Monit" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Evaluación y Monitoreo (Controles, seguimiento y detección de problemas)</label>
                 </div>
@@ -991,7 +991,7 @@
                     <label class="tareas_nro">
                         6</label>
                     <input id="Serv_Prof_Elab_Dict" campo="Serv_Prof_Elab_Dict" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Elaboración de informes y/o dictámines</label>
                 </div>
@@ -999,7 +999,7 @@
                     <label class="tareas_nro">
                         7</label>
                     <input id="Serv_Prof_Soporte_Tec" campo="Serv_Prof_Soporte_Tec" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Soporte técnico / Reparación de equipos</label>
                 </div>
@@ -1007,7 +1007,7 @@
                     <label class="tareas_nro">
                         8</label>
                     <input id="Serv_Prof_Infraestructura" campo="Serv_Prof_Infraestructura" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Infraestructura edilicia</label>
                 </div>
@@ -1015,7 +1015,7 @@
                     <label class="tareas_nro">
                         9</label>
                     <input id="Serv_Prof_Programacion" campo="Serv_Prof_Programacion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Programación informática</label>
                 </div>
@@ -1023,7 +1023,7 @@
                     <label class="tareas_nro">
                         10</label>
                     <input id="Serv_Prof_Procesamiento" campo="Serv_Prof_Procesamiento" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Procesamiento de información</label>
                 </div>
@@ -1031,7 +1031,7 @@
                     <label class="tareas_nro">
                         11</label>
                     <input id="Serv_Prof_Manejo_DB" campo="Serv_Prof_Manejo_DB" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Manejo de bases de datos</label>
                 </div>
@@ -1039,7 +1039,7 @@
                     <label class="tareas_nro">
                         12</label>
                     <input id="Serv_Prof_Diseño_Grafico" campo="Serv_Prof_Diseño_Grafico" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Diseño gráfico</label>
                 </div>
@@ -1047,7 +1047,7 @@
                     <label class="tareas_nro">
                         13</label>
                     <input id="Serv_Prof_Diseño_Imag_Son" campo="Serv_Prof_Diseño_Imag_Son" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Diseño de imagen y sonido</label>
                 </div>
@@ -1055,7 +1055,7 @@
                     <label class="tareas_nro">
                         14</label>
                     <input id="Serv_Prof_Elab_Mat" campo="Serv_Prof_Elab_Mat" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Elaboración de materiales para difusión
                     </label>
@@ -1064,7 +1064,7 @@
                     <label class="tareas_nro">
                         15</label>
                     <input id="Serv_Prof_Comunicacion" campo="Serv_Prof_Comunicacion" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Comunicación y prensa</label>
                 </div>
@@ -1072,7 +1072,7 @@
                     <label class="tareas_nro">
                         16</label>
                     <input id="Serv_Prof_Ceremonial" campo="Serv_Prof_Ceremonial" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Ceremonial y protocolo</label>
                 </div>
@@ -1080,7 +1080,7 @@
                     <label class="tareas_nro">
                         17</label>
                     <input id="Serv_Prof_Prom_Pol_Pub" campo="Serv_Prof_Prom_Pol_Pub" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Promoción de políticas públicas</label>
                 </div>
@@ -1088,7 +1088,7 @@
                     <label class="tareas_nro">
                         18</label>
                     <input id="Serv_Prof_Apoyo_Econom_Soc" campo="Serv_Prof_Apoyo_Econom_Soc" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Apoyo a emprendedores de la Economía Social
                     </label>
@@ -1097,7 +1097,7 @@
                     <label class="tareas_nro">
                         19</label>
                     <input id="Serv_Prof_Fortalecimiento_Coop" campo="Serv_Prof_Fortalecimiento_Coop" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Fortalecimiento de cooperativas</label>
                 </div>
@@ -1105,7 +1105,7 @@
                     <label class="tareas_nro">
                         20</label>
                     <input id="Serv_Prof_Tareas_Territoriales" campo="Serv_Prof_Tareas_Territoriales" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Tareas territoriales</label>
                 </div>
@@ -1113,7 +1113,7 @@
                     <label class="tareas_nro">
                         21</label>
                     <input id="Serv_Prof_Diseño_Taller" campo="Serv_Prof_Diseño_Taller" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Diseño y dictado de talleres</label>
                 </div>
@@ -1121,7 +1121,7 @@
                     <label class="tareas_nro">
                         22</label>
                     <input id="Serv_Prof_Org_Eventos" campo="Serv_Prof_Org_Eventos" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Organización de ferias y eventos</label>
                 </div>
@@ -1129,7 +1129,7 @@
                     <label class="tareas_nro">
                         23</label>
                     <input id="Serv_Prof_Elab_Inf_Soc" campo="Serv_Prof_Elab_Inf_Soc"  style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Elaboración de Informes Sociales</label>
                 </div>
@@ -1137,7 +1137,7 @@
                     <label class="tareas_nro">
                         24</label>
                     <input id="Serv_Prof_Act_Capa" campo="Serv_Prof_Act_Capa"  style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Actividades de capacitación</label>
                 </div>
@@ -1145,7 +1145,7 @@
                     <label class="tareas_nro">
                         25</label>
                     <input id="Serv_Prof_Asist_Emerg" campo="Serv_Prof_Asist_Emerg" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Asistencia en emergencias</label>
                 </div>
@@ -1153,7 +1153,7 @@
                     <label class="tareas_nro">
                         26</label>
                     <input id="Serv_Prof_Seg_Alim" campo="Serv_Prof_Seg_Alim"  style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Tareas inherentes a la Seguridad Alimentaria</label>
                 </div>
@@ -1161,7 +1161,7 @@
                     <label class="tareas_nro">
                         27</label>
                     <input id="Serv_Prof_Articulacion" campo="Serv_Prof_Articulacion"  style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Articulación con otras intituciones y/o organismos</label>
                 </div>
@@ -1169,7 +1169,7 @@
                     <label class="tareas_nro">
                         28</label>
                     <input id="Serv_Prof_Elaboracion_Mat_Dif" campo="Serv_Prof_Elaboracion_Mat_Dif"type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Elaboración, seguimiento y/o control de convenios con intituciones</label>
                 </div>
@@ -1177,7 +1177,7 @@
                     <label class="tareas_nro">
                         29</label>
                     <input id="Serv_Prof_Rendiciones" campo="Serv_Prof_Rendiciones" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Rendiciones y pagos</label>
                 </div>
@@ -1185,7 +1185,7 @@
                     <label class="tareas_nro">
                         30</label>
                     <input id="Serv_Prof_Compras" campo="Serv_Prof_Compras" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Compras</label>
                 </div>
@@ -1193,7 +1193,7 @@
                     <label class="tareas_nro">
                         31</label>
                     <input id="Serv_Prof_Contrataciones" campo="Serv_Prof_Contrataciones" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Contrataciones</label>
                 </div>
@@ -1201,7 +1201,7 @@
                     <label class="tareas_nro">
                         32</label>
                     <input id="Serv_Prof_Elab_Presup" campo="Serv_Prof_Elab_Presup" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Elaboración de presupuestos</label>
                 </div>
@@ -1209,14 +1209,14 @@
                     <label class="tareas_nro">
                         33</label>
                     <input id="Serv_Prof_Reg_Contables" campo="Serv_Prof_Reg_Contables" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/>
                     <label class="tareas">
                         Registros contables</label>
                 </div>
                 <div class="bloque">
                     <label class="tareas_nro">
                         34</label>
-                    <input id="Serv_Prof_Otros" campo="Serv_Prof_Otros" type="number" min="1" max="5"  style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/> 
+                    <input id="Serv_Prof_Otros" campo="Serv_Prof_Otros" type="number" min="1" max="5"  style="width: 30px;" placeholder="" class="CantMaximaCaracteres ServiciosProfesionales"/> 
                     <label class="tareas_otras">
                         Otros</label>
                     <label class="tareas_otras">
@@ -1236,7 +1236,7 @@
                     <label class="tareas_nro">
                         1</label>
                     <input id="Tarea_Adic_Asesoramiento" campo="Tarea_Adic_Asesoramiento" type="number" min="1" max="5" 
-                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres"/>
+                        style="width: 30px;" placeholder="" class="CantMaximaCaracteres ProfesionalesAvanzados"/>
                     <label class="tareas">
                         Asesoramiento</label>
                 </div>
@@ -1244,7 +1244,7 @@
                     <label class="tareas_nro">
                         2</label>
                     <input id="Tarea_Adic_Resol_Prob" campo="Tarea_Adic_Resol_Prob" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ProfesionalesAvanzados"/>
                     <label class="tareas">
                         Resolución de problemas (Toma de decisiones y solución de situaciones críticas)</label>
                 </div>
@@ -1252,7 +1252,7 @@
                     <label class="tareas_nro">
                         3</label>
                     <input id="Tarea_Adic_Coord_Equipo" campo="Tarea_Adic_Coord_Equipo" type="number" min="1" max="5"  style="width: 30px;"
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ProfesionalesAvanzados"/>
                     <label style="display: inline-block; width: 250px; margin-left:10px; margin-top:5px;">
                         Coordinación de equipos de trabajo</label>
                     <label style="display: inline-block; width: 170px; margin-left:10px; margin-top:5px;">
@@ -1264,7 +1264,7 @@
                     <label class="tareas_nro">
                         4</label>
                     <input id="Tarea_Adic_Otros" campo="Tarea_Adic_Otros" style="width: 30px;" type="number" min="1" max="5" 
-                        placeholder="" class="CantMaximaCaracteres"/>
+                        placeholder="" class="CantMaximaCaracteres ProfesionalesAvanzados"/>
                     <label class="tareas_otras">
                         Otros</label>
                     <label class="tareas_otras">
