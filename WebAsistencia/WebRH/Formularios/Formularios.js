@@ -161,6 +161,7 @@ var VistaFormulario = {
                 });
             }
         });
+
     },
     validar: function () {
         var respuesta = {
@@ -268,7 +269,7 @@ var VistaFormulario = {
                       $(".TareasAdministrativas"),
                       $(".TareasTecnicas"),
                       $(".AsistenciaTecnica"),
-                      $(".ServiciosProfesionales"), 
+                      $(".ServiciosProfesionales"),
                       $(".ProfesionalesAvanzados")]
 
         for (var i = 0; i < clases.length; i++) {
@@ -492,12 +493,30 @@ var VistaFormulario = {
         (function () {
             var beforePrint = function () {
                 //console.log('Functionality to run before printing.');
+                $('.bloque_de_tareas :input').each(function () {
+                    var _this = $(this);
+                    if (_this.val() == "") {
+                        _this.parent().hide();
+
+                        //_this.parent().addClass("no_imprimir")         
+                    } else {
+                        _this.parent().show();
+                        _this.prev().hide();
+                        //_this.parent().removeClass("no_imprimir");
+                    }
+
+                })
+
             };
             var afterPrint = function () {
                 console.log('Functionality to run after printing');
                 Backend.GuardarCabeceraFormulario(form)
                     .onSuccess(function () {
                         //alertify.success("Formulario versionado correctamente");
+                        $('.bloque_de_tareas :input').each(function () {
+                            $(this).parent().show();
+
+                        })
                     })
                     .onError(function () {
                         alertify.error("Error al versionar el formulario");

@@ -317,7 +317,7 @@
         <div style="margin-left: 50px;" id="contenedor_tarea_generales">
             <p style="font-weight: bold;">
                 Tareas Generales: (Asistente en oficios - Auxiliar - Ayudante)</p>
-            <div style="margin-left: 50px;">
+            <div style="margin-left: 50px;" class="bloque_de_tareas">
                 <div class="bloque">
                     <label class="tareas_nro">
                         1</label>
@@ -385,7 +385,7 @@
         <div style="margin-left: 50px;" id="contenedor_tarea_administrativa">
             <p style="font-weight: bold;">
                 Tareas Administrativas: (Asistente técnico o experimentado - Auxiliar - Ayudante)</p>
-            <div style="margin-left: 50px;">
+            <div style="margin-left: 50px;" class="bloque_de_tareas">
                 <div class="bloque">
                     <label class="tareas_nro">
                         1</label>
@@ -517,7 +517,7 @@
         <div style="margin-left: 50px;" id="contendor_tarea_tecnica">
             <p style="font-weight: bold;">
                 Tareas Técnicas: (Asistente técnico o experimentado)</p>
-            <div style="margin-left: 50px;">
+            <div style="margin-left: 50px;" class="bloque_de_tareas">
                 <div class="bloque">
                     <label class="tareas_nro">
                         1</label>
@@ -659,7 +659,7 @@
         <div style="margin-left: 50px;" id="contenedor_asistencia_tecnica">
             <p style="font-weight: bold;">
                 Asistencia Técnica: (nivel terciario) (Técnico - Analista - Asistente técnico - Asistente experimentado - Profesional Inicial)</p>
-            <div style="margin-left: 50px;">
+            <div style="margin-left: 50px;" class="bloque_de_tareas">
                 <div class="bloque">
                     <label class="tareas_nro">
                         1</label>
@@ -946,7 +946,7 @@
             <p style="font-weight: bold;">
                 Servicios Profesionales: (preferentemente nivel Universitario)
                 (Analista - Dictaminante - Responsable - Matriculados)</p>
-            <div style="margin-left: 50px;">
+            <div style="margin-left: 50px;" class="bloque_de_tareas">
                 <div class="bloque">
                     <label class="tareas_nro">
                         1</label>
@@ -1231,7 +1231,7 @@
                 Tareas adicionales sólo Profesionales Avanzados: (preferentemente nivel universitario/posgrado)</p>
             <p style="font-weight: bold;">
                 (Responsable - Experto - Asesor o Especializado)</p>
-            <div style="margin-left: 50px;">
+            <div style="margin-left: 50px;" class="bloque_de_tareas">
                 <div class="bloque">
                     <label class="tareas_nro">
                         1</label>
@@ -1381,7 +1381,7 @@
     </div>
     <br />
     <br />
-    <input type="button" id="btn_guardar_cambios" class="btn btn-primary" value="Guardar Cambios" />
+    <input type="button" id="btn_guardar_cambios" class="btn btn-primary no_imprimir" value="Guardar Cambios" />
     <input type="button" id="btn_imprimir_abajo" class="btn btn-primary no_imprimir"  value="Imprimir" onclick="Imprimir()" />
     </div>
        
