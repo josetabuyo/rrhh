@@ -137,17 +137,17 @@ namespace General.Repositorios
         {
             List<Campo> campos = new List<Campo>();
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@NroDocumento", documento);
-            var tablaDatos = conexion_bd.Ejecutar("dbo.LEG_GET_Estudios_Realizados", parametros);
+            parametros.Add("@documento", documento);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.FORM_GET_Estudios_Realizados", parametros);
             var contador = 1;
 
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    campos.Add(new Campo("nivel_estudio_" + contador, row.GetSmallintAsInt("idNivel").ToString(), true));
+                    campos.Add(new Campo("nivel_estudio_" + contador, row.GetSmallintAsInt("IdNivel").ToString(), true));
                     campos.Add(new Campo("titulo_obtenido_" + contador, row.GetString("Titulo"), true));
-                    campos.Add(new Campo("institucion_" + contador, "No declarado", true));
+                    campos.Add(new Campo("institucion_" + contador, row.GetString("Institucion"), true));
                     campos.Add(new Campo("fecha_egreso_" + contador, row.GetDateTime("Fecha_Egreso").ToShortDateString().ToString(), true));
 
                     contador++;
@@ -174,6 +174,12 @@ namespace General.Repositorios
                 campos.Add(new Campo("nivel", nivel, true));
                 campos.Add(new Campo("grado", grado, true));
                 campos.Add(new Campo("funcion", funcion, true));
+            }
+            else
+            {
+                campos.Add(new Campo("nivel", "-", true));
+                campos.Add(new Campo("grado", "-", true));
+                campos.Add(new Campo("funcion", "-", true));
             }
 
             return campos;

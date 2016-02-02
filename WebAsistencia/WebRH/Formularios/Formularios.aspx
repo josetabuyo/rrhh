@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Formularios.aspx.cs" Inherits="Formularios_Formularios" %>
+﻿ <%@ Page Language="C#" AutoEventWireup="true" CodeFile="Formularios.aspx.cs" Inherits="Formularios_Formularios" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -1310,7 +1310,7 @@
                     </div> 
                     <div style="width: 200px;">
                         <p style="margin: 5px;"><label style="margin-right: 10px;">Utiliza en sus funciones</label> </p>
-                        <input type="checkbox" style="margin-left: 55px;" class="utiliza_conocimiento"  />
+                        <input type="checkbox" style="margin-left: 55px;" id="utiliza_conocimiento"  />
                    </div>  
                 </div>
                 <input type="button" id="btn_Agregar_Conocimientos" class="btn btn-primary" value="Agregar conocimiento" style="width:200px; display:block;" />

@@ -466,54 +466,27 @@ var VistaFormulario = {
             var herramienta = $('#cboHerramientas').find('option:selected').text();
             var conocimiento = $('#cboConocimiento').find('option:selected').text();
             var nivel = $('#cboNivelCompetencia').find('option:selected').text();
+            var utiliza = $('#utiliza_conocimiento').prop("checked");
+
             var texto = herramienta + ' - ' + conocimiento + ' - ' + nivel;
 
             var listo = false;
             $("#listadoConocimientos .caja_estilo_conocimiento").each(function () {
                 if (!listo) {
                     var input_conocimiento = $(this).find(".conocimiento");
+                    var chk_utiliza = $(this).find(".utiliza_conocimiento");
 
                     if (input_conocimiento.val() == "") {
                         input_conocimiento.val(texto);
                         input_conocimiento.change();
+                        chk_utiliza.prop("checked", utiliza);
+                        chk_utiliza.change();
                         $(this).show();
                         listo = true;
                     }
                 }
             });
-
-            //            var div = $('<div>');
-            //            div.addClass('caja_estilo_conocimiento');
-
-            //            var input = $('<input>');
-            //            input.attr('campo', 'conocimiento');
-            //            input.attr('disabled', 'disabled');
-            //            input.attr('size', texto.length);
-            //            input.addClass('estilo_conocimientos');
-            //            input.val(texto);
-
-            //            var eliminar = $('<img>');
-            //            eliminar.attr('src', '../Imagenes/iconos/icono-eliminar.png');
-            //            eliminar.addClass('icono_eliminar');
-
-            //            eliminar.click(function () {
-            //                this.parentElement.remove();
-            //            })
-
-            //TODO: agregar a los cambios  el nuevo conocimiento
-            /*form_cambios.campos.push({
-            clave: 'conocimiento',
-            valor: 'texto'
-            });*/
-
-            //            div.append(input);
-            //            div.append(eliminar);
-
-            //$('#listadoConocimientos').append(div);
-
-
         })
-
     },
     bidearEventosImprimir: function (form) {
         (function () {
