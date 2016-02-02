@@ -225,7 +225,7 @@ border-bottom: 1px solid #929292;
     .no_imprimir,
     .select2-arrow,
     .select2-chosen,
-    .icono_eliminar
+    .icono_eliminar,
    
     {
         display: none !important;
