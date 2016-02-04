@@ -449,5 +449,43 @@ namespace General.Repositorios
             });
             return combo;
         }
+
+        public Edificio ObtenerEdificioPorId(int id_edificio)
+        {
+            Edificio edificio = new Edificio();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_Edificio", id_edificio);
+
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Edificios_Por_Id", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                var edificio_bd = tablaDatos.Rows[0];
+                Localidad localidad = new Localidad();
+                edificio.Id = edificio_bd.GetSmallintAsInt("id_Edificio");
+                edificio.Numero = edificio_bd.GetInt("Numero");
+                edificio.Calle = edificio_bd.GetString("Calle");
+                edificio.Nombre = edificio_bd.GetString("Edificio");
+                localidad.Id = edificio_bd.GetInt("Localidad");
+
+                parametros.Clear();
+                tablaDatos.Clear();
+                parametros.Add("@localidad", localidad.Id);
+                tablaDatos = conexion.Ejecutar("dbo.GetLocalidad", parametros);
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    var localidad_base = tablaDatos.Rows[0];
+                    localidad.CodigoPostal = localidad_base.GetInt("codigopostal");
+                    localidad.IdProvincia = localidad_base.GetInt("Id_Provincia");
+                    localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
+                    localidad.IdPartido = localidad_base.GetSmallintAsInt("partido");
+                    localidad.NombrePartido = localidad_base.GetString("DescPartido");
+                    localidad.Nombre = localidad_base.GetString("nombrelocalidad");
+                }
+
+                edificio.Localidad = localidad;
+            }
+            return edificio;  
+        }
     }
 }

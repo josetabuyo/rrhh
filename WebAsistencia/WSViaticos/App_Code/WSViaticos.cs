@@ -2283,6 +2283,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Edificio ObtenerEdificioPorId(string criterio)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        int id_edificio = (int)((JValue)criterio_deserializado["IdEdificio"]);
+        return RepositorioDeAreas().ObtenerEdificioPorId(id_edificio);
+    }
+
+    [WebMethod]
     public Combo[] ObtenerOficinaPorEdificio(string criterio)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
