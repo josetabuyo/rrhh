@@ -9,6 +9,9 @@
 var VistaFormulario = {
     start: function () {
         var _this = this;
+
+        
+
         $('#fecha_ingreso_apn').datepicker();
         $('#fecha_ingreso_apn').datepicker('option', 'dateFormat', 'dd/mm/yy');
         $('#fecha_ingreso_minis').datepicker();
@@ -261,6 +264,13 @@ var VistaFormulario = {
             _this.ocultarTareas();
             _this.bidearEventosImprimir(form);
             _this.mostrarIdUltimoFormulario(form);
+
+            var dni = $('#txt_documento').val();
+            var nombre = $("#nombre").html() + ', ' + $("#apellido").html();
+            $(".documento_cabecera").html(dni);
+            $(".nombre_encabezado").html(nombre);
+            $(".p_encabezado").attr('style', 'color:#F5F5F5;')
+
         });
     },
     VerificarMaximoDeAsignaciones: function () {
@@ -515,7 +525,7 @@ var VistaFormulario = {
                         //alertify.success("Formulario versionado correctamente");
                         $('.bloque_de_tareas :input').each(function () {
                             $(this).parent().show();
-
+                            $(this).prev().show();
                         })
                     })
                     .onError(function () {

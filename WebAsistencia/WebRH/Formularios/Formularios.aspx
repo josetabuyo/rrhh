@@ -29,7 +29,7 @@
 
            <div class="logo_encabezado" id = "logo_encabezado1"> 
                 <img src="../Imagenes/logo_encabezado_form.PNG" id="img1" alt="" width = "800" />                 
-
+                <p class="p_encabezado">Agente: <span class="nombre_encabezado"></span> - DNI: <span class="documento_cabecera"></span></p>
            </div>
 
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
@@ -46,7 +46,7 @@
         <hr />
         <div id="print-container" class="contenedor_formulario" style="display: none"> 
            
-            <input id="btn_imprimir" type="button" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
+            
            
             <div id="CodigoBarra" style="float:right;"></div>
             
@@ -132,7 +132,8 @@
             <div class="saltopagina"></div>
 
             <div class="logo_encabezado" id = "logo_encabezado2"> 
-                <img src="../Imagenes/logo_encabezado_form.PNG" id="img_logo_encabezado" alt="" width = "800" />                 
+                <img src="../Imagenes/logo_encabezado_form.PNG" id="img_logo_encabezado" alt="" width = "800" />  
+                 <p class="p_encabezado">Agente: <span class="nombre_encabezado"></span> - DNI: <span class="documento_cabecera"></span></p>               
                   <hr />
             </div>
           
@@ -296,7 +297,7 @@
 
            <div class="logo_encabezado" id = "logo_encabezado3"> 
                 <img src="../Imagenes/logo_encabezado_form.PNG" id="img2" alt="" width = "800" />                 
-
+                 <p class="p_encabezado">Agente: <span class="nombre_encabezado"></span> - DNI: <span class="documento_cabecera"></span></p>
            </div>
 
 
@@ -1322,7 +1323,7 @@
 
         <div class="logo_encabezado" id = "logo_encabezado4"> 
                 <img src="../Imagenes/logo_encabezado_form.PNG" id="img3" alt="" width = "800" />                 
-
+                 <p class="p_encabezado">Agente: <span class="nombre_encabezado"></span> - DNI: <span class="documento_cabecera"></span></p>
            </div>
 
 
@@ -1381,10 +1382,12 @@
     </div>
     <br />
     <br />
-    <input type="button" id="btn_guardar_cambios" class="btn btn-primary no_imprimir" value="Guardar Cambios" />
-    <input type="button" id="btn_imprimir_abajo" class="btn btn-primary no_imprimir"  value="Imprimir" onclick="Imprimir()" />
+    <!--<input type="button" id="btn_imprimir_abajo" class="btn btn-primary no_imprimir"  value="Imprimir" onclick="Imprimir()" />-->
     </div>
-       
+        <p class="div_fixed">
+            <input id="btn_imprimir" type="button" class="btn btn-primary"  value="Imprimir" onclick="Imprimir()" />
+            <input type="button" id="btn_guardar_cambios" class="btn btn-primary no_imprimir" value="Guardar Cambios" />
+        </p>
         <div id="plantillas">
             <div class="vista_persona_en_selector">
                 <div id="contenedor_legajo" class="label label-warning">
@@ -1407,49 +1410,40 @@
             </div>
         </div>
     </form>
+
+    <div id='IrArriba'>
+        <a href='#Arriba'><span></span></a>
+    </div>
    
 </body>
  <script type="text/javascript">
+     $(document).ready(function () {
+         //PARA LA FLECHA QUE SCROLLEA ARRIBA DE UNA
+         $("#IrArriba").hide();
+         $(".div_fixed").hide();
+         $(function () {
+             $(window).scroll(function () {
+                 if ($(this).scrollTop() > 200) {
+                     $('#IrArriba').fadeIn();
+                     $(".div_fixed").fadeIn();
+                 } else {
+                     $('#IrArriba').fadeOut();
+                 }
+             });
+             $('#IrArriba a').click(function () {
+                 $('body,html').animate({
+                     scrollTop: 0
+                 }, 800);
+                 return false;
+             });
+         });
+     });
 
-    
      function Imprimir() {
 
          window.print();
-//         var data = $('.contenedor_formulario');
-//         var mywindow = window.open('', 'my div', 'height=600,width=800');
-//         mywindow.document.write('<html><head><title>Formulario</title>');
-//         /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-//         mywindow.document.write('</head><body >');
-//         mywindow.document.write(data.html());
-//         mywindow.document.write('</body></html>');
 
-//         mywindow.document.close(); // necessary for IE >= 10
-//         mywindow.focus(); // necessary for IE >= 10
-
-//         mywindow.print();
-//         mywindow.close();
-
-//         return true;
      }
-
-//     function CantMaximaCaracteres(campo, maxLength, numMaximo) {
-//         var evento = window.event;
-//         var numIngresado = String.fromCharCode(evento.keyCode);
-
-//         if (numIngresado > numMaximo) {
-//             campo.value = "";
-//         }
-//         else {
-//             var max_length_campo = maxLength;
-//             if (campo.value.length > max_length_campo) {
-//                 campo.value = campo.value.substr(0, max_length_campo);
-//             }
-//         }
-//         
-//    }
-
-    
-
 
  </script>
 
