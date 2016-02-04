@@ -56,7 +56,10 @@
             $('#txt_oficina_codigopostal').val(area.DireccionCompleta.CodigoPostal);
         });
 
-
+        $('#cmb_direccion_edificio').change(function () {
+            area.DireccionCompleta.IdEdificio = $('#cmb_direccion_edificio').val();
+            _this.CargarComboOficina();
+        });
 
     },
     CargarCombos: function () {
@@ -119,6 +122,7 @@
 
     CargarComboOficina: function () {
         var combo = $('#cmb_direccion_oficina');
+        combo.empty();
         var id_edificio = area.DireccionCompleta.IdEdificio;
         var id_area = area.Id;
         var oficinas = Backend.ejecutarSincronico("ObtenerOficinaPorEdificio", [{ IdEdificio: parseInt(id_edificio), IdArea: parseInt(id_area)}]);
