@@ -282,11 +282,10 @@
                   </div>
                   <div class="bloque">
                     <label for="domicilio_area" style="display:inline-block; width:150px;">Domicilio:</label>
-                     <input id="domicilio_area" campo="domicilio_area" type="text" style="flex-grow:100;" placeholder="Domicilio del Area"  />
-                  </div>
-                  <div class="bloque">
-                    <label for="telefono_area" style="display:inline-block; width:150px;">Teléfono:</label>
-                     <input id="telefono_area" campo="telefono_area" type="text" style="flex-grow:100;" placeholder="(99) 9999-9999" />
+                     <input id="domicilio_area" campo="domicilio_area" type="text" style="flex-grow:100; margin-right: 20px;" placeholder="Domicilio del Area"  />
+
+                    <label for="telefono_area" style="display:inline-block; width: 70px;">Teléfono:</label>
+                     <input id="telefono_area" campo="telefono_area" type="text" style="flex-grow: 10;" placeholder="(99) 9999-9999" />
                   </div>
                 </div>
 
