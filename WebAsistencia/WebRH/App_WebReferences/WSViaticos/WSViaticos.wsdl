@@ -2,6 +2,31 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="BuscarSexos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarSexosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarSexosResult" type="tns:ArrayOfSexo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSexo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Sexo" nillable="true" type="tns:Sexo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Sexo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarAmbitosLaborales">
         <s:complexType>
           <s:sequence>
@@ -337,6 +362,7 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="valor" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="fijo" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:element name="GuardarCambiosEnFormulario">
@@ -2373,31 +2399,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="BuscarSexos">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarSexosResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarSexosResult" type="tns:ArrayOfSexo" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfSexo">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Sexo" nillable="true" type="tns:Sexo" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Sexo">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarAlumno">
         <s:complexType>
           <s:sequence>
@@ -3349,6 +3350,20 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="GetPersonaUsuarioLogueado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPersonaUsuarioLogueadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPersonaUsuarioLogueadoResult" type="tns:Persona" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ElUsuarioPuedeAccederALaURL">
         <s:complexType>
           <s:sequence>
@@ -5138,6 +5153,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="BuscarSexosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarSexos" />
+  </wsdl:message>
+  <wsdl:message name="BuscarSexosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarSexosResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarAmbitosLaboralesSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarAmbitosLaborales" />
   </wsdl:message>
@@ -5690,12 +5711,6 @@
   <wsdl:message name="BuscarTiposDeDocumentoSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarTiposDeDocumentoResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarSexosSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarSexos" />
-  </wsdl:message>
-  <wsdl:message name="BuscarSexosSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarSexosResponse" />
-  </wsdl:message>
   <wsdl:message name="GuardarAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarAlumno" />
   </wsdl:message>
@@ -6013,6 +6028,12 @@
   </wsdl:message>
   <wsdl:message name="GetUsuarioNuloSoapOut">
     <wsdl:part name="parameters" element="tns:GetUsuarioNuloResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonaUsuarioLogueadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPersonaUsuarioLogueado" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonaUsuarioLogueadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPersonaUsuarioLogueadoResponse" />
   </wsdl:message>
   <wsdl:message name="ElUsuarioPuedeAccederALaURLSoapIn">
     <wsdl:part name="parameters" element="tns:ElUsuarioPuedeAccederALaURL" />
@@ -6621,6 +6642,10 @@
     <wsdl:part name="parameters" element="tns:GetCursosDelAlumnoResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="BuscarSexos">
+      <wsdl:input message="tns:BuscarSexosSoapIn" />
+      <wsdl:output message="tns:BuscarSexosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarAmbitosLaborales">
       <wsdl:input message="tns:BuscarAmbitosLaboralesSoapIn" />
       <wsdl:output message="tns:BuscarAmbitosLaboralesSoapOut" />
@@ -6989,10 +7014,6 @@
       <wsdl:input message="tns:BuscarTiposDeDocumentoSoapIn" />
       <wsdl:output message="tns:BuscarTiposDeDocumentoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarSexos">
-      <wsdl:input message="tns:BuscarSexosSoapIn" />
-      <wsdl:output message="tns:BuscarSexosSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <wsdl:input message="tns:GuardarAlumnoSoapIn" />
       <wsdl:output message="tns:GuardarAlumnoSoapOut" />
@@ -7204,6 +7225,10 @@
     <wsdl:operation name="GetUsuarioNulo">
       <wsdl:input message="tns:GetUsuarioNuloSoapIn" />
       <wsdl:output message="tns:GetUsuarioNuloSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonaUsuarioLogueado">
+      <wsdl:input message="tns:GetPersonaUsuarioLogueadoSoapIn" />
+      <wsdl:output message="tns:GetPersonaUsuarioLogueadoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ElUsuarioPuedeAccederALaURL">
       <wsdl:input message="tns:ElUsuarioPuedeAccederALaURLSoapIn" />
@@ -7612,6 +7637,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarSexos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarSexos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarAmbitosLaborales">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarAmbitosLaborales" style="document" />
       <wsdl:input>
@@ -8440,15 +8474,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarSexos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarSexos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -8919,6 +8944,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioNulo">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioNulo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonaUsuarioLogueado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPersonaUsuarioLogueado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9838,6 +9872,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarSexos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarSexos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarAmbitosLaborales">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarAmbitosLaborales" style="document" />
       <wsdl:input>
@@ -10666,15 +10709,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarSexos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarSexos" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -11145,6 +11179,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioNulo">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioNulo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonaUsuarioLogueado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPersonaUsuarioLogueado" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -5,20 +5,34 @@
 });
 
 
+
 var VistaFormulario = {
     start: function () {
         var _this = this;
+
+        
+
         $('#fecha_ingreso_apn').datepicker();
         $('#fecha_ingreso_apn').datepicker('option', 'dateFormat', 'dd/mm/yy');
         $('#fecha_ingreso_minis').datepicker();
         $('#fecha_ingreso_minis').datepicker('option', 'dateFormat', 'dd/mm/yy');
         $('#fecha_ingreso_oficina').datepicker();
         $('#fecha_ingreso_oficina').datepicker('option', 'dateFormat', 'dd/mm/yy');
-        var selector_personas = new SelectorDePersonas({
-            ui: $('#selector_usuario'),
-            repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
-            placeholder: "nombre, apellido, documento o legajo"
-        });
+
+        $("#telefono_area").mask("(99) 9999-9999");
+        $("#domicilio_telefono_nuevo").mask("(99) 9999-9999");
+
+
+        $('#fecha_egreso_1').datepicker();
+        $('#fecha_egreso_1').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#fecha_egreso_2').datepicker();
+        $('#fecha_egreso_2').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#fecha_egreso_3').datepicker();
+        $('#fecha_egreso_3').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#fecha_egreso_4').datepicker();
+        $('#fecha_egreso_4').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#fecha_egreso_5').datepicker();
+        $('#fecha_egreso_5').datepicker('option', 'dateFormat', 'dd/mm/yy');
 
         var crear_vista_conocimiento = function (id) {
             var conocimiento = $("#plantillas .caja_estilo_conocimiento").clone();
@@ -40,9 +54,9 @@ var VistaFormulario = {
         }
         this.bindearBtnAgregarConocimiento();
 
-        var formulario = {};
+        _this.formulario = {};
 
-        var cambios = {};
+        _this.cambios = {};
 
         $("[rh-control-type='combo']").each(function (i, e) {
             var _this = this;
@@ -84,24 +98,30 @@ var VistaFormulario = {
         $("[campo]").change(function () {
             if (_this.habilitar_registro_cambios) {
                 if ($(this).attr("type") == "checkbox") {
-                    cambios[$(this).attr("campo")] = $(this).is(":checked");
+                    _this.cambios[$(this).attr("campo")] = $(this).is(":checked");
                 } else {
-                    cambios[$(this).attr("campo")] = $(this).val();
+                    _this.cambios[$(this).attr("campo")] = $(this).val();
                 }
             }
         });
         $("#btn_guardar_cambios").click(function () {
+            var validacion = _this.validar();
+            if (!validacion.valido) {
+                alertify.error(validacion.mensaje)
+                return;
+            }
             form_cambios = {
-                idFormulario: formulario.idFormulario,
-                idPersona: formulario.idPersona,
+                idFormulario: _this.formulario.idFormulario,
+                idPersona: _this.formulario.idPersona,
                 campos: []
             }
 
-            for (var campo_cambio in cambios) {
-                if (cambios.hasOwnProperty(campo_cambio)) {
+            for (var campo_cambio in _this.cambios) {
+                if (_this.cambios.hasOwnProperty(campo_cambio)) {
                     form_cambios.campos.push({
                         clave: campo_cambio,
-                        valor: cambios[campo_cambio]
+                        valor: _this.cambios[campo_cambio],
+                        fijo: false
                     });
                 }
             }
@@ -111,7 +131,7 @@ var VistaFormulario = {
             .onSuccess(function () {
                 alertify.success("Formulario guardado correctamente");
                 _this.mostrarIdUltimoFormulario(form_cambios);
-                cambios = [];
+                _this.cambios = [];
             })
             .onError(function () {
                 alertify.error("Error al guardar formulario");
@@ -121,64 +141,185 @@ var VistaFormulario = {
         $("#cargar_mas_estudios").click(function () {
             var listo = false;
             $('.caja_estudios').each(function () {
-                if ($(this).find(".nivel_estudio").val() == "" && !listo) {
+                if (($(this).find(".titulo_obtenido").val() == "" && !$(this).is(":visible")) && !listo) {
                     $(this).show();
                     listo = true;
                 }
             });
         });
 
-        selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-            $(".contenedor_formulario").hide()
-            _this.limpiarPantalla();
-            cambios = [];
-            Backend.GetFormulario(JSON.stringify({ idFormulario: 1, idPersona: la_persona_seleccionada.id })).onSuccess(function (form) {
-                //            formulario = {
-                //                id: 1,
-                //                nombre: "Relevamiento de contrato",
-                //                idPersona: 111,
-                //                campos: [
-                //                        { campo: "nombre", valor: "agustin" },
-                //                        { campo: "apellido", valor: "calcagno" }
-                //                    ]
-                //            };
-
-                formulario = form;
-                form.idPersona = la_persona_seleccionada.id;
-                form.idFormulario = 1;
-                _this.habilitar_registro_cambios = false;
-                $("[campo]").each(function () {
-                    var campo = _.findWhere(formulario.campos, { clave: $(this).attr("campo") });
-                    if (campo) {
-                        if ($(this).attr("type") == "checkbox") {
-                            $(this).prop('checked', (campo.valor.toLowerCase() === 'true'));
-                        }
-                        else {
-                            $(this).val(campo.valor);
-                            $(this).attr("valor_para_carga_async", campo.valor);
-                        }
-                        $(this).change();
-                    }
+        Backend.ElUsuarioLogueadoTienePermisosPara(28).onSuccess(function (tiene_funcionalidad) {
+            if (tiene_funcionalidad) {
+                var selector_personas = new SelectorDePersonas({
+                    ui: $('#selector_usuario'),
+                    repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
+                    placeholder: "nombre, apellido, documento o legajo"
                 });
-                _this.habilitar_registro_cambios = true;
-
-                $("#listadoConocimientos .caja_estilo_conocimiento").each(function () {
-                    var input_conocimiento = $(this).find(".conocimiento");
-
-                    if (input_conocimiento.val() != "") {
-                        $(this).show();
-                    }
+                selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
+                    _this.mostrarPersona(la_persona_seleccionada.id);
+                };
+            } else {
+                Backend.GetPersonaUsuarioLogueado().onSuccess(function (persona) {
+                    _this.mostrarPersona(persona.Id);
                 });
+            }
+        });
 
-                $(".contenedor_formulario").show()
-
-                _this.dibujarEstudios();
-                _this.ocultarTareas();
-                _this.bidearEventosImprimir(form);
-                _this.mostrarIdUltimoFormulario(form);
-            });
-        };
     },
+    validar: function () {
+        var respuesta = {
+            valido: true
+        };
+
+        var ingreso_apn = $('#fecha_ingreso_apn').val();
+        var ingreso_minis = $('#fecha_ingreso_minis').val();
+        var ingreso_of = $('#fecha_ingreso_oficina').val();
+        if (ConversorDeFechas.PrimeraFechaCriolloMayor(ingreso_apn, ingreso_minis)) {
+            respuesta.valido = false;
+            respuesta.mensaje = "la fecha de ingreso al ministerio debe ser posterior a la fecha de ingreso a la APN";
+            return respuesta;
+        }
+        if (ConversorDeFechas.PrimeraFechaCriolloMayor(ingreso_minis, ingreso_of)) {
+            respuesta.valido = false;
+            respuesta.mensaje = "la fecha de ingreso a la oficina debe ser posterior a la fecha de ingreso al ministerio";
+            return respuesta;
+        }
+
+        return respuesta;
+    },
+    mostrarPersona: function (id_persona) {
+        var _this = this;
+        $(".contenedor_formulario").hide()
+        _this.limpiarPantalla();
+        _this.cambios = [];
+        Backend.GetFormulario(JSON.stringify({ idFormulario: 1, idPersona: id_persona })).onSuccess(function (form) {
+            //            formulario = {
+            //                id: 1,
+            //                nombre: "Relevamiento de contrato",
+            //                idPersona: 111,
+            //                campos: [
+            //                        { campo: "nombre", valor: "agustin" },
+            //                        { campo: "apellido", valor: "calcagno" }
+            //                    ]
+            //            };
+
+            _this.formulario = form;
+            form.idPersona = id_persona;
+            form.idFormulario = 1;
+            _this.habilitar_registro_cambios = false;
+            $("[campo]").each(function () {
+                var campo = _.findWhere(_this.formulario.campos, { clave: $(this).attr("campo") });
+                if (campo) {
+                    if ($(this).attr("type") == "checkbox") {
+                        $(this).prop('checked', (campo.valor.toLowerCase() === 'true'));
+                    }
+                    else {
+                        $(this).val(campo.valor);
+                        $(this).attr("valor_para_carga_async", campo.valor);
+                    }
+                    $(this).prop('disabled', campo.fijo);
+                    $(this).change();
+                }
+            });
+            _this.habilitar_registro_cambios = true;
+
+            $("#listadoConocimientos .caja_estilo_conocimiento").each(function () {
+                var input_conocimiento = $(this).find(".conocimiento");
+
+                if (input_conocimiento.val() != "") {
+                    $(this).show();
+                }
+            });
+
+            $(".CantMaximaCaracteres").bind({
+                keypress: function () {
+                    var campo = $(this);
+                    var numero = String.fromCharCode(event.keyCode);
+                    if (0 < numero && numero <= 5) {
+                        if (campo.length = 1) campo.val("");
+                    } else {
+                        return false;
+                    }
+                    _this.VerificarMaximoDeAsignaciones();
+                },
+                blur: function () {
+                    _this.VerificarMaximoDeAsignaciones();
+                },
+                keyup: function () {
+                    _this.VerificarMaximoDeAsignaciones();
+                },
+                click: function () {
+                    _this.VerificarMaximoDeAsignaciones();
+                },
+                change: function () {
+                    _this.VerificarMaximoDeAsignaciones();
+                }
+            });
+
+
+
+            $(".contenedor_formulario").show()
+
+            _this.dibujarEstudios();
+            _this.ocultarTareas();
+            _this.bidearEventosImprimir(form);
+            _this.mostrarIdUltimoFormulario(form);
+
+            var dni = $('#txt_documento').val();
+            var nombre = $("#nombre").html() + ', ' + $("#apellido").html();
+            $(".documento_cabecera").html(dni);
+            $(".nombre_encabezado").html(nombre);
+            $(".p_encabezado").attr('style', 'color:#F5F5F5;')
+
+        });
+    },
+    VerificarMaximoDeAsignaciones: function () {
+        _this = this;
+        var clases = [$(".TareasGenerales"),
+                      $(".TareasAdministrativas"),
+                      $(".TareasTecnicas"),
+                      $(".AsistenciaTecnica"),
+                      $(".ServiciosProfesionales"),
+                      $(".ProfesionalesAvanzados")]
+
+        for (var i = 0; i < clases.length; i++) {
+            _this.MaximoDeAsignaciones(clases[i]);
+        }
+    },
+
+    MaximoDeAsignaciones: function (clase) {
+        var contador = _this.ContarCantidadDeItemsCalificados(clase);
+        _this.LimitarLaCantidadDeCalificacionesPorClase(clase, contador);
+    },
+
+    LimitarLaCantidadDeCalificacionesPorClase: function (clase, contador) {
+        if (contador >= 5) {
+            clase.each(function () {
+                var campo = $(this);
+                if (campo.val() == "") {
+                    campo.val("");
+                    campo.prop('disabled', true);
+                }
+            });
+        } else {
+            clase.each(function () {
+                var campo = $(this);
+                campo.prop('disabled', false);
+            });
+        }
+    },
+
+    ContarCantidadDeItemsCalificados: function (clase) {
+        var contador = 0;
+        clase.each(function () {
+            var campo = $(this);
+            if (campo.val() != "") {
+                contador = contador + 1;
+            }
+        });
+        return contador;
+    },
+
     limpiarPantalla: function () {
         this.habilitar_registro_cambios = false;
         $("[campo]").each(function () {
@@ -186,15 +327,27 @@ var VistaFormulario = {
                 $(this).prop("checked", false);
             }
             else $(this).val("");
+            $(this).prop("disabled", false);
             $(this).change();
         });
         $("#listadoConocimientos .caja_estilo_conocimiento").hide();
         this.habilitar_registro_cambios = true;
     },
     dibujarEstudios: function () {
+        var ocultos = 0;
         $('.caja_estudios').each(function () {
-            if ($(this).find(".nivel_estudio").val() == "") $(this).hide();
+            if ($(this).find(".titulo_obtenido").val() == "") {
+                $(this).hide();
+                ocultos++;
+            } else {
+                //$(this).find(".bloque_estudios :input").prop("disabled", true);
+            }
+
+
         });
+        if (ocultos == 5) {
+            $("#caja_estudio_1").show();
+        }
         //        var div_estudios_extras = $(".caja_extra");
         //        div_estudios_extras.each(function () {
         //            if (this.children[0].children[1].value == "") {
@@ -242,7 +395,7 @@ var VistaFormulario = {
         var separador2 = "-";
         var cadena = $('#funcion').val();
         var arregloDeSubCadenas = cadena.split(separador1);
-        if (arregloDeSubCadenas.length > 0) {
+        if (arregloDeSubCadenas.length > 1) {
             //me fijo que letra es en el primer caracter del segundo item
             switch (arregloDeSubCadenas[1].charAt(0)) {
                 case 'A':
@@ -323,65 +476,57 @@ var VistaFormulario = {
         btn.click(function () {
             var herramienta = $('#cboHerramientas').find('option:selected').text();
             var conocimiento = $('#cboConocimiento').find('option:selected').text();
-            var texto = herramienta + ' - ' + conocimiento;
+            var nivel = $('#cboNivelCompetencia').find('option:selected').text();
+            var utiliza = $('#utiliza_conocimiento').prop("checked");
+
+            var texto = herramienta + ' - ' + conocimiento + ' - ' + nivel;
 
             var listo = false;
             $("#listadoConocimientos .caja_estilo_conocimiento").each(function () {
                 if (!listo) {
                     var input_conocimiento = $(this).find(".conocimiento");
+                    var chk_utiliza = $(this).find(".utiliza_conocimiento");
 
                     if (input_conocimiento.val() == "") {
                         input_conocimiento.val(texto);
                         input_conocimiento.change();
+                        chk_utiliza.prop("checked", utiliza);
+                        chk_utiliza.change();
                         $(this).show();
                         listo = true;
                     }
                 }
             });
-
-            //            var div = $('<div>');
-            //            div.addClass('caja_estilo_conocimiento');
-
-            //            var input = $('<input>');
-            //            input.attr('campo', 'conocimiento');
-            //            input.attr('disabled', 'disabled');
-            //            input.attr('size', texto.length);
-            //            input.addClass('estilo_conocimientos');
-            //            input.val(texto);
-
-            //            var eliminar = $('<img>');
-            //            eliminar.attr('src', '../Imagenes/iconos/icono-eliminar.png');
-            //            eliminar.addClass('icono_eliminar');
-
-            //            eliminar.click(function () {
-            //                this.parentElement.remove();
-            //            })
-
-            //TODO: agregar a los cambios  el nuevo conocimiento
-            /*form_cambios.campos.push({
-            clave: 'conocimiento',
-            valor: 'texto'
-            });*/
-
-            //            div.append(input);
-            //            div.append(eliminar);
-
-            //$('#listadoConocimientos').append(div);
-
-
         })
-
     },
     bidearEventosImprimir: function (form) {
         (function () {
             var beforePrint = function () {
                 //console.log('Functionality to run before printing.');
+                $('.bloque_de_tareas :input').each(function () {
+                    var _this = $(this);
+                    if (_this.val() == "") {
+                        _this.parent().hide();
+
+                        //_this.parent().addClass("no_imprimir")         
+                    } else {
+                        _this.parent().show();
+                        _this.prev().hide();
+                        //_this.parent().removeClass("no_imprimir");
+                    }
+
+                })
+
             };
             var afterPrint = function () {
                 console.log('Functionality to run after printing');
                 Backend.GuardarCabeceraFormulario(form)
                     .onSuccess(function () {
-                        alertify.success("Formulario versionado correctamente");
+                        //alertify.success("Formulario versionado correctamente");
+                        $('.bloque_de_tareas :input').each(function () {
+                            $(this).parent().show();
+                            $(this).prev().show();
+                        })
                     })
                     .onError(function () {
                         alertify.error("Error al versionar el formulario");
@@ -406,7 +551,7 @@ var VistaFormulario = {
     mostrarIdUltimoFormulario: function (form) {
         Backend.GetIdCabeceraFormulario(form)
                     .onSuccess(function (id) {
-                        $("#CodigoBarra").barcode("FRH000," + id, "code128", {
+                        $("#CodigoBarra").barcode("FRH0313," + id, "code128", {
                             showHRI: true,
                             height: 30,
                             width: 100
@@ -416,4 +561,10 @@ var VistaFormulario = {
                         alertify.error("Error al obtener el ID del formulario");
                     });
     }
+
 }
+
+
+
+
+    

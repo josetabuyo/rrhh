@@ -11,11 +11,13 @@ namespace General
 
         public string clave { get; set; }
         public string valor { get; set; }
+        public bool fijo { get; set; }
 
-        public Campo(string clav, string val)
+        public Campo(string clav, string val, bool fijo)
         {
             this.clave = clav;
             this.valor = val;
+            this.fijo = fijo;
         }
     }
 }
