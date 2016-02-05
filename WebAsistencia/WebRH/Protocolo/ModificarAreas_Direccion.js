@@ -13,6 +13,7 @@
         $('#btn_nuevo_edificio').click(function () {
             $("#div_agregar_edificio").show();
             $("#div_agregar_oficina").hide();
+            _this.CargarDatosEdificio();
 
         });
 
@@ -26,7 +27,7 @@
             $("#div_agregar_oficina").show();
             $("#div_agregar_edificio").hide();
             $("#div_contenido_direccion").hide();
-            _this.ReescribirDatos();
+            // _this.ReescribirDatos();
 
         });
 
@@ -41,18 +42,18 @@
             $("#div_agregar_oficina").hide();
             $("#div_agregar_edificio").hide();
             $("#div_contenido_direccion").show();
-            _this.ReescribirDatos();
+            //_this.ReescribirDatos();
         });
 
 
         $('#cmb_edificio_provincia').change(function () {
             $('#cmb_edificio_localidad').empty();
-            area.DireccionCompleta.Localidad.IdProvincia = $('#cmb_edificio_provincia').find('option:selected').val();
-            _this.CargarComboLocalidad();
+           // area.DireccionCompleta.Localidad.IdProvincia = $('#cmb_edificio_provincia').find('option:selected').val();
+            _this.CargarComboLocalidad($('#cmb_edificio_provincia').find('option:selected').val());
         });
 
         $('#cmb_edificio_localidad').change(function () {
-//            area.DireccionCompleta.CodigoPostal = "";
+            //            area.DireccionCompleta.CodigoPostal = "";
             $('#txt_oficina_codigopostal').val(area.DireccionCompleta.CodigoPostal);
         });
 
@@ -65,39 +66,53 @@
     },
     CargarCombos: function () {
         this.CargarComboProvincia();
-        this.CargarComboLocalidad();
+        this.CargarComboLocalidad(area.DireccionCompleta.Localidad.IdProvincia);
         this.CargarComboEdificio();
         this.CargarComboOficina();
+    },
+
+    CargarDatosEdificio: function () {
+
+        $('#cmb_edificio_localidad').val(area.DireccionCompleta.Localidad.Id).change();
+        $('#cmb_edificio_provincia').val(area.DireccionCompleta.Localidad.IdProvincia).change();
+        $('#txt_edificio_calle').val(area.DireccionCompleta.Calle);
+        $('#txt_oficina_codigopostal').val(area.DireccionCompleta.Localidad.CodigoPostal);
+        $('#txt_edificio_numero').val(area.DireccionCompleta.Numero);
+
+
+        
+        
+        
     },
 
     CargarDatosDeEdificio: function () {
         var _this = this;
         var edificio = Backend.ejecutarSincronico("ObtenerEdificioPorId", [{ IdEdificio: parseInt(area.DireccionCompleta.IdEdificio)}]);
 
-        
-            area.DireccionCompleta.Calle = edificio.Calle
-            area.DireccionCompleta.Numero = edificio.Numero
-            area.DireccionCompleta.Nombre = edificio.Nombre
-            area.DireccionCompleta.Localidad.CodigoPostal = edificio.Localidad.CodigoPostal;
-            area.DireccionCompleta.Localidad.Id = edificio.Localidad.Id;
-            area.DireccionCompleta.Localidad.IdPartido = edificio.Localidad.IdPartido;
-            area.DireccionCompleta.Localidad.IdProvincia = edificio.Localidad.IdProvincia;
-            area.DireccionCompleta.Localidad.Nombre = edificio.Localidad.Nombre;
-            area.DireccionCompleta.Localidad.NombrePartido = edificio.Localidad.NombrePartido;
-            area.DireccionCompleta.Localidad.NombreProvincia = edificio.Localidad.NombreProvincia;
 
-//        } else {
-//            area.DireccionCompleta.Calle = "";
-//            area.DireccionCompleta.Numero = "";
-//            area.DireccionCompleta.Nombre = "";
-//            area.DireccionCompleta.Localidad.CodigoPostal = "";
-//            area.DireccionCompleta.Localidad.Id = "";
-//            area.DireccionCompleta.Localidad.IdPartido = "";
-//            area.DireccionCompleta.Localidad.IdProvincia = "";
-//            area.DireccionCompleta.Localidad.Nombre = "";
-//            area.DireccionCompleta.Localidad.NombrePartido = "";
-//            area.DireccionCompleta.Localidad.NombreProvincia = "";
-//        }
+        area.DireccionCompleta.Calle = edificio.Calle
+        area.DireccionCompleta.Numero = edificio.Numero
+        area.DireccionCompleta.Nombre = edificio.Nombre
+        area.DireccionCompleta.Localidad.CodigoPostal = edificio.Localidad.CodigoPostal;
+        area.DireccionCompleta.Localidad.Id = edificio.Localidad.Id;
+        area.DireccionCompleta.Localidad.IdPartido = edificio.Localidad.IdPartido;
+        area.DireccionCompleta.Localidad.IdProvincia = edificio.Localidad.IdProvincia;
+        area.DireccionCompleta.Localidad.Nombre = edificio.Localidad.Nombre;
+        area.DireccionCompleta.Localidad.NombrePartido = edificio.Localidad.NombrePartido;
+        area.DireccionCompleta.Localidad.NombreProvincia = edificio.Localidad.NombreProvincia;
+
+        //        } else {
+        //            area.DireccionCompleta.Calle = "";
+        //            area.DireccionCompleta.Numero = "";
+        //            area.DireccionCompleta.Nombre = "";
+        //            area.DireccionCompleta.Localidad.CodigoPostal = "";
+        //            area.DireccionCompleta.Localidad.Id = "";
+        //            area.DireccionCompleta.Localidad.IdPartido = "";
+        //            area.DireccionCompleta.Localidad.IdProvincia = "";
+        //            area.DireccionCompleta.Localidad.Nombre = "";
+        //            area.DireccionCompleta.Localidad.NombrePartido = "";
+        //            area.DireccionCompleta.Localidad.NombreProvincia = "";
+        //        }
         var direccion = area.DireccionCompleta;
         $("#txt_direccion_CodigoPostal").val(direccion.Localidad.CodigoPostal);
         $("#txt_direccion_Partido").val(direccion.Localidad.NombrePartido);
@@ -124,11 +139,10 @@
         }
     },
 
-    CargarComboLocalidad: function () {
+    CargarComboLocalidad: function (provincia) {
         var combo = $('#cmb_direccion_localidad');
         var combo2 = $('#cmb_edificio_localidad');
-
-        var provincia = area.DireccionCompleta.Localidad.IdProvincia;
+        
         var localidades = Backend.ejecutarSincronico("BuscarLocalidades", [{ IdProvincia: parseInt(provincia)}]);
 
         if (localidades.length > 0) {
