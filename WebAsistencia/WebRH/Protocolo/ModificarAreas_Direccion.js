@@ -21,6 +21,7 @@
             $("#div_agregar_oficina").show();
             $("#div_agregar_edificio").hide();
             $("#div_contenido_direccion").hide();
+            _this.CargarDatosOficina();
         });
 
         $('#btn_volver_edificio').click(function () {
@@ -48,7 +49,7 @@
 
         $('#cmb_edificio_provincia').change(function () {
             $('#cmb_edificio_localidad').empty();
-           // area.DireccionCompleta.Localidad.IdProvincia = $('#cmb_edificio_provincia').find('option:selected').val();
+            // area.DireccionCompleta.Localidad.IdProvincia = $('#cmb_edificio_provincia').find('option:selected').val();
             _this.CargarComboLocalidad($('#cmb_edificio_provincia').find('option:selected').val());
         });
 
@@ -72,17 +73,17 @@
     },
 
     CargarDatosEdificio: function () {
-
         $('#cmb_edificio_localidad').val(area.DireccionCompleta.Localidad.Id).change();
         $('#cmb_edificio_provincia').val(area.DireccionCompleta.Localidad.IdProvincia).change();
         $('#txt_edificio_calle').val(area.DireccionCompleta.Calle);
         $('#txt_oficina_codigopostal').val(area.DireccionCompleta.Localidad.CodigoPostal);
         $('#txt_edificio_numero').val(area.DireccionCompleta.Numero);
+    },
 
-
-        
-        
-        
+    CargarDatosOficina: function () {
+        $('#txt_oficina_piso').val(area.DireccionCompleta.Piso);
+        $('#txt_oficina_oficina').val(area.DireccionCompleta.Dto);
+        $('#txt_oficina_uf').val(area.DireccionCompleta.UF);
     },
 
     CargarDatosDeEdificio: function () {
@@ -142,7 +143,7 @@
     CargarComboLocalidad: function (provincia) {
         var combo = $('#cmb_direccion_localidad');
         var combo2 = $('#cmb_edificio_localidad');
-        
+
         var localidades = Backend.ejecutarSincronico("BuscarLocalidades", [{ IdProvincia: parseInt(provincia)}]);
 
         if (localidades.length > 0) {
@@ -234,17 +235,17 @@
             area.DireccionCompleta.Localidad.Id = $('#cmb_edificio_localidad').find('option:selected').val();
             area.DireccionCompleta.Localidad.IdProvincia = $('#cmb_edificio_provincia').find('option:selected').val();
             area.DireccionCompleta.Localidad.NombreProvincia = $('#cmb_edificio_provincia').find('option:selected').text();
+
+            if ($("#cmb_oficina_edificio option[value='99']").length > 0) {
+                $("#cmb_oficina_edificio option[value='99']").remove();
+            }
+            $('#cmb_oficina_edificio').append('<option value="' + 99 + '">' + area.DireccionCompleta.Calle + ' ' + area.DireccionCompleta.Numero + '</option>');
+            $('#cmb_oficina_edificio').val(99).change();
+
             alertify.alert("Se han modificado los datos del Edificio");
 
         }
-    },
-
-
-    ReescribirDatos: function () {
-        var _this = this;
-        _this.SettearValores(area.DireccionCompleta)
     }
-
 }
 
 
