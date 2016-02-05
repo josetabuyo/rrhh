@@ -1,0 +1,28 @@
+01/02/2016 12:46:35 - ---------------------------------------------
+01/02/2016 12:46:35 - System.TimeoutException: El canal de solicitud agotó el tiempo de espera mientras esperaba una respuesta después de 00:00:57.6357636. Aumente el valor de tiempo de espera pasado a la llamada a Request, o bien aumente el valor de SendTimeout en el enlace. El tiempo asignado a esta operación puede haber sido una parte de un tiempo de espera mayor. ---> System.TimeoutException: La solicitud HTTP a 'http://localhost:43412/WSViaticos/WSViaticos.asmx' superó el tiempo de espera asignado de 00:00:59.9320000. El tiempo asignado a esta operación puede haber sido una parte de un tiempo de espera mayor. ---> System.Net.WebException: Se excedió el tiempo de espera de la operación
+   en System.Net.HttpWebRequest.GetResponse()
+   en System.ServiceModel.Channels.HttpChannelFactory.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.ServiceModel.Channels.HttpChannelUtilities.ProcessGetResponseWebException(WebException webException, HttpWebRequest request, HttpAbortReason abortReason)
+   en System.ServiceModel.Channels.HttpChannelFactory.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en WSViaticos.WSViaticosSoap.GetUsuarioNulo()
+   en WSViaticos.WSViaticosSoapClient.GetUsuarioNulo() en c:\Users\acalcagno\AppData\Local\Temp\Temporary ASP.NET Files\webrh\df8a7146\84c3bc9a\App_WebReferences.j1mbno0a.0.cs:línea 13516
+   en ASP.global_asax.Session_Start(Object sender, EventArgs e) en c:\Repositorio\Javier\RRHH\WebAsistencia\WebRH\Global.asax:línea 7
+   en System.Web.SessionState.SessionStateModule.RaiseOnStart(EventArgs e)
+   en System.Web.SessionState.SessionStateModule.CompleteAcquireState()
+   en System.Web.SessionState.SessionStateModule.BeginAcquireState(Object source, EventArgs e, AsyncCallback cb, Object extraData)
+   en System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)

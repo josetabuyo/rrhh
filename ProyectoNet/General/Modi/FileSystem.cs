@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Drawing;
 using Tools;
+using System.Net;
 
 namespace General.Modi
 {
@@ -12,7 +13,8 @@ namespace General.Modi
     {
         public List<string> getPathsArchivosEnCarpeta(string path)
         {
-            using (new Impersonator("bcevey", "SDS_DOMAIN_1", "Beluafro2"))
+            //using (new Impersonator("clurgo", "SDS_DOMAIN_1", "Ma7arazzo"))
+            using (new NetworkConnection(path, new NetworkCredential("SDS_DOMAIN_1/clurgo", "Ma7arazzo")))          
             {
                 try
                 {
@@ -30,7 +32,8 @@ namespace General.Modi
         {
             //return Image.FromFile(pathImagen);
 
-            using (new Impersonator("bcevey", "SDS_DOMAIN_1", "Beluafro2"))
+            //using (new Impersonator("clurgo", "SDS_DOMAIN_1", "Ma7arazzo"))
+            using (new NetworkConnection(pathImagen, new NetworkCredential("SDS_DOMAIN_1/clurgo", "Ma7arazzo")))          
             {
                 FileStream fs = new FileStream(pathImagen, FileMode.Open);
 
@@ -53,7 +56,8 @@ namespace General.Modi
 
         public bool guardarImagenEnPath(string pathImagen, string bytes_imagen)
         {
-            using (new Impersonator("bcevey", "SDS_DOMAIN_1", "Beluafro2"))
+            //using (new Impersonator("clurgo", "SDS_DOMAIN_1", "Ma7arazzo"))
+            using (new NetworkConnection(pathImagen, new NetworkCredential("SDS_DOMAIN_1/clurgo", "Ma7arazzo")))          
             {
                 byte[] imageBytes = Convert.FromBase64String(bytes_imagen);
                 FileStream fs = new FileStream(pathImagen, FileMode.Create);
@@ -65,7 +69,8 @@ namespace General.Modi
 
         public void moverArchivo(string pathArchivo, string pathCarpetaDestino)
         {
-            using (new Impersonator("bcevey", "SDS_DOMAIN_1", "Beluafro2"))
+            //using (new Impersonator("clurgo", "SDS_DOMAIN_1", "Ma7arazzo"))
+            using (new NetworkConnection(pathArchivo, new NetworkCredential("SDS_DOMAIN_1/clurgo", "Ma7arazzo")))          
             {
                 if (!System.IO.Directory.Exists(pathCarpetaDestino))
                 {
