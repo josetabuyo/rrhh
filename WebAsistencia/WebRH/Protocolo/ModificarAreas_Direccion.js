@@ -46,7 +46,6 @@
             //_this.ReescribirDatos();
         });
 
-
         $('#cmb_edificio_provincia').change(function () {
             $('#cmb_edificio_localidad').empty();
             // area.DireccionCompleta.Localidad.IdProvincia = $('#cmb_edificio_provincia').find('option:selected').val();
@@ -58,10 +57,36 @@
             $('#txt_oficina_codigopostal').val(area.DireccionCompleta.CodigoPostal);
         });
 
+        $('#cmb_direccion_oficina').change(function () {
+            _this.CargarDatosDeOficina();
+        });
+
+
         $('#cmb_direccion_edificio').change(function () {
             area.DireccionCompleta.IdEdificio = $('#cmb_direccion_edificio').val();
-            _this.CargarComboOficina();
-            _this.CargarDatosDeEdificio();
+
+            if (area.DireccionCompleta.IdEdificio == 99) {
+                area.DireccionCompleta.Calle = area_dinamica.DireccionCompleta.Calle;
+                area.DireccionCompleta.Numero = area_dinamica.DireccionCompleta.Numero;
+                area.DireccionCompleta.Piso = area_dinamica.DireccionCompleta.Piso;
+                area.DireccionCompleta.Dto = area_dinamica.DireccionCompleta.Dto;
+                area.DireccionCompleta.UF = area_dinamica.DireccionCompleta.UF;
+            } else {
+                _this.CargarComboOficina();
+                _this.CargarDatosDeEdificio();
+
+            }
+            //            if (area.DireccionCompleta.IdEdificio == '99') {
+            //                _this.CargarComboOficina();
+            //                _this.CargarDatosDeEdificio();
+            //            } else {
+            //                var combo = $('#cmb_direccion_oficina');
+            //                combo.empty();
+            //                        //combo.append('<option value="' + oficinas[i].Id + '">' + oficinas[i].Descripcion + '</option>');
+            //                
+            //            
+            //            }
+
         });
 
     },
@@ -91,9 +116,9 @@
         var edificio = Backend.ejecutarSincronico("ObtenerEdificioPorId", [{ IdEdificio: parseInt(area.DireccionCompleta.IdEdificio)}]);
 
 
-        area.DireccionCompleta.Calle = edificio.Calle
-        area.DireccionCompleta.Numero = edificio.Numero
-        area.DireccionCompleta.Nombre = edificio.Nombre
+        area.DireccionCompleta.Calle = edificio.Calle;
+        area.DireccionCompleta.Numero = edificio.Numero;
+        area.DireccionCompleta.Nombre = edificio.Nombre;
         area.DireccionCompleta.Localidad.CodigoPostal = edificio.Localidad.CodigoPostal;
         area.DireccionCompleta.Localidad.Id = edificio.Localidad.Id;
         area.DireccionCompleta.Localidad.IdPartido = edificio.Localidad.IdPartido;
@@ -102,18 +127,7 @@
         area.DireccionCompleta.Localidad.NombrePartido = edificio.Localidad.NombrePartido;
         area.DireccionCompleta.Localidad.NombreProvincia = edificio.Localidad.NombreProvincia;
 
-        //        } else {
-        //            area.DireccionCompleta.Calle = "";
-        //            area.DireccionCompleta.Numero = "";
-        //            area.DireccionCompleta.Nombre = "";
-        //            area.DireccionCompleta.Localidad.CodigoPostal = "";
-        //            area.DireccionCompleta.Localidad.Id = "";
-        //            area.DireccionCompleta.Localidad.IdPartido = "";
-        //            area.DireccionCompleta.Localidad.IdProvincia = "";
-        //            area.DireccionCompleta.Localidad.Nombre = "";
-        //            area.DireccionCompleta.Localidad.NombrePartido = "";
-        //            area.DireccionCompleta.Localidad.NombreProvincia = "";
-        //        }
+
         var direccion = area.DireccionCompleta;
         $("#txt_direccion_CodigoPostal").val(direccion.Localidad.CodigoPostal);
         $("#txt_direccion_Partido").val(direccion.Localidad.NombrePartido);
@@ -126,6 +140,21 @@
         $("#txt_edificio_calle").val(direccion.Calle);
         $("#txt_oficina_codigopostal").val(direccion.Localidad.CodigoPostal);
         $("#txt_edificio_numero").val(direccion.Numero);
+    },
+
+    CargarDatosDeOficina: function () {
+        var _this = this;
+        var oficina = Backend.ejecutarSincronico("ObtenerOficinaPorId", [{ IdOficina: parseInt(area.DireccionCompleta.IdOficina)}]);
+
+
+        area.DireccionCompleta.Piso = oficina.Piso;
+        area.DireccionCompleta.Dto = oficina.Dto;
+        area.DireccionCompleta.UF = oficina.UF;
+
+        $('#txt_direccion_Piso').val(area.DireccionCompleta.Piso);
+        $('#txt_direccion_Oficina').val(area.DireccionCompleta.Dto);
+        $('#txt_direccion_UF').val(area.DireccionCompleta.UF);
+
     },
 
     CargarComboProvincia: function () {
@@ -163,11 +192,11 @@
         }
     },
 
-    CargarComboEdificio: function () {
+    CargarComboEdificio: function (id_seleccion, id_localildad) {
         var combo = $('#cmb_direccion_edificio');
         var combo2 = $('#cmb_oficina_edificio');
 
-        var id_localidad = area.DireccionCompleta.Localidad.Id;
+        //var id_localidad = area.DireccionCompleta.Localidad.Id;
         var edificios = Backend.ejecutarSincronico("ObtenerEdificiosPorLocalidad", [{ IdLocalidad: parseInt(id_localidad)}]);
 
         if (edificios.length > 0) {
@@ -179,6 +208,7 @@
     },
 
     CargarComboOficina: function () {
+        var _this = this;
         var combo = $('#cmb_direccion_oficina');
         combo.empty();
         var id_edificio = area.DireccionCompleta.IdEdificio;
@@ -190,6 +220,7 @@
                 combo.append('<option value="' + oficinas[i].Id + '">' + oficinas[i].Descripcion + '</option>');
             }
         }
+        _this.CargarDatosDeOficina();
     },
 
     SettearValores: function (direccion) {
@@ -221,30 +252,71 @@
     },
 
     GuardarCambiosEnOficina: function () {
+        var _this = this;
+
         area.DireccionCompleta.Piso = $('#txt_oficina_piso').val();
         area.DireccionCompleta.Dto = $('#txt_oficina_oficina').val();
         area.DireccionCompleta.UF = $('#txt_oficina_uf').val();
+
+        $('#cmb_direccion_edificio').val($('#cmb_oficina_edificio').val()).change();
+        _this.CargarComboOficina();
+
+        if ($("#cmb_direccion_oficina option[value='99']").length > 0) {
+            $("#cmb_direccion_oficina option[value='99']").remove();
+        }
+        $('#cmb_direccion_oficina').append('<option value="' + 99 + '">' + 'Piso:' + area.DireccionCompleta.Piso + ' ,Ofic:' + area.DireccionCompleta.Dto + ' ,UF:' + area.DireccionCompleta.UF + '</option>');
+        $('#cmb_direccion_oficina').val(99).change();
+
+        area_dinamica = area;
+
+        $("#div_agregar_oficina").hide();
+        $("#div_agregar_edificio").hide();
+        $("#div_contenido_direccion").show();
+
+        _this.SettearValores(area.DireccionCompleta);
+
         alertify.alert("Se han modificado los datos de la Oficina");
     },
 
     GuardarCambiosEnEdificio: function () {
-        if ($("#txt_oficina_codigopostal").esValido()) {
-            area.DireccionCompleta.CodigoPostal = $('#txt_oficina_codigopostal').val();
-            area.DireccionCompleta.Calle = $('#txt_edificio_calle').val();
-            area.DireccionCompleta.Numero = $('#txt_edificio_numero').val();
-            area.DireccionCompleta.Localidad.Id = $('#cmb_edificio_localidad').find('option:selected').val();
-            area.DireccionCompleta.Localidad.IdProvincia = $('#cmb_edificio_provincia').find('option:selected').val();
-            area.DireccionCompleta.Localidad.NombreProvincia = $('#cmb_edificio_provincia').find('option:selected').text();
+        var _this = this;
+        if (_this.EdificioValido()) {
 
-            if ($("#cmb_oficina_edificio option[value='99']").length > 0) {
-                $("#cmb_oficina_edificio option[value='99']").remove();
-            }
-            $('#cmb_oficina_edificio').append('<option value="' + 99 + '">' + area.DireccionCompleta.Calle + ' ' + area.DireccionCompleta.Numero + '</option>');
-            $('#cmb_oficina_edificio').val(99).change();
+            _this.SettearValorEdificio();
+
+            var id = Backend.ejecutarSincronico("GuardarEdificioPendienteDeAptobacion", [{
+                IdProvincia: parseInt(area.DireccionCompleta.Localidad.IdProvincia),
+                NombreProvincia: area.DireccionCompleta.Localidad.NombreProvincia,
+                IdLocalidad: parseInt(area.DireccionCompleta.Localidad.Id),
+                NombreLocalidad: area.DireccionCompleta.Localidad.Nombre,
+                CodigoPostal: parseInt(area.DireccionCompleta.Localidad.CodigoPostal),
+                Calle: area.DireccionCompleta.Calle,
+                Numero: area.DireccionCompleta.Numero
+            }]);
 
             alertify.alert("Se han modificado los datos del Edificio");
-
+            _this.CargarComboEdificio(id, area.DireccionCompleta.Localidad.Id);
+            _this.MostarPantallaOficina();
         }
+    },
+
+    EdificioValido: function () {
+        return true;
+    },
+    MostarPantallaOficina: function () {
+        $("#div_agregar_oficina").show();
+        $("#div_agregar_edificio").hide();
+        $("#div_contenido_direccion").hide();
+    },
+
+    SettearValorEdificio: function () {
+        area.DireccionCompleta.Localidad.IdProvincia = $('#cmb_edificio_provincia').find('option:selected').val();
+        area.DireccionCompleta.Localidad.NombreProvincia = $('#cmb_edificio_provincia').find('option:selected').text();
+        area.DireccionCompleta.Localidad.Id = $('#cmb_edificio_localidad').find('option:selected').val();
+        area.DireccionCompleta.Localidad.Nombre = $('#cmb_edificio_localidad').find('option:selected').text();
+        area.DireccionCompleta.CodigoPostal = $('#txt_oficina_codigopostal').val();
+        area.DireccionCompleta.Calle = $('#txt_edificio_calle').val();
+        area.DireccionCompleta.Numero = $('#txt_edificio_numero').val();
     }
 }
 

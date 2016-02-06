@@ -6,6 +6,7 @@ using General;
 using System.Data.SqlClient;
 using General.Repositorios;
 using System.Linq;
+using General.MAU;
 namespace General.Repositorios
 {
     public class RepositorioDeAreas : RepositorioLazySingleton<Area>
@@ -486,6 +487,31 @@ namespace General.Repositorios
                 edificio.Localidad = localidad;
             }
             return edificio;  
+        }
+
+        public Oficina ObtenerOficinaPorId(int id_oficina)
+        {
+            Oficina oficina = new Oficina();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@oficina", id_oficina);
+
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Oficinas", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                var oficina_bd = tablaDatos.Rows[0];
+                oficina.Id = oficina_bd.GetSmallintAsInt("Id_Oficina");
+                oficina.Nombre = oficina_bd.GetString("Oficina");
+                oficina.Dto = oficina_bd.GetString("Dpto");
+                oficina.Piso = oficina_bd.GetString("Piso");
+                oficina.UF = oficina_bd.GetString("UF"); 
+            }
+            return oficina;  
+        }
+
+        public void GuardarEdificioPendienteDeAptobacion(int id_provincia, string nombre_provincia, int id_localiad, string nombre_localidad, int codigo_postal, string calle, string numero, Usuario usuario)
+        {
+            //HACER!!!!
         }
     }
 }

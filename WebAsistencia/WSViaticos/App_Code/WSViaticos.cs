@@ -2297,12 +2297,34 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Oficina ObtenerOficinaPorId(string criterio)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        int id_oficina = (int)((JValue)criterio_deserializado["IdOficina"]);
+        return RepositorioDeAreas().ObtenerOficinaPorId(id_oficina);
+    }
+
+    [WebMethod]
     public Combo[] ObtenerOficinaPorEdificio(string criterio)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         int id_edificio = (int)((JValue)criterio_deserializado["IdEdificio"]);
         int id_area = (int)((JValue)criterio_deserializado["IdArea"]);  
         return RepositorioDeAreas().ObtenerOficinaPorEdificio(id_edificio, id_area).ToArray();
+    }
+
+    [WebMethod]
+    public void GuardarEdificioPendienteDeAptobacion(string criterio, Usuario usuario)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        int id_provincia = (int)((JValue)criterio_deserializado["IdProvincia"]);
+        string nombre_provincia = (string)((JValue)criterio_deserializado["NombreProvincia"]);
+        int id_localiad = (int)((JValue)criterio_deserializado["IdLocalidad"]);
+        string nombre_localidad = (string)((JValue)criterio_deserializado["NombreLocalidad"]);
+        int codigo_postal = (int)((JValue)criterio_deserializado["CodigoPostal"]);
+        string calle = (string)((JValue)criterio_deserializado["Calle"]);
+        string numero = (string)((JValue)criterio_deserializado["Numero"]);
+        RepositorioDeAreas().GuardarEdificioPendienteDeAptobacion(id_provincia, nombre_provincia, id_localiad, nombre_localidad, codigo_postal, calle, numero, usuario);
     }
 
 
