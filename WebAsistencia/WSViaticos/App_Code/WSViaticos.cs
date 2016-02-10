@@ -1896,6 +1896,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetUsuarioWindows()
+    {
+        return Environment.UserName;
+    }
+
+    [WebMethod]
     public List<Area> GetAreasParaLugaresDeTrabajo()
     {
         return RepositorioDeAreas().GetAreasParaLugaresDeTrabajo();

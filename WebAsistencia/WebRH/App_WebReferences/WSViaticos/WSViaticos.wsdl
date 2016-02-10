@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetIdCabeceraFormulario">
+      <s:element name="GuardarCabeceraFormulario">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
@@ -189,10 +189,36 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GuardarCabeceraFormularioResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetIdCabeceraFormulario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetIdCabeceraFormularioResponse">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="GetIdCabeceraFormularioResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificarUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificarUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="VerificarUsuarioResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2137,17 +2163,6 @@
       <s:element name="GuardarCambiosEnFormularioResponse">
         <s:complexType />
       </s:element>
-      <s:element name="GuardarCabeceraFormulario">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCabeceraFormularioResponse">
-        <s:complexType />
-      </s:element>
       <s:element name="GuardarAlumno">
         <s:complexType>
           <s:sequence>
@@ -2762,6 +2777,16 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetAreasParaProtocoloResult" type="tns:ArrayOfArea" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUsuarioWindows">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetUsuarioWindowsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUsuarioWindowsResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -3638,21 +3663,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="RegistrarNuevoUsuarioResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="VerificarUsuario">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="VerificarUsuarioResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="VerificarUsuarioResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5005,11 +5015,23 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GuardarCabeceraFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCabeceraFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCabeceraFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCabeceraFormularioResponse" />
+  </wsdl:message>
   <wsdl:message name="GetIdCabeceraFormularioSoapIn">
     <wsdl:part name="parameters" element="tns:GetIdCabeceraFormulario" />
   </wsdl:message>
   <wsdl:message name="GetIdCabeceraFormularioSoapOut">
     <wsdl:part name="parameters" element="tns:GetIdCabeceraFormularioResponse" />
+  </wsdl:message>
+  <wsdl:message name="VerificarUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:VerificarUsuario" />
+  </wsdl:message>
+  <wsdl:message name="VerificarUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:VerificarUsuarioResponse" />
   </wsdl:message>
   <wsdl:message name="GetCurriculumSoapIn">
     <wsdl:part name="parameters" element="tns:GetCurriculum" />
@@ -5515,12 +5537,6 @@
   <wsdl:message name="GuardarCambiosEnFormularioSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormularioResponse" />
   </wsdl:message>
-  <wsdl:message name="GuardarCabeceraFormularioSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarCabeceraFormulario" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCabeceraFormularioSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarCabeceraFormularioResponse" />
-  </wsdl:message>
   <wsdl:message name="GuardarAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarAlumno" />
   </wsdl:message>
@@ -5718,6 +5734,12 @@
   </wsdl:message>
   <wsdl:message name="GetAreasParaProtocoloSoapOut">
     <wsdl:part name="parameters" element="tns:GetAreasParaProtocoloResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUsuarioWindowsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUsuarioWindows" />
+  </wsdl:message>
+  <wsdl:message name="GetUsuarioWindowsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUsuarioWindowsResponse" />
   </wsdl:message>
   <wsdl:message name="GetAreasParaLugaresDeTrabajoSoapIn">
     <wsdl:part name="parameters" element="tns:GetAreasParaLugaresDeTrabajo" />
@@ -6000,12 +6022,6 @@
   </wsdl:message>
   <wsdl:message name="RegistrarNuevoUsuarioSoapOut">
     <wsdl:part name="parameters" element="tns:RegistrarNuevoUsuarioResponse" />
-  </wsdl:message>
-  <wsdl:message name="VerificarUsuarioSoapIn">
-    <wsdl:part name="parameters" element="tns:VerificarUsuario" />
-  </wsdl:message>
-  <wsdl:message name="VerificarUsuarioSoapOut">
-    <wsdl:part name="parameters" element="tns:VerificarUsuarioResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
@@ -6446,9 +6462,17 @@
     <wsdl:part name="parameters" element="tns:GetCursosDelAlumnoResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GuardarCabeceraFormulario">
+      <wsdl:input message="tns:GuardarCabeceraFormularioSoapIn" />
+      <wsdl:output message="tns:GuardarCabeceraFormularioSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetIdCabeceraFormulario">
       <wsdl:input message="tns:GetIdCabeceraFormularioSoapIn" />
       <wsdl:output message="tns:GetIdCabeceraFormularioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificarUsuario">
+      <wsdl:input message="tns:VerificarUsuarioSoapIn" />
+      <wsdl:output message="tns:VerificarUsuarioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCurriculum">
       <wsdl:input message="tns:GetCurriculumSoapIn" />
@@ -6786,10 +6810,6 @@
       <wsdl:input message="tns:GuardarCambiosEnFormularioSoapIn" />
       <wsdl:output message="tns:GuardarCambiosEnFormularioSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GuardarCabeceraFormulario">
-      <wsdl:input message="tns:GuardarCabeceraFormularioSoapIn" />
-      <wsdl:output message="tns:GuardarCabeceraFormularioSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <wsdl:input message="tns:GuardarAlumnoSoapIn" />
       <wsdl:output message="tns:GuardarAlumnoSoapOut" />
@@ -6921,6 +6941,10 @@
     <wsdl:operation name="GetAreasParaProtocolo">
       <wsdl:input message="tns:GetAreasParaProtocoloSoapIn" />
       <wsdl:output message="tns:GetAreasParaProtocoloSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioWindows">
+      <wsdl:input message="tns:GetUsuarioWindowsSoapIn" />
+      <wsdl:output message="tns:GetUsuarioWindowsSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAreasParaLugaresDeTrabajo">
       <wsdl:input message="tns:GetAreasParaLugaresDeTrabajoSoapIn" />
@@ -7109,10 +7133,6 @@
     <wsdl:operation name="RegistrarNuevoUsuario">
       <wsdl:input message="tns:RegistrarNuevoUsuarioSoapIn" />
       <wsdl:output message="tns:RegistrarNuevoUsuarioSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="VerificarUsuario">
-      <wsdl:input message="tns:VerificarUsuarioSoapIn" />
-      <wsdl:output message="tns:VerificarUsuarioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
@@ -7409,8 +7429,26 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GuardarCabeceraFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetIdCabeceraFormulario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarUsuario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/VerificarUsuario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8174,15 +8212,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GuardarCabeceraFormulario">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCabeceraFormulario" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -8473,6 +8502,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAreasParaProtocolo">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetAreasParaProtocolo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioWindows">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioWindows" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8896,15 +8934,6 @@
     </wsdl:operation>
     <wsdl:operation name="RegistrarNuevoUsuario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/RegistrarNuevoUsuario" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="VerificarUsuario">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/VerificarUsuario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9572,8 +9601,26 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GuardarCabeceraFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetIdCabeceraFormulario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarUsuario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/VerificarUsuario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10337,15 +10384,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GuardarCabeceraFormulario">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCabeceraFormulario" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -10636,6 +10674,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAreasParaProtocolo">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetAreasParaProtocolo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioWindows">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioWindows" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -11059,15 +11106,6 @@
     </wsdl:operation>
     <wsdl:operation name="RegistrarNuevoUsuario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/RegistrarNuevoUsuario" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="VerificarUsuario">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/VerificarUsuario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
