@@ -21,6 +21,7 @@
                     Listado de Lugares de Trabajo del Ministerio de Desarrollo Social de Nación                     
                     <input type="text" id="search" class="search" placeholder="Buscar"/>     
                 </legend>  
+                <%--<a href="#" id="exportar">Exportar a Excel</a>--%>
                 <div id="ContenedorPlanilla" runat="server">
  
                 </div>
