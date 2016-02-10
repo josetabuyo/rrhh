@@ -21,7 +21,7 @@
             <div id="panel_busqueda">
                 <div id="instrucciones_de_uso">Ingrese la persona que desea administrar --></div>
                 <div id="selector_usuario" class="selector_personas">
-                    <input id="buscador" type=hidden />
+                    <input id="buscador" type=hidden class="buscarPersona" />
                 </div>
             </div>  
             <div id="panel_datos_usuario" style="display:none">
@@ -73,8 +73,17 @@
                     <legend class="subtitulos"> Funcionalidades </legend>
                     <div id="vista_permisos"> </div>            
                 </div>  
-            </div>     
+            </div> 
+            <hr />    
+            <div id="panel_personas_de_baja_con_permisos">
+                <p class="persona_baja_con_funcionalidades">Consultar Personas de Baja con Permisos</p>
+                <input type="button" value="Consultar" id="btn_buscar_personas_de_baja" class="btn btn-primary" />
+                <div id="contenedor_personas_de_baja">
+                    <table id="tabla_personas_de_baja"></table>
+                </div>
+            </div>
         </div>
+
     </form>
     <div id="plantillas">
         <div class="vista_persona_en_selector">

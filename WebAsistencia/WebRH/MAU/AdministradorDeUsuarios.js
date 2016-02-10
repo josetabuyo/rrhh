@@ -89,6 +89,48 @@
             }
         });
     });
+
+    //CONSULTAR PERSONAS DE BAJA CON PERMISOS
+    $("#btn_buscar_personas_de_baja").click(function () {
+        Backend.BuscarPersonaDeBajaConPermisos().onSuccess(function (data) {
+            armarTabla(data);
+            console.log(data);
+        });
+    });
+
+    function armarTabla(data) {
+        var tabla = $('#tabla_personas_de_baja');
+        var columnas = [];
+
+        columnas.push(new Columna("Nombre", { generar: function (un_usuario) { return un_usuario.Owner.Nombre + ', ' + un_usuario.Owner.Apellido } }));
+        columnas.push(new Columna("Documento", { generar: function (un_usuario) { return un_usuario.Owner.Documento } }));
+        columnas.push(new Columna("Usuario", { generar: function (un_usuario) { return un_usuario.Alias } }));
+
+        //columnas.push(new Columna("Funcionalidades", { generar: function (un_usuario) { return un_usuario.Fun } }));
+
+        var generador_de_celda_funcionalidades = {
+            generar: function (un_usuario) {
+
+                var funcionalidades = "";
+                for (var i = 0; i < un_usuario.Funcionalidades.length; i++) {
+                    funcionalidades += un_usuario.Funcionalidades[i].Nombre + ' | ';
+                }
+
+                return funcionalidades;
+            }
+        };
+
+        columnas.push(new Columna('Permisos Asignados', generador_de_celda_funcionalidades));
+
+        this.GrillaDeUsuarios = new Grilla(columnas);
+        this.GrillaDeUsuarios.AgregarEstilo("cuerpo_tabla_usuarios tr td");
+        this.GrillaDeUsuarios.CambiarEstiloCabecera("cabecera_tabla_usuarios");
+        this.GrillaDeUsuarios.SetOnRowClickEventHandler(function (un_usuario) {
+            $('#selector_usuario').val(un_usuario.Owner.Documento);
+        });
+        this.GrillaDeUsuarios.CargarObjetos(data);
+        this.GrillaDeUsuarios.DibujarEn(tabla);
+    }
 };
 
 AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {

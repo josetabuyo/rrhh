@@ -80,5 +80,9 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+        public List<Usuario> GetUsuariosConPersonasDeBaja() {
+            throw new NotImplementedException();
+        }
     }
 }

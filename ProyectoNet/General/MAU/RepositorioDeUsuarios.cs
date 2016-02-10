@@ -201,5 +201,39 @@ namespace General.MAU
             return false;
             
         }
+
+        public List<Usuario> GetUsuariosConPersonasDeBaja()
+        {
+           // var parametros = new Dictionary<string, object>();
+            //parametros.Add("@id_persona", id_persona);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetPersonasDeBajaConUsuarios");
+            List<Usuario> lista_de_usuarios = new List<Usuario>();
+
+            if (tablaDatos.Rows.Count > 1)
+            {
+                lista_de_usuarios = corteControl(tablaDatos);
+            }
+
+            return lista_de_usuarios;
+        }
+
+        private List<Usuario> corteControl(TablaDeDatos tablaDatos) { 
+        
+            List<Usuario> usuarios = new List<Usuario>();
+            Usuario un_usuario = new Usuario();
+            int idUsuario_original = 0;
+            tablaDatos.Rows.ForEach((row) => {
+                if (idUsuario_original != row.GetInt("Id_Persona"))
+                {
+                    un_usuario = GetUsuarioDeTablaDeDatos(tablaDatos);
+                    usuarios.Add(un_usuario);
+                    idUsuario_original = row.GetInt("Id_Persona");               
+                } else {
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad"), row.GetString("NombreFuncionalidad")));  
+                }
+            });
+
+            return usuarios;
+        }
     }
 }

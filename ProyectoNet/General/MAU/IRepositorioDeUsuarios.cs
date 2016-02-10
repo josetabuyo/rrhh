@@ -17,5 +17,6 @@ namespace General.MAU
         void AsociarUsuarioConMail(Usuario usuario, string mail);
         Usuario GetUsuarioPorId(int id_usuario);
         Persona GetPersonaPorIdUsuario(int id_usuario);
+        List<Usuario> GetUsuariosConPersonasDeBaja();
     }
 }
