@@ -94,6 +94,7 @@
     $("#btn_buscar_personas_de_baja").click(function () {
         Backend.BuscarPersonaDeBajaConPermisos().onSuccess(function (data) {
             armarTabla(data);
+            $("#btn_buscar_personas_de_baja")[0].disabled = true;
             console.log(data);
         });
     });
@@ -101,6 +102,7 @@
     function armarTabla(data) {
         var tabla = $('#tabla_personas_de_baja');
         var columnas = [];
+        //var _this = this;
 
         columnas.push(new Columna("Nombre", { generar: function (un_usuario) { return un_usuario.Owner.Nombre + ', ' + un_usuario.Owner.Apellido } }));
         columnas.push(new Columna("Documento", { generar: function (un_usuario) { return un_usuario.Owner.Documento } }));
@@ -126,7 +128,14 @@
         this.GrillaDeUsuarios.AgregarEstilo("cuerpo_tabla_usuarios tr td");
         this.GrillaDeUsuarios.CambiarEstiloCabecera("cabecera_tabla_usuarios");
         this.GrillaDeUsuarios.SetOnRowClickEventHandler(function (un_usuario) {
-            $('#selector_usuario').val(un_usuario.Owner.Documento);
+            //$('#selector_usuario').val(un_usuario.Owner.Documento);
+            var persona_seleccionada = {};
+            persona_seleccionada.apellido = un_usuario.Owner.Apellido;
+            persona_seleccionada.nombre = un_usuario.Owner.Nombre;
+            persona_seleccionada.documento = un_usuario.Owner.Documento;
+            persona_seleccionada.id = un_usuario.Owner.Id;
+
+            _this.selector_usuario.alSeleccionarUnaPersona(persona_seleccionada);
         });
         this.GrillaDeUsuarios.CargarObjetos(data);
         this.GrillaDeUsuarios.DibujarEn(tabla);
@@ -150,6 +159,8 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
     $("#usuario_verificado").hide();
     $("#usuario_no_verificado").hide();
     $("#btn_verificar_usuario").hide();
+    $('#panel_personas_de_baja_con_permisos').insertAfter("#form1");
+    //$("#panel_personas_de_baja_con_permisos").hide();
     if (usuario.Verificado) $("#usuario_verificado").show();
     else {
         $("#usuario_no_verificado").show();

@@ -74,17 +74,20 @@
                     <div id="vista_permisos"> </div>            
                 </div>  
             </div> 
-            <hr />    
-            <div id="panel_personas_de_baja_con_permisos">
-                <p class="persona_baja_con_funcionalidades">Consultar Personas de Baja con Permisos</p>
-                <input type="button" value="Consultar" id="btn_buscar_personas_de_baja" class="btn btn-primary" />
-                <div id="contenedor_personas_de_baja">
-                    <table id="tabla_personas_de_baja"></table>
-                </div>
-            </div>
+            <hr />   
+             <div id="panel_personas_de_baja_con_permisos">
+        <p class="persona_baja_con_funcionalidades">Consultar Personas de Baja con Permisos</p>
+        <input type="button" value="Consultar" id="btn_buscar_personas_de_baja" class="btn btn-primary" />
+        <div id="contenedor_personas_de_baja">
+            <table id="tabla_personas_de_baja"></table>
+        </div>
+    </div> 
         </div>
 
     </form>
+   
+
+
     <div id="plantillas">
         <div class="vista_persona_en_selector">
             <div id="contenedor_legajo" class="label label-warning">
