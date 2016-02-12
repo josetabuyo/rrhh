@@ -2281,11 +2281,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Combo[] ObtenerEdificiosPorLocalidad(string criterio)
+    public Combo[] ObtenerEdificiosPorLocalidad(string criterio, Usuario usuario)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         int id_localidad = (int)((JValue)criterio_deserializado["IdLocalidad"]);
-        return RepositorioDeAreas().ObtenerEdificiosPorLocalidad(id_localidad).ToArray();
+        int id_provincia = 1; //(int)((JValue)criterio_deserializado["IdProvincia"]);
+        return RepositorioDeAreas().ObtenerEdificiosPorLocalidad(id_localidad, id_provincia, usuario).ToArray();
     }
 
     [WebMethod]
@@ -2314,7 +2315,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void GuardarEdificioPendienteDeAptobacion(string criterio, Usuario usuario)
+    public int GuardarEdificioPendienteDeAptobacion(string criterio, Usuario usuario)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         int id_provincia = (int)((JValue)criterio_deserializado["IdProvincia"]);
@@ -2324,7 +2325,7 @@ public class WSViaticos : System.Web.Services.WebService
         int codigo_postal = (int)((JValue)criterio_deserializado["CodigoPostal"]);
         string calle = (string)((JValue)criterio_deserializado["Calle"]);
         string numero = (string)((JValue)criterio_deserializado["Numero"]);
-        RepositorioDeAreas().GuardarEdificioPendienteDeAptobacion(id_provincia, nombre_provincia, id_localiad, nombre_localidad, codigo_postal, calle, numero, usuario);
+       return  RepositorioDeAreas().GuardarEdificioPendienteDeAptobacion(id_provincia, nombre_provincia, id_localiad, nombre_localidad, codigo_postal, calle, numero, usuario);
     }
 
 

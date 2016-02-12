@@ -12,7 +12,7 @@ namespace General.Repositorios
     public class RepositorioDeAreas : RepositorioLazySingleton<Area>
     {
         private static RepositorioDeAreas _instancia;
-
+        int indice_auxiliar = 990000000;
         private RepositorioDeAreas(IConexionBD conexion)
             : base(conexion, 10)
         {
@@ -29,7 +29,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_Area", unArea.Id);
             var tablaDatos = conexion.Ejecutar("dbo.Web_GetArea", parametros);
-            var primeraFila = tablaDatos.Rows[0];
+            var primeraFila = tablaDatos.Rows.First();
             unArea.Id = primeraFila.GetInt("id_area");
             unArea.Nombre = primeraFila.GetString("descripcion");
             unArea.Direccion = primeraFila.GetString("direccion_area");
@@ -233,7 +233,7 @@ namespace General.Repositorios
             var tablaDatos = conexion.Ejecutar("dbo.GABM_Tabla_Firmantes", parametros);
             if (tablaDatos.Rows.Count > 0)
             {
-                var responsable_base = tablaDatos.Rows[0];
+                var responsable_base = tablaDatos.Rows.First();
                 Responsable responsable = new Responsable();
                 responsable.NombreApellido = responsable_base.GetString("Apellido");
                 string[] nombre_y_apellido = responsable.NombreApellido.Split(',');
@@ -270,7 +270,7 @@ namespace General.Repositorios
             tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Area_Por_Id", parametros);
             if (tablaDatos.Rows.Count > 0)
             {
-                var direccion_base = tablaDatos.Rows[0];
+                var direccion_base = tablaDatos.Rows.First();
                 Localidad localidad = new Localidad(direccion_base.GetInt("Localidad"), direccion_base.GetString("nombrelocalidad"));
                 area.DireccionCompleta = new Direccion(direccion_base.GetInt("Id_Edificio"), direccion_base.GetString("Edificio"), direccion_base.GetString("Calle"), direccion_base.GetInt("Numero"), localidad, direccion_base.GetInt("Id_Oficina"), direccion_base.GetString("Piso"), direccion_base.GetString("Dpto"), direccion_base.GetString("UF"), direccion_base.GetString("descripcion"), direccion_base.GetInt("codigopostal"));
 
@@ -281,7 +281,7 @@ namespace General.Repositorios
                 tablaDatos = conexion.Ejecutar("dbo.GetLocalidad", parametros);
                 if (tablaDatos.Rows.Count > 0)
                 {
-                    var localidad_base = tablaDatos.Rows[0];
+                    var localidad_base = tablaDatos.Rows.First();
                     localidad.CodigoPostal = localidad_base.GetInt("codigopostal");
                     localidad.IdProvincia = localidad_base.GetInt("Id_Provincia");
                     localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
@@ -422,7 +422,7 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
-        public List<Combo> ObtenerEdificiosPorLocalidad(int id_localidad)
+        public List<Combo> ObtenerEdificiosPorLocalidad(int id_localidad, int id_provincia, Usuario usuario)
         {
             List<Combo> combo = new List<Combo>();
             var parametros = new Dictionary<string, object>();
@@ -431,6 +431,13 @@ namespace General.Repositorios
             tablaDatos.Rows.ForEach(row =>
             {
                 Combo opcion = new Combo(row.GetSmallintAsInt("id"), row.GetString("descripcion"));
+                combo.Add(opcion);
+            });
+            parametros.Add("@id_usuario", usuario.Id);
+            var tablaDatos_aux = conexion.Ejecutar("dbo.ESTR_Get_Edificios_AUX", parametros);
+            tablaDatos_aux.Rows.ForEach(row =>
+            {
+                Combo opcion = new Combo(indice_auxiliar + row.GetSmallintAsInt("id"), row.GetString("calle") + " " + row.GetInt("numero"));
                 combo.Add(opcion);
             });
             return combo;
@@ -448,6 +455,12 @@ namespace General.Repositorios
                 Combo opcion = new Combo(row.GetSmallintAsInt("Id_Oficina"), row.GetString("Oficina"));
                 combo.Add(opcion);
             });
+            //var tablaDatos_aux = conexion.Ejecutar("dbo.", parametros);
+            //tablaDatos_aux.Rows.ForEach(row =>
+            //{
+            //    Combo opcion = new Combo(indice_auxiliar + row.GetSmallintAsInt("Id_Oficina"), row.GetString("Oficina"));
+            //    combo.Add(opcion);
+            //});
             return combo;
         }
 
@@ -461,7 +474,7 @@ namespace General.Repositorios
 
             if (tablaDatos.Rows.Count > 0)
             {
-                var edificio_bd = tablaDatos.Rows[0];
+                var edificio_bd = tablaDatos.Rows.First();
                 Localidad localidad = new Localidad();
                 edificio.Id = edificio_bd.GetSmallintAsInt("id_Edificio");
                 edificio.Numero = edificio_bd.GetInt("Numero");
@@ -475,7 +488,7 @@ namespace General.Repositorios
                 tablaDatos = conexion.Ejecutar("dbo.GetLocalidad", parametros);
                 if (tablaDatos.Rows.Count > 0)
                 {
-                    var localidad_base = tablaDatos.Rows[0];
+                    var localidad_base = tablaDatos.Rows.First();
                     localidad.CodigoPostal = localidad_base.GetInt("codigopostal");
                     localidad.IdProvincia = localidad_base.GetInt("Id_Provincia");
                     localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
@@ -499,7 +512,7 @@ namespace General.Repositorios
 
             if (tablaDatos.Rows.Count > 0)
             {
-                var oficina_bd = tablaDatos.Rows[0];
+                var oficina_bd = tablaDatos.Rows.First();
                 oficina.Id = oficina_bd.GetSmallintAsInt("Id_Oficina");
                 oficina.Nombre = oficina_bd.GetString("Oficina");
                 oficina.Dto = oficina_bd.GetString("Dpto");
@@ -509,9 +522,51 @@ namespace General.Repositorios
             return oficina;  
         }
 
-        public void GuardarEdificioPendienteDeAptobacion(int id_provincia, string nombre_provincia, int id_localiad, string nombre_localidad, int codigo_postal, string calle, string numero, Usuario usuario)
+        public int GuardarEdificioPendienteDeAptobacion(int id_provincia, string nombre_provincia, int id_localidad, string nombre_localidad, int codigo_postal, string calle, string numero, Usuario usuario)
         {
-            //HACER!!!!
+            int id = indice_auxiliar;
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_provincia", id_provincia);
+            parametros.Add("@nombre_provincia", nombre_provincia);
+            parametros.Add("@id_localidad", id_localidad);
+            parametros.Add("@nombre_localidad", nombre_localidad);
+            parametros.Add("@codigo_postal", codigo_postal);
+            parametros.Add("@calle", calle);
+            parametros.Add("@numero", numero);
+            parametros.Add("@id_usuario", usuario.Id);
+
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_Ins_Edificio_AUX", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                id = id + tablaDatos.Rows.First().GetSmallintAsInt("id");
+            }
+            else {
+                id = 0;
+            }
+            return id;
+        }
+
+        public int WS_GuardarOficinaPendienteDeAptobacion(int id_edificio, string piso, string oficina, string UF, Usuario usuario)
+        {
+            int id = indice_auxiliar;
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_edificio", id_edificio);
+            parametros.Add("@piso", piso);
+            parametros.Add("@oficina", oficina);
+            parametros.Add("@UF", UF);
+            parametros.Add("@id_usuario", usuario.Id);
+
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_Ins_Oficina_AUX", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                id = id + tablaDatos.Rows.First().GetInt("id");
+            }
+            else {
+                id = 0;
+            }
+            return id;
         }
     }
 }
