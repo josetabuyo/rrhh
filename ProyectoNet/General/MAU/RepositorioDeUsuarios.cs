@@ -225,8 +225,9 @@ namespace General.MAU
             tablaDatos.Rows.ForEach((row) => {
                 if (idUsuario_original != row.GetInt("Id_Persona"))
                 {
-                    un_usuario = GetUsuarioDeTablaDeDatos(tablaDatos);
+                    un_usuario = GetUsuarioDeRow(row);
                     usuarios.Add(un_usuario);
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad"), row.GetString("NombreFuncionalidad"))); 
                     idUsuario_original = row.GetInt("Id_Persona");               
                 } else {
                     un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad"), row.GetString("NombreFuncionalidad")));  
@@ -234,6 +235,17 @@ namespace General.MAU
             });
 
             return usuarios;
+        }
+
+        private Usuario GetUsuarioDeRow(RowDeDatos row) {
+            
+            Usuario usuario = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja"));
+            if (!(row.GetObject("Id_Persona") is DBNull))
+            {
+                usuario.Owner = repositorio_de_personas.GetPersonaPorId(row.GetInt("Id_Persona"));
+            }
+            usuario.Verificado = row.GetBoolean("Verificado", false);
+            return usuario;   
         }
     }
 }

@@ -75,7 +75,7 @@
                 </div>  
             </div> 
             <hr />   
-             <div id="panel_personas_de_baja_con_permisos">
+             <div id="panel_personas_de_baja_con_permisos" RequiereFuncionalidad = "29">
         <p class="persona_baja_con_funcionalidades">Consultar Personas de Baja con Permisos</p>
         <input type="button" value="Consultar" id="btn_buscar_personas_de_baja" class="btn btn-primary" />
         <div id="contenedor_personas_de_baja">
