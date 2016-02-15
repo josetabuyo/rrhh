@@ -18,10 +18,13 @@
             <uc2:BarraMenu ID="BarraMenu" runat="server" UrlEstilos="../Estilos/" UrlImagenes="../Imagenes/" />
             <div id="ContenedorPrincipal" class="contenedor_principal contenedor_principal_consulta_protocolo">            
                 <legend>
-                    Listado de Lugares de Trabajo del Ministerio de Desarrollo Social de Nación                     
-                    <input type="text" id="search" class="search" placeholder="Buscar"/>     
+                    Listado de Lugares de Trabajo del Ministerio de Desarrollo Social de Nación  
+                    <div id=search_box>
+                        <input type="text" id="search" class="search" placeholder="Buscar"/>     
+                        <a href="#" id="exportar"><img src="excel_icon.png"/></a>      
+                    </div>     
                 </legend>  
-                <%--<a href="#" id="exportar">Exportar a Excel</a>--%>
+                
                 <div id="ContenedorPlanilla" runat="server">
  
                 </div>
