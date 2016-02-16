@@ -2,6 +2,31 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="BuscarUnidadesTiempo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarUnidadesTiempoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarUnidadesTiempoResult" type="tns:ArrayOfUnidadDeTiempo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUnidadDeTiempo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UnidadDeTiempo" nillable="true" type="tns:UnidadDeTiempo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UnidadDeTiempo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarEstadosCiviles">
         <s:complexType>
           <s:sequence>
@@ -452,6 +477,38 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GuardarEvaluaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="evaluaciones_nuevas_dto" type="tns:ArrayOfEvaluacionDto" />
+            <s:element minOccurs="0" maxOccurs="1" name="evaluaciones_originales_dto" type="tns:ArrayOfEvaluacionDto" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEvaluacionDto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EvaluacionDto" nillable="true" type="tns:EvaluacionDto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EvaluacionDto">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Calificacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DNIAlumno" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdCurso" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdInstancia" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionInstancia" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarEvaluacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarEvaluacionesResult" type="tns:ArrayOfEvaluacionDto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetAsistenciasDelAlumno">
         <s:complexType>
           <s:sequence>
@@ -530,22 +587,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="CalificacionFinal" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="FechaFin" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Evaluaciones" type="tns:ArrayOfEvaluacionDto" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfEvaluacionDto">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="EvaluacionDto" nillable="true" type="tns:EvaluacionDto" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="EvaluacionDto">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Calificacion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="DNIAlumno" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdCurso" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdInstancia" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="DescripcionInstancia" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetPlanillaEvaluaciones">
@@ -2454,31 +2495,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="BuscarUnidadesTiempo">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarUnidadesTiempoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarUnidadesTiempoResult" type="tns:ArrayOfUnidadDeTiempo" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfUnidadDeTiempo">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="UnidadDeTiempo" nillable="true" type="tns:UnidadDeTiempo" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="UnidadDeTiempo">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarAlumno">
         <s:complexType>
           <s:sequence>
@@ -3799,6 +3815,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="CargarDatosDeCodigoPostal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CargarDatosDeCodigoPostalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CargarDatosDeCodigoPostalResult" type="tns:Localidad" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RefrescarCacheMAU">
         <s:complexType>
           <s:sequence>
@@ -3824,22 +3854,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetInstanciasDeEvaluacionResult" type="tns:ArrayOfInstanciaDeEvaluacion" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarEvaluaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="evaluaciones_nuevas_dto" type="tns:ArrayOfEvaluacionDto" />
-            <s:element minOccurs="0" maxOccurs="1" name="evaluaciones_originales_dto" type="tns:ArrayOfEvaluacionDto" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarEvaluacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarEvaluacionesResult" type="tns:ArrayOfEvaluacionDto" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5192,6 +5206,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="BuscarUnidadesTiempoSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarUnidadesTiempo" />
+  </wsdl:message>
+  <wsdl:message name="BuscarUnidadesTiempoSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarUnidadesTiempoResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarEstadosCivilesSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarEstadosCiviles" />
   </wsdl:message>
@@ -5257,6 +5277,12 @@
   </wsdl:message>
   <wsdl:message name="GetIdCabeceraFormularioSoapOut">
     <wsdl:part name="parameters" element="tns:GetIdCabeceraFormularioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarEvaluacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarEvaluaciones" />
+  </wsdl:message>
+  <wsdl:message name="GuardarEvaluacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarEvaluacionesResponse" />
   </wsdl:message>
   <wsdl:message name="GetAsistenciasDelAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GetAsistenciasDelAlumno" />
@@ -5756,12 +5782,6 @@
   <wsdl:message name="BuscarPaisesSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarPaisesResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarUnidadesTiempoSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarUnidadesTiempo" />
-  </wsdl:message>
-  <wsdl:message name="BuscarUnidadesTiempoSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarUnidadesTiempoResponse" />
-  </wsdl:message>
   <wsdl:message name="GuardarAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarAlumno" />
   </wsdl:message>
@@ -6236,6 +6256,12 @@
   <wsdl:message name="GuardarEdificioPendienteDeAptobacionSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarEdificioPendienteDeAptobacionResponse" />
   </wsdl:message>
+  <wsdl:message name="CargarDatosDeCodigoPostalSoapIn">
+    <wsdl:part name="parameters" element="tns:CargarDatosDeCodigoPostal" />
+  </wsdl:message>
+  <wsdl:message name="CargarDatosDeCodigoPostalSoapOut">
+    <wsdl:part name="parameters" element="tns:CargarDatosDeCodigoPostalResponse" />
+  </wsdl:message>
   <wsdl:message name="RefrescarCacheMAUSoapIn">
     <wsdl:part name="parameters" element="tns:RefrescarCacheMAU" />
   </wsdl:message>
@@ -6247,12 +6273,6 @@
   </wsdl:message>
   <wsdl:message name="GetInstanciasDeEvaluacionSoapOut">
     <wsdl:part name="parameters" element="tns:GetInstanciasDeEvaluacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarEvaluacionesSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarEvaluaciones" />
-  </wsdl:message>
-  <wsdl:message name="GuardarEvaluacionesSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarEvaluacionesResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
@@ -6693,6 +6713,10 @@
     <wsdl:part name="parameters" element="tns:GetCursosDelAlumnoResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="BuscarUnidadesTiempo">
+      <wsdl:input message="tns:BuscarUnidadesTiempoSoapIn" />
+      <wsdl:output message="tns:BuscarUnidadesTiempoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarEstadosCiviles">
       <wsdl:input message="tns:BuscarEstadosCivilesSoapIn" />
       <wsdl:output message="tns:BuscarEstadosCivilesSoapOut" />
@@ -6736,6 +6760,10 @@
     <wsdl:operation name="GetIdCabeceraFormulario">
       <wsdl:input message="tns:GetIdCabeceraFormularioSoapIn" />
       <wsdl:output message="tns:GetIdCabeceraFormularioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarEvaluaciones">
+      <wsdl:input message="tns:GuardarEvaluacionesSoapIn" />
+      <wsdl:output message="tns:GuardarEvaluacionesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAsistenciasDelAlumno">
       <wsdl:input message="tns:GetAsistenciasDelAlumnoSoapIn" />
@@ -7069,10 +7097,6 @@
       <wsdl:input message="tns:BuscarPaisesSoapIn" />
       <wsdl:output message="tns:BuscarPaisesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarUnidadesTiempo">
-      <wsdl:input message="tns:BuscarUnidadesTiempoSoapIn" />
-      <wsdl:output message="tns:BuscarUnidadesTiempoSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <wsdl:input message="tns:GuardarAlumnoSoapIn" />
       <wsdl:output message="tns:GuardarAlumnoSoapOut" />
@@ -7389,6 +7413,10 @@
       <wsdl:input message="tns:GuardarEdificioPendienteDeAptobacionSoapIn" />
       <wsdl:output message="tns:GuardarEdificioPendienteDeAptobacionSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CargarDatosDeCodigoPostal">
+      <wsdl:input message="tns:CargarDatosDeCodigoPostalSoapIn" />
+      <wsdl:output message="tns:CargarDatosDeCodigoPostalSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RefrescarCacheMAU">
       <wsdl:input message="tns:RefrescarCacheMAUSoapIn" />
       <wsdl:output message="tns:RefrescarCacheMAUSoapOut" />
@@ -7396,10 +7424,6 @@
     <wsdl:operation name="GetInstanciasDeEvaluacion">
       <wsdl:input message="tns:GetInstanciasDeEvaluacionSoapIn" />
       <wsdl:output message="tns:GetInstanciasDeEvaluacionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarEvaluaciones">
-      <wsdl:input message="tns:GuardarEvaluacionesSoapIn" />
-      <wsdl:output message="tns:GuardarEvaluacionesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
@@ -7696,6 +7720,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarUnidadesTiempo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarUnidadesTiempo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarEstadosCiviles">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarEstadosCiviles" style="document" />
       <wsdl:input>
@@ -7788,6 +7821,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetIdCabeceraFormulario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarEvaluaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarEvaluaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8542,15 +8584,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarUnidadesTiempo">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarUnidadesTiempo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -9262,6 +9295,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CargarDatosDeCodigoPostal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CargarDatosDeCodigoPostal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RefrescarCacheMAU">
       <soap:operation soapAction="http://wsviaticos.gov.ar/RefrescarCacheMAU" style="document" />
       <wsdl:input>
@@ -9273,15 +9315,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetInstanciasDeEvaluacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetInstanciasDeEvaluacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarEvaluaciones">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarEvaluaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9949,6 +9982,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarUnidadesTiempo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarUnidadesTiempo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarEstadosCiviles">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarEstadosCiviles" style="document" />
       <wsdl:input>
@@ -10041,6 +10083,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetIdCabeceraFormulario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarEvaluaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarEvaluaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10795,15 +10846,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarUnidadesTiempo">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarUnidadesTiempo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -11515,6 +11557,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CargarDatosDeCodigoPostal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CargarDatosDeCodigoPostal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RefrescarCacheMAU">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/RefrescarCacheMAU" style="document" />
       <wsdl:input>
@@ -11526,15 +11577,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetInstanciasDeEvaluacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetInstanciasDeEvaluacion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarEvaluaciones">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarEvaluaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -12202,10 +12244,10 @@
   </wsdl:binding>
   <wsdl:service name="WSViaticos">
     <wsdl:port name="WSViaticosSoap" binding="tns:WSViaticosSoap">
-      <soap:address location="http://localhost:45551/WSViaticos/WSViaticos.asmx" />
+      <soap:address location="http://localhost:4588/WSViaticos/WSViaticos.asmx" />
     </wsdl:port>
     <wsdl:port name="WSViaticosSoap12" binding="tns:WSViaticosSoap12">
-      <soap12:address location="http://localhost:45551/WSViaticos/WSViaticos.asmx" />
+      <soap12:address location="http://localhost:4588/WSViaticos/WSViaticos.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

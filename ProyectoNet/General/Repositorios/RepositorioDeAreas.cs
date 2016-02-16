@@ -568,5 +568,34 @@ namespace General.Repositorios
             }
             return id;
         }
+
+        public Localidad CargarDatosDeCodigoPostal(int codigo_postal)
+        {
+            Localidad localidad = new Localidad();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@cpos", codigo_postal);
+
+            var tablaDatos = conexion.Ejecutar("dbo.GetLocalidadesPorCP", parametros);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                var id_codigo_postal = tablaDatos.Rows.First().GetInt("IdLocalidad"); ;
+                parametros.Clear();
+                tablaDatos.Clear();
+                parametros.Add("@localidad", id_codigo_postal);
+                tablaDatos = conexion.Ejecutar("dbo.GetLocalidad", parametros);
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    var localidad_base = tablaDatos.Rows.First();
+                    localidad.CodigoPostal = localidad_base.GetInt("codigopostal");
+                    localidad.IdProvincia = localidad_base.GetInt("Id_Provincia");
+                    localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
+                    localidad.IdPartido = localidad_base.GetSmallintAsInt("partido");
+                    localidad.NombrePartido = localidad_base.GetString("DescPartido");
+                    localidad.Nombre = localidad_base.GetString("nombrelocalidad");
+                }
+            }
+
+            return localidad;
+        }
     }
 }

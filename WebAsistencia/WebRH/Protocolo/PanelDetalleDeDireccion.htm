@@ -122,38 +122,39 @@
          <div id="div_agregar_edificio" class="fondo_form" style="display:none">>
             <fieldset style="width: 95%; padding-left: 3%;">
                 <legend style="margin-bottom: 20px;">Nuevo Edificio</legend>
-                
-                 <div id="div7" class="grupo_campos nueva_linea">
-                    <label for="Provincia">
-                        Provincia:
-                    </label>
-                    <select id="cmb_edificio_provincia" style="width: 285px;" data-validar="esNoBlanco" disabled >
-                    </select>
-                </div>
-                <div id="div1" class="grupo_campos nueva_linea">
-                    <label for="Localidad">
-                        Localidad:
-                    </label>
-                    <select id="cmb_edificio_localidad" style="width: 285px;" data-validar="esNoBlanco" disabled>
-                    </select>
-                </div>
                 <div id="div2" class="grupo_campos">
                     <label for="CodigoPostal">
                         Código Postal:</label>
                     <input id="txt_oficina_codigopostal" type="text" style="width: 75px;" data-validar="esNumeroNatural"/>
                 </div>
-                
+                 <div id="div8" class="grupo_campos">
+                 <input type="button" class="btn btn-primary"  style="margin-left: 100px;" id="bnt_buscar_localidad" value="Buscar Localidad" />
+                 </div>
+                 <div id="div7" class="grupo_campos nueva_linea">
+                    <label for="Provincia"  style="margin-left: 25px;">
+                        Provincia:
+                    </label>
+                    <select id="cmb_edificio_provincia" style="width: 323px;" data-validar="esNoBlanco" disabled >
+                    </select>
+                </div>
+                <div id="div1" class="grupo_campos nueva_linea">
+                    <label for="Localidad"  style="margin-left: 25px;">
+                        Localidad:
+                    </label>
+                    <select id="cmb_edificio_localidad" style="width: 323px;" data-validar="esNoBlanco" disabled>
+                    </select>
+                </div>
                 <div class="grupo_campos nueva_linea">
-                    <label for="Calle" style="margin-left: 26px;">
+                    <label for="Calle" style="margin-left: 49px;">
                         Calle:
                     </label>
-                    <input id="txt_edificio_calle" type="text" style="width: 276px;" data-validar="esNoBlanco" />
+                    <input id="txt_edificio_calle" type="text" style="width: 206px;" data-validar="esNoBlanco" />
                 </div>
                 <div class="grupo_campos">
                     <label for="Nro">
                         Nro:
                     </label>
-                    <input id="txt_edificio_numero" type="text" style="width: 50px; margin-left: 56px;" data-validar="esNumeroNatural" />
+                    <input id="txt_edificio_numero" type="text" style="width: 50px; margin-left: 5px;" data-validar="esNumeroNatural" />
                 </div>
                 <div class="btn-fld nueva_linea">
                     <input type="button" class="btn btn-primary" id="btn_guardar_edificio" value="Guardar Edificio" />

@@ -2328,6 +2328,15 @@ public class WSViaticos : System.Web.Services.WebService
        return  RepositorioDeAreas().GuardarEdificioPendienteDeAptobacion(id_provincia, nombre_provincia, id_localiad, nombre_localidad, codigo_postal, calle, numero, usuario);
     }
 
+    
+         [WebMethod]
+    public Localidad CargarDatosDeCodigoPostal(string criterio)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        int codigo_postal = (int)((JValue)criterio_deserializado["CodigoPostal"]);
+
+        return RepositorioDeAreas().CargarDatosDeCodigoPostal(codigo_postal);
+    }
 
     #endregion
 
