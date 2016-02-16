@@ -185,6 +185,12 @@ namespace General.MAU
             }
         }
 
+        public Persona GetPersonaPorIdUsuario(int id_usuario)
+        {
+            var usr = GetUsuarioPorId(id_usuario);
+            return repositorio_de_personas.GetPersonaPorId(usr.Owner.Id);
+        }
+
         internal bool ValidarMailExistente(string mail)
         {
             var parametros = new Dictionary<string, object>();
