@@ -2335,6 +2335,18 @@ public class WSViaticos : System.Web.Services.WebService
        return  RepositorioDeAreas().GuardarEdificioPendienteDeAptobacion(id_provincia, nombre_provincia, id_localiad, nombre_localidad, codigo_postal, calle, numero, usuario);
     }
 
+    [WebMethod]
+    public int GuardarOficinaPendienteDeAptobacion(string criterio, Usuario usuario)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        int id_edificio = (int)((JValue)criterio_deserializado["IdEdificio"]);
+        string piso = (string)((JValue)criterio_deserializado["Piso"]);
+        string oficina = (string)((JValue)criterio_deserializado["Oficina"]);
+        string uf = (string)((JValue)criterio_deserializado["UF"]);
+
+        return RepositorioDeAreas().GuardarOficinaPendienteDeAptobacion(id_edificio, piso, oficina, uf, usuario);
+    }
+
     
          [WebMethod]
     public Localidad CargarDatosDeCodigoPostal(string criterio)

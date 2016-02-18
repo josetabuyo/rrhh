@@ -270,9 +270,9 @@
     //MÉTODOS AUXILIARES PARA OFICINA
 
     WS_GuardarOficinaPendienteDeAptobacion: function () {
-        return Backend.ejecutarSincronico("WS_GuardarOficinaPendienteDeAptobacion", [{
+        return Backend.ejecutarSincronico("GuardarOficinaPendienteDeAptobacion", [{
             IdEdificio: parseInt($('#cmb_oficina_edificio').find('option:selected').val()),
-            Piso: parseInt($('#txt_oficina_piso').val()),
+            Piso: $('#txt_oficina_piso').val(),
             Oficina: $('#txt_oficina_oficina').val(),
             UF: $('#txt_oficina_uf').val()
         }]);
@@ -377,6 +377,8 @@
         $('#txt_oficina_piso').val(area.DireccionCompleta.Piso);
         $('#txt_oficina_oficina').val(area.DireccionCompleta.Dto);
         $('#txt_oficina_uf').val(area.DireccionCompleta.UF);
+        $('#txt_oficina_localidad').val(area.DireccionCompleta.Localidad.CodigoPostal);
+
     }
 
 }

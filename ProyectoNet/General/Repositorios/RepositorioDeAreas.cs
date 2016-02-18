@@ -553,13 +553,13 @@ namespace General.Repositorios
             return id;
         }
 
-        public int WS_GuardarOficinaPendienteDeAptobacion(int id_edificio, string piso, string oficina, string UF, Usuario usuario)
+        public int GuardarOficinaPendienteDeAptobacion(int id_edificio, string piso, string oficina, string UF, Usuario usuario)
         {
             int id = indice_auxiliar;
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_edificio", id_edificio);
             parametros.Add("@piso", piso);
-            parametros.Add("@oficina", oficina);
+            parametros.Add("@Dpto", oficina);
             parametros.Add("@UF", UF);
             parametros.Add("@id_usuario", usuario.Id);
 

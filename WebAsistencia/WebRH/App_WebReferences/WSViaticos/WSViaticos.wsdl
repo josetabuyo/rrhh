@@ -2,6 +2,32 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="BuscarInstitucionesEventosAcademicos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarInstitucionesEventosAcademicosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarInstitucionesEventosAcademicosResult" type="tns:ArrayOfCVInstitucionesEventos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCVInstitucionesEventos">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CVInstitucionesEventos" nillable="true" type="tns:CVInstitucionesEventos" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CVInstitucionesEventos">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SoloVisiblePara" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarPaises">
         <s:complexType>
           <s:sequence>
@@ -499,6 +525,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="GetIdCabeceraFormularioResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RefrescarCacheMAU">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RefrescarCacheMAUResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RefrescarCacheMAUResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1626,18 +1666,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfCVInstitucionesEventos">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CVInstitucionesEventos" nillable="true" type="tns:CVInstitucionesEventos" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CVInstitucionesEventos">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="SoloVisiblePara" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="AgregarInstitucionesEvento">
         <s:complexType>
           <s:sequence>
@@ -2495,20 +2523,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="BuscarInstitucionesEventosAcademicos">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarInstitucionesEventosAcademicosResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarInstitucionesEventosAcademicosResult" type="tns:ArrayOfCVInstitucionesEventos" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GuardarAlumno">
         <s:complexType>
           <s:sequence>
@@ -3844,6 +3858,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GuardarOficinaPendienteDeAptobacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarOficinaPendienteDeAptobacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GuardarOficinaPendienteDeAptobacionResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="CargarDatosDeCodigoPostal">
         <s:complexType>
           <s:sequence>
@@ -3855,20 +3884,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="CargarDatosDeCodigoPostalResult" type="tns:Localidad" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="RefrescarCacheMAU">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="RefrescarCacheMAUResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="RefrescarCacheMAUResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5221,6 +5236,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="BuscarInstitucionesEventosAcademicosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarInstitucionesEventosAcademicos" />
+  </wsdl:message>
+  <wsdl:message name="BuscarInstitucionesEventosAcademicosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarInstitucionesEventosAcademicosResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarPaisesSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarPaises" />
   </wsdl:message>
@@ -5298,6 +5319,12 @@
   </wsdl:message>
   <wsdl:message name="GetIdCabeceraFormularioSoapOut">
     <wsdl:part name="parameters" element="tns:GetIdCabeceraFormularioResponse" />
+  </wsdl:message>
+  <wsdl:message name="RefrescarCacheMAUSoapIn">
+    <wsdl:part name="parameters" element="tns:RefrescarCacheMAU" />
+  </wsdl:message>
+  <wsdl:message name="RefrescarCacheMAUSoapOut">
+    <wsdl:part name="parameters" element="tns:RefrescarCacheMAUResponse" />
   </wsdl:message>
   <wsdl:message name="GetInstanciasDeEvaluacionSoapIn">
     <wsdl:part name="parameters" element="tns:GetInstanciasDeEvaluacion" />
@@ -5797,12 +5824,6 @@
   <wsdl:message name="BuscarModalidadContratacionSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarModalidadContratacionResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarInstitucionesEventosAcademicosSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarInstitucionesEventosAcademicos" />
-  </wsdl:message>
-  <wsdl:message name="BuscarInstitucionesEventosAcademicosSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarInstitucionesEventosAcademicosResponse" />
-  </wsdl:message>
   <wsdl:message name="GuardarAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarAlumno" />
   </wsdl:message>
@@ -6283,17 +6304,17 @@
   <wsdl:message name="GuardarEdificioPendienteDeAptobacionSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarEdificioPendienteDeAptobacionResponse" />
   </wsdl:message>
+  <wsdl:message name="GuardarOficinaPendienteDeAptobacionSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarOficinaPendienteDeAptobacion" />
+  </wsdl:message>
+  <wsdl:message name="GuardarOficinaPendienteDeAptobacionSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarOficinaPendienteDeAptobacionResponse" />
+  </wsdl:message>
   <wsdl:message name="CargarDatosDeCodigoPostalSoapIn">
     <wsdl:part name="parameters" element="tns:CargarDatosDeCodigoPostal" />
   </wsdl:message>
   <wsdl:message name="CargarDatosDeCodigoPostalSoapOut">
     <wsdl:part name="parameters" element="tns:CargarDatosDeCodigoPostalResponse" />
-  </wsdl:message>
-  <wsdl:message name="RefrescarCacheMAUSoapIn">
-    <wsdl:part name="parameters" element="tns:RefrescarCacheMAU" />
-  </wsdl:message>
-  <wsdl:message name="RefrescarCacheMAUSoapOut">
-    <wsdl:part name="parameters" element="tns:RefrescarCacheMAUResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
@@ -6734,6 +6755,10 @@
     <wsdl:part name="parameters" element="tns:GetCursosDelAlumnoResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
+      <wsdl:input message="tns:BuscarInstitucionesEventosAcademicosSoapIn" />
+      <wsdl:output message="tns:BuscarInstitucionesEventosAcademicosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarPaises">
       <wsdl:input message="tns:BuscarPaisesSoapIn" />
       <wsdl:output message="tns:BuscarPaisesSoapOut" />
@@ -6785,6 +6810,10 @@
     <wsdl:operation name="GetIdCabeceraFormulario">
       <wsdl:input message="tns:GetIdCabeceraFormularioSoapIn" />
       <wsdl:output message="tns:GetIdCabeceraFormularioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RefrescarCacheMAU">
+      <wsdl:input message="tns:RefrescarCacheMAUSoapIn" />
+      <wsdl:output message="tns:RefrescarCacheMAUSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetInstanciasDeEvaluacion">
       <wsdl:input message="tns:GetInstanciasDeEvaluacionSoapIn" />
@@ -7118,10 +7147,6 @@
       <wsdl:input message="tns:BuscarModalidadContratacionSoapIn" />
       <wsdl:output message="tns:BuscarModalidadContratacionSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
-      <wsdl:input message="tns:BuscarInstitucionesEventosAcademicosSoapIn" />
-      <wsdl:output message="tns:BuscarInstitucionesEventosAcademicosSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <wsdl:input message="tns:GuardarAlumnoSoapIn" />
       <wsdl:output message="tns:GuardarAlumnoSoapOut" />
@@ -7442,13 +7467,13 @@
       <wsdl:input message="tns:GuardarEdificioPendienteDeAptobacionSoapIn" />
       <wsdl:output message="tns:GuardarEdificioPendienteDeAptobacionSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GuardarOficinaPendienteDeAptobacion">
+      <wsdl:input message="tns:GuardarOficinaPendienteDeAptobacionSoapIn" />
+      <wsdl:output message="tns:GuardarOficinaPendienteDeAptobacionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="CargarDatosDeCodigoPostal">
       <wsdl:input message="tns:CargarDatosDeCodigoPostalSoapIn" />
       <wsdl:output message="tns:CargarDatosDeCodigoPostalSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="RefrescarCacheMAU">
-      <wsdl:input message="tns:RefrescarCacheMAUSoapIn" />
-      <wsdl:output message="tns:RefrescarCacheMAUSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
@@ -7745,6 +7770,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarInstitucionesEventosAcademicos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarPaises">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPaises" style="document" />
       <wsdl:input>
@@ -7855,6 +7889,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetIdCabeceraFormulario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefrescarCacheMAU">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/RefrescarCacheMAU" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8609,15 +8652,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarInstitucionesEventosAcademicos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -9338,8 +9372,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CargarDatosDeCodigoPostal">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/CargarDatosDeCodigoPostal" style="document" />
+    <wsdl:operation name="GuardarOficinaPendienteDeAptobacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarOficinaPendienteDeAptobacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9347,8 +9381,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RefrescarCacheMAU">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/RefrescarCacheMAU" style="document" />
+    <wsdl:operation name="CargarDatosDeCodigoPostal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CargarDatosDeCodigoPostal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10016,6 +10050,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarInstitucionesEventosAcademicos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarPaises">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPaises" style="document" />
       <wsdl:input>
@@ -10126,6 +10169,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetIdCabeceraFormulario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefrescarCacheMAU">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/RefrescarCacheMAU" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10880,15 +10932,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarInstitucionesEventosAcademicos" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -11609,8 +11652,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CargarDatosDeCodigoPostal">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/CargarDatosDeCodigoPostal" style="document" />
+    <wsdl:operation name="GuardarOficinaPendienteDeAptobacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarOficinaPendienteDeAptobacion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -11618,8 +11661,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RefrescarCacheMAU">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/RefrescarCacheMAU" style="document" />
+    <wsdl:operation name="CargarDatosDeCodigoPostal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CargarDatosDeCodigoPostal" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
