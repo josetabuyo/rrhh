@@ -29,6 +29,10 @@
             $("#div_contenido_direccion").hide();
         });
 
+        $('#btn_buscarEdificioPorCodigoPostal').click(function () {
+            _this.CargarComboEdificioPorCodigoPostal(null, $('#txt_oficina_localidad').val());
+        });
+
         $('#btn_guardar_oficina').click(function () {
             _this.GuardarCambiosEnOficina();
         });
@@ -42,10 +46,10 @@
             $("#div_contenido_direccion").show();
         });
 
-//        $('#cmb_edificio_provincia').change(function () {
-//            $('#cmb_edificio_localidad').empty();
-//            _this.CargarComboLocalidad($('#cmb_edificio_provincia').find('option:selected').val());
-//        });
+        //        $('#cmb_edificio_provincia').change(function () {
+        //            $('#cmb_edificio_localidad').empty();
+        //            _this.CargarComboLocalidad($('#cmb_edificio_provincia').find('option:selected').val());
+        //        });
 
         $('#cmb_edificio_localidad').change(function () {
             $('#txt_oficina_codigopostal').val(area.DireccionCompleta.CodigoPostal);
@@ -64,94 +68,122 @@
 
 
 
-        $('#cmb_direccion_edificio').change(function () {
-            area.DireccionCompleta.IdEdificio = $('#cmb_direccion_edificio').val();
+        //        $('#cmb_direccion_edificio').change(function () {
+        //            area.DireccionCompleta.IdEdificio = $('#cmb_direccion_edificio').val();
 
-            if (area.DireccionCompleta.IdEdificio == 99) {
-                area.DireccionCompleta.Calle = area_dinamica.DireccionCompleta.Calle;
-                area.DireccionCompleta.Numero = area_dinamica.DireccionCompleta.Numero;
-                area.DireccionCompleta.Piso = area_dinamica.DireccionCompleta.Piso;
-                area.DireccionCompleta.Dto = area_dinamica.DireccionCompleta.Dto;
-                area.DireccionCompleta.UF = area_dinamica.DireccionCompleta.UF;
-            } else {
-                _this.CargarComboOficina(area.DireccionCompleta.IdEdificio, area.DireccionCompleta.IdEdificio);
-                _this.CargarDatosDeEdificio();
+        //            if (area.DireccionCompleta.IdEdificio == 99) {
+        //                area.DireccionCompleta.Calle = area_dinamica.DireccionCompleta.Calle;
+        //                area.DireccionCompleta.Numero = area_dinamica.DireccionCompleta.Numero;
+        //                area.DireccionCompleta.Piso = area_dinamica.DireccionCompleta.Piso;
+        //                area.DireccionCompleta.Dto = area_dinamica.DireccionCompleta.Dto;
+        //                area.DireccionCompleta.UF = area_dinamica.DireccionCompleta.UF;
+        //            } else {
+        //                _this.CargarComboOficina(area.DireccionCompleta.IdEdificio, area.DireccionCompleta.IdEdificio);
+        //                _this.CargarDatosDeEdificio();
 
-            }
-        });
+        //            }
+        //        });
 
     },
     CargarCombos: function () {
-//        this.CargarComboProvincia();
-//        this.CargarComboLocalidad(area.DireccionCompleta.Localidad.IdProvincia);
-        this.CargarComboEdificio(area.DireccionCompleta.Localidad.Id, area.DireccionCompleta.Localidad.Id);
-        this.CargarComboOficina(area.DireccionCompleta.IdEdificio, area.DireccionCompleta.IdEdificio);
+        //        this.CargarComboProvincia();
+        //        this.CargarComboLocalidad(area.DireccionCompleta.Localidad.IdProvincia);
+        this.CargarComboEdificio(area.DireccionCompleta.IdEdificio, area.DireccionCompleta.Localidad.Id);
+        this.CargarComboOficina(area.DireccionCompleta.IdOficina, area.DireccionCompleta.IdEdificio);
     },
 
-//    CargarComboProvincia: function () {
-//        var combo = $('#cmb_edificio_provincia');
+    //    CargarComboProvincia: function () {
+    //        var combo = $('#cmb_edificio_provincia');
 
-//        var provincias = Backend.ejecutarSincronico("BuscarProvincias", [{ IdPais: 0}]);
+    //        var provincias = Backend.ejecutarSincronico("BuscarProvincias", [{ IdPais: 0}]);
 
-//        if (provincias.length > 0) {
-//            for (var i = 0; i < provincias.length; i++) {
-//                combo.append('<option value="' + provincias[i].Id + '">' + provincias[i].Nombre + '</option>');
-//            }
-//        }
-//    },
+    //        if (provincias.length > 0) {
+    //            for (var i = 0; i < provincias.length; i++) {
+    //                combo.append('<option value="' + provincias[i].Id + '">' + provincias[i].Nombre + '</option>');
+    //            }
+    //        }
+    //    },
 
     CargarDatosDeCodigoPostal: function (codigo_postal) {
         var localidad = Backend.ejecutarSincronico("CargarDatosDeCodigoPostal", [{
             CodigoPostal: parseInt(codigo_postal)
         }]);
-        if (localidad.Id != 0) {
-            var combo_localidad = $('#cmb_direccion_localidad');
-            var combo_provincia = $('#cmb_edificio_provincia');
-            combo_localidad.empty();
-            combo_provincia.empty();
-            combo_localidad.append('<option value="' + localidad.Id + '">' + localidad.Nombre + '</option>');
-            combo_provincia.append('<option value="' + localidad.IdProvincia + '">' + localidad.NombreProvincia + '</option>');
-        } else { 
-        
-        }
+
+        var combo_localidad = $('#cmb_edificio_localidad');
+        var combo_provincia = $('#cmb_edificio_provincia');
+        combo_localidad.empty();
+        combo_provincia.empty();
+        combo_localidad.append('<option value="' + localidad.Id + '">' + localidad.Nombre + '</option>');
+        combo_provincia.append('<option value="' + localidad.IdProvincia + '">' + localidad.NombreProvincia + '</option>');
+
     },
 
-//    CargarComboLocalidad: function (provincia) {
-//        var combo = $('#cmb_direccion_localidad');
-//        var combo2 = $('#cmb_edificio_localidad');
+    //    CargarComboLocalidad: function (provincia) {
+    //        var combo = $('#cmb_direccion_localidad');
+    //        var combo2 = $('#cmb_edificio_localidad');
 
-//        var localidades = Backend.ejecutarSincronico("BuscarLocalidades", [{ IdProvincia: parseInt(provincia)}]);
+    //        var localidades = Backend.ejecutarSincronico("BuscarLocalidades", [{ IdProvincia: parseInt(provincia)}]);
 
-//        if (localidades.length > 0) {
-//            for (var i = 0; i < localidades.length; i++) {
-//                combo.append('<option value="' + localidades[i].Id + '">' + localidades[i].Nombre + '</option>');
-//                combo2.append('<option value="' + localidades[i].Id + '">' + localidades[i].Nombre + '</option>');
-//            }
-//            if (provincia.toString() != "") {
-//                if (provincia == 0) {
-//                    $('#cmb_direccion_localidad').val(localidades[0].Id).change();
-//                    $('#cmb_edificio_localidad').val(localidades[0].Id).change();
-//                } else {
-//                    $('#cmb_direccion_localidad').val(area.DireccionCompleta.Localidad.IdLocalidad).change();
-//                    $('#cmb_edificio_localidad').val(area.DireccionCompleta.Localidad.IdLocalidad).change();
-//                }
-//            }
-//        }
-//    },
+    //        if (localidades.length > 0) {
+    //            for (var i = 0; i < localidades.length; i++) {
+    //                combo.append('<option value="' + localidades[i].Id + '">' + localidades[i].Nombre + '</option>');
+    //                combo2.append('<option value="' + localidades[i].Id + '">' + localidades[i].Nombre + '</option>');
+    //            }
+    //            if (provincia.toString() != "") {
+    //                if (provincia == 0) {
+    //                    $('#cmb_direccion_localidad').val(localidades[0].Id).change();
+    //                    $('#cmb_edificio_localidad').val(localidades[0].Id).change();
+    //                } else {
+    //                    $('#cmb_direccion_localidad').val(area.DireccionCompleta.Localidad.IdLocalidad).change();
+    //                    $('#cmb_edificio_localidad').val(area.DireccionCompleta.Localidad.IdLocalidad).change();
+    //                }
+    //            }
+    //        }
+    //    },
 
-    CargarComboEdificio: function (id_seleccion, id_localildad, id_provincia) {
+    CargarComboEdificio: function (id_seleccion, id_localildad) {
+
         var combo = $('#cmb_direccion_edificio');
         var combo2 = $('#cmb_oficina_edificio');
-
-        var edificios = Backend.ejecutarSincronico("ObtenerEdificiosPorLocalidad", [{ IdLocalidad: parseInt(id_localildad), IdProvincia: parseInt(id_provincia)}]);
+        combo.empty();
+        combo2.empty();
+        var edificios = Backend.ejecutarSincronico("ObtenerEdificiosPorLocalidad", [{ IdLocalidad: parseInt(id_localildad)}]);
 
         if (edificios.length > 0) {
             for (var i = 0; i < edificios.length; i++) {
                 combo.append('<option value="' + edificios[i].Id + '">' + edificios[i].Descripcion + '</option>');
                 combo2.append('<option value="' + edificios[i].Id + '">' + edificios[i].Descripcion + '</option>');
             }
+            if (id_seleccion != null) {
+                combo.val(id_seleccion).change();
+                combo2.val(id_seleccion).change();
+            }
+
         }
+
     },
+    CargarComboEdificioPorCodigoPostal: function (id_seleccion, id_codigo_postal) {
+
+        var combo = $('#cmb_direccion_edificio');
+        var combo2 = $('#cmb_oficina_edificio');
+        combo.empty();
+        combo2.empty();
+        var edificios = Backend.ejecutarSincronico("ObtenerEdificiosPorCodigoPostal", [{ CodigoPostal: parseInt(id_codigo_postal)}]);
+
+        if (edificios.length > 0) {
+            for (var i = 0; i < edificios.length; i++) {
+                combo.append('<option value="' + edificios[i].Id + '">' + edificios[i].Descripcion + '</option>');
+                combo2.append('<option value="' + edificios[i].Id + '">' + edificios[i].Descripcion + '</option>');
+            }
+            if (id_seleccion != null) {
+                combo.val(id_seleccion).change();
+                combo2.val(id_seleccion).change();
+            }
+
+        }
+
+    },
+
     //no se usa el id de seleccion
     CargarComboOficina: function (id_seleccion, id_edificio) {
         var _this = this;
@@ -334,8 +366,8 @@
 
     },
     CargarDatosEdificio: function () {
-        $('#cmb_edificio_localidad').val(area.DireccionCompleta.Localidad.Id).change();
-        $('#cmb_edificio_provincia').val(area.DireccionCompleta.Localidad.IdProvincia).change();
+        var _this = this;
+        _this.CargarDatosDeCodigoPostal($('#txt_oficina_codigopostal').val());
         $('#txt_edificio_calle').val(area.DireccionCompleta.Calle);
         $('#txt_oficina_codigopostal').val(area.DireccionCompleta.Localidad.CodigoPostal);
         $('#txt_edificio_numero').val(area.DireccionCompleta.Numero);

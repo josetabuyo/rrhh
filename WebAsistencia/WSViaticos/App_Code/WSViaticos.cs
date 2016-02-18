@@ -2285,8 +2285,15 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         int id_localidad = (int)((JValue)criterio_deserializado["IdLocalidad"]);
-        int id_provincia = 1; //(int)((JValue)criterio_deserializado["IdProvincia"]);
-        return RepositorioDeAreas().ObtenerEdificiosPorLocalidad(id_localidad, id_provincia, usuario).ToArray();
+        //int id_provincia = (int)((JValue)criterio_deserializado["IdProvincia"]);
+        return RepositorioDeAreas().ObtenerEdificiosPorLocalidad(id_localidad, usuario).ToArray();
+    }
+    [WebMethod]
+    public Combo[] ObtenerEdificiosPorCodigoPostal(string criterio, Usuario usuario)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        int codigo_postal = (int)((JValue)criterio_deserializado["CodigoPostal"]);
+        return RepositorioDeAreas().ObtenerEdificiosPorCodigoPostal(codigo_postal, usuario).ToArray();
     }
 
     [WebMethod]

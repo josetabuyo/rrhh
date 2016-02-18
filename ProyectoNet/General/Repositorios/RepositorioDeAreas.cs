@@ -422,7 +422,13 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
-        public List<Combo> ObtenerEdificiosPorLocalidad(int id_localidad, int id_provincia, Usuario usuario)
+        public List<Combo> ObtenerEdificiosPorCodigoPostal(int id_codigo_postal, Usuario usuario)
+        {
+            Localidad localidad = CargarDatosDeCodigoPostal(id_codigo_postal);
+            return ObtenerEdificiosPorLocalidad(localidad.Id, usuario);
+        }
+
+        public List<Combo> ObtenerEdificiosPorLocalidad(int id_localidad, Usuario usuario)
         {
             List<Combo> combo = new List<Combo>();
             var parametros = new Dictionary<string, object>();
@@ -592,6 +598,7 @@ namespace General.Repositorios
                     localidad.IdPartido = localidad_base.GetSmallintAsInt("partido");
                     localidad.NombrePartido = localidad_base.GetString("DescPartido");
                     localidad.Nombre = localidad_base.GetString("nombrelocalidad");
+                    localidad.Id = localidad_base.GetInt("idLocalidad");
                 }
             }
 
