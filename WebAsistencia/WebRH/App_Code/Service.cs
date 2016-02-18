@@ -96,7 +96,7 @@ public class AjaxWS : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string BuscarLegajosParaDigitalizacion(string criterio)
     {
-        var respuesta = backEndService.BuscarLegajosParaDigitalizacion(criterio);
+        var respuesta = backEndService.BuscarLegajosParaDigitalizacion(criterio, usuarioLogueado);
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
     }
@@ -105,7 +105,7 @@ public class AjaxWS : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetImagenPorId(int id_imagen)
     {
-        var respuesta = backEndService.GetImagenPorId(id_imagen);
+        var respuesta = backEndService.GetImagenPorId(id_imagen, usuarioLogueado);
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
     }
@@ -114,7 +114,7 @@ public class AjaxWS : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string GetThumbnailPorId(int id_imagen, int alto, int ancho)
     {
-        var respuesta = backEndService.GetThumbnailPorId(id_imagen, alto, ancho);
+        var respuesta = backEndService.GetThumbnailPorId(id_imagen, alto, ancho, usuarioLogueado);
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
     }
@@ -123,14 +123,14 @@ public class AjaxWS : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
     {
-        return backEndService.AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
+        return backEndService.AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
     {
-        return backEndService.AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
+        return backEndService.AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
