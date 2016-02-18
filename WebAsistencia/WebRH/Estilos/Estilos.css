@@ -760,3 +760,9 @@ body.loading {
 body.loading .loader {
     display: block;
 }
+
+span.dynatree_image span.dynatree-icon
+{
+    background-position: 0 0;
+    background-image: url("../Imagenes/candado.png");
+}

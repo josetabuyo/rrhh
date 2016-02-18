@@ -141,6 +141,7 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
     $("#btn_verificar_usuario").hide();
     $('#panel_usuarios_por_area').insertAfter("#form1");
     $('#panel_personas_de_baja_con_permisos').insertAfter("#form1");
+    $('.dynatree-folder span.dynatree-checkbox').remove();
 
     if (usuario.Verificado) $("#usuario_verificado").show();
     else {
@@ -206,7 +207,7 @@ AdministradorDeUsuarios.prototype.ArmarTabla = function (tabla, data, contexto_p
     //this.GrillaDeUsuarios.AgregarEstilo("cuerpo_tabla_usuarios tr td");
     //this.GrillaDeUsuarios.AgregarEstilo("celda_seleccionada");
     this.GrillaDeUsuarios.AgregarEstilo("cuerpo_tabla_usuarios");
-    
+
     this.GrillaDeUsuarios.CambiarEstiloCabecera("cabecera_tabla_usuarios");
     this.GrillaDeUsuarios.SetOnRowClickEventHandler(function (un_usuario) {
         //$('#selector_usuario').val(un_usuario.Owner.Documento);
@@ -216,6 +217,11 @@ AdministradorDeUsuarios.prototype.ArmarTabla = function (tabla, data, contexto_p
         persona_seleccionada.documento = un_usuario.Owner.Documento;
         persona_seleccionada.id = un_usuario.Owner.Id;
 
+        $('html,body').animate({
+            scrollTop: $("#instrucciones_de_uso").offset().top
+        }, 1000);
+
+        $('.select2-chosen').html("");
         contexto_para_row_click.selector_usuario.alSeleccionarUnaPersona(persona_seleccionada);
     });
     this.GrillaDeUsuarios.CargarObjetos(data);

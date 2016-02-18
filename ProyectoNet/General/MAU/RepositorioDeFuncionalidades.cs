@@ -35,7 +35,7 @@ namespace General.MAU
                 Funcionalidad func;
                 try
                 {
-                    func = new Funcionalidad(row.GetInt("Id"), row.GetString("Nombre"));
+                    func = new Funcionalidad(row.GetInt("Id"), row.GetString("Nombre"), row.GetString("GrupoNombre"));
                     funcionalidades.Add(func);
                 }catch(Exception){
                     throw;
