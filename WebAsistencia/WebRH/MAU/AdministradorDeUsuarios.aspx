@@ -72,18 +72,35 @@
                 <div id="panel_derecho" class="estilo_formulario">
                     <legend class="subtitulos"> Funcionalidades </legend>
                     <div id="vista_permisos"> </div>            
-                </div>  
+                </div> 
+                
             </div> 
-            <hr />   
+              <hr />  
              <div id="panel_personas_de_baja_con_permisos" RequiereFuncionalidad = "29">
-        <p class="persona_baja_con_funcionalidades">Consultar Personas de Baja con Permisos</p>
-        <input type="button" value="Consultar" id="btn_buscar_personas_de_baja" class="btn btn-primary" />
-        <div id="contenedor_personas_de_baja">
-            <table id="tabla_personas_de_baja"></table>
+                <p class="persona_baja_con_funcionalidades">Consultar Personas de Baja con Permisos</p>
+                <input type="button" value="Consultar" id="btn_buscar_personas_de_baja" class="btn btn-primary" />
+                <div id="contenedor_personas_de_baja">
+                    <table id="tabla_personas_de_baja"></table>
+                </div>
+                <hr />  
+             </div> 
+             
+             <div id="panel_usuarios_por_area" >
+                <p class="persona_baja_con_funcionalidades">Consultar Usuarios Por Área</p>
+                    <div id="lista_areas_para_consultar" style="display: inline;">
+                        
+                    </div>
+                    <div id="selector_area_usuarios" class="selector_areas" style="position: inherit; display: inline;">
+                        <input id="buscador" type="hidden" class="buscarUsuarioPorArea" />
+                    </div>
+                <div id="contenedor_usuarios_por_area">
+                    <p id="p_nombre_area"></p>
+                    <table id="tabla_usuarios_por_area"></table>
+                </div>
+                 <hr />  
+             </div> 
         </div>
-    </div> 
-        </div>
-
+         <div class="loader"><!-- DIV PARA LOADER AJAX --></div>
     </form>
    
 
@@ -109,6 +126,7 @@
             <input id="btn_quitar_area" type=button class="btn btn-primary" value="-"/>
         </div>
     </div>
+   
 </body>
 <script type="text/javascript" src="VistaDeAreasAdministradas.js"></script>
 <script type="text/javascript" src="VistaDeAreaAdministrada.js"></script>
@@ -141,5 +159,7 @@
             var adm_usuarios = new AdministradorDeUsuarios();
         });
     });
+
+
 </script>
 </html>

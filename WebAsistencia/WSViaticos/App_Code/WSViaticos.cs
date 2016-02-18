@@ -2185,6 +2185,13 @@ public class WSViaticos : System.Web.Services.WebService
         return usuarios;
     }
 
+    [WebMethod]
+    public Usuario[] BuscarUsuariosPorArea(string nombre_area)
+    {
+        var usuarios = RepositorioDeUsuarios().GetUsuariosPorArea(nombre_area).ToArray();
+        return usuarios;
+    }
+
     
     [WebMethod]
     public Area[] AreasAdministradasPor(Usuario usuario)

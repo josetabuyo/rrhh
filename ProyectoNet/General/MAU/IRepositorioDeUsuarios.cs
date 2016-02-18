@@ -18,5 +18,6 @@ namespace General.MAU
         Usuario GetUsuarioPorId(int id_usuario);
         Persona GetPersonaPorIdUsuario(int id_usuario);
         List<Usuario> GetUsuariosConPersonasDeBaja();
+        List<Usuario> GetUsuariosPorArea(string nombre_area);
     }
 }

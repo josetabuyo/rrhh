@@ -2,33 +2,14 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GuardarCambiosEnFormulario">
+      <s:element name="GetFormulario">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="Formulario">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="idFormulario" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="idPersona" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="campos" type="tns:ArrayOfCampo" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfCampo">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Campo" nillable="true" type="tns:Campo" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Campo">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="valor" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="fijo" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="Usuario">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -79,6 +60,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Responsables" type="tns:ArrayOfPersona" />
           <s:element minOccurs="0" maxOccurs="1" name="Contacto" type="tns:ArrayOfContactoArea" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantidadDeUsuarios" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Responsable">
@@ -201,6 +183,40 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetFormularioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioResult" type="tns:Formulario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Formulario">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="idFormulario" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="idPersona" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="campos" type="tns:ArrayOfCampo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCampo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Campo" nillable="true" type="tns:Campo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Campo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="valor" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="fijo" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarCambiosEnFormulario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarCambiosEnFormularioResponse">
         <s:complexType />
       </s:element>
@@ -227,6 +243,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="GetIdCabeceraFormularioResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RecuperarUsuarioResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2182,21 +2212,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetFormulario">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetFormularioResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioResult" type="tns:Formulario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GuardarAlumno">
         <s:complexType>
           <s:sequence>
@@ -3345,6 +3360,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="BuscarUsuariosPorArea">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nombre_area" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarUsuariosPorAreaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarUsuariosPorAreaResult" type="tns:ArrayOfUsuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="AreasAdministradasPor">
         <s:complexType>
           <s:sequence>
@@ -3665,20 +3694,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="GetDniPorAliasResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="RecuperarUsuario">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="RecuperarUsuarioResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="RecuperarUsuarioResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5026,6 +5041,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GetFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFormularioResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarCambiosEnFormularioSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormulario" />
   </wsdl:message>
@@ -5043,6 +5064,12 @@
   </wsdl:message>
   <wsdl:message name="GetIdCabeceraFormularioSoapOut">
     <wsdl:part name="parameters" element="tns:GetIdCabeceraFormularioResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarUsuario" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarUsuarioResponse" />
   </wsdl:message>
   <wsdl:message name="RegistrarNuevoUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:RegistrarNuevoUsuario" />
@@ -5548,12 +5575,6 @@
   <wsdl:message name="BuscarLocalidadesSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarLocalidadesResponse" />
   </wsdl:message>
-  <wsdl:message name="GetFormularioSoapIn">
-    <wsdl:part name="parameters" element="tns:GetFormulario" />
-  </wsdl:message>
-  <wsdl:message name="GetFormularioSoapOut">
-    <wsdl:part name="parameters" element="tns:GetFormularioResponse" />
-  </wsdl:message>
   <wsdl:message name="GuardarAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarAlumno" />
   </wsdl:message>
@@ -5938,6 +5959,12 @@
   <wsdl:message name="BuscarPersonaDeBajaConPermisosSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarPersonaDeBajaConPermisosResponse" />
   </wsdl:message>
+  <wsdl:message name="BuscarUsuariosPorAreaSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarUsuariosPorArea" />
+  </wsdl:message>
+  <wsdl:message name="BuscarUsuariosPorAreaSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarUsuariosPorAreaResponse" />
+  </wsdl:message>
   <wsdl:message name="AreasAdministradasPorSoapIn">
     <wsdl:part name="parameters" element="tns:AreasAdministradasPor" />
   </wsdl:message>
@@ -6033,12 +6060,6 @@
   </wsdl:message>
   <wsdl:message name="GetDniPorAliasSoapOut">
     <wsdl:part name="parameters" element="tns:GetDniPorAliasResponse" />
-  </wsdl:message>
-  <wsdl:message name="RecuperarUsuarioSoapIn">
-    <wsdl:part name="parameters" element="tns:RecuperarUsuario" />
-  </wsdl:message>
-  <wsdl:message name="RecuperarUsuarioSoapOut">
-    <wsdl:part name="parameters" element="tns:RecuperarUsuarioResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
@@ -6479,6 +6500,10 @@
     <wsdl:part name="parameters" element="tns:GetCursosDelAlumnoResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetFormulario">
+      <wsdl:input message="tns:GetFormularioSoapIn" />
+      <wsdl:output message="tns:GetFormularioSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarCambiosEnFormulario">
       <wsdl:input message="tns:GuardarCambiosEnFormularioSoapIn" />
       <wsdl:output message="tns:GuardarCambiosEnFormularioSoapOut" />
@@ -6490,6 +6515,10 @@
     <wsdl:operation name="GetIdCabeceraFormulario">
       <wsdl:input message="tns:GetIdCabeceraFormularioSoapIn" />
       <wsdl:output message="tns:GetIdCabeceraFormularioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarUsuario">
+      <wsdl:input message="tns:RecuperarUsuarioSoapIn" />
+      <wsdl:output message="tns:RecuperarUsuarioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="RegistrarNuevoUsuario">
       <wsdl:input message="tns:RegistrarNuevoUsuarioSoapIn" />
@@ -6827,10 +6856,6 @@
       <wsdl:input message="tns:BuscarLocalidadesSoapIn" />
       <wsdl:output message="tns:BuscarLocalidadesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetFormulario">
-      <wsdl:input message="tns:GetFormularioSoapIn" />
-      <wsdl:output message="tns:GetFormularioSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <wsdl:input message="tns:GuardarAlumnoSoapIn" />
       <wsdl:output message="tns:GuardarAlumnoSoapOut" />
@@ -7087,6 +7112,10 @@
       <wsdl:input message="tns:BuscarPersonaDeBajaConPermisosSoapIn" />
       <wsdl:output message="tns:BuscarPersonaDeBajaConPermisosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="BuscarUsuariosPorArea">
+      <wsdl:input message="tns:BuscarUsuariosPorAreaSoapIn" />
+      <wsdl:output message="tns:BuscarUsuariosPorAreaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="AreasAdministradasPor">
       <wsdl:input message="tns:AreasAdministradasPorSoapIn" />
       <wsdl:output message="tns:AreasAdministradasPorSoapOut" />
@@ -7150,10 +7179,6 @@
     <wsdl:operation name="GetDniPorAlias">
       <wsdl:input message="tns:GetDniPorAliasSoapIn" />
       <wsdl:output message="tns:GetDniPorAliasSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="RecuperarUsuario">
-      <wsdl:input message="tns:RecuperarUsuarioSoapIn" />
-      <wsdl:output message="tns:RecuperarUsuarioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
@@ -7450,6 +7475,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarCambiosEnFormulario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnFormulario" style="document" />
       <wsdl:input>
@@ -7470,6 +7504,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetIdCabeceraFormulario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarUsuario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/RecuperarUsuario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8233,15 +8276,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetFormulario">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -8818,6 +8852,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="BuscarUsuariosPorArea">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarUsuariosPorArea" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AreasAdministradasPor">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AreasAdministradasPor" style="document" />
       <wsdl:input>
@@ -8955,15 +8998,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetDniPorAlias">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDniPorAlias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RecuperarUsuario">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/RecuperarUsuario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9631,6 +9665,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarCambiosEnFormulario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnFormulario" style="document" />
       <wsdl:input>
@@ -9651,6 +9694,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetIdCabeceraFormulario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarUsuario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/RecuperarUsuario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10414,15 +10466,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetFormulario">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -10999,6 +11042,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="BuscarUsuariosPorArea">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarUsuariosPorArea" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AreasAdministradasPor">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AreasAdministradasPor" style="document" />
       <wsdl:input>
@@ -11136,15 +11188,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetDniPorAlias">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDniPorAlias" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RecuperarUsuario">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/RecuperarUsuario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

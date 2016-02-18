@@ -202,6 +202,7 @@ namespace General.MAU
             
         }
 
+        
         public List<Usuario> GetUsuariosConPersonasDeBaja()
         {
            // var parametros = new Dictionary<string, object>();
@@ -222,15 +223,29 @@ namespace General.MAU
             List<Usuario> usuarios = new List<Usuario>();
             Usuario un_usuario = new Usuario();
             int idUsuario_original = 0;
+            string alias_usuario_original = "";
             tablaDatos.Rows.ForEach((row) => {
-                if (idUsuario_original != row.GetInt("Id_Persona"))
+                if ((row.GetObject("Id_Persona") is DBNull) && alias_usuario_original != row.GetString("Alias"))
                 {
                     un_usuario = GetUsuarioDeRow(row);
                     usuarios.Add(un_usuario);
                     un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad"), row.GetString("NombreFuncionalidad"))); 
-                    idUsuario_original = row.GetInt("Id_Persona");               
-                } else {
-                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad"), row.GetString("NombreFuncionalidad")));  
+                    alias_usuario_original = row.GetString("Alias");
+
+                }
+                else if ((row.GetObject("Id_Persona") is DBNull) && alias_usuario_original == row.GetString("Alias")) 
+                {
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad"), row.GetString("NombreFuncionalidad")));
+                } else if (idUsuario_original != row.GetInt("Id_Persona"))
+                {
+                    un_usuario = GetUsuarioDeRow(row);
+                    usuarios.Add(un_usuario);
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad"), row.GetString("NombreFuncionalidad")));
+                    idUsuario_original = row.GetInt("Id_Persona");
+                }
+                else
+                {
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad"), row.GetString("NombreFuncionalidad")));
                 }
             });
 
@@ -246,6 +261,27 @@ namespace General.MAU
             }
             usuario.Verificado = row.GetBoolean("Verificado", false);
             return usuario;   
+        }
+
+        public List<Usuario> GetUsuariosPorArea(string nombre_area)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@area", nombre_area);
+            var tablaDatos = conexion.Ejecutar("dbo.GEN_GetAreasUsuarios",parametros);
+            List<Usuario> lista_de_usuarios = new List<Usuario>();
+
+            if (tablaDatos.Rows.Count > 1)
+            {
+                tablaDatos.Rows.ForEach((row) =>
+                {
+                    lista_de_usuarios = corteControl(tablaDatos);
+                    //Usuario un_usuario = GetUsuarioDeRow(row);
+                    //lista_de_usuarios.Add(un_usuario);
+                });
+                //lista_de_usuarios = corteControl(tablaDatos);
+            }
+
+            return lista_de_usuarios;
         }
     }
 }
