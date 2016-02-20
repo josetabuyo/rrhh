@@ -449,7 +449,7 @@ namespace General.Repositorios
             return combo;
         }
 
-        public List<Combo> ObtenerOficinaPorEdificio(int id_edificio, int id_area)
+        public List<Combo> ObtenerOficinaPorEdificio(int id_edificio, int id_area, Usuario usuario)
         {
             List<Combo> combo = new List<Combo>();
             var parametros = new Dictionary<string, object>();
@@ -461,12 +461,13 @@ namespace General.Repositorios
                 Combo opcion = new Combo(row.GetSmallintAsInt("Id_Oficina"), row.GetString("Oficina"));
                 combo.Add(opcion);
             });
-            //var tablaDatos_aux = conexion.Ejecutar("dbo.", parametros);
-            //tablaDatos_aux.Rows.ForEach(row =>
-            //{
-            //    Combo opcion = new Combo(indice_auxiliar + row.GetSmallintAsInt("Id_Oficina"), row.GetString("Oficina"));
-            //    combo.Add(opcion);
-            //});
+            parametros.Add("@id_usuario", usuario.Id);
+            var tablaDatos_aux = conexion.Ejecutar("dbo.ESTR_Get_Oficina_AUX", parametros);
+            tablaDatos_aux.Rows.ForEach(row =>
+            {
+                Combo opcion = new Combo(indice_auxiliar + row.GetSmallintAsInt("Id_Oficina"), row.GetString("Oficina"));
+                combo.Add(opcion);
+            });
             return combo;
         }
 

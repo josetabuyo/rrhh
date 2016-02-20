@@ -68,21 +68,10 @@
 
 
 
-        //        $('#cmb_direccion_edificio').change(function () {
-        //            area.DireccionCompleta.IdEdificio = $('#cmb_direccion_edificio').val();
-
-        //            if (area.DireccionCompleta.IdEdificio == 99) {
-        //                area.DireccionCompleta.Calle = area_dinamica.DireccionCompleta.Calle;
-        //                area.DireccionCompleta.Numero = area_dinamica.DireccionCompleta.Numero;
-        //                area.DireccionCompleta.Piso = area_dinamica.DireccionCompleta.Piso;
-        //                area.DireccionCompleta.Dto = area_dinamica.DireccionCompleta.Dto;
-        //                area.DireccionCompleta.UF = area_dinamica.DireccionCompleta.UF;
-        //            } else {
-        //                _this.CargarComboOficina(area.DireccionCompleta.IdEdificio, area.DireccionCompleta.IdEdificio);
-        //                _this.CargarDatosDeEdificio();
-
-        //            }
-        //        });
+        $('#cmb_direccion_edificio').change(function () {
+            area.DireccionCompleta.IdEdificio = $('#cmb_direccion_edificio').val();
+            _this.CargarComboOficina(area.DireccionCompleta.IdOficina, area.DireccionCompleta.IdEdificio);
+        });
 
     },
     CargarCombos: function () {

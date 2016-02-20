@@ -2313,12 +2313,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Combo[] ObtenerOficinaPorEdificio(string criterio)
+    public Combo[] ObtenerOficinaPorEdificio(string criterio, Usuario usuario)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         int id_edificio = (int)((JValue)criterio_deserializado["IdEdificio"]);
         int id_area = (int)((JValue)criterio_deserializado["IdArea"]);  
-        return RepositorioDeAreas().ObtenerOficinaPorEdificio(id_edificio, id_area).ToArray();
+        return RepositorioDeAreas().ObtenerOficinaPorEdificio(id_edificio, id_area, usuario).ToArray();
     }
 
     [WebMethod]
