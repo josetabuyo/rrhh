@@ -76,16 +76,7 @@
                 
             </div> 
               <hr />  
-             <div id="panel_personas_de_baja_con_permisos" RequiereFuncionalidad = "29">
-                <p class="persona_baja_con_funcionalidades">Consultar Personas de Baja con Permisos</p>
-                <input type="button" value="Consultar" id="btn_buscar_personas_de_baja" class="btn btn-primary" />
-                <div id="contenedor_personas_de_baja">
-                    <table id="tabla_personas_de_baja"></table>
-                </div>
-                <hr />  
-             </div> 
-             
-             <div id="panel_usuarios_por_area" >
+             <div id="panel_usuarios_por_area" RequiereFuncionalidad = "30" >
                 <p class="persona_baja_con_funcionalidades">Consultar Usuarios Por Área</p>
                     <div id="lista_areas_para_consultar" style="display: inline;">
                         
@@ -98,6 +89,15 @@
                     <table id="tabla_usuarios_por_area"></table>
                 </div>
                  <hr />  
+             </div> 
+
+              <div id="panel_personas_de_baja_con_permisos" RequiereFuncionalidad = "29">
+                <p class="persona_baja_con_funcionalidades">Consultar Personas de Baja con Permisos</p>
+                <input type="button" value="Consultar" id="btn_buscar_personas_de_baja" class="btn btn-primary" />
+                <div id="contenedor_personas_de_baja">
+                    <table id="tabla_personas_de_baja"></table>
+                </div>
+                <hr />  
              </div> 
         </div>
          <div class="loader"><!-- DIV PARA LOADER AJAX --></div>

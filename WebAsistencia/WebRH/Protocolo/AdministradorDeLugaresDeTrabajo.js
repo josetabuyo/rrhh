@@ -26,18 +26,32 @@
             return cont;
         }
     }));
-    columnas.push(new Columna("Cant. Usuarios", {
-        generar: function (un_area) {
-            var div = $("<div>");
-            var cantidad = un_area._area.CantidadDeUsuarios;
-            var link = $('<a>');
-            link.attr('href', '../Mau/AdministradorDeUsuarios.aspx?Nombre=' + un_area._area.Alias);
-            link.text(' (Ver detalle)');
-            div.append(cantidad);
-            div.append(link);
-            return div;
-        }
-    }));
+
+    // Backend.sync.ElUsuarioLogueadoTienePermisosPara(30).onSuccess(function (tiene_permisos) {
+
+    if (Backend.sync.ElUsuarioLogueadoTienePermisosPara(30)) {
+
+        columnas.push(new Columna("Cant. Usuarios", {
+            generar: function (un_area) {
+                var div = $("<div>");
+                var cantidad = un_area._area.CantidadDeUsuarios;
+                var link = $('<a>');
+                link.attr('style', 'margin-left:20px');
+                var img = $('<img>');
+                img.attr('src', '../Imagenes/Botones/lupa.png');
+                img.attr('width', '30px');
+                img.attr('height', '30px');
+                link.attr('href', '../Mau/AdministradorDeUsuarios.aspx?Nombre=' + un_area._area.Alias);
+                link.append(img);
+                //link.text(' (Ver detalle)');
+                div.append(cantidad);
+                div.append(link);
+                return div;
+            }
+        }));
+    }
+    // });
+
 
     PlanillaAreas = new Grilla(columnas);
 

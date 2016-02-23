@@ -115,7 +115,7 @@
         var urlObj = {};
         for (var i = 0; i < arrUrl.length; i++) {
             var x = arrUrl[i].split("=");
-            urlObj[x[0]] = x[1]
+            urlObj[x[0]] = encodeURIComponent(x[1]) 
         }
         return urlObj;
     }
@@ -139,8 +139,9 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
     $("#usuario_verificado").hide();
     $("#usuario_no_verificado").hide();
     $("#btn_verificar_usuario").hide();
-    $('#panel_usuarios_por_area').insertAfter("#form1");
     $('#panel_personas_de_baja_con_permisos').insertAfter("#form1");
+    $('#panel_usuarios_por_area').insertAfter("#form1");
+   
     $('.dynatree-folder span.dynatree-checkbox').remove();
 
     if (usuario.Verificado) $("#usuario_verificado").show();
@@ -163,7 +164,6 @@ AdministradorDeUsuarios.prototype.BuscadorUsuariosPorArea = function (contexto) 
         placeholder: "ingrese el área que desea buscar",
         alSeleccionarUnArea: function (area) {
             $("#tabla_usuarios_por_area").html("");
-            $("#p_nombre_area").html("Área: " + area.nombre);
             contexto.BackendBuscarUsuariosPorArea(contexto, area.nombre);
         }
     });
@@ -172,10 +172,10 @@ AdministradorDeUsuarios.prototype.BuscadorUsuariosPorArea = function (contexto) 
 AdministradorDeUsuarios.prototype.BackendBuscarUsuariosPorArea = function (contexto, nombre_area) {
     $("body").addClass("loading");
     Backend.BuscarUsuariosPorArea(nombre_area).onSuccess(function (data) {
-                $("body").removeClass("loading");
-                contexto.ArmarTabla($('#tabla_usuarios_por_area'), data, contexto);                
-                console.log(data);
-            });
+        $("body").removeClass("loading");
+        $("#p_nombre_area").html("Área: " + nombre_area);
+        contexto.ArmarTabla($('#tabla_usuarios_por_area'), data, contexto);                
+        });
 }
 
 
@@ -217,6 +217,7 @@ AdministradorDeUsuarios.prototype.ArmarTabla = function (tabla, data, contexto_p
         persona_seleccionada.documento = un_usuario.Owner.Documento;
         persona_seleccionada.id = un_usuario.Owner.Id;
 
+        //para subir al tope de la pantalla
         $('html,body').animate({
             scrollTop: $("#instrucciones_de_uso").offset().top
         }, 1000);
