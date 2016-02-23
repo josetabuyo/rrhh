@@ -215,8 +215,9 @@ namespace General.MAU
                 lista_de_usuarios = corteControl(tablaDatos);
             }
 
-            return lista_de_usuarios;
+            return ordenarUsuariosAlfabeticamente(lista_de_usuarios);
         }
+
 
         private List<Usuario> corteControl(TablaDeDatos tablaDatos) { 
         
@@ -270,6 +271,23 @@ namespace General.MAU
             {
                     lista_de_usuarios = corteControl(tablaDatos);
             }
+
+            return ordenarUsuariosAlfabeticamente(lista_de_usuarios);
+        }
+
+        private List<Usuario> ordenarUsuariosAlfabeticamente(List<Usuario> lista_de_usuarios)
+        {
+            //Obtengo todos los usuarios sin persona asociada
+            var lista_usuarios_sin_personas = lista_de_usuarios.FindAll(usu => usu.Owner == null);
+            
+            //Borro esas personas del listado original
+            lista_de_usuarios.RemoveAll(usu => usu.Owner == null);
+
+            //Ordeno el listado original ahora que saque esos null
+            lista_de_usuarios.Sort((emp1, emp2) => emp1.Owner.Apellido.CompareTo(emp2.Owner.Apellido));
+            
+            //Agrego los usuarios sin personas al listado ordenado
+            lista_de_usuarios.AddRange(lista_usuarios_sin_personas);
 
             return lista_de_usuarios;
         }

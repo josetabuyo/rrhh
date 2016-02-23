@@ -41,7 +41,9 @@
                 img.attr('src', '../Imagenes/Botones/lupa.png');
                 img.attr('width', '30px');
                 img.attr('height', '30px');
-                link.attr('href', '../Mau/AdministradorDeUsuarios.aspx?Nombre=' + un_area._area.Alias);
+                //var world = "A string with symbols / characters that have special meaning?";
+                //var uri = 'http://example.com/foo?hello=' + encodeURIComponent(world);
+                link.attr('href', '../Mau/AdministradorDeUsuarios.aspx?Nombre=' + encodeURIComponent(un_area._area.Alias));
                 link.append(img);
                 //link.text(' (Ver detalle)');
                 div.append(cantidad);

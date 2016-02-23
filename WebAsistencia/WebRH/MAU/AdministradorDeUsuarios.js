@@ -115,7 +115,7 @@
         var urlObj = {};
         for (var i = 0; i < arrUrl.length; i++) {
             var x = arrUrl[i].split("=");
-            urlObj[x[0]] = encodeURIComponent(x[1]) 
+            urlObj[x[0]] = decodeURIComponent(x[1]) 
         }
         return urlObj;
     }
@@ -183,7 +183,8 @@ AdministradorDeUsuarios.prototype.ArmarTabla = function (tabla, data, contexto_p
 
     var columnas = [];
 
-    columnas.push(new Columna("Nombre", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Nombre + ', ' + un_usuario.Owner.Apellido } }));
+    columnas.push(new Columna("Apellido", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Apellido } }));
+    columnas.push(new Columna("Nombre", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Nombre  } }));
     columnas.push(new Columna("Documento", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Documento } }));
     columnas.push(new Columna("Usuario", { generar: function (un_usuario) { return un_usuario.Alias } }));
 
