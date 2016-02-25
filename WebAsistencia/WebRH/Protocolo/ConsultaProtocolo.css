@@ -16,8 +16,15 @@ tbody tr:odd
     top:100px;
 }
 
-.search
+#search_box
 {
     float:right; 
     margin:5px;
+}
+
+#exportar img
+{
+    width: 30px;    
+    margin-top: -10px;
+    margin-left: 5px;
 }

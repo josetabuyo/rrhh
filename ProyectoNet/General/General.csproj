@@ -96,6 +96,8 @@
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
     <Compile Include="DDJJ104\AreaParaDDJJ104.cs" />
     <Compile Include="DDJJ104\DDJJ104_2001.cs" />
+    <Compile Include="Modi\Impersonator.cs" />
+    <Compile Include="Modi\NetworkConnection.cs" />
     <Compile Include="Postular\AnexosDeEtapas.cs" />
     <Compile Include="Postular\ConstantesConcursar.cs" />
     <Compile Include="DictionaryExtension.cs" />

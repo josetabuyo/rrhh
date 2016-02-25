@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Drawing;
+using Tools;
+using System.Net;
 
 namespace General.Modi
 {
@@ -15,17 +17,18 @@ namespace General.Modi
             {
                 return Directory.GetFiles(path).ToList();
             }
-            catch(DirectoryNotFoundException e){
+            catch (DirectoryNotFoundException e)
+            {
                 throw new ExcepcionDeCarpetaDeLegajoNoEncontrada();
             }
         }
 
 
-        public Image getImagenFromPath(string pathImagen)
+        public Image getImagenFromPath(string path)
         {
-            //return Image.FromFile(pathImagen);
-
-            FileStream fs = new FileStream(pathImagen, FileMode.Open);
+            //then do whatever, such as getting a list of folders:
+                
+            FileStream fs = new FileStream(path, FileMode.Open);
 
             // allocate enough space for the file in memory
             Byte[] b = new Byte[fs.Length];
@@ -43,18 +46,26 @@ namespace General.Modi
             return Image.FromStream(ms);
         }
 
+        public bool guardarImagenEnPath(string path, string bytes_imagen)
+        {
+            byte[] imageBytes = Convert.FromBase64String(bytes_imagen);
+            FileStream fs = new FileStream(path, FileMode.Create);
+            fs.Write(imageBytes, 0, imageBytes.Count());
+            fs.Close();
+            return true;
+        }
 
-        public void moverArchivo(string pathArchivo, string pathCarpetaDestino)
+        public void moverArchivo(string path, string pathCarpetaDestino)
         {
             if (!System.IO.Directory.Exists(pathCarpetaDestino))
             {
                 System.IO.Directory.CreateDirectory(pathCarpetaDestino);
             }
-            var fileName = System.IO.Path.GetFileName(pathArchivo);
+            var fileName = System.IO.Path.GetFileName(path);
             var destFile = pathCarpetaDestino + "/" + fileName;
             try
             {
-                File.Move(pathArchivo, destFile);
+                File.Move(path, destFile);
             }
             catch (Exception e)
             {

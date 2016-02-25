@@ -1988,56 +1988,65 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio)
+    public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().BuscarLegajos(criterio);
     }
 
     [WebMethod]
-    public ImagenModi GetImagenPorId(int id_imagen)
+    public ImagenModi GetImagenPorId(int id_imagen, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
     }
 
     [WebMethod]
-    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
     }
 
     [WebMethod]
-    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
+    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
     }
 
     [WebMethod]
-    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
+    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);
     }
 
     [WebMethod]
     public int AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
     }
 
     [WebMethod]
     public void AsignarImagenAFolioDeLegajoPasandoPagina(int id_imagen, int nro_folio, int pagina, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajoPasandoPagina(id_imagen, nro_folio, pagina, usuario);
     }
 
     [WebMethod]
     public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
     }
 
     [WebMethod]
     public void DesAsignarImagen(int id_imagen, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         servicioDeDigitalizacionDeLegajos().DesAsignarImagen(id_imagen, usuario);
     }
 
