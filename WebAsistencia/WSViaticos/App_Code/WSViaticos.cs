@@ -2187,6 +2187,20 @@ public class WSViaticos : System.Web.Services.WebService
         return personas;
     }
 
+    [WebMethod]
+    public Usuario[] BuscarPersonaDeBajaConPermisos()
+    {
+        var usuarios = RepositorioDeUsuarios().GetUsuariosConPersonasDeBaja().ToArray();
+        return usuarios;
+    }
+
+    [WebMethod]
+    public Usuario[] BuscarUsuariosPorArea(string nombre_area)
+    {
+        var usuarios = RepositorioDeUsuarios().GetUsuariosPorArea(nombre_area).ToArray();
+        return usuarios;
+    }
+
     
     [WebMethod]
     public Area[] AreasAdministradasPor(Usuario usuario)

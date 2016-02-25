@@ -23,7 +23,7 @@
     <table width="100%">
         <tr>
             <td colspan="2">
-                <asp:Label ID="Label1" runat="server" Text="Solicito a Ud. se me otorgue licencia por nacimiento de hijo:"></asp:Label>
+                <asp:Label ID="Label1" runat="server" Text="Solicito a Ud. se me otorgue licencia por Mesa Examinadora:"></asp:Label>
             </td>
         </tr>
         <tr>

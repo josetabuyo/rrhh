@@ -11,11 +11,11 @@
 /*COMIENZO ESTILO SACC - ALUMNOS */
 
 .table-striped tbody tr:nth-child(odd) td {
-    background-color: #E6E6FA;
+    background-color: #f5f5f5;
 }
 
 .table tbody tr:hover td, .table tbody tr:hover th {
-    background-color: #6E89B1;/* #f5f5f5;*/
+    background-color: #E1DFFE;/* #f5f5f5;*/
 }
 
 .celda_seleccionada
