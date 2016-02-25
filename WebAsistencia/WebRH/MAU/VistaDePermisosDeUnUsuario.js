@@ -9,15 +9,29 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
         function (funcionalidades) { //on success
             _this.funcionalidades = funcionalidades;
             var nodos_funcionalidades = [];
+            var nodos_hijos = [];
+            var primera_vez = true;
+            var grupo = funcionalidades[0].Grupo;
             for (var i = 0; i < funcionalidades.length; i++) {
-                nodos_funcionalidades.push(new NodoEnArbolDeFuncionalidades(funcionalidades[i]));
+                if (grupo != funcionalidades[i].Grupo) {
+                    nodos_funcionalidades.push({ title: grupo, isFolder: true, children: nodos_hijos, addClass: "dynatree_image" })
+                    nodos_hijos = [];
+                    nodos_hijos.push(new NodoEnArbolDeFuncionalidades(funcionalidades[i]));
+                    grupo = funcionalidades[i].Grupo
+                } else {
+                    nodos_hijos.push(new NodoEnArbolDeFuncionalidades(funcionalidades[i]));
+                }
+                
+                //nodos_funcionalidades.push(new NodoEnArbolDeFuncionalidades(funcionalidades[i]));
             }
+            nodos_funcionalidades.push({ title: grupo, isFolder: true, children: nodos_hijos, addClass: "dynatree_image" })
             _this.ui.dynatree({
                 checkbox: true,
                 selectMode: 2,
                 children: nodos_funcionalidades,
                 debugLevel: 0,
                 onClick: function (node, event) {
+                   
                     if (node.getEventTargetType(event) == 'checkbox') {
                         if (node.isSelected()) {
                             _this.autorizador.denegarFuncionalidadA(
@@ -38,7 +52,7 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
                                 },
                                 function () { alertify.alert("error al conceder permisos"); }
                             );
-                        }
+                            }
                         return false;
                     }
                 }

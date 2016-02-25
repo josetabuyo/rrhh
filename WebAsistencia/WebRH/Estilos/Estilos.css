@@ -682,4 +682,87 @@ p.error span { display: inline-block; background: #D43636; padding: 6px; border-
 {
     text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);
 }
+
+.persona_baja_con_funcionalidades, #contenedor_personas_de_baja, #contenedor_usuarios_por_area 
+{
+    font-weight: bold;
+    font-size: 20px;
+    display: inline-block;
+    font-family: Monospace;
+    vertical-align: middle;
+    margin: 0 0 0 37px;
+    }
     
+#panel_personas_de_baja_con_permisos, #panel_usuarios_por_area {
+    display:block;
+       
+}
+    
+#contenedor_personas_de_baja, #contenedor_usuarios_por_area 
+{
+    display:block;
+    font-size:12px;
+    margin-top:20px;
+} 
+       
+.cabecera_tabla_usuarios
+{
+    color:#fff;
+    background-color: #2184be !important;
+            
+}
+    
+.tabla_usuarios_por_area tr td
+{
+    color: #000;
+    background-color: #fff !important;
+}
+
+.tabla_usuarios_por_area tr:hover {
+    background-color: #FCFCFC !important;
+}
+
+.celda_seleccionada
+{
+    background-color:#EDF1FF !important;
+    user-select: none;
+    cursor:pointer;
+}
+
+/*ESTILO PARA LOADER AJAX
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.loader {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('../Imagenes/Botones/ajax-loader.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .loader {
+    display: block;
+}
+
+span.dynatree_image span.dynatree-icon
+{
+    background-position: 0 0;
+    background-image: url("../Imagenes/candado.png");
+}
