@@ -7,25 +7,35 @@
     <title>Reportes</title>
     <%= Referencias.Css("../")%>
     <link rel="stylesheet" type="text/css" href="Reportes.css" />
+    <link rel="stylesheet" type="text/css" href="../Scripts/ArbolOrganigrama.css" />
     <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="Reportes.js"></script>
+    <script type="text/javascript" src="../Scripts/ArbolOrganigrama.js"></script>
 </head>
 <body>
     <form id="Reportes" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <input id="btn_consulta_rapida" type="button" class="btn btn-primary" value="Consulta Individual" />
     <div>
         <div id="contenedor_arbol_organigrama">
-        </div>
-        <div id="div_belen">
-            <br />
-            <a href="GraficoLicencias.aspx" class="btn btn-primary">Gráfico Licencias</a>
         </div>
     </div>
     </form>
     <div id="plantillas">
+        <div class="arbol_organigrama">
+        </div>
+        <div class="area_en_arbol">
+            <div id="nombre_area">
+            </div>
+            <div id="areas_dependientes">
+            </div>
+        </div>
+    </div>
+    <div id="div_belen">
+        <br />
+        <a href="GraficoLicencias.aspx" class="btn btn-primary">Gráfico Licencias</a>
     </div>
 </body>
 </html>
-</html> 

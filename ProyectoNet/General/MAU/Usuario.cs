@@ -20,6 +20,7 @@ namespace General.MAU
         public Persona Owner { get; set; }
         public bool Habilitado { get; set; }
         public bool Verificado { get; set; }
+        public List<Funcionalidad> Funcionalidades { get; set; }
 
         protected string clave_encriptada { get; set; }
 
@@ -34,6 +35,7 @@ namespace General.MAU
             this.clave_encriptada = clave_encriptada;
             this.Owner = owner;
             this.Habilitado = habilitado;
+            this.Funcionalidades = new List<Funcionalidad>();
         }
 
         public Usuario(int id, string alias, string clave_encriptada, bool habilitado)
@@ -42,6 +44,7 @@ namespace General.MAU
             this.Alias = alias;
             this.clave_encriptada = clave_encriptada;
             this.Habilitado = habilitado;
+            this.Funcionalidades = new List<Funcionalidad>();
         }
 
         public bool EsFirmante { get; set; }
@@ -56,6 +59,11 @@ namespace General.MAU
             if (!this.ValidarClave(clave_actual)) return false;
             this.clave_encriptada = Encriptador.EncriptarSHA1(clave_nueva);
             return true;
+        }
+
+        public void AgregarFuncionalidad(Funcionalidad funcionalidad)
+        {
+            this.Funcionalidades.Add(funcionalidad);
         }
 
         public override bool Equals(object obj)

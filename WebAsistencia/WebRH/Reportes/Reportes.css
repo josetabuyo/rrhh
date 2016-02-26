@@ -1,1 +1,11 @@
-﻿
+﻿.buscarPersona 
+{
+    font-size:1.3em; 
+    margin-top:30px; 
+    margin-left:10px;
+}
+
+#plantillas
+{
+    display: none;
+}

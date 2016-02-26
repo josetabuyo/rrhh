@@ -80,5 +80,14 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+        public List<Usuario> GetUsuariosConPersonasDeBaja() {
+            throw new NotImplementedException();
+        }
+
+        public List<Usuario> GetUsuariosPorArea(string nombre_area)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

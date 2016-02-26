@@ -201,5 +201,95 @@ namespace General.MAU
             return false;
             
         }
+
+        
+        public List<Usuario> GetUsuariosConPersonasDeBaja()
+        {
+           // var parametros = new Dictionary<string, object>();
+            //parametros.Add("@id_persona", id_persona);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetPersonasDeBajaConUsuarios");
+            List<Usuario> lista_de_usuarios = new List<Usuario>();
+
+            if (tablaDatos.Rows.Count > 1)
+            {
+                lista_de_usuarios = corteControl(tablaDatos);
+            }
+
+            return ordenarUsuariosAlfabeticamente(lista_de_usuarios);
+        }
+
+
+        private List<Usuario> corteControl(TablaDeDatos tablaDatos) { 
+        
+            List<Usuario> usuarios = new List<Usuario>();
+            Usuario un_usuario = new Usuario();
+            int idUsuario_original = 0;
+            string alias_usuario_original = "";
+            tablaDatos.Rows.ForEach((row) => {
+                if ((row.GetObject("Id_Persona") is DBNull))
+                {
+                    un_usuario = GetUsuarioDeRow(row);
+                    usuarios.Add(un_usuario);
+                    //un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad"), row.GetString("NombreFuncionalidad"))); 
+                    alias_usuario_original = row.GetString("Alias");
+
+                } else if (idUsuario_original != row.GetInt("Id_Persona"))
+                {
+                    un_usuario = GetUsuarioDeRow(row);
+                    usuarios.Add(un_usuario);
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad",0), row.GetString("NombreFuncionalidad",""), ""));
+                    idUsuario_original = row.GetInt("Id_Persona");
+                }
+                else
+                {
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad",0), row.GetString("NombreFuncionalidad",""),""));
+                }
+            });
+
+            return usuarios;
+        }
+
+        private Usuario GetUsuarioDeRow(RowDeDatos row) {
+            
+            Usuario usuario = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja"));
+            if (!(row.GetObject("Id_Persona") is DBNull))
+            {
+                usuario.Owner = repositorio_de_personas.GetPersonaPorId(row.GetInt("Id_Persona"));
+            }
+            usuario.Verificado = row.GetBoolean("Verificado", false);
+            return usuario;   
+        }
+
+        public List<Usuario> GetUsuariosPorArea(string nombre_area)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@area", nombre_area);
+            var tablaDatos = conexion.Ejecutar("dbo.GEN_GetAreasUsuarios",parametros);
+            List<Usuario> lista_de_usuarios = new List<Usuario>();
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                    lista_de_usuarios = corteControl(tablaDatos);
+            }
+
+            return ordenarUsuariosAlfabeticamente(lista_de_usuarios);
+        }
+
+        private List<Usuario> ordenarUsuariosAlfabeticamente(List<Usuario> lista_de_usuarios)
+        {
+            //Obtengo todos los usuarios sin persona asociada
+            var lista_usuarios_sin_personas = lista_de_usuarios.FindAll(usu => usu.Owner == null);
+            
+            //Borro esas personas del listado original
+            lista_de_usuarios.RemoveAll(usu => usu.Owner == null);
+
+            //Ordeno el listado original ahora que saque esos null
+            lista_de_usuarios.Sort((emp1, emp2) => emp1.Owner.Apellido.CompareTo(emp2.Owner.Apellido));
+            
+            //Agrego los usuarios sin personas al listado ordenado
+            lista_de_usuarios.AddRange(lista_usuarios_sin_personas);
+
+            return lista_de_usuarios;
+        }
     }
 }

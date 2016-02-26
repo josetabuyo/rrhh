@@ -2187,6 +2187,20 @@ public class WSViaticos : System.Web.Services.WebService
         return personas;
     }
 
+    [WebMethod]
+    public Usuario[] BuscarPersonaDeBajaConPermisos()
+    {
+        var usuarios = RepositorioDeUsuarios().GetUsuariosConPersonasDeBaja().ToArray();
+        return usuarios;
+    }
+
+    [WebMethod]
+    public Usuario[] BuscarUsuariosPorArea(string nombre_area)
+    {
+        var usuarios = RepositorioDeUsuarios().GetUsuariosPorArea(nombre_area).ToArray();
+        return usuarios;
+    }
+
     
     [WebMethod]
     public Area[] AreasAdministradasPor(Usuario usuario)
@@ -3334,8 +3348,19 @@ public class WSViaticos : System.Web.Services.WebService
         }
     #endregion
 
+    #region Reportes
+        [WebMethod]
+        public string GetConsultaRapida(int documento , Usuario usuario)
+        {
 
-    private RepositorioLicencias RepoLicencias()
+            return RepositorioDePersonas().GetConsultaRapida(documento);
+
+        }
+
+    #endregion
+
+
+        private RepositorioLicencias RepoLicencias()
     {
         return new RepositorioLicencias(Conexion());
     }

@@ -211,5 +211,50 @@ namespace General.Repositorios
             }
             return planta;
         }
+
+        public string GetConsultaRapida(int documento) {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Documento", documento);
+            var consulta = new object();
+
+            var tablaDatos = conexion.Ejecutar("dbo.CON_CONSULTA_RAPIDA_LEGAJO", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    consulta = new
+                    {
+                        //Nombre = row.GetString("Nombre", ""),
+                        Apellido = row.GetString("Apellido", ""),
+                        Legajo = row.GetInt("id_interna", 0),
+                        FechaNacimiento = row.GetString("FechaNacimiento",""),
+                        Edad = row.GetString("FechaNacimiento", ""),
+                        Cuil = row.GetString("Cuil", ""),
+                        Sexo = row.GetString("Sexo", ""),
+                        EstadoCivil = row.GetString("EstadoCivil", ""),
+                        Documento = row.GetString("Documento", ""),
+                        Domicilio = row.GetString("Domicilio", ""),
+                        Estudio = row.GetString("Estudio", ""),
+                        Desde = row.GetDateTime("Desde"),
+                        Nivel = row.GetString("Nivel", ""),
+                        Sector = row.GetString("Sector", ""),
+                        Planta = row.GetString("Planta", ""),
+                        Cargo = row.GetString("Cargo", ""),
+                        Agrupamiento = row.GetString("Agrupamiento", ""),
+                        IngresoMinisterio = row.GetDateTime("IngresoMinisterio"),
+                        AntMinisterio = row.GetString("AntMinisterio", ""),
+                        AntEstado = row.GetString("AntEstado", ""),
+                        AntPrivada = row.GetString("AntPrivada", ""),
+                        AntTotal = row.GetString("AntTotal", ""),
+                        ANTTotalTotal = row.GetString("ANTTotalTotal", "")
+
+                    };
+                });
+            }
+
+            return JsonConvert.SerializeObject(consulta);
+        
+        }
     }
 }

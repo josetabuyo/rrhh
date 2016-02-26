@@ -1,0 +1,30 @@
+﻿
+.arbol_organigrama
+{
+    border: black solid;
+}
+
+.area_en_arbol
+{
+    margin-left:10px;
+}
+
+.area_en_arbol #nombre_area
+{
+}
+
+.area_en_arbol #nombre_area:hover
+{
+    background-color: Orange;
+    cursor: pointer;
+}
+
+.area_seleccionada_en_arbol
+{
+    font-weight: bold;
+}
+
+.area_en_arbol #areas_dependientes
+{
+
+}
