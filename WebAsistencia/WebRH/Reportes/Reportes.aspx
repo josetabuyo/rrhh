@@ -17,7 +17,11 @@
     <form id="Reportes" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <br />
     <input id="btn_consulta_rapida" type="button" class="btn btn-primary" value="Consulta Individual" />
+    <input id="btn_grafico_dotacion" type="button" class="btn btn-primary" value="Gráfico Rotación" />
+    <input id="btn_grafico_licencias" type="button" class="btn btn-primary" value="Gráfico Licencias" />
+    <br />
     <div>
         <div id="contenedor_arbol_organigrama">
         </div>
@@ -32,10 +36,6 @@
             <div id="areas_dependientes">
             </div>
         </div>
-    </div>
-    <div id="div_belen">
-        <br />
-        <a href="GraficoLicencias.aspx" class="btn btn-primary">Gráfico Licencias</a>
     </div>
 </body>
 </html>

@@ -10,8 +10,14 @@ var Reportes = {
 
         $('#btn_consulta_rapida').click(function () {
             window.location.replace("ConsultaRapida.aspx");
-
         })
+        $('#btn_grafico_dotacion').click(function () {
+            window.location.replace("GraficoDotacion.aspx");
+        })
+        $('#btn_grafico_licencias').click(function () {
+            window.location.replace("GraficoLicencias.aspx");
+        })
+
         this.dibujarArbolOrganigrama();
     },
     iniciarConsultaRapida: function () {
