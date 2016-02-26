@@ -202,6 +202,14 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.CargarSolicitudDePase(nuevoPase);
     }
 
+    [WebMethod]
+    public void GetGrafico(int tipo)
+    {
+        if (tipo == 1)
+        {
+            
+        }
+    }
 
     [WebMethod]
     public Area[] GetAreas()
