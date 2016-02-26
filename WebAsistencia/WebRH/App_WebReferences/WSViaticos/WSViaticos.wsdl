@@ -247,6 +247,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetConsultaRapida">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultaRapidaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultaRapidaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RecuperarUsuario">
         <s:complexType>
           <s:sequence>
@@ -5071,6 +5086,12 @@
   <wsdl:message name="GetIdCabeceraFormularioSoapOut">
     <wsdl:part name="parameters" element="tns:GetIdCabeceraFormularioResponse" />
   </wsdl:message>
+  <wsdl:message name="GetConsultaRapidaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultaRapida" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultaRapidaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultaRapidaResponse" />
+  </wsdl:message>
   <wsdl:message name="RecuperarUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:RecuperarUsuario" />
   </wsdl:message>
@@ -6522,6 +6543,10 @@
       <wsdl:input message="tns:GetIdCabeceraFormularioSoapIn" />
       <wsdl:output message="tns:GetIdCabeceraFormularioSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetConsultaRapida">
+      <wsdl:input message="tns:GetConsultaRapidaSoapIn" />
+      <wsdl:output message="tns:GetConsultaRapidaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RecuperarUsuario">
       <wsdl:input message="tns:RecuperarUsuarioSoapIn" />
       <wsdl:output message="tns:RecuperarUsuarioSoapOut" />
@@ -7510,6 +7535,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetIdCabeceraFormulario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultaRapida">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultaRapida" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9700,6 +9734,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetIdCabeceraFormulario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdCabeceraFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultaRapida">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultaRapida" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

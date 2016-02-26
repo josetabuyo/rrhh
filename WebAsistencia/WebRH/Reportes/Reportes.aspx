@@ -16,6 +16,7 @@
     <form id="Reportes" runat="server">
         <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+        <input id="btn_consulta_rapida" type="button" class="btn btn-primary" value="Consulta Individual" />
         <div>
             <div id="contenedor_arbol_organigrama">
             </div>
@@ -25,4 +26,5 @@
     
     </div>
 </body>
+
 </html>
