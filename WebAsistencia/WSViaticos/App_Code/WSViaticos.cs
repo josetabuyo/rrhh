@@ -203,12 +203,19 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void GetGrafico(int tipo)
+    public List<Campo> GetGrafico(int tipo)
     {
+        List<Campo> campos = new List<Campo>();
         if (tipo == 1)
         {
-            
+            Campo campo1 = new Campo("A", "23", true);
+            Campo campo2 = new Campo("B", "15", true);
+            Campo campo3 = new Campo("C", "49", true);
+            campos.Add(campo1);
+            campos.Add(campo2);
+            campos.Add(campo3);
         }
+        return campos;
     }
 
     [WebMethod]

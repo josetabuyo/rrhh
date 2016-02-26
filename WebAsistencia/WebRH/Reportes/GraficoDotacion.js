@@ -13,24 +13,23 @@
 
     BuscarDatos: function () {
         var _this = this;
-        Backend.GetGrafico()
-                .onSuccess(function (datos) {
-                    if (datos.length == 0) {
-                        _this.VisualizarContenido(false);
-                        alertify.error("No hay Reportes Definitivos para los parámetros seleccionados");
-                    } else {
-                        _this.VisualizarContenido(true);
-                        _this.ArmarGrafico(datos);
-                        //                        _this.DibujarTablas(datos);
-                        //                        _this.BuscadorDeTabla();
-                    }
-                });
+        var tipo = 1;
+        var resultado = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo)}]);
+        if (resultado.length > 0) {
+            _this.VisualizarContenido(true);
+            _this.ArmarGrafico(resultado);
+            //                        _this.DibujarTablas(resultado);
+            //                        _this.BuscadorDeTabla();
+        } else {
+            _this.VisualizarContenido(false);
+            alertify.error("No hay Reportes Definitivos para los parámetros seleccionados");
+        }
     },
 
     CrearDatos: function (resultado) {
         var datos = [];
         for (var i = 0; i < resultado.length; i++) {
-            var porcion = [resultado[i].Tipo, resultado[i].Cantidad];
+            var porcion = [resultado[i].clave, resultado[i].valor];
             datos.push(porcion);
         };
         return datos;

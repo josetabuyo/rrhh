@@ -2,6 +2,32 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="BuscarLocalidades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarLocalidadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarLocalidadesResult" type="tns:ArrayOfLocalidad" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfLocalidad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Localidad" nillable="true" type="tns:Localidad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Localidad">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdProvincia" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetFormulario">
         <s:complexType>
           <s:sequence>
@@ -259,6 +285,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetConsultaRapidaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDniPorAlias">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="alias" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDniPorAliasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetDniPorAliasResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1812,18 +1852,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Zona" type="tns:Zona" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="ArrayOfLocalidad">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Localidad" nillable="true" type="tns:Localidad" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Localidad">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdProvincia" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="Zona">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -2214,20 +2242,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="BuscarLocalidades">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarLocalidadesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarLocalidadesResult" type="tns:ArrayOfLocalidad" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GuardarAlumno">
         <s:complexType>
           <s:sequence>
@@ -3704,20 +3718,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetDniPorAlias">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="alias" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetDniPorAliasResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GetDniPorAliasResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetUsuarios">
         <s:complexType />
       </s:element>
@@ -3880,6 +3880,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="CargarPasePlanoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGrafico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="tipo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGraficoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGraficoResult" type="tns:ArrayOfCampo" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5062,6 +5076,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="BuscarLocalidadesSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarLocalidades" />
+  </wsdl:message>
+  <wsdl:message name="BuscarLocalidadesSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarLocalidadesResponse" />
+  </wsdl:message>
   <wsdl:message name="GetFormularioSoapIn">
     <wsdl:part name="parameters" element="tns:GetFormulario" />
   </wsdl:message>
@@ -5091,6 +5111,12 @@
   </wsdl:message>
   <wsdl:message name="GetConsultaRapidaSoapOut">
     <wsdl:part name="parameters" element="tns:GetConsultaRapidaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDniPorAliasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDniPorAlias" />
+  </wsdl:message>
+  <wsdl:message name="GetDniPorAliasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDniPorAliasResponse" />
   </wsdl:message>
   <wsdl:message name="RecuperarUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:RecuperarUsuario" />
@@ -5596,12 +5622,6 @@
   <wsdl:message name="BuscarNivelesDeEstudioSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarNivelesDeEstudioResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarLocalidadesSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarLocalidades" />
-  </wsdl:message>
-  <wsdl:message name="BuscarLocalidadesSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarLocalidadesResponse" />
-  </wsdl:message>
   <wsdl:message name="GuardarAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarAlumno" />
   </wsdl:message>
@@ -6082,12 +6102,6 @@
   <wsdl:message name="GuardarObservacionesSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarObservacionesResponse" />
   </wsdl:message>
-  <wsdl:message name="GetDniPorAliasSoapIn">
-    <wsdl:part name="parameters" element="tns:GetDniPorAlias" />
-  </wsdl:message>
-  <wsdl:message name="GetDniPorAliasSoapOut">
-    <wsdl:part name="parameters" element="tns:GetDniPorAliasResponse" />
-  </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
   </wsdl:message>
@@ -6147,6 +6161,12 @@
   </wsdl:message>
   <wsdl:message name="CargarPasePlanoSoapOut">
     <wsdl:part name="parameters" element="tns:CargarPasePlanoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGraficoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGrafico" />
+  </wsdl:message>
+  <wsdl:message name="GetGraficoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGraficoResponse" />
   </wsdl:message>
   <wsdl:message name="GetAreasSoapIn">
     <wsdl:part name="parameters" element="tns:GetAreas" />
@@ -6527,6 +6547,10 @@
     <wsdl:part name="parameters" element="tns:GetCursosDelAlumnoResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="BuscarLocalidades">
+      <wsdl:input message="tns:BuscarLocalidadesSoapIn" />
+      <wsdl:output message="tns:BuscarLocalidadesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetFormulario">
       <wsdl:input message="tns:GetFormularioSoapIn" />
       <wsdl:output message="tns:GetFormularioSoapOut" />
@@ -6546,6 +6570,10 @@
     <wsdl:operation name="GetConsultaRapida">
       <wsdl:input message="tns:GetConsultaRapidaSoapIn" />
       <wsdl:output message="tns:GetConsultaRapidaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDniPorAlias">
+      <wsdl:input message="tns:GetDniPorAliasSoapIn" />
+      <wsdl:output message="tns:GetDniPorAliasSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="RecuperarUsuario">
       <wsdl:input message="tns:RecuperarUsuarioSoapIn" />
@@ -6883,10 +6911,6 @@
       <wsdl:input message="tns:BuscarNivelesDeEstudioSoapIn" />
       <wsdl:output message="tns:BuscarNivelesDeEstudioSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarLocalidades">
-      <wsdl:input message="tns:BuscarLocalidadesSoapIn" />
-      <wsdl:output message="tns:BuscarLocalidadesSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <wsdl:input message="tns:GuardarAlumnoSoapIn" />
       <wsdl:output message="tns:GuardarAlumnoSoapOut" />
@@ -7207,10 +7231,6 @@
       <wsdl:input message="tns:GuardarObservacionesSoapIn" />
       <wsdl:output message="tns:GuardarObservacionesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetDniPorAlias">
-      <wsdl:input message="tns:GetDniPorAliasSoapIn" />
-      <wsdl:output message="tns:GetDniPorAliasSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
       <wsdl:output message="tns:GetUsuariosSoapOut" />
@@ -7250,6 +7270,10 @@
     <wsdl:operation name="CargarPasePlano">
       <wsdl:input message="tns:CargarPasePlanoSoapIn" />
       <wsdl:output message="tns:CargarPasePlanoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGrafico">
+      <wsdl:input message="tns:GetGraficoSoapIn" />
+      <wsdl:output message="tns:GetGraficoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAreas">
       <wsdl:input message="tns:GetAreasSoapIn" />
@@ -7506,6 +7530,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarLocalidades">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFormulario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
       <wsdl:input>
@@ -7544,6 +7577,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultaRapida">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultaRapida" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDniPorAlias">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDniPorAlias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8307,15 +8349,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarLocalidades">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -9036,15 +9069,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetDniPorAlias">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDniPorAlias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -9128,6 +9152,15 @@
     </wsdl:operation>
     <wsdl:operation name="CargarPasePlano">
       <soap:operation soapAction="http://wsviaticos.gov.ar/CargarPasePlano" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGrafico">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetGrafico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9705,6 +9738,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarLocalidades">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFormulario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
       <wsdl:input>
@@ -9743,6 +9785,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultaRapida">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultaRapida" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDniPorAlias">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDniPorAlias" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10506,15 +10557,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarLocalidades">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -11235,15 +11277,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetDniPorAlias">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDniPorAlias" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -11327,6 +11360,15 @@
     </wsdl:operation>
     <wsdl:operation name="CargarPasePlano">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/CargarPasePlano" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGrafico">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetGrafico" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
