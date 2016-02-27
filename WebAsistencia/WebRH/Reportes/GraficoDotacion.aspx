@@ -41,13 +41,17 @@
                         <input id="txt_fecha_hasta" type="text" style="width: 50px; margin: 5px 10px 5px 10px;" />
                     </div>
                 </div>
-                <input id="btn_armarGrafico" type="button" class="btn btn-primary" style="float: right; margin-right:50px;"
-                    value="Graficar" />
+                <input id="btn_armarGrafico" type="button" class="btn btn-primary" style="float: right;
+                    margin-right: 50px;" value="Graficar" />
             </div>
             <br />
         </div>
         <div id="div_grafico" style="width: 55%;">
-            <div id="container_grafico_torta" style="min-width: 210px; height: 400px; margin: 0 auto">
+            <div id="container_grafico_torta_totales" style="min-width: 210px; height: 400px; margin: 0 auto">
+            </div>
+            <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
+                style="display: none;" />
+            <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 auto">
             </div>
         </div>
     </div>

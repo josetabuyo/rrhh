@@ -13,29 +13,36 @@
 
     BuscarDatos: function () {
         var _this = this;
-        var tipo = 1;
+
+        _this.GraficoYTabla(1, "Totales", "container_grafico_torta_totales", "div_tabla_resultado_totales");
+//        _this.GraficoYTabla(2, "Altas", "container_grafico_torta_altas", "div_tabla_resultado_altas");
+//        _this.GraficoYTabla(3, "Bajas", "container_grafico_torta_bajas", "div_tabla_resultado_bajas");
+    },
+
+    GraficoYTabla: function (tipo, titulo, div_grafico, div_tabla) {
+        var _this = this;
         var resultado = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo)}]);
         if (resultado.length > 0) {
             _this.VisualizarContenido(true);
-            _this.ArmarGrafico(resultado);
-            //                        _this.DibujarTablas(resultado);
-            //                        _this.BuscadorDeTabla();
+            _this.ArmarGrafico(resultado, titulo, div_grafico);
+            _this.DibujarTabla(resultado, div_tabla);
+            _this.BuscadorDeTabla();
         } else {
             _this.VisualizarContenido(false);
-            alertify.error("No hay Reportes Definitivos para los parámetros seleccionados");
+            alertify.error("No hay Reportes para los parámetros seleccionados");
         }
     },
 
     CrearDatos: function (resultado) {
         var datos = [];
         for (var i = 0; i < resultado.length; i++) {
-            var porcion = [resultado[i].clave, resultado[i].valor];
+            var porcion = [resultado[i].clave, parseInt(resultado[i].valor)];
             datos.push(porcion);
         };
         return datos;
     },
 
-    ArmarGrafico: function (resultado) {
+    ArmarGrafico: function (resultado, titulo, div_grafico) {
 
         var datos = this.CrearDatos(resultado);
         var grafico = [{
@@ -44,8 +51,7 @@
             data: datos
         }];
 
-
-        $('#container_grafico_torta').highcharts({
+        $('#' + div_grafico).highcharts({
             chart: {
                 type: 'pie',
                 options3d: {
@@ -55,7 +61,7 @@
                 }
             },
             title: {
-                text: 'Dotación del Área ...'
+                text: titulo
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -79,32 +85,28 @@
 
     },
 
-    DibujarTablas: function (resultado) {
+    DibujarTabla: function (resultado, div_tabla) {
         var _this = this;
-        $("#div_tabla_resultado").empty();
-        var divGrilla = $('#div_tabla_resultado');
-
+        $("#"+ div_tabla).empty();
+        var divGrilla = $('#' + div_tabla);
 
         var tabla = resultado;
 
         var columnas = [];
-        columnas.push(new Columna("Pendientes de Aprobación", { generar: function (un_registro) { return un_registro.uno } }));
-        columnas.push(new Columna("Aprobadas por RRHH", { generar: function (un_registro) { return un_registro.dos } }));
+        columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.clave } }));
+        columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.valor } }));
 
         this.GrillaResumen = new Grilla(columnas);
         this.GrillaResumen.CargarObjetos(tabla);
         this.GrillaResumen.DibujarEn(divGrilla);
 
-
     },
 
-
-
     BuscadorDeTabla: function () {
+        $('#search').show();
         var options = {
-            valueNames: ['Pendientes', 'Aprobadas']
+            valueNames: ['Nivel', 'Cantidad']
         };
-
         var featureList = new List('div_tabla_resultado', options);
     },
 

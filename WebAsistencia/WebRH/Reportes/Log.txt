@@ -81,3 +81,47 @@
    en System.Web.DefaultHttpHandler.BeginProcessRequest(HttpContext context, AsyncCallback callback, Object state)
    en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+26/02/2016 10:17:07 p.m. - ---------------------------------------------
+26/02/2016 10:17:07 p.m. - System.ServiceModel.ProtocolException: El tipo de contenido text/html; charset=utf-8 del mensaje de respuesta no coincide con el tipo de contenido del enlace (text/xml; charset=utf-8). Si usa un codificador personalizado, asegúrese de que el método IsContentTypeSupported se implemente correctamente. Los primeros 1024 bytes de la respuesta fueron: '<html>
+    <head>
+        <title>Error de compilación</title>
+        <style>
+         body {font-family:"Verdana";font-weight:normal;font-size: .7em;color:black;} 
+         p {font-family:"Verdana";font-weight:normal;color:black;margin-top: -5px}
+         b {font-family:"Verdana";font-weight:bold;color:black;margin-top: -5px}
+         H1 { font-family:"Verdana";font-weight:normal;font-size:18pt;color:red }
+         H2 { font-family:"Verdana";font-weight:normal;font-size:14pt;color:maroon }
+         pre {font-family:"Lucida Console";font-size: .9em}
+         .marker {font-weight: bold; color: black;text-decoration: none;}
+         .version {color: gray;}
+         .error {margin-bottom: 10px;}
+         .expandable { text-decoration:underline; font-weight:bold; color:navy; cursor:hand; }
+        </style>
+    </head>
+
+    <body bgcolor="white">
+
+            <span><H1>Error de servidor en la aplicación '/WSViaticos'.<hr width=100% size=1 color=silver></H1>
+
+            <h2> <i>Error de comp'. ---> System.Net.WebException: Error en el servidor remoto: (500) Error interno del servidor.
+   en System.Net.HttpWebRequest.GetResponse()
+   en System.ServiceModel.Channels.HttpChannelFactory.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.HttpChannelUtilities.ValidateRequestReplyResponse(HttpWebRequest request, HttpWebResponse response, HttpChannelFactory factory, WebException responseException, ChannelBinding channelBinding)
+   en System.ServiceModel.Channels.HttpChannelFactory.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en WSViaticos.WSViaticosSoap.ElUsuarioPuedeAccederALaURL(Usuario usuario, String url)
+   en WSViaticos.WSViaticosSoapClient.ElUsuarioPuedeAccederALaURL(Usuario usuario, String url) en c:\Users\bcevey\AppData\Local\Temp\Temporary ASP.NET Files\webrh\7e8fb9be\91ea5da0\App_WebReferences.wgpsmzpj.0.cs:línea 13615
+   en ASP.global_asax.Application_AcquireRequestState(Object sender, EventArgs e) en c:\Repositorios\Belén\GitHub\rrhh\WebAsistencia\WebRH\Global.asax:línea 16
+   en System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
