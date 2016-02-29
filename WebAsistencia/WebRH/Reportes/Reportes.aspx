@@ -7,11 +7,11 @@
     <title>Reportes</title>
     <%= Referencias.Css("../")%>
     <link rel="stylesheet" type="text/css" href="Reportes.css" />
-    <link rel="stylesheet" type="text/css" href="../Scripts/ArbolOrganigrama.css" />
+    <link rel="stylesheet" type="text/css" href="../Scripts/ArbolOrganigrama/ArbolOrganigrama.css" />
     <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="Reportes.js"></script>
-    <script type="text/javascript" src="../Scripts/ArbolOrganigrama.js"></script>
+    <script type="text/javascript" src="../Scripts/ArbolOrganigrama/ArbolOrganigrama.js"></script>
 </head>
 <body>
     <form id="Reportes" runat="server">
@@ -31,6 +31,10 @@
         <div class="arbol_organigrama">
         </div>
         <div class="area_en_arbol">
+            <div id="btn_expandir" class="btn_apertura">
+            </div>
+            <div id="btn_contraer" class="btn_apertura">
+            </div>
             <div id="nombre_area">
             </div>
             <div id="areas_dependientes">

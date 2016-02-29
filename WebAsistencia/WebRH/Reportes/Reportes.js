@@ -67,36 +67,36 @@ var Reportes = {
         });
     },
     dibujarArbolOrganigrama: function () {
-        var data_organigrama = {
-            areaRaiz: {
-                id: 1,
-                nombre: "unidad ministro",
-                areasDependientes: [
-                    {
-                        id: 2,
-                        nombre: "secretaría de coordinación y monitoreo institucional",
-                        areasDependientes: [
-                            {
-                                id: 3,
-                                nombre: "subsecreataría de coordinación monitoreo y logística"
-                            }
-                        ]
-                    },
-                    {
-                        id: 4,
-                        nombre: "secretaría de economía social",
-                        areasDependientes: [
-                            {
-                                id: 5,
-                                nombre: "subsecreataría de políticas alimentarias"
-                            }
-                        ]
-                    }
-                ]
-            }
-        };
+//        var data_organigrama = {
+//            areaRaiz: {
+//                id: 1,
+//                nombre: "unidad ministro",
+//                areasDependientes: [
+//                    {
+//                        id: 2,
+//                        nombre: "secretaría de coordinación y monitoreo institucional",
+//                        areasDependientes: [
+//                            {
+//                                id: 3,
+//                                nombre: "subsecreataría de coordinación monitoreo y logística"
+//                            }
+//                        ]
+//                    },
+//                    {
+//                        id: 4,
+//                        nombre: "secretaría de economía social",
+//                        areasDependientes: [
+//                            {
+//                                id: 5,
+//                                nombre: "subsecreataría de políticas alimentarias"
+//                            }
+//                        ]
+//                    }
+//                ]
+//            }
+//        };
 
-        var arbol_organigrama = new ArbolOrganigrama(data_organigrama, $("#contenedor_arbol_organigrama"));
+        var arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"));
 
     }
 }

@@ -264,6 +264,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public AreaArbolDTO GetArbolOrganigrama()
+    {
+        //var repositorio = new RepositorioDeAreas(Conexion());
+
+        var repositorio = RepositorioDeOrganigrama.NuevoRepositorioOrganigrama(Conexion());
+        return repositorio.GetOrganigrama().GetArbol();
+    }
+
+    [WebMethod]
     public Area GetAreaSuperiorA(Area unArea)
     {
         RepositorioDeOrganigrama repo = new RepositorioDeOrganigrama(Conexion());
