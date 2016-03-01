@@ -18,8 +18,10 @@
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>Reportes</span> <br/> <span style='font-size:12px;'> Reportes </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
+    
+    
     <div id="contenedor_consulta_rapida" style="margin:30px;">
-        
+      <h1>Consulta Individual</h1>
         <div id="buscador_de_personas">
             <p class="buscarPersona" style="display: inline-block;">Buscar persona:
                 <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
@@ -27,22 +29,23 @@
                 </div>
             </p>
         </div>
-
+        
+        <span id="mensaje"></span>
         <div id="panel_izquierdo" class="estilo_formulario" style="opacity:0;">
             <div class="bloque_foto">
                 <img id="foto_usuario" src="../Imagenes/silueta.gif" alt="Usuario" width="128" height="128">
-                <input id="btn_timeline" type="button" value="Timeline" class="btn btn-primary" />
+                <input id="btn_timeline" type="button" value="Carrera" class="btn btn-primary" />
             </div>
                 <div id="panel_datos_personales">
                     <div class="linea dato_personal">
                             <fieldset>
                             <legend>Datos Personales</legend>
                             <div>
-                                <p class="bloque_consulta"><label>Legajo: </label><span id="legajo"></span></p>
-                                <p class="bloque_consulta"><label>Documento: </label><span id="documento"></span></p>
+                                <p class="bloque_consulta"><label>Legajo: </label><span id="legajo_consulta"></span></p>
+                                <p class="bloque_consulta"><label>Documento: </label><span id="documento_consulta"></span></p>
                             </div>
                             <div>
-                                <p class="bloque_consulta"><label>Nombre: </label><span id="nombre"></span></p>
+                                <p class="bloque_consulta"><label>Nombre: </label><span id="nombre_consulta"></span></p>
                                 <p class="bloque_consulta"><label>Edad: </label><span id="edad"></span></p>
                             </div>
                             <div>
@@ -76,10 +79,12 @@
                             <p class="bloque_consulta"><label>Cargo: </label><span id="cargo"></span></p>
                             <p class="bloque_consulta"><label>Agrupamiento: </label><span id="agrupamiento"></span></p>
                         </div>
-                               
+                        <div>
+                            <p class="bloque_consulta"><label>Ing. Min.: </label><span id="ing_min"></span></p>
+                         </div>  
                     </fieldset>
                     </div>
-                         <div class="linea dato_personal">
+                         <!--<div class="linea dato_personal">
                             <fieldset>
                                 <legend>Antiguedad</legend>
                                 <div>
@@ -93,12 +98,12 @@
                                     <p class="bloque_consulta"><label>Total: </label><span id="total"></span></p>
                                  </div>
                             </fieldset>
-                         </div>   
+                         </div>   -->
         </div>
         <div id="lean_overlay" class="estilo_formulario">
         <div class="modal_close_concursar"></div>
             
-            <section style="background-color:#e9f0f5;" id="cd-timeline">
+            <section class="col-center" style="background-color:#e9f0f5; width:80%;" id="cd-timeline">
                 <div style="color:#fff; text-align: center; position: inherit; background: #303e49; padding: 15px; line-height: 100px;">
                     <h2 style="position: inherit;">Carrera Admnistrativa</h2>
                 </div>
@@ -121,16 +126,15 @@
                 </div>   
             </div>
 
-            	<div  class="bloque_timeline cd-timeline-block">
+            	<div id="bloque_timeline"  class="bloque_timeline cd-timeline-block">
 		            <div class="cd-timeline-img">
 			            <img src="../Imagenes/ic_documento.png" alt="Picture" />
 		            </div> <!-- cd-timeline-img -->
  
 		            <div class="cd-timeline-content">
-			            <h2>Aprobación de Contrato</h2>
-			            <p>Organismo: Sec. Coord. y Monit. Inst / Agrupamiento: General</p>
-                        <p>Nivel:1 / Grado: 0 / Cargo: Tecnico-Administrativo</p>
-			            <span class="cd-date">2010-09-01</span>
+			            <h2 class="titulo_hito"></h2>
+			            <p class="descripcion_hito"></p>
+			            <h2 class="cd-date"></h2>
 		            </div> <!-- cd-timeline-content -->
 	            </div> <!-- cd-timeline-block -->
         </div>

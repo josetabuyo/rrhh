@@ -242,12 +242,12 @@ namespace General.Repositorios
                         Planta = row.GetString("Planta", ""),
                         Cargo = row.GetString("Cargo", ""),
                         Agrupamiento = row.GetString("Agrupamiento", ""),
-                        IngresoMinisterio = row.GetDateTime("IngresoMinisterio"),
+                        IngresoMinisterio = row.GetDateTime("IngresoMinisterio",new DateTime(1900,01,01)).ToShortDateString(),
                         AntMinisterio = row.GetString("AntMinisterio", ""),
                         AntEstado = row.GetString("AntEstado", ""),
                         AntPrivada = row.GetString("AntPrivada", ""),
-                        RestaAnt = row.GetString("RestaAnt", ""),
-                        AntTotal = row.GetString("AntTotal", ""),
+                        //RestaAnt = row.GetString("RestaAnt", ""),
+                        //AntTotal = row.GetString("AntTotal", ""),
                         ANTTotalTotal = row.GetString("ANTTotalTotal", "")
 
                     };
@@ -263,7 +263,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@doc", documento);
             parametros.Add("@id", 0);
-          
+            var lista = new List<object>();
             var consulta = new object();
 
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Carreras_Admistrativas", parametros);
@@ -281,17 +281,19 @@ namespace General.Repositorios
                         Nivel = row.GetString("Nivel", ""),
                         Grado = row.GetString("Grado", ""),
                         Cargo = row.GetString("Cargo", ""),
-                        FechaDesde = row.GetDateTime("Fecha_Desde"),
-                        FechaHasta = row.GetDateTime("Fecha_Hasta"),
+                        FechaDesde = row.GetDateTime("Fecha_Desde",new DateTime(1900,01,01)).ToShortDateString(),
+                        FechaHasta = row.GetDateTime("Fecha_Hasta", new DateTime(1900, 01, 01)).ToShortDateString(),
                         ActoTipo = row.GetString("Acto_tipo", ""),
                         ActoTipoNro = row.GetString("Acto_nro", ""),
-                        ActoFecha = row.GetDateTime("Acto_Fecha"),
+                        ActoFecha = row.GetDateTime("Acto_Fecha", new DateTime(1900, 01, 01)).ToShortDateString(),
                         DescCausa = row.GetString("DescCausa", "")
                     };
+
+                    lista.Add(consulta);
                 });
             }
 
-            return JsonConvert.SerializeObject(consulta);
+            return JsonConvert.SerializeObject(lista.ToArray());
 
         } 
     }

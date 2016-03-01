@@ -44,15 +44,26 @@
                 <input id="btn_armarGrafico" type="button" class="btn btn-primary" style="float: right;
                     margin-right: 50px;" value="Graficar" />
             </div>
+            <div id="div_tabla_detalle">
+             <table id="tabla_detalle" style="width: 400px;">
+            </table>
+            </div>
             <br />
         </div>
         <div id="div_grafico" style="width: 55%;">
-            <div id="container_grafico_torta_totales" style="min-width: 210px; height: 400px; margin: 0 auto">
+            <div id="container_grafico_torta_totales" style="min-width: 210px; height: 400px;
+                margin: 0 auto">
             </div>
-            <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
-                style="display: none;" />
             <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 auto">
+               <%-- <label>
+                    Datos del Gráfico</label>--%>
+                <input type="text" id="search" class="search" class="buscador" placeholder="Buscar" style="display:none;" />
+                <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none">
+                    Exportar Datos</a>
+                    <table id="tabla_resultado_totales" style="width: 400px;">
+            </table>
             </div>
+            
         </div>
     </div>
     </form>
@@ -64,6 +75,7 @@
 <script type="text/javascript">
     Backend.start();
     $(document).ready(function () {
+        var personas = [];
         GraficoDotacion.Inicializar();
     });
 </script>

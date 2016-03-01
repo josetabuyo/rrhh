@@ -12,6 +12,11 @@
 .area_en_arbol #nombre_area
 {
     margin-left: 25px;
+    padding: 1px;
+    padding-left: 8px;
+    background-color: burlywood;
+    border-radius: 6px;
+    margin-top: 1px;
 }
 
 .area_en_arbol #nombre_area:hover
@@ -32,7 +37,7 @@
 
 .area_del_usuario
 {
-    color: Red;
+    color: #0074CC;
 }
 
 .area_en_arbol .btn_apertura
@@ -41,6 +46,7 @@
     height: 20px;
     background-size: cover;
     position: absolute;
+    cursor: pointer;
 }
 .area_en_arbol #btn_expandir
 {
