@@ -14,18 +14,17 @@
     BuscarDatos: function () {
         var _this = this;
 
-        _this.GraficoYTabla(1, "Totales", "container_grafico_torta_totales", "div_tabla_resultado_totales");
-//        _this.GraficoYTabla(2, "Altas", "container_grafico_torta_altas", "div_tabla_resultado_altas");
-//        _this.GraficoYTabla(3, "Bajas", "container_grafico_torta_bajas", "div_tabla_resultado_bajas");
+        _this.GraficoYTabla(1, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
     },
 
-    GraficoYTabla: function (tipo, titulo, div_grafico, div_tabla) {
+    GraficoYTabla: function (tipo, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
         var resultado = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo)}]);
+        personas = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(2)}]);
         if (resultado.length > 0) {
             _this.VisualizarContenido(true);
             _this.ArmarGrafico(resultado, titulo, div_grafico);
-            _this.DibujarTabla(resultado, div_tabla);
+            _this.DibujarTabla(resultado, div_tabla, tabla);
             _this.BuscadorDeTabla();
         } else {
             _this.VisualizarContenido(false);
@@ -85,16 +84,17 @@
 
     },
 
-    DibujarTabla: function (resultado, div_tabla) {
+    DibujarTabla: function (resultado, div_tabla, tabla) {
         var _this = this;
-        $("#"+ div_tabla).empty();
-        var divGrilla = $('#' + div_tabla);
-
+        $("#" + tabla).empty();
+        $("#search").show();
+        var divGrilla = $('#' + tabla);
         var tabla = resultado;
 
         var columnas = [];
         columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.clave } }));
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.valor } }));
+        columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return un_registro.valor } }));
 
         this.GrillaResumen = new Grilla(columnas);
         this.GrillaResumen.CargarObjetos(tabla);
@@ -107,14 +107,14 @@
         var options = {
             valueNames: ['Nivel', 'Cantidad']
         };
-        var featureList = new List('div_tabla_resultado', options);
+        var featureList = new List('div_tabla_resultado_totales', options);
     },
 
     ExportarDatosGraficoValorMercadoYContable: function () {
-        //        var sessionTable = "ExportarDatosGraficoValorMercadoYContable";
-        //        var fecha_reporte = $("#fecha_hasta").val().toString();
-        //        var fileName = "GraficoValorMercadoYContable_" + fecha_reporte + '_' + $("#id_cartera option:selected").text();
-        //        exportXLS(sessionTable, fileName);
+//                var sessionTable = "ExportarDatosGraficoValorMercadoYContable";
+//                var fecha_reporte = $("#fecha_hasta").val().toString();
+//                var fileName = "GraficoValorMercadoYContable_" + fecha_reporte + '_' + $("#id_cartera option:selected").text();
+//                exportXLS(sessionTable, fileName);
     },
 
     VisualizarContenido: function (visualizar) {

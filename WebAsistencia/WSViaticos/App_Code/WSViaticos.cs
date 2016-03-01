@@ -221,6 +221,12 @@ public class WSViaticos : System.Web.Services.WebService
             campos.Add(campo3);
             campos.Add(campo4);
             campos.Add(campo5);
+            campos.Add(campo5);
+            campos.Add(campo5);
+            campos.Add(campo5);
+            campos.Add(campo5);
+            campos.Add(campo5);
+     
 
         }
         if (tipo == 2)
