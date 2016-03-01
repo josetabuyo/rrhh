@@ -38,17 +38,32 @@ ArbolOrganigrama.prototype.dibujarArea = function (area, contenedor, es_area_hij
                 $(v_area).removeClass("area_seleccionada_en_arbol");
             });
             div_nombre.addClass("area_seleccionada_en_arbol");
+            _this.call_alSeleccionar(area);
         });
     }
     contenedor.append(vista_area);
-    var hay_alguna_hija_en_esta_rama = false;
+    var hay_algun_area_del_usuario_en_esta_rama = false;
     _.forEach(area.areasDependientes, function (area_dep) {
         if (_this.dibujarArea(area_dep, cont_areas_dependientes, es_area_del_usuario || es_area_hija_de_una_del_usuario))
-            hay_alguna_hija_en_esta_rama = true;
+            hay_algun_area_del_usuario_en_esta_rama = true;
     });
-    if (es_area_del_usuario || es_area_hija_de_una_del_usuario || hay_alguna_hija_en_esta_rama) {
+    if (es_area_del_usuario || es_area_hija_de_una_del_usuario || hay_algun_area_del_usuario_en_esta_rama) {
         btn_expandir.click();
     }
-    if (area.areasDependientes.length == 0) btn_expandir.hide();
-    return es_area_del_usuario || es_area_hija_de_una_del_usuario || hay_alguna_hija_en_esta_rama;
+    if (area.areasDependientes.length == 0) {
+        btn_expandir.hide();
+        btn_contraer.hide();
+    }
+    return es_area_del_usuario || es_area_hija_de_una_del_usuario || hay_algun_area_del_usuario_en_esta_rama;
 };
+
+ArbolOrganigrama.prototype.alSeleccionar = function (callback) {
+    if(!this.callbacks_seleccionar) this.callbacks_seleccionar = []; 
+    this.callbacks_seleccionar.push(callback);
+}
+
+ArbolOrganigrama.prototype.call_alSeleccionar = function (area) {
+    _.forEach(this.callbacks_seleccionar, function(cb){
+        cb(area);
+    });
+}
