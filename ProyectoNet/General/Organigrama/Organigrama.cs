@@ -179,5 +179,19 @@ namespace General
             return this.nodos.Count;
         }
 
+        private AreaArbolDTO generarAreaParaArbol(Area area)
+        {
+            var area_arbol = new AreaArbolDTO(area);
+            AreasInferioresInmediatasDe(area).ForEach(a =>
+            {
+                area_arbol.areasDependientes.Add(generarAreaParaArbol(a));
+            });
+            return area_arbol;
+        }
+
+        public AreaArbolDTO GetArbol()
+        {
+            return generarAreaParaArbol(NodoRoot().Area());         
+        }
     }
 }

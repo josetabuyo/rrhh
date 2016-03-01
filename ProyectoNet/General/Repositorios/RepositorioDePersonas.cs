@@ -229,7 +229,7 @@ namespace General.Repositorios
                         Apellido = row.GetString("Apellido", ""),
                         Legajo = row.GetInt("id_interna", 0),
                         FechaNacimiento = row.GetString("FechaNacimiento",""),
-                        Edad = row.GetString("FechaNacimiento", ""),
+                        Edad = row.GetSmallintAsInt("Edad",0 ),
                         Cuil = row.GetString("Cuil", ""),
                         Sexo = row.GetString("Sexo", ""),
                         EstadoCivil = row.GetString("EstadoCivil", ""),
@@ -246,6 +246,7 @@ namespace General.Repositorios
                         AntMinisterio = row.GetString("AntMinisterio", ""),
                         AntEstado = row.GetString("AntEstado", ""),
                         AntPrivada = row.GetString("AntPrivada", ""),
+                        RestaAnt = row.GetString("RestaAnt", ""),
                         AntTotal = row.GetString("AntTotal", ""),
                         ANTTotalTotal = row.GetString("ANTTotalTotal", "")
 
@@ -256,5 +257,42 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(consulta);
         
         }
+
+        public string GetCarreraAdministrativa(int documento)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@doc", documento);
+            parametros.Add("@id", 0);
+          
+            var consulta = new object();
+
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Carreras_Admistrativas", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    consulta = new
+                    {
+                        //Nombre = row.GetString("Nombre", ""),
+                        Organismo = row.GetString("Organismo", ""),
+                        Regimen = row.GetString("regimen", ""),
+                        Agrupamiento = row.GetString("Agrupamiento", ""),
+                        Nivel = row.GetString("Nivel", ""),
+                        Grado = row.GetString("Grado", ""),
+                        Cargo = row.GetString("Cargo", ""),
+                        FechaDesde = row.GetDateTime("Fecha_Desde"),
+                        FechaHasta = row.GetDateTime("Fecha_Hasta"),
+                        ActoTipo = row.GetString("Acto_tipo", ""),
+                        ActoTipoNro = row.GetString("Acto_nro", ""),
+                        ActoFecha = row.GetDateTime("Acto_Fecha"),
+                        DescCausa = row.GetString("DescCausa", "")
+                    };
+                });
+            }
+
+            return JsonConvert.SerializeObject(consulta);
+
+        } 
     }
 }

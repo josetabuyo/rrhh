@@ -27,11 +27,11 @@
                 <select>
                     <option id="0">Pendientes de Aprobación</option>
                 </select>
-                <button id="btn_armarGrafico" class"btn btn-primary">Graficar</button>
+                <input id="btn_armarGrafico" type="button" class="btn btn-primary" value="Graficar" />
             </div>
             <br />
             <div id="div_tabla_resultado">
-                <table id="datatable" style="display:none;">
+                <table id="datatable" style="display: none;">
                     <thead>
                         <tr>
                             <th>

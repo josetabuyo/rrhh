@@ -1,0 +1,53 @@
+﻿
+.arbol_organigrama
+{
+    border: black solid;
+}
+
+.area_en_arbol
+{
+    margin-left:10px;
+}
+
+.area_en_arbol #nombre_area
+{
+    margin-left: 25px;
+}
+
+.area_en_arbol #nombre_area:hover
+{
+    background-color: Orange;
+    cursor: pointer;
+}
+
+.area_seleccionada_en_arbol
+{
+    font-weight: bold;
+}
+
+.area_en_arbol #areas_dependientes
+{
+
+}
+
+.area_del_usuario
+{
+    color: Red;
+}
+
+.area_en_arbol .btn_apertura
+{
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    position: absolute;
+}
+.area_en_arbol #btn_expandir
+{
+    background-image: url("Expandir.png");    
+}
+
+.area_en_arbol #btn_contraer
+{
+    background-image: url("Contraer.png");
+}
