@@ -1,9 +1,107 @@
-﻿.buscarPersona 
+﻿/*ESTILO PARTE DE CONSULTA INDIVIDUAL*/
+
+.buscarPersona 
 {
     font-size:1.3em; 
     margin-top:30px; 
     margin-left:10px;
 }
+
+#panel_izquierdo {
+    position: absolute;
+    height: auto;
+    width: 600px;
+}
+/*
+#panel_derecho {
+    position: absolute;
+    height: auto;
+    right:300px;
+    width: 600px;
+}*/
+
+#panel_datos_personales {
+    display: inline-block;
+    width: 78%;
+}
+.dato_personal {
+    margin: 12px;
+    background-color: #FCFCFC;
+    padding: 20px;
+    -webkit-border-radius: 10px;
+}
+
+#foto_usuario {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 20px;
+    display: block;
+}
+
+.bloque_foto 
+{
+    display: inline-block;  
+    vertical-align: top;  
+}
+
+.bloque_foto input 
+{
+    margin:20px;
+    }
+
+
+.bloque_consulta 
+{
+    display: inline-block;
+    width: 48%;
+}
+
+.bloque_consulta_full 
+{
+    width: 100%;
+    }
+
+.bloque_consulta label,  .bloque_consulta_full label
+{
+    font-weight: bold;
+    }
+    
+.cd-date 
+{
+        font-size: 1.5em;
+    }
+
+
+
+#vista_permisos {
+    position: absolute;
+    bottom: 19px;
+    top: 59px;
+    right: 10px;
+    left: 10px;
+}
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 50px;
+    height:90%;
+    width:100%;
+    background: #e9f0f5;
+    display: none;
+    overflow:auto;
+    opacity:0.9 !important;
+}
+
+.cd-timeline-content {
+    padding: 1em !important;
+}
+
+.col-center{
+  margin:0 auto;
+}
+
+/*----------*/
 
 #plantillas
 {

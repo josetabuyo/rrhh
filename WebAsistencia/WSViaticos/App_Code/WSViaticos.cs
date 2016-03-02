@@ -3411,6 +3411,14 @@ public class WSViaticos : System.Web.Services.WebService
 
         }
 
+        [WebMethod]
+        public string GetCarreraAdministrativa(int documento, Usuario usuario)
+        {
+
+            return RepositorioDePersonas().GetCarreraAdministrativa(documento);
+
+        }
+
     #endregion
 
 
