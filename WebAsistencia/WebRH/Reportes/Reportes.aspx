@@ -19,7 +19,7 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <br />
     <input id="btn_consulta_rapida" type="button" class="btn btn-primary" value="Consulta Individual" />
-    <input id="btn_grafico_dotacion" type="button" class="btn btn-primary" value="Gráfico Rotación" />
+    <input id="btn_grafico_dotacion" type="button" class="btn btn-primary" value="Gráfico Dotación" />
     <input id="btn_grafico_licencias" type="button" class="btn btn-primary" value="Gráfico Licencias" />
     <br />
     <div>

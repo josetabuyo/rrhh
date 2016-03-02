@@ -9,6 +9,33 @@
         $('#btn_armarGrafico').click(function () {
             _this.BuscarDatos();
         });
+        $('#cb1').click(function () {
+            _this.MarcarOpcionDeGrafico(1);
+        });
+        $('#cb2').click(function () {
+            _this.MarcarOpcionDeGrafico(2);
+        });
+        $('#cb3').click(function () {
+            _this.MarcarOpcionDeGrafico(3);
+        });
+        $('#cb4').click(function () {
+            _this.MarcarOpcionDeGrafico(4);
+        });
+        $('#cb5').click(function () {
+            _this.MarcarOpcionDeGrafico(5);
+        });
+
+    },
+    MarcarOpcionDeGrafico: function (checkbox) {
+
+        for (var i = 1; i < 6; i++) {
+            if (checkbox != i) {
+                var nombre = "#cb" + i
+                if ($(nombre).is(':checked')) {
+                    $(nombre).prop('checked', false);
+                }
+            }
+        }
     },
 
     BuscarDatos: function () {
@@ -88,6 +115,7 @@
         var _this = this;
         $("#" + tabla).empty();
         $("#search").show();
+        $("#exportar_datos").show();
         var divGrilla = $('#' + tabla);
         var tabla = resultado;
 
@@ -111,10 +139,10 @@
     },
 
     ExportarDatosGraficoValorMercadoYContable: function () {
-//                var sessionTable = "ExportarDatosGraficoValorMercadoYContable";
-//                var fecha_reporte = $("#fecha_hasta").val().toString();
-//                var fileName = "GraficoValorMercadoYContable_" + fecha_reporte + '_' + $("#id_cartera option:selected").text();
-//                exportXLS(sessionTable, fileName);
+        //                var sessionTable = "ExportarDatosGraficoValorMercadoYContable";
+        //                var fecha_reporte = $("#fecha_hasta").val().toString();
+        //                var fileName = "GraficoValorMercadoYContable_" + fecha_reporte + '_' + $("#id_cartera option:selected").text();
+        //                exportXLS(sessionTable, fileName);
     },
 
     VisualizarContenido: function (visualizar) {
