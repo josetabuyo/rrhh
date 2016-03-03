@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ConsultaRapida.aspx.cs" Inherits="Reportes_ConsultaRapida" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ConsultaIndividual.aspx.cs" Inherits="Reportes_ConsultaRapida" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -21,7 +21,7 @@
     
     
     <div id="contenedor_consulta_rapida" style="margin:30px;">
-      <h1>Consulta Individual</h1>
+      <h1 style="font-weight: 200;">Consulta Individual</h1>
         <div id="buscador_de_personas">
             <p class="buscarPersona" style="display: inline-block;">Buscar persona:
                 <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
@@ -107,6 +107,8 @@
                 <div style="color:#fff; text-align: center; position: inherit; background: #303e49; padding: 15px; line-height: 100px;">
                     <h2 style="position: inherit;">Carrera Admnistrativa</h2>
                 </div>
+                <div id="contenedor_timeLine">
+                </div>
                 <!-- INSERTAR LAS PLANTILLAS -->
 
             </section>
@@ -134,7 +136,7 @@
 		            <div class="cd-timeline-content">
 			            <h2 class="titulo_hito"></h2>
 			            <p class="descripcion_hito"></p>
-			            <h2 class="cd-date"></h2>
+			            <span class="cd-date"></span>
 		            </div> <!-- cd-timeline-content -->
 	            </div> <!-- cd-timeline-block -->
         </div>

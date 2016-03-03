@@ -31,7 +31,7 @@
                     <input id="txt_fecha_desde" type="text" style="width: 100px; margin: 5px 10px 5px 10px;" />
                 </div>
                 <label>
-                    Gráfico</label>
+                    Información</label>
                 <div class="ac-custom ac-checkbox ac-cross" autocomplete="off" style="margin-left:20px;">
                     <section>
 				

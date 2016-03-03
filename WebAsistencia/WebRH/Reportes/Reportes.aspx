@@ -18,12 +18,19 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <br />
-    <input id="btn_consulta_rapida" type="button" class="btn btn-primary" value="Consulta Individual" />
-    <input id="btn_grafico_dotacion" type="button" class="btn btn-primary" value="Gráfico Dotación" />
-    <input id="btn_grafico_licencias" type="button" class="btn btn-primary" value="Gráfico Licencias" />
-    <br />
+    
+    <h1 style="text-align: center; font-weight:200;">Reportes</h1>
     <div>
+    <input id="btn_consulta_rapida" style="display:block;" type="button" class="btn btn-primary" RequiereFuncionalidad="32" value="Consulta Individual" />
         <div id="contenedor_arbol_organigrama">
+            <h2 style="text-align: center; font-weight: 200;">Organigrama</h2>
+        </div>
+        <div id="panel_derecho" style="text-align:center;">
+            <h2 style="text-align: center; font-weight: 200;">Módulos</h2>
+            <div >
+                <input id="btn_grafico_dotacion" style="display:inline-block;" type="button" class="btn btn-primary" value="Gráfico Dotación" />
+                <input id="btn_grafico_licencias" style="display:inline-block;" type="button" class="btn btn-primary" value="Gráfico Licencias" />
+            </div>
         </div>
     </div>
     </form>

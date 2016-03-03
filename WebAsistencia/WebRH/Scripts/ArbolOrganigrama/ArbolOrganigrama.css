@@ -1,7 +1,7 @@
 ﻿
 .arbol_organigrama
 {
-    border: black solid;
+    /*border: black solid;*/
 }
 
 .area_en_arbol
@@ -14,14 +14,14 @@
     margin-left: 25px;
     padding: 1px;
     padding-left: 8px;
-    background-color: burlywood;
+    background-color: #F7F7F7;
     border-radius: 6px;
     margin-top: 1px;
 }
 
 .area_en_arbol #nombre_area:hover
 {
-    background-color: Orange;
+    background-color: #EBEBEB;
     cursor: pointer;
 }
 

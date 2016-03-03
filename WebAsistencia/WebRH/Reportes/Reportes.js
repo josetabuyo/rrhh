@@ -9,7 +9,7 @@ var Reportes = {
         var _this = this;
 
         $('#btn_consulta_rapida').click(function () {
-            window.location.replace("ConsultaRapida.aspx");
+            window.location.replace("ConsultaIndividual.aspx");
         })
         $('#btn_grafico_dotacion').click(function () {
             window.location.replace("GraficoDotacion.aspx");
@@ -58,7 +58,7 @@ var Reportes = {
             var data = $.parseJSON(datos);
 
             if (!$.isEmptyObject(data)) {
-                $("#panel_izquierdo").delay(1000).animate({ "opacity": "1" }, 700);
+                $("#panel_izquierdo").delay(700).animate({ "opacity": "1" }, 700);
 
                 $('#mensaje').html("");
 
@@ -87,6 +87,7 @@ var Reportes = {
 
                 $('#btn_timeline').click(function () {
                     Backend.GetCarreraAdministrativa(documento).onSuccess(function (datos) {
+                        $('#contenedor_timeLine').empty();
                         _this.armarTimeline(datos);
                     });
                 })
@@ -94,7 +95,7 @@ var Reportes = {
             } else {
                 $('#panel_izquierdo').hide();
                 $('#mensaje').html("No se encontraron datos para la persona con documento " + documento);
-                
+
             }
 
         });
@@ -146,7 +147,7 @@ var Reportes = {
             return;
         }
 
-        var contenedor_timeline = $('#cd-timeline');
+        var contenedor_timeline = $('#contenedor_timeLine');
 
 
         for (i = 0; i < data.length; i++) {
