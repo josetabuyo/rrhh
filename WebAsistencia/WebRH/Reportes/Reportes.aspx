@@ -35,18 +35,20 @@
     </div>
     </form>
     <div id="plantillas">
-        <div class="arbol_organigrama">
-        </div>
-        <div class="area_en_arbol">
-            <div id="btn_expandir" class="btn_apertura">
+        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+            <div class="arbol_organigrama">
             </div>
-            <div id="btn_contraer" class="btn_apertura">
+            <div class="area_en_arbol">
+                <div id="btn_expandir" class="btn_apertura">
+                </div>
+                <div id="btn_contraer" class="btn_apertura">
+                </div>
+                <div id="nombre_area">
+                </div>
+                <div id="areas_dependientes">
+                </div>
             </div>
-            <div id="nombre_area">
-            </div>
-            <div id="areas_dependientes">
-            </div>
-        </div>
+        </nav>
     </div>
 </body>
 </html>
