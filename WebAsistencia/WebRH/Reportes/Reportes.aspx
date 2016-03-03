@@ -28,7 +28,7 @@
         <div id="panel_derecho" style="text-align:center;">
             <h2 style="text-align: center; font-weight: 200;">Módulos</h2>
             <div >
-                <input id="btn_grafico_dotacion" style="display:inline-block;" type="button" class="btn btn-primary" value="Gráfico Rotación" />
+                <input id="btn_grafico_dotacion" style="display:inline-block;" type="button" class="btn btn-primary" value="Gráfico Dotación" />
                 <input id="btn_grafico_licencias" style="display:inline-block;" type="button" class="btn btn-primary" value="Gráfico Licencias" />
             </div>
         </div>
