@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="Reportes.css" />
     <link rel="stylesheet" type="text/css" href="../Estilos/component.css" />
 </head>
-<body>
+<body class="cbp-spmenu-push">
     <form id="GraficoDotacion" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
