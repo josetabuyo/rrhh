@@ -1,41 +1,50 @@
-﻿var GraficoDotacion = {
+﻿var checks_activos = [1];
+
+var GraficoDotacion = {
 
     Inicializar: function () {
         var _this = this;
+
         //Para que no rompa la librería por si la página se cargó anteriormente
         if (window.Highcharts) {
             window.Highcharts = null;
         }
+        $('#cb1').click();
         $('#btn_armarGrafico').click(function () {
             _this.BuscarDatos();
         });
-        $('#cb1').click(function () {
+        $('#cb1').change(function () {
             _this.MarcarOpcionDeGrafico(1);
         });
-        $('#cb2').click(function () {
+        $('#cb2').change(function () {
             _this.MarcarOpcionDeGrafico(2);
         });
-        $('#cb3').click(function () {
+        $('#cb3').change(function () {
             _this.MarcarOpcionDeGrafico(3);
         });
-        $('#cb4').click(function () {
+        $('#cb4').change(function () {
             _this.MarcarOpcionDeGrafico(4);
         });
-        $('#cb5').click(function () {
+        $('#cb5').change(function () {
             _this.MarcarOpcionDeGrafico(5);
         });
 
     },
     MarcarOpcionDeGrafico: function (checkbox) {
 
-        for (var i = 1; i < 6; i++) {
-            if (checkbox != i) {
-                var nombre = "#cb" + i
-                if ($(nombre).is(':checked')) {
-                    $(nombre).prop('checked', false);
+        if ($.inArray(checkbox, checks_activos) == -1) {
+            for (var i = 1; i < 6; i++) {
+                if ($.inArray(i, checks_activos) !== -1) {
+                    var nombre = "#cb" + i
+                    $(nombre).click();
+                    checks_activos.splice($.inArray(i, checks_activos), 1);
                 }
             }
+            checks_activos.push(checkbox);
+        } else {
+            checks_activos = [];
         }
+        console.log(checks_activos);
     },
 
     BuscarDatos: function () {
@@ -47,7 +56,7 @@
     GraficoYTabla: function (tipo, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
         var resultado = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo)}]);
-        personas = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(2)}]);
+        //personas = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(2)}]);
         if (resultado.length > 0) {
             _this.VisualizarContenido(true);
             _this.ArmarGrafico(resultado, titulo, div_grafico);
@@ -123,13 +132,39 @@
         columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.clave } }));
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.valor } }));
         columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return un_registro.valor } }));
+        columnas.push(new Columna('Detalle', {
+            generar: function (un_registro) {
+                var btn_accion = $('<a>');
+                var img = $('<img>');
+                img.attr('src', '../Imagenes/detalle.png');
+                img.attr('width', '25px');
+                img.attr('height', '25px');
+                btn_accion.append(img);
+                btn_accion.click(function () {
+                    _this.BuscarPersonas(un_registro.clave);
+                });
+
+                return btn_accion;
+            }
+        }));
 
         this.GrillaResumen = new Grilla(columnas);
         this.GrillaResumen.CargarObjetos(tabla);
         this.GrillaResumen.DibujarEn(divGrilla);
 
     },
-
+    BuscarPersonas: function (id_area) {
+        var _this = this;
+        var resultado = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(2)}]);
+        if (resultado.length > 0) {
+            _this.VisualizarContenido(true);
+            _this.DibujarTabla(resultado, "div_tabla_detalle", "tabla_detalle");
+           
+        } else {
+            _this.VisualizarContenido(false);
+            alertify.error("No hay Reportes para los parámetros seleccionados");
+        }
+    },
     BuscadorDeTabla: function () {
         $('#search').show();
         var options = {

@@ -23,6 +23,8 @@
             <div id="div_filtros" style="margin-left: 10px;">
                 <p>
                     Filtros</p>
+                    <input id="btn_armarGrafico" type="button" class="btn btn-primary" style="float: right;
+                    margin: 7px 189px 0px 0px;" value="Graficar" />
                 <div class="grupo_campos nueva_linea">
                     <label>
                         Fecha</label>
@@ -48,12 +50,6 @@
                         Área</label>
                     <input id="id_airea" type="text" style="width: 100px; margin: 5px 10px 5px 18px;" />
                 </div>
-                <input id="btn_armarGrafico" type="button" class="btn btn-primary" style="float: right;
-                    margin-right: 50px;" value="Graficar" />
-            </div>
-            <div id="div_tabla_detalle">
-                <table id="tabla_detalle" style="width: 400px;">
-                </table>
             </div>
             <br />
         </div>
@@ -61,13 +57,19 @@
             <div id="container_grafico_torta_totales" style="min-width: 210px; height: 400px;
                 margin: 0 auto">
             </div>
+            <div id="div_tablas" style="display:flex;">
             <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 auto">
                 <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
                     style="display: none;" />
-                <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none">
-                    Exportar Datos</a>
+               <%-- <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none">
+                    Exportar Datos</a>--%>
                 <table id="tabla_resultado_totales" style="width: 220px;">
                 </table>
+            </div>
+            <div id="div_tabla_detalle" style="margin-top: 39px;">
+                <table id="tabla_detalle" style="width: 400px;">
+                </table>
+            </div>
             </div>
         </div>
     </div>
@@ -79,10 +81,10 @@
 <script src="../Scripts/Graficos/exporting.js" type="text/javascript"></script>
 <script src="../Scripts/Graficos/svgcheckbx.js" type="text/javascript"></script>
 <script type="text/javascript">
-
+   
     Backend.start();
     $(document).ready(function () {
-        var personas = [];
+       
         GraficoDotacion.Inicializar();
     });
 </script>
