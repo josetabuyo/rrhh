@@ -31,6 +31,7 @@
 	margin: 0 auto ;
 	padding: 5px 0 ;
 	position: relative ;
+	margin-left: 6px;
 }
 
 .ac-custom label {
@@ -293,7 +294,7 @@ input[type="text"], input[type="password"], input[type="datetime"], input[type="
 }
 
 .cbp-spmenu-top.cbp-spmenu-open {
-	top: 0px;
+	top: 93px;
 }
 
 .cbp-spmenu-bottom.cbp-spmenu-open {
