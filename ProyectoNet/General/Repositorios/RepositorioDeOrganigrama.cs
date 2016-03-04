@@ -55,10 +55,14 @@ namespace General
         {
             if (organigrama == null)
             {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@FechaVigencia", DateTime.Now);
+
                 var areas = new List<Area>();
                 var dependencias = new List<List<Area>>();
 
-                TablaDeDatos estructura = conexion_bd.Ejecutar("dbo.VIA_GetOrganigrama", new Dictionary<string, object>());
+                //TablaDeDatos estructura = conexion_bd.Ejecutar("dbo.VIA_GetOrganigrama", new Dictionary<string, object>());
+                TablaDeDatos estructura = conexion_bd.Ejecutar("dbo.VIA_Get_AreasParaProtocolo", parametros);
 
                 foreach (var row in estructura.Rows)
                 {
