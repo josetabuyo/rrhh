@@ -112,8 +112,8 @@
 {
     display: inline-block;
     width: 600px; 
-    margin-top: 40px;
     float: left;
+    background-color: #FCFCFC;
     }
     
 #panel_derecho 
