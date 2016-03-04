@@ -6,7 +6,7 @@
 
 .area_en_arbol
 {
-    margin-left:10px;
+    /*margin-left:10px;*/
 }
 
 .area_en_arbol #nombre_area
@@ -56,4 +56,34 @@
 .area_en_arbol #btn_contraer
 {
     background-image: url("Contraer.png");
+}
+
+.ministerio
+{
+    margin-left: 10px;
+}
+
+.secretaria
+{
+    margin-left: 20px;
+}
+
+.subsecretaria
+{
+    margin-left: 30px;
+}
+
+.direccion
+{
+    margin-left: 40px;
+}
+
+.subdireccion
+{
+    margin-left: 50px;
+}
+
+.coordinacion
+{
+    margin-left: 60px;
 }

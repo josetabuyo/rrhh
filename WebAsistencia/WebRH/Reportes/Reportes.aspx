@@ -38,12 +38,15 @@
         <div class="arbol_organigrama">
         </div>
         <div class="area_en_arbol">
-            <div id="btn_expandir" class="btn_apertura">
+            <div id="area">
+                <div id="btn_expandir" class="btn_apertura">
+                </div>
+                <div id="btn_contraer" class="btn_apertura">
+                </div>
+                <div id="nombre_area">
+                </div>
             </div>
-            <div id="btn_contraer" class="btn_apertura">
-            </div>
-            <div id="nombre_area">
-            </div>
+
             <div id="areas_dependientes">
             </div>
         </div>

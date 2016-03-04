@@ -107,7 +107,12 @@ namespace General
         private static void AgregarAreaCreadaDesdeRow(RowDeDatos row, List<Area> areas_del_organigrama)
         {
             if (!row.GetBoolean("Baja"))
-                areas_del_organigrama.Add(new Area(row.GetInt("Id_Area"), row.GetString("Descripcion"), row.GetBoolean("Presenta_DDJJ")));
+            {
+                var area = new Area(row.GetInt("Id_Area"), row.GetString("Descripcion"), row.GetBoolean("Presenta_DDJJ"));
+                area.Jerarquia = row.GetInt("Nivel_Jerarquia");
+                area.Orden = row.GetInt("Orden");
+                areas_del_organigrama.Add(area);
+            }
         }
 
         private static Area AreaRepetida(RowDeDatos row, List<Area> areas_del_organigrama)

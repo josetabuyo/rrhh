@@ -14,6 +14,7 @@ ArbolOrganigrama.prototype.dibujarArea = function (area, contenedor, es_area_hij
     var _this = this;
     var vista_area = $("#plantillas .area_en_arbol").clone();
     var div_nombre = vista_area.find("#nombre_area");
+    var cuerpo_area = vista_area.find("#area");
     var cont_areas_dependientes = vista_area.children("#areas_dependientes");
     div_nombre.text(area.nombre);
 
@@ -30,6 +31,27 @@ ArbolOrganigrama.prototype.dibujarArea = function (area, contenedor, es_area_hij
         btn_expandir.show();
     });
     btn_contraer.click();
+
+    switch (area.jerarquia) {
+        case 1000: 
+            cuerpo_area.addClass("ministerio");
+            break;
+        case 900:
+            cuerpo_area.addClass("secretaria");
+            break;
+        case 800:
+            cuerpo_area.addClass("subsecretaria");
+            break;
+        case 700:
+            cuerpo_area.addClass("direccion");
+            break;
+        case 600:
+            cuerpo_area.addClass("subdireccion");
+            break;
+        case 500:
+            cuerpo_area.addClass("coordinacion");
+            break;
+    }
     var es_area_del_usuario = _.findWhere(this.areasUsuario, { Id: area.id }) && true;
     if (es_area_del_usuario || es_area_hija_de_una_del_usuario) {
         div_nombre.addClass("area_del_usuario");
