@@ -28,6 +28,11 @@ var GraficoDotacion = {
         $('#cb5').change(function () {
             _this.MarcarOpcionDeGrafico(5);
         });
+        $('#btn_salir_menu').click(function () {
+            $('#showTop').click();
+            
+        });
+
 
     },
     MarcarOpcionDeGrafico: function (checkbox) {
@@ -159,7 +164,7 @@ var GraficoDotacion = {
         if (resultado.length > 0) {
             _this.VisualizarContenido(true);
             _this.DibujarTabla(resultado, "div_tabla_detalle", "tabla_detalle");
-           
+
         } else {
             _this.VisualizarContenido(false);
             alertify.error("No hay Reportes para los parámetros seleccionados");
