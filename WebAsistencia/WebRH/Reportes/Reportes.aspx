@@ -25,19 +25,32 @@
     <div>
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position:relative; top:0;" id="cbp-spmenu-s1" >
             <div id="contenedor_arbol_organigrama">
-                <h2 style="text-align: center; font-weight: 200; padding-bottom: 20px;">Organigrama</h2>
+                <h2 class="titulo_organigrama">Organigrama</h2>
             </div>
-             <input type="button" style="position:absolute; left:650px; " class="btn btn-primary" id="showLeftPush" value="Organigrama" />
+             <input type="button" class="btn_organigrama" id="showLeftPush" value="Organigrama" />
+             <div id="panel_derecho">
+                <h2>Área Seleccionada: <span id="titulo_area"></span></h2>
+                <h2>Gráfico Seleccionado: <span id="titulo_grafico"></span> </h2>
+                <input id="btn_grafico_dotacion" style="display:none;" type="button" class="btn btn-primary" value="Gráfico Dotación" />
+                <input id="btn_grafico_licencias" style="display:none;" type="button" class="btn btn-primary" value="Gráfico Licencias" />
+             </div>
+             
          </nav>
-        
-        <!--<div id="panel_derecho" style="text-align:center;">
-            <h2 style="text-align: center; font-weight: 200;">Módulos</h2>
-            <div >
-                
-                <input id="btn_grafico_dotacion" style="display:inline-block;" type="button" class="btn btn-primary" value="Gráfico Dotación" />
-                <input id="btn_grafico_licencias" style="display:inline-block;" type="button" class="btn btn-primary" value="Gráfico Licencias" />
+
+         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" style="position:relative; top:0;" id="cbp-spmenu-s2" >
+            <div id="menu">
+                <h2 id="">Gráficos</h2>
+                <ul style="list-style: none;">
+                    <li><a href="#">Dotación</a></li>
+                    <li><a href="#">Licencias</a></li>
+                    <li><a href="#">Rango Etáreo</a></li>
+                    <li><a href="#">Horas Extras</a></li>
+                    <li><a href="#">Otros</a></li>
+                </ul>
             </div>
-        </div>-->
+             <input type="button" class="btn_grafico" id="showRightPush" value="Gráficos" />
+         </nav>
+         
     </div>
     </form>
     <div id="plantillas">
@@ -57,23 +70,27 @@
             </div>
         </div>
     </div>
-    <script>
+    <script type="text/javascript">
         var menuLeft = document.getElementById('cbp-spmenu-s1'),
-
+				menuRight = document.getElementById('cbp-spmenu-s2'),
 				showLeftPush = document.getElementById('showLeftPush'),
-
+				showRightPush = document.getElementById('showRightPush'),
 				body = document.body;
-
-
-
+       
         showLeftPush.onclick = function () {
             classie.toggle(this, 'active');
             classie.toggle(body, 'cbp-spmenu-push-toright');
             classie.toggle(menuLeft, 'cbp-spmenu-open');
             //disableOther('showLeftPush');
         };
-			
 
+        showRightPush.onclick = function () {
+            classie.toggle(this, 'active');
+            classie.toggle(body, 'cbp-spmenu-push-toleft');
+            classie.toggle(menuRight, 'cbp-spmenu-open');
+
+        };
+        
 			
 		</script>
 </body>

@@ -277,6 +277,7 @@ input[type="text"], input[type="password"], input[type="datetime"], input[type="
 
 .cbp-spmenu-right {
 	right: -240px;
+	/*right: -640px;*/
 }
 
 .cbp-spmenu-left.cbp-spmenu-open {

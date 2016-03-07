@@ -113,12 +113,69 @@
     display: inline-block;
     width: 600px; 
     float: left;
+    margin-left: 45px;
     background-color: #FCFCFC;
+    border-radius: 0 5px 5px 5px;
+    border-right: 1px solid #D5D5D5;
     }
     
+
+    
+.btn_organigrama 
+ {
+    position: absolute;
+    /*left: 645px;*/
+    height: 70px;
+    top: 10px;
+    background-color: #F8F8F8;
+    border: 1px solid #D5D5D5;
+    padding: 10px;
+    border-radius: 0 5px 5px 0;
+    font-variant: small-caps;
+    font-size: large;
+    letter-spacing: 1px;
+}
+
+.btn_grafico 
+{
+     position: absolute;
+    /* left: 645px; */
+    right: 70px;
+    top: 10px;
+    background-color: #F8F8F8;
+    border: 1px solid #D5D5D5;
+    padding: 10px;
+    border-radius: 0 5px 5px 0;
+    font-variant: small-caps;
+    font-size: large;
+    letter-spacing: 1px;
+    }
+        
+
+
+.titulo_organigrama 
+{
+    text-align: center;
+    font-weight: 200;
+    padding: 20px;
+    font-variant: small-caps;
+    }
+    
+#titulo_area 
+{
+
+}
+
 #panel_derecho 
 {
-    display: inline-block;
-    width: 600px;
-    margin-top: 40px;
+    position: absolute;
+    height: 70px;
+    top: 90px;
+    width: 100%;
+    left: 700px;
+}
+
+#menu ul li a 
+{
+    color:#000;
     }

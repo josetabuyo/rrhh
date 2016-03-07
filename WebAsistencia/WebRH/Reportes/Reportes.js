@@ -133,6 +133,9 @@ var Reportes = {
         var arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"));
 
         arbol_organigrama.alSeleccionar(function (area) {
+            $('#titulo_area').html(area.alias);
+            //$('#btn_grafico_dotacion').show();
+            //$('#btn_grafico_licencias').show();
             console.log(area);
         });
 
