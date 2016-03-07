@@ -17,6 +17,8 @@
     background-color: #F7F7F7;
     border-radius: 6px;
     margin-top: 1px;
+    display: inline-block;
+    padding-right: 8px;
 }
 
 .area_en_arbol #nombre_area:hover
@@ -27,17 +29,32 @@
 
 .area_seleccionada_en_arbol
 {
-    font-weight: bold;
+    background-color: #0074CC !important;
+    color: White !important;
 }
 
 .area_en_arbol #areas_dependientes
 {
 
 }
+.area_sin_permisos
+{
+    color: Gray;
+}
 
 .area_del_usuario
 {
     color: #0074CC;
+}
+
+.area_hija_de_una_del_usuario
+{
+    color: #8374CC;
+}
+
+.hay_algun_area_del_usuario_en_esta_rama
+{
+    color: rgba(46, 116, 210, 0.58);
 }
 
 .area_en_arbol .btn_apertura
@@ -62,28 +79,52 @@
 {
     margin-left: 10px;
 }
+.ministerio #nombre_area
+{
+    font-size: 17px;
+}
 
 .secretaria
 {
     margin-left: 20px;
+}
+.secretaria #nombre_area
+{
+    font-size: 16px;
 }
 
 .subsecretaria
 {
     margin-left: 30px;
 }
+.subsecretaria #nombre_area
+{
+    font-size: 15px;
+}
 
 .direccion
 {
     margin-left: 40px;
+}
+.direccion #nombre_area
+{
+    font-size: 14px;
 }
 
 .subdireccion
 {
     margin-left: 50px;
 }
+.subdireccion #nombre_area
+{
+    font-size: 13px;
+}
 
 .coordinacion
 {
     margin-left: 60px;
+}
+.coordinacion #nombre_area
+{
+    font-size: 11px;
 }

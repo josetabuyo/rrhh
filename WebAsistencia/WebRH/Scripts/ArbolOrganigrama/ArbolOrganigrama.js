@@ -53,8 +53,7 @@ ArbolOrganigrama.prototype.dibujarArea = function (area, contenedor, es_area_hij
             break;
     }
     var es_area_del_usuario = _.findWhere(this.areasUsuario, { Id: area.id }) && true;
-    if (es_area_del_usuario || es_area_hija_de_una_del_usuario) {
-        div_nombre.addClass("area_del_usuario");
+    if (es_area_del_usuario || es_area_hija_de_una_del_usuario) {        
         div_nombre.click(function () {
             _this.vistaArbol.find(".area_seleccionada_en_arbol").each(function (ia, v_area) {
                 $(v_area).removeClass("area_seleccionada_en_arbol");
@@ -76,6 +75,10 @@ ArbolOrganigrama.prototype.dibujarArea = function (area, contenedor, es_area_hij
         btn_expandir.hide();
         btn_contraer.hide();
     }
+    if (hay_algun_area_del_usuario_en_esta_rama) div_nombre.addClass("hay_algun_area_del_usuario_en_esta_rama");
+    if (es_area_del_usuario) div_nombre.addClass("area_del_usuario");
+    if (es_area_hija_de_una_del_usuario) div_nombre.addClass("area_hija_de_una_del_usuario");
+    if (!(es_area_del_usuario || es_area_hija_de_una_del_usuario || hay_algun_area_del_usuario_en_esta_rama)) div_nombre.addClass("area_sin_permisos");
     return es_area_del_usuario || es_area_hija_de_una_del_usuario || hay_algun_area_del_usuario_en_esta_rama;
 };
 
