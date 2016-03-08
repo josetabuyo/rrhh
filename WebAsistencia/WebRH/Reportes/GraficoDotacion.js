@@ -30,7 +30,7 @@ var GraficoDotacion = {
         });
         $('#btn_salir_menu').click(function () {
             $('#showTop').click();
-            
+
         });
 
 
@@ -54,13 +54,15 @@ var GraficoDotacion = {
 
     BuscarDatos: function () {
         var _this = this;
-
-        _this.GraficoYTabla(1, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+        var tipo = checks_activos.slice(-1)[0];
+        var fecha = new Date();
+        var id_area = 1024;
+        _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
     },
 
-    GraficoYTabla: function (tipo, titulo, div_grafico, div_tabla, tabla) {
+    GraficoYTabla: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
-        var resultado = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo)}]);
+        var resultado = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
         //personas = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(2)}]);
         if (resultado.length > 0) {
             _this.VisualizarContenido(true);
