@@ -8,6 +8,7 @@
     <%= Referencias.Css("../")%>
     <link rel="stylesheet" type="text/css" href="Reportes.css" />
     <link rel="stylesheet" type="text/css" href="../Scripts/ArbolOrganigrama/ArbolOrganigrama.css" />
+    <link rel="stylesheet" type="text/css" href="../Estilos/component.css" />
     <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="Reportes.js"></script>
@@ -15,23 +16,90 @@
 </head>
 <body>
     <form id="Reportes" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PostulAR</span> <br/> "
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>Reportes</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <br />
-    
-    <h1 style="text-align: center; font-weight:200;">Reportes</h1>
+   
+    <!--<h1 style="text-align: center; font-weight:200;">Reportes</h1>-->
+    <input id="btn_consulta_rapida" type="button" class="btn btn-primary btn_consulta_individual" RequiereFuncionalidad="32" value="Consulta Individual" />
     <div>
-    <input id="btn_consulta_rapida" style="display:block;" type="button" class="btn btn-primary" RequiereFuncionalidad="32" value="Consulta Individual" />
-        <div id="contenedor_arbol_organigrama">
-            <h2 style="text-align: center; font-weight: 200;">Organigrama</h2>
-        </div>
-        <div id="panel_derecho" style="text-align:center;">
-            <h2 style="text-align: center; font-weight: 200;">Módulos</h2>
-            <div >
-                <input id="btn_grafico_dotacion" style="display:inline-block;" type="button" class="btn btn-primary" value="Gráfico Dotación" />
-                <input id="btn_grafico_licencias" style="display:inline-block;" type="button" class="btn btn-primary" value="Gráfico Licencias" />
+        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position:relative; top:0; width: 100%;" id="cbp-spmenu-s1" >
+            <div id="contenedor_arbol_organigrama">
+                <h2 class="titulo_organigrama">Organigrama</h2>
             </div>
+             <input type="button" class="btn_organigrama" id="showLeftPush" value="Organigrama" />
+           
+             <div id="menu_grafico">
+                <h2 class="">Gráficos</h2>
+                  <ul class="lista" >
+                    <li><a href="#" id="btn_grafico_dotacion" class="link_listado">Dotación</a>
+                        <ul><li class="Rango Etáreo">- <a href="#" class="link_listado">Rango Etáreo</a></li></ul>
+                    </li>
+                    <li class="Dotacion"><a href="#" class="link_listado">Sueldo</a></li>
+                    <li id="btn_grafico_licencias" class="Licencias"><a href="#" class="link_listado">Licencias</a></li>
+                     <li class="Horas Extras"><a href="#" class="link_listado">Horas Extras</a></li>
+                    <li class="Otros"><a href="#" class="link_listado">Otros</a></li>
+                </ul>
+             </div>
+
+             <div id="div_filtros_grafico" style="position: absolute; left: 650px; width: 100%;">
+                <div style=" position: absolute;left: 150px; margin-top: 10px;">
+                    <h2 style="font-size: 1.2em;">Área Seleccionada: <span id="titulo_area"></span></h2>
+                    <h2 style="font-size: 1.2em; ">Gráfico Seleccionado: <span id="titulo_grafico"></span></h2>
+                </div>
+                <div id="div_filtros" style="display: flex;position: absolute;top: 80px;left: 135px;">
+                    <div style="margin-left:20px;">
+                    <div class="grupo_campos" style="margin-bottom: 9px;">
+                        <label>
+                            Fecha</label>
+                        <input id="txt_fecha_desde" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
+                         <input id="btn_armarGrafico" type="button" class="btn btn-primary" style="float: right;
+                    margin: 7px 314px 0px 0px;" value="Graficar" />
+                    </div>
+                    <div class="grupo_campos nueva_linea">
+                        <label>
+                            Información</label>
+                        <div class="ac-custom ac-checkbox ac-cross" autocomplete="off" style="margin-left: 20px;">
+                        <section>
+					    <ul style="display:flex; margin:-21px 0px 0px 11px">
+						    <li><input id="cb1" name="cb1" type="checkbox"/><label for="cb1">Género</label></li>
+						    <li><input id="cb2" name="cb2" type="checkbox"/><label for="cb2">Nivel</label></li>
+						    <li><input id="cb3" name="cb3" type="checkbox"/><label for="cb3">Estudios</label></li>
+						    <li><input id="cb4" name="cb4" type="checkbox"/><label for="cb4">Plantas</label></li>
+						    <li><input id="cb5" name="cb5" type="checkbox"/><label for="cb5">Afiliación Gremial</label></li>
+					    </ul>
+		
+			            </section>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            <div id="div_grafico_y_tabla" style="display:flex; width: 100%; position: absolute; top: 160px;">
+            <div id="container_grafico_torta_totales" style="width: 40%; height: 400px;
+                margin: 0 auto">
+            </div>
+            <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 auto">
+                    <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
+                        style="display: none;" />
+                    <%-- <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none">
+                    Exportar Datos</a>--%>
+                    <table id="tabla_resultado_totales" style="width:220px;">
+                    </table>
+                </div>
+                </div>
+            <div id="div_tablas" style="display: flex;">
+                
+                <div id="div_tabla_detalle" style="margin-top: 39px;">
+                    <table id="tabla_detalle" style="width: 400px;">
+                    </table>
+                </div>
+            </div>
+
         </div>
+             
+         </nav>
+
+
+         
     </div>
     </form>
     <div id="plantillas">
@@ -51,5 +119,32 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
+    <script type="text/javascript" src="GraficoDotacion.js"></script>
+    <script src="../Scripts/Graficos/highcharts.js" type="text/javascript"></script>
+    <script src="../Scripts/Graficos/highcharts-3d.js" type="text/javascript"></script>
+    <script src="../Scripts/Graficos/data.js" type="text/javascript"></script>
+    <script src="../Scripts/Graficos/exporting.js" type="text/javascript"></script>
+    <script src="../Scripts/Graficos/svgcheckbx.js" type="text/javascript"></script>
+    <script src="../Scripts/Graficos/classie.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var menuLeft = document.getElementById('cbp-spmenu-s1'),
+				showLeftPush = document.getElementById('showLeftPush'),
+				body = document.body;
+       
+        showLeftPush.onclick = function () {
+            classie.toggle(this, 'active');
+            classie.toggle(body, 'cbp-spmenu-push-toright');
+            classie.toggle(menuLeft, 'cbp-spmenu-open');
+            //disableOther('showLeftPush');
+        };
+
+        Backend.start();
+        $(document).ready(function () {
+
+            GraficoDotacion.Inicializar();
+        });
+			
+		</script>
 </body>
 </html>
