@@ -3908,10 +3908,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="Grafico">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="tabla_resumen" type="tns:ArrayOfAnyType" />
+          <s:element minOccurs="0" maxOccurs="1" name="tabla_detalle" type="tns:ArrayOfAnyType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetGraficoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetGraficoResult" type="tns:ArrayOfCampo" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetGraficoResult" type="tns:Grafico" />
           </s:sequence>
         </s:complexType>
       </s:element>

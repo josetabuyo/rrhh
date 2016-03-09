@@ -62,7 +62,8 @@ var GraficoDotacion = {
 
     GraficoYTabla: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
-        var resultado = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
+        var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
+        var resultado = grafico.tabla_resumen;
         //personas = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(2)}]);
         if (resultado.length > 0) {
             _this.VisualizarContenido(true);
