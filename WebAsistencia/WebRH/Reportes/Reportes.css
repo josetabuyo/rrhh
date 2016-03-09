@@ -136,6 +136,32 @@
     letter-spacing: 1px;
 }
 
+.btn_consulta_individual 
+{
+    display: block;
+    float: right;
+    height: 50px;
+    font-size: 1.2em;
+    font-variant: small-caps;
+    letter-spacing: 1px;
+    cursor:pointer;
+    border-radius: 5px 0 0 5px;
+}
+
+.link_listado 
+{
+    color: #000 !important;
+    text-decoration: none !important;
+    font-weight: lighter !important;
+    border:none !important;
+    padding:0 !important;
+    margin:0 !important;
+}
+
+.link_listado:hover 
+{
+    background:none !important;
+}
 
 
 .titulo_organigrama 
@@ -151,16 +177,43 @@
 
 }
 
-#panel_derecho 
+#menu_grafico 
 {
     position: absolute;
-    height: 70px;
     top: 90px;
     width: 135px;
     left: 645px;
     background-color: #F8F8F8;
     border-radius: 0 5px 5px 0;
     border: 1px solid #D5D5D5;
+    cursor:pointer;
+    z-index: 9;
+    
+}
+
+#menu_grafico h2 
+{
+    font-variant: small-caps;
+    font-size: large;
+    letter-spacing: 1px;
+    padding: 10px;
+    text-align: center;
+    
+}
+
+#menu_grafico h2::first-letter, .lista > li::first-letter, .link_listado::first-letter   { 
+    font-weight:lighter;
+}
+
+#menu_grafico ul {
+    max-height: 0;
+    transition: max-height 0.15s ease-out;
+    overflow: hidden;
+}
+
+#menu_grafico:hover ul {
+    max-height: 800px;
+    transition: max-height 0.25s ease-in;
 }
 
 .lista 
@@ -179,6 +232,7 @@
 {
     margin:15px;
     cursor:pointer;
+    letter-spacing: 1px;
 }
 
 .lista > li > ul 
@@ -187,5 +241,6 @@
     font-size: 0.7em;
     cursor:pointer;
     list-style: none;
+    letter-spacing: 1px;
 }
 
