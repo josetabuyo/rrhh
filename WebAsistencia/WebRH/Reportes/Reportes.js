@@ -134,8 +134,9 @@ var Reportes = {
 
         arbol_organigrama.alSeleccionar(function (area) {
             $('#titulo_area').html(area.alias);
-            //$('#btn_grafico_dotacion').show();
+            $('.lista').show();
             //$('#btn_grafico_licencias').show();
+            $('#showLeftPush').click();
             console.log(area);
         });
 
