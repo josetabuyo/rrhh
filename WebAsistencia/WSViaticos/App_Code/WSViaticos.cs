@@ -205,12 +205,15 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Grafico GetGrafico(string criterio, Usuario usuario)
     {
+
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         int tipo = (int)((JValue)criterio_deserializado["tipo"]);
          DateTime fecha = (DateTime)((JValue)criterio_deserializado["fecha"]);
          int id_area = (int)((JValue)criterio_deserializado["id_area"]);
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
         return repositorio.GetGraficoDotacion(tipo, fecha, id_area);
+
+
 
 
         //List<Campo> campos = new List<Campo>();
