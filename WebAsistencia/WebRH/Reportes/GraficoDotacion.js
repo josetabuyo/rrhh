@@ -116,7 +116,7 @@ var GraficoDotacion = {
                     depth: 35,
                     dataLabels: {
                         enabled: true,
-                        format: '{point.name}',
+                        format: 'Nivel ' + '{point.name}' + ' : ' + '{point.percentage:.1f}' + '%',
                         style: {
                             textShadow: ''
                         }
@@ -139,7 +139,7 @@ var GraficoDotacion = {
         var columnas = [];
         columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.Id } }));
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.Cantidad } }));
-        columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return un_registro.Porcentaje } }));
+        columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return un_registro.Porcentaje + '%' } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
