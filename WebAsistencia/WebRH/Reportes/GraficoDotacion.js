@@ -116,7 +116,7 @@ var GraficoDotacion = {
                     depth: 35,
                     dataLabels: {
                         enabled: true,
-                        format: 'Nivel ' + '{point.name}' + ' : ' + '{point.percentage:.1f}' + '%',
+                        format: 'Nivel ' + '{point.name}' + ': ' + '{point.percentage:.1f}' + '%',
                         style: {
                             textShadow: ''
                         }
@@ -231,6 +231,7 @@ var GraficoDotacion = {
     },
 
     VisualizarContenido: function (visualizar) {
+        $('#container_grafico_torta_totales').show();
         //        if (visualizar) {
         //            $('#div_grafico').show();
         //            $('#div_tabla_resumen').show();

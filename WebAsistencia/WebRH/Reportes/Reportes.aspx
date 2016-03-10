@@ -75,15 +75,15 @@
                     </div>
                 </div>
 
-                <div id="div_graficos_y_tablas" style="display:flex; width: 100%; position: absolute; top: 160px;">
+                <div id="div_graficos_y_tablas" style="display:flex; width: 100%; margin-left: 55px; position: absolute; top: 160px;">
             <div id="div_grafico_y_tabla" style="display:flex; width: 100%; position: absolute; ">
-            <div id="container_grafico_torta_totales" style="width: 40%; height: 400px;
-                margin: 0 auto">
+            <div id="container_grafico_torta_totales" style="width: 40%; height: 400px; border: 1px solid;
+                margin: 0 auto; display:none;">
             </div>
             <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 auto">
                     <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
                         style="display: none;" />
-                     <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none">
+                     <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none; padding: 5px;">
                     Exportar Datos</a>
                     <table id="tabla_resultado_totales" style="width:420px;">
                     </table>
@@ -92,7 +92,7 @@
 
                 
                 <div id="div_tabla_detalle" style="margin-left: 193px;width: 100%; position: absolute; top: 420px;">
-                    <table id="tabla_detalle">
+                    <table id="tabla_detalle" style="width: 70%;">
                     </table>
                 </div>
    </div>
