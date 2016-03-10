@@ -1,5 +1,5 @@
 ﻿var AdministradorDeLugaresDeTrabajo = function () {
-    var json_areas = JSON.parse($('#areasJSON').val());
+    var json_areas = Backend.ejecutarSincronico("GetAreasParaLugaresDeTrabajo", []);
     var areas = [];
     for (var i = 0; i < json_areas.length; i++) {
         areas.push(new Area(json_areas[i]));
@@ -78,36 +78,57 @@
     // This must be a hyperlink
     $("#exportar").on('click', function (event) {
 
-        var $rows = $(PlanillaAreas.tabla).find('tr'),
-
         // Temporary delimiter characters unlikely to be typed by keyboard
         // This is to avoid accidentally splitting the actual contents
-            tmpColDelim = String.fromCharCode(11), // vertical tab character
-            tmpRowDelim = String.fromCharCode(0), // null character
+        var tmpColDelim = String.fromCharCode(11); // vertical tab character
+        var tmpRowDelim = String.fromCharCode(0); // null character
 
         // actual delimiter characters for CSV format
-            colDelim = '";"',
-            rowDelim = '"\r\n"',
+        var colDelim = '";"';
+        var rowDelim = '"\r\n"';
 
-        // Grab text from table into CSV formatted string
-            csv = '"' + $rows.map(function (i, row) {
-                var $row = $(row),
-                    $cols = $row.find('td, th');
 
-                return $cols.map(function (j, col) {
-                    var $col = $(col),
-                        text = $col.text();
+        var csv = '"';
 
-                    return text.replace(/"/g, '""'); // escape double quotes
+        csv += "Area" + colDelim;
+        csv += "Telefonos" + colDelim;
+        csv += "Correo Electronico" + colDelim;
+        csv += "Direccion" + colDelim;
+        csv += "CP" + colDelim;
+        csv += "Localidad" + colDelim;
+        csv += "Provincia" + rowDelim;
 
-                }).get().join(tmpColDelim);
+        _.forEach(areas, function (a) {
+            csv += a.nombre().replace(/"/g, '""') + colDelim;
+            csv += a.telefonos().replace(/"/g, '""') + colDelim;
+            csv += a.mails().replace(/"/g, '""') + colDelim;
+            csv += a._area.DireccionSeparada.Calle.replace(/"/g, '""') + colDelim;
+            csv += a._area.DireccionSeparada.CP.replace(/"/g, '""') + colDelim;
+            csv += a._area.DireccionSeparada.Localidad.replace(/"/g, '""') + colDelim;
+            csv += a._area.DireccionSeparada.Provincia.replace(/"/g, '""') + rowDelim;
+        });
 
-            }).get().join(tmpRowDelim)
-                .split(tmpRowDelim).join(rowDelim)
-                .split(tmpColDelim).join(colDelim) + '"',
+        csv += '"';
+
+        //        // Grab text from table into CSV formatted string
+        //            csv = '"' + $rows.map(function (i, row) {
+        //                var $row = $(row),
+        //                    $cols = $row.find('td, th');
+
+        //                return $cols.map(function (j, col) {
+        //                    var $col = $(col),
+        //                        text = $col.text();
+
+        //                    return text.replace(/"/g, '""'); // escape double quotes
+
+        //                }).get().join(tmpColDelim);
+
+        //            }).get().join(tmpRowDelim)
+        //                .split(tmpRowDelim).join(rowDelim)
+        //                .split(tmpColDelim).join(colDelim) + '"',
 
         // Data URI
-            csvData = 'data:application/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+        var csvData = 'data:application/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
 
         $(this)
             .attr({

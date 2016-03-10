@@ -32,6 +32,7 @@
         public List<DatoDeContacto> DatosDeContacto;
         public int CantidadDeUsuarios { get; set; }
 
+        public Direccion DireccionSeparada { get; set; }
 
         public Area(int IdArea)
         {

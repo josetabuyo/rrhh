@@ -111,7 +111,7 @@ namespace General.Repositorios
                      var id_area = row.GetSmallintAsInt("Id_area");
                      var area_completa = areas_completas.Find(ar => ar.Id == id_area);
 
-                     areas.Add(new Area
+                     var area = new Area
                      {
                          Id = id_area,
                          Nombre = row.GetString("Descripcion"),
@@ -120,7 +120,9 @@ namespace General.Repositorios
                          datos_del_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", ""),
                          Asistentes = area_completa.Asistentes,
                          CantidadDeUsuarios = row.GetSmallintAsInt("CantidadDeUsuarios", 0)
-                     });
+                     };
+                     area.DireccionSeparada = area_completa.DireccionSeparada;
+                     areas.Add(area);
                  });
              }
 
@@ -169,10 +171,11 @@ namespace General.Repositorios
                             Id = row.GetSmallintAsInt("Id_Area"),
                             Nombre = row.GetString("descripcion"),
                             Direccion = row.GetString("direccion"),
+                            DireccionSeparada = new Direccion(row.GetString("direccion_calle", ""), row.GetString("direccion_cp", ""), row.GetString("direccion_localidad", ""), row.GetString("direccion_provincia", "")),
                             datos_del_responsable = datos_responsable,
                             Asistentes = Asistentes,
                             DatosDeContacto = DatosDeContacto,
-                            PresentaDDJJ = row.GetBoolean("presenta_DDJJ"),
+                            PresentaDDJJ = row.GetBoolean("presenta_DDJJ")
                         });
                     }
                     else
