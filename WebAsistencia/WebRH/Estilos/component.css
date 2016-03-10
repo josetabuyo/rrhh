@@ -201,7 +201,8 @@ input[type="text"], input[type="password"], input[type="datetime"], input[type="
 /*COMPONENTES DEL MENU*/
 /* General styles for all menus */
 .cbp-spmenu {
-	background: #47a3da;
+	background: #FAFAFA;
+	/*background: #47a3da;*/
 	position: fixed;
 }
 
@@ -233,9 +234,11 @@ input[type="text"], input[type="password"], input[type="datetime"], input[type="
 /* Orientation-dependent styles for the content of the menu */
 
 .cbp-spmenu-vertical {
-	width: 240px;
+	/*width: 240px;*/
+	width: 640px;
 	height: 100%;
-	top: 0;
+	/*top: 0;*/
+	top: 100px;
 	z-index: 1000;
 }
 
@@ -268,11 +271,13 @@ input[type="text"], input[type="password"], input[type="datetime"], input[type="
 /* Vertical menu that slides from the left or right */
 
 .cbp-spmenu-left {
-	left: -240px;
+	/*left: -240px;*/
+	left: -640px;
 }
 
 .cbp-spmenu-right {
 	right: -240px;
+	/*right: -640px;*/
 }
 
 .cbp-spmenu-left.cbp-spmenu-open {

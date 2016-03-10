@@ -12,10 +12,11 @@ var Reportes = {
             window.location.replace("ConsultaIndividual.aspx");
         })
         $('#btn_grafico_dotacion').click(function () {
-            window.location.replace("GraficoDotacion.aspx");
+            $('#titulo_grafico').html(this.innerHTML);
+            //window.location.replace("GraficoDotacion.aspx");
         })
         $('#btn_grafico_licencias').click(function () {
-            window.location.replace("GraficoLicencias.aspx");
+            //window.location.replace("GraficoLicencias.aspx");
         })
 
         this.dibujarArbolOrganigrama();
@@ -104,6 +105,10 @@ var Reportes = {
         var arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"));
 
         arbol_organigrama.alSeleccionar(function (area) {
+            $('#titulo_area').html(area.alias);
+            $('.lista').show();
+            //$('#btn_grafico_licencias').show();
+            $('#showLeftPush').click();
             console.log(area);
         });
 
