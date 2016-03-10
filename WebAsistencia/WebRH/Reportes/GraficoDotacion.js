@@ -64,11 +64,11 @@ var GraficoDotacion = {
         var _this = this;
         var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
         var resultado = grafico.tabla_resumen;
-        //personas = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(2)}]);
+        var tabla_detalle = grafico.tabla_detalle;
         if (resultado.length > 0) {
             _this.VisualizarContenido(true);
             _this.ArmarGrafico(resultado, titulo, div_grafico);
-            _this.DibujarTabla(resultado, div_tabla, tabla);
+            _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
             _this.BuscadorDeTabla();
         } else {
             _this.VisualizarContenido(false);
@@ -79,7 +79,7 @@ var GraficoDotacion = {
     CrearDatos: function (resultado) {
         var datos = [];
         for (var i = 0; i < resultado.length; i++) {
-            var porcion = [resultado[i].clave, parseInt(resultado[i].valor)];
+            var porcion = [resultado[i].Id, parseInt(resultado[i].Cantidad)];
             datos.push(porcion);
         };
         return datos;
@@ -128,7 +128,7 @@ var GraficoDotacion = {
 
     },
 
-    DibujarTabla: function (resultado, div_tabla, tabla) {
+    DibujarTabla: function (resultado, div_tabla, tabla, tabla_detalle) {
         var _this = this;
         $("#" + tabla).empty();
         $("#search").show();
@@ -137,19 +137,19 @@ var GraficoDotacion = {
         var tabla = resultado;
 
         var columnas = [];
-        columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.clave } }));
-        columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.valor } }));
-        columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return un_registro.valor } }));
+        columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.Id } }));
+        columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.Cantidad } }));
+        columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return un_registro.Porcentaje } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
                 var img = $('<img>');
                 img.attr('src', '../Imagenes/detalle.png');
-                img.attr('width', '25px');
-                img.attr('height', '25px');
+                img.attr('width', '15px');
+                img.attr('height', '15px');
                 btn_accion.append(img);
                 btn_accion.click(function () {
-                    _this.BuscarPersonas(un_registro.clave);
+                    _this.BuscarPersonas(un_registro.Id, tabla_detalle);
                 });
 
                 return btn_accion;
@@ -161,12 +161,54 @@ var GraficoDotacion = {
         this.GrillaResumen.DibujarEn(divGrilla);
 
     },
-    BuscarPersonas: function (id_area) {
+    DibujarTablaDetalle: function (resultado, div_tabla, tabla) {
         var _this = this;
-        var resultado = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(2)}]);
-        if (resultado.length > 0) {
+        $("#" + tabla).empty();
+        $("#search").show();
+        $("#exportar_datos").show();
+        var divGrilla = $('#' + tabla);
+        var tabla = resultado;
+
+        var columnas = [];
+        columnas.push(new Columna("NroDocumento", { generar: function (un_registro) { return un_registro.NroDocumento } }));
+        columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.Apellido } }));
+        columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
+        columnas.push(new Columna("Grado", { generar: function (un_registro) { return un_registro.Grado } }));
+        columnas.push(new Columna("Planta", { generar: function (un_registro) { return un_registro.Planta } }));
+        columnas.push(new Columna('Detalle', {
+            generar: function (un_registro) {
+                var btn_accion = $('<a>');
+                var img = $('<img>');
+                img.attr('src', '../Imagenes/detalle.png');
+                img.attr('width', '15px');
+                img.attr('height', '15px');
+                btn_accion.append(img);
+                btn_accion.click(function () {
+                    // _this.BuscarPersonas(un_registro.Id, tabla_detalle);
+                });
+
+                return btn_accion;
+            }
+        }));
+
+        this.GrillaResumen = new Grilla(columnas);
+        this.GrillaResumen.CargarObjetos(tabla);
+        this.GrillaResumen.DibujarEn(divGrilla);
+
+    },
+    BuscarPersonas: function (id, tabla) {
+        var _this = this;
+        var tabla_final = [];
+        if (tabla.length > 0) {
+
+            for (var i = 0; i < tabla.length; i++) {
+                if (tabla[i].Nivel == id) {
+                    tabla_final.push(tabla[i]);
+                }
+            }
+
             _this.VisualizarContenido(true);
-            _this.DibujarTabla(resultado, "div_tabla_detalle", "tabla_detalle");
+            _this.DibujarTablaDetalle(tabla_final, "div_tabla_detalle", "tabla_detalle");
 
         } else {
             _this.VisualizarContenido(false);

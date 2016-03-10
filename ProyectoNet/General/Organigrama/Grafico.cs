@@ -9,8 +9,8 @@ namespace General
 {
     public class Grafico
     {
-        public Resumen[] tabla_resumen;
-        public Dotacion[] tabla_detalle;
+        public List<Resumen> tabla_resumen;
+        public List<Dotacion> tabla_detalle;
 
         public Grafico()
         {
@@ -44,7 +44,7 @@ namespace General
                        );
                 tabla.Add(persona);
             });
-            this.tabla_detalle = tabla.ToArray();
+            this.tabla_detalle = tabla;
         }
 
         internal void GraficoPorNivel()
@@ -60,27 +60,27 @@ namespace General
             tabla_personas.ForEach(p =>
             {
 
-                if ("A".Equals(p))
+                if ("A".Equals(p.Planta))
                 {
                     nivel_a = nivel_a + 1;
                 }
-                else if ("B".Equals(p))
+                else if ("B".Equals(p.Nivel))
                 {
                     nivel_b = nivel_b + 1;
                 }
-                else if ("C".Equals(p))
+                else if ("C".Equals(p.Nivel))
                 {
                     nivel_c = nivel_c + 1;
                 }
-                else if ("D".Equals(p))
+                else if ("D".Equals(p.Nivel))
                 {
                     nivel_d = nivel_d + 1;
                 }
-                else if ("E".Equals(p))
+                else if ("E".Equals(p.Nivel))
                 {
                     nivel_e = nivel_e + 1;
                 }
-                else if ("F".Equals(p))
+                else if ("F".Equals(p.Nivel))
                 {
                     nivel_f = nivel_f + 1;
                 }
@@ -94,7 +94,7 @@ namespace General
             tabla.Add(GenerarRegistroResumen("D", nivel_d, total));
             tabla.Add(GenerarRegistroResumen("E", nivel_e, total));
             tabla.Add(GenerarRegistroResumen("F", nivel_f, total));
-            this.tabla_resumen = tabla.ToArray();
+            this.tabla_resumen = tabla;
         }
 
         private Resumen GenerarRegistroResumen(string nivel, int cantidad, int total)
