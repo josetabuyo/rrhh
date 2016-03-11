@@ -8,11 +8,15 @@ var Reportes = {
     start: function () {
         var _this = this;
 
+        $('#titulo_area').html(localStorage.getItem("alias"));
+
         $('#btn_consulta_rapida').click(function () {
-            window.location.replace("ConsultaIndividual.aspx");
+            window.location.href = "ConsultaIndividual.aspx";
+            //window.location.replace("ConsultaIndividual.aspx");
         })
         $('#btn_grafico_dotacion').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
+            $('#div_filtros').show();
             //window.location.replace("GraficoDotacion.aspx");
         })
         $('#btn_grafico_licencias').click(function () {
@@ -134,10 +138,12 @@ var Reportes = {
         var arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"));
 
         arbol_organigrama.alSeleccionar(function (area) {
-            $('#titulo_area').html(area.alias);
             $('.lista').show();
             //$('#btn_grafico_licencias').show();
             $('#showLeftPush').click();
+            localStorage.setItem("idArea", area.id);
+            localStorage.setItem("alias", area.alias);
+            $('#titulo_area').html(area.alias);
             console.log(area);
         });
 

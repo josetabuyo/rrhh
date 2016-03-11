@@ -56,12 +56,20 @@ var GraficoDotacion = {
         var _this = this;
         var tipo = checks_activos.slice(-1)[0];
         var fecha = new Date();
-        var id_area = 1024;
-        if (tipo != null && fecha != null & id_area != null) {
-            _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+        //Me fijo si esta seteado el storage
+        if (typeof (Storage) !== "undefined") {
+            var id_area = localStorage.getItem("idArea");
+            var alias = localStorage.getItem("alias");
+
+            if (tipo != null && fecha != null & id_area != null) {
+                _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+            } else {
+                if (tipo != null)
+                    alertify.error("Debe copletar la fecha, elegir un área y un tipo de informaicón");
+            }
+
         } else {
-            if (tipo != null)
-            alertify.error("Debe copletar la fecha, elegir un área y un tipo de informaicón");
+            console.log("No soporta localStorage"); // Sorry! No Web Storage support..
         }
 
     },
@@ -122,7 +130,7 @@ var GraficoDotacion = {
                     depth: 35,
                     dataLabels: {
                         enabled: true,
-                        format:  '{point.name}' + ': ' + '{point.percentage:.2f}' + '%',
+                        format: '{point.name}' + ': ' + '{point.percentage:.2f}' + '%',
                         style: {
                             textShadow: ''
                         }
@@ -194,6 +202,9 @@ var GraficoDotacion = {
                 img.attr('height', '15px');
                 btn_accion.append(img);
                 btn_accion.click(function () {
+                    console.log(un_registro);
+                    localStorage.setItem("documento", un_registro.NroDocumento);
+                    window.location.replace("ConsultaIndividual.aspx");
                     // _this.BuscarPersonas(un_registro.Id, tabla_detalle);
                 });
 

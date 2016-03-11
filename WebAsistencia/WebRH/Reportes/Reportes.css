@@ -126,26 +126,32 @@
     position: absolute;
     /*left: 645px;*/
     height: 70px;
-    top: 10px;
+    top: 90px;
     background-color: #F8F8F8;
     border: 1px solid #D5D5D5;
     padding: 10px;
     border-radius: 0 5px 5px 0;
     font-variant: small-caps;
-    font-size: large;
+    font-size: initial;
+    width: 135px !important;
     letter-spacing: 1px;
 }
 
 .btn_consulta_individual 
 {
+    position: absolute;
     display: block;
-    float: right;
-    height: 50px;
-    font-size: 1.2em;
+    top: 10px;
+    height: 70px;
+    display: inline-block;
+    background-color: #F8F8F8;
+    border: 1px solid #D5D5D5;
+    border-radius: 0 5px 5px 0 !important;
+    width: 135px !important;
+    left: 645px;
     font-variant: small-caps;
     letter-spacing: 1px;
-    cursor:pointer;
-    border-radius: 5px 0 0 5px;
+    cursor: pointer;
 }
 
 .link_listado 
@@ -180,7 +186,7 @@
 #menu_grafico 
 {
     position: absolute;
-    top: 90px;
+    top: 170px;
     width: 135px;
     left: 645px;
     background-color: #F8F8F8;
@@ -189,19 +195,20 @@
     cursor:pointer;
     z-index: 9;
     
+    
 }
 
 #menu_grafico h2 
 {
     font-variant: small-caps;
-    font-size: large;
+    font-size: initial;
     letter-spacing: 1px;
-    padding: 10px;
+    padding: 15px 10px;
     text-align: center;
     
 }
 
-#menu_grafico h2::first-letter, .lista > li::first-letter, .link_listado::first-letter   { 
+#menu_grafico h2::first-letter, .lista > li::first-letter, a.link_listado::first-letter   { 
     font-weight:lighter;
 }
 
@@ -219,7 +226,7 @@
 .lista 
 {
     list-style: none;
-    font-size: 1.5em;
+    font-size: initial;
     color: #383838;
     cursor: pointer;
     padding: 0;
@@ -243,4 +250,9 @@
     list-style: none;
     letter-spacing: 1px;
 }
+
+.Detalle a 
+{
+    border:none !important;
+    }
 
