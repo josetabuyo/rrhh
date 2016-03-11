@@ -56,8 +56,20 @@ var GraficoDotacion = {
         var _this = this;
         var tipo = checks_activos.slice(-1)[0];
         var fecha = new Date();
-        var id_area = 1024;
-        _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+        //Me fijo si esta seteado el storage
+        if (typeof (Storage) !== "undefined") {
+            var id_area = localStorage.getItem("idArea");
+            var alias = localStorage.getItem("alias");
+            if (id_area != null) {
+                _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+            } else {
+                alert("Debe seleccionar un Área");
+            }
+        } else {
+            console.log("No soporta localStorage"); // Sorry! No Web Storage support..
+        }
+        
+
     },
 
     GraficoYTabla: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
@@ -184,6 +196,9 @@ var GraficoDotacion = {
                 img.attr('height', '15px');
                 btn_accion.append(img);
                 btn_accion.click(function () {
+                    console.log(un_registro);
+                    localStorage.setItem("documento", un_registro.NroDocumento);
+                    window.location.replace("ConsultaIndividual.aspx");
                     // _this.BuscarPersonas(un_registro.Id, tabla_detalle);
                 });
 
