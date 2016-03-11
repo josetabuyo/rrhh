@@ -49,7 +49,7 @@ var GraficoDotacion = {
         } else {
             checks_activos = [];
         }
-        console.log(checks_activos);
+        this.BuscarDatos();
     },
 
     BuscarDatos: function () {
@@ -57,7 +57,13 @@ var GraficoDotacion = {
         var tipo = checks_activos.slice(-1)[0];
         var fecha = new Date();
         var id_area = 1024;
-        _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+        if (tipo != null && fecha != null & id_area != null) {
+            _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+        } else {
+            if (tipo != null)
+            alertify.error("Debe copletar la fecha, elegir un área y un tipo de informaicón");
+        }
+
     },
 
     GraficoYTabla: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
@@ -107,7 +113,7 @@ var GraficoDotacion = {
                 text: titulo
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
             },
             plotOptions: {
                 pie: {
@@ -116,7 +122,7 @@ var GraficoDotacion = {
                     depth: 35,
                     dataLabels: {
                         enabled: true,
-                        format: 'Nivel ' + '{point.name}' + ': ' + '{point.percentage:.1f}' + '%',
+                        format:  '{point.name}' + ': ' + '{point.percentage:.2f}' + '%',
                         style: {
                             textShadow: ''
                         }
@@ -137,7 +143,7 @@ var GraficoDotacion = {
         var tabla = resultado;
 
         var columnas = [];
-        columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.Id } }));
+        columnas.push(new Columna("Información", { generar: function (un_registro) { return un_registro.Id } }));
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.Cantidad } }));
         columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return un_registro.Porcentaje + '%' } }));
         columnas.push(new Columna('Detalle', {
@@ -173,8 +179,12 @@ var GraficoDotacion = {
         columnas.push(new Columna("NroDocumento", { generar: function (un_registro) { return un_registro.NroDocumento } }));
         columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.Apellido } }));
         columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
+        columnas.push(new Columna("Sexo", { generar: function (un_registro) { return un_registro.Sexo } }));
+        columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.Nivel } }));
         columnas.push(new Columna("Grado", { generar: function (un_registro) { return un_registro.Grado } }));
         columnas.push(new Columna("Planta", { generar: function (un_registro) { return un_registro.Planta } }));
+        columnas.push(new Columna("NivelEstudio", { generar: function (un_registro) { return un_registro.NivelEstudio } }));
+        columnas.push(new Columna("Titulo", { generar: function (un_registro) { return un_registro.Titulo } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
