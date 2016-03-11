@@ -61,7 +61,7 @@
                         
                         <div class="ac-custom ac-checkbox ac-cross" autocomplete="off" style="margin-left: 20px;">
                         <section>
-					    <ul style="display:flex; margin:-21px 0px 0px 11px">
+					    <ul style="display:flex; margin:-21px 0px 0px 11px;width: 463px;">
 						    <li><input id="cb1" name="cb1" type="checkbox"/><label for="cb1">Género</label></li>
 						    <li><input id="cb2" name="cb2" type="checkbox"/><label for="cb2">Nivel</label></li>
 						    <li><input id="cb3" name="cb3" type="checkbox"/><label for="cb3">Estudios</label></li>
@@ -77,7 +77,7 @@
 
                 <div id="div_graficos_y_tablas" style="display:flex; width: 100%; left: 125px; position: absolute; top: 160px;">
             <div id="div_grafico_y_tabla" style="display:flex; width: 100%; position: absolute; ">
-            <div id="container_grafico_torta_totales" style="width: 40%; height: 400px; border: 1px solid;
+            <div id="container_grafico_torta_totales" style="width: 40%; height: 450px; border: 1px solid;
                 margin: 0 30px; display:none;">
             </div>
             <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 30px">
@@ -91,7 +91,7 @@
                 </div>
 
                 
-                <div id="div_tabla_detalle" style="margin: 0 30px; width: 100%; position: absolute; top: 420px;">
+                <div id="div_tabla_detalle" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
                     <table id="tabla_detalle" style="width: 70%;">
                     </table>
                 </div>

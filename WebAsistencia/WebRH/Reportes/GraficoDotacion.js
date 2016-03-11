@@ -93,8 +93,13 @@ var GraficoDotacion = {
     CrearDatos: function (resultado) {
         var datos = [];
         for (var i = 0; i < resultado.length; i++) {
-            var porcion = [resultado[i].Id, parseInt(resultado[i].Cantidad)];
-            datos.push(porcion);
+            if (resultado[i].Id != "Total") {
+                if (parseInt(resultado[i].Cantidad) > 0) {
+                    var porcion = [resultado[i].Id, parseInt(resultado[i].Cantidad)];
+                    datos.push(porcion);
+                }
+            }
+
         };
         return datos;
     },
@@ -165,7 +170,6 @@ var GraficoDotacion = {
                 btn_accion.click(function () {
                     _this.BuscarPersonas(un_registro.Id, tabla_detalle);
                 });
-
                 return btn_accion;
             }
         }));
@@ -205,7 +209,6 @@ var GraficoDotacion = {
                     console.log(un_registro);
                     localStorage.setItem("documento", un_registro.NroDocumento);
                     window.location.replace("ConsultaIndividual.aspx");
-                    // _this.BuscarPersonas(un_registro.Id, tabla_detalle);
                 });
 
                 return btn_accion;
@@ -222,9 +225,13 @@ var GraficoDotacion = {
         var tabla_final = [];
         if (tabla.length > 0) {
 
-            for (var i = 0; i < tabla.length; i++) {
-                if (tabla[i].Nivel == id) {
-                    tabla_final.push(tabla[i]);
+            if (id == "Total") {
+                tabla_final = tabla;
+            } else {
+                for (var i = 0; i < tabla.length; i++) {
+                    if (tabla[i].Nivel == id) {
+                        tabla_final.push(tabla[i]);
+                    }
                 }
             }
 
