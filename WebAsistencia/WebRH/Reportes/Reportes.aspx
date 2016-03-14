@@ -58,7 +58,8 @@
                     margin: 7px 314px 0px 0px;" value="Graficar" />
                     </div>
                     <div class="grupo_campos nueva_linea">
-                        
+                        <label>
+                            Filtros:</label>
                         <div class="ac-custom ac-checkbox ac-cross" autocomplete="off" style="margin-left: 20px;">
                         <section>
 					    <ul style="display:flex; margin:-21px 0px 0px 11px">

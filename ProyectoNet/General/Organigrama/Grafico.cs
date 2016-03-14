@@ -28,19 +28,19 @@ namespace General
             {
                 Dotacion persona =
                        new Dotacion(
-                           row.GetInt("id_persona"),
-                           row.GetInt("legajo"),
-                          row.GetInt("nrodocumento"),
-                           row.GetString("apellido"),
-                           row.GetString("nombre"),
-                           row.GetSmallintAsInt("id_sexo"),
-                          row.GetString("descrip_sexo"),
-                           row.GetString("nivel"),
-                           row.GetSmallintAsInt("grado"),
-                           row.GetInt("id_area"),
-                           row.GetString("descripcion"),
-                           row.GetSmallintAsInt("id_planta"),
-                           row.GetString("planta")
+                           row.GetInt("id_persona",0),
+                           row.GetInt("legajo",0),
+                          row.GetInt("nrodocumento",0),
+                           row.GetString("apellido",""),
+                           row.GetString("nombre",""),
+                           row.GetSmallintAsInt("id_sexo",0),
+                          row.GetString("descrip_sexo",""),
+                           row.GetString("nivel",""),
+                           row.GetSmallintAsInt("grado",-1),
+                           row.GetInt("id_area",0),
+                           row.GetString("area",""),
+                           row.GetSmallintAsInt("id_planta",0),
+                           row.GetString("planta","")
                        );
                 tabla.Add(persona);
             });
