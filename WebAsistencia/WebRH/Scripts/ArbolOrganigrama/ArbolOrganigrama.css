@@ -45,6 +45,7 @@
 .area_del_usuario
 {
     color: #0074CC;
+    font-weight: bold;
 }
 
 .area_hija_de_una_del_usuario
@@ -53,8 +54,7 @@
 }
 
 .hay_algun_area_del_usuario_en_esta_rama
-{
-    color: rgba(46, 116, 210, 0.58);
+{ 
 }
 
 .area_en_arbol .btn_apertura
