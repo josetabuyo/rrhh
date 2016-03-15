@@ -8,7 +8,10 @@ var Reportes = {
     start: function () {
         var _this = this;
 
-        $('#titulo_area').html(localStorage.getItem("alias"));
+        localStorage.removeItem("alias");
+        localStorage.removeItem("idArea");
+
+        //$('#titulo_area').html(localStorage.getItem("alias"));
 
         $('#btn_consulta_rapida').click(function () {
             window.location.href = "ConsultaIndividual.aspx";
@@ -44,7 +47,7 @@ var Reportes = {
             var documento = localStorage.getItem("documento");
             if (documento != null)
                 _this.mostrarPersona(documento);
-
+                localStorage.removeItem("documento");
             // selector_personas.selector_usuario.alSeleccionarUnaPersona(persona_seleccionada);
         } else {
             console.log("No soporta localStorage"); // Sorry! No Web Storage support..
@@ -63,7 +66,7 @@ var Reportes = {
             var data = $.parseJSON(datos);
 
             if (!$.isEmptyObject(data)) {
-                $("#panel_izquierdo").delay(700).animate({ "opacity": "1" }, 700);
+                $("#panel_izquierdo").delay(300).animate({ "opacity": "1" }, 300);
 
                 $('#mensaje').html("");
 

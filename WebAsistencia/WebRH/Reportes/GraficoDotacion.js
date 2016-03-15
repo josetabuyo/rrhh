@@ -1,33 +1,59 @@
 ﻿var checks_activos = [1];
+var filtro;
 
 var GraficoDotacion = {
 
     Inicializar: function () {
         var _this = this;
 
+        $('#txt_fecha_desde').datepicker();
+        $('#txt_fecha_desde').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#txt_fecha_desde').datepicker("setDate", new Date()); 
+
         //Para que no rompa la librería por si la página se cargó anteriormente
         if (window.Highcharts) {
             window.Highcharts = null;
         }
-        $('#cb1').click();
+        //$('#cb1').click();
+
+        $('.filtros').change(function () {
+            $('.filtros').each(function () {
+                this.checked = false;
+                checks_activos = [];
+            });
+
+            this.checked = true;
+            
+            filtro = this.dataset.filtro;
+            var nombre = this.name;
+            var lastChar = nombre.substr(nombre.length - 1);
+            checks_activos.push(lastChar);
+
+            _this.BuscarDatos();
+            //_this.MarcarOpcionDeGrafico(lastChar, this);
+        });
+
         $('#btn_armarGrafico').click(function () {
             _this.BuscarDatos();
         });
-        $('#cb1').change(function () {
-            _this.MarcarOpcionDeGrafico(1);
+
+        /*$('#cb1').change(function () {
+        _this.MarcarOpcionDeGrafico(1, this);
+
         });
         $('#cb2').change(function () {
-            _this.MarcarOpcionDeGrafico(2);
+        _this.MarcarOpcionDeGrafico(2, this);
         });
         $('#cb3').change(function () {
-            _this.MarcarOpcionDeGrafico(3);
+        _this.MarcarOpcionDeGrafico(3, this);
         });
         $('#cb4').change(function () {
-            _this.MarcarOpcionDeGrafico(4);
+        _this.MarcarOpcionDeGrafico(4, this);
         });
         $('#cb5').change(function () {
-            _this.MarcarOpcionDeGrafico(5);
-        });
+        _this.MarcarOpcionDeGrafico(5, this);
+        });*/
+
         $('#btn_salir_menu').click(function () {
             $('#showTop').click();
 
@@ -35,8 +61,8 @@ var GraficoDotacion = {
 
 
     },
-    MarcarOpcionDeGrafico: function (checkbox) {
-
+    /*MarcarOpcionDeGrafico: function (checkbox, input) {
+        filtro = input.dataset.filtro;
         if ($.inArray(checkbox, checks_activos) == -1) {
             for (var i = 1; i < 6; i++) {
                 if ($.inArray(i, checks_activos) !== -1) {
@@ -49,8 +75,8 @@ var GraficoDotacion = {
         } else {
             checks_activos = [];
         }
-        console.log(checks_activos);
-    },
+        this.BuscarDatos();
+    },*/
 
     BuscarDatos: function () {
         var _this = this;
@@ -60,15 +86,17 @@ var GraficoDotacion = {
         if (typeof (Storage) !== "undefined") {
             var id_area = localStorage.getItem("idArea");
             var alias = localStorage.getItem("alias");
-            if (id_area != null) {
-                _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+
+            if (tipo != null && fecha != null & id_area != null) {
+                _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por " + filtro + " del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
             } else {
-                alert("Debe seleccionar un Área");
+                if (tipo != null)
+                    alertify.error("Debe copletar la fecha, elegir un área y un tipo de informaicón");
             }
+
         } else {
-            console.log("No soporta localStorage"); // Sorry! No Web Storage support..
+            console.log("No soporta localStorage"); // No soporta Storage
         }
-        
 
     },
 
@@ -91,8 +119,13 @@ var GraficoDotacion = {
     CrearDatos: function (resultado) {
         var datos = [];
         for (var i = 0; i < resultado.length; i++) {
-            var porcion = [resultado[i].Id, parseInt(resultado[i].Cantidad)];
-            datos.push(porcion);
+            if (resultado[i].Id != "Total") {
+                if (parseInt(resultado[i].Cantidad) > 0) {
+                    var porcion = [resultado[i].Id, parseInt(resultado[i].Cantidad)];
+                    datos.push(porcion);
+                }
+            }
+
         };
         return datos;
     },
@@ -119,7 +152,7 @@ var GraficoDotacion = {
                 text: titulo
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
             },
             plotOptions: {
                 pie: {
@@ -128,7 +161,7 @@ var GraficoDotacion = {
                     depth: 35,
                     dataLabels: {
                         enabled: true,
-                        format: 'Nivel ' + '{point.name}' + ': ' + '{point.percentage:.1f}' + '%',
+                        format: '{point.name}' + ': ' + '{point.percentage:.2f}' + '%',
                         style: {
                             textShadow: ''
                         }
@@ -149,7 +182,7 @@ var GraficoDotacion = {
         var tabla = resultado;
 
         var columnas = [];
-        columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.Id } }));
+        columnas.push(new Columna("Información", { generar: function (un_registro) { return un_registro.Id } }));
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.Cantidad } }));
         columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return un_registro.Porcentaje + '%' } }));
         columnas.push(new Columna('Detalle', {
@@ -163,12 +196,13 @@ var GraficoDotacion = {
                 btn_accion.click(function () {
                     _this.BuscarPersonas(un_registro.Id, tabla_detalle);
                 });
-
                 return btn_accion;
             }
         }));
 
         this.GrillaResumen = new Grilla(columnas);
+        this.GrillaResumen.SetOnRowClickEventHandler(function (un_registro) {
+        });
         this.GrillaResumen.CargarObjetos(tabla);
         this.GrillaResumen.DibujarEn(divGrilla);
 
@@ -185,8 +219,12 @@ var GraficoDotacion = {
         columnas.push(new Columna("NroDocumento", { generar: function (un_registro) { return un_registro.NroDocumento } }));
         columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.Apellido } }));
         columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
+        columnas.push(new Columna("Sexo", { generar: function (un_registro) { return un_registro.Sexo } }));
+        columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.Nivel } }));
         columnas.push(new Columna("Grado", { generar: function (un_registro) { return un_registro.Grado } }));
         columnas.push(new Columna("Planta", { generar: function (un_registro) { return un_registro.Planta } }));
+        columnas.push(new Columna("NivelEstudio", { generar: function (un_registro) { return un_registro.NivelEstudio } }));
+        columnas.push(new Columna("Titulo", { generar: function (un_registro) { return un_registro.Titulo } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
@@ -199,7 +237,6 @@ var GraficoDotacion = {
                     console.log(un_registro);
                     localStorage.setItem("documento", un_registro.NroDocumento);
                     window.location.replace("ConsultaIndividual.aspx");
-                    // _this.BuscarPersonas(un_registro.Id, tabla_detalle);
                 });
 
                 return btn_accion;
@@ -207,19 +244,65 @@ var GraficoDotacion = {
         }));
 
         this.GrillaResumen = new Grilla(columnas);
+        this.GrillaResumen.SetOnRowClickEventHandler(function (un_registro) {
+        });
         this.GrillaResumen.CargarObjetos(tabla);
         this.GrillaResumen.DibujarEn(divGrilla);
 
     },
-    BuscarPersonas: function (id, tabla) {
+    BuscarPersonas: function (criterio, tabla) {
         var _this = this;
         var tabla_final = [];
         if (tabla.length > 0) {
 
-            for (var i = 0; i < tabla.length; i++) {
-                if (tabla[i].Nivel == id) {
-                    tabla_final.push(tabla[i]);
+            if (criterio == "Total") {
+                tabla_final = tabla;
+            } else {
+                switch (checks_activos[0]) {
+                    //CUANDO ES INFORME DE GENERO      
+                    case 1:
+                        for (var i = 0; i < tabla.length; i++) {
+                            if (tabla[i].Sexo == criterio) {
+                                tabla_final.push(tabla[i]);
+                            }
+                        }
+                        break;
+                    //CUANDO ES INFORME DE NIVEL       
+                    case 2:
+                        var nivel = criterio.split(" ");
+                        for (var i = 0; i < tabla.length; i++) {
+                            if (tabla[i].Nivel == nivel[1]) {
+                                tabla_final.push(tabla[i]);
+                            }
+                        }
+                        break;
+                    //CUANDO ES INFORME DE ESTUDIOS        
+                    case 3:
+                        /*for (var i = 0; i < tabla.length; i++) {
+                        if (tabla[i].Nivel == nivel[1]) {
+                        tabla_final.push(tabla[i]);
+                        }
+                        }*/
+                        break;
+                    //CUANDO ES INFORME DE PLANTAS        
+                    case 4:
+                        for (var i = 0; i < tabla.length; i++) {
+                            if (tabla[i].Planta == criterio) {
+                                tabla_final.push(tabla[i]);
+                            }
+                        }
+                        break;
+                    //CUANDO ES INFORME DE AFILICIACION        
+                    case 5:
+                        /*for (var i = 0; i < tabla.length; i++) {
+                        if (tabla[i].Nivel == nivel[1]) {
+                        tabla_final.push(tabla[i]);
+                        }
+                        }*/
+                        break;
                 }
+
+
             }
 
             _this.VisualizarContenido(true);
