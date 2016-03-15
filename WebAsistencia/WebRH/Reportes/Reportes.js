@@ -8,11 +8,15 @@ var Reportes = {
     start: function () {
         var _this = this;
 
+        $('#titulo_area').html(localStorage.getItem("alias"));
+
         $('#btn_consulta_rapida').click(function () {
-            window.location.replace("ConsultaIndividual.aspx");
+            window.location.href = "ConsultaIndividual.aspx";
+            //window.location.replace("ConsultaIndividual.aspx");
         })
         $('#btn_grafico_dotacion').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
+            $('#div_filtros').show();
             //window.location.replace("GraficoDotacion.aspx");
         })
         $('#btn_grafico_licencias').click(function () {
@@ -102,42 +106,15 @@ var Reportes = {
         });
     },
     dibujarArbolOrganigrama: function () {
-        //        var data_organigrama = {
-        //            areaRaiz: {
-        //                id: 1,
-        //                nombre: "unidad ministro",
-        //                areasDependientes: [
-        //                    {
-        //                        id: 2,
-        //                        nombre: "secretaría de coordinación y monitoreo institucional",
-        //                        areasDependientes: [
-        //                            {
-        //                                id: 3,
-        //                                nombre: "subsecreataría de coordinación monitoreo y logística"
-        //                            }
-        //                        ]
-        //                    },
-        //                    {
-        //                        id: 4,
-        //                        nombre: "secretaría de economía social",
-        //                        areasDependientes: [
-        //                            {
-        //                                id: 5,
-        //                                nombre: "subsecreataría de políticas alimentarias"
-        //                            }
-        //                        ]
-        //                    }
-        //                ]
-        //            }
-        //        };
-
         var arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"));
 
         arbol_organigrama.alSeleccionar(function (area) {
-            $('#titulo_area').html(area.alias);
             $('.lista').show();
             //$('#btn_grafico_licencias').show();
             $('#showLeftPush').click();
+            localStorage.setItem("idArea", area.id);
+            localStorage.setItem("alias", area.alias);
+            $('#titulo_area').html(area.alias);
             console.log(area);
         });
 

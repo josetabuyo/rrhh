@@ -18,14 +18,16 @@
     <form id="Reportes" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>Reportes</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-   
     <!--<h1 style="text-align: center; font-weight:200;">Reportes</h1>-->
-    <input id="btn_consulta_rapida" type="button" class="btn btn-primary btn_consulta_individual" RequiereFuncionalidad="32" value="Consulta Individual" />
+   
     <div>
-        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position:relative; top:0; width: 100%;" id="cbp-spmenu-s1" >
+        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative;
+            top: 0; width: 100%;" id="cbp-spmenu-s1">
+            
             <div id="contenedor_arbol_organigrama">
                 <h2 class="titulo_organigrama">Organigrama</h2>
             </div>
+             <input id="btn_consulta_rapida" type="button" class="btn_consulta_individual" requierefuncionalidad="32" value="Consulta Individual" />
              <input type="button" class="btn_organigrama" id="showLeftPush" value="Organigrama" />
            
              <div id="menu_grafico">
@@ -41,12 +43,12 @@
                 </ul>
              </div>
 
-             <div id="div_filtros_grafico" style="position: absolute; left: 650px; width: 100%;">
+             <div id="div_filtros_graficos_y_tablas" style="position: absolute; left: 650px; width: 100%;">
                 <div style=" position: absolute;left: 150px; margin-top: 10px;">
                     <h2 style="font-size: 1.2em;">Área Seleccionada: <span id="titulo_area"></span></h2>
                     <h2 style="font-size: 1.2em; ">Gráfico Seleccionado: <span id="titulo_grafico"></span></h2>
                 </div>
-                <div id="div_filtros" style="display: flex;position: absolute;top: 80px;left: 135px;">
+                <div id="div_filtros" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
                     <div style="margin-left:20px;">
                     <div class="grupo_campos" style="margin-bottom: 9px;">
                         <label>
@@ -56,11 +58,10 @@
                     margin: 7px 314px 0px 0px;" value="Graficar" />
                     </div>
                     <div class="grupo_campos nueva_linea">
-                        <label>
-                            Información</label>
+                        
                         <div class="ac-custom ac-checkbox ac-cross" autocomplete="off" style="margin-left: 20px;">
                         <section>
-					    <ul style="display:flex; margin:-21px 0px 0px 11px">
+					    <ul style="display:flex; margin:-21px 0px 0px 11px;width: 463px;">
 						    <li><input id="cb1" name="cb1" type="checkbox"/><label for="cb1">Género</label></li>
 						    <li><input id="cb2" name="cb2" type="checkbox"/><label for="cb2">Nivel</label></li>
 						    <li><input id="cb3" name="cb3" type="checkbox"/><label for="cb3">Estudios</label></li>
@@ -73,26 +74,28 @@
                     </div>
                     </div>
                 </div>
-            <div id="div_grafico_y_tabla" style="display:flex; width: 100%; position: absolute; top: 160px;">
-            <div id="container_grafico_torta_totales" style="width: 40%; height: 400px;
-                margin: 0 auto">
+
+                <div id="div_graficos_y_tablas" style="display:flex; width: 100%; left: 125px; position: absolute; top: 160px;">
+            <div id="div_grafico_y_tabla" style="display:flex; width: 100%; position: absolute; ">
+            <div id="container_grafico_torta_totales" style="width: 40%; height: 450px; border: 1px solid;
+                margin: 0 30px; display:none;">
             </div>
-            <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 auto">
+            <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 30px">
                     <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
                         style="display: none;" />
-                    <%-- <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none">
-                    Exportar Datos</a>--%>
-                    <table id="tabla_resultado_totales" style="width:220px;">
+                     <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none; padding: 5px;">
+                    Exportar Datos</a>
+                    <table id="tabla_resultado_totales" style="width:420px;">
                     </table>
                 </div>
                 </div>
-            <div id="div_tablas" style="display: flex;">
+
                 
-                <div id="div_tabla_detalle" style="margin-top: 39px;">
-                    <table id="tabla_detalle" style="width: 400px;">
+                <div id="div_tabla_detalle" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
+                    <table id="tabla_detalle" style="width: 70%;">
                     </table>
                 </div>
-            </div>
+   </div>
 
             <div id = "exp_excel">
             <input type = "button" id = "btn_excel" />
@@ -102,9 +105,6 @@
         </div>
              
          </nav>
-
-
-         
     </div>
     </form>
     <div id="plantillas">
@@ -119,7 +119,6 @@
                 <div id="nombre_area">
                 </div>
             </div>
-
             <div id="areas_dependientes">
             </div>
         </div>
@@ -136,7 +135,7 @@
         var menuLeft = document.getElementById('cbp-spmenu-s1'),
 				showLeftPush = document.getElementById('showLeftPush'),
 				body = document.body;
-       
+
         showLeftPush.onclick = function () {
             classie.toggle(this, 'active');
             classie.toggle(body, 'cbp-spmenu-push-toright');
@@ -150,6 +149,6 @@
             GraficoDotacion.Inicializar();
         });
 			
-		</script>
+    </script>
 </body>
 </html>

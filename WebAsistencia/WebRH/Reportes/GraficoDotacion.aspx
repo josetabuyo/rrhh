@@ -45,23 +45,23 @@
                     Organigrama</h2>
             </div>
         </div>
-        <div id="div_filtros_grafico" style="float: right; width:100%">
-            <div id="div_filtros" style="margin-left: 10px; display:flex;">
+        <div id="div_filtros_graficos_y_tablas" style="float: right; width: 70%">
+            <div id="div_filtros" style="margin-left: 10px; display: flex;">
                 <h3>
                     Filtros</h3>
-                <div style="margin-left:20px;">
-                <div class="grupo_campos" style="margin-bottom: 9px;">
-                    <label>
-                        Fecha</label>
-                    <input id="txt_fecha_desde" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
-                     <input id="btn_armarGrafico" type="button" class="btn btn-primary" style="float: right;
-                margin: 7px 314px 0px 0px;" value="Graficar" />
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <label>
-                        Información</label>
-                    <div class="ac-custom ac-checkbox ac-cross" autocomplete="off" style="margin-left: 20px;">
-                        <section>
+                <div style="margin-left: 20px;">
+                    <div class="grupo_campos" style="margin-bottom: 9px;">
+                        <label>
+                            Fecha</label>
+                        <input id="txt_fecha_desde" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
+                        <input id="btn_armarGrafico" type="button" class="btn btn-primary" style="float: right;
+                            margin: 7px 314px 0px 0px;" value="Graficar" />
+                    </div>
+                    <div class="grupo_campos nueva_linea">
+                        <label>
+                            Información</label>
+                        <div class="ac-custom ac-checkbox ac-cross" autocomplete="off" style="margin-left: 20px;">
+                            <section>
 					<ul style="display:flex; margin:-21px 0px 0px 11px">
 						<li><input id="cb1" name="cb1" type="checkbox"/><label for="cb1">Género</label></li>
 						<li><input id="cb2" name="cb2" type="checkbox"/><label for="cb2">Nivel</label></li>
@@ -71,31 +71,26 @@
 					</ul>
 		
 			</section>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div id="div_grafico_y_tabla_resumen" style="display: flex; width: 100%;">
+                <div id="container_grafico_torta_totales" style="width: 60%; height: 400px;">
                 </div>
-            </div>
-            <div id="div_grafico_y_tabla" style="display:flex; width: 100%;">
-            <div id="container_grafico_torta_totales" style="width: 60%; height: 400px;
-                margin: 0 auto">
-            </div>
-            <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 auto">
+                <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 auto">
                     <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
                         style="display: none;" />
                     <%-- <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none">
                     Exportar Datos</a>--%>
-                    <table id="tabla_resultado_totales" style="width:220px;">
-                    </table>
-                </div>
-                </div>
-            <div id="div_tablas" style="display: flex;">
-                
-                <div id="div_tabla_detalle" style="margin-top: 39px;">
-                    <table id="tabla_detalle" style="width: 400px;">
+                    <table id="tabla_resultado_totales" style="width: 420px;">
                     </table>
                 </div>
             </div>
-
+            <div id="div_tabla_detalle" style="margin-top: 39px;">
+                <table id="tabla_detalle" style="width: 400px;">
+                </table>
+            </div>
         </div>
     </div>
     </form>
@@ -123,7 +118,7 @@
             classie.toggle(showTop, 'disabled');
         }
     }
-		</script>
+</script>
 <script type="text/javascript">
 
     Backend.start();
