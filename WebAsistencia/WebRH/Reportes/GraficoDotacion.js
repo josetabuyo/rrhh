@@ -33,6 +33,9 @@ var GraficoDotacion = {
 
         });
 
+        $('#btn_excel').click(function () {
+            _this.BuscarExcel();
+        });
 
     },
     MarcarOpcionDeGrafico: function (checkbox) {
@@ -59,6 +62,34 @@ var GraficoDotacion = {
         var id_area = 1024;
         _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
     },
+
+
+
+    BuscarExcel: function () {
+        var _this = this;
+
+        var resultado = Backend.ejecutarSincronico("ExcelGenerado", []);
+
+        if (resultado.length > 0) {
+
+            var a = window.document.createElement('a');
+
+            a.href = "data:application/vnd.ms-excel;base64," + resultado;
+            a.download = "excel.xlsx";
+
+            // Append anchor to body.
+            document.body.appendChild(a)
+            a.click();
+
+
+            // Remove anchor from body
+            document.body.removeChild(a)
+
+
+        }
+        //   _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+    },
+
 
     GraficoYTabla: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;

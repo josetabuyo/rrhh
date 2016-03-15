@@ -20,6 +20,9 @@ using General.MAU;
 
 using General.Postular;
 using System.Web;
+using System.Data;
+using System.IO;
+using ClosedXML.Excel;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -252,6 +255,57 @@ public class WSViaticos : System.Web.Services.WebService
         }
         return campos.ToArray(); ;
     }
+
+
+    /*Grafico Excel*/
+    [WebMethod]
+    public string ExcelGenerado()
+    {
+        try
+        {
+            DataTable table = new DataTable();
+            table.TableName = "Participacion-VM";
+
+            //CREACIÓN DE LAS COLUMNAS
+            table.Columns.Add("Categoria", typeof(string));
+            table.Columns.Add("% Participación VM", typeof(double));
+
+            var workbook = new XLWorkbook();
+
+            //export.InnerHtml = exportarOperaciones().ToString();
+
+            var dataTable_consulta_parametros = table;
+            var ws = workbook.Worksheets.Add(dataTable_consulta_parametros);
+
+            string rut = HttpContext.Current.Request.PhysicalApplicationPath + "/Excel.xlsx";
+
+         
+
+            using (var ms = new MemoryStream())
+            {
+                workbook.SaveAs(ms);
+
+                // return ms.ToArray();
+
+                //return File(ms.ToArray(), MediaTypeNames.Application.Octet, "excel2"+ ".xlsx");
+                return Convert.ToBase64String(ms.ToArray());
+            }
+            
+
+        
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+    
+
+    /**/
+
+
+
 
     [WebMethod]
     public Area[] GetAreas()

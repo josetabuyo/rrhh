@@ -2,6 +2,31 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="BuscarNivelesDeDocencia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarNivelesDeDocenciaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarNivelesDeDocenciaResult" type="tns:ArrayOfNivelDeDocencia" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfNivelDeDocencia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NivelDeDocencia" nillable="true" type="tns:NivelDeDocencia" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NivelDeDocencia">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarNivelesDeEstudio">
         <s:complexType>
           <s:sequence>
@@ -330,12 +355,13 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarObservaciones">
+      <s:element name="GetObservaciones">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetObservacionesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="observaciones_nuevas_dto" type="tns:ArrayOfObservacionDTO" />
-            <s:element minOccurs="0" maxOccurs="1" name="observaciones_originales_dto" type="tns:ArrayOfObservacionDTO" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetObservacionesResult" type="tns:ArrayOfObservacionDTO" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -359,6 +385,15 @@
           <s:element minOccurs="0" maxOccurs="1" name="ReferenteRespuestaMDS" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GuardarObservaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="observaciones_nuevas_dto" type="tns:ArrayOfObservacionDTO" />
+            <s:element minOccurs="0" maxOccurs="1" name="observaciones_originales_dto" type="tns:ArrayOfObservacionDTO" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarObservacionesResponse">
         <s:complexType>
           <s:sequence>
@@ -2270,31 +2305,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="BuscarNivelesDeDocencia">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarNivelesDeDocenciaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarNivelesDeDocenciaResult" type="tns:ArrayOfNivelDeDocencia" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfNivelDeDocencia">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="NivelDeDocencia" nillable="true" type="tns:NivelDeDocencia" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="NivelDeDocencia">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarAlumno">
         <s:complexType>
           <s:sequence>
@@ -3725,16 +3735,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetObservaciones">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetObservacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetObservacionesResult" type="tns:ArrayOfObservacionDTO" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetUsuarios">
         <s:complexType />
       </s:element>
@@ -3912,6 +3912,16 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetGraficoResult" type="tns:ArrayOfCampo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelGenerado">
+        <s:complexType />
+      </s:element>
+      <s:element name="ExcelGeneradoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExcelGeneradoResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5119,6 +5129,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="BuscarNivelesDeDocenciaSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarNivelesDeDocencia" />
+  </wsdl:message>
+  <wsdl:message name="BuscarNivelesDeDocenciaSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarNivelesDeDocenciaResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarNivelesDeEstudioSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarNivelesDeEstudio" />
   </wsdl:message>
@@ -5166,6 +5182,12 @@
   </wsdl:message>
   <wsdl:message name="GetCarreraAdministrativaSoapOut">
     <wsdl:part name="parameters" element="tns:GetCarreraAdministrativaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetObservacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetObservaciones" />
+  </wsdl:message>
+  <wsdl:message name="GetObservacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetObservacionesResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarObservacionesSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarObservaciones" />
@@ -5671,12 +5693,6 @@
   <wsdl:message name="BuscarAmbitosLaboralesSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarAmbitosLaboralesResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarNivelesDeDocenciaSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarNivelesDeDocencia" />
-  </wsdl:message>
-  <wsdl:message name="BuscarNivelesDeDocenciaSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarNivelesDeDocenciaResponse" />
-  </wsdl:message>
   <wsdl:message name="GuardarAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarAlumno" />
   </wsdl:message>
@@ -6145,12 +6161,6 @@
   <wsdl:message name="GetPlanillaEvaluacionesSoapOut">
     <wsdl:part name="parameters" element="tns:GetPlanillaEvaluacionesResponse" />
   </wsdl:message>
-  <wsdl:message name="GetObservacionesSoapIn">
-    <wsdl:part name="parameters" element="tns:GetObservaciones" />
-  </wsdl:message>
-  <wsdl:message name="GetObservacionesSoapOut">
-    <wsdl:part name="parameters" element="tns:GetObservacionesResponse" />
-  </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
   </wsdl:message>
@@ -6216,6 +6226,12 @@
   </wsdl:message>
   <wsdl:message name="GetGraficoSoapOut">
     <wsdl:part name="parameters" element="tns:GetGraficoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExcelGeneradoSoapIn">
+    <wsdl:part name="parameters" element="tns:ExcelGenerado" />
+  </wsdl:message>
+  <wsdl:message name="ExcelGeneradoSoapOut">
+    <wsdl:part name="parameters" element="tns:ExcelGeneradoResponse" />
   </wsdl:message>
   <wsdl:message name="GetAreasSoapIn">
     <wsdl:part name="parameters" element="tns:GetAreas" />
@@ -6602,6 +6618,10 @@
     <wsdl:part name="parameters" element="tns:GetCursosDelAlumnoResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="BuscarNivelesDeDocencia">
+      <wsdl:input message="tns:BuscarNivelesDeDocenciaSoapIn" />
+      <wsdl:output message="tns:BuscarNivelesDeDocenciaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarNivelesDeEstudio">
       <wsdl:input message="tns:BuscarNivelesDeEstudioSoapIn" />
       <wsdl:output message="tns:BuscarNivelesDeEstudioSoapOut" />
@@ -6633,6 +6653,10 @@
     <wsdl:operation name="GetCarreraAdministrativa">
       <wsdl:input message="tns:GetCarreraAdministrativaSoapIn" />
       <wsdl:output message="tns:GetCarreraAdministrativaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetObservaciones">
+      <wsdl:input message="tns:GetObservacionesSoapIn" />
+      <wsdl:output message="tns:GetObservacionesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarObservaciones">
       <wsdl:input message="tns:GuardarObservacionesSoapIn" />
@@ -6970,10 +6994,6 @@
       <wsdl:input message="tns:BuscarAmbitosLaboralesSoapIn" />
       <wsdl:output message="tns:BuscarAmbitosLaboralesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarNivelesDeDocencia">
-      <wsdl:input message="tns:BuscarNivelesDeDocenciaSoapIn" />
-      <wsdl:output message="tns:BuscarNivelesDeDocenciaSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <wsdl:input message="tns:GuardarAlumnoSoapIn" />
       <wsdl:output message="tns:GuardarAlumnoSoapOut" />
@@ -7286,10 +7306,6 @@
       <wsdl:input message="tns:GetPlanillaEvaluacionesSoapIn" />
       <wsdl:output message="tns:GetPlanillaEvaluacionesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetObservaciones">
-      <wsdl:input message="tns:GetObservacionesSoapIn" />
-      <wsdl:output message="tns:GetObservacionesSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
       <wsdl:output message="tns:GetUsuariosSoapOut" />
@@ -7333,6 +7349,10 @@
     <wsdl:operation name="GetGrafico">
       <wsdl:input message="tns:GetGraficoSoapIn" />
       <wsdl:output message="tns:GetGraficoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExcelGenerado">
+      <wsdl:input message="tns:ExcelGeneradoSoapIn" />
+      <wsdl:output message="tns:ExcelGeneradoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAreas">
       <wsdl:input message="tns:GetAreasSoapIn" />
@@ -7593,6 +7613,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarNivelesDeDocencia">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeDocencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarNivelesDeEstudio">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeEstudio" style="document" />
       <wsdl:input>
@@ -7658,6 +7687,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCarreraAdministrativa">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetCarreraAdministrativa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetObservaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetObservaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8421,15 +8459,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarNivelesDeDocencia">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeDocencia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -9132,15 +9161,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetObservaciones">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetObservaciones" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -9233,6 +9253,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGrafico">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetGrafico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelGenerado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelGenerado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9819,6 +9848,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarNivelesDeDocencia">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeDocencia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarNivelesDeEstudio">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeEstudio" style="document" />
       <wsdl:input>
@@ -9884,6 +9922,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCarreraAdministrativa">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCarreraAdministrativa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetObservaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetObservaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10647,15 +10694,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarNivelesDeDocencia">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeDocencia" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GuardarAlumno">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarAlumno" style="document" />
       <wsdl:input>
@@ -11358,15 +11396,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetObservaciones">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetObservaciones" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -11459,6 +11488,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGrafico">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetGrafico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelGenerado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelGenerado" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
