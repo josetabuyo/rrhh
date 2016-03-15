@@ -22,10 +22,14 @@ namespace General
         public string Area { get; set; }
         public int IdPlanta { get; set; }
         public string Planta { get; set; }
+        public int IdEstudio { get; set; }
+        public string NivelEstudio { get; set; }
+        public string Titulo { get; set; }
+
 
         public Dotacion() { }
 
-        public Dotacion(int id_persona, int legajo, int nro_documento, string apellido, string nombre, int id_sexo, string sexo, string nivel, int grado, int id_area, string area, int id_planta, string planta)
+        public Dotacion(int id_persona, int legajo, int nro_documento, string apellido, string nombre, int id_sexo, string sexo, string nivel, int grado, int id_area, string area, int id_planta, string planta, int IdEstudio, string NivelEstudio, string Titulo)
         {
             this.IdPersona = id_persona;
             this.Legajo = legajo;
@@ -40,6 +44,10 @@ namespace General
             this.Area = area;
             this.IdPlanta = id_planta;
             this.Planta = planta;
+            this.IdEstudio = IdEstudio;
+            this.NivelEstudio = NivelEstudio;
+            this.Titulo = Titulo;
+
         }
     }
 }
