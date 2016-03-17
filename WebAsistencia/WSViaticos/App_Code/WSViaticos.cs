@@ -266,6 +266,16 @@ public class WSViaticos : System.Web.Services.WebService
     {
         try
         {
+            //
+        //    var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        //    int tipo = (int)((JValue)criterio_deserializado["tipo"]);
+        //    DateTime fecha = (DateTime)((JValue)criterio_deserializado["fecha"]);
+        //    int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        //    RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+        //    Grafico graf = repositorio.GetGraficoDotacion(tipo, fecha, id_area);
+        ////    graf.tabla_detalle 
+        //    //
+
             DataTable table = new DataTable();
             table.TableName = "Participacion-VM";
 
@@ -283,7 +293,6 @@ public class WSViaticos : System.Web.Services.WebService
             string rut = HttpContext.Current.Request.PhysicalApplicationPath + "/Excel.xlsx";
 
          
-
             using (var ms = new MemoryStream())
             {
                 workbook.SaveAs(ms);
@@ -294,7 +303,6 @@ public class WSViaticos : System.Web.Services.WebService
                 return Convert.ToBase64String(ms.ToArray());
             }
             
-
         
         }
         catch (Exception ex)
@@ -306,8 +314,7 @@ public class WSViaticos : System.Web.Services.WebService
     
 
     /**/
-
-
+    
 
 
     [WebMethod]
