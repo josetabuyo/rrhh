@@ -19,6 +19,7 @@ var GraficoDotacion = {
             $('.filtros').each(function () {
                 this.checked = false;
                 checks_activos = [];
+                $('#div_tabla_detalle').hide();
             });
             this.checked = true;
 
@@ -38,12 +39,13 @@ var GraficoDotacion = {
         $('#btn_salir_menu').click(function () {
             $('#showTop').click();
 
-        }); 
+        });
     },
 
     BuscarDatos: function () {
         var _this = this;
         var buscar = true;
+        $('#div_tabla_detalle').hide();
         var tipo = checks_activos.slice(-1)[0];
         var fecha = $('#txt_fecha_desde').val();
         //Me fijo si esta seteado el storage
@@ -84,7 +86,7 @@ var GraficoDotacion = {
             _this.ArmarGrafico(resultado, titulo, div_grafico);
             _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
             _this.BuscadorDeTabla();
-           
+
         } else {
             _this.VisualizarContenido(false);
             alertify.error("No hay Reportes para los parámetros seleccionados");
@@ -153,7 +155,7 @@ var GraficoDotacion = {
         $("#" + tabla).empty();
         $("#search").show();
         $("#exportar_datos").show();
-        
+
         var divGrilla = $('#' + tabla);
         var tabla = resultado;
 
@@ -170,6 +172,7 @@ var GraficoDotacion = {
                 img.attr('height', '15px');
                 btn_accion.append(img);
                 btn_accion.click(function () {
+                    $('#div_tabla_detalle').show();
                     _this.BuscarPersonas(un_registro.Id, tabla_detalle);
                 });
                 return btn_accion;
@@ -181,7 +184,7 @@ var GraficoDotacion = {
         });
         _this.GrillaResumen.CargarObjetos(tabla);
         _this.GrillaResumen.DibujarEn(divGrilla);
-        
+
     },
 
     DibujarTablaDetalle: function (resultado, div_tabla, tabla) {
@@ -234,21 +237,23 @@ var GraficoDotacion = {
         $('#exportar_datos_detalle').show();
 
         if (tabla.length > 0) {
-
+            var titulo = "Tabla de Toda la Dotación del Área";
             if (criterio == "Total") {
                 tabla_final = tabla;
             } else {
                 switch (parseInt(checks_activos[0])) {
-                    //CUANDO ES INFORME DE GENERO              
+                    //CUANDO ES INFORME DE GENERO                   
                     case 1:
+                        titulo = "Tabla de la Dotación de Sexo " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].Sexo == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE NIVEL               
+                    //CUANDO ES INFORME DE NIVEL                    
                     case 2:
+                        titulo = "Tabla de la Dotación de " + criterio;
                         var nivel = criterio.split(" ");
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].Nivel == nivel[1]) {
@@ -256,24 +261,27 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE ESTUDIOS                
+                    //CUANDO ES INFORME DE ESTUDIOS                     
                     case 3:
+                        titulo = "Tabla de la Dotación con Nivel de Estudios " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].NivelEstudio == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE PLANTAS                
+                    //CUANDO ES INFORME DE PLANTAS                     
                     case 4:
+                        titulo = "Tabla de la Dotación con Tipo de Planta " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].Planta == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE AFILICIACION                
+                    //CUANDO ES INFORME DE AFILICIACION                     
                     case 5:
+                        titulo = "Tabla de la Dotación con Afiliación Gremial a " + criterio;
                         /*for (var i = 0; i < tabla.length; i++) {
                         if (tabla[i].Nivel == nivel[1]) {
                         tabla_final.push(tabla[i]);
@@ -284,7 +292,8 @@ var GraficoDotacion = {
 
 
             }
-
+            titulo = titulo + " del Área " + localStorage.getItem("alias");
+            $('#lb_titulo_tabla_detalle').text(titulo);
             _this.VisualizarContenido(true);
             _this.DibujarTablaDetalle(tabla_final, "div_tabla_detalle", "tabla_detalle");
 
@@ -296,7 +305,7 @@ var GraficoDotacion = {
     BuscadorDeTabla: function () {
 
         var options = {
-            valueNames: ['Información', 'Cantidad','Porcentaje']
+            valueNames: ['Información', 'Cantidad', 'Porcentaje']
         };
         var featureList = new List('div_tabla_resultado_totales', options);
     },

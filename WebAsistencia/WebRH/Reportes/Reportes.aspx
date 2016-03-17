@@ -19,7 +19,6 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>Reportes</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <!--<h1 style="text-align: center; font-weight:200;">Reportes</h1>-->
-   
     <div>
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative;
             top: 0; width: 100%;" id="cbp-spmenu-s1">
@@ -33,7 +32,7 @@
                 <h2 class="">Gráficos</h2>
                   <ul class="lista" >
                     <li><a href="#" id="btn_grafico_dotacion" class="link_listado">Dotación</a>
-                        <ul><li class="Rango Etáreo"><a href="#" class="link_listado">- Rango Etáreo</a></li></ul>
+                        <ul><li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">- Rango Etáreo</a></li></ul>
                     </li>
                     <li class="Dotacion"><a href="#" class="link_listado">Sueldo</a></li>
                     <li id="btn_grafico_licencias" class="Licencias"><a href="#" class="link_listado">Licencias</a></li>
@@ -47,6 +46,7 @@
                     <h2 style="font-size: 1.1em;">Área Seleccionada: <span id="titulo_area">Seleccionar Área</span></h2>
                     <h2 style="font-size: 1.1em; ">Gráfico Seleccionado: <span id="titulo_grafico">Seleccionar Informe</span></h2>
                 </div>
+                <div id="div_grafico_de_dotacion" style="display:none">
                 <div id="div_filtros" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
                     <div style="margin-left:20px;">
                     <div class="grupo_campos" style="margin-bottom: 9px;">
@@ -93,15 +93,36 @@
 
                 
                 <div id="div_tabla_detalle" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
+                <div style="text-align: center;">
+                <span id="lb_titulo_tabla_detalle" style="margin-left:-38px;"></span>
+                <br />
+                </div>
+                
                     <input type="text" id="search_detalle" class="search" class="buscador" placeholder="Buscar"
                         style="display: none;" />
+                        
+                        
                         <a href="#" id="exportar_datos_detalle" class="btn btn-info" style="float: right; display: none; padding: 5px;margin-right: 15%;">
                     Exportar Datos</a>
                     <table id="tabla_detalle" style="width: 85%;">
                     </table>
                 </div>
    </div>
+   </div>
 
+   <div id="div_grafico_de_rango_etareo">
+   <div id="div_filtros_rango_etareo" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
+                    <div style="margin-left:20px;">
+                    <div class="grupo_campos" style="margin-bottom: 9px;">
+                        <label>
+                            Fecha</label>
+                        <input id="Text1" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
+                         <input id="Button1" type="button" class="btn btn-primary" value="Graficar" />
+                    </div>
+                    
+                    </div>
+                </div>
+   </div>
         </div>
              
          </nav>

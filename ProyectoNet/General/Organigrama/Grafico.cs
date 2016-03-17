@@ -60,6 +60,7 @@ namespace General
             int nivel_d = 0;
             int nivel_e = 0;
             int nivel_f = 0;
+            int nivel_w = 0;
             tabla_personas.ForEach(p =>
             {
                 switch (p.Nivel)
@@ -82,18 +83,21 @@ namespace General
                     case "F":
                         nivel_f++;
                         break;
+                    case "W":
+                        nivel_w++;
+                        break;
                 }
 
             });
             int total = tabla_personas.Count;
-
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
             tabla.Add(GenerarRegistroResumen("Nivel A", nivel_a, total));
             tabla.Add(GenerarRegistroResumen("Nivel B", nivel_b, total));
             tabla.Add(GenerarRegistroResumen("Nivel C", nivel_c, total));
             tabla.Add(GenerarRegistroResumen("Nivel D", nivel_d, total));
             tabla.Add(GenerarRegistroResumen("Nivel E", nivel_e, total));
             tabla.Add(GenerarRegistroResumen("Nivel F", nivel_f, total));
-            tabla.Add(GenerarRegistroResumen("Total", total, total));
+            tabla.Add(GenerarRegistroResumen("Nivel W", nivel_w, total)); 
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
 
@@ -124,9 +128,9 @@ namespace General
             });
             int total = tabla_personas.Count;
 
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
             tabla.Add(GenerarRegistroResumen("Femenino", femenino, total));
             tabla.Add(GenerarRegistroResumen("Masculino", masculino, total));
-            tabla.Add(GenerarRegistroResumen("Total", total, total));
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
 
@@ -178,7 +182,7 @@ namespace General
                 }
             });
             int total = tabla_personas.Count;
-
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
             if (NoEspecifica > 0) tabla.Add(GenerarRegistroResumen("No Especifica", NoEspecifica, total));
             if (Primario > 0) tabla.Add(GenerarRegistroResumen("Primario", Primario, total));
             if (Secundario > 0) tabla.Add(GenerarRegistroResumen("Secundario", Secundario, total));
@@ -187,8 +191,7 @@ namespace General
             if (PostGrado > 0) tabla.Add(GenerarRegistroResumen("Post-Grado", PostGrado, total));
             if (CicloBasico > 0) tabla.Add(GenerarRegistroResumen("Ciclo Básico", CicloBasico, total));
             if (Nopresentocertificado > 0) tabla.Add(GenerarRegistroResumen("No presento certificado", Nopresentocertificado, total));
-            if (Pregrado > 0) tabla.Add(GenerarRegistroResumen("Pregrado", Pregrado, total));
-            tabla.Add(GenerarRegistroResumen("Total", total, total));
+            if (Pregrado > 0) tabla.Add(GenerarRegistroResumen("Pregrado", Pregrado, total)); 
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
 
@@ -328,7 +331,7 @@ namespace General
                 }
             });
             int total = tabla_personas.Count;
-
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
             if (tipo_0 > 0) tabla.Add(GenerarRegistroResumen("No Especifica", tipo_0, total));
             if (tipo_1 > 0) tabla.Add(GenerarRegistroResumen("Contratado XXXX", tipo_1, total));
             if (tipo_2 > 0) tabla.Add(GenerarRegistroResumen("Gab Ases A8", tipo_2, total));
@@ -360,7 +363,6 @@ namespace General
             if (tipo_28 > 0) tabla.Add(GenerarRegistroResumen("Perm FE (Concurs)", tipo_28, total));
             if (tipo_29 > 0) tabla.Add(GenerarRegistroResumen("Perm FE (Transit)", tipo_29, total));
             if (tipo_30 > 0) tabla.Add(GenerarRegistroResumen("Gab Ases AdH", tipo_30, total));
-            tabla.Add(GenerarRegistroResumen("Total", total, total));
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
 
@@ -371,9 +373,8 @@ namespace General
 
             int sin_datos = tabla_personas.Count;
             int total = tabla_personas.Count;
-
-            tabla.Add(GenerarRegistroResumen("Sin Datos", sin_datos, total));
             tabla.Add(GenerarRegistroResumen("Total", total, total));
+            tabla.Add(GenerarRegistroResumen("Sin Datos", sin_datos, total));
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
     }

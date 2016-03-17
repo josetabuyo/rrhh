@@ -19,9 +19,20 @@ var Reportes = {
         })
         $('#btn_grafico_dotacion').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
+            $('#div_grafico_de_dotacion').show();
             $('#div_filtros').show();
+            $('#div_filtros_rango_etareo').hide();
             //window.location.replace("GraficoDotacion.aspx");
         })
+        $('#btn_rango_etareo').click(function () {
+            $('#titulo_grafico').html(this.innerHTML);
+            $('#div_grafico_de_dotacion').hide();
+            $('#div_filtros').hide();
+            $('#div_grafico_de_rango_etareo').show();
+            $('#div_filtros_rango_etareo').show();
+            //window.location.replace("GraficoDotacion.aspx");
+        })
+        
         $('#btn_grafico_licencias').click(function () {
             //window.location.replace("GraficoLicencias.aspx");
         })
