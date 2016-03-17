@@ -8,22 +8,20 @@ var GraficoDotacion = {
 
         $('#txt_fecha_desde').datepicker();
         $('#txt_fecha_desde').datepicker('option', 'dateFormat', 'dd/mm/yy');
-        $('#txt_fecha_desde').datepicker("setDate", new Date()); 
-
+        $('#txt_fecha_desde').datepicker("setDate", new Date());
+        $('#cb1').prop('checked', true);
         //Para que no rompa la librería por si la página se cargó anteriormente
         if (window.Highcharts) {
             window.Highcharts = null;
         }
-        //$('#cb1').click();
 
         $('.filtros').change(function () {
             $('.filtros').each(function () {
                 this.checked = false;
                 checks_activos = [];
             });
-
             this.checked = true;
-            
+
             filtro = this.dataset.filtro;
             var nombre = this.name;
             var lastChar = nombre.substr(nombre.length - 1);
@@ -37,23 +35,6 @@ var GraficoDotacion = {
             _this.BuscarDatos();
         });
 
-        /*$('#cb1').change(function () {
-        _this.MarcarOpcionDeGrafico(1, this);
-
-        });
-        $('#cb2').change(function () {
-        _this.MarcarOpcionDeGrafico(2, this);
-        });
-        $('#cb3').change(function () {
-        _this.MarcarOpcionDeGrafico(3, this);
-        });
-        $('#cb4').change(function () {
-        _this.MarcarOpcionDeGrafico(4, this);
-        });
-        $('#cb5').change(function () {
-        _this.MarcarOpcionDeGrafico(5, this);
-        });*/
-
         $('#btn_salir_menu').click(function () {
             $('#showTop').click();
 
@@ -61,38 +42,33 @@ var GraficoDotacion = {
 
 
     },
-    /*MarcarOpcionDeGrafico: function (checkbox, input) {
-        filtro = input.dataset.filtro;
-        if ($.inArray(checkbox, checks_activos) == -1) {
-            for (var i = 1; i < 6; i++) {
-                if ($.inArray(i, checks_activos) !== -1) {
-                    var nombre = "#cb" + i
-                    $(nombre).click();
-                    checks_activos.splice($.inArray(i, checks_activos), 1);
-                }
-            }
-            checks_activos.push(checkbox);
-        } else {
-            checks_activos = [];
-        }
-        this.BuscarDatos();
-    },*/
 
     BuscarDatos: function () {
         var _this = this;
+        var buscar = true;
         var tipo = checks_activos.slice(-1)[0];
-        var fecha = new Date();
+        var fecha = $('#txt_fecha_desde').val();
         //Me fijo si esta seteado el storage
         if (typeof (Storage) !== "undefined") {
             var id_area = localStorage.getItem("idArea");
             var alias = localStorage.getItem("alias");
 
-            if (tipo != null && fecha != null & id_area != null) {
-                _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por " + filtro + " del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
-            } else {
-                if (tipo != null)
-                    alertify.error("Debe copletar la fecha, elegir un área y un tipo de informaicón");
+            if (tipo == null || tipo == undefined) {
+                buscar = false;
+                alertify.error("Debe seleccionar un filtro");
             }
+            if (fecha == null || fecha == "") {
+                buscar = false;
+                alertify.error("Debe completar la fecha de corte para la búsqueda de datos");
+            }
+            if (id_area == null || id_area == "") {
+                buscar = false;
+                alertify.error("Debe seleccinar un área desde el organigrama");
+            }
+            if (buscar) {
+                _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por " + filtro + " del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+            }
+
 
         } else {
             console.log("No soporta localStorage"); // No soporta Storage
@@ -110,6 +86,7 @@ var GraficoDotacion = {
             _this.ArmarGrafico(resultado, titulo, div_grafico);
             _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
             _this.BuscadorDeTabla();
+           
         } else {
             _this.VisualizarContenido(false);
             alertify.error("No hay Reportes para los parámetros seleccionados");
@@ -178,6 +155,7 @@ var GraficoDotacion = {
         $("#" + tabla).empty();
         $("#search").show();
         $("#exportar_datos").show();
+        
         var divGrilla = $('#' + tabla);
         var tabla = resultado;
 
@@ -200,13 +178,14 @@ var GraficoDotacion = {
             }
         }));
 
-        this.GrillaResumen = new Grilla(columnas);
-        this.GrillaResumen.SetOnRowClickEventHandler(function (un_registro) {
+        _this.GrillaResumen = new Grilla(columnas);
+        _this.GrillaResumen.SetOnRowClickEventHandler(function (un_registro) {
         });
-        this.GrillaResumen.CargarObjetos(tabla);
-        this.GrillaResumen.DibujarEn(divGrilla);
-
+        _this.GrillaResumen.CargarObjetos(tabla);
+        _this.GrillaResumen.DibujarEn(divGrilla);
+        
     },
+
     DibujarTablaDetalle: function (resultado, div_tabla, tabla) {
         var _this = this;
         $("#" + tabla).empty();
@@ -243,23 +222,26 @@ var GraficoDotacion = {
             }
         }));
 
-        this.GrillaResumen = new Grilla(columnas);
-        this.GrillaResumen.SetOnRowClickEventHandler(function (un_registro) {
+        _this.GrillaResumen = new Grilla(columnas);
+        _this.GrillaResumen.SetOnRowClickEventHandler(function (un_registro) {
         });
-        this.GrillaResumen.CargarObjetos(tabla);
-        this.GrillaResumen.DibujarEn(divGrilla);
-
+        _this.GrillaResumen.CargarObjetos(tabla);
+        _this.GrillaResumen.DibujarEn(divGrilla);
+        _this.BuscadorDeTablaDetalle();
     },
     BuscarPersonas: function (criterio, tabla) {
         var _this = this;
         var tabla_final = [];
+        $('#search_detalle').show();
+        $('#exportar_datos_detalle').show();
+
         if (tabla.length > 0) {
 
             if (criterio == "Total") {
                 tabla_final = tabla;
             } else {
-                switch (checks_activos[0]) {
-                    //CUANDO ES INFORME DE GENERO      
+                switch (parseInt(checks_activos[0])) {
+                    //CUANDO ES INFORME DE GENERO              
                     case 1:
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].Sexo == criterio) {
@@ -267,7 +249,7 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE NIVEL       
+                    //CUANDO ES INFORME DE NIVEL               
                     case 2:
                         var nivel = criterio.split(" ");
                         for (var i = 0; i < tabla.length; i++) {
@@ -276,15 +258,15 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE ESTUDIOS        
+                    //CUANDO ES INFORME DE ESTUDIOS                
                     case 3:
-                        /*for (var i = 0; i < tabla.length; i++) {
-                        if (tabla[i].Nivel == nivel[1]) {
-                        tabla_final.push(tabla[i]);
+                        for (var i = 0; i < tabla.length; i++) {
+                            if (tabla[i].NivelEstudio == criterio) {
+                                tabla_final.push(tabla[i]);
+                            }
                         }
-                        }*/
                         break;
-                    //CUANDO ES INFORME DE PLANTAS        
+                    //CUANDO ES INFORME DE PLANTAS                
                     case 4:
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].Planta == criterio) {
@@ -292,7 +274,7 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE AFILICIACION        
+                    //CUANDO ES INFORME DE AFILICIACION                
                     case 5:
                         /*for (var i = 0; i < tabla.length; i++) {
                         if (tabla[i].Nivel == nivel[1]) {
@@ -314,13 +296,20 @@ var GraficoDotacion = {
         }
     },
     BuscadorDeTabla: function () {
-        $('#search').show();
+
         var options = {
-            valueNames: ['Nivel', 'Cantidad']
+            valueNames: ['Información', 'Cantidad','Porcentaje']
         };
         var featureList = new List('div_tabla_resultado_totales', options);
     },
 
+    BuscadorDeTablaDetalle: function () {
+
+        var options = {
+            valueNames: ['NroDocumento', 'Apellido', 'Nombre', 'Sexo', 'Nivel', 'Grado', 'Planta', 'NivelEstudio', 'Titulo']
+        };
+        var featureList = new List('div_tabla_detalle', options);
+    },
     ExportarDatosGraficoValorMercadoYContable: function () {
         //                var sessionTable = "ExportarDatosGraficoValorMercadoYContable";
         //                var fecha_reporte = $("#fecha_hasta").val().toString();

@@ -208,7 +208,10 @@ public class WSViaticos : System.Web.Services.WebService
 
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         int tipo = (int)((JValue)criterio_deserializado["tipo"]);
-         DateTime fecha = (DateTime)((JValue)criterio_deserializado["fecha"]);
+        int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+        int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+        int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+        DateTime fecha = new DateTime(anio, mes, dia);
          int id_area = (int)((JValue)criterio_deserializado["id_area"]);
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
         return repositorio.GetGraficoDotacion(tipo, fecha, id_area);

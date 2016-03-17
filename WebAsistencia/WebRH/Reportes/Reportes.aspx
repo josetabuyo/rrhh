@@ -93,7 +93,11 @@
 
                 
                 <div id="div_tabla_detalle" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
-                    <table id="tabla_detalle" style="width: 70%;">
+                    <input type="text" id="search_detalle" class="search" class="buscador" placeholder="Buscar"
+                        style="display: none;" />
+                        <a href="#" id="exportar_datos_detalle" class="btn btn-info" style="float: right; display: none; padding: 5px;margin-right: 15%;">
+                    Exportar Datos</a>
+                    <table id="tabla_detalle" style="width: 85%;">
                     </table>
                 </div>
    </div>

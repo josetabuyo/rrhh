@@ -115,10 +115,10 @@ namespace General
                 switch (p.IdSexo)
                 {
                     case 1:
-                        femenino++;
+                        masculino++;
                         break;
                     case 2:
-                        masculino++;
+                        femenino++;
                         break;
                 }
             });
