@@ -25,7 +25,6 @@
             top: 0; width: 100%;" id="cbp-spmenu-s1">
             
             <div id="contenedor_arbol_organigrama">
-                <h2 class="titulo_organigrama">Organigrama</h2>
             </div>
              <input id="btn_consulta_rapida" type="button" class="btn_consulta_individual" requierefuncionalidad="32" value="Consulta Individual" />
              <input type="button" class="btn_organigrama" id="showLeftPush" value="Organigrama" />
@@ -106,6 +105,7 @@
     </form>
     <div id="plantillas">
         <div class="arbol_organigrama">
+            <img id="spinner" src="../Scripts/spinner.gif">
         </div>
         <div class="area_en_arbol">
             <div id="area">
@@ -131,20 +131,20 @@
     <script type="text/javascript">
 
         //EFECTOS DEL MENU ORGANIGRAMA
-        var menuLeft = document.getElementById('cbp-spmenu-s1'),
+
+        Backend.start();
+
+        $(document).ready(function () {
+            var menuLeft = document.getElementById('cbp-spmenu-s1'),
 				showLeftPush = document.getElementById('showLeftPush'),
 				body = document.body;
 
-        showLeftPush.onclick = function () {
-            classie.toggle(this, 'active');
-            classie.toggle(body, 'cbp-spmenu-push-toright');
-            classie.toggle(menuLeft, 'cbp-spmenu-open');
-            //disableOther('showLeftPush');
-        };
-
-        Backend.start();
-        $(document).ready(function () {
-
+            showLeftPush.onclick = function () {
+                classie.toggle(this, 'active');
+                classie.toggle(body, 'cbp-spmenu-push-toright');
+                classie.toggle(menuLeft, 'cbp-spmenu-open');
+                //disableOther('showLeftPush');
+            };
             GraficoDotacion.Inicializar();
         });
 			

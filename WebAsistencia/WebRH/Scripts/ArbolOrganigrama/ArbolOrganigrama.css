@@ -1,4 +1,10 @@
 ﻿
+.arbol_organigrama #spinner
+{
+    height: 100%;
+    width: 100%;
+}
+
 .arbol_organigrama
 {
     /*border: black solid;*/
