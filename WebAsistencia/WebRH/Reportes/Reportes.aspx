@@ -132,6 +132,7 @@
     <script src="../Scripts/Graficos/exporting.js" type="text/javascript"></script>
     <script src="../Scripts/Graficos/svgcheckbx.js" type="text/javascript"></script>
     <script src="../Scripts/Graficos/classie.js" type="text/javascript"></script>
+    <script src="../Scripts/ExportarAExcel.js" type="text/javascript"></script>
     <script type="text/javascript">
 
         //EFECTOS DEL MENU ORGANIGRAMA
@@ -150,6 +151,12 @@
                 //disableOther('showLeftPush');
             };
             GraficoDotacion.Inicializar();
+            $('#exportar_datos_detalle').click(function () {
+                ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle'));
+            });
+            $('#exportar_datos').click(function () {
+                ExportarAExcel.fnExcelReport(document.getElementById('tabla_resultado_totales'));
+            });
         });
 			
     </script>

@@ -38,9 +38,7 @@ var GraficoDotacion = {
         $('#btn_salir_menu').click(function () {
             $('#showTop').click();
 
-        });
-
-
+        }); 
     },
 
     BuscarDatos: function () {
