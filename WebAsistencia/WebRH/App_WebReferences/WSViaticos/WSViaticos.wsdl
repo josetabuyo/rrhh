@@ -3949,6 +3949,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="IdEstudio" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="NivelEstudio" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaNacimiento" type="s:dateTime" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetGraficoResponse">

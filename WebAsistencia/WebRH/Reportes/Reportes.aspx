@@ -67,7 +67,7 @@
 						    <li><input id="cb2" class="regular-checkbox filtros" name="cb2" data-filtro="Nivel" type="checkbox"/><label for="cb2">Nivel</label></li>
 						    <li><input id="cb3" class="regular-checkbox filtros" name="cb3" data-filtro="Estudios" type="checkbox"/><label for="cb3">Estudios</label></li>
 						    <li><input id="cb4" class="regular-checkbox filtros" name="cb4" data-filtro="Plantas" type="checkbox"/><label for="cb4">Plantas</label></li>
-						    <li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Afiliacion" type="checkbox"/><label for="cb5">Afiliación Gremial</label></li>
+						    <%--<li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Afiliacion" type="checkbox"/><label for="cb5">Afiliación Gremial</label></li>--%>
 					    </ul>
 		
 			            </section>
@@ -93,10 +93,10 @@
 
                 
                 <div id="div_tabla_detalle" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
-                <div style="text-align: center;">
-                <span id="lb_titulo_tabla_detalle" style="margin-left:-38px;"></span>
+                <%--<div style="text-align: center;">--%>
+                <span id="lb_titulo_tabla_detalle"></span>
                 <br />
-                </div>
+               <%-- </div>--%>
                 
                     <input type="text" id="search_detalle" class="search" class="buscador" placeholder="Buscar"
                         style="display: none;" />
@@ -116,12 +116,15 @@
                     <div class="grupo_campos" style="margin-bottom: 9px;">
                         <label>
                             Fecha</label>
-                        <input id="Text1" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
-                         <input id="Button1" type="button" class="btn btn-primary" value="Graficar" />
+                        <input id="txt_fecha_desde_rango_etareo" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
+                         <input id="btn_armarGrafico_RangoEtaero" type="button" class="btn btn-primary" value="Graficar" />
                     </div>
                     
                     </div>
                 </div>
+                <div id="container_grafico_rango_etareo" style="width: 40%; height: 450px; border: 1px solid;
+                margin: 0 30px; display:none;">
+            </div>
    </div>
         </div>
              

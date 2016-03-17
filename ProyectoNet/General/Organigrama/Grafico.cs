@@ -43,7 +43,8 @@ namespace General
                            row.GetString("planta", "Sin Dato"),
                            row.GetInt("IdEstudio", -1),
                            row.GetString("Nivel_Estudios", "Sin Dato"),
-                           row.GetString("Titulo_Obtenido", "Sin Dato")
+                           row.GetString("Titulo_Obtenido", "Sin Dato"),
+                           row.GetDateTime("FechaNacimiento", DateTime.Today)
                 );
                 tabla.Add(persona);
             });
@@ -375,6 +376,60 @@ namespace General
             int total = tabla_personas.Count;
             tabla.Add(GenerarRegistroResumen("Total", total, total));
             tabla.Add(GenerarRegistroResumen("Sin Datos", sin_datos, total));
+            this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+        }
+
+        internal void GraficoRangoEtareo(DateTime fecha)
+        {
+            List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
+            List<Resumen> tabla = new List<Resumen>();
+            int de_18_a_25 = 0;
+            int de_26_a_35 = 0;
+            int de_36_a_45 = 0;
+            int de_46_a_55 = 0;
+            int de_56_a_60 = 0;
+            int de_61_a_65 = 0;
+            int mas_de_65 = 0;
+            tabla_personas.ForEach(p =>
+            {
+                if (p.Edad(fecha) >= 18 && p.Edad(fecha) <= 25)
+                {
+                    de_18_a_25++;
+                }
+                else if (p.Edad(fecha) >= 26 && p.Edad(fecha) <= 35) {
+                    de_26_a_35++;
+                }
+                else if (p.Edad(fecha) >= 36 && p.Edad(fecha) <= 45)
+                {
+                    de_36_a_45++;
+                }
+                else if (p.Edad(fecha) >= 46 && p.Edad(fecha) <= 55)
+                {
+                    de_46_a_55++;
+                }
+                else if (p.Edad(fecha) >= 56 && p.Edad(fecha) <= 60)
+                {
+                    de_56_a_60++;
+                }
+                else if (p.Edad(fecha) >= 61 && p.Edad(fecha) <= 65)
+                {
+                    de_61_a_65++;
+                }
+                else if (p.Edad(fecha) > 65)
+                {
+                    mas_de_65++;
+                }
+            });
+            int total = tabla_personas.Count;
+
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
+            tabla.Add(GenerarRegistroResumen("18-25", de_18_a_25, total));
+            tabla.Add(GenerarRegistroResumen("26-35", de_26_a_35, total));
+            tabla.Add(GenerarRegistroResumen("36-45", de_36_a_45, total));
+            tabla.Add(GenerarRegistroResumen("46-55", de_46_a_55, total));
+            tabla.Add(GenerarRegistroResumen("56-60", de_56_a_60, total));
+            tabla.Add(GenerarRegistroResumen("61-65", de_61_a_65, total));
+            tabla.Add(GenerarRegistroResumen(">65", mas_de_65, total));
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
     }

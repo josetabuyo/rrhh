@@ -35,6 +35,10 @@ var GraficoDotacion = {
         $('#btn_armarGrafico').click(function () {
             _this.BuscarDatos();
         });
+        $('#btn_armarGrafico_RangoEtaero').click(function () {
+            _this.BuscarDatosRangoEtareo();
+        });
+
 
         $('#btn_salir_menu').click(function () {
             $('#showTop').click();
@@ -76,9 +80,55 @@ var GraficoDotacion = {
 
     },
 
+    BuscarDatosRangoEtareo: function () {
+        var _this = this;
+        var buscar = true;
+        $('#div_tabla_detalle_rango_etareo').hide();
+        var fecha = $('#txt_fecha_desde_rango_etareo').val();
+        //Me fijo si esta seteado el storage
+        if (typeof (Storage) !== "undefined") {
+            var id_area = localStorage.getItem("idArea");
+            var alias = localStorage.getItem("alias");
+
+            if (fecha == null || fecha == "") {
+                buscar = false;
+                alertify.error("Debe completar la fecha de corte para la búsqueda de datos");
+            }
+            if (id_area == null || id_area == "") {
+                buscar = false;
+                alertify.error("Debe seleccinar un área desde el organigrama");
+            }
+            if (buscar) {
+                _this.GraficoYTablaRangoEtareo(6, fecha, id_area, "Rango Etáreo del Área " + alias, "container_grafico_rango_etareo", "div_tabla_resultado_rango_etareo", "tabla_resultado_rango_etareo");
+            }
+
+
+        } else {
+            console.log("No soporta localStorage"); // No soporta Storage
+        }
+
+    },
+
     GraficoYTabla: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
         var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
+        var resultado = grafico.tabla_resumen;
+        var tabla_detalle = grafico.tabla_detalle;
+        if (resultado.length > 0) {
+            _this.VisualizarContenido(true);
+            _this.ArmarGrafico(resultado, titulo, div_grafico);
+            _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
+            _this.BuscadorDeTabla();
+
+        } else {
+            _this.VisualizarContenido(false);
+            alertify.error("No hay Reportes para los parámetros seleccionados");
+        }
+    },
+
+    GraficoYTablaRangoEtareo: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
+        var _this = this;
+        var grafico = Backend.ejecutarSincronico("GetGraficoRangoEtareo", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
         var resultado = grafico.tabla_resumen;
         var tabla_detalle = grafico.tabla_detalle;
         if (resultado.length > 0) {
@@ -106,6 +156,22 @@ var GraficoDotacion = {
         };
         return datos;
     },
+
+    CrearDatosRangoEtareo: function (resultado) {
+        var datos = [{
+            name: 'John',
+            data: [5, 3, 4, 7, 2]
+        }, {
+            name: 'Jane',
+            data: [2, 2, 3, 2, 1]
+        }, {
+            name: 'Joe',
+            data: [3, 4, 4, 2, 5]
+        }]
+
+        return datos;
+    },
+
 
     ArmarGrafico: function (resultado, titulo, div_grafico) {
 
@@ -147,6 +213,70 @@ var GraficoDotacion = {
             },
             series: grafico
         });
+
+    },
+    ArmarGraficoRangoEtareo: function (resultado, titulo, div_grafico) {
+
+        var datos = this.CrearDatosRangoEtareo(resultado);
+
+        var edades = ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas'];
+        $('#' + div_grafico).highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: titulo
+            },
+            xAxis: {
+                categories: edades
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Conteo de Edad'
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            tooltip: {
+                headerFormat: '<b>{point.x}</b><br/>',
+                pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            textShadow: '0 0 3px black'
+                        }
+                    }
+                }
+            },
+            series: datos
+        });
+
+
+
+
+
 
     },
 
@@ -200,6 +330,7 @@ var GraficoDotacion = {
         columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.Apellido } }));
         columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
         columnas.push(new Columna("Sexo", { generar: function (un_registro) { return un_registro.Sexo } }));
+        columnas.push(new Columna("FechaNacimiento", { generar: function (un_registro) { return _this.ConvertirFecha(un_registro.FechaNacimiento) } }));
         columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.Nivel } }));
         columnas.push(new Columna("Grado", { generar: function (un_registro) { return un_registro.Grado } }));
         columnas.push(new Columna("Planta", { generar: function (un_registro) { return un_registro.Planta } }));
@@ -242,7 +373,7 @@ var GraficoDotacion = {
                 tabla_final = tabla;
             } else {
                 switch (parseInt(checks_activos[0])) {
-                    //CUANDO ES INFORME DE GENERO                   
+                    //CUANDO ES INFORME DE GENERO                       
                     case 1:
                         titulo = "Tabla de la Dotación de Sexo " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
@@ -251,7 +382,7 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE NIVEL                    
+                    //CUANDO ES INFORME DE NIVEL                        
                     case 2:
                         titulo = "Tabla de la Dotación de " + criterio;
                         var nivel = criterio.split(" ");
@@ -261,7 +392,7 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE ESTUDIOS                     
+                    //CUANDO ES INFORME DE ESTUDIOS                         
                     case 3:
                         titulo = "Tabla de la Dotación con Nivel de Estudios " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
@@ -270,7 +401,7 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE PLANTAS                     
+                    //CUANDO ES INFORME DE PLANTAS                         
                     case 4:
                         titulo = "Tabla de la Dotación con Tipo de Planta " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
@@ -279,7 +410,7 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE AFILICIACION                     
+                    //CUANDO ES INFORME DE AFILICIACION                         
                     case 5:
                         titulo = "Tabla de la Dotación con Afiliación Gremial a " + criterio;
                         /*for (var i = 0; i < tabla.length; i++) {
@@ -322,6 +453,13 @@ var GraficoDotacion = {
         //                var fecha_reporte = $("#fecha_hasta").val().toString();
         //                var fileName = "GraficoValorMercadoYContable_" + fecha_reporte + '_' + $("#id_cartera option:selected").text();
         //                exportXLS(sessionTable, fileName);
+    },
+
+    ConvertirFecha: function (fecha) {
+        var dia = fecha.substring(8, 10);
+        var mes = fecha.substring(5, 7);
+        var anio = fecha.substring(0, 4);
+        return dia + "/" + mes + "/" + anio;
     },
 
     VisualizarContenido: function (visualizar) {
