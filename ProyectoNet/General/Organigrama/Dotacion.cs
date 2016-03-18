@@ -17,7 +17,7 @@ namespace General
         public int IdSexo { get; set; }
         public string Sexo { get; set; }
         public string Nivel { get; set; }
-        public int Grado { get; set; }
+        public string Grado { get; set; }
         public int IdArea { get; set; }
         public string Area { get; set; }
         public int IdPlanta { get; set; }
@@ -30,7 +30,7 @@ namespace General
 
         public Dotacion() { }
 
-        public Dotacion(int id_persona, int legajo, int nro_documento, string apellido, string nombre, int id_sexo, string sexo, string nivel, int grado, int id_area, string area, int id_planta, string planta, int IdEstudio, string NivelEstudio, string Titulo, DateTime FechaNacimiento)
+        public Dotacion(int id_persona, int legajo, int nro_documento, string apellido, string nombre, int id_sexo, string sexo, string nivel, string grado, int id_area, string area, int id_planta, string planta, int IdEstudio, string NivelEstudio, string Titulo, DateTime FechaNacimiento)
         {
             this.IdPersona = id_persona;
             this.Legajo = legajo;

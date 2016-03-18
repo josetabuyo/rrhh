@@ -34,7 +34,7 @@
         <div id="panel_izquierdo" class="estilo_formulario" style="opacity:0;">
             <div class="bloque_foto">
                 <img id="foto_usuario" src="../Imagenes/silueta.gif" alt="Usuario" width="128" height="128">
-                <input id="btn_timeline" type="button" value="Carrera" class="btn btn-primary" />
+                <!--<input id="btn_timeline" type="button" value="Carrera" class="btn btn-primary" />-->
             </div>
                 <div id="panel_datos_personales">
                     <div class="linea dato_personal">

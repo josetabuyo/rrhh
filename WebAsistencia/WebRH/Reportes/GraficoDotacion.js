@@ -9,7 +9,12 @@ var GraficoDotacion = {
         $('#txt_fecha_desde').datepicker();
         $('#txt_fecha_desde').datepicker('option', 'dateFormat', 'dd/mm/yy');
         $('#txt_fecha_desde').datepicker("setDate", new Date());
+
+        $('#btn_armarGrafico_RangoEtaero').datepicker();
+        $('#btn_armarGrafico_RangoEtaero').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#btn_armarGrafico_RangoEtaero').datepicker("setDate", new Date());
         $('#cb1').prop('checked', true);
+        filtro = "Género";
         //Para que no rompa la librería por si la página se cargó anteriormente
         if (window.Highcharts) {
             window.Highcharts = null;
@@ -50,6 +55,7 @@ var GraficoDotacion = {
         var _this = this;
         var buscar = true;
         $('#div_tabla_detalle').hide();
+        
         var tipo = checks_activos.slice(-1)[0];
         var fecha = $('#txt_fecha_desde').val();
         //Me fijo si esta seteado el storage
@@ -111,6 +117,7 @@ var GraficoDotacion = {
 
     GraficoYTabla: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
+        $('#div_graficos_y_tablas').show();
         var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
         var resultado = grafico.tabla_resumen;
         var tabla_detalle = grafico.tabla_detalle;
@@ -347,7 +354,8 @@ var GraficoDotacion = {
                 btn_accion.click(function () {
                     console.log(un_registro);
                     localStorage.setItem("documento", un_registro.NroDocumento);
-                    window.location.replace("ConsultaIndividual.aspx");
+                    window.open('ConsultaIndividual.aspx', '_blank');
+                    //window.location.replace("ConsultaIndividual.aspx");
                 });
 
                 return btn_accion;

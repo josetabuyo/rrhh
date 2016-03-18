@@ -133,7 +133,7 @@
     </form>
     <div id="plantillas">
         <div class="arbol_organigrama">
-            <img id="spinner" src="../Scripts/spinner.gif">
+            <center><img alt="loader" id="spinner" src="../Imagenes/spinner.gif" width="100px" height="100px"></center>
         </div>
         <div class="area_en_arbol">
             <div id="area">
