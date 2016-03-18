@@ -27,7 +27,7 @@ namespace General.Repositorios
             if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior)
             {
 
-                    CrearResumen(tipo);
+                    CrearResumen(tipo, fecha);
 
                 return grafico;
 
@@ -46,13 +46,13 @@ namespace General.Repositorios
 
             }
 
-            CrearResumen(tipo);
+            CrearResumen(tipo, fecha);
 
             return grafico;
 
         }
 
-        private static void CrearResumen(int tipo)
+        private static void CrearResumen(int tipo, DateTime fecha)
         {
             switch (tipo)
             {
@@ -70,6 +70,9 @@ namespace General.Repositorios
                     break;
                 case 5:
                     grafico.GraficoPorAfiliacionGremial();
+                    break;
+                case 6:
+                     grafico.GraficoRangoEtareo(fecha);
                     break;
             }
         }

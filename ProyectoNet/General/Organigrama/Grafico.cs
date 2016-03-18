@@ -43,7 +43,8 @@ namespace General
                            row.GetString("planta", "Sin Dato"),
                            row.GetInt("IdEstudio", -1),
                            row.GetString("Nivel_Estudios", "Sin Dato"),
-                           row.GetString("Titulo_Obtenido", "Sin Dato")
+                           row.GetString("Titulo_Obtenido", "Sin Dato"),
+                           row.GetDateTime("FechaNacimiento", DateTime.Today)
                 );
                 tabla.Add(persona);
             });
@@ -60,6 +61,7 @@ namespace General
             int nivel_d = 0;
             int nivel_e = 0;
             int nivel_f = 0;
+            int nivel_w = 0;
             tabla_personas.ForEach(p =>
             {
                 switch (p.Nivel)
@@ -82,18 +84,21 @@ namespace General
                     case "F":
                         nivel_f++;
                         break;
+                    case "W":
+                        nivel_w++;
+                        break;
                 }
 
             });
             int total = tabla_personas.Count;
-
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
             tabla.Add(GenerarRegistroResumen("Nivel A", nivel_a, total));
             tabla.Add(GenerarRegistroResumen("Nivel B", nivel_b, total));
             tabla.Add(GenerarRegistroResumen("Nivel C", nivel_c, total));
             tabla.Add(GenerarRegistroResumen("Nivel D", nivel_d, total));
             tabla.Add(GenerarRegistroResumen("Nivel E", nivel_e, total));
             tabla.Add(GenerarRegistroResumen("Nivel F", nivel_f, total));
-            tabla.Add(GenerarRegistroResumen("Total", total, total));
+            tabla.Add(GenerarRegistroResumen("Nivel W", nivel_w, total)); 
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
 
@@ -115,18 +120,18 @@ namespace General
                 switch (p.IdSexo)
                 {
                     case 1:
-                        femenino++;
+                        masculino++;
                         break;
                     case 2:
-                        masculino++;
+                        femenino++;
                         break;
                 }
             });
             int total = tabla_personas.Count;
 
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
             tabla.Add(GenerarRegistroResumen("Femenino", femenino, total));
             tabla.Add(GenerarRegistroResumen("Masculino", masculino, total));
-            tabla.Add(GenerarRegistroResumen("Total", total, total));
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
 
@@ -178,7 +183,7 @@ namespace General
                 }
             });
             int total = tabla_personas.Count;
-
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
             if (NoEspecifica > 0) tabla.Add(GenerarRegistroResumen("No Especifica", NoEspecifica, total));
             if (Primario > 0) tabla.Add(GenerarRegistroResumen("Primario", Primario, total));
             if (Secundario > 0) tabla.Add(GenerarRegistroResumen("Secundario", Secundario, total));
@@ -187,8 +192,7 @@ namespace General
             if (PostGrado > 0) tabla.Add(GenerarRegistroResumen("Post-Grado", PostGrado, total));
             if (CicloBasico > 0) tabla.Add(GenerarRegistroResumen("Ciclo Básico", CicloBasico, total));
             if (Nopresentocertificado > 0) tabla.Add(GenerarRegistroResumen("No presento certificado", Nopresentocertificado, total));
-            if (Pregrado > 0) tabla.Add(GenerarRegistroResumen("Pregrado", Pregrado, total));
-            tabla.Add(GenerarRegistroResumen("Total", total, total));
+            if (Pregrado > 0) tabla.Add(GenerarRegistroResumen("Pregrado", Pregrado, total)); 
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
 
@@ -328,7 +332,7 @@ namespace General
                 }
             });
             int total = tabla_personas.Count;
-
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
             if (tipo_0 > 0) tabla.Add(GenerarRegistroResumen("No Especifica", tipo_0, total));
             if (tipo_1 > 0) tabla.Add(GenerarRegistroResumen("Contratado XXXX", tipo_1, total));
             if (tipo_2 > 0) tabla.Add(GenerarRegistroResumen("Gab Ases A8", tipo_2, total));
@@ -360,7 +364,6 @@ namespace General
             if (tipo_28 > 0) tabla.Add(GenerarRegistroResumen("Perm FE (Concurs)", tipo_28, total));
             if (tipo_29 > 0) tabla.Add(GenerarRegistroResumen("Perm FE (Transit)", tipo_29, total));
             if (tipo_30 > 0) tabla.Add(GenerarRegistroResumen("Gab Ases AdH", tipo_30, total));
-            tabla.Add(GenerarRegistroResumen("Total", total, total));
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
 
@@ -371,9 +374,62 @@ namespace General
 
             int sin_datos = tabla_personas.Count;
             int total = tabla_personas.Count;
-
-            tabla.Add(GenerarRegistroResumen("Sin Datos", sin_datos, total));
             tabla.Add(GenerarRegistroResumen("Total", total, total));
+            tabla.Add(GenerarRegistroResumen("Sin Datos", sin_datos, total));
+            this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+        }
+
+        internal void GraficoRangoEtareo(DateTime fecha)
+        {
+            List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
+            List<Resumen> tabla = new List<Resumen>();
+            int de_18_a_25 = 0;
+            int de_26_a_35 = 0;
+            int de_36_a_45 = 0;
+            int de_46_a_55 = 0;
+            int de_56_a_60 = 0;
+            int de_61_a_65 = 0;
+            int mas_de_65 = 0;
+            tabla_personas.ForEach(p =>
+            {
+                if (p.Edad(fecha) >= 18 && p.Edad(fecha) <= 25)
+                {
+                    de_18_a_25++;
+                }
+                else if (p.Edad(fecha) >= 26 && p.Edad(fecha) <= 35) {
+                    de_26_a_35++;
+                }
+                else if (p.Edad(fecha) >= 36 && p.Edad(fecha) <= 45)
+                {
+                    de_36_a_45++;
+                }
+                else if (p.Edad(fecha) >= 46 && p.Edad(fecha) <= 55)
+                {
+                    de_46_a_55++;
+                }
+                else if (p.Edad(fecha) >= 56 && p.Edad(fecha) <= 60)
+                {
+                    de_56_a_60++;
+                }
+                else if (p.Edad(fecha) >= 61 && p.Edad(fecha) <= 65)
+                {
+                    de_61_a_65++;
+                }
+                else if (p.Edad(fecha) > 65)
+                {
+                    mas_de_65++;
+                }
+            });
+            int total = tabla_personas.Count;
+
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
+            tabla.Add(GenerarRegistroResumen("18-25", de_18_a_25, total));
+            tabla.Add(GenerarRegistroResumen("26-35", de_26_a_35, total));
+            tabla.Add(GenerarRegistroResumen("36-45", de_36_a_45, total));
+            tabla.Add(GenerarRegistroResumen("46-55", de_46_a_55, total));
+            tabla.Add(GenerarRegistroResumen("56-60", de_56_a_60, total));
+            tabla.Add(GenerarRegistroResumen("61-65", de_61_a_65, total));
+            tabla.Add(GenerarRegistroResumen(">65", mas_de_65, total));
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
     }

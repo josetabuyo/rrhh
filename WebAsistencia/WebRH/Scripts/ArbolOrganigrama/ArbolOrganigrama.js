@@ -2,10 +2,12 @@
     var _this = this;
     this.vistaArbol = $("#plantillas .arbol_organigrama").clone();
     contenedor.append(this.vistaArbol);
+    this.vistaArbol.find("#spinner").show();
     Backend.GetArbolOrganigrama().onSuccess(function (area_raiz) {
         Backend.AreasAdministradasPor().onSuccess(function (areas_usuario) {
+            _this.vistaArbol.find("#spinner").hide();
             _this.areasUsuario = areas_usuario;
-            _this.dibujarArea(area_raiz, _this.vistaArbol);            
+            _this.dibujarArea(area_raiz, _this.vistaArbol);
         });
     });
 };

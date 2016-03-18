@@ -8,7 +8,10 @@ var Reportes = {
     start: function () {
         var _this = this;
 
-        $('#titulo_area').html(localStorage.getItem("alias"));
+        localStorage.removeItem("alias");
+        localStorage.removeItem("idArea");
+
+        //$('#titulo_area').html(localStorage.getItem("alias"));
 
         $('#btn_consulta_rapida').click(function () {
             window.location.href = "ConsultaIndividual.aspx";
@@ -16,9 +19,20 @@ var Reportes = {
         })
         $('#btn_grafico_dotacion').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
+            $('#div_grafico_de_dotacion').show();
             $('#div_filtros').show();
+            $('#div_filtros_rango_etareo').hide();
             //window.location.replace("GraficoDotacion.aspx");
         })
+        $('#btn_rango_etareo').click(function () {
+            $('#titulo_grafico').html(this.innerHTML);
+            $('#div_grafico_de_dotacion').hide();
+            $('#div_filtros').hide();
+            $('#div_grafico_de_rango_etareo').show();
+            $('#div_filtros_rango_etareo').show();
+            //window.location.replace("GraficoDotacion.aspx");
+        })
+        
         $('#btn_grafico_licencias').click(function () {
             //window.location.replace("GraficoLicencias.aspx");
         })
@@ -44,7 +58,7 @@ var Reportes = {
             var documento = localStorage.getItem("documento");
             if (documento != null)
                 _this.mostrarPersona(documento);
-
+                localStorage.removeItem("documento");
             // selector_personas.selector_usuario.alSeleccionarUnaPersona(persona_seleccionada);
         } else {
             console.log("No soporta localStorage"); // Sorry! No Web Storage support..
@@ -63,7 +77,7 @@ var Reportes = {
             var data = $.parseJSON(datos);
 
             if (!$.isEmptyObject(data)) {
-                $("#panel_izquierdo").delay(700).animate({ "opacity": "1" }, 700);
+                $("#panel_izquierdo").delay(300).animate({ "opacity": "1" }, 300);
 
                 $('#mensaje').html("");
 

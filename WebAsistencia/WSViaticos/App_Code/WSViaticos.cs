@@ -24,6 +24,7 @@ using System.Data;
 using System.IO;
 using ClosedXML.Excel;
 
+
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -211,62 +212,31 @@ public class WSViaticos : System.Web.Services.WebService
 
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         int tipo = (int)((JValue)criterio_deserializado["tipo"]);
-         DateTime fecha = (DateTime)((JValue)criterio_deserializado["fecha"]);
+        int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+        int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+        int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+        DateTime fecha = new DateTime(anio, mes, dia);
          int id_area = (int)((JValue)criterio_deserializado["id_area"]);
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
-        return repositorio.GetGraficoDotacion(tipo, fecha, id_area);
+       // return repositorio.GetGraficoDotacion(tipo, fecha, id_area);
 
+        Grafico graf = repositorio.GetGraficoDotacion(tipo, fecha, id_area);
+        return graf;
 
-
-
-        //List<Campo> campos = new List<Campo>();
-        //if (tipo == 1)
-        //{
-        //    Campo campo1 = new Campo("A", "23", true);
-        //    Campo campo2 = new Campo("B", "15", true);
-        //    Campo campo3 = new Campo("C", "49", true);
-        //    Campo campo4 = new Campo("D", "101", true);
-        //    Campo campo5 = new Campo("E", "20", true);
-        //    campos.Add(campo1);
-        //    campos.Add(campo2);
-        //    campos.Add(campo3);
-        //    campos.Add(campo4);
-        //    campos.Add(campo5);
 
      
-
-        //}
-        //if (tipo == 2)
-        //{
-        //    Campo campo1 = new Campo("A", "2", true);
-        //    Campo campo2 = new Campo("B", "5", true);
-        //    Campo campo3 = new Campo("C", "4", true);
-        //    campos.Add(campo1);
-        //    campos.Add(campo2);
-        //    campos.Add(campo3);
-        //}
-        //if (tipo == 3)
-        //{
-        //    Campo campo1 = new Campo("A", "3", true);
-        //    Campo campo2 = new Campo("B", "11", true);
-        //    Campo campo3 = new Campo("C", "125", true);
-        //    Campo campo4 = new Campo("D", "248", true);
-        //    campos.Add(campo1);
-        //    campos.Add(campo2);
-        //    campos.Add(campo3);
-        //    campos.Add(campo4);
-        //}
-        //return campos.ToArray(); ;
     }
 
 
+    
+
     /*Grafico Excel*/
     [WebMethod]
-    public string ExcelGenerado()
+    public string ExcelGenerado(string criterio,Usuario usuario)
     {
         try
         {
-            //
+        //
         //    var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         //    int tipo = (int)((JValue)criterio_deserializado["tipo"]);
         //    DateTime fecha = (DateTime)((JValue)criterio_deserializado["fecha"]);
@@ -274,25 +244,69 @@ public class WSViaticos : System.Web.Services.WebService
         //    RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
         //    Grafico graf = repositorio.GetGraficoDotacion(tipo, fecha, id_area);
         ////    graf.tabla_detalle 
-        //    //
+        // //
 
-            DataTable table = new DataTable();
-            table.TableName = "Participacion-VM";
+            Grafico grafico = GetGrafico(criterio, usuario);
+
+       //     DataTable table = new DataTable();
+      //      table.TableName = "Participacion-VM";
+            
+            DataTable table_resumen = new DataTable();
+            table_resumen.TableName = "Resumen";
+
+           
+
+            table_resumen.Columns.Add("Informacion");
+            table_resumen.Columns.Add("Cantidad");
+            table_resumen.Columns.Add("Porcentaje");
+
+
+            foreach( var item in grafico.tabla_resumen)
+            {
+                table_resumen.Rows.Add(item.Id, item.Cantidad, item.Porcentaje);
+            }
+ 
+            DataTable table_detalle = new DataTable();
+            table_detalle.TableName = "Detalle";
+
+
+            table_detalle.Columns.Add("NroDocumento");
+            table_detalle.Columns.Add("Apellido");
+            table_detalle.Columns.Add("Nombre");
+            table_detalle.Columns.Add("Sexo");
+            table_detalle.Columns.Add("FechaNacimiento");
+            table_detalle.Columns.Add("Nivel");
+            table_detalle.Columns.Add("Grado");
+            table_detalle.Columns.Add("Planta");
+            table_detalle.Columns.Add("NivelEstudio");
+            table_detalle.Columns.Add("Titulo");
+
+
+            foreach (var item in grafico.tabla_detalle)
+            {
+                table_detalle.Rows.Add(item.NroDocumento, item.Apellido, item.Nombre, item.Sexo, item.FechaNacimiento.ToShortDateString(), item.Nivel, item.Grado, item.Planta, item.NivelEstudio, item.Titulo);
+            }
+
+
 
             //CREACIÓN DE LAS COLUMNAS
-            table.Columns.Add("Categoria", typeof(string));
-            table.Columns.Add("% Participación VM", typeof(double));
+      //      table.Columns.Add("Categoria", typeof(string));
+     //       table.Columns.Add("% Participación VM", typeof(double));
 
             var workbook = new XLWorkbook();
 
-            //export.InnerHtml = exportarOperaciones().ToString();
+      
 
-            var dataTable_consulta_parametros = table;
-            var ws = workbook.Worksheets.Add(dataTable_consulta_parametros);
+         //   var dataTable_consulta_parametros = table;
+            var dataTable_resumen = table_resumen;
+            var dataTable_detalle = table_detalle;
+            var ws = workbook.Worksheets.Add(dataTable_resumen);
+
+            workbook.Worksheets.Add(dataTable_detalle);
 
             string rut = HttpContext.Current.Request.PhysicalApplicationPath + "/Excel.xlsx";
 
-         
+            
             using (var ms = new MemoryStream())
             {
                 workbook.SaveAs(ms);

@@ -25,11 +25,12 @@ namespace General
         public int IdEstudio { get; set; }
         public string NivelEstudio { get; set; }
         public string Titulo { get; set; }
+        public DateTime FechaNacimiento { get; set; }
 
 
         public Dotacion() { }
 
-        public Dotacion(int id_persona, int legajo, int nro_documento, string apellido, string nombre, int id_sexo, string sexo, string nivel, int grado, int id_area, string area, int id_planta, string planta, int IdEstudio, string NivelEstudio, string Titulo)
+        public Dotacion(int id_persona, int legajo, int nro_documento, string apellido, string nombre, int id_sexo, string sexo, string nivel, int grado, int id_area, string area, int id_planta, string planta, int IdEstudio, string NivelEstudio, string Titulo, DateTime FechaNacimiento)
         {
             this.IdPersona = id_persona;
             this.Legajo = legajo;
@@ -47,7 +48,17 @@ namespace General
             this.IdEstudio = IdEstudio;
             this.NivelEstudio = NivelEstudio;
             this.Titulo = Titulo;
+            this.FechaNacimiento = FechaNacimiento;
 
+        }
+
+        internal int Edad(DateTime fecha)
+        {
+            DateTime now = fecha;
+            int age = now.Year - this.FechaNacimiento.Year;
+            if (this.FechaNacimiento > now.AddYears(-age)) age--;
+
+            return age;
         }
     }
 }
