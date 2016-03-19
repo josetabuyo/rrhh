@@ -32,7 +32,13 @@
                 <h2 class="">Gráficos</h2>
                   <ul class="lista" >
                     <li><a href="#" id="btn_grafico_dotacion" class="link_listado">Dotación</a>
-                        <ul><li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">- Rango Etáreo</a></li></ul>
+                        <ul>
+                            <li class="Rango Etáreo"><a href="#" id="btn_genero" class="link_listado">Género</a></li>
+                            <li class="Rango Etáreo"><a href="#" id="btn_nivel" class="link_listado">Nivel</a></li>
+                            <li class="Rango Etáreo"><a href="#" id="btn_estudios" class="link_listado">Estudios</a></li>
+                            <li class="Rango Etáreo"><a href="#" id="btn_plantas" class="link_listado">Plantas</a></li>
+                            <li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">Rango Etáreo</a></li>
+                        </ul>
                     </li>
                     <li class="Dotacion"><a href="#" class="link_listado">Sueldo</a></li>
                     <li id="btn_grafico_licencias" class="Licencias"><a href="#" class="link_listado">Licencias</a></li>

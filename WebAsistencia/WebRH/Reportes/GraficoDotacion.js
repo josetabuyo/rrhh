@@ -10,9 +10,12 @@ var GraficoDotacion = {
         $('#txt_fecha_desde').datepicker('option', 'dateFormat', 'dd/mm/yy');
         $('#txt_fecha_desde').datepicker("setDate", new Date());
 
-        $('#btn_armarGrafico_RangoEtaero').datepicker();
-        $('#btn_armarGrafico_RangoEtaero').datepicker('option', 'dateFormat', 'dd/mm/yy');
-        $('#btn_armarGrafico_RangoEtaero').datepicker("setDate", new Date());
+        localStorage.removeItem("alias");
+        localStorage.removeItem("idArea");
+
+        $('#txt_fecha_desde_rango_etareo').datepicker();
+        $('#txt_fecha_desde_rango_etareo').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#txt_fecha_desde_rango_etareo').datepicker("setDate", new Date());
         $('#cb1').prop('checked', true);
         filtro = "Género";
         //Para que no rompa la librería por si la página se cargó anteriormente
@@ -34,6 +37,8 @@ var GraficoDotacion = {
             checks_activos.push(lastChar);
 
             _this.BuscarDatos();
+
+            $('#titulo_grafico').html("Dotación por " + this.nextElementSibling.innerHTML);
             //_this.MarcarOpcionDeGrafico(lastChar, this);
         });
 
@@ -49,13 +54,52 @@ var GraficoDotacion = {
             $('#showTop').click();
 
         });
+
+
+        //Botones del Menu
+        $('#btn_genero').click(function () {
+            armarGraficoDesdeMenu("Genero", 1, "Dotación por " + this.innerHTML);
+            
+            $('#cb1')[0].checked = true;
+        });
+
+        $('#btn_nivel').click(function () {
+            armarGraficoDesdeMenu("Nivel", 2, "Dotación por " + this.innerHTML);
+            $('#cb2')[0].checked = true;
+        });
+
+        $('#btn_estudios').click(function () {
+            armarGraficoDesdeMenu("Estudios", 3, "Dotación por " + this.innerHTML);
+            $('#cb3')[0].checked = true;
+        });
+
+        $('#btn_plantas').click(function () {
+            armarGraficoDesdeMenu("Plantas", 4, "Dotación por " + this.innerHTML);
+            $('#cb4')[0].checked = true;
+        });
+
+        function armarGraficoDesdeMenu(mi_filtro, tipo, texto) {
+            checks_activos = [];
+            filtro = mi_filtro;
+            $('#div_grafico_de_dotacion').show();
+            $('#div_filtros').show();
+            $('#div_graficos_y_tablas').hide();
+            $('#div_filtros_rango_etareo').hide();
+            checks_activos.push(tipo);
+            _this.BuscarDatos();
+            $('#titulo_grafico').html(texto);
+            $('.filtros').each(function () {
+                this.checked = false;
+            });
+        
+        };
     },
 
     BuscarDatos: function () {
         var _this = this;
         var buscar = true;
         $('#div_tabla_detalle').hide();
-        
+
         var tipo = checks_activos.slice(-1)[0];
         var fecha = $('#txt_fecha_desde').val();
         //Me fijo si esta seteado el storage
@@ -381,7 +425,7 @@ var GraficoDotacion = {
                 tabla_final = tabla;
             } else {
                 switch (parseInt(checks_activos[0])) {
-                    //CUANDO ES INFORME DE GENERO                       
+                    //CUANDO ES INFORME DE GENERO                         
                     case 1:
                         titulo = "Tabla de la Dotación de Sexo " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
@@ -390,7 +434,7 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE NIVEL                        
+                    //CUANDO ES INFORME DE NIVEL                          
                     case 2:
                         titulo = "Tabla de la Dotación de " + criterio;
                         var nivel = criterio.split(" ");
@@ -400,7 +444,7 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE ESTUDIOS                         
+                    //CUANDO ES INFORME DE ESTUDIOS                           
                     case 3:
                         titulo = "Tabla de la Dotación con Nivel de Estudios " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
@@ -409,7 +453,7 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE PLANTAS                         
+                    //CUANDO ES INFORME DE PLANTAS                           
                     case 4:
                         titulo = "Tabla de la Dotación con Tipo de Planta " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
@@ -418,7 +462,7 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE AFILICIACION                         
+                    //CUANDO ES INFORME DE AFILICIACION                           
                     case 5:
                         titulo = "Tabla de la Dotación con Afiliación Gremial a " + criterio;
                         /*for (var i = 0; i < tabla.length; i++) {

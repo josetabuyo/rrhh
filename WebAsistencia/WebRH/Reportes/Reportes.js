@@ -8,8 +8,8 @@ var Reportes = {
     start: function () {
         var _this = this;
 
-        localStorage.removeItem("alias");
-        localStorage.removeItem("idArea");
+        //localStorage.removeItem("alias");
+        //localStorage.removeItem("idArea");
 
         //$('#titulo_area').html(localStorage.getItem("alias"));
 
