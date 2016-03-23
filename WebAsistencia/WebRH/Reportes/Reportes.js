@@ -8,8 +8,8 @@ var Reportes = {
     start: function () {
         var _this = this;
 
-        localStorage.removeItem("alias");
-        localStorage.removeItem("idArea");
+        //localStorage.removeItem("alias");
+        //localStorage.removeItem("idArea");
 
         //$('#titulo_area').html(localStorage.getItem("alias"));
 
@@ -19,8 +19,10 @@ var Reportes = {
         })
         $('#btn_grafico_dotacion').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
+
             $('#div_grafico_de_dotacion').show();
             $('#div_filtros').show();
+            $('#div_graficos_y_tablas').hide();
             $('#div_filtros_rango_etareo').hide();
             //window.location.replace("GraficoDotacion.aspx");
         })
@@ -32,7 +34,7 @@ var Reportes = {
             $('#div_filtros_rango_etareo').show();
             //window.location.replace("GraficoDotacion.aspx");
         })
-        
+
         $('#btn_grafico_licencias').click(function () {
             //window.location.replace("GraficoLicencias.aspx");
         })
@@ -58,7 +60,7 @@ var Reportes = {
             var documento = localStorage.getItem("documento");
             if (documento != null)
                 _this.mostrarPersona(documento);
-                localStorage.removeItem("documento");
+            localStorage.removeItem("documento");
             // selector_personas.selector_usuario.alSeleccionarUnaPersona(persona_seleccionada);
         } else {
             console.log("No soporta localStorage"); // Sorry! No Web Storage support..
@@ -129,6 +131,19 @@ var Reportes = {
             localStorage.setItem("idArea", area.id);
             localStorage.setItem("alias", area.alias);
             $('#titulo_area').html(area.alias);
+
+            //$('#btn_armarGrafico').click();
+            //$('#cb1').click();
+            //$('#cb1').checked = true;
+            $('#div_grafico_de_dotacion').hide();
+            $('#div_grafico_de_rango_etareo').hide();
+            $('#titulo_grafico').html("Seleccionar Informe");
+
+            //para subir al tope de la pantalla
+            $('html,body').animate({
+                scrollTop: $("#Reportes").offset().top
+            }, 1000);
+
             console.log(area);
         });
 

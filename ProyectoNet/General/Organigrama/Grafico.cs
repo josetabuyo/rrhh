@@ -36,7 +36,7 @@ namespace General
                            row.GetSmallintAsInt("id_sexo", 0),
                           row.GetString("descrip_sexo", "Sin Dato"),
                            row.GetString("nivel", "Sin Dato"),
-                           row.GetSmallintAsInt("grado", -1),
+                           row.GetString("grado", "Sin Dato"),
                            row.GetInt("id_area", 0),
                            row.GetString("area", "Sin Dato"),
                            row.GetSmallintAsInt("id_planta", -1),

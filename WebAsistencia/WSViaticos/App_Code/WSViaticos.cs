@@ -321,7 +321,7 @@ public class WSViaticos : System.Web.Services.WebService
 
             ws.Column("A").Width = 15;
             ws.Column("B").Width = 15;
-
+            ws.Column("C").Width = 15;
 
           //  ws.Row(1).Height = 25;
           //  ws.Row(1).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
@@ -337,12 +337,14 @@ public class WSViaticos : System.Web.Services.WebService
             ws.Cell(1, 2).Value = fecha.ToShortDateString();
             ws.Cell(2, 2).Value = area.Nombre.ToUpper();
 
-            ws.Range(4, 1, 4, 4).Style.Fill.BackgroundColor = XLColor.BabyBlue;
-            ws.Range(4, 1, 4, 4).Style.Font.FontColor = XLColor.White;
+            ws.Range(4, 1, 4, 3).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
+            ws.Range(4, 1, 4, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+            ws.Range(4, 1, 4, 3).Style.Font.FontColor = XLColor.White;
 
             ws.Cell(4, 1).Value = "Informacion";
-            ws.Cell(4, 2).Value = "Cantidad:";
-            ws.Cell(4, 3).Value = "Porcentaje:";
+            ws.Cell(4, 2).Value = "Cantidad";
+            ws.Cell(4, 3).Value = "Porcentaje";
 
             var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_resumen.AsEnumerable());
 

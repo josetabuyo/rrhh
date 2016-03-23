@@ -9,7 +9,15 @@ var GraficoDotacion = {
         $('#txt_fecha_desde').datepicker();
         $('#txt_fecha_desde').datepicker('option', 'dateFormat', 'dd/mm/yy');
         $('#txt_fecha_desde').datepicker("setDate", new Date());
+
+        localStorage.removeItem("alias");
+        localStorage.removeItem("idArea");
+
+        $('#txt_fecha_desde_rango_etareo').datepicker();
+        $('#txt_fecha_desde_rango_etareo').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#txt_fecha_desde_rango_etareo').datepicker("setDate", new Date());
         $('#cb1').prop('checked', true);
+        filtro = "Género";
         //Para que no rompa la librería por si la página se cargó anteriormente
         if (window.Highcharts) {
             window.Highcharts = null;
@@ -29,6 +37,8 @@ var GraficoDotacion = {
             checks_activos.push(lastChar);
 
             _this.BuscarDatos();
+
+            $('#titulo_grafico').html("Dotación por " + this.nextElementSibling.innerHTML);
             //_this.MarcarOpcionDeGrafico(lastChar, this);
         });
 
@@ -44,12 +54,46 @@ var GraficoDotacion = {
             $('#showTop').click();
 
         });
-
-
-        $('#btn_excel').click(function () {
+  $('#btn_excel').click(function () {
             _this.BuscarExcel();
         });
+        //Botones del Menu
+        $('#btn_genero').click(function () {
+            armarGraficoDesdeMenu("Genero", 1, "Dotación por " + this.innerHTML);
+            
+            $('#cb1')[0].checked = true;
+        });
 
+        $('#btn_nivel').click(function () {
+            armarGraficoDesdeMenu("Nivel", 2, "Dotación por " + this.innerHTML);
+            $('#cb2')[0].checked = true;
+        });
+
+        $('#btn_estudios').click(function () {
+            armarGraficoDesdeMenu("Estudios", 3, "Dotación por " + this.innerHTML);
+            $('#cb3')[0].checked = true;
+        });
+
+        $('#btn_plantas').click(function () {
+            armarGraficoDesdeMenu("Plantas", 4, "Dotación por " + this.innerHTML);
+            $('#cb4')[0].checked = true;
+        });
+
+        function armarGraficoDesdeMenu(mi_filtro, tipo, texto) {
+            checks_activos = [];
+            filtro = mi_filtro;
+            $('#div_grafico_de_dotacion').show();
+            $('#div_filtros').show();
+            $('#div_graficos_y_tablas').hide();
+            $('#div_filtros_rango_etareo').hide();
+            checks_activos.push(tipo);
+            _this.BuscarDatos();
+            $('#titulo_grafico').html(texto);
+            $('.filtros').each(function () {
+                this.checked = false;
+            });
+        
+        };
     },
 
 
@@ -59,6 +103,7 @@ var GraficoDotacion = {
         var _this = this;
         var buscar = true;
         $('#div_tabla_detalle').hide();
+
         var tipo = checks_activos.slice(-1)[0];
         var fecha = $('#txt_fecha_desde').val();
         //Me fijo si esta seteado el storage
@@ -186,6 +231,7 @@ var GraficoDotacion = {
 
     GraficoYTabla: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
+        $('#div_graficos_y_tablas').show();
         var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
         var resultado = grafico.tabla_resumen;
         var tabla_detalle = grafico.tabla_detalle;
@@ -422,7 +468,8 @@ var GraficoDotacion = {
                 btn_accion.click(function () {
                     console.log(un_registro);
                     localStorage.setItem("documento", un_registro.NroDocumento);
-                    window.location.replace("ConsultaIndividual.aspx");
+                    window.open('ConsultaIndividual.aspx', '_blank');
+                    //window.location.replace("ConsultaIndividual.aspx");
                 });
 
                 return btn_accion;
@@ -448,7 +495,6 @@ var GraficoDotacion = {
                 tabla_final = tabla;
             } else {
                 switch (parseInt(checks_activos[0])) {
-                    //CUANDO ES INFORME DE GENERO                        
                     case 1:
                         titulo = "Tabla de la Dotación de Sexo " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
@@ -457,7 +503,6 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE NIVEL                         
                     case 2:
                         titulo = "Tabla de la Dotación de " + criterio;
                         var nivel = criterio.split(" ");
@@ -467,7 +512,6 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE ESTUDIOS                          
                     case 3:
                         titulo = "Tabla de la Dotación con Nivel de Estudios " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
@@ -476,7 +520,6 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE PLANTAS                          
                     case 4:
                         titulo = "Tabla de la Dotación con Tipo de Planta " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
@@ -485,7 +528,6 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE AFILICIACION                          
                     case 5:
                         titulo = "Tabla de la Dotación con Afiliación Gremial a " + criterio;
                         /*for (var i = 0; i < tabla.length; i++) {
