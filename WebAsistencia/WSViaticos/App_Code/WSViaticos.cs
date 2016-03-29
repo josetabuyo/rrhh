@@ -344,11 +344,18 @@ public class WSViaticos : System.Web.Services.WebService
 
             ws.Cell(4, 1).Value = "Informacion";
             ws.Cell(4, 2).Value = "Cantidad";
-            ws.Cell(4, 3).Value = "Porcentaje";
-
-            var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_resumen.AsEnumerable());
+            ws.Cell(4, 3).Value = "Porcentaje %";
 
            
+            var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_resumen.AsEnumerable());
+
+            var lastCell = ws.LastCellUsed();
+
+
+            ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+            ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
+
+
 
             workbook.Worksheets.Add(dataTable_detalle);
 

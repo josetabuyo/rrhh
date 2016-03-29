@@ -5,7 +5,7 @@ var GraficoDotacion = {
 
     Inicializar: function () {
         var _this = this;
-
+                
         $('#txt_fecha_desde').datepicker();
         $('#txt_fecha_desde').datepicker('option', 'dateFormat', 'dd/mm/yy');
         $('#txt_fecha_desde').datepicker("setDate", new Date());

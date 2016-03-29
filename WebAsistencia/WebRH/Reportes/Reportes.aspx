@@ -116,8 +116,8 @@
    </div>
    </div>
 
-  <div id = "exp_excel">
-            <input type = "button" id = "btn_excel" />
+  <div id = "exp_excel"  >
+            <input type = "button" id = "btn_excel"  style = "background: url(../imagenes/excel_icon.png) no-repeat; width:40px; height:40px; border:none"/>
             </div>   <div id="div_grafico_de_rango_etareo">
    <div id="div_filtros_rango_etareo" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
                     <div style="margin-left:20px;">
@@ -187,6 +187,7 @@
                 ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle'));
             });
             $('#exportar_datos').click(function () {
+
                 ExportarAExcel.fnExcelReport(document.getElementById('tabla_resultado_totales'));
             });
         });
