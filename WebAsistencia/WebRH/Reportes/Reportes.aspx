@@ -90,8 +90,10 @@
             <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 30px">
                     <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
                         style="display: none;" />
-                     <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none; padding: 5px;">
+                     <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none; padding: 5px; margin-left:10px;">
                     Exportar Datos</a>
+                    <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;">
+                    Exportar Todo</a>
                     <table id="tabla_resultado_totales" style="width:420px;">
                     </table>
                 </div>
@@ -116,9 +118,8 @@
    </div>
    </div>
 
-  <div id = "exp_excel"  >
-            <input type = "button" id = "btn_excel"  style = "background: url(../imagenes/excel_icon.png) no-repeat; width:40px; height:40px; border:none"/>
-            </div>   <div id="div_grafico_de_rango_etareo">
+
+   <div id="div_grafico_de_rango_etareo">
    <div id="div_filtros_rango_etareo" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
                     <div style="margin-left:20px;">
                     <div class="grupo_campos" style="margin-bottom: 9px;">
