@@ -37,13 +37,13 @@
                             <li class="Rango Etáreo"><a href="#" id="btn_nivel" class="link_listado">Nivel</a></li>
                             <li class="Rango Etáreo"><a href="#" id="btn_estudios" class="link_listado">Estudios</a></li>
                             <li class="Rango Etáreo"><a href="#" id="btn_plantas" class="link_listado">Plantas</a></li>
-                            <li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">Rango Etáreo</a></li>
+                           <%-- <li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">Rango Etáreo</a></li>--%>
                         </ul>
                     </li>
-                    <li class="Dotacion"><a href="#" class="link_listado">Sueldo</a></li>
+                    <%--<li class="Dotacion"><a href="#" class="link_listado">Sueldo</a></li>
                     <li id="btn_grafico_licencias" class="Licencias"><a href="#" class="link_listado">Licencias</a></li>
                      <li class="Horas Extras"><a href="#" class="link_listado">Horas Extras</a></li>
-                    <li class="Otros"><a href="#" class="link_listado">Otros</a></li>
+                    <li class="Otros"><a href="#" class="link_listado">Otros</a></li>--%>
                 </ul>
              </div>
 
