@@ -184,6 +184,29 @@ namespace General
 
             return areas; //areas.Distinct(new AreaEquals()).ToList()[0];
         }
+
+
+
+        public List<Area> GetAreasQueDependientesDe(int id_area)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdArea", id_area);
+            //var tablaDatos = conexion_bd.Ejecutar("dbo.PRUEBA_GER", parametros);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.ESTR_GET_Area_Y_Dependencias_Informales", parametros);
+            List<Area> areas = new List<Area>();
+            tablaDatos.Rows.ForEach(row =>
+            {
+                areas.Add(new Area
+                {
+                    Id = row.GetInt("id"),
+                    Nombre = row.GetString("descripcion"),
+                    PresentaDDJJ = row.GetBoolean("Presenta_DDJJ")
+                });
+            });
+
+            return areas;
+
+        }
             
 
     }

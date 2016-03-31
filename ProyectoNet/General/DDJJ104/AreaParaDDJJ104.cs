@@ -18,7 +18,7 @@ namespace General
         public DDJJ104_2001 DDJJ { get; set; }
         public AreaParaDDJJ104 AreaSuperior { get; set; }
         public string Direccion { get; set; }
-
+        
         public AreaParaDDJJ104()
         {
             this.Personas = new List<Persona>();
