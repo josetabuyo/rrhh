@@ -183,13 +183,13 @@ var GraficoDotacion = {
 
            // alert(tipo);
 
-            switch (tipo) {
+            switch (tipo.toString()) {
 
-                case 1:
+                case "1":
 
                     a.download = "DOTACION_POR_GENERO_" + fecha + "_.xlsx";
                     break;
-                case 2:
+                case "2":
                     a.download = "DOTACION__POR_NIVEL_" + fecha + "_.xlsx";
                     break;
                 case "3":
@@ -207,7 +207,7 @@ var GraficoDotacion = {
                     break;
 
                 default:
-                    alert('');
+               //     alert('');
                     break;
             }
 
