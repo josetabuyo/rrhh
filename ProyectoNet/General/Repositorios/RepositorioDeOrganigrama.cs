@@ -57,7 +57,8 @@ namespace General
             {
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@FechaVigencia", DateTime.Now);
-
+                parametros.Add("@Muestra_Depto", 1);
+                parametros.Add("@Muestra_Lugares_de_Trabajo", 1);
                 var areas = new List<Area>();
                 var dependencias = new List<List<Area>>();
 

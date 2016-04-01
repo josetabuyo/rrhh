@@ -53,6 +53,12 @@ ArbolOrganigrama.prototype.dibujarArea = function (area, contenedor, es_area_hij
         case 500:
             cuerpo_area.addClass("coordinacion");
             break;
+        case 400:
+            cuerpo_area.addClass("departamento");
+            break;
+        case 300:
+            cuerpo_area.addClass("lugarDeTrabajo");
+            break;
     }
     var es_area_del_usuario = _.findWhere(this.areasUsuario, { Id: area.id }) && true;
     if (es_area_del_usuario || es_area_hija_de_una_del_usuario) {        

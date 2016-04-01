@@ -36,8 +36,17 @@ namespace General
 
             RelacionarNodosSegun(dependencias);
 
+            QuitarNodosSinPadre();
         }
 
+        private void QuitarNodosSinPadre()
+        {
+            var nodos_no_root = NodosNoRoot();
+            var nodos_sin_padre = nodos_no_root.Where(n => !n.TenesPadre()).ToList();
+            nodos_sin_padre.ForEach(n => {
+                this.nodos.Remove(n);
+            });            
+        }
 
         private void RelacionarNodosSegun(List<List<Area>> dependencias)
         {

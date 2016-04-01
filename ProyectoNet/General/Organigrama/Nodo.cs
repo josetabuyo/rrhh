@@ -37,6 +37,11 @@ namespace General
             return nodo_padre.Area();
         }
 
+        internal bool TenesPadre()
+        {
+            return nodo_padre!=null;
+        }
+
         virtual internal List<Area> AreasSuperiores()
         {
             List<Area> areas_superiores = new List<Area>();

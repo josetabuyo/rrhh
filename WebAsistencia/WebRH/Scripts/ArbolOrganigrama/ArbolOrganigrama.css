@@ -134,3 +134,22 @@
 {
     font-size: 11px;
 }
+
+.departamento
+{
+    margin-left: 70px;
+}
+.departamento #nombre_area
+{
+    font-size: 10px;
+}
+
+
+.lugarDeTrabajo
+{
+    margin-left: 80px;
+}
+.lugarDeTrabajo #nombre_area
+{
+    font-size: 9px;
+}
