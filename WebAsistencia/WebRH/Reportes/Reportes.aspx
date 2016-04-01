@@ -93,7 +93,7 @@
                      <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none; padding: 5px; margin-left:10px;">
                     Exportar Datos</a>
                     <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;">
-                    Exportar Todo</a>
+                    Excel</a>
                     <table id="tabla_resultado_totales" style="width:420px;">
                     </table>
                 </div>

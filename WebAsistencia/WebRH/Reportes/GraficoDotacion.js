@@ -5,7 +5,7 @@ var GraficoDotacion = {
 
     Inicializar: function () {
         var _this = this;
-                
+
         $('#txt_fecha_desde').datepicker();
         $('#txt_fecha_desde').datepicker('option', 'dateFormat', 'dd/mm/yy');
         $('#txt_fecha_desde').datepicker("setDate", new Date());
@@ -54,13 +54,13 @@ var GraficoDotacion = {
             $('#showTop').click();
 
         });
-  $('#btn_excel').click(function () {
+        $('#btn_excel').click(function () {
             _this.BuscarExcel();
         });
         //Botones del Menu
         $('#btn_genero').click(function () {
             armarGraficoDesdeMenu("Genero", 1, "Dotación por " + this.innerHTML);
-            
+
             $('#cb1')[0].checked = true;
         });
 
@@ -92,7 +92,7 @@ var GraficoDotacion = {
             $('.filtros').each(function () {
                 this.checked = false;
             });
-        
+
         };
     },
 
@@ -172,6 +172,10 @@ var GraficoDotacion = {
         //Me fijo si esta seteado el storage
         var id_area = localStorage.getItem("idArea");
 
+        if (id_area == null) {
+            return;
+        }
+
 
         var resultado = Backend.ejecutarSincronico("ExcelGenerado", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
 
@@ -181,7 +185,7 @@ var GraficoDotacion = {
 
             a.href = "data:application/vnd.ms-excel;base64," + resultado;
 
-           // alert(tipo);
+            // alert(tipo);
 
             switch (tipo.toString()) {
 
@@ -207,13 +211,13 @@ var GraficoDotacion = {
                     break;
 
                 default:
-               //     alert('');
+                    //     alert('');
                     break;
             }
 
 
 
-           // a.download = "excel.xlsx";
+            // a.download = "excel.xlsx";
 
             // Append anchor to body.
             document.body.appendChild(a)
