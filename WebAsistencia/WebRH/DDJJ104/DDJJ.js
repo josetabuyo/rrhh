@@ -257,13 +257,19 @@ var DibujarFormularioDDJJ104 = function (un_area) {
 
 var ConsultarDDJJ = function (idArea) {
 
+    $("#ContenedorPersona").empty();
+    spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+
     Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, idArea)
     .onSuccess(function (respuesta) {
         DibujarGrillaPersonas(respuesta[0], $("#ContenedorPersona", false));
+        spinner.stop();
     })
     .onError(function (error, as, asd) {
         alertify.alert(error);
     });
+
+    
 
 };
 
