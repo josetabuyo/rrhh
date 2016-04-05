@@ -13,6 +13,8 @@ public partial class FormularioConcursar_Pantalla1 : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        Response.Redirect("../FormularioConcursar/PanelDeControl.aspx");
         var  usuario = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
         if (!IsPostBack)
         {

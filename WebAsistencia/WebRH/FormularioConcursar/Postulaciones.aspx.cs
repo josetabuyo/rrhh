@@ -12,6 +12,8 @@ public partial class FormularioConcursar_Postulaciones : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        Response.Redirect("../FormularioConcursar/PanelDeControl.aspx");
          if (!IsPostBack)
         {
             CurriculumVitae cv;
