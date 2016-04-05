@@ -165,7 +165,7 @@ var GraficoDotacion = {
         var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
         var resultado = grafico.tabla_resumen;
         var tabla_detalle = grafico.tabla_detalle;
-        if (resultado.length > 0) {
+        if (resultado != null) {
             _this.VisualizarContenido(true);
             _this.ArmarGrafico(resultado, titulo, div_grafico);
             _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
@@ -173,7 +173,7 @@ var GraficoDotacion = {
 
         } else {
             _this.VisualizarContenido(false);
-            alertify.error("No hay Reportes para los parámetros seleccionados");
+            alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
         }
     },
 
@@ -515,7 +515,10 @@ var GraficoDotacion = {
     },
 
     VisualizarContenido: function (visualizar) {
-        $('#container_grafico_torta_totales').show();
+        if (visualizar) {
+            $('#container_grafico_torta_totales').show();
+        }
+       
         //        if (visualizar) {
         //            $('#div_grafico').show();
         //            $('#div_tabla_resumen').show();
