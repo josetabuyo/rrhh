@@ -98,7 +98,7 @@ namespace General
             tabla.Add(GenerarRegistroResumen("Nivel D", nivel_d, total));
             tabla.Add(GenerarRegistroResumen("Nivel E", nivel_e, total));
             tabla.Add(GenerarRegistroResumen("Nivel F", nivel_f, total));
-            tabla.Add(GenerarRegistroResumen("Nivel W", nivel_w, total)); 
+            tabla.Add(GenerarRegistroResumen("Nivel W", nivel_w, total));
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
 
@@ -192,7 +192,7 @@ namespace General
             if (PostGrado > 0) tabla.Add(GenerarRegistroResumen("Post-Grado", PostGrado, total));
             if (CicloBasico > 0) tabla.Add(GenerarRegistroResumen("Ciclo Básico", CicloBasico, total));
             if (Nopresentocertificado > 0) tabla.Add(GenerarRegistroResumen("No presento certificado", Nopresentocertificado, total));
-            if (Pregrado > 0) tabla.Add(GenerarRegistroResumen("Pregrado", Pregrado, total)); 
+            if (Pregrado > 0) tabla.Add(GenerarRegistroResumen("Pregrado", Pregrado, total));
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
 
@@ -231,7 +231,7 @@ namespace General
             int tipo_28 = 0;
             int tipo_29 = 0;
             int tipo_30 = 0;
-            
+
             tabla_personas.ForEach(p =>
             {
                 switch (p.IdPlanta)
@@ -396,7 +396,8 @@ namespace General
                 {
                     de_18_a_25++;
                 }
-                else if (p.Edad(fecha) >= 26 && p.Edad(fecha) <= 35) {
+                else if (p.Edad(fecha) >= 26 && p.Edad(fecha) <= 35)
+                {
                     de_26_a_35++;
                 }
                 else if (p.Edad(fecha) >= 36 && p.Edad(fecha) <= 45)
@@ -431,6 +432,15 @@ namespace General
             tabla.Add(GenerarRegistroResumen("61-65", de_61_a_65, total));
             tabla.Add(GenerarRegistroResumen(">65", mas_de_65, total));
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+        }
+
+        internal bool ContienePersonas()
+        {
+            if (this.tabla_detalle == null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

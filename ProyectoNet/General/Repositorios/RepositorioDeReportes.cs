@@ -27,7 +27,10 @@ namespace General.Repositorios
             if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior)
             {
 
+                if (grafico.ContienePersonas())
+                {
                     CrearResumen(tipo, fecha);
+                }
 
                 return grafico;
 
@@ -45,8 +48,11 @@ namespace General.Repositorios
                 grafico.CrearDatos(tablaDatos.Rows);
 
             }
-
-            CrearResumen(tipo, fecha);
+            if (grafico.ContienePersonas())
+            {
+                CrearResumen(tipo, fecha);
+            }
+           
 
             return grafico;
 
