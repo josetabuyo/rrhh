@@ -1,0 +1,155 @@
+﻿
+.arbol_organigrama #spinner
+{
+   /* height: 100%;
+    width: 100%;*/
+}
+
+.arbol_organigrama
+{
+    /*border: black solid;*/
+}
+
+.area_en_arbol
+{
+    /*margin-left:10px;*/
+}
+
+.area_en_arbol #nombre_area
+{
+    margin-left: 25px;
+    padding: 1px;
+    padding-left: 8px;
+    /*background-color: #F7F7F7;*/
+    border-radius: 6px;
+    margin-top: 1px;
+    display: inline-block;
+    padding-right: 8px;
+}
+
+.area_en_arbol #nombre_area:hover
+{
+    background-color: #EBEBEB;
+    cursor: pointer;
+}
+
+.area_seleccionada_en_arbol
+{
+    background-color: #0074CC !important;
+    color: White !important;
+}
+
+.area_en_arbol #areas_dependientes
+{
+
+}
+.area_sin_permisos
+{
+    color: Gray;
+}
+
+.area_del_usuario
+{
+    color: #0074CC;
+    font-weight: bold;
+}
+
+.area_hija_de_una_del_usuario
+{
+    color: #8374CC;
+}
+
+.hay_algun_area_del_usuario_en_esta_rama
+{ 
+}
+
+.area_en_arbol .btn_apertura
+{
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    position: absolute;
+    cursor: pointer;
+}
+.area_en_arbol #btn_expandir
+{
+    background-image: url("Expandir.png");    
+}
+
+.area_en_arbol #btn_contraer
+{
+    background-image: url("Contraer.png");
+}
+
+.ministerio
+{
+    margin-left: 10px;
+}
+.ministerio #nombre_area
+{
+    font-size: 17px;
+}
+
+.secretaria
+{
+    margin-left: 20px;
+}
+.secretaria #nombre_area
+{
+    font-size: 16px;
+}
+
+.subsecretaria
+{
+    margin-left: 30px;
+}
+.subsecretaria #nombre_area
+{
+    font-size: 15px;
+}
+
+.direccion
+{
+    margin-left: 40px;
+}
+.direccion #nombre_area
+{
+    font-size: 14px;
+}
+
+.subdireccion
+{
+    margin-left: 50px;
+}
+.subdireccion #nombre_area
+{
+    font-size: 13px;
+}
+
+.coordinacion
+{
+    margin-left: 60px;
+}
+.coordinacion #nombre_area
+{
+    font-size: 11px;
+}
+
+.departamento
+{
+    margin-left: 70px;
+}
+.departamento #nombre_area
+{
+    font-size: 10px;
+}
+
+
+.lugarDeTrabajo
+{
+    margin-left: 80px;
+}
+.lugarDeTrabajo #nombre_area
+{
+    font-size: 9px;
+}

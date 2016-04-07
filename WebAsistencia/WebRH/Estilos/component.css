@@ -1,0 +1,373 @@
+*,
+*:after,
+*::before {
+    -webkit-box-sizing: border-box ; 
+    -moz-box-sizing: border-box ;
+    box-sizing: border-box ;
+}
+
+.ac-custom {
+	padding: 0 3em ;
+	max-width: 900px ;
+	margin: 0 auto ;
+}
+
+.ac-custom h2 {
+	font-size: 3em ;
+	font-weight: 300 ;
+	padding: 0 0 0.5em ;
+	margin: 0 0 30px ;
+}
+
+.ac-custom ul,
+.ac-custom ol {
+	list-style: none ;
+	padding: 0 ;
+	margin: 0 auto ;
+	max-width: 800px ;
+}
+
+.ac-custom li {
+	margin: 0 auto ;
+	padding: 5px 0 ;
+	position: relative ;
+	margin-left: 6px;
+}
+
+.ac-custom label {
+	display: inline-block ;
+	position: relative ;
+	font-size: 1em ;
+	padding: 0 0 0 28px ;
+	vertical-align: top ;
+	color: rgba(14, 14, 14, 0.35) ;
+	cursor: pointer ;
+	-webkit-transition: color 0.3s ;
+	transition: color 0.3s ;
+}
+
+.ac-custom input[type="checkbox"],
+.ac-custom input[type="radio"],
+.ac-custom label::before {
+	width: 20px ;
+	height: 20px ;
+	top: 125% ;
+	left: 0 ;
+	margin-top: -25px ;
+	position: absolute ;
+	cursor: pointer ;
+}
+
+.ac-custom input[type="checkbox"],
+.ac-custom input[type="radio"] {
+	opacity: 0 ;
+	-webkit-appearance: none ;
+	display: inline-block ;
+	vertical-align: middle ;
+	z-index: 100 ;
+}
+
+.ac-custom label::before {
+	content: '' ;
+	border: 4px solid #003580 ;
+	-webkit-transition: opacity 0.3s ;
+	transition: opacity 0.3s ;
+}
+
+.ac-radio label::before {
+	border-radius: 50% ;
+}
+
+.ac-custom input[type="checkbox"]:checked + label,
+.ac-custom input[type="radio"]:checked + label {
+	color: #252222 ;
+} 
+
+.ac-custom input[type="checkbox"]:checked + label::before,
+.ac-custom input[type="radio"]:checked + label::before {
+	opacity: 0.8 ;
+}
+
+/* General SVG and path styles */
+
+.ac-custom svg {
+	position: absolute ;
+	width: 12px ;
+	height: 32px ;
+	top: 52% ;
+	margin-top: -20px ;
+	left: 4px ;
+	pointer-events: none ;
+}
+
+.ac-custom svg path {
+	stroke: #7376AF ;
+	stroke-width: 13px ;
+	stroke-linecap: round ;
+	stroke-linejoin: round ;
+	fill: none ;
+}
+
+/* Specific input, SVG and path styles */
+
+/* Circle */
+.ac-circle input[type="checkbox"],
+.ac-circle input[type="radio"],
+.ac-circle label::before {
+	width: 30px ;
+	height: 30px ;
+	margin-top: -15px ;
+	left: 10px ;
+	position: absolute ;
+}
+
+.ac-circle label::before {
+	background-color: #003580 ;
+	border: none ;
+}
+
+.ac-circle svg {
+	width: 70px ;
+	height: 70px ;
+	margin-top: -35px ;
+	left: -10px ;
+}
+
+.ac-circle svg path {
+	stroke-width: 5px ;
+} 
+
+/* Box Fill */
+.ac-boxfill svg path {
+	stroke-width: 8px ;
+} 
+
+/* Swirl */
+.ac-swirl svg path {
+	stroke-width: 8px ;
+}
+
+/* List */
+.ac-list ol {
+	list-style: decimal ;
+	list-style-position: inside ;
+}
+
+.ac-list ol li {
+	font-size: 2em ;
+	padding: 1em 1em 0 2em ;
+	text-indent: -40px ;
+}
+
+.ac-list ol li label {
+	font-size: 1em ;
+	text-indent: 0 ;
+	padding-left: 30px ;
+}
+
+.ac-list label::before {
+	display: none ;
+}
+
+.ac-list svg {
+	width: 100% ;
+	height: 80px ;
+	left: 0 ;
+	top: 1.2em ;
+	margin-top: 0px ;
+}
+
+.ac-list svg path {
+	stroke-width: 4px ;
+}
+
+/* Media Queries */
+@media screen and (max-width: 50em) {
+	section {
+		font-size: 80% ;
+	}
+}
+
+input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    display: inline-block;
+    height: 28px; 
+    padding: 4px;
+    margin-bottom: 9px;
+    font-size: 13px;
+    line-height: 18px;
+    color: #555555;
+}
+
+/*COMPONENTES DEL MENU*/
+/* General styles for all menus */
+.cbp-spmenu {
+	background: #FAFAFA;
+	/*background: #47a3da;*/
+	position: fixed;
+}
+
+.cbp-spmenu h3 {
+	color: #afdefa;
+	font-size: 1.9em;
+	padding: 20px;
+	margin: 0;
+	font-weight: 300;
+	background: #0d77b6;
+}
+
+.cbp-spmenu a {
+	display: block;
+	color: #fff;
+	/*font-size: 1.1em;*/
+	font-size: 0.9em;
+	font-weight: 300;
+}
+
+.cbp-spmenu a:hover {
+	background: #258ecd;
+}
+
+.cbp-spmenu a:active {
+	background: #afdefa;
+	color: #47a3da;
+}
+
+/* Orientation-dependent styles for the content of the menu */
+
+.cbp-spmenu-vertical {
+	/*width: 240px;*/
+	width: 640px;
+	height: 100%;
+	/*top: 0;*/
+	top: 100px;
+	z-index: 1000;
+}
+
+.cbp-spmenu-vertical a {
+	border-bottom: 1px solid #258ecd;
+	padding: 1em;
+}
+
+.cbp-spmenu-horizontal {
+	width: 100%;
+	height: 150px;
+	left: 0;
+	z-index: 1000;
+	overflow: hidden;
+}
+
+.cbp-spmenu-horizontal h3 {
+	height: 100%;
+	width: 20%;
+	float: left;
+}
+
+.cbp-spmenu-horizontal a {
+	float: left;
+	width: 20%;
+	padding: 0.8em;
+	border-left: 1px solid #258ecd;
+}
+
+/* Vertical menu that slides from the left or right */
+
+.cbp-spmenu-left {
+	/*left: -240px;*/
+	left: -640px;
+}
+
+.cbp-spmenu-right {
+	right: -240px;
+	/*right: -640px;*/
+}
+
+.cbp-spmenu-left.cbp-spmenu-open {
+	left: 0px;
+}
+
+.cbp-spmenu-right.cbp-spmenu-open {
+	right: 0px;
+}
+
+/* Horizontal menu that slides from the top or bottom */
+
+.cbp-spmenu-top {
+	top: -150px;
+}
+
+.cbp-spmenu-bottom {
+	bottom: -150px;
+}
+
+.cbp-spmenu-top.cbp-spmenu-open {
+	top: 93px;
+}
+
+.cbp-spmenu-bottom.cbp-spmenu-open {
+	bottom: 0px;
+}
+
+/* Push classes applied to the body */
+
+.cbp-spmenu-push {
+	overflow-x: hidden;
+	position: relative;
+	left: 0;
+}
+
+.cbp-spmenu-push-toright {
+	left: 240px;
+}
+
+.cbp-spmenu-push-toleft {
+	left: -240px;
+}
+
+/* Transitions */
+
+.cbp-spmenu,
+.cbp-spmenu-push {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+/* Example media queries */
+
+@media screen and (max-width: 55.1875em){
+
+	.cbp-spmenu-horizontal {
+		font-size: 75%;
+		height: 110px;
+	}
+
+	.cbp-spmenu-top {
+		top: -110px;
+	}
+
+	.cbp-spmenu-bottom {
+		bottom: -110px;
+	}
+
+}
+
+@media screen and (max-height: 26.375em){
+
+	.cbp-spmenu-vertical {
+		font-size: 90%;
+		width: 190px;
+	}
+
+	.cbp-spmenu-left,
+	.cbp-spmenu-push-toleft {
+		left: -190px;
+	}
+
+	.cbp-spmenu-right {
+		right: -190px;
+	}
+
+	.cbp-spmenu-push-toright {
+		left: 190px;
+	}
+}
