@@ -54,12 +54,13 @@ var GraficoDotacion = {
             $('#showTop').click();
 
         });
-
-
+        $('#btn_excel').click(function () {
+            _this.BuscarExcel();
+        });
         //Botones del Menu
         $('#btn_genero').click(function () {
             armarGraficoDesdeMenu("Genero", 1, "Dotación por " + this.innerHTML);
-            
+
             $('#cb1')[0].checked = true;
         });
 
@@ -91,9 +92,12 @@ var GraficoDotacion = {
             $('.filtros').each(function () {
                 this.checked = false;
             });
-        
+
         };
     },
+
+
+
 
     BuscarDatos: function () {
         var _this = this;
@@ -159,7 +163,77 @@ var GraficoDotacion = {
 
     },
 
-    GraficoYTabla: function (tipo, fecha, id_area, incluir_dependencias, titulo, div_grafico, div_tabla, tabla) {
+
+    BuscarExcel: function (tipo, fecha, id_area) {
+        var _this = this;
+
+        var tipo = checks_activos.slice(-1)[0];
+        var fecha = $('#txt_fecha_desde').val();
+        //Me fijo si esta seteado el storage
+        var id_area = localStorage.getItem("idArea");
+
+        if (id_area == null) {
+            return;
+        }
+
+
+        var resultado = Backend.ejecutarSincronico("ExcelGenerado", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
+
+        if (resultado.length > 0) {
+
+            var a = window.document.createElement('a');
+
+            a.href = "data:application/vnd.ms-excel;base64," + resultado;
+
+            // alert(tipo);
+
+            switch (tipo.toString()) {
+
+                case "1":
+
+                    a.download = "DOTACION_POR_GENERO_" + fecha + "_.xlsx";
+                    break;
+                case "2":
+                    a.download = "DOTACION__POR_NIVEL_" + fecha + "_.xlsx";
+                    break;
+                case "3":
+                    a.download = "DOTACION_POR_ESTUDIO_" + fecha + "_.xlsx";
+                    break;
+                case "4":
+                    a.download = "DOTACION_POR_PLANTA_" + fecha + "_.xlsx";
+                    break;
+                case "5":
+                    a.download = "DOTACION_POR_AFILIACION_GREMIAL_" + fecha + "_.xlsx";
+                    break;
+                case "6":
+                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";
+
+                    break;
+
+                default:
+                    //     alert('');
+                    break;
+            }
+
+
+
+            // a.download = "excel.xlsx";
+
+            // Append anchor to body.
+            document.body.appendChild(a)
+            a.click();
+
+
+            // Remove anchor from body
+            document.body.removeChild(a)
+
+
+        }
+        //   _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+    },
+
+
+    GraficoYTabla: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
         $('#div_graficos_y_tablas').show();
         var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias}]);
@@ -425,7 +499,6 @@ var GraficoDotacion = {
                 tabla_final = tabla;
             } else {
                 switch (parseInt(checks_activos[0])) {
-                    //CUANDO ES INFORME DE GENERO                         
                     case 1:
                         titulo = "Tabla de la Dotación de Sexo " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
@@ -434,7 +507,6 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE NIVEL                          
                     case 2:
                         titulo = "Tabla de la Dotación de " + criterio;
                         var nivel = criterio.split(" ");
@@ -444,7 +516,6 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE ESTUDIOS                           
                     case 3:
                         titulo = "Tabla de la Dotación con Nivel de Estudios " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
@@ -453,7 +524,6 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE PLANTAS                           
                     case 4:
                         titulo = "Tabla de la Dotación con Tipo de Planta " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
@@ -462,7 +532,6 @@ var GraficoDotacion = {
                             }
                         }
                         break;
-                    //CUANDO ES INFORME DE AFILICIACION                           
                     case 5:
                         titulo = "Tabla de la Dotación con Afiliación Gremial a " + criterio;
                         /*for (var i = 0; i < tabla.length; i++) {
