@@ -64,10 +64,20 @@ public class WSViaticos : System.Web.Services.WebService
     //}
 
     [WebMethod]
-    public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, Usuario usuario)
+    public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
-        var a = responsableDDJJ.GetAreasParaDDJJ104(mes, anio, usuario).ToArray();
+        var a = new AreaParaDDJJ104[1];
+
+        if (id_area == 0)
+        {
+            //Traigo las areas formales
+            a = responsableDDJJ.GetAreasParaDDJJ104(mes, anio, id_area, usuario).ToArray();    
+        }
+        else
+        {
+            a = responsableDDJJ.GetAreasParaDDJJ104InferioresA(mes, anio, id_area, usuario).ToArray();    
+        }
 
         return a;
     }
@@ -104,15 +114,14 @@ public class WSViaticos : System.Web.Services.WebService
     {
         List<MesDto> meses = new List<MesDto>();
 
-        DateTime fechaAnterior = DateTime.Now.AddMonths(-1);
-        meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });        
-
         DateTime fechaActual = DateTime.Now;
         if (fechaActual.Day > 25)
         {
-            meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });    
+            meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });
         }
-        
+
+        DateTime fechaAnterior = DateTime.Now.AddMonths(-1);
+        meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });        
 
         return meses.ToArray();
     }
