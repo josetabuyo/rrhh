@@ -49,7 +49,10 @@
 
              <div id="div_filtros_graficos_y_tablas" style="position: absolute; left: 650px; width: 100%;">
                 <div style=" position: absolute;left: 150px; margin-top: 10px;">
-                    <h2 style="font-size: 1.1em;">Área Seleccionada: <span id="titulo_area">Seleccionar Área</span></h2>
+                    <h2 style="font-size: 1.1em;">Área Seleccionada: 
+                        <span id="titulo_area">Seleccionar Área</span>
+                        <input id="chk_incluir_dependencias" class="regular-checkbox" type="checkbox"/><label for="chk_incluir_dependencias">Incluir dependencias</label>
+                    </h2>
                     <h2 style="font-size: 1.1em; ">Gráfico Seleccionado: <span id="titulo_grafico">Seleccionar Informe</span></h2>
                 </div>
                 <div id="div_grafico_de_dotacion" style="display:none">
