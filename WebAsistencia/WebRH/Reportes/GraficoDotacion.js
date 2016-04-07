@@ -179,12 +179,12 @@ var GraficoDotacion = {
 
     GraficoYTablaRangoEtareo: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
-        var grafico = Backend.ejecutarSincronico("GetGraficoRangoEtareo", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
+        var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
         var resultado = grafico.tabla_resumen;
         var tabla_detalle = grafico.tabla_detalle;
         if (resultado.length > 0) {
-            _this.VisualizarContenido(true);
-            _this.ArmarGrafico(resultado, titulo, div_grafico);
+            //_this.VisualizarContenido(true);
+            _this.ArmarGraficoRangoEtareo(resultado, titulo, div_grafico);
             _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
             _this.BuscadorDeTabla();
 
@@ -290,7 +290,8 @@ var GraficoDotacion = {
                     enabled: true,
                     style: {
                         fontWeight: 'bold',
-                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        color: 'gray'
+//                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
                     }
                 }
             },
@@ -300,7 +301,8 @@ var GraficoDotacion = {
                 verticalAlign: 'top',
                 y: 25,
                 floating: true,
-                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                backgroundColor: 'white',
+//                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
                 borderColor: '#CCC',
                 borderWidth: 1,
                 shadow: false
@@ -314,7 +316,8 @@ var GraficoDotacion = {
                     stacking: 'normal',
                     dataLabels: {
                         enabled: true,
-                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        color: 'white',
+//                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
                         style: {
                             textShadow: '0 0 3px black'
                         }
@@ -323,11 +326,6 @@ var GraficoDotacion = {
             },
             series: datos
         });
-
-
-
-
-
 
     },
 

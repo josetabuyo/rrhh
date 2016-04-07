@@ -201,7 +201,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         return repositorio.CargarSolicitudDePase(nuevoPase);
     }
-    
+
     [WebMethod]
     public Grafico GetGrafico(string criterio, Usuario usuario)
     {
@@ -212,52 +212,12 @@ public class WSViaticos : System.Web.Services.WebService
         int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
         int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
         DateTime fecha = new DateTime(anio, mes, dia);
-         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
         return repositorio.GetGraficoDotacion(tipo, fecha, id_area);
-
-
-
-
-        //List<Campo> campos = new List<Campo>();
-        //if (tipo == 1)
-        //{
-        //    Campo campo1 = new Campo("A", "23", true);
-        //    Campo campo2 = new Campo("B", "15", true);
-        //    Campo campo3 = new Campo("C", "49", true);
-        //    Campo campo4 = new Campo("D", "101", true);
-        //    Campo campo5 = new Campo("E", "20", true);
-        //    campos.Add(campo1);
-        //    campos.Add(campo2);
-        //    campos.Add(campo3);
-        //    campos.Add(campo4);
-        //    campos.Add(campo5);
-
-     
-
-        //}
-        //if (tipo == 2)
-        //{
-        //    Campo campo1 = new Campo("A", "2", true);
-        //    Campo campo2 = new Campo("B", "5", true);
-        //    Campo campo3 = new Campo("C", "4", true);
-        //    campos.Add(campo1);
-        //    campos.Add(campo2);
-        //    campos.Add(campo3);
-        //}
-        //if (tipo == 3)
-        //{
-        //    Campo campo1 = new Campo("A", "3", true);
-        //    Campo campo2 = new Campo("B", "11", true);
-        //    Campo campo3 = new Campo("C", "125", true);
-        //    Campo campo4 = new Campo("D", "248", true);
-        //    campos.Add(campo1);
-        //    campos.Add(campo2);
-        //    campos.Add(campo3);
-        //    campos.Add(campo4);
-        //}
-        //return campos.ToArray(); ;
     }
+
+
 
     [WebMethod]
     public Area[] GetAreas()
